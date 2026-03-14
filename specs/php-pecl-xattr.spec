@@ -23,10 +23,10 @@
 
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
-Version:        1.4.1
-%forgemeta
-Release:        3%{?dist}
 License:        PHP-3.01
+Version:        1.4.1
+Release:        3%{?dist}
+%forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

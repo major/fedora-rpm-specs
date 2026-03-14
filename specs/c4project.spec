@@ -1,11 +1,11 @@
-%global commit 469017f6ddab72e860aa80221736c00d3dae0587
-%global snapdate 20250927
+%global commit 889b315fd9931a961beca0af7df0fe8d96754a5f
+%global snapdate 20251002
 
 Name:           c4project
 Summary:        Useful CMake scripts
 # This project has never been assigned a version. The author really intends it
 # for use as a git submodule rather than for system-wide installation.
-Version:        0^%{snapdate}git%{sub %{commit} 1 7}
+Version:        0^%{snapdate}.%{sub %{commit} 1 7}
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/cmake

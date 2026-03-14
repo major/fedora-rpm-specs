@@ -5,7 +5,7 @@
 %global crate gstreamer-check-sys
 
 Name:           rust-gstreamer-check-sys
-Version:        0.24.4
+Version:        0.25.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstcheck-1.0
 
@@ -126,6 +126,19 @@ This package contains library source intended for building other packages which
 use the "v1_26" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_26-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_28-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gstreamer-check-1.0) >= 1.28
+
+%description -n %{name}+v1_28-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_28" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_28-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

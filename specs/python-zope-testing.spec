@@ -35,8 +35,8 @@ flexible test runner, and supports both doctest and unittest.
 rm -rf %{modname}.egg-info
 
 # Allow newer version of setuptools
-sed -i 's/"setuptools <= .*"/"setuptools"/' pyproject.toml
-sed -i 's/setuptools <= .*/setuptools/' tox.ini
+sed -i 's/"setuptools [<=]= .*"/"setuptools"/' pyproject.toml
+sed -i 's/setuptools [<=]= .*/setuptools/' tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}

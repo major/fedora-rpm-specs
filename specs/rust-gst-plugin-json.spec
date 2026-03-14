@@ -4,7 +4,7 @@
 %global crate gst-plugin-json
 
 Name:           rust-gst-plugin-json
-Version:        0.14.4
+Version:        0.15.0
 Release:        %autorelease
 Summary:        GStreamer JSON Plugin
 
@@ -22,7 +22,6 @@ GStreamer JSON Plugin.}
 
 %package     -n gstreamer1-plugin-json
 Summary:        %{summary}
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
@@ -31,7 +30,6 @@ Summary:        %{summary}
 License:        %{shrink:
     MIT AND
     MPL-2.0 AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Unlicense OR MIT)
 }

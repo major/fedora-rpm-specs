@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc3.28
+%define pkgrelease 0.rc3.260312g80234b5ab240.32
 %define kversion 7
-%define tarfile_release 7.0-rc3
+%define tarfile_release 7.0-rc3-52-g80234b5ab240
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.28%{?buildid}%{?dist}
+%define specrelease 0.rc3.260312g80234b5ab240.32%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4832,6 +4832,19 @@ fi\
 #
 #
 %changelog
+* Thu Mar 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.80234b5ab240.32]
+- Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Thu Mar 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.80234b5ab240.31]
+- redhat/configs: remove CONFIG_ZBUD (Rafael Aquini)
+- Linux v7.0.0-0.rc3.80234b5ab240
+
+* Wed Mar 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.b29fb8829bff.30]
+- Linux v7.0.0-0.rc3.b29fb8829bff
+
+* Tue Mar 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.29]
+- redhat/configs: automotive: enable USB_CHIPIDEA_IMX (Jared Kangas)
+
 * Mon Mar 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.28]
 - Linux v7.0.0-0.rc3
 

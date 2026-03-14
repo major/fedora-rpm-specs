@@ -221,6 +221,7 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 PRE_BUILT_SETUPTOOLS_WHEEL=%{_pyproject_wheeldir}/%{python_wheel_name} \
 PIP_NO_BUILD_ISOLATION=0 \
 PYTHONPATH=$(pwd) %pytest \
+ -n auto \
  --ignore=setuptools/tests/integration/ \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \

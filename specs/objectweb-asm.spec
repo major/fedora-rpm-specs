@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           objectweb-asm
-Version:        9.7.1
+Version:        9.9.1
 Release:        %autorelease
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD-3-Clause
@@ -21,8 +21,6 @@ Source7:        https://repo1.maven.org/maven2/org/ow2/asm/asm-util/%{version}/a
 # The source contains binary jars that cannot be verified for licensing and could be proprietary
 Source9:        generate-tarball.sh
 Source10:       tools-retrofitter.pom
-
-Patch:          0001-Add-support-of-Java-25.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

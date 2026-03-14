@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        49.1
+Version:        50.0
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -42,10 +42,10 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/snapshot
-Source:         https://download.gnome.org/sources/snapshot/49/snapshot-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/snapshot/50/snapshot-%{tarball_version}.tar.xz
 
 # Downstream patch to disable linting as part of self tests
-Patch:          0001-Disable-cargo-clippy-test.patch
+Patch:          0001-Remove-clippy-tests-linters-should-not-be-run-downst.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -57,6 +57,8 @@ BuildRequires:  cargo-rpm-macros
 %endif
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(glycin-2)
+BuildRequires:  pkgconfig(glycin-gtk4-2)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-plugins-bad-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0)
@@ -75,7 +77,7 @@ Requires:       glycin-loaders >= 1.1
 # For hicolor icon theme directories
 Requires:       hicolor-icon-theme
 
-Provides:       bundled(crate(aperture)) = 0.11.0
+Provides:       bundled(crate(aperture)) = 0.12.0
 
 %description
 Take pictures and videos on your computer, tablet, or phone.

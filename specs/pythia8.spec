@@ -1,11 +1,11 @@
 Name:		pythia8
-Version:	8.3.16
-Release:	2%{?dist}
+Version:	8.3.17
+Release:	1%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8316.tgz
+Source0:	https://pythia.org/download/pythia83/pythia8317.tgz
 #		Link plugins to the shared library
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
@@ -14,7 +14,7 @@ BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	lhapdf-devel
 BuildRequires:	zlib-devel
-BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python3-devel
 BuildRequires:	rsync
 BuildRequires:	dos2unix
 Requires:	%{name}-data = %{version}-%{release}
@@ -46,12 +46,12 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %description lhapdf
 This package provides the LHAPDF interface for Pythia 8.
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:	Pythia 8 Python 3 bindings
-%py_provides	python%{python3_pkgversion}-%{name}
+%py_provides	python3-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 This package provides the Python 3 bindings for Pythia 8.
 
 %package data
@@ -76,7 +76,7 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8316
+%setup -q -n pythia8317
 %patch -P0 -p1
 
 # Remove DOS end-of-line
@@ -142,13 +142,14 @@ echo 'Version: %{version}' >> \
 %files lhapdf
 %{_libdir}/libpythia8lhapdf*.so
 
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %{python3_sitearch}/%{name}-%{version}.dist-info
 %{python3_sitearch}/pythia8.*.so
 
 %files data
 %dir %{_datadir}/Pythia8
 %{_datadir}/Pythia8/pdfdata
+%{_datadir}/Pythia8/setups
 %{_datadir}/Pythia8/tunes
 %{_datadir}/Pythia8/xmldoc
 %license COPYING
@@ -164,6 +165,10 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Thu Mar 12 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 8.3.17-1
+- Update to version 8.3.17
+- Rebuild for LHAPDF 6.5.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

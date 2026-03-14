@@ -32,6 +32,8 @@ Requires(postun): systemd
 Requires(preun): systemd
 
 Requires: polkit
+# xxd is needed by the FCC unlock script for 14c3 (#2440074)
+Recommends: xxd
 
 BuildRequires: meson >= 0.53
 BuildRequires: dbus-devel

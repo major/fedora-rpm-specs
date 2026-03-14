@@ -33,11 +33,10 @@
 
 Name:           %{php_base}-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-%forgemeta
-Release:        3%{?dist}
-
 License:        Xdebug-1.03
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
+Release:        3%{?dist}
+%forgemeta
 URL:            https://xdebug.org/
 Source0:        %{forgesource}
 

@@ -20,8 +20,18 @@
 # THE SOFTWARE.
 #
 %global upstreamname roctracer
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -61,11 +71,15 @@
 
 Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
+%endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -228,6 +242,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 %endif
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix ldconfig
 - Fix whitespace

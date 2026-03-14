@@ -23,12 +23,11 @@
 
 Summary:       PHP Bindings for libyaml
 Name:          php-pecl-%{pecl_name}
-Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-%forgemeta
-Release:       3%{?dist}
 License:       MIT
+Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:       3%{?dist}
+%forgemeta
 URL:           %{forgeurl}
-
 Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}

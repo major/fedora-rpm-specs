@@ -1,5 +1,5 @@
 Name:           exec-maven-plugin
-Version:        3.6.2
+Version:        3.6.3
 Release:        %autorelease
 Summary:        Exec Maven Plugin
 
@@ -13,7 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-artifact-transfer
 BuildRequires:  maven-dependency-plugin
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.mockito:mockito-junit-jupiter)
 BuildRequires:  mvn(org.apache.commons:commons-exec)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-compat)

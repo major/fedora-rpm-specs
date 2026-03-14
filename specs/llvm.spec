@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 22
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -485,6 +485,14 @@ Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
 Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
+
+# Backport a fix from LLVM 23.
+# https://github.com/llvm/llvm-project/pull/185375
+Patch2204: 22-185375.patch
+
+# Backport a fix for high CPU usage on s390x from LLVM 23.
+# https://github.com/llvm/llvm-project/pull/185922
+Patch2205: 22-185922.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch

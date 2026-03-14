@@ -29,10 +29,10 @@
 
 Summary:        Extended password extension
 Name:           %{php_base}-pecl-%{pecl_name}
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-%forgemeta
-Release:        3%{?dist}
 License:        PHP-3.01
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:        3%{?dist}
+%forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

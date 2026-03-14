@@ -1,15 +1,22 @@
 Name:           homebank
 Version:        5.10
 Release:        %{autorelease}
-Summary:        Free easy personal accounting for all  
+Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later
 URL:            https://gethomebank.org/
-Source0:        https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
+Source:          https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
-BuildRequires:  atk-devel cairo-devel desktop-file-utils gettext gtk3-devel
-BuildRequires:  intltool libappstream-glib libofx-devel perl(XML::Parser)
-BuildRequires:  libsoup3-devel
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  libappstream-glib
 BuildRequires:  make
+BuildRequires:  perl(XML::Parser)
+BuildRequires:  pkgconfig(atk)
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libofx)
+BuildRequires:  pkgconfig(libsoup-3.0)
 
 %description
 HomeBank is the free software you have always wanted to manage your personal
@@ -29,53 +36,40 @@ Documentation files for homebank
 %prep
 # workaround for 5.10 difference between .tar.gz and the actual 5.10.0 dir
 # this workarnoud should be remove from 5.10.x onwards
-%autosetup -n %{name}-%{version}.0
-chmod -x NEWS
-chmod -x ChangeLog
-chmod -x README
-chmod -x AUTHORS
-chmod -x COPYING
-chmod -x doc/TODO
-chmod -x src/*.*
+%autosetup -p1 -n %{name}-%{version}.0
+chmod -x AUTHORS ChangeLog COPYING NEWS README doc/TODO src/*.*
 
 %build
 %configure
 %make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL='install -p'
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-mkdir -p %{buildroot}%{_datadir}/applications
-desktop-file-install                                    \
-        --delete-original                               \
-        --dir %{buildroot}%{_datadir}/applications   \
-        --mode 0644                                     \
-        %{buildroot}%{_datadir}/applications/%{name}.desktop
-
+%make_install
 %find_lang %{name}
 
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml
-
-%ldconfig_scriptlets
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS README
 %license COPYING
+%doc AUTHORS ChangeLog NEWS README
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}/
-%{_datadir}/%{name}/images
-%{_datadir}/%{name}/icons
-%{_datadir}/%{name}/datas
+%{_datadir}/%{name}/images/
+%{_datadir}/%{name}/icons/
+%{_datadir}/%{name}/datas/
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/mime-info/%{name}.*
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/application-registry/%{name}.applications
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 
 %files doc
+%license COPYING
 %doc doc/TODO
-%{_datadir}/%{name}/help
+%{_datadir}/%{name}/help/
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -14,10 +14,9 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-webob >= 0.9.7
 BuildRequires:  python3-tw2-core >= 2.1.4
-#BuildRequires:  python3-paste-deploy
 
 # Specifically for the test suite
-#BuildRequires:  python3-nose
+#BuildRequires:  python3-pytest
 BuildRequires:  python3-coverage
 BuildRequires:  python3-formencode
 BuildRequires:  python3-webtest
@@ -54,27 +53,29 @@ This package contains the basic form widgets build for python3.
 %prep
 %setup -q -n %{modname}-%{version}
 
-
 %generate_buildrequires
 %pyproject_buildrequires
 
-
 %build
-%{__python3} setup.py build
-
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build \
-    --install-data=%{_datadir} --root %{buildroot}
+%pyproject_install
+%pyproject_save_files -L tw2
 
+%check
+# Without python-nose tests are not functional. Just test import.
+%pyproject_check_import
 
-%files -n python3-tw2-forms
+%files -n python3-tw2-forms -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/tw2/forms
-%{python3_sitelib}/%{modname}-%{version}*
+%{python3_sitelib}/tw2.forms-*-nspkg.pth
 
 %changelog
+* Thu Mar 12 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.6-31
+- Use pyproject_wheel and pyproject_install macros
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

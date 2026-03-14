@@ -36,6 +36,7 @@ Source3: pubkey.asc
 Patch0001: 0001-Fix-libini_config-related-includes.patch
 Patch0002: 0002-INI-get-rid-of-useless-macros.patch
 Patch0003: 0003-INI-use-proper-deallocators.patch
+Patch0004: 0004-Add-support-for-Plasma-Login-Manager-as-a-supported-PAM-service.patch
 
 ### Downstream only patches ###
 # Place your downstream only patches here:

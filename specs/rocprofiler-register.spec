@@ -20,8 +20,18 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocprofiler-register
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -60,15 +70,19 @@
 
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/google/glog/archive/refs/tags/v%{glog_version}.tar.gz
 
 BuildRequires:  cmake
@@ -112,7 +126,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 
 # When using the system fmt, need to change this link
 sed -i 's@fmt::fmt@fmt@' source/lib/rocprofiler-register/CMakeLists.txt
@@ -166,6 +180,10 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Add --with preview
+- Update URL to rocm-systems
+
 * Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

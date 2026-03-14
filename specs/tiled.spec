@@ -1,35 +1,17 @@
 Name:           tiled
 Summary:        Tiled Map Editor
 
-Version:        1.11.2
-Release:        9%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 
-# tiled itself is GPLv2+, libtiled and tmxviewer are BSD
-License:        GPL-2.0-or-later AND BSD-2-Clause
+# tiled itself is GPLv2+, libtiled and tmxviewer are BSD.
+#
+# Apart from the code, there are also some icons and other gfx,
+# subject to various CC licenses or GPL3+. See the AUTHORS file.
+License:        GPL-2.0-or-later AND BSD-2-Clause AND CC-BY-SA-3.0 AND GPL-3.0-or-later AND CC0-1.0
 
-URL:            http://www.mapeditor.org
+URL:            https://www.mapeditor.org
 Source0:        https://github.com/mapeditor/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Fix build failing with Qt 6.9
-Patch0:         0000-fix-build-with-qt-6.9.patch
-
-# Workaround Qt 6.9 rendering bug
-# See: https://github.com/mapeditor/tiled/issues/4191
-#
-# Taken from upstream:
-# https://github.com/mapeditor/tiled/commit/2c6eb813b877c8e2284ed36c7d04beaacd6a789f
-Patch1:         0001-fix-qt-6.9-rendering-issue.patch
-
-# Fix build failures when using qbs 3.x.
-#
-# Backport of upstream commits:
-# https://github.com/mapeditor/tiled/commit/93fb1e926556794ef3298f8c2b0916105dec47c2.patch
-# https://github.com/mapeditor/tiled/commit/67735b1cdf6a6832d5af4f49123277dd51032820.patch
-Patch2:         0002-qbs3.patch
-
-# Fix build failure with Qt 6.10.1
-# https://github.com/mapeditor/tiled/commit/64175fc9566a9da75e3d4818b9b3d9f600893f68.patch
-Patch3:         0003-qt-6.10.1.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -61,7 +43,6 @@ to view Tiled maps.
 %package devel
 Summary:        Development headers for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 Development headers for the Tiled map editor.
@@ -70,7 +51,6 @@ Development headers for the Tiled map editor.
 %package plugin-python
 Summary:        Python plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-python
 A plugin for tiled which allows to write Python plugins.
@@ -82,7 +62,6 @@ A plugin for tiled which allows to write Python plugins.
 
 Summary:        MapTool plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-rpmap
 A plugin for tiled which allows to save maps as rpmap MapTool maps.
@@ -93,7 +72,6 @@ A plugin for tiled which allows to save maps as rpmap MapTool maps.
 %package plugin-tbin
 Summary:        tBIN plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-tbin
 A plugin for tiled which allows support for the tBIN map format.
@@ -104,7 +82,6 @@ A plugin for tiled which allows support for the tBIN map format.
 %package plugin-droidcraft
 Summary:        Droidcraft plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-droidcraft
 A plugin for tiled which allows to save maps as .dat droidcraft maps.
@@ -115,7 +92,6 @@ A plugin for tiled which allows to save maps as .dat droidcraft maps.
 %package plugin-flare
 Summary:        Flare plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-flare
 A plugin for tiled which allows to save maps as .txt flare maps.
@@ -126,7 +102,6 @@ A plugin for tiled which allows to save maps as .txt flare maps.
 %package plugin-replica-island
 Summary:        Replica Island plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-replica-island
 A plugin for tiled which allows to save maps as .bin Replica Island maps.
@@ -137,7 +112,6 @@ A plugin for tiled which allows to save maps as .bin Replica Island maps.
 %package plugin-t-engine4
 Summary:        T-Engine4 plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-t-engine4
 A plugin for tiled which allows to export maps as .lua T-Engine4 maps.
@@ -148,7 +122,6 @@ A plugin for tiled which allows to export maps as .lua T-Engine4 maps.
 %package plugin-defold
 Summary:        Defold plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-defold
 A plugin for tiled which allows to export maps as .tilemap Defold maps.
@@ -159,7 +132,6 @@ A plugin for tiled which allows to export maps as .tilemap Defold maps.
 %package plugin-gmx
 Summary:        GameMaker Studio 1.4 plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-gmx
 A plugin for tiled which allows to export maps
@@ -171,7 +143,6 @@ as GameMaker Studio 1.4 room files (.gmx).
 %package plugin-yy
 Summary:        GameMaker Studio 2.3 plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-yy
 A plugin for tiled which allows to export maps
@@ -183,11 +154,21 @@ as GameMaker Studio 2.3 room files (.yy).
 %package plugin-tscn
 Summary:        Godot 4 scene plugin for Tiled
 License:        GPL-2.0-or-later
-URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-tscn
 A plugin for tiled which allows to export maps
 as Godot Engine 4 scene files (.tscn).
+
+%{pluginwarning}
+
+
+%package plugin-rpd
+Summary:        Remixed Pixel Dungeon plugin for Tiled
+License:        GPL-2.0-or-later
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description plugin-rpd
+A plugin for tiled which allows to export maps
+as Remixed Pixel Dungeon levels (.json).
 
 %{pluginwarning}
 
@@ -296,7 +277,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %files plugin-tscn
 %{_libdir}/%{name}/plugins/libtscn.so
 
+%files plugin-rpd
+%{_libdir}/%{name}/plugins/librpd.so
+
 %changelog
+* Thu Mar 12 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.12.0-1
+- Update to v1.12.0
+- Drop all patches (backports from this release)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,17 +1,24 @@
 Name:		lhapdf
-Version:	6.5.5
-Release:	7%{?dist}
+Version:	6.5.6
+Release:	1%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
 URL:		https://lhapdf.hepforge.org/
 Source0:	https://www.hepforge.org/archive/lhapdf/LHAPDF-%{version}.tar.gz
+#		PDFs used during testing
+Source1:	https://lhapdfsets.web.cern.ch/current/CT10nlo.tar.gz
+Source2:	https://lhapdfsets.web.cern.ch/current/MSTW2008nlo68cl.tar.gz
+Source3:	https://lhapdfsets.web.cern.ch/current/NNPDF31_lo_as_0130.tar.gz
+#		Missing file in source tarfile
+#		See: https://gitlab.com/hepcedar/lhapdf/-/merge_requests/120
+Source4:	testunc.py
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	yaml-cpp-devel
-BuildRequires:	python%{python3_pkgversion}-Cython
-BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python3-Cython
+BuildRequires:	python3-devel
 BuildRequires:	doxygen
 
 #		Obsolete LHAPDF5 packages not provided by LHAPDF6
@@ -72,14 +79,19 @@ This package provides API documentation and examples for LHAPDF.
 %prep
 %setup -q -n LHAPDF-%{version}
 
-# Remove cython generated file
-rm wrappers/python/lhapdf.cpp
+mkdir tests/SETS
+tar -z -x -f %{SOURCE1} -C tests/SETS
+tar -z -x -f %{SOURCE2} -C tests/SETS
+tar -z -x -f %{SOURCE3} -C tests/SETS
+
+cp -p %{SOURCE4} tests
 
 # Remove bundled yaml-cpp
 rm -rf src/yamlcpp/
 
 # Fix shebangs
-sed 's!/usr/bin/env python!%{__python3}!' -i bin/lhapdf examples/*.py
+sed 's!/usr/bin/env python3!%{__python3}!' -i bin/lhapdf
+sed 's!/usr/bin/env python!%{__python3}!' -i examples/*.py
 sed 's!/usr/bin/env bash!/bin/bash!' -i bin/lhapdf-config.in
 
 %build
@@ -89,6 +101,16 @@ sed 's!/usr/bin/env bash!/bin/bash!' -i bin/lhapdf-config.in
 	--enable-librelease \
 	--docdir=%{_pkgdocdir} \
 	PYTHON=%{__python3}
+
+%if %{?rhel}%{!?rhel:0} == 8
+# cython version on RHEL 8 is too old and generates broken code.
+# touch the pregenerated bundled source file to prevent regeneration.
+# See: https://gitlab.com/hepcedar/lhapdf/-/merge_requests/122
+touch wrappers/python/lhapdf.cpp
+%else
+rm wrappers/python/lhapdf.cpp
+%endif
+
 %make_build
 
 # Build doxygen documentation
@@ -107,6 +129,12 @@ rm %{buildroot}%{_libdir}/libLHAPDF.la
 find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 
 %check
+# Workaround incomplete test environment
+# See: https://gitlab.com/hepcedar/lhapdf/-/merge_requests/121
+cp -p pdfsets.index tests/SETS
+cp -p lhapdf.conf tests/SETS
+export PYTHONPATH=$PWD/wrappers/python/build
+export LD_LIBRARY_PATH=$PWD/src/.libs
 %make_build check
 
 %files
@@ -132,8 +160,16 @@ find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 %license COPYING
 
 %changelog
+* Thu Mar 05 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-1
+- Update to version 6.5.6
+- Add PDFs used by new tests to the source RPM
+- Add test file missing from the source tarfile to the source RPM
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Dec 05 2025 Orion Poplawski <orion@nwra.com> - 6.5.5-2
+- Rebuild for yaml-cpp 0.8 (epel10)
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.5.5-6
 - Rebuilt for Python 3.14.0rc3 bytecode

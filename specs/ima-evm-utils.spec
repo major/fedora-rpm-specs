@@ -8,7 +8,7 @@
 
 Name:    ima-evm-utils
 Version: 1.6.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: IMA/EVM support utilities
 License: GPL-2.0-or-later
 Url:     https://github.com/linux-integrity/
@@ -83,13 +83,13 @@ popd
 
 %build
 autoreconf -vif
-%configure --disable-static --disable-engine
+%configure --disable-static --disable-engine --disable-debug
 %make_build
 
 %if 0%{bootstrap}
 pushd compat/
 autoreconf -vif
-%configure --disable-static --disable-engine
+%configure --disable-static --disable-engine --disable-debug
 %make_build
 popd
 %endif
@@ -145,6 +145,9 @@ install -D %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/ima-setup
 %{_libdir}/libimaevm.so
 
 %changelog
+* Thu Mar 12 2026 Coiby Xu <coxu@redhat.com> - 1.6.2-10
+- Don't use level 1 compiling optimisation
+
 * Thu Mar 05 2026 Coiby Xu <coxu@redhat.com> - 1.6.2-9
 - Don't allow files in tmpfs to be executed
 

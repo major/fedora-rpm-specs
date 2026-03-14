@@ -83,7 +83,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -234,6 +234,21 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 sed -i -e "s@rccl PRIVATE -parallel-jobs=12@rccl PRIVATE -parallel-jobs=${COMPILE_JOBS}@" CMakeLists.txt
 sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CMakeLists.txt
 
+# 3/12/26 memory experiment
+# time -v with just gfx1100, 7.2.0
+#
+# Basline: 29.5G
+#
+# -O0 : 26.1G
+# sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -O0)@' CMakeLists.txt
+#
+# -fuse-ld=bfd : 12.5G
+# sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
+#
+# Switch to bfd
+sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
+
+
 %build
 %cmake \
     -DGPU_TARGETS=%{gpu_list} \
@@ -280,6 +295,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Use bfd/ld from linking
+
 * Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

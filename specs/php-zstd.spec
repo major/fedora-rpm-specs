@@ -23,10 +23,10 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.15.2
-%forgemeta
-Release:       4%{?dist}
 License:       MIT
+Version:       0.15.2
+Release:       4%{?dist}
+%forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 

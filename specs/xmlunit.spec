@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           xmlunit
-Version:        2.10.0
+Version:        2.11.0
 Release:        %autorelease
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
@@ -88,6 +88,7 @@ rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
 jurand -i -s -a xmlunit-matchers -p org[.]hamcrest[.]Factory
 
 %pom_disable_module xmlunit-assertj
+%pom_disable_module xmlunit-bom
 %pom_disable_module xmlunit-jakarta-jaxb-impl
 
 %pom_remove_plugin org.codehaus.mojo:buildnumber-maven-plugin

@@ -2,7 +2,7 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.220
+Version:	2.221
 Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -120,7 +120,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc Changes README
+%doc Changes README SECURITY.md
 %{perl_vendorarch}/auto/Compress/
 %{perl_vendorarch}/Compress/
 %{_mandir}/man3/Compress::Raw::Lzma.3*
@@ -129,6 +129,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar  8 2026 Paul Howarth <paul@city-fan.org> - 2.221-1
+- Update to 2.221
+  - Add SECURITY.md
+
 * Sun Mar  8 2026 Paul Howarth <paul@city-fan.org> - 2.220-1
 - Update to 2.220
   - Remove obsolete TODO comment

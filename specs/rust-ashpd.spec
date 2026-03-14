@@ -5,13 +5,23 @@
 %global crate ashpd
 
 Name:           rust-ashpd
-Version:        0.12.2
+Version:        0.13.5
 Release:        %autorelease
 Summary:        XDG portals wrapper in Rust using zbus
 
 License:        MIT
 URL:            https://crates.io/crates/ashpd
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop example program that pulls in gstreamer bindings
+# * drop reis dev-dependency that is only used in one doctest
+Patch:          ashpd-fix-metadata.diff
+# * Ignore one doctest that pulls in reis as an additional dev-dependency
+Patch10:        0001-Ignore-one-doctest-that-pulls-in-reis-as-an-addition.patch
+# * Prevent including README as Rust documentation:
+#   this includes code that doesn't compile with default feature flags and
+#   breaks building this crate in environments that don't install %%doc files
+Patch11:        0002-Prevent-including-README-as-Rust-documentation.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -46,28 +56,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-std-devel
+%package     -n %{name}+account-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-std-devel %{_description}
+%description -n %{name}+account-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-std" feature of the "%{crate}" crate.
+use the "account" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-std-devel
+%files       -n %{name}+account-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-trait-devel
+%package     -n %{name}+async-io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-trait-devel %{_description}
+%description -n %{name}+async-io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-trait" feature of the "%{crate}" crate.
+use the "async-io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-trait-devel
+%files       -n %{name}+async-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+backend-devel
@@ -80,6 +90,126 @@ This package contains library source intended for building other packages which
 use the "backend" feature of the "%{crate}" crate.
 
 %files       -n %{name}+backend-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+background-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+background-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "background" feature of the "%{crate}" crate.
+
+%files       -n %{name}+background-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+camera-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+camera-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "camera" feature of the "%{crate}" crate.
+
+%files       -n %{name}+camera-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+clipboard-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+clipboard-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "clipboard" feature of the "%{crate}" crate.
+
+%files       -n %{name}+clipboard-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+documents-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+documents-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "documents" feature of the "%{crate}" crate.
+
+%files       -n %{name}+documents-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dynamic_launcher-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dynamic_launcher-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dynamic_launcher" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dynamic_launcher-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+email-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+email-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "email" feature of the "%{crate}" crate.
+
+%files       -n %{name}+email-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+file_chooser-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+file_chooser-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "file_chooser" feature of the "%{crate}" crate.
+
+%files       -n %{name}+file_chooser-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+flatpak-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+flatpak-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "flatpak" feature of the "%{crate}" crate.
+
+%files       -n %{name}+flatpak-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+frontend-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+frontend-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "frontend" feature of the "%{crate}" crate.
+
+%files       -n %{name}+frontend-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+game_mode-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+game_mode-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "game_mode" feature of the "%{crate}" crate.
+
+%files       -n %{name}+game_mode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gdk4wayland-devel
@@ -118,6 +248,18 @@ use the "glib" feature of the "%{crate}" crate.
 %files       -n %{name}+glib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+global_shortcuts-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+global_shortcuts-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "global_shortcuts" feature of the "%{crate}" crate.
+
+%files       -n %{name}+global_shortcuts-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gtk4-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -154,6 +296,90 @@ use the "gtk4_x11" feature of the "%{crate}" crate.
 %files       -n %{name}+gtk4_x11-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+inhibit-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+inhibit-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "inhibit" feature of the "%{crate}" crate.
+
+%files       -n %{name}+inhibit-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+input_capture-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+input_capture-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "input_capture" feature of the "%{crate}" crate.
+
+%files       -n %{name}+input_capture-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+location-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+location-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "location" feature of the "%{crate}" crate.
+
+%files       -n %{name}+location-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+memory_monitor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+memory_monitor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "memory_monitor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+memory_monitor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+network_monitor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+network_monitor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "network_monitor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+network_monitor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+notification-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+notification-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "notification" feature of the "%{crate}" crate.
+
+%files       -n %{name}+notification-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+open_uri-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+open_uri-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "open_uri" feature of the "%{crate}" crate.
+
+%files       -n %{name}+open_uri-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+pipewire-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -164,6 +390,42 @@ This package contains library source intended for building other packages which
 use the "pipewire" feature of the "%{crate}" crate.
 
 %files       -n %{name}+pipewire-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+power_profile_monitor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+power_profile_monitor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "power_profile_monitor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+power_profile_monitor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+print-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+print-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "print" feature of the "%{crate}" crate.
+
+%files       -n %{name}+print-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+proxy_resolver-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proxy_resolver-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proxy_resolver" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proxy_resolver-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+raw-window-handle-devel
@@ -190,6 +452,78 @@ use the "raw_handle" feature of the "%{crate}" crate.
 %files       -n %{name}+raw_handle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+realtime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+realtime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "realtime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+realtime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+remote_desktop-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+remote_desktop-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "remote_desktop" feature of the "%{crate}" crate.
+
+%files       -n %{name}+remote_desktop-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+screencast-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+screencast-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "screencast" feature of the "%{crate}" crate.
+
+%files       -n %{name}+screencast-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+screenshot-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+screenshot-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "screenshot" feature of the "%{crate}" crate.
+
+%files       -n %{name}+screenshot-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+secret-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+secret-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "secret" feature of the "%{crate}" crate.
+
+%files       -n %{name}+secret-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+settings-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+settings-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "settings" feature of the "%{crate}" crate.
+
+%files       -n %{name}+settings-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -212,6 +546,42 @@ This package contains library source intended for building other packages which
 use the "tracing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tracing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+trash-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+trash-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "trash" feature of the "%{crate}" crate.
+
+%files       -n %{name}+trash-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+usb-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+usb-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "usb" feature of the "%{crate}" crate.
+
+%files       -n %{name}+usb-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wallpaper-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wallpaper-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wallpaper" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wallpaper-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+wayland-devel
@@ -277,7 +647,8 @@ use the "wayland-protocols" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip a test that require data files not included in published crates
+%cargo_test -- -- --exact --skip tests::all_interfaces_have_implementations
 %endif
 
 %changelog

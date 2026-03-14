@@ -1,13 +1,10 @@
 Name:           perl-Crypt-OpenSSL-EC
-Version:        1.32
-Release:        23%{?dist}
+Version:        1.34
+Release:        1%{?dist}
 Summary:        Perl extension for OpenSSL EC (Elliptic Curves) library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-EC
-Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKEM/Crypt-OpenSSL-EC-%{version}.tar.gz
-# Adapt to ExtUtils::ParseXS ≥ 3.57, bug #2364629, CPAN RT#164982,
-# proposed to the upstream.
-Patch0:         Crypt-OpenSSL-EC-1.32-Remove-never-compiled-EC_POINTs_make_affine-and-EC_P.patch
+Source0:        https://cpan.metacpan.org/authors/id/R/RA/RADIATOR/Crypt-OpenSSL-EC-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -22,6 +19,8 @@ BuildRequires:  perl(ExtUtils::Constant)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # pkgconf-pkg-config for pkg-config tool
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  pkgconfig(libcrypto)
@@ -29,8 +28,6 @@ BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Crypt::OpenSSL::Bignum) >= 0.04
@@ -56,7 +53,7 @@ with "%{_libexecdir}/%{name}/test".
 %autosetup -p1 -n Crypt-OpenSSL-EC-%{version}
 
 %build
-unset OPENSSL_LIB OPENSSL_PREFIX
+unset OPENSSL_INCLUDE OPENSSL_LIB OPENSSL_PREFIX
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %{make_build}
 
@@ -78,7 +75,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc Changes README
+%doc Changes README.md
 %dir %{perl_vendorarch}/auto/Crypt
 %dir %{perl_vendorarch}/auto/Crypt/OpenSSL
 %{perl_vendorarch}/auto/Crypt/OpenSSL/EC
@@ -91,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 12 2026 Petr Pisar <ppisar@redhat.com> - 1.34-1
+- 1.34 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

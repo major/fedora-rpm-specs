@@ -149,7 +149,8 @@ cp thirdparty/STC/LICENSE STC-LICENSE
 
 %check
 # Upstream supports running tests only on x86_64, but test everything anyway
-# PoCL doesn't support s390x, see rhbz#2396306. The tests fail badly (endian issues?) but removing a main arch from a package is a pain.
+# The tests fail on s390x, but it might still work: see rhbz#2396306
+# or the upstream issue at https://github.com/pocl/pocl/issues/2129
 %ifnarch s390x
 # Run all tests except those expected to fail on the CPU driver
 %ctest -LE 'cpu_fail'

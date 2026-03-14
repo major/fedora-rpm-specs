@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 6ba2387eca65bf0ac502378e5c7da4baa80bc666
-%global snapdate 20250929
+%global commit a5bbd666a60ea522674f82c005575ad96a3135aa
+%global snapdate 20260107
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
@@ -13,7 +13,7 @@
 
 Name:           c4fs
 Summary:        C++ file system utilities
-Version:        0.0.1^%{snapdate}git%{sub %{commit} 1 7}
+Version:        0.0.1^%{snapdate}.%{sub %{commit} 1 7}
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.0.1
@@ -28,14 +28,6 @@ Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 # unbundle it and build with an external library. We therefore maintain this
 # patch without sending it upstream.
 Patch:          c4fs-1abba00-external-c4core.patch
-# Implement c4::fs::EntryList::iterator_impl<>::operator[]
-# https://github.com/biojppm/c4fs/pull/6
-#
-# Fixes:
-#
-# Fails to compile with GCC 16
-# https://github.com/biojppm/c4fs/issues/5
-Patch:          %{url}/pull/6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

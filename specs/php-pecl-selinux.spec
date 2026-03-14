@@ -27,10 +27,10 @@
 
 Summary: SELinux binding for PHP scripting language
 Name:    php-pecl-selinux
-Version: 0.6.1
-%forgemeta
-Release: 7%{?dist}
 License: PHP-3.01
+Version: 0.6.1
+Release: 7%{?dist}
+%forgemeta
 URL:     %{forgeurl}
 Source0: %{forgesource}
 

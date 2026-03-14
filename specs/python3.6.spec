@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 53%{?dist}
+Release: 54%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -2217,6 +2217,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Mar 12 2026 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-54
+- Rebuilt for improvements of %%python_wheel_inject_sbom in python-rpm-macros-3.14-11
+
 * Thu Feb 26 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-53
 - Security fix for CVE-2025-12084
 

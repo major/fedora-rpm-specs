@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 145.0.7632.159
+Version: 146.0.7680.71
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -341,12 +341,10 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-# fix ftbfs caused by old python-3.9 on el9
-Patch142: chromium-143-python-3.9-ftbfs.patch
- 
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
-Patch143: chromium-145-rust-1.88-enable-unstable_features.patch
-Patch144: chromium-145-rust-1.88-undefined-symbol.patch
+Patch143: chromium-146-rust-1.88-enable-unstable_features.patch
+Patch144: chromium-146-rust-1.88-undefined-symbol.patch
+Patch145: chromium-146-ftbfs-rust-bytemuck.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -354,11 +352,14 @@ Patch150: chromium-124-qt6.patch
 # fix FTFS caused by missing include file on aarch64/ppc64le
 Patch300: chromium-145-swiftshader-missing-include.patch
 
-# enable rustc_nightly_capability
-Patch301: chromium-145-rustc-enable-nightly.patch
-
-# Fix error with llwm < 21: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
+# Fix error with llwm < 21 on el9/el10.1/f42: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
 Patch302: chromium-145-static_assert.patch
+
+# Fix error: invalid suffix 'o666' on integer constant on el9/el10.1/f42 with llvm20
+Patch303: chromium-146-ftfs-llvm-octal-notation.patch
+
+# Workaround for clang++ crash with llvm-20 on el9/el10.1/f42, clang++: error: clang frontend command failed with exit code 139
+Patch304: chromium-146-llvm-crash.patch
 
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
@@ -403,6 +404,9 @@ Patch318: memory-allocator-dcheck-assert-fix.patch
 
 # compile swiftshader against llvm-16.0
 Patch319: chromium-143-swiftshader-llvm-16.0.patch
+
+# Fix clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=array-bounds'
+Patch320: chromium-146-clang-unknown-argument.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -1091,7 +1095,6 @@ Qt6 UI for chromium.
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
-%patch -P142 -p1 -b .python-3.9-ftbfs
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
@@ -1099,14 +1102,17 @@ Qt6 UI for chromium.
 %patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
 
+%patch -P145 -p1 -b .ftbfs-rust-bytemuck
+
 %patch -P150 -p1 -b .qt6
 
 %patch -P300 -p1 -b .swiftshader-missing-include
-%patch -P301 -p1 -b .rustc-enable-nightly
 
 # llvm version < 21 on f42/el9/epel10.1
 %if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
 %patch -P302 -p1 -b .static_assert
+%patch -P303 -p1 -b .ftfs-llvm-octal-notation
+%patch -P304 -p1 -b .llvm-crash
 %endif
 
 %if 0%{?rhel} == 8
@@ -1134,6 +1140,7 @@ Qt6 UI for chromium.
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
+%patch -P320 -p1 -b .clang-unknown-argument
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1310,7 +1317,8 @@ export LDFLAGS
 export RUSTC_BOOTSTRAP=1
 
 # set rustc version
-rustc_version="$(rustc --version)"
+# Fix error: multiple input filenames provided, caused by rustc_wrapper
+rustc_version="$(rustc -V | cut -d' ' -f-2 | sed 's/ /-/')"
 # set rust bindgen root
 rust_bindgen_root="$(which bindgen | sed 's#/s\?bin/.*##')"
 rust_sysroot_absolute="$(rustc --print sysroot)"
@@ -1851,7 +1859,39 @@ fi
 %endif
 
 %changelog
-* Wed Mar 06 2026 Than Ngo <than@redhat.com> - 145.0.7632.159-1
+* Thu Mar 12 2026 Than Ngo <than@redhat.com> - 146.0.7680.71-1
+- Update to 146.0.7680.71
+  * CVE-2026-3913: Heap buffer overflow in WebML
+  * CVE-2026-3914: Integer overflow in WebML
+  * CVE-2026-3915: Heap buffer overflow in WebML
+  * CVE-2026-3916: Out of bounds read in Web Speech
+  * CVE-2026-3917: Use after free in Agents
+  * CVE-2026-3918: Use after free in WebMCP
+  * CVE-2026-3919: Use after free in Extensions
+  * CVE-2026-3920: Out of bounds memory access in WebML
+  * CVE-2026-3921: Use after free in TextEncoding
+  * CVE-2026-3922: Use after free in MediaStream
+  * CVE-2026-3923: Use after free in WebMIDI
+  * CVE-2026-3924: Use after free in WindowDialog
+  * CVE-2026-3925: Incorrect security UI in LookalikeChecks
+  * CVE-2026-3926: Out of bounds read in V8
+  * CVE-2026-3927: Incorrect security UI in PictureInPicture
+  * CVE-2026-3928: Insufficient policy enforcement in Extensions
+  * CVE-2026-3929: Side-channel information leakage in ResourceTiming
+  * CVE-2026-3930: Unsafe navigation in Navigation
+  * CVE-2026-3931: Heap buffer overflow in Skia
+  * CVE-2026-3932: Insufficient policy enforcement in PDF
+  * CVE-2026-3934: Insufficient policy enforcement in ChromeDriver
+  * CVE-2026-3935: Incorrect security UI in WebAppInstalls
+  * CVE-2026-3936: Use after free in WebView
+  * CVE-2026-3937: Incorrect security UI in Downloads
+  * CVE-2026-3938: Insufficient policy enforcement in Clipboard
+  * CVE-2026-3939: Insufficient policy enforcement in PDF
+  * CVE-2026-3940: Insufficient policy enforcement in DevTools
+  * CVE-2026-3941: Insufficient policy enforcement in DevTools
+  * CVE-2026-3942: Incorrect security UI in PictureInPicture
+
+* Fri Mar 06 2026 Than Ngo <than@redhat.com> - 145.0.7632.159-1
 - Update to 145.0.7632.159
   * CVE-2026-3536: Integer overflow in ANGLE
   * CVE-2026-3537: Object lifecycle issue in PowerVR

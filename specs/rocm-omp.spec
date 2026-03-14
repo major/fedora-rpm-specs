@@ -20,9 +20,19 @@
 # THE SOFTWARE.
 #
 
-# Upstream tags are based on rocm releases:
+%global upstreamname llvm-project
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -42,7 +52,6 @@
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 22
-%global upstreamname llvm-project
 
 %global toolchain clang
 
@@ -57,12 +66,16 @@
 
 Name:           rocm-omp%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        Apache-2.0 WITH LLVM-exception OR NCSA AND MIT
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/rocm-omp-%{rocm_version}.tar.gz
+Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-omp-%{rocm_version}.tar.gz
 
 BuildRequires:  binutils-devel
 BuildRequires:  cmake
@@ -101,7 +114,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
+%autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
@@ -232,6 +245,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Add --with preview
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

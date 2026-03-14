@@ -1,7 +1,7 @@
 %global singulardir	%{_libdir}/Singular
 %global upstreamver	4-4-1
-%global downstreamver	%(tr - . <<< %{upstreamver})
-#global patchver	p4
+%global downstreamver	%{gsub %upstreamver - .}
+%global patchver	p5
 %global giturl		https://github.com/Singular/Singular
 
 %bcond python 0
@@ -83,8 +83,6 @@ BuildRequires:	python2-devel
 %if %{without bootstrap}
 BuildRequires:	qepcad-B
 %endif
-# Need uudecode for documentation images in tarball
-BuildRequires:	sharutils
 BuildRequires:	texinfo-tex
 BuildRequires:	tex(latex)
 BuildRequires:	TOPCOM
@@ -103,8 +101,6 @@ Patch:		%{name}-arches.patch
 Patch:		%{name}-link.patch
 # Fix the desktop files
 Patch:		%{name}-desktop.patch
-# Adapt to new template code in NTL 8
-Patch:		%{name}-ntl8.patch
 # Fix code that can overflow a character buffer with sprintf
 Patch:		%{name}-format.patch
 # Add missing parentheses that can change code meaning in a macro
@@ -122,8 +118,6 @@ Patch:		%{name}-doc-hang.patch
 # Fix an off-by-one error in polymake.lib that leads to failed examples
 # https://github.com/Singular/Singular/issues/1210
 Patch:		%{name}-polymake-lib.patch
-# Adapt to flint 3.3.x
-Patch:		%{name}-flint3.3.patch
 
 %description
 Singular is a computer algebra system for polynomial computations, with
@@ -206,7 +200,6 @@ Requires:	flint-devel%{?_isa}
 %description	libpolys-devel
 Development files for libpolys.
 
-
 %prep
 %autosetup -p1 -n %{name}-Release-%{upstreamver}%{?patchver}
 
@@ -225,15 +218,11 @@ sed -i 's@ -Wl,-rpath,\${CCLUSTER_HOME}/lib@@' m4/ccluster-check.m4
 # Make sure we do not use the bundled gfanlib
 rm -fr gfanlib
 
-# Work around a change in normaliz 3.10.5
-sed -i '/nmz_multiplicity/d' Singular/LIB/normaliz.lib
-
 # Regenerate configure due to patches
 autoreconf -fi
 
 # The file countedref.cc needs to be built without strict aliasing
 sed -i '/countedref\.cc/s/\$(CXXFLAGS)/& -fno-strict-aliasing/g' Singular/Makefile.in
-
 
 %build
 export CPPFLAGS='-I%{_includedir}/flint -I%{_includedir}/gfanlib'
@@ -241,9 +230,8 @@ export CPPFLAGS='-I%{_includedir}/flint -I%{_includedir}/gfanlib'
 pyincdir=$(python2 -Esc "import sysconfig; print(sysconfig.get_paths()['include'])")
 CPPFLAGS="$CPPFLAGS -I$pyincdir"
 %endif
-# The code is not ready for C++20
 export CFLAGS='%{build_cflags} -fPIC'
-export CXXFLAGS='%{build_cxxflags} -fPIC -std=gnu++17'
+export CXXFLAGS='%{build_cxxflags} -fPIC'
 # -Wl,-z,now breaks lazy module loading
 export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
 module load 4ti2-%{_arch}
@@ -284,7 +272,6 @@ module load lrcalc-%{_arch}
 
 %make_build
 %make_build -C dox html
-
 
 %install
 %make_install
@@ -360,11 +347,9 @@ chmod 0755 %{buildroot}%{_bindir}/ESingular
 %py_byte_compile %{__python2} %{buildroot}%{_datadir}/singular/LIB
 %endif
 
-
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 make check
-
 
 %files
 %doc README.md
@@ -458,7 +443,6 @@ make check
 %{_includedir}/singular/reporter/
 %{_libdir}/libpolys.so
 %{_libdir}/pkgconfig/libpolys.pc
-
 
 %changelog
 %autochangelog

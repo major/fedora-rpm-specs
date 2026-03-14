@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -345,6 +345,8 @@ Patch1800: 0001-18-Always-build-shared-libs-for-LLD.patch
 Patch1902: 0001-19-Always-build-shared-libs-for-LLD.patch
 Patch2000: 0001-19-Always-build-shared-libs-for-LLD.patch
 Patch2100: 0001-19-Always-build-shared-libs-for-LLD.patch
+
+Patch1918: 172972.patch
 #endregion LLD patches
 
 #region RHEL patches
@@ -3127,6 +3129,9 @@ fi
 
 #region changelog
 %changelog
+* Wed Mar 11 2026 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 19.1.7-18
+- Backport a fix for lld on s390x from upstream
+
 * Mon Mar 09 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 19.1.7-17
 - Add support for riscv64 based on patch by David Abdurachmanov
 

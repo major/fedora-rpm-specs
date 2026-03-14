@@ -5,7 +5,7 @@
 %global crate gstreamer-base
 
 Name:           rust-gstreamer-base
-Version:        0.24.4
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Base library
 
@@ -131,6 +131,18 @@ This package contains library source intended for building other packages which
 use the "v1_26" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_26-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_28-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_28-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_28" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_28-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

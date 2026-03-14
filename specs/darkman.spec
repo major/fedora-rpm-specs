@@ -4,7 +4,7 @@
 # https://gitlab.com/WhyNotHugo/darkman
 %global goipath         gitlab.com/WhyNotHugo/darkman
 %global forgeurl        https://gitlab.com/WhyNotHugo/darkman
-Version:                2.2.0
+Version:                2.3.1
 %global tag             v%{version}
 
 %gometa -L -f
@@ -23,7 +23,6 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools
-BuildRequires:  scdoc
 BuildRequires:  systemd-rpm-macros
 
 Requires:       dbus-common
@@ -34,7 +33,6 @@ Daemon for dark-mode and light-mode transitions on Linux desktop.
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -44,7 +42,6 @@ Daemon for dark-mode and light-mode transitions on Linux desktop.
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
-scdoc < darkman.1.scd > darkman.1
 
 %install
 %go_vendor_license_install -c %{S:2}
@@ -72,8 +69,6 @@ install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-de
 %systemd_user_postun_with_restart %{name}.service
 
 %files -f %{go_vendor_license_filelist}
-%license LICENCE
-%license vendor/modules.txt
 %doc examples CHANGELOG.md README.md
 %{_bindir}/darkman
 %{_userunitdir}/darkman.service

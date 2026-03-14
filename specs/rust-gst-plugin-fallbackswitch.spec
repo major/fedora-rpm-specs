@@ -4,7 +4,7 @@
 %global crate gst-plugin-fallbackswitch
 
 Name:           rust-gst-plugin-fallbackswitch
-Version:        0.14.3
+Version:        0.15.0
 Release:        %autorelease
 Summary:        GStreamer Fallback Switcher and Source Plugin
 
@@ -23,7 +23,6 @@ GStreamer Fallback Switcher and Source Plugin.}
 %package     -n gstreamer1-plugin-fallbackswitch
 Summary:        %{summary}
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MPL-2.0
@@ -93,42 +92,6 @@ This package contains library source intended for building other packages which
 use the "doc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+doc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gio-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gst-plugin-gtk4-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gst-plugin-gtk4-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gst-plugin-gtk4" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gst-plugin-gtk4-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gtk-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gtk-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gtk" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gtk-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+static-devel

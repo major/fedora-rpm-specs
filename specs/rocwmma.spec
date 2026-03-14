@@ -19,9 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+
+%bcond_with preview
+%if %{with preview}
+%global upstreamname rocwmma
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+# ROCm 7.2 is still in the old URL
 %global upstreamname rocWMMA
 %global rocm_release 7.2
 %global rocm_patch 0
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -76,14 +87,27 @@
 
 Name:           rocwmma%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
+%endif
+
 Summary:        ROCm Matrix Multiple and Accumulate library
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-libraries
+%else
 Url:            https://github.com/ROCm/%{upstreamname}
+%endif
 License:        MIT
 
+%if %{with preview}
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 # TBD: Needs to be rebased to rocm-libraries and upstreamed.
 Patch0:         0001-rocwmma-ninja-job-pools.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -135,7 +159,11 @@ Summary:        Tests for %{name}
 %endif
 
 %prep
+%if %{with preview}
+%autosetup -p1 -n %{upstreamname}
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # Remove parallel-jobs, it interfers with ninja jobs and attempts to reduce memory usage
 # https://github.com/ROCm/rocm-libraries/issues/4949
@@ -226,6 +254,9 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %endif
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Add --with preview
+
 * Thu Feb 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Increase build memory requirements
 - Fix --with test

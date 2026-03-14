@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-http
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Snakemake storage plugin for downloading input files from HTTP(s)
 

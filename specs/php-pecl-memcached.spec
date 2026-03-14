@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-memcached
 #
-# SPDX-FileCopyrightText:  Copyright 2009-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2009-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -20,23 +20,27 @@
 # upstream use    dev => alpha => beta => RC
 # make RPM happy  DEV => alpha => beta => rc
 #global upstream_lower   rc1
-%global sources    %{pecl_name}-%{upstream_version}%{?upstream_prever}
+
+# Github forge
+%global gh_vend          php-memcached-dev
+%global gh_proj          php-memcached
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              v%{upstream_version}%{?upstream_prever}
 
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcached
-Version:      %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:      2%{?dist}
 License:      PHP-3.01
-URL:          https://pecl.php.net/package/%{pecl_name}
-
-Source0:      https://pecl.php.net/get/%{sources}.tgz
+Version:      %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
+Release:      3%{?dist}
+%forgemeta
+URL:          %{forgeurl}
+Source0:      %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel >= 7
-BuildRequires: php-pear
 BuildRequires: php-json
 BuildRequires: php-pecl-igbinary-devel
 %ifnarch ppc64
@@ -79,14 +83,8 @@ It also provides a session handler (memcached).
 
 
 %prep 
-%setup -c -q
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -e '/name=.fastlz/d' \
-    -i package.xml
+%forgesetup
 
-cd %{sources}
 rm -r fastlz
 
 # Chech version as upstream often forget to update this
@@ -96,7 +94,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever:%{upstream_preve
    : Update the macro and rebuild.
    exit 1
 fi
-cd ..
 
 cat > %{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
@@ -119,11 +116,10 @@ extension=%{pecl_name}.so
 EOF
 
 # default options with description from upstream
-cat %{sources}/memcached.ini >>%{ini_name}
+cat memcached.ini >>%{ini_name}
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -142,21 +138,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Drop in the bit of configuration
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install the Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
@@ -171,11 +157,12 @@ OPT="-n"
     --modules | grep '^%{pecl_name}$'
 
 %if %{with tests}
-cd %{sources}
 # XFAIL and very slow so no value
 rm tests/expire.phpt
 rm tests/flush_buffers.phpt
 rm tests/touch_binary.phpt
+# Eperimental, expected to fail
+rm -r tests/experimental
 
 ret=0
 
@@ -205,15 +192,21 @@ exit $ret
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc README.markdown
+%doc memcached-api.php
+%doc memcached.ini
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 3.4.0-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,12 +1,11 @@
 Name:           ntfs2btrfs
-Version:        20240115
+Version:        20250616
 Release:        %autorelease
 Summary:        Conversion tool from NTFS to Btrfs
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/maharmstone/ntfs2btrfs
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/maharmstone/ntfs2btrfs/commit/4375a142fe635044fe54e0c897bdc2bd07225d97.patch#/%{name}-gcc-14.1-include-memory.diff
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake >= 3.14.3
 BuildRequires:  gcc-c++

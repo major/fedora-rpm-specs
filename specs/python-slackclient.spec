@@ -1,5 +1,5 @@
 Name:               python-slackclient
-Version:            3.40.1
+Version:            3.41.0
 Release:            1%{?dist}
 Summary:            Slack Developer Kit for Python
 
@@ -65,6 +65,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Thu Mar 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.41.0-1
+- 3.41.0
+
 * Thu Feb 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.40.1-1
 - 3.40.1
 

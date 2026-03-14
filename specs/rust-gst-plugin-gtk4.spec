@@ -4,7 +4,7 @@
 %global crate gst-plugin-gtk4
 
 Name:           rust-gst-plugin-gtk4
-Version:        0.14.4
+Version:        0.15.0
 Release:        %autorelease
 Summary:        GStreamer GTK 4 sink element
 
@@ -264,6 +264,18 @@ use the "static" feature of the "%{crate}" crate.
 %files       -n %{name}+static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_28-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_28-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_28" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_28-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+wayland-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -317,17 +329,17 @@ use the "x11glx" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
+%cargo_generate_buildrequires -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
 
 %build
-%cargo_build -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
-%{cargo_license_summary -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx}
-%{cargo_license -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx} > LICENSE.dependencies
-%cargo_cbuild -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
+%cargo_build -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
+%{cargo_license_summary -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx}
+%{cargo_license -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx} > LICENSE.dependencies
+%cargo_cbuild -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
 
 %install
-%cargo_install -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
-%cargo_cinstall -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
+%cargo_install -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
+%cargo_cinstall -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
 # remove statically linked library
 rm -v %{buildroot}/%{_libdir}/gstreamer-1.0/libgstgtk4.a
 # remove unnecessary pkgconfig file
@@ -335,7 +347,7 @@ rm -v %{buildroot}/%{_libdir}/pkgconfig/gstgtk4.pc
 
 %if %{with check}
 %check
-%cargo_test -f dmabuf,gtk_v4_20,waylandegl,x11egl,x11glx
+%cargo_test -f dmabuf,gtk_v4_20,v1_28,waylandegl,x11egl,x11glx
 %endif
 
 %changelog

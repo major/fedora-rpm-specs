@@ -21,8 +21,18 @@
 #
 
 %global upstreamname aqlprofile
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -61,7 +71,11 @@
 
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
 
@@ -69,7 +83,7 @@ License:        MIT
 ExclusiveArch:  x86_64
 
 URL:            https://github.com/ROCm/rocm-systems
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -143,6 +157,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %install
 %cmake_install
 
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-amd-aqlprofile/LICENSE.md
+
 %files
 %license LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhsa-amd-aqlprofile64.so.1{,.*}
@@ -158,6 +175,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %endif
 
 %changelog
+* Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Add --with preview
+
 * Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

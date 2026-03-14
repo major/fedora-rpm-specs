@@ -24,8 +24,8 @@ Name:           %{php_base}-pecl-apcu
 Summary:        APC User Cache
 License:        PHP-3.01
 Version:        5.1.28
-%forgemeta
 Release:        3%{?dist}
+%forgemeta
 URL:            %{forgeurl}
 
 Source0:        %{forgesource}

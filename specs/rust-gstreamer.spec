@@ -5,17 +5,13 @@
 %global crate gstreamer
 
 Name:           rust-gstreamer
-Version:        0.24.4
+Version:        0.25.1
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gstreamer
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax ron dependency to allow both v0.10 and v0.11
-# * use paste instead of pastey
-Patch:          gstreamer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -159,6 +155,18 @@ This package contains library source intended for building other packages which
 use the "v1_26" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_26-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_28-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_28-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_28" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_28-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

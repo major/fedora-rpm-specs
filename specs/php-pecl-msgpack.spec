@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-msgpack
 #
-# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2012-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -17,26 +17,30 @@
 %global upstream_version 3.0.0
 #global upstream_prever  RC2
 #global upstream_lower   RC2
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
-%global _configure       ../%{sources}/configure
 
 %global pie_vend         msgpack
 %global pie_proj         msgpack-php
 %global pecl_name        msgpack
 %global ini_name         40-%{pecl_name}.ini
 
+# Github forge
+%global gh_vend          msgpack
+%global gh_proj          msgpack-php
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              msgpack-%{upstream_version}%{?upstream_prever}
+
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
-Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       6%{?dist}
-Source:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:       BSD-3-Clause
-URL:           https://pecl.php.net/package/msgpack
+Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
+Release:       7%{?dist}
+%forgemeta
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: php-devel >= 7.0
-BuildRequires: php-pear
 BuildRequires: php-pecl-apcu-devel
 %if %{with msgpack}
 BuildRequires: msgpack-devel
@@ -79,11 +83,8 @@ These are the files needed to compile programs using MessagePack serializer.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
-
-cd %{sources}
 %if %{with msgpack}
 # use system library
 rm -rf msgpack
@@ -95,7 +96,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:-dev}.
    exit 1
 fi
-cd ..
 
 # Drop in the bit of configuration
 cat > %{ini_name} << 'EOF'
@@ -113,7 +113,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -126,25 +125,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 : Install the configuration file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-: Install the package XML file
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-cd %{sources}
 : Install the extension
 %make_install
 
-: Install Test and Documentation
-for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do [ -f tests/$i ] && install -Dpm 644 tests/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/tests/$i
-   [ -f $i ]       && install -Dpm 644 $i       %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
-done
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
-cd %{sources}
 # Erratic results
 rm tests/034.phpt
 # too slow
@@ -163,20 +148,26 @@ TEST_PHP_ARGS="-n -d extension=apcu.so -d extension=$PWD/modules/%{pecl_name}.so
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+#doc composer.json
+%doc README.md
+%doc CREDITS
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %files devel
-%doc %{pecl_testdir}/%{pecl_name}
+%doc tests
+
 %{php_incldir}/ext/%{pecl_name}
 
 
 %changelog
+* Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 3.0.0-7
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

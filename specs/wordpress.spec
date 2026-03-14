@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.9.3
+%global upstream_version 6.9.4
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 6.9.4-1
+- WordPress 6.9.4 Release
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 6.9.3-1
 - WordPress 6.9.3 Release
 

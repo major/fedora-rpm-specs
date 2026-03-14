@@ -62,6 +62,8 @@ Patch1:         lua-luv-disable-udp-test.patch
 # Fix build with lua 5.5
 # https://github.com/luvit/luv/pull/800
 Patch2:         luv-cmake-lua55.patch
+# https://github.com/luvit/luv/pull/811
+Patch3:         lua-luv-fix-lua5.5-thread-dumping.patch
 
 
 %description

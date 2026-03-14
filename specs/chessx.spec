@@ -6,7 +6,7 @@
 %endif
 
 Name:           chessx
-Version:        1.6.6
+Version:        1.6.10
 Release:        %autorelease
 Summary:        Chess Database and PGN viewer
 

@@ -43,6 +43,8 @@ rm -r src/xgetopt
 sed -i '/xgetopt/d' CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380573)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

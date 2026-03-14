@@ -12,6 +12,9 @@ Summary:        Virtio-sound device using the vhost-user protocol
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://crates.io/crates/vhost-device-sound
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax gstreamer crate dependencies to allow both v0.24 and v0.25
+Patch:          vhost-device-sound-fix-metadata.diff
 
 %if %{with bundled_rust_deps}
 # The vendor tarball is created using cargo-vendor-filterer to remove Windows

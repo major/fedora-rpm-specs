@@ -4,7 +4,7 @@
 %global crate gst-plugin-gif
 
 Name:           rust-gst-plugin-gif
-Version:        0.14.4
+Version:        0.15.0
 Release:        %autorelease
 Summary:        GStreamer GIF plugin
 

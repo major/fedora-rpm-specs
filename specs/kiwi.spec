@@ -14,8 +14,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.2.37
-Release:        3%{?dist}
+Version:        10.2.44
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -25,13 +25,8 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}
 ExcludeArch:    %{ix86}
 
 # Backports from upstream
-## Fix unit tests for aarch64 and ppc64le
-Patch0001:      https://github.com/OSInside/kiwi/pull/2937.patch
 
 # Proposed upstream
-## https://github.com/OSInside/kiwi/pull/2944
-## Fix crash when dracut doesn't have --printconfig error
-Patch0500:      0001-initrd-format-detection-make-dracut-printconfig-opti.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -657,6 +652,9 @@ popd
 
 
 %changelog
+* Thu Mar 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.2.44-1
+- Update to 10.2.44
+
 * Mon Feb 02 2026 Adam Williamson <awilliam@redhat.com> - 10.2.37-3
 - Backport fix for crash when dracut doesn't have --printconfig option
 

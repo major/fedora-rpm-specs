@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.39.1
+%global base_version 0.40.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -31,6 +31,10 @@ BuildRequires:  python3-devel
 # tests/unit/test_guess_packager.py
 BuildRequires:  git-core
 %endif
+
+# system-rpm-config pulls in packages containing SRPM macros
+# necessary for spec file preprocessing and parsing
+Recommends:     system-rpm-config
 
 
 %description
@@ -77,6 +81,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Wed Mar 11 2026 Packit <hello@packit.dev> - 0.40.0-1
+- `Specfile()` has a new `sanitize` option that enables best effort sanitization of potentially dangerous constructs such as shell expansions and unsafe Lua macros before they are passed to RPM for parsing. (#519)
+- Fixed incorrect parsing of nested macros. (#522)
+
 * Sat Feb 14 2026 Packit <hello@packit.dev> - 0.39.1-1
 - Fixed whitespace padding of day of month in changelog entries. (#511)
 - Resolves: rhbz#2393435

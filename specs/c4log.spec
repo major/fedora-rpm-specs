@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit f4cf64caedd622a739aaa3ecb67a5aac105c2919
-%global snapdate 20240501
+%global commit 947f7ab2b7bbd71248b5bec738b5790a640c6cec
+%global snapdate 20250418
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
@@ -13,7 +13,7 @@
 
 Name:           c4log
 Summary:        C++ type-safe logging, mean and lean
-Version:        0.0.1^%{snapdate}git%{sub %{commit} 1 7}
+Version:        0.0.1^%{snapdate}.%{sub %{commit} 1 7}
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.0.1
@@ -23,6 +23,8 @@ Release:        %autorelease
 License:        MIT
 URL:            https://github.com/biojppm/c4log
 Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
+# Helper script to patch out unconditional download of dependencies in CMake
+Source10:       patch-no-download
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -37,6 +39,8 @@ BuildRequires:  cmake
 BuildRequires:  c4project
 # Our choice; the default make backend should work just as well
 BuildRequires:  ninja-build
+# A Python 3 interpreter is required for the patch-no-download script.
+BuildRequires:  python3-devel
 
 BuildRequires:  cmake(c4core)
 
@@ -66,7 +70,12 @@ applications that use c4log.
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-ln -s '%{_datadir}/cmake/c4project' ext/c4core/cmake
+rm -rvf ext/c4core/cmake
+cp -rvp %{_datadir}/cmake/c4project ext/c4core/cmake
+
+# Patch out download of doctest:
+'%{SOURCE10}' 'ext/c4core/cmake/c4Project.cmake' \
+    '^    if\(_DOCTEST\)' '^    endif'
 
 # Do not try to link against a nonexistent doctest library (doctest is
 # header-only, and we do not have the complete CMake project for doctest that

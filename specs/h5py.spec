@@ -15,6 +15,7 @@ Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{ver
 Patch:          h5py-3.15.0-ppc-float128.patch
 Patch:          h5py-3.12.1-python-crash-file-test2.patch
 Patch:          h5py-3.15.0-setuptools.patch
+Patch:          h5py-test_create_bitfield.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel

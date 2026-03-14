@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -22,11 +22,10 @@ BuildRequires:  python3-simplejson >= 2.0
 BuildRequires:  python3-decorator
 BuildRequires:  python3-markupsafe
 BuildRequires:  python3-speaklater
-#BuildRequires:  python3-paste-deploy
 BuildRequires:  python3-six
 
 # Specifically for the test suite
-#BuildRequires:  python3-nose
+#BuildRequires:  python3-pytest
 BuildRequires:  python3-coverage
 BuildRequires:  python3-formencode
 BuildRequires:  python3-webtest
@@ -70,27 +69,33 @@ This package contains the python3 version of the toolkit
 
 %prep
 %autosetup -n %{modname}-%{version}
+# remove files required only for nose tests
+rm -rf tw2/core/testbase tw2/core/test_templates
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
-# Fix shebang for python3
-sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' tw2/core/testbase/xhtmlify.py
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build \
-    --install-data=%{_datadir} --root=%{buildroot}
+%pyproject_install
+%pyproject_save_files -L tw2
 
-%files -n python3-tw2-core
+%check
+# Without python-nose tests are not functional. Just test import.
+%pyproject_check_import
+
+%files -n python3-tw2-core -f %{pyproject_files}
 %{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/tw2
-%{python3_sitelib}/%{modname}-%{version}*
+%{python3_sitelib}/tw2.core-*-nspkg.pth
 
 %changelog
+* Thu Mar 12 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-26
+- Use pyproject_wheel and pyproject_install macros
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

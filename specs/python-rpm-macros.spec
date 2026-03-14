@@ -56,7 +56,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 BuildArch:      noarch
 
@@ -169,6 +169,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Tue Mar 10 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14-11
+- %%python_wheel_inject_sbom: Add more metadata to the SBOM
+- %%python_wheel_inject_sbom: Rename the SBOM file to limit the possibility of clashes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

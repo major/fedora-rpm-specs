@@ -140,6 +140,7 @@ Patch0014: 0014-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 Patch0015: 0015-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 Patch0016: 0016-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
 Patch0017: 0017-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
+Patch0018: 0018-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
 
 
 # needed by %prep

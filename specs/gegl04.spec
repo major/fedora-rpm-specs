@@ -1,5 +1,11 @@
 %global apiver 0.4
 
+%if !0%{?fedora}%{?rhel} || 0%{?fedora} >= 44
+%bcond use_system_libnsgif 1
+%else
+%bcond use_system_libnsgif 0
+%endif
+
 %if 0%{?rhel}
 %bcond lensfun 0
 %else
@@ -10,7 +16,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.66
+Version:        0.4.68
 Release:        %autorelease
 Summary:        Graph based image processing framework
 
@@ -45,6 +51,9 @@ BuildRequires:  pkgconfig(lcms2) >= 2.8
 %if %{with lensfun}
 BuildRequires:  pkgconfig(lensfun) >= 0.2.5
 %endif
+%if %{with use_system_libnsgif}
+BuildRequires:  pkgconfig(libnsgif) >= 1.0.0
+%endif
 BuildRequires:  pkgconfig(libraw) >= 0.15.4
 BuildRequires:  pkgconfig(libpng) >= 1.6.0
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.40.6
@@ -77,10 +86,10 @@ BuildRequires:  pkgconfig(libtiff-4) >= 4.0.0
 #     CURRENT REVISION: b27c5b79df2ffa4e2cb37f9e5536831f16afb11b
 #     CACHED ON: August 11th, 2012
 Provides:       bundled(poly2tri-c)
-# This has a (dormant) upstream, but can’t be built from the tarball as it needs the rest of the
-# NetSurf browser build system.
+%if %{without use_system_libnsgif}
+# This is only available in F44+.
 Provides:       bundled(libnsgif) = 1.0.0
-Obsoletes:      gegl03 < 0.3.31
+%endif
 # This is optional as it's large and can cause issues with some HW.
 Recommends: %{name}-matting-levin%{?_isa}
 
@@ -94,9 +103,6 @@ minimal dependencies and a simple well defined API.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{name}-devel < 0.4.2
-Obsoletes:      gegl03-devel < 0.3.31
-Conflicts:      %{name}-devel < 0.4.2
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -113,10 +119,6 @@ The Matting Levin foreground select plugin for %{name}.
 %package        devel-docs
 Summary:        Documentation files for developing with %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{name}-devel < 0.4.2
-Obsoletes:      gegl03-devel-docs < 0.3.31
-Conflicts:      %{name}-devel < 0.4.2
-Conflicts:      gegl-devel < 0.4
 
 %description    devel-docs
 The %{name}-devel-docs package contains documentation files for developing
@@ -127,8 +129,6 @@ applications that use GEGL API version %{apiver}.
 %package        tools
 Summary:        Command line tools for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      gegl03-tools < 0.3.31
-Conflicts:      gegl < 0.4
 
 %description    tools
 The %{name}-tools package contains tools for the command line that use the
@@ -137,6 +137,9 @@ GEGL library.
 
 %prep
 %autosetup -p1 -n gegl-%{version}
+%if %{with use_system_libnsgif}
+rm -rf subprojects/libnsgif
+%endif
 
 
 %build

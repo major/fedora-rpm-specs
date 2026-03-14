@@ -61,7 +61,7 @@ Patch6:        rhbz-1857043.patch
 BuildArch:     noarch
 # Can't use noarch since we are packaging tomcat-jni.jar.
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Java/#_architecture_support
-ExclusiveArch:  %{java_arches}
+ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires: gnupg2
 BuildRequires: ant-openjdk25

@@ -1,10 +1,10 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 2%{?dist}
+Release: 3%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
-# lesspipe GPL-2.0-and-later
-License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-and-later
+# lesspipe GPL-2.0-or-later
+License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 %global lesspipe_version 2.22
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
@@ -113,6 +113,9 @@ popd
 %{_bindir}/vimcolor
 
 %changelog
+* Thu Mar 12 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-3
+- fix a typo in license field
+
 * Wed Mar 11 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-2
 - fix license tags (rhbz#2445996)
 

@@ -4,8 +4,8 @@ Name:          mate-panel
 Version:       %{branch}.4
 Release:       %autorelease
 Summary:       MATE Desktop panel and applets
-#libs are LGPLv2+ applications GPLv2+
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+#libs are LGPL-2.0-or-later
+#applications GPL-2.0-or-later
 License:       GPL-2.0-or-later
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
@@ -38,7 +38,7 @@ MATE Desktop panel applets
 
 %package libs
 Summary:     Shared libraries for mate-panel
-License:     LGPLv2+
+License:     LGPL-2.0-or-later
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description libs

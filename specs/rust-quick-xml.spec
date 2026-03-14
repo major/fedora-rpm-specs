@@ -5,7 +5,7 @@
 %global crate quick-xml
 
 Name:           rust-quick-xml
-Version:        0.38.4
+Version:        0.39.2
 Release:        %autorelease
 Summary:        High performance xml reader and writer
 

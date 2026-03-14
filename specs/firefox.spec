@@ -42,7 +42,7 @@ ExcludeArch: i686
 %global enable_replace_malloc 0
 %endif
 
-# wasi_sdk 25 is not compatible with llvm 18
+# wasi_sdk 30 is not compatible with llvm 18
 %if 0%{?fedora} <= 40
   %bcond wasi_sdk 0
 %else
@@ -247,8 +247,8 @@ Source48:       org.mozilla.firefox.appdata.xml.in
 Source49:       wasi.patch.template
 # Created by:
 # git clone --recursive https://github.com/WebAssembly/wasi-sdk.git
-# cd wasi-sdk && git-archive-all --force-submodules wasi-sdk-25.tar.gz
-Source50:       wasi-sdk-25.tar.gz
+# cd wasi-sdk && git-archive-all --force-submodules wasi-sdk-30.tar.gz
+Source50:       wasi-sdk-30.tar.gz
 
 # Build patches
 Patch40:        build-aarch64-skia.patch
@@ -589,7 +589,7 @@ This package contains results of tests executed during build.
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
-cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysroot/install/wasi-resource-dir/lib/wasi/libclang_rt.builtins-wasm32.a|" > %{_sourcedir}/wasi.patch
+cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysroot/install/wasi-resource-dir/lib/wasm32-unknown-wasip1/libclang_rt.builtins.a|" > %{_sourcedir}/wasi.patch
 %patch -P80 -p1 -b .wasi
 %endif
 
@@ -778,7 +778,7 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 
 #WASI SDK
 %if %{with wasi_sdk}
-pushd wasi-sdk-25
+pushd wasi-sdk-30
 
 mkdir -p my_rust_vendor
 cd my_rust_vendor
@@ -928,7 +928,7 @@ env | grep GCOV
 %endif
 
 %if %{with wasi_sdk}
-echo "ac_add_options --with-wasi-sysroot=`pwd`/wasi-sdk-25/build/sysroot/install/share/wasi-sysroot" >> .mozconfig
+echo "ac_add_options --with-wasi-sysroot=`pwd`/wasi-sdk-30/build/sysroot/install/share/wasi-sysroot" >> .mozconfig
 %else
 echo "ac_add_options --without-sysroot" >> .mozconfig
 echo "ac_add_options --without-wasm-sandboxed-libraries" >> .mozconfig

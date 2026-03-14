@@ -1,5 +1,5 @@
 Name:           python-datasets
-Version:        4.6.1
+Version:        4.7.0
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
@@ -87,6 +87,8 @@ rm src/datasets/io/spark.py
 # Remove tests with unmet deps
 # test_arrow_dataset.py needs python3dist(absl), which is not packaged
 rm tests/test_arrow_dataset.py
+# Remove a test that would cause a circular dependency on python-tokenizers
+rm tests/test_fingerprint_tokenizer_stability.py
 # the rest of these use the file utils.py, missing in PyPI sources
 # we might fix them by switching to the GitHub sources
 rm tests/test_arrow_reader.py

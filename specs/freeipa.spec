@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        9%{?rc_version:.%rc_version}%{?dist}
+Release:        10%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -232,6 +232,7 @@ Patch0001:      0001-SELinux-expand-policy-coverage-for-Kerberos-usage.patch
 Patch0002:      0002-ipa-sam-use-internal-Samba-method-to-populate-in-mem.patch
 Patch0003:      freeipa-fix-passkey-crash.patch
 Patch0004:      freeipa-sssd-mfa-selinux-policy-update.patch
+Patch0005:      0005-Add-path-to-identify-the-tomcat-version-for-Tomcat-10.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1969,6 +1970,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 12 2026 Rob Crittenden <rcritten@redhat.com> - 4.13.1-10
+- Add compatibility with tomcat 10 binary relocation
+
 * Fri Mar  6 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-9
 - Rebuild against ini_config ABI change
 - Fix SELinux policy for SSSD MFA helpers

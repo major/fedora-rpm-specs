@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.14.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -18,10 +18,11 @@ Source140:      fastapi-cloud-logs.1
 Source150:      fastapi-cloud-logout.1
 Source160:      fastapi-cloud-whoami.1
 Source170:      fastapi-cloud-unlink.1
-Source180:      fastapi-cloud-env.1
-Source181:      fastapi-cloud-env-list.1
-Source182:      fastapi-cloud-env-set.1
-Source183:      fastapi-cloud-env-delete.1
+Source180:      fastapi-cloud-setup-ci.1
+Source190:      fastapi-cloud-env.1
+Source191:      fastapi-cloud-env-list.1
+Source192:      fastapi-cloud-env-set.1
+Source193:      fastapi-cloud-env-delete.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -44,11 +45,25 @@ BuildArch:      noarch
 BuildRequires:  %{py3_dist pytest} >= 7
 BuildRequires:  %{py3_dist respx} >= 0.22
 BuildRequires:  %{py3_dist time-machine} >= 2.15
+# The “fastapi cloud setup-ci” command uses gh (the GitHub CLI) when available,
+# falling back to git (git-core suffices) where it can. One of these is
+# required both for testing the command and for using it at runtime.
+#
+# With gh, according to the source code:
+#   - getting the remote origin URL respects “gh repo set-default”
+#   - getting the default branch is possible
+#   - GitHub secrets can be set (otherwise they would have to be set manually)
+# Since gh gives more complete functionality, we choose to depend on it
+# unconditionally. This could be (at runtime) a weak dependency, but if someone
+# is trying to minimize a FastAPI installation, then they will probably try to
+# take measures to avoid pulling in fastapi-cloud-cli altogether. We therefore
+# make it a hard dependency, erring on the side of delivering full
+# functionality.
+BuildRequires:  gh
+Requires:       gh
 
-%global common_description %{expand:
-%{summary}.}
-
-%description %{common_description}
+%description
+%{summary}.
 
 
 %pyproject_extras_subpkg -n fastapi-cloud-cli standard
@@ -58,7 +73,8 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
     '%{SOURCE140}' '%{SOURCE150}' '%{SOURCE160}' '%{SOURCE170}' \
-    '%{SOURCE180}' '%{SOURCE181}' '%{SOURCE182}' '%{SOURCE183}'
+    '%{SOURCE180}' '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' \
+    '%{SOURCE193}'
 
 
 %check -a

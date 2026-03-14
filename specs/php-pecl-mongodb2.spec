@@ -19,7 +19,6 @@
 %global upstream_version  2.2.1
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
-%global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
 %global minimal_libmongo  2.2.2
@@ -29,19 +28,25 @@
 %global system_libmongo   2.2.2
 %global system_libcrypt   1.17.2
 
+# Github forge
+%global gh_vend           mongodb
+%global gh_proj           mongo-php-driver
+%global forgeurl          https://github.com/%{gh_vend}/%{gh_proj}
+%global tag               %{upstream_version}%{?upstream_prever}
+
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
-Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
 License:        Apache-2.0
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Version:        %{upstream_version}%{?upstream_lower}
+Release:        2%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 8.1
-BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  pkgconfig(bson2)          >= %{system_libmongo}
 BuildRequires:  pkgconfig(mongoc2)        >= %{system_libmongo}
@@ -73,14 +78,7 @@ components necessary to build a fully-functional MongoDB driver.
 
 
 %prep
-%setup -q -c
-
-# Don't install/register tests and License
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-pushd %{sources}
+%forgesetup
 
 # Check our macro values
 grep CHECK_MODULES config.m4
@@ -97,8 +95,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    exit 1
 fi
 
-popd
-
 # Create configuration file
 cat << 'EOF' | tee %{ini_name}
 ; Enable %{summary} extension module
@@ -110,7 +106,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -128,25 +123,14 @@ rm -r src/libmongoc*
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install config file
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install the Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
-cd %{sources}
 OPT="-n"
 
 : Minimal load test for the extension
@@ -156,15 +140,21 @@ OPT="-n"
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc THIRD_PARTY_NOTICES
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 2.2.1-2
+- drop pear/pecl dependency
+- sources from github
+
 * Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 2.2.1-1
 - update to 2.2.1
 - raise dependency on libmongoc 2.2.2 and libmongocrypt 1.17.2

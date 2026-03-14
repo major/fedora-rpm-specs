@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-raphf
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
@@ -16,21 +16,25 @@
 %global pie_vend   m6w6
 %global pie_proj   ext-raphf
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
-%global _configure ../%{sources}/configure
+
+# Github forge
+%global gh_vend    m6w6
+%global gh_proj    ext-raphf
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        v%{version}
 
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
-Version:        2.0.2
-Release:        3%{?dist}
 License:        BSD-2-Clause
-URL:            http://pecl.php.net/package/%{pecl_name}
-Source0:        http://pecl.php.net/get/%{sources}.tgz
+Version:        2.0.2
+Release:        4%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  php-devel > 7
-BuildRequires:  php-pear
 %if %{with tests}
 BuildRequires:  php-pecl-http >= 2.0.0
 %endif
@@ -61,18 +65,16 @@ These are the files needed to compile programs using %{name}.
 
 
 %prep
-%setup -q -c
+%forgesetup
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
-cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RAPHF_VERSION/{s/.* "//;s/".*$//;p}' php_raphf.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:-%{prever}}.
    exit 1
 fi
-cd ..
 
 # Create configuration file
 cat << 'EOF' | tee %{ini_name}
@@ -85,7 +87,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -95,28 +96,14 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install config file
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 : Install the extension
 %make_install
 
-: Install Test and Documentation
-for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
-done
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
-cd %{sources}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=modules/%{pecl_name}.so \
@@ -140,19 +127,24 @@ REPORT_EXIT_STATUS=1 \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc *.md
+%doc CREDITS
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 %files devel
-%doc %{pecl_testdir}/%{pecl_name}
+%doc tests
 %{php_incldir}/ext/%{pecl_name}
 
 
 %changelog
+* Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 2.0.2-4
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
