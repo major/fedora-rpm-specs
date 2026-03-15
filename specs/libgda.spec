@@ -131,7 +131,6 @@ This %{name}-postgres includes the %{name} PostgreSQL provider.
 
 %prep
 %autosetup -p1
-NOCONFIGURE=1 srcdir=. gnome-autogen.sh
 
 # AUTHORS not in UTF-8
 iconv --from=ISO-8859-1 --to=UTF-8 AUTHORS > AUTHORS.new && \

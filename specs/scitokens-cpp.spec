@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.4.0
-Release: 3%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,11 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Fri Mar 13 2026 Derek Weitzel <dweitzel@unl.edu> - 1.4.1-1
+- Fix scope path boundary validation to deny sibling-prefix authorization bypasses
+- Reject parent-directory traversal in scope paths, including encoded traversal forms
+- Add regression tests covering sibling-prefix and traversal authorization checks
+
 * Thu Feb 19 2026 Derek Weitzel <dweitzel@unl.edu> - 1.4.0-3
 - Replace cmake3 with cmake macros
 

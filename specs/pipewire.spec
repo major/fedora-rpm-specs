@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -85,6 +85,11 @@ Source1:        pipewire.sysusers
 
 ## upstream patches
 Patch0001:	0001-impl-link-fix-shared-mem-test.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2444824
+# https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/5162
+# https://gitlab.freedesktop.org/pipewire/pipewire/-/commit/7ecd51dc80262526d16560373c0c76408dfd946f
+# Fixes a crash that was causing failures in remote desktop connections
+Patch0002:	0001-client-node-avoid-using-invalid-fd-or-mem-in-clear_d.patch
 
 ## upstreamable patches
 
@@ -934,6 +939,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Fri Mar 13 2026 Adam Williamson <awilliam@redhat.com> - 1.6.1-3
+- Backport crash fix to fix issues with GNOME remote desktop
+
 * Mon Mar 09 2026 Wim Taymans <wtaymans@redhat.com> - 1.6.1-2
 - Add patch for shared mem fix
 

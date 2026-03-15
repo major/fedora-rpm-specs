@@ -52,6 +52,8 @@ Release: 1%{?dist}
 License: LicenseRef-Callaway-BSD AND BSD-3-Clause-LBNL AND Apache-2.0
 URL: https://apptainer.org
 Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
+Patch1: skip-missing-dependencies.patch
+Patch2: skip-ppc64le-ldflags.patch
 
 %if "%{?gocryptfs_version}" != ""
 # In order to build offline, this source tarball needs to have the "vendor"
@@ -352,8 +354,14 @@ Provides the optional setuid-root portion of Apptainer.
 
 %prep
 %setup -n %{name}-%{package_version}
+%patch -P 1 -p1
+%patch -P 2 -p1
 # don't need to setup dependent source packages and patches because
 # that is done by the compile-dependencies script
+%if "%{?PRoot_version}" == ""
+# hide the source file from compile-dependencies on the archs where it fails
+rm -f $(dirname %{SOURCE10})/PRoot-*.tar.gz
+%endif
 
 %build
 %if "%{?SOURCE1}" != ""

@@ -3,7 +3,7 @@
 %bcond_with docs 
 
 Name:           python-jaraco-packaging
-Version:        10.2.3
+Version:        10.4.0
 Release:        %autorelease
 Summary:        Tools to supplement packaging Python releases
 
@@ -45,10 +45,9 @@ Documentation for jaraco.packaging
 
 %prep
 %autosetup -n jaraco_packaging-%{version}
-# Remove dev-only dependencies. Upstream later split the `test` dependencies out of it
-# https://github.com/jaraco/skeleton/issues/138
-tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "pytest-.*"
-# Additionally, the types-docutils dependency is only needed for typechecking:
+# coherent.licensed is not available in Fedora and is not needed for the build
+tomcli set pyproject.toml lists delitem "build-system.requires" "coherent.licensed"
+# The types-docutils dependency is only needed for typechecking:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "types-docutils.*"
 
@@ -78,8 +77,10 @@ rm -rf html/.{doctrees,buildinfo}
 # metadata.hunt_down_url, print-metadata.main: tests run `pip install` without `--no-build-isolation`
 # sphinx._load_metadata_from_wheel: test runs `pip download`
 %pytest --import-mode prepend -k "not (packaging.metadata.hunt_down_url \
+or packaging.metadata.get_source_url \
 or packaging.print-metadata.main \
-or packaging.sphinx._load_metadata_from_wheel)"
+or packaging.sphinx._load_metadata_from_wheel \
+or packaging.sphinx.load_config_from_setup)"
 
 
 %files -n python3-jaraco-packaging -f %{pyproject_files}

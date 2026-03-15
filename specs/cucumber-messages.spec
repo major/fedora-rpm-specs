@@ -23,10 +23,8 @@ Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
-# Faster than the "UNIX Makefiles" cmake backend, with no disadvantages
-BuildRequires:  ninja-build
-
 BuildRequires:  gcc-c++
+
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 BuildRequires:  cmake(nlohmann_json) json-static
 
@@ -101,7 +99,7 @@ popd >/dev/null
 
 %conf
 pushd cpp
-%cmake -GNinja
+%cmake
 popd
 
 

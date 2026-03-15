@@ -3,7 +3,7 @@
 %global libadwaita_version 1.5
 
 Name:           gnome-chess
-Version:        50~beta
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Chess game
 

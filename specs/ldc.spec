@@ -16,9 +16,9 @@ Version:        1.42.0
 Release:        2%{?dist}
 Summary:        LLVM D Compiler
 
-# The DMD frontend in dmd/* GPL version 1 or artistic license
-# The files gen/asmstmt.cpp and gen/asm-*.hG PL version 2+ or artistic license
-License:        BSD
+# The DMD frontend in dmd/* is BSL-1.0
+# The files gen/asmstmt.cpp and gen/asm-*.h are GPL-2.0-or-later OR Artistic-1.0
+License:        BSD-3-Clause AND GPL-2.0-or-later AND BSL-1.0
 URL:            https://github.com/ldc-developers/ldc
 Source0:        https://github.com/ldc-developers/ldc/releases/download/v%{version_no_tilde}/%{name}-%{version_no_tilde}-src.tar.gz
 Source3:        macros.%{name}
@@ -60,7 +60,6 @@ of D, and relies on the LLVM Core libraries for code generation.
 
 %package        libs
 Summary:        LLVM D Compiler libraries
-# Automatically converted from old format: Boost - review is highly recommended.
 License:        BSL-1.0
 
 %description    libs

@@ -1,6 +1,6 @@
 Name:           sanlock
-Version:        4.2.0
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -8,6 +8,8 @@ BuildRequires:  gcc
 BuildRequires:  libaio-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  libuuid-devel
+# TODO: This creates a cyclic dependency, as lvm2 depends on sanlock-devel
+BuildRequires:  device-mapper-devel
 BuildRequires:  make
 BuildRequires:  python3
 BuildRequires:  python3-devel
@@ -159,6 +161,10 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Fri Mar 13 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-1
+- new upstream release.
+- Add support for atomic leases using compare and write.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

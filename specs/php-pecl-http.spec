@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-http
 #
-# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2012-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -24,16 +24,21 @@
 
 %global upstream_version 4.3.1
 #global upstream_prever  RC1
-%global sources          %{proj_name}-%{upstream_version}%{?upstream_prever}
+
+# Github forge
+%global gh_vend          m6w6
+%global gh_proj          ext-http
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              %{upstream_version}%{?upstream_prever}
 
 Name:           php-pecl-http
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
 Summary:        Extended HTTP support
-
 License:        BSD-2-Clause
-URL:            https://pecl.php.net/package/pecl_http
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:        3%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 # From http://www.php.net/manual/en/http.configuration.php
 Source1:        %{proj_name}.ini
@@ -45,7 +50,6 @@ BuildRequires:  gcc
 BuildRequires:  php-devel >= 8.0
 BuildRequires:  php-iconv
 BuildRequires:  php-spl
-BuildRequires:  php-pear
 BuildRequires:  zlib-devel >= 1.2.0.4
 BuildRequires:  curl-devel >= 7.18.2
 BuildRequires:  libicu-devel
@@ -66,12 +70,15 @@ Obsoletes:      php-pecl-http1 < 2
 # to allow migration from PHP 7 (last is 2.1.0)
 Obsoletes:      php-pecl-propro < 2.2
 
+# Extension
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
 Provides:       php-pecl(%{proj_name})           = %{version}
 Provides:       php-pecl(%{proj_name})%{?_isa}   = %{version}
 Provides:       php-pecl(%{pecl_name})           = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
-Provides:       php-%{pecl_name}                 = %{version}
-Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -104,24 +111,19 @@ These are the files needed to compile programs using HTTP extension.
 
 
 %prep
-%setup -c -q 
+%forgesetup
 
-sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
-
-cd %{sources}
 extver=$(sed -n '/#define PHP_PECL_HTTP_VERSION/{s/.* "//;s/".*$//;p}' php_http.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:dev}"; then
    : Error: Upstream HTTP version is now ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:dev}.
    : Update the pdover macro and rebuild.
    exit 1
 fi
-cd ..
 
 cp %{SOURCE1} %{ini_name}
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -143,27 +145,14 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-: Install XML package description
-install -Dpm 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
 : Install config file
 install -Dpm644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-cd %{sources}
 : Install the extension
 %make_install
 
-: Install Test and Documentation
-for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{proj_name}/$i
-done
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{proj_name}/$i
-done
-
 
 %check
-cd %{sources}
 export SKIP_ONLINE_TESTS=1
 
 : ignore tests with erratic results
@@ -199,18 +188,29 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{proj_name}
+%license LICENSE
+%doc composer.json
+%doc AUTHORS
+%doc BUGS
+%doc CREDITS
+%doc THANKS
+%doc TODO
+%doc *md
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
-%{pecl_xmldir}/%{name}.xml
 
 %files devel
-%doc %{pecl_testdir}/%{proj_name}
+%doc tests
+
 %{php_incldir}/ext/%{pecl_name}
 
 
 %changelog
+* Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 4.3.1-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

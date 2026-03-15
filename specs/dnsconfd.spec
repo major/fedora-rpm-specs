@@ -2,35 +2,32 @@
 %global selinuxtype targeted
 
 Name:           dnsconfd
-Version:        1.7.5
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
 URL:            https://github.com/InfrastructureServices/dnsconfd
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        dnsconfd.sysusers
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-rpm-macros
-BuildRequires:  python3-pip
+BuildRequires:  pkgconfig(liburiparser) pkgconfig(jansson) pkgconfig(yaml-0.1)
+BuildRequires:  pkgconfig(glib-2.0) pkgconfig(libsystemd) pkgconfig(gio-2.0) pkgconfig(libidn2)
+BuildRequires:  pkgconfig(check)
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  meson gcc
+%if 0%{?with_asan}
+BuildRequires:  libasan
+%endif
 %if %{defined fedora} && 0%{?fedora} < 42 || %{defined rhel} && 0%{?rhel} < 11
 %{?sysusers_requires_compat}
 %endif
 
 Requires:  (%{name}-selinux if selinux-policy-%{selinuxtype})
-Requires:  python3-gobject-base
-Requires:  python3-pyyaml
-Requires:  python3-systemd
-Recommends: python3-idna
 Requires:  dbus-common
 Requires:  %{name}-cache
-Requires:  polkit
 Suggests:  %{name}-unbound
 Requires:  (%{name}-unbound = %{version}-%{release} if %{name}-unbound)
-%generate_buildrequires
-%pyproject_buildrequires
 
 %description
 Dnsconfd configures local DNS cache services.
@@ -85,18 +82,28 @@ Requires:           %{name}-micro%{?_isa} = %{version}-%{release}
 Requires:           unbound
 Requires:           dracut
 Requires:           dracut-network
+Requires:           unbound-dracut
 
 %description dracut
 Dnsconfd dracut module
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup
 
 %build
-%pyproject_wheel
+%if 0%{?with_asan}
+%meson -Db_sanitize=address -Doptimization=g
+%else
+%meson
+%endif
+%meson_build
 
 %if %{defined fedora} && 0%{?fedora} < 40 || %{defined rhel} && 0%{?rhel} < 10
     echo '/var/run/dnsconfd(/.*)? gen_context(system_u:object_r:dnsconfd_var_run_t,s0)' >> distribution/dnsconfd.fc
+%endif
+
+%if 0%{?with_asan}
+    echo 'allow dnsconfd_t dnsconfd_t:process ptrace;' >> distribution/dnsconfd.te
 %endif
 
 make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
@@ -110,16 +117,16 @@ pushd micro-dnsconfd
 popd
 
 %install
-%pyproject_install
+%meson_install
 mkdir   -m 0755 -p %{buildroot}%{_datadir}/dbus-1/system.d/
 mkdir   -m 0755 -p %{buildroot}%{_datadir}/dbus-1/system-services/
 mkdir   -m 0755 -p %{buildroot}%{_sysconfdir}/unbound/conf.d/
 mkdir   -m 0755 -p %{buildroot}%{_unitdir}
 mkdir   -m 0755 -p %{buildroot}%{_unitdir}/unbound.service.d
+mkdir   -m 0755 -p %{buildroot}%{_unitdir}/dnsconfd.service.d
 mkdir   -m 0755 -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir   -m 0755 -p %{buildroot}/%{_mandir}/man8
 mkdir   -m 0755 -p %{buildroot}/%{_mandir}/man5
-mkdir   -m 0755 -p %{buildroot}%{_datadir}/polkit-1/rules.d/
 mkdir   -m 0755 -p %{buildroot}%{_rundir}/dnsconfd
 mkdir   -m 0755 -p %{buildroot}%{_tmpfilesdir}
 mkdir   -m 0755 -p %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
@@ -131,20 +138,24 @@ install -m 0644 -p distribution/dnsconfd.sysconfig %{buildroot}%{_sysconfdir}/sy
 install -m 0644 -p distribution/micro-dnsconfd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/micro-dnsconfd
 install -m 0644 -p distribution/dnsconfd.service %{buildroot}%{_unitdir}/dnsconfd.service
 install -m 0644 -p distribution/micro-dnsconfd.service %{buildroot}%{_unitdir}/micro-dnsconfd.service
+install -m 0644 -p distribution/dnsconfd-unbound-control.path %{buildroot}%{_unitdir}/dnsconfd-unbound-control.path
+install -m 0644 -p distribution/dnsconfd-unbound-control.service %{buildroot}%{_unitdir}/dnsconfd-unbound-control.service
 install -m 0644 -p distribution/dnsconfd.conf %{buildroot}%{_sysconfdir}/dnsconfd.conf
-install -m 0644 -p distribution/dnsconfd.rules %{buildroot}%{_datadir}/polkit-1/rules.d/dnsconfd.rules
 install -m 0644 -p distribution/dnsconfd-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -m 0644 -p distribution/dnsconfd-unbound-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}-unbound.conf
 install -m 0755 -p distribution/dracut_module/module-setup.sh %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-prepare
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-cleanup
+install -m 0755 -p distribution/dnsconfd-unbound-control.sh %{buildroot}%{_libexecdir}/dnsconfd-unbound-control.sh
 install -m 0644 -p distribution/dracut_module/*.conf %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
 
 touch %{buildroot}%{_rundir}/dnsconfd/unbound.conf
 chmod 0644 %{buildroot}%{_rundir}/dnsconfd/unbound.conf
 
-# hook to inform us about unbound stop
+# hook to inform us about unbound state
 install -m 0644 -p distribution/dnsconfd.service.d-unbound.conf %{buildroot}%{_unitdir}/unbound.service.d/dnsconfd.conf
+# hook to enable unbound_control file
+install -m 0644 -p distribution/dnsconfd-unbound-control.conf %{buildroot}%{_unitdir}/dnsconfd.service.d/dnsconfd-unbound-control.conf
 
 install -m 0644 -p distribution/unbound-dnsconfd.conf %{buildroot}%{_sysconfdir}/unbound/conf.d/unbound.conf
 
@@ -165,6 +176,7 @@ pushd micro-dnsconfd
 popd
 
 %check
+%meson_test
 pushd micro-dnsconfd
 %ctest
 popd
@@ -191,6 +203,15 @@ fi
 %sysusers_create_compat %{SOURCE1}
 %endif
 
+%post unbound
+%systemd_post dnsconfd-unbound-control.path
+
+%preun unbound
+%systemd_preun dnsconfd-unbound-control.path
+
+%postun unbound
+%systemd_postun_with_restart dnsconfd-unbound-control.path
+
 %post
 %systemd_post %{name}.service
 
@@ -203,8 +224,6 @@ fi
 %files
 %license LICENSE
 %{_bindir}/dnsconfd
-%{python3_sitelib}/dnsconfd/
-%{python3_sitelib}/dnsconfd-%{version}*
 %{_datadir}/dbus-1/system.d/com.redhat.dnsconfd.conf
 %{_datadir}/dbus-1/system-services/com.redhat.dnsconfd.service
 %config(noreplace) %{_sysconfdir}/sysconfig/dnsconfd
@@ -216,7 +235,6 @@ fi
 %{_mandir}/man5/dnsconfd.conf.5*
 %{_sysusersdir}/dnsconfd.conf
 %doc README.md docs/com.redhat.dnsconfd.md
-%{_datadir}/polkit-1/rules.d/dnsconfd.rules
 %dir %attr(755,dnsconfd,dnsconfd) %{_rundir}/dnsconfd
 %{_tmpfilesdir}/%{name}.conf
 
@@ -231,10 +249,14 @@ fi
 
 %files unbound
 %{_unitdir}/unbound.service.d/dnsconfd.conf
+%{_unitdir}/dnsconfd.service.d/dnsconfd-unbound-control.conf
 %config(noreplace) %attr(644,unbound,unbound) %{_sysconfdir}/unbound/conf.d/unbound.conf
 %attr(664,dnsconfd,dnsconfd) %{_rundir}/dnsconfd/unbound.conf
 %{_sysusersdir}/dnsconfd.conf
 %{_tmpfilesdir}/dnsconfd-unbound.conf
+%{_unitdir}/dnsconfd-unbound-control.path
+%{_unitdir}/dnsconfd-unbound-control.service
+%{_libexecdir}/dnsconfd-unbound-control.sh
 
 %files dracut
 %{_prefix}/lib/dracut/modules.d/99dnsconfd

@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.16
-Release: 6%{?dist}
+Release: 7%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -74,6 +74,7 @@ Patch100: cups-lspp.patch
 
 #### UPSTREAM PATCHES (starts with 1000) ####
 Patch1000: 0001-scheduler-Fix-possible-use_after_free-in-cupsdReadCl.patch
+Patch1001: 0001-tls-gnutls.c-Do-not-check-for-errno-after-I-O-operat.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -302,6 +303,7 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 
 # UPSTREAM PATCHES
 %patch -P 1000 -p1 -b .osh-use-after-free
+%patch -P 1001 -p1 -b .osh-use-after-free
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -789,6 +791,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Mar 13 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.16-7
+- fix cupsd endless loop on busy servers (fedora#2446938)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -39,7 +39,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        ROCm directories
 
@@ -77,10 +77,23 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/lib/cmake
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/bin
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/include
 
+%if %{with compat}
+mkdir -p %{buildroot}%{pkg_prefix}/bin
+mkdir -p %{buildroot}%{pkg_prefix}/include
+mkdir -p %{buildroot}%{pkg_prefix}/libexec
+mkdir -p %{buildroot}%{pkg_prefix}/share
+mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
+%endif
+
 %files
 %if %{with compat}
 %dir %{pkg_prefix}/
+%dir %{pkg_prefix}/bin
+%dir %{pkg_prefix}/include
+%dir %{pkg_prefix}/libexec
+%dir %{pkg_prefix}/share
 %dir %{pkg_prefix}/%{pkg_libdir}
+%dir %{pkg_prefix}/%{pkg_libdir}/cmake
 %endif
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/bin
@@ -198,6 +211,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/include
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Fri Mar 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge rocm-filesystem7.2 back
+
 * Tue Mar 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - merge rocm-filesystem7.2 back
 

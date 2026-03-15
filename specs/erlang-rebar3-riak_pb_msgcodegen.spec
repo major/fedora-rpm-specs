@@ -9,22 +9,10 @@ URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildArch:	noarch
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 %{summary}.
-
-%prep
-%autosetup -p1 -n %{realname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%check
-%{erlang3_test}
-
-%install
-%{erlang3_install}
 
 %files
 %license LICENSE

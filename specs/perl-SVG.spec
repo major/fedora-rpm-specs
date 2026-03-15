@@ -1,5 +1,5 @@
 Name:           perl-SVG
-Version:        2.88
+Version:        2.89
 Release:        1%{?dist}
 Summary:        An extension to generate stand-alone or inline SGV
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 13 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.89-1
+- 2.89 bump (rhbz#2444818)
+
 * Wed Feb 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.88-1
 - 2.88 bump (rhbz#2441939)
 

@@ -38,6 +38,8 @@ database files. The database files and lock file files are separate files.
 
 %prep
 %setup -q -n zc_lockfile-%{version}
+# Relax exact setuptools version pin from upstream
+sed -i 's/setuptools == 78.1.1/setuptools >= 78.1.1/' pyproject.toml tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -t

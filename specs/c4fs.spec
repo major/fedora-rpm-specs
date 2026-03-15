@@ -35,8 +35,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  c4project
-# Our choice; the default make backend should work just as well
-BuildRequires:  ninja-build
 
 BuildRequires:  cmake(c4core)
 
@@ -81,7 +79,7 @@ sed -r -i \
 %conf
 # We can stop the CMake scripts from downloading doctest by setting
 # C4FS_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake -GNinja \
+%cmake \
   -DCMAKE_CXX_STANDARD=%{cxx_std} \
   -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
   -DC4FS_BUILD_TESTS=ON

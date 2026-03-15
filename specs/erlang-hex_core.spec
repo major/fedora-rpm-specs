@@ -1,7 +1,7 @@
 %global realname hex_core
 
 Name:     erlang-%{realname}
-Version:  0.14.0
+Version:  0.15.0
 Release:  %autorelease
 Summary:  Reference implementation of Hex specifications
 License:  Apache-2.0

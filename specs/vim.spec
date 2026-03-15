@@ -39,7 +39,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 112
+%define patchlevel 148
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1052,6 +1052,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Fri Mar 13 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.148-1
+- patchlevel 148
+
 * Fri Mar 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.112-2
 - fix tests which expect mouse=a
 

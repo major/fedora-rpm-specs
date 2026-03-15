@@ -7,12 +7,13 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+# Most sources are under: LGPLv2+, except
+# tools/extra_defs_gen/generate_plugin_gmmproc_file.cc is GPLv2+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gstreamermm/%{branch}/%{name}-%{version}.tar.xz
 Patch0:         https://gitlab.gnome.org/GNOME/gstreamermm/-/merge_requests/4.patch
@@ -31,7 +32,6 @@ BuildRequires: gstreamer1-devel
 BuildRequires: gstreamer1-plugins-base-devel
 # Required for building tests
 BuildRequires: gtest-devel
-BuildRequires: libxml++-devel >= 2.14.0
 BuildRequires: doxygen graphviz m4
 %if %{with mingw}
 BuildRequires: mingw32-filesystem
@@ -199,6 +199,10 @@ popd
 %endif
 
 %changelog
+* Fri Mar 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-29
+- drop unused build dependency on libxml++
+- correct License: tag
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

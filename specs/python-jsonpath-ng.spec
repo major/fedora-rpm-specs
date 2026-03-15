@@ -1,18 +1,20 @@
 %global pypi_name jsonpath-ng
 
 Name:           python-%{pypi_name}
-Version:        1.7.0
-Release:        8%{?dist}
+Version:        1.8.0
+Release:        %autorelease
 Summary:        Implementation of JSONPath for Python
 
 # Main library: ASL 2.0
 # jsonpath_ng/bin/jsonpath.py: WTFPL
 License:        Apache-2.0 AND WTFPL
 URL:            https://github.com/h2non/jsonpath-ng
-Source0:        %{pypi_source jsonpath-ng}
+Source0:        %{pypi_source jsonpath_ng}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# Test dependencies
+BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
 
 %global _description %{expand:
@@ -28,7 +30,7 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n jsonpath_ng-%{version}
 sed -i -e '/^#!\//, 1d' jsonpath_ng/bin/jsonpath.py
 
 %generate_buildrequires
@@ -49,74 +51,4 @@ sed -i -e '/^#!\//, 1d' jsonpath_ng/bin/jsonpath.py
 %{_bindir}/jsonpath_ng
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-7
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-6
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7.0-4
-- Rebuilt for Python 3.14
-
-* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.7.0-3
-- Remove -t (closes rhbz#2354112)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Oct 26 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.7.0-1
-- Update to latest upstream release (closes rhbz#2319671)
-
-* Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.1-16
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 1.5.1-14
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.5.1-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 1.5.1-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.5.1-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Sep 07 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.1-2
-- Clarify licensing (rhbz#1871269)
-
-* Fri Aug 21 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.1-1
-- Initial package for Fedora
+%autochangelog

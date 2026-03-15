@@ -7,8 +7,10 @@ Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
 Release: 84%{?dist}
-# Automatically converted from old format: BSD and BSD with advertising - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising
+# TODO:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/721
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/722
+License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
 URL: ftp://metalab.unc.edu/pub/Linux/games/
 Source0: ftp://metalab.unc.edu/pub/Linux/games/bsd-games-%{version}.tar.gz
 Source1: config.params

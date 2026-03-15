@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.35c
+Version:       4.40c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global commit   afbcb07e7602791390adfc63932efcd14d39bab8
+%global commit   263c43361ec748e8af84b435e6835db0689f6059
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       5%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -293,6 +293,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Mar 13 2026 Richard W.M. Jones <rjones@redhat.com> - 4.40c-1
+- New upstream version 4.40c (RHBZ#2447294)
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 4.35c-5
 - Rebuild for LLVM 22
 

@@ -1,11 +1,11 @@
 Summary:	The ASN.1 library used in GNUTLS
 Name:		libtasn1
-Version:	4.20.0
+Version:	4.21.0
 Release:	%autorelease
 
 # The libtasn1 library is LGPLv2+, utilities are GPLv3+
 License:	GPL-3.0-or-later AND LGPL-2.1-or-later
-URL:		http://www.gnu.org/software/libtasn1/
+URL:		https://www.gnu.org/software/libtasn1/
 Source0:	http://ftp.gnu.org/gnu/libtasn1/%name-%version.tar.gz
 Source1:	http://ftp.gnu.org/gnu/libtasn1/%name-%version.tar.gz.sig
 #Source2:	gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg
@@ -23,13 +23,11 @@ BuildRequires:	valgrind-devel
 BuildRequires:  make
 BuildRequires:  gtk-doc
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
-Provides: bundled(gnulib) = 20130324
+Provides: bundled(gnulib) = 20260101
 
 %package devel
 Summary:	Files for development of applications which will use libtasn1
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-Requires:	%name = %version-%release
 Requires:	%{name}-tools = %{version}-%{release}
 Requires:	pkgconfig
 
@@ -66,7 +64,7 @@ gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 autoreconf -v -f --install
 %configure --disable-static --disable-silent-rules
 # libtasn1 likes to regenerate docs
-touch doc/stamp_docs
+touch doc/{stamp-vti,stamp_docs,version.texi,libtasn1.info}
 
 %make_build
 

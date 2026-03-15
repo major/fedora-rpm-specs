@@ -11,22 +11,10 @@ VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Patch1:		erlang-cluster_info-0001-OTP-25-update.patch
 BuildRequires:	erlang-lager
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 %{summary}.
-
-%prep
-%autosetup -p1 -n %{realname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %license LICENSE

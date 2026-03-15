@@ -5,8 +5,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtk4
-Version:        4.21.0
-Release:        3%{?dist}
+Version:        4.22.1
+Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPLv2+
@@ -217,6 +217,12 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 
 
 %changelog
+* Fri Mar 13 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.22.1-1
+- new version
+
+* Sat Mar 07 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.22.0-1
+- new version, rhbz#2443406
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

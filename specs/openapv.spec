@@ -1,12 +1,14 @@
 Name:          openapv
 Release:       %autorelease
-Version:       0.2.1.1
+Version:       0.2.1.2
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/AcademySoftwareFoundation/openapv/pull/177
 Patch0:        %{name}-fix-md5-hash-mismatch-on-big-endian.patch
+# bump version to 0.2.1.2
+Patch1:        %{name}-version.patch
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc
@@ -35,8 +37,7 @@ Summary: Shared libraries for openapv
 The openapv-libs package contains the shared library files
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .orig
+%autosetup -p1
 
 %build
 %cmake \

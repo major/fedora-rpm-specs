@@ -13,12 +13,12 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20251218
-%global	gittartime		1122
+%global	gittardate		20260313
+%global	gittartime		2237
 %global	use_gitcommit_as_rel		1
 
-%global	gitbaredate	20251208
-%global	git_rev		94febbf1015aee8d2d718ee451f1f09df3f6150f
+%global	gitbaredate	20260313
+%global	git_rev		4dec3d0d3d8f9e2a9d14dd1b099d378289b67db4
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -31,7 +31,7 @@
 %dnl	%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.11.1
-%global		baserelease	2
+%global		baserelease	1
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -225,6 +225,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Mar 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.1^20260313git4dec3d0d-1
+- Update to the latest git
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1^20251208git94febbf1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

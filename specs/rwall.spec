@@ -2,8 +2,7 @@ Summary: Client for sending messages to a host's logged in users
 Name: rwall
 Version: 0.17
 Release: 71%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause AND BSD-4-Clause-UC
 Url: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/
 Source: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-rwall-%{version}.tar.gz
 Source1: rwalld.service

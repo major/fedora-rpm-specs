@@ -3,7 +3,7 @@
 %bcond_with docs
 
 Name:           python-jaraco-functools
-Version:        4.3.0
+Version:        4.4.0
 Release:        %autorelease
 Summary:        Functools like those found in stdlib
 
@@ -11,7 +11,7 @@ License:        MIT
 URL:            https://github.com/jaraco/jaraco.functools
 Source0:        %{pypi_source jaraco_functools}
 BuildArch:      noarch
- 
+
 %description
 Functools like those found in stdlib
 
@@ -52,7 +52,7 @@ tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "py
 %pyproject_wheel
 
 %if %{with docs}
-# generate html docs 
+# generate html docs
 %{python3} -m sphinx docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}

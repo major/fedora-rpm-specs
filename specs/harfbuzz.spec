@@ -1,6 +1,6 @@
 Name:           harfbuzz
-Version:        13.0.1
-Release:        1%{?dist}
+Version:        13.1.1
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -106,6 +106,7 @@ This package contains Harfbuzz Vector support library.
 %doc %{_datadir}/gtk-doc
 %{_bindir}/hb-info
 %{_bindir}/hb-view
+%{_bindir}/hb-raster
 %{_bindir}/hb-shape
 %{_bindir}/hb-subset
 %{_bindir}/hb-vector
@@ -141,6 +142,12 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-vector.so.*
 
 %changelog
+* Fri Mar 13 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.1.1-2
+- add missing hb-raster binary
+
+* Fri Mar 13 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.1.1-1
+- Update to 13.1.1 version (#2446400)
+
 * Sun Mar 08 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.0.1-1
 - Update to 13.0.1 version (#2445520)
 

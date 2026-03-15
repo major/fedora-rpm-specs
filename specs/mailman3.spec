@@ -35,7 +35,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -52,6 +52,8 @@ Source7:        mailman3-sysusers.conf
 Patch:          mailman3-fix-pyproject-escaping.diff
 # rebased from https://gitlab.com/mailman/mailman/-/commit/3a22537382d41ab3e46b859054547755963b069d.patch
 Patch:          mailman3-py313-nntplib.diff
+# Fix for removal of contextmanager support in pathlib
+Patch:          https://gitlab.com/mailman/mailman/-/merge_requests/1309.patch#/mailman3-py313-pathlib.diff
 
 BuildArch:      noarch
 
@@ -263,6 +265,9 @@ done
 
 
 %changelog
+* Fri Mar 13 2026 Neal Gompa <ngompa@fedoraproject.org> - 3.3.10-3
+- Fix pathlib usage for Python 3.13+ compat; Resolves: RHBZ#2367737
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -30,8 +30,6 @@ Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_c
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Our choice; the default make backend should work just as well
-BuildRequires:  ninja-build
 
 BuildRequires:  cmake(doctest)
 # Doctest is header-only, so we must BR:
@@ -78,7 +76,6 @@ ln -s "${PWD}/../supplemental_test_files-%{stf_commit}/" \
     '%{_vpath_builddir}/_deps/supplemental_test_files-src'
 
 %cmake \
-    -GNinja \
     -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON \
     -DSYSTEM_DOCTEST:BOOL=ON \
     -DFASTFLOAT_TEST:BOOL=ON \

@@ -6,8 +6,9 @@ Summary: Displays the users logged into machines on the local network
 Name: rusers
 Version: 0.17
 Release: 110%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+# Several rpc.statd/rstat_proc* are LicenseRef-sun-rpc which is not-allowed, but Oracle allowed us
+# to relicense. See bellow.
+License: BSD-3-Clause AND BSD-4-Clause-UC
 Url: http://rstatd.sourceforge.net/
 Source: http://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-rusers-%{version}.tar.gz
 Source1: rusersd.service

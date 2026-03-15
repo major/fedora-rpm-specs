@@ -65,7 +65,7 @@ images and animations.
 
 %package libs
 Summary:	Libraries for HDR processing
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 
 %description libs
 The pfstools-libs package contains a runtime library of functions for

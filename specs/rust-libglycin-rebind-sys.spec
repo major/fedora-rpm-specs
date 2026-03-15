@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate libglycin-rebind-sys
-%global crate_version 0.1.0-rc
 
 Name:           rust-libglycin-rebind-sys
-Version:        0.1.0~rc
+Version:        0.1.0
 Release:        %autorelease
 Summary:        FFI bindings for libglycin
 
 License:        MIT
 URL:            https://crates.io/crates/libglycin-rebind-sys
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(glycin-2)
@@ -49,7 +48,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

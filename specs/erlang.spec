@@ -70,8 +70,8 @@
 
 
 Name:		erlang
-Version:	26.2.5.17
-Release:	3%{?dist}
+Version:	26.2.5.18
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -2006,6 +2006,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Fri Mar 13 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.18-1
+- Ver. 26.2.5.18
+
 * Thu Feb 26 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.17-3
 - Fix broken links to non-existing chunks
 

@@ -2,20 +2,26 @@
 %global pie_proj   imagick
 %global pecl_name  imagick
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
+
+# Github forge
+%global gh_vend    Imagick
+%global gh_proj    imagick
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        %{version}
 
 Summary:        Provides a wrapper to the ImageMagick library
 Name:           php-pecl-%pecl_name
-Version:        3.8.1
-Release:        2%{?dist}
 License:        PHP-3.01
-URL:            https://pecl.php.net/package/%pecl_name
-
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        3.8.1
+Release:        3%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
-BuildRequires:  php-pear
+BuildRequires:  make
+BuildRequires:  gcc
 BuildRequires:  php-devel
 BuildRequires:  pkgconfig(ImageMagick)
 
@@ -50,31 +56,23 @@ These are the files needed to compile programs using %{pecl_name} extension.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-# don't install any font (and test using it)
-# don't install empty file (d41d8cd98f00b204e9800998ecf8427e)
-sed -e '/anonymous_pro_minus.ttf/d' \
-    -e '/015-imagickdrawsetresolution.phpt/d' \
-    -e '/OFL.txt/d' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
+: bundled font
+rm tests/*.ttf
+rm tests/015-imagickdrawsetresolution.phpt
 
-if grep '\.ttf' package.xml
-then : "Font files detected!"
-     exit 1
-fi
-
-cd %{sources}
 : Avoid arginfo to be regenerated
 rm *.stub.php
+
+: Set version
+sed -e '/PHP_IMAGICK_VERSION/s/@PACKAGE_VERSION@/%{version}/' -i php_imagick.h
 
 extver=$(sed -n '/#define PHP_IMAGICK_VERSION/{s/.* "//;s/".*$//;p}' php_imagick.h)
 if test "x${extver}" != "x%{version}%{?prever}"; then
    : Error: Upstream version is ${extver}, expecting %{version}%{?prever}.
    exit 1
 fi
-cd ..
 
 cat > %{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
@@ -101,8 +99,6 @@ EOF
 
 
 %build
-cd %{sources}
-
 : Standard build
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
@@ -113,28 +109,14 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
 : Install the extension
 %make_install
 
 : Drop in the bit of configuration
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -p -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install Test and Documentation
-for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do [ -f $i ] && install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
-done
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do [ -f $i ] && install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
-cd %{sources}
-
 : simple module load test for the extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -158,20 +140,28 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc ChangeLog
+%doc examples
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %files devel
-%doc %{pecl_testdir}/%{pecl_name}
+%doc util
+%doc tests
+
 %{php_incldir}/ext/%{pecl_name}
 
 
 %changelog
+* Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 3.8.1-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

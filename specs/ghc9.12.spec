@@ -37,12 +37,13 @@
 
 %global ghc_major 9.12
 %global ghc_patchlevel 3
+%global ghc_snapshot 20260311
 %global ghc_name ghc%{ghc_major}
 
 %global Cabal_ver 3.14.2.0
-%global base_ver 4.21.1.0
-%global directory_ver 1.3.9.0
-%global file_io_ver 0.1.5
+%global base_ver 4.21.2.0
+%global directory_ver 1.3.10.1
+%global file_io_ver 0.1.6
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global ghc_version_for_lib %{ghc_major}0%{ghc_patchlevel}.0
@@ -50,7 +51,7 @@
 %global ghc_toolchain_ver 0.1.0.0
 %global haddock_api_ver 2.32.0
 %global hpc_ver 0.7.0.2
-%global rts_ver 1.0.2
+%global rts_ver 1.0.3
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.6+
@@ -86,20 +87,16 @@
 %if %{defined el9}
 %global llvm_major 12
 %else
-%if %{defined fc41}
-%global llvm_major 18
-%else
 %global llvm_major 19
-%endif
 %endif
 %global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}
+Version: %{ghc_major}.%{ghc_patchlevel}%{?ghc_snapshot:.%{ghc_snapshot}}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -116,9 +113,6 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/26711 (subword division)
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15264
-Patch4: https://gitlab.haskell.org/ghc/ghc/-/commit/65370007e2d9f1976fbcfbb514917fb111117148.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2430571
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
@@ -397,9 +391,9 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.1.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-%{directory_ver}
-%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.10
+%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.12
 %ghc_lib_subpackage -d -l BSD-3-Clause file-io-%{file_io_ver}
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.4.0
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.5.0
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
@@ -414,11 +408,11 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghci-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD-2-Clause haddock-api-%{haddock_api_ver}
 %ghc_lib_subpackage -d -l BSD-2-Clause haddock-library-1.11.0
-%ghc_lib_subpackage -d -l BSD-3-Clause haskeline-0.8.2.1
+%ghc_lib_subpackage -d -l BSD-3-Clause haskeline-0.8.4.1
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
-%ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
-%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.8
+%ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.2
+%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.10
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.26.1
@@ -427,10 +421,10 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.23.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
-%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.3
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.4
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.14
-%ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.2
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.7.0
+%ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.8.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -474,7 +468,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P4 -p1 -b .orig
 %patch -P5 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -941,6 +934,9 @@ make test
 
 
 %changelog
+* Fri Mar 13 2026 Jens Petersen <petersen@redhat.com> - 9.12.3.20260311-16
+- https://downloads.haskell.org/ghc/9.12.4-rc1/docs/users_guide/9.12.4-notes.html
+
 * Fri Feb 13 2026 Jens Petersen <petersen@redhat.com> - 9.12.3-15
 - rebuild with ghc-rpm-macros-2.11
 - add ppc64le arch patches for ghc-platform and rts.cabal (#26870)

@@ -39,8 +39,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  c4project
-# Our choice; the default make backend should work just as well
-BuildRequires:  ninja-build
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
@@ -143,7 +141,7 @@ EOF
 %conf
 # We can stop the CMake scripts from downloading doctest by setting
 # C4CORE_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake -GNinja \
+%cmake \
   -DCMAKE_CXX_STANDARD=%{cxx_std} \
   -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
   -DC4CORE_BUILD_TESTS=ON

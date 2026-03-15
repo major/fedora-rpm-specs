@@ -12,22 +12,10 @@ URL:		https://github.com/kivra/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-folsom
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 %{summary}.
-
-%prep
-%autosetup -p1 -n %{realname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %doc README.md

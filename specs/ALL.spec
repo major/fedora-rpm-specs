@@ -1,14 +1,17 @@
 Name:           ALL
 Version:        0.9.3
 %global         sover 0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Load Balancing Library (ALL)
 
 # stb_arr.h is public domain
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://slms.pages.jsc.fz-juelich.de/websites/all-website/ 
 Source0:        https://gitlab.jsc.fz-juelich.de/SLMS/loadbalancing/-/archive/v%{version}/loadbalancing-v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# remove some bundled header, not used by default
 Patch0:         https://gitlab.jsc.fz-juelich.de/SLMS/loadbalancing/-/merge_requests/32.patch
+# fix build with vtk-9.6.0
+Patch1:         https://gitlab.jsc.fz-juelich.de/SLMS/loadbalancing/-/merge_requests/34.patch
 
 # no openmpi on ix86
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -160,6 +163,10 @@ done
 %{_docdir}/%{name}/html
 
 %changelog
+* Fri Mar 13 2026 Christoph Junghans <junghans@votca.org>
+- Add patch to fix build with vtk-9.6.0
+- Fixes: rhbz#2443252
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

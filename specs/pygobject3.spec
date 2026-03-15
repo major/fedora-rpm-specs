@@ -4,7 +4,7 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.56.0
+Version:        3.56.1
 Release:        %autorelease
 Summary:        Python bindings for GObject Introspection
 
@@ -94,7 +94,7 @@ export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
 %pycached %{python3_sitearch}/gi/*.py
 %{python3_sitearch}/gi/_gi.*.so
 %{python3_sitearch}/PyGObject-*.dist-info/
-#%{python3_sitearch}/pygtkcompat/
+#%%{python3_sitearch}/pygtkcompat/
 
 %files -n python3-gobject-devel
 %dir %{_includedir}/pygobject-3.0/

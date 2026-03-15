@@ -37,8 +37,6 @@ Patch:          c4log-b8b86f3-external-c4core.patch
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  c4project
-# Our choice; the default make backend should work just as well
-BuildRequires:  ninja-build
 # A Python 3 interpreter is required for the patch-no-download script.
 BuildRequires:  python3-devel
 
@@ -86,7 +84,7 @@ sed -r -i 's/\bdoctest\b//' test/CMakeLists.txt
 %conf
 # We can stop the CMake scripts from downloading doctest by setting
 # C4LOG_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake -GNinja \
+%cmake \
   -DCMAKE_CXX_STANDARD=%{cxx_std} \
   -DC4LOG_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
   -DC4LOG_BUILD_TESTS=ON

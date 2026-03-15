@@ -1,12 +1,12 @@
-# tests are having issues that appear to be due to Chrome/Chromium, so
-# don't run them by default
+# 2026-03-13 v0.76 cleaned up tests so let's try enabling them
+# - they work on my local system but not in Fedora infrastructure
 %bcond do_tests 0
 %bcond debug_tests 0
 # some tests require Internet access, don't enable by default
 %bcond network_tests 0
 
 Name:           perl-WWW-Mechanize-Chrome
-Version:        0.75
+Version:        0.76
 Release:        2%{?dist}
 Summary:        Automate the Chrome browser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(AnyEvent::Future)
 BuildRequires:  perl(AnyEvent::WebSocket::Client)
+BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
@@ -162,6 +163,13 @@ make test
 %{_mandir}/man3/WWW::Mechanize::Chrome*
 
 %changelog
+* Fri Mar 13 2026 Chris Adams <linux@cmadams.net> - 0.76-2
+- tests work locally but not in Fedora infrastructure, disable
+
+* Fri Mar 13 2026 Chris Adams <linux@cmadams.net> - 0.76-1
+- new version
+- tests cleaned up, so enable by default
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

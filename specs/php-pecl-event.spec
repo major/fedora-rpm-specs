@@ -7,33 +7,39 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_without      tests
+%bcond_without           tests
 
-%global pecl_name   event
-%global pie_vend    osmanov
-%global pie_proj    pecl-event
+%global pecl_name        event
+%global pie_vend         osmanov
+%global pie_proj         pecl-event
 
-%global ini_name    40-%{pecl_name}.ini
+%global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 3.1.5
 #global upstream_prever  RC3
 #global upstream_postver r1
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
-Summary:       Provides interface to libevent library
+# Github forge
+%global gh_vend          osmanov
+%global gh_proj          pecl-event
+%global forgeurl         https://bitbucket.org/%{gh_vend}/%{gh_proj}
+%global tag              %{upstream_version}%{?upstream_prever}
+%global commit           e14e0f5e134e
+
 Name:          php-pecl-%{pecl_name}
-Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       1%{?dist}
+Summary:       Provides interface to libevent library
 License:       PHP-3.01
-URL:           https://pecl.php.net/package/event
-Source0:       https://pecl.php.net/get/%{sources}.tgz
+Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
+Release:       2%{?dist}
+%forgemeta
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: php-devel
-BuildRequires: php-pear
 BuildRequires: libevent-devel >= 2.0.2
 BuildRequires: openssl-devel
 BuildRequires: pkgconfig
@@ -66,14 +72,8 @@ Documentation: http://php.net/event
 
 
 %prep
-%setup -q -c 
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Sanity check, really often broken
 DIR=$(%{__php} -r 'echo "php" . PHP_MAJOR_VERSION;')
 extver=$(sed -n '/#define PHP_EVENT_VERSION/{s/.* "//;s/".*$//;p}' $DIR/php_event.h)
@@ -81,7 +81,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?upstream_post
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?upstream_postver}.
    exit 1
 fi
-cd ..
 
 # Drop in the bit of configuration
 cat > %{ini_name} << 'EOF'
@@ -91,7 +90,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -108,16 +106,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install the configuration file
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install the package XML file
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 : Install the Documentation
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -126,8 +119,6 @@ done
 
 
 %check
-cd %{sources}
-
 if [ -f %{php_extdir}/sockets.so ]; then
   OPTS="-d extension=sockets.so"
 fi
@@ -147,15 +138,21 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc README.md
+%doc CREDITS
+%doc examples
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 3.1.5-2
+- drop pear/pecl dependency
+- sources from bitbucket
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 3.1.5-1
 - update to 3.1.5 (no change)
 

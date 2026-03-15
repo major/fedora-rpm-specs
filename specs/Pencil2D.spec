@@ -1,5 +1,5 @@
 Name:           Pencil2D
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Create traditional hand-drawn animation (cartoon)
 # For translations, check translations/*.ts.

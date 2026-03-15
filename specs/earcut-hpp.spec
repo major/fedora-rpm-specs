@@ -29,8 +29,6 @@ Patch:          0001-Use-a-range-for-CMake-minimum-versions-3.2.3.12-supp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Our choice; the default UNIX Makefiles backend would also work
-BuildRequires:  ninja-build
 
 # For tests (and benchmarks, if enabled):
 BuildRequires:  pkgconfig(opengl)
@@ -98,8 +96,7 @@ export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
     -DEARCUT_BUILD_TESTS:BOOL=ON \
     -DEARCUT_BUILD_BENCH:BOOL=OFF \
     -DEARCUT_BUILD_VIZ:BOOL=OFF \
-    -DEARCUT_WARNING_IS_ERROR:BOOL=OFF \
-    -GNinja
+    -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
 
 
 %build

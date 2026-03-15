@@ -1,6 +1,6 @@
 Name:           davfs2
-Version:        1.7.2
-Release:        3%{?dist}
+Version:        1.7.3
+Release:        1%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -67,8 +67,8 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 
 %files -f %{name}.lang
 # Docs
-%doc AUTHORS BUGS ChangeLog FAQ INSTALL NEWS README.md README.translators THANKS TODO
-%license COPYING
+%license AUTHORS COPYING
+%doc BUGS ChangeLog FAQ INSTALL NEWS README.md README.translators THANKS TODO
 %{_mandir}/man5/*.gz
 %{_mandir}/man8/*.gz
 # localized man pages
@@ -95,6 +95,13 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 %{_sysusersdir}/davfs2.conf
 
 %changelog
+* Fri Mar 13 2026 Paul Howarth <paul@city-fan.org> - 1.7.3-1
+- Update to 1.7.3 (rhbz#2447065)
+  - Add musl support
+  - Fix macro-substitution in manual pages
+  - Remove hardcoded neon versions from configure.ac
+- Consider AUTHORS as a license file rather than just documentation
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

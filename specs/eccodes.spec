@@ -3,8 +3,8 @@
 %endif
 
 Name:           eccodes
-Version:        2.45.0
-Release:        2%{?dist}
+Version:        2.46.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -69,6 +69,7 @@ BuildRequires:  openjpeg2-devel >= 2.5.2
 BuildRequires:  libpng-devel
 BuildRequires:  netcdf-devel
 BuildRequires:  libaec-devel
+BuildRequires:  libaec-static
 
 # For tests
 BuildRequires:  perl(Getopt::Long)
@@ -227,7 +228,7 @@ for index, path in ipairs(problematic_dirs) do
         status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
         if status then
           print("renamed:" .. path .. ".rpmmoved to " .. path .. ".rpmmoved." .. suffix)
-	end
+        end
       end
       os.rename(path, path .. ".rpmmoved")
       print("renamed:" .. path .. " to " .. path .. ".rpmmoved")
@@ -410,6 +411,9 @@ sed -i 's|^libs=.*$|libs=-L${libdir} -leccodes_f90 -leccodes|g' %{buildroot}/%{_
 # * exporting the 2 environment variables below is required!
 #   without export the values are not provided to the executed tests! 
 #   (probably because the %%ctest macro starts with a blank line)
+# * disabling 6 tests with eccodes_download in their name is required
+#   since the fedora build environment does not have internet access
+#   (these 6 tests where introduced in version 2.46.0)
 
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 export LIBRARY_PATH=%{buildroot}/%{_libdir}
@@ -474,6 +478,9 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Fri Mar 13 2026 Jos de Kloe <josdekloe@gmail.com> - 2.46.0-1
+- Update to 2.46.0
 
 * Wed Jan 28 2026 Jos de Kloe <josdekloe@gmail.com> - 2.45.0-2
 - Fix for cmake 4 compatibility

@@ -5,7 +5,7 @@
 Summary: Widget extension to the Tcl/Tk scripting language
 Name: blt
 Version: 2.4
-Release: 76.z%{?dist}
+Release: 77.z%{?dist}
 
 License: MIT
 URL: http://sourceforge.net/projects/blt/
@@ -26,7 +26,7 @@ Patch10: blt-configure-c99.patch
 
 Provides: tk-blt = %{version}-%{release}
 # Not ready to tk/tcl9
-BuildRequires: (tk-devel >= 1:8.4.7 with tk-devel < 1:9) gcc
+BuildRequires: (tk8-devel >= 1:8.4.7 with tk8-devel < 1:9) gcc
 BuildRequires: make
 
 Requires: (tk8 >= 1:8.4.7 with tk8 < 1:9)
@@ -135,6 +135,9 @@ rm -rf %{buildroot}%{_mandir}/
 %{_includedir}/%{name}
 
 %changelog
+* Fri Mar 13 2026 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.4-77.z
+- Fix tk8 naming
+
 * Thu Mar 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4-76.z
 - Fix tk8 related Requires, tk does not provide tk8
 

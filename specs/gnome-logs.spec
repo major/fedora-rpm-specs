@@ -1,15 +1,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-logs
-Version:        49.0
-Release:        2%{?dist}
+Version:        50.0
+Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
 # data/org.gnome.Logs.appdata.xml.in is CC0-1.0
 # data/icons/scalable/org.gnome.Logs.svg is CC-BY-3.0
 License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0
 URL:            https://wiki.gnome.org/Apps/Logs
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -59,6 +59,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Fri Mar 13 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

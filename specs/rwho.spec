@@ -2,9 +2,10 @@ Summary: Displays who is logged in to local network machines
 Name: rwho
 Version: 0.17
 Release: 81%{?dist}
-# part of rwhod is under GPL+, other parts are under BSD
-# Automatically converted from old format: BSD and GPL+ - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND GPL-1.0-or-later
+# rwhod/rwhod.c* is GPL-1.0-or-later
+# include/protocols/rwhod.h.wd, include/protocols/rwhod.h are BSD-3-Clause
+# the rest is BSD-4-Clause-UC
+License: BSD-3-Clause AND BSD-4-Clause-UC AND GPL-1.0-or-later
 Source: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-rwho-%{version}.tar.gz
 Source1: rwhod.service
 Patch0: rwho-0.15-alpha.patch

@@ -1,5 +1,5 @@
 Name:           perl-Config-Model-Tester
-Version:        4.008
+Version:        4.009
 Release:        1%{?dist}
 Summary:        Test framework for Config::Model
 License:        LGPL-2.1-only
@@ -14,7 +14,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Module::Build)
 # Run-time:
-BuildRequires:  perl(:VERSION) >= 5.10.1
+BuildRequires:  perl(:VERSION) >= 5.20
+BuildRequires:  perl(Carp)
 # Bootstrap to prevent circular dependency on perl-Config-Model
 %if !%{defined perl_bootstrap}
 BuildRequires:  perl(Config::Model)
@@ -23,6 +24,7 @@ BuildRequires:  perl(Config::Model::Lister)
 BuildRequires:  perl(Config::Model::Value)
 %endif
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Copy::Recursive)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(locale)
@@ -67,6 +69,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Config::Model::Tester*
 
 %changelog
+* Fri Mar 13 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.009-1
+- 4.009 bump (rhbz#2444202)
+
 * Wed Feb 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.008-1
 - 4.008 bump (rhbz#2436012)
 

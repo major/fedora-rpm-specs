@@ -49,8 +49,6 @@ Patch:          %{url}/pull/863.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Our choice; the make backend would work just fine.
-BuildRequires:  ninja-build
 
 BuildRequires:  cmake(gtest)
 
@@ -107,7 +105,7 @@ find samples/VC++ -type f -execdir dos2unix --keepdate '{}' '+'
 
 
 %conf
-%cmake -GNinja -Dtest:BOOL=TRUE
+%cmake -Dtest:BOOL=TRUE
 
 
 %build

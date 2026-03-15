@@ -35,8 +35,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# The ninja backend should be slightly faster than make, with no disadvantages.
-BuildRequires:  ninja-build
 %if %{with cpp_tests} && %{with cpp_grpc_test}
 BuildRequires:  cmake(absl)
 BuildRequires:  cmake(protobuf)
@@ -209,7 +207,7 @@ popd >/dev/null
 %conf
 # Needed for correct Python wheel version
 export VERSION='%{version}'
-%cmake -GNinja \
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
 %if %{with cpp_tests}
     -DFLATBUFFERS_BUILD_TESTS:BOOL=ON \

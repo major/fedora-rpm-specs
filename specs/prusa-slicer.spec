@@ -53,6 +53,13 @@ Patch396:	prusa-slicer-pr-13761.patch
 Patch421:       prusa-slicer-pr-13081.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/14388 and https://bugzilla.redhat.com/show_bug.cgi?id=2381383
 Patch431:       prusa-slicer-pr-14388-cmake-4.patch
+# https://github.com/prusa3d/PrusaSlicer/issues/14534
+# https://gitlab.archlinux.org/archlinux/packaging/packages/prusa-slicer/-/blob/main/boost-1.88.patch
+Patch441:	prusa-slicer-boost-1.88.patch
+# https://gitlab.archlinux.org/archlinux/packaging/packages/prusa-slicer/-/blob/main/fixes_boost.patch
+Patch442:	prusa-slicer-boost-1.84567.patch
+# https://gitlab.archlinux.org/archlinux/packaging/packages/prusa-slicer/-/blob/main/boost-1.89.patch
+Patch423:	prusa-slicer-boost-1.89.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le

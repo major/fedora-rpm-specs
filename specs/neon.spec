@@ -13,6 +13,7 @@ License: LGPL-2.0-or-later
 URL: https://notroj.github.io/neon/
 Source0: https://notroj.github.io/neon/neon-%{version}.tar.gz
 Patch0: neon-0.34.0-multilib.patch
+Patch1: neon-0.37.0-bigend.patch
 BuildRequires: expat-devel, openssl-devel, zlib-devel, krb5-devel
 BuildRequires: pkgconfig, make, gcc, xmlto, libntlm-devel
 %if %{with pkcs11}
@@ -80,7 +81,14 @@ sed -ri "/^dependency_libs/{s,-l[^ ']*,,g}" \
 %if %{with tests}
 %check
 export TEST_QUIET=0
-make %{?_smp_mflags} check
+if make %{?_smp_mflags} check; then
+    : PASS
+else
+    : FAIL
+    cat test/child.log || true
+    cat test/debug.log || true
+    exit 1
+fi
 %endif
 
 %ldconfig_scriptlets

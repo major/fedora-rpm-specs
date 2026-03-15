@@ -1,15 +1,15 @@
-%global gtk4_version 4.14.0
-%global libadwaita_version 1.6
+%global gtk4_version 4.19
+%global libadwaita_version 1.8
 %global vte_version 0.77.0
 
 Name:           gnome-console
-Version:        49.2
+Version:        50~rc
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/console
-Source:         https://download.gnome.org/sources/gnome-console/49/gnome-console-%{version_no_tilde .}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-console/50/gnome-console-%{version_no_tilde .}.tar.xz
 
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  gcc

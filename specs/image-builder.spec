@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 171
+%global min_osbuild_version 175
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        51
+Version:        53
 
 %gometa
 
@@ -146,8 +146,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.23.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.244.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.25.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.248.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -182,8 +182,8 @@ Provides: bundled(golang(golang.org/x/crypto)) = 0.41.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
 Provides: bundled(golang(golang.org/x/net)) = 0.43.0
 Provides: bundled(golang(golang.org/x/sync)) = 0.16.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.35.0
-Provides: bundled(golang(golang.org/x/term)) = 0.34.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.41.0
+Provides: bundled(golang(golang.org/x/term)) = 0.40.0
 Provides: bundled(golang(golang.org/x/text)) = 0.28.0
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 3122310
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 3122310
@@ -265,6 +265,23 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Fri Mar 13 2026 Packit <hello@packit.dev> - 53-1
+Changes with 53
+----------------
+  - chore: bump dependencies via gobump (#475)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - cmd: allow specifying AWS credentials profile (#443)
+    - Author: Jakub Kadlčík, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - deps: bump images to 0.248.0 (#479)
+    - Author: Simon de Vlieger, Reviewers: Nobody
+  - docs: update COPR command for RHEL (#477)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - test: bump ISO timeout (#469)
+    - Author: Lukáš Zapletal, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-03-13
+
+
 * Thu Feb 19 2026 Packit <hello@packit.dev> - 51-1
 Changes with 51
 ----------------

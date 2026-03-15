@@ -1,8 +1,5 @@
-%define username   memcached
-%define groupname  memcached
 %bcond_without sasl
 %bcond_with seccomp
-%bcond_without tls
 %bcond_with tests
 %global selinuxtype	targeted
 %global selinuxmoduletype	contrib
@@ -11,7 +8,7 @@
 %global selinuxmoduledir	%{selinuxmodulename}-selinux-%{selinuxmodulever}
 
 Name:           memcached
-Version:        1.6.40
+Version:        1.6.41
 Release:        %autorelease
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
@@ -32,7 +29,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Test::More), perl(Test::Harness)
 %{?with_sasl:BuildRequires: cyrus-sasl-devel}
 %{?with_seccomp:BuildRequires: libseccomp-devel}
-%{?with_tls:BuildRequires: openssl-devel}
+BuildRequires:  openssl-devel
 BuildRequires:  systemd-rpm-macros
 
 Requires(pre):  shadow-utils
@@ -79,7 +76,7 @@ optimised for use with this version of memcached.
 %configure \
   %{?with_sasl: --enable-sasl --enable-sasl-pwdb} \
   %{?with_seccomp: --enable-seccomp} \
-  %{?with_tls: --enable-tls}
+  --enable-tls
 
 make %{?_smp_mflags}
 
