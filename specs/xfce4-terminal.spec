@@ -1,8 +1,8 @@
-%global minorversion 1.1
-%global xfceversion 4.16
+%global minorversion 1.2
+%global xfceversion 4.20
 
 Name:           xfce4-terminal
-Version:        1.1.5
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Terminal Emulator for the Xfce Desktop environment
 

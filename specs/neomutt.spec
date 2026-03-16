@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
 Version: 20260105
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -84,6 +84,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 6:20260105-3
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6:20260105-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

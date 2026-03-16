@@ -10,8 +10,8 @@ URL:            https://ollama.com
 Source:         %{pypi_source ollama}
 
 BuildArch:      noarch
-# Ollama only on x86_64
-ExclusiveArch:  x86_64
+# Ollama only on x86_64 and aarch64
+ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest-httpserver)

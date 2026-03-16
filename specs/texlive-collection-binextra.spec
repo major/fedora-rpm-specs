@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-binextra
 Epoch:          12
-Version:        svn75830
-Release:        5%{?dist}
+Version:        svn77772
+Release:        7%{?dist}
 Summary:        TeX auxiliary programs
 
 License:        LPPL-1.3c
@@ -21,10 +21,8 @@ Source2:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cta
 Source3:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctan_chk.doc.tar.xz
 Source4:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hook-pre-commit-pkg.tar.xz
 Source5:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hook-pre-commit-pkg.doc.tar.xz
-Source6:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.tar.xz
-Source7:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.doc.tar.xz
-Source8:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.tar.xz
-Source9:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.doc.tar.xz
+Source6:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk-support.tar.xz
+Source7:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk-support.doc.tar.xz
 BuildRequires:  texlive-base
 Requires:       texlive-base
 Requires:       texlive-a2ping
@@ -137,6 +135,8 @@ Requires:       texlive-tpic2pdftex
 Requires:       texlive-typeoutfileinfo
 Requires:       texlive-upmendex
 Requires:       texlive-web
+Requires:       texlive-xdvipsk
+Requires:       texlive-xdvipsk-support
 Requires:       texlive-xindex
 Requires:       texlive-xindy
 Requires:       texlive-xpdfopen
@@ -182,37 +182,26 @@ first character in the line. Four spaces must be printed between % and
 \begin{macrocode} or \end{macrocode}. \cs argument must not start with a
 backslash.
 
-%package -n texlive-runtexfile
-Summary:        Automate the process of compiling (La)TeX documents with index, bibliography...
-Version:        svn76526
+%package -n texlive-xdvipsk-support
+Summary:        LuaLaTeX packages for the xdvipsk binary (dvips extension)
+Version:        svn77772
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       texlive-runtexfile
+Requires:       texlive-xdvipsk
+Requires:       tex(luatexbase.sty)
+Provides:       tex(xdvipsk-support.sty) = %{tl_version}
+Provides:       tex(xdvipsk.def) = %{tl_version}
+Provides:       tex(xdvipskmaps.sty) = %{tl_version}
 
-%description -n texlive-runtexfile
-This package provides a small script like latexmk to run a TeX or LaTeX
-document controlled from within the document itself. The commands have to be
-defined at the beginning of the document, e.g.: %! HV lualatex --shell-escape
-%! HV biber %! HV lualatex --shell-escape %! HV xindex %! HV xindex --config
-DIN2 -l DE -o test2.vwd %! HV xindex --config DIN2 -l DE -o test2.dbd %! HV
-lualatex --shell-escape %! HV lualatex --shell-escape \documentclass[...]{...}
-... The script itself does not parse the log file.
-
-%package -n texlive-show-pdf-tags
-Summary:        Extract PDF tags from tagged PDF files
-Version:        svn77604
-License:        MIT
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Requires:       texlive-show-pdf-tags
-
-%description -n texlive-show-pdf-tags
-This package provides a tool to make the structure of tagged PDF files visible.
-It parses a PDF file and extracts most tagging related information to turn it
-into either a visual tree structure or an XML document representing the tags.
-The package is released together with a collection of schemas which can be used
-to check that the resulting XML structure follows specified rules.
+%description -n texlive-xdvipsk-support
+This LaTeX package bundle offers support for xdvipsk, an extension of the dvips
+binary. xdvipsk supports BMP, PCX, TIFF, JPEG, and PNG formats and performs
+scaling, rotating, trim, and viewport operations like EPS images. The
+xdvispk.def driver for the graphics package offers a LaTeX interface. However,
+it lacks clipping, trimming, and viewport operations. The LuaLaTeX package
+xdvipskmaps provides OpenType font support for xdvipsk. It generates map files
+containing information about OpenType fonts used in DVI files.
 
 
 %prep
@@ -229,16 +218,11 @@ tar -xf %{SOURCE2} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE3} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE4} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE5} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE6} -C %{buildroot}%{_texmf_main} --strip-components=1
-tar -xf %{SOURCE7} -C %{buildroot}%{_texmf_main} --strip-components=1
-tar -xf %{SOURCE8} -C %{buildroot}%{_texmf_main} --strip-components=1
-tar -xf %{SOURCE9} -C %{buildroot}%{_texmf_main} --strip-components=1
+tar -xf %{SOURCE6} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE7} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
-
-# Remove tlp* files from special install components
-rm -rf %{buildroot}%{_texmf_main}/tlp*
 
 # Main collection metapackage (empty)
 %files
@@ -251,20 +235,19 @@ rm -rf %{buildroot}%{_texmf_main}/tlp*
 %license gpl3.txt
 %doc %{_texmf_main}/doc/support/hook-pre-commit-pkg/
 
-%files -n texlive-runtexfile
+%files -n texlive-xdvipsk-support
 %license lppl1.3c.txt
-%{_texmf_main}/scripts/runtexfile/
-%doc %{_texmf_main}/doc/man/man1/
-%doc %{_texmf_main}/doc/support/runtexfile/
-
-%files -n texlive-show-pdf-tags
-%license mit.txt
-%{_texmf_main}/scripts/show-pdf-tags/
-%{_texmf_main}/tex/latex/show-pdf-tags/
-%doc %{_texmf_main}/doc/man/man1/
-%doc %{_texmf_main}/doc/support/show-pdf-tags/
+%{_texmf_main}/tex/lualatex/xdvipsk-support/
+%doc %{_texmf_main}/doc/lualatex/xdvipsk-support/
 
 %changelog
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77772-7
+- Update collection from svn75830 to svn77772
+- Add xdvipsk-support
+
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75830-6
+- move runtexfile and show-pdf-tags to texlive-base
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75830-5
 - update show-pdf-tags
 

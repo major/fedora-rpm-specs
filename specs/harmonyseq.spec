@@ -34,8 +34,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# The 'UNIX Makefiles' backend would have worked fine too; we choose ninja.
-BuildRequires:  ninja-build
 
 #BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(gtkmm-3.0)
@@ -103,7 +101,7 @@ https://harmonyseq.wordpress.com
 CFLAGS="${CFLAGS} -DRELEASE"
 CXXFLAGS="${CXXFLAGS} -DRELEASE"
 
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 
 %build

@@ -3,15 +3,18 @@ Name: bbkeys
 Version: 0.9.0
 Release: %autorelease
 License: MIT
-URL: http://bbkeys.sourceforge.net/
-Source: http://downloads.sf.net/bbkeys/bbkeys-%{version}.tar.gz
+URL: https://bbkeys.sourceforge.net/
+Source: https://downloads.sourceforge.net/bbkeys/bbkeys-%{version}.tar.gz
 Patch0: bbkeys-0.9.0-gcc43.patch
-BuildRequires:  gcc-c++
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  blackbox-devel
 BuildRequires:  gcc
-BuildRequires: blackbox-devel, perl-interpreter
-BuildRequires: libX11-devel, libXext-devel
-BuildRequires: make
-BuildRequires: autoconf automake
+BuildRequires:  gcc-c++
+BuildRequires:  libX11-devel
+BuildRequires:  libXext-devel
+BuildRequires:  make
+BuildRequires:  perl-interpreter
 
 %description
 bbkeys is a configurable key-grabber designed for the blackbox window manager
@@ -35,11 +38,15 @@ autoreconf -vi
 %make_install
 # Clean this up, we package the exact same files cleanly in %%doc
 # and it ends up in the wrong place with our override anyway
-%{__rm} -rf %{buildroot}%{_sysconfdir}/doc/
+rm -rf %{buildroot}%{_sysconfdir}/doc/
+
+%check
+%make_build check
 
 
 %files
-%doc AUTHORS BUGS ChangeLog LICENSE NEWS README TODO
+%license LICENSE
+%doc AUTHORS BUGS ChangeLog NEWS README TODO
 %dir %{_sysconfdir}/bbkeys/
 %config(noreplace) %{_sysconfdir}/bbkeys/bbkeysrc
 %config(noreplace) %{_sysconfdir}/bbkeys/defaultStyle
@@ -49,4 +56,4 @@ autoreconf -vi
 
 
 %changelog
-%autorelease
+%autochangelog

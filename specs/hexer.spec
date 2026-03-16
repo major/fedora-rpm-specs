@@ -1,18 +1,18 @@
 Name:           hexer
-Version:        1.0.6
-Release:        3%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        Interactive binary editor
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause AND BSD-3-Clause
 URL:            http://devel.ringlet.net/editors/hexer/
-Source0:        http://devel.ringlet.net/files/editors/hexer/hexer-1.0.6.tar.xz
+Source0:        http://devel.ringlet.net/files/editors/hexer/hexer-%{version}.tar.xz
 
-Patch1: error_msg_fix.patch
+# Fix "passing argument from incompatible pointer type"
+Patch0:         0000-sighandler.patch
 
 BuildRequires:	gcc
+BuildRequires:	make
 BuildRequires:  ncurses-devel
-BuildRequires: make
 
 %description
 Hexer is an interactive binary editor (also known as a hex-editor)
@@ -21,13 +21,10 @@ multiple-level undo, command-line editing with completion, and binary regular
 expressions.
 
 %prep
-%setup -q
-
-#%%patch -P1
+%autosetup -p1
 
 %build
-export CFLAGS="%{optflags}"
-make %{?_smp_mflags}
+%make_build PREFIX=%{_prefix}
 
 %install
 mkdir -p %{buildroot}%{_bindir}/
@@ -36,16 +33,10 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 cp -p hexer.1 %{buildroot}%{_mandir}/man1/
 
 %files
-%doc README
-%license COPYRIGHT
+%doc README.md
+%license LICENSES/*
 %{_bindir}/hexer
 %{_mandir}/man1/hexer.1*
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

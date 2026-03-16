@@ -1,4 +1,4 @@
-%global gittag 4.2.0
+%global gittag 4.3.0
 #%%global commit a2da14bfc6727b1255df6f31ac4ce89d4bd881c8
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20240205
@@ -30,11 +30,6 @@ Patch:          xephem_makefile.patch
 # Patch to use cmake to build and install
 # Proposed upstream: https://github.com/XEphem/XEphem/pull/60
 Patch:          xephem_with_cmake.patch
-
-# Define _GNU_SOURCE, so that <time.h> declares strptime, an X/Open
-# extension that is not available by default in the glibc headers.
-# Submitted upstream: <https://github.com/XEphem/XEphem/pull/73>
-Patch:          xephem-c99.patch
 
 ExcludeArch:    %{ix86}
 

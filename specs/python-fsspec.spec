@@ -1,13 +1,12 @@
 # Avoid dependency loops:
 #     fsspec -> distributed -> dask -> fsspec
-#     fsspec -> gcsfs -> fsspec
 #     fsspec -> zarr -> fsspec
 %bcond bootstrap 0
 
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2026.1.0
+Version:        2026.2.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
@@ -46,6 +45,9 @@ interface.}
 %package -n     python3-%{srcname}
 Summary:        %{summary}
 
+Obsoletes:      python3-fsspec+gcs < 2026.1.0-3
+Obsoletes:      python3-fsspec+gs < 2026.1.0-3
+
 %description -n python3-%{srcname} %{_description}
 
 
@@ -53,14 +55,8 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-%{srcname} dask
 %pyproject_extras_subpkg -n python3-%{srcname} entrypoints
 %pyproject_extras_subpkg -n python3-%{srcname} fuse
-%if %{without bootstrap}
-%pyproject_extras_subpkg -n python3-%{srcname} gcs
-%endif
 %pyproject_extras_subpkg -n python3-%{srcname} git
 %pyproject_extras_subpkg -n python3-%{srcname} github
-%if %{without bootstrap}
-%pyproject_extras_subpkg -n python3-%{srcname} gs
-%endif
 %pyproject_extras_subpkg -n python3-%{srcname} hdfs
 %pyproject_extras_subpkg -n python3-%{srcname} http
 %pyproject_extras_subpkg -n python3-%{srcname} libarchive
@@ -75,14 +71,14 @@ Summary:        %{summary}
 
 %generate_buildrequires
 # Skipped extras:
-# - (when bootstrapping) gcs and gs: Don't have gcsfs
 # - abfs and adl: Don't have adlfs
 # - dropbox: Don't have dropboxdrivefs
+# - gcs,gs: Don't have gscfs
 # - gui: Don't have panel
 # - oci: Don't have ocifs
 # - s3: Don't have s3fs
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -x arrow,%{?!with_bootstrap:dask,gcs,gs,}entrypoints,fuse,git,github,hdfs,http,libarchive,sftp,smb,ssh,tqdm
+%pyproject_buildrequires -x arrow,%{?!with_bootstrap:dask,}entrypoints,fuse,git,github,hdfs,http,libarchive,sftp,smb,ssh,tqdm
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

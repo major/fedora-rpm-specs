@@ -14,7 +14,7 @@
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.20.0
+Version: 1.21.0
 
 %gometa -f
 
@@ -29,14 +29,13 @@ volumes and networks information.}
                         README.md SECURITY.md
 
 Name:           %{goname}
-Release:        %autorelease
+Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Prometheus exporter for podman environment
 
 License:        Apache-2.0 AND MPL-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND Unlicense AND CC-BY-SA-4.0 AND ISC
-URL:            %{gourl}
-Source:         %{gosource}
-Source:         vendor-%{version}.tar.gz
-Source:         bundle_go_deps_for_rpm.sh
+URL:             %{gourl}
+Source0:         %{gosource}
+Source1:         vendor-%{version}.tar.gz
 
 %if 0%{?fedora} && ! 0%{?rhel}
 BuildRequires: pkgconfig(libbtrfsutil)

@@ -40,7 +40,6 @@ Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  ninja-build
 
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -119,10 +118,9 @@ find examples -type f -name '*.py' -print -delete
 
 %conf
 %cmake \
-    -DGTKDOC_ENABLED:BOOL=ON \
     -DINTROSPECTION_ENABLED:BOOL=\
 %{?with_introspection:ON}%{!?with_introspection:OFF} \
-    -GNinja
+    -DGTKDOC_ENABLED:BOOL=ON
 
 
 %build

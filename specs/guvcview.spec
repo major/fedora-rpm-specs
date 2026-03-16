@@ -1,20 +1,19 @@
 %global somajor 2
 
 Name:           guvcview
-Version:        2.1.0
-Release:        10%{?dist}
+Version:        2.2.2
+Release:        1%{?dist}
 Summary:        GTK+ UVC Viewer and Capturer
 License:        GPL-2.0-or-later
-URL:            http://guvcview.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-src-%{version}.tar.bz2
+URL:            https://guvcview.sourceforge.net/
+Source0:        https://downloads.sourceforge.net/%{name}/%{name}-src-%{version}.tar.bz2
 
-# Add missing includes to fix build
-# https://sourceforge.net/p/guvcview/tickets/75/
-Patch:          0001-Add-missing-libavutil-includes-for-av_image_get_buff.patch
-# Fix build with FFmpeg 8
-Patch:          %{name}-ffmpeg8.patch
+# Patches borrowed from Debian
+Patch:          0001-Change-the-path-to-install-pkgconfig-file.patch
+Patch:          0004-data-CMakeLists.txt-Fix-install-path-for-AppStream-m.patch
+Patch:          0005-data-guvcview.appdata.xml.in-Fix-format.patch
 
-BuildRequires:  autoconf automake libtool
+BuildRequires:  cmake
 BuildRequires:  gettext-devel intltool
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libv4l2)
@@ -68,18 +67,15 @@ This package contains development files for %{name}.
 find . \( -name '*.h' -o -name '*.c' \) -exec chmod -x {} \;
 
 %build
-autoreconf -fiv
-%configure CC=gcc CXX=g++ --disable-debian-menu --disable-silent-rules --disable-static --enable-sfml --disable-sdl2
-%make_build
+%cmake -DUSE_SFML=ON -DUSE_SDL=OFF -DUSE_DEBIANMENU=OFF -DINSTALL_DEVKIT=ON
+%cmake_build
 
 
 %install
-%make_install doc_DATA=
+%cmake_install
 
-install -D -m0644 %{buildroot}%{_datadir}/pixmaps/%{name}/%{name}.png \
+install -D -m0644 %{buildroot}%{_datadir}/pixmaps/%{name}.png \
     %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-
-find %{buildroot} -name "*.la" -delete
 
 %find_lang %{name} --all-name
 
@@ -95,21 +91,24 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.*
-%{_datadir}/pixmaps/%{name}/
+%{_datadir}/pixmaps/%{name}.png
 %{_mandir}/man1/%{name}.1*
 %{_metainfodir}/%{name}.appdata.xml
 
 
 %files libs
 %license COPYING
-%{_libdir}/libgviewaudio-2.2.so.%{somajor}{,.*}
-%{_libdir}/libgviewencoder-2.2.so.%{somajor}{,.*}
-%{_libdir}/libgviewrender-2.2.so.%{somajor}{,.*}
-%{_libdir}/libgviewv4l2core-2.2.so.%{somajor}{,.*}
+%{_libdir}/libgviewaudio.so.%{somajor}{,.*}
+%{_libdir}/libgviewencoder.so.%{somajor}{,.*}
+%{_libdir}/libgviewrender.so.%{somajor}{,.*}
+%{_libdir}/libgviewv4l2core.so.%{somajor}{,.*}
 
 
 %files devel
-%{_includedir}/%{name}-%{somajor}/
+%{_includedir}/gviewaudio.h
+%{_includedir}/gviewencoder.h
+%{_includedir}/gviewrender.h
+%{_includedir}/gviewv4l2core.h
 %{_libdir}/libgviewaudio.so
 %{_libdir}/libgviewencoder.so
 %{_libdir}/libgviewrender.so
@@ -121,6 +120,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Sat Mar 14 2026 Thomas Moschny <thomas.moschny@gmx.de> - 2.2.2-1
+- Update to 2.2.2.
+- guvcview uses cmake now.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

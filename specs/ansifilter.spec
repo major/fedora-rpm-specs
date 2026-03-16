@@ -1,4 +1,3 @@
-%global debug_package %{nil}
 %bcond_without  gui
 # Fedora has Qt6
 # EPEL9+ has Qt6, but RHEL9 and CentOS Stream 9 do not, while their 10 versions do
@@ -14,15 +13,17 @@ Name:           ansifilter
 Version:        2.22
 Release:        %autorelease
 Summary:        ANSI terminal escape code converter
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://www.andre-simon.de/doku/ansifilter/ansifilter.php
 Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
-BuildRequires:  gcc-c++
 %if %{with gui}
 Source1:        ansifilter.desktop
 Source2:        http://www.andre-simon.de/img/af_icon.png
 %endif
+
+BuildRequires:  gcc-c++
+BuildRequires:  make
+BuildRequires:  desktop-file-utils
 
 %description
 Ansifilter handles text files containing ANSI terminal escape codes. The
@@ -31,10 +32,8 @@ output (HTML, RTF, TeX, LaTeX, BBCode).
 
 %if %{with gui}
 %package        gui
-Summary:        GUI for %{name} based on Qt5
-BuildRequires:  desktop-file-utils
+Summary:        GUI for %{name} based on Qt%{qt_ver}
 BuildRequires:  qt%{qt_ver}-qtbase-devel
-BuildRequires: make
 
 %description    gui
 Ansifilter handles text files containing ANSI terminal escape codes. The
@@ -47,42 +46,43 @@ This is a GUI of %{name} based on Qt%{qt_ver}.
 %prep
 %autosetup
 
-# Preserve timestamps.
-sed -i 's|install -m|install -pm|g' makefile
-
-%if %{with gui}
-# Remove pre-configured files which may cause errors during building.
-rm -frv src/qt-gui/moc_*.cpp
-rm -frv src/qt-gui/Makefile*
-%endif
-
 # CRLF quickfix
-find . -type f -exec sed -i 's/\r$//' {} + -print
+find . -type f -exec sed -i 's/\r$//' {} +
 
 %build
 # Upstream embeds the cli code in gui so no need to require cli to use GUI
 # program, in order to achieve this we need to preserve the objects with -c.
-%make_build CFLAGS+="%{optflags} -c" LDFLAGS="%{?__global_ldflags}"
+%make_build CXXFLAGS+="%{optflags}" LDFLAGS="%{?__global_ldflags}"
 
 %if %{with gui}
 # %%_qt5/6_qmake will respect the redhat-rpm-config
-%make_build all-gui QMAKE="%{qmake}"
+pushd src/qt-gui
+%{qmake} ansifilter-gui.pro \
+    "QMAKE_CXXFLAGS+=%{optflags}" \
+    "QMAKE_LFLAGS+=%{?__global_ldflags}"
+%make_build
+popd
 %endif
 
 %install
-%make_install
+%make_install \
+    INSTALL_DATA="install -p -m644" \
+    INSTALL_PROGRAM="install -p -m755"
 
 %if %{with gui}
-make install-gui DESTDIR=%{buildroot}
+%make_install install-gui \
+    INSTALL_DATA="install -p -m644" \
+    INSTALL_PROGRAM="install -p -m755" \
+    DESTDIR=%{buildroot}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{S:1}
 install -pDm644 %{S:2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 %endif
 
 # Use %%doc and %%license to handle docs.
-rm -frv %{buildroot}%{_docdir}
+rm -rf %{buildroot}%{_docdir}/ansifilter
 
 %files
-%doc ChangeLog* README*
+%doc ChangeLog.adoc README.adoc
 %license COPYING
 %{_bindir}/ansifilter
 %{_mandir}/man1/ansifilter.1*
@@ -92,7 +92,7 @@ rm -frv %{buildroot}%{_docdir}
 
 %if %{with gui}
 %files gui
-%doc ChangeLog* README*
+%doc ChangeLog.adoc README.adoc
 %license COPYING
 %{_bindir}/ansifilter-gui
 %{_datadir}/applications/%{name}.desktop

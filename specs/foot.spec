@@ -3,7 +3,7 @@
 %global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -118,6 +118,7 @@ desktop-file-validate \
 
 %files
 %license LICENSE
+%dir %{_sysconfdir}/xdg/%{name}
 %config(noreplace) %{_sysconfdir}/xdg/%{name}/%{name}.ini
 %{_bindir}/%{name}
 %{_bindir}/%{name}client

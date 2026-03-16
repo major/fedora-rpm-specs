@@ -1,7 +1,9 @@
 %global srcname menuinst
 
+%bcond bootstrap 0
+
 Name:           python-%{srcname}
-Version:        2.3.1
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Cross platform menu item installation
 
@@ -10,9 +12,14 @@ URL:            https://github.com/conda/menuinst
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+%if %{without bootstrap}
+# Tests have a circular dep with conda
+BuildRequires:  conda
+%endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pydantic
+BuildRequires:  python-unversioned-command
 
 %global _description %{expand:
 This package provides cross platform menu item installation for conda packages.
@@ -61,13 +68,14 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %check
-# Upstream does not support pydantic 2.X
-# https://github.com/conda/menuinst/issues/166
-%pytest || :
+# Tests have a circular dep with conda
+# test_elevation requires interaction with sudo
+%pytest -rs --ignore=tests/test_elevation.py  %{?with_bootstrap:|| :}
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.*
+%{_bindir}/menuinst
 
 
 %changelog

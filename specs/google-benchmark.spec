@@ -9,7 +9,6 @@ URL:            https://github.com/google/benchmark
 Source:         %{url}/archive/v%{version}/benchmark-%{version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -42,7 +41,7 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 # Do not enable BENCHMARK_ENABLE_ASSEMBLY_TESTS, since it is for a very
 # specific OS and compiler:
 # https://github.com/google/benchmark/issues/1326#issuecomment-1015221235
-%cmake -G Ninja \
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DGIT_VERSION='%{version}' \
     -DBENCHMARK_DOWNLOAD_DEPENDENCIES:BOOL=OFF \

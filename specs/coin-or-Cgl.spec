@@ -2,15 +2,15 @@
 
 Name:		coin-or-%{module}
 Summary:	Cut Generation Library
-Version:	0.60.9
-Release:	6%{?dist}
+Version:	0.60.10
+Release:	1%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
 License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
+Source0:	%{url}/archive/releases/%{version}/%{module}-releases-%{version}.tar.gz
 BuildRequires:	coin-or-CoinUtils-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
@@ -98,6 +98,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cgl_doxy.tag
 
 %changelog
+* Sat Mar 14 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.60.10-1
+- Release 0.60.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

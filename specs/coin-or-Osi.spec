@@ -2,15 +2,15 @@
 
 Name:		coin-or-%{module}
 Summary:	COIN-OR Open Solver Interface Library
-Version:	0.108.11
-Release:	7%{?dist}
+Version:	0.108.12
+Release:	1%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
 License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
+Source0:	%{url}/archive/releases/%{version}/%{module}-releases-%{version}.tar.gz
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
 # Fix build with glpk > 4.48
@@ -78,7 +78,7 @@ export CPPFLAGS='-DNDEBUG'
   --with-soplex-incdir=%{_includedir}/soplex --with-soplex-lib=-lsoplex \
 %endif
   --with-glpk-incdir=%{_includedir} --with-glpk-lib=-lglpk
-
+  
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
 sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
@@ -132,6 +132,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/osi_doxy.tag
 
 %changelog
+* Sat Mar 14 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.108.12-1
+- Release 0.108.12
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.108.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

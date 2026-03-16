@@ -1,31 +1,34 @@
 %global alt_pkg_name swaync
 
 Name:       SwayNotificationCenter
-Version:    0.10.1
-Release:    5%{?dist}
+Version:    0.12.5
+Release:    %autorelease
 Summary:    Simple notification daemon with GTK GUI for SwayWM
 License:    GPL-3.0-only
 URL:        https://github.com/ErikReider/SwayNotificationCenter
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  meson >= 0.51.0
-BuildRequires:  vala >= 0.56
-BuildRequires:  scdoc
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
-BuildRequires:  pkgconfig(gtk-layer-shell-0) >= 0.1
-BuildRequires:  pkgconfig(json-glib-1.0) >= 1.0
-BuildRequires:  pkgconfig(libhandy-1) >= 1.4.0
-BuildRequires:  pkgconfig(glib-2.0) >= 2.50
-BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.68
-BuildRequires:  pkgconfig(gee-0.8) >= 0.20
+BuildRequires:  meson
+BuildRequires:  vala
+BuildRequires:  pkgconfig(gtk4-layer-shell-0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4-wayland)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(granite-7)
+BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libpulse-mainloop-glib)
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  pkgconfig(fish)
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(granite)
-BuildRequires:  systemd-devel
-BuildRequires:  systemd
+BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  scdoc
 BuildRequires:  sassc
-BuildRequires:  granite-devel
+BuildRequires:  blueprint-compiler
 
 Requires:       gvfs
 Requires:       libnotify
@@ -106,6 +109,7 @@ This package installs Fish completion files for %{name}
 %config(noreplace) %{_sysconfdir}/xdg/swaync/style.css
 %{_userunitdir}/swaync.service
 %{_datadir}/dbus-1/services/org.erikreider.swaync.service
+%{_datadir}/dbus-1/services/org.erikreider.swaync.cc.service
 %{_datadir}/glib-2.0/schemas/org.erikreider.swaync.gschema.xml
 %{_mandir}/man1/swaync-client.1*
 %{_mandir}/man1/swaync.1*
@@ -124,18 +128,4 @@ This package installs Fish completion files for %{name}
 %{_datadir}/fish/vendor_completions.d/swaync.fish
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Sep 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.10.1-1
-- Initial package
-
+%autochangelog

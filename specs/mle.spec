@@ -1,8 +1,7 @@
 Summary:         A small, flexible, terminal-based text editor
 Name:            mle
 Version:         1.7.2
-Release:         9%{?dist}
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
+Release:         10%{?dist}
 License:         Apache-2.0
 URL:             https://github.com/adsr/mle
 Source:          https://github.com/adsr/mle/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -45,6 +44,9 @@ install -D -p -v -m 644 mle.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/mle.1
 %{_mandir}/man1/mle.1*
 
 %changelog
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 1.7.2-10
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

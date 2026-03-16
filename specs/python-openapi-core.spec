@@ -3,19 +3,14 @@
 %global srcname openapi-core
 %global modname openapi_core
 
-%global commit 4cfa26d1fbde422fbe4138b23c7268dd869240ac
-%global snapdate 20260303
-
 Name:           python-%{srcname}
-Version:        0.23.0~b1^%{snapdate}.%{sub %{commit} 1 7}
-%global srcversion %(echo '%{version}' | cut -d '^' -f 1 | tr -d '~')
+Version:        0.23.0
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-# Source:         %%{pypi_source %%{modname} %%{srcversion}}
-Source:         %{url}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
+Source:         %{pypi_source %{modname}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

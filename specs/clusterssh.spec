@@ -6,9 +6,12 @@ License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://github.com/duncs/clusterssh
 Source0:       https://github.com/duncs/clusterssh/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:     noarch
+
 Requires:      xterm
 # 2016-05-16 attempt to fix rhbz #1025913 (crash w/o fonts)
-Requires:      xorg-x11-fonts-75dpi xorg-x11-fonts-100dpi
+Requires:      xorg-x11-fonts-75dpi
+Requires:      xorg-x11-fonts-100dpi
+
 BuildRequires: fdupes
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators
@@ -45,8 +48,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(Sys::Hostname)
 BuildRequires: perl(Test::Differences)
 BuildRequires: perl(Test::DistManifest)
-# 2015-12-28 Test::PerlTidy Not available
-#BuildRequires: perl(Test::PerlTidy)
 BuildRequires: perltidy
 BuildRequires: perl(Test::Pod)
 BuildRequires: perl(Test::Pod::Coverage)
@@ -79,17 +80,18 @@ cluster. Not limited to use with clusters, however.
 perl Build.PL installdirs=vendor
 ./Build
 
-%check
-./Build test
-
 %install
 ./Build install destdir=%{buildroot} create_packlist=0
-
-%fdupes %buildroot
 %{_fixperms} %{buildroot}
-mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
-mv  %{buildroot}/%{_bindir}/clusterssh_bash_completion.dist \
-    %{buildroot}/%{_sysconfdir}/bash_completion.d/clusterssh
+
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+mv %{buildroot}%{_bindir}/clusterssh_bash_completion.dist \
+   %{buildroot}%{_datadir}/bash-completion/completions/clusterssh
+
+%fdupes %{buildroot}%{_prefix}
+
+%check
+./Build test
 
 %files
 %doc AUTHORS Changes THANKS TODO
@@ -99,10 +101,10 @@ mv  %{buildroot}/%{_bindir}/clusterssh_bash_completion.dist \
 %{_bindir}/cssh
 %{_bindir}/ctel
 
-%{_sysconfdir}/bash_completion.d
+%{_datadir}/bash-completion/completions/clusterssh
 %{_mandir}/man1/*
 %{_mandir}/man3/*
-%{perl_privlib}/*
+%{perl_vendorlib}/*
 
 %changelog
 %autochangelog

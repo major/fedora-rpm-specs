@@ -1,10 +1,10 @@
 # the shortcuts plugin uses libxfce4kbd-private
 %bcond xfce4kbd %{undefined flatpak}
 
-%global minorversion 0.6
+%global minorversion 0.7
 
 Name:           mousepad
-Version:        0.6.5
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Simple text editor for Xfce desktop environment
 

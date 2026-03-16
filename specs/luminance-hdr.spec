@@ -133,8 +133,6 @@ Patch:          %{forgeurl}/pull/288.patch
 Patch:          %{forgeurl}/pull/284.patch
 
 BuildRequires:  cmake
-# We choose to use the ninja backend instead of the make backend. Either works.
-BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 
 BuildRequires:  desktop-file-utils
@@ -310,7 +308,7 @@ sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' \
 export CXXFLAGS="${CXXFLAGS} $(pkgconf --cflags eigen3)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs eigen3)"
 
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_UNIT_TEST:BOOL=ON -GNinja
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_UNIT_TEST:BOOL=ON
 
 
 %build

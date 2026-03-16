@@ -1,10 +1,7 @@
-%global libname libaime
-
 Name:            aime
 Version:         8.20250217
 Release:         %autorelease
 Summary:         An application embeddable programming language interpreter
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:         GPL-3.0-or-later
 URL:             http://aime-embedded.sourceforge.net/
 Source0:         http://downloads.sourceforge.net/project/aime-embedded/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -33,26 +30,35 @@ use %{name}.
 
 %build
 # workaround for bug 2336032 aime fails to build with GCC 15/C23
-%set_build_flags CFLAGS="%{optflags} -std=gnu17"
-%configure CFLAGS="$CFLAGS"
+%set_build_flags
+export CFLAGS="%{optflags} -std=gnu17"
+%configure
 %make_build
 
 %check
-make check
+%make_build check
 
 %install
 %make_install
+# We do not package the static library by default, following Fedora policy
+# of not packaging static libraries unless specifically granted an exception.
 find %{buildroot} -name '*.a' -delete -print
-rm -frv %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 %files
-%doc README TODO
 %license COPYING
-%{_bindir}/*
-%{_mandir}/man1/*.1*
-%{_infodir}/*.info*
+%doc README TODO
+%{_bindir}/aime
+%{_bindir}/xe
+%{_bindir}/xi
+%{_bindir}/xo
+%{_infodir}/aime.info*
+%{_infodir}/libaime.info*
+%{_mandir}/man1/aime.1*
+%{_mandir}/man1/xe.1*
 
 %files devel
+%doc README TODO
 %{_includedir}/%{name}.h
 
 %changelog

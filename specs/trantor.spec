@@ -34,6 +34,9 @@ Provides:       bundled(muduo)
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(c-ares)
+Requires:       pkgconfig(openssl)
+Requires:       cmake(spdlog)
 
 %description    devel
 This package contains development files for %{name}.

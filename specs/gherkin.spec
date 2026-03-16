@@ -42,8 +42,6 @@ BuildRequires:  symlinks
 
 # For both C and C++:
 BuildRequires:  cmake
-# Faster than the "UNIX Makefiles" cmake backend, with no disadvantages
-BuildRequires:  ninja-build
 # C++ library has "LANGUAGES C CXX" in CMake, so it still needs a C compiler
 BuildRequires:  gcc
 
@@ -184,12 +182,12 @@ popd >/dev/null
 %conf
 echo '==== Configuring C implementation ===='
 pushd c
-%cmake -GNinja
+%cmake
 popd
 
 echo '==== Configuring C++ implementation ===='
 pushd cpp
-%cmake -GNinja
+%cmake
 popd
 
 

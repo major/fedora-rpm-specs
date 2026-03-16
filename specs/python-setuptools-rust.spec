@@ -1,5 +1,5 @@
 # RHEL does not have packaged rust libraries
-%bcond packaged_rust_libraries %{undefined rhel}
+%bcond packaged_rust_libraries %[ %{undefined rhel} || %{defined epel} ]
 # The integration tests depend on the presence of these libraries
 %bcond integration_tests %{with packaged_rust_libraries}
 # Regex of integration tests to skip.
@@ -7,7 +7,7 @@
 %global integration_tests_exc '^(html-py-ever)'
 
 Name:           python-setuptools-rust
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 
@@ -15,11 +15,20 @@ License:        MIT
 URL:            https://github.com/PyO3/setuptools-rust
 Source0:        %{pypi_source setuptools_rust}
 
+# Allow building examples with PyO3 0.26, 0.27, and 0.28:
+# https://github.com/PyO3/setuptools-rust/commit/6868a518681cfd99544c45c33ccd8d752d386c1c
+# https://github.com/PyO3/setuptools-rust/commit/7b4279c196117c59c80d98e1d7d3cad70f6ed6c3
+# https://github.com/PyO3/setuptools-rust/commit/112be5ce8a82d955fb0b8bea9653f24173d1e475
+# https://github.com/PyO3/setuptools-rust/commit/608006f30addc03341daca6ee0d4d4a6439b1302
+# https://github.com/PyO3/setuptools-rust/commit/8a76c7dd45af4cdaced3da756b4f898a34035bf5
+# https://github.com/PyO3/setuptools-rust/pull/576
+Patch:          setuptools_rust-1.12.0-pyo3-0.28.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
-%if 0%{?fedora}
+%if %{undefined rhel} || %{defined epel}
 BuildRequires:  cargo-rpm-macros >= 24
 %else
 # RHEL has rust-toolset instead of cargo-rpm-macros

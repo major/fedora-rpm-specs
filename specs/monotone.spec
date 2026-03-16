@@ -1,6 +1,6 @@
 Name:            monotone
 Version:         1.1
-Release:         54%{?dist}
+Release:         55%{?dist}
 Summary:         A free, distributed version control system
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
@@ -24,6 +24,7 @@ Patch5:          monotone-1.1-lua-ql.patch
 Patch6:          monotone-1.1-boost.patch
 Patch7:          monotone-1.1-string-overflow.patch
 Patch8:          monotone-1.1-catch.patch
+Patch9:          monotone-1.1-lua-5.5.patch
 BuildRequires:   gcc-c++
 BuildRequires:   make
 BuildRequires:   perl-generators
@@ -209,6 +210,9 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/monotone-server.con
 
 
 %changelog
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 1.1-55
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

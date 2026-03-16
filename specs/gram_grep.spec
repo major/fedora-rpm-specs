@@ -21,8 +21,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Ninja is a little faster than make and has no disadvantages.
-BuildRequires:  ninja-build
 BuildRequires:  dos2unix
 
 BuildRequires:  boost-devel
@@ -51,7 +49,7 @@ sed -r -i 's@^([[:blank:]]*)(include_directories.*"\.\./)@\1# \2@' \
 
 
 %conf
-%cmake -GNinja
+%cmake
 
 
 %build

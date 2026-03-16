@@ -1,5 +1,5 @@
 %global shortname texlive
-%global source_date 20250308
+%global source_date 20260301
 # %%global source_svn svn66984
 %global source_name texlive-%%{source_date}-source
 # %%global source_name texlive-source-build-%{source_svn}
@@ -7,7 +7,7 @@
 %{!?_texmf_var: %global _texmf_var %{_var}/lib/texmf}
 
 %global etc_fmtutil_cnf %{_sysconfdir}/texlive/web2c/fmtutil.cnf
-%global usr_fmtutil_cnf %{_texdir}/texmf-dist/web2c/fmtutil.cnf
+%global usr_fmtutil_cnf %{_texmf_main}/web2c/fmtutil.cnf
 %global fmtutil_cnf_d %{_texdir}/fmtutil.cnf.d
 
 # don't export private perl modules
@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 102%{?dist}
+Release: 104%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -502,6 +502,14 @@ Source457: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindp
 Source458: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.doc.tar.xz
 Source459: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.tar.xz
 Source460: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.doc.tar.xz
+# 2026
+# runtexfile and show-pdf-tags came from collection-binextra
+Source461: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.tar.xz
+Source462: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.doc.tar.xz
+Source463: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.tar.xz
+Source464: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.doc.tar.xz
+Source465: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.tar.xz
+Source466: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.doc.tar.xz
 
 
 Patch1: tl-kpfix.patch
@@ -510,7 +518,7 @@ Patch5: texlive-2016-kpathsea-texlive-path.patch
 # fixes from arch and upstream texlive
 Patch7: texlive-20210325-new-poppler.patch
 # fix texmf.cnf so that it finds texinfo bits in Fedora
-Patch8: texlive-20250308-texinfo-path-fix.patch
+Patch8: texlive-base-20260301-texinfo-path-fix.patch
 # These tests only fail on 32 bit arches with gcc8
 Patch11: texlive-20220321-disable-more-failing-tests.patch
 # Another test which fails on 32 bit arches (in F30+)
@@ -552,16 +560,10 @@ Patch37: texlive-base-libpaperv2.patch
 Patch44: texlive-base-20220321-pdf-header-order-fix.patch
 
 # Fix texmfcnf.lua for Fedora layout (thanks to Preining Norbert)
-Patch45: texlive-2025-fedora-texmfcnf.lua.patch
+Patch45: texlive-2026-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts (thanks again to Debian)
 Patch46: texlive-base-20230311-fix-scripts.patch
-
-# fix build error with gcc-15
-Patch49: texlive-base-2025-gcc15-ftbfs.patch
-
-# fix errors with python-3.1x
-Patch50: texlive-pythontex3-python-3.1x.patch
 
 # fix FTBFS with gcc-16
 Patch51: texlive-base-ftbfs-gcc16.patch
@@ -916,7 +918,8 @@ This is a command line tool for finding fonts that contain a
 given (Unicode) glyph. It relies on Fontconfig.
 
 %package -n %{shortname}-aleph
-Version: svn73850
+Summary: Extended TeX
+Version: svn77830
 Provides: texlive-aleph = %{epoch}:%{source_date}-%{release}
 Provides: tex-aleph = %{epoch}:%{source_date}-%{release}
 Provides: texlive-aleph-bin = %{epoch}:%{source_date}-%{release}
@@ -925,30 +928,30 @@ Obsoletes: texlive-aleph-bin < 7:20170520
 Provides: tex-aleph-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-aleph-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-aleph-doc < 7:20170520
-Summary: Extended TeX
 # NOTE: The tlpkg is wrong, it says "GPL"
 # Source code is definitely LGPL-2.1-or-later
 License: LGPL-2.1-or-later
-Requires: texlive-base
-Requires: texlive-kpathsea
 Requires(post,postun): coreutils
-Requires: texlive-latex
-Requires: texlive-plain
-Requires: texlive-lambda
+Requires: texlive-antomega
+Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
-Requires: texlive-antomega
+Requires: texlive-kpathsea
+Requires: texlive-l3kernel
+Requires: texlive-lambda
+Requires: texlive-latex
 Requires: texlive-latex-fonts
 Requires: texlive-omega
-Requires: texlive-l3kernel
+Requires: texlive-plain
 
 %description -n %{shortname}-aleph
-An development of omega, using most of the extensions of TeX
-itself developed for e-TeX.
+An development of omega, using most of the extensions of TeX itself developed
+for e-TeX.
 
 %package -n %{shortname}-amstex
-Version: svn73848
+Summary: American Mathematical Society plain TeX macros
+Version: svn77830
 Provides: texlive-amstex = %{epoch}:%{source_date}-%{release}
 Provides: tex-amstex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-amstex-bin = %{epoch}:%{source_date}-%{release}
@@ -957,61 +960,58 @@ Obsoletes: texlive-amstex-bin < 7:20170520
 Provides: tex-amstex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-amstex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-amstex-doc < 7:20170520
-License: LPPL-1.3c
-Summary: American Mathematical Society plain TeX macros
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires(post,postun): coreutils
-Requires: texlive-tex
-Requires: texlive-amsfonts
-Requires: texlive-cm
-Requires: texlive-hyphen-base
-Requires: texlive-knuth-lib
-Requires: texlive-plain
 Provides: tex(amsppt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(amsppt1.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(amstex.bug) = %{epoch}:%{source_date}-%{release}
 Provides: tex(amstex.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(amstex.ini) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # symlinks only
 BuildArch: noarch
+Requires(post,postun): coreutils
+Requires: texlive-amsfonts
+Requires: texlive-base
+Requires: texlive-cm
+Requires: texlive-hyphen-base
+Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
+Requires: texlive-pdftex
+Requires: texlive-plain
+Requires: texlive-tex
 
 %description -n %{shortname}-amstex
-AMS-TeX is a TeX macro package, originally written by Michael
-Spivak for the American Mathematical Society (AMS) during
-1983-1985 and is described in the book 'The Joy of TeX'. It is
-based on Plain TeX, and provides many features for producing
-more professional-looking maths formulas with less burden on
-authors. This is the final archival distribution of AMS-TeX.
-AMS-TeX is no longer supported by the AMS, nor is it used by
-the AMS publishing program. The AMS does not recommend creating
-any new documents using AMS-TeX; this distribution will be left
-on CTAN to facilitate processing of legacy documents and as a
-historical record of a pioneering TeX macro collection that
-played a key role in popularizing TeX and revolutionizing
-mathematics publishing. In addition to the "User's Guide to
-AMS-TeX", the AMS has also made the full text of the most
-recent reprint of the second edition of "The Joy of TeX" by
-Michael Spivak available as a pdf file. AMS-TeX is the
-historical basis of amslatex, which should now be used to
-prepare submissions for the AMS.
+AMS-TeX is a TeX macro package, originally written by Michael Spivak for the
+American Mathematical Society (AMS) during 1983-1985 and is described in the
+book 'The Joy of TeX'. It is based on Plain TeX, and provides many features for
+producing more professional-looking maths formulas with less burden on authors.
+This is the final archival distribution of AMS-TeX. AMS-TeX is no longer
+supported by the AMS, nor is it used by the AMS publishing program. The AMS
+does not recommend creating any new documents using AMS-TeX; this distribution
+will be left on CTAN to facilitate processing of legacy documents and as a
+historical record of a pioneering TeX macro collection that played a key role
+in popularizing TeX and revolutionizing mathematics publishing. In addition to
+the "User's Guide to AMS-TeX", the AMS has also made the full text of the most
+recent reprint of the second edition of "The Joy of TeX" by Michael Spivak
+available as a pdf file. AMS-TeX is the historical basis of amslatex, which
+should now be used to prepare submissions for the AMS.
 
 %package -n %{shortname}-aomart
-Version: svn75192
+Summary: Typeset articles for the Annals of Mathematics
+Version: svn76110
 Provides: tex-aomart = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Summary: Typeset articles for the Annals of Mathematics
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-aomart
-The package provides a class for typesetting articles for The
-Annals of Mathematics.
+The package provides a class for typesetting articles for The Annals of
+Mathematics.
 
 %package -n %{shortname}-arara
-Version: svn71205
+Summary: Automation of LaTeX compilation
+Version: svn75653
 Provides: texlive-arara = %{epoch}:%{source_date}-%{release}
 Provides: tex-arara = %{epoch}:%{source_date}-%{release}
 Provides: texlive-arara-bin = %{epoch}:%{source_date}-%{release}
@@ -1020,10 +1020,6 @@ Obsoletes: texlive-arara-bin < 7:20170520
 Provides: tex-arara-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-arara-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-arara-doc < 7:20170520
-License: BSD-3-Clause
-Summary: Automation of LaTeX compilation
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: bundled(slf4j) = 1.7.36
 Provides: bundled(annotations) = 13.0
 Provides: bundled(apache-commons-collections) = 3.2.1
@@ -1034,26 +1030,33 @@ Provides: bundled(log4j) = 2.17.2
 Provides: bundled(mvel2) = 2.4.14
 Provides: bundled(snakeyaml-engine) = 2.3
 Provides: bundled(logback) = 1.0.1
+License: BSD-3-Clause
 # shell
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-arara
-Arara is comparable with other well-known compilation tools
-like latexmk and rubber. The key difference is that that arara
-determines its actions from metadata in the source code, rather
-than relying on indirect resources, such as log file analysis.
-Arara requires a Java virtual machine.
+Arara is comparable with other well-known compilation tools like latexmk and
+rubber. The key difference is that arara determines its actions from metadata
+in the source code, rather than relying on indirect resources, such as log file
+analysis. Arara requires a Java virtual machine.
 
 %package -n %{shortname}-attachfile2
-Version: svn69505
+Summary: Attach files into PDF
+Version: svn77682
 Provides: texlive-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-attachfile2-bin = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-dvipdfmx.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-dvips.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-luatex.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-pdftex.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(attachfile2.sty) = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Summary: Attach files into PDF
-Requires: texlive-base
-Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
 Requires: tex(color.sty)
 Requires: tex(hycolor.sty)
 Requires: tex(hyperref.sty)
@@ -1064,20 +1067,14 @@ Requires: tex(kvoptions.sty)
 Requires: tex(ltxcmds.sty)
 Requires: tex(pdfescape.sty)
 Requires: tex(pdftexcmds.sty)
-Provides: tex(atfi-dvipdfmx.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(atfi-dvips.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(atfi-luatex.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(atfi-pdftex.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(attachfile2.sty) = %{epoch}:%{source_date}-%{release}
-# perl
-BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-attachfile2
-This package can be used to attach files to a PDF document. It
-is a further development of Scott Pakin's package attachfile
-for pdfTeX. Apart from bug fixes, this package adds support for
-dvips, some new options, and gets and writes meta information
-data about the attached files.
+This package can be used to attach files to a PDF document. It is a further
+development of Scott Pakin's package attachfile for pdfTeX. Apart from bug
+fixes, this package adds support for dvips, some new options, and gets and
+writes meta information data about the attached files.
 
 %package -n %{shortname}-authorindex
 Version: svn51757
@@ -1107,7 +1104,8 @@ on BibTeX being used to handle citations. Additionally, it
 requires Perl (version 5 or higher).
 
 %package -n %{shortname}-autosp
-Version: svn69814
+Summary: A Preprocessor that generates note-spacing commands for MusiXTeX scores
+Version: svn77851
 Provides: texlive-autosp = %{epoch}:%{source_date}-%{release}
 Provides: tex-autosp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-autosp-bin = %{epoch}:%{source_date}-%{release}
@@ -1117,77 +1115,72 @@ Provides: tex-autosp-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-autosp-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-autosp-doc < 7:20170520
 License: GPL-2.0-or-later
-Summary: A Preprocessor that generates note-spacing commands for MusiXTeX scores
 Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-autosp
-This program simplifies the creation of MusiXTeX scores by
-converting (non-standard) commands of the form \anotes ... \en
-into one or more conventional note-spacing commands, as
-determined by the note values themselves, with \sk spacing
-commands inserted as necessary. The coding for an entire
-measure can be entered one part at a time, without concern for
-note-spacing changes within the part or spacing requirements of
-other parts. For example, \anotes\qa J\qa K&\ca l\qa m\ca n\en
-generates \Notes\qa J\sk\qa K\sk&\ca l\qa m\sk\ca n\en .
+This program simplifies the creation of MusiXTeX scores by converting
+(non-standard) commands of the form \anotes ... \en into one or more
+conventional note-spacing commands, as determined by the note values
+themselves, with \sk spacing commands inserted as necessary. The coding for an
+entire measure can be entered one part at a time, without concern for
+note-spacing changes within the part or spacing requirements of other parts.
+For example, \anotes\qa J\qa K&\ca l\qa m\ca n\en generates \Notes\qa J\sk\qa
+K\sk&\ca l\qa m\sk\ca n\en .
 
 %package -n %{shortname}-axodraw2
-Version: svn74430
+Summary: Feynman diagrams in a LaTeX document
+Version: svn77682
 Provides: texlive-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-axodraw2-bin = %{epoch}:%{source_date}-%{release}
+Provides: tex(axodraw2.sty) = %{epoch}:%{source_date}-%{release}
 License: GPL-3.0-or-later
-Summary: Feynman diagrams in a LaTeX document
-Requires: texlive-base
-Requires: texlive-kpathsea
 Requires: tex(color.sty)
 Requires: tex(graphicx.sty)
 Requires: tex(ifthen.sty)
 Requires: tex(ifxetex.sty)
 Requires: tex(keyval.sty)
-Provides: tex(axodraw2.sty) = %{epoch}:%{source_date}-%{release}
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-axodraw2
-This package defines macros for drawing Feynman graphs in LaTeX
-documents. It is an important update of the axodraw package,
-but since it is not completely backwards compatible, we have
-given the style file a changed name. Many new features have
-been added, with new types of line, and much more flexibility
-in their properties. In addition, it is now possible to use
-axodraw2 with pdfLaTeX, as well as with the LaTeX-dvips method.
-However with pdfLaTeX (and also LuaLaTeX and XeLaTeX), an
-external program, axohelp, is used to perform the geometrical
-calculations needed for the pdf code inserted in the output
-file. The processing involves a run of pdfLaTeX, a run of
-axohelp, and then another run of pdfLaTeX.
+This package defines macros for drawing Feynman graphs in LaTeX documents. It
+is an important update of the axodraw package, but since it is not completely
+backwards compatible, we have given the style file a changed name. Many new
+features have been added, with new types of line, and much more flexibility in
+their properties. In addition, it is now possible to use axodraw2 with
+pdfLaTeX, as well as with the LaTeX-dvips method. However with pdfLaTeX (and
+also LuaLaTeX and XeLaTeX), an external program, axohelp, is used to perform
+the geometrical calculations needed for the pdf code inserted in the output
+file. The processing involves a run of pdfLaTeX, a run of axohelp, and then
+another run of pdfLaTeX.
 
 %package -n %{shortname}-bib2gls
-Version: svn75219
+Summary: Command line application to convert .bib files to glossaries-extra.sty resource files
+Version: svn76845
 Provides: texlive-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: tex-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bib2gls-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-3.0-or-later
-Summary: Convert .bib files to glossaries-extra.sty resource files
-Requires: texlive-base
-Requires: texlive-glossaries-extra
 # Java and shell
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-glossaries-extra
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-bib2gls
-This Java command line application may be used to extract
-glossary information stored in a .bib file and convert it into
-glossary entry definition commands. This application should be
-used with glossaries-extra.sty's 'record' package option. It
-performs two functions in one: selects entries according to
-records found in the .aux file (similar to bibtex),
-hierarchically sorts entries and collates location lists
-(similar to makeindex or xindy). The glossary entries can then
-be managed in a system such as JabRef, and only the entries
-that are actually required will be defined, reducing the
-resources required by TeX. The supplementary application
-convertgls2bib can be used to convert existing .tex files
-containing definitions (\newglossaryentry etc.) to the .bib
-format required by bib2gls.
+This Java command line application may be used to extract glossary information
+stored in a .bib file and convert it into glossary entry definition commands.
+This application should be used with glossaries-extra.sty's 'record' package
+option. It performs two functions in one: selects entries according to records
+found in the .aux file (similar to bibtex), hierarchically sorts entries and
+collates location lists (similar to makeindex or xindy). The glossary entries
+can then be managed in a system such as JabRef, and only the entries that are
+actually required will be defined, reducing the resources required by TeX. The
+supplementary application convertgls2bib can be used to convert existing .tex
+files containing definitions (\newglossaryentry etc.) to the .bib format
+required by bib2gls.
 
 %package -n %{shortname}-bibcop
 Summary: Style checker for .bib files
@@ -1231,7 +1224,8 @@ BibTeX file, expanding the abbreviations (other than the built-
 in ones like month names) and followig the cross-references.
 
 %package -n %{shortname}-bibtex
-Version: svn73848
+Summary: Process bibliographies (bib files) for LaTeX or other formats
+Version: svn77830
 Provides: texlive-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex-bin = %{epoch}:%{source_date}-%{release}
@@ -1240,48 +1234,42 @@ Obsoletes: texlive-bibtex-bin < 7:20170520
 Provides: tex-bibtex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibtex-doc < 7:20170520
-License: Knuth-CTAN
-Summary: Process bibliographies (bib files) for LaTeX or other formats
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(apalike.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(apalike.tex) = %{epoch}:%{source_date}-%{release}
-
-%description -n %{shortname}-bibtex
-BibTeX allows the user to store his citation data in generic
-form, while printing citations in a document in the form
-specified by a BibTeX style, to be specified in the document
-itself (one often needs a LaTeX citation-style package, such as
-natbib, as well). BibTeX knows nothing about Unicode sorting
-algorithms or scripts, although it will pass on whatever bytes
-it reads. Its descendant bibtexu does support Unicode, via the
-ICU library. The older alternative bibtex8 supports 8-bit
-character sets. Another Unicode-aware alternative is the
-(independently developed) biber program, used with the BibLaTeX
-package to typeset its output.
-
-# this package doesn't have anything in it really, just man1 pages
-# but it pulls in other perl packages that match what would be in it
-%package -n %{shortname}-bibtexperllibs
-Version: svn72184
-Provides: tex-bibtexperllibs = %{epoch}:%{source_date}-%{release}
-License: GPL-1.0-or-later OR Artistic-1.0-Perl
-Summary: BibTeX Perl Libraries
+License: Knuth-CTAN
 Requires: texlive-base
 Requires: texlive-kpathsea
+
+%description -n %{shortname}-bibtex
+BibTeX allows the user to store his citation data in generic form, while
+printing citations in a document in the form specified by a BibTeX style, to be
+specified in the document itself (one often needs a LaTeX citation-style
+package, such as natbib, as well). BibTeX knows nothing about Unicode sorting
+algorithms or scripts, although it will pass on whatever bytes it reads. Its
+descendant bibtexu does support Unicode, via the ICU library. The older
+alternative bibtex8 supports 8-bit character sets. Another Unicode-aware
+alternative is the (independently developed) biber program, used with the
+BibLaTeX package to typeset its output.
+
+%package -n %{shortname}-bibtexperllibs
+Summary: BibTeX Perl Libraries
+Version: svn76255
+Provides: tex-bibtexperllibs = %{epoch}:%{source_date}-%{release}
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
+# perl
+BuildArch: noarch
 # So... we've got these modules packaged up from CPAN.
 Requires: perl(BibTeX::Parser::Author)
 Requires: perl(BibTeX::Parser::Entry)
 Requires: perl(LaTeX::ToUnicode::Tables)
-# perl
-BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-bibtexperllibs
-This package provides BibTeX related Perl libraries by Gerhard
-Gossen, repacked by Boris Veytsman, for TeX Live and other
-TDS-compliant distributions. The libraries are written in pure
-Perl, so should work out of the box on any architecture. They
-have been packaged here mostly for Boris Veytsman's BibTeX
+This package provides BibTeX related Perl libraries by Gerhard Gossen, repacked
+by Boris Veytsman, for TeX Live and other TDS-compliant distributions. The
+libraries are written in pure Perl, so should work out of the box on any
+architecture. They have been packaged here mostly for Boris Veytsman's BibTeX
 suite, but can be used in any other Perl script.
 
 %package -n %{shortname}-bibtexu
@@ -1307,7 +1295,8 @@ updates from the Japanese TeX Development Community, it is now
 maintained as part of TeX Live.
 
 %package -n %{shortname}-bibtex8
-Version: svn66186
+Summary: BibTeX variant supporting 8-bit encodings
+Version: svn75712
 Provides: texlive-bibtex8 = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex8 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex8-bin = %{epoch}:%{source_date}-%{release}
@@ -1317,18 +1306,16 @@ Provides: tex-bibtex8-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex8-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibtex8-doc < 7:20170520
 License: GPL-1.0-or-later
-Summary: BibTeX variant supporting 8-bit encodings
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-bibtex8
-An enhanced, portable C version of BibTeX. Enhanced by
-conversion to larger (32-bit) capacity, addition of run-time
-selectable capacity and 8-bit support extensions. National
-character set and sorting order are controlled by an external
-configuration file. Various examples are included. Originally
-written by Niel Kempson and Alejandro Aguilar-Sierra, it is now
-maintained as part of TeX Live.
+An enhanced, portable C version of BibTeX. Enhanced by conversion to larger
+(32-bit) capacity, addition of run-time selectable capacity and 8-bit support
+extensions. National character set and sorting order are controlled by an
+external configuration file. Various examples are included. Originally written
+by Niel Kempson and Alejandro Aguilar-Sierra, it is now maintained as part of
+TeX Live.
 
 %package -n %{shortname}-bookshelf
 Version: svn72521
@@ -1484,7 +1471,8 @@ mathematical environments with no labels and advises the user
 to use a starred version instead.
 
 %package -n %{shortname}-chktex
-Version: svn73776
+Summary: Check for errors in LaTeX documents
+Version: svn78219
 Provides: texlive-chktex = %{epoch}:%{source_date}-%{release}
 Provides: tex-chktex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-chktex-bin = %{epoch}:%{source_date}-%{release}
@@ -1494,52 +1482,51 @@ Provides: tex-chktex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-chktex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-chktex-doc < 7:20170520
 License: GPL-2.0-or-later
-Summary: Check for errors in LaTeX documents
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-chktex
-The program reports typographic and other errors in LaTeX
-documents. Filters are also provided for checking the LaTeX
-parts of CWEB documents.
+The program reports typographic and other errors in LaTeX documents. Filters
+are also provided for checking the LaTeX parts of CWEB documents.
 
 %package -n %{shortname}-citation-style-language
-Version: svn75059
+Summary: Bibliography formatting with Citation Style Language
+Version: svn77682
 Provides: texlive-citation-style-language = %{epoch}:%{source_date}-%{release}
 Provides: texlive-citation-style-language-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-citation-style-language-doc = %{epoch}:%{source_date}-%{release}
-License: MIT AND CC-BY-SA-3.0
-Summary: Bibliography formatting with Citation Style Language
-Requires: texlive-base, texlive-kpathsea
-Requires: tex(filehook.sty)
-Requires: texlive-l3kernel
-Requires: texlive-l3packages
-Requires: texlive-lua-uca
-Requires: texlive-lualibs
-Requires: texlive-luatex
-Requires: texlive-luaxml
-Requires: tex(url.sty)
 Provides: tex(citation-style-language-bib.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language-cite.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language-compatible.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language-data.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language-init.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language.sty) = %{epoch}:%{source_date}-%{release}
+License: MIT AND CC0-1.0 AND CC-BY-SA-3.0
 # lua
 BuildArch: noarch
+Requires: tex(filehook.sty)
+Requires: tex(url.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-l3kernel
+Requires: texlive-l3packages
+Requires: texlive-lua-tinyyaml
+Requires: texlive-lua-uca
+Requires: texlive-lualibs
+Requires: texlive-luatex
+Requires: texlive-luaxml
+Requires: texlive-url
 
 %description -n %{shortname}-citation-style-language
-The Citation Style Language (CSL) is an XML-based language that
-defines the formats of citations and bibliography. There are
-currently thousands of styles in CSL including the most widely
-used APA, Chicago, Vancouver, etc. The citation-style-language
-package is aimed to provide another reference formatting method
-for LaTeX that utilizes the CSL styles. It contains a citation
-processor implemented in pure Lua (citeproc-lua) which reads
-bibliographic metadata and performs sorting and formatting on
-both citations and bibliography according to the selected CSL
-style. A LaTeX package (citation-style-language.sty) is
-provided to communicate with the processor.
+The Citation Style Language (CSL) is an XML-based language that defines the
+formats of citations and bibliography. There are currently thousands of styles
+in CSL including the most widely used APA, Chicago, Vancouver, etc. The
+citation-style-language package is aimed to provide another reference
+formatting method for LaTeX that utilizes the CSL styles. It contains a
+citation processor implemented in pure Lua (citeproc-lua) which reads
+bibliographic metadata and performs sorting and formatting on both citations
+and bibliography according to the selected CSL style. A LaTeX package
+(citation-style-language.sty) is provided to communicate with the processor.
 
 %if 0
 %package -n %{shortname}-cjk-gs-integrate
@@ -1597,32 +1584,30 @@ Provides: tex(ksso17.cfg) = %{epoch}:%{source_date}-%{release}
 cjkutils package.
 
 %package -n %{shortname}-clojure-pamphlet
-Version: svn67201
+Summary: A simple literate programming tool based on clojure's pamphlet system
+Version: svn77682
 Provides: texlive-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: tex-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: texlive-clojure-pamphlet-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-clojure-pamphlet-bin = %{epoch}:%{source_date}-%{release}
-License: GPL-3.0-or-later
-Summary: A simple literate programming tool based on clojure's pamphlet system
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(hyperref.sty)
-Requires: tex(listings.sty)
 Provides: tex(clojure-pamphlet.sty) = %{epoch}:%{source_date}-%{release}
+License: GPL-3.0-or-later
 # perl
 BuildArch: noarch
+Requires: tex(hyperref.sty)
+Requires: tex(listings.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-clojure-pamphlet
-The Clojure pamphlet system is a system based on the Clojure
-literate system. In the Clojure's pamphlet system you have your
-main LaTeX file, which can be compiled regularly. This file
-contains documentation and source code (just like in other
-forms of literate programming). These code snippets are wrapped
-in the chunk environment, hence they can be recognized by the
-tangler in order to extract them. Chunks can be included inside
-each other by the getchunk command (which will be typesetted
-accordingly). Finally, the LaTeX file will be run through the
-tangler to get the desired chunk of code.
+The Clojure pamphlet system is a system based on the Clojure literate system.
+In the Clojure's pamphlet system you have your main LaTeX file, which can be
+compiled regularly. This file contains documentation and source code (just like
+in other forms of literate programming). These code snippets are wrapped in the
+chunk environment, hence they can be recognized by the tangler in order to
+extract them. Chunks can be included inside each other by the getchunk command
+(which will be typeset accordingly). Finally, the LaTeX file will be run
+through the tangler to get the desired chunk of code.
 
 %package -n %{shortname}-cluttex
 Version: svn74655
@@ -1649,7 +1634,8 @@ set. Furthermore, cluttex can watch input files for changes
 (using an external program).
 
 %package -n %{shortname}-context
-Version: svn75454
+Summary: The ConTeXt macro package
+Version: svn78010
 Provides: texlive-context = %{epoch}:%{source_date}-%{release}
 Provides: tex-context = %{epoch}:%{source_date}-%{release}
 Provides: texlive-context-bin = %{epoch}:%{source_date}-%{release}
@@ -1659,28 +1645,29 @@ Provides: tex-context-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-context-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-context-doc < 7:20170520
 License: GPL-1.0-or-later OR LPPL-1.3c
-Summary: The ConTeXt macro package
-Requires: texlive-base
-Requires: texlive-kpathsea
-# for /usr/bin/realpath
-Requires: coreutils, lua
 Requires(post,postun): coreutils, lua
-Requires: texlive-metapost
-%if %{without bootstrap}
-Requires: texlive-pdftex
-Requires: texlive-xetex
-%endif
+# for /usr/bin/realpath
+Requires: coreutils
+Requires: lua
+Requires: ruby
+Requires: tex(pstricks.sty)
+Requires: tex(pst-plot.sty)
 Requires: texlive-amsfonts
+Requires: texlive-base
+Requires: texlive-dejavu
+Requires: texlive-kpathsea
 Requires: texlive-lm
 Requires: texlive-lm-math
 Requires: texlive-luatex
 Requires: texlive-manfnt-font
+Requires: texlive-metapost
 Requires: texlive-mflogo-font
 Requires: texlive-mptopdf
 Requires: texlive-stmaryrd
-Requires: ruby
-Requires: tex(pstricks.sty)
-Requires: tex(pst-plot.sty)
+%if %{without bootstrap}
+Requires: texlive-pdftex
+Requires: texlive-xetex
+%endif
 Provides: tex(aesop-de.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(alfredsson-sv.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(aristotle-grc.tex) = %{epoch}:%{source_date}-%{release}
@@ -1811,9 +1798,14 @@ Provides: tex(zelensky.tex) = %{epoch}:%{source_date}-%{release}
 BuildArch: noarch
 
 %description -n %{shortname}-context
-A full featured, parameter driven macro package, which fully
-supports advanced interactive documents. See the ConTeXt garden
-for a wealth of support information.
+A full featured, parameter driven macro package, which fully supports advanced
+interactive documents. See the ConTeXt Wiki for more information. This content
+on CTAN is packaged independently of the ConTeXt project, so if you have a
+problem with ConTeXt itself, it is best to report it to the official
+ntg-context@ntg.nl mailing list. If you notice that ConTeXt is mispackaged in
+TeX Live or CTAN, then please open a new issue on GitHub, email the public
+ntg-context@ntg.nl or tex-live@tug.org mailing lists, or email me privately at
+tex@maxchernoff.ca. Pull requests are also gladly accepted.
 
 # This package exists because it is 90M and most people do not need it
 
@@ -1829,11 +1821,10 @@ License: GPL-1.0-or-later OR LPPL-1.3c
 Documentation for context.
 
 %package -n %{shortname}-context-legacy
-Version: svn75440
-Provides: texlive-context-legacy-doc = %{epoch}:%{source_date}-%{release}
-Requires: texlive-context
-Provides: tex-context-legacy = %{epoch}:%{source_date}-%{release}
 Summary: The ConTeXt macro package, MkII
+Version: svn78010
+Provides: texlive-context-legacy-doc = %{epoch}:%{source_date}-%{release}
+Provides: tex-context-legacy = %{epoch}:%{source_date}-%{release}
 Provides: tex(supp-mis.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(supp-mpe.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(supp-pdf.tex) = %{epoch}:%{source_date}-%{release}
@@ -1871,15 +1862,27 @@ Provides: tex(s-pre-96.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(m-ch-de.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(m-ch-en.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(m-ch-nl.tex) = %{epoch}:%{source_date}-%{release}
+License: LicenseRef-Fedora-Public-Domain
 # just shell stubs
 BuildArch: noarch
+Requires: texlive-amsfonts
+Requires: texlive-base
+Requires: texlive-context
+Requires: texlive-kpathsea
+Requires: texlive-lm
+Requires: texlive-ly1
+Requires: texlive-manfnt-font
+Requires: texlive-mflogo-font
+Requires: texlive-mptopdf
+Requires: texlive-pdftex
+Requires: texlive-stmaryrd
 
 %description -n %{shortname}-context-legacy
-In TeX Live, ConTeXt MkII is split from current ConTeXt (MkIV
-and newer). We use the ConTeXt repackaging as distributed from
+In TeX Live, ConTeXt MkII is split from current ConTeXt (MkIV and newer). We
+use the ConTeXt repackaging as distributed from
 https://github.com/gucci-on-fleek/context-packaging. See
-https://contextgarden.net and https://pragma-ade.com for
-information about ConTeXt.
+https://contextgarden.net and https://pragma-ade.com for information about
+ConTeXt.
 
 %package -n %{shortname}-convbkmk
 Version: svn49252
@@ -1966,26 +1969,13 @@ BuildArch: noarch
 LaTeX support for Czech/Slovak typesetting
 
 %package -n %{shortname}-csplain
-Version: svn67934
+Summary: Plain TeX multilanguage support
+Version: svn76924
 Provides: texlive-csplain = %{epoch}:%{source_date}-%{release}
 Provides: tex-csplain = %{epoch}:%{source_date}-%{release}
 Provides: texlive-csplain-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-csplain-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-csplain-bin < 7:20170520
-License: GPL-2.0-or-later
-Summary: Plain TeX multilanguage support
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-tex
-Requires: texlive-cm
-Requires(post,postun): coreutils
-Requires: texlive-cs
-Requires: texlive-hyphen-base
-Requires: texlive-plain
-Requires: texlive-enctex
-Requires: texlive-tex-ini-files
-Requires: texlive-luatex
-Requires: texlive-luatex85
 Provides: tex(ams-math.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cavantga.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cbookman.tex) = %{epoch}:%{source_date}-%{release}
@@ -2056,25 +2046,38 @@ Provides: tex(ucode.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(unifam.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(uni-lcuc.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(uni-math.tex) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
 # symlinks
 BuildArch: noarch
+Requires(post,postun): coreutils
+Requires: texlive-base
+Requires: texlive-cm
+Requires: texlive-cs
+Requires: texlive-enctex
+Requires: texlive-hyph-utf8
+Requires: texlive-hyphen-base
+Requires: texlive-kpathsea
+Requires: texlive-luatex
+Requires: texlive-luatex85
+Requires: texlive-pdftex
+Requires: texlive-plain
+Requires: texlive-tex
+Requires: texlive-tex-ini-files
+Requires: texlive-xetex
 
 %description -n %{shortname}-csplain
-CSplain is a small extension of basic Plain TeX macros, the
-formats csplain and pdfcsplain can be generated. It supports:
-hyphenation of words for 50+ languages, simple and powerfull
-font loading system (various sizes of fonts), tex, pdftex,
-xetex and luatex engines, math fonts simply loaded with full
-amstex-like features, three internal encodings (IL2 for
-Czech/Slovak languages, T1 for many languages with latin
-alphabet and Unicode in new TeX engines), natural UTF-8 input
-in pdfTeX using encTeX without any active characters, Czech and
-Slovak special typesetting features. An important part of the
-package is OPmac, which implements most of LaTeX's features
-(sectioning, font selection, color, hyper reference and urls,
-bibliography, index, toc, tables,etc.) by Plain TeX macros. The
-OPmac macros can generate and bibliography without any external
-program.
+CSplain is a small extension of basic Plain TeX macros, the formats csplain and
+pdfcsplain can be generated. It supports: hyphenation of words for 50+
+languages, simple and powerful font loading system (various sizes of fonts),
+TeX, pdfTeX, XeTeX and LuaTeX engines, math fonts simply loaded with full
+amstex-like features, three internal encodings (IL2 for Czech/Slovak languages,
+T1 for many languages with latin alphabet and Unicode in new TeX engines),
+natural UTF-8 input in pdfTeX using encTeX without any active characters, Czech
+and Slovak special typesetting features. An important part of the package is
+OPmac, which implements most of LaTeX's features (sectioning, font selection,
+color, hyper reference and urls, bibliography, index, toc, tables,etc.) by
+Plain TeX macros. The OPmac macros can generate and bibliography without any
+external program.
 
 %package -n %{shortname}-ctan-o-mat
 Version: svn51578
@@ -2170,14 +2173,14 @@ contribution to CTAN from the command line. The aim is to
 simplify the release process for LaTeX package authors.
 
 %package -n %{shortname}-ctie
-Version: svn73848
+Summary: C version of tie (merging Web change files)
+Version: svn77830
 Provides: texlive-ctie = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctie = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctie-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctie-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ctie-bin < 7:20170520
 License: GPL-1.0-or-later
-Summary: C version of tie (merging Web change files)
 Requires: texlive-base
 Requires: texlive-kpathsea
 
@@ -2185,7 +2188,8 @@ Requires: texlive-kpathsea
 This is a version of tie converted for use with cweb.
 
 %package -n %{shortname}-cweb
-Version: svn73848
+Summary: CWEB for ANSI-C/C++ compilers
+Version: svn77830
 Provides: texlive-cweb = %{epoch}:%{source_date}-%{release}
 Provides: tex-cweb = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cweb-bin = %{epoch}:%{source_date}-%{release}
@@ -2194,11 +2198,6 @@ Obsoletes: texlive-cweb-bin < 7:20170520
 Provides: tex-cweb-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cweb-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cweb-doc < 7:20170520
-License: Knuth-CTAN
-Summary: A Web system in C
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(iftex.sty)
 Provides: tex(ctproofmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cttwinxmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ctwimac.tex) = %{epoch}:%{source_date}-%{release}
@@ -2220,13 +2219,24 @@ Provides: tex(pdfwebtocfront.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(twimac-web.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(twinx-startup.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(Xcwebmac.tex) = %{epoch}:%{source_date}-%{release}
+License: Knuth-CTAN
+Requires: tex(iftex.sty)
+Requires: texlive-base
+Requires: texlive-iftex
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-cweb
-A highly portable and extended version of Levy/Knuth CWEB 3.64c
-for UNIX, Windows, Mac (and possibly other operating systems).
-TeX macros, CWEB macros, and NLS catalogs are included for
-German, French (partially), and Italian program documentation
-on any machine.
+A highly portable and extended version of Levy/Knuth CWEB 3.64c for UNIX,
+Windows, Mac (and possibly other operating systems). TeX macros, CWEB macros,
+and NLS catalogs are included for German, French (partially), and Italian
+program documentation on any machine. Major features: Thoroughly updated code
+base; several bug fixes; clean compilation (with both C and TeX) on at least
+four different architectures. Added CTWILL program with tools and utilities for
+brave users; including introductory manpage. Internationalization of CTANGLE,
+CWEAVE, and CTWILL with "GNU gettext utilities". New code base for CWEB in TeX
+Live 2019, incorporating all features of the TL 2018 version and adding new
+features from CWEBbin. As of November 2019 CTAN no longer holds a copy of this
+material. Please go to the package's github repository for more information.
 
 %package -n %{shortname}-cyrillic
 Version: svn71408
@@ -2443,7 +2453,8 @@ DVI files). The DTL bundle was developed so as to avoid some
 infelicities of dvitype (among other pressing reasons).
 
 %package -n %{shortname}-dtxgen
-Version: svn51663
+Summary: Creates a template for a self-extracting .dtx file
+Version: svn75946
 Provides: texlive-dtxgen = %{epoch}:%{source_date}-%{release}
 Provides: tex-dtxgen = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dtxgen-bin = %{epoch}:%{source_date}-%{release}
@@ -2453,16 +2464,15 @@ Provides: tex-dtxgen-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dtxgen-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dtxgen-doc < 7:20170520
 License: GPL-1.0-or-later
-Summary: Creates a template for a self-extracting .dtx file
-Requires: texlive-base
-Requires: texlive-kpathsea
 # bash
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-dtxgen
-The bash script dtxgen creates a template for a self-extracting
-.dtx file. It is useful for those who plan to create a new
-Documented LaTeX Source (.dtx) file.
+The bash script dtxgen creates a template for a self-extracting .dtx file. It
+is useful for those who plan to create a new Documented LaTeX Source (.dtx)
+file.
 
 %package -n %{shortname}-dvi2tty
 Version: svn66186
@@ -2505,39 +2515,40 @@ binary format. It supports advanced features such as adding a
 preprint number or watermarks.
 
 %package -n %{shortname}-dvicopy
-Version: svn73848
+Summary: Copy DVI files while expanding VF (virtual font) references
+Version: svn77830
 Provides: texlive-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvicopy-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvicopy-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvicopy-bin < 7:20170520
 License: GPL-1.0-or-later
-Summary: Copy DVI files, flattening VFs
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-dvicopy
-DVICOPY is a utility program that allows one to take a DVI file
-that references composite fonts (VF) and convert it into a DVI
-file that does not contain such references. It also serves as a
-basis for writing DVI drivers (much like DVItype).
+DVIcopy is a utility program that allows one to convert a DVI file that
+references composite fonts (VF) into an equivalent DVI file that does not
+contain such references. It also serves as a basis for writing DVI drivers
+(much like DVItype). The ODVIcopy variant does the same job for Omega/Aleph's
+output, modified to support their .ofm font format.
 
 %package -n %{shortname}-dvidvi
-Version: svn65952
+Summary: Convert one DVI file into another
+Version: svn75712
 Provides: texlive-dvidvi = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvidvi = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvidvi-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvidvi-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvidvi-bin < 7:20170520
 License: LicenseRef-Fedora-UltraPermissive
-Summary: Convert one DVI file into another
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-dvidvi
-The output DVI file's contents are specified by page selection
-commands; series of pages and page number ranges may be
-specified, as well as inclusions and exclusions.
+The output DVI file's contents are specified by page selection commands; series
+of pages and page number ranges may be specified, as well as inclusions and
+exclusions. It is now maintained as part of TeX Live.
 
 %package -n %{shortname}-dviinfox
 Version: svn59216
@@ -2590,7 +2601,8 @@ Here we don't include the main DVI previewer, but just want small utility
 programs.
 
 %package -n %{shortname}-dvipdfmx
-Version: svn74096
+Summary: An extended version of dvipdfm
+Version: svn77942
 Provides: texlive-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipdfmx-bin = %{epoch}:%{source_date}-%{release}
@@ -2601,27 +2613,32 @@ Provides: texlive-dvipdfmx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvipdfmx-doc < 7:20170520
 Provides: dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: dvipdfm = %{epoch}:%{source_date}-%{release}
-License: GPL-1.0-or-later
-Summary: An extended version of dvipdfm
-Requires: texlive-base
-Requires: texlive-glyphlist
-Requires: texlive-kpathsea
-Requires: texlive-xetex
 Provides: tex(dvipdfmx.cfg) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cid-x.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ckx.map) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
+Requires: texlive-base
+Requires: texlive-extractbb
+Requires: texlive-glyphlist
+Requires: texlive-kpathsea
+Requires: texlive-texlive-scripts-extra
+Requires: texlive-xetex
 
 %description -n %{shortname}-dvipdfmx
-Dvipdfmx (formerly dvipdfm-cjk) is a development of dvipdfm
-created to support multi-byte character encodings and large
-character sets for East Asian languages. Dvipdfmx, if "called"
-with the name dvipdfm, operates in a "dvipdfm compatibility"
-mode, so that users of the both packages need only keep one
-executable. A secondary design goal is to support as many "PDF"
-features as does pdfTeX.
+Dvipdfmx (formerly dvipdfm-cjk) is a development of dvipdfm created to support
+multi-byte character encodings and large character sets for East Asian
+languages. Dvipdfmx, if "called" with the name dvipdfm, operates in a "dvipdfm
+compatibility" mode, so that users of the both packages need only keep one
+executable. A secondary design goal is to support as many "PDF" features as
+does pdfTeX. The current version of the package is no longer maintained on CTAN
+as a separate entity; development now takes place within the TeX Live
+framework, and it is no longer available as a separate package. For download,
+support, and other information, please see TeX Live. However, the information
+on this page is maintained and should be current.
 
 %package -n %{shortname}-dvipng
-Version: svn73848
+Summary: A fast DVI to PNG/GIF converter
+Version: svn77830
 Provides: texlive-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipng-bin = %{epoch}:%{source_date}-%{release}
@@ -2631,26 +2648,22 @@ Provides: tex-dvipng-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipng-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvipng-doc < 7:20170520
 Provides: dvipng = %{epoch}:%{source_date}-%{release}
-License: LGPL-2.1-or-later
-Summary: A fast DVI to PNG/GIF converter
+License: LGPL-3.0-only
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-dvipng
-This program makes PNG and/or GIF graphics from DVI files as
-obtained from TeX and its relatives. Its benefits include:
-Speed. It offers very fast rendering of DVI as bitmap files,
-which makes it suitable for generating large amounts of images
-on-the-fly, as needed in preview-latex, WeBWorK and others; It
-does not read the postamble, so it can be started before TeX
-finishes. There is a --follow switch that makes dvipng wait at
-end-of-file for further output, unless it finds the POST marker
-that indicates the end of the DVI; Interactive query of
-options. dvipng can read options interactively through stdin,
-and all options are usable. It is even possible to change the
-input file through this interface. Support for PK, VF,
-PostScript Type1, and TrueType fonts, colour specials, and
-inclusion of PostScript, PNG, JPEG or GIF images.
+This program makes PNG and/or GIF graphics from DVI files as obtained from TeX
+and its relatives. Its benefits include: Speed. It offers very fast rendering
+of DVI as bitmap files, which makes it suitable for generating large amounts of
+images on-the-fly, as needed in preview-latex, WeBWorK and others; It does not
+read the postamble, so it can be started before TeX finishes. There is a
+--follow switch that makes dvipng wait at end-of-file for further output,
+unless it finds the POST marker that indicates the end of the DVI; Interactive
+query of options. dvipng can read options interactively through stdin, and all
+options are usable. It is even possible to change the input file through this
+interface. Support for PK, VF, PostScript Type1, and TrueType fonts, colour
+specials, and inclusion of PostScript, PNG, JPEG or GIF images.
 
 %package -n %{shortname}-dvipos
 Version: svn66186
@@ -2668,7 +2681,8 @@ Requires: texlive-kpathsea
 support DVI pos: specials used by ConTeXt DVI output
 
 %package -n %{shortname}-dvips
-Version: svn73850
+Summary: A DVI to PostScript driver
+Version: svn77830
 Provides: texlive-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tetex-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvips = %{epoch}:%{source_date}-%{release}
@@ -2678,10 +2692,6 @@ Obsoletes: texlive-dvips-bin < 7:20170520
 Provides: tex-dvips-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvips-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvips-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: A DVI to PostScript driver
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(canonex.cfg) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cx.cfg) = %{epoch}:%{source_date}-%{release}
 Provides: tex(deskjet.cfg) = %{epoch}:%{source_date}-%{release}
@@ -2732,40 +2742,42 @@ Provides: tex(texmital.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texmsym.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texnansx.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dvips) = %{epoch}:%{source_date}-%{release}
+License: GPL-1.0-or-later
+Requires: texlive-base
+Requires: texlive-kpathsea
 Requires: texlive-latex-fonts
 
 %description -n %{shortname}-dvips
-This package has been withdrawn from CTAN, and bundled into the
-distributions' package sets. The current sources of dvips may
-be found in the distribution of dvipsk which forms part of the
-TeX Live sources.
+This package has been withdrawn from CTAN, and bundled into the distributions'
+package sets. Development now takes place within the TeX Live framework, and it
+is no longer available as a separate package. For download, support, and other
+information, please see TeX Live.
 
 %package -n %{shortname}-dvisvgm
-Version: svn73848
+Summary: Convert DVI, EPS, and PDF files to Scalable Vector Graphics format (SVG)
+Version: svn77830
 Provides: texlive-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvisvgm-bin < 7:20170520
-License: GPL-1.0-or-later
-Summary: Convert DVI, EPS, and PDF files to Scalable Vector Graphics format (SVG)
-Requires: texlive-base
-Requires: texlive-kpathsea
+License: GPL-3.0-or-later
 # for mutool
 Requires: mupdf
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-dvisvgm
-Dvisvgm is a command line utility that converts TeX DVI as well
-as EPS and PDF files to the XML-based Scalable Vector Graphics
-(SVG) format. It provides full font support including virtual
-fonts, font maps, and sub-fonts. If necessary, dvisvgm
-vectorizes Metafont's bitmap output in order to always create
-lossless scalable output. The embedded SVG fonts can optionally
-be replaced with graphics paths so that applications that do
-not support SVG fonts are enabled to render the graphics
-properly. Besides many other features, dvisvgm also supports
-color, emTeX, tpic, papersize, PDF mapfile and PostScript
-specials.
+Dvisvgm is a command line utility that converts TeX DVI as well as EPS and PDF
+files to the XML-based Scalable Vector Graphics (SVG) format. It provides full
+font support including virtual fonts, font maps, and sub-fonts. If necessary,
+dvisvgm vectorizes Metafont's bitmap output in order to always create lossless
+scalable output. The embedded SVG fonts can optionally be replaced with
+graphics paths so that applications that do not support SVG fonts are enabled
+to render the graphics properly. Besides many other features, dvisvgm also
+supports color, emTeX, tpic, papersize, PDF mapfile and PostScript specials.
+Users will need a working TeX installation including the kpathsea library. For
+more detailed information, see the project page.
 
 %package -n %{shortname}-easydtx
 Version: svn72952
@@ -2788,7 +2800,8 @@ easydoctex-mode.el, which takes care of fontification,
 indentation, and forward and inverse search.
 
 %package -n %{shortname}-ebong
-Version: svn67933
+Summary: Utility for writing Bengali in Rapid Roman Format
+Version: svn76924
 Provides: texlive-ebong = %{epoch}:%{source_date}-%{release}
 Provides: tex-ebong = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ebong-bin = %{epoch}:%{source_date}-%{release}
@@ -2798,32 +2811,43 @@ Provides: tex-ebong-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ebong-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ebong-doc < 7:20170520
 License: LicenseRef-Fedora-Public-Domain
-Summary: Utility for writing Bengali in Rapid Roman Format
-Requires: texlive-base
-Requires: texlive-kpathsea
 # python
 BuildArch: noarch
-
-%description -n %{shortname}-ebong
-A tool (preprocessor) for writing your pRaa-ne-r ka-thaa in the
-bengali langauage. It allows one to write the text in Rapid
-Roman Bangla and convert it to the bangtex format by a python
-program. All LaTeX markups are preserved in the target file.
-
-%package -n %{shortname}-eolang
-Version: svn74755
-Provides: tex-eolang = %{epoch}:%{source_date}-%{release}
-License: MIT
-Summary: Formulas and graphs for the EO programming language
 Requires: texlive-base
 Requires: texlive-kpathsea
+
+%description -n %{shortname}-ebong
+A tool (preprocessor) for writing your pRaa-ne-r ka-thaa in the Bengali
+language. It allows one to write the text in Rapid Roman Bangla and convert it
+to the bangtex format by a python program. All LaTeX markups are preserved in
+the target file.
+
+%package -n %{shortname}-eolang
+Summary: Formulas and graphs for the EO programming language
+Version: svn77164
+Provides: tex-eolang = %{epoch}:%{source_date}-%{release}
 Provides: tex(eolang.sty) = %{epoch}:%{source_date}-%{release}
+License: MIT
 # perl
 BuildArch: noarch
+Requires: texlive-adjustbox
+Requires: texlive-amsfonts
+Requires: texlive-amsmath
+Requires: texlive-base
+Requires: texlive-everyshi
+Requires: texlive-fancyvrb
+Requires: texlive-hyperref
+Requires: texlive-iexec
+Requires: texlive-kpathsea
+Requires: texlive-pdftexcmds
+Requires: texlive-pgf
+Requires: texlive-pgfopts
+Requires: texlive-stmaryrd
+Requires: texlive-xstring
 
 %description -n %{shortname}-eolang
-This LaTeX package helps you write [?] -calculus formulas and
-SODG graphs for the EO programming language.
+This package helps you format expressions of [?] -calculus and draw SODG graphs
+the EO programming language.
 
 %package -n %{shortname}-eplain
 Version: svn71409
@@ -2925,7 +2949,8 @@ fly", thus giving the illusion that PDFLaTeX is accepting EPS
 graphic files.
 
 %package -n %{shortname}-exceltex
-Version: svn26313
+Summary: Get data from Excel files into LaTeX
+Version: svn76924
 Provides: texlive-exceltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-exceltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-exceltex-bin = %{epoch}:%{source_date}-%{release}
@@ -2934,64 +2959,59 @@ Obsoletes: texlive-exceltex-bin < 7:20170520
 Provides: tex-exceltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-exceltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-exceltex-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: Get data from Excel files into LaTeX
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(ulem.sty)
-Requires: tex(color.sty)
 Provides: tex(exceltex.sty) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
 # perl
 BuildArch: noarch
+Requires: perl(Spreadsheet::ParseExcel)
+Requires: tex(color.sty)
+Requires: tex(ulem.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-exceltex
-Exceltex is a LaTeX package combined with a helper program
-written in Perl. It provides an easy to use yet powerfull and
-flexible way to get data from Spreadsheets into LaTeX. In
-contrast to other solutions, exceltex does not seek to make the
-creation of tables in LaTeX easier, but to get data from
-Spreadsheets into LaTeX as easily as possible. The Excel (TM)
-file format only acts as an interface between the spreadsheet
-application and exceltex beacause it is easily accessible (via
-the Spreadsheet::ParseExcel Perl module) and because most
-spreadsheet applications are able to read and write Excel
-files.
+Exceltex is a LaTeX package combined with a helper program written in Perl. It
+provides an easy to use yet powerful and flexible way to get data from
+Spreadsheets into LaTeX. In contrast to other solutions, exceltex does not seek
+to make the creation of tables in LaTeX easier, but to get data from
+Spreadsheets into LaTeX as easily as possible. The Excel (TM) file format only
+acts as an interface between the spreadsheet application and exceltex because
+it is easily accessible (via the Spreadsheet::ParseExcel Perl module) and
+because most spreadsheet applications are able to read and write Excel files.
 
 %package -n %{shortname}-expltools
-Version: svn75347
+Summary: Development tools for expl3 programmers
+Version: svn78336
 Provides: tex-expltools = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c AND GPL-2.0-or-later
-Summary: Development tools for expl3 programmers
-Requires: texlive-base
-Requires: texlive-kpathsea
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-expltools
-This bundle introduces explcheck, a static analysis tool for
-developers working with expl3 code. Currently in its initial
-release, explcheck aims to help developers identify potential
-issues and improve code quality. In the future, this bundle may
-expand to include additional development tools for expl3.
+This bundle introduces explcheck, a static analysis tool for developers working
+with expl3 code. Currently in its initial release, explcheck aims to help
+developers identify potential issues and improve code quality. In the future,
+this bundle may expand to include additional development tools for expl3.
 
 %package -n %{shortname}-extractbb
-Version: svn73916
+Summary: A reimplementation of extractbb, written in Lua
+Version: svn77855
 Provides: tex-extractbb = %{epoch}:%{source_date}-%{release}
 License: CC-BY-SA-4.0
-Summary: A reimplementation of extractbb, written in Lua
-Requires: texlive-base
-Requires: texlive-kpathsea
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-extractbb
-extractbb is a program that exports the dimensions of an image
-or PDF file to a plain text format that is easily parsed by
-TeX. This tool is rarely run directly by users, but is
-frequently used by packages running on XeTeX or upTeX. This
-package specifically contains a Lua-based reimplementation
-extractbb that behaves identically to the original C-based
-version distributed with dvipdfmx.
+extractbb is a program that exports the dimensions of an image or PDF file to a
+plain text format that is easily parsed by TeX. This tool is rarely run
+directly by users, but is frequently used by packages running on XeTeX or
+upTeX. This package specifically contains a Lua-based reimplementation
+extractbb that behaves identically to the original C-based version distributed
+with dvipdfmx.
 
 %package -n %{shortname}-fig4latex
 Version: svn26313
@@ -3085,7 +3105,8 @@ normally be done manually or with the help of some other tool,
 such as the pltotf and vptovf programs.
 
 %package -n %{shortname}-fontools
-Version: svn73362
+Summary: Tools to simplify using fonts (especially TT/OTF ones)
+Version: svn78330
 Provides: texlive-fontools = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontools = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontools-bin = %{epoch}:%{source_date}-%{release}
@@ -3094,14 +3115,6 @@ Obsoletes: texlive-fontools-bin < 7:20170520
 Provides: tex-fontools-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontools-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fontools-doc < 7:20170520
-License: GPL-2.0-or-later
-Summary: Tools to simplify using fonts (especially TT/OTF ones)
-Requires: texlive-base
-Requires: texlive-kpathsea
-# for otfinfo
-Requires: texlive-lcdftypetools
-# For vptovf
-Requires: texlive-fontware
 Provides: tex(fontools_cs.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontools_l7x.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontools_lgr.enc) = %{epoch}:%{source_date}-%{release}
@@ -3118,42 +3131,46 @@ Provides: tex(fontools_t4.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontools_t5.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontools_ts1.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontools_ts3.enc) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
 # perl
 BuildArch: noarch
+Requires: texlive-base
+# For vptovf
+Requires: texlive-fontware
+Requires: texlive-kpathsea
+# for otfinfo
+Requires: texlive-lcdftypetools
 
 %description -n %{shortname}-fontools
-This package provides tools to simplify using OpenType fonts
-with LaTeX. By far the most important program in this bundle is
-autoinst: autoinst - a wrapper script around Eddie Kohler's
-LCDF TypeTools. Autoinst aims to automate the installation of
-OpenType fonts in LaTeX by calling the LCDF TypeTools (with the
-correct options) for all fonts you wish to install, and
-generating the necessary .fd and .sty files. In addition, this
-bundle contains a few other, less important utilities: afm2afm
-- re-encode .afm files, ot2kpx - extract kerning pairs from
-OpenType fonts, splitttc - split an OpenType Collection file
+This package provides tools to simplify using OpenType fonts with LaTeX. By far
+the most important program in this bundle is autoinst: autoinst - a wrapper
+script around Eddie Kohler's LCDF TypeTools. Autoinst aims to automate the
+installation of OpenType fonts in LaTeX by calling the LCDF TypeTools (with the
+correct options) for all fonts you wish to install, and generating the
+necessary .fd and .sty files. In addition, this bundle contains a few other,
+less important utilities: afm2afm - re-encode .afm files, ot2kpx - extract
+kerning pairs from OpenType fonts, splitttc - split an OpenType Collection file
 (ttc or otc) into individual fonts.
 
 %package -n %{shortname}-fontware
-Version: svn73848
+Summary: Tools for virtual font metrics
+Version: svn77830
 Provides: texlive-fontware = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fontware-bin < 7:20170520
-License: LPPL-1.3c
-Summary: Tools for virtual font metrics
+License: Knuth-CTAN
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-fontware
-Virtual font metrics are usually created in a textual form, the
-Virtual Property List, but programs that use them need to use
-binary files (the Virtual Font and the TeX Font Metric). The
-present two programs translate between the two forms: - vptovf
-takes a VPL file and generates a VF file and a TFM file; -
-vftovp takes a VF file and a TFM file and generates a VPL file.
-The programs are to be found in every distribution of TeX.
+Virtual font metrics are usually created in a textual form, the Virtual
+Property List, but programs that use them need to use binary files (the Virtual
+Font and the TeX Font Metric). The present two programs translate between the
+two forms: - vptovf takes a VPL file and generates a VF file and a TFM file; -
+vftovp takes a VF file and a TFM file and generates a VPL file. The programs
+are to be found in every distribution of TeX.
 
 %package -n %{shortname}-fragmaster
 Version: svn26313
@@ -3225,7 +3242,8 @@ between different versions of a LaTeX file. Technically, it is
 a wrapper around git and latexdiff.
 
 %package -n %{shortname}-glossaries
-Version: svn75224
+Summary: Create glossaries and lists of acronyms
+Version: svn78288
 Provides: texlive-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: tex-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: texlive-glossaries-bin = %{epoch}:%{source_date}-%{release}
@@ -3234,28 +3252,6 @@ Obsoletes: texlive-glossaries-bin < 7:20170520
 Provides: tex-glossaries-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-glossaries-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-glossaries-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Create glossaries and lists of acronyms
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-amsmath
-Requires: texlive-datatool
-Requires: texlive-etoolbox
-Requires: texlive-mfirstuc
-Requires: texlive-tracklang
-Requires: texlive-xfor
-Requires: texlive-xkeyval
-Requires: tex(accsupp.sty)
-Requires: tex(amsgen.sty)
-Requires: tex(array.sty)
-Requires: tex(booktabs.sty)
-Requires: tex(ifthen.sty)
-Requires: tex(longtable.sty)
-Requires: tex(multicol.sty)
-Requires: tex(shellesc.sty)
-Requires: tex(supertabular.sty)
-Requires: tex(textcase.sty)
-Requires: tex(translator.sty)
 Provides: tex(example-glossaries-acronym-desc.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-acronyms-lang.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-acronym.tex) = %{epoch}:%{source_date}-%{release}
@@ -3331,27 +3327,45 @@ Provides: tex(glossary-tree-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree-2025-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl and lua
 BuildArch: noarch
+Requires: tex(accsupp.sty)
+Requires: tex(amsgen.sty)
+Requires: tex(array.sty)
+Requires: tex(booktabs.sty)
+Requires: tex(ifthen.sty)
+Requires: tex(longtable.sty)
+Requires: tex(multicol.sty)
+Requires: tex(shellesc.sty)
+Requires: tex(supertabular.sty)
+Requires: tex(textcase.sty)
+Requires: tex(translator.sty)
+Requires: texlive-amsmath
+Requires: texlive-base
+Requires: texlive-datatool
+Requires: texlive-etoolbox
+Requires: texlive-kpathsea
+Requires: texlive-mfirstuc
+Requires: texlive-tracklang
+Requires: texlive-xfor
+Requires: texlive-xkeyval
 
 %description -n %{shortname}-glossaries
-The glossaries package supports acronyms and multiple
-glossaries, and has provision for operation in several
-languages (using the facilities of either babel or
-polyglossia). New entries are defined to have a name and
-description (and optionally an associated symbol). Support for
-multiple languages is offered, and plural forms of terms may be
-specified. An additional package, glossaries-accsupp, can make
-use of the accsupp package mechanisms for accessibility support
-for PDF files containing glossaries. The user may define new
-glossary styles, and preambles and postambles can be specified.
-There is provision for loading a database of terms, but only
-terms used in the text will be added to the relevant glossary.
-The package uses an indexing program to provide the actual
-glossary; either makeindex or xindy may serve this purpose, and
-a Perl script is provided to serve as interface. This package
-requires the mfirstuc package. The package supersedes the
-author's glossary package (which is now obsolete).
+The glossaries package supports acronyms and multiple glossaries, and has
+provision for operation in several languages (using the facilities of either
+babel or polyglossia). New entries are defined to have a name and description
+(and optionally an associated symbol). Support for multiple languages is
+offered, and plural forms of terms may be specified. An additional package,
+glossaries-accsupp, can make use of the accsupp package mechanisms for
+accessibility support for PDF files containing glossaries. The user may define
+new glossary styles, and preambles and postambles can be specified. There is
+provision for loading a database of terms, but only terms used in the text will
+be added to the relevant glossary. The package uses an indexing program to
+provide the actual glossary; either makeindex or xindy may serve this purpose,
+and a Perl script is provided to serve as interface. This package requires the
+mfirstuc package. The package supersedes the author's glossary package (which
+is now obsolete).
 
 %package -n %{shortname}-glyphlist
 Version: svn54074
@@ -3429,21 +3443,25 @@ applications are now capable of dealing with Type 1 fonts,
 direct.
 
 %package -n %{shortname}-hitex
-Version: svn74030
+Summary: A TeX extension writing HINT output for on-screen reading
+Version: svn77830
 Provides: texlive-hitex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-hitex-bin = %{epoch}:%{source_date}-%{release}
+Provides: tex(hiltxpage.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(hiplainpage.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(ifhint.tex) = %{epoch}:%{source_date}-%{release}
 License: MIT
-Summary: A TeX extension writing HINT output for on-screen reading
-Requires: texlive-base, texlive-kpathsea
 Requires: texlive-atbegshi
 Requires: texlive-atveryend
 Requires: texlive-babel
+Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-etex
 Requires: texlive-everyshi
 Requires: texlive-firstaid
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
 Requires: texlive-l3backend
 Requires: texlive-l3kernel
 Requires: texlive-l3packages
@@ -3452,30 +3470,27 @@ Requires: texlive-latex-fonts
 Requires: texlive-plain
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
-Provides: tex(hiltxpage.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(hiplainpage.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ifhint.tex) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-hitex
-An extension of TeX which generates HINT output. The HINT file
-format is an alternative to the DVI and PDF formats which was
-designed specifically for on-screen reading of documents.
-Especially on mobile devices, reading DVI or PDF documents can
-be cumbersome. Mobile devices are available in a large variety
-of sizes but typically are not large enough to display
-documents formated for a4/letter-size paper. To compensate for
-the limitations of a small screen, users are used to
-alternating between landscape (few long lines) and portrait
-(more short lines) mode. The HINT format supports variable and
-varying screen sizes, leveraging the ability of TeX to format a
-document for nearly-arbitrary values of \hsize and \vsize.
+An extension of TeX which generates HINT output. The HINT file format is an
+alternative to the DVI and PDF formats which was designed specifically for
+on-screen reading of documents. Especially on mobile devices, reading DVI or
+PDF documents can be cumbersome. Mobile devices are available in a large
+variety of sizes but typically are not large enough to display documents
+formated for a4/letter-size paper. To compensate for the limitations of a small
+screen, users are used to alternating between landscape (few long lines) and
+portrait (more short lines) mode. The HINT format supports variable and varying
+screen sizes, leveraging the ability of TeX to format a document for
+nearly-arbitrary values of \hsize and \vsize.
 
 %package -n %{shortname}-hyperxmp
-Version: svn70694
-Provides: texlive-hyperxmp = %{epoch}:%{source_date}-%{release}
 Summary: Embed XMP metadata within a LaTeX document
+Version: svn78281
+Provides: texlive-hyperxmp = %{epoch}:%{source_date}-%{release}
+Provides: tex(hyperxmp.sty) = %{epoch}:%{source_date}-%{release}
+Provides: texlive-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
+Provides: tex-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Requires: texlive-base texlive-kpathsea
 Requires: tex(atenddvi.sty)
 Requires: tex(etoolbox.sty)
 Requires: tex(hyperref.sty)
@@ -3490,30 +3505,27 @@ Requires: tex(luacode.sty)
 Requires: tex(pdfescape.sty)
 Requires: tex(stringenc.sty)
 Requires: tex(totpages.sty)
-Provides: tex(hyperxmp.sty) = %{epoch}:%{source_date}-%{release}
-Provides: texlive-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
-Provides: tex-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
+Requires: texlive-base
+Requires: texlive-ifmtarg
+Requires: texlive-kpathsea
+Requires: texlive-oberdiek
 
 %description -n %{shortname}-hyperxmp
-XMP (eXtensible Metadata Platform) is a mechanism proposed by
-Adobe for embedding document metadata within the document
-itself. The metadata is designed to be easy to extract, even by
-programs that are oblivious to the document's file format. Most
-of Adobe's applications store XMP metadata when saving files.
-Now, with the hyperxmp package, it is trivial for LaTeX
-document authors to store XMP metadata in their documents as
-well. The package integrates seamlessly with hyperref and
-requires virtually no modifications to documents that already
-exploit hyperref's mechanisms for specifying PDF metadata. The
-current version of hyperxmp can embed the following metadata as
-XMP: title, authors, primary author's title or position,
-metadata writer, subject/summary, keywords, copyright, license
-URL, document base URL, document identifier and instance
-identifier, language, source file name, PDF generating tool,
-PDF version, and contact telephone number/postal address/email
-address/URL. Hyperxmp currently embeds XMP only within PDF
-documents; it is compatible with pdfLaTeX, XeLaTeX,
-LaTeX+dvipdfm, and LaTeX+dvips+ps2pdf.
+XMP (eXtensible Metadata Platform) is a mechanism proposed by Adobe for
+embedding document metadata within the document itself. The metadata is
+designed to be easy to extract, even by programs that are oblivious to the
+document's file format. Most of Adobe's applications store XMP metadata when
+saving files. Now, with the hyperxmp package, it is trivial for LaTeX document
+authors to store XMP metadata in their documents as well. The package
+integrates seamlessly with hyperref and requires virtually no modifications to
+documents that already exploit hyperref's mechanisms for specifying PDF
+metadata. The current version of hyperxmp can embed the following metadata as
+XMP: title, authors, primary author's title or position, metadata writer,
+subject/summary, keywords, copyright, license URL, document base URL, document
+identifier and instance identifier, language, source file name, PDF generating
+tool, PDF version, and contact telephone number/postal address/email
+address/URL. Hyperxmp currently embeds XMP only within PDF documents; it is
+compatible with pdfLaTeX, XeLaTeX, LaTeX+dvipdfm, and LaTeX+dvips+ps2pdf.
 
 %package -n %{shortname}-installfont
 Version: svn31205
@@ -3693,10 +3705,9 @@ generation in Korean language typesetting. The files belong to
 the ko.TeX bundle.
 
 %package -n %{shortname}-kpathsea
-Version: svn75425
-Provides: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
-License: LGPL-2.1-or-later
 Summary: Path searching library for TeX-related files
+Version: svn77861
+Provides: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
 Provides: kpathsea = %{epoch}:%{source_date}-%{release}
 Obsoletes: kpathsea < %{source_date}
 Provides: tex-kpathsea = %{epoch}:%{source_date}-%{release}
@@ -3706,87 +3717,89 @@ Obsoletes: texlive-kpathsea-bin < 7:20170520
 Provides: tex-kpathsea-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-kpathsea-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-kpathsea-doc < 7:20170520
-Requires: coreutils, grep
-Requires: texlive-base
-# We absolutely need this to go in first, since the trigger needs it
-Requires(post): texlive-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: tex(fmtutil.cnf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mktex.cnf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texmf.cnf) = %{epoch}:%{source_date}-%{release}
+License: LGPL-2.1-or-later
+# We absolutely need this to go in first, since the trigger needs it
+Requires(post): texlive-texlive-scripts = %{epoch}:%{source_date}-%{release}
+Requires: coreutils
+Requires: grep
+Requires: texlive-base
 
 %description -n %{shortname}-kpathsea
-Kpathsea is a library and utility programs which provide path
-searching facilities for TeX file types, including the self-
-locating feature required for movable installations, layered on
-top of a general search mechanism.
+Kpathsea is a library and utility programs which provide path searching
+facilities for TeX file types, including the self-locating feature required for
+movable installations, layered on top of a general search mechanism. It is not
+distributed separately, but rather is released and maintained as part of the
+TeX Live sources.
 
 %package -n %{shortname}-l3build
-Version: svn75155
+Summary: A testing and building system for (La)TeX
+Version: svn77170
 Provides: texlive-l3build = %{epoch}:%{source_date}-%{release}
 Provides: tex-l3build = %{epoch}:%{source_date}-%{release}
 Provides: texlive-l3build-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-l3build-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-l3build-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-l3build-doc < 7:20180414
-License: LPPL-1.3c
-Summary: A testing and building system for (La)TeX
 Provides: tex(regression-test.tex) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+# lua
+BuildArch: noarch
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-luatex
-# lua
-BuildArch: noarch
 
 %description -n %{shortname}-l3build
-The build system supports testing and building LaTeX3 code, on
-Linux, Mac OS X and Windows systems. The package offers: A unit
-testing system for (La)TeX code (whether kernel code or
-contributed packages); A system for typesetting package
-documentation; and An automated process for creating CTAN
-releases.
+The build system supports testing and building LaTeX3 code, on Linux, Mac OS X
+and Windows systems. The package offers: A unit testing system for (La)TeX code
+(whether kernel code or contributed packages); A system for typesetting package
+documentation; and An automated process for creating CTAN releases. The package
+is essentially independent of other material released by the LaTeX3 team, and
+may be updated on a different schedule.
 
 %package -n %{shortname}-l3sys-query
-Version: svn70889
+Summary: System queries for LaTeX using Lua
+Version: svn77682
 Provides: tex-l3sys-query = %{epoch}:%{source_date}-%{release}
 License: MIT
-Summary: System queries for LaTeX using Lua
+# lua
+BuildArch: noarch
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-luatex
-# lua
-BuildArch: noarch
 
 %description -n %{shortname}-l3sys-query
-The l3sys-query script provides a method for TeX runs to obtain
-system information via shell escape to Lua. The facilities are
-more limited than the similar Java script texosquery, but since
-it uses Lua, l3sys-query can be used out of the box; with any
-installed TeX system. The script is written taking account of
-TeX Live security requirements; it is therefore suitable for
-use with restricted shell escape, the standard setting when
-installing a TeX system. The supported queries are lsDirectory
-listing supporting a range of options pwdObtaining details of
-the current working directory
+The l3sys-query script provides a method for TeX runs to obtain system
+information via shell escape to Lua. The facilities are more limited than the
+similar Java script texosquery, but since it uses Lua, l3sys-query can be used
+out of the box; with any installed TeX system. The script is written taking
+account of TeX Live security requirements; it is therefore suitable for use
+with restricted shell escape, the standard setting when installing a TeX
+system. The supported queries are lsDirectory listing supporting a range of
+options pwdObtaining details of the current working directory
 
 %package -n %{shortname}-lacheck
-Version: svn66186
+Summary: LaTeX checker
+Version: svn75712
 Provides: texlive-lacheck = %{epoch}:%{source_date}-%{release}
 Provides: tex-lacheck = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lacheck-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lacheck-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lacheck-bin < 7:20170520
 License: GPL-1.0-or-later
-Summary: LaTeX checker
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-lacheck
-Lacheck is a tool for finding common mistakes in LaTeX
-documents. The distribution includes sources, and executables
-for OS/2 and Win32 environments.
+Lacheck is a tool for finding common mistakes in LaTeX documents. The
+distribution includes sources, and executables for OS/2 and Win32 environments.
+It is maintained as part of TeX Live.
 
 %package -n %{shortname}-latex
-Version: svn75474
+Summary: A TeX macro package that defines LaTeX
+Version: svn76924
 Provides: texlive-latex = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex = %{epoch}:%{source_date}-%{release}
 Provides: tetex-latex = %{epoch}:%{source_date}-%{release}
@@ -3799,27 +3812,6 @@ Obsoletes: texlive-latex-bin-bin < 7:20170520
 Provides: tex-latex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex-doc < 7:20170520
-License: LPPL-1.3c
-Summary: A TeX macro package that defines LaTeX
-Requires: texlive-base
-Requires: tex(expl3.sty)
-Requires: texlive-kpathsea
-Requires: texlive-luatex
-Requires: texlive-pdftex
-Requires: texlive-latexconfig
-Requires: texlive-latex-fonts
-# As a result of changes in textcomp, it requests TS1 fonts for some things
-# most notably, \textbullet. Since people probably want a working itemize
-# even on rather minimal installs, we add an explicit Requires on texlive-cm-super
-# here. (bz1867927)
-Requires: texlive-cm-super
-# Another font dependency
-Requires: texlive-psnfss
-Requires(post,postun): coreutils
-Requires: tex(multicol.sty)
-Requires: tex(url.sty)
-Requires: tex(hyperref.sty)
-Requires: tex(hypdoc.sty)
 Provides: tex(alltt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ansinew.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(applemac.def) = %{epoch}:%{source_date}-%{release}
@@ -3967,24 +3959,43 @@ Provides: tex(utf8-2018.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(utf8.def) = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texmf-latex = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texmf-latex < %{source_date}
+License: LPPL-1.3c
 # symlinks
 BuildArch: noarch
+Requires(post,postun): coreutils
+Requires: tex(expl3.sty)
+Requires: tex(hypdoc.sty)
+Requires: tex(hyperref.sty)
+Requires: tex(multicol.sty)
+Requires: tex(url.sty)
+Requires: texlive-base
+# As a result of changes in textcomp, it requests TS1 fonts for some things
+# most notably, \textbullet. Since people probably want a working itemize
+# even on rather minimal installs, we add an explicit Requires on texlive-cm-super
+# here. (bz1867927)
+Requires: texlive-cm-super
+Requires: texlive-kpathsea
+Requires: texlive-latex-fonts
+Requires: texlive-latexconfig
+Requires: texlive-luatex
+Requires: texlive-pdftex
+# Another font dependency
+Requires: texlive-psnfss
 
 %description -n %{shortname}-latex
-LaTeX is a widely-used macro package for TeX, providing many
-basic document formating commands extended by a wide range of
-packages. It is a development of Leslie Lamport's LaTeX 2.09,
-and superseded the older system in June 1994. The basic
-distribution is catalogued separately, at latex-base; apart
-from a large set of contributed packages and third-party
-documentation (elsewhere on the archive), the distribution
-includes: - a bunch of required packages, which LaTeX authors
-are "entitled to assume" will be present on any system running
-LaTeX; and - a minimal set of documentation detailing
-differences from the 'old' version of LaTeX in the areas of
-user commands, font selection and control, class and package
-writing, font encodings, configuration options and modification
-of LaTeX.
+LaTeX is a widely-used macro package (format) for TeX, providing many basic
+document formatting commands extended by a wide range of packages. It was
+originally created by Leslie Lamport, whose last release was LaTeX 2.09. The
+current LaTeX superseded that release in June 1994. The basic distribution is
+catalogued separately, at latex-base. Apart from a large set of contributed
+packages and third-party documentation (elsewhere on the archive), the
+distribution includes: a number of required packages, which LaTeX authors may
+assume will be present on any system running LaTeX; and a minimal set of
+documentation detailing differences from the 'old' version of LaTeX in the
+areas of user commands, font selection and control, class and package writing,
+font encodings, configuration options and modification of LaTeX. For
+downloading details, documentation links, etc., see the linked catalogue
+entries above.
 
 %package -n %{shortname}-latex-git-log
 Version: svn71402
@@ -4035,7 +4046,8 @@ the settings for various font and paper sizes. More details are
 to be read in the script itself.
 
 %package -n %{shortname}-latex2man
-Version: svn64477
+Summary: Translate LaTeX-based manual pages into Unix man format
+Version: svn77377
 Provides: texlive-latex2man = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2man = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2man-bin = %{epoch}:%{source_date}-%{release}
@@ -4044,26 +4056,27 @@ Obsoletes: texlive-latex2man-bin < 7:20170520
 Provides: tex-latex2man-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2man-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex2man-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Translate LaTeX-based manual pages into Unix man format
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(fancyheadings.sty)
-Requires: tex(fancyhdr.sty)
 Provides: tex(latex2man.cfg) = %{epoch}:%{source_date}-%{release}
 Provides: tex(latex2man.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: tex(fancyhdr.sty)
+Requires: tex(fancyheadings.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-latex2man
-A tool to translate UNIX manual pages written with LaTeX into a
-man-page format understood by the Unix man(1) command.
-Alternatively HTML or TexInfo code can be produced. Output of
-parts of the text may be supressed using the conditional text
-feature.
+Latex2man is a tool to translate UNIX manual pages written with LaTeX into the
+troff format understood by the UNIX man(1) command. Alternatively HTML,
+Texinfo, or LaTeX code can be produced too. Output of parts of the text may be
+suppressed using the conditional text feature (for this, LaTeX generation may
+be used). There is a LaTeX package (latex2man.sty) for writing the man page and
+a Perl script (latex2man) that does the actual translation.
 
 %package -n %{shortname}-latex2nemeth
-Version: svn65269
+Summary: Convert LaTeX source to Braille with math in Nemeth
+Version: svn76924
 Provides: texlive-latex2nemeth = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2nemeth = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2nemeth-bin = %{epoch}:%{source_date}-%{release}
@@ -4073,34 +4086,31 @@ Provides: tex-latex2nemeth-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2nemeth-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex2nemeth-doc < 7:20170520
 License: GPL-3.0-only
-Summary: Convert LaTeX source to Braille with math in Nemeth
-Requires: texlive-base
-Requires: texlive-kpathsea
 # shell
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-latex2nemeth
-After many failed attempts to transcribe real math notes and
-books to Braille/Nemeth in order to deal with a real situation
-(blind student in Math Dept.), we decided to develop a new
-program that follows a direct, from LaTeX to Braille/Nemeth,
-approach. Our main target was the Greek language which is only
-Braille level 1, but English at level 1 is supported as well.
-Simple pictures in PSTricks are also supported in order to
-produce tactile graphics with specialized equipment. Note that
-embossing will need LibreOffice and odt2braille as this project
-does not deal with embossers' drivers. What's new in version
-1.1 In this version, the support of the user level commands of
-the amsmath package was added, as described in its user guide,
-with the exception of commutative diagrams (amscd package) as
-well as structures that are irrelevant to visually impared
-persons. Also, the Unicode mathematics symbols of the
-unicode-math package that are represented by the Nemeth code
-are now supported by latex2nemeth. We would like to acknowledge
-support by the TUGfund for this project (TUGfund project 33).
+After many failed attempts to transcribe real math notes and books to
+Braille/Nemeth in order to deal with a real situation (blind student in Math
+Dept.), we decided to develop a new program that follows a direct, from LaTeX
+to Braille/Nemeth, approach. Our main target was the Greek language which is
+only Braille level 1, but English at level 1 is supported as well. Simple
+pictures in PSTricks are also supported in order to produce tactile graphics
+with specialized equipment. Note that embossing will need LibreOffice and
+odt2braille as this project does not deal with embossers' drivers. What's new
+in version 1.1 In this version, the support of the user level commands of the
+amsmath package was added, as described in its user guide, with the exception
+of commutative diagrams (amscd package) as well as structures that are
+irrelevant to visually impaired persons. Also, the Unicode mathematics symbols
+of the unicode-math package that are represented by the Nemeth code are now
+supported by latex2nemeth. We would like to acknowledge support by TUG's TeX
+development fund for this project (development fund project 33).
 
 %package -n %{shortname}-latexdiff
-Version: svn72099
+Summary: Determine and mark up significant differences between LaTeX files
+Version: svn77278
 Provides: texlive-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexdiff-bin = %{epoch}:%{source_date}-%{release}
@@ -4110,23 +4120,20 @@ Provides: tex-latexdiff-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexdiff-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latexdiff-doc < 7:20170520
 License: GPL-3.0-or-later
-Summary: Determine and mark up significant differences between LaTeX files
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-latexdiff
-Latexdiff is a Perl script for visual mark up and revision of
-significant differences between two LaTeX files. Various
-options are available for visual markup using standard LaTeX
-packages such as color. Changes not directly affecting visible
-text, for example in formatting commands, are still marked in
-the LaTeX source. A rudimentary revision facilility is provided
-by another Perl script, latexrevise, which accepts or rejects
-all changes. Manual editing of the difference file can be used
-to override this default behaviour and accept or reject
-selected changes only.
+Latexdiff is a Perl script for visual mark up and revision of significant
+differences between two LaTeX files. Various options are available for visual
+markup using standard LaTeX packages such as color. Changes not directly
+affecting visible text, for example in formatting commands, are still marked in
+the LaTeX source. A rudimentary revision facility is provided by another Perl
+script, latexrevise, which accepts or rejects all changes. Manual editing of
+the difference file can be used to override this default behaviour and accept
+or reject selected changes only.
 
 %package -n %{shortname}-latexfileversion
 Version: svn29349
@@ -4153,7 +4160,8 @@ programme handles style files (extension .sty), class files
 must be given.
 
 %package -n %{shortname}-latexindent
-Version: svn74619
+Summary: Indent a LaTeX document, highlighting the programming structure
+Version: svn76064
 Provides: texlive-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexindent-bin = %{epoch}:%{source_date}-%{release}
@@ -4163,15 +4171,14 @@ Provides: tex-latexindent-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexindent-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latexindent-doc < 7:20170520
 License: GPL-3.0-or-later
-Summary: Indent a LaTeX document, highlighting the programming structure
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-latexindent
-The Perl script processes a LaTeX file, indenting parts so as to
-highlight the structure for the reader.
+The Perl script processes a LaTeX file, indenting parts so as to highlight the
+structure for the reader.
 
 %package -n %{shortname}-latexpand
 Version: svn66226
@@ -4472,17 +4479,19 @@ PStricks environments for separate processing to produce images
 preview bundle.
 
 %package -n %{shortname}-luafindfont
-Version: svn73986
+Summary: Search fonts in the LuaTeX font database
+Version: svn75679
 Provides: texlive-luafindfont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luafindfont-bin = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Summary: Search fonts in the LuaTeX font database
-Requires: texlive-base, texlive-kpathsea, lua >= 5.3
 # lua
 BuildArch: noarch
+Requires: lua >= 5.3
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-luafindfont
-This Lua script searches for fonts in the font database. It requires Lua 5.3.
+This Lua script searches for fonts in the font database.
 
 %package -n %{shortname}-luaotfload
 Version: svn74324
@@ -4513,53 +4522,54 @@ provided in ConTeXt, and adapts it to use in Plain TeX and
 LaTeX. It works under LuaLaTeX only.
 
 %package -n %{shortname}-luahbtex
-Version: svn73848
+Summary: LuaTeX with HarfBuzz library for glyph shaping
+Version: svn77830
 Provides: texlive-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luahbtex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-luahbtex-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-2.0-or-later
-Summary: LuaTeX with HarfBuzz library for glyph shaping
 Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-luatex
 Requires: texlive-cm
 Requires: texlive-etex
+Requires: texlive-hyph-utf8
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
+Requires: texlive-luatex
 Requires: texlive-plain
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
-Requires: texlive-hyph-utf8
 
 %description -n %{shortname}-luahbtex
-LuaTeX with HarfBuzz library for glyph shaping.
+LuaTeX with HarfBuzz library for glyph shaping
 
 %package -n %{shortname}-luajittex
-Version: svn73848
+Summary: LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz
+Version: svn77830
 Provides: texlive-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luajittex-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-2.0-or-later
-Summary: LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz
 Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-luatex
 Requires: texlive-cm
 Requires: texlive-etex
+Requires: texlive-hyph-utf8
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
+Requires: texlive-luatex
 Requires: texlive-plain
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
-Requires: texlive-hyph-utf8
 
 %description -n %{shortname}-luajittex
-LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz.
+LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz
 
 %package -n %{shortname}-luatex
-Version: svn75423
+Summary: The LuaTeX engine
+Version: svn78218
 Provides: texlive-luatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-bin = %{epoch}:%{source_date}-%{release}
@@ -4568,34 +4578,32 @@ Obsoletes: texlive-luatex-bin < 7:20170520
 Provides: tex-luatex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-luatex-doc < 7:20170520
+Provides: tex(luatex-unicode-letters.tex) = %{epoch}:%{source_date}-%{release}
 License: GPL-2.0-or-later
-Summary: The LuaTeX engine
-Requires: texlive-base
-Requires: texlive-kpathsea
 Requires(post,postun): coreutils
+Requires: tex(luatex.def)
+Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-etex
+Requires: texlive-hyph-utf8
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
 Requires: texlive-plain
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
-Requires: texlive-hyph-utf8
-Requires: tex(luatex.def)
-Provides: tex(luatex-unicode-letters.tex) = %{epoch}:%{source_date}-%{release}
-# Provides: tex(luatexiniconfig.tex) = %%{epoch}:%%{source_date}-%%{release}
 
 %description -n %{shortname}-luatex
-LuaTeX is a greatly extended version of pdfTeX using Lua as an
-embedded scripting language. The LuaTeX project's main
-objective is to provide an open and configurable variant of TeX
-while at the same time offering substantive backward
-compatibility. LuaTeX uses Unicode (as UTF-8) as its default
-input encoding, and is able to use modern (OpenType and
-TrueType) fonts (for both text and mathematics).
+LuaTeX is a greatly extended version of pdfTeX using Lua as an embedded
+scripting language. The LuaTeX project's main objective is to provide an open
+and configurable variant of TeX while at the same time offering substantive
+backward compatibility. LuaTeX uses Unicode (as UTF-8) as its default input
+encoding, and is able to use modern (OpenType and TrueType) fonts (for both
+text and mathematics).
 
 %package -n %{shortname}-lwarp
-Version: svn75010
+Summary: Converts LaTeX to HTML
+Version: svn78111
 Provides: texlive-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: tex-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lwarp-bin = %{epoch}:%{source_date}-%{release}
@@ -4604,10 +4612,6 @@ Obsoletes: texlive-lwarp-bin < 7:20170520
 Provides: tex-lwarp-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lwarp-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lwarp-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Converts LaTeX to HTML
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(lwarp-2in1.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-2up.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-a4.sty) = %{epoch}:%{source_date}-%{release}
@@ -5203,28 +5207,26 @@ Provides: tex(lwarp-xurl.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-xy.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-zhlineskip.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-zwpagelayout.sty) = %{epoch}:%{source_date}-%{release}
-
+License: LPPL-1.3c
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-lwarp
-This package converts LaTeX to HTML by using LaTeX to process
-the user's document and generate HTML tags. External utility
-programs are only used for the final conversion of text and
-images. Math may be represented by SVG files or MathJax.
-Hundreds of LaTeX packages are supported, and their load order
-is automatically verified. Documents may be produced by LaTeX,
-LuaLaTeX, XeLaTeX, and by several CJK engines, classes, and
-packages. A texlua script automates compilation, index,
-glossary, and batch image processing, and also supports
-latexmk. Configuration is semi-automatic at the first manual
-compile. Support files are self-generated. Print and HTML
-versions of each document may coexist. Assistance is provided
-for HTML import into EPUB conversion software and word
-processors. Requirements include the commonly-available Poppler
-utilities, and Perl. Detailed installation instructions are
-included for each of the major operating systems and TeX
-distributions. A quick-start tutorial is provided.
+This package converts LaTeX to HTML by using LaTeX to process the user's
+document and generate HTML tags. External utility programs are only used for
+the final conversion of text and images. Math may be represented by SVG files
+or MathJax. Hundreds of LaTeX packages are supported, and their load order is
+automatically verified. Documents may be produced by LaTeX, LuaLaTeX, XeLaTeX,
+and by several CJK engines, classes, and packages. A texlua script automates
+compilation, index, glossary, and batch image processing, and also supports
+latexmk. Configuration is semi-automatic at the first manual compile. Support
+files are self-generated. Print and HTML versions of each document may coexist.
+Assistance is provided for HTML import into EPUB conversion software and word
+processors. Requirements include the commonly-available Poppler utilities, and
+Perl. Detailed installation instructions are included for each of the major
+operating systems and TeX distributions. A quick-start tutorial is provided.
 
 %package -n %{shortname}-lyluatex
 Version: svn66880
@@ -5253,7 +5255,8 @@ scores within LuaLaTeX. It calls LilyPond to compile scores,
 then includes the produced files.
 
 %package -n %{shortname}-make4ht
-Version: svn74940
+Summary: A build system for tex4ht
+Version: svn78133
 Provides: texlive-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: texlive-make4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -5263,21 +5266,21 @@ Provides: tex-make4ht-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-make4ht-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-make4ht-doc < 7:20170520
 License: LPPL-1.3c
-Summary: A build system for tex4ht
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(tex4ht.sty)
 # lua
 BuildArch: noarch
+Requires: tex(tex4ht.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-tex4ht
 
 %description -n %{shortname}-make4ht
-make4ht is a simple build system for tex4ht, a TeX to XML
-converter. It provides a command line tool that drives the
-conversion process. It also provides a library which can be
-used to create customized conversion tools.
+make4ht is a simple build system for tex4ht, a TeX to XML converter. It
+provides a command line tool that drives the conversion process. It also
+provides a library which can be used to create customized conversion tools.
 
 %package -n %{shortname}-makedtx
-Version: svn46702
+Summary: Perl script to help generate dtx and ins files
+Version: svn77871
 Provides: texlive-makedtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-makedtx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makedtx-bin = %{epoch}:%{source_date}-%{release}
@@ -5286,23 +5289,22 @@ Obsoletes: texlive-makedtx-bin < 7:20170520
 Provides: tex-makedtx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makedtx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-makedtx-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Perl script to help generate dtx and ins files
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(creatdtx.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-makedtx
-The makedtx bundle is provided to help LaTeX2e developers to
-write the code and documentation in separate files, and then
-combine them into a single .dtx file for distribution. It
-automatically generates the character table, and also writes
-the associated installation (.ins) script.
+The makedtx bundle is provided to help LaTeX2e developers to write the code and
+documentation in separate files, and then combine them into a single .dtx file
+for distribution. It automatically generates the character table, and also
+writes the associated installation (.ins) script.
 
 %package -n %{shortname}-makeindex
-Version: svn62517
+Summary: Makeindex development sources
+Version: svn75712
 Provides: texlive-makeindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-makeindex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makeindex-bin = %{epoch}:%{source_date}-%{release}
@@ -5311,44 +5313,43 @@ Obsoletes: texlive-makeindex-bin < 7:20170520
 Provides: tex-makeindex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makeindex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-makeindex-doc < 7:20170520
+Provides: tex(idxmac.tex) = %{epoch}:%{source_date}-%{release}
 License: MakeIndex
-Summary: Provides sorted index from unsorted raw data
 Requires: texlive-base
 Requires: texlive-kpathsea
-Requires: texlive-makeindex
-Provides: tex(idxmac.tex) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-makeindex
-MakeIndex is a computer program which provides a sorted index
-from unsorted raw data. MakeIndex can process raw data output
-by various programs, however, it is generally used with LaTeX
-and troff.
+The package contains the development sources of makeindex, which is now
+maintained as part of TeX Live.
 
 %package -n %{shortname}-markdown
-Version: svn75340
-Provides: tex-markdown = %{epoch}:%{source_date}-%{release}
-License: LPPL-1.3c
 Summary: Converting and rendering markdown documents inside TeX
-Requires: texlive-base
-Requires: texlive-kpathsea
+Version: svn77254
+Provides: tex-markdown = %{epoch}:%{source_date}-%{release}
 Provides: tex(markdown.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(markdown.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(markdownthemewitiko_markdown_defaults.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(markdownthemewitiko_markdown_defaults.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(t-markdown.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(t-markdownthemewitiko_markdown_defaults.tex) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-l3kernel
+Requires: texlive-lt3luabridge
+Requires: texlive-lua-tinyyaml
 
 %description -n %{shortname}-markdown
-The package provides facilities for the conversion of markdown
-markup to plain TeX. These are provided both in form of a Lua
-module and in form of plain TeX, LaTeX, and ConTeXt macro
-packages that enable the direct inclusion of markdown documents
-inside TeX documents.
+The package provides facilities for the conversion of markdown and YAML markup
+to plain TeX. These are provided both in form of a Lua module and in form of
+plain TeX, LaTeX, and ConTeXt macro packages that enable the direct inclusion
+of markdown and YAML documents inside TeX documents.
 
 %package -n %{shortname}-match_parens
-Version: svn66681
+Summary: Find mismatches of parentheses, braces, (angle) brackets, in texts
+Version: svn76442
 Provides: texlive-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: tex-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: texlive-match_parens-bin = %{epoch}:%{source_date}-%{release}
@@ -5358,19 +5359,17 @@ Provides: tex-match_parens-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-match_parens-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-match_parens-doc < 7:20170520
 License: GPL-1.0-or-later
-Summary: Find mismatches of parentheses, braces, (angle) brackets, in texts
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: ruby
 # ruby
 BuildArch: noarch
+Requires: ruby
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-match_parens
-Mismatches of parentheses, braces, (angle) brackets, especially
-in TeX sources which may be rich in those, may be difficult to
-trace. This little script helps you by writing your text to
-standard output, after adding a left margin to your text, which
-will normally be almost empty, but will clearly show any
+Mismatches of parentheses, braces, (angle) brackets, especially in TeX sources
+which may be rich in those, may be difficult to trace. This little Ruby script
+helps you by writing your text to standard output, after adding a left margin
+to your text, which will normally be almost empty, but will clearly show any
 mismatches.
 
 %package -n %{shortname}-mathspic
@@ -5446,18 +5445,13 @@ major engines and formats, and (vi) is adaptable to any
 workflow.
 
 %package -n %{shortname}-metafont
-Version: svn73848
+Summary: A system for specifying fonts
+Version: svn77830
 Provides: texlive-metafont = %{epoch}:%{source_date}-%{release}
 Provides: tex-metafont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metafont-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-metafont-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-metafont-bin < 7:20170520
-License: Knuth-CTAN
-Summary: A system for specifying fonts
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-modes
-Requires(post,postun): coreutils
 Provides: tex(mf.mf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(plain.mf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cmmf.ini) = %{epoch}:%{source_date}-%{release}
@@ -5467,24 +5461,28 @@ Provides: tex(mode2dpixy.mf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(modename.mf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(modes.mf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ps2mfbas.mf) = %{epoch}:%{source_date}-%{release}
+License: Knuth-CTAN
+Requires(post,postun): coreutils
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-modes
 
 %description -n %{shortname}-metafont
-The program takes a programmatic specification of a font, and
-produces a bitmap font (whose properties are defined by a set
-of parameters of the target device), and metrics for use by
-TeX. The bitmap output may be converted into a format directly
-usable by a device driver, etc., by the tools provided in the
-parallel mfware distribution. Third parties have developed
-tools to convert the bitmap output to outline fonts. The
-distribution includes the source of Knuth's Metafont book; this
-source is there to read, as an example of writing TeX -- it
-should not be processed without Knuth's direct permission. The
-mailing list tex-fonts@math.utah.edu is the best for general
-discussion of Metafont usage; the tex-k@tug.org list is best
-for bug reports about building the software, etc.
+The program takes a programmatic specification of a font, and produces a bitmap
+font (whose properties are defined by a set of parameters of the target
+device), and metrics for use by TeX. The bitmap output may be converted into a
+format directly usable by a device driver, etc., by the tools provided in the
+parallel mfware distribution. Third parties have developed tools to convert the
+bitmap output to outline fonts. The distribution includes the source of Knuth's
+Metafont book; this source is there to read, as an example of writing TeX -- it
+should not be processed without Knuth's direct permission. The mailing list
+tex-fonts@math.utah.edu is the best for general discussion of Metafont usage;
+the tex-k@tug.org list is best for bug reports about building the software,
+etc.
 
 %package -n %{shortname}-metapost
-Version: svn73850
+Summary: A development of Metafont for creating graphics
+Version: svn77830
 Provides: texlive-metapost = %{epoch}:%{source_date}-%{release}
 Provides: tex-metapost = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metapost-bin = %{epoch}:%{source_date}-%{release}
@@ -5493,21 +5491,20 @@ Obsoletes: texlive-metapost-bin < 7:20170520
 Provides: tex-metapost-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metapost-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-metapost-doc < 7:20170520
-License: LGPL-2.1-or-later
-Summary: A development of Metafont for creating graphics
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(groff.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mproof.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mpsproof.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(trfonts.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(troff-updmap.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(troff.map) = %{epoch}:%{source_date}-%{release}
+License: LGPL-2.1-or-later
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-metapost
-MetaPost uses a language based on that of Metafont to produce
-precise technical illustrations. Its output is scalable
-PostScript or SVG, rather than the bitmaps Metafont creates.
+MetaPost uses a language based on that of Metafont to produce precise technical
+illustrations. Its output is scalable PostScript or SVG, rather than the
+bitmaps Metafont creates.
 
 %package -n %{shortname}-mex
 Version: svn58661
@@ -5551,35 +5548,40 @@ hyphenation rules for the Polish language and sources of
 formats.
 
 %package -n %{shortname}-mflua
-Version: svn73848
+Summary: Configuration and base files for MFLua
+Version: svn77830
 Provides: texlive-mflua = %{epoch}:%{source_date}-%{release}
 Provides: tex-mflua = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mflua-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mflua-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mflua-bin < 7:20170520
 License: GPL-1.0-or-later
-Summary: A METAFONT compliant program with a Lua interpreter embedded
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: texlive-luatex
+Requires: texlive-metafont
 
 %description -n %{shortname}-mflua
-A METAFONT compliant program with a Lua interpreter embedded.
+For information on this Lua-enabled Metafont, see, for example:
+tug.org/TUGboat/tb32-2/tb101scarso.pdf.
 
 %package -n %{shortname}-mfware
-Version: svn73848
+Summary: Supporting tools for Metafont: gftodvi, gftopk, gftype, mft
+Version: svn77830
 Provides: texlive-mfware = %{epoch}:%{source_date}-%{release}
 Provides: tex-mfware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mfware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mfware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mfware-bin < 7:20170520
-License: Knuth-CTAN
-Summary: Supporting tools for use with Metafont
+License: LicenseRef-Fedora-Public-Domain
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-mfware
-A collection of programs (as web source) for processing the
-output of Metafont.
+A collection of programs (as web source) for processing the output of Metafont.
+They include: gftodvi (for making proof sheets of letters); gftopk (translate
+gf bitmap files to pk bitmaps); gftype (human-readable dump of gf files); mft
+(prettyprint Metafont source).
 
 %package -n %{shortname}-mf2pt1
 Version: svn71883
@@ -5609,14 +5611,21 @@ reverse-engineered by TeXtrace, mftrace, and other programs
 which convert bitmaps to outline fonts.
 
 %package -n %{shortname}-minted
-Version: svn75223
-Provides: tex-minted = %{epoch}:%{source_date}-%{release}
-License: LPPL-1.3c AND BSD-3-Clause
 Summary: Highlighted source code for LaTeX
+Version: svn78270
+Provides: tex-minted = %{epoch}:%{source_date}-%{release}
+Provides: tex(minted.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(minted1.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(minted2.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c AND BSD-3-Clause
+# python
+BuildArch: noarch
+Requires: texlive-base
 Requires: texlive-catchfile
 Requires: texlive-etoolbox
 Requires: texlive-float
 Requires: texlive-fvextra
+Requires: texlive-kpathsea
 Requires: texlive-latex2pydata
 Requires: texlive-newfloat
 Requires: texlive-pdftexcmds
@@ -5624,19 +5633,11 @@ Requires: texlive-pgf
 Requires: texlive-pgfopts
 Requires: texlive-tools
 Requires: texlive-xcolor
-Requires: texlive-base
-Requires: texlive-kpathsea
-Provides: tex(minted.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(minted1.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(minted2.sty) = %{epoch}:%{source_date}-%{release}
-# python
-BuildArch: noarch
 
 %description -n %{shortname}-minted
-The package that facilitates expressive syntax highlighting in
-LaTeX using the powerful Pygments library. The package also
-provides options to customize the highlighted source code
-output using fancyvrb.
+The package that facilitates expressive syntax highlighting in LaTeX using the
+powerful Pygments library. The package also provides options to customize the
+highlighted source code output using fancyvrb.
 
 %package -n %{shortname}-mkgrkindex
 Version: svn26313
@@ -5689,7 +5690,8 @@ The script may be used for archiving purposes or to speed up
 later TeX runs.
 
 %package -n %{shortname}-mkpic
-Version: svn33700
+Summary: Perl interface to mfpic
+Version: svn76483
 Provides: texlive-mkpic = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkpic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkpic-bin = %{epoch}:%{source_date}-%{release}
@@ -5699,19 +5701,17 @@ Provides: tex-mkpic-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkpic-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mkpic-doc < 7:20170520
 License: GPL-1.0-or-later
-Summary: Perl interface to mfpic
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-mkpic
-mkpic provides an easy interface for making small pictures with
-mfpic. To this end you create an input file consisting of
-commands, one per line, with space separated parameters (or you
-modify the DATA section of the mkpic script, which is used if
-you run it without an input file). For an extensive description
-see the file mkpicdoc.pdf, which is part of the distribution.
+mkpic provides an easy interface for making small pictures with mfpic. To this
+end you create an input file consisting of commands, one per line, with space
+separated parameters (or you modify the DATA section of the mkpic script, which
+is used if you run it without an input file). For an extensive description see
+the file mkpicdoc.pdf, which is part of the distribution.
 
 %package -n %{shortname}-mltex
 Version: svn71363
@@ -5754,7 +5754,8 @@ Computer Modern (CM) fonts. The system is distributed as a TeX
 change file.
 
 %package -n %{shortname}-mptopdf
-Version: svn75423
+Summary: Mpost to PDF, native MetaPost graphics inclusion
+Version: svn78010
 Provides: texlive-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mptopdf-bin = %{epoch}:%{source_date}-%{release}
@@ -5763,28 +5764,29 @@ Obsoletes: texlive-mptopdf-bin < 7:20170520
 Provides: tex-mptopdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mptopdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mptopdf-doc < 7:20170520
-License: LPPL-1.3c
-Summary: mpost to PDF, native MetaPost graphics inclusion
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-plain
-Requires(post,postun): coreutils
 Provides: tex(mptopdf.tex) = %{epoch}:%{source_date}-%{release}
+License: GPL-1.0-or-later OR LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires(post,postun): coreutils
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-pdftex
+Requires: texlive-plain
 
 %description -n %{shortname}-mptopdf
-The mptopdf script does standalone conversion from mpost to
-PDF, using the supp-* and syst-* files.  They also allow native
-MetaPost graphics inclusion in LaTeX (via pdftex.def) and
-ConTeXt.  They can be used independently of the rest of
-ConTeXt, yet are maintained as part of it.  So in TeX Live we
-pull them out to this separate package for the benefit of LaTeX
-users who do not install the rest of ConTeXt.  This can be
-found on CTAN in macros/pdftex/graphics.
+The mptopdf script does standalone conversion from mpost to PDF, using the
+supp-* and syst-* files. They also allow native MetaPost graphics inclusion in
+LaTeX (via pdftex.def) and ConTeXt. They can be used independently of the rest
+of ConTeXt, yet are maintained as part of it. So in TeX Live we pull them out
+to this separate package for the benefit of LaTeX users who do not install the
+rest of ConTeXt. This can be found on CTAN in macros/pdftex/graphics. The files
+originally come from the ConTeXt distribution. TL uses the repackaging from
+https://github.com/gucci-on-fleek/context-packaging.
 
 %package -n %{shortname}-multibibliography
-Version: svn30939
+Summary: Multiple versions of a bibliography, with different sort orders
+Version: svn77682
 Provides: texlive-multibibliography = %{epoch}:%{source_date}-%{release}
 Provides: tex-multibibliography = %{epoch}:%{source_date}-%{release}
 Provides: texlive-multibibliography-bin = %{epoch}:%{source_date}-%{release}
@@ -5793,25 +5795,23 @@ Obsoletes: texlive-multibibliography-bin < 7:20170520
 Provides: tex-multibibliography-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-multibibliography-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-multibibliography-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Multiple versions of a bibliography, with different sort orders
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(multibibliography.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-multibibliography
-Conventional standards for bibliography styles impose a forced
-choice between index and name/year citations, and corresponding
-references. The package avoids this choice, by providing
-alphabetic, sequenced, and even chronological orderings of
-references. Inline citations, that integrate these
-heterogeneous styles, are also supported (and work with other
-bibliography packages).
+Conventional standards for bibliography styles impose a forced choice between
+index and name/year citations, and corresponding references. The package avoids
+this choice, by providing alphabetic, sequenced, and even chronological
+orderings of references. Inline citations, that integrate these heterogeneous
+styles, are also supported (and work with other bibliography packages).
 
 %package -n %{shortname}-musixtex
-Version: svn70804
+Summary: Sophisticated music typesetting
+Version: svn77682
 Provides: texlive-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtex-bin = %{epoch}:%{source_date}-%{release}
@@ -5820,10 +5820,6 @@ Obsoletes: texlive-musixtex-bin < 7:20170520
 Provides: tex-musixtex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-musixtex-doc < 7:20170520
-License: GPL-2.0-or-later
-Summary: Sophisticated music typesetting
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(musixadd.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixadf.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixbar.tex) = %{epoch}:%{source_date}-%{release}
@@ -5878,23 +5874,23 @@ Provides: tex(musixtmr.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixtri.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixvbm.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tuplet.tex) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-musixtex
-MusiXTeX provides a set of macros, based on the earlier
-MusicTeX, for typesetting music with TeX. To produce optimal
-spacing, MusixTeX is a three-pass system: etex, musixflx, and
-etex again. (Musixflx is a lua script that is provided in the
-bundle.) The three-pass process, optionally followed by
-processing for printed output, is automated by the musixtex
-wrapper script. The package uses its own specialised fonts,
-which must be available on the system for musixtex to run. This
-version of MusixTeX builds upon work by Andreas Egler, whose
-own version is no longer being developed. The MusiXTeX macros
-are universally acknowledged to be challenging to use directly:
-the pmx preprocessor compiles a simpler input language to
-MusixTeX macros.
+MusiXTeX provides a set of macros, based on the earlier MusicTeX, for
+typesetting music with TeX. To produce optimal spacing, MusiXTeX is a
+three-pass system: etex, musixflx, and etex again. (Musixflx is a lua script
+that is provided in the bundle.) The three-pass process, optionally followed by
+processing for printed output, is automated by the musixtex wrapper script. The
+package uses its own specialised fonts, which must be available on the system
+for musixtex to run. This version of MusiXTeX builds upon work by Andreas
+Egler, whose own version is no longer being developed. The MusiXTeX macros are
+universally acknowledged to be challenging to use directly: the pmx
+preprocessor compiles a simpler input language to MusiXTeX macros..
 
 %package -n %{shortname}-musixtnt
 Version: svn69742
@@ -5928,7 +5924,8 @@ lines in a MusiXTeX source file. This should be used before
 using \TransformNotes.
 
 %package -n %{shortname}-m-tx
-Version: svn75301
+Summary: A preprocessor for pmx
+Version: svn78106
 Provides: texlive-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: tex-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-m-tx-bin = %{epoch}:%{source_date}-%{release}
@@ -5937,66 +5934,26 @@ Obsoletes: texlive-m-tx-bin < 7:20170520
 Provides: tex-m-tx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-m-tx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-m-tx-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: A preprocessor for pmx
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(mtx.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtxlatex.sty) = %{epoch}:%{source_date}-%{release}
+License: MIT
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-m-tx
-M-Tx is a preprocessor to pmx, which is itself a preprocessor
-to musixtex, a music typesetting system. The prime motivation
-to the development of M-Tx was to provide lyrics for music to
-be typeset. In fact, pmx now provides a lyrics interface, but M-
-Tx continues in use by those who prefer its language.
+M-Tx is a preprocessor to pmx, which is itself a preprocessor to musixtex, a
+music typesetting system. The prime motivation to the development of M-Tx was
+to provide lyrics for music to be typeset. In fact, pmx now provides a lyrics
+interface, but M-Tx continues in use by those who prefer its language.
 
 %package -n %{shortname}-oberdiek
-Version: svn71916
+Summary: A bundle of packages submitted by Heiko Oberdiek
+Version: svn78315
 Provides: texlive-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-oberdiek-doc < 7:20170520
-License: LPPL-1.3c
-Summary: A bundle of packages submitted by Heiko Oberdiek
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-auxhook
-Requires: texlive-grfext
-Requires: texlive-grffile
-Requires: texlive-iftex
-Requires: texlive-kvoptions
-Requires: texlive-infwarerr
-Requires: texlive-pdftexcmds
-# To complete the bundle
-Requires: tex(amsmath.sty)
-Requires: tex(array.sty)
-Requires: tex(atveryend.sty)
-Requires: tex(bigintcalc.sty)
-Requires: tex(color.sty)
-Requires: tex(etexcmds.sty)
-Requires: tex(fontspec.sty)
-Requires: tex(fp-basic.sty)
-Requires: tex(fp-snap.sty)
-Requires: tex(graphics.sty)
-Requires: tex(hologo.sty)
-Requires: tex(hypdoc.sty)
-Requires: tex(hyperref.sty)
-Requires: tex(index.sty)
-Requires: tex(intcalc.sty)
-Requires: tex(keyval.sty)
-Requires: tex(kvsetkeys.sty)
-Requires: tex(letltxmacro.sty)
-Requires: tex(ltxcmds.sty)
-Requires: tex(parallel.sty)
-Requires: tex(parcolumns.sty)
-Requires: tex(pdfcol.sty)
-Requires: tex(pdfescape.sty)
-Requires: tex(remreset.sty)
-Requires: tex(unicode-math.sty)
-Requires: tex(uniquecounter.sty)
-Requires: tex(zref-base.sty)
 Provides: tex(aliascnt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-base.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvipdfm.def) = %{epoch}:%{source_date}-%{release}
@@ -6035,47 +5992,77 @@ Provides: tex(tabularht.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tabularkv.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(thepdfnumber.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(twoopt.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 BuildArch: noarch
+# To complete the bundle
+Requires: tex(amsmath.sty)
+Requires: tex(array.sty)
+Requires: tex(atveryend.sty)
+Requires: tex(bigintcalc.sty)
+Requires: tex(color.sty)
+Requires: tex(etexcmds.sty)
+Requires: tex(fontspec.sty)
+Requires: tex(fp-basic.sty)
+Requires: tex(fp-snap.sty)
+Requires: tex(graphics.sty)
+Requires: tex(hologo.sty)
+Requires: tex(hypdoc.sty)
+Requires: tex(hyperref.sty)
+Requires: tex(index.sty)
+Requires: tex(intcalc.sty)
+Requires: tex(keyval.sty)
+Requires: tex(kvsetkeys.sty)
+Requires: tex(letltxmacro.sty)
+Requires: tex(ltxcmds.sty)
+Requires: tex(parallel.sty)
+Requires: tex(parcolumns.sty)
+Requires: tex(pdfcol.sty)
+Requires: tex(pdfescape.sty)
+Requires: tex(remreset.sty)
+Requires: tex(unicode-math.sty)
+Requires: tex(uniquecounter.sty)
+Requires: tex(zref-base.sty)
+Requires: texlive-auxhook
+Requires: texlive-base
+Requires: texlive-grfext
+Requires: texlive-grffile
+Requires: texlive-iftex
+Requires: texlive-infwarerr
+Requires: texlive-kpathsea
+Requires: texlive-kvoptions
+Requires: texlive-pdftexcmds
 
 %description -n %{shortname}-oberdiek
-The bundle comprises packages to provide: aliascnt: 'alias
-counters'; bmpsize: get bitmap size and resolution data;
-centernot: a horizontally-centred \not symbol; chemarr:
-extensible chemists' reaction arrows; classlist: record
-information about document class(es) used; colonequals: poor
-man's mathematical relation symbols; dvipscol: dvips colour
-stack management; engord: define counter-printing operations
-producing English ordinals; eolgrab: collect arguments
-delimited by end of line; flags: setting and clearing flags in
-bit fields and converting the bit field into a decimal number;
-holtxdoc: extra documentation macros; hypbmsec: bookmarks in
-sectioning commands; hypcap: anjusting anchors of captions;
-hypgotoe: experimental package for links to embedded files;
-hyphsubst: substitute hyphenation patterns; ifdraft: switch for
-option draft; iflang: provides expandable checks for the
-current language; pdfcolparallel: fixes colour problems in
-package parallel; pdfcolparcolumns: fixes colour problems in
-package parcolumns; pdfcrypt: setting PDF encryption;
-pdfrender: control PDF rendering modes; protecteddef: define a
-command that protected against expansion; resizegather:
-automatically resize overly large equations; rotchiffre:
-performs simple rotation cyphers; scrindex: redefines
-environment 'theindex' of package 'index', if a class from
-KOMA-Script is loaded; setouterhbox: set \hbox in outer
-horizontal mode; settobox: getting box sizes; stackrel:
-extensions of the \stackrel command; stampinclude: selects the
-files for \include by inspecting the timestamp of the .aux
-file(s); tabularht: tabulars with height specification;
-tabularkv: key value interface for tabular parameters;
-telprint: print German telephone numbers; thepdfnumber:
-canonical numbers for use in PDF files and elsewhere; twoopt:
-commands with two optional arguments; Each of the packages is
-represented by two files, a .dtx (documented source) and a PDF
-file; the .ins file necessary for installation is extracted by
-running the .dtx file with Plain TeX.
+The bundle comprises packages to provide: bmpsize: get bitmap size and
+resolution data; centernot: a horizontally-centred \not symbol; chemarr:
+extensible chemists' reaction arrows; classlist: record information about
+document class(es) used; colonequals: poor man's mathematical relation symbols;
+dvipscol: dvips colour stack management; engord: define counter-printing
+operations producing English ordinals; eolgrab: collect arguments delimited by
+end of line; flags: setting and clearing flags in bit fields and converting the
+bit field into a decimal number; holtxdoc: extra documentation macros;
+hypbmsec: bookmarks in sectioning commands; hypgotoe: experimental package for
+links to embedded files; hyphsubst: substitute hyphenation patterns; ifdraft:
+switch for option draft; iflang: provides expandable checks for the current
+language; pdfcolparallel: fixes colour problems in package parallel;
+pdfcolparcolumns: fixes colour problems in package parcolumns; pdfcrypt:
+setting PDF encryption; protecteddef: define a command that protected against
+expansion; resizegather: automatically resize overly large equations;
+rotchiffre: performs simple rotation cyphers; scrindex: redefines environment
+'theindex' of package 'index', if a class from KOMA-Script is loaded;
+setouterhbox: set \hbox in outer horizontal mode; settobox: getting box sizes;
+stackrel: extensions of the \stackrel command; stampinclude: selects the files
+for \include by inspecting the timestamp of the .aux file(s); tabularht:
+tabulars with height specification; tabularkv: key value interface for tabular
+parameters; thepdfnumber: canonical numbers for use in PDF files and elsewhere;
+twoopt: commands with two optional arguments; Each of the packages is
+represented by two files, a .dtx (documented source) and a PDF file; the .ins
+file necessary for installation is extracted by running the .dtx file with
+Plain TeX.
 
 %package -n %{shortname}-omegaware
-Version: svn73848
+Summary: A wide-character-set extension of TeX
+Version: svn77830
 Provides: texlive-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: tex-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-omegaware-bin = %{epoch}:%{source_date}-%{release}
@@ -6084,37 +6071,22 @@ Obsoletes: texlive-omegaware-bin < 7:20170520
 Provides: tex-omegaware-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-omegaware-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-omegaware-doc < 7:20170520
-License: LPPL-1.3c
-Summary: A wide-character-set extension of TeX
+License: GPL-1.0-or-later
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-omegaware
-A development of TeX, which deals in multi-octet Unicode
-characters, to enable native treatment of a wide range of
-languages without changing character-set. Work on Omega has
-ceased (the TeX Live package contains only support files); its
-compatible successor is aleph, which is itself also in major
-maintenance mode only. Ongoing projects developing Omega (and
-Aleph) ideas include Omega-2 and LuaTeX.
+A development of TeX, which deals in multi-octet Unicode characters, to enable
+native treatment of a wide range of languages without changing character-set.
+Work on Omega has ceased (the TeX Live package contains only support files);
+its compatible successor is aleph, which is itself also in major maintenance
+mode only. Ongoing projects developing Omega (and Aleph) ideas include Omega-2
+and LuaTeX.
 
 %package -n %{shortname}-optex
-Version: svn75314
-Provides: texlive-optex = %{epoch}:%{source_date}-%{release}
-License: LicenseRef-Fedora-Public-Domain
 Summary: LuaTeX format based on Plain TeX and OPmac
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-amsfonts
-Requires: texlive-cm
-Requires: texlive-ec
-Requires: texlive-hyphen-base
-Requires: texlive-librarian
-Requires: texlive-lm
-Requires: texlive-luaotfload
-Requires: texlive-luatex
-Requires: texlive-rsfs
-Requires: texlive-unicode-data
+Version: svn78109
+Provides: texlive-optex = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-demo.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-letter-cs.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-letter-en.tex) = %{epoch}:%{source_date}-%{release}
@@ -6123,11 +6095,24 @@ Provides: tex(op-letter-src.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-letter-srl.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-mathalign.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-slides.tex) = %{epoch}:%{source_date}-%{release}
+License: LicenseRef-Fedora-Public-Domain
+Requires: texlive-amsfonts
+Requires: texlive-base
+Requires: texlive-cm
+Requires: texlive-ec
+Requires: texlive-hyphen-base
+Requires: texlive-kpathsea
+Requires: texlive-librarian
+Requires: texlive-lm
+Requires: texlive-luaotfload
+Requires: texlive-luatex
+Requires: texlive-rsfs
+Requires: texlive-unicode-data
 
 %description -n %{shortname}-optex
-OpTeX is a LuaTeX format based on Plain TeX macros with power
-from OPmac (fonts selection system, colors, external graphics,
-references, hyperlinks, ...) with unicode fonts.
+OpTeX is a LuaTeX format based on Plain TeX macros with power from OPmac (fonts
+selection system, colors, external graphics, references, hyperlinks, ...) with
+unicode fonts.
 
 %package -n %{shortname}-optexcount
 Version: svn59817
@@ -6169,27 +6154,25 @@ pagelayout class also integrates the Pgf/TikZ and tcolorbox
 LaTeX packages.
 
 %package -n %{shortname}-patgen
-Version: svn73848
+Summary: Generate hyphenation patterns
+Version: svn77830
 Provides: texlive-patgen = %{epoch}:%{source_date}-%{release}
 Provides: tex-patgen = %{epoch}:%{source_date}-%{release}
 Provides: texlive-patgen-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-patgen-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-patgen-bin < 7:20170520
-License: Knuth-CTAN
-Summary: Generate hyphenation patterns
+License: LicenseRef-Fedora-Public-Domain
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-patgen
-Patgen takes a list of hyphenated words and generates a set of
-patterns that can be used by the TeX 82 hyphenation algorithm.
-Patgen was originally written by Frank M. Liang as part of his
-Stanford Ph.D. work, and has always been distributed alongside
-the other programs coming from the Stanford TeX project. It was
-updated in 1991 by Peter Breitenlohner for the new 8-bit
-features of TeX version 3. (These updates related to
-input/output and programming overhead; the actual pattern
-generation algorithms were not changed.) Patgen is currently
+Patgen takes a list of hyphenated words and generates a set of patterns that
+can be used by the TeX 82 hyphenation algorithm. Patgen was originally written
+by Frank M. Liang as part of his Stanford Ph.D. work, and has always been
+distributed alongside the other programs coming from the Stanford TeX project.
+It was updated in 1991 by Peter Breitenlohner for the new 8-bit features of TeX
+version 3. (These updates related to input/output and programming overhead; the
+actual pattern generation algorithms were not changed.) Patgen is currently
 maintained as part of TeX Live.
 
 %package -n %{shortname}-pax
@@ -6229,7 +6212,8 @@ the annotation data, reads them and puts the annotations in the
 right place.
 
 %package -n %{shortname}-pdfbook2
-Version: svn53521
+Summary: Create booklets from PDF files
+Version: svn76924
 Provides: texlive-pdfbook2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfbook2 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfbook2-bin = %{epoch}:%{source_date}-%{release}
@@ -6239,27 +6223,23 @@ Provides: tex-pdfbook2-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfbook2-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdfbook2-doc < 7:20170520
 License: GPL-3.0-or-later
-Summary: Create booklets from PDF files
+# python
+BuildArch: noarch
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-pdfcrop
 Requires: texlive-pdfjam
-# python
-BuildArch: noarch
 
 %description -n %{shortname}-pdfbook2
-This python program creates print-ready PDF files from some
-input PDF files for booklet printing. The resulting files need
-to be printed in landscape/long edge double sided printing. The
-default paper format depends on the locale and is chosen by
-pdfjam. It can be chosen using the --paper option. Before the
-pdf is composed, the input file is cropped to the relevant area
-in order to discard unnecessary white spaces. In this process,
-all pages are cropped to the same dimensions. Extra margins can
-be defined at the edges of the booklet and in the middle where
-the binding occurs. The output is written to INPUT-book.pdf.
-Existing files will be overwritten. All input files are
-processed seperately.
+This python program creates print-ready PDF files from some input PDF files for
+booklet printing. The resulting files need to be printed in landscape/long edge
+double sided printing. The default paper format depends on the locale and is
+chosen by pdfjam. It can be chosen using the --paper option. Before the pdf is
+composed, the input file is cropped to the relevant area in order to discard
+unnecessary white spaces. In this process, all pages are cropped to the same
+dimensions. Extra margins can be defined at the edges of the booklet and in the
+middle where the binding occurs. The output is written to INPUT-book.pdf.
+Existing files will be overwritten. All input files are processed separately.
 
 %package -n %{shortname}-pdfcrop
 Version: svn66862
@@ -6331,7 +6311,8 @@ The package provides a script to scale pictures down to a
 target resolution before creating a PDF document with pdfLaTeX.
 
 %package -n %{shortname}-pdftex
-Version: svn74113
+Summary: A TeX extension for direct creation of PDF
+Version: svn77868
 Provides: texlive-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -6340,31 +6321,29 @@ Obsoletes: texlive-pdftex-bin < 7:20170520
 Provides: tex-pdftex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdftex-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: A TeX extension for direct creation of PDF
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires(post,postun): coreutils
-Requires: texlive-graphics-def
-Requires: texlive-cm
-Requires: texlive-dehyph
-Requires: texlive-etex
-Requires: texlive-hyph-utf8
-Requires: texlive-hyphen-base
-Requires: texlive-knuth-lib
-Requires: texlive-plain
-Requires: texlive-tex-ini-files
 Provides: tex(dummy-space.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glyphtounicode.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolor.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdftex-dvi.tex) = %{epoch}:%{source_date}-%{release}
+License: GPL-2.0-or-later
+Requires(post,postun): coreutils
+Requires: texlive-base
+Requires: texlive-cm
+Requires: texlive-dehyph
+Requires: texlive-etex
+Requires: texlive-graphics-def
+Requires: texlive-hyph-utf8
+Requires: texlive-hyphen-base
+Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
+Requires: texlive-plain
+Requires: texlive-tex-ini-files
 
 %description -n %{shortname}-pdftex
-An extension of TeX which can directly generate PDF documents
-as well as DVI output. All current free TeX distributions
-including TeX Live, MacTeX and MiKTeX include pdfTeX (Plain
-TeX) and pdfLaTeX (LaTeX), among many other formats based on
-the pdfTeX engine.
+An extension of TeX which can directly generate PDF documents as well as DVI
+output. All current free TeX distributions including TeX Live, MacTeX and
+MiKTeX include pdfTeX (Plain TeX) and pdfLaTeX (LaTeX), among many other
+formats based on the pdfTeX engine.
 
 %package -n %{shortname}-pdftex-quiet
 Version: svn49169
@@ -6385,20 +6364,19 @@ This is a tool in BASH serving to reduce the output of `pdftex` command and see
 only relevant errors in red bold font to fight them ASAP.
 
 %package -n %{shortname}-pdftosrc
-Version: svn73848
+Summary: Extract source file or stream from PDF file
+Version: svn77830
 Provides: texlive-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftosrc-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-2.0-or-later
-Summary: Extract source file or stream from PDF file
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-pdftosrc
-Extracts an embedded source file, or extracts and uncompresses
-a PDF stream given by object number. Developed as part of the
-pdfTeX source tree.
+Extracts an embedded source file, or extracts and uncompresses a PDF stream
+given by object number. Developed as part of the pdfTeX source tree.
 
 %package -n %{shortname}-pdfxup
 Version: svn71513
@@ -6712,7 +6690,8 @@ the script replaces the environments with \includegraphics to
 include the processed snippets.
 
 %package -n %{shortname}-pst-pdf
-Version: svn56622
+Summary: Make PDF versions of graphics by processing between runs
+Version: svn77682
 Provides: texlive-pst-pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst-pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst-pdf-bin = %{epoch}:%{source_date}-%{release}
@@ -6721,58 +6700,56 @@ Obsoletes: texlive-pst-pdf-bin < 7:20170520
 Provides: tex-pst-pdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pst-pdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pst-pdf-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Make PDF versions of graphics by processing between runs
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(graphicx.sty)
-Requires: tex(pstricks.sty)
-Requires: tex(environ.sty)
-Requires: tex(preview.sty)
-Requires: texlive-iftex
-Requires: tex(luatex85.sty)
 Provides: tex(pst-pdf.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # shell
 BuildArch: noarch
+Requires: tex(environ.sty)
+Requires: tex(graphicx.sty)
+Requires: tex(luatex85.sty)
+Requires: tex(preview.sty)
+Requires: tex(pstricks.sty)
+Requires: texlive-base
+Requires: texlive-iftex
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-pst-pdf
-The package pst-pdf simplifies the use of graphics from
-PSTricks and other PostScript code in PDF documents. As in
-building a bibliography with BibTEX, additional external
-programmes are invoked. In this case they are used to create a
-PDF file (\PDFcontainer) that will contain all the graphics
-material. In the final document these contents will be inserted
-instead of the original PostScript code. The package works with
-pstricks and requires a recent version of the preview package.
+The package pst-pdf simplifies the use of graphics from PSTricks and other
+PostScript code in PDF documents. As in building a bibliography with BibTeX,
+additional external programmes are invoked. In this case they are used to
+create a PDF file (\PDFcontainer) that will contain all the graphics material.
+In the final document these contents will be inserted instead of the original
+PostScript code. The package works with pstricks and requires a recent version
+of the preview package.
 
 %package -n %{shortname}-ps2eps
-Version: svn62856
+Summary: Produce Encapsulated PostScript from PostScript
+Version: svn76924
 Provides: texlive-ps2eps = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2eps = %{epoch}:%{source_date}-%{release}
-License: GPL-1.0-or-later
-Summary: Produce Encapsulated PostScript from PostScript
+License: GPL-2.0-or-later
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-ps2eps
-Produce Encapsulated PostScript Files (EPS/EPSF) from a
-one-page PostScript document, or any PostScript document. A
-correct Bounding Box is calculated for the EPS files and some
-PostScript command sequences that can produce erroneous
-results on printers are filtered. The input is cropped to
-include just the image contained in the PostScript file. The
-EPS files can then be included into TeX documents. Other
-programs like ps2epsi (a script distributed with ghostscript)
-don't always calculate the correct bounding box (because the
-values are put on the PostScript stack which may get corrupted
-by bad PostScript code) or they round it off, resulting in
-clipping the image. Therefore ps2eps uses a resolution of 144
-dpi to get the correct bounding box. Included in the distribution
-is the bbox program, an application to produce Bounding Box values
-for rawppm or rawpbm format files.
+Produce Encapsulated PostScript Files (EPS/EPSF) from a one-page PostScript
+document, or any PostScript document. A correct Bounding Box is calculated for
+the EPS files and some PostScript command sequences that can produce erroneous
+results on printers are filtered. The input is cropped to include just the
+image contained in the PostScript file. The EPS files can then be included into
+TeX documents. Other programs like ps2epsi (a script distributed with
+ghostscript) don't always calculate the correct bounding box (because the
+values are put on the PostScript stack which may get corrupted by bad
+PostScript code) or they round it off, resulting in clipping the image.
+Therefore ps2eps uses a resolution of 144 dpi to get the correct bounding box.
+The bundle includes binaries for Linux, Solaris, Digital Unix or Windows
+2000/9x/NT; for other platforms, the user needs perl, ghostscript and an ANSI-C
+compiler. Included in the distribution is the bbox program, an application to
+produce Bounding Box values for rawppm or rawpbm format files.
 
 %package -n %{shortname}-ps2pk
-Version: svn66186
+Summary: Generate a PK font from an Adobe Type 1 font
+Version: svn75712
 Provides: texlive-ps2pk = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2pk = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2pk-bin = %{epoch}:%{source_date}-%{release}
@@ -6783,18 +6760,18 @@ Obsoletes: texlive-ps2pkm < 7:20170520
 Provides: texlive-ps2pkm-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ps2pkm-bin < 7:20170520
 License: MIT
-Summary: Generate a PK font from an Adobe Type 1 font
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-ps2pk
-Generates a PK file from an Adobe Type 1 font. PK fonts are (or
-used to be) valuable in enabling previewers to view documents
-generated that use Type 1 fonts. The program makes use of code
-donated to the X consortium by IBM.
+Generates a PK file from an Adobe Type 1 font. PK fonts are (or used to be)
+valuable in enabling previewers to view documents generated that use Type 1
+fonts. The program makes use of code donated to the X consortium by IBM. It is
+now maintained as part of TeX Live.
 
 %package -n %{shortname}-ptex
-Version: svn73848
+Summary: A TeX system for publishing in Japanese
+Version: svn77830
 Provides: texlive-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex-bin = %{epoch}:%{source_date}-%{release}
@@ -6806,13 +6783,15 @@ Obsoletes: texlive-ptex-doc < 7:20170520
 Provides: texlive-platex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-platex-bin < 7:20170520
 License: BSD-3-Clause
-Summary: A TeX system for publishing in Japanese
+Requires(post,postun): coreutils
+Requires: tex(oldlfont.sty)
+Requires: tex(shortvrb.sty)
 Requires: texlive-adobemapping
 Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-etex
-Requires: texlive-hyphen-base
 Requires: texlive-hyph-utf8
+Requires: texlive-hyphen-base
 Requires: texlive-ipaex
 Requires: texlive-japanese-otf
 Requires: texlive-knuth-lib
@@ -6822,14 +6801,12 @@ Requires: texlive-plain
 Requires: texlive-ptex-base
 Requires: texlive-ptex-fonts
 Requires: texlive-tex
-Requires: tex(oldlfont.sty)
-Requires: tex(shortvrb.sty)
-Requires(post,postun): coreutils
+Requires: texlive-uptex
 
 %description -n %{shortname}-ptex
-PTeX adds features related to vertical writing, and deals with
-other problems in typesetting Japanese. A manual (in both
-Japanese and English) is distributed as package pTeX-manual.
+pTeX adds features related to vertical writing, and deals with other problems
+in typesetting Japanese. A manual (in both Japanese and English) is distributed
+as package pTeX-manual.
 
 %package -n %{shortname}-ptex-fontmaps
 Version: svn65953
@@ -7165,7 +7142,8 @@ kinds of software such as forum systems, wikis or other
 applications that need to prettify source code.
 
 %package -n %{shortname}-pythontex
-Version: svn59514
+Summary: Run Python from within a document, typesetting the results
+Version: svn77873
 Provides: texlive-pythontex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pythontex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pythontex-bin = %{epoch}:%{source_date}-%{release}
@@ -7174,40 +7152,37 @@ Obsoletes: texlive-pythontex-bin < 7:20170520
 Provides: tex-pythontex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pythontex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pythontex-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Run Python from within a document, typesetting the results
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(fancyvrb.sty)
-Requires: tex(etex.sty)
-Requires: tex(etoolbox.sty)
-Requires: tex(xstring.sty)
-Requires: tex(pgfopts.sty)
-Requires: tex(newfloat.sty)
-Requires: tex(currfile.sty)
-Requires: tex(xcolor.sty)
-Requires: tex(upquote.sty)
-Requires: tex(fvextra.sty)
 Provides: tex(pythontex.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c AND BSD-3-Clause
 # python
 BuildArch: noarch
+Requires: tex(currfile.sty)
+Requires: tex(etex.sty)
+Requires: tex(etoolbox.sty)
+Requires: tex(fancyvrb.sty)
+Requires: tex(fvextra.sty)
+Requires: tex(newfloat.sty)
+Requires: tex(pgfopts.sty)
+Requires: tex(upquote.sty)
+Requires: tex(xcolor.sty)
+Requires: tex(xstring.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-pythontex
-The package allows you to enter Python code within a LaTeX
-document, execute the code, and access its output in the
-original document. Python code is only executed when it has
-been modified, or when it meets user-specified criteria. Code
-may be divided into user-defined sessions, which automatically
-run in parallel. Errors and warnings are synchronized with the
-LaTeX document, so that they refer to the document's line
-numbers. External dependencies can be tracked, so that code is
-re-executed when the data it depends on is modified. PythonTeX
-also provides syntax highlighting for code in LaTeX documents
-via the Pygments syntax highlighter. The package provides a
-depythontex utility, that creates a copy of the document in
-which all Python code has been replaced by its output. This is
-useful for journal submissions, sharing documents, and
-conversion to other formats.
+The package allows you to enter Python code within a LaTeX document, execute
+the code, and access its output in the original document. There is also support
+for Bash, JavaScript, Julia, Octave, Perl, R, Raku (Perl 6), Ruby, Rust, and
+SageMath. Code is only executed when it has been modified, or when it meets
+user-specified criteria. Code may be divided into user-defined sessions, which
+automatically run in parallel. Errors and warnings are synchronized with the
+LaTeX document, so that they refer to the document's line numbers. External
+dependencies can be tracked, so that code is re-executed when the data it
+depends on is modified. PythonTeX also provides syntax highlighting for code in
+LaTeX documents via the Pygments syntax highlighter. The package provides a
+depythontex utility. This creates a copy of the document in which all Python
+code has been replaced by its output. This is useful for journal submissions,
+sharing documents, and conversion to other formats.
 
 %package -n %{shortname}-rubik
 Version: svn46791
@@ -7240,6 +7215,24 @@ for typesetting Rubik cubes and their transformations; and
 rubikrotation which can process a sequence of Rubik rotation
 moves, with the help of a Perl package executed via \write18
 (shell escape) commands.
+
+%package -n %{shortname}-runtexfile
+Summary: Automate the process of compiling (La)TeX documents with index, bibliography...
+Version: svn76526
+License: LPPL-1.3c
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-runtexfile
+This package provides a small script like latexmk to run a TeX or LaTeX
+document controlled from within the document itself. The commands have to be
+defined at the beginning of the document, e.g.: %! HV lualatex --shell-escape
+%! HV biber %! HV lualatex --shell-escape %! HV xindex %! HV xindex --config
+DIN2 -l DE -o test2.vwd %! HV xindex --config DIN2 -l DE -o test2.dbd %! HV
+lualatex --shell-escape %! HV lualatex --shell-escape \documentclass[...]{...}
+... The script itself does not parse the log file.
 
 %package -n %{shortname}-runtexshebang
 Version: svn68882
@@ -7287,6 +7280,23 @@ manipulating the files, from the old SeeTeX project. The
 utilities are provided as C source with Imakefiles, and an MS-
 DOS version of dvibook is also provided.
 
+%package -n %{shortname}-show-pdf-tags
+Summary: Extract PDF tags from tagged PDF files
+Version: svn77604
+License: MIT
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n	%{shortname}-show-pdf-tags
+This package provides a tool to make the structure of tagged PDF files visible.
+It parses a PDF file and extracts most tagging related information to turn it
+into either a visual tree structure or an XML document representing the tags.
+The package is released together with a collection of schemas which can be used
+to check that the resulting XML structure follows specified rules.
+
+
 %package -n %{shortname}-spix
 Version: svn65050
 Provides: texlive-spix = %{epoch}:%{source_date}-%{release}
@@ -7304,7 +7314,8 @@ that is located somewhere else), in a human-readable format (no
 need to know SpiX to understand it).
 
 %package -n %{shortname}-splitindex
-Version: svn39766
+Summary: Unlimited number of indexes
+Version: svn77682
 Provides: texlive-splitindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-splitindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-splitindex-bin = %{epoch}:%{source_date}-%{release}
@@ -7313,25 +7324,22 @@ Obsoletes: texlive-splitindex-bin < 7:20170520
 Provides: tex-splitindex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-splitindex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-splitindex-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Unlimited number of indexes
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(splitindex.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(splitidx.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-splitindex
-SplitIndex consists of a LaTeX package, splitidx, and a small
-program, splitindex. The package may be used to produce one
-index or several indexes. Without splitindex (for example,
-using the index package), the number of indexes is limited by
-the number of TeX's output streams. But using the program you
-may use even more than 16 indexes: splitidx outputs only a
-single file \jobname.idx and the program splits that file into
-several raw index files and calls your favorite index processor
-for each of the files.
+SplitIndex consists of a LaTeX package, splitidx, and a small program,
+splitindex. The package may be used to produce one index or several indexes.
+Without splitindex (for example, using the index package), the number of
+indexes is limited by the number of TeX's output streams. But using the program
+you may use even more than 16 indexes: splitidx outputs only a single file
+\jobname.idx and the program splits that file into several raw index files and
+calls your favorite index processor for each of the files.
 
 %package -n %{shortname}-sqltex
 Version: svn72396
@@ -7382,7 +7390,8 @@ commissioned by the Consumer Financial Protection Bureau,
 United States Treasury.
 
 %package -n %{shortname}-sty2dtx
-Version: svn64967
+Summary: Create a .dtx file from a .sty file
+Version: svn76924
 Provides: texlive-sty2dtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-sty2dtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-sty2dtx-bin = %{epoch}:%{source_date}-%{release}
@@ -7392,26 +7401,22 @@ Provides: tex-sty2dtx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-sty2dtx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-sty2dtx-doc < 7:20170520
 License: GPL-3.0-or-later
-Summary: Create a .dtx file from a .sty file
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-sty2dtx
-The package provides a Perl script that converts a .sty file
-(LaTeX package) to .dtx format (documented LaTeX source), by
-surrounding macro definitions with macro and macrocode
-environments. The macro name is automatically inserted as an
-argument to the macro environemnt. Code lines outside macro
-definitions are wrapped only in macrocode environments. Empty
-lines are removed. The script should not be thought to be fool
-proof and 100% accurate but rather as a good start to the
-business of making a .dtx file from an undocumented style file.
-Full .dtx files are generated. A template based on the skeleton
-file from 'dtxtut' is used. User level macros are added
-automatically to the 'Usage' section of the .dtx file. A
-corresponding .ins file can be generated as well.
+The package provides a Perl script that converts a .sty file (LaTeX package) to
+.dtx format (documented LaTeX source), by surrounding macro definitions with
+macro and macrocode environments. The macro name is automatically inserted as
+an argument to the macro environment. Code lines outside macro definitions are
+wrapped only in macrocode environments. Empty lines are removed. The script
+should not be thought to be fool proof and 100% accurate but rather as a good
+start to the business of making a .dtx file from an undocumented style file.
+Full .dtx files are generated. A template based on the skeleton file from
+dtxtut is used. User level macros are added automatically to the "Usage"
+section of the .dtx file. A corresponding .ins file can be generated as well.
 
 %package -n %{shortname}-svn-multi
 Version: svn64967
@@ -7465,35 +7470,36 @@ end. It is compiled into most engines and can be enabled with
 the --synctex=1 option. It is developed as part of TeX Live.
 
 %package -n %{shortname}-tex
-Version: svn73848
+Summary: A sophisticated typesetting engine
+Version: svn77830
 Provides: texlive-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex-bin < 7:20170520
 License: Knuth-CTAN
-Summary: A sophisticated typesetting engine
+Requires(post,postun): coreutils
 Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
 Requires: texlive-kpathsea
 Requires: texlive-plain
-Requires(post,postun): coreutils
 
 %description -n %{shortname}-tex
-TeX is a typesetting system that incorporates a macro
-processor. A TeX source document specifies or incorporates a
-number of macro definitions that instruct the TeX engine how to
-typeset the document. The TeX engine also uses font metrics
-generated by Metafont, or by any of several other mechanisms
-that incorporate fonts from other sources into an environment
-suitable for TeX. TeX has been, and continues, a basis and an
-inspiration for several other programs, including e-TeX and
-PDFTeX.
+TeX is a typesetting system that incorporates a macro processor. A TeX source
+document specifies or incorporates a number of macro definitions that instruct
+the TeX engine how to typeset the document. The TeX engine also uses font
+metrics generated by Metafont, or by any of several other mechanisms that
+incorporate fonts from other sources into an environment suitable for TeX. TeX
+has been, and continues, a basis and an inspiration for several other programs,
+including e-TeX and PDFTeX. The distribution includes the source of Knuth's TeX
+book; this source is there to read, as an example of writing TeX -- it should
+not be processed without Knuth's direct permission.
 
 %package -n %{shortname}-tex4ebook
-Version: svn74939
+Summary: Converter from LaTeX to ebook formats
+Version: svn78132
 Provides: texlive-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook-bin = %{epoch}:%{source_date}-%{release}
@@ -7502,26 +7508,26 @@ Obsoletes: texlive-tex4ebook-bin < 7:20170520
 Provides: tex-tex4ebook-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ebook-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex4ebook-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Convertor from LaTeX to ebook formats
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: tex(etoolbox.sty)
-Requires: tex(kvoptions.sty)
-Requires: tex(graphicx.sty)
-Requires: texlive-make4ht
-Requires: texlive-tex4ht
 Provides: tex(tex4ebook.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # lua
 BuildArch: noarch
+Requires: tex(etoolbox.sty)
+Requires: tex(graphicx.sty)
+Requires: tex(kvoptions.sty)
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-make4ht
+Requires: texlive-tex4ht
 
 %description -n %{shortname}-tex4ebook
-This is a bundle of lua scripts and LaTeX packages for
-conversion of LaTeX files to ebook formats such as epub, mobi
-and epub3. tex4ht is used as conversion engine.
+This is a bundle of Lua scripts and LaTeX packages for conversion of LaTeX
+files to ebook formats such as epub, mobi and epub3. tex4ht is used as the
+conversion engine.
 
 %package -n %{shortname}-tex4ht
-Version: svn75475
+Summary: Convert (La)TeX to HTML/XML
+Version: svn78343
 Provides: texlive-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -7530,32 +7536,27 @@ Obsoletes: texlive-tex4ht-bin < 7:20170520
 Provides: tex-tex4ht-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ht-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex4ht-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Convert (La)TeX to HTML/XML
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(m-tex4ht.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tex4ht.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-tex4ht
-A converter from TeX and LaTeX to SGML-based formats such as
-(X)HTML, MathML, OpenDocument, and Docbook, providing a
-configurable (La)TeX-based authoring system for hypertext.
-TeX4ht does not independently parse (La)TeX source (so it
-avoids the difficulties encountered by many other converters,
-arising from the irregularity of (La)TeX syntax). Instead,
-TeX4ht uses (La)TeX itself (with myriad macro modifications) to
-produce a helper DVI file that it can then process. This
-technique allows TeX4ht to approach the robustness
-characteristic of restricted-syntax systems such as gellmu.
-Full releases of TeX4ht are no longer made, both because it is
-technically difficult to do so and because their utility is
-questionable. Nevertheless, TeX4ht is actively maintained. So,
-current source files are held on CTAN, and updated from the
-development repository frequently. Creating the myriad derived
-files from them is nontrivial, and generally done with the
-Makefile in development, from which the TeX4ht package in TeX
-Live is updated.
+A converter from TeX and LaTeX to SGML-based formats such as (X)HTML, MathML,
+OpenDocument, and Docbook, providing a configurable (La)TeX-based authoring
+system for hypertext. TeX4ht does not independently parse (La)TeX source (so it
+avoids the difficulties encountered by many other converters, arising from the
+irregularity of (La)TeX syntax). Instead, TeX4ht uses (La)TeX itself (with
+myriad macro modifications) to produce a helper DVI file that it can then
+process. This technique allows TeX4ht to approach the robustness characteristic
+of restricted-syntax systems such as gellmu. Full releases of TeX4ht are no
+longer made, both because it is technically difficult to do so and because
+their utility is questionable. Nevertheless, TeX4ht is actively maintained. So,
+current source files are held on CTAN, and updated from the development
+repository frequently. Creating the myriad derived files from them is
+nontrivial, and generally done with the Makefile in development, from which the
+TeX4ht package in TeX Live is updated.
 
 %package -n %{shortname}-texaccents
 Summary: Convert composite accented characters to Unicode
@@ -7765,7 +7766,8 @@ but may be extended to ConTeXt packages if anyone would like to
 contribute.
 
 %package -n %{shortname}-texfot
-Version: svn70969
+Summary: Filter clutter from the output of a TeX run
+Version: svn77286
 Provides: texlive-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot-bin = %{epoch}:%{source_date}-%{release}
@@ -7775,20 +7777,19 @@ Provides: tex-texfot-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texfot-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texfot-doc < 7:20170520
 License: LicenseRef-Fedora-Public-Domain
-Summary: Filter clutter from the output of a TeX run
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-texfot
-The package provides a small Perl script to filter the online
-output from a TeX run, attempting to show only those messages
-which probably deserve some change in the source. The TeX
-invocation itself need not change.
+The package provides a small Perl script to filter the online output from a TeX
+run, attempting to show only those messages which probably deserve some change
+in the source. The TeX invocation itself need not change.
 
 %package -n %{shortname}-texliveonfly
-Version: svn55777
+Summary: On-the-fly download of missing TeX Live packages
+Version: svn76924
 Provides: texlive-texliveonfly = %{epoch}:%{source_date}-%{release}
 Provides: tex-texliveonfly = %{epoch}:%{source_date}-%{release}
 Provides: tex-texliveonfly-bin = %{epoch}:%{source_date}-%{release}
@@ -7798,50 +7799,43 @@ Provides: tex-texliveonfly-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texliveonfly-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texliveonfly-doc < 7:20170520
 License: GPL-3.0-or-later
-Summary: On-the-fly download of missing TeX live packages
-Requires: texlive-base
-Requires: texlive-kpathsea
 # python
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-texliveonfly
-The package provides a script that performs 'on the fly'
-downloads of missing packages, while a document is being
-compiled. (This feature is already available in the MikTeX
-distribution for Windows machines.) To use the script, replace
-your (LaTeX) compilation command with texliveonfly.py file.tex
-(default options are --engine=lualatex and --arguments="-
-synctex=1 -interaction=nonstopmode", which may all be changed).
-The script is designed to work on Linux distributions.
+The package provides a script that performs 'on the fly' downloads of missing
+packages, while a document is being compiled. (This feature is already
+available in the MiKTeX distribution for Windows machines.) To use the script,
+replace your (LaTeX) compilation command with texliveonfly.py file.tex (default
+options are --engine=pdflatex and --arguments="-synctex=1
+-interaction=nonstopmode", which may all be changed). The script is designed to
+work on Linux distributions.
 
 %package -n %{shortname}-texlive-en
-Version: svn74120
+Summary: TeX Live manual (English)
+Version: svn78030
 Provides: texlive-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-en-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive-en-doc < 7:20170520
 License: LPPL-1.3c
-Summary: TeX Live manual (English)
+BuildArch: noarch
 Requires: texlive-base
 Requires: texlive-kpathsea
-BuildArch: noarch
 
 %description -n %{shortname}-texlive-en
-TeX Live manual (English).
+TeX Live manual (English)
 
 %package -n %{shortname}-texlive-scripts
-Version: svn75476
+Summary: TeX Live infrastructure programs
+Version: svn78361
 Provides: texlive-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive-scripts-bin < 7:20170520
-License: LPPL-1.3c
-Summary: TeX Live infrastructure programs
-Requires: texlive-base
-Requires: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
-Requires: texlive-texlive.infra
-Requires: texlive-gsftopk
 Provides: tex(09fbbfac.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(0ef0afca.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(10037936.enc) = %{epoch}:%{source_date}-%{release}
@@ -7862,36 +7856,42 @@ Provides: tex(pdftex35.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ps2pk35.map) = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tetex = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tetex < 7:20200327
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-gsftopk
+Requires: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
+Requires: texlive-texlive.infra
 
 %description -n %{shortname}-texlive-scripts
-Includes install-tl, tl-portable, rungs, etc.; not needed for
-tlmgr to run but still ours.  Not included in tlcritical.
+Includes install-tl, tl-portable, rungs, etc.; not needed for tlmgr to run but
+still ours. Not included in tlcritical.
 
 %package -n %{shortname}-texlive-scripts-extra
-Version: svn71746
+Summary: TeX Live scripts
+Version: svn78162
 Provides: texlive-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-extra-bin = %{epoch}:%{source_date}-%{release}
-License: GPL-1.0-or-later AND LPPL-1.3c AND LicenseRef-Fedora-Public-Domain
-Summary: TeX Live scripts
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-texlive.infra
 Obsoletes: texlive-texconfig < 7:20200327
 Obsoletes: texlive-pstools < 7:20200327
 Obsoletes: texlive-pdftools < 7:20200327
+License: GPL-1.0-or-later AND LPPL-1.3c AND LicenseRef-Fedora-Public-Domain
 # perl and shell
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-texlive.infra
 
 %description -n %{shortname}-texlive-scripts-extra
-Miscellaneous scripts maintained as part of TeX Live, but not important for
-the infrastructure. Thus, this is not part of scheme-infraonly or tlcritical,
-just a normal package.
+Miscellaneous scripts maintained as part of TeX Live, but not important for the
+infrastructure. Thus, this is not part of scheme-infraonly or tlcritical, just
+a normal package.
 
 %package -n %{shortname}-texlive.infra
-Version: svn75215
+Summary: Basic TeX Live infrastructure
+Version: svn78313
 Provides: texlive-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra-bin = %{epoch}:%{source_date}-%{release}
@@ -7900,21 +7900,19 @@ Obsoletes: texlive-texlive.infra-bin < 7:20170520
 Provides: tex-texlive.infra-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive.infra-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive.infra-doc < 7:20170520
-License: LPPL-1.3c
-Summary: Basic TeX Live infrastructure
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(fmtutil-hdr.cnf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(updmap-hdr.cfg) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-texlive.infra
-This package contains the files needed to get tlmgr running:
-perl modules, xz binaries, plus (sometimes) tar, wget, lz4, and
-various other support files. This package also represents the
-tlcritical recovery scripts. The standalone installer is close,
-but not the same; it's defined in 00texlive.installer.
+This package contains the files needed to get tlmgr running: perl modules, xz
+binaries, plus (sometimes) tar, wget, lz4, and various other support files.
+This package also represents the tlcritical recovery scripts. The standalone
+installer is close, but not the same; it's defined in 00texlive.installer.
 
 %package -n %{shortname}-texloganalyser
 Version: svn54526
@@ -7955,30 +7953,32 @@ mask specific warnings, such as box or references/citations warnings. It's also
 possible to add custom filter patterns.
 
 %package -n %{shortname}-texlogsieve
-Version: svn74565
+Summary: Filter and summarize LaTeX log files
+Version: svn77351
 Provides: texlive-texlogsieve = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlogsieve-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-3.0-or-later
-Summary: Filter and summarize LaTeX log files
-Requires: texlive-base, texlive-kpathsea
 # lua
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-texlogsieve
 texlogsieve reads a LaTeX log file (or the standard input if no file is
 specified), filters out less relevant messages, and displays a summary report.
 It is a texlua script, similar in spirit to tools such as texfot,
-texloganalyser, rubber-info, textlog_extract, texlogparser, and others.
-Highlights: Two reports: the most important messages from the log file followed
-by a summary of repeated messages, undefined references etc.; The program goes
-to great lengths to correctly handle TeX line wrapping and does a much better
-job at that than existing tools; Multiline messages are treated as a single
-entity; Several options to control which messages should be filtered out; No
-messages are accidentally removed; The summary report is currently simple, but
-useful.
+texloganalyser, rubber-info, textlog_extract, texlogparser, texlogfilter, pulp,
+and others. Highlights: Two reports: the most important messages from the log
+file followed by a summary of repeated messages, undefined references etc.; The
+program goes to great lengths to correctly handle TeX line wrapping and does a
+much better job at that than existing tools; Multiline messages are treated as
+a single entity; Several options to control which messages should be filtered
+out; No messages are accidentally removed; The summary report is currently
+simple, but useful.
 
 %package -n %{shortname}-texosquery
-Version: svn53676
+Summary: Cross-platform Java application to query OS information
+Version: svn77682
 Provides: texlive-texosquery = %{epoch}:%{source_date}-%{release}
 Provides: tex-texosquery = %{epoch}:%{source_date}-%{release}
 Provides: tex-texosquery-bin = %{epoch}:%{source_date}-%{release}
@@ -7990,35 +7990,29 @@ Obsoletes: texlive-texosquery-doc < 7:20170520
 Provides: tex(texosquery.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texosquery.tex) = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Summary: Cross-platform Java application to query OS information
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: java-headless
 # shell
 BuildArch: noarch
+Requires: java-headless
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-texosquery
-This package provides a cross-platform Java application to
-query OS information designed for use in TeX's shell escape
-mechanism. The application can query the following: locale and
-codeset current working directory user home directory temporary
-directory OS name, arch and version Current date and time in
-PDF format (for TeX formats that don't provide
-\pdfcreationdate) Date-time stamp of a file in PDF format (for
-TeX formats that don't provide \pdffilemoddate) Size of a file
-in bytes (for TeX formats that don't provide \pdffilesize)
-Contents of a directory (captured as a list) Directory contents
-filtered by regular expression (captured as a list) URI of a
-file Canonical path of a file All paths use a forward slash as
-directory divider so results can be used, for example, in
-commands like \includegraphics. There are files provided for
-easy access in TeX documents: texosquery.tex: generic TeX code
-texosquery.sty: LaTeX package This provides commands to run
-texosquery using TeX's shell escape mechanism and capture the
-result in a control sequence. The category code of most of
-TeX's default special characters (and some other potentially
-problematic characters) is temporarily changed to 12 while
-reading the result.
+This package provides a cross-platform Java application to query OS information
+designed for use in TeX's shell escape mechanism. The application can query the
+following: locale and codeset current working directory user home directory
+temporary directory OS name, arch and version Current date and time in PDF
+format (for TeX formats that don't provide \pdfcreationdate) Date-time stamp of
+a file in PDF format (for TeX formats that don't provide \pdffilemoddate) Size
+of a file in bytes (for TeX formats that don't provide \pdffilesize) Contents
+of a directory (captured as a list) Directory contents filtered by regular
+expression (captured as a list) URI of a file Canonical path of a file All
+paths use a forward slash as directory divider so results can be used, for
+example, in commands like \includegraphics. There are files provided for easy
+access in TeX documents: texosquery.tex: generic TeX code texosquery.sty: LaTeX
+package This provides commands to run texosquery using TeX's shell escape
+mechanism and capture the result in a control sequence. The category code of
+most of TeX's default special characters (and some other potentially
+problematic characters) is temporarily changed to 12 while reading the result.
 
 %package -n %{shortname}-texplate
 Version: svn71963
@@ -8108,24 +8102,24 @@ physicists, but others may also find it useful. It is
 completely compatible with Plain TeX.
 
 %package -n %{shortname}-texware
-Version: svn73848
+Summary: Basic utility programs for use with TeX
+Version: svn77830
 Provides: texlive-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texware-bin < 7:20170520
-License: Knuth-CTAN
-Summary: Utility programs for use with TeX
+License: LicenseRef-Fedora-Public-Domain
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-texware
-Basic utitility programs, comprising: - dvitype, which converts
-a TeX output (DVI) file to a plain text file (see also the DVI
-Text Language suite); - pooltype, which converts a TeX-suite
-program's "pool" (string) file into human-readable form; and -
-tftopl and pltotf, which convert TeX Font Metric (TFM) file to
-human readable Property List (PL) files and vice versa.
+Basic utility programs from the original TeX project at Stanford, comprising:
+dvitype, which converts a TeX output (DVI) file to a plain text file (see also
+the DVI structure topic); pooltype, which converts a TeX-suite program's "pool"
+(string) file into human-readable form; and tftopl and pltotf, which convert
+between binary TeX font metric (TFM) files and human readable property list
+(PL) files.
 
 %package -n %{shortname}-thumbpdf
 Version: svn62518
@@ -8157,22 +8151,21 @@ thumbnails. This arrangement works with both plain TeX and
 LaTeX.
 
 %package -n %{shortname}-tie
-Version: svn73848
+Summary: Allow multiple web change files
+Version: svn77830
 Provides: texlive-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tie-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tie-bin < 7:20170520
 License: Latex2e
-Summary: Allow multiple web change files
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-tie
-Tie was originally developed to allow web programmers to apply
-more than one change file to their source. The program may also
-be used to create a new version of a .web file that
-incorporates existing changes.
+Tie was originally developed to allow web programmers to apply more than one
+change file to their source. The program may also be used to create a new
+version of a .web file that incorporates existing changes.
 
 %package -n %{shortname}-tikztosvg
 Version: svn60289
@@ -8186,7 +8179,8 @@ This package provides a shell script that calls XeTeX and
 pdf2svg to convert TikZ environments to SVG files.
 
 %package -n %{shortname}-tpic2pdftex
-Version: svn73908
+Summary: Use tpic commands in pdfTeX
+Version: svn75712
 Provides: texlive-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -8195,19 +8189,20 @@ Obsoletes: texlive-tpic2pdftex-bin < 7:20170520
 Provides: tex-tpic2pdftex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tpic2pdftex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tpic2pdftex-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: Use tpic commands in PDFTeX
-Requires: texlive-base
-Requires: texlive-kpathsea
+License: GPL-2.0-or-later
 # awk
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-tpic2pdftex
-The AWK script converts pic language, embedded inline
-(delimited by .PS and .PE markers), to \pdfliteral commands.
+This AWK script converts pic language, embedded inline (delimited by .PS and
+.PE markers), to \pdfliteral commands. It is now maintained as part of TeX
+Live.
 
 %package -n %{shortname}-ttfutils
-Version: svn73908
+Summary: Convert TrueType to TFM and PK fonts
+Version: svn77830
 Provides: texlive-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils-bin = %{epoch}:%{source_date}-%{release}
@@ -8216,16 +8211,14 @@ Obsoletes: texlive-ttfutils-bin < 7:20170520
 Provides: tex-ttfutils-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ttfutils-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ttfutils-doc < 7:20170520
-License: LPPL-1.3c
-Summary: convert TrueType to TFM and PK fonts
-Requires: texlive-base
-Requires: texlive-kpathsea
 Provides: tex(T1-WGL4.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ttf2pk.cfg) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-ttfutils
-Utilities: ttf2afm ttf2pk ttf2tfm ttfdump. FreeType is the
-underlying library.
+Utilities: ttf2afm ttf2pk ttf2tfm ttfdump. FreeType is the underlying library.
 
 %package -n %{shortname}-typeoutfileinfo
 Version: svn67526
@@ -8253,30 +8246,27 @@ LaTeX source file. The package requires that the readprov
 package is available.
 
 %package -n %{shortname}-typog
-Version: svn71883
+Summary: Typographic fine-tuning and micro-typographic enhancements
+Version: svn76661
 Provides: tex-typog = %{epoch}:%{source_date}-%{release}
 Provides: tex(typog.sty) = %{epoch}:%{source_date}-%{release}
-Summary: Typographic fine-tuning and micro-typographic enhancements
 License: LPPL-1.3c
-Requires: texlive-base
-Requires: texlive-kpathsea
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-typog
-This package provides macros for micro-typographic
-enhancements. It covers a variety of topics: Precise
-hyphenation control Disable/break ligatures Manual italic
-correction Extra kerning for slash and hyphen Raising selected
-characters (e.g. hyphen, en-dash, and em-dash) Aligning of the
-last line of a paragraph Filling of the last line of a
-paragraph Word spacing control Microtype front-end Slightly
-sloppy paragraphs Vertically partially-tied paragraphs
-Breakable displayed equations Setspace front-end Smooth
-ragged-right paragraphs Moreover, typog provides an environment
-to flag interesting parts of the information deluge typically
-accumulating in a LaTeX log-file and an associated tool,
-typog-grep, that selectively retrieves these parts.
+This package provides macros for micro-typographic enhancements. It covers a
+variety of topics: Precise hyphenation control Disable/break ligatures Manual
+italic correction Extra kerning for slash and hyphen Raising selected
+characters (e.g. hyphen, en-dash, and em-dash) Aligning of the last line of a
+paragraph Filling of the last line of a paragraph Word spacing control
+Microtype front-end Slightly sloppy paragraphs Vertically partially-tied
+paragraphs Breakable displayed equations Setspace front-end Smooth ragged-right
+paragraphs Moreover, typog provides an environment to flag interesting parts of
+the information deluge typically accumulating in a LaTeX log-file and an
+associated tool, typog-grep, that selectively retrieves these parts.
 
 %package -n %{shortname}-ulqda
 Version: svn26313
@@ -8332,7 +8322,8 @@ Applies International Components for Unicode (ICU) for sorting
 process.
 
 %package -n %{shortname}-uptex
-Version: svn73848
+Summary: Unicode version of pTeX
+Version: svn77830
 Provides: texlive-uplatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-bin = %{epoch}:%{source_date}-%{release}
@@ -8349,13 +8340,12 @@ Obsoletes: texlive-uplatex-doc < 7:20170520
 Provides: texlive-uptex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-uptex-doc < 7:20170520
 License: BSD-3-Clause
-Summary: Unicode version of pTeX
 Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-convbkmk
 Requires: texlive-etex
-Requires: texlive-hyphen-base
 Requires: texlive-hyph-utf8
+Requires: texlive-hyphen-base
 Requires: texlive-ipaex
 Requires: texlive-japanese-otf
 Requires: texlive-knuth-lib
@@ -8366,16 +8356,16 @@ Requires: texlive-uptex-base
 Requires: texlive-uptex-fonts
 
 %description -n %{shortname}-uptex
-upTeX is an extension of pTeX, using UTF-8 input and producing
-UTF-8 output. It was originally designed to improve support for
-Japanese, but is also useful for documents in Chinese and
-Korean. It can process Chinese simplified, Chinese traditional,
-Japanese, and Korean simultaneously, and can also process
-original LaTeX with \inputenc{utf8} and Babel
-(Latin/Cyrillic/Greek etc.) by switching its \kcatcode tables.
+upTeX is an extension of pTeX, using UTF-8 input and producing UTF-8 output. It
+was originally designed to improve support for Japanese, but is also useful for
+documents in Chinese and Korean. It can process Chinese simplified, Chinese
+traditional, Japanese, and Korean simultaneously, and can also process original
+LaTeX with \inputenc{utf8} and Babel (Latin/Cyrillic/Greek etc.) by switching
+its \kcatcode tables.
 
 %package -n %{shortname}-urlbst
-Version: svn65694
+Summary: Web support for BibTeX
+Version: svn76790
 Provides: texlive-urlbst = %{epoch}:%{source_date}-%{release}
 Provides: tex-urlbst = %{epoch}:%{source_date}-%{release}
 Provides: tex-urlbst-bin = %{epoch}:%{source_date}-%{release}
@@ -8384,19 +8374,17 @@ Obsoletes: texlive-urlbst-bin < 7:20170520
 Provides: tex-urlbst-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-urlbst-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-urlbst-doc < 7:20170520
-License: GPL-1.0-or-later
-Summary: Web support for BibTeX
-Requires: texlive-base
-Requires: texlive-kpathsea
+License: GPL-2.0-only AND LPPL-1.3c
 # perl
 BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
 
 %description -n %{shortname}-urlbst
-Supports a new BibTeX 'webpage' entry type and 'url',
-'lastchecked', and 'eprint' and 'DOI' fields. The Perl script
-urlbst can be used to add this support to an arbitrary .bst
-file which has a reasonably conventional structure. The result
-is meant to be robust rather than pretty.
+Supports a new BibTeX 'webpage' entry type and 'url', 'lastchecked', and
+'eprint' and 'DOI' fields. The Perl script urlbst can be used to add this
+support to an arbitrary .bst file which has a reasonably conventional
+structure. The result is meant to be robust rather than pretty.
 
 %package -n %{shortname}-velthuis
 Version: svn66186
@@ -8499,22 +8487,22 @@ LaTeX/VTeX. Using the LaTeX/dvips or pdfLaTeX routes, the
 (pdf)TeX processor should be run with shell escapes enabled.
 
 %package -n %{shortname}-web
-Version: svn73848
+Summary: The original literate programming system
+Version: svn77830
 Provides: texlive-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-web-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-web-bin < 7:20170520
 License: Knuth-CTAN
-Summary: The original literate programming system
 Requires: texlive-base
 Requires: texlive-kpathsea
 
 %description -n %{shortname}-web
-The system processes 'web' files in two ways: firstly to
-rearrange them to produce compilable code (using the program
-tangle), and secondly to produce a TeX source (using the
-program weave) that may be typeset for comfortable reading.
+The system processes 'web' files in two ways: firstly to rearrange them to
+produce compilable code (using the program tangle), and secondly to produce a
+TeX source (using the program weave) that may be typeset for comfortable
+reading.
 
 %package -n %{shortname}-webquiz
 Version: svn58808
@@ -8588,8 +8576,23 @@ Requires: texlive-base
 The canonical previewer for use on Unix and other X-windows
 based systems.
 
+%package -n %{shortname}-xdvipsk
+Version: svn77931
+License: GPL-2.0-or-later
+Summary: Convert a TeX DVI file to PostScript (dvips extexsion)
+Provides: tex-xdvipsk = %{epoch}:%{source_date}-%{release}
+Provides: tex-xdvipsk-bin = %{epoch}:%{source_date}-%{release}
+Provides: texlive-xdvipsk-bin = %{epoch}:%{source_date}-%{release}
+Provides: xdvipsk = %{epoch}:%{source_date}-%{release}
+Requires: texlive-base
+Requires: texlive-kpathsea
+
+%description -n %{shortname}-xdvipsk
+XDvipsk is an extended Dvips, which is a DVI-to-PostScript translator.
+
 %package -n %{shortname}-xetex
-Version: svn73850
+Summary: An extended variant of TeX for use with Unicode sources
+Version: svn77830
 Provides: texlive-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex-bin = %{epoch}:%{source_date}-%{release}
@@ -8598,19 +8601,24 @@ Obsoletes: texlive-xetex-bin < 7:20170520
 Provides: tex-xetex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xetex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-xetex-doc < 7:20170520
+Provides: tex(qx-unicode.map) = %{epoch}:%{source_date}-%{release}
+Provides: tex(tex-text.map) = %{epoch}:%{source_date}-%{release}
 License: MIT
-Summary: Unicode and OpenType-enabled TeX engine
-Requires: texlive-base
-Requires: texlive-kpathsea
+Requires(post,postun): coreutils
+Requires: teckit
+Requires: tex(xetex.def)
 Requires: texlive-atbegshi
 Requires: texlive-atveryend
 Requires: texlive-babel
+Requires: texlive-base
 Requires: texlive-cm
 Requires: texlive-dvipdfmx
 Requires: texlive-etex
 Requires: texlive-everyshi
 Requires: texlive-firstaid
 Requires: texlive-hyphen-base
+Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
 Requires: texlive-l3backend
 Requires: texlive-l3kernel
 Requires: texlive-l3packages
@@ -8621,49 +8629,41 @@ Requires: texlive-plain
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
 Requires: texlive-xetexconfig
-Requires: teckit
-Requires(post,postun): coreutils
-Requires: tex(xetex.def)
-Provides: tex(qx-unicode.map) = %{epoch}:%{source_date}-%{release}
-Provides: tex(tex-text.map) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-xetex
-XeTeX is a TeX typesetting engine using Unicode and supporting
-modern font technologies such as OpenType, TrueType or Apple
-Advanced Typography (AAT), including OpenType mathematics
-fonts. XeTeX supports many extensions that reflect its origins
-in linguistic research; it also supports micro-typography (as
-available in pdfTeX). XeTeX was developed by the SIL (the first
-version was specifically developed for those studying
-linguistics, and using Macintosh computers). XeTeX's immediate
-output is an extended variant of DVI format, which is
-ordinarily processed by a tightly bound processor (called
-xdvipdfmx), that produces PDF. XeTeX is released as part of TeX
-Live; documentation has arisen separately. Source code is
-available from ctan:/systems/texlive/Source/.
+XeTeX is a TeX typesetting engine using Unicode and supporting modern font
+technologies such as OpenType, TrueType or Apple Advanced Typography (AAT),
+including OpenType mathematics fonts. XeTeX supports many extensions that
+reflect its origins in linguistic research; it also supports micro-typography
+(as available in pdfTeX). XeTeX was developed by the SIL (the first version was
+specifically developed for those studying linguistics, and using Macintosh
+computers). XeTeX's immediate output is an extended variant of DVI format,
+which is ordinarily processed by a tightly bound processor (called xdvipdfmx),
+that produces PDF. XeTeX is released as part of TeX Live; documentation has
+arisen separately. Source code is available from ctan:/systems/texlive/Source/.
 
 %package -n %{shortname}-xindex
-Version: svn73644
+Summary: Unicode-compatible index generation
+Version: svn77844
 Provides: texlive-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xindex-bin = %{epoch}:%{source_date}-%{release}
-License: LPPL-1.3c
-Summary: Unicode compatible index program for LaTeX
+Provides: tex(xindex.lua) = %{epoch}:%{source_date}-%{release}
+Provides: tex(xindex.sty) = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c AND MIT
+# lua
+BuildArch: noarch
 Requires: lua >= 5.3
-Requires: texlive-base
-Requires: texlive-kpathsea
-Requires: texlive-luatex
 Requires: tex(imakeidx.sty)
 Requires: tex(makeidx.sty)
 Requires: tex(xkeyval.sty)
-Provides: tex(xindex.lua) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xindex.sty) = %{epoch}:%{source_date}-%{release}
-# lua
-BuildArch: noarch
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-luatex
 
 %description -n %{shortname}-xindex
-Unicode compatible index program for LaTeX.
+This package provides a Unicode-compatible index program for LaTeX.
 
 %package -n %{shortname}-xindy
 Version: svn65958
@@ -8707,7 +8707,8 @@ PMX and MusiXTeX processing. This package supports Windows,
 MacOS and Linux systems.
 
 %package -n %{shortname}-xmltex
-Version: svn71362
+Summary: Support for parsing XML documents
+Version: svn76924
 Provides: texlive-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex-bin = %{epoch}:%{source_date}-%{release}
@@ -8717,40 +8718,41 @@ Provides: tex-xmltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xmltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-xmltex-doc < 7:20170520
 Provides: xmltex = %{epoch}:%{source_date}-%{release}
+Provides: tex(xmltex.cfg) = %{epoch}:%{source_date}-%{release}
+Provides: tex(xmltex.tex) = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
-Summary: Support for parsing XML documents
-Requires: texlive-base
-Requires: texlive-kpathsea-bin, tex-kpathsea
-Requires: texlive-latex
-Requires: texlive-pdftex
-Requires: texlive-tex
-Requires: texlive-xmltexconfig
+# symlinks
+BuildArch: noarch
+Requires: tex-kpathsea
 Requires: texlive-babel
+Requires: texlive-base
 Requires: texlive-cm
+Requires: texlive-dehyph
+Requires: texlive-firstaid
+Requires: texlive-hyph-utf8
 Requires: texlive-hyphen-base
-Requires: texlive-latex-fonts
+Requires: texlive-knuth-lib
+Requires: texlive-kpathsea
+Requires: texlive-kpathsea-bin
 Requires: texlive-l3backend
 Requires: texlive-l3kernel
 Requires: texlive-l3packages
+Requires: texlive-latex
+Requires: texlive-latex-fonts
+Requires: texlive-latexconfig
+Requires: texlive-pdftex
+Requires: texlive-tex
 Requires: texlive-tex-ini-files
 Requires: texlive-unicode-data
-Requires: texlive-dehyph
-Requires: texlive-hyph-utf8
-Requires: texlive-latexconfig
-Provides: tex(xmltex.cfg) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xmltex.tex) = %{epoch}:%{source_date}-%{release}
-# symlinks
-BuildArch: noarch
+Requires: texlive-xmltexconfig
 
 %description -n %{shortname}-xmltex
-The package provides an implementation of a parser for
-documents matching the XML 1.0 and XML Namespace
-Recommendations. In addition to parsing commands are provided
-to attatch TeX typesetting instructions to the various markup
-elemenets as they are encounted. Sample files for typesetting a
-subset of TEI, MathML, are included. Element and Attribute
-names, as well as character data, may use any characters
-allowed in XML, using UTF-8 or a suitable 8-bit encoding.
+The package provides an implementation of a parser for documents matching the
+XML 1.0 and XML Namespace Recommendations. In addition to parsing commands are
+provided to attach TeX typesetting instructions to the various markup elements
+as they are encountered. Sample files for typesetting a subset of TEI, MathML,
+are included. Element and Attribute names, as well as character data, may use
+any characters allowed in XML, using UTF-8 or a suitable 8-bit encoding.
 
 %package -n %{shortname}-xpdfopen
 Version: svn65952
@@ -8852,8 +8854,7 @@ ln -s %{_texdir}/licenses/$l $l
 done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
-%patch -P49 -p1 -b .gcc-15-ftbfs
-%patch -P51 -p1 -b .ftbfs-gcc16
+# %%patch -P51 -p1 -b .ftbfs-gcc16
 
 # Disable broken tests
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
@@ -8996,7 +8997,7 @@ mkdir -p %{buildroot}%{_datadir}/fonts
 pushd %{buildroot}%{_datadir}/fonts
 for i in public/lilyglyphs ; do
   j=`echo $i | cut -d / -f 2`
-  ln -s %{_texdir}/texmf-dist/fonts/opentype/$i $j
+  ln -s %{_texmf_main}/fonts/opentype/$i $j
 done
 popd
 
@@ -9042,7 +9043,7 @@ for noarchsrc in %{mysources}; do
 done
 popd
 # Do the weird noarch bits
-pushd  %{buildroot}%{_texdir}/texmf-dist
+pushd  %{buildroot}%{_texmf_main}
 xz -dc %{SOURCE5} | tar x
 xz -dc %{SOURCE6} | tar x
 xz -dc %{SOURCE7} | tar x
@@ -9057,28 +9058,25 @@ xz -dc %{SOURCE15} | tar x
 popd
 
 # We want the texmf.cnf we patched, not the vanilla one from the kpathsea.tar.xz
-cp -a source/texk/kpathsea/texmf.cnf %{buildroot}%{_texdir}/texmf-dist/web2c/texmf.cnf
+cp -a source/texk/kpathsea/texmf.cnf %{buildroot}%{_texmf_main}/web2c/texmf.cnf
 
 # Apply fixes
 # We do it here because this is the first time we have the complete tree.
 # bz1384067
-sed -i 's|\\sc |\\scshape |g' %{buildroot}%{_texdir}/texmf-dist/bibtex/bst/base/acm.bst
-sed -i 's|\\sc |\\scshape |g' %{buildroot}%{_texdir}/texmf-dist/bibtex/bst/base/siam.bst
+sed -i 's|\\sc |\\scshape |g' %{buildroot}%{_texmf_main}/bibtex/bst/base/acm.bst
+sed -i 's|\\sc |\\scshape |g' %{buildroot}%{_texmf_main}/bibtex/bst/base/siam.bst
 
 # Patches to component tarballs
-pushd %{buildroot}%{_texdir}/texmf-dist
+pushd %{buildroot}%{_texmf_main}
 
 # neuter tlmgr a bit
 patch -p1 < %{_sourcedir}/texlive-20190410-tlmgr-ignore-warning.patch
 
 # Fix texmfcnf.lua
-patch -p1 < %{_sourcedir}/texlive-2025-fedora-texmfcnf.lua.patch
+patch -p1 < %{_sourcedir}/texlive-2026-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts
 patch -p1 < %{_sourcedir}/texlive-base-20230311-fix-scripts.patch
-
-# Fix errors with python3.13
-patch -p1 < %{_sourcedir}/texlive-pythontex3-python-3.1x.patch
 
 popd
 
@@ -9088,15 +9086,15 @@ mkdir -p %{buildroot}%{_sysconfdir}/texlive/dvips/config
 mkdir -p %{buildroot}%{_sysconfdir}/texlive/tex/generic/config
 
 for i in mktex.cnf texmfcnf.lua texmf.cnf updmap.cfg; do
-        mv %{buildroot}%{_texdir}/texmf-dist/web2c/$i %{buildroot}%{_sysconfdir}/texlive/web2c/
-        ln -s %{_sysconfdir}/texlive/web2c/$i %{buildroot}%{_texdir}/texmf-dist/web2c/$i
+        mv %{buildroot}%{_texmf_main}/web2c/$i %{buildroot}%{_sysconfdir}/texlive/web2c/
+        ln -s %{_sysconfdir}/texlive/web2c/$i %{buildroot}%{_texmf_main}/web2c/$i
 done
 
 # configure texmf-local - make it visible to kpathsea
 sed -i -e 's|^TEXMFLOCAL.*|TEXMFLOCAL = $TEXMFROOT/texmf-local//|' %{buildroot}%{_sysconfdir}/texlive/web2c/texmf.cnf
 
-mv %{buildroot}%{_texdir}/texmf-dist/dvips/config/config.ps %{buildroot}%{_sysconfdir}/texlive/dvips/config/
-ln -s %{_sysconfdir}/texlive/dvips/config/config.ps %{buildroot}%{_texdir}/texmf-dist/dvips/config/config.ps
+mv %{buildroot}%{_texmf_main}/dvips/config/config.ps %{buildroot}%{_sysconfdir}/texlive/dvips/config/
+ln -s %{_sysconfdir}/texlive/dvips/config/config.ps %{buildroot}%{_texmf_main}/dvips/config/config.ps
 
 # Move the stock fmtutil.cnf under /etc and make sure everything is commented out
 mv %{buildroot}%{usr_fmtutil_cnf} %{buildroot}%{etc_fmtutil_cnf}
@@ -9146,21 +9144,21 @@ rm -f %{buildroot}/%{_texdir}/install-tl
 rm -rf %{buildroot}%{_texdir}/tlpkg/gpg/
 rm -rf %{buildroot}%{_texdir}/tlpkg/tltcl/
 rm -rf %{buildroot}%{_texdir}/tlpkg/tlpobj/
-rm -rf %{buildroot}%{_texdir}/texmf-dist/tlpkg/tlpobj/
+rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/
 # texconfig needs tlmgr.pl
 # We're only including what it needs, no more.
-# rm -f %{buildroot}%{_texdir}/texmf-dist/doc/man/man1/tlmgr.1
-# rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/tlmgr.pl
+# rm -f %{buildroot}%{_texmf_main}/doc/man/man1/tlmgr.1
+# rm -f %{buildroot}%{_texmf_main}/scripts/texlive/tlmgr.pl
 # rm -f %{buildroot}%{_bindir}/tlmgr
 # rm -f %{buildroot}%{_texdir}/tlpkg/installer/config.guess
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/tlmgr.pl.orig
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/tl-errmess.vbs
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/tlmgrgui.pl
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/uninstall-win32.pl
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/uninstall-windows.pl
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/texlive/uninstq.vbs
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/tlcockpit/tlcockpit.sh
-rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/tlshell/tlshell.tcl
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/tlmgr.pl.orig
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/tl-errmess.vbs
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/tlmgrgui.pl
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/uninstall-win32.pl
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/uninstall-windows.pl
+rm -f %{buildroot}%{_texmf_main}/scripts/texlive/uninstq.vbs
+rm -f %{buildroot}%{_texmf_main}/scripts/tlcockpit/tlcockpit.sh
+rm -f %{buildroot}%{_texmf_main}/scripts/tlshell/tlshell.tcl
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/COPYING.MinGW-runtime.txt
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/ctan-mirrors.pl
 rm -rf %{buildroot}%{_texdir}/tlpkg/installer/curl
@@ -9174,24 +9172,24 @@ rm -f %{buildroot}%{_bindir}/tlcockpit
 rm -f %{buildroot}%{_bindir}/tlshell
 rm -rf %{buildroot}%{_datadir}/info/dir
 rm -rf %{buildroot}%{_texdir}/readme-txt.dir/README.*
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/man/man*/*.pdf
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/man/man*/*.pdf
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/man/Makefile
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/man/man*/Makefile
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/info/dir
+rm -rf %{buildroot}%{_texmf_main}/doc/man/man*/*.pdf
+rm -rf %{buildroot}%{_texmf_main}/doc/man/man*/*.pdf
+rm -rf %{buildroot}%{_texmf_main}/doc/man/Makefile
+rm -rf %{buildroot}%{_texmf_main}/doc/man/man*/Makefile
+rm -rf %{buildroot}%{_texmf_main}/doc/info/dir
 # nuke unwanted ptexenc devel files
 rm -rf %{buildroot}%{_includedir}/ptexenc
 # nuke context windows files
-rm -f %{buildroot}/%{_texdir}/texmf-dist/scripts/context/stubs/mswin/*
-rm -f %{buildroot}/%{_texdir}/texmf-dist/scripts/context/stubs/win64/*
-rm -f %{buildroot}/%{_texdir}/texmf-dist/scripts/context/stubs/source/*
+rm -f %{buildroot}/%{_texmf_main}/scripts/context/stubs/mswin/*
+rm -f %{buildroot}/%{_texmf_main}/scripts/context/stubs/win64/*
+rm -f %{buildroot}/%{_texmf_main}/scripts/context/stubs/source/*
 
 # Make this perl module show up in @INC
 mkdir -p %{buildroot}%{_datadir}/perl5
 ln -s %{_texdir}/tlpkg/TeXLive %{buildroot}%{_datadir}/perl5/TeXLive
 
 # not sure why this is here
-rm -rf %{buildroot}%{_texdir}/texmf-dist/source/fonts/zhmetrics/ttfonts.map
+rm -rf %{buildroot}%{_texmf_main}/source/fonts/zhmetrics/ttfonts.map
 
 pushd %{buildroot}%{_texdir}
 # ALWAYS NUKE THIS IF IT IS HERE.
@@ -9209,13 +9207,13 @@ pushd %{buildroot}%{_bindir}
 # remove latexmk
 # This lives in the "latexmk" package in Fedora.
 rm -f latexmk
-rm -rf %{buildroot}%{_texdir}/texmf-dist/scripts/latexmk
+rm -rf %{buildroot}%{_texmf_main}/scripts/latexmk
 rm -f %{buildroot}%{_datadir}/texlive/texmf-dist/doc/man/man1/latexmk.*
 
 # remove ltx2unitxt
 # this lives in the "perl-LaTeX-ToUnicode" package
 rm -f ltx2unitxt
-rm -rf %{buildroot}%{_texdir}/texmf-dist/scripts/bibtexperllibs/ltx2unitxt
+rm -rf %{buildroot}%{_texmf_main}/scripts/bibtexperllibs/ltx2unitxt
 
 # Fix symlinks for helper scripts
 rm -f bibexport.sh
@@ -9264,24 +9262,24 @@ chmod 0755 texaccents
 popd
 
 # more texaccents fixes
-mv %{buildroot}%{_texdir}/texmf-dist/source/support/texaccents/* %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents
-sed -i 's|host.inc|host.sno|g' %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents/texaccents.sno
-sed -i 's|repl.inc|repl.sno|g' %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents/grepl.inc
+mv %{buildroot}%{_texmf_main}/source/support/texaccents/* %{buildroot}%{_texmf_main}/scripts/texaccents
+sed -i 's|host.inc|host.sno|g' %{buildroot}%{_texmf_main}/scripts/texaccents/texaccents.sno
+sed -i 's|repl.inc|repl.sno|g' %{buildroot}%{_texmf_main}/scripts/texaccents/grepl.inc
 
 # Move docs
 mkdir -p %{buildroot}%{_datadir}/
 mkdir -p %{buildroot}%{_infodir}/
-cp -R %{buildroot}%{_texdir}/texmf-dist/doc/man %{buildroot}%{_datadir}/
-find %{buildroot}%{_texdir}/texmf-dist/doc/man -type f | xargs rm -f
-mv %{buildroot}%{_texdir}/texmf-dist/doc/info/* %{buildroot}%{_infodir}/
+cp -R %{buildroot}%{_texmf_main}/doc/man %{buildroot}%{_datadir}/
+find %{buildroot}%{_texmf_main}/doc/man -type f | xargs rm -f
+mv %{buildroot}%{_texmf_main}/doc/info/* %{buildroot}%{_infodir}/
 
 # Remove cjk-gs-integrate files
 # Yes, we probably should remove the source, but there is a possibility that we will
 # re-add this subpackage at some point.
 rm -rf %{buildroot}%{_bindir}/cjk-gs-integrate
-rm -rf %{buildroot}%{_texdir}/texmf-dist/scripts/cjk-gs-integrate
-rm -rf %{buildroot}%{_texdir}/texmf-dist/doc/fonts/cjk-gs-integrate
-rm -rf %{buildroot}%{_texdir}/texmf-dist/fonts/misc/cjk-gs-integrate
+rm -rf %{buildroot}%{_texmf_main}/scripts/cjk-gs-integrate
+rm -rf %{buildroot}%{_texmf_main}/doc/fonts/cjk-gs-integrate
+rm -rf %{buildroot}%{_texmf_main}/fonts/misc/cjk-gs-integrate
 
 # Fix pkgconfig files
 for file in $(find %{buildroot}%{_libdir}/pkgconfig/ -type f -name '*.pc')
@@ -9295,15 +9293,15 @@ done
 pushd %{buildroot}
 find -type f -exec sed -i '1s|^#!/usr/bin/python$|#!%{__python3}|' {} +
 find -type f -exec sed -i '1s|^#!/usr/bin/env python$|#!%{__python3}|' {} +
-sed -i '1s|^#!/usr/bin/python |#!%{__python3} |' ./%{_texdir}/texmf-dist/scripts/de-macro/de-macro
+sed -i '1s|^#!/usr/bin/python |#!%{__python3} |' ./%{_texmf_main}/scripts/de-macro/de-macro
 
 # Get rid of the python2 variant bits from pythontex (we need them to generate the py3 bits, but not in the package)
-rm -rf ./%{_texdir}/texmf-dist/scripts/pythontex/pythontex2.py
-rm -rf ./%{_texdir}/texmf-dist/scripts/pythontex/depythontex2.py
+rm -rf ./%{_texmf_main}/scripts/pythontex/pythontex2.py
+rm -rf ./%{_texmf_main}/scripts/pythontex/depythontex2.py
 popd
 
 # One dir to own
-mkdir -p %{buildroot}%{_texdir}/texmf-dist/tex/generic/context/third
+mkdir -p %{buildroot}%{_texmf_main}/tex/generic/context/third
 
 # TeXLive has a fork of psutils
 # we namespace those binaries to avoid conflicts with the upstream psutils
@@ -9320,14 +9318,14 @@ done
 popd
 # and move the config file
 mkdir -p %{buildroot}%{_sysconfdir}/texlive/psutils
-mv %{buildroot}%{_texdir}/texmf-dist/psutils/paper.cfg %{buildroot}%{_sysconfdir}/texlive/psutils/paper.cfg
-ln -s %{_sysconfdir}/texlive/psutils/paper.cfg %{buildroot}%{_texdir}/texmf-dist/psutils/paper.cfg
+mv %{buildroot}%{_texmf_main}/psutils/paper.cfg %{buildroot}%{_sysconfdir}/texlive/psutils/paper.cfg
+ln -s %{_sysconfdir}/texlive/psutils/paper.cfg %{buildroot}%{_texmf_main}/psutils/paper.cfg
 
 # Some (most) of the binaries are ending up with RPATH despite our best efforts.
 for i in afm2pl afm2tfm aleph bibtex bibtex8 bibtexu chkdvifont chktex ctie ctangle ctwill ctwill-refsort ctwill-twinx cweave detex disdvi dt2dv dv2dt dvi2tty dvibook dviconcat dvicopy dvilj dvilj2p dvilj4 dvilj4l dvipng \
          dvipos dvips dviselect dvispc dvisvgm dvitodvi dvitype eptex euptex gftodvi gftopk gftype gregorio gsftopk hbf2gf hitex kpsewhich luahbtex luatex mag makeindex makejvf mendex mf mflua mft mf-nowin mpost otftotfm msxlint \
          odvicopy odvitype omfonts otangle otp2ocp outocp patgen pbibtex pdftex pdftosrc pktogf pdvitype pfb2pfa pk2bm pktype pltotf pmpost pooltype ppltotf ps2pk ptekf ptex ptftopl synctex t4ht tangle tex tex4ht texprof tftopl tie tl-epsffit tl-psbook tl-psnup tl-psresize tl-psselect tl-pstops \
-         ttf2afm ttf2pk ttf2tfm ttfdump twill upbibtex updvitype upmendex upmpost uppltotf uptex uptftopl vftovp vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw xdvipdfmx xetex; do
+         ttf2afm ttf2pk ttf2tfm ttfdump twill upbibtex updvitype upmendex upmpost uppltotf uptex uptftopl vftovp vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw xdvipdfmx xdvipsk xetex; do
 chrpath --delete %{buildroot}%{_bindir}/$i
 done
 
@@ -9342,7 +9340,7 @@ chrpath --delete %{buildroot}%{_libdir}/libptexenc.so.*
 
 # This map file provided by texlive-scripts is not useful and confuses lots of things when it ends up in pdftex.map
 # Renaming it should prevent it from being included
-mv %{buildroot}%{_texdir}/texmf-dist/fonts/map/dvips/tetex/dvipdfm35.map %{buildroot}%{_texdir}/texmf-dist/fonts/map/dvips/tetex/dvipdfm35.oldmap
+mv %{buildroot}%{_texmf_main}/fonts/map/dvips/tetex/dvipdfm35.map %{buildroot}%{_texmf_main}/fonts/map/dvips/tetex/dvipdfm35.oldmap
 
 # SCRIPTLETS
 
@@ -9453,39 +9451,39 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %dir %{_sysconfdir}/%{shortname}/tex/generic/config
 %dir %{_sysconfdir}/%{shortname}/web2c
 %dir %{_texdir}
-%dir %{_texdir}/texmf-dist
-%dir %{_texdir}/texmf-dist/bibtex/
-%dir %{_texdir}/texmf-dist/bibtex/csf
-%dir %{_texdir}/texmf-dist/bibtex/csf/base
-%dir %{_texdir}/texmf-dist/doc
-%dir %{_texdir}/texmf-dist/doc/info
-%dir %{_texdir}/texmf-dist/doc/man
-%dir %{_texdir}/texmf-dist/doc/man/man1
-%dir %{_texdir}/texmf-dist/doc/man/man5
-%dir %{_texdir}/texmf-dist/dvips
-%dir %{_texdir}/texmf-dist/dvips/config
-%dir %{_texdir}/texmf-dist/fonts
-%dir %{_texdir}/texmf-dist/fonts/cmap
-%dir %{_texdir}/texmf-dist/fonts/enc
-%dir %{_texdir}/texmf-dist/fonts/enc/dvips
-%dir %{_texdir}/texmf-dist/fonts/map
-%dir %{_texdir}/texmf-dist/fonts/map/dvips
-%dir %{_texdir}/texmf-dist/fonts/map/glyphlist
-%dir %{_texdir}/texmf-dist/fonts/sfd
-%dir %{_texdir}/texmf-dist/scripts
-%dir %{_texdir}/texmf-dist/scripts/texlive
-%dir %{_texdir}/texmf-dist/source
-%dir %{_texdir}/texmf-dist/source/fonts
-%dir %{_texdir}/texmf-dist/source/fonts/zhmetrics
-%dir %{_texdir}/texmf-dist/tex
-%dir %{_texdir}/texmf-dist/tex/generic
-%dir %{_texdir}/texmf-dist/tex/generic/bibtex
-%dir %{_texdir}/texmf-dist/tex/generic/config
-%dir %{_texdir}/texmf-dist/tex/latex
-%dir %{_texdir}/texmf-dist/tex/lualatex
-%dir %{_texdir}/texmf-dist/tex/luatex
-%dir %{_texdir}/texmf-dist/tex/xelatex
-%dir %{_texdir}/texmf-dist/web2c
+%dir %{_texmf_main}
+%dir %{_texmf_main}/bibtex/
+%dir %{_texmf_main}/bibtex/csf
+%dir %{_texmf_main}/bibtex/csf/base
+%dir %{_texmf_main}/doc
+%dir %{_texmf_main}/doc/info
+%dir %{_texmf_main}/doc/man
+%dir %{_texmf_main}/doc/man/man1
+%dir %{_texmf_main}/doc/man/man5
+%dir %{_texmf_main}/dvips
+%dir %{_texmf_main}/dvips/config
+%dir %{_texmf_main}/fonts
+%dir %{_texmf_main}/fonts/cmap
+%dir %{_texmf_main}/fonts/enc
+%dir %{_texmf_main}/fonts/enc/dvips
+%dir %{_texmf_main}/fonts/map
+%dir %{_texmf_main}/fonts/map/dvips
+%dir %{_texmf_main}/fonts/map/glyphlist
+%dir %{_texmf_main}/fonts/sfd
+%dir %{_texmf_main}/scripts
+%dir %{_texmf_main}/scripts/texlive
+%dir %{_texmf_main}/source
+%dir %{_texmf_main}/source/fonts
+%dir %{_texmf_main}/source/fonts/zhmetrics
+%dir %{_texmf_main}/tex
+%dir %{_texmf_main}/tex/generic
+%dir %{_texmf_main}/tex/generic/bibtex
+%dir %{_texmf_main}/tex/generic/config
+%dir %{_texmf_main}/tex/latex
+%dir %{_texmf_main}/tex/lualatex
+%dir %{_texmf_main}/tex/luatex
+%dir %{_texmf_main}/tex/xelatex
+%dir %{_texmf_main}/web2c
 %dir %{_texmf_var}
 %doc %{_texdir}/doc.html
 %{_texdir}/texmf-var
@@ -9496,184 +9494,178 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-a2ping
 %license gpl.txt
 %{_bindir}/a2ping
-%{_texdir}/texmf-dist/scripts/a2ping/
+%{_texmf_main}/scripts/a2ping/
 %{_mandir}/man1/a2ping.1*
-%doc %{_texdir}/texmf-dist/doc/support/a2ping/
+%doc %{_texmf_main}/doc/support/a2ping/
 
 %files -n %{shortname}-accfonts
 %license gpl.txt
 %{_bindir}/mkt1font
 %{_bindir}/vpl2ovp
 %{_bindir}/vpl2vpl
-%{_texdir}/texmf-dist/scripts/accfonts/
-%{_texdir}/texmf-dist/tex/latex/accfonts/
-%doc %{_texdir}/texmf-dist/doc/fonts/accfonts/
+%{_texmf_main}/scripts/accfonts/
+%{_texmf_main}/tex/latex/accfonts/
+%doc %{_texmf_main}/doc/fonts/accfonts/
 
 %files -n %{shortname}-adhocfilelist
 %license lppl1.txt
 %{_bindir}/adhocfilelist
-%{_texdir}/texmf-dist/scripts/adhocfilelist/
-%{_texdir}/texmf-dist/tex/support/adhocfilelist/
-%doc %{_texdir}/texmf-dist/doc/support/adhocfilelist/
+%{_texmf_main}/scripts/adhocfilelist/
+%{_texmf_main}/tex/support/adhocfilelist/
+%doc %{_texmf_main}/doc/support/adhocfilelist/
 
 %files -n %{shortname}-afm2pl
 %license lppl1.txt
 %{_bindir}/afm2pl
 %{_mandir}/man1/afm2pl.1*
-%{_texdir}/texmf-dist/fonts/enc/dvips/afm2pl/
-%{_texdir}/texmf-dist/fonts/lig/afm2pl/
-%{_texdir}/texmf-dist/tex/fontinst/afm2pl/
+%{_texmf_main}/fonts/enc/dvips/afm2pl/
+%{_texmf_main}/fonts/lig/afm2pl/
+%{_texmf_main}/tex/fontinst/afm2pl/
 
 %files -n %{shortname}-albatross
 %license bsd.txt
 %{_bindir}/albatross
 %{_mandir}/man1/albatross.*
-%doc %{_texdir}/texmf-dist/doc/support/albatross
-%{_texdir}/texmf-dist/scripts/albatross
+%doc %{_texmf_main}/doc/support/albatross
+%{_texmf_main}/scripts/albatross
 
 %files -n %{shortname}-aleph
-%license gpl.txt
+%license lgpl.txt
+%doc %{_texmf_main}/doc/aleph/
 %{_bindir}/aleph
 # symlink to aleph, not created in 2021
 # %%{_bindir}/lamed
 %{_mandir}/man1/aleph.1*
 # %%{_mandir}/man1/lamed.1*
 %{fmtutil_cnf_d}/aleph
-%doc %{_texdir}/texmf-dist/doc/aleph/
 
 %files -n %{shortname}-amstex
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/amstex/base/
 %{_bindir}/amstex
 %{_mandir}/man1/amstex.1*
-%{_texdir}/texmf-dist/tex/amstex/base/
-%{_texdir}/texmf-dist/tex/amstex/config/
+%{_texmf_main}/tex/amstex/
 %{fmtutil_cnf_d}/amstex
-%doc %{_texdir}/texmf-dist/doc/amstex/base/
 
 %files -n %{shortname}-aomart
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/aomart
 %{_bindir}/aom-fullref
 %{_mandir}/man1/aom-fullref.1*
-%{_texdir}/texmf-dist/bibtex/bst/aomart/
-%{_texdir}/texmf-dist/scripts/aomart/
-%{_texdir}/texmf-dist/tex/latex/aomart/
-%doc %{_texdir}/texmf-dist/doc/latex/aomart
+%{_texmf_main}/bibtex/bst/aomart/
+%{_texmf_main}/scripts/aomart/
+%{_texmf_main}/tex/latex/aomart/
 
 %files -n %{shortname}-arara
 %license bsd.txt
+%doc %{_texmf_main}/doc/support/arara/
 %{_bindir}/arara
 %{_mandir}/man1/arara.*
-%{_texdir}/texmf-dist/scripts/arara/
-%doc %{_texdir}/texmf-dist/doc/support/arara/
+%{_texmf_main}/scripts/arara/
 
 %files -n %{shortname}-attachfile2
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/attachfile2/
 %{_bindir}/pdfatfi
 %{_mandir}/man1/pdfatfi.1*
-%{_texdir}/texmf-dist/scripts/attachfile2/
-%{_texdir}/texmf-dist/tex/latex/attachfile2/
-%doc %{_texdir}/texmf-dist/doc/latex/attachfile2/
+%{_texmf_main}/scripts/attachfile2/
+%{_texmf_main}/tex/latex/attachfile2/
 
 %files -n %{shortname}-authorindex
 %license lppl1.txt
 %{_bindir}/authorindex
-%{_texdir}/texmf-dist/scripts/authorindex/
-%{_texdir}/texmf-dist/tex/latex/authorindex/
-%doc %{_texdir}/texmf-dist/doc/latex/authorindex/
+%{_texmf_main}/scripts/authorindex/
+%{_texmf_main}/tex/latex/authorindex/
+%doc %{_texmf_main}/doc/latex/authorindex/
 
 %files -n %{shortname}-autosp
 %license gpl2.txt
+%doc %{_texmf_main}/doc/generic/autosp/
 %{_bindir}/autosp
 %{_bindir}/tex2aspc
 %{_mandir}/man1/autosp.1*
 %{_mandir}/man1/tex2aspc.1*
-%doc %{_texdir}/texmf-dist/doc/generic/autosp/
 
 %files -n %{shortname}-axodraw2
 %license gpl3.txt
+%doc %{_texmf_main}/doc/latex/axodraw2/
 %{_bindir}/axohelp
 %{_mandir}/man1/axohelp.1*
-%{_texdir}/texmf-dist/tex/latex/axodraw2/
-%doc %{_texdir}/texmf-dist/doc/latex/axodraw2/
+%{_texmf_main}/tex/latex/axodraw2/
 
 %files -n %{shortname}-bib2gls
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/bib2gls/
 %{_bindir}/bib2gls
 %{_bindir}/convertgls2bib
 %{_bindir}/datatool2bib
 %{_mandir}/man1/bib2gls.1*
 %{_mandir}/man1/convertgls2bib.1*
 %{_mandir}/man1/datatool2bib.1*
-%{_texdir}/texmf-dist/scripts/bib2gls/
-%doc %{_texdir}/texmf-dist/doc/support/bib2gls/
+%{_texmf_main}/scripts/bib2gls/
 
 %files -n %{shortname}-bibcop
 %license mit.txt
-%doc %{_texdir}/texmf-dist/doc/bibtex/bibcop
+%doc %{_texmf_main}/doc/bibtex/bibcop
 %{_bindir}/bibcop
 %{_mandir}/man1/bibcop.1*
-%{_texdir}/texmf-dist/scripts/bibcop
-%{_texdir}/texmf-dist/tex/latex/bibcop
+%{_texmf_main}/scripts/bibcop
+%{_texmf_main}/tex/latex/bibcop
 
 %files -n %{shortname}-bibexport
 %license lppl1.3.txt
 %{_bindir}/bibexport
 %{_bindir}/bibexport.sh
-%{_texdir}/texmf-dist/bibtex/bst/bibexport/
-%{_texdir}/texmf-dist/scripts/bibexport/
-%doc %{_texdir}/texmf-dist/doc/bibtex/bibexport/
+%{_texmf_main}/bibtex/bst/bibexport/
+%{_texmf_main}/scripts/bibexport/
+%doc %{_texmf_main}/doc/bibtex/bibexport/
 
 %files -n %{shortname}-bibtex
 %license knuth.txt
+%doc %{_texmf_main}/doc/bibtex/base/README
+%doc %{_texmf_main}/doc/bibtex/base/btxbst.doc
+%doc %{_texmf_main}/doc/bibtex/base/btxdoc.bib
+%doc %{_texmf_main}/doc/bibtex/base/btxdoc.pdf
+%doc %{_texmf_main}/doc/bibtex/base/btxdoc.tex
+%doc %{_texmf_main}/doc/bibtex/base/btxhak.pdf
+%doc %{_texmf_main}/doc/bibtex/base/btxhak.tex
 %{_bindir}/bibtex
 %{_mandir}/man1/bibtex.1*
-%{_texdir}/texmf-dist/bibtex/bib/base/xampl.bib
-%{_texdir}/texmf-dist/bibtex/bst/base/abbrv.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/acm.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/alpha.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/apalike.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/ieeetr.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/plain.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/siam.bst
-%{_texdir}/texmf-dist/bibtex/bst/base/unsrt.bst
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/README
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxbst.doc
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxdoc.bib
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxdoc.pdf
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxdoc.tex
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxhak.pdf
-%doc %{_texdir}/texmf-dist/doc/bibtex/base/btxhak.tex
-%{_texdir}/texmf-dist/tex/generic/bibtex/apalike.sty
-%{_texdir}/texmf-dist/tex/generic/bibtex/apalike.tex
+%{_texmf_main}/bibtex/bib/
+%{_texmf_main}/bibtex/bst/
+%{_texmf_main}/tex/generic/bibtex/apalike.sty
+%{_texmf_main}/tex/generic/bibtex/apalike.tex
 
 %files -n %{shortname}-bibtexperllibs
 %license gpl.txt
+%license artistic2.txt
+%license pd.txt
 %{_mandir}/man1/ltx2unitxt.1*
 
 %files -n %{shortname}-bibtexu
 %license lppl1.txt
 %{_bindir}/bibtexu
-%doc %{_texdir}/texmf-dist/doc/bibtexu/
+%doc %{_texmf_main}/doc/bibtexu/
 %{_mandir}/man1/bibtexu.1*
 
 %files -n %{shortname}-bibtex8
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/bibtex8/
 %{_bindir}/bibtex8
-%{_texdir}/texmf-dist/bibtex/csf/base/88591lat.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/88591sca.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/README.TEXLIVE
-%{_texdir}/texmf-dist/bibtex/csf/base/ascii.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/cp437lat.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/cp850lat.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/cp850sca.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/cp866rus.csf
-%{_texdir}/texmf-dist/bibtex/csf/base/csfile.txt
-%{_texdir}/texmf-dist/bibtex/csf/polish-csf/88592pl.csf
-%{_texdir}/texmf-dist/bibtex/csf/polish-csf/cp1250pl.csf
-%{_texdir}/texmf-dist/bibtex/csf/polish-csf/cp852pl.csf
-%{_texdir}/texmf-dist/bibtex/csf/polish-csf/iso8859-7.csf
-%doc %{_texdir}/texmf-dist/doc/bibtex8/
 %{_mandir}/man1/bibtex8.1*
+%{_texmf_main}/bibtex/csf/base/88591lat.csf
+%{_texmf_main}/bibtex/csf/base/88591sca.csf
+%{_texmf_main}/bibtex/csf/base/README.TEXLIVE
+%{_texmf_main}/bibtex/csf/base/ascii.csf
+%{_texmf_main}/bibtex/csf/base/cp437lat.csf
+%{_texmf_main}/bibtex/csf/base/cp850lat.csf
+%{_texmf_main}/bibtex/csf/base/cp850sca.csf
+%{_texmf_main}/bibtex/csf/base/cp866rus.csf
+%{_texmf_main}/bibtex/csf/base/csfile.txt
+%{_texmf_main}/bibtex/csf/polish-csf/88592pl.csf
+%{_texmf_main}/bibtex/csf/polish-csf/cp1250pl.csf
+%{_texmf_main}/bibtex/csf/polish-csf/cp852pl.csf
+%{_texmf_main}/bibtex/csf/polish-csf/iso8859-7.csf
 
 %files -n %{shortname}-bookshelf
 %license lppl1.3.txt
@@ -9681,10 +9673,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/bookshelf-mkfontsel
 %{_mandir}/man1/bookshelf-listallfonts.1*
 %{_mandir}/man1/bookshelf-mkfontsel.1*
-%{_texdir}/texmf-dist/bibtex/bst/bookshelf/
-%{_texdir}/texmf-dist/scripts/bookshelf/
-%{_texdir}/texmf-dist/tex/latex/bookshelf/
-%doc %{_texdir}/texmf-dist/doc/latex/bookshelf/
+%{_texmf_main}/bibtex/bst/bookshelf/
+%{_texmf_main}/scripts/bookshelf/
+%{_texmf_main}/tex/latex/bookshelf/
+%doc %{_texmf_main}/doc/latex/bookshelf/
 
 %files -n %{shortname}-bundledoc
 %license lppl1.txt
@@ -9692,65 +9684,67 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/bundledoc
 %{_mandir}/man1/arlatex.1*
 %{_mandir}/man1/bundledoc.1*
-%{_texdir}/texmf-dist/scripts/bundledoc/
-%{_texdir}/texmf-dist/tex/latex/bundledoc/
-%doc %{_texdir}/texmf-dist/doc/support/bundledoc/
+%{_texmf_main}/scripts/bundledoc/
+%{_texmf_main}/tex/latex/bundledoc/
+%doc %{_texmf_main}/doc/support/bundledoc/
 
 %files -n %{shortname}-cachepic
 %license lppl1.3.txt
 %{_bindir}/cachepic
-%{_texdir}/texmf-dist/scripts/cachepic/
-%{_texdir}/texmf-dist/tex/latex/cachepic/
-%doc %{_texdir}/texmf-dist/doc/latex/cachepic/
+%{_texmf_main}/scripts/cachepic/
+%{_texmf_main}/tex/latex/cachepic/
+%doc %{_texmf_main}/doc/latex/cachepic/
 
 %files -n %{shortname}-checkcites
 %license lppl1.3.txt
 %{_bindir}/checkcites
-%{_texdir}/texmf-dist/scripts/checkcites/
-%doc %{_texdir}/texmf-dist/doc/support/checkcites/
+%{_texmf_main}/scripts/checkcites/
+%doc %{_texmf_main}/doc/support/checkcites/
 
 %files -n %{shortname}-checklistings
 %license lppl1.2.txt
 %{_bindir}/checklistings
-%{_texdir}/texmf-dist/scripts/checklistings/
-%{_texdir}/texmf-dist/tex/latex/checklistings/
-%doc %{_texdir}/texmf-dist/doc/latex/checklistings/
+%{_texmf_main}/scripts/checklistings/
+%{_texmf_main}/tex/latex/checklistings/
+%doc %{_texmf_main}/doc/latex/checklistings/
 
 %files -n %{shortname}-chklref
 %license gpl3.txt
 %{_bindir}/chklref
 %{_mandir}/man1/chklref.1*
-%{_texdir}/texmf-dist/scripts/chklref/
-%{_texdir}/texmf-dist/tex/latex/chklref/
-%doc %{_texdir}/texmf-dist/doc/support/chklref/
+%{_texmf_main}/scripts/chklref/
+%{_texmf_main}/tex/latex/chklref/
+%doc %{_texmf_main}/doc/support/chklref/
 
 %files -n %{shortname}-chktex
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/chktex/
 %{_bindir}/chktex
 %{_bindir}/chkweb
 %{_bindir}/deweb
 %{_mandir}/man1/chktex.1*
 %{_mandir}/man1/chkweb.1*
 %{_mandir}/man1/deweb.1*
-%{_texdir}/texmf-dist/chktex/
-%{_texdir}/texmf-dist/scripts/chktex/
-%doc %{_texdir}/texmf-dist/doc/chktex/
+%{_texmf_main}/chktex/
+%{_texmf_main}/scripts/chktex/
 
 %files -n %{shortname}-citation-style-language
-%license mit.txt cc-by-sa-3.txt
+%license mit.txt
+%license cc-zero-1.txt
+%license other-free.txt
+%doc %{_texmf_main}/doc/latex/citation-style-language/
 %{_bindir}/citeproc-lua
 %{_mandir}/man1/citeproc-lua.1*
-%{_texdir}/texmf-dist/scripts/citation-style-language/
-%{_texdir}/texmf-dist/tex/latex/citation-style-language/
-%doc %{_texdir}/texmf-dist/doc/latex/citation-style-language/
+%{_texmf_main}/scripts/citation-style-language/
+%{_texmf_main}/tex/latex/citation-style-language/
 
 %if 0
 %files -n %{shortname}-cjk-gs-integrate
 %license gpl3.txt
 %{_bindir}/cjk-gs-integrate
-%{_texdir}/texmf-dist/scripts/cjk-gs-integrate/
-%{_texdir}/texmf-dist/fonts/misc/cjk-gs-integrate/
-%doc %{_texdir}/texmf-dist/doc/fonts/cjk-gs-integrate/
+%{_texmf_main}/scripts/cjk-gs-integrate/
+%{_texmf_main}/fonts/misc/cjk-gs-integrate/
+%doc %{_texmf_main}/doc/fonts/cjk-gs-integrate/
 %endif
 
 %files -n %{shortname}-cjkutils
@@ -9783,28 +9777,41 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/extconv.1*
 %{_mandir}/man1/hbf2gf.1*
 %{_mandir}/man1/sjisconv.1*
-%{_texdir}/texmf-dist/hbf2gf/
+%{_texmf_main}/hbf2gf/
 
 %files -n %{shortname}-clojure-pamphlet
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/clojure-pamphlet/
 %{_bindir}/pamphletangler
 %{_mandir}/man1/pamphletangler.1*
-%{_texdir}/texmf-dist/scripts/clojure-pamphlet/
-%{_texdir}/texmf-dist/tex/latex/clojure-pamphlet/
-%doc %{_texdir}/texmf-dist/doc/support/clojure-pamphlet/
+%{_texmf_main}/scripts/clojure-pamphlet/
+%{_texmf_main}/tex/latex/clojure-pamphlet/
 
 %files -n %{shortname}-cluttex
 %license gpl3.txt
 %{_bindir}/cllualatex
 %{_bindir}/cluttex
 %{_bindir}/clxelatex
-%{_texdir}/texmf-dist/scripts/cluttex/
+%{_texmf_main}/scripts/cluttex/
 %{_mandir}/man1/cllualatex.1*
 %{_mandir}/man1/cluttex.1*
 %{_mandir}/man1/clxelatex.1*
-%doc %{_texdir}/texmf-dist/doc/support/cluttex/
+%doc %{_texmf_main}/doc/support/cluttex/
 
 %files -n %{shortname}-context
+%license other-free.txt
+%dir %{_texmf_main}/metapost/context/
+%dir %{_texmf_main}/metapost/context/base/
+%exclude %{_texmf_main}/scripts/context/perl/mptopdf.pl
+%exclude %{_texmf_main}/scripts/context/ruby
+%exclude %{_texmf_main}/scripts/context/stubs
+%exclude %{_texmf_main}/tex/context/base/mkii
+%exclude %{_texmf_main}/tex/context/bib/mkii
+%exclude %{_texmf_main}/tex/context/fonts/mkii
+%exclude %{_texmf_main}/tex/context/modules/common
+%exclude %{_texmf_main}/tex/context/modules/mkii
+%exclude %{_texmf_main}/tex/context/patterns/mkii
+%exclude %{_texmf_main}/tex/context/user/mkii
 %{_bindir}/context
 # %%{_bindir}/contextjit
 # %%{_bindir}/luatools
@@ -9857,81 +9864,67 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/mtxrun.1*
 # %%{_mandir}/man1/texexec.1*
 # %%{_mandir}/man1/texmfstart.1*
-# %%{_texdir}/texmf-dist/context/
-# %%{_texdir}/texmf-dist/fonts/fea/context/
-# %%{_texdir}/texmf-dist/fonts/map/luatex/context/
-%{_texdir}/texmf-dist/fonts/opentype/public/context/
-%{_texdir}/texmf-dist/fonts/truetype/public/context/
-%dir %{_texdir}/texmf-dist/metapost/context/
-%{_texdir}/texmf-dist/metapost/context/fonts/
-%dir %{_texdir}/texmf-dist/metapost/context/base
-%{_texdir}/texmf-dist/metapost/context/base/common/
-%{_texdir}/texmf-dist/metapost/context/base/mpiv/
-%{_texdir}/texmf-dist/metapost/context/base/mpxl/
-%exclude %{_texdir}/texmf-dist/scripts/context/perl/mptopdf.pl
-%{_texdir}/texmf-dist/scripts/context/
-%exclude %{_texdir}/texmf-dist/scripts/context/ruby
-%exclude %{_texdir}/texmf-dist/scripts/context/stubs
-%{_texdir}/texmf-dist/tex/context/
-%exclude %{_texdir}/texmf-dist/tex/context/base/mkii
-%exclude %{_texdir}/texmf-dist/tex/context/bib/mkii
-%exclude %{_texdir}/texmf-dist/tex/context/fonts/mkii
-%exclude %{_texdir}/texmf-dist/tex/context/modules/common
-%exclude %{_texdir}/texmf-dist/tex/context/modules/mkii
-%exclude %{_texdir}/texmf-dist/tex/context/patterns/mkii
-%exclude %{_texdir}/texmf-dist/tex/context/user/mkii
-%{_texdir}/texmf-dist/tex/luatex/context/
-# %%{fmtutil_cnf_d}/context
+# %%{_texmf_main}/context/
+# %%{_texmf_main}/fonts/fea/context/
+# %%{_texmf_main}/fonts/map/luatex/context/
+%{_texmf_main}/fonts/opentype/public/context/
+%{_texmf_main}/fonts/truetype/public/context/
+%{_texmf_main}/metapost/context/base/common/
+%{_texmf_main}/metapost/context/base/mpiv/
+%{_texmf_main}/metapost/context/base/mpxl/
+%{_texmf_main}/metapost/context/fonts/
+%{_texmf_main}/scripts/context/
+%{_texmf_main}/tex/context/
+%{_texmf_main}/tex/luatex/context/
 
 %files -n %{shortname}-context-doc
-%doc %{_texdir}/texmf-dist/doc/context/
-%doc %{_texdir}/texmf-dist/doc/fonts/context/
-%doc %{_texdir}/texmf-dist/doc/luametatex/
-%exclude %{_texdir}/texmf-dist/doc/context/scripts/mkii
+%doc %{_texmf_main}/doc/context/
+%doc %{_texmf_main}/doc/fonts/context/
+%doc %{_texmf_main}/doc/luametatex/
+%exclude %{_texmf_main}/doc/context/scripts/mkii
 
 %files -n %{shortname}-context-legacy
-%dir %{_texdir}/texmf-dist/bibtex/bst/context/
-%dir %{_texdir}/texmf-dist/bibtex/bst/context/mkii/
-%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-ab.bst
-%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-au.bst
-%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-no.bst
-%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-ti.bst
-%{_texdir}/texmf-dist/fonts/afm/public/context/
-%{_texdir}/texmf-dist/fonts/cid/context/
-%{_texdir}/texmf-dist/fonts/enc/dvips/context/
-%{_texdir}/texmf-dist/fonts/map/dvips/context/
-%{_texdir}/texmf-dist/fonts/map/pdftex/context/
-%{_texdir}/texmf-dist/fonts/misc/xetex/fontmapping/context/
-%{_texdir}/texmf-dist/fonts/tfm/public/context/
-%{_texdir}/texmf-dist/fonts/type1/public/context/
-%{_texdir}/texmf-dist/metapost/context/base/mpii/
-%{_texdir}/texmf-dist/scripts/context/ruby/
-%{_texdir}/texmf-dist/scripts/context/stubs/
-%{_texdir}/texmf-dist/tex/context/base/mkii
+%dir %{_texmf_main}/bibtex/bst/context/
+%doc %{_texmf_main}/doc/context/scripts/mkii
 # these four are in mptopdf
-%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mis.mkii
-%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mpe.mkii
-%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/syst-tex.mkii
-%{_texdir}/texmf-dist/tex/context/bib/mkii/
-%{_texdir}/texmf-dist/tex/context/fonts/mkii/
-%{_texdir}/texmf-dist/tex/context/modules/common/
-%{_texdir}/texmf-dist/tex/context/modules/mkii/
-%{_texdir}/texmf-dist/tex/context/patterns/mkii/
-%{_texdir}/texmf-dist/tex/context/user/mkii/
-%exclude %{_texdir}/texmf-dist/tex/generic/context/mptopdf
-%{_texdir}/texmf-dist/tex/generic/context/
-%{fmtutil_cnf_d}/context-legacy
-%doc %{_texdir}/texmf-dist/doc/context/scripts/mkii
+%exclude %{_texmf_main}/tex/context/base/mkii/supp-mis.mkii
+%exclude %{_texmf_main}/tex/context/base/mkii/supp-mpe.mkii
+%exclude %{_texmf_main}/tex/context/base/mkii/supp-pdf.mkii
+%exclude %{_texmf_main}/tex/context/base/mkii/syst-tex.mkii
+%exclude %{_texmf_main}/tex/generic/context/mptopdf
 %{_bindir}/texexec
 %{_bindir}/texmfstart
 %{_mandir}/man1/texexec.1*
 %{_mandir}/man1/texmfstart.1*
+%{_texmf_main}/bibtex/bst/context/mkii/cont-ab.bst
+%{_texmf_main}/bibtex/bst/context/mkii/cont-au.bst
+%{_texmf_main}/bibtex/bst/context/mkii/cont-no.bst
+%{_texmf_main}/bibtex/bst/context/mkii/cont-ti.bst
+%{_texmf_main}/fonts/afm/public/context/
+%{_texmf_main}/fonts/cid/
+%{_texmf_main}/fonts/enc/dvips/context/
+%{_texmf_main}/fonts/map/dvips/context/
+%{_texmf_main}/fonts/map/pdftex/context/
+%{_texmf_main}/fonts/misc/xetex/fontmapping/context/
+%{_texmf_main}/fonts/tfm/public/context/
+%{_texmf_main}/fonts/type1/public/context/
+%{_texmf_main}/metapost/context/base/mpii/
+%{_texmf_main}/scripts/context/ruby/
+%{_texmf_main}/scripts/context/stubs/
+%{_texmf_main}/tex/context/base/mkii
+%{_texmf_main}/tex/context/bib/mkii/
+%{_texmf_main}/tex/context/fonts/mkii/
+%{_texmf_main}/tex/context/modules/common/
+%{_texmf_main}/tex/context/modules/mkii/
+%{_texmf_main}/tex/context/patterns/mkii/
+%{_texmf_main}/tex/context/user/mkii/
+%{_texmf_main}/tex/generic/context/
+%{fmtutil_cnf_d}/context-legacy
 
 %files -n %{shortname}-convbkmk
 %{_bindir}/convbkmk
-%{_texdir}/texmf-dist/scripts/convbkmk/
-%doc %{_texdir}/texmf-dist/doc/support/convbkmk/
+%{_texmf_main}/scripts/convbkmk/
+%doc %{_texmf_main}/doc/support/convbkmk/
 
 %files -n %{shortname}-crossrefware
 %license gpl.txt
@@ -9947,52 +9940,53 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/biburl2doi.1*
 %{_mandir}/man1/bibzbladd.1*
 %{_mandir}/man1/ltx2crossrefxml.1*
-%{_texdir}/texmf-dist/scripts/crossrefware/
-%{_texdir}/texmf-dist/tex/latex/crossrefware/
-%doc %{_texdir}/texmf-dist/doc/support/crossrefware/
+%{_texmf_main}/scripts/crossrefware/
+%{_texmf_main}/tex/latex/crossrefware/
+%doc %{_texmf_main}/doc/support/crossrefware/
 
 %files -n %{shortname}-cslatex
 %license gpl.txt
 # %%{_bindir}/cslatex
 # %%{_bindir}/pdfcslatex
-%{_texdir}/texmf-dist/tex/cslatex/
+%{_texmf_main}/tex/cslatex/
 %{fmtutil_cnf_d}/cslatex
 
 %files -n %{shortname}-csplain
+%license other-free.txt
 %{_bindir}/csplain
 %{_bindir}/pdfcsplain
-%{_texdir}/texmf-dist/tex/csplain/
+%{_texmf_main}/tex/csplain/
 %{fmtutil_cnf_d}/csplain
 
 %files -n %{shortname}-ctan-o-mat
 %license bsd.txt
 %{_bindir}/ctan-o-mat
 %{_mandir}/man1/ctan-o-mat.1*
-%{_texdir}/texmf-dist/scripts/ctan-o-mat/
-%doc %{_texdir}/texmf-dist/doc/support/ctan-o-mat/
+%{_texmf_main}/scripts/ctan-o-mat/
+%doc %{_texmf_main}/doc/support/ctan-o-mat/
 
 %files -n %{shortname}-ctanbib
 %license lppl1.3.txt
 %{_bindir}/ctanbib
 %{_mandir}/man1/ctanbib.1*
-%{_texdir}/texmf-dist/scripts/ctanbib/
-%doc %{_texdir}/texmf-dist/doc/support/ctanbib/
+%{_texmf_main}/scripts/ctanbib/
+%doc %{_texmf_main}/doc/support/ctanbib/
 
 %files -n %{shortname}-ctanify
 %license lppl1.3.txt
 %{_bindir}/ctanify
 %{_mandir}/man1/ctanify.1*
-%{_texdir}/texmf-dist/scripts/ctanify/
-%doc %{_texdir}/texmf-dist/doc/latex/ctanify/
+%{_texmf_main}/scripts/ctanify/
+%doc %{_texmf_main}/doc/latex/ctanify/
 
 %files -n %{shortname}-ctanupload
 %license gpl3.txt
 %{_bindir}/ctanupload
-%{_texdir}/texmf-dist/scripts/ctanupload/
-%doc %{_texdir}/texmf-dist/doc/support/ctanupload/
+%{_texmf_main}/scripts/ctanupload/
+%doc %{_texmf_main}/doc/support/ctanupload/
 
 %files -n %{shortname}-ctie
-%license gpl.txt
+%license gpl2.txt
 %{_bindir}/ctie
 %{_mandir}/man1/ctie.1*
 
@@ -10007,15 +10001,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/twill
 %{_bindir}/twill-refsort
 %{_mandir}/man1/ctangle.1*
-%{_mandir}/man1/ctwill.1*
 %{_mandir}/man1/ctwill-proofsort.1*
 %{_mandir}/man1/ctwill-refsort.1*
 %{_mandir}/man1/ctwill-twinx.1*
+%{_mandir}/man1/ctwill.1*
 %{_mandir}/man1/cweave.1*
 %{_mandir}/man1/cweb.1*
-%{_mandir}/man1/twill.1*
 %{_mandir}/man1/twill-refsort.1*
-%{_texdir}/texmf-dist/tex/plain/cweb/
+%{_mandir}/man1/twill.1*
+%{_texmf_main}/tex/plain/cweb/
 
 %files -n %{shortname}-cyrillic
 %license lppl1.3.txt
@@ -10023,15 +10017,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/rumakeindex
 %{_mandir}/man1/rubibtex.1*
 %{_mandir}/man1/rumakeindex.1*
-%{_texdir}/texmf-dist/tex/latex/cyrillic/
-%{_texdir}/texmf-dist/scripts/texlive-extra/rubibtex.sh
-%{_texdir}/texmf-dist/scripts/texlive-extra/rumakeindex.sh
-%doc %{_texdir}/texmf-dist/doc/latex/cyrillic/
+%{_texmf_main}/tex/latex/cyrillic/
+%{_texmf_main}/scripts/texlive-extra/rubibtex.sh
+%{_texmf_main}/scripts/texlive-extra/rumakeindex.sh
+%doc %{_texmf_main}/doc/latex/cyrillic/
 
 %files -n %{shortname}-de-macro
 %{_bindir}/de-macro
-%{_texdir}/texmf-dist/scripts/de-macro/
-%doc %{_texdir}/texmf-dist/doc/support/de-macro/
+%{_texmf_main}/scripts/de-macro/
+%doc %{_texmf_main}/doc/support/de-macro/
 
 %files -n %{shortname}-detex
 %{_bindir}/detex
@@ -10040,21 +10034,21 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-diadia
 %license lppl1.txt
 %{_bindir}/diadia
-%{_texdir}/texmf-dist/scripts/diadia/
-%{_texdir}/texmf-dist/tex/latex/diadia/
-%doc %{_texdir}/texmf-dist/doc/latex/diadia/
+%{_texmf_main}/scripts/diadia/
+%{_texmf_main}/tex/latex/diadia/
+%doc %{_texmf_main}/doc/latex/diadia/
 
 %files -n %{shortname}-digestif
 %license gpl3.txt lppl1.3.txt fdl.txt
 %{_bindir}/digestif
-%{_texdir}/texmf-dist/scripts/digestif
-%doc %{_texdir}/texmf-dist/doc/support/digestif
+%{_texmf_main}/scripts/digestif
+%doc %{_texmf_main}/doc/support/digestif
 
 %files -n %{shortname}-dosepsbin
 %{_bindir}/dosepsbin
 %{_mandir}/man1/dosepsbin.1*
-%{_texdir}/texmf-dist/scripts/dosepsbin/
-%doc %{_texdir}/texmf-dist/doc/support/dosepsbin/
+%{_texmf_main}/scripts/dosepsbin/
+%doc %{_texmf_main}/doc/support/dosepsbin/
 
 %files -n %{shortname}-dtl
 %license pd.txt
@@ -10064,10 +10058,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/dv2dt.1*
 
 %files -n %{shortname}-dtxgen
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/support/dtxgen/
 %{_bindir}/dtxgen
-%{_texdir}/texmf-dist/scripts/dtxgen/
-%doc %{_texdir}/texmf-dist/doc/support/dtxgen/
+%{_texmf_main}/scripts/dtxgen/
 
 %files -n %{shortname}-dvi2tty
 %license gpl.txt
@@ -10080,22 +10074,23 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl3.txt
 %{_bindir}/dviasm
 %{_mandir}/man1/dviasm.1*
-%{_texdir}/texmf-dist/scripts/dviasm/
-%doc %{_texdir}/texmf-dist/doc/latex/dviasm/
+%{_texmf_main}/scripts/dviasm/
+%doc %{_texmf_main}/doc/latex/dviasm/
 
 %files -n %{shortname}-dvicopy
-%license gpl.txt
+%license gpl2.txt
 %{_bindir}/dvicopy
 %{_mandir}/man1/dvicopy.1*
 
 %files -n %{shortname}-dvidvi
+%license other-free.txt
 %{_bindir}/dvidvi
 %{_mandir}/man1/dvidvi.1*
 
 %files -n %{shortname}-dviinfox
 %{_bindir}/dviinfox
-%{_texdir}/texmf-dist/scripts/dviinfox/
-%doc %{_texdir}/texmf-dist/doc/latex/dviinfox/
+%{_texmf_main}/scripts/dviinfox/
+%doc %{_texmf_main}/doc/latex/dviinfox/
 
 %files -n %{shortname}-dviljk
 %license gpl.txt
@@ -10119,7 +10114,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/dvispc.1*
 
 %files -n %{shortname}-dvipdfmx
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/dvipdfm/
+%doc %{_texmf_main}/doc/dvipdfmx/
+%exclude %{_texmf_main}/fonts/map/dvipdfmx/ptex-fontmaps/
 %{_bindir}/dvipdfm
 %{_bindir}/dvipdfmx
 %{_bindir}/dvipdft
@@ -10129,22 +10127,19 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/dvipdft.1*
 %{_mandir}/man1/ebb.1*
 %{_mandir}/man1/xdvipdfmx.1*
-%{_texdir}/texmf-dist/dvipdfmx/
-%{_texdir}/texmf-dist/fonts/cmap/dvipdfmx/
-%{_texdir}/texmf-dist/fonts/map/dvipdfmx/
-%exclude %{_texdir}/texmf-dist/fonts/map/dvipdfmx/ptex-fontmaps/
 %{_texdir}/tlpkg/tlpostcode/dvipdfmx.pl
-%doc %{_texdir}/texmf-dist/doc/dvipdfm/
-%doc %{_texdir}/texmf-dist/doc/dvipdfmx/
+%{_texmf_main}/dvipdfmx/
+%{_texmf_main}/fonts/cmap/
+%{_texmf_main}/fonts/map/dvipdfmx/
 
 %files -n %{shortname}-dvipng
-%license lgpl2.1.txt
+%license lgpl.txt
+%doc %{_texmf_main}/doc/dvipng/
 %{_bindir}/dvigif
 %{_bindir}/dvipng
+%{_infodir}/dvipng.info*
 %{_mandir}/man1/dvigif.1*
 %{_mandir}/man1/dvipng.1*
-%{_infodir}/dvipng.info*
-%doc %{_texdir}/texmf-dist/doc/dvipng/
 
 %files -n %{shortname}-dvipos
 %license lppl1.txt
@@ -10152,50 +10147,22 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/dvipos.1*
 
 %files -n %{shortname}-dvips
-%license gpl.txt
+%license other-free.txt
+%config(noreplace) %{_sysconfdir}/texlive/dvips/config/config.ps
+%dir %{_texmf_main}/fonts/map/dvips/
+%doc %{_texmf_main}/doc/dvips/
 %{_bindir}/afm2tfm
 %{_bindir}/dvips
+%{_infodir}/dvips.info*
 %{_mandir}/man1/afm2tfm.1*
 %{_mandir}/man1/dvips.1*
-%{_infodir}/dvips.info*
-%{_texdir}/texmf-dist/dvips/base/
-%{_texdir}/texmf-dist/dvips/config/alt-rule.pro
-%{_texdir}/texmf-dist/dvips/config/canonex.cfg
-%{_texdir}/texmf-dist/dvips/config/config.bakoma
-%{_texdir}/texmf-dist/dvips/config/config.canonex
-%{_texdir}/texmf-dist/dvips/config/config.cx
-%{_texdir}/texmf-dist/dvips/config/config.deskjet
-%{_texdir}/texmf-dist/dvips/config/config.dvired
-%{_texdir}/texmf-dist/dvips/config/config.epson
-%{_texdir}/texmf-dist/dvips/config/config.ibmvga
-%{_texdir}/texmf-dist/dvips/config/config.ljfour
-%{_texdir}/texmf-dist/dvips/config/config.luc
-%{_texdir}/texmf-dist/dvips/config/config.mbn
-%{_texdir}/texmf-dist/dvips/config/config.mga
-%{_texdir}/texmf-dist/dvips/config/config.mirrorprint
-%{_texdir}/texmf-dist/dvips/config/config.ot2
-%config(noreplace) %{_sysconfdir}/texlive/dvips/config/config.ps
-%{_texdir}/texmf-dist/dvips/config/config.ps
-%{_texdir}/texmf-dist/dvips/config/config.qms
-%{_texdir}/texmf-dist/dvips/config/config.toshiba
-%{_texdir}/texmf-dist/dvips/config/config.unms
-%{_texdir}/texmf-dist/dvips/config/config.xyp
-%{_texdir}/texmf-dist/dvips/config/cx.cfg
-%{_texdir}/texmf-dist/dvips/config/deskjet.cfg
-%{_texdir}/texmf-dist/dvips/config/dfaxhigh.cfg
-%{_texdir}/texmf-dist/dvips/config/dvired.cfg
-%{_texdir}/texmf-dist/dvips/config/epson.cfg
-%{_texdir}/texmf-dist/dvips/config/ibmvga.cfg
-%{_texdir}/texmf-dist/dvips/config/ljfour.cfg
-%{_texdir}/texmf-dist/dvips/config/qms.cfg
-%{_texdir}/texmf-dist/dvips/config/toshiba.cfg
-%{_texdir}/texmf-dist/fonts/enc/dvips/base/
-%dir %{_texdir}/texmf-dist/fonts/map/dvips/
-%{_texdir}/texmf-dist/tex/generic/dvips/
-%doc %{_texdir}/texmf-dist/doc/dvips/
+%{_texmf_main}/dvips/base/
+%{_texmf_main}/dvips/config/
+%{_texmf_main}/fonts/enc/dvips/base/
+%{_texmf_main}/tex/generic/dvips/
 
 %files -n %{shortname}-dvisvgm
-%license gpl.txt
+%license gpl3.txt
 %{_bindir}/dvisvgm
 %{_mandir}/man1/dvisvgm.1*
 
@@ -10203,103 +10170,106 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl3.txt
 %{_bindir}/edtx2dtx
 %{_mandir}/man1/edtx2dtx.1*
-%{_texdir}/texmf-dist/scripts/easydtx/
-%doc %{_texdir}/texmf-dist/doc/support/easydtx/
+%{_texmf_main}/scripts/easydtx/
+%doc %{_texmf_main}/doc/support/easydtx/
 
 %files -n %{shortname}-ebong
 %license pd.txt
+%doc %{_texmf_main}/doc/latex/ebong/
 %{_bindir}/ebong
-%{_texdir}/texmf-dist/scripts/ebong/
-%doc %{_texdir}/texmf-dist/doc/latex/ebong/
+%{_texmf_main}/scripts/ebong/
 
 %files -n %{shortname}-eolang
 %license mit.txt
+%doc %{_texmf_main}/doc/latex/eolang/
 %{_bindir}/eolang
 %{_mandir}/man1/eolang.1*
-%{_texdir}/texmf-dist/scripts/eolang/
-%{_texdir}/texmf-dist/tex/latex/eolang/
-%doc %{_texdir}/texmf-dist/doc/latex/eolang/
+%{_texmf_main}/scripts/eolang/
+%{_texmf_main}/tex/latex/eolang/
 
 %files -n %{shortname}-eplain
 %license gpl2.txt
 %{_bindir}/eplain
 %{_mandir}/man1/eplain.1*
 %{_infodir}/eplain.info*
-%{_texdir}/texmf-dist/tex/eplain/
+%{_texmf_main}/tex/eplain/
 %{fmtutil_cnf_d}/eplain
-%doc %{_texdir}/texmf-dist/doc/eplain/
+%doc %{_texmf_main}/doc/eplain/
 
 %files -n %{shortname}-epspdf
 %license gpl.txt
 %{_bindir}/epspdf
 %{_bindir}/epspdftk
 %{_infodir}/epspdf.info*
-%{_texdir}/texmf-dist/scripts/epspdf/
-%doc %{_texdir}/texmf-dist/doc/support/epspdf/
+%{_texmf_main}/scripts/epspdf/
+%doc %{_texmf_main}/doc/support/epspdf/
 
 %files -n %{shortname}-epstopdf
 %{_bindir}/epstopdf
 %{_bindir}/repstopdf
 %{_mandir}/man1/epstopdf.1*
 %{_mandir}/man1/repstopdf.1*
-%{_texdir}/texmf-dist/scripts/epstopdf/
-%doc %{_texdir}/texmf-dist/doc/support/epstopdf/
+%{_texmf_main}/scripts/epstopdf/
+%doc %{_texmf_main}/doc/support/epstopdf/
 
 %files -n %{shortname}-exceltex
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/latex/exceltex/
 %{_bindir}/exceltex
-%{_texdir}/texmf-dist/scripts/exceltex/
-%{_texdir}/texmf-dist/tex/latex/exceltex/
-%doc %{_texdir}/texmf-dist/doc/latex/exceltex/
+%{_texmf_main}/scripts/exceltex/
+%{_texmf_main}/tex/latex/exceltex/
 
 %files -n %{shortname}-expltools
-%license gpl2.txt lppl1.3.txt
+%license lppl1.3c.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/support/expltools/
 %{_bindir}/explcheck
-%{_texdir}/texmf-dist/scripts/expltools/
-%doc %{_texdir}/texmf-dist/doc/support/expltools/
+%{_texmf_main}/scripts/expltools/
 
 %files -n %{shortname}-extractbb
+%license other-free.txt
+%license cc-by-sa-4.txt
+%doc %{_texmf_main}/doc/support/extractbb/
 %{_bindir}/extractbb
 %{_mandir}/man1/extractbb.1*
-%{_texdir}/texmf-dist/scripts/extractbb/
-%doc %{_texdir}/texmf-dist/doc/support/extractbb/
+%{_texmf_main}/scripts/extractbb/
 
 %files -n %{shortname}-fig4latex
 %license gpl3.txt
 %{_bindir}/fig4latex
-%{_texdir}/texmf-dist/scripts/fig4latex/
-%doc %{_texdir}/texmf-dist/doc/support/fig4latex/
+%{_texmf_main}/scripts/fig4latex/
+%doc %{_texmf_main}/doc/support/fig4latex/
 
 %files -n %{shortname}-findhyph
 %license gpl.txt
 %{_bindir}/findhyph
 %{_mandir}/man1/findhyph.1*
-%{_texdir}/texmf-dist/scripts/findhyph/
-%doc %{_texdir}/texmf-dist/doc/support/findhyph/
+%{_texmf_main}/scripts/findhyph/
+%doc %{_texmf_main}/doc/support/findhyph/
 
 %files -n %{shortname}-fontinst
 %license lppl1.txt
 %{_bindir}/fontinst
 %{_mandir}/man1/fontinst.1*
-%{_texdir}/texmf-dist/scripts/texlive-extra/fontinst.sh
-%{_texdir}/texmf-dist/tex/fontinst/
-%{_texdir}/texmf-dist/tex/latex/fontinst/
-%doc %{_texdir}/texmf-dist/doc/fonts/fontinst/
+%{_texmf_main}/scripts/texlive-extra/fontinst.sh
+%{_texmf_main}/tex/fontinst/
+%{_texmf_main}/tex/latex/fontinst/
+%doc %{_texmf_main}/doc/fonts/fontinst/
 
 %files -n %{shortname}-fontools
 %license gpl2.txt
+%doc %{_texmf_main}/doc/support/fontools/
 %{_bindir}/afm2afm
 %{_bindir}/autoinst
 %{_bindir}/ot2kpx
 %{_mandir}/man1/afm2afm.1*
 %{_mandir}/man1/autoinst.1*
 %{_mandir}/man1/ot2kpx.1*
-%{_texdir}/texmf-dist/fonts/enc/dvips/fontools/
-%{_texdir}/texmf-dist/scripts/fontools/
-%doc %{_texdir}/texmf-dist/doc/support/fontools/
+%{_texmf_main}/fonts/enc/dvips/fontools/
+%{_texmf_main}/scripts/fontools/
 
 %files -n %{shortname}-fontware
-%license lppl1.txt
+%license knuth.txt
 %{_bindir}/pltotf
 %{_bindir}/tftopl
 %{_bindir}/vftovp
@@ -10312,52 +10282,53 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-fragmaster
 %license gpl.txt
 %{_bindir}/fragmaster
-%{_texdir}/texmf-dist/scripts/fragmaster/
-%doc %{_texdir}/texmf-dist/doc/support/fragmaster/
+%{_texmf_main}/scripts/fragmaster/
+%doc %{_texmf_main}/doc/support/fragmaster/
 
 %files -n %{shortname}-getmap
 %license lppl1.txt
 %{_bindir}/getmapdl
-%{_texdir}/texmf-dist/scripts/getmap/
-%{_texdir}/texmf-dist/tex/latex/getmap/
-%doc %{_texdir}/texmf-dist/doc/latex/getmap/
+%{_texmf_main}/scripts/getmap/
+%{_texmf_main}/tex/latex/getmap/
+%doc %{_texmf_main}/doc/latex/getmap/
 
 %files -n %{shortname}-git-latexdiff
 %{_bindir}/git-latexdiff
 %{_mandir}/man1/git-latexdiff.*
-%doc %{_texdir}/texmf-dist/doc/support/git-latexdiff
-%{_texdir}/texmf-dist/scripts/git-latexdiff
+%doc %{_texmf_main}/doc/support/git-latexdiff
+%{_texmf_main}/scripts/git-latexdiff
 
 %files -n %{shortname}-glossaries
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/glossaries/
 %{_bindir}/makeglossaries
 %{_bindir}/makeglossaries-lite
-%{_mandir}/man1/makeglossaries.1*
 %{_mandir}/man1/makeglossaries-lite.1*
-%{_texdir}/texmf-dist/scripts/glossaries/
-%{_texdir}/texmf-dist/tex/latex/glossaries/
-%doc %{_texdir}/texmf-dist/doc/latex/glossaries/
+%{_mandir}/man1/makeglossaries.1*
+%{_texmf_main}/scripts/glossaries/
+%{_texmf_main}/tex/latex/glossaries/
 
 %files -n %{shortname}-glyphlist
-%{_texdir}/texmf-dist/fonts/map/glyphlist/
+%{_texmf_main}/fonts/map/glyphlist/
 
 %files -n %{shortname}-gregoriotex
 %license gpl3.txt
 %{_bindir}/gregorio
-%{_texdir}/texmf-dist/scripts/gregoriotex/
-%{_texdir}/texmf-dist/tex/lualatex/gregoriotex/
-%{_texdir}/texmf-dist/tex/luatex/gregoriotex/
-%{_texdir}/texmf-dist/fonts/source/gregoriotex/
-%{_texdir}/texmf-dist/fonts/truetype/public/gregoriotex/
-%doc %{_texdir}/texmf-dist/doc/luatex/gregoriotex/
+%{_texmf_main}/scripts/gregoriotex/
+%{_texmf_main}/tex/lualatex/gregoriotex/
+%{_texmf_main}/tex/luatex/gregoriotex/
+%{_texmf_main}/fonts/source/gregoriotex/
+%{_texmf_main}/fonts/truetype/public/gregoriotex/
+%doc %{_texmf_main}/doc/luatex/gregoriotex/
 
 %files -n %{shortname}-gsftopk
 %license gpl.txt
 %{_bindir}/gsftopk
 %{_mandir}/man1/gsftopk.1*
-%{_texdir}/texmf-dist/dvips/gsftopk/
+%{_texmf_main}/dvips/gsftopk/
 
 %files -n %{shortname}-hitex
+%doc %{_texmf_main}/doc/hitex/
 %{_bindir}/hilatex
 %{_bindir}/hishrink
 %{_bindir}/histretch
@@ -10370,56 +10341,62 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texprof.1*
 %{_mandir}/man1/texprofile.1*
 %{_texdir}/fmtutil.cnf.d/hitex
-%{_texdir}/texmf-dist/makeindex/hitex/
-%{_texdir}/texmf-dist/tex/hitex/
-%doc %{_texdir}/texmf-dist/doc/hitex/
+%{_texmf_main}/makeindex/hitex/
+%{_texmf_main}/tex/hitex/
 
 %files -n %{shortname}-hyperxmp
 %license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/hyperxmp
 %{_bindir}/hyperxmp-add-bytecount
 %{_mandir}/man1/hyperxmp*
-%doc %{_texdir}/texmf-dist/doc/latex/hyperxmp
-%{_texdir}/texmf-dist/scripts/hyperxmp
-%{_texdir}/texmf-dist/tex/latex/hyperxmp
+%{_texmf_main}/scripts/hyperxmp/
+%{_texmf_main}/tex/latex/hyperxmp
 
 %files -n %{shortname}-installfont
 %license lppl1.txt
 %{_bindir}/installfont-tl
-%{_texdir}/texmf-dist/scripts/installfont/
-%doc %{_texdir}/texmf-dist/doc/support/installfont/
+%{_texmf_main}/scripts/installfont/
+%doc %{_texmf_main}/doc/support/installfont/
 
 %files -n %{shortname}-jadetex
 %{_bindir}/jadetex
 %{_bindir}/pdfjadetex
 %{_mandir}/man1/jadetex.1*
 %{_mandir}/man1/pdfjadetex.1*
-%{_texdir}/texmf-dist/tex/jadetex/
+%{_texmf_main}/tex/jadetex/
 %{fmtutil_cnf_d}/jadetex
-%doc %{_texdir}/texmf-dist/doc/otherformats/jadetex/
+%doc %{_texmf_main}/doc/otherformats/jadetex/
 
 %files -n %{shortname}-jfmutil
 %{_bindir}/jfmutil
-%{_texdir}/texmf-dist/scripts/jfmutil/
-%doc %{_texdir}/texmf-dist/doc/fonts/jfmutil/
+%{_texmf_main}/scripts/jfmutil/
+%doc %{_texmf_main}/doc/fonts/jfmutil/
 
 %files -n %{shortname}-ketcindy
 %license gpl3.txt
 %{_bindir}/ketcindy
-%{_texdir}/texmf-dist/scripts/ketcindy/
-%{_texdir}/texmf-dist/tex/latex/ketcindy/
-%doc %{_texdir}/texmf-dist/doc/support/ketcindy/
+%{_texmf_main}/scripts/ketcindy/
+%{_texmf_main}/tex/latex/ketcindy/
+%doc %{_texmf_main}/doc/support/ketcindy/
 
 %files -n %{shortname}-kotex-utils
 %license lppl1.txt
 %{_bindir}/jamo-normalize
 %{_bindir}/komkindex
 %{_bindir}/ttf2kotexfont
-%{_texdir}/texmf-dist/makeindex/kotex-utils/
-%{_texdir}/texmf-dist/scripts/kotex-utils/
-%doc %{_texdir}/texmf-dist/doc/latex/kotex-utils/
+%{_texmf_main}/makeindex/kotex-utils/
+%{_texmf_main}/scripts/kotex-utils/
+%doc %{_texmf_main}/doc/latex/kotex-utils/
 
 %files -n %{shortname}-kpathsea
 %license lgpl2.1.txt
+%config(noreplace) %{_sysconfdir}/texlive/web2c/fmtutil.cnf
+%config(noreplace) %{_sysconfdir}/texlive/web2c/mktex.cnf
+%config(noreplace) %{_sysconfdir}/texlive/web2c/texmf.cnf
+%dir %{fmtutil_cnf_d}
+%doc %{_texmf_main}/doc/kpathsea/
+%doc %{_texmf_main}/doc/web2c/
+%ghost %{_texmf_main}/web2c/fmtutil.cnf
 %{_bindir}/kpseaccess
 %{_bindir}/kpsereadlink
 %{_bindir}/kpsestat
@@ -10428,7 +10405,8 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/mkofm
 %{_bindir}/mktexfmt
 %{_bindir}/texhash
-%{_sbindir}/generate-fmtutilcnf
+%{_infodir}/kpathsea.info*
+%{_infodir}/web2c.info*
 %{_mandir}/man1/kpseaccess.1*
 %{_mandir}/man1/kpsereadlink.1*
 %{_mandir}/man1/kpsestat.1*
@@ -10438,134 +10416,126 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/mktexfmt.1*
 %{_mandir}/man1/texhash.1*
 %{_mandir}/man5/fmtutil.cnf.5*
-%{_infodir}/kpathsea.info*
-%{_infodir}/web2c.info*
-%{_texdir}/texmf-dist/web2c/amiga-pl.tcx
-%{_texdir}/texmf-dist/web2c/cp1250cs.tcx
-%{_texdir}/texmf-dist/web2c/cp1250pl.tcx
-%{_texdir}/texmf-dist/web2c/cp1250t1.tcx
-%{_texdir}/texmf-dist/web2c/cp227.tcx
-%{_texdir}/texmf-dist/web2c/cp852-cs.tcx
-%{_texdir}/texmf-dist/web2c/cp852-pl.tcx
-%{_texdir}/texmf-dist/web2c/cp8bit.tcx
-%{_texdir}/texmf-dist/web2c/empty.tcx
-%config(noreplace) %{_sysconfdir}/texlive/web2c/fmtutil.cnf
-%ghost %{_texdir}/texmf-dist/web2c/fmtutil.cnf
-%{_texdir}/texmf-dist/web2c/il1-t1.tcx
-%{_texdir}/texmf-dist/web2c/il2-cs.tcx
-%{_texdir}/texmf-dist/web2c/il2-pl.tcx
-%{_texdir}/texmf-dist/web2c/il2-t1.tcx
-%{_texdir}/texmf-dist/web2c/kam-cs.tcx
-%{_texdir}/texmf-dist/web2c/kam-t1.tcx
-%{_texdir}/texmf-dist/web2c/macce-pl.tcx
-%{_texdir}/texmf-dist/web2c/macce-t1.tcx
-%{_texdir}/texmf-dist/web2c/maz-pl.tcx
-%config(noreplace) %{_sysconfdir}/texlive/web2c/mktex.cnf
-%{_texdir}/texmf-dist/web2c/mktex.cnf
-%{_texdir}/texmf-dist/web2c/mktex.opt
-%{_texdir}/texmf-dist/web2c/mktexdir
-%{_texdir}/texmf-dist/web2c/mktexdir.opt
-%{_texdir}/texmf-dist/web2c/mktexnam
-%{_texdir}/texmf-dist/web2c/mktexnam.opt
-%{_texdir}/texmf-dist/web2c/mktexupd
-%{_texdir}/texmf-dist/web2c/natural.tcx
-%{_texdir}/texmf-dist/web2c/tcvn-t5.tcx
-%config(noreplace) %{_sysconfdir}/texlive/web2c/texmf.cnf
-%{_texdir}/texmf-dist/web2c/texmf.cnf
-%{_texdir}/texmf-dist/web2c/viscii-t5.tcx
-%dir %{fmtutil_cnf_d}
-%doc %{_texdir}/texmf-dist/doc/kpathsea/
-%doc %{_texdir}/texmf-dist/doc/web2c/
+%{_sbindir}/generate-fmtutilcnf
+%{_texmf_main}/web2c/amiga-pl.tcx
+%{_texmf_main}/web2c/cp1250cs.tcx
+%{_texmf_main}/web2c/cp1250pl.tcx
+%{_texmf_main}/web2c/cp1250t1.tcx
+%{_texmf_main}/web2c/cp227.tcx
+%{_texmf_main}/web2c/cp852-cs.tcx
+%{_texmf_main}/web2c/cp852-pl.tcx
+%{_texmf_main}/web2c/cp8bit.tcx
+%{_texmf_main}/web2c/empty.tcx
+%{_texmf_main}/web2c/il1-t1.tcx
+%{_texmf_main}/web2c/il2-cs.tcx
+%{_texmf_main}/web2c/il2-pl.tcx
+%{_texmf_main}/web2c/il2-t1.tcx
+%{_texmf_main}/web2c/kam-cs.tcx
+%{_texmf_main}/web2c/kam-t1.tcx
+%{_texmf_main}/web2c/macce-pl.tcx
+%{_texmf_main}/web2c/macce-t1.tcx
+%{_texmf_main}/web2c/maz-pl.tcx
+%{_texmf_main}/web2c/mktex.cnf
+%{_texmf_main}/web2c/mktex.opt
+%{_texmf_main}/web2c/mktexdir
+%{_texmf_main}/web2c/mktexdir.opt
+%{_texmf_main}/web2c/mktexnam
+%{_texmf_main}/web2c/mktexnam.opt
+%{_texmf_main}/web2c/mktexupd
+%{_texmf_main}/web2c/natural.tcx
+%{_texmf_main}/web2c/tcvn-t5.tcx
+%{_texmf_main}/web2c/texmf.cnf
+%{_texmf_main}/web2c/viscii-t5.tcx
 
 %files -n %{shortname}-l3build
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/l3build/
 %{_bindir}/l3build
 %{_mandir}/man1/l3build.1*
-%{_texdir}/texmf-dist/scripts/l3build/
-%{_texdir}/texmf-dist/tex/latex/l3build/
-%doc %{_texdir}/texmf-dist/doc/latex/l3build/
+%{_texmf_main}/scripts/l3build/
+%{_texmf_main}/tex/latex/l3build/
 
 %files -n %{shortname}-l3sys-query
 %license mit.txt
+%doc %{_texmf_main}/doc/support/l3sys-query/
 %{_bindir}/l3sys-query
 %{_mandir}/man1/l3sys-query.1*
-%{_texdir}/texmf-dist/scripts/l3sys-query/
-%doc %{_texdir}/texmf-dist/doc/support/l3sys-query/
+%{_texmf_main}/scripts/l3sys-query/
 
 %files -n %{shortname}-lacheck
-%license gpl.txt
+%license gpl2.txt
 %{_bindir}/lacheck
 %{_mandir}/man1/lacheck.1*
 
 %files -n %{shortname}-latex
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/base/
 %{_bindir}/dvilualatex
 %{_bindir}/latex
 %{_bindir}/lualatex
 %{_bindir}/pdflatex
 %{_mandir}/man1/latex.1*
 %{_mandir}/man1/pdflatex.1*
-%{_texdir}/texmf-dist/makeindex/latex/
-%{_texdir}/texmf-dist/tex/latex/base/
+%{_texmf_main}/makeindex/latex/
+%{_texmf_main}/tex/latex/base/
 %{fmtutil_cnf_d}/latex-bin
-%doc %{_texdir}/texmf-dist/doc/latex/base/
 
 %files -n %{shortname}-latex-git-log
 %license gpl3.txt
 %{_bindir}/latex-git-log
 %{_mandir}/man1/latex-git-log.1*
-%{_texdir}/texmf-dist/scripts/latex-git-log/
-%doc %{_texdir}/texmf-dist/doc/support/latex-git-log/
+%{_texmf_main}/scripts/latex-git-log/
+%doc %{_texmf_main}/doc/support/latex-git-log/
 
 %files -n %{shortname}-latex-papersize
 %license apache2.txt
 %{_bindir}/latex-papersize
-%{_texdir}/texmf-dist/scripts/latex-papersize
-%doc %{_texdir}/texmf-dist/doc/support/latex-papersize/
+%{_texmf_main}/scripts/latex-papersize
+%doc %{_texmf_main}/doc/support/latex-papersize/
 
 %files -n %{shortname}-latex2man
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/latex2man/
 %{_bindir}/latex2man
-%{_mandir}/man1/latex2man.1*
 %{_infodir}/latex2man.info*
-%{_texdir}/texmf-dist/scripts/latex2man/
-%{_texdir}/texmf-dist/tex/latex/latex2man/
-%doc %{_texdir}/texmf-dist/doc/support/latex2man/
+%{_mandir}/man1/latex2man.1*
+%{_texmf_main}/scripts/latex2man/
+%{_texmf_main}/tex/latex/latex2man/
 
 %files -n %{shortname}-latex2nemeth
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/latex2nemeth
 %{_bindir}/latex2nemeth
-%{_texdir}/texmf-dist/scripts/latex2nemeth
-%doc %{_texdir}/texmf-dist/doc/support/latex2nemeth
+%{_texmf_main}/scripts/latex2nemeth/
 
 %files -n %{shortname}-latexdiff
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/latexdiff/
 %{_bindir}/latexdiff
 %{_bindir}/latexdiff-vc
 %{_bindir}/latexrevise
 %{_mandir}/man1/latexdiff-vc.1*
 %{_mandir}/man1/latexdiff.1*
 %{_mandir}/man1/latexrevise.1*
-%{_texdir}/texmf-dist/scripts/latexdiff/
-%doc %{_texdir}/texmf-dist/doc/support/latexdiff/
+%{_texmf_main}/scripts/latexdiff/
 
 %files -n %{shortname}-latexfileversion
 %license lppl1.txt
 %{_bindir}/latexfileversion
-%{_texdir}/texmf-dist/scripts/latexfileversion/
-%doc %{_texdir}/texmf-dist/doc/support/latexfileversion/
+%{_texmf_main}/scripts/latexfileversion/
+%doc %{_texmf_main}/doc/support/latexfileversion/
 
 %files -n %{shortname}-latexpand
 %license bsd.txt
 %{_bindir}/latexpand
-%{_texdir}/texmf-dist/scripts/latexpand/
-%doc %{_texdir}/texmf-dist/doc/support/latexpand/
+%{_texmf_main}/scripts/latexpand/
+%doc %{_texmf_main}/doc/support/latexpand/
 
 %files -n %{shortname}-latexindent
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/latexindent/
 %{_bindir}/latexindent
-%{_texdir}/texmf-dist/scripts/latexindent/
-%doc %{_texdir}/texmf-dist/doc/support/latexindent/
+%{_texmf_main}/scripts/latexindent/
 
 %files -n %{shortname}-lcdftypetools
 %license gpl.txt
@@ -10597,7 +10567,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %dir %{_texdir}/texmf-config
 %dir %{_texdir}/texmf-config/web2c
 %attr(0644, root, root) %verify(not md5 size mtime) %ghost %{_texdir}/texmf-config/ls-R
-%attr(0644, root, root) %verify(not md5 size mtime) %ghost %{_texdir}/texmf-dist/ls-R
+%attr(0644, root, root) %verify(not md5 size mtime) %ghost %{_texmf_main}/ls-R
 %attr(0644, root, root) %verify(not md5 size mtime) %ghost %{_texdir}/texmf-local/ls-R
 
 %files -n %{shortname}-lib-devel
@@ -10614,8 +10584,8 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-light-latex-make
 %{_bindir}/llmk
 %{_mandir}/man1/llmk*
-%doc %{_texdir}/texmf-dist/doc/support/light-latex-make
-%{_texdir}/texmf-dist/scripts/light-latex-make
+%doc %{_texmf_main}/doc/support/light-latex-make
+%{_texmf_main}/scripts/light-latex-make
 
 %files -n %{shortname}-lilyglyphs
 %license lppl1.3.txt
@@ -10623,64 +10593,63 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/lily-image-commands
 %{_bindir}/lily-rebuild-pdfs
 %{_datadir}/fonts/lilyglyphs
-%{_texdir}/texmf-dist/fonts/opentype/public/lilyglyphs/
-%{_texdir}/texmf-dist/scripts/lilyglyphs/
-%{_texdir}/texmf-dist/tex/latex/lilyglyphs/
-%doc %{_texdir}/texmf-dist/doc/latex/lilyglyphs/
+%{_texmf_main}/fonts/opentype/public/lilyglyphs/
+%{_texmf_main}/scripts/lilyglyphs/
+%{_texmf_main}/tex/latex/lilyglyphs/
+%doc %{_texmf_main}/doc/latex/lilyglyphs/
 
 %files -n %{shortname}-listbib
 %license gpl.txt
 %{_bindir}/listbib
-%{_texdir}/texmf-dist/bibtex/bst/listbib/
-%{_texdir}/texmf-dist/scripts/listbib/
-%{_texdir}/texmf-dist/tex/latex/listbib/
-%doc %{_texdir}/texmf-dist/doc/latex/listbib/
+%{_texmf_main}/bibtex/bst/listbib/
+%{_texmf_main}/scripts/listbib/
+%{_texmf_main}/tex/latex/listbib/
+%doc %{_texmf_main}/doc/latex/listbib/
 
 %files -n %{shortname}-listings-ext
 %license lppl1.2.txt
 %{_bindir}/listings-ext.sh
-%{_texdir}/texmf-dist/scripts/listings-ext/
-%{_texdir}/texmf-dist/tex/latex/listings-ext/
-%doc %{_texdir}/texmf-dist/doc/latex/listings-ext/
+%{_texmf_main}/scripts/listings-ext/
+%{_texmf_main}/tex/latex/listings-ext/
+%doc %{_texmf_main}/doc/latex/listings-ext/
 
 %files -n %{shortname}-lollipop
 %license gpl3.txt
 %{_bindir}/lollipop
-%{_texdir}/texmf-dist/tex/lollipop/
+%{_texmf_main}/tex/lollipop/
 %{fmtutil_cnf_d}/lollipop
-%doc %{_texdir}/texmf-dist/doc/otherformats/lollipop/
+%doc %{_texmf_main}/doc/otherformats/lollipop/
 
 %files -n %{shortname}-ltxfileinfo
 %license gpl.txt
 %{_bindir}/ltxfileinfo
-%{_texdir}/texmf-dist/scripts/ltxfileinfo/
-%doc %{_texdir}/texmf-dist/doc/support/ltxfileinfo/
+%{_texmf_main}/scripts/ltxfileinfo/
+%doc %{_texmf_main}/doc/support/ltxfileinfo/
 
 %files -n %{shortname}-ltximg
 %license gpl2.txt
 %{_bindir}/ltximg
 %{_mandir}/man1/ltximg.1*
-%{_texdir}/texmf-dist/scripts/ltximg/
-%doc %{_texdir}/texmf-dist/doc/support/ltximg/
+%{_texmf_main}/scripts/ltximg/
+%doc %{_texmf_main}/doc/support/ltximg/
 
 %files -n %{shortname}-luafindfont
 %license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/luafindfont/
 %{_bindir}/luafindfont
 %{_mandir}/man1/luafindfont.1*
-%{_texdir}/texmf-dist/scripts/luafindfont/
-%doc %{_texdir}/texmf-dist/doc/support/luafindfont/
+%{_texmf_main}/scripts/luafindfont/
 
 %files -n %{shortname}-luaotfload
 %license gpl2.txt
 %{_bindir}/luaotfload-tool
 %{_mandir}/man1/luaotfload-tool.1*
 %{_mandir}/man5/luaotfload.conf.5*
-%{_texdir}/texmf-dist/scripts/luaotfload/
-%{_texdir}/texmf-dist/tex/luatex/luaotfload/
-%doc %{_texdir}/texmf-dist/doc/luatex/luaotfload/
+%{_texmf_main}/scripts/luaotfload/
+%{_texmf_main}/tex/luatex/luaotfload/
+%doc %{_texmf_main}/doc/luatex/luaotfload/
 
 %files -n %{shortname}-luahbtex
-%license gpl2.txt
 %{_bindir}/luahbtex
 %{_bindir}/lualatex-dev
 %{_mandir}/man1/luahbtex.1*
@@ -10688,21 +10657,21 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{fmtutil_cnf_d}/luahbtex
 
 %files -n %{shortname}-luajittex
-%license gpl2.txt
+%{_mandir}/man1/luajithbtex.1*
+%{_mandir}/man1/luajittex.1*
+%{fmtutil_cnf_d}/luajittex
 %ifnarch %{power64} s390 s390x riscv64
 %{_bindir}/luajittex
 %{_bindir}/luajithbtex
 %{_bindir}/texluajit
 %{_bindir}/texluajitc
 %endif
-%{_mandir}/man1/luajithbtex.1*
-%{_mandir}/man1/luajittex.1*
-%{fmtutil_cnf_d}/luajittex
 
 %files -n %{shortname}-luatex
 %license gpl2.txt
-%{_bindir}/dviluatex
+%doc %{_texmf_main}/doc/luatex/base/
 %{_bindir}/dvilualatex-dev
+%{_bindir}/dviluatex
 %{_bindir}/luacsplain
 %{_bindir}/luatex
 %{_bindir}/texlua
@@ -10713,75 +10682,75 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texlua.1*
 %{_mandir}/man1/texluac.1*
 %{_sysconfdir}/texlive/web2c/texmfcnf.lua
-%{_texdir}/texmf-dist/tex/generic/config/luatex-unicode-letters.tex
-# %%{_texdir}/texmf-dist/tex/generic/config/luatexiniconfig.tex
-%{_texdir}/texmf-dist/web2c/texmfcnf.lua
+%{_texmf_main}/tex/generic/config/luatex-unicode-letters.tex
+# %%{_texmf_main}/tex/generic/config/luatexiniconfig.tex
+%{_texmf_main}/web2c/texmfcnf.lua
 %{fmtutil_cnf_d}/luatex
-%doc %{_texdir}/texmf-dist/doc/luatex/base/
 
 %files -n %{shortname}-lwarp
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/lwarp
 %{_bindir}/lwarpmk
-%{_texdir}/texmf-dist/scripts/lwarp
-%{_texdir}/texmf-dist/tex/latex/lwarp
-%doc %{_texdir}/texmf-dist/doc/latex/lwarp
+%{_texmf_main}/scripts/lwarp/
+%{_texmf_main}/tex/latex/lwarp
 
 %files -n %{shortname}-lyluatex
-%{_texdir}/texmf-dist/scripts/lyluatex/
-%{_texdir}/texmf-dist/tex/luatex/lyluatex/
-%doc %{_texdir}/texmf-dist/doc/support/lyluatex/
+%{_texmf_main}/scripts/lyluatex/
+%{_texmf_main}/tex/luatex/lyluatex/
+%doc %{_texmf_main}/doc/support/lyluatex/
 
 %files -n %{shortname}-make4ht
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/make4ht/
 %{_bindir}/make4ht
-%{_texdir}/texmf-dist/scripts/make4ht/
-%doc %{_texdir}/texmf-dist/doc/support/make4ht/
+%{_texmf_main}/scripts/make4ht/
 
 %files -n %{shortname}-makedtx
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/makedtx/
 %{_bindir}/makedtx
-%{_texdir}/texmf-dist/scripts/makedtx/
-%{_texdir}/texmf-dist/tex/latex/makedtx/
-%doc %{_texdir}/texmf-dist/doc/support/makedtx/
+%{_texmf_main}/scripts/makedtx/
+%{_texmf_main}/tex/latex/makedtx/
 
 %files -n %{shortname}-makeindex
+%license other-free.txt
+%doc %{_texmf_main}/doc/support/makeindex/
+%exclude %{_texmf_main}/makeindex/latex/
 %{_bindir}/makeindex
 %{_bindir}/mkindex
 %{_mandir}/man1/makeindex.1*
 %{_mandir}/man1/mkindex.1*
-%exclude %{_texdir}/texmf-dist/makeindex/latex/
-%{_texdir}/texmf-dist/makeindex/
-%{_texdir}/texmf-dist/tex/plain/makeindex/
-%doc %{_texdir}/texmf-dist/doc/support/makeindex/
+%{_texmf_main}/makeindex/
+%{_texmf_main}/tex/plain/makeindex/
 
 %files -n %{shortname}-markdown
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/context/third/markdown/
+%doc %{_texmf_main}/doc/generic/markdown/
+%doc %{_texmf_main}/doc/latex/markdown/
+%doc %{_texmf_main}/doc/optex/markdown/
 %{_bindir}/markdown2tex
 %{_mandir}/man1/markdown2tex.1*
-%{_texdir}/texmf-dist/scripts/markdown/
-%{_texdir}/texmf-dist/tex/context/third/markdown/
-%{_texdir}/texmf-dist/tex/generic/markdown/
-%{_texdir}/texmf-dist/tex/latex/markdown/
-%{_texdir}/texmf-dist/tex/luatex/markdown/
-%doc %{_texdir}/texmf-dist/doc/context/third/markdown/
-%doc %{_texdir}/texmf-dist/doc/generic/markdown/
-%doc %{_texdir}/texmf-dist/doc/latex/markdown/
-%doc %{_texdir}/texmf-dist/doc/optex/markdown/
+%{_texmf_main}/scripts/markdown/
+%{_texmf_main}/tex/context/third/markdown/
+%{_texmf_main}/tex/generic/markdown/
+%{_texmf_main}/tex/latex/markdown/
+%{_texmf_main}/tex/luatex/markdown/
 
 %files -n %{shortname}-match_parens
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/support/match_parens/
 %{_bindir}/match_parens
 %{_mandir}/man1/match_parens.1*
-%{_texdir}/texmf-dist/scripts/match_parens/
-%doc %{_texdir}/texmf-dist/doc/support/match_parens/
+%{_texmf_main}/scripts/match_parens/
 
 %files -n %{shortname}-mathspic
 %license lppl1.txt
 %{_bindir}/mathspic
 %{_mandir}/man1/mathspic.1*
-%{_texdir}/texmf-dist/scripts/mathspic/
-%{_texdir}/texmf-dist/tex/latex/mathspic/
-%doc %{_texdir}/texmf-dist/doc/latex/mathspic/
+%{_texmf_main}/scripts/mathspic/
+%{_texmf_main}/tex/latex/mathspic/
+%doc %{_texmf_main}/doc/latex/mathspic/
 
 %files -n %{shortname}-memoize
 %license lppl1.3.txt
@@ -10795,11 +10764,11 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/memoize-extract.1*
 %{_mandir}/man1/memoize-extract.pl.1*
 %{_mandir}/man1/memoize-extract.py.1*
-%{_texdir}/texmf-dist/scripts/memoize/
-%{_texdir}/texmf-dist/tex/generic/memoize/
-%{_texdir}/texmf-dist/tex/latex/memoize/
-%{_texdir}/texmf-dist/tex/plain/memoize/
-%doc %{_texdir}/texmf-dist/doc/generic/memoize/
+%{_texmf_main}/scripts/memoize/
+%{_texmf_main}/tex/generic/memoize/
+%{_texmf_main}/tex/latex/memoize/
+%{_texmf_main}/tex/plain/memoize/
+%doc %{_texmf_main}/doc/generic/memoize/
 
 %files -n %{shortname}-metafont
 %license knuth.txt
@@ -10809,49 +10778,49 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/inimf.1.*
 %{_mandir}/man1/mf-nowin.1*
 %{_mandir}/man1/mf.1*
-%{_texdir}/texmf-dist/metafont/
+%{_texmf_main}/metafont/
 %{fmtutil_cnf_d}/metafont
 
 %files -n %{shortname}-metapost
 %license lgpl2.1.txt
+%doc %{_texmf_main}/doc/metapost/
+%exclude %{_texmf_main}/metapost/context/
 %{_bindir}/dvitomp
 %{_bindir}/mfplain
 %{_bindir}/mpost
 %{_bindir}/r-mpost
 %{_mandir}/man1/dvitomp.1*
 %{_mandir}/man1/mpost.1*
-%{_texdir}/texmf-dist/fonts/afm/metapost/
-%{_texdir}/texmf-dist/fonts/enc/dvips/metapost/
-%{_texdir}/texmf-dist/fonts/map/dvips/metapost/
-%{_texdir}/texmf-dist/fonts/tfm/metapost/
-%{_texdir}/texmf-dist/fonts/type1/metapost/
-%exclude %{_texdir}/texmf-dist/metapost/context/
-%{_texdir}/texmf-dist/metapost/
-%{_texdir}/texmf-dist/tex/generic/metapost/
-%doc %{_texdir}/texmf-dist/doc/metapost/
+%{_texmf_main}/fonts/afm/metapost/
+%{_texmf_main}/fonts/enc/dvips/metapost/
+%{_texmf_main}/fonts/map/dvips/metapost/
+%{_texmf_main}/fonts/tfm/metapost/
+%{_texmf_main}/fonts/type1/metapost/
+%{_texmf_main}/metapost/
+%{_texmf_main}/tex/generic/metapost/
 
 %files -n %{shortname}-mex
 %license pd.txt
 %{_bindir}/mex
 %{_bindir}/pdfmex
 %{_bindir}/utf8mex
-%{_texdir}/texmf-dist/tex/mex/
+%{_texmf_main}/tex/mex/
 %{fmtutil_cnf_d}/mex
-%doc %{_texdir}/texmf-dist/doc/mex/
+%doc %{_texmf_main}/doc/mex/
 
 %files -n %{shortname}-mflua
-%license gpl2.txt
 %{_bindir}/mflua
 %{_bindir}/mflua-nowin
+%{_texmf_main}/metafont/mflua/
+%{_texmf_main}/scripts/mflua/
+%{fmtutil_cnf_d}/mflua
 %ifnarch %{power64} s390 s390x riscv64
 %{_bindir}/mfluajit
 %{_bindir}/mfluajit-nowin
 %endif
-%{fmtutil_cnf_d}/mflua
-%{_texdir}/texmf-dist/scripts/mflua/
 
 %files -n %{shortname}-mfware
-%license knuth.txt
+%license pd.txt
 %{_bindir}/gftodvi
 %{_bindir}/gftopk
 %{_bindir}/gftype
@@ -10864,110 +10833,109 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/mft.1*
 %{_mandir}/man1/pktogf.1*
 %{_mandir}/man1/pktype.1*
-%{_texdir}/texmf-dist/mft/
+%{_texmf_main}/mft/
 
 %files -n %{shortname}-mf2pt1
 %license lppl1.txt
 %{_bindir}/mf2pt1
 %{_infodir}/mf2pt1.info*
-%{_texdir}/texmf-dist/metapost/mf2pt1/
-%{_texdir}/texmf-dist/scripts/mf2pt1/
-%doc %{_texdir}/texmf-dist/doc/support/mf2pt1/
+%{_texmf_main}/metapost/mf2pt1/
+%{_texmf_main}/scripts/mf2pt1/
+%doc %{_texmf_main}/doc/support/mf2pt1/
 
 %files -n %{shortname}-minted
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%license bsd.txt
+%doc %{_texmf_main}/doc/latex/minted/
 %{_bindir}/latexminted
 %{_mandir}/man1/latexminted.1*
-%{_texdir}/texmf-dist/scripts/minted/
-%{_texdir}/texmf-dist/tex/latex/minted/
-%doc %{_texdir}/texmf-dist/doc/latex/minted/
+%{_texmf_main}/scripts/minted/
+%{_texmf_main}/tex/latex/minted/
 
 %files -n %{shortname}-mkgrkindex
 %{_bindir}/mkgrkindex
-%{_texdir}/texmf-dist/makeindex/mkgrkindex/
-%{_texdir}/texmf-dist/scripts/mkgrkindex/
-%doc %{_texdir}/texmf-dist/doc/support/mkgrkindex/
+%{_texmf_main}/makeindex/mkgrkindex/
+%{_texmf_main}/scripts/mkgrkindex/
+%doc %{_texmf_main}/doc/support/mkgrkindex/
 
 %files -n %{shortname}-mkjobtexmf
 %{_bindir}/mkjobtexmf
 %{_mandir}/man1/mkjobtexmf.1*
-%{_texdir}/texmf-dist/scripts/mkjobtexmf/
-%doc %{_texdir}/texmf-dist/doc/generic/mkjobtexmf/
+%{_texmf_main}/scripts/mkjobtexmf/
+%doc %{_texmf_main}/doc/generic/mkjobtexmf/
 
 %files -n %{shortname}-mkpic
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/support/mkpic/
 %{_bindir}/mkpic
-%{_texdir}/texmf-dist/scripts/mkpic/
-%doc %{_texdir}/texmf-dist/doc/support/mkpic/
+%{_texmf_main}/scripts/mkpic/
 
 %files -n %{shortname}-mltex
 %license knuth.txt
 %{_bindir}/mllatex
 %{_bindir}/mltex
-%{_texdir}/texmf-dist/tex/latex/mltex/
-%{_texdir}/texmf-dist/tex/mltex/
+%{_texmf_main}/tex/latex/mltex/
+%{_texmf_main}/tex/mltex/
 %{fmtutil_cnf_d}/mltex
-%doc %{_texdir}/texmf-dist/doc/latex/mltex/
+%doc %{_texmf_main}/doc/latex/mltex/
 
 %files -n %{shortname}-mptopdf
-%license lppl1.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/context/scripts/mkii/mptopdf.man
 %{_bindir}/mptopdf
 %{_mandir}/man1/mptopdf.1*
-%{_texdir}/texmf-dist/scripts/context/perl/mptopdf.pl
-%{_texdir}/texmf-dist/tex/context/base/mkii/supp-mis.mkii
-%{_texdir}/texmf-dist/tex/context/base/mkii/supp-mpe.mkii
-%{_texdir}/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-%{_texdir}/texmf-dist/tex/context/base/mkii/syst-tex.mkii
-%{_texdir}/texmf-dist/tex/generic/context/mptopdf/
+%{_texmf_main}/scripts/context/perl/mptopdf.pl
+%{_texmf_main}/tex/context/base/mkii/supp-mis.mkii
+%{_texmf_main}/tex/context/base/mkii/supp-mpe.mkii
+%{_texmf_main}/tex/context/base/mkii/supp-pdf.mkii
+%{_texmf_main}/tex/context/base/mkii/syst-tex.mkii
+%{_texmf_main}/tex/generic/context/mptopdf/
 %{fmtutil_cnf_d}/mptopdf
-%doc %{_texdir}/texmf-dist/doc/context/scripts/mkii/mptopdf.man
 
 %files -n %{shortname}-multibibliography
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/multibibliography/
 %{_bindir}/multibibliography
-%{_texdir}/texmf-dist/bibtex/bst/multibibliography/
-%{_texdir}/texmf-dist/scripts/multibibliography/
-%{_texdir}/texmf-dist/tex/latex/multibibliography/
-%doc %{_texdir}/texmf-dist/doc/latex/multibibliography/
+%{_texmf_main}/bibtex/bst/multibibliography/
+%{_texmf_main}/scripts/multibibliography/
+%{_texmf_main}/tex/latex/multibibliography/
 
 %files -n %{shortname}-musixtex
 %license gpl2.txt
+%doc %{_texmf_main}/doc/generic/musixtex/
 %{_bindir}/musixflx
 %{_bindir}/musixtex
 %{_mandir}/man1/musixflx.1*
 %{_mandir}/man1/musixtex.1*
-%{_texdir}/texmf-dist/dvips/musixtex/
-%{_texdir}/texmf-dist/scripts/musixtex/
-%{_texdir}/texmf-dist/tex/generic/musixtex/
-%{_texdir}/texmf-dist/tex/latex/musixtex/
-%doc %{_texdir}/texmf-dist/doc/generic/musixtex/
+%{_texmf_main}/dvips/musixtex/
+%{_texmf_main}/scripts/musixtex/
+%{_texmf_main}/tex/generic/musixtex/
+%{_texmf_main}/tex/latex/musixtex/
 
 %files -n %{shortname}-musixtnt
 %license gpl2.txt
 %{_bindir}/msxlint
 %{_mandir}/man1/msxlint.1*
-%{_texdir}/texmf-dist/tex/generic/musixtnt/
-%doc %{_texdir}/texmf-dist/doc/generic/musixtnt/
+%{_texmf_main}/tex/generic/musixtnt/
+%doc %{_texmf_main}/doc/generic/musixtnt/
 
 %files -n %{shortname}-m-tx
-%license gpl.txt
-%{_bindir}/m-tx
+%license mit.txt
+%doc %{_texmf_main}/doc/generic/m-tx/
 %{_bindir}/prepmx
 %{_mandir}/man1/prepmx.1*
-%{_texdir}/texmf-dist/scripts/m-tx/
-%{_texdir}/texmf-dist/tex/generic/m-tx/
-%{_texdir}/texmf-dist/tex/latex/m-tx/
-%doc %{_texdir}/texmf-dist/doc/generic/m-tx/
+%{_texmf_main}/tex/generic/m-tx/
+%{_texmf_main}/tex/latex/m-tx/
 
 %files -n %{shortname}-oberdiek
-%license lppl1.txt
-%{_texdir}/texmf-dist/bibtex/bib/oberdiek/
-%{_texdir}/texmf-dist/tex/generic/oberdiek/
-%{_texdir}/texmf-dist/tex/latex/oberdiek/
-%doc %{_texdir}/texmf-dist/doc/latex/oberdiek/
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/oberdiek/
+%{_texmf_main}/bibtex/bib/oberdiek/
+%{_texmf_main}/tex/generic/oberdiek/
+%{_texmf_main}/tex/latex/oberdiek/
 
 %files -n %{shortname}-omegaware
-%license lppl1.txt
+%license gpl2.txt
 %{_bindir}/odvicopy
 %{_bindir}/odvitype
 %{_bindir}/ofm2opl
@@ -10992,67 +10960,69 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/ovp2ovf.1*
 
 %files -n %{shortname}-optex
+%license pd.txt
+%doc %{_texmf_main}/doc/optex/
 %{_bindir}/optex
-%{fmtutil_cnf_d}/optex
 %{_mandir}/man1/optex.1*
-%{_texdir}/texmf-dist/tex/optex/
-%doc %{_texdir}/texmf-dist/doc/optex/
+%{_texmf_main}/tex/optex/
+%{fmtutil_cnf_d}/optex
 
 %files -n %{shortname}-optexcount
 %{_bindir}/optexcount
-%{_texdir}/texmf-dist/scripts/optexcount/
-%doc %{_texdir}/texmf-dist/doc/support/optexcount/
+%{_texmf_main}/scripts/optexcount/
+%doc %{_texmf_main}/doc/support/optexcount/
 
 %files -n %{shortname}-pagelayout
 %license lppl1.3c.txt
-%doc %{_texdir}/texmf-dist/doc/latex/pagelayout
+%doc %{_texmf_main}/doc/latex/pagelayout
 %{_bindir}/pagelayoutapi
 %{_bindir}/textestvis
 %{_mandir}/man1/pagelayoutapi.1*
 %{_mandir}/man1/textestvis.1*
-%{_texdir}/texmf-dist/scripts/pagelayout
-%{_texdir}/texmf-dist/tex/latex/pagelayout
+%{_texmf_main}/scripts/pagelayout
+%{_texmf_main}/tex/latex/pagelayout
 
 %files -n %{shortname}-patgen
-%license knuth.txt
+%license pd.txt
 %{_bindir}/patgen
 %{_mandir}/man1/patgen.1*
 
 %files -n %{shortname}-pax
 %{_bindir}/pdfannotextractor
-%{_texdir}/texmf-dist/scripts/pax/
-%{_texdir}/texmf-dist/tex/latex/pax/
-%doc %{_texdir}/texmf-dist/doc/latex/pax/
+%{_texmf_main}/scripts/pax/
+%{_texmf_main}/tex/latex/pax/
+%doc %{_texmf_main}/doc/latex/pax/
 
 %files -n %{shortname}-pdfbook2
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/pdfbook2/
 %{_bindir}/pdfbook2
 %{_mandir}/man1/pdfbook2.1*
-%{_texdir}/texmf-dist/scripts/pdfbook2/
-%doc %{_texdir}/texmf-dist/doc/support/pdfbook2/
+%{_texmf_main}/scripts/pdfbook2/
 
 %files -n %{shortname}-pdfcrop
 %license lppl1.txt
 %{_bindir}/pdfcrop
 %{_bindir}/rpdfcrop
-%{_texdir}/texmf-dist/scripts/pdfcrop/
-%doc %{_texdir}/texmf-dist/doc/support/pdfcrop/
+%{_texmf_main}/scripts/pdfcrop/
+%doc %{_texmf_main}/doc/support/pdfcrop/
 
 %files -n %{shortname}-pdfjam
 %license gpl2.txt
 %{_bindir}/pdfjam
 %{_mandir}/man1/pdfjam.1*
-%{_texdir}/texmf-dist/scripts/pdfjam/
-%doc %{_texdir}/texmf-dist/doc/support/pdfjam/
+%{_texmf_main}/scripts/pdfjam/
+%doc %{_texmf_main}/doc/support/pdfjam/
 
 %files -n %{shortname}-pdflatexpicscale
 %license lppl.txt
 %{_bindir}/pdflatexpicscale
-%{_texdir}/texmf-dist/scripts/pdflatexpicscale
-%doc %{_texdir}/texmf-dist/doc/support/pdflatexpicscale
+%{_texmf_main}/scripts/pdflatexpicscale
+%doc %{_texmf_main}/doc/support/pdflatexpicscale
 
 %files -n %{shortname}-pdftex
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/pdftex/
 %{_bindir}/etex
 %{_bindir}/latex-dev
 %{_bindir}/pdfetex
@@ -11063,24 +11033,22 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/pdfetex.1*
 %{_mandir}/man1/pdflatex-dev.1*
 %{_mandir}/man1/pdftex.1*
-%{_texdir}/texmf-dist/fonts/map/dvips/dummy-space/dummy-space.map
-%{_texdir}/texmf-dist/fonts/tfm/public/pdftex/
-%{_texdir}/texmf-dist/fonts/type1/public/pdftex/
-%{_texdir}/texmf-dist/scripts/simpdftex/simpdftex
-%{_texdir}/texmf-dist/tex/generic/config/pdftex-dvi.tex
-%{_texdir}/texmf-dist/tex/generic/pdftex/
+%{_texmf_main}/fonts/map/dvips/dummy-space/dummy-space.map
+%{_texmf_main}/fonts/tfm/public/pdftex/
+%{_texmf_main}/fonts/type1/public/pdftex/
+%{_texmf_main}/scripts/simpdftex/
+%{_texmf_main}/tex/generic/config/pdftex-dvi.tex
+%{_texmf_main}/tex/generic/pdftex/
 %{fmtutil_cnf_d}/latex-bin-dev
 %{fmtutil_cnf_d}/pdftex
-%doc %{_texdir}/texmf-dist/doc/pdftex/
 
 %files -n %{shortname}-pdftex-quiet
 %license gpl3.txt
 %{_bindir}/pdftex-quiet
-%{_texdir}/texmf-dist/scripts/pdftex-quiet/
-%doc %{_texdir}/texmf-dist/doc/support/pdftex-quiet/
+%{_texmf_main}/scripts/pdftex-quiet/
+%doc %{_texmf_main}/doc/support/pdftex-quiet/
 
 %files -n %{shortname}-pdftosrc
-%license gpl2.txt
 %{_bindir}/pdftosrc
 %{_mandir}/man1/pdftosrc.1*
 
@@ -11088,52 +11056,52 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license lppl1.3.txt
 %{_bindir}/pdfxup
 %{_mandir}/man1/pdfxup.1*
-%{_texdir}/texmf-dist/tex/latex/pdfxup/
-%{_texdir}/texmf-dist/scripts/pdfxup/
-%doc %{_texdir}/texmf-dist/doc/support/pdfxup/
+%{_texmf_main}/tex/latex/pdfxup/
+%{_texmf_main}/scripts/pdfxup/
+%doc %{_texmf_main}/doc/support/pdfxup/
 
 %files -n %{shortname}-pedigree-perl
 %license gpl2.txt
 %{_bindir}/pedigree
 %{_mandir}/man1/pedigree.1*
-%{_texdir}/texmf-dist/scripts/pedigree-perl/
-%doc %{_texdir}/texmf-dist/doc/support/pedigree-perl/
+%{_texmf_main}/scripts/pedigree-perl/
+%doc %{_texmf_main}/doc/support/pedigree-perl/
 
 %files -n %{shortname}-perltex
 %license lppl1.txt
 %{_bindir}/perltex
 %{_mandir}/man1/perltex.1*
-%{_texdir}/texmf-dist/scripts/perltex/
-%{_texdir}/texmf-dist/tex/latex/perltex/
-%doc %{_texdir}/texmf-dist/doc/latex/perltex/
+%{_texmf_main}/scripts/perltex/
+%{_texmf_main}/tex/latex/perltex/
+%doc %{_texmf_main}/doc/latex/perltex/
 
 %files -n %{shortname}-petri-nets
 %license gpl.txt
 %{_bindir}/pn2pdf
-%{_texdir}/texmf-dist/scripts/petri-nets/
-%{_texdir}/texmf-dist/tex/generic/petri-nets/
-%doc %{_texdir}/texmf-dist/doc/generic/petri-nets/
+%{_texmf_main}/scripts/petri-nets/
+%{_texmf_main}/tex/generic/petri-nets/
+%doc %{_texmf_main}/doc/generic/petri-nets/
 
 %files -n %{shortname}-pfarrei
 %license lppl1.3.txt
 %{_bindir}/a5toa4
 %{_bindir}/pfarrei
-%{_texdir}/texmf-dist/scripts/pfarrei/
-%{_texdir}/texmf-dist/tex/latex/pfarrei/
-%doc %{_texdir}/texmf-dist/doc/latex/pfarrei/
+%{_texmf_main}/scripts/pfarrei/
+%{_texmf_main}/tex/latex/pfarrei/
+%doc %{_texmf_main}/doc/latex/pfarrei/
 
 %files -n %{shortname}-pkfix
 %license lppl1.3.txt
 %{_bindir}/pkfix
-%{_texdir}/texmf-dist/scripts/pkfix/
-%doc %{_texdir}/texmf-dist/doc/support/pkfix/
+%{_texmf_main}/scripts/pkfix/
+%doc %{_texmf_main}/doc/support/pkfix/
 
 %files -n %{shortname}-pkfix-helper
 %license lppl1.txt
 %{_bindir}/pkfix-helper
 %{_mandir}/man1/pkfix-helper.1*
-%{_texdir}/texmf-dist/scripts/pkfix-helper/
-%doc %{_texdir}/texmf-dist/doc/support/pkfix-helper/
+%{_texmf_main}/scripts/pkfix-helper/
+%doc %{_texmf_main}/doc/support/pkfix-helper/
 
 %files -n %{shortname}-pmx
 %license gpl2.txt
@@ -11141,36 +11109,36 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/scor2prt
 %{_mandir}/man1/pmxab.1*
 %{_mandir}/man1/scor2prt.1*
-%{_texdir}/texmf-dist/tex/generic/pmx/
-%doc %{_texdir}/texmf-dist/doc/generic/pmx/
+%{_texmf_main}/tex/generic/pmx/
+%doc %{_texmf_main}/doc/generic/pmx/
 
 %files -n %{shortname}-pmxchords
 %license gpl2.txt
 %{_bindir}/pmxchords
 %{_mandir}/man1/pmxchords.1*
-%{_texdir}/texmf-dist/scripts/pmxchords/
-%{_texdir}/texmf-dist/tex/generic/pmxchords/
-%doc %{_texdir}/texmf-dist/doc/support/pmxchords/
+%{_texmf_main}/scripts/pmxchords/
+%{_texmf_main}/tex/generic/pmxchords/
+%doc %{_texmf_main}/doc/support/pmxchords/
 
 %files -n %{shortname}-ppmcheckpdf
 %license lppl1.3.txt
 %{_bindir}/ppmcheckpdf
 %{_mandir}/man1/ppmcheckpdf.1*
-%{_texdir}/texmf-dist/scripts/ppmcheckpdf/
-%doc %{_texdir}/texmf-dist/doc/support/ppmcheckpdf/
+%{_texmf_main}/scripts/ppmcheckpdf/
+%doc %{_texmf_main}/doc/support/ppmcheckpdf/
 
 %files -n %{shortname}-pst2pdf
 %license gpl2.txt
 %{_bindir}/pst2pdf
-%{_texdir}/texmf-dist/scripts/pst2pdf/
-%doc %{_texdir}/texmf-dist/doc/support/pst2pdf/
+%{_texmf_main}/scripts/pst2pdf/
+%doc %{_texmf_main}/doc/support/pst2pdf/
 
 %files -n %{shortname}-pst-pdf
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/pst-pdf/
 %{_bindir}/ps4pdf
-%{_texdir}/texmf-dist/scripts/pst-pdf/
-%{_texdir}/texmf-dist/tex/latex/pst-pdf/
-%doc %{_texdir}/texmf-dist/doc/latex/pst-pdf/
+%{_texmf_main}/scripts/pst-pdf/
+%{_texmf_main}/tex/latex/pst-pdf/
 
 %files -n %{shortname}-psutils
 %{_bindir}/tl-epsffit
@@ -11192,19 +11160,19 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/tl-psselect.1*
 %{_mandir}/man1/tl-pstops.1*
 %{_mandir}/man1/tl-psutils.1*
-%{_texdir}/texmf-dist/dvips/getafm/
-%{_texdir}/texmf-dist/psutils/
+%{_texmf_main}/dvips/getafm/
+%{_texmf_main}/psutils/
 %dir %{_sysconfdir}/texlive/psutils
 %config(noreplace) %{_sysconfdir}/texlive/psutils/paper.cfg
-%{_texdir}/texmf-dist/scripts/psutils
+%{_texmf_main}/scripts/psutils
 
 %files -n %{shortname}-ps2eps
-%license gpl.txt
+%license gpl2.txt
 %{_bindir}/bbox
 %{_bindir}/ps2eps
 %{_mandir}/man1/bbox.1*
 %{_mandir}/man1/ps2eps.1*
-%{_texdir}/texmf-dist/scripts/ps2eps/
+%{_texmf_main}/scripts/ps2eps/
 
 %files -n %{shortname}-ps2pk
 %license other-free.txt
@@ -11218,6 +11186,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/ps2pk.1*
 
 %files -n %{shortname}-ptex
+%license bsd.txt
 %{_bindir}/eptex
 %{_bindir}/makejvf
 %{_bindir}/mendex
@@ -11251,55 +11220,63 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/kanji-config-updmap-sys
 %{_bindir}/kanji-config-updmap-user
 %{_bindir}/kanji-fontmap-creator
-%{_texdir}/texmf-dist/fonts/cmap/ptex-fontmaps
-%{_texdir}/texmf-dist/fonts/map/dvipdfmx/ptex-fontmaps
-%{_texdir}/texmf-dist/fonts/misc/ptex-fontmaps/
-%{_texdir}/texmf-dist/scripts/ptex-fontmaps
+%{_texmf_main}/fonts/cmap/ptex-fontmaps
+%{_texmf_main}/fonts/map/dvipdfmx/ptex-fontmaps
+%{_texmf_main}/fonts/misc/ptex-fontmaps/
+%{_texmf_main}/scripts/ptex-fontmaps
 %{_texdir}/tlpkg/tlpostcode/ptex-fontmaps-tlpost.pl
-%doc %{_texdir}/texmf-dist/doc/fonts/ptex-fontmaps
+%doc %{_texmf_main}/doc/fonts/ptex-fontmaps
 
 %files -n %{shortname}-ptex2pdf
 %license gpl2.txt
 %{_bindir}/ptex2pdf
-%{_texdir}/texmf-dist/scripts/ptex2pdf/
+%{_texmf_main}/scripts/ptex2pdf/
 %{_texdir}/tlpkg/tlpostcode/ptex2pdf-tlpost.pl
-%doc %{_texdir}/texmf-dist/doc/latex/ptex2pdf/
+%doc %{_texmf_main}/doc/latex/ptex2pdf/
 
 %files -n %{shortname}-purifyeps
 %license lppl1.txt
 %{_bindir}/purifyeps
 %{_mandir}/man1/purifyeps.1*
-%{_texdir}/texmf-dist/scripts/purifyeps/
-%doc %{_texdir}/texmf-dist/doc/support/purifyeps/
+%{_texmf_main}/scripts/purifyeps/
+%doc %{_texmf_main}/doc/support/purifyeps/
 
 %files -n %{shortname}-pygmentex
 %license lppl1.3.txt
 %{_bindir}/pygmentex
-%{_texdir}/texmf-dist/scripts/pygmentex/
-%{_texdir}/texmf-dist/tex/latex/pygmentex/
-%doc %{_texdir}/texmf-dist/doc/latex/pygmentex/
+%{_texmf_main}/scripts/pygmentex/
+%{_texmf_main}/tex/latex/pygmentex/
+%doc %{_texmf_main}/doc/latex/pygmentex/
 
 %files -n %{shortname}-pythontex
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%license bsd.txt
+%doc %{_texmf_main}/doc/latex/pythontex/
 %{_bindir}/depythontex
 %{_bindir}/pythontex
-%{_texdir}/texmf-dist/scripts/pythontex/
-%{_texdir}/texmf-dist/tex/latex/pythontex/
-%doc %{_texdir}/texmf-dist/doc/latex/pythontex/
+%{_texmf_main}/scripts/pythontex/
+%{_texmf_main}/tex/latex/pythontex/
 
 %files -n %{shortname}-rubik
 %license lppl1.3.txt
 %{_bindir}/rubikrotation
 %{_mandir}/man1/rubikrotation.1*
-%{_texdir}/texmf-dist/scripts/rubik/
-%{_texdir}/texmf-dist/tex/latex/rubik/
-%doc %{_texdir}/texmf-dist/doc/latex/rubik/
+%{_texmf_main}/scripts/rubik/
+%{_texmf_main}/tex/latex/rubik/
+%doc %{_texmf_main}/doc/latex/rubik/
+
+%files -n %{shortname}-runtexfile
+%license lppl1.3c.txt
+%{_bindir}/runtexfile
+%{_texmf_main}/scripts/runtexfile/
+%{_mandir}/man1/runtexfile.1*
+%doc %{_texmf_main}/doc/support/runtexfile/
 
 %files -n %{shortname}-runtexshebang
 %license mit.txt
 %{_bindir}/runtexshebang
-%{_texdir}/texmf-dist/scripts/runtexshebang/
-%doc %{_texdir}/texmf-dist/doc/support/runtexshebang/
+%{_texmf_main}/scripts/runtexshebang/
+%doc %{_texmf_main}/doc/support/runtexshebang/
 
 %files -n %{shortname}-seetexk
 %{_bindir}/dvibook
@@ -11311,49 +11288,57 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/dviselect.1*
 %{_mandir}/man1/dvitodvi.1*
 
+%files -n %{shortname}-show-pdf-tags
+%license mit.txt
+%{_bindir}/show-pdf-tags
+%{_texmf_main}/scripts/show-pdf-tags/
+%{_texmf_main}/tex/latex/show-pdf-tags/
+%{_mandir}/man1/show-pdf-tags.1*
+%doc %{_texmf_main}/doc/support/show-pdf-tags/
+
 %files -n %{shortname}-spix
 %license gpl3.txt
 %{_bindir}/spix
 %{_mandir}/man1/spix*
-%doc %{_texdir}/texmf-dist/doc/support/spix
-%{_texdir}/texmf-dist/scripts/spix
+%doc %{_texmf_main}/doc/support/spix
+%{_texmf_main}/scripts/spix
 
 %files -n %{shortname}-splitindex
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/splitindex/
 %{_bindir}/splitindex
 %{_mandir}/man1/splitindex.1*
-%{_texdir}/texmf-dist/scripts/splitindex/
-%{_texdir}/texmf-dist/tex/generic/splitindex/
-%{_texdir}/texmf-dist/tex/latex/splitindex/
-%doc %{_texdir}/texmf-dist/doc/latex/splitindex/
+%{_texmf_main}/scripts/splitindex/
+%{_texmf_main}/tex/generic/splitindex/
+%{_texmf_main}/tex/latex/splitindex/
 
 %files -n %{shortname}-sqltex
 %license lppl1.3.txt
 %{_bindir}/sqltex
-%{_texdir}/texmf-dist/scripts/sqltex/
-%doc %{_texdir}/texmf-dist/doc/support/sqltex/
+%{_texmf_main}/scripts/sqltex/
+%doc %{_texmf_main}/doc/support/sqltex/
 
 %files -n %{shortname}-srcredact
 %license gpl2.txt
 %{_bindir}/srcredact
 %{_mandir}/man1/srcredact.1*
-%{_texdir}/texmf-dist/scripts/srcredact/
-%doc %{_texdir}/texmf-dist/doc/support/srcredact/
+%{_texmf_main}/scripts/srcredact/
+%doc %{_texmf_main}/doc/support/srcredact/
 
 %files -n %{shortname}-sty2dtx
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/sty2dtx/
 %{_bindir}/sty2dtx
 %{_mandir}/man1/sty2dtx.1*
-%{_texdir}/texmf-dist/scripts/sty2dtx/
-%doc %{_texdir}/texmf-dist/doc/support/sty2dtx/
+%{_texmf_main}/scripts/sty2dtx/
 
 %files -n %{shortname}-svn-multi
 %license lppl1.txt
 %{_bindir}/svn-multi
-%{_texdir}/texmf-dist/scripts/svn-multi/
-%{_texdir}/texmf-dist/tex/latex/svn-multi/
-%doc %{_texdir}/texmf-dist/doc/latex/svn-multi/
-%doc %{_texdir}/texmf-dist/doc/support/svn-multi/
+%{_texmf_main}/scripts/svn-multi/
+%{_texmf_main}/tex/latex/svn-multi/
+%doc %{_texmf_main}/doc/latex/svn-multi/
+%doc %{_texmf_main}/doc/support/svn-multi/
 
 %files -n %{shortname}-synctex
 %license lppl1.txt
@@ -11370,14 +11355,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{fmtutil_cnf_d}/tex
 
 %files -n %{shortname}-tex4ebook
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/tex4ebook/
 %{_bindir}/tex4ebook
-%{_texdir}/texmf-dist/scripts/tex4ebook/
-%{_texdir}/texmf-dist/tex/latex/tex4ebook/
-%doc %{_texdir}/texmf-dist/doc/support/tex4ebook/
+%{_texmf_main}/scripts/tex4ebook/
+%{_texmf_main}/tex/latex/tex4ebook/
 
 %files -n %{shortname}-tex4ht
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/generic/tex4ht/
 %{_bindir}/ht
 # %%{_bindir}/htcontext
 %{_bindir}/htlatex
@@ -11390,94 +11376,93 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/t4ht
 %{_bindir}/tex4ht
 %{_bindir}/xhlatex
-%{_texdir}/texmf-dist/scripts/tex4ht/
-%{_texdir}/texmf-dist/tex/generic/tex4ht/
-%{_texdir}/texmf-dist/tex4ht/
-%doc %{_texdir}/texmf-dist/doc/generic/tex4ht/
+%{_texmf_main}/scripts/tex4ht/
+%{_texmf_main}/tex/generic/tex4ht/
+%{_texmf_main}/tex4ht/
 
 %files -n %{shortname}-texaccents
 %license mit.txt
 %{_bindir}/texaccents
 %{_mandir}/man1/texaccents.1*
-%doc %{_texdir}/texmf-dist/doc/support/texaccents
-%{_texdir}/texmf-dist/scripts/texaccents
+%doc %{_texmf_main}/doc/support/texaccents
+%{_texmf_main}/scripts/texaccents
 
 %files -n %{shortname}-texblend
 %license lppl1.3.txt
 %{_bindir}/texblend
-%{_texdir}/texmf-dist/scripts/texblend/
-%doc %{_texdir}/texmf-dist/doc/support/texblend/
+%{_texmf_main}/scripts/texblend/
+%doc %{_texmf_main}/doc/support/texblend/
 
 %files -n %{shortname}-texcount
 %license lppl1.txt
 %{_bindir}/texcount
-%{_texdir}/texmf-dist/scripts/texcount/
-%doc %{_texdir}/texmf-dist/doc/support/texcount/
+%{_texmf_main}/scripts/texcount/
+%doc %{_texmf_main}/doc/support/texcount/
 
 %files -n %{shortname}-texdef
 %license gpl3.txt
 %{_bindir}/latexdef
 %{_bindir}/texdef
-%{_texdir}/texmf-dist/scripts/texdef/
-%doc %{_texdir}/texmf-dist/doc/support/texdef/
+%{_texmf_main}/scripts/texdef/
+%doc %{_texmf_main}/doc/support/texdef/
 
 %files -n %{shortname}-texdiff
 %license gpl.txt
 %{_bindir}/texdiff
-%{_texdir}/texmf-dist/scripts/texdiff
+%{_texmf_main}/scripts/texdiff
 %{_mandir}/man1/texdiff.1*
-%doc %{_texdir}/texmf-dist/doc/support/texdiff/
+%doc %{_texmf_main}/doc/support/texdiff/
 
 %files -n %{shortname}-texdirflatten
 %{_bindir}/texdirflatten
 %{_mandir}/man1/texdirflatten.1*
-%{_texdir}/texmf-dist/scripts/texdirflatten/
-%doc %{_texdir}/texmf-dist/doc/support/texdirflatten/
+%{_texmf_main}/scripts/texdirflatten/
+%doc %{_texmf_main}/doc/support/texdirflatten/
 
 %files -n %{shortname}-texdoc
 %license gpl.txt
 %{_bindir}/texdoc
 %{_mandir}/man1/texdoc.1*
-%{_texdir}/texmf-dist/scripts/texdoc/
-%{_texdir}/texmf-dist/texdoc/
-%doc %{_texdir}/texmf-dist/doc/support/texdoc/
+%{_texmf_main}/scripts/texdoc/
+%{_texmf_main}/texdoc/
+%doc %{_texmf_main}/doc/support/texdoc/
 
 %files -n %{shortname}-texdoctk
 %license gpl.txt
 %{_bindir}/texdoctk
 %{_mandir}/man1/texdoctk.1*
-%{_texdir}/texmf-dist/scripts/texdoctk/
-%{_texdir}/texmf-dist/texdoctk/
+%{_texmf_main}/scripts/texdoctk/
+%{_texmf_main}/texdoctk/
 
 %files -n %{shortname}-texfot
 %license pd.txt
+%doc %{_texmf_main}/doc/support/texfot/
 %{_bindir}/texfot
 %{_mandir}/man1/texfot.1*
-%{_texdir}/texmf-dist/scripts/texfot/
-%doc %{_texdir}/texmf-dist/doc/support/texfot/
+%{_texmf_main}/scripts/texfot/
 
 %files -n %{shortname}-texfindpkg
 %license gpl3.txt
 %{_bindir}/texfindpkg
 %{_mandir}/man1/texfindpkg.1*
-%{_texdir}/texmf-dist/scripts/texfindpkg/
-%{_texdir}/texmf-dist/tex/latex/texfindpkg/
-%doc %{_texdir}/texmf-dist/doc/support/texfindpkg/
+%{_texmf_main}/scripts/texfindpkg/
+%{_texmf_main}/tex/latex/texfindpkg/
+%doc %{_texmf_main}/doc/support/texfindpkg/
 
 %files -n %{shortname}-texliveonfly
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/texliveonfly/
 %{_bindir}/texliveonfly
-%{_texdir}/texmf-dist/scripts/texliveonfly/
-%doc %{_texdir}/texmf-dist/doc/support/texliveonfly/
+%{_texmf_main}/scripts/texliveonfly/
 
 %files -n %{shortname}-texlive-en
+%doc %{_texmf_main}/doc/texlive/texlive-en/
+%doc %{_texmf_main}/doc/texlive/tlbuild/tlbuild.html
+%doc %{_texmf_main}/doc/texlive/tlbuild/tlbuild.pdf
 %{_infodir}/tlbuild.info*
-%doc %{_texdir}/texmf-dist/doc/texlive/texlive-en/
-%doc %{_texdir}/texmf-dist/doc/texlive/tlbuild/tlbuild.html
-%doc %{_texdir}/texmf-dist/doc/texlive/tlbuild/tlbuild.pdf
 
 %files -n %{shortname}-texlive-scripts
-%license lppl1.txt
+%config(noreplace) %{_sysconfdir}/texlive/web2c/updmap.cfg
 %{_bindir}/fmtutil
 %{_bindir}/fmtutil-sys
 %{_bindir}/fmtutil-user
@@ -11485,44 +11470,41 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/mktexmf
 %{_bindir}/mktexpk
 %{_bindir}/mktextfm
+%{_bindir}/rungs
 %{_bindir}/updmap
 %{_bindir}/updmap-sys
 %{_bindir}/updmap-user
-%{_bindir}/rungs
-%{_mandir}/man1/fmtutil.1*
 %{_mandir}/man1/fmtutil-sys.1*
 %{_mandir}/man1/fmtutil-user.1*
+%{_mandir}/man1/fmtutil.1*
 %{_mandir}/man1/install-tl.1*
 %{_mandir}/man1/mktexlsr.1*
 %{_mandir}/man1/mktexmf.1*
 %{_mandir}/man1/mktexpk.1*
 %{_mandir}/man1/mktextfm.1*
-%{_mandir}/man1/updmap.1*
 %{_mandir}/man1/updmap-sys.1*
 %{_mandir}/man1/updmap-user.1*
+%{_mandir}/man1/updmap.1*
 %{_mandir}/man5/updmap.cfg.5*
 %{_texdir}/texmf-config/web2c/updmap.cfg
-%config(noreplace) %{_sysconfdir}/texlive/web2c/updmap.cfg
-%{_texdir}/texmf-dist/dvips/tetex/
-%{_texdir}/texmf-dist/fonts/enc/dvips/tetex/
-%{_texdir}/texmf-dist/fonts/map/dvips/tetex/
-%{_texdir}/texmf-dist/scripts/texlive/fmtutil-sys.sh
-%{_texdir}/texmf-dist/scripts/texlive/fmtutil-user.sh
-%{_texdir}/texmf-dist/scripts/texlive/fmtutil.pl
-%{_texdir}/texmf-dist/scripts/texlive/mktexlsr*
-%{_texdir}/texmf-dist/scripts/texlive/mktexmf
-%{_texdir}/texmf-dist/scripts/texlive/mktexpk
-%{_texdir}/texmf-dist/scripts/texlive/mktextfm
-%{_texdir}/texmf-dist/scripts/texlive/rungs.lua
-# %%{_texdir}/texmf-dist/scripts/texlive/rungs.tlu
-%{_texdir}/texmf-dist/scripts/texlive/updmap-sys.sh
-%{_texdir}/texmf-dist/scripts/texlive/updmap-user.sh
-%{_texdir}/texmf-dist/scripts/texlive/updmap.pl
-%{_texdir}/texmf-dist/web2c/updmap.cfg
+%{_texmf_main}/dvips/tetex/
+%{_texmf_main}/fonts/enc/dvips/tetex/
+%{_texmf_main}/fonts/map/dvips/tetex/
+%{_texmf_main}/scripts/texlive/fmtutil-sys.sh
+%{_texmf_main}/scripts/texlive/fmtutil-user.sh
+%{_texmf_main}/scripts/texlive/fmtutil.pl
+%{_texmf_main}/scripts/texlive/mktexlsr*
+%{_texmf_main}/scripts/texlive/mktexmf
+%{_texmf_main}/scripts/texlive/mktexpk
+%{_texmf_main}/scripts/texlive/mktextfm
+%{_texmf_main}/scripts/texlive/rungs.lua
+# %%{_texmf_main}/scripts/texlive/rungs.tlu
+%{_texmf_main}/scripts/texlive/updmap-sys.sh
+%{_texmf_main}/scripts/texlive/updmap-user.sh
+%{_texmf_main}/scripts/texlive/updmap.pl
+%{_texmf_main}/web2c/updmap.cfg
 
 %files -n %{shortname}-texlive-scripts-extra
-%license gpl.txt
-%license lppl1.txt
 %{_bindir}/allcm
 %{_bindir}/allec
 %{_bindir}/allneeded
@@ -11535,9 +11517,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/kpsexpand
 %{_bindir}/ps2frag
 %{_bindir}/pslatex
+%{_bindir}/texconfig
 %{_bindir}/texconfig-dialog
 %{_bindir}/texconfig-sys
-%{_bindir}/texconfig
 %{_bindir}/texlinks
 %{_mandir}/man1/allcm.1*
 %{_mandir}/man1/allec.1*
@@ -11554,15 +11536,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texconfig-sys.1*
 %{_mandir}/man1/texconfig.1*
 %{_mandir}/man1/texlinks.1*
-%{_texdir}/texmf-dist/texconfig/
-%{_texdir}/texmf-dist/scripts/texlive-extra/
-
+%{_texmf_main}/scripts/texlive-extra/
+%{_texmf_main}/texconfig/
 
 %files -n %{shortname}-texlive.infra
-%license lppl1.txt
+%doc %{_texdir}/tlpkg/README
+%doc %{_texmf_main}/scripts/texlive/NEWS
 %{_bindir}/tlmgr
-%{_texdir}/texmf-dist/web2c/fmtutil-hdr.cnf
-%{_texdir}/texmf-dist/web2c/updmap-hdr.cfg
+%{_datadir}/perl5/TeXLive
+%{_mandir}/man1/tlmgr.1*
 %{_texdir}/LICENSE.CTAN
 %{_texdir}/LICENSE.TL
 %{_texdir}/README
@@ -11583,70 +11565,56 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/readme-html.dir/readme.vi.html
 %{_texdir}/readme-html.dir/readme.zh-cn.html
 %{_texdir}/release-texlive.txt
-%{_texdir}/texmf-dist/scripts/texlive/tlmgr.pl
-%{_texdir}/texmf-dist/scripts/texlive/tl-errmess.ps1
-%{_texdir}/texmf-dist/scripts/texlive/uninstq.ps1
+%{_texdir}/tlpkg/TeXLive/
 %{_texdir}/tlpkg/installer/config.guess
-%{_texdir}/tlpkg/TeXLive/TLConfFile.pm
-%{_texdir}/tlpkg/TeXLive/TLConfig.pm
-%{_texdir}/tlpkg/TeXLive/TLCrypto.pm
-%{_texdir}/tlpkg/TeXLive/TLDownload.pm
-%{_texdir}/tlpkg/TeXLive/TLPDB.pm
-%{_texdir}/tlpkg/TeXLive/TLPOBJ.pm
-%{_texdir}/tlpkg/TeXLive/TLPSRC.pm
-%{_texdir}/tlpkg/TeXLive/TLPaper.pm
-%{_texdir}/tlpkg/TeXLive/TLTREE.pm
-%{_texdir}/tlpkg/TeXLive/TLUtils.pm
-%{_texdir}/tlpkg/TeXLive/TLWinGoo.pm
-%{_texdir}/tlpkg/TeXLive/TeXCatalogue.pm
-%{_texdir}/tlpkg/TeXLive/trans.pl
-%{_datadir}/perl5/TeXLive
-%{_mandir}/man1/tlmgr.1*
-%doc %{_texdir}/texmf-dist/scripts/texlive/NEWS
-%doc %{_texdir}/tlpkg/README
+%{_texmf_main}/scripts/texlive/tl-errmess.ps1
+%{_texmf_main}/scripts/texlive/tlmgr.pl
+%{_texmf_main}/scripts/texlive/uninstq.ps1
+%{_texmf_main}/web2c/fmtutil-hdr.cnf
+%{_texmf_main}/web2c/updmap-hdr.cfg
 
 %files -n %{shortname}-texloganalyser
 %{_bindir}/texloganalyser
-%{_texdir}/texmf-dist/scripts/texloganalyser/
-%doc %{_texdir}/texmf-dist/doc/support/texloganalyser/
+%{_texmf_main}/scripts/texloganalyser/
+%doc %{_texmf_main}/doc/support/texloganalyser/
 
 %files -n %{shortname}-texlogfilter
 %{_bindir}/texlogfilter
 %{_mandir}/man1/texlogfilter.1*
-%{_texdir}/texmf-dist/scripts/texlogfilter/
-%doc %{_texdir}/texmf-dist/doc/support/texlogfilter/
+%{_texmf_main}/scripts/texlogfilter/
+%doc %{_texmf_main}/doc/support/texlogfilter/
 
 %files -n %{shortname}-texlogsieve
 %license gpl3.txt
+%doc %{_texmf_main}/doc/support/texlogsieve/
 %{_bindir}/texlogsieve
 %{_mandir}/man1/texlogsieve.1*
-%{_texdir}/texmf-dist/scripts/texlogsieve/
-%doc %{_texdir}/texmf-dist/doc/support/texlogsieve/
+%{_texmf_main}/scripts/texlogsieve/
 
 %files -n %{shortname}-texosquery
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/support/texosquery
 %{_bindir}/texosquery*
-%{_texdir}/texmf-dist/scripts/texosquery
-%{_texdir}/texmf-dist/tex/latex/texosquery
-%doc %{_texdir}/texmf-dist/doc/support/texosquery
+%{_texmf_main}/scripts/texosquery/
+%{_texmf_main}/tex/latex/texosquery
 
 %files -n %{shortname}-texplate
 %license bsd.txt
 %{_bindir}/texplate
-%{_texdir}/texmf-dist/scripts/texplate
-%doc %{_texdir}/texmf-dist/doc/support/texplate
+%{_texmf_main}/scripts/texplate
+%doc %{_texmf_main}/doc/support/texplate
 
 %files -n %{shortname}-texsis
 %license lppl1.txt
 %{_bindir}/texsis
 %{_mandir}/man1/texsis.1*
-%{_texdir}/texmf-dist/bibtex/bst/texsis/
-%{_texdir}/texmf-dist/tex/texsis/
+%{_texmf_main}/bibtex/bst/texsis/
+%{_texmf_main}/tex/texsis/
 %{fmtutil_cnf_d}/texsis
-%doc %{_texdir}/texmf-dist/doc/otherformats/texsis/
+%doc %{_texmf_main}/doc/otherformats/texsis/
 
 %files -n %{shortname}-texware
-%license knuth.txt
+%license pd.txt
 %{_bindir}/dvitype
 %{_bindir}/pooltype
 %{_mandir}/man1/dvitype.1*
@@ -11656,11 +11624,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license lppl1.txt
 %{_bindir}/thumbpdf
 %{_mandir}/man1/thumbpdf.1*
-%{_texdir}/texmf-dist/scripts/thumbpdf/
-%{_texdir}/texmf-dist/tex/generic/thumbpdf/
-%doc %{_texdir}/texmf-dist/doc/generic/thumbpdf/
+%{_texmf_main}/scripts/thumbpdf/
+%{_texmf_main}/tex/generic/thumbpdf/
+%doc %{_texmf_main}/doc/generic/thumbpdf/
 
 %files -n %{shortname}-tie
+%license other-free.txt
 %{_bindir}/tie
 %{_mandir}/man1/tie.1*
 
@@ -11668,17 +11637,17 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl3.txt
 %{_bindir}/tikztosvg
 %{_mandir}/man1/tikztosvg*
-%doc %{_texdir}/texmf-dist/doc/support/tikztosvg
-%{_texdir}/texmf-dist/scripts/tikztosvg
+%doc %{_texmf_main}/doc/support/tikztosvg
+%{_texmf_main}/scripts/tikztosvg
 
 %files -n %{shortname}-tpic2pdftex
-%license gpl.txt
+%license gpl2.txt
+%doc %{_texmf_main}/doc/support/tpic2pdftex/
 %{_bindir}/tpic2pdftex
 %{_mandir}/man1/tpic2pdftex.1*
-%doc %{_texdir}/texmf-dist/doc/support/tpic2pdftex/
 
 %files -n %{shortname}-ttfutils
-%license lppl1.txt
+%doc %{_texmf_main}/doc/support/ttf2pk/
 %{_bindir}/ttf2afm
 %{_bindir}/ttf2pk
 %{_bindir}/ttf2tfm
@@ -11687,39 +11656,40 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/ttf2pk.1*
 %{_mandir}/man1/ttf2tfm.1*
 %{_mandir}/man1/ttfdump.1*
-%{_texdir}/texmf-dist/fonts/enc/ttf2pk/
-%{_texdir}/texmf-dist/fonts/sfd/ttf2pk/
-%{_texdir}/texmf-dist/ttf2pk/
-%doc %{_texdir}/texmf-dist/doc/support/ttf2pk/
+%{_texmf_main}/fonts/enc/ttf2pk/
+%{_texmf_main}/fonts/sfd/ttf2pk/
+%{_texmf_main}/ttf2pk/
 
 %files -n %{shortname}-typeoutfileinfo
 %license lppl1.3.txt
 %{_bindir}/typeoutfileinfo
-%{_texdir}/texmf-dist/scripts/typeoutfileinfo/
-%doc %{_texdir}/texmf-dist/doc/support/typeoutfileinfo/
+%{_texmf_main}/scripts/typeoutfileinfo/
+%doc %{_texmf_main}/doc/support/typeoutfileinfo/
 
 %files -n %{shortname}-typog
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/latex/typog/
 %{_bindir}/typog-grep
 %{_mandir}/man1/typog-grep.1*
-%{_texdir}/texmf-dist/scripts/typog/
-%{_texdir}/texmf-dist/tex/latex/typog/
-%doc %{_texdir}/texmf-dist/doc/latex/typog/
+%{_texmf_main}/scripts/typog/
+%{_texmf_main}/tex/latex/typog/
 
 %files -n %{shortname}-ulqda
 %license lppl1.txt
 %{_bindir}/ulqda
-%{_texdir}/texmf-dist/scripts/ulqda/
-%{_texdir}/texmf-dist/tex/latex/ulqda/
-%doc %{_texdir}/texmf-dist/doc/latex/ulqda/
+%{_texmf_main}/scripts/ulqda/
+%{_texmf_main}/tex/latex/ulqda/
+%doc %{_texmf_main}/doc/latex/ulqda/
 
 %files -n %{shortname}-upmendex
 %license bsd.txt
 %{_bindir}/upmendex
 %{_mandir}/man1/upmendex.1*
-%doc %{_texdir}/texmf-dist/doc/support/upmendex/
+%doc %{_texmf_main}/doc/support/upmendex/
 
 %files -n %{shortname}-uptex
+%license other-free.txt
+%doc %{_texmf_main}/doc/uplatex/
 %{_bindir}/euptex
 %{_bindir}/r-upmpost
 %{_bindir}/upbibtex
@@ -11734,49 +11704,49 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/wovp2ovf
 %{_mandir}/man1/euptex.1*
 %{_mandir}/man1/upbibtex.1*
-%{_mandir}/man1/uplatex.1*
 %{_mandir}/man1/uplatex-dev.1*
+%{_mandir}/man1/uplatex.1*
 %{_mandir}/man1/uppltotf.1*
 %{_mandir}/man1/uptex.1*
 %{_mandir}/man1/uptftopl.1*
 %{fmtutil_cnf_d}/uplatex
 %{fmtutil_cnf_d}/uptex
-%doc %{_texdir}/texmf-dist/doc/uplatex/
 
 %files -n %{shortname}-urlbst
-%license gpl.txt
+%license gpl2.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/bibtex/urlbst/
 %{_bindir}/urlbst
-%{_texdir}/texmf-dist/bibtex/bst/urlbst/
-%{_texdir}/texmf-dist/scripts/urlbst/
-%doc %{_texdir}/texmf-dist/doc/bibtex/urlbst/
+%{_texmf_main}/bibtex/bst/urlbst/
+%{_texmf_main}/scripts/urlbst/
 
 %files -n %{shortname}-velthuis
 %license gpl.txt
 %{_bindir}/devnag
 %{_mandir}/man1/devnag.1*
-%{_texdir}/texmf-dist/fonts/afm/public/velthuis/
-%{_texdir}/texmf-dist/fonts/map/dvips/velthuis/
-%{_texdir}/texmf-dist/fonts/source/public/velthuis/
-%{_texdir}/texmf-dist/fonts/tfm/public/velthuis/
-%{_texdir}/texmf-dist/fonts/type1/public/velthuis/
-%{_texdir}/texmf-dist/tex/generic/velthuis/
-%{_texdir}/texmf-dist/tex/latex/velthuis/
-%{_texdir}/texmf-dist/tex/plain/velthuis/
-%{_texdir}/texmf-dist/tex/xelatex/velthuis/
-%doc %{_texdir}/texmf-dist/doc/generic/velthuis/
+%{_texmf_main}/fonts/afm/public/velthuis/
+%{_texmf_main}/fonts/map/dvips/velthuis/
+%{_texmf_main}/fonts/source/public/velthuis/
+%{_texmf_main}/fonts/tfm/public/velthuis/
+%{_texmf_main}/fonts/type1/public/velthuis/
+%{_texmf_main}/tex/generic/velthuis/
+%{_texmf_main}/tex/latex/velthuis/
+%{_texmf_main}/tex/plain/velthuis/
+%{_texmf_main}/tex/xelatex/velthuis/
+%doc %{_texmf_main}/doc/generic/velthuis/
 
 %files -n %{shortname}-vlna
 %license lppl1.txt
 %{_bindir}/vlna
 %{_mandir}/man1/vlna.1*
-%doc %{_texdir}/texmf-dist/doc/support/vlna/
+%doc %{_texmf_main}/doc/support/vlna/
 
 %files -n %{shortname}-vpe
 %license lppl1.txt
 %{_bindir}/vpe
-%{_texdir}/texmf-dist/scripts/vpe/
-%{_texdir}/texmf-dist/tex/latex/vpe/
-%doc %{_texdir}/texmf-dist/doc/latex/vpe/
+%{_texmf_main}/scripts/vpe/
+%{_texmf_main}/tex/latex/vpe/
+%doc %{_texmf_main}/doc/latex/vpe/
 
 %files -n %{shortname}-web
 %license knuth.txt
@@ -11789,50 +11759,57 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl.txt
 %{_bindir}/webquiz
 %{_mandir}/man1/webquiz.1*
-%{_texdir}/texmf-dist/scripts/webquiz/
-%{_texdir}/texmf-dist/tex/latex/webquiz/
-%doc %{_texdir}/texmf-dist/doc/latex/webquiz/
+%{_texmf_main}/scripts/webquiz/
+%{_texmf_main}/tex/latex/webquiz/
+%doc %{_texmf_main}/doc/latex/webquiz/
 
 %files -n %{shortname}-wordcount
 %license lppl1.txt
 %{_bindir}/wordcount
-%{_texdir}/texmf-dist/scripts/wordcount/
-%{_texdir}/texmf-dist/tex/latex/wordcount/
-%doc %{_texdir}/texmf-dist/doc/latex/wordcount/
+%{_texmf_main}/scripts/wordcount/
+%{_texmf_main}/tex/latex/wordcount/
+%doc %{_texmf_main}/doc/latex/wordcount/
 
 %files -n %{shortname}-xdvi
 %{_bindir}/xdvi
 %{_bindir}/xdvi-xaw
 %{_mandir}/man1/xdvi.1*
-%{_texdir}/texmf-dist/dvips/xdvi/
-%{_texdir}/texmf-dist/xdvi/
+%{_texmf_main}/dvips/xdvi/
+%{_texmf_main}/xdvi/
+
+%files -n %{shortname}-xdvipsk
+%license gpl2.txt
+%{_bindir}/xdvipsk
+%{_mandir}/man1/xdvipsk.1*
+%{_texmf_main}/dvips/xdvipsk/
 
 %files -n %{shortname}-xetex
-%license other-free.txt
+%doc %{_texmf_main}/doc/xetex/
 %{_bindir}/xdvipdfmx
 %{_bindir}/xelatex
 %{_bindir}/xelatex-dev
 %{_bindir}/xelatex-unsafe
 %{_bindir}/xetex
 %{_bindir}/xetex-unsafe
-%{_mandir}/man1/xelatex.1*
 %{_mandir}/man1/xelatex-dev.1*
 %{_mandir}/man1/xelatex-unsafe.1*
-%{_mandir}/man1/xetex.1*
+%{_mandir}/man1/xelatex.1*
 %{_mandir}/man1/xetex-unsafe.1*
+%{_mandir}/man1/xetex.1*
 %{_texdir}/tlpkg/tlpostcode/xetex.pl
-%{_texdir}/texmf-dist/fonts/misc/xetex/
+%{_texmf_main}/fonts/misc/xetex/
+%{_texmf_main}/scripts/texlive-extra/
 %{fmtutil_cnf_d}/xelatex-dev
 %{fmtutil_cnf_d}/xetex
-%doc %{_texdir}/texmf-dist/doc/xetex/
 
 %files -n %{shortname}-xindex
-%license lppl1.3.txt
+%license lppl1.3c.txt
+%license mit.txt
+%doc %{_texmf_main}/doc/lualatex/xindex/
 %{_bindir}/xindex
-%{_texdir}/texmf-dist/scripts/xindex/
-%{_texdir}/texmf-dist/tex/latex/xindex/
-%{_texdir}/texmf-dist/tex/lualatex/xindex/
-%doc %{_texdir}/texmf-dist/doc/lualatex/xindex/
+%{_texmf_main}/scripts/xindex/
+%{_texmf_main}/tex/latex/xindex/
+%{_texmf_main}/tex/lualatex/
 
 %files -n %{shortname}-xindy
 %license gpl.txt
@@ -11845,9 +11822,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/xindy.1*
 %{_mandir}/man1/texindy.1*
 %{_mandir}/man1/tex2xindy.1*
-%{_texdir}/texmf-dist/scripts/xindy/
-%{_texdir}/texmf-dist/xindy/
-%doc %{_texdir}/texmf-dist/doc/xindy/
+%{_texmf_main}/scripts/xindy/
+%{_texmf_main}/xindy/
+%doc %{_texmf_main}/doc/xindy/
 
 %files -n %{shortname}-xml2pmx
 %license gpl3.txt
@@ -11855,12 +11832,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/xml2pmx*
 
 %files -n %{shortname}-xmltex
-%license lppl1.txt
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/otherformats/xmltex/
 %{_bindir}/pdfxmltex
 %{_bindir}/xmltex
-%{_texdir}/texmf-dist/tex/xmltex/
+%{_texmf_main}/tex/xmltex/
 %{fmtutil_cnf_d}/xmltex
-%doc %{_texdir}/texmf-dist/doc/otherformats/xmltex/
 
 %files -n %{shortname}-xpdfopen
 %{_bindir}/pdfclose
@@ -11871,11 +11848,119 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-yplan
 %license lppl1.txt
 %{_bindir}/yplan
-%{_texdir}/texmf-dist/scripts/yplan/
-%{_texdir}/texmf-dist/tex/latex/yplan/
-%doc %{_texdir}/texmf-dist/doc/latex/yplan/
+%{_texmf_main}/scripts/yplan/
+%{_texmf_main}/tex/latex/yplan/
+%doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-104
+- Move runtexfile and show-pdf-tags from collection-binextra to here
+- Add xdvipsk package (new)
+- Update aleph to svn77830
+- Update amstex to svn77830
+- Update aomart to svn76110
+- Update arara to svn75653
+- Update attachfile2 to svn77682
+- Update autosp to svn77851
+- Update axodraw2 to svn77682
+- Update bib2gls to svn76845
+- Update bibtex to svn77830
+- Update bibtexperllibs to svn76255
+- Update bibtex8 to svn75712
+- Update chktex to svn78219
+- Update citation-style-language to svn77682
+- Update clojure-pamphlet to svn77682
+- Update context to svn78010
+- Update context-legacy to svn78010
+- Update csplain to svn76924
+- Update ctie to svn77830
+- Update cweb to svn77830
+- Update dtxgen to svn75946
+- Update dvicopy to svn77830
+- Update dvidvi to svn75712
+- Update dvipdfmx to svn77942
+- Update dvipng to svn77830
+- Update dvips to svn77830
+- Update dvisvgm to svn77830
+- Update ebong to svn76924
+- Update eolang to svn77164
+- Update exceltex to svn76924
+- Update expltools to svn78336
+- Update extractbb to svn77855
+- Update fontools to svn78330
+- Update fontware to svn77830
+- Update glossaries to svn78288
+- Update hitex to svn77830
+- Update hyperxmp to svn78281
+- Update kpathsea to svn77861
+- Update l3build to svn77170
+- Update l3sys-query to svn77682
+- Update lacheck to svn75712
+- Update latex to svn76924
+- Update latex2man to svn77377
+- Update latex2nemeth to svn76924
+- Update latexdiff to svn77278
+- Update latexindent to svn76064
+- Update luafindfont to svn75679
+- Update luahbtex to svn77830
+- Update luajittex to svn77830
+- Update luatex to svn78218
+- Update lwarp to svn78111
+- Update make4ht to svn78133
+- Update makedtx to svn77871
+- Update makeindex to svn75712
+- Update markdown to svn77254
+- Update match_parens to svn76442
+- Update metafont to svn77830
+- Update metapost to svn77830
+- Update mflua to svn77830
+- Update mfware to svn77830
+- Update minted to svn78270
+- Update mkpic to svn76483
+- Update mptopdf to svn78010
+- Update multibibliography to svn77682
+- Update musixtex to svn77682
+- Update m-tx to svn78106
+- Update oberdiek to svn78315
+- Update omegaware to svn77830
+- Update optex to svn78109
+- Update patgen to svn77830
+- Update pdfbook2 to svn76924
+- Update pdftex to svn77868
+- Update pdftosrc to svn77830
+- Update pst-pdf to svn77682
+- Update ps2eps to svn76924
+- Update ps2pk to svn75712
+- Update ptex to svn77830
+- Update pythontex to svn77873
+- Update splitindex to svn77682
+- Update sty2dtx to svn76924
+- Update tex to svn77830
+- Update tex4ebook to svn78132
+- Update tex4ht to svn78343
+- Update texfot to svn77286
+- Update texliveonfly to svn76924
+- Update texlive-en to svn78030
+- Update texlive-scripts to svn78361
+- Update texlive-scripts-extra to svn78162
+- Update texlive.infra to svn78313
+- Update texlogsieve to svn77351
+- Update texosquery to svn77682
+- Update texware to svn77830
+- Update tie to svn77830
+- Update tpic2pdftex to svn75712
+- Update ttfutils to svn77830
+- Update typog to svn76661
+- Update uptex to svn77830
+- Update urlbst to svn76790
+- Update web to svn77830
+- Update xetex to svn77830
+- Update xindex to svn77844
+- Update xmltex to svn76924
+
+* Fri Mar 13 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-103
+- update to 20260301 (wheeee!)
+
 * Thu Feb 19 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-102
 - fix provides for texlive-uplatex (bz2437564)
 
