@@ -3,7 +3,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-executor-plugins
-Version:        9.3.9
+Version:        9.4.0
 Release:        %autorelease
 Summary:        Stable interface for interactions between Snakemake and its executor plugins
 
@@ -15,12 +15,13 @@ URL:            https://github.com/snakemake/snakemake-interface-executor-plugin
 Source:         %{url}/archive/v%{version}/snakemake-interface-executor-plugins-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_interface_executor_plugins
+BuildOption(install):   -l snakemake_interface_executor_plugins
 
 BuildArch:      noarch
 
 %if %{without bootstrap}
-# See: [tool.poetry.dev-dependencies] in pyproject.toml
+# See: [tool.pixi.feature.dev.dependencies] in pyproject.toml, but note:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
 BuildRequires:  %{py3_dist snakemake-executor-plugin-cluster-generic}
@@ -46,7 +47,6 @@ Summary:        %{summary}
 
 
 %files -n python3-snakemake-interface-executor-plugins -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 

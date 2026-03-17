@@ -39,8 +39,8 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  c4project
-# Our choice—the default make backend should work just as well—but note that
-# the Python extension build unconditionally uses ninja.
+# CMake builds in Fedora now use the ninja backend by default, but the Python
+# extension build unconditionally uses ninja, so we’re explicit:
 BuildRequires:  ninja-build
 
 BuildRequires:  cmake(c4core) >= 0.2.6

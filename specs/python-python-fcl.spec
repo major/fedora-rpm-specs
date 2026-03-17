@@ -88,7 +88,6 @@ BuildRequires:  fcl-devel
 %else
 # For bundled libccd:
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 # For bundled libccd (testing):
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind
@@ -183,7 +182,7 @@ popd
 # of the bundled dependencies for added confidence.
 
 pushd ../libccd-%{libccd_version}/
-%cmake -GNinja \
+%cmake \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DBUILD_STATIC_LIBS:BOOL=ON \
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
@@ -198,7 +197,7 @@ DESTDIR="${BUNDLEROOT}" %__cmake --install "%{_vpath_builddir}"
 popd
 
 pushd ../fcl-%{fcl_version}/
-%cmake -GNinja \
+%cmake \
     -DCCD_LIBRARY:PATH="${BUNDLEROOT}%{_libdir}/libccd.a" \
     -DCCD_INCLUDE_DIR:PATH="${BUNDLEROOT}%{_includedir}" \
     -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \

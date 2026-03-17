@@ -4,7 +4,7 @@
 %bcond doc %{undefined el10}
 
 Name:           python-%{modname}
-Version:        3.1.2
+Version:        3.1.3
 Release:        %autorelease
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
@@ -51,6 +51,9 @@ Documentation and examples for %{name}.
 
 %prep
 %autosetup -n %{srcname}-%{version}
+# Allow to use python-sphinx>=9
+sed -i 's/sphinx<9/sphinx/g' pyproject.toml
+
 rm -rf examples/flaskr/
 rm -rf examples/minitwit/
 # Do some shuffling to work on f42 and epel10

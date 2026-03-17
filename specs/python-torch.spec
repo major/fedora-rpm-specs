@@ -413,7 +413,7 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unus
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unused-result@' cmake/Dependencies.cmake
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-deprecated-declarations@' cmake/Dependencies.cmake
 # Use parallel jobs
-sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel-jobs=4@' cmake/Dependencies.cmake
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel-jobs=2@' cmake/Dependencies.cmake
 # Need to link with librocm_smi64
 sed -i -e 's@hiprtc::hiprtc@hiprtc::hiprtc rocm_smi64@' cmake/Dependencies.cmake
 
@@ -600,7 +600,7 @@ if [ ${COMPILE_JOBS}x = x ]; then
     COMPILE_JOBS=1
 fi
 # Take into account memmory usage per core, do not thrash real memory
-BUILD_MEM=2
+BUILD_MEM=4
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
 MEM_MB=`eval "expr ${MEM_KB} / 1024"`

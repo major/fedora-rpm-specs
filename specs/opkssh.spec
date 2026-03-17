@@ -30,6 +30,7 @@ Source4:        opkssh-auth_id
 Source5:        ssh-opkssh.conf
 Source6:        sudoers-opkssh
 Source7:        sysuser-opkssh.conf
+Source8:        logrotate.conf
 
 BuildRequires:  bzip2
 BuildRequires:  go-vendor-tools
@@ -79,6 +80,9 @@ Documentation for opkssh (OpenPubkey SSH).
 
 %build
 %global gomodulesmode GO111MODULE=on
+# Overwrite logfile path to adhere to Packaging Guidelines, see https://docs.fedoraproject.org/en-US/packaging-guidelines/#_log_files
+export GO_LDFLAGS="-X main.Version=%{version} \
+                   -X main.logFilePathServer=/var/log/opkssh/opkssh.log"
 %gobuild -o %{gobuilddir}/bin/opkssh %{goipath}
 # In Fedora >= 43, the sshd server has been split into a listener binary and a per-session binary.
 # The SELinux type for the per-session binary is sshd_session_t.
@@ -99,6 +103,10 @@ install -m 0600 -vp -D %{SOURCE5} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/6
 install -m 0440 -vp -D %{SOURCE6} %{buildroot}%{_sysconfdir}/sudoers.d/opkssh
 install -m 0644 -vp -D %{SOURCE7} %{buildroot}%{_sysusersdir}/opkssh.conf
 install -m 0644 -vp -D opkssh.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/targeted/opkssh.pp.bz2
+install -m 0644 -vp -D %{SOURCE8} %{buildroot}%{_sysconfdir}/logrotate.d/opkssh.conf
+# Create log file stub.
+mkdir -p %{buildroot}%{_localstatedir}/log/opkssh
+touch %{buildroot}%{_localstatedir}/log/opkssh/opkssh.log
 
 %check
 %go_vendor_license_check -c %{S:2}
@@ -128,8 +136,11 @@ fi
 %{_bindir}/opkssh
 
 %files server
-%attr(-, root, opkssh) %config(noreplace) %{_sysconfdir}/opk/providers
-%attr(-, root, opkssh) %config(noreplace) %{_sysconfdir}/opk/auth_id
+%attr(-, root, opksshuser) %config(noreplace) %{_sysconfdir}/opk/providers
+%attr(-, root, opksshuser) %config(noreplace) %{_sysconfdir}/opk/auth_id
+%config(noreplace) %{_sysconfdir}/logrotate.d/opkssh.conf
+%dir %{_localstatedir}/log/opkssh
+%attr(0660, root, opksshuser) %config(noreplace) %{_localstatedir}/log/opkssh/opkssh.log
 
 # These files should not be modified by the user, so we do not use 'noreplace' here.
 %config %{_sysconfdir}/ssh/sshd_config.d/60-opkssh.conf

@@ -71,7 +71,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cmake >= 3.4.3
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  ninja-build
 # For tests only:
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(gmp)
@@ -208,8 +207,6 @@ find docs/ -type f -name .nojekyll -print -delete
 
 
 %conf
-# -GNinja: This used to be required for parallel builds; it is still faster.
-#
 # -DENFORCE_TESTER3: The build should fail if we cannot build all tests.
 # -DENFORCE_TESTER4: Likewise, except that tester4 requires tlfloat.
 #
@@ -226,7 +223,6 @@ find docs/ -type f -name .nojekyll -print -delete
 #   recommended to be turned on on x86_64.”
 #   https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
 %cmake \
-    -GNinja \
     -DSLEEF_BUILD_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
     -DSLEEF_ENFORCE_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
 %ifarch %{x86_64}

@@ -349,9 +349,6 @@ Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2426825.patch
 Patch25: glibc-open_tree_clone.patch
-# https://bugs.winehq.org/show_bug.cgi?id=58523
-# revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
-# applied with PP powers as we really need to build wine to fix scriptlet problems
 
 ##############################################################################
 # Continued list of core "glibc" package information:

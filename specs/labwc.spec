@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.9.3
+Version:    0.9.6
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor
@@ -24,12 +24,12 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pangocairo)
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(scdoc)
-BuildRequires: pkgconfig(wayland-protocols)
-BuildRequires: pkgconfig(wayland-server) >= 0.19.0
+BuildRequires: pkgconfig(wayland-protocols) >= 1.39
+BuildRequires: pkgconfig(wayland-server) >= 1.22.0
 BuildRequires: pkgconfig(wlroots-0.19) >= 0.19.0
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: pkgconfig(xwayland)
+BuildRequires: pkgconfig(xwayland) >= 21.1.9
 
 Requires:      mesa-dri-drivers
 Requires:      xdg-desktop-portal-wlr

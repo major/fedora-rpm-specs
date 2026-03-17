@@ -1,9 +1,7 @@
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}}
-
 Summary:        Automate BGP filter generation based on routing database information
 Name:           bgpq4
-Version:        1.15
-Release:        6%{?dist}
+Version:        1.16
+Release:        1%{?dist}
 # bgpq4 itself is BSD-2-Clause but uses other source codes, breakdown:
 # BSD-3-Clause: include/sys/queue.h
 # ISC: compat/strlcpy.c
@@ -29,7 +27,7 @@ OpenBGPD routers as well as generic JSON.
 autoreconf --install
 
 %build
-%configure --docdir=%{_pkgdocdir}
+%configure
 %make_build
 
 %install
@@ -45,6 +43,9 @@ make check
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sun Mar 15 2026 Robert Scheck <robert@fedoraproject.org> 1.16-1
+- Upgrade to 1.16 (#2447762)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

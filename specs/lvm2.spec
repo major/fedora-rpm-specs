@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.212
+%global device_mapper_version 1.02.213
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -19,7 +19,7 @@
 %global dlm_version 4.0.6-1
 %global libselinux_version 1.30.19-4
 %global persistent_data_version 0.7.0-0.1.rc6
-%global sanlock_version 3.3.0-2
+%global sanlock_version 5.0.0-1
 
 %global enable_lockd_sanlock %{enable_lvmlockd}
 %if 0%{?rhel} >= 10
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.38
+Version: 2.03.39
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
@@ -91,7 +91,7 @@ Requires: %{name}-libs = %{?epoch}:%{version}-%{release}
 Requires(post): (system-release >= %{system_release_version} if system-release)
 %endif
 Requires: bash >= %{bash_version}
-Requires(post): systemd-units >= %{systemd_version}, systemd-sysv
+Requires(post): systemd-units >= %{systemd_version}
 Requires(preun): systemd-units >= %{systemd_version}
 Requires(postun): systemd-units >= %{systemd_version}
 Requires: module-init-tools
@@ -293,6 +293,9 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgsplit
 %attr(755, -, -) %{_libexecdir}/lvresize_fs_helper
 %{_mandir}/man5/lvm.conf.5.gz
+%{_mandir}/man7/lvm-args.7.gz
+%{_mandir}/man7/lvm-categories.7.gz
+%{_mandir}/man7/lvm-index.7.gz
 %{_mandir}/man7/lvmautoactivation.7.gz
 %{_mandir}/man7/lvmcache.7.gz
 %{_mandir}/man7/lvmraid.7.gz

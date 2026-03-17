@@ -22,11 +22,12 @@
 
 %global ibus_xinit_condition (%pcd1 or %pcd2 or %pcd3)
 # FIXME: How to write a condition with multiple lines
-%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1)
-%global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
+%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1 or %wcd2)
+%global pcd1 cinnamon or deepin-desktop or i3
 %global pcd2 lxqt-x11-session or lxsession or mate-panel or phosh or awesome
-%global pcd3 plasma-workspace or sugar or xfce4-session
+%global pcd3 sugar or xfce4-session
 %global wcd1 cosmic-panel or hyprland or sway or waybar or lxqt-wayland-session
+%global wcd2 budgie-desktop or plasma-workspace or xfce4-session-wayland-session
 
 %if %with_pkg_config
 %if %{with gtk2}
@@ -51,9 +52,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.34~beta1
+Version:        1.5.34~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -62,7 +63,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -579,6 +579,14 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Mar 16 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-1
+- Bump to 1.5.34-rc1
+- Update translations
+- Fix "no memory" error with focus changes in Sway
+- Resolves #2444009 Latch key in Latvian(tilde) keymap
+- Fix only GTK3 builds
+- Close leaked keymap fd on early return in ibus-wayland
+
 * Tue Feb 24 2026 Adam Williamson <awilliam@redhat.com> - 1.5.34~beta-3
 - Run triggers in env -i to avoid hang during install (#2439813)
 

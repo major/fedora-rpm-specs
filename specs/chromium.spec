@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 146.0.7680.75
+Version: 146.0.7680.80
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1859,9 +1859,12 @@ fi
 %endif
 
 %changelog
+* Sat Mar 14 2026 Than Ngo <than@redhat.com> - 146.0.7680.80-1
+- Update to 146.0.7680.80
+  * CVE-2026-3909: Out of bounds write in Skia
+
 * Fri Mar 13 2026 Than Ngo <than@redhat.com> - 146.0.7680.75-1
 - Update to 146.0.7680.75
-  * CVE-2026-3909: Out of bounds write in Skia
   * CVE-2026-3910: Inappropriate implementation in V8
 
 * Thu Mar 12 2026 Than Ngo <than@redhat.com> - 146.0.7680.71-1

@@ -6,7 +6,7 @@
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
 Version:           13.0.4
-Release:           1%{?dist}
+Release:           2%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -19,6 +19,10 @@ Source6:           prosody.sysusersd
 Source7:           prosody-localhost.cfg.lua
 Source8:           prosody-example.com.cfg.lua
 Patch0:            prosody-13.0.0-config.patch
+# https://hg.prosody.im/trunk/rev/a88566e73a15
+# lua 5.5 support
+Patch1:            a88566e73a15.patch
+Patch2:            prosody-13.0.4-lua-5.5.patch
 BuildRequires:     gnupg2
 BuildRequires:     gcc
 BuildRequires:     make
@@ -62,6 +66,8 @@ added functionality, or prototype new protocols.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch -P0 -p1 -b .config
+%patch -P1 -p1 -b .lua55-configure
+%patch -P2 -p1 -b .lua55
 
 # https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
@@ -208,6 +214,11 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Sun Mar 15 2026 Tom Callaway <spot@fedoraproject.org> - 13.0.4-2
+- rebuild for lua 5.5
+- apply upstream fix for configure
+- make a new patch to actually support lua 5.5
+
 * Thu Jan 29 2026 Robert Scheck <robert@fedoraproject.org> 13.0.4-1
 - Upgrade to 13.0.4 (#2432633)
 

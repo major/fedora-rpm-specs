@@ -4,15 +4,20 @@ Release: %autorelease
 Summary: Front-end for tools used for burning data CD/DVD
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later 
-URL: http://cdw.sourceforge.net/
-Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch0: 0001-add-formatstring.patch
+URL:            https://cdw.sourceforge.net/
+Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         0001-add-formatstring.patch
 
-BuildRequires: gcc
-BuildRequires: libcdio-devel, ncurses-devel, libburn-devel
-BuildRequires: make
-#It does not make sense install cdw without the packages below:
-Requires: dvd+rw-tools,wodim,genisoimage,xorriso 
+BuildRequires:  gcc
+BuildRequires:  libburn-devel
+BuildRequires:  libcdio-devel
+BuildRequires:  make
+BuildRequires:  ncurses-devel
+# It does not make sense to install cdw without the packages below:
+Requires:       dvd+rw-tools
+Requires:       genisoimage
+Requires:       wodim
+Requires:       xorriso
 
 %description
 cdw is a ncurses based front-end for some command-line tools used for burning
@@ -27,20 +32,20 @@ CD or DVD disc using md5sum or some of  programs that verifies SHA hashes.
 %autosetup -p1
 
 %build
-export CXXFLAGS="%{optflags}" LIBS="-lm"
-%configure
+%configure LIBS="-lm"
 %make_build
 
 %install
 %make_install
 
 %check
-make check LIBS="-lm"
+%make_build check LIBS="-lm"
 
 %files
-%{_bindir}/*
-%doc COPYING AUTHORS ChangeLog NEWS README THANKS
-%{_mandir}/man1/*
+%license COPYING
+%doc AUTHORS ChangeLog NEWS README THANKS
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 
 %changelog
 %autochangelog

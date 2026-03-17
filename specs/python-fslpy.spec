@@ -8,7 +8,7 @@ FSLeyes.
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.25.1
+Version:        3.27.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -73,25 +73,54 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_save_files -l fsl
 
 # generate man pages
-# imglob does not have a --help
-for binary in "atlasq" "atlasquery" "fsl_apply_x5" "fsl_ents" "fsl_convert_x5" "imcp" "immv" "resample_image" "Text2Vest" "Vest2Text" "fsl_abspath" "imln" "imtest" "remove_ext"
+# - tmpnam has no --help option or usage message
+for binary in \
+    Text2Vest \
+    Vest2Text \
+    atlasq \
+    atlasquery \
+    fsl_abspath \
+    fsl_apply_x5 \
+    fsl_convert_x5 \
+    fsl_ents \
+    fslchfiletype \
+    imcp \
+    imln \
+    immv \
+    imtest \
+    remove_ext \
+    resample_image
 do
     echo "Generating man page for ${binary// /-/}"
-    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    %{py3_test_envvars} help2man \
+        --no-info \
+        --no-discard-stderr \
+        --name="${binary}" \
+        --version-string="${binary} %{version}" \
+        --output="${binary// /-}.1" \
+        "${binary}"
     cat "${binary// /-}.1"
     install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
 done
 
 # do not have a --help
-for binary in "imglob" "imrm"
+for binary in imglob imrm
 do
     echo "Generating man page for ${binary// /-/}"
-    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --help-option=" " --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    %{py3_test_envvars} help2man \
+        --help-option=" " \
+        --no-info \
+        --no-discard-stderr \
+        --name="${binary}" \
+        --version-string="${binary} %{version}" \
+        --output="${binary// /-}.1" \
+        "${binary}"
     cat "${binary// /-}.1"
     install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
 done
 
 %check
+%pyproject_check_import -e fsl.tests*
 %if %{with xvfb_tests}
 # From https://git.fmrib.ox.ac.uk/fsl/fslpy/blob/master/.ci/test_template.sh
 %{py3_test_envvars} xvfb-run pytest fsl/tests/test_idle.py
@@ -127,6 +156,8 @@ k="${k-}${k+ and }not test_loadSeries"
 k="${k-}${k+ and }not test_scanDir"
 # Requires a (non-free) FSL installation; see notes about the fsltest marker
 k="${k-}${k+ and }not test_cluster"
+# Require a (non-free) fsl_mrs installation; see notes about the fsltest marker
+ignore="${ignore-} --ignore=fsl/tests/test_wrappers/test_fsl_mrs.py"
 
 # See: “TEST: Some kind of regression in pytest 8.2 w.r.t. namespace packages”
 # https://github.com/pauldmccarthy/fslpy/commit/048e33cb23b06f1b6d315b124ee544147d520643
@@ -146,23 +177,43 @@ sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
 
 %files -n python3-fslpy -f %{pyproject_files}
 %doc README.rst
-%{_bindir}/atlasq
-%{_bindir}/atlasquery
-%{_bindir}/fsl_apply_x5
-%{_bindir}/fsl_ents
-%{_bindir}/fsl_convert_x5
-%{_bindir}/imcp
-%{_bindir}/imglob
-%{_bindir}/immv
-%{_bindir}/resample_image
 %{_bindir}/Text2Vest
 %{_bindir}/Vest2Text
+%{_bindir}/atlasq
+%{_bindir}/atlasquery
 %{_bindir}/fsl_abspath
+%{_bindir}/fsl_apply_x5
+%{_bindir}/fsl_convert_x5
+%{_bindir}/fsl_ents
+%{_bindir}/fslchfiletype
+%{_bindir}/imcp
+%{_bindir}/imglob
 %{_bindir}/imln
+%{_bindir}/immv
 %{_bindir}/imrm
 %{_bindir}/imtest
 %{_bindir}/remove_ext
-%{_mandir}/man1/*.*
+%{_bindir}/resample_image
+%{_bindir}/tmpnam
+%{_mandir}/man1/Text2Vest.1*
+%{_mandir}/man1/Vest2Text.1*
+%{_mandir}/man1/atlasq.1*
+%{_mandir}/man1/atlasquery.1*
+%{_mandir}/man1/fsl_abspath.1*
+%{_mandir}/man1/fsl_apply_x5.1*
+%{_mandir}/man1/fsl_convert_x5.1*
+%{_mandir}/man1/fsl_ents.1*
+%{_mandir}/man1/fslchfiletype.1*
+%{_mandir}/man1/imcp.1*
+%{_mandir}/man1/imglob.1*
+%{_mandir}/man1/imln.1*
+%{_mandir}/man1/immv.1*
+%{_mandir}/man1/imrm.1*
+%{_mandir}/man1/imtest.1*
+%{_mandir}/man1/remove_ext.1*
+%{_mandir}/man1/resample_image.1*
+# - tmpnam has no --help option or usage message
+# %%{_mandir}/man1/tmpnam.1*
 
 %changelog
 %autochangelog

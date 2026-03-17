@@ -1,11 +1,19 @@
 %bcond_with debug
 
+# crawl is compatible with lua-5.4 only
+# we need to bundle lua-5.4 when it is not available on Fedora
+%if 0%{?fedora} > 44
+%bcond_without bundled_lua
+%else
+%bcond_with bundled_lua
+%endif
+
 # Workaround for rhbz#2044028
 %undefine _package_note_file
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.33.1
+Version:       0.34.1
 Release:       %autorelease
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
@@ -18,6 +26,7 @@ Release:       %autorelease
 License:       GPL-2.0-or-later AND Apache-2.0 AND BSD-2-Clause AND CC0-1.0
 URL:           https://crawl.develz.org/
 Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}.tar.gz
+Source1:       https://github.com/%{name}/%{name}-lua/archive/refs/heads/%{name}-lua-lua5.4.tar.gz
 
 ## These patches fix installation paths
 Patch0:        %{name}_bin.patch
@@ -26,8 +35,6 @@ Patch2:        %{name}-rltiles_cflags.patch
 
 # See https://github.com/crawl/crawl/issues/1372
 Patch3:        %{name}-add_iswalnum_reference.patch
-
-Patch4:        %{name}-use_lua5.patch
 
 BuildRequires: advancecomp
 BuildRequires: bison
@@ -47,8 +54,9 @@ BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(ncurses)
 BuildRequires: pkgconfig(ncursesw)
-BuildRequires: pkgconfig(lua-5.1)
-#BuildRequires: pkgconfig(lua)
+%if %{without bundled_lua}
+BuildRequires: pkgconfig(lua)
+%endif
 BuildRequires: pkgconfig(zlib)
 BuildRequires: python3-devel
 BuildRequires: python3-pyyaml
@@ -56,6 +64,10 @@ BuildRequires: pngcrush
 
 Requires: %{name}-common-data = %{version}-%{release}
 Requires(pre): shadow-utils
+
+%if %{with bundled_lua}
+Provides: bundled(lua) = 5.4.8
+%endif
 
 %description
 This is the Console (ncurses) version of %{name}.
@@ -105,6 +117,12 @@ run from, making each game unique and challenging.
 %prep
 %autosetup -n %{name}-%{version} -N
 
+%if %{with bundled_lua}
+tar -xvf %{SOURCE1}
+cp -a crawl-lua-lua5.4/* crawl-ref/source/contrib/lua/
+rm -rf crawl-lua-lua5.4
+%endif
+
 cat > crawl-ref/source/util/release_ver <<EOF
 %{version}
 EOF
@@ -113,10 +131,9 @@ EOF
 rm -rf MSVC
 rm -rf webserver
 
-find crawl-ref/source -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn
-
-#%%patch 4 -p1 -b .use_lua5
-%patch -P 3 -p1 -b .add_iswalnum_reference
+for i in `find crawl-ref/source -name '*.py'`; do
+%py3_shebang_fix $i
+done
 
 cp -a crawl-ref/source crawl-ref/crawl-tiles
 
@@ -125,6 +142,7 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 %patch -P 1 -p1 -b .crawl_tiles
 %patch -P 2 -p1 -b .rltiles_cflags
 %endif
+%patch -P 3 -p1 -b .add_iswalnum_reference
 
 %build
 %if %{with debug}
@@ -134,6 +152,11 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
  CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
  CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
+%endif
+%if %{without bundled_lua}
+ LUA_PACKAGE=lua \
+%else
+ BUILD_LUA=y \
 %endif
  GAME=crawl-tiles \
  TILES=y SOUND=y V=y MONOSPACED_FONT=y \
@@ -150,6 +173,11 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
  CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
+%if %{without bundled_lua}
+ LUA_PACKAGE=lua \
+%else
+ BUILD_LUA=y \
+%endif
  SOUND=y V=y MONOSPACED_FONT=y \
  DATADIR=%{_datadir}/%{name} \
  PROPORTIONAL_FONT=$(fc-match -f "%{file}" "bitstreamverasans") \
@@ -165,6 +193,11 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
  CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
+%if %{without bundled_lua}
+ LUA_PACKAGE=lua \
+%else
+ BUILD_LUA=y \
+%endif
  SOUND=y V=y MONOSPACED_FONT=y \
  DATADIR=%{_datadir}/%{name} \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
@@ -179,6 +212,11 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
  CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
+%endif
+%if %{without bundled_lua}
+ LUA_PACKAGE=lua \
+%else
+ BUILD_LUA=y \
 %endif
  GAME=crawl-tiles \
  TILES=y SOUND=y V=y MONOSPACED_FONT=y \

@@ -8,7 +8,7 @@ License:        MIT
 # examples/whisper.android/gradlew*
 # These are not distributed
 
-Version:        1.8.1
+Version:        1.8.3
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/whisper.cpp
@@ -106,15 +106,7 @@ recognition (ASR) model:
 %prep
 %autosetup -p1 -n whisper.cpp-%{version}
 
-# Add SOVERSION to the shared libraries
-sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION %{sover}@' src/CMakeLists.txt
-sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION %{sover}@' ggml/src/CMakeLists.txt
-sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION %{sover}@' ggml/src/ggml-cpu/CMakeLists.txt
-sed -i '/target_compile_definitions(${backend} PUBLIC  GGML_BACKEND_SHARED)/a\
-set_target_properties(${backend} PROPERTIES POSITION_INDEPENDENT_CODE ON SOVERSION %{sover})' ggml/src/CMakeLists.txt
-
 %build
-
 %cmake \
     -DCMAKE_HIP_ARCHITECTURES=%{rocm_gpu_list_default} \
     -DWHISPER_BUILD_EXAMPLES=%{build_test} \

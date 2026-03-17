@@ -1,5 +1,5 @@
 # Lists copied from gcc.spec
-# Current as of 15.2.1 (lines 74, 94, and 84, respectively).
+# Current as of 16.0.1 (lines 83, 103, and 93, respectively).
 # Note that asan and ubsan are available on all Fedora primary architectures;
 # tsan is missing on i686 only.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
@@ -84,11 +84,9 @@ SourceLicense:  %{shrink:
 URL:            https://github.com/MirServer/wlcs
 Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
 
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-
-BuildRequires:  cmake
-BuildRequires:  ninja-build
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake(GTest)
@@ -147,8 +145,7 @@ Wayland compositor tests that use wlcs.
     -DWLCS_BUILD_ASAN=%{?with_asan:ON}%{?!with_asan:OFF} \
     -DWLCS_BUILD_TSAN=%{?with_tsan:ON}%{?!with_tsan:OFF} \
     -DWLCS_BUILD_UBSAN=%{?with_ubsan:ON}%{?!with_ubsan:OFF} \
-    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF \
-    -GNinja
+    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF
 
 
 %build

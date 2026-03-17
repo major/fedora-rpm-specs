@@ -8,7 +8,7 @@
 %bcond tests 1
 
 Name:           python-%{modname}
-Version:        3.1.5
+Version:        3.1.6
 Release:        %autorelease
 Summary:        Comprehensive WSGI web application library
 
@@ -67,6 +67,8 @@ Documentation and examples for python3-werkzeug.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+# Allow to use python-sphinx>=9
+sed -i 's/sphinx<9/sphinx/g' pyproject.toml
 find examples/ -type f -name '*.png' -executable -print -exec chmod -x "{}" +
 
 %build

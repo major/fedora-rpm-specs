@@ -20,12 +20,7 @@
 %global pandas 0
 %endif
 
-%if "%{?dist}" == ".el10_0"
-# R not available in EPEL 10.0
-%global rrr 0
-%else
 %global rrr 1
-%endif
 
 %if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
 %global roofitmp 1
@@ -37,9 +32,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/.*/lib.*\\.so$
 
 Name:		root
-Version:	6.38.00
+Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	7%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -77,39 +72,14 @@ Patch2:		%{name}-dont-install-minicern.patch
 Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
 Patch4:		%{name}-32bit-tests.patch
-#		Adjust test/stressGraphics.ref
-#		https://github.com/root-project/root/pull/30667
-Patch5:		%{name}-Adjust-test-stressGraphics.ref.patch
 #		Revert test change that breaks the test
-Patch6:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
+Patch5:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
 #		Preserve memory during parallel build
 #		https://github.com/root-project/root/pull/18991
-Patch7:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
-#		Add missing includes of TMath.h
-#		https://github.com/root-project/root/pull/20601
-Patch8:		%{name}-Geom-Add-missing-includes-of-TMath.h.patch
-#		Fix numpy vs dataframe type mismatch om ix86
-#		https://github.com/root-project/root/pull/20668
-Patch9:		%{name}-Fix-a-numpy-test-for-32-bit-archs.patch
-#		Backport a test fix from upstream
-Patch10:	%{name}-VecOps-Remove-outdated-IsSmall-helper-function-in-te.patch
-Patch11:	%{name}-vecops-Adaptive-size-of-long-RVec-instances-in-RVec-.patch
-#		Backport fixes to python module
-Patch12:	%{name}-cppyy-Remove-now-irrelevant-load_cpp_backend-call.patch
-Patch13:	%{name}-cppyy-Remove-code-related-to-finding-CPyCppyy-API-he.patch
-#		Don't install the python modules twice
-#		https://github.com/root-project/root/pull/20753
-Patch14:	%{name}-PyROOT-Don-t-install-the-python-modules-twice.patch
-#		Fix test for stricter syntax in numpy 2.4.0 (backport)
-#		https://github.com/root-project/root/pull/20775
-Patch15:	%{name}-Python-Fix-TF1-Pythonization-test-for-NumPy-2.4.0.patch
-#		Starting with gcc 16, libstdc++ links to libatomic
-#		https://github.com/root-project/root/pull/20826
-Patch16:	%{name}-gcc-16-libstdc-links-to-libatomic.patch
-#		Test fails with gcc 16 (which uses c++20 as default)
-#		https://github.com/root-project/root/issues/20831
-#		https://github.com/root-project/root/pull/20841
-Patch17:	%{name}-RF-Use-TRandom3-in-test-RooFuncWrapper.patch
+Patch6:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
+#		https://github.com/root-project/root/pull/21604
+#		https://github.com/root-project/root/pull/21605
+Patch7:		%{name}-Avoid-additional-python-version-file-to-wrong-location.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -144,9 +114,9 @@ BuildRequires:	sqlite-devel
 BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
 BuildRequires:	libxcrypt-devel
-BuildRequires:	python%{python3_pkgversion}-devel >= 3.7
-BuildRequires:	python%{python3_pkgversion}-setuptools
-BuildRequires:	python%{python3_pkgversion}-numpy
+BuildRequires:	python3-devel >= 3.9
+BuildRequires:	python3-setuptools
+BuildRequires:	python3-numpy
 %ifarch %{qt6_qtwebengine_arches}
 BuildRequires:	qt6-qtbase-devel
 BuildRequires:	qt6-qtwebengine-devel
@@ -189,7 +159,7 @@ BuildRequires:	cppzmq-devel
 %endif
 %endif
 %if %{pandas}
-BuildRequires:	python%{python3_pkgversion}-pandas
+BuildRequires:	python3-pandas
 %endif
 BuildRequires:	perl-generators
 BuildRequires:	gtest-devel
@@ -399,63 +369,63 @@ This package contains the unit test support library for ROOT.
 %package tpython
 Summary:	ROOT's TPython interface
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
 #		Package split (tpython from Python bindings)
-Obsoletes:	python%{python3_pkgversion}-%{name} < 6.22.00
+Obsoletes:	python3-%{name} < 6.22.00
 
 %description tpython
 This package contains ROOT's TPython interface. It makes it possible
 to call Python from ROOT.
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:	Python extension for ROOT
-%py_provides	python%{python3_pkgversion}-%{name}
-Provides:	%{name}-python%{python3_pkgversion} = %{version}-%{release}
-Obsoletes:	%{name}-python%{python3_pkgversion} < 6.08.00
+%py_provides	python3-%{name}
+Provides:	%{name}-python3 = %{version}-%{release}
+Obsoletes:	%{name}-python3 < 6.08.00
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 #		Package split (tpython from Python bindings)
-Obsoletes:	python%{python3_pkgversion}-%{name} < 6.22.00
-Obsoletes:	python%{python3_pkgversion}-jsmva < 6.32.00
+Obsoletes:	python3-%{name} < 6.22.00
+Obsoletes:	python3-jsmva < 6.32.00
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 This package contains the Python extension for ROOT. It makes it
 possible to use ROOT classes in Python.
 
-%package -n python%{python3_pkgversion}-jupyroot
+%package -n python3-jupyroot
 Summary:	ROOT Jupyter kernel
 BuildArch:	noarch
-%py_provides	python%{python3_pkgversion}-jupyroot
-Requires:	python%{python3_pkgversion}-%{name} = %{version}-%{release}
+%py_provides	python3-jupyroot
+Requires:	python3-%{name} = %{version}-%{release}
 Requires:	%{name}-core = %{version}-%{release}
 #		notebook package was merged with JupyROOT package
 Provides:	%{name}-notebook = %{version}-%{release}
 Obsoletes:	%{name}-notebook < 6.32.00
 Requires:	js-jsroot >= 7.10
-%if %{?fedora}%{!?fedora:0} || ( %{?rhel}%{!?rhel:0} >= 10 && "%{?dist}" != ".el10_0" )
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
 Requires:	jupyter-notebook
 #		python-metakernel not available in RHEL/EPEL
 #		some functionality missing
-Requires:	python%{python3_pkgversion}-ipython
-Requires:	python%{python3_pkgversion}-metakernel
+Requires:	python3-ipython
+Requires:	python3-metakernel
 Requires:	python-jupyter-filesystem
 %endif
 
-%description -n python%{python3_pkgversion}-jupyroot
+%description -n python3-jupyroot
 The Jupyter kernel for the ROOT notebook.
 
 %if %{distrdf}
-%package -n python%{python3_pkgversion}-distrdf
+%package -n python3-distrdf
 Summary:	Distributed RDataFrame
 BuildArch:	noarch
-%py_provides	python%{python3_pkgversion}-distrdf
-Requires:	python%{python3_pkgversion}-%{name} = %{version}-%{release}
+%py_provides	python3-distrdf
+Requires:	python3-%{name} = %{version}-%{release}
 Requires:	%{name}-tree-dataframe = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-distrdf
+%description -n python3-distrdf
 A layer on top of RDataFrame to enable distributed computations. It is
 a port of the previously known PyRDF python package.
 %endif
@@ -1165,7 +1135,7 @@ This package contains the basic authentication algorithms used by ROOT.
 
 %package net-davix
 Summary:	Davix extension for ROOT
-Requires:	davix-libs%{?_isa} >= 0.6.4
+Requires:	davix-libs%{?_isa} >= 0.7.1
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 
@@ -1319,7 +1289,7 @@ provided here process whole data arrays (batches) instead of a single
 event at a time, as in the legacy evaluate() function in roofit. In
 addition, the code is written in a manner that allows for compiler
 optimizations, notably auto-vectorization. This library is compiled
-multiple times for different vector instuction set architectures and
+multiple times for different vector instruction set architectures and
 the optimal code is executed during runtime, as a result of an
 automatic hardware detection mechanism that this library contains.
 
@@ -1535,7 +1505,7 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva-sofie%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-numpy
+Requires:	python3-numpy
 
 %description tmva-python
 Python integration with TMVA.
@@ -1680,7 +1650,7 @@ An algorithm to unfold distributions from detector to truth level.
 %package cli
 Summary:	ROOT command line utilities
 BuildArch:	noarch
-Requires:	python%{python3_pkgversion}-%{name} = %{version}-%{release}
+Requires:	python3-%{name} = %{version}-%{release}
 
 %description cli
 The ROOT command line utilities is a set of scripts for common tasks
@@ -1908,16 +1878,6 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
-%patch -P14 -p1
-%patch -P15 -p1
-%patch -P16 -p1
-%patch -P17 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2197,10 +2157,9 @@ echo 'Version: %{version}' >> \
 mkdir -p %{buildroot}%{_datadir}/jupyter/kernels
 
 cp -pr %{buildroot}%{_datadir}/%{name}/notebook/kernels/root \
-   %{buildroot}%{_datadir}/jupyter/kernels/python%{python3_pkgversion}-jupyroot
-sed -e 's/ROOT C++/& (Python 3)/' \
-    -e 's!python[0-9]*\.[0-9]*!%{__python3}!' \
-    -i %{buildroot}%{_datadir}/jupyter/kernels/python%{python3_pkgversion}-jupyroot/kernel.json
+   %{buildroot}%{_datadir}/jupyter/kernels/python3-jupyroot
+sed -e 's!python[0-9]*\.[0-9]*!%{__python3}!' \
+    -i %{buildroot}%{_datadir}/jupyter/kernels/python3-jupyroot/kernel.json
 sed -e '/^\#!/d' \
     -i %{buildroot}%{python3_sitelib}/JupyROOT/kernel/rootkernel.py
 
@@ -2289,7 +2248,7 @@ sed -e 's/FATAL_ERROR \(.*imported\)/WARNING \1/' \
 but this file does not exist.\
 If this target is used you need to install the package that provides this\
 file using \\"dnf install\\".\
-If this target is not used this warning can be ignored.")' \
+If this target is not used this warning can be ignored.'$'\x22'')' \
     -e '/Possible reasons include/,/)/d' \
     -i %{buildroot}%{_datadir}/%{name}/cmake/ROOTConfig-targets.cmake
 
@@ -2435,9 +2394,6 @@ tutorial-visualisation-webcanv-fonts_ttf.cxx"
 # - gtest-hist-hist-TFormulaGradientTests
 #   out of memory
 #
-# - pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views
-#   ValueError: buffer is smaller than requested size
-#
 # - tmva-sofie-test-TestCustomModelsFromONNX
 #   Expected equality of these values:
 #     output.size()
@@ -2446,7 +2402,6 @@ tutorial-visualisation-webcanv-fonts_ttf.cxx"
 #       Which is: 900
 excluded="${excluded}|\
 gtest-hist-hist-TFormulaGradientTests|\
-pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views|\
 tmva-sofie-test-TestCustomModelsFromONNX\$\$"
 %endif
 
@@ -2580,12 +2535,12 @@ test-stresshistogram\$\$|\
 test-stresshistogram-interpreted"
 
 # The zlib-ng library is compiled with hardware acceleration support on s390x
-# in Fedora 43 and later.
+# in Fedora 43 and later and RHEL 10.1 and later
 # This means that some tests that compare the size of compressed data fail.
 # - test-stress
 # - gtest-tree-readspeed-readspeed-general
 # - gtest-tree-tree-testTBranch
-%if %{?fedora}%{!?fedora:0} >= 43
+%if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 10
 excluded="${excluded}|\
 test-stress\$\$|\
 gtest-tree-readspeed-readspeed-general|\
@@ -2607,11 +2562,24 @@ excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
 %endif
 
+# Test failures with GCC 16 on AArch64
+# https://bugzilla.redhat.com/show_bug.cgi?id=2440537
+# https://github.com/root-project/root/issues/21565
+%if %{?fedora}%{!?fedora:0} >= 44
+%ifarch aarch64
+excluded="${excluded}|\
+gtest-tree-ntuple-ntuple-cast|\
+gtest-tree-ntuple-ntuple-join-table|\
+gtest-tree-ntuple-ntuple-packing|\
+gtest-tree-ntuple-ntuple-show|\
+gtest-tree-ntuple-ntuple-types|\
+gtest-tree-ntuple-ntuple-view|\
+gtest-tree-ntupleutil-ntuple-importer"
+%endif
+%endif
+
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
-# TH3D.FillThreadSafe and RDFHelpers.Histo3DThreadSafe fail on ix86
-# due to alignment issues with std::atomic_ref
-# https://github.com/root-project/root/issues/20834
 # InterpreterTest.Evaluate fails on s390x
 # TClingDataMemberInfo.Offset fails on s390x
 # https://github.com/root-project/root/issues/14512
@@ -2621,8 +2589,6 @@ gtest-math-matrix-testMatrixTSparse"
 export GTEST_FILTER=-\
 %ifarch %{ix86}
 RNTuple.StdAtomic:\
-TH3D.FillThreadSafe:\
-RDFHelpers.Histo3DThreadSafe:\
 %endif
 %ifarch s390x
 InterpreterTest.Evaluate:\
@@ -2654,14 +2620,14 @@ for x in build img mathjax modules scripts files/draw.htm files/online.htm ; do
     ln -fnrs %{_jsdir}/jsroot/$x %{_datadir}/%{name}/js/$x
 done
 
-%pre -n python%{python3_pkgversion}-%{name}
+%pre -n python3-%{name}
 if [ -r /var/lib/alternatives/libPyROOT.so ] ; then
     for alt in `grep python3.*/.*.so /var/lib/alternatives/libPyROOT.so` ; do
 	%{_sbindir}/update-alternatives --remove libPyROOT.so $alt
     done
 fi
 
-%post -n python%{python3_pkgversion}-jupyroot
+%post -n python3-jupyroot
 mkdir -p /etc/jupyter
 if [ -e /etc/jupyter/jupyter_notebook_config.py ] ; then
     sed '/Extra static paths for JupyROOT - start/','/Extra static paths for JupyROOT - end/'d -i /etc/jupyter/jupyter_notebook_config.py
@@ -2680,7 +2646,7 @@ c.ServerApp.extra_static_paths.append('%{_jsdir}/jsroot')
 # Extra static paths for JupyROOT - end - do not remove this line
 EOF
 
-%postun -n python%{python3_pkgversion}-jupyroot
+%postun -n python3-jupyroot
 if [ $1 -eq 0 ] ; then
     if [ -e /etc/jupyter/jupyter_notebook_config.py ] ; then
 	sed '/Extra static paths for JupyROOT - start/','/Extra static paths for JupyROOT - end/'d -i /etc/jupyter/jupyter_notebook_config.py
@@ -2816,23 +2782,23 @@ fi
 %{_libdir}/%{name}/libROOTTPython.*
 %{_libdir}/%{name}/libROOTTPython_rdict.pcm
 
-%files -n python%{python3_pkgversion}-%{name} -f includelist-bindings-pyroot
+%files -n python3-%{name} -f includelist-bindings-pyroot
 %{python3_sitearch}/cppyy
 %{python3_sitearch}/ROOT
 %{python3_sitearch}/ROOT-*.dist-info
 %{_libdir}/%{name}/libCPyCppyy.*
 %dir %{_includedir}/%{name}/CPyCppyy
 
-%files -n python%{python3_pkgversion}-jupyroot
+%files -n python3-jupyroot
 %{python3_sitelib}/JupyROOT
 %{python3_sitelib}/JupyROOT-*.dist-info
-%{_datadir}/jupyter/kernels/python%{python3_pkgversion}-jupyroot
+%{_datadir}/jupyter/kernels/python3-jupyroot
 %{_bindir}/rootnb.exe
 %doc bindings/jupyroot/README.md
 %doc bindings/jupyroot/JupyROOT-on-EPEL
 
 %if %{distrdf}
-%files -n python%{python3_pkgversion}-distrdf
+%files -n python3-distrdf
 %{python3_sitelib}/DistRDF
 %{python3_sitelib}/DistRDF-*.dist-info
 %endif
@@ -3476,6 +3442,12 @@ fi
 %endif
 
 %changelog
+* Fri Mar 13 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-1
+- Update to 6.38.04
+- Rebuild for pythia8 8.3.17
+- Dropped patches: 11
+- New patches: 1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.38.00-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

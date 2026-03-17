@@ -24,7 +24,6 @@ URL:            https://github.com/google/re2
 Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 
 BuildRequires:  cmake(absl)
@@ -117,8 +116,7 @@ cd python
 %cmake \
     -DRE2_TEST:BOOL=ON \
     -DRE2_BENCHMARK:BOOL=OFF \
-    -DRE2_USE_ICU:BOOL=ON \
-    -GNinja
+    -DRE2_USE_ICU:BOOL=ON
 
 %if %{with python}
 cat >> python/setup.cfg <<EOF

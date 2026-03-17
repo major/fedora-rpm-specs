@@ -9,7 +9,7 @@
 
 Name:      tnef
 Version:   1.4.18
-Release:   16%{?dist}
+Release:   17%{?dist}
 Summary:   Extract files from email attachments like WINMAIL.DAT
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -27,6 +27,9 @@ Source1:   vnd.ms-tnef.desktop
 Source2:   tnef-extract.desktop
 Source3:   tnefextract.desktop
 Source4:   tnef.sh
+
+# Backport from upstream: https://github.com/verdammelt/tnef/commit/86bfa75cfacbe71c8d5282fa0065981b4544c5ad
+Patch0:    0000-too-many-arguments.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf
@@ -69,22 +72,18 @@ Provides a right-click extract menu item for Dolphin to extract TNEF files.
 
 
 %prep
-# Normal release extraction
-%setup -q
-# git tag extraction
-#%#setup -q -n %#{name}-%#{commit}
+%autosetup -p1
 
 
 %build
 autoreconf -vfi
 %configure
-make %{?_smp_mflags}
+%make_build
 chmod a-x THANKS
 
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+%make_install
 
 mkdir -p %{buildroot}/%{_datadir}/mimelnk/application/
 desktop-file-install                                  \
@@ -134,6 +133,9 @@ make check DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.4.18-17
+- Add a patch to fix build errors
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

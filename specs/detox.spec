@@ -3,11 +3,14 @@ Version:	3.0.1
 Release:	%autorelease
 Summary:	Utility to replace problematic characters in file names
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		https://github.com/dharple/detox
 Source0:	https://github.com/dharple/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-BuildRequires:	autoconf automake flex flex-static
+
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	flex
+BuildRequires:	flex-static
 BuildRequires:	gcc
 BuildRequires:	make
 
@@ -25,6 +28,9 @@ clean up file names with UTF-8 or Latin-1 (or CP-1252) characters in them.
 
 %install
 %make_install
+
+%check
+%make_build check
 
 %files
 %config(noreplace) %{_sysconfdir}/%{name}rc

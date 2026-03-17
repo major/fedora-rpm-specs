@@ -2,7 +2,7 @@
 
 Name:           guvcview
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK+ UVC Viewer and Capturer
 License:        GPL-2.0-or-later
 URL:            https://guvcview.sourceforge.net/
@@ -19,15 +19,18 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libusb-1.0)
-BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavcodec) >= 57.16
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(sfml-graphics)
-BuildRequires:  pkgconfig(gsl)
+# SFML 3.0 currently not available in Fedora
+#BuildRequires:  pkgconfig(sfml-graphics) >= 3.0
+#BuildRequires:  pkgconfig(sfml-window) >= 3.0
+BuildRequires:  pkgconfig(gsl) >= 0.15
 BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig(sdl2)
+Buildrequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -67,7 +70,7 @@ This package contains development files for %{name}.
 find . \( -name '*.h' -o -name '*.c' \) -exec chmod -x {} \;
 
 %build
-%cmake -DUSE_SFML=ON -DUSE_SDL=OFF -DUSE_DEBIANMENU=OFF -DINSTALL_DEVKIT=ON
+%cmake -DUSE_DEBIANMENU=OFF -DINSTALL_DEVKIT=ON
 %cmake_build
 
 
@@ -120,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Sun Mar 15 2026 Thomas Moschny <thomas.moschny@gmx.de> - 2.2.2-2
+- Refine BRs, ensure we build against SDL2.
+
 * Sat Mar 14 2026 Thomas Moschny <thomas.moschny@gmx.de> - 2.2.2-1
 - Update to 2.2.2.
 - guvcview uses cmake now.

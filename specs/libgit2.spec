@@ -9,8 +9,22 @@ Name:           libgit2
 Version:        1.9.2
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
-# Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv2-with-exceptions
+# The main code is GPL-2.0-only WITH GCC-exception-2.0
+# The bundled PCRE implementation is BSD-3-Clause - but not used
+# The bundled winhttp definition is LGPL-2.1-or-later - but not used
+# The bundled ntlmclient is MIT - but not used
+# Zlib is Zlib - but not used
+# The bundled SHA1 collision detection and
+#    the bundled llhttp dependency (which is not used) and
+#    portions of this software derived from Team Explorer Everywhere are MIT
+# The bundled wildmatch code and xoroshiro256 are LicenseRef-Fedora-Public-Domain
+# OpenSSL headers are Apache-2.0
+# built-in SHA256 support is SSLeay-standalone
+# The built-in git_fs_path_basename_r() is BSD-2-Clause
+# Portions of this software derived from the LLVM Compiler Infrastructure is NCSA
+# Portions of this software derived from sheredom/utf8.h is Unlicense
+# The Clar framework is ISC - but used only in tests
+License:        GPL-2.0-only WITH GCC-exception-2.0 AND MIT AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND SSLeay-standalone AND BSD-2-Clause AND NCSA AND Unlicense
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version_no_tilde}.tar.gz#/libgit2-%{version_no_tilde}.tar.gz
 

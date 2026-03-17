@@ -3,7 +3,7 @@
 
 # https://github.com/jandedobbeleer/oh-my-posh
 %global goipath         github.com/jandedobbeleer/oh-my-posh
-Version:                29.8.0
+Version:                29.9.0
 
 %gometa -L -f
 

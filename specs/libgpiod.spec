@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.2.3
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -156,6 +156,8 @@ find %{buildroot} -name '*.la' -delete
 %{_sysconfdir}/dbus-1/system.d/io.gpiod1.conf
 %{_datadir}/dbus-1/interfaces/io.gpiod1.xml
 %{_unitdir}/gpio-manager.service
+%{_mandir}/man1/gpio-manager*
+%{_mandir}/man1/gpiocli*
 
 %files utils
 %{_bindir}/gpiodetect
@@ -164,7 +166,12 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/gpiomon
 %{_bindir}/gpionotify
 %{_bindir}/gpioset
-%{_mandir}/man*/gpio*
+%{_mandir}/man1/gpiodetect*
+%{_mandir}/man1/gpioget*
+%{_mandir}/man1/gpioinfo*
+%{_mandir}/man1/gpiomon*
+%{_mandir}/man1/gpionotify*
+%{_mandir}/man1/gpioset*
 
 %files c++
 %{_libdir}/libgpiodcxx.so.2*
@@ -191,6 +198,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sun Mar 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.3-2
+- Move gpio-manager/gpiocli man pages to correct package (rhbz#2447706)
+
 * Mon Feb 23 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.3-1
 - Update to 2.2.3
 

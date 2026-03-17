@@ -1,6 +1,6 @@
 Name:           perl-App-Cmd
 Summary:        Write command line apps with less suffering
-Version:        0.339
+Version:        0.340
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -25,7 +25,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Load) >= 0.06
 BuildRequires:  perl(Data::OptList)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(Getopt::Long::Descriptive) >= 0.116
+BuildRequires:  perl(Getopt::Long::Descriptive) >= 0.117
 BuildRequires:  perl(IO::TieCombine)
 BuildRequires:  perl(Module::Pluggable::Object)
 BuildRequires:  perl(String::RewritePrefix)
@@ -40,7 +40,7 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Pod)
 
-Requires:       perl(Getopt::Long::Descriptive) >= 0.116
+Requires:       perl(Getopt::Long::Descriptive) >= 0.117
 Requires:       perl(IO::TieCombine)
 Requires:       perl(Sub::Exporter)
 
@@ -76,6 +76,9 @@ For information on how to start using App::Cmd, see App::Cmd::Tutorial.
 %{_mandir}/man3/App*.3*
 
 %changelog
+* Sun Mar 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.340-1
+- Update to 0.340
+
 * Sun Feb 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.339-1
 - Update to 0.339
 

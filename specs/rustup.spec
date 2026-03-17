@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           rustup
-Version:        1.28.2
+Version:        1.29.0
 Release:        %autorelease
 Summary:        Manage multiple rust installations with ease
 
@@ -14,7 +14,6 @@ SourceLicense:  MIT OR Apache-2.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -44,9 +43,12 @@ Patch:          0003-Remove-unused-tracing-support.patch
 Patch:          0004-Remove-unused-git-based-versioning.patch
 # * Revert back to rustls/ring instead of aws_lc_rs
 Patch:          0005-Revert-back-to-rustls-ring-instead-of-aws_lc_rs.patch
-# * Serialize all tests with proxy-sensitive URLs
-#   https://github.com/rust-lang/rustup/pull/4372
-Patch:          0001-Serialize-all-tests-with-proxy-sensitive-URLs.patch
+# * Disable tests/suite/static_roots to avoid a few dev-deps
+Patch:          0006-Disable-tests-suite-static_roots.patch
+# * Unpin tracing-subscriber
+#   https://github.com/rust-lang/rustup/pull/4745
+#   https://github.com/tokio-rs/tracing/issues/3369
+Patch:          0001-Unpin-tracing-subcriber.patch
 
 ExcludeArch:    %{ix86}
 

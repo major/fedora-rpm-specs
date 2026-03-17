@@ -118,12 +118,19 @@
 %global build_gold OFF
 %endif
 
+%bcond_with libcxx
+%if %{with libcxx}
+%global build_libcxx ON
+%else
+%global build_libcxx OFF
+%endif
+
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        0.rocm%{rocm_version}%{?dist}
 %else
-Release:        4.rocm%{rocm_version}%{?dist}
+Release:        5.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -223,8 +230,10 @@ Provides:       rocm-comgr%{pkg_suffix} = %{comgr_full_api_ver}-%{release}
 The AMD Code Object Manager (Comgr) is a shared library which provides
 operations for creating and inspecting code objects.
 
+%if 0%{?suse_version}
 %post -n %{comgr_name}  -p /sbin/ldconfig
 %postun -n %{comgr_name} -p /sbin/ldconfig
+%endif
 
 %package -n %{comgr_name}-devel
 Summary:        AMD ROCm LLVM Code Object Manager
@@ -257,6 +266,7 @@ must ensure the compiler options are appropriate for the target compiler.
 # ROCM LLVM
 %package -n %{rocm_llvm_name}-filesystem
 Summary: Filesystem package that owns the rocm llvm directory
+Requires: rocm-filesystem%{pkg_suffix}
 
 %description -n %{rocm_llvm_name}-filesystem
 This package owns the rocm llvm directory : %{bundle_prefix}
@@ -264,7 +274,9 @@ This package owns the rocm llvm directory : %{bundle_prefix}
 %package -n %{rocm_llvm_name}-libs
 Summary: The ROCm LLVM lib
 Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+%if %{with libcxx}
 Requires:      %{rocm_libcxx_name}%{?_isa} = %{version}-%{release}
+%endif
 
 %description -n %{rocm_llvm_name}-libs
 %{summary}
@@ -288,12 +300,15 @@ Requires:      zlib-devel
 %description -n %{rocm_llvm_name}-devel
 %{summary}
 
+%if 0%{?suse_version}
 %post -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
 %postun -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
+%endif
 
 %package -n %{rocm_llvm_name}-static
 Summary:       Static libraries for ROCm LLVM
 Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
+Provides:      %{rocm_llvm_name}-static(major) = %{llvm_maj_ver}
 
 %description -n %{rocm_llvm_name}-static
 %{summary}
@@ -306,8 +321,10 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 %description -n %{rocm_clang_name}-libs
 %{summary}
 
+%if 0%{?suse_version}
 %post -n %{rocm_clang_name}-libs -p /sbin/ldconfig
 %postun -n %{rocm_clang_name}-libs -p /sbin/ldconfig
+%endif
 
 %package -n %{rocm_clang_name}-runtime-devel
 Summary:       The ROCm compiler runtime
@@ -321,7 +338,9 @@ Requires:      git
 Requires:      python3
 Requires:      %{rocm_clang_name}-libs%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_clang_name}-runtime-devel%{?_isa} = %{version}-%{release}
+%if %{with libcxx}
 Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
+%endif
 
 %description -n %{rocm_clang_name}
 %{summary}
@@ -356,6 +375,7 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 %description -n %{rocm_lld_name}
 %{summary}
 
+%if %{with libcxx}
 # ROCM LIBC++
 %package -n %{rocm_libcxx_name}
 Summary:       The ROCm libc++
@@ -377,6 +397,7 @@ Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 
 %description -n %{rocm_libcxx_name}-static
 %{summary}
+%endif
 
 %if %{with sa}
 %package -n %{rocm_clang_analyzer_name}
@@ -456,8 +477,11 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
 fi
 
 %global llvm_projects "clang;clang-tools-extra;lld"
+%if %{with libcxx}
 %global llvm_runtimes "compiler-rt;libcxx;libcxxabi"
-%global build_libcxx ON
+%else
+%global llvm_runtimes "compiler-rt"
+%endif
 
 p=$PWD
 
@@ -882,8 +906,10 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
+%if 0%{?suse_version}
 %post -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
 %postun -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
+%endif
 
 %files -n %{rocm_llvm_name}
 %license llvm/LICENSE.TXT
@@ -971,14 +997,17 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/bin/amdlld
 
 # ROCM LIBC++
+%if %{with libcxx}
 %files -n %{rocm_libcxx_name}
 %license libcxx/LICENSE.TXT
 %{bundle_prefix}/lib/libc++.so.*
 %{bundle_prefix}/lib/libc++abi.so.*
 %{bundle_prefix}/lib/libc++.modules.json
 
+%if 0%{?suse_version}
 %post -n %{rocm_libcxx_name} -p /sbin/ldconfig
 %postun -n %{rocm_libcxx_name} -p /sbin/ldconfig
+%endif
 
 %files -n %{rocm_libcxx_name}-devel
 %dir %{bundle_prefix}/share/libc++
@@ -991,6 +1020,7 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/lib/libc++.a
 %{bundle_prefix}/lib/libc++abi.a
 %{bundle_prefix}/lib/libc++experimental.a
+%endif
 
 %if %{with sa}
 %files -n %{rocm_clang_analyzer_name}
@@ -1012,6 +1042,12 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %endif
 
 %changelog
+* Sat Mar 14 2026 Tom Rix <Tom.Rix@amd.com> 22-5.rocm7.2.0
+- Move building libc++ to --with libcxx option
+- llvm filesystem requires rocm filesystem
+- suse use ldconfig
+- add static provides
+
 * Wed Mar 4 2026 Tom Rix <Tom.Rix@amd.com> 22-4.rocm7.2.0
 - Change --with gitcommit to --with preview
 

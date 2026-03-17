@@ -1,7 +1,7 @@
 %global pypi_name Pallets-Sphinx-Themes
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Sphinx themes for Pallets and related projects
 
@@ -39,7 +39,7 @@ Pallets Sphinx Themes Themes for the Pallets projects.
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
-%doc README.md CHANGES.rst
+%doc README.md CHANGES.md
 
 %changelog
 %autochangelog

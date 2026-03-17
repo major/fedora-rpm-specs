@@ -1,30 +1,41 @@
 Summary:        FrameBuffer Imageviewer
 Name:           fbida
-Version:        2.14
-Release:        23%{?dist}
+Version:        2.15
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.kraxel.org/blog/linux/fbida/
-Source:         https://www.kraxel.org/releases/fbida/fbida-%{version}.tar.gz
-BuildRequires:  libexif-devel fontconfig-devel libjpeg-devel
-BuildRequires:  libpng-devel libtiff-devel pkgconfig
-BuildRequires:  giflib-devel curl-devel
-BuildRequires:  libXpm-devel
-BuildRequires:  mesa-libgbm-devel
-BuildRequires:  mesa-libEGL-devel
-BuildRequires:  motif-devel
-BuildRequires:  poppler-glib-devel
-BuildRequires:  libepoxy-devel
-BuildRequires:  pixman-devel
-BuildRequires:  freetype-devel
-BuildRequires:  libdrm-devel
-BuildRequires:  lirc-devel
-BuildRequires:  libwebp-devel
-BuildRequires:  perl-generators
+
+%global git_tag %{name}-%{version}-1
+Source:         https://gitlab.com/kraxel/%{name}/-/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
+
 BuildRequires:  gcc
-BuildRequires: make
-Requires:       ImageMagick dejavu-sans-mono-fonts
-Patch0:         fbida.gcc10.patch
+BuildRequires:  giflib-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXpm-devel
+BuildRequires:  libXt-devel
+BuildRequires:  meson
+BuildRequires:  motif-devel
+BuildRequires:  perl-generators
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libexif)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libsystemd) >= 237
+BuildRequires:  pkgconfig(libtiff-4)
+BuildRequires:  pkgconfig(libtsm)
+BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(pixman-1)
+BuildRequires:  pkgconfig(poppler-glib)
+BuildRequires:  pkgconfig(xkbcommon)
+
+Requires:       ImageMagick
 
 %description
 fbi displays the specified file(s) on the linux console using the
@@ -32,9 +43,16 @@ framebuffer device. PhotoCD, jpeg, ppm, gif, tiff, xwd, bmp and png
 are supported directly. For other formats fbi tries to use
 ImageMagick's convert.
 
+%package fbcon
+Summary: Framebuffer-backed terminal emulator
+
+%description fbcon
+This is an X11 application providing a simple terminal emulator.
+
 %package fbgs
 Summary: Framebuffer Postscript Viewer
-Requires: ghostscript fbida
+Requires: fbida%{?_isa} = %{version}-%{release}
+Requires: ghostscript
 
 %description fbgs
 A wrapper script for viewing ps/pdf files on the framebuffer console using fbi
@@ -53,28 +71,29 @@ This is a X11 application (Motif based) for viewing images. Some basic
 editing functions are available too.
 
 %prep
-%setup -q
-%patch -P0 -p1
+%autosetup -p1 -n %{name}-%{git_tag}
 
 %build
-LIB=%{_lib} prefix=%{_prefix} CFLAGS=$RPM_OPT_FLAGS %{__make} %{?_smp_mflags} all verbose=1
+%meson
+%meson_build
 
 %install
-cd man
-for man in fbi exiftran fbgs ida; do
-    iconv -t UTF-8 -f ISO-8859-1 $man.1 > $man.new
-    %{__mv} $man.new fbi.1
-done
-cd ..
-lib=%{_lib} prefix=%{_prefix} %{__make} DESTDIR=%{buildroot} STRIP= install
+%meson_install
+# Installing via meson misses the fbgs man page
+install -m 644 -p man/fbgs.1 %{buildroot}%{_mandir}/man1/
 
 %files
 %license COPYING
-%doc Changes COPYING README TODO
+%doc Changes README.md TODO
 %doc %{_mandir}/man1/fbi*
 %doc %{_mandir}/man1/exiftran*
 %{_bindir}/fbi
 %{_bindir}/exiftran
+
+%files fbcon
+%license COPYING
+%{_bindir}/fbcon
+%{_datadir}/wayland-sessions/fbcon.desktop
 
 %files fbgs
 %license COPYING
@@ -92,6 +111,9 @@ lib=%{_lib} prefix=%{_prefix} %{__make} DESTDIR=%{buildroot} STRIP= install
 %{_datadir}/X11/app-defaults/Ida
 
 %changelog
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.15-1
+- Update to v2.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

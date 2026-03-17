@@ -32,7 +32,6 @@ BuildOption(install):   -L cascadio
 ExcludeArch:    %{ix86} s390x
 
 BuildRequires:  gcc-c++
-BuildRequires:  ninja-build
 
 BuildRequires:  cmake(OpenCASCADE)
 # RapidJSON headers are included indirectly via

@@ -1,6 +1,5 @@
 %global realname getopt
 
-
 Name:		erlang-%{realname}
 Version:	1.0.3
 Release:	%autorelease
@@ -10,35 +9,18 @@ License:	BSD-3-Clause
 URL:		https://github.com/jcomellas/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
-BuildRequires:	erlang-rebar3
-
+BuildSystem:	rebar3
 
 %description
-Command-line parsing module that uses a syntax similar to that of GNU getopt.
+%{summary}.
 
-
-%prep
-%autosetup -p 1 -n %{realname}-%{version}
+%prep -a
 chmod 0644 examples/*.escript
-
-
-%build
-%{erlang3_compile}
-
-
-%install
-%{erlang3_install}
-
-
-%check
-%{erlang3_test}
-
 
 %files
 %license LICENSE.txt
 %doc README.md examples/
 %{erlang_appdir}/
-
 
 %changelog
 %autochangelog

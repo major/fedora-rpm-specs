@@ -38,9 +38,9 @@ Requires:       par2cmdline
 %description
 DAR is a command line tool to backup a directory tree and files. DAR is
 able to make differential backups, split them over a set of disks or files
-of a given size, use compression, filter files or subtrees to be saved or
+of a given size, use compression, filter files or sub-trees to be saved or
 not saved, directly access and restore given files. DAR is also able
-to handle extented attributes, and can make remote backups through an
+to handle extended attributes, and can make remote backups through an
 ssh session for example. Finally, DAR handles save and restore of hard
 and symbolic links.
 
@@ -48,7 +48,8 @@ and symbolic links.
 Summary:    Library providing support for the DAR API
 
 %description -n libdar
-Common library code for DAR.
+This package contains the common library code for DAR, which provides the
+core functionality for creating and restoring backups.
 
 %package -n libdar-devel
 Summary:    Development files for libdar
@@ -81,24 +82,22 @@ disks for easier file retrieval.
 %autosetup -n %{name}-%{version}
 
 %build
-# Options
-%if %{with_static}
-    STATIC=""
-%else
-    STATIC="--disable-dar-static --disable-static"
+%configure \
+    --disable-build-html \
+    --enable-mode=64 \
+%if !%{with_static}
+    --disable-dar-static \
+    --disable-static
 %endif
-
-%configure --disable-build-html $STATIC --enable-mode=64
 
 # Remove Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
-mkdir -p %{buildroot}%{_libdir}/pkgconfig/
+%make_install
 %find_lang %{name}
 
 # Remove the libtool archive files
@@ -120,11 +119,12 @@ chmod 0644 html/samples/*
 # Install the fedora readme
 cp -a %{SOURCE1} .
 
-%ldconfig_scriptlets   -n libdar
-
+%check
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/dar --version
 
 %files -f %{name}.lang
-%doc html/ AUTHORS ChangeLog COPYING NEWS README THANKS TODO README.Fedora
+%license COPYING
+%doc html/ AUTHORS ChangeLog NEWS README THANKS TODO README.Fedora
 
 %{_bindir}/dar
 %{_bindir}/dar_cp

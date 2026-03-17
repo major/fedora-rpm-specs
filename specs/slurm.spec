@@ -14,8 +14,15 @@
 %bcond_with ucx
 %endif
 
+# follow arch-inclusions for oneapi-level-zero
+%ifarch x86_64
+%bcond_without oneapi
+%else
+%bcond_with oneapi
+%endif
+
 Name:           slurm
-Version:        24.05.2
+Version:        25.11.4
 Release:        %autorelease
 Summary:        Simple Linux Utility for Resource Management
 # ./src/common/log.c: BSD 2-Clause License
@@ -56,11 +63,13 @@ BuildRequires:  pkgconfig(lua)
 BuildRequires:  python3
 BuildRequires:  systemd
 
+BuildRequires:  bash-completion-devel
 BuildRequires:  freeipmi-devel
 BuildRequires:  gtk2-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  hwloc-devel
 BuildRequires:  libcurl-devel
+BuildRequires:  librdkafka-devel
 BuildRequires:  libssh2-devel
 BuildRequires:  lz4-devel
 BuildRequires:  mariadb-connector-c-devel
@@ -70,10 +79,14 @@ BuildRequires:  munge-devel
 %if (0%{?rhel} != 9) || ("%{_arch}" != "s390x")
 BuildRequires:  numactl-devel
 %endif
+%if 0%{?fedora} && %{with oneapi}
+BuildRequires:  oneapi-level-zero-devel
+%endif
 BuildRequires:  pam-devel
 BuildRequires:  pmix-devel
 BuildRequires:  rdma-core-devel
 BuildRequires:  readline-devel
+BuildRequires:  rocm-smi-devel
 BuildRequires:  zlib-devel
 
 %if 0%{?fedora} && %{with ucx}
@@ -89,6 +102,9 @@ BuildRequires:  libyaml-devel
 ExcludeArch:    armv7hl
 ExcludeArch:    i686
 
+# Technically, slurm does not need bash-completion, but
+# it makes life better if you have it.
+Recommends:     bash-completion
 Requires:       /bin/mailx
 Requires:       munge
 Requires:       pmix
@@ -251,9 +267,16 @@ export LDFLAGS="%{build_ldflags} -Wl,-z,lazy"
   --disable-debug \
   --disable-salloc-background \
   --disable-partial_attach \
+%if 0%{?fedora} && %{with oneapi}
+  --with-oneapi=yes \
+%else
   --with-oneapi=no \
+%endif
   --with-pmix=%{_prefix} \
   --with-shared-libslurm \
+%if 0%{?fedora} && %{with ucx}
+  --with-ucx=yes \
+%endif
   --without-rpath
 # patch libtool to remove rpaths
 sed -i 's|^hardcode_into_libs=.*|hardcode_into_libs=no|g' libtool
@@ -381,6 +404,14 @@ rm -f %{buildroot}%{perl_archlib}/perllocal.pod
 # remove other example stuff
 rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 
+# Fix the bash-completion symlinks
+pushd %{buildroot}%{_datadir}/bash-completion/completions
+for i in sacct sacctmgr salloc sattach sbatch sbcast scancel scontrol scrontab sdiag sinfo slurmrestd sprio squeue sreport srun sshare sstat strigger; do
+  rm -f $i
+  ln -vsf slurm_completion.sh $i
+done
+popd
+
 %ldconfig_scriptlets devel
 %ldconfig_scriptlets libs
 
@@ -396,7 +427,7 @@ rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 # -----
 
 %files
-%doc CONTRIBUTING.md DISCLAIMER META NEWS README.rst RELEASE_NOTES
+%doc CONTRIBUTING.md DISCLAIMER META README.md RELEASE_NOTES.md
 %license COPYING LICENSE.OpenSSL
 %dir %{_libdir}/%{name}
 %dir %{_rundir}/%{name}
@@ -429,12 +460,15 @@ rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 %{_bindir}/sstat
 %{_bindir}/strigger
 %{_bindir}/%{name}-setuser
+%{_datadir}/bash-completion/completions/*
 %{_libdir}/%{name}/accounting_storage_*.so
 %{_libdir}/%{name}/acct_gather_*.so
 %{_libdir}/%{name}/auth_jwt.so
 %{_libdir}/%{name}/auth_munge.so
 %{_libdir}/%{name}/auth_slurm.so
 %{_libdir}/%{name}/burst_buffer_lua.so
+%{_libdir}/%{name}/certgen_script.so
+%{_libdir}/%{name}/certmgr_script.so
 %{_libdir}/%{name}/cgroup_v1.so
 %{_libdir}/%{name}/cgroup_v2.so
 %{_libdir}/%{name}/cli_filter_*.so
@@ -443,12 +477,15 @@ rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 %{_libdir}/%{name}/gpu_*.so
 %{_libdir}/%{name}/gres_*.so
 %{_libdir}/%{name}/hash_*.so
-%{_libdir}/%{name}/job_container_*.so
+%{_libdir}/%{name}/http_parser_libhttp_parser.so
+# %%{_libdir}/%%{name}/job_container_*.so
 %{_libdir}/%{name}/job_submit_*.so
 %{_libdir}/%{name}/jobacct_gather_*.so
 %{_libdir}/%{name}/jobcomp_*.so
 %{_libdir}/%{name}/mcs_*.so
+%{_libdir}/%{name}/metrics_openmetrics.so
 %{_libdir}/%{name}/mpi_*.so
+%{_libdir}/%{name}/namespace_*.so
 %{_libdir}/%{name}/node_features_*.so
 %{_libdir}/%{name}/preempt_*.so
 %{_libdir}/%{name}/prep_script.so
@@ -488,11 +525,14 @@ rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 %{_mandir}/man5/gres.conf.5*
 %{_mandir}/man5/helpers.conf.5*
 %{_mandir}/man5/job_container.conf.5*
-%{_mandir}/man5/knl.conf.5*
+# %%{_mandir}/man5/knl.conf.5*
 %{_mandir}/man5/mpi.conf.5*
+%{_mandir}/man5/namespace.yaml.5*
 %{_mandir}/man5/oci.conf.5*
+%{_mandir}/man5/resources.yaml.5*
 %{_mandir}/man5/slurm.conf.5*
 %{_mandir}/man5/topology.conf.5*
+%{_mandir}/man5/topology.yaml.5*
 %{_mandir}/man8/slurmrestd.8*
 %{_mandir}/man8/spank.8*
 %{_sysconfdir}/%{name}/cgroup*.conf.example
@@ -529,9 +569,8 @@ rm -f %{buildroot}%{_libdir}/%{name}/site_factor_example.so
 %exclude %{_docdir}/%{name}/CONTRIBUTING.md
 %exclude %{_docdir}/%{name}/DISCLAIMER
 %exclude %{_docdir}/%{name}/META
-%exclude %{_docdir}/%{name}/NEWS
-%exclude %{_docdir}/%{name}/README.rst
-%exclude %{_docdir}/%{name}/RELEASE_NOTES
+%exclude %{_docdir}/%{name}/README.md
+%exclude %{_docdir}/%{name}/RELEASE_NOTES.md
 
 # ---------
 # Slurm-gui

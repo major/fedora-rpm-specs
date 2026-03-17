@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.5.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -12,6 +12,11 @@ URL:            https://github.com/fdo-rs/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 Patch1:         0001-use-released-aws-nitro-enclaves-cose-version.patch
+
+# Patches >=1000 are only applied when using system Rust dependencies:
+# - Update nix dependency from 0.26 to 0.31
+#   https://github.com/fdo-rs/fido-device-onboard-rs/pull/803
+Patch1000:      fido-device-onboard-fix-metadata.diff
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -37,7 +42,8 @@ BuildRequires:  libpq-devel
 %prep
 
 %if 0%{?rhel}
-%autosetup -p1 -a1 -n %{name}-rs-%{version}
+%autosetup -a1 -n %{name}-rs-%{version} -N
+%autopatch -p1 -M999
 rm -f Cargo.lock
 %if 0%{?rhel} >= 10
 %cargo_prep -v vendor
@@ -312,6 +318,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Sun Mar 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.5-7
+- In Fedora, update nix dependency from 0.26 to 0.31
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.5.5-6
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

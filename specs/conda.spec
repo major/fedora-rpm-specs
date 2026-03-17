@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond bootstrap 0
 
 Name:           conda
 Version:        26.1.1
@@ -65,7 +65,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python-unversioned-command
 BuildRequires:  python%{python3_pkgversion}-boltons
 BuildRequires:  python%{python3_pkgversion}-boto3
+%if !%{with bootstrap}
 BuildRequires:  python%{python3_pkgversion}-conda-libmamba-solver
+%endif
 BuildRequires:  python%{python3_pkgversion}-flask
 BuildRequires:  python%{python3_pkgversion}-jsonpatch
 BuildRequires:  python%{python3_pkgversion}-libmambapy
@@ -85,8 +87,10 @@ Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
 %prep
 %autosetup -p1
 
-# Re-enable dep on conda-libmamba-solver
+# Re-enable dep on conda-libmamba-solver when not bootstrapping
+%if !%{with bootstrap}
 sed -i -e '/"conda-libmamba-solver/s/# *//' pyproject.toml
+%endif
 
 # Do not restrict upper bound of ruamel-yaml
 sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
@@ -110,17 +114,16 @@ sed -i -e s/linux-64/%{python3_platform}/ tests/data/conda_format_repo/%{python3
 sed -i -e '/"--cov/d' pyproject.toml
 
 %generate_buildrequires
-# When not testing, we don't need runtime dependencies.
+# When bootstraping, we don't need runtime dependencies.
 # Normally, we would still BuildRequire them to not accidentally build an uninstallable package,
 # but there is a runtime dependency loop with python3-conda-libmamba-solver.
-%pyproject_buildrequires %{!?with_tests:-R}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-#py3_shebang_fix %{buildroot}%{python3_sitelib}/conda/shell/bin/conda
 %pyproject_save_files conda*
 
 mkdir -p %{buildroot}%{_sysconfdir}/conda/condarc.d
@@ -138,7 +141,6 @@ cp -rp tests/data %{buildroot}%{_datadir}/conda/tests/
 
 mkdir -p %{buildroot}%{_localstatedir}/cache/conda/pkgs/cache
 
-# install does not create the directory on EL7
 install -m 0644 -Dt %{buildroot}/etc/profile.d/ conda/shell/etc/profile.d/conda.{sh,csh}
 sed -r -i -e '1i [ -z "$CONDA_EXE" ] && CONDA_EXE=%{_bindir}/conda' \
           -e '/PATH=.*condabin/s|PATH=|[ -d $(dirname "$CONDA_EXE")/condabin ] \&\& PATH=|' %{buildroot}/etc/profile.d/conda.sh
@@ -153,7 +155,6 @@ install -m 0644 -Dt %{buildroot}%{bash_completionsdir}/ %SOURCE1
 
 
 %check
-%if %{with tests}
 export PATH=%{buildroot}%{_bindir}:$PATH
 PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 
@@ -266,7 +267,16 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/testing/test_fixtures.py::test_env - requires network tests to succeed
 # tests/testing/test_fixtures.py::test_tmp_channel - requires network access
 # tests/trust/test_signature_verification.py requires conda_content_trust - not yet packaged
-py.test-%{python3_version} -vv -rfs  -W ignore::PendingDeprecationWarning -m "not integration" \
+%{?with_bootstrap:CONDA_SOLVER=classic CONDA_TEST_SOLVERS=classic} py.test-%{python3_version} -vv -rfs -W ignore::PendingDeprecationWarning -m "not integration" %{?with_bootstrap:-k "not libmamba"} \
+%if %{with bootstrap}
+    --deselect=tests/test_exceptions.py::test_print_unexpected_error_message_upload_2 \
+    --deselect=tests/cli/test_main_export.py::test_export_ignore_channels_flag[True] \
+    --deselect=tests/cli/test_main_export.py::test_export_ignore_channels_flag[False] \
+    --deselect=tests/cli/test_main_export.py::test_export_override_channels_and_ignore_channels_independence \
+    --deselect=tests/cli/test_main_info.py::test_info_license \
+    --deselect=tests/cli/test_main_info.py::test_info_root \
+    --deselect=tests/plugins/test_pre_solves.py::test_pre_solve_action_raises_exception \
+%endif
     --deselect=tests/test_activate.py::test_activate_same_environment \
     --deselect=tests/test_activate.py::test_build_activate_dont_activate_unset_var \
     --deselect=tests/test_activate.py::test_build_activate_dont_use_PATH \
@@ -436,7 +446,6 @@ py.test-%{python3_version} -vv -rfs  -W ignore::PendingDeprecationWarning -m "no
     --deselect=tests/testing/test_fixtures.py::test_tmp_channel \
     --ignore=tests/trust \
     conda tests
-%endif
 
 %files
 %{_sysconfdir}/conda/

@@ -1,3 +1,14 @@
+# So, there's newer versions of sile (0.15), but they are now a mix of
+# rust and lua.
+# And maybe the lua is going away at some point? Not entirely clear.
+# Anyway, the rust code needs a tree of new rust dependencies (not in Fedora)
+# I think it's doable, but it will require adding several new rust packages
+# to Fedora. rust2rpm will make the specs for you.
+# As a drive-by provenpackager, I had no desire to maintain new rust...
+# So, I patched lua 5.5 support in this version and ran away.
+# Maintainer, I wish you luck.
+# 2026-03-15 - Tom Callaway <spot@fedoraproject.org>
+
 Name:      sile
 Version:   0.14.17
 Release:   %autorelease
@@ -9,6 +20,8 @@ Source:    https://github.com/sile-typesetter/sile/releases/download/v%{version}
 # Missing in the source tarball
 # https://github.com/sile-typesetter/sile/issues/2100
 Source1:   https://raw.githubusercontent.com/sile-typesetter/libtexpdf/736a5e7530c13582ea704a061a358d0caa774916/LICENSE#/LICENSE-libtexpdf
+
+Patch0:    sile-0.14.17-lua-5.5.patch
 
 BuildRequires: lua
 BuildRequires: lua-devel
@@ -24,6 +37,7 @@ BuildRequires: fontconfig-devel
 BuildRequires: freetype-devel
 BuildRequires: lua-rpm-macros lua-srpm-macros
 
+BuildRequires: lua-bit32
 BuildRequires: lua-cassowary
 BuildRequires: lua-cldr
 BuildRequires: lua-cliargs
@@ -44,6 +58,7 @@ BuildRequires: lua-zlib
 
 BuildRequires: font(gentiumplus)
 
+Requires: lua-bit32
 Requires: lua-cassowary
 Requires: lua-cldr
 Requires: lua-cliargs
@@ -96,7 +111,7 @@ Requires: libtexpdf%{?_isa} = %{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 cp %{SOURCE1} LICENSE-libtexpdf
 
 %build

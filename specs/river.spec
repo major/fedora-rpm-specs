@@ -5,7 +5,7 @@
 
 Name:           river
 Version:        0.3.14
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor
 
 # river: GPL-3.0-only
@@ -131,78 +131,4 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
-* Mon Feb 16 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.14-1
-- Update to 0.3.14
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Oct 17 2025 Jan200101 <sentrycraft123@gmail.com> - 0.3.13-1
-- Update to 0.3.13
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jul 05 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.11-1
-- Update to 0.3.11
-
-* Sun Jun 22 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.10-1
-- Update to 0.3.10
-
-* Tue Apr 22 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.9-1
-- Update to 0.3.9 (#2351096)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jan 04 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.7-1
-- Update to 0.3.7 (#2335592)
-
-* Mon Dec 09 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.6-1
-- Update to 0.3.6 (#2331169)
-
-* Thu Aug 08 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.5-1
-- Update to 0.3.5 (#2299425)
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jul 10 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.4-1
-- Update to 0.3.4
-
-* Tue Jun 11 2024 Jan200101 <sentrycraft123@gmail.com> - 0.3.3-1
-- Update to 0.3.3
-
-* Fri Jun 07 2024 Jan200101 <sentrycraft123@gmail.com> - 0.3.2-1
-- Update to 0.3.2
-
-* Sat May 18 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.1-1
-- Update to 0.3.1 (#2281411)
-
-* Tue Apr 16 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.0-1
-- Update to 0.3.0
-
-* Mon Feb 12 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.6-1
-- Update to 0.2.6 (rhbz#2159117)
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Jan 08 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.1-1
-- Update to 0.2.1
-- Drop ownership of shell completion dirs. filesystem >= 3.18 provides these.
-
-* Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
-- Update to 0.2.0
-
-* Sun Sep 25 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.3-1
-- Initial import (#2051062)
+%autochangelog

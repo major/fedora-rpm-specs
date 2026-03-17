@@ -5,7 +5,7 @@
 %global crate roff
 
 Name:           rust-roff
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        ROFF (man page format) generation library
 
@@ -13,6 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/roff
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * drop unused dev-dependencies (tests are not included in published crates)
 Patch:          roff-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

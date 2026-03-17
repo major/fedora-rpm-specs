@@ -24,10 +24,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-# Our choice vs. makefiles; faster, with no disadvantages
-BuildRequires:  ninja-build
 
-# Architectures with libquadmath from gcc.spec, line 69:
+# Architectures with libquadmath from gcc.spec, line 78 (as of 16.0.1):
 # %%{ix86} x86_64 ia64 ppc64le
 #
 # - We choose not to support ix86
@@ -69,7 +67,6 @@ developing applications that use TLFloat.
 # BUILD_UTILS: These utilities (genmathcoef,  mkrpitab) are intended for
 #   library maintainers, and are not installed, so we do not build them.
 %cmake \
-    -GNinja \
 %if %{with exhaustive}
     -DBUILD_EXHAUSTIVE_TESTING:BOOL=TRUE \
     -DENABLE_EXHAUSTIVE_TESTING:BOOL=TRUE \

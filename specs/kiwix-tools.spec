@@ -1,5 +1,5 @@
 Name: kiwix-tools
-Version: 3.8.1
+Version: 3.8.2
 Release: %autorelease
 
 License: GPL-3.0-or-later

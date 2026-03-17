@@ -1,18 +1,30 @@
 Name:           n2n
-Version:        2.1.0
-Release:        32%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        A layer-two peer-to-peer virtual private network
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:        GPL-3.0-or-later
-URL:            http://www.ntop.org/n2n
-# The source for this package was pulled from upstream's svn repository.
-# git svn clone --no-minimize-url https://svn.ntop.org/svn/ntop/tags/n2n-2.1.0
-# (cd n2n-2.1.0 && git archive HEAD --format=tar --prefix=n2n-2.1.0/) | bzip2 - > n2n-2.1.0.tar.bz2
-Source0:        %{name}-%{version}.tar.bz2
+# Most of the code is GPLv3 or later.
+# BSD-1-Clause: include/uthash.h
+# BSD-3-Clause: src/n2n_port_mapping.c
+# MIT: include/tf.h, src/tf.c
+License:        GPL-3.0-or-later AND BSD-1-Clause AND BSD-3-Clause AND MIT
 
-BuildRequires: make
+URL:            http://www.ntop.org/n2n
+Source0:        https://github.com/ntop/n2n/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Upstream n2n builds against a rather old version of miniupnpc.
+# Newer versions made some breaking changes to the public API.
+Patch0:         0000-upnp-api-change.patch
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  libcap-devel
+BuildRequires:  libnatpmp-devel
+BuildRequires:  libpcap-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  miniupnpc-devel
 BuildRequires:  openssl-devel
 
 %description
@@ -27,23 +39,38 @@ HTTPS protocol) to network protocol, n2n moves P2P from application to
 network level.
 
 %prep
-%setup -q
+%autosetup -p1
+autoreconf -vif
 
 %build
-make CFLAGS="%{optflags}" %{?_smp_mflags}
+%configure \
+	--enable-cap --enable-pcap \
+	--enable-miniupnp --enable-natpmp \
+	--enable-pthread \
+	--with-openssl \
+	--with-zstd
+%make_build SBINDIR="%{_bindir}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make INSTALL="install -p" install DESTDIR=$RPM_BUILD_ROOT
+%make_install SBINDIR="%{buildroot}%{_bindir}"
 
 %files
-%doc COPYING README HACKING
-%{_sbindir}/edge
-%{_sbindir}/supernode
-%{_mandir}/man*/*
+%doc README.md
+%license COPYING
+%{_bindir}/edge
+%{_bindir}/n2n-benchmark
+%{_bindir}/n2n-decode
+%{_bindir}/n2n-keygen
+%{_bindir}/supernode
+%{_mandir}/man1/supernode.1*
+%{_mandir}/man7/n2n.7*
+%{_mandir}/man8/edge.8*
 
 
 %changelog
+* Sun Mar 15 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.1-1
+- Update to v3.1.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

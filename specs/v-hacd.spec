@@ -1,6 +1,6 @@
 # TODO: Can we find a package with a suitable .obj file that we can use to run
 # the tests in EPEL10?
-%bcond tests %{expr:!0%{?el10}}
+%bcond tests %{undefined el10}
 
 Name:           v-hacd
 Version:        4.1.0
@@ -10,7 +10,7 @@ Summary:        Decomposes a 3D surface into a set of “near” convex parts
 # The entire source is BSD-3-Clause, except:
 #   - app/wavefront.{h,cpp} are MIT
 License:        BSD-3-Clause AND MIT
-URL:            https://github.com/kmammou/%{name}
+URL:            https://github.com/kmammou/v-hacd
 # This has the app/meshes/ directory stripped out. The .obj files therein have
 # unclear or unspecified licenses, which makes them unsuitable for Fedora.
 #
@@ -18,7 +18,7 @@ URL:            https://github.com/kmammou/%{name}
 # README.rst as a sanity check.
 #
 # Generated with ./get_source.sh %%{version}
-Source0:        %{name}-%{version}-filtered.tar.zst
+Source0:        v-hacd-%{version}-filtered.tar.zst
 # Script to generate Source0; see comments above.
 Source1:        get_source.sh
 # Man page hand-written for Fedora in groff_man(7) format based on help output
@@ -30,8 +30,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Our choice; the make backend would work just fine.
-BuildRequires:  ninja-build
 
 %if %{with tests}
 BuildRequires:  vtk-data
@@ -75,11 +73,11 @@ License:        BSD-3-Clause
 BuildArch:      noarch
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
-Provides:       %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       v-hacd-static = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    devel %{common_description}
 
-The %{name}-devel package contains the header-only library for developing
+The v-hacd-devel package contains the header-only library for developing
 applications that use V-HACD.
 
 
@@ -95,18 +93,18 @@ License:        BSD-3-Clause AND MIT
 
 %description    tools %{common_description}
 
-The %{name}-tools package contains command-line tools based on the V-HACD
+The v-hacd-tools package contains command-line tools based on the V-HACD
 library. Currently, this means TestVHACD; despite the name, this tool has
 general utility beyond testing.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1
 
 
 %conf
 pushd app >/dev/null
-%cmake -GNinja
+%cmake
 popd >/dev/null
 
 

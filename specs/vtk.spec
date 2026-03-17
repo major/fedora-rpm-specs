@@ -34,6 +34,10 @@
 %bcond_without openmpi
 %endif
 %endif
+
+# Disable until USD imports are clean
+%bcond_with    usd
+
 # s390x on EL8 does not have xorg-x11-drv-dummy
 %if 0%{?rhel}
 %if 0%{?rhel} >= 10
@@ -72,17 +76,15 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.5.2%{?rc:~%{rc}}
+Version: 9.6.0%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
 %global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}
-Source0: https://www.vtk.org/files/release/9.5/VTK-%{srcver}.tar.gz
-Source1: https://www.vtk.org/files/release/9.5/VTKData-%{srcver}.tar.gz
+Source0: https://www.vtk.org/files/release/9.6/VTK-%{srcver}.tar.gz
+Source1: https://www.vtk.org/files/release/9.6/VTKData-%{srcver}.tar.gz
 Source2: xorg.conf
 # Patch required libharu version (Fedora 33+ contains the needed VTK patches)
 Patch: vtk-libharu.patch
-# Tk 9.0 - based on b7c22497712be6751fbefe155533ae34d5e381f5
-Patch: vtk-tk9.patch
 # always_inline fails on ppc64le
 # https://gitlab.kitware.com/vtk/vtk/-/issues/19622
 # https://bugzilla.redhat.com/show_bug.cgi?id=2386242
@@ -111,7 +113,6 @@ BuildRequires:  lapack-devel
 BuildRequires:  boost-devel
 BuildRequires:  cgnslib-devel
 BuildRequires:  cli11-devel
-BuildRequires:  double-conversion-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  expat-devel
 BuildRequires:  fast_float-devel
@@ -161,6 +162,17 @@ BuildRequires:  PEGTL-devel
 BuildRequires:  proj-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  python%{python3_pkgversion}-devel
+%if %{with usd}
+BuildRequires:  cmake(pxr)
+
+# Needed by cmake(pxr)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2441663
+BuildRequires:  materialx-data
+BuildRequires:  python3-materialx
+# https://src.fedoraproject.org/rpms/usd/pull-request/39
+BuildRequires:  cmake(MaterialX)
+BuildRequires:  cmake(OpenSubdiv)
+%endif
 BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  R-devel
@@ -211,7 +223,6 @@ Requires: boost-devel%{?_isa} \
 Requires: cgnslib-devel%{?_isa} \
 # cli11 is noarch and header-only \
 Requires: cli11-static \
-Requires: double-conversion-devel%{?_isa} \
 # eigen3 is noarch and header-only \
 Requires: eigen3-static \
 Requires: expat-devel%{?_isa} \
@@ -266,6 +277,9 @@ Requires: pugixml-devel%{?_isa} \
 # bz #1183210 + #1183530 \
 Requires: python%{python3_pkgversion}-devel \
 Requires: sqlite-devel%{?_isa} \
+%if %{with usd} \
+Requires: cmake(pxr) \
+%endif \
 Requires: cmake(Qt6) \
 Requires: cmake(Qt6Core5Compat) \
 Requires: cmake(Qt6Quick) \
@@ -586,7 +600,7 @@ programming languages.
 # TODO - VPIC - not yet packaged
 # TODO - xdmf2 - not yet packaged
 # TODO - xdmf3 - not yet packaged
-for x in vtk{cgns,cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?with_gl2ps:gl2ps,}hdf5,jpeg,jsoncpp,libharu,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,pugixml,sqlite,theora,tiff,utf8,zlib}
+for x in vtk{cgns,cli11,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?with_gl2ps:gl2ps,}hdf5,jpeg,jsoncpp,libharu,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,pugixml,sqlite,theora,tiff,utf8,zlib}
 do
   rm -r ThirdParty/*/${x}
 done
@@ -646,6 +660,9 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_MODULE_ENABLE_VTK_IOMySQL:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOOMF:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOParallelLSDyna:STRING=YES \\\
+%if %{without usd} \
+ -DVTK_MODULE_ENABLE_VTK_IOUSD:STRING=NO \\\
+%endif \
  -DVTK_MODULE_ENABLE_VTK_IOTRUCHAS:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOVPIC:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOXdmf2:STRING=YES \\\
@@ -677,6 +694,7 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_BUILD_ALL_MODULES=ON \\\
  -DVTK_ENABLE_OSPRAY:BOOL=OFF \\\
  -DVTK_MODULE_ENABLE_VTK_fides:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_FiltersONNX:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_FiltersOpenTURNS:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_IOADIOS2:STRING=NO \\\
  -DVTK_MODULE_ENABLE_VTK_IOOpenVDB:STRING=NO \\\
@@ -692,6 +710,7 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
+ -DViskores_INSTALL_LIB_DIR=%{_lib} \\\
  -DVTK_USE_TK=ON \\\
   %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS}
 
@@ -891,11 +910,13 @@ cat xorg.log
 %{_bindir}/vtkProbeOpenGLVersion
 %{_bindir}/vtkWrapHierarchy
 %{_bindir}/vtkWrapJava
+%{_bindir}/vtkWrapJavaScript
 %{_bindir}/vtkWrapSerDes
 
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/cmake/%{name}/
+%{_libdir}/pkgconfig/viskores.pc
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/hierarchy/
 
@@ -930,10 +951,12 @@ cat xorg.log
 %{_libdir}/mpich/bin/vtkProbeOpenGLVersion
 %{_libdir}/mpich/bin/vtkWrapHierarchy
 %{_libdir}/mpich/bin/vtkWrapJava
+%{_libdir}/mpich/bin/vtkWrapJavaScript
 %{_libdir}/mpich/bin/vtkWrapSerDes
 %{_libdir}/mpich/include/
 %{_libdir}/mpich/lib/*.so
 %{_libdir}/mpich/lib/cmake/
+%{_libdir}/mpich/lib/pkgconfig/
 %dir %{_libdir}/mpich/lib/%{name}
 %{_libdir}/mpich/lib/%{name}/hierarchy/
 
@@ -970,10 +993,12 @@ cat xorg.log
 %{_libdir}/openmpi/bin/vtkProbeOpenGLVersion
 %{_libdir}/openmpi/bin/vtkWrapHierarchy
 %{_libdir}/openmpi/bin/vtkWrapJava
+%{_libdir}/openmpi/bin/vtkWrapJavaScript
 %{_libdir}/openmpi/bin/vtkWrapSerDes
 %{_libdir}/openmpi/include/
 %{_libdir}/openmpi/lib/*.so
 %{_libdir}/openmpi/lib/cmake/
+%{_libdir}/openmpi/lib/pkgconfig/
 %dir %{_libdir}/openmpi/lib/%{name}
 %{_libdir}/openmpi/lib/%{name}/hierarchy/
 
