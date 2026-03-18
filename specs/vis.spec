@@ -13,6 +13,7 @@ Summary:        A vim-like editor with structural regex from plan9
 License:        ISC AND MIT AND CC0-1.0
 URL:            https://git.sr.ht/~martanne/%{name}
 Source0:        https://git.sr.ht/~martanne/%{name}/archive/v%{version}.tar.gz
+Patch0:         vis-0.9-lua-5.5.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -22,6 +23,7 @@ BuildRequires:  pkgconfig(tre)
 BuildRequires:  pkgconfig(lua) >= 5.2
 BuildRequires:  libacl-devel
 BuildRequires:  pkgconfig(libselinux)
+BuildRequires:  lua-penlight
 Requires:       lua-lpeg >= 0.12
 Requires:       xsel
 
@@ -39,7 +41,7 @@ BuildArch:      noarch
 %{summary}
 
 %prep
-%autosetup -n vis-v%{version}
+%autosetup -n vis-v%{version} -p1
 
 %build
 %configure

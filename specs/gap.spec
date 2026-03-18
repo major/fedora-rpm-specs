@@ -26,8 +26,8 @@ Version:        4.15.1%{?prerel:~%{prerel}}
 Release:        %autorelease
 Summary:        Computational discrete algebra
 
-%global majver %(cut -d. -f1-2 <<< %{version})
-%global urlver %(tr '~' - <<< %{version})
+%global majver  %{gsub %version ^(%d*%.%d*)%..*$ %1}
+%global urlver  %{gsub %version ~ -}
 
 License:        GPL-2.0-or-later
 URL:            https://www.gap-system.org/
@@ -49,6 +49,10 @@ Patch:          %{name}-help.patch
 Patch:          %{name}-popcount.patch
 # Use zlib-ng directly instead of via the compatibility layer
 Patch:          %{name}-zlib-ng.patch
+# Fix undefined behavior from taking the negative of INTPTR_MIN
+Patch:          %{name}-intptr-min.patch
+# Fix undefined behavior from a signed left shift
+Patch:          %{name}-signed-left-shift.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -71,16 +75,17 @@ BuildRequires:  tex(color.sty)
 BuildRequires:  tex(english.ldf)
 BuildRequires:  tex(enumitem.sty)
 BuildRequires:  tex(fancyvrb.sty)
+BuildRequires:  tex(geometry.sty)
 BuildRequires:  tex(pslatex.sty)
-BuildRequires:  tex(psnfss.map)
 BuildRequires:  tex(tex)
-BuildRequires:  tex-cm-super
-BuildRequires:  tex-ec
-BuildRequires:  tex-helvetic
-BuildRequires:  tex-latex-bin
-BuildRequires:  tex-rsfs
-BuildRequires:  tex-symbol
-BuildRequires:  tex-times
+BuildRequires:  texlive-cm-super
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-psnfss
+BuildRequires:  texlive-rsfs
+BuildRequires:  texlive-symbol
+BuildRequires:  texlive-times
 BuildRequires:  vim-filesystem
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}

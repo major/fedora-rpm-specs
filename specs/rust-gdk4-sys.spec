@@ -5,7 +5,7 @@
 %global crate gdk4-sys
 
 Name:           rust-gdk4-sys
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        FFI bindings of GDK 4
 

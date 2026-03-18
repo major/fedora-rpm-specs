@@ -38,8 +38,8 @@ ExcludeArch: %{ix86}
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	49.1
-Release:	2%{?dist}
+Version:	50.0
+Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 # Sources are under LGPL-2.0-or-later, AppData is CC0-1.0 and help is
@@ -160,6 +160,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to version 50.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

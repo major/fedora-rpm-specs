@@ -14,8 +14,6 @@ License:        Apache-2.0
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
 
-# Relax jsonschema dependency
-# Fedora still has 4.23
 # Loosen the upper bound on the jsonschema dependency to <5.0.0; we cannot
 # respect upstream’s choice to pin this dependency to a particular minor
 # release number.

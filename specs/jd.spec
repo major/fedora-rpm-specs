@@ -13,23 +13,23 @@
 #
 %define         main_ver      0.16.0
 #%%define         strtag        20200118
-%define         pre_ver       alpha
+%dnl %define         pre_ver       alpha
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20260310
-%global         gitcommit     402dd7292b7d2999b473294292f985b5b25b8788
+%global         gitdate       20260316
+%global         gitcommit     cc9878799dc5f5b5351516944291e77d2425cc4e
 %dnl %global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20260310
-%global         tarballtime   2324
+%global         tarballdate   20260317
+%global         tarballtime   0903
 
 ##########################################
 # Defined by vendor
 #
 %define         extra_rel     %{nil}
-%define         use_gitcommit_as_rel  1
+%define         use_gitcommit_as_rel  0
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -56,7 +56,7 @@
 ##########################################
 
 ##########################################
-%global		use_gcc_strict_sanitize	1
+%global		use_gcc_strict_sanitize	0
 
 %global		flagrel	%{nil}
 %if	0%{?use_cppcheck} >= 1
@@ -211,6 +211,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Tue Mar 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.16.0-1
+- 0.16.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

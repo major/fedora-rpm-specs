@@ -73,7 +73,7 @@ Version:        4.13.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -99,6 +99,8 @@ Source5:        xorg.conf
 Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_commit}/wechat-%{wechat_gitdate}.git%{wechat_shortcommit}.tar.gz
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
+# Fix build with vtk 9.6 - https://github.com/opencv/opencv_contrib/pull/4085
+Patch1:         opencv-vtk.patch
 Patch3:         opencv.python.patch
 Patch4:         Fix-macro-definition-for-Power10-architecture.patch
 
@@ -401,7 +403,7 @@ popd &>/dev/null
 %patch -P 4 -p1 -b .ppc_macro
 
 pushd %{name}_contrib-%{version}
-#patch1 -p1 -b .install_cvv
+%patch -P 1 -p1 -b .vtk
 popd
 
 # Install face_landmark_model
@@ -607,6 +609,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Mon Mar 16 2026 Orion Poplawski <orion@nwra.com> - 4.13.0-2
+- Rebuild with vtk 9.6.0
+
 * Wed Jan 28 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.13.0-1
 - Update to 4.13.0
 

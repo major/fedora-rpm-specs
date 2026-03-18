@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        7.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -329,6 +329,9 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %changelog
+* Mon Mar 16 2026 Orion Poplawski <orion@nwra.com> - 7.9.3-3
+- Rebuild with vtk 9.6.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

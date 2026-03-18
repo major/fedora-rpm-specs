@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           gnome-mines
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Mines Sweeper game
 
@@ -22,7 +22,7 @@ BuildRequires:  meson
 BuildRequires:  vala
 
 %description
-The popular logic puzzle minesweeper. Find mines on a grid 
+The popular logic puzzle minesweeper. Find mines on a grid
 using hints from squares you have already cleared.
 
 

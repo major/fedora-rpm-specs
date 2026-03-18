@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -27,7 +27,12 @@ BuildRequires: libnfnetlink-devel libnetfilter_queue-devel libnet-devel
 BuildRequires: zlib-devel pcre2-devel libcap-ng-devel
 BuildRequires: lz4-devel libpcap-devel
 BuildRequires: nspr-devel nss-devel nss-softokn-devel file-devel
-BuildRequires: jansson-devel libmaxminddb-devel python3-devel lua-devel
+BuildRequires: jansson-devel libmaxminddb-devel python3-devel
+BuildRequires: libunwind-devel
+# So... suricata now gets its lua from the vendored rust crate suricata-lua-sys
+# That lua is at 5.4.8.
+# BuildRequires: lua-devel
+
 # Next line is for eBPF support
 %if 0%{?fedora} >= 32
 %ifarch x86_64
@@ -195,6 +200,11 @@ fi
 %endif
 
 %changelog
+* Sun Mar 15 2026 Tom Callaway <spot@fedoraproject.org> - 8.0.3-3
+- lua-devel is no longer needed, suricata is getting lua support from a bundled rust crate
+- this seems weird and wrong, but whatever
+- added libunwind-devel as BR since the configure script wants it (and Fedora has it)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

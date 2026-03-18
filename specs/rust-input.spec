@@ -5,16 +5,13 @@
 %global crate input
 
 Name:           rust-input
-Version:        0.8.3
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Libinput bindings for rust
 
 License:        MIT
 URL:            https://crates.io/crates/input
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop dependency in input-sys/gen feature which was dropped in 1.18
-Patch:          input-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -132,6 +129,18 @@ This package contains library source intended for building other packages which
 use the "udev" feature of the "%{crate}" crate.
 
 %files       -n %{name}+udev-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+use_bindgen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+use_bindgen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "use_bindgen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+use_bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

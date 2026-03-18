@@ -23,7 +23,7 @@
 
 Name:           bootc
 # Ensure this local build overrides anything else.
-Version:        1.13.0
+Version:        1.14.1
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -146,7 +146,8 @@ sed -i -e '/https:\/\//d' cargo-vendor.txt
 %endif
 
 %install
-%make_install INSTALL="install -p -c"
+# Pass CARGO_FEATURES explicitly to prevent auto-detection rebuild in install environment
+%make_install INSTALL="install -p -c" CARGO_FEATURES="%{?with_rhsm:rhsm}"
 %if %{with ostree_ext}
 make install-ostree-hooks DESTDIR=%{?buildroot}
 %endif

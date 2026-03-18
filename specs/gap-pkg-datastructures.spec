@@ -57,6 +57,10 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %build -p
+# The -fwrapv option is needed due to signed integer overflow.  UBSAN says:
+# src/hashfunctions.h:61:18: runtime error: left shift of 2851389363498048825 by 11 places cannot be represented in type 'long int'
+export CFLAGS='%{build_cflags} -fwrapv'
+export CXXFLAGS='%{build_cxxflags} -fwrapv'
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure %{gap_archdir}
 %make_build

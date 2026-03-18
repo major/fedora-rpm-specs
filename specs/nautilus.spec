@@ -6,7 +6,7 @@
 %global libadwaita_version 1.6~beta
 
 Name:           nautilus
-Version:        50~rc
+Version:        50.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})

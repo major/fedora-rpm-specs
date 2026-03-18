@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-shell-extensions
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -21,7 +21,7 @@ URL:            http://wiki.gnome.org/Projects/GnomeShell/Extensions
 Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  gettext >= 0.19.6
 BuildRequires:  glib2%{?_isa}
 BuildRequires:  pkgconfig(systemd)

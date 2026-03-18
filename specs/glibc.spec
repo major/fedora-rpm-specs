@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-94-g4b5a74412e
+%global glibcsrcdir glibc-2.43.9000-147-gf6143a7848
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -348,7 +348,6 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2426825.patch
-Patch25: glibc-open_tree_clone.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2401,6 +2400,63 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Mar 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-5
+- Auto-sync with upstream branch master,
+  commit f6143a7848098a1d4fe4340dd6f375cf0cb9d2db:
+- resolv: Move libanl symbols to libc on hurd too (Samuel Thibault)
+- elf: Drop librt.so from localplt-built-dso (Samuel Thibault)
+- rt: Move librt symbols to libc on hurd too (Samuel Thibault)
+- htl: Use pthread_rwlock for libc_rwlock (Samuel Thibault)
+- mach: Add __mach_rwlock_* (Samuel Thibault)
+- configure: Remove extra ')' from b4c110022c (Adhemerval Zanella)
+- configure: Fix bootstrap build after 570c46d36b (BZ 33985) (Adhemerval Zanella)
+- linux: Fix aliasing violations and assert address in __check_pf (bug #33927) (Arjun Shankar)
+- x86: Don't left shift negative values (Collin Funk)
+- Support loading libunwind instead of libgcc_s (Adhemerval Zanella)
+- configure: Repurpose have-cc-with-libunwind for clang support (Adhemerval Zanella)
+- configure: Parametrize runtime libraries to support compiler-rt (Adhemerval Zanella)
+- malloc: Remove lingering DIAG_POP_NEEDS_COMMENT (Adhemerval Zanella)
+- conform: Add initial support for XOPEN2K24 (Collin Funk)
+- conform: Add initial support for POSIX.1-2024 (Collin Funk)
+- malloc: Cleanup warnings (Wilco Dijkstra)
+- Document CVE-2026-3904 (Siddhesh Poyarekar)
+- LoongArch: Optimize float environment functions (Deng Jianbo)
+- nptl: Only issues __libc_unwind_link_get for SHARED (Adhemerval Zanella)
+- x86_64: Conditionally define __sfp_handle_exceptions for compiler-rt (Adhemerval Zanella)
+- test-assert-c++-variadic.cc: Disable assert_works for GCC 14.2 and 14.1 (Tomasz Kamiński)
+- libio: Properly link in function _IO_wfile_doallocate in static binaries (Yunze Zhu)
+- malloc: Improve memalign alignment (Wilco Dijkstra)
+- feat(rtld): Allow LD_DEBUG category exclusion (Frédéric Bérat)
+- elf(tls): Add debug logging for TLS operations (Frédéric Bérat)
+- elf: should check result of openat with -1 not 1 (Weixie Cui)
+- htl: Fix pthread_once memory ordering (Samuel Thibault)
+- htl: Make sure the exit path of last thread sees all thread cleanups (Samuel Thibault)
+- hurd: Check for _hurdsig_preempted_set with _hurd_siglock held (Samuel Thibault)
+- htl: Call thread-specific destructors for last thread too (Samuel Thibault)
+- htl: Fix checking for mutex not being recoverable (Samuel Thibault)
+- benchtests: Adapt tanh (Adhemerval Zanella)
+- benchtests: Adapt sinh (Adhemerval Zanella)
+- benchtests: Adapt cosh (Adhemerval Zanella)
+- Fix Makefile alphabetical ordering (Samuel Thibault)
+- hurd; Fix return value for sigwait (Samuel Thibault)
+- hurd: Fix cleaning on sigtimedwait timing out (Samuel Thibault)
+- Linux: Only define OPEN_TREE_* macros in <sys/mount.h> if undefined (bug 33921) (Florian Weimer)
+- malloc: Avoid accessing /sys/kernel/mm files (Wilco Dijkstra)
+- misc: Fix a few typos in comments (Yury Khrustalev)
+- htl: Fix race between timedrd/wrlock and unlock (Samuel Thibault)
+- hurd: Take cancel_lock in critical section (Samuel Thibault)
+- resolv: Avoid duplicate query if search list contains '.' (bug 33804) (Carlos Peón Costa)
+- support: no_override_resolv_conf_search flag for resolver test framework (Florian Weimer)
+- AArch64: Improve memset when len is 64 (Wilco Dijkstra)
+- malloc: Add asserts for malloc assumptions (Wilco Dijkstra)
+- tests: posix: use cpu clock for sleep (Yury Khrustalev)
+- assert: Support assert as variadic macro for C++26 [PR27276] (Jonathan Wakely)
+- math: Sync atanh with CORE-MATH (Adhemerval Zanella)
+- math: Sync log10p1f with CORE-MATH (Adhemerval Zanella)
+- math: Sync log10f with CORE-MATH (Adhemerval Zanella)
+- math: Sync log2p1f with CORE-MATH (Adhemerval Zanella)
+- math: Sync log1pf with CORE-MATH (Adhemerval Zanella)
+
 * Mon Mar 02 2026 Florian Weimer <fweimer@redhat.com> - 2.43.9000-4
 - Add glibc-open_tree_clone.patch for compatibility with Linux 7 UAPI headers.
 - Auto-sync with upstream branch master,

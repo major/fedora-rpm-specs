@@ -9,13 +9,17 @@ Version:        1.4.5
 Release:        %autorelease
 Summary:        C bindings for subunit
 
-%global majver  %(cut -d. -f-2 <<< %{version})
+%global majver  %{gsub %version ^(%d*%.%d*)%..*$ %1}
 %global giturl  https://github.com/testing-cabal/subunit
 
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/subunit
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fix compatibility with testtools 2.8.2
+# https://github.com/testing-cabal/subunit/commit/a72e9c343bd369cf840b29e074417fed5d05d59c
+# https://github.com/testing-cabal/subunit/commit/790f6086002919d28deb6aaefb8489227baebb8c
+Patch:          %{name}-testtools.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

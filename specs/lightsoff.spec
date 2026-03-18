@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           lightsoff
-Version:        50~beta
-Release:        2%{?dist}
+Version:        50.0
+Release:        1%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
 - Update to 50.beta
 

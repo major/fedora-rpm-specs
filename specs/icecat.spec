@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen  1
+%global use_bundled_cbindgen  0
 
 ####################
 
@@ -81,7 +81,7 @@ ExcludeArch: %{ix86} %{arm}
 %endif
 
 # Use clang?
-%bcond_without toolchain_clang
+%bcond_with toolchain_clang
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -220,20 +220,14 @@ BuildRequires: pkgconfig(libcurl)
 %if %{with pulseaudio}
 BuildRequires: pulseaudio-libs-devel
 %endif
+
 BuildRequires: llvm
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 10
-BuildRequires:  clang19
-BuildRequires:  clang19-libs
-BuildRequires:  llvm19-devel
-BuildRequires:  compiler-rt19
-%global llvm_suffix -19
-%else
-BuildRequires:  clang17
-BuildRequires:  clang17-libs
-BuildRequires:  llvm17-devel
-BuildRequires:  compiler-rt17
-%global llvm_suffix -17
-%endif
+%global llvm_suffix 19
+BuildRequires:  clang%{?llvm_suffix}
+BuildRequires:  clang%{?llvm_suffix}-libs
+BuildRequires:  llvm%{?llvm_suffix}-devel
+BuildRequires:  compiler-rt%{?llvm_suffix}
+
 %if "%toolchain" == "clang"
 BuildRequires:  lld
 %endif
@@ -411,9 +405,8 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
 
-%if "%toolchain" == "clang"
-echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`" >> .mozconfig
-%endif
+echo "ac_add_options --with-libclang-path=`llvm-config-%{?llvm_suffix} --libdir`" >> .mozconfig
+echo "ac_add_options --with-clang-path=%{_libdir}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
 
 %ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
@@ -422,6 +415,7 @@ echo "ac_add_options --disable-jit" >> .mozconfig
 %if 0%{?build_with_pgo}
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 echo "ac_add_options --enable-lto" >> .mozconfig
+echo "ac_add_options --disable-profile-generate" >> .mozconfig
 %else
 echo "ac_add_options --disable-lto" >> .mozconfig
 %endif
@@ -527,8 +521,8 @@ echo "export AR=\"llvm-ar\"" >> .mozconfig
 echo "export NM=\"llvm-nm\"" >> .mozconfig
 echo "export RANLIB=\"llvm-ranlib\"" >> .mozconfig
 echo "ac_add_options --enable-linker=lld" >> .mozconfig
-echo "export CC=clang%{?llvm_suffix}" >> .mozconfig
-echo "export CXX=clang++%{?llvm_suffix}" >> .mozconfig
+echo "export CC=%{_libdir}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
+echo "export CXX=%{_libdir}/llvm%{?llvm_suffix}/bin/clang++" >> .mozconfig
 %else
 echo "export CC=gcc" >> .mozconfig
 echo "export CXX=g++" >> .mozconfig

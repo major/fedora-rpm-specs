@@ -11,6 +11,10 @@ Summary:        Most basic dynamic function row daemon possible
 License:        MIT AND Apache-2.0
 URL:            https://crates.io/crates/tiny-dfr
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update input dependency from 0.8 to 0.9:
+#   https://github.com/AsahiLinux/tiny-dfr/pull/83
+Patch:          tiny-dfr-fix-metadata.diff
 # * Add a battery state fallback for all arches
 Patch2:         https://github.com/AsahiLinux/tiny-dfr/pull/81.patch
 

@@ -1,11 +1,11 @@
 Name:           gnome-power-manager
-Version:        43.0
-Release:        9%{?dist}
+Version:        50.0
+Release:        1%{?dist}
 Summary:        GNOME power management service
 
 License:        GPL-2.0-or-later
 URL:            https://projects.gnome.org/gnome-power-manager/
-Source0:        https://download.gnome.org/sources/gnome-power-manager/43/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-power-manager/50/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -13,8 +13,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gdk-3.0)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  docbook-utils
@@ -51,6 +50,9 @@ appstream-util --nonet validate-relax %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_mandir}/man1/gnome-power-statistics.1*
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

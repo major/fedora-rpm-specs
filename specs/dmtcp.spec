@@ -18,8 +18,8 @@ URL:            http://dmtcp.sourceforge.net
 Source0:        %{forgesource}
 
 BuildRequires:  gcc-c++
-BuildRequires:  make
 BuildRequires:  libatomic
+BuildRequires:  make
 BuildRequires:  python3
 
 # This package is functional only on i386, x86_64 and aarch64 architectures.

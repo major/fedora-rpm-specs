@@ -5,7 +5,7 @@ Version:        50.0
 Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
-# data/org.gnome.Logs.appdata.xml.in is CC0-1.0
+# data/org.gnome.Logs.metainfo.xml.in is CC0-1.0
 # data/icons/scalable/org.gnome.Logs.svg is CC-BY-3.0
 License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0
 URL:            https://wiki.gnome.org/Apps/Logs
@@ -54,7 +54,7 @@ A log viewer for the systemd journal.
 %{_datadir}/glib-2.0/schemas/org.gnome.Logs.*.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Logs.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Logs-symbolic.svg
-%{_datadir}/metainfo/org.gnome.Logs.appdata.xml
+%{_datadir}/metainfo/org.gnome.Logs.metainfo.xml
 %{_mandir}/man1/gnome-logs.1*
 
 

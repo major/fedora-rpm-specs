@@ -1,5 +1,6 @@
 # Perform optional tests
-%bcond perl_Clone_enables_optional_test %{undefined rhel}
+# Build-cycle: perl-Class-DBI → perl-DBD-Pg → perl-DBI → perl-Clone
+%bcond perl_Clone_enables_optional_test %[%{undefined rhel} && %{undefined perl_bootstrap}]
 
 Name:           perl-Clone
 Version:        0.48

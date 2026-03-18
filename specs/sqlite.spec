@@ -1,13 +1,13 @@
 # bcond default logic is nicely backwards...
 %bcond_without tcl
-%bcond_without sqldiff
+%bcond_without tools
 %bcond_with static
 %bcond_without check
 
 %define majorver 3
-%define realver 3510200
-%define docver 3510200
-%define rpmver 3.51.2
+%define realver 3520000
+%define docver 3520000
+%define rpmver 3.52.0
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -138,15 +138,17 @@ Current list of modification from normal SQLite shell (in sqlite package):
 - Ability to enable .scanstats for metrics regarding query speeds
 
 
-%if %{with sqldiff}
+%if %{with tools}
 %package tools
 Summary: %{name} tools
 Group: Development/Tools
 
 %description tools
-%{name} related tools. Currently contains only sqldiff.
+%{name} related tools. Contains sqldiff and sqlite3_rsync.
 - sqldiff: The sqldiff binary is a command-line utility program
   that displays the differences between SQLite databases.
+- sqlite3_rsync: A command-line utility that efficiently creates
+  or updates a copy of an SQLite database using rsync.
 %endif
 
 %if %{with tcl}
@@ -248,9 +250,10 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
 %make_build sqlite3_analyzer
 %endif
 
-# Build sqldiff
-%if %{with sqldiff}
+# Build tools
+%if %{with tools}
 %make_build sqldiff
+%make_build sqlite3_rsync
 %endif
 
 %install
@@ -271,9 +274,10 @@ chmod 0755 ${RPM_BUILD_ROOT}/%{tcl_sitearch}/sqlite*/*.so
 install -D -m0755 sqlite3_analyzer $RPM_BUILD_ROOT/%{_bindir}/sqlite3_analyzer
 %endif
 
-# Install sqldiff
-%if %{with sqldiff}
+# Install tools
+%if %{with tools}
 install -D -m0755 sqldiff $RPM_BUILD_ROOT/%{_bindir}/sqldiff
+install -D -m0755 sqlite3_rsync $RPM_BUILD_ROOT/%{_bindir}/sqlite3_rsync
 %endif
 
 %if ! %{with static}
@@ -287,6 +291,7 @@ chrpath --delete $RPM_BUILD_ROOT/%{_libdir}/*.so.%{version}
 chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3
 chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3-debug
 chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqldiff
+chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3_rsync
 chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3_analyzer
 
 %if %{with check}
@@ -340,9 +345,10 @@ make test
 %files tcl
 %{tcl_sitearch}/sqlite*
 
-%if %{with sqldiff}
+%if %{with tools}
 %files tools
 %{_bindir}/sqldiff
+%{_bindir}/sqlite3_rsync
 %endif
 
 %files analyzer
@@ -350,6 +356,12 @@ make test
 %endif
 
 %changelog
+* Thu Mar 12 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.52.0-1
+- Update to version 3.52.0
+- Resolves: rhbz#2445301
+- Add sqlite3_rsync to the -tools subpackage
+- Resolves: rhbz#2441923
+
 * Tue Jan 20 2026 Carl George <carlwgeorge@fedoraproject.org> - 3.51.2-1
 - Update to 3.51.2
 - https://www.sqlite.org/releaselog/3_51_2.html

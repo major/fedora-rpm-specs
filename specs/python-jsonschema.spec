@@ -11,21 +11,18 @@ jsonschema is an implementation of JSON Schema for Python (supporting
 
 Name:           python-%{pypi_name}
 Summary:        Implementation of JSON Schema validation for Python
-Version:        4.23.0
-Release:        7%{?dist}
+Version:        4.26.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/Julian/jsonschema
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # test requirements
-%if %{defined rhel}
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
+%bcond tests %{undefined rhel}
 
 %if %{with tests}
 # For “trial-3”
@@ -49,8 +46,12 @@ Summary:        %{summary}
 # https://github.com/json-schema-org/JSON-Schema-Test-Suite
 rm jsonschema/tests/test_jsonschema_test_suite.py
 
+# Test dependency on (python-)virtue would only be required if we used nox to
+# run the tests.
+tomcli set pyproject.toml lists delitem dependency-groups.test virtue
+
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_tests:-g test}
 
 %build
 %pyproject_wheel
@@ -60,9 +61,10 @@ rm jsonschema/tests/test_jsonschema_test_suite.py
 %pyproject_save_files %{pypi_name}
 
 
-%if %{with tests}
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} trial-3 %{pypi_name}
+%pyproject_check_import -e '*.benchmarks*' -e '*.tests*'
+%if %{with tests}
+%{py3_test_envvars} trial-3 %{pypi_name}
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -71,6 +73,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} trial-3 %{pypi_name}
 %{_bindir}/jsonschema
 
 %changelog
+* Tue Mar 03 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.26.0-1
+- Update to 4.26.0 (close RHBZ#2247079)
+- Improve test execution; always run an import-only “smoke test”
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.23.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

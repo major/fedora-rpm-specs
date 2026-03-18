@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gweather4)
 BuildRequires:  pkgconfig(libgeoclue-2.0) >= %{geoclue2_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
-BuildRequires:  ffmpeg-free
+BuildRequires:  /usr/bin/oggenc
 
 Requires:       geoclue2-libs%{?_isa} >= %{geoclue2_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}

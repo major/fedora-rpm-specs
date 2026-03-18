@@ -17,7 +17,7 @@
 %endif
 
 Name:           gnome-kiosk
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -33,7 +33,7 @@ BuildRequires:  dconf
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext >= %{gettext_version}
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  meson

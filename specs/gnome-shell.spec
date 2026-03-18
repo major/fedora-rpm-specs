@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -42,7 +42,7 @@ Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libedataserver-1.2) >= %{eds_version}
 BuildRequires:  pkgconfig(gcr-4)

@@ -2,7 +2,7 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:           pl
-Version:        10.0.1
+Version:        10.0.2
 Release:        %autorelease
 Summary:        ISO/Edinburgh-style Prolog interpreter
 

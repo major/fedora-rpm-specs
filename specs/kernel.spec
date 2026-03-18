@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc3.260313g0257f64bdac7.33
+%define pkgrelease 0.rc4.36
 %define kversion 7
-%define tarfile_release 7.0-rc3-176-g0257f64bdac7
+%define tarfile_release 7.0-rc4
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260313g0257f64bdac7.33%{?buildid}%{?dist}
+%define specrelease 0.rc4.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4832,8 +4832,17 @@ fi\
 #
 #
 %changelog
-* Fri Mar 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.0257f64bdac7.33]
+* Mon Mar 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.36]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Mon Mar 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.35]
+- Linux v7.0.0-0.rc4
+
+* Sun Mar 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.267594792a71.34]
+- Linux v7.0.0-0.rc3.267594792a71
+
+* Sat Mar 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.1c9982b49613.33]
+- Linux v7.0.0-0.rc3.1c9982b49613
 
 * Fri Mar 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc3.0257f64bdac7.32]
 - redhat: genlog: add new JIRA cloud server hostname (Jan Stancek)

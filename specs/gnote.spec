@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        50~beta
+Version:        50~rc
 Release:        1%{?dist}
 Summary:        Note-taking application
 
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50~rc-1
+- Update to 50.rc
+
 * Fri Mar 13 2026 Milan Crha <mcrha@redhat.com> - 50~beta-1
 - Update to 50.beta
 

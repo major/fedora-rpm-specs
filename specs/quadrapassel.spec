@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           quadrapassel
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 
@@ -63,7 +63,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Quad
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Quadrapassel.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Quadrapassel-symbolic.svg
 %{_datadir}/metainfo/org.gnome.Quadrapassel.metainfo.xml
-%dir %{_datadir}/sounds/quadrapassel/ 
+%dir %{_datadir}/sounds/quadrapassel/
 %{_datadir}/sounds/quadrapassel/*
 %{_mandir}/man6/quadrapassel.6*
 

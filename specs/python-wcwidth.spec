@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-wcwidth
-Version:        0.2.13
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Measures number of Terminal column cells of wide-character codes
 
@@ -9,11 +9,6 @@ Summary:        Measures number of Terminal column cells of wide-character codes
 License:        MIT AND HPND-Markus-Kuhn
 URL:            https://github.com/jquast/wcwidth
 Source:         %{pypi_source wcwidth}
-
-# Don't use codecs.open on Python 3
-# Avoids: DeprecationWarnings: codecs.open() is deprecated. Use open() instead.
-# Fixes https://bugzilla.redhat.com/2368969
-Patch:          https://github.com/jquast/wcwidth/pull/141.patch
 
 BuildArch:      noarch
 

@@ -1,7 +1,7 @@
 Name:           ALL
 Version:        0.9.3
 %global         sover 0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Load Balancing Library (ALL)
 
 # stb_arr.h is public domain
@@ -163,6 +163,9 @@ done
 %{_docdir}/%{name}/html
 
 %changelog
+* Mon Mar 16 2026 Orion Poplawski <orion@nwra.com> - 0.9.3-12
+- Rebuild with vtk 9.6.0
+
 * Fri Mar 13 2026 Christoph Junghans <junghans@votca.org>
 - Add patch to fix build with vtk-9.6.0
 - Fixes: rhbz#2443252

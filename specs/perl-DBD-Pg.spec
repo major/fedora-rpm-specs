@@ -3,15 +3,13 @@
 
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
-Version:        3.18.0
-Release:        10%{?dist}
+Version:        3.19.0
+Release:        1%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/DBD-Pg-%{version}.tar.gz 
 URL:            https://metacpan.org/release/DBD-Pg
-# C23 compliance (GH#148)
-Patch0:         DBD-Pg-3.18.0-C23-compliance-per-github-pull-request-148.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -23,7 +21,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.1
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.64
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
@@ -88,7 +86,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-Pg-%{version}
-%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
@@ -158,6 +155,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.19.0-1
+- 3.19.0 bump (rhbz#2447644)
+
 * Tue Feb 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.18.0-10
 - Apply fix for C23 compilers
 

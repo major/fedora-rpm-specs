@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.17.4
+Version:        4.0.7
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -14,7 +14,7 @@ Url:            https://nextcloud.com/install/#install-clients
 Source0:        https://github.com/nextcloud/desktop/archive/v%{version}/desktop-%{version}.tar.gz
 Source1:        com.nextcloud.desktopclient.nextcloud.metainfo.xml
 
-Patch0:         nextcloud-client-drop-qt6guiprivate-dependency.patch
+#Patch0:         nextcloud-client-drop-qt6guiprivate-dependency.patch
 
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
@@ -160,7 +160,7 @@ The nextcloud desktop client dolphin extension.
 sed -i 's/-fPIE/-fPIC/g' src/gui/CMakeLists.txt
 sed -i 's/-fPIE/-fPIC/g' src/cmd/CMakeLists.txt
 
-%patch -P0 -p1 -b .drop-qt6guiprivate-dependency
+#patch -P0 -p1 -b .drop-qt6guiprivate-dependency
 
 %build
 %cmake_kf6 \

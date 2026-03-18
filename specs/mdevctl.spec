@@ -4,13 +4,18 @@
 
 Name:           mdevctl
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
 URL:            https://crates.io/crates/mdevctl
 Source:         %{crates_source}
 Source1:        https://github.com/mdevctl/mdevctl/releases/download/v%{version}/mdevctl-%{version}-vendor.tar.gz
+
+# Patches >=1000 are only applied when using system Rust dependencies:
+# - Update nix dev-dependency to 0.31
+#   https://github.com/mdevctl/mdevctl/pull/132
+Patch1000:      mdevctl-fix-metadata.diff
 
 BuildRequires: make systemd python3-docutils
 BuildRequires: sed
@@ -29,9 +34,10 @@ can be dynamically created and potentially used by drivers like
 vfio-mdev for assignment to virtual machines.
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1 -N}
 sed  -e 's/SBINDIR=/SBINDIR\?=/' -i Makefile.in
 %if 0%{?rhel}
+%autopatch -p1 -M999
 %cargo_prep -v vendor
 %else
 %cargo_prep
@@ -77,6 +83,9 @@ sed  -e 's/SBINDIR=/SBINDIR\?=/' -i Makefile.in
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Sun Mar 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.4.0-4
+- In Fedora, update nix dev-dependency to 0.31
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

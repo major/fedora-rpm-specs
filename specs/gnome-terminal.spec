@@ -8,13 +8,13 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.59.90
+Version: 3.60.0
 Release: %autorelease
 Summary: Terminal emulator for GNOME
 
 License: GPL-3.0-or-later AND GFDL-1.3-only
 URL:     https://wiki.gnome.org/Apps/Terminal
-Source0: https://download.gnome.org/sources/%{name}/3.59/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/3.60/%{name}-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 BuildRequires: pkgconfig(dconf)
@@ -115,4 +115,5 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_libdir}/nautilus/extensions-4/libterminal-nautilus.so
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
+%changelog
 %autochangelog

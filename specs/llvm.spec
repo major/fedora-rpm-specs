@@ -3473,6 +3473,13 @@ fi
     offload-arch
 }}
 
+%if %{maj_ver} >= 23
+%{expand_bins %{expand:
+    clang-ssaf-format
+    clang-ssaf-linker
+}}
+%endif
+
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
 %{_emacs_sitestartdir}/clang-include-fixer.el

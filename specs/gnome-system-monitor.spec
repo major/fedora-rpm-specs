@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        50~rc
+Version:        50.0
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
@@ -74,6 +74,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Fri Mar 06 2026 Jan Grulich <jgrulich@redhat.com> - 50~rc-1
 - Update to 50.rc
 

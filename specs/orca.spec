@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        50~rc
+Version:        50.0.7
 Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 

@@ -21,6 +21,13 @@
 %bcond_with oneapi
 %endif
 
+# follow arch-inclusions for rocm-smi
+%ifarch aarch64 ppc64le x86_64
+%bcond_without rocmsmi
+%else
+%bcond_with rocmsmi
+%endif
+
 Name:           slurm
 Version:        25.11.4
 Release:        %autorelease
@@ -44,6 +51,8 @@ Patch0:         slurm_release_version.patch
 Patch11:        slurm_html_doc_path.patch
 Patch12:        slurm_perlapi_rpaths.patch
 Patch13:        slurm-24.05.2-perlapi_vendor_installpath.patch
+# Use htonl to have proper network byte order in dns_test (on big-endian platforms)
+Patch14:	slurm-25.11.4-dns_test-s390-fix.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -86,7 +95,9 @@ BuildRequires:  pam-devel
 BuildRequires:  pmix-devel
 BuildRequires:  rdma-core-devel
 BuildRequires:  readline-devel
+%if 0%{?fedora} && %{with rocmsmi}
 BuildRequires:  rocm-smi-devel
+%endif
 BuildRequires:  zlib-devel
 
 %if 0%{?fedora} && %{with ucx}

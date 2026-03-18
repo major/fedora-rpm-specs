@@ -1,6 +1,6 @@
 Name:       wireplumber
 Version:    0.5.13
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -133,6 +133,9 @@ fi
 %{_datadir}/doc/wireplumber/
 
 %changelog
+* Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.5.13-2
+- rebuild for lua 5.5
+
 * Mon Jan 19 2026 Wim Taymans <wtaymans@redhat.com> - 0.5.13-1
 - wireplumber 0.5.13
 

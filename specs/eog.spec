@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 50~rc
+Version: 50.0
 Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Tue Mar 03 2026 Jan Grulich <jgrulich@redhat.com> - 50~rc-1
 - Update to 50.rc
 

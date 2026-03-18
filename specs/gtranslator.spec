@@ -1,15 +1,15 @@
 %global app_id	org.gnome.Gtranslator
 
 Name:		gtranslator
-Version:	49.0
-Release:	2%{?dist}
+Version:	50.0
+Release:	1%{?dist}
 Summary:	Gettext po file editor for GNOME
 
 # Sources are GPL-2.0-or-later and GPL-3.0-or-later, help is CC-BY-SA-3.0 and
 # AppData is CC0-1.0.
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Gtranslator
-Source0:	https://download.gnome.org/sources/%{name}/49/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/50/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 %{_mandir}/man1/gtranslator.1*
 
 %changelog
+* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
+- Update to 50.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

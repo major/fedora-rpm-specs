@@ -1,6 +1,6 @@
 Name:           perl-MetaCPAN-API
-Version:        0.51
-Release:        25%{?dist}
+Version:        0.52
+Release:        1%{?dist}
 Summary:        A comprehensive, DWIM-featured API to MetaCPAN
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MetaCPAN-API
@@ -8,14 +8,13 @@ Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/MetaCPAN-API-%{v
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(HTTP::Tiny) >= 0.014
+BuildRequires:  perl(HTTP::Tiny) >= 0.092
 BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(JSON::MaybeXS) >= 1.001000
 BuildRequires:  perl(Moo) >= 1.000001
@@ -26,7 +25,11 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(warnings)
 # Test suite
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
@@ -48,12 +51,11 @@ Please do not use this module.
 %setup -q -n MetaCPAN-API-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -76,6 +78,14 @@ make test
 %{_mandir}/man3/MetaCPAN::API::Source.3*
 
 %changelog
+* Mon Mar 16 2026 Paul Howarth <paul@city-fan.org> - 0.52-1
+- Update to 0.52
+  - Fix test to work with current MetaCPAN API
+  - Revised author tooling and tests
+  - Fix error message when release search is given non-hashref
+  - Include response content in request errors
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

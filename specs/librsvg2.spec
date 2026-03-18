@@ -1,4 +1,4 @@
-%bcond_without check
+%bcond check 1
 
 # Use bundled deps as we don't ship the exact right versions for all the
 # required rust libraries
@@ -12,7 +12,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.61.0
+Version:        2.62.0
 Release:        %autorelease
 
 # librsvg itself is LGPL-2.1-or-later
@@ -48,7 +48,7 @@ License:        %{shrink:
     (Unlicense OR MIT)
     }
 URL:            https://wiki.gnome.org/Projects/LibRsvg
-Source0:        https://download.gnome.org/sources/librsvg/2.61/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.62/librsvg-%{version}.tar.xz
 # upstream dropped vendoring since 2.55.0 (GNOME/librsvg#718), to create:
 #   tar xf librsvg-%%{version}.tar.xz ; pushd librsvg-%%{version} ; \
 #   cargo vendor --versioned-dirs && tar Jcvf ../librsvg-%%{version}-vendor.tar.xz vendor/ ; popd
@@ -56,15 +56,12 @@ Source1:        librsvg-%{version}-vendor.tar.xz
 
 # Patches to build with Fedora-packaged rust crates
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
-# Omit tests::svg1_1_filters_composite_04_f_svg
-#
-# Test tests::svg1_1_filters_composite_04_f_svg fails with image 0.25.9
-# https://gitlab.gnome.org/GNOME/librsvg/-/issues/1219
-Patch:          0002-Omit-tests-svg1_1_filters_composite_04_f_svg.patch
+Patch:          0002-Fedora-Drop-dependencies-and-references-to-mutation-.patch
+Patch:          0003-Fedora-Drop-windows-specific-dependencies.patch
 
 BuildRequires:  gcc
-BuildRequires:  meson >= 1.2.0
-BuildRequires:  cargo-c >= 0.9.19
+BuildRequires:  meson >= 1.3.0
+BuildRequires:  cargo-c >= 0.10.10
 BuildRequires:  gi-docgen
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(cairo) >= %{cairo_version}
@@ -136,7 +133,7 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 %endif
 
 %build
-%meson %{?rhel:-Davif=disabled} -Dpixbuf-loader=disabled
+%meson %{?rhel:-Davif=disabled}
 %meson_build
 
 %cargo_license_summary
@@ -147,9 +144,6 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 
 %install
 %meson_install
-
-# Not useful in this package.
-rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 
 %if %{with check}
 %check

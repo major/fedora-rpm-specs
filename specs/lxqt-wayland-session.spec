@@ -2,8 +2,8 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.3.0
-Release:        2%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -131,6 +131,12 @@ for LXQt.
 %files -n lxqt-niri-session
 %license COPYING
 %{_datadir}/lxqt/wayland/lxqt-niri.kdl
+%{_datadir}/lxqt/wayland/lxqt-niri.kdl.full
+%{_datadir}/lxqt/wayland/niri/input.kdl
+%{_datadir}/lxqt/wayland/niri/keybinds.kdl
+%{_datadir}/lxqt/wayland/niri/outputs.kdl
+%{_datadir}/lxqt/wayland/niri/visual.kdl
+%{_datadir}/lxqt/wayland/niri/window-rules.kdl
 
 %dnl ------------------------------------------------------------------
 
@@ -243,11 +249,15 @@ install -m0644 default-compositor-miriway %{buildroot}%{_datadir}/lxqt/wayland/d
 rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %endif
 
-%fdupes -s %{buildroot}%{_datadir}/themes/
+%fdupes %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Mon Mar 16 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.3.2-1
+- Update to 0.3.2
+- Rebase configuration patches
+
 * Fri Jan 16 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.3.0-2
-- Adjust niri configuration to set Fedora wallpaper 
+- Adjust niri configuration to set Fedora wallpaper
 
 * Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 0.3.0-1
 - Update to 0.3.0

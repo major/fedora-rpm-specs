@@ -1,14 +1,14 @@
 Name:       fapg
 Version:    0.45
 Release:    %autorelease
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 Summary:    Fast Audio Playlist Generator
 URL:        http://royale.zerezo.com/fapg/
 Source:     http://royale.zerezo.com/fapg/%{name}-%{version}.tar.gz
-BuildRequires: uriparser-devel
+
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: uriparser-devel
 
 %description
 FAPG means Fast Audio Playlist Generator.
@@ -19,9 +19,9 @@ and you want to quickly and frequently build a playlist.
 
 It is coded in C to be as fast as possible, and does not use 
 any specific audio library (like ID3Lib).
-This allow you to deploy it faster and easier, and to have 
-better performances since the less informations are loaded.
-In the other hand, this tool is not (yet) compatible with 
+This allows you to deploy it faster and easier, and to have
+better performance since less information is loaded.
+On the other hand, this tool is not (yet) compatible with
 all the known formats.
 
 %prep

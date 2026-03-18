@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        49.1
+Version:        50.0
 Release:        %autorelease
 Summary:        A graphical directory tree analyzer
 
@@ -12,7 +12,7 @@ Summary:        A graphical directory tree analyzer
 # under CC0-1.0.
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Baobab
-Source0:        https://download.gnome.org/sources/baobab/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/baobab/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}

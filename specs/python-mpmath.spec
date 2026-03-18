@@ -88,9 +88,11 @@ This package contains the HTML documentation for %{name}.
 %patch -P0 -p1 -b .sphinx
 %endif
 
-# Drop the gmpy2 req. We have an older version packaged and we don't
-# want to depend on an alpha release.
+# Drop the gmpy2 extra which requires an alpha release (gmpy2>=2.3.0a1,<2.3.0a2).
+# Rewrite the gmpy extra to directly depend on gmpy2 without the alpha constraint,
+# instead of going through the self-reference mpmath[gmpy2].
 sed -r -i "/^gmpy2 =/d" pyproject.toml
+sed -r -i "s/^gmpy = .*/gmpy = ['gmpy2']/" pyproject.toml
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_MPMATH=%{version}

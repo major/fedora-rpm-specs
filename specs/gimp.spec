@@ -46,7 +46,9 @@ app - gimp:single-window-mode\
 app - gimp:ui
 
 # tests known to fail in a normal user environment
-%global skip_tests_user app - gimp:save-and-export\
+%global skip_tests_user app - gimp:core\
+app - gimp:save-and-export\
+app - gimp:xcf\
 app - gimp:single-window-mode\
 app - gimp:ui
 
@@ -58,7 +60,7 @@ app - gimp:ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.8
+Version:        3.2.0
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -88,7 +90,6 @@ ExcludeArch:    s390x
     print((string.gsub(macros.plain_version, '^%d+%.%d+%.(%d+).*$', '%1')))
 }
 %global bin_version %{major}.%{minor}
-%global interface_age 0
 %if %prerelease
 %global gettext_version 30
 %global api_version 3.0
@@ -98,8 +99,14 @@ ExcludeArch:    s390x
 %global api_version %{major}.0
 %global lib_api_version %{major}.0
 %endif
-%global lib_minor %{lua: print(tonumber(macros.minor) * 100 + macros.micro)}
-%global lib_micro 0
+# Mirrored from meson.build
+%global interface_age 0
+%global binary_age %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro))}
+%global lt_current %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro) - tonumber(macros.interface_age))}
+%global lt_revision %interface_age
+%global lt_age %{lua: print(tonumber(macros.binary_age) - tonumber(macros.interface_age))}
+%global so_version_major %{lua: print(tonumber(macros.lt_current) - tonumber(macros.lt_age))}
+%global so_version %{so_version_major}.%{lt_age}.%{lt_revision}
 
 # gimp core app is GPL-3.0-or-later, libgimp and other libraries are LGPL-3.0-or-later
 # plugin file-dds is GPL-2.0-or-later and plugins script-fu/libscriptfu/{ftx,tinyscheme}
@@ -113,8 +120,8 @@ URL:            https://www.gimp.org
 %global alsa_minver 1.0.0
 %global appstream_minver 0.16.1
 %global atk_minver 2.4.0
-%global babl_minver 0.1.116
 %global bash_completion_minver 2.0
+%global babl_minver 0.1.118
 %global cairo_minver 1.14.0
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
@@ -124,7 +131,6 @@ URL:            https://www.gimp.org
 %global exiv2_minver 0.27.4
 %global gettext_minver 0.19.8
 %global gexiv2_minver 0.14.0
-%global gexiv2_maxver 0.15.0
 %global glib_minver 2.70.0
 %global gtk3_minver 3.24.0
 %global gudev_minver 167
@@ -135,7 +141,7 @@ URL:            https://www.gimp.org
 %global libheif_minver 1.15.1
 %global liblzma_minver 5.0.0
 %global libpng_minver 1.6.25
-%global libmypaint_minver 1.3.0
+%global libmypaint_minver 1.5.0
 %global libtiff_minver 4.0.0
 %global libunwind_minver 1.1.0
 %global lua_minver 5.4
@@ -158,7 +164,7 @@ BuildRequires:  ImageMagick
 BuildRequires:  aalib-devel
 BuildRequires:  appdata-tools
 BuildRequires:  appstream
-BuildRequires:  bash-completion-devel >= %bash_completion_minver
+BuildRequires:  cmake
 BuildRequires:  coreutils
 BuildRequires:  dbus-daemon
 BuildRequires:  desktop-file-utils
@@ -185,6 +191,7 @@ BuildRequires:  pkgconfig(alsa) >= %alsa_minver
 BuildRequires:  pkgconfig(appstream) >= %appstream_minver
 BuildRequires:  pkgconfig(atk) >= %atk_minver
 BuildRequires:  pkgconfig(babl-0.1) >= %babl_minver
+BuildRequires:  pkgconfig(bash-completion) >= %bash_completion_minver
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(cairo) >= %cairo_minver
 BuildRequires:  pkgconfig(cairo-pdf) >= %cairopdf_minver
@@ -193,7 +200,7 @@ BuildRequires:  pkgconfig(fontconfig) >= %fontconfig_minver
 BuildRequires:  pkgconfig(freetype2) >= %freetype2_minver
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %gdk_pixbuf_minver
 BuildRequires:  pkgconfig(gegl-0.4) >= %gegl_minver
-BuildRequires:  (pkgconfig(gexiv2) >= %gexiv2_minver and pkgconfig(gexiv2) < %gexiv2_maxver)
+BuildRequires:  pkgconfig(gexiv2) >= %gexiv2_minver
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0) >= %glib_minver
@@ -225,7 +232,7 @@ BuildRequires:  pkgconfig(libwebp) >= %webp_minver
 BuildRequires:  pkgconfig(libwebpdemux) >= %webp_minver
 BuildRequires:  pkgconfig(libwebpmux) >= %webp_minver
 BuildRequires:  pkgconfig(libwmf) >= %wmf_minver
-BuildRequires:  pkgconfig(mypaint-brushes-1.0) >= %libmypaint_minver
+BuildRequires:  pkgconfig(mypaint-brushes-2.0)
 BuildRequires:  pkgconfig(OpenEXR) >= %openexr_minver
 BuildRequires:  pkgconfig(pango) >= %pango_minver
 BuildRequires:  pkgconfig(pangocairo) >= %pango_minver
@@ -265,7 +272,7 @@ Requires:       pango%{?_isa} >= %pango_minver
 Requires:       python3dist(pygobject) >= %pygobject_minver
 Requires:       xdg-utils
 
-Recommends:     mypaint-brushes
+Recommends:     mypaint2-brushes
 
 Obsoletes:      gimp3 < %{version}-%{release}
 Provides:       gimp3 = %{version}-%{release}
@@ -287,16 +294,6 @@ Patch2:         gimp-2.99.19-no-phone-home-default.patch
 
 # use external help browser directly if help browser plug-in is not built
 Patch3:         gimp-2.99.19-external-help-browser.patch
-
-# Upstream patches:
-
-# Fixes for loading PSD files from the gimp-3-0 branch
-# https://gitlab.gnome.org/GNOME/gimp/-/commit/17b1a18dcee7b8f697f198e05da9fbb551b953ab
-Patch4:         0001-plug-ins-Guard-against-memory-overflow-in-PSD-load.patch
-# https://gitlab.gnome.org/GNOME/gimp/-/commit/51a2d65a2df403f6da582173e0ddd7904356f5ae
-Patch5:         0002-plug-ins-fix-15812-PSD-loader-heap-buffer-overflow.patch
-# https://gitlab.gnome.org/GNOME/gimp/-/commit/65956310e10ec798e7171bcd6a17460f72ceac1e
-Patch6:         0003-plug-ins-fix-crash-due-to-uninitialized-ptr_array.patch
 
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
@@ -369,10 +366,6 @@ EOF
 %patch 1 -p1 -b .cm-system-monitor-profile-by-default
 %patch 2 -p1 -b .no-phone-home-default
 %patch 3 -p1 -b .external-help-browser
-
-%patch 4 -p1 -b .psd-overflow-1
-%patch 5 -p1 -b .psd-overflow-2
-%patch 6 -p1 -b .psd-uninitialized-array
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files
@@ -500,8 +493,8 @@ grep -E -rl '^#!\s*/usr/bin/env\s+gimp-script-fu' --include=\*.scm "%{buildroot}
         sed -r '1s,^#!\s*/usr/bin/env\s+(gimp-script-fu-interpreter.*)$,#!%{_bindir}/\1,' -i "$file"
     done
 
-rm -rf devel-docs/gimp-%{bin_version}
-mv %{buildroot}%{_docdir}/gimp-%{bin_version} devel-docs
+rm -rf devel-docs/gimp-%{api_version}
+mv %{buildroot}%{_docdir}/gimp-%{api_version} devel-docs
 rm -rf %{buildroot}%{_datadir}/gimp/%{api_version}/tests
 
 %if %{without is_default_version}
@@ -637,33 +630,32 @@ done
 
 %{_datadir}/icons/hicolor/*/apps/gimp*
 
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/gimp-%{bin_version}
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/gimp-%{bin_version}
 
 %files libs
 %license LICENSE COPYING
 %doc AUTHORS NEWS README
-%{_libdir}/libgimp-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimp-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimp-scriptfu-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimp-scriptfu-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpbase-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpbase-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpcolor-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpcolor-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpconfig-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpconfig-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpmath-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpmath-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpmodule-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpmodule-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpthumb-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpthumb-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpui-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpui-%{lib_api_version}.so.%{interface_age}
-%{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
-%{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{interface_age}
+%{_libdir}/libgimp-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimp-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimp-scriptfu-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimp-scriptfu-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpbase-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpbase-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpcolor-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpcolor-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpconfig-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpconfig-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpmath-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpmath-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpmodule-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpmodule-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpthumb-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpthumb-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpui-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpui-%{lib_api_version}.so.%{so_version_major}
+%{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{so_version}
+%{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{so_version_major}
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/*.typelib
 

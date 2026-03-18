@@ -1,8 +1,8 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        13.41
-Release:        3%{?dist}
+Version:        16.0
+Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -15,6 +15,7 @@ BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtlocation-devel
+BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qtserialport-devel
 BuildRequires:  libappstream-glib
@@ -60,6 +61,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/CRS/
 %{_datadir}/%{name}/maps/
+%{_datadir}/%{name}/style/
 %{_datadir}/%{name}/symbols/
 %dir %{_datadir}/%{name}/translations
 %{_datadir}/icons/*/*/*/%{name}.*
@@ -69,6 +71,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Mar 14 2026 Packit <hello@packit.dev> - 16.0-1
+- Update to version 16.0
+- Resolves: rhbz#2364981
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.41-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

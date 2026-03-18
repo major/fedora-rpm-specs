@@ -1,4 +1,4 @@
-%global commit 202a1e6367848ca3a51fdeab3cb28fc0ad783ffa
+%global commit 2ce8d3ffbdc10bcbf9f3c42b80ef69babca98522
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # not compatible with newer clang versions
@@ -7,13 +7,15 @@
 %endif
 
 Name: intel-opencl-clang
-Version: 15.0.5
+Version: 15.0.6
 Release: %autorelease
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 
 License: NCSA
 URL:     https://github.com/intel/opencl-clang
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+#Fix build
+Patch0: Fix_SPIRV-LLVM-Translator_header_file_patch_in_out-of-tree_build.patch
 
 BuildRequires: cmake
 BuildRequires: clang%{?llvm_compat}
@@ -47,8 +49,11 @@ sed -i 's/$<TARGET_FILE:clang>/$<TARGET_FILE:clang%{?llvm_compat}>/' cl_headers/
 
 %build
 %cmake \
+    -USE_PREBUILT_LLVM=ON \
     -DPREFERRED_LLVM_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
-    -DLLVM_DIR=%{_libdir}/llvm%{?llvm_compat}/lib/cmake/llvm/
+    -DLLVM_DIR=%{_libdir}/llvm%{?llvm_compat}/lib/cmake/llvm/ \
+    -DLLVMSPIRV_INCLUDED_IN_LLVM=OFF \
+    -DSPIRV_TRANSLATOR_DIR=/usr
 %cmake_build
 
 %install

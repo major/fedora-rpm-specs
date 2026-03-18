@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -27,6 +27,7 @@ Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
 Patch0002:      0002-Migrate-from-pkg_resources.patch
+Patch0003:      0003-IPAFileCheck-also-allow-640-for-kra-debug-log.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -159,6 +160,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Mon Mar 16 2026 Rob Crittenden <rcritten@redhat.com> - 0.19-5
+- IPAFileCheck: also allow 640 for kra debug log
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

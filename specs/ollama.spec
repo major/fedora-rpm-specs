@@ -19,7 +19,7 @@ ExcludeArch:    ppc64le s390x
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
-Version:                0.16.3
+Version:                0.17.7
 
 %gometa -L -f
 
@@ -40,7 +40,7 @@ Source11:       ollama.sysusers
 %endif
 
 Patch1:         0001-ollama-handle-load.patch
-# Patch2:         0001-ollama-crush-integration.patch
+Patch2:         0001-ollama-crush-integration.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  fdupes
