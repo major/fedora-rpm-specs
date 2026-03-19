@@ -7,8 +7,8 @@
 
 
 Name: rabbitmq-server
-Version: 4.2.4
-Release: 2%{?dist}
+Version: 4.2.5
+Release: 1%{?dist}
 Summary: The RabbitMQ server
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -65,16 +65,11 @@ scalable implementation of an AMQP broker.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
-# We have to remove it until common_test subpackage lands RHOS
-rm -f \
-	deps/amqp_client/src/rabbit_ct_client_helpers.erl \
-	deps/rabbit_common/src/rabbit_ct_broker_helpers.erl \
-	deps/rabbit_common/src/rabbit_ct_helpers.erl
-
 # Create a sysusers.d config file
 cat >rabbitmq-server.sysusers.conf <<EOF
 u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
 EOF
+
 
 %build
 make PROJECT_VERSION=%{version} ESCRIPT_ZIP="zip -9 -X" V=1 # Doesn't support %%{?_smp_mflags}
@@ -180,6 +175,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Tue Mar 17 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.5-1
+- Ver. 4.2.5
+
 * Sun Mar  8 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.4-2
 - Fix plugin installation
 

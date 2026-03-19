@@ -1,4 +1,5 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           libshumate
 Version:        1.6.0
@@ -9,7 +10,7 @@ Summary:        GTK widget to display maps
 # LGPL-2.0-or-later while the rest of the code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/libshumate
-Source0:        https://download.gnome.org/sources/libshumate/1.6/libshumate-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -64,7 +65,10 @@ This package contains developer documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n libshumate-%{tarball_version}
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build

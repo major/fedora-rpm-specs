@@ -1,14 +1,15 @@
 %global appname org.gnome.Manuals
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-manuals
-Version:        50~rc
+Version:        50.1
 Release:        %autorelease
 Summary:        Install, Browse, and Search developer documentation
 License:        GPL-3.0-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/manuals
-Source:         https://download.gnome.org/sources/manuals/50/manuals-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/manuals/%{major_version}/manuals-%{tarball_version}.tar.xz
 
 ExcludeArch:    %{ix86}
 
@@ -35,6 +36,9 @@ Manuals is an extraction of the Documentation component of GNOME Builder
 into a standalone application.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -n manuals-%{tarball_version} -p1
 
 %build

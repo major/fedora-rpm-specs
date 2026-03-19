@@ -1,6 +1,6 @@
 Name:           perl-Image-PNG-Libpng
-Version:        0.59
-Release:        4%{?dist}
+Version:        0.60
+Release:        1%{?dist}
 Summary:        Perl interface to the libpng library
 # lib/Image/PNG/Const.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Image/PNG/Libpng.pod:     GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 17 2026 Petr Pisar <ppisar@redhat.com> - 0.60-1
+- 0.60 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.59-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

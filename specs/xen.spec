@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -83,6 +83,8 @@ Patch11: xen.json.nocpuid.patch
 Patch12: xen.gcc16.fixes.patch
 Patch13: xsa477.patch
 Patch14: xsa479.patch
+Patch15: xsa480.patch
+Patch16: xsa481.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -273,6 +275,8 @@ This package contains files used in testing the xen builds
 %patch 12 -p1
 %patch 13 -p1
 %patch 14 -p1
+%patch 15 -p1
+%patch 16 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -828,6 +832,10 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Tue Mar 17 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-5
+- Use after free of paging structures in EPT [XSA-480, CVE-2026-23554]
+- Xenstored DoS by unprivileged domain [XSA-481, CVE-2026-23555]
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 4.21.0-4
 - OCaml 5.4.1 rebuild
 

@@ -1,14 +1,12 @@
 %global gtk4_version 4.15.3
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-contacts
 Version:        50.0
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
-
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 # Sources are GPL-2.0-or-later, Appdata is CC0-1.0, icon is CC-BY-SA-4.0.
 License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
@@ -46,6 +44,9 @@ Requires:       pipewire-gstreamer
 %{name} is a standalone contacts manager for GNOME desktop.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

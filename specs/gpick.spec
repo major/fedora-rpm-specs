@@ -1,22 +1,22 @@
-%global commit 274745c23398554acc3cf40fefb2ce5ce3c21197
-%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
-%global date 20251201
+#%%global commit 274745c23398554acc3cf40fefb2ce5ce3c21197
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global date 20251201
 
 Name:		gpick
-Version:	0.4
-Release:	%autorelease -b 1 -s %{date}git%{shortcommit}
-Summary:	Advanced color picker
+Version:	    0.4
+Release:	    %autorelease
+Summary:	    Advanced color picker
 
-License:	BSD-3-Clause
-URL:		http://gpick.org
+License:	    BSD-3-Clause
+URL:		    http://gpick.org
 
 %{?shortcommit:
 Source:		https://github.com/thezbyg/%{name}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz}
 %{!?shortcommit:
-Source:		https://github.com/thezbyg/%{name}/archive/%{name}-%{version}.tar.gz#/%{name}-%{version}.tar.gz}
+Source:		https://github.com/thezbyg/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz}
 
 # https://github.com/thezbyg/gpick/pull/238
-Patch0:		gpick-0.4-lua-5.5.patch
+Patch0:		    gpick-0.4-lua-5.5.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	boost-devel
@@ -42,7 +42,7 @@ Advanced color picker
 %{?shortcommit:
 %autosetup -p1 -n %{name}-%{commit}}
 %{!?shortcommit:
-%autosetup -n %name-%{name}-%{version}}
+%autosetup -n %{name}-%{version}}
 mkdir .git
 
 # Delete external libraries and only use system dependencies to build GPick

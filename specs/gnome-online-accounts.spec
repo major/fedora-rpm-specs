@@ -4,6 +4,8 @@
 %global libadwaita_version 1.6~beta
 %global libsoup_version 3.0
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:		gnome-online-accounts
 Version:	3.58.0
 Release:	%autorelease
@@ -12,7 +14,7 @@ Summary:	Single sign-on framework for GNOME
 # Sources are LGPL-2.0-or-later, icons are CC-BY-SA-4.0.
 License:	LGPL-2.0-or-later AND CC-BY-SA-4.0
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(gcr-4)

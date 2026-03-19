@@ -7,6 +7,8 @@
 %define vte_version 0.79.90
 %define desktop_file_utils_version 0.2.90
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:    gnome-terminal
 Version: 3.60.0
 Release: %autorelease
@@ -14,7 +16,7 @@ Summary: Terminal emulator for GNOME
 
 License: GPL-3.0-or-later AND GFDL-1.3-only
 URL:     https://wiki.gnome.org/Apps/Terminal
-Source0: https://download.gnome.org/sources/%{name}/3.60/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 BuildRequires: pkgconfig(dconf)

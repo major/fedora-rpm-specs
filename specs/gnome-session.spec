@@ -1,6 +1,7 @@
-%global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
-%global tarball_version %%(echo %{version} | tr '~' '.')
 %define po_package gnome-session
+
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-session
 Version:        50.0
@@ -57,6 +58,9 @@ Obsoletes: gnome-session-xsession < %{version}-%{release}
 Desktop file to add GNOME on wayland to display manager session menu.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

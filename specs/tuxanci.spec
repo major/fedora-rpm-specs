@@ -1,6 +1,6 @@
 Name:           tuxanci
 Version:        0.21.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        First Tux shooter multi-player network game
 # LICENCE:      GPLv2 text
 ## unused
@@ -9,6 +9,8 @@ License:        GPL-1.0-or-later
 Source0:        http://download.tuxanci.org/tuxanci-0.21.0.tar.bz2
 Source1:        tuxanci.desktop
 Source2:        tuxanci.appdata.xml
+# The screenshot URL is linked from tuxanci.appdata.xml
+Source3:        screenshot.png
 Patch1:         0001-SDLmain-is-no-more.patch
 Patch2:         0002-dlopen-is-used-outside-server-too.patch
 Patch3:         0003-Unbreak-DLIB_INSTALL_DIR.patch
@@ -77,6 +79,10 @@ appstream-util validate-relax --nonet \
 %{_datadir}/appdata/tuxanci.appdata.xml
 
 %changelog
+* Tue Mar 17 2026 Petr Pisar <ppisar@redhat.com> - 0.21.0-29
+- Remove abused URL and replace a screenshot in AppStream metadata
+  (bug #2448347)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

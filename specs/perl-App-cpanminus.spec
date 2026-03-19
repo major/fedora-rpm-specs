@@ -1,6 +1,6 @@
 Name:           perl-App-cpanminus
-Version:        1.7048
-Release:        4%{?dist}
+Version:        1.7049
+Release:        1%{?dist}
 Summary:        Get, unpack, build and install CPAN modules
 # Other files:  GPL+ or Artistic
 ## unbundled
@@ -179,6 +179,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.7049-1
+- 1.7049 bump (rhbz#2448301)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7048-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

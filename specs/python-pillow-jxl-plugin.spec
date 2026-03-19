@@ -8,18 +8,23 @@ Summary:        Pillow plugin for JPEG-XL
 # CC-BY and CC-BY-SA for test images
 SourceLicense:  GPL-3.0-or-later AND CC-BY-4.0 AND CC-BY-SA-4.0
 
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # GPL-3.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-or-later AND MIT AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        GPL-3.0-or-later AND MIT AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/Isotr0py/pillow-jpegxl-plugin
 Source:         %{pypi_source %{pypi_name}}
 
+# upstream commit to update jpegxl-rs dependency from 0.11 to 0.12:
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/commit/0ecab6b
+Patch:          0001-Update-jpegxl-rs-dependency-from-0.11.2-to-0.12.0.patch
+
 # drop custom build system that is unnecessary and only breaks stuff
-Patch:          0001-Unconditionally-dynamically-link-libjxl.patch
+Patch:          0002-Unconditionally-dynamically-link-libjxl.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 %global __provides_exclude_from ^%{_libdir}/gnome-boxes/
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/gnome-boxes/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(echo %%{tarball_version} | cut -d. -f1)
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:		gnome-boxes
 Version:	50.0
@@ -113,6 +113,9 @@ gnome-boxes lets you easily create, setup, access, and use:
     local virtual machines
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

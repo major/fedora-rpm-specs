@@ -5,7 +5,7 @@
 %global crate nix
 
 Name:           rust-nix
-Version:        0.31.1
+Version:        0.31.2
 Release:        %autorelease
 Summary:        Rust friendly bindings to *nix APIs
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/nix
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          nix-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * relax exact libc dependency
-Patch:          nix-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

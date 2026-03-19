@@ -32,7 +32,9 @@ Source0:        %{url1}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url1}/i3ipcpp/archive/%{commit1}/i3ipcpp-%{shortcommit1}.tar.gz
 Source2:        %{url1}/xpp/archive/%{commit2}/xpp-%{shortcommit2}.tar.gz
 
-Patch0:         polybar-3.7.2-include-cstdint.patch
+Patch0:         0000-include-cstdint.patch
+# https://github.com/polybar/polybar/commit/455d63611a695ffe4fe372272be28f4f6d9b90d3
+Patch1:         0001-link-freetype.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++
@@ -50,6 +52,7 @@ BuildRequires:  xcb-util-xrm-devel
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(jsoncpp) >= 1.7.7
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpulse)
@@ -75,7 +78,7 @@ scripting.
 mv i3ipcpp-%{commit1}/* lib/i3ipcpp
 mv xpp-%{commit2}/*     lib/xpp
 
-%patch 0 -p1
+%autopatch -p1
 
 
 %build

@@ -24,8 +24,12 @@
 # FIXME: How to write a condition with multiple lines
 %global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1 or %wcd2)
 %global pcd1 cinnamon or deepin-desktop or i3
-%global pcd2 lxqt-x11-session or lxsession or mate-panel or phosh or awesome
-%global pcd3 sugar or xfce4-session
+# Currently imsettings invokes ibus-dameon directly and that way no longer work
+# in Wayland.
+# Comment out lxqt-x11-session until it's installed by default in LXQt Spin
+# Comment out xfce4-session until it's installed by default in XFCE Spin
+%global pcd2 lxsession or mate-panel or phosh or awesome
+%global pcd3 sugar
 %global wcd1 cosmic-panel or hyprland or sway or waybar or lxqt-wayland-session
 %global wcd2 budgie-desktop or plasma-workspace or xfce4-session-wayland-session
 
@@ -54,7 +58,7 @@
 Name:           ibus
 Version:        1.5.34~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -579,6 +583,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Mar 17 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-2
+- Disable ibus-xinit in LXQT and XFCE Spins
+
 * Mon Mar 16 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-1
 - Bump to 1.5.34-rc1
 - Update translations

@@ -2,6 +2,8 @@
 %global gobject_introspection_version 1.72.0
 %global mozjs140_version 140.1.0
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:           gjs
 Version:        1.88.0
 Release:        %autorelease
@@ -15,7 +17,7 @@ Summary:        Javascript Bindings for GNOME
 # modules/script/tweener/equations.js is BSD-3-Clause
 License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/Gjs
-Source0:        https://download.gnome.org/sources/%{name}/1.88/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson

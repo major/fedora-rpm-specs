@@ -17,23 +17,29 @@
 %global upstream_version 2.2.0
 #global upstream_prever  RC1
 #global upstream_lower   rc1
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
-%global _configure       ../%{sources}/configure
 
-Summary:       Communicate with any AMQP compliant server
+# Github forge
+%global gh_vend          %{pie_vend}
+%global gh_proj          %{pie_proj}
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              v%{version}
+
+# https://github.com/php-amqp/php-amqp
+
 Name:          php-pecl-amqp
-Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       2%{?dist}
+Summary:       Communicate with any AMQP compliant server
 License:       PHP-3.01
-URL:           https://pecl.php.net/package/amqp
-Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
+Release:       3%{?dist}
+%forgemeta
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel >= 7.4
-BuildRequires: php-pear
 BuildRequires: pkgconfig(librabbitmq) >= 0.8.0
 %if %{with tests}
 BuildRequires: rabbitmq-server
@@ -59,21 +65,14 @@ from any queue.
 
 
 %prep
-%setup -q -c
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Upstream often forget to change this
 extver=$(sed -n '/#define PHP_AMQP_VERSION /{s/.* "//;s/".*$//;p}' php_amqp_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
-cd ..
 
 cat > %{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
@@ -130,36 +129,26 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 %configure --with-php-config=%{__phpconfig}
+
 %make_build
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Drop in the bit of configuration
-install -Dpm 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -Dpm 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install the Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -Dpm 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
 : Minimal load test for the extension
 %{__php} --no-php-ini \
-    --define extension=%{sources}/modules/%{pecl_name}.so \
+    --define extension=modules/%{pecl_name}.so \
     -m | grep '^%{pecl_name}$'
 
 %if %{with tests}
@@ -174,11 +163,9 @@ export PHP_AMQP_HOST=localhost
 /usr/lib/rabbitmq/bin/rabbitmqctl wait $RABBITMQ_PID_FILE
 
 ret=0
-pushd %{sources}
 : Run the upstream test Suite for the extension
 TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff || ret=1
-popd
 
 : Cleanup
 if [ -s $RABBITMQ_PID_FILE ]; then
@@ -191,15 +178,21 @@ exit $ret
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
+%doc stubs
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Mon Mar 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.0-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

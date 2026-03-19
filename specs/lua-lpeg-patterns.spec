@@ -1,6 +1,3 @@
-%{!?luaver: %global luaver %(lua -e "print(string.sub(_VERSION, 5))" || echo 0)}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 %global luacompatver 5.1
 %global luacompatpkgdir %{_datadir}/lua/%{luacompatver}
 
@@ -8,7 +5,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A collection of LPEG patterns
 
 License:        MIT
@@ -16,7 +13,7 @@ URL:            https://github.com/daurnimator/lpeg_patterns
 Source0:        https://github.com/daurnimator/lpeg_patterns/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  lua
+BuildRequires:  lua-devel
 
 Requires:       lua-lpeg
 
@@ -36,8 +33,8 @@ A collection of LPEG patterns for validating/searching user input.
 %setup -q -n lpeg_patterns-%{version}
 
 %install
-install -d -m 0755 %{buildroot}%{luapkgdir}/lpeg_patterns
-install -p -m 0644 lpeg_patterns/* -t %{buildroot}%{luapkgdir}/lpeg_patterns/
+install -d -m 0755 %{buildroot}%{lua_pkgdir}/lpeg_patterns
+install -p -m 0644 lpeg_patterns/* -t %{buildroot}%{lua_pkgdir}/lpeg_patterns/
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 install -d -m 0755 %{buildroot}%{luacompatpkgdir}/lpeg_patterns
@@ -47,7 +44,7 @@ install -p -m 0644 lpeg_patterns/* -t %{buildroot}%{luacompatpkgdir}/lpeg_patter
 %files
 %doc README.md
 %license LICENSE.md
-%{luapkgdir}/lpeg_patterns
+%{lua_pkgdir}/lpeg_patterns
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 %files -n lua%{luacompatver}-%{luapkgname}
@@ -57,6 +54,9 @@ install -p -m 0644 lpeg_patterns/* -t %{buildroot}%{luacompatpkgdir}/lpeg_patter
 %endif
 
 %changelog
+* Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.5-18
+- rebuild for lua 5.5, modern macros
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -204,7 +204,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        148.0.2
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -215,6 +215,7 @@ Source1:        firefox-langpacks-%{version}%{?pre_version}-20260310.tar.xz
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
 Source4:        wasm-component-ld-vendor.tar.xz
+Source5:        wasm-tools-vendor.tar.xz
 Source10:       firefox-mozconfig
 Source12:       firefox-redhat-default-prefs.js
 Source20:       firefox.desktop
@@ -262,7 +263,7 @@ Patch81:        firefox-gcc-15.0-s390.patch
 Patch82:        build-c11-threads-avail.patch
 Patch83:        build-seccomp.patch
 Patch84:        dstdint-compile-error.patch
-
+Patch85:        build-wasm32-wasip1.patch
 
 # Fedora specific patches
 Patch215:        firefox-enable-addons.patch
@@ -286,6 +287,9 @@ Patch405:        D278449.patch
 Patch406:        D278450.patch
 
 Patch407:        D280359.patch
+# Potential fix for PipeWire camera crashes
+# https://bugzilla.mozilla.org/show_bug.cgi?id=2023103
+Patch408:        firefox-libwebrtc-potential-fix-for-pipewire-camera-crashes.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -584,6 +588,7 @@ This package contains results of tests executed during build.
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
+%patch -P85 -p1 -b .wasm32-wasip1
 %endif
 %patch -P84 -p1 -b .dstdint-compile-error
 
@@ -614,6 +619,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 %patch -P406 -p1 -b .1999029-5
 
 %patch -P407 -p1 -b .mzbz-2012006
+%patch -P408 -p1 -b .libwebrtc-potential-fix-for-pipewire-camera-crashes
 
 # PGO patches
 %if %{build_with_pgo}
@@ -780,6 +786,23 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 %if %{with wasi_sdk}
 pushd wasi-sdk-30
 
+# wasm_tools
+mkdir -p my_rust_vendor_wasm_tools
+cd my_rust_vendor_wasm_tools
+tar xf %{SOURCE5}
+mkdir -p .cargo
+cat > .cargo/config <<EOL
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "`pwd`"
+EOL
+env CARGO_HOME=.cargo cargo install wasm-tools
+export PATH=`pwd`/.cargo/bin:$PATH
+cd -
+
+# wasm-component-ld
 mkdir -p my_rust_vendor
 cd my_rust_vendor
 tar xf %{SOURCE4}
@@ -1291,6 +1314,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Mar 17 2026 Jan Grulich <jgrulich@redhat.com> - 148.0.2-2
+- Add a potential fix for PipeWire camera crashes (mozbz#2023103)
+
 * Tue Mar 10 2026 Martin Stransky <stransky@redhat.com> - 148.0.2-1
 - Update to latest upstream (148.0.2)
 

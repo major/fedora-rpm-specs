@@ -2,8 +2,8 @@
 
 %define gtk3_version 2.99.2
 
-%global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f1)
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 # This controls support for launching X11 desktops.
 # gdm itself will always use Wayland.
@@ -112,6 +112,9 @@ files that are helpful to PAM modules wishing to support
 GDM specific authentication features.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -S git -p1 -n gdm-%{tarball_version}
 
 %build

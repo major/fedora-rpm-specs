@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.59.3
-Release:       2%{?dist}
+Version:       1.59.4
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1022,6 +1022,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Mar 17 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.4-1
+- New upstream development version 1.59.4
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.3-2
 - OCaml 5.4.1 rebuild
 

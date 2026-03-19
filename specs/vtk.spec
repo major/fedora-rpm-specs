@@ -89,6 +89,8 @@ Patch: vtk-libharu.patch
 # https://gitlab.kitware.com/vtk/vtk/-/issues/19622
 # https://bugzilla.redhat.com/show_bug.cgi?id=2386242
 Patch: vtk-ppc64-no-always-inline.patch
+# Fix Integer Overflow on 32-bit in KissFFT
+Patch: vtk-CVE-2025-34297.patch
 
 URL: https://vtk.org/
 

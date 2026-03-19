@@ -2,7 +2,7 @@
 
 Name:           aqualung
 Version:        2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
 URL:            https://aqualung.jeremyevans.net
@@ -188,6 +188,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.0-7
+- one more rebuild for lua
+
 * Tue Feb 24 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0-6
 - rebuilt for mac 12.35
 

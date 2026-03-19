@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -26,6 +26,10 @@ BuildRequires: xxhash-static
 BuildRequires: autoconf
 BuildRequires: automake
 
+# For configure checks we need full gdb, otherwise gdb-add-index is fine.
+# Older gdb-add-index unfortunately don't support --version.
+BuildRequires: gdb
+
 # The find-debuginfo.sh script has a couple of tools it needs at runtime.
 # For strip_to_debug, eu-strip
 Requires: elfutils
@@ -45,6 +49,8 @@ Requires: dwz
 Requires: grep
 
 %global _hardened_build 1
+
+Patch1: debugedit-5.3-elflint-test.patch
 
 %description
 The debugedit project provides programs and scripts for creating
@@ -88,6 +94,10 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Tue Mar 17 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.3-2
+- Add debugedit-5.3-elflint-test.patch
+- Add gdb as BuildRequires
+
 * Tue Mar 10 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.3-1
 - New upstream 5.3 release
 - Drop all local patches

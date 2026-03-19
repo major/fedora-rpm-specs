@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-pq
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -19,13 +19,22 @@
 %global ini_name   50-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
-Summary:        PostgreSQL client library (libpq) binding
+# Github forge
+%global gh_vend    %{pie_vend}
+%global gh_proj    %{pie_proj}
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        v%{version}
+
 Name:           php-pecl-%{pecl_name}
-Version:        2.2.3
-Release:        9%{?dist}
+Summary:        PostgreSQL client library (libpq) binding
 License:        BSD-2-Clause
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
+Version:        2.2.3
+Release:        10%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+# Not yet in tag
+Source1:        https://raw.githubusercontent.com/m6w6/ext-pq/refs/heads/master/composer.json
 
 Patch0:         53.patch
 
@@ -35,7 +44,6 @@ BuildRequires:  libpq-devel > 9
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.0
-BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  php-pecl-raphf-devel >= 1.1.0
 %if %{with tests}
@@ -48,10 +56,13 @@ Requires:       php(api) = %{php_core_api}
 Requires:       php-json%{?_isa}
 Requires:       php-raphf%{?_isa}  >= 1.1.0
 
+# Extension
 Provides:       php-%{pecl_name}                 = %{version}
 Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
 Provides:       php-pecl(%{pecl_name})           = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -69,14 +80,10 @@ Highlights:
 
 
 %prep
-%setup -q -c
+%forgesetup
 
-# Don't install tests nor LICENSE
-sed -e '/role="test"/d' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
+cp %{SOURCE1} .
 
-cd %{sources}
 %patch -P0 -p1 -b .pr53
 
 # Sanity check, really often broken
@@ -85,7 +92,6 @@ if test "x${extver}" != "x%{version}%{?rcver}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?rcver}.
    exit 1
 fi
-cd ..
 
 # Create configuration file
 cat << 'EOF' | tee %{ini_name}
@@ -95,7 +101,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -107,27 +112,17 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install config file
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install  Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
 : ignore tests with erratic results
-rm %{sources}/tests/cancel001.phpt
-rm %{sources}/tests/flush001.phpt
+rm tests/cancel001.phpt
+rm tests/flush001.phpt
 
 
 OPT="-n"
@@ -157,7 +152,6 @@ EOF
 pg_ctl -D $DATABASE -l $PWD/server.log -w -t 200  start
 createdb -h localhost -p $PORT rpmtest
 
-cd %{sources}
 sed -e "/PQ_DSN/s/\"host.*\"/'host=localhost port=$PORT dbname=rpmtest'/" \
     -i tests/_setup.inc
 
@@ -178,15 +172,24 @@ exit $RET
 
 
 %files
-%doc %{pecl_docdir}/%{pecl_name}
-%license %{sources}/LICENSE
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc AUTHORS
+%doc BUGS
+%doc CREDITS
+%doc THANKS
+%doc TODO
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 2.2.3-10
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

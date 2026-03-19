@@ -31,7 +31,9 @@
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
 %else
-%global pkg_libdir %{_lib}
+# This is a noarch package, _lib macro is 'lib', we need lib64
+# So hardcode pkg_libdir to lib64
+%global pkg_libdir lib64
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
@@ -39,7 +41,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        ROCm directories
 
@@ -211,6 +213,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Tue Mar 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Fix lib64 issue
+
 * Fri Mar 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - merge rocm-filesystem7.2 back
 

@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-mailparse
 #
-# Copyright (c) 2008-2025 Remi Collet
+# Copyright (c) 2008-2026 Remi Collet
 # Copyright (c) 2004-2007 Matthias Saou
 #
 # License: MIT
@@ -14,15 +14,21 @@
 %global pecl_name  mailparse
 # After 20-mbstring
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
 
-Summary:   PHP PECL package for parsing and working with email messages
+# Github forge
+%global gh_vend    php
+%global gh_proj    pecl-mail-mailparse
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        v%{version}
+
 Name:      php-pecl-mailparse
-Version:   3.1.9
-Release:   3%{?dist}
+Summary:   PHP PECL package for parsing and working with email messages
 License:   PHP-3.01
-URL:       https://pecl.php.net/package/mailparse
-Source0:   https://pecl.php.net/get/%{sources}.tgz
+Version:   3.1.9
+Release:   4%{?dist}
+%forgemeta
+URL:       %{forgeurl}
+Source0:   %{forgesource}
 
 ExcludeArch:   %{ix86}
 
@@ -55,22 +61,18 @@ It can deal with rfc822 and rfc2045 (MIME) compliant messages.
 
 
 %prep
-# We need to create our working directory since the package*.xml files from
-# the sources extract straight to it
-%setup -q -c
+%forgesetup
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd %{sources}
 extver=$(sed -n '/#define PHP_MAILPARSE_VERSION/{s/.* "//;s/".*$//;p}' php_mailparse.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream version is ${extver}, expecting %{version}.
    exit 1
 fi
-cd ..
 
 cat > %{ini_name} << 'EOF'
 ; Enable mailparse extension module
@@ -82,7 +84,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -94,20 +95,10 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 # Drop in the bit of configuration
 install -Dpm 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-# Install XML package description
-install -Dpm 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-cd %{sources}
 %make_install
-
-# Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
 
 
 %check
-cd %{sources}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=mbstring.so \
@@ -125,14 +116,21 @@ NO_INTERACTION=1 \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
+%doc try.php
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
-%{pecl_xmldir}/%{name}.xml
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 3.1.9-4
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

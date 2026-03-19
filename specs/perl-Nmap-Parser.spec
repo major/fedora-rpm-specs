@@ -11,7 +11,6 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
@@ -56,8 +55,8 @@ make test
 %files
 %license LICENSE
 %doc Changes.md README.md tools
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Nmap*
+%{_mandir}/man3/Nmap::Parser*
 
 %changelog
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-22

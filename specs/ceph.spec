@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -802,7 +802,7 @@ Summary:	Ceph fuse-based client
 %if 0%{?suse_version}
 Group:		System/Filesystems
 %endif
-Requires:	fuse
+Requires:	fuse3
 Requires:	python%{python3_pkgversion}
 %description fuse
 FUSE based client for Ceph distributed network file system
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Mar 17 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-10
+- Requires: fuse -> fuse3
+
 * Tue Feb 17 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-9
 - ceph-20.2.0, rebuild with libarrow-23.0.1, cmake-4-isms, lua-5.5
 

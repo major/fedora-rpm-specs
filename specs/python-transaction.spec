@@ -1,12 +1,11 @@
 Name:           python-transaction
-Version:        5.0
+Version:        5.1
 Release:        %autorelease
 Summary:        Transaction management for Python
 
 License:        ZPL-2.1
 URL:            https://pypi.io/project/transaction
 Source0:        %pypi_source transaction
-Patch1:         transaction-no-explicit-setuptools-req.patch
 
 BuildArch:      noarch
 

@@ -24,7 +24,8 @@
 # this is not a library version
 %define gs_plugin_version 23
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
@@ -35,7 +36,7 @@ Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
-Source0:   https://download.gnome.org/sources/gnome-software/50/%{name}-%{tarball_version}.tar.xz
+Source0:   https://download.gnome.org/sources/gnome-software/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 %if %{with dnf5}
 # to update the patch enter the ./dnf5-plugin/ directory and run from
@@ -162,6 +163,9 @@ This package includes the rpm-ostree backend.
 %endif
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -S gendiff -n %{name}-%{tarball_version}
 
 %build

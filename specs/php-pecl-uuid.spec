@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-uuid
 #
-# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2012-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -11,22 +11,27 @@
 %global pie_proj    uuid
 %global pecl_name   uuid
 %global ini_name    40-%{pecl_name}.ini
-%global sources     %{pecl_name}-%{version}
 
-Summary:       Universally Unique Identifier extension for PHP
+# Github forge
+%global gh_vend     php
+%global gh_proj     pecl-networking-uuid
+%global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
+%global tag         v%{version}
+
 Name:          php-pecl-uuid
-Version:       1.3.0
-Release:       4%{?dist}
+Summary:       Universally Unique Identifier extension for PHP
 License:       LGPL-2.1-or-later
-URL:           https://pecl.php.net/package/%{pecl_name}
-Source:        https://pecl.php.net/get/%{sources}.tgz
+Version:       1.3.0
+Release:       5%{?dist}
+%forgemeta
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel
-BuildRequires: php-pear
 BuildRequires: libuuid-devel
 
 Requires:      php(zend-abi) = %{php_zend_api}
@@ -34,10 +39,13 @@ Requires:      php(api) = %{php_core_api}
 # both provides same extension, with different API
 Conflicts:     uuid-php
 
+# Extension
 Provides:      php-%{pecl_name}                 = %{version}
 Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
 Provides:      php-pecl(%{pecl_name})           = %{version}
 Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
 Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
@@ -46,21 +54,14 @@ A wrapper around Universally Unique Identifier library (libuuid).
 
 
 %prep
-%setup -q -c 
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_UUID_VERSION/{s/.* "//;s/".*$//;p}' php_uuid.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}.
    exit 1
 fi
-cd ..
 
 # Drop in the bit of configuration
 cat > %{ini_name} << 'EOF'
@@ -72,7 +73,6 @@ EOF
 %build
 export PHP_RPATH=no
 
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -88,22 +88,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 : Install the configuration file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-: Install the package XML file
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-cd %{sources}
 : Install the extension
 %make_install
 
-: Install the documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
-cd %{sources}
-
 : Minimal load test for the extension
 %{__php} --no-php-ini \
     --define extension=mbstring.so \
@@ -116,15 +105,20 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 1.3.0-5
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

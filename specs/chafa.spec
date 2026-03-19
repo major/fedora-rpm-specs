@@ -11,15 +11,14 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  gtk-doc
-BuildRequires:  libtool
-BuildRequires:  make
-BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libavif-devel
+BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  libpng-devel
 BuildRequires:  librsvg2-devel
 BuildRequires:  libtiff-devel
+BuildRequires:  libtool
 BuildRequires:  libwebp-devel
-BuildRequires:  libpng-devel
-
+BuildRequires:  make
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -43,14 +42,16 @@ Provides:       bundled(libnsgif) = 0.2.1^chafa
 Provides:       bundled(lodepng) = 20220109
 
 %description libs
-Shared library for %{name}.
+Shared library for %{name}. Chafa provides a high-performance C API for
+converting images to terminal graphics.
 
 
 %package static
 Summary:        %{sum} (static library)
 
 %description static
-Static library for %{name}.
+Static library for %{name}. Chafa provides a high-performance C API for
+converting images to terminal graphics.
 
 
 %package devel
@@ -58,15 +59,17 @@ Summary:        %{sum} (development files)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
-Development files for %{name}, such as headers.
+Development files for %{name}, such as headers, needed to develop applications
+using the Chafa library.
 
 
 %package doc
 Summary:        %{sum} (documentation)
 Recommends:     %{name}-devel
+BuildArch:      noarch
 
 %description doc
-Documentation for %{name}, such as headers.
+Documentation for %{name}, such as HTML reference and developer guides.
 
 
 %prep
@@ -81,13 +84,15 @@ autoreconf -ivf
 
 %install
 %make_install
-%if 0%{?rhel}
 find %{buildroot} -name "*.la" -delete
-%endif
+
+
+%check
+%make_build check
 
 
 %files
-%doc AUTHORS COPYING.LESSER README* NEWS
+%doc AUTHORS README* NEWS
 %license COPYING.LESSER
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
@@ -96,7 +101,7 @@ find %{buildroot} -name "*.la" -delete
 %doc AUTHORS
 %license COPYING.LESSER
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.11.1
+%{_libdir}/lib%{name}.so.0.*
 
 %files static
 %doc AUTHORS

@@ -5,7 +5,7 @@
 %endif
 
 Name: libgsf
-Version: 1.14.55
+Version: 1.14.56
 Release: 1%{?dist}
 Summary: GNOME Structured File library
 
@@ -50,7 +50,7 @@ Requires: pkgconfig
 Obsoletes: libgsf-gnome-devel < 1.14.22
 
 %description devel
-Libraries, headers, and support files necessary to compile applications using 
+Libraries, headers, and support files necessary to compile applications using
 libgsf.
 
 %if %{with_mingw}
@@ -173,6 +173,9 @@ find %{buildroot} -name '*.la' -delete -print
 %endif
 
 %changelog
+* Tue Mar 17 2026 Milan Crha <mcrha@redhat.com> - 1.14.56-1
+- Update to 1.14.56
+
 * Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 1.14.55-1
 - Update to 1.14.55
 

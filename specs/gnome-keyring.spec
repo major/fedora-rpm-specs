@@ -4,13 +4,13 @@
 
 %bcond_without ssh_agent
 
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+
 Name:           gnome-keyring
 Version:        50.0
 Release:        %autorelease
 Summary:        Framework for managing passwords and other secrets
-
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 # egg/ is (GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause
 # pkcs11/ is MPL-1.1 OR GPL-2.0-or-later OR  LGPL-2.1-or-later
@@ -72,6 +72,9 @@ automatically unlock the "login" keyring when the user logs in.
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -S git -n %{name}-%{tarball_version}
 
 

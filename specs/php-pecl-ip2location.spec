@@ -3,32 +3,36 @@
 #
 # remirepo spec file for php-pecl-ip2location
 #
-# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2017-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global pecl_name  ip2location
-%global pie_vend   ip2location
-%global pie_proj   ip2location-pie
-%global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global pecl_name        ip2location
+%global pie_vend         ip2location
+%global pie_proj         ip2location-pie
+%global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 8.3.0
 #global upstream_prever  RC1
 # For 8.7 for new features
 %global libversion       8.7
 
-Summary:        Get geo location information of an IP address
+# Github forge
+%global gh_vend          chrislim2888
+%global gh_proj          IP2Location-PECL-Extension
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              %{upstream_version}%{?upstream_prever}
+
 Name:           php-pecl-%{pecl_name}
+Summary:        Get geo location information of an IP address
 License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/chrislim2888/IP2Location-PECL-Extension/pull/25.patch
+Release:        4%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
@@ -61,18 +65,7 @@ weather station name, mobile country code (MCC), mobile network code
 
 
 %prep
-%setup -q -c
-
-# Don't install tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -e '/README.TXT/s/role="doc"/role="test"/' \
-    -i package.xml
-
-cd %{sources}
-%patch -P0 -p1 -b .pr25
-
-sed -e "s/\r//" -i LICENSE CREDITS *.md *.c *.h
+%forgesetup
 
 # Check version
 extver=$(sed -n '/#define PHP_IP2LOCATION_VERSION/{s/.* "//;s/".*$//;p}' php_ip2location.h)
@@ -80,7 +73,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
-cd ..
 
 cat <<EOF | tee %{ini_name}
 ; Enable %{pecl_name} extension module
@@ -89,7 +81,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -98,18 +89,9 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-cd %{sources}
 %make_install
-
-# Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
 
 
 %check
@@ -119,20 +101,26 @@ done
     --modules | grep '^%{pecl_name}$'
 
 : upstream test suite
-cd %{sources}
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff
 
 
 %files
-%doc %{pecl_docdir}/%{pecl_name}
-%config(noreplace) %{php_inidir}/%{ini_name}
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
 
+%config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
-%{pecl_xmldir}/%{name}.xml
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 8.3.0-4
+- drop pear/pecl dependency
+- sources from github
+- drop patch merged upstream
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,6 +3,9 @@
 %global libadwaita_version 1.6~beta
 %global blueprint_compiler_version 0.18
 
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+
 Name:           showtime
 Version:        50.0
 
@@ -11,10 +14,6 @@ Summary:        Modern video player built using GTK4
 
 License:        GPL-3.0-or-later
 URL:            https://apps.gnome.org/Showtime/
-
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %(cut -d "." -f 1 <<<%{tarball_version})
-
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
@@ -52,6 +51,9 @@ language and subtitle tracks, and screenshots — everything you
 need for a straightforward viewing experience.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

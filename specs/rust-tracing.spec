@@ -5,7 +5,7 @@
 %global crate tracing
 
 Name:           rust-tracing
-Version:        0.1.43
+Version:        0.1.44
 Release:        %autorelease
 Summary:        Application-level tracing for Rust
 
@@ -272,6 +272,9 @@ use the "tracing-attributes" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# clean up accidentally included flotsam and jetsam:
+# https://github.com/tokio-rs/tracing/issues/3455
+rm -rfv test-macros/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

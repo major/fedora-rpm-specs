@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-environment8
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    24a711b5c916efc6d6e62aa65aa2ec98fef77f68
+%global gh_commit    7b8842c2d8e85d0c3a5831236bf5869af6ab2a11
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
-%global gh_date      2025-08-12
+%global gh_date      2026-03-15
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.3
-Release:        2%{?dist}
+Version:        8.0.4
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -87,7 +87,7 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %if %{with tests}
 %check
 mkdir vendor
-touch vendor/autoload.php
+ln -s %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php vendor/autoload.php
 
 : Run tests
 ret=0
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 8.0.4-1
+- update to 8.0.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,8 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           foundry
-Version:        1.1~rc
+Version:        1.1.1
 Release:        %autorelease
 Summary:        IDE library and command-line companion tool
 
@@ -10,7 +11,7 @@ Summary:        IDE library and command-line companion tool
 License:        LGPL-2.1-or-later AND Apache-2.0
 
 URL:            https://gitlab.gnome.org/GNOME/foundry
-Source:         https://download.gnome.org/sources/foundry/1.1/foundry-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
 ExcludeArch:    %{ix86}
 
@@ -81,6 +82,9 @@ Requires:       libfoundry-gtk%{?_isa} = %{version}-%{release}
 This package contains the development headers for libfoundry-gtk.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -n foundry-%{tarball_version} -p1
 
 %build

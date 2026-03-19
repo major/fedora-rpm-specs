@@ -14,8 +14,8 @@
 %global wayland_protocols_version 1.45
 %global wayland_server_version 1.24
 
-%global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:          mutter
 Version:       50.0
@@ -157,6 +157,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Viewer for nested mutter instances.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build

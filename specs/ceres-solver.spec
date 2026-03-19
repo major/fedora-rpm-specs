@@ -3,7 +3,7 @@ Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A non-linear least squares minimizer
 License:        BSD-3-Clause AND Apache-2.0
 
@@ -78,6 +78,7 @@ Features include:
 Summary:        A non-linear least squares minimizer
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       eigen3-devel
+Requires:       flexiblas-devel
 Requires:       gflags-devel
 Requires:       glog-devel
 Requires:       suitesparse-devel
@@ -124,6 +125,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Mar 17 2026 Luya Tshimbalan ga <luya@fedoraproject.org> - 2.2.0-12
+- Requires flexiblas-devel (rhbz#2448468)
+
 * Sat Feb 14 2026 Sandro Mani <manisandro@gmail.com> - 2.2.0-11
 - Rebuild (libglog)
 

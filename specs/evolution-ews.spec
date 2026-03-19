@@ -4,13 +4,15 @@
 %global libmspack_version 0.4
 %global libsoup_version 3.1.1
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name: evolution-ews
 Version: 3.60.0
 Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.60/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 %global eds_evo_version %{version}
 

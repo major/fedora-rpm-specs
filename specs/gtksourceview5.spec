@@ -3,14 +3,16 @@
 
 %global api_ver 5
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:           gtksourceview5
-Version:        5.19.0
+Version:        5.20.0
 Release:        %autorelease
 Summary:        Source code editing widget
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GtkSourceView
-Source0:        https://download.gnome.org/sources/gtksourceview/5.19/gtksourceview-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtksourceview/%{major_minor_version}/gtksourceview-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext

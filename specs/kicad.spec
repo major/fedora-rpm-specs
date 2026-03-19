@@ -134,12 +134,10 @@ mv kicad-packages3D-%{version}-%{candidate} kicad-packages3D-%{version}
 %cmake \
     -DKICAD_IPC_API=ON \
     -DKICAD_SCRIPTING_WXPYTHON=ON \
-    -DKICAD_USE_OCC=ON \
     -DKICAD_INSTALL_DEMOS=ON \
     -DKICAD_BUILD_QA_TESTS=OFF \
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
-    -DKICAD_USE_EGL=OFF \
     -DKICAD_USE_CMAKE_FINDPROTOBUF=ON \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \

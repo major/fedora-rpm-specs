@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    bb64d08145b021b67d5f253308a498b73ab0461e
+%global gh_commit    e26e9a944bd9d27b3a38a82fc2093d440951bfbe
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
-%global gh_date      2026-02-06
+%global gh_date      2026-03-15
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        9.0.0
-Release:        2%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -87,7 +87,7 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %if %{with tests}
 %check
 mkdir vendor
-touch vendor/autoload.php
+ln -s %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php vendor/autoload.php
 
 : Run tests
 ret=0
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 9.0.1-1
+- update to 9.0.1
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 9.0.0-2
 - enable test suite
 

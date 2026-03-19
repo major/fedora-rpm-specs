@@ -13,7 +13,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.37.1
+Version:        0.38.0
 %forgemeta
 Release:        %autorelease
 

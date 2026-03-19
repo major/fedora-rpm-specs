@@ -1,5 +1,6 @@
 %global app_id  org.gnome.Nibbles
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           gnome-nibbles
 Version:        4.5.1
@@ -8,7 +9,7 @@ Summary:        GNOME Nibbles game
 # Source code is under GPLv3+, help is under CC-BY-SA, Appdata is under CC0.
 License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Nibbles
-Source0:        https://download.gnome.org/sources/gnome-nibbles/4.5/gnome-nibbles-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -30,6 +31,9 @@ avoiding the walls and yourself. With each diamond your worm grows longer and
 navigation becomes more and more difficult. Playable by up to four people.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 

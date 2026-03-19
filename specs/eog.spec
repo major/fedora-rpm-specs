@@ -4,7 +4,8 @@
 %global libexif_version 0.6.14
 %global libhandy_version 1.5.0
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:    eog
 Version: 50.0
@@ -13,7 +14,7 @@ Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
-Source0: https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 Patch0:  eog-lower-requires-libpeas-version.patch
 
@@ -89,6 +90,9 @@ the functionality of the installed %{name} package.
 %endif
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

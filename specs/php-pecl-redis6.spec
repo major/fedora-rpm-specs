@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-redis6
 #
-# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2012-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -34,22 +34,27 @@
 
 %global upstream_version 6.3.0
 #global upstream_prever  RC2
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
-Summary:       PHP extension for interfacing with key-value stores
+# Github forge
+%global gh_vend          %{pie_vend}
+%global gh_proj          %{pie_proj}
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              %{version}
+
 Name:          %{php_base}-pecl-redis6
-Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       2%{?dist}
+Summary:       PHP extension for interfacing with key-value stores
 License:       PHP-3.01
-URL:           https://pecl.php.net/package/redis
-Source0:       https://pecl.php.net/get/%{sources}.tgz
+Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:       3%{?dist}
+%forgemeta
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: %{php_base}-devel >= 8.0
-BuildRequires: php-pear
 %if %{with igbinary}
 BuildRequires: %{php_base}-pecl-igbinary-devel
 %endif
@@ -123,15 +128,8 @@ some doesn't work with an old server version.
 
 
 %prep
-%setup -q -c
+%forgesetup
 
-# Don't install/register tests, license, and bundled library
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -e '/liblzf/d' \
-    -i package.xml
-
-cd %{sources}
 # Use system library
 rm -r liblzf
 
@@ -141,7 +139,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
-cd ..
 
 # Drop in the bit of configuration
 cat > %{ini_name} << 'EOF'
@@ -220,7 +217,6 @@ peclconf() {
     --with-php-config=$1
 }
 
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -232,16 +228,7 @@ peclconf %{__phpconfig}
 # Install the configuration file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-# Install the package XML file
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-cd %{sources}
 %make_install
-
-# Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
 
 
 %check
@@ -256,7 +243,7 @@ done
     --modules | grep '^%{pecl_name}$'
 
 %if %{with tests}
-cd %{sources}/tests
+cd tests
 : Ignore ONLINE test
 sed -e 's/testConnectException/skipConnectException/' -i RedisTest.php
 
@@ -303,15 +290,20 @@ exit $ret
 %endif
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
 
 %{php_extdir}/%{pecl_name}.so
 %config(noreplace) %{php_inidir}/%{ini_name}
 
 
 %changelog
+* Tue Mar 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 6.3.0-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

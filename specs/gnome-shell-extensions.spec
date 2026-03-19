@@ -2,8 +2,8 @@
 %global min_gs_version %%(cut -d "." -f 1 <<<%{version})
 
 %global pkg_prefix gnome-shell-extension
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 %if 0%{?fedora} && 0%{?fedora} < 43
 %bcond x11 1
@@ -231,6 +231,9 @@ workspaces.
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -S git -n %{name}-%{tarball_version}
 
 

@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-maxminddb
 #
-# SPDX-FileCopyrightText:  Copyright 2018-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2018-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -29,11 +29,11 @@
 %bcond_with          tests
 %endif
 
-Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
-Version:       1.13.1
-Release:       2%{?dist}
+Summary:       MaxMind DB Reader extension
 License:       Apache-2.0
+Version:       1.13.1
+Release:       3%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
 Source0:       %{name}-%{version}-%{gh_short}.tgz
@@ -44,7 +44,6 @@ ExcludeArch:   %{ix86}
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel >= 7.2
-BuildRequires: php-pear  >= 1.10
 BuildRequires: pkgconfig(libmaxminddb) >= 1.0.0
 
 Requires:      php(zend-abi) = %{php_zend_api}
@@ -170,9 +169,6 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 : Install the extension
 %make_install -C ext
 
-: Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
 : Install the extension
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
@@ -218,7 +214,6 @@ exit $ret
 %files
 %license LICENSE
 %doc *.md
-%{pecl_xmldir}/%{name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -233,6 +228,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 1.13.1-3
+- drop pear/pecl dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

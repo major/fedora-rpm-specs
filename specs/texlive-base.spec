@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 104%{?dist}
+Release: 105%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -5954,7 +5954,6 @@ Provides: tex-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-oberdiek-doc < 7:20170520
-Provides: tex(aliascnt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-base.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvipdfm.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvipdfmx.def) = %{epoch}:%{source_date}-%{release}
@@ -11853,6 +11852,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Tue Mar 17 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-105
+- aliascnt.sty has left oberdiek for its own package (in texlive-collection-latexextra)
+
 * Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-104
 - Move runtexfile and show-pdf-tags from collection-binextra to here
 - Add xdvipsk package (new)

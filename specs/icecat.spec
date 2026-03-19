@@ -20,9 +20,15 @@ ExcludeArch: %{ix86} %{arm}
 # Downgrade optimization
 %global less_optbuild 0
 
-# Build PGO+LTO on x86_64 and aarch64 only
-%ifarch x86_64 %{arm64}
-%if 0%{?release_build}
+# Build PGO+LTO on x86_64 only due to build issues
+# on other arches.
+%global build_with_pgo 0
+%global pgo_wayland    0
+%global launch_wayland_compositor 0
+
+%ifarch x86_64
+%if %{release_build}
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %global build_with_pgo 1
 %global pgo_wayland    1
 %global launch_wayland_compositor 1
@@ -30,6 +36,7 @@ ExcludeArch: %{ix86} %{arm}
 %global build_with_pgo 0
 %global pgo_wayland    0
 %global launch_wayland_compositor 0
+%endif
 %endif
 %endif
 
@@ -146,6 +153,8 @@ Patch226: rhbz-1354671.patch
 Patch423: mozilla-1512162.patch
 
 # PGO/LTO patches
+Patch601: %{name}-pgo.patch
+Patch602: mozilla-1516803.patch
 Patch603: %{name}-gcc-always-inline.patch
 
 BuildRequires: alsa-lib-devel
@@ -212,6 +221,9 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3.11-devel
 BuildRequires: python3-orjson
+BuildRequires: python3-pyyaml
+BuildRequires: python3-psutil
+BuildRequires: python3-zstandard
 BuildRequires: perl-interpreter
 BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(libstartup-notification-1.0)
@@ -326,6 +338,12 @@ tar -xf %{SOURCE5}
 
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162
+%endif
+%if 0%{?build_with_pgo}
+%if %{without toolchain_clang}
+%patch -P 601 -p1 -b .pgo
+%patch -P 602 -p1 -b .1516803
+%endif
 %endif
 %patch -P 603 -p1 -b .inline
 

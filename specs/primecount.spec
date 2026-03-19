@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.2
-Release:        1%{?dist}
+Version:        8.3
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,25 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Mar 17 2026 Kim Walisch <walki@fedoraproject.org> - 8.3-2
+- Fix invalid changelog formatting in 8.3-1
+
+* Tue Mar 17 2026 Kim Walisch <walki@fedoraproject.org> - 8.3-1
+- fast_div.hpp: Improve x64 assembly
+- S2_easy.cpp: Bidirectional clustered easy leaves optimization
+- AC.cpp: Bidirectional clustered easy leaves optimization
+- AC.cpp: Cast to smaller type optimization
+- SegmentedPiTable.hpp: Use faster lightweight compression
+- SegmentedPiTable.cpp: Use faster lightweight compression
+- SegmentedPiTable.cpp: Do not interleave pi and bits lookup tables
+- SegmentedPiTable.cpp: Reuse primesieve::iterator object when initializing multiple segments
+- LoadBalancerAC.cpp: Tune single thread performance
+- Sieve.cpp: Optimize cross_off() and cross_off_count()
+- Sieve.cpp: Tune minimum counter distance
+- nth_prime_sieve.hpp: Optimize 128-bit division on x64 CPUs
+- util.hpp: Tune alpha_z for new AC algorithm
+- README.md: Update benchmark timings
+
 * Fri Feb 06 2026 Kim Walisch <walki@fedoraproject.org> - 8.2-1
 - Fix missing version in .pc file
 

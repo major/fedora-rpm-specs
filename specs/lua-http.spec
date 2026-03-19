@@ -1,14 +1,11 @@
-%{!?luaver: %global luaver %(lua -e "print(string.sub(_VERSION, 5))" || echo 0)}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 %global luacompatver 5.1
 %global luacompatpkgdir %{_datadir}/lua/%{luacompatver}
 
 %global luapkgname http
 
 Name:           lua-%{luapkgname}
-Version:        0.3
-Release:        19%{?dist}
+Version:        0.4
+Release:        1%{?dist}
 Summary:        HTTP library for Lua
 
 License:        MIT
@@ -16,13 +13,12 @@ URL:            https://github.com/daurnimator/lua-http
 Source0:        https://github.com/daurnimator/lua-http/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Patch1:         0001-rst_closed.patch
 Patch2:         0002-throw_kill_connection.patch
 Patch3:         0003-handle-EOF-when-body_read_type-length.patch
 
-BuildRequires:  lua
+BuildRequires:  lua-devel
 BuildRequires:  pandoc
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       lua-basexx >= 0.2.0
 Requires:       lua-binaryheap >= 0.3
@@ -68,7 +64,6 @@ Documentation for the HTTP library for Lua.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
 
@@ -82,10 +77,10 @@ install -d -m 0755 "%{buildroot}%{_pkgdocdir}"
 install -p -m 0644 doc/lua-http.html "%{buildroot}%{_pkgdocdir}/index.html"
 install -D -p -m 0644 doc/lua-http.3 "%{buildroot}%{_mandir}/man3/lua-http.3"
 
-install -d -m 0755 %{buildroot}%{luapkgdir}/%{luapkgname}
-install -p -m 0644 %{luapkgname}/*.lua -t "%{buildroot}%{luapkgdir}/%{luapkgname}/"
-install -d -m 0755 %{buildroot}%{luapkgdir}/%{luapkgname}/compat
-install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{luapkgdir}/%{luapkgname}/compat/"
+install -d -m 0755 %{buildroot}%{lua_pkgdir}/%{luapkgname}
+install -p -m 0644 %{luapkgname}/*.lua -t "%{buildroot}%{lua_pkgdir}/%{luapkgname}/"
+install -d -m 0755 %{buildroot}%{lua_pkgdir}/%{luapkgname}/compat
+install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{lua_pkgdir}/%{luapkgname}/compat/"
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 install -d -m 0755 %{buildroot}%{luacompatpkgdir}/%{luapkgname}
@@ -97,7 +92,7 @@ install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{luacompatpkgdir}
 %files
 %{_mandir}/man3/lua-http.3*
 %license LICENSE.md
-%{luapkgdir}/%{luapkgname}
+%{lua_pkgdir}/%{luapkgname}
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 %files -n lua%{luacompatver}-%{luapkgname}
@@ -108,9 +103,13 @@ install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{luacompatpkgdir}
 
 %files doc
 %{_pkgdocdir}
-%doc %{_pkgdocdir}/index.html
 
 %changelog
+* Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.4-1
+- update to 0.4 (5 years late is better than never)
+- rebuild for lua 5.5
+- use modern lua macros
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

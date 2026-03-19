@@ -2,7 +2,8 @@
 %global libadwaita_version 1.8~alpha
 %global libshumate_version 1.5~alpha
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
@@ -13,7 +14,7 @@ Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -59,6 +60,9 @@ GNOME Maps is a simple map application for the GNOME desktop.
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 

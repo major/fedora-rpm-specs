@@ -1,5 +1,5 @@
 Name:           scrot
-Version:        1.12.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Command line screen capture utility
 
@@ -12,7 +12,12 @@ BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
 BuildRequires:  make
-BuildRequires:  pkgconfig(imlib2) pkgconfig(libbsd) pkgconfig(x11) pkgconfig(xext) pkgconfig(xcomposite) pkgconfig(xinerama)
+BuildRequires:  pkgconfig(imlib2)
+BuildRequires:  pkgconfig(libbsd)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xrandr)
 
 %description
 scrot is a simple command line screen capture utility.
@@ -37,6 +42,8 @@ autoreconf -if
 %license COPYING
 %{_bindir}/*
 %{_mandir}/man1/*
+%{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/zsh/site-functions/_%{name}
 
 
 

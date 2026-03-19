@@ -2,7 +2,7 @@
 
 
 Name:           fcitx5-configtool
-Version:        5.1.12
+Version:        5.1.13
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -103,7 +103,7 @@ done
 
 %files -f %{name}.lang
 %license LICENSES/GPL-2.0-or-later.txt
-%doc README
+%doc README.md
 %{_bindir}/fcitx5-config-qt
 %{_datadir}/applications/org.fcitx.fcitx5-config-qt.desktop
 %{_bindir}/kbd-layout-viewer5

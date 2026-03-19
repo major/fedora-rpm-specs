@@ -3,6 +3,8 @@
 %define pycairo_version                1.16.0
 %define python3_version                3.8
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:           pygobject3
 Version:        3.56.1
 Release:        %autorelease
@@ -10,7 +12,7 @@ Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.56/pygobject-%{version}.tar.gz
+Source0:        https://download.gnome.org/sources/pygobject/%{major_minor_version}/pygobject-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}

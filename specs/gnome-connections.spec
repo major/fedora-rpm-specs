@@ -2,17 +2,17 @@
 %global __provides_exclude_from ^%{_libdir}/gnome-connections/
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/gnome-connections/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global url_ver %%(echo %{version} | cut -d. -f1)
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-connections
 Version:        50.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://gitlab.gnome.org/gnome/connections/-/wikis/home
-Source0:        https://download.gnome.org/sources/gnome-connections/%{url_ver}/gnome-connections-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -52,6 +52,9 @@ Provides: bundled(gtk-frdp)
 Connections is a remote desktop client for the GNOME desktop environment.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n gnome-connections-%{tarball_version}
 
 %build
@@ -87,196 +90,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
-* Mon Mar 16 2026 Milan Crha <mcrha@redhat.com> - 50.0-1
-- Update to 50.0
-
-* Tue Mar 03 2026 Jan Grulich <jgrulich@redhat.com> - 50~rc-1
-- Update to 50.rc
-
-* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
-- Update to 50.beta
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 49.0-2
-- rebuild for new fuse3
-
-* Mon Sep 15 2025 Felipe Borges <felipeborges@gnome.org> - 49.0-1
-- Update to 49.0
-
-* Fri Sep 05 2025 Marek Kasik <mkasik@redhat.com> - 49~rc-1
-- Update to 49.rc
-
-* Fri Aug 15 2025 Marek Kasik <mkasik@redhat.com> - 49~beta-1
-- Update to 49.beta
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Mar 18 2025 Marek Kasik <mkasik@redhat.com> - 48.0-1
-- Update to 48.0
-
-* Mon Mar 03 2025 Marek Kasik <mkasik@redhat.com> - 48.rc-1
-- Update to 48.rc
-- Resolves: #2339500
-
-* Tue Jan 28 2025 Marek Kasik <mkasik@redhat.com> - 47.2.1-1
-- Update to 47.2.1
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 23 2024 Marek Kasik <mkasik@redhat.com> - 47.0-2
-- Queue draw area from main thread
-
-* Tue Sep 17 2024 Marek Kasik <mkasik@redhat.com> - 47.0-1
-- Update to 47.0
-- Resolves: #2263688
-
-* Thu Aug 08 2024 nmontero <nmontero@redhat.com> - 47~beta-1
-- Update to 47.beta
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Apr 09 2024 Marek Kasik <mkasik@redhat.com> - 46.0-3
-- Fix a crash during disconnection
-- Resolves: #2273633
-
-* Wed Mar 20 2024 Marek Kasik <mkasik@redhat.com> - 46.0-2
-- Use FreeRDP 3
-
-* Tue Mar 19 2024 David King <amigadave@amigadave.com> - 46.0-1
-- Update to 46.0
-
-* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 46~rc-1
-- Update to 46.rc
-
-* Thu Feb 15 2024 Marek Kasik <mkasik@redhat.com> - 46~beta-1
-- Update to 46.beta
-- Resolves: #2263688
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Sep 18 2023 Marek Kasik <mkasik@redhat.com> - 45.0-1
-- Update to 45.0
-
-* Tue Sep 05 2023 Kalev Lember <klember@redhat.com> - 45~rc-1
-- Update to 45.rc
-
-* Sat Aug 05 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
-- Update to 45.beta
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Apr 24 2023 Marek Kasik <mkasik@redhat.com> - 44.1-1
-- Update to 44.1
-- Resolves: #2169121
-
-* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
-- Update to 44.0
-
-* Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
-- Update to 44.rc
-
-* Fri Feb 17 2023 David King <amigadave@amigadave.com> - 44~beta-1
-- Update to 44.beta
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Sep 16 2022 Marek Kasik <mkasik@redhat.com> - 43.0-1
-- Update to 43.0
-- Resolves: #2115889
-
-* Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 43~beta-2
-- Rebuild for updated FreeRDP.
-
-* Mon Aug 08 2022 Kalev Lember <klember@redhat.com> - 43~beta-1
-- Update to 43.beta
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 42.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Apr 13 2022 Felipe Borges <feborges@redhat.com> - 42.1.2-1
-- Update to 42.1.2
-
-* Thu Apr 07 2022 Felipe Borges <feborges@redhat.com> - 42.1.1-1
-- Update to 42.1.1
-  rhbz#2069820
-  rhbz#2072445
-  rhbz#2072462
-  rhbz#2072490
-  rhbz#2072513
-
-* Tue Apr 05 2022 Felipe Borges <feborges@redhat.com> - 42.1-1
-- Update to 42.1
-  rhbz#2068015
-
-* Mon Mar 21 2022 David King <amigadave@amigadave.com> - 42.0-1
-- Update to 42.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 41.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 07 2021 Kalev Lember <klember@redhat.com> - 41.2-1
-- Update to 41.2
-
-* Wed Oct 27 2021 Kalev Lember <klember@redhat.com> - 41.1-1
-- Update to 41.1
-
-* Fri Sep 17 2021 Kalev Lember <klember@redhat.com> - 41.0-1
-- Update to 41.0
-
-* Wed Sep 08 2021 Kalev Lember <klember@redhat.com> - 41~rc-1
-- Update to 41.rc
-
-* Mon Aug 23 2021 Kalev Lember <klember@redhat.com> - 41~beta-1
-- Update to 41.beta
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu May 20 2021 Felipe Borges <feborges@redhat.com> - 40.0.1-4
-- Add missing bundled provides
-
-* Mon May 10 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 40.0.1-3
-- build: Replace Remotely due EOL with GNOME Connections for f35 | rh#1957981
-
-* Fri Apr 16 2021 Simone Caronni <negativo17@gmail.com> - 40.0.1-2
-- Rebuild for updated FreeRDP.
-
-* Thu Apr 15 2021 Felipe Borges <feborges@redhat.com> - 40.0.1-1
-- Fix DBus activation
-
-* Mon Mar 22 2021 Kalev Lember <klember@redhat.com> - 40.0-2
-- Rename from connections to gnome-connections
-
-* Mon Mar 22 2021 Kalev Lember <klember@redhat.com> - 40.0-1
-- Update to 40.0
-- Require hicolor-icon-theme for icon directories rather than adwaita
-- Use https source URL
-- Validate appdata file
-- Filter private libraries
-- Don't install various development files
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Oct 20 2020 Kalev Lember <klember@redhat.com> - 3.38.1-1
-- Update to 3.38.1
-
-* Mon Sep 14 2020 Kalev Lember <klember@redhat.com> - 3.38.0-1
-- Update to 3.38.0
-
-* Thu Sep 10 2020 Felipe Borges <feborges@redhat.com> - 3.37.91-1
-- Update to 3.37.91
-
-* Mon Aug 10 2020 Felipe Borges <feborges@redhat.com> - 3.37.90-1
-- Initial import
+%autochangelog

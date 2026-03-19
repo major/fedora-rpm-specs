@@ -2,7 +2,7 @@
 
 Summary: A document formatting system
 Name: groff
-Version: 1.24.0
+Version: 1.24.1
 Release: 1%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
@@ -499,6 +499,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Tue Mar 17 2026 Lukas Javorsky <ljavorsk@redhat.com> - 1.24.1-1
+- Rebase to version 1.24.1
+
 * Tue Mar 03 2026 Lukas Javorsky <ljavorsk@redhat.com> - 1.24.0-1
 - Rebase to version 1.24.0
 - pdfmark/pdfroff stopped being distributed

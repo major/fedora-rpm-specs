@@ -1,11 +1,13 @@
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:           template-glib
-Version:        3.39.0
+Version:        3.40.0
 Release:        %autorelease
 Summary:        A templating library for GLib
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/template-glib/
-Source0:        https://download.gnome.org/sources/%{name}/3.39/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  flex

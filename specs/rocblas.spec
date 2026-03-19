@@ -165,7 +165,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -236,6 +236,8 @@ BuildRequires:  msgpack-cxx-devel
 %else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pip)
+BuildRequires:  python3dist(wheel)
 BuildRequires:  msgpack-devel
 %if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires:  python3dist(joblib)
@@ -395,6 +397,7 @@ sed -i -e 's@if not ignoreCacheCheck and derivedAsmCaps@if False and derivedAsmC
 sed -i -e '/joblib/d' requirements.*
 sed -i -e '/rich/d' requirements.*
 sed -i -e '/msgpack/d' requirements.*
+sed -i -e '/pyyaml/d' requirements.*
 
 # Generalize prefix
 %if %{with preview}
@@ -434,9 +437,10 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 %if %{with tensile}
 %if %{with bundled_tensile}
 cd tensile
-TL=$PWD
-python3 setup.py install --root $TL
-TP=${TL}/usr/lib/python%{python3_version}/site-packages/Tensile/
+TL=$PWD/install
+# pip install --no-index --find-links /usr/lib/python%{python3_version}/site-packages --target $TL .
+/usr/bin/python3 -m pip install -vvv --no-build-isolation --no-index --find-links /usr/lib/python%{python3_version}/site-packages --find-links /usr/lib64/python%{python3_version}/site-packages --target $TL .
+TP=${TL}/Tensile/
 cd ..
 %else
 TP=`/usr/bin/TensileGetPath`
@@ -508,6 +512,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Mar 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Install tensile with pip
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Do not strip hsaco files
 

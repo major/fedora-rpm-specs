@@ -14,6 +14,10 @@ Summary:        RPM buildroot helper to make builds reproducible and hardlink id
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/add-determinism
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax rlimit dependency to allow 0.11.x
+#   https://github.com/keszybz/add-determinism/pull/76
+Patch:          add-determinism-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  selinux-policy-targeted

@@ -1,5 +1,3 @@
-%global _hardened_build 1
-
 Name:             3proxy
 Version:          0.9.5
 Release:          %autorelease
@@ -48,13 +46,14 @@ SOCKS v5, FTP, POP3, UDP и TCP проброс портов (portmapping), сп�
 sed -i -e "s/^CFLAGS =/CFLAGS +=/" Makefile.Linux
 
 %build
-make -f Makefile.Linux
+%set_build_flags
+%make_build -f Makefile.Linux
 
 %install
-mkdir -p %{buildroot}%{_sysconfdir}
-mkdir -p %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d/
-mkdir -p %{buildroot}%{_mandir}/man{3,8}
-mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
+install -d %{buildroot}%{_sysconfdir}
+install -d %{buildroot}%{_mandir}/man{3,8}
+install -d %{buildroot}%{_localstatedir}/log/%{name}
+
 install -m755 -D bin/%{name} %{buildroot}%{_bindir}/%{name}
 install -m755 -D bin/ftppr %{buildroot}%{_bindir}/ftppr
 install -m755 -D bin/mycrypt %{buildroot}%{_bindir}/mycrypt
@@ -66,11 +65,14 @@ install -m755 -D bin/tcppm %{buildroot}%{_bindir}/tcppm
 install -m755 -D bin/tlspr %{buildroot}%{_bindir}/tlspr
 install -m755 -D bin/udppm %{buildroot}%{_bindir}/udppm
 
-install -pD -m644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/%{name}.cfg
-install -pD -m755 %{SOURCE3} %{buildroot}/%{_unitdir}/%{name}.service
+install -p -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}.cfg
+install -p -m644 -D %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 
-for man in man/*.{3,8} ; do
-  install "$man" "%{buildroot}%{_mandir}/man${man:(-1)}/"
+for man in man/*.3 ; do
+  install -p -m644 "$man" "%{buildroot}%{_mandir}/man3/"
+done
+for man in man/*.8 ; do
+  install -p -m644 "$man" "%{buildroot}%{_mandir}/man8/"
 done
 
 
@@ -86,11 +88,20 @@ done
 %files
 %license copying
 %doc README authors
-%{_bindir}/*
+%{_bindir}/%{name}
+%{_bindir}/ftppr
+%{_bindir}/htproxy
+%{_bindir}/mycrypt
+%{_bindir}/pop3p
+%{_bindir}/smtpp
+%{_bindir}/socks
+%{_bindir}/tcppm
+%{_bindir}/tlspr
+%{_bindir}/udppm
 %config(noreplace) %{_sysconfdir}/%{name}.cfg
-%{_localstatedir}/log/%{name}
-%{_mandir}/man8/*.8.gz
-%{_mandir}/man3/*.3.gz
+%dir %{_localstatedir}/log/%{name}
+%{_mandir}/man3/*.3*
+%{_mandir}/man8/*.8*
 %{_unitdir}/%{name}.service
 
 %changelog

@@ -2,8 +2,8 @@
 %global gtk4_version 4.5
 %global gjs_version 1.71.0
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d '.' -f 1 <<<%{tarball_version})
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:		gnome-weather
 Version:	50.0
@@ -46,6 +46,9 @@ Requires:	libgweather4
 gnome-weather is a weather application for GNOME
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} .
 

@@ -25,6 +25,8 @@
 %endif
 %endif
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:           gtk4
 Version:        4.22.1
 Release:        %autorelease
@@ -71,7 +73,7 @@ Summary:        GTK graphical user interface library
 # The license was last checked for GTK 4.19.3.
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.22/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/%{major_minor_version}/gtk-%{version}.tar.xz
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

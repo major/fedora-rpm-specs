@@ -9,7 +9,7 @@
 %bcond bigtest 0
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        5.5.4
+Version:        5.6.0
 Release:        %autorelease
 Summary:        GAP methods for semigroups
 
@@ -22,7 +22,7 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 ExcludeArch:    %{ix86}
 BuildSystem:    gap
 BuildOption(build): --packagedirs ..
-BuildOption(install): bin data gap tst
+BuildOption(install): bin data gap tst .LIBSEMIGROUPS_VERSION
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
@@ -39,7 +39,13 @@ BuildRequires:  gap-pkg-smallsemi-doc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  pkgconfig(libsemigroups)
+BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
+
+# HPCombi cannot yet be used on x86_64.  See below.
+%ifarch %{arm64}
+BuildRequires:  pkgconfig(hpcombi)
+%endif
 
 Requires:       gap-pkg-datastructures%{?_isa}
 Requires:       gap-pkg-digraphs%{?_isa}
@@ -109,10 +115,20 @@ sed -i '/rpath/s/\(LIBSEMIGROUPS_RPATH=\).*/\1/' configure
 # Work around -Wl,--as-needed appearing too late on the command line
 sed -i 's/GAP_CXX :=.*/& -Wl,--as-needed/' Makefile.gappkg
 
+# Specify a minimum libsemigroups version
+echo 3.5.3 > .LIBSEMIGROUPS_VERSION
+
 %build -p
 export CPPFLAGS='-I%{_includedir}/eigen3'
-%configure --with-gaproot=%{gap_archdir} --disable-silent-rules \
-  --with-external-libsemigroups --without-march-native
+%configure \
+    --disable-silent-rules \
+%ifarch %{arm64}
+    --enable-hpcombi \
+%else
+    --disable-hpcombi \
+%endif
+    --with-external-libsemigroups \
+    --with-gaproot=%{gap_archdir}
 %make_build
 
 %check

@@ -32,7 +32,8 @@
 %global __provides_exclude_from ^%{_libdir}/localsearch-3.0/
 %global __requires_exclude ^(libtracker-extract\.so|libextract-.*\.so|libwriteback-.*\.so)
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           localsearch
 Version:        3.11.0
@@ -42,7 +43,7 @@ Summary:        Localsearch and metadata extractors
 # The indexer is a mix of GPLv2 and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
-Source0:        https://download.gnome.org/sources/%{name}/3.11/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -103,6 +104,9 @@ This package contains various miners and metadata extractors for tinysparql.
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 

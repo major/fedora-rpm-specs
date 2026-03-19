@@ -23,8 +23,10 @@
 %global liblzfse_majver 1
 
 # These should match the versions in build.sh
-%global installer_libffi_version 3.4.6
-%global installer_python_version 3.9.6
+%global installer_libffi_version 3.5.2
+%global installer_python_version 3.13.9
+
+# This should match the version in asahi_firmware/asn1.py
 %global installer_python_asn1_version 2.5.0
 
 # These are prebuilt binary macOS packages. We cannot build them in Fedora
@@ -34,7 +36,7 @@
 %global installer_python_package python-%{installer_python_version}-macos11.pkg
 
 Name:           asahi-installer
-Version:        0.7.9
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Asahi Linux installer
 

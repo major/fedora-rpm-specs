@@ -22,6 +22,9 @@ Source1:        Mesa-MLAA-License-Clarification-Email.txt
 # fix c11/threads builds problem on f44
 Patch01:        0001-c11-threads-fix-build-on-fedora-44.patch
 
+# Support LLVM 21
+Patch02:        cd129dbf8af2d16b1243f2ce287ff69c6a5dc557.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

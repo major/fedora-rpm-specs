@@ -5,7 +5,6 @@ Summary: Simple Video for Linux radio card programs
 Name:    fmtools
 Version: 2.0.8
 Release: %autorelease
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     http://benpfaff.org/fmtools
 
@@ -15,12 +14,16 @@ Source2: http://benpfaff.org/fmtools/tkradio
 Source3: http://benpfaff.org/fmtools/tkradio-mute
 Source4: fmtools.desktop
 Source5: radio.png
-Source8: radio.gif
 Source6: tkradio.py
 Source7: fmlircrc
-Patch0: fmcontrol-py3.patch
-BuildRequires: autoconf automake
+Source8: radio.gif
+Patch0:  fmcontrol-py3.patch
+
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc
+BuildRequires: make
 BuildRequires: python3-devel
 
 %description
@@ -34,16 +37,16 @@ fmscan  - a simple band scanner
 
 %package tkradio
 Summary:       Python/Tk wrapper for fmtools
-BuildRequires: desktop-file-utils
-BuildRequires: make
-Requires:      %{name} = %{version}
-Requires:      python3
-%{?with_pylirc:Requires: python3-lirc}
-Requires:      vorbis-tools, python3-tkinter, alsa-utils
+BuildArch:     noarch
+Requires:      alsa-utils
+Requires:      %{name} = %{version}-%{release}
 %if %{with pulse}
 Requires:      pulseaudio-utils
-BuildArch:     noarch
 %endif
+Requires:      python3
+%{?with_pylirc:Requires: python3-lirc}
+Requires:      python3-tkinter
+Requires:      vorbis-tools
 
 %description tkradio
 This package provides a GUI for %{name}, with lirc support.
@@ -57,8 +60,7 @@ frequency and volume specified in $HOME/.fmrc or $HOME/.radiostations,
 or the volume given on the command line.
 
 %prep
-%setup -q -a1
-%patch -P0 -p1 -b .py3
+%autosetup -a 1 -p 1
 
 %build
 autoreconf -vif
@@ -75,13 +77,15 @@ install -pm 0644 fmcontrol/README README.fmcontrol
 
 # menu entry
 desktop-file-install                                    \
-        --vendor ""                                     \
         --dir %{buildroot}%{_datadir}/applications      \
         %{SOURCE4}
 
 install -Dpm 0644 %{SOURCE5} %{buildroot}%{_datadir}/pixmaps/radio.png
 install -Dpm 0644 %{SOURCE7} %{buildroot}%{_datadir}/%{name}/fmlircrc
 install -Dpm 0644 %{SOURCE8} %{buildroot}%{_datadir}/%{name}/radio.gif
+
+%check
+%make_build check
 
 %files 
 %doc README
@@ -96,8 +100,7 @@ install -Dpm 0644 %{SOURCE8} %{buildroot}%{_datadir}/%{name}/radio.gif
 %{_bindir}/fmcontrol.py
 %{_datadir}/applications/fmtools.desktop
 %{_datadir}/pixmaps/radio.png
-%{_datadir}/%{name}/fmlircrc
-%{_datadir}/%{name}/radio.gif
+%{_datadir}/%{name}/
 
 %changelog
 %autochangelog

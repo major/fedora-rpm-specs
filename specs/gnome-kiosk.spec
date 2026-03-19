@@ -1,6 +1,3 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %(echo -n %{tarball_version} | sed 's/[.].*//')
-
 %global gettext_version                         0.19.6
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
@@ -15,6 +12,9 @@
 %else
 %bcond x11 0
 %endif
+
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-kiosk
 Version:        50.0
@@ -96,6 +96,9 @@ BuildArch:      noarch
 A basic notification daemon for gnome-kiosk.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build

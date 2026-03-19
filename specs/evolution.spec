@@ -40,6 +40,8 @@
 
 %define evo_plugin_dir %{_libdir}/evolution/plugins
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 ### Abstract ###
 
 Name: evolution
@@ -48,7 +50,7 @@ Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.60/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
 
