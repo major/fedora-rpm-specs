@@ -32,10 +32,7 @@ License:        %{shrink:
 URL:            https://github.com/bootandy/dust
 Source:         %{url}/archive/v%{version}.tar.gz
 # Manually created patch for downstream crate metadata changes
-# * Allow directories 5 and 6: https://github.com/bootandy/dust/pull/533
-# * Update sysinfo to 0.33
-# Patch rust-lscolors to version 0.20 instead of 0.21
-# Remove windows-only dependencies
+# * Remove windows-only dependencies
 Patch:          du-dust-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

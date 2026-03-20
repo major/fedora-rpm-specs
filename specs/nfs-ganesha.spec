@@ -125,6 +125,10 @@ Requires: openSUSE-release
 %bcond_without grpc
 %global use_grpc %{on_off_switch grpc}
 
+%bcond_without nfs_rdma
+
+%bcond_without rpc_rdma
+
 %if ( 0%{?rhel} && 0%{?rhel} < 7 )
 %global _rundir %{_localstatedir}/run
 %endif
@@ -133,7 +137,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	9.6
+Version:	9.8
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -155,13 +159,6 @@ BuildRequires:	userspace-rcu-devel
 BuildRequires:	krb5-devel
 %if ( 0%{?with rados_recov} || 0%{?with rados_urls} )
 BuildRequires: librados-devel >= 0.61
-%endif
-%if ( 0%{?suse_version} >= 1330 )
-BuildRequires:	libnsl-devel
-%else
-%if ( 0%{?fedora} >= 28 || 0%{?rhel} >= 8 )
-BuildRequires:	libnsl2-devel
-%endif
 %endif
 %if ( 0%{?suse_version} )
 BuildRequires:	dbus-1-devel
@@ -604,8 +601,14 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-D_MSPAC_SUPPORT=%{use_mspac_support}		\
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
 	-DUSE_LEGACY_PYTHON_INSTALL=%{use_legacy_python_install} \
+%if %{with nfs_rdma}
+        -DUSE_NFS_RDMA=ON \
+%endif
+%if %{with rpc_rdma}
+        -DUSE_RPC_RDMA=ON \
+%endif
 %ifarch x86_64 aarch64
-       -DCMAKE_LINKER=%{_bindir}/ld.mold                \
+        -DCMAKE_LINKER=%{_bindir}/ld.mold                \
 %endif
 %if ( 0%{?with_jemalloc} )
 	-DALLOCATOR=jemalloc
@@ -970,6 +973,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Mar 18 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.8-1
+- NFS-Ganesha 9.8 GA, remove libnsl* BRs
+
 * Mon Feb 23 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.6-1
 - NFS-Ganesha 9.6 GA
 

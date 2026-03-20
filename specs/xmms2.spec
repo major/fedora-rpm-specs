@@ -1,7 +1,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
-Version:		0.9.6
-Release:		2%{?dist}
+Version:		0.9.7
+Release:		1%{?dist}
 License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -224,6 +224,9 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
 %changelog
+* Wed Mar 18 2026 Tom Callaway <spot@fedoraproject.org> - 0.9.7-1
+- update to 0.9.7
+
 * Mon Feb 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.6-2
 - add missing build dependencies on faad2 and libavcodec
 

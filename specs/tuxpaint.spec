@@ -10,6 +10,7 @@ URL:            http://www.tuxpaint.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         desktop.patch
 Patch1:         includes.patch
+PAtch2:         const.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -55,6 +56,7 @@ Development files for tuxpaint extensions/plugins
 %setup -q
 %patch -P 0 -p0 -b .desktop
 %patch -P 1 -p0 -b .includes
+%patch -P 2 -p0 -b .const
 
 sed -i -e '/\/gnome\/apps\/Graphics/d' Makefile
 find docs -type f -exec perl -pi -e 's/\r\n/\n/' {} \;

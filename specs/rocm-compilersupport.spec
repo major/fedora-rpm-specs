@@ -52,7 +52,7 @@
 %global llvm_triple %{_target_platform}
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 # T0 (auto detect) can fail if cores are high and memory low
 # Use 6 threads, between OpenSUSE (4) and Fedora (8) build system defaults
 %global _source_payload w7T6.xzdio
@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        0.rocm%{rocm_version}%{?dist}
 %else
-Release:        5.rocm%{rocm_version}%{?dist}
+Release:        6.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -202,6 +202,8 @@ ExclusiveArch:  x86_64
 Summary:        ROCm Compiler RPM macros
 BuildArch:      noarch
 
+Requires:       rpm
+
 %description macros
 This package contains ROCm compiler related RPM macros.
 
@@ -209,6 +211,7 @@ This package contains ROCm compiler related RPM macros.
 Summary:        AMD ROCm LLVM bit code libraries
 Requires:       %{rocm_clang_name}-devel
 Requires:       %{rocm_llvm_name}-static
+Requires:       %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 Requires:       rocm-lld%{pkg_suffix}
 
 %description -n %{device_libs_name}
@@ -294,6 +297,7 @@ Recommends:      rocm-runtime%{pkg_suffix}-devel
 
 %package -n %{rocm_llvm_name}-devel
 Summary:       Libraries and header files for ROCm LLVM
+Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_llvm_name}%{?_isa} = %{version}-%{release}
 Requires:      zlib-devel
 
@@ -308,6 +312,7 @@ Requires:      zlib-devel
 %package -n %{rocm_llvm_name}-static
 Summary:       Static libraries for ROCm LLVM
 Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 Provides:      %{rocm_llvm_name}-static(major) = %{llvm_maj_ver}
 
 %description -n %{rocm_llvm_name}-static
@@ -328,6 +333,7 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 
 %package -n %{rocm_clang_name}-runtime-devel
 Summary:       The ROCm compiler runtime
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 
 %description -n %{rocm_clang_name}-runtime-devel
 %{summary}
@@ -338,6 +344,7 @@ Requires:      git
 Requires:      python3
 Requires:      %{rocm_clang_name}-libs%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_clang_name}-runtime-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 %if %{with libcxx}
 Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 %endif
@@ -354,8 +361,9 @@ Requires:      %{rocm_clang_name}%{?_isa} = %{version}-%{release}
 
 # CLANG TOOLS EXTRA
 %package -n %{rocm_clang_tools_extra_name}
-Summary:	Extra tools for clang
-Requires:	rocm-clang%{pkg_suffix}-libs%{?_isa} = %{version}-%{release}
+Summary:       Extra tools for clang
+Requires:      rocm-clang%{pkg_suffix}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 
 %description -n %{rocm_clang_tools_extra_name}
 A set of extra tools built using Clang's tooling API.
@@ -552,8 +560,8 @@ pushd .
 %define __sourcedir llvm
 %define __builddir build-llvm
 %else
-%define _vpath_srcdir llvm
-%define _vpath_builddir build-llvm
+%global _vpath_srcdir llvm
+%global _vpath_builddir build-llvm
 %endif
 
 # Mixing use of gcc and clang in the build conflicts with rpm's setting of flags.
@@ -607,8 +615,8 @@ pushd .
 %define __sourcedir llvm
 %define __builddir build-llvm-2
 %else
-%define _vpath_srcdir llvm
-%define _vpath_builddir build-llvm-2
+%global _vpath_srcdir llvm
+%global _vpath_builddir build-llvm-2
 %endif
 
 export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
@@ -650,8 +658,8 @@ pushd .
 %define __sourcedir amd/device-libs
 %define __builddir build-devicelibs
 %else
-%define _vpath_srcdir amd/device-libs
-%define _vpath_builddir build-devicelibs
+%global _vpath_srcdir amd/device-libs
+%global _vpath_builddir build-devicelibs
 %endif
 
 %cmake \
@@ -665,7 +673,7 @@ popd
 
 build_devicelibs=$p/build-devicelibs
 %global llvmrocm_devicelibs_config \\\
-	-DAMDDeviceLibs_DIR=$build_devicelibs/%{pkg_libdir}/cmake/AMDDeviceLibs
+       -DAMDDeviceLibs_DIR=$build_devicelibs/%{pkg_libdir}/cmake/AMDDeviceLibs
 
 #
 # HIPCC
@@ -675,8 +683,8 @@ pushd .
 %define __sourcedir amd/hipcc
 %define __builddir build-hipcc
 %else
-%define _vpath_srcdir amd/hipcc
-%define _vpath_builddir build-hipcc
+%global _vpath_srcdir amd/hipcc
+%global _vpath_builddir build-hipcc
 %endif
 
 %cmake \
@@ -699,8 +707,8 @@ pushd .
 %define __sourcedir amd/comgr
 %define __builddir build-comgr
 %else
-%define _vpath_srcdir amd/comgr
-%define _vpath_builddir build-comgr
+%global _vpath_srcdir amd/comgr
+%global _vpath_builddir build-comgr
 %endif
 
 %cmake -G "Unix Makefiles" \
@@ -735,8 +743,8 @@ popd
 %define __sourcedir amd/device-libs
 %define __builddir build-devicelibs
 %else
-%define _vpath_srcdir amd/device-libs
-%define _vpath_builddir build-devicelibs
+%global _vpath_srcdir amd/device-libs
+%global _vpath_builddir build-devicelibs
 %endif
 pushd .
 # Workaround for bug in cmake tests not finding amdgcn:
@@ -757,7 +765,7 @@ pushd .
 %if 0%{?suse_version}
 %define __builddir build-llvm-2
 %else
-%define _vpath_builddir build-llvm-2
+%global _vpath_builddir build-llvm-2
 %endif
 
 %cmake_install
@@ -771,7 +779,7 @@ pushd .
 %if 0%{?suse_version}
 %define __builddir build-devicelibs
 %else
-%define _vpath_builddir build-devicelibs
+%global _vpath_builddir build-devicelibs
 %endif
 
 %cmake_install
@@ -791,7 +799,7 @@ pushd .
 %if 0%{?suse_version}
 %define __builddir build-comgr
 %else
-%define _vpath_builddir build-comgr
+%global _vpath_builddir build-comgr
 %endif
 
 %cmake_install
@@ -804,7 +812,7 @@ pushd .
 %if 0%{?suse_version}
 %define __builddir build-hipcc
 %else
-%define _vpath_builddir build-hipcc
+%global _vpath_builddir build-hipcc
 %endif
 
 %cmake_install
@@ -841,6 +849,13 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/README.md
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/LICENSE.txt
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
+
+# rocm-clang.x86_64: W: dangling-relative-symlink /usr/lib64/rocm/llvm/bin/nvptx-arch offload-arch
+rm -f %{buildroot}%{bundle_prefix}/bin/nvptx-arch
+
+# rocm-clang-analyzer.x86_64: E: non-executable-script /usr/lib64/rocm/llvm/share/scan-view/Reporter.py 644 /usr/bin/env python
+sed -i -e 's@/usr/bin/env python@/usr/bin/python3@' %{buildroot}%{bundle_prefix}/share/scan-view/*.py
+chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
@@ -925,13 +940,13 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/bin/sancov
 %{bundle_prefix}/bin/sanstats
 %{bundle_prefix}/bin/verify-uselistorder
-%{bundle_prefix}/share/opt-viewer/*
+%{bundle_prefix}/share/opt-viewer/
 
 %files -n %{rocm_llvm_name}-devel
 %license llvm/LICENSE.TXT
-%{bundle_prefix}/include/llvm/*
-%{bundle_prefix}/include/llvm-c/*
-%{bundle_prefix}/lib/cmake/llvm/*
+%{bundle_prefix}/include/llvm/
+%{bundle_prefix}/include/llvm-c/
+%{bundle_prefix}/lib/cmake/llvm/
 %{bundle_prefix}/lib/libLLVM.so
 %{bundle_prefix}/lib/libLTO.so
 %{bundle_prefix}/lib/libRemarks.so
@@ -948,7 +963,7 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/lib/libclang*.so.*
 
 %files -n %{rocm_clang_name}-runtime-devel
-%{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/*
+%{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/clang_rt.*
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/libclang_rt.*
 
@@ -962,19 +977,19 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/bin/git-clang-format
 %{bundle_prefix}/bin/hmaptool
 %{bundle_prefix}/bin/modularize
-%{bundle_prefix}/bin/nvptx-arch
 %{bundle_prefix}/bin/pp-trace
-%{bundle_prefix}/share/clang/*
+%{bundle_prefix}/share/clang/
 %{bundle_prefix}/share/clang-doc
 %{bundle_prefix}/bin/amdclang*
 %{bundle_prefix}/bin/amdflang*
+%{bundle_prefix}/bin/amdlld
 %{bundle_prefix}/bin/amdllvm
 
 %files -n %{rocm_clang_name}-devel
 %license clang/LICENSE.TXT
-%{bundle_prefix}/include/clang/*
-%{bundle_prefix}/include/clang-c/*
-%{bundle_prefix}/lib/cmake/clang/*
+%{bundle_prefix}/include/clang/
+%{bundle_prefix}/include/clang-c/
+%{bundle_prefix}/lib/cmake/clang/
 %{bundle_prefix}/lib/libclang*.so
 
 # ROCM CLANG TOOLS EXTRA
@@ -985,7 +1000,7 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %files -n %{rocm_clang_tools_extra_name}-devel
 %dir %{bundle_prefix}/include/clang-tidy
 %license clang-tools-extra/LICENSE.TXT
-%{bundle_prefix}/include/clang-tidy/*
+%{bundle_prefix}/include/clang-tidy/
 
 # ROCM LLD
 %files -n %{rocm_lld_name}
@@ -994,7 +1009,6 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %{bundle_prefix}/bin/ld64.lld
 %{bundle_prefix}/bin/lld
 %{bundle_prefix}/bin/lld-link
-%{bundle_prefix}/bin/amdlld
 
 # ROCM LIBC++
 %if %{with libcxx}
@@ -1042,6 +1056,13 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %endif
 
 %changelog
+* Mon Mar 16 2026 Tom Rix <Tom.Rix@amd.com> 22-6.rocm7.2.0
+- Change define to global build dirs
+- Fix dangling symlinks
+- Fix whitespace
+- Fix py3 shebangs
+- Fix dir ownships
+
 * Sat Mar 14 2026 Tom Rix <Tom.Rix@amd.com> 22-5.rocm7.2.0
 - Move building libc++ to --with libcxx option
 - llvm filesystem requires rocm filesystem

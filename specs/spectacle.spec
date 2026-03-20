@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.6.2
-Release: 2%{?dist}
+Version: 6.6.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -26,14 +26,8 @@ Source0: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}
 Source1: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
-# Fix crash on quit with a quickly selected region
-# https://invent.kde.org/plasma/spectacle/-/commit/e5f1a6ef499d4569db8dc2ddd0a282caa6cf7c60
-Patch0: e5f1a6ef499d4569db8dc2ddd0a282caa6cf7c60.patch
 
 ## downstream patches
-### Local workaround while waiting for a better fix
-### Cf. https://bugs.kde.org/show_bug.cgi?id=516162
-Patch1001: spectacle-6.6.0-tesseract-fedora-centos-libs.patch
 
 %global majmin %(echo %{version} | cut -d. -f1,2)
 
@@ -144,6 +138,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-1
+- 6.6.3
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.2-2
 - Fix for a crash when selecting a screen region and exiting
 

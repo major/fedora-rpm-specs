@@ -12,7 +12,7 @@ Speex, WavPack, TrueAudio files, as well as APE Tags.}
 
 Name:       taglib
 Summary:    Audio Meta-Data Library
-Version:    2.1.1
+Version:    2.2.1
 Release:    %autorelease
 
 License:    (LGPL-2.1-only OR MPL-1.1) AND BSD-2-Clause AND LGPL-2.1-only
@@ -21,7 +21,7 @@ Source0:    https://taglib.github.io/releases/taglib-%{version}%{?beta}.tar.gz
 
 # http://bugzilla.redhat.com/343241
 # fix multilib, and drop -lz flag to consumers (probably only needed for static linking)
-Patch0:     taglib-2.1.1-multilib.patch
+Patch0:     taglib-2.2.1-multilib.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

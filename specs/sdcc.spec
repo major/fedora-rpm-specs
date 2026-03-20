@@ -1,6 +1,6 @@
 Name:           sdcc
-Version:        4.4.0
-Release:        5%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Small Device C Compiler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -11,10 +11,8 @@ Source2:        sdcc-%{version}-lyx-preferences
 Source3:        sdcc-%{version}-libierty-acinclude.m4
 Source4:	sdcc-%{version}-libcpp-aclocal.m4
 Source5:        sdcc-%{version}-libbacktrace.patch
-Patch1:         sdcc-%{version}-python3.patch
-Patch2:         sdcc-%{version}-pic16-glue.patch
-Patch3:		sdcc-%{version}-aslink.patch
-Patch4:		sdcc-%{version}-bool.patch
+Patch1:		sdcc-%{version}-aslink.patch
+Patch2:		sdcc-%{version}-bool.patch
 
 BuildRequires: make
 BuildRequires:  bison, gcc-c++, automake, libtool
@@ -53,9 +51,7 @@ if you want to modify the C library or as reference of how it works.
 %setup -q -n sdcc-%{version}
 find . -regex '.*.\.[ch]*$' -executable -a -exec chmod a-x '{}' \;
 %patch 1 -p1
-%patch 2 -p0
-%patch 3 -p1
-%patch 4 -p1
+%patch 2 -p1
 # Disable brp-strip-static-archive for now because it errors trying to
 # strip foreign binaries.
 echo '%{__os_install_post}'
@@ -167,6 +163,9 @@ popd
 
 
 %changelog
+* Wed Mar 18 2026 Roy Rankin <rrankin@ihug.com.au> - 4.5.0-1
+- upgrade to sdcc 4.5.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

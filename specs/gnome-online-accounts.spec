@@ -82,6 +82,8 @@ developing applications that use %{name}.
 %meson \
 %if 0%{?flatpak}
   -Dgoabackend=false \
+  -Ddocumentation=false \
+  -Dman=false \
 %else
   -Dfedora=true \
 %endif
@@ -108,12 +110,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAcco
 %{_prefix}/libexec/goa-identity-service
 %{_prefix}/libexec/goa-oauth2-handler
 %{_datadir}/applications/org.gnome.OnlineAccounts.OAuth2.desktop
-%{_datadir}/applications/org.gnome.goa-daemon.desktop
 %{_datadir}/dbus-1/services/org.gnome.OnlineAccounts.service
 %{_datadir}/dbus-1/services/org.gnome.Identity.service
 #%%{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
-%endif
 %{_datadir}/icons/hicolor/*/apps/goa-*.svg
+%endif
+%{_datadir}/applications/org.gnome.goa-daemon.desktop
 %{_datadir}/icons/hicolor/*/apps/org.gnome.goa-daemon-symbolic.svg
 
 

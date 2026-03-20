@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b6153
+Version:        b8064
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -158,13 +158,6 @@ Requires:       python3dist(sentencepiece)
 %prep
 %autosetup -p1 -n llama.cpp-%{version}
 
-# verson the *.so
-sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' src/CMakeLists.txt
-sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' ggml/src/CMakeLists.txt
-sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' tools/mtmd/CMakeLists.txt
-sed -i '/target_link_libraries(ggml-hip PRIVATE ggml-base.*/aset_target_properties(ggml-hip PROPERTIES SOVERSION %{version})' ggml/src/ggml-hip/CMakeLists.txt
-sed -i '/target_compile_features(${GGML_CPU_NAME} PRIVATE c_std_11.*/aset_target_properties(${GGML_CPU_NAME} PROPERTIES SOVERSION %{version})' ggml/src/ggml-cpu/CMakeLists.txt
-
 # gcc 15 include cstdint
 sed -i '/#include <vector.*/a#include <cstdint>' src/llama-mmap.h
  
@@ -179,6 +172,10 @@ find . -name '.gitignore' -exec rm -rf {} \;
 cd %{_vpath_srcdir}/gguf-py
 %pyproject_wheel
 cd -
+%endif
+
+%if %{with rocm}
+export HIPCC_COMPILE_FLAGS_APPEND="--offload-compress"
 %endif
 
 %cmake \
@@ -222,34 +219,38 @@ rm %{buildroot}%{_bindir}/convert*.py
 %if %{with test}
 %if %{with check}
 %check
-# Need to install rpm
-# On gfx1201 on 6.4 there is one failure
-#  24 - test-backend-ops (Subprocess aborted)
+# cpu results
+#   14 - test-tokenizers-ggml-vocabs (Failed)              main
+# rocm 7.2 gfx1100 results
+#   14 - test-tokenizers-ggml-vocabs (Failed)              main
+#   36 - test-backend-ops (Subprocess aborted)             main
+export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %ctest
 %endif
 %endif
 
 %files
 %license LICENSE
-%{_libdir}/libllama.so.%{version}
-%{_libdir}/libmtmd.so.%{version}
-%{_libdir}/libggml.so.%{version}
-%{_libdir}/libggml-base.so.%{version}
-%{_libdir}/libggml-cpu.so.%{version}
+%{_libdir}/libllama.so.*
+%{_libdir}/libmtmd.so.*
+%{_libdir}/libggml.so.*
+%{_libdir}/libggml-base.so.*
+%{_libdir}/libggml-cpu.so.*
 %if %{with rocm}
-%{_libdir}/libggml-hip.so.%{version}
+%{_libdir}/libggml-hip.so.*
 %endif
 %{_bindir}/llama-batched-bench
 %{_bindir}/llama-bench
 %{_bindir}/llama-cli
+%{_bindir}/llama-completion
 %{_bindir}/llama-cvector-generator
 %{_bindir}/llama-export-lora
+%{_bindir}/llama-fit-params
 %{_bindir}/llama-gguf-split
 %{_bindir}/llama-imatrix
 %{_bindir}/llama-mtmd-cli
 %{_bindir}/llama-perplexity
 %{_bindir}/llama-quantize
-%{_bindir}/llama-run
 %{_bindir}/llama-server
 %{_bindir}/llama-tokenize
 %{_bindir}/llama-tts

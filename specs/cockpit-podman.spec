@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        122
+Version:        123
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -93,6 +93,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Mar 18 2026 Packit <hello@packit.dev> - 123-1
+- Don't show Quadlet template units
+- Handle quadlet lifecycle errors
+- Translation update
+
+
 * Thu Feb 26 2026 Packit <hello@packit.dev> - 122-1
 - Show description, version and documentation image labels
 - Bug fixes and translation updates

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kwayland-integration
-Version: 6.6.2
+Version: 6.6.3
 Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
@@ -57,6 +57,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-1
+- 6.6.3
+
 * Tue Mar 03 2026 Steve Cossette <farchord@gmail.com> - 6.6.2-1
 - 6.6.2
 

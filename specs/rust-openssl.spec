@@ -5,7 +5,7 @@
 %global crate openssl
 
 Name:           rust-openssl
-Version:        0.10.75
+Version:        0.10.76
 Release:        %autorelease
 Summary:        OpenSSL bindings
 

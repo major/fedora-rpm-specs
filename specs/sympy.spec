@@ -23,6 +23,9 @@ Patch:          %{name}-intersphinx.patch
 Patch:          %{giturl}/pull/28472.patch
 # Support mpmath >= 1.4
 Patch:          %{name}-mpmath.patch
+# Fix the doc build with sphinx 9
+# https://github.com/sympy/sympy/pull/28995
+Patch:          %{name}-sphinx9.patch
 
 # We have to build on an architecture that:
 # - Supports Java (for antlr4), which excludes 32-bit x86

@@ -15,7 +15,7 @@
 Name:           ansible-core
 Version:        2.20.3
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -27,6 +27,12 @@ URL:            https://ansible.com
 
 Source0:        https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
+
+# Do not require wheel for building.
+# https://github.com/ansible/ansible/pull/85533 merged upstream.
+# The needlessly required wheel version was pinned, so get rid of it rather than unpinning.
+# Also, wheel is unwanted in ELN: https://github.com/fedora-eln/eln/issues/284
+Patch:          nowheel.patch
 
 BuildArch:      noarch
 
@@ -253,6 +259,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Wed Mar 18 2026 Miro Hrončok <mhroncok@redhat.com> - 2.20.3-2
+- Drop an unneeded BuildRequires for python3dist(wheel) = 0.45.1
+
 * Tue Feb 24 2026 Maxwell G <maxwell@gtmx.me> - 2.20.3-1
 - Update to 2.20.3. Fixes rhbz#2442079.
 

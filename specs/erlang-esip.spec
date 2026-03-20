@@ -12,10 +12,10 @@ Summary: ProcessOne SIP server component in Erlang
 URL: https://github.com/processone/%{srcname}
 VCS: git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch1: erlang-esip-0001-Disable-Rebar3-plugins.patch
 BuildRequires: erlang-fast_tls >= %{fast_tls_ver}
 BuildRequires: erlang-p1_utils >= %{p1_utils_ver}
 BuildRequires: erlang-rebar3
+BuildRequires: erlang-rebar3-pc
 BuildRequires: erlang-stun >= %{stun_ver}
 BuildRequires: gcc
 Obsoletes: erlang-p1_sip < 1.0.2
@@ -24,23 +24,14 @@ Requires: erlang-fast_tls >= %{fast_tls_ver}
 Requires: erlang-p1_utils >= %{p1_utils_ver}
 Requires: erlang-stun >= %{stun_ver}
 
-
 %description
 %{summary}.
-
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p priv/lib
-gcc c_src/esip_codec.c $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/esip_codec.o
-gcc c_src/esip_codec.o $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -o priv/lib/esip_drv.so
-
 
 %install
 %{erlang3_install}
@@ -51,16 +42,13 @@ install -d $RPM_BUILD_ROOT%{_erllibdir}/esip-%{version}/priv/lib
 install -pm644 include/* $RPM_BUILD_ROOT%{_erllibdir}/esip-%{version}/include/
 install -pm755 priv/lib/*.so $RPM_BUILD_ROOT%{_erllibdir}/esip-%{version}/priv/lib/
 
-
 %check
 %{erlang3_test}
-
 
 %files
 %license LICENSE.txt
 %doc CHANGELOG.md README.md
 %{erlang_appdir}
-
 
 %changelog
 %autochangelog

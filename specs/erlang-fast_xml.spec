@@ -9,7 +9,6 @@ Summary: Fast Expat based Erlang XML parsing and manipulation library
 URL:     https://github.com/processone/%{srcname}
 VCS:     git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch:   erlang-fast_xml-0001-Disable-Rebar3-plugins.patch
 Provides:  erlang-p1_xml = %{version}-%{release}
 Obsoletes: erlang-p1_xml < 1.1.11
 BuildRequires: erlang-edoc
@@ -33,13 +32,6 @@ than calling xmerl_scan:string/2.
 
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p priv/lib
-gcc  c_src/fxml.c	$CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/fxml.o
-gcc c_src/fxml_stream.c	$CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/fxml_stream.o
-gcc c_src/fxml.o	$LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -L%{_libdir} -lexpat -lm -o priv/lib/fxml.so
-gcc c_src/fxml_stream.o	$LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -L%{_libdir} -lexpat -lm -o priv/lib/fxml_stream.so
 
 %install
 %{erlang3_install}

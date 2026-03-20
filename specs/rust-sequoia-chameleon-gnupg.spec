@@ -27,9 +27,16 @@ Source2:        activate.sh
 # * drop gpg-recorder executable
 # * drop features for unavailable crypto backends
 # * build with OpenSSL crypto backend
+# * update pty-process dependency from v0.4 to v0.5:
+#   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/c56743ac36efb9e12f29e31fd36aeba12ff111f7;
+#   a source-code patch in the tests is also required
 Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
 # * fix running integration tests in release mode with prebuilt executable
 Patch2:         0001-fix-integration-tests-for-release-mode-and-use-prebu.patch
+# * update pty-process dependency from v0.4 to v0.5
+# * https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/c56743ac36efb9e12f29e31fd36aeba12ff111f7
+# * This is the necessary source-code patch in the tests.
+Patch3:         0001-Upgrade-pty-process.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

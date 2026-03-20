@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -109,9 +109,7 @@ install -p -m 0644 -D pipx.bash '%{buildroot}%{zsh_completions_dir}/_pipx'
 # Make sure the source copy of the package is not in the Python path.
 mkdir -p empty
 cd empty
-
-PYTHONPATH=%{buildroot}%{python3_sitelib} \
-    %{buildroot}%{_bindir}/pipx --help >/dev/null
+%{py3_test_envvars} pipx --help >/dev/null
 
 
 %files -f %{pyproject_files}

@@ -14,7 +14,7 @@
 %endif
 
 Name:           ipython
-Version:        9.10.0
+Version:        9.11.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -162,8 +162,9 @@ export IPYTHON_TESTING_TIMEOUT_SCALE=4
 # Switch to a temporary directory to avoid _pytest.pathlib.ImportPathMismatchError
 mkdir test_temp_dir
 pushd test_temp_dir
-# Ignored tests don't work well with out custom paths
-%pytest -vv -p no:cacheprovider -k "not test_get_xdg_dir_3 and not test_extension" ../tests
+# test_get_xdg_dir_3 and test_extension don't work well with out custom paths
+# test_hist_file_config is flaky https://github.com/ipython/ipython/issues/15161
+%pytest -vv -p no:cacheprovider -k "not test_get_xdg_dir_3 and not test_extension and not test_hist_file_config" ../tests
 popd
 rm -rf test_temp_dir
 %endif

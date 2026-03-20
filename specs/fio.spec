@@ -1,13 +1,14 @@
 Name:		fio
-Version:	3.40
-Release:	3%{?dist}
+Version:	3.41
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
-URL:		http://git.kernel.dk/?p=fio.git;a=summary
-Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
+URL:		https://git.kernel.org/pub/scm/linux/kernel/git/axboe/fio
+Source0:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
 Source1:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2.asc
 Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D358FB2971E0A6.asc
+Patch0:         https://github.com/axboe/fio/commit/466a2e664d28756c61e03bdc353c683427ab9870.patch#/fio-3.41-issue2026-fix-zero-numberio.patch
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without nbd
@@ -289,6 +290,14 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Sun Mar 15 2026 Michel Lind <salimma@fedoraproject.org> - 3.41-2
+- Apply commit to fix zero-numberio in dry-run
+
+* Sun Mar 15 2026 Michel Lind <salimma@fedoraproject.org> - 3.41-1
+- Update to upstream v3.41
+- Update upstream URL (see README.rst) and download protocol to https
+- Related: rhbz#2393562
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.40-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

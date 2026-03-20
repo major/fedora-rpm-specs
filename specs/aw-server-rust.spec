@@ -49,6 +49,9 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  help2man
 BuildRequires:  nodejs-aw-webui
 
+#https://bugzilla.redhat.com/show_bug.cgi?id=2448764
+ExcludeArch:     ppc64le
+
 %description
 %{summary}
 

@@ -1,12 +1,12 @@
 Name:           python-irodsclient
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        A python API for iRODS
 
 # SPDX
 License:        BSD-3-Clause
 URL:            https://github.com/irods/python-irodsclient
-Source0:        %{pypi_source python_irodsclient}
+Source0:        %{url}/archive/v%{version}/python-irodsclient-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        prc_write_irodsA.py.1
 
@@ -40,7 +40,7 @@ Summary:        %{summary}
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 %py3_shebang_fix '%{buildroot}%{_bindir}/prc_write_irodsA.py'
 
-# Remove useless shebangs in files that were be installed without executable
+# Remove useless shebangs in files that will be installed without executable
 # permission. The pattern of selecting files before modifying them with sed
 # keeps us from unnecessarily discarding the original mtimes on unmodified
 # files. Note that we must not do this in %%prep because we want to strip the

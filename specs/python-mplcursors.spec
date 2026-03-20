@@ -2,7 +2,7 @@
 %bcond doc 1
 
 Name:           python-%{srcname}
-Version:        0.7
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Interactive data selection cursors for Matplotlib
 

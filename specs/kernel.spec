@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc4.260317g2d1373e4246d.37
+%define pkgrelease 0.rc4.260318ga989fde763f4.38
 %define kversion 7
-%define tarfile_release 7.0-rc4-5-g2d1373e4246d
+%define tarfile_release 7.0-rc4-29-ga989fde763f4
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260317g2d1373e4246d.37%{?buildid}%{?dist}
+%define specrelease 0.rc4.260318ga989fde763f4.38%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4832,8 +4832,11 @@ fi\
 #
 #
 %changelog
-* Tue Mar 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.2d1373e4246d.37]
+* Wed Mar 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.a989fde763f4.38]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Wed Mar 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.a989fde763f4.37]
+- Linux v7.0.0-0.rc4.a989fde763f4
 
 * Tue Mar 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.2d1373e4246d.36]
 - Linux v7.0.0-0.rc4.2d1373e4246d

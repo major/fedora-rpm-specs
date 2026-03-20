@@ -9,8 +9,7 @@ Summary:    Index tree for MQTT topic filters
 URL:        https://github.com/processone/%{srcname}/
 VCS:        git:%{url}.git
 Source0:    %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch1:     erlang-mqtree-0001-Remove-bundled-uthash.patch
-Patch2:     erlang-mqtree-0002-FIXME-disable-Rebar3-plugins.patch
+Patch:      erlang-mqtree-0001-Remove-bundled-uthash.patch
 BuildRequires: erlang-p1_utils >= %{p1_utils_ver}
 BuildRequires: erlang-rebar3
 BuildRequires: erlang-rebar3-pc
@@ -28,11 +27,6 @@ efficient matching.
 
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p priv/lib
-gcc c_src/mqtree.c $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/mqtree.o
-gcc c_src/mqtree.o $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -o priv/lib/mqtree.so
 
 %install
 %{erlang3_install}

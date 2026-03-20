@@ -4,7 +4,7 @@ provides complex widgets and convenience functions designed for use in
 apps built for elementary OS.}
 
 Name:           granite-7
-Version:        7.8.0
+Version:        7.8.1
 Release:        %autorelease
 Summary:        Extend GTK with common widgets and utilities
 License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
@@ -45,7 +45,7 @@ This package contains the development headers.
 
 
 %build
-%meson
+%meson -D gtk-stylesheets=true
 %meson_build
 
 

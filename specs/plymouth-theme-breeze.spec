@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plymouth-theme-breeze
-Version: 6.6.2
+Version: 6.6.3
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
@@ -56,6 +56,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-1
+- 6.6.3
+
 * Tue Mar 03 2026 Steve Cossette <farchord@gmail.com> - 6.6.2-1
 - 6.6.2
 

@@ -47,14 +47,12 @@ License:        MIT AND PSF-2.0 AND GPL-2.0-or-later
 # The package version MUST be always the same as %%{__default_python3_version}.
 # To have only one source of truth, we load the macro and use it.
 # The macro is defined in python-srpm-macros.
-%{lua:
-if posix.stat(rpm.expand('%{SOURCE102}')) then
-  rpm.load(rpm.expand('%{SOURCE102}'))
-elseif posix.stat('macros.python-srpm') then
-  -- something is parsing the spec without _sourcedir macro properly set
-  rpm.load('macros.python-srpm')
-end
-}
+%if %{exists:%{SOURCE102}}
+  %{load:%{SOURCE102}}
+%elif %{exists:macros.python-srpm}
+  # something is parsing the spec without %%_sourcedir macro properly set
+  %{load:macros.python-srpm}
+%endif
 Version:        %{__default_python3_version}
 Release:        11%{?dist}
 

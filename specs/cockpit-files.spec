@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 37
+Version: 38
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -86,6 +86,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Mar 18 2026 Packit <hello@packit.dev> - 38-1
+- Add discard changes dialog
+- Bugfixes and translation updates
+
+
 * Thu Feb 26 2026 Packit <hello@packit.dev> - 37-1
 - Bug fixes and translation updates
 

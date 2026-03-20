@@ -8,7 +8,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-firewall
-Version: 6.6.2
+Version: 6.6.3
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %endif
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-1
+- 6.6.3
+
 * Tue Mar 03 2026 Steve Cossette <farchord@gmail.com> - 6.6.2-1
 - 6.6.2
 

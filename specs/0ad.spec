@@ -28,24 +28,24 @@
 Name:		0ad
 Version:	0.28.0
 Release:	2%{?dist}
-# BSD License:
+# BSD-3-Clause:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
 #	libraries/source/valgrind/*		(not built/used)
+#       source/maths/Ease.h
 # MIT License:
 #	libraries/source/fcollada/*
 #	libraries/source/nvtt/*			(not built/used)
 #	source/third_party/*
 # LGPLv2+
 #	libraries/source/cxxtest*/*		(not built/used)
-# GPLv2+
+# GPL-2.0-or-later
 #	source/*
-# IBM
+# IPL-1.0
 #	source/tools/fontbuilder2/Packer.py
 # MPL-2.0
 #	libraries/source/spidermonkey/*		(not built/used)
-# Automatically converted from old format: GPLv2+ and BSD and MIT and IBM and MPLv2.0 - review is highly recommended.
-License:	GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND IPL-1.0 AND MPL-2.0
+License:	GPL-2.0-or-later AND BSD-3-Clause AND MIT AND IPL-1.0 AND MPL-2.0
 Summary:	Cross-Platform RTS Game of Ancient Warfare
 Url:		http://play0ad.com
 

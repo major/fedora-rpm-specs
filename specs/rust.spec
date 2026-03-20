@@ -1096,6 +1096,10 @@ rm -rf "./build/%{rust_triple}/test/"
 # We test this after packaging
 %global cargo_test_skip_list net_err_suggests_fetch_with_cli
 
+# Requires access to index.crates.io but neither Fedora nor CentOS/RHEL builders
+# have DNS resolution, so the test will always fail.
+%global cargo_test_skip_list %{cargo_test_skip_list} publish_to_crates_io_warns
+
 %ifarch aarch64
 # https://github.com/rust-lang/rust/issues/123733
 %global cargo_test_skip_list %{cargo_test_skip_list} panic_abort_doc_tests

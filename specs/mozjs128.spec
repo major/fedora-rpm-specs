@@ -65,6 +65,9 @@ Patch20:        spidermonkey_checks_disable.patch
 # Rebased slightly
 Patch21:        D261512.1755672843.diff
 
+# GC patch - https://gitea.wildfiregames.com/0ad/0ad/issues/8757
+Patch22:        FixExtraGCTracing.diff
+
 BuildRequires:  cargo
 %if "%{toolchain}" == "clang"
 BuildRequires:  clang

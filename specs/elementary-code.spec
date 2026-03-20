@@ -5,7 +5,7 @@
 
 Name:           elementary-code
 Summary:        Code editor from elementary
-Version:        8.1.2
+Version:        8.2.0
 Release:        %autorelease
 License:        GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND GPL-2.0-or-later
 
@@ -90,7 +90,7 @@ appstream-util validate-relax --nonet \
 
 %{_datadir}/applications/%{appname}.desktop
 %{_datadir}/glib-2.0/schemas/%{appname}*.gschema.xml
-%{_datadir}/gtksourceview-4/styles/elementary-{dark,light}.xml
+%{_datadir}/gtksourceview-4/styles/elementary-{dark,light,highcontrast-light}.xml
 %{_datadir}/icons/hicolor/*/apps/%{appname}.svg
 %{_datadir}/%{appname}/
 %{_datadir}/metainfo/%{appname}.metainfo.xml

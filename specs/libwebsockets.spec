@@ -6,7 +6,7 @@
 %endif
 
 Name:           libwebsockets
-Version:        4.5.5
+Version:        4.5.7
 Release:        %autorelease
 Summary:        Lightweight C library for Websockets
 

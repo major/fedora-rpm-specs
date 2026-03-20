@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.3
-Release:     10%{?dist}
+Release:     11%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -27,6 +27,13 @@ Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/6
 # that causes all the trouble
 Patch:       0001-Revert-mdadm-Follow-POSIX-Portable-Character-Set.patch
 Patch:       0002-dont-stop-in-assemble.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2434813
+# https://github.com/md-raid-utilities/mdadm/pull/231
+# fix build failures with GCC 16
+Patch:      0001-mdadm-fix-compilation-errors-for-unused-variables-wi.patch
+Patch:      0002-super-intel.c-fix-format-overflow-error.patch
+
 
 # Fedora customization patches
 Patch:       mdadm-udev.patch
@@ -133,6 +140,9 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Tue Mar 17 2026 Adam Williamson <awilliam@redhat.com> - 4.3-11
+- Backport PR #231 to fix build with GCC 16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

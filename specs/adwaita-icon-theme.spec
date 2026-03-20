@@ -1,15 +1,16 @@
 %global adwlegacy_ver 46.2
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           adwaita-icon-theme
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/adwaita-icon-theme
-Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -44,6 +45,9 @@ The %{name}-devel package contains the pkgconfig file for
 developing applications that use %{name}.
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build

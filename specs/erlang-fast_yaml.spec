@@ -9,11 +9,11 @@ Summary: An Erlang wrapper for libyaml "C" library
 URL:     https://github.com/processone/%{srcname}/
 VCS:     git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch1:  erlang-fast_yaml-0001-Disable-port-compiler-until-we-package-it.patch
 Provides:  erlang-p1_yaml = %{version}-%{release}
 Obsoletes: erlang-p1_yaml < 1.0.2
 BuildRequires: gcc
 BuildRequires: erlang-rebar3
+BuildRequires: erlang-rebar3-pc
 BuildRequires: erlang-p1_utils >= %{p1_utils_ver}
 BuildRequires: libyaml-devel
 Requires: erlang-p1_utils >= %{p1_utils_ver}
@@ -26,11 +26,6 @@ P1 YAML is an Erlang wrapper for libyaml "C" library.
 
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p priv/lib
-gcc c_src/fast_yaml.c $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/fast_yaml.o
-gcc c_src/fast_yaml.o $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -lyaml -o priv/lib/fast_yaml.so
 
 %install
 %{erlang3_install}

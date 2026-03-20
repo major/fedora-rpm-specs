@@ -1,5 +1,3 @@
-%global srcname setuptools
-
 # used when bootstrapping new Python versions
 %bcond bootstrap 0
 
@@ -8,7 +6,7 @@
 # to prevent pulling many unwanted packages in.
 %bcond tests %[%{without bootstrap} && %{defined fedora}]
 
-%global python_wheel_name %{srcname}-%{version}-py3-none-any.whl
+%global python_wheel_name setuptools-%{version}-py3-none-any.whl
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
@@ -30,8 +28,8 @@ Summary:        Easily build and distribute Python packages
 # zipp is MIT
 # the setuptools logo is MIT
 License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND LGPL-3.0-only
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        %{pypi_source %{srcname} %{version}}
+URL:            https://pypi.python.org/pypi/setuptools
+Source0:        %{pypi_source setuptools %{version}}
 
 # Some test deps are optional and either not desired or not available in Fedora, thus this patch removes them.
 Patch:          Remove-optional-or-unpackaged-test-deps.patch
@@ -120,23 +118,21 @@ This package also contains the runtime components of setuptools, necessary to
 execute the software that requires pkg_resources.
 
 
-%package -n     %{python_wheel_pkg_prefix}-%{srcname}-wheel
+%package -n     %{python_wheel_pkg_prefix}-setuptools-wheel
 Summary:        The setuptools wheel
 %{bundled}
 
-%description -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
+%description -n %{python_wheel_pkg_prefix}-setuptools-wheel
 A Python wheel of setuptools to use with venv.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n setuptools-%{version}
 %if %{without bootstrap}
 # If we don't have setuptools installed yet, we use the pre-generated .egg-info
 # See https://github.com/pypa/setuptools/pull/2543
 # And https://github.com/pypa/setuptools/issues/2550
-# WARNING: We cannot remove this folder since Python 3.11.1,
-#          see https://github.com/pypa/setuptools/issues/3761
-#rm -r %%{srcname}.egg-info
+rm -r setuptools.egg-info
 %endif
 
 # Strip shbang
@@ -241,7 +237,7 @@ PYTHONPATH=$(pwd) %pytest \
 %{python3_sitelib}/_distutils_hack/
 %endif
 
-%files -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
+%files -n %{python_wheel_pkg_prefix}-setuptools-wheel
 %license LICENSE
 # we own the dir for simplicity
 %dir %{python_wheel_dir}/

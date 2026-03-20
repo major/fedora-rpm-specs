@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           orca
-Version:        50.0.7
+Version:        50.0.9
 Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 

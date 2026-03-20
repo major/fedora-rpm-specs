@@ -2,8 +2,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.6.2
-Release: 2%{?dist}
+Version: 6.6.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -31,14 +31,6 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream patches
-# Fix for build failure regarding the plasma-shell wayland interface
-# https://invent.kde.org/plasma/plasma-workspace/-/commit/9114115f5af2594de64477e38e8762ff8dddbbd7
-Patch1:         9114115f5af2594de64477e38e8762ff8dddbbd7.patch
-# Back off the logout greeter focus grab timeout to 3 seconds
-# Mitigates issue where clicking logout buttons does nothing on slow systems
-# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/6413
-# https://bugzilla.redhat.com/show_bug.cgi?id=2442475
-Patch2:         0001-Logout-greeter-back-off-initial-focus-grab-timeout-t.patch
 
 ## upstreamable Patches
 
@@ -669,6 +661,9 @@ fi
 
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-1
+- 6.6.3
+
 * Fri Mar 13 2026 Adam Williamson <awilliam@redhat.com> - 6.6.2-2
 - Backport MR #6413 to back off the logout greeter focus grab timeout
 

@@ -17,8 +17,7 @@ Source:         %{crates_source}
 # * Update to rstest 0.26: https://github.com/nushell/nushell/pull/16359
 # * Allow which 7 and 8: https://github.com/nushell/nushell/pull/14489,
 #   https://github.com/nushell/nushell/pull/16045
-# * Update lscolors from 0.17 to 0.20:
-#   https://github.com/nushell/nushell/pull/15737
+# * allow lscolors 0.17 to 0.21: https://github.com/nushell/nushell/pull/15737
 # * Update fancy-regex from 0.13 to 0.16:
 #   https://github.com/nushell/nushell/commit/0e3ca7b355bd62f1cfc372b414defd528da04718,
 #   https://github.com/nushell/nushell/commit/1e2fa68db0f7e877fe9c4cd95ab16f1c0df793e8

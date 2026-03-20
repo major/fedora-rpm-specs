@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	7.2
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -22,9 +22,6 @@ BuildRequires:	librdmacm
 BuildRequires:	rdma-core-devel
 BuildRequires:	krb5-devel
 BuildRequires:	userspace-rcu-devel
-%if ( 0%{?fedora} && 0%{?fedora} > 27 )
-BuildRequires:  libnsl2-devel
-%endif
 # libtirpc has /etc/netconfig, most machines probably have it anyway
 # for NFS client
 Requires:	libtirpc
@@ -95,6 +92,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Wed Mar 18 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-3
+- ntirpc-7.2, eliminate libnsl* dependency
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

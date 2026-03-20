@@ -11,7 +11,7 @@
 
 Name:           cinnamon
 Version:        6.6.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -26,6 +26,7 @@ Patch0:         set_wheel.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         set_menu_defaults.patch
+Patch5:         %{url}/pull/13646.patch#/theme-fallback.patch
 
 ExcludeArch:    %{ix86}
 
@@ -336,6 +337,9 @@ EOF
 %endif
 
 %changelog
+* Tue Mar 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-2
+- Fix missing checkboxes on clutter dialogs
+
 * Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-1
 - Update to 6.6.7
 

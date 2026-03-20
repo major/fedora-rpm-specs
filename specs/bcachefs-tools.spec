@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.36.1
+Version:        1.37.2
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -39,6 +39,21 @@ Source1:        https://evilpiepirate.org/%{name}/%{name}-vendored-%{version}.ta
 Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13AB336D8DCA6E76.asc
 
 # Upstream patches
+Patch0001:      0001-package-ci-add-PUBLISH_ROOT-config-for-aptly-publish.patch
+Patch0002:      0002-package-ci-derive-package-version-from-git-tags-not-.patch
+Patch0003:      0003-package-ci-symlink-log-to-timestamped-log-file.patch
+Patch0004:      0004-build-source-clone-with-tags-so-git-describe-works.patch
+Patch0005:      0005-Fix-32-bit-and-ppc64le-build-failures.patch
+Patch0006:      0006-package-ci-fix-source-package-version-detection.patch
+Patch0007:      0007-Makefile-set-cross-linker-for-Rust-when-CARGO_BUILD_.patch
+Patch0008:      0008-Fix-32-bit-portability-use-proper-libc-types-instead.patch
+Patch0009:      0009-package-ci-fix-ppc64el-cross-linker-via-.cargo-confi.patch
+Patch0010:      0010-bch_bindgen-fix-32-bit-alignment-for-bkey-containing.patch
+Patch0011:      0011-package-ci-cap-build-parallelism-to-avoid-resource-e.patch
+Patch0012:      0012-package-ci-document-retriggering-script-deployment-..patch
+Patch0013:      0013-Fix-32-bit-segfault-struct-sysinfo-missing-kernel-pa.patch
+Patch0014:      0014-Fix-build-with-O0-strtomem_pad-BUILD_BUG_ON-and-miss.patch
+
 
 # Upstreamable patches
 
@@ -100,6 +115,7 @@ check, modify and correct any inconsistencies in the bcachefs filesystem.
 %{_sbindir}/mkfs.bcachefs
 %{_mandir}/man8/bcachefs.8*
 %{_udevrulesdir}/64-bcachefs.rules
+%{bash_completions_dir}/bcachefs
 
 %if %{with fuse}
 %dnl ----------------------------------------------------------------------------
@@ -215,6 +231,11 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Wed Mar 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.37.2-1
+- Update to version 1.37.2
+- Resolves: rhbz#2447761
+- Backport fixes for various altarch build failures
+
 * Sat Feb 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.36.1-1
 - Update to version 1.36.1
   Resolves: rhbz#2430357

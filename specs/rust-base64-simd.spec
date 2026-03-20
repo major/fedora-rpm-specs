@@ -19,10 +19,16 @@ Patch:          base64-simd-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * bump base64 to 0.22, https://github.com/Nugine/simd/pull/58
 # * bump const-str to 0.6, https://github.com/Nugine/simd/pull/54
+# * update rand dev-dependency to 0.10: https://github.com/Nugine/simd/pull/63
 Patch:          base64-simd-fix-metadata.diff
 # * update base64 from 0.20.0 to 0.21.0
 # * https://github.com/Nugine/simd/pull/30
 Patch2:         base64-simd-update-base64-to-0_21.diff
+# * Update rand dev-dependency to 0.10
+# * https://github.com/Nugine/simd/pull/63
+# * Move use rand::RngExt to test routines to avoid unused import
+# * https://github.com/Nugine/simd/pull/64
+Patch3:         base64-simd-update-rand-to-0.10.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

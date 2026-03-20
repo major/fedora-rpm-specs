@@ -2,7 +2,7 @@
 %global srcname JCTools
 
 Name:           jctools
-Version:        4.0.5
+Version:        4.0.6
 Release:        %autorelease
 Summary:        Java Concurrency Tools for the JVM
 License:        Apache-2.0
@@ -66,6 +66,7 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 %pom_disable_module jctools-experimental
 
 %pom_disable_module jctools-build
+%pom_disable_module jctools-core-jdk11
 %pom_remove_plugin :exec-maven-plugin jctools-core
 
 # do not install internal build tools

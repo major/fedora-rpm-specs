@@ -29,7 +29,7 @@ Patch:          nu-command-fix-metadata-auto.diff
 #   https://github.com/nushell/nushell/pull/16045, and procfs 0.18,
 #   https://github.com/nushell/nushell/pull/17195
 # * allow roxmltree 0.20: https://github.com/nushell/nushell/pull/14513
-# * Update lscolors from 0.17 to 0.20:
+# * allow lscolors from 0.17 to 0.21:
 #   https://github.com/nushell/nushell/pull/15737
 # * Allow indicatif 0.18: https://github.com/nushell/nushell/pull/16248
 # * Allow dirs 6:

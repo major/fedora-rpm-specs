@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen  0
+%global use_bundled_cbindgen  1
 
 ####################
 
@@ -22,9 +22,9 @@ ExcludeArch: %{ix86} %{arm}
 
 # Build PGO+LTO on x86_64 only due to build issues
 # on other arches.
-%global build_with_pgo 0
-%global pgo_wayland    0
-%global launch_wayland_compositor 0
+%global build_with_pgo 1
+%global pgo_wayland    1
+%global launch_wayland_compositor 1
 
 %ifarch x86_64
 %if %{release_build}

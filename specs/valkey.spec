@@ -9,9 +9,12 @@
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
+%global upstream_version 9.1.0
+%global upstream_prever  rc1
+
 Name:              valkey
-Version:           9.0.3
-Release:           2%{?dist}
+Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -20,7 +23,7 @@ Summary:           A persistent key-value database
 # fpconv: BSL-1.0
 License:           BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0
 URL:               https://valkey.io
-Source0:           https://github.com/valkey-io/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:           https://github.com/valkey-io/%{name}/archive/%{upstream_version}%{?upstream_prever:-%{upstream_prever}}/%{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}.tar.gz
 Source1:           %{name}.logrotate
 Source2:           %{name}-sentinel.service
 Source3:           %{name}.service
@@ -33,9 +36,11 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 Patch0:            %{name}-conf.patch
 # Workaround to https://github.com/valkey-io/valkey/issues/2678
 Patch1:            %{name}-loadmod.patch
-# Properly inherits linker flags for modules
-# See https://github.com/valkey-io/valkey/pull/3344
-Patch2:            %{name}-bindnow.patch
+# clean rpath and set lua module path
+Patch2:            %{name}-lua.patch
+# don't dlopen librdmacm and libibverbs
+# for proper package dependencies
+Patch3:            %{name}-rdma.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -46,7 +51,8 @@ BuildRequires:     tcl
 BuildRequires:     pkgconfig(libsystemd)
 BuildRequires:     systemd-devel
 BuildRequires:     systemd-rpm-macros
-BuildRequires:     rdma-core-devel
+BuildRequires:     pkgconfig(librdmacm)
+BuildRequires:     pkgconfig(libibverbs)
 BuildRequires:     openssl-devel
 %if %{with docs}
 # for docs/man pages
@@ -74,6 +80,8 @@ Provides:          bundled(fpconv)
 # sub-package was dropped
 Obsoletes:         valkey-tls  < %{version}-%{release}
 Provides:          valkey-tls  = %{version}-%{release}
+# mandatory, in main package
+Provides:          valkey-lua  = %{version}-%{release}
 
 %global valkey_modules_abi 1
 %global valkey_modules_dir %{_libdir}/%{name}/modules
@@ -184,10 +192,11 @@ Provides:          redis-doc = %{version}-%{release}
 
 %prep
 # no autosetup due to no support for multiple source extraction
-%setup -n %{name}-%{version} -a50
+%setup -n %{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}} -a50
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
-%patch -P2 -p1 -b .bindnow
+%patch -P2 -p1 -b .lua
+%patch -P3 -p1 -b .rdma
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -319,8 +328,12 @@ install -pm755 src/valkey-rdma.so %{buildroot}%{valkey_modules_dir}/rdma.so
 install -pm640 rdma.conf          %{buildroot}%{valkey_modules_cfg}/rdma.conf
 
 
-%check
 %if %{with tests}
+%check
+# Search path for libvalkeylua.so
+LD_LIBRARY_PATH=src/modules/lua
+export LD_LIBRARY_PATH
+
 # https://github.com/redis/redis/issues/1417 (for "taskset -c 1")
 taskset -c 1 ./runtest --clients 50 --skiptest "Active defrag - AOF loading"
 
@@ -404,6 +417,7 @@ fi
 %attr(0640, valkey, root) %config(noreplace) %{_sysconfdir}/%{name}/sentinel.conf
 %dir %{_libdir}/%{name}
 %dir %{valkey_modules_dir}
+%{valkey_modules_dir}/lua.so
 %dir %attr(0750, valkey, valkey) %{_sharedstatedir}/%{name}
 %dir %attr(0750, valkey, valkey) %{_localstatedir}/log/%{name}
 %{_bindir}/%{name}-*
@@ -447,6 +461,10 @@ fi
 
 
 %changelog
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc1
+- Valkey 9.1.0-rc1
+- Lua scripting engine moved into a Valkey module
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 9.0.3-2
 - fix module linker flags using patch from
   https://github.com/valkey-io/valkey/pull/3344

@@ -1,6 +1,6 @@
 Name:           plasma-keyboard
 Epoch:          1
-Version:        6.6.2
+Version:        6.6.3
 Release:        1%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
@@ -25,6 +25,7 @@ BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(wayland-cursor)
@@ -76,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-1
+- 6.6.3
+
 * Tue Mar 03 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.2-1
 - 6.6.2
 

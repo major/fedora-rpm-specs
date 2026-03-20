@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -577,6 +577,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Mar 18 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-6
+- CVE-2026-3497: Fix information disclosure or denial of service due
+  to uninitialized variables in gssapi-keyex
+
 * Fri Feb 27 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-5
 - Cleanup of the previous commit
 

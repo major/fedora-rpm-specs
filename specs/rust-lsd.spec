@@ -15,6 +15,7 @@ Source:         %{crates_source}
 Patch:          lsd-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * relax clap dependencies from 4.5.* to 4.5
+# * update lscolors from 0.20 to 0.21: https://github.com/lsd-rs/lsd/pull/1195
 Patch:          lsd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
