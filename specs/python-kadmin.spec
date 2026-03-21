@@ -23,6 +23,7 @@ Summary:            %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:      python%{python3_pkgversion}-devel
 BuildRequires:      python%{python3_pkgversion}-setuptools
+BuildRequires:      python%{python3_pkgversion}-pip
 BuildRequires:      krb5-devel
 BuildRequires:      bison
 BuildRequires:      gcc

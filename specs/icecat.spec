@@ -1,6 +1,6 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 1
+%global release_build 0
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
 %global redhat_ver rh1
@@ -22,13 +22,13 @@ ExcludeArch: %{ix86} %{arm}
 
 # Build PGO+LTO on x86_64 only due to build issues
 # on other arches.
-%global build_with_pgo 1
-%global pgo_wayland    1
-%global launch_wayland_compositor 1
+%global build_with_pgo 0
+%global pgo_wayland    0
+%global launch_wayland_compositor 0
 
 %ifarch x86_64
 %if %{release_build}
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 %global build_with_pgo 1
 %global pgo_wayland    1
 %global launch_wayland_compositor 1
@@ -43,7 +43,11 @@ ExcludeArch: %{ix86} %{arm}
 ####################
 
 # Active/Deactive language files handling
+%if %{release_build}
 %bcond_without langpacks
+%else
+%bcond_with langpacks
+%endif
 
 %if %{with langpacks}
 %bcond_without langpacks_subpkg
@@ -88,7 +92,7 @@ ExcludeArch: %{ix86} %{arm}
 %endif
 
 # Use clang?
-%bcond_with toolchain_clang
+%bcond_without toolchain_clang
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -101,8 +105,8 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.8.0
-Release: %autorelease -e %{redhat_ver}
+Version: 140.9.0
+Release: %autorelease -p -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -172,7 +176,8 @@ BuildRequires: dbus-x11
 BuildRequires: dconf
 BuildRequires: desktop-file-utils
 BuildRequires: dos2unix
-BuildRequires: gcc, gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: freetype-devel
 BuildRequires: gdk-pixbuf2
@@ -246,7 +251,7 @@ BuildRequires:  lld
 BuildRequires: rust
 BuildRequires: rustfmt
 
-%if 0%{?pgo_wayland}
+%if %{pgo_wayland}
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
@@ -339,7 +344,7 @@ tar -xf %{SOURCE5}
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162
 %endif
-%if 0%{?build_with_pgo}
+%if %{build_with_pgo}
 %if %{without toolchain_clang}
 %patch -P 601 -p1 -b .pgo
 %patch -P 602 -p1 -b .1516803
@@ -430,10 +435,9 @@ echo "ac_add_options --with-clang-path=%{_libdir}/llvm%{?llvm_suffix}/bin/clang"
 echo "ac_add_options --disable-jit" >> .mozconfig
 %endif
 
-%if 0%{?build_with_pgo}
+%if %{build_with_pgo}
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 echo "ac_add_options --enable-lto" >> .mozconfig
-echo "ac_add_options --disable-profile-generate" >> .mozconfig
 %else
 echo "ac_add_options --disable-lto" >> .mozconfig
 %endif
@@ -500,13 +504,19 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2/-O0/')
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
 
-%ifarch s390x
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
+	
 # If MOZ_DEBUG_FLAGS is empty, firefox's build will default it to "-g" which
-# overrides the -g1 from line above and breaks building on s390
+# overrides the -g1 from line above and breaks building on s390/arm
 # (OOM when linking, rhbz#1238225)
-export MOZ_DEBUG_FLAGS=" "
+%ifarch %{power64}
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
+%else
+# this reduces backtrace quality substantially, but seems to be needed
+# to prevent various OOM conditions during build
+# https://bugzilla.redhat.com/show_bug.cgi?id=2241690
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g1/')
 %endif
+export MOZ_DEBUG_FLAGS=" "
 
 # We don't want firefox to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
@@ -539,8 +549,8 @@ echo "export AR=\"llvm-ar\"" >> .mozconfig
 echo "export NM=\"llvm-nm\"" >> .mozconfig
 echo "export RANLIB=\"llvm-ranlib\"" >> .mozconfig
 echo "ac_add_options --enable-linker=lld" >> .mozconfig
-echo "export CC=%{_libdir}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
-echo "export CXX=%{_libdir}/llvm%{?llvm_suffix}/bin/clang++" >> .mozconfig
+echo "export CC=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang:" >> .mozconfig
+echo "export CXX=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang++" >> .mozconfig
 %else
 echo "export CC=gcc" >> .mozconfig
 echo "export CXX=g++" >> .mozconfig
@@ -549,7 +559,7 @@ echo "export NM=\"gcc-nm\"" >> .mozconfig
 echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
 
-%if 0%{?build_with_pgo}
+%if %{build_with_pgo}
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 # PGO build doesn't work with ccache
 export CCACHE_DISABLE=1
@@ -566,7 +576,7 @@ echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
 
-%if 0%{?launch_wayland_compositor}
+%if %{launch_wayland_compositor}
 cp -p %{SOURCE19} .
 . ./run-wayland-compositor
 %endif
@@ -580,7 +590,7 @@ sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 
 ./mach build -v 2>&1 | cat - || exit 1
 
-%if 0%{?build_with_pgo}
+%if %{build_with_pgo}
 kill $MUTTER_PID
 %endif
 
@@ -596,7 +606,7 @@ cp -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/en-US/locale/brow
 ##Resize IceCat icon
 for i in 16 22 24 32 36 48 64 72 96 128 256 ; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
-  convert -geometry ${i} %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
+  magick %{SOURCE2} -resize ${i}X${i} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
 done
 
 ##desktop file installation

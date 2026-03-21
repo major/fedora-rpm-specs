@@ -1,6 +1,6 @@
 %global realname amf
 %global git_commit 8fea004e61c746c16271476c190a9c01e398a2d5
-%global git_date 20110224
+%global git_date 20170825
 
 Name:		erlang-%{realname}
 Version:	0

@@ -4,8 +4,8 @@
 %global _vpath_builddir build
 
 Name:		scap-security-guide
-Version:	0.1.79
-Release:	2%{?dist}
+Version:	0.1.80
+Release:	1%{?dist}
 Summary:	Security guidance and baselines in SCAP formats
 License:	BSD-3-Clause
 URL:		https://github.com/ComplianceAsCode/content/
@@ -96,6 +96,9 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %endif
 
 %changelog
+* Fri Mar 13 2026 Vojtech Polasek <vpolasek@redhat.com> - 0.1.80-1
+- update to the latest upstream release 0.1.80
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.79-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

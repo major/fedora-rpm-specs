@@ -1,6 +1,6 @@
 Name:    libmygpo-qt
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Qt Library that wraps the gpodder.net Web API
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -8,7 +8,6 @@ License: LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/gpodder/libmygpo-qt/
 Source0: https://github.com/gpodder/libmygpo-qt/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires: cmake
 BuildRequires: doxygen
 BuildRequires: qt5-rpm-macros
@@ -54,7 +53,10 @@ Requires: libmygpo-qt5%{?_isa} = %{version}-%{release}
 
 %build
 %global _vpath_builddir %{_target_platform}
-%cmake .. \
+%cmake \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64} \
+%endif
   -DBUILD_WITH_QT6:BOOL=ON \
   -DINCLUDE_INSTALL_DIR:PATH=%{_qt6_headerdir}/mygpo-qt \
   -DLIB_INSTALL_DIR:PATH=%{_qt6_libdir}/mygpo-qt
@@ -62,7 +64,10 @@ Requires: libmygpo-qt5%{?_isa} = %{version}-%{release}
 %cmake_build
 
 %global _vpath_builddir %{_target_platform}-qt5
-%cmake .. \
+%cmake \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64} \
+%endif
   -DBUILD_WITH_QT6:BOOL=OFF \
   -DINCLUDE_INSTALL_DIR:PATH=%{_qt5_headerdir}/mygpo-qt \
   -DLIB_INSTALL_DIR:PATH=%{_qt5_libdir}/mygpo-qt
@@ -71,22 +76,23 @@ Requires: libmygpo-qt5%{?_isa} = %{version}-%{release}
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}-qt5
+%global _vpath_builddir %{_target_platform}
+%cmake_install
+%global _vpath_builddir %{_target_platform}-qt5
+%cmake_install
 
 
 %check
+%global _vpath_builddir %{_target_platform}
 export PKG_CONFIG_PATH=%{buildroot}%{_qt6_libdir}/pkgconfig
 test "$(pkg-config --modversion libmygpo-qt6)" = "%{version}"
-export CTEST_OUTPUT_ON_FAILURE=1
 # test 2 currently fails on i686, poke upstream -- rex
-make test -C %{_target_platform} ||:
+%ctest ||:
+%global _vpath_builddir %{_target_platform}-qt5
 export PKG_CONFIG_PATH=%{buildroot}%{_qt5_libdir}/pkgconfig
 test "$(pkg-config --modversion libmygpo-qt5)" = "%{version}"
-export CTEST_OUTPUT_ON_FAILURE=1
 # test 2 currently fails on i686, poke upstream -- rex
-make test -C %{_target_platform}-qt5 ||:
+%ctest ||:
 
 %ldconfig_scriptlets -n libmygpo-qt6
 
@@ -116,6 +122,10 @@ make test -C %{_target_platform}-qt5 ||:
 
 
 %changelog
+* Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.2.0-3
+- Use standard CMake macros (rhbz#2381044)
+- Explictly pass LIB_SUFFIX (rhbz#2381262)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

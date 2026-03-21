@@ -1,14 +1,13 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        7.351.0
+Version:        7.360.1
 Release:        %autorelease
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/haasn/libplacebo
 Source0:        %{url}/archive/v%{version}%{?prerelease}/%{name}-%{version}%{?prerelease}.tar.gz
-Patch0:         0001-vulkan-utils_gen-fix-for-python-3.14.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -71,7 +70,7 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libplacebo.so.351
+%{_libdir}/libplacebo.so.360
 
 %files devel
 %{_includedir}/libplacebo

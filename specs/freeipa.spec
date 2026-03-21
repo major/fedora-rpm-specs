@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        10%{?rc_version:.%rc_version}%{?dist}
+Release:        11%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -233,6 +233,7 @@ Patch0002:      0002-ipa-sam-use-internal-Samba-method-to-populate-in-mem.patch
 Patch0003:      freeipa-fix-passkey-crash.patch
 Patch0004:      freeipa-sssd-mfa-selinux-policy-update.patch
 Patch0005:      0005-Add-path-to-identify-the-tomcat-version-for-Tomcat-10.patch
+Patch0006:      freeipa-4.13-mspac-warnings.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1970,6 +1971,12 @@ fi
 %endif
 
 %changelog
+* Thu Mar 19 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-11
+- Ensure proper error code return in case MS-PAC generator not yet enabled
+- Resolves: rhbz#2448253
+- Rebuild against Samba 4.24.0 final release
+- Related: rhbz#2448612
+
 * Thu Mar 12 2026 Rob Crittenden <rcritten@redhat.com> - 4.13.1-10
 - Add compatibility with tomcat 10 binary relocation
 

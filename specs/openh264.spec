@@ -17,7 +17,7 @@
 #
 Name:           openh264
 Version:        2.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD-2-Clause
@@ -77,7 +77,14 @@ sed -i -e 's|^CFLAGS_OPT=.*$|CFLAGS_OPT=%{optflags}|' Makefile
 sed -i -e 's|^PREFIX=.*$|PREFIX=%{_prefix}|' Makefile
 sed -i -e 's|^LIBDIR_NAME=.*$|LIBDIR_NAME=%{_lib}|' Makefile
 sed -i -e 's|^SHAREDLIB_DIR=.*$|SHAREDLIB_DIR=%{_libdir}|' Makefile
+
+%ifarch %{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+# i686 build fails without this.
+sed -i -e '/^CFLAGS_OPT=/i LDFLAGS=-Wl,-z,notext' Makefile
+%else
 sed -i -e '/^CFLAGS_OPT=/i LDFLAGS=%{__global_ldflags}' Makefile
+%endif
 
 # First build the openh264 libraries
 make %{?_smp_mflags}
@@ -145,6 +152,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
 %changelog
+* Thu Mar 19 2026 Kevin Fenzi <kevin@scrye.com> - 2.6.0-3
+- Rebuild for newer releases
+- Work around i686 linking issue ( rhbz#2428281 )
+
 * Mon Mar 04 2025 Wim Taymans <wtaymans@redhat.com> - 2.6.0-2
 - Remove patch to revert the Makefile major version increase.
 

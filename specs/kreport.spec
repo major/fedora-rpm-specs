@@ -24,6 +24,8 @@ Patch22: 0022-Find-also-Python3-with-find_package-PythonInterp.patch
 ## upstreamable patches
 # fix/sanitize pkgconfig deps
 Patch100: kreport-3.0.2-pkgconfig.patch
+# fix build with cmake 4.0
+Patch101: kreport-3.2.0-cmake4.patch
 
 BuildRequires: gcc-c++
 
@@ -78,6 +80,8 @@ Requires: cmake(KF5GuiAddons)
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380689)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_kf5 \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{?!tests:OFF} \
   -DPYTHON_EXECUTABLE:PATH="%{__python3}"

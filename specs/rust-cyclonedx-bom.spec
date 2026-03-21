@@ -5,37 +5,13 @@
 %global crate cyclonedx-bom
 
 Name:           rust-cyclonedx-bom
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        CycloneDX Software Bill of Materials Library
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/cyclonedx-bom
 Source:         %{crates_source}
-# * Fix missing LICENSE files in published crates:
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/809
-Source10:       https://github.com/CycloneDX/cyclonedx-rust-cargo/raw/refs/tags/cyclonedx-bom-%{version}/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * Update fluent-uri to 0.4.1:
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811; requires
-#   source-code change in cyclonedx-bom-0.8.0-fluent-uri-0.4.patch.
-# * Update base64 to 0.22, ordered-float to 5, strum to 0.28, and thiserror to 2.
-#   Corresponds to “Update several dependencies across SemVer boundaries”,
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/812, which includes
-#   “Allow base64 0.22”,
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/687.
-# * MSRV 1.85: Bump spdx from 0.10 to 0.13:
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/843. Requires
-#   source-code change in cyclonedx-bom-0.8.0-spdx-0.13.patch.
-Patch:          cyclonedx-bom-fix-metadata.diff
-# * Update fluent-uri to 0.4.1:
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811 (source-code
-#   change only)
-Patch10:        cyclonedx-bom-0.8.0-fluent-uri-0.4.patch
-# * Update spdx to 0.13, from
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/843 (source-code
-#   change only)
-Patch11:        cyclonedx-bom-0.8.0-spdx-0.13.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -73,14 +49,12 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
+%cargo_prep
 # Snapshots with XML data have a trivial case difference:
 # -<?xml version="1.0" encoding="utf-8"?>
 # +<?xml version="1.0" encoding="UTF-8"?>
 find src/specs/ -type f -name '*.snap' -print -exec \
     sed -r -i 's/^(<\?xml .*encoding=")utf-8"/\1UTF-8"/' '{}' '+'
-
-%cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires

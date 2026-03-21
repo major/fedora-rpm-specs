@@ -2,6 +2,7 @@ Name:           tremulous
 Version:        1.2.0
 Release:        0.41.beta1%{?dist}
 Summary:        First Person Shooter game based on the Quake 3 engine
+ExcludeArch:    %{ix86}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later

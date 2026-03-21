@@ -17,6 +17,9 @@ License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+# Python 3.15 compatibility
+Patch:          https://github.com/alexmojaki/executing/pull/102.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

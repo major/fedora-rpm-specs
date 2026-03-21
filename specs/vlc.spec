@@ -224,7 +224,11 @@ BuildRequires:	pkgconfig(shout) >= 2.1
 BuildRequires:	pkgconfig(smbclient)
 BuildRequires:	pkgconfig(soxr) >= 0.1.2
 BuildRequires:	pkgconfig(sqlite3)
+%if 0%{?fedora} && %{?fedora} < 44
+# Temporary disable libspatialaudio until upstream pick
+# https://code.videolan.org/videolan/vlc/-/issues/29493
 BuildRequires:	pkgconfig(spatialaudio)
+%endif
 BuildRequires:	pkgconfig(speex) >= 1.0.5
 BuildRequires:	pkgconfig(speexdsp)
 BuildRequires:	pkgconfig(srt) >= 1.3.0
@@ -670,7 +674,9 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-tremor						\
 	--enable-speex						\
 	--enable-opus						\
+%if 0%{?fedora} && %{?fedora} < 44
 	--enable-spatialaudio					\
+%endif
 	--enable-theora						\
 	--enable-oggspots					\
 	--enable-daala%{!?with_daala:=no}			\
@@ -1145,7 +1151,9 @@ make check
 %{vlc_plugindir}/audio_filter/libmad_plugin.so
 %{vlc_plugindir}/audio_filter/libsamplerate_plugin.so
 %{vlc_plugindir}/audio_filter/libsoxr_plugin.so
+%if 0%{?fedora} && %{?fedora} < 44
 %{vlc_plugindir}/audio_filter/libspatialaudio_plugin.so
+%endif
 %{vlc_plugindir}/audio_filter/libspeex_resampler_plugin.so
 %{vlc_plugindir}/codec/libaom_plugin.so
 %{vlc_plugindir}/codec/libaribsub_plugin.so

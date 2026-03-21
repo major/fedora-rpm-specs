@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.36
-Release:        2%{?dist}
+Version:        1.37
+Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
 # *:      MIT
@@ -23,7 +23,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Dependencies of bundled ExtUtils::HasCompiler
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -35,7 +35,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 # Module Runtime
 BuildRequires:  perl(constant)
-# DynaLoader not used if XSLoader is available
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
@@ -44,6 +43,8 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Hash)
@@ -70,12 +71,12 @@ structures to YAML strings, and the other way around.
 %setup -q -n YAML-Syck-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags} -DI_STDLIB=1 -DI_STRING=1 -std=gnu17"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
+  OPTIMIZE="%{optflags} -DI_STDLIB=1 -DI_STRING=1"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -92,6 +93,53 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Thu Mar 19 2026 Paul Howarth <paul@city-fan.org> - 1.37-1
+- Update to 1.37
+  Features:
+  - Add LoadBytes, LoadUTF8, DumpBytes, DumpUTF8 functions (GH#51)
+  Fixes:
+  - Fix heap buffer overflow in the YAML emitter - CVE-2026-4177 (GH#67)
+  - Fix DumpFile with tied filehandles (IO::String, IO::Scalar) (GH#22)
+  - Fix _is_glob to recognize IO::Handle subclasses (GH#23)
+  - Fix memory leak when dumping filehandles (CPAN RT#41199, GH#42)
+  - Fix dumping of tied hashes (GH#31)
+  - Fix dumping strings starting with '...' as unquoted plain scalars (GH#34)
+  - Fix dumping strings with tabs and carriage returns as plain scalars (GH#59)
+  - Fix double-dash YAML parsing (RT#34073, GH#35)
+  - Fix extra newline after empty arrays/hashes in YAML output (GH#36)
+  - Remove trailing whitespace from YAML output lines (GH#37, GH#38, GH#39)
+  - Fix quoting of \r and \t in YAML output instead of emitting raw bytes
+    (GH#40)
+  - Fix growing !!perl/regexp objects in round-trips (GH#43)
+  - Fix quoted '=' being transformed into 'str' (GH#45)
+  - Fix backslash-space escape in double-quoted YAML strings (GH#61)
+  - Fix flow sequence comma separator not recognized without trailing space
+    (GH#60)
+  - Fix wide character warning in DumpFile (GH#28)
+  - Fix inline arrays without space after comma (GH#25)
+  - Fix: quote strings matching YAML implicit types to prevent round-trip
+    failures (GH#26)
+  - Fix JSON::Syck::Dump to use JSON-valid \uXXXX escapes in output (GH#21)
+  - Fix JSON::Syck::Load decoding of \/ and \uXXXX escape sequences (GH#30)
+  - Fix: apply JSON postprocessing to JSON::Syck::DumpFile output (GH#104)
+  - Fix: add tied-filehandle fallback to JSON::Syck::DumpFile (GH#98)
+  - Fix: handle JSON escape sequences in SingleQuote mode Load (GH#99)
+  - Fix: restore Perl 5.8 compatibility in test suite (GH#121)
+  - Fix: correct copy-paste error in Makefile.PL clean target (GH#101)
+  - Fix: correct $SortKeys POD default from false to true (GH#100)
+  - Fix: correct POD documentation errors (GH#103)
+  Maintenance:
+  - Add C23-compatible function prototypes for GCC 15 compatibility (GH#112)
+  - Silence macOS compiler warnings (GH#92)
+  - Guard stdint.h include for portability (HP-UX 11.11) (GH#33)
+  - Guard stdint.h include in syck_st.h for portability (GH#24)
+  - Update ppport.h to 3.68
+  - Add regression tests for magical variable dumping (GH#32)
+  - CI: modernize GitHub Actions workflow (GH#123, GH#124)
+  - CI: add disttest job to validate MANIFEST completeness
+- Use %%{make_build} and %%{make_install}
+- Drop workaround for C23 incompatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

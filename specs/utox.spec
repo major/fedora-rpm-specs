@@ -46,7 +46,7 @@ Requires:       hicolor-icon-theme
 
 %build
 # We use CMAKE_BUILD_TYPE="Release" to turn ASAN off
-%cmake -DCMAKE_BUILD_TYPE="Release"
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5  -DCMAKE_BUILD_TYPE="Release"
 %cmake_build
 
 %install

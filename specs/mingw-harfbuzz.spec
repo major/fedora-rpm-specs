@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        13.0.1
+Version:        13.1.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -94,6 +94,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %files -n mingw32-harfbuzz
 %license COPYING
 %{mingw32_bindir}/hb-info.exe
+%{mingw32_bindir}/hb-raster.exe
 %{mingw32_bindir}/hb-shape.exe
 %{mingw32_bindir}/hb-subset.exe
 %{mingw32_bindir}/hb-vector.exe
@@ -135,6 +136,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %files -n mingw64-harfbuzz
 %license COPYING
 %{mingw64_bindir}/hb-info.exe
+%{mingw64_bindir}/hb-raster.exe
 %{mingw64_bindir}/hb-shape.exe
 %{mingw64_bindir}/hb-subset.exe
 %{mingw64_bindir}/hb-vector.exe
@@ -174,6 +176,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Thu Mar 19 2026 Sandro Mani <manisandro@gmail.com> - 13.1.1-1
+- Update to 13.1.1
+
 * Sun Mar 08 2026 Sandro Mani <manisandro@gmail.com> - 13.0.1-1
 - Update to 13.0.1
 

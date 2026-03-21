@@ -18,6 +18,9 @@ Source0: https://download.gnome.org/sources/libsoup/3.6/libsoup-%{version}.tar.x
 # Downstream patch, needed due to glib2 gnutls-hmac.patch
 Patch:   no-ntlm-in-fips-mode.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2433867
+Patch:   0001-CVE-2026-1539-Also-remove-Proxy-Authorization-header-on-cross-origin-redirect.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: glib-networking >= %{glib2_version}

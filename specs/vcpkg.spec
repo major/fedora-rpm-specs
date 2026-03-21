@@ -1,5 +1,5 @@
 %global repo_name vcpkg-tool
-%global repo_tag 2025-12-16
+%global repo_tag 2026-03-04
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
@@ -21,6 +21,7 @@ BuildRequires: cmake
 BuildRequires: cmrc-devel
 BuildRequires: fmt-devel >= 11.0.0
 BuildRequires: gcc-c++
+BuildRequires: libcurl-devel
 BuildRequires: ninja-build
 
 Requires: cmake%{?_isa}
@@ -82,6 +83,7 @@ ln -svf %{_includedir}/catch2/ include/
     -DVCPKG_BUILD_FUZZING:BOOL=OFF \
     -DVCPKG_EMBED_GIT_SHA:BOOL=OFF \
     -DVCPKG_BUILD_BENCHMARKING:BOOL=OFF \
+    -DVCPKG_LIBCURL_DLSYM:BOOL=OFF \
     -DVCPKG_ADD_SOURCELINK:BOOL=OFF
 %cmake_build
 

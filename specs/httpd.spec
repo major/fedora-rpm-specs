@@ -28,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.66
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -380,6 +380,7 @@ autoheader && autoconf || exit 1
         --disable-imagemap --disable-file-cache \
         --disable-http2 \
         --disable-md \
+        --disable-dav-lock \
         $*
 
 if grep -q ac_cv_have_threadsafe_pollset=no config.log; then

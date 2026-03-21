@@ -52,6 +52,8 @@ image.
 
 
 %build
+# fixed upstream in Qt6 port
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5}
 %cmake_build
 

@@ -5,12 +5,12 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.18.1
+%global xyz_version 3.18.2
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		https://github.com/libfuse/libfuse/
@@ -33,7 +33,7 @@ Requires:	fuse-common
 # the generated library dependency, but unless we force the exact
 # version then we risk mixing different fuse3 & fuse3-libs versions
 # which is not likely to be a well-tested situation upstream.
-Requires:	%{name}-libs = %{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 With FUSE it is possible to implement a fully functional filesystem in a
@@ -50,7 +50,7 @@ userspace program. This package contains the FUSE v3 libraries.
 
 %package devel
 Summary:	File System in Userspace (FUSE) v3 devel files
-Requires:	%{name}-libs = %{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:	pkgconfig
 License:	LGPL-2.1-or-later
 
@@ -121,6 +121,10 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 3.18.2-1
+- update to 3.18.2
+- make explicit Requires also arch specific to prevent weird multilib combinations
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

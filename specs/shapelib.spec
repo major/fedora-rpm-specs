@@ -7,8 +7,8 @@
 %endif
 
 Name:          shapelib
-Version:       1.6.2
-Release:       2%{?dist}
+Version:       1.6.3
+Release:       1%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -24,8 +24,6 @@ Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}
 # tar -czf shapelib-man.tar.gz man/
 # rm -r man
 Source1:       %{name}-man.tar.gz
-# Don't use bool as variable name as it is a reserved keyword in C23
-Patch0:        shapelib_bool.patch
 # Add library version suffix for mingw dlls
 Patch1:        shapelib_libver.patch
 
@@ -190,6 +188,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Mar 19 2026 Sandro Mani <manisandro@gmail.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

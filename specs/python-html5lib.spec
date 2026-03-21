@@ -15,6 +15,9 @@ Patch:          %{url}/pull/573.patch
 Patch:          %{url}/pull/583.patch
 # Avoid ResourceWarning: Implicitly cleaning up <addinfourl ...>
 Patch:          %{url}/pull/591.patch
+# Replace pkg resources use, removed from setuptools 82+
+# https://github.com/html5lib/html5lib-python/pull/594 rebased
+Patch:          594.patch
 
 BuildArch:      noarch
 

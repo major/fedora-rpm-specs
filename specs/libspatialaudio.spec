@@ -4,7 +4,7 @@
 
 Name:           libspatialaudio
 Version:        4.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Ambisonic encoding / decoding and binauralization library
 
 License:        LGPL-2.1-or-later
@@ -65,75 +65,4 @@ developing applications that use %{name}.
 
 
 %changelog
-* Wed Jan 07 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.0-1
-- Update to 0.4.0
-
-* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.1-24.20200406gitd926a2e
-- Allow to build with CMake 4.0 (rhbz#2380758)
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-23.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-22.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-21.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Nov 22 2024 Nicolas Chauvet <kwizart@gmail.com> - 3.1-20.20200406gitd926a2e
-- Revert to 20200406 snapshot
-
-* Tue Oct 22 2024 Nicolas Chauvet <kwizart@gmail.com> - 3.1-19.20240506git0b6b25e
-- Bump
-
-* Mon Oct 07 2024 Nicolas Chauvet <kwizart@gmail.com> - 3.1-18.20240506git0b6b25e
-- Update snapshot
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1-17.20200406gitd926a2e
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-16.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon May 06 2024 Robert-André Mauchin <zebob.m@gmail.com> - 3.1-15.20200406gitd926a2e
-- Add patch to fix MySofa library directory detection
-
-* Tue Apr 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1-14.20200406gitd926a2e
-- Add libmysofa devel dependency
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-13.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-12.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-11.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Mar 03 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.1-10.20200406gitd926a2e
-- Revert previous update to avoid API breakage with vlc-3.x
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-8.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-7.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-6.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-5.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-4.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-3.20200406gitd926a2e
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2.20200406gitd926a2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Apr 13 2020 Nicolas Chauvet <kwizart@gmail.com> - 3.1-1.20200406gitd926a2e
-- Initial spec file
+%autochangelog

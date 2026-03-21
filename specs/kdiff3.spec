@@ -7,7 +7,7 @@ License:        GPL-2.0-or-later AND BSD-2-Clause AND CC0-1.0 AND MIT
 URL:            https://invent.kde.org/sdk/kdiff3
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext

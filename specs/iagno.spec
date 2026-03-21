@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           iagno
-Version:        50~beta
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Reversi game
 
@@ -10,9 +10,6 @@ Summary:        GNOME Reversi game
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Iagno
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-# Backported from upstream
-#Patch0:         0001-Don-t-alter-or-try-to-write-GtkChild-fields.patch
-#Patch1:         0001-Reference-of-GtkChild-fields-is-handled-by-GtkBuilde.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

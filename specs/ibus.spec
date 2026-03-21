@@ -58,7 +58,7 @@
 Name:           ibus
 Version:        1.5.34~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -583,6 +583,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Mar 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-3
+- Resolves #2448611 Check WAYLAND_DISPLAY in ibus.conf
+
 * Tue Mar 17 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-2
 - Disable ibus-xinit in LXQT and XFCE Spins
 

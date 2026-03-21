@@ -10,6 +10,7 @@ Source:         %{pypi_source pytest_recording}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+Patch0:         werkzeug.patch
 
 %global _description %{expand:
 A pytest plugin powered by VCR.py to record and replay HTTP traffic.}

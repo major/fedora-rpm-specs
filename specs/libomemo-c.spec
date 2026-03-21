@@ -36,6 +36,8 @@ developing applications that use %{name}.
 %forgeautosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380740)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -GNinja \
     -DBUILD_TESTING=ON \

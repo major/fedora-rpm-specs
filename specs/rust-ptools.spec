@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           rust-ptools
-Version:        0.2.18
+Version:        0.2.22
 Release:        %autorelease
 Summary:        Utilities for inspecting Linux processes
 

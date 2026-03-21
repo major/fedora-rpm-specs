@@ -5,7 +5,7 @@
 %global crate capnp
 
 Name:           rust-capnp
-Version:        0.25.0
+Version:        0.25.2
 Release:        %autorelease
 Summary:        Runtime library for Cap'n Proto data encoding
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/capnp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused support for embedded-io
+# * relax quickcheck dev-dependency
 Patch:          capnp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

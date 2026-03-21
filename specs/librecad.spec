@@ -4,14 +4,14 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-%global commit 4636eecc323b39e4b98e6d1d12ff281f7dd2752e
+%global commit d1ca469c96f039357e42580205e2f05acfb89e44
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global dxfrw_includedir %(%___build_pre; pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
 
 Name:			librecad
-Version:		2.2.1.2
-Release:		2%{?dist}
+Version:		2.2.1.4
+Release:		1%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPL-2.0-only AND GPL-2.0-or-later
 URL:			http://librecad.org/
@@ -28,10 +28,10 @@ Patch6:			librecad-gcc6.patch
 # need to use unique symbol names
 Patch8:			librecad-unique-symbol-names.patch
 
-BuildRequires:	gcc-c++ make
-BuildRequires:	qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.1.0-0.11.rc1
-BuildRequires:	qt5-qtsvg-devel, qt5-linguist
-BuildRequires:	desktop-file-utils, boost-devel, shapelib-devel
+BuildRequires:		gcc-c++ make
+BuildRequires:		qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.1.0-0.11.rc1
+BuildRequires:		qt5-qtsvg-devel, qt5-linguist
+BuildRequires:		desktop-file-utils, boost-devel, shapelib-devel
 Requires:		%{name}-fonts = %{version}-%{release}
 Requires:		%{name}-langs = %{version}-%{release}
 Requires:		%{name}-parts = %{version}-%{release}
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 2.2.1.4-1
+- update to 2.2.1.4
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

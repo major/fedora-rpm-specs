@@ -12,7 +12,7 @@
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
 %global upstream_version     1.7
-%global upstream_prever      rc4
+%global upstream_prever      rc5
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
@@ -271,6 +271,9 @@ fi
 
 
 %changelog
+* Wed Mar 18 2026 Remi Collet <remi@remirepo.net> - 1.7~rc5-1
+- update to 1.7-rc5
+
 * Sat Feb 14 2026 Remi Collet <remi@remirepo.net> - 1.7~rc4-1
 - update to 1.7-rc4
 

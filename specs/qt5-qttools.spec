@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -254,6 +254,8 @@ sed -i -e 's| Qt5UiPlugin||g' %{buildroot}%{_qt5_libdir}/pkgconfig/Qt5Designer.p
 ## work-in-progress... -- rex
 %if 0%{?fedora} || 0%{?rhel} > 6
 %check
+# TODO: Please submit an issue to upstream (rhbz#2381396)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # verify validity of Qt5Designer.pc
 export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig:$PKG_CONFIG_PATH
 pkg-config --print-requires --print-requires-private Qt5Designer
@@ -493,6 +495,9 @@ fi
 
 
 %changelog
+* Thu Mar 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.18-4
+- Rebuilt for LLVM 22
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

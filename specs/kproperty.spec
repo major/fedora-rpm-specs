@@ -18,6 +18,10 @@ License: LicenseRef-Callaway-LGPLv2+
 Url:     https://community.kde.org/KProperty
 Source0: http://download.kde.org/stable/%{name}/src/%{name}-%{version}.tar.xz
 
+## upstream patches
+# https://invent.kde.org/libraries/kproperty/-/commit/ff3f4583b34c3ca2ce00e3ee2e5032e747c64b19
+Patch0:  kproperty-3.2.0-cmake4.patch
+
 ## upstreamable patches
 # fix/sanitize pkgconfig deps
 Patch100: kproperty-3.0.2-pkgconfig.patch
@@ -64,6 +68,8 @@ Requires: cmake(KF5WidgetsAddons)
 
 
 %build
+# workaround for https://invent.kde.org/libraries/kproperty/-/issues/7
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{?!tests:OFF}
 %cmake_build

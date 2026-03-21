@@ -29,8 +29,8 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.21.3
-Release:	2%{?dist}
+Version:	3.21.5
+Release:	1%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -100,9 +100,6 @@ Patch5:		%{name}-3.14.1-gst1.patch
 
 # If we're using C++20 then we can't override toupper/tolower, it is not allowed.
 Patch6:		gambas3-3.19.4-c++20-do-not-try-to-override-std-functions.patch
-
-# Fix new getText() usage in Poppler 26
-Patch7:		gambas-3.21.2-poppler26.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -1212,7 +1209,6 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
 %patch -P 6 -p1 -b .c++20
-%patch -P 7 -p1 -b .poppler26
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -2049,6 +2045,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.5-1
+- update to 3.21.5
+
 * Thu Feb 12 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.3-2
 - add gambas3-gb-hash as Requires for gambas3-runtime
 

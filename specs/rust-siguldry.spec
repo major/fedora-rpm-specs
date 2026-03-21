@@ -10,10 +10,13 @@ Summary:        Implementation of the Sigul protocol
 
 License:        MIT
 URL:            https://crates.io/crates/siguldry
-Source0:         %{crates_source}
-Source1:         siguldry-sysuser.conf
+Source:         %{crates_source}
+Source2:        siguldry-sysuser.conf
 # Manually created patch for downstream crate metadata changes
 # * The binary is incomplete and may change its interface significantly
+# * Remove unused, benchmark-only dev-dependency on criterion
+# * Allow older asn1 0.22, RHBZ#2402490
+# * Allow older pyo3 0.27, RHBZ#2435852
 Patch:          siguldry-fix-metadata.diff
 # Includes config examples
 # https://github.com/fedora-infra/siguldry/pull/158.patch
@@ -23,7 +26,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 %if %{with check}
 BuildRequires:  kryoptic
 BuildRequires:  opensc
@@ -175,7 +177,7 @@ install -d -p -m 0750 %{buildroot}%{_sysconfdir}/siguldry
 install -D -p -m 0640 server.toml.example %{buildroot}%{_sysconfdir}/siguldry/server.toml
 install -D -p -m 0640 bridge.toml.example %{buildroot}%{_sysconfdir}/siguldry/bridge.toml
 install -D -p -m 0640 client.toml.example %{buildroot}%{_sysconfdir}/siguldry/client.toml
-install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/siguldry.conf
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/siguldry.conf
 
 ## Server-related files ##
 install -D -p -m 0644 siguldry-server.service %{buildroot}%{_unitdir}/siguldry-server.service
@@ -191,16 +193,12 @@ install -D -p -m 0644 siguldry-bridge.service %{buildroot}%{_unitdir}/siguldry-b
 install -D -p -m 0644 siguldry-client-proxy@.service %{buildroot}%{_unitdir}/siguldry-client-proxy@.service
 install -D -p -m 0644 siguldry-client-proxy.socket %{buildroot}%{_unitdir}/siguldry-client-proxy.socket
 
-
-%pre
-%sysusers_create_compat %{SOURCE1}
-
-
 %if %{with check}
 %check
+export RUST_TEST_THREADS=1
 # * Integration tests require the network
-%cargo_test -- --lib -- --test-threads 1
-%cargo_test -- --bins -- --test-threads 1
+%cargo_test -- --lib
+%cargo_test -- --bins
 %endif
 
 %changelog

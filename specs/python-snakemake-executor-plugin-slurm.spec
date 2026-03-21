@@ -14,6 +14,12 @@ Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{ver
 # Man page hand-written for Fedora in groff_man(7) format based on --help.
 Source1:        generate-slurm-partition-config.1
 
+# Allow snakemake-executor-plugin-slurm-jobstep 0.5. Despite the SemVer bump,
+# this release has simply added a new feature. We allow 0.5 ahead of upstream,
+# and we don’t bother suggesting it upstream because we know that these two
+# packages are tightly coupled and they will get to it soon enough.
+Patch:          0001-Allow-snakemake-executor-plugin-slurm-jobstep-0.5.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm
 

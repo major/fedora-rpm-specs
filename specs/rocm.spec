@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -124,7 +124,6 @@ Requires: hipify >= %{rocm_release}
 Requires: migraphx
 Requires: miopen-devel >= %{rocm_release}
 Requires: mivisionx-devel >= %{rocm_release}
-Requires: python3-tensile-devel >= %{rocm_release}
 Requires: rccl-devel >= %{rocm_release}
 Requires: rocal-devel >= %{rocm_release}
 Requires: rocalution-devel >= %{rocm_release}
@@ -185,6 +184,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Mar 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Remove tensile from rocm-devel
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Remove rocblas-test from rocm-tests
 

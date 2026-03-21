@@ -194,7 +194,7 @@ Requires:      google-noto-sans-mono-vf-fonts
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
-Requires:      libpixbufloader-xpm.so%{?marker}
+Requires:      ((gdk-pixbuf2 >= 2.44 and glycin-loaders >= 2.1) or libpixbufloader-xpm.so%{?marker})
 Supplements:   ((libwayland-server and emacs) unless emacs-nw)
 
 %description pgtk
@@ -210,7 +210,7 @@ Requires:      google-noto-sans-mono-vf-fonts
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
-Requires:      libpixbufloader-xpm.so%{?marker}
+Requires:      ((gdk-pixbuf2 >= 2.44 and glycin-loaders >= 2.1) or libpixbufloader-xpm.so%{?marker})
 Supplements:   ((xorg-x11-server-Xorg and emacs) unless emacs-nw)
 
 %description gtk+x11

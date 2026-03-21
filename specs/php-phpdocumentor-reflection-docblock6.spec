@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    897b5986ece6b4f9d8413fea345c7d49c757d6bf
+%global gh_commit    7bae67520aa9f5ecc506d646810bd40d9da54582
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,7 +14,7 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        6.0.2
+Version:        6.0.3
 Release:        1%{?dist}
 Summary:        DocBlock parser
 
@@ -148,7 +148,7 @@ cat <<BOOTSTRAP | tee -a bootstrap.php
 BOOTSTRAP
 
 RETURN_CODE=0
-for PHP_EXEC in "php %{phpunit}" php81 php82 php83 php84 php85; do
+for PHP_EXEC in "php %{phpunit}" php82 php83 php84 php85; do
     if which $PHP_EXEC; then
         set $PHP_EXEC
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -174,6 +174,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Mar 19 2026 Remi Collet <remi@remirepo.net> - 6.0.3-1
+- update to 6.0.3
+
 * Tue Mar  3 2026 Remi Collet <remi@remirepo.net> - 6.0.2-1
 - update to 6.0.2
 

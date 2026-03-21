@@ -3,7 +3,7 @@
 
 Name:           mpv
 Version:        0.41.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # overall license is GPL-2.0-or-later and LGPL-2.1-or-later
 # BSD-2-Clause
@@ -251,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Mar 19 2026 Nicolas Chauvet <kwizart@gmail.com> - 0.41.0-5
+- Rebuilt for libplacebo
+
 * Wed Feb 18 2026 Simone Caronni <negativo17@gmail.com> - 0.41.0-4
 - Rebuild for updated VapourSynth.
 

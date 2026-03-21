@@ -1,5 +1,5 @@
 Name:		samtools
-Version:	1.23
+Version:	1.23.1
 Release:	1%{?dist}
 Summary:	Tools for nucleotide sequence alignments in the SAM format
 
@@ -90,6 +90,9 @@ make test
 
 
 %changelog
+* Thu Mar 19 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23.1-1
+- Updated to 1.23.1
+
 * Thu Jan 22 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23-1
 - Updated to 1.23
 

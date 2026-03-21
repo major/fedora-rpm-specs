@@ -5,7 +5,7 @@
 %global crate base64ct
 
 Name:           rust-base64ct
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Pure Rust implementation of Base64
 

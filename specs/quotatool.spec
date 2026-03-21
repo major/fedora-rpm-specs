@@ -1,18 +1,11 @@
 Name:           quotatool
-Version:        1.6.2
-Release:        30%{?dist}
+Version:        1.7.1
+Release:        1%{?dist}
 Summary:        Command-line utility for filesystem quotas
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://quotatool.ekenberg.se
 Source0:        http://quotatool.ekenberg.se/%{name}-%{version}.tar.gz
-# Upstream fixes
-Patch0:         https://github.com/ekenberg/quotatool/commit/ad6944baaa73cf6230f9a2bef2399b31c2130547.patch
-Patch1:         https://github.com/ekenberg/quotatool/commit/09695c944947d804cbe3b5c7e2c854953984413e.patch
-Patch2:         https://github.com/ekenberg/quotatool/commit/ca68628de86d18fda67ebcc4191c2b37891ed36e.patch
-Patch3:         https://github.com/ekenberg/quotatool/commit/58cdec3cdc6ae94864891a4e179ad68d4d136864.patch
-Patch4:         https://github.com/ekenberg/quotatool/commit/af27842d1a6640d932407999ceec57f54a225a78.patch
-
 BuildRequires:  make
 BuildRequires:  gcc
 
@@ -24,11 +17,6 @@ scripts and other non-interactive situations.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .fix-compiler-warnings
-%patch -P1 -p1 -b .fix-implicit-fallthrough
-%patch -P2 -p1 -b .make-sure-make-clean-works-if-configure-has-not-run
-%patch -P3 -p1 -b .improved-error-message
-%patch -P4 -p1 -b .fix-compiler-warnings-again
 
 %build
 %configure
@@ -40,11 +28,14 @@ mkdir -p %{buildroot}%{_mandir}/man8
 %make_install INSTALL_PROGRAM="%{_bindir}/install -p"
 
 %files
-%doc AUTHORS ChangeLog COPYING README TODO
+%doc AUTHORS ChangeLog COPYING README.md ROADMAP.md TODO
 %{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 1.7.1-1
+- update to 1.7.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

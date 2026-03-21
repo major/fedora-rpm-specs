@@ -1,8 +1,8 @@
 %global projectname       scheherazade
 BuildArch: noarch
 
-Version:    3.300
-Release:    8%{?dist}
+Version:    4.400
+Release:    1%{?dist}
 URL:        https://software.sil.org/%{projectname}/
 
 %global foundry           SIL
@@ -12,7 +12,7 @@ URL:        https://software.sil.org/%{projectname}/
 %global fontdocsex        %{fontlicenses}
 
 %global fontfamily1        Scheherazade New
-%global fontsummary1       An Arabic script unicode font
+%global fontsummary1       An Arabic script Unicode font
 %global fontpkgheader1    %{expand:
 Provides: sil-scheherazade-fonts = %{version}-%{release}
 Obsoletes: sil-scheherazade-fonts < %{version}-%{release}
@@ -29,7 +29,7 @@ Source0:    https://software.sil.org/downloads/r/scheherazade/ScheherazadeNew-%{
 Source1:    65-%{fontpkgname1}.conf
 
 Name:       sil-scheherazade-fonts
-Summary:    An Arabic script unicode font 
+Summary:    An Arabic script Unicode font
 License:    OFL-1.1
 
 %description
@@ -54,6 +54,11 @@ rm -rf documentation/source documentation/pdf
 %fontfiles -a
 
 %changelog
+* Tue Mar 10 2026 Tarik ROKHSANE <trkrksn@proton.me> - 4.400-1
+- Update to new upstream release 4.400
+- Remove fontconfig scaling matrix (upstream resized glyphs to match standard
+  Arabic fonts in v3.000; the 1.2x scale factor is no longer needed)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

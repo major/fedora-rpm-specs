@@ -6,6 +6,11 @@ Summary:        Navigate HTTP resources using WADL files as guides
 License:        LGPL-3.0-only
 URL:            https://launchpad.net/wadllib
 Source0:        %{pypi_source wadllib}
+
+# Port from pkg_resources (removed from setuptools 82+) to importlib.resources
+# Upstream commit 9f85ab288a
+Patch:          no-pkg_resources.patch
+
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -27,7 +32,7 @@ BuildRequires:  (python3dist(legacy-cgi) if python3 >= 3.13)
 
 
 %prep
-%autosetup -n wadllib-%{version}
+%autosetup -p1 -n wadllib-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

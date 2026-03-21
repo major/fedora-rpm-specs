@@ -7,6 +7,11 @@ Summary:        Parsing and dealing with URIs
 License:        LGPL-3.0-only
 URL:            https://launchpad.net/lazr.uri
 Source0:        %{pypi_source}
+
+# Replace pkg_resources (removed from setuptools 82+) usage with importlib.resources
+# https://code.launchpad.net/~churchyard/lazr.uri/+git/lazr.uri/+merge/502212
+Patch:          no-pkg_resources.patch
+
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -23,7 +28,7 @@ BuildRequires:  python3-devel
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

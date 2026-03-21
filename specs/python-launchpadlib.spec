@@ -7,6 +7,11 @@ Summary:        Script Launchpad through its web services interfaces
 License:        LGPL-3.0-only
 URL:            https://launchpad.net/launchpadlib 
 Source0:        %{pypi_source}
+
+# Replace pkg_resources (removed from setuptools 82+) usage with importlib.resources
+# https://code.launchpad.net/~churchyard/launchpadlib/+git/launchpadlib/+merge/502208
+Patch:          no-pkg_resources.patch
+
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -26,7 +31,7 @@ BuildRequires:  python3-devel
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -x keyring,testing

@@ -26,7 +26,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.8.21
+Version:        1.8.22
 Release:        %autorelease
 Summary:        GAP browser for 2-dimensional arrays of data
 
@@ -132,8 +132,8 @@ rm tst/*~
 sed -i "s,$PWD/\.\./pkg,..,g" doc/*.html
 
 %files
-%doc CHANGES README
-%license doc/GPL
+%doc CHANGES README.md
+%license GPL
 %dir %{gap_archdir}/pkg/%{gap_upname}/
 %{gap_archdir}/pkg/%{gap_upname}/*.g
 %{gap_archdir}/pkg/%{gap_upname}/app/

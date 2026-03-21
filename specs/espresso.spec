@@ -1,9 +1,6 @@
-%global commit 8d7790d364582dcff254e7e0d14c56b41e735433
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           espresso
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -11,10 +8,10 @@ ExcludeArch:    s390x i686 armv7hl
 
 License:        GPL-3.0-or-later
 URL:            https://espressomd.org
-Source0:        https://github.com/espressomd/espresso/archive/%{version}.tar.gz
-Source1:        https://i10git.cs.fau.de/walberla/walberla/-/archive/3247aa73.tar.gz
-Source2:        https://github.com/ECP-copa/Cabana/archive/0.7.0.tar.gz
-Source3:        https://github.com/highfive-devs/highfive/archive/v3.3.0.tar.gz
+Source0:        https://github.com/espressomd/espresso/archive/%{version}.tar.gz#/espresso-%{version}.tar.gz
+Source1:        https://i10git.cs.fau.de/walberla/walberla/-/archive/3247aa73.tar.gz#/waberla-3247aa73.tar.gz
+Source2:        https://github.com/ECP-copa/Cabana/archive/0.7.0.tar.gz#/Cabana-0.7.0.tar.gz
+Source3:        https://github.com/highfive-devs/highfive/archive/v3.3.0.tar.gz#/highfive-v3.3.0.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 4.0.0
@@ -149,6 +146,7 @@ for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
    old_LDFLAGS="${LDFLAGS}"
    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${MPI_PYTHON3_SITEARCH}/%{name}md"
+   sed '/#define ADDITIONAL_CHECKS/d' maintainer/configs/maxset.hpp > myconfig.hpp
    %{cmake} %{defopts}
    export LD_LIBRARY_PATH=$PWD/${mpi:-serial}/src/config
    %cmake_build --target espresso_packaging_dependencies
@@ -191,6 +189,10 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Thu Mar 19 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 5.0.0-2
+- Build with maxset configuration
+- Rename tarballs
+
 * Thu Feb 26 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 5.0.0-1
 - Version bump to v5.0.0
 

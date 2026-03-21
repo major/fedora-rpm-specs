@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -141,6 +141,7 @@ BuildRequires: libquadmath-devel
 %endif
 BuildRequires: bison
 BuildRequires: libzstd-devel
+BuildRequires: which
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1541035
 Patch0: boost-1.81.0-build-optflags.patch
@@ -1365,6 +1366,10 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Thu Mar 19 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-7
+- Add workaround for failing regex tests (#2430541)
+- Add BR:which as needed by the bootstrap.sh script
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

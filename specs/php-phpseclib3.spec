@@ -5,7 +5,7 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.49
+Version:    3.0.50
 Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
@@ -114,6 +114,9 @@ php -d memory_limit=1G %{phpunit_bin} \
 
 
 %changelog
+* Thu Mar 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.50-1
+- Update to v3.0.50
+
 * Tue Jan 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.49-1
 - Update to v3.0.49
 

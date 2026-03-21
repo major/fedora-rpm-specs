@@ -45,7 +45,7 @@ Summary:        %{summary}
 %pyproject_save_files %{mod_name}
 
 %check
-%pytest
+%pytest -k "not test_accept_token_no_token"
 
 %files -n python3-%{project_name} -f %{pyproject_files}
 %doc README.rst

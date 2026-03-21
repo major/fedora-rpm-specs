@@ -1,5 +1,5 @@
 Name: bcftools
-Version: 1.23
+Version: 1.23.1
 Release: 1%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
@@ -14,9 +14,6 @@ License: GPL-3.0-or-later
 # https:// is better than http://.
 URL: https://www.htslib.org/
 Source0: https://github.com/samtools/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
-# Remove invalid `-errors` from PERL_LIBS to fix linker warnings.
-# https://github.com/samtools/bcftools/issues/2495
-Patch0: bcftools-1.23-perl-fix-stray-errors-ldflags.patch
 
 BuildRequires: gcc
 BuildRequires: gsl-devel
@@ -51,7 +48,6 @@ is built without the polysomy subcommand.)
 
 %prep
 %setup -q
-%patch -P0 -p1
 
 sed -i '1s|/usr/bin/env perl|/usr/bin/perl|' misc/*.pl misc/plot-vcfstats
 sed -i '1s|/usr/bin/env python3\{0,1\}|%{__python3}|' misc/*.py
@@ -108,6 +104,10 @@ make test
 
 
 %changelog
+* Thu Mar 19 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23.1-1
+- Updated to 1.23.1
+- Removed patch now that issue 2495 is fixed upstream
+
 * Mon Jan 26 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23-1
 - Updated to 1.23
 - Removed obsolete vcf_plugin_tests patch

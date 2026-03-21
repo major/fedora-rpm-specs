@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.11.3
+Version:        4.11.4
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -162,10 +162,9 @@ Recommends:     /usr/bin/openscad
 # trimesh.viewer.windowed.SceneViewer(…) will not work with “profile=True”.
 #
 # Packaging pyinstrument would be difficult due to a vue.js-based HTML
-# renderer. Since guidelines forbid pre-built minified or compiled JS or CSS,
-# this would have to be patched out, or the web asset pipeline would have to be
-# somehow executed in the RPM build environment. (Or, of course, we can
-# continue to do without pyinstrument.)
+# renderer. While guidelines now allow pre-built minified or compiled JS or CSS
+# when it is too difficult to reproduce it from original sources, such bundles
+# still tend to be license-accounting nightmare.
 mkdir -p _stub
 cat > _stub/pyinstrument.py <<'EOF'
 class Profiler(object):
@@ -254,63 +253,23 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
   -e trimesh.viewer.windowed \
 }
 
-while read -r t
-do
-  k="${k-}${k+ and }not ($(sed -r 's/::/ and /' <<<"${t}"))"
-done < <(sed -r '/^[[:blank:]]*($|#)/d' <<'EOF'
-%ifnarch x86_64
-# CacheTest.test_hash fails, or may fail, because xxhash is not faster than CRC
-# and/or MD5.
-#
-# This is not as intended, and upstream might or might not care, but it’s only
-# a performance defect, so we just skip the test here.
-CacheTest::test_hash
-%endif
-
-%ifarch s390x
-# Several test failures remain on s390x. For now, we choose to skip these tests
-# rather than excluding the architecture, even though they certainly represent
-# real defects.
-#
-# https://github.com/mikedh/trimesh/issues/1351
-# https://github.com/mikedh/trimesh/files/7385479/test-failures.log
-GLTFTest::test_export_custom_attributes
-OBJTest::test_vertex_color
-PermutateTest::test_permutate
-PlyTest::test_face_attributes
-PlyTest::test_uv_export
-PlyTest::test_vertex_attributes
-# Regressions in test_boolean.py with Blender 4.2.0
-# https://github.com/mikedh/trimesh/issues/2267
-# Fixed in trimesh 4.4.7, except on s390x:
-# https://github.com/mikedh/trimesh/issues/2267#issuecomment-2302365583
-# https://github.com/mikedh/trimesh/issues/2267#issuecomment-2414122193
-test_boolean
-test_multiple
-test_multiple_difference
-%endif
-
+# Hangs flakily since 4.10.0; cannot reproduce in a git checkout
+deselect="${deselect-} --deselect=tests/test_primitives.py::test_primitives"
 # This has been observed failing on at least x86_64, ppc64le, and s390x.
+# Currently, it seems to mostly fail (flakily) on x86_64.
 # https://github.com/mikedh/trimesh/issues/1351#issuecomment-2964820046
 # https://github.com/mikedh/trimesh/issues/1351#issuecomment-3016671094
-test_data_model
-
+# https://github.com/mikedh/trimesh/issues/1351#issuecomment-4088830874
+deselect="${deselect-} --deselect=tests/test_color.py::test_data_model"
 # This test fails if it doesn’t finish within 30 seconds, and executing it in
 # parallel with other tests tends to slow it down too much. We exclude it here,
 # then run it serially on its own.
-test_obb_mesh_large
-
-# Hangs flakily since 4.10.0; cannot reproduce in a git checkout
-# tests/test_primitives.py::test_primitives
-# (Unfortunately, there are other test called test_primitives that this will
-# also skip.)
-test_primitives
-EOF
-)
+# tests/test_bounds.py::BoundsTest::test_obb_mesh_large
+k="${k-}${k+ and }not (BoundsTest and test_obb_mesh_large)"
 
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
-%pytest -v -k "${k-}" -n auto
-%pytest -v -k 'test_obb_mesh_large'
+%pytest -v -k "${k-}" -n auto ${deselect-}
+%pytest -v -k '(BoundsTest and test_obb_mesh_large)'
 
 
 %files -n python3-trimesh -f %{pyproject_files}

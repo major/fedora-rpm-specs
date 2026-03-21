@@ -13,6 +13,10 @@ Summary:        Command line utility to show dependency tree of packages
 License:        MIT
 URL:            https://github.com/naiquevin/pipdeptree
 Source0:        https://github.com/naiquevin/pipdeptree/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Compatibility patch for Python 3.15 alpha 7
+Patch:          https://github.com/tox-dev/pipdeptree/pull/554.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -29,7 +33,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-%{srcname} graphviz
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 # Remove unneeded testing deps
 sed -i "/diff-cover/d;/covdefaults/d;/pytest-cov/d" pyproject.toml
 # Remove version limits from dependencies

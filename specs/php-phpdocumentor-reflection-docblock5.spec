@@ -1,12 +1,12 @@
 # Fedora/remirepo spec file for php-phpdocumentor-reflection-docblock5
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    5cee1d3dfc2d2aa6599834520911d246f656bcb8
+%global gh_commit    31a105931bc8ffa3a123383829772e832fd8d903
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,8 +14,8 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        5.6.6
-Release:        2%{?dist}
+Version:        5.6.7
+Release:        1%{?dist}
 Summary:        DocBlock parser
 
 License:        MIT
@@ -147,7 +147,7 @@ cat <<BOOTSTRAP | tee -a bootstrap.php
 BOOTSTRAP
 
 RETURN_CODE=0
-for PHP_EXEC in "php %{phpunit}" php81 php82 php83 php84 php85; do
+for PHP_EXEC in "php %{phpunit}" php82 php83 php84 php85; do
     if which $PHP_EXEC; then
         set $PHP_EXEC
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -172,6 +172,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Mar 19 2026 Remi Collet <remi@remirepo.net> - 5.6.7-1
+- update to 5.6.7
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

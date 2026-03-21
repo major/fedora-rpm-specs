@@ -5,7 +5,7 @@
 %global crate euclid
 
 Name:           rust-euclid
-Version:        0.22.13
+Version:        0.22.14
 Release:        %autorelease
 Summary:        Geometry primitives
 

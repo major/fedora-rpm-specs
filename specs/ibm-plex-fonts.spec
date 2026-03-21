@@ -11,7 +11,7 @@ URL:     https://www.ibm.com/plex/
 BuildArch: noarch
 
 %global foundry           IBM
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      IBM-Plex-Sans/license.txt
 #global fontdocs          *.md
 

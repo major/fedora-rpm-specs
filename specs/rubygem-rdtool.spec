@@ -1,8 +1,8 @@
 %global	gem_name	rdtool
 
 Name:		rubygem-%{gem_name}
-Version:	0.6.38
-Release:	27%{?dist}
+Version:	0.6.39
+Release:	1%{?dist}
 
 Summary:	Formatter for RD
 # SPDX confirmed
@@ -17,6 +17,7 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(minitest)
+BuildRequires:	rubygem(nkf)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(racc)
 Requires:	rubygem(racc)
@@ -46,17 +47,10 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-# rename rdswap.rb
-mv bin/rdswap{.rb,}
-sed -i -e "s|rdswap\.rb|rdswap|" %{gem_name}-%{version}.gemspec
-
 # shebang
 sed -i \
 	-e '\@/usr/bin/env@d' \
 	lib/rd/rd2html-ext-opt.rb
-sed -i \
-	-e 's|/usr/bin/ruby[^ ][^ ]*|%{_bindir}/ruby|' \
-	bin/*
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -101,7 +95,7 @@ popd
 %doc	%{gem_instdir}/[HM-Z]*
 
 %{_bindir}/rd2
-%{_bindir}/rdswap
+%{_bindir}/rdswap.rb
 
 %{gem_instdir}/bin
 %{gem_libdir}/
@@ -115,6 +109,9 @@ popd
 %{gem_instdir}/utils/
 
 %changelog
+* Thu Mar 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.39-1
+- 0.6.39
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.38-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

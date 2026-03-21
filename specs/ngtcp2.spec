@@ -1,7 +1,7 @@
 %bcond CHECK 1
 
 Name:           ngtcp2
-Version:        1.19.0
+Version:        1.21.0
 Release:        %autorelease
 Summary:        Implementation of RFC 9000 QUIC protocol
 
@@ -119,10 +119,7 @@ rm -f doc/build/html/.buildinfo
 rm -f ${RPM_BUILD_ROOT}%{_libdir}/lib%{name}*.la
 
 %check
-%if %{with CHECK}
-# does not yet compile: https://github.com/ngtcp2/ngtcp2/issues/1673
 %make_build check
-%endif
 
 %files
 %license COPYING

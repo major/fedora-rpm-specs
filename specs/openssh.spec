@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -175,6 +175,7 @@ Patch0051: 0051-openssh-7.3p1-x11-max-displays.patch
 Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2423900
 Patch0053: 0053-openssh-10.2p1-pam-auth.patch
+Patch0054: 0054-gssapi-s4u.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
@@ -577,6 +578,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Mar 19 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-7
+- Providing GssAPIAllowS4U2Self/GssAPIProxyS4U2Services funcionality
+
 * Wed Mar 18 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-6
 - CVE-2026-3497: Fix information disclosure or denial of service due
   to uninitialized variables in gssapi-keyex

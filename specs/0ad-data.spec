@@ -4,8 +4,7 @@ Name:		0ad-data
 Version:	0.28.0
 Release:	2%{?dist}
 Summary:	The Data Files for 0 AD
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-3.0
 Url:		http://play0ad.com
 Source:		http://releases.wildfiregames.com/0ad-%{version}-unix-data.tar.xz
 BuildRequires:	unzip

@@ -1,49 +1,31 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-robots
-Version:        41.2
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Robots game
 
 # * gnome-robots source code and data is GPL-3.0-or-later and GFDL-1.1-or-later
 # * rust crate dependencies are:
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD OR MIT OR Apache-2.0
-# Apache-2.0
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
-# BSD-3-Clause OR Apache-2.0
-# LGPL-2.1-or-later
+# Apache-2.0 WITH LLVM-exception
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
-# MIT OR Zlib OR Apache-2.0
-# MPL-2.0
-# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     GPL-3.0-or-later AND GFDL-1.1-or-later AND
-    Apache-2.0 AND
-    BSD-3-Clause AND
-    LGPL-2.1-or-later AND
-    MIT AND
-    MPL-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    (0BSD OR MIT OR Apache-2.0) AND
+    ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND
     (Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
+    (Apache-2.0 WITH LLVM-exception) AND
+    MIT AND
+    (MIT OR Apache-2.0) AND
     (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://wiki.gnome.org/Apps/Robots
-Source0:        https://download.gnome.org/sources/%{name}/41/%{name}-%{tarball_version}.tar.xz
-# Update dependencies to GNOME SDK 49
-Patch0:         https://gitlab.gnome.org/GNOME/gnome-robots/-/merge_requests/39.patch
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  desktop-file-utils
