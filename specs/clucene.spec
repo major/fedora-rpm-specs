@@ -10,8 +10,7 @@ Summary:	A C++ port of Lucene
 Name:		clucene
 Version:	2.3.3.4
 Release:	%{baserelease}.%{snap}.%{git_short}git%{?dist}
-# Automatically converted from old format: LGPLv2+ or ASL 2.0 - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+ OR Apache-2.0
+License:	LGPL-2.1-or-later OR Apache-2.0
 URL:		http://www.sourceforge.net/projects/clucene
 %if 0%{?snap}
 #  git archive e8e3d20f20da5ee3e37d347207b01890829a5475 --prefix=clucene-core-2.3.3.4/ | xz -9 > ../clucene-core-2.3.3.4-e8e3d20.tar.xz

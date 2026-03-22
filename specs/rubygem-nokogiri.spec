@@ -1,4 +1,4 @@
-%global	mainver		1.19.1
+%global	mainver		1.19.2
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -276,6 +276,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Fri Mar 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.2-1
+- 1.19.2
+
 * Tue Feb 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.1-1
 - 1.19.1
 

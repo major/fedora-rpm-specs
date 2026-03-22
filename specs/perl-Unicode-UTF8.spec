@@ -7,7 +7,7 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.68
+Version:	0.70
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
@@ -81,6 +81,12 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Fri Mar 20 2026 Paul Howarth <paul@city-fan.org> - 0.70-1
+- Update to 0.70
+  - Update the c-utf8 library code: improved GCC code generation, including
+    with -O2, resulting in higher throughput
+  - Use utf8_check_ascii with a 16-byte ASCII fast path
+
 * Mon Mar  2 2026 Paul Howarth <paul@city-fan.org> - 0.68-1
 - Update to 0.68
   - Fix SIMD feature gating for x86; avoid SSE2 intrinsics on non-SSE2 i686

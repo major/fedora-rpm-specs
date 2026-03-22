@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	6.18.0
-Release:	2%{?dist}
+Version:	6.19.0
+Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -158,6 +158,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Fri Mar 20 2026 Pavel Reichl <preichl@redhat.com> - 6.19.0-1
+- Update to upstream v6.19.0
+- rhbz#2448614
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

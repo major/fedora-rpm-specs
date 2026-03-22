@@ -54,7 +54,7 @@ License:        MIT AND PSF-2.0 AND GPL-2.0-or-later
   %{load:macros.python-srpm}
 %endif
 Version:        %{__default_python3_version}
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 BuildArch:      noarch
 
@@ -139,10 +139,24 @@ install -m 755 brp-* %{buildroot}%{_rpmconfigdir}/redhat/
 %global __brp_fix_pyc_reproducibility %{add_buildroot __brp_fix_pyc_reproducibility}
 %global __brp_python_rpm_in_distinfo %{add_buildroot __brp_python_rpm_in_distinfo}
 
+# Bake in the version-release and purl namespace of this tool for %%python_wheel_inject_sbom.
+# That way, even when this is installed on a different distro, the purl will still be applicable.
+# We need to load the macro file to know the value of %%__python_wheel_dist_purl_namespace first.
+# When the source does not exist, something is parsing this spec without %%_sourcedir macro properly set,
+# but we don't have to do anything then because that cannot happen during the build.
+%if %{exists:%{SOURCE106}}
+%{load:%{SOURCE106}}
+sed -i \
+  -e 's|%%__python_wheel_macros_verrel PLACEHOLDER|%%__python_wheel_macros_verrel %{version}-%{release}|' \
+  -e 's|%%__python_wheel_macros_purl PLACEHOLDER|%%__python_wheel_macros_purl pkg:rpm/%{__python_wheel_dist_purl_namespace}/python-rpm-macros@%%{__python_wheel_macros_verrel}?arch=src|' \
+  %{buildroot}%{rpmmacrodir}/macros.python-wheel-sbom
+%endif
 
 %check
 # no macros in comments
 grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
+# no placeholders in macros
+grep -iF PLACEHOLDER %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %files
@@ -167,6 +181,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Tue Mar 17 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14-12
+- %%python_wheel_inject_sbom: Hardcode the purl of this tool instead of constructing it at runtime
+- %%py3_build, %%py3_install, etc.: Bump the Fedora version in the deprecation message
+
 * Tue Mar 10 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14-11
 - %%python_wheel_inject_sbom: Add more metadata to the SBOM
 - %%python_wheel_inject_sbom: Rename the SBOM file to limit the possibility of clashes

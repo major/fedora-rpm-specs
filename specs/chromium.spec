@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 146.0.7680.80
+Version: 146.0.7680.153
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1859,6 +1859,35 @@ fi
 %endif
 
 %changelog
+* Fri Mar 20 2026 Than Ngo <than@redhat.com> - 146.0.7680.153-1
+- Update to 146.0.7680.153
+  * CVE-2026-4439: Out of bounds memory access in WebGL
+  * CVE-2026-4440: Out of bounds read and write in WebGL
+  * CVE-2026-4441: Use after free in Base
+  * CVE-2026-4442: Heap buffer overflow in CSS
+  * CVE-2026-4443: Heap buffer overflow in WebAudio
+  * CVE-2026-4444: Stack buffer overflow in WebRTC
+  * CVE-2026-4445: Use after free in WebRTC
+  * CVE-2026-4446: Use after free in WebRTC
+  * CVE-2026-4447: Inappropriate implementation in V8
+  * CVE-2026-4448: Heap buffer overflow in ANGLE
+  * CVE-2026-4449: Use after free in Blink
+  * CVE-2026-4450: Out of bounds write in V8
+  * CVE-2026-4451: Insufficient validation of untrusted input in Navigation
+  * CVE-2026-4452: Integer overflow in ANGLE
+  * CVE-2026-4453: Integer overflow in Dawn
+  * CVE-2026-4454: Use after free in Network
+  * CVE-2026-4455: Heap buffer overflow in PDFium
+  * CVE-2026-4456: Use after free in Digital Credentials API
+  * CVE-2026-4457: Type Confusion in V8
+  * CVE-2026-4458: Use after free in Extensions
+  * CVE-2026-4459: Out of bounds read and write in WebAudio
+  * CVE-2026-4460: Out of bounds read in Skia
+  * CVE-2026-4461: Inappropriate implementation in V8
+  * CVE-2026-4462: Out of bounds read in Blink
+  * CVE-2026-4463: Heap buffer overflow in WebRTC
+  * CVE-2026-4464: Integer overflow in ANGLE
+
 * Sat Mar 14 2026 Than Ngo <than@redhat.com> - 146.0.7680.80-1
 - Update to 146.0.7680.80
   * CVE-2026-3909: Out of bounds write in Skia

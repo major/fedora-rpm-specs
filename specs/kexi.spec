@@ -28,6 +28,9 @@ Patch80: 0080-cmake-find-PostgreSQL-14.patch
 Patch504: 0504-Fix-glib-include-position.patch
 Patch543: 0543-Fix-build-with-GCC-12-standard-attributes-in-middle-.patch
 
+## upstreamable patches
+Patch2000: cmake4.patch
+
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 
@@ -132,6 +135,7 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_kf5 \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{?!tests:OFF}
 

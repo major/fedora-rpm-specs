@@ -2,7 +2,6 @@ Name:           mdbtools
 Version:        1.0.0
 Release:        10%{?dist}
 Summary:        Access data stored in Microsoft Access databases
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/mdbtools/mdbtools/
 Source0:        https://github.com/mdbtools/mdbtools/releases/download/v%{version}/mdbtools-%{version}.tar.gz
@@ -23,7 +22,8 @@ Access databases.
 
 %package libs
 Summary:        Library for accessing data stored in Microsoft Access databases
-License:        LGPLv2+
+# sql/parser.* is GPL-3.0-or-later WITH Bison-exception-2.2
+License:        LGPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 %description libs
 This package contains the MDB Tools library, which can be used by applications
@@ -32,7 +32,7 @@ to access data stored in Microsoft Access databases.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}, glib2-devel, pkgconfig
 
 %description    devel
@@ -42,7 +42,7 @@ developing applications that use %{name}.
 
 %package        odbc
 Summary:        MDB Unix-ODBC driver
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    odbc

@@ -9,7 +9,7 @@
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -28,8 +28,6 @@ Patch:          %{name}-flags.patch
 Patch:          %{name}-skip-himem-tests.patch
 # Adapt to cocoalib 0.99850
 Patch:          %{name}-cocoalib.patch
-# Adapt to libpoly 0.2.1
-Patch:          %{name}-libpoly.patch
 # Adapt to cadical 2.2.0
 Patch:          %{name}-cadical.patch
 

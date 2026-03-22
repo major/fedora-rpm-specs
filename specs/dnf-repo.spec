@@ -5,7 +5,7 @@
 %bcond tests 0
 
 Name:           dnf-repo
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        A dnf wrapper with fine control of enabled repos
 
@@ -25,6 +25,7 @@ BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-http-directory-devel
+BuildRequires:  ghc-safe-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
 BuildRequires:  ghc-simple-prompt-devel

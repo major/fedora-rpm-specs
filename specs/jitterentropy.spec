@@ -32,8 +32,8 @@ Development headers and libraries for jitterentropy
 %make_build
 
 %install
-mkdir -p %{buildroot}/usr/include/
-%make_install PREFIX=/usr LIBDIR=%{_lib}
+mkdir -p %{buildroot}%{_includedir}
+%make_install PREFIX=%{_prefix} LIBDIR=%{_lib}
 
 %files
 %doc README.md CHANGES.md

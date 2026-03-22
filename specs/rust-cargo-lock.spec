@@ -5,7 +5,7 @@
 %global crate cargo-lock
 
 Name:           rust-cargo-lock
-Version:        11.0.0
+Version:        11.0.1
 Release:        %autorelease
 Summary:        Self-contained Cargo.lock parser with optional dependency graph analysis
 

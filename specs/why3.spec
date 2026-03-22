@@ -19,8 +19,10 @@ Source0:        https://why3.gitlabpages.inria.fr/releases/%{name}-%{version}.ta
 Source1:        fr.lri.%{name}.desktop
 # AppData file written by Jerry James
 Source2:        fr.lri.%{name}.metainfo.xml
+# The deprecated Zmod alias was removed in rocq-stdlib 9.1.0
+Patch:          %{name}-zmod.patch
 
-BuildRequires:  coq
+BuildRequires:  coq-core-compat
 BuildRequires:  emacs-nw
 BuildRequires:  emacs-proofgeneral
 BuildRequires:  flocq
@@ -47,6 +49,7 @@ BuildRequires:  ocaml-zarith-devel
 BuildRequires:  ocaml-zip-devel
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
+BuildRequires:  rocq
 BuildRequires:  tex(capt-of.sty)
 BuildRequires:  tex(comment.sty)
 BuildRequires:  tex(fncychap.sty)

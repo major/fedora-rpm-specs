@@ -2,27 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate getrandom
+%global crate icns
 
-Name:           rust-getrandom0.2
-Version:        0.2.17
+Name:           rust-icns
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Small cross-platform library for retrieving random data from system source
+Summary:        Library for encoding/decoding Apple Icon Image (.icns) files
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/getrandom
+License:        MIT
+URL:            https://crates.io/crates/icns
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          getrandom-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * drop dependencies on compiler internals
-Patch:          getrandom-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A small cross-platform library for retrieving random data from system
-source.}
+A library for encoding/decoding Apple Icon Image (.icns) files.}
 
 %description %{_description}
 
@@ -36,12 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/{icns,png}/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -55,52 +47,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+custom-devel
+%package     -n %{name}+hayro-jpeg2000-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+custom-devel %{_description}
+%description -n %{name}+hayro-jpeg2000-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "custom" feature of the "%{crate}" crate.
+use the "hayro-jpeg2000" feature of the "%{crate}" crate.
 
-%files       -n %{name}+custom-devel
+%files       -n %{name}+hayro-jpeg2000-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+linux_disable_fallback-devel
+%package     -n %{name}+jp2io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+linux_disable_fallback-devel %{_description}
+%description -n %{name}+jp2io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "linux_disable_fallback" feature of the "%{crate}" crate.
+use the "jp2io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+linux_disable_fallback-devel
+%files       -n %{name}+jp2io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rdrand-devel
+%package     -n %{name}+png-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rdrand-devel %{_description}
+%description -n %{name}+png-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rdrand" feature of the "%{crate}" crate.
+use the "png" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rdrand-devel
+%files       -n %{name}+png-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+pngio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+pngio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "pngio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+pngio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -118,7 +110,10 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -- --lib
+%cargo_test -- --doc
+# * encode_ic07 fails due to non-deterministic PNG encoding output
+%cargo_test -- --test golden -- --exact --skip encode_ic07
 %endif
 
 %changelog

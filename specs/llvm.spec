@@ -2585,25 +2585,7 @@ export LIT_XFAIL="tools/UpdateTestChecks"
 reset_test_opts
 export LIT_XFAIL="$LIT_XFAIL;clang/test/CodeGen/profile-filter.c"
 
-%ifarch %ix86
-# These tests have been reaching a limit on small i386 servers.
-# We don't know exactly which limit is being reached, but python prints
-# "RuntimeError: can't start new thread". The issue appears to be related to
-# a large number of threads being created very closely while running Sema*
-# tests. The failing tests vary from time to time and are usually simple
-# tests. The execution appears to recover later, with new threads getting
-# created and completing the execution of the remaining tests.
-# In order to reduce the number of threads getting created, we split the
-# tests in 5 shards, ensuring that less than 5K tests will be executed each
-# time.
-export LIT_NUM_SHARDS=5
-for i in $(seq $LIT_NUM_SHARDS); do
-  export LIT_RUN_SHARD=$i
-  %cmake_build --target check-clang
-done
-%else
 %cmake_build --target check-clang
-%endif
 #endregion Test Clang
 
 #region Test Clang Tools

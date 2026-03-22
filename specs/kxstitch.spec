@@ -3,7 +3,7 @@
 Name: kxstitch
 Summary: Program to create cross stitch patterns
 Version: 2.2.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://userbase.kde.org/KXStitch
@@ -37,6 +37,8 @@ a Sane supported scanner.
 %setup -q
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380696)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5}
 %cmake_build
 
@@ -69,6 +71,9 @@ desktop-file-validate "%{buildroot}%{_datadir}/applications/org.kde.%{name}.desk
 %{_mandir}/*
 
 %changelog
+* Fri Mar 20 2026 Cristian Le <git@lecris.dev> - 2.2.0-10
+- Allow to build with CMake 4.0 (rhbz#2380696)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

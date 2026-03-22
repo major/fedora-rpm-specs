@@ -3,7 +3,7 @@ Version:        5.0.0
 Release:        1%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
-URL:            https://pagure.io/sanlock/
+URL:            https://codeberg.org/sanlock/sanlock
 BuildRequires:  gcc
 BuildRequires:  libaio-devel
 BuildRequires:  libblkid-devel
@@ -20,7 +20,7 @@ Requires(post): systemd-units
 Requires(post): systemd-sysv
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-Source0:        https://releases.pagure.org/sanlock/%{name}-%{version}.tar.gz
+Source0:        https://codeberg.org/sanlock/sanlock/archive/%{name}-%{version}.tar.gz
 
 # Patch0: 0001-foo.patch
 

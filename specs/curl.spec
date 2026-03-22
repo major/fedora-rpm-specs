@@ -12,7 +12,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.19.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -20,6 +20,9 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# Fix test459 to pass when running tests in parallel
+Patch001: 001-curl-8.19.0-test459-switch-to-mode-warn-for-stderr-check.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -355,9 +358,6 @@ sed -e 's/^runpath_var=.*/runpath_var=/' \
 export OPENSSL_SYSTEM_CIPHERS_OVERRIDE=XXX
 export OPENSSL_CONF=
 
-# make runtests.pl work for out-of-tree builds
-export srcdir=../../tests
-
 # prevent valgrind from being extremely slow (#1662656)
 # https://fedoraproject.org/wiki/Changes/DebuginfodByDefault
 unset DEBUGINFOD_URLS
@@ -369,8 +369,16 @@ for size in minimal full; do (
     # we have to override LD_LIBRARY_PATH because we eliminated rpath
     export LD_LIBRARY_PATH="${PWD}/lib/.libs"
 
-    cd tests
-    perl -I../../tests ../../tests/runtests.pl -a -p -v '!flaky'
+    # tests that must run in serial to avoid intermittent failures under parallel execution
+    serial_tests="766 2502"
+    serial_excludes=$(for t in $serial_tests; do printf ' !%s' "$t"; done)
+    # run the bulk of tests in parallel, excluding serial ones
+    # cap at 64 jobs to avoid overwhelming system resources on high-CPU machines
+    test_jobs=$(( %{_smp_build_ncpus} * 7 ))
+    [ $test_jobs -gt 64 ] && test_jobs=64
+    TFLAGS="-v -j${test_jobs}${serial_excludes}" make test-nonflaky
+    # run serial tests one at a time
+    TFLAGS="-v ${serial_tests}" make test-nonflaky
 )
 done
 
@@ -442,6 +450,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri Mar 20 2026 Jan Macku <jamacku@redhat.com> - 8.19.0-2
+- fix the failing test459 and test2502 after enabling parallel tests
+
 * Tue Mar 17 2026 Jan Macku <jamacku@redhat.com> - 8.19.0-1
 - new upstream release
 

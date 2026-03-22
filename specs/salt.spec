@@ -10,7 +10,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3007.8
+Version: 3007.13
 Release: %autorelease
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
@@ -41,7 +41,7 @@ Source21: %{name}-syndic.fish
 Source22: %{name}.sysusers
 
 # Fix local contextvars and requirements
-Patch0: contextvars.patch
+Patch0: 0001-relax-requirement-versions.patch
 # Fix urlib changes in python >= 3.12.6
 # https://github.com/saltstack/salt/issues/66898
 Patch2: urllib.patch
@@ -270,7 +270,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/%{name}/gpgkeys
 %{_bindir}/salt-pip
 
 %files master
-%doc %{_mandir}/man7/%{name}.7*
 %doc %{_mandir}/man1/%{name}.1*
 %doc %{_mandir}/man1/%{name}-cp.1*
 %doc %{_mandir}/man1/%{name}-key.1*

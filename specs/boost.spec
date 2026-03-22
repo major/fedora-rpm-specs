@@ -192,6 +192,7 @@ variables.
 
 %package charconv
 Summary: Run-time component of boost charconv library
+License: BSL-1.0 AND (BSL-1.0 OR Apache-2.0 WITH LLVM-exception)
 
 %description charconv
 
@@ -200,6 +201,7 @@ in C++11.
 
 %package chrono
 Summary: Run-time component of boost chrono library
+License: BSL-1.0 AND (MIT OR NCSA)
 Obsoletes: boost-system < 1.90.0
 Conflicts: boost-system < 1.90.0
 
@@ -294,6 +296,7 @@ directories.
 
 %package graph
 Summary: Run-time component of boost graph library
+License: BSL-1.0 AND (BSL-1.0 OR MIT)
 Requires: %{name}-regex%{?_isa} = %{version}-%{release}
 
 %description graph
@@ -312,6 +315,7 @@ stream buffers and i/o filters.
 
 %package json
 Summary: Run-time component of boost json library
+License: BSL-1.0 OR Apache-2.0
 Requires: %{name}-container%{?_isa} = %{version}-%{release}
 
 %description json
@@ -447,6 +451,7 @@ program execution monitoring.
 
 %package thread
 Summary: Run-time component of boost thread library
+License: BSL-1.0 AND (MIT OR NCSA)
 Obsoletes: boost-system < 1.90.0
 Conflicts: boost-system < 1.90.0
 
@@ -506,6 +511,7 @@ preprocessor functionality.
 
 %package devel
 Summary: The Boost C++ headers and shared development libraries
+License: BSL-1.0 AND MIT AND (MIT OR NCSA) AND (BSL-1.0 OR MIT) AND HPND-sell-variant AND Zlib AND Apache-2.0 AND (BSL-1.0 OR Apache-2.0) AND (BSL-1.0 OR Apache-2.0 WITH LLVM-exception)
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libicu-devel%{?_isa}
 %if %{with quadmath}
@@ -1369,6 +1375,7 @@ fi
 * Thu Mar 19 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-7
 - Add workaround for failing regex tests (#2430541)
 - Add BR:which as needed by the bootstrap.sh script
+- Add additional SPDX tags
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

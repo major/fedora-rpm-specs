@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc4.260319g8a30aeb0d1b4.39
+%define pkgrelease 0.rc4.260320g0e4f8f1a3d08.40
 %define kversion 7
-%define tarfile_release 7.0-rc4-74-g8a30aeb0d1b4
+%define tarfile_release 7.0-rc4-181-g0e4f8f1a3d08
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260319g8a30aeb0d1b4.39%{?buildid}%{?dist}
+%define specrelease 0.rc4.260320g0e4f8f1a3d08.40%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4832,8 +4832,11 @@ fi\
 #
 #
 %changelog
-* Thu Mar 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.8a30aeb0d1b4.39]
+* Fri Mar 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.0e4f8f1a3d08.40]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Fri Mar 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.0e4f8f1a3d08.39]
+- Linux v7.0.0-0.rc4.0e4f8f1a3d08
 
 * Thu Mar 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.8a30aeb0d1b4.38]
 - redhat/configs: enable CONFIG_LIVEUPDATE for fedora (Luca Boccassi)

@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 45%{?dist}
+Release: 46%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -212,7 +212,7 @@ dos2unix -k \
   src/math/align.cpp \
   test/testsmartssym.py \
 
-magick convert src/GUI/babel.xpm -transparent white babel.png
+magick src/GUI/babel.xpm -transparent white babel.png
 
 # Remove duplicate html files
 pushd doc
@@ -347,6 +347,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Fri Mar 20 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-46
+- Fix magick command
+
 * Wed Feb 11 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-45
 - Fix BR cmake
 

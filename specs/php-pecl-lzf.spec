@@ -1,20 +1,28 @@
 %global pecl_name LZF
 %global ini_name  40-lzf.ini
+%global pie_vend  pecl
+%global pie_proj  lzf
+
+# Github forge
+%global gh_vend   php
+%global gh_proj   pecl-file_formats-lzf
+%global forgeurl  https://github.com/%{gh_vend}/%{gh_proj}
+%global tag       %{version}
 
 Name:           php-pecl-lzf
-Version:        1.7.0
-Release:        18%{?dist}
 Summary:        Extension to handle LZF de/compression
 License:        PHP-3.01
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Version:        1.7.0
+Release:        19%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel
-BuildRequires:  php-pear
 BuildRequires:  liblzf-devel
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -30,11 +38,8 @@ a slight speed cost.
 
 
 %prep
-%setup -c -q
-sed -e '/name="lib/d' -i package.xml
-rm -r %{pecl_name}-%{version}/lib/
-
-sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
+%forgesetup
+rm -r lib/
 
 cat > %{ini_name} << EOF
 ; Enable %{pecl_name} extension module
@@ -43,7 +48,6 @@ EOF
 
 
 %build
-cd %{pecl_name}-%{version}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -52,33 +56,33 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-%make_install -C %{pecl_name}-%{version}
+%make_install
 
 install -D -p -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-install -D -p -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -D -p -m 644 %{pecl_name}-%{version}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
-cd %{pecl_name}-%{version}
 %{__php} run-tests.php \
     -n -P -q \
     -d extension=%{buildroot}%{php_extdir}/lzf.so
 
 
 %files
-%license %{pecl_name}-%{version}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc examples
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/lzf.so
-%{pecl_xmldir}/%{name}.xml
 
 
 %changelog
+* Fri Mar 20 2026 Remi Collet <remi@remirepo.net> - 1.7.0-19
+- add pie virtual provides
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

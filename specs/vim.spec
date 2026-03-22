@@ -1,34 +1,19 @@
-%bcond_with hunspell
+%bcond hunspell         0
 
-%bcond_without flakytests
-%bcond_without gui
-%bcond_without lua
-%bcond_without netbeans
-%bcond_without perl
-%bcond_without selinux
+%bcond flakytests       1
+%bcond gui              1
+%bcond lua              1
+%bcond netbeans         1
+%bcond perl             1
+%bcond selinux          1
 
-%if 0%{?fedora}
-%bcond_without default_editor
-%bcond_without gpm
-%bcond_without libsodium_crypt
-%else
-%bcond_with default_editor
-%bcond_with gpm
-%bcond_with libsodium_crypt
-%endif
+%bcond default_editor   %{undefined rhel}
+%bcond gpm              %{undefined rhel}
+%bcond libsodium_crypt  %{undefined rhel}
 
-%if 0%{?flatpak}
-%bcond_with ruby
-%else
-%bcond_without ruby
-%endif
+%bcond ruby             %{undefined flatpak}
 
-%if %{with gui}
-%bcond_without desktop_file
-%else
-%bcond_with desktop_file
-%endif
-
+%bcond desktop_file     %{with gui}
 
 # VIm upstream wants to build with FORTIFY_SOURCE=1,
 # because higher levels causes crashes of valid code constructs

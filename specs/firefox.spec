@@ -204,7 +204,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        149.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -259,6 +259,7 @@ Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
+Patch82:        build-c11-threads-avail.patch
 Patch83:        build-seccomp.patch
 Patch85:        build-wasm32-wasip1.patch
 
@@ -276,6 +277,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
+Patch403:        D288856.1774090535.diff
 
 # Potential fix for PipeWire camera crashes
 # https://bugzilla.mozilla.org/show_bug.cgi?id=2023103
@@ -575,6 +577,7 @@ This package contains results of tests executed during build.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
 %patch -P85 -p1 -b .wasm32-wasip1
 %endif
@@ -598,6 +601,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
+%patch -P403 -p1 -b .D288856.1774090535
 
 %patch -P408 -p1 -b .libwebrtc-potential-fix-for-pipewire-camera-crashes
 
@@ -1294,6 +1298,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Mar 20 2026 Nicolas Chauvet <kwizart@gmail.com> - 149.0-3
+- Rebuilt for libvpx-1.16.0
+
+* Fri Mar 20 2026 Martin Stransky <stransky@redhat.com> - 149.0-2
+- Added D&D freeze fix D288856
+
 * Thu Mar 19 2026 Martin Stransky <stransky@redhat.com> - 149.0-1
 - Update to latest upstream (149.0)
 

@@ -1,11 +1,16 @@
-Name:		python-logbook
-Version:	1.9.2
-Release:	2%{?dist}
-Summary:	A logging replacement for Python
+Name:           python-logbook
+Version:        1.9.2
+Release:        3%{?dist}
+Summary:        A logging replacement for Python
 
-License:	BSD-3-Clause
-URL:		https://logbook.readthedocs.io
-Source0:	https://github.com/getlogbook/logbook/archive/%{version}.tar.gz#/Logbook-%{version}.tar.gz
+# logbook: BSD-3-Clause
+# Rust dependencies:
+# - BSD-3-Clause
+# - MIT
+# - MIT OR Apache-2.0
+License:        BSD-3-Clause AND MIT AND (MIT OR Apache-2.0)
+URL:            https://logbook.readthedocs.io
+Source0:        https://github.com/getlogbook/logbook/archive/%{version}.tar.gz#/Logbook-%{version}.tar.gz
 
 %description
 Logbook is a logging system for Python that replaces the standard library's
@@ -15,21 +20,17 @@ getting log messages on your phone or desktop notification system?
 Logbook can do that.
 
 %package -n python3-logbook
-Summary:	%{summary}
+Summary:        %{summary}
 
-BuildRequires:  gcc
-BuildRequires:	python3-devel
-BuildRequires:	python3-pytest
-BuildRequires:	python3-sqlalchemy
-BuildRequires:	python3-redis
-BuildRequires:	python3-zmq
-BuildRequires:	python3-brotli
-BuildRequires:  python3-Cython
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  rust-pyo3-devel
-BuildRequires:  rust-pyo3-macros-devel
-BuildRequires:  rust-indoc-devel
-BuildRequires:  rust-unindent-devel
+BuildRequires:  gcc
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  python3-sqlalchemy
+BuildRequires:  python3-redis
+BuildRequires:  python3-zmq
+BuildRequires:  python3-brotli
 
 %description -n python3-logbook
 Logbook is a logging system for Python that replaces the standard library's
@@ -40,16 +41,16 @@ Logbook can do that.
 
 %prep
 %autosetup -n logbook-%{version}
-
 %cargo_prep
-%cargo_generate_buildrequires
+
 %generate_buildrequires
+%cargo_generate_buildrequires
 %pyproject_buildrequires
 
 %build
 %pyproject_wheel
-
-%cargo_license
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %pyproject_install
@@ -60,8 +61,12 @@ Logbook can do that.
 
 %files -n python3-logbook -f %{pyproject_files}
 %doc CHANGES README.md
+%license LICENSE.dependencies
 
 %changelog
+* Thu Mar 19 2026 Fabio Valentini <decathorpe@gmail.com> - 1.9.2-3
+- Miscellaneous packaging fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

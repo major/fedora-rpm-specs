@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.26.1
+Version:        2.27.1
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -18,14 +18,15 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
+# * Temporarily allow older image 0.25.9: RHBZ#2446057
+# * Temporarily allow gix 0.75–0.79: RHBZ#2405612
+# * Temporarily allow gix-features 0.44–0.45: RHBZ#2405624
+# * Allow older strum 0.27 for EPEL10.2 and older
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
-# * Allow tokei 14: https://github.com/o2sh/onefetch/pull/1669
-# * Allow strum 0.28:
-#   https://github.com/o2sh/onefetch/commit/77436556e6726704becafb221b24b2f2ea25dee1
 Patch:          onefetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

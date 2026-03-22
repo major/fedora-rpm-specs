@@ -5,7 +5,7 @@
 %global crate hyper-util
 
 Name:           rust-hyper-util
-Version:        0.1.18
+Version:        0.1.20
 Release:        %autorelease
 Summary:        Hyper utilities
 
@@ -71,6 +71,18 @@ This package contains library source intended for building other packages which
 use the "client-legacy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+client-legacy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+client-pool-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+client-pool-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "client-pool" feature of the "%{crate}" crate.
+
+%files       -n %{name}+client-pool-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+client-proxy-devel

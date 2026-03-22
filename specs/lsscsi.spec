@@ -1,11 +1,24 @@
 Summary:        List SCSI devices (or hosts) and associated information
 Name:           lsscsi
 Version:        0.32
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL-2.0-or-later
 # official git repository: https://github.com/doug-gilbert/lsscsi
 Source0:        http://sg.danny.cz/scsi/%{name}-%{version}.tgz
 URL:            http://sg.danny.cz/scsi/lsscsi.html
+# https://github.com/doug-gilbert/lsscsi/pull/7
+# lsscsi: Fixes for SBP (Firewire) host in transport_h_init()
+Patch0: 0001-lsscsi-Fixes-for-SBP-Firewire-host-in-transport_h_in.patch
+# https://github.com/doug-gilbert/lsscsi/pull/8
+# lsscsi: Change default output trailing space after each device entry
+Patch1: 0002-lsscsi-Change-default-output-trailing-space-after-ea.patch
+# https://github.com/doug-gilbert/lsscsi/pull/9
+# lsscsi: Transport type FC and FCOE output inconsistencies
+Patch2: 0003-lsscsi-Transport-type-FC-and-FCOE-output-inconsisten.patch
+# https://github.com/doug-gilbert/lsscsi/pull/10
+# lsscsi: Device name spacing before major:minor when dev name exceeds 9 chars
+Patch3: 0004-lsscsi-Device-name-spacing-before-major-minor-when-d.patch
+
 BuildRequires:  gcc
 BuildRequires:  make
 
@@ -39,6 +52,12 @@ Author:
 
 
 %changelog
+* Fri Mar 20 2026 Paul Evans <pevans@redhat.com> - 0.32.16
+- lsscsi: Fixes for SBP (Firewire) host in transport_h_init() (RHEL-48228)
+- lsscsi: Change default output trailing space after each device entry (RHEL-70371)
+- lsscsi: Transport type FC and FCOE output inconsistencies (RHEL-155569)
+- lsscsi: Device name spacing before major:minor when dev name exceeds 9 chars (RHEL-157252)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

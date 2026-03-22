@@ -5,7 +5,7 @@
 %global crate onefetch-image
 
 Name:           rust-onefetch-image
-Version:        2.26.1
+Version:        2.27.1
 Release:        %autorelease
 Summary:        Display images in the terminal
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/onefetch-image
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Temporarily allow older image 0.25.8: RHBZ#2415218
+# * Temporarily allow older image 0.25.9: RHBZ#2446057
 Patch:          onefetch-image-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

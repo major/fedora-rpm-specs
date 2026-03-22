@@ -145,6 +145,7 @@ pushd Python-qt5
 ln -s pyproject-qt5.toml pyproject.toml
 LD_LIBRARY_PATH=$PWD/../src-qt5 sip-build --no-make   --qmake=%{_qt5_qmake} --api-dir=%{_qt5_datadir}/qsci/api/python --verbose \
     --qmake-setting 'QMAKE_CXXFLAGS+="%{build_cxxflags}"' --qmake-setting 'QMAKE_LDFLAGS+="%{build_ldflags}"' \
+    --target-dir=%{python3_sitearch} \
     --qsci-include-dir=../src-qt5 --qsci-library-dir=../src-qt5/ --qsci-features-dir=../src-qt5/features
 %make_build -C build
 popd
@@ -169,6 +170,7 @@ pushd Python-qt6
 ln -s pyproject-qt6.toml pyproject.toml
 LD_LIBRARY_PATH=$PWD/../src-qt6 sip-build --no-make   --qmake=%{_qt6_qmake} --api-dir=%{_qt6_datadir}/qsci/api/python --verbose \
     --qmake-setting 'QMAKE_CXXFLAGS+="%{build_cxxflags}"' --qmake-setting 'QMAKE_LDFLAGS+="%{build_ldflags}"' \
+    --target-dir=%{python3_sitearch} \
     --qsci-include-dir=../src-qt6 --qsci-library-dir=../src-qt6/ --qsci-features-dir=../src-qt6/features
 %make_build -C build
 popd
@@ -198,7 +200,8 @@ rm -f %{buildroot}%{_qt6_datadir}/qsci/api/python/Python*.api
 
 %if 0%{?flatpak}
 # prefix is not configurable at build time
-mv %{buildroot}/usr/include %{buildroot}/usr/%{_lib} %{buildroot}%{_prefix}/
+mv %{buildroot}/usr/include %{buildroot}%{_prefix}/
+mv %{buildroot}/usr/%{_lib}/* %{buildroot}%{_libdir}/
 mv %{buildroot}/usr/share/qt5/translations %{buildroot}%{_qt5_datadir}
 mv %{buildroot}/usr/share/qt6/translations %{buildroot}%{_qt6_datadir}
 rm -f %{buildroot}/usr/share/qt*/qsci/api/python/Python*.api

@@ -4,7 +4,7 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.20
+Version:        %{basever}.21
 %global pyversion 2.7
 Release:        %autorelease
 Summary:        Python implementation with a Just-In-Time compiler
@@ -189,6 +189,12 @@ Source6: pip-requests-CVE-2024-47081.patch
 # Upstream fix: https://github.com/urllib3/urllib3/commit/f05b1329126d5be6de501f9d1e3e36738bc08857
 Source7: pip-urllib3-CVE-2025-50181.patch
 
+# Patch the bundled ply within the bundled pycparser for CVE-2025-56005
+# Unsafe pickle file handling in Ply
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2431308
+# Downstream only. Ply has been retired as a project
+Source8: pycparser-ply-CVE-2025-56005.patch
+
 # Patch pypy.translator.platform so that stdout from "make" etc gets logged,
 # rather than just stderr, so that the command-line invocations of the compiler
 # and linker are captured:
@@ -204,6 +210,10 @@ Patch1: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch2: 009-add-libxcrypt-support.patch
+
+# Fix JIT translation failure on ppc64le and s390x
+# Sent upstream: https://github.com/pypy/pypy/pull/5393
+Patch10: 010-fix-ppc-s390x-jit-backend.patch
 
 # Instead of bundled wheels, use our RPM packaged wheels from
 # /usr/share/python-wheels
@@ -411,7 +421,7 @@ Provides: bundled(python2dist(webencodings)) = 0.5.1
 %endif
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
-Provides: bundled(python2dist(pycparser)) = 2.22
+Provides: bundled(python2dist(pycparser)) = 2.23
 
 # Find the version in lib_pypy/cffi/_pycparser/ply/__init__.py
 Provides: bundled(python2dist(ply)) = 3.9
@@ -482,6 +492,8 @@ zip -rq lib-python/2.7/ensurepip/_bundled/setuptools-44.0.0-py2.py3-none-any.whl
 rm -rf easy_install.py pkg_resources/ setuptools/ setuptools-44.0.0.dist-info/
 %endif
 
+# Patch the bundled ply for CVE-2025-56005
+patch -p1 < %{SOURCE8}
 
 # Replace /usr/local/bin/python or /usr/bin/env python shebangs with /usr/bin/python2 or pypy2:
 find \( -name "*.py" -o -name "py.cleanup" \) -exec \

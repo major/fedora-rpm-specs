@@ -235,6 +235,9 @@ cmake_opts="-Wno-dev \
 %if %{with qt5}
 %define _vpath_builddir %{_target_platform}-qt5
 %cmake $cmake_opts \
+  -DQCA_PLUGINS_INSTALL_DIR:PATH=%{_qt5_plugindir} \
+  -DQCA_LIBRARY_INSTALL_DIR:PATH=%{_qt5_libdir} \
+  -DQCA_FEATURE_INSTALL_DIR:PATH=%{_qt5_archdatadir}/mkspecs/features \
   -DQCA_INCLUDE_INSTALL_DIR:PATH=%{_qt5_headerdir} \
   -DQCA_PRIVATE_INCLUDE_INSTALL_DIR:PATH=%{_qt5_headerdir}
 
@@ -246,6 +249,9 @@ cmake_opts="-Wno-dev \
 %define _vpath_builddir %{_target_platform}-qt6
 %cmake $cmake_opts \
   -DQT6=ON \
+  -DQCA_PLUGINS_INSTALL_DIR:PATH=%{_qt6_plugindir} \
+  -DQCA_LIBRARY_INSTALL_DIR:PATH=%{_qt6_libdir} \
+  -DQCA_FEATURE_INSTALL_DIR:PATH=%{_qt6_archdatadir}/mkspecs/features \
   -DQCA_INCLUDE_INSTALL_DIR:PATH=%{_qt6_headerdir} \
   -DQCA_PRIVATE_INCLUDE_INSTALL_DIR:PATH=%{_qt6_headerdir}
 

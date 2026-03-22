@@ -7,7 +7,7 @@
 %bcond tests 0
 
 Name:           fedora-repoquery
-Version:        0.8
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Fedora release repos package query tool
 

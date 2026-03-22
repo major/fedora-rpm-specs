@@ -8,6 +8,10 @@ License:        MIT AND PSF-2.0
 URL:            https://github.com/python-cffi/cffi
 Source:         %{url}/archive/v%{version}/cffi-%{version}.tar.gz
 
+# Make test_parsing more resilient to changes in pycparser
+# Fixes test failures with pycparser 3.00, merged upstream
+Patch:          https://github.com/python-cffi/cffi/pull/224.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  make

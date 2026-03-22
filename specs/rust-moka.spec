@@ -14,6 +14,16 @@ URL:            https://crates.io/crates/moka
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          moka-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Add run_flaky_tests to unexpected_cfgs in Cargo.toml. From
+#   https://github.com/moka-rs/moka/pull/584; see Patch10.
+Patch:          moka-fix-metadata.diff
+# * Disable flaky GC-dependent tests by default
+# * https://github.com/moka-rs/moka/pull/584/changes/cfd0da2ec399ad134720dbfb2912c8b06ec4a79d
+# * From https://github.com/moka-rs/moka/pull/584 (source-code change only)
+# * Fixes https://github.com/moka-rs/moka/issues/539
+# * Fixes https://github.com/moka-rs/moka/issues/580
+Patch10:        0001-Disable-flaky-GC-dependent-tests-by-default.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -112,14 +122,12 @@ use the "sync" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * In future::cache::tests::ensure_gc_runs_when_dropping_cache, the number of
-#   references is sometimes different from what upstream expects. This is
-#   similar to (but slightly different from) the flakiness that was observed
-#   upstream in the other ensure_gc_runs_when_dropping_cache test; see
-#   https://github.com/moka-rs/moka/pull/387. We reported this upstream as
-#   “Flaky failures in ensure_gc_runs_when_dropping_cache,”
-#   https://github.com/moka-rs/moka/issues/539.
-%cargo_test -f future,sync -- -- --exact --skip future::cache::tests::ensure_gc_runs_when_dropping_cache
+# * Test cht::segment::tests::drop_many_values_concurrent fails (panicked at
+#   src/cht/segment.rs:1554:13: assertion `left == right` failed, left: 65792,
+#   right: 131072) on builders with a very large number of cores, e.g. 192.
+#   Mentioned upstream in
+#   https://github.com/moka-rs/moka/pull/584#issuecomment-4099205128.
+%cargo_test -f future,sync -- -- --exact --skip cht::segment::tests::drop_many_values_concurrent
 %endif
 
 %changelog

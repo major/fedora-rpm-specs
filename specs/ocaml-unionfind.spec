@@ -1,11 +1,9 @@
-# FIXME: Tests are crippled due to the lack of ocaml-monolith
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-unionfind
-Version:        20250818
+Version:        20260226
 Release:        %autorelease
 Summary:        OCaml implementations of the union-find data structure
 
@@ -17,8 +15,9 @@ Source:         %{url}/-/archive/%{version}/unionfind-%{version}.tar.bz2
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml >= 5.4.0
 BuildRequires:  ocaml-dune >= 3.11
+BuildRequires:  ocaml-store-devel >= 0.1
 
 %description
 The OCaml library unionFind offers two implementations of the union-find data

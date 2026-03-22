@@ -1,6 +1,7 @@
 %global srcname level-zero
 %global lib_version 1.28
 %global patch_version 2
+%global _lto_cflags %nil
 
 Name:           oneapi-%{srcname}
 Version:        %{lib_version}.%{patch_version}

@@ -1,6 +1,6 @@
 Name:           perl-Authen-Radius
-Version:        0.33
-Release:        4%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Authen-Radius
@@ -17,6 +17,7 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper) >= 1
 BuildRequires:  perl(Data::HexDump) >= 0.02
 BuildRequires:  perl(Digest::MD5) >= 2.20
+BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(IO) >= 1.12
@@ -75,6 +76,10 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Fri Mar 20 2026 Paul Howarth <paul@city-fan.org> - 0.34-1
+- Update to 0.34
+  - Re-use original socket in broadcast mode
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

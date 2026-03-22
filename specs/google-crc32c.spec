@@ -17,6 +17,8 @@ License:        BSD-3-Clause
 Summary:        CRC32C implementation with support for CPU-specific acceleration instructions
 Url:            %forgeurl
 Source0:        %forgesource
+# https://github.com/google/crc32c/pull/68
+Patch0:         0001-Fix-CMake-4.0-compatibility.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -39,7 +41,7 @@ developing applications that use %{srcname}.
 
 
 %prep
-%autosetup -n %{reponame}-%{version}
+%autosetup -n %{reponame}-%{version} -p1
 
 
 %build

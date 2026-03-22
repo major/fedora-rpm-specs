@@ -15,7 +15,7 @@
 %bcond twisted %{undefined rhel}
 
 Name:           python-testtools
-Version:        2.8.5
+Version:        2.8.7
 Release:        %autorelease
 Summary:        Extensions to the Python standard library unit testing framework
 

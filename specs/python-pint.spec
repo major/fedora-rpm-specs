@@ -5,14 +5,12 @@
 %bcond babel 0
 # Not yet packaged: python-pint-pandas
 %bcond pandas 0
-# Not yet packaged: python-mip
-%bcond mip 0
 # Requires dask < 2025.3.0 but F43 and Rawhide are at 2025.9.1
 # See: https://github.com/dask/dask-ml/issues/1016
 %bcond dask 0
 
 Name:           python-pint
-Version:        0.25.2
+Version:        0.25.3
 Release:        %autorelease
 Summary:        Physical quantities module
 
@@ -56,9 +54,7 @@ Summary:        %{summary}
 %if %{with pandas}
 %pyproject_extras_subpkg -n python3-pint pandas
 %endif
-%if %{with mip}
-%pyproject_extras_subpkg -n python3-pint mip
-%endif
+%pyproject_extras_subpkg -n python3-pint scipy
 %pyproject_extras_subpkg -n python3-pint matplotlib
 
 %prep
@@ -93,9 +89,7 @@ sed -r -i '1{/^#!/d}' pint/pint_convert.py
 %if %{with dask}
     -x dask \
 %endif
-%if %{with mip}
-    -x mip \
-%endif
+    -x scipy \
     -x matplotlib \
     -x test-all }
 

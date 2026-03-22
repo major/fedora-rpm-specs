@@ -213,6 +213,8 @@ sed "s/throw std::.*;/std::abort();/g" /usr/include/picojson.h > \
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380554)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 #Script to find xxhash is not implemented, just tell cmake it was found
 #Note some items are disabled to avoid bundling
 #Set USE_SYSTEM_LIBS to safe guard against bundling, but it's not fool proof

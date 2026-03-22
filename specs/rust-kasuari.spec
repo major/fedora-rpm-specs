@@ -5,7 +5,7 @@
 %global crate kasuari
 
 Name:           rust-kasuari
-Version:        0.4.11
+Version:        0.4.12
 Release:        %autorelease
 Summary:        Rust layout solver for GUIs, based on the Cassowary algorithm
 

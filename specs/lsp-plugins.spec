@@ -1,6 +1,6 @@
 Name:           lsp-plugins
-Version:        1.2.26
-Release:        2%{?dist}
+Version:        1.2.27
+Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -141,16 +141,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %files
 %license COPYING COPYING.LESSER
 %doc CHANGELOG README.md
-%{_sysconfdir}/xdg/menus/applications-merged/%{name}.menu
 %{_bindir}/%{name}*
 %{_datadir}/applications/*.desktop
-%{_datadir}/desktop-directories/%{name}.directory
 %{_datadir}/icons/hicolor/*x*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.26.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.27.so
 
 %files -n liblsp-r3d-glx-devel
 %{_libdir}/liblsp-r3d-glx-lib.so
@@ -194,6 +192,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Thu Mar 19 2026 Nikolas Nyby <nikolas@gnu.org> - 1.2.27-1
+- Update to 1.2.27
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

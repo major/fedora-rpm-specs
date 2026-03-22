@@ -7,9 +7,8 @@
 %bcond tests 0
 
 Name:           nix
-# 2.32 needs boost >= 1.87 (available in F44+)
-# 2.33 needs aws-crt-cpp
-Version:        2.32.5
+# (2.32+ needs boost >= 1.87 available in F44+)
+Version:        2.33.3
 Release:        %autorelease
 Summary:        A purely functional package manager
 
@@ -21,11 +20,6 @@ Source2:        registry.json
 Source3:        README.md
 Source4:        nix.sysusers
 Source5:        nix-filesystem.conf
-# disable mdbook
-# https://github.com/NixOS/nix/issues/14548
-Patch4:         nix-disable-mdbook.patch
-# https://github.com/NixOS/nix/pull/14593
-Patch5:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14593.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2425413
 # https://github.com/NixOS/nix/pull/14922
 Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14922.patch
@@ -209,6 +203,10 @@ MESON_OPTS=(
     -Dlibstore:sandbox-shell=%{_bindir}/busybox
     -Dnix:profile-dir=%{_sysconfdir}/profile.d
     -Dunit-tests=%[%{with tests}?"true":"false"]
+    -Dlibstore:s3-aws-auth=disabled
+    -Dnix-manual:html-manual=false
+    -Djson-schema-checks=false
+    -Dkaitai-struct-checks=false
 %ifarch x86_64
 # missing from epel10: https://bugzilla.redhat.com/show_bug.cgi?id=2368495
 %if %{undefined fedora}
@@ -307,6 +305,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %{_includedir}/nix
 %{_includedir}/nix_api_*.h
 %{_includedir}/nix_api_*.hh
+%{_includedir}/nix_api_store/*.h
 %{_libdir}/libnixcmd.so
 %{_libdir}/libnixexpr.so
 %{_libdir}/libnixexprc.so

@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        11%{?rc_version:.%rc_version}%{?dist}
+Release:        12%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1971,6 +1971,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-12
+- Rebuild against Samba 4.24.0
+
 * Thu Mar 19 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-11
 - Ensure proper error code return in case MS-PAC generator not yet enabled
 - Resolves: rhbz#2448253

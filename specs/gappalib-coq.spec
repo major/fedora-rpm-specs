@@ -1,21 +1,14 @@
-# Coq's plugin architecture requires cmxs files, so:
-ExclusiveArch: %{ocaml_native_compiler}
-
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 # TESTING NOTE: The testsuite requires that gappalib-coq be installed already.
 # Hence, we cannot run it on the koji builders.  The maintainer should always
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.20.1
-%global commit  655554b0ed11d64e534143a200be5ddab8179c3d
+%global rocqver 9.1.1
+%global commit  20d239160d980d452f39f06e0f428ffb0e8e4dd4
 %global giturl  https://gitlab.inria.fr/gappa/coq
 
 Name:           gappalib-coq
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Coq support library for gappa
 
@@ -24,9 +17,13 @@ URL:            https://gappa.gitlabpages.inria.fr/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/-/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
+# Coq's plugin architecture requires cmxs files
+ExclusiveArch:  %{ocaml_native_compiler}
+
 BuildRequires:  autoconf
+BuildRequires:  coq-core-compat = %{rocqver}
 BuildRequires:  gcc-c++
-BuildRequires:  coq = %{coqver}
+BuildRequires:  rocq = %{rocqver}
 BuildRequires:  flocq
 BuildRequires:  gappa
 BuildRequires:  ocaml
@@ -34,7 +31,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-zarith-devel
 BuildRequires:  remake
 
-Requires:       coq%{?_isa} = %{coqver}
+Requires:       rocq%{?_isa} = %{rocqver}
 Requires:       flocq
 Requires:       gappa
 

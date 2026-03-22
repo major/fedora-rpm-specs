@@ -1,4 +1,4 @@
-%global blender_api 5.0
+%global blender_api 5.1
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %global _without_bundled_deps 1
 
@@ -12,7 +12,6 @@
 %bcond nanovdb    1   # NanoVDB support
 %bcond ninja      1   # Use Ninja build system
 %bcond openvdb    1   # OpenVDB support
-%bcond sdl        0   # SDL backend
 %bcond system_eigen3 1 # Use system Eigen3
 %bcond vulkan     1   # Vulkan rendering support
 
@@ -48,7 +47,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -96,12 +95,14 @@ BuildRequires:  ninja-build
 %endif
 
 # System libraries
+BuildRequires:  mold
 BuildRequires:  pkgconfig(blosc)
 %if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
 %endif
 BuildRequires:  pkgconfig(epoxy) >= 1.5.10
 BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(gmp)
 %if %{with hidapi}
 BuildRequires:  pkgconfig(hidapi-hidraw)
@@ -117,13 +118,15 @@ BuildRequires:  pkgconfig(shaderc)
 BuildRequires:  pkgconfig(vulkan)
 %endif
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xxf86vm)
-BuildRequires:  subversion-devel
+# Required only for aarch64 architecture
+%ifarch aarch64
+BuildRequires:  sse2neon-devel
+%endif
 
 # Python stuff
 BuildRequires:  python3dist(setuptools)
@@ -222,6 +225,7 @@ BuildRequires:  pkgconfig(libzstd)
 
 # 3D modeling stuff
 BuildRequires:  cmake(ceres)
+BuildRequires:  flexiblas-devel
 %if %{with embree}
 BuildRequires:  embree-devel
 %endif
@@ -234,9 +238,11 @@ BuildRequires:  cmake(materialx)
 BuildRequires:  materialx-data
 BuildRequires:  python3-materialx
 %endif
+BuildRequires:  metis-devel
 BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
 # Use oslc compiler
+BuildRequires:  OpenImageIO-plugin-osl
 BuildRequires:  openshadinglanguage-common-headers >= 1.12.6.2
 BuildRequires:  pkgconfig(oslcomp)
 %endif
@@ -256,7 +262,6 @@ BuildRequires:  pkgconfig(openxr)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(ode)
-BuildRequires:  pkgconfig(sdl2)
 %if %{with usd}
 BuildRequires:  usd-devel
 %endif
@@ -410,16 +415,16 @@ export HIP_CLANG_PATH=`hipconfig -l`
 %install
 %cmake_install
 
-%if %{with manpage}
+#%if %{with manpage}
 # See source/creator/CMakeLists.txt.
 # This doesn’t work in %%cmake_install because the assumption is that the
 # blender executable and the libraries are installed directly to the correct
 # system-wide paths. It is easier to re-run the man-page generator manually
 # than to patch out this assumption.
-LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %{python3} doc/manpage/blender.1.py \
-    --blender '%{buildroot}%{_bindir}/blender' \
-    --output '%{buildroot}%{_mandir}/man1/blender.1'
-%endif
+#LD_LIBRARY_PATH='%%{buildroot}%%{_libdir}' %{python3} doc/manpage/blender.1.py \
+#    --blender '%%{buildroot}%%{_bindir}/blender' \
+#    --output '%%{buildroot}%%{_mandir}/man1/blender.1'
+#%%endif
 
 # Additional installs
 mkdir -p %{buildroot}%{macrosdir}

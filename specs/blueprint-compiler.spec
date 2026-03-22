@@ -1,13 +1,13 @@
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
+
 Name:           blueprint-compiler
-Version:        0.20.0
+Version:        0.20.4
 Release:        %autorelease
 Summary:        A markup language for GTK user interfaces
-
-%global tarball_version %%(echo %{version} | tr '~' '.')
-
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/blueprint-compiler
-Source0:        https://download.gnome.org/sources/%{name}/0.20/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 

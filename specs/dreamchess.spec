@@ -7,7 +7,7 @@
 
 Name:           dreamchess
 Version:        0.3.0%{?cdate0:~%{cdate0}git}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Portable chess game
 # GPL-3.0-or-later generally for most of sources
 # but BSD-3-Clause for dreamchess/src/include/gamegui/queue.h
@@ -86,6 +86,8 @@ Boards, Pieces, Sounds, Styles, Themes.
 %autosetup %{?cdate0:-n %{name}-%{commit0}}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380557)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
  -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name}
 %cmake_build
@@ -184,6 +186,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Mar 20 2026 Cristian Le <git@lecris.dev> - 0.3.0-8
+- Allow to build with CMake 4.0 (rhbz#2380557)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

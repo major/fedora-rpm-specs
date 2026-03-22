@@ -13,8 +13,8 @@ encrypted JSON objects.}
 
 
 Name:           python-%{pkgname}
-Version:        2.10.1
-Release:        3%{?dist}
+Version:        2.12.1
+Release:        2%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
 URL:            https://github.com/jpadilla/pyjwt
@@ -59,7 +59,7 @@ sed -e '/coverage\[toml\]/d' \
 
 
 %check
-%pytest -k 'not (test_ec_to_jwk_with_invalid_curve or test_get_jwt_set_sslcontext_default)'
+%pytest -k 'not (test_ec_to_jwk_with_invalid_curve or test_get_jwt_set_sslcontext_default or test_ec_curve_validation_rejects_p192_for_es256 or test_ec_curve_validation_with_pem_key)'
 
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
@@ -67,6 +67,9 @@ sed -e '/coverage\[toml\]/d' \
 
 
 %changelog
+* Fri Mar 20 2026 Miroslav Suchy <msuchy@redhat.com> - 2.12.1-2
+- Rebase to 2.12.1 (RHBZ#2435560)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

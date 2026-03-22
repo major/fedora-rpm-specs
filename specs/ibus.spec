@@ -58,7 +58,7 @@
 Name:           ibus
 Version:        1.5.34~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -583,6 +583,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sat Mar 21 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-4
+- Rebuild for overrided build of cldr-emoji-annotation-48.2-1.fc44
+
 * Thu Mar 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-3
 - Resolves #2448611 Check WAYLAND_DISPLAY in ibus.conf
 

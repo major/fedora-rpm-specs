@@ -55,6 +55,8 @@ Kronometer is a stopwatch application.
 
 
 %build
+# fixed upstream with Qt6 port
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5} \
   -DBUILD_TESTING:BOOL=%{?with_tests:ON}%{!?with_tests:OFF}
 %cmake_build

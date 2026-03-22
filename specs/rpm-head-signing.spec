@@ -10,15 +10,12 @@
 %global srcname rpm_head_signing
 
 Name:           rpm-head-signing
-Version:        1.7.4
-Release:        12%{?dist}
+Version:        1.7.6
+Release:        1%{?dist}
 Summary:        Small python module to extract RPM header and file digests
 License:        MIT
 URL:            https://github.com/fedora-iot/rpm-head-signing
 Source0:        %url/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# Make this build with RPM 6
-Patch:          https://github.com/fedora-iot/rpm-head-signing/pull/80.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Plus, python3dist(xattr) is missing on i686
@@ -91,6 +88,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} SKIP_IMA_LIVE_CHECK=true python3 test
 
 
 %changelog
+* Fri Mar 20 2026 Coiby Xu <coxu@redhat.com> - 1.7.6-1
+- Update to 1.7.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-xmlrpc
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -18,19 +18,23 @@
 %global rclower     rc3
 # After 20-xml
 %global ini_name    30-%{pecl_name}.ini
-%global sources     %{pecl_name}-%{upver}%{?rcver}
 
+# Github forge
+%global gh_vend      php
+%global gh_proj      pecl-networking-xmlrpc
+%global forgeurl     https://github.com/%{gh_vend}/%{gh_proj}
+%global tag          %{pecl_name}-%{upver}%{?rcver}
 
-Summary:        Functions to write XML-RPC servers and clients
 Name:           php-pecl-%{pecl_name}
-Version:        %{upver}%{?rclower:~%{rclower}}
-Release:        17%{?dist}
-
+Summary:        Functions to write XML-RPC servers and clients
 # Extension is PHP
 # Library is MIT
 License:        PHP-3.01 AND MIT
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        %{upver}%{?rclower:~%{rclower}}
+Release:        18%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 Patch0:         %{pecl_name}-tests.patch
 
@@ -39,7 +43,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 8.0
-BuildRequires:  php-pear
 BuildRequires:  php-xml
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -67,14 +70,8 @@ this extension.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-sed -e 's/role="test"/role="src"/' \
-    -e '/COPYING/s/role="doc"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 %patch -P0 -p1 -b .up
 
 # Check version as upstream often forget to update this
@@ -83,7 +80,6 @@ if test "x${extver}" != "x%{upver}%{?rcver}%{?gh_date:-dev}"; then
    : Error: Upstream RECODE version is ${extver}, expecting %{upver}%{?rcver}%{?gh_date:-dev}.
    exit 1
 fi
-cd ..
 
 # Create configuration file
 cat << 'EOF' | tee %{ini_name}
@@ -99,7 +95,6 @@ peclconf() {
     --with-php-config=$1
 }
 
-cd %{sources}
 %{__phpize}
 
 peclconf %{__phpconfig}
@@ -108,21 +103,11 @@ make %{?_smp_mflags}
 
 %install
 # Install the extension
-make -C %{sources} install INSTALL_ROOT=%{buildroot}
+make install INSTALL_ROOT=%{buildroot}
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-# Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-# Test & Documentation
-for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
 
 
 %check
-cd %{sources}
-
 : Minimal load test
 %{__php} --no-php-ini \
     --define extension=xml \
@@ -138,16 +123,18 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %files
-%license %{sources}/LICENSE
-%license %{sources}/libxmlrpc/COPYING
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%license libxmlrpc/COPYING
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Fri Mar 20 2026 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-11
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

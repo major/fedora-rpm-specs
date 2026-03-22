@@ -81,6 +81,12 @@ Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar
 #  __pypy, pypy_sitelib, pypy_sitearch
 Source2: macros.pypy3
 
+# Patch the bundled ply within the bundled pycparser for CVE-2025-56005
+# Unsafe pickle file handling in Ply
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2431308
+# Downstream only. Ply has been retired as a project
+Source3: pycparser-ply-CVE-2025-56005.patch
+
 # By default, if built at a tty, the translation process renders a Mandelbrot
 # set to indicate progress.
 # This obscures useful messages, and may waste CPU cycles, so suppress it, and
@@ -306,6 +312,8 @@ rm lib-python/3/ensurepip/_bundled/*.whl
 echo "build_time_vars['WHEEL_PKG_DIR'] = '%{python_wheel_dir}'" >> lib_pypy/_sysconfigdata.py
 %endif
 
+# Patch the bundled ply for CVE-2025-56005
+patch -p1 < %{SOURCE3}
 
 # Replace /usr/local/bin/python or /usr/bin/env python shebangs with /usr/bin/python2 or pypy2:
 find -name "*.py" -exec \

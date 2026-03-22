@@ -5,7 +5,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        32.0
+Version:        32.1
 Release:        %autorelease
 Summary:        Framework for source code analysis of C software
 
@@ -40,6 +40,9 @@ Patch:          %{name}-bytes.patch
 
 # Expose use of math library symbols to RPM
 Patch:          %{name}-mathlib.patch
+
+# Work around a change in dune behavior
+Patch:          %{name}-dune-bug.patch
 
 BuildRequires:  alt-ergo
 BuildRequires:  clang

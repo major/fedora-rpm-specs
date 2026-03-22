@@ -120,7 +120,7 @@ EOF
 CXXFLAGS="%{optflags} -fPIC"
 CFLAGS="%{optflags} -fPIC"
 
-%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_QT_VERSION=6 -DENABLE_GTK=ON -DUSE_GTK_VERSION=4
+%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_QT_VERSION=6 -DENABLE_GTK=ON -DUSE_GTK_VERSION=4 %{?flatpak:-DWITH_SYSTEMD=OFF}
 %cmake_build
 
 # Re-enable if DhtTest.usesBootstrapFile passes
@@ -128,8 +128,6 @@ CFLAGS="%{optflags} -fPIC"
 #%%ctest
 
 %install
-mkdir -p %{buildroot}%{_unitdir}
-install -m0644 redhat-linux-build/daemon/transmission-daemon.service  %{buildroot}%{_unitdir}/
 mkdir -p %{buildroot}%{_sharedstatedir}/transmission
 %cmake_install
 
@@ -180,7 +178,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 
 %files daemon
 %{_bindir}/transmission-daemon
+%if !0%{?flatpak}
 %{_unitdir}/transmission-daemon.service
+%endif
 %attr(-,transmission, transmission)%{_sharedstatedir}/transmission/
 %doc %{_mandir}/man1/transmission-daemon*
 %{_sysusersdir}/transmission.conf

@@ -1,4 +1,4 @@
-%global commit 2ce8d3ffbdc10bcbf9f3c42b80ef69babca98522
+%global commit feac411597cba3c652c0ff7977e7fce84ade4f0f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # not compatible with newer clang versions
@@ -14,8 +14,6 @@ Summary: Library to compile OpenCL C kernels to SPIR-V modules
 License: NCSA
 URL:     https://github.com/intel/opencl-clang
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-#Fix build
-Patch0: Fix_SPIRV-LLVM-Translator_header_file_patch_in_out-of-tree_build.patch
 
 BuildRequires: cmake
 BuildRequires: clang%{?llvm_compat}

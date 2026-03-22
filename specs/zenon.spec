@@ -1,15 +1,10 @@
-# Coq's plugin architecture requires cmxs files, so:
-ExclusiveArch: %{ocaml_native_compiler}
-
-%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
-%endif
-%global coqver  8.20.1
+%global rocqver 9.1.1
 %global giturl  https://github.com/zenon-prover/zenon
 
 Name:		zenon
 Version:	0.8.5
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -21,14 +16,22 @@ Source3:	%{name}-tptp-ReadMe
 # Basic documentation (man pages). Submitted upstream 2008-07-25:
 Source4:	%{name}.1
 Source5:	%{name}-format.5
+# Update deprecated usage
+Patch:          %{name}-deprecated.patch
 
-BuildRequires:	coq = %{coqver}
+# Rocq's plugin architecture requires cmxs files
+ExclusiveArch:  %{ocaml_native_compiler}
+
+BuildRequires:	coq-core-compat = %{rocqver}
+BuildRequires:	rocq = %{rocqver}
+BuildRequires:	rocq-stdlib
 BuildRequires:	ghostscript
 BuildRequires:	ImageMagick
 BuildRequires:	make
 BuildRequires:	ocaml
 
-Requires:	coq%{?_isa} = %{coqver}
+Requires:	rocq%{?_isa} = %{rocqver}
+Requires:	rocq-stdlib%{?_isa}
 Requires:	coreutils
 
 %description
@@ -39,7 +42,7 @@ Coq, Focal, and its own Zenon format.  Zenon can directly generate Coq proofs
 specifications.  Zenon can also be extended.
 
 %prep
-%autosetup
+%autosetup -p1
 
 cp -p %{SOURCE1} .
 
@@ -53,14 +56,8 @@ mkdir examples
 cp -p %{SOURCE2} examples/tptp-COM003+2.p
 cp -p %{SOURCE3} examples/tptp-ReadMe
 
-# Work around Makefile errors (fails if no ocamlopt, uses _bytecode_ otherwise)
-%ifarch %{ocaml_native_compiler}
-  make %{?_smp_mflags} zenon.bin
-  cp -p zenon.bin zenon
-%else
-  make %{?_smp_mflags} zenon.byt
-  cp -p zenon.byt zenon
-%endif
+make %{?_smp_mflags} zenon.bin
+cp -p zenon.bin zenon
 # Use of %%{?_smp_mflags} sometimes leads to build failures
 make coq
 
@@ -97,6 +94,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Thu Mar 19 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-39
+- Rebuild for rocq 9.1.1
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-38
 - OCaml 5.4.1 rebuild
 

@@ -3,13 +3,12 @@
 
 Name:		perl-JSON-PP
 Epoch:		1
-Version:	4.16
-Release:	523%{?dist}
+Version:	4.18
+Release:	1%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-PP
 Source0:	https://cpan.metacpan.org/modules/by-module/JSON/JSON-PP-%{version}.tar.gz
-Patch0:		https://patch-diff.githubusercontent.com/raw/makamaka/JSON-PP/pull/93.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -36,7 +35,7 @@ BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Getopt::Long)
 # Test Suite
 BuildRequires:	perl(charnames)
-BuildRequires:	perl(Test::More)
+BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Tie::Array)
 BuildRequires:	perl(Tie::Hash)
 BuildRequires:	perl(vars)
@@ -68,13 +67,6 @@ JSON::PP is a pure-Perl module and is compatible with JSON::XS.
 %prep
 %setup -q -n JSON-PP-%{version}
 
-# Silence Getopt::Long warning (fix already committed upstream)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2417867
-# https://src.fedoraproject.org/rpms/perl-JSON-PP/pull-request/1
-# https://github.com/makamaka/JSON-PP/issues/88
-# https://github.com/makamaka/JSON-PP/pull/93
-%patch -P0 -p1
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -95,6 +87,14 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Fri Mar 20 2026 Paul Howarth <paul@city-fan.org> - 1:4.18-1
+- Update to 4.18
+  - Fix duplicate specification warning (GH#88, GH#93)
+  - Fix typo (GH#92, GH#96)
+  - Fix decode_json prototype
+  - Fix space_after (GH#89)
+  - Fix a reentrancy issue (GH#61, GH#87)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.16-523
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

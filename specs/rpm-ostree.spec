@@ -13,6 +13,7 @@ Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-
 
 Patch0: 0001-rpmostreed-transaction-types-fix-override-reset.patch
 Patch1: 0001-Fix-silent-upgrade-failure-on-container-systems.patch
+Patch2: 0001-deploy-Print-status-message-on-container-early-retur.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10
@@ -256,7 +257,7 @@ $PYTHON autofiles.py > files \
   '%{_libdir}/%{name}' \
   '%{_mandir}/man*/*' \
   '%{_datadir}/dbus-1/system.d/*' \
-  '%{_sysconfdir}/rpm-ostreed.conf' \
+  '%config(noreplace) %{_sysconfdir}/rpm-ostreed.conf' \
   '%{_prefix}/lib/systemd/system/*' \
   '%{_prefix}/lib/kernel/install.d/*' \
   '%{_libexecdir}/rpm-ostree*' \

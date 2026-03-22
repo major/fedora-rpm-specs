@@ -20,8 +20,8 @@
 %global luajit_libdir %{_libdir}/luajit/%{luajit_version}
 %global luajit_builddir obj-luajit
 
-%global real_version 1.51.0
-%global extra_version 2
+%global real_version 1.52.1
+%global extra_version 0
 
 %if 0%{?rhel} && 0%{?rhel} < 9
 # EPEL8's cmake macros have _vpath_builddir defined
@@ -56,14 +56,8 @@ Requires:       lua(abi) = %{lua_version}
 
 Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_version}/luv-%{version}.tar.gz
 
-Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
-Patch1:         lua-luv-disable-udp-test.patch
-# Fix build with lua 5.5
-# https://github.com/luvit/luv/pull/800
-Patch2:         luv-cmake-lua55.patch
-# https://github.com/luvit/luv/pull/811
-Patch3:         lua-luv-fix-lua5.5-thread-dumping.patch
+Patch0:         lua-luv-disable-udp-test.patch
 
 
 %description

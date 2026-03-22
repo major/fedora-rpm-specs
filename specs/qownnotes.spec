@@ -61,7 +61,7 @@ Source100:      https://raw.githubusercontent.com/flathub/org.qownnotes.%{appnam
 # Build with system Botan
 Patch:          0001-Revert-2786-botan-use-botan3-with-cmake.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 20
+%global micro 21
 #global pre ...
 %global pyversion 3.11
 Name:           pypy%{pyversion}
@@ -20,7 +20,6 @@ Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 # pypy/module/unicodedata is Unicode-3.0
 # Bundled cffi is is MIT
 # Bundled pycparser is is BSD-3-Clause
-# Bundled pycparser.ply is BSD-3-Clause
 # Bundled bits from cryptography are Apache-2.0 OR BSD-3-Clause
 # Bundled hpy is MIT
 # Bundled libmpdec is BSD-2-Clause, but currently unused
@@ -105,6 +104,10 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
+
+# Fix JIT translation failure on ppc64le and s390x
+# Sent upstream: https://github.com/pypy/pypy/pull/5394
+Patch10: 010-fix-ppc-s390x-jit-backend.patch
 
 # Build-time requirements:
 
@@ -250,10 +253,7 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 Provides: bundled(python3dist(cffi)) = 1.18.0
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
-Provides: bundled(python3dist(pycparser)) = 2.22
-
-# Find the version in lib_pypy/cffi/_pycparser/ply/__init__.py
-Provides: bundled(python3dist(ply)) = 3.9
+Provides: bundled(python3dist(pycparser)) = 3.00
 
 # Find the version in lib_pypy/_cffi_ssl/cryptography/__about__.py
 Provides: bundled(python3dist(cryptography)) = 2.7
@@ -313,6 +313,8 @@ rm lib-python/3/ensurepip/_bundled/*.whl
 echo "build_time_vars['WHEEL_PKG_DIR'] = '%{python_wheel_dir}'" >> lib_pypy/_sysconfigdata.py
 %endif
 
+# Remove bundled ply
+rm -r lib_pypy/cffi/_pycparser/ply
 
 # Replace /usr/local/bin/python or /usr/bin/env python shebangs with /usr/bin/python2 or pypy2:
 find -name "*.py" -exec \
@@ -764,7 +766,6 @@ CheckPyPy pypy%{pyversion}-c
 %license %{pypylibdir}/LICENSE
 %license %{pypylibdir}/_cffi_ssl/LICENSE
 %license %{pypylibdir}/cffi-*.dist-info/LICENSE
-%license %{pypylibdir}/cffi/_pycparser/ply/LICENSE
 %license %{pypylibdir}/hpy-*.dist-info/LICENSE
 %{pypylibdir}/
 %if %{with rpmwheels}
