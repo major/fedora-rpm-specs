@@ -51,7 +51,7 @@
 
 
 Name:          gdal
-Version:       3.12.2
+Version:       3.12.3
 Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
@@ -880,6 +880,9 @@ done
 
 
 %changelog
+* Sat Mar 21 2026 Sandro Mani <manisandro@gmail.com> - 3.12.3-1
+- Update to 3.12.3
+
 * Mon Feb 09 2026 Sandro Mani <manisandro@gmail.com> - 3.12.2-1
 - Update to 3.12.2
 

@@ -2,12 +2,16 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # Update to submodule revision as in https://github.com/apitrace/apitrace/tree/master/thirdparty when updating
-%global libbacktrace_commit 8602fda64e78f1f46563220f2ee9f7e70819c51d
+%global libbacktrace_commit 793921876c981ce49759114d7bb89bb89b2d3a2d
 %global libbacktrace_shortcommit %(c=%{libbacktrace_commit}; echo ${c:0:7})
 
+# Update to submodule revision as in https://github.com/apitrace/apitrace/tree/master/thirdparty when updating
+%global zstd_commit f8745da6ff1ad1e7bab384bd1f9d742439278e99
+%global zstd_shortcommit %(c=%{zstd_commit}; echo ${c:0:7})
+
 Name:           apitrace
-Version:        13.0
-Release:        6%{?commit:.git%{shortcommit}}%{?dist}
+Version:        14.0
+Release:        1%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -24,8 +28,9 @@ Source0:        apitrace-%{shortcommit}.tar.gz
 Source0:        https://github.com/apitrace/apitrace/archive/%{version}/apitrace-%{version}.tar.gz
 %endif
 Source1:        https://github.com/ianlancetaylor/libbacktrace/archive/%{libbacktrace_commit}/libbacktrace-%{libbacktrace_shortcommit}.tar.gz
-Source2:        qapitrace.desktop
-Source3:        qapitrace.appdata.xml
+Source2:        https://github.com/facebook/zstd/archive/%{zstd_commit}/zstd-%{zstd_shortcommit}.tar.gz
+Source3:        qapitrace.desktop
+Source4:        qapitrace.appdata.xml
 
 # Don't require third-party submodules
 Patch0:         apitrace_nosubmodules.patch
@@ -42,6 +47,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libdwarf-devel
 BuildRequires:  libpng-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  snappy-devel
 BuildRequires:  python3-devel
@@ -84,16 +90,17 @@ This package contains qapitrace, the Graphical frontend for apitrace.
 
 %prep
 %if 0%{?commit:1}
-%autosetup -p1 -n %{name}-%{commit} -a1
+%autosetup -p1 -n %{name}-%{commit}
 %else
-%autosetup -p1 -n %{name}-%{version} -a1
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 # Remove bundled libraries, except khronos headers
-rm -rf `ls -1d thirdparty/* | grep -Ev "(khronos|md5|crc32c|libbacktrace.cmake|support|CMakeLists.txt)"`
+rm -rf `ls -1d thirdparty/* | grep -Ev "(libbacktrace|zstd|khronos|md5|crc32c|libbacktrace.cmake|support|CMakeLists.txt)"`
 
-# Add bundled libbacktrace
-mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
+# Add bundled libbacktrace, zstd
+tar -xzf %{SOURCE1} -C thirdparty/libbacktrace --strip-components=1
+tar -xzf %{SOURCE2} -C thirdparty/zstd --strip-components=1
 
 
 %build
@@ -108,11 +115,11 @@ mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
 rm -rf %{buildroot}%{_docdir}/
 
 # Install desktop file and icon
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE2}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE3}
 install -Dpm 0644 gui/resources/qapitrace.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/qapitrace.png
 
 # Install appdata file
-install -Dpm 0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qapitrace.appdata.xml
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_datadir}/appdata/qapitrace.appdata.xml
 %{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/qapitrace.appdata.xml
 
 # highlight.py is not a script
@@ -142,6 +149,9 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 
 
 %changelog
+* Tue Mar 10 2026 Sandro Mani <manisandro@gmail.com> - 14.0-1
+- Update to 14.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

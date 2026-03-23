@@ -28,7 +28,7 @@ ExcludeArch: s390x
 #%%global relsuf rc4
 
 Name:    openmeeg
-Version: 2.5.15
+Version: 2.5.16
 Release: %autorelease
 Summary: Low-frequency bio-electromagnetism solving forward problems in the field of EEG and MEG
 License: CeCILL-B
@@ -94,7 +94,7 @@ BuildRequires: CGAL-devel
 %endif \
 %if %{with check} \
         -DBUILD_TESTING:BOOL=ON \\\
-        -DTEST_HEAD3:BOOL=OFF \\\
+        -DTEST_HEAD3:BOOL=ON \\\
 %endif \
         -DBUILD_TOOLS:BOOL=ON \\\
         -DENABLE_PACKAGING:BOOL=OFF \\\
@@ -115,7 +115,9 @@ BuildRequires: CGAL-devel
         -DUSE_SYSTEM_zlib:BOOL=ON \\\
         -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -Wno-dev \\\
 %if %{with openblas} \
-        -DBLAS_openblas_LIBRARY:FILEPATH=%{_libdir}/libopenblas.so \\\
+        -DBLAS_mkl_LIBRARY:FILEPATH=%{_libdir}/libopenblas.so \\\
+%else \
+        -DBLAS_flexiblas_LIBRARY:FILEPATH=%{_libdir}/libflexiblas.so \\\
 %endif
 
 %description
@@ -126,7 +128,6 @@ problems of electroencephalography (EEG) and magnetoencephalography (MEG).
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use OpenMEEG.
@@ -136,7 +137,6 @@ developing applications that use OpenMEEG.
 Summary:        OpenMEEG binding for Python3
 %py_provides    python3-%{name}
 %py_provides    python3-OpenMEEG
-
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
@@ -187,15 +187,14 @@ export CXXFLAGS="%{optflags} -I%{_includedir}/openblas"
 
 %if %{with check}
 %check
-export FLEXIBLAS=netlib
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 export PYTHONPATH=%{buildroot}%{python3_sitearch}/%{name}
 %if %{with debug}
 export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
-ctest --test-dir %_vpath_builddir -VV --force-new-ctest-process -j1 --output-on-failure --debug -E 'openmeeg_python_test_python2.py|OpenMEEGMathsTest-full|CM2-Head1'
+ctest --test-dir %_vpath_builddir -VV --force-new-ctest-process -j1 --output-on-failure --debug
 %else
 export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
-%ctest -E 'openmeeg_python_test_python2.py|OpenMEEGMathsTest-full|CM2-Head1'
+%ctest
 %endif
 %endif
 

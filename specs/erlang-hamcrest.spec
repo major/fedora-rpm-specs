@@ -12,7 +12,7 @@ URL:		https://github.com/hyperthunk/%{realname}-erlang
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{git_commit}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-proper
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 Hamcrest is a framework for writing matcher objects allowing 'match' rules to
@@ -20,18 +20,8 @@ be defined declaratively. There are a number of situations where matchers are
 invaluable, such as UI validation, or data filtering, but it is in the area of
 writing flexible tests that matchers are most commonly used.
 
-%prep
-%autosetup -p1 -n %{realname}-erlang-%{git_commit}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
 %check
 # FIXME requires proprietary library - QuickCheck
-#%%{erlang3_test}
 
 %files
 %license LICENCE

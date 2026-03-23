@@ -34,7 +34,7 @@
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
@@ -62,7 +62,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    3%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -219,9 +219,6 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
-* Sat Mar 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
-- Merge back rocm-smi7.2
-
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Add --with preview
 

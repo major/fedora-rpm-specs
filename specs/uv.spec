@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.10.11
+Version:        0.10.12
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -178,7 +178,7 @@ ExcludeArch:    %{ix86}
 
 # Compilation may fail on builders with very many cores (e.g. 192 cores) due to
 # “too many open files.” Try to keep the files/core ratio from getting too low.
-%global _smp_ncpus_max 96
+%global _smp_ncpus_max 72
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper

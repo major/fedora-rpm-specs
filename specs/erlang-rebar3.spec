@@ -1,23 +1,23 @@
-%global realname rebar3
-%global otp_app_name rebar
+%global realname rebar
 
 # Bootstrapping
 %global bootstrap 1
 
-Name:     erlang-%{realname}
+Name:     erlang-%{realname}3
 Version:  3.27.0
 Release:  %autorelease
 Summary:  Tool for working with Erlang projects
 License:  Apache-2.0 and MIT
-URL:      https://github.com/erlang/%{realname}
+URL:      https://github.com/erlang/%{realname}3
 VCS:      git:%{url}.git
-Source0:  %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Source1:  rebar3.escript
+Source0:  %{url}/archive/%{version}/%{realname}3-%{version}.tar.gz
+Source1:  rebar3.sh
 Patch:    erlang-rebar3-0001-Skip-deps.patch
 Patch:    erlang-rebar3-0002-Unbundle-hex_core-ver.-0.7.1.patch
 Patch:    erlang-rebar3-0003-WIP-ignore-deps-on-demand.patch
 Patch:    erlang-rebar3-0004-WIP-prefer-locally-installed-plugins.patch
 Patch:    erlang-rebar3-0005-WIP-don-t-update-packages-if-IGNORE_MISSING_DEPS-is-.patch
+Patch:    erlang-rebar3-0006-Adjust-for-hex_code-ver.-0.15.patch
 %if 0%{?bootstrap}
 # noop
 %else
@@ -62,7 +62,7 @@ Rebar3 is an Erlang tool that makes it easy to create, develop, and release
 Erlang libraries, applications, and systems in a repeatable manner.
 
 %prep
-%autosetup -p1 -n %{realname}-%{version}
+%autosetup -p1 -n %{realname}3-%{version}
 
 %build
 ebin_paths=$(perl -e 'print join(":", grep { !/rebar/} (glob("%{_libdir}/erlang/lib/*/ebin"), glob("%{_datadir}/erlang/lib/*/ebin")))')
@@ -70,7 +70,7 @@ ebin_paths=$(perl -e 'print join(":", grep { !/rebar/} (glob("%{_libdir}/erlang/
 %if 0%{?bootstrap}
 DIAGNOSTIC=1 ./bootstrap bare compile --paths $ebin_paths --separator :
 %else
-DEBUG=1 %{realname} bare compile --paths $ebin_paths --separator :
+DEBUG=1 %{realname}3 bare compile --paths $ebin_paths --separator :
 %endif
 
 %install
@@ -79,20 +79,20 @@ install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/rebar3
 
 mkdir -p %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
 install -p -m644 _build/bootstrap/lib/rebar/ebin/*.beam %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
-install -p -m644 _build/bootstrap/lib/rebar/ebin/%{otp_app_name}.app %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
+install -p -m644 _build/bootstrap/lib/rebar/ebin/%{realname}.app %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
 
 # Copy the contents of priv folder
 cp -a apps/rebar/priv %{buildroot}%{_erllibdir}/%{realname}-%{version}/
 
 mkdir -p %{buildroot}%{_mandir}/man1/
-install -p -m644 manpages/%{realname}.1 %{buildroot}%{_mandir}/man1/
+install -p -m644 manpages/%{realname}3.1 %{buildroot}%{_mandir}/man1/
 
 %files
 %license LICENSE
 %doc README.md rebar.config.sample THANKS
-%{_bindir}/%{realname}
+%{_bindir}/%{realname}3
 %{_datadir}/erlang/lib/%{realname}-%{version}
-%{_mandir}/man1/%{realname}.1*
+%{_mandir}/man1/%{realname}3.1*
 
 %changelog
 %autochangelog

@@ -3,8 +3,7 @@ Version:        1.1.0
 Release:        45%{?dist}
 Summary:        Implementation of OpenAL's ALUT standard
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.0-only
 URL:            http://openal.org/
 Source0:        http://openal.org/openal_webstf/downloads/freealut-1.1.0.tar.gz
 Patch0:         freealut-openal.patch

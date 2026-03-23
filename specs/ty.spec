@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.21
+Version:        0.0.24
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -124,7 +124,6 @@ SourceLicense:  %{shrink:
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # CC0-1.0
 # ISC
 # MIT
@@ -144,7 +143,6 @@ License:        %{shrink:
     MIT AND
     Apache-2.0 AND
     (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR MIT OR Zlib) AND
@@ -168,9 +166,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 94c0a20e3c5b1d9f221b6af800c1e9f649c77388
-%global ruff_baseversion 0.15.5
-%global ruff_snapdate 20260306
+%global ruff_rev beb543b5c666be9fd3f13c88df818f202b63e9d0
+%global ruff_baseversion 0.15.6
+%global ruff_snapdate 20260319
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -198,11 +196,11 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 843c1fd5a148da85e523c1b4ee680226f89986aa
+%global typeshed_rev f8f0794d0fe249c06dc9f31a004d85be6cca6ced
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260227
+%global typeshed_snapdate 20260314
 
 # Downstream patch: always find the system-wide ty executable
 #

@@ -66,15 +66,23 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    4%{?dist}
+Release:    5%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
-License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note)
+License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note) AND NSCA
 # Main license is MIT
 # 
 # This file is GPL-2.0
 # include/amd_smi/impl/amd_hsmp.h
+# esmi_ib_library/include/asm/amd_hsmp.h
+# Both carry this license
+# /* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+# But license check says, incorrectly they are
+# *No copyright* GNU General Public License, Version 2
+#
+# NSCA
+# Covers the bundled esmi_ib_library
 
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -109,6 +117,10 @@ BuildRequires: gtest-devel
 
 %if %{without compat}
 Requires:      python3dist(pyyaml)
+%endif
+
+%if %{with compat}
+Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
 # University of Illinois/NCSA Open Source License
@@ -172,6 +184,7 @@ sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
 
 %build
 %cmake \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
     -DBUILD_TESTS=%build_test \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
@@ -210,6 +223,9 @@ rm -f %{buildroot}/%{pkg_prefix}/bin/amd-smi
 rm -rf %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli
 rm -rf %{buildroot}/%{pkg_prefix}/share/amdsmi
 rm -rf %{buildroot}/%{pkg_prefix}/share/pyproject.toml
+
+# Not going to handle golang in compat mode
+rm -rf %{buildroot}/%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64*
 %endif
 
 # Remove some things
@@ -240,8 +256,8 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %license LICENSE
 %license esmi_ib_library_License.txt 
 %{pkg_prefix}/%{pkg_libdir}/libamd_smi.so.*
-%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
 %if %{without compat}
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
 %{pkg_prefix}/bin/amd-smi
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
@@ -251,8 +267,10 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %{pkg_prefix}/include/amd_smi/
 %{pkg_prefix}/include/*.h
 %{pkg_prefix}/%{pkg_libdir}/libamd_smi.so
-%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd_smi/
+%if %{without compat}
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
+%endif
 
 %if %{with test}
 %files test
@@ -260,6 +278,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Sat Mar 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Merge back amdsmi7.2
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - No python for compat
 

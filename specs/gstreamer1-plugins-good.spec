@@ -35,7 +35,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.28.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -373,6 +373,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Sat Mar 21 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.28.1-3
+- Rebuilt for libvpx-1.16.0
+
 * Fri Mar 06 2026 Wim Taymans <wtaymans@redhat.com> - 1.28.1-2
 - Rebuild for libvpx
 

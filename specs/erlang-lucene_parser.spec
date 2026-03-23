@@ -11,22 +11,13 @@ URL:		https://github.com/basho/riak_search
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{git_commit}/%{realname}-%{version}.tar.gz
 Patch1:		erlang-lucene_parser-0001-Move-tests-to-the-canonical-directory.patch
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 %{summary}.
 
 %prep
 %autosetup -p3 -n riak_search-%{git_commit}/apps/%{realname}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %doc README.txt

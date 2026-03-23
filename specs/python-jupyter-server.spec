@@ -51,7 +51,9 @@ sed -i '/"pre-commit"/d' pyproject.toml
 # ResourceWarning is flaky and causes some test to fail
 # reported: https://github.com/jupyter-server/jupyter_server/issues/1387
 # PytestUnraisableExceptionWarning added to the same report.
-%pytest -vv -W "always:unclosed <socket.socket:ResourceWarning" -W "always::pytest.PytestUnraisableExceptionWarning"
+# DeprecationWarning:pty is ignored because it breaks Python 3.15 compatibility
+# https://github.com/jupyter-server/jupyter_server/issues/1610
+%pytest -vv -W "always:unclosed <socket.socket:ResourceWarning" -W "always::pytest.PytestUnraisableExceptionWarning" -W "ignore::DeprecationWarning:pty"
 %endif
 
 

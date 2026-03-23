@@ -7,7 +7,6 @@
 %bcond tests 0
 
 Name:           nix
-# (2.32+ needs boost >= 1.87 available in F44+)
 Version:        2.33.3
 Release:        %autorelease
 Summary:        A purely functional package manager
@@ -30,6 +29,7 @@ Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/1492
 BuildRequires:  bison
 BuildRequires:  blake3-devel
 BuildRequires:  bzip2-devel
+# boost-1.87 is available in F44
 BuildRequires:  boost-devel >= 1.87
 BuildRequires:  boost-url
 BuildRequires:  brotli-devel
@@ -186,10 +186,6 @@ This package sets up the nix directories and sysusers.
 %autosetup -p1
 
 install -p -m 0644 %{SOURCE3} README.fedora.md
-
-# https://github.com/NixOS/nix/issues/14666
-# remove unicode RLO (0x202E) characters
-sed -i 's/\xe2\x80\xae//g' doc/manual/source/release-notes/rl-2.26.md
 
 
 %build

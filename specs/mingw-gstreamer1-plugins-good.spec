@@ -4,7 +4,7 @@
 
 Name:           mingw-gstreamer1-plugins-good
 Version:        1.28.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
@@ -193,7 +193,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavenc.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
-%{mingw32_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgsty4m.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
@@ -263,7 +262,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavenc.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
-%{mingw64_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgsty4m.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
@@ -277,6 +275,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sat Mar 21 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-2
+- Rebuild (mingw-libsoup)
+
 * Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-1
 - Update to 1.28.1
 

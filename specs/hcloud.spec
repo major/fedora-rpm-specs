@@ -3,7 +3,7 @@
 
 # https://github.com/hetznercloud/cli
 %global goipath         github.com/hetznercloud/cli
-Version:                1.61.0
+Version:                1.62.0
 
 %gometa -L -f
 
@@ -61,7 +61,10 @@ install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%gotest ./...
+%global ignores %{shrink:
+    -s TestVersionLong
+}
+%gocheck2 %{ignores}
 %endif
 
 %files -f %{go_vendor_license_filelist}

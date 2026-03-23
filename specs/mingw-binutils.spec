@@ -3,16 +3,17 @@
 %define enable_new_dtags 0
 
 Name:           mingw-binutils
-Version:        2.45.1
-Release:        2%{?dist}
+Version:        2.46.0
+Release:        1%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 
-URL:            http://www.gnu.org/software/binutils/
-Source0:        https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+URL:            https://www.gnu.org/software/binutils/
+Source0:        https://sourceware.org/pub/binutils/releases/binutils-%{version}.tar.xz
 
-### Patches from native package
+#----------------------------------------------------------------------------
+
 # Purpose:  Use /lib64 and /usr/lib64 instead of /lib and /usr/lib in the
 #           default library search path of 64-bit targets.
 # Lifetime: Permanent, but it should not be.  This is a bug in the libtool
@@ -62,74 +63,45 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 # Lifetime: Permanent.
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
-# Purpose:  Stop gold from aborting when input sections with the same name
-#            have different flags.
-# Lifetime: Fixed in 2.43 (maybe)
-# Patch08: binutils-gold-mismatched-section-flags.patch
-
-# Purpose:  Change the gold configuration script to only warn about
-#            unsupported targets.  This allows the binutils to be built with
-#            BPF support enabled.
-# Lifetime: Permanent.
-# Patch09: binutils-gold-warn-unsupported.patch
-
-# Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
-#            linker for x86 binaries.
-# Lifetime: Permanent.
-# Patch10: binutils-gold-i386-gnu-property-notes.patch
-
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
-# Lifetime: Fixed in 2.44 (maybe ?)
-Patch11: binutils-autoconf-version.patch
+# Lifetime: Fixed in 2.46 (maybe ?)
+Patch08: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch12: binutils-libtool-no-rpath.patch
-
-# Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.44 (maybe)
-# Patch13: binutils-gold-empty-dwp.patch
+Patch09: binutils-libtool-no-rpath.patch
 
 # Purpose:  Fix binutils testsuite failures.
 # Lifetime: Permanent, but varies with each rebase.
-Patch14: binutils-testsuite-fixes.patch
+Patch10: binutils-testsuite-fixes.patch
 
 # Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
 # Lifetime: Permanent, but varies with each rebase.
-Patch15: binutils-riscv-testsuite-fixes.patch
-
-# Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.44 (maybe)
-# Patch16: binutils-gold-pack-relative-relocs.patch
-
-# Purpose:  Let the gold lihnker ignore --error-execstack and --error-rwx-segments.
-# Lifetime: Fixed in 2.44 (maybe)
-# Patch17: binutils-gold-ignore-execstack-error.patch
+Patch11: binutils-riscv-testsuite-fixes.patch
 
 # Purpose:  Fix the ar test of non-deterministic archives.
-# Lifetime: Fixed in 2.44
-Patch18: binutils-fix-ar-test.patch
+# Lifetime: Fixed in 2.46
+Patch12: binutils-fix-ar-test.patch
 
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
-# Lifetime: Fixed in 2.45
-Patch19: binutils-aarch64-small-plt0.patch
+# Lifetime: Fixed in 2.46
+Patch13: binutils-aarch64-small-plt0.patch
 
-# Backport fix for CVE-2025-11494
-# https://sourceware.org/cgit/binutils-gdb/patch/?id=b6ac5a8a5b82f0ae6a4642c8d7149b325f4cc60a
-Patch20:         CVE-2025-11494.patch
-# Backport fix for CVE-2025-11495
-# https://sourceware.org/cgit/binutils-gdb/patch/?id=6b21c8b2ecfef5c95142cbc2c32f185cb1c26ab0
-Patch21:         CVE-2025-11495.patch
-# Backport fix for CVE-2025-11082
-# https://sourceware.org/cgit/binutils-gdb/patch/?id=ea1a0737c7692737a644af0486b71e4a392cbca8
-Patch22:         CVE-2025-11082.patch
-# Backport fix CVE-2025-11081
-# https://sourceware.org/cgit/binutils-gdb/patch/?id=f87a66db645caf8cc0e6fc87b0c28c78a38af59b
-Patch23:         CVE-2025-11081.patch
-# Backport fix for CVE-2025-11083
-# https://sourceware.org/cgit/binutils-gdb/patch/?id=9ca499644a21ceb3f946d1c179c38a83be084490
-Patch24:         CVE-2025-11083.patch
+# Purpose:  Fix ld testsuite failures when enable_textrel is set.
+# Lifetime: Permanent.
+Patch14: binutils-ld-default-z-text.patch
+
+#----------------------------------------------------------------------------
+
+# Purpose:  Remove the Build protected-func-2 without PIE linker tests
+#            as these are currently failing.
+# Lifetime: TEMPORARY - should be fixed by the 2.46 release.
+Patch15: binutils-remove-ld-protected-func-2-test.patch
+
+# Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10.
+# Lifetime: TEMPORARY
+Patch16: binutils-suppress-ld-align-tests.patch
 
 
 BuildRequires:  make
@@ -214,6 +186,7 @@ CFLAGS="%{optflags}" \
   --build=%_build --host=%_host \
   --target=%{mingw32_target} \
   --disable-nls \
+  --disable-werror \
   --with-sysroot=%{mingw32_sysroot} \
   --prefix=%{_prefix} \
   --bindir=%{_bindir} \
@@ -232,6 +205,7 @@ CFLAGS="%{optflags}" \
   --build=%_build --host=%_host \
   --target=%{mingw64_target} \
   --disable-nls \
+  --disable-werror \
   --with-sysroot=%{mingw64_sysroot} \
   --prefix=%{_prefix} \
   --bindir=%{_bindir} \
@@ -250,6 +224,7 @@ CFLAGS="%{optflags}" \
   --build=%_build --host=%_host \
   --target=%{ucrt64_target} \
   --disable-nls \
+  --disable-werror \
   --with-sysroot=%{ucrt64_sysroot} \
   --prefix=%{_prefix} \
   --bindir=%{_bindir} \
@@ -270,6 +245,7 @@ CFLAGS="%{optflags}" \
   --target=%{mingw64_target} \
   --enable-targets=%{mingw64_target},%{mingw32_target},%{ucrt64_target} \
   --disable-nls \
+  --disable-werror \
   --with-sysroot=%{mingw64_sysroot} \
   --prefix=%{_prefix} \
   --bindir=%{_bindir} \
@@ -391,6 +367,7 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 %{_prefix}/%{mingw32_target}/bin/ranlib
 %{_prefix}/%{mingw32_target}/bin/readelf
 %{_prefix}/%{mingw32_target}/bin/strip
+%{_prefix}/%{mingw32_target}/bin/windres
 %{_prefix}/%{mingw32_target}/lib/ldscripts
 
 %files -n mingw64-binutils
@@ -425,6 +402,7 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 %{_prefix}/%{mingw64_target}/bin/ranlib
 %{_prefix}/%{mingw64_target}/bin/readelf
 %{_prefix}/%{mingw64_target}/bin/strip
+%{_prefix}/%{mingw64_target}/bin/windres
 %{_prefix}/%{mingw64_target}/lib/ldscripts
 
 %files -n ucrt64-binutils
@@ -459,10 +437,14 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 %{_prefix}/%{ucrt64_target}/bin/ranlib
 %{_prefix}/%{ucrt64_target}/bin/readelf
 %{_prefix}/%{ucrt64_target}/bin/strip
+%{_prefix}/%{ucrt64_target}/bin/windres
 %{_prefix}/%{ucrt64_target}/lib/ldscripts
 
 
 %changelog
+* Sun Feb 22 2026 Sandro Mani <manisandro@gmail.com> - 2.46.0-1
+- Update to 2.46.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.45.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

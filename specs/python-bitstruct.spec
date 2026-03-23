@@ -6,14 +6,13 @@ have a similar interface as the python struct module, but working on \
 bits instead of primitive data types (char, int, …).
 
 Name:           python-%{pypi_name}
-Version:        8.22.0
+Version:        8.22.1
 Release:        %autorelease
 Summary:        Interpret strings as packed binary data
 License:        MIT
 URL:            https://github.com/eerimoq/bitstruct
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/bitstruct-%{version}.tar.gz
-Patch:          python-bitstruct-0001-PATCH-Fix-float16-pack-unpack-on-big-endian-systems.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  python3-pytest

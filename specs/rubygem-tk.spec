@@ -1,8 +1,8 @@
 %global	gem_name	tk
 
 Name:		rubygem-%{gem_name}
-Version:	0.5.1
-Release:	7%{?dist}
+Version:	0.6.0
+Release:	1%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -16,15 +16,18 @@ Summary:	Tk interface module using tcltklib
 License:	BSD-2-Clause OR Ruby
 URL:		https://github.com/ruby/tk
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/ruby/tk/pull/66
-# Support C23 with strict function prototype declaration
-Patch0:	rubygem-tk-pr66-c23-fuction-prototype.patch
+# https://github.com/ruby/tk/pull/82
+# Fix regex in some codes to support tk 9 properly
+Patch0:	rubygem-tk-pr82-fix-tk9-regex.patch
+# https://github.com/ruby/tk/pull/84
+# Fix FrozenError in toUTF8 during figmemo_sample.rb demo
+Patch1:	rubygem-tk-pr84-fix-frozen_error-on-demo.patch
 
 BuildRequires:	gcc
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby-devel
-BuildRequires:	pkgconfig(tk) <= 8.999
+BuildRequires:	pkgconfig(tk) >= 9
 Obsoletes:		ruby-tcltk < 2.4.0
 # No provides for now
 
@@ -42,8 +45,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch -P0 -p1 -b .c23
 mv ../%{gem_name}-%{version}.gemspec .
+
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 grep -rlZ /usr/local/bin . | \
@@ -117,6 +122,11 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Sat Mar 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.0-1
+- 0.6.0
+- Use tk 9
+- Backport some upstream fixes for tk9
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
