@@ -1,6 +1,6 @@
 Name:           radiotray-ng
 Version:        0.2.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Internet radio player
 
 License:        GPL-3.0-or-later
@@ -12,7 +12,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         radiotray-ng-0.2.9-include_cstdint.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  boost-devel
 BuildRequires:  wxGTK-devel
@@ -41,7 +41,7 @@ sed -i '/execute_process(COMMAND lsb_release/d' package/CMakeLists.txt
 sed -i "s|#include <string>|#include <string>\n#include <cstdint>|" include/radiotray-ng/i_config.hpp
 
 %build
-%cmake3 \
+%cmake \
     -DLSB_RELEASE_EXECUTABLE="lsb_release" \
     -DDISTRIBUTOR_ID="fedora"
 %cmake_build
@@ -78,6 +78,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rtng-bookmark-editor.
 
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.2.9-7
+- Rebuild (jsoncpp)
+- Fix BR and macro for cmake
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

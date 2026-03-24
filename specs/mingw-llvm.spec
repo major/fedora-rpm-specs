@@ -10,14 +10,17 @@
 
 
 %global pkgname llvm
-%global libver 21
+%global libver 22
 
 Name:          mingw-%{pkgname}
-Version:       21.1.8
-Release:       2%{?dist}
+Version:       22.1.1
+Release:       1%{?dist}
 Summary:       LLVM for MinGW
-# Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
-ExcludeArch:   i686
+# i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
+# s390x: mysterious link error
+# Linking CXX executable ../../bin/llvm-jitlink.exe
+# collect2: error: ld returned 1 exit status
+ExcludeArch:   i686 s390x
 
 License:       NCSA
 URL:           http://llvm.org
@@ -27,6 +30,8 @@ Patch0:        llvm-no-benchmarks.patch
 # Don't export all symbols
 # Avoid ld: error: export ordinal too large
 Patch1:        llvm-shlib-syms.patch
+
+#Patch100: llvm-no-jitlink.patch
 
 BuildRequires: chrpath
 BuildRequires: make
@@ -101,8 +106,8 @@ LLVM for MinGW Windows - Runtime tools.
 
 
 %prep
-%autosetup -p1 -n llvm-project-%{version}.src
-
+%autosetup -n llvm-project-%{version}.src -N
+%autopatch -p1 -M 99
 
 %build
 pushd llvm
@@ -142,7 +147,7 @@ CMAKE_OPTS="
      -DLLVM_INCLUDE_UTILS=OFF \
      -DLLVM_INCLUDE_EXAMPLES=OFF \
      -DLLVM_INCLUDE_TESTS=OFF \
-     -DLLVM_BUILD_TOOLS=OFF \
+     -DLLVM_BUILD_TOOLS=ON \
      -DBUILD_SHARED_LIBS=OFF \
      -DLLVM_BUILD_LLVM_DYLIB=ON \
      -DLLVM_ENABLE_BINDINGS=OFF \
@@ -250,6 +255,12 @@ popd
 
 
 %changelog
+* Sun Mar 22 2026 Sandro Mani <manisandro@gmail.com> - 22.1.1-1
+- Update to 22.1.1
+
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 22.1.0-1
+- Update to 22.1.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

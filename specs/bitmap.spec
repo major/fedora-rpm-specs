@@ -1,23 +1,25 @@
-Name: bitmap
-Version: 1.1.1
-Release: %autorelease
-Summary: Bitmaps editor and converter utilities for the X Window System
-Url: http://www.x.org
+Name:           bitmap
+Version:        1.1.2
+Release:        %autorelease
+Summary:        Bitmaps editor and converter utilities for the X Window System
+License:        MIT
+URL:            https://www.x.org
+Source0:        https://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.xz
+Source1:        bitmap.desktop
+Source2:        bitmap.png
 
-Source0: http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.xz
-Source1: bitmap.desktop
-Source2: bitmap.png
-
-License: MIT
-
-# libXaw-devel requires libXmu-devel 
-# libXmu-devel requires libX11-devel, libXt-devel, xorg-x11-util-macros
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
-BuildRequires: xorg-x11-xbitmaps libXaw-devel libXext-devel
-BuildRequires: desktop-file-utils pkgconfig
-BuildRequires: make
-# also needed at runtime
-Requires: xorg-x11-xbitmaps
+BuildRequires:  make
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xaw7)
+BuildRequires:  pkgconfig(xbitmaps)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xmu)
+BuildRequires:  pkgconfig(xproto) >= 7.0.25
+BuildRequires:  pkgconfig(xt)
+
+Requires:       xorg-x11-xbitmaps
 
 %description
 Bitmap provides a bitmap editor and misc converter utilities for the X
@@ -27,30 +29,32 @@ The package also includes files defining bitmaps associated with the
 Bitmap x11 editor.
 
 %prep
-%setup -q
-
+%autosetup
 
 %build
-%configure --disable-dependency-tracking
+%configure
 %make_build AM_LDFLAGS=-lXmu
 
 %install
-%make_install INSTALL='install -p'
+%make_install INSTALL="install -p"
 
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
-install -p -m644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
+install -p -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/bitmap.desktop
 
 %files
-# COPYING is a stub!
-%doc ChangeLog
+%license COPYING
+%doc ChangeLog README.md
 %{_bindir}/atobm
 %{_bindir}/bmtoa
 %{_bindir}/bitmap
 %{_includedir}/X11/bitmaps/*
 %{_datadir}/X11/app-defaults/Bitmap*
-%{_datadir}/applications/*bitmap*
+%{_datadir}/applications/bitmap.desktop
 %{_datadir}/icons/hicolor/32x32/apps/bitmap.png
 %{_mandir}/man1/*.1*
 

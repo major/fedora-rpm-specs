@@ -70,8 +70,8 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 4
-%global minor_version 2
-%global patch_version 3
+%global minor_version 3
+%global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 2
@@ -121,8 +121,6 @@ Source6:        %{name}.req
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 # TODO: Find better wat to handle this
 Patch100:       %{name}-findruby.patch
-# apply upstream fix for FindLua.cmake which is ... not getting pulled into their tarballs?!?
-Patch101:	https://github.com/Kitware/CMake/commit/261b7b933c6604095687d473503e24bae6ec0d6f.patch
 
 # TODO: Remove this patch
 # Patch for renaming on EPEL
@@ -620,6 +618,13 @@ popd
 
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 4.3.0-2
+- Rebuild (jsoncpp)
+
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 4.3.0-1
+- cmake-4.3.0
+  Fixes rhbz#2448436
+
 * Mon Feb 16 2026 Cristian Le <git@lecris.dev> - 4.2.3-2
 - Default generator to Ninja (rhbz#2376112)
 

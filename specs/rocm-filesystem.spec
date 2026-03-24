@@ -49,7 +49,14 @@ Url:            https://fedoraproject.org
 License:        MIT
 
 # the devel subpackage is only headers and cmake infra
+%if 0%{?suse_version}
+# OBS has many complaints like this
+# [   13s] rocm-filesystem.noarch: E: filelist-forbidden-noarch (Badness: 10000) /usr/lib64/rocm
+# Only have x86_64 for suse
+ExclusiveArch:  x86_64
+%else
 BuildArch: noarch
+%endif
 
 %if %{with compat}
 BuildRequires: rocm-filesystem

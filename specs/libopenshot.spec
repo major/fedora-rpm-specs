@@ -61,7 +61,7 @@ CVOutline:Outline_Tests
 
 Name:           libopenshot
 Version:        0.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -177,6 +177,9 @@ export QT_QPA_PLATFORM=offscreen
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.5.0-5
+- Rebuild (jsoncpp)
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 0.5.0-4
 - Rebuilt for OpenCV 4.13
 

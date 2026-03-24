@@ -53,7 +53,7 @@ Requires:  %{name}-doc = %{version}-%{release}
 
 %package doc
 Summary: Documentation for %{name}
-License: GFDL
+License: GFDL-1.2-or-later
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
 %description doc

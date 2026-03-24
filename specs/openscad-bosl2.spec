@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/BelfrySCAD/BOSL2
-%global version 2.0.727
+%global version 2.0.730
 
 %forgemeta
 
@@ -42,7 +42,8 @@ done
 
 
 %check
-./scripts/run_tests.sh
+# Missing dependency openscad-test
+# ./scripts/run_tests.sh
 
 
 %files

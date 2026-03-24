@@ -1,10 +1,10 @@
 Name:           perl-JSON
 Summary:        Parse and convert to JSON (JavaScript Object Notation)
-Version:        4.10
-Release:        9%{?dist}
+Version:        4.11
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/JSON
-Source0:        https://cpan.metacpan.org/modules/by-module/JSON/JSON-%{version}.tar.gz
+URL:            https://metacpan.org/dist/JSON
+Source0:        https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/JSON-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -26,14 +26,14 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Math::BigFloat)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Scalar::Util) >= 1.08
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # subs not used
 # Tests
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::IxHash)
@@ -119,6 +119,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 4.11-1
+- Update to 4.11
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

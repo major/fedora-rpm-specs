@@ -3,7 +3,7 @@
 
 # https://github.com/linuxdeepin/dde-api
 %global goipath         github.com/linuxdeepin/dde-api
-Version:                6.0.34
+Version:                6.0.37
 %global tag %{version}
 
 %gometa -L -f

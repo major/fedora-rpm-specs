@@ -3,7 +3,7 @@ Version:        1.1.10
 Release:        20%{?dist}
 Summary:        Yubico Universal 2nd Factor (U2F) Host C Library
 
-License:        GPLv3 and LGPLv2
+License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            http://developers.yubico.com/%{name}/
 Source0:        http://developers.yubico.com/%{name}/releases/%{name}-%{version}.tar.xz
 
@@ -27,7 +27,6 @@ U2F protocol. There are APIs to talk to a U2F device and perform the U2F
 Register and U2F Authenticate operations.
 
 %package -n u2f-host
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Summary:        Command-line tool for U2F devices
 Requires:       %{name}%{?_isa} = %{version}-%{release}

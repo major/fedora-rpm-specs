@@ -83,8 +83,8 @@ popd
 
 # Move udev helper to the correct place as --with-udev is ignored if non-root
 mkdir -p $RPM_BUILD_ROOT/usr/lib
-if [ -d $RPM_BUILD_ROOT/usr/lib64/udev ] ; then \
-	mv $RPM_BUILD_ROOT/usr/lib64/udev $RPM_BUILD_ROOT/usr/lib/ ; \
+if [ -d $RPM_BUILD_ROOT%{_prefix}/lib64/udev ] ; then \
+	mv $RPM_BUILD_ROOT%{_prefix}/lib64/udev $RPM_BUILD_ROOT/usr/lib/ ; \
 fi
 
 # Convert COPYING file to UTF-8

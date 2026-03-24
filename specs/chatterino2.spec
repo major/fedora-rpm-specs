@@ -7,31 +7,29 @@ ExcludeArch: %{ix86}
 
 #pin to commit for patch fixes
 %global         forgeurl0 https://github.com/Chatterino/chatterino2
-%global         version0  2.5.4
-%global         date      20251110
-%global         commit0   f3559280786dbabc8cebe1951a525580d11cb2a5
+%global         tag0  v2.5.5
 
-
+%forgemeta
 
 # Git submodules
 #   * libcommuni
-%global forgeurl2   https://github.com/Chatterino/libcommuni
+%global forgeurl2   https://github.com/hemirt/libcommuni
 %global commit2         bb5417c451d764f57f2f1b3e1c9a81496b5521bd
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 #   * settings
 %global forgeurl3   https://github.com/pajlada/settings
-%global commit3         d847148cbf0becb75e48b90c2c25b78922f4e181
+%global commit3         16b3d5ba6e947e84df74e17a19121d6be8baf36b
 %global shortcommit3    %(c=%{commit3}; echo ${c:0:7})
 
 #   * signals
 %global forgeurl4   https://github.com/pajlada/signals
-%global commit4         4b127541d30d9ae86df1553cb567cc2fc55fac46
+%global commit4         ef0bd9978826bfb2df536c1312762bacbe0b45fa
 %global shortcommit4    %(c=%{commit4}; echo ${c:0:7})
 
 #   * serialize
 %global forgeurl5   https://github.com/pajlada/serialize
-%global commit5         f4a7dbfa64e7515506bdb75f6037cb74cd37f67c
+%global commit5         75bc7b9c1054f70d0dd0486f175dea93c7733cc3
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
 #   * magic_enum
@@ -47,12 +45,12 @@ ExcludeArch: %{ix86}
 
 #   * expected-lite
 %global forgeurl12  https://github.com/martinmoene/expected-lite
-%global commit12        6656728c5874fefa976ff7c67999798df7fc961d
+%global commit12        df5814711f5f9111a2515a181bde67f22f2fe716
 %global shortcommit12   %(c=%{commit12}; echo ${c:0:7})
 
 
 Name:           chatterino2
-Version:        %forgeversion
+Version:        %{tag0}
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 
@@ -91,8 +89,8 @@ SourceLicense:  MIT AND BSD-3-Clause AND BSL-1.0 AND Unlicense
 %global _description %{expand:
 Chatterino 2 is a chat client for Twitch.tv. The Chatterino 2 wiki can be
 found https://wiki.chatterino.com/.}
-URL:            %{forgeurl}
-Source0:        %{forgeurl0}/archive/%{commit0}.tar.gz
+URL:            %{forgeurl0}
+Source0:        %{forgesource0}
 Source2:        %{forgeurl2}/archive/%{commit2}.tar.gz
 Source3:        %{forgeurl3}/archive/%{commit3}.tar.gz
 Source4:        %{forgeurl4}/archive/%{commit4}.tar.gz
@@ -161,7 +159,7 @@ Provides:       bundled(certify) = 0.1~git%{commit4}
 
 
 %prep
-%autosetup -a 0 -n chatterino2-%{commit0}
+%{forgesetup}
 
 cd lib/libcommuni
 tar -xf %{SOURCE2} --strip-components=1

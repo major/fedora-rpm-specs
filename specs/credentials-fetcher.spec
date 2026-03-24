@@ -3,7 +3,7 @@
 %global patch_version 8
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 7
+%global baserelease 8
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -26,7 +26,7 @@ Patch0:         credentials-fetcher-1.3.8-disable-integ-tests-for-Fedora.patch
 # Also disable integ-tests for EL targets, for now
 Patch1:         credentials-fetcher-1.3.7-no-api-tests-on-el.patch
 
-BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
+BuildRequires:  cmake chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
 BuildRequires:  systemd-rpm-macros dotnet-sdk-8.0 grpc-plugins
 
@@ -55,11 +55,8 @@ This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 
 %build
-# Use the distributions optflags
-export CFLAGS="%{optflags}"
-export CXXFLAGS="%{optflags}"
 # We need to set ENABLE_DEBUGGING or else the binaries get stripped
-%cmake3 -DENABLE_DEBUGGING=ON
+%cmake -DENABLE_DEBUGGING=ON
 %cmake_build
 %install
 
@@ -88,6 +85,11 @@ ctest
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 1.3.8-8
+- Rebuild (jsoncpp)
+- Fix BR
+- Update macros
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.8-7
 - Rebuilt for abseil-cpp 20260107.0
 

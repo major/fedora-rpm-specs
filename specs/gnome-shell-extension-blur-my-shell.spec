@@ -12,6 +12,8 @@ BuildArch:      noarch
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 # https://github.com/aunetx/blur-my-shell/pull/626
 Patch:          0001-Use-meson-build-system.patch
+# https://github.com/aunetx/blur-my-shell/pull/830
+Patch:          0002-Support-GNOME-50-and-add-to-supported-versions.patch
 
 BuildRequires:  meson
 BuildRequires:  glib2

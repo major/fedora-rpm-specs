@@ -1,6 +1,6 @@
 Name:           python-scrypt
-Version:        0.8.27
-Release:        7%{?dist}
+Version:        0.9.4
+Release:        1%{?dist}
 Summary:        Python bindings for the scrypt key derivation function
 
 License:        BSD-2-Clause
@@ -25,7 +25,7 @@ implemented extremely fast on cheap hardware.}
 
 %package -n     python3-scrypt
 Summary:        Bindings for the scrypt key derivation function library
-Provides:       bundled(scrypt) = 1.2.1
+Provides:       bundled(scrypt) = 1.3.3
 
 %description -n python3-scrypt %_description
 
@@ -59,6 +59,9 @@ sed -i '1d' scrypt/scrypt.py
 
 
 %changelog
+* Sun Mar 22 2026 Jonny Heggheim <hegjon@gmail.com> - 0.9.4-1
+- Updated to version 0.9.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.27-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

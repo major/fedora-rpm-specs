@@ -3,8 +3,8 @@ Version:        2.4.0
 Release:        34%{?dist}
 Summary:        A MIDI/karaoke player for KDE
 
-# GPLv2+ for the code and the MMA examples, CC-BY-SA for the MIDI examples
-License:        GPLv2+ and CC-BY-SA
+# GPL-2.0-or-later for the code and the MMA examples, CC-BY-SA-3.0 for the MIDI examples
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            http://userbase.kde.org/KMid2
 
 Source0:        http://downloads.sourceforge.net/project/%{name}/%{version}/kmid-%{version}.tar.bz2

@@ -53,7 +53,7 @@ Name:     gnulib
 Version:  0
 Release:  57.%{gitdate}git%{githead}%{?dist}
 Summary:  GNU Portability Library
-License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
+License:  LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 URL:      https://www.gnu.org/software/gnulib
 Source0:  https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=snapshot;h=%{githead};sf=tgz;name=gnulib-%{githead}.tar.gz#/gnulib-%{githead}.tar.gz
 Source1:  https://salsa.debian.org/debian/gnulib/-/raw/debian/latest/debian/manpages/check-module.1
@@ -194,7 +194,7 @@ cp -rp py%{name} %{buildroot}%{python3_sitelib}
 
 %package docs
 Summary: Documentation for %{name} modules
-License: GFDL
+License: GFDL-1.3-or-later
 Requires:			%{name}-devel = %{version}-%{release}
 BuildArch: noarch
 
@@ -216,7 +216,7 @@ This package contains documentation for %{name}.
 %ifnarch %{ix86}
 %package javaversion
 Summary: javaversion built unit
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires:			%{name}-devel = %{version}-%{release}
 %description javaversion
 This package contains javaversion built unit of %{name}.
@@ -288,7 +288,7 @@ Python Implement of Gnulib
 # MODULE #1 - git-merge-changelog
 %package -n %{module1}
 Summary: Git merge driver for ChangeLog files
-License: GPLv2+
+License: GPL-2.0-or-later
 
 %description -n %{module1}
 Git Merge Changelog is a git merge driver for changelogs that combines

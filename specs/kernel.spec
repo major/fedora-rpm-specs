@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc4.260320g0e4f8f1a3d08.40
+%define pkgrelease 0.rc4.260322g113ae7b4decc.42
 %define kversion 7
-%define tarfile_release 7.0-rc4-181-g0e4f8f1a3d08
+%define tarfile_release 7.0-rc4-336-g113ae7b4decc
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260320g0e4f8f1a3d08.40%{?buildid}%{?dist}
+%define specrelease 0.rc4.260322g113ae7b4decc.42%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4832,8 +4832,19 @@ fi\
 #
 #
 %changelog
-* Fri Mar 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.0e4f8f1a3d08.40]
+* Sun Mar 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.113ae7b4decc.42]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Sun Mar 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.113ae7b4decc.41]
+- Linux v7.0.0-0.rc4.113ae7b4decc
+
+* Sat Mar 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.a0c83177734a.40]
+- Turn on ASUS_ARMOURY driver, fixes RHBZ 2433246 (Justin M. Forbes)
+- Turn on Uniwill x86 platform driver (Justin M. Forbes)
+- Turn on GPIB for Fedora (Justin M. Forbes)
+- Fix up RHEL pending CONFIG_PREEMPT configs for 7.0 (Justin M. Forbes)
+- Fix up Fedora configs for 7.0 (Justin M. Forbes)
+- Linux v7.0.0-0.rc4.a0c83177734a
 
 * Fri Mar 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc4.0e4f8f1a3d08.39]
 - Linux v7.0.0-0.rc4.0e4f8f1a3d08

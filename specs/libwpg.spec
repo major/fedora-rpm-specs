@@ -46,7 +46,7 @@ Summary:        Tools to convert WordPerfect Graphics images to other formats
 # wpg2svgbatch.pl says "GPL", without specifying version, and points to
 # http://www.gnu.org/copyleft/gpl.html . I assume this means "any
 # version".
-License:        (LGPLv2+ or MPLv2.0) and GPL+
+License:        (LGPL-2.1-or-later OR MPL-2.0) AND GPL-1.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description tools

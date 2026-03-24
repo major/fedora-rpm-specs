@@ -54,6 +54,7 @@ Source1:        bpfman-%{version}-vendor.tar.xz
 Patch0:         0001-bump-cargo-lock-for-idna-1-0-3.diff
 Patch1:         0002-bump-openssl-to-0.10.70-CVE-2025-0977.patch
 Patch2:         0003-bump-quinn-proto-to-0.11.14-CVE-2026-31812.patch
+Patch3:         0004-bump-tar-to-0.4.45-CVE-2026-33056.patch
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}

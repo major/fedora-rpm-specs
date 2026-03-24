@@ -7,7 +7,7 @@
 %global goipath         gitlab.com/esr/fqme
 %global forgeurl        https://gitlab.com/esr/fqme
 
-Version:                1.0.0
+Version:                1.0.1
 %global tag             v%{version}
 
 %gometa
@@ -23,8 +23,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Go module that mines configuration files to discover full name and email address
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

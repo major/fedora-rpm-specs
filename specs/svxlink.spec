@@ -10,7 +10,7 @@
 Name:		svxlink
 Epoch:		2
 Version:	%{main_version}
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Repeater controller and EchoLink (simplex or repeater)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -343,6 +343,9 @@ exit 0
 %{_unitdir}/svxreflector.service
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 2:24.02-9
+- Rebuild (jsoncpp)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:24.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

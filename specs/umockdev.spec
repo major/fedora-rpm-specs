@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.5
+Version:          0.19.6
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Mar 22 2026 Packit <hello@packit.dev> - 0.19.6-1
+- preload: Reinitialize mutexes after forking. (Thanks Daniel van Vugt) (LP: #2144723)
+
+
 * Sat Feb 21 2026 Packit <hello@packit.dev> - 0.19.5-1
 - ioctl: Forward standard termios calls to real pty (fixes tests with Rust coreutils)
 - ioctl: Implement POSIX-compliant errno handling

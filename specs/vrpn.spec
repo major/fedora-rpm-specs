@@ -17,7 +17,7 @@ physical devices (tracker, etc.) used in a virtual-reality (VR) system.}
 
 Name:           vrpn
 Version:        07.35
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Virtual-Reality Peripheral Network
 
 # According to upstream, linking to the wiiuse (GPLv3+) and gpm (GPLv2+)
@@ -200,6 +200,9 @@ mv %{buildroot}/%{_datadir}/%{name}-%{version}/%{name}.cfg.sample .
 %endif
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 07.35-10
+- Rebuild (jsoncpp)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 07.35-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,36 +1,37 @@
 %bcond  tests   1
 
 Name:           swayimg
-Version:        4.7
+Version:        5.0
 Release:        %autorelease
 Summary:        Lightweight image viewer for Wayland display servers
 
 License:        MIT
 URL:            https://github.com/artemsen/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+Patch:          %{url}/commit/5c2d958.patch#/swayimg-5.0-missing-includes.patch
+
+# Exclude x86 and all the platforms where luajit is not available
+ExcludeArch:    %{ix86} riscv64 ppc64 ppc64le
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  gcc
-%if %{with tests}
 BuildRequires:  gcc-c++
+%if %{with tests}
+BuildRequires:  glibc-langpack-en
 %endif
-BuildRequires:  meson >= 0.60
+BuildRequires:  meson >= 1.1
 
 BuildRequires:  giflib-devel
-BuildRequires:  pkgconfig(OpenEXR) >= 3.1
+# BuildRequires:  pkgconfig(OpenEXR) >= 3.4
 BuildRequires:  pkgconfig(bash-completion)
+BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(freetype2)
 %if %{with tests}
 BuildRequires:  pkgconfig(gtest)
 %endif
-BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libavif)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libjxl)
@@ -41,6 +42,7 @@ BuildRequires:  pkgconfig(libsixel)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwebpdemux)
+BuildRequires:  pkgconfig(luajit)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.35
 BuildRequires:  pkgconfig(wayland-scanner)
@@ -48,16 +50,23 @@ BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       hicolor-icon-theme
 
+# src/external/json: MIT
+Provides:       bundled(json) = 3.12.0
+# src/external/luabridge: MIT
+Provides:       bundled(luabridge) = 3.0~rc4^20240929g713c1f5
+
 %description
 Swayimg is a lightweight image viewer for Wayland display servers.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
 %meson \
+    -Dexr=disabled \
+    -Dlicense=false \
     -Dtests=%[%{with tests}?"enabled":"disabled"] \
     -Dversion=%{version}
 %meson_build
@@ -70,30 +79,28 @@ Swayimg is a lightweight image viewer for Wayland display servers.
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/swayimg.desktop
 %if %{with tests}
-# HEIF test requires libheif-freeworld from rpmfusion
-%global gtest_exclude Image.Load_heif
-# A few tests fail on s390x (endianness?)
 %ifarch s390x
-%global gtest_exclude %{gtest_exclude}:Image.*
+# A few tests fail on s390x (endianness?)
+%global gtest_exclude ImageLoadTest.*
+%else
+# HEIF test requires libheif-freeworld from rpmfusion
+%global gtest_exclude ImageLoadTest.heif
 %endif
-# ???
-%ifarch ppc64le
-%global gtest_exclude %{gtest_exclude}:Image.Load_jxl
-%endif
+
+export LANG=en_US.UTF-8 # ImageListTest.SortAlphaUnicode fails with LANG=C
 %meson_test --test-args='--gtest_filter=-%{gtest_exclude}'
 %endif
 
 
 %files
 %license LICENSE
-%doc README.md
+%doc %{_pkgdocdir}/*.md
 %{_bindir}/swayimg
 %{_mandir}/man1/swayimg.1*
-%{_mandir}/man5/swayimgrc.5*
 %{_datadir}/applications/swayimg.desktop
 %{_datadir}/icons/hicolor/*/apps/swayimg.png
 %dir %{_datadir}/swayimg
-%{_datadir}/swayimg/swayimgrc
+%{_datadir}/swayimg/*.lua
 %{bash_completions_dir}/swayimg
 %{zsh_completions_dir}/_swayimg
 

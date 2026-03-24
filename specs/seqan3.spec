@@ -24,7 +24,7 @@ ExclusiveArch: %{power64} x86_64 aarch64
 
 Name:      seqan3
 Summary:   The modern C++ library for sequence analysis
-Version:   3.4.0
+Version:   3.4.2
 Release:   %autorelease
 License:   BSD-3-Clause
 URL:       https://www.seqan.de/
@@ -57,19 +57,10 @@ BuildRequires: gtest-devel >= 1.10.0
 BuildRequires: texlive-newunicodechar
 BuildRequires: doxygen >= 1.9.4
 %endif
-
 # Use Fedora's CMake only
 Patch1: %{name}-3.4.0-disable_CPM.patch
-
 # Include missing header files
 Patch2: %{name}-fix_GCC15.patch
-
-# Fix (gcc-16) bogus warning
-Patch3: %{name}-fix_gcc-16.patch
-
-# Fix google benchmark
-Patch4: %{name}-fix_latest_google_benchmark.patch
-
 %description
 SeqAn3 is the new version of the popular SeqAn template
 library for the analysis of biological sequences.
@@ -92,10 +83,8 @@ Requires: sdsl-lite-devel%{?_isa} >= 3.0.1
 Requires: zlib-devel%{?_isa} >= 1.2
 Requires: bzip2-devel%{?_isa} >= 1.0
 Requires: range-v3-devel%{?_isa} >= 0.11.0
-
 Provides: bundled(bzip2stream)
 Provides: bundled(zipstream)
-
 %description devel
 C++ headers files of SeqAn3, including CMake configuration files.
 
@@ -110,8 +99,6 @@ SeqAn3 documentation.
 
 %patch 1 -p1 -b .backup
 %patch 2 -p1 -b .backup
-%patch 3 -p1 -b .backup
-%patch 4 -p1 -b .backup
 
 # Unbundle libraries already available in Fedora
 rm -rf submodules/cereal

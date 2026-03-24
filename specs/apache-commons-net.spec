@@ -1,5 +1,5 @@
 Name:           apache-commons-net
-Version:        3.12.0
+Version:        3.13.0
 Release:        %autorelease
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0

@@ -2,13 +2,12 @@
 %global uuid            %{extension}-desktop@%{extension}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        35.0
+Version:        36.0
 Release:        %autorelease
+BuildArch:      noarch
 Summary:        GNOME Shell extension to change behavior and disable UI elements
 License:        GPL-3.0-only
 URL:            https://gitlab.gnome.org/jrahmatzadeh/just-perfection
-BuildArch:      noarch
-
 Source:         %{url}/-/archive/%{version}/%{extension}-%{version}.tar.gz
 
 BuildRequires:  glib2-devel

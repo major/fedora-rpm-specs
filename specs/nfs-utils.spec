@@ -475,7 +475,7 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 
 %changelog
 * Sat Mar 14 2026 Steve Dickson <steved@redhat.com> 2.8.7-0
-- Updated to latest upstream release: nfs-utils-2-8-6 (bz 2447326)
+- Updated to latest upstream release: nfs-utils-2-8-7 (bz 2447326)
 
 * Sun Mar  8 2026 Steve Dickson <steved@redhat.com> 2.8.6-0
 - Updated to latest upstream release: nfs-utils-2-8-6 (bz 2445545)

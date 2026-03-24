@@ -5,7 +5,7 @@
 %global liftoff_ver 0.5.0
 
 Name:           wlroots%{compat_ver}
-Version:        %{compat_ver}.2
+Version:        %{compat_ver}.3
 Release:        %autorelease
 Summary:        A modular Wayland compositor library
 
@@ -32,9 +32,6 @@ Source1:        %{url}/-/releases/%{version}/downloads/wlroots-%{version}.tar.gz
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 # Upstream patches
-# https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5203
-Patch:          Fix-discarded-const-qualifier.patch
-Patch:          %{url}/-/commit/c1452d88.patch#/backend-libinput-fix-build-with-libinput-1.31.patch
 
 # Fedora patches
 # Following patch is required for phoc.

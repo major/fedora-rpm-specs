@@ -11,13 +11,12 @@
 %endif
 
 Name:		perl-Net-SSLeay
-Version:	1.94
-Release:	12%{?dist}
+Version:	1.96
+Release:	1%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
-Patch0:		https://patch-diff.githubusercontent.com/raw/radiator-software/p5-net-ssleay/pull/514.patch
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
 # =========== Module Build ===========================
 BuildRequires:	coreutils
@@ -90,9 +89,6 @@ so you can write servers or clients for more complicated applications.
 %prep
 %setup -q -n Net-SSLeay-%{version}
 
-# Fix for test suite compatibility with OpenSSL 3.4
-%patch -P 0 -p 1
-
 # Get libraries to link against from pkg-config
 # https://github.com/radiator-software/p5-net-ssleay/pull/127
 %patch -P 10
@@ -137,6 +133,41 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Sun Mar 22 2026 Paul Howarth <paul@city-fan.org> - 1.96-1
+- Update to 1.96
+  - Skip NPN tests when NPN is disabled in OpenSSL instead of assuming NPN is
+    always enabled
+  - Update GitHub Actions CI workflow; a number of test jobs were broken
+    because some GitHub runners were discontinued, changes in QEMU setup,
+    changes in Cygwin, etc.
+  - Adjust test 32_x509_get_cert_info.t to match formatting changes in
+    OpenSSL 3.4.0 and 3.4.1
+  - OpenSSL 3.9.0 and later remove EVP_add_digest()
+  - Increase timeout in 62_threads-ctx_new-deadlock.t to allow the test to pass
+    on very slow platforms
+  - Add missing documentation for STACK_OF() free functions sk_X509_free and
+    sk_X509_INFO_free
+  - Add $prefx/lib/64 to lib paths in Makefile.PL for Illumos
+  - Support vendor-supplied OpenSSL 3.x on VMS and update %%ENV modification in
+    test 10_rand.t to work on VMS
+  - Compiler -D switches Makefile.PL sets are no longer added to the MakeMaker
+    CCFLAG attribute because of portability reasons; the switches are now
+    passed either via WriteMakefile() or appending them to the
+    'perl Makefile.PL ...' DEFINE argument
+  - Update GitHub Actions CI testing:
+    - Perl on Ubuntu 24.04: Add Perl 5.38, 5.40 and 5.42, add OpenSSL 3.3, 3.4
+      and 3.5 minor releases, add LibreSSL 3.9, 4.0 and 4.1 release branches
+    - Alpine Linux: Remove 3.15, 3.16 and 3.17; Add 3.19, 3.20, 3.21 and 3.22
+    - Freebsd: Add 14.3 and replace 13.2 with 13.5
+    - OpenBSD: Add 7.6 and 7.7. Remove 7.2 and 7.3
+    - NetBSD: Add 10.1 and replace 9.3 with 9.4
+  - Update test 62_threads-ctx_new-deadlock.t to work with LibreSSL 4.1.0
+  - Support SSL_CTX_set1_sigalgs_list and SSL_CTX_set1_client_sigalgs_list
+  - Support SSL_set1_sigalgs_list, SSL_set1_client_sigalgs_list,
+    SSL_get_sigalgs and SSL_get_shared_sigalgs, and add the function
+    SSL_CTX_set_cert_cb
+  - Add test file 67_sigalgs.t for the sigalgs functions
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

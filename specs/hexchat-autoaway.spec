@@ -31,7 +31,11 @@ Source0:        https://github.com/andreyv/%{name}/archive/v%{version}/%{name}-%
 ## Upstream PR#3 "feat(away-nick-suffix): append away suffix to nickname"
 Patch0:         https://patch-diff.githubusercontent.com/raw/andreyv/hexchat-autoaway/pull/3.patch#/0001-append-away-suffix-to-nickname.patch
 
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  cmake
+%else
 BuildRequires:  cmake3
+%endif
 BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  gtk2-devel >= 2.14
@@ -56,6 +60,7 @@ cd %_vpath_builddir && %cmake3 -DCMAKE_BUILD_TYPE=Release ..
 %make_build
 cd -
 %else
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 %endif

@@ -6,7 +6,7 @@ Name:       libprojectM
 Version:    3.1.12
 Release:    14%{?dist}
 Summary:    The libraries for the projectM music visualization plugin
-License:    LGPLv2+
+License:    LGPL-2.1-or-later
 URL:        https://github.com/projectM-visualizer/projectm
 Source0:    https://github.com/projectM-visualizer/projectm/archive/v%{version}/libprojectM-%{version}.tar.gz
 #Source0:    https://github.com/projectM-visualizer/projectm/archive/v%%{version}-%%{reltag}/libprojectM-%%{version}-%%{reltag}.tar.gz
@@ -71,7 +71,6 @@ developing applications that use %{name}.
 
 %package qt
 Summary:    The Qt frontend to the projectM visualization plugin
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 
 %description qt
@@ -90,7 +89,7 @@ developing applications that use %{name}-qt.
 
 %package -n projectM-jack
 Summary:    The projectM visualization plugin for jack
-License:    GPLv2+ and MIT
+License:    GPL-2.0-or-later AND MIT
 
 %description -n projectM-jack
 This package allows the use of the projectM visualization plugin through any
@@ -98,7 +97,7 @@ JACK compatible applications.
 
 %package -n projectM-pulseaudio
 Summary:    The projectM visualization plugin for pulseaudio
-License:    GPLv2+ and MIT
+License:    GPL-2.0-or-later AND MIT
 
 %description -n projectM-pulseaudio
 This package allows the use of the projectM visualization plugin through any
@@ -106,7 +105,7 @@ pulseaudio compatible applications.
 
 %package -n projectM-libvisual
 Summary:    The projectM visualization plugin for libvisual
-License:    GPLv2+ and LGPLv2+ and MIT
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 
 %description -n projectM-libvisual
 This package allows the use of the projectM visualization plugin through any
@@ -114,7 +113,7 @@ libvisual compatible applications.
 
 %package -n projectM-SDL
 Summary:    The projectM visualization plugin for SDL
-License:    GPLv2+ and LGPLv2+ and MIT
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 
 %description -n projectM-SDL
 This package allows the use of the projectM visualization plugin through any

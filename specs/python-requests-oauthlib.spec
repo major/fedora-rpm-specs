@@ -12,6 +12,8 @@ Summary:            OAuthlib authentication support for Requests.
 License:            ISC
 URL:                http://pypi.python.org/pypi/requests-oauthlib
 Source0:            https://github.com/requests/requests-oauthlib/archive/v%{version}.tar.gz
+# Updated tests to support oauthlib 3.3.0 wrt expires_at
+Patch0:             https://github.com/requests/requests-oauthlib/commit/b1dd93c5d024500b6236dea06734d6e6482c3565.patch
 
 BuildArch:          noarch
 

@@ -1,7 +1,7 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.33.0
-Release: 3%{?dist}
+Version: 9.34.0
+Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
@@ -24,6 +24,7 @@ BuildRequires: make
 BuildRequires: automake
 Requires: %{name}-utils = %{version}
 Requires: %{name}-udev = %{version}
+Recommends: (%{name}-pacemaker if pacemaker)
 
 %description
 DRBD refers to block devices designed as a building block to form high
@@ -244,6 +245,9 @@ fi
 
 
 %changelog
+* Sun Mar 22 2026 Peter Hanecak <hany@hany.sk> - 9.34.0-1
+- Upstream release of 9.34.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.33.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,13 +2,12 @@
 %bcond_without check
 
 Name:           ntpd-rs
-Version:        1.6.2
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Full-featured implementation of NTP with NTS support
 
 SourceLicense:  Apache-2.0 OR MIT
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -22,7 +21,6 @@ License:        %{shrink:
     BSD-3-Clause AND
     ISC AND
     MIT AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR ISC OR MIT) AND
     (Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
@@ -45,8 +43,9 @@ Patch:          0002-Fix-names-of-conflicting-systemd-services.patch
 
 # temporarily disable the new PPS feature
 Patch:          0003-Temporarily-disable-PPS-feature.patch
-# https://github.com/pendulum-project/ntpd-rs/pull/1968
-Patch:          0004-Fix-compiler-failure-with-pps-feature-disabled.patch
+
+# upstream change to update expired test certificates
+Patch:          https://github.com/pendulum-project/ntpd-rs/commit/1df0cc9.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

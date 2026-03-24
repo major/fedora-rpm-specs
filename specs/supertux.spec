@@ -2,7 +2,7 @@
 
 Name:           supertux
 Version:        0.6.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Jump'n run like game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -57,6 +57,8 @@ Grabbing power-ups and other stuff on the way.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380810)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DINSTALL_SUBDIR_SHARE=share/supertux2 -DINSTALL_SUBDIR_BIN=bin \
     -DENABLE_BOOST_STATIC_LIBS=OFF
 %cmake_build
@@ -93,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/supertux2.desktop
 
 
 %changelog
+* Fri Mar 20 2026 Cristian Le <git@lecris.dev> - 0.6.3-19
+- Allow to build with CMake 4.0 (rhbz#2380810)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

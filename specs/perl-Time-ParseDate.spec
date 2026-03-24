@@ -1,23 +1,25 @@
 Name:           perl-Time-ParseDate
-Version:        2015.103
-Release:        32%{?dist}
+Version:        2026.0219
+Release:        1%{?dist}
 Summary:        Perl modules for parsing dates and times
-# See https://fedoraproject.org/wiki/Licensing/TPDL
-License:        TPDL AND LicenseRef-Fedora-Public-Domain
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-ParseDate
 
-Source0:        https://cpan.metacpan.org/authors/id/M/MU/MUIR/modules/Time-ParseDate-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Time-ParseDate-%{version}.tar.gz
 BuildArch:      noarch
 
 Provides:       perl-Time-modules = %{version}-%{release}
 Obsoletes:      perl-Time-modules <= 2013.0912-3
 
 
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::ReadmeFromPod)
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
@@ -26,6 +28,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Testing
 BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Test::MockTime)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(Time::Piece)
@@ -40,16 +43,14 @@ There are numerous options to control what is recognized and what is not.
 
 %prep
 %setup -q -n Time-ParseDate-%{version}
+rm -rf inc/
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %make_build
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-
+%make_install
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -57,11 +58,14 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Time/
+%{_mandir}/man3/Time::*3pm*
 
 
 %changelog
+* Fri Mar 06 2026 Xavier Bachelot <xavier@bachelot.org> - 2026.029-1
+- Update to 2026.0219 (RHBZ#2443411)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2015.103-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

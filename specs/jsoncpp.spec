@@ -6,17 +6,20 @@
 # Avoid accidental so-name bumps.
 # ATTENTION!!!  You need to run a bootstrap build
 # of cmake *BEFORE* bumping the so-name here!
-%global sover 26
+%global sover 27
 
 
 Name:           jsoncpp
-Version:        1.9.6
-Release:        3%{?dist}
+Version:        1.9.7
+Release:        1%{?dist}
 Summary:        JSON library implemented in C++
 
 License:        LicenseRef-Fedora-Public-Domain OR MIT
 URL:            https://github.com/open-source-parsers/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# C++ 20
+Patch0:         %{name}-1.9.7-cxx20.patch
 
 BuildRequires:  cmake >= 3.1
 BuildRequires:  gcc
@@ -91,7 +94,7 @@ install -pm 0644 README.md %{buildroot}%{_docdir}/%{name}
 
 %if %{with jsoncpp_enables_doc}
 mkdir -p %{buildroot}%{_docdir}/%{name}/html
-cp -a dist/doxygen/jsoncpp-api-html-/* %{buildroot}%{_docdir}/%{name}/html
+cp -a dist/doxygen/%{name}-api-html-%{version}/* %{buildroot}%{_docdir}/%{name}/html
 find %{buildroot}%{_docdir} -type d -print0 | xargs -0 chmod -c 0755
 find %{buildroot}%{_docdir} -type f -print0 | xargs -0 chmod -c 0644
 hardlink -cfv %{buildroot}%{_docdir}/%{name}
@@ -133,6 +136,9 @@ hardlink -cfv %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 1.9.7-1
+- Update to version 1.9.7 (Fixes rhbz#2449364)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

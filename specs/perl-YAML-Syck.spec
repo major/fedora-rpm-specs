@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.37
+Version:        1.39
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -93,6 +93,26 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Sun Mar 22 2026 Paul Howarth <paul@city-fan.org> - 1.39-1
+- Update to 1.39
+  Bug Fixes:
+  - Fix: escape solidus (/) as \/ in JSON::Syck::Dump for XSS safety
+    (GH#125, GH#130)
+  - Fix: anchor tracking for blessed scalar refs in Dump (GH#126, GH#131)
+  - Fix: prevent buffer underflow in base60 (sexagesimal) parsing (GH#133)
+  - Fix: guard against NULL type from strtok in tag parsing (GH#135)
+  - Fix: correct copy-paste bug in syck_seq_assign() ASSERT macros (GH#137)
+  - Fix t/yaml-implicit-typing.t failure with -Duselongdouble perls
+    (GH#138, GH#139)
+  Improvements:
+  - Resolve TODO tests for empty/invalid YAML to match actual behaviour
+    (GH#127, GH#129)
+  Maintenance:
+  - Remove dead Perl 5.6 TODOs and convert 5.8 TODO to SKIP (GH#129)
+  - Add comprehensive implicit type resolution test suite (GH#137)
+  - Update MANIFEST to include all unit tests
+  - Clean up test names to remove unnecessary numbering
+
 * Thu Mar 19 2026 Paul Howarth <paul@city-fan.org> - 1.37-1
 - Update to 1.37
   Features:

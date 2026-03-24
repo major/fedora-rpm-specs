@@ -408,6 +408,7 @@ export HIP_CLANG_PATH=`hipconfig -l`
 %endif
     -DWITH_OPENCOLLADA=OFF \
     -DWITH_LIBS_PRECOMPILED=OFF \
+    -DWITH_SYSTEM_GLOG=ON \
     -W no-dev
 
 %cmake_build

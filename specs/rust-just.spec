@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.46.0
+Version:        1.47.1
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -14,7 +14,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          just-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Relax 'dirs' dependency from 6.0.0 to >=5,<7
+# * Relax 'snafu' dependency from 0.9.0 to >=0.8,<0.10
 # * Unpin 'clap_complete'
 Patch:          just-fix-metadata.diff
 # * Exclude unwanted files
@@ -32,11 +32,9 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # Apache-2.0 OR Apache-2.0 WITH LLVM-exception
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # CC0-1.0
 # MIT
 # MIT OR Apache-2.0
@@ -47,11 +45,9 @@ License:        %{shrink:
                 CC0-1.0
                 AND Apache-2.0
                 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
-                AND (Apache-2.0 OR BSL-1.0)
                 AND (Apache-2.0 OR MIT)
                 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
                 AND BSD-2-Clause
-                AND (BSD-2-Clause OR Apache-2.0 OR MIT)
                 AND MIT
                 AND (MIT-0 OR Apache-2.0)
                 AND MPL-2.0

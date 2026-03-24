@@ -1,6 +1,6 @@
 Name:           sasl-xoauth2
 Version:        0.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The xoauth2 plugin for cyrus-sasl
 
 License:        Apache-2.0
@@ -10,7 +10,7 @@ Source0:        https://github.com/tarickb/%{name}/archive/refs/tags/release-%{v
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
-%if 0%{?rhel} < 8
+%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
@@ -72,6 +72,10 @@ relays from Postfix.
 %{_mandir}/man1/%{name}-tool.1.gz
 
 %changelog
+* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.27-3
+- Rebuild (jsoncpp)
+- Fix conditional for cmake
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

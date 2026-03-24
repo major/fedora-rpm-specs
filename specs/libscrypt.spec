@@ -2,12 +2,15 @@
 
 Name:           libscrypt
 Version:        1.22
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library that implements the secure password hashing function "scrypt"
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            http://www.lolware.net/libscrypt.html
 Source0:        https://github.com/technion/libscrypt/archive/v%{version}.tar.gz
+
+Patch0:         0001-sysendian.h-fix-aliasing-violations.patch
+Patch1:         0002-b64-fix-Wold-style-definition.patch
+Patch2:         0003-crypto_scrypt-nosse-fix-aliasing-violations.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -26,10 +29,10 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-export CFLAGS="%{optflags}"
+export CFLAGS="%{optflags} -fPIC"
 export LDFLAGS="$LDFLAGS -Wl,-z,relro -Wl,-soname,libscrypt.so.0 -Wl,--version-script=libscrypt.version"
 %make_build
 
@@ -57,6 +60,10 @@ make check
 
 
 %changelog
+* Sun Mar 22 2026 Denis Fateyev <denis@fateyev.com> - 1.22-12
+- Added upstream patches
+- Fix library build
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

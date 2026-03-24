@@ -1,15 +1,17 @@
 %global extension   vertical-workspaces
 %global uuid        %{extension}@G-dH.github.com
+%global commit      c87dafbe50a74050eb62c201be0097a91f9ec775
+%global shortcommit %{sub %{commit} 1 7}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        49.13
+Version:        50.0~^1.%{shortcommit}
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only
 URL:            https://github.com/G-dH/vertical-workspaces
 BuildArch:      noarch
 
-Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
+Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  glib2
@@ -25,7 +27,7 @@ horizontally or vertically stacked workspaces.
 
 
 %prep
-%autosetup -n %{extension}-%{version}
+%autosetup -n %{extension}-%{commit}
 
 
 %conf

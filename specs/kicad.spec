@@ -22,7 +22,6 @@ BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  glew-devel
 BuildRequires:  glm-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libappstream-glib
@@ -108,8 +107,10 @@ Documentation for KiCad.
     -DKICAD_USE_CMAKE_FINDPROTOBUF=ON \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%if %{defined flatpak}
     -DOCC_INCLUDE_DIR=%{_includedir}/opencascade \
     -DOCC_LIBRARY_DIR=%{_libdir} \
+%endif
     -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
 %cmake_build
 

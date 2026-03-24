@@ -1,4 +1,4 @@
-%global         gsspver 1.1.3
+%global         gsspver 1.1.4
 %global         __cmake_in_source_build 1
 
 %if 0%{?fedora} < 42 && 0%{?rhel} < 10
@@ -17,7 +17,7 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.43.12
+Version:        1.43.13
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -35,12 +35,13 @@ BuildRequires:  file-devel
 BuildRequires:  gcc-c++
 # kio
 %{?kio4:BuildRequires:  kdelibs4-devel}
-BuildRequires:  kf6-kio-devel
 # krunner
+BuildRequires:  jsoncpp-devel
 BuildRequires:  kf6-ki18n-devel
-BuildRequires:  kf6-krunner-devel
+BuildRequires:  kf6-kio-devel
 BuildRequires:  kf6-knotifications-devel
 BuildRequires:  kf6-kpackage-devel
+BuildRequires:  kf6-krunner-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  make
 BuildRequires:  meson
@@ -249,9 +250,11 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_bindir}/gssp-recoll.py
 %{_datadir}/dbus-1/services/org.recoll.Recoll.SearchProvider.service
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
-%{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Mar 22 2026 Terje Rosten <terjeros@gmail.com> - 1.43.13-1
+- 1.43.13
+
 * Sat Jan 24 2026 Terje Rosten <terjeros@gmail.com> - 1.43.12-1
 - 1.43.12
 

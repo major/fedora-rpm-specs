@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/jschobben/colorscad
 
 Name:    colorscad
-Version: 0.7.0
-Release: 3%{?dist}
+Version: 0.8.0
+Release: 1%{?dist}
 Summary: Helps with exporting an OpenSCAD model with color information preserved
 
 %forgemeta
@@ -62,6 +62,9 @@ PATH=%{buildroot}%{_bindir}:$PATH test/run.sh
 %{_bindir}/3mfmerge
 
 %changelog
+* Sun Mar 22 2026 Jonny Heggheim <hegjon@gmail.com> - 0.8.0-1
+- Updated to version 0.8.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

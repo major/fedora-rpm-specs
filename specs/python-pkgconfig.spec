@@ -51,8 +51,8 @@ If pkg-config is not on the path, raises EnvironmentError.
 %if 0%{?rhel}
 # RHEL does not have poetry-core.
 # By renaming the [build-system] section we fallback to setuptools (default per PEP 517).
-# This only works because there is also a setup.py file in the sdist.
-test -f setup.py
+echo -e "from setuptools import setup\n\nsetup()" > setup.py
+echo -e "[metadata]\nname=%{srcname}\nversion=%{version}" > setup.cfg
 sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
 %endif
 
@@ -61,12 +61,13 @@ sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
 
 %install
 %pyproject_install
+%pyproject_save_files -l %{srcname}
 
-%files -n python3-%{srcname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.dist-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
 %autochangelog

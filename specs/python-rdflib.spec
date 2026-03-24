@@ -24,6 +24,7 @@ BuildRequires:  python3dist(pytest)
 
 BuildSystem:            pyproject
 BuildOption(install):   -L %{srcname}
+BuildOption(check):     -e 'rdflib.contrib.*'
 
 %description
 RDFLib is a pure Python package for working with RDF. RDFLib contains most

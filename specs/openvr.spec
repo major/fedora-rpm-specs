@@ -149,6 +149,8 @@ done
 
 # Build samples
 pushd samples
+# jsoncpp is missing from the list of libraries.
+export LDFLAGS="%build_ldflags -ljsoncpp"
 %cmake \
   -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DSKIP_STEAMVR_CHECK=ON \
