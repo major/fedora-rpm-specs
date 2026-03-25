@@ -29,7 +29,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -52,7 +52,6 @@ BuildRequires:	tk-devel
 BuildRequires:	tcl8-devel
 BuildRequires:	tk8-devel
 %endif
-BuildRequires:	iwidgets
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel >= 6.0
 BuildRequires:	expat-devel
@@ -73,9 +72,6 @@ BuildRequires:	libbabeltrace-devel
 #	For C++ pretty printers.
 BuildRequires:	libstdc++
 
-BuildRequires:	itcl-devel >= 3.3
-BuildRequires:	itk-devel >= 3.3
-
 %ifarch %{ix86} x86_64
 %global have_libipt	1
 BuildRequires:	libipt-devel
@@ -86,6 +82,7 @@ BuildRequires: make
 
 Patch1:		insight-18.0.50-relocate.patch
 Patch2:		insight-18.0.50-libtool_tag.patch
+Patch3:		insight-18.0.50-cve-2026-4647.patch
 
 #	Some patches from gdb. See gdb spec file for info.
 
@@ -107,6 +104,7 @@ the latest GDB version.
 
 %patch 1 -p1 -b .relocate
 %patch 2 -p1 -b .libtool_tag
+%patch 3 -p1 -b .cve-2026-4647
 
 
 #-------------------------------------------------------------------------------
@@ -311,6 +309,10 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+
+* Mon Mar 23 2026 Patrick Monnerat <patrick@monnerat.net>  18.0.50.20260306-2
+- Patch "cve-2026-4647" to fix CVE-2026-4647.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2450318
 
 * Fri Mar  6 2026 Patrick Monnerat <patrick@monnerat.net>  18.0.50.20260306-1
 - New upstream snapshot.

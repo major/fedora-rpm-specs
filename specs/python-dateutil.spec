@@ -21,6 +21,11 @@ Patch:          relax-setuptools_scm-requires.patch
 # Fix dateutil module import in sphinx config file
 Patch:          fix-sphinx-import.patch
 
+# Remove ctypes mock from sphinx config file
+# seems to be incompatible with Python 3.15
+# https://github.com/dateutil/dateutil/issues/1472
+Patch:          remove-ctypes-mock.patch
+
 # when bootstrapping dateutil-freezegun, we cannot run tests
 # on RHEL, we do not have or want all test dependencies
 %bcond tests %{undefined rhel}

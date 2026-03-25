@@ -151,7 +151,7 @@ Provides:       bundled(golang(golang.org/x/term)) = 0.32.0
 Provides:       bundled(golang(golang.org/x/text)) = 0.26.0
 
 Requires:       ttyd
-Requires:       ffmpeg-free
+Requires:       /usr/bin/ffmpeg
 
 
 %description

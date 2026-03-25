@@ -183,15 +183,11 @@ against Ghostscript's library, which provides Ghostscript's core functionality.
 #       This requirement pulls in a lot of texlive subpackages. Not all users
 #       need to use this utility, nor they wish to have a lot of disk space to
 #       be used by 'texlive'. Therefore the specific subpackage is necessary.
-#
-#       Previously, the 'dvips' was moving between packages before, so it's
-#       more convenient (even for users) to have a direct requiremnt for the
-#       executable instead of package.
 %package tools-dvipdf
 Summary:          Ghostscript's 'dvipdf' utility
 BuildArch:        noarch
 Requires:         %{name} = %{version}-%{release}
-Requires:         %{_bindir}/dvips
+Requires:         texlive-dvips
 
 %description tools-dvipdf
 This package provides the utility 'dvipdf' for converting of TeX DVI files into

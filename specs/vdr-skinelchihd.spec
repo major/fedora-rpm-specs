@@ -12,13 +12,13 @@
 %elif 0%{?fedora} == 43
 %global vdr_version 2.7.7
 %elif 0%{?fedora} >= 44
-%global vdr_version 2.7.9
+%global vdr_version 2.8.1
 %endif
 
 Name:           vdr-skinelchihd
-Version:        1.2.9
+Version:        1.2.10
 # Release:        0.8.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 License:        GPL-2.0-or-later
 URL:            https://github.com/FireFlyVDR/vdr-plugin-skinelchihd
@@ -30,10 +30,9 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 %if 0%{?fedora} >= 38
-#BuildRequires:  pkgconfig(ImageMagick)
-BuildRequires:  ImageMagick-c++-devel
-%else
 BuildRequires:  pkgconfig(GraphicsMagick++)
+%else
+BuildRequires:  ImageMagick-c++-devel
 %endif
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -50,9 +49,9 @@ VDR features like True Color support.
 %build
 %{set_build_flags}
 %if 0%{?fedora} >= 38
-%make_build IMAGELIB=imagemagick
-%else
 %make_build IMAGELIB=graphicsmagick
+%else
+%make_build IMAGELIB=imagemagick
 %endif
 
 %install
@@ -76,6 +75,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.10-1
+- Rebuilt for new VDR 2.8.1 API version 12
+- Update to 1.2.10
+
 * Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.9-4
 - Rebuilt for new VDR API version 2.7.9
 

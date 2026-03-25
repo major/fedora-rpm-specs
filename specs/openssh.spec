@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 7%{?dist}
+Release: 9%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -179,7 +179,7 @@ Patch0054: 0054-gssapi-s4u.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
-License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
+License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
 Requires: openssl-libs >= 3.5.0
 
@@ -578,6 +578,12 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Mar 23 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-9
+- Fix typo in SPDX license name
+
+* Mon Mar 23 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-8
+- Fix typo in GSSAPIProxyS4U2Services
+
 * Thu Mar 19 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-7
 - Providing GssAPIAllowS4U2Self/GssAPIProxyS4U2Services funcionality
 

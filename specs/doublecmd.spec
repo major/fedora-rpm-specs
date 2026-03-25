@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.1.31
-Release:        3%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -34,7 +34,7 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-ExclusiveArch:  %{ix86} x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64
 
 %description
 Double Commander GTK2 is a cross platform open source file manager with two
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Mon Mar 23 2026 Vasiliy Glazov <vascom2@gmail.com> - 1.2.4-1
+- Update to 1.2.4
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

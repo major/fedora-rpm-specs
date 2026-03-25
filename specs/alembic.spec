@@ -5,7 +5,7 @@
 # Python Module
 
 Name:           alembic
-Version:        1.8.10
+Version:        1.8.11
 Release:        %autorelease
 Summary:        Open framework for storing and sharing scene data
 License:        BSD-3-Clause AND BSL-1.0
@@ -60,7 +60,6 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %cmake %{?_cmake_skip_rpath} \
     -DALEMBIC_LIB_INSTALL_DIR=%{_libdir} \
     -DALEMBIC_SHARED_LIBS=ON \
-    -DCMAKE_CXX_STANDARD=17 \
     -DUSE_BINARIES=ON \
     -DUSE_HDF5=ON \
     -DUSE_EXAMPLES=ON \

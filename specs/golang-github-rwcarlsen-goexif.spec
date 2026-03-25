@@ -15,12 +15,10 @@ This package provides decoding of basic exif and tiff encoded data.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.24%{?dist}
+Release:        0.25%{?dist}
 Summary:        Decode embedded EXIF meta data from image files
 
-# Upstream license specification: BSD-2-Clause
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -58,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Mar 23 2026 W. Michael Petullo <mike@flyn.org> - 0-0.25
+- Update license value per SPDX statistics email
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.24
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

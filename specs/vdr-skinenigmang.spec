@@ -9,12 +9,12 @@
 %elif 0%{?fedora} == 43
 %global vdr_version 2.7.7
 %elif 0%{?fedora} >= 44
-%global vdr_version 2.7.9
+%global vdr_version 2.8.1
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.1.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL-1.0-or-later
@@ -72,6 +72,9 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %{vdr_resdir}/icons
 
 %changelog
+* Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.1.5-11
+- Rebuilt for new VDR 2.8.1 API version 12
+
 * Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.1.5-10
 - Rebuilt for new VDR API version 2.7.9
 

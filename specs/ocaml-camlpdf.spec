@@ -4,7 +4,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 %global _smp_ncpus_max 1
 
 Name: ocaml-camlpdf
-Version: 2.8.1
+Version: 2.9
 Release: %autorelease
 Summary: OCaml library for reading, writing and modifying PDFs
 
@@ -15,9 +15,6 @@ Summary: OCaml library for reading, writing and modifying PDFs
 License: LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception and LicenseRef-Fedora-Public-Domain and BSD-3-Clause and MIT and Unlicense and APAFML
 URL: https://github.com/johnwhitington/camlpdf
 Source: https://github.com/johnwhitington/camlpdf/archive/v%{version}/camlpdf-%{version}.tar.gz
-
-#This patch adds -g to CFLAGS, an OCamlMakefile variable. This ensures debug symbols are generated for C code.
-Patch0: patch.patch
 
 BuildRequires: ocaml
 BuildRequires: ocaml-findlib

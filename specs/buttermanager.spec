@@ -13,6 +13,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 Requires:       btrfs-progs
+Requires:       python3-tkinter
 # Recommends:     grub2-btrfs
 
 %description

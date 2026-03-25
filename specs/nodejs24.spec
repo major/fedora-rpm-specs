@@ -1,9 +1,18 @@
+Name:           nodejs24
+Epoch:          1
+Version:        24.14.0
+Release:        %{autorelease}
+
+Summary:        JavaScript runtime
+License:        Apache-2.0 AND Artistic-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BlueOak-1.0.0 AND CC-BY-3.0 AND CC0-1.0 AND ISC AND MIT
+URL:            https://nodejs.org
+
 # This should be moved to rpm-redhat-config or similar as soon as feasible
 # NOTE: %%SOURCE macros are not yet defined, so explicit path is needed
 %{load:%{_sourcedir}/nodejs.srpm.macros}
 
 # === Versions of any software shipped in the main nodejs tarball
-%nodejs_define_version node 1:24.14.0-%{autorelease} -p
+%nodejs_define_version node %{epoch}:%{version}-%{release} -p
 
 # Special release for sub-packages with their own version string.
 # The complex release string ensures that the subpackage release is always increasing,
@@ -76,15 +85,6 @@
 %global nodejs_common_sitelib %{_prefix}/lib/node_modules
 # place for (npm) packages specific to this stream
 %global nodejs_private_sitelib %{_prefix}/lib/node_modules_%{node_version_major}
-
-Name:           nodejs%{node_version_major}
-Epoch:          %{node_epoch}
-Version:        %{node_version}
-Release:        %{node_release}
-
-Summary:        JavaScript runtime
-License:        Apache-2.0 AND Artistic-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BlueOak-1.0.0 AND CC-BY-3.0 AND CC0-1.0 AND ISC AND MIT
-URL:            https://nodejs.org
 
 ExclusiveArch:  %{nodejs_arches}
 # v8 does not build on i686 any more

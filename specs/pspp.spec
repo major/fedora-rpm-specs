@@ -7,7 +7,7 @@ URL:            https://www.gnu.org/software/pspp/
 VCS:            git://git.savannah.gnu.org/pspp.git
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
-# https://cgit.git.savannah.gnu.org/cgit/pspp.git/plain/Smake?h=40958ab818aa0f09435a72cb7da61f9931a2e694
+# https://cgit.git.savannah.gnu.org/cgit/pspp.git/plain/Smake?h=58e4c1b576fe9293c053924446e6c89efd34c53a
 Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # Follow up to CVE-2022-39831
@@ -17,6 +17,7 @@ Patch:		pspp-0002-Revert-update-gnulib-version-to-latest-from-stable-2.patch
 Patch:		pspp-0003-MATRIX-Use-int64_t-instead-of-long-for-sequence-rang.patch
 Patch:		pspp-0004-Revert-MATRIX-Skip-test-for-too-large-matrices-on-32.patch
 Patch:		pspp-0005-Revert-tests-skip-test-MATRIX-very-large-matrices-on.patch
+Patch:		pspp-0006-Reapply-update-gnulib-version-to-latest-from-stable-.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

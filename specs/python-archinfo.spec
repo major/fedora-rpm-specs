@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.189
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/angr/archinfo
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -43,6 +43,9 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Mon Mar 23 2026 W. Michael Petullo <mike@flyn.org> - 9.2.189-3
+- Update license value per SPDX statistics email
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.189-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

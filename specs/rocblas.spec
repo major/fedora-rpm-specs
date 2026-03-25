@@ -437,10 +437,17 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 %if %{with tensile}
 %if %{with bundled_tensile}
 cd tensile
+
+%if 0%{?suse_version}
+TL=$PWD
+python3 setup.py install --root $TL
+TP=${TL}/usr/lib/python%{python3_version}/site-packages/Tensile/
+%else
 TL=$PWD/install
 # pip install --no-index --find-links /usr/lib/python%{python3_version}/site-packages --target $TL .
 /usr/bin/python3 -m pip install -vvv --no-build-isolation --no-index --find-links /usr/lib/python%{python3_version}/site-packages --find-links /usr/lib64/python%{python3_version}/site-packages --target $TL .
 TP=${TL}/Tensile/
+%endif
 cd ..
 %else
 TP=`/usr/bin/TensileGetPath`

@@ -1,31 +1,32 @@
-Name:           torrent-file-editor
-Version:        1.0.0
-Release:        4%{?dist}
-Summary:        Qt based GUI tool designed to create and edit .torrent files
+%define cid io.github.torrent_file_editor.Torrent-file-editor
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:        GPL-3.0-or-later
+Name:           torrent-file-editor
+Version:        1.0.2
+Release:        2%{?dist}
+Summary:        Edit and create torrent files
+
+# Most code licensed with GPL3+
+# json-builder/json-parser licensed as BSD2
+License:        GPL-3.0-or-later AND BSD-2-Clause
 URL:            https://torrent-file-editor.github.io
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch1:         0001-unsupported-appstream-tags.patch
 
 BuildRequires:  cmake
-%if 0%{?fedora} > 39
+%if (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 # BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  qt6-qttools-devel
 %else
-%if (0%{?fedora} > 21 || 0%{?rhel} > 7)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  qt5-qttools-devel
-%else
-BuildRequires:  pkgconfig(QtGui)
-BuildRequires:  pkgconfig(QtCore)
-%endif
 %endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -34,29 +35,26 @@ BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
 
 %description
-Qt based GUI tool designed to create and edit .torrent files.
+A tool designed to create and edit torrent files. It shows the full contents of a
+torrent files or any bencode file and allows changing any fields.
 
-Features
- - create .torrent file from scratch
- - edit .torrent file in user-friendly way
- - edit .torrent file in tree format
- - edit .torrent file in JSON format
- - add, remove and interchange files in .torrent file
- - support for codings
+The main features:
+
+  - Create torrent files from scratch
+  - Edit torrent files in a user-friendly way
+  - Edit torrent files in JSON format
+  - Add, remove and reorder files in a torrent
+  - Support for multiple encodings
 
 %prep
 %setup -q
 
+%if (0%{?rhel} > 0 && 0%{?rhel} <= 9)
+%patch -P1 -p1
+%endif
+
 %build
-%if 0%{?fedora} > 39
-%cmake -DQT6_BUILD=ON -DDISABLE_DONATION=ON
-%else
-%if (0%{?fedora} > 21 || 0%{?rhel} > 7)
-%cmake -DQT5_BUILD=ON -DDISABLE_DONATION=ON
-%else
-%cmake -DQT4_BUILD=ON -DDISABLE_DONATION=ON
-%endif
-%endif
+%cmake -DDISABLE_DONATION=ON
 %cmake_build
 
 %install
@@ -65,20 +63,33 @@ Features
 %check
 # Menu file is being installed when make install
 # so it need only to check this allready installed file
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{cid}.desktop
 
 # Check AppData file
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{cid}.metainfo.xml
 
 %files
 %doc README.md
-%license LICENSE
+%license LICENSES/GPL-3.0-or-later.txt LICENSES/BSD-2-Clause
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/applications/%{cid}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/%{cid}.svg
+%{_datadir}/icons/hicolor/*/apps/%{cid}.png
+%{_metainfodir}/%{cid}.metainfo.xml
 
 %changelog
+* Mon Mar 23 2026 Ivan Romanov <drizt72@zoho.eu> - 1.0.2-2
+- Add patch to fix epel building
+- Drop Qt4 support
+- Update description
+- Use specific macros for metainfo dir
+
+* Mon Mar 23 2026 Ivan Romanov <drizt72@zoho.eu> - 1.0.2-1
+- Bump to v1.0.2
+- Update license
+- Add svg icon
+- Use appstream id for icons, desltop and metainfo files
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

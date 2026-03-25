@@ -18,16 +18,16 @@
 # Filter provides for private modules
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:    gtk3
-Version: 3.24.51
+Version: 3.24.52
 Release: %autorelease
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
-Source0: https://download.gnome.org/sources/gtk/3.24/gtk-%{version}.tar.xz
-
-patch0: drop-down-menu-fix.patch
+Source0: https://download.gnome.org/sources/gtk/%{major_minor_version}/gtk-%{version}.tar.xz
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)

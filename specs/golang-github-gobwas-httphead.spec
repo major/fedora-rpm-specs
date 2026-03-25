@@ -22,6 +22,9 @@ Summary:        HTTP header value parsing library
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+# Fix go vet error:
+# ExampleParseOptionsLifetime refers to unknown identifier: ParseOptionsLifetime
+Patch:          0001-Fix-go-vet-error-on-example-name.patch
 
 %description
 %{common_description}
@@ -29,7 +32,7 @@ Source0:        %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -p1
 
 %install
 %gopkginstall

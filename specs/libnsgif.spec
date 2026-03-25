@@ -26,6 +26,7 @@ developing applications that use %{name}.
 
 %global make_vars %{shrink:
     COMPONENT_TYPE=lib-shared PREFIX=%{_prefix} LIBDIR=%{_lib} Q=
+    NSSHARED=/usr/share/netsurf-buildsystem
     OPTCFLAGS='' OPTLDFLAGS=''
 }
 

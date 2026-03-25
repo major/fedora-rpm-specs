@@ -2,8 +2,7 @@ Summary: Database-specific drivers for libdbi
 Name: libdbi-drivers
 Version: 0.9.0
 Release: 33%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.1-or-later
 URL: http://libdbi-drivers.sourceforge.net/
 
 Source: http://prdownloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.gz

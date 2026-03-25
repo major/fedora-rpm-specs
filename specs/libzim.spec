@@ -1,5 +1,5 @@
 Name: libzim
-Version: 9.5.0
+Version: 9.5.1
 Release: %autorelease
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause

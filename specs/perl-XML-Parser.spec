@@ -1,15 +1,15 @@
 Name:           perl-XML-Parser
-Version:        2.47
-Release:        9%{?dist}
+Version:        2.51
+Release:        1%{?dist}
 Summary:        Perl module for parsing XML documents
 
-License:        Artistic-2.0
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/XML-Parser
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-%{version}.tar.gz
 
 # Build
 BuildRequires:  coreutils
-BuildRequires:  expat-devel
+BuildRequires:  expat-devel >= 2.7.2
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  glibc-common
@@ -18,13 +18,17 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Devel::CheckLib) >= 1.16
-BuildRequires:  perl(English)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::ShareDir::Install)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
+# Required for bundled Devel::CheckLib
+BuildRequires:  perl(Text::ParseWords)
+BuildRequires:  perl(vars)
 # Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(if)
 BuildRequires:  perl(IO::File)
@@ -37,7 +41,9 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::file)
 BuildRequires:  perl(XSLoader)
 # Tests
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(if)
+BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
@@ -49,6 +55,7 @@ Requires:       perl(URI::file)
 
 %{?perl_default_filter}
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}perl\\(XML::Parser\\)$
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}perl\\(Devel::CheckLib\\)
 
 %description
 This module provides ways to parse XML documents. It is built on top
@@ -75,10 +82,6 @@ with "%{_libexecdir}/%{name}/test".
 chmod 644 samples/{canonical,xml*}
 perl -MConfig -pi -e 's|^#!/usr/local/bin/perl\b|$Config{startperl}|' samples/{canonical,xml*}
 
-# Remove bundled library
-rm -r inc
-perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
-
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -103,6 +106,7 @@ done
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t samples %{buildroot}%{_libexecdir}/%{name}
+cp -a inc %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -125,6 +129,10 @@ make test
 %doc README Changes samples/
 %license LICENSE
 %{perl_vendorarch}/XML/
+%dir %{perl_vendorarch}/auto
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/XML-Parser
 %{perl_vendorarch}/auto/XML/
 %{_mandir}/man3/XML::Parser*.3*
 
@@ -132,6 +140,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.51-1
+- 2.51 bump (rhbz#2448965)
+  - Fix CVE-2006-10002 (rhbz#2449269), CVE-2006-10003 (rhbz#2449278)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.47-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

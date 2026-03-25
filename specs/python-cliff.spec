@@ -1,7 +1,9 @@
+# There is circular dependency with this requiring stestr requiring cliff requiring stevedore
+%bcond_with bootstrap
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order sphinx coverage stestr
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order sphinx coverage
 
 %global modname cliff
 
@@ -16,7 +18,7 @@ http://readthedocs.org/docs/cliff/en/latest/
 %global common_desc_tests This package contains tests for the python cliff library.
 
 Name:             python-%{modname}
-Version:          4.8.0
+Version:          4.13.2
 Release:          %autorelease
 Summary:          Command Line Interface Formulation Framework
 
@@ -25,13 +27,17 @@ License:          Apache-2.0
 URL:              https://pypi.io/pypi/cliff
 Source0:          https://pypi.io/packages/source/c/cliff/cliff-%{version}.tar.gz
 
+# Backport of https://opendev.org/openstack/cliff/commit/fcf9710013e40c1aea22a76d76158acb56f5fc46.patch
+Patch0:           relax-caller.patch
+
 BuildArch:        noarch
 
 %package -n python3-%{modname}
 Summary:          Command Line Interface Formulation Framework
 
 BuildRequires:    python3-devel
-BuildRequires:    pyproject-rpm-macros
+
+
 %description -n python3-%{modname}
 %{common_desc}
 
@@ -53,21 +59,20 @@ Requires:         python3-testscenarios
 Requires:         python3-PyYAML
 Requires:         python3-fixtures
 
+
 %description -n python3-%{modname}-tests
 %{common_desc_tests}
+
 
 %description
 %{common_desc}
 
+
 %prep
-%setup -q -n %{modname}-%{upstream_version}
+%autosetup -p1 -n %{modname}-%{upstream_version}
 
-# Remove bundled egg info
-rm -rf *.egg-info
-
+# Ignore openstack global constraints
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 
 # Exclude some bad-known BRs
 for pkg in %{excluded_brs};do
@@ -82,27 +87,38 @@ done
 rm cliff/tests/test_sphinxext.py
 
 %generate_buildrequires
+%if %{with bootstrap}
+%pyproject_buildrequires
+%else
 %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
+%pyproject_save_files -l cliff
+
 
 %check
-# stestr depends on cliff which introduces cyclic dep so i'm avoiding stestr.
-%{python3} -m unittest
+%if %{with bootstrap}
+%pyproject_check_import -e cliff.tests.*
+%else
+%tox
+%endif
 
-%files -n python3-%{modname}
+
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc doc/ README.rst ChangeLog AUTHORS CONTRIBUTING.rst
-%{python3_sitelib}/%{modname}
-%{python3_sitelib}/%{modname}-*.dist-info
 %exclude %{python3_sitelib}/%{modname}/tests
+
 
 %files -n python3-%{modname}-tests
 %{python3_sitelib}/%{modname}/tests
+
 
 %changelog
 %autochangelog

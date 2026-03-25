@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.6.39
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Formatter for RD
 # SPDX confirmed
@@ -13,6 +13,9 @@ Summary:	Formatter for RD
 License:	GPL-2.0-or-later OR Ruby
 URL:		https://github.com/uwabami/rdtool
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/uwabami/rdtool/pull/20
+# Remove warnings for ruby 4.0
+Patch0:	rdtool-pr20-remove-ruby40-warnings.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -46,6 +49,8 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
+
+%patch -P0 -p1
 
 # shebang
 sed -i \
@@ -109,6 +114,9 @@ popd
 %{gem_instdir}/utils/
 
 %changelog
+* Mon Mar 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.39-2
+- Remove warnings for ruby 4.0
+
 * Thu Mar 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.39-1
 - 0.6.39
 

@@ -1,15 +1,19 @@
 Name:       rtmidi
-Version:    5.0.0
-Release:    8%{?dist}
+Version:    6.0.0
+Release:    1%{?dist}
 Summary:    Library for realtime MIDI input/output (ALSA support)
 License:    MIT
-URL:        https://www.music.mcgill.ca/~gary/rtmidi/index.html
-Source0:    https://www.music.mcgill.ca/~gary/rtmidi/release/%{name}-%{version}.tar.gz
-BuildRequires: make
-BuildRequires:  alsa-lib-devel, pkgconfig(jack)
-BuildRequires:  autoconf, automake, libtool, /usr/bin/dos2unix
+URL:        https://caml.music.mcgill.ca/~gary/rtmidi/index.html
+Source0:    https://caml.music.mcgill.ca/~gary/rtmidi/release/rtmidi-%{version}.tar.gz
+BuildRequires:  alsa-lib-devel
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
+BuildRequires:  jack-audio-connection-kit-devel
+BuildRequires:  libtool
+BuildRequires:  make
 Obsoletes:  %{name}-jack < 2.0.0
 
 %description
@@ -28,7 +32,8 @@ goals:
 %package devel
 Summary:    Development headers and libraries for rtmidi
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-Requires:   alsa-lib-devel, pkgconfig(jack)
+Requires:   alsa-lib-devel
+Requires:   jack-audio-connection-kit-devel
 
 %description devel
 Development headers and libraries for rtmidi.
@@ -42,13 +47,13 @@ dos2unix doc/release.txt doc/doxygen/tutorial.txt
 
 %build
 %configure --docdir=%{_docdir}/%{name}-devel --with-jack --with-alsa
-make %{?_smp_mflags} AM_DEFAULT_VERBOSITY=1
+%make_build
 
 # Get rid of the -L/usr/lib in the output of this convenience script
 sed -i -E 's/-L[^ "]+//' %{name}-config
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 
 install --verbose -D -t %{buildroot}%{_bindir} %{name}-config
 
@@ -68,6 +73,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.{a,la}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0.0-1
+- Update to v6.0.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

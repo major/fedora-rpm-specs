@@ -10,12 +10,12 @@
 %elif 0%{?fedora} == 43
 %global vdr_version 2.7.7
 %elif 0%{?fedora} >= 44
-%global vdr_version 2.7.9
+%global vdr_version 2.8.1
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.0.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-6
+- Rebuilt for new VDR 2.8.1 API version 12
+
 * Mon Mar 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-5
 - Fix invalid vdr(abi) dependency (do not include epoch)
 

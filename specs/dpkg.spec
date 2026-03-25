@@ -5,7 +5,7 @@
 %global pkgdatadir %{_datadir}/dpkg
 
 Name:           dpkg
-Version:        1.23.5
+Version:        1.23.7
 Release:        %autorelease
 Summary:        Package maintenance system for Debian Linux
 License:        GPL-2.0-only AND GPL-2.0-or-later AND FSFAP AND FSFULLR

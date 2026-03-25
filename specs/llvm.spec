@@ -2845,6 +2845,7 @@ test_list_filter_out+=("MLIR :: python/execution_engine.py")
 # if ! LD_SHOW_AUXV=1 /bin/true | grep -q arch_3_00; then
 test_list_filter_out+=("MLIR :: python/execution_engine.py")
 test_list_filter_out+=("MLIR :: python/multithreaded_tests.py")
+test_list_filter_out+=("MLIR :: python/global_constructors.py")
 %endif
 
 %if %{with flang}

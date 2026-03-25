@@ -26,7 +26,7 @@ Source102:     https://keys.openpgp.org/vks/v1/by-fingerprint/12BB9B400EE3F77282
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
-Source9:       emacs-desktop.sh
+Source9:       emacs-desktop.sh.in
 
 Source10:      emacs_lisp.attr
 Source11:      emacs_lisp.rec
@@ -501,6 +501,9 @@ cat > 10-source-directory.el << 'EOF'
 ;;; 10-source-directory.el ends here
 EOF
 
+sed -e 's|@bindir@|%{_bindir}|' %SOURCE9 > emacs-desktop.sh
+
+
 %install
 %if %{with nw}
 cd build-nw
@@ -587,7 +590,7 @@ install -p -m 0644 macros.emacs %{buildroot}%{_rpmmacrodir}
 rm -f %{buildroot}%{_infodir}/dir
 
 # Install a wrapper to avoid running the Wayland-only build on X11
-install -p -m 0755 %SOURCE9 %{buildroot}%{_bindir}/emacs-desktop
+install -p -m 0755 emacs-desktop.sh %{buildroot}%{_bindir}/emacs-desktop
 
 # Remove duplicate desktop-related files
 rm %{buildroot}%{_datadir}/%{name}/%{version}/etc/%{name}.{desktop,metainfo.xml,service} \

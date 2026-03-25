@@ -6,16 +6,13 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.31.0
+Version:        2.33.0
 Release:        %autorelease
 Summary:        Command line utility to show dependency tree of packages
 
 License:        MIT
 URL:            https://github.com/naiquevin/pipdeptree
 Source0:        https://github.com/naiquevin/pipdeptree/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Compatibility patch for Python 3.15 alpha 7
-Patch:          https://github.com/tox-dev/pipdeptree/pull/554.patch
 
 BuildArch:      noarch
 

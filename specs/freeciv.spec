@@ -1,5 +1,5 @@
 Name:           freeciv
-Version:        3.2.3
+Version:        3.2.4
 Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
@@ -112,6 +112,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Mar 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.4-1
+- 3.2.4
+
 * Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.3-1
 - 3.2.3
 

@@ -4,8 +4,8 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.4.3
-Release: 2%{?dist}
+Version: 1.4.4
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -18,10 +18,10 @@ Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/rele
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.4.1
+# $ git format-patch -N v1.4.4
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
-# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.0/ --dst-prefix=b/fapolicyd-selinux-1.0/ v1.0
-# $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
+# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.1/ --dst-prefix=b/fapolicyd-selinux-1.1/ v1.1
+# $ for j in [0-9]*.patch; do printf "Patch: %s\n" $j; done
 # Patch list start
 # Patch list end
 
@@ -212,7 +212,7 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}-hardening.cil
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
-%{_datadir}/selinux/devel/include/%{moduletype}/%{name}.if
+%{_datadir}/selinux/devel
 
 %post selinux
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}-hardening.cil
@@ -227,6 +227,15 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Mar 19 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.4-1
+- fapolicyd-1.4.4
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.4
+
+* Tue Jan 27 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.3-3
+- Fix binary path of rpm-loader
+- Map file with MAP_SHARED instead of MAP_PRIVATE
+- Fix segfault when interrupting fapolicyd startup
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

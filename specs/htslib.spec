@@ -3,15 +3,11 @@
 
 Name: htslib
 Version: 1.23.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C library for high-throughput sequencing data formats
 
-# The entire source code is MIT/Expat except cram/ which is Modified-BSD.
-# But as there is no "Expat" license in short name list, set "MIT".
-# Expat license is same with MIT license.
-# https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/C5AHVIW3F6LF5CYLR2PSHNANFYKP327P/
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+# MIT outside cram/, BSD-3-Clause in cram/, public domain for md5.c
+License: MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL: http://www.htslib.org
 Source0: https://github.com/samtools/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
@@ -121,6 +117,9 @@ make test
 
 
 %changelog
+* Mon Mar 23 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23.1-2
+- Fixed license tag
+
 * Thu Mar 19 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23.1-1
 - Updated to 1.23.1
 

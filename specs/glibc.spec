@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-147-gf6143a7848
+%global glibcsrcdir glibc-2.43.9000-171-gcd013efb93
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2400,6 +2400,34 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Mar 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-6
+- Auto-sync with upstream branch master,
+  commit cd013efb933680917c418f19c95b37d6838cd6fb:
+- LoongArch: feclearexcept: skip clearing CAUSE (Xi Ruoyao)
+- riscv: Resolve calls to memcpy using memcpy-generic in early startup (Adhemerval Zanella Netto)
+- riscv: Treat clang separately in RVV compiler checks (Zihong Yao)
+- math: Fix spurious overflow and missing errno for lgammaf (Adhemerval Zanella)
+- misc: Fix a few typos in comments (Yury Khrustalev)
+- math: Sync lgammaf with CORE-MATH (Adhemerval Zanella)
+- math: Sync tgammaf with CORE-MATH (Adhemerval Zanella)
+- Makefile: add allow-list for failures (Martin Coufal)
+- string: Add fallback implementation for ctz/clz (Adhemerval Zanella)
+- AArch64: Remove prefer_sve_ifuncs (Wilco Dijkstra)
+- This reverts commit 6e8f32d39a57aa1f31bf15375810aab79a0f5f4b. (Dev Jain)
+- elf: factor out ld.conf parsing (DJ Delorie)
+- x86: Fix tanh ifunc selection (Adhemerval Zanella)
+- x86_64: Add cosh with FMA (Adhemerval Zanella)
+- math: Consolidated common definition/data for cosh/sinh/tanh (Adhemerval Zanella)
+- math: Use tanh from CORE-MATH (Adhemerval Zanella)
+- math: Remove the SVID error handling from sinh (Adhemerval Zanella)
+- math: Use sinh from CORE-MATH (Adhemerval Zanella)
+- math: Remove the SVID error handling from cosh (Adhemerval Zanella)
+- math: Use cosh from CORE-MATH (Adhemerval Zanella)
+- nptl/htl: Add missing AC_PROVIDES (Samuel Thibault)
+- nptl/htl: Fix confusion over PTHREAD_IN_LIBC and __PTHREAD_NPTL/HTL (Samuel Thibault)
+- nptl: Drop comment about PTHREAD_IN_LIBC (Samuel Thibault)
+- elf: directly call dl_init_static_tls (Samuel Thibault)
+
 * Mon Mar 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-5
 - Auto-sync with upstream branch master,
   commit f6143a7848098a1d4fe4340dd6f375cf0cb9d2db:

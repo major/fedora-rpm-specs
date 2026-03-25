@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/gzp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove criterion dev dependency
+# * Update various dependencies
 Patch:          gzp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

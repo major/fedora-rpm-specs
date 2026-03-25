@@ -1,3 +1,9 @@
+# linking issues on i686
+# /usr/bin/ld.bfd: CMakeFiles/ntfs2btrfs.dir/src/crc32c-gas.S.o: warning: relocation against `crctable' in read-only section `.text'
+# /usr/bin/ld.bfd: error: read-only segment has dynamic relocations
+# collect2: error: ld returned 1 exit status
+%bcond ix86 0
+
 Name:           ntfs2btrfs
 Version:        20250616
 Release:        %autorelease
@@ -19,7 +25,14 @@ BuildRequires:  pkgconfig(libzstd)
 Provides:       bundled(ntfs-3g-system-compression)
 
 # Upstream doesn't have big endian support in the handwritten assembler
-ExcludeArch:    ppc64 s390x
+ExcludeArch:    %{shrink:
+%if %{without ix86}
+  %{ix86}
+%endif
+  ppc64
+  s390x
+}
+
 
 %description
 ntfs2btrfs is a tool which does in-place conversion of Microsoft's NTFS

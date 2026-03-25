@@ -27,14 +27,14 @@
 %global apiver    12
 
 Name:           vdr
-Version:        2.7.9
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.9;sf=tbz2
-# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.9;sf=tbz2"
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.1;sf=tbz2
+# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.1;sf=tbz2"
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -62,7 +62,6 @@ Source32:       ftp://ftp.tvdr.de/vdr/Plugins/vdr-rcu-2.2.0.tgz
 
 Patch0:         define_AUDIO_GET_PTS.patch
 Patch1:         http://zap.tartarus.org/~ds/debian/dists/stable/main/source/vdr_1.4.5-2.ds.diff.gz
-Patch2:         http://www.saunalahti.fi/~rahrenbe/vdr/patches/vdr-2.4.6-editrecording.patch.gz
 # Extracted from http://copperhead.htpc-forum.de/downloads/extensionpatch/extpngvdr1.7.21v1.diff.gz
 Patch3:         %{name}-1.7.21-plugin-missing.patch
 Patch4:         %{name}-2.4.0-paths.patch
@@ -71,10 +70,6 @@ Patch5:         12_osdbase-maxitems.patch
 Patch6:         %{name}-2.7.4-fedora-pkgconfig.patch
 # https://www.vdr-portal.de/file-download/40760/
 Patch11:	%{name}-%{version}-MainMenuHooks-v1_0_5.diff
-# https://www.vdr-portal.de/file-download/40769/
-Patch16:        %{name}-%{version}-remove-leftover-path.diff
-# https://www.vdr-portal.de/file-download/40772/
-Patch17:        %{name}-%{version}-last-replayed-per-folder-05.diff
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
 
@@ -187,7 +182,6 @@ mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/rcu-2.2.0 $RPM_BUILD_DIR/vdr-%{vers
 # TODO: does not apply since 1.7.24
 #patch -F 0 -i debian/patches/06_recording_scan_speedup.dpatch
 patch -F 2 -i debian/patches/07_blockify_define.dpatch
-%patch 2 -p1
 %patch 3 -p1
 sed \
     -e 's|__CACHEDIR__|%{cachedir}|'   \
@@ -199,8 +193,6 @@ sed \
 %patch 5 -p1
 %patch 6 -p1
 %patch 11 -p1
-%patch 16 -p0
-%patch 17 -p0
 %patch 99 -p1
 
 # Patch APIVERSION TO 2.4.8 to match VDRVERSION
@@ -558,6 +550,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.8.1-1
+- Update to 2.8.1
+
 * Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.7.9-1
 - Update to 2.7.9
 - Add vdr-2.7.9-remove-leftover-path.diff

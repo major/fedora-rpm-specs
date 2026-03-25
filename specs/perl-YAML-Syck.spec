@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.39
+Version:        1.41
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -93,6 +93,13 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Mon Mar 23 2026 Paul Howarth <paul@city-fan.org> - 1.41-1
+- Update to 1.41
+  Bug Fixes:
+  - Fix float parsing on -Dusequadmath perls: use Perl's Atof() instead of
+    strtod() so that floats like -3.14 are not corrupted by double-precision
+    rounding artifacts (GH#140, GH#141)
+
 * Sun Mar 22 2026 Paul Howarth <paul@city-fan.org> - 1.39-1
 - Update to 1.39
   Bug Fixes:

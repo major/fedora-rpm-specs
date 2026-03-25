@@ -2,20 +2,20 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:           tcl-thread
-Version:        2.8.8
-Release:        9%{?dist}
+Version:        3.0.5
+Release:        1%{?dist}
 Summary:        Tcl Thread extension
 License:        TCL
 URL:            http://tcl.sourceforge.net
 Source0:        http://prdownloads.sourceforge.net/tcl/thread%{version}.tar.gz
-Patch0:         tcl-thread-x86_64-build.patch
+# Patch0:         tcl-thread-x86_64-build.patch
 
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  tcl-devel < 1:9
 BuildRequires:  tk-devel < 1:9
 BuildRequires:  gdbm-devel
-Requires:       tcl(abi) = 8.6
+Requires:       tcl(abi) = 9.0
 
 %description
 Thread extension for the Tcl toolkit.  You can use this extension to gain
@@ -30,6 +30,7 @@ Include files and mandatory libraries for development.
 
 %prep
 %autosetup -p0 -n thread%{version}
+sed -i 's|/usr/lib/x86_64-linux-gnu|/usr/lib64|' configure
 
 %build
 %configure --with-gdbm --enable-64bit

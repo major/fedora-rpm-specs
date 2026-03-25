@@ -1,6 +1,6 @@
 %global appname include-what-you-use
 %global toolchain clang
-%global llvm_ver 21
+%global llvm_ver 22
 
 %global __cc_clang clang-%{llvm_ver}
 %global __cxx_clang clang++-%{llvm_ver}
@@ -12,7 +12,7 @@
 %undefine _include_frame_pointers
 
 Name: iwyu
-Version: 0.25
+Version: 0.26
 Release: %autorelease
 
 License: NCSA
@@ -21,9 +21,7 @@ URL: https://github.com/%{appname}/%{appname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} && 0%{?fedora} >= 42
 ExcludeArch: %{ix86}
-%endif
 
 BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}

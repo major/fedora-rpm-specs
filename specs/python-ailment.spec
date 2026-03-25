@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.158
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The angr intermediate language
 
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/angr/ailment
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -41,6 +41,9 @@ AIL is the angr intermediate language.
 %license LICENSE
 
 %changelog
+* Mon Mar 23 2026 W. Michael Petullo <mike@flyn.org> - 9.2.158-6
+- Update license value per SPDX statistics email
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.158-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

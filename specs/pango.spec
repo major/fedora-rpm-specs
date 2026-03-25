@@ -7,14 +7,16 @@
 %global cairo_version 1.18
 %global freetype_version 2.1.5
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name:    pango
-Version: 1.57.0
+Version: 1.57.1
 Release: %autorelease
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
-Source0: https://download.gnome.org/sources/%{name}/1.57/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}

@@ -60,10 +60,6 @@
 # Use all vendored dependencies when bootstrapping
 %bcond all_deps_bundled %{with bootstrap}
 
-# === Distro-wide build configuration adjustments ===
-# v8 cannot be built with LTO enabled;
-# the rest of the build should be LTO enabled via the configure script
-%global _lto_cflags %{nil}
 
 # === Additional definitions ===
 # Architecture-dependent suffix for requiring/providing .so names

@@ -1,5 +1,5 @@
 Name:           dash
-Version:        0.5.13.1
+Version:        0.5.13.2
 Release:        %autorelease
 Summary:        Small and fast POSIX-compliant shell
 # BSD-3-Clause: DASH in general
@@ -44,6 +44,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Mar 23 2026 Dave Cantrell <dcantrell@redhat.com> - 0.5.13.2-1
+- Upgrade to dash-0.5.13.2 (#244993)
+
 * Tue Oct 14 2025 Dave Cantrell <dcantrell@redhat.com> - 0.5.13.1-1
 - Upgrade to dash-0.5.13.1 (#2397138)
 - Use %%autorelease for the Release field
