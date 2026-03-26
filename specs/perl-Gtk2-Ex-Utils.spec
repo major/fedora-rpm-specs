@@ -1,15 +1,16 @@
 Name:           perl-Gtk2-Ex-Utils
 Version:        0.09
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Extra Gtk2 Utilities for working with GNOME2/GTK2 in Perl
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Utils
 Source0:        https://cpan.metacpan.org/authors/id/K/KC/KCK/Gtk2-Ex-Utils-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
@@ -29,24 +30,30 @@ programming.
 %setup -q -n Gtk2-Ex-Utils-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc Changes COPYRIGHT README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license COPYRIGHT
+%doc Changes README
+%dir %{perl_vendorlib}/Gtk2
+%dir %{perl_vendorlib}/Gtk2/Ex
+%{perl_vendorlib}/Gtk2/Ex/Constants.pm
+%{perl_vendorlib}/Gtk2/Ex/Utils.pm
+%{_mandir}/man3/Gtk2::Ex::Constants.*
+%{_mandir}/man3/Gtk2::Ex::Utils.*
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.09-51
+- Refine a license tag
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

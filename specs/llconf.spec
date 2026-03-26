@@ -1,9 +1,92 @@
 Name:       llconf
 Version:    0.4.6
-Release:    31%{?dist}
+Release:    32%{?dist}
 Summary:    Loss-less configuration file parser
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:    LicenseRef-Callaway-LGPLv2+
+# COPYING:              LGPL-2.1 text
+# examples/example.c:   GPL-2.0-or-later
+# src/entry.c:          LGPL-2.1-or-later
+# src/entry.h:          LGPL-2.1-or-later
+# src/lines.c:          LGPL-2.1-or-later
+# src/lines.h:          LGPL-2.1-or-later
+# src/llconf.c:         LGPL-2.1-or-later
+# src/modules.c:        LGPL-2.1-or-later
+# src/modules.h:        LGPL-2.1-or-later
+# src/nodes.c:          LGPL-2.1-or-later
+# src/nodes.h:          LGPL-2.1-or-later
+# src/parseerror.c:     LGPL-2.1-or-later
+# src/parseerror.h:     LGPL-2.1-or-later
+# src/parsers/conserver.c:  LGPL-2.1-or-later
+# src/parsers/conserver.h:  LGPL-2.1-or-later
+# src/parsers/cron.c:   LGPL-2.1-or-later
+# src/parsers/cron.h:   LGPL-2.1-or-later
+# src/parsers/cyconf.c: LGPL-2.1-or-later
+# src/parsers/cyconf.h: LGPL-2.1-or-later
+# src/parsers/dhcp.c:   LGPL-2.1-or-later
+# src/parsers/dhcp.h:   LGPL-2.1-or-later
+# src/parsers/dhcp_leases.c:    LGPL-2.1-or-later
+# src/parsers/dhcp_leases.h:    LGPL-2.1-or-later
+# src/parsers/file.c:   LGPL-2.1-or-later
+# src/parsers/file.h:   LGPL-2.1-or-later
+# src/parsers/funcexpr.c:   LGPL-2.1-or-later
+# src/parsers/funcexpr.h:   LGPL-2.1-or-later
+# src/parsers/ifupdown.c:   LGPL-2.1-or-later
+# src/parsers/ifupdown.h:   LGPL-2.1-or-later
+# src/parsers/ini.c:    LGPL-2.1-or-later
+# src/parsers/ini.h:    LGPL-2.1-or-later
+# src/parsers/iproute.c:    LGPL-2.1-or-later
+# src/parsers/iproute.h:    LGPL-2.1-or-later
+# src/parsers/ipsec.c:  LGPL-2.1-or-later
+# src/parsers/ipsec.h:  LGPL-2.1-or-later
+# src/parsers/iptables.c:   LGPL-2.1-or-later
+# src/parsers/iptables.h:   LGPL-2.1-or-later
+# src/parsers/mgetty.c: LGPL-2.1-or-later
+# src/parsers/mgetty.h: LGPL-2.1-or-later
+# src/parsers/options.c:    LGPL-2.1-or-later
+# src/parsers/options.h:    LGPL-2.1-or-later
+# src/parsers/pair.c:   LGPL-2.1-or-later
+# src/parsers/pair.h:   LGPL-2.1-or-later
+# src/parsers/properties.c: LGPL-2.1-or-later
+# src/parsers/properties.h: LGPL-2.1-or-later
+# src/parsers/pslave.c: LGPL-2.1-or-later
+# src/parsers/pslave.h: LGPL-2.1-or-later
+# src/parsers/ppp.c:    LGPL-2.1-or-later
+# src/parsers/ppp.h:    LGPL-2.1-or-later
+# src/parsers/python.c: LGPL-2.1-or-later
+# src/parsers/python.h: LGPL-2.1-or-later
+# src/parsers/route.c:  LGPL-2.1-or-later
+# src/parsers/route.h:  LGPL-2.1-or-later
+# src/parsers/shell.c:  LGPL-2.1-or-later
+# src/parsers/shell.h:  LGPL-2.1-or-later
+# src/parsers/snmpd.c:  LGPL-2.1-or-later
+# src/parsers/snmpd.h:  LGPL-2.1-or-later
+# src/parsers/syslogng.c:   LGPL-2.1-or-later
+# src/parsers/syslogng.h:   LGPL-2.1-or-later
+# src/parsers/table.c:  LGPL-2.1-or-later
+# src/parsers/table.h:  LGPL-2.1-or-later
+# src/parsers/tz.c:     LGPL-2.1-or-later
+# src/parsers/tz.h:     LGPL-2.1-or-later
+# src/strutils.c:       LGPL-2.1-or-later
+# src/strutils.h:       LGPL-2.1-or-later
+# src/parsers/xinetd.c: LGPL-2.1-or-later
+# src/parsers/xinetd.h: LGPL-2.1-or-later
+## Unbundled
+# aclocal.m4:           FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic AND FSFULLR
+# config.guess:         GPL-2.0-or-later WITH Autoconf-exception-generic
+# config.sub:           GPL-2.0-or-later WITH Autoconf-exception-generic
+# configure:            FSFUL AND GPL-2.0-or-later WITH Autoconf-exception-generic
+# debian/Makefile.in:   FSFULLRWD
+# depcomp:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# doc/Makefile.in:      FSFULLRWD
+# examples/Makefile.in: FSFULLRWD
+# INSTALL:              FSFUL
+# install-sh:           X11
+# ltmain.sh:            GPL-2.0-or-later WITH Autoconf-exception-generic
+# Makefile.in:          FSFULLRWD
+# missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# src/Makefile.in:      FSFULLRWD
+# src/parsers/Makefile.in:  FSFULLRWD
+License:    LGPL-2.1-or-later
+SourceLicense:  LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND X11 AND FSFULLRWD AND FSFULLR AND FSFUL
 # The code.google.com home is dead. There is
 # <https://github.com/lipnitsk/llconf> but its 0.4.6 archive contains some
 # additional files (e.g. src/parsers/cron.c copied into src/cron.c with
@@ -45,6 +128,7 @@ that it is still possible to edit the files with a common text editor.
 
 %package devel
 Summary:    Development files for %{name}
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later
 Requires:   %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:   pkgconfig
 
@@ -54,22 +138,23 @@ Libraries and header files needed for developing applications that use
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-# Update libtool not to inject useless RPATH into resulting executable
+%autosetup -p1
+# Remove bundled and pregenerated files
+rm aclocal.m4 config.guess config.sub configure depcomp debian/Makefile.in \
+    doc/Makefile.in examples/Makefile.in INSTALL install-sh ltmain.sh \
+    Makefile.in missing mkinstalldirs src/Makefile.in src/parsers/Makefile.in
+# Regenerate build scripts
 libtoolize -fi
 autoreconf -i
 chmod -x examples/wizard
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%{make_build}
 make -C doc doxygen
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 find "$RPM_BUILD_ROOT" -name '*.la' -delete
 
 %ldconfig_scriptlets libs
@@ -77,20 +162,24 @@ find "$RPM_BUILD_ROOT" -name '*.la' -delete
 
 %files
 %doc examples/etc examples/wizard README.llconf
-%{_bindir}/*
+%{_bindir}/%{name}
 
 %files libs
-%doc COPYING README 
-%{_libdir}/*.so.*
+%license COPYING
+%doc README
+%{_libdir}/libllconf.so.0{,.*}
 
 %files devel
 %doc examples/example.c doc/html
 %{_includedir}/%{name}
-%{_libdir}/*.so
+%{_libdir}/libllconf.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.4.6-32
+- Correct a license tag
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

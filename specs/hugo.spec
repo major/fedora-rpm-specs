@@ -15,13 +15,14 @@
 #      hugo-VERSION.tar.gz
 #      hugo-VERSION-vendor.tar.bz2
 #      0010-skip-modules-TestClient.patch
+#      0020-fix-errorf.patch
 #      go-vendor-tools.toml
 #      libsass-3.6.6.tar.gz
 # 5. Review gocheck. Are more or fewer -d arguments needed?
 
 # https://github.com/gohugoio/hugo
 %global goipath         github.com/gohugoio/hugo
-Version:                0.154.3
+Version:                0.159.0
 
 %gometa -L -f
 
@@ -44,6 +45,8 @@ Source3:        libsass-3.6.6.tar.gz
 # Skip tests that uses the network.
 # Based on https://sources.debian.org/data/main/h/hugo/0.58.3-1/debian/patches/0005-skip-modules-TestClient.patch
 Patch0001:      0010-skip-modules-TestClient.patch
+# See https://github.com/gohugoio/hugo/pull/14665.
+Patch0002:      0020-fix-errorf.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  gcc-c++
@@ -66,8 +69,11 @@ tar xvf %SOURCE3 -C vendor/github.com/bep/golibsass/libsass_src --strip-componen
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-# Allow github.com/tetratelabs/wazero to build:
-%global __golang_extldflags -Wl,-z,undefs
+# Allow github.com/tetratelabs/wazero to build.
+# For commentary on notext, see:
+# https://github.com/wazero/wazero/issues/2469
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+%global __golang_extldflags -Wl,-z,undefs -Wl,-z,notext
 
 # Build extended version of Hugo.
 BUILDTAGS="extended" LDFLAGS="${LDFLAGS} -X %{goipath}/common/hugo.buildDate=$(date --iso=seconds --date=@$SOURCE_DATE_EPOCH) -X %{goipath}/common/hugo.vendorInfo=Fedora:%{version}-%{release}" %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
@@ -126,10 +132,13 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 	-d markup/tableofcontents \
 	-d minifiers \
 	-d modules \
+	-d modules/npm \
+	-d output \
 	-d parser/metadecoders \
 	-d related \
 	-d resources \
 	-d resources/images \
+	-d resources/images/meta \
 	-d resources/page \
 	-d resources/page/pagemeta \
 	-d resources/resource \
@@ -144,6 +153,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 	-d resources/resource_transformers/tocss/scss \
 	-d tpl/cast \
 	-d tpl/collections \
+	-d tpl/css \
 	-d tpl/data \
 	-d tpl/debug \
 	-d tpl/fmt \
@@ -191,7 +201,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %doc testscripts/commands/hugo__processingstats2.txt
 %doc testscripts/commands/hugo__publishdir_in_config.txt
 %doc testscripts/commands/hugo__static_composite.txt
-%doc testscripts/commands/hugo__watch.txt testscripts/commands/hugo_build.txt
+%doc testscripts/commands/hugo_build.txt
 %doc testscripts/commands/hugo_configdev_env.txt
 %doc testscripts/commands/hugo_configdev_environment.txt
 %doc testscripts/commands/hugo_configprod.txt
@@ -206,18 +216,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %doc testscripts/commands/mod_tidy.txt testscripts/commands/mod_vendor.txt
 %doc testscripts/commands/new.txt testscripts/commands/new_content.txt
 %doc testscripts/commands/new_content_archetypedir.txt
-%doc testscripts/commands/noop.txt testscripts/commands/server.txt
-%doc testscripts/commands/server__edit_config.txt
-%doc testscripts/commands/server__edit_content.txt
-%doc testscripts/commands/server__error_recovery_edit_config.txt
-%doc testscripts/commands/server__error_recovery_edit_content.txt
-%doc testscripts/commands/server__multihost.txt
-%doc testscripts/commands/server__watch_hugo_stats.txt
-%doc testscripts/commands/server__watch_moduleconfig.txt
-%doc testscripts/commands/server_disablelivereload.txt
-%doc testscripts/commands/server_disablelivereload__config.txt
-%doc testscripts/commands/server_render_static_to_disk.txt
-%doc testscripts/commands/server_render_to_memory.txt
+%doc testscripts/commands/noop.txt
 %doc testscripts/commands/version.txt testscripts/commands/warnf_stderr.txt
 %doc testscripts/unfinished/noop.txt testscripts/withdeploy/deploy.txt
 %doc testscripts/withdeploy-off/deploy_off.txt

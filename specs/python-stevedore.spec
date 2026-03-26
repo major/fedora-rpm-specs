@@ -1,11 +1,8 @@
 # There is circular dependency with this requiring stestr requiring cliff requiring stevedore
 %bcond_with bootstrap
 
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg 1
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order sphinx coverage
 
 %global common_desc Manage dynamic plugins for Python applications
 
@@ -17,10 +14,10 @@ Summary:        Manage dynamic plugins for Python applications
 Group:          Development/Languages
 License:        Apache-2.0
 URL:            https://github.com/openstack/stevedore
-Source0:        https://tarballs.openstack.org/stevedore/stevedore-%{upstream_version}.tar.gz
+Source0:        https://tarballs.openstack.org/stevedore/stevedore-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source1:        https://tarballs.openstack.org/stevedore/stevedore-%{upstream_version}.tar.gz.asc
+Source1:        https://tarballs.openstack.org/stevedore/stevedore-%{version}.tar.gz.asc
 Source2:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:      noarch
@@ -30,6 +27,7 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/gpgv2
 %endif
 BuildRequires:  python3-devel
+BuildRequires:  git-core
 
 %description
 %{common_desc}
@@ -49,26 +47,17 @@ Group:          Development/Libraries
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-%setup -q -n stevedore-%{upstream_version}
+%setup -q -n stevedore-%{version}
 
 # Remove empty file
 rm stevedore/tests/extension_unimportable.py
 
-# Do not run doctest, assume in git repo
-rm stevedore/tests/test_sphinxext.py
-
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs};do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    test-requirements.txt doc/requirements.txt
 
 
 %generate_buildrequires
@@ -85,7 +74,7 @@ done
 
 %check
 %if %{with bootstrap}
-%pyproject_check_import -e stevedore.example* -e stevedore.sphinxext
+%pyproject_check_import -e stevedore.example* -e stevedore.sphinxext -e stevedore.tests.test_sphinxext
 %else
 %tox
 %endif

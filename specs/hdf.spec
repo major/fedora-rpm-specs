@@ -7,10 +7,12 @@
 
 Name: hdf
 Version: 4.3.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A general purpose library and file format for storing scientific data
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+# BSD-3-Clause-LBNL is main license
+# Some source files inside hdf/src directory are BSD-3-Clause
+# mfhdf/util/h4getopt.h is licensed under libtiff
+License: BSD-3-Clause-LBNL AND BSD-3-Clause AND libtiff
 URL: https://portal.hdfgroup.org/
 Source0: https://github.com/HDFGroup/hdf4/archive/refs/tags/hdf%{version}.tar.gz
 Source1: h4comp
@@ -246,6 +248,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Tue Mar 24 2026 Antonio Trande <sagitter@fedoraproject.org> - 4.3.0-6
+- Fix License
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

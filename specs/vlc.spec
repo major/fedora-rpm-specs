@@ -15,6 +15,9 @@
 %bcond postproc %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 # disabled due to various issues
 %bcond projectm 0
+# Temporary disable libspatialaudio until upstream pick
+# https://code.videolan.org/videolan/vlc/-/issues/29493
+%bcond spatialaudio %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 
 # some dependencies are not yet in EPEL 10
 %bcond daala 1
@@ -224,9 +227,7 @@ BuildRequires:	pkgconfig(shout) >= 2.1
 BuildRequires:	pkgconfig(smbclient)
 BuildRequires:	pkgconfig(soxr) >= 0.1.2
 BuildRequires:	pkgconfig(sqlite3)
-%if 0%{?fedora} && %{?fedora} < 44
-# Temporary disable libspatialaudio until upstream pick
-# https://code.videolan.org/videolan/vlc/-/issues/29493
+%if %{with spatialaudio}
 BuildRequires:	pkgconfig(spatialaudio)
 %endif
 BuildRequires:	pkgconfig(speex) >= 1.0.5
@@ -674,7 +675,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-tremor						\
 	--enable-speex						\
 	--enable-opus						\
-%if 0%{?fedora} && %{?fedora} < 44
+%if %{with spatialaudio}
 	--enable-spatialaudio					\
 %endif
 	--enable-theora						\
@@ -1151,7 +1152,7 @@ make check
 %{vlc_plugindir}/audio_filter/libmad_plugin.so
 %{vlc_plugindir}/audio_filter/libsamplerate_plugin.so
 %{vlc_plugindir}/audio_filter/libsoxr_plugin.so
-%if 0%{?fedora} && %{?fedora} < 44
+%if %{with spatialaudio}
 %{vlc_plugindir}/audio_filter/libspatialaudio_plugin.so
 %endif
 %{vlc_plugindir}/audio_filter/libspeex_resampler_plugin.so

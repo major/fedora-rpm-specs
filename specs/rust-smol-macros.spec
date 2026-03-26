@@ -2,22 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate build-context
+%global crate smol-macros
 
-Name:           rust-build-context
-Version:        0.1.4
+Name:           rust-smol-macros
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Make build environment/target information available as constants
+Summary:        Macros for setting up a smol runtime
 
 License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/build-context
+URL:            https://crates.io/crates/smol-macros
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Remove unsend crate
+Patch:          smol-macros-fix-metadata.diff
+# * Remove unsend from tests - https://github.com/smol-rs/smol-macros/pull/16
+Patch2:         smol-macros-remove-unsend-from-tests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Make build environment/target information available as constants in
-normal libraries and binaries.}
+Macros for setting up a smol runtime.}
 
 %description %{_description}
 

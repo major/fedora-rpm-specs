@@ -1,11 +1,38 @@
+%global tarball_version %%(echo %%{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
+
 Name:           gnome-2048
-Version:        50.alpha
+Version:        50.1
 Release:        %autorelease
 Summary:        A 2048 clone for GNOME
 
-License:        GPL-3.0-or-later
+# gnome-2048: GPL-3.0-or-later
+# Rust dependencies:
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND
+    (Apache-2.0 OR MIT) AND
+    (MIT) AND (Unlicense OR MIT)
+}
+# LICENSE.dependencies contains a full license breakdown
 URL:            https://wiki.gnome.org/Apps/2048
-Source0:        https://download.gnome.org/sources/gnome-2048/50/gnome-2048-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+
+Patch:          0001-fix-build-options-for-rpm.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
+BuildRequires:  cargo-rpm-macros
+%endif
 
 BuildRequires:  gcc
 BuildRequires:  itstool
@@ -26,12 +53,23 @@ http://en.wikipedia.org/wiki/2048_(video_game)
 
 
 %prep
-%autosetup -p1
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
+%autosetup -p1 -n %{name}-%{tarball_version}
+
+rm -rf vendor
+%cargo_prep
+%generate_buildrequires
+%cargo_generate_buildrequires -t -a
 
 
 %build
-%meson
+%meson -Dprofile=rpm
 %meson_build
+
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 
 %install
@@ -47,6 +85,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.TwentyFo
 %files -f %{name}.lang -f gnome-2048_libgnome-games-support.lang
 %doc README.md code-of-conduct.md
 %license COPYING
+%license LICENSE.dependencies
 %{_bindir}/gnome-2048
 %{_datadir}/applications/org.gnome.TwentyFortyEight.desktop
 %{_datadir}/dbus-1/services/org.gnome.TwentyFortyEight.service

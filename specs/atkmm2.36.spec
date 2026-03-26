@@ -8,9 +8,7 @@ Name:           atkmm2.36
 Version:        2.36.3
 Release:        %autorelease
 Summary:        C++ interface for the ATK library
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/atkmm/%{release_version}/atkmm-%{version}.tar.xz
 

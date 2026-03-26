@@ -19,7 +19,6 @@ Patch:		libyuv-0006-Don-t-install-tools-and-static-lib.patch
 BuildRequires:	cmake
 BuildRequires:	cmake(GTest)
 BuildRequires:	gcc-c++
-BuildRequires:	gtest-devel
 BuildRequires:	pkgconfig(libjpeg)
 
 
@@ -57,24 +56,18 @@ EOF
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380770)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DUNIT_TEST=TRUE
 %{cmake_build}
 
 
 %install
 %{cmake_install}
-
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-cp -a %{name}.pc %{buildroot}%{_libdir}/pkgconfig/
-
-# FIXME
-rm -f %{buildroot}%{_bindir}/yuvconvert
+install -D -p -m 0644  %{name}.pc %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 
 %check
-# FIXME fails again on s390
+# FIXME 42 of 3438 tests fail on s390x due to big-endian byte order assumptions
+# in packed pixel formats (RGB565, AR30, AB30). Core YUV operations pass.
 %ifnarch s390x
 %{ctest}
 %endif

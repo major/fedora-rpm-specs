@@ -13,8 +13,7 @@ Summary:	A lightweight email program designed around conversations
 # As libstemmer.vapi and libunwind.vapi are built into the same binary with
 # LGPLv2+ code, we end up with the more restrictive LGPLv2+ license covering
 # the whole binary, so we don't need to specify BSD and MIT separately.
-# Automatically converted from old format: Public Domain - review is highly recommended.
-License:	LGPL-2.1-or-later AND CC-BY-3.0 AND CC-BY-SA-3.0 AND LicenseRef-Callaway-Public-Domain
+License:	LGPL-2.1-or-later AND CC-BY-3.0 AND CC-BY-SA-3.0 AND LicenseRef-Fedora-Public-Domain
 URL:		https://wiki.gnome.org/Apps/Geary
 Source0:	https://download.gnome.org/sources/geary/46/%{name}-%{tarball_version}.tar.xz
 

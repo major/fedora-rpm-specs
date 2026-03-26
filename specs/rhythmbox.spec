@@ -9,8 +9,7 @@ Version: 3.4.9
 Release: %autorelease
 Summary: Music Management Application
 
-# Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
-License: LicenseRef-Callaway-GPLv2+-with-exceptions AND GFDL-1.1-no-invariants-or-later
+License: GPL-2.0-or-later AND CC0-1.0 AND MIT
 URL:     https://wiki.gnome.org/Apps/Rhythmbox
 Source0: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
 

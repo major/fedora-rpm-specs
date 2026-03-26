@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -34,6 +34,9 @@ Patch5:         kbd-2.0.2-unicode-start-font.patch
 Patch6:         kbd-2.4.0-covscan-fixes.patch
 # Patch7: adds vlock option to issue prompt before invokation of pam stack
 Patch7:         kbd-2.0.4-vlock-add-prompt-option.patch
+# Patch8: fixes setfont segfault when option that needs an argument is passed
+#   with the argument blank, bz 2447892 (already upstream)
+Patch8:         kbd-2.9.0-fix-setfont-segfault.patch
 
 BuildRequires:  gcc, bison, flex, gettext, pam-devel, check-devel, automake
 BuildRequires:  console-setup, xkeyboard-config
@@ -184,6 +187,10 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Tue Mar 24 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.9.0-3
+- Fix setfont segmentation fault when argument for option is missing
+  Resolves: #2447892
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

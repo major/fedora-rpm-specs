@@ -21,7 +21,7 @@
 
 %global upstreamname ROCmValidationSuite
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -225,6 +225,9 @@ done
 %{pkg_prefix}/%{pkg_libdir}/rvs/
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

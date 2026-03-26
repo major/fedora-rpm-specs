@@ -3,8 +3,8 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.62.0
-Release:        2%{?dist}
+Version:        1.66.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
@@ -15,6 +15,7 @@ Patch:          0003-Disable-more-test-which-requires-db-server.patch
 Patch:          0004-Revert-to-sqlglot-5.1.3.patch
 Patch:          0005-Relax-various-reqs.patch
 Patch:          0006-Work-with-older-cli-helpers.patch
+Patch:          0007-Skip-test-failures-due-to-older-click.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -103,6 +104,9 @@ mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=3333 -
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Mon Mar 23 2026 Terje Røsten <terjeros@gmail.com> - 1.66.0-1
+- 1.66.0
+
 * Tue Mar 10 2026 Terje Røsten <terjeros@gmail.com> - 1.62.0-2
 - Work with older cli-helpers
 

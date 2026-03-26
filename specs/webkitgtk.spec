@@ -32,11 +32,11 @@ Summary:        GTK web content engine library
 # Source/JavaScriptCore/disassembler/zydis/* is MIT
 # Source/JavaScriptCore/runtime/JSDateMath.h is MPL 1.1/GPL 2.0/LGPL 2.1
 # Source/JavaScriptCore/runtime/MathCommon.cpp is SunPro
-# Source/JavaScriptCore/ucd/CaseFolding.txt is Unicode-TOU
+# Source/JavaScriptCore/ucd/CaseFolding.txt is Unicode-TOU, which is unapproved, but the only copyrightable part is the comment at the top of the file, so seems safe to omit it
 # Source/ThirdParty/ANGLE/include/CL/cl_d3d10.h is Apache-2.0
 # Source/ThirdParty/ANGLE/include/GLES/gl.h is MIT-Khronos (not on list see https://github.com/spdx/license-list-XML/issues/2017)
 # Source/ThirdParty/ANGLE/src/compiler/preprocessor/preprocessor_tab_autogen.cpp is GPL-3.0-or-later WITH Bison-exception-2.2
-# Source/ThirdParty/ANGLE/tools/flex-bison/third_party/m4sugar/m4sugar.m4 is GPL-3.0-only WITH Autoconf-exception-3.0
+# Source/ThirdParty/ANGLE/tools/flex-bison/third_party/m4sugar/m4sugar.m4 is GPL-3.0-or-later WITH Autoconf-exception-3.0
 # Source/ThirdParty/pdfjs/web/images/annotation-paperclip.svg is MPL-2.0i
 # Source/ThirdParty/pdfjs/web/standard_fonts/LICENSE_LIBERATION is OFL-1.1
 # Source/ThirdParty/xdgmime/ is AFL-2.0 OR GPL-2.0-or-later
@@ -48,7 +48,7 @@ Summary:        GTK web content engine library
 # Source/WTF/icu/LICENSE is ICU
 # Source/WTF/wtf/Markable.h is BSL-1.0
 # The license tag and above comment is up to date as of WebKitGTK 2.42.2.
-License:        LGPL-2.1-only AND BSD-2-Clause AND BSD-3-Clause AND ISC AND bzip2-1.0.6 AND NCSA AND MIT AND GPL-2.0-only AND MPL-1.1 AND SunPro AND Unicode-TOU AND Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-only WITH Autoconf-exception-3.0 AND MPL-2.0 AND OFL-1.1 AND (AFL-2.0 OR GPL-2.0-or-later) AND BSD-Source-Code AND BSD-2-Clause-Views AND LGPL-2.1-or-later AND (NCSA OR MIT) AND Apache-2.0 WITH LLVM-exception AND ICU AND BSL-1.0
+License:        LGPL-2.1-only AND BSD-2-Clause AND BSD-3-Clause AND ISC AND bzip2-1.0.6 AND NCSA AND MIT AND GPL-2.0-only AND MPL-1.1 AND SunPro AND Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-or-later WITH Autoconf-exception-3.0 AND MPL-2.0 AND OFL-1.1 AND (AFL-2.0 OR GPL-2.0-or-later) AND BSD-Source-Code AND BSD-2-Clause-Views AND LGPL-2.1-or-later AND (NCSA OR MIT) AND Apache-2.0 WITH LLVM-exception AND ICU AND BSL-1.0
 URL:            https://www.webkitgtk.org/
 Source0:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz
 Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc

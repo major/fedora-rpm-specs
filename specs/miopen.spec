@@ -28,7 +28,7 @@
 
 %global upstreamname miopen
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -115,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -409,6 +409,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

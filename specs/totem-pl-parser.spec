@@ -2,9 +2,7 @@ Name:		totem-pl-parser
 Version:	3.26.6
 Release:	14%{?dist}
 Summary:	Totem Playlist Parser library
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+License:	LGPL-2.0-or-later AND (LGPL-2.1-or-later WITH GStreamer-exception-2005)
 Url:		https://wiki.gnome.org/Apps/Videos
 Source0:	https://download.gnome.org/sources/%{name}/3.26/%{name}-%{version}.tar.xz
 Patch0: totem-pl-parser-c99.patch

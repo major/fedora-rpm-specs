@@ -5,9 +5,7 @@ Name:           iagno
 Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Reversi game
-
-# Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
-License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Iagno
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 

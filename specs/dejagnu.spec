@@ -1,7 +1,7 @@
 Summary: A front end for testing other programs
 Name: dejagnu
 Version: 1.6.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Epoch: 1
 # Note: baseboards/riscv-sim.exp is GPL 2.0 or later
 # GFDL-1.3-or-later: Everything in doc/
@@ -16,6 +16,7 @@ BuildRequires: expect texinfo
 BuildRequires: make
 
 Patch0: rhbz460153.patch
+Patch1: tcl9.patch
 
 %description
 DejaGnu is an Expect/Tcl based framework for testing other programs.
@@ -28,6 +29,7 @@ into software development).
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %configure -v
@@ -63,6 +65,10 @@ install -D -m 644 doc/dejagnu.info $RPM_BUILD_ROOT/%{_infodir}/%{name}.info
 %{_infodir}/dejagnu*
 
 %changelog
+* Tue Mar 24 2026 Jakub Jelinek <jakub@redhat.com> - 1:1.6.3-16
+- Use -translation binary instead of -encoding binary for Tcl 9 compatibility
+  (#2440542)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

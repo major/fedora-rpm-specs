@@ -1,7 +1,7 @@
 %global giturl  https://github.com/Normaliz/Normaliz
 
 Name:           normaliz
-Version:        3.10.5
+Version:        3.11.1
 Release:        %autorelease
 Summary:        A tool for discrete convex geometry
 
@@ -21,9 +21,6 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
 Patch:          %{name}-hash-library.patch
-# Adapt to changes in nauty 2.9.0
-# https://github.com/Normaliz/Normaliz/issues/436
-Patch:          %{name}-nauty2.9.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -78,7 +75,7 @@ internals as a library (libnormaliz).
 %conf
 # Update the configuration for Fedora
 sed -e 's|-funroll-loops|%{build_cxxflags} -I%{_includedir}/gfanlib|' \
-    -e 's|-O3|-O2|' \
+    -e 's|-O3  -march=znver3|-O2|' \
     -e 's|STRIP_FLAGS = .*|CXXFLAGS += -g|' \
     -i source/Makefile.configuration
 
@@ -123,7 +120,6 @@ help2man -s 1 -o normaliz.1 -N -n 'A tool for discrete convex geometry' \
 %install
 # Install the library, binary, and headers
 %make_install
-rm -f %{buildroot}%{_libdir}/*.la
 
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -143,8 +139,7 @@ LD_LIBRARY_PATH=$PWD/source/.libs make check
 
 %files -n libnormaliz
 %license COPYING
-%{_libdir}/libnormaliz.so.3
-%{_libdir}/libnormaliz.so.3.*
+%{_libdir}/libnormaliz.so.3{,.*}
 
 %files -n libnormaliz-devel
 %doc source/libnormaliz/README

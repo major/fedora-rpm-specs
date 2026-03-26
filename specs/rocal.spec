@@ -22,7 +22,7 @@
 %global upstreamname rocAL
 
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -264,6 +264,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.s
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

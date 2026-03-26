@@ -7,7 +7,7 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.17
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 
@@ -18,6 +18,7 @@ Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-
 BuildArch:      noarch
 
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pyasn1)
 
 Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}
 %if %{with selinux}
@@ -78,6 +79,15 @@ SELinux support for %{name}
 #endif with selinux
 %endif
 
+%package user-enroll
+Summary:        User Certificate Enrollment
+Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}
+Requires:       python%{python3_pkgversion}-pyasn1
+
+%description user-enroll
+CLI tools for requesting certificates on demand as a user to get User
+Certificates.
+
 %prep
 %autosetup -p1
 
@@ -113,6 +123,10 @@ for SELINUXVARIANT in %{selinux_variants}; do
 done
 #endif with selinux
 %endif
+
+install -d -m 0755 %{buildroot}%{_bindir}
+install -m 0755 bin/cepces-user %{buildroot}%{_bindir}/cepces-user
+install -m 0755 bin/cepces-user-autoenroll %{buildroot}%{_bindir}/cepces-user-autoenroll
 
 # Configuration files
 install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}/
@@ -191,6 +205,11 @@ fi
 %if %{with selinux}
 %files selinux -f selinux-files.txt
 %endif
+
+%files user-enroll
+%doc README.rst
+%{_bindir}/cepces-user
+%{_bindir}/cepces-user-autoenroll
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
 Name:           python-send2trash
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Python library to natively send files to Trash
 

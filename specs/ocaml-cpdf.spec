@@ -4,7 +4,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 %global _smp_ncpus_max 1
 
 Name: ocaml-cpdf
-Version: 2.8.1
+Version: 2.9
 Release: %autorelease
 Summary: OCaml library and command line tool for processing PDFs
 
@@ -15,10 +15,6 @@ Summary: OCaml library and command line tool for processing PDFs
 License: AGPL-3.0-only and ISC and BSD-3-Clause and CC-BY-4.0 and Unicode-DFS-2015
 URL: https://github.com/johnwhitington/cpdf-source
 Source: https://github.com/johnwhitington/cpdf-source/archive/v%{version}/cpdf-source-%{version}.tar.gz
-
-#This patch adds -g to CFLAGS, an OCamlMakefile variable. This ensures debug
-#symbols are generated for C code.
-Patch0: patch.patch
 
 BuildRequires: ocaml
 BuildRequires: ocaml-findlib

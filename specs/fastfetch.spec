@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.59.0
+Version:        2.60.0
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -111,6 +111,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Tue Mar 24 2026 Jonathan Wright <jonathan@almalinux.org> - 2.60.0-1
+- update to 2.60.0 rhbz#2445445
+
 * Wed Feb 18 2026 Jonathan Wright <jonathan@almalinux.org> - 2.59.0-1
 - update to 2.59.0 rhbz#2385354
 - Fix issue with Plasma 6.6 rhbz#2440585 rhbz#2440584

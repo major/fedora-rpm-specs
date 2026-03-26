@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/elalish/manifold
 %global pypiname manifold3d
 
-Version:        3.4.0
+Version:        3.4.1
 %forgemeta
 Name:           manifold
 Release:        %autorelease

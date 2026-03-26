@@ -28,7 +28,7 @@
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        0.rocm%{rocm_version}%{?dist}
 %else
-Release:        6.rocm%{rocm_version}%{?dist}
+Release:        7.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1056,6 +1056,9 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> 22-7.rocm7.2.1
+- Update to 7.2.1
+
 * Mon Mar 16 2026 Tom Rix <Tom.Rix@amd.com> 22-6.rocm7.2.0
 - Change define to global build dirs
 - Fix dangling symlinks

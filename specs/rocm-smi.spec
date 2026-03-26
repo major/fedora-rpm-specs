@@ -28,7 +28,7 @@
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
@@ -62,7 +62,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    3%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -219,6 +219,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Sat Mar 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Merge back rocm-smi7.2
 

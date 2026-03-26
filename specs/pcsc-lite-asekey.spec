@@ -4,12 +4,11 @@
 
 Name:           pcsc-lite-%{driver}
 Version:        3.7
-Release:        28%{dist}
+Release:        29%{dist}
 Summary:        ASEKey USB token driver
-# 92_pcscd_asekey.rules:    LGPLv2+
-# other files:              BSD
-# Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
+# 92_pcscd_asekey.rules:    LGPL-2.1-or-later
+# LICENSE:                  BSD-3-Clause text
+License:        LGPL-2.1-or-later AND BSD-3-Clause
 # The address does not exist anymore.
 URL:            http://www.athena-scs.com/
 Source0:        %{url}docs/reader-drivers/%{driver}-%(echo %{version}|tr '.' '-')-tar.bz2
@@ -62,9 +61,12 @@ sed -i -e '/^BUILD=/ s/-gnu$//' Makefile.inc
 %license LICENSE
 %doc ChangeLog README
 %{dropdir}/ifd-ASEKey.bundle
-%{rulesdir}/*
+%{rulesdir}/92_pcscd_asekey.rules
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 3.7-29
+- Correct the license tag
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

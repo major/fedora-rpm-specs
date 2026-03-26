@@ -1,15 +1,17 @@
 Name:           accountsservice
-Version:        23.13.9
+Version:        26.12.8
 Release:        %autorelease
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPL-3.0-or-later
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
 
 #VCS: git:git://gitlab.freedesktop.org/accountsservice/accountsservice
-Source0:        https://www.freedesktop.org/software/accountsservice/accountsservice-%{version}.tar.xz
+# releases are at https://gitlab.freedesktop.org/accountsservice/accountsservice/-/releases with hashed upload URL-s
+Source0:        accountsservice-%{version}.tar.xz
 
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(json-c)
 BuildRequires:  glib2-devel
 BuildRequires:  polkit-devel
 BuildRequires:  systemd
@@ -25,11 +27,6 @@ BuildRequires:  libxcrypt-devel
 Requires:       polkit
 Requires:       shadow-utils
 %{?systemd_requires}
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2185850
-Patch10001:     0001-mocklibc-Fix-compiler-warning.patch
-Patch10002:     0002-user-manager-Fix-another-compiler-warning.patch
-Patch10003:     0003-act-user-Use-the-reentrant-interfaces-of-crypt-_gens.patch
 
 %description
 The accountsservice project provides a set of D-Bus interfaces for

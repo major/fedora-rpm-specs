@@ -8,12 +8,13 @@
 
 Name:           perl-GStreamer1
 Version:        0.003
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl binding for GStreamer 1.x
-# lib/GStreamer1.pm:                BSD
-# lib/GStreamer1/Caps/Simple.pm:    BSD
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# lib/GStreamer1.pm:                BSD-2-Clause
+# lib/GStreamer1/Caps/Simple.pm:    BSD-2-Clause
+# perl-GStreamer1.spec:             CC-BY-SA-4.0
+#                                   TODO: Relicense this code
+License:        BSD-2-Clause
 URL:            https://metacpan.org/release/GStreamer1
 Source0:        https://cpan.metacpan.org/authors/id/T/TM/TMURRAY/GStreamer1-%{version}.tar.gz
 # Remove useless dependency on gstreamer1-devel
@@ -21,9 +22,11 @@ Patch0:         GStreamer1-0.003-Remove-a-useless-check-for-gstreamer1-library.p
 # Remove bogus shell bangs from the documentation
 Patch1:         GStreamer1-0.003-Remove-shebangs-from-examples.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Devel::CheckLib) >= 0.9
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
@@ -52,28 +55,57 @@ GStreamer1 implements a framework that allows for processing and encoding
 of multimedia sources in a manner similar to a shell pipeline. This package
 provides the Perl language bindings.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n GStreamer1-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n GStreamer1-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/002_pod.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %files
 %doc CHANGELOG dist.ini examples
 %{perl_vendorlib}/GStreamer1*
 %{_mandir}/man3/GStreamer1*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.003-35
+- Correct a license tag
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

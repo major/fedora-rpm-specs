@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        5.2.2
-Release:        3%{?dist}
+Version:        5.4.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -377,6 +377,12 @@ fi
 
 
 %changelog
+* Tue Mar 24 2026 Jonathan Wright <jonathan@almalinux.org> - 5.4.0-1
+- update to 5.4.0
+
+* Tue Mar 24 2026 Jonathan Wright <jonathan@almalinux.org> - 5.3.1-1
+- update to 5.3.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

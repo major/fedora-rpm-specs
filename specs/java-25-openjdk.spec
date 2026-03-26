@@ -326,9 +326,9 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the crypto policy & FIPS support patches
-%global fipsver df044414ef4
-# Define nssadapter version
-%global nssadapter_version 0.1.0
+%global fipsver e55ada9353e
+# Define nssadapter variables
+%global nssadapter_version 0.1.1
 %global nssadapter_name nssadapter-%{nssadapter_version}
 # Define whether the crypto policy is expected to be active when testing
 %global crypto_policy_active true

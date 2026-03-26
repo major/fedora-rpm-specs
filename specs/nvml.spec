@@ -28,16 +28,16 @@
 %endif
 
 %define min_ndctl_ver 60.1
-%define upstreamversion 2.1.0
+%define upstreamversion 2.1.3
 
 Name:		nvml
 Version:	%{upstreamversion}
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Persistent Memory Development Kit (formerly NVML)
 License:	BSD-3-Clause
 URL:		http://pmem.io/pmdk
 
-Source0:	https://github.com/pmem/pmdk/releases/download/%{upstreamversion}/pmdk-%{upstreamversion}.tar.gz
+Source0:	https://github.com/daos-stack/pmdk/releases/download/%{upstreamversion}/pmdk-%{upstreamversion}.tar.gz
 #Patch0:		0001-test-don-t-print-the-address-of-a-FILE-after-fclose.patch
 
 
@@ -499,6 +499,9 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Tue Mar 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.1.3-1
+- 2.1.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

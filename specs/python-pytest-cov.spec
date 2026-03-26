@@ -23,7 +23,7 @@ pytest-cov’s command line options or through coverage’s config file.
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        7.0.0
+Version:        7.1.0
 %forgemeta
 Release:        %autorelease
 Summary:        Coverage plugin for pytest

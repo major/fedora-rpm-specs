@@ -45,7 +45,9 @@ BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
 
+%if %{undefined flatpak}
 Requires: grim
+%endif
 Requires: hicolor-icon-theme
 Requires: qt6-qtsvg%{?_isa}
 

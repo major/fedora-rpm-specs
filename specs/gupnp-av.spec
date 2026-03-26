@@ -2,9 +2,7 @@ Name:          gupnp-av
 Version:       0.14.4
 Release:       %autorelease
 Summary:       A collection of helpers for building UPnP AV applications
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       LGPL-2.1-or-later AND CC0-1.0
 URL:           http://www.gupnp.org/
 Source0:       http://download.gnome.org/sources/gupnp-av/0.14/%{name}-%{version}.tar.xz
 

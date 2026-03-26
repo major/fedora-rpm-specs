@@ -32,7 +32,7 @@
 %else
 %global rocm_major 7
 %global rocm_minor 2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
@@ -110,7 +110,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
@@ -125,7 +125,7 @@ Source1:        %{url}/releases/download/%{pkg_src}/hip.tar.gz#/hip-%{version}.t
 Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
-patch2:        %{url}/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
+patch2:        909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
 
 # std::filesystem is c++17 and that is too new for suse 15
 # https://github.com/ROCm/rocm-systems/issues/1947
@@ -451,6 +451,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

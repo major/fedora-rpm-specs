@@ -198,6 +198,11 @@ chmod -x src/calibre/*/*/*/*.py \
 # remove bundled MathJax
 rm -rv resources/mathjax
 
+%if %{defined flatpak}
+# help sip-build find PyQt files
+sed -i -e '/^sip-files-dir/s|$|\ntarget-dir = "%{python3_sitearch}"|' setup/build.py
+%endif
+
 %build
 # unbundle MathJax
 %python3 setup.py mathjax \

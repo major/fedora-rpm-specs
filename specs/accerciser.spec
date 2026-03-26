@@ -5,9 +5,7 @@ Name:           accerciser
 Version:        3.48.0
 Release:        %autorelease
 Summary:        Interactive Python accessibility explorer for the GNOME desktop
-
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Accerciser
 Source0:        https://download.gnome.org/sources/accerciser/%{release_version}/accerciser-%{version}.tar.xz
 

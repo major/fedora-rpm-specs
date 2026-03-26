@@ -2,9 +2,7 @@ Name:          gssdp
 Version:       1.6.4
 Release:       %autorelease
 Summary:       Resource discovery and announcement over SSDP
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       LGPL-2.1-or-later AND CC0-1.0
 URL:           http://www.gupnp.org/
 Source0:       https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
 

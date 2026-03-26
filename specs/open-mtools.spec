@@ -1,13 +1,17 @@
 %global tarname mtools
 Name:       open-%{tarname}
 Version:    1.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    Tools for testing IP multicast
-# README.txt:           Public Domain
-# mpong.c:              BSD
-# TestNet/docbook.css:  BSD
-# Automatically converted from old format: Public Domain and BSD - review is highly recommended.
-License:    LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-BSD
+# README.txt:           "These tools are offered to the general public for any
+#                        use without license." But the tools have a license.
+# mdump.c:              BSD-like AND BSD-4-Clause-UC
+#                       TODO: Assign an identifier to the BSD-like part
+#                       <https://github.com/spdx/license-list-XML/issues/2967>
+# mpong.c:              BSD-like AND BSD-4-Clause-UC
+# msend.c:              BSD-like AND BSD-4-Clause-UC
+# TestNet/docbook.css:  BSD-2-Clause
+License:    LicenseRef-Callaway-BSD AND BSD-4-Clause-UC AND BSD-2-Clause
 URL:        https://marketplace.informatica.com/solutions/informatica_%{tarname}
 # The source repository does not exist on Google Code anymore.
 # The homepage requires a registration for a download.
@@ -17,6 +21,7 @@ URL:        https://marketplace.informatica.com/solutions/informatica_%{tarname}
 Source0:    https://%{name}.googlecode.com/files/%{tarname}.%{version}.zip
 BuildRequires:  coreutils
 BuildRequires:  gcc
+BuildRequires:  sed
 
 %description
 This package contains the msend, mdump, and mpong tools to aid in testing
@@ -32,6 +37,10 @@ for F in README.txt; do
     touch -r "$F" "${F}.unix"
     mv "${F}.unix" "${F}"
 done
+# Distil license texts
+sed -n -e '/Author:/,/THE LIKELIHOOD OF SUCH DAMAGES/p' \
+    -e '/tgetopt\.c/,/SUCH DAMAGE/p' mdump.c > LICENSE
+touch -r mdump.c LICENSE
 
 %build
 for F in *.c; do
@@ -46,10 +55,16 @@ for F in *.c; do
 done
 
 %files
+%license LICENSE
 %doc README.txt TestNet/*
-%{_bindir}/*
+%{_bindir}/mdump
+%{_bindir}/mpong
+%{_bindir}/msend
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 1.0-29
+- Correct a license tag
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

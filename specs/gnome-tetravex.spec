@@ -2,9 +2,7 @@ Name:           gnome-tetravex
 Version:        3.38.3
 Release:        %autorelease
 Summary:        GNOME Tetravex game
-
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0 AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Tetravex
 Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
 

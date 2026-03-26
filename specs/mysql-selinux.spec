@@ -9,8 +9,8 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.14
-Release:        3%{?dist}
+Version:        1.0.15
+Release:        1%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -70,6 +70,11 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Tue Mar 24 2026 Nikola Davidova <ndavidov@redhat.com> - 1.0.15-1
+- Update to version 1.0.15
+- Fixes mysql-selinux issue
+- Related: RHEL-119660
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -554,6 +554,7 @@ Patch2106: 0001-SystemZ-Fix-code-in-widening-vector-multiplication-1.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
+%global python3_version 3.12
 %global __python3 /usr/bin/python3.12
 %endif
 

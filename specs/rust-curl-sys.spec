@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate curl-sys
-%global crate_version 0.4.84+curl-8.17.0
+%global crate_version 0.4.86+curl-8.19.0
 
 Name:           rust-curl-sys
-Version:        0.4.84
+Version:        0.4.86
 Release:        %autorelease
 Summary:        Native bindings to the libcurl library
 

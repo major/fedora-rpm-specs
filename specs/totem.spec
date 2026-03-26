@@ -8,9 +8,7 @@ Epoch: 1
 Version: 43.2
 Release: %autorelease
 Summary: Movie player for GNOME
-
-# Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
-License: LicenseRef-Callaway-GPLv2+-with-exceptions
+License: GPL-2.0-or-later AND (GPL-2.0-or-later WITH GStreamer-exception-2008) AND LGPL-2.0-or-later AND CC0-1.0
 URL: https://wiki.gnome.org/Apps/Videos
 Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 

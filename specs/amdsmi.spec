@@ -28,7 +28,7 @@
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
@@ -66,7 +66,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    5%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -278,6 +278,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Sat Mar 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Merge back amdsmi7.2
 

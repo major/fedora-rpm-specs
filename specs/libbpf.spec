@@ -1,7 +1,7 @@
 %global githubname   libbpf
-%global githubver    1.6.3
+%global githubver    1.7.0
 %global githubfull   %{githubname}-%{githubver}
-%global libver       1.6.3
+%global libver       1.7.0
 
 %global usdtname     usdt
 %global usdtver      0.1.0
@@ -9,7 +9,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -19,9 +19,6 @@ Source1:        https://github.com/%{githubname}/usdt/archive/%{usdtref}/%{usdtn
 
 BuildRequires:  gcc elfutils-libelf-devel elfutils-devel
 BuildRequires: make
-
-Patch1:         libbpf-Add-the-ability-to-suppress-perf-event-enable.patch
-Patch2:         libbpf-sync-bpf_stream_vprintk-declaration-with-kern.patch
 
 # This package supersedes libbpf from kernel-tools,
 # which has default Epoch: 0. By having Epoch: > 0
@@ -54,7 +51,7 @@ developing applications that use %{name}
 %package usdt-devel
 Summary:        The header for defining USDTs
 Version:        %{usdtver}
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 %description usdt-devel
@@ -93,6 +90,9 @@ install -D -m644 usdt-%{usdtref}/usdt.h %{buildroot}%{_includedir}/%{usdtname}/u
 %{_includedir}/%{usdtname}/usdt.h
 
 %changelog
+* Tue Mar 24 2026 Viktor Malik <vmalik@redhat.com> - 2:1.7.0-1
+- release 1.7.0-1
+
 * Mon Feb 16 2026 Luca Boccassi <luca.boccassi@gmail.com> - 2:1.6.3-2
 - bpf_stream_vprintk declaration is updated to be compatible with kernel 7.0
 

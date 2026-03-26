@@ -1,7 +1,7 @@
 %global realname rebar
 
 # Bootstrapping
-%global bootstrap 1
+%global bootstrap 0
 
 Name:     erlang-%{realname}3
 Version:  3.27.0
@@ -44,10 +44,6 @@ BuildRequires:  erlang-rpm-macros
 BuildRequires:  erlang-ssl_verify_fun
 BuildRequires:  perl-interpreter
 
-# FIXME wip
-#Requires:	erlang-abnfc
-#Requires:	erlang-gpb
-
 # This one cannot be picked up automatically
 Requires:	erlang-cth_readable
 # Requires for port compiling - no direct references in Rebar's src/*.erl files
@@ -70,6 +66,7 @@ ebin_paths=$(perl -e 'print join(":", grep { !/rebar/} (glob("%{_libdir}/erlang/
 %if 0%{?bootstrap}
 DIAGNOSTIC=1 ./bootstrap bare compile --paths $ebin_paths --separator :
 %else
+rm -rf ./vendor
 DEBUG=1 %{realname}3 bare compile --paths $ebin_paths --separator :
 %endif
 
@@ -78,11 +75,22 @@ DEBUG=1 %{realname}3 bare compile --paths $ebin_paths --separator :
 install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/rebar3
 
 mkdir -p %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
+%if 0%{?bootstrap}
 install -p -m644 _build/bootstrap/lib/rebar/ebin/*.beam %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
 install -p -m644 _build/bootstrap/lib/rebar/ebin/%{realname}.app %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
+%else
+install -p -m644 ./ebin/*.beam %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
+install -p -m644 ./ebin/%{realname}.app %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
+%endif
 
-# Copy the contents of priv folder
-cp -a apps/rebar/priv %{buildroot}%{_erllibdir}/%{realname}-%{version}/
+# Copy templates folder
+mkdir -p %{buildroot}%{_erllibdir}/%{realname}-%{version}/priv
+cp -a apps/rebar/priv/templates/ %{buildroot}%{_erllibdir}/%{realname}-%{version}/priv/templates
+
+# Install shell-completion scripts
+install -D -p -m644 ./apps/rebar/priv/shell-completion/bash/%{realname}3 %{buildroot}%{bash_completions_dir}/%{realname}3
+install -D -p -m644 ./apps/rebar/priv/shell-completion/fish/%{realname}3.fish %{buildroot}%{fish_completions_dir}/%{realname}3.fish
+install -D -p -m644 ./apps/rebar/priv/shell-completion/zsh/_%{realname}3 %{buildroot}%{zsh_completions_dir}/_%{realname}3
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -p -m644 manpages/%{realname}3.1 %{buildroot}%{_mandir}/man1/
@@ -91,8 +99,15 @@ install -p -m644 manpages/%{realname}3.1 %{buildroot}%{_mandir}/man1/
 %license LICENSE
 %doc README.md rebar.config.sample THANKS
 %{_bindir}/%{realname}3
+# Requires Erlang/OTP 27, guarded, safe to ignore.
+# ERROR: Cant find json:encode/1 while processing '.../ebin/rebar_prv_manifest.beam'
+# Requires older error_logger, guarded, safe to ignore.
+# ERROR: Cant find error_logger:swap_handler/1 while processing '.../ebin/rebar_prv_shell.beam'
 %{_datadir}/erlang/lib/%{realname}-%{version}
 %{_mandir}/man1/%{realname}3.1*
+%{bash_completions_dir}/%{realname}3
+%{fish_completions_dir}/%{realname}3.fish
+%{zsh_completions_dir}/_%{realname}3
 
 %changelog
 %autochangelog

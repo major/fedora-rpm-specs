@@ -93,7 +93,8 @@ Release: 1%{?dist}
 # ext/date/lib is MIT
 # Zend/zend_sort is NCSA
 # Zend/asm is Boost
-License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND BSL-1.0
+# lexbor is Apache-2.0
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND Apache-2.0 AND NCSA AND BSL-1.0
 URL: http://www.php.net/
 
 Source0: https://www.php.net/distributions/php-%{upver}%{?rcver}.tar.xz
@@ -248,7 +249,7 @@ running in prefork mode. This module is deprecated.
 %package cli
 Summary: Command-line interface for PHP
 # sapi/cli/ps_title.c is PostgreSQL
-License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND PostgreSQL
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND Apache-2.0 AND NCSA AND PostgreSQL
 Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Provides: php-cgi = %{version}-%{release}, php-cgi%{?_isa} = %{version}-%{release}
 Provides: php-pcntl, php-pcntl%{?_isa}
@@ -331,6 +332,8 @@ Provides: php-ftp, php-ftp%{?_isa}
 Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
 Provides: php-lexbor, php-lexbor%{?_isa}
+# See ext/lexbor/patches/README.md
+Provides: bundled(lexbor) = 2.5.0
 Provides: php-mhash = %{version}, php-mhash%{?_isa} = %{version}
 Provides: php-iconv, php-iconv%{?_isa}
 Obsoletes: php-json < 8
@@ -874,6 +877,7 @@ cp ext/mbstring/libmbfl/LICENSE libmbfl_LICENSE
 cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
 cp ext/bcmath/libbcmath/LICENSE libbcmath_LICENSE
 cp ext/date/lib/LICENSE.rst timelib_LICENSE
+cp ext/lexbor/LICENSE lexbor_LICENSE
 
 # Multiple builds for multiple SAPIs
 # mod_php (apache2handler) and libphp (embed) can not be built from same tree
@@ -1524,6 +1528,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %license LICENSE TSRM_LICENSE ZEND_LICENSE BOOST_LICENSE
 %license libmagic_LICENSE
 %license timelib_LICENSE
+%license lexbor_LICENSE
 %doc php.ini-*
 %config(noreplace) %{_sysconfdir}/php.ini
 %config(noreplace) %{_sysconfdir}/php.d/10-opcache.ini

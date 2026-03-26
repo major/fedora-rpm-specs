@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        67
+Version:        68
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,15 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Mar 24 2026 Packit <hello@packit.dev> - 68-1
+- Log Bugzilla bug number when crash report is created (Resolves: rhbz#2443015)
+- storage: fixe the UI flipping Reformat to YES on next/back (Resolves: rhbz#2443812)
+- Fix duplicate environment section in manual error reporting
+- Remove WebUI prefix from bug report short description
+- Revert "Launch slitherer as XWayland app to address the autoclose issue"
+- network: prevent closing modal when configuration is in progress (not relevant for Live ISO)
+
+
 * Thu Mar 05 2026 Packit <hello@packit.dev> - 67-1
 - error reporting: add optional 'Restrict access to the report' via Bugzilla groups (Resolves: rhbz#2443308)
 - error reporting: Fix 'Cannot parse given Error object' crash in error handler (Resolves: rhbz#2444078)

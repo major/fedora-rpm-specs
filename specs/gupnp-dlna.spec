@@ -2,8 +2,7 @@ Name:          gupnp-dlna
 Version:       0.12.0
 Release:       12%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       LGPL-2.0-or-later
 URL:           http://www.gupnp.org/
 Source0:       http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.12/%{name}-%{version}.tar.xz
 

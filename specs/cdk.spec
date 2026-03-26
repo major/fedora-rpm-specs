@@ -8,9 +8,10 @@ Summary:        Curses Development Kit
 License:        X11-distribute-modifications-variant
 URL:            https://invisible-island.net/cdk/
 Source0:        https://invisible-island.net/archives/cdk/cdk-%{mainver}-%{datever}.tgz
+
 BuildRequires:  gcc
-BuildRequires:  ncurses-devel
 BuildRequires:  make
+BuildRequires:  pkgconfig(ncurses)
 
 %description
 CDK stands for "Curses Development Kit". It contains a large number of ready
@@ -25,40 +26,51 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Documentation and examples for %{name}
+BuildArch:      noarch
+
+%description    doc
+This package contains documentation, examples and demos for %{name}.
+
 %prep
 %autosetup -n %{name}-%{mainver}-%{datever}
 
 %build
 %configure --with-ncurses --enable-const
-make cdkshlib %{?_smp_mflags}
+%make_build cdkshlib
 
 %check
-echo "sample programs are interactive"
+# Sample programs are interactive
+:
 
 %install
-make install installCDKSHLibrary DESTDIR=%{buildroot} INSTALL="install -pD"
+%make_install installCDKSHLibrary
 
-# fixes rpmlint unstripped-binary-or-object
-chmod +x %{buildroot}%{_libdir}/*.so
+# Fixes rpmlint unstripped-binary-or-object (shared libraries should be executable)
+chmod +x %{buildroot}%{_libdir}/*.so.*
 
+# Remove static libraries
 find %{buildroot} -name '*.a' -delete -print
 
+# Remove documentation installed by 'make install' to handle it via %%doc and %%package doc
 rm -vrf %{buildroot}%{_docdir}
-
-%ldconfig_scriptlets
 
 %files
 %license COPYING
-%doc CHANGES README VERSION examples demos
+%doc CHANGES README VERSION
 %{_libdir}/libcdk.so.*
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
 
 %files devel
 %{_bindir}/cdk5-config
 %{_includedir}/%{name}
 %{_includedir}/%{name}.h
 %{_libdir}/libcdk.so
+%{_mandir}/man1/cdk5-config.1*
+%{_mandir}/man3/*.3*
+
+%files doc
+%doc examples demos
 
 %changelog
 %autochangelog

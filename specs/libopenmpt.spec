@@ -1,5 +1,5 @@
 Name: libopenmpt
-Version: 0.8.5
+Version: 0.8.6
 Release: 1%{?dist}
 
 %global tar_root %{name}-%{version}+release.autotools
@@ -93,6 +93,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/openmpt123
 
 
 %changelog
+* Tue Mar 24 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.6-1
+- update to 0.8.6 which fixes regression in 0.8.5
+
 * Sun Mar 22 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.5-1
 - update to 0.8.5
 

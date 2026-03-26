@@ -17,8 +17,7 @@ Release:       %autorelease
 # - the gnome-music icon and help which is CC-BY-SA
 #
 # Also: https://bugzilla.gnome.org/show_bug.cgi?id=706457
-# Automatically converted from old format: (GPLv2+ with exceptions) - review is highly recommended.
-License:       (LicenseRef-Callaway-GPLv2+-with-exceptions) AND CC-BY-SA-3.0
+License:       (GPL-2.0-or-later WITH GStreamer-exception-2008) AND CC-BY-SA-3.0 AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Music
 Source0:       https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 

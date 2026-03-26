@@ -7,18 +7,25 @@
 %global crate rublk
 
 Name:           rust-rublk
-Version:        0.2.3
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Rust ublk generic targets
 
 License:        GPL-2.0-or-later
 URL:            https://crates.io/crates/rublk
 Source:         %{crates_source}
-Source:         rublk-0.2.3-vendor.tar.xz
+Source:         rublk-0.2.12-vendor.tar.xz
+Patch0:         0001-rublk-don-t-wakeup-task-for-timeout-IO.patch
+
+%global build_rustflags %{build_rustflags} --cfg=io_uring_skip_arch_check
+
 
 BuildRequires:  cargo-rpm-macros >= 26
 # dependency for vendored bindgen crate
 BuildRequires:  clang-libs
+BuildRequires:  clang
+BuildRequires:  libstdc++-devel
+BuildRequires:  rust-libudev-devel
 
 %global _description %{expand:
 Rust ublk generic targets.}
@@ -54,21 +61,22 @@ License:        (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apa
 %{_bindir}/rublk
 
 %prep
-%autosetup -n %{crate}-%{version} -p1 -a1
+%autosetup -n %{crate}-%{version} -N -a1
 %cargo_prep -v vendor
+%autopatch -p1
 
 %build
-%cargo_build
+%cargo_build -f compress
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 
 %install
-%cargo_install
+%cargo_install -f compress
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f compress
 %endif
 
 %changelog

@@ -4,9 +4,7 @@ Name:           five-or-more
 Version:        48.1
 Release:        %autorelease
 Summary:        GNOME "Five or More" game
-
-# Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
+License:        GPL-2.0-or-later AND GFDL-1.1-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Five%20or%20more
 Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 

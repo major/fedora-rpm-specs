@@ -2,32 +2,30 @@
 
 Summary: X.Org X11 xdm - X Display Manager
 Name: xorg-x11-%{pkgname}
-Version: 1.1.11
-Release: 28%{?dist}
+Version: 1.1.17
+Release: 3%{?dist}
 # NOTE: Remove Epoch line if/when the package ever gets renamed.
 Epoch: 1
 License: MIT
 URL: http://www.x.org
 
-Source0: ftp://ftp.x.org/pub/individual/app/xdm-%{version}.tar.bz2
+Source0: https://ftp.x.org/pub/individual/app/xdm-%{version}.tar.xz
+
 Source1: Xsetup_0
 Source10: xdm.init
 Source11: xdm.pamd
 
 # Following are Fedora specific patches
-Patch11: xdm-1.0.5-sessreg-utmp-fix-bug177890.patch
-
-# FIXME Most likely not needed
-Patch14: xdm-1.1.10-libdl.patch
+Patch1: xdm-1.0.5-sessreg-utmp-fix-bug177890.patch
 
 # send a USER_LOGIN event like other login programs do.
-Patch15: xdm-1.1.10-add-audit-event.patch
+Patch2: xdm-1.1.14-add-audit-events.patch
 
 # systemd unit file update
-Patch16: xdm-service.patch
+Patch3: xdm-1.1.14-xdm-systemd-unit.patch
 
-# Include <crypt.h> if needed.
-Patch17: xdm-1.1.11-include_crypt_h.patch
+# set -nolisten tcp
+Patch4: xdm-1.1.14-add-nolisten-tcp-option.patch
 
 # FIXME: Temporary build dependencies for autotool dependence.
 BuildRequires: make
@@ -44,6 +42,7 @@ BuildRequires: libICE-devel
 BuildRequires: libXext-devel
 BuildRequires: libXpm-devel
 BuildRequires: libX11-devel
+BuildRequires: libxcrypt-devel
 # FIXME: There's no autotool dep on libXdmcp currently, but it fails with the
 # following:
 # configure: error: Library requirements (xdmcp) not met; consider adjusting
@@ -60,13 +59,13 @@ BuildRequires: libXft-devel
 # Add libaudit support
 BuildRequires: audit-libs-devel
 # systemd support
+BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros systemd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-# FIXME:These old provides should be removed
-Provides: xdm
+Provides: xdm = %{version}-%{release}
 
 Requires: pam
 
@@ -80,48 +79,47 @@ X.Org X11 xdm - X Display Manager
 %prep
 %setup -q -n %{pkgname}-%{version}
 
-%patch11 -p0 -b .redhat-sessreg-utmp-fix-bug177890
-#%_patch14 -p1 -b .add-needed
-%patch15 -p1 -b .add-audit-events
-%patch16 -p1 -b .systemd
-%patch17 -p1 -b .crypt_h
+%patch -P 1 -p0 -b .redhat-sessreg-utmp-fix-bug177890
+%patch -P 2 -p1 -b .add-audit-events
+%patch -P 3 -p1 -b .systemd-unit
+%patch -P 4 -p1 -b .nolisten
 
 %build
 autoreconf -v --install
 %configure \
 	--disable-static \
-        --with-libaudit \
-        --with-xdmlibdir=%{_libexecdir} \
+	--with-libaudit \
+	--with-xdmlibdir=%{_libexecdir} \
 	--with-xdmconfigdir=%{_sysconfdir}/X11/xdm \
 	--with-xdmscriptdir=%{_sysconfdir}/X11/xdm \
 	--with-pixmapdir=%{_datadir}/xdm/pixmaps \
 	--enable-xdmshell
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 echo looking for xdmshell
 find . -name \*xdmshell\*
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 echo looking for xdmshell
-find $RPM_BUILD_ROOT -name \*xdmshell\*
+find %{buildroot} -name \*xdmshell\*
 
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
-install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xdm/Xsetup_0
+install -p -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/X11/xdm/Xsetup_0
 
 # Install pam xdm config files
 {
-   mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
-   install -p -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/xdm
+   mkdir -p %{buildroot}%{_sysconfdir}/pam.d
+   install -p -m 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/pam.d/xdm
 }
 
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/xdm/Xsession
-(cd $RPM_BUILD_ROOT%{_sysconfdir}/X11/xdm; ln -sf ../xinit/Xsession .)
+rm -f %{buildroot}%{_sysconfdir}/X11/xdm/Xsession
+(cd %{buildroot}%{_sysconfdir}/X11/xdm; ln -sf ../xinit/Xsession .)
 
-# we need to crate /var/lib/xdm to make authorization work (bug
+# we need to create /var/lib/xdm to make authorization work (bug
 # 500704)
-mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/xdm
+mkdir -p %{buildroot}%{_sharedstatedir}/xdm
 
 %post
 %systemd_post xdm.service
@@ -133,27 +131,34 @@ mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/xdm
 %systemd_postun xdm.service
 
 %files
-%doc AUTHORS COPYING README ChangeLog
+%license COPYING
+%doc AUTHORS ChangeLog
 %{_bindir}/xdm
 %{_bindir}/xdmshell
 %dir %{_sysconfdir}/X11/xdm
+
 # NOTE: The Xaccess file from our "xinitrc" package had no customizations,
 # and was out of sync with upstream, so we ship the upstream one now.
-%config %{_sysconfdir}/X11/xdm/Xaccess
-%config %{_sysconfdir}/X11/xdm/Xresources
-%config %{_sysconfdir}/X11/xdm/Xservers
-%config %{_sysconfdir}/X11/xdm/xdm-config
+%config(noreplace) %{_sysconfdir}/X11/xdm/Xaccess
+%config(noreplace) %{_sysconfdir}/X11/xdm/Xresources
+%config(noreplace) %{_sysconfdir}/X11/xdm/Xservers
+%config(noreplace) %{_sysconfdir}/X11/xdm/xdm-config
+%config(noreplace) %{_sysconfdir}/X11/xdm/Xsession
+
+%{_sysconfdir}/X11/xdm/Xreset
+%{_sysconfdir}/X11/xdm/Xsetup_0
+%{_sysconfdir}/X11/xdm/Xstartup
+%{_sysconfdir}/X11/xdm/Xwilling
+
 %{_sysconfdir}/X11/xdm/GiveConsole
 %{_sysconfdir}/X11/xdm/TakeConsole
-%config %{_sysconfdir}/X11/xdm/Xreset
-%{_sysconfdir}/X11/xdm/Xsession
-%config %{_sysconfdir}/X11/xdm/Xsetup_0
-%config %{_sysconfdir}/X11/xdm/Xstartup
-%config %{_sysconfdir}/X11/xdm/Xwilling
+
+
 # NOTE: For security, upgrades of this package will install the new pam.d
 # files and make backup copies by default.  'noreplace' is intentionally avoided
 # here.
-%config %{_sysconfdir}/pam.d/xdm
+%config(noreplace) %{_sysconfdir}/pam.d/xdm
+
 # NOTE: We intentionally default to OS supplied file being favoured here on
 # OS upgrades.
 %{_datadir}/X11/app-defaults/Chooser
@@ -164,11 +169,50 @@ mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/xdm
 %dir %{_sharedstatedir}/xdm
 %{_libexecdir}/chooser
 %{_libexecdir}/libXdmGreet.so
-%{_mandir}/man1/*.1*
+%{_mandir}/man8/*.8*
 # systemd unit file
 %{_unitdir}/xdm.service
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Mon Mar 10 2025 Alisson Bruno <alissonbruno.sa@gmail.com> - 1:1.1.17-1
+- Update to 1.1.17
+
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:1.1.16-3
+- Add explicit BR: libxcrypt-devel
+
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Sun Dec 22 2024 Leigh Scott <leigh123linux@gmail.com> - 1:1.1.16-1
+- Update to 1.1.16
+
+* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.14-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Tue Jan 30 2024 Alisson Bruno <alissonbruno.sa@gmail.com> - 1:1.1.14-32
+- Fix incompatible pointer type
+
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.14-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.14-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Tue Jun 06 2023 Alisson Bruno <alissonbruno.sa@gmail.com> - 1:1.1.14-29
+- Bring back XDM package
+- Update to version 1.1.14
+- Remove unnecessary patches for crypt.h and libdl
+- Add support to systemd notify
+- New patch for version 1.1.14 for audit and systemd unit file
+- Add patch to fix build when auto-identifying the libsystemd
+- Add patch to set -nolisten tcp
+
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
@@ -181,7 +225,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/xdm
 * Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.11-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Thu Nov  5 11:00:40 AEST 2020 Peter Hutterer <peter.hutterer@redhat.com> - 1:1.1.11-24
+* Thu Nov 05 2020 Peter Hutterer <peter.hutterer@redhat.com> - 1:1.1.11-24
 - Add BuildRequires for make
 
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.11-23

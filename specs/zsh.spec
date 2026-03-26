@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -33,6 +33,10 @@ Patch8: 0008-zsh-deletefilelist-segfault.patch
 Patch9: 0009-zsh-support-dnf5.patch
 # upstream commit 071e325c826a89b792056c3faf0c400b8c0c5738
 Patch10: 0010-zsh-fix-dnf5-completion-with-rpm-files.patch
+
+# downstream patch for rhbz#2449939
+# already fixed upstream in a major refactor of term color attribute handling
+Patch100: 0100-zsh-_IO_putc-SIGSEGV.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -178,6 +182,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Tue Mar 24 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-20
+- fix segfault in _IO_putc (rhbz#2449939)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -200,7 +207,7 @@ fi
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Wed Jan 17 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-12
-- fix segfault in delerefilelist (rhbz#2245462)
+- fix segfault in deletefilelist (rhbz#2245462)
 
 * Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 5.9-11
 - Fix C compatibility issue in the configure script

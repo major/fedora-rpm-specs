@@ -2,22 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate build-context
+%global crate crc32c
 
-Name:           rust-build-context
-Version:        0.1.4
+Name:           rust-crc32c
+Version:        0.6.8
 Release:        %autorelease
-Summary:        Make build environment/target information available as constants
+Summary:        Safe implementation for hardware accelerated CRC32C instructions with software fallback
 
+# Upstream license specification: Apache-2.0/MIT
 License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/build-context
+URL:            https://crates.io/crates/crc32c
 Source:         %{crates_source}
+Patch:          crc32c-fix-metadata.diff
+Patch:          crc32c-addlicense.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Make build environment/target information available as constants in
-normal libraries and binaries.}
+Safe implementation for hardware accelerated CRC32C instructions with
+software fallback.}
 
 %description %{_description}
 
@@ -33,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -4,8 +4,12 @@
 
 %if 0%{?rhel}
 %global bundled_rust_deps 1
+%bcond_with gpu
+%bcond_with snd
 %else
 %global bundled_rust_deps 0
+%bcond_without gpu
+%bcond_without snd
 %endif
 
 Name:           libkrun
@@ -37,8 +41,10 @@ Patch4:         libkrun-remove-sev-deps.diff
 # libkrun only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
 
+%if 0%{?fedora}
 # Starting 1.11.0, libkrunfw is no longer build-time linked.
 Requires:  libkrunfw >= 5.0.0
+%endif
 
 # While this project is composed mostly of Rust code, this is not a
 # conventional Rust crate. The root of the project is a workspace, there's a C
@@ -53,10 +59,15 @@ Requires:  libkrunfw >= 5.0.0
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  glibc-static
 BuildRequires:  binutils
+BuildRequires:  libcap-ng-devel
+%if %{with gpu}
 BuildRequires:  libepoxy-devel
 BuildRequires:  libdrm-devel
 BuildRequires:  virglrenderer-devel
+%endif
+%if %{with snd}
 BuildRequires:  pipewire-devel
+%endif
 BuildRequires:  clang-devel
 BuildRequires:  openssl-devel
 BuildRequires:  libcurl-devel
@@ -164,7 +175,7 @@ capabilities.
 %build
 %make_build init/init
 %make_build libkrun.pc
-%make_build GPU=1 BLK=1 NET=1 SND=1
+%make_build BLK=1 NET=1 %{?with_gpu:GPU=1} %{?with_snd:SND=1}
 %if 0%{?build_sev}
     rm init/init
     %make_build SEV=1 init/init

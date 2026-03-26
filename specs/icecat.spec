@@ -1,9 +1,9 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 0
+%global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
-%global redhat_ver rh1
+%global redhat_ver rh2
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -106,7 +106,7 @@ ExcludeArch: %{ix86} %{arm}
 Name:    icecat
 Epoch:   4
 Version: 140.9.0
-Release: %autorelease -p -e %{redhat_ver}
+Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included

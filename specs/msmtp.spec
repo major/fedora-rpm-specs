@@ -1,5 +1,5 @@
 Name:		msmtp
-Version:	1.8.25
+Version:	1.8.32
 Release:	%autorelease
 Summary:	SMTP client
 License:	GPL-3.0-or-later
@@ -14,8 +14,7 @@ BuildRequires:	automake
 BuildRequires:	gcc
 BuildRequires:	gettext-devel
 BuildRequires:	gnutls-devel
-BuildRequires:	libidn-devel
-BuildRequires:	libgsasl-devel
+BuildRequires:	libidn2-devel
 BuildRequires:	libsecret-devel
 BuildRequires:	make
 # for %%gpgverify
@@ -35,7 +34,7 @@ Provides: /usr/sbin/sendmail
 It forwards messages to an SMTP server which does the delivery.
 Features include:
   * Sendmail compatible interface (command line options and exit codes).
-  * Authentication methods PLAIN,LOGIN,CRAM-MD5,DIGEST-MD5,GSSAPI,and NTLM
+  * Authentication methods PLAIN, LOGIN, and OAUTHBEARER (over TLS).
   * TLS/SSL both in SMTP-over-SSL mode and in STARTTLS mode.
   * Fast SMTP implementation using command pipe-lining.
   * Support for Internationalized Domain Names (IDN).
@@ -54,7 +53,7 @@ Features include:
 gettextize -f
 
 autoreconf -ivf
-%configure --disable-rpath --with-libsecret --with-libgsasl
+%configure --disable-rpath --with-libsecret
 %make_build
 
 %install

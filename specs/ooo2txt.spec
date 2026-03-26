@@ -1,10 +1,11 @@
 Name:           ooo2txt
 Version:        0.0.6
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Convert OpenOffice documents to simple text
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-URL:            http://ooo2txt.fr.st/
+# LGPL.txt:     LGPL-2.1 text
+# ooo2txt.pod:  "This program is covered by the Lesser General Public License"
+# readme.txt:   "ooo2txt is under LPGL Licence"
+License:        LGPL-2.0-or-later
 Source0:        http://oootools.free.fr/ooo2txt/download/source/ooo2txt.006.pl
 Source1:        http://oootools.free.fr/ooo2txt/download/source/update.txt
 Source2:        http://oootools.free.fr/ooo2txt/download/source/readme.txt
@@ -13,7 +14,7 @@ Source4:        %{name}.pod
 Patch0:         ooo2txt-0.0.6-fixes.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  %{_bindir}/pod2man
+BuildRequires:  perl-podlators
 BuildRequires:  perl-generators
 BuildRequires:  sed
 
@@ -39,11 +40,16 @@ install -p -m755 ooo2txt.006.pl $RPM_BUILD_ROOT%{_bindir}/ooo2txt
 install -p -m644 ooo2txt.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 %files
-%doc update.txt readme.txt LGPL.txt
+%license LGPL.txt
+%doc update.txt readme.txt
 %{_bindir}/ooo2txt
 %{_mandir}/man1/ooo2txt.1*
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.0.6-37
+- Correct a license tag
+- Remove a disused URL from package metadata
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

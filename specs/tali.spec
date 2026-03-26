@@ -5,8 +5,7 @@ Version:        40.9
 Release:        9%{?dist}
 Summary:        GNOME Tali game
 
-# Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Tali
 Source0:        https://download.gnome.org/sources/tali/40/tali-%{tarball_version}.tar.xz
 

@@ -5,9 +5,7 @@ Name:           libgit2-glib
 Version:        1.2.1
 Release:        %autorelease
 Summary:        Git library for GLib
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libgit2-glib
 Source0:        https://download.gnome.org/sources/libgit2-glib/1.2/libgit2-glib-%{version}.tar.xz
 

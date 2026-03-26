@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.28
+Version: 44.29
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 24 2026 Packit <hello@packit.dev> - 44.29-1
+- Update to version 44.29
+
 * Tue Mar 17 2026 Packit <hello@packit.dev> - 44.28-1
 - anaconda.conf: Add arm64.nopauth to preserved_arguments (johannes.goede)
 

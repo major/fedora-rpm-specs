@@ -3,9 +3,7 @@ Epoch:   1
 Version: 3.22.35
 Release: %autorelease
 Summary: A collection of card games
-
-# Automatically converted from old format: GPLv3+ and LGPLv3+ and GFDL - review is highly recommended.
-License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-GFDL
+License: GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.1-only AND GFDL-1.3-only
 URL:     https://wiki.gnome.org/Apps/Aisleriot
 Source0: https://gitlab.gnome.org/GNOME/${name}/-/archive/%{version}/%{name}-%{version}.tar.xz
 Patch0:  aisleriot-3.22.19-appdata-namespace.patch

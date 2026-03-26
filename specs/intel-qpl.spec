@@ -1,5 +1,5 @@
 Name:		intel-qpl
-Version:	1.8.0
+Version:	1.9.0
 Release:	%autorelease
 Summary:	Intel Query Processing Library
 
@@ -29,7 +29,7 @@ compression and decompression combined with primitive analytic functions, as
 well as to provide highly-optimized SW fallback on other Intel CPUs.
 Intel QPL primarily targets applications such as big-data and in-memory 
 analytic databases.
-	
+
 %package devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}

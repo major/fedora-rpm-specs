@@ -3,12 +3,13 @@
 
 Name:           libcutl
 Version:        %{base_version}.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        C++ utility library from Code Synthesis
-
-#Used internal Boost files
-# Automatically converted from old format: MIT and Boost - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND BSL-1.0
+# Code found in the cutl/details/boost/ directory is distributed under
+# the Boost Software License (see the accompanying LICENSE file).
+# Code found in the cutl/details/genx/ directory is distributed under
+# the MIT License (see the accompanying LICENSE file).
+License:        MIT AND/OR BSL-1.0
 URL:            http://www.codesynthesis.com/projects/libcutl/
 Source0:        http://www.codesynthesis.com/download/libcutl/%{base_version}/%{name}-%{version}.tar.bz2
 Patch0:         libcutl_no_boost_license.patch
@@ -63,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}
 %{_libdir}/pkgconfig/libcutl.pc
 
 %changelog
+* Tue Mar 24 2026 Antonio Trande <sagitter@fedoraproject.org> - 1.10.0-35
+- Fix License
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

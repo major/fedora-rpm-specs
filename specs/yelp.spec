@@ -7,9 +7,7 @@ Epoch:         2
 Version:       49.0
 Release:       %autorelease
 Summary:       Help browser for the GNOME desktop
-
-# Automatically converted from old format: LGPLv2+ and ASL 2.0 and GPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+ AND Apache-2.0 AND GPL-2.0-or-later
+License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0 AND CC0-1.0
 URL:           https://wiki.gnome.org/Apps/Yelp
 Source:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 

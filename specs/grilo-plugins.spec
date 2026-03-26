@@ -8,9 +8,7 @@ Name:		grilo-plugins
 Version:	0.3.18
 Release:	%autorelease
 Summary:	Plugins for the Grilo framework
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		https://wiki.gnome.org/Projects/Grilo
 Source0:	https://download.gnome.org/sources/grilo-plugins/%{release_version}/grilo-plugins-%{version}.tar.xz
 

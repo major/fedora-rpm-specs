@@ -37,8 +37,7 @@ Summary:        IDE for writing GNOME-based software
 # The following files are licensed under the CC0 license:
 #     - data/org.gnome.Builder.appdata.xml
 #     - data/html-preview.png
-# Automatically converted from old format: GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0 - review is highly recommended.
-License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND CC0-1.0 AND CC-BY-3.0
 URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 

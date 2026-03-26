@@ -4,17 +4,12 @@ Tenacity is a general-purpose retrying library to simplify the task of adding
 retry behavior to just about anything.}
 
 Name:           python-%{pypi_name}
-Version:        9.1.2
-Release:        5%{?dist}
+Version:        9.1.4
+Release:        1%{?dist}
 Summary:        Retry code until it succeeds
 License:        Apache-2.0
 URL:            https://github.com/jd/%{pypi_name}
 Source:         %{pypi_source}
-# Python 3.14 fixes
-# https://bugzilla.redhat.com/show_bug.cgi?id=2327977
-# Pushed upstream: https://github.com/jd/tenacity/pull/528
-# Rebased on tenacity-9.1.2.tar.gz
-Patch0:         528.patch
 BuildArch:      noarch
 
 %description %{_description}
@@ -33,6 +28,7 @@ BuildRequires:    python3-tornado >= 4.5
 %autosetup -n %{pypi_name}-%{version} -p 1
 # Avoid type checking dependency
 sed -e '/typeguard/d' -i setup.cfg
+sed -r -i '/^from typeguard/d' -i tests/*.py
 # [toml] is an empty feature since setuptools switched to builtin tomllib
 sed -e 's/setuptools_scm\[toml\]/setuptools_scm/' -i pyproject.toml
 
@@ -44,15 +40,20 @@ sed -e 's/setuptools_scm\[toml\]/setuptools_scm/' -i pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 %check
-%pytest -k "not test_retry_type_annotations"
+# These require typeguard, but we patched out the dependency and imports.
+k="${k-}${k+ and }not (TestRetryTyping and test_retry_type_annotations)"
+%pytest -k "${k-}" ${ignore-}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Sat Mar 14 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 9.1.4-1
+- Update to 9.1.4 (close RHBZ#2437034)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

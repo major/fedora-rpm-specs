@@ -9,7 +9,7 @@
 
 Name:    pinentry
 Version: 1.3.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Collection of simple PIN or passphrase entry dialogs
 
 License: GPL-2.0-or-later
@@ -186,6 +186,9 @@ install -d %{buildroot}%{_datadir}/pixmaps
 %{_bindir}/pinentry-tty
 
 %changelog
+* Sun Mar 22 2026 Michael Kuhn <suraia@fedoraproject.org> - 1.3.2-3
+- Fix wrapper for GNOME3 on pure Wayland setups
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

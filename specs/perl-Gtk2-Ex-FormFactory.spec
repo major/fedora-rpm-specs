@@ -1,16 +1,19 @@
 Name:           perl-Gtk2-Ex-FormFactory
 Version:        0.67
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Framework for GTK2 Perl applications
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.exit1.org/Gtk2-Ex-FormFactory/
 Source0:        http://www.exit1.org/packages/Gtk2-Ex-FormFactory/dist/Gtk2-Ex-FormFactory-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  findutils
+# glibc-common for /usr/bin/iconv
+BuildRequires:  glibc-common
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
 BuildRequires:  perl(base)
@@ -52,23 +55,31 @@ for f in $(find lib/ -name *.pm) README tutorial/README; do
 done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-%doc examples/ Changes LICENSE README tutorial/
-%{perl_vendorlib}/Gtk2/
-%{_mandir}/man3/*.3*
+%license LICENSE
+%doc examples/ Changes README tutorial/
+%dir %{perl_vendorlib}/Gtk2
+%dir %{perl_vendorlib}/Gtk2/Ex
+%{perl_vendorlib}/Gtk2/Ex/FormFactory
+%{perl_vendorlib}/Gtk2/Ex/FormFactory.pm
+%{_mandir}/man3/Gtk2::Ex::FormFactory.*
+%{_mandir}/man3/Gtk2::Ex::FormFactory::*
 
 %changelog
+* Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 0.67-41
+- Refine a license tag
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

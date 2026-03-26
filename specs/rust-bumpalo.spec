@@ -5,7 +5,7 @@
 %global crate bumpalo
 
 Name:           rust-bumpalo
-Version:        3.19.1
+Version:        3.20.2
 Release:        %autorelease
 Summary:        Fast bump allocation arena for Rust
 
@@ -13,6 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/bumpalo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * relax exact versions for dev-dependencies
 # * drop unused, benchmark-only dev-dependencies
 Patch:          bumpalo-fix-metadata.diff
 

@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
-Version: 3.6
-Release: 14%{?dist}
+Version: 3.6.37
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -9,19 +9,6 @@ Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: pubkey.phillip.susi
 Source3: pubkey.brian.lane
-
-Patch0001: 0001-parted-Print-the-Fixing.-message-to-stderr.patch
-Patch0002: 0002-doc-Document-IEC-unit-behavior-in-the-manpage.patch
-Patch0003: 0003-libparted-Fail-early-when-detecting-nilfs2.patch
-Patch0004: 0004-bug-74444-PATCH-parted-fix-do_version-declaration.patch
-Patch0005: 0005-libparted-Fix-sun-disklabel-unhandled-exception.patch
-Patch0006: 0006-tests-Add-test-for-SUN-disklabel-handling.patch
-Patch0007: 0007-libparted-Fix-dvh-disklabel-unhandled-exception.patch
-Patch0008: 0008-tests-Add-test-for-dvh-with-a-bad-checksum.patch
-Patch0009: 0009-tests-probing-ext4-without-journal-should-still-indi.patch
-Patch0010: 0010-libparted-Do-not-detect-ext4-without-journal-as-ext2.patch
-Patch0011: 0011-nilfs2-Fixed-possible-sigsegv-in-case-of-corrupted-s.patch
-Patch0012: 0012-doc-Fix-some-groff-mandoc-linting-complaints.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -76,7 +63,6 @@ Parted library, you need to install this package.
 iconv -f ISO-8859-1 -t UTF8 AUTHORS > tmp; touch -r AUTHORS tmp; mv tmp AUTHORS
 
 %build
-autoreconf -fiv
 CFLAGS="$RPM_OPT_FLAGS -Wno-unused-but-set-variable"; export CFLAGS
 %configure --disable-static --disable-gcc-warnings
 # Don't use rpath!
@@ -117,7 +103,7 @@ make check
 %{_infodir}/parted.info*
 
 %files devel
-%doc TODO doc/API doc/FAT
+%doc TODO doc/API.md doc/FAT
 %{_includedir}/parted
 %{_libdir}/libparted.so
 %{_libdir}/libparted-fs-resize.so
@@ -126,6 +112,50 @@ make check
 
 
 %changelog
+* Tue Mar 24 2026 Brian C. Lane <bcl@redhat.com> - 3.6.37-1
+- Remove patches, all are included in the new release
+- Dropping pre-3.6 changelog entries
+- maint: regenerate .po, .pot files (bcl)
+- NEWS: Update news (bcl)
+- tests: t2420: New test confirming updating msdos doesn't add boot code
+  (mike.fleetwood)
+- libparted: Stop adding boot code in MBR when updating msdos table
+  (mike.fleetwood)
+- disk.c: Update metadata after reading partition table (pascal)
+- Fix initialization of atr_c_locale inside PED_ASSERT (felipe)
+- fat: Reword the failed to resize error (bcl)
+- doc: Add more detail to --script documentation (bcl)
+- Change AUTHORS urls to point to savannah.gnu.org (bcl)
+- bootstrap.conf: Remove unused gnulib-tests (bcl)
+- doc: API documentation moved to API.md (bcl)
+- cfg.mk: Adjust maint.mk for the parted codebase (bcl)
+- maint: Mention COPYING and INSTALL in README (bcl)
+- Upate include error.h (bcl)
+- tests: Use license URL not the old address (bcl)
+- doc: Use license URL not the old address (bcl)
+- maint: Update copyright statements to 2026 (bcl)
+- maint: Update to latest gnulib and bootstrap script (bcl)
+- hurd: Support USB device names (samuel.thibault)
+- doc: Fix some groff/mandoc linting complaints (bcl)
+- nilfs2: Fixed possible sigsegv in case of corrupted superblock (abutenko)
+- libparted: Do not detect ext4 without journal as ext2 (pascal)
+- tests: probing ext4 without journal should still indicate ext4 (bcl)
+- tests: Add test for dvh with a bad checksum (bcl)
+- libparted: Fix dvh disklabel unhandled exception (bcl)
+- tests: Add test for SUN disklabel handling (bcl)
+- libparted: Fix sun disklabel unhandled exception (bcl)
+- bug#74444: [PATCH] parted: fix do_version declaration (rudi)
+- libparted: Fail early when detecting nilfs2 (oldium.pro)
+- doc: Document IEC unit behavior in the manpage (bcl)
+- parted: Print the Fixing... message to stderr (bcl)
+- docs: Finish setup of libparted API docs (bcl)
+- m4: Remove unused parted.m4 (bcl)
+- bug#64034: [PATCH] libparted: link libparted-fs-resize.so to libuuid
+  (raj.khem)
+- maint: Add .dirstamp files to .gitignore (yegorslists)
+- parted: link to libuuid (yegorslists)
+- maint: post-release administrivia (bcl)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -175,55 +205,3 @@ make check
 * Mon Apr 10 2023 Brian C. Lane <bcl@redhat.com> - 3.6-1
 - Upstream 3.6 stable release
 - Dropping pre-3.5 changelog entries
-
-* Mon Mar 27 2023 Brian C. Lane <bcl@redhat.com> - 3.5.28-1
-- Upstream 3.5.28 Alpha release
-- Dropped all patches included in new upstream release
-- Bumped minor version on libparted.so and libparted-fs-resize.so
-
-* Fri Mar 17 2023 Brian C. Lane <bcl@redhat.com> - 3.5-11
-- parted: Fix ending sector location when using kibi IEC suffix (bcl)
-- tests: Fix formatting and snprintf warnings in tests. (bcl)
-- ui: Add checks for prompt being NULL (bcl)
-- strlist: Handle realloc error in wchar_to_str (bcl)
-- libparted: Fix potential NULL dereference in ped_disk_next_partition (bcl)
-- filesys: Check for null from close_fn (bcl)
-
-* Tue Feb 07 2023 Brian C. Lane <bcl@redhat.com> - 3.5-10
-- libparted: Fix problem with creating 1s partitions
-- tests: Fixing libparted test framework usage
-
-* Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 3.5-9
-- SPDX migration
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Dec 14 2022 Brian C. Lane <bcl@redhat.com> - 3.5-7
-- libparted: Fix handling of msdos partition types
-- tests: Add a libparted test for ped_partition_set_system on msdos
-- parted: Add display of GPT UUIDs in JSON output
-- Add no_automount flag support
-- increase xfs size to 300M
-
-* Mon Aug 08 2022 Brian C. Lane <bcl@redhat.com> - 3.5-6
-- Fix ped_partition_set_system handling of existing flags
-
-* Thu Aug 04 2022 Brian C. Lane <bcl@redhat.com> - 3.5-5
-- Update enum patch description for upstream
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 20 2022 Adam Williamson <awilliam@redhat.com> - 3.5-3
-- Set _FIRST_ and _LAST_ macro values directly
-
-* Tue May 17 2022 Brian C. Lane <bcl@redhat.com> - 3.5-2
-- tests: t3200-type-change now passes (bcl)
-- parted: Reset the filesystem type when changing the id/uuid (bcl)
-- libparted: add swap flag for DASD label (aschnell)
-- parted: add type command (aschnell)
-- maint: post-release administrivia (bcl)
-
-* Mon Apr 18 2022 Brian C. Lane <bcl@redhat.com> - 3.5-1
-- Upstream 3.5 stable release
