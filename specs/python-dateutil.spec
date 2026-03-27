@@ -91,7 +91,9 @@ make -C docs html
 %pyproject_check_import -e dateutil.tz.win -e dateutil.tzwin
 
 %if %{with tests}
-%pytest -W ignore::pytest.PytestUnknownMarkWarning
+# test_tzlocal_local_time_trim_colon fails in Copr only :/
+%pytest -W ignore::pytest.PytestUnknownMarkWarning \
+  %{?copr_projectname:-k "not test_tzlocal_local_time_trim_colon"}
 %endif
 
 

@@ -63,7 +63,7 @@ Summary:        Hook libraries for OBS Vulkan/OpenGL game capture
 Requires:       vulkan-loader%{?_isa}
 
 # libs split, obsolete older packages
-Obsoletes:      obs-studio-plugin-vkcapture < %{version}-%{release}
+Obsoletes:      obs-studio-plugin-vkcapture < 1.5.1-5
 Obsoletes:      obs-studio-vkcapture < %{version}-%{release}
 Obsoletes:      obs-studio-gamecapture < %{version}-%{release}
 

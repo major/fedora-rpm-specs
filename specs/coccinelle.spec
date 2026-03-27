@@ -1,7 +1,8 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global forgeurl https://github.com/coccinelle/coccinelle
+#global forgeurl https://github.com/coccinelle/coccinelle
+%global forgeurl https://gitlab.inria.fr/coccinelle/coccinelle
 %global tag 1.3.1
 #global commit 09b475bb3dd2b29c6bd904cc455d4c25c6641649
 #global date   20251118
@@ -22,7 +23,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -34,6 +35,19 @@ Source0:        %{forgesource}
 Source1:        test.c
 Source2:        testpy.cocci
 
+# RWMJ: I backported some patches for ocaml-pcre2 support from upstream.
+# They can be found here:
+# https://github.com/rwmjones/coccinelle/tree/fedora-1.3.1
+Patch:          0001-replace-pcre-with-pcre2.patch
+Patch:          0002-use-pcre2-instead-of-pcre-in-some-more-places.patch
+Patch:          0003-replace-pcre-with-pcre2-in-install.txt-instructions.patch
+Patch:          0004-replace-pcre-bundle-with-pcre2-bundle.patch
+Patch:          0005-rename-some-bundled-pcre2-files-to-be-input-files.patch
+Patch:          0006-add-.gitignore-in-pcre2-bundle-to-exclude-generated-.patch
+Patch:          0007-rename-update-pcre-bundle-Makefile-to-reflect-bundle.patch
+Patch:          0008-configure.ac-use-pcre2-ocaml-lib-folder-to-reflect-n.patch
+Patch:          0009-replace-obsolescent-egrep-with-grep-E.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  python3-devel
@@ -43,7 +57,7 @@ BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-parmap-devel
-BuildRequires:  ocaml-pcre-devel
+BuildRequires:  ocaml-pcre2-devel
 BuildRequires:  ocaml-menhir
 BuildRequires:  ocaml-num-devel
 BuildRequires:  ocaml-pyml-devel
@@ -145,7 +159,7 @@ The %{name}-examples package contains examples for %{name}.
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -p 1
 
 # Replace /usr/bin/env shebang with /usr/bin/python3
 sed -i '1s_^#!/usr/bin/env python$_#!%{python3}_' tools/pycocci
@@ -286,6 +300,11 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Mar 25 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-6
+- Use ocaml-pcre2 instead of ocaml-pcre
+- Note alternate upstream git repo link
+- Replace egrep with grep -E
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-5
 - OCaml 5.4.1 rebuild
 

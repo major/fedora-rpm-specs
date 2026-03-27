@@ -1,8 +1,8 @@
 %global srcname yconf
-%global fast_yaml_ver 1.0.39
+%global fast_yaml_ver 1.0.40
 
 Name:       erlang-%{srcname}
-Version:    1.0.22
+Version:    1.0.23
 Release:    %autorelease
 BuildArch:  noarch
 License:    Apache-2.0

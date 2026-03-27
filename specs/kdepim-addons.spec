@@ -1,8 +1,8 @@
 # adblock requires rust and corrosion
-%bcond adblock 1
+%bcond adblock 0
 
 Name:    kdepim-addons
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
@@ -179,6 +179,9 @@ popd
 %{_kf6_qtplugindir}/pim6/kaddressbook/
 %{_kf6_libdir}/libKPim6AutoGenerateText.so.*
 
+# Kaichat
+%{_kf6_qtplugindir}/autogeneratetext/toolplugins/kaichat_*.so
+
 # KMail
 %{_kf6_bindir}/kmail_*.sh
 %{_kf6_libdir}/libkmailmarkdown.so.*
@@ -200,6 +203,9 @@ popd
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

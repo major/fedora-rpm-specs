@@ -1,8 +1,8 @@
 %global srcname fast_tls
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name: erlang-%{srcname}
-Version: 1.1.25
+Version: 1.1.26
 Release: %autorelease
 License: Apache-2.0
 Summary: TLS / SSL native driver for Erlang / Elixir
@@ -32,9 +32,7 @@ TLS / SSL native driver for Erlang / Elixir. This is used by ejabberd.
 
 %install
 %{erlang3_install}
-
-install -d $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{version}/priv/lib
-install -pm755 priv/lib/* $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{version}/priv/lib/
+install -p -D -m 755 priv/lib/* --target-directory=%{buildroot}%{erlang_appdir}/priv/lib/
 
 %check
 %{erlang3_test}

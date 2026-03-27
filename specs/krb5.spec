@@ -496,6 +496,7 @@ cp -p --parents -t "%{buildroot}%{_datarootdir}/%{name}-tests/%{_arch}/" \
                 -e 's|^\./\([^:]\+\): \+text/.\+$|\1|p' \
                 -e 's|^\./\([^:]\+\): \+application/x-pem-file.\+$|\1|p' \
                 -e 's|^\./\([^:]\+\): \+application/json.\+$|\1|p' \
+                -e 's|^\./\([^:]\+\): \+application/x-wine-extension-ini.\+$|\1|p' \
           | grep -Ev '~$')
 popd
 

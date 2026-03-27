@@ -1,7 +1,7 @@
 Name:           tiled
 Summary:        Tiled Map Editor
 
-Version:        1.12.0
+Version:        1.12.1
 Release:        1%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD.
@@ -281,6 +281,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/librpd.so
 
 %changelog
+* Wed Mar 25 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.12.1-1
+- Update to v1.12.1
+
 * Thu Mar 12 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.12.0-1
 - Update to v1.12.0
 - Drop all patches (backports from this release)

@@ -1,21 +1,15 @@
 %global debug_package %{nil}
 
+%global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
+
 Name: gtk-doc
-Version: 1.35.1
+Version: 1.36.0
 Release: %autorelease
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
 URL: https://gitlab.gnome.org/GNOME/gtk-doc/
-Source0: http://download.gnome.org/sources/%{name}/1.35/%{name}-%{version}.tar.xz
-
-# Resolve FTBFS, unclear if solution is 'proper'
-# https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/150
-Patch: https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/74.patch
-
-# Update CMake minimum version from 3.2 to 3.12: support CMake 4.0
-# https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/101
-Patch: https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/101.patch
+Source0: http://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires: dblatex
 BuildRequires: docbook-utils
@@ -53,7 +47,11 @@ and GNOME.
 mv doc/README doc/README.docs
 
 %build
-%meson
+%if 0%{?fedora} && 0%{?fedora} <= 43
+%meson -Dtests=true
+%else
+%meson -Dtests=false
+%endif
 %meson_build
 
 %install
@@ -68,7 +66,7 @@ mv doc/README doc/README.docs
 
 %files
 %license COPYING COPYING-DOCS
-%doc AUTHORS README doc/* examples
+%doc README.md doc/* examples
 %{_bindir}/*
 %{_datadir}/aclocal/gtk-doc.m4
 %{_datadir}/gtk-doc/

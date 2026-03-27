@@ -9,7 +9,7 @@ Summary:        C++ utility library from Code Synthesis
 # the Boost Software License (see the accompanying LICENSE file).
 # Code found in the cutl/details/genx/ directory is distributed under
 # the MIT License (see the accompanying LICENSE file).
-License:        MIT AND/OR BSL-1.0
+License:        MIT AND BSL-1.0
 URL:            http://www.codesynthesis.com/projects/libcutl/
 Source0:        http://www.codesynthesis.com/download/libcutl/%{base_version}/%{name}-%{version}.tar.bz2
 Patch0:         libcutl_no_boost_license.patch

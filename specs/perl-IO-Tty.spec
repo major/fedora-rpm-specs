@@ -1,6 +1,6 @@
 Name:           perl-IO-Tty
-Version:        1.20
-Release:        9%{?dist}
+Version:        1.23
+Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
@@ -19,13 +19,13 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+BuildRequires:  perl(XSLoader)
 # Test Suite
 BuildRequires:  perl(Test::More)
 # Dependencies
@@ -53,7 +53,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%doc ChangeLog README
+%doc AI_POLICY.md ChangeLog README.md
 %{perl_vendorarch}/auto/IO/
 %{perl_vendorarch}/IO/
 %{_mandir}/man3/IO::Pty.3*
@@ -61,6 +61,57 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Wed Mar 25 2026 Paul Howarth <paul@city-fan.org> - 1.23-1
+- Update to 1.23 (rhbz#2450189)
+  Bug Fixes:
+  - Fix function detection on Solaris by adding __EXTENSIONS__ to expose BSD
+    extensions (like strlcpy) that are hidden when _XOPEN_SOURCE is defined
+    (GH#47, GH#48)
+  - Fix file descriptor leaks in open_slave() error paths; the master pty fd
+    was not closed on several early-return error paths, causing fd leaks when
+    falling through multiple pty allocation methods (GH#49)
+  - Replace deprecated indirect object syntax (e.g. 'new IO::Pty') with direct
+    method calls ('IO::Pty->new'); Perl 5.36+ disables indirect object calls,
+    so this fixes forward compatibility (GH#52)
+  Improvements:
+  - Add unit tests for ttyname(), slave()/close_slave() lifecycle,
+    set_winsize()/get_winsize() round-trips, pack_winsize/unpack_winsize, and
+    constant importing (28 new tests) (GH#50)
+  - Replace DynaLoader with XSLoader and bump minimum perl version to 5.8.8;
+    XSLoader is simpler and has been in core since perl 5.6 (GH#51)
+  - Add clone_winsize_from() test coverage (7 new tests) covering basic clone
+    between slave ttys, non-tty master fast path, croak on non-tty source, and
+    pixel dimension preservation (GH#53)
+  Maintenance:
+  - Fix stale POD versions, add Perl 5.38/5.40 to CI, and update repository
+    URLs from toddr/IO-Tty to cpan-authors/IO-Tty (GH#44)
+  - Remove dead Perl 5.003 compatibility code, modernize XS (Nullch to NULL,
+    perl_get_sv to get_sv, sprintf to snprintf) (GH#45)
+  - Modernize CI with dynamic perl version discovery via
+    perl-actions/perl-versions and add a disttest job (GH#46)
+  - Regenerate README from POD to fix stale version (GH#52)
+  - Modernize 'use vars' to 'our' declarations in Tty.pm and Pty.pm; add
+    missing 'use warnings' to Pty.pm (GH#53)
+  - Add AI_POLICY.md for transparency on AI-assisted contributions
+  - Convert README to Markdown and update MANIFEST
+
+* Mon Mar 23 2026 Paul Howarth <paul@city-fan.org> - 1.21-1
+- Update to 1.21 (rhbz#2450189)
+  Bug Fixes:
+  - Fix slave fd leak on IO::Pty destruction; the slave pty file descriptor was
+    not closed when the IO::Pty object was destroyed, leaking file descriptors
+    until process exit (GH#14, GH#39)
+  - Fix set_raw() to modify cflag for proper raw mode on BSD/macOS; set_raw()
+    was not clearing CSIZE|PARENB or setting CS8 in cflag, causing incomplete
+    raw mode on macOS, OpenBSD, and NetBSD (GH#12, GH#40)
+  - Modernize function detection to use proper system headers instead of
+    fragile K&R-style forward declarations; the old approach conflicted with
+    real prototypes on modern compilers (especially FreeBSD/Clang), causing all
+    function checks to fail (GH#38, GH#41)
+  Improvements:
+  - Add BSD CI testing for FreeBSD, OpenBSD, and NetBSD via
+    cross-platform-actions; also bumps actions/checkout from v2 to v4 (GH#42)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

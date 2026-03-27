@@ -1,5 +1,5 @@
 Name:    ktnef
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: The KTNef Library
 
@@ -60,12 +60,13 @@ find ./po -type f -name libktnef5.po -execdir mv {} libktnef6.po \;
 %{_includedir}/KPim6/KTNEF/
 %{_kf6_libdir}/libKPim6Tnef.so
 %{_kf6_libdir}/cmake/KPim6Tnef/
-%{_qt6_docdir}/*.tags
 
 %files doc
-%{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

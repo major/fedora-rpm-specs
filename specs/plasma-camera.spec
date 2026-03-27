@@ -1,11 +1,11 @@
 Name:          plasma-camera
-Version:       2.1.1
-Release:       4%{?dist}
+Version:       26.03.80
+Release:       1%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
 URL:           https://apps.kde.org/plasma.camera/
 
-Source0:       https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source0:       https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.plasma.camera.appdata.xml
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Mon Feb 02 2026 Steve Cossette <farchord@gmail.com> - 2.1.1-4
 - Rebuild for new libcamera
 

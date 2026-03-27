@@ -5,13 +5,16 @@
 %global crate convert_case
 
 Name:           rust-convert_case
-Version:        0.8.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Convert strings into any case
 
 License:        MIT
 URL:            https://crates.io/crates/convert_case
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          convert_case-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -44,30 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rand-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+random-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+random-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "random" feature of the "%{crate}" crate.
-
-%files       -n %{name}+random-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

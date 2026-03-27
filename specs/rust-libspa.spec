@@ -13,6 +13,9 @@ Summary:        Rust bindings for libspa
 License:        MIT
 URL:            https://crates.io/crates/libspa
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump convert_case dependency from v0.8 to v0.10
+Patch:          libspa-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

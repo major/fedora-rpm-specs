@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kclock
-Version:        25.12.3
+Version:        26.03.80
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-4.0 AND GPL-2.0-or-later
 Summary:        Clock app for Plasma Mobile
@@ -50,6 +50,7 @@ BuildRequires:  cmake(KF6JobWidgets)
 BuildRequires:  cmake(Plasma)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  cmake(PlasmaWaylandProtocols)
  
 Requires:       hicolor-icon-theme
 # QML module dependencies
@@ -103,7 +104,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_sysconfdir}/xdg/autostart/%{klockd_name}-autostart.desktop
 %{_datadir}/dbus-1/services/org.kde.%{name}d.service
-%{_datadir}/krunner/dbusplugins/kclock-runner.desktop
+%{_datadir}/krunner/dbusplugins/org.kde.kclock.desktop
 %{_kf6_datadir}/knotifications6/%{name}d.notifyrc
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
@@ -113,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

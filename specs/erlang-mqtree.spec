@@ -1,12 +1,12 @@
 %global srcname mqtree
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name:       erlang-%{srcname}
-Version:    1.0.19
+Version:    1.0.20
 Release:    %autorelease
 License:    Apache-2.0
 Summary:    Index tree for MQTT topic filters
-URL:        https://github.com/processone/%{srcname}/
+URL:        https://github.com/processone/%{srcname}
 VCS:        git:%{url}.git
 Source0:    %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch:      erlang-mqtree-0001-Remove-bundled-uthash.patch
@@ -30,9 +30,7 @@ efficient matching.
 
 %install
 %{erlang3_install}
-
-install -d %{buildroot}%{_erllibdir}/%{srcname}-%{version}/priv/lib
-install -pm755 priv/lib/* %{buildroot}%{_erllibdir}/%{srcname}-%{version}/priv/lib/
+install -p -D -m 755 priv/lib/* --target-directory=%{buildroot}%{erlang_appdir}/priv/lib/
 
 %check
 %{erlang3_test}

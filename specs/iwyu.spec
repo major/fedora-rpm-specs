@@ -62,6 +62,7 @@ code.
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/clang;%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/llvm' \
+    -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 %cmake_build
 

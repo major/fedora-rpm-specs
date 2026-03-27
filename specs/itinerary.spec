@@ -1,5 +1,5 @@
 Name:           itinerary
-Version:        25.12.3
+Version:        26.03.80
 Release:        1%{?dist}
 Summary:        Itinerary and boarding pass management application
 
@@ -93,10 +93,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %files -f kde-itinerary.lang
 %license LICENSES/*
 %{_bindir}/itinerary
-%{_libdir}/libSolidExtras.so
 %{_qt6_plugindir}/kf6/kfilemetadata/kfilemetadata_itineraryextractor.so
 %{_qt6_plugindir}/kf6/thumbcreator/itinerarythumbnail.so
-%{_qt6_qmldir}/org/kde/solidextras/
 %{_datadir}/applications/org.kde.itinerary.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.itinerary.svg
 %{_datadir}/knotifications6/itinerary.notifyrc
@@ -104,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/qlogging-categories6/org_kde_itinerary.categories
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

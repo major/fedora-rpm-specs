@@ -2,12 +2,17 @@
 %global github_project  console-login-helper-messages
 
 Name:           console-login-helper-messages
-Version:        0.21.3
-Release:        13%{?dist}
+Version:        0.22.0
+Release:        1%{?dist}
 Summary:        Combines motd, issue, profile features to show system information to the user before/on login
 License:        BSD-3-Clause
 URL:            https://github.com/%{github_owner}/%{github_project}
 Source0:        https://github.com/%{github_owner}/%{github_project}/archive/v%{version}.tar.gz
+
+# On RHEL < 11, revert the move to /run/issue.d and keep using /etc/issue.d
+%if 0%{?rhel} && 0%{?rhel} < 11
+Patch0:         0001-revert-issue-to-etc.patch
+%endif
 
 BuildArch:      noarch
 BuildRequires:  systemd make
@@ -117,7 +122,11 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %dir %{_prefix}/lib/%{name}
 %dir %{_prefix}/share/%{name}
 %{_prefix}/lib/%{name}/libutil.sh
+# tmpfiles.d/console-login-helper-messages.conf was removed upstream in v0.22.0
+# but is restored by the revert patch on RHEL < 11
+%if 0%{?rhel} && 0%{?rhel} < 11
 %{_tmpfilesdir}/%{name}.conf
+%endif
 
 %files issuegen
 %{_unitdir}/%{name}-gensnippet-ssh-keys.service
@@ -139,6 +148,10 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %ghost %{_sysconfdir}/profile.d/%{name}-profile.sh
 
 %changelog
+* Wed Mar 25 2026 Jean-Baptiste Trystram <jbtrystram@redhat.com> - 0.22.0-1
+- Update to 0.22.0
+- On RHEL < 11: revert move to /run/issue.d, keep using /etc/issue.d
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

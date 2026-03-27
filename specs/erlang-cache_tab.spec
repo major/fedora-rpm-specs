@@ -1,8 +1,8 @@
 %global srcname cache_tab
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name: erlang-%{srcname}
-Version: 1.0.33
+Version: 1.0.34
 Release: %autorelease
 License: Apache-2.0
 Summary: Erlang cache table application

@@ -1,5 +1,5 @@
 Name:    kitinerary
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
@@ -103,6 +103,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

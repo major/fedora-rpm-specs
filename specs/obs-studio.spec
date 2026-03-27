@@ -33,8 +33,8 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.6.3
-%global obsbrowser_commit a776dd6a1a0ded4a8a723f2f572f3f8a9707f5a8
+%global obswebsocket_version 5.7.2
+%global obsbrowser_commit ea04212e4bbadd077f9e6038758c4e4779c24fa3
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
 # and it works around a CEF versioning teething issue:
@@ -46,8 +46,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        32.0.4
-Release:        4%{?dist}
+Version:        32.1.0
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -72,10 +72,6 @@ Patch0102:      0102-frontend-Allow-invalid-recording-encoder-if-quality-.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 ## From: https://github.com/obsproject/obs-studio/pull/12507
 Patch0105:      0105-libobs-opengl-Reject-external-only-modifiers.patch
-## From: https://github.com/obsproject/obs-studio/pull/12951
-Patch0106:      0106-fix-shutdown-crash.patch
-## From: https://github.com/obsproject/obs-studio/pull/13198
-Patch0107:      0107-linux-v4l2-Fix-spurious-fd-closing.patch
 
 # WIP code to improve new CEF support (based on upstream dev tree)
 ## From: https://github.com/asahilina/obs-browser/tree/lockdown
@@ -94,7 +90,6 @@ Patch1001:      obs-studio-UI-use-fdk-aac-by-default.patch
 ## Fix error: passing argument 4 of ‘query_dmabuf_modifiers’ from
 ##            incompatible pointer type [-Wincompatible-pointer-types]
 Patch1003:      obs-studio-fix-incompatible-pointer-type.patch
-Patch1004:      obs-studio-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.22
@@ -408,6 +403,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Mar 25 2026 Hoshino Lina <lina@lina.yt> - 32.1.0-1
+- Update to 32.1.0
+
 * Sat Mar 07 2026 Hoshino Lina <lina@lina.yt> - 32.0.4-4
 - Fix crashes due to spurious fd closing with v4l2loopback
 - Fix build with CEF-145

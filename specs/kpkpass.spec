@@ -1,5 +1,5 @@
 Name:    kpkpass
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -67,13 +67,14 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_includedir}/KPim6/KPkPass/
 %{_kf6_libdir}/libKPim6PkPass.so
 %{_kf6_libdir}/cmake/KPim6PkPass/
-%{_qt6_docdir}/*.tags
 
 %files doc
-%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

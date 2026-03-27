@@ -1,7 +1,7 @@
 %global pypi_name eth_pydantic_types
 
 Name:          python-eth-pydantic-types
-Version:       0.2.5
+Version:       0.2.6
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ETH Pydantic types
@@ -10,6 +10,7 @@ URL:           https://github.com/ApeWorX/eth-pydantic-types
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 Patch:         python-eth-pydantic-types-0001-Go-back-to-a-pure-python-to_checksum_address.patch
+Patch:         python-eth-pydantic-types-0002-Relax-deps.patch
 BuildRequires: python3-eth-typing
 BuildRequires: python3-eth-utils
 BuildRequires: python3-hypothesis

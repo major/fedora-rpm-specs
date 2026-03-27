@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -69,13 +69,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 %{_kf6_plugindir}/propertiesdialog/sambausershareplugin.so
 %{_kf6_plugindir}/propertiesdialog/SambaAcl.so
 %{_kf6_metainfodir}/org.kde.kdenetwork-filesharing.metainfo.xml
-%{_kf6_libexecdir}/kauth/authhelper
 %{_kf6_datadir}/dbus-1/system-services/org.kde.filesharing.samba.service
 %{_kf6_datadir}/dbus-1/system.d/org.kde.filesharing.samba.conf
 %{_kf6_datadir}/polkit-1/actions/org.kde.filesharing.samba.policy
-
+%{_kf6_libexecdir}/kauth/sambausershareplugin_authhelper
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

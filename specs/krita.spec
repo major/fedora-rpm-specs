@@ -4,16 +4,16 @@
 %global immer_version 0.9.1
 %global lager_version 0.1.2
 %global raqm_version 0.10.1
-%global gmic_version 3.6.6.2
+%global gmic_version 3.7.4.1
 
 Name:           krita
-Version:        6.0.0~beta3
+Version:        6.0.0
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
 URL:            https://krita.org
-Source0:        https://download.kde.org/unstable/krita/%{version_no_tilde}/krita-%{version_no_tilde}.tar.xz
+Source0:        https://download.kde.org/stable/krita/%{version_no_tilde}/krita-%{version_no_tilde}.tar.xz
 Source1:        https://github.com/arximboldi/zug/archive/v%{zug_version}/zug-%{zug_version}.tar.gz
 Source2:        https://github.com/arximboldi/immer/archive/v%{immer_version}/immer-%{immer_version}.tar.gz
 Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/lager-%{lager_version}.tar.gz
@@ -172,6 +172,7 @@ DESTDIR=$(pwd) cmake --install lager --prefix /
 # build krita
 %cmake_kf6 -G Ninja \
    -DCMAKE_PREFIX_PATH=$(pwd) \
+   -DALLOW_UNSTABLE=QT6 \
    -DBUILD_WITH_QT6:BOOL=ON \
    -DBUILD_TESTING:BOOL=OFF
 
@@ -231,6 +232,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Wed Mar 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0-1
+- 6.0.0
+
 * Sun Mar 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0~beta3-1
 - 6.0.0-beta3
 

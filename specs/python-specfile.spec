@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.40.0
+%global base_version 0.40.1
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -81,6 +81,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Wed Mar 25 2026 Packit <hello@packit.dev> - 0.40.1-1
+- Fixed issues related to introduced sanitization (#523, #524, #525).
+- Resolves: rhbz#2446536
+
 * Wed Mar 11 2026 Packit <hello@packit.dev> - 0.40.0-1
 - `Specfile()` has a new `sanitize` option that enables best effort sanitization of potentially dangerous constructs such as shell expansions and unsafe Lua macros before they are passed to RPM for parsing. (#519)
 - Fixed incorrect parsing of nested macros. (#522)

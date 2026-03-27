@@ -1,7 +1,7 @@
 %global pypi_name eth_typing
 
 Name:          python-eth-typing
-Version:       5.2.1
+Version:       6.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Python types for type hinting commonly used Ethereum types
@@ -11,7 +11,6 @@ VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description

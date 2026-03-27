@@ -21,7 +21,7 @@
 #
 %global upstreamname MIVisionX
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -156,11 +156,15 @@ sed -i -e 's@/opt/rocm@%{pkg_prefix}@' CMakeLists.txt
 # Make finding rpp required
 sed -i -e 's@find_package(rpp 2.1.0 QUIET)@find_package(rpp 2.1.0 REQUIRED)@' amd_openvx_extensions/CMakeLists.txt
 
+# Make finding opencv required
+sed -i -e 's@if(NOT MIN_DEPS_MODE)@if(True)@' amd_openvx_extensions/CMakeLists.txt		  
+sed -i -e 's@find_package(OpenCV QUIET)@find_package(OpenCV REQUIRED)@' amd_openvx_extensions/CMakeLists.txt
+
 %build
 
 # Finding rpp is always a problem, print out debug find info
 %cmake \
-    --debug-find-pkg=rpp \
+    --debug-find-pkg=OpenCV \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
@@ -210,6 +214,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/test
 %{pkg_prefix}/%{pkg_libdir}/libvxu.so
 
 %changelog
+* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

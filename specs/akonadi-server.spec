@@ -4,7 +4,7 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -48,11 +48,13 @@ BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(sqlite3) >= 3.6.23
 
-
 ## (some) optional deps
 BuildRequires:  pkgconfig(Qt6Designer)
 BuildRequires:  cmake(AccountsQt6)
 BuildRequires:  cmake(KAccounts6)
+
+BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 
 %if ! 0%{?flatpak}
 BuildRequires: mariadb-server
@@ -167,6 +169,10 @@ rm -fv %{buildroot}%{_sysconfdir}/xdg/akonadi/mysql-global-mobile.conf
   akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite \
   8
+%systemd_user_post akonadi_control.service
+
+%preun
+%systemd_preun akonadi_control.service
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -174,6 +180,7 @@ if [ $1 -eq 0 ] ; then
   --remove akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite
 fi
+%systemd_postun akonadi_control.service
 
 
 %files -f libakonadi6.lang
@@ -208,6 +215,7 @@ fi
 %{_kf6_datadir}/kf6/akonadi_knut_resource/
 %{_kf6_qmldir}/org/kde/akonadi/
 %{_kf6_datadir}/applications/org.kde.akonadi.configdialog.desktop
+%{_userunitdir}/akonadi_control.service
 
 %files devel
 %{_kf6_datadir}/dbus-1/interfaces/org.freedesktop.Akonadi.*.xml
@@ -224,10 +232,8 @@ fi
 %{_kf6_qtplugindir}/designer/akonadi6widgets.so
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
-%{_qt6_docdir}/*.tags
 
 %files doc
-%{_qt6_docdir}/*.qch
 
 %post mysql
 /usr/sbin/update-alternatives \
@@ -250,6 +256,9 @@ fi
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

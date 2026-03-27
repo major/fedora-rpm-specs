@@ -42,6 +42,8 @@
 %global        chroot_create_directories /dev /run/named %{_localstatedir}/{log,named,tmp} \\\
                                          %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,named} \\\
                                          %{_libdir}/bind %{_libdir}/named %{_datadir}/{GeoIP,named} /proc/sys/net/ipv4
+%global        upstream_sources 0 2
+%global        pgp_signature_sources 2
 
 ## The order of libs is important. See lib/Makefile.in for details
 %define bind_export_libs isc dns isccfg irs
@@ -85,8 +87,8 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.44
-Release:  2%{?dist}
+Version:  9.18.47
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -946,7 +948,13 @@ fi;
 %endif
 
 %changelog
-* Fri Dec 12 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.44-2
+* Wed Mar 25 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.47-1
+- Update to 9.18.47 (rhbz#2440561)
+
+* Tue Mar 03 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.46-1
+- Update to 9.18.46 (rhbz#2440561)
+
+* Wed Jan 28 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.44-2
 - Create /var/named directories for bind-chroot (RHEL-132053)
 - Add forgotten _libdir/named into bind-chroot tmpfiles
 

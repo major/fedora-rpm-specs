@@ -1,15 +1,15 @@
 %global pypi_name eth_utils
 
 Name:          python-eth-utils
-Version:       5.3.1
+Version:       6.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Utility functions for working with Ethereum related codebases
 License:       MIT
 URL:           https://github.com/ethereum/eth-utils
 VCS:           git:%{url}.git
-Source0:       %{pypi_source %pypi_name}
-Patch:         python-eth-utils-0001-Readd-fixtures-back.patch
+# PyPi doesn't contain test fixtures so we have to get GitHub's one
+Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildRequires: python3-hypothesis
 BuildRequires: python3-mypy
 BuildRequires: python3-pytest
@@ -30,7 +30,7 @@ Summary: %{summary}
 rm -rf %{pypi_name}.egg-info/
 
 %check -a
-%pytest -k 'not test_install_local_wheel and not test_type_inference'
+%pytest -k 'not test_install_local_wheel'
 
 %files -n python3-eth-utils -f %{pyproject_files}
 %doc README.md

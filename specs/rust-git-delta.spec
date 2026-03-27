@@ -4,7 +4,7 @@
 %global crate git-delta
 
 Name:           rust-git-delta
-Version:        0.18.2
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Syntax-highlighting pager for git
 
@@ -12,16 +12,14 @@ License:        MIT
 URL:            https://crates.io/crates/git-delta
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump smol_str dependency from 0.1.24 to 0.3.2
-# * bump itertools dependency from 0.10.5 to 0.13.0
-# * bump git2 dependency from 0.18 to 0.20
-# * relax bat dependency from 0.24.0 to >=0.24.0,<=0.25.0
-# * relax unicode-width dependency from =0.1.12 to 0.1.14
 # * bump rstest dev-dependency from 0.21.0 to 0.26.0:
 #   https://github.com/dandavison/delta/pull/1970#issuecomment-3153268557
 # * relax console dependency from 0.15.0 to >=0.15.0,<0.17.0
-# * allow dirs 6: https://github.com/dandavison/delta/pull/2063
+# * bump terminal-colorsaurus from 0.4.8 to 1.0.3:
+#   https://github.com/dandavison/delta/pull/2119
 Patch:          git-delta-fix-metadata.diff
+# * https://github.com/dandavison/delta/pull/2119
+Patch2:         0001-Update-terminal-colorsaurus-to-version-1.0.3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -81,6 +79,7 @@ License:        %{shrink:
 
 %files       -n %{crate}
 %license LICENSE
+%license LICENSE-bat
 %license LICENSE.dependencies
 %doc ARCHITECTURE.md
 %doc CONTRIBUTING.md
@@ -92,6 +91,7 @@ License:        %{shrink:
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p src/utils/bat/LICENSE LICENSE-bat
 %cargo_prep
 
 %generate_buildrequires

@@ -1,5 +1,5 @@
 Name:           perl-Authen-Radius
-Version:        0.34
+Version:        0.35
 Release:        1%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
@@ -76,6 +76,10 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Wed Mar 25 2026 Paul Howarth <paul@city-fan.org> - 0.35-1
+- Update to 0.35
+  - Reinstate module metadata files (META.json and META.yml)
+
 * Fri Mar 20 2026 Paul Howarth <paul@city-fan.org> - 0.34-1
 - Update to 0.34
   - Re-use original socket in broadcast mode

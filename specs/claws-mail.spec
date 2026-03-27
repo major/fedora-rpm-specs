@@ -39,8 +39,8 @@ Patch11:        claws-mail-system-crypto-policies.patch
 BuildRequires:  gcc, flex, bison, make
 BuildRequires:  pkgconfig(glib-2.0) >= 2.20
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.0
-BuildRequires:  pkgconfig(gnutls) >= 2.2
-BuildRequires:  libgcrypt-devel
+BuildRequires:  pkgconfig(gnutls) >= 3.4
+BuildRequires:  pkgconfig(nettle)
 BuildRequires:  openldap-devel >= 2.0.7
 BuildRequires:  pkgconfig(enchant-2) >= 2.0.0
 %if !0%{?rhel}

@@ -110,7 +110,7 @@
 
 Summary: The Linux kernel
 %if 0%{?fedora}
-%define secure_boot_arch x86_64
+%define secure_boot_arch x86_64 aarch64
 %else
 %define secure_boot_arch x86_64 aarch64 s390x ppc64le
 %endif
@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc5.43
+%define pkgrelease 0.rc5.260325gbbeb83d3182ab.44
 %define kversion 7
-%define tarfile_release 7.0-rc5
+%define tarfile_release 7.0-rc5-51-gbbeb83d3182ab
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.43%{?buildid}%{?dist}
+%define specrelease 0.rc5.260325gbbeb83d3182ab.44%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -930,16 +930,6 @@ BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
 # it now aborts on failure and build fails.
 # debugedit-5.1-5 in F42 added support to override tools with target versions.
 %undefine _include_gdb_index
-%endif
-
-%if 0%{?rhel}%{?centos}
-%ifarch riscv64
-# Temporary workaround to avoid using find-debuginfo and gdb.minimal.
-# The current c10s version of gdb-minimal (14.2-4.el10) crashes when given some
-# riscv64 kernel modules (see RHEL-91586). Not building the gdb index avoids
-# breaking CI for now.
-%undefine _include_gdb_index
-%endif
 %endif
 %endif
 
@@ -4832,8 +4822,16 @@ fi\
 #
 #
 %changelog
-* Mon Mar 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.43]
+* Wed Mar 25 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc5.260325gbbeb83d3182ab.44]
+- Linux v7.0.0-0.rc5.260325gbbeb83d3182ab
+
+* Wed Mar 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.bbeb83d3182a.44]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Wed Mar 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.bbeb83d3182a.43]
+- redhat/spec: Re-enable gdb index for riscv cross-compile (Jennifer Berringer)
+- redhat/kernel.spec: add aarch64 to fedora secure boot list (Jeremy Cline)
+- Linux v7.0.0-0.rc5.bbeb83d3182a
 
 * Mon Mar 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.42]
 - Linux v7.0.0-0.rc5

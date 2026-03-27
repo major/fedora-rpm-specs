@@ -5,7 +5,11 @@
 # See: https://src.fedoraproject.org/rpms/redhat-rpm-config/c/078af19
 %undefine _strict_symbol_defs_build
 
+%if 0%{?fedora} || 0%{?epel} == 8
+%bcond_without geoip
+%else
 %bcond_with geoip
+%endif
 
 # nginx gperftools support should be disabled for RHEL >= 8
 # see: https://bugzilla.redhat.com/show_bug.cgi?id=1931402
@@ -33,12 +37,12 @@
 %endif
 
 # kTLS requires OpenSSL 3.0 (default in F36+ and EL9+, available in EPEL8)
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 8
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9 || 0%{?epel} >= 8
 %global with_ktls 1
 %endif
 
 # Build against OpenSSL 3 on EL8
-%if 0%{?rhel} == 8
+%if 0%{?epel} == 8
 %global openssl_pkgversion 3
 %endif
 
@@ -56,7 +60,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.28.2
+Version:           1.28.3
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -74,7 +78,6 @@ Source10:          nginx.service
 Source11:          nginx.logrotate
 Source12:          nginx.conf
 Source13:          nginx-upgrade
-Source14:          nginx-upgrade.8
 Source15:          macros.nginxmods.in
 Source16:          nginxmods.attr
 Source17:          nginx-ssl-pass-dialog
@@ -115,7 +118,8 @@ BuildRequires:     gperftools-devel
 BuildRequires:     libxcrypt-devel
 BuildRequires:     openssl%{?openssl_pkgversion}-devel
 BuildRequires:     pcre2-devel
-%if 0%{?fedora} || 0%{?rhel} > 8
+BuildRequires:     perl-podlators
+%if 0%{?fedora} || 0%{?rhel} >= 10 || 0%{?epel} >= 9
 BuildRequires:     zlib-ng-devel
 %else
 BuildRequires:     zlib-devel
@@ -157,6 +161,7 @@ BuildArch:         noarch
 
 %if %{with geoip}
 Requires:          nginx-mod-http-geoip = %{epoch}:%{version}-%{release}
+Requires:          nginx-mod-stream-geoip = %{epoch}:%{version}-%{release}
 %endif
 Requires:          nginx-mod-http-image-filter = %{epoch}:%{version}-%{release}
 Requires:          nginx-mod-http-perl = %{epoch}:%{version}-%{release}
@@ -184,9 +189,17 @@ directories.
 Summary:           Nginx HTTP geoip module
 BuildRequires:     GeoIP-devel
 Requires:          nginx(abi) = %{nginx_abiversion}
-Requires:          GeoIP
 
 %description mod-http-geoip
+%{summary}.
+
+%package mod-stream-geoip
+Summary:           Nginx stream geoip module
+BuildRequires:     GeoIP-devel
+Requires:          nginx(abi) = %{nginx_abiversion}
+Requires:          nginx-mod-stream = %{epoch}:%{version}-%{release}
+
+%description mod-stream-geoip
 %{summary}.
 %endif
 
@@ -249,7 +262,11 @@ Requires:          openssl%{?openssl_pkgversion}-devel
 Requires:          pcre2-devel
 Requires:          perl-devel
 Requires:          perl(ExtUtils::Embed)
-Requires:          zlib-devel
+%if 0%{?fedora} || 0%{?rhel} >= 10 || 0%{?epel} >= 9
+BuildRequires:     zlib-ng-devel
+%else
+BuildRequires:     zlib-devel
+%endif
 
 %description mod-devel
 %{summary}.
@@ -284,11 +301,7 @@ mv ../%{name}-%{version}-%{release}-src .
 %build
 # nginx does not utilize a standard configure script.  It has its own
 # and the standard configure options cause the nginx configure script
-# to error out.  This is is also the reason for the DESTDIR environment
-# variable.
-export DESTDIR=%{buildroot}
-# So the perl module finds its symbols:
-nginx_ldopts="$RPM_LD_FLAGS -Wl,-E -O2"
+# to error out.
 if ! ./configure \
     --prefix=%{_datadir}/nginx \
     --sbin-path=%{_sbindir}/nginx \
@@ -352,8 +365,8 @@ if ! ./configure \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
     --with-threads \
-    --with-cc-opt="%{optflags} $(pcre2-config --cflags)" \
-    --with-ld-opt="$nginx_ldopts"; then
+    --with-cc-opt="%{optflags}" \
+    --with-ld-opt="$RPM_LD_FLAGS"; then
   : configure failed
   cat objs/autoconf.err
   exit 1
@@ -421,7 +434,11 @@ install -p -D -m 0644 %{_builddir}/nginx-%{version}/objs/nginx.8 \
     %{buildroot}%{_mandir}/man8/nginx.8
 
 install -p -D -m 0755 %{SOURCE13} %{buildroot}%{_bindir}/nginx-upgrade
-install -p -D -m 0644 %{SOURCE14} %{buildroot}%{_mandir}/man8/nginx-upgrade.8
+pod2man --section=8 --name=nginx-upgrade \
+    --release="%{version}-%{release}" \
+    --center="Nginx Zero-Downtime Upgrade Utility" \
+    --date="$(sed -nE 's/# Last updated: (.+)/\1/p' %{SOURCE13})" \
+    %{SOURCE13} > %{buildroot}%{_mandir}/man8/nginx-upgrade.8
 
 for i in ftdetect ftplugin indent syntax; do
     install -p -D -m644 contrib/vim/${i}/nginx.vim \
@@ -431,6 +448,8 @@ done
 %if %{with geoip}
 echo 'load_module "%{nginx_moduledir}/ngx_http_geoip_module.so";' \
     > %{buildroot}%{nginx_moduleconfdir}/mod-http-geoip.conf
+echo 'load_module "%{nginx_moduledir}/ngx_stream_geoip_module.so";' \
+    > %{buildroot}%{nginx_moduleconfdir}/zz-mod-stream-geoip.conf
 %endif
 echo 'load_module "%{nginx_moduledir}/ngx_http_image_filter_module.so";' \
     > %{buildroot}%{nginx_moduleconfdir}/mod-http-image-filter.conf
@@ -458,9 +477,9 @@ sed -e "s|@@NGINX_ABIVERSION@@|%{nginx_abiversion}|g" \
 install -Dpm0644 %{SOURCE16} %{buildroot}%{_fileattrsdir}/nginxmods.attr
 
 # install http-ssl-pass-dialog
-mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
-install -m755 $RPM_SOURCE_DIR/nginx-ssl-pass-dialog \
-        $RPM_BUILD_ROOT%{_libexecdir}/nginx-ssl-pass-dialog
+mkdir -p %{buildroot}%{_libexecdir}
+install -m755 %{SOURCE17} \
+        %{buildroot}%{_libexecdir}/nginx-ssl-pass-dialog
 
 # install sysusers file
 install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/nginx.conf
@@ -469,6 +488,7 @@ install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/nginx.conf
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 
+
 %pre filesystem
 # RHEL 9 compat, remove after RHEL 9 EOL
 %sysusers_create_compat %{SOURCE19}
@@ -476,48 +496,22 @@ install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 %post
 %systemd_post nginx.service
 
-%if %{with geoip}
-%post mod-http-geoip
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-%endif
-
-%post mod-http-image-filter
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-
-%post mod-http-perl
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-
-%post mod-http-xslt-filter
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-
-%post mod-mail
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-
-%post mod-stream
-if [ $1 -eq 1 ]; then
-    /usr/bin/systemctl reload nginx.service >/dev/null 2>&1 || :
-fi
-
 %preun
 %systemd_preun nginx.service
 
 %postun
 %systemd_postun nginx.service
+
+# Request zero-downtime upgrade upon installation of a new nginx binary or modules
+# A reload is not sufficient here: https://blog.nginx.org/blog/nginx-dynamic-modules-how-they-work#upgradeMod
+%transfiletriggerin -- %{_sbindir}/nginx %{nginx_moduleconfdir} %{nginx_moduledir}
 if [ $1 -ge 1 ]; then
-    /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
+    test -f %{_sysconfdir}/nginx/rpm-disable-upgrade || /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
 fi
 
+
 %files
+%doc instance.conf
 %{_datadir}/nginx/html/*
 %{_bindir}/nginx-upgrade
 %{_datadir}/vim/vimfiles/ftdetect/nginx.vim
@@ -530,10 +524,11 @@ fi
 %{_unitdir}/nginx.service
 %{_unitdir}/nginx@.service
 %{_libexecdir}/nginx-ssl-pass-dialog
+%config(noreplace) %{_sysconfdir}/logrotate.d/nginx
 
 %files core
 %license LICENSE
-%doc CHANGES README.md README.dynamic instance.conf
+%doc CHANGES README.md README.dynamic
 %{_sbindir}/nginx
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf.default
@@ -552,7 +547,6 @@ fi
 %config(noreplace) %{_sysconfdir}/nginx/uwsgi_params
 %config(noreplace) %{_sysconfdir}/nginx/uwsgi_params.default
 %config(noreplace) %{_sysconfdir}/nginx/win-utf
-%config(noreplace) %{_sysconfdir}/logrotate.d/nginx
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx/tmp
 %{_tmpfilesdir}/nginx.conf
@@ -578,6 +572,10 @@ fi
 %files mod-http-geoip
 %{nginx_moduleconfdir}/mod-http-geoip.conf
 %{nginx_moduledir}/ngx_http_geoip_module.so
+
+%files mod-stream-geoip
+%{nginx_moduleconfdir}/zz-mod-stream-geoip.conf
+%{nginx_moduledir}/ngx_stream_geoip_module.so
 %endif
 
 %files mod-http-image-filter

@@ -1,12 +1,12 @@
 %global srcname fast_yaml
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name: erlang-%{srcname}
-Version: 1.0.39
+Version: 1.0.40
 Release: %autorelease
 License: Apache-2.0
 Summary: An Erlang wrapper for libyaml "C" library
-URL:     https://github.com/processone/%{srcname}/
+URL:     https://github.com/processone/%{srcname}
 VCS:     git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Provides:  erlang-p1_yaml = %{version}-%{release}
@@ -29,8 +29,7 @@ P1 YAML is an Erlang wrapper for libyaml "C" library.
 
 %install
 %{erlang3_install}
-install -d $RPM_BUILD_ROOT%{_libdir}/erlang/lib/%{srcname}-%{version}/priv/lib
-install -pm755 priv/lib/* $RPM_BUILD_ROOT%{_libdir}/erlang/lib/%{srcname}-%{version}/priv/lib
+install -p -D -m 755 priv/lib/* --target-directory=%{buildroot}%{erlang_appdir}/priv/lib/
 
 %check
 %{erlang3_test}

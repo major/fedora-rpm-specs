@@ -1,11 +1,10 @@
 %global srcname esip
-
-%global fast_tls_ver 1.1.21
-%global p1_utils_ver 1.0.26
-%global stun_ver 1.2.14
+%global fast_tls_ver 1.1.26
+%global p1_utils_ver 1.0.29
+%global stun_ver 1.2.22
 
 Name: erlang-%{srcname}
-Version: 1.0.54
+Version: 1.0.60
 Release: %autorelease
 License: Apache-2.0
 Summary: ProcessOne SIP server component in Erlang

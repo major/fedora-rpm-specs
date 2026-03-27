@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    krdc
 Summary: Remote desktop client
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -22,6 +22,7 @@ BuildRequires: kf6-rpm-macros
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6WaylandClient)
+BuildRequires: cmake(Qt6Keychain)
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6KCMUtils)
@@ -123,6 +124,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

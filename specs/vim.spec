@@ -24,7 +24,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 148
+%define patchlevel 240
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -87,6 +87,9 @@ Patch8: vim-9.1-copy-paste.patch
 # connection information by a different way, enforcing IPv4 in the test to prevent mismatch
 # is a viable solution.
 Patch9: vim-test-port-mismatch.patch
+# forbid binding to all interfaces in channel functionality
+# https://github.com/vim/vim/pull/19799
+Patch10: 0001-channel.c-Require-hostname-address-for-ch_listen.patch
 
 # Patch10000+ - Patches which applied in certain conditions:
 # patch only when hunspell is enabled
@@ -396,6 +399,7 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 7 -p1 -b .fips-warning
 %patch -P 8 -p1 -b .copypaste
 %patch -P 9 -p1 -b .test-port-mismatch
+%patch -P 10 -p1 -b .no-addrany
 
 %if %{with hunspell}
 %patch -P 10000 -p1
@@ -1037,6 +1041,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Wed Mar 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.240-1
+- patchlevel 240
+
 * Fri Mar 13 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.148-1
 - patchlevel 148
 

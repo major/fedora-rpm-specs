@@ -1,5 +1,5 @@
 Name:    pimcommon
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: PIM common libraries
 
@@ -104,12 +104,13 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/cmake/KPim6PimCommonAkonadi/
 %{_qt6_plugindir}/designer/pimcommon6widgets.so
 %{_qt6_plugindir}/designer/pimcommon6akonadiwidgets.so
-%{_qt6_docdir}/*.tags
 
 %files doc
-%{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

@@ -1,5 +1,5 @@
 Name:     stevia
-Version:  0.53.0
+Version:  0.54~rc1
 Release:  %autorelease
 Summary:  On screen keyboard (OSK) Phosh
 License:  GPL-3.0-or-later
@@ -30,6 +30,9 @@ BuildRequires:  pkgconfig(wayland-client) >= 1.14
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(hunspell)
+# FIXME: uim test fails "Didn't find our IM, can't parse outputs"
+# BuildRequires:  pkgconfig(uim)
+BuildRequires:  pkgconfig(dconf) >= 0.49
 BuildRequires:  /usr/bin/fzf
 BuildRequires:  /usr/bin/rst2man
 BuildRequires:  /usr/bin/xwfb-run

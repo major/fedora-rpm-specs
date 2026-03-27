@@ -72,8 +72,7 @@ Source25: openssl-sha1.conf
 Source26: remote-control-include.conf
 Source27: fedora-defaults.conf
 Source28: module-setup.sh
-Source29: unbound-initrd.conf
-Source30: tmpfiles-unbound-libs.conf
+Source29: tmpfiles-unbound-libs.conf
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
@@ -375,7 +374,7 @@ install -p -D -m 0644 contrib/libunbound.pc %{buildroot}/%{_libdir}/pkgconfig/li
 # Install tmpfiles.d config
 install -d -m 0755 %{buildroot}%{_tmpfilesdir} %{buildroot}%{_sharedstatedir}/unbound
 install -p -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/unbound.conf
-install -p -m 0644 %{SOURCE30} %{buildroot}%{_tmpfilesdir}/unbound-libs.conf
+install -p -m 0644 %{SOURCE29} %{buildroot}%{_tmpfilesdir}/unbound-libs.conf
 
 # install root - we keep a copy of the root key in old location,
 # in case user has changed the configuration and we wouldn't update it there
@@ -417,10 +416,9 @@ install -p -m 0644 %{SOURCE27} %{buildroot}%{_datadir}/%{name}/
 echo ".so man8/unbound-control.8" > %{buildroot}/%{_mandir}/man8/unbound-control-setup.8
 
 # install dracut module
-mkdir -p %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
+mkdir -p %{buildroot}%{_prefix}/lib/dracut/modules.d/70unbound
 
-install -p -m 0755 %{SOURCE28} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
-install -p -m 0644 %{SOURCE29} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
+install -p -m 0755 %{SOURCE28} %{buildroot}%{_prefix}/lib/dracut/modules.d/70unbound
 
 
 %post
@@ -553,7 +551,7 @@ popd
 %{_mandir}/man1/unbound-*
 
 %files dracut
-%{_prefix}/lib/dracut/modules.d/99unbound
+%{_prefix}/lib/dracut/modules.d/70unbound
 
 %changelog
 %autochangelog

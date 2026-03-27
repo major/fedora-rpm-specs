@@ -1,6 +1,6 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 1
+%global release_build 0
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
 %global redhat_ver rh2
@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen  1
+%global use_bundled_cbindgen  0
 
 ####################
 
@@ -239,7 +239,7 @@ BuildRequires: pulseaudio-libs-devel
 %endif
 
 BuildRequires: llvm
-%global llvm_suffix 19
+%global llvm_suffix 20
 BuildRequires:  clang%{?llvm_suffix}
 BuildRequires:  clang%{?llvm_suffix}-libs
 BuildRequires:  llvm%{?llvm_suffix}-devel
@@ -509,12 +509,12 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//
 # overrides the -g1 from line above and breaks building on s390/arm
 # (OOM when linking, rhbz#1238225)
 %ifarch %{power64}
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
+#MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
 %else
 # this reduces backtrace quality substantially, but seems to be needed
 # to prevent various OOM conditions during build
 # https://bugzilla.redhat.com/show_bug.cgi?id=2241690
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g1/')
+#MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g1/')
 %endif
 export MOZ_DEBUG_FLAGS=" "
 
@@ -527,8 +527,11 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 %endif
 %endif
 
-%ifarch s390x
+%ifarch s390x %{power64}
 export RUSTFLAGS="-Cdebuginfo=0"
+%endif
+%if "%toolchain" == "clang"
+export RUSTFLAGS="$RUSTFLAGS -C target-cpu=native -C opt-level=3 -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
 %endif
 
 #  error "STL code can only be used with -fno-exceptions"

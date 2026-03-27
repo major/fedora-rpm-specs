@@ -75,6 +75,9 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/%{major_minor_version}/gtk-%{version}.tar.xz
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2450986
+Patch:          0001-gtkapplication-wayland-null-check.patch
+
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl

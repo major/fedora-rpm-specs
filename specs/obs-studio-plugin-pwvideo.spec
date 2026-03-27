@@ -19,6 +19,7 @@ BuildRequires:  pkgconfig(gl)
 Requires:       obs-studio%{?_isa}
 Supplements:    obs-studio%{?_isa}
 
+ExcludeArch:    %{ix86}
 
 %description
 Generic PipeWire video source for OBS.

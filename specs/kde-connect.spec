@@ -1,7 +1,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
@@ -67,6 +67,8 @@ BuildRequires:  cmake(KF6PulseAudioQt)
 
 BuildRequires:  libXtst-devel
 BuildRequires:  pkgconfig(libfakekey)
+BuildRequires:  pkgconfig(libei-1.0)
+BuildRequires:  pkgconfig(libevdev)
 
 Obsoletes: kde-connect-kde4-ioslave < %{version}-%{release}
 Obsoletes: kde-connect-kde4-libs < %{version}-%{release}
@@ -178,6 +180,7 @@ done
 %{_qt6_archdatadir}/qml/org/kde/kdeconnect/
 
 %files -n kdeconnectd
+%{_kf6_libdir}/udev/rules.d/40-kdeconnect-uinput.rules
 %{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
 %{_datadir}/applications/org.kde.kdeconnect.daemon.desktop
 %{_kf6_bindir}/kdeconnectd
@@ -192,6 +195,9 @@ done
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

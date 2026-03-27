@@ -1,11 +1,15 @@
 Name:		lsvpd
-Version:	1.7.15
-Release:	8%{?dist}
+Version:	1.7.17
+Release:	1%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
 URL:    https://github.com/power-ras/%{name}/releases
 Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# upstream patches
+# lsvpd: Enhance tools to print device information in tuple format
+Patch10: lsvpd-add-FRU-number-for-Spyre-cards.patch
 
 BuildRequires: gcc-c++
 BuildRequires: libvpd-devel >= 2.2.9
@@ -15,6 +19,8 @@ BuildRequires: automake
 BuildRequires: libtool
 BuildRequires:	librtas-devel
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
+Requires: systemd
 
 Requires(post): %{_sbindir}/vpdupdate
 
@@ -44,9 +50,19 @@ on POWER PC based systems.
 %make_install
 
 %post
+# Post-install script for vpdupdate
+# Always enable the service
+systemctl -q enable vpdupdate.service >/dev/null 2>&1 || :
+systemctl daemon-reload >/dev/null 2>&1 || :
+
 %{_sbindir}/vpdupdate &
 # Ignore the vpdupdate failures and enforce a success
 exit 0
+
+%preun
+# Pre-uninstall script for vpdupdate
+systemctl -q disable vpdupdate.service >/dev/null 2>&1 || :
+systemctl daemon-reload >/dev/null 2>&1 || :
 
 %files
 %{!?_licensedir:%global license %%doc}
@@ -66,8 +82,13 @@ exit 0
 %config %{_sysconfdir}/lsvpd/cpu_mod_conv.conf
 %config %{_sysconfdir}/lsvpd/nvme_templates.conf
 %dir %{_sysconfdir}/lsvpd
+%{_unitdir}/vpdupdate.service
 
 %changelog
+* Wed Mar 25 2026 Than Ngo <than@redhat.com> - 1.7.17-1
+- Update to 1.7.17
+- Enhance lsvpd to update VPD for Nvidia OTS Adapters
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

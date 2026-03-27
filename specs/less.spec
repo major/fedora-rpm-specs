@@ -1,12 +1,12 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 3%{?dist}
+Release: 4%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-%global lesspipe_version 2.22
+%global lesspipe_version 2.23
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
 Source2: less.sh
 Source3: less.csh
@@ -18,6 +18,7 @@ Patch9: less-458-less-filters-man.patch
 Patch10: less-458-lesskey-usage.patch
 Patch11: less-458-old-bot-in-help.patch
 Patch13: less-436-help.patch
+Patch14: less-692-dontdoxml.patch
 URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
@@ -43,8 +44,7 @@ You should install less because it is a basic utility for viewing text
 files, and you'll use it frequently.
 
 %package color
-# perl files GPL-1.0-or-later, the rest GPL-2.0-or-later
-License: GPL-2.0-or-later AND GPL-1.0-or-later
+License: GPL-2.0-or-later
 Summary: Colorizers for less
 Requires: %{name} = %{version}-%{release}
 Conflicts: less < 685-5
@@ -63,6 +63,7 @@ Syntax highlighting modes for the less pager.
 %patch -P 10 -p1 -b .lesskey-usage
 %patch -P 11 -p1 -b .old-bot
 %patch -P 13 -p1 -b .help
+%patch -P 14 -p1 -b .dontdoxml
 
 # get consistent result localy and on builders
 sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-%{lesspipe_version}/configure
@@ -74,7 +75,7 @@ autoreconf -fiv
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
 pushd lesspipe-%{lesspipe_version}
-./configure --prefix=%{_prefix} --shell=%{_bindir}/sh --bash-completion-dir=%{_datadir}/bash-completion/completions/
+./configure --prefix=%{_prefix} --shell=%{_bindir}/sh --bash-completion-dir=%{_datadir}/bash-completion/completions/  --libexecdir=%{_libexecdir}/%{name}
 # do not run make, it does nothing atm, but it reruns configure with wrong argumens
 popd
 
@@ -101,18 +102,21 @@ popd
 %license LICENSE COPYING
 /etc/profile.d/*
 %{_bindir}/less
-%{_bindir}/lesscomplete
 %{_bindir}/lessecho
 %{_bindir}/lesskey
 %{_bindir}/lesspipe.sh
+%{_libexecdir}/%{name}/lesscomplete
 %{_mandir}/man1/*
 
 %files color
 %{_bindir}/archive_color
-%{_bindir}/code2color
 %{_bindir}/vimcolor
 
 %changelog
+* Sun Mar 22 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-4
+- update lesspipe to 2.23
+- dont use html to process xml files, the result isnt usable (rhbz#2451451)
+
 * Thu Mar 12 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-3
 - fix a typo in license field
 

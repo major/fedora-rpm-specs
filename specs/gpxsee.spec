@@ -2,7 +2,7 @@
 
 Name:           gpxsee
 Version:        16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -11,18 +11,16 @@ URL:            https://www.gpxsee.org/
 Source0:        https://github.com/tumic0/%{appname}/archive/%{version}/%{appname}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qtlocation-devel
-BuildRequires:  qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtserialport-devel
+BuildRequires:  qt6-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtlocation-devel
+BuildRequires:  qt6-qtmultimedia-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qtserialport-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  make
-
-Recommends:     qt5-qtpbfimageformat
 
 
 %description
@@ -35,8 +33,8 @@ GPX, TCX, KML, FIT, IGC and NMEA files.
 
 
 %build
-lrelease-qt5 %{name}.pro
-%{qmake_qt5} PREFIX=/usr %{name}.pro
+lrelease-qt6 %{name}.pro
+%{qmake_qt6} PREFIX=%{_prefix} %{name}.pro
 %make_build
 
 
@@ -71,6 +69,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Mar 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.0-2
+- Migrate to Qt6
+
 * Sat Mar 14 2026 Packit <hello@packit.dev> - 16.0-1
 - Update to version 16.0
 - Resolves: rhbz#2364981

@@ -20,7 +20,7 @@
 
 %global emacscommit 524968452e95d010769ece30092edaa09d1e814f
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
-%global emacsshort  %(cut -b -7 <<< %{emacscommit})
+%global emacsshort  %{sub %{emacscommit} 1 7}
 %global m2url       https://github.com/Macaulay2/M2
 
 # Address randomization interferes with Macaulay2's memory management scheme,
@@ -318,6 +318,9 @@ BuildRequires: transfig
 BuildRequires: valgrind
 %endif
 
+# Temporarily work around Lmod brokenness
+BuildRequires:  environment-modules
+
 Requires: 4ti2
 Requires: cohomCalg
 Requires: csdp-tools
@@ -408,7 +411,7 @@ install -p -m644 %{SOURCE300} %{SOURCE301} %{SOURCE302} %{SOURCE303} \
   %{SOURCE309} %{SOURCE310} %{SOURCE311} %{SOURCE312} %{SOURCE313} \
   BUILD/tarfiles/
 sed -i '/PRECONFIGURE/d' libraries/{4ti2,cddlib,givaro,normaliz,topcom}/Makefile.in
-sed -i '/PATCHFILE/d' libraries/{csdp,frobby,gfan,givaro,mpsolve,normaliz,topcom}/Makefile.in
+sed -i '/PATCHFILE/d' libraries/{csdp,frobby,gfan,givaro,lrslib,mpsolve,normaliz,topcom}/Makefile.in
 sed -i '/INSTALLCMD/,/stdinc/d' libraries/frobby/Makefile.in
 sed -i 's,install \(lib.*\.a\),ln -s %{_libdir}/\1,' libraries/lapack/Makefile.in
 

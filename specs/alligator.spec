@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           alligator
-Version:        25.12.3
+Version:        26.03.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Kirigami)
 BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6Crash)
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
@@ -69,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/qlogging-categories6/alligator.categories
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Mon Mar 09 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

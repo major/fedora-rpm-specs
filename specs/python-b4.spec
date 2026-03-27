@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.14.2
+Version:        0.14.3
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
 License:        GPL-2.0-or-later
@@ -23,6 +23,7 @@ BuildArch:      noarch
 BuildRequires:  gnupg2
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(shtab)
 
 %global _description %{expand:
 B4 is a helper utility to work with patches made available via a public-inbox
@@ -56,12 +57,16 @@ sed -Ei -e '/^# These are optional, needed for attestation/d' \
 
 %build
 %pyproject_wheel
+misc/tc-generate.sh bash > b4-completion-bash
+misc/tc-generate.sh zsh > b4-completion-zsh
 
 
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
 install -m644 -Dt %{buildroot}%{_mandir}/man5/ src/b4/man/b4.5
+install -m644 -D b4-completion-bash %{buildroot}%{_datadir}/bash-completion/completions/b4
+install -m644 -D b4-completion-zsh %{buildroot}%{_datadir}/zsh/site-functions/_b4
 
 
 %check
@@ -73,6 +78,8 @@ install -m644 -Dt %{buildroot}%{_mandir}/man5/ src/b4/man/b4.5
 %doc README.rst
 %{_bindir}/%{srcname}
 %{_mandir}/man5/%{srcname}.5.*
+%{_datadir}/bash-completion/completions/b4
+%{_datadir}/zsh/site-functions/_b4
 
 
 %changelog

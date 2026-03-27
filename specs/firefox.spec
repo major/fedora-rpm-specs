@@ -204,7 +204,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        149.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -278,6 +278,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
 Patch403:        D288856.1774090535.diff
+Patch404:        D289234.1774532393.diff
 
 # Potential fix for PipeWire camera crashes
 # https://bugzilla.mozilla.org/show_bug.cgi?id=2023103
@@ -602,6 +603,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
 %patch -P403 -p1 -b .D288856.1774090535
+%patch -P404 -p1 -b .D289234.1774532393
 
 %patch -P408 -p1 -b .libwebrtc-potential-fix-for-pipewire-camera-crashes
 
@@ -1298,6 +1300,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Mar 25 2026 Martin Stransky <stransky@redhat.com> - 149.0-4
+- Add fix for mzbz#2019668 - blurry popups on fractional scales
+
 * Fri Mar 20 2026 Nicolas Chauvet <kwizart@gmail.com> - 149.0-3
 - Rebuilt for libvpx-1.16.0
 

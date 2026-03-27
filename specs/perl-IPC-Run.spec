@@ -2,8 +2,8 @@
 %bcond perl_IPC_Run_enables_optional_test %{undefined rhel}
 
 Name:           perl-IPC-Run
-Version:        20250809.0
-Release:        2%{?dist}
+Version:        20260322.0
+Release:        1%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -13,6 +13,8 @@ Summary:        Perl module for interacting with child processes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Run
 Source0:        https://cpan.metacpan.org/modules/by-module/IPC/IPC-Run-%{version}.tar.gz
+Patch0:         https://patch-diff.githubusercontent.com/raw/cpan-authors/IPC-Run/pull/241.patch
+Patch1:         https://patch-diff.githubusercontent.com/raw/cpan-authors/IPC-Run/pull/254.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -50,11 +52,12 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(IO::Tty)
 BuildRequires:  perl(Test::More) >= 0.47
 %if %{with perl_IPC_Run_enables_optional_test}
 # Optional Tests
+BuildRequires:  perl(IO::Tty)
 BuildRequires:  perl(Readonly)
+BuildRequires:  perl(Test::Warn)
 %endif
 # Dependencies
 Requires:       perl(Data::Dumper)
@@ -72,6 +75,14 @@ and DOS command lines are provided.
 
 %prep
 %setup -q -n IPC-Run-%{version}
+
+# Fix failure in t/pty.t with IO::Tty 1.21
+# https://github.com/cpan-authors/IPC-Run/issues/240
+# https://github.com/cpan-authors/IPC-Run/pull/241
+%patch -P0 -p1
+# https://github.com/cpan-authors/IPC-Run/issues/253
+# https://github.com/cpan-authors/IPC-Run/pull/254
+%patch -P1 -p1
 
 # Remove Windows-only features that could add unnecessary dependencies
 rm -f lib/IPC/Run/Win32*
@@ -106,6 +117,83 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Mon Mar 23 2026 Paul Howarth <paul@city-fan.org> - 20260322.0-1
+- Update to 20260322.0 (rhbz#2450190)
+  Bug fixes:
+  - Handle EAGAIN in _write() for non-blocking pipe writes (GH#126, GH#221)
+  - Prevent fd leak in _do_kid_and_exit when TFD == KFD (GH#149, GH#218)
+  - Suppress spurious "Filehandle STDIN reopened" warnings in child when $^W=1
+    with pty redirection (GH#131, GH#219)
+  - Make binmode the default on Win32 to prevent newline mangling of
+    binary data (GH#116, GH#192)
+  - Avoid undef warning in _cleanup when fork fails (GH#82, GH#197)
+  - Wrap coderef in eval in _do_kid_and_exit to prevent child process from
+    escaping into parent code path on die() (GH#97, GH#193)
+  - Propagate CODE ref exceptions back to parent via error pipe
+    (GH#122, GH#224)
+  - Close external input handles in parent after fork to prevent hangs when
+    child exits early (GH#57, GH#226)
+  - Preserve $cur_kid when a Timer is encountered in harness(), fixing
+    "No command before 'init'" errors (GH#134, GH#187)
+  - Restore compat for bare undef params in harness() (GH#124, GH#190)
+  - Passing undef as stdin/stdout/stderr no longer dies (GH#141, GH#184)
+  - Avoid "Modification of a read-only value" when passing undef stdin
+    (GH#139, GH#185)
+  - Reject empty/undef command name in _search_path (GH#162, GH#182)
+  - Limit input buffer chunk size to prevent exponential memory growth when
+    streaming data to slow consumers (GH#154, GH#183)
+  - Silently ignore undef arguments passed as timeout to harness()
+    (GH#128, GH#189)
+  - Correct two minor documentation issues in Run.pm (GH#133, GH#188)
+  - Skip win32_compile.t when getprotobyname('tcp') is unavailable
+    (GH#137, GH#186)
+  - Survive SIGPIPE when child exits before consuming all stdin (GH#35, GH#204)
+  - Handle EPIPE when child exits before consuming stdin (GH#92, GH#195)
+  - Handle tied STDERR without FILENO in _debug_fd (GH#93, GH#194)
+  - Invalidate path cache on $PATH change, add clearcache() (GH#82, GH#196)
+  - Support scalar ref for '>pipe' and '<pipe' operators (GH#50, GH#201)
+  - Use $type in IO::new error message instead of $_ (GH#49, GH#202)
+  - Fix <pipe documentation example order and equivalent pipe example
+    (GH#66, GH#198)
+  - Suppress spurious numeric warning in result() and results() (GH#65, GH#199)
+  - Suppress numeric warnings from result() when SIGCHLD is IGNORE
+    (GH#29, GH#205)
+  - Handle scalar refs in Win32IO pipe operators (GH#213, GH#214)
+  - Remove blanket TODO from win32_newlines.t, keep only for still-failing
+    tests (GH#215, GH#216)
+  - Prevent handle inheritance of caller-owned fds on Win32
+    (GH#169, GH#181, GH#211)
+  - Enable kill_kill test 1 on Win32 (CPAN RT#11215, GH#207)
+  - Suppress filehandle warning during global destruction in tied_stderr.t
+    (GH#237, GH#239)
+  - Resolve File::Temp cleanup warning on Windows CI (GH#236, GH#238)
+  - Suppress Socket::IPPROTO_TCP redefined warning in win32_compile.t
+    (GH#230, GH#235)
+  - Prevent tied_stderr.t from hanging on Win32 CI (GH#222, GH#225)
+  Improvements:
+  - Add env option to set child process environment variables without modifying
+    parent %%ENV (GH#178, GH#179)
+  - Add started() method to query harness run state (GH#171, GH#180)
+  - Add finished() method to distinguish exit-0 from not-yet-exited
+    (GH#169, GH#181)
+  - Add pid(), pids(), is_running(), full_path(), full_paths() convenience
+    methods (GH#44, GH#203)
+  - Add <blocking_pipe operator for blocking writes to child stdin
+    (GH#64, GH#200)
+  - Add close_stdin() method to prevent unbounded memory growth when streaming
+    to long-running children (GH#212)
+  Maintenance:
+  - Consolidate CI into single testsuite.yml with dynamic Perl version matrix
+    (GH#208, GH#209)
+  - Add CLAUDE.md with project guidelines for AI-assisted development (GH#220)
+  - Add 5-minute timeout to all CI workflow steps
+  - Remove TODO from Win32 autoflush test and align with Unix branch
+    (GH#228, GH#234)
+  - Clean up resolved TODO tests in win32_newlines.t (GH#223, GH#227)
+  - Skip t/eintr.t early on Win32 to avoid SIGUSR1 warning (GH#231, GH#233)
+  - Suppress File::Temp version-string warnings in test suite (GH#229, GH#232)
+- Fix failure in t/pty.t with IO::Tty 1.21 (GH#230, GH#241, GH#253, GH#254)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250809.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

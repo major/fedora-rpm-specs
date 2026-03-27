@@ -1,5 +1,5 @@
 Name: merkuro
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -111,7 +111,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_bindir}/merkuro-contact
 %{_kf6_bindir}/merkuro-mail
 %{_kf6_qmldir}/org/kde/merkuro/*
-%{_kf6_datadir}/plasma/plasmoids/org.kde.merkuro.contact.applet/
+%{_kf6_qtplugindir}/plasma/applets/org.kde.merkuro.contact.applet.so
 %{_kf6_datadir}/applications/org.kde.merkuro.calendar.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.contact.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.mail.desktop
@@ -133,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

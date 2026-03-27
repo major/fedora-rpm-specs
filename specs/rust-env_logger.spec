@@ -5,7 +5,7 @@
 %global crate env_logger
 
 Name:           rust-env_logger
-Version:        0.11.9
+Version:        0.11.10
 Release:        %autorelease
 Summary:        Logging implementation for log which is configured via an environment variable
 

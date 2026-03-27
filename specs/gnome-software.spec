@@ -31,7 +31,7 @@
 
 Name:      gnome-software
 Version:   50.0
-Release:   2%{?dist}
+Release:   %autorelease
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later

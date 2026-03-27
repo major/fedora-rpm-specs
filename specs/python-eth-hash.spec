@@ -4,14 +4,14 @@ The Ethereum hashing function, keccak256, sometimes (erroneously) called sha256
 or sha3.}
 
 Name:          python-eth-hash
-Version:       0.7.1
+Version:       0.8.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       The Ethereum hashing function
 License:       MIT
 URL:           https://github.com/ethereum/eth-hash
 VCS:           git:%{url}.git
-Source0:       %{pypi_source %pypi_name}
+Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # Fedora-specific. Cryptodome shipped in Fedora is not drop-in replacement for
 # pycrypto. We have to adjust.
 Patch:         python-eth-hash-0001-Fedora-use-cryptodome-explicitly.patch
@@ -20,7 +20,6 @@ Patch:         python-eth-hash-0002-Remove-pysha3.patch
 BuildRequires: python3-pycryptodomex
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description  %{common_description}

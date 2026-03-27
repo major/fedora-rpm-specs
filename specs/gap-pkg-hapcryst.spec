@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/hapcryst
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.1.15
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Integral cohomology computations of Bieberbach groups
 
@@ -79,7 +79,7 @@ mkdir -p %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/lib/datatypes/doc
 polymake --reconfigure - <<< exit;
 
 %files
-%doc CHANGES README
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %dir %{gap_libdir}/pkg/%{gap_upname}/lib/

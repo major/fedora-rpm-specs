@@ -235,15 +235,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 145
-%global chromium_branch 7632
+%global chromium_major 146
+%global chromium_branch 7680
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 159
+%global chromium_minor 164
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 51162e83c6f21779c0a3bc110589aff9ead2af33
+%global cef_commit 68649e2a1e89d5e2ae41042480033e852847b035
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 28
+%global cef_patch 6
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -335,24 +335,25 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-# fix ftbfs caused by old python-3.9 on el9
-Patch142: chromium-143-python-3.9-ftbfs.patch
- 
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
-Patch143: chromium-145-rust-1.88-enable-unstable_features.patch
-Patch144: chromium-145-rust-1.88-undefined-symbol.patch
+Patch143: chromium-146-rust-1.88-enable-unstable_features.patch
+Patch144: chromium-146-rust-1.88-undefined-symbol.patch
+Patch145: chromium-146-ftbfs-rust-bytemuck.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
 
-# fix FTFS caused by missing include file on aarch64/ppc64le
+# fix FTBFS caused by missing include file on aarch64/ppc64le
 Patch300: chromium-145-swiftshader-missing-include.patch
 
-# enable rustc_nightly_capability
-Patch301: chromium-145-rustc-enable-nightly.patch
-
-# Fix error with llwm < 21: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
+# Fix error with llwm < 21 on el9/el10.1/f42: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
 Patch302: chromium-145-static_assert.patch
+
+# Fix error: invalid suffix 'o666' on integer constant on el9/el10.1/f42 with llvm20
+Patch303: chromium-146-ftfs-llvm-octal-notation.patch
+
+# Workaround for clang++ crash with llvm-20 on el9/el10.1/f42, clang++: error: clang frontend command failed with exit code 139
+Patch304: chromium-146-llvm-crash.patch
 
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
@@ -397,6 +398,9 @@ Patch318: memory-allocator-dcheck-assert-fix.patch
 
 # compile swiftshader against llvm-16.0
 Patch319: chromium-143-swiftshader-llvm-16.0.patch
+
+# Fix clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=array-bounds'
+Patch320: chromium-146-clang-unknown-argument.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -480,6 +484,9 @@ Patch415: add-ppc64-pthread-stack-size.patch
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
 Patch419: 0009-sandbox-ignore-byte-span-error.patch
+
+# Fix FTBFS, error: out-of-line definition of 'ProcessARateVector' does not match any declaration in 'blink::Delay'
+Patch420: chromium-146-ppc64le-build-error.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -1070,7 +1077,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
-%patch -P142 -p1 -b .python-3.9-ftbfs
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
@@ -1078,14 +1084,17 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
 
+%patch -P145 -p1 -b .ftbfs-rust-bytemuck
+
 %patch -P150 -p1 -b .qt6
 
 %patch -P300 -p1 -b .swiftshader-missing-include
-%patch -P301 -p1 -b .rustc-enable-nightly
 
 # llvm version < 21 on f42/el9/epel10.1
 %if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
 %patch -P302 -p1 -b .static_assert
+%patch -P303 -p1 -b .ftfs-llvm-octal-notation
+%patch -P304 -p1 -b .llvm-crash
 %endif
 
 %if 0%{?rhel} == 8
@@ -1113,6 +1122,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
+%patch -P320 -p1 -b .clang-unknown-argument
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1170,6 +1180,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
+%patch -P420 -p1 -b .fix-ppc64le-build-error
 %endif
 
 %if 0%{?flatpak}
@@ -1351,7 +1362,8 @@ export LDFLAGS
 export RUSTC_BOOTSTRAP=1
 
 # set rustc version
-rustc_version="$(rustc --version)"
+# Fix error: multiple input filenames provided, caused by rustc_wrapper
+rustc_version="$(rustc -V | cut -d' ' -f-2 | sed 's/ /-/')"
 # set rust bindgen root
 rust_bindgen_root="$(which bindgen | sed 's#/s\?bin/.*##')"
 rust_sysroot_absolute="$(rustc --print sysroot)"

@@ -8,7 +8,7 @@
 
 Name: evolution-ews
 Version: 3.60.0
-Release: 1%{?dist}
+Release: %autorelease
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home

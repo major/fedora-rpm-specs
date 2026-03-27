@@ -32,6 +32,8 @@
 %global        chroot_create_directories /dev /run/named %{_localstatedir}/{log,named,tmp} \\\
                                          %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,pki/tls,named} \\\
                                          %{_libdir}/bind %{_libdir}/named %{_datadir}/{GeoIP,dns-root-data} /proc/sys/net/ipv4
+%global        upstream_sources 0 2
+%global        pgp_signed_sources 2
 
 %global forgeurl0 https://gitlab.isc.org/isc-projects/bind9
 
@@ -53,7 +55,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.17
+Version:  9.21.20
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/

@@ -56,7 +56,7 @@
 
 Name: evolution-data-server
 Version: 3.60.0
-Release: 1%{?dist}
+Release: %autorelease
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home

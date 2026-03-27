@@ -1,5 +1,5 @@
 Name:           qtpass
-Version:        1.4.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Cross-platform GUI for pass
 
@@ -9,16 +9,16 @@ Source0:        https://github.com/IJHack/qtpass/archive/v%{version}.tar.gz
 # Wrapper script for GNOME on Wayland
 Source1:        qtpass.sh.in
 
-# https://github.com/IJHack/QtPass/pull/656
-Patch1:         0001-Fix-build-with-Qt6.patch
-# https://github.com/IJHack/QtPass/pull/680
-Patch2:         0002-Update-new-TLDs.patch
-# https://github.com/IJHack/QtPass/pull/681
-Patch3:         0003-Fix-multiple-profiles-issue-for-Qt6.patch
-# https://github.com/IJHack/QtPass/pull/658
-Patch4:         0004-getRecipientListSplitByHash.patch
-# https://github.com/IJHack/QtPass/pull/690
-Patch5:         0005-fix-add-missing-QDirIterator-include.patch
+# # https://github.com/IJHack/QtPass/pull/656
+# Patch1:         0001-Fix-build-with-Qt6.patch
+# # https://github.com/IJHack/QtPass/pull/680
+# Patch2:         0002-Update-new-TLDs.patch
+# # https://github.com/IJHack/QtPass/pull/681
+# Patch3:         0003-Fix-multiple-profiles-issue-for-Qt6.patch
+# # https://github.com/IJHack/QtPass/pull/658
+# Patch4:         0004-getRecipientListSplitByHash.patch
+# # https://github.com/IJHack/QtPass/pull/690
+# Patch5:         0005-fix-add-missing-QDirIterator-include.patch
 
 # required tools
 BuildRequires:  make
@@ -47,6 +47,7 @@ QtPass is a cross-platform GUI for pass, the standard Unix password manager.
 %prep
 %autosetup -p1 -n QtPass-%{version}
 sed -i "s|#include <QDir>|#include <QDir>\n#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)\n#include <QStringDecoder>\n#endif|" src/executor.cpp
+sed -i '/Version/d' %{name}.desktop
 
 %build
 %qmake_qt6 PREFIX=%{_prefix}

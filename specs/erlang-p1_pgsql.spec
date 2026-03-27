@@ -1,7 +1,8 @@
 %global srcname p1_pgsql
+%global stringprep_ver 1.0.34
 
 Name:       erlang-%{srcname}
-Version:    1.1.40
+Version:    1.1.41
 Release:    %autorelease
 BuildArch:  noarch
 License:    ErlPL-1.1
@@ -12,7 +13,8 @@ Source0:    %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Provides:   erlang-pgsql = %{version}-%{release}
 Obsoletes:  erlang-pgsql < 0-16
 BuildRequires: erlang-rebar3
-BuildRequires: erlang-stringprep
+BuildRequires: erlang-stringprep >= %{stringprep_ver}
+Requires: erlang-stringprep >= %{stringprep_ver}
 
 %description
 %{summary}.

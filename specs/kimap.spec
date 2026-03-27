@@ -1,5 +1,5 @@
 Name:    kimap
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 Summary: The KIMAP Library
 
@@ -63,12 +63,13 @@ find ./po -type f -name libkimap5.po -execdir mv {} libkimap6.po \;
 %{_includedir}/KPim6/KIMAP/
 %{_kf6_libdir}/libKPim6IMAP.so
 %{_kf6_libdir}/cmake/KPim6IMAP/
-%{_qt6_docdir}/*.tags
 
 %files doc
-%{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

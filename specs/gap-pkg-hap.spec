@@ -13,7 +13,7 @@
 %global giturl         https://github.com/gap-packages/hap
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.74
+Version:        1.75
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
@@ -59,6 +59,7 @@ Requires:       gap-pkg-crystcat
 Requires:       gap-pkg-fga
 Requires:       gap-pkg-nq
 Requires:       gap-pkg-polycyclic
+Requires:       gap-pkg-polymaking
 Requires:       gap-pkg-smallgrp
 Requires:       xdg-utils
 
@@ -66,7 +67,6 @@ Recommends:     asymptote
 Recommends:     gap-pkg-congruence
 Recommends:     gap-pkg-edim
 Recommends:     gap-pkg-laguna
-Recommends:     gap-pkg-polymaking
 Recommends:     gap-pkg-singular
 
 Suggests:       gap-pkg-hapcryst
@@ -116,9 +116,8 @@ sed -i.orig 's/"firefox"/"xdg-open"/' lib/externalSoftware.gap
 fixtimestamp lib/externalSoftware.gap
 
 # Remove obsolete files
-rm -fr lib/*/*.old lib/Functors/*.ancient lib/GOuterGroups/*.trial \
-  lib/Congruence/keep
-find . \( -name \*keep\* -o -name \*working\* -o -name \*.swp \) -delete
+rm -fr lib/Functors/*.ancient lib/GOuterGroups/*.trial tst/testextra2/.*.swp \
+  lib/Perturbations/Gcomplexes/*.tmp
 
 # Clean up documentation to force complete rebuild
 cd doc
@@ -133,7 +132,10 @@ sed -i.orig 's/\r//' www/SideLinks/HAPpagestyles.css
 fixtimestamp www/SideLinks/HAPpagestyles.css
 
 # Remove incorrect executable bits
-chmod a-x lib/Perturbations/Gcomplexes/bsSL2Z \
+chmod a-x lib/Functors/pause.p \
+          lib/Orru/tutorial/tutorialSL3.xml \
+          lib/Perturbations/Gcomplexes/bsSL2Z \
+          lib/Voronoi/*.m \
           www/SideLinks/About/7dimBieberback.g
 
 %install -a

@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.15.1
+Version:        1.15.2
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Tue Mar 24 2026 Packit <hello@packit.dev> - 1.15.2-1
+- Packit now uses the specfile library's sanitization when parsing spec files.
+- Resolves: rhbz#2450841
+
 * Fri Mar 06 2026 Packit <hello@packit.dev> - 1.15.1-1
 - We have fixed a bug that prevented running `sync_release()` on a `PackitAPI` instance initialized with `non_git_upstream=True` repeatedly due to an improper clean-up. (#2691)
 - Resolves: rhbz#2445195

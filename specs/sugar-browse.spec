@@ -1,6 +1,6 @@
 Name:    sugar-browse
 Version: 208
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Browse activity for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -10,7 +10,7 @@ Source0: http://download.sugarlabs.org/sources/sucrose/fructose/Browse/Browse-%{
 BuildRequires: gobject-introspection-devel
 BuildRequires: python3-devel
 BuildRequires: sugar-toolkit-gtk3
-BuildRequires: webkitgtk4-devel
+BuildRequires: webkit2gtk4.1-devel
 BuildRequires: gettext
 Requires: sugar-toolkit-gtk3
 Requires: webkit2gtk4.1
@@ -45,6 +45,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Mar 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 208-7
+- Use webkit2gtk4.1 for BuildRequires
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 208-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -345,8 +345,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        32
-%global rpmrelease      4
+%global buildver        35
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -364,7 +364,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           0
+%global is_ga           1
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""

@@ -15,6 +15,8 @@ BuildRequires:  obs-studio-devel
 BuildRequires:  pciutils-devel
 Requires:       obs-studio
 
+ExcludeArch:    %{ix86}
+
 %description
 GStreamer based VAAPI encoder implementation. Taken out of the GStreamer
 OBS plugin as a standalone plugin. Simply because the FFMPEG VAAPI

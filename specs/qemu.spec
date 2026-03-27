@@ -404,7 +404,7 @@ Name: qemu
 Version: 11.0.0
 
 # Set for release candidate builds
-%global rcver rc0
+%global rcver rc1
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}

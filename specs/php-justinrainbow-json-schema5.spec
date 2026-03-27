@@ -14,7 +14,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    2f7abf648939847a789c55c206d4cb9dd0d53e2c
+%global gh_commit    a0b7c13588b102d7d6536823e96d1c88d3dba85e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     justinrainbow
 %global gh_project   json-schema
@@ -34,7 +34,7 @@
 %global eolv2        0
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.3.2
+Version:        5.3.3
 Release:        1%{?dist}
 Summary:        A library to validate a json schema
 License:        MIT
@@ -176,6 +176,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar 25 2026 Remi Collet <remi@remirepo.net> - 5.3.3-1
+- update to 5.3.3
+
 * Fri Feb 27 2026 Remi Collet <remi@remirepo.net> - 5.3.2-1
 - update to 5.3.2
 

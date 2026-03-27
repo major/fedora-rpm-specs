@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        0.rocm%{rocm_version}%{?dist}
 %else
-Release:        7.rocm%{rocm_version}%{?dist}
+Release:        8.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -448,6 +448,10 @@ sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
 sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/Headers/cuda_wrappers/array
 %endif
 
+# Reduce diskspace pressure
+# There are a number of object files in clang/tests we will not be running
+find .  \( -name '*.o' -o -name '*.a' \) -delete
+
 install -pm 755 %{SOURCE1} prep.sh
 sed -i -e 's@%%{pkg_prefix}@%{pkg_prefix}@' prep.sh
 sed -i -e 's@%%{pkg_libdir}@%{pkg_libdir}@' prep.sh
@@ -501,7 +505,9 @@ p=$PWD
  -DBUILD_TESTING=OFF \\\
  -DCLANG_ENABLE_STATIC_ANALYZER=%{build_sa} \\\
  -DCLANG_ENABLE_ARCMT=OFF \\\
+ -DCLANG_ENABLE_CLANGD=OFF \\\
  -DCLANG_TOOL_CLANG_FUZZER_BUILD=OFF \\\
+ -DCLANG_TOOL_C_INDEX_TEST_BUILD=OFF \\\
  -DCMAKE_BUILD_TYPE=%{build_type} \\\
  -DCMAKE_INSTALL_DO_STRIP=ON \\\
  -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \\\
@@ -536,6 +542,7 @@ p=$PWD
  -DLLVM_TOOL_LLVM_AS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DIS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DLANG_DEMANGLE_FUZZER_BUILD=OFF \\\
+ -DLLVM_TOOL_LLVM_EXEGESIS_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_ISEL_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_ITANIUM_DEMANGLE_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_MC_ASSEMBLE_FUZZER_BUILD=OFF \\\
@@ -593,6 +600,10 @@ export CXX=/usr/bin/g++
 %make_build -C build-llvm -j ${JOBS}
 %endif
 
+# Reduce diskspace pressure
+# Remove files that won't be needed anymore
+find build-llvm  \( -name '*.o' -o -name '*.a' \) -delete
+
 popd
 
 build_stage1=$p/build-llvm
@@ -637,6 +648,7 @@ export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
        -DLLVM_ENABLE_RUNTIMES=%{llvm_runtimes}
 
 %cmake_build -j ${JOBS}
+
 popd
 
 build_stage2=$p/build-llvm-2
@@ -969,7 +981,6 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
 %files -n %{rocm_clang_name}
 %license clang/LICENSE.TXT
-%{bundle_prefix}/bin/c-index-test
 %{bundle_prefix}/bin/clang*
 %{bundle_prefix}/bin/diagtool
 %{bundle_prefix}/bin/find-all-symbols
@@ -1056,6 +1067,9 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %endif
 
 %changelog
+* Wed Mar 25 2026 Tom Rix <Tom.Rix@amd.com> 22-8.rocm7.2.1
+- Reduce build diskspace pressure
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> 22-7.rocm7.2.1
 - Update to 7.2.1
 

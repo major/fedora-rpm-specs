@@ -1,8 +1,8 @@
 %global srcname eimp
-%global p1_utils_ver 1.0.26
+%global p1_utils_ver 1.0.29
 
 Name:    erlang-%{srcname}
-Version: 1.0.26
+Version: 1.0.27
 Release: %autorelease
 License: Apache-2.0
 Summary: Erlang Image Manipulation Process

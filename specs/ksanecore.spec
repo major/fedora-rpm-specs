@@ -1,6 +1,6 @@
 Name:    ksanecore
 Summary: Library providing logic to interface scanners
-Version: 25.12.3
+Version: 26.03.80
 Release: 1%{?dist}
 
 License: BSD and LGPLv2.1-only and LGPLv3.0-only
@@ -65,6 +65,9 @@ Obsoletes: %{name}-qt6-devel < 24.12.0
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

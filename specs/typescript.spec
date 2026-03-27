@@ -20,9 +20,6 @@ readable, standards-based JavaScript.
 
 %prep
 %autosetup -n package
-# adjust the shebang lines to get a runtime dependency matching the
-# node_modules_* directory where the code is actually installed to
-sed -e '/#!/ s/node/node-%{_nodejs_major_version}/' -i bin/tsc bin/tsserver
 
 
 %install
@@ -32,8 +29,8 @@ cp -pr package.json bin/ lib/ %{buildroot}%{nodejs_sitelib}/typescript
 mkdir -p %{buildroot}%{_bindir}
 # this symlink must use the major version path or else it will break after a
 # nodejs major version bump
-ln -s ../lib/node_modules_%{_nodejs_major_version}/typescript/bin/tsc %{buildroot}%{_bindir}/tsc
-ln -s ../lib/node_modules_%{_nodejs_major_version}/typescript/bin/tsserver %{buildroot}%{_bindir}/tsserver
+ln -s ../lib/node_modules/typescript/bin/tsc %{buildroot}%{_bindir}/tsc
+ln -s ../lib/node_modules/typescript/bin/tsserver %{buildroot}%{_bindir}/tsserver
 
 
 %check

@@ -1,8 +1,8 @@
 %global srcname fast_xml
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name: erlang-%{srcname}
-Version: 1.1.57
+Version: 1.1.58
 Release: %autorelease
 License: Apache-2.0
 Summary: Fast Expat based Erlang XML parsing and manipulation library

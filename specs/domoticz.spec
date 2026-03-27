@@ -1,6 +1,6 @@
 Name:		domoticz
-Version:	2025.2
-Release:	6%{?dist}
+Version:	2026.1
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -11,8 +11,10 @@ Source1:	%{name}.service
 Source2:	%{name}.conf
 # Manually update version reported inside app
 Source3:	%{name}-appversion
-# https://github.com/Thalhammer/jwt-cpp/tree/71c3d36507183ceb74b9cf10d1232fe1223bdfb0
-Source4:	jwt-cpp-71c3d36507183ceb74b9cf10d1232fe1223bdfb0.zip
+# https://github.com/Thalhammer/jwt-cpp/tree/3e037df3e669633a3044618e30550ea2f212e915
+Source4:	jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915.zip
+# https://github.com/domoticz/libwebem/tree/9010adf22d968828e15c2ed3b510de59ce59affe
+Source5:	libwebem-9010adf22d968828e15c2ed3b510de59ce59affe.zip
 
 # Use system tinyxpath (https://github.com/domoticz/domoticz/pull/1759)
 Patch1:		%{name}-tinyxpath.patch
@@ -20,9 +22,6 @@ Patch1:		%{name}-tinyxpath.patch
 Patch2:		%{name}-python.patch
 # Python linking fix
 Patch3:		%{name}-python-link.patch
-# Boost 1.90 support (https://github.com/domoticz/domoticz/pull/6488)
-#                    (https://github.com/domoticz/domoticz/pull/6487)
-Patch4:		%{name}-boost.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cereal-devel
@@ -80,7 +79,8 @@ Provides:	bundled(js-ozwcp)
 Provides:	bundled(js-less) = 1.3.0
 Provides:	bundled(js-ion-sound) = 3.0.6
 Provides:	bundled(js-zeroclipboard) = 1.0.4
-Provides:	bundled(jwt-cpp) = 0.0-git20241116
+Provides:	bundled(jwt-cpp) = 0.0-git20260324
+Provides:	bundled(libwebem) = 0.0-git20260321
 
 %global _python_bytecompile_extra 0
 
@@ -104,7 +104,10 @@ cp -p %{SOURCE3} ./appversion.h
 # jwt-cpp external bundled library
 unzip -d extern %{SOURCE4}
 rmdir extern/jwtcpp/
-mv extern/jwt-cpp-71c3d36507183ceb74b9cf10d1232fe1223bdfb0/ extern/jwtcpp/
+mv extern/jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915/ extern/jwtcpp/
+unzip -d extern %{SOURCE5}
+rmdir extern/libwebem
+mv extern/libwebem-9010adf22d968828e15c2ed3b510de59ce59affe/ extern/libwebem/
 
 # Create a sysusers.d config file
 cat >domoticz.sysusers.conf <<EOF
@@ -134,6 +137,10 @@ EOF
 
 %install
 %cmake_install
+
+# install libwebem library
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/
+cp -p redhat-linux-build/extern/libwebem/libwebem.so.1* $RPM_BUILD_ROOT%{_libdir}/
 
 # remove bundled OpenZWave configuration files so system files are used
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/Config/
@@ -236,6 +243,7 @@ usermod -G domoticz,dialout domoticz
 %license License.txt
 %doc README.md History.txt
 %{_bindir}/%{name}
+%{_libdir}/libwebem.so.1*
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_datadir}/%{name}/
 %attr(0755,domoticz,domoticz) %{_sharedstatedir}/%{name}/
@@ -244,6 +252,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Wed Mar 25 2026 Michael Cronenworth <mike@cchtml.com> - 2026.1-1
+- New stable release
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 2025.2-6
 - Rebuild (jsoncpp)
 

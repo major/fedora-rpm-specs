@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.5.1
+%global package_version 2.5.2
 
 %global oldname vault
 
 Name: openbao
-Version: 2.5.1
+Version: 2.5.2
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -99,7 +99,7 @@ Provides: bundled(golang(github.com/aws/aws_sdk_go_v2/service/ssooidc)) = v1.28.
 Provides: bundled(golang(github.com/aws/aws_sdk_go_v2/service/sts)) = v1.33.9
 Provides: bundled(golang(github.com/aws/smithy_go)) = v1.22.1
 Provides: bundled(golang(github.com/beorn7/perks)) = v1.0.1
-Provides: bundled(golang(github.com/bgentry/speakeasy)) = v0.1.0
+Provides: bundled(golang(github.com/bgentry/speakeasy)) = v0.2.0
 Provides: bundled(golang(github.com/boltdb/bolt)) = v1.3.1
 Provides: bundled(golang(github.com/boombuler/barcode)) = v1.0.1
 Provides: bundled(golang(github.com/caddyserver/certmagic)) = v0.25.1
@@ -108,7 +108,7 @@ Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = v4.3.0
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = v2.3.0
 Provides: bundled(golang(github.com/circonus_labs/circonus_gometrics)) = v2.3.1+incompatible
 Provides: bundled(golang(github.com/circonus_labs/circonusllhist)) = v0.1.3
-Provides: bundled(golang(github.com/cloudflare/circl)) = v1.6.1
+Provides: bundled(golang(github.com/cloudflare/circl)) = v1.6.3
 Provides: bundled(golang(github.com/containerd/continuity)) = v0.4.5
 Provides: bundled(golang(github.com/containerd/errdefs)) = v1.0.0
 Provides: bundled(golang(github.com/containerd/errdefs/pkg)) = v0.3.0

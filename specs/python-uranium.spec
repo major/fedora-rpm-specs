@@ -5,6 +5,8 @@ Summary:        A Python framework for building desktop applications
 License:        LGPL-3.0-or-later
 URL:            https://github.com/Ultimaker/Uranium
 Source:         %{url}/archive/%{version}.tar.gz#/Uranium-%{version}.tar.gz
+# Fix pytest 9 compatibility: py.path.local arguments deprecated
+Patch:          https://github.com/Ultimaker/Uranium/commit/aa2b9e3.patch
 Patch:          Uranium-5.3.0-qt-try-ints-then-bytes-for-gl-mask-functions.patch
 # Fix asserts for called once in Python 3.12:
 Patch:          https://github.com/Ultimaker/Uranium/pull/885.patch#/Uranium-5.3.0-python3.12.patch

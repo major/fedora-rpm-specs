@@ -32,7 +32,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 106%{?dist}
+Release: 107%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -2348,6 +2348,10 @@ Provides: tex-dvips-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvips-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvips-doc < 7:20170520
 License: GPL-1.0-or-later
+# This is a special "tex()" Provides for the dvips binary.
+# We do not do this for all binaries, just this one due to its
+# broad need (and the fact that it has existed forever).
+Provides: tex(dvips) = %{epoch}:%{source_date}-%{release}
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-latex-fonts
@@ -10086,6 +10090,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Wed Mar 25 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-107
+- add explicit Provides: tex(dvips) back (bz2451395)
+
 * Tue Mar 24 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-106
 - Add local RPM dependency generator to produce tex(...) Provides
   Full credit to Elliott Sales de Andrade <quantum.analyst@gmail.com>

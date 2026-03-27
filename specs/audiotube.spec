@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:           audiotube
-Version:        25.12.3
+Version:        26.03.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -47,6 +47,7 @@ BuildRequires: cmake(KF6Crash)        >= %{kf6_min_version}
 BuildRequires: cmake(KF6WindowSystem) >= %{kf6_min_version}
 BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Config)
 
 BuildRequires: cmake(FutureSQL6)
 BuildRequires: cmake(QCoro6Core)
@@ -91,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

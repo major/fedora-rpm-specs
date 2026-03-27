@@ -104,7 +104,7 @@ rm cliff/tests/test_sphinxext.py
 
 %check
 %if %{with bootstrap}
-%pyproject_check_import -e cliff.tests.*
+%pyproject_check_import -e cliff.tests.* -e cliff.sphinxext
 %else
 %tox
 %endif

@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,6 +12,9 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+# backends/drm: disable drm color pipelines on AMD
+# https://invent.kde.org/plasma/kwin/-/commit/bc2efa2f0e848ff0a621377cfe1141294c91b1bf
+Patch0: bc2efa2f0e848ff0a621377cfe1141294c91b1bf.patch
 
 ## proposed patches
 
@@ -274,6 +277,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Wed Mar 25 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-2
+- Disable DRM color pipelines on AMD
+
 * Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 6.6.3-1
 - 6.6.3
 

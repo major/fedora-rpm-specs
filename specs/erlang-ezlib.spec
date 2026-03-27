@@ -1,8 +1,8 @@
 %global srcname ezlib
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name:       erlang-%{srcname}
-Version:    1.0.15
+Version:    1.0.16
 Release:    %autorelease
 License:    Apache-2.0
 Summary:    Native zlib driver for Erlang
@@ -29,10 +29,7 @@ A native zlib driver for Erlang / Elixir, used by ejabberd.
 
 %install
 %{erlang3_install}
-
-install -d $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{version}/priv/lib
-install -pm755 priv/lib/ezlib.so \
-    $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{version}/priv/lib/
+install -p -D -m 755 priv/lib/ezlib.so --target-directory=%{buildroot}%{erlang_appdir}/priv/lib/
 
 %check
 %{erlang3_test}

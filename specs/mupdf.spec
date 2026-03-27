@@ -165,7 +165,7 @@ sed -i -e 's/barcode=yes/barcode=no/' scripts/wrap/__main__.py
 export XCFLAGS="%{build_cflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"
 export XCXXFLAGS="%{build_cxxflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"
 # In case we use python-clang compat add its version specific path.
-export PYTHONPATH=$(find %{_libdir}/llvm*/ -name site-packages | head -1)
+export PYTHONPATH=$(find /usr/%{_lib}/llvm*/ -name site-packages | head -1)
 make %{?_smp_mflags} shared c++
 # Use the same build directory which make uses:
 export MUPDF_SETUP_BUILD_DIR=build/shared-release%{?with_barcode:-barcode}

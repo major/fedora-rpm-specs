@@ -2,7 +2,7 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        25.12.3
+Version:        26.03.80
 Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -143,6 +143,7 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_datadir}/dolphin/dolphinpartactions.desktop
 %{_kf6_datadir}/zsh/site-functions/_dolphin
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.dolphin.svg
+%{_kf6_libdir}/kconf_update_bin/dolphin_update_splitviewsettings
 
 %files libs
 %{_kf6_libdir}/libdolphinprivate.so.*
@@ -162,6 +163,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
+- 26.03.80
+
 * Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
 - 25.12.3
 

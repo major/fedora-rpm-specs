@@ -1,12 +1,12 @@
 %global srcname stringprep
-%global p1_utils_ver 1.0.28
+%global p1_utils_ver 1.0.29
 
 Name: erlang-%{srcname}
-Version: 1.0.33
+Version: 1.0.34
 Release: %autorelease
 License: Apache-2.0 and TCL
 Summary: A framework for preparing Unicode strings to help input and comparison
-URL: https://github.com/processone/stringprep/
+URL: https://github.com/processone/stringprep
 VCS: git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Provides: erlang-p1_stringprep = %{version}-%{release}
