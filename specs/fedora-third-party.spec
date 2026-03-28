@@ -1,6 +1,6 @@
 Name:		fedora-third-party
 Version:	0.10
-Release:	16%{dist}
+Release:	%autorelease
 Summary:	Tool for handling third-party RPM and Flatpak repositories in Fedora
 
 License:	MIT
@@ -90,103 +90,4 @@ fedora-third-party refresh || :
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10-15
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10-14
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.10-12
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.10-9
-- Rebuilt for Python 3.13
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.10-5
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.10-2
-- Rebuilt for Python 3.11
-
-* Wed Apr 06 2022 Owen W. Taylor <otaylor@fishsoup.net> - 0.10-1
-- Version 0.10 (Owen W. Taylor)
-- cli.py: add a logging handler to prettify warning messages (Owen W. Taylor)
-- Gracefully handle failures when running 'flatpak' (Owen W. Taylor)
-- test_repository.py: increase test coverage a bit (Owen W. Taylor)
-- tests/test_cli.py: factor out repeated long commands (Owen W. Taylor)
-- Add tools/test.sh that invokes flake8 and pytest, fix flake8 warnings (Owen W. Taylor)
-- Fix upgrades by treating un-added Flatpak repositories as "unseen" (Owen W. Taylor)
-- Fix listing remotes when some have no options at all. (Owen W. Taylor)
-
-* Thu Mar 31 2022 Owen W. Taylor <otaylor@fishsoup.net> - 0.9.1-1
-- Add missing [Build]Requires on python3-gobject-base (Owen W. Taylor)
-
-* Thu Mar 31 2022 Owen W. Taylor <otaylor@fishsoup.net> - 0.9-1
-- Version 0.9 (Owen W. Taylor)
-- fedora-third-party.1.md: Remove incorrect statement (Owen W. Taylor)
-- Enable/disable Flatpak repositories rather than adding/removing them (Owen W. Taylor)
-- Pass title, comment, description to 'flatpak remote-add' on the command line (Owen W. Taylor)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Oct 15 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.8-1
-- Version 0.8 (Owen W. Taylor)
-- Stop calling chcon to propagate selinux context to editor config files (Owen W. Taylor)
-
-* Fri Oct 15 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.8-1
-- Drop a chcon call that was making problems for selinux confinement
-
-* Tue Oct 5 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.7-1
-- Don't show repositories that are modified to remove the filter in
-  the output of `fedora-third-party list.
-
-* Mon Aug 16 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.6-1
-- Don't write /var/lib/fedora-third-party/state on refresh if no changes
-  Resolves: rhbz#1994830
-
-* Mon Aug 16 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.5-1
-- Remove dependency on 'dnf config-manager'
-- Make fedora-third-party-refresh.service only run on rpm-ostree systems
-
-* Wed Aug 11 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.4-1
-- Add a special 'fedora-third-party-opt-out' script to go from unset => disabled
-  without a polkit auth dialog.
-
-* Wed Aug 11 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.3-1
-- Add --config-only options to the enable/disable subcommands
-- Allow detecting whether the config has been explicitly set, or whether no
-  decision has been made yet.
-
-* Tue Aug 10 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.2-1
-- Fix spec file, add polkit configuration and a --list subcommand
-
-* Fri Jul 30 2021 Owen W. Taylor <otaylor@fishsoup.net> - 0.1-1
-- Initial version
+%autochangelog

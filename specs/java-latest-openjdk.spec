@@ -326,9 +326,9 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the crypto policy & FIPS support patches
-%global fipsver df044414ef4
-# Define nssadapter version
-%global nssadapter_version 0.1.0
+%global fipsver e55ada9353e
+# Define nssadapter variables
+%global nssadapter_version 0.1.1
 %global nssadapter_name nssadapter-%{nssadapter_version}
 # Define whether the crypto policy is expected to be active when testing
 %global crypto_policy_active true
@@ -346,7 +346,7 @@
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        35
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions

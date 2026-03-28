@@ -3,8 +3,8 @@
 %bcond perl_Clone_enables_optional_test %[%{undefined rhel} && %{undefined perl_bootstrap}]
 
 Name:           perl-Clone
-Version:        0.48
-Release:        3%{?dist}
+Version:        0.49
+Release:        1%{?dist}
 Summary:        Recursively copy perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone
@@ -27,6 +27,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(B)
 BuildRequires:  perl(B::COW) >= 0.004
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More) >= 0.88
@@ -48,6 +49,7 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::BigInt::GMP)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Taint::Runtime)
 %endif
@@ -83,10 +85,10 @@ Requires:       perl(IO::Handle)
 Requires:       perl(IO::Socket::INET)
 Requires:       perl(Math::BigInt)
 Requires:       perl(Math::BigInt::GMP)
+Requires:       perl(POSIX)
 Requires:       perl(Storable)
 Requires:       perl(Taint::Runtime)
 %endif
-# Dependencies
 
 %description tests
 Tests from %{name}. Execute them
@@ -122,7 +124,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc Changes README.md
+%doc AI_POLICY.md Changes README.md
 %{perl_vendorarch}/auto/Clone/
 %{perl_vendorarch}/Clone.pm
 %{_mandir}/man3/Clone.3*
@@ -131,6 +133,14 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 26 2026 Paul Howarth <paul@city-fan.org> - 0.49-1
+- Update to 0.49
+  - Try to exclude macOS extended attributes from dist tarball
+  - Fix: Suppress DBI STDERR noise in t/13-io-handle.t (GH#82)
+  - Fix: Skip DBI fork tests on Windows
+  - Fix: Remove spurious warn output in t/03-scalar.t
+  - Add AI_POLICY.md documenting AI-assisted workflow
+
 * Thu Mar 05 2026 Petr Pisar <ppisar@redhat.com> - 0.48-3
 - Package the tests and run them in parallel
 

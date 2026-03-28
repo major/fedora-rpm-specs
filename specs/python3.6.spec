@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 54%{?dist}
+Release: 55%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -915,6 +915,15 @@ Patch476: 00476-cve-2026-1299.patch
 #
 # Co-authoded-by: Lumír Balhar <lbalhar@redhat.com>
 Patch471: 00471-cve-2025-12084.patch
+
+# 00478 # 0093ea5b062f01b1078f43655d6378f0096b479f
+# CVE-2026-4519
+#
+# Reject leading dashes in webbrowser URLs (GH-143931) (GH-146359)
+#
+#
+# Backported from Python 3.10: ad4d5ba32af4d80b0dfa2ba9d8203bfb219e60a5
+Patch478: 00478-cve-2026-4519.patch
 
 # (New patches go here ^^^)
 #
@@ -2217,6 +2226,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Mar 26 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-55
+- Security fix for CVE-2026-4519 (rhbz#2449733)
+
 * Thu Mar 12 2026 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-54
 - Rebuilt for improvements of %%python_wheel_inject_sbom in python-rpm-macros-3.14-11
 

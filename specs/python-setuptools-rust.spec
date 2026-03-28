@@ -7,22 +7,17 @@
 %global integration_tests_exc '^(html-py-ever)'
 
 Name:           python-setuptools-rust
-Version:        1.12.0
+Version:        1.12.1
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 
 License:        MIT
 URL:            https://github.com/PyO3/setuptools-rust
-Source0:        %{pypi_source setuptools_rust}
+Source:         %{pypi_source setuptools_rust}
 
-# Allow building examples with PyO3 0.26, 0.27, and 0.28:
-# https://github.com/PyO3/setuptools-rust/commit/6868a518681cfd99544c45c33ccd8d752d386c1c
-# https://github.com/PyO3/setuptools-rust/commit/7b4279c196117c59c80d98e1d7d3cad70f6ed6c3
-# https://github.com/PyO3/setuptools-rust/commit/112be5ce8a82d955fb0b8bea9653f24173d1e475
-# https://github.com/PyO3/setuptools-rust/commit/608006f30addc03341daca6ee0d4d4a6439b1302
-# https://github.com/PyO3/setuptools-rust/commit/8a76c7dd45af4cdaced3da756b4f898a34035bf5
-# https://github.com/PyO3/setuptools-rust/pull/576
-Patch:          setuptools_rust-1.12.0-pyo3-0.28.patch
+# Temporarily allow building examples with PyO3 0.27, until we have 0.28:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435852
+Patch:          setuptools_rust-1.12.1-allow-PyO3-0.27.patch
 
 BuildArch:      noarch
 
@@ -37,7 +32,6 @@ BuildRequires:  rust-toolset >= 1.45
 %if %{with integration_tests}
 BuildRequires:  %{py3_dist cffi}
 %endif
-
 
 %global _description %{expand:
 Setuptools helpers for Rust Python extensions. Compile and distribute Python

@@ -7,7 +7,7 @@
 %global crate sccache
 
 Name:           rust-sccache
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Sccache is a ccache-like tool
 
@@ -21,7 +21,8 @@ Patch:          sccache-fix-metadata-auto.diff
 # * Removed dist-server feature and rouille dependency
 # * Allow opendal 0.55
 # * Allow which version 8
-# * Allow serde_json version 1.0.49
+# * Allow serde_json version 1.0.149
+# * Allow tokio-serde version < 1.0
 Patch:          sccache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

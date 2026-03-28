@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        2.5.4
+Version:        2.6.0
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -13,12 +13,6 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help.
 Source1:        generate-slurm-partition-config.1
-
-# Allow snakemake-executor-plugin-slurm-jobstep 0.5. Despite the SemVer bump,
-# this release has simply added a new feature. We allow 0.5 ahead of upstream,
-# and we don’t bother suggesting it upstream because we know that these two
-# packages are tightly coupled and they will get to it soon enough.
-Patch:          0001-Allow-snakemake-executor-plugin-slurm-jobstep-0.5.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm
@@ -61,17 +55,8 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 %check -a
 %if %{with tests}
 # These tests seem to want to talk to a real cluster controller:
-#
-# tests/tests.py::TestEfficiencyReport::test_group_workflow
-# tests/tests.py::TestEfficiencyReport::test_simple_workflow
-# tests/tests.py::TestSLURMResources::test_group_workflow
-# tests/tests.py::TestSLURMResources::test_simple_workflow
-# tests/tests.py::TestWildcardsWithSlashes::test_group_workflow
-# tests/tests.py::TestWildcardsWithSlashes::test_simple_workflow
-# tests/tests.py::TestWorkflows::test_group_workflow
-# tests/tests.py::TestWorkflows::test_simple_workflow
-# tests/tests.py::TestWorkflowsRequeue::test_group_workflow
-# tests/tests.py::TestWorkflowsRequeue::test_simple_workflow
+k="${k-}${k+ and }not TestArrayJobsAll"
+k="${k-}${k+ and }not TestArrayJobsAllWithLimit"
 k="${k-}${k+ and }not test_group_workflow"
 k="${k-}${k+ and }not test_simple_workflow"
 

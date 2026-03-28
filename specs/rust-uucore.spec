@@ -5,7 +5,7 @@
 %global crate uucore
 
 Name:           rust-uucore
-Version:        0.0.27
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Uutils ~ 'core' uutils code library (cross-platform)
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          uucore-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax dns-lookup dependency to allow both 2.0.4 and 3.x
+# * loosen dependency on selinux
 Patch:          uucore-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -62,6 +62,30 @@ use the "backup-control" feature of the "%{crate}" crate.
 %files       -n %{name}+backup-control-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+base64-simd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+base64-simd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "base64-simd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+base64-simd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bigdecimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bigdecimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bigdecimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bigdecimal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+blake2b_simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -86,6 +110,30 @@ use the "blake3" feature of the "%{crate}" crate.
 %files       -n %{name}+blake3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bstr-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bstr-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bstr" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bstr-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+buf-copy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+buf-copy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "buf-copy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+buf-copy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+checksum-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -108,6 +156,18 @@ This package contains library source intended for building other packages which
 use the "colors" feature of the "%{crate}" crate.
 
 %files       -n %{name}+colors-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crc-fast-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crc-fast-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crc-fast" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crc-fast-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+data-encoding-devel
@@ -194,6 +254,42 @@ use the "entries" feature of the "%{crate}" crate.
 %files       -n %{name}+entries-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+extendedbigdecimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+extendedbigdecimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "extendedbigdecimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+extendedbigdecimal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fast-inc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fast-inc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fast-inc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fast-inc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+feat_systemd_logind-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+feat_systemd_logind-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "feat_systemd_logind" feature of the "%{crate}" crate.
+
+%files       -n %{name}+feat_systemd_logind-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+format-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -242,6 +338,30 @@ use the "fsxattr" feature of the "%{crate}" crate.
 %files       -n %{name}+fsxattr-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+glob-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+glob-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "glob" feature of the "%{crate}" crate.
+
+%files       -n %{name}+glob-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hardware-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hardware-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hardware" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hardware-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+hex-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -254,6 +374,150 @@ use the "hex" feature of the "%{crate}" crate.
 %files       -n %{name}+hex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+i18n-all-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-all-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-all" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-all-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+i18n-charmap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-charmap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-charmap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-charmap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+i18n-collator-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-collator-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-collator" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-collator-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+i18n-common-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-common-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-common" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-common-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+i18n-datetime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-datetime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-datetime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-datetime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+i18n-decimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+i18n-decimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "i18n-decimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+i18n-decimal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_calendar-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_calendar-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_calendar" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_calendar-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_collator-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_collator-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_collator" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_collator-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_datetime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_datetime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_datetime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_datetime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_decimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_decimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_decimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_decimal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_locale-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_locale-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_locale" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_locale-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+icu_provider-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_provider-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_provider" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_provider-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+itertools-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -264,6 +528,30 @@ This package contains library source intended for building other packages which
 use the "itertools" feature of the "%{crate}" crate.
 
 %files       -n %{name}+itertools-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jiff-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jiff-icu-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff-icu-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff-icu" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff-icu-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+libc-devel
@@ -326,6 +614,66 @@ use the "mode" feature of the "%{crate}" crate.
 %files       -n %{name}+mode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+num-traits-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+num-traits-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "num-traits" feature of the "%{crate}" crate.
+
+%files       -n %{name}+num-traits-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parser-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parser-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parser" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parser-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parser-glob-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parser-glob-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parser-glob" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parser-glob-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parser-num-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parser-num-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parser-num" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parser-num-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parser-size-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parser-size-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parser-size" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parser-size-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+perms-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -350,6 +698,18 @@ use the "pipes" feature of the "%{crate}" crate.
 %files       -n %{name}+pipes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+proc-info-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proc-info-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proc-info" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proc-info-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+process-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -360,6 +720,18 @@ This package contains library source intended for building other packages which
 use the "process" feature of the "%{crate}" crate.
 
 %files       -n %{name}+process-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+procfs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+procfs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "procfs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+procfs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+quoting-style-devel
@@ -386,18 +758,6 @@ use the "ranges" feature of the "%{crate}" crate.
 %files       -n %{name}+ranges-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+regex-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+regex-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "regex" feature of the "%{crate}" crate.
-
-%files       -n %{name}+regex-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+ringbuffer-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -408,6 +768,30 @@ This package contains library source intended for building other packages which
 use the "ringbuffer" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ringbuffer-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+safe-traversal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+safe-traversal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "safe-traversal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+safe-traversal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+selinux-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+selinux-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "selinux" feature of the "%{crate}" crate.
+
+%files       -n %{name}+selinux-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sha1-devel
@@ -470,6 +854,18 @@ use the "sm3" feature of the "%{crate}" crate.
 %files       -n %{name}+sm3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+smack-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+smack-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "smack" feature of the "%{crate}" crate.
+
+%files       -n %{name}+smack-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+sum-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -482,16 +878,16 @@ use the "sum" feature of the "%{crate}" crate.
 %files       -n %{name}+sum-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+thiserror-devel
+%package     -n %{name}+tempfile-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+thiserror-devel %{_description}
+%description -n %{name}+tempfile-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "thiserror" feature of the "%{crate}" crate.
+use the "tempfile" feature of the "%{crate}" crate.
 
-%files       -n %{name}+thiserror-devel
+%files       -n %{name}+tempfile-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+time-devel
@@ -506,6 +902,30 @@ use the "time" feature of the "%{crate}" crate.
 %files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tty-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tty-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tty" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tty-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unit-prefix-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unit-prefix-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unit-prefix" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unit-prefix-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+update-control-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -516,6 +936,18 @@ This package contains library source intended for building other packages which
 use the "update-control" feature of the "%{crate}" crate.
 
 %files       -n %{name}+update-control-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+uptime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+uptime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "uptime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+uptime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+utf8-devel
@@ -617,7 +1049,13 @@ use the "z85" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * test_french_localization: not thread-safe, upstream runs tests in nextest
+# * fallback_to_embedded: seems to just be brittle, hardcodes a string that
+#   changed
+%{cargo_test -- -- --exact %{shrink:
+    --skip mods::clap_localization::tests::test_french_localization
+    --skip mods::locale::tests::test_setup_localization_fallback_to_embedded
+}}
 %endif
 
 %changelog

@@ -1,8 +1,8 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.24.2
-Release:        3%{?dist}
+Version:        0.25.1
+Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -35,6 +35,10 @@ BuildRequires:  xxd
 BuildRequires:  libxml2-devel
 BuildRequires:  libffi-devel
 BuildRequires:  elfutils-devel
+BuildRequires:  bpftool
+BuildRequires:  dwarves
+BuildRequires:  gtest-devel
+BuildRequires:  gmock-devel
 
 
 %description
@@ -53,8 +57,9 @@ and predecessor tracers such as DTrace and SystemTap
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DBUILD_TESTING:BOOL=OFF \
+       -DBUILD_TESTING:BOOL=ON \
        -DBUILD_SHARED_LIBS:BOOL=OFF \
+       -DUSE_SYSTEM_LIBBPF=ON \
 %if 0%{?llvm_compat}
        -DLLVM_DIR=/usr/lib64/llvm%{llvm_compat}/lib/cmake/llvm/ \
        -DClang_DIR=/usr/lib64/llvm%{llvm_compat}/lib/cmake/clang/ \
@@ -63,13 +68,11 @@ and predecessor tracers such as DTrace and SystemTap
 %cmake_build
 
 
-%install
-# The post hooks strip the binary which removes
-# the BEGIN_trigger and END_trigger functions
-# which are needed for the BEGIN and END probes
-%global __os_install_post %{nil}
-%global _find_debuginfo_opts -g
+%check
+%{__cmake_builddir}/tests/bpftrace_test
 
+
+%install
 %cmake_install
 
 # Fix shebangs (https://fedoraproject.org/wiki/Packaging:Guidelines#Shebang_lines)
@@ -78,8 +81,8 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %files
-%doc README.md CONTRIBUTING-TOOLS.md
-%doc docs/reference_guide.md docs/tutorial_one_liners.md
+%doc README.md
+%doc docs/language.md docs/reference_guide.md docs/stdlib.md docs/tutorial_one_liners.md
 %license LICENSE
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/tools
@@ -93,6 +96,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Thu Mar 26 2026 Viktor Malik <vmalik@redhat.com> - 0.25.1-1
+- Rebased to version 0.25.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

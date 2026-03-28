@@ -30,6 +30,7 @@ Source4:        d3-sankey.license
 Source5:        leaflet.license
 Source6:        leaflet-markercluster.license
 Source7:        mermaid.license
+Source8:        goose-init.sh
 # This script is used to generate the vendor tarball for goose, and while it
 # does not offer any practical/real usage for the application, it helps us to
 # easily generate the vendored tarball and apply the correct patches while
@@ -47,12 +48,18 @@ Patch1:         0002-Disable-rustls-and-default-features-for-some-librari.patch
 # re-create the dependencies patch easily without having to modify source code
 # when a new version is pushed.
 Patch2:         0003-Patch-code-to-use-native-tls-instead-of-rustls.patch
+# Downstream patch to update tar for version 0.4.45. This patch can be dropped
+# once https://issues.redhat.com/browse/RSPEED-2434 is fixed.
+Patch3:         0004-Fix-for-CVE-2026-33056-on-tar.patch
 # Patch the `build.rs` for `ring` crate to avoid using the pre-generated object
 # files that comes with the vendored crate, and instead, build from system
 # libraries.
 # The patch was taken from:
 #   * https://src.fedoraproject.org/rpms/rust-ring/blob/d6d681ed07c088671cb5accc0102470b059a5e88/f/rust-ring.spec#_24
-Patch4:         0004-Downstream-only-never-use-pre-generated-object-files.patch
+Patch1001:      1001-Downstream-only-never-use-pre-generated-object-files.patch
+# Raise recursion limit to fix test failures. This is fixed upstream so is only needed
+# to prevent test failures when packaging.
+Patch1002:      1002-Raise-recursion-limit.patch
 
 # i686: https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -411,6 +418,9 @@ export RUSTONIG_SYSTEM_LIBONIG=1
 %install
 install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
 install -Dpm 0755 target/rpm/goosed -t %{buildroot}%{_bindir}
+%if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
+install -Dpm 0755 %{SOURCE8} %{buildroot}%{_sysconfdir}/profile.d/goose-init.sh
+%endif
 
 %if %{with check}
 %check
@@ -449,6 +459,10 @@ skip="${skip-} --skip scenario_tests::scenarios::tests::test_image_analysis"
 
 %{_bindir}/goose
 %{_bindir}/goosed
+%if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
+# Creates default Red Hat recommended config if needed
+%{_sysconfdir}/profile.d/goose-init.sh
+%endif
 
 %changelog
 %autochangelog

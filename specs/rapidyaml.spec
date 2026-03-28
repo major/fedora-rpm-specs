@@ -33,17 +33,33 @@ Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yaml
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
 
+# c4_project(): ensure RYML_VERSION is set
+# https://github.com/biojppm/rapidyaml/commit/1173e113180a652f9ad5744f8dccdbee58c730ef
+#
+# Fixes:
+#
+# - rymlConfig.cmake doesn't set version string
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2451572
+# - In rymlConfig.cmake, RYML_VERSION is not set from the project version
+#   https://github.com/biojppm/rapidyaml/issues/584
+#
+# This is just the CMakeLists.txt change, not the changelog entry or the c4core
+# submodule update.
+Patch:          rapidyaml-0.11.0-set-RYML_VERSION.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  c4project
+# Minimum version with fix to ensure ${upper_prefix}_VERSION is set, eg
+# RYML_VERSION or C4CORE_VERSION.
+BuildRequires:  c4project >= 0^20260326.1e65b7b-1
 # CMake builds in Fedora now use the ninja backend by default, but the Python
 # extension build unconditionally uses ninja, so we’re explicit:
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(c4core) >= 0.2.6
+BuildRequires:  cmake(c4core) >= 0.2.10
 
 %if %{with tests}
 BuildRequires:  cmake(c4fs)

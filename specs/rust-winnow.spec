@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        0.7.15
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -68,6 +68,30 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ascii-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ascii-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ascii" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ascii-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+binary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+binary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "binary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+binary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+debug-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -78,6 +102,18 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parser-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parser-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parser" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parser-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+simd-devel

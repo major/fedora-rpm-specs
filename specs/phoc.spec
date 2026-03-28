@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.53.0
+Version:  0.54~rc1
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -30,7 +30,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(gmobile) >= 0.6.0
-BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(wlroots-0.19) >= 0.19.3
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  /usr/bin/xvfb-run

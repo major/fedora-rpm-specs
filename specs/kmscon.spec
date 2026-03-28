@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        9.3.2
+Version:        9.3.3
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
@@ -15,6 +15,7 @@ BuildRequires:  xsltproc
 BuildRequires:  xz
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libdrm)
@@ -24,9 +25,12 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
+BuildRequires:  pkgconfig(zlib)
 
 # Fix agetty launch option
 Patch20: 0001-kmsconvt-fix-agetty-launch-option.patch
+# Fix trivial build issue on i686
+Patch21: 0001-unifont-fix-build-on-i686.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -40,6 +44,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description pango
 This package provide the pango plugin to kmscon
 mod-pango.so
+
+%package freetype
+Summary: This adds freetype support to kmscon
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description freetype
+This package provide the freetype plugin to kmscon
+mod-freetype.so
 
 %package gl
 Summary: This adds opengl support to kmscon
@@ -92,6 +104,9 @@ mod-gltex.so
 
 %files pango
 %{_libdir}/kmscon/mod-pango.so
+
+%files freetype
+%{_libdir}/kmscon/mod-freetype.so
 
 %files gl
 %{_libdir}/kmscon/mod-drm3d.so

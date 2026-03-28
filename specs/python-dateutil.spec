@@ -15,6 +15,9 @@ License:        (Apache-2.0 AND BSD-3-Clause) OR BSD-3-Clause
 URL:            https://github.com/dateutil/dateutil
 Source:         %{pypi_source python-dateutil}
 
+# https://fedoraproject.org/wiki/Changes/DeprecatePython-dateutil
+Provides:  deprecated()
+
 # Allow setuptools-scm dependency greater than v8.0
 Patch:          relax-setuptools_scm-requires.patch
 
@@ -56,6 +59,9 @@ module available in Python.
 %package -n python3-%{modname}
 Summary:        %summary
 Requires:       tzdata
+
+# https://fedoraproject.org/wiki/Changes/DeprecatePython-dateutil
+Provides:  deprecated()
 
 %description -n python3-%{modname}  %_description
 

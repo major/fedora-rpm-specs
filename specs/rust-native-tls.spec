@@ -6,7 +6,7 @@
 %global crate native-tls
 
 Name:           rust-native-tls
-Version:        0.2.15
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Wrapper over a platform's native TLS implementation
 
@@ -38,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -64,6 +63,18 @@ This package contains library source intended for building other packages which
 use the "alpn" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alpn-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alpn-accept-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alpn-accept-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alpn-accept" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alpn-accept-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

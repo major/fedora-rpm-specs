@@ -21,7 +21,6 @@ Source1:        https://www.musicpd.org/download/%{name}/%{version}/%{name}-%{ve
 Source2:        0392335A78083894A4301C43236E8A58C6DB4512.gpg
 Source3:        %{name}.tmpfiles.conf
 
-BuildRequires: cmake
 BuildRequires: gcc-g++
 BuildRequires: libcurl-devel
 BuildRequires: libgcrypt-devel

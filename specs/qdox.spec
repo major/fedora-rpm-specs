@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           qdox
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Extract class/interface/method definitions from sources
 License:        Apache-2.0
@@ -44,7 +44,6 @@ generators or documentation tools.
 %pom_remove_parent
 
 # We don't need these plugins
-%pom_remove_plugin :animal-sniffer-maven-plugin
 %pom_remove_plugin :maven-assembly-plugin
 %pom_remove_plugin :maven-failsafe-plugin
 %pom_remove_plugin :maven-invoker-plugin

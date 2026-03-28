@@ -1,6 +1,6 @@
 Name: cockpit-session-recording
 Version: 20
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.1-or-later
 URL:     https://github.com/Scribery/%{name}
@@ -8,7 +8,7 @@ Source:  https://github.com/Scribery/%{name}/releases/download/%{version}/%{name
 
 BuildArch: noarch
 %if ! 0%{?rhel} || 0%{?rhel} >= 10
-BuildRequires: nodejs >= 18
+BuildRequires: /usr/bin/node
 %endif
 BuildRequires: make
 %if 0%{?suse_version}
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Mar 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20-5
+- Rebuilt for Node.js 24
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

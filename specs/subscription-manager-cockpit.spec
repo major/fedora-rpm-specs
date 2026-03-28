@@ -1,5 +1,5 @@
 Name: subscription-manager-cockpit
-Version: 13
+Version: 14
 Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
@@ -10,8 +10,8 @@ License: LGPL-2.1-or-later
 %endif
 URL: https://www.candlepinproject.org/
 
-Source0: https://github.com/cockpit-project/subscription-manager-cockpit/releases/download/%{version}/%{name}-%{version}.tar.xz
-Source1: https://github.com/cockpit-project/subscription-manager-cockpit/releases/download/%{version}/%{name}-node-%{version}.tar.xz
+Source0: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-node-%{version}.tar.xz
 BuildArch: noarch
 ExclusiveArch: %{nodejs_arches} noarch
 BuildRequires: make
@@ -79,6 +79,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Thu Mar 26 2026 Packit <hello@packit.dev> - 14-1
+- Convert license headers to SPDX format
+- Bug fixes and translation updates
+
+
+- Resolves: rhbz#2376500
+
 * Wed Jan 28 2026 Packit <hello@packit.dev> - 13-1
 - Bug fixes and translation updates
 

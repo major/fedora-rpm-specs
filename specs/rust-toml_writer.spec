@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate toml_writer
-%global crate_version 1.0.6+spec-1.1.0
+%global crate_version 1.1.0+spec-1.1.0
 
 Name:           rust-toml_writer
-Version:        1.0.6
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Low-level interface for writing out TOML
 

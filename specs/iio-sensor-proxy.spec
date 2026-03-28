@@ -1,5 +1,5 @@
 Name:           iio-sensor-proxy
-Version:        3.8
+Version:        3.9
 Release:        %autorelease
 Summary:        IIO accelerometer sensor to input device proxy
 

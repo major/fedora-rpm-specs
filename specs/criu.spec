@@ -13,7 +13,7 @@
 
 Name: criu
 Version: 4.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -42,11 +42,11 @@ BuildRequires: libselinux-devel
 BuildRequires: gnutls-devel
 BuildRequires: libdrm-devel
 BuildRequires: libuuid-devel
+BuildRequires: nftables-devel
 # Checkpointing containers with a tmpfs requires tar
 Recommends: tar
 %if 0%{?fedora}
 BuildRequires: libbsd-devel
-BuildRequires: nftables-devel
 %endif
 BuildRequires: make
 
@@ -206,6 +206,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Thu Mar 26 2026 Adrian Reber <adrian@lisas.de> - 4.2-17
+- Always use nftables network locking backend
+
 * Tue Mar 03 2026 Adrian Reber <areber@redhat.com> - 4.2-16
 - Fix tty compiler error (const qualifier warning)
 

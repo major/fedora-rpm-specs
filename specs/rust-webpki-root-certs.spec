@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate webpki-root-certs
 
-%global crate uu_mktemp
-
-Name:           rust-uu_mktemp
-Version:        0.7.0
+Name:           rust-webpki-root-certs
+Version:        1.0.6
 Release:        %autorelease
-Summary:        mktemp ~ (uutils) create and display a temporary file or directory from TEMPLATE
+Summary:        Mozilla trusted certificate authorities in self-signed X.509 format
 
-License:        MIT
-URL:            https://crates.io/crates/uu_mktemp
+License:        CDLA-Permissive-2.0
+URL:            https://crates.io/crates/webpki-root-certs
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Omit the aws-lc-rs dev-dependency, and the codegen test that requires it
+Patch:          webpki-root-certs-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-mktemp ~ (uutils) create and display a temporary file or directory from TEMPLATE.}
+Mozilla trusted certificate authorities in self-signed X.509 format for
+use with crates other than webpki.}
 
 %description %{_description}
 
@@ -34,7 +35,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.package.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

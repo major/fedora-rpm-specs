@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.29
+Version: 44.30
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -295,6 +295,7 @@ Requires: dnsconfd-dracut
 Requires: selinux-policy
 Requires: libselinux-utils
 Requires: selinux-policy-targeted
+Requires: policycoreutils
 Requires: policycoreutils-python-utils
 
 %description install-img-deps
@@ -519,6 +520,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 26 2026 Packit <hello@packit.dev> - 44.30-1
+- Reload installer SELinux policy at exit so dracut shutdown works (k.koukiou)
+
 * Tue Mar 24 2026 Packit <hello@packit.dev> - 44.29-1
 - Update to version 44.29
 

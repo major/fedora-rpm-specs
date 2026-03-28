@@ -1,11 +1,13 @@
 Name:		libvpd
-Version:	2.2.10
-Release:	5%{?dist}
+Version:	2.2.11
+Release:	1%{?dist}
 Summary:	VPD Database access library for lsvpd
 
 License:	LGPL-2.0-or-later
 URL:		https://github.com/power-ras/%{name}/releases
-Source:		https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:		https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:		99-libvpd.conf
+Patch1:		libvpd-install-rules-in-system-wide-dir.patch
 
 BuildRequires:	autoconf automake libtool
 BuildRequires:	gcc-c++
@@ -38,14 +40,7 @@ Contains header files for building with libvpd.
 %install
 %make_install
 find %{buildroot} -type f -name "*.la" -delete
-
-# /usr/bin/touch is required by 90-vpdupdate.rules, make sure it's in initrd
-mkdir -p %{buildroot}/usr/lib/dracut/dracut.conf.d
-echo 'install_items+=" /usr/bin/touch "' > %{buildroot}/usr/lib/dracut/dracut.conf.d/99-libvpd.conf
-
-# move 90-vpdupdate.rules to system-wide directory
-mkdir -p %{buildroot}/%{_udevrulesdir}
-mv %{buildroot}%{_sysconfdir}/udev/rules.d/90-vpdupdate.rules %{buildroot}/%{_udevrulesdir}
+install -D -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/dracut/dracut.conf.d/99-libvpd.conf
 
 %files
 %license COPYING
@@ -53,7 +48,7 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/90-vpdupdate.rules %{buildroot}/%{_ud
 %{_libdir}/libvpd_cxx-2.2.so.*
 %{_libdir}/libvpd-2.2.so.*
 %{_udevrulesdir}/90-vpdupdate.rules
-/usr/lib/dracut/dracut.conf.d/99-libvpd.conf
+%{_prefix}/lib/dracut/dracut.conf.d/*
 
 %files devel
 %{_includedir}/libvpd-2
@@ -63,6 +58,9 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/90-vpdupdate.rules %{buildroot}/%{_ud
 %{_libdir}/pkgconfig/libvpd_cxx-2.pc
 
 %changelog
+* Thu Mar 26 2026 Than Ngo <than@redhat.com> - 2.2.11-1
+- update to 2.2.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

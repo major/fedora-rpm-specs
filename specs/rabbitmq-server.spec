@@ -8,7 +8,7 @@
 
 Name: rabbitmq-server
 Version: 4.2.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The RabbitMQ server
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -22,7 +22,7 @@ Source6: rabbitmq-server-cuttlefish
 Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
 Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
 Patch: rabbitmq-server-0003-force-python3.patch
-Patch: rabbitmq-server-0004-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
+Patch: rabbitmq-server-0004-Greatly-simplified-wrapper-script-which-works-proper.patch
 
 URL: https://www.rabbitmq.com/
 BuildRequires: elixir
@@ -175,6 +175,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Thu Mar 26 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.5-2
+- Improve shell wrapper
+
 * Tue Mar 17 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.5-1
 - Ver. 4.2.5
 

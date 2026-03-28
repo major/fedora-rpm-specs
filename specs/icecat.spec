@@ -1,6 +1,6 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 0
+%global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
 %global redhat_ver rh2
@@ -113,9 +113,9 @@ Summary: GNU version of Firefox browser
 License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD-4-Clause-UC AND ISC AND Apache-2.0 AND MPL-2.0
 URL:     http://www.gnu.org/software/gnuzilla/
 
-## Source archive created by scripts based on Gnuzilla files.
-## All modified files are hosted in a dedicated fork repository:
-## https://gitlab.com/anto.trande/icecat
+# Source archive created by scripts based on Gnuzilla files.
+# All modified files are hosted in a dedicated fork repository:
+# https://gitlab.com/anto.trande/icecat
 Source0: %{name}-%{version}-%{redhat_ver}.tar.bz2
 
 Source2: %{name}.png
@@ -211,8 +211,6 @@ BuildRequires: libzip-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: nodejs, /usr/bin/node
 BuildRequires: nasm >= 1.13
-BuildRequires: strace
-
 %if %{?system_nss}
 BuildRequires: pkgconfig(nspr) >= %{nspr_version}
 BuildRequires: pkgconfig(nss) >= %{nss_version}
@@ -238,8 +236,13 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pulseaudio-libs-devel
 %endif
 
-BuildRequires: llvm
 %global llvm_suffix 20
+#BuildRequires:  llvm
+#BuildRequires:  clang
+#BuildRequires:  clang-libs
+#BuildRequires:  llvm-devel
+#BuildRequires:  compiler-rt
+BuildRequires:  llvm%{?llvm_suffix}
 BuildRequires:  clang%{?llvm_suffix}
 BuildRequires:  clang%{?llvm_suffix}-libs
 BuildRequires:  llvm%{?llvm_suffix}-devel
@@ -429,7 +432,7 @@ echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
 
 echo "ac_add_options --with-libclang-path=`llvm-config-%{?llvm_suffix} --libdir`" >> .mozconfig
-echo "ac_add_options --with-clang-path=%{_libdir}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
+echo "ac_add_options --with-clang-path=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
 
 %ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
@@ -437,6 +440,7 @@ echo "ac_add_options --disable-jit" >> .mozconfig
 
 %if %{build_with_pgo}
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
+echo "ac_add_options MOZ_PGO_RUST=1" >>  .mozconfig
 echo "ac_add_options --enable-lto" >> .mozconfig
 %else
 echo "ac_add_options --disable-lto" >> .mozconfig
@@ -547,10 +551,10 @@ export PKG_CONFIG="`which pkg-config`"
 export PYTHON='%{__python3}'
 
 %if "%toolchain" == "clang"
-echo "export LLVM_PROFDATA=\"llvm-profdata\"" >> .mozconfig
-echo "export AR=\"llvm-ar\"" >> .mozconfig
-echo "export NM=\"llvm-nm\"" >> .mozconfig
-echo "export RANLIB=\"llvm-ranlib\"" >> .mozconfig
+echo "export LLVM_PROFDATA=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-profdata" >> .mozconfig
+echo "export AR=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-ar" >> .mozconfig
+echo "export NM=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-nm" >> .mozconfig
+echo "export RANLIB=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-ranlib" >> .mozconfig
 echo "ac_add_options --enable-linker=lld" >> .mozconfig
 echo "export CC=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
 echo "export CXX=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang++" >> .mozconfig
@@ -560,12 +564,6 @@ echo "export CXX=g++" >> .mozconfig
 echo "export AR=\"gcc-ar\"" >> .mozconfig
 echo "export NM=\"gcc-nm\"" >> .mozconfig
 echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
-%endif
-
-%if %{build_with_pgo}
-echo "ac_add_options MOZ_PGO=1" >> .mozconfig
-# PGO build doesn't work with ccache
-export CCACHE_DISABLE=1
 %endif
 
 # Require 4 GB of RAM per CPU core
@@ -591,6 +589,11 @@ export CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
 #Use python 3.11 for mach
 sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 
+# PGO build doesn't work with ccache
+%if %{build_with_pgo}
+export CCACHE_DISABLE=1
+%endif
+
 ./mach build -v 2>&1 | cat - || exit 1
 
 %if %{build_with_pgo}
@@ -606,22 +609,21 @@ cp -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/en-US/locale/brow
 
 %make_install -C objdir
 
-##Resize IceCat icon
+# Resize IceCat icon
 for i in 16 22 24 32 36 48 64 72 96 128 256 ; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
   magick %{SOURCE2} -resize ${i}X${i} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
 done
 
-##desktop file installation
+#desktop file installation
 mkdir -p %{buildroot}%{_datadir}/applications
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE14}
 
 rm -rf %{buildroot}%{_bindir}/%{name}
 %{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE13} > %{buildroot}%{_bindir}/%{name}
 chmod 755 %{buildroot}%{_bindir}/%{name}
-#
 
-##Extract langpacks, make any mods needed, repack the langpack, and install it.
+# Extract langpacks, make any mods needed, repack the langpack, and install it.
 echo > %{name}.lang
 %if %{with langpacks}
 mkdir -p %{buildroot}%{langpackdir}
@@ -643,7 +645,7 @@ tar xf %{SOURCE4}
  done
 rm -rf %{name}-langpacks
 
-##Install langpack workaround (see #707100, #821169)
+# Install langpack workaround (see #707100, #821169)
 function create_default_langpack() {
 language_long=$1
 language_short=$2

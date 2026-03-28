@@ -1,13 +1,13 @@
 Name:           python-edgegrid
-Version:        2.0.1
+Version:        2.0.5
 Release:        %autorelease
 Summary:        Akamai EdgeGrid authentication handler for requests
 License:        Apache-2.0
 URL:            https://github.com/akamai/AkamaiOPEN-edgegrid-python
 BuildArch:      noarch
-# PyPI tarball is missing testcases.json
-# https://github.com/akamai/AkamaiOPEN-edgegrid-python/pull/94
-Source:         %{url}/archive/v%{version}/edgegrid-python-%{version}.tar.gz
+Source:         %{pypi_source edgegrid_python}
+# https://github.com/akamai/AkamaiOPEN-edgegrid-python/pull/133
+Patch:          0001-Setuptools-82-compatibility.patch
 
 %global _description %{expand:
 This library implements an Authentication handler for HTTP requests using the
@@ -27,7 +27,7 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -n AkamaiOPEN-edgegrid-python-%{version}
+%autosetup -p 1 -n edgegrid_python-%{version}
 
 
 %generate_buildrequires
@@ -48,8 +48,6 @@ BuildRequires:  python3-pytest
 
 
 %files -n python3-edgegrid -f %{pyproject_files}
-%doc README.md HISTORY.rst
-%{python3_sitelib}/edgegrid_python-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

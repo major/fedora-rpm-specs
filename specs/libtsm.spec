@@ -1,5 +1,5 @@
 Name:           libtsm
-Version:        4.4.2
+Version:        4.4.3
 Release:        1%{?dist}
 Summary:        DEC-VT terminal emulator state machine
 License:        MIT AND LGPL-2.1-or-later
@@ -60,6 +60,9 @@ in %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Mar 26 2026  Jocelyn Falempe <jfalempe@redhat.com> - 4.4.3-1
+- Update to 4.4.3
+
 * Thu Jan 29 2026  Jocelyn Falempe <jfalempe@redhat.com> - 4.4.2-1
 - Update to 4.4.2
 

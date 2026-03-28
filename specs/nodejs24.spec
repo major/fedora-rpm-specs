@@ -42,7 +42,7 @@ URL:            https://nodejs.org
 # Version from node-v24.14.1/deps/llhttp/include/llhttp.h
 %nodejs_define_version llhttp 9.3.0
 # Version from node-v24.14.1/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%nodejs_define_version nghttp2 1.68.0
+%nodejs_define_version nghttp2 1.68.1
 # Version from node-v24.14.1/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 1.6.0
 # Version from node-v24.14.1/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
@@ -157,6 +157,7 @@ Source101:      nodejs.srpm.macros
 %patchlist
 0001-Remove-unused-OpenSSL-config.patch
 0002-Disable-FIPS-options.patch
+0003-downstream-update-nghttp2-to-1.68.1.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime

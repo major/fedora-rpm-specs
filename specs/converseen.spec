@@ -1,5 +1,5 @@
 Name:		converseen
-Version:	0.15.2.1
+Version:	0.15.2.2
 Release:	%autorelease
 Summary:	A batch image conversion and resizing tool written in C++ with Qt6 and Magick++
 # Automatically converted from old format: GPLv3 - review is highly recommended.

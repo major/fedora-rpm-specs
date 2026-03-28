@@ -22,7 +22,7 @@ provides a Python API (the gnocchiclient module) and a command-line tool.
 
 Name:             python-gnocchiclient
 Version:          7.1.0
-Release:          7%{?dist}
+Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Gnocchi
 
 License:          Apache-2.0
@@ -127,98 +127,4 @@ ln -s gnocchi %{buildroot}%{_bindir}/gnocchi-3
 %endif
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.0-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.1.0-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.1.0-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 7.1.0-1
-- Update to upstream version 7.1.0
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jul 15 2024 Python Maint <python-maint@redhat.com> - 7.0.8-4
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 7.0.8-1
-- Update to upstream version 7.0.8
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 10 2023 Python Maint <python-maint@redhat.com> - 7.0.7-9
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 11 2023 Alfredo Moralejo <amoralej@redhat.com> - 7.0.7-7
-- Rebuild for Fedora 38
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 7.0.7-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Oct 05 2020 Matthias Runge <mrunge@redhat.com> - 7.0.7-1
-- updated to 7.0.7
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-9
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 7.0.4-7
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 7.0.4-5
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Oct 28 2018 Miro Hrončok <mhroncok@redhat.com> - 7.0.4-2
-- Subpackages python2-gnocchiclient, python2-gnocchiclient-tests have been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Thu Aug 09 2018 RDO <dev@lists.rdoproject.org> 7.0.4-1
-- Update to 7.0.4
-
+%autochangelog

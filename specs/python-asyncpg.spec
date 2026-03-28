@@ -19,6 +19,13 @@ License:        Apache-2.0 AND 0BSD AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source:         %{pypi_source asyncpg}
 
+# Drop the Cython version check from setup.py
+# https://github.com/MagicStack/asyncpg/pull/1314
+#
+# This removes a dependency on pkg_resources, which is removed from setuptools
+# 82+; see https://fedoraproject.org/wiki/Changes/Setuptools_82+.
+Patch:          %{url}/pull/1314.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l asyncpg
 BuildOption(generate_buildrequires): -x gssauth -g test

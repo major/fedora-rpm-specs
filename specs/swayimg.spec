@@ -1,15 +1,13 @@
 %bcond  tests   1
 
 Name:           swayimg
-Version:        5.0
+Version:        5.1
 Release:        %autorelease
 Summary:        Lightweight image viewer for Wayland display servers
 
 License:        MIT
 URL:            https://github.com/artemsen/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch:          %{url}/commit/5c2d958.patch#/swayimg-5.0-missing-includes.patch
 
 # Exclude x86 and all the platforms where luajit is not available
 ExcludeArch:    %{ix86} riscv64 ppc64 ppc64le

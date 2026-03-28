@@ -2,24 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate toml_parser
-%global crate_version 1.1.0+spec-1.1.0
+%global crate winnow
 
-Name:           rust-toml_parser
-Version:        1.1.0
+Name:           rust-winnow0.7
+Version:        0.7.15
 Release:        %autorelease
-Summary:        Yet another format-preserving TOML parser
+Summary:        Byte-oriented, zero-copy, parser combinators library
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/toml_parser
-Source:         %{crates_source %{crate} %{crate_version}}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          toml_parser-fix-metadata-auto.diff
+License:        MIT
+URL:            https://crates.io/crates/winnow
+Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove references to benchmark and example binaries from Cargo.toml
+# * drop unused, benchmark-only criterion dev-dependency
+# * drop dev-dependencies which are only needed for example binaries
+Patch:          winnow-fix-metadata.diff
+# * Port from is_terminal_polyfill to std::io::IsTerminal
+# * We are not concerned about MSRV issues in downstream builds.
+Patch10:        0001-Port-from-is_terminal_polyfill-to-std-io-IsTerminal.patch
+# * Omit a test that would require term-transcript, not packaged
+Patch11:        no-term-transcript.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Yet another format-preserving TOML parser.}
+A byte-oriented, zero-copy, parser combinators library.}
 
 %description %{_description}
 
@@ -33,7 +40,6 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -98,34 +104,46 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unsafe-devel
+%package     -n %{name}+unstable-doc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unsafe-devel %{_description}
+%description -n %{name}+unstable-doc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unsafe" feature of the "%{crate}" crate.
+use the "unstable-doc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unsafe-devel
+%files       -n %{name}+unstable-doc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-recover-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-recover-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-recover" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-recover-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f debug
 
 %build
-%cargo_build
+%cargo_build -f debug
 
 %install
-%cargo_install
+%cargo_install -f debug
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f debug
 %endif
 
 %changelog

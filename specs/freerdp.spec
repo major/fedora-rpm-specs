@@ -23,8 +23,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.24.0
-Release:        2%{?dist}
+Version:        3.24.2
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -40,11 +40,6 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
-
-# https://github.com/FreeRDP/FreeRDP/pull/12484
-# Fix multiple bugs in NTLM auth which break RDP installs and GNOME
-# remote desktop
-Patch:          0001-winpr-sam-fix-reading-SAM-entries.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -364,6 +359,12 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Mar 26 2026 Ondrej Holy <oholy@redhat.com> - 2:3.24.2-1
+- Update to 3.24.2 (CVE-2026-33952, CVE-2026-33977, CVE-2026-33982,
+  CVE-2026-33983, CVE-2026-33984, CVE-2026-33985, CVE-2026-33986,
+  CVE-2026-33987, CVE-2026-33995)
+  Resolves: rhbz#2448592
+
 * Tue Mar 17 2026 Adam Williamson <awilliam@redhat.com> - 2:3.24.0-2
 - Backport PR #12484 to fix NTLM auth broken in 3.24.0
 

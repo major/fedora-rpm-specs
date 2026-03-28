@@ -2,24 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate openssl-probe
 
-%global crate uu_mktemp
-
-Name:           rust-uu_mktemp
-Version:        0.7.0
+Name:           rust-openssl-probe0.1
+Version:        0.1.6
 Release:        %autorelease
-Summary:        mktemp ~ (uutils) create and display a temporary file or directory from TEMPLATE
+Summary:        Tool for helping to find SSL certificate locations on the system for OpenSSL
 
-License:        MIT
-URL:            https://crates.io/crates/uu_mktemp
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/openssl-probe
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-mktemp ~ (uutils) create and display a temporary file or directory from TEMPLATE.}
+Tool for helping to find SSL certificate locations on the system for
+OpenSSL.}
 
 %description %{_description}
 
@@ -33,8 +32,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.package.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

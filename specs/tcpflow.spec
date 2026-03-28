@@ -1,20 +1,26 @@
 %global _hardened_build 1
 
+%global commit 8d47b53a54da58e9c9b78efed8b379d98c6113e4
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+
 Summary:       Network traffic recorder
 Name:          tcpflow
-Version:       1.6.1
-Release:       14%{?dist}
+Version:       1.6.2
+Release:       0.1.%{shortcommit}%{?dist}
 License:       GPL-1.0-or-later
 URL:           https://github.com/simsong/tcpflow
-Source0:       http://digitalcorpora.org/downloads/tcpflow/tcpflow-%{version}.tar.gz
-Patch0:        tcpflow-1.6.1-format.patch
-Patch1:        tcpflow-1.6.1-uint.patch
-BuildRequires: make
+# Tarball created by
+# git clone https://github.com/simsong/tcpflow.git && cd tcpflow
+# git archive-all tcpflow-1.6.1-8d47b53.tar.gz
+Source:        tcpflow-%{version}-%{shortcommit}.tar.gz
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: boost-devel
-#BuildRequires: bzip2-devel
 BuildRequires: cairo-devel
 BuildRequires: gcc-c++
 BuildRequires: libpcap-devel
+BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
 %description
@@ -27,9 +33,10 @@ reconstructs the actual data streams and stores each flow in a
 separate file for later analysis.
 
 %prep
-%autosetup -p1
+%autosetup -n tcpflow-%{version}-%{shortcommit}
 
 %build
+./bootstrap.sh
 export CPPFLAGS="%{optflags}"
 export LDFLAGS="%{__global_ldflags}"
 %configure
@@ -48,6 +55,9 @@ make check || :
 %{_mandir}/man1/tcpflow.1*
 
 %changelog
+* Thu Mar 26 2026 Terje Røsten <terjeros@gmail.com> - 1.6.2-0.1.8d47b53
+- Update to 1.6.2 / 8d47b53 to fix CVE-2026-25061
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

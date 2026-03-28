@@ -10,6 +10,7 @@ URL:           https://github.com/ApeWorX/eip712
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 Patch:         python-eip712-0001-refactor-move-pytest-cov-to-lint-dependency-group.patch
+Patch:         python-eip712-0002-Relax-deps.patch
 BuildRequires: python3-eth-account
 BuildRequires: python3-eth-utils
 BuildRequires: python3-hypothesis

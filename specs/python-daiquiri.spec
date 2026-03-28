@@ -4,7 +4,7 @@ The %{pypi_name} library provides an easy way to configure Python logging.
 It also provides some custom formatters and handlers.}
 
 Name:           python-%{pypi_name}
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Library to configure Python logging easily
 

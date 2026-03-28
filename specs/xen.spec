@@ -50,8 +50,8 @@
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.21.0
-Release: 5%{?dist}
+Version: 4.21.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -78,13 +78,7 @@ Patch6: xen.gcc11.fixes.patch
 Patch7: xen.gcc12.fixes.patch
 Patch8: xen.efi.build.patch
 Patch9: xen.python3.12.patch
-Patch10: dropped.regs.patch
 Patch11: xen.json.nocpuid.patch
-Patch12: xen.gcc16.fixes.patch
-Patch13: xsa477.patch
-Patch14: xsa479.patch
-Patch15: xsa480.patch
-Patch16: xsa481.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -270,13 +264,7 @@ This package contains files used in testing the xen builds
 %patch 7 -p1
 %patch 8 -p1
 %patch 9 -p1
-%patch 10 -p1
 %patch 11 -p1
-%patch 12 -p1
-%patch 13 -p1
-%patch 14 -p1
-%patch 15 -p1
-%patch 16 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -832,6 +820,10 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Thu Mar 26 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-1
+- update to xen 4.21.0
+  remove patches now included or superceded upstream
+
 * Tue Mar 17 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-5
 - Use after free of paging structures in EPT [XSA-480, CVE-2026-23554]
 - Xenstored DoS by unprivileged domain [XSA-481, CVE-2026-23555]

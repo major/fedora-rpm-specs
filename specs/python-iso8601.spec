@@ -38,7 +38,7 @@ BuildRequires:  python3-devel
 
 %install
 %pyproject_install
-%pyproject_save_files -L %{srcname}
+%pyproject_save_files -l %{srcname}
 
 %check
 %if %{with tests}
@@ -48,7 +48,6 @@ BuildRequires:  python3-devel
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license %{python3_sitelib}/%{srcname}-%{version}.dist-info/LICENSE
 %doc README.rst
 
 %changelog

@@ -1,6 +1,6 @@
 %global pypi_name bodhi-messages
 %global src_name bodhi_messages
-%global pypi_version 25.11.3
+%global pypi_version 26.4.0
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}

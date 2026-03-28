@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/qtile/qtile
-%global tag v0.34.1
+%global tag v0.35.0
 
 Name: qtile
-Version: 0.34.1
+Version: 0.35.0
 Release: %{autorelease}
 Summary: A pure-Python tiling window manager
 %forgemeta
@@ -32,10 +32,14 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
 BuildRequires:  xterm
 BuildRequires:  rsvg-pixbuf-loader
-BuildRequires:  wlroots >= 0.19.0
-BuildRequires:  wlroots < 0.20.0
-BuildRequires:  wlroots-devel >= 0.19.0
-BuildRequires:  wlroots-devel < 0.20.0
+# We need to force install wlroots 0.19 because Qtile expect this exact version
+%if 0%{?fedora} >= 44
+BuildRequires: wlroots0.19
+BuildRequires: wlroots0.19-devel
+%else
+BuildRequires: wlroots
+BuildRequires: wlroots-devel
+%endif
 
 # Some dependencies are loaded with ffi.dlopen, and to declare them properly
 # we'll need this suffix.
@@ -145,8 +149,9 @@ ulimit -n 10240
 
 %ifnarch s390x ppc64le
 # Disabled tests
-# - test/widgets/test_generic_poll_text.py      require network
-# - test/backend/wayland/test_idle_inhibit.py   https://github.com/qtile/qtile/issues/5723
+# - test/widgets/test_generic_poll_text.py        require network
+# - test/backend/wayland/test_idle_inhibit.py     https://github.com/qtile/qtile/issues/5723
+# - test/backend/x11/test_x11_identify_output.py  https://github.com/qtile/qtile/issues/5883
 %pytest \
     -vv \
     --backend x11 \
@@ -158,7 +163,8 @@ ulimit -n 10240
     --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_visible[1-x11-InhibitorConfig] \
     --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_focus[1-x11-InhibitorConfig] \
     --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_fullscreen[1-x11-InhibitorConfig] \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_global[1-x11-InhibitorConfig]
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_global[1-x11-InhibitorConfig] \
+    --deselect test/backend/x11/test_x11_identify_output.py::test_identify_output
 %endif
 
 

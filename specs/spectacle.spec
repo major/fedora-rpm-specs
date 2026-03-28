@@ -10,7 +10,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -26,6 +26,11 @@ Source0: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}
 Source1: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+
+## Upstreamable patches
+
+# Submitted upstream, but the fix wasn't working. Maybe it'll be fixed in 6.6.4/6.7
+Patch0: tesseract.patch
 
 ## downstream patches
 
@@ -138,6 +143,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Fri Mar 27 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-2
+- Readd the tesseract patch, upstream's patch aint working
+
 * Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-1
 - 6.6.3
 

@@ -53,6 +53,8 @@ Summary:        Mesa XA state tracker
 Provides:       libxatracker%{?_isa}
 Provides:       mesa-libxatracker%{?_isa}
 Obsoletes:      mesa-libxatracker < 25.3
+# New things should not rely on this as this library is dead upstream
+Provides:       deprecated()
 
 %description libxatracker
 %{summary}.
@@ -61,6 +63,8 @@ Obsoletes:      mesa-libxatracker < 25.3
 Summary:        Mesa XA state tracker development package
 Requires: %{name}-libxatracker%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      mesa-libxatracker-devel < 25.3
+# New things should not rely on this as this library is dead upstream
+Provides:       deprecated()
 
 %description libxatracker-devel
 %{summary}.

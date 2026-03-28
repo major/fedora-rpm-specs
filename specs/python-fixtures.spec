@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-fixtures
-Version:        4.2.2
+Version:        4.3.2
 Release:        %autorelease
 Summary:        Fixtures, reusable state for writing clean tests and more
 License:        Apache-2.0 OR BSD-3-Clause

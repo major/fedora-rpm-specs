@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -204,7 +204,6 @@ BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
-Recommends: p11-kit
 Obsoletes: openssh-ldap < 8.3p1-4
 Obsoletes: openssh-cavs < 8.4p1-5
 
@@ -578,6 +577,12 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Tue Mar 24 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-10
+- Fix GSSAPI authentication indicator issues found by AI
+- Don't negotiate non-FIPS algorithms in ssh-keyscan key exchange in FIPS mode
+- Fix duplicate audit log entry when destroying ed25519 private keys
+- Remove recommendation of p11-kit
+
 * Mon Mar 23 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-9
 - Fix typo in SPDX license name
 
