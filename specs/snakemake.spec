@@ -46,7 +46,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.16.3
+Version:        9.18.2
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -499,6 +499,9 @@ k="${k-}${k+ and }not test_github_issue78"
 k="${k-}${k+ and }not test_issue1083"
 k="${k-}${k+ and }not test_issue3361_pass"
 k="${k-}${k+ and }not test_keep_local"
+k="${k-}${k+ and }not test_module_onerror"
+k="${k-}${k+ and }not test_module_onstart_not_in_main_snakefile"
+k="${k-}${k+ and }not test_module_onstart_onsuccess"
 k="${k-}${k+ and }not test_modules_prefix"
 k="${k-}${k+ and }not test_report_after_run"
 k="${k-}${k+ and }not test_retrieve"

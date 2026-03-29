@@ -1,10 +1,12 @@
+# There is a cirucular dependency on keystoneauth1 for the tests
+# Change to "without" for boot strap mode.
+%bcond_with bootstrap
+
 %global pypi_name os-service-types
 %global module_name os_service_types
 
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 %global sources_gpg 1
-
-%global excluded_brs hacking coverage reno
 
 %global common_desc %{expand:
 OsServiceTypes is a Python library for consuming OpenStack
@@ -16,8 +18,6 @@ The data is in JSON and the latest data should always be used. This simple
 library exists to allow for easy consumption of the data, along with a built-in
 version of the data to use in case network access is for some reason not
 possible and local caching of the fetched data.}
-
-%global with_doc 1
 
 Name:           python-os-service-types
 Version:        1.8.2
@@ -49,7 +49,7 @@ Summary:        %{summary}
 %{common_desc}
 
 
-%if 0%{?with_doc}
+%if ! %{with bootstrap}
 %package -n python-%{pypi_name}-doc
 Summary:        %{pypi_name} documentation
 Requires:       python-%{pypi_name} = %{version}-%{release}
@@ -71,24 +71,24 @@ Documentation for %{pypi_name}
 # Ignore global openstack constraints
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
 
-for br in %{excluded_brs}; do
-  sed -i \
-      -e "/^${br}[[:space:]]*[><=]/d" \
-      test-requirements.txt requirements.txt doc/requirements.txt
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^hacking[[:space:]]*[!><=]/d" \
+    test-requirements.txt doc/requirements.txt
 
 
 %generate_buildrequires
-%if 0%{?with_doc}
-%pyproject_buildrequires -t -e %{default_toxenv},docs
+%if %{with bootstrap}
+%pyproject_buildrequires
 %else
-%pyproject_buildrequires -t -e %{default_toxenv}
+%pyproject_buildrequires -t -e %{default_toxenv},docs
 %endif
 
 %build
 %pyproject_wheel
 
-%if 0%{?with_doc}
+%if ! %{with bootstrap}
 sphinx-build -b html doc/source doc/build/html
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
@@ -101,7 +101,11 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %check
+%if %{with bootstrap}
+%pyproject_check_import os_service_types -e os_service_types.tests.*
+%else
 %tox
+%endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -109,7 +113,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %doc ChangeLog README.rst doc/source/readme.rst
 
 
-%if 0%{?with_doc}
+%if ! %{with bootstrap}
 %files -n python-%{pypi_name}-doc
 %doc doc/build/html
 %endif

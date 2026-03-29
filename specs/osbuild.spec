@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        176
+Version:        177
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -181,11 +181,8 @@ manifests and osbuild.
 Summary:        Dependency solving support for DNF
 Requires:       %{name} = %{version}-%{release}
 
-# RHEL 11 and Fedora 41 and later use libdnf5, RHEL < 11 and Fedora < 41 use dnf
-# On Fedora 41 however, we force dnf4 (and depend on python3-dnf) until dnf5 issues are resolved.
-# See https://github.com/rpm-software-management/dnf5/issues/1748
-# and https://issues.redhat.com/browse/COMPOSER-2361
-%if 0%{?rhel} >= 11
+# Default to using DNF5 solver for RHEL 11 and Fedora 45 and later
+%if 0%{?rhel} >= 11 || 0%{?fedora} >= 45
 Requires: python3-libdnf5 >= 5.2.1
 %else
 Requires: python3-dnf
@@ -286,13 +283,13 @@ install -p -m 0755 data/10-osbuild-inhibitor.rules %{buildroot}%{_udevrulesdir}
 mkdir -p %{buildroot}%{_libexecdir}
 install -p -m 0755 tools/osbuild-depsolve-dnf %{buildroot}%{_libexecdir}/osbuild-depsolve-dnf
 
+# Install `osbuild-store` into libexec
+install -p -m 0755 tools/osbuild-store %{buildroot}%{_libexecdir}/osbuild-store
+
 # Configure the solver for dnf
 mkdir -p %{buildroot}%{_datadir}/osbuild
-# RHEL 11 and Fedora 41 and later use dnf5, RHEL < 11 and Fedora < 41 use dnf
-# On Fedora 41 however, we force dnf4 (and depend on python3-dnf) until dnf5 issues are resolved.
-# See https://github.com/rpm-software-management/dnf5/issues/1748
-# and https://issues.redhat.com/browse/COMPOSER-2361
-%if 0%{?rhel} >= 11
+# Default to using DNF5 solver for RHEL 11 and Fedora 45 and later
+%if 0%{?rhel} >= 11 || 0%{?fedora} >= 45
 install -p -m 0644 tools/solver-dnf5.json %{buildroot}%{pkgdir}/solver.json
 %else
 install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
@@ -466,12 +463,44 @@ fi
 %{_bindir}/osbuild-image-info
 %{_bindir}/osbuild-mpp
 %{?fedora:%{_bindir}/osbuild-dev}
+%{_libexecdir}/osbuild-store
 
 %files depsolve-dnf
 %{_libexecdir}/osbuild-depsolve-dnf
 %{pkgdir}/solver.json
 
 %changelog
+* Thu Mar 26 2026 Packit <hello@packit.dev> - 177-1
+Changes with 177
+----------------
+  - Add stages used for building s390x isos (HMS-9967) (#2390)
+    - Author: Brian C. Lane, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - SPEC: default to using DNF5 depsolver on Fedora 45+ (current Rawhide) (HMS-10343) (#2389)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Stage changes to support building ppc64le isos (HMS-9968) (#2377)
+    - Author: Brian C. Lane, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update images dependency ref to latest (#2394)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Update osbuild-ci container images (#2392)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Update snapshots to 20260315 (#2393)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - Update snapshots to 20260322 (#2397)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - buildroot: Use bwrap's --drop-cap ALL (#2395)
+    - Author: Lars Karlitski, Reviewers: Achilleas Koutsou, Alexander Larsson
+  - chore: clean up team ssh keys (#2391)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Anna Vítová, Tomáš Hozza
+  - cli: Print checkpoint cache status (#2388)
+    - Author: Lars Karlitski, Reviewers: Achilleas Koutsou, Simon de Vlieger, Tomáš Hozza
+  - stages/aleph: make path parametrizable (#2384)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - tools/osbuild-store: do stuff with sources and store (HMS-10238) (#2364)
+    - Author: Sanne Raymaekers, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-03-26
+
+
 * Wed Mar 11 2026 Packit <hello@packit.dev> - 176-1
 Changes with 176
 ----------------

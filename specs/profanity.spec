@@ -1,11 +1,11 @@
 Name:           profanity
-Version:        0.16.0
+Version:        0.17.0
 Release:        1%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPL-3.0-only
 URL:            https://profanity-im.github.io/
-Source0:        https://profanity-im.github.io/tarballs/%{name}-%{version}.tar.gz
+Source0:        https://profanity-im.github.io/tarballs/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  automake
@@ -145,7 +145,7 @@ make check
 
 
 %files libs
-%{_libdir}/libprofanity.so.0*
+%{_libdir}/libprofanity.so.0{,.*}
 
 
 %files devel
@@ -160,6 +160,9 @@ make check
 
 
 %changelog
+* Fri Mar 27 2026 Benson Muite <fed500@fedoraproject.org> - 0.17.0-1
+- Update to release 0.17.0
+
 * Sat Feb 28 2026 Benson Muite <fed500@fedoraproject.org> - 0.16.0-1
 - Update to release 0.16.0
 

@@ -20,15 +20,15 @@ ExcludeArch: %{ix86} %{arm}
 # Downgrade optimization
 %global less_optbuild 0
 
-# Build PGO+LTO on x86_64 only due to build issues
-# on other arches.
-%global build_with_pgo 0
-%global pgo_wayland    0
-%global launch_wayland_compositor 0
+	
+# Disable LTO to work around rhbz#1883904
+%ifnarch x86_64
+%define _lto_cflags %{nil}
+%endif
 
-%ifarch x86_64
+# Build PGO+LTO on x86_64 only due to build and/or runtime issues
 %if %{release_build}
-%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+%ifarch x86_64
 %global build_with_pgo 1
 %global pgo_wayland    1
 %global launch_wayland_compositor 1
@@ -38,8 +38,12 @@ ExcludeArch: %{ix86} %{arm}
 %global launch_wayland_compositor 0
 %endif
 %endif
-%endif
 
+%if !%{release_build}
+%global build_with_pgo 0
+%global pgo_wayland    0
+%global launch_wayland_compositor 0
+%endif
 ####################
 
 # Active/Deactive language files handling
@@ -92,7 +96,7 @@ ExcludeArch: %{ix86} %{arm}
 %endif
 
 # Use clang?
-%bcond_without toolchain_clang
+%bcond_with toolchain_clang
 
 %if %{with toolchain_clang}
 %global toolchain clang
@@ -565,6 +569,9 @@ echo "export AR=\"gcc-ar\"" >> .mozconfig
 echo "export NM=\"gcc-nm\"" >> .mozconfig
 echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
+
+# llvm-objdump is always required
+echo "export LLVM_OBJDUMP=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-objdump" >> .mozconfig
 
 # Require 4 GB of RAM per CPU core
 %global _smp_tasksize_proc 4096

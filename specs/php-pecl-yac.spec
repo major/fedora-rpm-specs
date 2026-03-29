@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-yac (previously php-yac)
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -12,23 +12,28 @@
 %global pecl_name   yac
 # after 40-igbinary and 40-msgpack
 %global ini_name    50-%{pecl_name}.ini
-%global sources     %{pecl_name}-%{version}
 
-Summary:        Lockless user data cache
+# Github forge
+%global gh_vend     laruence
+%global gh_proj     %{pecl_name}
+%global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
+%global tag         %{pecl_name}-%{version}
+
 Name:           php-pecl-%{pecl_name}
-Version:        2.3.1
-Release:        18%{?dist}
-
+Summary:        Lockless user data cache
 License:        PHP-3.01
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        2.3.1
+Release:        19%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel
-BuildRequires:  php-pear
 BuildRequires:  php-pecl-msgpack-devel
 BuildRequires:  php-pecl-igbinary-devel
 BuildRequires:  fastlz-devel
@@ -58,16 +63,9 @@ that your product is not very sensitive to that.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-# Don't install (register) the tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # drop bundled fastlz to ensure it is not used
-sed -e '\:name="compressor/fastlz:d' -i ../package.xml
 rm -r compressor/fastlz
 
 # Check version as upstream often forget to update this
@@ -76,7 +74,6 @@ if test "x${extver}" != "x%{version}%{?prever}"; then
    : Error: Upstream YAC version is ${extver}, expecting %{version}%{?prever}.
    exit 1
 fi
-cd ..
 
 # Drop in the bit of configuration
 cat > %{ini_name} << 'EOF'
@@ -94,7 +91,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -109,26 +105,14 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install the configuration
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install Test and Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
-cd %{sources}
-
 OPTS="-n"
 [ -f %{php_extdir}/igbinary.so ] && OPTS="$OPTS -d extension=igbinary.so"
 [ -f %{php_extdir}/msgpack.so  ] && OPTS="$OPTS -d extension=msgpack.so"
@@ -148,15 +132,19 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc CREDITS
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 2.3.1-19
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

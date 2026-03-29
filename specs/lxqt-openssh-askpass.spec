@@ -1,22 +1,23 @@
 Name:          lxqt-openssh-askpass
 Summary:       Askpass openssh transition dialog for LXQt desktop suite
 Version:       2.3.0
-Release:       2%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+Release:       3%{?dist}
+License:       LGPL-2.1-only and LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       lxqt-openssh-askpass.sh
 Source2:       lxqt-openssh-askpass.csh
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(Qt6Widgets)
+BuildRequires: perl
+
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: perl
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: pkgconfig(glib-2.0)
 
 %description
 %{summary}.
@@ -30,8 +31,10 @@ This package provides translations for the lxqt-openssh-askpass package.
 %prep
 %autosetup
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -56,6 +59,9 @@ install -p -m0644 %SOURCE1 %SOURCE2 %{buildroot}%{_sysconfdir}/profile.d/
 %dir %{_datadir}/lxqt/translations/lxqt-openssh-askpass
 
 %changelog
+* Fri Mar 27 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
+- Updated License: field to comply with newer SPDX requirements
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

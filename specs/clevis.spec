@@ -1,5 +1,5 @@
 Name:           clevis
-Version:        21
+Version:        22
 Release:        %autorelease
 Summary:        Automated decryption framework
 
@@ -7,10 +7,6 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        clevis.sysusers
-
-Patch0001:      0001-PKCS-11-pin-fix-dracut-for-unconfigured-device.patch
-Patch0002:      0002-tpm2-use-first-pcr-algorithm-bank-supported-by.patch
-Patch0003:      0003-Include-tpm2_getcap-as-dracut-required-binary.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -145,15 +141,18 @@ desktop-file-validate \
 %{_bindir}/%{name}-decrypt-tpm2
 %{_bindir}/%{name}-decrypt-sss
 %{_bindir}/%{name}-decrypt-null
+%{_bindir}/%{name}-decrypt-file
 %{_bindir}/%{name}-decrypt
 %{_bindir}/%{name}-encrypt-tang
 %{_bindir}/%{name}-encrypt-tpm2
 %{_bindir}/%{name}-encrypt-sss
 %{_bindir}/%{name}-encrypt-null
+%{_bindir}/%{name}-encrypt-file
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}-encrypt-tang.1*
 %{_mandir}/man1/%{name}-encrypt-tpm2.1*
 %{_mandir}/man1/%{name}-encrypt-sss.1*
+%{_mandir}/man1/%{name}-encrypt-file.1*
 %{_mandir}/man1/%{name}-decrypt.1*
 %{_mandir}/man1/%{name}.1*
 %{_sysusersdir}/clevis.conf
@@ -185,17 +184,19 @@ desktop-file-validate \
 %{_unitdir}/%{name}-luks-askpass.service
 
 %files dracut
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}
-%{_prefix}/lib/dracut/modules.d/60%{name}/clevis-hook.sh
-%{_prefix}/lib/dracut/modules.d/60%{name}/module-setup.sh
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}-pin-null
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-null/module-setup.sh
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}-pin-sss
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-sss/module-setup.sh
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}-pin-tang
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-tang/module-setup.sh
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}-pin-tpm2
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-tpm2/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}
+%{_prefix}/lib/dracut/modules.d/50%{name}/clevis-hook.sh
+%{_prefix}/lib/dracut/modules.d/50%{name}/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-null
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-null/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-sss
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-sss/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-tang
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-tang/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-tpm2
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-tpm2/module-setup.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-file
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-file/module-setup.sh
 
 %files udisks2
 %{_sysconfdir}/xdg/autostart/%{name}-luks-udisks2.desktop
@@ -211,10 +212,10 @@ desktop-file-validate \
 %{_unitdir}/%{name}-luks-pkcs11-askpass.service
 %{_unitdir}/%{name}-luks-pkcs11-askpass.socket
 %{_mandir}/man1/%{name}-encrypt-pkcs11.1*
-%dir %{_prefix}/lib/dracut/modules.d/60%{name}-pin-pkcs11
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-pkcs11/module-setup.sh
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-pkcs11/%{name}-pkcs11-hook.sh
-%{_prefix}/lib/dracut/modules.d/60%{name}-pin-pkcs11/%{name}-pkcs11-prehook.sh
+%dir %{_prefix}/lib/dracut/modules.d/50%{name}-pin-pkcs11
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-pkcs11/module-setup.sh
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-pkcs11/%{name}-pkcs11-hook.sh
+%{_prefix}/lib/dracut/modules.d/50%{name}-pin-pkcs11/%{name}-pkcs11-prehook.sh
 
 %post systemd
 systemctl preset %{name}-luks-askpass.path >/dev/null 2>&1 || :

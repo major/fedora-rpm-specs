@@ -5,7 +5,7 @@
 %global crate ctor-proc-macro
 
 Name:           rust-ctor-proc-macro
-Version:        0.0.6
+Version:        0.0.7
 Release:        %autorelease
 Summary:        Proc-macro support for the ctor crate
 

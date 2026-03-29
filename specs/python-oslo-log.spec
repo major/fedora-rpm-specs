@@ -1,27 +1,15 @@
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg 1
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
-
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
-# Exclude sphinx from BRs if docs are disabled
-%if ! 0%{?with_doc}
-%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
-%endif
-# Exclude some BRs for Fedora
-%global excluded_brs %{excluded_brs} eventlet
 
 %global with_doc 1
 %global pypi_name oslo.log
 %global pkg_name oslo-log
 
-%global common_desc \
-OpenStack logging configuration library provides standardized configuration \
-for all openstack projects. It also provides custom formatters, handlers and \
-support for context specific logging (like resource id’s etc).
+%global common_desc %{expand:
+OpenStack logging configuration library provides standardized configuration
+for all openstack projects. It also provides custom formatters, handlers and
+support for context specific logging (like resource id’s etc).}
 
-%global common_desc1 \
-Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        8.1.0
@@ -30,10 +18,9 @@ Summary:        OpenStack Oslo Log library
 
 License:        Apache-2.0
 URL:            http://launchpad.net/oslo
-Source0:        https://tarballs.openstack.org/%{pypi_name}/oslo_log-%{upstream_version}.tar.gz
-# Required for tarball sources verification
+Source0:        https://tarballs.openstack.org/%{pypi_name}/oslo_log-%{version}.tar.gz
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_log-%{upstream_version}.tar.gz.asc
+Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_log-%{version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:      noarch
@@ -43,13 +30,14 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/gpgv2
 %endif
 
-BuildRequires: python3-eventlet
+%description
+%{common_desc}
+
 
 %package -n python3-%{pkg_name}
 Summary:        OpenStack Oslo Log library
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  git-core
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 
@@ -60,59 +48,52 @@ Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for the Oslo Log handling library
 
+
 %description -n python-%{pkg_name}-doc
 Documentation for the Oslo Log handling library.
 %endif
 
+
 %package -n python3-%{pkg_name}-tests
 Summary:    Tests for the Oslo Log handling library
+Requires:   python3-%{pkg_name} = %{version}-%{release}
 
-Requires:       python3-%{pkg_name} = %{version}-%{release}
-Requires:       python3-oslotest
-Requires:       python3-oslo-config >= 2:5.2.0
-Requires:       python3-subunit
-Requires:       python3-testtools
-Requires:       python3-testscenarios
 
 %description -n python3-%{pkg_name}-tests
 %{common_desc1}
 
-%description
-%{common_desc}
+Tests for the Oslo Log handling library.
+
 
 %package  -n python-%{pkg_name}-lang
 Summary:   Translation files for Oslo log library
+
 
 %description -n python-%{pkg_name}-lang
 Translation files for Oslo log library
 
 %prep
-# Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n oslo_log-%{upstream_version} -S git
+%autosetup -n oslo_log-%{version} -S git
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
-sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs}; do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^eventlet[[:space:]]*[!><=]/d" \
+    test-requirements.txt doc/requirements.txt
 
-# Automatic BR generation
+# see check section below
+sed -i '\|eventlet\.hubs\.get_hub()|d' tox.ini
+
 %generate_buildrequires
 %if 0%{?with_doc}
-  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
-  %pyproject_buildrequires -t -e %{default_toxenv}
+%pyproject_buildrequires -t -e %{default_toxenv}
 %endif
 
 %build
@@ -130,9 +111,10 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 # Generate i18n files
+# This invocation is os of course deprecated, I think the correct thing to do may be:
+# pybabel compile -d %{buildroot}%{python3_sitelib}/oslo_log/locale -D oslo_log
+# which will need a BR on babel.
 python3 setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/oslo_log/locale --domain oslo_log
-
-ln -s ./convert-json %{buildroot}%{_bindir}/convert-json-3
 
 # Install i18n .mo files (.po and .pot are not required)
 install -d -m 755 %{buildroot}%{_datadir}
@@ -143,13 +125,14 @@ mv %{buildroot}%{python3_sitelib}/oslo_log/locale %{buildroot}%{_datadir}/locale
 # Find language files
 %find_lang oslo_log --all-name
 
+
 %check
 # skipping tests using eventlet as it's not available for python 3.13 and this functionality
 # in oslo.log is unused in the client packages used in Fedora
-rm -f oslo_log/tests/unit/test_pipe_mutex.py
-# Skipping test_rate_limit, https://bugs.launchpad.net/oslo.log/+bug/2111881
-rm -f oslo_log/tests/unit/test_rate_limit.py
+# More genrally oslo.log is deprecating use of eventlet.
+rm oslo_log/tests/unit/test_pipe_mutex.py
 %tox -e %{default_toxenv}
+
 
 %files -n python3-%{pkg_name}
 %doc README.rst ChangeLog AUTHORS
@@ -157,8 +140,8 @@ rm -f oslo_log/tests/unit/test_rate_limit.py
 %{python3_sitelib}/oslo_log
 %{python3_sitelib}/*.dist-info
 %{_bindir}/convert-json
-%{_bindir}/convert-json-3
 %exclude %{python3_sitelib}/oslo_log/tests
+
 
 %if 0%{?with_doc}
 %files -n python-%{pkg_name}-doc
@@ -166,11 +149,14 @@ rm -f oslo_log/tests/unit/test_rate_limit.py
 %license LICENSE
 %endif
 
+
 %files -n python3-%{pkg_name}-tests
 %{python3_sitelib}/oslo_log/tests
 
+
 %files -n python-%{pkg_name}-lang -f oslo_log.lang
 %license LICENSE
+
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
 %global glib2_version 2.56.0
-%global glycin_version 2.1.0
+%global glycin_version 2.0.1
 
 # Normally we want auto features enabled to ensure no important feature gets
 # disabled by mistake. But in this package, the auto features are mostly legacy
@@ -35,9 +35,6 @@ Requires: shared-mime-info
 
 # All modules previously provided by gdk-pixbuf itself are obsoleted by Glycin.
 Obsoletes: %{name}-modules < %{version}-%{release}
-Obsoletes: %{name}-modules-extra < 2.44.0-3
-Provides:  %{name}-modules-extra = %{version}-%{release}
-Provides:  %{name}-modules-extra%{?_isa} = %{version}-%{release}
 
 # Most third-party pixbuf loaders are also obsolete. If Glycin supports the
 # format, then it will take precedence and the third-party loader won't be used.

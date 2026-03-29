@@ -1,54 +1,61 @@
-%global srcname iso8601
-%global pkgdesc \
-This module parses the most common forms of ISO 8601 date strings \
-(e.g. 2007-01-14T20:34:22+00:00) into datetime objects.
-
 # Disable tests when building for RHEL to avoid test dependencies, unless
 # building for EPEL.
 %bcond tests %[%{undefined rhel} || %{defined epel}]
 
-Name:           python-%{srcname}
+Name:           python-iso8601
 Version:        2.1.0
 Release:        8%{?dist}
+BuildArch:      noarch
 Summary:        Simple module to parse ISO 8601 dates
-
 License:        MIT
 URL:            https://github.com/micktwomey/pyiso8601
-Source:         %{pypi_source}
+Source:         %{pypi_source iso8601}
 # https://github.com/micktwomey/pyiso8601/pull/19
 Patch:          0001-Add-docs-and-test-extras.patch
-BuildArch:      noarch
 
-%description %{pkgdesc}
+%global _description %{expand:
+This module parses the most common forms of ISO 8601 date strings
+(e.g. 2007-01-14T20:34:22+00:00) into datetime objects.}
 
-%package -n python3-%{srcname}
+
+%description %_description
+
+
+%package -n python3-iso8601
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
-%description -n python3-%{srcname} %{pkgdesc}
+
+%description -n python3-iso8601 %_description
+
 
 %prep
-%autosetup -p 1 -n %{srcname}-%{version}
+%autosetup -p 1 -n iso8601-%{version}
+
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test}
 
+
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
-%pyproject_save_files -l %{srcname}
+%pyproject_save_files -l iso8601
+
 
 %check
+%pyproject_check_import -e iso8601.test_iso8601
 %if %{with tests}
 %pytest
-%else
-%pyproject_check_import -e iso8601.test_iso8601
 %endif
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+
+%files -n python3-iso8601 -f %{pyproject_files}
 %doc README.rst
+
 
 %changelog
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-8

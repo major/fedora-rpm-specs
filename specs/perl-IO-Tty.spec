@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.23
+Version:        1.24
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -23,7 +23,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Test Suite
@@ -61,6 +60,28 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Fri Mar 27 2026 Paul Howarth <paul@city-fan.org> - 1.24-1
+- Update to 1.24 (rhbz#2452300)
+  Bug Fixes:
+  - Fix slave pty reopening on Solaris/illumos; after close_slave(), reopening
+    with plain Perl open() skipped pushing STREAMS modules (ptem, ldterm,
+    ttcompat), causing isatty() to return false - added _open_tty() XS function
+    that opens the device and pushes STREAMS modules on platforms that support
+    I_PUSH (GH#54, GH#55)
+  - Fix undef warnings on Perl 5.8.8 by removing the undef operator on
+    localized $SIG{__DIE__}, and fix XS ttyname() on older Perls by avoiding
+    the InOutStream typemap, which can return NULL for filehandles created via
+    new_from_fd (GH#56, GH#58)
+  - Add __BSD_VISIBLE for FreeBSD in function probes; the _XOPEN_SOURCE
+    definition hid BSD extensions like strlcpy, causing probe failures and
+    subsequent compile errors from conflicting static/non-static declarations
+    (GH#57, GH#59)
+  Maintenance:
+  - Modernize Makefile.PL: replace BUILD_REQUIRES with TEST_REQUIRES
+    (EUMM 6.64+), add CONFIGURE_REQUIRES, upgrade META_MERGE to meta-spec v2,
+    modernize generated Constant.pm to use 'our' instead of 'use vars', and
+    remove dead PPD postamble (GH#60)
+
 * Wed Mar 25 2026 Paul Howarth <paul@city-fan.org> - 1.23-1
 - Update to 1.23 (rhbz#2450189)
   Bug Fixes:

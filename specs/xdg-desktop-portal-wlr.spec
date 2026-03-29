@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
 Version:        0.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -11,6 +11,9 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 # Generic portals.conf(5) for any wlroots-based compositor.
 # Can be loaded by setting XDG_CURRENT_DESKTOP=<compositor>:wlroots
 Source3:        wlroots-portals.conf
+
+Patch:          %{url}/commit/4598313.patch#/%{name}-0.8.1-screencast-set-READABLE-MAPPABLE-flag-on-pw-buffers.patch
+Patch:          %{url}/commit/896cee8.patch#/%{name}-0.8.1-Fix-screensharing-on-pipewire-1.6.x.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -83,6 +86,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Thu Mar 26 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8.1-3
+- Apply patches to fix screensharing with pipewire 1.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %global crate uu_ls
 
 Name:           rust-uu_ls
-Version:        0.0.27
+Version:        0.7.0
 Release:        %autorelease
 Summary:        ls ~ (uutils) display directory contents
 
@@ -16,11 +16,9 @@ License:        MIT
 URL:            https://crates.io/crates/uu_ls
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax hostname dependency to allow 0.3.0
-# * relax lscolors dependency to allow 0.16.0 to 0.21:
-#   https://github.com/uutils/coreutils/commit/e500d6d711abd6c7d2014a0d6306302801bfcd84,
-#   https://github.com/uutils/coreutils/commit/7887b76dabfb71113d2b981f3dd650a83375ebff,
-#   https://github.com/uutils/coreutils/commit/92665144c9ddf100d5044dc0c52af122a94587d0
+# * drop benchmarking dependencies like divan
+# * relax selinux requirements
+# * relax hostname dependency to allow 0.3
 Patch:          uu_ls-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -42,7 +40,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/BENCHMARKING.md
-%doc %{crate_instdir}/ls.md
+%doc %{crate_instdir}/README.package.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -79,6 +77,18 @@ This package contains library source intended for building other packages which
 use the "selinux" feature of the "%{crate}" crate.
 
 %files       -n %{name}+selinux-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+smack-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+smack-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "smack" feature of the "%{crate}" crate.
+
+%files       -n %{name}+smack-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

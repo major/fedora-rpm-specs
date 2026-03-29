@@ -7,7 +7,7 @@
 %global elspec 5.0
 %global tcuid 53
 # Recommended version is specified in java/org/apache/catalina/core/AprLifecycleListener.java
-%global native_version 2.0.8
+%global native_version 2.0.14
 
 # FHS 3.0 compliant tree structure - http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
 %global basedir %{_var}/lib/%{name}

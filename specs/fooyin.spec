@@ -1,13 +1,11 @@
 Name:           fooyin
-Version:        0.9.2
+Version:        0.10.1
 Release:        %autorelease
 Summary:        A customizable music player
 
 License:        GPL-3.0-or-later
 URL:            https://www.fooyin.org/
 Source0:        https://github.com/fooyin/fooyin/archive/v%{version}/fooyin-%{version}.tar.gz
-Patch0:         https://github.com/fooyin/fooyin/commit/c93d58283121c6aed44d137d88f5837f6995bbee.patch
-Patch1:         https://github.com/fooyin/fooyin/commit/9a8573cdd55691fb996d3bfa542d6b63cb78e6f2.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -20,6 +18,7 @@ BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(KDSingleApplication-qt6)
+BuildRequires:  cmake(QCoro6)
 BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(taglib)
@@ -36,6 +35,8 @@ BuildRequires:  pkgconfig(libopenmpt)
 BuildRequires:  pkgconfig(libgme)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libebur128)
+BuildRequires:  pkgconfig(soundtouch)
+BuildRequires:  pkgconfig(soxr)
 BuildRequires:  cmake(GTest)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib

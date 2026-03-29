@@ -3,7 +3,7 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.32.0
+Version:	1.0.2
 Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
@@ -12,10 +12,12 @@ Summary:	Metakernel for Jupyter
 License:	BSD-3-Clause
 URL:		https://github.com/Calysto/metakernel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/Calysto/metakernel/pull/356
-Patch0:		0001-Clear-PS0-in-bash-REPL-wrapper.patch
+#		https://github.com/Calysto/metakernel/pull/424
+Patch0:		0001-Set-PYTHON_BASIC_REPL-1-for-two-new-test.patch
 BuildArch:	noarch
 
+#		For metakernel_echo and metakernel_python
+BuildRequires:	python3dist(hatchling) >= 1.10.0
 #		For testing:
 BuildRequires:	python3dist(ipywidgets)
 BuildRequires:	python3dist(pytest)
@@ -26,13 +28,6 @@ BuildRequires:	python3dist(matplotlib)
 BuildRequires:	python3dist(portalocker)
 BuildRequires:	python3dist(pydot)
 BuildRequires:	man
-#		For documentation
-BuildRequires:	make
-BuildRequires:	python3dist(sphinx)
-BuildRequires:	python3dist(sphinx-bootstrap-theme)
-BuildRequires:	python3dist(myst-parser)
-BuildRequires:	python3dist(numpydoc)
-BuildRequires:	python3dist(recommonmark)
 
 %description
 A Jupyter/IPython kernel template which includes core magic functions
@@ -45,21 +40,16 @@ Summary:	Metakernel for Jupyter
 Obsoletes:	python3-metakernel-bash < 0.19.1-24
 Obsoletes:	python3-metakernel-tests < 0.29.3-2
 Obsoletes:	python3-metakernel+test < 0.31.0
+Obsoletes:	python-metakernel-doc < 1.0.2
 
 %description -n python3-metakernel
 A Jupyter/IPython kernel template which includes core magic functions
 (including help, command and file path completion, parallel and
 distributed processing, downloads, and much more).
 
-%package doc
-Summary:	Documentation for python-metakernel
-
-%description doc
-This package contains the documentation of python-metakernel.
-
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	82%{?dist}
+Release:	83%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -70,7 +60,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	82%{?dist}
+Release:	83%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -82,8 +72,13 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 %prep
 %setup -q -n metakernel-%{pkgversion}
 %patch -P0 -p1
+
 # Allow older pytest versions
 sed -e /minversion/d -e /strict/d -i pyproject.toml
+
+# Use metakernel_echo in %%{buildroot} for tests
+sed s/metakernel_echo.metakernel_echo/metakernel_echo/ \
+    -i tests/magics/test_kernel_magic.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -99,11 +94,6 @@ pushd metakernel_echo
 %pyproject_wheel
 popd
 
-pushd docs
-PYTHONPATH=.. make html
-rm -f _build/html/.buildinfo
-popd
-
 %install
 %pyproject_install
 rm %{buildroot}%{python3_sitelib}/metakernel/magics/README.md
@@ -111,9 +101,11 @@ rm %{buildroot}%{python3_sitelib}/metakernel/magics/README.md
 %check
 # The completion magic test checks for the existence of ~/.bashrc
 touch ~/.bashrc
-PYTHONPATH=.:metakernel_python ipcluster start -n 3 --location localhost &
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+PYTHONDONTWRITEBYTECODE=1 \
+ipcluster start -n 3 --location localhost &
 pid=$!
-pytest -v --color=no
+%pytest -v --color=no
 ipcluster stop
 wait $pid
 
@@ -122,10 +114,6 @@ wait $pid
 %doc README.md
 %{python3_sitelib}/metakernel-*.*-info
 %{python3_sitelib}/metakernel
-
-%files doc
-%license LICENSE.txt
-%doc docs/_build/html
 
 %files -n python3-metakernel-python
 %{python3_sitelib}/metakernel_python-*.*-info
@@ -138,6 +126,10 @@ wait $pid
 %{_datadir}/jupyter/kernels/metakernel_echo
 
 %changelog
+* Wed Mar 25 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.2-1
+- Update to version 1.0.2
+- Drop doc package - missing build dependencies (mkdocs plugins)
+
 * Tue Mar 10 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.32.0-1
 - Update to version 0.32.0
 

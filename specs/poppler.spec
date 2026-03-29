@@ -79,6 +79,10 @@ BuildRequires: gnupg2
 
 Requires: poppler-data
 
+# Recommend Zapf Dingbats and Symbol fonts
+Recommends: font(d050000l)
+Recommends: font(standardsymbolsps)
+
 Obsoletes: poppler-glib-demos < 0.60.1-1
 
 %description

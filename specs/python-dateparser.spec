@@ -16,7 +16,7 @@
 %bcond_with tests
 
 Name:           python-dateparser
-Version:        1.3.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Python parser for human readable dates
 
@@ -215,6 +215,9 @@ k="${k-}${k+ and }not search_dates"
 
 
 %changelog
+* Fri Mar 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-1
+- 1.4.0
+
 * Fri Mar 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-1
 - 1.3.0
 

@@ -5,7 +5,7 @@
 %global crate astral-reqwest-retry
 
 Name:           rust-astral-reqwest-retry
-Version:        0.8.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Retry middleware for reqwest
 

@@ -7,7 +7,7 @@
 %global crate sigul-pesign-bridge
 
 Name:           rust-sigul-pesign-bridge
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Bridge pesign-client requests to a Sigul signing server
 
@@ -19,6 +19,9 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  systemd-rpm-macros
+%if %{with check}
+BuildRequires:  acl
+%endif
 
 %global _description %{expand:
 Drop-in replacement for pesign's daemon that bridges pesign-client
@@ -38,6 +41,8 @@ Summary:        %{summary}
 License:        Unicode-DFS-2016 AND (MIT OR Apache-2.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND MIT AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
+# Enables support for the "socket_acl" setting
+Recommends:     acl
 # Enables signature validation on signed objects
 Recommends:     sbsigntools
 Requires:       pesign

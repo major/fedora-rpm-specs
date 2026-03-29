@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc5.260325gbbeb83d3182ab.44
+%define pkgrelease 0.rc5.260327g46b513250491.46
 %define kversion 7
-%define tarfile_release 7.0-rc5-51-gbbeb83d3182ab
+%define tarfile_release 7.0-rc5-226-g46b513250491
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.260325gbbeb83d3182ab.44%{?buildid}%{?dist}
+%define specrelease 0.rc5.260327g46b513250491.46%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4822,11 +4822,14 @@ fi\
 #
 #
 %changelog
-* Wed Mar 25 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc5.260325gbbeb83d3182ab.44]
-- Linux v7.0.0-0.rc5.260325gbbeb83d3182ab
-
-* Wed Mar 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.bbeb83d3182a.44]
+* Fri Mar 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.46b513250491.46]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Fri Mar 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.46b513250491.45]
+- Linux v7.0.0-0.rc5.46b513250491
+
+* Thu Mar 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.0138af2472df.44]
+- Linux v7.0.0-0.rc5.0138af2472df
 
 * Wed Mar 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc5.bbeb83d3182a.43]
 - redhat/spec: Re-enable gdb index for riscv cross-compile (Jennifer Berringer)

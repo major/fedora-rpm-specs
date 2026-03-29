@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.14
-Release:       7%{?dist}
+Version:       3.11.15
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -70,29 +70,15 @@ Patch13:       mingw-python3_module-select.patch
 Patch14:       mingw-python3_pkgconfig.patch
 # Backport: Fix build with tcl9
 Patch15:       https://github.com/python/cpython/commit/e0799352823289fafb8131341abd751923ee9c08.patch
-# Backport fix for CVE-2025-6075
-Patch16:       https://github.com/python/cpython/commit/5dceb93486176e6b4a6d9754491005113eb23427.patch
-# Backport fix for CVE-2025-12084
-# https://github.com/python/cpython/pull/142212
-Patch17:       CVE-2025-12084.patch
-# Backport proposed fix for CVE-2025-13836
-# https://github.com/python/cpython/pull/142141
-Patch18:       CVE-2025-13836.patch
-# Backport fix for CVE-2025-11468
-# https://github.com/python/cpython/commit/e9970f077240c7c670e8a6fc6662f2b30d3b6ad0
-Patch19:       CVE-2025-11468.patch
-# Backport fix for CVE-2026-0672
-# https://github.com/python/cpython/commit/b1869ff648bbee0717221d09e6deff46617f3e85
-Patch20:       CVE-2026-0672.patch
-# Backport fix for CVE-2026-0865
-# https://github.com/python/cpython/commit/e4846a93ac07a8ae9aa18203af0dd13d6e7a6995
-Patch21:       CVE-2026-0865.patch
-# Backport fix for CVE-2025-15282
-# https://github.com/python/cpython/commit/3f396ca9d7bbe2a50ea6b8c9b27c0082884d9f80
-Patch22:       CVE-2025-15282.patch
-# Backport fix for CVE-2026-1299
-# https://github.com/python/cpython/commit/842ce19a0c0b58d61591e8f6a708c38db1fb94e4
-Patch23:       CVE-2026-1299.patch
+# Backport proposed fix for CVE-2026-2297
+# https://github.com/python/cpython/pull/145515
+Patch16:       CVE-2026-2297.patch
+# Backport fix for CVE-2026-4519
+Patch20:       https://github.com/python/cpython/commit/ceac1efc66516ac387eef2c9a0ce671895b44f03.patch
+# Backport fix for CVE-2026-3644
+Patch21:       https://github.com/python/cpython/pull/146026.patch
+# Backport fix for CVE-2026-4224
+Patch22:       https://github.com/python/cpython/pull/146000.patch
 
 
 BuildRequires: make
@@ -533,6 +519,13 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 3.11.15-2
+- Backport fixes for CVE-2026-4519, CVE-2026-3644, CVE-2026-4224
+
+* Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 3.11.15-1
+- Update to 3.11.15
+- Backport fix for CVE-2026-2297
+
 * Mon Feb 09 2026 Sandro Mani <manisandro@gmail.com> - 3.11.14-7
 - Backport fixes for CVE-2025-11468, CVE-2026-0672, CVE-2026-0865,
   CVE-2025-15282, CVE-2026-1299

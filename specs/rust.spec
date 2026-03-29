@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.94.0
+Version:        1.94.1
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -158,7 +158,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.94.0-disable-libssh2.patch
+Patch100:       rustc-1.94.1-disable-libssh2.patch
 
 # When building wasi, prevent linking a compiler-rt builtins library we don't have.
 Patch1000:	wasi-no-link-builtins.patch

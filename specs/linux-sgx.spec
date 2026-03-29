@@ -311,11 +311,10 @@ Patch0009: 0009-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
 Patch0010: 0010-psw-make-aesm_service-build-verbose.patch
 Patch0011: 0011-Fix-modern-C-function-prototype-compliance.patch
 Patch0012: 0012-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
-Patch0013: 0013-fix-BOM-for-pccs-with-DCAP.patch
+Patch0013: 0013-linux-installer-drop-PCCS-package-from-BOM.patch
 Patch0014: 0014-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
 Patch0015: 0015-fix-BOM-for-mpa_manage-mpa_registration-files.patch
-Patch0016: 0016-linux-installer-drop-PCCS-package-from-BOM.patch
-Patch0017: 0017-fix-missing-def-of-uncaught_exception.patch
+Patch0016: 0016-fix-missing-def-of-uncaught_exception.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 
@@ -1184,7 +1183,7 @@ mv %{buildroot}/root/etc/sgx_default_qcnl.conf \
 # it probably makes more sense to do so on the LAN, so don't
 # assume localhost deployment. This also allows out of the box
 # usage without having to create a local x509 CA for PCCS.
-perl -i -p -e 's,https://localhost:10801/sgx/certification/v4/,https://api.trustedservices.intel.com/sgx/certification/v4/,' \
+perl -i -p -e 's,https://localhost:8081/sgx/certification/v4/,https://api.trustedservices.intel.com/sgx/certification/v4/,' \
    %{buildroot}%{_sysconfdir}/sgx_default_qcnl.conf
 
 %__install %{SOURCE42} %{buildroot}%{_sysusersdir}/sgxprv.conf

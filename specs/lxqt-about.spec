@@ -1,19 +1,22 @@
 Name:          lxqt-about
 Summary:       About application for LXQt desktop suite
 Version:       2.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       Apache-2.0 and GPL-2.0-only and GPL-3.0-only and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-2.1-or-later and LGPL-3.0-only and MIT
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: pkgconfig(lxqt)
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: desktop-file-utils
+BuildRequires: gcc-c++
 BuildRequires: perl
+BuildRequires: pkgconfig
+
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(Qt6LinguistTools)
+
+BuildRequires: pkgconfig(glib-2.0)
 
 %description
 %{summary}.
@@ -28,18 +31,18 @@ This package provides translations for the lxqt-about package.
 %prep
 %autosetup
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
 %cmake_install
-desktop-file-edit \
-    --remove-category=LXQt --add-category=X-LXQt \
-    --remove-category=Help --add-category=X-Help \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
 %find_lang %{name} --with-qt
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %doc COPYING
@@ -54,6 +57,9 @@ desktop-file-edit \
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Fri Mar 27 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
+- Fix License: field for newer SPDX policy
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

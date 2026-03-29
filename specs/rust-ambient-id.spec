@@ -5,7 +5,7 @@
 %global crate ambient-id
 
 Name:           rust-ambient-id
-Version:        0.0.10
+Version:        0.0.11
 Release:        %autorelease
 Summary:        Detects ambient OIDC credentials in a variety of environments
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+astral-reqwest-middleware-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+astral-reqwest-middleware-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "astral-reqwest-middleware" feature of the "%{crate}" crate.
-
-%files       -n %{name}+astral-reqwest-middleware-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+native-tls-devel

@@ -3,50 +3,56 @@
 #
 # remirepo spec file for php-pecl-var-representation
 #
-# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2021-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%bcond_without      tests
-%global pecl_name   var_representation
-%global ini_name    40-%{pecl_name}.ini
+%bcond_without           tests
+
+%global pecl_name        var_representation
+%global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 0.1.5
 #global upstream_prever  RC1
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
-%global _configure       ../%{sources}/configure
+# Github forge
+%global gh_vend          TysonAndre
+%global gh_proj          var_representation
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              %{upstream_version}%{?upstream_prever}
 
-Summary:        A compact, more readable alternative to var_export
 Name:           php-pecl-var-representation
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        6%{?dist}
-
+Summary:        A compact, more readable alternative to var_export
 License:        BSD-3-Clause
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:        7%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.2
-BuildRequires:  php-pear
 # used by tests
 BuildRequires:  tzdata
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
+# Extension
 Provides:       php-%{pecl_name}               = %{version}
 Provides:       php-%{pecl_name}%{?_isa}       = %{version}
+# PECL
 Provides:       php-pecl(%{pecl_name})         = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
 # Notice pecl_name != name
 Provides:       php-pecl-%{pecl_name}          = %{version}-%{release}
 Provides:       php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
+# No PIE for now
 
 
 %description
@@ -55,21 +61,14 @@ properly escapes control characters.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/COPYING/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Check version as upstream often forget to update this
 extver=$(sed -n '/define PHP_VAR_REPRESENTATION_VERSION/{s/.* "//;s/".*$//;p}' php_var_representation.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
    : Error: Upstream version is ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:-dev}.
    exit 1
 fi
-cd ..
 
 # Create configuration file
 cat > %{ini_name} << 'EOF'
@@ -85,7 +84,6 @@ peclconf() {
     --with-php-config=$1
 }
 
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -94,21 +92,11 @@ peclconf %{__phpconfig}
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install the configuration
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
@@ -118,7 +106,6 @@ done
     --modules | grep '^%{pecl_name}$'
 
 %if %{with tests}
-cd %{sources}
 : Run upstream test suite
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
@@ -127,15 +114,18 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/COPYING
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license COPYING
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 0.1.5-7
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.41
+Version:        1.42
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -93,6 +93,29 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Fri Mar 27 2026 Paul Howarth <paul@city-fan.org> - 1.42-1
+- Update to 1.42
+  Bug Fixes:
+  - Fix: Replace strtok() with strpbrk() and fix sign-compare warnings in
+    perl_syck.h (GH#145)
+  - Fix: Terminate plain scalars at document boundaries --- and ... (GH#150)
+  - Fix: Skip %%TAG and %%YAML directives in document header (GH#151)
+  - Fix: Plug SV leak when eval_pv croaks on bad perl/code blocks (GH#153)
+  - Fix: Allow non-specific tag '!' before block scalars (GH#27, GH#102)
+  - Fix: Remove spurious %%type <nodeId> for indent_open in gram.y
+    (GH#157, GH#158)
+  - Fix: Use modern bison %%define api.prefix directive (GH#159, GH#160)
+  Improvements:
+  - Implement YAML merge key (<<) support (GH#149)
+  Maintenance:
+  - Remove dead Perl 5.6/5.8 version guards from test files (GH#146)
+  - Add YAML 1.0 spec compliance audit and coverage tests (GH#148)
+  - Add comprehensive round-trip tests for YAML 1.0 spec features (GH#152)
+  - Remove unneeded TODO in t/json-basic.t (GH#154)
+  - Add regex Dump/Load/round-trip tests to perl tag scheme (GH#155)
+  - Do not require a .y file to build YAML::Syck; add brew support for bison
+  - Don't ship docs/ directory in tarball
+
 * Mon Mar 23 2026 Paul Howarth <paul@city-fan.org> - 1.41-1
 - Update to 1.41
   Bug Fixes:

@@ -1,16 +1,20 @@
 %define pecl_name  ssh2
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
-%global _configure ../%{sources}/configure
+
+# Github forge
+%global gh_vend    php
+%global gh_proj    pecl-networking-ssh2
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        %{version}
 
 Name:           php-pecl-ssh2
-Version:        1.4.1
-Release:        10%{?dist}
 Summary:        Bindings for the libssh2 library
-
 License:        PHP-3.01
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+Version:        1.4.1
+Release:        11%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
@@ -18,12 +22,14 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libssh2-devel >= 1.2
 BuildRequires:  php-devel >= 7.0
-BuildRequires:  php-pear
 
+# Extension
 Provides:       php-%{pecl_name}               = %{version}
 Provides:       php-%{pecl_name}%{?_isa}       = %{version}
+# PECL
 Provides:       php-pecl(%{pecl_name})         = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+# No PIE for now
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -38,21 +44,14 @@ Documentation: http://php.net/ssh2
 
 
 %prep
-%setup -c -q 
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 extver=$(sed -n '/#define PHP_SSH2_VERSION/{s/.*\t"//;s/".*$//;p}' php_ssh2.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream version is now ${extver}, expecting %{version}.
    : Update the pdover macro and rebuild.
    exit 1
 fi
-cd ..
 
 cat > %{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
@@ -61,7 +60,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -70,16 +68,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
-: Install XML package description
-install -Dpm 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
 : Install config file
-install -Dpm644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
+install -Dpm644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 : Install the Documentation
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -95,15 +88,18 @@ done
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc *.md
 
 %config(noreplace) %{_sysconfdir}/php.d/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 1.4.1-11
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,11 +1,8 @@
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-# Upstream tagged 0.34.1 early and didn't include the commit that fixed the test
-# suite. We need to use `commit` instead of `tag` to make sure the fix is
-# included for this release.
-%global commit 359964520a9dcd2c7e12680bfc53e359d74c489b
+%global tag v0.35.0
 
 Name: qtile-extras
-Version: 0.34.1
+Version: 0.35.0
 Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta

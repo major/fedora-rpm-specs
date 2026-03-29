@@ -5,15 +5,13 @@
 %global crate dtor-proc-macro
 
 Name:           rust-dtor-proc-macro
-Version:        0.0.5
+Version:        0.0.6
 Release:        %autorelease
 Summary:        Proc-macro support for the dtor crate
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/dtor-proc-macro
 Source:         %{crates_source}
-Source2:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-APACHE
-Source3:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -7,7 +7,7 @@
 %global crate ctor
 
 Name:           rust-ctor
-Version:        0.4.3
+Version:        0.6.3
 Release:        %autorelease
 Summary:        __attribute__((constructor)) for Rust
 

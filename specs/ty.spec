@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.24
+Version:        0.0.26
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -166,9 +166,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev beb543b5c666be9fd3f13c88df818f202b63e9d0
-%global ruff_baseversion 0.15.6
-%global ruff_snapdate 20260319
+%global ruff_rev 34998be22ec3a77d398bbd55234ef8740f768329
+%global ruff_baseversion 0.15.7
+%global ruff_snapdate 20260326
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -190,9 +190,9 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev 53421c2fff87426fa0bb51cab06632b87646de13
-%global salsa_baseversion 0.26.0
-%global salsa_snapdate 20260207
+%global salsa_rev 2f687a17ceea8ec7aaa605561ccbde938ccef086
+%global salsa_baseversion 0.26.1
+%global salsa_snapdate 20260320
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.

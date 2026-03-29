@@ -26,6 +26,8 @@ Group:            Development/Libraries
 License:          Apache-2.0
 URL:              https://pypi.io/pypi/cliff
 Source0:          https://pypi.io/packages/source/c/cliff/cliff-%{version}.tar.gz
+# cliff fix for sphinx with 3.14 - merged upstream already
+Patch1:           https://github.com/openstack/cliff/commit/391261c849c994ca2d3f42926497e633047ed8c7.patch
 
 # Backport of https://opendev.org/openstack/cliff/commit/fcf9710013e40c1aea22a76d76158acb56f5fc46.patch
 Patch0:           relax-caller.patch

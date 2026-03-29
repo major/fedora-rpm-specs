@@ -13,6 +13,9 @@ Patch:          %{url}/pull/506.patch
 Patch:          %{url}/pull/573.patch
 # Fix compatibility with Python 3.14+
 Patch:          %{url}/pull/583.patch
+# Fix compatibility with pytest 9
+# https://github.com/html5lib/html5lib-python/pull/590 rebased
+Patch:          590.patch
 # Avoid ResourceWarning: Implicitly cleaning up <addinfourl ...>
 Patch:          %{url}/pull/591.patch
 # Replace pkg resources use, removed from setuptools 82+

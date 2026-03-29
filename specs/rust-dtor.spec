@@ -7,15 +7,13 @@
 %global crate dtor
 
 Name:           rust-dtor
-Version:        0.0.6
+Version:        0.1.1
 Release:        %autorelease
 Summary:        __attribute__((destructor)) for Rust
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/dtor
 Source:         %{crates_source}
-Source2:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-APACHE
-Source3:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -90,7 +88,6 @@ use the "used_linker" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

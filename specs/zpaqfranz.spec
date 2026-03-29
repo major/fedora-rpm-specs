@@ -14,7 +14,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        64.6
+Version:        64.7
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -125,7 +125,7 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
     < zpaqfranz.cpp > LICENSES
 
 %build
-# Don't use Makefile: It installs to /usr/local.
+# Don't use Makefile: It does not recognize s390x, strips executables.
 %{build_cxx} %{optflags} \
     -DIPV6 \
     -Dunix \
@@ -139,7 +139,7 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
     -DBIG \
 %endif
     -DSFTP \
-    zpaqfranz.cpp %{?__global_ldflags} -pthread -o zpaqfranz
+    zpaqfranz.cpp %{?__global_ldflags} -ldl -pthread -o zpaqfranz
 pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
 
 %check
@@ -160,6 +160,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Fri Mar 27 2026 Petr Pisar <ppisar@redhat.com> - 1:64.7-1
+- 6.47 bump
+
 * Mon Mar 09 2026 Petr Pisar <ppisar@redhat.com> - 1:64.6-1
 - 64.6 bump
 

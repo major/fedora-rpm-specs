@@ -4,13 +4,15 @@
 
 Name:           mingw-gstreamer1-plugins-good
 Version:        1.28.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-%{version}.tar.xz
-
+# Backport fix for CVE-2026-3083, CVE-2026-3085
+# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/commit/8349cdd35f85246e113b18e55fd11abf9cb248bf
+Patch0:         CVE-2026-3083_3085.patch
 BuildArch:      noarch
 
 BuildRequires:  gettext
@@ -275,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-3
+- Backport fix for CVE-2026-3083, CVE-2026-3085
+
 * Sat Mar 21 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-2
 - Rebuild (mingw-libsoup)
 

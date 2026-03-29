@@ -1,28 +1,15 @@
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg 1
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 %global pypi_name oslo.utils
 %global pkg_name oslo-utils
 %global with_doc 1
 
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
-# Exclude sphinx from BRs if docs are disabled
-%if ! 0%{?with_doc}
-%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
-%endif
-# Exclude some BRs for Fedora
-%if 0%{?fedora} || 0%{?epel} || 0%{?eln}
-%global excluded_brs %{excluded_brs} eventlet
-%endif
+%global common_desc %{expand:
+The OpenStack Oslo Utility library.
+* Documentation: http://docs.openstack.org/developer/oslo.utils
+* Source: http://git.openstack.org/cgit/openstack/oslo.utils
+* Bugs: http://bugs.launchpad.net/oslo}
 
-%global common_desc \
-The OpenStack Oslo Utility library. \
-* Documentation: http://docs.openstack.org/developer/oslo.utils \
-* Source: http://git.openstack.org/cgit/openstack/oslo.utils \
-* Bugs: http://bugs.launchpad.net/oslo
-
-%global common_desc_tests Tests for the Oslo Utility library.
 
 Name:           python-oslo-utils
 Version:        10.0.0
@@ -31,10 +18,10 @@ Summary:        OpenStack Oslo Utility library
 
 License:        Apache-2.0
 URL:            http://launchpad.net/oslo
-Source0:        https://tarballs.openstack.org/%{pypi_name}/oslo_utils-%{upstream_version}.tar.gz
+Source0:        https://tarballs.openstack.org/%{pypi_name}/oslo_utils-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_utils-%{upstream_version}.tar.gz.asc
+Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_utils-%{version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:      noarch
@@ -46,8 +33,10 @@ BuildRequires:  /usr/bin/gpgv2
 
 BuildRequires:  git-core
 
+
 %description
 %{common_desc}
+
 
 %package -n python3-%{pkg_name}
 Summary:    OpenStack Oslo Utility library
@@ -57,61 +46,67 @@ BuildRequires:  qemu-img
 
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 
+
 %description -n python3-%{pkg_name}
 %{common_desc}
+
 
 %if 0%{?with_doc}
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for the Oslo Utility library
 
+
 %description -n python-%{pkg_name}-doc
 Documentation for the Oslo Utility library.
 %endif
+
 
 %package -n python3-%{pkg_name}-tests
 Summary:    Tests for the Oslo Utility library
 
 Requires: python3-%{pkg_name} = %{version}-%{release}
 
+
 %description -n python3-%{pkg_name}-tests
 %{common_desc_tests}
+
+Tests for the Oslo Utility library.
+
 
 %package  -n python-%{pkg_name}-lang
 Summary:   Translation files for Oslo utils library
 
+
 %description -n python-%{pkg_name}-lang
 Translation files for Oslo utils library
+
 
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n oslo_utils-%{upstream_version} -S git
+%autosetup -n oslo_utils-%{version} -S git
 
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
-sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 # we consume zoneinfo from stdlibg instead of tzdata
 sed -i -e '/tzdata.*/d' test-requirements.txt requirements.txt
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs};do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^eventlet[[:space:]]*[!><=]/d" \
+    test-requirements.txt doc/requirements.txt
+
 
 %generate_buildrequires
 %if 0%{?with_doc}
-  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
-  %pyproject_buildrequires -t -e %{default_toxenv}
+%pyproject_buildrequires -t -e %{default_toxenv}
 %endif
+
 
 %build
 %pyproject_wheel
@@ -140,12 +135,14 @@ mv %{buildroot}%{python3_sitelib}/oslo_utils/locale %{buildroot}%{_datadir}/loca
 # Find language files
 %find_lang oslo_utils --all-name
 
+
 %check
 %if 0%{?fedora} || 0%{?epel} || 0%{?eln}
 # eventlet is not yet supported on python 3.13 and it's not used in openstack clients
 rm oslo_utils/tests/test_eventletutils.py
 %endif
 %tox -e %{default_toxenv} -- -- --exclude-regex '(oslo_utils.tests.test_netutils.NetworkUtilsTest.test_is_valid_ip)'
+
 
 %files -n python3-%{pkg_name}
 %doc README.rst
@@ -154,17 +151,21 @@ rm oslo_utils/tests/test_eventletutils.py
 %{python3_sitelib}/*.dist-info
 %exclude %{python3_sitelib}/oslo_utils/tests
 
+
 %if 0%{?with_doc}
 %files -n python-%{pkg_name}-doc
 %doc doc/build/html
 %license LICENSE
 %endif
 
+
 %files -n python3-%{pkg_name}-tests
 %{python3_sitelib}/oslo_utils/tests
 
+
 %files -n python-%{pkg_name}-lang -f oslo_utils.lang
 %license LICENSE
+
 
 %changelog
 %autochangelog

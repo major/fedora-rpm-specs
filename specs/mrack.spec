@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.25.0
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,8 +185,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Thu Mar 26 2026  - 1.26.0-1
+- a702da2 fix: Pin setuptools<82 to restore pkg_resources for beaker-client (Rizwan Shaikh)
+- cf48126 feat: add EC2 UserData support for AWS provider (Rizwan Shaikh)
 
 * Tue Oct 21 2025 David Pascual Hernandez <davherna@redhat.com> - 1.25.0-1
 - 8ed12e7 feat: Add support for Beaker group key (David Pascual)
