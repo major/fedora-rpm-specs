@@ -6,7 +6,7 @@
 
 Name:           templates_parser
 Version:        %{upstream_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An Ada library for parsing templates
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception
@@ -210,6 +210,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 26.0.0-3
+- Rebuilt because GCC 16.0.1-0.10 broke ALI.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

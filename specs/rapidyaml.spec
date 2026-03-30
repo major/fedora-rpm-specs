@@ -1,5 +1,4 @@
 %bcond tests 1
-%bcond python 1
 %bcond rebuild_yaml_data 0
 
 # Upstream defaults to C++11, but gtest 1.17.0 requires C++17 or later.
@@ -7,10 +6,10 @@
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.11.0
+Version:        0.11.1
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.11.0
+%global so_version 0.11.1
 Release:        %autorelease
 
 # SPDX
@@ -32,20 +31,6 @@ Source1:        %{yamltest_url}/archive/data-%{yamltest_date}/yaml-test-suite-da
 Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yamltest_date}.tar.gz
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
-
-# c4_project(): ensure RYML_VERSION is set
-# https://github.com/biojppm/rapidyaml/commit/1173e113180a652f9ad5744f8dccdbee58c730ef
-#
-# Fixes:
-#
-# - rymlConfig.cmake doesn't set version string
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2451572
-# - In rymlConfig.cmake, RYML_VERSION is not set from the project version
-#   https://github.com/biojppm/rapidyaml/issues/584
-#
-# This is just the CMakeLists.txt change, not the changelog entry or the c4core
-# submodule update.
-Patch:          rapidyaml-0.11.0-set-RYML_VERSION.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -70,11 +55,14 @@ BuildRequires:  cmake(gtest)
 # A Python 3 interpreter is required unconditionally for the patch-no-download
 # script.
 BuildRequires:  python3-devel
-%if %{with python}
-BuildRequires:  tomcli
-BuildRequires:  swig
-BuildRequires:  python3dist(pytest)
-%endif
+# The Python bindings, https://pypi.org/project/rapidyaml/, were moved to a
+# separate repository, https://github.com/biojppm/rapidyaml-python, as of
+# rapidyaml 0.11.1. Since python3-rapidyaml was a leaf (sub)package in Fedora,
+# we have dropped it beginning with Fedora 45. This upgrade path can be removed
+# after Fedora 47. If it turns out that the Python bindings are needed for
+# something in the future, then they should be submitted and reviewed as a
+# separate python-rapidyaml source package.
+Obsoletes:      python3-rapidyaml < 0.11.1-1
 
 %if %{with rebuild_yaml_data}
 # See bin/suite-to-data in Source1.
@@ -106,23 +94,6 @@ The rapidyaml-devel package contains libraries and header files for developing
 applications that use Rapid YAML.
 
 
-%if %{with python}
-%package -n python3-rapidyaml
-Summary:        %{summary}
-
-# The Python extension contains its own statically linked copy of rapidyaml
-# (acceptable since both are built from the same source RPM), so we don’t need
-# to depend on the base package. It would be nice—for installation size
-# savings, if nothing else—if we could link dynamically against base package’s
-# shared library, but upstream’s build system doesn’t make this very practical.
-
-%description -n python3-rapidyaml
-%{common_description}
-
-The python3-rapidyaml package contains Python bindings for Rapid YAML.
-%endif
-
-
 %prep
 %autosetup -p1
 
@@ -140,8 +111,9 @@ cp -rvp %{_datadir}/cmake/c4project ext/c4core/cmake
 # Use external c4core
 sed -r -i '/INCORPORATE c4core/d' 'CMakeLists.txt'
 
-# Patch out downlaod of c4fs:
-'%{SOURCE10}' 'ext/testbm.cmake' 'c4_require_subproject\(c4fs' '\)$'
+# Patch out download of c4fs:
+'%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4fs' '\)$'
+'%{SOURCE10}' 'ext/testbm.cmake' 'c4_add_library\(c4fs' '\)$'
 
 # Patch out download of c4log
 '%{SOURCE10}' 'test/CMakeLists.txt' \
@@ -161,30 +133,6 @@ mkdir -p 'test/extern/'
 # Data in the form rapidyaml needs it
 %setup -q -T -D -b 2 -n rapidyaml-%{version}
 mv '../yaml-test-suite-data-%{yamltest_date}' 'test/extern/yaml-test-suite'
-
-%if %{with python}
-
-# We use the system ninja-build package rather than the PyPI ninja
-# distribution; similarly for swig.
-#
-# We don’t really need python-setuptools_git, and it’s not packaged in the
-# EPELs, so there is a benefit to patching it out.
-tomcli set pyproject.toml lists delitem --type=regex --no-first \
-    build-system.requires '(ninja|swig|setuptools-git)'
-sed -r -i '/setuptools-git/d' requirements.txt setup.py
-
-# Link the unbundled c4core from the Python SWIG wrapper extension.
-sed -r -i 's/\b(swig_link_libraries\(.*)\)/\1 c4core\)/' \
-    api/CMakeLists.txt
-
-%endif
-
-
-%if %{with python}
-%generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires
-%endif
 
 
 %conf
@@ -215,47 +163,6 @@ mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 %build
 %cmake_build
 
-%if %{with python}
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-# We could set -DRYML_BUILD_API_PYTHON:BOOL=ON in the library build above, but
-# the resulting ryml.py and _ryml.so would be installed in the wrong place and
-# without necessary metadata. Instead we rebuild the library indirectly via the
-# usual Python tooling to get the Python bindings.
-
-# Here we can apply any necessary CMake flags from the definition of %%cmake in
-# %%{_rpmmacrodir}/macros.cmake. It’s not clear that there is any reasonable
-# way to do this automatically without using %%cmake. Additonally, we must make
-# some adjustments:
-#
-# - Do an in-source build (no -S and -B options) because things break if we try
-#   to do an out-of-source build. This is just as well: the main library build
-#   is out-of-source, so this in-source build will not clobber it.
-# - Do not set CMAKE_INSTALL_PREFIX, because this is set in setup.py to the
-#   Python package directory, i.e., %%{python3_sitearch/ryml, and overriding it
-#   will only break things. Similarly, we needn’t bother setting
-#   INCLUDE_INSTALL_DIR, LIB_INSTALL_DIR, SYSCONF_INSTALL_DIR, or any other
-#   paths; nothing will be installed there, and fiddling with them can do no
-#   good in this case.
-# - For conciseness, we refrain from setting flags specific to C and Fortran
-#   and flags for the “UNIX Makefiles” backend.
-# - We omit CMAKE_INSTALL_DO_STRIP, which is not used here.
-#
-# Not much is left!
-CF="${CF-} -DCMAKE_CXX_FLAGS_RELEASE:STRING='-DNDEBUG'"
-CF="${CF-} %{?_cmake_shared_libs}"
-
-CF="${CF-} -DRYML_CXX_STANDARD=%{cxx_std}"
-CF="${CF-} -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF}"
-CF="${CF-} -DRYML_TEST_FUZZ:BOOL=OFF"
-export CMAKE_FLAGS="${CF}"
-# We can’t easily pass options to the CMake build invocation, but we can
-# control it somewhat with environment variables:
-# https://cmake.org/cmake/help/latest/manual/cmake-env-variables.7.html
-export VERBOSE=''
-export CMAKE_BUILD_PARALLEL_LEVEL='%{_smp_build_ncpus}'
-%pyproject_wheel
-%endif
-
 
 %install
 %cmake_install
@@ -281,23 +188,11 @@ fi
 # https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/natvis
 rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
 
-%if %{with python}
-%pyproject_install
-%pyproject_save_files -l ryml
-%endif
-
 
 
 %check
 %if %{with tests}
 %cmake_build --target ryml-test-run-verbose
-%endif
-
-%if %{with python}
-%pyproject_check_import
-%if %{with tests}
-%pytest -v
-%endif
 %endif
 
 
@@ -317,12 +212,6 @@ rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
 
 %dir %{_libdir}/cmake/ryml
 %{_libdir}/cmake/ryml/*.cmake
-
-
-%if %{with python}
-%files -n python3-rapidyaml -f %{pyproject_files}
-%doc README.md
-%endif
 
 
 %changelog

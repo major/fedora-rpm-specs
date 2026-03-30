@@ -3,7 +3,7 @@
 %bcond perl_Clone_enables_optional_test %[%{undefined rhel} && %{undefined perl_bootstrap}]
 
 Name:           perl-Clone
-Version:        0.49
+Version:        0.50
 Release:        1%{?dist}
 Summary:        Recursively copy perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -124,7 +124,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc AI_POLICY.md Changes README.md
+%doc AI_POLICY.md Changes README.md SECURITY.md
 %{perl_vendorarch}/auto/Clone/
 %{perl_vendorarch}/Clone.pm
 %{_mandir}/man3/Clone.3*
@@ -133,6 +133,15 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Mar 28 2026 Paul Howarth <paul@city-fan.org> - 0.50-1
+- Update to 0.50
+  - Fix: Deep-copy HVs past MAX_DEPTH instead of aliasing (GH#93)
+  - Fix: Strip macOS xattrs from dist directory before packaging
+  - Clean-up: Remove unreachable break and empty magic_ref if-body in Clone.xs
+  - Docs: Update MAX_DEPTH limits to reflect actual platform values
+  - Docs: Add SECURITY.md policy for vulnerability reporting
+  - Prefer using gtar in Makefile.PL
+
 * Thu Mar 26 2026 Paul Howarth <paul@city-fan.org> - 0.49-1
 - Update to 0.49
   - Try to exclude macOS extended attributes from dist tarball

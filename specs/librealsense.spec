@@ -1,6 +1,6 @@
 %global abiver 2.57
 Name:           librealsense
-Version:        2.57.6
+Version:        2.57.7
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 

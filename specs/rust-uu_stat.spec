@@ -2,26 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate dircpy
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-dircpy
-Version:        0.3.20
+%global crate uu_stat
+
+Name:           rust-uu_stat
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Copy directories recursively with flexible options
+Summary:        stat ~ (uutils) display FILE status
 
 License:        MIT
-URL:            https://crates.io/crates/dircpy
+URL:            https://crates.io/crates/uu_stat
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop benchmarks and benchmark-only dependencies
-# * drop dependencies for tests that require internet connectivity
-Patch:          dircpy-fix-metadata.diff
-Patch2:         0001-drop-a-test-that-requires-internet-connectivity.patch
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-Copy directories recursively with flexible options.}
+stat ~ (uutils) display FILE status.}
 
 %description %{_description}
 
@@ -36,8 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/README.package.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -52,16 +49,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jwalk-devel
+%package     -n %{name}+selinux-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+jwalk-devel %{_description}
+%description -n %{name}+selinux-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "jwalk" feature of the "%{crate}" crate.
+use the "selinux" feature of the "%{crate}" crate.
 
-%files       -n %{name}+jwalk-devel
+%files       -n %{name}+selinux-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

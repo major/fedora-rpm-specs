@@ -2,7 +2,7 @@ Name:           recorder
 Version:        1.2.3
 Release:        %{?dist}
 Summary:        Lock-free, real-time flight recorder for C or C++ programs
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Url:            https://github.com/tao-3D/%{name}
 Source:         https://github.com/tao-3D/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  make >= 3.82

@@ -1,4 +1,3 @@
-%global cheese_version 3.28.0
 %global glib2_version 2.64
 %global gnome_online_accounts_version 3.44.0
 %global gnome_stack 42.0
@@ -11,7 +10,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:          budgie-control-center
-Version:       2.1.0
+Version:       2.1.1
 Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
@@ -57,7 +56,6 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(accountsservice)
-BuildRequires:  pkgconfig(cheese) >= %{cheese_version}
 BuildRequires:  pkgconfig(colord-gtk)
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
@@ -93,7 +91,6 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(libwacom)
 %endif
 
-Requires: cheese-libs%{?_isa} >= %{cheese_version}
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gnome-desktop3%{?_isa} >= %{gnome_stack}
 Requires: gnome-settings-daemon%{?_isa} >= %{gnome_stack}
@@ -166,7 +163,6 @@ This package contains architecture-agnostic common assets for ${name}
 
 %build
 %meson \
-    -Dbluetooth=false \
     -Ddark_mode_distributor_logo=%{_datadir}/pixmaps/system-logo-white.png \
     -Ddocumentation=true \
     -Dmalcontent=true
@@ -234,6 +230,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sat Mar 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.1-1
+- Update to 2.1.1 release
+- Fixes BZ#2445518
+
 * Sat Jan 31 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.0-1
 - Update to 2.1.0 release
 

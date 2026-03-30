@@ -23,7 +23,7 @@
 # For building earlier snapshots of the compiler
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -739,7 +739,11 @@ sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lL
 %else
 sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
+%if %{with preview}
+sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%else
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%endif
 %endif
 
 %cmake_build -j ${JOBS}

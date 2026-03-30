@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate dircpy
+%global crate reborrow
 
-Name:           rust-dircpy
-Version:        0.3.20
+Name:           rust-reborrow
+Version:        0.5.5
 Release:        %autorelease
-Summary:        Copy directories recursively with flexible options
+Summary:        Emulate reborrowing for user types
 
 License:        MIT
-URL:            https://crates.io/crates/dircpy
+URL:            https://crates.io/crates/reborrow
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop benchmarks and benchmark-only dependencies
-# * drop dependencies for tests that require internet connectivity
-Patch:          dircpy-fix-metadata.diff
-Patch2:         0001-drop-a-test-that-requires-internet-connectivity.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Copy directories recursively with flexible options.}
+Emulate reborrowing for user types.}
 
 %description %{_description}
 
@@ -36,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,16 +46,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jwalk-devel
+%package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+jwalk-devel %{_description}
+%description -n %{name}+derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "jwalk" feature of the "%{crate}" crate.
+use the "derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+jwalk-devel
+%files       -n %{name}+derive-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+reborrow-derive-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+reborrow-derive-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "reborrow-derive" feature of the "%{crate}" crate.
+
+%files       -n %{name}+reborrow-derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -69,17 +75,17 @@ use the "jwalk" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
+%cargo_build -a
 
 %install
-%cargo_install
+%cargo_install -a
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -a
 %endif
 
 %changelog

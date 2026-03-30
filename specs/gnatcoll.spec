@@ -7,7 +7,7 @@
 Name:           gnatcoll
 Epoch:          2
 Version:        %{upstream_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
@@ -421,6 +421,9 @@ done
 ###############
 
 %changelog
+* Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:26.0.0-3
+- Rebuilt because GCC 16.0.1-0.10 broke ALI.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

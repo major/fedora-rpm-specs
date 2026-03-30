@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.2.10
+Version:        0.2.11
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.10
+%global so_version 0.2.11
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -32,19 +32,6 @@ License:        %{shrink:
                 (Apache-2.0 OR MIT OR BSL-1.0)
                 }
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
-
-# c4_project(): ensure C4CORE_VERSION is set
-# https://github.com/biojppm/c4core/commit/a0341155db9e7f88462aec555b282822b4c01a83
-#
-# Fixes the same issue in c4core that was reported for rapidyaml in:
-# - rymlConfig.cmake doesn't set version string
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2451572
-# - In rymlConfig.cmake, RYML_VERSION is not set from the project version
-#   https://github.com/biojppm/rapidyaml/issues/584
-#
-# This is just the CMakeLists.txt change, not the cmake submodule (c4project)
-# update.
-Patch:          c4core-0.2.10-set-C4CORE_VERSION.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

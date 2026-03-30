@@ -3,10 +3,10 @@
 
 %define GPG_CHECK 1
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 9
-# use modern %pyproject_* macros on distros which support them
+# use modern pyproject_* macros on distros which support them
 %define PYPROJECT 1
 %else
-# use older %py3_* macros on older/other distros
+# use older py3_* macros on older/other distros
 %define PYPROJECT 0
 %endif
 %define BASE_VERSION %(echo "%{version}" | sed 's/^\\([^.]\\+\\.[^.]\\+\\).*/\\1/')
@@ -14,9 +14,9 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.5.2
-Release:	2%{?dist}
-License:	GPL-3.0-or-later
+Version:	3.5.3
+Release:	1%{?dist}
+License:	GPL-2.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
 
@@ -58,13 +58,13 @@ BuildRequires:	pkgconfig(libmaxminddb)
 # XDP dependencies
 BuildRequires:	pkgconfig(libbpf)
 # Python modules (python3-libknot, knot-exporter) dependencies
-BuildRequires:  python3-devel
+BuildRequires:	python3-devel
 %if 0%{?PYPROJECT}
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-pip
-BuildRequires:  python3-hatchling
+BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3-pip
+BuildRequires:	python3-hatchling
 %else
-BuildRequires:  python3-setuptools
+BuildRequires:	python3-setuptools
 %endif
 
 # Distro-dependent dependencies
@@ -145,18 +145,18 @@ Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 The package contains keymgr program for Knot DNS key management.
 
 %package module-dnstap
-Summary:	dnstap module for Knot DNS
+Summary:	Knot DNS dnstap module
 Requires:	%{name} = %{version}-%{release}
 
 %description module-dnstap
-The package contains dnstap Knot DNS module for logging DNS traffic.
+The package contains Knot DNS module for logging DNS traffic in dnstap format.
 
 %package module-geoip
-Summary:	geoip module for Knot DNS
+Summary:	Knot DNS geoip module
 Requires:	%{name} = %{version}-%{release}
 
 %description module-geoip
-The package contains geoip Knot DNS module for geography-based responses.
+The package contains Knot DNS module for geography-based responses.
 
 %package exporter
 Summary:	Prometheus exporter for Knot DNS
@@ -176,11 +176,11 @@ Requires:	%{name}-libs = %{version}-%{release}
 The package provides Python bindings for the libknot shared library.
 
 %package -n valkey-module-knot
-Summary:	Valkey module for Knot DNS.
+Summary:	Knot DNS module for Valkey support
 Requires:	%{name}-libs = %{version}-%{release}
 
 %description -n valkey-module-knot
-The package provides Valkey module for Knot DNS.
+The package provides Knot DNS module to support storing zone data in Valkey (Redis).
 
 %package doc
 Summary:	Documentation for the Knot DNS server
@@ -344,7 +344,7 @@ V=1 make check
 %attr(750,root,knot) %dir %{_sysconfdir}/knot
 %config(noreplace) %attr(640,root,knot) %{_sysconfdir}/knot/knot.conf
 %if 0%{?fedora} || 0%{?rhel} > 7
-%config(noreplace) %attr(644,root,root) %{_datadir}/dbus-1/system.d/cz.nic.knotd.conf
+%attr(644,root,root) %{_datadir}/dbus-1/system.d/cz.nic.knotd.conf
 %endif
 %attr(770,root,knot) %dir %{_sharedstatedir}/knot
 %dir %{_libdir}/knot
@@ -431,6 +431,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Sat Mar 28 2026 Jan Včelák <jvcelak@fedoraproject.org> - 3.5.3-1
+- Update to 3.5.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

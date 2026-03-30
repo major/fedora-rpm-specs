@@ -37,10 +37,12 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * Update fancy-regex from 0.13 to 0.16:
 #   https://github.com/nushell/nushell/commit/0e3ca7b355bd62f1cfc372b414defd528da04718,
 #   https://github.com/nushell/nushell/commit/1e2fa68db0f7e877fe9c4cd95ab16f1c0df793e8
+# * allow uutils 0.7.0
 Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354
 Patch2:         nu-command-fix-for-quick-xml-0_33.diff
+Patch3:         https://gist.githubusercontent.com/decathorpe/3a17b07797adeea3858deebfe41d79bf/raw/a4c4e124a2110929eb5f449a6379444d794e4830/nu-command-0.99.1-port-to-uutils-0.7.0.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix

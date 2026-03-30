@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -92,11 +92,17 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 # found in the upstream kernel.
 %global esmi_ver 4.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
+%if %{without preview}
 # https://github.com/ROCm/amdsmi/pull/165
-Patch4:     0001-Fix-compilation-with-libdrm-2.4.130.patch
+Patch1:     0001-Fix-compilation-with-libdrm-2.4.130.patch
+%else
+# https://github.com/ROCm/rocm-systems/issues/4535
+Patch1:     0001-amdsmi-so-libamdsminic.patch
+%endif
 
 ExclusiveArch: x86_64
 
+BuildRequires: chrpath
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: kernel-devel
@@ -149,7 +155,12 @@ Requires:       libdrm-devel
 %endif
 
 %prep
+%if %{without preview}
 %autosetup -p1 -n %{upstreamname}
+%else
+%autosetup -p3 -n %{upstreamname}
+%endif
+
 tar xf %{SOURCE1}
 mv esmi_ib_library-* esmi_ib_library
 # So we can pick up this license
@@ -246,6 +257,11 @@ mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
 mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/.
 %endif
 
+%if %{with preview}
+#ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
+chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/libamd_smi.so
+%endif
+
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -262,6 +278,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
 %endif
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/libamdsminic.so.*
+%endif
 
 %files devel
 %{pkg_prefix}/include/amd_smi/
@@ -270,6 +289,11 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd_smi/
 %if %{without compat}
 %{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
+%endif
+%if %{with preview}
+%{pkg_prefix}/include/e_smi/
+%{pkg_prefix}/include/rocm_smi/
+%{pkg_prefix}/%{pkg_libdir}/libamdsminic.so
 %endif
 
 %if %{with test}

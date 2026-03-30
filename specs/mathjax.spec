@@ -43,112 +43,112 @@ in HTML pages.
 %package       ams-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   ams-fonts
 %{fontsummary}.
 
 %package       caligraphic-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   caligraphic-fonts
 %{fontsummary}.
 
 %package       fraktur-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   fraktur-fonts
 %{fontsummary}.
 
 %package       main-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   main-fonts
 %{fontsummary}.
 
 %package       math-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   math-fonts
 %{fontsummary}.
 
 %package       sansserif-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   sansserif-fonts
 %{fontsummary}.
 
 %package       script-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   script-fonts
 %{fontsummary}.
 
 %package       typewriter-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   typewriter-fonts
 %{fontsummary}.
 
 %package       size1-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   size1-fonts
 %{fontsummary}.
 
 %package       size2-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   size2-fonts
 %{fontsummary}.
 
 %package       size3-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   size3-fonts
 %{fontsummary}.
 
 %package       size4-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   size4-fonts
 %{fontsummary}.
 
 %package       winie6-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   winie6-fonts
 %{fontsummary}.
 
 %package       winchrome-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   winchrome-fonts
 %{fontsummary}.
 
 %package       vector-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   vector-fonts
 %{fontsummary}.
 
 %package       stixweb-fonts
 Summary:       %{fontsummary}
 Requires:      fontpackages-filesystem
-License:       OFL
+License:       OFL-1.1
 %description   stixweb-fonts
 %{fontsummary}.
 

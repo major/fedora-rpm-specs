@@ -11,6 +11,10 @@ Summary:          Define Web Services in Pyramid
 URL:              https://github.com/Cornices/cornice/
 Source:           %{pypi_source cornice}
 
+# Drop pkg_resources calls
+# From https://github.com/Cornices/cornice/pull/605
+Patch:            drop_pkg_resources.patch
+
 BuildRequires: python3-devel
 
 # For tests

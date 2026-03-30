@@ -7,7 +7,10 @@ Version:        2.1
 Release:        8%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
-License:        Apache-1.0
+# Main project is PostgreSQL
+# src/bin/lib/pg/snprintf.c is BSD-3-Clause
+# src/bin/lib/parson/ is MIT
+License:        PostgreSQL AND BSD-3-Clause AND MIT
 URL:            https://github.com/hapostgres/%{name}/
 Source0:        https://github.com/hapostgres/%{name}/archive/refs/tags/v%{version}.tar.gz
 
@@ -51,7 +54,7 @@ Requires:       postgresql-server postgresql-contrib
 %package docs
 Summary:        Extra documentation for pg_auto_failover
 # Additional licenses for jQuery and other .js files
-License:        ASL 1.0 and MIT and BSD
+License:        PostgreSQL AND BSD-3-Clause AND MIT
 Requires:       %{name} = %precise_version
 BuildArch:      noarch
 %endif
@@ -59,7 +62,7 @@ BuildArch:      noarch
 %if %{with llvmjit}
 %package llvmjit
 Summary:        Just-in-time compilation support for pg_auto_failover
-License:        ASL 1.0
+License:        PostgreSQL
 Requires:       %{name}%{?_isa} = %precise_version
 Requires:       postgresql-llvmjit
 %endif

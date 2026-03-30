@@ -157,6 +157,9 @@ Patch227: %{name}-build-seccomp.patch
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
 
+# Build patches
+Patch228: %{name}-protobuf_s390.patch
+
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
 
@@ -341,6 +344,11 @@ tar -xf %{SOURCE5}
 %if 0%{?fedora} >= 44
 %patch -P 225 -p 1 -b .build-c11
 %patch -P 227 -p 1 -b .build-seccomp
+%endif
+
+# s390x
+%ifarch s390x
+%patch -P 228 -p 1 -b .build-protobuf
 %endif
 
 # ARM64

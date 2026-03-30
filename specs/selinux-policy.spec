@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 5f3af68def21755309fcf8d53b31f4a806b33092
+%global commit 8ad5d5112fa8b47426e0e6674616d5577f825fde
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -19,7 +19,7 @@
 %define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 43.3
+Version: 43.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -59,6 +59,8 @@ BuildRequires: groff
 Requires(pre): policycoreutils >= %{POLICYCOREUTILSVER}
 Requires(post): /bin/awk /usr/bin/sha512sum
 Requires(meta): (rpm-plugin-selinux if rpm-libs)
+Requires: (flatpak-selinux >= 1.17.3 if flatpak-selinux)
+Requires: (container-selinux >= 2.246.0 if container-selinux)
 Requires: selinux-policy-any = %{version}-%{release}
 Provides: selinux-policy-base = %{version}-%{release}
 Provides: selinux-policy-stable = %{STABLEVER}
@@ -134,6 +136,7 @@ and some additional files.
 %dir %{_datadir}/selinux/devel/include
 %{_datadir}/selinux/devel/include/*
 %exclude %{_datadir}/selinux/devel/include/contrib/container.if
+%exclude %{_datadir}/selinux/devel/include/contrib/flatpak.if
 %exclude %{_datadir}/selinux/devel/include/contrib/tabrmd.if
 %dir %{_datadir}/selinux/devel/html
 %{_datadir}/selinux/devel/html/*html

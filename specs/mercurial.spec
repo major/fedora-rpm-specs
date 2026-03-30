@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -23,6 +23,10 @@ Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
 Source1: mercurial-site-start.el
 # Patch cargo metadata for dependency versions available in Fedora
 Patch0:  mercurial-rust-metadata.patch
+# Patch for Python 3.15 compatibility
+# ignore hgdemandimport lazy loading of modules conflicting with Python 3.15
+# https://foss.heptapod.net/mercurial/mercurial-devel/-/issues/10095
+Patch1:  Python-3.15-compatibility.patch
 
 BuildRequires: make
 BuildRequires: emacs-el
@@ -279,6 +283,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Fri Mar 20 2026 Lumír Balhar <lbalhar@redhat.com> - 7.2-2
+- Fix compatibility with Python 3.15 (rhbz#2447913)
+
 * Sat Jan 31 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2-1
 - mercurial 7.2
 

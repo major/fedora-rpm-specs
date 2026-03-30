@@ -1,6 +1,6 @@
 Name:           milkytracker
 Version:        1.03.00
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Module tracker software for creating music
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 URL:            http://www.milkytracker.org/
 Source0:        https://github.com/milkytracker/MilkyTracker/archive/v%{version}.tar.gz
 Patch0:         milkytracker-1.03.00-c++11.patch
+Patch1:         milkytracker-1.03.00-no-cmp0004.patch
 
 BuildRequires: make
 BuildRequires:  SDL2-devel
@@ -27,6 +28,7 @@ Its goal is to be free replacement for the popular Fasttracker II software.
 %prep
 %setup -q -n MilkyTracker-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 find . -regex '.*\.\(cpp\|h\|inl\)' -print0 | xargs -0 chmod 644
 
@@ -35,10 +37,7 @@ find . -regex '.*\.\(cpp\|h\|inl\)' -print0 | xargs -0 chmod 644
 %cmake_build
 
 %install
-rm -rf %{buildroot}
-cd %{_vpath_builddir}
-make install DESTDIR=%{buildroot}
-cd ..
+%cmake_install
 
 # move the documentation directory (version 1.01.00 started installing
 # it as MilkyTracker instead of milkytracker and we want to keep the
@@ -67,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_pkgdocdir}
 
 %changelog
+* Sat Mar 28 2026 Joonas Sarajärvi <muep@iki.fi> - 1.03.00-15
+- Rebuild for rtmidi-6.0.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.00-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

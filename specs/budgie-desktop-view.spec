@@ -5,7 +5,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           budgie-desktop-view
-Version:        10.10.1
+Version:        10.10.2
 Release:        1%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
@@ -55,6 +55,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Sat Mar 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-1
+- Update to 10.10.2 stable
+- Fixes BZ#2445519
+
 * Sat Jan 31 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.1-1
 - Update to 10.10.1 stable
 

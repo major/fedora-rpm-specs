@@ -11,7 +11,7 @@
 
 Name:           cinnamon
 Version:        6.6.7
-Release:        2%{?dist}
+Release:        5%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -20,6 +20,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        10_cinnamon-common.gschema.override
 Source2:        10_cinnamon-apps.gschema.override.in
 Source3:        22_fedora.styles
+Source4:        cinnamon-session.service
 
 Patch0:         set_wheel.patch
 #Patch1:         revert_25aef37.patch
@@ -27,12 +28,14 @@ Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         set_menu_defaults.patch
 Patch5:         %{url}/pull/13646.patch#/theme-fallback.patch
+Patch6:         start_xdg-desktop-portal.patch
 
 ExcludeArch:    %{ix86}
 
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
+BuildRequires:  systemd
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-libsass
 BuildRequires:  python3-rpm-macros
@@ -268,6 +271,10 @@ EOF
 %{__install} --target-directory=%{buildroot}%{_datadir}/%{name}/styles.d/ \
     -Dpm 0644 %{SOURCE3}
 
+# install systemd target file to satify graphical.target needed for xdg-desktop-portal
+%{__install} --target-directory=%{buildroot}%{_userunitdir}/ \
+    -Dpm 0644 %{SOURCE4}
+
 # Provide symlink for the background-propeties.
 %{__ln_s} %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
 # Delete useless gir files
@@ -325,6 +332,7 @@ EOF
 %{_libexecdir}/cinnamon/cinnamon-perf-helper
 %{_mandir}/man1/*
 %{python3_sitelib}/%{name}/
+%{_userunitdir}/cinnamon-session.service
 
 %files calendar-server
 %{_bindir}/%{name}-calendar-server
@@ -337,6 +345,15 @@ EOF
 %endif
 
 %changelog
+* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-5
+- Rename systemd target file to service so it gets culled
+
+* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-4
+- Install systemd target file to satify graphical.target dependency required for xdg-desktop-portal 
+
+* Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-3
+- Use cinnamon-launcher to start/stop xdg-desktop-portal
+
 * Tue Mar 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-2
 - Fix missing checkboxes on clutter dialogs
 

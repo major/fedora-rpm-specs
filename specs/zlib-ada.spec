@@ -10,7 +10,7 @@
 
 Name:           zlib-ada
 Version:        %{upstream_version}
-Release:        0.44.%{upstream_commit_date}git%{upstream_shortcommit}%{?dist}
+Release:        0.45.%{upstream_commit_date}git%{upstream_shortcommit}%{?dist}
 Summary:        Zlib for Ada
 Summary(sv):    Zlib för ada
 
@@ -169,6 +169,9 @@ gnatmake mtest.adb -largs -lz && ./mtest
 ###############
 
 %changelog
+* Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 1.4-0.45.20210811gitca39312
+- Rebuilt because GCC 16.0.1-0.10 broke ALI.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-0.44.20210811gitca39312
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

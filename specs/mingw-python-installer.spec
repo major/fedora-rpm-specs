@@ -1,7 +1,7 @@
 # This package is required by python-build to build wheels.
 # To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
 # Note that as a pure Python package, the wheel contains no pre-built binary stuff.
-%bcond_with     bootstrap
+%bcond_without     bootstrap
 
 %{?mingw_package_header}
 
@@ -9,22 +9,22 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.7.0
-Release:       8%{?dist}
+Version:       1.0.0
+Release:       0.1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
 URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source %{pypi_name} %{version}}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 %if %{without bootstrap}
 BuildRequires: mingw32-python3-build
 BuildRequires: mingw32-python3-flit-core
 %endif
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 %if %{without bootstrap}
 BuildRequires: mingw64-python3-build
@@ -61,7 +61,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 0.7.0
+Version: 1.0.0
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -106,6 +106,9 @@ cp -a src/installer %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Sat Mar 28 2026 Sandro Mani <manisandro@gmail.com> - 1.0.0-0.1
+- Update to 1.0.0 (bootstrap)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

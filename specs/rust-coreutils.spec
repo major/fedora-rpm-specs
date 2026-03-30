@@ -1815,6 +1815,7 @@ rm %{buildroot}%{_bindir}/uudoc
 # * test_df: needs an actual filesystem to test
 # * test_du: expected sublink/symlink in output
 # * test_ls: need block/char device
+# * test_od: s390x failures, see https://github.com/uutils/coreutils/issues/9017#issuecomment-4148721220
 # * test_seq: tolerances too tight
 # * test_sort: formatting differences with recent unicode-width versions
 # * uudoc: missing test fixture
@@ -1854,6 +1855,10 @@ rm %{buildroot}%{_bindir}/uudoc
     --skip test_ls::test_ls_inode
     --skip test_ls::test_ls_long_format
     --skip test_ls::test_ls_long_formats
+%ifarch s390x
+    --skip test_od::test_od_options_after_filename
+    --skip test_od::test_suppress_duplicates
+%endif
     --skip test_seq::test_count_down_floats
     --skip test_seq::test_float_precision_increment
     --skip test_seq::test_inf_width

@@ -15,7 +15,7 @@
 
 Name:           zeromq-ada
 Version:        %{upstream_version}^git%{upstream_commit_date}.%{upstream_shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ada binding for ZeroMQ
 
 License:        MIT
@@ -234,6 +234,9 @@ bin/test_all
 ###############
 
 %changelog
+* Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 4.1.5^git20251117.c9a0e98-3
+- Rebuilt because GCC 16.0.1-0.10 broke ALI.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5^git20251117.c9a0e98-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

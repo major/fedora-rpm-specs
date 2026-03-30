@@ -8,7 +8,8 @@
 %global llvm_compat 20
 
 Name:           python-llvmlite
-Version:        0.46.0
+Version:        0.47.0~rc1
+%global srcversion %(echo '%{version}' | tr -d '~')
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -35,7 +36,7 @@ License:        %{shrink:
 SourceLicense:  %{license} AND CC0-1.0
 URL:            http://llvmlite.pydata.org/
 %global forgeurl https://github.com/numba/llvmlite
-Source:         %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{srcversion}/llvmlite-%{srcversion}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
@@ -83,7 +84,7 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n llvmlite-%{version} -p1
+%autosetup -n llvmlite-%{srcversion} -p1
 
 # increase verbosity of tests to 2
 sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py

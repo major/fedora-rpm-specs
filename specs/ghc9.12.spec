@@ -36,8 +36,8 @@
 %endif
 
 %global ghc_major 9.12
-%global ghc_patchlevel 3
-%global ghc_snapshot 20260311
+%global ghc_patchlevel 4
+# %%global ghc_snapshot 20260311
 %global ghc_name ghc%{ghc_major}
 
 %global Cabal_ver 3.14.2.0
@@ -96,7 +96,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}%{?ghc_snapshot:.%{ghc_snapshot}}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -934,6 +934,9 @@ make test
 
 
 %changelog
+* Sat Mar 28 2026 Jens Petersen <petersen@redhat.com> - 9.12.4-17
+- https://downloads.haskell.org/ghc/9.12.4/docs/users_guide/9.12.4-notes.html
+
 * Fri Mar 13 2026 Jens Petersen <petersen@redhat.com> - 9.12.3.20260311-16
 - https://downloads.haskell.org/ghc/9.12.4-rc1/docs/users_guide/9.12.4-notes.html
 

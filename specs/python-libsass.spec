@@ -57,6 +57,35 @@ Obsoletes:      python-libsass-doc < 0.23.0-6
 # site-packages without executable permissions; therefore, the shebang becomes
 # useless, and we should remove it downstream.
 sed -r -i '1{/^#!/d}' pysassc.py
+%if %{undefined fc42} && %{undefined fc43} && %{undefined fc44}
+# Omit the sassutils.wsgi WSGI middleware. It relies on pkg_resources, which
+# has been deprecated, distributed with setuptools, and now will be removed in
+# setuptools 82+, https://fedoraproject.org/wiki/Changes/Setuptools_82+, in
+# order to configure resource paths (a directory and files within it) based on
+# package resources. The obvious replacement, importlib.resources, doesn’t
+# assume that resources are files and directories, e.g. if the package is
+# zipped. We could do some tedious patching, inspired by the suggestions at
+# https://importlib-resources.readthedocs.io/en/latest/migration.html, to deal
+# with managing the lifetimes of possible tempfiles, but the directory path
+# still might not work as designed, and we can’t get help from upstream because
+# the project is archived. We can’t simply drop the package because of the
+# dependency chain python-libsass → python-qtsass → python-qdarkstyle →
+# (electrum, spyder), but we can verify that qtsass doesn’t use sassutils.wsgi,
+# or indeed sassutils at all. Nor do the sass module or the pysassc module and
+# entry point use sassutils; nor do any of the other sassutils modules use
+# sassutils.wsgi. We *do* have to patch sassutils.wsgi tests out of sasstests.
+# If anything ever starts depending on sassutils.wsgi, maybe we can do the
+# patching to avoid pkg_resources, but hopefully the number of dependencies on
+# a project that’s now discontinued upstream will *not* increase.
+sed -r -i -e 's/^from sassutils\.wsgi\b/# &/' sasstests.py
+cat >> sasstests.py <<'EOF'
+
+# Downstream patch: We omitted sassutils.wsgi to avoid a pkg_resources
+# dependency that was difficult to remove. Therefore, we must not test it.
+del WsgiTestCase
+EOF
+rm sassutils/wsgi.py
+%endif
 
 
 %generate_buildrequires -p

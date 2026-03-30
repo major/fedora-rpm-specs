@@ -13,17 +13,13 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.9.1
-Release:	2%{?dist}
+Version:	5.9.2
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}-sysusers.conf
-#		https://github.com/xrootd/xrootd/pull/2649
-Patch0:		0001-Tests-Avoid-test-segfault-on-32-bit-architectures.patch
-#		Backport from upstream git
-Patch1:		0001-Tests-Ensure-extra-test-fixtures-are-ready-before-se.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -63,10 +59,13 @@ BuildRequires:	libradosstriper-devel
 %ifnarch %{ix86}
 BuildRequires:	isa-l-devel
 %endif
+#		For tests
 BuildRequires:	attr
 BuildRequires:	curl
 BuildRequires:	davix
 BuildRequires:	gtest-devel
+BuildRequires:	krb5-server
+BuildRequires:	krb5-workstation
 BuildRequires:	openssl
 BuildRequires:	procps
 
@@ -261,8 +260,6 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
 
 %build
 %cmake \
@@ -673,6 +670,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Mar 27 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.9.2-1
+- Update to version 5.9.2
+- Drop patches accepted upstream or previously backported
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

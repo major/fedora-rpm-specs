@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.5.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
@@ -13,6 +13,8 @@ Source3:	https://lhapdfsets.web.cern.ch/current/NNPDF31_lo_as_0130.tar.gz
 #		Missing file in source tarfile
 #		See: https://gitlab.com/hepcedar/lhapdf/-/merge_requests/120
 Source4:	testunc.py
+#		https://gitlab.com/hepcedar/lhapdf/-/merge_requests/123
+Patch0:		0001-Correct-the-lhapdf-config-help-message-to-use-includ.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -78,6 +80,7 @@ This package provides API documentation and examples for LHAPDF.
 
 %prep
 %setup -q -n LHAPDF-%{version}
+%patch -P0 -p1
 
 mkdir tests/SETS
 tar -z -x -f %{SOURCE1} -C tests/SETS
@@ -160,6 +163,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 %license COPYING
 
 %changelog
+* Sat Mar 28 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-2
+- Correct the lhapdf-config output (backport from upstream git)
+
 * Thu Mar 05 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-1
 - Update to version 6.5.6
 - Add PDFs used by new tests to the source RPM

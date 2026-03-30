@@ -4,7 +4,7 @@ Name:		ftplib
 Version:	4.0
 Release:	26%{?dist}
 Summary:	Library of FTP routines
-License:	LGPLv2+
+License:	Artistic-2.0
 URL:		http://nbpfaus.net/~pfau/ftplib-4/
 Source0:	http://nbpfaus.net/~pfau/ftplib-4/%{name}-%{version}-%{minorver}.tar.gz
 Patch0:		ftplib-3.1-1-modernize.patch
@@ -25,8 +25,6 @@ Development libraries and headers for ftplib.
 
 %package -n qftp
 Summary:	Simple ftp client application
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
 
 %description -n qftp
 Command line driven ftp file transfer program using ftplib.

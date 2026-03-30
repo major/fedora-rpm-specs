@@ -5,7 +5,7 @@
 %global crate tui-input
 
 Name:           rust-tui-input
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        TUI input library supporting multiple backends
 

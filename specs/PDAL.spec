@@ -207,16 +207,12 @@ sphinx-build -b html . build/html
 %license plugins/e57/libE57Format/LICENSE.md
 %{_libdir}/libpdalcpp.so.20*
 %{_libdir}/libpdal_plugin_kernel_fauxplugin.so.20*
-%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.20*
-%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.20*
 
 %files devel
 %{_bindir}/pdal-config
 %{_includedir}/pdal/
 # drop unversioned symbolic links (BZ#1841616)
 %exclude %{_libdir}/libpdal_plugin_kernel_fauxplugin.so
-%exclude %{_libdir}/libpdal_plugin_reader_pgpointcloud.so
-%exclude %{_libdir}/libpdal_plugin_writer_pgpointcloud.so
 %{_libdir}/libpdalcpp.so
 %{_libdir}/cmake/PDAL/
 %{_libdir}/pkgconfig/*.pc

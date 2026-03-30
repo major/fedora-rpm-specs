@@ -1,18 +1,14 @@
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg 1
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 %global pypi_name keystoneauth1
 
-%global common_desc \
-Keystoneauth provides a standard way to do authentication and service requests \
-within the OpenStack ecosystem. It is designed for use in conjunction with \
-the existing OpenStack clients and for simplifying the process of writing \
-new clients.
+%global common_desc %{expand:
+Keystoneauth provides a standard way to do authentication and service requests
+within the OpenStack ecosystem. It is designed for use in conjunction with
+the existing OpenStack clients and for simplifying the process of writing
+new clients.}
 
 %global with_doc 1
-
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order flake8-docstrings
 
 Name:       python-%{pypi_name}
 Version:    5.13.1
@@ -20,25 +16,28 @@ Release:    %autorelease
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0
 URL:        https://pypi.io/pypi/%{pypi_name}
-Source0:    https://tarballs.openstack.org/keystoneauth/keystoneauth1-%{upstream_version}.tar.gz
+Source0:    https://tarballs.openstack.org/keystoneauth/keystoneauth1-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/keystoneauth/keystoneauth1-%{upstream_version}.tar.gz.asc
+Source101:        https://tarballs.openstack.org/keystoneauth/keystoneauth1-%{version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
-BuildArch:  noarch
+BuildArch:     noarch
 
 BuildRequires: git-core
 BuildRequires: python3-devel
+
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 BuildRequires:  /usr/bin/gpgv2
 %endif
 
+
 %description
 %{common_desc}
+
 
 %package -n     python3-%{pypi_name}
 Summary:        Authentication Libarary for OpenStack Identity
@@ -47,9 +46,11 @@ Summary:        Authentication Libarary for OpenStack Identity
 %description -n python3-%{pypi_name}
 %{common_desc}
 
+
 %if 0%{?with_doc}
 %package -n python-%{pypi_name}-doc
 Summary:    Documentation for OpenStack Identity Authentication Library
+
 
 %description -n python-%{pypi_name}-doc
 Documentation for OpenStack Identity Authentication Library
@@ -61,7 +62,7 @@ Documentation for OpenStack Identity Authentication Library
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n %{pypi_name}-%{upstream_version} -S git
+%autosetup -n %{pypi_name}-%{version} -S git
 
 sed -i '/sphinx.ext.intersphinx.*$/d'  doc/source/conf.py
 
@@ -69,33 +70,34 @@ sed -i '/sphinx.ext.intersphinx.*$/d'  doc/source/conf.py
 rm keystoneauth1/tests/unit/test_hacking_checks.py
 
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs};do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[~!><=]/d" \
+    -e "/^hacking[[:space:]]*[~!><=]/d" \
+    -e "/^reno[[:space:]]*[~!><=]/d" \
+    -e "/^flake8-docstrings[[:space:]]*[~!><=]/d" \
+    -e "/^flake8-import-order[[:space:]]*[~!><=]/d" \
+    -e "/^bandit[[:space:]]*[~!><=]/d" \
+    test-requirements.txt doc/requirements.txt
 
-# Automatic BR generation
+
 %generate_buildrequires
 %if 0%{?with_doc}
-  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
-  %pyproject_buildrequires -t -e %{default_toxenv}
+%pyproject_buildrequires -t -e %{default_toxenv}
 %endif
 
 
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
+
+%pyproject_save_files -l keystoneauth1
 
 %if 0%{?with_doc}
 # generate html docs
@@ -106,20 +108,22 @@ export PYTHONPATH=.
 rm -rf doc/build/html/.buildinfo
 %endif
 
+
 %check
 %tox -e %{default_toxenv} -- -- --exclude-regex '(.*test_keystoneauth_betamax_fixture)'
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/*.dist-info
+
 
 %if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 %doc doc/build/html
 %endif
+
 
 %changelog
 %autochangelog
