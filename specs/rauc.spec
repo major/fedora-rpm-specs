@@ -1,5 +1,5 @@
 Name:           rauc
-Version:        1.15.1
+Version:        1.15.2
 Release:        %autorelease -b 1
 Summary:        Safe and secure software updates for embedded Linux
 
@@ -138,6 +138,10 @@ cp -p -r docs/texinfo/%{name}-figures %{buildroot}%{_datadir}/help/en/%{name}
 %doc %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Sun Mar 29 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.2-1
+- Update package from 1.15.1 to 1.15.2
+- Fixes CVE-2026-34155
+
 * Sun Feb 1 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.1-1
 - Update package from 1.14 to 1.15.1
 - Remove upstreamed patches

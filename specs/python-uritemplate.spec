@@ -4,8 +4,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        4.1.1
-Release:        18%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        Simple python library to deal with URI Templates (RFC 6570)
 
 License:        BSD-3-Clause OR Apache-2.0
@@ -53,6 +53,9 @@ Python 3 version.
 %doc HISTORY.rst README.rst
 
 %changelog
+* Sun Mar 29 2026 Jonathan Wright <jonathan@almalinux.org> - 4.2.0-1
+- update to 4.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

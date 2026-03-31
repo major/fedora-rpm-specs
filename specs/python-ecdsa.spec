@@ -1,7 +1,7 @@
 %global srcname ecdsa
 
 Name:           python-%{srcname}
-Version:        0.19.1
+Version:        0.19.2
 Release:        %autorelease
 Summary:        ECDSA cryptographic signature library
 

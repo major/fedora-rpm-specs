@@ -1,7 +1,7 @@
 # BSD 2-Clause License
 #
 # Apprise - Push Notification Library.
-# Copyright (c) 2025, Chris Caron <lead2gold@gmail.com>
+# Copyright (c) 2026, Chris Caron <lead2gold@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -61,28 +61,29 @@ notification services. It supports sending alerts to platforms such as: \
 `46elks`, `AfricasTalking`, `Apprise API`, `APRS`, `AWS SES`, `AWS SNS`, \
 `Bark`, `BlueSky`, `Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, `Chanify`, \
 `Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
-`Dot. (Quote/0)`, `E-Mail`, `Emby`, `FCM`, `Feishu`, `Flock`, \
+`Dot. (Quote/0)`, `E-Mail`, `Emby`, `FCM`, `Feishu`, `Flock`, `Fluxer`, \
 `Free Mobile`, `Google Chat`, `Gotify`, `Growl`, `Guilded`, \
-`Home Assistant`, `httpSMS`, `IFTTT`, `Join`, `Kavenegar`, `KODI`, \
-`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, \
-`Mastodon`, `Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
-`Microsoft Teams`, `Misskey`, `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, \
-`Nextcloud`, `NextcloudTalk`, `Notica`, `NotificationAPI`, `Notifiarr`, \
-`Notifico`, `ntfy`, `Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, \
-`PagerTree`, `ParsePlatform`, `Plivo`, `PopcornNotify`, `Prowl`, `Pushalot`, \
-`PushBullet`, `Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, \
-`Pushy`, `PushDeer`, `QQ Push`, `Revolt`, `Reddit`, `Resend`, \
-`Rocket.Chat`, `RSyslog`, `SendGrid`, `SendPulse`, `ServerChan`, `Seven`, \
-`SFR`, `Signal`, `SIGNL4`, `SimplePush`, `Sinch`, `Slack`, `SMPP`, \
-`SMSEagle`, `SMS Manager`, `SMTP2Go`, `SparkPost`, `Splunk`, `Spike`, \
-`Spug Push`, `Super Toasty`, `Streamlabs`, `Stride`, `Synology Chat`, \
-`Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, `Twilio`, \
-`Twitter`, `Twist`, `Vapid`, `VictorOps`, `Voipms`, `Vonage`, `WebPush`, \
-`WeCom Bot`, `WhatsApp`, `Webex Teams`, `Workflows`, `WxPusher`, and `XBMC`.}
+`Home Assistant`, `httpSMS`, `IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, \
+`Kavenegar`, `KODI`, `Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, \
+`Mailgun`, `Mastodon`, `Mattermost`, `Matrix`, `MessageBird`, \
+`Microsoft Windows`, `Microsoft Teams`, `Misskey`, `MQTT`, `MSG91`, \
+`MyAndroid`, `Nexmo`, `Nextcloud`, `NextcloudTalk`, `Notica`, \
+`NotificationAPI`, `Notifiarr`, `Notifico`, `ntfy`, `Office365`, \
+`OneSignal`, `Opsgenie`, `PagerDuty`, `PagerTree`, `ParsePlatform`, `Plivo`, \
+`PopcornNotify`, `Prowl`, `Pushalot`, `PushBullet`, `Pushjet`, `PushMe`, \
+`Pushover`, `Pushplus`, `PushSafer`, `Pushy`, `PushDeer`, `QQ Push`, \
+`Revolt`, `Reddit`, `Resend`, `Rocket.Chat`, `RSyslog`, `SendGrid`, \
+`SendPulse`, `ServerChan`, `Seven`, `SFR`, `Signal`, `SIGNL4`, `SimplePush`, \
+`Sinch`, `Slack`, `SMPP`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, `SparkPost`, \
+`Splunk`, `Spike`, `Spug Push`, `Super Toasty`, `Streamlabs`, `Stride`, \
+`Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, \
+`Twilio`, `Twitter`, `Twist`, `Vapid`, `Viber`, `VictorOps`, `Voipms`, \
+`Vonage`, `WebPush`, `WeCom Bot`, `WhatsApp`, `Webex Teams`, `Workflows`, \
+`WxPusher`, `XBMC`, `XMPP`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        1.9.7
-Release:        2%{?dist}
+Version:        1.9.9
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -142,6 +143,7 @@ Requires: python3dist(certifi)
 Requires: python3dist(pyyaml)
 
 Recommends: python3dist(paho-mqtt)
+Recommends: python3dist(slixmpp)
 
 %if 0%{?legacy_python_build} == 0
 # Logic for non-RHEL ≤ 9 systems
@@ -173,6 +175,7 @@ for po in apprise/i18n/*/LC_MESSAGES/apprise.po; do
     langdir="$(dirname "${po#apprise/i18n/}")"
     outdir="%{buildroot}%{python3_sitelib}/%{pypi_name}/i18n/${langdir}"
     install -d "$outdir"
+    msguniq --use-first -o "$po" "$po"
     msgfmt -o "${outdir}/apprise.mo" "$po"
 done
 %else
@@ -183,6 +186,7 @@ done
 pushd %{buildroot}%{python3_sitelib}/apprise/i18n
 for po in */LC_MESSAGES/apprise.po; do
     [ -f "$po" ] || continue
+    msguniq --use-first -o "$po" "$po"
     msgfmt -o "${po%.po}.mo" "$po"
 done
 %endif
@@ -230,11 +234,17 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
-* Sun Jan 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.7-2
-- Remove unnecessary pytest-runner, pytest-cov dependencies
+* Sat Mar 21 2026 Chris Caron <lead2gold@gmail.com> - 1.9.9-1
+- Updated to v1.9.9
+
+* Sun Mar  8 2026 Chris Caron <lead2gold@gmail.com> - 1.9.8-1
+- Updated to v1.9.8
 
 * Tue Jan 20 2026 Chris Caron <lead2gold@gmail.com> - 1.9.7-1
 - Updated to v1.9.7
+
+* Sun Jan 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.6-3
+- Remove unnecessary pytest-runner, pytest-cov dependencies
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

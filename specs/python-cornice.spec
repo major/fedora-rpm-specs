@@ -20,7 +20,6 @@ BuildRequires: python3-devel
 # For tests
 BuildRequires: %{py3_dist pytest}
 BuildRequires: %{py3_dist colander}
-BuildRequires: %{py3_dist marshmallow}
 BuildRequires: %{py3_dist webtest}
 
 %description

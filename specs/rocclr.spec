@@ -25,7 +25,7 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_major 7
-%global rocm_minor 11
+%global rocm_minor 12
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src therock-%{rocm_release}

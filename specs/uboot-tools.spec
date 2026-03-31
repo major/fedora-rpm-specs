@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  0.8%{?candidate:.%{candidate}}%{?dist}
+Release:  0.9%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -313,6 +313,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sun Mar 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.9.rc5
+- Enable NVME booting on RPi5
+
 * Tue Mar 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.8.rc5
 - Update to 2026.04 RC5
 

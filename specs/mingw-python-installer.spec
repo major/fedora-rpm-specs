@@ -1,7 +1,7 @@
 # This package is required by python-build to build wheels.
 # To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
 # Note that as a pure Python package, the wheel contains no pre-built binary stuff.
-%bcond_without     bootstrap
+%bcond_with     bootstrap
 
 %{?mingw_package_header}
 
@@ -10,7 +10,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       1.0.0
-Release:       0.1%{?dist}
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -106,6 +106,9 @@ cp -a src/installer %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Sun Mar 29 2026 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Sat Mar 28 2026 Sandro Mani <manisandro@gmail.com> - 1.0.0-0.1
 - Update to 1.0.0 (bootstrap)
 

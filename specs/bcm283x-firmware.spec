@@ -5,11 +5,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort eb3ee43
+%define gitshort 1248a22
 
 Name:          bcm283x-firmware
-Version:       20260306
-Release:       2.%{gitshort}%{?dist}
+Version:       20260325
+Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -29,7 +29,8 @@ Requires:      bcm2711-firmware
 Requires:      bcm2712-firmware
 
 Source0:       %{name}-%{gitshort}.tar.xz
-Source1:       bcm-dtbs-v6.12.75.tar.xz
+# tar cJvf bcm-dtbs-v<ker-ver>.tar.xz bcm271*dtb
+Source1:       bcm-dtbs-v6.18.20.tar.xz
 Source2:       config.txt
 Source3:       nortc-time.service
 Source4:       cma.dtbo
@@ -130,6 +131,10 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/bcm2712*
 
 %changelog
+* Sat Mar 28 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260325-1.1248a22
+- Rebase to 6.18 LTS device tree overlays rebase
+- Raspberry Pi PCIe fixes
+
 * Wed Mar 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260306-2.eb3ee43
 - Just rebuild all the platform DTS and be done with it!
 

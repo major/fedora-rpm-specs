@@ -3,7 +3,7 @@
 %bcond check_jsonschema 0
 
 Name:           bids-schema
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -51,7 +51,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit dd545712672537c13ac684b95699b8f11fcedc89
+%global examples_commit 90623baf90f8ac2745a4b9cc28881e839675c16d
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #
@@ -77,6 +77,14 @@ Source10:       bst.1
 Source11:       bst-export.1
 Source12:       bst-export-metaschema.1
 Source13:       bst-pre-receive-hook.1
+
+# Downstream-only: allow pyparsing 3.1.2 for now
+#
+# Upstream set the minimum version 3.2 to address a deprecation warning,
+# so we don’t *have* to respect it. We can drop the patch after Fedora’s
+# pyparsing package is upgraded,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2307781.
+Patch:          0001-Downstream-only-allow-pyparsing-3.1.2-for-now.patch
 
 BuildArch:      noarch
 
@@ -122,11 +130,11 @@ Features:
   • simple CLI bindings (e.g. bst export)
 
 
-%pyproject_extras_subpkg -n python3-bidsschematools validation render expressions
+%pyproject_extras_subpkg -n python3-bidsschematools expressions render validation all
 
 
 %prep
-%autosetup -n bids-specification-schema-%{srcversion}
+%autosetup -n bids-specification-schema-%{srcversion} -p1
 %setup -q -T -D -a 2 -c -n bids-specification-schema-%{srcversion}
 %setup -q -T -D -a 3 -c -n bids-specification-schema-%{srcversion}
 
@@ -142,7 +150,7 @@ rm -rf src/js/ src/css/
 
 %generate_buildrequires
 pushd tools/schemacode >/dev/null
-%pyproject_buildrequires -x validation,render,expressions
+%pyproject_buildrequires -x expressions,render,validation,all
 popd >/dev/null
 
 

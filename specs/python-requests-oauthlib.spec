@@ -6,7 +6,7 @@
 
 Name:               python-requests-oauthlib
 Version:            1.3.1
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            OAuthlib authentication support for Requests.
 
 License:            ISC
@@ -25,19 +25,11 @@ This project provides first-class OAuth library support for python-request.
 Summary:            OAuthlib authentication support for Requests.
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-
-BuildRequires:      python3-oauthlib >= 0.6.2
-BuildRequires:      python3-requests >= 2.0.0
-
 %if %{with tests}
 BuildRequires:      python3-pytest
 BuildRequires:      python3-pytest-mock
 BuildRequires:      python3-requests-mock
 %endif
-
-Requires:           python3-oauthlib
-Requires:           python3-requests
 
 %description -n python3-%{distname}
 This project provides first-class OAuth library support for python-request.
@@ -45,30 +37,30 @@ This project provides first-class OAuth library support for python-request.
 %prep
 %autosetup -n %{distname}-%{version} -p1
 
-# Remove bundled egg-info in case it exists
-rm -rf %{distname}.egg-info
-
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 %check
 %if %{with tests}
 %pytest -k "not testCanPostBinaryData and not test_content_type_override and not test_url_is_native_str"
 %else
-%py3_check_import %{modname}
+%pyproject_check_import
 %endif
 
-%files -n python3-%{distname}
+%files -n python3-%{distname} -f %{pyproject_files}
 %doc README.rst HISTORY.rst requirements.txt AUTHORS.rst
-%license LICENSE
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Sun Mar 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.1-17
+- Migrate to pyproject macros
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

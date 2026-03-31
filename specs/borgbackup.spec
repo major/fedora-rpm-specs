@@ -1,8 +1,8 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.4.3
-Release:        3%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -20,6 +20,9 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         borgbackup-disable-guzzle-theme.patch
 
+# https://github.com/borgbackup/borg/issues/9521
+Patch2:         borgbackup-144-hashindex-fix-new-checks-for-big-endian.patch
+
 BuildRequires:  gnupg2
 # build
 BuildRequires:  python3-Cython
@@ -27,7 +30,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pkgconfig
 
 # test
-BuildRequires:  python3dist(python-dateutil)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 
@@ -137,6 +139,12 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Sun Mar 29 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.4-1
+- update to 1.4.4
+
+* Sun Feb 08 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.3-4
+- remove unnecessary build dependency on python-dateutil
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

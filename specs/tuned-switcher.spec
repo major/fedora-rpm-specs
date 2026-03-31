@@ -1,5 +1,5 @@
 Name: tuned-switcher
-Version: 0.9.4
+Version: 1.0.0
 Release: %autorelease
 
 # Main code - GPL-3.0-or-later.

@@ -1,10 +1,10 @@
 Name:           perl-Mojo-Pg
-Version:        4.28
-Release:        2%{?dist}
+Version:        4.29
+Release:        1%{?dist}
 Summary:        Mojolicious ♥ PostgreSQL
 License:        Artistic-2.0
 
-URL:            https://metacpan.org/release/Mojo-Pg
+URL:            https://metacpan.org/dist/Mojo-Pg
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SRI/Mojo-Pg-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -74,6 +74,9 @@ publish/subscribe pattern.
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Sun Mar 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 4.29-1
+- Update to 4.29
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

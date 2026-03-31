@@ -1,9 +1,8 @@
 Name:           perl-Net-Daemon
-Version:        0.49
-Release:        17%{?dist}
+Version:        0.51
+Release:        1%{?dist}
 Summary:        Perl extension for portable daemons
 
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Daemon
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Net-Daemon-%{version}.tar.gz
@@ -21,20 +20,19 @@ BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(POSIX)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Symbol)
-%{?_with_network_tests:
 BuildRequires:  perl(Sys::Syslog)
-}
-# Thread not used at tests
-# threads not used at tests
+BuildRequires:  perl(strict)
 BuildRequires:  perl(threads::shared)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests:
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
 # Network tests:
 %{?_with_network_tests:
@@ -43,7 +41,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Socket)
 }
 Suggests:       perl(Sys::Syslog)
-# threads is prefered over Threads
 Suggests:       perl(threads)
 Requires:       perl(threads::shared)
 
@@ -63,10 +60,7 @@ inheriting will safe you a lot of work anyways.
 
 %prep
 %setup -q -n Net-Daemon-%{version}
-# Convert EOL
-/usr/bin/sed -i 's/\r//' README
-
-# generate our other two licenses...
+# generate our two licenses...
 /usr/bin/perldoc perlgpl > LICENSE.GPL
 /usr/bin/perldoc perlartistic > LICENSE.Artistic
 
@@ -103,6 +97,11 @@ inheriting will safe you a lot of work anyways.
 
 
 %changelog
+* Sun Mar 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.51-1
+- Update to 0.51
+- Remove mentions of Thread.pm (no longer relevant)
+- Update deps
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

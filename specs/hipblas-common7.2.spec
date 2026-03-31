@@ -1,0 +1,148 @@
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+%global upstreamname hipblas-common
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+%global rocm_release 7.2
+%global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
+%global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_without compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix %{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
+Name:           hipblas-common%{pkg_suffix}
+Version:        %{rocm_version}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
+Summary:        Common files shared by hipBLAS and hipBLASLt
+License:        MIT
+URL:            https://github.com/ROCm/rocm-libraries
+
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  rocm-cmake%{pkg_suffix}
+
+# Only headers, cmake infra
+BuildArch: noarch
+# Only x86_64 works right now:
+ExclusiveArch:  x86_64
+
+# Problem on SUSE, nothing really to compile so turn jobs off
+%global _smp_mflags %{nil}
+
+%description
+%summary
+
+%package devel
+Summary:        Libraries and headers for %{name}
+Provides:       %{name}-static = %{version}-%{release}
+%if %{with compat}
+Requires:       rocm-filesystem%{pkg_suffix}
+%endif
+
+%description devel
+%{summary}
+
+%prep
+%autosetup -p1 -n %{upstreamname}
+
+%build
+%cmake \
+    -DCMAKE_INSTALL_LIBDIR=share \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
+%cmake_build
+
+%install
+%cmake_install
+
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
+
+%files devel
+%license LICENSE.md
+
+%{pkg_prefix}/include/hipblas-common/
+%{pkg_prefix}/share/cmake/hipblas-common/
+
+%changelog
+* Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Change --with gitcommit to preview
+
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-2
+- Remove stray backlash
+
+* Fri Sep 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.1
+
+* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Add Fedora copyright
+
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Simplify file removal
+
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
+- Initial package
+

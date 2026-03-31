@@ -67,7 +67,6 @@ This package contains include files and pc file for weechat.
 
 %build
 %cmake \
-  -DPREFIX=%{_prefix} \
   -DLIBDIR=%{_libdir} \
   -DENABLE_ENCHANT=ON \
   -DENABLE_PHP=OFF \

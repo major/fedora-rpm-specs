@@ -20,6 +20,11 @@ Summary: C/C++ source files #include analyzer based on clang
 URL: https://github.com/%{appname}/%{appname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
 
+# https://github.com/include-what-you-use/include-what-you-use/pull/1964
+Patch100: iwyu-0.26-fix-libraries.patch
+# https://github.com/include-what-you-use/include-what-you-use/pull/1965
+Patch101: iwyu-0.26-packaged-gtest.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -29,6 +34,7 @@ BuildRequires: compiler-rt(major) = %{llvm_ver}
 BuildRequires: llvm-devel(major) = %{llvm_ver}
 BuildRequires: llvm-static(major) = %{llvm_ver}
 
+BuildRequires: gtest-devel
 BuildRequires: libcxx-devel
 BuildRequires: ncurses-devel
 BuildRequires: python3-devel
@@ -57,13 +63,14 @@ code.
 %prep
 %autosetup -n %{appname}-%{version} -p1
 %py3_shebang_fix *.py
+rm -rf vendor
 
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/clang;%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/llvm' \
-    -DBUILD_SHARED_LIBS:BOOL=OFF \
-    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+    -DIWYU_USE_SYSTEM_GTEST:BOOL=ON
 %cmake_build
 
 %install

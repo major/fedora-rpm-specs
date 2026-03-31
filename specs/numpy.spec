@@ -19,7 +19,7 @@
 %global modname numpy
 
 Name:           numpy
-Version:        2.4.3
+Version:        2.4.4
 Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
@@ -261,6 +261,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sun Mar 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.4-1
+- 2.4.4
+
 * Mon Mar 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.3-1
 - 2.4.3
 

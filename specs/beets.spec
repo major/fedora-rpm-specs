@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.7.1
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -65,7 +65,7 @@ both text and html formats.
 %autosetup -p1 -n beets-%{version}
 
 # Drop optional sphinx_toolbox extension (not packaged in Fedora)
-sed -i '/sphinx_toolbox.more_autodoc.autotypeddict/d' docs/conf.py
+sed -i '/sphinx_toolbox/d' docs/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r

@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		2.19.2
+%global	pkg_version_num		2.19.3
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Sun Mar 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.19.3-1
+- 2.19.3
+
 * Thu Mar 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.19.2-1
 - 2.19.2
 - Fixes CVE-2026-33210

@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        32.0.6
+Version:        33.0.1
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -189,9 +189,6 @@ sed -ri 's\^#!/usr/bin/env php$\#!%{_bindir}/php\' occ
 find . -name \*.orig    -type f -delete -print
 find . -name .gitignore -type f -delete -print
 find . -name .github    -type d -prune -exec rm -r {} \; -print
-
-# fix CLI upgrade advise on splash screen
-sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' core/templates/update.admin.php
 
 # prepare package doc
 cp %{SOURCE300} README.%{distro}

@@ -616,11 +616,16 @@ kill $MUTTER_PID
 %endif
 
 %install
-# set up our default bookmarks
+# Set up Fedora default bookmarks
 %if 0%{?fedora}
 %global default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 cp -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/en-US/locale/browser/bookmarks.html
 %endif
+
+# Make sure locale works for langpacks
+cat > objdir/dist/bin/browser/defaults/preferences/icecat-l10n.js << EOF
+pref("general.useragent.locale", "chrome://global/locale/intl.properties");
+EOF
 
 %make_install -C objdir
 
