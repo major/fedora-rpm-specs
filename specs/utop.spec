@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-community/utop
 
 Name:           utop
-Version:        2.16.0
+Version:        2.17.0
 Release:        %autorelease
 Summary:        Improved toplevel for OCaml
 

@@ -4,8 +4,8 @@
 %bcond check 0
 
 Name:           DankMaterialShell
-Version:        1.2.3
-Release:        5%{?dist}
+Version:        1.4.4
+Release:        2%{?dist}
 Summary:        Desktop shell for Wayland compositors built on QuickShell
 
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-only AND ISC AND MIT AND MPL-2.0
@@ -19,9 +19,6 @@ Source0:        https://github.com/AvengeMedia/%{name}/archive/v%{version}/%{nam
 Source1:        %{name}-%{version}-core-govendor.tar.bz2
 # Go Vendor Tools config
 Source2:        go-vendor-tools.toml
-
-# Fix screensaver inhibit support to fix anaconda crash
-Patch0:         https://github.com/AvengeMedia/DankMaterialShell/commit/be8f3adf015c0cb02e520b8af455786caa78aa54.patch
 
 BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
@@ -50,6 +47,8 @@ Requires:       wl-clipboard
 Recommends:     NetworkManager
 Recommends:     ppd-service
 Suggests:       tuned-ppd
+
+Requires(posttrans): procps-ng
 
 # Replace and provide the package names from avengemedia/dms
 Obsoletes:      dms < %{version}-%{release}
@@ -147,6 +146,12 @@ pkill -USR1 -x dms || :
 %{_datadir}/icons/hicolor/scalable/apps/danklogo.svg
 
 %changelog
+* Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4-2
+- Add missing procps-ng dep for posttrans scriptlet
+
+* Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4-1
+- Update to 1.4.4
+
 * Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-5
 - Backport fix for screensaver inhibit support
 - Add dependencies to make various wallpaper format work

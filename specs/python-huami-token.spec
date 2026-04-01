@@ -2,20 +2,14 @@
 %bcond_with check
 
 Name:           python-huami-token
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Obtain watch or band Bluetooth token from Huami servers
 License:        MIT
 URL:            https://codeberg.org/argrento/huami-token
 Source:         %{url}/archive/v%{version}.tar.gz#/huami_token-%{version}.tar.gz
-# relax dependencies
+# support pycryptodomex
 Patch:          %{name}-deps.patch
-# fix entrypoint script
-# https://codeberg.org/argrento/huami-token/pulls/84
-Patch:          %{name}-entrypoint.patch
-# New Zepp API seems to require headers
-# https://codeberg.org/argrento/huami-token/issues/119
-Patch:          %{name}-headers.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with check}
@@ -55,7 +49,7 @@ Summary:        %{summary}
 
 %files -n python3-huami-token -f %{pyproject_files}
 %doc README.md
-%{_bindir}/huami_token
+%{_bindir}/huami-token
 
 %changelog
 %autochangelog

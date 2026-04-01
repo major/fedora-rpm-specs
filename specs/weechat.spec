@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/weechat/plugins/.*$
 
 Name:      weechat
-Version:   4.8.2
+Version:   4.9.0
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications
@@ -11,6 +11,8 @@ License:   GPL-3.0-only
 Source:    https://weechat.org/files/src/%{name}-%{version}.tar.xz
 Source1:   https://weechat.org/files/src/%{name}-%{version}.tar.xz.asc
 Source2:   https://keys.openpgp.org/vks/v1/by-fingerprint/A9AB5AB778FA5C3522FD0378F82F4B16DEC408F8
+
+Patch:     https://github.com/weechat/weechat/commit/4ed73757d3a8702e5824a7fd3a8ad3686dcfc1ca.patch
 
 BuildRequires: asciidoctor
 BuildRequires: ca-certificates

@@ -4,8 +4,7 @@
 Name:          pycanberra
 Summary:       A very basic (and incomplete) wrapper for libcanberra
 URL:           https://github.com/psykoyiko/pycanberra/
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2
+License:       LGPL-2.1-only
 
 # There's no versioning upstream, it's all about the Git hash
 Version:       0

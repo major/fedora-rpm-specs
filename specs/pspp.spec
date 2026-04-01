@@ -18,6 +18,20 @@ Patch:		pspp-0003-MATRIX-Use-int64_t-instead-of-long-for-sequence-rang.patch
 Patch:		pspp-0004-Revert-MATRIX-Skip-test-for-too-large-matrices-on-32.patch
 Patch:		pspp-0005-Revert-tests-skip-test-MATRIX-very-large-matrices-on.patch
 Patch:		pspp-0006-Reapply-update-gnulib-version-to-latest-from-stable-.patch
+Patch:          pspp-0007-pspp-convert-Fix-integer-overflow-in-password-length.patch
+Patch:          pspp-0008-pspp-convert-Fix-uninitialized-pointer-use-in-parse_.patch
+Patch:          pspp-0009-zip-reader-Fix-heap-buffer-overflow-in-inflate_read-.patch
+# FIXME: pspp-0010 fixes a real missing-braces bug in spvxml_parse_attributes()
+# (CVE-2025-47816) where 'return' was unconditionally executed after checking
+# only the first attribute, effectively short-circuiting all subsequent checks.
+# The fix is correct, but it exposes a latent issue in the bundled tutorial
+# .spv files shipped with pspp-2.1.1: under full attribute validation, some of
+# those files fail parsing mid-render, causing 'error while writing to output
+# stream' from Cairo and missing doc/pspp-figures/tutorial*.png at install time.
+# The .spv files need to be regenerated upstream with the fix in place.
+#Patch:          pspp-0010-spvxml-helpers-Fix-missing-brace-bug-causing-OOB-rea.patch
+Patch:          pspp-0011-variable-Fix-assertion-failure-in-var_set_leave_quie.patch
+Patch:          pspp-0012-encrypted-file-Fix-heap-buffer-over-read-in-fill_buf.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

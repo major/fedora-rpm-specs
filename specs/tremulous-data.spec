@@ -3,8 +3,7 @@ Version:        1.2.0
 Release:        0.30.beta1%{?dist}
 Summary:        Data files for tremulous the FPS game
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-2.5
 URL:            http://tremulous.net
 # To get the source tarball:
 # wget http://downloads.sourceforge.net/tremulous/tremulous-1.1.0.zip

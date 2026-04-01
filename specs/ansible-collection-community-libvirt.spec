@@ -9,7 +9,7 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        2.1.0
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
@@ -67,6 +67,16 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Mon Mar 30 2026 Paul Howarth <paul@city-fan.org> - 2.2.0-1
+- Update to 2.2.0 (rhbz#2452926)
+  - This is a minor release of the community.libvirt collection
+  - virt_cloud_instance: Added command's return field to provide visibility
+    into executed commands during VM provisioning
+  - virt_install: Added command's return field to provide visibility into
+    executed commands during VM provisioning
+  - libvirt_qemu: Vendor '_parse_clixml' locally to fix 'ImportError' on
+    ansible-core devel (2.21+)
+
 * Mon Feb 16 2026 Paul Howarth <paul@city-fan.org> - 2.1.0-1
 - Update to 2.1.0 (rhbz#2440142)
   - This is a minor release of the community.libvirt collection

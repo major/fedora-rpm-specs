@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.10.0
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -28,7 +28,7 @@ BuildRequires:  openssl-devel
 # This is needed because the cc crate, which is
 # used for linking final build results of crates,
 # does not work without it.
-BuildRequires:  glibc-devel 
+BuildRequires:  glibc-devel
 %else
 BuildRequires:  rust-packaging >= 23
 %endif
@@ -81,7 +81,9 @@ License:        Apache-2.0 AND 0BSD AND BSD-3-Clause AND MIT AND (Apache-2.0 OR 
 %{_unitdir}/afterburn-firstboot-checkin.service
 %{_unitdir}/afterburn-sshkeys@.service
 %{_unitdir}/afterburn-sshkeys.target
+%if 0%{?fedora} && 0%{?fedora} > 43
 %{_sysconfdir}/ssh/sshd_config.d/90-afterburn-authorized-keys-file.conf
+%endif
 
 %post        -n %{crate}
 %systemd_post afterburn.service
@@ -155,8 +157,10 @@ install -Dpm0644 -t %{buildroot}%{_unitdir} \
 mkdir -p %{buildroot}%{dracutmodulesdir}
 cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 
+%if 0%{?fedora} && 0%{?fedora} > 43
 install -d -p %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-afterburn-authorized-keys-file.conf
+%endif
 
 %if %{with check}
 %check
@@ -164,6 +168,12 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-af
 %endif
 
 %changelog
+* Mon Mar 30 2026 Timothée Ravier <tim@siosm.fr> - 5.10.0-6
+- F44+: Ship OpenSSH config file specifying AuthorizedKeysFile
+
+* Tue Mar 10 2026 Joel Capitao <jcapitao@redhat.com> - 5.10.0-5
+- Revert 'Ship OpenSSH config file specifying AuthorizedKeysFile'
+
 * Tue Feb 24 2026 Joel Capitao <jcapitao@redhat.com> - 5.10.0-4
 - Ship OpenSSH config file specifying AuthorizedKeysFile
 

@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -333,7 +333,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %license LICENSE.md
 %doc README.md
 
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/librocsolver.so.1{,.*}
+%else
 %{pkg_prefix}/%{pkg_libdir}/librocsolver.so.0{,.*}
+%endif
 
 %files devel
 %{pkg_prefix}/include/rocsolver/

@@ -1,6 +1,6 @@
 Name:           ppc64-diag
-Version:        2.7.10
-Release:        7%{?dist}
+Version:        2.7.11
+Release:        1%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -33,17 +33,7 @@ Source5:        rtas_errd.8
 
 # fix paths and permissions
 Patch0:         ppc64-diag-2.7.9-fedora.patch
-
-# fix typo
-Patch1:         ppc64-diag-define.patch
-
 # Upstream fixes
-# Add Power11 support for diag_nvme
-Patch10:        ppc64-diag-2.7.0-diag_vnme-add-power11-support.patch
-
-# Fix build with GCC 15 (C23)
-# https://github.com/power-ras/ppc64-diag/pull/35
-Patch11:        ppc64-diag-2.7.10-stdbool.patch
 
 %description
 This package contains various diagnostic tools for PowerLinux.
@@ -66,10 +56,13 @@ This package contains only rtas_errd daemon.
 %prep
 %autosetup -p1
 
+# Fix warning mangling shebang
+sed -i '1s|^#! */bin/sh|#! /usr/bin/sh|' scripts/rtas_errd scripts/opal_errd rtas_errd/rc.powerfail
+
 %build
 ./autogen.sh
-CXXFLAGS="%{build_cflags}" %configure
-LDFLAGS="%{build_ldflags}" CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cflags}" make %{?_smp_mflags} V=1
+%configure
+make %{?_smp_mflags} V=1
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -80,8 +73,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/ses_pages
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log/dump
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log/opal-elog
-ln -sfv %{_sbindir}/usysattn $RPM_BUILD_ROOT/%{_sbindir}/usysfault
+
 install -m 644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} $RPM_BUILD_ROOT/%{_mandir}/man8/
+# Fix warning mangling shebang
+chmod 644 $RPM_BUILD_ROOT/%{_libexecdir}/%{name}/servevent_parse.pl
 
 %files
 %license COPYING
@@ -92,7 +87,7 @@ install -m 644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} $RPM_BUILD
 %dir %{_localstatedir}/log/dump
 %dir %{_localstatedir}/log/opal-elog
 %{_mandir}/man8/*
-%{_sbindir}/*
+%{_bindir}/*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/message_catalog/
 %{_libexecdir}/%{name}/ppc64_diag_migrate
@@ -127,9 +122,9 @@ install -m 644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} $RPM_BUILD
 %{_mandir}/man8/rtas_errd*
 %config(noreplace) %{_sysconfdir}/%{name}/ppc64-diag.config
 %config(noreplace) %{_sysconfdir}/%{name}/diag_nvme.config
-%{_sbindir}/convert_dt_node_props
-%{_sbindir}/extract_platdump
-%{_sbindir}/rtas_errd
+%{_bindir}/convert_dt_node_props
+%{_bindir}/extract_platdump
+%{_bindir}/rtas_errd
 %{_sysconfdir}/rc.powerfail
 %{_unitdir}/rtas_errd.service
 
@@ -180,6 +175,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Mon Mar 30 2026 Than Ngo <than@redhat.com> - 2.7.11-1
+- Update to 2.7.11
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

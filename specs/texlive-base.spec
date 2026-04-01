@@ -32,7 +32,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 107%{?dist}
+Release: 108%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -536,8 +536,6 @@ Patch15: texlive-base-20180414-disable-omegafonts-check-test.patch
 # fix annocheck issue detected by rpmdiff
 Patch17: texlive-20180414-annocheck.patch
 Patch18: texlive-20210325-poppler-0.73.patch
-# Fix libgs detection in configure/configure.ac in dvisvgm
-# Patch20: texlive-20190410-dvisvgm-fix-libgs-detection.patch
 # Since we need to include tlmgr.pl for texconfig
 # lets try to keep people from shooting themselves with it
 Patch21: texlive-20190410-tlmgr-ignore-warning.patch
@@ -548,9 +546,6 @@ Patch29: texlive-20200327-poppler-0.90.patch
 Patch30: texlive-base-20220321-out-of-memory.patch
 # Fix configure to properly detect poppler
 Patch31: texlive-base-20210325-configure-poppler-xpdf-fix.patch
-
-# Remove deprecated setpdfwrite ghostscript call
-# Patch33: texlive-base-20210325-no-setpdfwrite.patch
 
 # Poppler 22
 Patch34: texlive-base-20210325-poppler-22.01.0.patch
@@ -7041,8 +7036,6 @@ tar xf %{SOURCE0}
 %endif
 %endif
 %patch -P8 -p1 -b .texinfo-fix
-# %%patch -P11 -p1 -b .dt
-# %%patch -P15 -p1 -b .disabletest
 %patch -P17 -p1 -b .annocheck
 %if %{with poppler}
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -7065,8 +7058,6 @@ tar xf %{SOURCE0}
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 9
 %patch -P36 -p1 -b .poppler-22.08.0
 %endif
-%else
-# %%patch -P32 -p1 -b .configure-no-GfxFont-decRefCnt
 %endif
 
 %if 0%{?fedora} >= 38 || 0%{?rhel} > 9
@@ -7454,8 +7445,6 @@ rm -rf %{buildroot}%{_texmf_main}/scripts/bibtexperllibs/ltx2unitxt
 # Fix symlinks for helper scripts
 rm -f bibexport.sh
 ln -s /usr/share/texlive/texmf-dist/scripts/bibexport/bibexport.sh bibexport.sh
-rm -f texmfstart
-ln -s /usr/share/texlive/texmf-dist/scripts/context/ruby/texmfstart.rb texmfstart
 rm -rf mktexmf
 ln -s /usr/share/texlive/texmf-dist/scripts/texlive/mktexmf mktexmf
 rm -rf mkjobtexmf
@@ -8055,7 +8044,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/mtxrun
 # %%{_bindir}/mtxrunjit
 # %%{_bindir}/texexec
-%{_bindir}/texmfstart
+# %%{_bindir}/texmfstart
 %{_mandir}/man1/context.1*
 # %%{_mandir}/man1/luatools.1*
 %{_mandir}/man1/mtxrun-babel.1*
@@ -10090,6 +10079,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Thu Mar 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12:20260301-108
+- Remove duplicate texmfstart
+
 * Wed Mar 25 2026 Tom Callaway <spot@fedoraproject.org> - 12:20260301-107
 - add explicit Provides: tex(dvips) back (bz2451395)
 

@@ -13,22 +13,22 @@
 %global	userelease	1
 %endif
 
-%global	majorver	45
-%global	minorver	2
-%global	docver	45
+%global	majorver	46
+%dnl %global	minorver	0
+%global	docver	46
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	3
+%global	baserelease	1
 
 %if 0%{?usegitbare} >= 1
 # pre-master-45
-%global	gitcommit	1d0beb5e266420b1dd756913356a295ddb60fdce
-%global	gitdate	20250830
+%global	gitcommit	d126c71f6a04fb3732887c5bb13d6d6e31f77175
+%global	gitdate	20260320
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20250831
-%global	tarballtime	2034
+%global	tarballdate	20260321
+%global	tarballtime	2226
 %endif
 
 %if	0%{?userelease} >= 1
@@ -502,6 +502,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Mon Mar 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 46-1
+- Update to 46
+
 * Fri Feb 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.2-3
 - Enable system fftw3 support (bug 2439654)
 

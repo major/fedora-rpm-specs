@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate snapbox-macros
+%global crate reqsign-volcengine-tos
 
-Name:           rust-snapbox-macros
-Version:        1.1.0
+Name:           rust-reqsign-volcengine-tos
+Version:        3.0.0
 Release:        %autorelease
-Summary:        Snapshot testing toolbox
+Summary:        Volcengine TOS signing implementation for reqsign
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/snapbox-macros
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign-volcengine-tos
 Source:         %{crates_source}
+# * fix: Fix missing LICENSE file in published reqsign-volcengine-tos crate
+# * https://github.com/apache/opendal-reqsign/pull/736
+Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.20.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Snapshot testing toolbox.}
+Volcengine TOS signing implementation for reqsign.}
 
 %description %{_description}
 
@@ -30,9 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,32 +48,9 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+color-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+debug-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+debug-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "debug" feature of the "%{crate}" crate.
-
-%files       -n %{name}+debug-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

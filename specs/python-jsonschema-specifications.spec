@@ -14,8 +14,8 @@ referencing-based Schema Registry.}
 
 Name:           python-%{pypi_name}
 Summary:        JSON Schema meta-schemas and vocabularies, exposed as a Registry
-Version:        2024.10.1
-Release:        7%{?dist}
+Version:        2025.9.1
+Release:        %autorelease
 License:        MIT
 URL:            https://github.com/python-jsonschema/jsonschema-specifications
 Source0:        %{pypi_source %{pkg_name}}
@@ -108,48 +108,4 @@ rm -rf docs/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2024.10.1-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2024.10.1-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2024.10.1-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Joel Capitao <jcapitao@redhat.com> - 2024.10.1-1
-- Update to 2024.10.1 (rhbz#2255833)
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 09 2024 Python Maint <python-maint@redhat.com> - 2023.11.2-5
-- Rebuilt for Python 3.13
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 2023.11.2-4
-- Bootstrap for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 30 2023 Joel Capitao <jcapitao@redhat.com> - 2023.11.2-1
-- Update to 2023.11.2 (rhbz#2252278)
-
-* Mon Nov 20 2023 Joel Capitao <jcapitao@redhat.com> - 2023.11.1-1
-- Update to 2023.11.1 (rhbz#2249692)
-
-* Mon Aug 07 2023 Joel Capitao <jcapitao@redhat.com> - 2023.7.1-1
-- Initial package.
-
+%autochangelog

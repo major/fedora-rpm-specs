@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.19.1
+Version:        1.19.2
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
@@ -15,7 +15,7 @@ Patch:          python-pygit2-network-tests.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  (libgit2-devel >= 1.9.0 with libgit2-devel < 1.10.0)
+BuildRequires:  (libgit2-devel >= 1.9.2 with libgit2-devel < 1.10.0)
 
 %description
 pygit2 is a set of Python bindings to the libgit2 library, which implements

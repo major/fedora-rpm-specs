@@ -6,6 +6,7 @@ Name:           ruby-build
 Version:        20260327
 Release:        %autorelease
 Summary:        Compile and install Ruby
+BuildArch:      noarch
 
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
@@ -27,6 +28,7 @@ any version of Ruby, from source.
 
 %package        core
 Summary:        Core executable and scripts for ruby-build
+BuildArch:      noarch
 License:        MIT
 
 %description    core
@@ -35,6 +37,7 @@ without any specific Ruby definition files.
 
 %package        rbenv
 Summary:        rbenv plugin to compile and install Ruby
+BuildArch:      noarch
 Requires:       ruby-build = %{version}-%{release}
 Requires:       rbenv
 
@@ -44,6 +47,7 @@ command.
 
 %package        ruby
 Summary:        ruby-build targets for MRI/CRuby versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       gcc
 Requires:       libffi-devel
@@ -62,6 +66,7 @@ This package contains ruby-build targets for MRI/CRuby versions.
 
 %package        jruby
 Summary:        ruby-build targets for jruby versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       gcc-c++
 Requires:       java-latest-openjdk-headless
@@ -72,6 +77,7 @@ This package contains ruby-build targets for jruby versions.
 
 %package        mruby
 Summary:        ruby-build targets for mruby versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       ruby
 Requires:       rubygem-rake
@@ -81,6 +87,7 @@ This package contains ruby-build targets for mruby versions.
 
 %package        picoruby
 Summary:        ruby-build targets for picoruby versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       git-core
 Requires:       gcc
@@ -92,6 +99,7 @@ This package contains ruby-build targets for picoruby versions.
 
 %package        truffleruby
 Summary:        ruby-build targets for truffleruby versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       gcc
 Requires:       libyaml-devel
@@ -101,6 +109,7 @@ This package contains ruby-build targets for truffleruby versions.
 
 %package        others
 Summary:        ruby-build targets for rbx, ree and other versions
+BuildArch:      noarch
 Requires:       ruby-build-core = %{version}-%{release}
 
 %description    others
@@ -108,6 +117,7 @@ This package contains ruby-build targets for rbx, ree and other versions.
 
 %package        all
 Summary:        ruby-build targets for all versions
+BuildArch:      noarch
 Requires:       ruby-build = %{version}-%{release}
 Requires:       ruby-build-core = %{version}-%{release}
 Requires:       ruby-build-ruby = %{version}-%{release}
@@ -127,8 +137,8 @@ This meta-package contains all ruby-build targets versions.
 PREFIX=%{buildroot}%{_prefix} ./install.sh
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 share/man/man1/ruby-build.1
 
-install -Ddpm0755 %{buildroot}%{_libdir}/rbenv/libexec
-mv %{buildroot}%{_bindir}/rbenv-* %{buildroot}%{_libdir}/rbenv/libexec
+install -Ddpm0755 %{buildroot}%{_libexecdir}/rbenv/libexec
+mv %{buildroot}%{_bindir}/rbenv-* %{buildroot}%{_libexecdir}/rbenv/libexec
 
 %if %{with check}
 %check
@@ -173,7 +183,8 @@ bats test
 # No files for you!
 
 %files rbenv
-%{_libdir}/rbenv/libexec/*
+%{_libexecdir}/rbenv/libexec/rbenv-install
+%{_libexecdir}/rbenv/libexec/rbenv-uninstall
 
 %changelog
 %autochangelog

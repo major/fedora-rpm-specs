@@ -11,10 +11,10 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 # %%global forgeurl https://github.com/hercules-team/augeas
 # %%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
 %global forgeurl https://github.com/rwmjones/augeas
-%global commit f4135e3496fbc80597942acf60d90391444b1e5b
+%global commit c9f78fa9892013a8cf16873cd76419d7e55100d5
 %forgemeta
 
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -199,6 +199,12 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Mon Mar 30 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.10
+- Fix parsing /etc/crypttab with link-volume-key (RHBZ#2452937)
+  https://github.com/hercules-team/augeas/pull/880
+- Fix miscellaneous GCC 16 errors
+  https://github.com/hercules-team/augeas/pull/881
+
 * Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.9
 - Soft fork Augeas, see
   https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/J7SM6NLIMPU7J4LIRBDPTPWVXOKZWWEH/

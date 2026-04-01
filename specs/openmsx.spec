@@ -2,11 +2,15 @@
 
 Name:           openmsx
 Version:        21.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPL-2.0-only
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
+# Fix segfault at startup when compiled against SDL2-compat
+# https://github.com/openMSX/openMSX/issues/2092
+# https://github.com/openMSX/openMSX/commit/bef559e0e2e1413ba8abbef882224a5919214c5a
+Patch0:         %{name}-21.0-SDL2.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -178,6 +182,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Mar 30 2026 Andrea Musuruane <musuruan@gmail.com> - 21.0-3
+- Fix segfault at startup when compiled against SDL2-compat (BZ #2447786)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

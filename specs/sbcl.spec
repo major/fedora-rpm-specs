@@ -24,9 +24,13 @@
 %global sbcl_arch ppc64
 %endif
 
+%ifarch %{ix86} x86_64 aarch64
+%global sbcl_linkable_runtime 1
+%endif
+
 Name:	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.6.2
+Version: 2.6.3
 Release: %autorelease
 
 # See COPYING for a license breakdown
@@ -66,6 +70,7 @@ Source202: sbcl-install-clc.lisp
 Patch: sbcl-0001-Do-not-modify-CFLAGS.patch
 Patch: sbcl-0002-Fix-for-mock-builds-when-proc-isn-t-available.patch
 Patch: sbcl-0003-Verbose-build.patch
+Patch: sbcl-0004-fix-install.sh-use-basename-when-installing-LIBSBCL-.patch
 
 ## upstreamable patches
 
@@ -112,6 +117,7 @@ export SBCL_HOME=%{_prefix}/lib/sbcl
   --fancy \
   --prefix=%{_prefix} \
   --with-sb-core-compression \
+  %{?sbcl_linkable_runtime:--with-sb-linkable-runtime} \
   %{?sbcl_bootstrap_dir:--xc-host='clisp -on-error exit'}
 
 # docs
@@ -183,6 +189,9 @@ fi
 %dir %{_prefix}/lib/sbcl/
 %{_prefix}/lib/sbcl/sbcl.mk
 %{_prefix}/lib/sbcl/contrib/
+%ifarch %{ix86} x86_64 aarch64
+%{_prefix}/lib/sbcl/sbcl.o
+%endif
 %{_mandir}/man1/sbcl.1*
 %if 0%{?docs}
 %doc doc/manual/sbcl.html

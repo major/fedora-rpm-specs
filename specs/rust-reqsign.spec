@@ -95,6 +95,18 @@ use the "default-context" feature of the "%{crate}" crate.
 %files       -n %{name}+default-context-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+full-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+full-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "full" feature of the "%{crate}" crate.
+
+%files       -n %{name}+full-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+google-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -141,6 +153,18 @@ This package contains library source intended for building other packages which
 use the "tencent" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tencent-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+volcengine-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+volcengine-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "volcengine" feature of the "%{crate}" crate.
+
+%files       -n %{name}+volcengine-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

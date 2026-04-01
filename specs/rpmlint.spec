@@ -2,12 +2,15 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.8.0
-Release:        3%{?dist}
+Version:        2.9.0
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
 Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
+
+# fix no-signature issue with rpmv6
+Patch0:         https://github.com/rpm-software-management/rpmlint/commit/bfd7440dbfca4a2f9d8e9791ac42ff105ed0d60e.patch
 
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
 Source1:        fedora.toml
@@ -96,6 +99,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Mar 30 2026 Tom Callaway <spot@fedoraproject.org> - 2.9.0-1
+- update to 2.9.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

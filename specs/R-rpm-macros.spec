@@ -1,5 +1,5 @@
 Name:           R-rpm-macros
-Version:        1.3.6
+Version:        1.3.7
 Release:        %autorelease
 Summary:        Macros to help produce R packages
 
@@ -10,6 +10,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  make
+BuildRequires:  R-core
 Requires:       R-srpm-macros = %{version}-%{release}
 Requires:       R-core
 Requires:       rpm
@@ -43,6 +44,10 @@ R-srpm-macros will pull in for R packages only.
 
 %install
 %make_install PREFIX=%{_prefix}
+
+
+%check
+%make_build test OFFLINE=1
 
 
 %files

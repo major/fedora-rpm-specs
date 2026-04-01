@@ -7,7 +7,7 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        1.4.0
+Version:        1.4.2
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 

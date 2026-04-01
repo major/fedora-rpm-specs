@@ -14,7 +14,7 @@
 %endif
 
 Name:           ipython
-Version:        9.11.0
+Version:        9.12.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -26,9 +26,6 @@ Summary:        An enhanced interactive Python shell
 License:        BSD-3-Clause AND MIT
 URL:            http://ipython.org/
 Source0:        %pypi_source
-
-# Fix one test for Python 3.15 alpha 7
-Patch:          https://github.com/ipython/ipython/pull/15163.patch
 
 # Unset -s on python shebang - ensure that packages installed with pip
 # to user locations are seen and properly loaded.

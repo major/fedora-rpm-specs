@@ -11,6 +11,10 @@ Source:         %{url}/archive/v%{version}/aiolimiter-%{version}.tar.gz
 
 # https://github.com/mjpieters/aiolimiter/pull/312
 Patch: 0001-tests-Prefer-tomllib-where-available.patch
+# Downstream only patch for pytest9 compatibility.
+# This can be removed in the future release, upstream has
+# already moved to pyproject.toml in the main branch.
+Patch: Fix-pytest-9-remove-literal-quotes-around-asyncio_de.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

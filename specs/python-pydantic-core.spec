@@ -18,6 +18,10 @@ License:        MIT
 URL:            https://github.com/pydantic/pydantic-core
 Source:         %{url}/archive/v%{version}/pydantic-core-%{version}.tar.gz
 
+# Make the invalid-uuid test less specific to accommodate uuid 1.23.0
+# https://github.com/pydantic/pydantic/pull/12992
+Patch:          0001-Make-the-invalid-uuid-test-less-specific-to-accommod.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

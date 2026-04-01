@@ -26,6 +26,11 @@ BuildArch:  noarch
 BuildRequires:  python3-devel
 BuildRequires:  git-core
 
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
+
+
 %description
 %common_desc
 

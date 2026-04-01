@@ -23,7 +23,7 @@
 %bcond_with preview
 %if %{with preview}
 %global upstreamname rocwmma
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else

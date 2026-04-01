@@ -6,7 +6,7 @@
 
 
 Name:           tree-sitter
-Version:        0.25.10
+Version:        0.26.7
 Release:        %autorelease
 Summary:        An incremental parsing system for programming tools
 

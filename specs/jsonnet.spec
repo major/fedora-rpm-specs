@@ -26,6 +26,8 @@ Patch0001: 0001-python-Make-it-easy-to-link-to-external-libjsonnet.patch
 Patch0002: 0002-fix-system-rapidyaml-needs-include-for-c4core.patch
 Patch0003: 0003-chore-use-modern-cmake-version-detection.patch
 Patch0004: 0004-chore-fix-cast-conformance-in-C-23.patch
+Patch0005: 0005-core-Permit-use-of-rapidyaml-0.11.0.patch
+Patch0006: 0006-core-Fix-shift-behavior-on-non-x86_64.patch
 
 # Bundled MD5 C++ class in third_party/md5/ with very permissive license (RSA)
 # Per current guidance, we don’t need to record this as an additional license:
@@ -38,9 +40,12 @@ BuildRequires:  python3dist(wheel) python3dist(setuptools)
 
 BuildRequires:  gcc gcc-c++ git
 BuildRequires:  cmake gtest-devel gmock-devel
+BuildRequires:  help2man
 
 # json is header only, so note the static lib for tracking
 BuildRequires:  json-devel json-static
+# Not yet compatible with rapidyaml 0.11; see
+# https://github.com/google/jsonnet/pull/1313 for discussion.
 BuildRequires:  rapidyaml-devel c4core-devel
 
 # Set our toplevel runtime requirements

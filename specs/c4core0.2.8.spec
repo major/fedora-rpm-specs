@@ -4,12 +4,12 @@
 # https://github.com/biojppm/rapidyaml/issues/465#issuecomment-2307668270
 %global cxx_std 17
 
-Name:           c4core
+Name:           c4core0.2.8
 Summary:        C++ core utilities
-Version:        0.2.11
+Version:        0.2.8
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.11
+%global so_version 0.2.8
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -33,6 +33,19 @@ License:        %{shrink:
                 }
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 
+# c4_project(): ensure C4CORE_VERSION is set
+# https://github.com/biojppm/c4core/commit/a0341155db9e7f88462aec555b282822b4c01a83
+#
+# Fixes the same issue in c4core that was reported for rapidyaml in:
+# - rymlConfig.cmake doesn't set version string
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2451572
+# - In rymlConfig.cmake, RYML_VERSION is not set from the project version
+#   https://github.com/biojppm/rapidyaml/issues/584
+#
+# This is just the CMakeLists.txt change, not the cmake submodule (c4project)
+# update.
+Patch:          c4core-0.2.10-set-C4CORE_VERSION.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -45,9 +58,7 @@ BuildRequires:  c4project >= 0^20260326.1e65b7b-1
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
 BuildRequires:  debugbreak-static
-# While older versions of fast_float will work, we prefer to ensure that we’ve
-# built this with at least the version that upstream uses.
-BuildRequires:  fast_float-static >= 8.2.4
+BuildRequires:  fast_float-static
 BuildRequires:  doctest-static
 
 %global common_description %{expand:
@@ -70,7 +81,7 @@ Summary:        %{summary}
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
-Conflicts:      c4core0.2.8-devel
+Conflicts:      c4core-devel
 
 # Each of these header-only libraries is made available under c4/ext/… in the
 # API of this package. Dependent packages that use them should really have

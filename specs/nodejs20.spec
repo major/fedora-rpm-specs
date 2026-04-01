@@ -3,7 +3,7 @@
 %{load:%{_sourcedir}/nodejs.srpm.macros}
 
 # === Versions of any software shipped in the main nodejs tarball
-%nodejs_define_version node 1:20.20.1-%{autorelease} -p
+%nodejs_define_version node 1:20.20.2-%{autorelease} -p
 
 # Special release for sub-packages with their own version string.
 # The complex release string ensures that the subpackage release is always increasing,
@@ -15,42 +15,42 @@
 # expect anything between the markers to be overwritten on any update.
 
 # BEGIN automatic-version-macros  # DO NOT REMOVE THIS LINE!
-# Version from node-v20.20.1/src/node_version.h
+# Version from node-v20.20.2/src/node_version.h
 %global node_soversion 115
 
-# Version from node-v20.20.1/deps/ada/ada.h
+# Version from node-v20.20.2/deps/ada/ada.h
 %nodejs_define_version ada 2.9.2
-# Version from node-v20.20.1/deps/brotli/c/common/version.h
+# Version from node-v20.20.2/deps/brotli/c/common/version.h
 %nodejs_define_version brotli 1.1.0
-# Version from node-v20.20.1/deps/cares/include/ares_version.h
+# Version from node-v20.20.2/deps/cares/include/ares_version.h
 %nodejs_define_version c_ares 1.34.6
-# Version from node-v20.20.1/deps/histogram/include/hdr/hdr_histogram_version.h
+# Version from node-v20.20.2/deps/histogram/include/hdr/hdr_histogram_version.h
 %nodejs_define_version histogram 0.11.9
-# Version from node-v20.20.1/tools/icu/current_ver.dep
+# Version from node-v20.20.2/tools/icu/current_ver.dep
 %nodejs_define_version icu 78.2 -p
-# Version from node-v20.20.1/deps/uv/include/uv/version.h
+# Version from node-v20.20.2/deps/uv/include/uv/version.h
 %nodejs_define_version libuv 1.46.0
-# Version from node-v20.20.1/deps/llhttp/include/llhttp.h
+# Version from node-v20.20.2/deps/llhttp/include/llhttp.h
 %nodejs_define_version llhttp 9.3.1
-# Version from node-v20.20.1/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%nodejs_define_version nghttp2 1.61.0
-# Version from node-v20.20.1/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+# Version from node-v20.20.2/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+%nodejs_define_version nghttp2 1.68.1
+# Version from node-v20.20.2/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 0.7.0
-# Version from node-v20.20.1/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+# Version from node-v20.20.2/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
 %nodejs_define_version ngtcp2 1.1.0
-# Version from node-v20.20.1/deps/cjs-module-lexer/src/package.json
+# Version from node-v20.20.2/deps/cjs-module-lexer/src/package.json
 %nodejs_define_version nodejs-cjs-module-lexer 2.2.0
-# Version from node-v20.20.1/lib/punycode.js
+# Version from node-v20.20.2/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
-# Version from node-v20.20.1/deps/undici/src/package.json
-%nodejs_define_version nodejs-undici 6.23.0
-# Version from node-v20.20.1/deps/npm/package.json
+# Version from node-v20.20.2/deps/undici/src/package.json
+%nodejs_define_version nodejs-undici 6.24.1
+# Version from node-v20.20.2/deps/npm/package.json
 %nodejs_define_version npm 1:10.8.2-%{nodejs_subpackage_release}
-# Version from node-v20.20.1/deps/uvwasi/include/uvwasi.h
+# Version from node-v20.20.2/deps/uvwasi/include/uvwasi.h
 %nodejs_define_version uvwasi 0.0.23
-# Version from node-v20.20.1/deps/v8/include/v8-version.h
+# Version from node-v20.20.2/deps/v8/include/v8-version.h
 %nodejs_define_version v8 3:11.3.244.8-%{nodejs_subpackage_release} -p
-# Version from node-v20.20.1/deps/zlib/zlib.h
+# Version from node-v20.20.2/deps/zlib/zlib.h
 %nodejs_define_version zlib 1.3.1
 # END automatic-version-macros  # DO NOT REMOVE THIS LINE!
 

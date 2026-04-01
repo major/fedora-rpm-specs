@@ -30,7 +30,7 @@ Version:        6.19.1
 
 
 Name:           incus
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -57,9 +57,6 @@ Source109:      %{name}-sysctl.conf
 
 # Helper script for incusd shutdown
 Source110:      shutdown
-
-# SELinux file labels
-Source111:      %{name}.fc
 
 # Web scripts shipped with API documentation
 Source201:      %{swaggerui_source_baseurl}/swagger-ui-bundle.js#/swagger-ui-%{swaggerui_version}-bundle.js
@@ -91,7 +88,7 @@ BuildRequires:  systemd-rpm-macros
 %{?sysusers_requires_compat}
 
 Requires:       %{name}-client = %{version}-%{release}
-Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
+Requires:       (container-selinux >= 2.245.0 if selinux-policy)
 Requires:       attr
 Requires:       dnsmasq
 Requires:       iptables, ebtables
@@ -119,6 +116,10 @@ BuildRequires:  nftables
 
 Recommends:     %{name}-agent = %{version}-%{release}
 Suggests:       %{name}-doc
+
+# This package no longer exists as container-selinux supersedes it
+Obsoletes: %{name}-selinux < 6.19.1-4
+Conflicts: %{name}-selinux < 6.19.1-4
 
 %description
 Container hypervisor based on LXC
@@ -167,43 +168,6 @@ This package contains the Incus daemon.
 %attr(700,root,root) %dir %{_localstatedir}/cache/%{name}
 %attr(700,root,root) %dir %{_localstatedir}/log/%{name}
 %attr(711,root,root) %dir %{_localstatedir}/lib/%{name}
-
-%dnl ----------------------------------------------------------------------------
-
-%package selinux
-Summary:        Container hypervisor based on LXC - SELinux policy
-BuildArch:      noarch
-
-Requires:       container-selinux
-Requires(post): container-selinux
-BuildRequires:  selinux-policy-devel
-%{?selinux_requires}
-
-%description selinux
-Incus offers a REST API to remotely manage containers over the network,
-using an image based work-flow and with support for live migration.
-
-This package contains the SELinux policy.
-
-%pre selinux
-%selinux_relabel_pre -s %{selinuxtype}
-
-%post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
-%selinux_relabel_post -s %{selinuxtype}
-
-%postun selinux
-if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s %{selinuxtype} %{name}
-    %selinux_relabel_post -s %{selinuxtype}
-fi
-
-%posttrans selinux
-%selinux_relabel_post -s %{selinuxtype}
-
-%files selinux
-%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
-%ghost %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
 
 %dnl ----------------------------------------------------------------------------
 
@@ -398,16 +362,6 @@ help2man %{gobuilddir}/bin/lxc-to-incus -n "Convert LXC containers to Incus" --n
 help2man %{gobuilddir}/bin/lxd-to-incus -n "LXD to Incus migration tool" --no-info --no-discard-stderr > %{gobuilddir}/man/lxd-to-incus.1
 help2man %{gobuilddir}/bin/incus-agent -n "Incus virtual machine guest agent" --no-info --no-discard-stderr > %{gobuilddir}/man/incus-agent.1
 
-# SELinux policy
-mkdir selinux
-cp -p %{SOURCE111} selinux/
-pushd selinux
-# generate the type enforcement file as it has no other content
-echo 'policy_module(%{name},1.0)' >%{name}.te
-%{__make} NAME=%{selinuxtype} -f %{_datadir}/selinux/devel/Makefile %{name}.pp
-bzip2 -9 %{name}.pp
-popd
-
 %install
 # install binaries
 install -d %{buildroot}%{_bindir}
@@ -468,6 +422,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.19.1-4
+- Drop selinux subpackage in favor of container-selinux
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 6.19.1-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

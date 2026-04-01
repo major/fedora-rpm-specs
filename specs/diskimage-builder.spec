@@ -49,6 +49,7 @@ Requires: /usr/bin/env
 
 %global __requires_exclude /usr/local/bin/dib-python
 %global __requires_exclude %__requires_exclude|/sbin/runscript
+%global __requires_exclude %__requires_exclude|/sbin/openrc-run
 
 %prep
 # Required for tarball sources verification

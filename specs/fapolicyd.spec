@@ -4,7 +4,7 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -18,7 +18,7 @@ Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/rele
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.4.4
+# $ git format-patch -N v1.4.5
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.1/ --dst-prefix=b/fapolicyd-selinux-1.1/ v1.1
 # $ for j in [0-9]*.patch; do printf "Patch: %s\n" $j; done
@@ -227,6 +227,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Mon Mar 30 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.5-1
+- fapolicyd-1.4.5
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.5
+
 * Thu Mar 19 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.4-1
 - fapolicyd-1.4.4
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.4

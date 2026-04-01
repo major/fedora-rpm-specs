@@ -1,5 +1,5 @@
 Name:           kea
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -383,9 +383,9 @@ fi
 # >=f41: find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
 %{_libdir}/libkea-asiodns.so.62*
 %{_libdir}/libkea-asiolink.so.88*
-%{_libdir}/libkea-cc.so.82*
+%{_libdir}/libkea-cc.so.83*
 %{_libdir}/libkea-cfgrpt.so.3*
-%{_libdir}/libkea-config.so.83*
+%{_libdir}/libkea-config.so.84*
 %{_libdir}/libkea-cryptolink.so.64*
 %{_libdir}/libkea-d2srv.so.63*
 %{_libdir}/libkea-database.so.76*
@@ -395,17 +395,17 @@ fi
 %{_libdir}/libkea-dns.so.71*
 %{_libdir}/libkea-eval.so.84*
 %{_libdir}/libkea-exceptions.so.45*
-%{_libdir}/libkea-hooks.so.120*
+%{_libdir}/libkea-hooks.so.121*
 %{_libdir}/libkea-http.so.87*
 %{_libdir}/libkea-log-interprocess.so.3*
 %{_libdir}/libkea-log.so.75*
 %{_libdir}/libkea-mysql.so.88*
 %{_libdir}/libkea-pgsql.so.88*
-%{_libdir}/libkea-process.so.90*
+%{_libdir}/libkea-process.so.91*
 %{_libdir}/libkea-stats.so.53*
 %{_libdir}/libkea-tcp.so.33*
 %{_libdir}/libkea-util-io.so.12*
-%{_libdir}/libkea-util.so.101*
+%{_libdir}/libkea-util.so.102*
 
 %files keama
 %license COPYING

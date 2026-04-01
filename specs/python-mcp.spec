@@ -56,7 +56,7 @@ Summary:        %{summary}
 %autosetup -p1 -n mcp-%{version}
 
 # relax dependency for pyjwt[crypto] as f43 has 2.8.0 and rawhide has 2.10+.
-tomcli set pyproject.toml arrays replace project.dependencies '^pyjwt\[crypto\].*$' "pyjwt[crypto]>=2.8.0,<=2.11.0"
+tomcli set pyproject.toml arrays replace project.dependencies '^pyjwt\[crypto\].*$' "pyjwt[crypto]>=2.8.0"
 
 
 %generate_buildrequires

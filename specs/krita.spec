@@ -2,12 +2,12 @@
 %global versiondir %(echo %{version} | cut -d. -f1-3)
 %global zug_version 0.1.2
 %global immer_version 0.9.1
-%global lager_version 0.1.2
+%global lager_version 0.1.3
 %global raqm_version 0.10.1
 %global gmic_version 3.7.4.1
 
 Name:           krita
-Version:        6.0.0
+Version:        6.0.1
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
@@ -77,7 +77,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  cmake(WebP)
-BuildRequires:  cmake(kseexpr) >= 6
+BuildRequires:  cmake(kseexpr)
 BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig(OpenEXR)
 BuildRequires:  libtiff-devel
@@ -232,6 +232,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Mon Mar 30 2026 Than Ngo <than@redhat.com> - 6.0.1-1
+- Update krita to 6.0.1 and lager to 0.1.3
+
 * Wed Mar 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0-1
 - 6.0.0
 

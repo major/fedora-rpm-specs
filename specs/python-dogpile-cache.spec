@@ -1,4 +1,4 @@
-%global pypi_name dogpile.cache
+%global pypi_name dogpile_cache
 %global sum A caching front-end based on the Dogpile lock
 %global desc Dogpile consists of two subsystems, one building on top of the other.\
 \
@@ -22,7 +22,7 @@ dogpile.cache in a more efficient and succinct manner, and all the cruft\
 heap.
 
 Name:               python-dogpile-cache
-Version:            1.3.3
+Version:            1.5.0
 Release:            %autorelease
 Summary:            %{sum}
 

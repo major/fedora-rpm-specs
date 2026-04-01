@@ -6,7 +6,7 @@
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.2.1
+Version:   4.2.2
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
@@ -163,6 +163,7 @@ rm -rf deps/mapnik/sparsehash deps/mapbox/geometry deps/mapbox/polylabel deps/ma
   -DUSE_EXTERNAL_MAPBOX_POLYLABEL=ON \
   -DUSE_EXTERNAL_MAPBOX_PROTOZERO=ON \
   -DUSE_EXTERNAL_MAPBOX_VARIANT=ON \
+  -DBUILD_UTILITY_SVG2PNG=OFF \
   -DFONTS_INSTALL_DIR=share/fonts
 %cmake_build
 
@@ -215,7 +216,6 @@ popd
 %{_bindir}/mapnik-viewer
 %{_bindir}/pgsql2sqlite
 %{_bindir}/shapeindex
-%{_bindir}/svg2png
 %{_datadir}/applications/viewer.desktop
 
 

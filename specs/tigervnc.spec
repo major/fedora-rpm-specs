@@ -6,8 +6,8 @@
 %bcond xserver %[!(0%{?rhel} >= 10)]
 
 Name:           tigervnc
-Version:        1.16.0
-Release:        2%{?dist}
+Version:        1.16.2
+Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -438,6 +438,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Fri Mar 27 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.2-1
+- 1.16.2
+
 * Tue Feb 10 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.0-2
 - Move obsoletes/provides for tigervnc-server-minimal to tigervnc-server-x11
 

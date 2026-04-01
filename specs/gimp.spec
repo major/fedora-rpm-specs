@@ -60,7 +60,7 @@ app - gimp:ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.2.0
+Version:        3.2.2
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -100,7 +100,7 @@ ExcludeArch:    s390x
 %global lib_api_version %{major}.0
 %endif
 # Mirrored from meson.build
-%global interface_age 0
+%global interface_age %micro
 %global binary_age %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro))}
 %global lt_current %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro) - tonumber(macros.interface_age))}
 %global lt_revision %interface_age
@@ -246,6 +246,7 @@ BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3dist(pygobject) >= %pygobject_minver
+BuildRequires:  python3dist(pycairo)
 BuildRequires:  vala
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  yelp-tools
@@ -270,6 +271,7 @@ Requires:       lua-lgi
 %endif
 Requires:       pango%{?_isa} >= %pango_minver
 Requires:       python3dist(pygobject) >= %pygobject_minver
+Requires:       python3dist(pycairo)
 Requires:       xdg-utils
 
 Recommends:     mypaint2-brushes

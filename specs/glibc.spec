@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-171-gcd013efb93
+%global glibcsrcdir glibc-2.43.9000-188-g6abe432ec4
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -346,8 +346,7 @@ rpm.define("__debug_install_post bash " .. wrapper
 ##############################################################################
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
-Patch23: glibc-python3.patch
-Patch24: glibc-rh2426825.patch
+Patch18: glibc-rh2426825.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2400,6 +2399,27 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Mar 30 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-7
+- Auto-sync with upstream branch master,
+  commit 6abe432ec4aa1456151be8f9567c4d68f41d68f7:
+- math: Fix lgammaf regression on i686 (Adhemerval Zanella)
+- math: Use polydd_cosh instead of polydd on cosh (Adhemerval Zanella)
+- localedata: Add disclaimer to files contributed with assignment (Carlos O'Donell)
+- advisories: Update GLIBC-SA-2026-0005 and GLIBC-SA-2026-0006. (Carlos O'Donell)
+- resolv: Check hostname for validity (CVE-2026-4438) (Carlos O'Donell)
+- Use #!/usr/bin/python3 in remaining Python scripts (Florian Weimer)
+- LoongArch: Add new files for LA32 in sysdeps/unix/sysv/linux/loongarch/ilp32 (mengqinggang)
+- LoongArch: Add support for LA32 in sysdeps/unix/sysv/linux/loongarch (mengqinggang)
+- LoongArch: Add new file for LA32 in sysdeps/loongarch/ilp32 (mengqinggang)
+- LoongArch: Add support for LA32 in sysdeps/loongarch/fpu (mengqinggang)
+- LoongArch: Add support for LA32 in sysdeps/loongarch (mengqinggang)
+- LoongArch: fix missing trap for enabled exceptions on narrowing operation (Xi Ruoyao)
+- nptl: Fix nptl/tst-cancel31 fail sometimes (mengqinggang)
+- resolv: Count records correctly (CVE-2026-4437) (Carlos O'Donell)
+- Add advisory text for CVE-2026-4438 (Carlos O'Donell)
+- Add advisory text for CVE-2026-4437 (Carlos O'Donell)
+- Use binutils 2.46, MPC 1.4.0 in build-many-glibcs.py (Joseph Myers)
+
 * Mon Mar 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-6
 - Auto-sync with upstream branch master,
   commit cd013efb933680917c418f19c95b37d6838cd6fb:

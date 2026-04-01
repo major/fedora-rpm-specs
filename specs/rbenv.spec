@@ -6,6 +6,7 @@ Name:           rbenv
 Version:        1.3.2
 Release:        %autorelease
 Summary:        Manage your app's Ruby environment
+BuildArch:      noarch
 
 License:        MIT
 URL:            https://github.com/rbenv/rbenv
@@ -30,11 +31,11 @@ painless Ruby upgrades and bulletproof deployments.
 %autosetup
 
 %install
-mkdir -p %{buildroot}%{_libdir}/rbenv
-cp -a completions libexec rbenv.d %{buildroot}%{_libdir}/rbenv
+mkdir -p %{buildroot}%{_libexecdir}/rbenv
+cp -a completions libexec rbenv.d %{buildroot}%{_libexecdir}/rbenv
 
 mkdir -p %{buildroot}%{_bindir}
-ln -s %{_libdir}/rbenv/libexec/rbenv %{buildroot}%{_bindir}
+ln -s ../libexec/rbenv/libexec/rbenv %{buildroot}%{_bindir}/rbenv
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -Dpm 0644 share/man/man1/rbenv.1 %{buildroot}%{_mandir}/man1/rbenv.1
@@ -52,7 +53,7 @@ bats test
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
-%{_libdir}/%{name}
+%{_libexecdir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog

@@ -500,6 +500,11 @@ Patch2204: 22-185375.patch
 # https://github.com/llvm/llvm-project/pull/185922
 Patch2205: 22-185922.patch
 
+# Backport fixes for lit resource exhaustion on i686.
+Patch2206: 0001-lit-Stop-holding-subprocess-objects-open-in-TimeoutH.patch
+Patch2207: 0002-lit-dealloc-ApplyResult-objects-as-they-re-waited-on.patch
+Patch2208: 0003-lit-Explicitly-unset-timer-to-free-thread-stack-1887.patch
+
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
 Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch

@@ -20,7 +20,6 @@ ExcludeArch: %{ix86} %{arm}
 # Downgrade optimization
 %global less_optbuild 0
 
-	
 # Disable LTO to work around rhbz#1883904
 %ifnarch x86_64
 %define _lto_cflags %{nil}
@@ -174,7 +173,7 @@ BuildRequires: bzip2-devel
 BuildRequires: cairo-devel
 BuildRequires: cargo
 %if !0%{?use_bundled_cbindgen}
-BuildRequires: cbindgen	
+BuildRequires: cbindgen
 %endif
 BuildRequires: ccache
 BuildRequires: dbus-devel
@@ -425,14 +424,27 @@ echo "ac_add_options --enable-debug" >> .mozconfig
 echo "ac_add_options --disable-optimize" >> .mozconfig
 echo "ac_add_options --enable-rust-debug" >> .mozconfig
 %else
-%global optimize_flags "none"
+%if %{build_with_pgo}
+%global optimize_flags "3"
 %if %{?optimize_flags} != "none"
-echo 'ac_add_options --enable-optimize=%{?optimize_flags}' >> .mozconfig
+echo 'ac_add_options --enable-optimize=-O%{?optimize_flags}' >> .mozconfig
+echo 'ac_add_options RUSTC_OPT_LEVEL="%{?optimize_flags}"' >> .mozconfig
+echo 'ac_add_options OPT_LEVEL="%{?optimize_flags}"' >> .mozconfig
 %else
 echo 'ac_add_options --enable-optimize' >> .mozconfig
-%endif
 echo "ac_add_options --disable-debug" >> .mozconfig
 %endif
+%endif
+%endif
+
+%if %{build_with_pgo}
+echo "ac_add_options MOZ_PGO=1" >> .mozconfig
+echo "ac_add_options MOZ_PGO_RUST=1" >>  .mozconfig
+echo "ac_add_options --enable-lto=full" >> .mozconfig
+%else
+echo "ac_add_options --disable-lto" >> .mozconfig
+%endif
+
 echo "ac_add_options --disable-strip" >> .mozconfig
 echo "ac_add_options --disable-install-strip" >> .mozconfig
 echo "ac_add_options --disable-tests" >> .mozconfig
@@ -448,14 +460,6 @@ echo "ac_add_options --with-clang-path=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bi
 
 %ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
-%endif
-
-%if %{build_with_pgo}
-echo "ac_add_options MOZ_PGO=1" >> .mozconfig
-echo "ac_add_options MOZ_PGO_RUST=1" >>  .mozconfig
-echo "ac_add_options --enable-lto" >> .mozconfig
-%else
-echo "ac_add_options --disable-lto" >> .mozconfig
 %endif
 
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
@@ -504,12 +508,22 @@ cp %{SOURCE18} %{_buildrootdir}/bin || :
 # Update the various config.guess to upstream release for aarch64 support
 find ./ -path ./third_party/rust -prune -o -name config.guess -exec cp /usr/lib/rpm/config.guess {} ';'
 
+%if %{build_with_pgo}
+MOZ_OPT_FLAGS=$(echo "%{optflags}" | %{__sed} -e 's/-Wall//' -e 's/-O2/-O3/')
+%if %{?less_optbuild}
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O3/-O1/')
+%endif
+%if %{?debug_build}
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O3/-O0/')
+%endif
+%else
 MOZ_OPT_FLAGS=$(echo "%{optflags}" | %{__sed} -e 's/-Wall//')
 %if %{?less_optbuild}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2/-O1/')
 %endif
 %if %{?debug_build}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2/-O0/')
+%endif
 %endif
 
 #rhbz#1037063
@@ -520,7 +534,6 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2/-O0/')
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
 
-	
 # If MOZ_DEBUG_FLAGS is empty, firefox's build will default it to "-g" which
 # overrides the -g1 from line above and breaks building on s390/arm
 # (OOM when linking, rhbz#1238225)

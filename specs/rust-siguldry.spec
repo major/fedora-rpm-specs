@@ -19,6 +19,9 @@ Source2:        siguldry-sysuser.conf
 # * Allow older pyo3 0.27, RHBZ#2435852
 Patch:          siguldry-fix-metadata.diff
 
+# https://github.com/fedora-infra/siguldry/pull/171
+Patch:          171.patch
+
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -170,10 +173,10 @@ use the "sigul-client" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
-install -d -p -m 0750 %{buildroot}%{_sysconfdir}/siguldry
-install -D -p -m 0640 server.toml.example %{buildroot}%{_sysconfdir}/siguldry/server.toml
-install -D -p -m 0640 bridge.toml.example %{buildroot}%{_sysconfdir}/siguldry/bridge.toml
-install -D -p -m 0640 client.toml.example %{buildroot}%{_sysconfdir}/siguldry/client.toml
+install -d -p -m 0755 %{buildroot}%{_sysconfdir}/siguldry
+install -D -p -m 0644 server.toml.example %{buildroot}%{_sysconfdir}/siguldry/server.toml
+install -D -p -m 0644 bridge.toml.example %{buildroot}%{_sysconfdir}/siguldry/bridge.toml
+install -D -p -m 0644 client.toml.example %{buildroot}%{_sysconfdir}/siguldry/client.toml
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/siguldry.conf
 
 ## Server-related files ##
