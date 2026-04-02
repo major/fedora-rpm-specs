@@ -1,5 +1,5 @@
 %global glib2_version 2.56.0
-%global glycin_version 2.0.1
+%global glycin_version 2.1.0
 
 # Normally we want auto features enabled to ensure no important feature gets
 # disabled by mistake. But in this package, the auto features are mostly legacy
@@ -7,7 +7,7 @@
 %global __meson_auto_features disabled
 
 Name:           gdk-pixbuf2
-Version:        2.44.5
+Version:        2.44.6
 Release:        %autorelease
 Summary:        An image loading library
 
@@ -35,6 +35,9 @@ Requires: shared-mime-info
 
 # All modules previously provided by gdk-pixbuf itself are obsoleted by Glycin.
 Obsoletes: %{name}-modules < %{version}-%{release}
+Obsoletes: %{name}-modules-extra < 2.44.0-3
+Provides:  %{name}-modules-extra = %{version}-%{release}
+Provides:  %{name}-modules-extra%{?_isa} = %{version}-%{release}
 
 # Most third-party pixbuf loaders are also obsolete. If Glycin supports the
 # format, then it will take precedence and the third-party loader won't be used.
@@ -84,6 +87,7 @@ the functionality of the installed %{name} package.
        -Ddocumentation=true \
        -Dintrospection=enabled \
        -Dglycin=enabled \
+       -Dlegacy_xpm=enabled \
        %{nil}
 %meson_build
 
@@ -118,6 +122,7 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %dir %{_libdir}/gdk-pixbuf-2.0/2.10.0
 %dir %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders
 %ghost %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-xpm.so
 %{_bindir}/gdk-pixbuf-query-loaders-%{__isa_bits}
 %{_mandir}/man1/gdk-pixbuf-query-loaders.1*
 

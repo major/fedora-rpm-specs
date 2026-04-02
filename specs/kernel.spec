@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc6.49
+%define pkgrelease 0.rc6.260331gd0c3bcd5b897.50
 %define kversion 7
-%define tarfile_release 7.0-rc6
+%define tarfile_release 7.0-rc6-4-gd0c3bcd5b897
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.49%{?buildid}%{?dist}
+%define specrelease 0.rc6.260331gd0c3bcd5b897.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4822,8 +4822,11 @@ fi\
 #
 #
 %changelog
-* Mon Mar 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc6.49]
+* Tue Mar 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc6.d0c3bcd5b897.50]
 - Work around binutils update in s390x perf (Justin M. Forbes)
+
+* Tue Mar 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc6.d0c3bcd5b897.49]
+- Linux v7.0.0-0.rc6.d0c3bcd5b897
 
 * Mon Mar 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc6.48]
 - redhat/configs: Centralize iommu debugfs options, and enable amd iommu debugfs (Jerry Snitselaar)

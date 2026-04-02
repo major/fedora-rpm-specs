@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-git-changelog
-Version:        2.7.1
+Version:        2.9.3
 Release:        %autorelease
 Summary:        Automatic Changelog generator using Jinja2 templates
 License:        ISC

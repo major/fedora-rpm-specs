@@ -1,6 +1,6 @@
 Name: libdatovka
-Version: 0.7.2
-Release: 2%{?dist}
+Version: 0.7.3
+Release: 1%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -24,6 +24,7 @@ BuildRequires: libgcrypt-devel
 BuildRequires: expat-devel
 BuildRequires: gnupg2-smime
 BuildRequires: gnutls-devel
+BuildRequires: json-c-devel
 # partial fix for the https://gitlab.nic.cz/datovka/libdatovka/-/issues/17
 # --disable-fatalwarnings can be dropped once correctly fixed upstream
 Patch0: libdatovka-0.2.1-gcc-12-build-fix.patch
@@ -91,6 +92,10 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Wed Apr 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.7.3-1
+- New version
+  Resolves: rhbz#2447269
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

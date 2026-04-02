@@ -11,6 +11,8 @@ Summary:        Change the default look and feel of pytest
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/pytest-sugar
 Source:         %{pypi_source pytest-sugar}
+# Fix pytest 9 compatibility: py.path.local arguments deprecated
+Patch:          https://github.com/Teemu/pytest-sugar/commit/6565166.patch
 
 BuildArch:      noarch
 
@@ -25,7 +27,7 @@ BuildRequires:  %{py3_dist pytest}
 
 
 %prep
-%autosetup -n pytest-sugar-%{version}
+%autosetup -p1 -n pytest-sugar-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

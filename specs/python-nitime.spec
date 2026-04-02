@@ -1,5 +1,5 @@
 Name:           python-nitime
-Version:        0.11
+Version:        0.12
 Release:        %autorelease
 Summary:        Timeseries analysis for neuroscience data
 
@@ -48,6 +48,9 @@ Summary:        %{summary}
 # Correct shebangs to python3
 sed -i 's|^#!/usr/bin/env python|#!/usr/bin/python3|' setup.py
 
+# remove coverage bits
+sed -i '/-cov/ d' pyproject.toml
+
 # This example doesn't seem to be correct, so we remove it for the time being and let upstream know.
 rm -fv doc/examples/filtering_fmri.py
 
@@ -60,9 +63,6 @@ popd
 # Remove duplicate license file from module
 rm -v nitime/LICENSE
 
-# Allow building with NumPy 1.x. F40 and F41 will stay on 1.x.
-sed -r -i 's/numpy>=2.*,</numpy</' pyproject.toml
-
 %generate_buildrequires
 %pyproject_buildrequires -x full
 
@@ -74,10 +74,11 @@ sed -r -i 's/numpy>=2.*,</numpy</' pyproject.toml
 %pyproject_save_files -l nitime
 
 %check
-%pytest -v --import-mode=importlib
+# https://github.com/nipy/nitime/issues/239
+%pytest -v --import-mode=importlib -k "not test_UniformTime_repr"
 
 %files -n python3-nitime -f %{pyproject_files}
-%doc README.txt THANKS
+%doc README.rst THANKS
 
 %changelog
 %autochangelog

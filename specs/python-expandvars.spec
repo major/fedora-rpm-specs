@@ -7,12 +7,15 @@ Summary:        Expand system variables Unix style
 License:        MIT
 URL:            https://github.com/sayanarijit/expandvars
 Source:         %{pypi_source expandvars}
+# Fix pytest 9: addopts must be a list, not a string
+Patch:          https://github.com/sayanarijit/expandvars/commit/0ab5747.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l expandvars
 
 BuildArch:      noarch
 
+BuildRequires: tomcli
 # Most of the dependencies in the “test” extra and almost everything tox.ini
 # pertain to linting and coverage analysis. Rather than working around all of
 # these, it is simpler to BR and invoke pytest manually.
@@ -38,7 +41,7 @@ Summary:        %{summary}
 
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i "s/--cov[^[:blank:]'\"]*[[:blank:]]*//g" pyproject.toml
+tomcli set pyproject.toml lists delitem tool.pytest.addopts -- '--cov.*'
 
 
 %check -a

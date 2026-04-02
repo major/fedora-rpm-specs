@@ -7,8 +7,8 @@ Version:        1.8.0
 Release:        1%{?dist}
 Summary:        A lean WSGI object-dispatching web framework
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# Everything is BSD-3-Clause but pecan/middleware/recursive.py which is MIT
+License:        BSD-3-Clause AND MIT
 URL:            https://github.com/pecan/pecan
 Source0:        %pypi_source
 BuildArch:      noarch

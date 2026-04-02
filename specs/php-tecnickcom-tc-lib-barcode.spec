@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    8d754e2cb6001114ff7669982739245078346d8f
+%global gh_commit    be76f91968bfab74949a3f937f78f02455597c85
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.27
+Version:        2.4.29
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 2.4.29-1
+- update to 2.4.29 (no change)
+
 * Tue Mar  3 2026 Remi Collet <remi@remirepo.net> - 2.4.27-1
 - update to 2.4.27
 

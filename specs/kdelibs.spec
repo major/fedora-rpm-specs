@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 51%{?dist}
+Release: 52%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -358,6 +358,10 @@ Obsoletes: kdelibs-experimental < 4.3.75
 Obsoletes: kdelibs < 6:4.14.17-5
 %else
 Obsoletes: kdelibs-nepomuk < %{?epoch:%{epoch}:}%{version}-%{release}
+%endif
+
+%if ! 0%{?webkit}
+Obsoletes: kdelibs-webkit < %{version}-%{release}
 %endif
 
 Requires: kde-apps-rpm-macros = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -907,6 +911,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Sat Mar 21 2026 Miroslav Suchy <msuchy@redhat.com> - 6:4.14.38-52
+- Obsolete webkit (RHBZ#2445227)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

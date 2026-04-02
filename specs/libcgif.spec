@@ -18,11 +18,13 @@
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
 Version:       0.5.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 Source0:       https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
+
+Patch0:        CVE-2026-4985.patch
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.56
@@ -62,6 +64,7 @@ for %{libname}.
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1 -b .cve
 
 
 %build
@@ -90,6 +93,10 @@ for %{libname}.
 
 
 %changelog
+* Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 0.5.2-2
+- fix potential undefined behavior in cgif_addframe
+  CVE-2026-4985
+
 * Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 0.5.2-1
 - update to 0.5.2
 

@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 Name:   ibus-speech-to-text
-Version:  0.7.0
-Release:  3%{?dist}
+Version:  0.8.0
+Release:  1%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
 ExcludeArch: %{ix86}
 License:  GPL-3.0-or-later
 URL:     https://github.com/Manish7093/IBus-Speech-To-Text
 Source0: https://github.com/Manish7093/IBus-Speech-To-Text/archive/refs/tags/%{version}.tar.gz
-Patch0: add_quantized_model.patch
+
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  ibus-devel >= 1.5.3
@@ -33,7 +33,6 @@ which can be used to dictate text to any application
 
 %prep
 %setup -q -n IBus-Speech-To-Text-%{version}
-%patch 0 -p1 -b .orig~
 
 %build
 %meson
@@ -56,6 +55,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Wed Apr 1 2026 Manish Tiwari <matiwari@redhat.com> 0.8.0-1
+- Update to release 0.8.0
+
 * Wed Mar 4 2026 Manish Tiwari <matiwari@redhat.com> 0.7.0-3
 - Add quantized WhisperCpp model support
 

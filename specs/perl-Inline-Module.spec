@@ -1,23 +1,23 @@
 Name:           perl-Inline-Module
-Version:        0.34
-Release:        32%{?dist}
+Version:        0.35
+Release:        1%{?dist}
 Summary:        Support for Inline-based CPAN extension modules
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Module
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Inline-Module-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(File::ShareDir::Install)
+BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 # Unused BuildRequires:  perl(Data::Dumper)
 # Unused BuildRequires:  perl(ExtUtils::CppGuess)
@@ -39,27 +39,67 @@ Requires:       perl(Inline::C::Parser::RegExp)
 This module provides support and documentation for creating and maintaining
 CPAN extension modules. i.e. writing XS modules without having to learn XS.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Inline-Module-%{version}
+# Remove always skipped tests
+rm t/author-pod-syntax.t
+perl -i -ne 'print $_ unless m{\At/author-pod-syntax\.t\b}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install} DESTDIR=%{buildroot}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/auto
+%dir %{perl_vendorlib}/auto/share
+%dir %{perl_vendorlib}/auto/share/dist
+%{perl_vendorlib}/auto/share/dist/Inline-Module
+%dir %{perl_vendorlib}/Inline
+%{perl_vendorlib}/Inline/Module
+%{perl_vendorlib}/Inline/Module.{pm,pod}
+%{_mandir}/man3/Inline::Module.*
+%{_mandir}/man3/Inline::Module::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 0.35-1
+- 0.35 bump
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

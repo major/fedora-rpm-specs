@@ -1,5 +1,5 @@
 Name:           perl-Graphics-Toolkit-Color
-Version:        2.01
+Version:        2.02
 Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 2.02-1
+- 2.02 bump
+
 * Tue Mar 24 2026 Petr Pisar <ppisar@redhat.com> - 2.01-1
 - 2.01 bump
 

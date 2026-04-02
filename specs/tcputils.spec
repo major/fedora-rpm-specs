@@ -4,8 +4,7 @@ Version:        0.6.2
 Release:        37%{?dist}
 Summary:        Utilities for TCP programming in shell-scripts
 
-# Automatically converted from old format: Public Domain - needs further work
-License:        LicenseRef-Callaway-Public-Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            ftp://ftp.lysator.liu.se/pub/unix/tcputils
 Source0:        ftp://ftp.lysator.liu.se/pub/unix/%{name}/%{name}-%{version}.tar.gz
 Patch0:         tcputils-0.6.2-makefile.patch

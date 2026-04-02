@@ -13,7 +13,7 @@
 # published by the Open Source Initiative.
 
 Name:		qdmr
-Version:	0.13.3
+Version:	0.14.0
 Release:	1%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
@@ -47,6 +47,7 @@ BuildRequires:	libappstream-glib
 BuildRequires:	librsvg2-tools
 BuildRequires:	graphviz
 Patch:		qdmr-0.13.2-fix-docbook-xsl-path.patch
+Patch:		qdmr-0.14.0-32bit-fix.patch
 
 %description
 A Qt5 application to program DMR radios. DMR is a digital modulation
@@ -131,6 +132,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Wed Apr 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.14.0-1
+- New version
+  Resolves: rhbz#2451696
+
 * Mon Jan 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.13.3-1
 - New version
   Resolves: rhbz#2430964

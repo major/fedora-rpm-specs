@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.14
+%define mainversion   6.15
 %dnl %define extratarver   1
 %dnl %define beta_ver      b2
 
@@ -104,8 +104,6 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
-# driver/Makefile.in: fix test-vp linkage
-Patch5401:       xscreensaver-6.14-0001-driver-fix-linkage-for-test-vp.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -183,6 +181,8 @@ BuildRequires:   libXt-devel
 # libXxf86misc removed from F-31
 #BuildRequires:   libXxf86misc-devel
 BuildRequires:   libXxf86vm-devel
+# XScreenSaver 6.15
+BuildRequires:   pkgconfig(fontconfig)
 # XScreenSaver 5.31
 BuildRequires:   pkgconfig(xft)
 BuildRequires:   pkgconfig(gtk+-3.0) >= 2.22.0
@@ -414,7 +414,6 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
-%__cat %PATCH5401 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -1211,6 +1210,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Mar 31 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.15-1
+- Update to 6.15
+
 * Sun Jan 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.14-1
 - Update to 6.14
 

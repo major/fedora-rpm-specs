@@ -533,10 +533,12 @@ Source0:    README
 %obsolete cfn-lint+sarif 1.36.0-2
 %obsolete check-manifest 0.50-3
 %obsolete cinch 1.4.0-23
+%obsolete cjdns-graph 21.1-18
 %obsolete coapthon3 1.0.1-23
 %obsolete cranc 1.1.0-20
 %obsolete credslayer 0.1.2-18
 %obsolete dcrpm 0.6.3-14
+%obsolete dib-utils 0.0.11-22
 %obsolete dingz 0.5.0-11
 %obsolete dmlite-dpm-tester 1.15.2-22
 %obsolete dmlite-dpmhead-domeonly 1.15.2-22
@@ -585,6 +587,9 @@ Source0:    README
 %obsolete obserware 0.2.10-2
 %obsolete odcs 0.9.0-2
 %obsolete odcs-client 0.9.0-2
+%obsolete opae 2.13.0-4
+%obsolete opae-devel 2.13.0-4
+%obsolete opae-extra-tools 2.13.0-4
 %obsolete pag 0.8-24
 %obsolete pagure 5.14.1-7
 %obsolete pagure-ci 5.14.1-7
@@ -613,6 +618,7 @@ Source0:    README
 %obsolete postgresql15-upgrade 15.8-2
 %obsolete postgresql15-upgrade-devel 15.8-2
 %obsolete prewikka 5.2.0-19
+%obsolete protonvpn-cli 2.2.12-6
 %obsolete pwncat 0.1.0-18
 %obsolete pypykatz 0.3.15-16
 %obsolete pysubnettree 0.35-12
@@ -727,10 +733,12 @@ Source0:    README
 %obsolete python3-cachy 0.3.0-21
 %obsolete python3-cantera 3.1.0-3
 %obsolete python3-case 1.5.3-23
+%obsolete python3-catkin_lint 1.6.22-10
 %obsolete python3-chalice 1.31.2-4
 %obsolete python3-check-manifest 0.50-3
 %obsolete python3-chirpstack-api 3.9.4-15
 %obsolete python3-ci-info 0.3.0-3
+%obsolete python3-cjdns 21.1-18
 %obsolete python3-click-help-colors 0.9.1-14
 %obsolete python3-cliff-tablib 1.1-38
 %obsolete python3-cloudant 2.15.0-14
@@ -780,8 +788,7 @@ Source0:    README
 %obsolete python3-django-prometheus 2.1.0-15
 %obsolete python3-django-rules 3.3.0-12
 %obsolete python3-django-threadedcomments 1.2-28
-%obsolete python3-django4.2 4.2.27-2
-%obsolete python3-django5 5.1.11-2
+%obsolete python3-django4.2 4.2.28-2
 %obsolete python3-dlib 19.24.8-4
 %obsolete python3-dmlite 1.15.2-22
 %obsolete python3-dnsgen 1.0.4-17
@@ -838,7 +845,6 @@ Source0:    README
 %obsolete python3-gios 0.1.4-18
 %obsolete python3-git-url-parse 1.2.2-28
 %obsolete python3-glances-api 0.2.0-24
-%obsolete python3-gnulib 0-56
 %obsolete python3-gphoto2 2.0.0-22
 %obsolete python3-graphene 3.0b6-16
 %obsolete python3-graphql-relay 3.2.0-11
@@ -861,6 +867,7 @@ Source0:    README
 %obsolete python3-hypercorn+uvloop 0.17.3-8
 %obsolete python3-hypershell+postgres 2.7.0-2
 %obsolete python3-hypothesis-fspaths 0.1-21
+%obsolete python3-iep 3.7-34
 %obsolete python3-imagehash 4.3.2-5
 %obsolete python3-instant 2016.1.0-32
 %obsolete python3-intern 1.4.2-2
@@ -878,6 +885,7 @@ Source0:    README
 %obsolete python3-jenkins-job-builder 1:6.4.2-3
 %obsolete python3-jschema-to-python 1.2.3-19
 %obsolete python3-json2table 1.1.5-24
+%obsolete python3-jsonpath-rw 1.4.0-23
 %obsolete python3-jsonpath-rw-ext 1.2.2-17
 %obsolete python3-jsons 1.5.0-14
 %obsolete python3-junit-xml 1.9^20200222gitba89b41-21
@@ -919,14 +927,17 @@ Source0:    README
 %obsolete python3-mne 1.9.0-4
 %obsolete python3-mne-bids 0.16.0-13
 %obsolete python3-mne-bids+full 0.16.0-13
+%obsolete python3-mock 4.0.3-19
 %obsolete python3-moksha-common 1.2.5-36
 %obsolete python3-moksha-hub 1.5.17-26
 %obsolete python3-mongoquery 1.4.2-10
 %obsolete python3-monotonic 1.5-24
 %obsolete python3-moss 0.5.0-27
 %obsolete python3-mpd 0.2.1-43
+%obsolete python3-mrcfile 1.5.4-2
 %obsolete python3-mrcrowbar 0.8.0-17
 %obsolete python3-msldap 0.3.26-15
+%obsolete python3-murano-pkg-check 0.3.0-37
 %obsolete python3-mutatormath 3.0.1-15
 %obsolete python3-mystrom 2.0.0-16
 %obsolete python3-nanoid 2.0.0-18
@@ -962,9 +973,11 @@ Source0:    README
 %obsolete python3-nipype+nipy 1.10.0-3
 %obsolete python3-nipype+pybids 1.10.0-3
 %obsolete python3-nipype+ssh 1.10.0-3
+%obsolete python3-nispor 1.2.27-6
 %obsolete python3-nose 1.3.7-63
 %obsolete python3-nose-testconfig 0.10-36
 %obsolete python3-nose-timer 1.0.0-17
+%obsolete python3-nose2+coverage_plugin 0.15.1-8
 %obsolete python3-novaclient-os-networks 0.26-32
 %obsolete python3-nptyping 2.5.0-3
 %obsolete python3-nrf24 1.1.1-16
@@ -1088,7 +1101,6 @@ Source0:    README
 %obsolete python3-opentelemetry-util-http 2:0.48~b0-2
 %obsolete python3-opentracing 2.4.0-15
 %obsolete python3-os-testr 3.0.0-11
-%obsolete python3-oscrypto 1.3.0-8
 %obsolete python3-oslo-middleware 6.0.0-5
 %obsolete python3-oslo-middleware-tests 6.0.0-5
 %obsolete python3-ouimeaux 0.8.2-26
@@ -1107,6 +1119,7 @@ Source0:    README
 %obsolete python3-pastel 0.2.0-18
 %obsolete python3-path-and-address 2.0.1-3
 %obsolete python3-pdc-client 1.8.0-36
+%obsolete python3-pdir2 1.1.0-4
 %obsolete python3-pdm-pep517 1.1.4-9
 %obsolete python3-pep440 0.1.2-9
 %obsolete python3-pifpaf 2.2.2-25
@@ -1187,6 +1200,7 @@ Source0:    README
 %obsolete python3-pyprocdev 0.2-32
 %obsolete python3-pyqtchart 5.15.5-21
 %obsolete python3-pyqtchart-devel 5.15.5-21
+%obsolete python3-pyramid_sawing 1.1.3-24
 %obsolete python3-pyriemann 0.8-2
 %obsolete python3-pyrsistent 0.20.0-10
 %obsolete python3-pysaml2 7.4.2-6
@@ -1209,6 +1223,7 @@ Source0:    README
 %obsolete python3-pyvirtualize 0.10-22
 %obsolete python3-pyvit 0.2.1-24
 %obsolete python3-pywatchman 2021.05.10.00-29
+%obsolete python3-pywlroots 0.17.0-5
 %obsolete python3-pyxdf 1.17.0-2
 %obsolete python3-pyxdf-examples 1.17.0-2
 %obsolete python3-pyxid 1.1-0.33
@@ -1235,9 +1250,7 @@ Source0:    README
 %obsolete python3-restview 3.0.0-11
 %obsolete python3-retrying 1.3.3-17
 %obsolete python3-ring-doorbell 0.7.1-15
-%obsolete python3-rnc2rng 2.7.0-6
 %obsolete python3-rows 0.4.1-25
-%obsolete python3-rply 0.7.8-15
 %obsolete python3-rpmautospec-koji 0.4.0-8
 %obsolete python3-rtmidi 1.5.8-4
 %obsolete python3-sarif-om 1.0.4-21
@@ -1272,6 +1285,7 @@ Source0:    README
 %obsolete python3-sortedcollections 2.1.0-19
 %obsolete python3-spec 1.4.1-19
 %obsolete python3-sphinx-documatt-theme 0.0.6-7
+%obsolete python3-sphinx-hoverxref 1.4.1-3
 %obsolete python3-sphinx-sitemap 2.6.0-7
 %obsolete python3-sphinxcontrib-asyncio 0.3.0-15
 %obsolete python3-sphinxcontrib-blockdiag 2.0.0-17
@@ -1280,9 +1294,7 @@ Source0:    README
 %obsolete python3-sphinxcontrib-seqdiag 2.0.0-15
 %obsolete python3-sphobjinv 2.3.1.1-3
 %obsolete python3-sqlalchemy+mypy 2.0.35-2
-%obsolete python3-sqlalchemy+mysql_connector 2.0.46-2
-%obsolete python3-sqlmodel 0.0.24-2
-%obsolete python3-sqlmodel-slim 0.0.24-2
+%obsolete python3-sqlalchemy+mysql_connector 2.0.48-2
 %obsolete python3-ssdp 1.3.0-7
 %obsolete python3-sseclient 0.0.27-17
 %obsolete python3-sseclient-py 1.7-17
@@ -1365,9 +1377,14 @@ Source0:    README
 %obsolete secrets 9.6-4
 %obsolete sgtk-menu 1.4.1-17
 %obsolete shodan 1.31.0-5
+%obsolete sigul 1.2-5
+%obsolete sigul-bridge 1.2-5
+%obsolete sigul-server 1.2-5
 %obsolete sipvicious 0.3.3-15
 %obsolete snallygaster 0.0.13-3
 %obsolete socialscan 2.0.1-3
+%obsolete sourcextractor++ 0.22-4
+%obsolete sourcextractor++-devel 0.22-4
 %obsolete standard-test-roles 4.13-2
 %obsolete standard-test-roles-inventory-qemu 4.13-2
 %obsolete stats-collect 1.0.30-4
@@ -1386,17 +1403,15 @@ Source0:    README
 %obsolete x-tile 3.3-17
 %obsolete xcat 1.0.4-18
 %obsolete xortool 1.0.2-3
+%obsolete zeek-zkg 6.0.4-2
+%obsolete zeekctl 6.0.4-2
 %obsolete zezere 0.5.2-9
 # Packages which weren't successfully built with Python 3.14
 # and weren't retired (bugzilla in ASSIGNED state)
-%obsolete cjdns-graph 21.1-17
 %obsolete psi4 1:1.9.1-7
-%obsolete python3-cjdns 21.1-17
 %obsolete python3-optking 0.3.0-7
 %obsolete python3-pamela 1.2.0-3
 %obsolete python3-qcengine 0.30.0-5
-%obsolete zeekctl 6.0.4-2
-%obsolete zeek-zkg 6.0.4-2
 
 # Remove in F45
 # Package was retired during F43 cycle.

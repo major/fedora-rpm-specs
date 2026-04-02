@@ -1,6 +1,6 @@
 Name:           opensc
-Version:        0.26.1
-Release:        6%{?dist}
+Version:        0.27.1
+Release:        1%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -10,14 +10,6 @@ Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
 # File caching by default (#2000626)
 Patch8:         %{name}-0.22.0-file-cache.patch
-# https://github.com/OpenSC/OpenSC/pull/3316
-Patch9:         %{name}-0.26.1-compiler.patch
-# https://github.com/OpenSC/OpenSC/pull/3458
-Patch10:        %{name}-0.26.1-bash-completion.patch
-# https://github.com/OpenSC/OpenSC/pull/3411
-# https://github.com/OpenSC/OpenSC/pull/3549
-Patch11:        %{name}-0.26.1-function-list.patch
-Patch12:        %{name}-0.26.1-softhsm-2.7.0.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -66,13 +58,9 @@ OpenSC libraries.
 
 
 %prep
-%setup -q
+%setup -q -n opensc-%{version}
 %patch 1 -p1 -b .pinpad
 %patch 8 -p1 -b .file-cache
-%patch 9 -p1 -b .compiler
-%patch 10 -p1 -b .bash-completion
-%patch 11 -p1 -b .function-list
-%patch 12 -p1 -b .softhsm-2.7.0
 
 XFAIL_TESTS="test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh"
 
@@ -245,6 +233,14 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Tue Mar 31 2026 Jakub Jelen <jjelen@redhat.com> - 0.27.1-1
+- New upstream release (#2442363) fixing various security issues:
+  - CVE-2025-66038 Memory corruption via improper compact-TLV length validation
+  - CVE-2025-66215 Stack-buffer-overflow with physical access via crafted smart card or USB device
+  - CVE-2025-49010 Stack-buffer-overflow via crafted smart card or USB device responses
+  - CVE-2025-66037 Out-of-bounds read via crafted input
+  - CVE-2025-13763 Several uses of potentially uninitialized memory detected by fuzzers
+
 * Fri Jan 16 2026 Michael Catanzaro <mcatanzaro@redhat.com> - 0.26.1-6
 - Fix crash when loaded by p11-kit
 - SoftHSM 2.7.0 compatibility

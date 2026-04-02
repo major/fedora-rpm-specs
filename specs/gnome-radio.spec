@@ -1,5 +1,5 @@
 Name:           gnome-radio
-Version:        73.0
+Version:        75.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
@@ -19,6 +19,7 @@ BuildRequires:  pkgconfig(champlain-gtk-0.12) >= 0.12.10
 BuildRequires:  pkgconfig(geoclue-2.0) >= 1.0
 BuildRequires:  pkgconfig(geocode-glib-2.0) >= 1.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40
+BuildRequires:  pkgconfig(goocanvas-2.0) >= 1.0
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.0
 BuildRequires:  pkgconfig(gstreamer-player-1.0) >= 1.0
 BuildRequires:  pkgconfig(gstreamer-tag-1.0) >= 1.0
@@ -47,10 +48,12 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_bindir}/gtk-internet-radio-locator
 %{_bindir}/gtk-radio
 %{_bindir}/org.gnome.Radio
+%{_bindir}/radio-beamy
 %{_bindir}/radio-icy
 %{_datadir}/applications/gnome-radio.desktop
 %{_datadir}/applications/gtk-radio.desktop
 %{_datadir}/applications/org.gnome.Radio.desktop
+%{_datadir}/applications/radio-beamy.desktop
 %{_datadir}/gnome-radio/doc/AAMOT.txt.xz
 %{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz
 %{_datadir}/gnome-radio/gnome-radio-48.0.dtd
@@ -64,6 +67,7 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/icons/hicolor/scalable/apps/gnome-radio.svg
 %{_datadir}/icons/hicolor/scalable/apps/gtk-radio.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Radio.svg
+%{_datadir}/icons/hicolor/scalable/apps/radio-beamy.svg
 %{_datadir}/locale/ca/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/cs/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/da/LC_MESSAGES/gnome-radio.mo
@@ -97,6 +101,7 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/metainfo/gnome-radio.appdata.xml
 %{_datadir}/metainfo/gtk-radio.appdata.xml
 %{_datadir}/metainfo/org.gnome.Radio.appdata.xml
+%{_datadir}/metainfo/radio-beamy.appdata.xml
 %doc README AUTHORS
 
 %changelog

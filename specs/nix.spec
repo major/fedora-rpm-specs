@@ -1,6 +1,5 @@
 %global nixbld_group nixbld
 
-# needs mdbook: https://bugzilla.redhat.com/show_bug.cgi?id=2332609
 %bcond docs 1
 # test failures complain NIX_STORE undefined
 # and missing rapidcheck
@@ -200,6 +199,7 @@ MESON_OPTS=(
     -Dnix:profile-dir=%{_sysconfdir}/profile.d
     -Dunit-tests=%[%{with tests}?"true":"false"]
     -Dlibstore:s3-aws-auth=disabled
+    # manual needs mdbook
     -Dnix-manual:html-manual=false
     -Djson-schema-checks=false
     -Dkaitai-struct-checks=false

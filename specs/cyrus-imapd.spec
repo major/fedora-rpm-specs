@@ -1,7 +1,7 @@
 #%%global prever rc1
 
 Name: cyrus-imapd
-Version: 3.12.1
+Version: 3.12.2
 Release: %autorelease %{?prever:-e %prever}
 Summary: A high-performance email, contacts and calendar server
 License: BSD-Attribution-HPND-disclaimer

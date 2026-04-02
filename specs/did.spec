@@ -1,6 +1,6 @@
 Name: did
-Version: 0.22
-Release: 7%{?dist}
+Version: 0.23
+Release: 1%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPL-2.0-or-later
@@ -51,7 +51,7 @@ install -pm 644 did.1.gz %{buildroot}%{_mandir}/man1
 
 %check
 export LANG=en_US.utf-8
-%pytest -vv tests/test*.py -k 'not smoke'
+%pytest -vv tests/unit/test*.py -k 'not smoke'
 
 %files -f %{pyproject_files}
 %{_mandir}/man1/*
@@ -60,23 +60,44 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.22-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.22-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.22-2
-- Rebuilt for Python 3.14
+* Mon Mar 30 2026 Petr Šplíchal <psplicha@redhat.com> - 0.23-1
+- Enable `epel-10` building and testing (#454)
+- Implement initial support for `forgejo` stats (#452)
+- Support `merged` pull requests for `github` and `gitlab` (#311)
+- Improve the Jira Cloud implementation (#453)
+- Support Jira Cloud instance (#448)
+- Fix issues reported by CodeQL security scan
+- Add --full-message flag to show complete commit/PR/MR bodies (#446)
+- Avoid fetching thousands of pages from GitLab API (#377)
+- Upgrade to CodeQL Action v4 (#445)
+- Fix parsing of --config argument with whitespace (#437)
+- Fix `GitHub.commented_in_range` (#444)
+- Add type hints to items plugin (#443)
+- Add type hints to Confluence plugin (#442)
+- Add type hints to Jira plugin (#441)
+- Jira issues with worklogs (#429)
+- Enable Python 3.14 support (#440)
+- Add type hints and error handling to Bugzilla plugin (#433)
+- Add type hints and error handling to Bodhi plugin (#432)
+- Fix error handling in config parsing and CLI (#431)
+- Add typing hints to conftest.py (#430)
+- Add type hints to CLI module (#424)
+- Add type annotations on base.py (#423)
+- Fix typing issues reported by mypy (#422)
+- Fix GitLab plugin 60s default timeout (#421)
+- Add unit tests for utils module (#417)
+- Add unit tests for stats module (#414)
+- Fix missing Optional typing (#411)
+- Fix return type for `get_token` in `base.py` (#412)
+- Avoid using variable names used in exceptions (#413)
+- Handle error responses querying GitHub (#408)
+- Fix Zammad plugin by filtering tickets after search (#328)
+- Add `pyproject.toml` (#409)
+- Support retry while fetching `public-inbox` stats
+- Retry bugzilla search query on connection errors
+- Deal with conflicting period options
+- Fix PageModified stat in Confluence plugin
+- Fix Jira transition to state with multiple projects
 
 * Tue Jun 03 2025 Petr Šplíchal <psplicha@redhat.com> - 0.22-1
 - Implement `transition` stats for the `jira` plugin (#352)

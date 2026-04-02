@@ -433,8 +433,8 @@ BuildRequires:	valgrind-devel
 BuildRequires:	libedit-devel
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-setuptools
 %if 0%{?rhel} == 8
+BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-rpm-macros
 %endif
 
@@ -889,7 +889,6 @@ The package contains header files for the LLDB debugger.
 
 %if %{without compat_build}
 %package -n python%{python3_pkgversion}-lldb
-%{?python_provide:%python_provide python%{python3_pkgversion}-lldb}
 Summary:	Python module for LLDB
 
 Requires:	%{pkg_name_lldb}%{?_isa} = %{version}-%{release}
@@ -936,7 +935,6 @@ Requires: %{pkg_name_mlir}-static%{?_isa} = %{version}-%{release}
 MLIR development files.
 
 %package -n python%{python3_pkgversion}-mlir
-%{?python_provide:%python_provide python%{python3_pkgversion}-mlir}
 Summary:	MLIR python bindings
 
 Requires: python%{python3_pkgversion}
@@ -1155,6 +1153,17 @@ sed -i 's/LLDB_ENABLE_PYTHON/TRUE/' lldb/docs/CMakeLists.txt
 
 #endregion prep
 
+#region python buildrequires
+%if %{with python_lit}
+%if 0%{?rhel} != 8
+%generate_buildrequires
+
+cd llvm/utils/lit
+%pyproject_buildrequires
+%endif
+%endif
+#endregion python buildrequires
+
 #region build
 %build
 # TODO(kkleine): In clang we had this %ifarch s390 s390x aarch64 %ix86 ppc64le
@@ -1236,7 +1245,11 @@ cd llvm
 #region LLVM lit
 %if %{with python_lit}
 pushd utils/lit
+%if 0%{?rhel} == 8
 %py3_build
+%else
+%pyproject_wheel
+%endif
 popd
 %endif
 #endregion LLVM lit
@@ -1528,7 +1541,11 @@ pushd llvm
 
 %if %{with python_lit}
 pushd utils/lit
+%if 0%{?rhel} == 8
 %py3_install
+%else
+%pyproject_install
+%endif
 
 # Strip out #!/usr/bin/env python
 sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.py

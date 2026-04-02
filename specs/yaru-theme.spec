@@ -9,7 +9,7 @@ Release:    %autorelease
 Summary:    All Ubuntu Yaru GNOME themes
 BuildArch:  noarch
 
-License:    GPL-3.0-or-later and CC-BY-SA-4.0
+License:    GPL-3.0-or-later AND CC-BY-SA-4.0
 URL:        https://community.ubuntu.com/c/desktop/theme-refresh
 Source0:    %{forgesource}
 
@@ -83,7 +83,7 @@ This package contains GTK 4 theme.
 
 %package     -n yaru-icon-theme
 Summary:        Yaru icon theme
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 Requires:       hicolor-icon-theme
 
@@ -98,7 +98,7 @@ This package contains the icon theme.
 
 %package     -n yaru-sound-theme
 Summary:        Yaru sound theme
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description -n yaru-sound-theme %{_description}
 
@@ -107,7 +107,7 @@ This package contains the sound theme following the XDG theming specification.
 
 %package     -n yaru-gtksourceview-theme
 Summary:        Yaru GtkSourceView theme
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description -n yaru-gtksourceview-theme %{_description}
 

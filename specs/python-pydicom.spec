@@ -14,7 +14,7 @@ data cannot easily be modified.
 Documentation is available at https://pydicom.github.io/pydicom}
 
 Name:           python-pydicom
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Read, modify and write DICOM files with python code
 
@@ -68,6 +68,7 @@ BuildRequires:  python3-pillow
 # Extra dependencies for tests only:
 BuildRequires:  python3-pydicom-data
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pyfakefs
 
 Recommends:     python3-gdcm
 Recommends:     python3-numpy

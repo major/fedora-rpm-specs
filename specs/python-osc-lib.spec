@@ -77,6 +77,7 @@ sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
     -e "/^osprofiler[[:space:]]*[!><=]/d" \
     -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^testrepository[[:space:]]*[!><=]/d" \
     test-requirements.txt doc/requirements.txt
  
 

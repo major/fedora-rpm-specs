@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -9,6 +9,7 @@ Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
 Patch:          https://pagure.io/pungi/pull-request/1860.patch
 # https://pagure.io/pungi/pull-request/1885
 Patch:          0001-Drop-parameterized-dependency.patch
+Patch:          https://pagure.io/pungi/pull-request/1898.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -135,6 +136,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Tue Mar 31 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-6
+- Backport improved logging for kiwibuild phase
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           bcvk
-Version:        0.11.0
+Version:        0.13.0
 Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 
@@ -11,8 +11,8 @@ URL:            https://github.com/bootc-dev/bcvk
 Source0:        %{url}/releases/download/v%{version}/bcvk-%{version}.tar.zstd
 Source1:        %{url}/releases/download/v%{version}/bcvk-%{version}-vendor.tar.zstd
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+# Only build for architectures with full support and testing
+ExclusiveArch:  x86_64 aarch64
 
 Requires: binutils
 Requires: openssh-clients

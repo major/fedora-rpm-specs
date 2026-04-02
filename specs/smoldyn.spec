@@ -8,7 +8,7 @@
 
 Name:  smoldyn
 Summary: A particle-based spatial stochastic simulator
-Version: 2.74
+Version: 2.75
 Release: %autorelease
 
 # The rxnparam.c and SurfaceParam.c source code files are in the public domain.
@@ -21,7 +21,7 @@ Release: %autorelease
 #
 # source/libSteve/SFMT is licensed under the 'BSD 3-clause "New" or "Revised" License'
 License: LGPL-3.0-or-later AND GPL-3.0-only AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
-URL:   http://www.smoldyn.org
+URL:   https://www.smoldyn.org/
 Source0: https://github.com/ssandrews/Smoldyn/archive/refs/tags/v%{version}/Smoldyn-%{version}.tar.gz
 
 # Fix library paths according to the Fedora Project guidelines
@@ -29,6 +29,9 @@ Patch0: %{name}-fix_libpaths.patch
 Patch1: %{name}-freeglut.patch
 Patch2: %{name}-create_soname.patch
 Patch3: %{name}-avoid_automatic_wheel.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -97,7 +100,7 @@ Requires: python3-numpy
 # For testing
 BuildRequires: python3-matplotlib
 BuildRequires: python3-flaky
-%{?python_provide:%python_provide python3-%{name}}
+%py_provides python3-%{name}
 %description -n python3-smoldyn
 %{name} libraries for Python.
 

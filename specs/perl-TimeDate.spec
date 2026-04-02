@@ -1,5 +1,12 @@
+# Perform optional tests
+%if 0%{?rhel}
+%bcond_with perl_TimeDate_enables_optional_test
+%else
+%bcond_without perl_TimeDate_enables_optional_test
+%endif
+
 Name:           perl-TimeDate
-Version:        2.34
+Version:        2.35
 Epoch:          1
 Release:        1%{?dist}
 Summary:        A Perl module for time and date manipulation
@@ -19,11 +26,16 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(utf8)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
+%if %{with perl_TimeDate_enables_optional_test}
+# Optional tests:
+BuildRequires:  perl(Pod::Checker)
+%endif
 
 %description
 This module includes a number of smaller modules suited for
@@ -43,6 +55,10 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n TimeDate-%{version}
+%if %{without perl_TimeDate_enables_optional_test}
+    rm t/pod-valid.t
+    perl -i -ne 'print $_ unless m{\At/pod-valid\.t\b}' MANIFEST
+%endif
 # Bogus exec permissions on some language modules
 chmod -x lib/Date/Language/{Russian_cp1251,Russian_koi8r,Turkish}.pm
 
@@ -63,6 +79,10 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_TimeDate_enables_optional_test}
+    # Does not work without modules in ./lib
+    rm %{buildroot}%{_libexecdir}/%{name}/t/pod-valid.t
+%endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
@@ -73,7 +93,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files 
-%doc README Changes
+%doc README Changes SECURITY.md
 %license LICENSE
 %dir %{perl_vendorlib}/Date/
 %{perl_vendorlib}/Date/Format*
@@ -92,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 1:2.35-1
+- 2.35 bump
+
 * Mon Mar 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.34-1
 - 2.34 bump (rhbz#2443502)
 

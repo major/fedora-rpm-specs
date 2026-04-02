@@ -76,7 +76,7 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.6.0%{?rc:~%{rc}}
+Version: 9.6.1%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
 %global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}

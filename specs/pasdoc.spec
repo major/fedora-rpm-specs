@@ -1,31 +1,28 @@
 Name: pasdoc
 Summary: Documentation tool for Pascal and Object Pascal source code
 
-# The readme says simply "GNU GPL 2", but license headers in code files
-# say "version 2 of the License, or (at your option) any later version".
-License: GPL-2.0-or-later
+# PasDoc's original code is GPLv2 or later.
+#
+# The file source/component/naive_dictionary_fix.inc is taken from
+# a different project (Castle Game Engine), which uses LGPL.
+#
+# For generating HTML output, PasDoc embeds some CSS and Javascript
+# taken from jQuery, Tipue Search and Twitter Bootstrap.
+# All of these are subject to MIT.
+License: GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception AND MIT
 
 %global with_gui 1
 %global with_tools 1
 %global with_tests 1
 
-Version: 0.16.0
-Release: 15%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 
 URL: https://github.com/pasdoc/pasdoc
 Source0: %{URL}/archive/v%{version}/pasdoc-%{version}.tar.gz
 
-# Submitted upstream: https://github.com/pasdoc/pasdoc/pull/135
-Source10: %{name}.man
-Source20: pascal_pre_proc.man
-Source21: file_to_pascal_data.man
-
 Source30: %{name}-gui.desktop
 Source31: %{name}-gui.metainfo.xml
-
-# The test runner script always rebuilds the program from scratch
-# before actually performing any tests.
-Patch0: 0000-adapt-test-runner.patch
 
 # Edit the project configuration files to enable DWARF3 debuginfo
 Patch1: 0001-enable-dwarf3-debuginfo.patch
@@ -46,6 +43,11 @@ BuildRequires: libappstream-glib
 BuildRequires: make
 BuildRequires: %{_bindir}/diff
 BuildRequires: %{_bindir}/xmllint
+
+# php is no longer available on i686
+%ifnarch %{ix86}
+BuildRequires: php-cli
+%endif
 %endif
 
 
@@ -126,14 +128,14 @@ install -m 755 -t %{buildroot}%{_bindir} ./build/bin/*
 
 MANDIR="%{buildroot}%{_mandir}/man1"
 install -m 755 -d "${MANDIR}"
-install -m 644 -p '%{SOURCE10}' "${MANDIR}/%{name}.1"
+install -m 644 -p './man/%{name}.man' "${MANDIR}/%{name}.1"
 
 # Install man pages for tools.
 # file_to_pascal_data and file_to_pascal_string are almost the same,
 # so the single man page covers them both.
 %if 0%{?with_tools}
-install -m 644 -p '%{SOURCE20}' "${MANDIR}/pascal_pre_proc.1"
-install -m 644 -p '%{SOURCE21}' "${MANDIR}/file_to_pascal_data.1"
+install -m 644 -p './man/pascal_pre_proc.man'     "${MANDIR}/pascal_pre_proc.1"
+install -m 644 -p './man/file_to_pascal_data.man' "${MANDIR}/file_to_pascal_data.1"
 ln -sr "${MANDIR}"/file_to_pascal_{data,string}.1
 %endif
 
@@ -161,12 +163,19 @@ install -m 644 -p -t %{buildroot}%{_metainfodir} '%{SOURCE31}'
 
 %check
 %if 0%{?with_tests}
-export PASDOC_BIN="$(pwd)/build/bin/pasdoc"
+export PATH="%{buildroot}%{_bindir}:${PATH}"
 export USE_DIFF_TO_COMPARE="true"
 
-cd tests/
+pushd tests/
 ./test_pasdoc -a
-./run_all_tests.sh
+
+%ifarch %{ix86}
+# Some tests rely on the "php" executable being installed.
+# On i686, php is no longer available; disable said tests.
+sed -e '/^scripts\/validate_php.sh$/d' -i ./run_all_tests_no_build.sh
+%endif
+./run_all_tests_no_build.sh
+popd
 %endif
 
 %if 0%{?with_gui}
@@ -205,6 +214,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 
 %changelog
+* Mon Mar 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-1
+- Update to v1.0.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

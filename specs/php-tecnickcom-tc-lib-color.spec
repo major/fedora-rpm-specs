@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    7eed5344ed57a3d55b56bebbd1329bd0e8fe597a
+%global gh_commit    cf018a88218262a64784032ecce14bfec480d3dd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.3.9
+Version:        2.3.10
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -28,7 +28,7 @@ BuildArch:      noarch
 # For tests
 %global phpunit %{_bindir}/phpunit11
 BuildRequires:  phpunit11 >= 11.5.55
-BuildRequires:  php(language) >= 8.1
+BuildRequires:  php(language) >= 8.2
 BuildRequires:  php-pcre
 %endif
 BuildRequires:  php-fedora-autoloader-devel
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 2.3.10-1
+- update to 2.3.10 (no change)
+
 * Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 2.3.9-1
 - update to 2.3.9 (no change)
 

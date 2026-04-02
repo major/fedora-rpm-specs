@@ -1,10 +1,10 @@
-%global gvc_commit 1cdc1cb2d622d64e9ad2781093bcc63719c5ea5b
+%global gvc_commit d2442f455844e5292cb4a74ffc66ecc8d7595a9f
 
 Name:		phosh-mobile-settings
-Version:	0.53.0
+Version:	0.54~rc1
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
-License:	GPL-3.0-or-later AND LGPL-3.0-or-later
+License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
 Source0:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version_no_tilde _}/phosh-mobile-settings-v%{version_no_tilde _}.tar.gz
 # This library doesn't compile into a DSO nor has any tagged releases.
@@ -40,19 +40,38 @@ BuildRequires:	pkgconfig(libportal-gtk4) >= 0.9.1
 BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.8.0
 BuildRequires:	pkgconfig(libcellbroadcast-0.0) >= 0.0.2
 BuildRequires:	pkgconfig(yaml-0.1)
+BuildRequires:	/usr/bin/rst2man
+BuildRequires:	gobject-introspection
 BuildRequires:	appstream-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	dbus-daemon
+BuildRequires:	/usr/bin/dbus-launch
+BuildRequires:	gstreamer1-plugins-good
+BuildRequires:	phoc
 # gvc
 BuildRequires:	pkgconfig(libpulse) >= 12.99.3
 
 Requires:	feedbackd >= 0.8.0
 Requires:	phoc >= 0.34.0
 Requires:	phosh >= 0.44.0
+Requires:	libphosh-mobile-settings >= %{version}-%{release}
 
 %description
 Mobile Settings App for phosh and related components
+
+%package -n libphosh-mobile-settings
+License:	LGPL-2.1-or-later
+Summary:	Allows to configure advanced settings
+
+%description -n libphosh-mobile-settings
+Allows to configure some advanced settings of Phosh
+
+%package -n libphosh-mobile-settings-devel
+License:	LGPL-2.1-or-later
+Summary:	Development files for libphosh-mobile-settings
+
+%description -n libphosh-mobile-settings-devel
+Development files for libphosh-mobile-settings
 
 %prep
 %autosetup -a1 -p1 -n %{name}-v%{version_no_tilde _}
@@ -61,7 +80,7 @@ mkdir -p /tmp/runtime-dir
 chmod 0700 /tmp/runtime-dir
 
 %conf
-%meson -Dtweaks-data-dir=%{_datadir}/phosh-tweaks
+%meson -Dtweaks-data-dir=%{_datadir}/phosh-tweaks -Dman=true
 
 %build
 %meson_build
@@ -74,11 +93,14 @@ install -d %{buildroot}%{_datadir}/phosh-tweaks
 %check
 # FIXME: how to handle XDG_RUNTIME_DIR properly
 export XDG_RUNTIME_DIR=/tmp/runtime-dir
-dbus-run-session sh <<'SH'
-%meson_test
-SH
+export WLR_BACKENDS=headless
+# Need to reconfigure "tweaks-data-dir" for the tests
+%meson --reconfigure -Dtweaks-data-dir=$(realpath %{_vpath_srcdir}/tests/data)
+dbus-launch phoc --no-xwayland -E "%meson_test"
 
-%files -f %{name}.lang
+%files
+%doc README.md
+%license COPYING
 %{_bindir}/phosh-mobile-settings
 %dir %{_libdir}/phosh-mobile-settings
 %{_libdir}/phosh-mobile-settings/plugins/libms-plugin-librem5.so
@@ -89,9 +111,18 @@ SH
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.MobileSettings-symbolic.svg
 %{_datadir}/metainfo/mobi.phosh.MobileSettings.metainfo.xml
 %dir %{_datadir}/phosh-tweaks
+%{_mandir}/man1/phosh-mobile-settings.1*
 
-%doc README.md
-%license COPYING
+%files -n libphosh-mobile-settings -f %{name}.lang
+%license COPYING.LIB
+%{_libdir}/girepository-1.0/Pms-1.0.typelib
+%{_libdir}/libpms-1.0.so.0
+
+%files -n libphosh-mobile-settings-devel
+%{_datadir}/gir-1.0/Pms-1.0.gir
+%{_includedir}/pms-1.0
+%{_libdir}/libpms-1.0.so
+%{_libdir}/pkgconfig/pms-1.0.pc
 
 %changelog
 %autochangelog

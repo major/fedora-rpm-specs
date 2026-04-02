@@ -2,7 +2,7 @@
 %global priority 90
 
 Name:           vala
-Version:        0.56.18
+Version:        0.56.19
 Release:        %autorelease
 Summary:        A modern programming language for GNOME
 

@@ -1,10 +1,10 @@
 %global zig_pixman_ver 0.3.0
 %global zig_wayland_ver 0.5.0
-%global zig_wlroots_ver 0.19.4
+%global zig_wlroots_ver 0.20.0
 %global zig_xkbcommon_ver 0.4.0
 
 Name:           river
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Non-monolithic Wayland compositor
 
@@ -45,7 +45,7 @@ BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(wlroots-0.20)
 BuildRequires:  pkgconfig(xkbcommon) >= 1.12.0
 
 # Right now there is no established way of managing Zig dependencies systemwide

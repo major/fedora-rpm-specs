@@ -71,7 +71,7 @@ find src/ -name '*.pyx' | sed -e 's/.pyx/.c/g' | xargs rm -f
 sed -i 's/msgpack-python/msgpack/' setup.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x fuse
+%pyproject_buildrequires
 
 
 %build

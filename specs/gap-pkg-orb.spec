@@ -5,7 +5,7 @@
 %global giturl         https://github.com/gap-packages/orb
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Methods to enumerate orbits in GAP
 

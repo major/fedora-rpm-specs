@@ -1,11 +1,11 @@
 %global __provides_exclude_from ^%{_libdir}/gala/.*\\.so$
 
-%global commit      b856360860a8f8a48c765465d2d231025bb54297
+%global commit      4b15f84af7e1973d9e6596bb381810113ddee948
 %global shortcommit %{sub %{commit} 1 7}
-%global gitdate     20260119
+%global gitdate     20260325
 
 Name:           gala
-Version:        8.4.0^%{gitdate}.git%{shortcommit}
+Version:        8.4.1^%{gitdate}.git%{shortcommit}
 Release:        %autorelease
 Summary:        Gala window manager
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -21,7 +21,13 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
 BuildRequires:  wayland-devel
 
-%if 0%{?fedora} >= 43
+%if 0%{?fedora} >= 44
+BuildRequires:  pkgconfig(libmutter-18)
+BuildRequires:  pkgconfig(mutter-clutter-18)
+BuildRequires:  pkgconfig(mutter-cogl-18)
+BuildRequires:  pkgconfig(mutter-mtk-18)
+%endif
+%if 0%{?fedora} == 43
 BuildRequires:  pkgconfig(libmutter-17)
 BuildRequires:  pkgconfig(mutter-clutter-17)
 BuildRequires:  pkgconfig(mutter-cogl-17)

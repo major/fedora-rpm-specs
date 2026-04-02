@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.11.7
+Version:        3.11.8
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -42,7 +42,7 @@ Source1:        get_source
 
 # Still allow PyO3 0.27 for now (upstream wants 0.28):
 # https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          orjson-3.11.7-pyo3-0.27.patch
+Patch:          orjson-3.11.8-pyo3-0.27.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -75,7 +75,6 @@ Summary:        %{summary}
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSL-1.0
 # MIT
 # MIT OR Apache-2.0
@@ -86,7 +85,6 @@ Summary:        %{summary}
 # which are all in the first line of the expresion below.
 License:        %{shrink:
                 MPL-2.0 AND (Apache-2.0 OR MIT) AND MIT AND
-                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 BSD-3-Clause AND
                 BSL-1.0 AND
                 (Unlicense OR MIT)
@@ -103,6 +101,10 @@ License:        %{shrink:
 # https://docs.rs/json, would be used instead, but this is no longer
 # supported.)
 Provides:       bundled(yyjson) = 0.9.0
+# Small amounts of code are copied and modified from other crates, e.g.
+# src/serialize/writer/half.rs is based on the half crate and
+# src/serialize/writer/uuid.rs is based on the uuid crate, but this doesn’t
+# seem to rise to the level of “bundling.”
 
 %description -n python3-orjson %{_description}
 

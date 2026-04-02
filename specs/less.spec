@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 4%{?dist}
+Release: 5%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
@@ -113,6 +113,9 @@ popd
 %{_bindir}/vimcolor
 
 %changelog
+* Tue Mar 31 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-5
+- use upstream fix for the xml issue
+
 * Sun Mar 22 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-4
 - update lesspipe to 2.23
 - dont use html to process xml files, the result isnt usable (rhbz#2451451)

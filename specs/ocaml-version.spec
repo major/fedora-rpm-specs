@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -8,7 +5,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocurrent/ocaml-version
 
 Name:           ocaml-version
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
@@ -16,6 +13,9 @@ License:        ISC
 URL:            https://ocurrent.github.io/ocaml-version/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-alcotest-devel

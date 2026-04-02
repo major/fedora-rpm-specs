@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-composer-ca-bundle
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    961a5e4056dd2e4a2eedcac7576075947c28bf63
+%global gh_commit    68ff39175e8e94a4bb1d259407ce51a6a60f09e6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.10
-Release:        2%{?dist}
+Version:        1.5.11
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -107,7 +107,7 @@ EOF
 ret=0
 %{_bindir}/phpunit10 --migrate-configuration
 
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 --no-coverage || ret=1
   fi
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 1.5.11-1
+- update to 1.5.11 (no change)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

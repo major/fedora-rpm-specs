@@ -67,9 +67,14 @@ This package contains auto-generated documentation.
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
 sed -i \
+    -e "s/'reno.sphinxext',//" \
+    doc/source/conf.py
+
+sed -i \
     -e "/^flake8-import-order[[:space:]]*[><=]/d" \
     -e "/^doc8[[:space:]]*[><=]/d" \
     -e "/^hacking[[:space:]]*[><=]/d" \
+    -e "/^reno[[:space:]]*[><=]/d" \
      test-requirements.txt doc/requirements.txt
 
 

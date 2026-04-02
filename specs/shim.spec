@@ -5,7 +5,7 @@
 
 Name:		shim
 Version:	16.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -115,6 +115,9 @@ if [[ ! -e "/run/ostree-booted" ]]; then
 fi
 
 %changelog
+* Tue Mar 31 2026 Peter Jones <pjones@redhat.com> - 16.1-7
+- Aarch64: rebuild for correct signatures on fb/mm.
+
 * Fri Feb 06 2026 Peter Jones <pjones@redhat.com> - 16.1-6
 - x86_64: add signature from "Microsoft UEFI CA 2023 signer"
 

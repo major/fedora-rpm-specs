@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    47283cfd98d553edcb1353591f4e255dc1bb61f0
-%global gh_date      2026-02-18
+%global gh_commit    aeb6899ffdbbf4b4ff5e6b6ebb77b35c51bb6d9a
+%global gh_date      2026-03-31
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    5
 
-%global upstream_version 12.5.14
+%global upstream_version 12.5.15
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -60,7 +60,7 @@ BuildRequires:  (php-composer(phpunit/php-timer) >= 8.0.0             with php-c
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 4.2.0          with php-composer(sebastian/cli-parser) < 5)
 BuildRequires:  (php-composer(sebastian/comparator) >= 7.1.4          with php-composer(sebastian/comparator) < 8)
 BuildRequires:  (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-BuildRequires:  (php-composer(sebastian/environment) >= 8.0.3         with php-composer(sebastian/environment) < 9)
+BuildRequires:  (php-composer(sebastian/environment) >= 8.0.4         with php-composer(sebastian/environment) < 9)
 BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
 BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
@@ -96,7 +96,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/cli-parser": "^4.2.0",
 #        "sebastian/comparator": "^7.1.4",
 #        "sebastian/diff": "^7.0.0",
-#        "sebastian/environment": "^8.0.3",
+#        "sebastian/environment": "^8.0.4",
 #        "sebastian/exporter": "^7.0.2",
 #        "sebastian/global-state": "^8.0.2",
 #        "sebastian/object-enumerator": "^7.0.0",
@@ -123,7 +123,7 @@ Requires:       (php-composer(phpunit/php-timer) >= 8.0.0             with php-c
 Requires:       (php-composer(sebastian/cli-parser) >= 4.2.0          with php-composer(sebastian/cli-parser) < 5)
 Requires:       (php-composer(sebastian/comparator) >= 7.1.4          with php-composer(sebastian/comparator) < 8)
 Requires:       (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-Requires:       (php-composer(sebastian/environment) >= 8.0.3         with php-composer(sebastian/environment) < 9)
+Requires:       (php-composer(sebastian/environment) >= 8.0.4         with php-composer(sebastian/environment) < 9)
 Requires:       (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
 Requires:       (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
@@ -210,7 +210,7 @@ cat << 'EOF' | tee -a tests/autoload.php
 \Fedora\Autoloader\Dependencies::required([
   __DIR__ . '/_files/deprecation-trigger/trigger_deprecation.php',
   __DIR__ . '/unit/Event/AbstractEventTestCase.php',
-  __DIR__ . '/unit/TextUI/AbstractSouceFilterTestCase.php',
+  __DIR__ . '/unit/TextUI/AbstractSourceFilterTestCase.php',
   __DIR__ . '/unit/Framework/MockObject/TestDoubleTestCase.php',
   __DIR__ . '/unit/Metadata/Parser/AttributeParserTestCase.php',
   __DIR__ . '/unit/Framework/Assert/assertContainsOnlyArrayTest.php',
@@ -290,6 +290,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 12.5.15-1
+- update to 12.5.15
+- raise dependency on sebastian/environment 8.0.4
+
 * Wed Feb 18 2026 Remi Collet <remi@remirepo.net> - 12.5.14-1
 - update to 12.5.14
 

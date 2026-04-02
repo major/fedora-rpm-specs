@@ -62,7 +62,6 @@ The development part of the %{name} package.
 
 %package doc
 Summary: Documentation for package %{name}
-License: LGPLv3+ and CC-BY-SA
 BuildArch: noarch
 
 %description doc
