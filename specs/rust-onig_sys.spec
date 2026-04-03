@@ -19,7 +19,7 @@ Patch:          onig_sys-fix-metadata.diff
 Patch2:         0001-Unconditionally-use-bindgen-and-dynamic-linking-with.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(oniguruma) >= 6.8.0
+BuildRequires:  pkgconfig(oniguruma) >= 6.9.9
 
 %global _description %{expand:
 The `onig_sys` crate contains raw rust bindings to the oniguruma
@@ -33,7 +33,7 @@ the `onig` crate.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(oniguruma) >= 6.8.0
+Requires:       pkgconfig(oniguruma) >= 6.9.9
 
 %description    devel %{_description}
 

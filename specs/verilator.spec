@@ -22,7 +22,7 @@
 %bcond mold 0
 
 Name:           verilator
-Version:        5.040
+Version:        5.046
 Release:        %autorelease
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPL-3.0-only OR Artistic-2.0

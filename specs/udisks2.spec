@@ -25,10 +25,14 @@
 Name:    udisks2
 Summary: Disk Manager
 Version: 2.11.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2403452
+# Please set sys_tz by default for udisks2 exfat mounts
+Patch0:  udisks-2.11.90-exfat_mount_opts.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -197,6 +201,7 @@ rm -f src/tests/dbus-tests/config_h.py
 rm -f src/udisks-daemon-resources.{c,h}
 # default to ntfs-3g (#2182206)
 sed -i data/builtin_mount_options.conf -e 's/ntfs_drivers=ntfs3,ntfs/ntfs_drivers=ntfs,ntfs3/'
+sed -i data/builtin_mount_options.conf -e 's/exfat_defaults=uid=\$UID,gid=\$GID,iocharset=utf8,errors=remount-ro/exfat_defaults=uid=\$UID,gid=\$GID,iocharset=utf8,errors=remount-ro,sys_tz/'
 
 %build
 # autoreconf -ivf
@@ -340,6 +345,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 01 2026 Tomas Bzatek <tbzatek@redhat.com> - 2.11.1-2
+- Use 'sys_tz' exfat mount option by default (#2403452)
+
 * Wed Feb 25 2026 Tomas Bzatek <tbzatek@redhat.com> - 2.11.1-1
 - Version 2.11.1 (#2442584,#2442588)
 

@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        26.3.0
+Version:        26.4.0
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
@@ -61,6 +61,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Wed Apr 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-1
+- Update to 26.4.0 version (#2453851)
+
 * Thu Mar 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.3.0-1
 - Update to 26.3.0 version (#2444834)
 

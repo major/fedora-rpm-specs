@@ -1,7 +1,7 @@
 %global _R_libdir_check %{nil}
 
 Name:           R-littler
-Version:        %R_rpm_version 0.3.21
+Version:        %R_rpm_version 0.3.22
 Release:        %autorelease
 Summary:        littler: R at the Command-Line via 'r'
 
@@ -45,10 +45,6 @@ ln -rs %{buildroot}%{_R_libdir}/littler/bin/r %{buildroot}%{_bindir}/r
 mkdir -p %{buildroot}%{_mandir}/man1
 mv %{buildroot}%{_R_libdir}/littler/man-page/r.1 %{buildroot}%{_mandir}/man1
 rmdir %{buildroot}%{_R_libdir}/littler/man-page
-
-for f in %{buildroot}%{_R_libdir}/littler/examples/* ; do
-    grep -q '/usr/bin/env r' $f && sed 's!/usr/bin/env r!/usr/bin/r!' -i $f
-done
 
 %R_save_files
 grep -v examples %{R_files} > %{R_files}.main

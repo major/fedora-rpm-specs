@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 146.0.7680.164
+Version: 146.0.7680.177
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -490,9 +490,6 @@ Patch415: add-ppc64-pthread-stack-size.patch
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
 Patch419: 0009-sandbox-ignore-byte-span-error.patch
-
-# Fix FTBFS, error: out-of-line definition of 'ProcessARateVector' does not match any declaration in 'blink::Delay'
-Patch420: chromium-146-ppc64le-build-error.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -1201,7 +1198,6 @@ Qt6 UI for chromium.
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
-%patch -P420 -p1 -b .fix-ppc64le-build-error
 %endif
 
 %if 0%{?flatpak}
@@ -1863,6 +1859,30 @@ fi
 %endif
 
 %changelog
+* Wed Apr 01 2026 Than Ngo <than@redhat.com> - 146.0.7680.177-1
+- Update to 146.0.7680.177
+  * High CVE-2026-5273: Use after free in CSS
+  * High CVE-2026-5272: Heap buffer overflow in GPU
+  * High CVE-2026-5274: Integer overflow in Codecs
+  * High CVE-2026-5275: Heap buffer overflow in ANGLE
+  * High CVE-2026-5276: Insufficient policy enforcement in WebUSB
+  * High CVE-2026-5277: Integer overflow in ANGLE
+  * High CVE-2026-5278: Use after free in Web MIDI
+  * High CVE-2026-5279: Object corruption in V8
+  * High CVE-2026-5280: Use after free in WebCodecs
+  * High CVE-2026-5281: Use after free in Dawn
+  * High CVE-2026-5282: Out of bounds read in WebCodecs
+  * High CVE-2026-5283: Inappropriate implementation in ANGLE
+  * High CVE-2026-5284: Use after free in Dawn
+  * High CVE-2026-5285: Use after free in WebGL
+  * High CVE-2026-5286: Use after free in Dawn
+  * High CVE-2026-5287: Use after free in PDF
+  * High CVE-2026-5288: Use after free in WebView
+  * High CVE-2026-5289: Use after free in Navigation
+  * High CVE-2026-5290: Use after free in Compositing
+  * Medium CVE-2026-5291: Inappropriate implementation in WebGL
+  * Medium CVE-2026-5292: Out of bounds read in WebCodecs
+
 * Tue Mar 24 2026 Than Ngo <than@redhat.com> - 146.0.7680.164-1
 - Update to 146.0.7680.164
   * High CVE-2026-4673: Heap buffer overflow in WebAudio

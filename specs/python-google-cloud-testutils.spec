@@ -2,18 +2,15 @@
 %bcond_without tests
 
 %global         srcname     google-cloud-testutils
-%global         forgeurl    https://github.com/googleapis/python-test-utils
-Version:        1.4.0
-%global         tag         v%{version}
-%forgemeta
 
 Name:           python-%{srcname}
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Python test utilities for Google Cloud APIs
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -38,7 +35,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %{_description}
 
 %prep
-%forgesetup
+%autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -63,7 +60,7 @@ rm %{buildroot}%{_bindir}/lower-bound-checker
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md
+%doc README.rst CHANGELOG.md
 %license LICENSE
 
 %changelog

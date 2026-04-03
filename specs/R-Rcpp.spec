@@ -29,7 +29,7 @@ the paper by Eddelbuettel and Francois (2011, JSS), and the book by
 Eddelbuettel (2013, Springer).
 See citation("Rcpp") for details on the last two.
 
-%package        examples
+%package examples
 Summary:        Rcpp Examples
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -43,6 +43,12 @@ dos2unix -k \
     Rcpp/inst/tinytest/cpp/InternalFunction.cpp \
     Rcpp/inst/tinytest/cpp/InternalFunctionCPP11.cpp
 
+%if ! %{?fedora}%{!?fedora:0}
+# R-tinytest is not available in EPEL
+sed 's/tinytest, //' -i Rcpp/DESCRIPTION
+rm Rcpp/tests/tinytest.R
+%endif
+
 %generate_buildrequires
 %R_buildrequires
 
@@ -51,17 +57,11 @@ dos2unix -k \
 %install
 %R_install
 
-sed 's!/bin/env Rscript!/usr/bin/Rscript!' \
-    -i %{buildroot}%{_R_libdir}/Rcpp/discovery/cxx0x.R
 chmod 755 %{buildroot}%{_R_libdir}/Rcpp/discovery/cxx0x.R
 
 for f in ConvolveBenchmarks/overhead.r ConvolveBenchmarks/overhead.sh \
          Misc/ifelseLooped.r Misc/newFib.r OpenMP/OpenMPandInline.r ; do
     chmod 755 %{buildroot}%{_R_libdir}/Rcpp/examples/$f
-done
-
-for f in `find %{buildroot}%{_R_libdir}/Rcpp/examples -type f` ; do
-    grep -q '/usr/bin/env r' $f && sed 's!/usr/bin/env r!/usr/bin/r!' -i $f
 done
 
 %R_save_files

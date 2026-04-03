@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        26.1.0
+Version:        26.3.0
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause
@@ -67,7 +67,7 @@ BuildRequires:  /usr/bin/python
 # lief is not yet packaged and is not a hard dependency
 sed -i -e '/lief/d' pyproject.toml
 # Unpackaged and unneeded test deps
-sed -i -E -e '/^(py-lief|python|python-libarchive-c|ripgrep)( .*)?$/d' tests/requirements.txt
+sed -i -E -e '/^(py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' tests/requirements.txt
 # pytz isn't used but referenced in deps
 sed -i -e '/pytz/d' recipe/meta.yaml pyproject.toml tests/requirements.txt
 # do not run coverage/xdoctest in pytest
@@ -101,6 +101,8 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 # tests/test_api_render.py::test_get_output_file_paths_jinja2 - Requires GIT/CI env
 # tests/test_api_render.py::test_noarch_with_no_platform_deps - fails in koji for an unknown reason
 # tests/test_api_render.py::test_transitive_subpackage_dependency - nettwork
+# tests/cli/test_main_build.py::test_build_with_v1_recipe - needs rattler-build
+# tests/cli/test_main_render.py::test_render_with_v1_recipe - needs rattler-build
 py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::PendingDeprecationWarning \
   --ignore tests/test_api_build.py --ignore tests/cli/test_main_skeleton.py \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[None-.tar.bz2]' \
@@ -192,6 +194,8 @@ py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::Pend
   --deselect='tests/test_inspect.py::test_inspect_objects' \
   --deselect='tests/test_inspect.py::test_channel_installable' \
   --deselect='tests/test_jinja_context.py::test_resolved_packages' \
+  --deselect=tests/cli/test_main_build.py::test_build_with_v1_recipe \
+  --deselect=tests/cli/test_main_render.py::test_render_with_v1_recipe \
   --deselect='tests/test_metadata.py::test_build_bootstrap_env_by_name' \
   --deselect='tests/test_metadata.py::test_build_bootstrap_env_by_path' \
   --deselect=tests/test_post.py::test_file_hash \

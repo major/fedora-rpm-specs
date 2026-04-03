@@ -1,7 +1,7 @@
-%global neo_major 25
-%global neo_minor 48
-%global neo_build 36300
-%global neo_hotfix 8
+%global neo_major 26
+%global neo_minor 09
+%global neo_build 37435
+%global neo_hotfix 10
 
 %if 0%{?rhel}
 %global use_system_headers  0
@@ -23,8 +23,13 @@ ExclusiveArch:  x86_64
 
 BuildRequires: cmake
 BuildRequires: make
+%if 0%{?fedora} >= 44
+BuildRequires: gcc15
+BuildRequires: gcc15-c++
+%else
 BuildRequires: gcc
 BuildRequires: gcc-c++
+%endif
 BuildRequires: intel-gmmlib-devel
 BuildRequires: libva-devel
 BuildRequires: libdrm-devel
@@ -61,6 +66,7 @@ hardware architectures using oneAPI Level Zero and Open Computing Language
 
 %package -n    intel-ocloc
 Summary:       Tool for managing Intel Compute GPU device binary format
+Requires:      intel-igc-libs%{?_isa}
 
 %description -n intel-ocloc
 ocloc is a tool for managing Intel Compute GPU device binary format (a format
@@ -116,6 +122,11 @@ Devel files for developing against intel-level-zero
 rm -rv third_party/sse2neon
 
 %build
+%if 0%{?fedora} >= 44
+#Use gcc15 until gcc16 bugs are fixed
+export CC=gcc-15
+export CXX=g++-15
+%endif
 # mitigations are handled by the kernel, unnecessary for the GPU/userspace
 # disabling mitigations adds up to 20% performance improvement
 %cmake \
@@ -129,9 +140,6 @@ rm -rv third_party/sse2neon
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
     -DKHRONOS_HEADERS_DIR="/usr/include/CL/" \
     -DKHRONOS_SPIRV_HEADERS_DIR="/usr/include/spirv/" \
-    -DNEO_DRM_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
-    -DNEO_I915_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
-    -DNEO_XE_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
 %endif
     -DNEO_ENABLE_I915_PRELIM_DETECTION=TRUE \
     -DNEO_ENABLE_XE_PRELIM_DETECTION=TRUE \

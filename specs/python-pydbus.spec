@@ -1,14 +1,11 @@
-%global srcname pydbus
-
-Name:           python-%{srcname}
+Name:           python-pydbus
 Version:        0.6.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Pythonic DBus library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-URL:            https://pypi.python.org/pypi/pydbus
-Source0:        https://files.pythonhosted.org/packages/source/%(n=%{srcname}; echo ${n:0:1})/%{srcname}/%{srcname}-%{version}.tar.gz
+License:        LGPL-2.1-or-later
+URL:            https://github.com/LEW21/pydbus
+Source:         %{url}/archive/v%{version}/pydbus-%{version}.tar.gz
 
 # upstream fix, not yet in release
 # https://github.com/LEW21/pydbus/commit/ff792feb45bbdc0dd6a9ff7453825e34b6554865
@@ -24,40 +21,56 @@ Patch3: 0003-Support-transformation-between-D-Bus-errors-and-exce.patch
 
 BuildArch:      noarch
 
-%global _description \
-The pydbus module provides pythonic DBUS bindings.\
-It is based on PyGI, the Python GObject Introspection bindings,\
-which is the recommended way to use GLib from Python.
+%global _description %{expand:
+The pydbus module provides pythonic DBUS bindings.
+It is based on PyGI, the Python GObject Introspection bindings,
+which is the recommended way to use GLib from Python.}
+
 
 %description %{_description}
 
-%package -n python3-%{srcname}
+%package -n python3-pydbus
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-gobject-base
 Requires:       python3-gobject-base
-%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname} %{_description}
 
-Python 3 version.
+%description -n python3-pydbus %{_description}
+
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n pydbus-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pydbus
 
-%files -n python3-%{srcname}
-%license LICENSE
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-pydbus -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+
 
 %changelog
+* Tue Mar 24 2026 Carl George <carlwgeorge@fedoraproject.org> - 0.6.0-35
+- Port to pyproject macros rhbz#2378029
+- Run import check in %%check
+- Correct license identifier
+- Update URL and Source to match tarball in lookaside cache
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,6 +5,8 @@
 # Build conditionals
 %bcond clang      0   # Use Clang compiler
 %bcond draco      1   # Draco mesh compression support
+%bcond fribidi    1   # Fribidi support
+%bcond harfbuz    1   # Harfbuzz support
 %bcond llvm       1   # Required for OSL support
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
@@ -12,7 +14,6 @@
 %bcond nanovdb    1   # NanoVDB support
 %bcond ninja      1   # Use Ninja build system
 %bcond openvdb    1   # OpenVDB support
-%bcond system_eigen3 1 # Use system Eigen3
 %bcond vulkan     1   # Vulkan rendering support
 
 # Architecture-specific features
@@ -80,7 +81,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  libharu-devel
-BuildRequires:  libtool
 BuildRequires:  subversion-devel
 
 # Conditional build deps
@@ -97,9 +97,7 @@ BuildRequires:  ninja-build
 # System libraries
 BuildRequires:  mold
 BuildRequires:  pkgconfig(blosc)
-%if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
-%endif
 BuildRequires:  pkgconfig(epoxy) >= 1.5.10
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(fmt)
@@ -311,9 +309,9 @@ BuildRequires:  pkgconfig(vorbis)
 
 # Typography stuff
 BuildRequires:  fontpackages-devel
-BuildRequires:  pkgconfig(fribidi)
+%{?with_fribidi:BuildRequires:  pkgconfig(fribidi)}
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(harfbuzz)
+%{?with_harfubzz:BuildRequires:  pkgconfig(harfbuzz)}
 BuildRequires:  pkgconfig(tinyxml)
 # Appstream stuff
 BuildRequires:  libappstream-glib
@@ -389,6 +387,8 @@ export HIP_CLANG_PATH=`hipconfig -l`
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
+    %{?with_fribidi:-DWITH_FRIBIDI=ON} \
+    %{?with_harfbuzz:-DWITH_HARFBUZZ=ON} \
     %{?with_manpage:-DWITH_DOC_MANPAGE=ON} \
     %{!?with_materialx:-DWITH_MATERIALX=OFF} \
     %{?with_openshading:-DOSL_COMPILER=%{_bindir}/oslc} \
@@ -440,10 +440,10 @@ install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
           %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
 # Localization and cleanup
+%fdupes %{buildroot}%{_datadir}/%{name}/%{blender_api}/
 %find_lang %{name}
 find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec chmod 755 {} \;
 rm -rf %{buildroot}%{_docdir}/%{name}/*
-%fdupes %{_datadir}/%{name}/%{blender_api}/datafiles
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop

@@ -1,4 +1,4 @@
-%global vc_commit db261bc52c26b716f6ac8a5fe70659a6d7e66858
+%global vc_commit 27f7c4f34738f5eaf7a045b77edf8d9e034443d8
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
@@ -7,10 +7,10 @@
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
 %global llvm_compat 15
 %endif
-%global igc_patch 8
+%global igc_patch 2
 
 Name: intel-igc
-Version: 2.24.%{igc_patch}
+Version: 2.30.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -100,6 +100,8 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
     -DIGC_OPTION__LLD_MODE=Prebuilds \
     -DIGC_OPTION__LLVM_MODE=Prebuilds \
     -DLLVM_ROOT=%{_libdir}/llvm%{?llvm_compat}/ \
+    -DIGC_OPTION__API_ENABLE_OPAQUE_POINTERS=OFF \
+    -DIGC_OPTION__ENABLE_BF16_BIF=OFF \
     -DIGC_OPTION__SPIRV_TOOLS_MODE=Prebuilds \
     -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=ON \
     -DIGC_OPTION__VC_INTRINSICS_MODE=Source \

@@ -1,6 +1,6 @@
 Summary:        Power Management Service
 Name:           upower
-Version:        1.91.1
+Version:        1.91.2
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            https://upower.freedesktop.org/
@@ -111,6 +111,7 @@ mv $RPM_BUILD_ROOT%{_libexecdir}/upower $RPM_BUILD_ROOT%{_libexecdir}/installed-
 %{_datadir}/dbus-1/system-services/*.service
 %{_unitdir}/*.service
 %{_datadir}/polkit-1/actions/org.freedesktop.upower.policy
+%{_datadir}/polkit-1/rules.d/org.freedesktop.upower.rules
 %{_datadir}/zsh/*
 
 %files libs

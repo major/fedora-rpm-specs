@@ -1,8 +1,8 @@
 %define htmldir %{_docdir}/liblognorm/html
 
 Name:		liblognorm
-Version:	2.0.6
-Release:	17%{?dist}
+Version:	2.0.9
+Release:	1%{?dist}
 Summary:	Fast samples-based log normalization library
 License:	LGPL-2.1-or-later AND Apache-2.0
 URL:		http://www.liblognorm.com
@@ -17,9 +17,9 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 
-Patch0: liblognorm-2.0.6-rhbz2105934-sphinx5.patch
+Patch0: liblognorm-2.0.9-rhbz2105934-sphinx5.patch
 Patch1: liblognorm-configure-glitch.patch
-Patch2: liblognorm-2.0.6-rhbz2128320.patch
+Patch2: liblognorm-2.0.9-rhbz2128320.patch
 
 %description
 Briefly described, liblognorm is a tool to normalize log data.
@@ -102,6 +102,10 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Wed Apr 01 2026 Attila Lakatos <alakatos@redhat.com> - 2.0.9-1
+- Rebase to 2.0.9
+  Resolves: rhbz#2403514
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

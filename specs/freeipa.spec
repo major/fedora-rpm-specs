@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        12%{?rc_version:.%rc_version}%{?dist}
+Release:        13%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -302,15 +302,13 @@ BuildRequires:  libsss_certmap-devel
 BuildRequires:  libsss_nss_idmap-devel >= %{sssd_version}
 %if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 # Do not use nodejs22 on fedora < 41, https://pagure.io/freeipa/issue/9643
-BuildRequires: nodejs(abi) == 127, /usr/bin/node, /usr/bin/npm
+BuildRequires: nodejs(abi), /usr/bin/node, /usr/bin/npm
 %elif 0%{?fedora} >= 39
 # Do not use nodejs20 on fedora < 39, https://pagure.io/freeipa/issue/9374
-BuildRequires:  nodejs(abi) < 127
+BuildRequires:  nodejs(abi) < 127, nodejs-npm
 %else
-BuildRequires:  nodejs(abi) < 111
+BuildRequires:  nodejs(abi) < 111, nodejs-npm
 %endif
-# Copr explicitely says no weak refs, so this has to be included
-BuildRequires:  nodejs-npm
 # use old dependency on RHEL 8 for now
 %if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 BuildRequires:  python3-rjsmin
@@ -1971,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 01 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-13
+- Rebuild with nodejs24
+
 * Fri Mar 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-12
 - Rebuild against Samba 4.24.0
 

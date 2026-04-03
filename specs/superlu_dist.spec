@@ -7,30 +7,22 @@
 
 %bcond_without mpich
 
-%if 0%{?fedora} >= 40
+%ifnarch %{ix86}
+%bcond_without python
+%else
+%bcond_with python
+%endif
+
 %ifarch %{ix86}
 %bcond_with openmpi
 %else
 %bcond_without openmpi
 %endif
-%else
-%bcond_without openmpi
-%endif
+
 %if 0%{?rhel} || 0%{?rhel} >= 9
 %bcond_with colamd
 %else
 %bcond_without colamd
-%endif
-
-%if %{with openmpi}
-%global openmpi openmpi
-%else
-%global openmpi %nil
-%endif
-%if %{with mpich}
-%global mpich mpich
-%else
-%global mpich %nil
 %endif
 
 # Following scalapack
@@ -56,7 +48,6 @@
 # Enable CombBLAS support
 %bcond_with CombBLAS
 
-# RHEL8 does not provide Metis64
 %if %{with index64}
 BuildRequires: metis64-devel
 %global METISLINK -lmetis64
@@ -70,24 +61,26 @@ BuildRequires: metis-devel
 %endif
 
 Name: superlu_dist
-Version: 8.2.0
-Release: 11%{?dist}
+Version: 9.2.1
+Release: 1%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
-URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
-Source0: https://github.com/xiaoyeli/superlu_dist/archive/v%version/%name-%version.tar.gz
+License: BSD-3-Clause
+URL: https://github.com/xiaoyeli/superlu_dist
+Source0: https://github.com/xiaoyeli/superlu_dist/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0: %name-%version-fix-release-number.patch
-Patch1: %name-fix_pkgconfig_creation.patch
-Patch3: %name-scotch_parmetis.patch
-
+Patch1: %{name}-fix_pkgconfig_creation.patch
 # Longer tests take 1000 sec or timeout, so don't run them
-Patch4: %name-only_short_tests.patch
+Patch4: %{name}-only_short_tests.patch
+
+Patch5: %{name}-fix_pythonpath.patch
+Patch6: %{name}-fix_openmpi_example_path.patch
+Patch7: %{name}-fix_mpich_example_path.patch
 
 BuildRequires: scotch-devel
-BuildRequires: gcc-c++, dos2unix, chrpath
+BuildRequires: gcc-c++
+BuildRequires: make
+BuildRequires: patchelf
 BuildRequires: cmake
 %if %{with optimized_blas}
 BuildRequires: %{blaslib}-devel
@@ -95,7 +88,6 @@ BuildRequires: %{blaslib}-devel
 %if %{with colamd}
 BuildRequires: suitesparse-devel
 %endif
-
 
 %global desc \
 SuperLU is a general purpose library for the direct solution of large,\
@@ -123,41 +115,63 @@ This version uses MPI and OpenMP.
 
 %if %{with openmpi}
 %package openmpi
-Summary:       Solution of large, sparse, nonsymmetric systems of linear equations - openmpi
+Summary:       Solution of large, sparse, nonsymmetric systems of linear equations
 BuildRequires: openmpi-devel
-# ptscotch-openmpi-devel-parmetis unavailable on rhel8 ??
-BuildRequires: ptscotch-openmpi-devel >= 6.0.5 %{!?el8:ptscotch-openmpi-devel-parmetis >= 6.0.5}
+BuildRequires: ptscotch-openmpi-devel >= 6.0.5
+BuildRequires: ptscotch-openmpi-devel-parmetis >= 6.0.5
 %if %{with CombBLAS}
 BuildRequires: combblas-openmpi-devel >= 2.0.0
 %endif
 Requires:      gcc-gfortran%{?_isa}
-
 %description openmpi
 %desc
-This is the openmpi version.
-
 
 %package openmpi-devel
-Summary: Development files for %name-openmpi
+Summary: Development files for %{name}-openmpi
 Requires: openmpi-devel%{?_isa}
-Requires: %name-openmpi%{?_isa} = %{epoch}:%version-%release
-Provides: %name-openmpi-static = %{epoch}:%version-%release
-
+Requires: %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes: %{name}-openmpi-static < 1:9.2.1
 %description openmpi-devel
-Development files for %name-openmpi
+Development files for %{name}-openmpi
+
+%package openmpi-examples
+Summary: Example files for %{name}-openmpi
+Requires: %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
+%description openmpi-examples
+This package contains sample programs to illustrate how to use
+various functions provided in SuperLU_DIST.
+
+%if %{with python}
+%package -n python3-%{name}-openmpi
+Summary:   Solution of large, sparse, nonsymmetric systems of linear equations
+BuildRequires: python3-devel
+BuildRequires: python3-mpi4py-openmpi
+BuildRequires: python3-numpy
+BuildRequires: python3-scipy
+Requires: %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: python3-mpi4py-openmpi
+Requires: python3-numpy
+Requires: python3-scipy
+%description -n python3-%{name}-openmpi
+This package contains the Python interface routines for SuperLU_DIST.
+
+%package -n python3-%{name}-openmpi-devel
+Summary:  Solution of large, sparse, nonsymmetric systems of linear equations
+Requires: python3-%{name}-openmpi%{?_isa}
+%description -n python3-%{name}-openmpi-devel
+This package contains the Python interface routines for SuperLU_DIST.
+%endif
 %endif
 
-
 %package doc
-Summary: Documentation for %name
+Summary: Documentation for %{name}
 BuildArch: noarch
-
 %description doc
-Documentation for %name
+Documentation for %{name}
 
 %if %{with mpich}
 %package mpich
-Summary:       Solution of large, sparse, nonsymmetric systems of linear equations - mpich
+Summary:       Solution of large, sparse, nonsymmetric systems of linear equations
 BuildRequires: mpich-devel
 BuildRequires: ptscotch-mpich-devel  >= 6.0.5
 BuildRequires: ptscotch-mpich-devel-parmetis  >= 6.0.5
@@ -165,166 +179,259 @@ BuildRequires: ptscotch-mpich-devel-parmetis  >= 6.0.5
 BuildRequires: combblas-mpich-devel >= 2.0.0
 %endif
 Requires:      gcc-gfortran%{?_isa}
-
 %description mpich
 %desc
-This is the mpich version.
-
 
 %package mpich-devel
-Summary: Development files for %name-mpich
+Summary: Development files for %{name}-mpich
 Requires: mpich-devel%{?_isa}
-Requires: ptscotch-mpich-devel%{?_isa} ptscotch-mpich-devel-parmetis%{?_isa}
-Requires: %name-mpich%{?_isa} = %{epoch}:%version-%release
-Provides: %name-mpich-static = %{epoch}:%version-%release
-
+Requires: ptscotch-mpich-devel%{?_isa}
+Requires: ptscotch-mpich-devel-parmetis%{?_isa}
+Requires: %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes: %{name}-mpich-static < 1:9.2.1
 %description mpich-devel
-Development files for %name-mpich
+Development files for %{name}-mpich
+
+%package mpich-examples
+Summary: Example files for %{name}-mpich
+Requires: %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
+%description mpich-examples
+This package contains sample programs to illustrate how to use
+various functions provided in SuperLU_DIST.
+
+%if %{with python}
+%package -n python3-%{name}-mpich
+Summary:   Solution of large, sparse, nonsymmetric systems of linear equations
+BuildRequires: python3-devel
+BuildRequires: python3-mpi4py-mpich
+BuildRequires: python3-numpy
+BuildRequires: python3-scipy
+Requires: %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: python3-mpi4py-mpich
+Requires: python3-numpy
+Requires: python3-scipy
+%description -n python3-%{name}-mpich
+This package contains the Python interface routines for SuperLU_DIST.
+
+%package -n python3-%{name}-mpich-devel
+Summary:  Solution of large, sparse, nonsymmetric systems of linear equations
+Requires: python3-%{name}-mpich%{?_isa}
+%description -n python3-%{name}-mpich-devel
+This package contains the Python interface routines for SuperLU_DIST.
+%endif
 %endif
 
-
 %prep
-%autosetup -n superlu_dist-%version -N
+%setup -qc
 
-dos2unix CMakeLists.txt
-%patch -P 0 -p1 -b .backup
+pushd superlu_dist-%{version}
 %patch -P 1 -p1 -b .fix_pkgconfig_creation
 %patch -P 4 -p1 -b .only_short_tests
+%patch -P 5 -p1 -b .pythonpath
+
+# Rename different README files
+cp -p EXAMPLE/README EXAMPLE/README-examples
+cp -p PYTHON/README PYTHON/README-python
+
+# Remove spurious executable permissions
+for i in `find SRC PYTHON EXAMPLE -name "*.c" -o -name "*.h"`; do
+chmod a-x $i
+done
+popd
+
+%if %{with openmpi}
+cp -a superlu_dist-%{version} openmpi-build
+pushd openmpi-build
+%patch -P 6 -p1 -b .example_path
+popd
+%endif
+%if %{with mpich}
+cp -a superlu_dist-%{version} mpich-build
+pushd mpich-build
+%patch -P 7 -p1 -b .example_path
+popd
+%endif
 
 %build
 %if %{with openmpi}
+pushd openmpi-build
 %{_openmpi_load}
-mkdir -p build/openmpi
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-export CFLAGS="%optflags -std=gnu17 -DPRNTlevel=0 -DDEBUGlevel=0"
-export CXXFLAGS="%optflags -std=gnu++17 -I$MPI_INCLUDE"
-export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
-%cmake -B build/openmpi -DCMAKE_BUILD_TYPE:STRING=Release \
+export CFLAGS="%{optflags} -DPRNTlevel=0 -DDEBUGlevel=0"
+export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
+export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
+ -DCMAKE_SKIP_RPATH:BOOL=YES \
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
 %if %{with CombBLAS}
+ -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
- -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
+ -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so \
 %endif
 %if %{with colamd}
- -DTPL_ENABLE_COLAMD=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:STRING=%{_libdir}/libcolamd.so \
+ -DTPL_ENABLE_COLAMD=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:STRING=-lcolamd \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -lcolamd" \
 %else
  -DTPL_ENABLE_COLAMD=OFF \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %endif
- -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{OPENBLASLINK} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp" \
-%if 0%{?fedora}
- -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
- -DTPL_PARMETIS_LIBRARIES:STRING="$MPI_LIB/libptscotchparmetis.so;%{METISLIB}" \
-%endif
+ -DTPL_ENABLE_PARMETISLIB:BOOL=ON -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE/scotch \
+ -DTPL_PARMETIS_LIBRARIES:STRING="-L$MPI_LIB -lptscotchparmetis %{METISLINK}" \
 %if %{with index64}
  -DXSDK_INDEX_SIZE=64 \
 %else
  -DXSDK_INDEX_SIZE=32 \
 %endif
- -DTPL_ENABLE_PARMETISLIB:BOOL=OFF \
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DPYTHONPATH:PATH=$MPI_PYTHON3_SITEARCH \
+%if %{without python}
+ -Denable_python:BOOL=OFF
+%endif
 
-%make_build V=1 -C build/openmpi
+%cmake_build
 %{_openmpi_unload}
+popd
 %endif
 
 %if %{with mpich}
+pushd mpich-build
 %{_mpich_load}
-mkdir -p build/mpich
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-export CFLAGS="%optflags -std=gnu17 -DPRNTlevel=0 -DDEBUGlevel=0"
-export CXXFLAGS="%optflags -std=gnu++17 -I$MPI_INCLUDE"
-export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
-%cmake -B build/mpich -DCMAKE_BUILD_TYPE:STRING=Release \
+export CFLAGS="%{optflags} -DPRNTlevel=0 -DDEBUGlevel=0"
+export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
+export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
+ -DCMAKE_SKIP_RPATH:BOOL=YES \
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
 %if %{with CombBLAS}
+ -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
- -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
+ -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so \
 %endif
 %if %{with colamd}
- -DTPL_ENABLE_COLAMD=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:STRING=%{_libdir}/libcolamd.so \
+ -DTPL_ENABLE_COLAMD=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:STRING=-lcolamd \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -lcolamd" \
 %else
  -DTPL_ENABLE_COLAMD=OFF \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %endif
- -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{OPENBLASLINK} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
-%if 0%{?fedora}
- -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
- -DTPL_PARMETIS_LIBRARIES:STRING="$MPI_LIB/libptscotchparmetis.so;%{METISLIB}" \
-%endif
+ -DTPL_ENABLE_PARMETISLIB:BOOL=ON -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE/scotch \
+ -DTPL_PARMETIS_LIBRARIES:STRING="-L$MPI_LIB -lptscotchparmetis %{METISLINK}" \
 %if %{with index64}
  -DXSDK_INDEX_SIZE=64 \
 %else
  -DXSDK_INDEX_SIZE=32 \
 %endif
- -DTPL_ENABLE_PARMETISLIB:BOOL=OFF \
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DPYTHONPATH:PATH=$MPI_PYTHON3_SITEARCH \
+%if %{without python}
+ -Denable_python:BOOL=OFF
+%endif
 
-%make_build -C build/mpich
+%cmake_build
 %{_mpich_unload}
+popd
 %endif
 
 
 %install
 %if %{with openmpi}
+pushd openmpi-build
 %{_openmpi_load}
-%make_install -C build/openmpi
-# Make sure all header files are installed
-install -m644 SRC/*.h %buildroot$MPI_INCLUDE/superlu_dist/
-rm -rf %buildroot$MPI_LIB/EXAMPLE
-rm -rf %buildroot$MPI_LIB/superlu_dist/FORTRAN/CMakeFiles
-chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
+%cmake_install
+
+# Fix rpaths of example files
+patchelf --force-rpath --set-rpath $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-openmpi/*drive*
+
+# Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
+%if %{with python}
+%if %{without index64}
+sed -i -e 's|INT64 = 1|INT64 = 0|' %{buildroot}$MPI_PYTHON3_SITEARCH/%{name}/pddrive.py
+sed -i -e 's|INT64 = 1|INT64 = 0|' %{buildroot}$MPI_PYTHON3_SITEARCH/%{name}/pddrive_master.py
+%endif
+%endif
 %{_openmpi_unload}
+popd
 %endif
 
 %if %{with mpich}
+pushd mpich-build
 %{_mpich_load}
-%make_install -C build/mpich
-# Make sure all header files are installed
-install -m644 SRC/*.h %buildroot$MPI_INCLUDE/superlu_dist/
+%cmake_install
 
-rm -rf %buildroot$MPI_LIB/EXAMPLE
-rm -rf %buildroot$MPI_LIB/superlu_dist/FORTRAN/CMakeFiles
-chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
+# Fix rpaths of example files
+patchelf --force-rpath --set-rpath $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-mpich/*drive*
+
+# Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
+%if %{with python}
+%if %{without index64}
+sed -i -e 's|INT64 = 1|INT64 = 0|' %{buildroot}$MPI_PYTHON3_SITEARCH/%{name}/pddrive.py
+sed -i -e 's|INT64 = 1|INT64 = 0|' %{buildroot}$MPI_PYTHON3_SITEARCH/%{name}/pddrive_master.py
+%endif
+%endif
 %{_mpich_unload}
+popd
 %endif
 
 %if %{with check}
 %check
 %if %{with openmpi}
+pushd openmpi-build
 %{_openmpi_load}
-# Waiting for excluding OpenMPI support in i686
-%ifnarch %{ix86}
-#mpirun -n 4 -v ../build/openmpi/EXAMPLE/pddrive -r 2 -c 2 g20.rua
-%ctest -- --test-dir build/openmpi -VV
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+%ctest --timeout 3000
+
+%if %{with python}
+export SUPERLU_PYTHON_LIB_PATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{name}
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+# Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
+%if %{without index64}
+sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive.py
+sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive_master.py
+%endif
+mpirun --wdir PYTHON -np 2 %{__python3} pddrive.py -c 2 -r 1
 %endif
 %{_openmpi_unload}
+popd
 %endif
 
 %ifnarch s390x
 %if %{with mpich}
+pushd mpich-build
 %{_mpich_load}
-#mpirun -n 4 -v ../build/mpich/EXAMPLE/pddrive -r 2 -c 2 g20.rua
-%ctest -- --test-dir build/mpich -VV
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+%ctest --timeout 3000
+
+%if %{with python}
+export SUPERLU_PYTHON_LIB_PATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{name}
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+# Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
+%if %{without index64}
+sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive.py
+sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive_master.py
+%endif
+mpirun --wdir PYTHON -np 2 %{__python3} pddrive.py -c 2 -r 1
+%endif
 %{_mpich_unload}
+popd
 %endif
 %endif
 %endif
@@ -332,36 +439,81 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 
 %if %{with openmpi}
 %files openmpi
-%license License.txt
-%_libdir/openmpi/lib/*.so.8
-%_libdir/openmpi/lib/*.so.%{version}
+%license superlu_dist-%{version}/License.txt
+%doc superlu_dist-%{version}/README.md
+%{_libdir}/openmpi/lib/*.so.9
+%{_libdir}/openmpi/lib/*.so.%{version}
 
 %files openmpi-devel
-%_libdir/openmpi/lib/*.so
-%_libdir/openmpi/lib/*.a
-%_libdir/openmpi/lib/pkgconfig/*.pc
-%_includedir/openmpi-%_arch/superlu_dist/
+%{_libdir}/openmpi/lib/*.so
+%{_libdir}/openmpi/lib/pkgconfig/*.pc
+%{_includedir}/openmpi-%{_arch}/superlu_dist/
+
+%files openmpi-examples
+%doc superlu_dist-%{version}/EXAMPLE/README-examples
+%{_libexecdir}/superlu_dist-openmpi/
+
+%if %{with python}
+%files -n python3-%{name}-openmpi
+%license superlu_dist-%{version}/License.txt
+%doc superlu_dist-%{version}/PYTHON/README-python
+%dir %{python3_sitearch}/openmpi/%{name}
+%{python3_sitearch}/openmpi/%{name}/libsuperlu_dist_python.so.%{version}
+%{python3_sitearch}/openmpi/%{name}/__pycache__/
+
+%files -n python3-%{name}-openmpi-devel
+%{python3_sitearch}/openmpi/%{name}/libsuperlu_dist_python.so
+%{python3_sitearch}/openmpi/%{name}/libsuperlu_dist_python.so.9
+%{python3_sitearch}/openmpi/%{name}/*.py
+%{python3_sitearch}/openmpi/%{name}/pdbridge.h
+%endif
 %endif
 
 %files doc
-%license License.txt
-%doc DOC/ug.pdf EXAMPLE
+%license superlu_dist-%{version}/License.txt
+%doc superlu_dist-%{version}/DOC
 
 %if %{with mpich}
 %files mpich
-%license License.txt
-%_libdir/mpich/lib/*.so.8
-%_libdir/mpich/lib/*.so.%{version}
+%license superlu_dist-%{version}/License.txt
+%doc superlu_dist-%{version}/README.md
+%{_libdir}/mpich/lib/*.so.9
+%{_libdir}/mpich/lib/*.so.%{version}
 
 %files mpich-devel
-%_libdir/mpich/lib/*.so
-%_libdir/mpich/lib/*.a
-%_libdir/mpich/lib/pkgconfig/*.pc
-%_includedir/mpich-%_arch/superlu_dist/
+%{_libdir}/mpich/lib/*.so
+%{_libdir}/mpich/lib/pkgconfig/*.pc
+%{_includedir}/mpich-%{_arch}/superlu_dist/
+
+%files mpich-examples
+%doc superlu_dist-%{version}/EXAMPLE/README-examples
+%{_libexecdir}/superlu_dist-mpich/
+
+%if %{with python}
+%files -n python3-%{name}-mpich
+%license superlu_dist-%{version}/License.txt
+%doc superlu_dist-%{version}/PYTHON/README-python
+%dir %{python3_sitearch}/mpich/%{name}
+%{python3_sitearch}/mpich/%{name}/libsuperlu_dist_python.so.%{version}
+%{python3_sitearch}/mpich/%{name}/__pycache__/
+
+%files -n python3-%{name}-mpich-devel
+%{python3_sitearch}/mpich/%{name}/libsuperlu_dist_python.so
+%{python3_sitearch}/mpich/%{name}/libsuperlu_dist_python.so.9
+%{python3_sitearch}/mpich/%{name}/*.py
+%{python3_sitearch}/mpich/%{name}/pdbridge.h
+%endif
 %endif
 
 
 %changelog
+* Wed Apr 01 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:9.2.1-1
+- Release 9.2.1
+- Fix License expression
+- Exclude static libraries
+- Add Python libraries as sub-packages
+- Add EXAMPLE files as sub-packages
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

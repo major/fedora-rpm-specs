@@ -1,6 +1,6 @@
 Name:           perl-Chart
 Version:        2.403.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Series of charting modules
 # lib/Chart.pm:         GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -12,6 +12,10 @@ Summary:        Series of charting modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Chart
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Chart-v%{version}.tar.gz
+# Adapt to changes in Graphics-Toolkit-Color-2.00, bug #2453417,
+# CPAN RT#174510, proposed to upstream
+# <https://github.com/lichtkind/Chart/pull/7>.
+Patch0:         Chart-v2.403.9-Adapt-to-removed-Graphics-Toolkit-Color-rgb.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -28,14 +32,14 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(GD) >= 2
 BuildRequires:  perl(GD::Image)
-BuildRequires:  perl(Graphics::Toolkit::Color) >= 1
+BuildRequires:  perl(Graphics::Toolkit::Color) >= 1.50
 BuildRequires:  perl(POSIX)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp) >= 0.19
 Requires:       perl(Carp) >= 1.35
 Requires:       perl(GD) >= 2
-Requires:       perl(Graphics::Toolkit::Color) >= 1
+Requires:       perl(Graphics::Toolkit::Color) >= 1.50
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|GD|Graphics::Toolkit::Color)\\)$
@@ -92,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 01 2026 Petr Pisar <ppisar@redhat.com> - 2.403.9-10
+- Adapt to changes in Graphics-Toolkit-Color-2.00 (bug #2453417)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.403.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

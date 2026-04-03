@@ -6,18 +6,19 @@ It allows you to store configuration separate from your code, as per
 The Twelve-Factor App (https://12factor.net/config) methodology.}
 
 Name:       python-%{srcname}
-Version:    14.6.0
+Version:    15.0.0
 Release:    %autorelease
 Summary:    Python library for parsing environment variables
 License:    MIT
 URL:        https://github.com/sloria/%{srcname}
 Source0:    %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
 BuildArch:  noarch
-
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
-
+BuildRequires:  python3-pytest
+BuildRequires:  python3-django-cache-url
+BuildRequires:  python3-django-database-url
+BuildRequires:  python3-django-email-url
 %description %{_description}
 
 %generate_buildrequires
@@ -25,7 +26,6 @@ BuildRequires:  pyproject-rpm-macros
 
 %package -n python3-%{srcname}
 Summary:    Python library for parsing environment variables
-
 %description -n python3-%{srcname}
 %{_description}
 

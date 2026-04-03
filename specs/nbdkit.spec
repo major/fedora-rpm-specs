@@ -54,8 +54,8 @@
 %global source_directory 1.47-development
 
 Name:           nbdkit
-Version:        1.47.5
-Release:        2%{?dist}
+Version:        1.47.6
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1582,6 +1582,9 @@ fi
 
 
 %changelog
+* Wed Apr 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.6-1
+- New upstream development version 1.47.6
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.5-2
 - OCaml 5.4.1 rebuild
 

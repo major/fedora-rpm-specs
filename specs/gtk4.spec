@@ -28,7 +28,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           gtk4
-Version:        4.22.1
+Version:        4.22.2
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 

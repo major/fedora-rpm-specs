@@ -1,5 +1,5 @@
 Name:           python-truststore
-Version:        0.10.1
+Version:        0.10.4
 Release:        %autorelease
 Summary:        Verify certificates using native system trust stores
 

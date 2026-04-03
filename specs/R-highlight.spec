@@ -1,9 +1,9 @@
 Name:           R-highlight
 Version:        %R_rpm_version 0.5.2
 Release:        %autorelease
-Summary:	    R Syntax Highlighter
+Summary:        R Syntax Highlighter
 
-License:	    GPL-3.0-or-later
+License:        GPL-3.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 

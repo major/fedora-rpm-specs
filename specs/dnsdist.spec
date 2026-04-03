@@ -6,7 +6,7 @@
 %endif
 
 Name: dnsdist
-Version: 2.0.1
+Version: 2.0.3
 Release: %autorelease
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 # Automatically converted from old format: GPLv2 - review is highly recommended.

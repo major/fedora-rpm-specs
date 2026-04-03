@@ -86,8 +86,8 @@ ExcludeArch: %{ix86}
 #global pre_rel b.2
 
 Name:        sympa
-Version:     6.2.76
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.4
+Version:     6.2.78
+Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -106,6 +106,7 @@ Source114:   aliases.sympa.sendmail
 Source115:   aliases.sympa.postfix
 Source129:   sympa.service.d-dependencies.conf
 Source130:   sympa-sysconfig
+Source131:   sympa-sysusers.conf
 
 # RPM specific customization of site defaults
 Patch13:     sympa-6.2.57b.1-confdef.patch
@@ -119,6 +120,7 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: systemd
 %endif
 BuildRequires: tzdata
+%{?sysusers_requires_compat}
 
 # Only for development
 %if %{with autoreconf}
@@ -212,6 +214,7 @@ BuildRequires: perl(Unicode::Normalize)
 BuildRequires: perl(Unicode::UTF8)
 BuildRequires: perl(URI)
 BuildRequires: perl(URI::Escape)
+BuildRequires: perl(URI::Find::Schemeless)
 BuildRequires: perl(warnings)
 BuildRequires: perl(XML::LibXML)
 
@@ -359,6 +362,7 @@ Sympa はスケーラブルで高いカスタマイズ性を持つメーリン�
 Summary:  Sympa with Apache HTTP Server
 Summary(fr): Sympa avec Serveur HTTP Apache
 Summary(ja): SympaのApache HTTP Server対応
+BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 Requires: httpd
 Requires: multiwatch
@@ -375,6 +379,7 @@ Sympa の Apache HTTP Server 対応。
 Summary:  Sympa with lighttpd
 Summary(fr): Sympa avec lighttpd
 Summary(ja): Sympaのlighttpd対応
+BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 Requires: lighttpd
 Requires: lighttpd-fastcgi
@@ -391,6 +396,7 @@ Sympa の lighttpd 対応。
 Summary:  Sympa with nginx
 Summary(fr): Sympa avec nginx
 Summary(ja): Sympaのnginx対応
+BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 Requires: nginx
 Requires: multiwatch
@@ -405,6 +411,7 @@ Sympa の nginx 対応。
 
 %package devel-doc
 Summary: Sympa devel doc
+BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 
 %description devel-doc
@@ -414,11 +421,6 @@ Sympa documentation for developers.
 %prep
 %setup -q -n %{name}-%{version}%{?pre_rel}
 %patch -P13 -p0 -b .confdef
-
-# Create a sysusers.d config file
-cat >sympa.sysusers.conf <<EOF
-u sympa - 'System User for Sympa' %{_localstatedir}/lib/sympa -
-EOF
 
 
 %build
@@ -447,6 +449,7 @@ autoreconf --install
     --with-staticdir=%{static_content} \
     --with-cssdir=%{_localstatedir}/lib/sympa/css \
     --with-picturesdir=%{_localstatedir}/lib/sympa/pictures \
+    --disable-setuid-fcgi \
     INSTALL_DATA='install -c -p -m 644'
 %make_build
 
@@ -543,30 +546,30 @@ install -m 0644 service/sympasoap-multiwatch.service \
     %{buildroot}%{_unitdir}/sympasoap.service
 install -m 0644 service/sympasoap-multiwatch.socket \
     %{buildroot}%{_unitdir}/sympasoap.socket
-mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d
-cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.conf << EOF
+mkdir -p %{buildroot}%{_unitdir}/wwsympa.socket.d
+cat > %{buildroot}%{_unitdir}/wwsympa.socket.d/wwsympa-httpd.conf << EOF
 [Socket]
 SocketUser=apache
 EOF
-cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-nginx.conf << EOF
+cat > %{buildroot}%{_unitdir}/wwsympa.socket.d/wwsympa-nginx.conf << EOF
 [Socket]
 SocketUser=nginx
 EOF
-mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d
-cat > %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-httpd.conf << EOF
+mkdir -p %{buildroot}%{_unitdir}/sympasoap.socket.d
+cat > %{buildroot}%{_unitdir}/sympasoap.socket.d/sympasoap-httpd.conf << EOF
 [Socket]
 SocketUser=apache
 EOF
-cat > %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-nginx.conf << EOF
+cat > %{buildroot}%{_unitdir}/sympasoap.socket.d/sympasoap-nginx.conf << EOF
 [Socket]
 SocketUser=nginx
 EOF
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 service/sympa-tmpfiles.conf \
     %{buildroot}%{_tmpfilesdir}/sympa.conf
-mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/sympa.service.d
+mkdir -p %{buildroot}%{_unitdir}/sympa.service.d
 install -m 0644 %{SOURCE129} \
-    %{buildroot}%{_sysconfdir}/systemd/system/sympa.service.d/dependencies.conf
+    %{buildroot}%{_unitdir}/sympa.service.d/dependencies.conf
 
 # Copy system config file.
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
@@ -607,7 +610,7 @@ done
 # Create directory for S/MIME user certificates
 mkdir -p %{buildroot}%{_localstatedir}/lib/sympa/X509-user-certs
 
-install -m0644 -D sympa.sysusers.conf %{buildroot}%{_sysusersdir}/sympa.conf
+install -m0644 -D %{SOURCE131} %{buildroot}%{_sysusersdir}/sympa.conf
 
 
 %check
@@ -618,6 +621,7 @@ make authorcheck || true
 
 
 %pre
+%sysusers_create_compat %{SOURCE131}
 # Fix CSS and pictures paths
 if [ $1 -gt 1 ]; then
     if [ -d %{_localstatedir}/lib/%{name}/static_content/css ]; then
@@ -643,25 +647,7 @@ exit 0
 # register service
 %systemd_post sympa.service
 
-# create cookie
-function create_cookie {
-    cook=`mktemp`
-    perl -ne 'chomp $_; print $1 if /^cookie\s+(\S.*)/' \
-        %{_sysconfdir}/sympa/sympa.conf > $cook
-    if [ '!' -s $cook ]; then
-        if [ -e %{_sysconfdir}/sympa/cookies.history ]; then
-            cp -p %{_sysconfdir}/sympa/cookies.history $cook
-        else
-            dd if=/dev/urandom bs=2048 count=1 2>/dev/null | md5sum | \
-            cut -d" " -f1 > $cook
-        fi
-        perl -i -pe '/^#cookie\s/ and $_ = "cookie ".`cat '$cook'`."\n"' \
-            %{_sysconfdir}/sympa/sympa.conf
-    fi
-    rm -f $cook
-}
-
-# create config at first time.
+# create config on initial install
 function create_config {
     ## create site configurations
     if [ '!' -e %{_sysconfdir}/sympa/data_structure.version ]; then
@@ -670,12 +656,10 @@ function create_config {
     fi
     ## create sympa_aliases
     if [ '!' -e %{_localstatedir}/lib/sympa/sympa_aliases ]; then
-        touch %{_localstatedir}/lib/sympa/sympa_aliases
-        chown sympa:sympa %{_localstatedir}/lib/sympa/sympa_aliases
-        chmod 644 %{_localstatedir}/lib/sympa/sympa_aliases
-        touch %{_localstatedir}/lib/sympa/sympa_aliases.db
-        chown sympa:root %{_localstatedir}/lib/sympa/sympa_aliases.db
-        chmod 664 %{_localstatedir}/lib/sympa/sympa_aliases.db
+        install -o sympa -g sympa -m 0644 /dev/null \
+          %{_localstatedir}/lib/sympa/sympa_aliases
+        install -o sympa -g root  -m 0664 /dev/null \
+          %{_localstatedir}/lib/sympa/sympa_aliases.db
     fi
 }
 
@@ -687,7 +671,7 @@ function upgrade_data_structure {
     fi
     # Upgrade
     rm -f %{_sysconfdir}/sympa/sympa.conf.bin > /dev/null 2>&1
-    if %{_sbindir}/sympa.pl --upgrade > /dev/null 2>&1; then
+    if %{_sbindir}/sympa upgrade > /dev/null 2>&1; then
         # Start sympa if it was running previously
         if [ "$ACTIVE" == "yes" ]; then
             /usr/bin/systemctl start sympa > /dev/null 2>&1
@@ -702,11 +686,10 @@ function upgrade_data_structure {
 
 # Install
 if [ $1 -eq 1 ]; then
-    create_cookie
     create_config
     echo ============================================================
-    echo Sympa had been installed successfully.  If you installed
-    echo Sympa at first time, please read:
+    echo Sympa has been installed successfully.
+    echo Please read:
     echo %{_docdir}/%{name}-%{version}/README.RPM.md
     echo ============================================================
 fi
@@ -790,9 +773,7 @@ fi
 %attr(4755,sympa,sympa) %{_libexecdir}/sympa/queue
 %attr(4750,root,sympa) %{_libexecdir}/sympa/sympa_newaliases-wrapper
 %{_libexecdir}/sympa/sympa_soap_server.fcgi
-%attr(6755,sympa,sympa) %{_libexecdir}/sympa/sympa_soap_server-wrapper.fcgi
 %{_libexecdir}/sympa/wwsympa.fcgi
-%attr(6755,sympa,sympa) %{_libexecdir}/sympa/wwsympa-wrapper.fcgi
 %attr(-,sympa,sympa) %{_localstatedir}/lib/sympa/
 %attr(-,sympa,sympa) %{_localstatedir}/spool/sympa/
 %{_datadir}/sympa/
@@ -806,8 +787,8 @@ fi
 %{_unitdir}/sympa-task.service
 %{_tmpfilesdir}/sympa.conf
 %ghost %attr(-,sympa,sympa) %{_rundir}/sympa/
-%dir %{_sysconfdir}/systemd/system/sympa.service.d/
-%config(noreplace) %{_sysconfdir}/systemd/system/sympa.service.d/*
+%dir %{_unitdir}/sympa.service.d/
+%{_unitdir}/sympa.service.d/*
 %config(noreplace) %{_sysconfdir}/sysconfig/sympa
 %{_sysusersdir}/sympa.conf
 
@@ -818,10 +799,10 @@ fi
 %{_unitdir}/wwsympa.socket
 %{_unitdir}/sympasoap.service
 %{_unitdir}/sympasoap.socket
-%dir %{_sysconfdir}/systemd/system/wwsympa.socket.d
-%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.conf
-%dir %{_sysconfdir}/systemd/system/sympasoap.socket.d
-%config(noreplace) %{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-httpd.conf
+%dir %{_unitdir}/wwsympa.socket.d
+%{_unitdir}/wwsympa.socket.d/wwsympa-httpd.conf
+%dir %{_unitdir}/sympasoap.socket.d
+%{_unitdir}/sympasoap.socket.d/sympasoap-httpd.conf
 
 
 %files lighttpd
@@ -834,10 +815,10 @@ fi
 %{_unitdir}/wwsympa.socket
 %{_unitdir}/sympasoap.service
 %{_unitdir}/sympasoap.socket
-%dir %{_sysconfdir}/systemd/system/wwsympa.socket.d
-%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-nginx.conf
-%dir %{_sysconfdir}/systemd/system/sympasoap.socket.d
-%config(noreplace) %{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-nginx.conf
+%dir %{_unitdir}/wwsympa.socket.d
+%{_unitdir}/wwsympa.socket.d/wwsympa-nginx.conf
+%dir %{_unitdir}/sympasoap.socket.d
+%{_unitdir}/sympasoap.socket.d/sympasoap-nginx.conf
 
 
 %files devel-doc
@@ -845,6 +826,14 @@ fi
 
 
 %changelog
+* Tue Mar 31 2026 Xavier Bachelot <xavier@bachelot.org> - 6.2.78-1
+- Update to 6.2.78
+- Turn conf sub-packages to noarch
+- Disable some SUID wrappers
+- Drop now useless cookie parameter creation on first install
+- Simplify initial conf creation
+- Install systemd drop-ins in %%{_unitdir} (RHBZ#2415142)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.76-1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

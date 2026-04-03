@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 22.1.1
+%global libclc_version 22.1.2
 #global rc_ver 3
 %global src_tarball_dir llvm-project-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -108,6 +108,9 @@ cd libclc
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Mar 31 2026 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 22.1.2-1
+- Update to LLVM 22.1.2
+
 * Thu Mar 12 2026 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 22.1.1-1
 - Update to LLVM 22.1.1
 

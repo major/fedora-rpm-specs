@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
@@ -11,6 +11,8 @@ Source0:        %{pypi_source}
 
 # compatibility with pytest 8
 Patch:          https://github.com/pytest-dev/pytest-forked/commit/b2742322d3.patch
+# compatibility with pytest 9
+Patch:          https://github.com/pytest-dev/pytest-forked/commit/8f59f07.patch
 
 BuildArch:      noarch
 
@@ -52,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Tue Mar 24 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.0-15
+- Fix pytest 9 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

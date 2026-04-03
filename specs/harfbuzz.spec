@@ -1,5 +1,5 @@
 Name:           harfbuzz
-Version:        13.2.1
+Version:        14.0.0
 Release:        1%{?dist}
 Summary:        Text shaping library
 
@@ -142,6 +142,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-vector.so.*
 
 %changelog
+* Wed Apr 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.0.0-1
+- Update to 14.0.0 version (#2453867)
+
 * Fri Mar 20 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.2.1-1
 - Update to 13.2.1 version (#2448935)
 

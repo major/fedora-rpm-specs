@@ -13,6 +13,8 @@ BuildArch:     noarch
 
 Patch1:        selenium-use-without-bundled-libs.patch
 
+Requires:      %{_bindir}/selenium-manager
+
 %description
 The selenium package is used automate web browser interaction from Python.
 
@@ -53,6 +55,8 @@ sed -ie '/x_ignore_nofocus.so$/d' %pyproject_files
 rm -f %{buildroot}%{python3_sitelib}/selenium/webdriver/firefox/amd64/x_ignore_nofocus.so
 rm -f %{buildroot}%{python3_sitelib}/selenium/webdriver/firefox/x86/x_ignore_nofocus.so
 
+install -d %{buildroot}%{python3_sitelib}/selenium/webdriver/common/linux
+ln -sf %{_bindir}/selenium-manager %{buildroot}%{python3_sitelib}/selenium/webdriver/common/linux
 
 %check
 %pyproject_check_import
@@ -61,6 +65,7 @@ rm -f %{buildroot}%{python3_sitelib}/selenium/webdriver/firefox/x86/x_ignore_nof
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE
 %doc CHANGES README.rst
+%{python3_sitelib}/selenium/webdriver/common/linux/selenium-manager
 
 
 %changelog

@@ -125,7 +125,7 @@
 
 Name:           pidgin
 Version:        2.14.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
@@ -163,6 +163,11 @@ Source1:        purple-fedora-prefs.xml
 ## Patches 0-99: Fedora specific or upstream wont accept
 Patch0:         pidgin-NOT-UPSTREAM-2.5.2-rhel4-sound-migration.patch
 Patch1:         pidgin-2.14.4-valgrind.patch
+
+# Taken from https://reviews.imfreedom.org/r/4404/ to fix a crash on fedora >= 44:
+# https://issues.imfreedom.org/issue/PIDGIN-18152/Pidgin-Keeps-Crashing-and-I-dont-know-why
+# https://bugzilla.redhat.com/show_bug.cgi?id=2441401
+Patch100:       pidgin-rb4404.patch
 
 ## Patches 100+: To be Included in Future Upstream
 
@@ -464,6 +469,7 @@ echo "FEDORA=%{fedora} RHEL=%{rhel}"
 %patch -P1 -p1 -b .valgrind
 
 ## Patches 100+: To be Included in Future Upstream
+%patch -P100 -p1 -b .rb4404
 
 
 # Our preferences
@@ -699,6 +705,9 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Fri Mar 27 2026 Thorsten Leemhuis <fedora@leemhuis.info> - 2.14.14-4
+- Add patch to fix crash with latest gstreamer to fix #2441401
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

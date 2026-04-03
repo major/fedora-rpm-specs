@@ -4,8 +4,8 @@
 Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
-Version:	5.8.2
-Release:	2%{?dist}
+Version:	5.8.3
+Release:	1%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -136,6 +136,7 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %exclude %_pkgdocdir/examples*
 %{_bindir}/*xz*
 %{_mandir}/man1/*xz*
+%lang(ar) %{_mandir}/ar/man1/*xz*
 %lang(de) %{_mandir}/de/man1/*xz*
 %lang(fr) %{_mandir}/fr/man1/*xz*
 %lang(it) %{_mandir}/it/man1/*xz*
@@ -170,6 +171,7 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %files lzma-compat
 %{_bindir}/*lz*
 %{_mandir}/man1/*lz*
+%lang(ar) %{_mandir}/ar/man1/*lz*
 %lang(de) %{_mandir}/de/man1/*lz*
 %lang(fr) %{_mandir}/fr/man1/*lz*
 %lang(it) %{_mandir}/it/man1/*lz*
@@ -182,6 +184,10 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Wed Apr 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.3-1
+- New upstream version 5.8.3 (fixes RHBZ#2453487, CVE-2026-34743)
+- Add Arabic language translations
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

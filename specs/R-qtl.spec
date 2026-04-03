@@ -35,6 +35,12 @@ models by multiple imputation and Haley-Knott regression.
 %prep
 %autosetup -c
 
+%if ! %{?fedora}%{!?fedora:0}
+# R-testthat is not available in EPEL
+sed /testthat/d -i qtl/DESCRIPTION
+rm qtl/tests/testthat.R
+%endif
+
 %generate_buildrequires
 %R_buildrequires
 
@@ -45,7 +51,7 @@ models by multiple imputation and Haley-Knott regression.
 %R_save_files
 
 %check
-%R_check \--no-tests
+%R_check
 
 %files -f %{R_files}
 

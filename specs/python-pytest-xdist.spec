@@ -2,12 +2,14 @@
 
 Name:           python-pytest-xdist
 Version:        3.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-xdist
 Source0:        %{pypi_source}
+Patch:          https://github.com/pytest-dev/pytest-xdist/commit/44f4bea.patch
+Patch:          https://github.com/pytest-dev/pytest-xdist/commit/0c98447.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -52,6 +54,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Mar 24 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.7.0-7
+- Fix pytest 9 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

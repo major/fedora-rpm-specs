@@ -1,7 +1,7 @@
 Name:           plasma-keyboard
 Epoch:          1
 Version:        6.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
 License:        LGPL-2.1-only AND GPL-2.0-only AND CC0-1.0 AND LGPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only
@@ -9,6 +9,8 @@ URL:            https://invent.kde.org/plasma/%{name}/
 
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
+
+Patch0:  plasma-keyboard-fix-kde-editors.patch
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake
@@ -77,6 +79,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Wed Apr 01 2026 Jan Grulich <jgrulich@redhat.com> - 1:6.6.3-2
+- Fix corrupted text on selection
+  Resolves: bz#2449945
+
 * Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-1
 - 6.6.3
 

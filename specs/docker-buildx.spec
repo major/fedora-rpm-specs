@@ -3,7 +3,7 @@
 
 # https://github.com/docker/buildx
 %global goipath         github.com/docker/buildx
-Version:                0.31.1
+Version:                0.33.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -66,7 +66,6 @@ rm tests/integration_test.go
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc README.md
 %{moby_cli_plugins_dir}/docker-buildx
 

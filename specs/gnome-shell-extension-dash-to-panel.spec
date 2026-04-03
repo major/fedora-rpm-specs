@@ -2,8 +2,8 @@
 %global extdir %{_datadir}/gnome-shell/extensions/dash-to-panel@jderose9.github.com
 
 Name:           gnome-shell-extension-%{ename}
-Version:        72
-Release:        2%{?dist}
+Version:        73
+Release:        1%{?dist}
 Summary:        Integrated icon taskbar and status panel for Gnome Shell
 License:        GPL-2.0-or-later
 URL:            https://github.com/home-sweet-gnome/dash-to-panel
@@ -40,6 +40,9 @@ rm -v %{buildroot}%{extdir}/{COPYING,README.md}
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.%{ename}.gschema.xml
 
 %changelog
+* Wed Apr 01 2026 Dominik Mierzejewski <dominik@greysector.net> - 73-1
+- update to 73 (adds GNOME 50 support and resolves rhbz#2448255)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

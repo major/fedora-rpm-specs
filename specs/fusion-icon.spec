@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,8 +10,9 @@ URL:            https://gitlab.com/compiz/%{name}
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 BuildArch:      noarch
 
-# https://github.com/compiz-reloaded/fusion-icon/commit/9c598b8
-Patch1:         fusion-icon_0001-Fix-typeerror-in-python3.6.patch
+Patch:          fusion-icon_0001-Fix-typeerror-in-python3.6.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2452797
+Patch:          fusion-icon-0.2.4-wheel-gtk-fix.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gobject-introspection-devel
@@ -66,6 +67,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Wed Apr 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.2.4-38
+- Fixed build with gtk
+  Resolves: rhbz#2452797
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.4-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

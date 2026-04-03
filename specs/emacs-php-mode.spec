@@ -1,54 +1,50 @@
 Name:            emacs-php-mode
-Version:         1.18.2
-Release:         5%{?dist}
+Version:         1.27.0
+Release:         1%{?dist}
 Summary:         Major GNU Emacs mode for editing PHP code
-License:         GPLv3+
-URL:             https://github.com/ejmr/php-mode
-Source0:         https://github.com/ejmr/php-mode/archive/v%{version}.tar.gz
+License:         GPL-3.0-or-later
+URL:             https://github.com/emacs-php/php-mode
+Source0:         https://github.com/emacs-php/php-mode/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:         php-mode-init.el
-Patch0:          0001-Fix-Ignore-warnings-on-syntax-begin-function.patch
-Patch1:          0002-Fix-warning-about-imenu-make-index-alist-not-defined.patch
-Patch2:          0003-Byte-compile-skeleton-files-as-well.patch
-Patch3:          0004-Treat-compilation-warnings-as-errors.patch
-Patch4:          0005-Remove-sitestart-code-from-library.patch
 BuildArch:       noarch
-BuildRequires:   emacs
-Requires:        emacs(bin) >= %{_emacs_version}
+BuildRequires:   emacs eask git
+Requires:        emacs(bin)%{?_emacs_version: >= %{_emacs_version}}
+Requires:        emacs-filesystem
 
 %description
 Major GNU Emacs mode for editing PHP code.
 
 %prep
 %setup -q -n php-mode-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 make %{?_smp_mflags} all
 
 %install
 mkdir -p %{buildroot}/%{_emacs_sitelispdir}/php-mode
-install -p -m 644 *.el{,c} %{buildroot}/%{_emacs_sitelispdir}/php-mode/
-install -p -m 644 skeleton/*.el{,c} %{buildroot}/%{_emacs_sitelispdir}/php-mode/
+install -p -m 644 lisp/*.el %{buildroot}/%{_emacs_sitelispdir}/php-mode/
 
 # Install php-mode-init.el
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 
 %check
-make test
+# we could run "make test" here but it requires internet connection so let's just check if the mode is loadable
+emacs --batch -L %{buildroot}%{_emacs_sitestartdir} -l php-mode-init --eval "(if (fboundp 'php-mode) (kill-emacs 0) (kill-emacs 1))"
 
 %files
-%doc Changelog.md
+%doc CHANGELOG.md
 %license LICENSE
 %{_emacs_sitestartdir}/php-mode-init.el
 %dir %{_emacs_sitelispdir}/php-mode
 %{_emacs_sitelispdir}/php-mode/*
 
 %changelog
+* Mon Mar 09 2026 Ruslan Bekenev <furyinbox@gmail.com> - 1.27.0-1
+- Update to 1.27.0
+- Use SPDX License Expression for License
+- Requires: emacs-filesystem for directory ownership
+
 * Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 

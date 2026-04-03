@@ -1,9 +1,9 @@
 Name:           R-inline
 Version:        %R_rpm_version 0.3.21
 Release:        %autorelease
-Summary:	    Functions to Inline C, C++, Fortran Function Calls from R
+Summary:        Functions to Inline C, C++, Fortran Function Calls from R
 
-License:	    LGPL-2.0-or-later
+License:        LGPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 
@@ -17,6 +17,12 @@ conventions.
 
 %prep
 %autosetup -c
+
+%if ! %{?fedora}%{!?fedora:0}
+# R-tinytest is not available in EPEL
+sed 's/, tinytest//' -i inline/DESCRIPTION
+rm inline/tests/tinytest.R
+%endif
 
 %generate_buildrequires
 %R_buildrequires
