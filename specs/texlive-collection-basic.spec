@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -114,19 +114,10 @@ macros, Computer Modern fonts, and configuration for common drivers; no LaTeX.
 
 %package -n texlive-amsfonts
 Summary:        TeX fonts from the American Mathematical Society
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(amsfonts.sty) = %{tl_version}
-Provides:       tex(amssym.def) = %{tl_version}
-Provides:       tex(amssym.tex) = %{tl_version}
-Provides:       tex(amssymb.sty) = %{tl_version}
-Provides:       tex(cmmib57.sty) = %{tl_version}
-Provides:       tex(cyracc.def) = %{tl_version}
-Provides:       tex(eucal.sty) = %{tl_version}
-Provides:       tex(eufrak.sty) = %{tl_version}
-Provides:       tex(euscript.sty) = %{tl_version}
 
 %description -n texlive-amsfonts
 An extended set of fonts for use in mathematics, including: extra mathematical
@@ -164,8 +155,6 @@ Version:        svn49086
 License:        LPPL-1.3c AND MIT AND LicenseRef-Fedora-Public-Domain AND Zlib
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(colorprofiles.sty) = %{tl_version}
-Provides:       tex(colorprofiles.tex) = %{tl_version}
 
 %description -n texlive-colorprofiles
 This package collects free ICC profiles that can be used by color profile aware
@@ -200,46 +189,6 @@ Version:        svn34957
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(1250-csf.tex) = %{tl_version}
-Provides:       tex(1250-il2.tex) = %{tl_version}
-Provides:       tex(1250-latex.tex) = %{tl_version}
-Provides:       tex(1250-t1.tex) = %{tl_version}
-Provides:       tex(852-csf.tex) = %{tl_version}
-Provides:       tex(852-il2.tex) = %{tl_version}
-Provides:       tex(852-latex.tex) = %{tl_version}
-Provides:       tex(852-t1.tex) = %{tl_version}
-Provides:       tex(csfmacro.tex) = %{tl_version}
-Provides:       tex(enc-u.tex) = %{tl_version}
-Provides:       tex(encmacro.tex) = %{tl_version}
-Provides:       tex(il2-1250.tex) = %{tl_version}
-Provides:       tex(il2-852.tex) = %{tl_version}
-Provides:       tex(il2-csf.tex) = %{tl_version}
-Provides:       tex(il2-kam.tex) = %{tl_version}
-Provides:       tex(il2-t1.tex) = %{tl_version}
-Provides:       tex(kam-csf.tex) = %{tl_version}
-Provides:       tex(kam-il2.tex) = %{tl_version}
-Provides:       tex(kam-latex.tex) = %{tl_version}
-Provides:       tex(kam-t1.tex) = %{tl_version}
-Provides:       tex(mixcodes.tex) = %{tl_version}
-Provides:       tex(noprefnt.tex) = %{tl_version}
-Provides:       tex(plain-1250-cs.tex) = %{tl_version}
-Provides:       tex(plain-852-cs.tex) = %{tl_version}
-Provides:       tex(plain-il2-cs.tex) = %{tl_version}
-Provides:       tex(plain-kam-cs.tex) = %{tl_version}
-Provides:       tex(plain-utf8-cs.tex) = %{tl_version}
-Provides:       tex(plain-utf8-ec.tex) = %{tl_version}
-Provides:       tex(polyset.tex) = %{tl_version}
-Provides:       tex(t1macro.tex) = %{tl_version}
-Provides:       tex(utf8-csf.tex) = %{tl_version}
-Provides:       tex(utf8-t1.tex) = %{tl_version}
-Provides:       tex(utf8cseq.tex) = %{tl_version}
-Provides:       tex(utf8lat1.tex) = %{tl_version}
-Provides:       tex(utf8lata.tex) = %{tl_version}
-Provides:       tex(utf8math.tex) = %{tl_version}
-Provides:       tex(utf8off.tex) = %{tl_version}
-Provides:       tex(utf8raw.tex) = %{tl_version}
-Provides:       tex(utf8unkn.tex) = %{tl_version}
-Provides:       tex(utf8warn.tex) = %{tl_version}
 
 %description -n texlive-enctex
 EncTeX is (another) TeX extension, written at the change-file level. It
@@ -248,7 +197,7 @@ example, translation of multibyte sequences, such as utf-8 encoding.
 
 %package -n texlive-etex
 Summary:        An extended version of TeX, from the NTS project
-Version:        svn73850
+Version:        svn77830
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -265,11 +214,10 @@ other engine sources, keeping e-TeX stable.
 
 %package -n texlive-etex-pkg
 Summary:        E-TeX support package
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(etex.sty) = %{tl_version}
 
 %description -n texlive-etex-pkg
 The package provides support for LaTeX documents to use many of the extensions
@@ -283,12 +231,6 @@ Version:        svn76719
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dvipdfmx.def) = %{tl_version}
-Provides:       tex(dvips.def) = %{tl_version}
-Provides:       tex(dvisvgm.def) = %{tl_version}
-Provides:       tex(luatex.def) = %{tl_version}
-Provides:       tex(pdftex.def) = %{tl_version}
-Provides:       tex(xetex.def) = %{tl_version}
 
 %description -n texlive-graphics-def
 This bundle is a combined distribution consisting of dvips.def, pdftex.def,
@@ -299,19 +241,10 @@ to coordinate updates.
 
 %package -n texlive-hyph-utf8
 Summary:        Hyphenation patterns expressed in UTF-8
-Version:        svn74823
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(conv-utf8-ec.tex) = %{tl_version}
-Provides:       tex(conv-utf8-il2.tex) = %{tl_version}
-Provides:       tex(conv-utf8-il3.tex) = %{tl_version}
-Provides:       tex(conv-utf8-l7x.tex) = %{tl_version}
-Provides:       tex(conv-utf8-lmc.tex) = %{tl_version}
-Provides:       tex(conv-utf8-lth.tex) = %{tl_version}
-Provides:       tex(conv-utf8-qx.tex) = %{tl_version}
-Provides:       tex(conv-utf8-t2a.tex) = %{tl_version}
-Provides:       tex(conv-utf8-t8m.tex) = %{tl_version}
 
 %description -n texlive-hyph-utf8
 Modern native UTF-8 engines such as XeTeX and LuaTeX need hyphenation patterns
@@ -326,16 +259,10 @@ completely supplant the older patterns.
 
 %package -n texlive-hyphen-base
 Summary:        Core hyphenation support files
-Version:        svn74125
+Version:        svn78076
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dumyhyph.tex) = %{tl_version}
-Provides:       tex(hyphen.tex) = %{tl_version}
-Provides:       tex(hypht1.tex) = %{tl_version}
-Provides:       tex(language.def) = %{tl_version}
-Provides:       tex(language.us.def) = %{tl_version}
-Provides:       tex(zerohyph.tex) = %{tl_version}
 
 %description -n texlive-hyphen-base
 Includes Knuth's original hyphen.tex, zerohyph.tex to disable hyphenation,
@@ -348,7 +275,6 @@ Version:        svn57387
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ushyphex.tex) = %{tl_version}
 
 %description -n texlive-hyphenex
 Exceptions for American English hyphenation patterns are occasionally published
@@ -359,7 +285,7 @@ machine-readable files.
 
 %package -n texlive-ifplatform
 Summary:        Conditionals to test which platform is being used
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -367,7 +293,6 @@ Requires:       tex(catchfile.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(shellesc.sty)
-Provides:       tex(ifplatform.sty) = %{tl_version}
 
 %description -n texlive-ifplatform
 This package uses the (La)TeX extension -shell-escape to establish whether the
@@ -379,16 +304,10 @@ distinguish between various classes of Unix systems.
 
 %package -n texlive-iftex
 Summary:        Am I running under pdfTeX, XeTeX or LuaTeX?
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ifetex.sty) = %{tl_version}
-Provides:       tex(ifluatex.sty) = %{tl_version}
-Provides:       tex(ifpdf.sty) = %{tl_version}
-Provides:       tex(iftex.sty) = %{tl_version}
-Provides:       tex(ifvtex.sty) = %{tl_version}
-Provides:       tex(ifxetex.sty) = %{tl_version}
 
 %description -n texlive-iftex
 The package, which works both for Plain TeX and for LaTeX, defines the
@@ -403,12 +322,6 @@ Version:        svn57963
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(manmac.tex) = %{tl_version}
-Provides:       tex(mftmac.tex) = %{tl_version}
-Provides:       tex(null.tex) = %{tl_version}
-Provides:       tex(story.tex) = %{tl_version}
-Provides:       tex(testfont.tex) = %{tl_version}
-Provides:       tex(webmac.tex) = %{tl_version}
 
 %description -n texlive-knuth-lib
 A collection of core TeX and Metafont macro files from DEK, apart from the
@@ -420,7 +333,6 @@ Version:        svn57963
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xepsf.tex) = %{tl_version}
 
 %description -n texlive-knuth-local
 A collection of experimental programs and developments based on, or
@@ -428,7 +340,7 @@ complementary to, the matter in his distribution directories.
 
 %package -n texlive-lua-alt-getopt
 Summary:        Process application arguments the same way as getopt_long
-Version:        svn56414
+Version:        svn78415
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -436,16 +348,15 @@ Requires:       texlive-kpathsea
 %description -n texlive-lua-alt-getopt
 lua_altgetopt is a MIT-licensed module for Lua, for processing application
 arguments in the same way as BSD/GNU getopt_long(3) functions do. This module
-is made available for lua script writers to have consistent command line
+is made available for Lua script writers to have consistent command line
 parsing routines.
 
 %package -n texlive-mflogo
 Summary:        LaTeX support for Metafont logo fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mflogo.sty) = %{tl_version}
 
 %description -n texlive-mflogo
 LaTeX package and font definition file to access the Knuthian mflogo fonts
@@ -474,18 +385,6 @@ Version:        svn75712
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fontchart.tex) = %{tl_version}
-Provides:       tex(gkpmac.tex) = %{tl_version}
-Provides:       tex(letterformat.tex) = %{tl_version}
-Provides:       tex(list-latin.tex) = %{tl_version}
-Provides:       tex(list.tex) = %{tl_version}
-Provides:       tex(llist-latin.tex) = %{tl_version}
-Provides:       tex(llist.tex) = %{tl_version}
-Provides:       tex(mptmac.tex) = %{tl_version}
-Provides:       tex(pdftexmagfix.tex) = %{tl_version}
-Provides:       tex(picmac.tex) = %{tl_version}
-Provides:       tex(plain.tex) = %{tl_version}
-Provides:       tex(wlist.tex) = %{tl_version}
 
 %description -n texlive-plain
 Contains files used to build the Plain TeX format, as described in the TeXbook,
@@ -493,13 +392,10 @@ together with various supporting files (some also discussed in the book).
 
 %package -n texlive-tex-ini-files
 Summary:        Model TeX format creation files
-Version:        svn73863
+Version:        svn78524
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luatexconfig.tex) = %{tl_version}
-Provides:       tex(luatexiniconfig.tex) = %{tl_version}
-Provides:       tex(pdftexconfig.tex) = %{tl_version}
 
 %description -n texlive-tex-ini-files
 This bundle provides a collection of model .ini files for creating TeX formats.
@@ -510,7 +406,7 @@ with XeTeX and LuaTeX.
 
 %package -n texlive-texlive-common
 Summary:        TeX Live documentation (common elements)
-Version:        svn75685
+Version:        svn77830
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -522,7 +418,7 @@ TeX Live documentation (common elements)
 
 %package -n texlive-texlive-msg-translations
 Summary:        Translations of the TeX Live installer and TeX Live Manager
-Version:        svn77642
+Version:        svn78256
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -538,9 +434,6 @@ Version:        svn76413
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(load-unicode-data.tex) = %{tl_version}
-Provides:       tex(load-unicode-math-classes.tex) = %{tl_version}
-Provides:       tex(load-unicode-xetex-classes.tex) = %{tl_version}
 
 %description -n texlive-unicode-data
 This bundle provides generic access to Unicode Consortium data for TeX use. It
@@ -769,6 +662,9 @@ popd
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Wed Apr 01 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-10
+- Update 12 components
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-9
 - Update amsfonts, etex-pkg, ifplatform, iftex, mflogo, texlive-msg-translations
 

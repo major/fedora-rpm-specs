@@ -21,7 +21,7 @@
 #
 
 %global upstreamname primbench
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -87,5 +87,8 @@ install -D -m 644 primbench.hpp %{buildroot}%{_includedir}/primbench.hpp
 %{_includedir}/primbench.hpp
 
 %changelog
+* Thu Apr 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.12.0-1
+- Update to 7.12
+
 * Sat Feb 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.11.0-1
 - Initial package

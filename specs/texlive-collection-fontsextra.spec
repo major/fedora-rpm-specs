@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-fontsextra
 Epoch:          12
-Version:        svn77044
-Release:        4%{?dist}
+Version:        svn78246
+Release:        5%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -671,10 +671,10 @@ Source652:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/s
 Source653:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skull.tar.xz
 Source654:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.tar.xz
 Source655:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcecodepro.doc.tar.xz
-Source656:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesanspro.tar.xz
-Source657:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesanspro.doc.tar.xz
-Source658:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserifpro.tar.xz
-Source659:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserifpro.doc.tar.xz
+Source656:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.tar.xz
+Source657:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourcesans.doc.tar.xz
+Source658:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.tar.xz
+Source659:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sourceserif.doc.tar.xz
 Source660:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.tar.xz
 Source661:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectral.doc.tar.xz
 Source662:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splentinex.tar.xz
@@ -1186,8 +1186,8 @@ Requires:       texlive-shobhika
 Requires:       texlive-simpleicons
 Requires:       texlive-skull
 Requires:       texlive-sourcecodepro
-Requires:       texlive-sourcesanspro
-Requires:       texlive-sourceserifpro
+Requires:       texlive-sourcesans
+Requires:       texlive-sourceserif
 Requires:       texlive-spectral
 Requires:       texlive-splentinex
 Requires:       texlive-srbtiks
@@ -1240,13 +1240,12 @@ Additional fonts
 
 %package -n texlive-aboensis
 Summary:        A late medieval OpenType cursive font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c AND CC-BY-4.0 AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(aboensis.sty) = %{tl_version}
 
 %description -n texlive-aboensis
 The package contains the free OpenType medieval cursive font Aboensis and a
@@ -1264,16 +1263,12 @@ spacing.
 
 %package -n texlive-academicons
 Summary:        Font containing high quality icons of online academic profiles
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
-Provides:       tex(academicons-generic.tex) = %{tl_version}
-Provides:       tex(academicons-pdftex.tex) = %{tl_version}
-Provides:       tex(academicons-xeluatex.tex) = %{tl_version}
-Provides:       tex(academicons.sty) = %{tl_version}
 
 %description -n texlive-academicons
 The academicons package provides access in (La)TeX to 146 high quality icons of
@@ -1292,7 +1287,7 @@ commands can be found in the manual.
 
 %package -n texlive-accanthis
 Summary:        Accanthis fonts, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1303,7 +1298,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(accanthis.sty) = %{tl_version}
 
 %description -n texlive-accanthis
 Accanthis No. 3 is designed by Hirwin Harendal and is suitable as an
@@ -1312,12 +1306,12 @@ Bembo. The support files are suitable for use with all LaTeX engines.
 
 %package -n texlive-adforn
 Summary:        OrnementsADF font with TeX/LaTeX support
-Version:        svn77677
+Version:        svn78315
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(fixtounicode.sty)
 Requires:       tex(svn-prov.sty)
-Provides:       tex(adforn.sty) = %{tl_version}
 
 %description -n texlive-adforn
 The bundle provides the Ornements ADF font in PostScript type 1 format with
@@ -1327,14 +1321,12 @@ under LPPL. (See README, manifest.txt.)
 
 %package -n texlive-adfsymbols
 Summary:        SymbolsADF with TeX/LaTeX support
-Version:        svn77677
+Version:        svn78315
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(fixtounicode.sty)
 Requires:       tex(svn-prov.sty)
-Provides:       tex(adfarrows.sty) = %{tl_version}
-Provides:       tex(adfbullets.sty) = %{tl_version}
-Provides:       tex(adfsymbols-uni.tex) = %{tl_version}
 
 %description -n texlive-adfsymbols
 The package provides Arkandis foundry's ArrowsADF and BulletsADF fonts in Adobe
@@ -1347,7 +1339,6 @@ License:        LPPL-1.3c AND GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
-Provides:       tex(aesupp.sty) = %{tl_version}
 
 %description -n texlive-aesupp
 This package provides special support for the italic 'ae' character in some
@@ -1358,7 +1349,7 @@ bundle do not need this support.
 
 %package -n texlive-alegreya
 Summary:        Alegreya fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1370,8 +1361,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Alegreya.sty) = %{tl_version}
-Provides:       tex(AlegreyaSans.sty) = %{tl_version}
 
 %description -n texlive-alegreya
 The Alegreya fonts are designed by Juan Pablo del Peral for Huerta Tipografica.
@@ -1382,7 +1371,7 @@ black, small caps and five number styles are available.
 
 %package -n texlive-alfaslabone
 Summary:        The Alfa Slab One font face with support for LaTeX and pdfLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1392,7 +1381,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(alfaslabone.sty) = %{tl_version}
 
 %description -n texlive-alfaslabone
 The alfaslabone package supports the Alfa Slab One font face for LaTeX. There
@@ -1400,7 +1388,7 @@ is only a Regular font face. It's useful for book-chapter headlines.
 
 %package -n texlive-algolrevived
 Summary:        A revival of Frutiger's Algol alphabet
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1412,7 +1400,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(algolrevived.sty) = %{tl_version}
 
 %description -n texlive-algolrevived
 The package revives Frutiger's Algol alphabet, designed in 1963 for the code
@@ -1428,7 +1415,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
-Provides:       tex(allrunes.sty) = %{tl_version}
 
 %description -n texlive-allrunes
 This large collection of fonts (in Adobe Type 1 format), with the LaTeX package
@@ -1437,7 +1423,7 @@ only the main forms but also a lot of varieties.
 
 %package -n texlive-almendra
 Summary:        Almendra fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1449,7 +1435,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(almendra.sty) = %{tl_version}
 
 %description -n texlive-almendra
 This package provides LaTeX, pdfLaTeX, XeLaTeX, and LuaLaTeX support for the
@@ -1486,7 +1471,7 @@ complex Arabic texts will now be much easier to input and to proofread.
 
 %package -n texlive-andika
 Summary:        Andika fonts with support for all LaTeX engines
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1496,7 +1481,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(andika.sty) = %{tl_version}
 
 %description -n texlive-andika
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -1512,7 +1496,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
-Provides:       tex(AnonymousPro.sty) = %{tl_version}
 
 %description -n texlive-anonymouspro
 The fonts are a monowidth set, designed for use by coders. They appear as a set
@@ -1533,13 +1516,10 @@ Condensed" released under the GPL by URW, with supporting files for use with
 
 %package -n texlive-antt
 Summary:        Antykwa Torunska: a Type 1 family of a Polish traditional type
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(antt-math.tex) = %{tl_version}
-Provides:       tex(anttor.sty) = %{tl_version}
-Provides:       tex(antyktor.sty) = %{tl_version}
 
 %description -n texlive-antt
 Antykwa Torunska is a serif font designed by the late Polish typographer
@@ -1551,22 +1531,6 @@ Version:        svn38005
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(aramaic.sty) = %{tl_version}
-Provides:       tex(cypriot.sty) = %{tl_version}
-Provides:       tex(etruscan.sty) = %{tl_version}
-Provides:       tex(greek4cbc.sty) = %{tl_version}
-Provides:       tex(greek6cbc.sty) = %{tl_version}
-Provides:       tex(hieroglf.sty) = %{tl_version}
-Provides:       tex(linearb.sty) = %{tl_version}
-Provides:       tex(nabatean.sty) = %{tl_version}
-Provides:       tex(oands.sty) = %{tl_version}
-Provides:       tex(oldprsn.sty) = %{tl_version}
-Provides:       tex(phoenician.sty) = %{tl_version}
-Provides:       tex(protosem.sty) = %{tl_version}
-Provides:       tex(runic.sty) = %{tl_version}
-Provides:       tex(sarabian.sty) = %{tl_version}
-Provides:       tex(ugarite.sty) = %{tl_version}
-Provides:       tex(viking.sty) = %{tl_version}
 
 %description -n texlive-archaic
 The collection contains fonts to represent Aramaic, Cypriot, Etruscan, Greek of
@@ -1588,7 +1552,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Archivo.sty) = %{tl_version}
 
 %description -n texlive-archivo
 This package provides the Archivo family of fonts designed by Omnibus-Type,
@@ -1596,7 +1559,7 @@ with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-arev
 Summary:        Fonts and LaTeX support files for Arev Sans
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1606,11 +1569,6 @@ Requires:       tex(beramono.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(ams-mdbch.sty) = %{tl_version}
-Provides:       tex(arev.sty) = %{tl_version}
-Provides:       tex(arevmath.sty) = %{tl_version}
-Provides:       tex(arevsymbols.tex) = %{tl_version}
-Provides:       tex(arevtext.sty) = %{tl_version}
 
 %description -n texlive-arev
 The package arev provides type 1 and virtual fonts, together with LaTeX
@@ -1626,7 +1584,7 @@ support packages. Others are cmbright, hvmath and kerkis.
 
 %package -n texlive-arimo
 Summary:        Arimo sans serif fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1637,7 +1595,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(arimo.sty) = %{tl_version}
 
 %description -n texlive-arimo
 The Arimo family, designed by Steve Matteson, is an innovative, refreshing sans
@@ -1645,13 +1602,12 @@ serif design which is metrically compatible with Arial.
 
 %package -n texlive-arsenal
 Summary:        Open Type font by Andrij Shevchenko
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(arsenal-math.sty)
 Requires:       tex(fontspec.sty)
-Provides:       tex(arsenal.sty) = %{tl_version}
 
 %description -n texlive-arsenal
 In 2011 Andrij's typeface became a winner of the Ukrainian Type Design
@@ -1667,13 +1623,12 @@ needs LuaLaTeX or XeLaTeX.
 
 %package -n texlive-arsenal-math
 Summary:        Arsenal Math OpenType fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(arsenal-math.sty) = %{tl_version}
 
 %description -n texlive-arsenal-math
 Arsenal Math is a math companion font for the Arsenal text font. It is based on
@@ -1692,7 +1647,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Arvo.sty) = %{tl_version}
 
 %description -n texlive-arvo
 This package provides the Arvo family of fonts designed by Anton Koovit, with
@@ -1719,9 +1673,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(asapsym-generic.tex) = %{tl_version}
-Provides:       tex(asapsym.code.tex) = %{tl_version}
-Provides:       tex(asapsym.sty) = %{tl_version}
 
 %description -n texlive-asapsym
 The package provides macros (usable with LaTeX or Plain TeX) for using the
@@ -1732,12 +1683,11 @@ is issued if an OTF-capable engine is not detected.
 
 %package -n texlive-ascii-font
 Summary:        Use the ASCII "font" in LaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xspace.sty)
-Provides:       tex(ascii.sty) = %{tl_version}
 
 %description -n texlive-ascii-font
 The package provides glyph and font access commands so that LaTeX users can use
@@ -1751,7 +1701,6 @@ Version:        svn25243
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ar.sty) = %{tl_version}
 
 %description -n texlive-aspectratio
 The package provides fonts (both as Adobe Type 1 format, and as Metafont
@@ -1772,7 +1721,7 @@ and some additional symbols. The font is distributed as Metafont source.
 
 %package -n texlive-atkinson
 Summary:        Support for the Atkinson Hyperlegible family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-AHFL AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1784,7 +1733,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(atkinson.sty) = %{tl_version}
 
 %description -n texlive-atkinson
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -1810,8 +1758,6 @@ Version:        svn62977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(allauncl.sty) = %{tl_version}
-Provides:       tex(auncial.sty) = %{tl_version}
 
 %description -n texlive-auncial-new
 The auncial-new bundle provides packages and fonts for a script based on the
@@ -1825,11 +1771,10 @@ The encoding mainly follows the standard T1 encoding.
 
 %package -n texlive-aurical
 Summary:        Calligraphic fonts for use with LaTeX in T1 encoding
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(aurical.sty) = %{tl_version}
 
 %description -n texlive-aurical
 The package that implements a set (AuriocusKalligraphicus) of three
@@ -1844,7 +1789,6 @@ Version:        svn21271
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(b1enc.def) = %{tl_version}
 
 %description -n texlive-b1encoding
 The package characterises and defines the author's B1 encoding for use with
@@ -1858,7 +1802,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(accsupp.sty)
 Requires:       tex(newunicodechar.sty)
-Provides:       tex(bahaistar.sty) = %{tl_version}
 
 %description -n texlive-bahaistar
 This package provides a Metafont-based implementation of the Baha'i
@@ -1872,7 +1815,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(barcodes.sty) = %{tl_version}
 
 %description -n texlive-barcodes
 The package deals with EAN barcodes; Metafont sources for fonts are provided,
@@ -1880,7 +1822,7 @@ and a set of examples; for some codes, a small Perl script is needed.
 
 %package -n texlive-baskervaldadf
 Summary:        Baskervald ADF fonts collection with TeX/LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1888,7 +1830,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(baskervald.sty) = %{tl_version}
 
 %description -n texlive-baskervaldadf
 Baskervald ADF is a serif family with lining figures designed as a substitute
@@ -1913,7 +1854,6 @@ Requires:       tex(mweights.sty)
 Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Baskervaldx.sty) = %{tl_version}
 
 %description -n texlive-baskervaldx
 Extends and modifies the BaskervaldADF font (a Baskerville substitute) with
@@ -1922,7 +1862,7 @@ Includes OpenType and PostScript fonts, as well as LaTeX support files.
 
 %package -n texlive-baskervillef
 Summary:        Fry's Baskerville look-alike, with math support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1934,7 +1874,6 @@ Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(baskervillef.sty) = %{tl_version}
 
 %description -n texlive-baskervillef
 BaskervilleF is a fork from the Libre Baskerville fonts (Roman, Italic, Bold
@@ -1946,11 +1885,10 @@ newtxmath.
 
 %package -n texlive-bbding
 Summary:        A symbol (dingbat) font and LaTeX macros for its use
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bbding.sty) = %{tl_version}
 
 %description -n texlive-bbding
 A symbol font (distributed as Metafont source) that contains many of the
@@ -1960,7 +1898,7 @@ bundle.
 
 %package -n texlive-bbm
 Summary:        "Blackboard-style" cm fonts
-Version:        svn77677
+Version:        svn77682
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1978,7 +1916,6 @@ Version:        svn17224
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bbm.sty) = %{tl_version}
 
 %description -n texlive-bbm-macros
 Provides LaTeX support for Blackboard variants of Computer Modern fonts.
@@ -1987,11 +1924,10 @@ blackboard bold, and lots of math alphabets for using the fonts within maths.
 
 %package -n texlive-bbold
 Summary:        Sans serif blackboard bold
-Version:        svn77677
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bbold.sty) = %{tl_version}
 
 %description -n texlive-bbold
 A geometric sans serif blackboard bold font, for use in mathematics; Metafont
@@ -2018,12 +1954,11 @@ business.
 
 %package -n texlive-bboldx
 Summary:        Extension of the bbold package with a Blackboard Bold alphabet
-Version:        svn77677
+Version:        svn77682
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(bboldx.sty) = %{tl_version}
 
 %description -n texlive-bboldx
 Extension of bbold to a package with three weights, of which the original is
@@ -2043,17 +1978,13 @@ bundle).
 
 %package -n texlive-bera
 Summary:        Bera fonts
-Version:        svn77677
+Version:        svn77682
 License:        Bitstream-Vera
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(bera.sty) = %{tl_version}
-Provides:       tex(beramono.sty) = %{tl_version}
-Provides:       tex(berasans.sty) = %{tl_version}
-Provides:       tex(beraserif.sty) = %{tl_version}
 
 %description -n texlive-bera
 The package contains the Bera Type 1 fonts, and a zip archive containing files
@@ -2064,7 +1995,7 @@ family is a repackaging, for use with TeX, of the Bitstream Vera family.
 
 %package -n texlive-berenisadf
 Summary:        Berenis ADF fonts and TeX/LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2072,7 +2003,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(berenis.sty) = %{tl_version}
 
 %description -n texlive-berenisadf
 The bundle provides the BerenisADF Pro font collection, in OpenType and
@@ -2087,7 +2017,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(beuron.sty) = %{tl_version}
 
 %description -n texlive-beuron
 This package provides the script used in the works of the Beuron art school for
@@ -2103,8 +2032,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
-Provides:       tex(begriff-bguq.sty) = %{tl_version}
-Provides:       tex(bguq.sty) = %{tl_version}
 
 %description -n texlive-bguq
 The font contains a single character: the Begriffsschrift quantifier (in
@@ -2116,7 +2043,7 @@ implementation.
 
 %package -n texlive-bitter
 Summary:        The Bitter family of fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2128,7 +2055,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(bitter.sty) = %{tl_version}
 
 %description -n texlive-bitter
 This package provides LaTeX, pdfLaTeX, XeLaTeX, and LuaLaTeX support for the
@@ -2155,10 +2081,6 @@ Version:        svn15878
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(boisik.sty) = %{tl_version}
-Provides:       tex(lblenc.def) = %{tl_version}
-Provides:       tex(lbmenc.def) = %{tl_version}
-Provides:       tex(lbsenc.def) = %{tl_version}
 
 %description -n texlive-boisik
 Boisik is a serif font set (inspired by the Baskerville typeface), written in
@@ -2167,7 +2089,7 @@ support is offered for use with OT1, IL2 and OM* encodings.
 
 %package -n texlive-bonum-otf
 Summary:        Support for the OpenType font Bonum
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2175,7 +2097,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(bonum-otf.sty) = %{tl_version}
 
 %description -n texlive-bonum-otf
 Support for the OpenType font Bonum (text and math) of the TeXGyre Fonts.
@@ -2186,30 +2107,6 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(allcmin.sty) = %{tl_version}
-Provides:       tex(allegoth.sty) = %{tl_version}
-Provides:       tex(allhmin.sty) = %{tl_version}
-Provides:       tex(allhuncl.sty) = %{tl_version}
-Provides:       tex(allimaj.sty) = %{tl_version}
-Provides:       tex(allimin.sty) = %{tl_version}
-Provides:       tex(allpgoth.sty) = %{tl_version}
-Provides:       tex(allrtnd.sty) = %{tl_version}
-Provides:       tex(allrust.sty) = %{tl_version}
-Provides:       tex(allsqrc.sty) = %{tl_version}
-Provides:       tex(alltgoth.sty) = %{tl_version}
-Provides:       tex(alluncl.sty) = %{tl_version}
-Provides:       tex(carolmin.sty) = %{tl_version}
-Provides:       tex(egothic.sty) = %{tl_version}
-Provides:       tex(humanist.sty) = %{tl_version}
-Provides:       tex(huncial.sty) = %{tl_version}
-Provides:       tex(inslrmaj.sty) = %{tl_version}
-Provides:       tex(inslrmin.sty) = %{tl_version}
-Provides:       tex(pgothic.sty) = %{tl_version}
-Provides:       tex(rotunda.sty) = %{tl_version}
-Provides:       tex(rustic.sty) = %{tl_version}
-Provides:       tex(sqrcaps.sty) = %{tl_version}
-Provides:       tex(tgothic.sty) = %{tl_version}
-Provides:       tex(uncial.sty) = %{tl_version}
 
 %description -n texlive-bookhands
 This is a set of book-hand (Metafont) fonts and packages covering manuscript
@@ -2225,16 +2122,11 @@ centuries).
 
 %package -n texlive-boondox
 Summary:        Mathematical alphabets derived from the STIX fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(BOONDOX-cal.sty) = %{tl_version}
-Provides:       tex(BOONDOX-calo.sty) = %{tl_version}
-Provides:       tex(BOONDOX-ds.sty) = %{tl_version}
-Provides:       tex(BOONDOX-frak.sty) = %{tl_version}
-Provides:       tex(BOONDOX-uprscr.sty) = %{tl_version}
 
 %description -n texlive-boondox
 The package contains a number of PostScript fonts derived from the STIX
@@ -2248,7 +2140,6 @@ Version:        svn20655
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(braille.sty) = %{tl_version}
 
 %description -n texlive-braille
 This package allows the user to produce Braille documents on paper for the
@@ -2263,7 +2154,6 @@ Version:        svn28363
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pbsi.sty) = %{tl_version}
 
 %description -n texlive-brushscr
 The BrushScript font simulates hand-written characters; it is distributed in
@@ -2273,7 +2163,7 @@ AAA_readme.tex fully describes the package and sample.tex illustrates its use.
 
 %package -n texlive-cabin
 Summary:        A humanist Sans Serif font, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2285,7 +2175,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cabin.sty) = %{tl_version}
 
 %description -n texlive-cabin
 Cabin is a humanist sans with four weights and true italics and small capitals.
@@ -2299,7 +2188,7 @@ default text font. The fontaxes package is required for use with [pdf]LaTeX.
 
 %package -n texlive-caladea
 Summary:        Support for the Caladea family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2308,7 +2197,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(caladea.sty) = %{tl_version}
 
 %description -n texlive-caladea
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -2340,7 +2228,7 @@ This is a conversion (using mf2pt1) of Peter Vanroose's handwriting font.
 
 %package -n texlive-cantarell
 Summary:        LaTeX support for the Cantarell font family
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2349,7 +2237,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cantarell.sty) = %{tl_version}
 
 %description -n texlive-cantarell
 Cantarell is a contemporary Humanist sans serif designed by Dave Crossland and
@@ -2360,7 +2247,7 @@ using FontForge from its sources, for full support with Dvips.
 
 %package -n texlive-carlito
 Summary:        Support for Carlito sans-serif fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2371,7 +2258,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(carlito.sty) = %{tl_version}
 
 %description -n texlive-carlito
 The package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -2393,7 +2279,7 @@ are ready-to-use replacements for the Metafont originals.
 
 %package -n texlive-cascadia-code
 Summary:        The Cascadia Code font with support for LaTeX and pdfLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2403,7 +2289,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cascadia-code.sty) = %{tl_version}
 
 %description -n texlive-cascadia-code
 Cascadia Code is a monospaced font by Microsoft. This package provides the
@@ -2413,13 +2298,12 @@ Cascadia Code as the typewriter font (\ttdefault).
 
 %package -n texlive-cascadiamono-otf
 Summary:        Fontspec support for the OpenType font CascadiaMono
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cascadiamono-otf.sty) = %{tl_version}
 
 %description -n texlive-cascadiamono-otf
 Support for the OpenType font CascadiaMono (so with LuaLaTeX/XeTeX and
@@ -2431,12 +2315,11 @@ fontspec), which is a variant of CascadiaCode, but without ligatures.
 
 %package -n texlive-ccicons
 Summary:        LaTeX support for Creative Commons icons
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ccicons.sty) = %{tl_version}
 
 %description -n texlive-ccicons
 The package provides the means to typeset Creative Commons icons, in documents
@@ -2449,29 +2332,6 @@ Version:        svn75712
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(Acorn.sty) = %{tl_version}
-Provides:       tex(AnnSton.sty) = %{tl_version}
-Provides:       tex(ArtNouv.sty) = %{tl_version}
-Provides:       tex(ArtNouvc.sty) = %{tl_version}
-Provides:       tex(Carrickc.sty) = %{tl_version}
-Provides:       tex(Eichenla.sty) = %{tl_version}
-Provides:       tex(Eileen.sty) = %{tl_version}
-Provides:       tex(EileenBl.sty) = %{tl_version}
-Provides:       tex(Elzevier.sty) = %{tl_version}
-Provides:       tex(GotIn.sty) = %{tl_version}
-Provides:       tex(GoudyIn.sty) = %{tl_version}
-Provides:       tex(Kinigcap.sty) = %{tl_version}
-Provides:       tex(Konanur.sty) = %{tl_version}
-Provides:       tex(Kramer.sty) = %{tl_version}
-Provides:       tex(MorrisIn.sty) = %{tl_version}
-Provides:       tex(Nouveaud.sty) = %{tl_version}
-Provides:       tex(Romantik.sty) = %{tl_version}
-Provides:       tex(Rothdn.sty) = %{tl_version}
-Provides:       tex(Royal.sty) = %{tl_version}
-Provides:       tex(Sanremo.sty) = %{tl_version}
-Provides:       tex(Starburst.sty) = %{tl_version}
-Provides:       tex(Typocaps.sty) = %{tl_version}
-Provides:       tex(Zallman.sty) = %{tl_version}
 
 %description -n texlive-cfr-initials
 This is a set of 23 tiny packages designed to make it easier to use fonts from
@@ -2483,7 +2343,7 @@ available via CTAN.
 
 %package -n texlive-cfr-lm
 Summary:        Enhanced support for the Latin Modern fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2491,7 +2351,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(cfr-lm.sty) = %{tl_version}
 
 %description -n texlive-cfr-lm
 The package supports a number of features of the Latin Modern fonts which are
@@ -2526,7 +2385,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(CharisSIL.sty) = %{tl_version}
 
 %description -n texlive-charissil
 This package provides the CharisSIL family of fonts adapted by SIL
@@ -2539,7 +2397,6 @@ Version:        svn21046
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cherokee.sty) = %{tl_version}
 
 %description -n texlive-cherokee
 The Cherokee script was designed in 1821 by Segwoya. The alphabet is
@@ -2562,7 +2419,6 @@ Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(Chivo.sty) = %{tl_version}
 
 %description -n texlive-chivo
 This work provides the necessary files to use the Chivo fonts with LaTeX. Chivo
@@ -2572,7 +2428,7 @@ Omnibus-Type.
 
 %package -n texlive-cinzel
 Summary:        LaTeX support for Cinzel and Cinzel Decorative fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2584,7 +2440,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cinzel.sty) = %{tl_version}
 
 %description -n texlive-cinzel
 Cinzel and Cinzel Decorative fonts, designed by Natanael Gama Natanael Gama),
@@ -2596,7 +2451,7 @@ italic-selection commands in the package's LaTeX support.
 
 %package -n texlive-clara
 Summary:        A serif font family
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2604,7 +2459,6 @@ Requires:       tex(fontaxes.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(clara.sty) = %{tl_version}
 
 %description -n texlive-clara
 Clara is a type family created specially by Seamas O Brogain for printing A
@@ -2629,7 +2483,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ClearSans.sty) = %{tl_version}
 
 %description -n texlive-clearsans
 Clear Sans was designed by Daniel Ratighan at Monotype under the direction of
@@ -2648,8 +2501,6 @@ Version:        svn28250
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(antcmlgc.sty) = %{tl_version}
-Provides:       tex(cmlgc.sty) = %{tl_version}
 
 %description -n texlive-cm-lgc
 The fonts are converted from Metafont sources of the Computer Modern font
@@ -2697,7 +2548,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsfonts.sty)
-Provides:       tex(cmathbb.sty) = %{tl_version}
 
 %description -n texlive-cmathbb
 This font contains all digits and latin letters uppercase and lowercase for the
@@ -2705,11 +2555,10 @@ Computer Modern font family in blackboard bold.
 
 %package -n texlive-cmbright
 Summary:        Computer Modern Bright fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cmbright.sty) = %{tl_version}
 
 %description -n texlive-cmbright
 A family of sans serif fonts for TeX and LaTeX, based on Donald Knuth's CM
@@ -2733,14 +2582,13 @@ via autotracing.
 
 %package -n texlive-cmll
 Summary:        Symbols for linear logic
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
-Provides:       tex(cmll.sty) = %{tl_version}
 
 %description -n texlive-cmll
 This is a very small font set that contain some symbols useful in linear logic,
@@ -2771,9 +2619,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amssymb.sty)
 Requires:       tex(cmupint.sty)
-Provides:       tex(cmsrb.sty) = %{tl_version}
-Provides:       tex(ecmsrb1enc.def) = %{tl_version}
-Provides:       tex(ecmsrb2enc.def) = %{tl_version}
 
 %description -n texlive-cmsrb
 This package provides Adobe Type 1 Computer Modern fonts for the Serbian and
@@ -2791,7 +2636,6 @@ Version:        svn77050
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cmtiup.sty) = %{tl_version}
 
 %description -n texlive-cmtiup
 The cmtiup fonts address a problem with the appearance of punctuation in italic
@@ -2806,7 +2650,6 @@ Version:        svn54735
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cmupint.sty) = %{tl_version}
 
 %description -n texlive-cmupint
 This package contains various upright integral symbols to match the Computer
@@ -2814,7 +2657,7 @@ Modern font.
 
 %package -n texlive-cochineal
 Summary:        Cochineal fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2830,7 +2673,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(cochineal.sty) = %{tl_version}
 
 %description -n texlive-cochineal
 Cochineal is a fork from the Crimson fonts (Roman, Italic, Bold, BoldItalic
@@ -2847,7 +2689,7 @@ and PostScript formats.
 
 %package -n texlive-coelacanth
 Summary:        Coelacanth fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2859,7 +2701,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(coelacanth.sty) = %{tl_version}
 
 %description -n texlive-coelacanth
 This package provides LaTeX, pdfLaTeX, XeLaTeX, and LuaLaTeX support for
@@ -2870,7 +2711,7 @@ family for general book typesetting.
 
 %package -n texlive-comfortaa
 Summary:        Sans serif font, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2878,7 +2719,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(comfortaa.sty) = %{tl_version}
 
 %description -n texlive-comfortaa
 Comfortaa is a sans-serif font, comfortable in every aspect, designed by Johan
@@ -2889,7 +2729,7 @@ includes both the TrueType fonts, and conversions to Adobe Type 1 format.
 
 %package -n texlive-comicneue
 Summary:        Use Comic Neue with TeX(-alike) systems
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2897,7 +2737,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(comicneue.sty) = %{tl_version}
 
 %description -n texlive-comicneue
 Comic Neue is a well-known redesign of the (in)famous Comic Sans font. The
@@ -2919,13 +2758,12 @@ support is offered by the concmath package.
 
 %package -n texlive-concmath-otf
 Summary:        Concrete based OpenType Math font
-Version:        svn77677
+Version:        svn78172
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(concmath-otf.sty) = %{tl_version}
 
 %description -n texlive-concmath-otf
 This package provides an OpenType version of the Concrete Math font created by
@@ -2938,7 +2776,6 @@ Version:        svn74247
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cookingsymbols.sty) = %{tl_version}
 
 %description -n texlive-cookingsymbols
 The package provides 11 symbols for typesetting recipes: oven, gasstove,
@@ -2959,7 +2796,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(CooperHewitt.sty) = %{tl_version}
 
 %description -n texlive-cooperhewitt
 Cooper Hewitt is a contemporary sans serif, with characters composed of
@@ -2981,7 +2817,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(CormorantGaramond.sty) = %{tl_version}
 
 %description -n texlive-cormorantgaramond
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -2991,7 +2826,7 @@ with italics.
 
 %package -n texlive-countriesofeurope
 Summary:        A font with the images of the countries of Europe
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3003,7 +2838,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(countriesofeurope.sty) = %{tl_version}
 
 %description -n texlive-countriesofeurope
 The bundle provides a font "CountriesOfEurope" (in Adobe Type 1 format) and the
@@ -3013,12 +2847,11 @@ same cartographic scale.
 
 %package -n texlive-courier-scaled
 Summary:        Provides a scaled Courier font
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(couriers.sty) = %{tl_version}
 
 %description -n texlive-courier-scaled
 This package sets the default typewriter font to Courier with a possible scale
@@ -3027,7 +2860,7 @@ serif).
 
 %package -n texlive-courierten
 Summary:        Courier 10 Pitch BT with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3037,7 +2870,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(courierten.sty) = %{tl_version}
 
 %description -n texlive-courierten
 This is the font Courier 10 Pitch BT, with LaTeX support and an OpenType
@@ -3057,7 +2889,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(crimson.sty) = %{tl_version}
 
 %description -n texlive-crimson
 This package provides LaTeX, pdfLaTeX, XeLaTeX, and LuaLaTeX support for the
@@ -3082,7 +2913,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(CrimsonPro.sty) = %{tl_version}
 
 %description -n texlive-crimsonpro
 The CrimsonPro fonts are designed by Jacques Le Bailly and derived from the
@@ -3103,11 +2933,10 @@ diagram) in the documentation.
 
 %package -n texlive-cuprum
 Summary:        Cuprum font family support for LaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cuprum.sty) = %{tl_version}
 
 %description -n texlive-cuprum
 This package provides support for the Cuprum font family (see
@@ -3115,11 +2944,10 @@ http://jovanny.ru).
 
 %package -n texlive-cyklop
 Summary:        The Cyclop typeface
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cyklop.sty) = %{tl_version}
 
 %description -n texlive-cyklop
 The Cyclop typeface was designed in the 1920s at the workshop of Warsaw type
@@ -3150,8 +2978,6 @@ Version:        svn71183
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ls2enc.def) = %{tl_version}
-Provides:       tex(nm.sty) = %{tl_version}
 
 %description -n texlive-cyrillic-modern
 The Cyrillic Modern fonts are based on the Computer Modern fonts designed in
@@ -3189,7 +3015,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
-Provides:       tex(dantelogo.sty) = %{tl_version}
 
 %description -n texlive-dantelogo
 The DANTE font for the logo of DANTE (http://www.dante.de), the German speaking
@@ -3198,17 +3023,11 @@ dantelogo.sty provides an interface for LuaLaTeX/XeLaTeX/pdfLaTeX.
 
 %package -n texlive-dejavu
 Summary:        LaTeX support for the DejaVu fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(DejaVuSans.sty) = %{tl_version}
-Provides:       tex(DejaVuSansCondensed.sty) = %{tl_version}
-Provides:       tex(DejaVuSansMono.sty) = %{tl_version}
-Provides:       tex(DejaVuSerif.sty) = %{tl_version}
-Provides:       tex(DejaVuSerifCondensed.sty) = %{tl_version}
-Provides:       tex(dejavu.sty) = %{tl_version}
 
 %description -n texlive-dejavu
 The package contains LaTeX support for the DejaVu fonts, which are derived from
@@ -3220,7 +3039,7 @@ features are expected.
 
 %package -n texlive-dejavu-otf
 Summary:        Support for the ttf and otf DejaVu fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3229,7 +3048,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dejavu-otf.sty) = %{tl_version}
 
 %description -n texlive-dejavu-otf
 This package supports the free ttf-fonts from the DejaVu project which are
@@ -3258,13 +3076,13 @@ A Metafont font that can produce die faces in 2D or with various 3D effects.
 
 %package -n texlive-dictsym
 Summary:        DictSym font and macro package
-Version:        svn77677
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       texlive-psnfss
 Requires:       tex(keyval.sty)
 Requires:       tex(pifont.sty)
-Provides:       tex(dictsym.sty) = %{tl_version}
 
 %description -n texlive-dictsym
 This directory contains the DictSym Type1 font designed by Georg Verweyen and
@@ -3274,11 +3092,10 @@ macro package makes the symbols accessible as LaTeX commands.
 
 %package -n texlive-dingbat
 Summary:        Two dingbat symbol fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dingbat.sty) = %{tl_version}
 
 %description -n texlive-dingbat
 The fonts (ark10 and dingbat) are specified in Metafont; support macros are
@@ -3287,7 +3104,7 @@ the niceframe fonts bundle.
 
 %package -n texlive-domitian
 Summary:        Drop-in replacement for Palatino
-Version:        svn77677
+Version:        svn77682
 License:        AGPL-3.0-or-later WITH PS-or-PDF-font-exception-20170817 OR LPPL-1.3c OR OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3295,7 +3112,6 @@ Requires:       tex(fontaxes.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(domitian.sty) = %{tl_version}
 
 %description -n texlive-domitian
 The Domitian fonts are a free and open-source OpenType font family, based on
@@ -3308,11 +3124,10 @@ and hinting has been improved.
 
 %package -n texlive-doublestroke
 Summary:        Typeset mathematical double stroke symbols
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-DoubleStroke
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dsfont.sty) = %{tl_version}
 
 %description -n texlive-doublestroke
 A font based on Computer Modern Roman useful for typesetting the mathematical
@@ -3342,7 +3157,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(mfirstuc.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(dozenal.sty) = %{tl_version}
 
 %description -n texlive-dozenal
 The package supports typesetting documents whose counters are represented in
@@ -3366,7 +3180,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(gmp.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(modroman.sty)
-Provides:       tex(drm.sty) = %{tl_version}
 
 %description -n texlive-drm
 The package provides access to the DRM (Don's Revised Modern) family of fonts,
@@ -3381,7 +3194,7 @@ flexible ellipsis package.
 
 %package -n texlive-droid
 Summary:        LaTeX support for the Droid font families
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3390,10 +3203,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(droid.sty) = %{tl_version}
-Provides:       tex(droidsans.sty) = %{tl_version}
-Provides:       tex(droidsansmono.sty) = %{tl_version}
-Provides:       tex(droidserif.sty) = %{tl_version}
 
 %description -n texlive-droid
 The Droid typeface family was designed in the fall of 2006 by Steve Matteson,
@@ -3408,12 +3217,11 @@ foundry.
 
 %package -n texlive-dsserif
 Summary:        A double-struck serifed font for mathematical use
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dsserif.sty) = %{tl_version}
 
 %description -n texlive-dsserif
 DSSerif is a mathematical font package with double struck serifed digits, upper
@@ -3440,7 +3248,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(duerer.sty) = %{tl_version}
 
 %description -n texlive-duerer-latex
 LaTeX support for Hoenig's Computer Duerer fonts, using their standard fontname
@@ -3448,12 +3255,11 @@ names.
 
 %package -n texlive-dutchcal
 Summary:        A reworking of ESSTIX13, adding a bold version
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dutchcal.sty) = %{tl_version}
 
 %description -n texlive-dutchcal
 This package reworks the mathematical calligraphic font ESSTIX13, adding a bold
@@ -3467,8 +3273,6 @@ Version:        svn20851
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ean13.tex) = %{tl_version}
-Provides:       tex(ean8.tex) = %{tl_version}
 
 %description -n texlive-ean
 Provides EAN-8 and EAN-13 forms. The package needs the ocr-b fonts; note that
@@ -3476,10 +3280,11 @@ the fonts are not available under a free licence, as the macros are.
 
 %package -n texlive-ebgaramond
 Summary:        LaTeX support for EBGaramond fonts
-Version:        svn77677
+Version:        svn78251
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       texlive-xkeyval
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -3488,7 +3293,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ebgaramond.sty) = %{tl_version}
 
 %description -n texlive-ebgaramond
 EB Garamond is a revival by Georg Duffner of the 16th century fonts designed by
@@ -3497,12 +3301,11 @@ LuaLaTeX users; configuration files for use with microtype are provided.
 
 %package -n texlive-ebgaramond-maths
 Summary:        Limited LaTeX support for ebgaramond in maths
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(svn-prov.sty)
-Provides:       tex(ebgaramond-maths.sty) = %{tl_version}
 
 %description -n texlive-ebgaramond-maths
 This package provides some LaTeX support for the use of EBGaramond12 in
@@ -3531,7 +3334,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(eco.sty) = %{tl_version}
 
 %description -n texlive-eco
 A set of font metric files and virtual fonts for using the EC fonts with
@@ -3579,7 +3381,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eiad.sty) = %{tl_version}
 
 %description -n texlive-eiad-ltx
 The package provides macros to support use of the eiad fonts in OT1 encoding.
@@ -3601,7 +3402,7 @@ and Jaini.
 
 %package -n texlive-electrumadf
 Summary:        Electrum ADF fonts collection
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3609,7 +3410,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(electrum.sty) = %{tl_version}
 
 %description -n texlive-electrumadf
 Electrum ADF is a slab-serif font featuring optical and italic small-caps;
@@ -3637,7 +3437,6 @@ License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pxfonts.sty)
-Provides:       tex(epigrafica.sty) = %{tl_version}
 
 %description -n texlive-epigrafica
 Epigrafica is forked from the development of the MgOpen font Cosmetica, which
@@ -3647,13 +3446,12 @@ the Department of Mathematics of the University of the Aegean, Greece.
 
 %package -n texlive-epsdice
 Summary:        A scalable dice "font"
-Version:        svn15878
+Version:        svn78315
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(epsdice.sty) = %{tl_version}
 
 %description -n texlive-epsdice
 The epsdice package defines a single command \epsdice that takes a numeric
@@ -3663,7 +3461,7 @@ Encapsulated PostScript and PDF formats.
 
 %package -n texlive-erewhon
 Summary:        Font package derived from Heuristica and Utopia
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3676,7 +3474,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(erewhon.sty) = %{tl_version}
 
 %description -n texlive-erewhon
 Erewhon is based on the Heuristica package, which is based in turn on Utopia.
@@ -3687,15 +3484,16 @@ matching that of UtopiaStd.
 
 %package -n texlive-erewhon-math
 Summary:        Utopia based OpenType Math font
-Version:        svn77677
+Version:        svn78490
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(fontspec.sty)
 Requires:       tex(fourier-orns.sty)
 Requires:       tex(iftex.sty)
+Requires:       tex(lua-unicode-math.sty)
 Requires:       tex(realscripts.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(fourier-otf.sty) = %{tl_version}
 
 %description -n texlive-erewhon-math
 OpenType version of the fourier Type1 fonts designed by Michel Bovani.
@@ -3706,7 +3504,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(esrelation.sty) = %{tl_version}
 
 %description -n texlive-esrelation
 Around 2008, researcher Byron Cook and several colleagues began developing a
@@ -3726,14 +3523,11 @@ between ordered pairs by using Metafont.
 
 %package -n texlive-esstix
 Summary:        PostScript versions of the ESSTIX, with macro support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(esstixbb.sty) = %{tl_version}
-Provides:       tex(esstixcal.sty) = %{tl_version}
-Provides:       tex(esstixfrak.sty) = %{tl_version}
 
 %description -n texlive-esstix
 These fonts represent translation to PostScript Type 1 of the ESSTIX fonts.
@@ -3744,11 +3538,10 @@ double-struck (blackboard bold) in maths mode.
 
 %package -n texlive-esvect
 Summary:        Vector arrows
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(esvect.sty) = %{tl_version}
 
 %description -n texlive-esvect
 Write vectors using an arrow which differs from the Computer Modern one. You
@@ -3771,7 +3564,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(ETbb.sty) = %{tl_version}
 
 %description -n texlive-etbb
 Based on Daniel Benjamin Miller's XETBook, which expanded Tufte's ETBook, the
@@ -3783,14 +3575,12 @@ Both otf and pfb are provided.
 
 %package -n texlive-euler-math
 Summary:        OpenType version of Hermann Zapf's Euler maths font
-Version:        svn77677
+Version:        svn77952
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(euler-math.sty) = %{tl_version}
-Provides:       tex(neo-euler.sty) = %{tl_version}
 
 %description -n texlive-euler-math
 Euler-Math.otf (formerly named 'Neo-Euler.otf') is an OpenType version of
@@ -3801,11 +3591,10 @@ and XeLaTeX users.
 
 %package -n texlive-eulervm
 Summary:        Euler virtual math fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eulervm.sty) = %{tl_version}
 
 %description -n texlive-eulervm
 The well-known Euler fonts are suitable for typesetting mathematics in
@@ -3832,7 +3621,7 @@ Includes two additional characters needed for Concrete Math (ca. 1991).
 
 %package -n texlive-fbb
 Summary:        A free Bembo-like font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3845,7 +3634,6 @@ Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(fbb.sty) = %{tl_version}
 
 %description -n texlive-fbb
 The package provides a Bembo-like font package based on Cardo but with many
@@ -3857,14 +3645,13 @@ libertine option.
 
 %package -n texlive-fdsymbol
 Summary:        A maths symbol font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(fdsymbol.sty) = %{tl_version}
 
 %description -n texlive-fdsymbol
 FdSymbol is a maths symbol font, designed as a companion to the Fedra family by
@@ -3872,11 +3659,10 @@ Typotheque, but it might also fit other contemporary typefaces.
 
 %package -n texlive-fetamont
 Summary:        Extended version of Knuth's logo typeface
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fetamont.sty) = %{tl_version}
 
 %description -n texlive-fetamont
 The fetamont typeface was designed in Metafont and extends the Logo fonts to
@@ -3890,7 +3676,6 @@ Version:        svn63945
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(feyn.sty) = %{tl_version}
 
 %description -n texlive-feyn
 Feyn may be used to produce relatively simple Feynman diagrams within equations
@@ -3901,11 +3686,10 @@ macros for their use are also provided.
 
 %package -n texlive-fge
 Summary:        A font for Frege's Grundgesetze der Arithmetik
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fge.sty) = %{tl_version}
 
 %description -n texlive-fge
 The fonts are provided as Metafont source and Adobe Type 1 (pfb) files. A small
@@ -3913,7 +3697,7 @@ LaTeX package (fge) is included.
 
 %package -n texlive-fira
 Summary:        Fira fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3925,8 +3709,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(FiraMono.sty) = %{tl_version}
-Provides:       tex(FiraSans.sty) = %{tl_version}
 
 %description -n texlive-fira
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -3949,7 +3731,7 @@ More support is offered by the firamath-otf package.
 
 %package -n texlive-firamath-otf
 Summary:        Use OpenType math font Fira Math
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3959,7 +3741,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xfakebold.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(firamath-otf.sty) = %{tl_version}
 
 %description -n texlive-firamath-otf
 The package offers XeTeX/LuaTeX support for the Sans Serif OpenType Fira Math
@@ -3971,7 +3752,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(foekfont.sty) = %{tl_version}
 
 %description -n texlive-foekfont
 The bundle provides an Adobe Type 1 font, and LaTeX support for its use. The
@@ -3984,7 +3764,6 @@ License:        GPL-1.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
-Provides:       tex(fonetika.sty) = %{tl_version}
 
 %description -n texlive-fonetika
 Fonetika Dania is a font bundle with a serif font and a sans serif font for the
@@ -3994,17 +3773,13 @@ Condensed, and were created using FontForge.
 
 %package -n texlive-fontawesome
 Summary:        Font containing web-related icons
-Version:        svn48145
+Version:        svn78348
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
-Provides:       tex(fontawesome.sty) = %{tl_version}
-Provides:       tex(fontawesomesymbols-generic.tex) = %{tl_version}
-Provides:       tex(fontawesomesymbols-pdftex.tex) = %{tl_version}
-Provides:       tex(fontawesomesymbols-xeluatex.tex) = %{tl_version}
 
 %description -n texlive-fontawesome
 The package offers access to the large number of web-related icons provided by
@@ -4013,16 +3788,12 @@ XeTeX or LuaTeX.
 
 %package -n texlive-fontawesome5
 Summary:        Font Awesome 5 with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(fontawesome5-generic-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome5-mapping.def) = %{tl_version}
-Provides:       tex(fontawesome5-utex-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome5.sty) = %{tl_version}
 
 %description -n texlive-fontawesome5
 This package provides LaTeX support for the included "Font Awesome 5 Free" icon
@@ -4032,16 +3803,12 @@ and XeLaTeX or LuaLaTeX is used.
 
 %package -n texlive-fontawesome6
 Summary:        Font Awesome 6 with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(fontawesome6-generic-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome6-mapping.def) = %{tl_version}
-Provides:       tex(fontawesome6-utex-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome6.sty) = %{tl_version}
 
 %description -n texlive-fontawesome6
 This package provides LaTeX support for the included "Font Awesome 6 Free" icon
@@ -4066,10 +3833,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(fontawesome7-generic-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome7-mapping.def) = %{tl_version}
-Provides:       tex(fontawesome7-utex-helper.sty) = %{tl_version}
-Provides:       tex(fontawesome7.sty) = %{tl_version}
 
 %description -n texlive-fontawesome7
 This package provides LaTeX support for the included "Font Awesome 7 Free" icon
@@ -4098,7 +3861,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(fontawesomescaled.sty) = %{tl_version}
 
 %description -n texlive-fontawesomescaled
 This package provides additional macros for fontawesome icons with custom scale
@@ -4112,7 +3874,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(fontmfizz.sty) = %{tl_version}
 
 %description -n texlive-fontmfizz
 The MFizz font provides scalable vector icons representing programming
@@ -4137,8 +3898,6 @@ Version:        svn74247
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fntbuild-regression-test.tex) = %{tl_version}
-Provides:       tex(fntbuild-tables.tex) = %{tl_version}
 
 %description -n texlive-fontscripts
 Font encodings, metrics and Lua script fragments for generating font support
@@ -4152,7 +3911,7 @@ with FontForge and GNU make.
 
 %package -n texlive-forum
 Summary:        Forum fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4164,7 +3923,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(forum.sty) = %{tl_version}
 
 %description -n texlive-forum
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -4176,7 +3934,7 @@ just a regular weight and an artificially emboldened bold.
 
 %package -n texlive-fourier
 Summary:        Using Utopia fonts in LaTeX documents
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4184,8 +3942,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(fourier-orns.sty) = %{tl_version}
-Provides:       tex(fourier.sty) = %{tl_version}
 
 %description -n texlive-fourier
 Fourier-GUTenberg is a LaTeX typesetting system which uses Adobe Utopia as its
@@ -4199,12 +3955,11 @@ Incorporated.
 
 %package -n texlive-fouriernc
 Summary:        Use New Century Schoolbook text with Fourier maths fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fourier.sty)
-Provides:       tex(fouriernc.sty) = %{tl_version}
 
 %description -n texlive-fouriernc
 This package provides a LaTeX mathematics font setup for use with New Century
@@ -4213,12 +3968,11 @@ fonts installed.
 
 %package -n texlive-frcursive
 Summary:        French cursive hand fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
-Provides:       tex(frcursive.sty) = %{tl_version}
 
 %description -n texlive-frcursive
 A hand-writing font in the style of the French academic running-hand. The font
@@ -4243,14 +3997,13 @@ Version:        svn56704
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(frimurer.sty) = %{tl_version}
 
 %description -n texlive-frimurer
 This package provides access to the 'frimurer' cipher for use with LaTeX.
 
 %package -n texlive-garamond-libre
 Summary:        The Garamond Libre font face
-Version:        svn77677
+Version:        svn77682
 License:        MIT AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4262,7 +4015,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(garamondlibre.sty) = %{tl_version}
 
 %description -n texlive-garamond-libre
 Garamond Libre is a free and open-source old-style font family. It is a "true
@@ -4290,7 +4042,7 @@ Python script. Issues, bug reports and other contributions are welcome.
 
 %package -n texlive-gelasio
 Summary:        LaTeX support for the Gelasio family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4302,7 +4054,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(gelasio.sty) = %{tl_version}
 
 %description -n texlive-gelasio
 This package provides (pdf)LaTeX, XeLaTeX and LuaLaTeX support for the Gelasio
@@ -4311,7 +4062,7 @@ its Regular and Bold weights. Medium and SemiBold weights have been added.
 
 %package -n texlive-gelasiomath
 Summary:        Math and small cap additions to Gelasio fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4321,7 +4072,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(newtx.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(gelasiomath.sty) = %{tl_version}
 
 %description -n texlive-gelasiomath
 The package offers math support for the gelasio package, using symbols from
@@ -4344,7 +4094,7 @@ distributed as Metafont source.
 
 %package -n texlive-gentium-otf
 Summary:        Support Gentium fonts for LuaLaTeX and XeLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4353,7 +4103,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(gentium-otf.sty) = %{tl_version}
 
 %description -n texlive-gentium-otf
 This package supports the free TrueType Gentium fonts from the gentium-sil
@@ -4381,14 +4130,12 @@ text.
 
 %package -n texlive-gfsartemisia
 Summary:        A modern Greek font design
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(euler.sty)
 Requires:       tex(txfonts.sty)
-Provides:       tex(gfsartemisia-euler.sty) = %{tl_version}
-Provides:       tex(gfsartemisia.sty) = %{tl_version}
 
 %description -n texlive-gfsartemisia
 GFS Artemisia is a relatively modern font, designed as a 'general purpose' font
@@ -4398,11 +4145,10 @@ alphabets. LaTeX support is provided, using the OT1, T1 and LGR encodings.
 
 %package -n texlive-gfsbodoni
 Summary:        A Greek and Latin font based on Bodoni
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfsbodoni.sty) = %{tl_version}
 
 %description -n texlive-gfsbodoni
 Bodoni's Greek fonts in the 18th century broke, for the first time, with the
@@ -4413,11 +4159,10 @@ themselves are provided in Adobe Type 1 and OpenType formats.
 
 %package -n texlive-gfscomplutum
 Summary:        A Greek font with a long history
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfscomplutum.sty) = %{tl_version}
 
 %description -n texlive-gfscomplutum
 GFS Complutum derives, via a long development, from a minuscule-only font cut
@@ -4428,7 +4173,7 @@ of majuscules.
 
 %package -n texlive-gfsdidot
 Summary:        A Greek font based on Didot's work
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4436,8 +4181,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(longtable.sty)
 Requires:       tex(pxfonts.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(gfsdidot.sty) = %{tl_version}
-Provides:       tex(testDidot.sty) = %{tl_version}
 
 %description -n texlive-gfsdidot
 The design of Didot's 1805 Greek typeface was influenced by the neoclassical
@@ -4459,11 +4202,10 @@ The classic version of GFSDidot provided for Unicode TeX engines.
 
 %package -n texlive-gfsneohellenic
 Summary:        A font in the Neo-Hellenic style
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfsneohellenic.sty) = %{tl_version}
 
 %description -n texlive-gfsneohellenic
 The NeoHellenic style evolved in academic circles in the 19th and 20th century;
@@ -4475,13 +4217,12 @@ OT1, T1 and LGR encodings.
 
 %package -n texlive-gfsneohellenicmath
 Summary:        A math font in the Neo-Hellenic style
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(gfsneohellenicot.sty) = %{tl_version}
 
 %description -n texlive-gfsneohellenicmath
 The GFSNeohellenic font, a historic font first designed by Victor Scholderer,
@@ -4495,11 +4236,10 @@ distributed (both text and math) under the OFL license.
 
 %package -n texlive-gfssolomos
 Summary:        A Greek-alphabet font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfssolomos.sty) = %{tl_version}
 
 %description -n texlive-gfssolomos
 Solomos is a font which traces its descent from a calligraphically-inspired
@@ -4512,7 +4252,6 @@ Version:        svn19878
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gillcm.sty) = %{tl_version}
 
 %description -n texlive-gillcm
 This is a demonstration of the use of virtual fonts for unusual effects: the
@@ -4521,7 +4260,7 @@ author's talk at TUG 2010.
 
 %package -n texlive-gillius
 Summary:        Gillius fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4532,8 +4271,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(gillius.sty) = %{tl_version}
-Provides:       tex(gillius2.sty) = %{tl_version}
 
 %description -n texlive-gillius
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -4556,7 +4293,7 @@ stroke).
 
 %package -n texlive-gofonts
 Summary:        GoSans and GoMono fonts with LaTeX support
-Version:        svn77677
+Version:        svn78101
 License:        BSD-3-Clause AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4568,8 +4305,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(GoMono.sty) = %{tl_version}
-Provides:       tex(GoSans.sty) = %{tl_version}
 
 %description -n texlive-gofonts
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -4628,7 +4363,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Gudea.sty) = %{tl_version}
 
 %description -n texlive-gudea
 This package provides the Gudea family of fonts designed by Agustina Mingote,
@@ -4640,7 +4374,6 @@ Version:        svn27671
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hacm.sty) = %{tl_version}
 
 %description -n texlive-hacm
 The package supports typesetting hacm, the alphabet of the constructed language
@@ -4657,7 +4390,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(ucharclasses.sty)
-Provides:       tex(hamnosys.sty) = %{tl_version}
 
 %description -n texlive-hamnosys
 The Hamburg Notation System, HamNoSys for short, is a system for the phonetic
@@ -4699,7 +4431,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(units.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(hep-font.sty) = %{tl_version}
 
 %description -n texlive-hep-font
 The hep-font package loads standard font packages and extends the usual Latin
@@ -4722,7 +4453,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(hep-math-font.sty) = %{tl_version}
 
 %description -n texlive-hep-math-font
 The hep-math-font package adjust the math fonts to be sans-serif if the
@@ -4733,7 +4463,7 @@ package is loaded with \usepackage{hep-math-font}.
 
 %package -n texlive-heros-otf
 Summary:        Using the OpenType fonts TeX Gyre Heros>
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4741,7 +4471,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(heros-otf.sty) = %{tl_version}
 
 %description -n texlive-heros-otf
 This package can only be used with LuaLaTeX or XeLaTeX. It does the font
@@ -4751,7 +4480,7 @@ defined.
 
 %package -n texlive-heuristica
 Summary:        Fonts extending Utopia, with LaTeX support files
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4762,7 +4491,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(heuristica.sty) = %{tl_version}
 
 %description -n texlive-heuristica
 The fonts extend the utopia set with Cyrillic glyphs, additional figure styles,
@@ -4790,7 +4518,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fix-cm.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(hfoldsty.sty) = %{tl_version}
 
 %description -n texlive-hfoldsty
 The hfoldsty package provides virtual fonts for using oldstyle (0123456789)
@@ -4811,7 +4538,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(HindMadurai.sty) = %{tl_version}
 
 %description -n texlive-hindmadurai
 This package provides the HindMadurai family of fonts designed by the Indian
@@ -4819,7 +4545,7 @@ Type Foundry, with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-ibarra
 Summary:        LaTeX support for the Ibarra Real Nova family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4831,7 +4557,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ibarra.sty) = %{tl_version}
 
 %description -n texlive-ibarra
 The Ibarra Real Nova is a revival of a typeface designed by Geronimo Gil for
@@ -4840,12 +4565,11 @@ Joaquin Ibarra was the printer.
 
 %package -n texlive-ifsym
 Summary:        A collection of symbols
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
-Provides:       tex(ifsym.sty) = %{tl_version}
 
 %description -n texlive-ifsym
 A set of symbol fonts, written in Metafont, offering (respectively) clock-face
@@ -4867,7 +4591,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(imfellEnglish.sty) = %{tl_version}
 
 %description -n texlive-imfellenglish
 Igino Marini has implemented digital revivals of fonts bequeathed to Oxford
@@ -4877,15 +4600,13 @@ Small-Cap fonts.
 
 %package -n texlive-inconsolata
 Summary:        A monospaced font, with support files for use with TeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(textcomp.sty)
 Requires:       tex(upquote.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(inconsolata.sty) = %{tl_version}
-Provides:       tex(zi4.sty) = %{tl_version}
 
 %description -n texlive-inconsolata
 Inconsolata is a monospaced font designed by Raph Levien. This package contains
@@ -4896,12 +4617,11 @@ LaTeX font definition and other relevant files.
 
 %package -n texlive-inconsolata-nerd-font
 Summary:        Inconsolata Nerd Font with support for XeLaTeX or LuaLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(inconsolata-nerd-font.sty) = %{tl_version}
 
 %description -n texlive-inconsolata-nerd-font
 Inconsolata is a monospaced font designed by Raph Levien. It is already
@@ -4924,7 +4644,7 @@ for use with LaTeX.
 
 %package -n texlive-inriafonts
 Summary:        Inria fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4933,8 +4653,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(InriaSans.sty) = %{tl_version}
-Provides:       tex(InriaSerif.sty) = %{tl_version}
 
 %description -n texlive-inriafonts
 Inria is a free font designed by Black[Foundry] for Inria research institute.
@@ -4948,7 +4666,7 @@ associated files. These were created using autoinst.
 
 %package -n texlive-inter
 Summary:        The inter font face with support for LaTeX, XeLaTeX, and LuaLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4961,7 +4679,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(inter.sty) = %{tl_version}
 
 %description -n texlive-inter
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -4977,7 +4694,6 @@ Version:        svn47700
 License:        IPA
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ipaex-type1.sty) = %{tl_version}
 
 %description -n texlive-ipaex-type1
 The package contains the IPAex Fonts converted into Unicode subfonts in Type1
@@ -4986,12 +4702,10 @@ was done with ttf2pt1.
 
 %package -n texlive-iwona
 Summary:        A two-element sans-serif font
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(iwona-math.tex) = %{tl_version}
-Provides:       tex(iwona.sty) = %{tl_version}
 
 %description -n texlive-iwona
 Iwona is a two-element sans-serif typeface. It was created as an alternative
@@ -5027,7 +4741,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(amsfonts.sty)
 Requires:       tex(eucal.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(jamtimes.sty) = %{tl_version}
 
 %description -n texlive-jamtimes
 The package offers LaTeX support for the expanded Times Roman font, which has
@@ -5036,13 +4749,12 @@ support is based on the Belleek fonts.
 
 %package -n texlive-jetbrainsmono-otf
 Summary:        Package (or only fontspec config files) support for the OpenType font JetBrains
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(jetbrainsmono-otf.sty) = %{tl_version}
 
 %description -n texlive-jetbrainsmono-otf
 Support for the OpenType font JetBrainsMono (so with LuaLaTeX/XeTeX and
@@ -5055,7 +4767,7 @@ jetbrainscode-thin for thin version.
 
 %package -n texlive-josefin
 Summary:        Josefin fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5064,7 +4776,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(josefin.sty) = %{tl_version}
 
 %description -n texlive-josefin
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -5074,14 +4785,13 @@ corresponding italics.
 
 %package -n texlive-juliamono
 Summary:        Support for the TrueType font JuliaMono
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(juliamono.sty) = %{tl_version}
 
 %description -n texlive-juliamono
 JuliaMono is a monospaced font for scientific and technical computing. There
@@ -5091,7 +4801,7 @@ file.
 
 %package -n texlive-junicode
 Summary:        A TrueType and OpenType font family for mediaevalists
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5102,7 +4812,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(junicode.sty) = %{tl_version}
 
 %description -n texlive-junicode
 Junicode is a TrueType/OpenType font family with many features for antiquarians
@@ -5112,14 +4821,13 @@ but the basic textual features are also available with (pdf)LaTeX.
 
 %package -n texlive-junicodevf
 Summary:        A TrueType variable font family for mediaevalists
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(junicodevf.sty) = %{tl_version}
 
 %description -n texlive-junicodevf
 This package supports the Junicode variable fonts for LuaLaTeX. The Junicode
@@ -5145,7 +4853,7 @@ letters.
 
 %package -n texlive-kpfonts
 Summary:        A complete set of fonts for text and mathematics
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5153,7 +4861,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(kpfonts-otf.sty)
-Provides:       tex(kpfonts.sty) = %{tl_version}
 
 %description -n texlive-kpfonts
 The family contains text fonts in roman, sans-serif and monospaced shapes, with
@@ -5171,7 +4878,7 @@ appearance from their parent.
 
 %package -n texlive-kpfonts-otf
 Summary:        OpenType versions of the kpfonts (Type1) designed by Christophe Caignaert
-Version:        svn77677
+Version:        svn78294
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5179,7 +4886,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(realscripts.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(kpfonts-otf.sty) = %{tl_version}
 
 %description -n texlive-kpfonts-otf
 This bundle provides OpenType versions of the Type1 Kp-fonts designed by
@@ -5194,12 +4900,10 @@ the 'List of glyphs'.
 
 %package -n texlive-kurier
 Summary:        A two-element sans-serif typeface
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(kurier-math.tex) = %{tl_version}
-Provides:       tex(kurier.sty) = %{tl_version}
 
 %description -n texlive-kurier
 Kurier is a two-element sans-serif typeface. It was designed for a diploma in
@@ -5215,7 +4919,7 @@ files defining fonts for LaTeX.
 
 %package -n texlive-lato
 Summary:        Lato font family and LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5224,7 +4928,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(lato.sty) = %{tl_version}
 
 %description -n texlive-lato
 Lato is a sanserif typeface family designed in the Summer 2010 by Warsaw-based
@@ -5237,28 +4940,26 @@ using FontForge for full support with Dvips.
 
 %package -n texlive-lete-sans-math
 Summary:        Lato-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn77677
+Version:        svn78489
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(lete-sans-math.sty) = %{tl_version}
 
 %description -n texlive-lete-sans-math
 This package provides a Unicode Math font LeteSansMath.otf meant to be used
 together with Lato sans-serif TrueType Text fonts in LuaLaTeX or XeLaTeX
-documents. Note: "Lato" means "Summer" in Polish, same as "l'ete" in French.
+documents.
 
 %package -n texlive-lexend
 Summary:        The Lexend fonts for XeLaTeX and LuaLaTeX through fontspec
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(lexend.sty) = %{tl_version}
 
 %description -n texlive-lexend
 The purpose of this package is pretty straightforward: The Lexend font
@@ -5284,7 +4985,7 @@ in some schemes.
 
 %package -n texlive-libertine
 Summary:        Use of Linux Libertine and Biolinum fonts with LaTeX
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5300,15 +5001,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(LKey.tex) = %{tl_version}
-Provides:       tex(LinBiolinum_K.tex) = %{tl_version}
-Provides:       tex(LinBiolinum_R.tex) = %{tl_version}
-Provides:       tex(LinLibertine_I.tex) = %{tl_version}
-Provides:       tex(LinLibertine_R.tex) = %{tl_version}
-Provides:       tex(biolinum.sty) = %{tl_version}
-Provides:       tex(libertine.sty) = %{tl_version}
-Provides:       tex(libertineMono.sty) = %{tl_version}
-Provides:       tex(libertineRoman.sty) = %{tl_version}
 
 %description -n texlive-libertine
 The package provides the Libertine and Biolinum fonts in both Type 1 and OTF
@@ -5326,7 +5018,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(libertine.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(libertinegc.sty) = %{tl_version}
 
 %description -n texlive-libertinegc
 The package provides LaTeX support files to access the Greek and Cyrillic
@@ -5336,13 +5027,12 @@ Supported encodings: LGR, T2A, T2B, T2C, OT2.
 
 %package -n texlive-libertinus
 Summary:        Wrapper to use the correct libertinus package according to the used TeX engine
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(libertinus.sty) = %{tl_version}
 
 %description -n texlive-libertinus
 This package is only a wrapper for the two packages libertinus-type1 (pdfLaTeX)
@@ -5367,7 +5057,7 @@ LuaTeX, XeTeX or MS Word 2007+.
 
 %package -n texlive-libertinus-otf
 Summary:        Support for Libertinus OpenType
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5376,7 +5066,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(newunicodechar.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(libertinus-otf.sty) = %{tl_version}
 
 %description -n texlive-libertinus-otf
 This package offers LuaLaTeX/XeLaTeX support for the Libertinus OpenType fonts
@@ -5396,7 +5085,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(libertinus-type1.sty) = %{tl_version}
 
 %description -n texlive-libertinus-type1
 This package provides support for use of Libertinus fonts with traditional
@@ -5404,7 +5092,7 @@ processing engines (LaTeX with dvips or dvipdfmx, or pdfLaTeX).
 
 %package -n texlive-libertinust1math
 Summary:        A Type 1 font and LaTeX support for Libertinus Math
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5412,7 +5100,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(amsthm.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(libertinust1math.sty) = %{tl_version}
 
 %description -n texlive-libertinust1math
 The package provides a Type1 version of Libertinus Math, with a number of
@@ -5423,7 +5110,7 @@ letters.
 
 %package -n texlive-librebaskerville
 Summary:        The Libre Baskerville family of fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5434,7 +5121,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(librebaskerville.sty) = %{tl_version}
 
 %description -n texlive-librebaskerville
 This package provides the Libre Baskerville family of fonts, designed by Pablo
@@ -5455,7 +5141,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(LibreBodoni.sty) = %{tl_version}
 
 %description -n texlive-librebodoni
 The Libre Bodoni fonts are designed by Pablo Impallari and Rodrigo Fuenzalida,
@@ -5463,7 +5148,7 @@ based on the 19th century Morris Fuller Benton's.
 
 %package -n texlive-librecaslon
 Summary:        Libre Caslon fonts, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5474,7 +5159,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(librecaslon.sty) = %{tl_version}
 
 %description -n texlive-librecaslon
 The Libre Caslon fonts are designed by Pablo Impallari. Although they have been
@@ -5483,7 +5167,7 @@ artificially generated BoldItalic variant has been added.
 
 %package -n texlive-librefranklin
 Summary:        LaTeX support for the Libre-Franklin family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5495,7 +5179,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(librefranklin.sty) = %{tl_version}
 
 %description -n texlive-librefranklin
 Libre Franklin is an interpretation and expansion based on the 1912 Morris
@@ -5504,7 +5187,7 @@ Nhung Nguyen.
 
 %package -n texlive-libris
 Summary:        Libris ADF fonts, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5512,7 +5195,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(libris.sty) = %{tl_version}
 
 %description -n texlive-libris
 LibrisADF is a sans-serif family designed to mimic Lydian. The bundle includes:
@@ -5528,7 +5210,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xspace.sty)
-Provides:       tex(linearA.sty) = %{tl_version}
 
 %description -n texlive-lineara
 The linearA package provides a simple interface to two fonts which include all
@@ -5539,7 +5220,7 @@ deciphered.
 
 %package -n texlive-linguisticspro
 Summary:        LinguisticsPro fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5551,7 +5232,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(linguisticspro.sty) = %{tl_version}
 
 %description -n texlive-linguisticspro
 The package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -5560,7 +5240,7 @@ font family, by Andreas Nolda.
 
 %package -n texlive-lobster2
 Summary:        Lobster Two fonts, with support for all LaTeX engines
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5571,7 +5251,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(LobsterTwo.sty) = %{tl_version}
 
 %description -n texlive-lobster2
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -5589,7 +5268,6 @@ Requires:       tex(arydshln.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(mathtools.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(logix.sty) = %{tl_version}
 
 %description -n texlive-logix
 The package provides a Unicode font with over 4,000 symbols to supplement the
@@ -5599,13 +5277,12 @@ logic.
 
 %package -n texlive-luciole
 Summary:        Luciole OpenType fonts for LuaTeX and XeTeX
-Version:        svn77677
+Version:        svn77682
 License:        CC-BY-4.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(luciole-math.sty) = %{tl_version}
 
 %description -n texlive-luciole
 This package provides four Unicode Math text fonts Luciole-*.ttf and a
@@ -5626,7 +5303,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(moresize.sty)
 Requires:       tex(stackengine.sty)
-Provides:       tex(luwiantype.sty) = %{tl_version}
 
 %description -n texlive-luwiantype
 This package allows for typing in Hieroglyphic Luwian in LaTeX documents, using
@@ -5637,12 +5313,11 @@ transcriptions.
 
 %package -n texlive-lxfonts
 Summary:        Set of slide fonts based on CM
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
-Provides:       tex(lxfonts.sty) = %{tl_version}
 
 %description -n texlive-lxfonts
 The bundle contains the traditional slides fonts revised to be completely
@@ -5657,9 +5332,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
-Provides:       tex(ly1enc.def) = %{tl_version}
-Provides:       tex(texnansi.sty) = %{tl_version}
-Provides:       tex(texnansi.tex) = %{tl_version}
 
 %description -n texlive-ly1
 The Y&Y 'texnansi' (TeX and ANSI, for Microsoft interpretations of ANSI
@@ -5675,7 +5347,6 @@ License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(lydtype.sty) = %{tl_version}
 
 %description -n texlive-lydtype
 This package aims to allow platform-agnostic typing in the Lydian alphabet
@@ -5697,7 +5368,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Magra.sty) = %{tl_version}
 
 %description -n texlive-magra
 This package provides the Magra family of fonts designed by FontFuror, with
@@ -5705,7 +5375,7 @@ support for LaTeX and pdfLaTeX.
 
 %package -n texlive-marcellus
 Summary:        Marcellus fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5717,7 +5387,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(marcellus.sty) = %{tl_version}
 
 %description -n texlive-marcellus
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -5728,12 +5397,10 @@ silently substituted for bold.
 
 %package -n texlive-mathabx
 Summary:        Three series of mathematical symbols
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mathabx.sty) = %{tl_version}
-Provides:       tex(mathabx.tex) = %{tl_version}
 
 %description -n texlive-mathabx
 Mathabx is a set of 3 mathematical symbols font series: matha, mathb and mathx.
@@ -5763,16 +5430,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mathdesign.sty) = %{tl_version}
-Provides:       tex(mdbch.sty) = %{tl_version}
-Provides:       tex(mdfont.def) = %{tl_version}
-Provides:       tex(mdici.sty) = %{tl_version}
-Provides:       tex(mdpgd.sty) = %{tl_version}
-Provides:       tex(mdpus.sty) = %{tl_version}
-Provides:       tex(mdput.sty) = %{tl_version}
-Provides:       tex(mdsffont.def) = %{tl_version}
-Provides:       tex(mdttfont.def) = %{tl_version}
-Provides:       tex(mdugm.sty) = %{tl_version}
 
 %description -n texlive-mathdesign
 The Math Design project offers free mathematical fonts that match with existing
@@ -5789,7 +5446,6 @@ Version:        svn20298
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mdputu.sty) = %{tl_version}
 
 %description -n texlive-mdputu
 The Annals of Mathematics uses italics for theorems. However, slanted digits
@@ -5799,7 +5455,7 @@ as an extension to Mathdesign's Utopia bundle.
 
 %package -n texlive-mdsymbol
 Summary:        Symbol fonts to match Adobe Myriad Pro
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5809,7 +5465,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(fltpoint.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mdsymbol.sty) = %{tl_version}
 
 %description -n texlive-mdsymbol
 The package provides a font of mathematical symbols, MyriadPro The font is
@@ -5818,7 +5473,7 @@ other contemporary typefaces.
 
 %package -n texlive-merriweather
 Summary:        Merriweather and MerriweatherSans fonts, with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5829,7 +5484,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(merriweather.sty) = %{tl_version}
 
 %description -n texlive-merriweather
 This package provides the Merriweather and MerriweatherSans families of fonts,
@@ -5845,7 +5499,6 @@ Version:        svn68175
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(metsymb.sty) = %{tl_version}
 
 %description -n texlive-metsymb
 The metsymb package introduces commands to generate official meteorological
@@ -5860,7 +5513,7 @@ then be called individually from LaTeX documents via dedicated commands.
 
 %package -n texlive-mfb-oldstyle
 Summary:        MFB Oldstyle serif fonts
-Version:        svn77677
+Version:        svn77682
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5870,7 +5523,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mfb-oldstyle.sty) = %{tl_version}
 
 %description -n texlive-mfb-oldstyle
 Oldstyle is a serif font family designed for body text. This typeface was
@@ -5882,12 +5534,11 @@ old-style figures are available only for the regular font.
 
 %package -n texlive-miama
 Summary:        The Miama Nueva handwriting font with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(miama.sty) = %{tl_version}
 
 %description -n texlive-miama
 Miama Nueva is a handwriting / script font with over 1300 glyphs that supports
@@ -5895,7 +5546,7 @@ latin, cyrillic, and greek. It comes complete with LaTeX support.
 
 %package -n texlive-mintspirit
 Summary:        LaTeX support for MintSpirit font families
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5906,8 +5557,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mintspirit.sty) = %{tl_version}
-Provides:       tex(mintspirit2.sty) = %{tl_version}
 
 %description -n texlive-mintspirit
 The package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -5927,7 +5576,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(multicol.sty)
-Provides:       tex(missaali.sty) = %{tl_version}
 
 %description -n texlive-missaali
 This package contains the free OpenType Textura font Missaali and a style file
@@ -5944,11 +5592,10 @@ easier to achieve the classic incunabula look.
 
 %package -n texlive-mlmodern
 Summary:        A blacker Type 1 version of Computer Modern, with multilingual support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mlmodern.sty) = %{tl_version}
 
 %description -n texlive-mlmodern
 MLModern is a text and math font family with (La)TeX support, based on the
@@ -5964,7 +5611,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(eufrak.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(MnSymbol.sty) = %{tl_version}
 
 %description -n texlive-mnsymbol
 MnSymbol is a symbol font family, designed to be used in conjunction with Adobe
@@ -5982,14 +5628,13 @@ needed.
 
 %package -n texlive-monaspace-otf
 Summary:        OpenType MonaSpace fonts with fontspec support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(monaspace-otf.sty) = %{tl_version}
 
 %description -n texlive-monaspace-otf
 This package provides the OpenType MonaSpace fonts with fontspec support for
@@ -6000,7 +5645,7 @@ https://monaspace.githubnext.com for further information.
 
 %package -n texlive-montserrat
 Summary:        Montserrat sans serif, otf and pfb, with LaTeX support files
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6009,7 +5654,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(montserrat.sty) = %{tl_version}
 
 %description -n texlive-montserrat
 Montserrat is a geometric sans-serif typeface designed by Julieta Ulanovsky,
@@ -6043,11 +5687,10 @@ be used for printing. Note: do NOT add the map file to updmap!
 
 %package -n texlive-mweights
 Summary:        Support for multiple-weight font packages
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mweights.sty) = %{tl_version}
 
 %description -n texlive-mweights
 Many font families available for use with LaTeX are available at multiple
@@ -6059,13 +5702,12 @@ provides a solution to these difficulties.
 
 %package -n texlive-newcomputermodern
 Summary:        Computer Modern fonts including matching non-latin alphabets
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(newcomputermodern.sty) = %{tl_version}
 
 %description -n texlive-newcomputermodern
 This is a new assembly of Computer Modern fonts including extensions in many
@@ -6075,7 +5717,7 @@ weight of Computer Modern, it provides a Book weight for heavier printing.
 
 %package -n texlive-newpx
 Summary:        Alternative uses of the PX fonts, with improved metrics
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6098,10 +5740,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(newpx-subs.tex) = %{tl_version}
-Provides:       tex(newpx.sty) = %{tl_version}
-Provides:       tex(newpxmath.sty) = %{tl_version}
-Provides:       tex(newpxtext.sty) = %{tl_version}
 
 %description -n texlive-newpx
 This package, initially based on pxfonts, provides many fixes and enhancements
@@ -6113,7 +5751,7 @@ enabled.
 
 %package -n texlive-newtx
 Summary:        Alternative uses of the TX fonts, with improved metrics
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6135,12 +5773,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(newtx-ebgaramond-subs.tex) = %{tl_version}
-Provides:       tex(newtx-libertine-subs.tex) = %{tl_version}
-Provides:       tex(newtx-subs.tex) = %{tl_version}
-Provides:       tex(newtx.sty) = %{tl_version}
-Provides:       tex(newtxmath.sty) = %{tl_version}
-Provides:       tex(newtxtext.sty) = %{tl_version}
 
 %description -n texlive-newtx
 The bundle splits txfonts.sty (from the TX fonts distribution) into two
@@ -6154,13 +5786,12 @@ garamond-alike text-with-maths combination.
 
 %package -n texlive-newtxsf
 Summary:        Sans-math fonts for use with newtx
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(newtxsf.sty) = %{tl_version}
 
 %description -n texlive-newtxsf
 The package provides a maths support that amounts to modifications of the STIX
@@ -6169,14 +5800,13 @@ sans serif Roman and Greek letters with most symbols taken from newtxmath
 
 %package -n texlive-newtxtt
 Summary:        Enhancement of typewriter fonts from newtx
-Version:        svn77677
+Version:        svn77682
 License:        GPL-3.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(newtxtt.sty) = %{tl_version}
 
 %description -n texlive-newtxtt
 The package provides enhanced fonts with LaTeX support files providing access
@@ -6205,10 +5835,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(nimbusmono.sty) = %{tl_version}
-Provides:       tex(nimbusmononarrow.sty) = %{tl_version}
-Provides:       tex(nimbussans.sty) = %{tl_version}
-Provides:       tex(nimbusserif.sty) = %{tl_version}
 
 %description -n texlive-nimbus15
 The Nimbus 2015 Core fonts added Greek and Cyrillic glyphs. This package may be
@@ -6231,7 +5857,7 @@ using MetaPost, is also provided.
 
 %package -n texlive-noto
 Summary:        Support for Noto fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6243,10 +5869,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(noto-mono.sty) = %{tl_version}
-Provides:       tex(noto-sans.sty) = %{tl_version}
-Provides:       tex(noto-serif.sty) = %{tl_version}
-Provides:       tex(noto.sty) = %{tl_version}
 
 %description -n texlive-noto
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -6265,7 +5887,7 @@ Noto Color Emoji supports all emoji defined in the latest Unicode version.
 
 %package -n texlive-notomath
 Summary:        Math support for Noto fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6278,7 +5900,6 @@ Requires:       tex(noto-sans.sty)
 Requires:       tex(noto-serif.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(notomath.sty) = %{tl_version}
 
 %description -n texlive-notomath
 Math support via newtxmath for Google's NotoSerif and NotoSans. (Regular and
@@ -6286,7 +5907,7 @@ Bold weights only.)
 
 %package -n texlive-nunito
 Summary:        The Nunito font face with support for LaTeX and pdfLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6296,7 +5917,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(nunito.sty) = %{tl_version}
 
 %description -n texlive-nunito
 This package provides LaTeX and pdfLaTeX support for the Nunito family of
@@ -6322,8 +5942,6 @@ Version:        svn25689
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lchenc.def) = %{tl_version}
-Provides:       tex(ocherokee.sty) = %{tl_version}
 
 %description -n texlive-ocherokee
 Macros and Type 1 fonts for Typesetting the Cherokee language with the Omega
@@ -6371,8 +5989,6 @@ Version:        svn28668
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(litenc.def) = %{tl_version}
-Provides:       tex(oinuit.sty) = %{tl_version}
 
 %description -n texlive-oinuit
 The package provides a set of Lambda (Omega LaTeX) typesetting tools for the
@@ -6381,11 +5997,10 @@ necessary fonts are also provided.
 
 %package -n texlive-old-arrows
 Summary:        Computer Modern old-style arrows with smaller arrowheads
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(old-arrows.sty) = %{tl_version}
 
 %description -n texlive-old-arrows
 This package provides Computer Modern old-style arrows with smaller arrowheads,
@@ -6418,7 +6033,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(OldStandard.sty) = %{tl_version}
 
 %description -n texlive-oldstandard
 Old Standard is designed to reproduce the actual printing style of the early
@@ -6434,7 +6048,7 @@ and pdfTeX.
 
 %package -n texlive-opensans
 Summary:        The Open Sans font family, and LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6443,7 +6057,6 @@ Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(opensans.sty) = %{tl_version}
 
 %description -n texlive-opensans
 Open Sans is a humanist sans serif typeface designed by Steve Matteson; the
@@ -6475,7 +6088,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(Oswald.sty) = %{tl_version}
 
 %description -n texlive-oswald
 This package provides the Oswald family of fonts, designed by Vernon Adams,
@@ -6483,7 +6095,7 @@ Kalapi Gajjar, Cyreal, with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-overlock
 Summary:        Overlock sans fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6495,7 +6107,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(overlock.sty) = %{tl_version}
 
 %description -n texlive-overlock
 The package provides the Overlock and OverlockSC families of fonts, designed by
@@ -6506,11 +6117,10 @@ Regular weight.
 
 %package -n texlive-pacioli
 Summary:        Fonts designed by Fra Luca de Pacioli in 1497
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pacioli.sty) = %{tl_version}
 
 %description -n texlive-pacioli
 Pacioli was a c.15 mathematician, and his font was designed according to 'the
@@ -6520,7 +6130,7 @@ in a .dtx file, together with LaTeX support.
 
 %package -n texlive-pagella-otf
 Summary:        Using the OpenType fonts TeX Gyre Pagella
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6528,7 +6138,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(pagella-otf.sty) = %{tl_version}
 
 %description -n texlive-pagella-otf
 This package can only be used with LuaLaTeX or XeLaTeX. It does the font
@@ -6537,18 +6146,11 @@ typefaces like bold math and slanted text are also defined
 
 %package -n texlive-paratype
 Summary:        LaTeX support for free fonts by ParaType
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(PTMono.sty) = %{tl_version}
-Provides:       tex(PTSans.sty) = %{tl_version}
-Provides:       tex(PTSansCaption.sty) = %{tl_version}
-Provides:       tex(PTSansNarrow.sty) = %{tl_version}
-Provides:       tex(PTSerif.sty) = %{tl_version}
-Provides:       tex(PTSerifCaption.sty) = %{tl_version}
-Provides:       tex(paratype.sty) = %{tl_version}
 
 %description -n texlive-paratype
 The package offers LaTeX support for the fonts PT Sans, PT Serif and PT Mono
@@ -6560,13 +6162,12 @@ replacement of the two packages ptsans and ptserif.
 
 %package -n texlive-pennstander-otf
 Summary:        OpenType versions of the pennstander fonts (with math support)
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(pennstander-otf.sty) = %{tl_version}
 
 %description -n texlive-pennstander-otf
 This bundle provides OpenType versions Pennstander fonts designed by Julius
@@ -6578,7 +6179,6 @@ Version:        svn18651
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(phaistos.sty) = %{tl_version}
 
 %description -n texlive-phaistos
 A font that contains all the symbols of the famous Disc of Phaistos, together
@@ -6596,7 +6196,6 @@ Version:        svn56468
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(phonetic.sty) = %{tl_version}
 
 %description -n texlive-phonetic
 The fonts are based on Computer Modern, and specified in Metafont. Macros for
@@ -6604,12 +6203,10 @@ the fonts' use are provided, both for LaTeX 2.09 and for current LaTeX.
 
 %package -n texlive-pigpen
 Summary:        A font for the pigpen (or masonic) cipher
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pigpen.sty) = %{tl_version}
-Provides:       tex(pigpen.tex) = %{tl_version}
 
 %description -n texlive-pigpen
 The Pigpen cipher package provides the font and the necessary wrappers (style
@@ -6619,7 +6216,7 @@ Type 1 file), and macros for its use.
 
 %package -n texlive-playfair
 Summary:        Playfair Display fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6631,7 +6228,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(PlayfairDisplay.sty) = %{tl_version}
 
 %description -n texlive-playfair
 This package provides the PlayFairDisplay family of fonts, designed by Claus
@@ -6645,7 +6241,7 @@ and initialisms.
 
 %package -n texlive-plex
 Summary:        Support for IBM Plex fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6657,9 +6253,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(plex-mono.sty) = %{tl_version}
-Provides:       tex(plex-sans.sty) = %{tl_version}
-Provides:       tex(plex-serif.sty) = %{tl_version}
 
 %description -n texlive-plex
 The package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the IBM
@@ -6669,7 +6262,7 @@ weights: Regular, Light, ExtraLight, Thin, Bold, Text, Medium and SemiBold
 
 %package -n texlive-plex-otf
 Summary:        Support for the OpenType font IBM Plex
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6677,7 +6270,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(plex-otf.sty) = %{tl_version}
 
 %description -n texlive-plex-otf
 This package supports the free otf fonts from the IBM Plex project which are
@@ -6691,7 +6283,6 @@ Version:        svn56605
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(plimsoll.sty) = %{tl_version}
 
 %description -n texlive-plimsoll
 This package provides access to the Plimsoll symbol for use with LaTeX. The
@@ -6714,7 +6305,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(PoiretOne.sty) = %{tl_version}
 
 %description -n texlive-poiretone
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -6724,11 +6314,10 @@ There is currently just a regular weight and an artificially emboldened bold.
 
 %package -n texlive-poltawski
 Summary:        Antykwa Poltawskiego Family of Fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(antpolt.sty) = %{tl_version}
 
 %description -n texlive-poltawski
 The package contains the Antykwa Poltawskiego family of fonts in the PostScript
@@ -6755,7 +6344,6 @@ Version:        svn21893
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(prodint.sty) = %{tl_version}
 
 %description -n texlive-prodint
 Product integrals are to products, as integrals are to sums. They have been
@@ -6786,7 +6374,6 @@ Version:        svn27389
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(punk.sty) = %{tl_version}
 
 %description -n texlive-punk-latex
 The package and .fd file provide support for Knuth's punk fonts. That bundle
@@ -6808,16 +6395,11 @@ variant for each invocation.
 
 %package -n texlive-pxtxalfa
 Summary:        Virtual maths alphabets based on pxfonts and txfonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(px-ds.sty) = %{tl_version}
-Provides:       tex(pxtx-cal.sty) = %{tl_version}
-Provides:       tex(pxtx-frak.sty) = %{tl_version}
-Provides:       tex(tx-ds.sty) = %{tl_version}
-Provides:       tex(tx-of.sty) = %{tl_version}
 
 %description -n texlive-pxtxalfa
 The package provides virtual math alphabets based on pxfonts and txfonts, with
@@ -6837,7 +6419,7 @@ Colletti, these fonts have been released as free and open-source.
 
 %package -n texlive-quattrocento
 Summary:        Quattrocento and Quattrocento Sans fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6848,7 +6430,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(quattrocento.sty) = %{tl_version}
 
 %description -n texlive-quattrocento
 The package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -6861,7 +6442,7 @@ Quattrocento Sans is the perfect sans-serif companion for Quattrocento.
 
 %package -n texlive-raleway
 Summary:        Use Raleway with TeX(-alike) systems
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6874,8 +6455,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(raleway-type1-autoinst.sty) = %{tl_version}
-Provides:       tex(raleway.sty) = %{tl_version}
 
 %description -n texlive-raleway
 The package provides the Raleway family in an easy to use way. For XeLaTeX and
@@ -6888,7 +6467,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(recycle.sty) = %{tl_version}
 
 %description -n texlive-recycle
 This single-character font is provided as Metafont source, and in Adobe Type 1
@@ -6906,7 +6484,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(polyglossia.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(rit-fonts.sty) = %{tl_version}
 
 %description -n texlive-rit-fonts
 The RIT font collection provides versions of 17 font families in Malayalam (the
@@ -6919,7 +6496,7 @@ in LaTeX documents with XeTeX or LuaTeX is also provided.
 
 %package -n texlive-roboto
 Summary:        Support for the Roboto family of fonts
-Version:        svn77677
+Version:        svn77682
 License:        Apache-2.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6931,9 +6508,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(roboto-mono.sty) = %{tl_version}
-Provides:       tex(roboto-serif.sty) = %{tl_version}
-Provides:       tex(roboto.sty) = %{tl_version}
 
 %description -n texlive-roboto
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -6943,7 +6517,7 @@ Google.
 
 %package -n texlive-romandeadf
 Summary:        Romande ADF fonts and LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6951,7 +6525,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(romande.sty) = %{tl_version}
 
 %description -n texlive-romandeadf
 Romande ADF is a serif font family with oldstyle figures, designed as a
@@ -6977,7 +6550,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(mweights.sty)
-Provides:       tex(Rosario.sty) = %{tl_version}
 
 %description -n texlive-rosario
 The package provides the files required to use the Rosario fonts with LaTeX.
@@ -6987,12 +6559,11 @@ copyright (c) 2012-2015, Omnibus-Type.
 
 %package -n texlive-rsfso
 Summary:        A mathematical calligraphic font based on rsfs
-Version:        svn60849
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(rsfso.sty) = %{tl_version}
 
 %description -n texlive-rsfso
 The package provides virtual fonts and LaTeX support files for mathematical
@@ -7013,12 +6584,11 @@ ancient Roman calligraphic script -- created with Metafont.
 
 %package -n texlive-sansmathaccent
 Summary:        Correct placement of accents in sans-serif maths
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(scrlfile.sty)
-Provides:       tex(sansmathaccent.sty) = %{tl_version}
 
 %description -n texlive-sansmathaccent
 Sans serif maths (produced by the beamer class or the sfmath package) often has
@@ -7029,11 +6599,10 @@ sfmath package.
 
 %package -n texlive-sansmathfonts
 Summary:        Extended Computer Modern sans serif fonts
-Version:        svn77677
+Version:        svn77723
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sansmathfonts.sty) = %{tl_version}
 
 %description -n texlive-sansmathfonts
 Sans serif small caps and math fonts for use with Computer Modern.
@@ -7057,8 +6626,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sbbm.sty) = %{tl_version}
-Provides:       tex(sexscale.sty) = %{tl_version}
 
 %description -n texlive-sauterfonts
 The package provides font definition files (plus a replacement for the package
@@ -7069,7 +6636,7 @@ bbm fonts.
 
 %package -n texlive-schola-otf
 Summary:        Using the OpenType fonts TeX Gyre schola
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7077,7 +6644,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(schola-otf.sty) = %{tl_version}
 
 %description -n texlive-schola-otf
 This package can only be used with LuaLaTeX or XeLaTeX. It does the font
@@ -7086,7 +6652,7 @@ typefaces like bold math and slanted text are also defined
 
 %package -n texlive-scholax
 Summary:        Extension of TeXGyreSchola (New Century Schoolbook) with math support
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7099,9 +6665,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(newtx-nc-subs.tex) = %{tl_version}
-Provides:       tex(newtx-ncf-subs.tex) = %{tl_version}
-Provides:       tex(scholax.sty) = %{tl_version}
 
 %description -n texlive-scholax
 This package contains an extension of TeXGyreSchola with extensive superiors,
@@ -7120,13 +6683,6 @@ Requires:       tex(color.sty)
 Requires:       tex(eepic.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(latexsym.sty)
-Provides:       tex(schulschriften_lin.sty) = %{tl_version}
-Provides:       tex(schulschriften_ltx.sty) = %{tl_version}
-Provides:       tex(wedn.sty) = %{tl_version}
-Provides:       tex(wela.sty) = %{tl_version}
-Provides:       tex(wesa.sty) = %{tl_version}
-Provides:       tex(wesu.sty) = %{tl_version}
-Provides:       tex(weva.sty) = %{tl_version}
 
 %description -n texlive-schulschriften
 Das Paket enthalt im wesentlichen die Metafont-Quellfiles fur die folgenden
@@ -7140,8 +6696,6 @@ Version:        svn18651
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(semaf.tex) = %{tl_version}
-Provides:       tex(t-type-semaf.tex) = %{tl_version}
 
 %description -n texlive-semaphor
 These fonts represent semaphore in a highly schematic, but very clear, fashion.
@@ -7173,15 +6727,12 @@ Shobhika.
 
 %package -n texlive-simpleicons
 Summary:        Simple Icons for LaTeX
-Version:        svn77677
+Version:        svn78525
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
-Provides:       tex(simpleicons.sty) = %{tl_version}
-Provides:       tex(simpleiconsglyphs-pdftex.tex) = %{tl_version}
-Provides:       tex(simpleiconsglyphs-xeluatex.tex) = %{tl_version}
 
 %description -n texlive-simpleicons
 Similar to FontAwesome icons being provided on LaTeX by the fontawesome
@@ -7194,7 +6745,6 @@ Version:        svn51907
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(skull.sty) = %{tl_version}
 
 %description -n texlive-skull
 The font (defined in Metafont) defines a single character, a black solid skull.
@@ -7203,7 +6753,7 @@ mode.
 
 %package -n texlive-sourcecodepro
 Summary:        Use SourceCodePro with TeX(-alike) systems
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7216,60 +6766,63 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(sourcecodepro-type1-autoinst.sty) = %{tl_version}
-Provides:       tex(sourcecodepro.sty) = %{tl_version}
 
 %description -n texlive-sourcecodepro
 The font is an open-source Monospaced development from Adobe. The package
 provides fonts (in both Adobe Type 1 and OpenType formats) and macros
 supporting their use in LaTeX (Type 1) and XeLaTeX/LuaLaTeX (OTF).
 
-%package -n texlive-sourcesanspro
-Summary:        Use SourceSansPro with TeX(-alike) systems
-Version:        svn77677
+%package -n texlive-sourcesans
+Summary:        Use Source Sans with TeX(-alike) systems
+Version:        svn78246
 License:        OFL-1.1 AND LPPL-1.3c
+Provides:       texlive-sourcesanspro = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sourcesanspro <= 12:svn77677-4
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
+Requires:       tex(ifthen.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(sourcesanspro-type1-autoinst.sty) = %{tl_version}
-Provides:       tex(sourcesanspro.sty) = %{tl_version}
 
-%description -n texlive-sourcesanspro
-The font is an open-source Sans-Serif development from Adobe. The package
-provides fonts (in both Adobe Type 1 and OpenType formats) and macros
-supporting their use in LaTeX (Type 1) and XeLaTeX/LuaLaTeX (OTF).
+%description -n texlive-sourcesans
+This package provides Source Sans for LaTeX. It includes both Type1 and
+OpenType fonts and selects the latter when using XeLaTeX or LuaLaTeX. This
+package used to be called "sourcesanspro" and contains an alias package for
+backwards compatibility.
 
-%package -n texlive-sourceserifpro
-Summary:        Use SourceSerifPro with TeX(-alike) systems
-Version:        svn77677
+%package -n texlive-sourceserif
+Summary:        Use Source Serif with TeX(-alike) systems
+Version:        svn78252
 License:        OFL-1.1 AND LPPL-1.3c
+Provides:       texlive-sourceserifpro = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sourceserifpro <= 12:svn77677-4
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
+Requires:       tex(ifthen.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(sourceserifpro-type1-autoinst.sty) = %{tl_version}
-Provides:       tex(sourceserifpro.sty) = %{tl_version}
 
-%description -n texlive-sourceserifpro
-This package provides Source Serif Pro for LaTeX. It includes both Type1 and
-OpenType fonts and selects the latter when using XeLaTeX or LuaLaTeX.
+%description -n texlive-sourceserif
+This package provides Source Serif for LaTeX. It includes both Type1 and
+OpenType fonts and selects the latter when using XeLaTeX or LuaLaTeX. This
+package used to be called "sourceserifpro" and contains an alias package for
+backwards compatibility.
 
 %package -n texlive-spectral
 Summary:        Spectral fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7280,7 +6833,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(spectral.sty) = %{tl_version}
 
 %description -n texlive-spectral
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -7290,7 +6842,7 @@ available in seven weights of roman and italic, with small caps.
 
 %package -n texlive-splentinex
 Summary:        Splentinex fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7299,7 +6851,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(splentinex.sty) = %{tl_version}
 
 %description -n texlive-splentinex
 This is a serif font family designed for body text. This typeface design was
@@ -7314,7 +6865,6 @@ Version:        svn63308
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(srbtiks.sty) = %{tl_version}
 
 %description -n texlive-srbtiks
 The srbtiks package is the extension of the stix2-type1 package that enables
@@ -7327,7 +6877,6 @@ Version:        svn19982
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(starfont.sty) = %{tl_version}
 
 %description -n texlive-starfont
 The package contains StarFontSans and StarFontSerif, two public-domain
@@ -7341,7 +6890,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(staves.sty) = %{tl_version}
 
 %description -n texlive-staves
 This package contains all the necessary tools to typeset the "magical"
@@ -7350,7 +6898,7 @@ Adobe Type 1 format and LaTeX support.
 
 %package -n texlive-step
 Summary:        A free Times-like font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7358,7 +6906,6 @@ Requires:       tex(fontaxes.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(step.sty) = %{tl_version}
 
 %description -n texlive-step
 The STEP fonts are a free Times-like (i.e., Times replacement) font family,
@@ -7383,7 +6930,7 @@ Greek.
 
 %package -n texlive-stickstoo
 Summary:        A reworking of STIX2
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7394,7 +6941,6 @@ Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(stickstootext.sty) = %{tl_version}
 
 %description -n texlive-stickstoo
 SticksToo is a reworking of the STIX2 fonts with support files focussing on
@@ -7405,12 +6951,11 @@ newtxmath symbols.
 
 %package -n texlive-stix
 Summary:        OpenType Unicode maths fonts
-Version:        svn54512
+Version:        svn78101
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(textcomp.sty)
-Provides:       tex(stix.sty) = %{tl_version}
 
 %description -n texlive-stix
 The STIX fonts are a suite of unicode OpenType fonts containing a complete set
@@ -7434,12 +6979,11 @@ available royalty-free under the SIL Open Font License.
 
 %package -n texlive-stix2-type1
 Summary:        Type1 versions of the STIX Two OpenType fonts
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(textcomp.sty)
-Provides:       tex(stix2.sty) = %{tl_version}
 
 %description -n texlive-stix2-type1
 The stix2 package provides minimal support for using the STIX Two fonts with
@@ -7457,7 +7001,7 @@ versions of the fonts.
 
 %package -n texlive-superiors
 Summary:        Attach superior figures to a font family
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7467,7 +7011,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(trace.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(superiors.sty) = %{tl_version}
 
 %description -n texlive-superiors
 The package allows the attachment of an arbitrary superior figures font to a
@@ -7480,7 +7023,6 @@ Version:        svn50019
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(svrsymbols.sty) = %{tl_version}
 
 %description -n texlive-svrsymbols
 The svrsymbols package is a LaTeX interface to the SVRsymbols font. The glyphs
@@ -7495,7 +7037,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(fontspec.sty)
-Provides:       tex(symbats3.sty) = %{tl_version}
 
 %description -n texlive-symbats3
 This package makes available for LaTeX the glyphs in Feorag's OpenType Symbats3
@@ -7516,7 +7057,7 @@ in cmr10), accented characters used in the Czech, Slovak and Polish languages.
 
 %package -n texlive-tempora
 Summary:        Greek and Cyrillic to accompany Times
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7524,7 +7065,6 @@ Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tempora.sty) = %{tl_version}
 
 %description -n texlive-tempora
 This package, derived from TemporaLGCUni by Alexej Kryukov, is meant as a
@@ -7541,7 +7081,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fp-basic.sty)
 Requires:       tex(fp-snap.sty)
-Provides:       tex(tengwarscript.sty) = %{tl_version}
 
 %description -n texlive-tengwarscript
 The package provides "mid-level" access to tengwar fonts, providing good
@@ -7554,7 +7093,7 @@ provided for all the supported fonts.
 
 %package -n texlive-termes-otf
 Summary:        Using the OpenType fonts TeX Gyre Termes
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7562,7 +7101,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(termes-otf.sty) = %{tl_version}
 
 %description -n texlive-termes-otf
 This package provides the OpenType version of the TeX Gyre Termes font,
@@ -7575,7 +7113,6 @@ Version:        svn20770
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tfrupee.sty) = %{tl_version}
 
 %description -n texlive-tfrupee
 The package provides LaTeX support for the (Indian) Rupee symbol font, created
@@ -7595,7 +7132,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(TheanoDidot.sty) = %{tl_version}
 
 %description -n texlive-theanodidot
 This package provides the TheanoDidot font designed by Alexey Kryukov, in both
@@ -7625,7 +7161,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(TheanoModern.sty) = %{tl_version}
 
 %description -n texlive-theanomodern
 This package provides the TheanoModern font designed by Alexey Kryukov, in both
@@ -7648,7 +7183,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(TheanoOldStyle.sty) = %{tl_version}
 
 %description -n texlive-theanooldstyle
 This package provides the Theano OldStyle font designed by Alexey Kryukov, in
@@ -7660,7 +7194,7 @@ supposedly became his wife.
 
 %package -n texlive-tinos
 Summary:        Tinos fonts with LaTeX support
-Version:        svn77677
+Version:        svn77682
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7671,7 +7205,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tinos.sty) = %{tl_version}
 
 %description -n texlive-tinos
 Tinos, designed by Steve Matteson, is an innovative, refreshing serif design
@@ -7686,7 +7219,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(cmbright.sty)
 Requires:       tex(eulervm.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(tpslifonts.sty) = %{tl_version}
 
 %description -n texlive-tpslifonts
 This package aims to improve of font readability in presentations, especially
@@ -7703,11 +7235,10 @@ The package is part of the TeXPower bundle.
 
 %package -n texlive-trajan
 Summary:        Fonts from the Trajan column in Rome
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(trajan.sty) = %{tl_version}
 
 %description -n texlive-trajan
 Provides fonts (both as Metafont source and in Adobe Type 1 format) based on
@@ -7734,7 +7265,6 @@ License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(txfonts.sty)
-Provides:       tex(txfontsb.sty) = %{tl_version}
 
 %description -n texlive-txfontsb
 A set of fonts that extend the txfonts bundle with small caps and old style
@@ -7743,12 +7273,11 @@ modifications of the GNU Freefont.
 
 %package -n texlive-txuprcal
 Summary:        Upright calligraphic font based on TX calligraphic
-Version:        svn77677
+Version:        svn77682
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(txuprcal.sty) = %{tl_version}
 
 %description -n texlive-txuprcal
 This small package provides a means of loading as \mathcal upright versions of
@@ -7757,12 +7286,11 @@ allow arbitrary scaling.
 
 %package -n texlive-typicons
 Summary:        Font containing a set of web-related icons
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(typicons.sty) = %{tl_version}
 
 %description -n texlive-typicons
 This package grants access to 336 web-related icons provided by the included
@@ -7794,7 +7322,6 @@ Version:        svn51984
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(uni.sty) = %{tl_version}
 
 %description -n texlive-universa
 An implementation of the "universal" font by Herbert Bayer of the Bauhaus
@@ -7803,7 +7330,7 @@ supplied in a LaTeX documented source (.dtx) file.
 
 %package -n texlive-universalis
 Summary:        Universalis font, with support
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7815,8 +7342,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(mweights.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(UniversalisADFStd.sty) = %{tl_version}
-Provides:       tex(universalis.sty) = %{tl_version}
 
 %description -n texlive-universalis
 This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for the
@@ -7830,7 +7355,6 @@ Version:        svn42334
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(uppunctlm.sty) = %{tl_version}
 
 %description -n texlive-uppunctlm
 The package provides a mechanism to keep punctuation always in upright shape
@@ -7846,7 +7370,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(urwchancal.sty) = %{tl_version}
 
 %description -n texlive-urwchancal
 The package allows (the URW clone of) Zapf Chancery to function as a maths
@@ -7857,7 +7380,7 @@ supersedes the pzccal package.
 
 %package -n texlive-venturisadf
 Summary:        Venturis ADF fonts collection
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7865,9 +7388,6 @@ Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(venturis.sty) = %{tl_version}
-Provides:       tex(venturis2.sty) = %{tl_version}
-Provides:       tex(venturisold.sty) = %{tl_version}
 
 %description -n texlive-venturisadf
 Serif and sans serif complete text font families, in both Adobe Type 1 and
@@ -7882,8 +7402,6 @@ Version:        svn25469
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ipa.sty) = %{tl_version}
-Provides:       tex(ipalmacs.sty) = %{tl_version}
 
 %description -n texlive-wsuipa
 The package provides a 7-bit IPA font, as Metafont source, and macros for
@@ -7909,9 +7427,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(xcharter-otf.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(XCharter.sty) = %{tl_version}
-Provides:       tex(newtx-xcharter-subs.tex) = %{tl_version}
-Provides:       tex(t2asrbenc.def) = %{tl_version}
 
 %description -n texlive-xcharter
 The package presents an extension of Bitstream Charter, which provides small
@@ -7921,14 +7436,15 @@ LaTeX font support files. The fonts themselves are provided in both Adobe Type
 
 %package -n texlive-xcharter-math
 Summary:        XCharter-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn77677
+Version:        svn78488
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
+Requires:       tex(lua-unicode-math.sty)
 Requires:       tex(realscripts.sty)
 Requires:       tex(unicode-math.sty)
-Provides:       tex(xcharter-otf.sty) = %{tl_version}
 
 %description -n texlive-xcharter-math
 This package provides an Unicode Math font XCharter-Math.otf meant to be used
@@ -7950,11 +7466,10 @@ and unicode-math packages.
 
 %package -n texlive-yfonts
 Summary:        Support for old German fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(yfonts.sty) = %{tl_version}
 
 %description -n texlive-yfonts
 A LaTeX interface to the old-german fonts designed by Yannis Haralambous:
@@ -7962,14 +7477,12 @@ Gothic, Schwabacher, Fraktur and the baroque initials.
 
 %package -n texlive-yfonts-otf
 Summary:        OpenType version of the Old German fonts designed by Yannis Haralambous
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
-Provides:       tex(oldgerm-otf.sty) = %{tl_version}
-Provides:       tex(yfonts-otf.sty) = %{tl_version}
 
 %description -n texlive-yfonts-otf
 This is an OpenType version of the Old German fonts yfrak, ygoth, yswab
@@ -8002,7 +7515,7 @@ files for yinit are in the yinit package.
 
 %package -n texlive-ysabeau
 Summary:        Ysabeau fonts with LaTeX support for traditional TeX engines
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1 AND WTFPL AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -8015,7 +7528,6 @@ Requires:       tex(scalefnt.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(ysabeau.sty) = %{tl_version}
 
 %description -n texlive-ysabeau
 Ysabeau is a free type family. It combines the time-honored and supremely
@@ -8027,13 +7539,12 @@ fonts are provided only to use with the fontspec package.
 
 %package -n texlive-zlmtt
 Summary:        Use Latin Modern Typewriter fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(mweights.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(zlmtt.sty) = %{tl_version}
 
 %description -n texlive-zlmtt
 The package allows selection of Latin Modern Typewriter fonts with scaling and
@@ -12137,29 +11648,29 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/sourcecodepro/
 %doc %{_texmf_main}/doc/latex/sourcecodepro/
 
-%files -n texlive-sourcesanspro
+%files -n texlive-sourcesans
 %license ofl.txt
 %license lppl1.3c.txt
-%{_texmf_main}/fonts/enc/dvips/sourcesanspro/
-%{_texmf_main}/fonts/map/dvips/sourcesanspro/
-%{_texmf_main}/fonts/opentype/adobe/sourcesanspro/
-%{_texmf_main}/fonts/tfm/adobe/sourcesanspro/
-%{_texmf_main}/fonts/type1/adobe/sourcesanspro/
-%{_texmf_main}/fonts/vf/adobe/sourcesanspro/
-%{_texmf_main}/tex/latex/sourcesanspro/
-%doc %{_texmf_main}/doc/latex/sourcesanspro/
+%{_texmf_main}/fonts/enc/dvips/sourcesans/
+%{_texmf_main}/fonts/map/dvips/sourcesans/
+%{_texmf_main}/fonts/opentype/adobe/sourcesans/
+%{_texmf_main}/fonts/tfm/adobe/sourcesans/
+%{_texmf_main}/fonts/type1/adobe/sourcesans/
+%{_texmf_main}/fonts/vf/adobe/sourcesans/
+%{_texmf_main}/tex/latex/sourcesans/
+%doc %{_texmf_main}/doc/latex/sourcesans/
 
-%files -n texlive-sourceserifpro
+%files -n texlive-sourceserif
 %license ofl.txt
 %license lppl1.3c.txt
-%{_texmf_main}/fonts/enc/dvips/sourceserifpro/
-%{_texmf_main}/fonts/map/dvips/sourceserifpro/
-%{_texmf_main}/fonts/opentype/adobe/sourceserifpro/
-%{_texmf_main}/fonts/tfm/adobe/sourceserifpro/
-%{_texmf_main}/fonts/type1/adobe/sourceserifpro/
-%{_texmf_main}/fonts/vf/adobe/sourceserifpro/
-%{_texmf_main}/tex/latex/sourceserifpro/
-%doc %{_texmf_main}/doc/latex/sourceserifpro/
+%{_texmf_main}/fonts/enc/dvips/sourceserif/
+%{_texmf_main}/fonts/map/dvips/sourceserif/
+%{_texmf_main}/fonts/opentype/adobe/sourceserif/
+%{_texmf_main}/fonts/tfm/adobe/sourceserif/
+%{_texmf_main}/fonts/type1/adobe/sourceserif/
+%{_texmf_main}/fonts/vf/adobe/sourceserif/
+%{_texmf_main}/tex/latex/sourceserif/
+%doc %{_texmf_main}/doc/latex/sourceserif/
 
 %files -n texlive-spectral
 %license ofl.txt
@@ -12570,6 +12081,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
+* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78246-5
+- Update collection from svn77044 to svn78246
+- Update 193 components
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-4
 - Update almost every component (thanks upstream)
 

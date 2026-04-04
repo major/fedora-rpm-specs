@@ -11,6 +11,8 @@ Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
 
 # fix no-signature issue with rpmv6
 Patch0:         https://github.com/rpm-software-management/rpmlint/commit/bfd7440dbfca4a2f9d8e9791ac42ff105ed0d60e.patch
+# Python 3.15 test fix
+Patch1:         https://github.com/rpm-software-management/rpmlint/commit/ccb7257253150fc5494df877dd274ba77351ab15.patch
 
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
 Source1:        fedora.toml

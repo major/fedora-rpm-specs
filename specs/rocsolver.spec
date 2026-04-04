@@ -122,7 +122,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -242,12 +242,14 @@ if [ ${HIP_JOBS}x = x ]; then
 fi
 # Try again..
 if [ ${HIP_JOBS} = 1 ]; then
-    HIP_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    HIP_JOBS=`lscpu | grep '^CPU(s):' | awk '{ print $2 }'`
     if [ ${HIP_JOBS}x = x ]; then
         HIP_JOBS=4
     fi
 fi
-HIP_JOBS=`eval "expr ${HIP_JOBS} / 2"`
+if [ ${HIP_JOBS} > 1 ] ; then
+    HIP_JOBS=`eval "expr ${HIP_JOBS} / 2"`
+fi
 
 # Take into account memmory usage per core, do not thrash real memory
 BUILD_MEM=32
@@ -351,6 +353,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Sat Mar 28 2026 Bernhard Wiedemann <bwiedemann@suse.de> - 7.2.0-4
+- Don't fail build on 1-core-VM
+
 * Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

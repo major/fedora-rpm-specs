@@ -2,7 +2,7 @@
 %bcond perl_IPC_Run_enables_optional_test %{undefined rhel}
 
 Name:           perl-IPC-Run
-Version:        20260322.0
+Version:        20260401.0
 Release:        1%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
@@ -13,8 +13,6 @@ Summary:        Perl module for interacting with child processes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Run
 Source0:        https://cpan.metacpan.org/modules/by-module/IPC/IPC-Run-%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/cpan-authors/IPC-Run/pull/241.patch
-Patch1:         https://patch-diff.githubusercontent.com/raw/cpan-authors/IPC-Run/pull/254.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -36,7 +34,7 @@ BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IO::Pty) >= 1.08
+BuildRequires:  perl(IO::Pty) >= 1.25
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 # Socket not used on Linux
@@ -62,7 +60,7 @@ BuildRequires:  perl(Test::Warn)
 # Dependencies
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Basename)
-Requires:       perl(IO::Pty) >= 1.08
+Requires:       perl(IO::Pty) >= 1.25
 
 %description
 IPC::Run allows you run and interact with child processes using files,
@@ -75,14 +73,6 @@ and DOS command lines are provided.
 
 %prep
 %setup -q -n IPC-Run-%{version}
-
-# Fix failure in t/pty.t with IO::Tty 1.21
-# https://github.com/cpan-authors/IPC-Run/issues/240
-# https://github.com/cpan-authors/IPC-Run/pull/241
-%patch -P0 -p1
-# https://github.com/cpan-authors/IPC-Run/issues/253
-# https://github.com/cpan-authors/IPC-Run/pull/254
-%patch -P1 -p1
 
 # Remove Windows-only features that could add unnecessary dependencies
 rm -f lib/IPC/Run/Win32*
@@ -109,7 +99,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changelog eg/ README.md
+%doc AI_POLICY.md Changelog eg/ README.md
 %{perl_vendorlib}/IPC/
 %{_mandir}/man3/IPC::Run.3*
 %{_mandir}/man3/IPC::Run::Debug.3*
@@ -117,6 +107,33 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 20260401.0-1
+- Update to 20260401.0 (rhbz#2454159)
+  Bug fixes:
+  - Require IO::Pty 1.25, which fixes stale pty slave fd after close_terminal
+    in child, replacing defensive workarounds (GH#240, GH#241, GH#266)
+  - Close Win32IO socket/pipe handles explicitly in _cleanup to prevent handle
+    leaks (GH#237, GH#246)
+  - Handle $SIG{PIPE} set to 'DEFAULT' in _select_loop instead of crashing
+    (GH#242, GH#244)
+  - Handle $SIG{CHLD} set to '' or 'DEFAULT' in _select_loop (GH#262)
+  - Fix PTYS typo in adopt() and missing TIMERS init in harness constructor
+    (GH#260)
+  - Handle PTY allocation failure gracefully in start() instead of dying with
+    an unhelpful error (GH#267)
+  - Correct Timer.pm POD typos, _parse_time error message, and remove redundant
+    parse call (GH#251)
+  - Prevent noexec probe from leaking TAP output in search_path_cache.t (GH#247)
+  Improvements:
+  - Correct broken POD links and code examples in documentation (GH#252)
+  Maintenance:
+  - Update GitHub URLs from toddr/IPC-Run to cpan-authors/IPC-Run (GH#263)
+  - Replace GPL v2 full text with standard "same terms as Perl" license (GH#268)
+  - Add AI policy document (GH#248)
+  - Use File::Spec->devnull in autoflush.t for portability (GH#250)
+  - Skip search_path_cache.t on noexec temp filesystems (GH#247)
+  - Remove dead code from Run.pm (GH#266)
+
 * Mon Mar 23 2026 Paul Howarth <paul@city-fan.org> - 20260322.0-1
 - Update to 20260322.0 (rhbz#2450190)
   Bug fixes:

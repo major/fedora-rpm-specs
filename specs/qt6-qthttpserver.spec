@@ -9,7 +9,7 @@
 
 Summary: Library to facilitate the creation of an http server with Qt
 Name:    qt6-qthttpserver
-Version: 6.10.2
+Version: 6.10.3
 Release: 1%{?dist}
 
 License:    BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -97,6 +97,9 @@ to the usage of %{name}.
 %endif
 
 %changelog
+* Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

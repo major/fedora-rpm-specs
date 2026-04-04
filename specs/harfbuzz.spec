@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        14.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -17,6 +17,8 @@ BuildRequires:  gtk-doc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  meson
+BuildRequires:  glew-devel
+BuildRequires:  glfw-devel
 
 # https://github.com/harfbuzz/harfbuzz/issues/3163
 %global _distro_extra_cflags -fno-exceptions
@@ -31,6 +33,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-icu%{?_isa} = %{version}-%{release}
 Requires:       %{name}-cairo%{?_isa} = %{version}-%{release}
+Requires:       %{name}-gpu%{?_isa} = %{version}-%{release}
 Requires:       %{name}-raster%{?_isa} = %{version}-%{release}
 Requires:       %{name}-vector%{?_isa} = %{version}-%{release}
 
@@ -51,6 +54,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    cairo
 This package contains Harfbuzz Cairo support library.
+
+%package        gpu
+Summary:        Harfbuzz GPU support library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    gpu
+This package contains Harfbuzz GPU support library.
 
 %package        raster
 Summary:        Harfbuzz Raster support library
@@ -89,6 +99,8 @@ This package contains Harfbuzz Vector support library.
 
 %ldconfig_scriptlets cairo
 
+%ldconfig_scriptlets gpu
+
 %ldconfig_scriptlets raster
 
 %ldconfig_scriptlets vector
@@ -104,6 +116,7 @@ This package contains Harfbuzz Vector support library.
 
 %files devel
 %doc %{_datadir}/gtk-doc
+%{_bindir}/hb-gpu
 %{_bindir}/hb-info
 %{_bindir}/hb-view
 %{_bindir}/hb-raster
@@ -114,6 +127,7 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz.so
 %{_libdir}/libharfbuzz-gobject.so
 %{_libdir}/libharfbuzz-cairo.so
+%{_libdir}/libharfbuzz-gpu.so
 %{_libdir}/libharfbuzz-icu.so
 %{_libdir}/libharfbuzz-raster.so
 %{_libdir}/libharfbuzz-subset.so
@@ -122,6 +136,7 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/pkgconfig/harfbuzz-cairo.pc
 %{_libdir}/pkgconfig/harfbuzz-gobject.pc
 %{_libdir}/pkgconfig/harfbuzz-icu.pc
+%{_libdir}/pkgconfig/harfbuzz-gpu.pc
 %{_libdir}/pkgconfig/harfbuzz-raster.pc
 %{_libdir}/pkgconfig/harfbuzz-subset.pc
 %{_libdir}/pkgconfig/harfbuzz-vector.pc
@@ -141,7 +156,13 @@ This package contains Harfbuzz Vector support library.
 %files vector
 %{_libdir}/libharfbuzz-vector.so.*
 
+%files gpu
+%{_libdir}/libharfbuzz-gpu.so.*
+
 %changelog
+* Thu Apr 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.0.0-2
+- Harfbuzz-14.0.0 added new library libharfbuzz-gpu added as new subpackage
+
 * Wed Apr 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.0.0-1
 - Update to 14.0.0 version (#2453867)
 

@@ -1,6 +1,6 @@
 Name:           libmicrohttpd
-Version:        1.0.2
-Release:        3%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Lightweight library for embedding a webserver in applications
 
@@ -12,7 +12,6 @@ License:        LGPL-2.1-or-later AND (LGPL-2.1-or-later OR GPL-2.0-or-later WIT
 
 URL:            http://www.gnu.org/software/libmicrohttpd/
 Source0:        https://ftp.gnu.org/gnu/libmicrohttpd/%{name}-%{version}.tar.gz
-# Patch0:         gnutls-utilize-system-crypto-policy.patch
 
 BuildRequires:  libtool
 BuildRequires:  texinfo
@@ -106,6 +105,9 @@ fi
 %doc html
 
 %changelog
+* Thu Apr 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:1.0.3-1
+- Update to 1:1.0.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

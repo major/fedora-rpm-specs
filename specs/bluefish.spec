@@ -1,4 +1,4 @@
-%global pkgver 2.4.0
+%global pkgver 2.4.1
 #global prerel rc1
 %global baserelease 1
 
@@ -10,7 +10,7 @@ License:	GPL-3.0-or-later
 URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
-Patch1:		bluefish-2.2.16-shellbang.patch
+Patch1:		bluefish-2.4.1-shellbang.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant2-devel
@@ -157,6 +157,19 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 2.4.1-1
+- Update to 2.4.1
+  - Bluefish 2.4.1 is a minor maintenance release with a few notable changes
+  - The experimental "side by side" feature that was introduced in 2.4.0 is no
+    longer experimental and is fully stable now
+  - A new feature is that Bluefish will automatically adjust the text colours
+    for people that use a dark desktop theme
+  - Translations for Ελληνικά (Greek) and தமிழ் (Tamiḻ) have been completely
+    renewed
+  - A critical bug and a regression in the split view function has been fixed
+  - The windows build has some minor improvements
+  - Several translations are updated
+
 * Mon Feb  2 2026 Paul Howarth <paul@city-fan.org> - 2.4.0-1
 - Update to 2.4.0 (rhbz#2435810)
   - Bluefish 2.4.0 has some new features and many small improvements; it is no

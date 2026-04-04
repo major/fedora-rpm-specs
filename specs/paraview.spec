@@ -6,10 +6,10 @@
 %endif
 
 %global pv_maj 6
-%global pv_min 0
-%global pv_patch 1
+%global pv_min 1
+%global pv_patch 0
 %global pv_majmin %{pv_maj}.%{pv_min}
-#global rcsuf RC3
+#global rcsuf RC2
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
@@ -87,12 +87,10 @@ License:        BSD-3-Clause
 URL:            https://www.paraview.org/
 Source0:        https://www.paraview.org/files/v%{pv_majmin}/ParaView-v%{version}%{?versuf}.tar.gz
 Source1:        paraview.xml
-Source2:        https://www.paraview.org/files/v%{pv_majmin}/ParaViewGettingStarted-%{version}%{?versuf}.pdf
+Source2:        https://www.paraview.org/files/v%{pv_majmin}/ParaViewGettingStarted-%{version}.pdf
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
-# Fix doc build with Sphinx 6
-#Patch1:         paraview-sphinx6.patch
 # always_inline fails on ppc64le
 # https://gitlab.kitware.com/vtk/vtk/-/issues/19622
 # https://bugzilla.redhat.com/show_bug.cgi?id=2386242
@@ -102,11 +100,6 @@ Patch2:         vtk-ppc64-no-always-inline.patch
 Patch3:         paraview-freetype.patch
 # Fix location of resources
 Patch4:         paraview-resources.patch
-# Fix build with Qt 6.10.1
-# https://gitlab.kitware.com/paraview/qttesting/-/commit/c11a762df71d9f44698b93a0aab5dceb59c90e63
-Patch5:         c11a762df71d9f44698b93a0aab5dceb59c90e63.diff
-# https://gitlab.kitware.com/paraview/paraview/-/commit/cd7e633df299c29e8e76c34df83d8c67dfb386a1
-Patch6:         cd7e633df299c29e8e76c34df83d8c67dfb386a1.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
@@ -133,7 +126,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  gnuplot
 BuildRequires:  wget
 BuildRequires:  boost-devel
-BuildRequires:  double-conversion-devel
 BuildRequires:  eigen3-devel
 %if %{with fmt}
 BuildRequires:  fmt-devel >= 8.1.0
@@ -233,6 +225,7 @@ Provides: bundled(ioss) = 20210512
 Provides: bundled(libharu)
 Provides: bundled(libproj4)
 Provides: bundled(qttesting)
+Provides: bundled(scn) = 4.0.0
 Provides: bundled(verdict) = 1.4.0
 Provides: bundled(viskores) = 1.0.0
 Provides: bundled(xdmf2)
@@ -284,6 +277,7 @@ ExcludeArch: %{ix86}
         -DVTK_MODULE_USE_EXTERNAL_VTK_libharu=OFF \\\
         %{?vtk_use_system_protobuf} \\\
         %{?vtk_use_system_pugixml} \\\
+        -DVTK_MODULE_USE_EXTERNAL_VTK_scn:BOOL=OFF \\\
         %{?vtk_use_system_token} \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
@@ -477,7 +471,7 @@ rm -r VTK/ThirdParty/pugixml/vtkpugixml
 %endif
 # TODO - loguru
 # TODO - verdict - This is a kitware library so low priority
-for x in vtk{cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zlib}
+for x in vtk{cli11,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zlib}
 do
   rm -r VTK/ThirdParty/*/${x}
 done

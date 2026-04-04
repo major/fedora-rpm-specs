@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -39,7 +39,8 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-lablgtk-devel
 BuildRequires:  ocaml-labltk-devel
-BuildRequires:  ocaml-pcre-devel
+# https://bugzilla.redhat.com/show_bug.cgi?id=2454289#c2
+#BuildRequires:  ocaml-pcre-devel
 BuildRequires:  ocaml-zip-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  krb5-devel
@@ -95,7 +96,8 @@ In detail, the following features are available:
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-lablgtk-devel%{?_isa}
-Requires:       ocaml-pcre-devel%{?_isa}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2454289#c2
+#Requires:       ocaml-pcre-devel%%{?_isa}
 Requires:       ocaml-zip-devel%{?_isa}
 
 
@@ -160,7 +162,7 @@ unset MAKEFLAGS
   -bindir %{_bindir} \
   -datadir %{_datadir}/%{name} \
   -disable-apache \
-  -enable-pcre \
+  -disable-pcre \
   -enable-gtk2 \
   -enable-gnutls \
   -enable-gssapi \
@@ -208,7 +210,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 %{_libdir}/ocaml/netplex
 %{_libdir}/ocaml/netshm
 %{_libdir}/ocaml/netstring
-%{_libdir}/ocaml/netstring-pcre
+# https://bugzilla.redhat.com/show_bug.cgi?id=2454289#c2
+#%%{_libdir}/ocaml/netstring-pcre
 %{_libdir}/ocaml/netsys
 %{_libdir}/ocaml/nettls-gnutls
 %{_libdir}/ocaml/netunidata
@@ -262,6 +265,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Thu Apr 02 2026 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-32
+- Disable ocaml-pcre dependency
+  https://bugzilla.redhat.com/show_bug.cgi?id=2454289#c2
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-31
 - OCaml 5.4.1 rebuild
 

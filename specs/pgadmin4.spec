@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.13
+Version:        9.14
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -57,6 +57,7 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtool
 
 # Printed by ./adjust_requirements.py (which also generates pgadmin4_requirements.patch)
+
 Requires: python3dist(authlib) >= 1.5.2
 Requires: python3dist(azure-identity) >= 1.17.1
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1.1
@@ -90,7 +91,7 @@ Requires: python3dist(psutil) >= 7.2
 Requires: python3dist(psycopg) >= 3.3.3
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
-Requires: python3dist(pytz) >= 2025
+Requires: python3dist(pytz) >= 2026
 Requires: python3dist(qrcode) >= 8
 Requires: python3dist(setuptools) >= 80.10.2
 Requires: python3dist(sqlalchemy) >= 2
@@ -259,6 +260,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Apr 02 2026 Sandro Mani <manisandro@gmail.com> - 9.14-1
+- Update to 9.14
+
+* Thu Apr 02 2026 Sandro Mani <manisandro@gmail.com> - 9.13-2
+- Refresh vendor bundle, fixes CVE-2026-4800
+
 * Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 9.13-1
 - Update to 9.13
 

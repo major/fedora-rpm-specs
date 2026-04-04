@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-qtbase
-Version:        6.10.2
+Version:        6.10.3
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -585,6 +585,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

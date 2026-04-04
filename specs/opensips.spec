@@ -22,6 +22,16 @@ Patch: opensips-0009-Fix-format-specifier-warnings-on-32-bit-architecture.patch
 Patch: opensips-0010-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
 Patch: opensips-0011-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
 Patch: opensips-0012-support-for-libmongc-libbson-version-2.patch
+Patch: opensips-0013-require-libpcre2.patch
+Patch: opensips-0014-update-dialplan-module-for-pcre2.patch
+Patch: opensips-0015-create-pcre2-compile-context-once-instead-of-for-eac.patch
+Patch: opensips-0016-Makefile-tweaks-to-avoid-shell-.-expansions-from-fai.patch
+Patch: opensips-0017-dialplan-fix-copying-subst-s-out-vector.patch
+Patch: opensips-0018-dialplan-make-module-work-with-both-pcre2-and-pcre3-.patch
+Patch: opensips-0019-update-regex-module-for-pcre2.patch
+Patch: opensips-0020-regex-allow-pcre3-library.patch
+Patch: opensips-0021-regex-make-module-work-with-both-pcre2-and-pcre3-not.patch
+Patch: opensips-0022-regex-fix-broken-merge.patch
 
 URL:      https://opensips.org
 
@@ -33,7 +43,6 @@ BuildRequires: libxslt
 BuildRequires: lynx
 BuildRequires: make
 BuildRequires: ncurses-devel
-BuildRequires: pcre-devel
 BuildRequires: systemd-units
 
 # Users and groups
@@ -306,6 +315,16 @@ BuildRequires: unixODBC-devel
 %description db_unixodbc
 This module contains the unixODBC plugin for %{name}, which
 allows unixODBC to be used for persistent storage.
+
+%package  dialplan
+Summary:  Dialplans implementation
+Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: pcre2-devel
+
+%description dialplan
+This module implements generic string translations based on matching and
+replacement rules. It can be used to manipulate R-URI or a PV and to translated
+to a new format/value.
 
 %package  event_kafka
 Summary:  Event Kafka module
@@ -779,6 +798,7 @@ the flexible AMQP protocol.
 %package  regex
 Summary:  RegExp via PCRE library
 Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: pcre2-devel
 
 %description regex
 This module offers matching operations against regular
@@ -1022,7 +1042,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/db_text.so
 %{_libdir}/opensips/modules/db_virtual.so
 %{_libdir}/opensips/modules/dialog.so
-%{_libdir}/opensips/modules/dialplan.so
 %{_libdir}/opensips/modules/dispatcher.so
 %{_libdir}/opensips/modules/diversion.so
 %{_libdir}/opensips/modules/dns_cache.so
@@ -1120,7 +1139,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.db_text
 %doc docdir/README.db_virtual
 %doc docdir/README.dialog
-%doc docdir/README.dialplan
 %doc docdir/README.dispatcher
 %doc docdir/README.diversion
 %doc docdir/README.dns_cache
@@ -1332,6 +1350,10 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %files db_unixodbc
 %{_libdir}/opensips/modules/db_unixodbc.so
 %doc docdir/README.db_unixodbc
+
+%files dialplan
+%doc docdir/README.dialplan
+%{_libdir}/opensips/modules/dialplan.so
 
 %files event_kafka
 %{_libdir}/opensips/modules/event_kafka.so

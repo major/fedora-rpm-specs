@@ -1,6 +1,6 @@
 Name: aircrack-ng
-Version: 1.7
-Release: 12%{?dist}
+Version: 1.7^20260331.gitf333a6a
+Release: 13%{?dist}
 
 Summary: Tools for auditing 802.11 (wireless) networks
 License: GPL-2.0-or-later
@@ -19,7 +19,7 @@ BuildRequires: libpcap-devel
 BuildRequires: libtool
 BuildRequires: make
 BuildRequires: openssl-devel
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: pkgconfig
 BuildRequires: sqlite-devel
 BuildRequires: util-linux
@@ -90,6 +90,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %doc test/*.cap test/*.pcap test/password.lst test/*.py
 
 %changelog
+* Tue Mar 31 2026 Federico Pellegrin <fede@evolware.org> - 1.7^20260331.gitf333a6a-13
+- Bump to upstream devel version. Use pcre2 insteaad of pcre (unmaintained)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

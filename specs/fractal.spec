@@ -6,17 +6,17 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        13
-Release:        4%{?dist}
+Version:        14
+Release:        0.beta%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
 License:        GPL-3.0-or-later AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND Apache-2.0 WITH LLVM-exception AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR BSD-1-Clause) AND (MIT OR Apache-2.0 OR NCSA) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND MPL-2.0+ AND (Unlicense OR MIT) AND Zlib AND (Zlib OR Apache-2.0 OR MIT)
 URL:            https://gitlab.gnome.org/World/fractal
-Source0:        https://gitlab.gnome.org/World/fractal/-/archive/%{tarball_version}/fractal-%{tarball_version}.tar.bz2
+Source0:        https://gitlab.gnome.org/World/fractal/-/archive/%{tarball_version}/fractal-%{tarball_version}.beta.tar.bz2
 # tar xf fractal-%%{version}.tar.bz2 ; pushd fractal-%%{version} ; \
 # cargo vendor && tar jcvf ../fractal-%%{version}-vendor.tar.bz2 vendor/ ; popd
-Source1:        fractal-%{version}-vendor.tar.bz2
+Source1:        fractal-%{version}.beta-vendor.tar.bz2
 # fix the build with vendored sources
 Patch0:          cargo-vendor.patch
 
@@ -48,6 +48,8 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(shumate-1.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(xdg-desktop-portal)
+BuildRequires:  cmake
+BuildRequires:  glycin-gtk4-devel
 # for check
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
@@ -63,7 +65,7 @@ optimized for collaboration in large groups, such as free software projects.
 
 
 %prep
-%autosetup -n fractal-%{tarball_version} -p1 -a1
+%autosetup -n fractal-%{tarball_version}.beta -p1 -a1
 
 sed -i -e '/\(gtk_update_icon_cache\|glib_compile_schemas\|update_desktop_database\)/s/true/false/' meson.build
 
@@ -103,6 +105,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Apr 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 14-0.beta
+- 14 beta
+
 * Fri Jan 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 13.4
 - 13 final
 

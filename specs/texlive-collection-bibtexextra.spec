@@ -5,7 +5,7 @@
 Name:           texlive-collection-bibtexextra
 Epoch:          12
 Version:        svn75480
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        BibTeX additional styles
 
 License:        LPPL-1.3c
@@ -532,20 +532,13 @@ Bibliographic style references in style of Australian Journal of Linguistics.
 
 %package -n texlive-amsrefs
 Summary:        A LaTeX-based replacement for BibTeX
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(backref.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(url.sty)
-Provides:       tex(amsbst.sty) = %{tl_version}
-Provides:       tex(amsrefs.sty) = %{tl_version}
-Provides:       tex(ifoption.sty) = %{tl_version}
-Provides:       tex(mathscinet.sty) = %{tl_version}
-Provides:       tex(pcatcode.sty) = %{tl_version}
-Provides:       tex(rkeyval.sty) = %{tl_version}
-Provides:       tex(textcmds.sty) = %{tl_version}
 
 %description -n texlive-amsrefs
 Amsrefs is a LaTeX package for bibliographies that provides an archival data
@@ -566,15 +559,13 @@ entry's annotate field as part of the printed output.
 
 %package -n texlive-apacite
 Summary:        Citation style following the rules of the APA
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(index.sty)
 Requires:       tex(multicol.sty)
 Requires:       tex(natbib.sty)
-Provides:       tex(apacdoc.sty) = %{tl_version}
-Provides:       tex(apacite.sty) = %{tl_version}
 
 %description -n texlive-apacite
 Apacite provides a BibTeX style and a LaTeX package which are designed to match
@@ -618,8 +609,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
 Requires:       tex(ulem.sty)
-Provides:       tex(archaeologie.bbx) = %{tl_version}
-Provides:       tex(archaeologie.cbx) = %{tl_version}
 
 %description -n texlive-archaeologie
 This citation-style covers the citation and bibliography rules of the German
@@ -628,11 +617,10 @@ adjust the outcome according to one's own preferences.
 
 %package -n texlive-authordate
 Summary:        Author/date style citation styles
-Version:        svn77677
+Version:        svn77682
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(authordate1-4.sty) = %{tl_version}
 
 %description -n texlive-authordate
 Authordate produces styles loosely based on the recommendations of British
@@ -648,9 +636,6 @@ Version:        svn77590
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bibnames.sty) = %{tl_version}
-Provides:       tex(texnames.sty) = %{tl_version}
-Provides:       tex(tugboat.def) = %{tl_version}
 
 %description -n texlive-beebe
 A collection of BibTeX bibliographies on TeX-related topics (including, for
@@ -698,7 +683,6 @@ Requires:       tex(biblatex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(qrcode.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(bib2qr.sty) = %{tl_version}
 
 %description -n texlive-bib2qr
 This package provides functionality to cite BibTeX entries with QR codes for
@@ -712,7 +696,6 @@ Version:        svn74384
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bibarts.sty) = %{tl_version}
 
 %description -n texlive-bibarts
 BibArts is a LaTeX package to assist in making bibliographical features common
@@ -737,7 +720,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric.bbx)
-Provides:       tex(BibBreeze.bbx) = %{tl_version}
 
 %description -n texlive-bibbreeze
 This LaTeX package, called BibBreeze written using LaTeX3, is a referencing
@@ -768,7 +750,7 @@ alpha.bst, as well as two style files derived from abbrv.bst and unsrt.bst
 
 %package -n texlive-biblatex
 Summary:        Sophisticated Bibliographies in LaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -786,69 +768,6 @@ Requires:       tex(logreq.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(url.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(alphabetic-verb.bbx) = %{tl_version}
-Provides:       tex(alphabetic-verb.cbx) = %{tl_version}
-Provides:       tex(alphabetic.bbx) = %{tl_version}
-Provides:       tex(alphabetic.cbx) = %{tl_version}
-Provides:       tex(authortitle-comp.bbx) = %{tl_version}
-Provides:       tex(authortitle-comp.cbx) = %{tl_version}
-Provides:       tex(authortitle-ibid.bbx) = %{tl_version}
-Provides:       tex(authortitle-ibid.cbx) = %{tl_version}
-Provides:       tex(authortitle-icomp.bbx) = %{tl_version}
-Provides:       tex(authortitle-icomp.cbx) = %{tl_version}
-Provides:       tex(authortitle-tcomp.bbx) = %{tl_version}
-Provides:       tex(authortitle-tcomp.cbx) = %{tl_version}
-Provides:       tex(authortitle-terse.bbx) = %{tl_version}
-Provides:       tex(authortitle-terse.cbx) = %{tl_version}
-Provides:       tex(authortitle-ticomp.bbx) = %{tl_version}
-Provides:       tex(authortitle-ticomp.cbx) = %{tl_version}
-Provides:       tex(authortitle.bbx) = %{tl_version}
-Provides:       tex(authortitle.cbx) = %{tl_version}
-Provides:       tex(authoryear-comp.bbx) = %{tl_version}
-Provides:       tex(authoryear-comp.cbx) = %{tl_version}
-Provides:       tex(authoryear-ibid.bbx) = %{tl_version}
-Provides:       tex(authoryear-ibid.cbx) = %{tl_version}
-Provides:       tex(authoryear-icomp.bbx) = %{tl_version}
-Provides:       tex(authoryear-icomp.cbx) = %{tl_version}
-Provides:       tex(authoryear.bbx) = %{tl_version}
-Provides:       tex(authoryear.cbx) = %{tl_version}
-Provides:       tex(biblatex.def) = %{tl_version}
-Provides:       tex(biblatex.sty) = %{tl_version}
-Provides:       tex(blx-bibtex.def) = %{tl_version}
-Provides:       tex(blx-case-expl3.sty) = %{tl_version}
-Provides:       tex(blx-case-latex2e.sty) = %{tl_version}
-Provides:       tex(blx-compat.def) = %{tl_version}
-Provides:       tex(blx-dm.def) = %{tl_version}
-Provides:       tex(blx-mcite.def) = %{tl_version}
-Provides:       tex(blx-natbib.def) = %{tl_version}
-Provides:       tex(blx-unicode.def) = %{tl_version}
-Provides:       tex(debug.bbx) = %{tl_version}
-Provides:       tex(debug.cbx) = %{tl_version}
-Provides:       tex(draft.bbx) = %{tl_version}
-Provides:       tex(draft.cbx) = %{tl_version}
-Provides:       tex(numeric-comp.bbx) = %{tl_version}
-Provides:       tex(numeric-comp.cbx) = %{tl_version}
-Provides:       tex(numeric-verb.bbx) = %{tl_version}
-Provides:       tex(numeric-verb.cbx) = %{tl_version}
-Provides:       tex(numeric.bbx) = %{tl_version}
-Provides:       tex(numeric.cbx) = %{tl_version}
-Provides:       tex(reading.bbx) = %{tl_version}
-Provides:       tex(reading.cbx) = %{tl_version}
-Provides:       tex(standard.bbx) = %{tl_version}
-Provides:       tex(verbose-ibid.bbx) = %{tl_version}
-Provides:       tex(verbose-ibid.cbx) = %{tl_version}
-Provides:       tex(verbose-inote.bbx) = %{tl_version}
-Provides:       tex(verbose-inote.cbx) = %{tl_version}
-Provides:       tex(verbose-note.bbx) = %{tl_version}
-Provides:       tex(verbose-note.cbx) = %{tl_version}
-Provides:       tex(verbose-trad1.bbx) = %{tl_version}
-Provides:       tex(verbose-trad1.cbx) = %{tl_version}
-Provides:       tex(verbose-trad2.bbx) = %{tl_version}
-Provides:       tex(verbose-trad2.cbx) = %{tl_version}
-Provides:       tex(verbose-trad3.bbx) = %{tl_version}
-Provides:       tex(verbose-trad3.cbx) = %{tl_version}
-Provides:       tex(verbose.bbx) = %{tl_version}
-Provides:       tex(verbose.cbx) = %{tl_version}
 
 %description -n texlive-biblatex
 BibLaTeX is a complete reimplementation of the bibliographic facilities
@@ -888,12 +807,6 @@ Requires:       tex(numeric.cbx)
 Requires:       tex(standard.bbx)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(abnt-ibid.bbx) = %{tl_version}
-Provides:       tex(abnt-ibid.cbx) = %{tl_version}
-Provides:       tex(abnt-numeric.bbx) = %{tl_version}
-Provides:       tex(abnt-numeric.cbx) = %{tl_version}
-Provides:       tex(abnt.bbx) = %{tl_version}
-Provides:       tex(abnt.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-abnt
 This package offers a BibLaTeX style for Brazil's ABNT (Brazilian Association
@@ -909,8 +822,6 @@ Requires:       tex(numeric.bbx)
 Requires:       tex(numeric.cbx)
 Requires:       tex(shortmathj.sty)
 Requires:       tex(standard.bbx)
-Provides:       tex(ajc2020unofficial.bbx) = %{tl_version}
-Provides:       tex(ajc2020unofficial.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-ajc2020unofficial
 This is an unofficial BibLaTeX style for the Australasian Journal of
@@ -923,7 +834,6 @@ Version:        svn48548
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(biblatex-anonymous.sty) = %{tl_version}
 
 %description -n texlive-biblatex-anonymous
 The package provides tools to help manage anonymous work with BibLaTeX. It will
@@ -937,8 +847,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(standard.bbx)
-Provides:       tex(apa.bbx) = %{tl_version}
-Provides:       tex(apa.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-apa
 This is a fairly complete BibLaTeX style (citations and references) for APA
@@ -957,8 +865,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(standard.bbx)
-Provides:       tex(apa6.bbx) = %{tl_version}
-Provides:       tex(apa6.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-apa6
 This is a fairly complete BibLaTeX style (citations and references) for APA
@@ -997,93 +903,6 @@ Requires:       tex(verbose.bbx)
 Requires:       tex(verbose.cbx)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(aefkw.bbx) = %{tl_version}
-Provides:       tex(aefkw.cbx) = %{tl_version}
-Provides:       tex(afwl.bbx) = %{tl_version}
-Provides:       tex(afwl.cbx) = %{tl_version}
-Provides:       tex(amit.bbx) = %{tl_version}
-Provides:       tex(amit.cbx) = %{tl_version}
-Provides:       tex(archa.bbx) = %{tl_version}
-Provides:       tex(archa.cbx) = %{tl_version}
-Provides:       tex(authoryear-archaeology.bbx) = %{tl_version}
-Provides:       tex(authoryear-archaeology.cbx) = %{tl_version}
-Provides:       tex(authoryear-comp-archaeology.bbx) = %{tl_version}
-Provides:       tex(authoryear-comp-archaeology.cbx) = %{tl_version}
-Provides:       tex(authoryear-ibid-archaeology.bbx) = %{tl_version}
-Provides:       tex(authoryear-ibid-archaeology.cbx) = %{tl_version}
-Provides:       tex(authoryear-icomp-archaeology.bbx) = %{tl_version}
-Provides:       tex(authoryear-icomp-archaeology.cbx) = %{tl_version}
-Provides:       tex(biblatex-archaeology.sty) = %{tl_version}
-Provides:       tex(dguf-alt.bbx) = %{tl_version}
-Provides:       tex(dguf-alt.cbx) = %{tl_version}
-Provides:       tex(dguf-apa.bbx) = %{tl_version}
-Provides:       tex(dguf-apa.cbx) = %{tl_version}
-Provides:       tex(dguf.bbx) = %{tl_version}
-Provides:       tex(dguf.cbx) = %{tl_version}
-Provides:       tex(eaz-alt.bbx) = %{tl_version}
-Provides:       tex(eaz-alt.cbx) = %{tl_version}
-Provides:       tex(eaz.bbx) = %{tl_version}
-Provides:       tex(eaz.cbx) = %{tl_version}
-Provides:       tex(foe.bbx) = %{tl_version}
-Provides:       tex(foe.cbx) = %{tl_version}
-Provides:       tex(jb-halle.bbx) = %{tl_version}
-Provides:       tex(jb-halle.cbx) = %{tl_version}
-Provides:       tex(jb-kreis-neuss.bbx) = %{tl_version}
-Provides:       tex(jb-kreis-neuss.cbx) = %{tl_version}
-Provides:       tex(karl.bbx) = %{tl_version}
-Provides:       tex(karl.cbx) = %{tl_version}
-Provides:       tex(kunde.bbx) = %{tl_version}
-Provides:       tex(kunde.cbx) = %{tl_version}
-Provides:       tex(maja.bbx) = %{tl_version}
-Provides:       tex(maja.cbx) = %{tl_version}
-Provides:       tex(mpk.bbx) = %{tl_version}
-Provides:       tex(mpk.cbx) = %{tl_version}
-Provides:       tex(mpkoeaw.bbx) = %{tl_version}
-Provides:       tex(mpkoeaw.cbx) = %{tl_version}
-Provides:       tex(niedersachsen.bbx) = %{tl_version}
-Provides:       tex(niedersachsen.cbx) = %{tl_version}
-Provides:       tex(nnu.bbx) = %{tl_version}
-Provides:       tex(nnu.cbx) = %{tl_version}
-Provides:       tex(numeric-comp-archaeology.bbx) = %{tl_version}
-Provides:       tex(numeric-comp-archaeology.cbx) = %{tl_version}
-Provides:       tex(offa.bbx) = %{tl_version}
-Provides:       tex(offa.cbx) = %{tl_version}
-Provides:       tex(rgk-inline-old.bbx) = %{tl_version}
-Provides:       tex(rgk-inline-old.cbx) = %{tl_version}
-Provides:       tex(rgk-inline.bbx) = %{tl_version}
-Provides:       tex(rgk-inline.cbx) = %{tl_version}
-Provides:       tex(rgk-numeric-old.bbx) = %{tl_version}
-Provides:       tex(rgk-numeric-old.cbx) = %{tl_version}
-Provides:       tex(rgk-numeric.bbx) = %{tl_version}
-Provides:       tex(rgk-numeric.cbx) = %{tl_version}
-Provides:       tex(rgk-verbose-old.bbx) = %{tl_version}
-Provides:       tex(rgk-verbose-old.cbx) = %{tl_version}
-Provides:       tex(rgk-verbose.bbx) = %{tl_version}
-Provides:       tex(rgk-verbose.cbx) = %{tl_version}
-Provides:       tex(rgzm-inline.bbx) = %{tl_version}
-Provides:       tex(rgzm-inline.cbx) = %{tl_version}
-Provides:       tex(rgzm-numeric.bbx) = %{tl_version}
-Provides:       tex(rgzm-numeric.cbx) = %{tl_version}
-Provides:       tex(rgzm-verbose.bbx) = %{tl_version}
-Provides:       tex(rgzm-verbose.cbx) = %{tl_version}
-Provides:       tex(ufg-muenster-inline.bbx) = %{tl_version}
-Provides:       tex(ufg-muenster-inline.cbx) = %{tl_version}
-Provides:       tex(ufg-muenster-numeric.bbx) = %{tl_version}
-Provides:       tex(ufg-muenster-numeric.cbx) = %{tl_version}
-Provides:       tex(ufg-muenster-verbose.bbx) = %{tl_version}
-Provides:       tex(ufg-muenster-verbose.cbx) = %{tl_version}
-Provides:       tex(verbose-archaeology.bbx) = %{tl_version}
-Provides:       tex(verbose-archaeology.cbx) = %{tl_version}
-Provides:       tex(verbose-ibid-archaeology.bbx) = %{tl_version}
-Provides:       tex(verbose-ibid-archaeology.cbx) = %{tl_version}
-Provides:       tex(verbose-trad2note-archaeology.bbx) = %{tl_version}
-Provides:       tex(verbose-trad2note-archaeology.cbx) = %{tl_version}
-Provides:       tex(volkskunde.bbx) = %{tl_version}
-Provides:       tex(volkskunde.cbx) = %{tl_version}
-Provides:       tex(zaak.bbx) = %{tl_version}
-Provides:       tex(zaak.cbx) = %{tl_version}
-Provides:       tex(zaes.bbx) = %{tl_version}
-Provides:       tex(zaes.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-archaeology
 This package provides additional BibLaTeX styles for German humanities. Its
@@ -1105,8 +924,6 @@ Requires:       tex(authoryear-ibid.cbx)
 Requires:       tex(authoryear.bbx)
 Requires:       tex(csquotes.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(arthistory-bonn.bbx) = %{tl_version}
-Provides:       tex(arthistory-bonn.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-arthistory-bonn
 This citation style covers the citation and bibliography guidelines of the
@@ -1126,8 +943,6 @@ Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(bath.bbx) = %{tl_version}
-Provides:       tex(bath.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-bath
 This package provides a BibTeX style to format reference lists in the Harvard
@@ -1140,7 +955,6 @@ Version:        svn40323
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(biblatex-bookinarticle.sty) = %{tl_version}
 
 %description -n texlive-biblatex-bookinarticle
 This package provides three new BibLaTeX entry types - @bookinarticle,
@@ -1157,7 +971,6 @@ Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(bookinother.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-bookinother
 This package provides new BibLaTeX entry types and fields for book edited in
@@ -1172,8 +985,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
-Provides:       tex(bwl-FU.bbx) = %{tl_version}
-Provides:       tex(bwl-FU.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-bwl
 The bundle provides a set of BibLaTeX implementations of bibliography and
@@ -1190,13 +1001,6 @@ Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(blx-caspervector-base.def) = %{tl_version}
-Provides:       tex(blx-caspervector-gbk.def) = %{tl_version}
-Provides:       tex(blx-caspervector-utf8.def) = %{tl_version}
-Provides:       tex(caspervector-ay.bbx) = %{tl_version}
-Provides:       tex(caspervector-ay.cbx) = %{tl_version}
-Provides:       tex(caspervector.bbx) = %{tl_version}
-Provides:       tex(caspervector.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-caspervector
 The package provides a simple and easily extensible bibliography/citation style
@@ -1210,14 +1014,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(chem-acs.bbx) = %{tl_version}
-Provides:       tex(chem-acs.cbx) = %{tl_version}
-Provides:       tex(chem-angew.bbx) = %{tl_version}
-Provides:       tex(chem-angew.cbx) = %{tl_version}
-Provides:       tex(chem-biochem.bbx) = %{tl_version}
-Provides:       tex(chem-biochem.cbx) = %{tl_version}
-Provides:       tex(chem-rsc.bbx) = %{tl_version}
-Provides:       tex(chem-rsc.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-chem
 The bundle offers a set of styles to allow chemists to use BibLaTeX. The
@@ -1227,7 +1023,7 @@ of journals). A comprehensive set of examples of use is included.
 
 %package -n texlive-biblatex-chicago
 Summary:        Chicago style files for BibLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1241,23 +1037,6 @@ Requires:       tex(refcount.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(biblatex-chicago.sty) = %{tl_version}
-Provides:       tex(chicago-authordate-trad.bbx) = %{tl_version}
-Provides:       tex(chicago-authordate-trad.cbx) = %{tl_version}
-Provides:       tex(chicago-authordate-trad16.bbx) = %{tl_version}
-Provides:       tex(chicago-authordate-trad16.cbx) = %{tl_version}
-Provides:       tex(chicago-authordate.bbx) = %{tl_version}
-Provides:       tex(chicago-authordate.cbx) = %{tl_version}
-Provides:       tex(chicago-authordate16.bbx) = %{tl_version}
-Provides:       tex(chicago-authordate16.cbx) = %{tl_version}
-Provides:       tex(chicago-dates-common.cbx) = %{tl_version}
-Provides:       tex(chicago-dates-common16.cbx) = %{tl_version}
-Provides:       tex(chicago-notes.bbx) = %{tl_version}
-Provides:       tex(chicago-notes.cbx) = %{tl_version}
-Provides:       tex(chicago-notes16.bbx) = %{tl_version}
-Provides:       tex(chicago-notes16.cbx) = %{tl_version}
-Provides:       tex(cmsdocs.sty) = %{tl_version}
-Provides:       tex(cmsendnotes.sty) = %{tl_version}
 
 %description -n texlive-biblatex-chicago
 This is a BibLaTeX style that implements the Chicago 'author-date' and 'notes
@@ -1274,7 +1053,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(claves.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-claves
 When studying antique and medieval literature, we may find many different texts
@@ -1295,8 +1073,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear.cbx)
 Requires:       tex(standard.bbx)
-Provides:       tex(biblatex-cse.bbx) = %{tl_version}
-Provides:       tex(biblatex-cse.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-cse
 This is a BibLaTeX style that implements the bibliography style of the Council
@@ -1322,9 +1098,6 @@ Requires:       tex(fp.sty)
 Requires:       tex(totcount.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(biblatex-cv.bbx) = %{tl_version}
-Provides:       tex(biblatex-cv.cbx) = %{tl_version}
-Provides:       tex(biblatex-cv.sty) = %{tl_version}
 
 %description -n texlive-biblatex-cv
 This package creates an academic curriculum vitae (CV) from a BibTeX .bib file.
@@ -1333,17 +1106,11 @@ sort the entries on a CV.
 
 %package -n texlive-biblatex-dw
 Summary:        Humanities styles for BibLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
-Provides:       tex(authortitle-dw.bbx) = %{tl_version}
-Provides:       tex(authortitle-dw.cbx) = %{tl_version}
-Provides:       tex(footnote-dw.bbx) = %{tl_version}
-Provides:       tex(footnote-dw.cbx) = %{tl_version}
-Provides:       tex(standard-dw.bbx) = %{tl_version}
-Provides:       tex(standard-dw.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-dw
 A small collection of styles for the BibLaTeX package. It was designed for
@@ -1362,8 +1129,6 @@ Version:        svn73019
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(enc.bbx) = %{tl_version}
-Provides:       tex(enc.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-enc
 This package provides a citation and bibliography style for use with BibLaTeX.
@@ -1374,7 +1139,7 @@ historische-zeitschrift, with the necessary modifications.
 
 %package -n texlive-biblatex-ext
 Summary:        Extended BibLaTeX standard styles
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1425,91 +1190,6 @@ Requires:       tex(verbose.cbx)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xsavebox.sty)
-Provides:       tex(biblatex-ext-oa-doiapi.sty) = %{tl_version}
-Provides:       tex(biblatex-ext-oa.sty) = %{tl_version}
-Provides:       tex(biblatex-ext-oasymb-l3draw.sty) = %{tl_version}
-Provides:       tex(biblatex-ext-oasymb-pict2e.sty) = %{tl_version}
-Provides:       tex(biblatex-ext-oasymb-tikz.sty) = %{tl_version}
-Provides:       tex(biblatex-ext-tabular.sty) = %{tl_version}
-Provides:       tex(ext-alphabetic-verb.bbx) = %{tl_version}
-Provides:       tex(ext-alphabetic-verb.cbx) = %{tl_version}
-Provides:       tex(ext-alphabetic.bbx) = %{tl_version}
-Provides:       tex(ext-alphabetic.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber-comp.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber-comp.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber-ecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber-ecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber-tcomp.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber-tcomp.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber-tecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber-tecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber-terse.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber-terse.cbx) = %{tl_version}
-Provides:       tex(ext-authornumber.bbx) = %{tl_version}
-Provides:       tex(ext-authornumber.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-common.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-comp.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-comp.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-ibid.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-ibid.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-icomp.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-icomp.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-tcomp.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-tcomp.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-terse.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-terse.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle-ticomp.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle-ticomp.cbx) = %{tl_version}
-Provides:       tex(ext-authortitle.bbx) = %{tl_version}
-Provides:       tex(ext-authortitle.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-common.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-comp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-comp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ibid.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ibid.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-icomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-icomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-iecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-iecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tcomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tcomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-terse.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-terse.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ticomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-ticomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tiecomp.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear-tiecomp.cbx) = %{tl_version}
-Provides:       tex(ext-authoryear.bbx) = %{tl_version}
-Provides:       tex(ext-authoryear.cbx) = %{tl_version}
-Provides:       tex(ext-biblatex-aux.def) = %{tl_version}
-Provides:       tex(ext-dashed-common.bbx) = %{tl_version}
-Provides:       tex(ext-numeric-comp.bbx) = %{tl_version}
-Provides:       tex(ext-numeric-comp.cbx) = %{tl_version}
-Provides:       tex(ext-numeric-verb.bbx) = %{tl_version}
-Provides:       tex(ext-numeric-verb.cbx) = %{tl_version}
-Provides:       tex(ext-numeric.bbx) = %{tl_version}
-Provides:       tex(ext-numeric.cbx) = %{tl_version}
-Provides:       tex(ext-standard.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-common.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-ibid.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-ibid.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-inote.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-inote.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-note-common.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-note.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-note.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad1.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad1.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad2.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad2.cbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad3.bbx) = %{tl_version}
-Provides:       tex(ext-verbose-trad3.cbx) = %{tl_version}
-Provides:       tex(ext-verbose.bbx) = %{tl_version}
-Provides:       tex(ext-verbose.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-ext
 The BibLaTeX-ext bundle provides styles that slightly extend the standard
@@ -1525,11 +1205,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
-Provides:       tex(fiwi-yearbeginning.bbx) = %{tl_version}
-Provides:       tex(fiwi.bbx) = %{tl_version}
-Provides:       tex(fiwi.cbx) = %{tl_version}
-Provides:       tex(fiwi2.bbx) = %{tl_version}
-Provides:       tex(fiwi2.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-fiwi
 The package provides a collection of styles for BibLaTeX (version 3.5 is
@@ -1550,51 +1225,6 @@ Requires:       tex(mfirstuc.sty)
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 Requires:       tex(xstring.sty)
-Provides:       tex(chinese-cajhss.bbx) = %{tl_version}
-Provides:       tex(chinese-cajhss.cbx) = %{tl_version}
-Provides:       tex(chinese-cajhssay.bbx) = %{tl_version}
-Provides:       tex(chinese-cajhssay.cbx) = %{tl_version}
-Provides:       tex(chinese-css.bbx) = %{tl_version}
-Provides:       tex(chinese-css.cbx) = %{tl_version}
-Provides:       tex(chinese-erj.bbx) = %{tl_version}
-Provides:       tex(chinese-erj.cbx) = %{tl_version}
-Provides:       tex(chinese-jmw.bbx) = %{tl_version}
-Provides:       tex(chinese-jmw.cbx) = %{tl_version}
-Provides:       tex(chinese-molc.bbx) = %{tl_version}
-Provides:       tex(chinese-molc.cbx) = %{tl_version}
-Provides:       tex(gb7714-1987.bbx) = %{tl_version}
-Provides:       tex(gb7714-1987.cbx) = %{tl_version}
-Provides:       tex(gb7714-1987ay.bbx) = %{tl_version}
-Provides:       tex(gb7714-1987ay.cbx) = %{tl_version}
-Provides:       tex(gb7714-2005.bbx) = %{tl_version}
-Provides:       tex(gb7714-2005.cbx) = %{tl_version}
-Provides:       tex(gb7714-2005ay.bbx) = %{tl_version}
-Provides:       tex(gb7714-2005ay.cbx) = %{tl_version}
-Provides:       tex(gb7714-2015-gbk.def) = %{tl_version}
-Provides:       tex(gb7714-2015.bbx) = %{tl_version}
-Provides:       tex(gb7714-2015.cbx) = %{tl_version}
-Provides:       tex(gb7714-2015ay.bbx) = %{tl_version}
-Provides:       tex(gb7714-2015ay.cbx) = %{tl_version}
-Provides:       tex(gb7714-2015ms.bbx) = %{tl_version}
-Provides:       tex(gb7714-2015ms.cbx) = %{tl_version}
-Provides:       tex(gb7714-2015mx.bbx) = %{tl_version}
-Provides:       tex(gb7714-2015mx.cbx) = %{tl_version}
-Provides:       tex(gb7714-2025.bbx) = %{tl_version}
-Provides:       tex(gb7714-2025.cbx) = %{tl_version}
-Provides:       tex(gb7714-2025ay.bbx) = %{tl_version}
-Provides:       tex(gb7714-2025ay.cbx) = %{tl_version}
-Provides:       tex(gb7714-CCNU.bbx) = %{tl_version}
-Provides:       tex(gb7714-CCNU.cbx) = %{tl_version}
-Provides:       tex(gb7714-CCNUay.bbx) = %{tl_version}
-Provides:       tex(gb7714-CCNUay.cbx) = %{tl_version}
-Provides:       tex(gb7714-NWAFU.bbx) = %{tl_version}
-Provides:       tex(gb7714-NWAFU.cbx) = %{tl_version}
-Provides:       tex(gb7714-SEU.bbx) = %{tl_version}
-Provides:       tex(gb7714-SEU.cbx) = %{tl_version}
-Provides:       tex(gb7714.bbx) = %{tl_version}
-Provides:       tex(gb7714.cbx) = %{tl_version}
-Provides:       tex(gb7714ay.bbx) = %{tl_version}
-Provides:       tex(gb7714ay.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-gb7714-2015
 This package provides an implementation of the GBT7714-2015 bibliography style.
@@ -1611,8 +1241,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ext-authortitle.bbx)
 Requires:       tex(ext-authortitle.cbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(german-legal-book.bbx) = %{tl_version}
-Provides:       tex(german-legal-book.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-german-legal
 This package aims to provide citation styles (for footnotes and bibliographies)
@@ -1630,28 +1258,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(biblatex-gost.def) = %{tl_version}
-Provides:       tex(gost-alphabetic-min.bbx) = %{tl_version}
-Provides:       tex(gost-alphabetic-min.cbx) = %{tl_version}
-Provides:       tex(gost-alphabetic.bbx) = %{tl_version}
-Provides:       tex(gost-alphabetic.cbx) = %{tl_version}
-Provides:       tex(gost-authoryear-min.bbx) = %{tl_version}
-Provides:       tex(gost-authoryear-min.cbx) = %{tl_version}
-Provides:       tex(gost-authoryear.bbx) = %{tl_version}
-Provides:       tex(gost-authoryear.cbx) = %{tl_version}
-Provides:       tex(gost-footnote-min.bbx) = %{tl_version}
-Provides:       tex(gost-footnote-min.cbx) = %{tl_version}
-Provides:       tex(gost-footnote.bbx) = %{tl_version}
-Provides:       tex(gost-footnote.cbx) = %{tl_version}
-Provides:       tex(gost-inline-min.bbx) = %{tl_version}
-Provides:       tex(gost-inline-min.cbx) = %{tl_version}
-Provides:       tex(gost-inline.bbx) = %{tl_version}
-Provides:       tex(gost-inline.cbx) = %{tl_version}
-Provides:       tex(gost-numeric-min.bbx) = %{tl_version}
-Provides:       tex(gost-numeric-min.cbx) = %{tl_version}
-Provides:       tex(gost-numeric.bbx) = %{tl_version}
-Provides:       tex(gost-numeric.cbx) = %{tl_version}
-Provides:       tex(gost-standard.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-gost
 The package provides BibLaTeX support for Russian bibliography style GOST
@@ -1664,8 +1270,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
-Provides:       tex(historian.bbx) = %{tl_version}
-Provides:       tex(historian.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-historian
 A BibLaTeX style, based on the Turabian Manual (a version of Chicago).
@@ -1679,11 +1283,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 Requires:       tex(numeric-verb.cbx)
-Provides:       tex(ieee-alphabetic.bbx) = %{tl_version}
-Provides:       tex(ieee-alphabetic.cbx) = %{tl_version}
-Provides:       tex(ieee-comp.cbx) = %{tl_version}
-Provides:       tex(ieee.bbx) = %{tl_version}
-Provides:       tex(ieee.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-ieee
 This is a BibLaTeX style that implements the bibliography style of the IEEE for
@@ -1702,8 +1301,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(ijsra.bbx) = %{tl_version}
-Provides:       tex(ijsra.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-ijsra
 BibLaTeX style used for the journal International Journal of Student Research
@@ -1718,16 +1315,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(authortitle.cbx)
 Requires:       tex(authoryear.cbx)
 Requires:       tex(numeric.cbx)
-Provides:       tex(iso-alphabetic.bbx) = %{tl_version}
-Provides:       tex(iso-alphabetic.cbx) = %{tl_version}
-Provides:       tex(iso-authortitle.bbx) = %{tl_version}
-Provides:       tex(iso-authortitle.cbx) = %{tl_version}
-Provides:       tex(iso-authoryear.bbx) = %{tl_version}
-Provides:       tex(iso-authoryear.cbx) = %{tl_version}
-Provides:       tex(iso-fullcite.cbx) = %{tl_version}
-Provides:       tex(iso-numeric.bbx) = %{tl_version}
-Provides:       tex(iso-numeric.cbx) = %{tl_version}
-Provides:       tex(iso.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-iso690
 The package provides a bibliography and citation style which conforms to the
@@ -1742,22 +1329,18 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ext-authortitle-ibid.bbx)
 Requires:       tex(ext-authortitle-ibid.cbx)
-Provides:       tex(jura2.bbx) = %{tl_version}
-Provides:       tex(jura2.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-jura2
 The package offers BibLaTeX support for citations in German legal texts.
 
 %package -n texlive-biblatex-juradiss
 Summary:        BibLaTeX stylefiles for German law theses
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authortitle-dw.bbx)
 Requires:       tex(authortitle-dw.cbx)
-Provides:       tex(biblatex-juradiss.bbx) = %{tl_version}
-Provides:       tex(biblatex-juradiss.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-juradiss
 The package provides a custom citation-style for typesetting a German law
@@ -1773,7 +1356,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(biblatex.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(biblatex-license.sty) = %{tl_version}
 
 %description -n texlive-biblatex-license
 This package is for adding license data to bibliography entries via BibLaTeX's
@@ -1788,8 +1370,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric.bbx)
 Requires:       tex(numeric.cbx)
-Provides:       tex(lncs.bbx) = %{tl_version}
-Provides:       tex(lncs.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-lncs
 This is a BibLaTeX style for Springer Lecture Notes in Computer Science (LNCS).
@@ -1801,8 +1381,6 @@ Version:        svn73625
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(LNI.bbx) = %{tl_version}
-Provides:       tex(LNI.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-lni
 BibLaTeX style for the Lecture Notes in Informatics, which is published by the
@@ -1818,12 +1396,6 @@ Requires:       tex(authoryear-icomp.bbx)
 Requires:       tex(authoryear-icomp.cbx)
 Requires:       tex(verbose-inote.bbx)
 Requires:       tex(verbose-inote.cbx)
-Provides:       tex(authoryear-luh-ipw.bbx) = %{tl_version}
-Provides:       tex(authoryear-luh-ipw.cbx) = %{tl_version}
-Provides:       tex(standard-luh-ipw.bbx) = %{tl_version}
-Provides:       tex(standard-luh-ipw.cbx) = %{tl_version}
-Provides:       tex(verbose-inote-luh-ipw.bbx) = %{tl_version}
-Provides:       tex(verbose-inote-luh-ipw.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-luh-ipw
 The bundle is a small collection of styles for BibLaTeX. It was designed for
@@ -1840,10 +1412,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(manuscripts-NewBibliographyString.sty) = %{tl_version}
-Provides:       tex(manuscripts-noautoshorthand.bbx) = %{tl_version}
-Provides:       tex(manuscripts-shared.bbx) = %{tl_version}
-Provides:       tex(manuscripts.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-manuscripts-philology
 The package adds a new entry type: @manuscript to manage manuscript in
@@ -1856,15 +1424,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
-Provides:       tex(mla-footnotes.cbx) = %{tl_version}
-Provides:       tex(mla-new.bbx) = %{tl_version}
-Provides:       tex(mla-new.cbx) = %{tl_version}
-Provides:       tex(mla-strict.bbx) = %{tl_version}
-Provides:       tex(mla-strict.cbx) = %{tl_version}
-Provides:       tex(mla.bbx) = %{tl_version}
-Provides:       tex(mla.cbx) = %{tl_version}
-Provides:       tex(mla7.bbx) = %{tl_version}
-Provides:       tex(mla7.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-mla
 The package provides BibLaTeX support for citations in the format specified by
@@ -1879,7 +1438,6 @@ Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(morenames.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-morenames
 This package adds new fields of "name" type to the standard entry types of
@@ -1915,69 +1473,6 @@ Requires:       tex(pdftexcmds.sty)
 Requires:       tex(standard.bbx)
 Requires:       tex(url.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(alphabetic-ms.bbx) = %{tl_version}
-Provides:       tex(alphabetic-ms.cbx) = %{tl_version}
-Provides:       tex(alphabetic-verb-ms.bbx) = %{tl_version}
-Provides:       tex(alphabetic-verb-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-comp-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-comp-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-ibid-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-ibid-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-icomp-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-icomp-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-tcomp-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-tcomp-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-terse-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-terse-ms.cbx) = %{tl_version}
-Provides:       tex(authortitle-ticomp-ms.bbx) = %{tl_version}
-Provides:       tex(authortitle-ticomp-ms.cbx) = %{tl_version}
-Provides:       tex(authoryear-comp-ms.bbx) = %{tl_version}
-Provides:       tex(authoryear-comp-ms.cbx) = %{tl_version}
-Provides:       tex(authoryear-ibid-ms.bbx) = %{tl_version}
-Provides:       tex(authoryear-ibid-ms.cbx) = %{tl_version}
-Provides:       tex(authoryear-icomp-ms.bbx) = %{tl_version}
-Provides:       tex(authoryear-icomp-ms.cbx) = %{tl_version}
-Provides:       tex(authoryear-ms.bbx) = %{tl_version}
-Provides:       tex(authoryear-ms.cbx) = %{tl_version}
-Provides:       tex(biblatex-ms.def) = %{tl_version}
-Provides:       tex(biblatex-ms.sty) = %{tl_version}
-Provides:       tex(blx-bibtex-ms.def) = %{tl_version}
-Provides:       tex(blx-case-expl3-ms.sty) = %{tl_version}
-Provides:       tex(blx-case-latex2e-ms.sty) = %{tl_version}
-Provides:       tex(blx-compat-ms.def) = %{tl_version}
-Provides:       tex(blx-dm-ms.def) = %{tl_version}
-Provides:       tex(blx-mcite-ms.def) = %{tl_version}
-Provides:       tex(blx-natbib-ms.def) = %{tl_version}
-Provides:       tex(blx-unicode-ms.def) = %{tl_version}
-Provides:       tex(debug-ms.bbx) = %{tl_version}
-Provides:       tex(debug-ms.cbx) = %{tl_version}
-Provides:       tex(draft-ms.bbx) = %{tl_version}
-Provides:       tex(draft-ms.cbx) = %{tl_version}
-Provides:       tex(numeric-comp-ms.bbx) = %{tl_version}
-Provides:       tex(numeric-comp-ms.cbx) = %{tl_version}
-Provides:       tex(numeric-ms.bbx) = %{tl_version}
-Provides:       tex(numeric-ms.cbx) = %{tl_version}
-Provides:       tex(numeric-verb-ms.bbx) = %{tl_version}
-Provides:       tex(numeric-verb-ms.cbx) = %{tl_version}
-Provides:       tex(reading-ms.bbx) = %{tl_version}
-Provides:       tex(reading-ms.cbx) = %{tl_version}
-Provides:       tex(standard-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-ibid-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-ibid-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-inote-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-inote-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-note-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-note-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-trad1-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-trad1-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-trad2-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-trad2-ms.cbx) = %{tl_version}
-Provides:       tex(verbose-trad3-ms.bbx) = %{tl_version}
-Provides:       tex(verbose-trad3-ms.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-ms
 This package is the "multiscript" version of the BibLaTeX package intended to
@@ -2001,8 +1496,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(biblatex-multiple-dm.sty) = %{tl_version}
-Provides:       tex(multiple-dm.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-multiple-dm
 The package adds the possibility to BibLaTeX to load data models from multiple
@@ -2016,8 +1509,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authortitle.bbx)
 Requires:       tex(verbose-ibid.cbx)
-Provides:       tex(musuos.bbx) = %{tl_version}
-Provides:       tex(musuos.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-musuos
 The style is designed for use with the musuos class, but it should be usable
@@ -2031,8 +1522,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(nature.bbx) = %{tl_version}
-Provides:       tex(nature.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-nature
 The bundle offers styles that allow authors to use BibLaTeX when preparing
@@ -2047,8 +1536,6 @@ Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(numeric-comp.cbx)
 Requires:       tex(numeric.bbx)
-Provides:       tex(nejm.bbx) = %{tl_version}
-Provides:       tex(nejm.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-nejm
 This is a BibLaTeX numeric style based on the design of the New England Journal
@@ -2061,8 +1548,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear.bbx)
-Provides:       tex(nottsclassic.bbx) = %{tl_version}
-Provides:       tex(nottsclassic.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-nottsclassic
 This citation-style covers the citation and bibliography rules of the
@@ -2077,7 +1562,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ltxcmds.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(biblatex-opcit-booktitle.sty) = %{tl_version}
 
 %description -n texlive-biblatex-opcit-booktitle
 The default citation styles verbose-trad1+; verbose-trad2 ; verbose-trad3 use
@@ -2107,27 +1591,6 @@ Requires:       tex(verbose-trad3.cbx)
 Requires:       tex(verbose.cbx)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(oxalph.bbx) = %{tl_version}
-Provides:       tex(oxalph.cbx) = %{tl_version}
-Provides:       tex(oxnotes-ibid.bbx) = %{tl_version}
-Provides:       tex(oxnotes-ibid.cbx) = %{tl_version}
-Provides:       tex(oxnotes-inote.bbx) = %{tl_version}
-Provides:       tex(oxnotes-inote.cbx) = %{tl_version}
-Provides:       tex(oxnotes-note.bbx) = %{tl_version}
-Provides:       tex(oxnotes-note.cbx) = %{tl_version}
-Provides:       tex(oxnotes-trad1.bbx) = %{tl_version}
-Provides:       tex(oxnotes-trad1.cbx) = %{tl_version}
-Provides:       tex(oxnotes-trad2.bbx) = %{tl_version}
-Provides:       tex(oxnotes-trad2.cbx) = %{tl_version}
-Provides:       tex(oxnotes-trad3.bbx) = %{tl_version}
-Provides:       tex(oxnotes-trad3.cbx) = %{tl_version}
-Provides:       tex(oxnotes.bbx) = %{tl_version}
-Provides:       tex(oxnotes.cbx) = %{tl_version}
-Provides:       tex(oxnum.bbx) = %{tl_version}
-Provides:       tex(oxnum.cbx) = %{tl_version}
-Provides:       tex(oxref.bbx) = %{tl_version}
-Provides:       tex(oxyear.bbx) = %{tl_version}
-Provides:       tex(oxyear.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-oxref
 This bundle provides four BibLaTeX styles that implement (many of) the
@@ -2153,13 +1616,6 @@ Requires:       tex(authoryear-comp.cbx)
 Requires:       biber
 Requires:       tex(standard.bbx)
 Requires:       tex(verbose-trad2.cbx)
-Provides:       tex(philosophy-classic.bbx) = %{tl_version}
-Provides:       tex(philosophy-classic.cbx) = %{tl_version}
-Provides:       tex(philosophy-modern.bbx) = %{tl_version}
-Provides:       tex(philosophy-modern.cbx) = %{tl_version}
-Provides:       tex(philosophy-standard.bbx) = %{tl_version}
-Provides:       tex(philosophy-verbose.bbx) = %{tl_version}
-Provides:       tex(philosophy-verbose.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-philosophy
 The bundle offers two styles - philosophy-classic and philosophy-modern - that
@@ -2178,8 +1634,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(phys.bbx) = %{tl_version}
-Provides:       tex(phys.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-phys
 The package provides an implementation of the bibliography styles of both the
@@ -2191,14 +1645,12 @@ the minor formatting variations between the AIP and APS bibliography styles.
 
 %package -n texlive-biblatex-publist
 Summary:        BibLaTeX bibliography support for publication lists
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric.cbx)
 Requires:       tex(xcolor.sty)
-Provides:       tex(publist.bbx) = %{tl_version}
-Provides:       tex(publist.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-publist
 The package provides a BibLaTeX bibliography style file (*.bbx) for publication
@@ -2214,7 +1666,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(biblatex-readbbl.sty) = %{tl_version}
 
 %description -n texlive-biblatex-readbbl
 This small package modifies the biblatex macro which reads a .bbl file created
@@ -2231,7 +1682,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(realauthor.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-realauthor
 This package allows to use a new field "realauthor", which indicates the real
@@ -2254,10 +1704,6 @@ Requires:       tex(setspace.sty)
 Requires:       tex(textcase.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(titletoc.sty)
-Provides:       tex(biblatex-sbl.def) = %{tl_version}
-Provides:       tex(sbl-paper.sty) = %{tl_version}
-Provides:       tex(sbl.bbx) = %{tl_version}
-Provides:       tex(sbl.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-sbl
 The package provides BibLaTeX support for citations in the format specified by
@@ -2274,8 +1720,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
-Provides:       tex(science.bbx) = %{tl_version}
-Provides:       tex(science.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-science
 The bundle offers styles that allow authors to use BibLaTeX when preparing
@@ -2287,7 +1731,6 @@ Version:        svn45858
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(biblatex-shortfields.sty) = %{tl_version}
 
 %description -n texlive-biblatex-shortfields
 The BibLaTeX package provides shortseries and shortjournal field, but the
@@ -2311,8 +1754,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ext-authoryear.bbx)
 Requires:       tex(ext-authoryear.cbx)
 Requires:       tex(xcolor.sty)
-Provides:       tex(socialscienceshuberlin.bbx) = %{tl_version}
-Provides:       tex(socialscienceshuberlin.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-socialscienceshuberlin
 This is a BibLaTeX style for the social sciences at the Humboldt-Universitat zu
@@ -2326,8 +1767,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(xurl.sty)
-Provides:       tex(software-biblatex.sty) = %{tl_version}
-Provides:       tex(software.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-software
 This package implements software entry types for BibLaTeX in the form of a
@@ -2341,7 +1780,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(biblatex-source-division.sty) = %{tl_version}
 
 %description -n texlive-biblatex-source-division
 The package enables the user to make reference to "division marks" (such as
@@ -2359,8 +1797,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
-Provides:       tex(biblatex-spbasic.bbx) = %{tl_version}
-Provides:       tex(biblatex-spbasic.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-spbasic
 This package provides a bibliography and citation style for BibLaTeX/biber for
@@ -2375,7 +1811,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(subseries.bbx) = %{tl_version}
 
 %description -n texlive-biblatex-subseries
 Some publishers organize book series with subseries. In this case, two numbers
@@ -2386,23 +1821,13 @@ fields to manage such system.
 
 %package -n texlive-biblatex-swiss-legal
 Summary:        Bibliography and citation styles following Swiss legal practice
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amssymb.sty)
 Requires:       biber
 Requires:       tex(xstring.sty)
-Provides:       tex(biblatex-swiss-legal-base.bbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-base.cbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-bibliography.bbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-bibliography.cbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-general.bbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-general.cbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-longarticle.bbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-longarticle.cbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-shortarticle.bbx) = %{tl_version}
-Provides:       tex(biblatex-swiss-legal-shortarticle.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-swiss-legal
 The package provides BibLaTeX bibliography and citation styles for documents
@@ -2414,22 +1839,12 @@ outdated and does not work properly with newer versions of BibLaTeX.
 
 %package -n texlive-biblatex-trad
 Summary:        "Traditional" BibTeX styles with BibLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(numeric.cbx)
 Requires:       tex(standard.bbx)
-Provides:       tex(trad-abbrv.bbx) = %{tl_version}
-Provides:       tex(trad-abbrv.cbx) = %{tl_version}
-Provides:       tex(trad-alpha.bbx) = %{tl_version}
-Provides:       tex(trad-alpha.cbx) = %{tl_version}
-Provides:       tex(trad-plain.bbx) = %{tl_version}
-Provides:       tex(trad-plain.cbx) = %{tl_version}
-Provides:       tex(trad-standard.bbx) = %{tl_version}
-Provides:       tex(trad-standard.cbx) = %{tl_version}
-Provides:       tex(trad-unsrt.bbx) = %{tl_version}
-Provides:       tex(trad-unsrt.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-trad
 The bundle provides implementations of the "traditional" BibTeX styles (plain,
@@ -2442,7 +1857,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xstring.sty)
-Provides:       tex(biblatex-true-citepages-omit.sty) = %{tl_version}
 
 %description -n texlive-biblatex-true-citepages-omit
 This package deals with a limitation of the citepages=omit option of the
@@ -2459,8 +1873,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(authoryear.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(unified.bbx) = %{tl_version}
-Provides:       tex(unified.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-unified
 BibLaTeX-unified is an opinionated BibLaTeX implementation of the Unified
@@ -2476,8 +1888,6 @@ Requires:       biber
 Requires:       tex(ifthen.sty)
 Requires:       tex(numeric.bbx)
 Requires:       tex(numeric.cbx)
-Provides:       tex(vancouver.bbx) = %{tl_version}
-Provides:       tex(vancouver.cbx) = %{tl_version}
 
 %description -n texlive-biblatex-vancouver
 This package provides the Vancouver reference style for BibLaTeX. It is based
@@ -2485,12 +1895,11 @@ on the numeric style and requires biber.
 
 %package -n texlive-biblatex2bibitem
 Summary:        Convert BibLaTeX-generated bibliography to bibitems
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(biblatex.sty)
-Provides:       tex(biblatex2bibitem.sty) = %{tl_version}
 
 %description -n texlive-biblatex2bibitem
 Some journals accept the reference list only as \bibitems. If you use BibTeX,
@@ -2502,11 +1911,10 @@ provided by this package solves the problem.
 
 %package -n texlive-biblist
 Summary:        Print a BibTeX database
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(biblist.sty) = %{tl_version}
 
 %description -n texlive-biblist
 The package provides the means of listing an entire BibTeX database, avoiding
@@ -2536,12 +1944,11 @@ file.
 
 %package -n texlive-bibtopic
 Summary:        Include multiple bibliographies in a document
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
-Provides:       tex(bibtopic.sty) = %{tl_version}
 
 %description -n texlive-bibtopic
 The package allows the user to include several bibliographies covering
@@ -2562,7 +1969,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(bibtopic.sty)
 Requires:       tex(scrlfile.sty)
-Provides:       tex(bibtopicprefix.sty) = %{tl_version}
 
 %description -n texlive-bibtopicprefix
 The package permits users to apply prefixes (fixed strings) to references to
@@ -2570,11 +1976,10 @@ entries in bibliographies produced by the bibtopic package.
 
 %package -n texlive-bibunits
 Summary:        Multiple bibliographies in one document
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bibunits.sty) = %{tl_version}
 
 %description -n texlive-bibunits
 The package provide a mechanism to generate separate bibliographies for
@@ -2612,11 +2017,10 @@ volumes.
 
 %package -n texlive-breakcites
 Summary:        Ensure that multiple citations may break at line end
-Version:        svn21014
+Version:        svn78101
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(breakcites.sty) = %{tl_version}
 
 %description -n texlive-breakcites
 Makes a very minor change to the operation of the \cite command. Note that the
@@ -2631,7 +2035,6 @@ License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(cite.sty)
-Provides:       tex(cell.sty) = %{tl_version}
 
 %description -n texlive-cell
 This is an "apa-like" style (cf. apalike.bst in the BibTeX distribution),
@@ -2644,7 +2047,6 @@ Version:        svn17120
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chbibref.sty) = %{tl_version}
 
 %description -n texlive-chbibref
 Defines a single command, \setbibref, which sets whichever of \bibname and
@@ -2669,11 +2071,10 @@ simultaneously.
 
 %package -n texlive-chicago
 Summary:        A "Chicago" bibliography style
-Version:        svn77677
+Version:        svn77682
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chicago.sty) = %{tl_version}
 
 %description -n texlive-chicago
 Chicago is a BibTeX style that follows the "B" reference style of the 13th
@@ -2721,7 +2122,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(url.sty)
-Provides:       tex(chscite.sty) = %{tl_version}
 
 %description -n texlive-chscite
 The package, heavily based on the harvard package for Harvard-style citations,
@@ -2730,12 +2130,11 @@ that follows given recommendations.
 
 %package -n texlive-citeall
 Summary:        Cite all entries of a bbl created with BibLaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(citeall.sty) = %{tl_version}
 
 %description -n texlive-citeall
 This small package allows to cite all entries of a bbl-file created with
@@ -2747,7 +2146,6 @@ Version:        svn47407
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(citeref.sty) = %{tl_version}
 
 %description -n texlive-citeref
 The package does its job without using the indexing facilities, and needs no
@@ -2760,7 +2158,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
-Provides:       tex(citeright.sty) = %{tl_version}
 
 %description -n texlive-citeright
 This package provides the command \citeright for aliasing in-text citations and
@@ -2772,11 +2169,10 @@ way, decolonizing academia.
 
 %package -n texlive-collref
 Summary:        Collect blocks of references into a single reference
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(collref.sty) = %{tl_version}
 
 %description -n texlive-collref
 The package automatically collects multiple \bibitem references, which always
@@ -2788,7 +2184,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(compactbib.sty) = %{tl_version}
 
 %description -n texlive-compactbib
 Allows a second bibliography, optionally with a different title, after the main
@@ -2800,9 +2195,6 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(geophys.tex) = %{tl_version}
-Provides:       tex(makebst.tex) = %{tl_version}
-Provides:       tex(shorthnd.tex) = %{tl_version}
 
 %description -n texlive-custom-bib
 Package generating customized BibTeX bibliography styles from a generic file
@@ -2829,8 +2221,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(url.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dk-apali.sty) = %{tl_version}
-Provides:       tex(dk-bib.sty) = %{tl_version}
 
 %description -n texlive-dk-bib
 Dk-bib is a translation of the four standard BibTeX style files (abbrv, alpha,
@@ -2846,7 +2236,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(url.sty)
-Provides:       tex(doipubmed.sty) = %{tl_version}
 
 %description -n texlive-doipubmed
 The package provides the commands \doi, \pubmed and \citeurl. These commands
@@ -2862,8 +2251,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(standard.bbx)
-Provides:       tex(ecobiblatex.bbx) = %{tl_version}
-Provides:       tex(ecobiblatex.cbx) = %{tl_version}
 
 %description -n texlive-ecobiblatex
 This bundle provides a set of styles for creating bibliographies using BibLaTeX
@@ -2891,21 +2278,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ulem.sty)
-Provides:       tex(aer.sty) = %{tl_version}
-Provides:       tex(aertt.sty) = %{tl_version}
-Provides:       tex(agecon.cls) = %{tl_version}
-Provides:       tex(ajae.cls) = %{tl_version}
-Provides:       tex(apecon.cls) = %{tl_version}
-Provides:       tex(cje.sty) = %{tl_version}
-Provides:       tex(ecca.cls) = %{tl_version}
-Provides:       tex(erae.cls) = %{tl_version}
-Provides:       tex(itaxpf.cls) = %{tl_version}
-Provides:       tex(jrurstud.cls) = %{tl_version}
-Provides:       tex(njf.cls) = %{tl_version}
-Provides:       tex(oegatb.cls) = %{tl_version}
-Provides:       tex(pocoec.cls) = %{tl_version}
-Provides:       tex(regstud.cls) = %{tl_version}
-Provides:       tex(worlddev.cls) = %{tl_version}
 
 %description -n texlive-economic
 The bundle offers macros and BibTeX styles for the American Economic Review
@@ -2935,7 +2307,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(epsfig.sty)
-Provides:       tex(figbib.sty) = %{tl_version}
 
 %description -n texlive-figbib
 FigBib lets you organize your figures in BibTeX databases. Some FigBib features
@@ -2951,7 +2322,6 @@ Version:        svn17115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(footbib.sty) = %{tl_version}
 
 %description -n texlive-footbib
 The package makes bibliographic references appear as footnotes. It defines a
@@ -2969,7 +2339,6 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(francaisbst.tex) = %{tl_version}
 
 %description -n texlive-francais-bst
 The package provides bibliographies (in French) conforming to the rules in
@@ -2988,7 +2357,6 @@ Requires:       texlive-natbib
 Requires:       texlive-url
 Requires:       tex(natbib.sty)
 Requires:       tex(url.sty)
-Provides:       tex(gbt7714.sty) = %{tl_version}
 
 %description -n texlive-gbt7714
 The package provides a BibTeX implementation for the Chinese national
@@ -3005,9 +2373,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(standard.bbx)
-Provides:       tex(geschichtsfrkl.bbx) = %{tl_version}
-Provides:       tex(geschichtsfrkl.cbx) = %{tl_version}
-Provides:       tex(geschichtsfrkldoc.sty) = %{tl_version}
 
 %description -n texlive-geschichtsfrkl
 The package provides a BibLaTeX style, (mostly) meeting the requirements of the
@@ -3015,14 +2380,13 @@ History Faculty of the University of Freiburg (Germany).
 
 %package -n texlive-harvard
 Summary:        Harvard citation package for use with LaTeX2e
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 # Adding for dependency on html.sty
 Requires:       latex2html
 Requires:       tex(ifthen.sty)
-Provides:       tex(harvard.sty) = %{tl_version}
 
 %description -n texlive-harvard
 This is a re-implementation, for LaTeX2e, of the original Harvard package. The
@@ -3043,7 +2407,6 @@ Version:        svn15878
 License:        CC-BY-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(harvmac.tex) = %{tl_version}
 
 %description -n texlive-harvmac
 Known as 'Harvard macros', since written at that University.
@@ -3058,7 +2421,6 @@ Requires:       tex(biblatex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(relsize.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(hep-bibliography.sty) = %{tl_version}
 
 %description -n texlive-hep-bibliography
 The hep-bibliography package extends the BibLaTeX package with some
@@ -3072,8 +2434,6 @@ Version:        svn42635
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(historische-zeitschrift.bbx) = %{tl_version}
-Provides:       tex(historische-zeitschrift.cbx) = %{tl_version}
 
 %description -n texlive-historische-zeitschrift
 The package provides citations according with the house style of the
@@ -3093,7 +2453,6 @@ Requires:       tex(datatool.sty)
 Requires:       tex(usebib.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(icite.sty) = %{tl_version}
 
 %description -n texlive-icite
 The package is designed to produce from BibTeX or BibLaTeX bibliographical
@@ -3132,8 +2491,6 @@ Version:        svn22018
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(inlinebib.sty) = %{tl_version}
-Provides:       tex(pageranges.sty) = %{tl_version}
 
 %description -n texlive-inlinebib
 A BibTeX style and a LaTeX package that allow for a full bibliography at the
@@ -3180,11 +2537,10 @@ Journal of Molecular Biology.
 
 %package -n texlive-jmb
 Summary:        BibTeX style for the Journal of Theoretical Biology
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(jmb.sty) = %{tl_version}
 
 %description -n texlive-jmb
 This BibTeX bibliography style is for the Journal of Molecular Biology and
@@ -3201,7 +2557,6 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(jneurosci.sty) = %{tl_version}
 
 %description -n texlive-jneurosci
 This is a slightly modified version of the namedplus style, which fully
@@ -3211,7 +2566,7 @@ package are provided.
 
 %package -n texlive-jurabib
 Summary:        Extended BibTeX citation support for the humanities and legal texts
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3222,17 +2577,6 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(url.sty)
-Provides:       tex(dajbbib.ldf) = %{tl_version}
-Provides:       tex(dejbbib.ldf) = %{tl_version}
-Provides:       tex(dujbbib.ldf) = %{tl_version}
-Provides:       tex(enjbbib.ldf) = %{tl_version}
-Provides:       tex(fijbbib.ldf) = %{tl_version}
-Provides:       tex(frjbbib.ldf) = %{tl_version}
-Provides:       tex(itjbbib.ldf) = %{tl_version}
-Provides:       tex(jurabib.sty) = %{tl_version}
-Provides:       tex(nojbbib.ldf) = %{tl_version}
-Provides:       tex(ptjbbib.ldf) = %{tl_version}
-Provides:       tex(spjbbib.ldf) = %{tl_version}
 
 %description -n texlive-jurabib
 This package enables automated citation with BibTeX for legal studies and the
@@ -3268,8 +2612,6 @@ Requires:       texlive-kpathsea
 Requires:       texlive-etoolbox
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(logreq.def) = %{tl_version}
-Provides:       tex(logreq.sty) = %{tl_version}
 
 %description -n texlive-logreq
 The package helps to automate a typical LaTeX workflow that involves running
@@ -3291,7 +2633,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsrefs.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(ltb2bib.sty) = %{tl_version}
 
 %description -n texlive-ltb2bib
 This package implements a LaTeX command that converts an amsrefs
@@ -3308,7 +2649,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
-Provides:       tex(luabibentry.sty) = %{tl_version}
 
 %description -n texlive-luabibentry
 The package reimplements bibentry, for use in LuaLaTeX.
@@ -3320,7 +2660,6 @@ License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 # Ignoring dependency on marn.sty - not part of TeX Live
-Provides:       tex(margbib.sty) = %{tl_version}
 
 %description -n texlive-margbib
 The package redefines the 'thebibliography' environment to place the citation
@@ -3328,11 +2667,10 @@ key into the margin.
 
 %package -n texlive-multibib
 Summary:        Multiple bibliographies within one document
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(multibib.sty) = %{tl_version}
 
 %description -n texlive-multibib
 The package the creation of references to multiple bibliographies within one
@@ -3355,7 +2693,7 @@ harvard and oxford.
 
 %package -n texlive-nar
 Summary:        BibTeX style for Nucleic Acid Research
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3378,12 +2716,11 @@ alongside natbib for citations.
 
 %package -n texlive-nmbib
 Summary:        Multiple versions of a bibliography, with different sort orders
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(natbib.sty)
-Provides:       tex(nmbib.sty) = %{tl_version}
 
 %description -n texlive-nmbib
 This package is a rewrite of the multibibliography package providing multiple
@@ -3393,12 +2730,11 @@ compatibility with the natbib package, and provides other improvements.
 
 %package -n texlive-notes2bib
 Summary:        Integrating notes into the bibliography
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(notes2bib.sty) = %{tl_version}
 
 %description -n texlive-notes2bib
 The package defines a new type of note, bibnote, which will always be added to
@@ -3425,15 +2761,13 @@ on the web starting from BibTeX files.
 
 %package -n texlive-oscola
 Summary:        BibLaTeX style for the Oxford Standard for the Citation of Legal Authorities
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authortitle.bbx)
 Requires:       biber
 Requires:       tex(verbose-inote.cbx)
-Provides:       tex(oscola.bbx) = %{tl_version}
-Provides:       tex(oscola.cbx) = %{tl_version}
 
 %description -n texlive-oscola
 The package provides a set of style files for use with BibLaTeX (v 2+) and
@@ -3486,7 +2820,6 @@ Requires:       tex(kvoptions.sty)
 Requires:       tex(mciteplus.sty)
 Requires:       tex(natbib.sty)
 Requires:       tex(natmove.sty)
-Provides:       tex(rsc.sty) = %{tl_version}
 
 %description -n texlive-rsc
 The rsc package provides a BibTeX style in accordance with the requirements of
@@ -3497,11 +2830,10 @@ writing of articles with a chemistry content.
 
 %package -n texlive-showtags
 Summary:        Print the tags of bibliography entries
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(showtags.sty) = %{tl_version}
 
 %description -n texlive-showtags
 Prints the tag right-aligned on each line of the bibliography.
@@ -3520,11 +2852,10 @@ entry. The styles are adapted from standard ones or from natbib ones.
 
 %package -n texlive-splitbib
 Summary:        Split and reorder your bibliography
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(splitbib.sty) = %{tl_version}
 
 %description -n texlive-splitbib
 This package enables you to split a bibliography into several categories and
@@ -3542,9 +2873,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(footmisc.sty)
 Requires:       tex(nowidow.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(turabian-formatting.sty) = %{tl_version}
-Provides:       tex(turabian-researchpaper.cls) = %{tl_version}
-Provides:       tex(turabian-thesis.cls) = %{tl_version}
 
 %description -n texlive-turabian-formatting
 The turabian-formatting package provides Chicago-style formatting based on Kate
@@ -3559,8 +2887,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authortitle-dw.bbx)
 Requires:       tex(authortitle-dw.cbx)
-Provides:       tex(uni-wtal-ger.bbx) = %{tl_version}
-Provides:       tex(uni-wtal-ger.cbx) = %{tl_version}
 
 %description -n texlive-uni-wtal-ger
 The package defines a BibLaTeX citation style based on the author-title style
@@ -3575,8 +2901,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
-Provides:       tex(uni-wtal-lin.bbx) = %{tl_version}
-Provides:       tex(uni-wtal-lin.cbx) = %{tl_version}
 
 %description -n texlive-uni-wtal-lin
 The package defines a BibLaTeX citation style based on the standard author-year
@@ -3585,13 +2909,12 @@ Linguistics at the Bergische Universitat Wuppertal.
 
 %package -n texlive-usebib
 Summary:        A simple bibliography processor
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
 Requires:       tex(url.sty)
-Provides:       tex(usebib.sty) = %{tl_version}
 
 %description -n texlive-usebib
 The package is described by its author as "a poor person's replacement for the
@@ -3643,9 +2966,6 @@ Requires:       tex(titlesec.sty)
 Requires:       tex(tocloft.sty)
 Requires:       tex(xltxtra.sty)
 Requires:       tex(xunicode.sty)
-Provides:       tex(windycity.bbx) = %{tl_version}
-Provides:       tex(windycity.cbx) = %{tl_version}
-Provides:       tex(windycity.sty) = %{tl_version}
 
 %description -n texlive-windycity
 Windy City is a style for BibLaTeX that formats notes, bibliographies,
@@ -3654,12 +2974,11 @@ The Chicago Manual of Style.
 
 %package -n texlive-xcite
 Summary:        Use citation keys from a different document
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xr.sty)
-Provides:       tex(xcite.sty) = %{tl_version}
 
 %description -n texlive-xcite
 The package xcite is no longer necessary, because its functionality has been
@@ -4809,6 +4128,9 @@ popd
 %doc %{_texmf_main}/doc/bibtex/zootaxa-bst/
 
 %changelog
+* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-7
+- Update 31 components
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-6
 - Update amsrefs apacite authordate biblatex biblatex-chicago biblatex-dw
   biblatex-ext biblatex-juradiss biblatex-publist biblatex-swiss-legal

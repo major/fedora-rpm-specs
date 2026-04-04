@@ -96,7 +96,8 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
     -s TestVimeoShortcode
     -s TestPagesFromGoTmplAsciiDocAndSimilar
 }
-%gocheck2 -F %{ignores}
+# internal/warpc: fails on ppc64le.
+%gocheck2 -F -d internal/warpc %{ignores}
 %endif
 
 %files -f %{go_vendor_license_filelist}

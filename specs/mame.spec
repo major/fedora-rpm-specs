@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 286
+%global baseversion 287
 
 %undefine _auto_set_build_flags
 
@@ -162,34 +162,63 @@ rm -rf \
 install -pm 644 %{SOURCE1} whatsnew_0%{baseversion}.txt
 
 # Create ini files
+# mame.ini
 cat > %{name}.ini << EOF
-# Define multi-user paths
-artpath            %{_datadir}/%{name}/artwork;%{_datadir}/%{name}/effects
-bgfx_path          %{_datadir}/%{name}/bgfx
-cheatpath          %{_datadir}/%{name}/cheat
-crosshairpath      %{_datadir}/%{name}/crosshair
-ctrlrpath          %{_datadir}/%{name}/ctrlr
-fontpath           %{_datadir}/%{name}/fonts
-hashpath           %{_datadir}/%{name}/hash
-languagepath       %{_datadir}/%{name}/language
-pluginspath        %{_datadir}/%{name}/plugins
-rompath            %{_datadir}/%{name}/roms;%{_datadir}/%{name}/chds;\$HOME/.local/share/%{name}/roms;\$XDG_DATA_HOME/%{name}/roms
-samplepath         %{_datadir}/%{name}/samples
+# Define core search paths
+homepath                  \$XDG_CONFIG_HOME/%{name};\$HOME/.config/%{name}
+rompath                   %{_datadir}/%{name}/roms;%{_datadir}/%{name}/chds;\$XDG_DATA_HOME/%{name}/roms;\$HOME/.local/share/%{name}/roms;\$XDG_DATA_HOME/%{name}/chds;\$HOME/.local/share/%{name}/chds
+hashpath                  %{_datadir}/%{name}/hash
+samplepath                %{_datadir}/%{name}/samples
+artpath                   %{_datadir}/%{name}/artwork;%{_datadir}/%{name}/effects
+ctrlrpath                 %{_datadir}/%{name}/ctrlr
+inipath                   \$XDG_CONFIG_HOME/%{name};\$HOME/.config/%{name};\$HOME/.%{name}/ini;%{_sysconfdir}/%{name}
+fontpath                  %{_datadir}/%{name}/fonts
+cheatpath                 %{_datadir}/%{name}/cheat
+crosshairpath             %{_datadir}/%{name}/crosshair
+pluginspath               %{_datadir}/%{name}/plugins
+languagepath              %{_datadir}/%{name}/language
+swpath                    %{_datadir}/%{name}/software
 
-# Allow user to override ini settings
-inipath            \$XDG_CONFIG_HOME/%{name};\$HOME/.config/%{name};\$HOME/.%{name}/ini;%{_sysconfdir}/%{name}
+# Set core output paths for local storage
+cfg_directory             \$XDG_CONFIG_HOME/%{name}/cfg;\$HOME/.config/%{name}/cfg;\$HOME/.%{name}/cfg
+nvram_directory           \$XDG_STATE_HOME/%{name}/nvram;\$HOME/.local/state/%{name}/nvram;\$HOME/.%{name}/nvram
+input_directory           \$XDG_CONFIG_HOME/%{name}/inp;\$HOME/.config/%{name}/inp;\$HOME/.%{name}/inp
+state_directory           \$XDG_STATE_HOME/%{name}/sta;\$HOME/.local/state/%{name}/sta;\$HOME/.%{name}/sta
+snapshot_directory        \$XDG_STATE_HOME/%{name}/snap;\$HOME/.local/state/%{name}/snap;\$HOME/.%{name}/snap
+diff_directory            \$XDG_CONFIG_HOME/%{name}/diff;\$HOME/.config/%{name}/diff;\$HOME/.%{name}/diff
+comment_directory         \$XDG_CONFIG_HOME/%{name}/comments;\$HOME/.config/%{name}/comments;\$HOME/.%{name}/comments
+share_directory           \$XDG_DATA_HOME/%{name}/share;\$HOME/.local/share/%{name}/share;\$HOME/.%{name}/share
 
-# Set paths for local storage
-cfg_directory      \$XDG_CONFIG_HOME/%{name}/cfg;\$HOME/.config/%{name}/cfg;\$HOME/.%{name}/cfg
-comment_directory  \$XDG_CONFIG_HOME/%{name}/comments;\$HOME/.config/%{name}/comments;\$HOME/.%{name}/comments
-diff_directory     \$XDG_CONFIG_HOME/%{name}/diff;\$HOME/.config/%{name}/diff;\$HOME/.%{name}/diff
-input_directory    \$XDG_CONFIG_HOME/%{name}/inp;\$HOME/.config/%{name}/inp;\$HOME/.%{name}/inp
-nvram_directory    \$XDG_STATE_HOME/%{name}/nvram;\$HOME/.local/state/%{name}/nvram;\$HOME/.%{name}/nvram
-snapshot_directory \$XDG_STATE_HOME/%{name}/snap;\$HOME/.local/state/%{name}/snap;\$HOME/.%{name}/snap
-state_directory    \$XDG_STATE_HOME/%{name}/sta;\$HOME/.local/state/%{name}/sta;\$HOME/.%{name}/sta
+# Define bgfx path
+bgfx_path                 %{_datadir}/%{name}/bgfx
 
 # Fedora custom defaults
 autosave           1
+EOF
+
+# ui.ini
+cat > ui.ini << EOF
+# Define ui search paths
+historypath               %{_datadir}/%{name}/history;%{_datadir}/%{name}/dats;\$XDG_DATA_HOME/%{name}/history;\$HOME/.local/share/%{name}/history;\$XDG_DATA_HOME/%{name}/dats;\$HOME/.local/share/%{name}/dats
+categorypath              %{_datadir}/%{name}/folders;\$XDG_DATA_HOME/%{name}/folders;\$HOME/.local/share/%{name}/folders
+cabinets_directory        %{_datadir}/%{name}/cabinets;%{_datadir}/%{name}/cabdevs;\$XDG_DATA_HOME/%{name}/cabinets;\$HOME/.local/share/%{name}/cabinets;\$XDG_DATA_HOME/%{name}/cabdevs;\$HOME/.local/share/%{name}/cabdevs
+cpanels_directory         %{_datadir}/%{name}/cpanel;\$XDG_DATA_HOME/%{name}/cpanel;\$HOME/.local/share/%{name}/cpanel
+pcbs_directory            %{_datadir}/%{name}/pcb;\$XDG_DATA_HOME/%{name}/pcb;\$HOME/.local/share/%{name}/pcb
+flyers_directory          %{_datadir}/%{name}/flyers;\$XDG_DATA_HOME/%{name}/flyers;\$HOME/.local/share/%{name}/flyers
+titles_directory          %{_datadir}/%{name}/titles;\$XDG_DATA_HOME/%{name}/titles;\$HOME/.local/share/%{name}/titles
+ends_directory            %{_datadir}/%{name}/ends;\$XDG_DATA_HOME/%{name}/ends;\$HOME/.local/share/%{name}/ends
+marquees_directory        %{_datadir}/%{name}/marquees;\$XDG_DATA_HOME/%{name}/marquees;\$HOME/.local/share/%{name}/marquees
+artwork_preview_directory %{_datadir}/%{name}/"artwork preview";%{_datadir}/%{name}/artpreview;\$XDG_DATA_HOME/%{name}/"artwork preview";\$HOME/.local/share/%{name}/"artwork preview";\$XDG_DATA_HOME/%{name}/artpreview;\$HOME/.local/share/%{name}/artpreview
+bosses_directory          %{_datadir}/%{name}/bosses;\$XDG_DATA_HOME/%{name}/bosses;\$HOME/.local/share/%{name}/bosses
+logos_directory           %{_datadir}/%{name}/logo;\$XDG_DATA_HOME/%{name}/logo;\$HOME/.local/share/%{name}/logo
+scores_directory          %{_datadir}/%{name}/scores;\$XDG_DATA_HOME/%{name}/scores;\$HOME/.local/share/%{name}/scores
+versus_directory          %{_datadir}/%{name}/versus;\$XDG_DATA_HOME/%{name}/versus;\$HOME/.local/share/%{name}/versus
+gameover_directory        %{_datadir}/%{name}/gameover;\$XDG_DATA_HOME/%{name}/gameover;\$HOME/.local/share/%{name}/gameover
+howto_directory           %{_datadir}/%{name}/howto;\$XDG_DATA_HOME/%{name}/howto;\$HOME/.local/share/%{name}/howto
+select_directory          %{_datadir}/%{name}/select;\$XDG_DATA_HOME/%{name}/select;\$HOME/.local/share/%{name}/select
+icons_directory           %{_datadir}/%{name}/icons;\$XDG_DATA_HOME/%{name}/icons;\$HOME/.local/share/%{name}/icons
+covers_directory          %{_datadir}/%{name}/covers;\$XDG_DATA_HOME/%{name}/covers;\$HOME/.local/share/%{name}/covers
+ui_path                   \$XDG_CONFIG_HOME/%{name}/ui;\$HOME/.config/%{name}/ui;\$HOME/.%{name}/ui
 EOF
 
 #ensure genie uses $RPM_OPT_FLAGS and $RPM_LD_FLAGS
@@ -263,22 +292,35 @@ rm -rf $RPM_BUILD_ROOT
 
 # create directories
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
-for folder in cfg comments diff inp
+for folder in cfg comments diff inp ui
 do
     install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.config/%{name}/$folder
 done
-for folder in memcard nvram snap sta
+for folder in nvram snap sta
 do
     install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.local/state/%{name}/$folder
 done
-for folder in roms
+for folder in chds roms share
+do
+    install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.local/share/%{name}/$folder
+done
+for folder in artpreview "artwork preview" bosses cabdevs cabinets covers \
+    cpanel dats ends flyers folders gameover history howto icons logo marquees \
+    pcb scores select titles versus
 do
     install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.local/share/%{name}/$folder
 done
 
 install -d $RPM_BUILD_ROOT%{_bindir}
-for folder in artwork bgfx chds cheats ctrlr effects fonts hash language \
-    plugins keymaps roms samples shader
+for folder in artwork bgfx chds cheat crosshair ctrlr effects fonts hash \
+    keymaps language plugins roms samples shader software
+do
+    install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$folder
+done
+# This bunch of dirs goes to the same folder that the previous one, but mantain ui ones separated to easy future changes.
+for folder in artpreview "artwork preview" bosses cabdevs cabinets covers \
+    cpanel dats ends flyers folders gameover history howto icons logo marquees \
+    pcb scores select titles versus
 do
     install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/$folder
 done
@@ -287,6 +329,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man6
 
 # install files
 install -pm 644 %{name}.ini $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+install -pm 644 ui.ini $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 %if %{with debug}
 install -pm 755 %{name}d $RPM_BUILD_ROOT%{_bindir}/%{name}d
 %else
@@ -340,6 +383,7 @@ find $RPM_BUILD_ROOT%{_datadir}/%{name} -name LICENSE -exec rm {} \;
 
 %files
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.ini
+%config(noreplace) %{_sysconfdir}/%{name}/ui.ini
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/skel/.config/%{name}
 %{_sysconfdir}/skel/.local/state/%{name}
@@ -383,15 +427,19 @@ find $RPM_BUILD_ROOT%{_datadir}/%{name} -name LICENSE -exec rm {} \;
 %{_datadir}/%{name}/artwork
 %{_datadir}/%{name}/bgfx
 %{_datadir}/%{name}/chds
-%{_datadir}/%{name}/cheats
+%{_datadir}/%{name}/cheat
+%{_datadir}/%{name}/ctrlr
+%{_datadir}/%{name}/dats
 %{_datadir}/%{name}/effects
 %{_datadir}/%{name}/fonts
+%{_datadir}/%{name}/history
 %{_datadir}/%{name}/keymaps
 %dir %{_datadir}/%{name}/language
 %{_datadir}/%{name}/plugins
 %{_datadir}/%{name}/roms
 %{_datadir}/%{name}/samples
 %{_datadir}/%{name}/shader
+%{_datadir}/%{name}/software
 
 %files data-software-lists
 %{_datadir}/%{name}/hash

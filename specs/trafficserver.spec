@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.1.1
-Release:        2%{?dist}
+Version:        10.1.2
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -286,6 +286,9 @@ fi
 
 
 %changelog
+* Thu Apr 02 2026 Jered Floyd <jered@redhat.com> - 10.1.2-1
+- Update to upstream 10.1.2
+
 * Tue Feb 10 2026 Jered Floyd <jered@redhat.com> - 10.1.1-2
 - Ignore warnings (temporarily) for Fedora rawhide/GCC 16 in libswoc
 

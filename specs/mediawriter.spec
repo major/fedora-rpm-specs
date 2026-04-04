@@ -1,11 +1,13 @@
 Name:           mediawriter
-Version:        5.2.9
-Release:        2%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            https://github.com/FedoraQt/MediaWriter
 Source0:        https://github.com/FedoraQt/MediaWriter/archive/%{version}.tar.gz#/MediaWriter-%{version}.tar.gz
+
+Patch0:         mediawriter-fix-appstream-metadata.patch
 
 Provides:       liveusb-creator = %{version}-%{release}
 Obsoletes:      liveusb-creator <= 3.95.4-2
@@ -53,13 +55,13 @@ like flash drives or memory cards.
 %cmake_install
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedoraproject.MediaWriter.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedoraproject.MediaWriter.metainfo.xml
 
 %files
 %license LICENSE.GPL-2 LICENSE.LGPL-2
 %{_bindir}/%{name}
 %{_libexecdir}/%{name}/
-%{_datadir}/metainfo/org.fedoraproject.MediaWriter.appdata.xml
+%{_datadir}/metainfo/org.fedoraproject.MediaWriter.metainfo.xml
 %{_datadir}/applications/org.fedoraproject.MediaWriter.desktop
 %{_datadir}/icons/hicolor/16x16/apps/org.fedoraproject.MediaWriter.png
 %{_datadir}/icons/hicolor/22x22/apps/org.fedoraproject.MediaWriter.png
@@ -72,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
 
 %changelog
+* Thu Apr 02 2026 Jan Grulich <jgrulich@redhat.com> - 5.3.0-1
+- Update to version 5.3.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -266,7 +271,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 - Depend on UDisks2 instead of storage if Fedora != 25
 
 * Tue Apr 11 2017 Martin Bříza <mbriza@redhat.com> 4.0.95-2
-- Get rid of {?_isa} in the dependencies 
+- Get rid of {?_isa} in the dependencies
 
 * Mon Mar 20 2017 Martin Bříza <mbriza@redhat.com> 4.0.95-1
 - Update to 4.0.95

@@ -25,6 +25,7 @@ BuildRequires:  pkgconfig(Qt6Widgets)
 Requires:       obs-studio%{?_isa}
 Enhances:       obs-studio%{?_isa}
 
+ExcludeArch:    %{ix86}
 
 %description
 Use your phone as a camera directly in OBS.

@@ -12,7 +12,7 @@ of different Bootswatch CSS themes.
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{common_sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -36,7 +36,6 @@ BuildRequires:  web-assets-devel
 Summary:        %{common_sum}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %if 0%{?rhel}
 Provides:       bundled(glyphicons-halflings-fonts)
@@ -47,7 +46,6 @@ Requires:       web-assets-filesystem
 Provides:       bundled(jquery) = %{jquery_version}
 Requires:       python3-sphinx
 
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{common_desc}
@@ -55,15 +53,19 @@ Requires:       python3-sphinx
 
 %prep
 %autosetup -n %{srcname}-%{version}
-rm -rf *.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l sphinx_bootstrap_theme
 
 # Remove the bundled fonts on RHEL
 %if 0%{?rhel}
@@ -75,14 +77,18 @@ done
 %endif
 
 
-%files -n python3-%{srcname}
-%license LICENSE.txt
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc *.rst
-%{python3_sitelib}/sphinx_bootstrap_theme
-%{python3_sitelib}/sphinx_bootstrap_theme-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Thu Apr 02 2026 Stuart Campbell <scampbell@bnl.gov> - 0.8.1-18
+- Migrate away from py3_build and/or py3_install macros
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

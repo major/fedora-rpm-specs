@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.59.4
+Version:       1.59.5
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -654,7 +654,7 @@ else
   # https://lists.fedorahosted.org/archives/list/koji-devel@lists.fedorahosted.org/thread/ZIBY53JAURLT3QRBBJIJJ7EZWLZDE3TI/
   # -n 1 because of RHBZ#980502.
   dirs=
-  for d in /var/cache/{dnf,libdnf5,yum} ; do
+  for d in /hermetic_repo /var/cache/{dnf,libdnf5,yum} ; do
     if test -d $d ; then dirs="$dirs $d" ; fi
   done
   test -n "$dirs"
@@ -1022,6 +1022,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Apr 02 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.5-1
+- New upstream development version 1.59.5
+
 * Tue Mar 17 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.4-1
 - New upstream development version 1.59.4
 

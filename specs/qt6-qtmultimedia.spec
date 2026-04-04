@@ -20,8 +20,8 @@
 
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
-Version: 6.10.2
-Release: 2%{?dist}
+Version: 6.10.3
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -35,11 +35,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 Patch0:  qtmultimedia-fix-build-on-x86-arch.patch
-# Fix headphones not being picked up on PipeWire
-# https://qt-project.atlassian.net/browse/QTBUG-143570
-# https://bugs.kde.org/show_bug.cgi?id=515151
-# Picked from: https://codereview.qt-project.org/c/qt/qtmultimedia/+/707961
-Patch1:  qtmultimedia-pipewire-relax-format-requirements.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt6_archdatadir}/qml/.*\\.so|%{_qt6_plugindir}/.*\\.so)$
@@ -239,6 +234,9 @@ rm -r %{buildroot}%{_qt6_archdatadir}/mkspecs/features/ios/add_ios_ffmpeg_librar
 
 
 %changelog
+* Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Thu Mar 19 2026 Cristian Le <git@lecris.dev> - 6.10.2-2
 - Fix headphones not being picked up on PipeWire
 

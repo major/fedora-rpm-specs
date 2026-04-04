@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        177
+Version:        178
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -470,6 +470,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Thu Apr 02 2026 Packit <hello@packit.dev> - 178-1
+Changes with 178
+----------------
+  - Packit: disable s390x builds in COPR (#2406)
+    - Author: Tomáš Hozza, Reviewers: Anna Vítová, Simon de Vlieger
+  - Support uri encoded urls (#2405)
+    - Author: Justin Sherrill, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update osbuild-ci container images (#2408)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - Update snapshots to 20260329 (#2403)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - stage: flatpak.build-import-bundle.oci (HMS-10170) (#2400)
+    - Author: Simon de Vlieger, Reviewers: Dusty Mabe, Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-04-02
+
+
 * Thu Mar 26 2026 Packit <hello@packit.dev> - 177-1
 Changes with 177
 ----------------

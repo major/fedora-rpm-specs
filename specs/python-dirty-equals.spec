@@ -24,7 +24,6 @@ BuildArch:      noarch
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters)
 # mixed in, so we list the real test dependencies manually.
 BuildRequires:  %{py3_dist packaging} >= 25
-BuildRequires:  %{py3_dist pydantic} >= 2.10.6
 BuildRequires:  %{py3_dist pytest} >= 8.3.5
 # Not packaged: python-pytest-examples; would enable tests/test_docs.py
 # BuildRequires:  %%{py3_dist pytest-examples} >= 0.0.18

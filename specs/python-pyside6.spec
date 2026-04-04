@@ -6,10 +6,10 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.10.2
+%global qt6ver 6.10.3
 
 Name:           python-%{pypi_name}
-Version:        6.10.2
+Version:        6.10.3
 Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
@@ -27,6 +27,8 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 Patch:          0001-Revert-Modify-headers-installation-for-CMake-builds.patch
 Patch:          0001-Always-link-to-python-libraries.patch
 Patch:          0001-Fix-installation.patch
+# Fix FlagsTypeEntry name collision causing wrong type resolution with Clang 22
+Patch:          0001-shiboken6-Fix-FlagsTypeEntry-name-collision-with-Clan.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -373,6 +375,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Thu Apr 02 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Tue Feb 10 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

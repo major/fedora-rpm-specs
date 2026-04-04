@@ -56,7 +56,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 BuildRequires:  python3-devel
-BuildRequires:	python3-distro
+BuildRequires:  python3-distro
 BuildRequires:  sed
 %if %{with tcmalloc}
 BuildRequires:  gperftools-libs
@@ -168,7 +168,7 @@ make test
 
 
 %files
-%license Artistic LICENSE
+%license LICENSE
 %{_mandir}/man1/*.1.gz
 %{_bindir}/verilator
 %{_bindir}/verilator_bin
@@ -180,13 +180,13 @@ make test
 %{_datadir}/verilator/bin
 
 %files devel
-%license Artistic LICENSE
+%license LICENSE
 %{_datadir}/verilator/include
 %{_libdir}/pkgconfig/verilator.pc
 %{_datadir}/verilator/verilator-config*.cmake
 
 %files doc
-%license Artistic LICENSE docs/guide/copyright.rst
+%license LICENSE docs/guide/copyright.rst
 %doc Changes README*
 %doc docs
 

@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.2
+Version:        6.10.3
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTranslations component
 
@@ -109,6 +109,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

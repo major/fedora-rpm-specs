@@ -21,7 +21,7 @@
 #
 
 %global upstreamname mxdatagenerator
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -103,9 +103,12 @@ rm -f %{buildroot}%_datadir/doc/mxDataGenerator/LICENSE.md
 %files devel
 %doc README.md
 %license LICENSE.md
-%_includedir/*.hpp
+%_includedir/mxDataGenerator/
 %_datadir/cmake/mxDataGenerator/
 
 %changelog
+* Thu Apr 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.12.0-1
+- Update to 7.12
+
 * Sun Feb 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.11.0-1
 - Initial package

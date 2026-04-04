@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.24
+Version:        1.25
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -60,6 +60,20 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.25-1
+- Update to 1.25 (rhbz#2454158)
+  Bug Fixes:
+  - Fix IO::Pty DESTROY force-closing the slave pty: the DESTROY method (added
+    in 1.21) explicitly closed the cached slave handle, breaking consumers like
+    IPC::Run that hold a reference to the slave via $pty->slave() and expect it
+    to survive master destruction; now just deletes the internal reference and
+    lets Perl's refcounting handle fd closure correctly (GH#62, GH#64)
+  Maintenance:
+  - Simplify version variables to a single source of truth: extract version
+    from Tty.pm in Makefile.PL using MM->parse_version() instead of hardcoding
+    it, use VERSION_FROM in WriteMakefile, and remove $XS_VERSION from Tty.pm
+    (GH#61)
+
 * Fri Mar 27 2026 Paul Howarth <paul@city-fan.org> - 1.24-1
 - Update to 1.24 (rhbz#2452300)
   Bug Fixes:

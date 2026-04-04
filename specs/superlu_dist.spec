@@ -62,7 +62,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 9.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD-3-Clause
@@ -137,6 +137,7 @@ Development files for %{name}-openmpi
 %package openmpi-examples
 Summary: Example files for %{name}-openmpi
 Requires: %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: openmpi%{?_isa}
 %description openmpi-examples
 This package contains sample programs to illustrate how to use
 various functions provided in SuperLU_DIST.
@@ -195,6 +196,7 @@ Development files for %{name}-mpich
 %package mpich-examples
 Summary: Example files for %{name}-mpich
 Requires: %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: mpich%{?_isa}
 %description mpich-examples
 This package contains sample programs to illustrate how to use
 various functions provided in SuperLU_DIST.
@@ -507,6 +509,9 @@ popd
 
 
 %changelog
+* Thu Apr 02 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:9.2.1-2
+- Explicite MPI runtime required packages
+
 * Wed Apr 01 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:9.2.1-1
 - Release 9.2.1
 - Fix License expression

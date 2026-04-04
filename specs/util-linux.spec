@@ -1,7 +1,7 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.41.3
+Version: 2.42
 # -p -e rc1
 Release: %autorelease -b7
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
@@ -106,14 +106,6 @@ Provides:       /usr/sbin/sfdisk
 ### Fedora specific patches
 Patch0: 0000-login-use-O_CREAT-on-lastlog.patch
 Patch1: 0001-login-add-run-motd.d-to-the-hardcoded-MOTD_FILE.patch
-
-### Temporary dracut workaround
-Patch2: 0002-libmount-disable-EROFS-backing-file-support.patch
-
-# Upstream backports
-Patch3: 0003-build-sys-gcc-ignore-Wunused-but-set-variable-for-bi.patch
-Patch4: 0004-blkid-Drop-const-from-blkid_partitions_get_name.patch
-
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -561,6 +553,7 @@ fi
 %{_bindir}/colcrt
 %{_bindir}/colrm
 %{_bindir}/column
+%{_bindir}/copyfilerange
 %{_bindir}/coresched
 %{_bindir}/eject
 %{_bindir}/enosys
@@ -568,6 +561,7 @@ fi
 %{_bindir}/fallocate
 %{_bindir}/fincore
 %{_bindir}/fadvise
+%{_bindir}/getino
 %{_bindir}/getopt
 %{_bindir}/hexdump
 %{_bindir}/irqtop
@@ -617,6 +611,7 @@ fi
 %{_mandir}/man1/colcrt.1*
 %{_mandir}/man1/colrm.1*
 %{_mandir}/man1/column.1*
+%{_mandir}/man1/copyfilerange.1*
 %{_mandir}/man1/coresched.1.*
 %{_mandir}/man1/eject.1*
 %{_mandir}/man1/enosys.1*
@@ -624,6 +619,7 @@ fi
 %{_mandir}/man1/fadvise.1*
 %{_mandir}/man1/fallocate.1*
 %{_mandir}/man1/fincore.1*
+%{_mandir}/man1/getino.1*
 %{_mandir}/man1/getopt.1*
 %{_mandir}/man1/hexdump.1*
 %{_mandir}/man1/irqtop.1*
@@ -739,6 +735,7 @@ fi
 %{compldir}/colcrt
 %{compldir}/colrm
 %{compldir}/column
+%{compldir}/copyfilerange
 %{compldir}/coresched
 %{compldir}/ctrlaltdel
 %{compldir}/delpart
@@ -754,6 +751,7 @@ fi
 %{compldir}/fsck.minix
 %{compldir}/fsfreeze
 %{compldir}/fstrim
+%{compldir}/getino
 %{compldir}/getopt
 %{compldir}/hexdump
 %{compldir}/irqtop
@@ -987,10 +985,12 @@ fi
 %{_libdir}/pkgconfig/lastlog2.pc
 %{_mandir}/man3/lastlog2.3.*
 %{_mandir}/man3/ll2_import_lastlog.3*
+%{_mandir}/man3/ll2_new_context.3*
 %{_mandir}/man3/ll2_read_all.3*
 %{_mandir}/man3/ll2_read_entry.3*
 %{_mandir}/man3/ll2_remove_entry.3*
 %{_mandir}/man3/ll2_rename_user.3*
+%{_mandir}/man3/ll2_unref_context.3*
 %{_mandir}/man3/ll2_update_login_time.3*
 %{_mandir}/man3/ll2_write_entry.3*
 

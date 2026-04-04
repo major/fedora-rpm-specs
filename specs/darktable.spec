@@ -21,6 +21,8 @@ Source0: https://github.com/darktable-org/darktable/releases/download/release-%{
 Patch0: 0001-Add-5.4.1-in-appdata.patch
 
 Patch1: darktable-5.4.1-lua-5.5.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2454222
+Patch2: cve-2026-5318.patch
 
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)

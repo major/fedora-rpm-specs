@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:		xrootd-s3-http
-Version:	0.6.5
+Version:	0.6.6
 Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
@@ -67,6 +67,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Thu Apr 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.6-1
+- Update to version 0.6.6
+
 * Wed Mar 04 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.5-1
 - Update to version 0.6.5
 

@@ -27,13 +27,13 @@
 %global forgeurl0 https://github.com/fcitx/mozc
 %global commit0   c0ed34eaa1f39d2106554f4811969ebea04c1f0f
 
-# BSD 2-Clause license
+# BSD-2-Clause license
 # src/third_party/japanese_usage_dictionary
 %global forgeurl1 https://github.com/hiroyuki-komatsu/japanese-usage-dictionary
 %global commit1   e5b3425575734c323e1d947009dd74709437b684
 
 %if %{with bundle_protobuf}
-# BSD 3-Clause
+# BSD-3-Clause
 # src/third_party/protobuf
 %global forgeurl2 https://github.com/protocolbuffers/protobuf
 %global tag2      v3.29.1
@@ -76,7 +76,9 @@ Name:           fcitx5-mozc
 Version:        %{forgeversion}
 Release:        %autorelease
 Summary:        A wrapper of mozc for fcitx5
-License:        BSD and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL%{?with_bundle_abslcpp: and ASL-2.0}
+# src/data/unicode/ is UCD, but it is not copyrightable https://docs.fedoraproject.org/en-US/legal/license-field/#notcopyrightable
+# src/data/dictionary* is NAIST-2003
+License:        BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain AND NAIST-2003 AND LGPL-2.0-or-later %{?with_bundle_abslcpp: AND Apache-2.0}
 URL:            %{forgeurl}
 
 # main source

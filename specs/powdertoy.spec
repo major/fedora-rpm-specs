@@ -9,8 +9,8 @@ URL: https://powdertoy.co.uk
 # src/lua/ is MIT
 License: GPL-3.0-only AND Apache-2.0 AND MIT
 
-Version: 99.3.384
-Release: 6%{?dist}
+Version: 99.5.394
+Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Thu Apr 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 99.5.394-1
+- Update to v99.5.394
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 99.3.384-6
 - Rebuild (jsoncpp)
 

@@ -2,11 +2,13 @@
 
 Name:         davix
 Version:      0.8.10
-Release:      6%{?dist}
+Release:      7%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
 Source0:      https://github.com/cern-fts/davix/releases/download/R_0_8_10/davix-0.8.10.tar.gz
+#             https://github.com/cern-fts/davix/pull/141
+Patch0:       0001-Update-CMake-minimum-requirement-and-supported-versi.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      python3
@@ -72,9 +74,6 @@ BuildArch:    noarch
 %description doc
 Documentation and examples for %{name}. Davix is a toolkit designed
 for file operations with HTTP based protocols (WebDav, Amazon S3, ...).
-
-%clean
-%cmake_build --target clean
 
 %prep
 %autosetup -p1
@@ -151,6 +150,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Thu Apr 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.10-7
+- Update CMake minimum requirement and supported versions
+
 * Tue Jan 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.10-6
 - Rebuild for gsoap 2.8.139 (Fedora 44)
 

@@ -5,7 +5,7 @@
 Name:           texlive-collection-context
 Epoch:          12
 Version:        svn75426
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ConTeXt and packages
 
 License:        LPPL-1.3c
@@ -189,14 +189,13 @@ License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-context
-Provides:       tex(t-handlecsv.tex) = %{tl_version}
 
 %description -n texlive-context-handlecsv
 The package handles csv data merging for automatic document creation.
 
 %package -n texlive-context-letter
 Summary:        ConTeXt package for writing letters
-Version:        svn60787
+Version:        svn77841
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -214,7 +213,6 @@ License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-context
-Provides:       tex(t-mathsets.tex) = %{tl_version}
 
 %description -n texlive-context-mathsets
 Typeset good-looking set notation (e.g., {x|x \in Y}), as well as similar
@@ -258,30 +256,6 @@ License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-context
-Provides:       tex(s-simpleslides-BigNumber.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-BlackBoard.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-BottomSquares.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Boxed.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-BoxedTitle.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Ellipse.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Embossed.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Framed.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-FramedTitle.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-FuzzyFrame.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-FuzzyTopic.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-HorizontalStripes.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-NarrowStripes.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-PlainCounter.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-RainbowStripe.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Rounded.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Shaded.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-SideSquares.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-SideToc.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Split.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Sunrise.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-Swoosh.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-ThickStripes.tex) = %{tl_version}
-Provides:       tex(s-simpleslides-default.tex) = %{tl_version}
 
 %description -n texlive-context-simpleslides
 This ConTeXt module provides an easy-to-use interface for creating
@@ -293,7 +267,7 @@ configurable, and it is easy to design new styles.
 
 %package -n texlive-context-squares
 Summary:        Typesetting Magic and Latin squares
-Version:        svn70128
+Version:        svn77881
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -304,7 +278,7 @@ The package provides typesetting of magic and latin squares.
 
 %package -n texlive-context-sudoku
 Summary:        Sudokus for ConTeXt
-Version:        svn76924
+Version:        svn77880
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -321,7 +295,6 @@ License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-context
-Provides:       tex(t-transliterator.tex) = %{tl_version}
 
 %description -n texlive-context-transliterator
 The package will read text in one alphabet, and provide a transliterated
@@ -349,7 +322,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-context
 Requires:       texlive-context-filter
-Provides:       tex(t-vim.tex) = %{tl_version}
 
 %description -n texlive-context-vim
 ConTeXt has excellent pretty printing capabilities for many languages. The code
@@ -552,6 +524,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/fonts/type1/jmn/hans/
 
 %changelog
+* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75426-5
+- Update context-letter, context-squares, context-sudoku
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75426-4
 - bump for rebuild
 

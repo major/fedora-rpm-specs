@@ -596,6 +596,7 @@ export CXX=/usr/bin/g++
 
 %if 0%{?suse_version}
 %cmake_build -j ${JOBS}
+cd ..
 %else
 %make_build -C build-llvm -j ${JOBS}
 %endif

@@ -1,6 +1,6 @@
 Name:    pcp
-Version: 7.1.0
-Release: 6%{?dist}
+Version: 7.1.1
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,12 +9,6 @@ Source0: https://github.com/performancecopilot/pcp/archive/%{version}/pcp-%{vers
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
-
-Patch1: pcp-selinux.patch
-Patch2: pcp-qa-avc-check.patch
-Patch3: pcp-selinux2.patch
-Patch4: pcp-avc-rocestat.patch
-Patch5: pcp-avc-nvidia.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -88,18 +82,7 @@ Patch5: pcp-avc-nvidia.patch
 %global perl_interpreter perl
 %endif
 
-# support for pmdabcc, check bcc.spec for supported architectures of bcc
-%if 0%{?fedora} >= 25 || 0%{?rhel} > 6
-%ifarch x86_64 %{power64} aarch64 s390x riscv64
-%global disable_bcc 0
-%else
-%global disable_bcc 1
-%endif
-%else
-%global disable_bcc 1
-%endif
-
-# support for pmdabpf, check bcc.spec for supported architectures of libbpf-tools
+# pmdabpf, check bcc.spec for supported architectures of libbpf-tools
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 8
 %ifarch x86_64 %{power64} aarch64 s390x riscv64
 %global disable_bpf 0
@@ -110,7 +93,7 @@ Patch5: pcp-avc-nvidia.patch
 %global disable_bpf 1
 %endif
 
-# support for pmdabpftrace, check bpftrace.spec for supported architectures of bpftrace
+# pmdabpftrace, check bpftrace.spec for supported architectures of bpftrace
 %if 0%{?fedora} >= 30 || 0%{?rhel} > 7
 %ifarch x86_64 %{power64} aarch64 s390x riscv64
 %global disable_bpftrace 0
@@ -371,12 +354,6 @@ Requires: pcp-selinux = %{version}-%{release}
 %global _with_statsd --with-pmdastatsd=no
 %else
 %global _with_statsd --with-pmdastatsd=yes
-%endif
-
-%if %{disable_bcc}
-%global _with_bcc --with-pmdabcc=no
-%else
-%global _with_bcc --with-pmdabcc=yes
 %endif
 
 %if %{disable_bpf}
@@ -1446,23 +1423,6 @@ collecting metrics about the Device Mapper Cache and Thin Client.
 # end pcp-pmda-dm
 
 
-%if !%{disable_bcc}
-#
-# pcp-pmda-bcc
-#
-%package pmda-bcc
-License: Apache-2.0 AND GPL-2.0-or-later
-Summary: Performance Co-Pilot (PCP) metrics from eBPF/BCC modules
-URL: https://pcp.io
-Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
-Requires: python3-bcc
-Requires: python3-pcp
-%description pmda-bcc
-This package contains the PCP Performance Metrics Domain Agent (PMDA) for
-extracting performance metrics from eBPF/BCC Python modules.
-# end pcp-pmda-bcc
-%endif
-
 %if !%{disable_bpf}
 #
 # pcp-pmda-bpf
@@ -1473,6 +1433,7 @@ Summary: Performance Co-Pilot (PCP) metrics from eBPF ELF modules
 URL: https://pcp.io
 Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 Requires: libbpf
+Obsoletes: pcp-pmda-bcc < 7.1.1
 BuildRequires: libbpf-devel clang llvm
 %description pmda-bpf
 This package contains the PCP Performance Metrics Domain Agent (PMDA) for
@@ -1785,6 +1746,21 @@ Requires: python3-pcp
 This package contains the PCP Performance Metrics Domain Agent (PMDA) for
 collecting statistics for nVidia RDMA over Converged Ethernet (RoCE) devices.
 # end pcp-pmda-rocestat
+%endif
+
+#
+# pcp-pmda-rds
+#
+%package pmda-rds
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot (PCP) metrics for Reliable Datagram Sockets (RDS) protocol
+URL: https://pcp.io
+Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
+Requires: python3-pcp
+%description pmda-rds
+This package contains the PCP Performance Metrics Domain Agent (PMDA) for
+collecting statistics for RDS connections.
+# end pcp-pmda-rds
 %endif
 
 %if !%{disable_mongodb}
@@ -2275,7 +2251,7 @@ updated policy package.
 _build=`echo %{release} | sed -e 's/\..*$//'`
 sed -i "/PACKAGE_BUILD/s/=[0-9]*/=$_build/" VERSION.pcp
 
-%configure %{?_with_multilib} %{?_with_nondebug} %{?_with_initd} %{?_with_doc} %{?_with_dstat} %{?_with_ib} %{?_with_gfs2} %{?_with_statsd} %{?_with_perfevent} %{?_with_bcc} %{?_with_bpf} %{?_with_bpftrace} %{?_with_mongodb} %{?_with_mysql} %{?_with_snmp} %{?_with_nutcracker}
+%configure %{?_with_multilib} %{?_with_nondebug} %{?_with_initd} %{?_with_doc} %{?_with_dstat} %{?_with_ib} %{?_with_gfs2} %{?_with_statsd} %{?_with_perfevent} %{?_with_bpf} %{?_with_bpftrace} %{?_with_mongodb} %{?_with_mysql} %{?_with_snmp} %{?_with_nutcracker}
 make %{?_smp_mflags} default_pcp
 
 %install
@@ -2316,14 +2292,6 @@ rm -fr $RPM_BUILD_ROOT/%{_pmdasexecdir}/mssql
 
 %if !%{disable_qt}
 desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/pmchart.desktop
-%endif
-
-%if 0%{?rhel} || 0%{?fedora}
-# Fedora and RHEL default local only access for pmcd, pmproxy and pmlogger
-if [ "$1" -eq 1 ]
-then
-    sed -i -e '/^# .*_LOCAL=1/s/^# //' $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/{pmcd,pmproxy,pmlogger}
-fi
 %endif
 
 # default chkconfig off (all RPM platforms)
@@ -2468,7 +2436,6 @@ basic_manifest | keep '(etc/pcp|pmdas)/activemq(/|$)' >pcp-pmda-activemq-files
 basic_manifest | keep '(etc/pcp|pmdas)/amdgpu(/|$)' >pcp-pmda-amdgpu-files
 basic_manifest | keep '(etc/pcp|pmdas)/apache(/|$)' >pcp-pmda-apache-files
 basic_manifest | keep '(etc/pcp|pmdas)/bash(/|$)' >pcp-pmda-bash-files
-basic_manifest | keep '(etc/pcp|pmdas)/bcc(/|$)' >pcp-pmda-bcc-files
 basic_manifest | keep '(etc/pcp|pmdas)/bind2(/|$)' >pcp-pmda-bind2-files
 basic_manifest | keep '(etc/pcp|pmdas)/bonding(/|$)' >pcp-pmda-bonding-files
 basic_manifest | keep '(etc/pcp|pmdas)/bpf(/|$)' >pcp-pmda-bpf-files
@@ -2522,6 +2489,7 @@ basic_manifest | keep '(etc/pcp|pmdas)/podman(/|$)' >pcp-pmda-podman-files
 basic_manifest | keep '(etc/pcp|pmdas)/postfix(/|$)' >pcp-pmda-postfix-files
 basic_manifest | keep '(etc/pcp|pmdas)/postgresql(/|$)' >pcp-pmda-postgresql-files
 basic_manifest | keep '(etc/pcp|pmdas)/rabbitmq(/|$)' >pcp-pmda-rabbitmq-files
+basic_manifest | keep '(etc/pcp|pmdas)/rds(/|$)' >pcp-pmda-rds-files
 basic_manifest | keep '(etc/pcp|pmdas)/redis(/|$)' >pcp-pmda-redis-files
 basic_manifest | keep '(etc/pcp|pmdas)/resctrl(/|$)|sys-fs-resctrl' >pcp-pmda-resctrl-files
 basic_manifest | keep '(etc/pcp|pmdas)/rocestat(/|$)' >pcp-pmda-rocestat-files
@@ -2548,7 +2516,7 @@ basic_manifest | keep '(etc/pcp|pmdas)/zswap(/|$)' >pcp-pmda-zswap-files
 rm -f packages.list
 for pmda_package in \
     activemq amdgpu apache \
-    bash bcc bind2 bonding bpf bpftrace \
+    bash bind2 bonding bpf bpftrace \
     cifs cisco \
     dbping denki docker dm ds389 ds389log \
     elasticsearch \
@@ -2562,7 +2530,7 @@ for pmda_package in \
     nutcracker nvidia \
     openmetrics opentelemetry openvswitch oracle \
     pdns perfevent podman postfix postgresql \
-    rabbitmq redis resctrl rocestat roomtemp rpm rsyslog \
+    rabbitmq rds redis resctrl rocestat roomtemp rpm rsyslog \
     samba sendmail shping slurm smart snmp \
     sockets statsd summary systemd \
     unbound uwsgi \
@@ -2899,11 +2867,6 @@ exit 0
 %preun pmda-dm
 %{pmda_remove "$1" "dm"}
 
-%if !%{disable_bcc}
-%preun pmda-bcc
-%{pmda_remove "$1" "bcc"}
-%endif
-
 %if !%{disable_bpf}
 %preun pmda-bpf
 %{pmda_remove "$1" "bpf"}
@@ -2954,6 +2917,9 @@ exit 0
 
 %preun pmda-rocestat
 %{pmda_remove "$1" "rocestat"}
+
+%preun pmda-rds
+%{pmda_remove "$1" "rds"}
 
 %endif
 
@@ -3265,10 +3231,6 @@ fi
 
 %files pmda-dm -f pcp-pmda-dm-files.rpm
 
-%if !%{disable_bcc}
-%files pmda-bcc -f pcp-pmda-bcc-files.rpm
-%endif
-
 %if !%{disable_bpf}
 %files pmda-bpf -f pcp-pmda-bpf-files.rpm
 %endif
@@ -3309,6 +3271,8 @@ fi
 %files pmda-rabbitmq -f pcp-pmda-rabbitmq-files.rpm
 
 %files pmda-rocestat -f pcp-pmda-rocestat-files.rpm
+
+%files pmda-rds -f pcp-pmda-rds-files.rpm
 
 %files pmda-uwsgi -f pcp-pmda-uwsgi-files.rpm
 
@@ -3353,7 +3317,6 @@ fi
 %files pmda-lio -f pcp-pmda-lio-files.rpm
 
 %files pmda-openmetrics -f pcp-pmda-openmetrics-files.rpm
-%endif
 
 %files pmda-opentelemetry -f pcp-pmda-opentelemetry-files.rpm
 %endif
@@ -3450,6 +3413,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Apr 1 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.1-1
+Latest upstream release
+
 * Sun Mar 15 2026 William Cohen <wcohen@redhat.com> - 7.1.0-6
 - Add selinux fixes for rocestat and nvidia pmdas.
 

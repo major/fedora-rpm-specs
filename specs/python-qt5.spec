@@ -20,7 +20,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.12
-Release: 0.2%{?dist}
+Release: 0.3%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -35,6 +35,9 @@ Source1: macros.pyqt5
 ## upstreamable patches
 # support newer Qt5 releases, but may not be needed anymore?  -- rdieter
 #Patch0: PyQt5-Timeline.patch
+
+# Python 3.15 compatibility: PyWeakref_GetObject was removed
+Patch1: python-qt5-python315.patch
 
 BuildRequires: make
 BuildRequires: chrpath
@@ -154,6 +157,7 @@ Requires:  python%{python3_pkgversion}-qt5%{?_isa} = %{version}-%{release}
 %setup -q -n pyqt5-%{version}%{?snap:.%{snap}}
 
 #patch0 -p1
+%patch 1 -p1
 
 
 %build
@@ -291,6 +295,9 @@ sed -i \
 
 
 %changelog
+* Wed Apr 01 2026 Lumír Balhar <lbalhar@redhat.com> - 5.15.12-0.3
+- Fix build with Python 3.15: bring back deprecated PyWeakref_GetObject
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

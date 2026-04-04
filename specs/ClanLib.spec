@@ -42,7 +42,11 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -a 1
-./autogen.sh
+# Manual autogen.sh to avoid obsolete version checks in autogen.sh
+aclocal -I m4
+libtoolize --force --copy
+automake --add-missing --copy --force
+autoconf
 mv reference_doxygen html
 
 
@@ -91,7 +95,8 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %changelog
 * Wed Feb 18 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.3.7-38
 - Drop pcre-devel from -devel subpackage Requires. This is no longer necessary
-  now that the clanRegExp lib is no longer build.
+  now that the clanRegExp lib is no longer build (rhbz#2454277)
+- Fix regeneration of autofoo files / fix i686 build
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

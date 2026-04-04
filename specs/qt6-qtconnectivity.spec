@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Connectivity components
 Name:    qt6-%{qt_module}
-Version: 6.10.2
+Version: 6.10.3
 Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
@@ -129,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
+- 6.10.3
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

@@ -1,6 +1,6 @@
 # Recent so-version, so we do not bump accidentally.
-%global nettle_so_ver 8
-%global hogweed_so_ver 6
+%global nettle_so_ver 9
+%global hogweed_so_ver 7
 
 # Set to 1 when building a bootstrap for a bumped so-name.
 %global bootstrap 0
@@ -23,7 +23,7 @@
 %endif
 
 Name:           nettle
-Version:        3.10.1
+Version:        4.0
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        A low-level cryptographic library
 
@@ -36,8 +36,8 @@ Source2:	nettle-release-keyring.gpg
 Source100:	%{name}-%{version_old}-hobbled.tar.xz
 Source101:	nettle-3.5-remove-ecc-testsuite.patch
 %endif
-Patch:		nettle-3.8-zeroize-stack.patch
-Patch:		nettle-3.10-hobble-to-configure.patch
+Patch:		nettle-4.0-zeroize-stack.patch
+Patch:		nettle-4.0-hobble-to-configure.patch
 
 %if %{with bundle_gmp}
 Source200:	gmp-6.2.1.tar.xz

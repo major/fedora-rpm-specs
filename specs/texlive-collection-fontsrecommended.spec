@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsrecommended
 Epoch:          12
 Version:        svn54074
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Recommended fonts
 
 License:        LPPL-1.3c
@@ -173,7 +173,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(type1ec.sty) = %{tl_version}
 
 %description -n texlive-cm-super
 The CM-Super family provides Adobe Type 1 fonts that replace the T1/TS1-encoded
@@ -219,7 +218,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fp-basic.sty)
 Requires:       tex(fp-snap.sty)
-Provides:       tex(euro.sty) = %{tl_version}
 
 %description -n texlive-euro
 Converts arbitrary national currency amounts using the Euro as base unit, and
@@ -241,11 +239,10 @@ Computer Modern-set text.
 
 %package -n texlive-eurosym
 Summary:        Metafont and macros for Euro sign
-Version:        svn17265
+Version:        svn78101
 License:        Eurosym
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eurosym.sty) = %{tl_version}
 
 %description -n texlive-eurosym
 The European currency symbol for the Euro implemented in Metafont, using the
@@ -292,11 +289,10 @@ Adobe's Palatino).
 
 %package -n texlive-lm
 Summary:        Latin modern fonts in outline formats
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lmodern.sty) = %{tl_version}
 
 %description -n texlive-lm
 The Latin Modern family of fonts consists of 72 text fonts and 20 mathematics
@@ -335,11 +331,10 @@ available using the manfnt package
 
 %package -n texlive-marvosym
 Summary:        Martin Vogel's Symbols (marvosym) font
-Version:        svn77677
+Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(marvosym.sty) = %{tl_version}
 
 %description -n texlive-marvosym
 Martin Vogel's Symbol font (marvosym) contains the Euro currency symbol as
@@ -351,7 +346,7 @@ together with support files for TeX (LaTeX).
 
 %package -n texlive-mathpazo
 Summary:        Fonts to typeset mathematics to match Palatino
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -427,11 +422,10 @@ Adobe's Palatino).
 
 %package -n texlive-pxfonts
 Summary:        Palatino-like fonts in support of mathematics
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pxfonts.sty) = %{tl_version}
 
 %description -n texlive-pxfonts
 Pxfonts supplies virtual text roman fonts using Adobe Palatino (or
@@ -450,7 +444,6 @@ Version:        svn15878
 License:        LicenseRef-Rsfs
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(scrload.tex) = %{tl_version}
 
 %description -n texlive-rsfs
 The fonts provide uppercase 'formal' script letters for use as symbols in
@@ -485,20 +478,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
-Provides:       tex(qbookman.sty) = %{tl_version}
-Provides:       tex(qcourier.sty) = %{tl_version}
-Provides:       tex(qpalatin.sty) = %{tl_version}
-Provides:       tex(qswiss.sty) = %{tl_version}
-Provides:       tex(qtimes.sty) = %{tl_version}
-Provides:       tex(qzapfcha.sty) = %{tl_version}
-Provides:       tex(tgadventor.sty) = %{tl_version}
-Provides:       tex(tgbonum.sty) = %{tl_version}
-Provides:       tex(tgchorus.sty) = %{tl_version}
-Provides:       tex(tgcursor.sty) = %{tl_version}
-Provides:       tex(tgheros.sty) = %{tl_version}
-Provides:       tex(tgpagella.sty) = %{tl_version}
-Provides:       tex(tgschola.sty) = %{tl_version}
-Provides:       tex(tgtermes.sty) = %{tl_version}
 
 %description -n texlive-tex-gyre
 The TeX-GYRE bundle consists of six font families: TeX Gyre Adventor is based
@@ -558,21 +537,11 @@ Adobe's Palatino).
 
 %package -n texlive-tipa
 Summary:        Fonts and macros for IPA phonetics characters
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
-Provides:       tex(exaccent.sty) = %{tl_version}
-Provides:       tex(extraipa.sty) = %{tl_version}
-Provides:       tex(t3enc.def) = %{tl_version}
-Provides:       tex(tipa.sty) = %{tl_version}
-Provides:       tex(tipaprm.def) = %{tl_version}
-Provides:       tex(tipx.sty) = %{tl_version}
-Provides:       tex(tone.sty) = %{tl_version}
-Provides:       tex(ts3enc.def) = %{tl_version}
-Provides:       tex(vowel.sty) = %{tl_version}
-Provides:       tex(xipaprm.def) = %{tl_version}
 
 %description -n texlive-tipa
 These fonts are considered the 'ultimate answer' to IPA typesetting. The
@@ -582,11 +551,10 @@ versions are provided for both the T3 and the TS3 fonts.
 
 %package -n texlive-txfonts
 Summary:        Times-like fonts in support of mathematics
-Version:        svn77677
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(txfonts.sty) = %{tl_version}
 
 %description -n texlive-txfonts
 Txfonts supplies virtual text roman fonts using Adobe Times (or URW
@@ -601,7 +569,7 @@ macros for use with LaTeX.
 
 %package -n texlive-utopia
 Summary:        Adobe Utopia fonts
-Version:        svn77677
+Version:        svn77682
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -618,7 +586,6 @@ Version:        svn53533
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(wasyfont.tex) = %{tl_version}
 
 %description -n texlive-wasy
 This font contains all lasy characters (by L.Lamport, copyright notice in
@@ -641,11 +608,10 @@ Converted (Adobe Type 1) outlines of the wasy fonts.
 
 %package -n texlive-wasysym
 Summary:        LaTeX support for the wasy fonts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(wasysym.sty) = %{tl_version}
 
 %description -n texlive-wasysym
 The wasy (Waldi Symbol) font by Roland Waldi provides many glyphs like male and
@@ -1099,6 +1065,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/zapfding/
 
 %changelog
+* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-7
+- Update 9 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-6
 - Update lm marvosym mathpazo pxfonts tipa txfonts utopia wasysym
 

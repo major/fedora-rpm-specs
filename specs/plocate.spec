@@ -10,6 +10,7 @@ License:        GPL-2.0-or-later AND GPL-2.0-only
 URL:            https://plocate.sesse.net/
 Source0:        https://plocate.sesse.net/download/plocate-%{version}.tar.gz
 Source1:        plocate.sysusers
+Source2:        plocate.tmpfiles
 
 BuildRequires:  meson
 BuildRequires:  gcc-c++
@@ -17,6 +18,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(liburing)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  libatomic
+Requires(post): systemd-tmpfiles
 
 # The plan is to provide both mlocate and plocate for one or two
 # Fedora releases, and then retire mlocate when the bugs in plocate
@@ -56,6 +58,9 @@ EOF
 %meson_install
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/plocate.conf
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/plocate.conf
+# Let tmpfiles create the state directory at install/boot time.
+rm -rf %{buildroot}%{_sharedstatedir}/plocate
 ln -s plocate %{buildroot}%{_bindir}/locate
 install -p -D -m 0644 -t %{buildroot}%{_mandir}/man1/ locate.1
 install -p -D -m 0644 -t %{buildroot}%{_sysconfdir}/ updatedb.conf
@@ -67,6 +72,7 @@ install -p -D -m 0644 -t %{buildroot}%{_sysconfdir}/ updatedb.conf
 
 %post
 %systemd_post plocate-updatedb.service plocate-updatedb.timer
+%tmpfiles_create %{_tmpfilesdir}/plocate.conf
 
 if [ $1 == 1 ] && [ -d /run/systemd ]; then
      touch %{plocate_start_now} || :
@@ -105,9 +111,10 @@ fi
 %_mandir/man8/plocate-build.8*
 %_mandir/man8/updatedb.8*
 %_sysusersdir/plocate.conf
+%{_tmpfilesdir}/plocate.conf
 %config(noreplace) %{_sysconfdir}/updatedb.conf
-%dir %{_sharedstatedir}/plocate
-%{_sharedstatedir}/plocate/CACHEDIR.TAG
+%ghost %attr(0755,root,root) %dir %{_sharedstatedir}/plocate
+%ghost %attr(0644,root,root) %{_sharedstatedir}/plocate/CACHEDIR.TAG
 %ghost %attr(0640,-,plocate) %verify(not md5 mtime) %{_sharedstatedir}/plocate/plocate.db
 
 %changelog

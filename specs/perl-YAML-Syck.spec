@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.42
+Version:        1.43
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -52,8 +52,10 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Optional Tests
 %if %{with perl_YAML_Syck_enables_optional_test}
+BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(Devel::Leak)
 BuildRequires:  perl(JSON)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Symbol)
 %endif
 # Dependencies
@@ -93,6 +95,29 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.43-1
+- Update to 1.43
+  Bug Fixes:
+  - Fix: Prevent resource leaks on croak/early-return paths in Dump (GH#161)
+  - Fix: Prevent output SV leaks on croak in Dump/DumpFile callers (GH#163)
+  - Fix: Load() in list context returns empty list for empty/undef input; also
+    applies to LoadBytes and LoadUTF8 (GH#164, GH#165)
+  - Fix: DumpCode serializes prototype string instead of code body (GH#168)
+  - Fix: Memory leak in !perl/scalar Load - newRV_inc should be newRV_noinc
+    (GH#170)
+  - Fix: Add pTHX_ to SAVEDESTRUCTOR_X callback for threaded Perl
+    (GH#175, GH#176)
+  - Fix: Add TODO guard for eval_pv leak on Perl < 5.14 (GH#179, GH#180)
+  - Fix: Negative hex and octal values parsed as 0 with ImplicitTyping (GH#183)
+  - Fix: Negative int#base60 values produce unsigned wraparound (GH#185)
+  Improvements:
+  - Modernize META_MERGE for CPANTS compliance (GH#162)
+  - Fix hash table size handling and remove compile warnings in syck_st (GH#174)
+  Maintenance:
+  - Restore TODO guard for Dump code leak test on Perl < 5.26 (GH#167)
+  - Resolve 2010 TODO in perl_json_postprocess with test coverage (GH#166)
+  - CI: Upgrade actions to resolve Node.js 20 deprecation warnings (GH#177)
+
 * Fri Mar 27 2026 Paul Howarth <paul@city-fan.org> - 1.42-1
 - Update to 1.42
   Bug Fixes:

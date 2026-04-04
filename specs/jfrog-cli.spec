@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.95.0
+Version:                2.98.0
 
 %gometa -L -f
 
@@ -52,6 +52,7 @@ rm -v \
   pipenv_test.go \
   pip_test.go \
   plugins_test.go \
+  pnpm_test.go \
   poetry_test.go \
   transfer_test.go \
 

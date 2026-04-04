@@ -24,7 +24,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 272
+%define patchlevel 280
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -1041,6 +1041,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Thu Apr 02 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.280-1
+- patchlevel 280
+
 * Tue Mar 31 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.272-1
 - patchlevel 272
 

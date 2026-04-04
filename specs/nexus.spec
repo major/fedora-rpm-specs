@@ -3,7 +3,7 @@
 
 Name:           nexus
 Version:        4.4.3
-Release:        23%{?dist}
+Release:        25%{?dist}
 Summary:        Libraries and tools for the NeXus scientific data file format
 
 # The entire source code is GPLv2+ except nxdir which is MIT
@@ -14,10 +14,10 @@ Source0:        https://github.com/nexusformat/code/archive/v%{version}/code-v%{
 # Fix the version reported by the library
 #   (see https://github.com/nexusformat/code/issues/437)
 Patch0:         nexus-fix-version.patch
-# Remove an additional flag that doesn't work in the EL6 version of gfortran
-Patch1:         nexus-el6-fortran-flags.patch
 # Back port fix from master branch
-Patch2:         nexus-fix-nxtranslate-xml.patch
+Patch1:         nexus-fix-nxtranslate-xml.patch
+# Fix for C++17 allocator change
+Patch2:         nexus-cxx17-allocator-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -61,15 +61,8 @@ BuildRequires:  pkgconfig(readline)
 
 
 %prep
-%setup -q -n code-%{version}
-%patch -P0 -p1 -b .fix-version
+%autosetup -n code-%{version} -p1
 
-%if 0%{?el6}
-# Fortran flag not supported on EL6
-%patch -P1 -p1 -b .el6-flags
-%endif
-
-%patch -P2 -p1 -b .nxtranslate
 
 %build
 # TODO: Please submit an issue to upstream (rhbz#2380952)
@@ -121,6 +114,12 @@ rm %{buildroot}%{_libdir}/libNeXusCPP.a
 
 
 %changelog
+* Thu Apr 02 2026 Stuart Campbell <scampbell@bnl.gov> - 4.4.3-25
+- Patch for allocator changes in C++17
+
+* Mon Mar 30 2026 Stuart Campbell <scampbell@bnl.gov> - 4.4.3-24
+- Updated to use autosetup
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

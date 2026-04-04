@@ -1,4 +1,4 @@
-%global baserelease 3
+%global baserelease 4
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -24,6 +24,9 @@ Patch0:         0001-PATCH-Vendor-imaplib2.patch
 Patch1:         0002-PATCH-no-eyeballs.patch
 Patch3:         0003-PATCH-Sphinx-doc-compat.patch
 Patch4:         0004-PATCH-Loosen-urllib3-requirements.patch
+
+# Upstream patches for offlineimap
+Patch101:       https://github.com/OfflineIMAP/offlineimap3/pull/238.patch
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch

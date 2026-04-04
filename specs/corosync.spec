@@ -15,10 +15,13 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0: 0001-totemsrp-Return-error-if-sanity-check-fails.patch
+Patch1: 0002-totemsrp-Fix-integer-overflow-in-memb_join_sanity.patch
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -289,6 +292,12 @@ network splits)
 %endif
 
 %changelog
+* Thu Apr 02 2026 Jan Friesse <jfriesse@redhat.com> - 3.1.10-5
+- totemsrp: Return error if sanity check fails
+  (fixes CVE-2026-35091)
+- totemsrp: Fix integer overflow in memb_join_sanity
+  (fixes CVE-2026-35092)
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.10-4
 - Rebuilt for net-snmp 5.9.5.2
 

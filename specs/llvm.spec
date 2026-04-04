@@ -45,7 +45,7 @@
 %bcond_without check
 
 %if %{with bundle_compat_lib}
-%global compat_maj_ver 20
+%global compat_maj_ver 21
 %global compat_ver %{compat_maj_ver}.1.8
 %endif
 
@@ -77,7 +77,7 @@
 
 # MLIR version 22 started to require nanobind >= 2.9, which is only available
 # on Fedora >= 44.
-%if %{without compat_build} && %{defined fedora} && (%{maj_ver} < 22 || 0%{?fedora} >= 44)
+%if %{without compat_build} && %{defined fedora} && 0%{?fedora} >= 44
 %ifarch %{ix86}
 %bcond_with mlir
 %else
@@ -88,7 +88,7 @@
 %endif
 
 #region flang
-%if %{without compat_build} && %{defined fedora} && (%{maj_ver} >= 22 && 0%{?fedora} >= 44)
+%if %{without compat_build} && %{defined fedora} && 0%{?fedora} >= 44
 # Link error on i686.
 # s390x is not supported upstream yet.
 %ifarch i686 s390x
@@ -477,7 +477,6 @@ Patch2100: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2200: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch2300: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
-Patch2002: 20-131099.patch
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
@@ -487,10 +486,6 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 # this might no longer be needed.
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 #endregion CLANG patches
-
-# Fix LLVMConfig.cmake when symlinks are used.
-# (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
-Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 # Backport fixes for lit resource exhaustion on i686.
 Patch2206: 0001-lit-Stop-holding-subprocess-objects-open-in-TimeoutH.patch
@@ -519,20 +514,6 @@ Patch502: 0001-BPF-Support-Jump-Table-149715.patch
 Patch503: 0002-BPF-Remove-unused-weak-symbol-__bpf_trap-166003.patch
 Patch504: 0003-BPF-Remove-dead-code-related-to-__bpf_trap-global-va.patch
 #endregion RHEL patches
-
-# Fix a pgo miscompilation triggered by building Rust 1.87 with pgo on ppc64le.
-# https://github.com/llvm/llvm-project/issues/138208
-Patch2004: 0001-CodeGenPrepare-Make-sure-instruction-get-from-SunkAd.patch
-# Related CGP fix for domination, rhbz#2388223
-Patch2008: 0001-CGP-Bail-out-if-Base-Scaled-Reg-does-not-dominate-in.patch
-
-# Fix Power9/Power10 crbit spilling
-# https://github.com/llvm/llvm-project/pull/146424
-Patch2007: 21-146424.patch
-
-# Fix for highway package build on ppc64le
-Patch2005: 0001-PowerPC-Fix-handling-of-undefs-in-the-PPC-isSplatShu.patch
-Patch2006: 0001-Add-REQUIRES-asserts-to-test-added-in-145149-because.patch
 
 # Fix for offload builds: The DeviceRTL libraries target device code and
 # don't support the mtls-dialect flag, so we need to patch the clang driver
@@ -1312,6 +1293,13 @@ Flang runtime libraries.
 # automatically apply patches based on LLVM version
 %autopatch -m%{compat_maj_ver}00 -M%{compat_maj_ver}99 -p1
 
+%if 0%{?rhel} == 8 && %{compat_maj_ver} < 22
+# The following patches have been backported from LLVM 22.
+%patch -p1 -P502
+%patch -p1 -P503
+%patch -p1 -P504
+%endif
+
 %endif
 
 # -T     : Do Not Perform Default Archive Unpacking (without this, the <n>th source would be unpacked twice)
@@ -1330,12 +1318,6 @@ Flang runtime libraries.
 
 %if %{defined rhel} && 0%{?rhel} == 8
 %patch -p1 -P501
-%if %{maj_ver} < 22
-# The following patches have been backported from LLVM 22.
-%patch -p1 -P502
-%patch -p1 -P503
-%patch -p1 -P504
-%endif
 %endif
 
 #region LLVM preparation
@@ -1515,15 +1497,8 @@ popd
     -DLLVM_BUILD_LLVM_DYLIB=ON \\\
     -DLLVM_LINK_LLVM_DYLIB=ON \\\
     -DCLANG_LINK_CLANG_DYLIB=ON \\\
-    -DLLVM_ENABLE_FFI:BOOL=ON
-
-%if %{maj_ver} >= 22
-%global cmake_common_args %{cmake_common_args} \\\
+    -DLLVM_ENABLE_FFI:BOOL=ON \\\
     -DLLVM_ENABLE_EH=OFF
-%else
-%global cmake_common_args %{cmake_common_args} \\\
-    -DLLVM_ENABLE_EH=ON
-%endif
 
 %if 0%{?rhel} == 8
 # On RHEL 8 we build with gcc, but the runtimes are built with the just built
@@ -1694,7 +1669,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 	-DOPENMP_INSTALL_LIBDIR=%{unprefixed_libdir} \\\
 	-DLIBOMP_INSTALL_ALIASES=OFF
 
-%if %{maj_ver} >= 22 && %{with offload}
+%if %{with offload}
 # We reset the cxxflags to "" here because this is compiling for a GPU
 # target, where our cflags are either questionable or actively wrong.
 %global cmake_config_args %{cmake_config_args} \\\
@@ -2329,13 +2304,11 @@ rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
       %{buildroot}%{install_libdir}/libHLFIRTransforms.a \
       %{buildroot}%{install_libdir}/libCUFAttrs.a \
       %{buildroot}%{install_libdir}/libCUFDialect.a \
-      %{buildroot}%{install_libdir}/libFortranDecimal.a
-%if %{maj_ver} >= 22
-rm -v %{buildroot}%{install_libdir}/libFortranUtils.a \
+      %{buildroot}%{install_libdir}/libFortranDecimal.a \
+      %{buildroot}%{install_libdir}/libFortranUtils.a \
       %{buildroot}%{install_libdir}/libFIROpenACCAnalysis.a \
       %{buildroot}%{install_libdir}/libFIROpenACCTransforms.a \
       %{buildroot}%{install_libdir}/libMIFDialect.a
-%endif
 
 find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
 
@@ -3062,6 +3035,7 @@ fi
     llvm-bcanalyzer
     llvm-bitcode-strip
     llvm-c-test
+    llvm-cas
     llvm-cat
     llvm-cfi-verify
     llvm-cgdata
@@ -3085,6 +3059,7 @@ fi
     llvm-gsymutil
     llvm-ifs
     llvm-install-name-tool
+    llvm-ir2vec
     llvm-jitlink
     llvm-jitlink-executor
     llvm-lib
@@ -3102,6 +3077,8 @@ fi
     llvm-nm
     llvm-objcopy
     llvm-objdump
+    llvm-offload-wrapper
+    llvm-offload-binary
     llvm-opt-report
     llvm-otool
     llvm-pdbutil
@@ -3139,14 +3116,6 @@ fi
     yaml2obj
 }}
 
-%if %{maj_ver} >= 22
-%{expand_bins %{expand:
-    llvm-ir2vec
-    llvm-offload-wrapper
-    llvm-offload-binary
-}}
-%endif
-
 %if %{maj_ver} >= 23
 %{expand_bins %{expand:
     llubi
@@ -3183,6 +3152,7 @@ fi
     llvm-extract
     llvm-ifs
     llvm-install-name-tool
+    llvm-ir2vec
     llvm-lib
     llvm-libtool-darwin
     llvm-link
@@ -3193,6 +3163,7 @@ fi
     llvm-nm
     llvm-objcopy
     llvm-objdump
+    llvm-offload-binary
     llvm-opt-report
     llvm-otool
     llvm-pdbutil
@@ -3214,13 +3185,6 @@ fi
     opt
     tblgen
 }}
-
-%if %{maj_ver} >= 22
-%{expand_mans %{expand:
-    llvm-ir2vec
-    llvm-offload-binary
-}}
-%endif
 
 %if %{maj_ver} >= 23
 %{expand_mans %{expand:
@@ -3301,11 +3265,6 @@ fi
     llvm-opt-fuzzer
     llvm-test-mustache-spec
 }}
-%if %{maj_ver} >= 22
-%{expand_bins %{expand:
-    llvm-cas
-}}
-%endif
 %{expand_mans %{expand:
     llvm-test-mustache-spec
 }}
@@ -3511,13 +3470,8 @@ fi
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtbegin.o
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtend.o
 
-%ifnarch %{ix86} s390x riscv64
+%ifnarch %{ix86} riscv64
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
-%endif
-%ifarch s390x
-%if %{maj_ver} >= 22
-%{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
-%endif
 %endif
 
 # Additional symlink if two triples are in use.
@@ -3622,13 +3576,9 @@ fi
     lldb-argdumper
     lldb-dap
     lldb-instr
+    lldb-mcp
     lldb-server
 }}
-%if %{maj_ver} >= 22
-%{expand_bins %{expand:
-    lldb-mcp
-}}
-%endif
 # Usually, *.so symlinks are kept in devel subpackages. However, the python
 # bindings depend on this symlink at runtime.
 %{expand_libs %{expand:
@@ -3643,12 +3593,10 @@ fi
 
 %files -n %{pkg_name_lldb}-devel
 %expand_includes lldb
-%if %{maj_ver} >= 22
 %{expand_bins %{expand:
     lldb-tblgen
     yaml2macho-core
 }}
-%endif
 
 %if %{without compat_build}
 %files -n python%{python3_pkgversion}-lldb
@@ -3663,6 +3611,7 @@ fi
 %files -n %{pkg_name_mlir}
 %license LICENSE.TXT
 %{expand_libs %{expand:
+    libmlir_apfloat_wrappers.so.%{maj_ver}*
     libmlir_arm_runner_utils.so.%{maj_ver}*
     libmlir_arm_sme_abi_stubs.so.%{maj_ver}*
     libmlir_async_runtime.so.%{maj_ver}*
@@ -3671,12 +3620,6 @@ fi
     libmlir_runner_utils.so.%{maj_ver}*
     libMLIR*.so.%{maj_ver}*
 }}
-
-%if %{maj_ver} >= 22
-%{expand_libs %{expand:
-    libmlir_apfloat_wrappers.so.%{maj_ver}*
-}}
-%endif
 
 %files -n %{pkg_name_mlir}-static
 %expand_libs libMLIR*.a
@@ -3700,6 +3643,7 @@ fi
 %expand_includes mlir mlir-c
 %{expand_libs %{expand:
     cmake/mlir
+    libmlir_apfloat_wrappers.so
     libmlir_arm_runner_utils.so
     libmlir_arm_sme_abi_stubs.so
     libmlir_async_runtime.so
@@ -3708,12 +3652,6 @@ fi
     libmlir_runner_utils.so
     libMLIR*.so
 }}
-
-%if %{maj_ver} >= 22
-%{expand_libs %{expand:
-    libmlir_apfloat_wrappers.so
-}}
-%endif
 
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/

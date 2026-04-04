@@ -1,8 +1,8 @@
 %global pname   epgfixer
 %global __provides_exclude_from ^%{vdr_plugindir}/
-%global commit  354f28b0112ba27f08f6509243b410899f74b6ed
+%global commit  9bbf438eb031ef377ca2b8e08376be9368a8df0f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20180416
+%global gitdate 20260112
 
 # Set vdr_version based on Fedora version
 # Default
@@ -18,19 +18,21 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.1
-Release:        45.%{gitdate}git%{shortcommit}%{?dist}
+Release:        46.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        VDR plugin for doing extra fixing of EPG data
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/vdr-projects/vdr-plugin-epgfixer
 Source0:        https://github.com/vdr-projects/vdr-plugin-epgfixer/archive/%{commit}/%{name}-%{version}-git%{shortcommit}.tar.gz
 Source1:        %{name}.conf
+#Patch0:         vdr-epgfixer-pcre2.patch
+#Patch1:         vdr-epgfixer-pcre2-header.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -66,6 +68,9 @@ install -Dpm 644 %{SOURCE1} \
 %defattr(-,root,root,-)
 
 %changelog
+* Thu Apr 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-46.20260112git9bbf438
+- Update to 0.3.1-46.20260112git9bbf438 with pcre2 support
+
 * Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-45.20180416git354f28b
 - Rebuilt for new VDR 2.8.1 API version 12
 

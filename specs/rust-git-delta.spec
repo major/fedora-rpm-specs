@@ -88,6 +88,8 @@ License:        %{shrink:
 %{bash_completions_dir}/delta.bash
 %{fish_completions_dir}/delta.fish
 %{zsh_completions_dir}/_delta
+%dir %{_datadir}/delta
+%{_datadir}/delta/themes.gitconfig
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
@@ -111,6 +113,9 @@ install -Dpm0644 etc/completion/completion.fish \
     -T %{buildroot}/%{fish_completions_dir}/delta.fish
 install -Dpm0644 etc/completion/completion.zsh \
     -T %{buildroot}/%{zsh_completions_dir}/_delta
+install -dm 0755 %{buildroot}%{_datadir}/delta/
+install -Dpm0644 themes.gitconfig \
+    -T %{buildroot}%{_datadir}/delta/themes.gitconfig
 
 %if %{with check}
 %check

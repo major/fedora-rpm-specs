@@ -9,17 +9,12 @@
 Summary:	Generic release files
 Name:		generic-release
 Version:	%{dist_version}
-Release:	0.2
+Release:	0.3
 License:	MIT
 Source0:	LICENSE
 Source1:	README.developers
 Source2:	README.Generic-Release-Notes
 Source3:	README.license
-
-Source6:	85-display-manager.preset
-Source7:	90-default.preset
-Source8:	99-default-disable.preset
-Source9:	90-default-user.preset
 
 BuildArch: noarch
 
@@ -36,6 +31,9 @@ Provides: system-release(%{version})
 Conflicts:	fedora-release
 Conflicts:	fedora-release-identity
 Requires: generic-release-common = %{version}-%{release}
+
+# Require system presets package
+Requires: distribution-systemd-presets
 
 %description
 Generic release files such as yum configs and various /etc/ files that
@@ -148,16 +146,6 @@ mkdir -p licenses
 install -pm 0644 %{SOURCE0} licenses/LICENSE
 install -pm 0644 %{SOURCE2} licenses/README.license
 
-# Add presets
-mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/user-preset/
-mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system-preset/
-
-# Default system wide
-install -Dm0644 %{SOURCE6} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE7} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE8} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
-
 
 %files common
 %license licenses/LICENSE licenses/README.license
@@ -173,12 +161,6 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 %attr(0644,root,root) %{_prefix}/lib/issue.net
 %config(noreplace) %{_sysconfdir}/issue.net
 %attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
-%dir %{_prefix}/lib/systemd/user-preset/
-%{_prefix}/lib/systemd/user-preset/90-default-user.preset
-%dir %{_prefix}/lib/systemd/system-preset/
-%{_prefix}/lib/systemd/system-preset/85-display-manager.preset
-%{_prefix}/lib/systemd/system-preset/90-default.preset
-%{_prefix}/lib/systemd/system-preset/99-default-disable.preset
 
 
 %files
@@ -190,6 +172,9 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 
 
 %changelog
+* Thu Apr 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 43-0.3
+- Replace included system presets with common packaged ones
+
 * Sat Feb 07 2026 Tom Callaway <spot@fedoraproject.org> - 45-0.2
 - holding very very still so i can be invisible
 - bump to 45
