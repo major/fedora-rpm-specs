@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.3.2
-Release:       2%{?dist}
+Version:       2.3.3
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -11,51 +11,53 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 Patch0101:   0101-use-wlroots-backend-with-unknown-compositors.patch
 
 BuildRequires:  cmake
-%dnl BuildRequires:  fdupes
+BuildREquires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  pkgconfig(Qt6Xdg)
-BuildRequires:  pkgconfig(lxqt)
-BuildRequires:  pkgconfig(lxqt-globalkeys)
+BuildRequires:  lm_sensors-devel
+BuildRequires:  perl-interpreter
+
+
+BuildRequires:  cmake(dbusmenu-lxqt)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(LayerShellQt)
+BuildRequires:  cmake(lxqt)
+BuildRequires:  cmake(lxqt-globalkeys)
+BuildRequires:  cmake(lxqt-menu-data)
+BuildRequires:  cmake(lxqt2-build-tools)
+BuildRequires:  cmake(Qt6CorePrivate)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6WaylandClientPrivate)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(qt6xdg)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(sysstat-qt6)
+
+BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libmenu-cache)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libstatgrab)
+BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-damage)
 BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  pkgconfig(xcb-util)
+BuildRequires:  pkgconfig(xcb-image)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(libstatgrab)
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libmenu-cache)
-BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(xrender)
-BuildRequires:  pkgconfig(xcomposite)
-BuildRequires:  pkgconfig(sysstat-qt6)
-BuildRequires:  cmake(lxqt2-build-tools)
-BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  cmake(Qt6WaylandClientPrivate)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Xml)
-BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  pkgconfig(dbusmenu-lxqt)
-BuildRequires:  desktop-file-utils
-BuildRequires:  lm_sensors-devel
-BuildRequires:  libXdamage-devel
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  pkgconfig(xtst)
-BuildRequires:  xcb-util-image-devel
-BuildRequires:  lxqt-menu-data
-BuildRequires:  perl
-BuildRequires:  cmake(Qt6WaylandClient)
-BuildRequires:  wayland-devel
-BuildRequires:  qt6-qtbase-private-devel
-Requires: lxqt-menu-data
+BuildRequires:  pkgconfig(wayland-client)
 
-Requires: xscreensaver-base
-Requires: lxmenu-data
+
+Requires: lxqt-menu-data
+Recommends: xscreensaver-base
 
 %description
 %{summary}.
@@ -90,8 +92,6 @@ for desktop in %{buildroot}/%{_datadir}/lxqt/lxqt-panel/*.desktop; do
 done
 desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop ||:
 
-%dnl %fdupes -s %{buildroot}%{_datadir}/lxqt
-
 %find_lang lxqt-panel --with-qt
 %find_lang cpuload --with-qt
 %find_lang desktopswitch --with-qt
@@ -111,13 +111,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 
 %files
 %{_bindir}/lxqt-panel
-%dir %{_libdir}/lxqt-panel
 %{_libdir}/lxqt-panel/
 %{_datadir}/lxqt
 %{_mandir}/man1/lxqt-panel*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-panel.desktop
 %{_datadir}/applications/lxqt-panel.desktop
-%config %{_sysconfdir}/xdg/lxqt/panel.conf
+%config(noreplace) %{_sysconfdir}/xdg/lxqt/panel.conf
 
 %files devel
 %dir %{_includedir}/lxqt
@@ -129,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Fri Apr 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.3-1
+- Update to 2.3.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

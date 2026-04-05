@@ -1,7 +1,7 @@
 %global giturl  https://github.com/scipopt/zimpl
 
 Name:           zimpl
-Version:        3.7.0
+Version:        3.7.1
 Release:        %autorelease
 Summary:        Zuse Institut Mathematical Programming Language
 
@@ -97,6 +97,11 @@ cp -p doc/zimpl.man %{buildroot}%{_mandir}/man1/zimpl.1
 
 # We do this in %%files with the %%license macro
 rm -fr %{buildroot}%{_datadir}/licenses
+
+# Help the debuginfo generator find source files
+mkdir -p %{_vpath_builddir}/zimpl
+ln -s ../../src/zimpl/mmlscan.l %{_vpath_builddir}/zimpl
+ln -s ../../src/zimpl/mmlparse2.y %{_vpath_builddir}/zimpl
 
 # FIXME: Test qubo.zpl (qbo: lp) fails on ppc64le
 %ifnarch %{power64}

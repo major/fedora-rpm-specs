@@ -1,6 +1,6 @@
 Name:           pf-bb-config
-Version:        24.07
-Release:        4%{?dist}
+Version:        25.11
+Release:        %autorelease
 Summary:        PF BBDEV (baseband device) Configuration Application
 
 License:        Apache-2.0
@@ -46,39 +46,4 @@ install -p -D -m 755 pf_bb_config %{buildroot}%{_bindir}/pf_bb_config
 %{_datadir}/pf-bb-config/
 
 
-%changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.07-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.07-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.07-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Sep 27 2024 Timothy Redaelli <tredaelli@redhat.com> - 24.07-1
-- Update to 24.07
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Mar 03 2023 Maxime Coquelin <maxime.coquelin@redhat.com> - 22.11-3
-- Add missing ACC200 (VRB1) data files
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jan 16 2023 Timothy Redaelli <tredaelli@redhat.com> - 22.11-1
-- Update to 22.11
-
-* Mon Oct 03 2022 Timothy Redaelli <tredaelli@redhat.com> - 22.07-1
-- Initial import (fedora#2101769)
+%autochangelog

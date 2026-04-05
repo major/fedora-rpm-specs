@@ -6,7 +6,7 @@
 %global crate system-deps
 
 Name:           rust-system-deps
-Version:        7.0.7
+Version:        7.0.8
 Release:        %autorelease
 Summary:        Declarative system dependencies in Cargo.toml
 
@@ -35,6 +35,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CLAUDE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

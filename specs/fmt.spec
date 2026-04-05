@@ -1,5 +1,5 @@
 Name:           fmt
-Version:        11.2.0
+Version:        12.1.0
 Release:        %autorelease
 
 License:        MIT
@@ -52,7 +52,7 @@ This package contains the header file for using %{name}.
 %files
 %license LICENSE
 %doc ChangeLog.md README.md
-%{_libdir}/lib%{name}.so.11*
+%{_libdir}/lib%{name}.so.12*
 
 %files devel
 %{_includedir}/%{name}

@@ -56,9 +56,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.34~rc1
+Version:        1.5.34~rc2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -583,6 +583,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Apr 03 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc2-1
+- Bump to 1.5.34-rc2
+- Fix typo in switch
+
 * Sat Mar 21 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc1-4
 - Rebuild for overrided build of cldr-emoji-annotation-48.2-1.fc44
 

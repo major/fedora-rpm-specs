@@ -10,13 +10,12 @@
 
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
-Version: 1.4.2
-Release: 4%{?dist}
+Version: 1.4.3
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
-Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.4.2.tar.gz#/%{name}-%{version}.tar.gz
-Patch0: 0001-fix-constness.patch
+Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.4.3.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -65,12 +64,9 @@ Install NetworkManager-ssh-selinux policy
 
 %prep
 %setup -q
-%patch 0 -p1
 
 %build
-if [ ! -f configure ]; then
-  autoreconf -fvi
-fi
+autoreconf -fvi
 %if 0%{?rhel} == 7
 CFLAGS="-DSECRET_API_SUBJECT_TO_CHANGE %{optflags}" \
 %endif
@@ -101,7 +97,7 @@ mkdir -p %{buildroot}/%{_datadir}/selinux/packages
 %find_lang %{name}
 
 %files -f %{name}.lang
-%{_sysconfdir}/dbus-1/system.d/nm-ssh-service.conf
+%{_datadir}/dbus-1/system.d/nm-ssh-service.conf
 %{_prefix}/lib/NetworkManager/VPN/nm-ssh-service.name
 %{_libexecdir}/nm-ssh-service
 %{_libexecdir}/nm-ssh-auth-dialog
@@ -134,6 +130,12 @@ fi
 %selinux_relabel_post -s %{selinuxtype} &> /dev/null
 
 %changelog
+* Fri Apr 03 2026 Dan Fruehauf <malkodan@gmail.com> - 1.4.3-1
+- Always run autoreconf -fvi
+- Fix file access for private key and known hosts (rhbz#2428396)
+- Fix pkg-config macro
+- Move D-Bus policy file to /usr/share/dbus-1/system.d/
+
 * Sat Jan 31 2026 Dan Fruehauf <malkodan@gmail.com> - 1.4.2-4
 - Fix compilation error on f44
 

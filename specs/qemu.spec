@@ -404,7 +404,7 @@ Name: qemu
 Version: 11.0.0
 
 # Set for release candidate builds
-%global rcver rc1
+%global rcver rc2
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -473,7 +473,9 @@ BuildRequires: libaio-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-pip
+%if %{defined fedora}
 BuildRequires: python3-qemu-qmp
+%endif
 BuildRequires: python3-wheel
 %if %{have_block_iscsi}
 BuildRequires: libiscsi-devel

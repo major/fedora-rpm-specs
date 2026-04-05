@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.60.0
+Version:        2.61.0
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -10,7 +10,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  python3
 BuildRequires:  gcc
-BuildRequires:  gcc-c++
 BuildRequires:  hwdata-devel
 BuildRequires:  wayland-devel
 BuildRequires:  libXrandr-devel
@@ -111,6 +110,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Fri Apr 03 2026 Jonathan Wright <jonathan@almalinux.org> - 2.61.0-1
+- update to 1.61.0 rhbz#2452665
+
 * Tue Mar 24 2026 Jonathan Wright <jonathan@almalinux.org> - 2.60.0-1
 - update to 2.60.0 rhbz#2445445
 

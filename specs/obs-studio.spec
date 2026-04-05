@@ -33,7 +33,7 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.7.2
+%global obswebsocket_version 5.7.3
 %global obsbrowser_commit ea04212e4bbadd077f9e6038758c4e4779c24fa3
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
@@ -46,7 +46,7 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        32.1.0
+Version:        32.1.1
 Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
@@ -87,9 +87,8 @@ Patch0250:      0250-Update-to-C-20.patch
 # Downstream Fedora patches
 ## Use fdk-aac by default
 Patch1001:      obs-studio-UI-use-fdk-aac-by-default.patch
-## Fix error: passing argument 4 of ‘query_dmabuf_modifiers’ from
-##            incompatible pointer type [-Wincompatible-pointer-types]
-Patch1003:      obs-studio-fix-incompatible-pointer-type.patch
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.22
@@ -403,6 +402,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Apr 03 2026 Hoshino Lina <lina@lina.yt> - 32.1.1-2
+- Update to 32.1.1
+- Drop i686 build
+
 * Wed Mar 25 2026 Hoshino Lina <lina@lina.yt> - 32.1.0-1
 - Update to 32.1.0
 

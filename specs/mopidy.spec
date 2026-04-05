@@ -1,7 +1,7 @@
 %global homedir %{_sharedstatedir}/%{name}
 
 Name:           mopidy
-Version:        4.0.0~a12
+Version:        4.0.0~a15
 Release:        1%{?dist}
 Summary:        An extensible music server written in Python
 
@@ -28,6 +28,8 @@ BuildRequires:  python3-gstreamer1
 BuildRequires:  gstreamer1-plugins-good
 BuildRequires:  libsoup3
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  python3-faker
+BuildRequires:  python3-dirty-equals
 Requires:       python3-gstreamer1
 Requires:       libsoup3
 Requires:       gstreamer1-plugins-good
@@ -54,7 +56,7 @@ Documentation for Mopidy, an extensible music server written in Python.
 
 
 %prep
-%autosetup -n %{name}-4.0.0a12 -p1
+%autosetup -n %{name}-4.0.0a15 -p1
 #HACK! revert to %%autosetup -n %%{name}-%%{version} -p1
 rm -f setup.cfg # HACK: work around https://github.com/tox-dev/tox/issues/3602
 
@@ -90,6 +92,8 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/%{name}/conf.d/mopidy.c
 install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 %check
+# the 'polyfactory' python package is not available in fedora, so we have to skip all the tests that rely on it
+grep -rl 'from tests.factories import' | xargs rm # only tests/factories.py imports from polyfactory
 %tox
 
 
@@ -126,6 +130,9 @@ install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 
 %changelog
+* Sat Mar 14 2026 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a15-1
+- Update to latest prerelease
+
 * Sun Feb 15 2026 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a12-1
 - Update to 4.0.0a12 (RHBZ#2434828)
 

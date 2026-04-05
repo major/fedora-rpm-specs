@@ -23,12 +23,12 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
@@ -55,7 +55,7 @@
 %global core_name rocm-core%{pkg_suffix}
 %endif
 
-Name:           %{core_name}
+Name:           rocm-core
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
@@ -79,14 +79,18 @@ ExclusiveArch:  x86_64
 %{summary}
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{core_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{core_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{core_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocm-core%{pkg_suffix}-devel = %{version}-%{release}
+Requires:       %{core_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -120,7 +124,7 @@ rm -rf %{buildroot}/%{pkg_prefix}/include/rocm-core
 
 find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 
-%files
+%files -n %{core_name}
 %doc README.md
 %license LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/librocm-core.so.*
@@ -133,6 +137,12 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Fri Apr 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- Increment version for devel pkg rename change
+
+* Fri Apr 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Add --with preview
 

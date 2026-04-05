@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        13.2.1
+Version:        14.0.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -101,6 +101,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_bindir}/hb-view.exe
 %{mingw32_bindir}/libharfbuzz-0.dll
 %{mingw32_bindir}/libharfbuzz-gobject-0.dll
+%{mingw32_bindir}/libharfbuzz-gpu-0.dll
 %{mingw32_bindir}/libharfbuzz-icu-0.dll
 %{mingw32_bindir}/libharfbuzz-subset-0.dll
 %{mingw32_bindir}/libharfbuzz-cairo-0.dll
@@ -109,6 +110,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_includedir}/harfbuzz/
 %{mingw32_libdir}/libharfbuzz.dll.a
 %{mingw32_libdir}/libharfbuzz-gobject.dll.a
+%{mingw32_libdir}/libharfbuzz-gpu.dll.a
 %{mingw32_libdir}/libharfbuzz-icu.dll.a
 %{mingw32_libdir}/libharfbuzz-subset.dll.a
 %{mingw32_libdir}/libharfbuzz-cairo.dll.a
@@ -116,6 +118,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_libdir}/libharfbuzz-vector.dll.a
 %{mingw32_libdir}/pkgconfig/harfbuzz.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-gobject.pc
+%{mingw32_libdir}/pkgconfig/harfbuzz-gpu.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-subset.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-cairo.pc
@@ -127,6 +130,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_libdir}/libharfbuzz.a
 %{mingw32_libdir}/libharfbuzz-cairo.a
 %{mingw32_libdir}/libharfbuzz-gobject.a
+%{mingw32_libdir}/libharfbuzz-gpu.a
 %{mingw32_libdir}/libharfbuzz-icu.a
 %{mingw32_libdir}/libharfbuzz-subset.a
 %{mingw32_libdir}/libharfbuzz-raster.a
@@ -143,6 +147,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_bindir}/hb-view.exe
 %{mingw64_bindir}/libharfbuzz-0.dll
 %{mingw64_bindir}/libharfbuzz-gobject-0.dll
+%{mingw64_bindir}/libharfbuzz-gpu-0.dll
 %{mingw64_bindir}/libharfbuzz-icu-0.dll
 %{mingw64_bindir}/libharfbuzz-subset-0.dll
 %{mingw64_bindir}/libharfbuzz-cairo-0.dll
@@ -151,6 +156,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_includedir}/harfbuzz/
 %{mingw64_libdir}/libharfbuzz.dll.a
 %{mingw64_libdir}/libharfbuzz-gobject.dll.a
+%{mingw64_libdir}/libharfbuzz-gpu.dll.a
 %{mingw64_libdir}/libharfbuzz-icu.dll.a
 %{mingw64_libdir}/libharfbuzz-subset.dll.a
 %{mingw64_libdir}/libharfbuzz-cairo.dll.a
@@ -158,6 +164,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_libdir}/libharfbuzz-vector.dll.a
 %{mingw64_libdir}/pkgconfig/harfbuzz.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-gobject.pc
+%{mingw64_libdir}/pkgconfig/harfbuzz-gpu.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-subset.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-cairo.pc
@@ -169,6 +176,7 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_libdir}/libharfbuzz.a
 %{mingw64_libdir}/libharfbuzz-cairo.a
 %{mingw64_libdir}/libharfbuzz-gobject.a
+%{mingw64_libdir}/libharfbuzz-gpu.a
 %{mingw64_libdir}/libharfbuzz-icu.a
 %{mingw64_libdir}/libharfbuzz-subset.a
 %{mingw64_libdir}/libharfbuzz-raster.a
@@ -176,6 +184,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Fri Apr 03 2026 Sandro Mani <manisandro@gmail.com> - 14.0.0-1
+- Update to 14.0.0
+
 * Sat Mar 21 2026 Sandro Mani <manisandro@gmail.com> - 13.2.1-1
 - Update to 13.2.1
 

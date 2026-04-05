@@ -3,7 +3,10 @@
 # MIT licence, per Fedora policy.
 
 # This flag prevents the linkage to libptscotch.so
-%undefine _ld_as_needed
+%undefine _ld_as_needed 
+
+# Avoid requires scanning of example files to exclude not correct dependencies
+%global __requires_exclude_from %{_libexecdir}/superlu_dist-*
 
 %bcond_without mpich
 
@@ -62,7 +65,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 9.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD-3-Clause
@@ -79,6 +82,7 @@ Patch7: %{name}-fix_mpich_example_path.patch
 
 BuildRequires: scotch-devel
 BuildRequires: gcc-c++
+BuildRequires: gcc-gfortran
 BuildRequires: make
 BuildRequires: patchelf
 BuildRequires: cmake
@@ -137,7 +141,6 @@ Development files for %{name}-openmpi
 %package openmpi-examples
 Summary: Example files for %{name}-openmpi
 Requires: %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: openmpi%{?_isa}
 %description openmpi-examples
 This package contains sample programs to illustrate how to use
 various functions provided in SuperLU_DIST.
@@ -196,7 +199,6 @@ Development files for %{name}-mpich
 %package mpich-examples
 Summary: Example files for %{name}-mpich
 Requires: %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: mpich%{?_isa}
 %description mpich-examples
 This package contains sample programs to illustrate how to use
 various functions provided in SuperLU_DIST.
@@ -269,6 +271,9 @@ export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotche
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+ -DMPI_C_LINK_FLAGS:STRING="%(pkgconf --libs ompi)" \
+ -DMPI_CXX_LINK_FLAGS:STRING="%(pkgconf --libs ompi-cxx)" \
+ -DMPI_Fortran_LINK_FLAGS:STRING=-lgfortran \
 %if %{with CombBLAS}
  -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
@@ -318,6 +323,9 @@ export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotche
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+ -DMPI_C_LINK_FLAGS:STRING="%(pkgconf --libs mpich)" \
+ -DMPI_CXX_LINK_FLAGS:STRING="%(pkgconf --libs mpich)" \
+ -DMPI_Fortran_LINK_FLAGS:STRING=-lgfortran \
 %if %{with CombBLAS}
  -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
@@ -361,7 +369,7 @@ pushd openmpi-build
 %cmake_install
 
 # Fix rpaths of example files
-patchelf --force-rpath --set-rpath $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-openmpi/*drive*
+patchelf --shrink-rpath --allowed-rpath-prefixes $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-openmpi/*drive*
 
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{with python}
@@ -380,7 +388,7 @@ pushd mpich-build
 %cmake_install
 
 # Fix rpaths of example files
-patchelf --force-rpath --set-rpath $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-mpich/*drive*
+patchelf --shrink-rpath --allowed-rpath-prefixes $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-mpich/*drive*
 
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{with python}
@@ -509,6 +517,9 @@ popd
 
 
 %changelog
+* Fri Apr 03 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:9.2.1-3
+- Filter bad required libraries from example files
+
 * Thu Apr 02 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:9.2.1-2
 - Explicite MPI runtime required packages
 

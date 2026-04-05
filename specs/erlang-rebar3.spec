@@ -46,8 +46,6 @@ BuildRequires:  perl-interpreter
 
 # This one cannot be picked up automatically
 Requires:	erlang-cth_readable
-# Requires for port compiling - no direct references in Rebar's src/*.erl files
-Requires:	erlang-erl_interface
 # This one cannot be picked up automatically
 Requires:	erlang-eunit_formatters
 

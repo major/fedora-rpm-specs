@@ -5,15 +5,13 @@
 %global crate vsock
 
 Name:           rust-vsock
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Virtio socket support for Rust
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/vsock
 Source:         %{crates_source}
-# Patch to use nix 0.31.1 instead of 0.31.2
-Patch0:         nix-0.31.1.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

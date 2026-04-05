@@ -8,7 +8,7 @@
 %global giturl  https://github.com/scipopt/soplex
 
 Name:           soplex
-Version:        8.0.1
+Version:        8.0.2
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 

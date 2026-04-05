@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.43
+Version:        1.44
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -95,6 +95,12 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Fri Apr  3 2026 Paul Howarth <paul@city-fan.org> - 1.44-1
+- Update to 1.44
+  Bug Fixes:
+  - Fix: Positive hex and octal values parsed as 0 with ImplicitTyping (GH#187)
+  - Fix: Resolve uintptr_t redefinition error on Win64 MinGW (GH#186)
+
 * Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.43-1
 - Update to 1.43
   Bug Fixes:

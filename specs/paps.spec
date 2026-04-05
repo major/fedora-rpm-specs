@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -50,6 +50,7 @@ Patch64:	paps-0.6.8-ftbfs.patch
 Patch100:	%{name}-fix-src-to-paps.patch
 Patch101:	%{name}-fix-build.patch
 Patch102:	%{name}-glib282.patch
+Patch103:	%{name}-fmt12-localtime.patch
 
 Summary:        Plain Text to PostScript converter
 %description
@@ -72,6 +73,7 @@ This package contains a CUPS filter based on paps.
 %patch 100 -p1 -b .src-to-paps
 %patch 101 -p1 -b .build
 %patch 102 -p1 -b .glib282
+%patch 103 -p1 -b .fmt12
 pushd %{name}-0.6.8
 %patch 0 -p1 -b .shared
 %patch 1 -p1 -b .wordwrap
@@ -157,6 +159,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Fri Apr 03 2026 Kefu Chai <tchaikov@gmail.com> - 0.8.0-16
+- Backport upstream fix for fmt 12: replace fmt::localtime with std::localtime
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

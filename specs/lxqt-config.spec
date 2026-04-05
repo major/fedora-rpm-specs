@@ -1,6 +1,6 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.3.1
+Version:       2.3.2
 Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/lxqt/translations/lxqt-config-locale
 
 %changelog
+* Fri Apr 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.2-1
+- Update to 2.3.2
+
 * Tue Feb 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.1-1
 - Update to 2.3.1
 

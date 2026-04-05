@@ -1,7 +1,7 @@
 %global giturl  https://github.com/scipopt/gcg
 
 Name:           gcg
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Branch-and-price and column generation
 

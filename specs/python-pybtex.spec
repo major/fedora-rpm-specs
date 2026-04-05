@@ -1,12 +1,14 @@
+%global giturl  https://codeberg.org/pybtex/pybtex
+
 Name:           python-pybtex
-Version:        0.25.1
+Version:        0.26.1
 Release:        %autorelease
 Summary:        BibTeX-compatible bibliography processor written in Python
 
 License:        MIT
 URL:            https://pybtex.org/
-VCS:            git:https://bitbucket.org/pybtex-devs/pybtex.git
-Source:         %pypi_source pybtex
+VCS:            git:%{giturl}.git
+Source:         %{giturl}/archive/%{version}.tar.gz#/pybtex-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -14,7 +16,9 @@ BuildOption(generate_buildrequires): -x doc,test
 BuildOption(install): -l pybtex
 
 BuildRequires:  make
+BuildRequires:  pytest
 BuildRequires:  python3-docs
+BuildRequires:  python3-sphinx
 
 %global common_desc %{expand:Pybtex is a BibTeX-compatible bibliography processor written in Python.
 Pybtex aims to be 100%% compatible with BibTeX.  It accepts the same command
@@ -59,57 +63,68 @@ Summary:        Documentation for python-pybtex
 Documentation for python-pybtex.
 
 %prep
-%autosetup -n pybtex-%{version}
+%autosetup -n pybtex
+
+%generate_buildrequires -a
+cd docs/pybtex_doctools
+%pyproject_buildrequires
 
 %conf
-# Remove useless shebang
-sed -i '\@/usr/bin/env python@d' pybtex/cmdline.py
-
 # Fix shebangs
 %py3_shebang_fix docs/generate_manpages.py \
-           pybtex/bibtex/runner.py \
-           pybtex/charwidths/make_charwidths.py \
-           pybtex/database/{convert,format}/__main__.py \
-           pybtex/__main__.py \
-           setup.py
+                 src/pybtex/charwidths/make_charwidths.py
 
 # Use local objects.inv for intersphinx
-sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
+sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -i docs/source/conf.py
 
 %build -a
-# Build documentation
-# Workaround for pygments 2.13.  See bz 2127371.
-cat >> pybtex.egg-info/entry_points.txt << EOF
+# Convert the README
+rst2html --no-datestamp README.rst README.html
+
+# Make fake distinfo so we can use pybtex_doctools to build the man pages
+cd docs/pybtex_doctools
+doctoolsver=$(sed -n 's/version = "\(.*\)"/\1/p' pyproject.toml)
+pythonver=$(sed -n 's/requires-python = "\(.*\)"/\1/p' pyproject.toml)
+cd -
+metadataver=$(sed -n 's/Metadata-Version: \(.*\)/\1/p' %{python3_sitelib}/pygments-*.dist-info/METADATA)
+mkdir docs/pybtex_doctools/pybtex_doctools-0.1.0.dist-info
+cd docs/pybtex_doctools/pybtex_doctools-0.1.0.dist-info
+cat > entry_points.txt << EOF
+[pygments.lexers]
+bibtex-bst = pybtex_doctools.pygments:BSTLexer
+bibtex-pybtex = pybtex_doctools.pygments:BibTeXLexer
 
 [pygments.styles]
 pybtex = pybtex_doctools.pygments:PybtexStyle
-
-[pygments.lexers]
-bibtex-pybtex = pybtex_doctools.pygments:BibTeXLexer
-bst-pybtex = pybtex_doctools.pygments:BSTLexer
 EOF
-
-PYTHONPATH=$PWD:$PWD/build/lib:$PWD/docs/pybtex_doctools make -C docs html man
-rm -f docs/build/html/.buildinfo
+cat > METADATA << EOF
+Metadata-Version: $metadataver
+Name: pybtex_doctools
+Version: $doctoolsver
+Summary: Documentation utils for pybtex
+Author-email: Andrey Golovizin <ag@sologoc.com>
+Requires-Python: $pythonver
+Requires-Dist: pygments
+EOF
+cd -
 
 %install -a
+# Build documentation
+export PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD/docs/pybtex_doctools
+make -C docs html man
+rm -f docs/build/html/.buildinfo
+
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p docs/build/man/*.1 %{buildroot}%{_mandir}/man1
 echo ".so man1/pybtex.1" > %{buildroot}%{_mandir}/man1/pybtex-convert.1
 echo ".so man1/pybtex.1" > %{buildroot}%{_mandir}/man1/pybtex-format.1
 
-pushd %{buildroot}%{python3_sitelib}
-rm -fr custom_fixers tests
-chmod a+x pybtex/bibtex/runner.py pybtex/charwidths/make_charwidths.py \
-      pybtex/database/{convert,format}/__main__.py pybtex/__main__.py
-popd
-
 %check
 %pytest -v
 
 %files -n python3-pybtex -f %{pyproject_files}
-%doc README
+%doc README.html
 %{_bindir}/pybtex*
 %{_mandir}/man1/pybtex*
 

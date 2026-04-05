@@ -1,20 +1,10 @@
 Name: py-radix
 Summary: Radix tree data structure for Python
-Version: 0.10.0
-Release: 19%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 
 URL: https://github.com/mjschultz/py-radix
 Source0: https://github.com/mjschultz/py-radix/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Define PY_SSIZE_T_CLEAN, use ssize_t as the index type (PEP 353)
-# Fixes Python 3.10 failures, https://bugzilla.redhat.com/1899466
-Patch1: https://github.com/mjschultz/py-radix/pull/55.patch#/py-radix-0.10.0-py_ssize_t_clean.patch
-# Change away from deprecated assertEquals and assertNotEquals to assertEqual
-# Fixes Python 3.12 failures, https://bugzilla.redhat.com/2175152
-Patch2: https://github.com/mjschultz/py-radix/pull/44.patch#/py-radix-0.10.0-assertequal.patch
-# Change incompatible pointer type from RadixNodeObject to PyObject
-# Fixes Python 3.13 failures, https://bugzilla.redhat.com/2259528
-Patch3: https://github.com/mjschultz/py-radix/pull/58.patch#/py-radix-0.10.0-pyobject-type.patch
 
 License: BSD-4-Clause AND ISC
 BuildRequires: gcc
@@ -96,6 +86,9 @@ touch inet_ntop.c strlcpy.c
 %doc README.rst
 
 %changelog
+* Sat Apr 04 2026 Robert Scheck <robert@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

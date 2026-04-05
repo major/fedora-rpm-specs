@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          3.2.0
-Release:          3%{?dist}
+Version:          3.2.1
+Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -41,6 +41,9 @@ powerful language for route filtering.
 %package doc
 Summary:          Documentation for BIRD Internet Routing Daemon
 BuildRequires:    linuxdoc-tools sgml-common perl(FindBin)
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+BuildRequires:    tex(enumitem.sty)
+%endif
 BuildArch:        noarch
 
 %description doc
@@ -108,6 +111,9 @@ make test
 %endif
 
 %changelog
+* Fri Apr 03 2026 Robert Scheck <robert@fedoraproject.org> - 3.2.1-1
+- Upgrade to 3.2.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

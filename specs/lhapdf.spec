@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.5.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
@@ -15,6 +15,8 @@ Source3:	https://lhapdfsets.web.cern.ch/current/NNPDF31_lo_as_0130.tar.gz
 Source4:	testunc.py
 #		https://gitlab.com/hepcedar/lhapdf/-/merge_requests/123
 Patch0:		0001-Correct-the-lhapdf-config-help-message-to-use-includ.patch
+#		https://gitlab.com/hepcedar/lhapdf/-/merge_requests/124
+Patch1:		0001-Fix-double-I-in-lhapdf-config-cflags-output.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -55,16 +57,17 @@ LHAPDF6 is documented in more detail in http://arxiv.org/abs/1412.7420
 %package devel
 Summary:	Les Houches Accord PDF Interface - development files
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	yaml-cpp-devel
 
 %description devel
 This package provides development files of LHAPDF, including C++ bindings.
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:	Les Houches Accord PDF Interface - Python 3 module
-%py_provides	python%{python3_pkgversion}-%{name}
+%py_provides	python3-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 This package provides Python 3 bindings for LHAPDF.
 This package also provides a script called "lhapdf" which can be used
 to query the catalog of PDF sets and to install and update them from
@@ -81,6 +84,7 @@ This package provides API documentation and examples for LHAPDF.
 %prep
 %setup -q -n LHAPDF-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 mkdir tests/SETS
 tar -z -x -f %{SOURCE1} -C tests/SETS
@@ -152,7 +156,7 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 %{_libdir}/libLHAPDF.so
 %{_libdir}/pkgconfig/%{name}.pc
 
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %{_bindir}/%{name}
 %{python3_sitearch}/%{name}-%{version}.dist-info
 %{python3_sitearch}/%{name}
@@ -163,6 +167,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 %license COPYING
 
 %changelog
+* Fri Apr 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-3
+- More fixes to lhapdf-config and lhapdf.pc
+
 * Sat Mar 28 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-2
 - Correct the lhapdf-config output (backport from upstream git)
 

@@ -2,7 +2,7 @@
 %bcond perl_IPC_Run_enables_optional_test %{undefined rhel}
 
 Name:           perl-IPC-Run
-Version:        20260401.0
+Version:        20260402.0
 Release:        1%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
@@ -107,6 +107,23 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Fri Apr  3 2026 Paul Howarth <paul@city-fan.org> - 20260402.0-1
+- Update to 20260402.0 (rhbz#2454677)
+  Bug fixes:
+  - Detect undefined command in arrayref at harness parse time instead of
+    deferring to start() (GH#164, GH#271, GH#272)
+  - pipe_writer dropped input when data is the string "0" due to redundant
+    boolean test on input buffer (GH#264)
+  - Callback filter evaluates return in list context to distinguish empty
+    return from the string "0", preventing infinite loop on Win32 (GH#264)
+  - Skip pty output assertions on BSD/Darwin due to known pty drain timing
+    issues on short-lived children (GH#240, GH#274)
+  - Implement proper Windows command-line parsing per Microsoft C/C++ rules,
+    fixing argument parsing failures with single-quoted strings containing
+    whitespace (GH#273)
+  Maintenance:
+  - Add shebang to eg/synopsis_scripting (GH#275)
+
 * Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 20260401.0-1
 - Update to 20260401.0 (rhbz#2454159)
   Bug fixes:

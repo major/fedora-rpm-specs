@@ -9,6 +9,7 @@ License: MIT
 Summary: C++ Library Manager
 URL: https://github.com/microsoft/%{repo_name}
 Source0: %{url}/archive/%{repo_tag}/%{name}-%{version}.tar.gz
+Patch0:         vcpkg-fmt12-formatter.patch
 Source1: %{name}.sh
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

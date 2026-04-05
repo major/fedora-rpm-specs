@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.25
+Version:        1.26
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -60,6 +60,17 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.26-1
+- Update to 1.26 (rhbz#2454517)
+  Bug Fixes:
+  - Fix strlcpy detection on DragonFly BSD to avoid static/non-static
+    declaration conflict; added __DragonFly__ guard to the function test
+    (paralleling __FreeBSD__) and added a belt-and-suspenders check for
+    perl's own HAS_STRLCPY in Tty.xs (GH#67)
+  Maintenance:
+  - Add 5-minute timeout to all CI test steps to prevent hung tests from
+    consuming CI resources indefinitely (GH#66)
+
 * Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.25-1
 - Update to 1.25 (rhbz#2454158)
   Bug Fixes:

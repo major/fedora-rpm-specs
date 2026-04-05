@@ -5,7 +5,7 @@
 %global crate roff
 
 Name:           rust-roff
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        ROFF (man page format) generation library
 

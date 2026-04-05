@@ -170,7 +170,6 @@ BuildRequires:  libboost_filesystem1_75_0-devel
 BuildRequires:  libboost_system1_75_0-devel
 %else
 BuildRequires:  libboost_filesystem-devel
-BuildRequires:  libboost_system-devel
 %endif
 %else
 BuildRequires:  boost-devel

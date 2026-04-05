@@ -1,5 +1,5 @@
 Name:           whatweb
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Web scanner to identify what are the websites running
 License:        GPL-2.0-or-later

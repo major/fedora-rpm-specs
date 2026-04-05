@@ -4,7 +4,7 @@
 
 # https://github.com/metacubex/mihomo
 %global goipath         github.com/metacubex/mihomo
-Version:                1.19.21
+Version:                1.19.22
 
 # Fix error about undefined reference
 # golang.org/x/sys/unix.sendmsg

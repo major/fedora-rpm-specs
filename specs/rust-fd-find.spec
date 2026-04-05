@@ -12,6 +12,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fd-find
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Temporary lower MSRV from 1.90.0 to 1.88.0 for EL9
 # * Allow lscolors 0.20
 Patch:          fd-find-fix-metadata.diff
 

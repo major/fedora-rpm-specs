@@ -81,10 +81,6 @@ URL:            https://fedoraproject.org/
 Source1:        LICENSE
 Source2:        Fedora-Legal-README.txt
 
-Source10:       85-display-manager.preset
-Source11:       90-default.preset
-Source12:       90-default-user.preset
-Source13:       99-default-disable.preset
 Source14:       80-server.preset
 Source15:       80-workstation.preset
 Source16:       org.gnome.shell.gschema.override
@@ -98,7 +94,6 @@ Source23:       zezere-ignition-url
 Source24:       80-iot-user.preset
 Source25:       plasma-desktop.conf
 Source26:       80-kde-desktop.preset
-Source27:       81-desktop.preset
 Source28:       longer-default-shutdown-timeout.conf
 Source29:       org.gnome.settings-daemon.plugins.power.gschema.override
 Source30:       fedora-sway.conf
@@ -108,7 +103,6 @@ Source33:       plasma-mobile.conf
 Source34:       80-kde-mobile.preset
 Source35:       fedora-miraclewm.conf
 Source36:       fedora-cosmic.conf
-Source37:       81-atomic-desktop.preset
 
 BuildArch:      noarch
 
@@ -147,6 +141,11 @@ Requires:   fedora-repos(%{version})
 %endif
 Requires:   fedora-release-identity = %{version}-%{release}
 
+# We need to ensure that the systemd presets common to all Fedora installs are
+# pulled in here. Spin-specific ones are located further below. These are kept
+# in a separate file to make life easier for Fedora Remixes to reuse them.
+Requires:   redhat-systemd-presets
+
 %if %{is_rawhide}
 # Make $releasever return "rawhide" on Rawhide
 # and "eln" on ELN.
@@ -161,6 +160,9 @@ Conflicts:  generic-release
 
 # rpm-ostree count me is now enabled in 90-default.preset
 Obsoletes: fedora-release-ostree-counting <= 36-0.7
+
+# Handle the split between fedora-release-common and redhat-systemd-presets
+Obsoletes: fedora-release-common < 45-0.3
 
 %description common
 Release files common to all Editions and Spins of Fedora
@@ -210,6 +212,11 @@ RemovePathPostfixes: .cinnamon
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-cinnamon = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-cinnamon < 45-0.3
+Conflicts:       fedora-release-identity-cinnamon < 45-0.3
 
 
 %description identity-cinnamon
@@ -284,6 +291,11 @@ RemovePathPostfixes: .compneuro
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-compneuro = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-compneuro < 45-0.3
+Conflicts:       fedora-release-identity-compneuro < 45-0.3
 
 
 %description identity-compneuro
@@ -396,6 +408,11 @@ RemovePathPostfixes: .designsuite
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-designsuite = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-designsuite < 45-0.3
+Conflicts:       fedora-release-identity-designsuite < 45-0.3
 
 
 %description identity-designsuite
@@ -634,6 +651,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-kde-desktop = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-kde-desktop < 45-0.3
+Conflicts:       fedora-release-identity-kde-desktop < 45-0.3
+
 
 %description identity-kde-desktop
 Provides the necessary files for a Fedora installation that is identifying
@@ -670,6 +692,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-kde-mobile = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-kde-mobile < 45-0.3
+Conflicts:       fedora-release-identity-kde-mobile < 45-0.3
+
 
 %description identity-kde-mobile
 Provides the necessary files for a Fedora installation that is identifying
@@ -705,6 +732,11 @@ RemovePathPostfixes: .matecompiz
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-matecompiz = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-matecompiz < 45-0.3
+Conflicts:       fedora-release-identity-matecompiz < 45-0.3
 
 
 %description identity-matecompiz
@@ -781,6 +813,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-silverblue = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-silverblue < 45-0.3
+Conflicts:       fedora-release-identity-silverblue < 45-0.3
+
 
 %description identity-silverblue
 Provides the necessary files for a Fedora installation that is identifying
@@ -819,6 +856,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-kinoite = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-kinoite < 45-0.3
+Conflicts:       fedora-release-identity-kinoite < 45-0.3
+
 
 %description identity-kinoite
 Provides the necessary files for a Fedora installation that is identifying
@@ -856,6 +898,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-kinoite-mobile = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-kinoite-mobile < 45-0.3
+Conflicts:       fedora-release-identity-kinoite-mobile < 45-0.3
+
 
 %description identity-kinoite-mobile
 Provides the necessary files for a Fedora installation that is identifying
@@ -865,6 +912,14 @@ itself as Fedora Kinoite Mobile.
 %if %{with ostree_desktop}
 %package ostree-desktop
 Summary:        Configuration package for rpm-ostree variants to add rpm-ostree polkit rules
+
+# Pull in atomic desktop-specific presets
+Requires:       redhat-systemd-presets-desktop-atomic
+
+# Handle the split between fedora-release-ostree-desktop and redhat-systemd-presets-desktop-atomic
+Obsoletes: fedora-release-ostree-desktop < 45-0.3
+Conflicts: fedora-release-ostree-desktop < 45-0.3
+
 
 %description ostree-desktop
 Configuration package for rpm-ostree variants to add rpm-ostree polkit rules
@@ -937,6 +992,11 @@ RemovePathPostfixes: .soas
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-soas = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-soas < 45-0.3
+Conflicts:       fedora-release-identity-soas < 45-0.3
 
 
 %description identity-soas
@@ -1012,6 +1072,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-workstation = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-workstation < 45-0.3
+Conflicts:       fedora-release-identity-workstation < 45-0.3
+
 
 %description identity-workstation
 Provides the necessary files for a Fedora installation that is identifying
@@ -1048,6 +1113,11 @@ RemovePathPostfixes: .xfce
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-xfce = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-xfce < 45-0.3
+Conflicts:       fedora-release-identity-xfce < 45-0.3
 
 
 %description identity-xfce
@@ -1086,6 +1156,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-i3 = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-i3 < 45-0.3
+Conflicts:       fedora-release-identity-i3 < 45-0.3
+
 
 %description identity-i3
 Provides the necessary files for a Fedora installation that is identifying
@@ -1122,6 +1197,11 @@ RemovePathPostfixes: .lxde
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-lxde = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-lxde < 45-0.3
+Conflicts:       fedora-release-identity-lxde < 45-0.3
 
 
 %description identity-lxde
@@ -1160,6 +1240,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-lxqt = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-lxqt < 45-0.3
+Conflicts:       fedora-release-identity-lxqt < 45-0.3
+
 
 %description identity-lxqt
 Provides the necessary files for a Fedora installation that is identifying
@@ -1195,6 +1280,11 @@ RemovePathPostfixes: .budgie
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-budgie = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-budgie < 45-0.3
+Conflicts:       fedora-release-identity-budgie < 45-0.3
 
 
 %description identity-budgie
@@ -1232,6 +1322,11 @@ RemovePathPostfixes: .sway
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-sway = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-sway < 45-0.3
+Conflicts:       fedora-release-identity-sway < 45-0.3
 
 
 %description identity-sway
@@ -1271,6 +1366,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-sway-atomic = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-sway-atomic < 45-0.3
+Conflicts:       fedora-release-identity-sway-atomic < 45-0.3
+
 
 %description identity-sway-atomic
 Provides the necessary files for a Fedora installation that is identifying
@@ -1307,6 +1407,11 @@ RemovePathPostfixes: .budgie-atomic
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-budgie-atomic = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-budgie-atomic < 45-0.3
+Conflicts:       fedora-release-identity-budgie-atomic < 45-0.3
 
 
 %description identity-budgie-atomic
@@ -1345,6 +1450,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-mobility = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-mobility < 45-0.3
+Conflicts:       fedora-release-identity-mobility < 45-0.3
+
 
 %description identity-mobility
 Provides the necessary files for a Fedora installation that is identifying
@@ -1380,6 +1490,11 @@ RemovePathPostfixes: .miraclewm
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-miraclewm = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-miraclewm < 45-0.3
+Conflicts:       fedora-release-identity-miraclewm < 45-0.3
 
 
 %description identity-miraclewm
@@ -1419,6 +1534,11 @@ Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-miraclewm-atomic = %{version}-%{release}
 
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-miraclewm-atomic < 45-0.3
+Conflicts:       fedora-release-identity-miraclewm-atomic < 45-0.3
+
 
 %description identity-miraclewm-atomic
 Provides the necessary files for a Fedora installation that is identifying
@@ -1455,6 +1575,11 @@ RemovePathPostfixes: .cosmic
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-cosmic = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-cosmic < 45-0.3
+Conflicts:       fedora-release-identity-cosmic < 45-0.3
 
 
 %description identity-cosmic
@@ -1493,6 +1618,11 @@ RemovePathPostfixes: .cosmic-atomic
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
 Requires(meta): fedora-release-cosmic-atomic = %{version}-%{release}
+
+# Pull in desktop-specific presets
+Requires:       redhat-systemd-presets-desktop
+Obsoletes:       fedora-release-identity-cosmic-atomic < 45-0.3
+Conflicts:       fedora-release-identity-cosmic-atomic < 45-0.3
 
 
 %description identity-cosmic-atomic
@@ -1899,26 +2029,21 @@ install -Dm0644 %{SOURCE21} -t %{buildroot}%{_sysconfdir}/dnf/protected.d/
 %if %{with silverblue} || %{with workstation}
 # Silverblue and Workstation
 install -Dm0644 %{SOURCE15} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 # Override the list of enabled gnome-shell extensions for Workstation
 install -Dm0644 %{SOURCE16} -t %{buildroot}%{_datadir}/glib-2.0/schemas/
 %endif
 
 %if %{with kde_desktop} || %{with kinoite}
-# Common desktop preset and spin specific preset
+# Spin specific preset
 install -Dm0644 %{SOURCE26} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 %endif
 
 %if %{with kde_mobile} || %{with kinoite_mobile}
-# Common desktop preset and spin specific preset
+# Spin specific preset
 install -Dm0644 %{SOURCE34} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 %endif
 
 %if %{with ostree_desktop}
-# Install Atomic Desktop specific presets
-install -Dm0644 %{SOURCE37} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 # Install rpm-ostree polkit rules
 install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %endif
@@ -2095,14 +2220,6 @@ EOF
 # Install licenses
 install -pm 0644 %{SOURCE1} licenses/LICENSE
 
-# Default system wide
-install -Dm0644 %{SOURCE10} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE11} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE12} -t %{buildroot}%{_prefix}/lib/systemd/user-preset/
-# The same file is installed in two places with identical contents
-install -Dm0644 %{SOURCE13} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
-install -Dm0644 %{SOURCE13} -t %{buildroot}%{_prefix}/lib/systemd/user-preset/
-
 # Create distro-level SWID tag file
 install -d %{buildroot}%{_swidtagdir}
 sed -e "s#\$version#%{bug_version}#g" -e 's/<!--.*-->//;/^$/d' %{SOURCE19} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-%{bug_version}.swidtag
@@ -2128,13 +2245,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %config(noreplace) %{_sysconfdir}/issue.net
 %dir %{_sysconfdir}/issue.d
 %attr(0644,root,root) %{_rpmconfigdir}/macros.d/macros.dist
-%dir %{_prefix}/lib/systemd/user-preset/
-%{_prefix}/lib/systemd/user-preset/90-default-user.preset
-%{_prefix}/lib/systemd/user-preset/99-default-disable.preset
-%dir %{_prefix}/lib/systemd/system-preset/
-%{_prefix}/lib/systemd/system-preset/85-display-manager.preset
-%{_prefix}/lib/systemd/system-preset/90-default.preset
-%{_prefix}/lib/systemd/system-preset/99-default-disable.preset
 %dir %{_swidtagdir}
 %{_swidtagdir}/org.fedoraproject.Fedora-%{bug_version}.swidtag
 %dir %{_sysconfdir}/swid
@@ -2154,7 +2264,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-cinnamon
 %{_prefix}/lib/os-release.cinnamon
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.cinnamon
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2171,7 +2280,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-compneuro
 %{_prefix}/lib/os-release.compneuro
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.compneuro
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2199,7 +2307,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-designsuite
 %{_prefix}/lib/os-release.designsuite
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.designsuite
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2237,7 +2344,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-kde-desktop
 %{_prefix}/lib/os-release.kde-desktop
 %{_prefix}/lib/systemd/system-preset/80-kde-desktop.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kde-desktop
 %{_sysconfdir}/dnf/protected.d/plasma-desktop.conf
 %endif
@@ -2247,7 +2353,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-kde-mobile
 %{_prefix}/lib/os-release.kde-mobile
 %{_prefix}/lib/systemd/system-preset/80-kde-mobile.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kde-mobile
 %{_sysconfdir}/dnf/protected.d/plasma-mobile.conf
 %endif
@@ -2257,7 +2362,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-matecompiz
 %{_prefix}/lib/os-release.matecompiz
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.matecompiz
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2281,7 +2385,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 # Keep this in sync with workstation below
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.gschema.override
 %{_prefix}/lib/systemd/system-preset/80-workstation.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2290,7 +2393,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-kinoite
 %{_prefix}/lib/os-release.kinoite
 %{_prefix}/lib/systemd/system-preset/80-kde-desktop.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kinoite
 %endif
 
@@ -2299,13 +2401,11 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-kinoite-mobile
 %{_prefix}/lib/os-release.kinoite-mobile
 %{_prefix}/lib/systemd/system-preset/80-kde-mobile.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kinoite-mobile
 %endif
 
 %if %{with ostree_desktop}
 %files ostree-desktop
-%{_prefix}/lib/systemd/system-preset/81-atomic-desktop.preset
 %attr(0644,root,root) %{_prefix}/share/polkit-1/rules.d/org.projectatomic.rpmostree1.rules
 %endif
 
@@ -2323,7 +2423,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-soas
 %{_prefix}/lib/os-release.soas
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.soas
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2344,7 +2443,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 # Keep this in sync with silverblue above
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.gschema.override
 %{_prefix}/lib/systemd/system-preset/80-workstation.preset
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2353,7 +2451,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-xfce
 %{_prefix}/lib/os-release.xfce
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.xfce
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2362,7 +2459,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-i3
 %{_prefix}/lib/os-release.i3
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.i3
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2371,7 +2467,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-lxde
 %{_prefix}/lib/os-release.lxde
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxde
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2380,7 +2475,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-lxqt
 %{_prefix}/lib/os-release.lxqt
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxqt
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 %if %{with budgie}
@@ -2388,7 +2482,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-budgie
 %{_prefix}/lib/os-release.budgie
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2397,7 +2490,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-sway
 %{_prefix}/lib/os-release.sway
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_sysconfdir}/dnf/protected.d/fedora-sway.conf
 %endif
 
@@ -2407,7 +2499,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-sway-atomic
 %{_prefix}/lib/os-release.sway-atomic
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway-atomic
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 %if %{with budgie_atomic}
@@ -2415,7 +2506,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-budgie-atomic
 %{_prefix}/lib/os-release.budgie-atomic
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie-atomic
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2424,7 +2514,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-mobility
 %{_prefix}/lib/os-release.mobility
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.mobility
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2433,7 +2522,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-miraclewm
 %{_prefix}/lib/os-release.miraclewm
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.miraclewm
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_sysconfdir}/dnf/protected.d/fedora-miraclewm.conf
 %endif
 
@@ -2443,7 +2531,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-miraclewm-atomic
 %{_prefix}/lib/os-release.miraclewm-atomic
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.miraclewm-atomic
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
@@ -2452,7 +2539,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-cosmic
 %{_prefix}/lib/os-release.cosmic
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.cosmic
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_sysconfdir}/dnf/protected.d/fedora-cosmic.conf
 %endif
 
@@ -2462,7 +2548,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-cosmic-atomic
 %{_prefix}/lib/os-release.cosmic-atomic
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.cosmic-atomic
-%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 %if %{with wsl}

@@ -17,7 +17,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.22.0
+Version:        3.22.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -494,6 +494,9 @@ cd -
 %files -n ocaml-top-closure-devel -f .ofiles-top-closure-devel
 
 %changelog
+* Fri Apr 03 2026 Jerry James <loganjerry@gmail.com> - 3.22.1-1
+- Version 3.22.1
+
 * Thu Mar 19 2026 Jerry James <loganjerry@gmail.com> - 3.22.0-1
 - Version 3.22.0
 

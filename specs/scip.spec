@@ -1,7 +1,7 @@
 %global giturl  https://github.com/scipopt/scip
 
 Name:           scip
-Version:        10.0.1
+Version:        10.0.2
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 

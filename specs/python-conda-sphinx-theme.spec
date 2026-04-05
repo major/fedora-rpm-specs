@@ -2,7 +2,7 @@
 %global modname conda_sphinx_theme
 
 Name:           python-%{srcname}
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        A Sphinx theme for conda documentations
 

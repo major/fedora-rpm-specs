@@ -6,7 +6,7 @@
 %global giturl  https://github.com/pydata/pydata-sphinx-theme
 
 Name:           python-pydata-sphinx-theme
-Version:        0.16.1
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -19,9 +19,6 @@ Source0:        %{giturl}/archive/v%{version}/pydata-sphinx-theme-%{version}.tar
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        pydata-sphinx-theme-%{version}-vendor.tar.xz
 Source2:        pydata-sphinx-theme-%{version}-vendor-licenses.txt
-
-# Compatibility with Pygments 2.19+
-Patch:          https://github.com/pydata/pydata-sphinx-theme/pull/2091.patch
 
 %if %{with docs}
 # Generating image files requires network access.  Instead, we scrape these from
@@ -77,7 +74,7 @@ See https://pydata-sphinx-theme.readthedocs.io/ for documentation.}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 Requires:       fontawesome-fonts-all
 Requires:       fontawesome-fonts-web
-Provides:       bundled(js-bootstrap) = 5.3.7
+Provides:       bundled(js-bootstrap) = 5.3.8
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -96,8 +93,6 @@ Documentation for pydata-sphinx-theme.
 
 %prep
 %autosetup -n pydata-sphinx-theme-%{version} -p1 -a1
-
-%conf
 cp -p %{SOURCE2} .
 
 %if %{with docs}
@@ -110,6 +105,9 @@ sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.p
 # Substitute the installed nodejs version for the requested version
 %global nodejs_version %(%{_bindir}/node -v | sed s/v//)
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
+
+# Skip the playwright tests, since playwright is not available in Fedora
+sed -i '/pytest-playwright/d' pyproject.toml
 
 %generate_buildrequires -p
 # The Fedora sphinx package does not provide sphinx[test]

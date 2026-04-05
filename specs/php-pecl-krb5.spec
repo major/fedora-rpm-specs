@@ -9,7 +9,6 @@
 
 %global pecl_name   krb5
 %global ini_name    40-%{pecl_name}.ini
-%global sources     %{pecl_name}-%{version}
 
 # Github forge
 %global gh_vend     php
