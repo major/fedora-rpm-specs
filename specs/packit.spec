@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.15.2
+Version:        1.15.3
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Wed Apr 01 2026 Packit <hello@packit.dev> - 1.15.3-1
+- We've fixed the formatting of the strings Packit appends to the changelog. Now there will be at most one blank line before or after the Packit comment. (#2707)
+- Resolves: rhbz#2453842
+
 * Tue Mar 24 2026 Packit <hello@packit.dev> - 1.15.2-1
 - Packit now uses the specfile library's sanitization when parsing spec files.
 - Resolves: rhbz#2450841

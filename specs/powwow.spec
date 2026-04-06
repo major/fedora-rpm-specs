@@ -1,6 +1,6 @@
 Name:           powwow
 Version:        1.2.23
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A console MUD client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -13,7 +13,6 @@ Patch0:         powwow-no-termio.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
-BuildRequires:  pcre-devel
 
 %description
 Powwow is a powerful console MUD client that supports triggers, aliases,
@@ -70,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/powwow/powwow.doc
 
 
 %changelog
+* Sat Apr 04 2026 Kalev Lember <kalevlember@gmail.com> - 1.2.23-13
+- Stop using retired pcre library (rhbz#2454293)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.23-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

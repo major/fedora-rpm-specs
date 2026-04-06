@@ -1,22 +1,21 @@
 Name:           klog
-Version:        2.4.2
-Release:        2%{?dist}
+Version:        2.5
+Release:        1%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPL-2.0-or-later
 URL:            https://www.klog.xyz/
 
 Source0:        https://github.com/ea4k/klog/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source100:      klog.desktop
 Source101:      klog_48x48.png
 Source102:      klog_64x64.png
 Source103:      klog_128x128.png
 Source104:      klog_256x256.png
 Source105:      klog_512x512.png
-Source106:      xyz.klog.klog.metainfo.xml
 
 ExcludeArch:    i686
 
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  dos2unix
 BuildRequires:  gettext
@@ -28,6 +27,8 @@ BuildRequires:  qt6-qtserialport-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtlocation-devel
+BuildRequires:  libudev-devel
+BuildRequires:  libappstream-glib
 
 %if ! 0%{?rhel} < 8
 Recommends:     trustedqsl
@@ -64,20 +65,18 @@ dos2unix TODO
 
 
 %build
-%qmake_qt6 PREFIX=%{buildroot}%{_prefix} src.pro
-%make_build
+%cmake
+%cmake_build
 
 
 %install
-%make_install
-
-# Manuall install translations because qmake is being stupid.
-mkdir -p %{buildroot}%{_datadir}/%{name}/translations
-install -pm 0644 build/target/translations/*.qm \
-                 %{buildroot}%{_datadir}/%{name}/translations/
+%cmake_install
 
 # Remove docs installed to wrong location
-rm -f %{buildroot}%{_datadir}/%{name}/{COPYING,Changelog}
+rm -rf %{buildroot}%{_docdir}/%{name}/
+
+# Remove old pixman icon
+rm -rf %{buildroot}%{_datadir}/pixmaps
 
 %find_lang %{name} --with-qt
 
@@ -87,27 +86,25 @@ for size in 48x48 64x64 128x128 256x256 512x512; do
         %{buildroot}%{_datadir}/icons/hicolor/$size/apps/%{name}.png
 done
 
-# Install the provided desktop file
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
-    %{SOURCE100}
-
-# Install the provided AppStream metadata file
-install -Dm 0644 %{SOURCE106} \
-    %{buildroot}%{_metainfodir}/xyz.klog.klog.metainfo.xml
+# Validate metainfo file
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %files -f %{name}.lang
-%doc AUTHORS README TODO NEWS
+%doc AUTHORS README TODO TROUBLESHOOTING NEWS
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/%{name}/mapqmlfile.qml
-%{_datadir}/%{name}/marker.qml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_metainfodir}/xyz.klog.klog.metainfo.xml
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_mandir}/man1/%{name}.1.*
+%{_metainfodir}/klog.metainfo.xml
 
 
 %changelog
+* Sat Apr 04 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5-1
+- Update to 2.5.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

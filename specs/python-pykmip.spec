@@ -16,6 +16,7 @@ Summary:        Python implementation of the Key Management Interoperability Pro
 License:        Apache-2.0
 URL:            https://github.com/OpenKMIP/PyKMIP
 Source0:        %{pypi_source %{pypi_name}}
+Patch0:         https://github.com/OpenKMIP/PyKMIP/commit/645cbf2ae931b03b8f5ebe2458683da1b2276794.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -34,7 +35,7 @@ Summary:        Python implementation of the Key Management Interoperability Pro
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1  -n %{pypi_name}-%{version}
 
 # enum-compat is only needed for python <= 3.4
 sed -i 's/"enum-compat",//' setup.py

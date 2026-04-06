@@ -244,6 +244,7 @@ Requires:       incus%{?_isa} = %{version}-%{release}
 # Virtual machine support requires additional packages
 Recommends:     edk2-ovmf
 Recommends:     xorriso
+Recommends:     qemu-audio-spice
 Recommends:     qemu-char-spice
 Recommends:     qemu-device-display-virtio-vga
 Recommends:     qemu-device-display-virtio-gpu

@@ -1,5 +1,5 @@
 Name:           nwipe
-Version:        0.39
+Version:        0.40
 Release:        %autorelease
 Summary:        Securely erase disks using a variety of recognized methods
 
@@ -20,29 +20,28 @@ VCS:            git:https://github.com/martijnvanbrummelen/nwipe
 #Source0:       https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  parted-devel
-BuildRequires:  ncurses-devel
-BuildRequires:  libconfig-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libconfig-devel
+BuildRequires:  make
+BuildRequires:  ncurses-devel
+BuildRequires:  parted-devel
 
 # Runtime dependencies
+Requires:       hdparm
 Requires:       /usr/bin/readlink
 Requires:       /usr/sbin/dmidecode
-Requires:       hdparm
 Requires:       /usr/sbin/modprobe
 Requires:       /usr/sbin/smartctl
 
 
 # Recommends only supported on fedora and rhel8+
-%if (0%{?fedora}) || ( 0%{?rhel} && 0%{?rhel} >= 8 )
 # used to provide serial number of drive over supported USB to SATA interface
 Recommends:     smartmontools
 # provide SMBIOS/DMI host data to log file
 Recommends:     dmidecode
-%endif
 
 
 %description
@@ -65,26 +64,17 @@ a few changes:
 
 
 %build
-
-# On RHEL7 it is needed to explicitly pregress to c99 compatibility mode
-%if 0%{?rhel} && 0%{?rhel} <= 7
-export CFLAGS="%{optflags} -D_XOPEN_SOURCE=500"
-%endif
-
-# Needed for compatibility with GCC 15
-export CFLAGS="%{optflags} -std=c99"
-
-
 autoreconf -vif
-
 %configure
-# make %%{?_smp_mflags}
 %make_build
 
 
 %install
-# make install DESTDIR=%%{buildroot} LDFLAGS="-lncurses -lpanel"
 %make_install
+
+
+%check
+make check
 
 
 %files

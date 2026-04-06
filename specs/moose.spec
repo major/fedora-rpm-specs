@@ -8,7 +8,7 @@
 Name:           moose
 Version:        3.1.5
 %global codename chamcham
-Release:        33%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
+Release:        34%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
 Summary:        Multiscale Neuroscience and Systems Biology Simulator
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -90,6 +90,8 @@ sed -i 's/-O3//' CMakeLists.txt
 %global py_setup setup.cmake.py
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380789)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # On armv7 we get a failure with LTO.
 # Disable LTO for armv7
 %ifarch armv7hl
@@ -155,6 +157,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c \
 %doc README.md
 
 %changelog
+* Fri Apr 03 2026 Cristian Le <git@lecris.dev> - 3.1.5-34
+- Allow to build with CMake 4.0 (rhbz#2380789)
+
 * Mon Feb 02 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.1.5-33
 - Drop support for i686
 

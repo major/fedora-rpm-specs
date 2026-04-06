@@ -9,7 +9,7 @@
 
 Summary:	Ruby binding of librsvg-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.5
+Version:	4.3.6
 Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -74,7 +74,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.5|>= 4.3.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.6|>= 4.3.6|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -152,6 +152,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Sat Apr 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.6-1
+- 4.3.6
+
 * Sat Feb 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.5-1
 - 4.3.5
 

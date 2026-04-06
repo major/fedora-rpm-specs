@@ -15,7 +15,7 @@ License: GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-excepti
 %global with_tools 1
 %global with_tests 1
 
-Version: 1.0.2
+Version: 1.0.4
 Release: 1%{?dist}
 
 URL: https://github.com/pasdoc/pasdoc
@@ -214,6 +214,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 
 %changelog
+* Sat Apr 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.4-1
+- Update to v1.0.4
+
 * Mon Mar 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-1
 - Update to v1.0.2
 

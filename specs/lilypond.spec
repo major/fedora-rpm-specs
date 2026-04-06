@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.80
+Version:	2.25.81
 Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
@@ -120,6 +120,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Sat Apr 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.81-1
+- 2.25.81
+
 * Mon Mar 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.80-1
 - 2.25.80
 

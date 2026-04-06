@@ -13,6 +13,9 @@ Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
 Patch:          0000-Disable-TestPlugins-test.patch
 # Install icons even when building Python wheels
 Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2859.patch
+# See: https://github.com/zim-desktop-wiki/zim-desktop-wiki/issues/2934
+Patch:          zim_2934.patch
+
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
@@ -23,8 +26,10 @@ BuildRequires:  gobject-introspection
 # for tests
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  glibc-langpack-en
+# needed to test vcs/git integration
+BuildRequires:  git
 
-Requires:       python3-gobject
+Requires:       python3-gobject, gobject-introspection 
 Requires:       gtk3, python3-pyxdg
 Recommends:     libappindicator-gtk3
 
@@ -56,7 +61,15 @@ cat zim.lang >> %{pyproject_files}
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.zim_wiki.Zim.desktop
 
 %check
-LANG=en_US.UTF-8 xvfb-run ./test.py
+# this is needed to allow the vcs/git integration test to pass
+# since it executes "git commit" 
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+# for some unknown reason settings these env variables does not have the expected effect:
+#GIT_COMMITTER_NAME=test \
+#GIT_COMMITTER_EMAIL=test@test.com \
+LANG=en_US.UTF-8 \
+xvfb-run ./test.py
 
 %files -f %{pyproject_files}
 %doc *.md contrib/

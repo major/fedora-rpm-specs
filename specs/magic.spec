@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.623
+Version:	8.3.631
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -19,9 +19,6 @@ Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
-# https://sourceware.org/pipermail/libc-alpha/2025-March/165574.html
-# glibc 2.42 removes termio.h
-Patch2:	%{name}-8.3.538-remove-termio.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -93,9 +90,6 @@ sed -i "s|package require -exact|package require|" tcltk/tkcon.tcl
 %if "x%{?__isa_bits}" == "x64"
 %patch -P 1 -p0 -b .64bit
 %endif
-%patch -P 2 -p1 -b .glibc_244
-
-#sed -i utils/magsgtty.h -e 's|termio.h|termios.h|'
 
 # Doesn't seem to need these.
 sed -i scripts/configure \
@@ -192,6 +186,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sat Apr 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.631-1
+- 8.3.631
+
 * Tue Mar 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.623-1
 - 8.3.213
 

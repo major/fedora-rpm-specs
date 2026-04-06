@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/luebking/phototonic
-Version:        3.1.0
+Version:        3.2.0
 %forgemeta
 
 Name:           phototonic

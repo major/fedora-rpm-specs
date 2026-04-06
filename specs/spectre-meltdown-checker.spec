@@ -1,13 +1,12 @@
 Name:       spectre-meltdown-checker
-Version:    0.46
-Release:    8%{?dist}
+Version:    26.21.0401891
+Release:    1%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
 URL:        https://github.com/speed47/spectre-meltdown-checker
 Source0:    https://github.com/speed47/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:     pr495-Fix-Retpoline-detection-for-Linux-6.9+-issue-490.patch
 
 BuildArch:  noarch
 
@@ -49,10 +48,13 @@ help2man %{buildroot}%{_bindir}/%{name} -n "Spectre and Meltdown mitigation dete
 
 %files
 %doc README.md
-%{_bindir}/*
+%{_bindir}/%{name}
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Apr 04 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 26.21.0401891-1
+- Update to 26.21.0401891
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

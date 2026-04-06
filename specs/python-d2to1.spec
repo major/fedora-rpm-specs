@@ -2,12 +2,12 @@
 
 Name: python-%{srcname}
 Version: 0.2.12
-Release: 41.post1%{?dist}
+Release: 42.post1%{?dist}
 Summary: Allows using distutils2-like setup.cfg files with setup.py
 License: BSD-3-Clause
 
 URL: http://pypi.python.org/pypi/d2to1
-#Source0: http://pypi.python.org/packages/source/d/d2to1/%{srcname}-%{version}.tar.gz
+#Source0: http://pypi.python.org/packages/source/d/d2to1/%%{srcname}-%%{version}.tar.gz
 Source0: https://pypi.python.org/packages/source/d/d2to1/d2to1-0.2.12.post1.tar.gz
 
 # Compatibility with the newer setuptools
@@ -15,42 +15,60 @@ Patch:   setuptools-compatibility.patch
 
 BuildArch: noarch
 
-%global _description\
-d2to1 allows using distutils2-like setup.cfg files for a package's metadata\
-with a distribute/setuptools setup.py script. It works by providing a\
-distutils2-formatted setup.cfg file containing all of a package's metadata,\
-and a very minimal setup.py which will slurp its arguments from the setup.cfg.
+BuildRequires:  python3-devel
+
+
+%global _description %{expand:
+d2to1 allows using distutils2-like setup.cfg files for a package's metadata
+with a distribute/setuptools setup.py script. It works by providing a
+distutils2-formatted setup.cfg file containing all of a package's metadata,
+and a very minimal setup.py which will slurp its arguments from the setup.cfg.}
+
 
 %description %_description
 
+
 %package -n python3-d2to1
 Summary: Allows using distutils2-like setup.cfg files with setup.py
-%{?python_provide:%python_provide python3-d2to1}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:  python3-setuptools
+
 
 %description -n python3-d2to1 %_description
 
+
 %prep
-%dnl %setup -q -n %{srcname}-%{version}
 %autosetup -n %{srcname}-%{version}.post1 -p1
 
 find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-d2to1
+%pyproject_save_files d2to1
+
+
+%check
+%pyproject_check_import d2to1
+
+
+%files -n python3-d2to1 -f %{pyproject_files}
 %doc CHANGES.rst README.rst
 %license LICENSE
-%{python3_sitelib}/*
 
 
 %changelog
+* Sat Apr 4 2026 Steve Traylen <steve.traylen@cern.ch> - 0.2.12-41.post1
+- Migrate to pyproject rpm macros
+- Resolves: rhbz#2377679
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.12-41.post1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -69,7 +87,7 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.12-36.post1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Sun Dec 09 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.2.12-35.post1
+* Mon Dec 09 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.2.12-35.post1
 - Add reviewed license identifier
 
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.12-34.post1

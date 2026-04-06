@@ -22,7 +22,7 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  meson
 
-Requires:       (gnome-shell >= 48 with gnome-shell < 50)
+Requires:       (gnome-shell >= 48 with gnome-shell < 51)
 Requires:       fcitx5
 
 %description

@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/node_exporter
 %global goipath         github.com/prometheus/node_exporter
-Version:                1.10.2
+Version:                1.11.0
 
 %gometa -L -f
 

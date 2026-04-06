@@ -5,7 +5,7 @@
 %global crate font-types
 
 Name:           rust-font-types
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Scalar types used in fonts
 
