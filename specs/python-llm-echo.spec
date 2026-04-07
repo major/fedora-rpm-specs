@@ -1,13 +1,11 @@
-%global         pypi_version 0.3a3
-
 Summary:        Debug plugin for python-llm
 Name:           python-llm-echo
-Version:        0.3~a3
-Release:        2%{?dist}
+Version:        0.4
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm-echo
-Source:         https://github.com/simonw/llm-echo/archive/%{pypi_version}/llm-echo-%{pypi_version}.tar.gz
-Patch:          python-llm-0.3a3-format-fix.patch
+Source:         https://github.com/simonw/llm-echo/archive/%{version}/llm-echo-%{version}.tar.gz
+Patch:          python-llm-0.4-format-fix.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -24,7 +22,7 @@ Summary:        %{summary}
 %description -n python3-llm-echo %_description
 
 %prep
-%autosetup -p1 -n llm-echo-%{pypi_version}
+%autosetup -p1 -n llm-echo-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -43,6 +41,9 @@ Summary:        %{summary}
 %files -n python3-llm-echo -f %{pyproject_files}
 
 %changelog
+* Sun Apr 05 2026 Terje Røsten <terjeros@gmail.com> - 0.4-1
+- 0.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3~a3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

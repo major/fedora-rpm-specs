@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.26
+Version:        1.27
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -60,6 +60,12 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Sat Apr  4 2026 Paul Howarth <paul@city-fan.org> - 1.27-1
+- Update to 1.27 (rhbz#2454942)
+  Bug Fixes:
+  - Fix build on OpenBSD by including termios.h to detect openpty reliably and
+    setting _BSD_SOURCE to find strlcpy in includes (GH#68)
+
 * Thu Apr  2 2026 Paul Howarth <paul@city-fan.org> - 1.26-1
 - Update to 1.26 (rhbz#2454517)
   Bug Fixes:

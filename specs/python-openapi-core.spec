@@ -4,7 +4,7 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.23.0
+Version:        0.23.1
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 

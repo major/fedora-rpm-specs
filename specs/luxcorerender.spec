@@ -178,6 +178,8 @@ sed -i -e '\@set.*Boost_USE_STATIC_LIBS@s|ON|OFF|' cmake/Dependencies.cmake
 %py3_shebang_fix .
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380787)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 #Building lux
 %cmake \
 	-DBUILD_SHARED_LIBS=ON \

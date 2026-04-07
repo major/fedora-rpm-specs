@@ -1,7 +1,7 @@
 %global gvc_commit d2442f455844e5292cb4a74ffc66ecc8d7595a9f
 
 Name:		phosh-mobile-settings
-Version:	0.54~rc1
+Version:	0.54.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later
@@ -48,6 +48,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	/usr/bin/dbus-launch
 BuildRequires:	gstreamer1-plugins-good
 BuildRequires:	phoc
+BuildRequires:	glibc-langpack-en
 # gvc
 BuildRequires:	pkgconfig(libpulse) >= 12.99.3
 

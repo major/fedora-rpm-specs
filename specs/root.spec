@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -80,6 +80,10 @@ Patch6:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
 #		https://github.com/root-project/root/pull/21604
 #		https://github.com/root-project/root/pull/21605
 Patch7:		%{name}-Avoid-additional-python-version-file-to-wrong-location.patch
+#		Compatibility with Python 3.15
+#		https://github.com/root-project/root/issues/21787
+#		https://github.com/root-project/root/pull/21790
+Patch8:		%{name}-python-3.15.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1878,6 +1882,7 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
+%patch -P8 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2191,10 +2196,8 @@ sed -e 's!/usr/bin/env python3!%{__python3}!' \
     -e '/import sys/d' \
     -e '/import cmdLineUtils/iimport sys' \
     -e '/import cmdLineUtils/isys.path.insert(0, "%{_datadir}/%{name}/cli")' \
-    -i %{buildroot}%{_bindir}/rootbrowse \
-       %{buildroot}%{_bindir}/rootcp \
+    -i %{buildroot}%{_bindir}/rootcp \
        %{buildroot}%{_bindir}/rooteventselector \
-       %{buildroot}%{_bindir}/rootls \
        %{buildroot}%{_bindir}/rootmkdir \
        %{buildroot}%{_bindir}/rootmv \
        %{buildroot}%{_bindir}/rootprint \
@@ -2407,13 +2410,16 @@ tmva-sofie-test-TestCustomModelsFromONNX\$\$"
 
 %ifarch %{power64}
 %if %{?fedora}%{!?fedora:0} >= 42
-# - gtest-tree-ntuple-ntuple-emulated
 # - gtest-tree-ntuple-ntuple-evolution-shape
 #   waitpid() failed
 excluded="${excluded}|\
-gtest-tree-ntuple-ntuple-emulated|\
 gtest-tree-ntuple-ntuple-evolution-shape"
 %endif
+
+# - gtest-tree-ntuple-ntuple-emulated
+#   Random failures
+excluded="${excluded}|\
+gtest-tree-ntuple-ntuple-emulated"
 %endif
 
 %ifarch s390x
@@ -3442,6 +3448,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 05 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-2
+- Compatibility with Python 3.15
+
 * Fri Mar 13 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-1
 - Update to 6.38.04
 - Rebuild for pythia8 8.3.17

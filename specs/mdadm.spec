@@ -1,13 +1,13 @@
 %bcond abrt %{undefined rhel}
 
 Name:        mdadm
-Version:     4.3
-Release:     11%{?dist}
+Version:     4.6
+Release:     1%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
 
-Source:      https://www.kernel.org/pub/linux/utils/raid/mdadm/%{name}-%{version}.tar.xz
+Source:      https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git/snapshot/%{name}-%{version}.tar.gz
 Source1:     raid-check
 Source2:     mdadm-raid-check-sysconfig
 Source3:     mdmonitor.service
@@ -16,24 +16,8 @@ Source5:     mdadm_event.conf
 Source6:     raid-check.timer
 Source7:     raid-check.service
 Source8:     mdcheck
-Source10:    https://www.kernel.org/pub/linux/utils/raid/mdadm/%{name}-%{version}.tar.sign
-Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/6F9E3E9D4EDEBB11.asc
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2325906
-# see: https://github.com/md-raid-utilities/mdadm/pull/165
-# https://github.com/md-raid-utilities/mdadm/pull/160
-# https://github.com/md-raid-utilities/mdadm/pull/159
-# this is a reversion of the initial 'posix check' patch
-# that causes all the trouble
-Patch:       0001-Revert-mdadm-Follow-POSIX-Portable-Character-Set.patch
-Patch:       0002-dont-stop-in-assemble.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2434813
-# https://github.com/md-raid-utilities/mdadm/pull/231
-# fix build failures with GCC 16
-Patch:      0001-mdadm-fix-compilation-errors-for-unused-variables-wi.patch
-Patch:      0002-super-intel.c-fix-format-overflow-error.patch
-
+Source10:    https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git/snapshot/%{name}-%{version}.tar.asc
+Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/9CE05640D703A136.asc
 
 # Fedora customization patches
 Patch:       mdadm-udev.patch
@@ -65,7 +49,7 @@ file can be used to help with some common tasks.
 # because the tarball is what is signed, not the compressed tarball
 # keyring should be one from https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys
 # which will vary depending on who did the release
-%{_bindir}/xz -dcT0 %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE11}' --signature='%{SOURCE10}' --data=-
+%{_bindir}/gzip -d -c %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE11}' --signature='%{SOURCE10}' --data=-
 %autosetup -p1
 
 
@@ -119,7 +103,7 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 %files
 %license COPYING
-%doc mdadm.conf-example misc/*
+%doc documentation/mdadm.conf-example misc/*
 %{_udevrulesdir}/*-md-*
 %{_sbindir}/%{name}
 %{_sbindir}/mdmon
@@ -140,6 +124,9 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Sun Apr 5 2026 Xiao Ni <xni@redhat.com> - 4.6-1
+- Update rawhide(f45) to upstream 4.6
+
 * Tue Mar 17 2026 Adam Williamson <awilliam@redhat.com> - 4.3-11
 - Backport PR #231 to fix build with GCC 16
 

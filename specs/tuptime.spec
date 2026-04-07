@@ -1,6 +1,6 @@
 Name:		tuptime
-Version:	5.2.5
-Release:	2%{?dist}
+Version:	5.2.6
+Release:	1%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -79,6 +79,9 @@ cp src/man/tuptime.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Apr 06 2026 Frank Crawford <frank@crawford.emu.id.au> - 5.2.6-1
+- New upstream release (bz2454385)
+
 * Tue Feb 17 2026 Frank Crawford <frank@crawford.emu.id.au> - 5.2.5-2
 - Drop some unnecessary files from the production RPM
 

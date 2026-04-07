@@ -1,15 +1,14 @@
 Name:           perl-Catalyst-Action-REST
-Version:        1.21
-Release:        25%{?dist}
+Version:        1.22
+Release:        1%{?dist}
 Summary:        Automated REST Method Dispatching
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Catalyst-Action-REST
-Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Action-REST-%{version}.tar.gz
+URL:            https://metacpan.org/dist/Catalyst-Action-REST
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Catalyst-Action-REST-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
@@ -92,17 +91,16 @@ regular method.
 %setup -q -n Catalyst-Action-REST-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{?make_build}
 
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
+%{?make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{?make_build} test
 
 %files
 %license LICENSE
@@ -111,6 +109,10 @@ make test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Sun Apr 05 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.22-1
+- Update to 1.22
+- Use %%{?make_build} and %%{?make_install} where appropriate
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

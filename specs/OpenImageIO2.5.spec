@@ -32,6 +32,7 @@ BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  glew-devel
 BuildRequires:  hdf5-devel
+BuildRequires:  imath-devel
 BuildRequires:  jasper-devel
 BuildRequires:  libheif-devel
 BuildRequires:  turbojpeg-devel
@@ -47,6 +48,7 @@ BuildRequires:  openjpeg2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  openvdb-devel
 BuildRequires:  pugixml-devel
+BuildRequires:  python3-devel
 BuildRequires:  ptex-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  qt5-qtbase-devel

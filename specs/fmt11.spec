@@ -2,7 +2,7 @@
 
 Name:           fmt11
 Version:        11.2.0
-Release:        %autorelease
+Release:        5%{?dist}
 
 License:        MIT
 Summary:        Compatibility version of the %{appname} library (soversion 11)
@@ -50,4 +50,6 @@ rm -f  %{buildroot}%{_libdir}/pkgconfig/%{appname}.pc
 %{_libdir}/lib%{appname}.so.11*
 
 %changelog
-%autochangelog
+* Mon Apr 06 2026 Kefu Chai <tchaikov@gmail.com> - 11.2.0-5
+- Compatibility package providing libfmt.so.11 during the fmt 11→12 soname transition
+- Release set to 5 to supersede fmt-11.2.0-4 (last fmt build at soversion 11)

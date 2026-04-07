@@ -34,6 +34,7 @@ Documentation for gitlab
 sed -i 's/pytest==9.*/pytest>=8.4.2,<10/'              requirements-lint.txt requirements-test.txt
 sed -i 's/wheel==0.*/wheel>=0.45.0,<1.0/'              requirements-test.txt
 sed -i 's/build==1.*/build>=1.0.0,<2.0/'               requirements-test.txt
+sed -i 's/requests==2.*/requests>=2.32.0,<3.0/'        requirements.txt
 
 # not available in rawhide 11 Aug 2022
 sed -i 's/pytest-console-scripts.*//'                  requirements-test.txt

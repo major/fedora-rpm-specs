@@ -57,15 +57,15 @@ cp -a %{SOURCE1} README.%{version}
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 rm $RPM_BUILD_ROOT%{_libdir}/dssi/*.la
 
 %check
 # Build and run the tests
-make -C tests controller
+make -C tests controller CFLAGS="$CFLAGS -Wno-error=cpp"
 tests/controller
 
 %files

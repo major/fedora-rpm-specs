@@ -81,6 +81,12 @@ Patch0:         0001-Downstream-only-unpin-virtualenv.patch
 # The easiest option is to add it there.
 Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
 
+# Backport upstream fixes for Starlette 1.0
+# https://github.com/getsentry/sentry-python/commit/65e0022e0cd4760e688bda9cfb2a312767a95d43
+# https://github.com/getsentry/sentry-python/commit/b2b42df8e64bca8b5627d8cbb1533e894a5db74a
+# Cherry-pick test and library code changes only, not tox.ini environment changes, to 2.48.0
+Patch2:         sentry-sdk-2.48.0-starlette-1.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}

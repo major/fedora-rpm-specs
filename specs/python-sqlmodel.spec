@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.37
+Version:        0.0.38
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 
@@ -10,10 +10,6 @@ Source:         %{url}/archive/%{version}/sqlmodel-%{version}.tar.gz
 # Downstream-only: Patch for running tests without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-Patch-for-running-tests-without-cove.patch
-
-# Add a direct dependency on typing-extensions
-# https://github.com/fastapi/sqlmodel/pull/1815
-Patch:          %{url}/pull/1815.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l sqlmodel

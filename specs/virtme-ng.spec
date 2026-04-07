@@ -1,8 +1,7 @@
 %if 0%{?epel}
-# EPEL status as of 2025-01-23:
+# EPEL status as of 2026-04-05:
 # EPEL 9: fails on a weird error in %%pyproject_install
-# EPEL 10: missing rust-uzers
-%bcond optimized_init 0
+%bcond optimized_init %[%epel >= 10]
 # No python-mcp yet in EPEL
 %bcond mcp 0
 %else
@@ -12,7 +11,7 @@
 
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.40
+Version:        1.41
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease
@@ -72,6 +71,22 @@ virtme-ng is based on virtme, written by Andy Lutomirski <luto@kernel.org>.
 
 %prep
 %forgeautosetup -p1
+
+%if 0%{?epel} && 0%{?epel} < 10
+# EPEL 9: work around no PEP 604
+for file in \
+	virtme/util.py \
+	virtme/architectures.py \
+	virtme/mkinitramfs.py \
+	virtme/qemu_helpers.py \
+	virtme/commands/run.py
+do
+	sed -i \
+		-e '1i from typing import Optional' \
+		-e 's/\(:\|->\) \([a-zA-Z][^:->]*\) | None/\1 Optional[\2]/g' \
+		$file
+done
+%endif
 
 %if %{with optimized_init}
 # Don't strip the debuginfo - let the rpm macros do it.

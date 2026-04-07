@@ -1,6 +1,6 @@
 Name:		perl-Perl-PrereqScanner-NotQuiteLite
-Version:	0.9917
-Release:	8%{?dist}
+Version:	0.9918
+Release:	1%{?dist}
 Summary:	A tool to scan your Perl code for its prerequisites
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-PrereqScanner-NotQuiteLite
@@ -96,6 +96,7 @@ make test
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::ClassAutouse.3*
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::ClassLoad.3*
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::Core.3*
+%{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::FeatureCompatClass.3*
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::Inline.3*
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::KeywordDeclare.3*
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Parser::Later.3*
@@ -124,6 +125,10 @@ make test
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Util::Prereqs.3*
 
 %changelog
+* Sun Apr  5 2026 Paul Howarth <paul@city-fan.org> - 0.9918-1
+- Update to 0.9918
+  - Support builtin, experimental, native class and Feature::Compat::Class
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9917-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

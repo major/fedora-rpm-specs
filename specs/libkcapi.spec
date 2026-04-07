@@ -126,6 +126,9 @@ Source1:        https://www.chronox.de/%{name}/releases/%{version}/%{name}-%{ver
 Source2:        sha512hmac-openssl.sh
 Source3:        fipshmac-openssl.sh
 
+Patch:          %{giturl}/commit/735f55ed1289cd6eb6510f32b8b1c7b39c2e38d1.patch#/001-remove-ansi_cprng.patch
+Patch:          %{giturl}/commit/d8c4c8ad67c13fb3ae011f4dfb7d64f7441ce61f.patch#/002-remove-unused.patch
+
 BuildRequires:  bash
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -289,6 +292,9 @@ Auxiliary scripts for testing %{name}.
 
 %prep
 %autosetup -p 1 -S git
+
+# Undo the version bump that is part of the first patch
+sed -i 's/m4_define(\[__KCAPI_PATCHLEVEL\], \[1\])/m4_define([__KCAPI_PATCHLEVEL], [0])/' configure.ac
 
 # Work around https://bugzilla.redhat.com/show_bug.cgi?id=2258240
 sed -i -e 's|XML V45|XML V4.1.2|' -e 's|/xml/4\.5/|/xml/4.1.2/|' \

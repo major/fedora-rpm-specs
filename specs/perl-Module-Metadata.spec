@@ -1,6 +1,6 @@
 Name:		perl-Module-Metadata
-Version:	1.000038
-Release:	521%{?dist}
+Version:	1.000039
+Release:	1%{?dist}
 Summary:	Gather package and POD information from perl module files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Metadata
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Metadata-%{ve
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Encode)
@@ -49,12 +48,11 @@ without executing unsafe code.
 %setup -q -n Module-Metadata-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -67,6 +65,11 @@ make test
 %{_mandir}/man3/Module::Metadata.3*
 
 %changelog
+* Sat Apr  4 2026 Paul Howarth <paul@city-fan.org> - 1.000039-1
+- Update to 1.000039
+  - Adds recognition of attributes in "class" declarations (GH#39)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.000038-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

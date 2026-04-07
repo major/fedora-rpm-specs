@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/BelfrySCAD/BOSL2
-%global version 2.0.730
+%global version 2.0.731
 
 %forgemeta
 
@@ -35,10 +35,7 @@ BOSL2 is beta code. The code is still being reorganized.
 
 %install
 install -dD -m755 %{buildroot}%{_datadir}/openscad/libraries/BOSL2
-
-for FILE in *.scad; do
-  install -p "$FILE" -m644 "%{buildroot}%{_datadir}/openscad/libraries/BOSL2/$FILE"
-done
+install -p -m644 -t "%{buildroot}%{_datadir}/openscad/libraries/BOSL2" *.scad
 
 
 %check

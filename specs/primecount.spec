@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.3
-Release:        2%{?dist}
+Version:        8.4
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,29 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sun Apr 05 2026 Kim Walisch <walki@fedoraproject.org> - 8.4-1
+- test/codegen: Add assembly code generation tests
+- doc/Hard-Special-Leaves-SIMD-Filtering.pdf: New math paper about the branchfree SIMD hard special leaves algorithm
+- Vector.hpp: Improve Vector exception safety
+- Sieve_count_simd.hpp: Tune AVX512 and ARM SVE kernels
+- D_avx512.hpp: Implement new branchfree AVX512 algorithm
+- D_arm_sve.hpp: Implement new branchfree ARM SVE algorithm
+- D.cpp: Implement new branchfree portable D algorithm
+- FactorTableD.hpp: Add direct data() access and improve 32-bit/64-bit support for the new D algorithms
+- popcnt.hpp: Add popcnt64_native() to bypass POPCNT runtime checks
+- multiarch_avx512_vpopcnt.cmake: Require AVX512BW and AVX512VL
+- cpu_arch_macros.hpp: Require AVX512BW and AVX512VL
+- cpu_supports_avx512_vpopcnt.hpp: Detect AVX512BW and AVX512VL
+- cpuid.cpp: Detect AVX512BW and AVX512VL
+- multiarch_arm_sve.cmake: Improve ARM SVE compile test for svcompact()
+- sve.cpp: Clarify ARM SVE detection requirements
+- Sieve.hpp: Update AVX512 attributes to use AVX512BW and AVX512VL
+- Sieve_count_start_stop.hpp: Remove count_algo_name() and update AVX512 attributes
+- Sieve_count_stop.hpp: Simplify count() algorithm selection
+- S2_hard.cpp: Remove obsolete SIMD-specialized thread code
+- pi_lmo_parallel.cpp: Remove obsolete SIMD-specialized thread code
+- pi_lmo5.cpp: Remove bit counting algorithm status output
+
 * Tue Mar 17 2026 Kim Walisch <walki@fedoraproject.org> - 8.3-2
 - Fix invalid changelog formatting in 8.3-1
 

@@ -18,6 +18,10 @@ Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch1:         platformio-default-telemetry-off.patch
 # Fedora: neuter update logic for platformio itself
 Patch2:         platformio-short-circuit-upgrades.patch
+# fix: usage with starlette >= 1
+# https://github.com/platformio/platformio-core/pull/5423
+# Fedora: Allow starlette versions through 1.x
+Patch3:         platformio-starlette-1.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -13,7 +13,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.9.5
+Version:    0.4.9.6
 Release:    1%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
@@ -168,7 +168,10 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
-* Sat Feb 14 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.5-1
+* Sun Apr 05 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.6-1
+- Update to latest upstream release https://forum.torproject.org/t/security-release-0-4-8-23-and-0-4-9-6/21386
+
+* Sat Feb 14 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.5-1
 - Update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-9-5/21227
 - Enable seccomp on aarch64, which is now supported
 

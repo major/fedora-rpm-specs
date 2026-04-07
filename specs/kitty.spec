@@ -8,7 +8,7 @@
 %endif
 
 Name:           kitty
-Version:        0.43.1
+Version:        0.45.0
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -35,7 +35,8 @@ Source4:        go-vendor-tools.toml
 Source5:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 Source6:        https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.tar.xz
 
-Patch:          https://github.com/kovidgoyal/kitty/commit/831c59996fabb4844e5525bd0703f09a309b97b2.patch
+# https://github.com/kovidgoyal/kitty/issues/9416
+Source7:        https://raw.githubusercontent.com/kovidgoyal/kitty/c7a81df9503d2e3e671ee937ab718769f3a241fc/kitty/terminfo.py
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -176,7 +177,7 @@ Recommends:     %{name}-kitten
 %package        kitten
 Summary:        The kitten executable
 # Generated with go-vendor-tools
-%global kitten_license Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-only AND MIT AND MPL-2.0
+%global kitten_license Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-only AND MIT
 License:        %{kitten_license}
 
 %description    kitten
@@ -201,6 +202,7 @@ This package contains the documentation for %{name}.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -a3
+cp %{SOURCE7} kitty/terminfo.py
 
 mkdir fonts
 tar -xf %{SOURCE6} -C fonts
@@ -211,7 +213,7 @@ sed "s/html_theme = 'furo'/html_theme = 'classic'/" -i docs/conf.py
 # Replace python shebangs to make them compatible with fedora
 find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{python3}|g'    \
                                     -e 's|/usr/bin/env python|%{python3}|g'     \
-                                    -e 's|/usr/bin/env -S kitty|/usr/bin/kitty|g' \
+                                    -e 's|/usr/bin/env -S kitty|%{_bindir}/kitty|g' \
                                     -i "{}" \;
 
 find -type f ! -executable -name "*.py" -exec sed -i '1{\@^#!%{python3}@d}' "{}" \;
