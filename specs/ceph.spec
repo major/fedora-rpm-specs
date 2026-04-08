@@ -179,8 +179,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	20.2.0
-Release:	10%{?dist}
+Version:	20.2.1
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Apr 6 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-1
+- Ceph 20.2.1 GA
+ 
 * Tue Mar 17 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-10
 - Requires: fuse -> fuse3
 

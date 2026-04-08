@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.19.1
+Version:        6.23
 
 %gometa
 
@@ -19,18 +19,19 @@ Version:        6.19.1
 
 
 # Set build macro for static builds
+# Uses GO111MODULE=on -mod=vendor instead of %%gomodulesmode (GO111MODULE=off)
+# to ensure vendored dependencies are correctly resolved (rhbz#2419661)
 %define gocompilerflags_static -compiler gc
-%define gobuild_baseflags_static %{gocompilerflags_static} -tags="rpm_crashtraceback ${GO_BUILDTAGS-${BUILDTAGS-}}" -a -v
+%define gobuild_baseflags_static %{gocompilerflags_static} -mod=vendor -tags="rpm_crashtraceback ${GO_BUILDTAGS-${BUILDTAGS-}}" -a -v
 %define gobuild_ldflags_static ${GO_LDFLAGS-${LDFLAGS-}} %{?currentgoldflags} -B 0x$(echo "%{name}-%{version}-%{release}-${SOURCE_DATE_EPOCH:-}" | sha1sum | cut -d ' ' -f1) -compressdwarf=false
 %define gobuildflags_static() %{expand:%{gobuild_baseflags_static} -ldflags "%{gobuild_ldflags_static}"}
 %define gobuild_static(-) %{expand:
-  %{?gobuilddir:GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"} %{?gomodulesmode} \\
-  CGO_ENABLED=0 go build %{gobuildflags_static} %{?**};
+  GO111MODULE=on CGO_ENABLED=0 go build %{gobuildflags_static} %{?**};
 }
 
 
 Name:           incus
-Release:        4%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -64,13 +65,14 @@ Source202:      %{swaggerui_source_baseurl}/swagger-ui-standalone-preset.js#/swa
 Source203:      %{swaggerui_source_baseurl}/swagger-ui.css#/swagger-ui-%{swaggerui_version}.css
 
 # Patches upstream or proposed upstream
+## https://github.com/lxc/incus/pull/3114
+Patch1001:      incus-6.23-incusd-Fix-bad-type-in-format-strings.patch
 
 # Downstream only patches
 ## Allow offline builds
 Patch1002:      incus-0.2-doc-Remove-downloads-from-sphinx-build.patch
 
 %global bashcompletiondir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || :)
-%global selinuxtype targeted
 
 BuildRequires:  gettext
 BuildRequires:  glibc-static
@@ -325,8 +327,11 @@ for cmd in incus fuidshift incus-benchmark lxc-to-incus lxd-to-incus; do
 done
 
 # Build incus-migrate and incus-agent statically (cf. rhbz#2419661)
-BUILDTAGS="netgo" %gobuild_static -o %{gobuilddir}/bin/incus-migrate %{goipath}/cmd/incus-migrate
-BUILDTAGS="agent netgo" %gobuild_static -o %{gobuilddir}/bin/incus-agent %{goipath}/cmd/incus-agent
+# Uses GO111MODULE=on -mod=vendor, so paths must be relative to module root
+pushd %{currentgosourcedir}
+BUILDTAGS="netgo" %gobuild_static -o %{gobuilddir}/bin/incus-migrate ./cmd/incus-migrate
+BUILDTAGS="agent netgo" %gobuild_static -o %{gobuilddir}/bin/incus-agent ./cmd/incus-agent
+popd
 
 # build shell completions
 mkdir %{gobuilddir}/completions
@@ -382,9 +387,6 @@ install -D -m0644 -vp %{SOURCE107} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -D -m0644 -vp %{SOURCE108} %{buildroot}%{_sysconfdir}/dnsmasq.d/%{name}.conf
 install -D -m0644 -vp %{SOURCE109} %{buildroot}%{_sysctldir}/10-incus-inotify.conf
 
-# selinux policy
-install -D -m0644 -vp selinux/%{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
-
 # install helper libs
 install -d %{buildroot}%{_libexecdir}/%{name}
 install -m0755 -vp %{SOURCE110} %{buildroot}%{_libexecdir}/%{name}/
@@ -423,6 +425,12 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Mon Apr 06 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 6.23-2
+- Fix static builds of vendored dependencies (RHBZ 2419661)
+
+* Mon Apr 06 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 6.23-1
+- Update to 6.23
+
 * Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.19.1-4
 - Drop selinux subpackage in favor of container-selinux
 

@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-langarabic
 Epoch:          12
-Version:        svn76980
-Release:        3%{?dist}
+Version:        svn78033
+Release:        4%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -41,50 +41,52 @@ Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bi
 Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bidihl.doc.tar.xz
 Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dad.tar.xz
 Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dad.doc.tar.xz
-Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ghab.tar.xz
-Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ghab.doc.tar.xz
-Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvarabic.tar.xz
-Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvarabic.doc.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-arabic.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-farsi.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imsproc.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imsproc.doc.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iran-bibtex.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iran-bibtex.doc.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/khatalmaqala.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/khatalmaqala.doc.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurdishlipsum.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurdishlipsum.doc.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-persian.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-persian.doc.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabidi.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabidi.doc.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mohe-book.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mohe-book.doc.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-box.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-box.doc.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsimatn.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsimatn.doc.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsinevis.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsinevis.doc.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/persian-bib.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/persian-bib.doc.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran.doc.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sexam.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sexam.doc.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simurgh.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simurgh.doc.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texnegar.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texnegar.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tram.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tram.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian-hm.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian-hm.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy-persian.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy-persian.doc.tar.xz
+Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fariscovernew.tar.xz
+Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fariscovernew.doc.tar.xz
+Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ghab.tar.xz
+Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ghab.doc.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvarabic.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvarabic.doc.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-arabic.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-farsi.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imsproc.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imsproc.doc.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iran-bibtex.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iran-bibtex.doc.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/khatalmaqala.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/khatalmaqala.doc.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurdishlipsum.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kurdishlipsum.doc.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-persian.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-persian.doc.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabidi.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabidi.doc.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mohe-book.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mohe-book.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-box.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-box.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsimatn.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsimatn.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsinevis.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parsinevis.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/persian-bib.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/persian-bib.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran.doc.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sexam.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sexam.doc.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simurgh.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simurgh.doc.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texnegar.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texnegar.doc.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tram.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tram.doc.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian-hm.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xepersian-hm.doc.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy-persian.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy-persian.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -102,6 +104,7 @@ Requires:       texlive-bidi
 Requires:       texlive-bidihl
 Requires:       texlive-collection-basic
 Requires:       texlive-dad
+Requires:       texlive-fariscovernew
 Requires:       texlive-ghab
 Requires:       texlive-hvarabic
 Requires:       texlive-hyphen-arabic
@@ -170,7 +173,7 @@ typesetting, in a publicly available form.
 
 %package -n texlive-arabi
 Summary:        (La)TeX support for Arabic and Farsi, compliant with Babel
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -184,30 +187,6 @@ Requires:       tex(pst-3d.sty)
 Requires:       tex(pst-grad.sty)
 Requires:       tex(pst-key.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(8859-6.def) = %{tl_version}
-Provides:       tex(PPRarabic.sty) = %{tl_version}
-Provides:       tex(arabic.ldf) = %{tl_version}
-Provides:       tex(arabicfnt.sty) = %{tl_version}
-Provides:       tex(arabicore.sty) = %{tl_version}
-Provides:       tex(arabiftoday.sty) = %{tl_version}
-Provides:       tex(arabipoetry.sty) = %{tl_version}
-Provides:       tex(arabnovowel.sty) = %{tl_version}
-Provides:       tex(arfonts.sty) = %{tl_version}
-Provides:       tex(calendrierfpar.sty) = %{tl_version}
-Provides:       tex(calendrierfpmodified.sty) = %{tl_version}
-Provides:       tex(cp1256.def) = %{tl_version}
-Provides:       tex(farsi.ldf) = %{tl_version}
-Provides:       tex(farsifnt.sty) = %{tl_version}
-Provides:       tex(fmultico.sty) = %{tl_version}
-Provides:       tex(fnum.sty) = %{tl_version}
-Provides:       tex(frfonts.sty) = %{tl_version}
-Provides:       tex(haparabica.sty) = %{tl_version}
-Provides:       tex(laeenc.def) = %{tl_version}
-Provides:       tex(lagally.sty) = %{tl_version}
-Provides:       tex(lfeenc.def) = %{tl_version}
-Provides:       tex(mosq.def) = %{tl_version}
-Provides:       tex(puenc-ar.def) = %{tl_version}
-Provides:       tex(translit.sty) = %{tl_version}
 
 %description -n texlive-arabi
 The package provides an Arabic and Farsi script support for TeX without the
@@ -232,7 +211,6 @@ Requires:       tex(datatool.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(arabi-add.sty) = %{tl_version}
 
 %description -n texlive-arabi-add
 This package takes advantage of some of the possibilities that hyperref and
@@ -245,7 +223,6 @@ Version:        svn59594
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(arabic-book.cls) = %{tl_version}
 
 %description -n texlive-arabic-book
 This document class provides both Arabic and English support for TeX/LaTeX.
@@ -275,8 +252,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(arabluatex-patch.sty) = %{tl_version}
-Provides:       tex(arabluatex.sty) = %{tl_version}
 
 %description -n texlive-arabluatex
 This package provides for LuaLaTeX an ArabTeX-like interface to generate Arabic
@@ -292,87 +267,10 @@ searched, analyzed and correlated in various ways.
 
 %package -n texlive-arabtex
 Summary:        Macros and fonts for typesetting Arabic
-Version:        svn64260
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(abidir.sty) = %{tl_version}
-Provides:       tex(abjad.sty) = %{tl_version}
-Provides:       tex(aboxes.sty) = %{tl_version}
-Provides:       tex(acjk.sty) = %{tl_version}
-Provides:       tex(acmd.sty) = %{tl_version}
-Provides:       tex(aconfig.sty) = %{tl_version}
-Provides:       tex(aedpatch.sty) = %{tl_version}
-Provides:       tex(afonts.sty) = %{tl_version}
-Provides:       tex(afonts0.sty) = %{tl_version}
-Provides:       tex(afonts1.sty) = %{tl_version}
-Provides:       tex(afonts2.sty) = %{tl_version}
-Provides:       tex(afoot.sty) = %{tl_version}
-Provides:       tex(alatex.sty) = %{tl_version}
-Provides:       tex(aligs.sty) = %{tl_version}
-Provides:       tex(alists.sty) = %{tl_version}
-Provides:       tex(alocal.sty) = %{tl_version}
-Provides:       tex(altxext.sty) = %{tl_version}
-Provides:       tex(amac.sty) = %{tl_version}
-Provides:       tex(aoutput.sty) = %{tl_version}
-Provides:       tex(aparse.sty) = %{tl_version}
-Provides:       tex(apatch.sty) = %{tl_version}
-Provides:       tex(arababel.sty) = %{tl_version}
-Provides:       tex(arabart.cls) = %{tl_version}
-Provides:       tex(arabaux.sty) = %{tl_version}
-Provides:       tex(arabbook.cls) = %{tl_version}
-Provides:       tex(arabchrs.sty) = %{tl_version}
-Provides:       tex(arabext.sty) = %{tl_version}
-Provides:       tex(arabrep.cls) = %{tl_version}
-Provides:       tex(arabrep1.cls) = %{tl_version}
-Provides:       tex(arabskel.sty) = %{tl_version}
-Provides:       tex(arabsymb.sty) = %{tl_version}
-Provides:       tex(arabtex.sty) = %{tl_version}
-Provides:       tex(arabtex.tex) = %{tl_version}
-Provides:       tex(arabtoks.sty) = %{tl_version}
-Provides:       tex(ascan.sty) = %{tl_version}
-Provides:       tex(asect.sty) = %{tl_version}
-Provides:       tex(asmo449.sty) = %{tl_version}
-Provides:       tex(asmo449a.sty) = %{tl_version}
-Provides:       tex(atabg.sty) = %{tl_version}
-Provides:       tex(atrans.sty) = %{tl_version}
-Provides:       tex(awrite.sty) = %{tl_version}
-Provides:       tex(bhs.sty) = %{tl_version}
-Provides:       tex(bhslabel.sty) = %{tl_version}
-Provides:       tex(buck.sty) = %{tl_version}
-Provides:       tex(captions.def) = %{tl_version}
-Provides:       tex(cp1256.sty) = %{tl_version}
-Provides:       tex(etrans.sty) = %{tl_version}
-Provides:       tex(gedalin.sty) = %{tl_version}
-Provides:       tex(hebchrs.sty) = %{tl_version}
-Provides:       tex(hebsymb.sty) = %{tl_version}
-Provides:       tex(hebtex.sty) = %{tl_version}
-Provides:       tex(hebtex.tex) = %{tl_version}
-Provides:       tex(hecmd.sty) = %{tl_version}
-Provides:       tex(hefonts.sty) = %{tl_version}
-Provides:       tex(hefonts0.sty) = %{tl_version}
-Provides:       tex(hefonts1.sty) = %{tl_version}
-Provides:       tex(hefonts2.sty) = %{tl_version}
-Provides:       tex(heparse.sty) = %{tl_version}
-Provides:       tex(hepatch.sty) = %{tl_version}
-Provides:       tex(hescan.sty) = %{tl_version}
-Provides:       tex(hetrans.sty) = %{tl_version}
-Provides:       tex(hewrite.sty) = %{tl_version}
-Provides:       tex(hmac.sty) = %{tl_version}
-Provides:       tex(isiri.sty) = %{tl_version}
-Provides:       tex(iso88596.sty) = %{tl_version}
-Provides:       tex(nashbf.sty) = %{tl_version}
-Provides:       tex(raw.sty) = %{tl_version}
-Provides:       tex(saw.sty) = %{tl_version}
-Provides:       tex(sotoku.sty) = %{tl_version}
-Provides:       tex(twoblks.sty) = %{tl_version}
-Provides:       tex(utf8.sty) = %{tl_version}
-Provides:       tex(utfcode.sty) = %{tl_version}
-Provides:       tex(verses.sty) = %{tl_version}
-Provides:       tex(witbhs.sty) = %{tl_version}
-Provides:       tex(xarbskel.sty) = %{tl_version}
-Provides:       tex(xarbsymb.sty) = %{tl_version}
-Provides:       tex(yiddish.sty) = %{tl_version}
 
 %description -n texlive-arabtex
 ArabTeX is a package extending the capabilities of TeX/LaTeX to generate Arabic
@@ -398,7 +296,7 @@ The font is also a Graphite-only font. It does not support OpenType rendering.
 
 %package -n texlive-bidi
 Summary:        Bidirectional typesetting in plain TeX and LaTeX, using XeTeX or LuaTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -422,171 +320,6 @@ Requires:       tex(titletoc.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(zref-abspage.sty)
-Provides:       tex(adjmulticol-xetex-bidi.def) = %{tl_version}
-Provides:       tex(algorithm2e-xetex-bidi.def) = %{tl_version}
-Provides:       tex(amsart-xetex-bidi.def) = %{tl_version}
-Provides:       tex(amsbook-xetex-bidi.def) = %{tl_version}
-Provides:       tex(amsmath-xetex-bidi.def) = %{tl_version}
-Provides:       tex(amstext-xetex-bidi.def) = %{tl_version}
-Provides:       tex(amsthm-xetex-bidi.def) = %{tl_version}
-Provides:       tex(array-xetex-bidi.def) = %{tl_version}
-Provides:       tex(article-xetex-bidi.def) = %{tl_version}
-Provides:       tex(artikel1-xetex-bidi.def) = %{tl_version}
-Provides:       tex(artikel2-xetex-bidi.def) = %{tl_version}
-Provides:       tex(artikel3-xetex-bidi.def) = %{tl_version}
-Provides:       tex(arydshln-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamer-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaseauxtemplates-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaseboxes-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbasecolor-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbasecompatibility-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaseframecomponents-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaseframesize-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaselocalstructure-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbasemisc-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbasenavigation-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerbaseoverlay-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemecircles-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemedefault-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemefocus-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemeinmargin-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthememetropolis-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemerectangles-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerinnerthemerounded-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemedefault-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemefocus-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemeinfolines-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthememetropolis-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthememiniframes-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemeshadow-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemesidebar-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemesmoothbars-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemesmoothtree-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemesplit-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerouterthemetree-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerthemeHannover-xetex-bidi.def) = %{tl_version}
-Provides:       tex(beamerthemeSingapore-xetex-bidi.def) = %{tl_version}
-Provides:       tex(bidi-media9.sty) = %{tl_version}
-Provides:       tex(bidi-perpage.sty) = %{tl_version}
-Provides:       tex(bidi.sty) = %{tl_version}
-Provides:       tex(bidi.tex) = %{tl_version}
-Provides:       tex(bidi2in1.sty) = %{tl_version}
-Provides:       tex(bidicode.sty) = %{tl_version}
-Provides:       tex(bidiftnxtra.sty) = %{tl_version}
-Provides:       tex(bidimoderncv.cls) = %{tl_version}
-Provides:       tex(bidipoem.sty) = %{tl_version}
-Provides:       tex(biditools.sty) = %{tl_version}
-Provides:       tex(biditufte-book.cls) = %{tl_version}
-Provides:       tex(biditufte-handout.cls) = %{tl_version}
-Provides:       tex(bidituftefloat.sty) = %{tl_version}
-Provides:       tex(bidituftegeneralstructure.sty) = %{tl_version}
-Provides:       tex(bidituftehyperref.sty) = %{tl_version}
-Provides:       tex(bidituftesidenote.sty) = %{tl_version}
-Provides:       tex(bidituftetitle.sty) = %{tl_version}
-Provides:       tex(bidituftetoc.sty) = %{tl_version}
-Provides:       tex(boek-xetex-bidi.def) = %{tl_version}
-Provides:       tex(boek3-xetex-bidi.def) = %{tl_version}
-Provides:       tex(book-xetex-bidi.def) = %{tl_version}
-Provides:       tex(bookest-xetex-bidi.def) = %{tl_version}
-Provides:       tex(breqn-xetex-bidi.def) = %{tl_version}
-Provides:       tex(cals-xetex-bidi.def) = %{tl_version}
-Provides:       tex(caption-xetex-bidi.def) = %{tl_version}
-Provides:       tex(caption3-xetex-bidi.def) = %{tl_version}
-Provides:       tex(color-xetex-bidi.def) = %{tl_version}
-Provides:       tex(colortbl-xetex-bidi.def) = %{tl_version}
-Provides:       tex(combine-xetex-bidi.def) = %{tl_version}
-Provides:       tex(crop-xetex-bidi.def) = %{tl_version}
-Provides:       tex(cuted-xetex-bidi.def) = %{tl_version}
-Provides:       tex(cutwin-xetex-bidi.def) = %{tl_version}
-Provides:       tex(cvthemebidicasual.sty) = %{tl_version}
-Provides:       tex(cvthemebidiclassic.sty) = %{tl_version}
-Provides:       tex(dblfnote-xetex-bidi.def) = %{tl_version}
-Provides:       tex(diagbox-xetex-bidi.def) = %{tl_version}
-Provides:       tex(draftwatermark-xetex-bidi.def) = %{tl_version}
-Provides:       tex(empheq-xetex-bidi.def) = %{tl_version}
-Provides:       tex(eso-pic-xetex-bidi.def) = %{tl_version}
-Provides:       tex(extarticle-xetex-bidi.def) = %{tl_version}
-Provides:       tex(extbook-xetex-bidi.def) = %{tl_version}
-Provides:       tex(extletter-xetex-bidi.def) = %{tl_version}
-Provides:       tex(extrafootnotefeatures-xetex-bidi.def) = %{tl_version}
-Provides:       tex(extreport-xetex-bidi.def) = %{tl_version}
-Provides:       tex(fancybox-xetex-bidi.def) = %{tl_version}
-Provides:       tex(fancyhdr-xetex-bidi.def) = %{tl_version}
-Provides:       tex(fix2col-xetex-bidi.def) = %{tl_version}
-Provides:       tex(fleqn-xetex-bidi.def) = %{tl_version}
-Provides:       tex(float-xetex-bidi.def) = %{tl_version}
-Provides:       tex(floatrow-xetex-bidi.def) = %{tl_version}
-Provides:       tex(flowfram-xetex-bidi.def) = %{tl_version}
-Provides:       tex(fnpct-xetex-bidi.def) = %{tl_version}
-Provides:       tex(footnote-xetex-bidi.def) = %{tl_version}
-Provides:       tex(footnotebackref-xetex-bidi.def) = %{tl_version}
-Provides:       tex(framed-xetex-bidi.def) = %{tl_version}
-Provides:       tex(ftnright-xetex-bidi.def) = %{tl_version}
-Provides:       tex(geometry-xetex-bidi.def) = %{tl_version}
-Provides:       tex(graphicx-xetex-bidi.def) = %{tl_version}
-Provides:       tex(hgeneric-testphase-xetex-bidi.def) = %{tl_version}
-Provides:       tex(hvfloat-xetex-bidi.def) = %{tl_version}
-Provides:       tex(hyperref-xetex-bidi.def) = %{tl_version}
-Provides:       tex(imsproc-xetex-bidi.def) = %{tl_version}
-Provides:       tex(latex-xetex-bidi.def) = %{tl_version}
-Provides:       tex(leqno-xetex-bidi.def) = %{tl_version}
-Provides:       tex(letter-xetex-bidi.def) = %{tl_version}
-Provides:       tex(lettrine-xetex-bidi.def) = %{tl_version}
-Provides:       tex(lineno-xetex-bidi.def) = %{tl_version}
-Provides:       tex(listings-xetex-bidi.def) = %{tl_version}
-Provides:       tex(longtable-xetex-bidi.def) = %{tl_version}
-Provides:       tex(lscape-xetex-bidi.def) = %{tl_version}
-Provides:       tex(mathtools-xetex-bidi.def) = %{tl_version}
-Provides:       tex(mdframed-xetex-bidi.def) = %{tl_version}
-Provides:       tex(media9-xetex-bidi.def) = %{tl_version}
-Provides:       tex(memoir-xetex-bidi.def) = %{tl_version}
-Provides:       tex(midfloat-xetex-bidi.def) = %{tl_version}
-Provides:       tex(minitoc-xetex-bidi.def) = %{tl_version}
-Provides:       tex(multicol-xetex-bidi.def) = %{tl_version}
-Provides:       tex(multienum-xetex-bidi.def) = %{tl_version}
-Provides:       tex(natbib-xetex-bidi.def) = %{tl_version}
-Provides:       tex(newfloat-xetex-bidi.def) = %{tl_version}
-Provides:       tex(nicematrix-xetex-bidi.def) = %{tl_version}
-Provides:       tex(ntheorem-hyper-xetex-bidi.def) = %{tl_version}
-Provides:       tex(ntheorem-xetex-bidi.def) = %{tl_version}
-Provides:       tex(overpic-xetex-bidi.def) = %{tl_version}
-Provides:       tex(pdfbase-xetex-bidi.def) = %{tl_version}
-Provides:       tex(pdflscape-xetex-bidi.def) = %{tl_version}
-Provides:       tex(pgfcorescopes.code-xetex-bidi.def) = %{tl_version}
-Provides:       tex(pgfsys-xetex-bidi.def) = %{tl_version}
-Provides:       tex(picinpar-xetex-bidi.def) = %{tl_version}
-Provides:       tex(plain-xetex-bidi.def) = %{tl_version}
-Provides:       tex(pstricks-xetex-bidi.def) = %{tl_version}
-Provides:       tex(quotchap-xetex-bidi.def) = %{tl_version}
-Provides:       tex(ragged2e-xetex-bidi.def) = %{tl_version}
-Provides:       tex(rapport1-xetex-bidi.def) = %{tl_version}
-Provides:       tex(rapport3-xetex-bidi.def) = %{tl_version}
-Provides:       tex(refrep-xetex-bidi.def) = %{tl_version}
-Provides:       tex(report-xetex-bidi.def) = %{tl_version}
-Provides:       tex(rotating-xetex-bidi.def) = %{tl_version}
-Provides:       tex(scrartcl-xetex-bidi.def) = %{tl_version}
-Provides:       tex(scrbook-xetex-bidi.def) = %{tl_version}
-Provides:       tex(scrreprt-xetex-bidi.def) = %{tl_version}
-Provides:       tex(sidecap-xetex-bidi.def) = %{tl_version}
-Provides:       tex(soul-xetex-bidi.def) = %{tl_version}
-Provides:       tex(stabular-xetex-bidi.def) = %{tl_version}
-Provides:       tex(subfigure-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tabls-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tabularx-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tabulary-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tc-xetex-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tcolorbox-xetex-bidi.def) = %{tl_version}
-Provides:       tex(thmbox-xetex-bidi.def) = %{tl_version}
-Provides:       tex(titlesec-xetex-bidi.def) = %{tl_version}
-Provides:       tex(titletoc-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tocbasic-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tocbibind-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tocloft-xetex-bidi.def) = %{tl_version}
-Provides:       tex(tocstyle-xetex-bidi.def) = %{tl_version}
-Provides:       tex(todonotes-xetex-bidi.def) = %{tl_version}
-Provides:       tex(wrapfig-xetex-bidi.def) = %{tl_version}
-Provides:       tex(xcolor-xetex-bidi.def) = %{tl_version}
-Provides:       tex(xltxtra-xetex-bidi.def) = %{tl_version}
 
 %description -n texlive-bidi
 A convenient interface for typesetting bidirectional texts with plain TeX and
@@ -595,12 +328,11 @@ many other commonly-used packages.
 
 %package -n texlive-bidihl
 Summary:        Experimental bidi-aware text highlighting
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(color.sty)
-Provides:       tex(bidihl.sty) = %{tl_version}
 
 %description -n texlive-bidihl
 Experimental bidi-aware text highlighting.
@@ -611,13 +343,32 @@ Version:        svn54191
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dad.sty) = %{tl_version}
 
 %description -n texlive-dad
 This package allows simple typesetting in Arabic script, intended for mixed
 Arabic/Latin script usage in situations where heavy-duty solutions are
 discouraged. The system operates with both Unicode and transliterated input,
 allowing the user to choose the most appropriate approach for every situation.
+
+%package -n texlive-fariscovernew
+Summary:        Create elegant Arabic and English title (cover) pages
+Version:        svn78508
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(bidi.sty)
+Requires:       tex(fontspec.sty)
+Requires:       tex(iftex.sty)
+Requires:       tex(tikz.sty)
+Requires:       tex(xcolor.sty)
+Requires:       tex(xparse.sty)
+
+%description -n texlive-fariscovernew
+This LaTeX package permits to generate modern and highly customizable title
+(cover) pages for Arabic and English documents. It provides multiple predefined
+visual styles, dynamic color schemes, font customization options, and advanced
+geometric layouts, including layered diamond compositions. It is designed for
+use with XeLaTeX or LuaLaTeX.
 
 %package -n texlive-ghab
 Summary:        Typeset ghab boxes in LaTeX
@@ -626,7 +377,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(biditools.sty)
-Provides:       tex(ghab.sty) = %{tl_version}
 
 %description -n texlive-ghab
 The package defines a command \darghab that will typeset its argument in a box
@@ -642,7 +392,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(hvarabic.sty) = %{tl_version}
 
 %description -n texlive-hvarabic
 This package provides some macros for right-to-left typesetting. It uses by
@@ -651,27 +400,25 @@ font. The package works with LuaLaTeX or XeLaTeX, but not with pdfLaTeX or
 latex.
 
 %package -n texlive-hyphen-arabic
-Summary:        (No) Arabic hyphenation patterns
+Summary:        (No) Arabic hyphenation patterns.
 Version:        svn74115
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ar.tex) = %{tl_version}
 
 %description -n texlive-hyphen-arabic
 Prevent hyphenation in Arabic.
 
 %package -n texlive-hyphen-farsi
-Summary:        (No) Persian hyphenation patterns
+Summary:        (No) Persian hyphenation patterns.
 Version:        svn74115
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-fa.tex) = %{tl_version}
 
 %description -n texlive-hyphen-farsi
 Prevent hyphenation in Persian.
@@ -682,7 +429,6 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(imsproc.cls) = %{tl_version}
 
 %description -n texlive-imsproc
 The class typesets papers for IMS (Iranian Mathematical Society) conference
@@ -695,7 +441,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(natbib.sty)
-Provides:       tex(iran-bibtex.sty) = %{tl_version}
 
 %description -n texlive-iran-bibtex
 The iran-bibtex package, designed for LaTeX, provides BibTeX styles in
@@ -727,12 +472,11 @@ article
 
 %package -n texlive-kurdishlipsum
 Summary:        A 'lipsum' package for the Kurdish language
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(biditools.sty)
-Provides:       tex(kurdishlipsum.sty) = %{tl_version}
 
 %description -n texlive-kurdishlipsum
 This package provides lipsum-like facilities for the Kurdish language. The
@@ -759,11 +503,6 @@ License:        LPPL-1.3c AND MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
-Provides:       tex(luabidi-arabmaths.def) = %{tl_version}
-Provides:       tex(luabidi-autofootnoterule.def) = %{tl_version}
-Provides:       tex(luabidi-footnotes.def) = %{tl_version}
-Provides:       tex(luabidi-test-arabmaths.tex) = %{tl_version}
-Provides:       tex(luabidi.sty) = %{tl_version}
 
 %description -n texlive-luabidi
 The package attempts to emulate the XeTeX bidi package, in the context of
@@ -775,7 +514,6 @@ Version:        svn74912
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mohe-book.cls) = %{tl_version}
 
 %description -n texlive-mohe-book
 The mohe-book LaTeX class is a specialized template designed to streamline the
@@ -801,7 +539,6 @@ Requires:       tex(enumitem.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(na-box.sty) = %{tl_version}
 
 %description -n texlive-na-box
 This is a modified version of the pas-cours package made compatible with
@@ -850,7 +587,7 @@ TRANSLATOR and AUTHORFA are defined.
 
 %package -n texlive-quran
 Summary:        An easy way to typeset any part of The Holy Quran
-Version:        svn75029
+Version:        svn78362
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -861,20 +598,6 @@ Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-transde.def) = %{tl_version}
-Provides:       tex(quran-transen.def) = %{tl_version}
-Provides:       tex(quran-transfa.def) = %{tl_version}
-Provides:       tex(quran-transfr.def) = %{tl_version}
-Provides:       tex(quran-translt.def) = %{tl_version}
-Provides:       tex(quran.sty) = %{tl_version}
-Provides:       tex(qurantext-de.translation.def) = %{tl_version}
-Provides:       tex(qurantext-en.translation.def) = %{tl_version}
-Provides:       tex(qurantext-en.transliteration.def) = %{tl_version}
-Provides:       tex(qurantext-fa.translation.def) = %{tl_version}
-Provides:       tex(qurantext-fr.translation.def) = %{tl_version}
-Provides:       tex(qurantext-simple.def) = %{tl_version}
-Provides:       tex(qurantext-uthmani-min.def) = %{tl_version}
-Provides:       tex(qurantext-uthmani.def) = %{tl_version}
 
 %description -n texlive-quran
 This package offers the user an easy way to typeset The Holy Quran. It has been
@@ -913,9 +636,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(wasysym.sty)
 Requires:       tex(yagusylo.sty)
-Provides:       tex(bacex.sty) = %{tl_version}
-Provides:       tex(sexam.sty) = %{tl_version}
-Provides:       tex(wexam.sty) = %{tl_version}
 
 %description -n texlive-sexam
 The package provides a modified version of the exam package made compatible
@@ -934,70 +654,6 @@ Requires:       tex(ltxcmds.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(zref-abspage.sty)
-Provides:       tex(simurgh-abjad.sty) = %{tl_version}
-Provides:       tex(simurgh-adadi.sty) = %{tl_version}
-Provides:       tex(simurgh-algorithm.sty) = %{tl_version}
-Provides:       tex(simurgh-algorithmic.sty) = %{tl_version}
-Provides:       tex(simurgh-amsart.sty) = %{tl_version}
-Provides:       tex(simurgh-amsbook.sty) = %{tl_version}
-Provides:       tex(simurgh-amsmath.sty) = %{tl_version}
-Provides:       tex(simurgh-amstext.sty) = %{tl_version}
-Provides:       tex(simurgh-amsthm.sty) = %{tl_version}
-Provides:       tex(simurgh-array.sty) = %{tl_version}
-Provides:       tex(simurgh-article.sty) = %{tl_version}
-Provides:       tex(simurgh-artikel1.sty) = %{tl_version}
-Provides:       tex(simurgh-artikel2.sty) = %{tl_version}
-Provides:       tex(simurgh-artikel3.sty) = %{tl_version}
-Provides:       tex(simurgh-arydshln.sty) = %{tl_version}
-Provides:       tex(simurgh-backref.sty) = %{tl_version}
-Provides:       tex(simurgh-bidi.sty) = %{tl_version}
-Provides:       tex(simurgh-boek.sty) = %{tl_version}
-Provides:       tex(simurgh-boek3.sty) = %{tl_version}
-Provides:       tex(simurgh-book.sty) = %{tl_version}
-Provides:       tex(simurgh-bookest.sty) = %{tl_version}
-Provides:       tex(simurgh-caption3.sty) = %{tl_version}
-Provides:       tex(simurgh-chkeng.sty) = %{tl_version}
-Provides:       tex(simurgh-clss.sty) = %{tl_version}
-Provides:       tex(simurgh-counters.sty) = %{tl_version}
-Provides:       tex(simurgh-cptns.sty) = %{tl_version}
-Provides:       tex(simurgh-doc.cls) = %{tl_version}
-Provides:       tex(simurgh-empheq.sty) = %{tl_version}
-Provides:       tex(simurgh-extarticle.sty) = %{tl_version}
-Provides:       tex(simurgh-extbook.sty) = %{tl_version}
-Provides:       tex(simurgh-extletter.sty) = %{tl_version}
-Provides:       tex(simurgh-extreport.sty) = %{tl_version}
-Provides:       tex(simurgh-fleqn.sty) = %{tl_version}
-Provides:       tex(simurgh-fonts.sty) = %{tl_version}
-Provides:       tex(simurgh-footnotes.sty) = %{tl_version}
-Provides:       tex(simurgh-ftnxtra.sty) = %{tl_version}
-Provides:       tex(simurgh-glossaries.sty) = %{tl_version}
-Provides:       tex(simurgh-harfi.sty) = %{tl_version}
-Provides:       tex(simurgh-jalalical.sty) = %{tl_version}
-Provides:       tex(simurgh-leqno.sty) = %{tl_version}
-Provides:       tex(simurgh-letter.sty) = %{tl_version}
-Provides:       tex(simurgh-lettrine.sty) = %{tl_version}
-Provides:       tex(simurgh-loader.sty) = %{tl_version}
-Provides:       tex(simurgh-ltx.sty) = %{tl_version}
-Provides:       tex(simurgh-mathdigitspec.sty) = %{tl_version}
-Provides:       tex(simurgh-memoir.sty) = %{tl_version}
-Provides:       tex(simurgh-minitoc.sty) = %{tl_version}
-Provides:       tex(simurgh-natbib.sty) = %{tl_version}
-Provides:       tex(simurgh-pkgs.sty) = %{tl_version}
-Provides:       tex(simurgh-poem.sty) = %{tl_version}
-Provides:       tex(simurgh-rapport1.sty) = %{tl_version}
-Provides:       tex(simurgh-rapport3.sty) = %{tl_version}
-Provides:       tex(simurgh-refrep.sty) = %{tl_version}
-Provides:       tex(simurgh-report.sty) = %{tl_version}
-Provides:       tex(simurgh-scrartcl.sty) = %{tl_version}
-Provides:       tex(simurgh-scrbook.sty) = %{tl_version}
-Provides:       tex(simurgh-scrlettr.sty) = %{tl_version}
-Provides:       tex(simurgh-scrreprt.sty) = %{tl_version}
-Provides:       tex(simurgh-shellescape.sty) = %{tl_version}
-Provides:       tex(simurgh-tags.sty) = %{tl_version}
-Provides:       tex(simurgh-tartibi.sty) = %{tl_version}
-Provides:       tex(simurgh-tools.sty) = %{tl_version}
-Provides:       tex(simurgh-unibidi.sty) = %{tl_version}
-Provides:       tex(simurgh.sty) = %{tl_version}
 
 %description -n texlive-simurgh
 The package provides an automatic and unified interface for Parsi typesetting
@@ -1018,12 +674,6 @@ Requires:       tex(newverbs.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(zref-savepos.sty)
-Provides:       tex(texnegar-common-kashida.tex) = %{tl_version}
-Provides:       tex(texnegar-ini.tex) = %{tl_version}
-Provides:       tex(texnegar-luatex.sty) = %{tl_version}
-Provides:       tex(texnegar-xetex-kashida.tex) = %{tl_version}
-Provides:       tex(texnegar-xetex.sty) = %{tl_version}
-Provides:       tex(texnegar.sty) = %{tl_version}
 
 %description -n texlive-texnegar
 In some cursive scripts such as Persian or Arabic, kashida is used to create
@@ -1043,7 +693,6 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tram.sty) = %{tl_version}
 
 %description -n texlive-tram
 Tram boxes are highlighted with patterns of dots; the package defines an
@@ -1052,7 +701,7 @@ may be selected in an optional argument to the environment.
 
 %package -n texlive-xepersian
 Summary:        Persian for LaTeX, using LuaTeX or XeTeX
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1064,68 +713,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(pifont.sty)
 Requires:       tex(tabularx.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(algorithm-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(algorithmic-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(amsart-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(amsbook-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(appendix-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(article-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(artikel1-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(artikel2-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(artikel3-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(backref-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(beamer-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(beamerbasetranslator-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(bidimoderncv-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(bidituftesidenote-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(boek-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(boek3-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(book-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(bookest-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(breqn-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(color-localize-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(enumerate-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(enumitem-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(extarticle-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(extbook-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(extrafootnotefeatures-xetex-bidi-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(extreport-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(fancyref-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(footnote-xetex-bidi-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(framed-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(glossaries-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(hyperref-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(imsproc-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(kashida-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(latex-localize-commands-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(latex-localize-environments-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(latex-localize-messages-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(latex-localize-misc-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(listings-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(localize-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(memoir-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(minitoc-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(natbib-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(packages-localize-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(rapport1-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(rapport3-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(refrep-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(report-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(scrartcl-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(scrbook-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(scrreprt-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(soul-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(tkz-linknodes-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(tocloft-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(unicode-persiancal.sty) = %{tl_version}
-Provides:       tex(unicode-persianmath.sty) = %{tl_version}
-Provides:       tex(url-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(varioref-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(xepersian-localize-commands-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(xepersian-localize-environments-xetex-xepersian.def) = %{tl_version}
-Provides:       tex(xepersian-magazine.cls) = %{tl_version}
-Provides:       tex(xepersian-multiplechoice.sty) = %{tl_version}
-Provides:       tex(xepersian.sty) = %{tl_version}
 
 %description -n texlive-xepersian
 This package provides a convenient interface for typesetting Persian and
@@ -1136,7 +723,7 @@ experience in TeX.
 
 %package -n texlive-xepersian-hm
 Summary:        Fixes kashida feature in xepersian package
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1144,9 +731,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xepersian.sty)
 Requires:       tex(zref-savepos.sty)
-Provides:       tex(xepersian-hm-common-kashida.tex) = %{tl_version}
-Provides:       tex(xepersian-hm-kashida.tex) = %{tl_version}
-Provides:       tex(xepersian-hm.sty) = %{tl_version}
 
 %description -n texlive-xepersian-hm
 The kashida feature in xepersian has problems with some fonts such as the HM
@@ -1281,6 +865,8 @@ tar -xf %{SOURCE66} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE67} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE68} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE69} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE70} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE71} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1368,6 +954,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/fonts/type1/public/dad/
 %{_texmf_main}/tex/lualatex/dad/
 %doc %{_texmf_main}/doc/fonts/dad/
+
+%files -n texlive-fariscovernew
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/fariscovernew/
+%doc %{_texmf_main}/doc/latex/fariscovernew/
 
 %files -n texlive-ghab
 %license lppl1.3c.txt
@@ -1488,6 +1079,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-4
+- Update collection from svn76980 to svn78033
+- Add fariscovernew
+- Update 9 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76980-3
 - Update arabi bidi bidihl kurdishlipsum xepersian xepersian-hm
 - add .cls Provides

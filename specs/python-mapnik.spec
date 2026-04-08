@@ -1,22 +1,18 @@
 %global srcname mapnik
 
-%global commitdate 20250925
-%global commit 4b51d57911dc6a1a9f35c62c681fbdeb56fc69d4
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 %global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
 %global visualcommit 7dfd4568d6181da8be3543c8b7522b596a79b774
 
-%global mapnik_version 4.0.0
+%global mapnik_version 4.2.2
 
 Name:           python-%{srcname}
-Version:        4.1.3~%{commitdate}git%{shortcommit}
+Version:        4.2.2
 Release:        %autorelease
 Summary:        Python bindings for Mapnik
 
 License:        LGPL-2.1-only
 URL:            https://github.com/mapnik/python-mapnik
-Source0:        https://github.com/mapnik/python-mapnik/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:        https://github.com/mapnik/python-mapnik/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/mapnik/test-data/archive/%{testcommit}/test-data-%{testcommit}.tar.gz
 Source2:        https://github.com/mapnik/test-data-visual/archive/%{visualcommit}/test-data-visual-%{visualcommit}.tar.gz
 # Stop setup.py trying to fiddle with compiler flags
@@ -25,8 +21,8 @@ Patch:          python-mapnik-flags.patch
 Patch:          python-mapnik-precision.patch
 # Use pkg-config instead of mapnik-config
 Patch:          python-mapnik-pkgconfig.patch
-# Fix for mapnik 4.0.0 compatiblity
-Patch:          python-mapnik-mapnik4.patch
+# Fix for 32 bit support
+Patch:          python-mapnik-32bit.patch
 # Adjust required versions to match Fedora versions
 Patch:          python-mapnik-pyproject.patch
 
@@ -47,6 +43,9 @@ BuildRequires:  mapnik-utils >= %{mapnik_version}
 BuildRequires:  git-core
 BuildRequires:  boost-devel boost-python3-devel
 BuildRequires:  postgresql-test-rpm-macros postgis
+BuildRequires:  libicu-devel
+BuildRequires:  proj-devel
+BuildRequires:  gdal-devel
 
 %description
 %{summary}.
@@ -60,7 +59,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -S git -p 1 -n %{name}-%{commit}
+%autosetup -S git -p 1
 tar --directory=test/data --strip-components=1 --gunzip --extract --file=%{SOURCE1} 
 tar --directory=test/data-visual --strip-components=1 --gunzip --extract --file=%{SOURCE2} 
 

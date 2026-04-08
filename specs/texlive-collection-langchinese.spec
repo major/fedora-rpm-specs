@@ -5,7 +5,7 @@
 Name:           texlive-collection-langchinese
 Epoch:          12
 Version:        svn77432
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -220,7 +220,7 @@ LaTeX2e. The package aims to supersede HLaTeX fonts bundle.
 
 %package -n texlive-ctex
 Summary:        LaTeX classes and packages for Chinese typesetting
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -260,54 +260,6 @@ Requires:       texlive-xunicode
 Requires:       texlive-zhmetrics
 Requires:       texlive-zhmetrics-uptex
 Requires:       texlive-zhnumber
-Provides:       tex(ctex-engine-aptex.def) = %{tl_version}
-Provides:       tex(ctex-engine-luatex.def) = %{tl_version}
-Provides:       tex(ctex-engine-pdftex.def) = %{tl_version}
-Provides:       tex(ctex-engine-uptex.def) = %{tl_version}
-Provides:       tex(ctex-engine-xetex.def) = %{tl_version}
-Provides:       tex(ctex-fontset-adobe.def) = %{tl_version}
-Provides:       tex(ctex-fontset-fandol.def) = %{tl_version}
-Provides:       tex(ctex-fontset-founder.def) = %{tl_version}
-Provides:       tex(ctex-fontset-mac.def) = %{tl_version}
-Provides:       tex(ctex-fontset-macnew.def) = %{tl_version}
-Provides:       tex(ctex-fontset-macold.def) = %{tl_version}
-Provides:       tex(ctex-fontset-ubuntu.def) = %{tl_version}
-Provides:       tex(ctex-fontset-windows.def) = %{tl_version}
-Provides:       tex(ctex-heading-article.def) = %{tl_version}
-Provides:       tex(ctex-heading-beamer.def) = %{tl_version}
-Provides:       tex(ctex-heading-book.def) = %{tl_version}
-Provides:       tex(ctex-heading-report.def) = %{tl_version}
-Provides:       tex(ctex-scheme-chinese-article.def) = %{tl_version}
-Provides:       tex(ctex-scheme-chinese-beamer.def) = %{tl_version}
-Provides:       tex(ctex-scheme-chinese-book.def) = %{tl_version}
-Provides:       tex(ctex-scheme-chinese-report.def) = %{tl_version}
-Provides:       tex(ctex-scheme-chinese.def) = %{tl_version}
-Provides:       tex(ctex-scheme-plain-article.def) = %{tl_version}
-Provides:       tex(ctex-scheme-plain-beamer.def) = %{tl_version}
-Provides:       tex(ctex-scheme-plain-book.def) = %{tl_version}
-Provides:       tex(ctex-scheme-plain-report.def) = %{tl_version}
-Provides:       tex(ctex-scheme-plain.def) = %{tl_version}
-Provides:       tex(ctex-spa-macro.tex) = %{tl_version}
-Provides:       tex(ctex-spa-make.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-adobe.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-fandol.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-founder.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-mac.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-ubuntu.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-windows.tex) = %{tl_version}
-Provides:       tex(ctex.sty) = %{tl_version}
-Provides:       tex(ctexart.cls) = %{tl_version}
-Provides:       tex(ctexbeamer.cls) = %{tl_version}
-Provides:       tex(ctexbook.cls) = %{tl_version}
-Provides:       tex(ctexcap.sty) = %{tl_version}
-Provides:       tex(ctexheading.sty) = %{tl_version}
-Provides:       tex(ctexhook.sty) = %{tl_version}
-Provides:       tex(ctexpatch.sty) = %{tl_version}
-Provides:       tex(ctexrep.cls) = %{tl_version}
-Provides:       tex(ctexsize.sty) = %{tl_version}
-Provides:       tex(ctexspa.def) = %{tl_version}
-Provides:       tex(ctxdoc.cls) = %{tl_version}
-Provides:       tex(ctxdocstrip.tex) = %{tl_version}
 
 %description -n texlive-ctex
 ctex is a collection of macro packages and document classes for LaTeX Chinese
@@ -333,14 +285,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(exam-zh-chinese-english.sty) = %{tl_version}
-Provides:       tex(exam-zh-choices.sty) = %{tl_version}
-Provides:       tex(exam-zh-font.sty) = %{tl_version}
-Provides:       tex(exam-zh-math.sty) = %{tl_version}
-Provides:       tex(exam-zh-question.sty) = %{tl_version}
-Provides:       tex(exam-zh-symbols.sty) = %{tl_version}
-Provides:       tex(exam-zh-textfigure.sty) = %{tl_version}
-Provides:       tex(exam-zh.cls) = %{tl_version}
 
 %description -n texlive-exam-zh
 Although there are already several excellent exam packages or classes like exam
@@ -371,11 +315,6 @@ Version:        svn67231
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fdudoc.cls) = %{tl_version}
-Provides:       tex(fdulogo.sty) = %{tl_version}
-Provides:       tex(fduthesis-en.cls) = %{tl_version}
-Provides:       tex(fduthesis.cls) = %{tl_version}
-Provides:       tex(fduthesis.def) = %{tl_version}
 
 %description -n texlive-fduthesis
 This package is a LaTeX thesis template package for Fudan University. It can
@@ -383,11 +322,10 @@ make it easy to write theses both in Chinese and English.
 
 %package -n texlive-hanzibox
 Summary:        Boxed Chinese characters with Pinyin above and translation below
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hanzibox.sty) = %{tl_version}
 
 %description -n texlive-hanzibox
 This is a LaTeX package written to simplify the input of Chinese with Hanyu
@@ -399,15 +337,12 @@ documentation work.
 
 %package -n texlive-hyphen-chinese
 Summary:        Chinese pinyin hyphenation patterns.
-Version:        svn74115
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-zh-latn-pinyin.ec.tex) = %{tl_version}
-Provides:       tex(hyph-zh-latn-pinyin.tex) = %{tl_version}
-Provides:       tex(loadhyph-zh-latn-pinyin.tex) = %{tl_version}
 
 %description -n texlive-hyphen-chinese
 Hyphenation patterns for unaccented transliterated Mandarin Chinese (pinyin) in
@@ -429,7 +364,7 @@ Eplain. The book is also available in French and Chinese translations.
 
 %package -n texlive-install-latex-guide-zh-cn
 Summary:        A short introduction to LaTeX installation written in Chinese
-Version:        svn77681
+Version:        svn78564
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -472,22 +407,45 @@ information of typesetting Chinese language.
 
 %package -n texlive-luatex-cn
 Summary:        A LuaTeX based package to handle Chinese text typesetting
-Version:        svn77432
+Version:        svn78192
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       tex(banxin/luatex-cn-banxin.sty)
+Requires:       tex(core/luatex-cn-core-base.sty)
+Requires:       tex(core/luatex-cn-core-column.sty)
+Requires:       tex(core/luatex-cn-core-content.sty)
+Requires:       tex(core/luatex-cn-core-document.sty)
+Requires:       tex(core/luatex-cn-core-export.sty)
+Requires:       tex(core/luatex-cn-core-metadata.sty)
+Requires:       tex(core/luatex-cn-core-page.sty)
+Requires:       tex(core/luatex-cn-core-paragraph.sty)
+Requires:       tex(core/luatex-cn-core-punct.sty)
+Requires:       tex(core/luatex-cn-core-sidenote.sty)
+Requires:       tex(core/luatex-cn-core-style.sty)
+Requires:       tex(core/luatex-cn-core-textbox.sty)
+Requires:       tex(core/luatex-cn-core-textflow.sty)
+Requires:       tex(core/luatex-cn-footnote.sty)
+Requires:       tex(decorate/luatex-cn-decorate.sty)
+Requires:       tex(decorate/luatex-cn-linemark.sty)
 Requires:       tex(enumitem.sty)
-Requires:       tex(ifluatex.sty)
+Requires:       tex(environ.sty)
+Requires:       tex(fonts/luatex-cn-font-autodetect.sty)
+Requires:       tex(graphicx.sty)
+Requires:       tex(guji/luatex-cn-guji-cover.sty)
+Requires:       tex(guji/luatex-cn-guji-danye.sty)
+Requires:       tex(guji/luatex-cn-guji-jiazhu.sty)
+Requires:       tex(guji/luatex-cn-guji-judou.sty)
+Requires:       tex(guji/luatex-cn-guji-meipi.sty)
+Requires:       tex(guji/luatex-cn-guji-mulu.sty)
+Requires:       tex(guji/luatex-cn-guji-pizhu.sty)
+Requires:       tex(guji/luatex-cn-guji-titlepage.sty)
+Requires:       tex(guji/luatex-cn-guji-yinzhang.sty)
 Requires:       tex(luatexbase.sty)
+Requires:       tex(showframe.sty)
+Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(ltc-book.cls) = %{tl_version}
-Provides:       tex(ltc-guji.cls) = %{tl_version}
-Provides:       tex(luatex-cn-banxin.sty) = %{tl_version}
-Provides:       tex(luatex-cn-font-autodetect.sty) = %{tl_version}
-Provides:       tex(luatex-cn-splitpage.sty) = %{tl_version}
-Provides:       tex(luatex-cn-vertical.sty) = %{tl_version}
-Provides:       tex(luatex-cn.sty) = %{tl_version}
 
 %description -n texlive-luatex-cn
 A LuaTeX package for Chinese character typesetting, covering
@@ -497,13 +455,10 @@ elements of traditional Chinese books, and interlinear notes.
 
 %package -n texlive-lxgw-fonts
 Summary:        A CJK font family with a comprehensive character set
-Version:        svn77677
+Version:        svn78516
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ctex-fontset-lxgw.def) = %{tl_version}
-Provides:       tex(ctex-makespa-lxgw.tex) = %{tl_version}
-Provides:       tex(ctex-zhmap-lxgw.tex) = %{tl_version}
 
 %description -n texlive-lxgw-fonts
 The LXGW Font Family provides an open-source CJK font family with a
@@ -517,7 +472,6 @@ Version:        svn56224
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(nanicolle.cls) = %{tl_version}
 
 %description -n texlive-nanicolle
 This package provides a LaTeX class nanicolle.cls for typesetting collection
@@ -534,7 +488,6 @@ Version:        svn50492
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(njurepo.cls) = %{tl_version}
 
 %description -n texlive-njurepo
 This LaTeX document class provides a thesis template for Nanjing University in
@@ -558,12 +511,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(beamerthemeHeavenlyClouds.sty) = %{tl_version}
-Provides:       tex(beamerthemeTianQing.sty) = %{tl_version}
-Provides:       tex(beamerthemeXiaoshan.sty) = %{tl_version}
-Provides:       tex(cncolours.sty) = %{tl_version}
-Provides:       tex(pgflibraryhan.code.tex) = %{tl_version}
-Provides:       tex(pgfornament-han.sty) = %{tl_version}
 
 %description -n texlive-pgfornament-han
 This package provides a pgfornament library for Chinese traditional motifs and
@@ -585,7 +532,6 @@ Version:        svn75712
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(qyxf-book.cls) = %{tl_version}
 
 %description -n texlive-qyxf-book
 qyxf-book is a LaTeX document class (template) developed by Qian Yuan Xue Fu
@@ -600,50 +546,10 @@ for Chinese typesetting.
 
 %package -n texlive-sjtutex
 Summary:        LaTeX classes for Shanghai Jiao Tong University
-Version:        svn76924
+Version:        svn78164
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sjtu-cjk-font-adobe.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-fandol.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-founder.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-hanyi.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-mac.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-ubuntu.def) = %{tl_version}
-Provides:       tex(sjtu-cjk-font-windows.def) = %{tl_version}
-Provides:       tex(sjtu-lang-de.def) = %{tl_version}
-Provides:       tex(sjtu-lang-en.def) = %{tl_version}
-Provides:       tex(sjtu-lang-ja.def) = %{tl_version}
-Provides:       tex(sjtu-lang-zh.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-cambria.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-libertinus.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-lm.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-newcm.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-newpx.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-newtx.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-stixtwo.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-times.def) = %{tl_version}
-Provides:       tex(sjtu-math-font-xits.def) = %{tl_version}
-Provides:       tex(sjtu-scheme-de.def) = %{tl_version}
-Provides:       tex(sjtu-scheme-en.def) = %{tl_version}
-Provides:       tex(sjtu-scheme-ja.def) = %{tl_version}
-Provides:       tex(sjtu-scheme-zh.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-cambria.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-libertinus.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-lm.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-newcm.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-newpx.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-newtx.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-stixtwo.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-times.def) = %{tl_version}
-Provides:       tex(sjtu-text-font-xits.def) = %{tl_version}
-Provides:       tex(sjtu-thesis-de.def) = %{tl_version}
-Provides:       tex(sjtu-thesis-en.def) = %{tl_version}
-Provides:       tex(sjtu-thesis-ja.def) = %{tl_version}
-Provides:       tex(sjtu-thesis-zh.def) = %{tl_version}
-Provides:       tex(sjtuarticle.cls) = %{tl_version}
-Provides:       tex(sjtureport.cls) = %{tl_version}
-Provides:       tex(sjtuthesis.cls) = %{tl_version}
 
 %description -n texlive-sjtutex
 SJTUTeX aims to establish a simple and easy-to-use collection of document
@@ -657,7 +563,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(suanpan-l3.sty) = %{tl_version}
 
 %description -n texlive-suanpan-l3
 This traditional Chinese 7-bids abacus drawing package utilizes l3draw and is
@@ -677,7 +582,7 @@ suanpan environment options, or the \suanpanset macro.
 
 %package -n texlive-texlive-zh-cn
 Summary:        TeX Live manual (Chinese)
-Version:        svn74098
+Version:        svn78073
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -730,7 +635,6 @@ Version:        svn47354
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(upzhkinsoku.sty) = %{tl_version}
 
 %description -n texlive-upzhkinsoku
 This package provides supplementary Chinese kinsoku (line breaking rules etc.)
@@ -739,12 +643,10 @@ and ApTeX. Both LaTeX and plain TeX are supported.
 
 %package -n texlive-xpinyin
 Summary:        Automatically add pinyin to Chinese characters
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xpinyin-database.def) = %{tl_version}
-Provides:       tex(xpinyin.sty) = %{tl_version}
 
 %description -n texlive-xpinyin
 The package is written to simplify the input of Hanyu Pinyin. Macros are
@@ -771,7 +673,6 @@ Requires:       tex(latexsym.sty)
 Requires:       tex(mathrsfs.sty)
 Requires:       tex(diagbox.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(xtuformat.sty) = %{tl_version}
 
 %description -n texlive-xtuthesis
 The package provides a thesis template for the Xiangtan University.
@@ -786,7 +687,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(mathtools.sty)
 Requires:       tex(xintexpr.sty)
-Provides:       tex(zhlineskip.sty) = %{tl_version}
 
 %description -n texlive-zhlineskip
 This package supports typesetting CJK documents. It allows users to specify the
@@ -802,10 +702,6 @@ Version:        svn54994
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(zhlipsum-big5.def) = %{tl_version}
-Provides:       tex(zhlipsum-gbk.def) = %{tl_version}
-Provides:       tex(zhlipsum-utf8.def) = %{tl_version}
-Provides:       tex(zhlipsum.sty) = %{tl_version}
 
 %description -n texlive-zhlipsum
 This package provides an interface to dummy text in Chinese language, which
@@ -818,7 +714,6 @@ Version:        svn22207
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(zhwinfonts.tex) = %{tl_version}
 
 %description -n texlive-zhmetrics
 These are metrics to use existing Chinese TrueType fonts in workflows that use
@@ -839,11 +734,10 @@ together with a simple DVIPDFMx font mapping of Fandol fonts for DVIPDFMx.
 
 %package -n texlive-zhnumber
 Summary:        Typeset Chinese representations of numbers
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(zhnumber.sty) = %{tl_version}
 
 %description -n texlive-zhnumber
 The package provides commands to typeset Chinese representations of numbers.
@@ -858,13 +752,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(ulem.sty)
-Provides:       tex(t-zhspacing.tex) = %{tl_version}
-Provides:       tex(zhfont.sty) = %{tl_version}
-Provides:       tex(zhmath.sty) = %{tl_version}
-Provides:       tex(zhsmyclass.sty) = %{tl_version}
-Provides:       tex(zhspacing.sty) = %{tl_version}
-Provides:       tex(zhsusefulmacros.sty) = %{tl_version}
-Provides:       tex(zhulem.sty) = %{tl_version}
 
 %description -n texlive-zhspacing
 The package manages spacing in a CJK document; between consecutive Chinese
@@ -1225,6 +1112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-6
+- Update 10 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-5
 - Update ctex hanzibox lxgw-fonts xpinyin zhnumber
 - Add provides for .cls files

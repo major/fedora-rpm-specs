@@ -8,10 +8,10 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.35
-%global crio_spec_ver   1.35.1
+%global crio_spec_ver   1.35.2
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.35.1
+%global crio_tag        v1.35.2
 %global golangver       1.25.0
 
 # Related: github.com/cri-o/cri-o/issues/3684
@@ -29,9 +29,6 @@ Version:                  %{crio_spec_ver}
 
 %gometa -L -f
 
-%global common_description %{expand:
-Open Container Initiative-based implementation of Kubernetes Container Runtime
-Interface.}
 
 Name:           %{crio_spec_name}
 Release:        %autorelease
@@ -64,13 +61,19 @@ BuildRequires:  runc
 BuildRequires:  crun
 BuildRequires:  conmon >= 2.0.2-1
 BuildRequires:  iptables
+
 Requires(pre):  container-selinux
-Requires:       containers-common >= 1:0.1.31-14
-Recommends:     crun
-Suggests:       containernetworking-plugins >= 1.0.0-1
-Requires:       conmon >= 2.0.2-1
+Requires:       containers-common
+Suggests:       kubernetes-cni
 Requires:       socat
 Requires:       iptables
+
+# upstream cri-o package installs the following in %%{libexecdir}/crio
+# not yet in Fedora conmonrs, crio-credential-provider
+# Fedora uses existing rpms
+Requires:       crun
+Requires:       runc
+Requires:       conmon
 
 Obsoletes:      ocid <= 0.3
 Provides:       ocid = %{version}-%{release}
@@ -79,13 +82,14 @@ Provides:       ocid = %{version}-%{release}
 Provides:       crio = %{version}-%{release}
 Conflicts:      crio
 
-%description %{common_description}
+%description
+Open Container Initiative-based implementation of Kubernetes Container Runtime
+Interface.
 
 # **********************************
 %prep
-%goprep -A
-%setup -q -T -D -a1 %{forgesetupargs}
-# %%autopatch -p1
+%goprep -p1
+tar -xf %{S:1}
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -93,6 +97,10 @@ Conflicts:      crio
 # remove local from service file path
 sed -i 's/\/local//' contrib/systemd/crio.service
 sed -i 's/\/local//' contrib/systemd/crio-wipe.service
+
+# remove -O3 from pinns makefile. Default CFLAGS includes -O2
+# added 6 Mar 2026. May drop later
+# sed -i 's/-O3 //' pinns/Makefile
 
 # **********************************
 %build
@@ -114,11 +122,7 @@ export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp}
 # remove default go macro ldflag settings for version, tag, commit
 %global currentgoldflags   %{nil}
 
-# crio currently only subdirectory
 %gobuild -o %{gobuilddir}/bin/crio %{goipath}/cmd/crio
-# for cmd in cmd/* ; do
-#  %%gobuild -trimpath -o %%{gobuilddir}/bin/$(basename $cmd) %%{goipath}/$cmd
-# done
 
 # generate pinns
 %if 0%{?fedora}
@@ -177,11 +181,12 @@ install -d -m 0755    %{buildroot}%{_sysconfdir}
 install -D -m 0644 -t %{buildroot}%{_sysconfdir}  crictl.yaml
 
 install -dp %{buildroot}%{_sysconfdir}/cni/net.d
-install -p -m 0644 contrib/cni/10-crio-bridge.conflist %{buildroot}%{_sysconfdir}/cni/net.d/100-crio-bridge.conflist
-install -p -m 0644 contrib/cni/99-loopback.conflist %{buildroot}%{_sysconfdir}/cni/net.d/200-loopback.conflist
+install -p -m 0644 contrib/cni/10-crio-bridge.conflist      %{buildroot}%{_sysconfdir}/cni/net.d/100-crio-bridge.conflist
+install -p -m 0644 contrib/cni/11-crio-ipv4-bridge.conflist %{buildroot}%{_sysconfdir}/cni/net.d/110-crio-ipv4-bridge.conflist.disabled
+install -p -m 0644 contrib/cni/99-loopback.conflist         %{buildroot}%{_sysconfdir}/cni/net.d/200-loopback.conflist
 
 echo "+++ INSTALLING service files"
-install -d -m 0755 %{buildroot}%{_sysconfdir}/crio
+install -d -m 0755 %{buildroot}%{_sysconfdir}/crio/crio.conf.d
 install -dp %{buildroot}%{_datadir}/containers/oci/hooks.d
 install -dp %{buildroot}%{_datadir}/oci-umount/oci-umount.d
 install -p -m 0644 crio.conf %{buildroot}%{_sysconfdir}/crio
@@ -192,7 +197,6 @@ install -d -m 0755 %{buildroot}%{_unitdir}
 install -p -m 0644 contrib/systemd/crio.service %{buildroot}%{_unitdir}/crio.service
 install -p -m 0644 contrib/systemd/crio-wipe.service %{buildroot}%{_unitdir}/crio-wipe.service
 
-
 echo "+++ INSTALLING manpages"
 # make places these in ./docs
 install -d -m 0755 %{buildroot}%{_mandir}/man5
@@ -202,7 +206,6 @@ install -d -m 0755 %{buildroot}%{_mandir}/man8
 install -p -m 0644 docs/*.8 %{buildroot}%{_mandir}/man8
 
 
-# **********************************
 %check
 %go_vendor_license_check -c %{S:2}
 
@@ -224,7 +227,7 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 #   that triggers a permission block
 # internal/oci - mkdir /var/run/crio permission error. Tests work manually.
 # server - mkdir /var/run/crio permission error. Tests work manually.
-%gocheck -t test/nri -t internal/factory/container -t internal/oci -t server
+%gocheck2 -t test/nri -t internal/factory/container -t internal/oci -t server
 
 # same tests via make
 # %%make_build testunit
@@ -232,9 +235,7 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 
 # **********************************
 %files -f %{go_vendor_license_filelist}
-%doc docs ADOPTERS.md CONTRIBUTING.md GOVERNANCE.md
-%doc MAINTAINERS.md README.md SECURITY.md awesome.md
-%doc code-of-conduct.md cri.md
+%doc README.md SECURITY.md
 
 %{_bindir}/crio
 %{_bindir}/pinns
@@ -245,6 +246,7 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 %dir %{_sysconfdir}/crio
 %config(noreplace) %{_sysconfdir}/crio/crio.conf
 %config(noreplace) %{_sysconfdir}/cni/net.d/100-crio-bridge.conflist
+%config(noreplace) %{_sysconfdir}/cni/net.d/110-crio-ipv4-bridge.conflist.disabled
 %config(noreplace) %{_sysconfdir}/cni/net.d/200-loopback.conflist
 %config(noreplace) %{_sysconfdir}/crictl.yaml
 %dir %{_libexecdir}/crio
@@ -262,6 +264,6 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 %{zsh_completions_dir}/_crio*
 
 
-# **********************************
+
 %changelog
 %autochangelog

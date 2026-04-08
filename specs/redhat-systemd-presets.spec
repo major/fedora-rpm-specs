@@ -6,7 +6,7 @@
 Name:           redhat-systemd-presets
 # Please only bump the version in the rawhide branch, all other branches
 # should leave the version alone.
-Version:        100
+Version:        102
 Release:        %autorelease
 Summary:        Red Hat family systemd presets
 URL:            https://src.fedoraproject.org/rpms/redhat-systemd-presets
@@ -51,8 +51,8 @@ Summary:        Common systemd presets for the Red Hat family
 # Ensures that this is considered merely a separation detail
 Requires:       %{name} = %{version}-%{release}
 # From the split from fedora-release
-Conflicts:      fedora-release-common < 45-0.3
-Obsoletes:      fedora-release-common < 45-0.3
+Conflicts:      fedora-release-common < 45-0.5
+Obsoletes:      fedora-release-common < 45-0.5
 # Allow only one provider
 Provides:       distribution-systemd-presets-common
 Conflicts:      distribution-systemd-presets-common
@@ -76,10 +76,10 @@ that determine which services are enabled by default.
 Summary:        Desktop systemd presets for the Red Hat family
 Requires:       %{name}-common = %{version}-%{release}
 # From the split from fedora-release
-Conflicts:      fedora-release-variant < 45-0.3
+Conflicts:      fedora-release-variant < 45-0.5
 # Deal with all the identity flavors that had this file
 %global fedora_flavor_obsoletes() \
-Obsoletes:      fedora-release-identity-%{1} < 45-0.3
+Obsoletes:      fedora-release-identity-%{1} < 45-0.5
 
 %fedora_flavor_obsoletes budgie
 %fedora_flavor_obsoletes budgie-atomic
@@ -121,8 +121,8 @@ that determine which services are enabled by default.
 %package desktop-atomic
 Summary:        Atomic Desktop systemd presets for the Red Hat family
 Requires:       %{name}-desktop = %{version}-%{release}
-Conflicts:      fedora-release-ostree-desktop < 45-0.3
-Obsoletes:      fedora-release-ostree-desktop < 45-0.3
+Conflicts:      fedora-release-ostree-desktop < 45-0.5
+Obsoletes:      fedora-release-ostree-desktop < 45-0.5
 # Allow only one provider
 Provides:       distribution-systemd-presets-desktop-atomic
 Conflicts:      distribution-systemd-presets-desktop-atomic

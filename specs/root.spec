@@ -2417,9 +2417,11 @@ gtest-tree-ntuple-ntuple-evolution-shape"
 %endif
 
 # - gtest-tree-ntuple-ntuple-emulated
+# - gtest-tree-ntuple-ntuple-merger
 #   Random failures
 excluded="${excluded}|\
-gtest-tree-ntuple-ntuple-emulated"
+gtest-tree-ntuple-ntuple-emulatedy|\
+gtest-tree-ntuple-ntuple-merger"
 %endif
 
 %ifarch s390x

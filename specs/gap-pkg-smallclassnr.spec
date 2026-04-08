@@ -3,14 +3,16 @@
 %global giturl      https://github.com/stertooy/SmallClassNr
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.3
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Library of finite groups with small class number
 
 License:        GPL-2.0-or-later
 URL:            https://stertooy.github.io/SmallClassNr/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+Source0:        %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+# Predownloaded data from ATLAS needed for the tests
+Source1:        %{name}-testdata.tar.xz
 
 BuildArch:      noarch
 BuildSystem:    gap
@@ -19,8 +21,12 @@ BuildOption(install): data lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
+BuildRequires:  gap-pkg-atlasrep
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-packagemanager-doc
+BuildRequires:  gap-pkg-primgrp
+BuildRequires:  gap-pkg-smallgrp
+BuildRequires:  gap-pkg-transgrp
 
 Requires:       gap-core
 
@@ -46,10 +52,17 @@ Recommends:     gap-pkg-packagemanager-doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{gap_upname}-%{version}
+%autosetup -n %{gap_upname}-%{version} -b 1
+
+%conf
+# Tell ATLAS where to find downloaded files
+mkdir ~/.gap
+cat > ~/.gap/gap.ini << EOF
+SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/" );
+EOF
 
 %files
-%doc CHANGES.md CITATION.cff README.md
+%doc CHANGELOG.md CITATION.cff README.md
 %license LICENSE.txt
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

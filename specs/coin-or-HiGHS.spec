@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  1d267d97c
+%global commit  7df0786de
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Linear optimization software
 

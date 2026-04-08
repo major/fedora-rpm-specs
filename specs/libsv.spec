@@ -11,6 +11,8 @@ License:        Unlicense
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+Patch:          https://github.com/uael/sv/commit/b0c92e1be2badd67b2eb3c3baebed43b6f1962ce.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -26,7 +28,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains headers and development files for %{name}.
 
 %prep
-%autosetup -n sv-%{version}
+%forgeautosetup -p1
 
 %build
 %cmake
@@ -45,7 +47,7 @@ This package contains headers and development files for %{name}.
 %{_libdir}/libsv.so.1
 
 %files devel
-%{_includedir}/sv/
+%{_includedir}/semver.h
 %{_libdir}/libsv.so
 %{_libdir}/pkgconfig/libsv.pc
 

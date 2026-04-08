@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        25.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -34,9 +34,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  perl-podlators
 BuildRequires:  libappstream-glib
 BuildRequires:  CalcMySky-devel >= 0.2.1
-%if 0%{?fedora} && 0%{?fedora} < 38
 BuildRequires:  libindi-devel
-%endif
 BuildRequires:  QXlsx-devel
 BuildRequires:  libnova-devel
 BuildRequires:  libxkbcommon-devel
@@ -66,10 +64,7 @@ Data files for the stellarium package.
 
 %build
 # Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
-%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes \
-%if 0%{?fedora} >= 38
-   -DUSE_PLUGIN_TELESCOPECONTROL=no \
-%endif
+%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes -DUSE_PLUGIN_TELESCOPECONTROL=yes \
    %{nil}
 %cmake_build
 
@@ -106,6 +101,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Mon Apr 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 25.4-3
+- Enable telescope control plugin, now has INDI 2 support.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

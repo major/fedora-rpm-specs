@@ -12,7 +12,7 @@
 %global giturl         https://github.com/gap-packages/AutoDoc
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2025.12.19
+Version:        2026.03.18
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 
@@ -33,6 +33,7 @@ BuildRequires:  GAPDoc-latex
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-io
 %endif
+BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
 
 # AUTODOC_CurrentDirectory invokes pwd
@@ -64,7 +65,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %install -a
-cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
+cp -p doc/*.{autodoc,xml} %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
 
 %files
 %doc CHANGES.md README.md

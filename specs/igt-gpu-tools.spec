@@ -6,7 +6,7 @@
 %undefine _debugsource_packages
 
 Name:           igt-gpu-tools
-Version:        2.3
+Version:        2.4
 Release:        %autorelease
 Summary:        Test suite and tools for DRM drivers
 
@@ -78,7 +78,7 @@ BuildRequires:  pkgconfig(cairo) > 1.12.0
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  pkgconfig(json-c)
+BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.82
 BuildRequires:  pkgconfig(libdw)
@@ -93,6 +93,7 @@ BuildRequires:  pkgconfig(xmlrpc)
 BuildRequires:  pkgconfig(xmlrpc_client)
 BuildRequires:  pkgconfig(xmlrpc_util)
 BuildRequires:  pkgconfig(xv)
+BuildRequires:  pciutils-devel
 BuildRequires:  python3-docutils
 
 # libunwind 1.4.0+ supports s390x
@@ -127,9 +128,13 @@ igt-gpu-tools, such as i915-perf.
 %autosetup -p1
 # Panthor lacks big-endian support and has no Meson toggle.
 # Strip it from the build files entirely for s390x and ppc64:
-%ifarch s390x ppc64
+%ifarch s390x ppc64 ppc64le
 sed -i -e "/panthor/d" lib/meson.build
 sed -i -e "/panthor/d" tests/meson.build
+%endif
+# Temporarily disable AMDGPU on BE+AArch64 due assembler-related test failures
+%ifarch s390x ppc64 ppc64le aarch64
+sed -i -e "/amdgpu/d" tests/meson.build
 %endif
 
 %build

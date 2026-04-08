@@ -4,7 +4,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Implementation of the Sigul protocol
 
@@ -18,9 +18,6 @@ Source2:        siguldry-sysuser.conf
 # * Allow older asn1 0.22, RHBZ#2402490
 # * Allow older pyo3 0.27, RHBZ#2435852
 Patch:          siguldry-fix-metadata.diff
-
-# https://github.com/fedora-infra/siguldry/pull/171
-Patch:          171.patch
 
 ExcludeArch:    %{ix86}
 

@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name: doctest
-Version: 2.4.12
+Version: 2.5.1
 Release: %autorelease
 Summary: Feature-rich header-only C++ testing framework
 # logo is CC-BY-4.0

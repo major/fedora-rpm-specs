@@ -5,23 +5,17 @@
 %bcond_with gitcommit
 
 %if %{with gitcommit}
-# PyTorch 2.4+ has this error
-# .../pytorch/aten/src/ATen/cpu/Utils.cpp:38:34: error: ‘cpuinfo_has_x86_amx_tile’ was not declared in this scope; did you mean ‘cpuinfo_has_x86_mmx_plus’?
-#   38 |   return cpuinfo_initialize() && cpuinfo_has_x86_amx_tile();
-#      |                                  ^~~~~~~~~~~~~~~~~~~~~~~~
-#      |                                  cpuinfo_has_x86_mmx_plus
-#
 # Pick a more recent cpuinfo
-%global commit0 1e83a2fdd3102f65c6f1fb602c1b320486218a99
-Version:        24.09.26
+%global commit0 f858c30bcb16f8effd5ff46996f0514539e17abc
+Version:        25.11.14
 %define patch_level 0
 
 %else
 
-# For PyTorch 2.5
-%global commit0 1e83a2fdd3102f65c6f1fb602c1b320486218a99
-Version:        24.09.26
-%define patch_level 2
+# For PyTorch 2.11
+%global commit0 f858c30bcb16f8effd5ff46996f0514539e17abc
+Version:        25.11.14
+%define patch_level 1
 
 %endif
 
@@ -30,7 +24,7 @@ Version:        24.09.26
 Summary:        A library to detect information about host CPU
 Name:           cpuinfo
 License:        BSD-2-Clause
-Release:        %{patch_level}.git%{?shortcommit0}%{?dist}.5
+Release:        %{patch_level}.git%{?shortcommit0}%{?dist}
 
 
 URL:            https://github.com/pytorch/%{name}

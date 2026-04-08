@@ -1,6 +1,6 @@
 Summary: RADIUS protocol client library
 Name: radcli
-Version: 1.4.0
+Version: 1.5.0
 Release: %autorelease
 
 #Breakdown of licenses. Under MIT license:
@@ -14,15 +14,13 @@ Release: %autorelease
 License: BSD-2-Clause AND UMich-Merit AND HPND-Fenneberg-Livingston
 URL: http://radcli.github.io/radcli/
 
-%{expand:%(echo "%%global myversion %{version}" | \
-  sed 's/\./_/g')}
-
-Source0: https://github.com/radcli/radcli/releases/download/%{name}_%{myversion}/%{name}-%{version}.tar.gz
+Source0: https://github.com/radcli/radcli/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1: https://github.com/radcli/radcli/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
 
 BuildRequires: libtool, automake, autoconf
 #BuildRequires: gettext-devel
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc, iproute
 BuildRequires: nettle-devel >= 2.7.1
 BuildRequires: gnutls-devel
 
@@ -98,10 +96,7 @@ cp -p %{buildroot}%{_datadir}/%{name}/dictionary %{buildroot}%{_sysconfdir}/%{na
 
 %files devel
 
-%dir %{_includedir}/%{name}
 %{_includedir}/%{name}
-%{_includedir}/%{name}/radcli.h
-%{_includedir}/%{name}/version.h
 %{_libdir}/libradcli.so
 %{_mandir}/man3/*
 %{_libdir}/pkgconfig/*.pc

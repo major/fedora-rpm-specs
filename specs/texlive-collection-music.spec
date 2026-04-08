@@ -5,12 +5,16 @@
 Name:           texlive-collection-music
 Epoch:          12
 Version:        svn76267
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music packages
 
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
 BuildArch:      noarch
+# Fix latex3 issue with leadsheets
+# https://github.com/cgnieder/leadsheets/issues/43
+Patch0:         https://patch-diff.githubusercontent.com/raw/cgnieder/leadsheets/pull/46.patch
+
 # Main collection source
 Source0:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collection-music.tar.xz
 
@@ -133,8 +137,6 @@ Requires:       tex(ifpdf.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(shellesc.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(abc.sty) = %{tl_version}
-Provides:       tex(mup.sty) = %{tl_version}
 
 %description -n texlive-abc
 The abc package lets you include lines of music written in the ABC Plus
@@ -148,7 +150,6 @@ Version:        svn34393
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bagpipe.tex) = %{tl_version}
 
 %description -n texlive-bagpipe
 Typesetting bagpipe music in MusixTeX is needlessly tedious. This package
@@ -167,7 +168,6 @@ Requires:       tex(relsize.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(tkz-euclide.sty)
 Requires:       tex(wasysym.sty)
-Provides:       tex(chordbars.sty) = %{tl_version}
 
 %description -n texlive-chordbars
 This Tikz-based music-related package is targeted at pop/jazz guitar/bass/piano
@@ -185,7 +185,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(chordbox.sty) = %{tl_version}
 
 %description -n texlive-chordbox
 This package provides two macros for drawing chord diagrams, as may be found
@@ -199,7 +198,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(ddphonism.sty) = %{tl_version}
 
 %description -n texlive-ddphonism
 This music-related package focuses on notation from the Twelve-Tone System,
@@ -227,7 +225,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(fretplot.sty) = %{tl_version}
 
 %description -n texlive-fretplot
 This LuaLaTeX package provides batch generation of scale and chord diagrams for
@@ -245,7 +242,6 @@ Version:        svn29803
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gchords.sty) = %{tl_version}
 
 %description -n texlive-gchords
 A LaTeX package for typesetting of guitar chord diagrams, including options for
@@ -259,7 +255,6 @@ Version:        svn32484
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gtrcrd.sty) = %{tl_version}
 
 %description -n texlive-gtrcrd
 The package provides the means to specify guitar chords to be played with each
@@ -275,7 +270,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(toolbox.sty)
-Provides:       tex(guitar.sty) = %{tl_version}
 
 %description -n texlive-guitar
 (La)TeX macros for typesetting guitar chords over song texts. The toolbox
@@ -291,7 +285,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(cnltx-base.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(guitarchordschemes.sty) = %{tl_version}
 
 %description -n texlive-guitarchordschemes
 This package provides two commands (\chordscheme and \scales). With those
@@ -323,7 +316,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(amssymb.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(mathtools.sty)
-Provides:       tex(harmony.sty) = %{tl_version}
 
 %description -n texlive-harmony
 The package harmony.sty uses the packages ifthen and amssymb from the amsfonts
@@ -353,18 +345,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(translations.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(leadsheets.library.chordnames.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.chords.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.external.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.musejazz.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.musicsymbols.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.properties.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.shorthands.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.songs.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.templates.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.translations.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.library.transposing.code.tex) = %{tl_version}
-Provides:       tex(leadsheets.sty) = %{tl_version}
 
 %description -n texlive-leadsheets
 This LaTeX package offers support for typesetting simple leadsheets of songs,
@@ -381,10 +361,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(pgfmath.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(liederbuch-babel.sty) = %{tl_version}
-Provides:       tex(liederbuch-listofsongs.sty) = %{tl_version}
-Provides:       tex(liederbuch.sty) = %{tl_version}
-Provides:       tex(printliederbuch.sty) = %{tl_version}
 
 %description -n texlive-liederbuch
 This package is meant for content which you reuse regularly, like songs in
@@ -413,7 +389,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(musical.sty) = %{tl_version}
 
 %description -n texlive-musical
 This package is designed to simplify the development and distribution of
@@ -428,14 +403,13 @@ agree.
 
 %package -n texlive-musicography
 Summary:        Accessing symbols for music writing with pdfLaTeX
-Version:        svn68220
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(stackengine.sty)
-Provides:       tex(musicography.sty) = %{tl_version}
 
 %description -n texlive-musicography
 This package makes available the most commonly used symbols in writing about
@@ -454,7 +428,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(musixtex.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(musixguit.sty) = %{tl_version}
 
 %description -n texlive-musixguit
 The package provides commands for typesetting notes for guitar, especially for
@@ -479,7 +452,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(octave.sty) = %{tl_version}
 
 %description -n texlive-octave
 This package typesets musical pitch names with designation for the octave in
@@ -490,14 +462,13 @@ system can also be changed mid-document.
 
 %package -n texlive-piano
 Summary:        Typeset a basic 2-octave piano diagram
-Version:        svn21574
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(color.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xargs.sty)
-Provides:       tex(piano.sty) = %{tl_version}
 
 %description -n texlive-piano
 This package adds the \keyboard[1][2]..[7] command to your project. When used,
@@ -514,7 +485,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(recorder-fingering.sty) = %{tl_version}
 
 %description -n texlive-recorder-fingering
 This package provides support for generating and displaying fingering diagrams
@@ -532,8 +502,6 @@ Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(multicol.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(conditionals.sty) = %{tl_version}
-Provides:       tex(songbook.sty) = %{tl_version}
 
 %description -n texlive-songbook
 The package provides an all purpose songbook style. Three types of output may
@@ -552,7 +520,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(verse.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(songproj.sty) = %{tl_version}
 
 %description -n texlive-songproj
 This package, together with the Beamer class, is used to generate slideshows
@@ -573,7 +540,6 @@ Requires:       tex(color.sty)
 Requires:       tex(etex.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(songs.sty) = %{tl_version}
 
 %description -n texlive-songs
 The package provides a means of producing beautiful song books for church or
@@ -596,7 +562,6 @@ Requires:       tex(recorder-fingering.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(undar-digitacion.sty) = %{tl_version}
 
 %description -n texlive-undar-digitacion
 The package provides tools for generating: Pinkullo Huanuqueno Flute Quena
@@ -607,13 +572,12 @@ and MusixTeX for music symbols.
 
 %package -n texlive-xpiano
 Summary:        An extension of the piano package
-Version:        svn61719
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(xpiano.sty) = %{tl_version}
 
 %description -n texlive-xpiano
 This package provides macros for typesetting virtual keyboards limited to two
@@ -692,6 +656,11 @@ tar -xf %{SOURCE54} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE55} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE56} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE57} -C %{buildroot}%{_texmf_main}
+
+# Fix leadsheets
+pushd %{buildroot}%{_texmf_main}/tex/latex/leadsheets/
+patch -p1 < %{_sourcedir}/46.patch
+popd
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -850,6 +819,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xpiano/
 
 %changelog
+* Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76267-2
+- Update musicography, piano, xpiano
+- fix latex3 issue with leadsheets (bz2455217)
+- drop explicit provides
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76267-1
 - update to svn76267, fix licensing, descriptions
 

@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 175
+%global min_osbuild_version 178
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        55
+Version:        57
 
 %gometa
 
@@ -146,8 +146,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.26.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.252.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.254.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -265,6 +265,15 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Mon Apr 06 2026 Packit <hello@packit.dev> - 57-1
+Changes with 57
+----------------
+  - deps: update `images` to 0.254.0 (#489)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Lukáš Zapletal
+
+— Somewhere on the Internet, 2026-04-06
+
+
 * Tue Mar 24 2026 Packit <hello@packit.dev> - 55-1
 Changes with 55
 ----------------

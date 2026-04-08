@@ -27,8 +27,7 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 Patch:          0001-Revert-Modify-headers-installation-for-CMake-builds.patch
 Patch:          0001-Always-link-to-python-libraries.patch
 Patch:          0001-Fix-installation.patch
-# Fix FlagsTypeEntry name collision causing wrong type resolution with Clang 22
-Patch:          0001-shiboken6-Fix-FlagsTypeEntry-name-collision-with-Clan.patch
+Patch:          0001-shiboken6-Fix-build-with-clang-22.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build

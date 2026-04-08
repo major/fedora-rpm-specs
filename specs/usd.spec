@@ -151,6 +151,9 @@ Patch:          0006-Downstream-only-use-the-system-libavif.patch
 # Backport fixes for CVE-2025-64181 etc. in OpenEXRCore
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/3903
 Patch:          %{forgeurl}/pull/3903.patch
+# Backport fix for CVE-2026-34544 in OpenEXRCore
+# https://github.com/PixarAnimationStudios/OpenUSD/pull/4028
+Patch:          %{forgeurl}/pull/4028.patch
 
 # Base
 BuildRequires:  gcc-c++

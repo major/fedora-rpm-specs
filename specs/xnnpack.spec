@@ -3,13 +3,13 @@
 
 %if %{with gitcommit}
 # Something recent to match change to cpuinfo
-%global commit0 312eb7e13554ce75d02c5cb27357555f1368f2d1
-%global date0 20240814
+%global commit0 51a0103656eff6fc9bfd39a4597923c4b542c883
+%global date0 20241202
 
 %else
-# For PyTorch 2.5
-%global commit0 312eb7e13554ce75d02c5cb27357555f1368f2d1
-%global date0 20240814
+# For PyTorch 2.11
+%global commit0 51a0103656eff6fc9bfd39a4597923c4b542c883
+%global date0 20241202
 %endif
 
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
