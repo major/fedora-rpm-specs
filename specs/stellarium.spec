@@ -1,6 +1,6 @@
 Name:           stellarium
-Version:        25.4
-Release:        3%{?dist}
+Version:        26.1
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -28,6 +28,7 @@ BuildRequires:  qt6-qtserialport-devel
 BuildRequires:  qt6-qtmultimedia-devel
 BuildRequires:  qt6-qtcharts-devel
 BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  gettext-devel
 BuildRequires:  boost-devel
 BuildRequires:  glib2-devel
@@ -101,6 +102,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Mon Apr 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 26.1-1
+- 26.1
+
 * Mon Apr 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 25.4-3
 - Enable telescope control plugin, now has INDI 2 support.
 

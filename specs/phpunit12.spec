@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    aeb6899ffdbbf4b4ff5e6b6ebb77b35c51bb6d9a
-%global gh_date      2026-03-31
+%global gh_commit    b2429f58ae75cae980b5bb9873abe4de6aac8b58
+%global gh_date      2026-04-03
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    5
 
-%global upstream_version 12.5.15
+%global upstream_version 12.5.16
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -290,6 +290,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr  3 2026 Remi Collet <remi@remirepo.net> - 12.5.16-1
+- update to 12.5.16
+
 * Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 12.5.15-1
 - update to 12.5.15
 - raise dependency on sebastian/environment 8.0.4

@@ -1,7 +1,7 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        4.0.0
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
@@ -23,8 +23,6 @@ Source5:        %{name}-server-README.fedora
 Patch0:         %{name}-serverprefix.patch
 # Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
 Patch1:         %{name}-yarn-offline.patch
-# Don't install pyproject.toml
-Patch2:         %{name}-no-install-pyproject.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -38,6 +36,7 @@ BuildRequires:  fcgi-devel
 BuildRequires:  flex bison
 BuildRequires:  gcc-c++
 BuildRequires:  gdal-devel
+BuildRequires:  GeographicLib-devel
 BuildRequires:  geos-devel
 BuildRequires:  grass-devel
 BuildRequires:  gsl-devel
@@ -183,6 +182,7 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
       -D WITH_BINDINGS:BOOL=TRUE \
       -D BINDINGS_GLOBAL_INSTALL:BOOL=TRUE \
       -D WITH_GRASS8:BOOL=TRUE \
+      -D WITH_GEOGRAPHICLIB:BOOL=TRUE \
       -D GRASS_PREFIX8=`pkg-config --variable=prefix grass` \
       -D WITH_CUSTOM_WIDGETS:BOOL=TRUE \
       -D BUILD_TESTING:BOOL=FALSE \
@@ -298,6 +298,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 %files -n python3-qgis
 %{_libdir}/libqgispython.so.*
 %{_datadir}/%{name}/python/
+%{python3_sitearch}/%{name}-%{version}.dist-info/
 %{python3_sitearch}/%{name}/
 %{python3_sitearch}/PyQt6/uic/widget-plugins/
 %exclude %{python3_sitearch}/%{name}/server/
@@ -316,6 +317,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Apr 07 2026 Sandro Mani <manisandro@gmail.com> - 4.0.1-1
+- Update to 4.0.1
+
 * Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 4.0.0-1
 - Update to 4.0.0
 

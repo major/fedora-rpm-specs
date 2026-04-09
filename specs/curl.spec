@@ -12,7 +12,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.19.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -23,6 +23,8 @@ Source2: mykey.asc
 
 # Fix test459 to pass when running tests in parallel
 Patch001: 001-curl-8.19.0-test459-switch-to-mode-warn-for-stderr-check.patch
+# Don't fail channel binding for ML-DSA certificates
+Patch002: 002-curl-8.19.0-mldsa-channel-binding.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -450,6 +452,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Mar 24 2026 Rob Crittenden <rcritten@redhat.com> - 8.19.0-3
+- openssl channel_binding: lookup digest algorithm without NID
+
 * Fri Mar 20 2026 Jan Macku <jamacku@redhat.com> - 8.19.0-2
 - fix the failing test459 and test2502 after enabling parallel tests
 

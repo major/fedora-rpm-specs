@@ -225,13 +225,12 @@ sed -i '/NMZ_HASHLIBRARY/,+2d' bundled/libnormaliz/support/configure.pl
 # Fix nauty detection
 sed -i 's,@@LIBDIR@@,%{_libdir},' bundled/nauty/support/configure.pl
 
-# Build verbosely.  Avoid parallelism, which often leads to resource exhaustion.
-sed -i 's,\${NINJA},& -j 1 -v,' Makefile
-
 # Avoid obsolescence warnings
 sed -i 's/fgrep/grep -F/' perllib/Polymake/ConfigureStandalone.pm
 
 %build
+# single file gcc compiles can get to around 3.5G RSS on x86_64 so limit the parallelism
+%constrain_build -m 4096
 export CFLAGS='%{build_cflags} -I%{_includedir}/eigen3 -I%{_includedir}/gfanlib -I%{_includedir}/nauty -Wno-unused-local-typedefs'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/eigen3 -I%{_includedir}/gfanlib -I%{_includedir}/nauty -Wno-unused-local-typedefs'
 export LDFLAGS='%{build_ldflags} -lnormaliz -ldl'
@@ -261,12 +260,16 @@ sed -e 's|-Wl,-z,now|-Wl,-z,lazy|g' \
     -e 's/-lpthread -shared/-shared/g' \
     -i build.%{_arch}/config.ninja
 
-# FIXME: infrequent failures with %%{?_smp_mflags}, plus memory is tight
-make all
+pushd build.%{_arch}/Opt
+%ninja_build
+popd
+
 
 %install
 export Arch=%{_arch}
-%make_install
+pushd build.%{_arch}/Opt
+%ninja_install
+popd
 
 # The doc building step looks in the wrong place for some files
 mkdir ../xml

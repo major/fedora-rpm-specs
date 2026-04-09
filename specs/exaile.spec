@@ -1,12 +1,10 @@
 Name:           exaile
-Version:        4.2.1
-Release:        3%{?dist}
+Version:        4.2.2
+Release:        1%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPL-2.0-or-later
 URL:            http://www.exaile.org
 Source0:        https://github.com/exaile/exaile/archive/%{version}/%{name}-%{version}.tar.gz
-# Work around GStreamer >= 1.28 API change (included in next release)
-Patch0:         https://github.com/exaile/exaile/pull/1002.patch
 
 BuildArch:      noarch
 
@@ -146,6 +144,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Tue Apr 07 2026 Graham White <graham_alton@hotmail.com> - 4.2.2-1
+- Update to 4.2.2
+
 * Wed Mar 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.2.1-3
 - Upstream fix for GStreamer 1.28
 

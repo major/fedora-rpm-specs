@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -17,6 +17,7 @@ Patch2:         0002-Fix-segmentation-fault-in-cmd_requires_privileges.patch
 Patch3:         0003-dnf5daemon-server-Fix-daemon-crash-for-invalid-local.patch
 Patch4:         0004-libdnf5-cli-handle-C-or-POSIX-locale-gracefully-in-p.patch
 Patch5:         0005-tests-Fix-a-type-mismatch-in-libdnf5-cli-test_progre.patch
+Patch6:         0006-fix-python_plugins_loader-suppress-Wconversion-for-S.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1097,6 +1098,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Apr 07 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-6
+- Fix building with fmt-12.1.0 (bug #2454313)
+
 * Tue Mar 17 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-5
 - Fix a crash when formatting an RPM scriptlet output containing a non-ASCII
   character in C locale (bug #2443774)

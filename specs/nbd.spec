@@ -1,5 +1,5 @@
 Name:           nbd
-Version:        3.25
+Version:        3.27.0
 Release:        %autorelease
 Summary:        Network Block Device user-space tools (TCP version)
 # SPDX migration
@@ -16,8 +16,11 @@ BuildRequires:  gnutls-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  bison
+BuildRequires:  docbook-utils
 BuildRequires:  systemd
 %{?systemd_requires}
+
+Excludearch: %{ix86}
 
 %description
 Tools for the Linux Kernel's network block device, allowing you to use
@@ -30,7 +33,7 @@ remote block devices over a TCP/IP network.
 sed -i 's/tv_sec = 5/tv_sec = 30/' tests/run/nbd-tester-client.c
 
 %build
-%configure --enable-syslog --enable-lfs
+%configure --enable-syslog --enable-lfs --enable-manpages
 %make_build
 
 %install

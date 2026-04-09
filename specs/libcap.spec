@@ -1,6 +1,6 @@
 Name: libcap
-Version: 2.77
-Release: 3%{?dist}
+Version: 2.78
+Release: 1%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD-3-Clause OR GPL-2.0-only
@@ -8,7 +8,6 @@ License: BSD-3-Clause OR GPL-2.0-only
 Source0: https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.gz
 Source1: https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.sign
 Source2: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/29EE848AE2CCF3F4.asc
-Patch0: _makenames-build.patch
 
 BuildRequires: pam-devel gcc
 BuildRequires: make
@@ -122,6 +121,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %endif
 
 %changelog
+* Mon Apr 06 2026 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.78-1
+- Update to 2.78 (rhbz#2455366)
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 2.77-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

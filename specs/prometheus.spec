@@ -3,7 +3,7 @@
 
 # https://github.com/prometheus/prometheus
 %global goipath         github.com/prometheus/prometheus
-Version:                3.11.0
+Version:                3.11.1
 
 %gometa -L -f
 
@@ -54,7 +54,7 @@ Provides: bundled(nodejs-mantine-notifications) = 8.3.18
 Provides: bundled(nodejs-microsoft-fetch-event-source) = 2.0.1
 Provides: bundled(nodejs-nexucis-fuzzy) = 0.5.1
 Provides: bundled(nodejs-nexucis-kvsearch) = 0.9.1
-Provides: bundled(nodejs-prometheus-io-codemirror-promql) = 0.311.0
+Provides: bundled(nodejs-prometheus-io-codemirror-promql) = 0.311.1
 Provides: bundled(nodejs-react) = 19.2.4
 Provides: bundled(nodejs-react-dom) = 19.2.4
 Provides: bundled(nodejs-react-infinite-scroll-component) = 6.1.1

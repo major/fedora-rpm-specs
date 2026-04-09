@@ -35,6 +35,7 @@ BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  pcre2-devel
 BuildRequires:  tntnet-devel
 BuildRequires:  cxxtools-devel
+BuildRequires:  libjpeg-turbo-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -93,6 +94,7 @@ install -Dpm 644 %{SOURCE1} \
 %changelog
 * Sun Apr 05 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.4-1
 - Update to 3.5.4
+- Add BR libjpeg-turbo-devel
 
 * Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.4-0.6.20260202gitca482f1
 - Rebuilt for new VDR 2.8.1 API version 12

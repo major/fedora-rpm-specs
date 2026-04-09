@@ -1,6 +1,6 @@
 Name:		pythia8
 Version:	8.3.17
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
@@ -12,6 +12,7 @@ Patch0:		%{name}-makefile.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
+BuildRequires:	HepMC3-devel
 BuildRequires:	lhapdf-devel
 BuildRequires:	zlib-devel
 BuildRequires:	python3-devel
@@ -38,6 +39,13 @@ Obsoletes:	%{name}-hepmcinterface-devel < 8.2
 
 %description devel
 This package provides development files for Pythia 8.
+
+%package hepmc3
+Summary:	Pythia 8 HepMC3 Interface
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description hepmc3
+This package provides the HepMC3 interface for Pythia 8.
 
 %package lhapdf
 Summary:	Pythia 8 LHAPDF Interface
@@ -89,6 +97,7 @@ PYTHON_CONFIG=%{__python3}-config \
 	    --cxx-common="%{build_cxxflags} -fPIC" \
 	    --cxx-shared="%{build_ldflags} -shared" \
 	    --lib-suffix="-%{version}.so" \
+	    --with-hepmc3 \
 	    --with-lhapdf6 \
 	    --with-python \
 	    --with-gzip
@@ -139,8 +148,11 @@ echo 'Version: %{version}' >> \
 %{_includedir}/Pythia8Plugins
 %doc CODINGSTYLE
 
+%files hepmc3
+%{_libdir}/libpythia8hepmc3.so
+
 %files lhapdf
-%{_libdir}/libpythia8lhapdf*.so
+%{_libdir}/libpythia8lhapdf6.so
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}-%{version}.dist-info
@@ -165,6 +177,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Tue Apr 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.17-2
+- Add HepMC3 interface package
+
 * Thu Mar 12 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 8.3.17-1
 - Update to version 8.3.17
 - Rebuild for LHAPDF 6.5.6

@@ -1,27 +1,28 @@
-%bcond_without check
+%bcond check 1
 %global libchewing_python_dir %{python3_sitelib}
 
 %global im_name_zh_TW 新酷音輸入法
 %global name_zh_TW %{im_name_zh_TW}函式庫
 
 Name:           libchewing
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Intelligent phonetic input method library for Traditional Chinese
 Summary(zh_TW): %{name_zh_TW}
 
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # LGPL-2.1-or-later
 # MIT
 # MIT OR Apache-2.0
-# MPL-2.0
-License:        LGPL-2.1-or-later AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND MIT AND (MIT OR Apache-2.0) AND MPL-2.0
+# Unlicense OR MIT
+# Zlib
+License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT) AND LGPL-2.1-or-later AND MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT) AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://chewing.im
-Source0:        https://github.com/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst
-Source1:        https://github.com/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst.asc
+Source0:        https://codeberg.org/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst
+Source1:        https://codeberg.org/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst.asc
 Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
 
 Patch0:         0001-delete-sqlite-bundled-feature.patch
@@ -84,8 +85,8 @@ Python binding of libchewing.
 %build
 %cmake --preset default
 %cmake_build
-%{cargo_license_summary}
-%{cargo_license} > LICENSE.dependencies
+%{cargo_license_summary -f sqlite}
+%{cargo_license -f sqlite} > LICENSE.dependencies
 
 %install
 %cmake_install

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langchinese
 Epoch:          12
 Version:        svn77432
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -411,36 +411,9 @@ Version:        svn78192
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(banxin/luatex-cn-banxin.sty)
-Requires:       tex(core/luatex-cn-core-base.sty)
-Requires:       tex(core/luatex-cn-core-column.sty)
-Requires:       tex(core/luatex-cn-core-content.sty)
-Requires:       tex(core/luatex-cn-core-document.sty)
-Requires:       tex(core/luatex-cn-core-export.sty)
-Requires:       tex(core/luatex-cn-core-metadata.sty)
-Requires:       tex(core/luatex-cn-core-page.sty)
-Requires:       tex(core/luatex-cn-core-paragraph.sty)
-Requires:       tex(core/luatex-cn-core-punct.sty)
-Requires:       tex(core/luatex-cn-core-sidenote.sty)
-Requires:       tex(core/luatex-cn-core-style.sty)
-Requires:       tex(core/luatex-cn-core-textbox.sty)
-Requires:       tex(core/luatex-cn-core-textflow.sty)
-Requires:       tex(core/luatex-cn-footnote.sty)
-Requires:       tex(decorate/luatex-cn-decorate.sty)
-Requires:       tex(decorate/luatex-cn-linemark.sty)
 Requires:       tex(enumitem.sty)
 Requires:       tex(environ.sty)
-Requires:       tex(fonts/luatex-cn-font-autodetect.sty)
 Requires:       tex(graphicx.sty)
-Requires:       tex(guji/luatex-cn-guji-cover.sty)
-Requires:       tex(guji/luatex-cn-guji-danye.sty)
-Requires:       tex(guji/luatex-cn-guji-jiazhu.sty)
-Requires:       tex(guji/luatex-cn-guji-judou.sty)
-Requires:       tex(guji/luatex-cn-guji-meipi.sty)
-Requires:       tex(guji/luatex-cn-guji-mulu.sty)
-Requires:       tex(guji/luatex-cn-guji-pizhu.sty)
-Requires:       tex(guji/luatex-cn-guji-titlepage.sty)
-Requires:       tex(guji/luatex-cn-guji-yinzhang.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(showframe.sty)
 Requires:       tex(tikz.sty)
@@ -1112,6 +1085,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-7
+- Fix incorrect Requires in luatex-cn
+
 * Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-6
 - Update 10 components
 

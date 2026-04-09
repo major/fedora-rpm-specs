@@ -5,7 +5,7 @@
 Name:           texlive-collection-langczechslovak
 Epoch:          12
 Version:        svn54074
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Czech/Slovak
 
 License:        LPPL-1.3c
@@ -65,7 +65,6 @@ Version:        svn30261
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(czech.ldf) = %{tl_version}
 
 %description -n texlive-babel-czech
 The package provides the language definition file for support of Czech in
@@ -78,7 +77,6 @@ Version:        svn30292
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(slovak.ldf) = %{tl_version}
 
 %description -n texlive-babel-slovak
 The package provides the language definition file for support of Slovak in
@@ -105,8 +103,6 @@ Requires:       tex(url.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(xevlna.sty)
 Requires:       tex(zwpagelayout.sty)
-Provides:       tex(cnbwp-manual.sty) = %{tl_version}
-Provides:       tex(cnbwp.cls) = %{tl_version}
 
 %description -n texlive-cnbwp
 The package supports proper formatting of Working Papers of the Czech National
@@ -133,11 +129,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
-Provides:       tex(csbulacronym.sty) = %{tl_version}
-Provides:       tex(csbulletin.cls) = %{tl_version}
-Provides:       tex(csbulobalka.cls) = %{tl_version}
-Provides:       tex(csbulobalka.sty) = %{tl_version}
-Provides:       tex(csbulv1.cls) = %{tl_version}
 
 %description -n texlive-csbulletin
 The package provides the class for articles for the CSTUG Bulletin (Zpravodaj
@@ -161,15 +152,12 @@ Plain/LaTeX distribution.
 
 %package -n texlive-hyphen-czech
 Summary:        Czech hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-cs.ec.tex) = %{tl_version}
-Provides:       tex(hyph-cs.tex) = %{tl_version}
-Provides:       tex(loadhyph-cs.tex) = %{tl_version}
 
 %description -n texlive-hyphen-czech
 Hyphenation patterns for Czech in T1/EC and UTF-8 encodings. Original patterns
@@ -178,15 +166,12 @@ Latin 2 encoding (IL2).
 
 %package -n texlive-hyphen-slovak
 Summary:        Slovak hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-sk.ec.tex) = %{tl_version}
-Provides:       tex(hyph-sk.tex) = %{tl_version}
-Provides:       tex(loadhyph-sk.tex) = %{tl_version}
 
 %description -n texlive-hyphen-slovak
 Hyphenation patterns for Slovak in T1/EC and UTF-8 encodings. Original patterns
@@ -337,11 +322,19 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-czech
 %license gpl2.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-cs.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-cs.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-cs.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cs.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cs.pat.txt
 
 %files -n texlive-hyphen-slovak
 %license gpl2.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sk.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sk.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sk.pat.txt
 
 %files -n texlive-lshort-czech
 %license gpl2.txt
@@ -356,6 +349,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-cz/
 
 %changelog
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-6
+- Update hyphen-czech, hyphen-slovak
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-5
 - Add provides for .cls files
 

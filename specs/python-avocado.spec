@@ -37,7 +37,7 @@
 
 Name: python-avocado
 Version: 112.0
-Release: 2%{?gitrel}%{?dist}
+Release: 3%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -50,6 +50,13 @@ Summary: Framework with tools and libraries for Automated Testing
 License: GPL-2.0-or-later AND GPL-2.0-only AND MIT
 URL: https://avocado-framework.github.io/
 Source0: https://github.com/avocado-framework/avocado/archive/%{gitref}/%{gittar}
+# https://github.com/avocado-framework/avocado/pull/6295
+# Loosen python-resultsdb_api dep to a range rather than a pin
+Patch0: 0001-Loosen-resultsdb-api-dep.patch
+# https://github.com/avocado-framework/avocado/pull/6252
+# Fix a couple of tests with recent setuptools that produces a
+# deprecation warning for pkg_resources
+Patch1: 0001-Be-more-lenient-with-test-error-messages.patch
 BuildArch: noarch
 
 BuildRequires: kmod
@@ -97,6 +104,8 @@ these days a framework) to perform automated testing.
 
 %prep
 %setup -q -n avocado-%{gitref}
+%patch 0 -p1
+%patch 1 -p1
 %if 0%{?rhel}
 sed -e 's/"PyYAML>=4.2b2"/"PyYAML>=3.12"/' -i optional_plugins/varianter_yaml_to_mux/setup.py
 %endif
@@ -538,6 +547,10 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Tue Apr 07 2026 Adam Williamson <awilliam@redhat.com> - 112.0-3
+- Backport PR #6295 to fix resultsdb_api dependency (#2452821)
+- Backport PR #6252 to fix build (tests) with recent setuptools (#2434951)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 112.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

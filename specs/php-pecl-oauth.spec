@@ -1,6 +1,8 @@
 %bcond_without     tests
 
 %global pecl_name oauth
+%global pie_vend  pecl
+%global pie_proj  %{pecl_name}
 %global ini_name  40-%{pecl_name}.ini
 
 # Github forge
@@ -12,8 +14,8 @@
 Name:		php-pecl-oauth	
 Summary:	PHP OAuth consumer extension
 License:	BSD-3-Clause
-Version:	2.0.10
-Release:	3%{?dist}
+Version:	2.0.12
+Release:	1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -31,10 +33,15 @@ BuildRequires:	libcurl-devel
 Requires:	php(zend-abi) = %{php_zend_api}
 Requires:	php(api) = %{php_core_api}
 
+# PECL
 Provides:	php-pecl(%{pecl_name}) = %{version}
 Provides:	php-pecl(%{pecl_name})%{_isa} = %{version}
+# Extension
 Provides:	php-%{pecl_name} = %{version}
 Provides:	php-%{pecl_name}%{_isa} = %{version}
+# PIE
+Provides:   php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:   php-%{pie_vend}-%{pie_proj} = %{version}
 
 
 %description
@@ -100,6 +107,7 @@ TEST_PHP_ARGS="-n -d extension=posix.so -d extension=%{buildroot}%{php_extdir}/%
 
 %files
 %license LICENSE
+%doc composer.json
 %doc *.md
 %doc examples
 
@@ -108,6 +116,10 @@ TEST_PHP_ARGS="-n -d extension=posix.so -d extension=%{buildroot}%{php_extdir}/%
 
 
 %changelog
+* Tue Apr  7 2026 Remi Collet <remi@remirepo.net> - 2.0.12-1
+- update to 2.0.12
+- add pie virtual provides
+
 * Thu Mar 26 2026 Remi Collet <remi@remirepo.net> - 2.0.10-3
 - drop pear/pecl dependency
 - sources from github

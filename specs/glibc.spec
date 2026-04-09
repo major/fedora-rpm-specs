@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-188-g6abe432ec4
+%global glibcsrcdir glibc-2.43.9000-202-g4ffc76bb0e
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2399,6 +2399,24 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Apr 07 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-8
+- Auto-sync with upstream branch master,
+  commit 4ffc76bb0eba8a46a45a1a98811d769d0ca8627a:
+- htl: Fix SEM_FAILED type (Samuel Thibault)
+- io: Use gnulib fts implementation (BZ 22944, BZ 20331) (Adhemerval Zanella)
+- stdlib: Add internal stdc_rotate_right implementation (Adhemerval Zanella)
+- AArch64: Remove unused MIDR entries (Wilco Dijkstra)
+- AArch64: Remove eMAG memset ifunc (Wilco Dijkstra)
+- AArch64: Remove eMAG memchr ifunc (Wilco Dijkstra)
+- hurd: Interrupted RPC returning EINTR when server has actually changed state. (Mike Kelly)
+- hurd: alterations to MSG_EXAMINE interface (intr-msg.h) (Mike Kelly)
+- malloc: Show hugetlb tunable default in --list-tunables (Wilco Dijkstra)
+- io: ftw: Use state stack instead of recursion (BZ 33882) (Adhemerval Zanella)
+- math: Sync sinh from CORE-MATH (Adhemerval Zanella)
+- testsuite: fix test-narrowing-trap failure on platforms where FE_INVALID is not defined (Xi Ruoyao)
+- Document CVE-2026-4046 (Siddhesh Poyarekar)
+- x86_64: Prefer EVEX512 code-path on AMD Zen5 CPUs (Sajan Karumanchi)
+
 * Mon Mar 30 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-7
 - Auto-sync with upstream branch master,
   commit 6abe432ec4aa1456151be8f9567c4d68f41d68f7:

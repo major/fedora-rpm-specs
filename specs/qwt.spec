@@ -3,29 +3,38 @@
 
 %bcond_without qt5
 %bcond_without qt6
+%bcond_without mingw
 
-Name:    qwt
-Summary: Qt Widgets for Technical Applications
-Version: 6.2.0
-Release: 11%{?dist}
+Name:           qwt
+Summary:        Qt Widgets for Technical Applications
+Version:        6.3.0
+Release:        3%{?dist}
 
-License: LGPL-2.1-or-later WITH Qwt-exception-1.0
-URL:     http://qwt.sourceforge.net
-Source:  http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+License:        LGPL-2.1-or-later WITH Qwt-exception-1.0
+URL:            http://qwt.sourceforge.net
+Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 
 ## upstream patches
 
 ## upstreamable patches
 # Use QT_INSTALL_ paths instead of custom prefix
-Patch51: qwt-qt_install_paths.patch
+Patch51:        qwt-qt_install_paths.patch
 # Add qt suffix to libraries to make them parallel-installable
-Patch52: qwt-libsuffix.patch
+Patch52:        qwt-libsuffix.patch
 # Kill rpath
-Patch53: qwt-no_rpath.patch
+Patch53:        qwt-no_rpath.patch
 # Fix incorrect requires in pkgconfig files
-Patch54: qwt-pkgconfig.patch
+Patch54:        qwt-pkgconfig.patch
 
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  gcc-c++
+%if %{with mingw}
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc-c++
+
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc-c++
+%endif
 
 %description
 The Qwt library contains GUI Components and utility classes which are primarily
@@ -36,49 +45,103 @@ or ranges of type double.
 
 
 %package doc
-Summary: Developer documentation for %{name}
-BuildArch: noarch
+Summary:        Developer documentation for %{name}
+BuildArch:      noarch
+
 %description doc
 %{summary}.
 
 %if %{with qt5}
 %package qt5
-Summary: Qt5 Widgets for Technical Applications
-BuildRequires: pkgconfig(Qt5Concurrent) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets)
-BuildRequires: pkgconfig(Qt5OpenGL) pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Designer)
-Provides: qwt6-qt5 = %{version}-%{release}
-Provides: qwt6-qt5%{_isa} = %{version}-%{release}
-%description qt5
+Summary:        Qt5 Widgets for Technical Applications
+BuildRequires:  pkgconfig(Qt5Concurrent) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5OpenGL) pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Designer)
+Provides:       qwt6-qt5 = %{version}-%{release}
+Provides:       qwt6-qt5%{_isa} = %{version}-%{release}
+
+%description  qt5
 %{summary}.
 
+
 %package qt5-devel
-Summary:  Development files for %{name}-qt5
-Provides: qwt6-qt5-devel = %{version}-%{release}
-Provides: qwt6-qt5-devel%{_isa} = %{version}-%{release}
-Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}-qt5
+Provides:       qwt6-qt5-devel = %{version}-%{release}
+Provides:       qwt6-qt5-devel%{_isa} = %{version}-%{release}
+Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
+
 %description qt5-devel
 %{summary}.
+
+%if %{with mingw}
+%package -n mingw32-%{name}-qt5
+Summary:        MinGW Windows Qt5 %{name} library
+BuildRequires:  mingw32-qt5-qtbase
+BuildRequires:  mingw32-qt5-qtsvg
+BuildRequires:  mingw32-qt5-qttools
+
+%description -n mingw32-%{name}-qt5
+MinGW Windows Qt5 %{name} library.
+
+
+%package -n mingw64-%{name}-qt5
+Summary:        MinGW Windows Qt5 %{name} library
+BuildRequires:  mingw64-qt5-qtbase
+BuildRequires:  mingw64-qt5-qtsvg
+BuildRequires:  mingw64-qt5-qttools
+
+%description -n mingw64-%{name}-qt5
+MinGW Windows Qt5 %{name} library.
 %endif
+%endif
+
 
 %if %{with qt6}
 %package qt6
-Summary: Qt6 Widgets for Technical Applications
-BuildRequires: pkgconfig(Qt6Concurrent) pkgconfig(Qt6PrintSupport) pkgconfig(Qt6Widgets)
-BuildRequires: pkgconfig(Qt6OpenGL) pkgconfig(Qt6Svg)
-BuildRequires: pkgconfig(Qt6Designer)
-Provides: qwt6-qt6 = %{version}-%{release}
-Provides: qwt6-qt6%{_isa} = %{version}-%{release}
+Summary:        Qt6 Widgets for Technical Applications
+BuildRequires:  pkgconfig(Qt6Concurrent) pkgconfig(Qt6PrintSupport) pkgconfig(Qt6Widgets)
+BuildRequires:  pkgconfig(Qt6OpenGL) pkgconfig(Qt6Svg)
+BuildRequires:  pkgconfig(Qt6Designer)
+Provides:       qwt6-qt6 = %{version}-%{release}
+Provides:       qwt6-qt6%{_isa} = %{version}-%{release}
+
 %description qt6
 %{summary}.
 
 %package qt6-devel
-Summary:  Development files for %{name}-qt6
-Provides: qwt6-qt6-devel = %{version}-%{release}
-Provides: qwt6-qt6-devel%{_isa} = %{version}-%{release}
-Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}-qt6
+Provides:       qwt6-qt6-devel = %{version}-%{release}
+Provides:       qwt6-qt6-devel%{_isa} = %{version}-%{release}
+Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
+
 %description qt6-devel
 %{summary}.
+
+%if %{with mingw}
+%package -n mingw32-%{name}-qt6
+Summary:        MinGW Windows Qt6 %{name} library
+BuildRequires:  mingw32-qt6-qtbase
+BuildRequires:  mingw32-qt6-qtsvg
+BuildRequires:  mingw32-qt6-qttools
+
+%description -n mingw32-%{name}-qt6
+MinGW Windows Qt6 %{name} library.
+
+
+%package -n mingw64-%{name}-qt6
+Summary:        MinGW Windows Qt6 %{name} library
+BuildRequires:  mingw64-qt6-qtbase
+BuildRequires:  mingw64-qt6-qtsvg
+BuildRequires:  mingw64-qt6-qttools
+
+%description -n mingw64-%{name}-qt6
+MinGW Windows Qt6 %{name} library.
+%endif
+%endif
+
+
+%if %{with mingw}
+%{?mingw_debug_package}
 %endif
 
 
@@ -88,30 +151,83 @@ Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 
 %build
 %if %{with qt5}
+(
 mkdir %{_target_platform}-qt5
 pushd %{_target_platform}-qt5
 %{qmake_qt5} QWT_CONFIG+=QwtPkgConfig ..
-
 %make_build
 popd
+)
+
+%if %{with mingw}
+(
+export MINGW_BUILDDIR_SUFFIX=qt5
+%{mingw_qmake_qt5} QWT_CONFIG+=QwtPkgConfig ..
+%mingw_make_build
+)
+%endif
 %endif
 
 %if %{with qt6}
+(
 mkdir %{_target_platform}-qt6
 pushd %{_target_platform}-qt6
 %{qmake_qt6} QWT_CONFIG+=QwtPkgConfig ..
-
 %make_build
 popd
+)
+
+%if %{with mingw}
+(
+export MINGW_BUILDDIR_SUFFIX=qt6
+%{mingw_qmake_qt6} QWT_CONFIG+=QwtPkgConfig ..
+%mingw_make_build
+)
+%endif
 %endif
 
 
 %install
 %if %{with qt5}
+(
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}-qt5
+)
+%if %{with mingw}
+(
+export MINGW_BUILDDIR_SUFFIX=qt5
+%mingw_make_install INSTALL_ROOT=%{buildroot}
+)
+# Delete debug libs
+rm %{buildroot}%{mingw32_libdir}/qwt-qt5d.dll
+rm %{buildroot}%{mingw64_libdir}/qwt-qt5d.dll
+rm %{buildroot}%{mingw32_libdir}/libqwt-qt5d.dll.a
+rm %{buildroot}%{mingw64_libdir}/libqwt-qt5d.dll.a
+rm %{buildroot}%{mingw32_libdir}/pkgconfig/Qt5Qwt6d.pc
+rm %{buildroot}%{mingw64_libdir}/pkgconfig/Qt5Qwt6d.pc
 %endif
+%endif
+
 %if %{with qt6}
+(
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}-qt6
+)
+%if %{with mingw}
+# FIXME Fix incorrect install command generated by qmake
+sed -i 's|../build_win32qt6/lib/pkgconfig/Qt6Qwt6.pc|../lib/pkgconfig/Qt6Qwt6.pc|' build_win32qt6/src/Makefile.{Debug,Release}
+sed -i 's|../build_win64qt6/lib/pkgconfig/Qt6Qwt6.pc|../lib/pkgconfig/Qt6Qwt6.pc|' build_win64qt6/src/Makefile.{Debug,Release}
+(
+export MINGW_BUILDDIR_SUFFIX=qt6
+%mingw_make_install INSTALL_ROOT=%{buildroot}
+)
+# Delete debug libs
+rm %{buildroot}%{mingw32_libdir}/qwt-qt6d.dll
+rm %{buildroot}%{mingw64_libdir}/qwt-qt6d.dll
+rm %{buildroot}%{mingw32_libdir}/libqwt-qt6d.a
+rm %{buildroot}%{mingw64_libdir}/libqwt-qt6d.a
+# Fix import lib file extension
+mv %{buildroot}%{mingw32_libdir}/libqwt-qt6.a %{buildroot}%{mingw32_libdir}/libqwt-qt6.dll.a
+mv %{buildroot}%{mingw64_libdir}/libqwt-qt6.a %{buildroot}%{mingw64_libdir}/libqwt-qt6.dll.a
+%endif
 %endif
 
 mkdir -p %{buildroot}%{_defaultdocdir}/%{name}
@@ -122,20 +238,37 @@ mkdir -p %{buildroot}%{_mandir}
 # Last build "wins"
 rm -rf %{buildroot}%{_defaultdocdir}/%{name}/html %{buildroot}%{_mandir}/*
 mv %{buildroot}%{_qt5_docdir}/html/html %{buildroot}%{_defaultdocdir}/%{name}/html
-mv %{buildroot}%{_qt5_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 
 %if %{with qt6}
 # Last build "wins"
 rm -rf %{buildroot}%{_defaultdocdir}/%{name}/html %{buildroot}%{_mandir}/*
 mv %{buildroot}%{_qt6_docdir}/html/html %{buildroot}%{_defaultdocdir}/%{name}/html
-mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %endif
+%endif
+
+%if %{with mingw}
+# Delete docs
+rm -rf %{buildroot}%{mingw32_prefix}/doc
+rm -rf %{buildroot}%{mingw64_prefix}/doc
+rm -rf %{buildroot}%{mingw32_docdir}
+rm -rf %{buildroot}%{mingw64_docdir}
+# Move binaries to correct location
+mkdir -p %{buildroot}%{mingw32_bindir}
+mkdir -p %{buildroot}%{mingw64_bindir}
+mv %{buildroot}%{mingw32_libdir}/*.dll %{buildroot}%{mingw32_bindir}
+mv %{buildroot}%{mingw64_libdir}/*.dll %{buildroot}%{mingw64_bindir}
+# Designer plugin is not useful for mingw
+rm %{buildroot}%{mingw32_libdir}/qt5/plugins/designer/qwt_designer_plugin.dll
+rm %{buildroot}%{mingw32_libdir}/qt6/plugins/designer/qwt_designer_plugin.dll
+rm %{buildroot}%{mingw64_libdir}/qt5/plugins/designer/qwt_designer_plugin.dll
+rm %{buildroot}%{mingw64_libdir}/qt6/plugins/designer/qwt_designer_plugin.dll
+
+%mingw_debug_install_post
 %endif
 
 
 %files doc
 %doc %{_defaultdocdir}/%{name}/
-%{_mandir}/man3/*
 
 %if %{with qt5}
 %files qt5
@@ -149,6 +282,24 @@ mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %{_qt5_libdir}/pkgconfig/Qt5Qwt6.pc
 %{_qt5_archdatadir}/mkspecs/features/qwt*
 %{_qt5_plugindir}/designer/libqwt_designer_plugin.so
+
+%if %{with mingw}
+%files -n mingw32-%{name}-qt5
+%license COPYING
+%{mingw32_bindir}/%{name}-qt5.dll
+%{mingw32_libdir}/lib%{name}-qt5.dll.a
+%{mingw32_includedir}/qt5/%{name}/
+%{mingw32_datadir}/qt5/mkspecs/features/qwt*
+%{mingw32_libdir}/pkgconfig/Qt5Qwt6.pc
+
+%files -n mingw64-%{name}-qt5
+%license COPYING
+%{mingw64_bindir}/%{name}-qt5.dll
+%{mingw64_libdir}/lib%{name}-qt5.dll.a
+%{mingw64_includedir}/qt5/%{name}/
+%{mingw64_datadir}/qt5/mkspecs/features/qwt*
+%{mingw64_libdir}/pkgconfig/Qt5Qwt6.pc
+%endif
 %endif
 
 %if %{with qt6}
@@ -163,10 +314,31 @@ mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %{_qt6_libdir}/pkgconfig/Qt6Qwt6.pc
 %{_qt6_archdatadir}/mkspecs/features/qwt*
 %{_qt6_plugindir}/designer/libqwt_designer_plugin.so
+
+%if %{with mingw}
+%files -n mingw32-%{name}-qt6
+%license COPYING
+%{mingw32_bindir}/%{name}-qt6.dll
+%{mingw32_libdir}/lib%{name}-qt6.dll.a
+%{mingw32_includedir}/qt6/%{name}/
+%{mingw32_libdir}/qt6/mkspecs/features/qwt*
+%{mingw32_libdir}/pkgconfig/Qt6Qwt6.pc
+
+%files -n mingw64-%{name}-qt6
+%license COPYING
+%{mingw64_bindir}/%{name}-qt6.dll
+%{mingw64_libdir}/lib%{name}-qt6.dll.a
+%{mingw64_includedir}/qt6/%{name}/
+%{mingw64_libdir}/qt6/mkspecs/features/qwt*
+%{mingw64_libdir}/pkgconfig/Qt6Qwt6.pc
+%endif
 %endif
 
 
 %changelog
+* Fri Apr 03 2026 Sandro Mani <manisandro@gmail.com> - 6.3.0-3
+- Update to 6.3.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

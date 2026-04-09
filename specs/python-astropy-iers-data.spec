@@ -6,7 +6,7 @@
 %global srcname astropy_iers_data
 
 Name: python-%{upname}
-Version: 0.2026.3.2.0.47.4
+Version: 0.2026.4.6.0.54.57
 Release: %autorelease
 Summary: IERS Earth Rotation and Leap Second tables for the astropy core package
 License: BSD-3-Clause
@@ -16,6 +16,10 @@ Source: %{pypi_source %{srcname}}
 
 BuildArch: noarch
 BuildRequires:  python3-devel
+%if %{with tests}
+# To run integration tests with astropy
+BuildRequires: %{py3_dist astropy}
+%endif
 
 %global _description %{expand:
 This package provides IERS Earth Rotation and Leap Second tables for the
@@ -48,7 +52,7 @@ Summary: %{summary}
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-t -x test}
+%pyproject_buildrequires %{?with_tests: -x test}
 
 %build
 %pyproject_wheel
@@ -61,7 +65,12 @@ Summary: %{summary}
 %check
 %pyproject_check_import
 %if %{with tests}
-%{tox}
+# https://github.com/astropy/astropy-iers-data/issues/69
+# tests arent actually from this package, but from astropy
+# upstream has dropped tox.ini
+%pytest --pyargs astropy.coordinates -m "not hypothesis"
+%pytest --pyargs astropy.time -m "not hypothesis"
+%pytest --pyargs astropy.utils.iers -m "not hypothesis"
 %endif
 
 %files -n python3-%{upname} -f %{pyproject_files}

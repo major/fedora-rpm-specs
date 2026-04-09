@@ -5,7 +5,7 @@
 Name:           texlive-collection-langenglish
 Epoch:          12
 Version:        svn74022
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        US and UK English
 
 License:        LPPL-1.3c
@@ -495,16 +495,12 @@ The output PDF file gives an amusing display, as the reader pages through it.
 
 %package -n texlive-hyphen-english
 Summary:        English hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-en-gb.tex) = %{tl_version}
-Provides:       tex(hyph-en-us.tex) = %{tl_version}
-Provides:       tex(loadhyph-en-gb.tex) = %{tl_version}
-Provides:       tex(loadhyph-en-us.tex) = %{tl_version}
 
 %description -n texlive-hyphen-english
 Additional hyphenation patterns for American and British English in ASCII
@@ -557,7 +553,7 @@ Metafont and related programs.
 
 %package -n texlive-knuth-hint
 Summary:        HINT collection of typeset C/WEB sources in TeX Live
-Version:        svn74654
+Version:        svn78243
 License:        LicenseRef-Fedora-Public-Domain AND Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -579,7 +575,7 @@ capabilities.
 
 %package -n texlive-knuth-pdf
 Summary:        PDF collection of typeset C/WEB sources in TeX Live
-Version:        svn74653
+Version:        svn78242
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -822,7 +818,6 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(lipsum.sty)
 Requires:       tex(zref-abspos.sty)
 Requires:       tex(zref-user.sty)
-Provides:       tex(extlabels.sty) = %{tl_version}
 
 %description -n texlive-macros2e
 This document lists the internal macros defined by the LaTeX2e base files which
@@ -970,22 +965,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-en.sty) = %{tl_version}
-Provides:       tex(qurantext-enii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-eniii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-eniv.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enix.translation.def) = %{tl_version}
-Provides:       tex(qurantext-env.translation.def) = %{tl_version}
-Provides:       tex(qurantext-envi.translation.def) = %{tl_version}
-Provides:       tex(qurantext-envii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enviii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enx.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxi.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxiii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxiv.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxv.translation.def) = %{tl_version}
-Provides:       tex(qurantext-enxvi.translation.def) = %{tl_version}
 
 %description -n texlive-quran-en
 This package is designed for typesetting multiple English translations of the
@@ -1289,7 +1268,7 @@ features.
 
 %package -n texlive-yet-another-guide-latex2e
 Summary:        A short guide to using LaTeX2e to typeset high quality documents
-Version:        svn73469
+Version:        svn77842
 License:        GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1565,7 +1544,14 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-english
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-en-gb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-en-us.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-en-gb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-en-us.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-en-gb.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-en-gb.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-en-us.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-en-us.pat.txt
 
 %files -n texlive-impatient
 %license fdl.txt
@@ -1785,6 +1771,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/yet-another-guide-latex2e/
 
 %changelog
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-5
+- Update hyphen-english, knuth-hint, knuth-pdf, yet-another-guide-latex2e
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-4
 - fix licensing file
 

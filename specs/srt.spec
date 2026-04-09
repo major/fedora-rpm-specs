@@ -1,4 +1,4 @@
-%global rc -rc.1
+%global rc -rc.2
 
 Name:           srt
 Version:        1.5.5
@@ -91,6 +91,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Tue Apr  7 2026 Yanko Kaneti <yaneti@declera.com> - 1.5.5-0.rc.2
+- Update to 1.5.5-rc.2
+
 * Mon Mar  9 2026 Yanko Kaneti <yaneti@declera.com> - 1.5.5-0.rc.1
 - Update to 1.5.5-rc.1
 

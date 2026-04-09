@@ -1,5 +1,5 @@
 Name:           obs-studio-plugin-pwvideo
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Generic PipeWire video source for OBS Studio
 

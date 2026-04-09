@@ -3,8 +3,8 @@
 %global run_unittests 0
 
 Name:           python-%{pkg_name}
-Version:        1.0.1
-Release:        6%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
 License:        Apache-2.0
@@ -14,9 +14,6 @@ Source0:        %{pypi_source ua_parser}
 %if 0%{?run_unittests}
 Source1:        https://github.com/ua-parser/uap-core/archive/%{uap_core_version}/uap-core-%{uap_core_version}.tar.gz
 %endif
-
-# ua_parser_rs resolver is currently not packaged for Fedora
-Patch0:         ua_parser-no-ua_parse_rs.patch
 
 Suggests:       python3-re2
 
@@ -55,7 +52,6 @@ Python port of Browserscope's user agent parser.
 
 
 %check
-%pyproject_check_import
 %if 0%{?run_unittests}
 tar xf %{SOURCE1} --transform 's|uap-core-%{uap_core_version}|uap-core|'
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_parser_test.py
@@ -67,6 +63,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_pars
 
 
 %changelog
+* Tue Apr 07 2026 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
+- Update to 1.0.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

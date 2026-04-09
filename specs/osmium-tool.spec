@@ -1,10 +1,11 @@
 %global catch_version 2.13.10
-%global libosmium_version 2.23.0
+%global libosmium_version 2.23.1
 %global protozero_version 1.6.3
 %global json_version 3.0
+%global boost_version 1.55
 
 Name:           osmium-tool
-Version:        1.19.0
+Version:        1.19.1
 Release:        %autorelease
 Summary:        Command line tool for working with OpenStreetMap data
 
@@ -27,6 +28,8 @@ BuildRequires:  protozero-devel >= %{protozero_version}
 BuildRequires:  protozero-static >= %{protozero_version}
 BuildRequires:  json-devel >= %{json_version}
 BuildRequires:  json-static >= %{json_version}
+BuildRequires:  boost-devel >= %{boost_version}
+BuildRequires:  boost-static >= %{boost_version}
 
 %description
 Command line tool for working with OpenStreetMap data

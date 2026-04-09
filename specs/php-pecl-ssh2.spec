@@ -10,8 +10,8 @@
 Name:           php-pecl-ssh2
 Summary:        Bindings for the libssh2 library
 License:        PHP-3.01
-Version:        1.4.1
-Release:        11%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -21,7 +21,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libssh2-devel >= 1.2
-BuildRequires:  php-devel >= 7.0
+BuildRequires:  php-devel >= 8.0
 
 # Extension
 Provides:       php-%{pecl_name}               = %{version}
@@ -96,6 +96,9 @@ done
 
 
 %changelog
+* Tue Apr  7 2026 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+
 * Fri Mar 27 2026 Remi Collet <remi@remirepo.net> - 1.4.1-11
 - drop pear/pecl dependency
 - sources from github

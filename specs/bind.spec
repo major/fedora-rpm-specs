@@ -87,7 +87,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.47
+Version:  9.18.48
 Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -187,6 +187,7 @@ BuildRequires:  softhsm
 BuildRequires:  perl(Net::DNS) perl(Net::DNS::Nameserver) perl(Time::HiRes) perl(Getopt::Long)
 BuildRequires:  perl(English)
 BuildRequires:  python3-dns
+BuildRequires:  python3-hypothesis
 # manual configuration requires this tool
 BuildRequires:  iproute
 %endif
@@ -948,6 +949,9 @@ fi;
 %endif
 
 %changelog
+* Tue Apr 07 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.48-1
+- Update to 9.18.48 (rhbz#2453853)
+
 * Wed Mar 25 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.47-1
 - Update to 9.18.47 (rhbz#2440561)
 

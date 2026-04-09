@@ -2,7 +2,7 @@
 
 Name:           ansible-packaging
 Version:        1
-Release:        20.1%{?dist}
+Release:        21%{?dist}
 Summary:        RPM packaging macros and generators for Ansible collections
 
 License:        GPL-3.0-or-later
@@ -147,16 +147,15 @@ echo "Ensure macro prefers the collection namespace and name passed as an argume
 # ansible-core in RHEL 8.6 is built against python38. In c8s and the next RHEL
 # 8 minor release, it will be built against python39. The testing dependencies
 # are not yet packaged for either python version in EPEL 8.
-#
-# The ansible-test binary is unshipped in EL 10, so we cannot ship the tests
-# subpackage yet.
-# https://issues.redhat.com/browse/RHEL-69915
-%if %{undefined el8} && %{undefined el10}
+%if ! (%{defined rhel} && 0%{?rhel} < 9)
 %files tests
 %endif
 
 
 %changelog
+* Tue Apr 7 2026 Maxwell G <maxwell@gtmx.me> - 1-21
+- Re-enable tests subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-20.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

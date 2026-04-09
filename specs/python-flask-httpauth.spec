@@ -1,19 +1,18 @@
-%global pypi_name Flask-HTTPAuth
+%global pypi_name flask_httpauth
 %global pkg_name flask-httpauth
 
 Name:           python-%{pkg_name}
-Version:        4.8.0
-Release:        9%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        Basic and Digest HTTP authentication for Flask routes
 
 License:        MIT
 URL:            http://github.com/miguelgrinberg/flask-httpauth/
-Source0:        https://files.pythonhosted.org/packages/source/F/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-# https://github.com/miguelgrinberg/Flask-HTTPAuth/commit/52a13b15b
-Patch0:         python-flask-httpauth-toml.patch
+Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-flask+async
+BuildRequires:  python3-furo
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
 BuildArch:      noarch
@@ -67,6 +66,10 @@ popd
 %doc README.md
 
 %changelog
+* Tue Apr 07 2026 Javier Peña <jpena@redhat.com> - 4.8.0-1
+- Update to version 4.8.1 (#2454342)
+- Fixes CVE-2026-34531
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

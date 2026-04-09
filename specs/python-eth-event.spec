@@ -1,7 +1,7 @@
 %global pypi_name eth_event
 
 Name:          python-eth-event
-Version:       1.4.6
+Version:       1.4.7
 Release:       %autorelease
 Summary:       Tools for Ethereum event decoding and topic generation
 License:       MIT

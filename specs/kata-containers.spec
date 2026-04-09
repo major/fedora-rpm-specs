@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.1
+Release:    2%{?rcrel}%{?dist}.1
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -79,6 +79,7 @@ BuildRequires: golang
 %endif
 
 BuildRequires: git-core
+BuildRequires: jq
 BuildRequires: libselinux-devel
 BuildRequires: libseccomp-devel
 BuildRequires: make
@@ -222,6 +223,21 @@ ExcludeArch: ppc64le
 %global kata_ctl_vars           %{rust_make_vars} \\\
                                 INSTALL_PATH=%{buildroot}%{_prefix}
 
+# runtime-rs (Rust shim). USE_BUILDIN_DB=false skips the dragonball feature so the workspace
+# does not compile nydus (libz-sys / flate2+zlib), which reliably breaks under RPM CFLAGS/mock.
+# QEMU / cloud-hypervisor / Firecracker paths remain available.
+%global runtime_rs_make_vars    %{rust_make_vars} \\\
+                                USE_BUILDIN_DB=false \\\
+                                HYPERVISOR=qemu \\\
+                                QEMUPATH=%{qemupath} \\\
+                                DEFVIRTIOFSDAEMON=%{_libexecdir}/virtiofsd \\\
+                                DEFVIRTIOFSCACHESIZE=0 \\\
+                                DEFSANDBOXCGROUPONLY_QEMU=true \\\
+                                MACHINETYPE=%{machinetype} \\\
+                                DESTDIR=%{buildroot} \\\
+                                PREFIX=/usr \\\
+                                DEFAULTSDIR=%{katadefaults}
+
 %prep
 %autosetup -S git -p1 -n %{kata_build_dir}
 
@@ -232,6 +248,9 @@ tar -xf %{SOURCE1}
 # (This builds multiple binaries)
 %build
 %set_build_flags
+
+# runtime-rs uses openssl-sys; link distro OpenSSL (BuildRequires: openssl-devel).
+export OPENSSL_NO_VENDOR=1
 
 export PATH=$PATH:"$(pwd)/go/bin"
 export GOPATH="$(pwd)/go"
@@ -251,6 +270,10 @@ popd
 
 pushd src/tools/kata-ctl
 %make_build %{kata_ctl_vars}
+popd
+
+pushd src/runtime-rs
+%make_build %{runtime_rs_make_vars}
 popd
 
 pushd tools/osbuilder
@@ -279,6 +302,10 @@ pushd src/tools/kata-ctl
 %make_install %{kata_ctl_vars}
 rm -f %{buildroot}%{_prefix}/.crates.toml
 rm -f %{buildroot}%{_prefix}/.crates2.json
+popd
+
+pushd src/runtime-rs
+%make_install %{runtime_rs_make_vars}
 popd
 
 pushd tools/osbuilder
@@ -370,6 +397,14 @@ fi
 #kata-ctl
 %{_bindir}/kata-ctl
 
+# runtime-rs
+%dir %{_prefix}/runtime-rs
+%dir %{_prefix}/runtime-rs/bin
+%{_prefix}/runtime-rs/bin/*
+%dir %{katadefaults}/kata-containers
+%dir %{katadefaults}/kata-containers/runtime-rs
+%{katadefaults}/kata-containers/runtime-rs/*
+
 #osbuilder
 %dir %{kataosbuilderdir}
 %dir %{katalocalstatecachedir}
@@ -390,6 +425,12 @@ fi
 
 
 %changelog
+* Tue Apr 07 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-2
+- Build and package runtime-rs (Rust containerd shim and defaults)
+- Add BuildRequires for jq needed by runtime-rs
+- Set OPENSSL_NO_VENDOR=1 so Rust crates link system OpenSSL
+- Disable DragonBall, see KATA-4810 for explanations
+
 * Tue Mar 17 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-1
 - kata-containers 3.28.0
 

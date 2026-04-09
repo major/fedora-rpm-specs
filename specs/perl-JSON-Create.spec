@@ -2,17 +2,16 @@
 %bcond_without perl_JSON_Create_enables_optional_tests
 
 Name:           perl-JSON-Create
-Version:        0.35
-Release:        17%{?dist}
+Version:        0.36
+Release:        1%{?dist}
 Summary:        Create JSON
-# lib/JSON/Create.pod:  GPL+ or Artistic
-# ppport.h:             GPL+ or Artistic
-# qsort-r.c:            BSD
-# unicode.c:            (BSD or GPLv2+ or Artistic) at upstream, but the author
-#                       is the same, so he can pick any license, and here it's
+# lib/JSON/Create.pod:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
+# qsort-r.c:            BSD-3-Clause
+# unicode.c:            (BSD-3-Clause or GPL-2.0-or-later OR Artistic-1.0-Perl) at upstream,
+#                       but the author is the same, so he can pick any license, and here it's
 #                       a part of JSON-Create
-# Automatically converted from old format: (GPL+ or Artistic) and BSD - review is highly recommended.
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-BSD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 URL:            https://metacpan.org/release/JSON-Create
 Source0:        https://cpan.metacpan.org/authors/id/B/BK/BKB/JSON-Create-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -71,6 +70,7 @@ run with "create" allows specifying behavior in more detail.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -118,14 +118,22 @@ make test
 
 %files
 %doc Changes examples README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/JSON*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/JSON
+%{perl_vendorarch}/auto/JSON/Create
+%dir %{perl_vendorarch}/JSON
+%{perl_vendorarch}/JSON/Create
+%{perl_vendorarch}/JSON/Create.pm
+%{perl_vendorarch}/JSON/Create.pod
+%{_mandir}/man3/JSON::Create.*
+%{_mandir}/man3/JSON::Create::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 07 2026 Petr Pisar <ppisar@redhat.com> - 0.36-1
+- 0.36 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

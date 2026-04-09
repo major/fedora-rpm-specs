@@ -2,8 +2,8 @@
 %global tcl_sitearch %{_libdir}/tcl%{tcl_version}
 
 Name:          xapian-bindings
-Version:       1.4.31
-Release:       2%{?dist}
+Version:       2.0.0
+Release:       1%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -103,6 +103,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Tue Apr 07 2026 Christiano Anderson <chris@christiano.me> - 2.0.0-1
+- Update to 2.0.0
+
 * Wed Feb 25 2026 Christiano Anderson <chris@christiano.me> - 1.4.31-2
 - Rebuild to 1.4.31
 

@@ -1,4 +1,4 @@
-%global candidate rc5
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  0.9%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -54,7 +54,6 @@ Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  ARM-RPi5-Enable-PCIe.patch
 Patch21:  0001-Add-bcm2712-compat.patch
-Patch22:  0001-rpi-Update-the-naming-for-bcm2712-SoC-RevD-naming.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -313,6 +312,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Apr 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-1
+- Update to 2026.04 GA
+
 * Sun Mar 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.9.rc5
 - Enable NVME booting on RPi5
 

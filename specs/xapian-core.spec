@@ -6,7 +6,7 @@
 %endif
 
 Name:          xapian-core
-Version:       1.4.31
+Version:       2.0.0
 Release:       1%{?dist}
 Summary:       The Xapian Probabilistic Information Retrieval Library
 License:       GPL-2.0-or-later
@@ -77,14 +77,12 @@ make check %{?_smp_mflags}
 %files
 %doc AUTHORS NEWS README
 %{_bindir}/xapian*
-%{_bindir}/quest
 %{_bindir}/copydatabase
 %{_bindir}/simpleindex
 %{_bindir}/simplesearch
 %{_bindir}/simpleexpand
 %{_datadir}/xapian-core/
 %{_mandir}/man1/xapian*
-%{_mandir}/man1/quest.1*
 %{_mandir}/man1/copydatabase.1*
 
 %files libs
@@ -103,6 +101,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/xapian-config.1*
 
 %changelog
+* Tue Apr 07 2026 Christiano Anderson <chris@christiano.me> - 2.0.0-1
+- Update to 2.0.0
+
 * Tue Feb 24 2026 Christiano Anderson <chris@christiano.me> - 1.4.31-1
 - Update to 1.4.31
 

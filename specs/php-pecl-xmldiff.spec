@@ -1,21 +1,27 @@
 %global pecl_name  xmldiff
+%global pie_vend   pecl
+%global pie_proj   xml-xmldiff
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
+
+# Github forge
+%global gh_vend     php
+%global gh_proj     pecl-xml-xmldiff
+%global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
+%global tag         %{version}
 
 Name:             php-pecl-%{pecl_name}
-Version:          1.1.6
-Release:          2%{?dist}
 Summary:          Pecl package for XML diff and merge
-
 License:          BSD-2-Clause
-URL:              http://pecl.php.net/package/%{pecl_name}
-Source0:          http://pecl.php.net/get/%{sources}.tgz
+Version:          1.1.6
+Release:          3%{?dist}
+%forgemeta
+URL:              %{forgeurl}
+Source0:          %{forgesource}
 
 ExcludeArch:      %{ix86}
 
 BuildRequires:    make
 BuildRequires:    gcc
-BuildRequires:    php-pear
 BuildRequires:    php-devel
 BuildRequires:    libxml2-devel
 BuildRequires:    diffmark-devel
@@ -29,10 +35,15 @@ Requires:         php-libxml%{?_isa}
 Requires:         php(zend-abi) = %{php_zend_api}
 Requires:         php(api) = %{php_core_api}
 
+# Extension
 Provides:         php-%{pecl_name}               = %{version}
 Provides:         php-%{pecl_name}%{?_isa}       = %{version}
+# PECL
 Provides:         php-pecl(%{pecl_name})         = %{version}
 Provides:         php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PIE
+Provides:         php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:         php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -44,13 +55,8 @@ memory can be processed.
 
 
 %prep
-%setup -qc
+%forgesetup
 
-sed -e '/name="diffmark/d' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # drop bundled library to ensure it is not used
 rm -rf diffmark
 
@@ -65,7 +71,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -78,19 +83,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install config file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install the documentation
-install -D -m 644 CREDITS %{buildroot}/%{pecl_docdir}/%{pecl_name}/CREDITS
 
 : Clean devel 
 rm -rf %{buildroot}/%{_includedir}/php/ext/%{pecl_name}
@@ -104,20 +101,25 @@ php \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
-cd %{sources}
 TEST_PHP_ARGS="-n -d extension=dom.so -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 php -n run-tests.php -q --show-diff
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
-%{pecl_xmldir}/%{name}.xml
 
 
 %changelog
+* Mon Apr  6 2026 Remi Collet <remi@remirepo.net> - 1.1.6-3
+- add pie virtual provides
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

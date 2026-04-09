@@ -6,7 +6,7 @@
 %bcond tests 0
 
 Name:           nix
-Version:        2.33.3
+Version:        2.34.4
 Release:        %autorelease
 Summary:        A purely functional package manager
 
@@ -202,7 +202,6 @@ MESON_OPTS=(
     # manual needs mdbook
     -Dnix-manual:html-manual=false
     -Djson-schema-checks=false
-    -Dkaitai-struct-checks=false
 %ifarch x86_64
 # missing from epel10: https://bugzilla.redhat.com/show_bug.cgi?id=2368495
 %if %{undefined fedora}
@@ -266,6 +265,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %doc README.md README.fedora.md
 %{_bindir}/nix
 %{_libexecdir}/nix
+%{_libexecdir}/nix-nswrapper
 %config(noreplace) %{_sysconfdir}/nix/nix.conf
 %config(noreplace) %{_sysconfdir}/nix/registry.json
 %config(noreplace) %{_sysconfdir}/profile.d/nix.sh

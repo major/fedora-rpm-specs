@@ -422,6 +422,8 @@ export RUSTONIG_SYSTEM_LIBONIG=1
 %install
 install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
 install -Dpm 0755 target/rpm/goosed -t %{buildroot}%{_bindir}
+install -Dpm 0755 target/rpm/goose-acp-server -t %{buildroot}%{_bindir}
+
 %if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
 install -Dpm 0755 %{SOURCE8} %{buildroot}%{_sysconfdir}/profile.d/goose-init.sh
 %endif
@@ -463,6 +465,8 @@ skip="${skip-} --skip scenario_tests::scenarios::tests::test_image_analysis"
 
 %{_bindir}/goose
 %{_bindir}/goosed
+%{_bindir}/goose-acp-server
+
 %if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
 # Creates default Red Hat recommended config if needed
 %{_sysconfdir}/profile.d/goose-init.sh

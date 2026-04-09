@@ -5,7 +5,7 @@
 Name:           texlive-collection-langarabic
 Epoch:          12
 Version:        svn78033
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -973,11 +973,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-arabic
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ar.tex
 
 %files -n texlive-hyphen-farsi
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-fa.tex
 
 %files -n texlive-imsproc
 %license lppl1.3c.txt
@@ -1079,6 +1079,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-5
+- Fix hyph-utf8 files ownership
+
 * Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-4
 - Update collection from svn76980 to svn78033
 - Add fariscovernew

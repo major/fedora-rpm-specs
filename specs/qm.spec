@@ -22,8 +22,7 @@
 %endif
 
 # copr_username is only set on copr environments, not on others like koji
-# Check if copr is owned by rhcontainerbot
-%if "%{?copr_username}" != "rhcontainerbot"
+%if "%{?copr_username}" != "centos-automotive-sig" && "%{?copr_projectname}" != "qm-next"
 %bcond_with copr
 %else
 %bcond_without copr
@@ -43,7 +42,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 1.0
+Version: 1.1
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -63,6 +62,7 @@ BuildRequires: pkgconfig(systemd)
 BuildRequires: selinux-policy >= %_selinux_policy_version
 BuildRequires: selinux-policy-devel >= %_selinux_policy_version
 BuildRequires: bluechi-selinux
+BuildRequires: python3-devel
 
 Requires: parted
 Requires: containers-common
@@ -117,6 +117,11 @@ sed -i 's|^/run/|/var/run/|' qm.fc
 %install
 # Create the directory for drop-in configurations
 install -d %{buildroot}%{_sysconfdir}/containers/containers.conf.d
+
+# Install Python module for qmctl
+install -d %{buildroot}%{python3_sitelib}/qmctl
+install -m 0644 tools/qmctl/__init__.py %{buildroot}%{python3_sitelib}/qmctl/
+install -m 0644 tools/qmctl/qmctl.py %{buildroot}%{python3_sitelib}/qmctl/
 
 # install policy modules
 %_format MODULES $x.pp.bz2
@@ -182,8 +187,12 @@ fi
 %license LICENSE
 %{_bindir}/qmctl
 %{_mandir}/man1/qmctl.*
+%{python3_sitelib}/qmctl/
 
 %changelog
+* Tue Apr 07 2026 Packit <hello@packit.dev> - 101:1.1-1
+- Update to version 1.1
+
 * Tue Nov 04 2025 Packit <hello@packit.dev> - 101:1.0-1
 - Update to version 1.0
 

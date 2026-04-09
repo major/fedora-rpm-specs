@@ -9,11 +9,8 @@
 
 %bcond_without       tests
 
-%global gh_commit    a2b6d09d7729ee87d605a439469f9dcc39be5ea3
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
-%global gh_date      2026-02-06
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,17 +22,17 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.0
-Release:        2%{?dist}
+Version:        8.1.0
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 # php-symfony7 not available, only used for tests
-%global symfony_version 7.3.11
+%global symfony_version 7.4.8
 Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
 
 BuildArch:      noarch
@@ -67,7 +64,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit} -a 2
+%setup -q -n %{gh_project}-%{version} -a 2
 
 
 %build
@@ -108,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Mon Apr  6 2026 Remi Collet <remi@remirepo.net> - 8.1.0-1
+- update to 8.1.0
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 8.0.0-2
 - enable test suite
 

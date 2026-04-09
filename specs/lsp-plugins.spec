@@ -1,5 +1,5 @@
 Name:           lsp-plugins
-Version:        1.2.27
+Version:        1.2.29
 Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
@@ -148,7 +148,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.27.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.28.so
 
 %files -n liblsp-r3d-glx-devel
 %{_libdir}/liblsp-r3d-glx-lib.so
@@ -192,6 +192,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Tue Apr 07 2026 Vasiliy Glazov <vascom2@gmail.com> - 1.2.29-1
+- Update to 1.2.29
+
 * Thu Mar 19 2026 Nikolas Nyby <nikolas@gnu.org> - 1.2.27-1
 - Update to 1.2.27
 

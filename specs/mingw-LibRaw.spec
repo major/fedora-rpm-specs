@@ -3,8 +3,8 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.22.0
-Release:       3%{?dist}
+Version:       0.22.1
+Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
@@ -13,14 +13,6 @@ License:       BSD-3-Clause AND (CDDL-1.0 OR LGPL-2.1-only)
 BuildArch:     noarch
 URL:           http://www.libraw.org
 Source0:       http://www.libraw.org/data/%{pkgname}-%{version}.tar.gz
-# Needed for Patch1
-Patch0:        https://github.com/LibRaw/LibRaw/commit/8dc68e2a4551f03838b7f2da9276e5d1eb20bca0.patch
-# Backport fix for CVE-2026-5318
-Patch1:        https://github.com/LibRaw/LibRaw/commit/a6734e867b19d75367c05f872ac26322464e3995.patch
-# Needed for Patch3
-Patch2:        https://github.com/LibRaw/LibRaw/commit/798ecc5322495e27d5ed929dca4f9b4de9ae6100.patch
-# Backport fix for CVE-2026-5342
-Patch3:        https://github.com/LibRaw/LibRaw/commit/b8397cd45657b84e88bd1202528d1764265f185c.patch
 
 BuildRequires: make
 BuildRequires: autoconf automake libtool
@@ -28,12 +20,12 @@ BuildRequires: autoconf automake libtool
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-lcms2
-BuildRequires: mingw32-jasper
+BuildRequires: mingw32-zlib
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-lcms2
-BuildRequires: mingw64-jasper
+BuildRequires: mingw64-zlib
 
 Provides: bundled(dcraw)
 
@@ -101,7 +93,7 @@ chmod -x LICENSE.LGPL
 
 %build
 autoreconf -ifv
-%mingw_configure --enable-jasper --enable-lcms CPPFLAGS=-DLIBRAW_NODLL
+%mingw_configure --enable-lcms --enable-zlib CPPFLAGS=-DLIBRAW_NODLL
 %mingw_make_build
 
 
@@ -118,8 +110,8 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %files -n mingw32-%{pkgname}
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{mingw32_bindir}/libraw-24.dll
-%{mingw32_bindir}/libraw_r-24.dll
+%{mingw32_bindir}/libraw-25.dll
+%{mingw32_bindir}/libraw_r-25.dll
 %{mingw32_includedir}/libraw/
 %{mingw32_libdir}/libraw.dll.a
 %{mingw32_libdir}/libraw_r.dll.a
@@ -135,8 +127,8 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %files -n mingw64-%{pkgname}
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{mingw64_bindir}/libraw-24.dll
-%{mingw64_bindir}/libraw_r-24.dll
+%{mingw64_bindir}/libraw-25.dll
+%{mingw64_bindir}/libraw_r-25.dll
 %{mingw64_includedir}/libraw/
 %{mingw64_libdir}/libraw.dll.a
 %{mingw64_libdir}/libraw_r.dll.a
@@ -152,6 +144,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Tue Apr 07 2026 Sandro Mani <manisandro@gmail.com> - 0.22.1-1
+- Update to 0.22.1
+
 * Thu Apr 02 2026 Sandro Mani <manisandro@gmail.com> - 0.22.0-3
 - Backport fix for CVE-2026-5342
 

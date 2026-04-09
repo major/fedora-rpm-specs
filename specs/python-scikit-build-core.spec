@@ -17,6 +17,9 @@ Summary:        Build backend for CMake based projects
 License:        Apache-2.0 AND MIT
 URL:            https://github.com/scikit-build/scikit-build-core
 Source:         %{pypi_source scikit_build_core}
+# Tests fix for setuptools-scm 10
+# https://github.com/scikit-build/scikit-build-core/pull/1259
+Patch:          setuptools-scm-10.patch
 
 BuildRequires:  python3-devel
 # Testing dependences
@@ -46,7 +49,7 @@ Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 
 
 %prep
-%autosetup -n scikit_build_core-%{version}
+%autosetup -p1 -n scikit_build_core-%{version}
 # Rename the bundled license so that it can be installed together
 cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject-metadata
 

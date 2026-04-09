@@ -1,5 +1,5 @@
 Name:           python-holidays
-Version:        0.93
+Version:        0.94
 Release:        %autorelease
 Summary:        Generate and work with holidays in Python
 

@@ -446,6 +446,15 @@ Assets.spec["tailwindcss/tailwind.css"].sha256 = "$(
 )"
 EOF
 
+# Downstream-only: remove the upper bound on the version of sqlmodel. Given the
+# 0.0.x version, we understand why upstream has pinned this to a precise
+# release, as any update may be breaking. However, Snakemake’s exposure to the
+# sqlmodel API is small, it’s likely that breakage will be rare in practice,
+# and it’s too tedious to keep updating the version bound, either
+# downstream-only or via repeated upstream PR’s. We might re-evaluate this once
+# sqlmodel reaches 0.1.0.
+sed -r -i 's/(sqlmodel>=[[:alnum:].]+),<[[:alnum:].]+/\1/' pyproject.toml
+
 
 %generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'

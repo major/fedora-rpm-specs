@@ -5,13 +5,13 @@
 %global modname requests_oauthlib
 
 Name:               python-requests-oauthlib
-Version:            1.3.1
-Release:            17%{?dist}
+Version:            2.0.0
+Release:            1%{?dist}
 Summary:            OAuthlib authentication support for Requests.
 
 License:            ISC
 URL:                http://pypi.python.org/pypi/requests-oauthlib
-Source0:            https://github.com/requests/requests-oauthlib/archive/v%{version}.tar.gz
+Source0:            https://github.com/requests/requests-oauthlib/archive/v%{version}/requests-oauthlib-%{version}.tar.gz
 # Updated tests to support oauthlib 3.3.0 wrt expires_at
 Patch0:             https://github.com/requests/requests-oauthlib/commit/b1dd93c5d024500b6236dea06734d6e6482c3565.patch
 
@@ -29,6 +29,7 @@ BuildRequires:      python3-devel
 BuildRequires:      python3-pytest
 BuildRequires:      python3-pytest-mock
 BuildRequires:      python3-requests-mock
+BuildRequires:      python3-selenium, selenium-manager
 %endif
 
 %description -n python3-%{distname}
@@ -36,6 +37,9 @@ This project provides first-class OAuth library support for python-request.
 
 %prep
 %autosetup -n %{distname}-%{version} -p1
+# Requires python-selenium fix from unmerged https://src.fedoraproject.org/rpms/python-selenium/pull-request/9
+# Furthermore then throws error on insisting on only chrome-146 but fedora has 148
+rm tests/examples/test_native_spa_pkce_auth0.py
 
 %generate_buildrequires
 %pyproject_buildrequires

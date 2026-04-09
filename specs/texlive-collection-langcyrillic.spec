@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-langcyrillic
 Epoch:          12
-Version:        svn69727
-Release:        5%{?dist}
+Version:        svn78069
+Release:        7%{?dist}
 Summary:        Cyrillic
 
 License:        LPPL-1.3c
@@ -45,56 +45,57 @@ Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/go
 Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-belarusian.tar.xz
 Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-bulgarian.tar.xz
 Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-churchslavonic.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-mongolian.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-russian.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-serbian.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-ukrainian.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lcyw.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lcyw.doc.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lh.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lh.doc.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lhcyr.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-bulgarian.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-bulgarian.doc.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-mongol.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-mongol.doc.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-russian.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-russian.doc.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-ukr.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-ukr.doc.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnhyphn.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnhyphn.doc.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mongolian-babel.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mongolian-babel.doc.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montex.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montex.doc.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpman-ru.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpman-ru.doc.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numnameru.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numnameru.doc.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-eucl-translation-bg.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-eucl-translation-bg.doc.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruhyphen.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/russ.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/russ.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-apostrophe.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-apostrophe.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-date-lat.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-date-lat.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-def-cyr.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-def-cyr.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-lig.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-lig.doc.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t2.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t2.doc.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-ru.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-ru.doc.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-sr.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-sr.doc.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukrhyph.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukrhyph.doc.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyrmongolian.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyrmongolian.doc.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-kazakh.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-mongolian.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-russian.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-serbian.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-ukrainian.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lcyw.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lcyw.doc.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lh.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lh.doc.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lhcyr.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-bulgarian.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-bulgarian.doc.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-mongol.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-mongol.doc.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-russian.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-russian.doc.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-ukr.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-ukr.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnhyphn.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnhyphn.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mongolian-babel.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mongolian-babel.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montex.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/montex.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpman-ru.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mpman-ru.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numnameru.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numnameru.doc.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-eucl-translation-bg.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-eucl-translation-bg.doc.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ruhyphen.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/russ.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/russ.doc.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-apostrophe.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-apostrophe.doc.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-date-lat.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-date-lat.doc.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-def-cyr.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-def-cyr.doc.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-lig.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/serbian-lig.doc.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t2.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t2.doc.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-ru.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-ru.doc.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-sr.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-sr.doc.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukrhyph.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukrhyph.doc.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyrmongolian.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyrmongolian.doc.tar.xz
 BuildRequires:  texlive-base
 Requires:       texlive-base
 Requires:       texlive-babel-belarusian
@@ -117,6 +118,7 @@ Requires:       texlive-gost
 Requires:       texlive-hyphen-belarusian
 Requires:       texlive-hyphen-bulgarian
 Requires:       texlive-hyphen-churchslavonic
+Requires:       texlive-hyphen-kazakh
 Requires:       texlive-hyphen-mongolian
 Requires:       texlive-hyphen-russian
 Requires:       texlive-hyphen-serbian
@@ -157,7 +159,6 @@ Version:        svn49022
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(belarusian.ldf) = %{tl_version}
 
 %description -n texlive-babel-belarusian
 The package provides support for use of Babel in documents written in
@@ -169,7 +170,6 @@ Version:        svn31902
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bulgarian.ldf) = %{tl_version}
 
 %description -n texlive-babel-bulgarian
 The package provides support for documents in Bulgarian (or simply containing
@@ -181,7 +181,6 @@ Version:        svn57376
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(russianb.ldf) = %{tl_version}
 
 %description -n texlive-babel-russian
 The package provides support for use of Babel in documents written in Russian
@@ -194,7 +193,6 @@ Version:        svn64571
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(serbian.ldf) = %{tl_version}
 
 %description -n texlive-babel-serbian
 The package provides support for Serbian documents written in Latin, in babel.
@@ -205,7 +203,6 @@ Version:        svn64588
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(serbianc.ldf) = %{tl_version}
 
 %description -n texlive-babel-serbianc
 The package provides support for Serbian documents written in Cyrillic, in
@@ -217,7 +214,6 @@ Version:        svn56674
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ukraineb.ldf) = %{tl_version}
 
 %description -n texlive-babel-ukrainian
 The package provides support for use of babel in documents written in
@@ -241,13 +237,6 @@ Requires:       tex(intcalc.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(luacolor.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(churchslavonic.sty) = %{tl_version}
-Provides:       tex(cu-calendar.sty) = %{tl_version}
-Provides:       tex(cu-kinovar.sty) = %{tl_version}
-Provides:       tex(cu-kruk.sty) = %{tl_version}
-Provides:       tex(cu-num.sty) = %{tl_version}
-Provides:       tex(cu-util.sty) = %{tl_version}
-Provides:       tex(gloss-churchslavonic.ldf) = %{tl_version}
 
 %description -n texlive-churchslavonic
 The package provides fonts, hyphenation patterns, and supporting macros to
@@ -273,12 +262,6 @@ Version:        svn45692
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cyrcmfnt.tex) = %{tl_version}
-Provides:       tex(cyrecfnt.tex) = %{tl_version}
-Provides:       tex(cyrtex.tex) = %{tl_version}
-Provides:       tex(plainenc.tex) = %{tl_version}
-Provides:       tex(txxdefs.tex) = %{tl_version}
-Provides:       tex(txxextra.tex) = %{tl_version}
 
 %description -n texlive-cyrplain
 The T2 bundle provides a variety of separate support functions for using
@@ -293,8 +276,6 @@ Version:        svn43417
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(disser.cls) = %{tl_version}
-Provides:       tex(gost732.cls) = %{tl_version}
 
 %description -n texlive-disser
 Disser comprises a document class and set of templates for typesetting
@@ -310,7 +291,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eskd.cls) = %{tl_version}
 
 %description -n texlive-eskd
 The class offers modern Russian text formatting, in accordance with accepted
@@ -340,35 +320,6 @@ Requires:       tex(longtable.sty)
 Requires:       tex(lscape.sty)
 Requires:       tex(rotating.sty)
 Requires:       tex(zref-perpage.sty)
-Provides:       tex(eskdafterpkg.sty) = %{tl_version}
-Provides:       tex(eskdappsheet.sty) = %{tl_version}
-Provides:       tex(eskdbiblist.sty) = %{tl_version}
-Provides:       tex(eskdcap.sty) = %{tl_version}
-Provides:       tex(eskdchngsheet.sty) = %{tl_version}
-Provides:       tex(eskddstu.sty) = %{tl_version}
-Provides:       tex(eskdexplan.sty) = %{tl_version}
-Provides:       tex(eskdfont.sty) = %{tl_version}
-Provides:       tex(eskdfootnote.sty) = %{tl_version}
-Provides:       tex(eskdfreesize.sty) = %{tl_version}
-Provides:       tex(eskdgraph.cls) = %{tl_version}
-Provides:       tex(eskdhash.sty) = %{tl_version}
-Provides:       tex(eskdindent.sty) = %{tl_version}
-Provides:       tex(eskdinfo.sty) = %{tl_version}
-Provides:       tex(eskdlang.sty) = %{tl_version}
-Provides:       tex(eskdlist.sty) = %{tl_version}
-Provides:       tex(eskdpara.sty) = %{tl_version}
-Provides:       tex(eskdplain.sty) = %{tl_version}
-Provides:       tex(eskdrussian.def) = %{tl_version}
-Provides:       tex(eskdsect.sty) = %{tl_version}
-Provides:       tex(eskdspec.sty) = %{tl_version}
-Provides:       tex(eskdspecii.sty) = %{tl_version}
-Provides:       tex(eskdstamp.sty) = %{tl_version}
-Provides:       tex(eskdtab.cls) = %{tl_version}
-Provides:       tex(eskdtext.cls) = %{tl_version}
-Provides:       tex(eskdtitle.sty) = %{tl_version}
-Provides:       tex(eskdtitlebase.sty) = %{tl_version}
-Provides:       tex(eskdtotal.sty) = %{tl_version}
-Provides:       tex(eskdukrainian.def) = %{tl_version}
 
 %description -n texlive-eskdx
 Eskdx is a collection of LaTeX classes and packages to typeset textual and
@@ -391,63 +342,60 @@ standards) are retained for backwards compatibility.
 
 %package -n texlive-hyphen-belarusian
 Summary:        Belarusian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-be.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-be.tex) = %{tl_version}
-Provides:       tex(hyph-quote-be.tex) = %{tl_version}
-Provides:       tex(loadhyph-be.tex) = %{tl_version}
 
 %description -n texlive-hyphen-belarusian
 Belarusian hyphenation patterns in T2A and UTF-8 encodings
 
 %package -n texlive-hyphen-bulgarian
 Summary:        Bulgarian hyphenation patterns.
-Version:        svn73410
-License:        LicenseRef-Unknown
+Version:        svn78069
+License:        hyphen-bulgarian
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-bg.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-bg.tex) = %{tl_version}
-Provides:       tex(loadhyph-bg.tex) = %{tl_version}
 
 %description -n texlive-hyphen-bulgarian
 Hyphenation patterns for Bulgarian in T2A and UTF-8 encodings.
 
 %package -n texlive-hyphen-churchslavonic
 Summary:        Church Slavonic hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-cu.tex) = %{tl_version}
-Provides:       tex(loadhyph-cu.tex) = %{tl_version}
 
 %description -n texlive-hyphen-churchslavonic
 Hyphenation patterns for Church Slavonic in UTF-8 encoding
 
+%package -n texlive-hyphen-kazakh
+Summary:        Kazakh hyphenation patterns.
+Version:        svn78069
+License:        LicenseRef-Fedora-Public-Domain
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       texlive-hyph-utf8
+Requires:       texlive-hyphen-base
+
+%description -n texlive-hyphen-kazakh
+Hyphenation patterns for Kazakh in T2A and UTF-8 encodings.
+
 %package -n texlive-hyphen-mongolian
 Summary:        Mongolian hyphenation patterns in Cyrillic script.
-Version:        svn74203
+Version:        svn78069
 License:        LPPL-1.3c OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-mn-cyrl-x-lmc.lmc.tex) = %{tl_version}
-Provides:       tex(hyph-mn-cyrl-x-lmc.tex) = %{tl_version}
-Provides:       tex(hyph-mn-cyrl.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-mn-cyrl.tex) = %{tl_version}
-Provides:       tex(loadhyph-mn-cyrl-x-lmc.tex) = %{tl_version}
-Provides:       tex(loadhyph-mn-cyrl.tex) = %{tl_version}
 
 %description -n texlive-hyphen-mongolian
 Hyphenation patterns for Mongolian in T2A, LMC and UTF-8 encodings. LMC
@@ -456,16 +404,13 @@ hopefully be merged in future.
 
 %package -n texlive-hyphen-russian
 Summary:        Russian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
 Requires:       texlive-ruhyphen
-Provides:       tex(hyph-ru.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-ru.tex) = %{tl_version}
-Provides:       tex(loadhyph-ru.tex) = %{tl_version}
 
 %description -n texlive-hyphen-russian
 Hyphenation patterns for Russian in T2A and UTF-8 encodings. For 8-bit engines,
@@ -476,19 +421,12 @@ one used for 8-bit patterns may be implemented in the future.
 
 %package -n texlive-hyphen-serbian
 Summary:        Serbian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-sh-cyrl.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-sh-cyrl.tex) = %{tl_version}
-Provides:       tex(hyph-sh-latn.ec.tex) = %{tl_version}
-Provides:       tex(hyph-sh-latn.tex) = %{tl_version}
-Provides:       tex(hyph-sr-cyrl.tex) = %{tl_version}
-Provides:       tex(loadhyph-sr-cyrl.tex) = %{tl_version}
-Provides:       tex(loadhyph-sr-latn.tex) = %{tl_version}
 
 %description -n texlive-hyphen-serbian
 Hyphenation patterns for Serbian in T1/EC, T2A and UTF-8 encodings. For 8-bit
@@ -498,17 +436,13 @@ engines should only use 'serbian' which has patterns in both scripts combined.
 
 %package -n texlive-hyphen-ukrainian
 Summary:        Ukrainian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
 Requires:       texlive-ukrhyph
-Provides:       tex(hyph-quote-uk.tex) = %{tl_version}
-Provides:       tex(hyph-uk.t2a.tex) = %{tl_version}
-Provides:       tex(hyph-uk.tex) = %{tl_version}
-Provides:       tex(loadhyph-uk.tex) = %{tl_version}
 
 %description -n texlive-hyphen-ukrainian
 Hyphenation patterns for Ukrainian in T2A and UTF-8 encodings. For 8-bit
@@ -524,36 +458,17 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifpdf.sty)
-Provides:       tex(cmap-cyr-vf.sty) = %{tl_version}
-Provides:       tex(lcywenc.def) = %{tl_version}
 
 %description -n texlive-lcyw
 The package makes the classic CM Cyrillic fonts accessible for use with LaTeX.
 
 %package -n texlive-lh
 Summary:        Cyrillic fonts that support LaTeX standard encodings
-Version:        svn15878
+Version:        svn77838
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-ec
-Provides:       tex(lh-lcy.sty) = %{tl_version}
-Provides:       tex(lh-lcyccr.sty) = %{tl_version}
-Provides:       tex(lh-lcyxccr.sty) = %{tl_version}
-Provides:       tex(lh-ot2.sty) = %{tl_version}
-Provides:       tex(lh-ot2ccr.sty) = %{tl_version}
-Provides:       tex(lh-ot2xccr.sty) = %{tl_version}
-Provides:       tex(lh-t2accr.sty) = %{tl_version}
-Provides:       tex(lh-t2axccr.sty) = %{tl_version}
-Provides:       tex(lh-t2bccr.sty) = %{tl_version}
-Provides:       tex(lh-t2bxccr.sty) = %{tl_version}
-Provides:       tex(lh-t2cccr.sty) = %{tl_version}
-Provides:       tex(lh-t2cxccr.sty) = %{tl_version}
-Provides:       tex(lh-x2ccr.sty) = %{tl_version}
-Provides:       tex(lh-x2xccr.sty) = %{tl_version}
-Provides:       tex(nfssfox.tex) = %{tl_version}
-Provides:       tex(testfox.tex) = %{tl_version}
-Provides:       tex(testkern.tex) = %{tl_version}
 
 %description -n texlive-lh
 The LH fonts address the problem of the wide variety of alphabets that are
@@ -568,22 +483,10 @@ CM bright shaped fonts and Concrete shaped fonts.
 
 %package -n texlive-lhcyr
 Summary:        A non-standard Cyrillic input scheme
-Version:        svn77050
+Version:        svn77838
 License:        LicenseRef-Lhcyr
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(karabas.tex) = %{tl_version}
-Provides:       tex(kniga.tex) = %{tl_version}
-Provides:       tex(lhcyralt-rhyphen.tex) = %{tl_version}
-Provides:       tex(lhcyralt.sty) = %{tl_version}
-Provides:       tex(lhcyrkoi-rhyphen.tex) = %{tl_version}
-Provides:       tex(lhcyrkoi.sty) = %{tl_version}
-Provides:       tex(lhcyrwin-rhyphen.tex) = %{tl_version}
-Provides:       tex(lhcyrwin.sty) = %{tl_version}
-Provides:       tex(otchet.tex) = %{tl_version}
-Provides:       tex(pismo.tex) = %{tl_version}
-Provides:       tex(rusfonts.tex) = %{tl_version}
-Provides:       tex(statya.tex) = %{tl_version}
 
 %description -n texlive-lhcyr
 A collection of three LaTeX2e styles intended for typesetting Russian and
@@ -649,7 +552,6 @@ Version:        svn69727
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mnhyphn.tex) = %{tl_version}
 
 %description -n texlive-mnhyphn
 Serves Mongolian written using Cyrillic letters, using T2A-encoded output.
@@ -662,9 +564,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mn.def) = %{tl_version}
-Provides:       tex(mongolian.ldf) = %{tl_version}
-Provides:       tex(mongolian.sty) = %{tl_version}
 
 %description -n texlive-mongolian-babel
 This package provides support for Mongolian in a Cyrillic alphabet. (The work
@@ -683,31 +582,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(inputenc.sty)
 Requires:       tex(lscape.sty)
 Requires:       tex(rotating.sty)
-Provides:       tex(bicig.def) = %{tl_version}
-Provides:       tex(bithe.def) = %{tl_version}
-Provides:       tex(buryat.def) = %{tl_version}
-Provides:       tex(cpctt.def) = %{tl_version}
-Provides:       tex(cpdbk.def) = %{tl_version}
-Provides:       tex(cpibmrus.def) = %{tl_version}
-Provides:       tex(cpkoi.def) = %{tl_version}
-Provides:       tex(cpmls.def) = %{tl_version}
-Provides:       tex(cpmnk.def) = %{tl_version}
-Provides:       tex(cpmos.def) = %{tl_version}
-Provides:       tex(cpncc.def) = %{tl_version}
-Provides:       tex(english.def) = %{tl_version}
-Provides:       tex(kazakh.def) = %{tl_version}
-Provides:       tex(lmaenc.def) = %{tl_version}
-Provides:       tex(lmcenc.def) = %{tl_version}
-Provides:       tex(lmoenc.def) = %{tl_version}
-Provides:       tex(lmsenc.def) = %{tl_version}
-Provides:       tex(lmuenc.def) = %{tl_version}
-Provides:       tex(mls.sty) = %{tl_version}
-Provides:       tex(mlsgalig.tex) = %{tl_version}
-Provides:       tex(mlstrans.tex) = %{tl_version}
-Provides:       tex(mnhyphex.tex) = %{tl_version}
-Provides:       tex(rlbicig.sty) = %{tl_version}
-Provides:       tex(russian.def) = %{tl_version}
-Provides:       tex(xalx.def) = %{tl_version}
 
 %description -n texlive-montex
 MonTeX provides Mongolian and Manju support for the TeX/LaTeX community.
@@ -752,7 +626,6 @@ Version:        svn44895
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(numnameru.sty) = %{tl_version}
 
 %description -n texlive-numnameru
 This package converts a numerical number to the russian spelled out name of the
@@ -777,30 +650,6 @@ Version:        svn21081
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(catkoi.tex) = %{tl_version}
-Provides:       tex(cyryoal.tex) = %{tl_version}
-Provides:       tex(cyryoas.tex) = %{tl_version}
-Provides:       tex(cyryoct.tex) = %{tl_version}
-Provides:       tex(cyryodv.tex) = %{tl_version}
-Provides:       tex(cyryomg.tex) = %{tl_version}
-Provides:       tex(cyryovl.tex) = %{tl_version}
-Provides:       tex(cyryozn.tex) = %{tl_version}
-Provides:       tex(enrhm2.tex) = %{tl_version}
-Provides:       tex(hypht2.tex) = %{tl_version}
-Provides:       tex(koi2koi.tex) = %{tl_version}
-Provides:       tex(koi2lcy.tex) = %{tl_version}
-Provides:       tex(koi2ot2.tex) = %{tl_version}
-Provides:       tex(koi2t2a.tex) = %{tl_version}
-Provides:       tex(koi2ucy.tex) = %{tl_version}
-Provides:       tex(ruenhyph.tex) = %{tl_version}
-Provides:       tex(ruhyphal.tex) = %{tl_version}
-Provides:       tex(ruhyphas.tex) = %{tl_version}
-Provides:       tex(ruhyphct.tex) = %{tl_version}
-Provides:       tex(ruhyphdv.tex) = %{tl_version}
-Provides:       tex(ruhyphen.tex) = %{tl_version}
-Provides:       tex(ruhyphmg.tex) = %{tl_version}
-Provides:       tex(ruhyphvl.tex) = %{tl_version}
-Provides:       tex(ruhyphzn.tex) = %{tl_version}
 
 %description -n texlive-ruhyphen
 A collection of Russian hyphenation patterns supporting a number of Cyrillic
@@ -815,7 +664,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(inputenc.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(russ.sty) = %{tl_version}
 
 %description -n texlive-russ
 The package aims to facilitate Russian typesetting (based on input using
@@ -832,7 +680,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tipa.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(serbian-apostrophe.sty) = %{tl_version}
 
 %description -n texlive-serbian-apostrophe
 The package provides a collection of commands (whose names are Serbian words)
@@ -844,7 +691,6 @@ Version:        svn23446
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(serbian-date-lat.sty) = %{tl_version}
 
 %description -n texlive-serbian-date-lat
 Babel defines dates for Serbian texts, in Latin script. The style it uses does
@@ -859,7 +705,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(inputenc.sty)
-Provides:       tex(serbian-def-cyr.sty) = %{tl_version}
 
 %description -n texlive-serbian-def-cyr
 This package provides abstract, chapter, title, date etc, for serbian language
@@ -872,7 +717,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xspace.sty)
-Provides:       tex(serbian-lig.sty) = %{tl_version}
 
 %description -n texlive-serbian-lig
 The package suppresses fi and fl (and other ligatures) in Serbian text written
@@ -886,13 +730,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amssymb.sty)
 Requires:       tex(enumerate.sty)
-Provides:       tex(alias-cmc.tex) = %{tl_version}
-Provides:       tex(alias-wncy.tex) = %{tl_version}
-Provides:       tex(citehack.sty) = %{tl_version}
-Provides:       tex(cyralias.tex) = %{tl_version}
-Provides:       tex(fnstcorr.tex) = %{tl_version}
-Provides:       tex(mathtext.sty) = %{tl_version}
-Provides:       tex(misccorr.sty) = %{tl_version}
 
 %description -n texlive-t2
 The T2 bundle provides a variety of separate support functions for using
@@ -931,22 +768,6 @@ Version:        svn21081
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(catlcy.tex) = %{tl_version}
-Provides:       tex(lcy2koi.tex) = %{tl_version}
-Provides:       tex(lcy2lcy.tex) = %{tl_version}
-Provides:       tex(lcy2ot2.tex) = %{tl_version}
-Provides:       tex(lcy2t2a.tex) = %{tl_version}
-Provides:       tex(lcy2ucy.tex) = %{tl_version}
-Provides:       tex(rules60.tex) = %{tl_version}
-Provides:       tex(rules90.tex) = %{tl_version}
-Provides:       tex(rules_ph.tex) = %{tl_version}
-Provides:       tex(ukrenhyp.tex) = %{tl_version}
-Provides:       tex(ukrhypfa.tex) = %{tl_version}
-Provides:       tex(ukrhyph.tex) = %{tl_version}
-Provides:       tex(ukrhypmp.tex) = %{tl_version}
-Provides:       tex(ukrhypmt.tex) = %{tl_version}
-Provides:       tex(ukrhypsm.tex) = %{tl_version}
-Provides:       tex(ukrhypst.tex) = %{tl_version}
 
 %description -n texlive-ukrhyph
 A range of patterns, depending on the encoding of the output font (including
@@ -959,7 +780,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luahyphenrules.sty)
-Provides:       tex(xecyrmongolian.sty) = %{tl_version}
 
 %description -n texlive-xecyrmongolian
 The 'xecyrmongolian' package can be used to produce documents in Cyrillic
@@ -1012,6 +832,22 @@ fi
 if [ $1 == 0 ] ; then
 sed --follow-symlinks -i '/churchslavonic.*/d' %{_texmf_main}/tex/generic/config/language.dat > /dev/null 2>&1
 sed --follow-symlinks -i '/\\addlanguage{churchslavonic}.*/d' %{_texmf_main}/tex/generic/config/language.def > /dev/null 2>&1
+fi
+:
+
+%post -n texlive-hyphen-kazakh
+if [ $1 -gt 0 ]; then
+sed --follow-symlinks -i '/kazakh.*/d' %{_texmf_main}/tex/generic/config/language.dat
+echo "kazakh loadhyph-kk.tex" >> %{_texmf_main}/tex/generic/config/language.dat
+sed --follow-symlinks -i '/\\addlanguage{kazakh}.*/d' %{_texmf_main}/tex/generic/config/language.def
+echo "\addlanguage{kazakh}{loadhyph-kk.tex}{}{2}{2}" >> %{_texmf_main}/tex/generic/config/language.def
+fi
+:
+
+%postun -n texlive-hyphen-kazakh
+if [ $1 == 0 ] ; then
+sed --follow-symlinks -i '/kazakh.*/d' %{_texmf_main}/tex/generic/config/language.dat > /dev/null 2>&1
+sed --follow-symlinks -i '/\\addlanguage{kazakh}.*/d' %{_texmf_main}/tex/generic/config/language.def > /dev/null 2>&1
 fi
 :
 
@@ -1179,6 +1015,7 @@ tar -xf %{SOURCE76} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE77} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE78} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE79} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE80} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1258,32 +1095,76 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-belarusian
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-be.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-be.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-be.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-be.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-be.pat.txt
 
 %files -n texlive-hyphen-bulgarian
-%{_texmf_main}/tex/generic/hyph-utf8/
+%license other-free.txt
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-bg.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-bg.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-bg.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-bg.pat.txt
 
 %files -n texlive-hyphen-churchslavonic
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-cu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-cu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cu.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cu.pat.txt
+
+%files -n texlive-hyphen-kazakh
+%license pd.txt
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-kk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-kk.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-kk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-kk.pat.txt
 
 %files -n texlive-hyphen-mongolian
 %license lppl1.3c.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-mn-cyrl-x-lmc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-mn-cyrl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-mn-cyrl-x-lmc.lmc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-mn-cyrl.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-mn-cyrl-x-lmc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-mn-cyrl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-mn-cyrl.pat.txt
 
 %files -n texlive-hyphen-russian
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ru.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-ru.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ru.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ru.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ru.pat.txt
 
 %files -n texlive-hyphen-serbian
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sr-cyrl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sr-latn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sh-cyrl.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sh-latn.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sh-cyrl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sh-latn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sr-cyrl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sh-cyrl.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sh-cyrl.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sh-latn.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sh-latn.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sr-cyrl.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sr-cyrl.pat.txt
 
 %files -n texlive-hyphen-ukrainian
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-uk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-uk.t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-uk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-uk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-uk.pat.txt
 
 %files -n texlive-lcyw
 %license lppl1.3c.txt
@@ -1292,6 +1173,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-lh
 %license lppl1.3c.txt
+%{_texmf_main}/fonts/pk/ljfour/lh/
 %{_texmf_main}/fonts/source/lh/base/
 %{_texmf_main}/fonts/source/lh/lh-XSlav/
 %{_texmf_main}/fonts/source/lh/lh-conc/
@@ -1304,12 +1186,15 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/fonts/source/lh/lh-x2/
 %{_texmf_main}/fonts/source/lh/nont2/
 %{_texmf_main}/fonts/source/lh/specific/
+%{_texmf_main}/fonts/tfm/lh/lh-t2a/
 %{_texmf_main}/tex/latex/lh/
 %{_texmf_main}/tex/plain/lh/
 %doc %{_texmf_main}/doc/fonts/lh/
 
 %files -n texlive-lhcyr
 %license other-free.txt
+%{_texmf_main}/fonts/tfm/lhcyr/lh-t2a/
+%{_texmf_main}/fonts/tfm/lhcyr/lh-t2b/
 %{_texmf_main}/tex/latex/lhcyr/
 
 %files -n texlive-lshort-bulgarian
@@ -1415,6 +1300,14 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xecyrmongolian/
 
 %changelog
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78069-7
+- Fix hyph-utf8 paths
+
+* Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78069-6
+- Update collection from svn69727 to svn78069
+- Add hyphen-kazakh
+- Update 9 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn69727-5
 - Add provides for .cls files
 

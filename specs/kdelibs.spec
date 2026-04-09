@@ -38,8 +38,9 @@
 %else
 %define upower 1
 %endif
-# enable tests (disabled by default)
-#global tests 1
+%if 0%{?fedora} < 44
+%define libpcre 1
+%endif
 
 # unconditionally enable hardening, http://bugzilla.redhat.com/965527
 %global _hardened_build 1
@@ -55,7 +56,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 52%{?dist}
+Release: 53%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -114,8 +115,6 @@ Requires: shared-mime-info
 %if 0%{?fedora} > 22
 # Rich deps are currently problematic
 # for any yum-based tools, see https://bugzilla.redhat.com/show_bug.cgi?id=1317481
-#Requires: (kde-platform-plugin%{?_isa} if plasma-workspace)
-#Requires: (kde-style-breeze%{?_isa} if plasma-desktop)
 Recommends: kde-platform-plugin%{?_isa}
 Recommends: kde-style-breeze%{?_isa}
 %endif
@@ -303,7 +302,9 @@ BuildRequires: pkgconfig(enchant)
 BuildRequires: pkgconfig(jasper)
 BuildRequires: pkgconfig(libattica) >= %{attica_ver}
 BuildRequires: pkgconfig(liblzma)
+%if 0%{?libpcre}
 BuildRequires: pkgconfig(libpcre)
+%endif
 %if 0%{?strigi}
 BuildRequires: pkgconfig(libstreams)
 %endif
@@ -561,6 +562,23 @@ sed -i -e "s|@@VERSION_RELEASE@@|%{version}-%{release}|" kio/kio/kprotocolmanage
 %patch -P301 -p1 -b .abrt
 %endif
 
+# FTBFS Workaround for new cmake
+cat << 'EOF' > cmake4-kde4-compat.cmake
+cmake_policy(VERSION 3.10...3.30)
+cmake_policy(SET CMP0153 OLD)
+link_libraries(QtCore QtGui QtXml QtNetwork QtDBus Qt3Support)
+EOF
+
+mkdir -p cmake-compat
+cp /usr/lib*/automoc4/automoc4.files.in /usr/lib*/automoc4/Automoc4* cmake-compat/ 2>/dev/null || :
+
+find . -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i \
+    -e '/LINK_INTERFACE_LIBRARIES/d' \
+    -e '/EXPORT_LINK_INTERFACE_LIBRARIES/d' \
+    -e '/set_target_properties.*PROPERTIES.*INTERFACE_LINK_LIBRARIES/d' \
+    -e 's/VERSION 2\.[68]\.[49] FATAL_ERROR/VERSION 3.10/g' \
+    -e 's/CMP0002 OLD/CMP0002 NEW/g' \
+    {} +
 
 %build
 
@@ -571,6 +589,12 @@ pushd %{_target_platform}
   -DKAUTH_BACKEND:STRING="PolkitQt-1" \
   -DKDE_DISTRIBUTION_TEXT="%{version}-%{release}%{?fedora: Fedora}%{?rhel: Red Hat Enterprise Linux}" \
   -DKIO_NO_SOPRANO:BOOL=ON \
+  -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=cmake4-kde4-compat.cmake \
+  -DAutomoc4_DIR=cmake-compat \
+  -DAUTOMOC4_EXECUTABLE=%{_bindir}/automoc4 \
+%if ! 0%{?libpcre}
+  -DKJS_FORCE_DISABLE_PCRE=true \
+%endif
   %{?udisks2:-DWITH_SOLID_UDISKS2:BOOL=ON} \
   ..
 popd
@@ -911,6 +935,10 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Thu Apr 02 2026 Than Ngo <than@redhat.com> - 6:4.14.38-53
+- Fix FTBFS with new cmake-4
+- Fix rhbz#2454283 - F45FailsToInstall
+
 * Sat Mar 21 2026 Miroslav Suchy <msuchy@redhat.com> - 6:4.14.38-52
 - Obsolete webkit (RHBZ#2445227)
 
