@@ -21,7 +21,7 @@
 #
 %global upstreamname rdc
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -157,6 +157,9 @@ chmod a+x %{buildroot}%{_libexecdir}/rdc/authentication/*.sh
 
 
 %changelog
+* Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
+- Update to 7.2.1
+
 * Wed Feb 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

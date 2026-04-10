@@ -20,7 +20,7 @@
 #
 
 %global upstream_prefix ClusterLabs-resource-agents
-%global upstream_version 7a4080a0
+%global upstream_version 496e9a45
 
 # Whether this platform defaults to using systemd as an init system
 # (needs to be evaluated prior to BuildRequires being enumerated and
@@ -51,8 +51,8 @@
 
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
-Version:	4.17.0
-Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}.1
+Version:	4.18.0
+Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
@@ -406,6 +406,9 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Wed Apr  8 2026 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.18.0-1
+- Rebase to resource-agents 4.18.0 upstream release.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.0-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

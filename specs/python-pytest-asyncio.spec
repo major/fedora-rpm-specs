@@ -1,14 +1,15 @@
 %bcond_without  tests
 
 Name:           python-pytest-asyncio
-Version:        1.1.0
+Version:        1.3.0
 Release:        %autorelease
+BuildArch:      noarch
 Summary:        Pytest support for asyncio
 License:        Apache-2.0
 URL:            https://github.com/pytest-dev/pytest-asyncio
 Source:         %{pypi_source pytest_asyncio}
-BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 %global _description %{expand:
 pytest-asyncio is a pytest plugin.  It facilitates testing of code that uses the
@@ -30,13 +31,7 @@ Summary:        %{summary}
 %autosetup -n pytest_asyncio-%{version}
 
 # disable code quality checks in "testing" extras
-sed -e '/coverage >=/d' \
-    -i setup.cfg
-
-%if %{defined el9}
-# EL9 has setuptools_scm 6.0.1 that works
-sed -e '/setuptools_scm/ s/>=6.2//' -i pyproject.toml
-%endif
+tomcli set pyproject.toml lists delitem project.optional-dependencies.testing 'coverage>=.*'
 
 
 %generate_buildrequires
@@ -59,13 +54,18 @@ sed -e '/setuptools_scm/ s/>=6.2//' -i pyproject.toml
 # Some of the upstream tests are really picky about the number of warnings
 # emitted.  This can cause failures for us in rawhide with the latest versions
 # of pytest and pre-release versions of python, so we'll skip those tests.
-export PYTEST_ADDOPTS="-k 'not test_can_use_explicit_event_loop_fixture and \
+export PYTEST_ADDOPTS="-k '\
+not test_asyncio_mark_respects_parametrized_loop_policies and \
+not test_asyncio_mark_respects_the_loop_policy and \
+not test_can_use_explicit_event_loop_fixture and \
 not test_closing_event_loop_in_sync_fixture_teardown_raises_warning and \
 not test_event_loop_fixture_finalizer_raises_warning_when_fixture_leaves_loop_unclosed and \
 not test_event_loop_fixture_finalizer_raises_warning_when_test_leaves_loop_unclosed and \
 not test_event_loop_fixture_asyncgen_error and \
 not test_event_loop_already_closed and \
-not test_event_loop_fixture_handles_unclosed_async_gen'"
+not test_event_loop_fixture_handles_unclosed_async_gen and \
+not test_standalone_test_does_not_trigger_warning_about_no_current_event_loop_being_set and \
+not test_warns_when_scope_argument_is_present'"
 %pytest
 %else
 %pyproject_check_import

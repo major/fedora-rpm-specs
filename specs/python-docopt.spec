@@ -9,8 +9,8 @@ URL:            https://github.com/docopt/docopt
 Source:         %{url}/archive/%{version}/docopt-%{version}.tar.gz
 BuildArch:      noarch
 
-# pytest 6.2+ support
-Patch:          %{url}/pull/493.patch
+# pytest 9 compatibility
+Patch:          https://github.com/docopt/docopt/pull/531.patch
 
 %global _description %{expand:
 Isn't it awesome how optparse and argparse generate help messages based on your
@@ -35,7 +35,7 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -n docopt-%{version}
+%autosetup -p1 -n docopt-%{version}
 
 
 %generate_buildrequires

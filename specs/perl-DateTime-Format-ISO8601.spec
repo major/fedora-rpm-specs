@@ -1,6 +1,6 @@
 Name:       perl-DateTime-Format-ISO8601 
-Version:    0.17
-Release:    3%{?dist}
+Version:    0.19
+Release:    1%{?dist}
 # LICENSE, lib/DateTime/Format/ISO8601.pod -> GPL+ or Artistic
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Parses ISO8601 date-time formats
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 08 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

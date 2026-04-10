@@ -1,5 +1,5 @@
 Name:           python-exabgp
-Version:        5.0.7
+Version:        5.0.8
 Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Wed Apr 08 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.8-1
+- Update to version 5.0.8 release (resolves rhbz#2456563)
+
 * Sat Apr 04 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.7-1
 - Update to version 5.0.7 release (resolves rhbz#2455065)
 

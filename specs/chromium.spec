@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 146.0.7680.177
+Version: 147.0.7727.55
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -326,7 +326,6 @@ Patch97: chromium-141-glibc-2.42-SYS_SECCOMP.patch
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
-Patch130: chromium-142-el9-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
@@ -337,14 +336,14 @@ Patch133: chromium-142-el9-ffmpeg-5.1.x.patch
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
 Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
-
+# fatal error: 'third_party/ffmpeg/libavutil/rational.h' file not found
+Patch137: chromium-147-system-ffmpeg.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
 Patch143: chromium-146-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
-Patch145: chromium-146-ftbfs-rust-bytemuck.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -394,8 +393,8 @@ Patch314: chromium-136-rust-skrifa-build-error.patch
 # error with old rustc
 Patch315: chromium-145-rustc-ftbfs.patch
 
-# add -ftrivial-auto-var-init=zero and -fwrapv
-Patch316: chromium-122-clang-build-flags.patch
+# llvm <= 22: clang++: error: unknown argument: '-fno-lifetime-dse'
+Patch316: chromium-147-clang++-unknown-argument.patch
 
 # unknown warning option -Wno-nontrivial-memcall
 Patch317: chromium-142-clang++-unknown-argument.patch
@@ -1084,7 +1083,6 @@ Qt6 UI for chromium.
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
-%patch -P130 -p1 -b .el9-ffmpeg-5.x-duration
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
 %patch -P131 -p1 -b .prop-codecs
@@ -1092,6 +1090,7 @@ Qt6 UI for chromium.
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
 %patch -P136 -p1 -b .workaround-system-ffmpeg-whitelist
 %endif
+%patch -P137 -p1 -b .system-ffmpeg
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
@@ -1101,8 +1100,6 @@ Qt6 UI for chromium.
 %patch -P143 -p1 -b .rust-1.88-enable-unstable_features
 %patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
-
-%patch -P145 -p1 -b .ftbfs-rust-bytemuck
 
 %patch -P150 -p1 -b .qt6
 
@@ -1132,7 +1129,8 @@ Qt6 UI for chromium.
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
 %endif
-%patch -P316 -p1 -b .clang-build-flags
+
+%patch -P316 -p1 -b .clang++-unknown-argument
 
 %if 0%{?fedora} && 0%{?fedora} < 42 || 0%{?rhel} && 0%{?rhel} < 10
 %patch -P317 -p1 -b .clang++-unsupported-argument
@@ -1859,6 +1857,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 08 2026 Than Ngo <than@redhat.com> - 147.0.7727.55-1
+- Update to 147.0.7727.55
+
 * Wed Apr 01 2026 Than Ngo <than@redhat.com> - 146.0.7680.177-1
 - Update to 146.0.7680.177
   * High CVE-2026-5273: Use after free in CSS

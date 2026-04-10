@@ -3,7 +3,7 @@
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
 Version: 23.08.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
@@ -74,6 +74,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 23.08.5-7
+- Libraw rebuild
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 23.08.5-6
 - LibRaw rebuild
 

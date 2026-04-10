@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -423,6 +423,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.1.2.13-2
+- Libraw rebuild
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.1.2.13-1
 - 7.1.2.13
 

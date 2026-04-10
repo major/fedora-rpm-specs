@@ -2,7 +2,7 @@
 
 Name:           aqualung
 Version:        2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
 URL:            https://aqualung.jeremyevans.net
@@ -10,6 +10,12 @@ Source:         %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         %{name}.desktop
 # https://github.com/jeremyevans/aqualung/pull/48
 Patch:          %{name}-ffmpeg8.patch
+# https://github.com/jeremyevans/aqualung/pull/46
+Patch:          %{name}-add-opus.patch
+# https://github.com/jeremyevans/aqualung/pull/44
+Patch:          %{name}-configure-typo.patch
+# https://github.com/jeremyevans/aqualung/pull/43
+Patch:          %{name}-reject-corrupt-ID3v2.patch
 
 # autogen.sh
 BuildRequires:  autoconf
@@ -95,7 +101,7 @@ export LDFLAGS="$LDFLAGS $(pkg-config --libs-only-L jack)"
     --with-mpeg \
     --with-mod \
     --with-mpc \
-    --with-mac \
+    --with-MAC \
     --with-lavc \
     --with-lame \
     --with-wavpack \
@@ -188,6 +194,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Wed Apr 08 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0-8
+- backport upstream patches
+- use correctly named configure parameter for libMAC
+
 * Mon Mar 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.0-7
 - one more rebuild for lua
 

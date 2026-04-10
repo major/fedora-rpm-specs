@@ -1,11 +1,7 @@
 %global __cmake_in_source_build 1
 
-%if 0%{?fedora} >= 36
 # Leave undefined if not 1:
 %ifarch %{java_arches}
-%global JAVA 1
-%endif
-%else
 %global JAVA 1
 %endif
 

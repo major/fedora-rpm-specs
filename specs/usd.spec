@@ -154,6 +154,15 @@ Patch:          %{forgeurl}/pull/3903.patch
 # Backport fix for CVE-2026-34544 in OpenEXRCore
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/4028
 Patch:          %{forgeurl}/pull/4028.patch
+# Backport several OpenEXRCore security fixes
+# https://github.com/PixarAnimationStudios/OpenUSD/pull/4030
+# Fixes:
+# - CVE-2026-34378 / GHSA-v76p-4qvv-vh4g / RHBZ#2455493
+# - CVE-2026-34380 / GHSA-q3v8-hw4m-59w5 / RHBZ#2455534
+# - CVE-2026-34588 / GHSA-588r-cr5c-w6hf / RHBZ#2455505
+# - CVE-2026-34589 / GHSA-p8xc-w3q4-h64x / RHBZ#2455501
+# - CVE-2026-34379 / GHSA-w88v-vqhq-5p24 / RHBZ#2455497
+Patch:          %{forgeurl}/pull/4030.patch
 
 # Base
 BuildRequires:  gcc-c++

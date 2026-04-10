@@ -1,4 +1,4 @@
-%bcond tests %{undefined rhel}
+%bcond tests %[ %{undefined rhel} || 0%{?rhel} >= 10 ]
 
 Name:           ansible-collection-community-crypto
 Version:        3.1.1

@@ -16,9 +16,6 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    b2429f58ae75cae980b5bb9873abe4de6aac8b58
-%global gh_date      2026-04-03
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
 # Packagist
@@ -30,18 +27,15 @@
 %global ver_major    12
 %global ver_minor    5
 
-%global upstream_version 12.5.16
-#global upstream_prever  dev
-
 Name:           %{pk_project}%{ver_major}
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Version:        12.5.17
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{upstream_version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Fix command for autoload
@@ -159,7 +153,7 @@ Documentation: https://phpunit.de/documentation.html
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 %patch -P0 -p0 -b .rpm
 
 find . -name \*.rpm -delete -print
@@ -290,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 12.5.17-1
+- update to 12.5.17
+
 * Fri Apr  3 2026 Remi Collet <remi@remirepo.net> - 12.5.16-1
 - update to 12.5.16
 

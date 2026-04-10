@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        359
+Version:        360
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -381,7 +381,7 @@ Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
-Provides: bundled(npm(lodash)) = 4.17.23
+Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -665,6 +665,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 08 2026 Packit <hello@packit.dev> - 360-1
+- ws: be more explicit when handling hostnames on cli [CVE-2026-4631]
+- ws: support loading a custom login page
+- Translation updates
+
 * Thu Mar 26 2026 Packit <hello@packit.dev> - 359-1
 - Bug fixes and translation updates
 

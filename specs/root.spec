@@ -2420,7 +2420,7 @@ gtest-tree-ntuple-ntuple-evolution-shape"
 # - gtest-tree-ntuple-ntuple-merger
 #   Random failures
 excluded="${excluded}|\
-gtest-tree-ntuple-ntuple-emulatedy|\
+gtest-tree-ntuple-ntuple-emulated|\
 gtest-tree-ntuple-ntuple-merger"
 %endif
 

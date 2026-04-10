@@ -128,7 +128,7 @@
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with preview}
-Release:        0.rocm%{rocm_version}%{?dist}
+Release:        1000.rocm%{rocm_version}%{?dist}
 %else
 Release:        8.rocm%{rocm_version}%{?dist}
 %endif

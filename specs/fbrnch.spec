@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.8.1
 # can only be reset when all subpkgs bumped
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -134,7 +134,11 @@ Requires:       openssh-clients
 Requires:       rpm-build
 Requires:       rpmautospec
 Requires:       rpmdevtools
+%if %{defined fedora}
 Requires:       util-linux-script
+%else
+Requires:       util-linux
+%endif
 Recommends:     copr-cli
 Recommends:     fedora-review
 Recommends:     koji-tool
@@ -211,6 +215,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Apr 08 2026 Jens Petersen <petersen@redhat.com> - 1.8.1-39
+- el10 util-linux provides 'script'
+
 * Sat Mar 21 2026 Jens Petersen <petersen@redhat.com> - 1.8.1-38
 - new native watchtask implementation and command
 - local build.log's now generated with 'script' tool instead of tee pipe

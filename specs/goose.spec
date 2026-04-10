@@ -13,6 +13,7 @@ Version:        1.23.2
 Release:        %autorelease
 Summary:        Extensible AI agent client
 URL:            https://github.com/block/goose
+
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # To create the vendor tarball, use the generate-vendor-tarball.sh script:
 #   chmod +x generate-vendor-tarball.sh
@@ -30,7 +31,11 @@ Source4:        d3-sankey.license
 Source5:        leaflet.license
 Source6:        leaflet-markercluster.license
 Source7:        mermaid.license
+# This source provides a specialized shell script to set up goose in RHEL
+# environments, where it will be placed in /etc/profile.d and handle the creation
+# of a well-craft config file to connect with RHEL Lightspeed services. 
 Source8:        goose-init.sh
+
 # This script is used to generate the vendor tarball for goose, and while it
 # does not offer any practical/real usage for the application, it helps us to
 # easily generate the vendored tarball and apply the correct patches while
@@ -300,7 +305,7 @@ Provides:       bundled(leaflet-markercluster-min-js) = 1.5.3
 # any version here.
 Provides:       bundled(mermaid-min-js)
 
-%description
+%global _description %{expand: 
 Goose is your on-machine AI agent, capable of automating complex development
 tasks from start to finish. More than just code suggestions, goose can build
 entire projects from scratch, write and execute code, debug failures,
@@ -314,7 +319,26 @@ Designed for maximum flexibility, goose works with any LLM and supports
 multi-model configuration to optimize performance and cost, seamlessly
 integrates with MCP servers, and is available as both a desktop app as well as
 CLI - making it the ultimate AI assistant for developers who want to move
-faster and focus on innovation.
+faster and focus on innovation.}
+
+%description    %{_description}
+
+%if 0%{?rhel}
+%package        redhat
+Summary:        %{summary}
+
+# Add a strict requirement for the goose-redhat subpackage in case this build
+# is done in EPEL/RHEL, as we want to provide our custom config for this target.
+Requires:       %{name} = %{version}-%{release}
+
+%description    redhat %{_description}
+
+This package contains Red Hat specific configurations for %{name}, which enable
+the communication with RHEL Lightspeed services.
+
+%files          redhat
+%{_sysconfdir}/profile.d/goose-init.sh
+%endif
 
 %prep
 %autosetup -p1 -a1
@@ -466,11 +490,6 @@ skip="${skip-} --skip scenario_tests::scenarios::tests::test_image_analysis"
 %{_bindir}/goose
 %{_bindir}/goosed
 %{_bindir}/goose-acp-server
-
-%if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
-# Creates default Red Hat recommended config if needed
-%{_sysconfdir}/profile.d/goose-init.sh
-%endif
 
 %changelog
 %autochangelog

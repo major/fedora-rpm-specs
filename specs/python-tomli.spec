@@ -1,8 +1,9 @@
-# Whether to build extension modules with mypyc:
-%bcond          mypyc 1
+# Whether to build extension modules with mypyc (disabled on Python prereleases):
+# (Note that we cannot use %%python3_version here because the bcond needs to determined when building the SRPM.)
+%bcond          mypyc %[v"0%{?__default_python3_pkgversion}" <= v"3.14"]
 
 Name:           python-tomli
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        A little TOML parser for Python
 

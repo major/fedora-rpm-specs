@@ -10,8 +10,8 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    4.0.0
-Release:    3%{?dist}
+Version:    4.0.6
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -19,7 +19,7 @@ License:    GPL-2.0-or-later
 URL:        https://smb4k.sourceforge.net/
 Source0:    https://downloads.sourceforge.net/smb4k/%{name}-%{version}.tar.xz
 
-BuildRequires:  cmake3 >= 2.6.0
+BuildRequires:  cmake >= 2.6.0
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
@@ -125,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata
 %{_kf6_qmldir}/org/kde/smb4k/
 
 %changelog
+* Sun Feb 15 2026 Packit <hello@packit.dev> - 4.0.6-1
+- Update to version 4.0.6
+- Resolves: rhbz#2365800
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

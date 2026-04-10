@@ -14,8 +14,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        2.5.0
-Release:        2%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        An etcd3 gateway Python client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -114,18 +114,21 @@ py.test-3
 %if %{with python2}
 %files -n python2-%{srcname}
 %license LICENSE
-%doc README.md CONTRIBUTING.rst HACKING.rst
+%doc README.rst CONTRIBUTING.rst HACKING.rst
 %{python2_sitelib}/%{srcname}-*.egg-info/
 %{python2_sitelib}/%{srcname}/
 %endif
 
 %if %{with python3}
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.md CONTRIBUTING.rst HACKING.rst
+%doc README.rst CONTRIBUTING.rst HACKING.rst
 %endif
 
 
 %changelog
+* Wed Apr 08 2026 John Eckersberg <jeckersb@redhat.com> - 2.6.0-1
+- New upstream version 2.6.0 (rhbz#2456370)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

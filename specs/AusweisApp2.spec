@@ -37,7 +37,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.4.1
+Version:          2.5.0
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
@@ -60,20 +60,16 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
-# Needed because Fedora's openssl does not support elliptic curves using custom parameters.
-# Request to enable them was denied: https://bugzilla.redhat.com/show_bug.cgi?id=2259403
-# It is currently not clear if the legacy API works by accident or by design. It does work as of March 2025.
-Patch01001:       0001-Use-legacy-OpenSSL-API.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc-c++
 BuildRequires:    gnupg2
-BuildRequires:    http-parser-devel
 BuildRequires:    libappstream-glib
 BuildRequires:    libudev-devel
 BuildRequires:    libxkbcommon-devel
+BuildRequires:    llhttp-devel
 BuildRequires:    ninja-build
 BuildRequires:    openssl-devel
 BuildRequires:    pcsc-lite-devel
@@ -206,6 +202,12 @@ EOF
 # consumed externally.  Thus we disable shared libs explicitly.
 # See:  https://github.com/Governikus/AusweisApp2/pull/24
 # and:  https://github.com/Governikus/AusweisApp2/pull/26
+# USE_LEGACY_OPENSSL_API is needed because Fedora's openssl does not support
+# elliptic curves using custom parameters.
+# Request to enable them was denied:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2259403
+# While it is not clear if the legacy API works by accident or by design, it
+# still works as of April 2026.
 %cmake                                     \
   -DBUILD_SHARED_LIBS:BOOL=OFF             \
   -DBUILD_TESTING:BOOL=OFF                 \
@@ -213,6 +215,7 @@ EOF
   -DINTEGRATED_SDK:BOOL=OFF                \
   -DPYTHON_EXECUTABLE:STRING=%{__python3}  \
   -DSELFPACKER:BOOL=OFF                    \
+  -DUSE_LEGACY_OPENSSL_API:BOOL=ON         \
   -DUSE_SMARTEID:BOOL=ON                   \
   -G Ninja
 %cmake_build

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.30.4
+Version:    2.30.6
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -192,7 +192,8 @@ pushd engine
         echo "/usr/share/m17n/si-wijesekara.mim does not exist, m17n-db probably < 1.8.6, skipping doctest of m17n_translit.py"
     fi
     python3 itb_emoji.py -v
-    python3 itb_util.py -v
+    python3 itb_util_core.py -v
+    python3 itb_util_gui.py -v
 popd
 mkdir -p /tmp/glib-2.0/schemas/
 cp org.freedesktop.ibus.engine.typing-booster.gschema.xml \

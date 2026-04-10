@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.18.7
+Version:        1.19.0
 Release:        1%{?dist}
 
 # Macro files
@@ -167,6 +167,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Tue Mar 31 2026 Miro Hrončok <mhroncok@redhat.com> - 1.19.0-1
+- Add -d option for %%pyproject_buildrequires and %%pyproject_wheel to specify a working directory
+- Fixes: rhbz#2371389
+
 * Wed Mar 04 2026 Lumír Balhar <lbalhar@redhat.com> - 1.18.7-1
 - pyproject_convert: Use deprecated LegacyVersion (_version) only if necessary
 

@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-ocaml
+%global crate scanlex
 
-Name:           rust-tree-sitter-ocaml
-Version:        0.24.2
+Name:           rust-scanlex
+Version:        0.1.4
 Release:        %autorelease
-Summary:        OCaml grammar for tree-sitter
+Summary:        Simple lexical scanner for parsing text into tokens
 
 License:        MIT
-URL:            https://crates.io/crates/tree-sitter-ocaml
+URL:            https://crates.io/crates/scanlex
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-OCaml grammar for tree-sitter.}
+A simple lexical scanner for parsing text into tokens.}
 
 %description %{_description}
 
@@ -30,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/readme.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

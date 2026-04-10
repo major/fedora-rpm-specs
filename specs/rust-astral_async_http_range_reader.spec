@@ -5,7 +5,7 @@
 %global crate astral_async_http_range_reader
 
 Name:           rust-astral_async_http_range_reader
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Library for streaming reading of files over HTTP using range requests
 
@@ -32,11 +32,6 @@ Source:         %{crates_source}
 #   however, site-packages/andes/utils/lazyimport.py carries a (SPDX) MIT
 #   license.
 Source10:       https://github.com/astral-sh/async_http_range_reader/raw/deca957f19041364b13c6a8dd477fe204f11fe8d/test-data/andes-1.8.3-pyhd8ed1ab_0.conda
-# Manually created patch for downstream crate metadata changes
-# * chore: A couple of dev-dependency tweaks:
-#   https://github.com/astral-sh/async_http_range_reader/pull/2 (Update rstest
-#   dev-dependency to 0.26; Switch async_zip dev-dependency to astral_async_zip)
-Patch:          astral_async_http_range_reader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

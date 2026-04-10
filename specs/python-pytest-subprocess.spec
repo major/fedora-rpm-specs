@@ -1,14 +1,11 @@
 Name:           python-pytest-subprocess
-Version:        1.5.3
+Version:        1.5.4
 Release:        %autorelease
 Summary:        A plugin to fake subprocess for pytest
 
 License:        MIT
 URL:            https://github.com/aklajnert/pytest-subprocess
 Source0:        %{url}/archive/%{version}/pytest-subprocess-%{version}.tar.gz
-
-# Fix compatibilty with Py 3.14
-Patch:          https://github.com/aklajnert/pytest-subprocess/commit/be30d9a94ba45afb600717e3fcd95b8b2ff2c60e.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -36,6 +33,9 @@ sed -Ei '/\bcoverage\b/d' setup.py
 # Don't turn warning into errors when running tests
 # https://github.com/aklajnert/pytest-subprocess/issues/146
 sed -i '/error/d' pytest.ini
+
+# Fix hardcoded "python" command in doctests - Fedora only has python3
+sed -i 's/"python"/"python3"/g' README.rst
 
 
 %generate_buildrequires

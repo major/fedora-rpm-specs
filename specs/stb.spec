@@ -212,7 +212,7 @@ Patch:          %{url}/pull/1736.patch
 # Re-crated on top of all of the above patches.
 Patch:          pr-1862.patch
 
-#  Fixes issue #1861 by zero-initializing palette.
+# Fixes issue #1861 by zero-initializing palette.
 # https://github.com/nothings/stb/pull/1863
 #
 # Fixes:
@@ -220,6 +220,11 @@ Patch:          pr-1862.patch
 # Out-of-bounds read in PNG palette expansion
 # https://github.com/nothings/stb/issues/1861
 Patch:          %{url}/pull/1863.patch
+
+# Fix suggested in text of issue:
+# stbi__bmp_load: uninitialized stack memory leak via palette index > biClrUsed
+# https://github.com/nothings/stb/issues/1929
+Patch:          issue-1929.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96

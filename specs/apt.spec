@@ -13,8 +13,8 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        3.1.16
-Release:        2%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -329,6 +329,10 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Tue Apr 07 2026 Packit <hello@packit.dev> - 3.2.0-1
+- Update to version 3.2.0
+- Resolves: rhbz#2455922
+
 * Tue Feb 17 2026 Terje Rosten <terjeros@gmail.com> - 3.1.16-2
 - Backport 3.1.16 to epel9
 

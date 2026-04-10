@@ -13,7 +13,7 @@
 
 Name:		faust
 Version:	2.85.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
@@ -113,6 +113,9 @@ chmod -x compiler/draw/device/SVGDev.* architecture/VST/PkgInfo
 chmod +x tools/faust2appls/faust2*
 chmod -x tools/faust2pd/faust2*
 
+#Prep for renamed usage.sh
+sed -i s/usage.sh/faust-usage.sh/g tools/faust2appls/faust2*
+
 # Fix encoding
 for i in examples syntax-highlighting; do
 	iconv -f iso8859-1 -t utf8 $i/README.md -o tmpfile
@@ -155,6 +158,9 @@ cp -a syntax-highlighting/%{name}.xml \
 
 find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 
+#Rename usage.sh
+mv %{buildroot}%{_bindir}/usage.sh %{buildroot}%{_bindir}/faust-usage.sh
+
 %ldconfig_scriptlets osclib
 
 %files
@@ -167,7 +173,7 @@ find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 %{_bindir}/faustremote
 %{_bindir}/filename2ident
 %{_bindir}/sound2reader
-%{_bindir}/usage.sh
+%{_bindir}/faust-usage.sh
 %{_datadir}/%{name}/
 
 %files osclib
@@ -194,6 +200,9 @@ find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Tue Apr 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.85.5-2
+- Rename usage.sh to avoid conflict with mmseq
+
 * Mon Mar 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.85.5-1
 - 2.85.5
 

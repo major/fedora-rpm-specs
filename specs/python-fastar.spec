@@ -1,5 +1,5 @@
 Name:           python-fastar
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        High-level bindings for the Rust tar crate
 

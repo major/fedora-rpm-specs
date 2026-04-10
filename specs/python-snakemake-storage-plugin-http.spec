@@ -15,6 +15,10 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-http
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-http-%{version}.tar.gz
 
+# chore(deps): update requests-oauthlib requirement from ^1.3.1 to >=1.3.1,<3.0.0
+# https://github.com/snakemake/snakemake-storage-plugin-http/pull/37
+Patch:          %{url}/pull/37.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_storage_plugin_http
 

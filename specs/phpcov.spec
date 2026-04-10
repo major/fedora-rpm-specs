@@ -10,7 +10,7 @@
 %bcond_without tests
 
 
-%global gh_commit    74b950835e1b012ec422f112492929b2c832ffe5
+%global gh_commit    c87f0c3f19fb0d7518d357631713ee59af3d753d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -24,7 +24,7 @@
 
 
 Name:           %{pk_project}
-Version:        12.0.0
+Version:        13.0.0
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
@@ -40,26 +40,25 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  phpunit13
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 13.0.1 with php-composer(phpunit/php-code-coverage) < 14)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.0.0 with php-composer(phpunit/php-code-coverage) < 15)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
 BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
 BuildRequires:  (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
 BuildRequires:  (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 BuildRequires:  php-pecl(Xdebug) >= 3
+# from composer.json, require-dev
+BuildRequires:  phpunit13 >= 13.1
 %endif
 
 # from composer.json
 #        "php": ">=8.4",
-#        "phpunit/phpunit": "^13.0.0",
-#        "phpunit/php-code-coverage": "^13.0.1",
+#        "phpunit/php-code-coverage": "^14.0.0",
 #        "phpunit/php-file-iterator": "^7.0.0",
 #        "sebastian/cli-parser": "^5.0.0",
 #        "sebastian/diff": "^8.0.0",
 #        "sebastian/version": "^7.0.0"
 Requires:       php(language) >= 8.4
-Requires:       phpunit13
-Requires:       (php-composer(phpunit/php-code-coverage) >= 13.0.1 with php-composer(phpunit/php-code-coverage) < 14)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 14.0.0 with php-composer(phpunit/php-code-coverage) < 15)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
 Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
 Requires:       (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
@@ -92,7 +91,7 @@ cat << 'EOF' | tee -a src/autoload.php
 // Dependencies
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/PHPUnit13/autoload.php',
-    '%{php_home}/%{ns_vendor}/CodeCoverage13/autoload.php',
+    '%{php_home}/%{ns_vendor}/CodeCoverage14/autoload.php',
     '%{php_home}/%{ns_vendor}/FileIterator7/autoload.php',
     '%{php_home}/%{ns_vendor}/CliParser5/autoload.php',
     '%{php_home}/%{ns_vendor}/Diff8/autoload.php',
@@ -118,10 +117,14 @@ then EXT="-d zend_extension=xdebug.so"
 fi
 
 # test with hardcoded path in data
-rm tests/end-to-end/execute/valid-script-argument-with-cli-include-with-text-report.phpt
-rm tests/end-to-end/merge/valid-directory-with-text-report.phpt
-rm tests/end-to-end/merge/valid-directory-with-text-report-stdout.phpt
-rm tests/end-to-end/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
+rm tests/end-to-end/composer/merge/mismatching-code-coverage-driver-do-not-require.phpt
+rm tests/end-to-end/composer/merge/mismatching-git-information-do-not-require.phpt
+rm tests/end-to-end/composer/merge/valid-directory-with-text-report.phpt
+rm tests/end-to-end/composer/patch-coverage/no-errors-with-only-not-covered-changed-lines.phpt
+rm tests/end-to-end/composer/merge/mismatching-php-version-do-not-require.phpt
+rm tests/end-to-end/composer/merge/valid-directory-with-text-report-stdout.phpt
+rm tests/end-to-end/composer/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
+rm tests/end-to-end/composer/patch-coverage/valid-arguments-all-covered.phpt
 
 ret=0
 for cmd in php php84 php85; do
@@ -144,6 +147,11 @@ exit $ret;
 
 
 %changelog
+* Fri Apr  3 2026 Remi Collet <remi@remirepo.net> - 13.0.0-1
+- update to 13.0.0
+- raise dependency on phpunit/php-code-coverage 14
+- drop runtime dependency on phpunit13
+
 * Fri Feb  6 2026 Remi Collet <remi@remirepo.net> - 12.0.0-1
 - update to 12.0.0
 - raise dependency on PHP 8.4

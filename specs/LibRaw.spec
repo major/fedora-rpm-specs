@@ -1,8 +1,8 @@
-%global somajor 24
+%global somajor 25
 
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
-Version: 0.22.0
+Version: 0.22.1
 Release: 1%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
 URL: https://www.libraw.org
@@ -106,6 +106,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Mon Apr 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.22.1-1
+- 0.22.1
+
 * Tue Feb 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.22.0-1
 - 0.22.0
 

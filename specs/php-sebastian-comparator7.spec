@@ -9,11 +9,8 @@
 
 %bcond_without       tests
 
-%global gh_commit    6a7de5df2e094f9a80b40a522391a7e6022df5f6
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2026-01-24
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,14 +21,14 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.1.4
+Version:        7.1.5
 Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -76,7 +73,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -124,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 7.1.5-1
+- update to 7.1.5
+
 * Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 7.1.4-1
 - update to 7.1.4
 

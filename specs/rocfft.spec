@@ -102,6 +102,14 @@
 %global cmake_generator %{nil}
 %endif
 
+%if 0%{?rhel} < 10
+# rhel 9's sqlite is too old, fetch whatever rocfft bundles
+# assumes --enable-network
+%global system_sqlite OFF
+%else
+%global system_sqlite ON
+%endif
+
 %global cmake_config \\\
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
@@ -118,7 +126,7 @@
   -DROCFFT_BUILD_OFFLINE_TUNER=OFF \\\
   -DROCFFT_KERNEL_CACHE_ENABLE=OFF \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
-  -DSQLITE_USE_SYSTEM_PACKAGE=ON
+  -DSQLITE_USE_SYSTEM_PACKAGE=%{system_sqlite}
 
 %global gpu_list %{rocm_gpu_list_default}
 %global _gpu_list gfx1100
@@ -128,7 +136,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        (MIT AND BSD-3-Clause) AND 0BSD
@@ -281,6 +289,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Build on rhel 9
+
 * Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

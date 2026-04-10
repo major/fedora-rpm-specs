@@ -1,15 +1,15 @@
+%global pypi_name ibm-cloud-sdk-core
+%global srcname ibm_cloud_sdk_core
+
 Name:           python-ibm-cloud-sdk-core
 Epoch:          2
-Version:        3.24.3
+Version:        3.24.4
 Release:        %autorelease
 Summary:        Core library used by SDKs for IBM Cloud Services
 
 License:        Apache-2.0
 URL:            https://github.com/IBM/python-sdk-core
 Source0:        %{pypi_source ibm_cloud_sdk_core}
-# both patches relax dependency on urllib.
-# they can be removed when urllib3 is rebased to 2.x
-Patch0:         fix-deps.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -31,10 +31,12 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n ibm_cloud_sdk_core-%{version}
 echo > requirements-dev.txt
+# relax dependency on urllib.
+# it can be removed when urllib3 is rebased to 2.x
+sed -i 's/requests>=2.32.4,<3.0.0/requests/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r
-
 
 %build
 %pyproject_wheel
@@ -42,17 +44,16 @@ echo > requirements-dev.txt
 
 %install
 %pyproject_install
-
+%pyproject_save_files %{srcname}
 
 %check
+%pyproject_check_import
 # some tests requires internet connections or credentials
 # %%pytest --strict-markers --verbose --tb=long test
 
-%files -n python3-ibm-cloud-sdk-core
+%files -n python3-ibm-cloud-sdk-core -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/ibm_cloud_sdk_core
-%{python3_sitelib}/ibm_cloud_sdk_core-%{version}.dist-info/
 
 %changelog
 %autochangelog

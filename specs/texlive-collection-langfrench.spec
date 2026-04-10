@@ -5,7 +5,7 @@
 Name:           texlive-collection-langfrench
 Epoch:          12
 Version:        svn72499
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        French
 
 License:        LPPL-1.3c
@@ -179,7 +179,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ae.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(latexsym.sty)
-Provides:       tex(aeguill.sty) = %{tl_version}
 
 %description -n texlive-aeguill
 The package enables the user to add guillemets from several source (Polish cmr,
@@ -194,7 +193,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(annee-scolaire.sty) = %{tl_version}
 
 %description -n texlive-annee-scolaire
 This package provides a macro \anneescolaire to automatically write the
@@ -235,27 +233,21 @@ beginners.
 
 %package -n texlive-babel-basque
 Summary:        Babel contributed support for Basque
-Version:        svn30256
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(basque.ldf) = %{tl_version}
 
 %description -n texlive-babel-basque
 The package establishes Basque conventions in a document.
 
 %package -n texlive-babel-french
 Summary:        Babel contributed support for French
-Version:        svn76067
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(acadian.ldf) = %{tl_version}
-Provides:       tex(canadien.ldf) = %{tl_version}
-Provides:       tex(francais.ldf) = %{tl_version}
-Provides:       tex(french.ldf) = %{tl_version}
-Provides:       tex(french3.ldf) = %{tl_version}
-Provides:       tex(frenchb.ldf) = %{tl_version}
+Requires:       texlive-carlisle
 
 %description -n texlive-babel-french
 The package, formerly known as frenchb, establishes French conventions in a
@@ -281,7 +273,6 @@ Version:        svn26477
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(basque-date.sty) = %{tl_version}
 
 %description -n texlive-basque-date
 The package provides two LaTeX commands to print the current date in Basque
@@ -309,7 +300,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(bibleref.sty)
 Requires:       tex(etoolbox.sty)
-Provides:       tex(bibleref-french.sty) = %{tl_version}
 
 %description -n texlive-bibleref-french
 The package provides translations and alternative typesetting conventions for
@@ -339,7 +329,6 @@ Requires:       tex(microtype.sty)
 Requires:       tex(nicematrix.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(cahierprof.sty) = %{tl_version}
 
 %description -n texlive-cahierprof
 This package provide tools to help teachers in France to produce weekly
@@ -352,7 +341,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xcolor.sty)
-Provides:       tex(couleurs-fr.sty) = %{tl_version}
 
 %description -n texlive-couleurs-fr
 This package provides colours with French names, based on xcolor (svgnames,
@@ -367,8 +355,6 @@ Requires:       texlive-kpathsea
 Requires:       biber
 Requires:       tex(verbose-ibid.bbx)
 Requires:       tex(verbose-ibid.cbx)
-Provides:       tex(droit-fr.bbx) = %{tl_version}
-Provides:       tex(droit-fr.cbx) = %{tl_version}
 
 %description -n texlive-droit-fr
 The bundle provides a toolkit intended for students writing a thesis in French
@@ -386,27 +372,6 @@ Requires:       tex(german.sty)
 Requires:       tex(latexsym.sty)
 Requires:       tex(msg.sty)
 Requires:       tex(ngerman.sty)
-Provides:       tex(efrench.sty) = %{tl_version}
-Provides:       tex(efrenchu.tex) = %{tl_version}
-Provides:       tex(epreuve.sty) = %{tl_version}
-Provides:       tex(fenglish.sty) = %{tl_version}
-Provides:       tex(frabbrev-u8.tex) = %{tl_version}
-Provides:       tex(frabbrev.tex) = %{tl_version}
-Provides:       tex(french-msg.tex) = %{tl_version}
-Provides:       tex(french.sty) = %{tl_version}
-Provides:       tex(french_french-msg.tex) = %{tl_version}
-Provides:       tex(frenchle.sty) = %{tl_version}
-Provides:       tex(frenchpro.sty) = %{tl_version}
-Provides:       tex(frhyphex.tex) = %{tl_version}
-Provides:       tex(fxabbrev.tex) = %{tl_version}
-Provides:       tex(german_french-msg.tex) = %{tl_version}
-Provides:       tex(mlp-01.sty) = %{tl_version}
-Provides:       tex(mlp-33.sty) = %{tl_version}
-Provides:       tex(mlp-49.sty) = %{tl_version}
-Provides:       tex(mlp-49n.sty) = %{tl_version}
-Provides:       tex(mlp-opts.sty) = %{tl_version}
-Provides:       tex(mlp.sty) = %{tl_version}
-Provides:       tex(pmfrench.sty) = %{tl_version}
 
 %description -n texlive-e-french
 E-french is a distribution that keeps alive the work of Bernard Gaulle (now
@@ -550,7 +515,6 @@ Requires:       tex(ibrackets.sty)
 Requires:       tex(mathgreeks.sty)
 Requires:       tex(mathrsfs.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(frenchmath.sty) = %{tl_version}
 
 %description -n texlive-frenchmath
 The package provides: capital letters in roman (upright shape) in mathematical
@@ -579,7 +543,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(algpseudocode.sty)
-Provides:       tex(frpseudocode.sty) = %{tl_version}
 
 %description -n texlive-frpseudocode
 This package is intended for use alongside Szasz Janos' algorithmicx package.
@@ -588,31 +551,24 @@ algorithms to make it integrate seamlessly in a French written document.
 
 %package -n texlive-hyphen-basque
 Summary:        Basque hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        Unicode-DFS-2015
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-eu.ec.tex) = %{tl_version}
-Provides:       tex(hyph-eu.tex) = %{tl_version}
-Provides:       tex(loadhyph-eu.tex) = %{tl_version}
 
 %description -n texlive-hyphen-basque
 Hyphenation patterns for Basque in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-french
 Summary:        French hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-fr.ec.tex) = %{tl_version}
-Provides:       tex(hyph-fr.tex) = %{tl_version}
-Provides:       tex(hyph-quote-fr.tex) = %{tl_version}
-Provides:       tex(loadhyph-fr.tex) = %{tl_version}
 
 %description -n texlive-hyphen-french
 Hyphenation patterns for French in T1/EC and UTF-8 encodings.
@@ -632,16 +588,18 @@ Eplain. The book is also available in French and Chinese translations.
 
 %package -n texlive-impnattypo
 Summary:        Support typography of l'Imprimerie Nationale Francaise
-Version:        svn50227
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       texlive-luacode
+Requires:       texlive-luatexbase
+Requires:       texlive-xcolor
 Requires:       tex(ifluatex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(impnattypo.sty) = %{tl_version}
 
 %description -n texlive-impnattypo
 The package provides useful macros implementing recommendations by the French
@@ -673,18 +631,13 @@ This package provides a complete French translation of latex2e-help-texinfo.
 
 %package -n texlive-letgut
 Summary:        Class for the newsletter "La Lettre GUTenberg" of the French TeX User Group GUTenberg
-Version:        svn76652
+Version:        svn78543
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(accsupp.sty)
 Requires:       tex(numeric.cbx)
 Requires:       tex(xcolor.sty)
-Provides:       tex(informations-gut.tex) = %{tl_version}
-Provides:       tex(letgut-acronyms.tex) = %{tl_version}
-Provides:       tex(letgut-banner.sty) = %{tl_version}
-Provides:       tex(letgut-lstlang.sty) = %{tl_version}
-Provides:       tex(letgut.cbx) = %{tl_version}
 
 %description -n texlive-letgut
 The French TeX User Group GUTenberg has been publishing "The GUTenberg Letter",
@@ -726,7 +679,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(babel.sty)
 Requires:       tex(fontenc.sty)
-Provides:       tex(mafr.sty) = %{tl_version}
 
 %description -n texlive-mafr
 The package provides settings and macros for typesetting mathematics with LaTeX
@@ -752,7 +704,6 @@ License:        LPPL-1.3c AND CC-BY-SA-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
-Provides:       tex(PanneauxRoute.sty) = %{tl_version}
 
 %description -n texlive-panneauxroute
 The package provides commands to insert French road signs as vector graphics:
@@ -794,176 +745,6 @@ Requires:       tex(xintexpr.sty)
 Requires:       tex(xinttools.sty)
 Requires:       tex(xlop.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(PfCAireSimple.tex) = %{tl_version}
-Provides:       tex(PfCAllumettes.tex) = %{tl_version}
-Provides:       tex(PfCArbreCalcul.tex) = %{tl_version}
-Provides:       tex(PfCArbreChiffre.tex) = %{tl_version}
-Provides:       tex(PfCAssemblagesSolides.tex) = %{tl_version}
-Provides:       tex(PfCAutomatismes.tex) = %{tl_version}
-Provides:       tex(PfCAutonomie.tex) = %{tl_version}
-Provides:       tex(PfCBalance.tex) = %{tl_version}
-Provides:       tex(PfCBandeNumerique.tex) = %{tl_version}
-Provides:       tex(PfCBarreNiveaux.tex) = %{tl_version}
-Provides:       tex(PfCBarresCalculs.tex) = %{tl_version}
-Provides:       tex(PfCBillard.tex) = %{tl_version}
-Provides:       tex(PfCBoiteADix.tex) = %{tl_version}
-Provides:       tex(PfCBonSortie.tex) = %{tl_version}
-Provides:       tex(PfCBonbon.tex) = %{tl_version}
-Provides:       tex(PfCCAN.tex) = %{tl_version}
-Provides:       tex(PfCCalculatrice.tex) = %{tl_version}
-Provides:       tex(PfCCalculsCroises.tex) = %{tl_version}
-Provides:       tex(PfCCalculsDetailles.tex) = %{tl_version}
-Provides:       tex(PfCCalculsFractions.tex) = %{tl_version}
-Provides:       tex(PfCCalisson.tex) = %{tl_version}
-Provides:       tex(PfCCartesJeux.tex) = %{tl_version}
-Provides:       tex(PfCCartesMentales.tex) = %{tl_version}
-Provides:       tex(PfCCartographie.tex) = %{tl_version}
-Provides:       tex(PfCCheque.tex) = %{tl_version}
-Provides:       tex(PfCCible.tex) = %{tl_version}
-Provides:       tex(PfCCibleQOp.tex) = %{tl_version}
-Provides:       tex(PfCColorilude.tex) = %{tl_version}
-Provides:       tex(PfCCompteBon.tex) = %{tl_version}
-Provides:       tex(PfCConversion.tex) = %{tl_version}
-Provides:       tex(PfCCritere.tex) = %{tl_version}
-Provides:       tex(PfCCryptarithme.tex) = %{tl_version}
-Provides:       tex(PfCDeAJouer.tex) = %{tl_version}
-Provides:       tex(PfCDecDeci.tex) = %{tl_version}
-Provides:       tex(PfCDecompFrac.tex) = %{tl_version}
-Provides:       tex(PfCDecompFracDeci.tex) = %{tl_version}
-Provides:       tex(PfCDecomposerNombrePremier.tex) = %{tl_version}
-Provides:       tex(PfCDefiCalc.tex) = %{tl_version}
-Provides:       tex(PfCDefiTables.tex) = %{tl_version}
-Provides:       tex(PfCDessinAlgo.tex) = %{tl_version}
-Provides:       tex(PfCDessinGradue.tex) = %{tl_version}
-Provides:       tex(PfCDessinerRatio.tex) = %{tl_version}
-Provides:       tex(PfCDiagrammeRadar.tex) = %{tl_version}
-Provides:       tex(PfCDistributivite.tex) = %{tl_version}
-Provides:       tex(PfCDobble.tex) = %{tl_version}
-Provides:       tex(PfCDomino.tex) = %{tl_version}
-Provides:       tex(PfCDontCountDots.tex) = %{tl_version}
-Provides:       tex(PfCEcrireunQCM.tex) = %{tl_version}
-Provides:       tex(PfCEcritureLettres.tex) = %{tl_version}
-Provides:       tex(PfCEcritureUnites.tex) = %{tl_version}
-Provides:       tex(PfCEngrenagesBase.tex) = %{tl_version}
-Provides:       tex(PfCEnigmeAire.tex) = %{tl_version}
-Provides:       tex(PfCEnquete.tex) = %{tl_version}
-Provides:       tex(PfCEquationBalance.tex) = %{tl_version}
-Provides:       tex(PfCEquationComposition2.tex) = %{tl_version}
-Provides:       tex(PfCEquationLaurent1.tex) = %{tl_version}
-Provides:       tex(PfCEquationModeleBarre.tex) = %{tl_version}
-Provides:       tex(PfCEquationPose1.tex) = %{tl_version}
-Provides:       tex(PfCEquationSoustraction2.tex) = %{tl_version}
-Provides:       tex(PfCEquationSymbole1.tex) = %{tl_version}
-Provides:       tex(PfCEquationTerme1.tex) = %{tl_version}
-Provides:       tex(PfCEratosthene.tex) = %{tl_version}
-Provides:       tex(PfCFactorisation.tex) = %{tl_version}
-Provides:       tex(PfCFicheMemo.tex) = %{tl_version}
-Provides:       tex(PfCFonctionAffine.tex) = %{tl_version}
-Provides:       tex(PfCFractionAireCarre.tex) = %{tl_version}
-Provides:       tex(PfCFractionNombre.tex) = %{tl_version}
-Provides:       tex(PfCFrise.tex) = %{tl_version}
-Provides:       tex(PfCFubuki.tex) = %{tl_version}
-Provides:       tex(PfCFutoshiki.tex) = %{tl_version}
-Provides:       tex(PfCGaram.tex) = %{tl_version}
-Provides:       tex(PfCGeometrie.tex) = %{tl_version}
-Provides:       tex(PfCGrades.tex) = %{tl_version}
-Provides:       tex(PfCGrimuku.tex) = %{tl_version}
-Provides:       tex(PfCHiddenMessage.tex) = %{tl_version}
-Provides:       tex(PfCHorloge.tex) = %{tl_version}
-Provides:       tex(PfCInfixRPN.sty) = %{tl_version}
-Provides:       tex(PfCIteration.tex) = %{tl_version}
-Provides:       tex(PfCJeton.tex) = %{tl_version}
-Provides:       tex(PfCJeuRangement.tex) = %{tl_version}
-Provides:       tex(PfCKakurasu.tex) = %{tl_version}
-Provides:       tex(PfCKakuro.tex) = %{tl_version}
-Provides:       tex(PfCKenKen.tex) = %{tl_version}
-Provides:       tex(PfCLabyrintheJeu.tex) = %{tl_version}
-Provides:       tex(PfCLabyrintheNombre.tex) = %{tl_version}
-Provides:       tex(PfCLego.tex) = %{tl_version}
-Provides:       tex(PfCLignesBrisees.tex) = %{tl_version}
-Provides:       tex(PfCMentalo.tex) = %{tl_version}
-Provides:       tex(PfCMidpoint.tex) = %{tl_version}
-Provides:       tex(PfCModeleBarre.tex) = %{tl_version}
-Provides:       tex(PfCMonnaieEuro.tex) = %{tl_version}
-Provides:       tex(PfCMosaique.tex) = %{tl_version}
-Provides:       tex(PfCMotsCodes.tex) = %{tl_version}
-Provides:       tex(PfCMotsCroises.tex) = %{tl_version}
-Provides:       tex(PfCMotsEmpiles.tex) = %{tl_version}
-Provides:       tex(PfCMulArt.tex) = %{tl_version}
-Provides:       tex(PfCMulEthiopie.tex) = %{tl_version}
-Provides:       tex(PfCMulJal.tex) = %{tl_version}
-Provides:       tex(PfCMulJap.tex) = %{tl_version}
-Provides:       tex(PfCMulPiecesPuzzle.tex) = %{tl_version}
-Provides:       tex(PfCNombreAstral.tex) = %{tl_version}
-Provides:       tex(PfCNonogramme.tex) = %{tl_version}
-Provides:       tex(PfCNotionFonction.tex) = %{tl_version}
-Provides:       tex(PfCNumberHive.tex) = %{tl_version}
-Provides:       tex(PfCNumerationsAnciennes.tex) = %{tl_version}
-Provides:       tex(PfCOpCroisees.tex) = %{tl_version}
-Provides:       tex(PfCOperationsTrou.tex) = %{tl_version}
-Provides:       tex(PfCPanneauxRoutiers.tex) = %{tl_version}
-Provides:       tex(PfCPapiers.tex) = %{tl_version}
-Provides:       tex(PfCPatronPaves.tex) = %{tl_version}
-Provides:       tex(PfCPattern.tex) = %{tl_version}
-Provides:       tex(PfCPatternJeton.tex) = %{tl_version}
-Provides:       tex(PfCPavage.tex) = %{tl_version}
-Provides:       tex(PfCPavageAvecMotifImage.tex) = %{tl_version}
-Provides:       tex(PfCPixelArt.tex) = %{tl_version}
-Provides:       tex(PfCPointsBlancs.tex) = %{tl_version}
-Provides:       tex(PfCPourcentage.tex) = %{tl_version}
-Provides:       tex(PfCProbaFrequence.tex) = %{tl_version}
-Provides:       tex(PfCProbabilites.tex) = %{tl_version}
-Provides:       tex(PfCProgrammeCalcul.tex) = %{tl_version}
-Provides:       tex(PfCPropor.tex) = %{tl_version}
-Provides:       tex(PfCProprietesDroites.tex) = %{tl_version}
-Provides:       tex(PfCPuissanceQuatre.tex) = %{tl_version}
-Provides:       tex(PfCPuzzleSommePyramide.tex) = %{tl_version}
-Provides:       tex(PfCPyraVoca.tex) = %{tl_version}
-Provides:       tex(PfCPyramideCalculs.tex) = %{tl_version}
-Provides:       tex(PfCPythagore.tex) = %{tl_version}
-Provides:       tex(PfCQuestionsFlash.tex) = %{tl_version}
-Provides:       tex(PfCQuestionsRelier.tex) = %{tl_version}
-Provides:       tex(PfCQuiSuisJe.tex) = %{tl_version}
-Provides:       tex(PfCRLE.tex) = %{tl_version}
-Provides:       tex(PfCRangementNombres.tex) = %{tl_version}
-Provides:       tex(PfCRapido.tex) = %{tl_version}
-Provides:       tex(PfCRappelsFormules.tex) = %{tl_version}
-Provides:       tex(PfCRecyclage.tex) = %{tl_version}
-Provides:       tex(PfCReperage.tex) = %{tl_version}
-Provides:       tex(PfCRepresentationGraphique.tex) = %{tl_version}
-Provides:       tex(PfCRepresenterEntier.tex) = %{tl_version}
-Provides:       tex(PfCRepresenterFraction.tex) = %{tl_version}
-Provides:       tex(PfCRepresenterTableur.tex) = %{tl_version}
-Provides:       tex(PfCReseauxSociaux.tex) = %{tl_version}
-Provides:       tex(PfCResoudreEquation.tex) = %{tl_version}
-Provides:       tex(PfCRondeInfernale.tex) = %{tl_version}
-Provides:       tex(PfCRose.tex) = %{tl_version}
-Provides:       tex(PfCRullo.tex) = %{tl_version}
-Provides:       tex(PfCScrabble.tex) = %{tl_version}
-Provides:       tex(PfCScratch.tex) = %{tl_version}
-Provides:       tex(PfCSerpent.tex) = %{tl_version}
-Provides:       tex(PfCShikaku.tex) = %{tl_version}
-Provides:       tex(PfCSimplifierFraction.tex) = %{tl_version}
-Provides:       tex(PfCSolides.tex) = %{tl_version}
-Provides:       tex(PfCSommeAngles.tex) = %{tl_version}
-Provides:       tex(PfCSquaro.tex) = %{tl_version}
-Provides:       tex(PfCStatistiques.tex) = %{tl_version}
-Provides:       tex(PfCSystemeImage.tex) = %{tl_version}
-Provides:       tex(PfCTableauDoubleEntree.tex) = %{tl_version}
-Provides:       tex(PfCTableauxUnites.tex) = %{tl_version}
-Provides:       tex(PfCTablesOperations.tex) = %{tl_version}
-Provides:       tex(PfCTectonic.tex) = %{tl_version}
-Provides:       tex(PfCThales.tex) = %{tl_version}
-Provides:       tex(PfCTicketCaisse.tex) = %{tl_version}
-Provides:       tex(PfCTortueBase.tex) = %{tl_version}
-Provides:       tex(PfCTrigonometrie.tex) = %{tl_version}
-Provides:       tex(PfCTrio.tex) = %{tl_version}
-Provides:       tex(PfCTriominos.tex) = %{tl_version}
-Provides:       tex(PfCUrneProba.tex) = %{tl_version}
-Provides:       tex(PfCVisualisationMulDeci.tex) = %{tl_version}
-Provides:       tex(PfCVueCubes.tex) = %{tl_version}
-Provides:       tex(PfCYohaku.tex) = %{tl_version}
-Provides:       tex(ProfCollege.sty) = %{tl_version}
 
 %description -n texlive-profcollege
 This package provides some commands to help French mathematics teachers for
@@ -983,7 +764,6 @@ Requires:       tex(listofitems.sty)
 Requires:       tex(pgf.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(ProfLabo.sty) = %{tl_version}
 
 %description -n texlive-proflabo
 This package was developed to help French chemistry teachers to create drawings
@@ -991,7 +771,7 @@ This package was developed to help French chemistry teachers to create drawings
 
 %package -n texlive-proflycee
 Summary:        A LaTeX package for French maths teachers in high school
-Version:        svn77424
+Version:        svn78521
 License:        LPPL-1.3c AND CC0-1.0 AND MIT AND CC-BY-SA-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1021,30 +801,6 @@ Requires:       tex(xintexpr.sty)
 Requires:       tex(xinttools.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(ProfLycee-Light.sty) = %{tl_version}
-Provides:       tex(ProfLycee-Macros.sty) = %{tl_version}
-Provides:       tex(ProfLycee-Pictosbac.sty) = %{tl_version}
-Provides:       tex(ProfLycee.sty) = %{tl_version}
-Provides:       tex(proflycee-tools-aleatoire.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-analyse.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-arithm.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-cliparts.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-competences.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-complexes.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-ecritures.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-espace.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-exams.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-geom.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-graphiques.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-listings.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-minted.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-piton.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-probas.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-pythontex.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-recreat.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-stats.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-suites.tex) = %{tl_version}
-Provides:       tex(proflycee-tools-trigo.tex) = %{tl_version}
 
 %description -n texlive-proflycee
 This package provides some commands to help French mathematics teachers for
@@ -1077,7 +833,6 @@ Requires:       tex(xintbinhex.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(ProfSio.sty) = %{tl_version}
 
 %description -n texlive-profsio
 This package provides some commands (in French) to work with: tables of
@@ -1095,7 +850,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(varwidth.sty)
-Provides:       tex(tabvar.sty) = %{tl_version}
 
 %description -n texlive-tabvar
 This LaTeX package is meant to ease the typesetting of tables showing
@@ -1116,7 +870,6 @@ Requires:       tex(xargs.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tdsfrmath.sty) = %{tl_version}
 
 %description -n texlive-tdsfrmath
 A collection of macros for French maths teachers in colleges and lycees (and
@@ -1125,7 +878,7 @@ use of LaTeX by mathematics teachers.
 
 %package -n texlive-texlive-fr
 Summary:        TeX Live manual (French)
-Version:        svn74301
+Version:        svn78031
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1190,8 +943,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(variations.sty) = %{tl_version}
-Provides:       tex(variations.tex) = %{tl_version}
 
 %description -n texlive-variations
 The package provides macros for typesetting tables showing variations of
@@ -1504,11 +1255,18 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/frpseudocode/
 
 %files -n texlive-hyphen-basque
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-eu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-eu.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-eu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-eu.pat.txt
 
 %files -n texlive-hyphen-french
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-fr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-fr.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-fr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-fr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-fr.pat.txt
 
 %files -n texlive-impatient-fr
 %license fdl.txt
@@ -1627,6 +1385,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/visualtikz/
 
 %changelog
+* Wed Apr 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-5
+- Update 8 components
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-4
 - fix licensing files
 

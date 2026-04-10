@@ -6,17 +6,17 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.9.0-rc9
-%global commit0 0fabc3ba44823f257e70ce397d989c8de5e362c1
+# v2.11.0-rc6 (really v2.11)
+%global commit0 70d99e998b4955e0049d13a98d77ae1b14db1f45
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251008
-%global pypi_version 2.9.0
+%global date0 20260320
+%global pypi_version 2.11.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
-%global pybind11_version 2.13.6
-%global rc_tag -rc9
+%global pybind11_version 3.0.1
+%global rc_tag -rc6
 %else
-%global pypi_version 2.10.0
+%global pypi_version 2.11.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
@@ -44,9 +44,10 @@
 %endif
 
 # These came in 2.4 and not yet in Fedora
-%bcond_with opentelemetry
 %bcond_with httplib
 %bcond_with kineto
+# These came in 2.11
+%bcond_with mslk
 
 # In fedora, not in rhel/epel or requires a newer version
 %if 0%{?fedora}
@@ -101,13 +102,13 @@ Source60:       https://github.com/open-telemetry/opentelemetry-cpp/archive/refs
 %endif
 
 %if %{without httplib}
-%global hl_commit 3b6597bba913d51161383657829b7e644e59c006
+%global hl_commit bd95e67c234930cd6d6bb11309588c5462c63cec
 %global hl_scommit %(c=%{hl_commit}; echo ${c:0:7})
 Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-httplib-%{hl_scommit}.tar.gz
 %endif
 
 %if %{without kineto}
-%global ki_commit 5e7501833f1021ce6f618572d3baf657b6319658
+%global ki_commit 7a731b6ae01cfc2b1fc75d83a91f84e682e43fd7
 %global ki_scommit %(c=%{ki_commit}; echo ${c:0:7})
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
@@ -129,11 +130,12 @@ Source100:      https://github.com/protocolbuffers/protobuf/archive/refs/tags/v%
 %global st_ver 80.9.0
 Source110:      https://github.com/pypa/setuptools/archive/refs/tags/v%{st_ver}.tar.gz
 
-# FileNotFoundError: [Errno 2] No such file or directory:
-# '.../third_party/fbgemm/fbgemm_gpu/experimental/gen_ai/src/quantize/common/
-#   include/fbgemm_gpu/quantize/tuning_cache.cuh'
-# https://github.com/pytorch/pytorch/issues/175160
-Patch: 0001-python-torch-check-if-tuning_cache-exists.patch
+# mslk
+%if %{without mslk}
+%global mslk_commit 3d332d1c0c0ac7765852c97b3979c9ef913e037f
+%global mslk_scommit %(c=%{mslk_commit}; echo ${c:0:7})
+Source120:       https://github.com/meta-pytorch/MSLK/archive/%{mslk_commit}/MSLK-%{mslk_scommit}.tar.gz
+%endif
 
 %global pt_arches x86_64 aarch64
 ExclusiveArch:  %pt_arches
@@ -354,12 +356,6 @@ sed -i '/#include <tensorpipe.*/a#include <cstdint>' third_party/tensorpipe/tens
 sed -i '/#include <tensorpipe.*/a#include <cstdint>' third_party/tensorpipe/tensorpipe/common/memory.h
 %endif
 
-%if %{without opentelemtry}
-tar xf %{SOURCE60}
-rm -rf third_party/opentelemetry-cpp/*
-cp -r opentelemetry-cpp-*/* third_party/opentelemetry-cpp/
-%endif
-
 %if %{without httplib}
 tar xf %{SOURCE70}
 rm -rf third_party/cpp-httplib/*
@@ -382,6 +378,12 @@ cp -r onnx-*/* third_party/onnx/
 tar xf %{SOURCE100}
 rm -rf third_party/protobuf/*
 cp -r protobuf-*/* third_party/protobuf/
+%endif
+
+%if %{without mslk}
+tar xf %{SOURCE120}
+rm -rf third_party/mslk/*
+cp -r MSLK-*/* third_party/mslk/
 %endif
 
 # Adjust for the hipblaslt's we build
@@ -474,10 +476,6 @@ mv third_party/pybind11 .
 mv third_party/tensorpipe .
 %endif
 
-%if %{without opentelemetry}
-mv third_party/opentelemetry-cpp .
-%endif
-
 %if %{without httplib}
 mv third_party/cpp-httplib .
 %endif
@@ -492,6 +490,10 @@ mv third_party/onnx .
 
 %if %{without protobuf}
 mv third_party/protobuf .
+%endif
+
+%if %{without mslk}
+mv third_party/mslk .
 %endif
 
 %if %{with test}
@@ -510,10 +512,6 @@ mv pybind11 third_party
 mv tensorpipe third_party
 %endif
 
-%if %{without opentelemetry}
-mv opentelemetry-cpp third_party
-%endif
-
 %if %{without httplib}
 mv cpp-httplib third_party
 %endif
@@ -528,6 +526,10 @@ mv onnx third_party
 
 %if %{without protobuf}
 mv protobuf third_party
+%endif
+
+%if %{without mslk}
+mv mslk third_party
 %endif
 
 %if %{with test}
@@ -553,9 +555,6 @@ sed -i -e 's@list(APPEND Caffe2_DEPENDENCY_LIBS foxi_loader)@#list(APPEND Caffe2
 # cmake version changed
 sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 3.5)@' third_party/tensorpipe/third_party/libuv/CMakeLists.txt
 sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 3.5)@' libuv*/CMakeLists.txt
-%if %{without opentelemtry}
-sed -i -e 's@cmake_minimum_required(VERSION 3.1)@cmake_minimum_required(VERSION 3.5)@' third_party/opentelemetry-cpp/CMakeLists.txt
-%endif
 
 %if %{with rocm}
 # hipify
@@ -633,8 +632,8 @@ export CMAKE_BUILD_TYPE=RelWithDebInfo
 export CMAKE_FIND_PACKAGE_PREFER_CONFIG=ON
 export CAFFE2_LINK_LOCAL_PROTOBUF=OFF
 export INTERN_BUILD_MOBILE=OFF
-export USE_DISTRIBUTED=OFF
 export USE_CUDA=OFF
+export USE_DISTRIBUTED=OFF
 export USE_FAKELOWP=OFF
 export USE_FBGEMM=OFF
 export USE_FLASH_ATTENTION=OFF
@@ -648,6 +647,7 @@ export USE_MAGMA=OFF
 export USE_MEM_EFF_ATTENTION=OFF
 export USE_MKLDNN=OFF
 export USE_MPI=OFF
+export USE_MSLK=OFF
 export USE_NCCL=OFF
 export USE_NNPACK=OFF
 export USE_NUMPY=ON

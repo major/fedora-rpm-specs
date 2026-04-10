@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -70,6 +70,7 @@ Requires: rocm-core >= %{rocm_release}
 Requires: rocm-omp >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: rocm-origami
+Requires: rocm-rdc >= %{rocm_release}
 Requires: rocm-rpp >= %{rocm_release}
 Requires: rocprofiler-register >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
@@ -132,6 +133,7 @@ Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
 Requires: rocm-omp-static >= %{rocm_release}
+Requires: rocm-rdc-devel >= %{rocm_release}
 Requires: rocm-rpp-devel >= %{rocm_release}
 Requires: rocprofiler-register-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
@@ -184,6 +186,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add rocm-rdc
+
 * Thu Mar 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Remove tensile from rocm-devel
 

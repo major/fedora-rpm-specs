@@ -13,6 +13,12 @@ BuildRequires:  gcc
 BuildRequires:  google-droid-sans-mono-fonts
 BuildRequires:  python3-devel
 
+# Almost everything in requirements-dev.txt is for linting, coverage analysis,
+# or something else unwanted or unnecessary; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
+# We instead list test dependencies manually.
+BuildRequires:  %{py3_dist pytest}
+
 %global _description %{expand:
 This package provides a little word cloud generator in Python.}
 
@@ -32,8 +38,12 @@ Requires:       google-droid-sans-mono-fonts
 ln -sf %{_fontbasedir}/google-droid-sans-mono-fonts/DroidSansMono.ttf \
   %{srcname}/DroidSansMono.ttf
 
+# Remove pytest-cov options and fixtures
+sed -r -i 's/--cov(-[^-]+)? //g' setup.cfg
+sed -r -i 's/, no_cover_compat//' test/test_wordcloud_cli.py
+
 %generate_buildrequires
-%pyproject_buildrequires requirements-dev.txt
+%pyproject_buildrequires
 
 %build
 cython %{srcname}/query_integral_image.pyx

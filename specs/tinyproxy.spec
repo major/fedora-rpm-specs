@@ -11,11 +11,19 @@ License:        GPL-2.0-or-later AND MIT
 URL:            https://tinyproxy.github.io/
 Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/tinyproxy-%{version}.tar.xz
 Source1:        tinyproxy.service
+# CVE-2026-3945
+# https://github.com/tinyproxy/tinyproxy/commit/969852ccdb1d19d7ed302f0e1d324661be641e0a
+# https://github.com/tinyproxy/tinyproxy/commit/bb7edc4778041b3bc8ad7fca448b67d98039cc7d
+Patch:          0001-reqs-check-negative-length-values-and-prevent-potential-int-overflow-when-parsing-chunked-data.patch
+# CVE-2026-31842
+# https://github.com/tinyproxy/tinyproxy/commit/879bf844abffa0bf5fae6aff0c73179024dd9f98
+Patch:          0002-reqs-fix-case-sensitive-matching-of-chunked-605.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  asciidoc
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  perl-interpreter
 
 
 %description
@@ -42,6 +50,10 @@ sed -e '/^User / s/nobody/tinyproxy/' \
 %install
 %make_install
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/tinyproxy.service
+
+
+%check
+./tests/scripts/run_tests.sh
 
 
 %pre

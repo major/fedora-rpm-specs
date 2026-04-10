@@ -274,7 +274,8 @@ rm %{buildroot}%{mingw64_libdir}/qt6/plugins/designer/qwt_designer_plugin.dll
 %files qt5
 %license COPYING
 %doc README
-%{_qt5_libdir}/libqwt-qt5.so.6*
+%{_qt5_libdir}/libqwt-qt5.so.6
+%{_qt5_libdir}/libqwt-qt5.so.6.3*
 
 %files qt5-devel
 %{_qt5_headerdir}/qwt/
@@ -306,7 +307,8 @@ rm %{buildroot}%{mingw64_libdir}/qt6/plugins/designer/qwt_designer_plugin.dll
 %files qt6
 %license COPYING
 %doc README
-%{_qt6_libdir}/libqwt-qt6.so.6*
+%{_qt6_libdir}/libqwt-qt6.so.6
+%{_qt6_libdir}/libqwt-qt6.so.6.3*
 
 %files qt6-devel
 %{_qt6_headerdir}/qwt/

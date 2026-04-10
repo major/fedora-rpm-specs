@@ -1,4 +1,3 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name pytest-xprocess
 
 Name:           python-%{pypi_name}
@@ -14,7 +13,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(psutil)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
 
 %description
@@ -27,7 +25,6 @@ line...
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 Requires:       python3dist(psutil)
 Requires:       python3dist(pytest)
@@ -43,25 +40,25 @@ line...
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 # Remove executable bit from README
 chmod -x README.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l xprocess
 
 %check
-%pytest
+%pyproject_check_import
+%pytest -k "not test_functional_work_flow and not test_interruption_does_not_cleanup" 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/xprocess/
-%{python3_sitelib}/pytest_xprocess-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

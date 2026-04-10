@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc7.260407gbfe62a454542.56
+%define pkgrelease 0.rc7.260408g3036cd0d3328.56
 %define kversion 7
-%define tarfile_release 7.0-rc7-44-gbfe62a454542
+%define tarfile_release 7.0-rc7-59-g3036cd0d3328
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260407gbfe62a454542.56%{?buildid}%{?dist}
+%define specrelease 0.rc7.260408g3036cd0d3328.56%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -3509,7 +3509,7 @@ export CXXFLAGS="%{build_cxxflags}"
 # 'make install' for bpf is broken and upstream refuses to fix it.
 # Install the needed files manually.
 %{log_msg "install selftests"}
-for dir in bpf bpf/no_alu32 bpf/progs; do
+for dir in bpf bpf/no_alu32 bpf/cpuv4 bpf/progs; do
 	# In ARK, the rpm build continues even if some of the selftests
 	# cannot be built. It's not always possible to build selftests,
 	# as upstream sometimes dependens on too new llvm version or has
@@ -3523,14 +3523,17 @@ for dir in bpf bpf/no_alu32 bpf/progs; do
 done
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs"
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs-no_alu32"
+%buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs-cpuv4"
 
 # The urandom_read binary doesn't pass the check-rpaths check and upstream
 # refuses to fix it. So, we save it to buildroot_unstripped and delete it so it
 # will be hidden from check-rpaths and will automatically get restored later.
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/urandom_read"
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/no_alu32/urandom_read"
+%buildroot_save_unstripped "usr/libexec/kselftests/bpf/cpuv4/urandom_read"
 rm -f %{buildroot}/usr/libexec/kselftests/bpf/urandom_read
 rm -f %{buildroot}/usr/libexec/kselftests/bpf/no_alu32/urandom_read
+rm -f %{buildroot}/usr/libexec/kselftests/bpf/cpuv4/urandom_read
 
 # Copy bpftool to kselftests so selftests is packaged with
 # the full bpftool instead of bootstrap bpftool
@@ -4094,7 +4097,7 @@ popd
 %{expand:%%post %{?1:%{1}-}devel}\
 if [ -f /etc/sysconfig/kernel ]\
 then\
-    . /etc/sysconfig/kernel || exit $?\
+    . /etc/sysconfig/kernel || exit 0\
 fi\
 if [ "$HARDLINK" != "no" -a -x /usr/bin/hardlink -a ! -e /run/ostree-booted ] \
 then\
@@ -4179,7 +4182,7 @@ fi\
 if [ -f %{_localstatedir}/lib/rpm-state/%{name}/need_to_run_dracut_%{KVERREL}%{?1:+%{1}} ]; then\
 	rm -f %{_localstatedir}/lib/rpm-state/%{name}/need_to_run_dracut_%{KVERREL}%{?1:+%{1}}\
 	echo "Running: dracut -f --kver %{KVERREL}%{?1:+%{1}} /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img"\
-	dracut -f --kver "%{KVERREL}%{?1:+%{1}}" /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img || exit $?\
+	dracut -f --kver "%{KVERREL}%{?1:+%{1}}" /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img || exit 0\
 fi\
 %{nil}
 
@@ -4210,12 +4213,12 @@ fi\
 %if !%{with_automotive}\
 if [ -x %{_sbindir}/weak-modules ]\
 then\
-    %{_sbindir}/weak-modules --add-kernel %{KVERREL}%{?-v:+%{-v*}} || exit $?\
+    %{_sbindir}/weak-modules --add-kernel %{KVERREL}%{?-v:+%{-v*}} || exit 0\
 fi\
 %endif\
 %endif\
 rm -f %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?-v:+%{-v*}}\
-/bin/kernel-install add %{KVERREL}%{?-v:+%{-v*}} /lib/modules/%{KVERREL}%{?-v:+%{-v*}}/vmlinuz%{?-u:-%{-u*}.efi} || exit $?\
+/bin/kernel-install add %{KVERREL}%{?-v:+%{-v*}} /lib/modules/%{KVERREL}%{?-v:+%{-v*}}/vmlinuz%{?-u:-%{-u*}.efi} || exit 0\
 if [[ ! -e "/boot/symvers-%{KVERREL}%{?-v:+%{-v*}}.%compext" ]]; then\
     cp "/lib/modules/%{KVERREL}%{?-v:+%{-v*}}/symvers.%compext" "/boot/symvers-%{KVERREL}%{?-v:+%{-v*}}.%compext"\
     if command -v restorecon &>/dev/null; then\
@@ -4254,7 +4257,7 @@ fi\
 %{-r:\
 if [ `uname -i` == "x86_64" -o `uname -i` == "i386" ] &&\
    [ -f /etc/sysconfig/kernel ]; then\
-  /bin/sed -r -i -e 's/^DEFAULTKERNEL=%{-r*}$/DEFAULTKERNEL=kernel%{?-v:-%{-v*}}/' /etc/sysconfig/kernel || exit $?\
+  /bin/sed -r -i -e 's/^DEFAULTKERNEL=%{-r*}$/DEFAULTKERNEL=kernel%{?-v:-%{-v*}}/' /etc/sysconfig/kernel || exit 0\
 fi}\
 mkdir -p %{_localstatedir}/lib/rpm-state/%{name}\
 touch %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?-v:+%{-v*}}\
@@ -4281,11 +4284,11 @@ entry_type=""\
 /bin/kernel-install --help|grep -q -- '--entry-type=' &&\
     entry_type="--entry-type %{!?-u:type1}%{?-u:type2}" \
 }\
-/bin/kernel-install remove %{KVERREL}%{?-v:+%{-v*}} $entry_type || exit $?\
+/bin/kernel-install remove %{KVERREL}%{?-v:+%{-v*}} $entry_type || exit 0\
 %if !%{with_automotive}\
 if [ -x %{_sbindir}/weak-modules ]\
 then\
-    %{_sbindir}/weak-modules --remove-kernel %{KVERREL}%{?-v:+%{-v*}} || exit $?\
+    %{_sbindir}/weak-modules --remove-kernel %{KVERREL}%{?-v:+%{-v*}} || exit 0\
 fi\
 %endif\
 %{nil}
@@ -4822,8 +4825,17 @@ fi\
 #
 #
 %changelog
-* Tue Apr 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.bfe62a454542.56]
+* Wed Apr 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.3036cd0d3328.56]
+- Remove stale config items (Justin M. Forbes)
+- redhat/configs: enable CONFIG_WATCHDOG_HRTIMER_PRETIMEOUT (David Arcari)
+- Turn on CONFIG_PREEMPT_LAZY for all arches (Justin M. Forbes)
+- redhat: selftests/bpf: Add cpuv4 variant (Viktor Malik)
+- redhat/configs: automotive: enable CONFIG_INIT_STACK_ALL_ZERO (Joe Simmons-Talbott)
+- Turn om SND_SOC_TAS2781_I2C=m for x86_64 (Justin M. Forbes)
+- Fix mismatch for CONFIG_POWER_SEQUENCING (Justin M. Forbes)
+- scriptlets: exit 0 on explicit exits (Adam Williamson)
 - Work around binutils update in s390x perf (Justin M. Forbes)
+- Linux v7.0.0-0.rc7.3036cd0d3328
 
 * Tue Apr 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.bfe62a454542.55]
 - Linux v7.0.0-0.rc7.bfe62a454542

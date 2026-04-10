@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -25,9 +25,12 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-ruamel-yaml
 BuildRequires:  python3-aiohttp
 BuildRequires:  python3-regex
-BuildRequires:  python3-mypy
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-pytest-sugar
+# Omit linters, typecheckers, and coverage analysis
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters);
+# omit pyest-sugar since it only makes the output prettier.
+# BuildRequires:  python3-mypy
+# BuildRequires:  python3-pytest-cov
+# BuildRequires:  python3-pytest-sugar
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests-mock
@@ -44,7 +47,6 @@ a local or a remote Home Assistant instance directly from the command-line.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
-sed -i "/>=0.3.2,<0.4/d" setup.py
 
 %build
 %py3_build
@@ -64,6 +66,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Wed Apr 08 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.6-19
+- Omit some unwanted test dependencies
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

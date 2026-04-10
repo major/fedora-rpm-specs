@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -36,6 +36,7 @@ Obsoletes:      %name-rnc < %version-%release
 Obsoletes:      %name-go < %version-%release
 Obsoletes:      %name-coffee < %version-%release
 Obsoletes:      %name-scala < %version-%release
+Obsoletes:      %name-css < %version-%release
 
 %description
 Syntastic is a syntax checking plugin that runs files through external syntax
@@ -90,7 +91,8 @@ Permet de vérifier les fichiers sources écrit en %{-n*}.                      
 %add_subpackage -n coq coq
 %add_subpackage -n cpp gcc-c++ vim-syntastic-c
 %add_subpackage -n cs mono-core
-%add_subpackage -n css csslint
+#csslint has been retired
+#%%add_subpackage -n css csslint
 %add_subpackage -n cucumber rubygem-cucumber
 #https://pagure.io/packaging-committee/issue/312
 #%%add_subpackage -n d ldc
@@ -291,6 +293,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Wed Apr 8 2026 Martin Jackson <mhjacks@swbell.net> - 3.10.0-30
+- Remove csslint as it is retired. Fixes bz#2455880
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

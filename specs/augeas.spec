@@ -5,16 +5,16 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 
 # Upstream Augeas is missing several important fixes which affect
 # Fedora.  For this reason we have soft-forked augeas, here:
-# https://github.com/rwmjones/augeas
+# https://github.com/rwmjones/augeas/tree/fedora-45
 # See also:
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/J7SM6NLIMPU7J4LIRBDPTPWVXOKZWWEH/
 # %%global forgeurl https://github.com/hercules-team/augeas
 # %%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
 %global forgeurl https://github.com/rwmjones/augeas
-%global commit c9f78fa9892013a8cf16873cd76419d7e55100d5
+%global commit ada6219325d9a835b71b62a42c3e150427b91882
 %forgemeta
 
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -199,6 +199,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Wed Apr 08 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.11
+- Rebase on top of upstream Augeas tree
+
 * Mon Mar 30 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.10
 - Fix parsing /etc/crypttab with link-volume-key (RHBZ#2452937)
   https://github.com/hercules-team/augeas/pull/880

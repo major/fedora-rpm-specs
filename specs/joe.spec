@@ -1,7 +1,7 @@
 Summary: An easy to use, modeless text editor
 Name: joe
-Version: 4.6
-Release: 24%{?dist}
+Version: 4.7
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/joe-editor/
 Source: http://downloads.sourceforge.net/joe-editor/joe-%{version}.tar.gz
@@ -12,10 +12,7 @@ Patch0: joe-3.7-joerc.patch
 Patch1: joe-3.8-selinux.patch
 Patch2: joe-3.8-time.patch
 Patch4: joe-3.8-indent-ow.patch
-Patch5: joe-3.8-aarch64.patch
 Patch6: joe-3.8-format-security.patch
-# https://sourceforge.net/p/joe-editor/mercurial/merge-requests/3/
-Patch7: joe-4.6-c99.patch
 
 BuildRequires: gcc make
 BuildRequires: ncurses-devel libselinux-devel
@@ -31,9 +28,7 @@ environment.
 %patch -P1 -p1 -b .selinux
 %patch -P2 -p1 -b .time
 %patch -P4 -p1 -b .of
-%patch -P5 -p1 -b .aarch64
 %patch -P6 -p1 -b .format-security
-%patch -P7 -p1 -b .c99
 
 iconv -f koi8-r -t utf-8 ./man/ru/joe.1.in >./man/ru/joe.1.in.aux
 touch -r ./man/ru/joe.1.in ./man/ru/joe.1.in.aux
@@ -72,6 +67,9 @@ popd
 %exclude %{_datadir}/applications/j*desktop
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.7-1
+- 4.7
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

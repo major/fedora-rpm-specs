@@ -1,7 +1,7 @@
 Name:    libkdcraw
 Summary: A C++ interface around LibRaw library
 Version: 26.03.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{name}
@@ -61,6 +61,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 26.03.80-2
+- Libraw rebuild
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

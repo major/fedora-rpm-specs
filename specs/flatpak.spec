@@ -12,7 +12,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.17.3
+Version:        1.17.4
 Release:        %autorelease
 Summary:        Application deployment framework for desktop apps
 
@@ -24,10 +24,6 @@ Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/
 # Add Fedora flatpak repositories
 Source1:        flatpak-add-fedora-repos.service
 %endif
-
-# https://github.com/flatpak/flatpak/pull/6535
-# https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/5388
-Patch:          0001-fix-a-crash-in-flatpak_context_make_sandboxed.patch
 
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

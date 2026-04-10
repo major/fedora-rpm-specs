@@ -14,7 +14,7 @@
 
 Name:		efl
 Version:	1.28.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -548,6 +548,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-6
+- Libraw rebuild
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-5
 - LibRaw rebuild
 

@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -159,6 +159,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Apr  9 2026 Akira TAGOH <tagoh@redhat.com> - 0.8.0-17
+- Rebuilt with fmt 12.
+
 * Fri Apr 03 2026 Kefu Chai <tchaikov@gmail.com> - 0.8.0-16
 - Backport upstream fix for fmt 12: replace fmt::localtime with std::localtime
 

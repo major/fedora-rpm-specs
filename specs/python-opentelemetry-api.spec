@@ -25,6 +25,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n opentelemetry_api-%{version}
+# Remove upper bound on importlib-metadata
+sed -i '/importlib-metadata/s/, < [^"]*//' pyproject.toml
 
 
 %generate_buildrequires

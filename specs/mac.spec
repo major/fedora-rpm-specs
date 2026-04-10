@@ -1,5 +1,5 @@
 Name:           mac
-Version:        12.50
+Version:        12.63
 Release:        %autorelease
 Summary:        Monkey's Audio Codec
 
@@ -7,7 +7,6 @@ License:        BSD-3-Clause
 URL:            https://monkeysaudio.com
 Source:         %{url}/files/MAC_%(echo "%{version}" | tr -d .)_SDK.zip
 Patch:          mac-cmake4.patch
-Patch:          mac-default-linux.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -60,7 +59,7 @@ sed -i 's/\r$//' Readme.txt
 %files libs
 %license License.txt
 %doc Readme.txt
-%{_libdir}/libMAC.so.14
+%{_libdir}/libMAC.so.15
 
 %files devel
 %{_includedir}/MAC/

@@ -28,7 +28,7 @@
 # apparently defunct project. See
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_library_naming
 Name:           python-python-fcl
-Version:        0.7.0.10
+Version:        0.7.0.11
 Release:        %autorelease
 Summary:        Python bindings for the Flexible Collision Library
 

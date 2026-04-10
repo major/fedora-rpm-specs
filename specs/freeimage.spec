@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.30%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.31%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -176,6 +176,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.19.0-0.31.svn1909
+- Libraw rebuild
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.19.0-0.30.svn1909
 - LibRaw rebuild
 

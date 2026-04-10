@@ -5,7 +5,7 @@
 Name:           texlive-collection-langeuropean
 Epoch:          12
 Version:        svn73414
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Other European languages
 
 License:        LPPL-1.3c
@@ -219,12 +219,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontenc.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(arm.tex) = %{tl_version}
-Provides:       tex(armkb-a8.tex) = %{tl_version}
-Provides:       tex(armkb-u8.tex) = %{tl_version}
-Provides:       tex(armscii8.def) = %{tl_version}
-Provides:       tex(armtex.sty) = %{tl_version}
-Provides:       tex(ot6enc.def) = %{tl_version}
 
 %description -n texlive-armtex
 ArmTeX is a system for typesetting Armenian text with Plain TeX or LaTeX(2e).
@@ -239,11 +233,10 @@ of the README file.
 
 %package -n texlive-babel-albanian
 Summary:        Support for Albanian within babel
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(albanian.ldf) = %{tl_version}
 
 %description -n texlive-babel-albanian
 The package provides support for typesetting Albanian (as part of the babel
@@ -251,11 +244,10 @@ system).
 
 %package -n texlive-babel-bosnian
 Summary:        Babel contrib support for Bosnian
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bosnian.ldf) = %{tl_version}
 
 %description -n texlive-babel-bosnian
 The package provides a language definition file that enables support of Bosnian
@@ -267,7 +259,6 @@ Version:        svn77470
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(breton.ldf) = %{tl_version}
 
 %description -n texlive-babel-breton
 Breton (being, principally, a spoken language) does not have typographic rules
@@ -276,11 +267,10 @@ British typographic rules.
 
 %package -n texlive-babel-croatian
 Summary:        Babel contributed support for Croatian
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(croatian.ldf) = %{tl_version}
 
 %description -n texlive-babel-croatian
 The package establishes Croatian conventions in a document (or a subset of the
@@ -288,11 +278,10 @@ conventions, if Croatian is not the main language of the document).
 
 %package -n texlive-babel-danish
 Summary:        Babel contributed support for Danish
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(danish.ldf) = %{tl_version}
 
 %description -n texlive-babel-danish
 The package provides a language definition, file for use with babel, which
@@ -301,12 +290,10 @@ if Danish is not the main language of the document).
 
 %package -n texlive-babel-dutch
 Summary:        Babel contributed support for Dutch
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(afrikaans.ldf) = %{tl_version}
-Provides:       tex(dutch.ldf) = %{tl_version}
 
 %description -n texlive-babel-dutch
 The package provides a language definition, file for use with babel, which
@@ -319,7 +306,6 @@ Version:        svn38064
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(estonian.ldf) = %{tl_version}
 
 %description -n texlive-babel-estonian
 The package provides the language definition file for support of Estonian in
@@ -328,11 +314,10 @@ standard "LaTeX names".
 
 %package -n texlive-babel-finnish
 Summary:        Babel support for Finnish
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(finnish.ldf) = %{tl_version}
 
 %description -n texlive-babel-finnish
 The package provides a language description file that enables support of
@@ -340,11 +325,10 @@ Finnish with babel.
 
 %package -n texlive-babel-friulan
 Summary:        Babel/Polyglossia support for Friulan(Furlan)
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(friulan.ldf) = %{tl_version}
 
 %description -n texlive-babel-friulan
 The package provides a language description file that enables support of
@@ -356,7 +340,6 @@ Version:        svn77586
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(magyar.ldf) = %{tl_version}
 
 %description -n texlive-babel-hungarian
 The package provides a language definition file that enables support of
@@ -368,7 +351,6 @@ Version:        svn51551
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(icelandic.ldf) = %{tl_version}
 
 %description -n texlive-babel-icelandic
 The package provides the language definition file for support of Icelandic in
@@ -377,11 +359,10 @@ standard "LaTeX names".
 
 %package -n texlive-babel-irish
 Summary:        Babel support for Irish
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(irish.ldf) = %{tl_version}
 
 %description -n texlive-babel-irish
 The package provides the language definition file for support of Irish Gaelic
@@ -394,7 +375,6 @@ Version:        svn30279
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(kurmanji.ldf) = %{tl_version}
 
 %description -n texlive-babel-kurmanji
 The package provides the language definition file for support of Kurmanji in
@@ -410,12 +390,6 @@ Version:        svn76176
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(classicallatin.ldf) = %{tl_version}
-Provides:       tex(classiclatin.ldf) = %{tl_version}
-Provides:       tex(ecclesiasticallatin.ldf) = %{tl_version}
-Provides:       tex(ecclesiasticlatin.ldf) = %{tl_version}
-Provides:       tex(latin.ldf) = %{tl_version}
-Provides:       tex(medievallatin.ldf) = %{tl_version}
 
 %description -n texlive-babel-latin
 The babel-latin package provides the babel languages latin, classicallatin,
@@ -428,7 +402,6 @@ Version:        svn71108
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(latvian.ldf) = %{tl_version}
 
 %description -n texlive-babel-latvian
 The package provides the language definition file for support of Latvian in
@@ -440,7 +413,6 @@ Version:        svn66513
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lithuanian.ldf) = %{tl_version}
 
 %description -n texlive-babel-lithuanian
 Babel support material for documents written in Lithuanian moved from the
@@ -453,7 +425,6 @@ Version:        svn39587
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(macedonian.ldf) = %{tl_version}
 
 %description -n texlive-babel-macedonian
 The package provides support for Macedonian documents written in Cyrillic, in
@@ -461,13 +432,10 @@ babel.
 
 %package -n texlive-babel-norsk
 Summary:        Babel support for Norwegian
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(norsk.ldf) = %{tl_version}
-Provides:       tex(norwegian.ldf) = %{tl_version}
-Provides:       tex(nynorsk.ldf) = %{tl_version}
 
 %description -n texlive-babel-norsk
 The package provides the language definition file for support of Norwegian in
@@ -480,7 +448,6 @@ Version:        svn39608
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(occitan.ldf) = %{tl_version}
 
 %description -n texlive-babel-occitan
 Occitan language description file with usage instructions.
@@ -491,7 +458,6 @@ Version:        svn30282
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(piedmontese.ldf) = %{tl_version}
 
 %description -n texlive-babel-piedmontese
 The package provides the language definition file for support of Piedmontese in
@@ -500,11 +466,10 @@ standard "LaTeX names".
 
 %package -n texlive-babel-romanian
 Summary:        Babel support for Romanian
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(romanian.ldf) = %{tl_version}
 
 %description -n texlive-babel-romanian
 The package provides the language definition file for support of Romanian in
@@ -512,11 +477,10 @@ babel. Translations to Romanian of standard "LaTeX names" are provided.
 
 %package -n texlive-babel-romansh
 Summary:        Babel/Polyglossia support for the Romansh language
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(romansh.ldf) = %{tl_version}
 
 %description -n texlive-babel-romansh
 The package provides a language description file that enables support of
@@ -524,12 +488,10 @@ Romansh either with babel or with polyglossia.
 
 %package -n texlive-babel-samin
 Summary:        Babel support for Samin
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(northernsami.ldf) = %{tl_version}
-Provides:       tex(samin.ldf) = %{tl_version}
 
 %description -n texlive-babel-samin
 The package provides the language definition file for support of North Sami in
@@ -540,12 +502,10 @@ defined, as well as translations to Norsk of standard "LaTeX names".
 
 %package -n texlive-babel-scottish
 Summary:        Babel support for Scottish Gaelic
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(scottish.ldf) = %{tl_version}
-Provides:       tex(scottishgaelic.ldf) = %{tl_version}
 
 %description -n texlive-babel-scottish
 The package provides the language definition file for support of Gaidhlig
@@ -554,12 +514,10 @@ of standard "LaTeX names".
 
 %package -n texlive-babel-slovenian
 Summary:        Babel support for typesetting Slovenian
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(slovene.ldf) = %{tl_version}
-Provides:       tex(slovenian.ldf) = %{tl_version}
 
 %description -n texlive-babel-slovenian
 The package provides the language definition file for support of Slovenian in
@@ -568,11 +526,10 @@ standard "LaTeX names".
 
 %package -n texlive-babel-swedish
 Summary:        Babel support for typesetting Swedish
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(swedish.ldf) = %{tl_version}
 
 %description -n texlive-babel-swedish
 The package provides the language definition file for Swedish.
@@ -583,18 +540,16 @@ Version:        svn51560
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(turkish.ldf) = %{tl_version}
 
 %description -n texlive-babel-turkish
 The package provides support, within babel, of the Turkish language.
 
 %package -n texlive-babel-welsh
 Summary:        Babel support for Welsh
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(welsh.ldf) = %{tl_version}
 
 %description -n texlive-babel-welsh
 The package provides the language definition file for Welsh. (Mostly
@@ -647,9 +602,6 @@ Requires:       tex(optional.sty)
 Requires:       tex(paralist.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(fsbispit.cls) = %{tl_version}
-Provides:       tex(fsbmath.sty) = %{tl_version}
-Provides:       tex(hrlatex.sty) = %{tl_version}
 
 %description -n texlive-hrlatex
 This package simplifies creation of new documents for the (average) Croatian
@@ -665,7 +617,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(refcount.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(huaz.sty) = %{tl_version}
 
 %description -n texlive-huaz
 In Hungarian there are two definite articles, "a" and "az", which are
@@ -682,7 +633,6 @@ Version:        svn77317
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hulipsum.sty) = %{tl_version}
 
 %description -n texlive-hulipsum
 Lorem ipsum is an improper Latin filler dummy text, cf. the lipsum package. It
@@ -695,61 +645,48 @@ and David Takacs) for their work.
 
 %package -n texlive-hyphen-albanian
 Summary:        Albanian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-quote-sq.tex) = %{tl_version}
-Provides:       tex(hyph-sq.ec.tex) = %{tl_version}
-Provides:       tex(hyph-sq.tex) = %{tl_version}
-Provides:       tex(loadhyph-sq.tex) = %{tl_version}
 
 %description -n texlive-hyphen-albanian
 Hyphenation patterns for Albanian in UTF-8 and T1 encoding.
 
 %package -n texlive-hyphen-croatian
 Summary:        Croatian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-hr.ec.tex) = %{tl_version}
-Provides:       tex(hyph-hr.tex) = %{tl_version}
-Provides:       tex(loadhyph-hr.tex) = %{tl_version}
 
 %description -n texlive-hyphen-croatian
 Hyphenation patterns for Croatian in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-danish
 Summary:        Danish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-da.ec.tex) = %{tl_version}
-Provides:       tex(hyph-da.tex) = %{tl_version}
-Provides:       tex(loadhyph-da.tex) = %{tl_version}
 
 %description -n texlive-hyphen-danish
 Hyphenation patterns for Danish in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-dutch
 Summary:        Dutch hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-nl.ec.tex) = %{tl_version}
-Provides:       tex(hyph-nl.tex) = %{tl_version}
-Provides:       tex(loadhyph-nl.tex) = %{tl_version}
 
 %description -n texlive-hyphen-dutch
 Hyphenation patterns for Dutch in T1/EC and UTF-8 encodings. These patterns
@@ -758,33 +695,24 @@ have different hyphenations according to their meaning.
 
 %package -n texlive-hyphen-estonian
 Summary:        Estonian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-et.ec.tex) = %{tl_version}
-Provides:       tex(hyph-et.tex) = %{tl_version}
-Provides:       tex(loadhyph-et.tex) = %{tl_version}
 
 %description -n texlive-hyphen-estonian
 Hyphenation patterns for Estonian in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-finnish
 Summary:        Finnish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LicenseRef-Fedora-UltraPermissive
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-fi-x-school.ec.tex) = %{tl_version}
-Provides:       tex(hyph-fi-x-school.tex) = %{tl_version}
-Provides:       tex(hyph-fi.ec.tex) = %{tl_version}
-Provides:       tex(hyph-fi.tex) = %{tl_version}
-Provides:       tex(loadhyph-fi-x-school.tex) = %{tl_version}
-Provides:       tex(loadhyph-fi.tex) = %{tl_version}
 
 %description -n texlive-hyphen-finnish
 Hyphenation patterns for Finnish in T1 and UTF-8 encodings. The older set,
@@ -793,16 +721,12 @@ labelled just 'fi', tries to implement etymological rules, while the newer ones
 
 %package -n texlive-hyphen-friulan
 Summary:        Friulan hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-fur.ec.tex) = %{tl_version}
-Provides:       tex(hyph-fur.tex) = %{tl_version}
-Provides:       tex(hyph-quote-fur.tex) = %{tl_version}
-Provides:       tex(loadhyph-fur.tex) = %{tl_version}
 
 %description -n texlive-hyphen-friulan
 Hyphenation patterns for Friulan in ASCII encoding. They are supposed to comply
@@ -811,60 +735,48 @@ Regional Law N.15/96 dated November 6, 1996 and its following amendments.
 
 %package -n texlive-hyphen-hungarian
 Summary:        Hungarian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-hu.ec.tex) = %{tl_version}
-Provides:       tex(hyph-hu.tex) = %{tl_version}
-Provides:       tex(loadhyph-hu.tex) = %{tl_version}
 
 %description -n texlive-hyphen-hungarian
 Hyphenation patterns for Hungarian in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-icelandic
 Summary:        Icelandic hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-is.ec.tex) = %{tl_version}
-Provides:       tex(hyph-is.tex) = %{tl_version}
-Provides:       tex(loadhyph-is.tex) = %{tl_version}
 
 %description -n texlive-hyphen-icelandic
 Hyphenation patterns for Icelandic in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-irish
 Summary:        Irish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        GPL-2.0-or-later OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ga.ec.tex) = %{tl_version}
-Provides:       tex(hyph-ga.tex) = %{tl_version}
-Provides:       tex(loadhyph-ga.tex) = %{tl_version}
 
 %description -n texlive-hyphen-irish
 Hyphenation patterns for Irish (Gaeilge) in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-kurmanji
 Summary:        Kurmanji hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-kmr.ec.tex) = %{tl_version}
-Provides:       tex(hyph-kmr.tex) = %{tl_version}
-Provides:       tex(loadhyph-kmr.tex) = %{tl_version}
 
 %description -n texlive-hyphen-kurmanji
 Hyphenation patterns for Kurmanji (Northern Kurdish) as spoken in Turkey and by
@@ -872,21 +784,12 @@ the Kurdish diaspora in Europe, in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-latin
 Summary:        Latin hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-la-x-classic.ec.tex) = %{tl_version}
-Provides:       tex(hyph-la-x-classic.tex) = %{tl_version}
-Provides:       tex(hyph-la-x-liturgic.ec.tex) = %{tl_version}
-Provides:       tex(hyph-la-x-liturgic.tex) = %{tl_version}
-Provides:       tex(hyph-la.ec.tex) = %{tl_version}
-Provides:       tex(hyph-la.tex) = %{tl_version}
-Provides:       tex(loadhyph-la-x-classic.tex) = %{tl_version}
-Provides:       tex(loadhyph-la-x-liturgic.tex) = %{tl_version}
-Provides:       tex(loadhyph-la.tex) = %{tl_version}
 
 %description -n texlive-hyphen-latin
 Hyphenation patterns for Latin in T1/EC and UTF-8 encodings, mainly in modern
@@ -901,30 +804,24 @@ encodings.
 
 %package -n texlive-hyphen-latvian
 Summary:        Latvian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LGPL-2.1-only OR GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-lv.l7x.tex) = %{tl_version}
-Provides:       tex(hyph-lv.tex) = %{tl_version}
-Provides:       tex(loadhyph-lv.tex) = %{tl_version}
 
 %description -n texlive-hyphen-latvian
 Hyphenation patterns for Latvian in L7X and UTF-8 encodings.
 
 %package -n texlive-hyphen-lithuanian
 Summary:        Lithuanian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-lt.l7x.tex) = %{tl_version}
-Provides:       tex(hyph-lt.tex) = %{tl_version}
-Provides:       tex(loadhyph-lt.tex) = %{tl_version}
 
 %description -n texlive-hyphen-lithuanian
 Hyphenation patterns for Lithuanian in L7X and UTF-8 encodings. \lefthyphenmin
@@ -932,34 +829,24 @@ and \righthyphenmin have to be at least 2.
 
 %package -n texlive-hyphen-macedonian
 Summary:        Macedonian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        GPL-1.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-mk.macedonian.tex) = %{tl_version}
-Provides:       tex(hyph-mk.tex) = %{tl_version}
-Provides:       tex(loadhyph-mk.tex) = %{tl_version}
 
 %description -n texlive-hyphen-macedonian
 Hyphenation patterns for Macedonian
 
 %package -n texlive-hyphen-norwegian
 Summary:        Norwegian Bokmal and Nynorsk hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        FSFAP
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-nb.ec.tex) = %{tl_version}
-Provides:       tex(hyph-nb.tex) = %{tl_version}
-Provides:       tex(hyph-nn.ec.tex) = %{tl_version}
-Provides:       tex(hyph-nn.tex) = %{tl_version}
-Provides:       tex(hyph-no.tex) = %{tl_version}
-Provides:       tex(loadhyph-nb.tex) = %{tl_version}
-Provides:       tex(loadhyph-nn.tex) = %{tl_version}
 
 %description -n texlive-hyphen-norwegian
 Hyphenation patterns for Norwegian Bokmal and Nynorsk in T1/EC and UTF-8
@@ -967,16 +854,12 @@ encodings.
 
 %package -n texlive-hyphen-occitan
 Summary:        Occitan hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-oc.ec.tex) = %{tl_version}
-Provides:       tex(hyph-oc.tex) = %{tl_version}
-Provides:       tex(hyph-quote-oc.tex) = %{tl_version}
-Provides:       tex(loadhyph-oc.tex) = %{tl_version}
 
 %description -n texlive-hyphen-occitan
 Hyphenation patterns for Occitan in T1/EC and UTF-8 encodings. They are
@@ -987,15 +870,12 @@ half of the French pentagon.
 
 %package -n texlive-hyphen-piedmontese
 Summary:        Piedmontese hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-pms.tex) = %{tl_version}
-Provides:       tex(hyph-quote-pms.tex) = %{tl_version}
-Provides:       tex(loadhyph-pms.tex) = %{tl_version}
 
 %description -n texlive-hyphen-piedmontese
 Hyphenation patterns for Piedmontese in ASCII encoding. Compliant with
@@ -1003,15 +883,12 @@ Hyphenation patterns for Piedmontese in ASCII encoding. Compliant with
 
 %package -n texlive-hyphen-romanian
 Summary:        Romanian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ro.ec.tex) = %{tl_version}
-Provides:       tex(hyph-ro.tex) = %{tl_version}
-Provides:       tex(loadhyph-ro.tex) = %{tl_version}
 
 %description -n texlive-hyphen-romanian
 Hyphenation patterns for Romanian in T1/EC and UTF-8 encodings. The UTF-8
@@ -1021,15 +898,12 @@ future. Generated by PatGen2-output hyphen-level 9.
 
 %package -n texlive-hyphen-romansh
 Summary:        Romansh hyphenation patterns.
-Version:        svn74115
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-rm.ec.tex) = %{tl_version}
-Provides:       tex(hyph-rm.tex) = %{tl_version}
-Provides:       tex(loadhyph-rm.tex) = %{tl_version}
 
 %description -n texlive-hyphen-romansh
 Hyphenation patterns for Romansh. All Romansh idioms and Rumantsch Grischun
@@ -1039,45 +913,36 @@ organisation).
 
 %package -n texlive-hyphen-slovenian
 Summary:        Slovenian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-sl.ec.tex) = %{tl_version}
-Provides:       tex(hyph-sl.tex) = %{tl_version}
-Provides:       tex(loadhyph-sl.tex) = %{tl_version}
 
 %description -n texlive-hyphen-slovenian
 Hyphenation patterns for Slovenian in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-swedish
 Summary:        Swedish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-sv.ec.tex) = %{tl_version}
-Provides:       tex(hyph-sv.tex) = %{tl_version}
-Provides:       tex(loadhyph-sv.tex) = %{tl_version}
 
 %description -n texlive-hyphen-swedish
 Hyphenation patterns for Swedish in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-turkish
 Summary:        Turkish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-tr.ec.tex) = %{tl_version}
-Provides:       tex(hyph-tr.tex) = %{tl_version}
-Provides:       tex(loadhyph-tr.tex) = %{tl_version}
 
 %description -n texlive-hyphen-turkish
 Hyphenation patterns for Turkish in T1/EC and UTF-8 encodings. Auto-generated
@@ -1089,30 +954,24 @@ to be dropped to keep compatibility with 8-bit engines.
 
 %package -n texlive-hyphen-uppersorbian
 Summary:        Upper Sorbian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-hsb.ec.tex) = %{tl_version}
-Provides:       tex(hyph-hsb.tex) = %{tl_version}
-Provides:       tex(loadhyph-hsb.tex) = %{tl_version}
 
 %description -n texlive-hyphen-uppersorbian
 Hyphenation patterns for Upper Sorbian in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-welsh
 Summary:        Welsh hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-cy.ec.tex) = %{tl_version}
-Provides:       tex(hyph-cy.tex) = %{tl_version}
-Provides:       tex(loadhyph-cy.tex) = %{tl_version}
 
 %description -n texlive-hyphen-welsh
 Hyphenation patterns for Welsh in T1/EC and UTF-8 encodings.
@@ -1138,10 +997,6 @@ Version:        svn66461
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cp775.def) = %{tl_version}
-Provides:       tex(l7xenc.def) = %{tl_version}
-Provides:       tex(l7xenc.sty) = %{tl_version}
-Provides:       tex(latin7.def) = %{tl_version}
 
 %description -n texlive-lithuanian
 This language support package provides: extra 8-bit encoding L7x used by
@@ -1218,7 +1073,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xstring.sty)
-Provides:       tex(nevelok.sty) = %{tl_version}
 
 %description -n texlive-nevelok
 LaTeX package for automatic definite articles for Hungarian
@@ -1230,7 +1084,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Provides:       tex(rojud.sty) = %{tl_version}
 
 %description -n texlive-rojud
 This package provides a Type 1 font with images of the 42 counties of Romania,
@@ -1253,11 +1106,10 @@ do not implement Swedish collation.
 
 %package -n texlive-turkmen
 Summary:        Babel support for Turkmen
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(turkmen.ldf) = %{tl_version}
 
 %description -n texlive-turkmen
 The package provides support for Turkmen in babel, but integration with babel
@@ -2013,116 +1865,216 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-albanian
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sq.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sq.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-sq.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sq.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sq.pat.txt
 
 %files -n texlive-hyphen-croatian
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-hr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-hr.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-hr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hr.pat.txt
 
 %files -n texlive-hyphen-danish
 %license lppl1.3c.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-da.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-da.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-da.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-da.pat.txt
 
 %files -n texlive-hyphen-dutch
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-nl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-nl.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-nl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nl.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nl.pat.txt
 
 %files -n texlive-hyphen-estonian
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-et.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-et.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-et.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-et.pat.txt
 
 %files -n texlive-hyphen-finnish
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-fi-x-school.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-fi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-fi-x-school.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-fi.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-fi-x-school.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-fi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-fi-x-school.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-fi.pat.txt
 
 %files -n texlive-hyphen-friulan
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-fur.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-fur.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-fur.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-fur.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-fur.pat.txt
 
 %files -n texlive-hyphen-hungarian
 %license other-free.txt
 %license gpl2.txt
 %license lgpl2.1.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-hu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-hu.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-hu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hu.pat.txt
 %doc %{_texmf_main}/doc/generic/huhyphen/
 %doc %{_texmf_main}/doc/generic/hyph-utf8/
 
 %files -n texlive-hyphen-icelandic
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-is.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-is.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-is.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-is.pat.txt
 
 %files -n texlive-hyphen-irish
 %license gpl2.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ga.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-ga.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ga.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ga.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ga.pat.txt
 
 %files -n texlive-hyphen-kurmanji
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-kmr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-kmr.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-kmr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-kmr.pat.txt
 
 %files -n texlive-hyphen-latin
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-la-x-classic.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-la-x-liturgic.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-la.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-la-x-liturgic.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-la.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex-8bit/hyph-la-x-classic.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-la-x-classic.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-la-x-liturgic.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-la.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-la-x-classic.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-la-x-liturgic.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-la.pat.txt
 
 %files -n texlive-hyphen-latvian
 %license lgpl2.1.txt
 %license gpl2.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-lv.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-lv.l7x.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-lv.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-lv.pat.txt
 
 %files -n texlive-hyphen-lithuanian
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-lt.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-lt.l7x.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-lt.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-lt.pat.txt
 
 %files -n texlive-hyphen-macedonian
 %license gpl.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-mk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex-8bit/hyph-mk.macedonian.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-mk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-mk.pat.txt
 
 %files -n texlive-hyphen-norwegian
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-nb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-nn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-nb.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-nn.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-nb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-nn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-no.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nb.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nb.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nn.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-nn.pat.txt
 
 %files -n texlive-hyphen-occitan
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-oc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-oc.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-oc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-oc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-oc.pat.txt
 
 %files -n texlive-hyphen-piedmontese
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-pms.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-pms.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-pms.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pms.pat.txt
 
 %files -n texlive-hyphen-romanian
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ro.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-ro.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ro.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ro.pat.txt
 
 %files -n texlive-hyphen-romansh
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-rm.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-rm.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-rm.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-rm.pat.txt
 
 %files -n texlive-hyphen-slovenian
 %license lppl1.3c.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sl.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sl.pat.txt
 
 %files -n texlive-hyphen-swedish
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sv.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-sv.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sv.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sv.pat.txt
 
 %files -n texlive-hyphen-turkish
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-tr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-tr.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-tr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-tr.pat.txt
 
 %files -n texlive-hyphen-uppersorbian
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-hsb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-hsb.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-hsb.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hsb.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hsb.pat.txt
 
 %files -n texlive-hyphen-welsh
 %license lppl1.3c.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-cy.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-cy.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-cy.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cy.pat.txt
 
 %files -n texlive-kaytannollista-latexia
 %license cc-by-sa-4.txt
@@ -2180,6 +2132,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/turkmen/
 
 %changelog
+* Wed Apr 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-6
+- Update 42 components
+- Move to automatic file provides
+- fix hyph-utf8 file entries
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-5
 - Update babel-albanian babel-bosnian babel-croatian babel-danish babel-dutch
   babel-finnish babel-friulan babel-irish babel-norsk babel-romanian

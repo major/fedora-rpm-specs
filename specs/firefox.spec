@@ -203,14 +203,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        149.0
-Release:        6%{?pre_tag}%{?dist}
+Version:        149.0.2
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260319.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260407.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -277,7 +277,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-Patch403:        D288856.1774090535.diff
 Patch404:        D289234.1774532393.diff
 Patch405:        D291711.1775644067.diff
 
@@ -603,7 +602,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P403 -p1 -b .D288856.1774090535
 %patch -P404 -p1 -b .D289234.1774532393
 %patch -P405 -p2 -b .D291711.1775644067
 
@@ -1302,6 +1300,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Apr 8 2026 Martin Stransky <stransky@redhat.com> - 149.0.2-1
+- Update to latest upstream (149.0.2)
+
 * Tue Apr 7 2026 <zomcd.rhbz@outlook.com> - 149.0-6
 - Fixed rhbz#2449217 - Firefox launch script does not use
   XDG_CONFIG_HOME for extensions.

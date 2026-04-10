@@ -1,5 +1,5 @@
 Name: tuned-switcher
-Version: 1.0.0
+Version: 1.0.1
 Release: %autorelease
 
 # Main code - GPL-3.0-or-later.
@@ -10,9 +10,7 @@ URL: https://github.com/xvitaly/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} && 0%{?fedora} >= 43
 ExcludeArch: %{ix86}
-%endif
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)

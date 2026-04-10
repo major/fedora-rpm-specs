@@ -3,8 +3,8 @@
 %global pkgname opencv
 
 Name:          mingw-%{pkgname}
-Version:       4.12.0
-Release:       3%{?dist}
+Version:       4.13.0
+Release:       1%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -32,7 +32,7 @@ BuildRequires: cmake
 BuildRequires: swig
 BuildRequires: protobuf-compiler
 
-BuildRequires: mingw32-filesystem >= 102
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-eigen3
 # BuildRequires: mingw32-flatbuffers
@@ -58,7 +58,7 @@ BuildRequires: mingw32-tesseract
 BuildRequires: mingw32-vulkan-headers
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 102
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-eigen3
 # BuildRequires: mingw64-flatbuffers
@@ -142,13 +142,12 @@ MinGW Windows OpenCV library tools.
 
 %prep
 %autosetup -p1 -n %{pkgname}-%{version} -a1
-# we don't use pre-built contribs except quirc and flatbuffers
-mv 3rdparty/quirc/ .
-mv 3rdparty/flatbuffers/ .
-rm -r 3rdparty/
-mkdir 3rdparty/
-mv quirc/ 3rdparty/
-mv flatbuffers/ 3rdparty/
+# we don't use pre-built contribs except dlpack, quirc and flatbuffers
+pushd 3rdparty
+shopt -s extglob
+rm -r !(dlpack|quirc|flatbuffers)
+shopt -u extglob
+popd &>/dev/null
 
 
 %build
@@ -209,9 +208,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw32-%{pkgname}
 %license install_licenses/*
-%{mingw32_bindir}/libopencv_*4120.dll
+%{mingw32_bindir}/libopencv_*4130.dll
 %{mingw32_includedir}/opencv4/
-%{mingw32_libdir}/libopencv_*4120.dll.a
+%{mingw32_libdir}/libopencv_*4130.dll.a
 %{mingw32_libdir}/cmake/OpenCV/
 %{mingw32_datadir}/opencv4
 
@@ -224,9 +223,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw64-%{pkgname}
 %license install_licenses/*
-%{mingw64_bindir}/libopencv_*4120.dll
+%{mingw64_bindir}/libopencv_*4130.dll
 %{mingw64_includedir}/opencv4/
-%{mingw64_libdir}/libopencv_*4120.dll.a
+%{mingw64_libdir}/libopencv_*4130.dll.a
 %{mingw64_libdir}/cmake/OpenCV/
 %{mingw64_datadir}/opencv4
 
@@ -238,6 +237,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Wed Apr 08 2026 Sandro Mani <manisandro@gmail.com> - 4.13.0-1
+- Update to 4.13.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
