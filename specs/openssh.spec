@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -176,12 +176,13 @@ Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2423900
 Patch0053: 0053-openssh-10.2p1-pam-auth.patch
 Patch0054: 0054-gssapi-s4u.patch
+Patch0055: 0055-openssl40.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
-Requires: openssl-libs >= 3.5.0
+Requires: openssl-libs >= 4.0.0
 
 %if ! %{no_gnome_askpass}
 BuildRequires: libX11-devel
@@ -196,7 +197,7 @@ BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
 BuildRequires: audit-libs-devel >= 2.0.5
 BuildRequires: util-linux, groff
 BuildRequires: pam-devel
-BuildRequires: openssl-devel >= 3.5.0
+BuildRequires: openssl-devel >= 4.0.0
 BuildRequires: perl-podlators
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
@@ -577,6 +578,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Apr 09 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-11
+- Build against OpenSSL 4.0
+
 * Tue Mar 24 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-10
 - Fix GSSAPI authentication indicator issues found by AI
 - Don't negotiate non-FIPS algorithms in ssh-keyscan key exchange in FIPS mode

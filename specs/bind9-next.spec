@@ -17,7 +17,6 @@
 # Do not set CI environment, include more unit tests, even less stable
 %bcond_with    UNITTEST_ALL
 %bcond_without DNSTAP
-%bcond_without LMDB
 %bcond_without DOC
 %bcond_with    TSAN
 %bcond_without DTRACE
@@ -55,7 +54,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.20
+Version:  9.21.21
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -90,6 +89,8 @@ Patch1: bind-9.16-redhat_doc.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11825
+Patch5: bind-9.21-unittest-32b-mem.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -110,32 +111,33 @@ BuildRequires:  libtool
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
-BuildRequires:  libcap-devel
-BuildRequires:  libidn2-devel
-BuildRequires:  libxml2-devel
+BuildRequires:  pkgconfig(libcap)
+BuildRequires:  pkgconfig(libidn2)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  selinux-policy
 BuildRequires:  findutils
 BuildRequires:  sed
-BuildRequires:  libnghttp2-devel
-BuildRequires:  userspace-rcu-devel
+BuildRequires:  pkgconfig(libnghttp2)
+BuildRequires:  pkgconfig(liburcu)
 BuildRequires:  pkgconfig(libedit)
 BuildRequires:  dns-root-data
 # Compress the changelog
 BuildRequires:  gzip
+BuildRequires:  pkgconfig(lmdb)
 %if %{with JEMALLOC}
-BuildRequires:  jemalloc-devel
+BuildRequires:  pkgconfig(jemalloc)
 %endif
 %if ! 0%{?rhel}
 BuildRequires:  gpgverify
 %endif
-BuildRequires:  libuv-devel
+BuildRequires:  pkgconfig(libuv)
 %if %{with OPENSSL_ENGINE}
 BuildRequires:  openssl-devel-engine
 %endif
 %if %{with UNITTEST}
 # make unit dependencies
-BuildRequires:  libcmocka-devel
+BuildRequires:  pkgconfig(cmocka)
 # Ensure we have lscpu
 BuildRequires:  util-linux
 # Catch failing unittests coredumps
@@ -152,18 +154,17 @@ BuildRequires:  perl(English)
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-dns
+BuildRequires:  python3-hypothesis
 # manual configuration requires this tool
 BuildRequires:  iproute
 BuildRequires:  python3-jinja2
+BuildRequires:  lmdb-devel
 %if %{with SUDO}
 BuildRequires:  libcap sudo
 %endif
 %endif
 %if %{with GSSTSIG}
 BuildRequires:  krb5-devel
-%endif
-%if %{with LMDB}
-BuildRequires:  lmdb-devel
 %endif
 %if %{with JSON}
 BuildRequires:  json-c-devel
@@ -247,14 +248,13 @@ Summary:  Header files and libraries needed for bind-dyndb-ldap
 Provides: %{name}-lite-devel = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-lite-devel < 32:9.16.6-3
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: openssl-devel%{?_isa} libxml2-devel%{?_isa}
+Requires: openssl-devel%{?_isa}
+Requires: libxml2-devel%{?_isa}
 Requires: libcap-devel%{?_isa}
+Requires: lmdb-devel%{?_isa}
 %upname_compat %{upname}-devel
 %if %{with GSSTSIG}
 Requires: krb5-devel%{?_isa}
-%endif
-%if %{with LMDB}
-Requires: lmdb-devel%{?_isa}
 %endif
 %if %{with JSON}
 Requires:  json-c-devel%{?_isa}
@@ -368,11 +368,6 @@ export LIBDIR_SUFFIX
 %endif
 %if %{with GSSTSIG}
   -Dgssapi=enabled \
-%endif
-%if %{with LMDB}
-  -Dlmdb=enabled \
-%else
-  -Dlmdb=disabled \
 %endif
 %if %{with JSON}
   -Dstats-json=enabled \
@@ -560,9 +555,6 @@ find ${RPM_BUILD_ROOT}/%{_libdir} -name '*.la' -exec '/bin/rm' '-f' '{}' ';';
 # 9.16.4 installs even manual pages for tools not generated
 %if %{without DNSTAP}
 rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/dnstap-read.1* || true
-%endif
-%if %{without LMDB}
-rm -f ${RPM_BUILD_ROOT}%{_mandir}/man8/named-nzd2nzf.8* || true
 %endif
 
 pushd ${RPM_BUILD_ROOT}%{_mandir}/man8
@@ -817,10 +809,8 @@ fi;
 %{_bindir}/dnstap-read
 %{_mandir}/man1/dnstap-read.1*
 %endif
-%if %{with LMDB}
 %{_bindir}/named-nzd2nzf
 %{_mandir}/man1/named-nzd2nzf.1*
-%endif
 %{_mandir}/man1/host.1*
 %{_mandir}/man1/nsupdate.1*
 %{_mandir}/man1/dig.1*

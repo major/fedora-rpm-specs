@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -20,6 +20,8 @@ Patch2:         hdf5-1.14.patch
 Patch3:         med-swig-4.3.0.patch
 # Fix build with gcc15
 Patch4:         med-gcc15.patch
+# Fix build with cmake-4.3
+Patch5:         med-cmake43.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -134,6 +136,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Thu Apr 09 2026 Sandro Mani <manisandro@gmail.com> - 5.0.0-10
+- Add med-cmake43.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

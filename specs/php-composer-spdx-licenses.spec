@@ -1,28 +1,25 @@
 # remirepo/fedora spec file for php-composer-spdx-licenses
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    edf364cefe8c43501e21e88110aac10b284c3c9f
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-#global gh_date      20150717
 %global gh_owner     composer
 %global gh_project   spdx-licenses
 %global php_home     %{_datadir}/php
 %bcond_without       tests
 
 Name:           php-composer-spdx-licenses
-Version:        1.5.9
-Release:        3%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        SPDX licenses list and validation library
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to get upstream test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Resources path
@@ -31,25 +28,21 @@ Patch0:         %{name}-rpm.patch
 BuildArch:      noarch
 %if %{with tests}
 # For tests
-BuildRequires:  php(language) >= 5.3.2
+BuildRequires:  php(language) >= 7.2
 BuildRequires:  php-json
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#        "symfony/phpunit-bridge": "^3 || ^7",
+#        "symfony/phpunit-bridge": "^6.4.25 || ^7.3.3 || ^8.0",
 #        "phpstan/phpstan": "^1.11"
-BuildRequires: phpunit9
+BuildRequires: phpunit10
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 %endif
 
 # From composer.json, "require": {
-#        "php": "^5.3.2 || ^7.0 || ^8.0",
-Requires:       php(language) >= 5.3.2
+#        "php": "^7.2 || ^8.0",
+Requires:       php(language) >= 7.2
 # From phpcompatinfo report for version 1.6.0 (SpdxLicenses.php only)
 Requires:       php-json
-Requires:       php-pcre
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -64,7 +57,7 @@ now extracted and made available as a stand-alone library.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 %patch -P0 -p0 -b .rpm
 find . -name \*.rpm -delete -print
@@ -103,16 +96,13 @@ rm tests/SpdxLicensesUpdaterTest.php
 
 export BUILDROOT_SPDX=%{buildroot}
 
-# compatibility with recent PHPUnit
-sed -e  '/setUp()/s/$/:void/' -i tests/*.php
-
 ret=0
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
-    $cmd -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
+    $cmd -d memory_limit=1G %{_bindir}/phpunit10 \
       --bootstrap %{buildroot}%{php_home}/Composer/Spdx/autoload.php \
       --no-coverage \
-      --verbose || ret=1
+      || ret=1
   fi
 done
 exit $ret
@@ -131,6 +121,10 @@ exit $ret
 
 
 %changelog
+* Thu Apr  9 2026 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0 (SPDX 3.28.0)
+- switch to phpunit10
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

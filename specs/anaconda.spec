@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.30
+Version: 44.32
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -520,6 +520,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 07 2026 Packit <hello@packit.dev> - 44.32-1
+- Update to version 44.32
+
 * Thu Mar 26 2026 Packit <hello@packit.dev> - 44.30-1
 - Reload installer SELinux policy at exit so dracut shutdown works (k.koukiou)
 

@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 6
-%global microversion 2
+%global microversion 3
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -84,7 +84,6 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
-Patch0001:	0001-acp-fix-Werror-discarded-qualifiers-error.patch
 
 ## upstreamable patches
 
@@ -934,6 +933,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Thu Apr 09 2026 Wim Taymans <wtaymans@redhat.com> - 1.6.3-1
+- Update version to 1.6.3
+
 * Mon Mar 16 2026 Wim Taymans <wtaymans@redhat.com> - 1.6.2-1
 - Update version to 1.6.2
 - Add patch to fix compilation

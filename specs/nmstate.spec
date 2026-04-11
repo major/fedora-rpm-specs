@@ -147,7 +147,7 @@ BuildArch:      noarch
 License:        Apache-2.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
 Requires:  (crate(nispor/default) >= 2.0 with crate(nispor/default) < 3.0)
-Requires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
+Requires:  (crate(nix/default) >= 0.30 with crate(nix/default) < 0.31)
 Requires:  (crate(zbus/default) >= 5.1 with crate(zbus/default) < 6.0)
 
 %description -n rust-%{name}+query_apply-devel

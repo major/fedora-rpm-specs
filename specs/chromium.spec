@@ -1857,8 +1857,68 @@ fi
 %endif
 
 %changelog
-* Wed Apr 08 2026 Than Ngo <than@redhat.com> - 147.0.7727.55-1
+* Thu Apr 09 2026 Than Ngo <than@redhat.com> - 147.0.7727.55-1
 - Update to 147.0.7727.55
+  * Critical CVE-2026-5858: Heap buffer overflow in WebML
+  * Critical CVE-2026-5859: Integer overflow in WebML
+  * High CVE-2026-5860: Use after free in WebRTC
+  * High CVE-2026-5861: Use after free in V8
+  * High CVE-2026-5862: Inappropriate implementation in V8
+  * High CVE-2026-5863: Inappropriate implementation in V8
+  * High CVE-2026-5864: Heap buffer overflow in WebAudio
+  * High CVE-2026-5865: Type Confusion in V8
+  * High CVE-2026-5866: Use after free in Media
+  * High CVE-2026-5867: Heap buffer overflow in WebML
+  * High CVE-2026-5868: Heap buffer overflow in ANGLE
+  * High CVE-2026-5869: Heap buffer overflow in WebML
+  * High CVE-2026-5870: Integer overflow in Skia
+  * High CVE-2026-5871: Type Confusion in V8
+  * High CVE-2026-5872: Use after free in Blink
+  * High CVE-2026-5873: Out of bounds read and write in V8
+  * Medium CVE-2026-5874: Use after free in PrivateAI
+  * Medium CVE-2026-5875: Policy bypass in Blink
+  * Medium CVE-2026-5876: Side-channel information leakage in Navigation
+  * Medium CVE-2026-5877: Use after free in Navigation
+  * Medium CVE-2026-5878: Incorrect security UI in Blink
+  * Medium CVE-2026-5879: Insufficient validation of untrusted input in ANGLE
+  * Medium CVE-2026-5880: Incorrect security UI in browser UI
+  * Medium CVE-2026-5881: Policy bypass in LocalNetworkAccess
+  * Medium CVE-2026-5882: Incorrect security UI in Fullscreen
+  * Medium CVE-2026-5883: Use after free in Media
+  * Medium CVE-2026-5884: Insufficient validation of untrusted input in Media
+  * Medium CVE-2026-5885: Insufficient validation of untrusted input in WebML
+  * Medium CVE-2026-5886: Out of bounds read in WebAudio
+  * Medium CVE-2026-5887: Insufficient validation of untrusted input in Downloads
+  * Medium CVE-2026-5888: Uninitialized Use in WebCodecs
+  * Medium CVE-2026-5889: Cryptographic Flaw in PDFium
+  * Medium CVE-2026-5890: Race in WebCodecs
+  * Medium CVE-2026-5891: Insufficient policy enforcement in browser UI
+  * Medium CVE-2026-5892: Insufficient policy enforcement in PWAs
+  * Medium CVE-2026-5893: Race in V8
+  * Low CVE-2026-5894: Inappropriate implementation in PDF
+  * Low CVE-2026-5895: Incorrect security UI in Omnibox
+  * Low CVE-2026-5896: Policy bypass in Audio
+  * Low CVE-2026-5897: Incorrect security UI in Downloads
+  * Low CVE-2026-5898: Incorrect security UI in Omnibox
+  * Low CVE-2026-5899: Incorrect security UI in History Navigation
+  * Low CVE-2026-5900: Policy bypass in Downloads
+  * Low CVE-2026-5901: Policy bypass in DevTools
+  * Low CVE-2026-5902: Race in Media
+  * Low CVE-2026-5903: Policy bypass in IFrameSandbox
+  * Low CVE-2026-5904: Use after free in V8
+  * Low CVE-2026-5905: Incorrect security UI in Permissions
+  * Low CVE-2026-5906: Incorrect security UI in Omnibox
+  * Low CVE-2026-5907: Insufficient data validation in Media
+  * Low CVE-2026-5908: Integer overflow in Media
+  * Low CVE-2026-5909: Integer overflow in Media
+  * Low CVE-2026-5910: Integer overflow in Media
+  * Low CVE-2026-5911: Policy bypass in ServiceWorkers
+  * Low CVE-2026-5912: Integer overflow in WebRTC
+  * Low CVE-2026-5913: Out of bounds read in Blink
+  * Low CVE-2026-5914: Type Confusion in CSS
+  * Low CVE-2026-5915: Insufficient validation of untrusted input in WebML
+  * Low CVE-2026-5918: Inappropriate implementation in Navigation
+  * Low CVE-2026-5919: Insufficient validation of untrusted input in WebSockets
 
 * Wed Apr 01 2026 Than Ngo <than@redhat.com> - 146.0.7680.177-1
 - Update to 146.0.7680.177

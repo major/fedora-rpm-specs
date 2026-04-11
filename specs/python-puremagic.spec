@@ -1,7 +1,7 @@
 %global pypi_name puremagic
 
 Name:           python-%{pypi_name}
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Pure python implementation of magic file detection
 

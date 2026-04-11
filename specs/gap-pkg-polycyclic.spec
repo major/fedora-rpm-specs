@@ -12,7 +12,7 @@
 %global giturl         https://github.com/gap-packages/polycyclic
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.17
+Version:        2.18
 Release:        %autorelease
 Summary:        Algorithms on polycylic groups for GAP
 

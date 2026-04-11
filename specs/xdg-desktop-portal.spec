@@ -7,7 +7,7 @@
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.21.0
+Version: 1.21.1
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 

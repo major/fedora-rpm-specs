@@ -12,7 +12,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.10.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -36,6 +36,8 @@ Patch2: qttools-add-libatomic.patch
 Patch3: qdoc-support-newer-clang.patch
 
 ## upstream patches
+# QDoc LLVM 22 fixes (backported from dev branch)
+Patch10: qttools-llvm22-qdoc-fixes.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -159,6 +161,7 @@ Requires: %{name}-common = %{version}-%{release}
 %patch -P2 -p1 -b .libatomic
 %endif
 %patch -P3 -p1 -b .llvm22
+%patch -P10 -p1 -b .llvm22-qdoc-fixes
 
 %build
 %cmake_qt6 \
@@ -395,6 +398,9 @@ popd
 
 
 %changelog
+* Thu Apr 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-2
+- Fix Clang 22 support
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

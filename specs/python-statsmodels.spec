@@ -85,8 +85,8 @@ pushd statsmodels
  cp -a stats/libqsturng/LICENSE.txt ../LICENSE.libqsturng.txt
 popd
 
-# Allow setuptools_scm 9, already allowed upstream in main branch
-sed -i 's/setuptools_scm\[toml\]>=8,<9/setuptools_scm[toml]>=8,<10/' pyproject.toml
+# Allow setuptools_scm 10+
+sed -i 's/setuptools_scm\[toml\]>=8,<9/setuptools_scm[toml]>=8/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -9,23 +9,22 @@
 # Please, preserve the changelog entries
 #
 
-%global pie_vend   pecl
-%global pie_proj   mailparse
 %global pecl_name  mailparse
-# After 20-mbstring
+%global pie_vend   pecl
+%global pie_proj   %{pecl_name}
 %global ini_name   40-%{pecl_name}.ini
 
 # Github forge
 %global gh_vend    php
-%global gh_proj    pecl-mail-mailparse
+%global gh_proj    pecl-mail-%{pecl_name}
 %global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
 %global tag        v%{version}
 
-Name:      php-pecl-mailparse
+Name:      php-pecl-%{pecl_name}
 Summary:   PHP PECL package for parsing and working with email messages
 License:   PHP-3.01
-Version:   3.1.9
-Release:   4%{?dist}
+Version:   3.2.0
+Release:   1%{?dist}
 %forgemeta
 URL:       %{forgeurl}
 Source0:   %{forgesource}
@@ -36,12 +35,9 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel
 BuildRequires: php-pear
-# mbstring need for tests
-BuildRequires: php-mbstring
 # Required by phpize
 BuildRequires: autoconf, automake, libtool
 
-Requires: php-mbstring%{?_isa}
 Requires: php(zend-abi) = %{php_zend_api}
 Requires: php(api) = %{php_core_api}
 
@@ -101,7 +97,6 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 %check
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
-    --define extension=mbstring.so \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
@@ -110,7 +105,6 @@ TEST_PHP_EXECUTABLE=%{__php} \
 NO_INTERACTION=1 \
 %{__php} run-tests.php \
     -n -q \
-    -d extension=mbstring.so \
     -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --show-diff
 
@@ -127,6 +121,10 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Thu Apr  9 2026 Remi Collet <remi@remirepo.net> - 3.2.0-1
+- update to 3.2.0
+- drop dependency on mbstring
+
 * Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 3.1.9-4
 - drop pear/pecl dependency
 - sources from github

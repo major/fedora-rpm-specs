@@ -4,9 +4,9 @@
 Summary: Secure imap and pop3 server
 Name: dovecot
 Epoch: 1
-Version: 2.4.2
+Version: 2.4.3
 %global prever %{nil}
-Release: 6%{?dist}
+Release: 1%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -485,6 +485,9 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Apr 08 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.3-1
+- updated to 2.4.3 (#2452164)
+
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1:2.4.2-6
 - rebuild for lua 5.5
 

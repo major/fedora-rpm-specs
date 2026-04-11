@@ -3,7 +3,7 @@
 %global module_name openneuro
 
 Name:           python-%{module_name}
-Version:        2026.3.0
+Version:        2026.3.1
 Release:        %{autorelease}
 Summary:        A Python client for OpenNeuro
 

@@ -23,7 +23,7 @@
 
 %define PLATFORMS_COMMIT c3efe816e1bb
 
-%define OPENSSL_VER    3.5.5
+%define OPENSSL_VER    3.5.6
 
 %define DBXDATE        20251016
 
@@ -78,7 +78,7 @@ URL:        http://www.tianocore.org
 # | xz -9ev >/tmp/edk2-$COMMIT.tar.xz
 Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
-Source2: openssl-%{OPENSSL_VER}.tar.gz
+Source2: https://github.com/openssl/openssl/releases/download/openssl-%{OPENSSL_VER}/openssl-%{OPENSSL_VER}.tar.gz
 Source4: edk2-platforms-%{PLATFORMS_COMMIT}.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 Source6: dtc-1.7.0.tar.xz

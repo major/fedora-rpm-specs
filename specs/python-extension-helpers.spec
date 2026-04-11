@@ -51,6 +51,7 @@ BuildRequires:  python3dist(sphinx)
 
 %prep
 %autosetup -n %{srcname}-%{version}
+sed -i -e '/pytest-cov/d' pyproject.toml
 sed -i -e 's|312|312,313|' tox.ini
 
 %generate_buildrequires

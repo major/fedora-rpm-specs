@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.11.4
+Version:        0.11.6
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -153,13 +153,6 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Remove doctests from uv-keyring
-# https://github.com/astral-sh/uv/pull/18919
-#   Fixes:
-# Some issues with doctests in the uv_keyring crate
-# https://github.com/astral-sh/uv/issues/18916
-Patch:          %{url}/pull/18919.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -623,6 +616,22 @@ skip="${skip-} --skip tests::built_by_uv_building"
 # dependency version differing from Cargo.lock.
 skip="${skip-} --skip base_client::tests::retried_status_codes"
 
+# These fail flakily: most frequently on ppc64le, but this seems to be just a
+# matter of luck, since we suspect a race condition. We have also seen failures
+# on aarch64. This is probably a race involving the SSL_CERT_FILE environment
+# variable, which process-isolated testing in “cargo nextest” (used by
+# upstream) should avoid. That suggests there is nothing to report upstream.
+# When this fails, the error looks something like:
+#   Error: failed to build HTTP client
+#   Caused by:
+#       0: certificate in `/tmp/uv/tests/certs/.tmpFF0lkk/ca.pem` (from
+#          `SSL_CERT_FILE`) could not be used as a trust anchor on certificate
+#          `CN=uv-test-ca, O=Astral Software Inc.`
+#       1: ExtensionValueInvalid
+skip="${skip-} --skip user_agent_version::test_user_agent_has_linehaul"
+skip="${skip-} --skip user_agent_version::test_user_agent_has_subcommand"
+skip="${skip-} --skip user_agent_version::test_user_agent_has_version"
+
 %cargo_test -- -- --exact ${skip-}
 %endif
 
@@ -633,7 +642,6 @@ skip="${skip-} --skip base_client::tests::retried_status_codes"
 %license LICENSE-APACHE LICENSE-MIT LICENSE.dependencies LICENSE.bundled/
 %doc CHANGELOG.md
 %doc README.md
-%doc PIP_COMPATIBILITY.md
 
 %{_bindir}/uv
 # Equivalent to “uv tool run”:

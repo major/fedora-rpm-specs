@@ -1,5 +1,5 @@
 Name:           python-datasets
-Version:        4.7.0
+Version:        4.8.4
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
@@ -175,6 +175,8 @@ rm tests/test_upstream_hub.py
         --deselect="tests/test_data_files.py::test_resolve_pattern_in_dataset_repository_with_extensions[**-0-extensions2]" \
         --deselect="tests/test_data_files.py::test_resolve_pattern_in_dataset_repository_with_extensions[**-4-None]" \
         --deselect="tests/test_data_files.py::test_resolve_pattern_in_dataset_repository_with_extensions[**-4-extensions0]" \
+        --deselect="tests/test_data_files.py::test_resolve_pattern_locally_prefixed_archive_glob[tar_jsonl_path]" \
+        --deselect="tests/test_data_files.py::test_resolve_pattern_locally_prefixed_archive_glob[zip_jsonl_path]" \
         --deselect="tests/test_dataset_list.py::DatasetListTest::test_create" \
         --deselect="tests/test_dataset_list.py::DatasetListTest::test_create_empty" \
         --deselect="tests/test_dataset_list.py::DatasetListTest::test_list_dict_equivalent" \

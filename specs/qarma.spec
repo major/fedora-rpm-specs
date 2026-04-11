@@ -1,6 +1,6 @@
 Name:           qarma
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Tool for creating Qt dialog boxes
 
 License:        GPL-2.0-only
@@ -21,9 +21,10 @@ Zenity which was written for GTK+.
 %prep
 %autosetup -p1
 
+%conf
+%qmake_qt6
 
 %build
-%qmake_qt6
 %make_build
 
 %install
@@ -36,6 +37,9 @@ Zenity which was written for GTK+.
 
 
 %changelog
+* Fri Apr 10 2026 Shawn W Dunn <sfalken@opensuse.org> - 1.1.1-1
+- Update to 1.1.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

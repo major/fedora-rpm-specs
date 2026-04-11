@@ -9,7 +9,7 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.15
+Version:        1.0.16
 Release:        1%{?dist}
 
 License:        GPL-3.0-only
@@ -70,6 +70,10 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Thu Apr 09 2026 Packit <hello@packit.dev> - 1.0.16-1
+- Update to version 1.0.16
+- Resolves: rhbz#2456870
+
 * Tue Mar 24 2026 Nikola Davidova <ndavidov@redhat.com> - 1.0.15-1
 - Update to version 1.0.15
 - Fixes mysql-selinux issue

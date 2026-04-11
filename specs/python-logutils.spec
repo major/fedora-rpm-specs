@@ -5,8 +5,7 @@ Version:            0.3.5
 Release:            36%{?dist}
 Summary:            Logging utilities
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:            LicenseRef-Callaway-BSD
+License:            BSD-3-Clause
 URL:                https://pypi.io/project/logutils
 Source0:            https://pypi.io/packages/source/l/%{modname}/%{modname}-%{version}.tar.gz
 

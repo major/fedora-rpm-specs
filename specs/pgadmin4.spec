@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -22,16 +22,14 @@ Source0:        https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v%{version}/sour
 
 # ./prepare_vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
-Source2:        %{name}-%{version}-vendor-licenses.txt
-Source3:        %{name}-%{version}-yarn.lock
 
 # Unofficial qt runtime
-Source4:        pgadmin4-qt.cpp
-Source5:        org.postgresql.pgadmin4.metainfo.xml
-Source6:        pgadmin4-qt.svg
+Source2:        pgadmin4-qt.cpp
+Source3:        org.postgresql.pgadmin4.metainfo.xml
+Source4:        pgadmin4-qt.svg
 
 # Apache/WSGI config
-Source7:        pgadmin4.conf
+Source5:        pgadmin4.conf
 
 # Patch requirements for Fedora compat, generate via ./adjust_requirements.py
 Patch0:         pgadmin4_requirements.patch
@@ -39,8 +37,6 @@ Patch0:         pgadmin4_requirements.patch
 Patch1:         pgadmin4_azure-mgmt-rdbms.patch
 # Drop requirement on unpackaged python-sphinxcontrib-youtube
 Patch2:         pgadmin4_sphinx_youtube.patch
-# Drop packageManager field from package.json to avoid yarn complaining about corepack
-Patch3:         pgadmin4_corepack.patch
 
 # For docs
 BuildRequires:  glibc-langpack-en
@@ -48,13 +44,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-keyring
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-setuptools
-BuildRequires:  yarnpkg
 
-# For node dependencies
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libpng-devel
-BuildRequires:  libtool
+BuildRequires:  %{_bindir}/npm
 
 # Printed by ./adjust_requirements.py (which also generates pgadmin4_requirements.patch)
 
@@ -177,24 +168,24 @@ Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 
 %prep
-%setup -q -a1
+%setup -q
 %autopatch -M99 -p1
 
 sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
-cp -a %{SOURCE2} .
 
 
 %build
 (
 cd web
-cp -a %{SOURCE3} yarn.lock
-YARN_CACHE_FOLDER="$PWD/../.package-cache" yarn install --offline
-yarn run bundle
-rm -rf node_modules
+tar xf %{SOURCE1}
+tar xf corepack.tgz
+node $(pwd)/yarn/*/yarn.js install --immutable --immutable-cache
+node $(pwd)/yarn/*/yarn.js run bundle
+rm -rf node_modules .yarn .yarnrc.yml corepack.tgz
 )
 
 %ifarch %{qt6_qtwebengine_arches}
-g++ -o %{name}-qt %{SOURCE4} %{optflags} $(pkg-config --cflags --libs Qt6Core Qt6Widgets Qt6Network Qt6WebEngineCore Qt6WebEngineWidgets)
+g++ -o %{name}-qt %{SOURCE2} %{optflags} $(pkg-config --cflags --libs Qt6Core Qt6Widgets Qt6Network Qt6WebEngineCore Qt6WebEngineWidgets)
 %endif
 make docs PYTHON=%{__python3} SPHINXBUILD=sphinx-build
 
@@ -215,14 +206,14 @@ for size in 16 32 48 64 128; do
 done
 install -Dpm 0755 %{name}-qt %{buildroot}%{_bindir}/%{name}-qt
 install -Dpm 0644 pkg/linux/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -Dpm 0644 %{SOURCE5} %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
-install -Dpm 0644 %{SOURCE6} %{buildroot}%{_datadir}/pgadmin4-qt/pgadmin4-qt.svg
+install -Dpm 0644 %{SOURCE3} %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_datadir}/pgadmin4-qt/pgadmin4-qt.svg
 %endif
 
 # Apache/WSGI config
 mkdir -p %{buildroot}%{_localstatedir}/lib/pgadmin
 mkdir -p %{buildroot}%{_localstatedir}/log/pgadmin
-install -Dpm 0644 %{SOURCE7} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.conf
+install -Dpm 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.conf
 
 
 
@@ -234,14 +225,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %files
-%license LICENSE %{name}-%{version}-vendor-licenses.txt
+%license LICENSE web/%{name}-%{version}-vendor-licenses.txt
 %doc README.md
 %{_prefix}/lib/%{name}
 # Packaged by separate langpack subpackages
 %exclude %{_prefix}/lib/%{name}/pgadmin/translations/*
 
 %files doc
-%license LICENSE %{name}-%{version}-vendor-licenses.txt
+%license LICENSE web/%{name}-%{version}-vendor-licenses.txt
 %doc docs/en_US/_build/html
 
 %ifarch %{qt6_qtwebengine_arches}
@@ -260,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Apr 09 2026 Sandro Mani <manisandro@gmail.com> - 9.14-2
+- Rework vendor bundle, use corepack yarn
+
 * Thu Apr 02 2026 Sandro Mani <manisandro@gmail.com> - 9.14-1
 - Update to 9.14
 

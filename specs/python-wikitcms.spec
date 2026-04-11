@@ -1,7 +1,7 @@
 %global srcname wikitcms
 
 Name:           python-%{srcname}
-Version:        2.6.22
+Version:        2.6.23
 Release:        %{autorelease}
 Summary:        Fedora QA wiki test management Python library
 

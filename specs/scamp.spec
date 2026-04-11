@@ -7,7 +7,7 @@ Summary:        compute astrometric and photometric solutions from sextractor ca
 License:        GPL-3.0-only
 URL:            http://www.astromatic.net/software/scamp
 Source0:        https://github.com/astromatic/scamp/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0: wrong-pointer-i386.patch
+Patch0:         wrong-pointer-i386.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -16,7 +16,7 @@ BuildRequires:  cdsclient
 BuildRequires:  curl-devel
 BuildRequires:  fftw-devel
 BuildRequires:  libtool
-BuildRequires:  openblas-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  pkgconfig
 BuildRequires:  plplot-devel
 
@@ -32,7 +32,9 @@ SExtractor catalogs
 
 %build
 sh autogen.sh
-%configure --enable-openblas \
+sed -i 's/openblas/flexiblas/g' configure
+%configure --enable-flexiblas \
+  --with-flexiblas-incdir=%{_includedir}/flexiblas \
   --enable-plplot
 %make_build
 

@@ -11,8 +11,8 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.19.0
-Release: 3%{?dist}
+Version: 8.20.0~rc1
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -20,11 +20,6 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
-
-# Fix test459 to pass when running tests in parallel
-Patch001: 001-curl-8.19.0-test459-switch-to-mode-warn-for-stderr-check.patch
-# Don't fail channel binding for ML-DSA certificates
-Patch002: 002-curl-8.19.0-mldsa-channel-binding.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -247,6 +242,23 @@ be installed.
 # <https://github.com/bagder/curl/commit/21e82bd6#commitcomment-12226582>
 printf "1801\n" >>tests/data/DISABLED
 
+# test 303: raise timeout from 8s to 20s so it doesn't expire during TLS
+# handshake under valgrind
+%ifarch x86_64
+sed -e 's|-m 8|-m 20|' -i tests/data/test303
+%endif
+
+%ifarch s390x
+# SFTP/SCP tests fail due to libssh port-setting bug on big-endian
+# ("Could not set remote port")
+printf "582\n600\n601\n602\n603\n604\n605\n606\n607\n608\n" >>tests/data/DISABLED
+printf "609\n610\n611\n612\n613\n614\n615\n616\n617\n618\n" >>tests/data/DISABLED
+printf "619\n620\n621\n622\n623\n624\n625\n626\n627\n628\n" >>tests/data/DISABLED
+printf "629\n630\n631\n633\n634\n635\n636\n637\n638\n639\n" >>tests/data/DISABLED
+printf "640\n641\n642\n656\n664\n665\n" >>tests/data/DISABLED
+printf "1446\n1459\n1583\n2004\n2007\n" >>tests/data/DISABLED
+%endif
+
 # test3026: avoid pthread_create() failure due to resource exhaustion on i386
 %ifarch %{ix86}
 sed -e 's|NUM_THREADS 1000$|NUM_THREADS 256|' \
@@ -372,7 +384,7 @@ for size in minimal full; do (
     export LD_LIBRARY_PATH="${PWD}/lib/.libs"
 
     # tests that must run in serial to avoid intermittent failures under parallel execution
-    serial_tests="766 2502"
+    serial_tests="766 2404 2502 3300"
     serial_excludes=$(for t in $serial_tests; do printf ' !%s' "$t"; done)
     # run the bulk of tests in parallel, excluding serial ones
     # cap at 64 jobs to avoid overwhelming system resources on high-CPU machines
@@ -452,6 +464,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Apr 07 2026 Jan Macku <jamacku@redhat.com> - 8.20.0~rc1-1
+- new upstream release candidate
+
 * Tue Mar 24 2026 Rob Crittenden <rcritten@redhat.com> - 8.19.0-3
 - openssl channel_binding: lookup digest algorithm without NID
 

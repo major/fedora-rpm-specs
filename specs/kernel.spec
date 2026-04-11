@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc7.260408g3036cd0d3328.56
+%define pkgrelease 0.rc7.260409g7f87a5ea75f0.57
 %define kversion 7
-%define tarfile_release 7.0-rc7-59-g3036cd0d3328
+%define tarfile_release 7.0-rc7-68-g7f87a5ea75f0
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260408g3036cd0d3328.56%{?buildid}%{?dist}
+%define specrelease 0.rc7.260409g7f87a5ea75f0.57%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4825,6 +4825,10 @@ fi\
 #
 #
 %changelog
+* Thu Apr 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.7f87a5ea75f0.57]
+- Consolidate configs to common for 7.0 (Justin M. Forbes)
+- Linux v7.0.0-0.rc7.7f87a5ea75f0
+
 * Wed Apr 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.3036cd0d3328.56]
 - Remove stale config items (Justin M. Forbes)
 - redhat/configs: enable CONFIG_WATCHDOG_HRTIMER_PRETIMEOUT (David Arcari)

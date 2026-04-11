@@ -13,6 +13,9 @@ Source0: %{pypi_source}
 Patch0: seaborn-husl.patch
 Patch1: seaborn-docscrape.patch
 Patch2: seaborn-numpy-removals.patch
+# pytest 9 compatibility
+# Upstream commit: https://github.com/mwaskom/seaborn/commit/5023f2e.patch (rebased)
+Patch3: pytest9.patch
 BuildArch: noarch
 
 BuildRequires: python3-devel

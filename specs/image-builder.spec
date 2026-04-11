@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        58
+Version:        59
 
 %gometa
 
@@ -147,7 +147,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.256.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.257.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -265,6 +265,14 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Apr 09 2026 Packit <hello@packit.dev> - 59-1
+Changes with 59
+----------------
+  - deps: bump images to 0.257.0 (#492)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-04-09
+
 * Tue Apr 07 2026 Packit <hello@packit.dev> - 58-1
 Changes with 58
 ----------------

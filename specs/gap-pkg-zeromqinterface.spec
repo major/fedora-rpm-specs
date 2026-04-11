@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/ZeroMQInterface
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.17
+Version:        0.18
 Release:        %autorelease
 Summary:        ZeroMQ bindings for GAP
 

@@ -4,12 +4,12 @@
 %global __cmake_in_source_build 1
 
 Name: libipt
-Version: 2.1.2
-Release: 4%{?dist}
+Version: 2.2
+Release: 1%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
-Source0: https://github.com/intel/libipt/archive/v%{version}.tar.gz
+Source0: https://github.com/intel/libipt/archive/refs/tags/v%{version}.tar.gz
 Source1: doc-v%{version}.tar.xz
 Patch1: libipt-cmake40-compat.patch
 # c++ is required only for -DPTUNIT test "ptunit-cpp".
@@ -81,6 +81,9 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Thu Apr  9 2026 Keith Seitz <keiths@redhat.com> - 2.2-1
+- Update to 2.2.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

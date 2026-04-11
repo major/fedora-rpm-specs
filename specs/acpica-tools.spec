@@ -1,6 +1,6 @@
 Name:           acpica-tools
-Version:        20251212
-Release:        4%{?dist}
+Version:        20260408
+Release:        1%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -201,6 +201,9 @@ fi
 
 
 %changelog
+* Thu Apr 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 20260408-1
+- 20260408
+
 * Mon Feb 02 2026 Stephen Gallagher <sgallagh@redhat.com> - 20251212-4
 - Fix build failure from -Werror=unused-but-set-variable
 - Drop broken s390x patch

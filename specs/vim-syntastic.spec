@@ -189,6 +189,8 @@ rm -r syntax_checkers/co
 rm -r syntax_checkers/cobol
 # coffee-script has been removed from fedora as of f39
 rm -r syntax_checkers/coffee
+# csslint has been removed as of fedora 45
+rm -r syntax_checkers/css
 rm -r syntax_checkers/cuda
 # https://pagure.io/packaging-committee/issue/312
 rm -r syntax_checkers/d

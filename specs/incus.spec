@@ -31,7 +31,7 @@ Version:        6.23
 
 
 Name:           incus
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -242,7 +242,6 @@ This package contains extra tools provided with Incus.
 Summary:        Incus guest agent
 License:        Apache-2.0
 
-Requires:       incus%{?_isa} = %{version}-%{release}
 # Virtual machine support requires additional packages
 Recommends:     edk2-ovmf
 Recommends:     xorriso
@@ -425,6 +424,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Thu Apr 09 2026 Carl George <carlwgeorge@fedoraproject.org> - 6.23-3
+- Remove incus dependency from incus-agent rhbz#2456888
+
 * Mon Apr 06 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 6.23-2
 - Fix static builds of vendored dependencies (RHBZ 2419661)
 

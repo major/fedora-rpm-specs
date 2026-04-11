@@ -9,12 +9,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 183acce0576f6957c391a58f0e9304f923d6eb7c
-%global commitdatestring 2026-02-24 10:22:29 -0700
-%global cosmic_minver 1.0.8
+%global commit 936e0c0628528966707174656d2c273d63465913
+%global commitdatestring 2026-04-07 10:19:48 -0600
+%global cosmic_minver 1.0.9
 
 Name:           cosmic-term
-Version: 1.0.8
+Version: 1.0.9
 Release:        %autorelease
 Summary:        Terminal emulator built with alacritty and Libcosmic
 

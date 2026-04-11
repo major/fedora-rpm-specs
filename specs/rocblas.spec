@@ -270,7 +270,9 @@ BuildRequires:  pkgconfig(libzstd)
 %endif
 
 %if %{with test}
-
+%if %{with preview}
+BuildRequires:  amdsmi%{pkg_suffix}-static
+%endif
 BuildRequires:  libomp-devel
 BuildRequires:  rocminfo%{pkg_suffix}
 BuildRequires:  rocm-smi%{pkg_suffix}-devel
