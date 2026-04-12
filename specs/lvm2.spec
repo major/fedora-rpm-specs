@@ -54,6 +54,10 @@ Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
+Patch1: 0001-configure-Add-LOCKDSANLOCK_SUPPORT-for-5.0.0.patch
+Patch2: 0002-lvmlockd-fix-building-for-dlm.patch
+Patch3: 0003-lvmlockd-fix-lockstart-with-no-pr.patch
+Patch4: 0004-lvmpersist-fix-grep-warning-about-quoting.patch
 
 BuildRequires: make
 BuildRequires: gcc

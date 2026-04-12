@@ -1,5 +1,5 @@
 Name:           getmail6
-Version:        6.19.10
+Version:        6.19.12
 Release:        %autorelease
 Summary:        A mail retrieval, sorting, and delivering system
 License:        GPL-2.0-only and Apache-2.0

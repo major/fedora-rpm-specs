@@ -1,8 +1,8 @@
-%global srcname wtf-peewee
+%global srcname wtf_peewee
 
 Name:		python-wtf-peewee
-Version:	3.0.5
-Release:	11%{?dist}
+Version:	3.1.0
+Release:	%autorelease
 Summary:	WTForms integration for peewee models
 
 License:	MIT
@@ -20,6 +20,7 @@ peewee models and wtforms, mapping model fields to form fields.
 
 %package -n python3-%{srcname}
 Summary:        WTForms integration for peewee models
+Requires:       python3-peewee >= 3.0.0
 
 %description -n python3-%{srcname}
 Wtf-peewee, based on the code found in wtforms.ext, provides a bridge between
@@ -52,6 +53,9 @@ sed -i '1d' runtests.py
 %license LICENSE
 
 %changelog
+* Fri Apr 10 2026 Viliam Krizan <vkrizan@redhat.com> - 3.1.0-1
+- new version
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

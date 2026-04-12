@@ -1,5 +1,5 @@
 %global sover           3
-%global aom_version     v3.13.1
+%global aom_version     v3.13.3
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch x86_64
@@ -13,21 +13,19 @@
 %endif
 
 Name:       aom
-Version:    3.13.1
+Version:    3.13.3
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
 License:    BSD-3-Clause
 URL:        http://aomedia.org/
 Source:     https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://aomedia.issues.chromium.org/issues/448994065
-Patch:      0001-cmake-fix-nasm-detection-w-3.0.patch
 # Building static library breaks .cmake files if we don't ship it, so drop it
 Patch:      aom-nostatic.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  git-core
 # BuildRequires:  graphviz
@@ -93,7 +91,7 @@ sed -i 's@set(aom_version "")@set(aom_version "%{aom_version}")@' build/cmake/ve
 sed -i "s@GENERATE_LATEX         = YES@GENERATE_LATEX         = NO@" libs.doxy_template
 
 %build
-%cmake3 -DENABLE_CCACHE=1 \
+%cmake  -DENABLE_CCACHE=1 \
         -DCMAKE_SKIP_RPATH=1 \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCONFIG_WEBM_IO=1 \
@@ -108,10 +106,10 @@ sed -i "s@GENERATE_LATEX         = YES@GENERATE_LATEX         = NO@" libs.doxy_t
         -DCONFIG_TUNE_VMAF=1 \
 %endif
         %{nil}
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %files
 %doc AUTHORS CHANGELOG README.md

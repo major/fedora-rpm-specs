@@ -147,6 +147,10 @@ Summary:        Dummy package to obsolete deprecated Haskell packages
 %ghc_obsoletes_lib th-env 0.1.1.0
 %ghc_obsoletes_lib with-location 0.1.0.0
 %endif
+%if 0%{?fedora} >= 45
+%ghc_obsoletes_lib pcre-light 0.4.2
+%ghc_obsoletes_lib regex-pcre 0.96
+%endif
 
 %description -n ghc-obsoletes
 Meta package for obsoleting deprecated Haskell packages.

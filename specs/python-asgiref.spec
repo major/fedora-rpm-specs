@@ -1,13 +1,13 @@
 %bcond tests 1
 
 Name:           python-asgiref
-Version:        3.9.2
+Version:        3.11.1
 Release:        %autorelease
+BuildArch:      noarch
 Summary:        ASGI specs, helper code, and adapters
 # main source code is BSD-3-Clause
 # bundled async-timeout is Apache-2.0
 License:        BSD-3-Clause AND Apache-2.0
-BuildArch:      noarch
 URL:            https://github.com/django/asgiref
 Source:         %{pypi_source asgiref}
 BuildRequires:  python3-devel

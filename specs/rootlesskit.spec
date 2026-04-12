@@ -2,8 +2,8 @@
 %bcond check 1
 
 # https://github.com/rootless-containers/rootlesskit
-%global goipath         github.com/rootless-containers/rootlesskit/v2
-Version:                2.3.6
+%global goipath         github.com/rootless-containers/rootlesskit/v3
+Version:                3.0.0
 
 %gometa -L -f
 

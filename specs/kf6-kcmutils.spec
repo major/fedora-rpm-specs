@@ -1,7 +1,7 @@
 %global framework kcmutils
 
 Name:    kf6-%{framework}
-Version: 6.24.0
+Version: 6.25.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
@@ -106,6 +106,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
+- 6.25.0
+
 * Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
 - 6.24.0
 

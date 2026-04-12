@@ -14,7 +14,7 @@
 %bcond postgres_tests 1
 
 Name:           python-peewee
-Version:        3.19.0
+Version:        4.0.4
 Release:        %autorelease
 Summary:        A little orm
 
@@ -35,12 +35,16 @@ BuildRequires:  python3-sphinx_rtd_theme
 
 # tests
 BuildRequires:  python3-apsw
+BuildRequires:  python3-greenlet
+BuildRequires:  python3-aiosqlite
 %if %{with mysql_tests}
+BuildRequires:  python3-aiomysql
 BuildRequires:  mysql-connector-python3
 %endif
 %if %{with postgres_tests}
 BuildRequires:  python3-psycopg2
 BuildRequires:  python3-psycopg3
+BuildRequires:  python3-asyncpg
 BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  postgresql-contrib
 %endif
@@ -103,7 +107,7 @@ export PGTESTS_LOCALE="C.UTF-8"
 createdb peewee_test
 psql -c "CREATE EXTENSION hstore" peewee_test
 %endif
-%{py3_test_envvars} %{python3} runtests.py
+%{py3_test_envvars} %{python3} runtests.py --asyncio
 
 
 %files -n python3-peewee -f %{pyproject_files}

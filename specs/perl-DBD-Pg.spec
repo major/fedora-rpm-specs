@@ -3,7 +3,7 @@
 
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
-Version:        3.19.0
+Version:        3.20.0
 Release:        1%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
@@ -155,6 +155,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.20.0-1
+- 3.20.0 bump (rhbz#2449035)
+
 * Mon Mar 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.19.0-1
 - 3.19.0 bump (rhbz#2447644)
 

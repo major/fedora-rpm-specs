@@ -1,5 +1,5 @@
 Name:           gramps
-Version:        6.0.7
+Version:        6.0.8
 Release:        1%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
@@ -116,6 +116,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Fri Apr 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.0.8-1
+- 6.0.8
+
 * Wed Mar 25 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.0.7-1
 - 6.0.7
 

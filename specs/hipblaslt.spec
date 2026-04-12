@@ -148,8 +148,6 @@ Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robi
 # yappi was removed from fedora
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
-# change hard coded vendor paths to fedoras
-# Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
 # https://github.com/ROCm/rocm-libraries/issues/2422
 Patch3:         0001-hipblaslt-find-origami-package.patch
 # do not try to fetch, point to the nanobind tarball

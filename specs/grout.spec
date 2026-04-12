@@ -4,9 +4,17 @@
 %global forgeurl https://github.com/DPDK/grout
 %global _lto_cflags %nil
 %global dpdk_version 25.11
+
+%define dpdk_cpu generic
+%ifarch x86_64
 %if %{defined el9}
 %global toolset gcc-toolset-13
 %global __meson /usr/bin/scl run %toolset -- /usr/bin/meson
+%define dpdk_cpu x86-64-v2
+%endif
+%if %{defined el10}
+%define dpdk_cpu x86-64-v3
+%endif
 %endif
 
 # FRR integration (disabled on EPEL)
@@ -17,7 +25,7 @@
 %endif
 
 Name: grout
-Version: 0.14.3
+Version: 0.15.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -40,7 +48,6 @@ BuildRequires: libcmocka-devel
 BuildRequires: libecoli-devel >= 0.10.0
 BuildRequires: libevent-devel
 BuildRequires: libmnl-devel
-BuildRequires: libsmartcols-devel
 BuildRequires: make
 BuildRequires: meson
 BuildRequires: ninja-build
@@ -104,16 +111,20 @@ This package contains the FRR zebra dataplane plugin for grout.
 %prep
 %forgesetup
 %autopatch -p1
-%setup -q -T -D -a 1
-mv dpdk-* subprojects/dpdk
+mkdir -p subprojects/packagecache/
+mv %{SOURCE1} subprojects/packagecache/
 
 %build
 export GROUT_VERSION=%{version}-%{release}
-%meson -Dfrr=%{?with_frr:enabled}%{!?with_frr:disabled} -Ddpdk_static=true -Ddpdk:machine=generic
+%meson -Dfrr=%{?with_frr:enabled}%{!?with_frr:disabled} \
+	-Ddpdk:cpu_instruction_set=%{dpdk_cpu}
 %meson_build
 
 %install
 %meson_install --skip-subprojects
+%if %{without frr}
+rm -f %{buildroot}%{_mandir}/man7/grout-frr.7*
+%endif
 
 %post
 %systemd_post %{name}.service
@@ -132,20 +143,20 @@ export GROUT_VERSION=%{version}-%{release}
 %attr(755, root, root) %{_bindir}/grcli
 %attr(755, root, root) %{_bindir}/grout
 %attr(644, root, root) %{_mandir}/man1/grcli*
-%attr(644, root, root) %{_mandir}/man7/grout-frr.7*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 
 %files headers
 %doc README.md
 %license licenses/BSD-3-clause.txt
 %{_datadir}/pkgconfig/grout.pc
-%{_includedir}/grout/gr_*.h
+%{_includedir}/grout/*.h
 
 %if %{with frr}
 %files frr
 %doc README.md
 %license licenses/GPL-2.0-or-later.txt
 %{_libdir}/frr/modules/dplane_grout.so
+%attr(644, root, root) %{_mandir}/man7/grout-frr.7*
 %endif
 
 %changelog

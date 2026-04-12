@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc7.260409g7f87a5ea75f0.57
+%define pkgrelease 0.rc7.260410g9a9c8ce300cd3.58
 %define kversion 7
-%define tarfile_release 7.0-rc7-68-g7f87a5ea75f0
+%define tarfile_release 7.0-rc7-227-g9a9c8ce300cd3
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260409g7f87a5ea75f0.57%{?buildid}%{?dist}
+%define specrelease 0.rc7.260410g9a9c8ce300cd3.58%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4825,6 +4825,13 @@ fi\
 #
 #
 %changelog
+* Fri Apr 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc7.260410g9a9c8ce300cd3.58]
+- Linux v7.0.0-0.rc7.260410g9a9c8ce300cd3
+
+* Fri Apr 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.9a9c8ce300cd.58]
+- rh_message.h: update support status of mlx5 devices (Scott Weaver)
+- Linux v7.0.0-0.rc7.9a9c8ce300cd
+
 * Thu Apr 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.7f87a5ea75f0.57]
 - Consolidate configs to common for 7.0 (Justin M. Forbes)
 - Linux v7.0.0-0.rc7.7f87a5ea75f0

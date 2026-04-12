@@ -2,8 +2,8 @@
 %bcond_without perl_Parse_PMFile_enables_optional_test
 
 Name:           perl-Parse-PMFile
-Version:        0.47
-Release:        5%{?dist}
+Version:        0.48
+Release:        1%{?dist}
 Summary:        Parses .pm file as PAUSE does
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-PMFile
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.48-1
+- 0.48 bump (rhbz#2449934)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

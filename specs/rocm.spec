@@ -25,13 +25,15 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
 Source0:        License.txt
 
-BuildArch: noarch
+# This is a meta package
+%global debug_package %{nil}
+
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
 
@@ -186,6 +188,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Fri Apr 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Remove noarch build
+
 * Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add rocm-rdc
 

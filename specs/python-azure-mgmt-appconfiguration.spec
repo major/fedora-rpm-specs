@@ -5,12 +5,13 @@
 %global         tarball_name azure_mgmt_appconfiguration
 
 Name:           python-%{srcname}
-Version:        5.0.0
+Version:        6.0.0~b1
+%global         pypi_version 6.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure App Configuration Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{tarball_name} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -37,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{tarball_name}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

@@ -63,7 +63,11 @@
 %global build_type RelWithDebInfo
 %endif
 
+%if 0%{?rhel} < 10
+# RHEL 9 has a problem finding cblas.h, so disable testing
+%else
 %bcond_with test
+%endif
 %if %{with test}
 %global build_test ON
 %global __brp_check_rpaths %{nil}

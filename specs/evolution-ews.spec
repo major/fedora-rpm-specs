@@ -7,7 +7,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name: evolution-ews
-Version: 3.60.0
+Version: 3.60.1
 Release: %autorelease
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later

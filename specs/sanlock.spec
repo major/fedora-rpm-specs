@@ -1,5 +1,5 @@
 Name:           sanlock
-Version:        5.0.0
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -11,10 +11,7 @@ BuildRequires:  libuuid-devel
 # TODO: This creates a cyclic dependency, as lvm2 depends on sanlock-devel
 BuildRequires:  device-mapper-devel
 BuildRequires:  make
-BuildRequires:  python3
-BuildRequires:  python3-devel
 BuildRequires:  systemd-units
-BuildRequires:  python3-setuptools
 Requires:       %{name}-lib = %{version}-%{release}
 Requires(post): systemd-units
 Requires(post): systemd-sysv
@@ -37,7 +34,6 @@ The sanlock daemon manages leases for applications on hosts using shared storage
 # upstream does not support _smp_mflags
 CFLAGS=$RPM_OPT_FLAGS make -C wdmd
 CFLAGS=$RPM_OPT_FLAGS make -C src
-CFLAGS=$RPM_OPT_FLAGS make -C python PY_VERSION=3
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -47,13 +43,9 @@ make -C src \
 make -C wdmd \
         install LIBDIR=%{_libdir} BINDIR=%{_sbindir} \
         DESTDIR=$RPM_BUILD_ROOT
-make -C python \
-        install LIBDIR=%{_libdir} BINDIR=%{_sbindir} \
-        DESTDIR=$RPM_BUILD_ROOT \
-        PY_VERSION=3
 
 
-install -D -m 0644 init.d/sanlock.service.native $RPM_BUILD_ROOT%{_unitdir}/sanlock.service
+install -D -m 0644 init.d/sanlock.service $RPM_BUILD_ROOT%{_unitdir}/sanlock.service
 install -D -m 0755 init.d/systemd-wdmd $RPM_BUILD_ROOT%{_prefix}/lib/systemd/systemd-wdmd
 install -D -m 0644 init.d/wdmd.service $RPM_BUILD_ROOT%{_unitdir}/wdmd.service
 
@@ -125,20 +117,6 @@ access to the shared disks.
 %{_libdir}/libsanlock_client.so.*
 %{_libdir}/libwdmd.so.*
 
-%package        -n python3-sanlock
-%{?python_provide:%python_provide python3-sanlock}
-Summary:        Python bindings for the sanlock library
-Requires:       %{name}-lib = %{version}-%{release}
-
-%description    -n python3-sanlock
-The %{name}-python package contains a module that permits applications
-written in the Python programming language to use the interface
-supplied by the sanlock library.
-
-%files          -n python3-sanlock
-%{python3_sitearch}/sanlock_python-*.egg-info
-%{python3_sitearch}/sanlock*.so
-
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-lib = %{version}-%{release}
@@ -161,6 +139,10 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Fri Apr 10 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-1
+- new upstream release.
+- Remove unused python3-sanlock subpackage no longer supported by upstream.
+
 * Fri Mar 13 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-1
 - new upstream release.
 - Add support for atomic leases using compare and write.

@@ -33,8 +33,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl3
-Version: 3.5.5
-Release: 1%{?dist}
+Version: 3.5.6
+Release: 2%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -133,6 +133,7 @@ protocols.
 Summary: A general purpose cryptography library with TLS implementation
 Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20180730
+Requires(pre): sed
 Recommends: pkcs11-provider%{?_isa}
 
 %description libs
@@ -161,6 +162,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
 Provides: deprecated()
+Conflicts: openssl-devel >= 4.0
 
 %description devel-engine
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel-engine
@@ -354,7 +356,7 @@ for lib in $RPM_BUILD_ROOT%{_libdir}/*.a ; do
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.d
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl3.d
 
 # Move runable perl scripts to bindir
 #mv $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/misc/*.pl $RPM_BUILD_ROOT%{_bindir}
@@ -439,6 +441,7 @@ install -m644 %{SOURCE9} \
 %dir %{_sysconfdir}/pki/tls
 %dir %{_sysconfdir}/pki/tls/certs
 %dir %{_sysconfdir}/pki/tls/private
+%dir %{_sysconfdir}/pki/tls/openssl3.d
 %config(noreplace) %{_sysconfdir}/pki/tls/openssl3.cnf
 %attr(0755,root,root) %{_libdir}/libcrypto.so.%{version}
 %{_libdir}/libcrypto.so.%{soversion}
@@ -477,9 +480,26 @@ install -m644 %{SOURCE9} \
 ##%%dir %%{_sysconfdir}/pki/CA/crl
 ##%%dir %%{_sysconfdir}/pki/CA/newcerts
 
+%pre libs
+# If openssl3.cnf doesn't exist and openssl.cnf does, copy it
+if [ ! -f %{_sysconfdir}/pki/tls/openssl3.cnf ] && [ -f %{_sysconfdir}/pki/tls/openssl.cnf ]; then
+    cp -p %{_sysconfdir}/pki/tls/openssl.cnf %{_sysconfdir}/pki/tls/openssl3.cnf
+    # Comment out the .include /etc/pki/tls/openssl.d line - it is for openssl package
+    sed -i 's|^\(\s*\.include\s\+/etc/pki/tls/openssl\.d\)|#\1|' %{_sysconfdir}/pki/tls/openssl3.cnf
+fi
+
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Apr 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-2
+- rebuilt
+
+* Fri Apr 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-1
+- Rebase to OpenSSL 3.5.6
+
+* Fri Apr 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.5-2
+- Ensure that we have reasonable fallback configuration file for openssl3-libs
+
 * Wed Jan 28 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.5-1
 - Rebase to OpenSSL 3.5.5, resolving CVE-2025-15467, CVE-2025-15468,
   CVE-2025-15469, CVE-2025-66199, CVE-2025-68160, CVE-2025-69418, CVE-2025-69420,

@@ -55,7 +55,7 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.60.0
+Version: 3.60.1
 Release: %autorelease
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later

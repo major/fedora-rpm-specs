@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/singular
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2025.08.26
+Version:        2026.04.09
 Release:        %autorelease
 Summary:        GAP interface to Singular
 
@@ -20,6 +20,9 @@ BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-guava-doc
 BuildRequires:  Singular
+
+# Temporary workaround for Lmod brokenness
+BuildRequires:  environment-modules
 
 Requires:       gap-core
 Requires:       Singular

@@ -1,7 +1,7 @@
 Name:           perl-Git-CPAN-Patch
 Summary:        Patch CPAN modules using Git
-Version:        2.5.0
-Release:        11%{?dist}
+Version:        2.5.2
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Git-CPAN-Patch-%{version}.tar.gz
 URL:            https://metacpan.org/release/Git-CPAN-Patch
@@ -36,8 +36,8 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Git::Repository)
+BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(List::Pairwise)
-# BuildRequires:  perl(LWP::Simple)
 # BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(MetaCPAN::API)
 BuildRequires:  perl(MetaCPAN::Client)
@@ -62,11 +62,12 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V1)
 Requires:       git
 Requires:       perl(CPAN::Meta)
 Requires:       perl(CPAN::ParseDistribution)
 Requires:       perl(File::Copy)
-Requires:       perl(LWP::Simple)
+Requires:       perl(HTTP::Tiny)
 Requires:       perl(LWP::Protocol::ftp)
 Requires:       perl(LWP::Protocol::http)
 Requires:       perl(LWP::UserAgent)
@@ -170,6 +171,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.5.2-1
+- 2.5.2 bump (rhbz#2448934)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

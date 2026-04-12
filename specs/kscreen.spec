@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kscreen
 Epoch:   1
-Version: 6.6.3
+Version: 6.6.4
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -77,6 +77,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.4-1
+- 6.6.4
+
 * Tue Mar 17 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-1
 - 6.6.3
 

@@ -47,7 +47,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a7
+%global prerel a8
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -86,7 +86,12 @@ License: Python-2.0.1
 # Whether to build the JIT stencils (or else use the prebuilt ones)
 # We can only do this on Fedora 43+, where clang 21 is available
 # We don't do it in RHEL, see https://github.com/fedora-eln/eln/issues/207
-%bcond jit_build_stencils %[%{with jit} && 0%{?fedora} >= 43]
+# On F43 it should be possible to build stencils, but the pregenerated stencils
+# for aarch64 debug build don't match the built ones
+# (the build never reaches optimized build - no data there),
+# hence the increased lower bound in the bcond.
+# https://discuss.python.org/t/building-the-jit-with-pre-built-stencils/91838/17
+%bcond jit_build_stencils %[%{with jit} && 0%{?fedora} >= 44]
 %if %{with jit}
 # When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
 %global jit_flag --enable-experimental-jit=yes-off
@@ -278,7 +283,6 @@ BuildRequires: libzstd-devel
 BuildRequires: make
 BuildRequires: mpdecimal-devel
 BuildRequires: ncurses-devel
-BuildRequires: openssl-devel
 BuildRequires: pkgconfig
 BuildRequires: python-rpm-macros
 BuildRequires: readline-devel
@@ -290,6 +294,10 @@ BuildRequires: tk-devel
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
 BuildRequires: /usr/bin/dtrace
+
+# Support for OpenSSL 4 already landed in Python 3.15, but there are test failures
+# https://github.com/python/cpython/issues/148292
+BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
 
 %if %{with tests}
 BuildRequires: gcc-c++
@@ -1996,6 +2004,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Apr 08 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a8-1
+- Update to Python 3.15.0a8
+
 * Tue Mar 10 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~a7-1
 - Update to Python 3.15.0a7
 

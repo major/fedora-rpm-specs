@@ -1,13 +1,11 @@
 Name:           mediawriter
-Version:        5.3.0
+Version:        5.3.1
 Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            https://github.com/FedoraQt/MediaWriter
 Source0:        https://github.com/FedoraQt/MediaWriter/archive/%{version}.tar.gz#/MediaWriter-%{version}.tar.gz
-
-Patch0:         mediawriter-fix-appstream-metadata.patch
 
 Provides:       liveusb-creator = %{version}-%{release}
 Obsoletes:      liveusb-creator <= 3.95.4-2
@@ -74,6 +72,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
 
 %changelog
+* Fri Apr 10 2026 Packit <hello@packit.dev> - 5.3.1-1
+- Update to version 5.3.1
+- Resolves: rhbz#2457245
+
 * Thu Apr 02 2026 Jan Grulich <jgrulich@redhat.com> - 5.3.0-1
 - Update to version 5.3.0
 

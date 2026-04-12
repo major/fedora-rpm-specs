@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2570,22 +2570,6 @@ excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
 %endif
 
-# Test failures with GCC 16 on AArch64
-# https://bugzilla.redhat.com/show_bug.cgi?id=2440537
-# https://github.com/root-project/root/issues/21565
-%if %{?fedora}%{!?fedora:0} >= 44
-%ifarch aarch64
-excluded="${excluded}|\
-gtest-tree-ntuple-ntuple-cast|\
-gtest-tree-ntuple-ntuple-join-table|\
-gtest-tree-ntuple-ntuple-packing|\
-gtest-tree-ntuple-ntuple-show|\
-gtest-tree-ntuple-ntuple-types|\
-gtest-tree-ntuple-ntuple-view|\
-gtest-tree-ntupleutil-ntuple-importer"
-%endif
-%endif
-
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
 # InterpreterTest.Evaluate fails on s390x
@@ -3450,6 +3434,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-3
+- Run some tests on aarch64 Fedora 44+ again (gcc 16 regression fixed)
+
 * Sun Apr 05 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-2
 - Compatibility with Python 3.15
 

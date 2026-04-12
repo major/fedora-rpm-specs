@@ -6,7 +6,7 @@
 %global _docdir_fmt %{name}
 
 Name:		python-zope-interface
-Version:	8.2
+Version:	8.3
 Release:	%autorelease
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPL-2.1

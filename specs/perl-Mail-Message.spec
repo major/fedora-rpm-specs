@@ -1,5 +1,5 @@
 Name:		perl-Mail-Message
-Version:	4.04
+Version:	4.05
 Release:	1%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -126,6 +126,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Fri Apr 10 2026 Paul Howarth <paul@city-fan.org> - 4.05-1
+- 4.05 bump
+
 * Thu Feb  5 2026 Paul Howarth <paul@city-fan.org> - 4.04-1
 - 4.04 bump (rhbz#2436748)
 

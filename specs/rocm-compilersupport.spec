@@ -445,7 +445,7 @@ sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
 
 # change version check of array assert work around
 %if 0%{?rhel}
-sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/Headers/cuda_wrappers/array
+sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 11@' clang/lib/Headers/cuda_wrappers/array
 %endif
 
 # Reduce diskspace pressure

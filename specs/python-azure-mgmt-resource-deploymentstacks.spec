@@ -1,5 +1,5 @@
 Name:           python-azure-mgmt-resource-deploymentstacks
-Version:        1.0.0~b1
+Version:        1.0.0
 %global         pypi_version %(echo '%{version}' | tr -d '~')
 Release:        %autorelease
 Summary:        Microsoft Azure Resource Deploymentstacks Management Client Library

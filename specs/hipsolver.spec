@@ -19,16 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
+%global upstreamname hipsolver
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global upstreamname hipsolver
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -60,8 +64,8 @@
 %global build_type RelWithDebInfo
 %endif
 
-%if 0%{?fedora}
-%bcond_without test
+%if 0%{?rhel} < 10
+# RHEL 9 has a problem finding cblas.h, so disable testing
 %else
 %bcond_with test
 %endif
@@ -80,22 +84,17 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hipsolver_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        ROCm SOLVER marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -234,6 +233,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Fri Apr 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Wed Feb 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

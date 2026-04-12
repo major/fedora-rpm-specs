@@ -72,7 +72,11 @@
 %global build_compress OFF
 %endif
 
+%if 0%{?rhel} < 10
+# RHEL 9 has no blas-static, so disable testing
+%else
 %bcond_with test
+%endif
 %if %{with test}
 %global build_test ON
 %global __brp_check_rpaths %{nil}
@@ -136,7 +140,6 @@ Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{up
 
 # https://github.com/ROCm/rocSOLVER/pull/652
 Patch0:         0001-rocsolver-ninja-job-pools.patch
-# Patch1:         0001-rocsolver-offload-compress.patch
 # https://github.com/ROCm/rocSOLVER/pull/962
 Patch2:         0001-rocsolver-parallel-jobs.patch
 

@@ -1,5 +1,5 @@
 Name:		rdfind
-Version:	1.6.0
+Version:	1.8.0
 Release:	%autorelease
 Summary:	Program that finds duplicate files
 
@@ -11,6 +11,7 @@ BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	nettle-devel
+BuildRequires:	xxhash-devel
 
 %description
 Rdfind is a program that finds duplicate files. It is useful for compressing
@@ -23,6 +24,7 @@ their content, NOT on their file names.
 
 
 %build
+export CXXFLAGS="%{optflags} -std=c++17"
 %configure
 %make_build
 

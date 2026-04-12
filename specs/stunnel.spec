@@ -15,7 +15,7 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.75
+Version: 5.78
 Release: %autorelease
 License: GPL-2.0-or-later WITH stunnel-exception AND MIT
 URL: https://www.stunnel.org/
@@ -33,8 +33,6 @@ Source7: stunnel@.service
 Source99: pgp.asc
 # Apply patch stunnel-5.50-authpriv.patch
 Patch0:   stunnel-5.50-authpriv.patch
-# Apply patch stunnel-5.61-systemd-service.patch
-Patch1:   stunnel-5.61-systemd-service.patch
 # Use cipher configuration from crypto-policies
 # 
 # On Fedora, CentOS and RHEL, the system's crypto policies are the best
@@ -48,8 +46,6 @@ Patch3:   stunnel-5.69-system-ciphers.patch
 # crypto-policies unless a TLS minimum or maximum version are explicitly
 # specified in the stunnel configuration.
 Patch5:   stunnel-5.72-default-tls-version.patch
-# Apply patch stunnel-5.56-curves-doc-update.patch
-Patch6:   stunnel-5.56-curves-doc-update.patch
 # util-linux is needed for rename
 BuildRequires: make
 BuildRequires: gcc
@@ -62,8 +58,7 @@ BuildRequires: autoconf automake libtool
 %if %{with libwrap}
 Buildrequires: tcp_wrappers-devel
 %endif
-BuildRequires: /usr/bin/pod2man
-BuildRequires: /usr/bin/pod2html
+BuildRequires: pandoc
 # build test requirements
 BuildRequires: /usr/bin/nc, /usr/bin/lsof, /usr/bin/ps
 BuildRequires: python3 python3-cryptography openssl

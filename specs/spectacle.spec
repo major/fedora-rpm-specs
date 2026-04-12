@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.6.3
-Release: 2%{?dist}
+Version: 6.6.4
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -143,6 +143,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.4-1
+- 6.6.4
+
 * Fri Mar 27 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.3-2
 - Readd the tesseract patch, upstream's patch aint working
 

@@ -530,7 +530,6 @@ Patch2203: 22-190701.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
-%global python3_version 3.12
 %global __python3 /usr/bin/python3.12
 %endif
 
@@ -921,7 +920,9 @@ clang-format integration for git.
 %package -n python%{python3_pkgversion}-%{pkg_name_clang}
 Summary:       Python3 bindings for clang
 Requires:      %{pkg_name_clang}-devel%{?_isa} = %{version}-%{release}
+%if "%{?python3_version}" != ""
 Requires:      python(abi) = %{python3_version}
+%endif
 Provides:      python%{python3_pkgversion}-clang(major) = %{maj_ver}
 %if 0%{?rhel} == 8
 # Became python3.12-clang in LLVM 19

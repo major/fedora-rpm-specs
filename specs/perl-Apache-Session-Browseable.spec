@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
 Version:	1.3.18
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -50,6 +50,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
 BuildRequires:	perl(warnings)
 # Optional Tests
+BuildRequires:	perl(DBD::Cassandra)
 BuildRequires:	perl(DBD::mysql)
 BuildRequires:	perl(DBD::Pg)
 BuildRequires:	perl(DBD::SQLite) > 1.19
@@ -111,6 +112,9 @@ kill $(cat /tmp/valkey.pid)
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Thu Apr 09 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.18-4
+- BR: perl(DBD::Cassandra) to improve test coverage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

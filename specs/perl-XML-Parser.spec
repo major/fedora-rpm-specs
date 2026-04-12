@@ -1,5 +1,5 @@
 Name:           perl-XML-Parser
-Version:        2.51
+Version:        2.57
 Release:        1%{?dist}
 Summary:        Perl module for parsing XML documents
 
@@ -126,7 +126,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc README Changes samples/
+%doc README.md Changes samples/
 %license LICENSE
 %{perl_vendorarch}/XML/
 %dir %{perl_vendorarch}/auto
@@ -140,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.57-1
+- 2.57 bump (rhbz#2451091)
+
 * Mon Mar 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.51-1
 - 2.51 bump (rhbz#2448965)
   - Fix CVE-2006-10002 (rhbz#2449269), CVE-2006-10003 (rhbz#2449278)

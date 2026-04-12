@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           ansible-collection-community-internal_test_tools
-Version:        0.18.0
+Version:        0.19.0
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
