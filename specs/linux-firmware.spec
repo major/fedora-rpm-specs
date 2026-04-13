@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20260309
+Version:	20260410
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -674,6 +674,7 @@ end
 %{_firmwarepath}/qcom/qcs*/
 %{_firmwarepath}/qcom/qrb*/
 %{_firmwarepath}/qcom/sa*/
+%{_firmwarepath}/qcom/shikra/
 %{_firmwarepath}/qcom/sc*/
 %{_firmwarepath}/qcom/sdm*/
 %{_firmwarepath}/qcom/sm*/
@@ -724,6 +725,53 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sat Apr 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260410-1
+- Update to 20260410
+- amdgpu: Revert Yellow Carp DMUB fw to 0x4000045
+- qcom: sync audioreach firmwares from v1.0.3 build
+- intel_vpu: Update NPU firmware
+- Revert "rtl_bt: Update RTL8822C BT USB and UART firmware to 0x0673"
+- nvidia: add acr/bl symlink for booting GSP-RM on GA100
+- qcom: add QUPv3 firmware for shikra
+- xe: Update GUC to v70.60.0 for LNL, BMG, PTL
+- qcom: update ADSP firmware for sm8750 platform
+- qcom: update CDSP firmware for glymur platform
+- cirrus: cs35l41: Add support for new HP laptops
+- cirrus: cs35l41: Add support for new ASUS laptops
+- cirrus: cs35l41: Add support for ASUS GZ302EAC and add 15.5dB bincfg
+- qcom: vpu: add video firmware for SM8450
+- cirrus: cs35l56: Add firmware for Cirrus Amps for some ASUS laptops
+- cirrus: cs35l56: Add firmware for Cirrus Amps for some Lenovo laptops
+- iwlwifi: add Bz/Sc/Hr/Gf FW for core103-40 release
+- iwlwifi: update ty/So/Ma firmwares for core103-40 release
+- amdgpu: DMCUB updates for various ASICs
+- xe: Update PTL GSC to v105.0.2.1397
+- add firmware for Moxa mux50u devices
+- rtl_bt: Update RTL8852B BT USB FW to 0x127C_FD78
+- ath11k: WCN6855 hw2.0@nfa765: update to WLAN.HSP.1.1-04866.5-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04866.5-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+- update firmware for qat_4xxx/qat_402xx/qat_420xx devices
+- update firmware for an8811hb 2.5G ethernet phy
+- qcom: Add FW blobs for DELL XPS13 9345
+- amdgpu: DMCUB updates for various ASICs
+- cirrus: cs35l63: Update firmware for Cirrus Amps for some Dell laptops
+- cirrus: cs35l63: Fix Cirrus Amp firmware links for some Dell laptops
+- Add firmware file for Intel BlazarIW/BlazarIGfp2
+- iwlwifi: add Bz/Wh FW for core102-56 release
+- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+- mediatek MT7921: update bluetooth firmware to 20260224111243
+- mediatek MT7920: update bluetooth firmware to 20260224111231
+- Add LENOVO ISH firmware v5.8.1.7720 for X1 Carbon (Gen 14) and X1 2-in-1 (Gen 11)
+- Add ISH firmware file for Intel Wildcat Lake platform
+- Update firmware for MT7920/MT7921 WiFi device
+- Intel Bluetooth: Update firmware file for Intel Bluetooth AX201
+- Add firmware file for Intel ScorpiusGfp2 core
+- iwlwifi: Update firmware file for Intel Quasar/Scorpius/BlazarIGfP/BlazarI/BlazarU-HrPGfP/BlazarU core
+- intel_vpu: Update NPU firmware
+- amdgpu: DMCUB updates for various ASICs
+- qcom: add QUPv3 firmware for QCS615 platform
+- Add LENOVO ISH firmware v5.8.0.7720 for X9-15 2025
+
 * Tue Mar 10 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260309-1
 - Update to 20260309
 - mediatek MT7922: update bluetooth firmware to 20260224103448

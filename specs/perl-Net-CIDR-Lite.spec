@@ -1,7 +1,7 @@
-Name:           perl-Net-CIDR-Lite
-Version:        0.22
-Release:        14%{?dist}
 Summary:        Perl extension for merging IPv4 or IPv6 CIDR addresses
+Name:           perl-Net-CIDR-Lite
+Version:        0.23
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CIDR-Lite
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CIDR-Lite-%{version}.tar.gz
@@ -49,6 +49,11 @@ make test
 %{_mandir}/man3/Net::CIDR::Lite.3*
 
 %changelog
+* Sat Apr 11 2026 Paul Howarth <paul@city-fan.org> - 0.23-1
+- Update to 0.23
+  - Security: Fix IPv4 mapped IPv6 packed length (CVE-2026-40199)
+  - Security: Reject invalid uncompressed IPv6 (CVE-2026-40198)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           systemd-boot
-Version:        253~rc1
+Version:        260.1
 Release:        %autorelease
 Summary:        UEFI boot manager
 
@@ -62,8 +62,10 @@ mkdir -p %{buildroot}%{_prefix}/lib/systemd/boot/efi
 
 # Copy files over so they become available on other architectures.
 # They are renamed to avoid a file conflict between packages.
-cp -a %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub %{buildroot}%{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub.alt
-cp -a %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.elf.stub %{buildroot}%{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.elf.stub.alt
+cp -a %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub \
+   %{buildroot}%{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub.alt
+cp -a %{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub \
+   %{buildroot}%{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
 
 install -m0644 -Dt %{buildroot}%{_licensedir}/%{name}/ %{_datadir}/licenses/systemd/LICENSE.LGPL2.1
 
@@ -81,7 +83,7 @@ fi
 %dir %{_prefix}/lib/systemd/boot/efi
 %{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed
 %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub.alt
-%{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.elf.stub.alt
+%{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
 
 # Man pages are provided by systemd-udev subpackage.
 # If we copied them to this package, we'd need to either rename them

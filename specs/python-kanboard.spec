@@ -1,6 +1,6 @@
 Name:           python-kanboard
-Version:        1.1.7
-Release:        6%{?dist}
+Version:        1.1.8
+Release:        1%{?dist}
 Summary:        Client library for Kanboard API
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Apr 11 2026 Alois Mahdal <n9042e84@vornet.cz> - 1.1.8-1
+- Update to 1.1.8 (close RHBZ#2451137)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

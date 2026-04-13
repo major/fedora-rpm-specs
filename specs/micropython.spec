@@ -9,8 +9,8 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.27.0
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -25,10 +25,10 @@ Source0:        https://github.com/micropython/micropython/archive/v%{version}.t
 %global berkley_commit 0f3bb6947c2f57233916dccd7bb425d7bf86e5a6
 Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
 
-%global mbedtls_commit 107ea89daaefb9867ea9121002fbbdf926780e98
+%global mbedtls_commit 0bebf8b8c7f07abe3571ded48a11aa907a1ffb20
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit 6ae440a8a144233e6e703f6759b7e7a0afaa37a4
+%global micropython_lib_commit 8380c7bb8f9e5e5260e9539156742925e00366b2
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
 
 # Other arches need active porting, i686 removed via:
@@ -116,6 +116,15 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Mon Apr 06 2026 Lumír Balhar <lbalhar@redhat.com> - 1.28.0-1
+- Update to 1.28.0
+- Security fix for CVE-2026-1998
+- Update mbedtls submodule to 3.6.6
+- mbedtls security fixes for CVE-2026-25834, CVE-2026-34871, CVE-2026-25833
+- CVE-2025-52496, CVE-2025-52497, CVE-2025-49087, CVE-2025-54764, CVE-2025-59438
+ Resolves: rhbz#2455368, rhbz#2376688, rhbz#2376701, rhbz#2382261, rhbz#2405245,
+ rhbz#2405374, rhbz#2437327, rhbz#2454032, rhbz#2454086, rhbz#2454213
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

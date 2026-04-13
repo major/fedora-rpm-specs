@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.54.0
+Version:  0.55~alpha1
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -13,6 +13,7 @@ Source1:  https://gitlab.gnome.org/GNOME/gvdb/-/archive/%{gvdb_commit}/gvdb-%{gv
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  cmake
+BuildRequires:  gettext
 BuildRequires:  /usr/bin/rst2man
 
 BuildRequires:  pkgconfig(gio-2.0) >= 2.80
@@ -28,9 +29,9 @@ BuildRequires:  pkgconfig(wayland-client) >= 1.23.1
 BuildRequires:  pkgconfig(wayland-server) >= 1.23.1
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xkbcommon) >= 1.8.0
 BuildRequires:  pkgconfig(gmobile) >= 0.6.0
-BuildRequires:  pkgconfig(wlroots-0.19) >= 0.19.3
+BuildRequires:  pkgconfig(wlroots-0.20) >= 0.20.0
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  /usr/bin/xvfb-run
@@ -63,11 +64,12 @@ mv gvdb-%{gvdb_commit} subprojects/gvdb
 
 %install
 %meson_install
+%find_lang %{name}
 
 %check
 %{shrink:xvfb-run -s -noreset %meson_test}
 
-%files
+%files -f %{name}.lang
 %doc README.md
 %license LICENSES
 %{_bindir}/phoc

@@ -1,11 +1,12 @@
 Name:           gotcha
-Version:        1.0.5
+Version:        1.0.8
 Release:        %autorelease
 Summary:        A library for wrapping function calls to shared libraries
 
 License:        LGPL-2.1-only
 URL:            https://github.com/llnl/gotcha
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         gotcha-cmake4.patch
 
 BuildRequires:  check-devel
 BuildRequires:  cmake
@@ -70,6 +71,7 @@ ctest
 %dir %{_includedir}/gotcha
 %{_includedir}/gotcha/gotcha.h
 %{_includedir}/gotcha/gotcha_types.h
+%{_includedir}/gotcha/gotcha_config.h
 %dir %{_libdir}/cmake/gotcha
 %{_libdir}/cmake/gotcha/*.cmake
 %{_libdir}/libgotcha.so

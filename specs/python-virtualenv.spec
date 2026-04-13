@@ -126,9 +126,6 @@ sed -i 's/filelock>=3.24.2/filelock>=3.12.2/' pyproject.toml
 # We don't run the tests in an active virtual environment
 # https://github.com/pypa/virtualenv/issues/2939#issuecomment-3384554583
 # - test_py_info_cache_clear
-# Flaky test
-# https://github.com/pypa/virtualenv/issues/3089
-# - test_create_no_seed[*-venv-*]
 PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 %pytest -vv -k "not test_bundle and \
                 not test_acquire and \
@@ -139,8 +136,7 @@ PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
                 not test_base_bootstrap_via_pip_invoke and \
                 not test_seed_link_via_app_data and \
                 not test_py_info_cache_clear and \
-                not test_create_distutils_cfg and \
-                not (test_create_no_seed and venv)"
+                not test_create_distutils_cfg"
 %endif
 
 %files -n python3-virtualenv -f %{pyproject_files}

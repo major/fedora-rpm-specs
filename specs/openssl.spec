@@ -37,8 +37,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 4.0.0~rc1
-Release: 4%{?dist}
+Version: 4.0.0~beta1
+Release: 5%{?dist}
 Epoch: 1
 %if 0%{?prerelease:1}
 Source0: openssl-4.0.0-%{prerelease}.tar.gz
@@ -126,6 +126,7 @@ Summary: A general purpose cryptography library with TLS implementation
 Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20250404-3
 Recommends: pkcs11-provider%{?_isa}
+Requires(pre): (openssl3-libs if openssl3-libs)
 %if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 Requires: openssl-fips-provider
 %endif
@@ -445,6 +446,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Sat Apr 11 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.0~beta1-5
+- Mark release as beta1 according to upstream naming.
+- Update requirements for better backward compatibility
+
 * Fri Apr 10 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:4.0.0~rc1-4
 - rebuilt
 

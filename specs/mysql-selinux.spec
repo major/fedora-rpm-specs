@@ -9,7 +9,7 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.16
+Version:        1.0.17
 Release:        1%{?dist}
 
 License:        GPL-3.0-only
@@ -70,6 +70,10 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Sat Apr 11 2026 Packit <hello@packit.dev> - 1.0.17-1
+- Update to version 1.0.17
+- Resolves: rhbz#2457526
+
 * Thu Apr 09 2026 Packit <hello@packit.dev> - 1.0.16-1
 - Update to version 1.0.16
 - Resolves: rhbz#2456870

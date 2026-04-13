@@ -3,7 +3,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6ImageFormats/
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-2
+- Rebuild for libraw update
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

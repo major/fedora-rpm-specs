@@ -4,16 +4,17 @@
 Name:           gnome-shell-extension-%{extension}
 Version:        89
 Release:        %autorelease
+BuildArch:      noarch
 Summary:        Tiling and window manager for GNOME Shell
 # main source code: GPL-3.0-or-later
 # lib/css/index.js (installed as css.js): MIT
 License:        GPL-3.0-or-later AND MIT
 URL:            https://github.com/forge-ext/forge
-BuildArch:      noarch
-
 Source:         %{url}/archive/v49-%{version}/%{extension}-49-%{version}.tar.gz
 # downstream-only
 Patch:          0001-Adjust-makefile-for-Fedora.patch
+# https://github.com/forge-ext/forge/pull/517
+Patch:          0002-Add-support-for-GNOME-Shell-version-50.patch
 
 BuildRequires:  make
 BuildRequires:  gettext

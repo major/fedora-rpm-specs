@@ -2,7 +2,7 @@
 %bcond tkinter 1
 
 Name:           python-discovery
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Python interpreter discovery
 
