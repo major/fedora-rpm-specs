@@ -84,6 +84,9 @@
 %global build_test OFF
 %endif
 
+# Test api signatures
+%bcond_with sig
+
 # may run out of memory for both compile and link
 # Calculate a good -j number below
 %global _smp_mflags %{nil}
@@ -126,7 +129,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -137,6 +140,8 @@ License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+Source10:       librocsolver.sig
 
 # https://github.com/ROCm/rocSOLVER/pull/652
 Patch0:         0001-rocsolver-ninja-job-pools.patch
@@ -196,6 +201,10 @@ BuildRequires:  ninja-build
 BuildRequires:  ninja
 %define __builder ninja
 %endif
+%endif
+
+%if %{with sig}
+BuildRequires:  gdb
 %endif
 
 Provides:       rocsolver%{pkg_suffix} = %{version}-%{release}
@@ -334,6 +343,24 @@ fi
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 
+%if %{with sig}
+L=`find %{buildroot}%{pkg_prefix} -name '*.so'`
+for l in $L; do
+    f=$(basename "$l")
+    n=${f%.*}
+    S=`nm -gD $l | grep ' T ' | awk '{ print $3 }' | sort`
+    for s in $S; do
+	echo $s >> ${n}.sig
+	gdb --batch -ex "ptype $s" $l 2>/dev/null >> ${n}.sig
+    done
+done
+%endif
+
+%check
+%if %{with sig}
+diff -u %{SOURCE10} librocsolver.sig
+%endif
+
 %files  -n %{rocsolver_name}
 %license LICENSE.md
 %doc README.md
@@ -356,6 +383,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Sat Apr 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Add --with sig
+
 * Sat Mar 28 2026 Bernhard Wiedemann <bwiedemann@suse.de> - 7.2.0-4
 - Don't fail build on 1-core-VM
 

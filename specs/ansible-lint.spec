@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        26.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -34,9 +34,6 @@ Python3 module for ansible-lint.
 %prep
 %autosetup -n %{archive_name}-%{version}
 
-# Fedora's ansible-core is 2.18.9 version currently
-sed -i '37d' pyproject.toml
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -61,6 +58,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Sun Apr 12 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-2
+- Remove sed line from %%prep section (#2457600)
+
 * Wed Apr 01 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-1
 - Update to 26.4.0 version (#2453851)
 

@@ -1,5 +1,5 @@
 Name:           libunicode
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Modern C++20 Unicode Library
 License:        Apache-2.0
@@ -52,7 +52,7 @@ The %{name}-tools package contains tools about %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libunicode*.so.0.7*
+%{_libdir}/libunicode*.so.0*
 
 %files devel
 %{_includedir}/libunicode/

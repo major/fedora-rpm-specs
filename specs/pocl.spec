@@ -1,6 +1,11 @@
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 %undefine _include_frame_pointers
 
+# PoCL always targets clang/LLVM, but should be built with the same
+# system compiler used to build LLVM, thus we build with clang.
+# See: https://portablecl.org/docs/html/install.html#compiler-support
+%global toolchain clang
+
 # Pin to a specific llvm version
 %global llvm_ver 21
 
@@ -21,11 +26,6 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: %{ix86}
 %endif
 
-# PoCL always targets clang/LLVM, but should be built with the same
-# system compiler used to build LLVM, thus we build with GCC.
-# See: https://portablecl.org/docs/html/install.html#compiler-support
-BuildRequires: gcc
-BuildRequires: gcc-c++
 BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}
 BuildRequires: compiler-rt(major) = %{llvm_ver}
@@ -101,7 +101,7 @@ cp thirdparty/STC/LICENSE STC-LICENSE
 #    experimental and incomplete extensions.
 # Device Drivers we build:
 # - CPU driver (the default for PoCL)
-#    - with OpenMP support
+#    - without OpenMP support (TODO with clang as compiler)
 #    - on i686/x86_64/ppc64le, use the generic CPU option for Linux distros
 #       - this builds in support for different levels of optional instructions
 #    - on aarch64 and riscv64, just target the most generic CPU possible
@@ -131,7 +131,6 @@ cp thirdparty/STC/LICENSE STC-LICENSE
     -DEXTRA_KERNEL_CXX_FLAGS="%{optflags}" \
     -DENABLE_CONFORMANCE:BOOL=ON \
     -DENABLE_HOST_CPU_DEVICES:BOOL=ON \
-    -DENABLE_HOST_CPU_DEVICES_OPENMP:BOOL=ON \
 %ifarch %{ix86} x86_64 ppc64le
     -DKERNELLIB_HOST_CPU_VARIANTS=distro \
 %endif

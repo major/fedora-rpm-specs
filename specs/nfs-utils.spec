@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.9.1
-Release: 0%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -14,6 +14,8 @@ Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
 Source5: 10-nfsv3.conf
+
+Patch001: nfs-utils-2.9.1-exportfs-relv4state-unexport.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch102: nfs-utils-1.2.5-idmap-errmsg.patch
@@ -474,6 +476,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Sun Apr 12 2026 Steve Dickson <steved@redhat.com> 2.9.1-1
+- exportfs: release NFSv4 state when last client is unexported (tag: nfs-utils-2-9-2-rc1)
+
 * Sat Apr  4 2026 Steve Dickson <steved@redhat.com> 2.9.1-0
 - Updated to the latest upstream release nfs-utils-2-9-1 (bz 2455134)
 

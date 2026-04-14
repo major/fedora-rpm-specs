@@ -44,6 +44,16 @@ URL:      https://github.com/intel/tbtools
 
 Source:         %{url}/archive/v%{version}/tbtools-%{version}.tar.gz
 
+# Manually created patch for downstream crate metadata changes
+# * Update nix dep. from 0.26 to 0.31, udev from 0.7 to 0.9:
+#   https://github.com/intel/tbtools/pull/8;
+#   an accompanying source-code patch is required
+Patch:          tbtools-fix-metadata.diff
+
+# Source-code patch to support nix 0.31 / udev 0.9, from
+# https://github.com/intel/tbtools/pull/8.
+Patch:          tbtools-0.8.0-nix-0.31.patch
+
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  make
 

@@ -5,7 +5,7 @@
 %global crate calendrical_calculations
 
 Name:           rust-calendrical_calculations
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Calendrical calculations in Rust
 

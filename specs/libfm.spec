@@ -45,7 +45,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -83,6 +83,13 @@ Patch1:         libfm-1.3.2-0001-fm_config_load_from_key_file-don-t-replace-stri
 # http://sourceforge.net/p/pcmanfm/feature-requests/385/
 #Patch1000:      http://sourceforge.net/p/pcmanfm/feature-requests/_discuss/thread/0a50a386/597e/attachment/libfm-1.2.3-moduledir-gtkspecific-v02.patch
 Patch1000:      libfm-1.3.0.2-moduledir-gtkspecific-v03.patch
+# Suppress warnings when launching lxpanel
+# https://github.com/lxde/libfm/pull/119
+# Suppress GFileInfo related warnings
+Patch1001:      libfm-pr119-suppress-gfileinfo-warnings.patch
+# https://github.com/lxde/libfm/pull/121
+# Suppress GObject related warnings
+Patch1002:      libfm-pr121-suppress-gobject-warnings.patch
 
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.26.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.27.0
@@ -268,6 +275,8 @@ done
 cat %PATCH1  | git am
 %patch -P1000 -p1 -Z
 git commit -m "Use gtk version specific module directory" -a
+cat %PATCH1001 | git am
+cat %PATCH1002 | git am
 
 # Need reporting upstream
 # ref: https://github.com/lxde/libfm/commit/1af95bd8f26cab6848a74b7e02b53c6c79fb53a5
@@ -502,6 +511,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-3
+- Apply upstream PR to suppress GLib related warning
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

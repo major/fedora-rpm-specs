@@ -4,11 +4,11 @@
 # Tarfile created using git 		
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
-# tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 1248a22
+# tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf LICENCE.broadcom COPYING.linux overlays/
+%define gitshort 6bc3936
 
 Name:          bcm283x-firmware
-Version:       20260325
+Version:       20260408
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -30,7 +30,7 @@ Requires:      bcm2712-firmware
 
 Source0:       %{name}-%{gitshort}.tar.xz
 # tar cJvf bcm-dtbs-v<ker-ver>.tar.xz bcm271*dtb
-Source1:       bcm-dtbs-v6.18.20.tar.xz
+Source1:       bcm-dtbs-v6.18.21.tar.xz
 Source2:       config.txt
 Source3:       nortc-time.service
 Source4:       cma.dtbo
@@ -80,7 +80,6 @@ Raspberry Pi 5B, 500 and CM5.
 %prep
 %setup -q -n %{name}-%{gitshort} -c %{name}-%{gitshort}
 cp %{SOURCE4} overlays
-rm -rf *dtb
 tar xf %{SOURCE1}
 
 %build
@@ -131,6 +130,11 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/bcm2712*
 
 %changelog
+* Sat Apr 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260408-1.6bc3936
+- Update to 6.18.21 DT and overlay fixes
+- Fixes for RPi4 PCI
+- Fixes for RPi4 wired network
+
 * Sat Mar 28 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260325-1.1248a22
 - Rebase to 6.18 LTS device tree overlays rebase
 - Raspberry Pi PCIe fixes

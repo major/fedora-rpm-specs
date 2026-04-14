@@ -1,6 +1,6 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
-Version:       6.1.2
+Version:       6.1.3
 Release:       1%{?dist}
 
 License:       MIT
@@ -148,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 6.1.3-1
+- Update to 6.1.3
+
 * Tue Mar 10 2026 Sandro Mani <manisandro@gmail.com> - 6.1.2-1
 - Update to 6.1.2
 

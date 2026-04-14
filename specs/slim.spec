@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.4.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -73,7 +73,8 @@ cp -p %{SOURCE4} README.Fedora
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 export LDFLAGS="$RPM_LD_FLAGS -lXft"
-%cmake -DUSE_PAM=yes -DUSE_CONSOLEKIT=no -DBUILD_SHARED_LIBS=no -DBUILD_SLIMLOCK=yes
+%cmake -DUSE_PAM=yes -DUSE_CONSOLEKIT=no -DBUILD_SHARED_LIBS=no -DBUILD_SLIMLOCK=yes -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+# DCMAKE edit this is made to address -DCMAKE_POLICY_VERSION_MINIMUM=3.5 need to fix upstream
 %cmake_build
 
 %install
@@ -130,6 +131,8 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Sun Apr 12 2026 Ranjan Maitra <aarem@fedoraproject.org> - 1.4.0-16
+- bumped up release of version to account for minimum CMAKE requirement
 * Sat Feb 21 2026 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-15 
 - bumped up release of version to force update on F43 
 * Sun Jun 01 2025 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-12

@@ -1,6 +1,6 @@
 Name:           gram_grep
 Summary:        Search text using a grammar, lexer, or straight regex
-Version:        0.10.0
+Version:        0.10.2
 Release:        %autorelease
 
 # Since dependencies lexertl17, parsertl17, and wildcardtl are header-only, we
@@ -11,10 +11,6 @@ URL:            https://github.com/BenHanson/gram_grep
 Source0:        %{url}/archive/%{version}/gram_grep-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        gram_grep.1
-# Main source file as of version 0.9.0; we use this for “smoke testing,” so we
-# need a copy that does not change every time we ship an update. This does
-# *not* contribute to the binary RPMs.
-Source2:        main-0.9.0.cpp
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -64,16 +60,11 @@ install -t '%{buildroot}%{_mandir}/man1' -p -D -m 0644 '%{SOURCE1}'
 
 
 %check
-# Upstream does not provide any tests. We use a few of the examples from
-# http://benhanson.net/gram_grep.html as “smoke tests.”
+# Upstream does not provide any tests. We use the “Printing a Reversed List”
+# example from README.md as a “smoke test.”
 
 # Make sure the program can at least print its help text and exit successfully
 %{buildroot}%{_bindir}/gram_grep --help >/dev/null
-
-# Copy in a fixed version of main.cpp (as of version 0.9.0) as a sample file to
-# process. By doing this instead of operating on the actual main.cpp, the
-# output from our “smoke tests” does not change with each update.
-cp -p '%{SOURCE2}' _x.cpp
 
 assert_same() {
   # Parameters: actual, expected
@@ -91,18 +82,10 @@ EOF
   fi
 }
 
-expected='_x.cpp:15:#include <lexertl/memory_file.hpp>
-_x.cpp:616:    lexertl::memory_file& mf,
-_x.cpp:783:    lexertl::memory_file mf(pathname.c_str());
-_x.cpp:1348:            lexertl::memory_file& mf ='
-
+printf '%s\n' 'a::b::c::d' > test.txt
+expected='d::c::b::a'
 assert_same "$(set -o errexit
-  %{buildroot}%{_bindir}/gram_grep -Hn -v \
-      --flex-regexp "\/\/.*|\/\*(?s:.)*?\*\/" -F memory_file _x.cpp
-)" "${expected}"
-# Same search with a config file:
-assert_same "$(set -o errexit
-  %{buildroot}%{_bindir}/gram_grep -Hn --config=sample_configs/nosc.g _x.cpp
+  %{buildroot}%{_bindir}/gram_grep --config=sample_configs/rev.g test.txt
 )" "${expected}"
 
 

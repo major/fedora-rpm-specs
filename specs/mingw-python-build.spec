@@ -9,7 +9,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        1.4.2
+Version:        1.4.3
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -74,7 +74,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 1.4.2
+Version: 1.4.3
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -129,6 +129,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 1.4.3-1
+- Update to 1.4.3
+
 * Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 1.4.2-1
 - Update to 1.4.2
 

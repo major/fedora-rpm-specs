@@ -7,7 +7,7 @@
 %global data_version 1.24
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.8.0
+Version:        9.8.1
 Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
@@ -364,6 +364,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 9.8.1-1
+- Update to 9.8.1
+
 * Sun Mar 08 2026 Sandro Mani <manisandro@gmail.com> - 9.8.0-1
 - Update to 9.8.0
 

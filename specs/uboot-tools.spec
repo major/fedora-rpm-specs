@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  1%{?candidate:.%{candidate}}%{?dist}
+Release:  2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -54,6 +54,8 @@ Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  ARM-RPi5-Enable-PCIe.patch
 Patch21:  0001-Add-bcm2712-compat.patch
+Patch22:  ARM-RPi-PCIe-fixes.patch
+Patch23:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -312,6 +314,10 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sat Apr 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-2
+- Fix PCIe/USB on Raspberry Pi 4 (rhbz#2448365)
+- Fix detection of some revisions of RPi5
+
 * Tue Apr 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-1
 - Update to 2026.04 GA
 

@@ -3,7 +3,7 @@
 
 # https://github.com/securego/gosec
 %global goipath         github.com/securego/gosec/v2
-Version:                2.23.0
+Version:                2.25.0
 
 %gometa -L -f
 
@@ -72,7 +72,7 @@ IFS=$SAVEIFS
 
 %files -f %{go_vendor_license_filelist}
 %license vendor/modules.txt
-%doc CONTRIBUTING.md README.md RULES.md USERS.md
+%doc README.md RULES.md USERS.md
 %{_bindir}/gosec
 
 

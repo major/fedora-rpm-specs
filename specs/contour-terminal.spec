@@ -1,11 +1,10 @@
 Name:           contour-terminal
-Version:        0.6.2.8008
+Version:        0.6.3.8249
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/contour
 Source:         %{url}/archive/v%{version}/contour-%{version}.tar.gz
-Patch0:         https://github.com/contour-terminal/contour/pull/1855.patch
 
 ExclusiveArch:  x86_64 aarch64
 
@@ -67,7 +66,8 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCONTOUR_TESTING=ON
+    -DCONTOUR_TESTING=ON \
+    -DCONTOUR_USE_CPM=OFF
 %cmake_build
 
 %install

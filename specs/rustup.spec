@@ -89,7 +89,7 @@ install -Dpm 0644 _rustup -t %{buildroot}/%{zsh_completions_dir}
 # * skip tests that require internet access
 # * skip tests for the "rustup" binary that is not built in this package
 # * skip harmless test failures due to mismatch with the "platforms" crate
-%cargo_test -f test -- -- --skip suite::cli_exact::check_updates --skip suite::cli_ui::rustup_ui_doc_text_tests --skip suite::known_triples::gen_known_triples
+%cargo_test -f test -- -- --skip suite::cli_exact::check_updates --skip suite::cli_ui::rustup_ui_doc_text_tests --skip suite::known_tuples::gen_known_tuples
 %endif
 
 %files

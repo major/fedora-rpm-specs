@@ -3,8 +3,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.28.1
-Release:        3%{?dist}
+Version:        1.28.2
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-1
+- Update to 1.28.2
+
 * Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-3
 - Backport fix for CVE-2026-3083, CVE-2026-3085
 

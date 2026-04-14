@@ -13,15 +13,13 @@
 # 4. Place the following in the RPM SOURCES directory:
 #      hugo-VERSION.tar.gz
 #      hugo-VERSION-vendor.tar.bz2
-#      0010-skip-modules-TestClient.patch
-#      0020-fix-errorf.patch
 #      go-vendor-tools.toml
 #      libsass-3.6.6.tar.gz
 # 5. Review gocheck. Are more or fewer -d arguments needed?
 
 # https://github.com/gohugoio/hugo
 %global goipath         github.com/gohugoio/hugo
-Version:                0.159.0
+Version:                0.160.1
 
 %gometa -L -f
 
@@ -39,11 +37,6 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 # Needed for vendor/golibsass; go-vendor-tools does not grab C code from Go repositories:
 Source3:        libsass-3.6.6.tar.gz
-# Skip tests that uses the network.
-# Based on https://sources.debian.org/data/main/h/hugo/0.58.3-1/debian/patches/0005-skip-modules-TestClient.patch
-Patch0001:      0010-skip-modules-TestClient.patch
-# See https://github.com/gohugoio/hugo/pull/14665.
-Patch0002:      0020-fix-errorf.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  gcc-c++
