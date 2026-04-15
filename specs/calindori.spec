@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           calindori
-Version:        26.03.80
+Version:        26.04.0
 Release:        1%{?dist}
 Summary:        Calendar application for Plasma Mobile
 License:        BSD-2-Clause AND CC-BY-4.0 AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

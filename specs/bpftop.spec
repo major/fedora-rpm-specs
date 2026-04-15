@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           bpftop
-Version:        0.7.1
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 
@@ -37,11 +37,8 @@ License:        %{shrink:
     }
 # LICENSE.dependencies contains a full license breakdown
 
-URL:            https://github.com/Netflix/%{name}
+URL:            https://github.com/jfernandez/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# * Allow procfs 0.18: https://github.com/Netflix/bpftop/pull/189
-Patch:          bpftop-fix-metadata.diff
 
 ExcludeArch: %{ix86}
 

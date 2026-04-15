@@ -251,6 +251,9 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %{pkg_prefix}/bin/*_test
 %{pkg_prefix}/bin/*-validate
 %{pkg_prefix}/bin/rocwmma/
+%if %{with preview}
+%{pkg_prefix}/bin/*_tests
+%endif
 %endif
 
 %changelog

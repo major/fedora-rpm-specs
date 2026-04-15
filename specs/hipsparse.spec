@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname hipsparse
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -89,24 +92,22 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hipsparse_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        5%{?dist}
 %endif
 Summary:        ROCm SPARSE marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+%if %{without preview}
+# Too much change between 7.2 and 7.12+
 Patch1:         0001-hipsparse-change-test-download-dir.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -181,21 +182,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hiprand
-%patch -P1 -p1
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # A better default for the matrices dir
 sed -i -e 's@hipsparse_exepath() + "../matrices/"@"%{pkg_prefix}/share/hipsparse/matrices/"@' clients/include/utility.hpp
 
 %build
-%if %{with gitcommit}
-cd projects/hipsparse
-%endif
 
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
@@ -245,10 +237,6 @@ fi
 %endif
 
 %install
-%if %{with gitcommit}
-cd projects/hipsparse
-%endif
-
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparse/LICENSE.md
@@ -259,14 +247,8 @@ install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix
 %endif
 
 %files
-%if %{with gitcommit}
-%doc projects/hipsparse/README.md
-%license projects/hipsparse/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
-
 %{pkg_prefix}/%{pkg_libdir}/libhipsparse.so.4{,.*}
 
 %files devel
@@ -282,6 +264,9 @@ install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix
 %endif
 
 %changelog
+* Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Change --with gitcommit to preview
+
 * Mon Mar 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Fix location of test matrices for compat
 

@@ -1,6 +1,6 @@
 Name:           ensmallen
-Version:        2.22.1
-Release:        4%{?dist}
+Version:        3.11.0
+Release:        1%{?dist}
 Summary:        Header-only C++ library for efficient mathematical optimization
 
 License:        BSD-3-Clause
@@ -40,14 +40,11 @@ gradient-free optimizers, and constrained optimization.
 # dependencies.  In addition, sometimes the tests may fail, as they are
 # probabilistic---so just make sure the test suite passes at least once out of
 # five runs.
-%ifarch armv7hl
-# There's an issue with the tests on armv7hl.
-%else
 success=0;
 cd %{_vpath_builddir};
 for i in `seq 1 5`; do
   code=""; # Reset exit code.
-  ./ensmallen_tests --rng-seed=time ~SmallLovaszThetaSdp ~BBSBBLogisticRegressionTest || code=$?
+  ./ensmallen_tests --rng-seed=time ~SdpPrimalDual_SmallLovaszThetaSdp ~SdpPrimalDual_LogChebychevApproxSdp  ~SdpPrimalDual_CorrelationCoeffToySdp || code=$?
   if [ "a$code" == "a" ]; then
     success=1;
     break;
@@ -57,7 +54,6 @@ if [ $success -eq 0 ]; then
   false # Force a build error.
 fi
 cd ..;
-%endif
 
 %package devel
 Summary:  Header-only C++ library for efficient mathematical optimization
@@ -80,6 +76,9 @@ gradient-free optimizers, and constrained optimization.
 %{_libdir}/cmake/ensmallen/ensmallen-targets.cmake
 
 %changelog
+* Mon Apr 13 2026 Ryan Curtin <ryan@ratml.org> - 3.11.0
+- Update to latest stable version.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

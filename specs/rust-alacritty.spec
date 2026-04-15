@@ -4,7 +4,7 @@
 %global crate alacritty
 
 Name:           rust-alacritty
-Version:        0.16.1
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Fast, cross-platform, OpenGL terminal emulator
 
@@ -13,10 +13,6 @@ URL:            https://crates.io/crates/alacritty
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          alacritty-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Update toml_edit to 0.24, toml to 0.9.10:
-#   https://github.com/alacritty/alacritty/pull/8814
-Patch:          alacritty-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  desktop-file-utils
@@ -83,6 +79,7 @@ Requires:       libxkbcommon-x11
 %{_mandir}/man1/alacritty.1*
 %{_mandir}/man5/alacritty-bindings.5*
 %{_mandir}/man5/alacritty.5*
+%{_mandir}/man7/alacritty-escapes.7*
 %{_metainfodir}/org.alacritty.Alacritty.appdata.xml
 %{_datadir}/applications/Alacritty.desktop
 %{_datadir}/pixmaps/Alacritty.svg
@@ -101,8 +98,8 @@ Requires:       libxkbcommon-x11
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
-for fname in alacritty-bindings.5 alacritty-msg.1 alacritty.1 alacritty.5; do
-    scdoc <extra/man/$fname.scd >extra/man/$fname
+for fname in extra/man/alacritty*.scd; do
+    scdoc <"$fname" >"${fname%%.scd}"
 done
 
 %install
@@ -111,10 +108,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications extra/linux/Alac
 install -m644 -pvD extra/completions/alacritty.bash %{buildroot}%{bash_completions_dir}/alacritty
 install -m644 -pvD extra/completions/_alacritty     %{buildroot}%{zsh_completions_dir}/_alacritty
 install -m644 -pvD extra/completions/alacritty.fish %{buildroot}%{fish_completions_dir}/alacritty.fish
-install -m644 -pvD extra/logo/alacritty-term.svg    %{buildroot}%{_datadir}/pixmaps/Alacritty.svg
+install -m644 -pvD extra/logo/compat/alacritty-term.svg %{buildroot}%{_datadir}/pixmaps/Alacritty.svg
 install -m644 -pvD -t %{buildroot}%{_metainfodir}   extra/linux/org.alacritty.Alacritty.appdata.xml
-for fname in alacritty-bindings.5 alacritty-msg.1 alacritty.1 alacritty.5; do
-    install -m644 -pvD "extra/man/$fname" "%{buildroot}%{_mandir}/man${fname##*.}/$fname"
+for fname in extra/man/alacritty*.?; do
+    install -m644 -pvD "$fname" "%{buildroot}%{_mandir}/man${fname##*.}/${fname##*/}"
 done
 
 %if %{with check}

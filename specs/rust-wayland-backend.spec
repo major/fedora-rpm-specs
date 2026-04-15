@@ -6,7 +6,7 @@
 %global crate wayland-backend
 
 Name:           rust-wayland-backend
-Version:        0.3.12
+Version:        0.3.15
 Release:        %autorelease
 Summary:        Low-level bindings to the Wayland protocol
 
@@ -70,6 +70,42 @@ This package contains library source intended for building other packages which
 use the "dlopen" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dlopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_client_1_23-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_client_1_23-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_client_1_23" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_client_1_23-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_server_1_22-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_server_1_22-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_server_1_22" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_server_1_22-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_server_1_23-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_server_1_23-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_server_1_23" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_server_1_23-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+log-devel

@@ -4,8 +4,8 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 71d4d75665f4d1949f7eeca28092a12df7037f3a
-%global vrt 22.0
+%global abi e8e39111b9d37f0e90130e8c66c53acc9be1d3f4
+%global vrt 23.1
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
@@ -31,7 +31,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 9.0.0
+Version: 9.0.1
 Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
@@ -296,7 +296,7 @@ popd
 sed -i 's/thread_pool_stack 80k/thread_pool_stack 128k/g;' bin/vinyltest/tests/*.vtc
 sed -i 's/file,2M/file,8M/' bin/vinyltest/tests/r04036.vtc
 %ifarch %ix86
-sed -i 's/param.set workspace_thread 0.6k/param.set workspace_thread 0.3k/' bin/vinyltest/tests/b00081.vtc
+sed -i 's/param.set workspace_thread 0.55k/param.set workspace_thread 0.5k/' bin/vinyltest/tests/b00081.vtc
 %endif
 
 # This is a bug in varnishtest making it incompatible with nghttp2 >= 1.65
@@ -423,6 +423,10 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Fri Apr 10 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.1-1
+- New upstream release
+- Includes fix for VEV00002
+
 * Fri Mar 27 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.0-1
 - New upstream release
 - Includes fix for VSV00018

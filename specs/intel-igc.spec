@@ -7,7 +7,7 @@
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
 %global llvm_compat 15
 %endif
-%global igc_patch 2
+%global igc_patch 3
 
 Name: intel-igc
 Version: 2.30.%{igc_patch}

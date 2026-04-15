@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.26.0
-Release: 5%{?dist}
+Version: 3.27.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -71,7 +71,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -84,19 +84,6 @@ Patch3: valgrind-3.26.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.26.0-some-Wl-z-now.patch
-
-# VALGRIND_3_26_BRANCH patches
-Patch5: 0001-Prepare-NEWS-for-branch-3.26-fixes.patch
-Patch6: 0002-Bug-511972-valgrind-3.26.0-tests-fail-to-build-on-up.patch
-Patch7: 0003-readlink-proc-self-exe-overwrites-buffer-beyond-its-.patch
-Patch8: 0004-Linux-DRD-suppression-add-an-entry-for-__is_decorate.patch
-Patch9: 0005-Linux-Helgrind-add-a-suppression-for-_dl_allocate_tl.patch
-Patch10: 0006-Disable-linux-madvise-MADV_GUARD_INSTALL.patch
-Patch11: 0007-Bug-514613-Unclosed-leak_summary-still_reachable-tag.patch
-Patch12: 0008-Bug-514206-Assertion-sr_isError-sr-failed-mmap-fd-po.patch
-
-# Refix for https://bugs.kde.org/show_bug.cgi?id=514613
-Patch100: 0001-Refix-still_reachable-xml-closing-tag-and-add-testca.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -270,23 +257,12 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-
-%patch -P100 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -527,6 +503,10 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Apr 13 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.27.0-0.1.RC1
+- Upstream 3.27.0-RC1
+- Remove all VALGRIND_3_26_BRANCH and proposed upstream patches
+
 * Thu Jan 29 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-5
   - Add 0001-Refix-still_reachable-xml-closing-tag-and-add-testca.patch
 

@@ -1,28 +1,28 @@
 %{?mingw_package_header}
 
 Name:           mingw-librsvg2
-Version:        2.57.1
-Release:        7%{?dist}
+Version:        2.62.1
+Release:        1%{?dist}
 Summary:        SVG library based on cairo for MinGW
 
 License:        LGPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 BuildArch:      noarch
-Source0:        https://download.gnome.org/sources/librsvg/2.57/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.62/librsvg-%{version}.tar.xz
 # tar xf librsvg-${version}.tar.xz
 # cd librsvg-${version}
 # cargo vendor
 # tar cfJ ../librsvg-${version}-vendor.tar.xz vendor
 Source1:        librsvg-%{version}-vendor.tar.xz
-# Add missing link libs
-Patch0:         librsvg_libs.patch
 
+# Fix multiple definition of `CloseHandle' / `GetLastError' by droppig --whole-archive linker flag
+Patch0:         librsvg-mingw.patch
 
 BuildRequires:  cargo
-BuildRequires:  make
-BuildRequires:  automake
+BuildRequires:  cargo-c
+BuildRequires:  meson
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gdk-pixbuf
 BuildRequires:  mingw32-glib2
@@ -31,7 +31,7 @@ BuildRequires:  mingw32-libcroco
 BuildRequires:  mingw32-pango
 BuildRequires:  rust-std-static-i686-pc-windows-gnu
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gdk-pixbuf
 BuildRequires:  mingw64-glib2
@@ -88,6 +88,11 @@ applications that use librsvg2.
 %prep
 %autosetup -p1 -n librsvg-%{version} -a1
 
+# do not add host bindir to PATH
+# https://gitlab.gnome.org/GNOME/librsvg/-/issues/1141
+sed -i "s|extra_env.prepend('PATH', x)|# skip|g" meson.build
+
+
 mkdir -p .cargo
 cat > .cargo/config.toml <<EOF
 [source.crates-io]
@@ -99,19 +104,17 @@ EOF
 
 
 %build
-MINGW32_CONFIGURE_ARGS="RUST_TARGET=i686-pc-windows-gnu" \
-MINGW64_CONFIGURE_ARGS="RUST_TARGET=x86_64-pc-windows-gnu" \
-%mingw_configure \
-        --disable-gtk-doc \
-        --enable-introspection=no \
-        --without-pic
-%mingw_make_build
+MINGW32_MESON_ARGS="-Dtriplet=i686-pc-windows-gnu" \
+MINGW64_MESON_ARGS="-Dtriplet=x86_64-pc-windows-gnu" \
+%mingw_meson
+%mingw_ninja
+
+# MINGW32_RUSTFLAGS="%{mingw32_rustflags} -L$PWD/build_win32/rsvg" \
+# MINGW64_RUSTFLAGS="%{mingw64_rustflags} -L$PWD/build_win64/rsvg" \
 
 
 %install
-%mingw_make_install
-
-find %{buildroot} -name "*.la" -delete
+%mingw_ninja_install
 
 # Delete docs already part of native package
 rm -rf %{buildroot}%{mingw32_datadir}/man
@@ -127,16 +130,8 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/librsvg
 %{mingw32_bindir}/librsvg-2-2.dll
 %{mingw32_bindir}/rsvg-convert.exe
 %{mingw32_includedir}/librsvg-2.0
-%{mingw32_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.dll
-%{mingw32_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.dll.a
 %{mingw32_libdir}/librsvg-2.dll.a
 %{mingw32_libdir}/pkgconfig/*.pc
-%dir %{mingw32_datadir}/thumbnailers
-%{mingw32_datadir}/thumbnailers/librsvg.thumbnailer
-
-%files -n mingw32-librsvg2-static
-%{mingw32_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.a
-%{mingw32_libdir}/librsvg-2.a
 
 
 %files -n mingw64-librsvg2
@@ -144,19 +139,20 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/librsvg
 %{mingw64_bindir}/librsvg-2-2.dll
 %{mingw64_bindir}/rsvg-convert.exe
 %{mingw64_includedir}/librsvg-2.0
-%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.dll
-%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.dll.a
 %{mingw64_libdir}/librsvg-2.dll.a
 %{mingw64_libdir}/pkgconfig/*.pc
-%dir %{mingw64_datadir}/thumbnailers
-%{mingw64_datadir}/thumbnailers/librsvg.thumbnailer
-
-%files -n mingw64-librsvg2-static
-%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.a
-%{mingw64_libdir}/librsvg-2.a
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 2.62.1-1
+- Update to 2.62.1
+
+* Sat Mar 21 2026 Sandro Mani <manisandro@gmail.com> - 2.62.0-1
+- Update to 2.62.0
+
+* Fri Jan 30 2026 Sandro Mani <manisandro@gmail.com> - 2.61.90-1
+- Update to 2.61.90
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.57.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

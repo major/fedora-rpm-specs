@@ -1,13 +1,10 @@
 Name:           perl-Module-Manifest-Skip
-Version:        0.23
-Release:        35%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        MANIFEST.SKIP Manangement for Modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Manifest-Skip
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Module-Manifest-Skip-%{version}.tar.gz
-# Adapt to changes in Moo-2.004000, bug #1826148,
-# <https://github.com/ingydotnet/module-manifest-skip-pm/issues/7>
-Patch0:         Module-Manifest-Skip-0.23-Adapt-to-changes-in-Moo-2.004000.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -79,7 +76,8 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 # share dir is for testing
 cp -a share %{buildroot}%{_libexecdir}/%{name}
 # Remove author tests
-rm -f %{buildroot}%{_libexecdir}/%{name}/t/release-pod-syntax.t
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/author-pod-syntax.t
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/000-compile-modules.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -108,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 13 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.24-1
+- 0.24 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

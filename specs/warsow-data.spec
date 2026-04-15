@@ -4,8 +4,7 @@ Release:        18%{?dist}
 Summary:        Game data for Warsow
 
 # For a breakdown of the licensing, see license.txt
-# Automatically converted from old format: CC-BY-SA and CC-BY-ND - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA AND LicenseRef-Callaway-CC-BY-ND
+License:        CC-BY-SA-4.0 AND CC-BY-ND-4.0
 URL:            https://www.warsow.net/
 Source0:        http://sebastian.network/warsow/warsow-%{version}.tar.gz
 

@@ -1,18 +1,17 @@
 Name:           bubblemail
-Version:        1.10
+Version:        1.11
 Release:        %autorelease
 Summary:        Extensible mail notification service
 
 License:        GPL-2.0-only
 URL:            http://bubblemail.free.fr/
-Source0:        https://framagit.org/razer/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
-#temporary workaround until upstream moves away from setup.py install
-Patch0:         01.bubblemail-fix_missing_locales.patch
+Source0:        https://framagit.org/razer/%{name}/-/archive/V%{version}/%{name}-V%{version}.tar.bz2
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  folks-devel
 BuildRequires:  gettext
+BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  python3-pillow
 BuildRequires:  python3-pyxdg
@@ -21,7 +20,6 @@ Requires:       folks
 Requires:       gnome-keyring
 Requires:       hicolor-icon-theme
 Requires:       libsecret
-Requires:       python3
 Requires:       python3-gobject
 Requires:       python3-dbus
 Requires:       python3-requests
@@ -31,9 +29,6 @@ Requires:       python3-pysocks
 Recommends:     gnome-online-accounts
 Recommends:     gnome-shell-extension-bubblemail
 
-%generate_buildrequires
-%pyproject_buildrequires -r
-
 %description
 Bubblemail is a D-Bus service providing a list of the new and unread user's mail
 from local mailboxes, pop, imap, and gnome online accounts. It includes a
@@ -41,18 +36,23 @@ libnotify frontend to create notifications and can be used by other frontends as
 well.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-V%{version}
 sed -i '1{\@^#!/usr/bin/env python@d}' \
         bubblemail/plugins/spamfilterplugin.py \
         bubblemail/plugins/userscriptplugin.py
+%py3_shebang_fix data/bin/bubblemail
+chmod +x data/bin/bubblemail
+%py3_shebang_fix data/bin/bubblemaild
+chmod +x data/bin/bubblemaild
+        
+%conf
+%meson        
 
 %build
-%pyproject_wheel
+%meson_build
 
 %install
-%pyproject_install
-mv %{buildroot}%{python3_sitelib}/etc/ %{buildroot}/etc/
-%pyproject_save_files -l %{name}
+%meson_install
 %find_lang %{name}
 cat %{name}.lang >> %{pyproject_files}
 
@@ -71,10 +71,11 @@ desktop-file-validate \
 %{_bindir}/%{name}
 %{_bindir}/%{name}-avatar-provider
 %{_bindir}/%{name}d
-%{_datadir}/applications/bubblemail.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.svg
 %{_metainfodir}/%{name}.appdata.xml
+%{python3_sitelib}/%{name}
 
 %changelog
 %autochangelog

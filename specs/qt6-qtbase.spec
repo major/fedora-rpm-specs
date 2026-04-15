@@ -47,7 +47,7 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -96,13 +96,6 @@ Patch56: qtbase-mysql.patch
 
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
-
-# upstream patches
-Patch100: qtbase-wayland-convey-preference-for-server-side-decorations.patch
-Patch101: qtbase-wayland-compress-high-frequency-mouse-events.patch
-Patch102: qtbase-wayland-optimize-scroll-operations.patch
-Patch103: qtbase-wayland-enable-event-compression-and-fix-scroll-end-event.patch
-Patch104: qtbase-wayland-fix-crash-in-qwaylandshmbackingstore-scroll.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -445,7 +438,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.10.3
+Version: 6.11.0
 EOF
 
 # rpm macros
@@ -506,17 +499,7 @@ install -m 644 src/plugins/platforms/xcb/*.h %{buildroot}%{_qt6_headerdir}/QtXcb
 # Copied from OpenSUSE packages
 
 # These files are only useful for the Qt continuous integration
-rm %{buildroot}%{_qt6_libexecdir}/ensure_pro_file.cmake
 rm %{buildroot}%{_qt6_libexecdir}/qt-android-runner.py
-rm %{buildroot}%{_qt6_libexecdir}/qt-testrunner.py
-rm %{buildroot}%{_qt6_libexecdir}/sanitizer-testrunner.py
-
-# Not useful for desktop installs
-rm -r %{buildroot}%{_qt6_libdir}/cmake/Qt6ExamplesAssetDownloaderPrivate
-rm -r %{buildroot}%{_qt6_headerdir}/QtExamplesAssetDownloader
-rm %{buildroot}%{_qt6_descriptionsdir}/ExamplesAssetDownloaderPrivate.json
-rm %{buildroot}%{_qt6_libdir}/libQt6ExamplesAssetDownloader.*
-rm %{buildroot}%{_qt6_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_metatypes.json
 
 # These shouldn't be probably installed
 rm -r %{buildroot}%{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/*.patch
@@ -574,6 +557,7 @@ make check -k ||:
 %dir %{_qt6_plugindir}/sqldrivers/
 %dir %{_qt6_plugindir}/styles/
 %dir %{_qt6_plugindir}/tls/
+%{_qt6_plugindir}/networkinformation/libqconnman.so
 %{_qt6_plugindir}/networkinformation/libqglib.so
 %{_qt6_plugindir}/networkinformation/libqnetworkmanager.so
 %{_qt6_plugindir}/sqldrivers/libqsqlite.so
@@ -625,6 +609,8 @@ make check -k ||:
 %{_bindir}/androiddeployqt
 %{_bindir}/androiddeployqt6
 %{_bindir}/androidtestrunner
+%{_bindir}/wasmdeployqt
+%{_bindir}/wasmdeployqt6
 %{_bindir}/qdbuscpp2xml*
 %{_bindir}/qdbusxml2cpp*
 %{_bindir}/qmake*
@@ -635,6 +621,8 @@ make check -k ||:
 %{_qt6_bindir}/androiddeployqt
 %{_qt6_bindir}/androiddeployqt6
 %{_qt6_bindir}/androidtestrunner
+%{_qt6_bindir}/wasmdeployqt
+%{_qt6_bindir}/wasmdeployqt6
 %{_qt6_bindir}/qdbuscpp2xml
 %{_qt6_bindir}/qdbusxml2cpp
 %{_qt6_bindir}/qmake
@@ -706,19 +694,13 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
 %{_qt6_libdir}/cmake/Qt6/3rdparty/kwin/REUSE.toml
 %{_qt6_libdir}/cmake/Qt6/*.in
-%{_qt6_libdir}/cmake/Qt6/*.h.in
 %{_qt6_libdir}/cmake/Qt6/*.cmake
-%{_qt6_libdir}/cmake/Qt6/*.cmake.in
-%{_qt6_libdir}/cmake/Qt6/PkgConfigLibrary.pc.in
+%{_qt6_libdir}/cmake/Qt6/qt-configure-module-flags.txt
 %{_qt6_libdir}/cmake/Qt6/config.tests/*
 %{_qt6_libdir}/cmake/Qt6/libexec/*
 %{_qt6_libdir}/cmake/Qt6/platforms/*.cmake
 %{_qt6_libdir}/cmake/Qt6/platforms/Platform/*.cmake
 %{_qt6_libdir}/cmake/Qt6/qbatchedtestrunner.in.cpp
-%{_qt6_libdir}/cmake/Qt6/ModuleDescription.json.in
-%{_qt6_libdir}/cmake/Qt6/QtFileConfigure.txt.in
-%{_qt6_libdir}/cmake/Qt6/QtConfigureTimeExecutableCMakeLists.txt.in
-%{_qt6_libdir}/cmake/Qt6/QtSeparateDebugInfo.Info.plist.in
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/COPYING-CMAKE-SCRIPTS
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/*.cmake
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/modules/*.cmake
@@ -784,6 +766,7 @@ make check -k ||:
 %{_qt6_metatypesdir}/qt6xml_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
 %{_qt6_mkspecsdir}/*
+%{_qt6_datadir}/json_schema/
 ## private-devel globs
 %exclude %{_qt6_headerdir}/*/%{qt_version}/
 
@@ -845,15 +828,6 @@ make check -k ||:
 %{_qt6_descriptionsdir}/TestInternalsPrivate.json
 
 %files static
-%dir %{_qt6_libdir}/cmake/Qt6ExampleIconsPrivate
-%{_qt6_libdir}/cmake/Qt6ExampleIconsPrivate/*.cmake
-%{_qt6_headerdir}/QtExampleIcons
-%{_qt6_libdir}/libQt6ExampleIcons.a
-%{_qt6_libdir}/libQt6ExampleIcons.prl
-%{_qt6_descriptionsdir}/ExampleIconsPrivate.json
-%dir %{_qt6_archdatadir}/objects-*
-%{_qt6_archdatadir}/objects-*/ExampleIconsPrivate_resources_1/
-%{_qt6_metatypesdir}/qt6exampleiconsprivate_metatypes.json
 %dir %{_qt6_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate
 %{_qt6_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/*.cmake
 %{_qt6_headerdir}/QtDeviceDiscoverySupport
@@ -973,6 +947,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

@@ -61,10 +61,10 @@ Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
 # Adapt t/core_surface.t test to SDL3, incompatible with SDL2, bug #2341036,
 # proposed to upstream, <https://github.com/PerlGameDev/SDL/pull/310>
 Patch5:         SDL-2.548-core_surface.t-test-data-icon.bmp-is-really-4-bits-p.patch
-# Adapt t/core.t test to SDL-3.2.24, bug #2401791, proposed upstream,
+# Adapt t/core.t test to SDL-3.2.24, bug #2401791, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/311>
 Patch6:         SDL-2.548-Adapt-to-SDL-3.2.24.patch
-# Make the tests read-only, proposed upstream,
+# Make the tests read-only, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/312>
 Patch7:         SDL-2.548-Read-only-t-core_rwops.t.patch
 BuildRequires:  coreutils

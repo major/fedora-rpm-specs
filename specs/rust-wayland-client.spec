@@ -5,7 +5,7 @@
 %global crate wayland-client
 
 Name:           rust-wayland-client
-Version:        0.31.12
+Version:        0.31.14
 Release:        %autorelease
 Summary:        Bindings to the standard C implementation of the wayland protocol, client side
 
@@ -51,6 +51,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dlopen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dlopen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dlopen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dlopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_1_23-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_1_23-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_1_23" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_1_23-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -61,6 +85,18 @@ This package contains library source intended for building other packages which
 use the "log" feature of the "%{crate}" crate.
 
 %files       -n %{name}+log-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+system-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+system-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "system" feature of the "%{crate}" crate.
+
+%files       -n %{name}+system-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name: neochat
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

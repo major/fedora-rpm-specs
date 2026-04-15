@@ -1,6 +1,6 @@
 Name:    kmix
 Summary: KDE volume control
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmix.desktop
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

@@ -1,5 +1,5 @@
 Name:    akonadi-search
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
@@ -109,6 +109,9 @@ cd ../../..
 %files doc
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

@@ -45,6 +45,9 @@ sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 # Remove upper version bound on multidict to enable building with new versions in Fedora
 sed -i '/"multidict/s/,<[0-9.]\+//' pyproject.toml
 
+# Remove upper version bound on requests to enable building with new versions in Fedora
+sed -i '/"requests/s/,<[0-9.]\+//' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 

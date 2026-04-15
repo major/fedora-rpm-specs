@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	57%{?dist}
+Release:	58%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -426,9 +426,6 @@ if test -f ${EFI_HOME}/grub.cfg; then
     fi
 fi
 
-# create a stub grub2 config in EFI
-gen_grub_cfgstub $GRUB_HOME $EFI_HOME || :
-
 if test -f ${EFI_HOME}/grubenv; then
     cp -a ${EFI_HOME}/grubenv ${EFI_HOME}/grubenv.rpmsave
     mv --force ${EFI_HOME}/grubenv ${GRUB_HOME}/grubenv
@@ -437,6 +434,9 @@ fi
 %if 0%{with_efi_arch}
 %posttrans efi-%{efiarch}
 set -eu
+
+# Create the stub config
+gen_grub_cfgstub /boot/grub2 %{grub_efi_dir} || :
 
 # On image mode, bootupd takes care of installing bootloader updates to the ESP
 if [[ ! -e "/run/ostree-booted" ]]; then
@@ -621,6 +621,10 @@ fi
 %endif
 
 %changelog
+* Fri Apr 10 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-58
+- Move the EFI config's stub generation into EFI posttrans
+- Related: #2457071
+
 * Fri Mar 27 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-57
 - New package grub2-efi-x64-cc for confidential computing workloads
 

@@ -12,6 +12,9 @@ Summary:        Flexible Mandatory Access Control for Linux
 License:        MIT
 URL:            https://crates.io/crates/selinux
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * allow building against selinux-sys 0.7
+Patch:          selinux-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

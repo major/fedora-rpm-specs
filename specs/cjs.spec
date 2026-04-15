@@ -1,12 +1,12 @@
-%global glib2_version 2.66.0
+%global glib2_version 2.86.0
 %global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
-%global mozjs128_version 128.5.1
+%global mozjs140_version 140.6.0
 
 Name:          cjs
 Epoch:         1
-Version:       128.1
-Release:       4%{?dist}
+Version:       140.0
+Release:       1%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -17,7 +17,6 @@ License:       LicenseRef-Callaway-MIT AND (LicenseRef-Callaway-MPLv1.1 OR GPL-2
 # Stack printer (gjs/stack.c)
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:        pkconfig.patch
 
 ExcludeArch:   %{ix86}
 
@@ -28,7 +27,7 @@ BuildRequires: pkgconfig(cairo-gobject)
 BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(mozjs-128) >= %{mozjs128_version}
+BuildRequires: pkgconfig(mozjs-140) >= %{mozjs140_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
 # For GTK+ 3 tests
@@ -44,7 +43,7 @@ BuildRequires: xwayland-run
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: mozjs128%{?_isa} >= %{mozjs128_version}
+Requires: mozjs140%{?_isa} >= %{mozjs140_version}
 
 %description
 Cjs allows using Cinnamon libraries from Javascript. It's based on the
@@ -106,6 +105,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 1:140.0-1
+- Update to 140.0
+
 * Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-4
 - Add pkgconfig variable to export the appropriate API version of mozjs
 

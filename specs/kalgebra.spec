@@ -1,7 +1,7 @@
 
 Name:    kalgebra
 Summary: 2D and 3D Graph Calculator
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalgebram
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

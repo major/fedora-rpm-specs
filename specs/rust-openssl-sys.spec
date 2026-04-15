@@ -22,7 +22,7 @@ Patch:          openssl-sys-fix-metadata.diff
 Patch2:         0001-drop-Windows-specific-references-to-vcpkg.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(openssl) >= 1.0.1
+BuildRequires:  (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 4.0.0~)
 
 %global _description %{expand:
 FFI bindings to OpenSSL.}
@@ -32,7 +32,7 @@ FFI bindings to OpenSSL.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(openssl) >= 1.0.1
+Requires:       (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 4.0.0~)
 
 %description    devel %{_description}
 

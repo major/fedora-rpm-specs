@@ -2,18 +2,16 @@
 %bcond_with debug
 #
 
-ExcludeArch: %{ix86}
-
+# This flag is not recognized in GFortran land, make silent all related warnings
 %global optflags %(echo '%optflags' | sed s/-Wp,-D_GLIBCXX_ASSERTIONS//)
 
-# Upstream uses two method for calling psblas3 libraries,
-# this one is adapted to use psblas3 shared libraries.
-# Call ../configure_n instead of ./configure
-%global _configure ./configure_n
+ExcludeArch: %{ix86}
 
 %global with_mpich 1
 %global with_openmpi 1
-%global with_serial 0
+%global with_serial 1
+
+# Disable tests, see https://github.com/sfilippone/amg4psblas/issues/7
 %global with_check 0
 
 ##
@@ -21,34 +19,27 @@ ExcludeArch: %{ix86}
 #
 
 %global major_version 1
-%global major_minor %{major_version}.1
-%global postrelease_version -1
+%global major_minor %{major_version}.2
+%global postrelease_version 1
 
-%if 0%{?fedora}
 %global blaslib flexiblas
-%else
-%global blaslib openblas
-%endif
-
-# -Werror=format-security flag is not valid for Fortran
-%global fc_optflags $(echo "%optflags" | sed -e 's/-Werror=format-security//')
 
 %global libname libamg_prec
 
 Name: amg4psblas
 Summary: Algebraic Multigrid Package based on PSBLAS
-Version: %{major_minor}.2
-Release: 13%{?dist}
+Version: %{major_minor}.0
+Release: %autorelease -e post%{?postrelease_version}
 License: MIT-CMU AND BSD-3-Clause
 URL: https://psctoolkit.github.io/products/amg4psblas/
-Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tgz
+Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}-%{?postrelease_version}.tar.gz
 BuildRequires: gcc-gfortran
-BuildRequires: gcc, gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: suitesparse-devel
 BuildRequires: %{blaslib}-devel
 BuildRequires: make
 BuildRequires: metis-devel
-
 %description
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
@@ -58,19 +49,17 @@ multilevel preconditioners included in the PSCToolkit
 %if 0%{?with_serial}
 %package serial
 Summary: %{name} serial mode
-BuildRequires: psblas3-serial-devel
+BuildRequires: psblas3-serial-devel >= 3.9.0
 BuildRequires: MUMPS-devel
 BuildRequires: MUMPS-srpm-macros
 BuildRequires: SuperLU-devel
 Requires: %{name}-doc = %{version}-%{release}
 Obsoletes: mld2p4-serial < 0:2.2.2-9
-
 %description serial
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
 multilevel preconditioners included in the PSCToolkit
 (Parallel Sparse Computation Toolkit) software framework.
-
 
 %package serial-devel
 Summary: Development files for %{name}
@@ -78,9 +67,17 @@ Requires: %{name}-serial%{?_isa} = %{version}-%{release}
 Requires: psblas3-serial-devel%{?_isa}
 Obsoletes: mld2p4-serial-devel < 0:2.2.2-9
 Requires: gcc-gfortran%{?_isa}
-
 %description serial-devel
 Shared links and header files of serial %{name}.
+
+%package serial-static
+Summary: Static libraries of %{name}
+Requires: %{name}-doc = %{version}-%{release}
+%description serial-static
+AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
+based on PSBLAS) is a package of parallel algebraic
+multilevel preconditioners included in the PSCToolkit
+(Parallel Sparse Computation Toolkit) software framework.
 %endif
 
 ########################################################
@@ -89,18 +86,14 @@ Shared links and header files of serial %{name}.
 Summary: OpenMPI %{name}
 BuildRequires: MUMPS-openmpi-devel
 BuildRequires: openmpi-devel
-BuildRequires: psblas3-openmpi-devel
+BuildRequires: psblas3-openmpi-devel >= 0:3.9.0
 BuildRequires: superlu_dist-openmpi-devel
 BuildRequires: MUMPS-srpm-macros
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: blacs-openmpi-devel
-%endif
 Obsoletes: %{name}-serial < 0:1.1.2-1
 
 Requires: openmpi%{?_isa}
 Requires: %{name}-doc = %{version}-%{release}
 Obsoletes: mld2p4-openmpi < 0:2.2.2-9
-
 %description openmpi
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
@@ -109,21 +102,17 @@ multilevel preconditioners included in the PSCToolkit
 
 %package openmpi-static
 Summary: Static OpenMPI libraries of %{name}
-Requires: mpich%{?_isa}
-
 %description openmpi-static
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
 multilevel preconditioners included in the PSCToolkit
 (Parallel Sparse Computation Toolkit) software framework.
 
-
 %package openmpi-devel
 Summary: The %{name} headers and development-related files
 Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
-Requires: psblas3-openmpi-devel%{?_isa} >= 0:3.8.1
+Requires: psblas3-openmpi-devel%{?_isa}  >= 0:3.9.0
 Obsoletes: mld2p4-openmpi-devel < 0:2.2.2-9
-
 %description openmpi-devel
 Shared links, header files for OpenMPI %{name}.
 %endif
@@ -134,18 +123,14 @@ Shared links, header files for OpenMPI %{name}.
 Summary: MPICH %{name}
 BuildRequires: MUMPS-mpich-devel
 BuildRequires: mpich-devel
-BuildRequires: psblas3-mpich-devel
+BuildRequires: psblas3-mpich-devel >= 0:3.9.0
 BuildRequires: superlu_dist-mpich-devel
 BuildRequires: MUMPS-srpm-macros
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: blacs-mpich-devel
-%endif
 Obsoletes: %{name}-serial < 0:1.1.2-1
 
 Requires: mpich%{?_isa}
 Requires: %{name}-doc = %{version}-%{release}
 Obsoletes: mld2p4-mpich < 0:2.2.2-9
-
 %description mpich
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
@@ -155,18 +140,16 @@ multilevel preconditioners included in the PSCToolkit
 %package mpich-static
 Summary: Static MPICH libraries of %{name}
 Requires: mpich%{?_isa}
-
 %description mpich-static
 AMG4PSBLAS (Algebraic MultiGrid Preconditioners Package
 based on PSBLAS) is a package of parallel algebraic
 multilevel preconditioners included in the PSCToolkit
 (Parallel Sparse Computation Toolkit) software framework.
 
-
 %package mpich-devel
 Summary: The %{name} headers and development-related files
 Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
-Requires: psblas3-mpich-devel%{?_isa}
+Requires: psblas3-mpich-devel%{?_isa} >= 0:3.9.0
 Obsoletes: mld2p4-mpich-devel < 0:2.2.2-9
 %description mpich-devel
 Shared links, header files for MPICH %{name}.
@@ -183,17 +166,9 @@ BuildRequires: texlive-mfware
 HTML, PDF and license files of %{name}.
 
 %prep
-%setup -qc -n %{name}-%{version}%{?postrelease_version}
+%setup -qc -n %{name}-%{version}-%{?postrelease_version}
 
-mv amg-%{version}%{?postrelease_version} serial-build
-
-pushd serial-build
-# Remove pre-fixed -lstdc++ flags
-sed -e 's|-lstdc++||g' -i Make.inc.in
-sed -e 's|-lstdc++||g' -i Make_n.inc.in
-mkdir -p include
-mkdir -p modules
-popd
+mv %{name}-%{version}-%{?postrelease_version} serial-build
 
 #######################################################
 ## Copy source for MPI versions
@@ -211,20 +186,21 @@ cd serial-build
 
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -fPIC"
+export FCFLAGS="%{optflags} %{__global_ldflags} -fPIC"
+export CFLAGS="%{optflags} -fPIC"
 
 %if %{with debug}
-./configure_n --enable-serial --with-fcopt="-O0 -g -fPIC -I%{_fmoddir}" --with-ccopt="-O0 -g -fPIC" \
+./configure --enable-serial --with-fcopt="-O0 -g -fPIC -I%{_fmoddir}" --with-ccopt="-O0 -g -fPIC" \
   --with-cxxopt="-O0 -g -fPIC" LDFLAGS="%{__global_ldflags} -fPIC" CPPFLAGS="$INCBLAS" \
   FCFLAGS="-O0 -g -fPIC" CFLAGS="-O0 -g -fPIC" \
 %else
-%_configure --enable-serial --with-fcopt="$FCFLAGS" --with-ccopt="%{optflags} %{__global_ldflags} -fPIC" \
+%configure --enable-serial --with-fcopt="$FCFLAGS" --with-ccopt="%{optflags} %{__global_ldflags} -fPIC" \
   --with-cxxopt="%{optflags} %{__global_ldflags} -fPIC" LDFLAGS="%{__global_ldflags} %{__global_ldflags}" CPPFLAGS="$INCBLAS" \
   FCFLAGS="$FCFLAGS" CFLAGS="%{optflags} %{__global_ldflags} -fPIC" \
 %endif
-  FC=gfortran CC=gcc CXX=g++ --with-lpk=4 \
+  FC=gfortran CC=gcc CXX=g++ \
   --with-psblas-libdir=%{_libdir} --with-psblas-moddir=%{_fmoddir}/psblas3-serial --with-psblas-incdir=%{_includedir}/psblas3-serial \
-  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK --with-metis=-lmetis --with-metisincfile=metis.h --with-metisincdir=%{_includedir} \
+  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK \
   --with-mumps="-ldmumps -lcmumps -lsmumps -lzmumps" --with-mumpsincdir="%{_includedir}/MUMPS" \
   --with-mumpsmoddir=%{_fmoddir}/MUMPS-%{_MUMPS_version} \
   --with-superlu=-lsuperlu --with-superluincdir=%{_includedir}/SuperLU \
@@ -232,14 +208,11 @@ export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -fPIC"
 #cat config.log
 #exit 1
 
-cp -p Make_n.inc Make.inc
-# Reduce number of jobs for preventing failures
-make %{?fedora: -O} %{?el8: -O} -j1 V=1
-make %{?fedora: -O} %{?el8: -O} -j1 V=1 -C cbind
+%make_build
 
 # Make shared libraries
 pushd lib
-gfortran -shared %{__global_ldflags} -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lpsb_base -lpsb_prec -lpsb_krylov -lpsb_cbind -ldmumps -lcmumps -lsmumps -lzmumps -lumfpack -lsuperlu -lmetis -lgfortran -lm -lstdc++ -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor}
+gfortran -shared %{__global_ldflags} -fPIC -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lpsb_base -lpsb_prec -lpsb_linsolve -lpsb_ext -lpsb_util -lpsb_cbind -ldmumps -lcmumps -lsmumps -lzmumps -lumfpack -lsuperlu -lmetis -lgfortran -lm -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor}
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so.%{major_version}
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so
 popd
@@ -258,7 +231,8 @@ export CXX=mpic++
 export FC=mpifort
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
+export FCFLAGS="%{optflags} %{__global_ldflags} -fPIC"
+export CFLAGS="%{optflags} -fPIC"
 
 %if %{with debug}
 ./configure --with-fcopt="-O0 -g -fPIC -I${MPI_FORTRAN_MOD_DIR} $INCBLAS" --with-ccopt="-O0 -g -fPIC $INCBLAS" \
@@ -269,9 +243,9 @@ export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
   --with-cxxopt="%{optflags} %{__global_ldflags} -fPIC" LDFLAGS="%{__global_ldflags}" CPPFLAGS="-I$MPI_INCLUDE/psblas3 $INCBLAS" \
   FCFLAGS="$FCFLAGS" CFLAGS="%{optflags} %{__global_ldflags} -fPIC $INCBLAS" \
 %endif
-  MPIFC=mpif90 MPICC=mpicc MPICXX=mpic++ --with-lpk=4 \
+  MPIFC=mpif90 MPICC=mpicc MPICXX=mpic++ \
   --with-psblas-libdir=$MPI_LIB --with-psblas-moddir=$MPI_FORTRAN_MOD_DIR/psblas3 --with-psblas-incdir=$MPI_INCLUDE/psblas3 \
-  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK --with-metis=-lmetis --with-metisincfile=metis.h --with-metisincdir=%{_includedir} \
+  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK \
   --with-mumps="-ldmumps -lcmumps -lsmumps -lzmumps" --with-mumpsincdir="$MPI_INCLUDE/MUMPS" \
   --with-mumpsmoddir=$MPI_FORTRAN_MOD_DIR/MUMPS-%{_MUMPS_version} \
 %if %{with superludist}
@@ -282,14 +256,11 @@ export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
   --with-umfpack=-lumfpack --with-umfpackincdir=%{_includedir}/suitesparse
 #cat config.log && exit 1
 
-cp -p Make_n.inc Make.inc
-# Reduce number of jobs for preventing failures
-make %{?fedora: -O} %{?el8: -O} -j1 V=1
-make %{?fedora: -O} %{?el8: -O} -j1 V=1 -C cbind 
+%make_build
 
 # Make shared libraries
 cd lib
-mpic++ %{optflags} -fPIC -shared %{__global_ldflags} -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lstdc++ -lmetis -lumfpack -lgfortran -lm -L$MPI_LIB -Wl,-rpath -Wl,$MPI_LIB -Wl,--enable-new-dtags -lmpi -lmpi_mpifh -L$MPI_LIB -lpsb_base -lpsb_prec -lpsb_krylov -ldmumps -lcmumps -lsmumps -lzmumps %{?with_superludist:-lsuperlu_dist} -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor} -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive
+mpifort %{optflags} -fPIC -shared %{__global_ldflags} -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lmetis -lumfpack -lgfortran -lm -Wl,-rpath -Wl,$MPI_LIB -Wl,--enable-new-dtags %(pkgconf --libs ompi-f90) -lpsb_base -lpsb_prec -lpsb_linsolve -lpsb_ext -lpsb_util -lpsb_cbind -ldmumps -lcmumps -lsmumps -lzmumps %{?with_superludist:-lsuperlu_dist} -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor} -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so.%{major_version}
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so
 cd ../
@@ -300,30 +271,27 @@ popd
 %if 0%{?with_mpich}
 pushd mpich-build
 
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-6/enable}
-%endif
-
 %{_mpich_load}
 export CC=mpicc
 export CXX=mpic++
 export FC=mpif90
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
+export FCFLAGS="%{optflags} %{__global_ldflags} -fPIC"
+export CFLAGS="%{optflags} -fPIC"
 
 %if %{with debug}
 ./configure --with-fcopt="-O0 -g -fPIC -I${MPI_FORTRAN_MOD_DIR} $INCBLAS" --with-ccopt="-O0 -g -fPIC $INCBLAS" \
   --with-cxxopt="-O0 -g -fPIC" LDFLAGS="%{__global_ldflags} -fPIC" CPPFLAGS="-I$MPI_INCLUDE/psblas3 $INCBLAS" \
-  FCFLAGS="-O0 -g -fPIC -std=gnu++17" CFLAGS="-O0 -g -fPIC" \
+  FCFLAGS="-O0 -g -fPIC" CFLAGS="-O0 -g -fPIC" \
 %else
 %configure --with-fcopt="$FCFLAGS $INCBLAS" --with-ccopt="%{optflags} %{__global_ldflags} -fPIC $INCBLAS" \
   --with-cxxopt="%{optflags} %{__global_ldflags} -fPIC" LDFLAGS="%{__global_ldflags} %{__global_ldflags}" CPPFLAGS="-I$MPI_INCLUDE/psblas3 $INCBLAS" \
   FCFLAGS="$FCFLAGS" CFLAGS="%{optflags} %{__global_ldflags} -fPIC $INCBLAS" \
 %endif
- MPIFC=mpif90 MPICC=mpicc MPICXX=mpic++ --with-lpk=4 \
+ MPIFC=mpif90 MPICC=mpicc MPICXX=mpic++ \
   --with-psblas-libdir=$MPI_LIB --with-psblas-moddir=$MPI_FORTRAN_MOD_DIR/psblas3 --with-psblas-incdir=$MPI_INCLUDE/psblas3 \
-  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK --with-metis=-lmetis --with-metisincfile=metis.h --with-metisincdir=%{_includedir} \
+  --with-blas=$LIBBLAS --with-lapack=$LIBLAPACK \
   --with-mumps="-ldmumps -lcmumps -lsmumps -lzmumps" --with-mumpsincdir="$MPI_FORTRAN_MOD_DIR/MUMPS-%{_MUMPS_version} -I$MPI_INCLUDE/MUMPS" \
   --with-mumpsmoddir=$MPI_FORTRAN_MOD_DIR/MUMPS-%{_MUMPS_version} \
 %if %{with superludist}
@@ -333,21 +301,12 @@ export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
 %endif
   --with-umfpack=-lumfpack --with-umfpackincdir=%{_includedir}/suitesparse
   
-cp -p Make_n.inc Make.inc
-# Reduce number of jobs for preventing failures
-make %{?fedora: -O} %{?el8: -O} -j1 V=1
-make %{?fedora: -O} %{?el8: -O} -j1 V=1 -C cbind 
+%make_build
 
 # Make shared libraries
 cd lib
 
-%if 0%{?fedora}
-export MPIFLIB=" -lmpifort"
-%else
-export MPIFLIB=" -lmpich -lfmpich " 
-%endif
-
-mpic++ %{optflags} -fPIC -shared %{__global_ldflags} -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lstdc++ -lumfpack -lmetis -lgfortran -lm -L$MPI_LIB -Wl,-rpath -Wl,$MPI_LIB -Wl,-z,noexecstack $MPIFLIB -L$MPI_LIB -lpsb_base -lpsb_prec -lpsb_krylov -ldmumps -lcmumps -lsmumps -lzmumps %{?with_superludist:-lsuperlu_dist} -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor} -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive
+mpifort %{optflags} -fPIC -shared %{__global_ldflags} -Wl,-Bdynamic -L%{_libdir} $LIBBLAS $LIBLAPACK -lumfpack -lmetis -lgfortran -lm -Wl,-rpath -Wl,$MPI_LIB -Wl,-z,noexecstack $MPIFLIB %(pkgconf --libs mpich) -lpsb_base -lpsb_prec -lpsb_linsolve -lpsb_ext -lpsb_util -lpsb_cbind -ldmumps -lcmumps -lsmumps -lzmumps %{?with_superludist:-lsuperlu_dist} -Wl,-soname,%{libname}.so.%{major_minor} -o %{libname}.so.%{major_minor} -Wl,--whole-archive %{libname}.a -Wl,-no-whole-archive
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so.%{major_version}
 ln -sf %{libname}.so.%{major_minor} ./%{libname}.so
 cd ../
@@ -369,6 +328,7 @@ popd
 
 install -pm 644 modules/*.mod $RPM_BUILD_ROOT%{_fmoddir}/%{name}-serial/
 install -pm 644 include/*.h $RPM_BUILD_ROOT%{_includedir}/%{name}-serial/
+install -pm 644 include/Make.inc.amg4psblas $RPM_BUILD_ROOT%{_includedir}/%{name}-serial/
 popd
 %endif
 
@@ -388,6 +348,7 @@ cd ../
 
 install -pm 644 modules/*.mod $RPM_BUILD_ROOT$MPI_FORTRAN_MOD_DIR/%{name}/
 install -pm 644 include/*.h $RPM_BUILD_ROOT$MPI_INCLUDE/%{name}/
+install -pm 644 include/Make.inc.amg4psblas $RPM_BUILD_ROOT$MPI_INCLUDE/%{name}/
 %{_openmpi_unload}
 popd
 %endif
@@ -406,6 +367,7 @@ cd ../
 
 install -pm 644 modules/*.mod $RPM_BUILD_ROOT$MPI_FORTRAN_MOD_DIR/%{name}/
 install -pm 644 include/*.h $RPM_BUILD_ROOT$MPI_INCLUDE/%{name}/
+install -pm 644 include/Make.inc.amg4psblas $RPM_BUILD_ROOT$MPI_INCLUDE/%{name}/
 %{_mpich_unload}
 popd
 %endif
@@ -416,7 +378,16 @@ popd
 %if 0%{?with_serial}
 pushd serial-build
 export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
-make check
+make check LINKOPT="%{__global_ldflags}"
+
+# Running tests
+cd samples/advanced/pdegen/runs
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
+./amg_d_pde2d amg_pde2d.inp
+./amg_d_pde3d amg_pde3d.inp
+./amg_s_pde2d amg_pde2d.inp
+./amg_s_pde3d amg_pde3d.inp
+cd ../
 popd
 %endif
 
@@ -427,7 +398,16 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
 export CC=mpicc
 export CXX=mpic++
 export FC=mpif90
-make check LINKOPT="%{__global_ldflags} -lstdc++ -L$MPI_LIB -lmpi"
+make check LINKOPT="%{__global_ldflags} %(pkgconf --libs ompi-f90)" && exit 1
+
+# Running tests
+cd samples/advanced/pdegen/runs
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
+./amg_d_pde2d amg_pde2d.inp
+./amg_d_pde3d amg_pde3d.inp
+./amg_s_pde2d amg_pde2d.inp
+./amg_s_pde3d amg_pde3d.inp
+cd ../
 %{_openmpi_unload}
 popd
 %endif
@@ -439,7 +419,16 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
 export CC=mpicc
 export CXX=mpic++
 export FC=mpif90
-make check LINKOPT="%{__global_ldflags} -lstdc++ -L$MPI_LIB -lmpi"
+make check LINKOPT="%{__global_ldflags} %(pkgconf --libs mpich)"
+
+# Running tests
+cd samples/advanced/pdegen/runs
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
+./amg_d_pde2d amg_pde2d.inp
+./amg_d_pde3d amg_pde3d.inp
+./amg_s_pde2d amg_pde2d.inp
+./amg_s_pde3d amg_pde3d.inp
+cd ../
 %{_mpich_unload}
 popd
 %endif
@@ -456,6 +445,9 @@ popd
 %{_libdir}/*.so
 %{_includedir}/%{name}-serial/
 %{_fmoddir}/%{name}-serial/
+
+%files serial-static
+%{_libdir}/*.a
 %endif
 
 #######################################################
@@ -471,11 +463,7 @@ popd
 %files openmpi-devel
 %{_libdir}/openmpi/lib/*.so
 %{_includedir}/openmpi-%{_arch}/%{name}/
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_fmoddir}/openmpi/%{name}/
-%else
-%{_fmoddir}/openmpi-%{_arch}/%{name}/
-%endif
 %endif
 
 %if 0%{?with_mpich}
@@ -489,102 +477,15 @@ popd
 %files mpich-devel
 %{_libdir}/mpich/lib/*.so
 %{_includedir}/mpich-%{_arch}/%{name}/
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_fmoddir}/mpich/%{name}/
-%else
-%{_fmoddir}/mpich-%{_arch}/%{name}/
-%endif
 %endif
 ######################################################
 
 %files doc
-%doc serial-build/README* serial-build/Changelog
+%doc serial-build/README*
 %doc serial-build/docs/html serial-build/docs/*.pdf
 %doc serial-build/ReleaseNews
 %license serial-build/LICENSE
 
 %changelog
-* Thu Apr 02 2026 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-13
-- Rebuild for superlu_dist-9.2.1
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Feb 03 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-9
-- Disable tests
-
-* Sat Jan 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-8
-- Fix GCC15 builds
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 1.1.2-5
-- Rebuild with suitesparse 7.6.0
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-2
-- Rebuild for MUMPS-5.6.2
-
-* Sat Dec 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-1
-- Release 1.1.2
-- Exclude serial libraries (not fully supported)
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-6
-- Rebuild for SuperLU-6.0
-
-* Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-5
-- Drop OpenMPI support on i686
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Jul 17 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-2
-- Rebuild for MUMPS-5.5.0
-
-* Fri Jun 17 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-1
-- Release 1.1.0
-
-* Sat Apr 23 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.0.1-2
-- Rebuild for superlu_dist-7.2.0
-
-* Mon Apr 18 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.0.1-1
-- Release 1.0.1
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Oct 30 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-5
-- Rebuild for SuperLU-5.3.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jul 17 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-3
-- Rebuild for MUMPS-5.4.0
-
-* Fri May 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-2
-- Fix installation issue
-
-* Thu May 20 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-1
-- First package
+%autochangelog

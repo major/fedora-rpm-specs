@@ -4,7 +4,7 @@
 #global tests 1
 
 Name:    konqueror
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
@@ -209,6 +209,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

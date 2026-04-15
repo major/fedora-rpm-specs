@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.126
-Release:	2%{?dist}
+Version:	3.3.127
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -10,9 +10,6 @@ BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-%if 0%{?fedora>} > 40 || 0%{?rhel} > 9
-BuildRequires:	gdk-pixbuf2-modules-extra
-%endif
 BuildRequires:	flex
 BuildRequires:	gedit
 BuildRequires:	gperf
@@ -32,9 +29,6 @@ BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 # Dependencies
 Recommends:	gedit
-%if 0%{?fedora>} > 40 || 0%{?rhel} > 9
-Requires:	gdk-pixbuf2-modules-extra
-%endif
 Requires:	hicolor-icon-theme
 Requires:	shared-mime-info
 
@@ -196,6 +190,21 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Apr 13 2026 Paul Howarth <paul@city-fan.org> - 3.3.127-1
+- Update to 3.3.127
+  - Fix for fixed point shift that does not disable it on the specify value
+    change menu option
+  - Changed ps2pdf to pstopdf on Mac as ps removed by Sonoma
+  - Warnings fix in vcd2fst for missing string.h include
+  - Added FST_ST_SV_ARRAY (FST) and "sv_array" (VCD) for arrays
+    (gtkwave/libfst#17)
+  - Wrote replacement for gdk_pixbuf_new_from_xpm_data
+  - Update FSDB to handle FST_ST_SV_ARRAY (VCS emits this),
+    FSDB_ST_SV_INTERFACEPORT_REF, and FSDB_VT_STRING
+  - Added "SV_ST_ARRAY" to exclude file parsing on init
+  - Fix use after free of GLOBALS->entrybox_text in regexp_highlight_generic()
+- Drop dependency on gdk-pixbuf2-modules-extra, XPM support now done locally
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.126-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

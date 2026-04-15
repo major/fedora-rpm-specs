@@ -1,5 +1,5 @@
 Name:    ktnef
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: The KTNef Library
 
@@ -64,6 +64,9 @@ find ./po -type f -name libktnef5.po -execdir mv {} libktnef6.po \;
 %files doc
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kirigami-gallery
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: Gallery application built using Kirigami
 License: LGPL-2.1-or-later
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gal
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

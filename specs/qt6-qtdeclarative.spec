@@ -15,7 +15,7 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -34,8 +34,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
-# https://codereview.qt-project.org/c/qt/qtdeclarative/+/678924
-Patch0:  qtdeclarative-quickshapes-make-module-public.patch
+
 
 ## upstreamable patches
 
@@ -175,6 +174,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6LabsSettings.so.6*
 %{_qt6_libdir}/libQt6LabsSynchronizer.so.6*
 %{_qt6_libdir}/libQt6LabsSharedImage.so.6*
+%{_qt6_libdir}/libQt6LabsStyleKit.so.6*
+%{_qt6_libdir}/libQt6LabsStyleKitImpl.so.6*
 %{_qt6_libdir}/libQt6LabsWavefrontMesh.so.6*
 %{_qt6_libdir}/libQt6Qml.so.6*
 %{_qt6_libdir}/libQt6QmlCompiler.so.*
@@ -235,6 +236,8 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6LabsQmlModels
 %dir %{_qt6_libdir}/cmake/Qt6LabsSettings
 %dir %{_qt6_libdir}/cmake/Qt6LabsSharedImage
+%dir %{_qt6_libdir}/cmake/Qt6LabsStyleKit
+%dir %{_qt6_libdir}/cmake/Qt6LabsStyleKitImpl
 %dir %{_qt6_libdir}/cmake/Qt6LabsSynchronizer
 %dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh
 %dir %{_qt6_libdir}/cmake/Qt6Qml
@@ -388,6 +391,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6LabsQmlModels/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSettings/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSharedImage/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsStyleKit/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsStyleKitImpl/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSynchronizer/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/*.cmake*
@@ -494,7 +499,16 @@ make check -k -C tests ||:
 %{_qt6_metatypesdir}/qt6quickvectorimage_metatypes.json
 %{_qt6_metatypesdir}/qt6quickvectorimagehelpers_metatypes.json
 %{_qt6_metatypesdir}/qt6quickwidgets_metatypes.json
-%{_qt6_mkspecsdir}/modules/qt_lib_labs*.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsanimation.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsfolderlistmodel.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsplatform.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsqmlmodels.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labssettings.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labssharedimage.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsstylekit.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labsstylekitimpl.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labssynchronizer.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_labswavefrontmesh.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qml.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlcompiler.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlcore.pri
@@ -562,6 +576,8 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6LabsPlatformPrivate
 %dir %{_qt6_libdir}/cmake/Qt6LabsQmlModelsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6LabsSettingsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsStyleKitPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsStyleKitImplPrivate
 %dir %{_qt6_libdir}/cmake/Qt6LabsSynchronizerPrivate
 %dir %{_qt6_libdir}/cmake/Qt6LabsSharedImagePrivate
 %dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMeshPrivate
@@ -599,7 +615,6 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6QuickTemplates2Private
 %dir %{_qt6_libdir}/cmake/Qt6QuickTestPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate
-%dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageHelpers
 %dir %{_qt6_libdir}/cmake/Qt6QuickVectorImagePrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageHelpersPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6QuickWidgetsPrivate
@@ -609,6 +624,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6LabsQmlModelsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSettingsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSharedImagePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsStyleKitPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsStyleKitImplPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSynchronizerPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsWavefrontMeshPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate/*.cmake
@@ -736,6 +753,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

@@ -5,7 +5,7 @@
 %global _lto_cflags %{nil}
 
 Name:    libkgapi
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: Library to access to Google services
 
@@ -87,6 +87,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

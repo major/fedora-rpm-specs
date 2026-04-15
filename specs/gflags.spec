@@ -1,6 +1,6 @@
 Name:           gflags
 Version:        2.2.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Library for commandline flag processing
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -30,6 +30,8 @@ This package contains development files for %{name}.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380619)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DBUILD_TESTING:BOOL=ON \
        -DINSTALL_HEADERS:BOOL=ON \
        -DREGISTER_BUILD_DIR:BOOL=OFF \
@@ -60,6 +62,9 @@ This package contains development files for %{name}.
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Mon Apr 13 2026 Cristian Le <git@lecris.dev> - 2.2.2-20
+- Allow to build with CMake 4.0 (rhbz#2380619)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

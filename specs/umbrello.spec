@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

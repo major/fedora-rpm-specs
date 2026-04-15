@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -182,7 +182,7 @@ Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
-Requires: openssl-libs >= 4.0.0~beta1
+Requires: openssl-libs >= 1:4.0.0~beta1
 
 %if ! %{no_gnome_askpass}
 BuildRequires: libX11-devel
@@ -197,7 +197,7 @@ BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
 BuildRequires: audit-libs-devel >= 2.0.5
 BuildRequires: util-linux, groff
 BuildRequires: pam-devel
-BuildRequires: openssl-devel >= 4.0.0~beta1
+BuildRequires: openssl-devel >= 1:4.0.0~beta1
 BuildRequires: perl-podlators
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
@@ -578,6 +578,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Apr 13 2026 Martin Pitt <mpitt@redhat.com> - 10.2p1-16
+- Add missing openssl dependendy epoch
+
 * Sat Apr 11 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-15
 - Keeping in sync with OpenSSL versioning
 

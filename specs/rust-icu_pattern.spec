@@ -5,19 +5,13 @@
 %global crate icu_pattern
 
 Name:           rust-icu_pattern
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        ICU pattern utilities
 
 License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_pattern
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Restore dev-dependencies that were stripped during publication, except for
-#   some that are unused or are also already optional dependencies with the same
-#   feature requirements. See https://github.com/unicode-org/icu4x/issues/7196
-#   for the rather abstruse reasons why this is necessary.
-Patch:          icu_pattern-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,5 +1,5 @@
 Name:           python-fastar
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        High-level bindings for the Rust tar crate
 
@@ -9,7 +9,7 @@ Source:         %{url}/archive/v%{version}/fastar-%{version}.tar.gz
 
 # Downstream-only: allow PyO3 0.27 until we have 0.28:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          fastar-0.9.0-allow-pyo3-0.27.patch
+Patch:          fastar-0.11.0-allow-pyo3-0.27.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l fastar

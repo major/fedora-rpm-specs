@@ -6,8 +6,8 @@ Version:        4.6.3
 Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+# See COPYING.NONGPL
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0 AND MIT AND Apache-2.0 AND OFL-1.1 AND BSD-3-Clause AND CC-BY-4.0 AND MPL-2.0 AND ISC
 URL:            http://wz2100.net/
 Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{version}/warzone2100_src.tar.xz
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz

@@ -2,7 +2,7 @@
 
 Name:           Carla
 Version:        2.5.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -54,8 +54,6 @@ Source0:        https://github.com/falkTX/%{name}/archive/v%{version}.tar.gz#/%{
 # https://github.com/falkTX/Carla/issues/1444
 Patch0:         %{name}-libdir.patch
 Patch1:         %{name}-single-libs-path.patch
-# Merged upstream, pending release: https://github.com/falkTX/Carla/pull/2040
-Patch2:         %{name}-pipewire-bufsize-fix.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  pkgconfig(alsa)
@@ -146,7 +144,6 @@ This package contains the Carla LV2 plugin.
 %setup -qn %{name}-%{version}
 %patch 0 -p1
 %patch 1 -p1
-%patch 2 -p1
 
 # remove windows stuff
 rm -rf data/{macos,windows}
@@ -230,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Mon Apr 13 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.10-5
+- Drop Carla-pipewire-bufsize-fix due (RHBZ#2457554)
+
 * Tue Mar 31 2026 Hoshino Lina <lina@lina.yt> - 1:2.5.10-4
 - Fix crashes on PipeWire due to buffer size mismatches
 

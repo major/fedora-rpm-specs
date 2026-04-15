@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.11
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -72,7 +72,9 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 # hipblaslt from rocm-libraries does not use cmake to find origami
 # https://github.com/ROCm/rocm-libraries/issues/2422
 # So they would not have run into this issue.
+%if %{without preview}
 Patch1:     0001-rocm-origami-remove-scope-for-variables.patch
+%endif
 
 ExclusiveArch: x86_64
 

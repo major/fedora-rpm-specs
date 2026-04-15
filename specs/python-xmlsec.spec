@@ -35,6 +35,7 @@ Requires: xmlsec1-openssl
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 sed -i 's/setuptools==/setuptools>=/' pyproject.toml
+sed -i 's/lxml==/lxml>=/' pyproject.toml
 
 
 %generate_buildrequires

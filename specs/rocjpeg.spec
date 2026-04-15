@@ -19,10 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname rocJPEG
 
+%bcond_with preview
+%if %{with preview}
+%global upstreamname rocjpeg
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+%global upstreamname rocJPEG
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -71,12 +81,21 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
+%endif
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
-Url:            https://github.com/ROCm/rocJPEG
 License:        MIT
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
+Url:            https://github.com/ROCm/rocJPEG
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -144,7 +163,11 @@ Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 The rocJPEG development package.
 
 %prep
+%if %{with preview}
+%autosetup -n %{upstreamname} -p3
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # Fix this error:
 # gmake[2]: /opt/rocm/lib/llvm/bin/clang++: No such file or directory
@@ -215,6 +238,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

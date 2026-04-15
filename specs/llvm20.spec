@@ -407,6 +407,7 @@ Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
+Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 #endregion LLD patches
 
 #region polly patches

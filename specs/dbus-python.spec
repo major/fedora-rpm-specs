@@ -7,6 +7,10 @@ License: MIT
 URL:     http://www.freedesktop.org/wiki/Software/DBusBindings/
 Source0: http://dbus.freedesktop.org/releases/dbus-python/%{name}-%{version}.tar.xz
 
+# Compatibility with Python 3.15
+# https://gitlab.freedesktop.org/dbus/dbus-python/-/work_items/59
+Patch:   Revert-using-Py_TPFLAGS_MANAGED_WEAKREF.patch
+
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(glib-2.0)
 # for %%check

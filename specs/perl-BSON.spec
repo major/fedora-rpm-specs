@@ -3,7 +3,7 @@
 
 Name:           perl-BSON
 Version:        1.12.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        BSON serialization and deserialization
 License:        Apache-2.0
 URL:            https://metacpan.org/release/BSON
@@ -12,6 +12,8 @@ Source0:        https://cpan.metacpan.org/authors/id/M/MO/MONGODB/BSON-v%{versio
 Patch0:         BSON-v1.12.2-Fix-an-operator-preference.patch
 # Adapt tests to perl 5.42, bug #2380086
 Patch1:         BSON-v1.12.2-Adapt-tests-to-perl-5.41.7.patch
+# Adapt tests to JSON-PP 4.18, bug #2457779
+Patch2:         BSON-1.12.2-tests-Adapt-to-changs-in-JSON-PP-4.17_01.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -171,6 +173,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 13 2026 Petr Pisar <ppisar@redhat.com> - 1.12.2-20
+- Adapt tests to perl-JSON-PP-4.18 (bug #2457779)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

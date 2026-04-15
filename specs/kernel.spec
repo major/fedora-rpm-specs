@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc7.260410g9a9c8ce300cd3.58
+%define pkgrelease 62
 %define kversion 7
-%define tarfile_release 7.0-rc7-227-g9a9c8ce300cd3
+%define tarfile_release 7.0
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260410g9a9c8ce300cd3.58%{?buildid}%{?dist}
+%define specrelease 62%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -1490,6 +1490,9 @@ This package provides debug information for the rtla package.
 %endif
 
 %package -n rv
+%if 0%{gemini}
+Epoch: %{gemini}
+%endif
 Summary: RV: Runtime Verification
 %description -n rv
 Runtime Verification (RV) is a lightweight (yet rigorous) method that
@@ -1501,6 +1504,9 @@ to analyze the logical and timing behavior of Linux.
 
 %if %{with_debuginfo}
 %package -n rv-debuginfo
+%if 0%{gemini}
+Epoch: %{gemini}
+%endif
 Summary: Debug information for package rv
 Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
 AutoReqProv: no
@@ -4095,6 +4101,7 @@ popd
 #
 %define kernel_devel_post() \
 %{expand:%%post %{?1:%{1}-}devel}\
+%if %{undefined __brp_linkdupes}\
 if [ -f /etc/sysconfig/kernel ]\
 then\
     . /etc/sysconfig/kernel || exit 0\
@@ -4108,6 +4115,7 @@ then\
      /usr/bin/find /usr/src/kernels -type f -name '*.hardlink-temporary' -delete\
     )\
 fi\
+%endif\
 %if %{with_cross}\
     echo "Building scripts and resolve_btfids"\
     env --unset=ARCH make -C /usr/src/kernels/%{KVERREL}%{?1:+%{1}} prepare_after_cross\
@@ -4825,8 +4833,21 @@ fi\
 #
 #
 %changelog
-* Fri Apr 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc7.260410g9a9c8ce300cd3.58]
-- Linux v7.0.0-0.rc7.260410g9a9c8ce300cd3
+* Mon Apr 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-62]
+- Add epoch support for rv and rv-debuginfo packages (John Kacur)
+- Drop the hardlink step in %%post scriptlet (Zbigniew Jędrzejewski-Szmek)
+
+* Mon Apr 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-61]
+- Linux v7.0.0
+
+* Sun Apr 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.f5459048c38a.60]
+- Linux v7.0.0-0.rc7.f5459048c38a
+
+* Sat Apr 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.e774d5f1bc27.59]
+- redhat: allow genlog to exclude commits and issues based on ref pattern (Jan Stancek)
+- redhat/configs: enable the DIBS driver as it is now required for the SMC networking (Dan Horák)
+- redhat/configs: enable CRYPTO_PHMAC as module on s390x (Dan Horák)
+- Linux v7.0.0-0.rc7.e774d5f1bc27
 
 * Fri Apr 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc7.9a9c8ce300cd.58]
 - rh_message.h: update support status of mlx5 devices (Scott Weaver)

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-202-g4ffc76bb0e
+%global glibcsrcdir glibc-2.43.9000-208-gdfb150f3aa
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -347,6 +347,7 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
+Patch19: glibc-rh2457183.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2399,6 +2400,19 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Apr 13 2026 Florian Weimer  <fweimer@redhat.com> - 2.43.9000-10
+- Switch back to old fts implementation (#2457183)
+
+* Mon Apr 13 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-9
+- Auto-sync with upstream branch master,
+  commit dfb150f3aadd93118a78ef9e19c2663f0e1994b7:
+- math: Add fast-path to fma (Adhemerval Zanella)
+- posix: Add POSIX aliases to some spawn functions (Lucas Chollet)
+- manual: update recent malloc tunable defaults (Rocket Ma)
+- libio: Fix wide stream backup buffer leak on fclose [BZ #33999] (Xiang Gao)
+- hugepages: Move THP helpers to generic hugepages abstraction (WANG Rui)
+- resolv: Run tst-getaddrinfo-eai-again in a network namespace (Florian Weimer)
+
 * Tue Apr 07 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-8
 - Auto-sync with upstream branch master,
   commit 4ffc76bb0eba8a46a45a1a98811d769d0ca8627a:

@@ -5,7 +5,7 @@
 %global crate wayland-sys
 
 Name:           rust-wayland-sys
-Version:        0.31.8
+Version:        0.31.11
 Release:        %autorelease
 Summary:        FFI bindings to the various libwayland-*.so libraries
 
@@ -111,6 +111,42 @@ This package contains library source intended for building other packages which
 use the "libc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_client_1_23-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_client_1_23-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_client_1_23" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_client_1_23-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_server_1_22-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_server_1_22-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_server_1_22" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_server_1_22-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libwayland_server_1_23-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libwayland_server_1_23-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libwayland_server_1_23" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libwayland_server_1_23-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+memoffset-devel

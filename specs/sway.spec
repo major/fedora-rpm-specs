@@ -1,9 +1,10 @@
-%global tag     1.11
-
 Name:           sway
-Version:        1.11
-Release:        3%{?dist}
+Version:        1.12~rc2
+Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
+
+%global tag     %{gsub %{version} ~ -}
+
 License:        MIT
 URL:            https://github.com/swaywm/sway
 Source0:        %{url}/releases/download/%{tag}/%{name}-%{tag}.tar.gz
@@ -42,8 +43,8 @@ BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-server) >= 1.21.0
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
-BuildRequires:  pkgconfig(wlroots-0.19)
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
+BuildRequires:  pkgconfig(wlroots-0.20)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-icccm)
 BuildRequires:  pkgconfig(xkbcommon) >= 1.5.0
@@ -93,7 +94,6 @@ Recommends:     swaylock
 
 # Minimal installation doesn't include Qt Wayland backend
 Recommends:     (qt5-qtwayland if qt5-qtbase-gui)
-Recommends:     (qt6-qtwayland if qt6-qtbase-gui)
 
 %description    config-upstream
 Upstream configuration for Sway.
@@ -180,6 +180,9 @@ install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 %{_datadir}/backgrounds/sway
 
 %changelog
+* Sun Apr 12 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.12~rc2-1
+- Update to 1.12-rc2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

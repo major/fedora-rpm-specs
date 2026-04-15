@@ -19,10 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname rocDecode
 
+%bcond_with preview
+%if %{with preview}
+%global upstreamname rocdecode
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+%global upstreamname rocDecode
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -71,14 +81,23 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
+%endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
-Url:            https://github.com/ROCm/rocDecode
 # Note: MIT with a clause clarifying that AMD will not pay for codec royalties
 # The clause has little weight on the licensing, it is just a clarification
 License:        MIT
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
+Url:            https://github.com/ROCm/rocDecode
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -141,7 +160,11 @@ Provides:     rocdecode%{pkg_suffix}-devel = %{version}-%{release}
 The rocDecode development package.
 
 %prep
+%if %{with preview}
+%autosetup -n %{upstreamname} -p3
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 # Allow overriding CMAKE_CXX_COMPILER: 
 # https://github.com/ROCm/rocDecode/pull/436
 sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,samples/*/}CMakeLists.txt
@@ -199,6 +222,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

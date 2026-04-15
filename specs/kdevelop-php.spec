@@ -1,6 +1,6 @@
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
-Version:        26.03.80
+Version:        26.04.0
 Release:        1%{?dist}
 
 # Most files LGPLv2+/GPLv2+
@@ -64,6 +64,9 @@ BuildRequires:  kdevelop-devel = 9:%{version}
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

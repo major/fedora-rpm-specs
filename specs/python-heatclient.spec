@@ -98,10 +98,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d
 install -pm 644 tools/heat.bash_completion \
     %{buildroot}%{_sysconfdir}/bash_completion.d/heat
 
-# Delete tests
-rm -fr %{buildroot}%{python3_sitelib}/heatclient/tests
-sed -i '\@/heatclient/tests\(/.*\)\?$@d' %{pyproject_files}
-
 %if 0%{?with_doc}
 export PYTHONPATH="%{buildroot}/%{python3_sitelib}"
 %tox -e docs
@@ -112,6 +108,10 @@ rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo
 sphinx-build -W -b man doc/source doc/build/man
 install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %endif
+
+
+%check
+%pyproject_check_import heatclient -e heatclient.tests.*
 
 
 %files -n python3-%{sname} -f %{pyproject_files}

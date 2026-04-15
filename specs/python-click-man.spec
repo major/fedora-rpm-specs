@@ -8,6 +8,12 @@ Summary:        Generate man pages for click based CLI applications
 License:        MIT
 URL:            https://github.com/click-contrib/click-man
 Source0:        %pypi_source
+
+# Remove use of pkg_resources
+# https://github.com/click-contrib/click-man/commit/b1c46958f4
+# Rebased
+Patch:          b1c46958f4-backport.patch
+
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
@@ -31,7 +37,7 @@ use Click for option handling.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

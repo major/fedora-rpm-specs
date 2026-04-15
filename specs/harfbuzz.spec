@@ -1,6 +1,8 @@
+%bcond gpu_demo %{undefined rhel}
+
 Name:           harfbuzz
 Version:        14.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -17,8 +19,10 @@ BuildRequires:  gtk-doc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  meson
+%if %{with gpu_demo}
 BuildRequires:  glew-devel
 BuildRequires:  glfw-devel
+%endif
 
 # https://github.com/harfbuzz/harfbuzz/issues/3163
 %global _distro_extra_cflags -fno-exceptions
@@ -81,7 +85,7 @@ This package contains Harfbuzz Vector support library.
 
 
 %build
-%meson -Dgraphite2=enabled -Dchafa=disabled
+%meson -Dgraphite2=enabled -Dchafa=disabled %{!?with_gpu_demo:-Dgpu_demo=disabled}
 %meson_build
 
 
@@ -116,7 +120,9 @@ This package contains Harfbuzz Vector support library.
 
 %files devel
 %doc %{_datadir}/gtk-doc
+%if %{with gpu_demo}
 %{_bindir}/hb-gpu
+%endif
 %{_bindir}/hb-info
 %{_bindir}/hb-view
 %{_bindir}/hb-raster
@@ -160,6 +166,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.*
 
 %changelog
+* Sun Apr 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 14.1.0-2
+- Disable hb-gpu on RHEL
+
 * Sun Apr 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.1.0-1
 - Update to 14.1.0 version (#2455139)
 

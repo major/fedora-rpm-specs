@@ -1,5 +1,5 @@
 Name: ghostwriter
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD-2-Clause AND BSD-3-Clause AND LGPL-3.0-only AND MIT AND ISC
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_mandir}/man1/ghostwriter.*
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

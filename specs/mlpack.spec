@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.6.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -16,9 +16,6 @@ Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
 # Drop support for i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-# s390 and s390x do not build---maybe worth trying again in a few years?
-ExcludeArch:    s390
-ExcludeArch:	s390x
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -43,10 +40,11 @@ BuildRequires:  pkg-config
 # CVE-2023-45664
 # CVE-2023-45666
 # CVE-2023-45667
+# Upstream issues #1860, #1861
 %if 0%{?el7} || 0%{?el8}
-%global min_stb_image 2.28-0.39.20231011gitbeebb24
+%global min_stb_image 2.30-0.55.20251025gitf1c79c0
 %else
-%global min_stb_image 2.28^20231011gitbeebb24-12
+%global min_stb_image 2.30^20251025gitf1c79c0-2
 %endif
 BuildRequires:  stb_image-devel >= %{min_stb_image}
 BuildRequires:  stb_image-static
@@ -306,6 +304,10 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Sun Apr 12 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.2-7
+- No longer exclude s390x
+- Rebuilt with latest patched stb_image: memory-safety fixes
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

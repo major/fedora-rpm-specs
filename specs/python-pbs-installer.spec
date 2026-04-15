@@ -1,5 +1,5 @@
 Name:           python-pbs-installer
-Version:        2026.3.25
+Version:        2026.4.7
 Release:        %autorelease
 
 Summary:        Installer for Python Build Standalone

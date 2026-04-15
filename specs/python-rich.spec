@@ -1,7 +1,7 @@
 %global pypi_name rich
 
 Name:           python-%{pypi_name}
-Version:        14.3.3
+Version:        15.0.0
 Release:        %autorelease
 Summary:        Render rich text and beautiful formatting in the terminal
 

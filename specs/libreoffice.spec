@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 26.2.2
+%global libo_version 26.2.3
 # This is the last (fourth) digit of LO version
-%global libo_min_version 2
+%global libo_min_version 1
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -329,8 +329,6 @@ Patch12: cflags.patch
 # glyphs. This patch tries to adapt those tests for our needs instead of
 # fully excluding them from being run
 Patch13: fix_or_exclude-tests-with-missing-glyphs.patch
-# error: ‘uint8_t’ was not declared in this scope
-Patch14: libreoffice-stdint.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
 

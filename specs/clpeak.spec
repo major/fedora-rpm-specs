@@ -1,5 +1,5 @@
 Name:       clpeak
-Version:    1.1.6
+Version:    1.1.7
 Release:    1%{?dist}
 Summary:    Find peak OpenCL capacities like bandwidth & compute
 License:    Apache-2.0
@@ -43,6 +43,9 @@ rm -v %{buildroot}/%{_datadir}/clpeak/LICENSE
 
 
 %changelog
+* Mon Apr 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.1.7-1
+- update to 1.1.7 (resolves rhbz#2446009)
+
 * Mon Mar 09 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.1.6-1
 - Updated to 1.1.6 (resolves rhbz#2445797)
 

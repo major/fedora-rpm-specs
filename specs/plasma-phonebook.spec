@@ -1,5 +1,5 @@
 Name:           plasma-phonebook
-Version:        26.03.80
+Version:        26.04.0
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
@@ -62,6 +62,9 @@ Contacts application which allows adding, modifying and removing contacts.
 %{_qt6_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 
