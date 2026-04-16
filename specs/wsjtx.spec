@@ -1,25 +1,21 @@
-#global rctag rc8
-
 # for fortran nested functions that (still in 2026) in gfortran implementation uses
 # trampolines that require executable stack
 %undefine _hardened_linker_errors
 
 Name:		wsjtx
-Version:	3.0.0~rc1
-Release:	3%{?dist}
+Version:	3.0.0
+Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
 
-URL:		https://sourceforge.net/projects/wsjt/
-Source0:	https://sourceforge.net/projects/wsjt/files/%{name}-%{version_no_tilde}%{?rctag:-%{rctag}}/%{name}-%{version_no_tilde}%{?rctag:-%{rctag}}.tgz
+URL:            https://github.com/WSJTX/wsjtx
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source100:	edu.princeton.physics.WSJTX.metainfo.xml
 
 ExcludeArch:    i686
 
 BuildRequires:	cmake
-BuildRequires:	dos2unix
-BuildRequires:	tar
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
 
@@ -46,10 +42,12 @@ BuildRequires:	libappstream-glib
 %endif
 # Sent upstream
 # https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
-Patch0:		wsjtx-3.0.0-rename-split.patch
+Patch:		wsjtx-3.0.0-rename-split.patch
 # Temporal fix, problem reported upstream
+# https://github.com/WSJTX/wsjtx/issues/5
 # https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
-Patch1:		wsjtx-3.0.0-path-fix.patch
+Patch:		wsjtx-3.0.0-path-fix.patch
+
 
 %description
 WSJT-X is a computer program designed to facilitate basic amateur radio
@@ -60,29 +58,7 @@ from the Moon.
 
 
 %prep
-%setup -q -n %{name}-%{version_no_tilde}
-
-# Remove bundled hamlib
-rm -f src/hamlib*.tgz* src/hamlib*.tar.gz*
-
-# Extract wsjtx source and clean up
-tar -xzf src/%{name}.tgz
-rm -f src/wsjtx.tgz*
-find ./ -type f -exec chmod -x {} \;
-
-cd %{name}
-
-%if ! 0%{?rhel} < 8
-# remove bundled boost. EL 7 is not required version.
-rm -rf boost
-%endif
-
-# convert CR + LF to LF
-dos2unix *.ui *.iss *.txt
-find ./ -type f -name '*.cpp' -exec dos2unix {} \;
-
-%patch -P0 -p1 -b .external-split
-%patch -P1 -p1 -b .path-fix
+%autosetup -p1
 
 
 %build
@@ -99,7 +75,6 @@ export LDFLAGS="%{build_ldflags}"
 # workaround for hamlib check, i.e. for hamlib_LIBRARY_DIRS not to be empty
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 
-cd %{name}
 %cmake -Dhamlib_STATIC=FALSE \
        -DBoost_NO_SYSTEM_PATHS=FALSE \
 %if 0%{?rhel}
@@ -113,10 +88,7 @@ cd %{name}
 
 
 %install
-cd %{name}
 %cmake_install
-
-dos2unix %{buildroot}%{_datadir}/applications/message_aggregator.desktop
 
 # Make sure the right style is used.
 desktop-file-edit --set-key=Exec --set-value="wsjtx --style=fusion" \
@@ -133,11 +105,11 @@ install -pm 0644 %{SOURCE100} %{buildroot}%{_metainfodir}/
 
 # fix docs
 install -p -m 0644 -t %{buildroot}%{_datadir}/doc/%{name} GUIcontrols.txt jt9.txt \
-  v1.7_Features.txt wsjtx_changelog.txt
+  v1.7_Features.txt wsjtx_changelog.txt NEWS README THANKS
 
-# drop wsjtx hamlib bins
+# drop copies of the hamlib bins
+# https://github.com/WSJTX/wsjtx/issues/6
 rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
-
 
 %if 0%{?fedora}
 %check
@@ -166,7 +138,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_bindir}/q65code
 %{_bindir}/udp_daemon
 %{_bindir}/wsjtx
-%{_bindir}/wsjtx_app_version
+%{_bindir}/wsjtx_app_version/
 %{_bindir}/wsprd
 %{_bindir}/EchoCallSim
 %{_bindir}/ft8sim
@@ -180,6 +152,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue Apr 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.0-1
+- New version
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0~rc1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

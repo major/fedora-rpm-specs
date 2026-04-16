@@ -5,7 +5,7 @@
 %global crate icu_calendar
 
 Name:           rust-icu_calendar
-Version:        2.1.1
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Date APIs for Gregorian and non-Gregorian calendars
 
@@ -134,6 +134,42 @@ use the "unstable" feature of the "%{crate}" crate.
 %files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable_chrono_0_4-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_chrono_0_4-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_chrono_0_4" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_chrono_0_4-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_jiff_0_2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_jiff_0_2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_jiff_0_2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_jiff_0_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_time_0_3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_time_0_3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_time_0_3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_time_0_3-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # The test suite contains some tests that are ignored because they require
@@ -161,9 +197,8 @@ sed -r -i \
 #   panic, but does not do so because we compile tests in release mode.
 %cargo_test -a -- --lib -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
 %cargo_test -a -- --test arithmetic -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
-%cargo_test -a -- --test exhaustive -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
-%cargo_test -a -- --test extended_year -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
 %cargo_test -a -- --test reference_year -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
+%cargo_test -a -- --test reingold -- --exact --skip cal::east_asian_traditional_internal::simple::bounds
 %endif
 
 %changelog

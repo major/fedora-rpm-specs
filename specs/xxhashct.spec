@@ -11,6 +11,11 @@ License:        MIT
 URL:            https://github.com/ekpyron/xxhashct
 Source:         %{url}/archive/%{commit}/xxhashct-%{commit}.tar.gz
 
+# Update minimum CMake version to 3.12
+# https://github.com/ekpyron/xxhashct/pull/5
+# Fixes compatibility with CMake 4.
+Patch:          %{url}/pull/5.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # For tests:

@@ -9,6 +9,7 @@ Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
 BuildRequires: gcc-c++
+
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
 

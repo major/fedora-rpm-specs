@@ -195,6 +195,16 @@ Source7: pip-urllib3-CVE-2025-50181.patch
 # Downstream only. Ply has been retired as a project
 Source8: pycparser-ply-CVE-2025-56005.patch
 
+# Patch for the bundled pip wheel for CVE-2025-8869
+# Resolved upstream: https://github.com/pypa/pip/pull/13550
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2397852
+Source9: pip-CVE-2025-8869.patch
+
+# Patch for the bundled requests within the bundled pip for CVE-2026-25645
+# Resolved upstream: https://github.com/psf/requests/commit/66d21cb07bd6255b1280291c4fafb71803cdb3b7
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2451408
+Source10: pip-requests-CVE-2026-25645.patch
+
 # Patch pypy.translator.platform so that stdout from "make" etc gets logged,
 # rather than just stderr, so that the command-line invocations of the compiler
 # and linker are captured:
@@ -212,8 +222,12 @@ Patch1: 007-remove-startup-message.patch
 Patch2: 009-add-libxcrypt-support.patch
 
 # Fix JIT translation failure on ppc64le and s390x
-# Sent upstream: https://github.com/pypy/pypy/pull/5393
+# Resolved upstream: https://github.com/pypy/pypy/pull/5393
 Patch10: 010-fix-ppc-s390x-jit-backend.patch
+
+# Fix JIT translation errors that make bootstrapped builds segfault
+# Resolved upstream: https://github.com/pypy/pypy/pull/5435
+Patch11: 011-fix-bootstraping-segfaults.patch
 
 # Instead of bundled wheels, use our RPM packaged wheels from
 # /usr/share/python-wheels
@@ -281,10 +295,8 @@ BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  expat-devel
-BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
+BuildRequires:  (openssl-devel < 1:4 or openssl3-devel)
+BuildRequires:  (openssl-devel-engine < 1:4 or openssl3-devel-engine)
 BuildRequires:  gdbm-devel
 BuildRequires:  chrpath
 
@@ -476,11 +488,13 @@ rmdir lib-python/2.7/ensurepip/_bundled
 %endif
 
 %if %{without rpmwheels}
-# Patch the bundled pip wheel for CVE-2023-5752, CVE-2024-47081, CVE-2025-50181
+# Patch the bundled pip wheel for CVE-2023-5752, CVE-2024-47081, CVE-2025-50181, CVE-2025-8869, CVE-2026-25645
 unzip -qq lib-python/2.7/ensurepip/_bundled/pip-20.0.2-py2.py3-none-any.whl
 patch -p1 < %{SOURCE3}
 patch -p1 < %{SOURCE6}
 patch -p1 < %{SOURCE7}
+patch -p1 < %{SOURCE9}
+patch -p1 < %{SOURCE10}
 zip -rq lib-python/2.7/ensurepip/_bundled/pip-20.0.2-py2.py3-none-any.whl pip pip-20.0.2.dist-info
 rm -rf pip/ pip-20.0.2.dist-info/
 

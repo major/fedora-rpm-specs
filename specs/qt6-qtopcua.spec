@@ -10,7 +10,7 @@
 
 Summary: Qt6 - OPC UA component
 Name:    qt6-%{qt_module}
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -26,6 +26,9 @@ Source0: https://github.com/qt/%{qt_module}/archive/refs/tags/v%{version}/%{qt_m
 
 
 ## upstreamable patches
+%if 0%{?fedora} >= 45
+Patch0:  qtopcua-6.11.0-openssl4.patch
+%endif
 
 BuildRequires: cmake
 BuildRequires: gcc-c++	
@@ -113,6 +116,9 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

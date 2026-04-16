@@ -5,7 +5,7 @@
 %global crate rand_core
 
 Name:           rust-rand_core
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Core random number generation traits and tools for implementation
 

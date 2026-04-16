@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgreek
 Epoch:          12
 Version:        svn65038
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Greek
 
 License:        LPPL-1.3c
@@ -99,13 +99,10 @@ Support for Greek.
 
 %package -n texlive-babel-greek
 Summary:        Babel support for the Greek language and script
-Version:        svn68532
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(athnum.sty) = %{tl_version}
-Provides:       tex(greek.ldf) = %{tl_version}
-Provides:       tex(grmath.sty) = %{tl_version}
 
 %description -n texlive-babel-greek
 The bundle provides comprehensive support for the Greek language and script via
@@ -121,7 +118,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Provides:       tex(begingreek.sty) = %{tl_version}
 
 %description -n texlive-begingreek
 This simple package defines a greek environment to be used with pdfLaTeX only,
@@ -136,7 +132,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(babel.sty)
 Requires:       tex(teubner.sty)
-Provides:       tex(betababel.sty) = %{tl_version}
 
 %description -n texlive-betababel
 The betababel package extends the babel polutonikogreek option to provide a
@@ -176,11 +171,10 @@ cbgreek-complete.
 
 %package -n texlive-gfsbaskerville
 Summary:        A Greek font, from one such by Baskerville
-Version:        svn19440
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfsbaskerville.sty) = %{tl_version}
 
 %description -n texlive-gfsbaskerville
 The font is a digital implementation of Baskerville's classic Greek font,
@@ -189,11 +183,10 @@ support provides for the use of LGR encoding.
 
 %package -n texlive-gfsporson
 Summary:        A Greek font, originally from Porson
-Version:        svn18651
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gfsporson.sty) = %{tl_version}
 
 %description -n texlive-gfsporson
 Porson is an elegant Greek font, originally cut at the turn of the 19th Century
@@ -203,17 +196,10 @@ LGR encoding.
 
 %package -n texlive-greek-fontenc
 Summary:        LICR macros and encoding definition files for Greek
-Version:        svn68877
+Version:        svn77682
 License:        LPPL-1.3c AND BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(alphabeta.sty) = %{tl_version}
-Provides:       tex(greek-euenc.def) = %{tl_version}
-Provides:       tex(greek-fontenc.def) = %{tl_version}
-Provides:       tex(lgrenc.def) = %{tl_version}
-Provides:       tex(puenc-greek.def) = %{tl_version}
-Provides:       tex(textalpha.sty) = %{tl_version}
-Provides:       tex(tuenc-greek.def) = %{tl_version}
 
 %description -n texlive-greek-fontenc
 LICR macros for characters from the Greek script and encoding definition files
@@ -225,8 +211,6 @@ Version:        svn66634
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(iso-8859-7.def) = %{tl_version}
-Provides:       tex(macgreek.def) = %{tl_version}
 
 %description -n texlive-greek-inputenc
 Input encoding definition files for UTF-8, Macintosh Greek, and ISO 8859-7
@@ -240,7 +224,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
-Provides:       tex(greekdates.sty) = %{tl_version}
 
 %description -n texlive-greekdates
 The package provides easy access to ancient Greek names of days and months of
@@ -255,7 +238,6 @@ Version:        svn28327
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(greektex.sty) = %{tl_version}
 
 %description -n texlive-greektex
 The fonts are based on Silvio Levy's classical Greek fonts; macros and Greek
@@ -268,7 +250,6 @@ License:        LGPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xspace.sty)
-Provides:       tex(greektonoi.sty) = %{tl_version}
 
 %description -n texlive-greektonoi
 The greektonoi mapping extends the betababel package or the babel
@@ -284,16 +265,12 @@ greek archaic period. It could be used with greektonoi mapping or indepedently.
 
 %package -n texlive-hyphen-ancientgreek
 Summary:        Ancient Greek hyphenation patterns.
-Version:        svn74823
+Version:        svn78069
 License:        LPPL-1.3c OR MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(grahyph5.tex) = %{tl_version}
-Provides:       tex(hyph-grc.tex) = %{tl_version}
-Provides:       tex(ibyhyph.tex) = %{tl_version}
-Provides:       tex(loadhyph-grc.tex) = %{tl_version}
 
 %description -n texlive-hyphen-ancientgreek
 Hyphenation patterns for Ancient Greek in LGR and UTF-8 encodings, including
@@ -303,18 +280,12 @@ U+03AE, U+1F75 for eta.
 
 %package -n texlive-hyphen-greek
 Summary:        Modern Greek hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(grmhyph5.tex) = %{tl_version}
-Provides:       tex(grphyph5.tex) = %{tl_version}
-Provides:       tex(hyph-el-monoton.tex) = %{tl_version}
-Provides:       tex(hyph-el-polyton.tex) = %{tl_version}
-Provides:       tex(loadhyph-el-monoton.tex) = %{tl_version}
-Provides:       tex(loadhyph-el-polyton.tex) = %{tl_version}
 
 %description -n texlive-hyphen-greek
 Hyphenation patterns for Modern Greek in monotonic and polytonic spelling in
@@ -328,8 +299,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ibycus.ldf) = %{tl_version}
-Provides:       tex(lgienc.def) = %{tl_version}
 
 %description -n texlive-ibycus-babel
 The package allows you to use the Ibycus 4 font for ancient Greek with Babel.
@@ -346,15 +315,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(iby4extr.tex) = %{tl_version}
-Provides:       tex(ibycus4.sty) = %{tl_version}
-Provides:       tex(ibycus4.tex) = %{tl_version}
-Provides:       tex(ibycusps.tex) = %{tl_version}
-Provides:       tex(psibycus.sty) = %{tl_version}
-Provides:       tex(pssetiby.tex) = %{tl_version}
-Provides:       tex(setiby4.tex) = %{tl_version}
-Provides:       tex(tlgsqq.tex) = %{tl_version}
-Provides:       tex(version4.tex) = %{tl_version}
 
 %description -n texlive-ibygrk
 Ibycus is a Greek typeface, based on Silvio Levy's realisation of a classic
@@ -370,8 +330,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(txfonts.sty)
-Provides:       tex(kerkis.sty) = %{tl_version}
-Provides:       tex(kmath.sty) = %{tl_version}
 
 %description -n texlive-kerkis
 Sans-serif Greek fonts to match the URW Bookman set (which are distributed with
@@ -388,8 +346,6 @@ Version:        svn76924
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(greekmacros.tex) = %{tl_version}
-Provides:       tex(slgreek.sty) = %{tl_version}
 
 %description -n texlive-levy
 These fonts are derivatives of Knuth's CM fonts. Macros for use with Plain TeX
@@ -402,8 +358,6 @@ Version:        svn21818
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(LGenc.def) = %{tl_version}
-Provides:       tex(lgreek.sty) = %{tl_version}
 
 %description -n texlive-lgreek
 A conversion of Silvio Levy's Plain TeX macros for use with LaTeX.
@@ -415,7 +369,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
-Provides:       tex(lgrmath.sty) = %{tl_version}
 
 %description -n texlive-lgrmath
 The lgrmath package is a LaTeX package which sets the Greek letters in math
@@ -447,8 +400,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(trace.sty)
-Provides:       tex(teubner.sty) = %{tl_version}
-Provides:       tex(teubnertx.sty) = %{tl_version}
 
 %description -n texlive-teubner
 An extension to babel greek option for typesetting classical Greek with a
@@ -459,14 +410,12 @@ Verlaggesellschaft whose Greek text publications are of high quality.
 
 %package -n texlive-xgreek
 Summary:        Greek Language Support for XeLaTeX and LuaLaTeX
-Version:        svn73620
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(listings.sty)
 Requires:       tex(luahyphenrules.sty)
-Provides:       tex(xelistings.sty) = %{tl_version}
-Provides:       tex(xgreek.sty) = %{tl_version}
 
 %description -n texlive-xgreek
 This package has been designed so to allow people to typeset Greek language
@@ -690,13 +639,20 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %files -n texlive-hyphen-ancientgreek
 %license lppl1.3c.txt
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-grc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-grc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-grc.pat.txt
 %{_texmf_main}/tex/generic/hyphen/
 
 %files -n texlive-hyphen-greek
 %license mit.txt
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-el-monoton.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-el-polyton.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-el-monoton.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-el-polyton.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-el-monoton.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-el-polyton.pat.txt
 %{_texmf_main}/tex/generic/hyphen/
 %doc %{_texmf_main}/doc/generic/elhyphen/
 
@@ -767,6 +723,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/fonts/yannisgr/
 
 %changelog
+* Tue Apr 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn65038-4
+- Update 7 components
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn65038-3
 - Fix licensing, descriptions, update components to latest
 

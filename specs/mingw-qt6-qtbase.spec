@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-qtbase
-Version:        6.10.3
+Version:        6.11.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -184,8 +184,8 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 # Delete unused files
-rm %{buildroot}%{mingw32_libdir}/qt6/bin/{ensure_pro_file.cmake,qt-internal-configure-tests}
-rm %{buildroot}%{mingw64_libdir}/qt6/bin/{ensure_pro_file.cmake,qt-internal-configure-tests}
+rm %{buildroot}%{mingw32_libdir}/qt6/bin/qt-internal-configure-tests
+rm %{buildroot}%{mingw64_libdir}/qt6/bin/qt-internal-configure-tests
 rm %{buildroot}%{mingw32_bindir}/qt-configure-module
 rm %{buildroot}%{mingw64_bindir}/qt-configure-module
 rm %{buildroot}%{mingw32_bindir}/qmake6
@@ -248,8 +248,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/libQt6Concurrent.dll.a
 %{mingw32_libdir}/libQt6Core.dll.a
 %{mingw32_libdir}/libQt6DBus.dll.a
-%{mingw32_libdir}/libQt6ExampleIcons.a
-%{mingw32_libdir}/libQt6ExamplesAssetDownloader.a
 %{mingw32_libdir}/libQt6Gui.dll.a
 %{mingw32_libdir}/libQt6Network.dll.a
 %{mingw32_libdir}/libQt6OpenGL.dll.a
@@ -267,8 +265,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/Qt6DBus.prl
 %{mingw32_libdir}/Qt6DeviceDiscoverySupport.prl
 %{mingw32_libdir}/Qt6EntryPoint.prl
-%{mingw32_libdir}/Qt6ExampleIcons.prl
-%{mingw32_libdir}/Qt6ExamplesAssetDownloader.prl
 %{mingw32_libdir}/Qt6FbSupport.prl
 %{mingw32_libdir}/Qt6Gui.prl
 %{mingw32_libdir}/Qt6Network.prl
@@ -286,15 +282,11 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/bin/qt-cmake-private-install.cmake
 %{mingw32_libdir}/qt6/bin/qt-cmake-standalone-test
 %{mingw32_libdir}/qt6/bin/qt-internal-configure-examples
-%{mingw32_libdir}/qt6/bin/qt-testrunner.py
-%{mingw32_libdir}/qt6/bin/sanitizer-testrunner.py
 %dir %{mingw32_libdir}/qt6/metatypes/
 %{mingw32_libdir}/qt6/metatypes/qt6concurrent_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6core_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6dbus_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6exampleiconsprivate_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6fbsupportprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6gui_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6network_metatypes.json
@@ -306,7 +298,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/metatypes/qt6widgets_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6xml_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/
-%{mingw32_libdir}/qt6/modules/
+%dir %{mingw32_libdir}/qt6/modules/
 %{mingw32_libdir}/qt6/modules/Concurrent.json
 %{mingw32_libdir}/qt6/modules/Core.json
 %{mingw32_libdir}/qt6/modules/DBus.json
@@ -320,6 +312,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/modules/PrintSupport.json
 %{mingw32_libdir}/qt6/modules/Sql.json
 %{mingw32_libdir}/qt6/modules/Test.json
+%{mingw32_libdir}/qt6/modules/TestInternalsPrivate.json
 %{mingw32_libdir}/qt6/modules/Widgets.json
 %{mingw32_libdir}/qt6/modules/Xml.json
 %dir %{mingw32_libdir}/qt6/plugins
@@ -358,8 +351,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/cmake/Qt6DBusPrivate/
 %{mingw32_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw32_libdir}/cmake/Qt6EntryPointPrivate/
-%{mingw32_libdir}/cmake/Qt6ExampleIconsPrivate/
-%{mingw32_libdir}/cmake/Qt6ExamplesAssetDownloaderPrivate/
 %{mingw32_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6Gui/
 %{mingw32_libdir}/cmake/Qt6GuiPrivate/
@@ -396,6 +387,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %dir %{mingw32_includedir}/qt6/
 %{mingw32_includedir}/qt6/*
 %{mingw32_docdir}/qt6/
+%{mingw32_datadir}/qt6/json_schema/
 
 %dir %{_prefix}/%{mingw32_target}/bin/qt6/
 %{_prefix}/%{mingw32_target}/bin/qt6/qmake
@@ -426,8 +418,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/libQt6Concurrent.dll.a
 %{mingw64_libdir}/libQt6Core.dll.a
 %{mingw64_libdir}/libQt6DBus.dll.a
-%{mingw64_libdir}/libQt6ExampleIcons.a
-%{mingw64_libdir}/libQt6ExamplesAssetDownloader.a
 %{mingw64_libdir}/libQt6Gui.dll.a
 %{mingw64_libdir}/libQt6Network.dll.a
 %{mingw64_libdir}/libQt6OpenGL.dll.a
@@ -445,8 +435,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/Qt6DBus.prl
 %{mingw64_libdir}/Qt6DeviceDiscoverySupport.prl
 %{mingw64_libdir}/Qt6EntryPoint.prl
-%{mingw64_libdir}/Qt6ExampleIcons.prl
-%{mingw64_libdir}/Qt6ExamplesAssetDownloader.prl
 %{mingw64_libdir}/Qt6FbSupport.prl
 %{mingw64_libdir}/Qt6Gui.prl
 %{mingw64_libdir}/Qt6Network.prl
@@ -464,15 +452,11 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/bin/qt-cmake-private-install.cmake
 %{mingw64_libdir}/qt6/bin/qt-cmake-standalone-test
 %{mingw64_libdir}/qt6/bin/qt-internal-configure-examples
-%{mingw64_libdir}/qt6/bin/qt-testrunner.py
-%{mingw64_libdir}/qt6/bin/sanitizer-testrunner.py
 %dir %{mingw64_libdir}/qt6/metatypes/
 %{mingw64_libdir}/qt6/metatypes/qt6concurrent_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6core_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6dbus_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6exampleiconsprivate_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6fbsupportprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6gui_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6network_metatypes.json
@@ -484,7 +468,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/metatypes/qt6widgets_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6xml_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/
-%{mingw64_libdir}/qt6/modules/
+%dir %{mingw64_libdir}/qt6/modules/
 %{mingw64_libdir}/qt6/modules/Concurrent.json
 %{mingw64_libdir}/qt6/modules/Core.json
 %{mingw64_libdir}/qt6/modules/DBus.json
@@ -498,6 +482,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/modules/PrintSupport.json
 %{mingw64_libdir}/qt6/modules/Sql.json
 %{mingw64_libdir}/qt6/modules/Test.json
+%{mingw64_libdir}/qt6/modules/TestInternalsPrivate.json
 %{mingw64_libdir}/qt6/modules/Widgets.json
 %{mingw64_libdir}/qt6/modules/Xml.json
 %dir %{mingw64_libdir}/qt6/plugins
@@ -535,8 +520,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/cmake/Qt6DBusPrivate/
 %{mingw64_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw64_libdir}/cmake/Qt6EntryPointPrivate/
-%{mingw64_libdir}/cmake/Qt6ExampleIconsPrivate/
-%{mingw64_libdir}/cmake/Qt6ExamplesAssetDownloaderPrivate/
 %{mingw64_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6Gui/
 %{mingw64_libdir}/cmake/Qt6GuiPrivate/
@@ -573,6 +556,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %dir %{mingw64_includedir}/qt6/
 %{mingw64_includedir}/qt6/*
 %{mingw64_docdir}/qt6/
+%{mingw64_datadir}/qt6/json_schema/
 
 %dir %{_prefix}/%{mingw64_target}/bin/qt6/
 %{_prefix}/%{mingw64_target}/bin/qt6/qmake
@@ -585,6 +569,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

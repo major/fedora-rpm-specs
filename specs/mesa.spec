@@ -117,6 +117,10 @@ Source15:       https://crates.io/api/v1/crates/rustc-hash/%{rustc_hash_ver}/dow
 # which fixes compile-time conditional on AVX2 which is not built on Fedora
 Patch21:        39951.patch
 
+# test patch to disable nvk texture promotion and fix gnome-initial-config
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359799
+Patch30: 0001-nvk-don-t-set-promotion-on-texture-headers.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -267,9 +271,9 @@ Provides:       libEGL-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:        Mesa-based DRI drivers
 Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      %{name}-libglapi < 25.0.0~rc2-1
-Provides:       %{name}-libglapi >= 25.0.0~rc2-1
 Obsoletes:      %{name}-va-drivers < 26.0.0-5
-Provides:       %{name}-va-drivers >= 26.0.0-5
+Provides:       %{name}-va-drivers = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       %{name}-va-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      %{name}-vaapi-drivers < 22.2.0-5
 
 %description dri-drivers

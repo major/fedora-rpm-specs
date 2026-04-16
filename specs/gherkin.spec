@@ -174,9 +174,7 @@ sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
 
 
 %generate_buildrequires
-pushd python >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
+%pyproject_buildrequires -d python
 
 
 %conf
@@ -203,9 +201,7 @@ pushd cpp
 popd
 
 echo '==== Building Python implementation ===='
-pushd python
-%pyproject_wheel
-popd
+%pyproject_wheel -d python
 
 
 %install
@@ -225,13 +221,11 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}'
 
 echo '==== Installing Python implementation ===='
-pushd python
 %pyproject_install
 %pyproject_save_files -l gherkin
 ln -s -f %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
     '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 symlinks -c -o '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
-popd
 
 
 %check
@@ -272,7 +266,7 @@ popd
 
 echo '==== Testing Python implementation ===='
 %pyproject_check_import
-%pytest
+%pytest python/tests
 %if %{with acceptance_python}
 # Override the generator script commands so that they don’t use “uv run”; we
 # don’t want a dependency on uv, and we can’t respect uv.lock or download

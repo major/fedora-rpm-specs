@@ -15,6 +15,10 @@ BuildArch: noarch
 
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Remove pytest-subtests dependency and replace with pytest parametrize
+# https://github.com/pulp/pulp-cli/commit/7b4a185
+Patch: fix-pytest9-remove-subtests.patch
+
 BuildRequires: python3-devel
 
 Recommends: pulp-cli-deb

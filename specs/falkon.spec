@@ -3,7 +3,7 @@
 
 Name:           falkon
 Version:        26.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -181,6 +181,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Tue Apr 14 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-2
+- Rebuild for openssl
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

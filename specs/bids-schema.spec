@@ -86,10 +86,17 @@ Source13:       bst-pre-receive-hook.1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2307781.
 Patch:          0001-Downstream-only-allow-pyparsing-3.1.2-for-now.patch
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    -d tools/schemacode
+    -x expressions,render,validation,all
+}
+BuildOption(build):     -d tools/schemacode
+BuildOption(install):   -L bidsschematools
+
 BuildArch:      noarch
 
 BuildRequires:  symlinks
-BuildRequires:  python3-devel
 # The tests extra includes mostly linting/coverage tools; considering
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters,
 # it is easier to enumerate test dependencies by hand.
@@ -148,19 +155,7 @@ Features:
 rm -rf src/js/ src/css/
 
 
-%generate_buildrequires
-pushd tools/schemacode >/dev/null
-%pyproject_buildrequires -x expressions,render,validation,all
-popd >/dev/null
-
-
-%build
-pushd tools/schemacode >/dev/null
-%pyproject_wheel
-popd
-
-
-%install
+%install -p
 # Imitate the structure of https://github.com/bids-standard/bids-schema/ in
 # case we start packaging from that in the future.
 install -d '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}'
@@ -173,11 +168,8 @@ cp -rvp src/schema \
 install -t '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
     -p -m 0644 src/metaschema.json
 
-pushd tools/schemacode >/dev/null
-%pyproject_install
-%pyproject_save_files -L bidsschematools
-popd
 
+%install -a
 # Include a copy of the “exported” JSON version of the schema in the base
 # package to imitate the structure of
 # https://github.com/bids-standard/bids-schema. See readthedocs.yml.
@@ -225,12 +217,10 @@ install -t '%{buildroot}%{_docdir}/python3-bidsschematools' -D -p -m 0644 \
     tools/schemacode/README.md
 
 
-%check
+%check -a
 # Sanity check
 verfile='%{_datadir}/bids-schema/versions/%{bidsversion}/schema/SCHEMA_VERSION'
 [ '%{srcversion}' = "$(cat "%{buildroot}${verfile}")" ]
-
-%pyproject_check_import
 
 # These tests require example files that were filtered out for license reasons.
 k="${k-}${k+ and }not test_bids_datasets[hcp_example_bids]"

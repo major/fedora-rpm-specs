@@ -1,5 +1,5 @@
 Name:           scribus
-Version:        1.6.5
+Version:        1.6.6
 Release:        %autorelease
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
@@ -13,8 +13,6 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz.asc
-
-Patch:          scribus-1.6.5-poppler-26.01.0.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

@@ -22,7 +22,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  firewalld-filesystem
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(openssl)
+BuildRequires:  openssl-devel
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros

@@ -13,7 +13,6 @@ Obsoletes:      %{name}-devel < 1.30.2-1
 
 Provides:       bundled(asio) = 1.30.2
 Requires:       openssl-devel
-Requires:       openssl-devel-engine
 Recommends:     boost-devel
 
 %description

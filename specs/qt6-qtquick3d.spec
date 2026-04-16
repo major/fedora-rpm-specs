@@ -15,7 +15,7 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -29,7 +29,7 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 Patch0:  qtquick3d-fix-build-with-gcc11.patch
-%if 0%{?fedora} >= 43
+%if 0%{?fedora}
 # From https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-quick3d
 Patch1:  qtquick3d-fix-build-with-assimp6.patch
 %endif
@@ -119,7 +119,7 @@ mkdir %{buildroot}%{_bindir}
 pushd %{buildroot}%{_qt6_bindir}
 for i in * ; do
   case "${i}" in
-    balsam|meshdebug|shadergen|balsamui|instancer|materialeditor|shapegen|lightmapviewer)
+    balsam|meshdebug|shadergen|balsamui|instancer|materialeditor|shapegen|lightmapviewer|particleshadergen)
       ln -v  ${i} %{buildroot}%{_bindir}/${i}-qt6
       ;;
     *)
@@ -156,7 +156,7 @@ popd
 %{_qt6_libdir}/libQt6Quick3DAssetUtils.so.6*
 %{_qt6_libdir}/libQt6Quick3DEffects.so.6*
 %{_qt6_libdir}/libQt6Quick3DHelpers.so.6*
-%{_qt6_libdir}/libQt6Quick3DHelpersImpl.so*
+%{_qt6_libdir}/libQt6Quick3DHelpersImpl.so.6{,.*}
 %{_qt6_libdir}/libQt6Quick3DParticleEffects.so.6*
 %{_qt6_libdir}/libQt6Quick3DGlslParser.so.6*
 %{_qt6_libdir}/libQt6Quick3DXr.so.6*
@@ -174,6 +174,7 @@ popd
 %{_bindir}/materialeditor-qt6
 %{_bindir}/shapegen-qt6
 %{_bindir}/lightmapviewer-qt6
+%{_bindir}/particleshadergen-qt6
 %{_qt6_bindir}/balsam
 %{_qt6_bindir}/meshdebug
 %{_qt6_bindir}/shadergen
@@ -182,6 +183,7 @@ popd
 %{_qt6_bindir}/materialeditor
 %{_qt6_bindir}/shapegen
 %{_qt6_bindir}/lightmapviewer
+%{_qt6_bindir}/particleshadergen
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_includedir}/QtQuick3D
@@ -197,7 +199,6 @@ popd
 %{_qt6_includedir}/QtQuick3DXr
 %ifarch x86_64 aarch64
 %dir %{_qt6_libdir}/cmake/Qt6BundledEmbree/
-%{_qt6_libdir}/cmake/Qt6/FindWrapBundledEmbreeConfigExtra.cmake
 %{_qt6_libdir}/cmake/Qt6BundledEmbree/*.cmake
 %endif
 %if !0%{?system_openxr}
@@ -229,7 +230,6 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DXr/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DXrPrivate
 %{_qt6_libdir}/cmake/Qt6/*.cmake
-%{_qt6_libdir}/cmake/Qt6/FindWrapQuick3DAssimp.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
@@ -299,6 +299,9 @@ popd
 %endif
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

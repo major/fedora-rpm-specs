@@ -15,6 +15,11 @@ URL: https://github.com/pulp/%{name}
 
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# pytest-subtests was integrated into pytest 9 core; replace subtests
+# with pytest parametrize
+# https://github.com/pulp/pulp-cli-deb/commit/0251e45
+Patch: 0251e45.patch
+
 BuildRequires: python3-devel
 
 Requires: pulp-cli >= 0.29.0

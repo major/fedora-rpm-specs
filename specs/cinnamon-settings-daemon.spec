@@ -1,16 +1,18 @@
-%global cinnamon_desktop_version 6.6.0
+%global cinnamon_desktop_version 6.7.0
+
+%global upstream_version 6.7.0-unstable
 
 Name:           cinnamon-settings-daemon
-Version:        6.6.3
-Release:        1%{?dist}
+Version:        6.7.0^unstable
+Release:        2%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
-ExcludeArch:   %{ix86}
+ExcludeArch:    %{ix86}
 
 # add hard cinnamon-desktop required version due logind schema
 Requires:       cinnamon-desktop%{?_isa} >= %{cinnamon_desktop_version}
@@ -31,6 +33,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
+BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(kbproto)
@@ -53,11 +56,12 @@ A daemon to share settings from CINNAMON to other applications. It also
 handles global keybindings, and many of desktop-wide settings.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 %build
 %meson \
  -Duse_smartcard=disabled \
+ -Dgtk_layer_shell=true \
 %ifarch s390 s390x %{?rhel:ppc ppc64}
  -Duse_wacom=disabled
 %endif
@@ -71,10 +75,6 @@ desktop-file-install --delete-original           \
   --dir %{buildroot}%{_sysconfdir}/xdg/autostart/  \
   %{buildroot}%{_sysconfdir}/xdg/autostart/*
 
-desktop-file-install --delete-original           \
-  --dir %{buildroot}%{_datadir}/applications/  \
-  %{buildroot}%{_datadir}/applications/csd-automount.desktop
-  
 # Remove script
 rm -rf %{buildroot}%{_datadir}/cinnamon-settings-daemon-3.0/
 
@@ -110,7 +110,6 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_libexecdir}/csd-wacom-led-helper
 %{_libexecdir}/csd-wacom
 %endif
-%{_datadir}/applications/csd-automount.desktop
 %{_datadir}/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
 %{_datadir}/dbus-1/system-services/org.cinnamon.SettingsDaemon.DateTimeMechanism.service
 %{_datadir}/glib-2.0/schemas/org.cinnamon.settings-daemon*.xml
@@ -118,6 +117,12 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
+* Tue Apr 14 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
+- Enable gtk_layer_shell
+
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Thu Feb 12 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
 - Update to 6.6.3
 

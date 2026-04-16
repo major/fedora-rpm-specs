@@ -25,6 +25,9 @@ Patch2:         swipl-8.2.0-unbundle-libstemmer.patch
 Patch3:         swipl-9.2.7-inclpr-math.patch
 # Use zlib-ng directly rather than via the zlib compatibility interface
 Patch4:         swipl-10.0.1-zlib-ng.patch
+# Adapt to changes in OpenSSL 4.0
+# https://github.com/SWI-Prolog/packages-ssl/pull/174
+Patch5:         swipl-10.0.2-openssl4.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -410,8 +413,7 @@ ln -s %{_texmf_main}/tex/texinfo/texinfo.tex packages/xpce/man/info
 cp -p customize/README.md README-customize.md
 
 %generate_buildrequires
-cd packages/mqi/python
-%pyproject_buildrequires
+%pyproject_buildrequires -d packages/mqi/python
 
 %build
 %ifarch %{java_arches}

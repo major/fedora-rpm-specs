@@ -3,7 +3,7 @@
 %global wxincdir %{_includedir}/wx-%{wxversion}
 
 Name:           wxsqlite3
-Version:        4.12.2
+Version:        4.12.3
 Release:        1%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
@@ -130,6 +130,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Apr 14 2026 Martin Gansser <martinkg@fedoraproject.org> 4.12.3-1
+- Update to 4.12.3
+
 * Fri Mar 20 2026 Martin Gansser <martinkg@fedoraproject.org> 4.12.2-1
 - Update to 4.12.2
 

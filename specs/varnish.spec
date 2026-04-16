@@ -41,9 +41,9 @@ Source2: varnish.sysusers
 Source3: https://github.com/jemalloc/jemalloc/releases/download/%{jemalloc_version}/jemalloc-%{jemalloc_version}.tar.bz2
 Source4: varnish.tmpfiles
 
-# Fix for h2 switch in varnishtest
-# https://github.com/varnishcache/varnish-cache/issues/4298
-Patch0:   varnish-7.7.0_fix_4298.patch
+# Compatibility with openssl-4.0.0
+# https://github.com/varnish/varnish/issues/32
+Patch1:   varnish-9.0.1_openssl_4.0_asn1.patch
 
 %if %{with bundled_jemalloc}
 # bundled jemalloc patch
@@ -154,7 +154,9 @@ Documentation files for %name
 
 %prep
 %setup -q
-#patch 0 -p1
+%if 0%{?fedora} > 44
+%patch 1 -p1
+%endif
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -314,9 +316,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/jemalloc-%{jemalloc_versi
 
 # Just a hack to avoid too high load on secondary arch builders
 %ifarch s390x ppc64le %ix86
-echo make check
+make check
 %else
-echo %make_build check
+%make_build check
 %endif
 
 %install
@@ -425,6 +427,7 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 %changelog
 * Fri Apr 10 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.1-1
 - New upstream release
+- Add patch for openssl-4.0.0 in rawhide
 - Includes fix for VEV00002
 
 * Fri Mar 27 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.0-1

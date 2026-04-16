@@ -10,7 +10,7 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        32.2.0
+Version:        32.3.1
 %global cpp_soversion 32
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
@@ -92,9 +92,7 @@ sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
 
 
 %generate_buildrequires
-pushd python >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
+%pyproject_buildrequires -d python
 
 
 %conf
@@ -104,21 +102,19 @@ popd
 
 
 %build
-pushd cpp
 %if %{with regenerate_cpp}
-%make_build clean
-%make_build generate
+%make_build -C cpp clean
+%make_build -C cpp generate
 %endif
+pushd cpp
 %cmake_build
 popd
 
-pushd python
 %if %{with regenerate_python}
-%make_build clean
-%make_build generate
+%make_build -C python clean
+%make_build -C python generate
 %endif
-%pyproject_wheel
-popd
+%pyproject_wheel -d python
 
 
 %install
@@ -126,10 +122,8 @@ pushd cpp
 %cmake_install
 popd
 
-pushd python
 %pyproject_install
 %pyproject_save_files -l cucumber_messages
-popd
 
 
 %check
@@ -139,13 +133,11 @@ pushd cpp
 %ctest
 popd
 
-pushd python
 %if %{without network_tests}
 # Requires network access (remote git clone):
 ignore="${ignore-} --ignore=tests/test_model_load.py"
 %endif
-%pytest ${ignore-} -v
-popd
+%pytest ${ignore-} -v python/tests
 
 
 %files cpp-libs

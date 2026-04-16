@@ -16,6 +16,7 @@ Patch:          eza-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * temporarily downgrade palette dependency from 0.7.6 to 0.7.5
 # * temporarily downgrade uutils_term_grid dependency from 0.7.0 to 0.6.0
+# * temporarily downgrade unicode-width dependency from 0.2.0 to 0.1.0
 # * temporarily increase palette dependency from 0.12.1 to 0.13.1
 # * drop feature for statically linking with OpenSSL and libgit2
 # * drop unused, benchmark-only criterion dev-dependency

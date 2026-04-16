@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgerman
 Epoch:          12
 Version:        svn74675
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        German
 
 License:        LPPL-1.3c
@@ -175,7 +175,6 @@ Version:        svn76924
 License:        AGPL-3.0-or-later AND LPPL-1.3c AND MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(autotype.sty) = %{tl_version}
 
 %description -n texlive-autotype
 autotype is a LuaLaTeX package for automatic language-specific typography.
@@ -185,31 +184,10 @@ German (old and new orthography).
 
 %package -n texlive-babel-german
 Summary:        Babel support for documents written in German
-Version:        svn77543
+Version:        svn78579
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(austrian.ldf) = %{tl_version}
-Provides:       tex(babel-german.def) = %{tl_version}
-Provides:       tex(german-at-1901.ldf) = %{tl_version}
-Provides:       tex(german-at.ldf) = %{tl_version}
-Provides:       tex(german-austria-1901.ldf) = %{tl_version}
-Provides:       tex(german-austria.ldf) = %{tl_version}
-Provides:       tex(german-ch-1901.ldf) = %{tl_version}
-Provides:       tex(german-ch.ldf) = %{tl_version}
-Provides:       tex(german-de-1901.ldf) = %{tl_version}
-Provides:       tex(german-de.ldf) = %{tl_version}
-Provides:       tex(german-germany-1901.ldf) = %{tl_version}
-Provides:       tex(german-germany.ldf) = %{tl_version}
-Provides:       tex(german-switzerland-1901.ldf) = %{tl_version}
-Provides:       tex(german-switzerland.ldf) = %{tl_version}
-Provides:       tex(german.ldf) = %{tl_version}
-Provides:       tex(germanb.ldf) = %{tl_version}
-Provides:       tex(naustrian.ldf) = %{tl_version}
-Provides:       tex(ngerman.ldf) = %{tl_version}
-Provides:       tex(ngermanb.ldf) = %{tl_version}
-Provides:       tex(nswissgerman.ldf) = %{tl_version}
-Provides:       tex(swissgerman.ldf) = %{tl_version}
 
 %description -n texlive-babel-german
 This bundle is an extension to the babel package for multilingual typesetting.
@@ -225,7 +203,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(bibleref.sty)
 Requires:       tex(etoolbox.sty)
-Provides:       tex(bibleref-german.sty) = %{tl_version}
 
 %description -n texlive-bibleref-german
 The package provides translations and various formats for the use of bibleref
@@ -263,9 +240,6 @@ Version:        svn48599
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dehyphn.tex) = %{tl_version}
-Provides:       tex(dehypht.tex) = %{tl_version}
-Provides:       tex(dehyphtex.tex) = %{tl_version}
 
 %description -n texlive-dehyph
 The package provides older hyphenation patterns for the German language. Please
@@ -284,9 +258,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(dehyphn-x-2024-02-28.tex) = %{tl_version}
-Provides:       tex(dehypht-x-2024-02-28.tex) = %{tl_version}
-Provides:       tex(dehyphts-x-2024-02-28.tex) = %{tl_version}
 
 %description -n texlive-dehyph-exptl
 The package provides experimental hyphenation patterns for the German language,
@@ -305,7 +276,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xspace.sty)
-Provides:       tex(dhua.sty) = %{tl_version}
 
 %description -n texlive-dhua
 The package provides commands for those abbreviations of German phrases for
@@ -319,7 +289,7 @@ englische Paketdokumentation sind deutsche Erlauterungen eingestreut.
 
 %package -n texlive-dtk-bibliography
 Summary:        Bibliography of "Die TeXnische Komodie"
-Version:        svn76870
+Version:        svn78244
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -330,8 +300,6 @@ Requires:       tex(hologo.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(dtk-authoryear.bbx) = %{tl_version}
-Provides:       tex(dtk-logos.sty) = %{tl_version}
 
 %description -n texlive-dtk-bibliography
 This package contains the bibliography for "Die TeXnische Komodie", the journal
@@ -399,7 +367,6 @@ Requires:       tex(varwidth.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(fragoli.sty) = %{tl_version}
 
 %description -n texlive-fragoli
 The primary goal of this package is to provide a minimal and user-friendly
@@ -424,8 +391,6 @@ Version:        svn42428
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(german.sty) = %{tl_version}
-Provides:       tex(ngerman.sty) = %{tl_version}
 
 %description -n texlive-german
 Supports the old German orthography (alte deutsche Rechtschreibung).
@@ -437,8 +402,6 @@ License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(german.sty)
-Provides:       tex(bibgerm.sty) = %{tl_version}
-Provides:       tex(mynormal.sty) = %{tl_version}
 
 %description -n texlive-germbib
 A development of the (old) german.sty, this bundle provides German packages,
@@ -452,7 +415,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(germkorr.sty) = %{tl_version}
 
 %description -n texlive-germkorr
 The package germcorr has to be loaded after the package german. It brings some
@@ -473,22 +435,13 @@ makes it easy for LaTeX beginners to get a correct and nicely formatted paper.
 
 %package -n texlive-hyphen-german
 Summary:        German hyphenation patterns.
-Version:        svn74203
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-dehyph
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-de-1901.ec.tex) = %{tl_version}
-Provides:       tex(hyph-de-1901.tex) = %{tl_version}
-Provides:       tex(hyph-de-1996.ec.tex) = %{tl_version}
-Provides:       tex(hyph-de-1996.tex) = %{tl_version}
-Provides:       tex(hyph-de-ch-1901.ec.tex) = %{tl_version}
-Provides:       tex(hyph-de-ch-1901.tex) = %{tl_version}
-Provides:       tex(loadhyph-de-1901.tex) = %{tl_version}
-Provides:       tex(loadhyph-de-1996.tex) = %{tl_version}
-Provides:       tex(loadhyph-de-ch-1901.tex) = %{tl_version}
 
 %description -n texlive-hyphen-german
 Hyphenation patterns for German in T1/EC and UTF-8 encodings, for traditional
@@ -603,10 +556,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-de.sty) = %{tl_version}
-Provides:       tex(qurantext-deii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-deiii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-deiv.translation.def) = %{tl_version}
 
 %description -n texlive-quran-de
 The package is prepared for typesetting some German translations of the Holy
@@ -618,14 +567,6 @@ Version:        svn15878
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eng_rs.sty) = %{tl_version}
-Provides:       tex(eng_rs.tex) = %{tl_version}
-Provides:       tex(fr_rs.sty) = %{tl_version}
-Provides:       tex(fr_rs.tex) = %{tl_version}
-Provides:       tex(nl_rs.sty) = %{tl_version}
-Provides:       tex(nl_rs.tex) = %{tl_version}
-Provides:       tex(r_und_s.sty) = %{tl_version}
-Provides:       tex(r_und_s.tex) = %{tl_version}
 
 %description -n texlive-r_und_s
 The r_und_s package decodes the german 'R- und S-Satze', which are numerically
@@ -641,8 +582,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(circuitikz.sty)
-Provides:       tex(schulma-physik.sty) = %{tl_version}
-Provides:       tex(schulma.sty) = %{tl_version}
 
 %description -n texlive-schulmathematik
 The schulmathematik bundle provides two LaTeX packages and six document classes
@@ -691,7 +630,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(termcal.sty)
-Provides:       tex(termcal-de.sty) = %{tl_version}
 
 %description -n texlive-termcal-de
 This package provides a German localization to the termcal package written by
@@ -834,10 +772,6 @@ Requires:       tex(natbib.sty)
 Requires:       tex(regexpatch.sty)
 Requires:       tex(uri.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(udesoftec-bibcommon.sty) = %{tl_version}
-Provides:       tex(udesoftec-biblatex.sty) = %{tl_version}
-Provides:       tex(udesoftec-bst.sty) = %{tl_version}
-Provides:       tex(udesoftec-extra.sty) = %{tl_version}
 
 %description -n texlive-udesoftec
 The class is designed for typesetting theses in the Research Group for Business
@@ -852,7 +786,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(soul.sty)
-Provides:       tex(uhrzeit.sty) = %{tl_version}
 
 %description -n texlive-uhrzeit
 The primary goal of this package is to facilitate formats and ranges of times
@@ -865,12 +798,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(inputenc.sty)
-Provides:       tex(atari.def) = %{tl_version}
-Provides:       tex(isolatin.def) = %{tl_version}
-Provides:       tex(mac.def) = %{tl_version}
-Provides:       tex(pc850.def) = %{tl_version}
-Provides:       tex(roman8.def) = %{tl_version}
-Provides:       tex(umlaute.sty) = %{tl_version}
 
 %description -n texlive-umlaute
 An early package for using alternate input encodings. The author considers the
@@ -1151,7 +1078,18 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-german
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-de-1901.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-de-1996.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-de-ch-1901.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-de-1901.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-de-1996.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-de-ch-1901.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-de-1901.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-de-1996.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-de-ch-1901.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-de-1901.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-de-1996.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-de-ch-1901.pat.txt
 
 %files -n texlive-koma-script-examples
 %license lppl1.3c.txt
@@ -1267,6 +1205,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/voss-mathcol/
 
 %changelog
+* Mon Apr 13 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-6
+- Update babel-german, dtk-bibliography, hyphen-german
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-5
 - Update babel-german, fix licensing files
 

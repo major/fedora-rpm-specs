@@ -16,6 +16,10 @@ Patch0:         rauc_patch0_grub_editenv_debian_compat_fix.patch
 # Upstream: Work has not yet begun
 Patch1:         rauc_patch1_disable_http_test.patch
 
+# Fix openssl 4.0 issue with asn1 string access
+# Upstream: https://github.com/rauc/rauc/issues/1913
+Patch2:         rauc_patch2_fix_asn1_compile_error.patch
+
 # Exclude architectures that does not have grub2-tools-minimal package
 ExcludeArch:    s390 s390x i686
 
@@ -79,6 +83,8 @@ Service is not installed as that is only needed on device.
 %patch -P 0 -b .orig
 # rauc:pytest-http fails with Connection refused on 127.0.0.1
 %patch -P 1 -b .orig
+# OpenSSL 4.0 compile fix
+%patch -P 2 -b .orig
 # Debian vs. Fedora grub2 packaging difference
 cd test/bin
 ln -sf grub-editenv grub2-editenv
@@ -138,6 +144,9 @@ cp -p -r docs/texinfo/%{name}-figures %{buildroot}%{_datadir}/help/en/%{name}
 %doc %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Tue Apr 14 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.2-2
+- Add patch to fix compiling against OpenSSL 4.0
+
 * Sun Mar 29 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.2-1
 - Update package from 1.15.1 to 1.15.2
 - Fixes CVE-2026-34155

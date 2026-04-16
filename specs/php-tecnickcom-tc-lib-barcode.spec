@@ -6,22 +6,24 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    be76f91968bfab74949a3f937f78f02455597c85
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
 %global gh_project   tc-lib-barcode
 %global php_project  %{_datadir}/php/Com/Tecnick/Barcode
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
+%global tag          %{version}
+
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.29
-Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
-
 License:        LGPL-3.0-or-later
-URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
+Version:        2.4.31
+Release:        1%{?dist}
+
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 %if %{with tests}
@@ -78,7 +80,7 @@ Optional dependency: php-pecl-imagick
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%forgesetup
 
 : Sanity check
 grep -q '^%{version}$' VERSION
@@ -137,6 +139,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 2.4.31-1
+- update to 2.4.31 (no change)
+
 * Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 2.4.29-1
 - update to 2.4.29 (no change)
 

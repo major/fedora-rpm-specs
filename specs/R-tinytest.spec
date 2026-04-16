@@ -1,5 +1,5 @@
 Name:           R-tinytest
-Version:        %R_rpm_version 1.4.1
+Version:        %R_rpm_version 1.4.3
 Release:        %autorelease
 Summary:        Lightweight and Feature Complete Unit Testing Framework
 

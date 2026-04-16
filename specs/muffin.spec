@@ -1,12 +1,15 @@
+%global upstream_version 6.7.0-unstable
+
 Name:          muffin
-Version:       6.6.3
+Version:       6.7.0^unstable
 Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://github.com/linuxmint/%{name}
-Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:       %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Patch0:        0001-Wayland-Fix-nvidia-refresh-rate-when-running-nvidia-.patch
 
 ExcludeArch:   %{ix86}
 
@@ -27,7 +30,7 @@ BuildRequires: pkgconfig(gobject-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gmodule-no-export-2.0)
 BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(cinnamon-desktop) >= 6.6.0
+BuildRequires: pkgconfig(cinnamon-desktop) >= 6.7.0
 BuildRequires: pkgconfig(xcomposite)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xdamage)
@@ -58,6 +61,7 @@ BuildRequires: pkgconfig(gl)
 BuildRequires: mesa-libEGL-devel
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(gudev-1.0)
+BuildRequires: pkgconfig(udev)
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(libinput)
@@ -94,7 +98,7 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 %build
 %meson
@@ -119,6 +123,7 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libexecdir}/muffin-restart-helper
 %exclude %{_libdir}/muffin/*.gir
 %{_datadir}/glib-2.0/schemas/org.cinnamon.muffin.*.xml
+%{_udevrulesdir}/61-muffin.rules
 
 %files devel
 %{_includedir}/muffin/
@@ -127,6 +132,12 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
+* Wed Mar 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-2
+- Add patch to fix nvidia refresh rate
+
 * Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
 - Update to 6.6.3
 

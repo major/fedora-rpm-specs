@@ -19,21 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{!?suse_version:1}
-%define python_exec python3
-%define python_expand python3
-%endif
-
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname hipblaslt
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -120,23 +118,23 @@
 %bcond_with nanobind
 %endif
 
+%if 0%{!?suse_version:1}
+%define python_exec python3
+%define python_expand python3
+%endif
+
 Name:           %{hipblaslt_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        5%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 %global nanobind_version 2.9.2
 %global nanobind_giturl https://github.com/wjakob/nanobind
@@ -149,12 +147,20 @@ Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robi
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 # https://github.com/ROCm/rocm-libraries/issues/2422
+%if %{with preview}
+Patch3:         0001-hipblaslt-preview-find-origami-package.patch
+%else
 Patch3:         0001-hipblaslt-find-origami-package.patch
+%endif
 # do not try to fetch, point to the nanobind tarball
 Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 # compile and link jobpools
 Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
 
+
+%if %{with preview}
+BuildRequires:  amdsmi-static
+%endif
 BuildRequires:  chrpath
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -269,14 +275,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hipblaslt
-%patch -P1 -p1
-%patch -P2 -p1
-%else
 %autosetup -p3 -n %{upstreamname}
-%endif
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
@@ -287,8 +286,10 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 # Do not use virtualenv_install
 sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
 
+%if %{without preview}
 # Disable trying to download rocm-cmake
 sed -i -e 's@if(NOT ROCmCMakeBuildTools_FOUND)@if(FALSE)@' cmake/dependencies.cmake
+%endif
 
 # compat has this issue
 # /usr/lib64/rocm/rocm-7.2/llvm/bin/amdclang++ -x hip .../device-library/matrix-transform/matrix_transform.cpp
@@ -350,14 +351,12 @@ sed -i -e '/#include <omp.h>/d'   clients/common/include/testing_matmul.hpp
 sed -i -e '/#include <omp.h>/d'   clients/common/include/hipblaslt_init.hpp
 sed -i -e '/#include <omp.h>/d'   clients/common/src/cblas_interface.cpp
 
+%if %{without preview}
 # We are building from a tarball, not a git repo
 sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/dependencies.cmake
-
-%build
-%if %{with gitcommit}
-cd projects/hipblaslt
 %endif
 
+%build
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
@@ -451,10 +450,6 @@ fi
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/hipblaslt
-%endif
-
 %cmake_install
 
 # Extra license
@@ -479,14 +474,8 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %endif
 
 %files
-%if %{with gitcommit}
-%doc projects/hipblaslt/README.md
-%license projects/hipblaslt/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
-
 %{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.1{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipblaslt/
 
@@ -501,9 +490,15 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %files test
 %{pkg_prefix}/bin/hipblaslt*
 %{pkg_prefix}/bin/sequence.yaml
+%if %{with preview}
+%{pkg_prefix}/share/hipblaslt/
+%endif
 %endif
 
 %changelog
+* Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Change --with gitcommit to preview
+
 * Wed Mar 4 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Rework fedora path handling for compat
 

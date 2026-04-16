@@ -21,7 +21,7 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.1.5
+Version:        7.1.6
 Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 7.1.6-1
+- update to 7.1.6
+
 * Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 7.1.5-1
 - update to 7.1.5
 

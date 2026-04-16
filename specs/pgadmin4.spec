@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -251,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 9.14-3
+- Add pgadmin4_CVE-2026-40175.prebundle.patch
+
 * Thu Apr 09 2026 Sandro Mani <manisandro@gmail.com> - 9.14-2
 - Rework vendor bundle, use corepack yarn
 

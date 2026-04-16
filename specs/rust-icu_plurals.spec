@@ -5,7 +5,7 @@
 %global crate icu_plurals
 
 Name:           rust-icu_plurals
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Unicode Plural Rules categorizer for numeric input
 
@@ -74,18 +74,6 @@ use the "datagen" feature of the "%{crate}" crate.
 %files       -n %{name}+datagen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+icu_normalizer_data-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -108,6 +96,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

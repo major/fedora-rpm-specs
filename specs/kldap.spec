@@ -1,5 +1,5 @@
 Name:    kldap
-Version: 26.03.80
+Version: 26.04.0
 Release: 1%{?dist}
 Summary: The KLDAP Library
 
@@ -80,6 +80,9 @@ find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 
 
 %changelog
+* Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
+- 26.04.0
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 26.03.80-1
 - 26.03.80
 

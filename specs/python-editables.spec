@@ -1,12 +1,11 @@
 Name:           python-editables
-Version:        0.5
+Version:        0.6
 Release:        %autorelease
 Summary:        Editable installations
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pfmoore/editables
-# PyPI source distributions lack tests; use the GitHub archive
 Source:         %{url}/archive/%{version}/editables-%{version}.tar.gz
 
 BuildSystem:            pyproject
@@ -18,7 +17,7 @@ BuildArch:      noarch
 # coverage analysis and for installation with pip/virtualenv. Rather than
 # working around all of these, it is simpler not to use tox for dependency
 # generation or testing.
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 A Python library for creating “editable wheels”

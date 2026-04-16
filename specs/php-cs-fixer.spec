@@ -7,14 +7,11 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    7787ceff91365ba7d623ec410b8f429cdebb4f63
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2026-02-20
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.94.2
+Version:        3.95.1
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -22,7 +19,7 @@ Summary:        PHP Coding Standards Fixer
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to get upstream test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source2:        makesrc.sh
 
 # Use our autoloader
@@ -63,7 +60,7 @@ projects. This tool does not only detect them, but also fixes them for you.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 %patch -P0 -p1 -b .rpm
 
 # Fix version
@@ -102,6 +99,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Apr 13 2026 Remi Collet <remi@remirepo.net> - 3.95.1-1
+- update to 3.95.1
+
 * Mon Feb 23 2026 Remi Collet <remi@remirepo.net> - 3.94.2-1
 - update to 3.94.2
 

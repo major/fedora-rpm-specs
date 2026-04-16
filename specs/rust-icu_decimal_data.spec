@@ -5,7 +5,7 @@
 %global crate icu_decimal_data
 
 Name:           rust-icu_decimal_data
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Data for the icu_decimal crate
 

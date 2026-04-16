@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 %global examples 1
@@ -246,6 +246,9 @@ popd
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

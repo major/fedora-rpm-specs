@@ -11,6 +11,9 @@ License:        BSD-3-Clause
 URL:            https://jupyter-server.readthedocs.io
 Source:         %{pypi_source jupyter_server}
 
+# Allow pytest 9
+Patch:          https://github.com/jupyter-server/jupyter_server/pull/1586.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

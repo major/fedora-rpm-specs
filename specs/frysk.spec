@@ -1,7 +1,7 @@
 Summary:	Execution analysis and debugging tool-suite
 Name:		frysk
 Version:	0.4
-Release:	100%{?dist}
+Release:	101%{?dist}
 
 # Fedora 17+ is still waiting for vte et.al. bindings.
 %define enable_gnome %{fedora}0 < 170
@@ -79,6 +79,10 @@ Patch51:	frysk-0.4-51-debugedit-path.patch
 Patch52:	frysk-0.4-52-libunwind-tests.patch
 Patch53:	frysk-0.4-53-no-new-integer.patch
 Patch54:	frysk-0.4-54-c-warnings.patch
+Patch55:	frysk-0.4-55-requires-is-reserved.patch
+Patch56:	frysk-0.4-56-avoid-recursion.patch
+Patch57:	frysk-0.4-57-sigset-to-sigaction.patch
+Patch58:	frysk-0.4-58-more-cxx-warnings.patch
 
 Patch100:	frysk-0.4-aclocaljavac.patch
 Patch101:	frysk-0.4-cxx-scope.patch
@@ -290,6 +294,10 @@ mv frysk-imports/libunwind/configure.{in,ac}
 %patch -P52 -p1 -z .52-libunwind-tests.patch
 %patch -P53 -p1 -z .53-no-new-integer.patch
 %patch -P54 -p1 -z .54-c-warnings.patch
+%patch -P55 -p1 -z .55-replace-is-reserved.patch
+%patch -P56 -p1 -z .56-avoid-recursion.patch
+%patch -P57 -p1 -z .57-sigset-to-sigaction.patch
+%patch -P58 -p1 -z .58-more-cxx-warnings.patch
 
 echo "%{version}-%{release}" > frysk-common/version.in
 
@@ -298,7 +306,7 @@ rm frysk-core/frysk/pkglibdir/*.S
 
 ./bootstrap.sh
 
-%build 
+%build
 
 uname -a
 gcc --version
@@ -469,6 +477,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/funit-*-nodebug
 %endif
 
 %changelog
+* Tue Apr 14 2026 Andrew Cagney <cagney@fedoraproject.org> - 0.4-101
+- Fix "requires" is a keyword in C++20
+- Use sigaction(), not sigset
+- Avoid recursion
+- fix more C++ warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-100
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

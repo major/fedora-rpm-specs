@@ -32,7 +32,7 @@
 %else
 %global rocm_major 7
 %global rocm_minor 2
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif

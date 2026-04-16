@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        360
+Version:        360.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -665,6 +665,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Apr 14 2026 Packit <hello@packit.dev> - 360.1-1
+- Prevent overmounting also for btrfs subvolumes (https://bugzilla.redhat.com/show_bug.cgi?id=2455855)
+- Remove "Mount" action in Anaconda mode (https://bugzilla.redhat.com/show_bug.cgi?id=2455855)
+
 * Wed Apr 08 2026 Packit <hello@packit.dev> - 360-1
 - ws: be more explicit when handling hostnames on cli [CVE-2026-4631]
 - ws: support loading a custom login page

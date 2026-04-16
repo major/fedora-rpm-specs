@@ -505,6 +505,8 @@ Patch511: 0001-fips-disable-options.patch
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
+# Temp? hack, see https://github.com/chromiumembedded/cef/issues/4153
+Patch902: cef-do-not-check-struct-sizes.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -1196,6 +1198,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if ! %{bundlelibxml}
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
+%patch -P902 -p1 -b .cef-fix-136-abi-breakage
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF

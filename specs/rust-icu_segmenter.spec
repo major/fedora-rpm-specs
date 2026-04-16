@@ -5,7 +5,7 @@
 %global crate icu_segmenter
 
 Name:           rust-icu_segmenter
-Version:        2.1.2
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Unicode line breaking and text segmentation algorithms
 
@@ -14,11 +14,9 @@ URL:            https://crates.io/crates/icu_segmenter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dev-dependency `criterion`.
+# * Omit the experimental_segmenter example, which would require the internal
+#   icu_benchmark_macros crate
 Patch:          icu_segmenter-fix-metadata.diff
-# * https://github.com/unicode-org/icu4x/pull/7750/changes/58ff2a582fb5b2e87920c265c09db16b32c3dcea
-# * Part of: “In component crates, limit use of the icu crate to doctests,”
-#   https://github.com/unicode-org/icu4x/pull/7750.
-Patch10:        0001-In-icu_segmenter-limit-use-of-the-icu-crate-to-docte.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

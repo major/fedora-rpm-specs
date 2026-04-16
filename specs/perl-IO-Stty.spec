@@ -1,32 +1,50 @@
 Name:           perl-IO-Stty
-Version:        0.04
-Release:        18%{?dist}
+Version:        0.08
+Release:        1%{?dist}
 Summary:        Change and print terminal line settings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Stty
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/IO-Stty-%{version}.tar.gz
 BuildArch:      noarch
-Patch0:         IO-Stty-0.04-Packed-script-into-rpm.patch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+Patch0:         IO-Stty-0.08-Packed-script-into-rpm.patch
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(POSIX)
 # Tests
-BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::More)
+# Optional tests
+BuildRequires:  perl(IO::Pty)
 
 %{?perl_default_filter}
 
 %description
 This is the Perl POSIX compliant stty.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(IO::Pty)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n IO-Stty-%{version}
 %patch -P0 -p1
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -34,18 +52,36 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/99*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
 
 %files
-%doc Changes README
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc AI_POLICY.md Changes README.md
+%{_bindir}/stty.pl
+%dir %{perl_vendorlib}/IO
+%{perl_vendorlib}/IO/Stty.pm
+%{_mandir}/man3/IO::Stty*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-1
+- 0.08 bump (rhbz#2449112)
+- Package tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

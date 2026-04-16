@@ -28,7 +28,7 @@
 %global pkg_src therock-%{rocm_release}
 %else
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 2
 %global pkg_src rocm-%{rocm_release}.%{rocm_patch}
 %endif
 
@@ -74,7 +74,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -242,6 +242,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 %endif
 
 %changelog
+* Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-1
+- Update to 7.2.2
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

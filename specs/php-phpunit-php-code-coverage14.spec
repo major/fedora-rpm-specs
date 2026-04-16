@@ -22,8 +22,8 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.0.0
-Release:        2%{?dist}
+Version:        14.1.1
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -43,7 +43,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-BuildRequires:  (php-composer(sebastian/environment)              >= 9.1    with php-composer(sebastian/environment)              < 10)
+BuildRequires:  (php-composer(sebastian/environment)              >= 9.2    with php-composer(sebastian/environment)              < 10)
 BuildRequires:  (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0    with php-composer(sebastian/lines-of-code)            < 6)
 BuildRequires:  (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
@@ -67,7 +67,7 @@ BuildRequires:  php-xdebug
 #        "nikic/php-parser": "^5.7.0",
 #        "phpunit/php-text-template": "^6.0",
 #        "sebastian/complexity": "^6.0",
-#        "sebastian/environment": "^9.1",
+#        "sebastian/environment": "^9.2",
 #        "sebastian/git-state": "^1.0",
 #        "sebastian/lines-of-code": "^5.0",
 #        "sebastian/version": "^7.0",
@@ -79,7 +79,7 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-Requires:       (php-composer(sebastian/environment)              >= 9.0    with php-composer(sebastian/environment)              < 10)
+Requires:       (php-composer(sebastian/environment)              >= 9.2    with php-composer(sebastian/environment)              < 10)
 Requires:       (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
 Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0    with php-composer(sebastian/lines-of-code)            < 6)
 Requires:       (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
@@ -181,12 +181,16 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog-%{ver_major}.0.md
+%doc ChangeLog-%{ver_major}.1.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Mon Apr 13 2026 Remi Collet <remi@remirepo.net> - 14.1.1-1
+- update to 14.1.1
+- raise dependency on sebastian/environment 9.2
+
 * Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 14.0.0-2
 - enable test suite
 

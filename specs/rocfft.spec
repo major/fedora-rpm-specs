@@ -102,12 +102,16 @@
 %global cmake_generator %{nil}
 %endif
 
+%if 0%{?fedora} || 0%{?suse_version}
+%global system_sqlite ON
+%else
 %if 0%{?rhel} < 10
 # rhel 9's sqlite is too old, fetch whatever rocfft bundles
 # assumes --enable-network
 %global system_sqlite OFF
 %else
 %global system_sqlite ON
+%endif
 %endif
 
 %global cmake_config \\\
@@ -136,7 +140,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        (MIT AND BSD-3-Clause) AND 0BSD
@@ -289,6 +293,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Fix fedora sqlite
+
 * Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Build on rhel 9
 

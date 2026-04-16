@@ -16,6 +16,7 @@ License:        MIT
 URL:            https://crates.io/crates/uu_cp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * loosen selinux version bound from =0.6.0 to 0.6.0
 # * drop benchmarking dependencies like divan
 Patch:          uu_cp-fix-metadata.diff
 

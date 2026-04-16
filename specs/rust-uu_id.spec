@@ -15,6 +15,9 @@ Summary:        id ~ (uutils) display user and group information for USER
 License:        MIT
 URL:            https://crates.io/crates/uu_id
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * loosen selinux version bound from =0.6.0 to 0.6.0
+Patch:          uu_id-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 

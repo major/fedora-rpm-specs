@@ -30,14 +30,7 @@ License:        MIT
 URL:            https://crates.io/crates/coreutils
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop uudoc, unneeded
-# * update rstest to 0.26:
-#   https://github.com/uutils/coreutils/commit/001a91fbe6adea29a566326df3fcda30f89e97ab
-# * enable feat_acl
-# * TODO: enable unix
-# * allow procfs 0.17, 0.18
-# * allow hex-literal 1.0:
-#   https://github.com/uutils/coreutils/commit/944cd4f72ca7d6e87d06d0a0a5b9e8dafedfba4b
+# * loosen selinux version bound from =0.6.0 to 0.6.0
 Patch:          coreutils-fix-metadata.diff
 
 # leaf package, SIGABRT on compile

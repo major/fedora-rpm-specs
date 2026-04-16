@@ -5,16 +5,13 @@
 %global crate icu_time
 
 Name:           rust-icu_time
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Processing of dates, times, and time zones with a focus on i18n and interop
 
 License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_time
 Source:         %{crates_source}
-# * In icu_time, limit use of the icu crate to doctests
-# * https://github.com/unicode-org/icu4x/pull/7742
-Patch10:        0001-In-icu_time-limit-use-of-the-icu-crate-to-doctests.patch
 # * Downstream-only: omit a test that would require icu_provider_blob
 Patch11:        0001-Downstream-only-omit-a-test-that-would-require-icu_p.patch
 
@@ -110,6 +107,54 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_chrono_0_4-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_chrono_0_4-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_chrono_0_4" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_chrono_0_4-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_jiff_0_2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_jiff_0_2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_jiff_0_2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_jiff_0_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_time_0_3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_time_0_3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_time_0_3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_time_0_3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

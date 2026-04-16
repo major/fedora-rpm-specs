@@ -1,5 +1,5 @@
-%global svnversion 4974
-%global date 20250303
+%global svnversion 5044
+%global date 20260413
 %global maj_ver 4.3
 
 Name:       skychart
@@ -18,7 +18,7 @@ URL:        http://www.ap-i.net/skychart/
 # Download upstream tarball from
 # https://sourceforge.net/projects/skychart/files/0-beta/
 # in the same directory of the script and run:
-# ./generate-tarball.sh 4.3-4974
+# ./generate-tarball.sh 4.3-5044
 Source0:    %{name}-%{maj_ver}-%{svnversion}-src-nopatents.tar.xz
 Source1:    generate-tarball.sh
 # Base source data
@@ -55,9 +55,6 @@ Patch:      skychart-4.3-satmessage.patch
 # Disable software update menu item
 # This feature was asked upstream specifically for Fedora
 Patch:      skychart-4.3-noupdatemenu.patch
-
-# Fix build with FPC 3.2.4
-Patch:      skychart-4.3-fpc-3.2.4.patch
 
 ExclusiveArch: %{fpc_arches}
 ExcludeArch: %{ix86}

@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           asio
-Version:        1.30.2
+Version:        1.36.0
 Release:        %autorelease
 Summary:        A cross-platform C++ library for network programming
 
@@ -16,7 +16,11 @@ BuildRequires:  boost-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
+%if 0%{?fedora} >= 45
+BuildRequires:  openssl3-devel
+%else
 BuildRequires:  openssl-devel
+%endif
 BuildRequires:  perl-generators
 
 %description
@@ -65,7 +69,7 @@ autoreconf --install
 %license LICENSE_1_0.txt
 %{_includedir}/asio/
 %{_includedir}/asio.hpp
-%{_libdir}/pkgconfig/asio.pc
+%{_datadir}/pkgconfig/asio.pc
 
 %files doc
 %doc doc/*

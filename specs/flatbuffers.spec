@@ -199,9 +199,7 @@ sed -r -i.upstream \
 
 
 %generate_buildrequires
-pushd python >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
+%pyproject_buildrequires -d python
 
 
 %conf
@@ -238,9 +236,7 @@ export VERSION='%{version}'
 %build
 %cmake_build
 
-pushd python
-%pyproject_wheel
-popd
+%pyproject_wheel -d python
 
 %if %{with mingw}
 (
@@ -256,10 +252,8 @@ popd
 
 %install
 %cmake_install
-pushd python
 %pyproject_install
 %pyproject_save_files flatbuffers
-popd
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %if %{with mingw}

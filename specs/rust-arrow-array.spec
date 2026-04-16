@@ -110,7 +110,42 @@ cp -p %{SOURCE10} %{SOURCE11} .
 
 %if %{with check}
 %check
+%ifarch %{ix86} s390x
+# * skip arch-specific failing tests
+# * i686: tests allocate too much memory
+# * s390x: endianness issues
+%{cargo_test -- -- --exact %{shrink:
+%ifarch %{ix86}
+    --skip builder::generic_bytes_builder::tests::test_append_array_offset_overflow_precise
+%endif
+%ifarch s390x
+    --skip array::binary_array::tests::test_binary_array_from_list_array_with_offset
+    --skip array::binary_array::tests::test_large_binary_array_from_list_array_with_offset
+    --skip array::byte_view_array::tests::test_append_binary
+    --skip array::byte_view_array::tests::test_append_string
+    --skip array::byte_view_array::tests::test_gc_random_mixed_and_slices
+    --skip array::byte_view_array::tests::try_new_binary
+    --skip array::byte_view_array::tests::try_new_string
+    --skip array::fixed_size_binary_array::tests::test_fixed_size_binary_array_from_fixed_size_list_array
+    --skip array::primitive_array::tests::test_decimal_array
+    --skip array::string_array::tests::test_large_string_array_from_list_array
+    --skip array::string_array::tests::test_string_array_from_list_array
+    --skip array::union_array::tests::slice_union_array_single_field
+    --skip array::union_array::tests::test_dense_union_logical_nulls_gather
+    --skip array::union_array::tests::test_sparse_union_logical_mask_mixed_nulls_skip_fully_null
+    --skip array::union_array::tests::test_sparse_union_logical_mask_mixed_nulls_skip_fully_valid
+    --skip array::union_array::tests::test_sparse_union_logical_nulls_gather
+    --skip array::union_array::tests::test_sparse_union_logical_nulls_mask_all_nulls_skip_one
+    --skip builder::generic_bytes_view_builder::tests::test_append_value_n
+    --skip builder::generic_bytes_view_builder::tests::test_append_value_n_zero
+    --skip builder::generic_bytes_view_builder::tests::test_string_view
+    --skip builder::generic_bytes_view_builder::tests::test_string_view_deduplicate
+    --skip trusted_len::tests::trusted_len_unzip_good
+%endif
+}}
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

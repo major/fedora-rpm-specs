@@ -1,6 +1,6 @@
 Summary:        A GUI front-end to CHMlib
 Name:           xchm
-Version:        1.38
+Version:        1.39
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            https://github.com/rzvncj/xCHM

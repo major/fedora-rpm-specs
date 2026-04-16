@@ -14,7 +14,7 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.4.3
+Version:        0.4.4
 Release:        1%{?dist}
 Summary:        Collect POST requests
 
@@ -91,6 +91,9 @@ done
 %endif
 
 %changelog
+* Tue Apr 14 2026 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.4-1
+- Update to 0.4.4
+
 * Sat Mar 7 2026 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.3-1
 - Update to 0.4.3
 

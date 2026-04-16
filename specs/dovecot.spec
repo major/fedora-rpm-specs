@@ -362,7 +362,11 @@ fi
 %check
 %ifnarch aarch64
 # some aarch64 tests timeout, skip for now
-make check
+if ! make check
+then
+    find . -name test-suite.log | xargs cat ||:
+    exit 1
+fi
 cd dovecot-pigeonhole
 # FIXME: make check will fail as it requires doveconf to be already installed at /usr/bin/doveconf
 make check ||:

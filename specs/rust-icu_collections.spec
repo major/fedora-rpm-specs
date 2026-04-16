@@ -5,7 +5,7 @@
 %global crate icu_collections
 
 Name:           rust-icu_collections
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Collection of API for use in ICU libraries
 
@@ -15,13 +15,15 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only dependencies criterion and iai
 Patch:          icu_collections-fix-metadata.diff
-# * https://github.com/unicode-org/icu4x/pull/7750/changes/ddb282b053ea0379c5f9f6c86416ecc8ec0bf5f7
-# * Part of: “In component crates, limit use of the icu crate to doctests,”
-#   https://github.com/unicode-org/icu4x/pull/7750.
-Patch10:        0001-In-icu_collections-limit-use-of-the-icu-crate-to-doc.patch
+# * Downstream patch: avoid a circular dependency with icu_properties
+# * Omits a few tests that would require this dev-dependency. We don’t have to
+#   patch out the dev-dependency in Cargo.toml because it was path-based and was
+#   therefore removed by Cargo.toml normalization. If we ran these tests, we
+#   would have had to *restore* it instead, by something like: tomcli set
+#   Cargo.toml str dev-dependencies.icu_properties.version '~%%{version}'
+Patch10:        0001-Downstream-patch-avoid-a-circular-dependency-with-ic.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Collection of API for use in ICU libraries.}
@@ -92,12 +94,6 @@ use the "serde" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Restore dev-dependency icu_properties, which is path-based and was therefore
-# removed by Cargo.toml normalization. We script this rather than using a patch
-# because the version bound should be based on the ICU4X version, and we don’t
-# want to constantly update the patch.
-tomcli set Cargo.toml str dev-dependencies.icu_properties.version '~%{version}'
-
 %cargo_prep
 
 %generate_buildrequires

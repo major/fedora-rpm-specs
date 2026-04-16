@@ -1,6 +1,6 @@
 %global shortname mediafile
 Name:           python-mediafile
-Version:        0.16.0
+Version:        0.16.1
 Release:        %autorelease
 Summary:        Elegant audio file tagging in Python
 

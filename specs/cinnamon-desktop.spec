@@ -3,20 +3,21 @@
 %global gtk_doc_version  1.9
 %global po_package       cinnamon-desktop-3.0
 
+%global upstream_version 6.7.0-unstable
+
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.6.2
-Release: 8%{?dist}
+Version: 6.7.0^unstable
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: x-cinnamon-mimeapps.list
 
 ExcludeArch: %{ix86}
 
 Patch0:   set_font_defaults.patch
-Patch1:   %url/pull/265.patch#/update-gvc.patch
 
 Requires: redhat-menus
 
@@ -64,7 +65,7 @@ Libraries and header files for the CINNAMON-internal private library
 libcinnamon-desktop.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 %build
 %meson -Ddeprecation_warnings=false
@@ -97,6 +98,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Wed Feb 25 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-8
 - Update gvc patch
 

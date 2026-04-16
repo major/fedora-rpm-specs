@@ -10,7 +10,7 @@
 
 Summary: Qt6 - WebChannel component
 Name:    qt6-%{qt_module}
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -98,6 +98,7 @@ popd
 %{_qt6_libdir}/libQt6WebChannel.so.6*
 %{_qt6_libdir}/libQt6WebChannelQuick.so.6*
 %{_qt6_archdatadir}/qml/QtWebChannel/
+%{_qt6_datadir}/webchannel/
 
 %files devel
 %{_qt6_headerdir}/QtWebChannel/
@@ -128,6 +129,9 @@ popd
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

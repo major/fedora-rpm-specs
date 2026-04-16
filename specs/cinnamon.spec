@@ -1,22 +1,24 @@
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 128.1
-%global cinnamon_desktop_version 6.6.0
-%global cinnamon_translations_version 6.6.0
+%global cjs_version 140.0
+%global cinnamon_desktop_version 6.7.0
+%global cinnamon_translations_version 6.7.0
 %global gobject_introspection_version 1.38.0
-%global muffin_version 6.6.0
+%global muffin_version 6.7.0
 %global json_glib_version 0.13.2
 
 %global __python %{__python3}
 
+%global upstream_version 6.7.0-unstable
+
 Name:           cinnamon
-Version:        6.6.7
-Release:        5%{?dist}
+Version:        6.7.0^unstable
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        10_cinnamon-common.gschema.override
 Source2:        10_cinnamon-apps.gschema.override.in
 Source3:        22_fedora.styles
@@ -27,8 +29,7 @@ Patch0:         set_wheel.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         set_menu_defaults.patch
-Patch5:         %{url}/pull/13646.patch#/theme-fallback.patch
-Patch6:         start_xdg-desktop-portal.patch
+Patch5:         start_xdg-desktop-portal.patch
 
 ExcludeArch:    %{ix86}
 
@@ -46,11 +47,13 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(libgnome-menu-3.0)
 BuildRequires:  pkgconfig(lib%{name}-menu-3.0)
 BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libxdo)
 BuildRequires:  pkgconfig(%{name}-desktop) >= %{cinnamon_desktop_version}
-BuildRequires:  gobject-introspection >= %{gobject_introspection_version}
+BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(libnm)
+BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(polkit-agent-1)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(xapp)
@@ -213,18 +216,8 @@ Requires:       gnome-calendar%{?_isa}
 %description calendar-server
 Calendar server for Cinnamon.
 
-%if 0%{?fedora} && 0%{?fedora} < 40
-%package devel-doc
-Summary:        Development Documentation files for Cinnamon
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-
-%description devel-doc
-This package contains the code documentation for various Cinnamon components.
-%endif
-
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 %{__sed} -i -e 's@gksu@pkexec@g' files%{_bindir}/%{name}-settings-users
 %{__sed} -i -e 's@gnome-orca@orca@g' files%{_datadir}/%{name}/%{name}-settings/modules/cs_accessibility.py
@@ -232,7 +225,7 @@ This package contains the code documentation for various Cinnamon components.
 %{__sed} -i -e 's@mintlocale im@mintlocale_im_removed@g' files%{_datadir}/%{name}/%{name}-settings/%{name}-settings.py
 
 # Fix rpmlint errors
-for file in files%{_datadir}/%{name}/applets/{printers,settings-example}@cinnamon.org/*.py \
+for file in files%{_datadir}/%{name}/applets/settings-example@cinnamon.org/*.py \
   files%{_datadir}/%{name}/%{name}-settings/bin/*.py \
   files%{_datadir}/%{name}/%{name}-looking-glass/*.py \
   files%{_datadir}/%{name}/%{name}-settings/modules/cs_{actions,applets,desklets,display,gestures}.py \
@@ -287,6 +280,7 @@ EOF
 %files
 %doc README.rst AUTHORS
 %license COPYING
+%config(noreplace) %{_sysconfdir}/pam.d/cinnamon
 %{_bindir}/cinnamon
 %{_bindir}/cinnamon-dbus-command
 %{_bindir}/cinnamon-desktop-editor
@@ -299,7 +293,7 @@ EOF
 %{_bindir}/cinnamon-looking-glass
 %{_bindir}/cinnamon-menu-editor
 %{_bindir}/cinnamon-preview-gtk-theme
-%{_bindir}/cinnamon-screensaver-lock-dialog
+%{_bindir}/cinnamon-screensaver-command
 %{_bindir}/cinnamon-session-cinnamon
 %{_bindir}/cinnamon-session-cinnamon2d
 %{_bindir}/cinnamon-settings
@@ -307,12 +301,14 @@ EOF
 %{_bindir}/cinnamon-slideshow
 %{_bindir}/cinnamon-spice-updater
 %{_bindir}/cinnamon-subprocess-wrapper
+%{_bindir}/cinnamon-unlock-desktop
 %{_bindir}/cinnamon-xlet-makepot
 %{_bindir}/cinnamon2d
 %{_bindir}/xlet-about-dialog
 %{_bindir}/xlet-settings
 %config(noreplace) %{_sysconfdir}/xdg/menus/*
 %{_datadir}/applications/*
+%{_datadir}/dbus-1/services/org.cinnamon.BackupLocker.service
 %{_datadir}/dbus-1/services/org.Cinnamon.HotplugSniffer.service
 %{_datadir}/dbus-1/services/org.Cinnamon.Melange.service
 %{_datadir}/dbus-1/services/org.Cinnamon.Slideshow.service
@@ -328,8 +324,10 @@ EOF
 %{_datadir}/%{name}-background-properties
 %{_libdir}/%{name}/
 %dir %{_libexecdir}/%{name}/
+%{_libexecdir}/cinnamon/cinnamon-backup-locker
 %{_libexecdir}/cinnamon/cinnamon-hotplug-sniffer
 %{_libexecdir}/cinnamon/cinnamon-perf-helper
+%{_libexecdir}/cinnamon/cinnamon-screensaver-pam-helper
 %{_mandir}/man1/*
 %{python3_sitelib}/%{name}/
 %{_userunitdir}/cinnamon-session.service
@@ -339,12 +337,10 @@ EOF
 %{_libexecdir}/%{name}/%{name}-calendar-server.py
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
-%if 0%{?fedora} && 0%{?fedora} < 40
-%files devel-doc
-%doc %{_datadir}/gtk-doc/html/*/
-%endif
-
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Sat Mar 28 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.7-5
 - Rename systemd target file to service so it gets culled
 

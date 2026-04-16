@@ -1,15 +1,18 @@
 # Don't bother building debug packages as koji bitches about n-v-r from nemo package
 %global debug_package %{nil}
-%global cjs_version 6.4.0
+%global cjs_version 6.7.0
+
+%global upstream_version 6.7.0-unstable
+%global sversion 6.7.0
 
 Name:           nemo-extensions
-Version:        6.6.0
-Release:        3%{?dist}
+Version:        6.7.0^unstable
+Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 ExcludeArch:    %{ix86}
 
@@ -18,7 +21,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
 BuildRequires:  pkgconfig(gcr-3)
-BuildRequires:  pkgconfig(libnemo-extension) >= 6.6.0
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(libnemo-extension) >= 6.7.0
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  gnome-common
@@ -163,7 +167,7 @@ Seahorse nemo is an extension for nemo which allows encryption
 and decryption of OpenPGP files using GnuPG. 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 # use relative paths in data_files to support wheel-based installation
 # TODO send upstream
 sed -Ei '/^ *data_files *= *\[/,/^ *\]/ { s@/usr/@@ }' */setup.py
@@ -266,7 +270,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
 %{_datadir}/nemo-audio-tab/
-%{python3_sitelib}/nemo_audio_tab-%{version}.dist-info/
+%{python3_sitelib}/nemo_audio_tab-%{sversion}.dist-info/
 
 
 %files -n nemo-pastebin
@@ -275,7 +279,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-pastebin/COPYING
 %{_bindir}/nemo-pastebin-configurator
 %{_datadir}/nemo-python/extensions/nemo-pastebin.py
-%{python3_sitelib}/nemo_pastebin-%{version}.dist-info/
+%{python3_sitelib}/nemo_pastebin-%{sversion}.dist-info/
 %{_datadir}/glib-2.0/schemas/nemo-pastebin.gschema.xml
 %{_datadir}/nemo-pastebin/
 %{_datadir}/icons/hicolor/*/apps/nemo-pastebin.*
@@ -303,7 +307,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_datadir}/nemo-python/extensions/nemo_terminal.py
 %{_datadir}/nemo-terminal/
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
-%{python3_sitelib}/nemo_terminal-%{version}.dist-info/
+%{python3_sitelib}/nemo_terminal-%{sversion}.dist-info/
 
 %files -n nemo-preview
 %doc nemo-preview/README
@@ -317,7 +321,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-emblems
 %license nemo-emblems/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-emblems.py
-%{python3_sitelib}/nemo_emblems-%{version}.dist-info/
+%{python3_sitelib}/nemo_emblems-%{sversion}.dist-info/
 
 %files -n nemo-image-converter
 %doc nemo-image-converter/README
@@ -329,17 +333,19 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_bindir}/nemo-compare-preferences
 %{_datadir}/nemo-python/extensions/nemo-compare.py
 %{_datadir}/nemo-compare/
-%{python3_sitelib}/nemo_compare-%{version}.dist-info/
+%{python3_sitelib}/nemo_compare-%{sversion}.dist-info/
 
 %files -n nemo-seahorse
 %doc nemo-seahorse/{AUTHORS,COPYING,README,NEWS,ChangeLog}
 %{_bindir}/nemo-seahorse-tool
-%{_libdir}/nemo/extensions-3.0/libnemo-seahorse.so
 %{_datadir}/glib-2.0/schemas/org.nemo.plugins.seahorse*gschema.xml
-%{_datadir}/nemo-seahorse/
+%{_datadir}/nemo/actions/nemo-seahorse-*.nemo_action
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-3
 - Rebuild for aarch64 linking issue
 

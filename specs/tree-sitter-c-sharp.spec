@@ -1,5 +1,5 @@
 Name:           tree-sitter-c-sharp
-Version:        0.23.1
+Version:        0.23.5
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter/%{name}

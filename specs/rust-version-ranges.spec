@@ -5,17 +5,13 @@
 %global crate version-ranges
 
 Name:           rust-version-ranges
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Performance-optimized type for generic version ranges and operations on them
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/version-ranges
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump ron dev-dependency from 0.11 to 0.12:
-#   https://github.com/pubgrub-rs/pubgrub/commit/0c7b84c
-Patch:          version-ranges-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -61,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "proptest" feature of the "%{crate}" crate.
 
 %files       -n %{name}+proptest-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+semver-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+semver-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "semver" feature of the "%{crate}" crate.
+
+%files       -n %{name}+semver-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

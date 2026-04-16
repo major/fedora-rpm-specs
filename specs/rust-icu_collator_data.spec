@@ -5,7 +5,7 @@
 %global crate icu_collator_data
 
 Name:           rust-icu_collator_data
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Data for the icu_collator crate
 

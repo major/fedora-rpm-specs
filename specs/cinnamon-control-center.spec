@@ -1,14 +1,16 @@
 %global _artwork_version 1.7.5
 
-%global cinnamon_desktop_version 6.6.0
-%global csd_version 6.6.0
-%global cinnamon_menus_version 6.6.0
+%global cinnamon_desktop_version 6.7.0
+%global csd_version 6.7.0
+%global cinnamon_menus_version 6.7.0
 %global redhat_menus_version 1.8
+
+%global upstream_version 6.7.0-unstable
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.6.0
-Release: 3%{?dist}
+Version: 6.7.0^unstable
+Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -19,7 +21,7 @@ Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT and ISC - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND ISC
 URL:     https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
 
 ExcludeArch: %{ix86}
@@ -81,7 +83,7 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%autosetup -a1 -p1
+%autosetup -a1 -p1 -n %{name}-%{upstream_version}
 
 %build
 %meson
@@ -130,6 +132,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

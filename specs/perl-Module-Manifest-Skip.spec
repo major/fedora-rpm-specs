@@ -1,6 +1,6 @@
 Name:           perl-Module-Manifest-Skip
 Version:        0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MANIFEST.SKIP Manangement for Modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Manifest-Skip
@@ -57,7 +57,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Module-Manifest-Skip-%{version}
-%patch -P0 -p1
 # Help generators to recognize Perl scripts
 for F in $(find t/ -name '*.t'); do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -106,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 13 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.24-2
+- Fix patching
+
 * Mon Apr 13 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.24-1
 - 0.24 bump
 

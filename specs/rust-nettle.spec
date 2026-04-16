@@ -5,17 +5,13 @@
 %global crate nettle
 
 Name:           rust-nettle
-Version:        7.4.0
+Version:        7.5.0
 Release:        %autorelease
 Summary:        Rust bindings for the Nettle cryptographic library
 
 License:        LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 URL:            https://crates.io/crates/nettle
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * migrate license string away from deprecated identifiers:
-#   https://gitlab.com/sequoia-pgp/nettle-rs/-/merge_requests/46
-Patch:          nettle-fix-metadata.diff
 # * drop two elliptic curves that are disabled in nettle in Fedora:
 #   - nettle_get_secp_192r1
 #   - nettle_get_secp_224r1

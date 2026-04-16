@@ -1,11 +1,11 @@
 Name:           bubblemail
-Version:        1.11
+Version:        1.12
 Release:        %autorelease
 Summary:        Extensible mail notification service
 
 License:        GPL-2.0-only
 URL:            http://bubblemail.free.fr/
-Source0:        https://framagit.org/razer/%{name}/-/archive/V%{version}/%{name}-V%{version}.tar.bz2
+Source0:        https://framagit.org/razer/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -36,14 +36,12 @@ libnotify frontend to create notifications and can be used by other frontends as
 well.
 
 %prep
-%autosetup -p1 -n %{name}-V%{version}
+%autosetup -p1 -n %{name}-v%{version}
 sed -i '1{\@^#!/usr/bin/env python@d}' \
         bubblemail/plugins/spamfilterplugin.py \
         bubblemail/plugins/userscriptplugin.py
 %py3_shebang_fix data/bin/bubblemail
-chmod +x data/bin/bubblemail
 %py3_shebang_fix data/bin/bubblemaild
-chmod +x data/bin/bubblemaild
         
 %conf
 %meson        

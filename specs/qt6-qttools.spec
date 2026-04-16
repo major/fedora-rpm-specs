@@ -11,8 +11,8 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.10.3
-Release: 2%{?dist}
+Version: 6.11.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,15 +25,8 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 
-# help lrelease/lupdate use/prefer qmake-qt6
-# https://bugzilla.redhat.com/show_bug.cgi?id=1009893
-Patch1: qttools-run-qttools-with-qt6-suffix.patch
-
-# 32-bit MIPS needs explicit -latomic
-Patch2: qttools-add-libatomic.patch
-
 # Support LLVM/Clang 22
-Patch3: qdoc-support-newer-clang.patch
+Patch1: qdoc-support-newer-clang.patch
 
 ## upstream patches
 # QDoc LLVM 22 fixes (backported from dev branch)
@@ -156,11 +149,7 @@ Requires: %{name}-common = %{version}-%{release}
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}}
 
-%patch -P1 -p1 -b .run-qttools-with-qt6-suffix
-%ifarch %{mips32}
-%patch -P2 -p1 -b .libatomic
-%endif
-%patch -P3 -p1 -b .llvm22
+%patch -P1 -p1 -b .llvm22
 %patch -P10 -p1 -b .llvm22-qdoc-fixes
 
 %build
@@ -173,6 +162,9 @@ Requires: %{name}-common = %{version}-%{release}
 
 %install
 %cmake_install
+
+# Remove build artifact not shipped by any other Qt6 package
+rm -rf %{buildroot}%{_qt6_archdatadir}/objects-RelWithDebInfo
 
 # Add desktop files, --vendor=... helps avoid possible conflicts with qt3/qt4
 desktop-file-install \
@@ -203,8 +195,8 @@ mkdir %{buildroot}%{_bindir}
 pushd %{buildroot}%{_qt6_bindir}
 for i in * ; do
   case "${i}" in
-   assistant|designer|lconvert|linguist|lrelease|lupdate|pixeltool| \
-   qcollectiongenerator|qdbus|qdbusviewer|qhelpconverter|qhelpgenerator| \
+   assistant|designer|lcheck|lconvert|linguist|lrelease|ltext2id|lupdate|pixeltool| \
+   qdbus|qdbusviewer| \
    qtplugininfo|qdistancefieldgenerator|qdoc|qtdiag)
       ln -v  ${i} %{buildroot}%{_bindir}/${i}-qt6
       ln -sv ${i} ${i}-qt6
@@ -296,15 +288,16 @@ popd
 %{_datadir}/applications/*linguist.desktop
 %{_datadir}/icons/hicolor/*/apps/linguist*.*
 # linguist friends
+%{_bindir}/lcheck*
 %{_bindir}/lconvert*
 %{_bindir}/lrelease*
+%{_bindir}/ltext2id*
 %{_bindir}/lupdate*
+%{_qt6_bindir}/lcheck*
 %{_qt6_bindir}/lconvert*
 %{_qt6_bindir}/lrelease*
+%{_qt6_bindir}/ltext2id*
 %{_qt6_bindir}/lupdate*
-%{_qt6_libexecdir}/lprodump*
-%{_qt6_libexecdir}/lrelease*
-%{_qt6_libexecdir}/lupdate*
 %if 0%{?metainfo}
 %{_metainfodir}/io.qt.Linguist.metainfo.xml
 %endif
@@ -343,7 +336,6 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Help/
 %dir %{_qt6_libdir}/cmake/Qt6HelpPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Linguist
-%dir %{_qt6_libdir}/cmake/Qt6LinguistTools
 %dir %{_qt6_libdir}/cmake/Qt6LinguistTools
 %dir %{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate
@@ -398,6 +390,9 @@ popd
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Thu Apr 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-2
 - Fix Clang 22 support
 

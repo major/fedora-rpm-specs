@@ -1,11 +1,13 @@
+%global upstream_version 6.7.0-unstable
+
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.6.3
-Release:        3%{?dist}
+Version:        6.7.0^unstable
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
@@ -20,7 +22,7 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Recommends:     xapp-symbolic-icons
-Recommends:     cinnamon-translations >= 6.6.0
+Recommends:     cinnamon-translations >= 6.7.0
 Recommends:     nemo-search-helpers
 Recommends:     folder-color-switcher-nemo
 
@@ -38,8 +40,9 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gmodule-no-export-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.6.0
+BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.7.0
 BuildRequires:  pkgconfig(gail-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(x11)
@@ -98,12 +101,13 @@ This package provides libraries and header files needed
 for developing nemo extensions.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 %build
 %meson \
   -D deprecated_warnings=false \
   -D gtk_doc=false \
+  -D gtk_layer_shell=true \
   -D selinux=true
 %meson_build
 
@@ -177,6 +181,12 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Tue Apr 14 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
+- Enable gtk_layer_shell
+
+* Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
+- Update to 6.7.0-unstable
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

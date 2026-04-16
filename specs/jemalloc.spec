@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/jemalloc/jemalloc
 
 Name:           jemalloc
-Version:        5.3.0
+Version:        5.3.1
 
-Release:        14%{?dist}
+Release:        1%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -11,7 +11,6 @@ License:        LicenseRef-Callaway-BSD
 URL:            https://jemalloc.net/
 VCS:            git:%{forgeurl}
 Source0:        %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
-Patch1:         jemalloc-5.3.0_fno-builtin.patch
 
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/xsltproc
@@ -108,6 +107,10 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Tue Apr 14 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.3.1-1
+- New upstream release
+- Removed merged upstream patches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

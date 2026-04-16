@@ -2,8 +2,8 @@
 %bcond_with test_fuse
 
 Name:           perl-Config-Model
-Version:        2.155
-Release:        4%{?dist}
+Version:        2.160
+Release:        1%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
@@ -18,6 +18,7 @@ BuildRequires:  perl(boolean)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Carp::Assert::More)
 BuildRequires:  perl(Config)
+BuildRequires:  perl(Config::INI::Reader)
 BuildRequires:  perl(Config::Model::Tester) >= 4.002
 BuildRequires:  perl(Config::Model::Tester::Setup)
 BuildRequires:  perl(Cwd)
@@ -50,7 +51,7 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Parse::RecDescent) >= v1.90.0
-BuildRequires:  perl(Path::Tiny) >= 0.070
+BuildRequires:  perl(Path::Tiny) >= 0.125
 BuildRequires:  perl(Pod::POM)
 BuildRequires:  perl(Pod::Simple) >= 3.23
 BuildRequires:  perl(Pod::Text)
@@ -73,10 +74,12 @@ BuildRequires:  perl(Test::Synopsis::Expectation)
 BuildRequires:  perl(Test::Warn) >= 0.11
 BuildRequires:  perl(Text::Levenshtein::Damerau)
 BuildRequires:  perl(Text::Wrap)
+BuildRequires:  perl(TOML::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XXX)
+BuildRequires:  perl(YAML::PP)
 BuildRequires:  perl(YAML::Tiny)
 %if %{with test_fuse}
 BuildRequires:  fuse
@@ -122,11 +125,14 @@ modprobe fuse
 
 %files
 %license LICENSE
-%doc Changes MODELS README.md TODO CONTRIBUTING.md
+%doc Changes MODELS README.org CONTRIBUTING.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.160-1
+- 2.160 bump (rhbz#2442247)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.155-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

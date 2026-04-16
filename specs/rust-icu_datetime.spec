@@ -5,7 +5,7 @@
 %global crate icu_datetime
 
 Name:           rust-icu_datetime
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Human-readable formatting of dates, times, and time zones in hundreds of locales
 
@@ -13,20 +13,14 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_datetime
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Restore most dev-dependencies that were stripped during publication,
-#   omitting some that are used only for disabled doctests. See
-#   https://github.com/unicode-org/icu4x/issues/7196 for the rather abstruse
-#   reasons why this is necessary. We use tomcli to restore dev-dependencies on
-#   component crates that are versioned the same as ICU4X overall so that we can
-#   copy the correct version bounds from the regular dependencies.
+# * Drop benchmark-only criterion dev-dependency
+# * Drop ureq dev-dependency: only for ignored tests that require network
+# * Drop the tzdb-bundle-always feature from the jiff dev-dependency; it is not
+#   packaged because we try to always use the system timezone database. Enable
+#   tzdb-zoneinfo instead.
 Patch:          icu_datetime-fix-metadata.diff
-# * https://github.com/unicode-org/icu4x/pull/7750/changes/61d47e18495ecda840d2dfbadbd32fd5e6091e34
-# * Part of: “In component crates, limit use of the icu crate to doctests,”
-#   https://github.com/unicode-org/icu4x/pull/7750.
-# * Backported to icu@2.1.0 tag (ICU4X 2.1.1)
-Patch10:        0001-In-icu_datetime-limit-use-of-the-icu-crate-to-doctes.patch
 # * Downstream-only: omit a test that would require icu_provider_blob
-Patch11:        0002-Downstream-only-omit-a-test-that-would-require-icu_p.patch
+Patch11:        0001-Downstream-only-omit-a-test-that-would-require-icu_p.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli
@@ -87,18 +81,6 @@ use the "datagen" feature of the "%{crate}" crate.
 %files       -n %{name}+datagen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+ixdtf-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -135,6 +117,54 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_chrono_0_4-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_chrono_0_4-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_chrono_0_4" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_chrono_0_4-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_jiff_0_2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_jiff_0_2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_jiff_0_2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_jiff_0_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_time_0_3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_time_0_3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_time_0_3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_time_0_3-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Restore icu_calendar dev-dependency, which is path-based and was therefore
@@ -165,7 +195,6 @@ tomcli set Cargo.toml list dev-dependencies.icu_time.features ixdtf alloc
 #   enough that it would be very tedious to patch them all out.
 %cargo_test -a -- --lib
 %cargo_test -a -- --test datetime
-%cargo_test -a -- --test hijri_iran
 %cargo_test -a -- --test pattern_serialization
 %cargo_test -a -- --test resolved_components
 %cargo_test -a -- --test simple_test

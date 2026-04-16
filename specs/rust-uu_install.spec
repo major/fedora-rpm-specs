@@ -15,6 +15,9 @@ Summary:        install - (uutils) copy files from SOURCE to DESTINATION
 License:        MIT
 URL:            https://crates.io/crates/uu_install
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * loosen selinux version bound from =0.6.0 to 0.6.0
+Patch:          uu_install-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 

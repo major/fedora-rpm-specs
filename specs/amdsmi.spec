@@ -61,12 +61,23 @@
 %global build_test OFF
 %endif
 
+%bcond_with static
+%if %{with static}
+%global build_static ON
+%else
+%global build_static OFF
+%if %{with preview}
+# Test does not link without static libs, disable tests
+%global build_test OFF
+%endif
+%endif
+
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -155,6 +166,7 @@ Requires:       libdrm-devel
 %endif
 
 %if %{with preview}
+%if %{with static}
 %package static
 Summary: Static libraries for %{name}
 Requires: amdsmi%{pkg_suffix}-devel = %{version}-%{release}
@@ -162,6 +174,7 @@ Provides:  amdsmi%{pkg_suffix}-static = %{version}-%{release}
 
 %description static
 %{summary}
+%endif
 %endif
 
 %prep
@@ -205,16 +218,15 @@ sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
 
 %build
 %cmake \
-    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DAUTO_BUILD_STATIC_LIBS=%{build_static} \
+    -DBUILD_BOTH_LIBS=%{build_static} \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
-    -DBUILD_TESTS=%build_test \
+    -DBUILD_TESTS=%{build_test} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
     -DSHARE_INSTALL_PREFIX=%{pkg_prefix}/share \
-%if %{with test}
-    -DUSE_SYSTEM_GTEST=On \
-%endif
+    -DUSE_SYSTEM_GTEST=%{build_test} \
     %{nil}
 
 %cmake_build
@@ -261,11 +273,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/_version.py
 rm -f %{buildroot}%{pkg_prefix}/share/setup.py
 rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/setup.py
 
-%if %{with test}
-# put the test files in a reasonable place
-mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
-mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/.
-%endif
+if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
+  # put the test files in a reasonable place
+  mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
+  mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
+fi
 
 %if %{with preview}
 #ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
@@ -307,17 +319,24 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %{pkg_prefix}/%{pkg_libdir}/libamdsminic.so
 %endif
 
+%if %{without preview}
 %if %{with test}
 %files test
-%{pkg_prefix}/share/amdsmi
+%{pkg_prefix}/share/amdsmi/
+%endif
 %endif
 
 %if %{with preview}
+%if %{with static}
 %files static
 %{pkg_prefix}/%{pkg_libdir}/libamd_smi_static.a
 %endif
+%endif
 
 %changelog
+* Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- Add --with static
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

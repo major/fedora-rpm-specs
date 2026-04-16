@@ -5,17 +5,13 @@
 %global crate icu_properties
 
 Name:           rust-icu_properties
-Version:        2.1.2
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Definitions for Unicode properties
 
 License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_properties
 Source:         %{crates_source}
-# * https://github.com/unicode-org/icu4x/pull/7750/changes/979a758a8889cdac6c89bec9a1070368799b6ab4
-# * Part of: “In component crates, limit use of the icu crate to doctests,”
-#   https://github.com/unicode-org/icu4x/pull/7750.
-Patch10:        0001-In-icu_properties-limit-use-of-the-icu-crate-to-doct.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

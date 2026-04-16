@@ -741,7 +741,10 @@ sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lL
 sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
 %if %{with preview}
-sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+# Remove libclang-cpp.so from link
+sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+# Add libraries to cover the removal
+sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangOptions -lclangFrontend -lclangFrontendTool -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %else
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
@@ -751,7 +754,7 @@ sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lL
 
 # Check that static linking happened
 # ldd build-comgr/libamd_comgr.so
-# fail
+# false
 
 popd
 

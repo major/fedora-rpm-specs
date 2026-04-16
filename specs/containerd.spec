@@ -3,7 +3,7 @@
 
 # https://github.com/containerd/containerd
 %global goipath         github.com/containerd/containerd
-Version:                2.2.2
+Version:                2.2.3
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f

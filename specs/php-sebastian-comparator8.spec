@@ -21,7 +21,7 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.1.1
+Version:        8.1.2
 Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 8.1.2-1
+- update to 8.1.2
+
 * Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 8.1.1-1
 - update to 8.1.1
 
