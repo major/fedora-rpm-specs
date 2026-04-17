@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 # PyPI tarball does not contain test files
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Python crossword puzzle library
 

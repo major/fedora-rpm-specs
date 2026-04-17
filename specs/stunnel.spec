@@ -7,12 +7,6 @@
 %bcond_without libwrap
 %endif
 
-%if 0%{?rhel} >= 10
-%bcond openssl_engine 0
-%else
-%bcond openssl_engine 1
-%endif
-
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
 Version: 5.78
@@ -51,9 +45,6 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gnupg2
 BuildRequires: openssl-devel, pkgconfig, util-linux
-%if %{with openssl_engine} && 0%{?fedora} >= 41
-BuildRequires: openssl-devel-engine
-%endif
 BuildRequires: autoconf automake libtool
 %if %{with libwrap}
 Buildrequires: tcp_wrappers-devel
@@ -83,10 +74,6 @@ if pkg-config openssl ; then
 	LDFLAGS="`pkg-config --libs-only-L openssl`"; export LDFLAGS
 fi
 
-CPPFLAGS_NO_ENGINE=""
-%if !%{with openssl_engine}
-	CPPFLAGS_NO_ENGINE="-DOPENSSL_NO_ENGINE"
-%endif
 %configure --enable-fips --enable-ipv6 --with-ssl=%{_prefix} \
 %if %{with libwrap}
 --enable-libwrap \
@@ -94,7 +81,7 @@ CPPFLAGS_NO_ENGINE=""
 --disable-libwrap \
 %endif
 	--with-bashcompdir=%{_datadir}/bash-completion/completions \
-	CPPFLAGS="-UPIDFILE -DPIDFILE='\"%{_localstatedir}/run/stunnel.pid\"' $CPPFLAGS_NO_ENGINE"
+	CPPFLAGS="-UPIDFILE -DPIDFILE='\"%{_localstatedir}/run/stunnel.pid\"'"
 make V=1 LDADD="-pie -Wl,-z,defs,-z,relro,-z,now"
 
 %install

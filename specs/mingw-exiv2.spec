@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.28.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
 BuildArch:     noarch
@@ -106,6 +106,9 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 0.28.8-2
+- Rebuild (mingw-gettext)
+
 * Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 0.28.8-1
 - Update to 0.28.8
 

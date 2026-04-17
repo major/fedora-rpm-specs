@@ -29,16 +29,16 @@
 %global tag0         v%{version}
 
 
-# For test suite, see https://github.com/php-ds/tests/commits/master
+# For test suite, see https://github.com/php-ds/tests/tags
 %global forgeurl1    https://github.com/%{gh_vend}/tests
-%global tag1         v1.6.0
+%global tag1         v1.8.0
 
 
 Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
 License:        MIT
-Version:        1.6.0
-Release:        5%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 %forgemeta -a
 URL:            %{forgeurl}
 Source0:        %{forgesource0}
@@ -48,13 +48,11 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  php-devel >= 7.4
+BuildRequires:  php-devel >= 8.2
 BuildRequires:  php-gmp
 BuildRequires:  php-json
 %if %{with tests}
-# Upstream requires PHPUnit 12.1
-# test suite passes with 9.6 and fails with 12.5
-BuildRequires:  %{_bindir}/phpunit9
+BuildRequires:  %{_bindir}/phpunit11
 BuildRequires:  %{_bindir}/phpab
 %endif
 
@@ -124,6 +122,9 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
     --modules | grep '^%{pecl_name}$'
 
 %if %{with tests}
+# This file is not a test file
+mv tests/tests/CollectionTest.php tests/tests/Collection.php
+
 : Generate autoloader for tests
 %{_bindir}/phpab \
    --output tests/autoload.php \
@@ -132,7 +133,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 : Run upstream test suite
 %{__php} \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-   %{_bindir}/phpunit9 \
+   %{_bindir}/phpunit11 \
       --do-not-cache-result \
       --bootstrap tests/autoload.php \
       tests
@@ -149,6 +150,11 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 1.8.0-1
+- update to 1.8.0
+- raise dependency on PHP 8.2
+- switch to phpunit11
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 1.6.0-5
 - drop pear/pecl dependency
 - sources from github

@@ -108,7 +108,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -974,6 +974,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Wed Apr 15 2026 Nicolas Chauvet <kwizart@gmail.com> - 8.0.1-7
+- Rebuilt for vmaf-3.1.0
+
 * Thu Mar 19 2026 Nicolas Chauvet <kwizart@gmail.com> - 8.0.1-6
 - Rebuilt for libplacebo
 

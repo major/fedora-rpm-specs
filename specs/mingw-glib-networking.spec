@@ -5,7 +5,7 @@
 
 Name:           mingw-glib-networking
 Version:        2.80.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows glib-networking library
 
 License:        LGPL-2.1-or-later
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 2.80.1-5
+- Rebuild (mingw-gettext)
+
 * Thu Jan 22 2026 Sandro Mani <manisandro@gmail.com> - 2.80.1-4
 - Add Requires: mingw32-gsettings-desktop-schemas (#2431589)
 

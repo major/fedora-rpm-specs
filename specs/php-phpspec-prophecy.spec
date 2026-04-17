@@ -6,8 +6,6 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    0da07c10d5fe64cd0c748f0523b47599400f2ed1
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
 
@@ -15,13 +13,13 @@
 %bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source2:        makesrc.sh
 
 BuildArch:      noarch
@@ -75,7 +73,7 @@ to be used inside any testing framework out there with minimal effort.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -200,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 1.26.1-1
+- update to 1.26.1
+
 * Wed Feb 25 2026 Remi Collet <remi@remirepo.net> - 1.26.0-1
 - update to 1.26.0
 - allow phpdocumentor/reflection-docblock version 6

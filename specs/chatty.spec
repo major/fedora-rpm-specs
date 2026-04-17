@@ -18,6 +18,8 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
+# https://source.puri.sm/Librem5/libcmatrix/-/merge_requests/116
+Patch1:  116.patch
 
 ExcludeArch:    %{ix86}
 
@@ -51,6 +53,8 @@ BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  libsecret-devel
 BuildRequires:  libappstream-glib
+# https://src.fedoraproject.org/rpms/gtk4/pull-request/23
+BuildRequires:  glibc-langpack-en
 BuildRequires:  desktop-file-utils
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth

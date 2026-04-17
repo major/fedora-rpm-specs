@@ -4,8 +4,8 @@ ExcludeArch:    %{ix86}
 
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.8.0
-Release: 6%{?dist}
+Version: 3.8.2
+Release: 1%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -18,12 +18,6 @@ URL:     http://edu.kde.org/kstars
 Source0: https://download.kde.org/%{stable_kf5}/%{name}/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-
-
-## Fedora specific patches
-# https://bugs.kde.org/show_bug.cgi?id=512890
-Patch102: a0a11a9250d8072f0d7dd083dad90cdd8a459020.patch
-Patch101: kstars-2.9.6-fix-compilerflag-exceptions.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: kf6-rpm-macros
@@ -170,6 +164,9 @@ fi
 
 
 %changelog
+* Thu Apr 16 2026 Steve Cossette <farchord@gmail.com> - 1:3.8.2-1
+- 3.8.2
+
 * Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.8.0-6
 - Libraw rebuild
 

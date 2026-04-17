@@ -1,9 +1,9 @@
 %global __python %_bindir/python3
-%global min_python_copr_version 1.128.1
+%global min_python_copr_version 2.5.1
 
 Name:       copr-cli
-Version:    2.4
-Release:    3%{?dist}
+Version:    2.5
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -26,6 +26,8 @@ Requires:      python3-copr >= %min_python_copr_version
 Requires:      python3-jinja2
 Requires:      python3-humanize
 Requires:      python3-koji
+Requires:      python3-typing-extensions
+Requires:      python3-rich
 
 Recommends:    python3-progress
 Recommends:    python3-ConfigUpdater
@@ -39,6 +41,13 @@ BuildRequires: python3-pytest
 BuildRequires: python3-responses
 BuildRequires: python3-setuptools
 BuildRequires: python3-munch
+BuildRequires: python3-typing-extensions
+BuildRequires: python3-rich
+
+%if 0%{?rhel} && 0%{?rhel} <= 8
+Requires:      python3-dataclasses
+BuildRequires: python3-dataclasses
+%endif
 
 # We historically shipped empty doc package, uninstall it.
 Obsoletes:     copr-cli-doc < 1.72
@@ -91,11 +100,17 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.5-1
+- Fix download-build for manual createrepo Pulp projects
+- Make sure new-api-token updates expiration token
+- Don't traceback new-api-token for default config
+- Fix download-build from PULP with --rpms
+- Fix script-repos not being saved at all for custom pkgs
+- Use a URL that would be available before the Pulp migration
+- Use build_proxy.get_built_packages to figure out package NEVRAs
+- Bypass anubis challenge by setting copr user agent
+- Use Tito to generate component.__version__
+- Colorize build statuses
 
 * Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.4-1
 - Fix copr-cli download for Pulp projects

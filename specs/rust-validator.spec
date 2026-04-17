@@ -2,21 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate thin-vec
+%global crate validator
 
-Name:           rust-thin-vec
-Version:        0.2.16
+Name:           rust-validator
+Version:        0.20.0
 Release:        %autorelease
-Summary:        Vec that takes up less space on the stack
+Summary:        Common validation functions
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/thin-vec
+License:        MIT
+URL:            https://crates.io/crates/validator
 Source:         %{crates_source}
+# * Include license files in published crates
+# * https://github.com/Keats/validator/pull/387
+Source10:       https://github.com/Keats/validator/raw/refs/tags/v0.20.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Vec that takes up less space on the stack.}
+Common validation functions (email, url, length, ...) and trait - to be
+used with `validator_derive`.}
 
 %description %{_description}
 
@@ -30,10 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASES.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,56 +50,69 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const_new-devel
+%package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const_new-devel %{_description}
+%description -n %{name}+derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const_new" feature of the "%{crate}" crate.
+use the "derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const_new-devel
+%files       -n %{name}+derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gecko-ffi-devel
+%package     -n %{name}+indexmap-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gecko-ffi-devel %{_description}
+%description -n %{name}+indexmap-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gecko-ffi" feature of the "%{crate}" crate.
+use the "indexmap" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gecko-ffi-devel
+%files       -n %{name}+indexmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+unic-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+unic-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "unic" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+unic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+unic-ucd-common-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+unic-ucd-common-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "unic-ucd-common" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+unic-ucd-common-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+validator_derive-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+validator_derive-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "validator_derive" feature of the "%{crate}" crate.
+
+%files       -n %{name}+validator_derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires
@@ -111,9 +126,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * The skipped test relies on a panic from a debug_assert, which does not
-#   happen in release mode.
-%cargo_test -- -- --skip std_tests::test_set_len_invalid
+%cargo_test
 %endif
 
 %changelog

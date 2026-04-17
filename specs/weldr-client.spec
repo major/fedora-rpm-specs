@@ -26,6 +26,9 @@ Source3:        %{gosource}.asc
 Source4:        https://keys.openpgp.org/vks/v1/by-fingerprint/117E8C168EFE3A7F#/gpg-117E8C168EFE3A7F.key
 %endif
 
+Obsoletes: composer-cli < 35.0
+Provides: composer-cli = %{version}-%{release}
+
 Requires: diffutils
 
 BuildRequires: go-vendor-tools

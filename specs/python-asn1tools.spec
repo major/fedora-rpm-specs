@@ -8,7 +8,8 @@ Summary:       ASN.1 parsing, encoding and decoding
 License:       MIT
 URL:           https://github.com/eerimoq/%{pypi_name}
 VCS:           git:%{url}.git
-Source0:       %{pypi_source %{pypi_name}}
+Source:        %{pypi_source %{pypi_name}}
+Patch:         python-asn1tools-0001-Fix-test-compatibility-with-Python-3.15.patch
 BuildRequires: python3-diskcache
 BuildRequires: python3-prompt-toolkit
 BuildRequires: python3-pytest

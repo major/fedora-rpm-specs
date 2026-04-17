@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.6.2
-Release:        7%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -12,6 +12,7 @@ Summary:        Fast, header-only C++ machine learning library
 License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
+Patch0:		py_ccache_fix.patch
 
 # Drop support for i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -304,6 +305,9 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Wed Apr 15 2026 Ryan Curtin <ryan@ratml.org> - 4.7.0-1
+- Update to latest stable version.
+
 * Sun Apr 12 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.2-7
 - No longer exclude s390x
 - Rebuilt with latest patched stb_image: memory-safety fixes

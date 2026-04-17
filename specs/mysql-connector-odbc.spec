@@ -64,9 +64,9 @@ find %{buildroot}/usr/ -maxdepth 1 -type f -delete
 # Create a symlink for library to offer name that users are used to
 ln -sf libmyodbc9w.so %{buildroot}%{_libdir}/libmyodbc9.so
 
-# From Fedora 34, the unixODBC package introduced a libdir subdirectory for its plugins
-mkdir %{buildroot}%{_libdir}/unixODBC
-mv %{buildroot}%{_libdir}/libmyodbc*.so %{buildroot}%{_libdir}/unixODBC/
+# ODBC driver plugins are placed in a dedicated subdirectory
+mkdir %{buildroot}%{_libdir}/odbc
+mv %{buildroot}%{_libdir}/libmyodbc*.so %{buildroot}%{_libdir}/odbc/
 
 # Upstream provides a test suite with functional and regression tests.
 # However, some tests fail, so it would deserve some more investigation.
@@ -76,7 +76,7 @@ rm -rf %{buildroot}/usr/test
 %files
 %license LICENSE.txt
 %doc ChangeLog README.txt
-%{_libdir}/unixODBC/lib*so
+%{_libdir}/odbc/lib*so
 
 %changelog
 %autochangelog

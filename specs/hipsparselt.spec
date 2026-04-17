@@ -19,24 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%{?sle15_python_module_pythons}
-%{?!python_module:%define python_module() python3-%{**}}
-%else
-%define python_exec python3
-%define python_expand python3
-%endif
-
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname hipsparselt
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -119,30 +114,37 @@
 %bcond_with nanobind
 %endif
 
-Name:           %{hipsparselt_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+%if 0%{?suse_version}
+%{?sle15_python_module_pythons}
+%{?!python_module:%define python_module() python3-%{**}}
 %else
+%define python_exec python3
+%define python_expand python3
+%endif
+
+Name:           %{hipsparselt_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # Force sync to same version of hipblaslt
 Source1:        %{url}/releases/download/rocm-%{version}/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
 # This are patches from the hiblaslt package for patching tensile
 Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 Source3:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
+%if %{with preview}
+Source4:        0001-hipblaslt-preview-find-origami-package.patch
+%else
 Source4:        0001-hipblaslt-find-origami-package.patch
+%endif
 # do not try to fetch, point to the nanobind tarball
 Source5:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 
@@ -251,12 +253,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hipsparselt
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 tar xf %{SOURCE1}
 cd hipblaslt
@@ -300,13 +297,12 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
 
+%if %{without preview}
 # We are building from a tarball, not a git repo
 sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipblaslt/cmake/dependencies.cmake
+%endif
 
 %build
-%if %{with gitcommit}
-cd projects/hipsparselt
-%endif
 
 HIPBLASLT_PATH=$PWD/hipblaslt
 cd hipblaslt
@@ -365,10 +361,6 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/hipsparselt
-%endif
-
 %cmake_install
 
 # Extra license
@@ -393,22 +385,19 @@ chmod a+x %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.h
 chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
 
 %if %{with test}
+%if %{without preview}
 # hipsparselt-test's rpath is pretty messed up
 # chrpath -l /usr/bin/hipsparselt-test 
 # /usr/bin/hipsparselt-test: RUNPATH=$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt-clients/lib:/usr/llvm/lib
 # So adjust it here
 chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
+%endif
 
 %files
-%if %{with gitcommit}
-%doc projects/hipsparselt/README.md
-%license projects/hipsparselt/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
-%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
+%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.0{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipsparselt/
 
 %files devel
@@ -418,10 +407,17 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 
 %if %{with test}
 %files test
+%if %{without preview}
+# TODO: no tests for preview ?
 %{pkg_prefix}/bin/hipsparselt*
+%endif
 %endif
 
 %changelog
+* Wed Apr 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Change --with gitcommit to preview
+- Improve libhipsparselt file glob
+
 * Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Fix TW
 

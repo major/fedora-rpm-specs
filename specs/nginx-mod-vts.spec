@@ -3,7 +3,7 @@
 
 Name:           nginx-mod-vts
 Version:        0.2.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Nginx virtual host traffic status module
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ popd
 
 
 %changelog
+* Wed Apr 15 2026 Felix Kaechele <felix@kaechele.ca> - 0.2.4-8
+- Rebuild for 1.30.0
+
 * Wed Mar 25 2026 Felix Kaechele <felix@kaechele.ca> - 0.2.4-7
 - Rebuild for 1.28.3
 

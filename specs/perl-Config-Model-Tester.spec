@@ -1,5 +1,5 @@
 Name:           perl-Config-Model-Tester
-Version:        4.009
+Version:        4.010
 Release:        1%{?dist}
 Summary:        Test framework for Config::Model
 License:        LGPL-2.1-only
@@ -69,6 +69,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Config::Model::Tester*
 
 %changelog
+* Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.010-1
+- 4.010 bump (rhbz#2450152)
+
 * Fri Mar 13 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.009-1
 - 4.009 bump (rhbz#2444202)
 

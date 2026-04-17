@@ -3,7 +3,7 @@
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
 Version: 1.4.23
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.freetds.org/
@@ -99,6 +99,13 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 chmod -x $RPM_BUILD_ROOT%{_sysconfdir}/*
 
+# Move ODBC plugin to a dedicated subdirectory (rhbz#2453060)
+# libtdsodbc.so is a symlink to libtdsodbc.so.0 -- recreate it with
+# a correct relative path from the subdirectory back to the parent
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/odbc
+unlink $RPM_BUILD_ROOT%{_libdir}/libtdsodbc.so
+ln -s ../libtdsodbc.so.0 $RPM_BUILD_ROOT%{_libdir}/odbc/libtdsodbc.so
+
 mv -f $RPM_BUILD_ROOT%{_includedir}/tds_sysdep_public.h \
 	$RPM_BUILD_ROOT%{_includedir}/tds_sysdep_public_%{bits}.h
 install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_includedir}/tds_sysdep_public.h
@@ -131,7 +138,8 @@ find docdir -type f -print0 | xargs -0 chmod -x
 %files libs
 %license COPYING_LIB.txt
 %{_libdir}/*.so.*
-%{_libdir}/libtdsodbc.so
+%dir %{_libdir}/odbc
+%{_libdir}/odbc/libtdsodbc.so
 %doc samples-odbc
 %config(noreplace) %{_sysconfdir}/*.conf
 %{_mandir}/man5/*
@@ -141,7 +149,7 @@ find docdir -type f -print0 | xargs -0 chmod -x
 %license COPYING_LIB.txt
 %doc samples
 %{_libdir}/*.so
-%exclude %{_libdir}/libtdsodbc.so
+%exclude %{_libdir}/odbc/libtdsodbc.so
 %{_includedir}/*
 
 
@@ -150,6 +158,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Mon Mar 30 2026 Michal Schorm <mschorm@redhat.com> - 1.4.23-5
+- Move ODBC plugin libtdsodbc.so to %%{_libdir}/odbc/ (rhbz#2453060)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,20 +1,12 @@
 Name:          kwin-zones
-Version:       1.0.11
-Release:       2%{?dist}
+Version:       1.0.12
+Release:       1%{?dist}
 Summary:       Wayland ext-zones for KWin
 
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND MIT
 URL:           https://invent.kde.org/automotive/%{name}
 
-Source:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://invent.kde.org/automotive/kwin-zones/-/merge_requests/5
-# Couple fixes to make it usable with modern kwin
-Patch0:        5.patch
-
-# https://invent.kde.org/automotive/kwin-zones/-/merge_requests/6
-# Fix for building with GuiPrivate and Wayland
-Patch1:        test.patch
+Source:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
@@ -54,6 +46,9 @@ BuildRequires: pkgconfig(wayland-client)
 %{_kf6_qmldir}/org/kde/zones/
 
 %changelog
+* Wed Apr 15 2026 Steve Cossette <farchord@gmail.com> - 1.0.12-1
+- 1.0.12
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

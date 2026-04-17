@@ -22,7 +22,7 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        9.2.0
+Version:        9.3.0
 Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
@@ -107,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 9.3.0-1
+- update to 9.3.0
+
 * Mon Apr  6 2026 Remi Collet <remi@remirepo.net> - 9.2.0-1
 - update to 9.2.0
 

@@ -1,7 +1,7 @@
 Summary:         A small, flexible, terminal-based text editor
 Name:            mle
-Version:         1.7.2
-Release:         10%{?dist}
+Version:         1.8.1
+Release:         1%{?dist}
 License:         Apache-2.0
 URL:             https://github.com/adsr/mle
 Source:          https://github.com/adsr/mle/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ install -D -p -v -m 644 mle.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/mle.1
 %{_mandir}/man1/mle.1*
 
 %changelog
+* Wed Apr 15 2026 Adam Saponara <as@php.net> - 1.8.1-1
+- New upstream release
+
 * Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 1.7.2-10
 - rebuild for lua 5.5
 

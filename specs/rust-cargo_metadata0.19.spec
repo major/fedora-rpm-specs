@@ -73,35 +73,23 @@ use the "derive_builder" feature of the "%{crate}" crate.
 %files       -n %{name}+derive_builder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires -f builder,derive_builder
 
 %build
-%cargo_build -a
+%cargo_build -f builder,derive_builder
 
 %install
-%cargo_install -a
+%cargo_install -f builder,derive_builder
 
 %if %{with check}
 %check
 # * skip tests that depend on data which is not included in published crates
-%{cargo_test -a -- -- %{shrink:
+%{cargo_test -f builder,derive_builder -- -- %{shrink:
     --skip advanced_feature_configuration
     --skip all_the_fields
     --skip basic_workspace_root_package_exists

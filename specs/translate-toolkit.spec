@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.19.3
+Version:        3.19.5
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -137,6 +137,9 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Thu Apr 16 2026 Sudip Shil <sshil@redhat.com> - 3.19.5-1
+- update to 3.19.5 (rhbz#2456894)
+
 * Sun Mar 15 2026 Sudip Shil <sshil@redhat.com> - 2429738-1
 - update to 3.19.3 (rhbz#2429738)
 

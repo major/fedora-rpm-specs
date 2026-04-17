@@ -48,6 +48,9 @@ This is a pure Python library.
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+# Allow building with Python 3.15
+sed -E -i 's/,<3\.15//' setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 

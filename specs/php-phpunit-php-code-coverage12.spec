@@ -22,7 +22,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.5.5
+Version:        12.5.6
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -180,6 +180,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 12.5.6-1
+- update to 12.5.6
+
 * Mon Apr 13 2026 Remi Collet <remi@remirepo.net> - 12.5.5-1
 - update to 12.5.5
 

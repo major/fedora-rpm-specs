@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.1.1
+Version:        14.1.2
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 14.1.2-1
+- update to 14.1.2
+
 * Mon Apr 13 2026 Remi Collet <remi@remirepo.net> - 14.1.1-1
 - update to 14.1.1
 - raise dependency on sebastian/environment 9.2

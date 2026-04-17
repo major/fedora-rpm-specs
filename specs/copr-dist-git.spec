@@ -1,8 +1,8 @@
-%global copr_common_version 0.25.1~~dev0
+%global copr_common_version 1.5.1
 
 Name:       copr-dist-git
-Version:    1.3
-Release:    4%{?dist}
+Version:    1.6
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -24,6 +24,7 @@ BuildRequires: python3-pytest
 BuildRequires: python3-copr-common >= %copr_common_version
 BuildRequires: python3-redis
 BuildRequires: python3-setproctitle
+BuildRequires: python3-sentry-sdk
 
 Recommends: logrotate
 Requires: systemd
@@ -39,6 +40,7 @@ Requires: python3-munch
 Requires: python3-setproctitle
 Requires: python3-daemon
 Requires: python3-redis
+Requires: python3-sentry-sdk
 Requires: findutils
 Requires: (copr-selinux if selinux-policy-targeted)
 Requires: crontabs
@@ -134,14 +136,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3-2
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.6-1
+- Use SafeRequest.timeout only as a timeout per request
+- Initial Sentry integration
 
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
 - Stop using deprecated %%py3_build/%%py3_install macros

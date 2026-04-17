@@ -14,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.6
+Version: 1.8
 Summary: Run COPR build tasks
-Release: 3%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -35,6 +35,7 @@ BuildRequires: %{python}-daemon
 BuildRequires: %{python}-devel
 BuildRequires: %{python}-distro
 BuildRequires: %{python}-httmock
+BuildRequires: python3-norpm
 BuildRequires: %{rpm_python}
 BuildRequires: asciidoc
 BuildRequires: dist-git-client
@@ -70,6 +71,7 @@ Requires: %{python_pfx}-specfile >= 0.21.0
 Requires: python3-backoff >= 1.9.0
 Requires: python3-daemon
 Requires: python3-pyyaml
+Requires: python3-norpm
 
 Requires: mock >= 5.0
 Requires(pre): mock-filesystem
@@ -83,6 +85,7 @@ Requires: expect
 Requires: qemu-user-static
 %endif
 Requires: sed
+Requires: which
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends: rpkg
@@ -104,12 +107,6 @@ build build-id 12345 for chroot epel-7-x86_64.
 Summary: copr-rpmbuild with all weak dependencies
 Requires: %{name} = %{version}-%{release}
 
-%if 0%{?fedora} && 0%{?fedora} < 41
-# replacement for yum/yum-utils, to be able to work with el* chroots
-# bootstrap_container.
-Requires: dnf-yum
-Requires: dnf-utils
-%endif
 # selinux toolset to allow running ansible against the builder
 Requires: python3-libselinux
 Requires: python3-libsemanage
@@ -148,17 +145,19 @@ Requires: yum-utils
 %latest_requires dnf5-plugins
 %endif
 
-%latest_requires python3-dnf
+%latest_requires python3-libdnf5
 %latest_requires dist-git-client
-%latest_requires dnf-plugins-core
-%latest_requires libdnf
+%latest_requires libdnf5
 %latest_requires librepo
 %latest_requires libsolv
 %latest_requires mock
 %latest_requires mock-core-configs
 %latest_requires system-rpm-config
 %latest_requires rpm
-
+# Old DNF4 compability and builds without bootstrap - remove when DNF4 disappear from the repo
+%latest_requires python3-dnf
+%latest_requires dnf-plugins-core
+%latest_requires libdnf
 
 %description -n copr-builder
 Provides command capable of running COPR build-tasks.
@@ -305,11 +304,14 @@ EOF
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Thu Apr 16 2026 Jakub Kadlcik <frostyx@email.cz> 1.8-1
+- AFAIK there is no python3-dnf5 only python3-libdnf5
 
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.7-1
+- Do not require DNF4 packages and instead require DNF5 packages
+- Extract Exclu*Arch/BuildArch for all targets
+- Add dependency on the which command
+- Use Tito to generate component.__version__
 
 * Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 1.6-1
 - Re-store umask to default Fedora value

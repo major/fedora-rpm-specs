@@ -8,8 +8,7 @@ Version:        4.3.2
 Release:        %autorelease
 Summary:        A fast and modern Python SOAP client
 
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/mvantellingen/python-zeep
 Source0:        %pypi_source
 

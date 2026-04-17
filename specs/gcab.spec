@@ -6,7 +6,7 @@
 
 Name:           gcab
 Version:        1.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Cabinet file library and tool
 
 License:        LGPL-2.1-or-later
@@ -144,6 +144,9 @@ libgcab is a library to manipulate Cabinet archive.
 %endif
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 1.6-11
+- Rebuild (mingw-gettext)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

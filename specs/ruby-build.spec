@@ -59,10 +59,10 @@ Requires:       perl(FindBin)
 Requires:       perl(IPC::Cmd)
 Requires:       perl(lib)
 Requires:       perl(Time::Piece)
-%if (0%{?rhel} >= 10)
-Requires: zlib-ng-compat-devel
-%else
+%if %{defined el9}
 Requires: zlib-devel
+%else
+Requires: zlib-ng-compat-devel
 %endif
 
 %description    ruby

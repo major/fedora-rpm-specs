@@ -87,7 +87,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.10.3
+Version: 6.11.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -135,7 +135,6 @@ Patch5:   qtwebengine-chromium-141-glibc-2.42-SYS_SECCOMP.patch
 Patch80:  qtwebengine-fix-arm-build.patch
 
 ## Upstreamable patches:
-Patch100: qtwebengine-add-missing-pipewire-headers.patch
 Patch101: qtwebengine-fix-build-against-gcc16.patch
 
 ## ppc64le port
@@ -143,6 +142,8 @@ Patch200: qtwebengine-6.9-ppc64.patch
 Patch201: qtwebengine-chromium-ppc64.patch
 # https://github.com/google/highway/commit/dcc0ca1cd4245ecff9e5ba50818e47d5e2ccf699
 Patch202: qtwebengine-chromium-ppc64-highway.patch
+# disable musttail attribute for GCC build
+Patch203: qtwebengine-chromium-ppc64-skia-musttail.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # FIXME use/update qt6_qtwebengine_arches
@@ -490,17 +491,13 @@ popd
 %patch -P80 -p1 -b .fix-arm-build
 
 ## upstreamable patches
-%patch -P100 -p1 -b .add-missing-pipewire-headers
 %patch -P101 -p1 -b .fix-build-against-gcc16
 
 # ppc64le support
 %patch -P200 -p1
-pushd src/3rdparty/chromium
 %patch -P201 -p1
-pushd third_party/highway/src
 %patch -P202 -p1
-popd
-popd
+%patch -P203 -p1
 
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
@@ -849,6 +846,9 @@ done
 %endif
 
 %changelog
+* Wed Apr 15 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Thu Apr 02 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

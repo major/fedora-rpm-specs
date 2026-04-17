@@ -2,7 +2,7 @@
 
 Name:             python-virtualenv-clone
 Version:          0.5.7
-Release:          18%{?dist}
+Release:          19%{?dist}
 Summary:          Script to clone Python virtual environments
 
 License:          MIT
@@ -14,6 +14,10 @@ Source0:          %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Allow the current Python version in tests
 # Extend the hardcoded list of Python versions with sys.version_info
 Patch:            https://github.com/edwardgeorge/virtualenv-clone/pull/76.patch
+
+# Amend the virtualenv path in pyvenv.cfg command
+# The comamnd, added to pyvenv.cfg in virtualenv 20.38.0, includes virtualenv path
+Patch:            https://github.com/edwardgeorge/virtualenv-clone/pull/84.patch
 
 BuildArch:        noarch
 BuildRequires:    python3-devel
@@ -68,6 +72,9 @@ Requires:         python3-virtualenv
 
 
 %changelog
+* Fri Mar 06 2026 Miro Hrončok <mhroncok@redhat.com> - 0.5.7-19
+- Fix a test failure with virtualenv 20.38.0+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

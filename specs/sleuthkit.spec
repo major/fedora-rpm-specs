@@ -1,10 +1,7 @@
-# Disable LTO
-#ld: sha2.o (symbol from plugin): undefined reference to symbol 'SHA384_Final@@OPENSSL_1_1_0'
-%global _lto_cflags %nil
-
+%bcond java 0
 
 Name:           sleuthkit
-Version:        4.14.0
+Version:        4.15.0
 Release:        %autorelease
 Summary:        The Sleuth Kit (TSK)
 
@@ -12,27 +9,31 @@ Summary:        The Sleuth Kit (TSK)
 License:        CPL-1.0 AND IPL-1.0 AND GPL-2.0-or-later
 URL:            https://www.sleuthkit.org
 Source0:        https://github.com/sleuthkit/sleuthkit/archive/sleuthkit-%{version}/sleuthkit-%{version}.tar.gz
-Patch0:         0001-Don-t-redefine-bool.-That-causes-collisions.patch
-Patch1:         0001-Avoid-defining-bool-datatype.patch
 
 BuildRequires: make
 BuildRequires:  libtool
+BuildRequires:  sharutils
 
 # afflib - BSD with advertising, GPL incompatible
 BuildRequires:  gcc-c++
 BuildRequires:  afflib-devel >= 3.3.4
+BuildRequires:  cppunit-devel
 # libewf - Newer versions are plain BSD (older are BSD with advertising)
 BuildRequires:  libewf-devel
 BuildRequires:  perl-generators
 BuildRequires:  sqlite-devel
 
-%{?_with_java:
-BuildRequires:  java-devel >= 1:1.6.0
-BuildRequires:  jpackage-utils
+%if %{with java}
+%global tsk_home %{_datadir}/tsk
+BuildRequires:  ant-junit
+%if 0%{?fedora}
+BuildRequires:  apache-ivy
+%endif
+BuildRequires:  java-devel >= 1:1.17
+BuildRequires:  guava
 
-Requires:       java >= 1:1.6.0
-Requires:       jpackage-utils
-}
+Requires:       java >= 1:1.17
+%endif
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: file
@@ -70,7 +71,9 @@ autoreconf -vif
 %build
 #export LIBS='-lpthread -ldl'
 %configure --disable-static \
- %{!?_with_java:--disable-java}
+%if %{without java}
+  --disable-java
+%endif
 
 # remove rpath from libtool
 sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -82,6 +85,15 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %install
 %make_install INSTALL="install -p"
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
+
+%if %{with java}
+mkdir -p %{buildroot}%{tsk_home}/bindings/java/dist
+mkdir -p %{buildroot}%{tsk_home}/case-uco/java/dist
+mv %{buildroot}%{_javadir}/sleuthkit-%{version}.jar \
+  %{buildroot}%{tsk_home}/bindings/java/dist
+mv %{buildroot}%{_javadir}/sleuthkit-caseuco-%{version}.jar \
+  %{buildroot}%{tsk_home}/case-uco/java/dist/
+%endif
 
 
 %files
@@ -161,10 +173,17 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/usnjls.1.*
 %dir %{_datadir}/tsk
 %{_datadir}/tsk/sorter/
+%if %{with java}
+%{tsk_home}/bindings/java/dist/sleuthkit-%{version}.jar
+%{tsk_home}/case-uco/java/dist/sleuthkit-caseuco-%{version}.jar
+%endif
 
 %files libs
 # CPL and IBM
-%{_libdir}/*.so.*
+%{_libdir}/libtsk.so.*
+%if %{with java}
+%{_libdir}/libtsk_jni.so.*
+%endif
 
 %files devel
 # CPL and IBM

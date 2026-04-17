@@ -12,7 +12,7 @@
 # seems to consider the command-line tool to be the primary interface, so we
 # use application naming guidelines.
 Name:           spec2nii
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        Multi-format in vivo MR spectroscopy conversion to NIFTI
 
@@ -66,6 +66,7 @@ Source115:      spec2nii-anon.1
 Source116:      spec2nii-dump.1
 Source117:      spec2nii-extract.1
 Source118:      spec2nii-insert.1
+Source119:      spec2nii-clean.1
 
 # The package is arched because a dependency is removed on s390x only. It does
 # not contain any compiled code.
@@ -119,6 +120,11 @@ sed -r -i 's/^([[:blank:]]*)?(-[[:blank:]]+)?(pyMapVBVD)\b/\1# \2\3/' \
     requirements.yml
 %endif
 
+# Unpin brukerapi, which was pinned in
+# https://github.com/wtclarke/spec2nii/pull/176 for reasons not described in
+# the commit or PR text. We must work with what we have.
+sed -r -i 's/(\bbrukerapi\b.*),<.*/\1/' requirements.yml
+
 
 %install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
@@ -126,7 +132,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE104}' '%{SOURCE105}' '%{SOURCE106}' '%{SOURCE107}' \
     '%{SOURCE108}' '%{SOURCE109}' '%{SOURCE110}' '%{SOURCE111}' \
     '%{SOURCE112}' '%{SOURCE113}' '%{SOURCE114}' '%{SOURCE115}' \
-    '%{SOURCE116}' '%{SOURCE117}' '%{SOURCE118}'
+    '%{SOURCE116}' '%{SOURCE117}' '%{SOURCE118}' '%{SOURCE119}'
 
 
 %check -a

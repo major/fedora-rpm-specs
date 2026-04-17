@@ -1,16 +1,14 @@
 Name:           profanity
-Version:        0.17.0
-Release:        1%{?dist}
+Version:        0.18.0
+Release:        2%{?dist}
 Summary:        A console based XMPP client
 
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://profanity-im.github.io/
-Source0:        https://profanity-im.github.io/tarballs/%{name}-%{version}.tar.xz
+Source0:        %{url}/tarballs/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
-BuildRequires:  automake
-BuildRequires:  autoconf-archive
-BuildRequires:  libtool
+BuildRequires:  meson
 # Base:
 BuildRequires:  libstrophe-devel
 BuildRequires:  ncurses-devel
@@ -34,6 +32,14 @@ BuildRequires:  libgcrypt-devel
 BuildRequires:  python3-devel
 # Support for display OMEMO QR code
 BuildRequires:  qrencode-devel
+# Spell check support
+BuildRequires:  enchant2-devel
+# Image loading
+BuildRequires:  gdk-pixbuf2-devel
+# Icons
+BuildRequires:  gtk3-devel
+# Screensaver, does not provide pkgconfig file
+BuildRequires:  libXScrnSaver-devel
 # For tests:
 BuildRequires:  libcmocka-devel
 # For docs:
@@ -41,7 +47,6 @@ BuildRequires:  doxygen
 BuildRequires:  python3dist(docutils)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  texinfo
-BuildRequires:  tree
 
 %description
 Profanity is a console based XMPP client written in C using ncurses
@@ -90,14 +95,24 @@ sed -i "s/GENERATE_DOCBOOK       = NO/GENERATE_DOCBOOK       = YES/g" apidocs/c/
 sed -i "s/DOCBOOK_PROGRAMLISTING = NO/DOCBOOK_PROGRAMLISTING = YES/g" apidocs/c/c-prof.conf
 
 %build
-autoreconf -i -W all
-%configure
-%make_build
+%meson -Dnotifications=enabled \
+       -Dpython-plugins=enabled \
+       -Dc-plugins=enabled \
+       -Dotr=enabled \
+       -Dpgp=enabled \
+       -Domemo=enabled \
+       -Domemo-backend=libsignal \
+       -Domemo-qrcode=enabled \
+       -Dspellcheck=enabled \
+       -Dicons-and-clipboard=enabled \
+       -Dgdk-pixbuf=enabled \
+       -Dxscreensaver=enabled \
+       -Dtests=true
+%meson_build
 
 # Build HTML documentation
 pushd apidocs/c/
 doxygen c-prof.conf  # results are in apidocs/c/docbook/
-tree
 popd
 pushd apidocs/python/
 sphinx-apidoc -f -o . src
@@ -105,14 +120,13 @@ make texinfo  # results are in apidocs/python/_build/texinfo
 pushd _build
 pushd texinfo
 makeinfo --docbook ProfanityPythonPluginsAPI.texi
-tree
 popd
 popd
 popd
 
 
 %install
-%make_install
+%meson_install
 # Remove libprofanity.la generated
 rm -f %{buildroot}%{_libdir}/libprofanity.la
 
@@ -131,7 +145,7 @@ cp -a profrc.example %{buildroot}%{_datadir}/%{name}/
 
 
 %check
-make check
+%meson_test "unit tests"
 
 
 
@@ -142,7 +156,9 @@ make check
 %{_mandir}/man1/%{name}.*
 %{_mandir}/man1/%{name}-*
 %{_datadir}/%{name}/
-
+%dir %{_docdir}/profanity
+%{_docdir}/profanity/profrc.example
+%{_docdir}/profanity/theme_template
 
 %files libs
 %{_libdir}/libprofanity.so.0{,.*}
@@ -160,6 +176,12 @@ make check
 
 
 %changelog
+* Wed Apr 15 2026 Benson Muite <fed500@fedoraproject.org> - 0.18.0-2
+- Indicate correct license
+
+* Wed Apr 15 2026 Benson Muite <fed500@fedoraproject.org> - 0.18.0-1
+- Update to release 0.18.0
+
 * Fri Mar 27 2026 Benson Muite <fed500@fedoraproject.org> - 0.17.0-1
 - Update to release 0.17.0
 

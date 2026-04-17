@@ -6,11 +6,11 @@
 # build, the flag below needs to be set to 1. When winpthreads
 # is available then this flag needs to be set to 0 to avoid
 # a file conflict with the winpthreads headers.
-%global bundle_dummy_pthread_headers 1
+%global bundle_dummy_pthread_headers 0
 
 Name:           mingw-headers
 Version:        14.0.0
-Release:        0.1%{?dist}
+Release:        1%{?dist}
 Summary:        Win32/Win64 header files
 
 License:        BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND ZPL-2.1 AND MIT-Khronos-old AND LicenseRef-Fedora-Public-Domain
@@ -113,6 +113,9 @@ rm -f %{buildroot}%{ucrt64_includedir}/pthread_unistd.h
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 14.0.0-1
+- Update to 14.0.0
+
 * Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 14.0.0-0.1
 - Update to 14.0.0 (bootstrap)
 

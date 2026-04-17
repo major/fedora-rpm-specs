@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-POP3
-Version:        3.008
-Release:        3%{?dist}
+Version:        4.02
+Release:        1%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
@@ -16,31 +16,31 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(IO::Socket::IP)
 BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Mail::Box::FastScalar) >= 3
-BuildRequires:  perl(Mail::Box::Net) >= 3
+BuildRequires:  perl(Log::Report)
+BuildRequires:  perl(Mail::Box::FastScalar) >= 4
+BuildRequires:  perl(Mail::Box::Net) >= 4
 BuildRequires:  perl(Mail::Box::Net::Message)
-BuildRequires:  perl(Mail::Box::Parser::Perl) >= 3
-BuildRequires:  perl(Mail::Transport::Receive) >= 3
+BuildRequires:  perl(Mail::Box::Parser::Perl) >= 4
+BuildRequires:  perl(Mail::Transport::Receive) >= 4
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(vars)
 # Tests
-BuildRequires:  perl(Mail::Box::Test) >= 3
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(Mail::Box::Test) >= 4
 BuildRequires:  perl(Test::More)
-Requires:       perl(Mail::Box::FastScalar) >= 3
-Requires:       perl(Mail::Box::Net) >= 3
-Requires:       perl(Mail::Box::Parser::Perl) >= 3
-Requires:       perl(Mail::Transport::Receive) >= 3
+Requires:       perl(Mail::Box::FastScalar) >= 4
+Requires:       perl(Mail::Box::Net) >= 4
+Requires:       perl(Mail::Box::Parser::Perl) >= 4
+Requires:       perl(Mail::Transport::Receive) >= 4
 
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::Box::FastScalar\\)$
@@ -110,6 +110,9 @@ MARKOV_DEVEL=1 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.02-1
+- 4.02 bump (rhbz#2421436)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.008-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.7.1
-%define radicale_release  1
+%define radicale_release  2
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -321,9 +321,9 @@ mkdir -p %{buildroot}%{_rundir}/%{name}
 
 for selinuxvariant in %{selinux_variants}
 do
-    install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
+    install -d %{buildroot}%{_datadir}/selinux/packages/${selinuxvariant}
     install -p -m 644 SELinux/%{name}.pp.${selinuxvariant} \
-        %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{name}.pp
+        %{buildroot}%{_datadir}/selinux/packages/${selinuxvariant}/%{name}.pp
 done
 
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
@@ -408,27 +408,25 @@ exit 0
 %systemd_post %{name}.service
 
 
+%pre -n %{radicale_package_name}-selinux
+for selinuxvariant in %{selinux_variants}
+do
+  %selinux_relabel_pre -s ${selinuxvariant}
+done
+
+
 %post -n %{radicale_package_name}-selinux
 for selinuxvariant in %{selinux_variants}
 do
-  if rpm -q selinux-policy-$selinuxvariant >/dev/null 2>&1; then
-    echo "SELinux semodule store for %{radicale_package_name} ($selinuxvariant)"
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{name}.pp
-  else
-    echo "SELinux semodule store for %{radicale_package_name} ($selinuxvariant) SKIPPED - policy not installed"
-  fi
+  %selinux_modules_install -s ${selinuxvariant} -p 400 %{_datadir}/selinux/packages/${selinuxvariant}/%{name}.pp
+  %selinux_relabel_post -s ${selinuxvariant}
 done
-# http://danwalsh.livejournal.com/10607.html
 if semanage port -l | grep -q "^radicale_port_t\s*tcp\s*5232$"; then
   echo "SELinux adjustments for %{radicale_package_name} port tcp/5232 already done"
 else
   echo "SELinux adjustments for %{radicale_package_name} port tcp/5232"
   semanage port -a -t radicale_port_t -p tcp 5232
 fi
-
-echo "SELinux fixfiles for: %{radicale_package_name}"
-/usr/sbin/fixfiles -R %{radicale_package_name} restore >/dev/null
 
 if [ -d %{_localstatedir}/log/%{name} ]; then
   echo "SELinux restorecon for: %{_localstatedir}/log/%{name}"
@@ -460,12 +458,8 @@ if [ $1 -eq 0 ] ; then
   fi
   for selinuxvariant in %{selinux_variants}
   do
-    if rpm -q selinux-policy-$selinuxvariant >/dev/null 2>&1; then
-      echo "SELinux semodule reset %{radicale_package_name} ($selinuxvariant)"
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{name}
-    else
-      echo "SELinux semodule reset %{radicale_package_name} ($selinuxvariant) SKIPPED - policy not installed"
-    fi
+     %selinux_modules_uninstall -s ${selinuxvariant} -p 400 %{name}
+     %selinux_relabel_post -s ${selinuxvariant}
   done
 
   if [ -d %{_localstatedir}/log/%{name} ]; then
@@ -498,7 +492,7 @@ fi
 
 %files -n %{radicale_package_name}-selinux
 %doc SELinux/*
-%{_datadir}/selinux/*/%{name}.pp
+%{_datadir}/selinux/packages/*/%{name}.pp
 
 
 %if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
@@ -532,6 +526,9 @@ fi
 
 
 %changelog
+* Wed Apr 15 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.1-2
+- Rework selinux by using macros and align location of policy
+
 * Sun Apr 12 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.1-1
 - Update to 3.7.1
 

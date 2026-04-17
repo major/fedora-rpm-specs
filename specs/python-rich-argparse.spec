@@ -7,6 +7,9 @@ License:        MIT
 URL:            https://github.com/hamdanal/rich-argparse
 Source0:        %{pypi_source rich_argparse}
 
+# python 3.15 set_color backport
+Patch0:         https://github.com/hamdanal/rich-argparse/commit/53c4d5dea5c4d7b908540c878ff8cf4b0a8d2bb8.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

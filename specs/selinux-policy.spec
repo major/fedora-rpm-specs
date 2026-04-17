@@ -20,7 +20,7 @@
 Summary: SELinux policy configuration
 Name: selinux-policy
 Version: 43.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: Makefile.devel
@@ -57,7 +57,7 @@ BuildRequires: make
 BuildRequires: systemd-rpm-macros
 BuildRequires: groff
 Requires(pre): policycoreutils >= %{POLICYCOREUTILSVER}
-Requires(post): /bin/awk /usr/bin/sha512sum
+Requires(pre): /usr/bin/sha512sum
 Requires(meta): (rpm-plugin-selinux if rpm-libs)
 Requires: selinux-policy-any = %{version}-%{release}
 Provides: selinux-policy-base = %{version}-%{release}
@@ -73,7 +73,13 @@ the policy has been adjusted to provide support for Fedora.
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %dir %{_datadir}/selinux
+%dir %{_datadir}/selinux/devel
+%dir %{_datadir}/selinux/devel/include
+%dir %{_datadir}/selinux/devel/include/distributed
 %dir %{_datadir}/selinux/packages
+%dir %{_datadir}/selinux/packages/minimum
+%dir %{_datadir}/selinux/packages/mls
+%dir %{_datadir}/selinux/packages/targeted
 %dir %{_sysconfdir}/selinux
 %ghost %config(noreplace) %{_sysconfdir}/selinux/config
 %ghost %{_sysconfdir}/sysconfig/selinux
@@ -160,7 +166,7 @@ This package contains manual pages and documentation of the policy modules.
 %files doc
 %{_mandir}/man*/*
 %exclude %{_mandir}/man8/container_selinux.8.gz
-%doc %{_datadir}/doc/%{name}
+%doc %{_docdir}/%{name}
 
 %define common_params DISTRO=%{distro} UBAC=n DIRECT_INITRC=n MONOLITHIC=%{monolithic} MLS_CATS=1024 MCS_CATS=1024
 
@@ -429,6 +435,7 @@ mkdir -p %{buildroot}%{_datadir}/selinux/{targeted,mls,minimum,modules}/
 mkdir -p %{buildroot}%{_sharedstatedir}/selinux/{targeted,mls,minimum,modules}/
 
 mkdir -p %{buildroot}%{_datadir}/selinux/packages
+mkdir -p %{buildroot}%{_datadir}/selinux/packages/{targeted,mls,minimum}/
 
 mkdir -p %{buildroot}%{_sysconfdir}/dnf/protected.d/
 
@@ -479,6 +486,7 @@ make %common_params UNK_PERMS=allow NAME=targeted TYPE=mcs DESTDIR=%{buildroot} 
 make %common_params UNK_PERMS=allow NAME=targeted TYPE=mcs DESTDIR=%{buildroot} PKGNAME=%{name} install-headers
 mkdir %{buildroot}%{_datadir}/selinux/devel/
 mv %{buildroot}%{_datadir}/selinux/targeted/include %{buildroot}%{_datadir}/selinux/devel/include
+mkdir %{buildroot}%{_datadir}/selinux/devel/include/distributed/
 install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/selinux/devel/Makefile
 install -p -m 644 doc/example.* %{buildroot}%{_datadir}/selinux/devel/
 install -p -m 644 doc/policy.* %{buildroot}%{_datadir}/selinux/devel/
@@ -587,11 +595,11 @@ exit 0
 
 %posttrans targeted
 %checkConfigConsistency targeted
+%postInstall $1 targeted
 %{_libexecdir}/selinux/varrun-convert.sh targeted
 %{_libexecdir}/selinux/binsbin-convert.sh targeted
-%postInstall $1 targeted
 restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm /etc/mdevctl.d
-restorecon -i /usr/sbin/fapolicyd* /usr/sbin/usbguard*
+restorecon -Ri /usr/sbin /var/run
 
 %postun targeted
 if [ $1 = 0 ]; then
@@ -614,40 +622,11 @@ exit 0
 selinuxenabled && semodule -nB 2> /dev/null
 exit 0
 
-%triggerin -- fapolicyd-selinux
-%{_libexecdir}/selinux/binsbin-convert.sh targeted
-restorecon /usr/sbin/fapolicyd*
-
-%triggerin -- usbguard-selinux
-%{_libexecdir}/selinux/binsbin-convert.sh targeted
-restorecon /usr/sbin/usbguard*
-
-%triggerprein -p <lua> -- container-selinux
-%removeVarrunModuleLua targeted
-
 %triggerprein -p <lua> -- pcp-selinux
 %removeVarrunModuleLua targeted
 
-%triggerprein -p <lua> -- fapolicyd-selinux
-%removeBinsbinModuleLua targeted
-
-%triggerprein -p <lua> -- usbguard-selinux
-%removeBinsbinModuleLua targeted
-
 %triggerpostun -- pcp-selinux
 %{_libexecdir}/selinux/varrun-convert.sh targeted
-exit 0
-
-%triggerpostun -- container-selinux
-%{_libexecdir}/selinux/varrun-convert.sh targeted
-exit 0
-
-%triggerpostun -- fapolicyd-selinux
-%{_libexecdir}/selinux/binsbin-convert.sh targeted
-exit 0
-
-%triggerpostun -- usbguard-selinux
-%{_libexecdir}/selinux/binsbin-convert.sh targeted
 exit 0
 
 %files targeted -f %{buildroot}%{_datadir}/selinux/targeted/nonbasemodules.lst
@@ -663,6 +642,7 @@ exit 0
 Summary: SELinux minimum policy
 Provides: selinux-policy-any = %{version}-%{release}
 Requires(post): policycoreutils-python-utils >= %{POLICYCOREUTILSVER}
+Requires(pre): /bin/awk
 Requires(pre): coreutils
 Requires(pre): selinux-policy = %{version}-%{release}
 Requires: selinux-policy = %{version}-%{release}
@@ -704,7 +684,7 @@ restorecon -R /root /var/log /var/run 2> /dev/null
 semodule -B -s minimum 2> /dev/null
 else
 instpackages=`cat %{_datadir}/selinux/minimum/instmodules.lst`
-for p in $packages; do
+for p in $modules; do
     touch %{_sharedstatedir}/selinux/minimum/active/modules/disabled/$p
 done
 for p in $instpackages apache dbus inetd kerberos mta nis; do
@@ -772,10 +752,11 @@ exit 0
 
 %posttrans mls
 %checkConfigConsistency mls
+%postInstall $1 mls
 %{_libexecdir}/selinux/varrun-convert.sh mls
 %{_libexecdir}/selinux/binsbin-convert.sh mls
-%postInstall $1 mls
 restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
+restorecon -Ri /usr/sbin /var/run
 
 %postun mls
 if [ $1 = 0 ]; then

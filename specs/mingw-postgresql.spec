@@ -2,7 +2,7 @@
 
 Name:           mingw-postgresql
 Version:        16.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows PostgreSQL library
 
 License:        PostgreSQL
@@ -214,6 +214,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 16.9-3
+- Rebuild (mingw-gettext)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

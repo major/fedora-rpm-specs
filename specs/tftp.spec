@@ -3,7 +3,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 5.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/snapshot/tftp-hpa-%{version}.tar.gz
@@ -11,21 +11,25 @@ Source1: tftp.socket
 Source2: tftp.service
 Source3: tftp-server-tmpfiles.conf
 
-Patch0: tftp-0.40-remap.patch
-Patch2: tftp-hpa-0.39-tzfix.patch
-Patch3: tftp-0.42-tftpboot.patch
-Patch4: tftp-0.49-chk_retcodes.patch
-Patch5: tftp-hpa-0.49-fortify-strcpy-crash.patch
-Patch6: tftp-hpa-5.3-cmd_arg.patch
-Patch7: tftp-hpa-0.49-stats.patch
-Patch8: tftp-hpa-5.3-pktinfo.patch
-Patch9: tftp-doc.patch
-Patch10: tftp-enhanced-logging.patch
-Patch12: tftp-off-by-one.patch
-Patch14: tftp-hpa-5.2-osh.patch
+# Upstream patches
 # https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=b9f2335e88dcb3939015843c7143f1533c755a46
-Patch15: tftp-hpa-5.3-setjmp.patch
-Patch16: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
+Patch: tftp-hpa-5.3-setjmp.patch
+
+# To-be upstreamed patches
+Patch: tftp-hpa-5.3-cmd_arg.patch
+# https://www.syslinux.org/archives/2026-April/026959.html
+Patch: tftp-hpa-5.3-stats.patch
+Patch: tftp-doc.patch
+Patch: tftp-enhanced-logging.patch
+Patch: tftp-hpa-5.2-osh.patch
+Patch: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
+
+# Downstream-only patches
+Patch: tftp-0.42-tftpboot.patch
+# Code removed upstream in https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=b6d9029420315dc60237d1d4fb29306ae172c120
+Patch: tftp-hpa-5.3-pktinfo.patch
+# Code removed upstream in https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=04d7b0db0672ef5c7c36886e00f136672881a9ef
+Patch: tftp-off-by-one.patch
 
 BuildRequires: autoconf
 BuildRequires: gcc
@@ -55,21 +59,7 @@ enabled unless it is expressly needed.  The TFTP server is run by using
 systemd socket activation, and is disabled by default.
 
 %prep
-%setup -q -n tftp-hpa-%{version}
-%patch -P0 -p1 -b .zero
-%patch -P2 -p1 -b .tzfix
-%patch -P3 -p1 -b .tftpboot
-%patch -P4 -p1 -b .chk_retcodes
-%patch -P5 -p1 -b .fortify-strcpy-crash
-%patch -P6 -p1 -b .cmd_arg
-%patch -P7 -p1 -b .stats
-%patch -P8 -p1 -b .pktinfo
-%patch -P9 -p1 -b .doc
-%patch -P10 -p1 -b .logging
-%patch -P12 -p1 -b .off-by-one
-%patch -P14 -p1 -b .osh
-%patch -P15 -p1 -b .setjmp
-%patch -P16 -p1 -b .cmd_exit_code
+%autosetup -p1 -n tftp-hpa-%{version}
 
 %build
 autoreconf
@@ -116,6 +106,9 @@ install -p -m 644 %SOURCE3 ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/tftp.socket
 
 %changelog
+* Wed Apr 15 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.3-4
+- clean-up patches
+
 * Mon Jan 26 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.3-3
 - apply following patches from RHEL 10
   - tftp: propagate exit codes in non-interactive mode

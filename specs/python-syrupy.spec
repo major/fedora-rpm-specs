@@ -1,6 +1,6 @@
 Name:           python-syrupy
-Version:        4.9.1
-Release:        6%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Pytest snapshot plugin
 
 License:        Apache-2.0
@@ -11,6 +11,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 # for tests
+BuildRequires:  python3-attrs
+BuildRequires:  python3-pydantic
 BuildRequires:  python3-pytest-xdist
 
 %global _description %{expand:
@@ -51,6 +53,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Apr 01 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 5.1.0-1
+- Update to 5.1.0
+- Fixes: rhbz#2400022
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,17 +5,14 @@
 
 %global crate similar
 
-Name:           rust-similar
-Version:        3.1.0
+Name:           rust-similar2
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Diff library for Rust
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/similar
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Remove unused, benchmark-only dev-dependency on criterion
-Patch:          similar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -75,18 +72,6 @@ use the "bytes" feature of the "%{crate}" crate.
 %files       -n %{name}+bytes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+hashbrown-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+hashbrown-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "hashbrown" feature of the "%{crate}" crate.
-
-%files       -n %{name}+hashbrown-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+inline-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -109,18 +94,6 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+text-devel

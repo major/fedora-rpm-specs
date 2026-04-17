@@ -3,7 +3,7 @@
 %global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -108,10 +108,9 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.9.0
+Version: 140.9.1
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
-
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
 License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD-4-Clause-UC AND ISC AND Apache-2.0 AND MPL-2.0
 URL:     http://www.gnu.org/software/gnuzilla/
@@ -120,7 +119,6 @@ URL:     http://www.gnu.org/software/gnuzilla/
 # All modified files are hosted in a dedicated fork repository:
 # https://gitlab.com/anto.trande/icecat
 Source0: %{name}-%{version}-%{redhat_ver}.tar.bz2
-
 Source2: %{name}.png
 Source3: %{name}-mozconfig-common
 
@@ -134,7 +132,6 @@ Source4:  %{name}-%{version}-langpacks.tar.gz
 # Download from http://www.mozilla.org/MPL/1.1/index.txt
 # Download from https://www.mozilla.org/MPL/2.0/index.txt
 Source5: %{name}-COPYING-licensefiles.tar.gz
-
 Source7: %{name}-lang_download.sh
 
 # Desktop files

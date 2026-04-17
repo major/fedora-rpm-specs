@@ -1,5 +1,5 @@
 Name:           vim-ansible
-Version:        4.0
+Version:        5.0
 Release:        %autorelease
 BuildArch:      noarch
 Summary:        Vim plugin for syntax highlighting ansible's common filetypes

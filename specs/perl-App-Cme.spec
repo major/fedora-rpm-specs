@@ -1,5 +1,5 @@
 Name:           perl-App-Cme
-Version:        1.044
+Version:        1.047
 Release:        1%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
@@ -18,7 +18,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(App::Cmd::Setup)
 BuildRequires:  perl(base)
 BuildRequires:  perl(charnames)
-BuildRequires:  perl(Config::Model) >= 2.148
+BuildRequires:  perl(Config::Model) >= 2.156
 # Config::Model::CursesUI - not used at test
 # Config::Model::FuseUI - Fuse is not packaged yet
 BuildRequires:  perl(Config::Model::Lister)
@@ -26,6 +26,7 @@ BuildRequires:  perl(Config::Model::ObjTreeScanner)
 # Config::Model::SimpleUI - not used at test
 # Config::Model::TermUI - not used at test
 # Config::Model::TkUI - not used at test
+BuildRequires:  perl(Config::Model::TkUI) >= 1.370
 # Config::Model::Utils::GenClassPod - not used at test
 # Data::Dumper - not used at test
 BuildRequires:  perl(Encode)
@@ -45,7 +46,7 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(YAML::PP)
 # Tests
 BuildRequires:  perl(App::Cmd::Tester)
-BuildRequires:  perl(Config::Model::Backend::Yaml)
+BuildRequires:  perl(Config::Model::Backend::Yaml) >= 2.133
 BuildRequires:  perl(Config::Model::Tester::Setup)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(English)
@@ -54,12 +55,12 @@ BuildRequires:  perl(Term::ANSIColor) >= 2.01
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::More)
 # Test::Perl::Critic - optional test
-Requires:       perl(Config::Model::Backend::Yaml)
+Requires:       perl(Config::Model::Backend::Yaml) >= 2.133
 Requires:       perl(Config::Model::CursesUI)
 Requires:       perl(Config::Model::FuseUI)
 Requires:       perl(Config::Model::SimpleUI)
 Requires:       perl(Config::Model::TermUI)
-Requires:       perl(Config::Model::TkUI)
+Requires:       perl(Config::Model::TkUI) >= 1.370
 Requires:       perl(Tk)
 Requires:       perl(Tk::ErrorDialog)
 
@@ -139,6 +140,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.047-1
+- 1.047 bump (rhbz#2449166)
+
 * Mon Feb 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.044-1
 - 1.044 bump (rhbz#2435532)
 

@@ -43,7 +43,7 @@ BuildRequires: mingw32-binutils
 BuildRequires: mingw32-glib2
 BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-libxslt
-BuildRequires: mingw32-libsoup
+BuildRequires: mingw32-libsoup3
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
@@ -51,7 +51,7 @@ BuildRequires: mingw64-binutils
 BuildRequires: mingw64-glib2
 BuildRequires: mingw64-libxml2
 BuildRequires: mingw64-libxslt
-BuildRequires: mingw64-libsoup
+BuildRequires: mingw64-libsoup3
 %endif
 
 %description

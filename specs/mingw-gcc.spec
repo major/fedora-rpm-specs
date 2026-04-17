@@ -5,7 +5,7 @@
 %undefine _auto_set_build_flags
 
 # NOTE See mingw-filesystem/README.md for the build steps!
-%global bootstrap 1
+%global bootstrap 0
 
 %global build_isl 0
 
@@ -21,7 +21,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -993,6 +993,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-7
+- Update to 16.0.1 snapshot 20260321
+
 * Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-6
 - Update to 16.0.1 snapshot 20260321 (bootstrap)
 

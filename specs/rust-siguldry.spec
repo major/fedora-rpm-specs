@@ -11,7 +11,8 @@ Summary:        Implementation of the Sigul protocol
 License:        MIT
 URL:            https://crates.io/crates/siguldry
 Source:         %{crates_source}
-Source2:        siguldry-sysuser.conf
+Source10:       siguldry-sysuser.conf
+Source11:       siguldry-tmpfiles.conf
 # Manually created patch for downstream crate metadata changes
 # * The binary is incomplete and may change its interface significantly
 # * Remove unused, benchmark-only dev-dependency on criterion
@@ -67,7 +68,6 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND 
 %postun -n %{crate}
 %systemd_postun_with_restart siguldry-server.service siguldry-signer.socket siguldry-bridge.service siguldry-client-proxy.socket
 
-
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
@@ -80,17 +80,18 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0) AND 
 %{_bindir}/siguldry-server
 %{_libexecdir}/siguldry-signer
 %{_sysusersdir}/siguldry.conf
+%{_tmpfilesdir}/siguldry.conf
 %dir %{_sysconfdir}/siguldry
 %config(noreplace) %{_sysconfdir}/siguldry/bridge.toml
 %config(noreplace) %{_sysconfdir}/siguldry/client.toml
 %config(noreplace) %{_sysconfdir}/siguldry/server.toml
+%{_datadir}/siguldry
 %{_unitdir}/siguldry-bridge.service
 %{_unitdir}/siguldry-client-proxy@.service
 %{_unitdir}/siguldry-client-proxy.socket
 %{_unitdir}/siguldry-server.service
 %{_unitdir}/siguldry-signer@.service
 %{_unitdir}/siguldry-signer.socket
-
 
 %package        devel
 Summary:        %{summary}
@@ -174,9 +175,12 @@ install -d -p -m 0755 %{buildroot}%{_sysconfdir}/siguldry
 install -D -p -m 0644 server.toml.example %{buildroot}%{_sysconfdir}/siguldry/server.toml
 install -D -p -m 0644 bridge.toml.example %{buildroot}%{_sysconfdir}/siguldry/bridge.toml
 install -D -p -m 0644 client.toml.example %{buildroot}%{_sysconfdir}/siguldry/client.toml
-install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/siguldry.conf
+install -D -p -m 0644 %{SOURCE10} %{buildroot}%{_sysusersdir}/siguldry.conf
+install -D -p -m 0644 %{SOURCE11} %{buildroot}%{_tmpfilesdir}/siguldry.conf
 
 ## Server-related files ##
+install -d -p -m 0755 %{buildroot}%{_datadir}/siguldry/migrations
+install -D -p -m 0644 migrations/* %{buildroot}%{_datadir}/siguldry/migrations/
 install -D -p -m 0644 siguldry-server.service %{buildroot}%{_unitdir}/siguldry-server.service
 install -D -p -m 0644 siguldry-signer@.service %{buildroot}%{_unitdir}/siguldry-signer@.service
 install -D -p -m 0644 siguldry-signer.socket %{buildroot}%{_unitdir}/siguldry-signer.socket

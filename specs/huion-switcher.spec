@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           huion-switcher
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Utility to switch Huion tablets into tablet mode
 
@@ -39,8 +39,7 @@ Utility to switch Huion tablets into tablet mode.}
 %{cargo_license} > LICENSE.dependencies
 
 %install
-%cargo_install
-
+install -D -m 755 -t %{buildroot}/%{udevdir}/ target/release/huion-switcher
 install -D -m 644 -t %{buildroot}/%{udevdir}/rules.d/ 80-huion-switcher.rules
 install -D -m 644  huion-switcher.man %{buildroot}/%{_mandir}/man1/huion-switcher.1
 
@@ -53,7 +52,7 @@ install -D -m 644  huion-switcher.man %{buildroot}/%{_mandir}/man1/huion-switche
 %license LICENSE
 %license LICENSE.dependencies
 %doc README.md
-%{_bindir}/huion-switcher
+%{udevdir}/huion-switcher
 %{_mandir}/man1/huion-switcher.1*
 %{udevdir}/rules.d/80-huion-switcher.rules
 

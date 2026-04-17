@@ -1,5 +1,5 @@
 Name:           oscillatord
-Version:        3.8.4
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Daemon for disciplining an oscillator
 
@@ -18,10 +18,10 @@ BuildRequires:  sed
 BuildRequires:  systemd
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  ubloxcfg-devel >= 1.13-1.20220420gita46d97c
+BuildRequires:  ubloxcfg-devel >= 1.16-1.20260223git499048b
 
 Requires: liboscillator-disciplining = %{version}
-Requires: ubloxcfg >= 1.13-1.20220420gita46d97c
+Requires: ubloxcfg >= 1.16-1.20260223git499048b
 
 %description
 The oscillatord daemon takes input from a PHC clock, reporting once per second,

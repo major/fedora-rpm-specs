@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop garde dev-dependency (not packaged)
 # * drop jsonschema dev-dependency (not packaged)
-# * drop validator dev-dependency (not packaged)
 # * drop integration tests, which would require jsonschema
 Patch:          schemars-fix-metadata.diff
 
@@ -286,9 +285,6 @@ use the "uuid1" feature of the "%{crate}" crate.
 # drop garde integration test (not packaged)
 rm tests/integration/garde.rs
 sed -r -i 's/^mod garde;$/# &/' tests/integration/main.rs
-# drop validator integration test (not packaged)
-rm tests/integration/validator.rs
-sed -r -i 's/^mod validator;$/# &/' tests/integration/main.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

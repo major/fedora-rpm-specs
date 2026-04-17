@@ -5,7 +5,7 @@
 %global copr_common_version 1.2.1
 
 Name:       copr-backend
-Version:    2.11.hotfix.3
+Version:    2.12
 Release:    1%{?dist}
 Summary:    Backend for Copr
 
@@ -53,6 +53,7 @@ BuildRequires: python3-tabulate
 BuildRequires: python3-zstandard
 BuildRequires: python3-cachetools
 BuildRequires: python3-libdnf5
+BuildRequires: python3-sentry-sdk
 BuildRequires: prunerepo >= %prunerepo_version
 BuildRequires: resalloc-server
 BuildRequires: dnf
@@ -93,6 +94,7 @@ Requires:   redis
 Requires:   rpm-sign
 Requires:   rsync
 Requires:   python3-libdnf5
+Requires:   python3-sentry-sdk
 Recommends: util-linux-core
 Requires:   zstd
 
@@ -238,14 +240,23 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Fri Mar 20 2026 Jakub Kadlcik <frostyx@email.cz> 2.11.hotfix.3-1
-- backend: add prns to a repository, not pulp_hrefs
-
-* Tue Mar 03 2026 Jakub Kadlcik <frostyx@email.cz> 2.11.hotfix.2.1-1
-- backend: increase Pulp timeouts
-
-* Sun Jan 11 2026 Pavel Raiskup <pavel@raiskup.cz> 2.11.hotfix-1
-- backend: temporarily retain all repository packages
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.12-1
+- Modify pulp label filter for content queries
+- Cleanup backend-side metadata for PULP chroots
+- Don't convert projects with manual createrepo to PULP
+- Add change-storage support for persistent projects
+- Add prns to a repository, not pulp_hrefs
+- Query Pulp content for only 7 builds at a time
+- Better cancel-build logging
+- Initial Sentry integration
+- Don't run createrepo when forking Pulp projects
+- Extract Exclu*Arch/BuildArch for all targets
+- Fix download-build from PULP with --rpms
+- Implement persistent projects in Pulp
+- Dump copr-rpmbuild version in logs
+- Skip projects with comps enabled when migrating to pulp
+- Temporarily retain all repository packages
+- Info about the task that is being processed
 
 * Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.11-1
 - timeout= for requests was missing, use SafeRequest

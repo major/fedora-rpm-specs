@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 11
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2400,6 +2400,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Apr 15 2026 Adam Williamson <awilliam@redhat.com> - 2.43.9000-11
+- Fix tmt tests to use dnf commands, not yum
+
 * Mon Apr 13 2026 Florian Weimer  <fweimer@redhat.com> - 2.43.9000-10
 - Switch back to old fts implementation (#2457183)
 

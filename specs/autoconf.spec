@@ -9,8 +9,8 @@
 # releases. Hence, the versioned package installs its artifacts in
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
-Version:    2.72
-Release:    10%{?dist}
+Version:    2.73
+Release:    1%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -52,17 +52,6 @@ Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
 Source2:    autoconf-init.el
 URL:        https://www.gnu.org/software/autoconf/
-
-# From upstream 9ff9c567b1a7a7e66fa6523d4ceff142b86bddaa
-Patch:      0001-Keep-lmingwex-and-lmoldname-in-linker-flags-for-MinG.patch
-
-# From https://savannah.gnu.org/support/index.php?111272
-Patch:      0001-autoreconf-Invoke-autopoint-in-more-situations.patch
-# From https://savannah.gnu.org/support/index.php?111273
-Patch:      0001-autoreconf-Adapt-to-the-on-disk-situation-after-auto.patch
-
-# Temporary fix (to be replaced by upstream patches)
-Patch:      0001-Port-C11-test-to-C.patch
 
 %if "%{name}" != "autoconf"
 # Set this to the sub-package base name, for "autoconf-latest"
@@ -237,6 +226,10 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Tue Mar 31 2026 Frédéric Bérat <fberat@redhat.com> - 2.73-1
+- Rebase to upstream version 2.73 (RHBZ#2449721)
+- Drop upstream patches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -31,16 +31,12 @@ Source4:        d3-sankey.license
 Source5:        leaflet.license
 Source6:        leaflet-markercluster.license
 Source7:        mermaid.license
-# This source provides a specialized shell script to set up goose in RHEL
-# environments, where it will be placed in /etc/profile.d and handle the creation
-# of a well-craft config file to connect with RHEL Lightspeed services. 
-Source8:        goose-init.sh
 
 # This script is used to generate the vendor tarball for goose, and while it
 # does not offer any practical/real usage for the application, it helps us to
 # easily generate the vendored tarball and apply the correct patches while
 # doing so.
-Source99:        generate-vendor-tarball.sh
+Source99:       generate-vendor-tarball.sh
 
 # Remove windows specific dependencies (winapi/winreg) from goose crates.
 Patch:          0001-Patch-windows-dependencies-across-workspace.patch
@@ -64,6 +60,7 @@ Patch4:         0005-Fix-sql-statement-from-session-manager.patch
 %if 0%{?rhel}
 Patch5:         0006-Legal-disclaimer.patch
 %endif
+
 # Patch the `build.rs` for `ring` crate to avoid using the pre-generated object
 # files that comes with the vendored crate, and instead, build from system
 # libraries.
@@ -327,23 +324,6 @@ faster and focus on innovation.}
 
 %description    %{_description}
 
-%if 0%{?rhel}
-%package        redhat
-Summary:        %{summary}
-
-# Add a strict requirement for the goose-redhat subpackage in case this build
-# is done in EPEL/RHEL, as we want to provide our custom config for this target.
-Requires:       %{name} = %{version}-%{release}
-
-%description    redhat %{_description}
-
-This package contains Red Hat specific configurations for %{name}, which enable
-the communication with RHEL Lightspeed services.
-
-%files          redhat
-%{_sysconfdir}/profile.d/goose-init.sh
-%endif
-
 %prep
 %autosetup -p1 -a1
 
@@ -451,10 +431,6 @@ export RUSTONIG_SYSTEM_LIBONIG=1
 install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
 install -Dpm 0755 target/rpm/goosed -t %{buildroot}%{_bindir}
 install -Dpm 0755 target/rpm/goose-acp-server -t %{buildroot}%{_bindir}
-
-%if %{?rhel:%{rhel}}%{!?rhel:0} >= 9 || %{?epel:%{epel}}%{!?epel:0} >= 9
-install -Dpm 0755 %{SOURCE8} %{buildroot}%{_sysconfdir}/profile.d/goose-init.sh
-%endif
 
 %if %{with check}
 %check

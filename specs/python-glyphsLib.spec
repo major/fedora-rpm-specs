@@ -29,6 +29,10 @@ Source:         %{pypi_source glyphslib}
 # https://github.com/googlefonts/glyphsLib/pull/1073
 Patch:          %{url}/pull/1073.patch
 
+# Adapt tests for markClassPrefix change in ufo2ft 3.7.1
+# https://github.com/googlefonts/glyphsLib/pull/1148
+Patch:          %{url}/pull/1148.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

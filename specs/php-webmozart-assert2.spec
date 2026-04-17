@@ -31,7 +31,7 @@
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Summary:       Assertions to validate method input/output with nice error messages
 License:       MIT
-Version:       2.2.0
+Version:       2.3.0
 Release:       1%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -132,6 +132,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 2.3.0-1
+- update to 2.3.0
+
 * Fri Apr 10 2026 Remi Collet <remi@remirepo.net> - 2.2.0-1
 - update to 2.2.0
 

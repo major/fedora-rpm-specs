@@ -9,7 +9,7 @@
 %bcond bigtest 0
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        5.6.1
+Version:        5.6.2
 Release:        %autorelease
 Summary:        GAP methods for semigroups
 
@@ -115,18 +115,10 @@ sed -i '/rpath/s/\(LIBSEMIGROUPS_RPATH=\).*/\1/' configure
 # Work around -Wl,--as-needed appearing too late on the command line
 sed -i 's/GAP_CXX :=.*/& -Wl,--as-needed/' Makefile.gappkg
 
-# Specify a minimum libsemigroups version
-echo 3.5.3 > .LIBSEMIGROUPS_VERSION
-
 %build -p
 export CPPFLAGS='-I%{_includedir}/eigen3'
 %configure \
     --disable-silent-rules \
-%ifarch %{arm64}
-    --enable-hpcombi \
-%else
-    --disable-hpcombi \
-%endif
     --with-external-libsemigroups \
     --with-gaproot=%{gap_archdir}
 %make_build

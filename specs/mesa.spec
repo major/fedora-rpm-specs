@@ -270,6 +270,7 @@ Provides:       libEGL-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %package dri-drivers
 Summary:        Mesa-based DRI drivers
 Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       %{name}-libgbm%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      %{name}-libglapi < 25.0.0~rc2-1
 Obsoletes:      %{name}-va-drivers < 26.0.0-5
 Provides:       %{name}-va-drivers = %{?epoch:%{epoch}:}%{version}-%{release}

@@ -47,7 +47,7 @@
 }
 
 Name:       copr-frontend
-Version:    2.6.hotfix.5
+Version:    2.7
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -115,6 +115,7 @@ BuildRequires: python3dist(pygal)
 BuildRequires: redis
 BuildRequires: modulemd-tools >= 0.6
 BuildRequires: python3dist(authlib)
+BuildRequires: python3-sentry-sdk+flask
 %endif
 
 Requires: crontabs
@@ -171,6 +172,7 @@ Requires: js-jquery-ui
 Requires: python3dist(xstatic-patternfly)
 Requires: modulemd-tools >= 0.6
 Requires: python3dist(authlib)
+Requires: python3-sentry-sdk+flask
 
 Provides: bundled(bootstrap-combobox) = 1.1.6
 Provides: bundled(bootstrap-select) = 1.5.4
@@ -373,24 +375,30 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Fri Mar 13 2026 Pavel Raiskup <pavel@raiskup.cz> 2.6.hotfix.5-1
-- pretend we are packit for a while
-- use SafeRequest for pagure-events
-
-* Tue Feb 10 2026 Jakub Kadlcik <frostyx@email.cz> 2.6.hotfix.4-1
-- frontend: preload build.copr to fix the builds page for large projects
-
-* Thu Jan 29 2026 Jakub Kadlcik <frostyx@email.cz> 2.6.hotfix.3-1
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.7-1
+- Don't require admin permissions to show the rebuild button
+- Make sure new-api-token updates expiration token
+- Use SafeRequest for pagure-events
+- Make projects clickable in /status/pending/all
+- Initial Sentry integration
+- Extract Exclu*Arch/BuildArch for all targets
+- Improve chroots graph display
+- Implement persistent projects in Pulp
+- Implement global package search for build chroot results
+- Add distgit source and namespace to source_json
+- Preload build.copr to fix the builds page for large projects
+- Add cancel all marked button
+- Fix script-repos not being saved at all for custom pkgs
+- Exclude persistent projects from EOL chroot deletion
+- Disable AI Log Detective and dist-git redirect for non-logged users
+- Add a test for container tags containing dashes
+- Allow dots and dashes in the container regex
+- Allow resubmit for builds that failed during imports
+- Use build.copr instead of copr context for batches builds
 - Preload build.copr_dir to fix the builds page for large projects
-
-* Thu Jan 29 2026 Jakub Kadlcik <frostyx@email.cz> 2.6.hotfix.2-1
-- frontend: use build.copr instead of copr context for batches builds
-
-* Fri Jan 16 2026 Jakub Kadlcik <frostyx@email.cz> 2.6.hotfix.1-1
-- Bump the hotfix version
-
-* Fri Jan 16 2026 Jakub Kadlcik <frostyx@email.cz> 2.6.hotfix.0-2
-- frontend: use Pulp storage for all new Packit projects
+- Improve timestamp printing in the frontend
+- Fix packit_forge_projects_allowed to return list in API
+- Don't use future=True for sqlalchemy create_engine
 
 * Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.6-1
 - Migrate from pytz to zoneinfo

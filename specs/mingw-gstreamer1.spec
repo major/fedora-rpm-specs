@@ -4,7 +4,7 @@
 
 Name:           mingw-gstreamer1
 Version:        1.28.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows Streaming-Media Framework Runtime
 
 License:        LGPL-2.0-or-later
@@ -182,6 +182,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-2
+- Rebuild (mingw-gettext)
+
 * Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-1
 - Update to 1.28.2
 

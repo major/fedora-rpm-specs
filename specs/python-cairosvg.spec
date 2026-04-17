@@ -3,7 +3,7 @@
 %global py3_prefix python%{python3_pkgversion}
 
 Name:               python-cairosvg
-Version:            2.8.2
+Version:            2.9.0
 Release:            %autorelease
 Summary:            A Simple SVG Converter for Cairo
 
@@ -38,12 +38,6 @@ PostScript and PNG files.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-# emulate the git submodule used by upstream - this is required to pass the
-# test suite
-mkdir test_non_regression/cairosvg_reference/
-cp -a $(ls -1 . | grep -v test_non_regression) test_non_regression/cairosvg_reference/
-# Fix compatibility with newer setuptools
-sed -i "/console-scripts/s/-/_/" setup.cfg test_non_regression/cairosvg_reference/setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -53,14 +47,13 @@ sed -i "/console-scripts/s/-/_/" setup.cfg test_non_regression/cairosvg_referenc
 
 %install
 %pyproject_install
-%pyproject_save_files -L cairosvg
+%pyproject_save_files -l cairosvg
 
 %check
 %pytest -v
 
 
 %files -n python3-cairosvg -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 %{_bindir}/cairosvg
 

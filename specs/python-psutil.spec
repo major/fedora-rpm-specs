@@ -46,6 +46,12 @@ ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 %prep
 %autosetup -p1 -n psutil-release-%{version}
 
+# pytest-instafail is not available in the build environment
+sed -i '/"--instafail"/d; /"-p instafail"/d' pyproject.toml
+%if %{without xdist}
+sed -i '/"-p xdist"/d' pyproject.toml
+%endif
+
 # Remove shebangs
 find psutil -name \*.py | while read file; do
   sed -i.orig -e '1{/^#!/d}' $file && \

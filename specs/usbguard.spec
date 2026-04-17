@@ -3,8 +3,8 @@
 %define semodule_version 0.0.5
 
 Name:           usbguard
-Version:        1.1.3
-Release:        7%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -39,14 +39,8 @@ BuildRequires: audit-libs-devel
 # For `pkg-config systemd` only
 BuildRequires: systemd
 
-Patch0: tmpfiles-v1.patch
-Patch1: tmpfiles-v2.patch
-Patch2: uninstall-ignore-error.patch
-Patch3: ipc-privileges.patch
-Patch4: protobuf-3.0.patch
-Patch5: catch2-support.patch
-Patch6: disable-catch.patch
-Patch7: selinux-bin-sbin.patch
+Patch0: selinux-bin-sbin.patch
+Patch1: selinux-homed.patch
 
 %description
 The USBGuard software framework helps to protect your computer against rogue USB
@@ -108,16 +102,9 @@ daemon.
 # selinux
 %setup -q -D -T -a 1
 
+pushd %{name}-selinux-%{semodule_version}
 %patch -P 0 -p1
 %patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
-%patch -P 5 -p1
-%patch -P 6 -p1
-
-pushd %{name}-selinux-%{semodule_version}
-%patch -P 7 -p1
 popd
 
 # Remove bundled library sources before build
@@ -240,6 +227,15 @@ fi
 
 
 %changelog
+* Wed Apr 15 2026 Attila Lakatos <alakatos@redhat.com> - 1.1.4-1
+- Rebase to 1.1.4
+- Drop patches merged upstream: tmpfiles-v1, tmpfiles-v2,
+  uninstall-ignore-error, ipc-privileges, protobuf-3.0,
+  catch2-support, disable-catch
+- Add SELinux policy fix for systemd-homed stream connect
+  Resolves: rhbz#2380396
+  Resolves: rhbz#2376283
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

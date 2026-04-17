@@ -4,7 +4,7 @@
 
 Name:           mingw-gstreamer1-plugins-good
 Version:        1.28.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
@@ -19,8 +19,8 @@ BuildRequires:  gettext
 BuildRequires:  gcc
 BuildRequires:  meson
 
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw32-binutils
@@ -48,8 +48,8 @@ BuildRequires:  mingw32-libjpeg-turbo
 BuildRequires:  mingw64-libjpeg-turbo
 BuildRequires:  mingw32-libpng
 BuildRequires:  mingw64-libpng
-BuildRequires:  mingw32-libsoup
-BuildRequires:  mingw64-libsoup
+BuildRequires:  mingw32-libsoup3
+BuildRequires:  mingw64-libsoup3
 BuildRequires:  mingw32-wavpack
 BuildRequires:  mingw64-wavpack
 BuildRequires:  mingw32-speex
@@ -277,6 +277,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-3
+- BR: mingw-libsoup3
+
+* Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-2
+- Rebuild (mingw-gettext)
+
 * Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 1.28.2-1
 - Update to 1.28.2
 

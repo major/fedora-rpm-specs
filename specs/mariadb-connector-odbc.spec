@@ -5,7 +5,7 @@
 
 Name:           mariadb-connector-odbc
 Version:        3.2.8
-Release:        2%{?with_debug:.debug}%{?dist}
+Release:        4%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
@@ -43,8 +43,8 @@ sed -i -e "s|/usr/include/mariadb|$(pkg-config --variable=includedir libmariadb)
        -DMARIADB_LINK_DYNAMIC="$(pkg-config --variable=libdir libmariadb)/libmariadb.so" \
        \
        -DINSTALL_LAYOUT=%{!?flatpak:RPM}%{?flatpak:DEFAULT} \
-       -DINSTALL_LIBDIR="%{_lib}" \
-       -DINSTALL_LIB_SUFFIX="%{_lib}" \
+       -DINSTALL_LIBDIR="%{_lib}/odbc" \
+       -DINSTALL_LIB_SUFFIX="%{_lib}/odbc" \
        -DINSTALL_DOCDIR="%{_defaultdocdir}/%{name}" \
        -DINSTALL_LICENSEDIR="%{_defaultlicensedir}/%{name}" \
        \
@@ -69,8 +69,9 @@ cmake -B %_vpath_builddir -N -LAH
 %license COPYING
 %doc     README
 
-# This is unixODBC plugin. It resides directly in %%{_libdir} to be consistent with the rest of unixODBC plugins. Since it is plugin, it doesn´t need to be versioned.
-%{_libdir}/libmaodbc.so
+# unixODBC driver plugin; unversioned because it is loaded by name
+%dir %{_libdir}/odbc
+%{_libdir}/odbc/libmaodbc.so
 
 # Example configuration file for UnixODBC
 %{_pkgdocdir}/maodbc.ini
@@ -83,7 +84,4 @@ cmake -B %_vpath_builddir -N -LAH
 %{_libdir}/pkgconfig/libmaodbc.pc
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

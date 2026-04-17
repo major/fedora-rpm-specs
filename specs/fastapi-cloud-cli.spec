@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.16.1
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 

@@ -12,7 +12,7 @@ The OpenStack Oslo Utility library.
 
 
 Name:           python-oslo-utils
-Version:        10.0.0
+Version:        10.0.1
 Release:        %autorelease
 Summary:        OpenStack Oslo Utility library
 

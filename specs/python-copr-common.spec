@@ -1,8 +1,8 @@
 %global srcname copr-common
 
 Name:       python-copr-common
-Version:    1.5
-Release:    2%{?dist}
+Version:    1.7
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -79,8 +79,13 @@ version=%version %py3_install
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.7-1
+- Fix test_posix_live_output_cut test for s390x
+
+* Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.6-1
+- Do not traceback in SafeRequest if log= is not set
+- Use SafeRequest.timeout only as a timeout per request
+- use Tito to generate component.__version__
 
 * Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.5-1
 - Send JSON data for PATCH requests

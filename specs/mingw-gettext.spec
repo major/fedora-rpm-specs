@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:      mingw-gettext
-Version:   0.26
-Release:   2%{?dist}
+Version:   1.0
+Release:   1%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
 License:   GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:       http://www.gnu.org/software/gettext/
-Source0:   https://ftp.gnu.org/pub/gnu/gettext/gettext-%{version}.tar.xz
+Source0:   https://ftp.gnu.org/pub/gnu/gettext/gettext-%{version}.tar.gz
 
 BuildArch: noarch
 
@@ -130,22 +130,23 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-26.dll
+%{mingw32_bindir}/libgettextlib-1-0.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-26.dll
+%{mingw32_bindir}/libgettextsrc-1-0.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
 %{mingw32_bindir}/ngettext.exe
+%{mingw32_bindir}/po-fetch
 %{mingw32_bindir}/printf_gettext.exe
 %{mingw32_bindir}/printf_ngettext.exe
 %{mingw32_bindir}/recode-sr-latin.exe
+%{mingw32_bindir}/spit
 %{mingw32_bindir}/xgettext.exe
 %{mingw32_includedir}/autosprintf.h
 %{mingw32_includedir}/gettext-po.h
 %{mingw32_includedir}/libintl.h
 %{mingw32_includedir}/textstyle.h
-%{mingw32_includedir}/textstyle/stdbool.h
 %{mingw32_includedir}/textstyle/version.h
 %{mingw32_includedir}/textstyle/woe32dll.h
 %{mingw32_libdir}/libasprintf.dll.a
@@ -179,22 +180,23 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-26.dll
+%{mingw64_bindir}/libgettextlib-1-0.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-26.dll
+%{mingw64_bindir}/libgettextsrc-1-0.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe
 %{mingw64_bindir}/ngettext.exe
+%{mingw64_bindir}/po-fetch
 %{mingw64_bindir}/printf_gettext.exe
 %{mingw64_bindir}/printf_ngettext.exe
 %{mingw64_bindir}/recode-sr-latin.exe
+%{mingw64_bindir}/spit
 %{mingw64_bindir}/xgettext.exe
 %{mingw64_includedir}/autosprintf.h
 %{mingw64_includedir}/gettext-po.h
 %{mingw64_includedir}/libintl.h
 %{mingw64_includedir}/textstyle.h
-%{mingw64_includedir}/textstyle/stdbool.h
 %{mingw64_includedir}/textstyle/version.h
 %{mingw64_includedir}/textstyle/woe32dll.h
 %{mingw64_libdir}/libasprintf.dll.a
@@ -221,6 +223,9 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 
 
 %changelog
+* Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 1.0-1
+- Update to 1.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
