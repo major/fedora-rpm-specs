@@ -1,6 +1,6 @@
 Name:    kidentitymanagement
 Version: 26.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KIdentityManagement Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -82,6 +82,9 @@ find ./po -type f -name libkpimidentities5.po -execdir mv {} libkpimidentities6.
 %files doc
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

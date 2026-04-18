@@ -3,7 +3,7 @@
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global rocqver 9.1.1
+%global rocqver 9.2.0
 %global commit  20d239160d980d452f39f06e0f428ffb0e8e4dd4
 %global giturl  https://gitlab.inria.fr/gappa/coq
 

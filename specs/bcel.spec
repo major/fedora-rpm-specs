@@ -1,5 +1,5 @@
 Name:           bcel
-Version:        6.10.0
+Version:        6.12.0
 Release:        %autorelease
 Summary:        Byte Code Engineering Library
 License:        Apache-2.0

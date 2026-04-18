@@ -3,7 +3,7 @@
 #define snap dev2503181029
 
 Name:           python-pyqt6-charts
-Version:        6.10.0
+Version:        6.11.0
 Release:        %autorelease
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only

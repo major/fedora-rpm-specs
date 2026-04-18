@@ -4,7 +4,7 @@
 %global _lto_cflags %{nil}
 
 # There is a circular dep with opencascade
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 # OSMesa and X support are mutually exclusive.
 # TODO - buid separate OSMesa version if desired
@@ -737,8 +737,10 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 %endif
 
 
+# Defined HDF5_IS_PARALLEL due to https://gitlab.kitware.com/vtk/vtk/-/work_items/20014
 %cmake \
  %{vtk_cmake_options} \
+ -DHDF5_IS_PARALLEL:BOOL=OFF \
  -DVTK_BUILD_DOCUMENTATION:BOOL=ON \
  -DVTK_BUILD_EXAMPLES:BOOL=ON \
  -DVTK_BUILD_TESTING:BOOL=ON
@@ -759,6 +761,7 @@ do
    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
    -DCMAKE_INSTALL_LIBDIR:PATH=lib \
    -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
+   -DHDF5_IS_PARALLEL:BOOL=ON \
    -DVTK_MODULE_ENABLE_VTK_ParallelMPI=WANT \
    -DVTK_MODULE_ENABLE_VTK_mpi=WANT \
    -DVTK_MODULE_ENABLE_VTK_RenderingParallelLIC=WANT \

@@ -23,7 +23,7 @@
 
 Name:           conky
 Version:        1.22.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
@@ -126,6 +126,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 %{_mandir}/man1/conky.1*
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.22.2-5
+- rebuild
+
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.22.2-4
 - rebuild for lua 5.5
 

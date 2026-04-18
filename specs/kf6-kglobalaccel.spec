@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.25.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -96,6 +96,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.25.0-2
+- Rebuild (qt6)
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

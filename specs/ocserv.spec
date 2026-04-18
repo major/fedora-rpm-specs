@@ -1,24 +1,9 @@
-Version:	1.4.1
+Version:	1.4.2
 Release: %autorelease
 %global _hardened_build 1
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %define use_systemd 1
 %define have_gpgv2 1
-%else
-%define use_systemd 0
-%define have_gpgv2 0
-%endif
-
-%if 0%{?fedora} >= 28 || 0%{?rhel} > 7
-%define use_libwrap 0
-%define use_geoip 0
-%else
-%define use_libwrap 1
-%define use_geoip 1
-%endif
-
-%define use_local_protobuf 0
 
 Name:		ocserv
 Summary:	OpenConnect SSL VPN server
@@ -37,37 +22,18 @@ Source6:	PACKAGE-LICENSING
 Source8:	ocserv-genkey
 Source9:	ocserv-script
 Source10:	gpgkey-56EE7FA9E8173B19FE86268D763712747F343FA7.gpg
-Source11:	ocserv.init
 
-# Taken from upstream:
-# http://git.infradead.org/ocserv.git/commitdiff/7d70006a2dbddf783213f1856374bacc74217e09
-
-BuildRequires: make
+BuildRequires: meson
 BuildRequires: libxcrypt-devel
 BuildRequires:	gcc
-%if 0%{?rhel} && 0%{?rhel} <= 6
-BuildRequires:	gnutls30-devel
-%else
 BuildRequires:	gnutls-devel
-%endif
+BuildRequires:	nettle-devel
 BuildRequires:	pam-devel, iproute, ipcalc, openconnect, gnutls-utils
-
-%if (0%{?use_local_protobuf} == 0)
 BuildRequires:	protobuf-c-devel
-%endif
-
 BuildRequires:	libnl3-devel, krb5-devel, libtasn1-devel, gperf, libtalloc-devel
 BuildRequires:	libev-devel, llhttp-devel, radcli-devel, lz4-devel, readline-devel
-BuildRequires:	automake, autoconf
 
-%if %{use_libwrap}
-BuildRequires:	tcp_wrappers-devel
-%endif
-%if %{use_geoip}
-BuildRequires:	GeoIP-devel
-%else
 BuildRequires:	libmaxminddb-devel
-%endif
 
 %if %{use_systemd}
 BuildRequires:	systemd
@@ -80,16 +46,7 @@ BuildRequires:	uid_wrapper
 BuildRequires:	socket_wrapper
 %endif
 BuildRequires:	gnupg2
-
-%if 0%{?rhel} && 0%{?rhel} >= 7
-%ifarch x86_64 %{ix86}
 BuildRequires:	libseccomp-devel
-%endif
-%else
-%ifarch x86_64 %{ix86} %{arm} aarch64
-BuildRequires:	libseccomp-devel
-%endif
-%endif
 
 %endif
 
@@ -129,18 +86,6 @@ gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0} || gpgv2 --keyring %{SOURCE10} 
 
 %autosetup -p1
 
-%if (0%{?use_local_protobuf} == 0)
-rm -rf src/protobuf/protobuf-c/
-touch src/*.proto
-%endif
-rm -rf src/ccan/talloc
-sed -i 's|/etc/ocserv.conf|/etc/ocserv/ocserv.conf|g' src/config.c
-sed -i 's/run-as-group = nogroup/run-as-group = nobody/g' tests/data/*.config
-
-%if 0%{?rhel} && 0%{?rhel} <= 6
-echo "int main() { return 77; }" > tests/valid-hostname.c
-%endif
-
 # Create a sysusers.d config file
 cat >ocserv.sysusers.conf <<EOF
 u ocserv - 'ocserv' %{_localstatedir}/lib/ocserv -
@@ -148,32 +93,15 @@ EOF
 
 %build
 
-%if 0%{?rhel} && 0%{?rhel} <= 6
-export PKG_CONFIG_LIBDIR="%{_libdir}/gnutls30/pkgconfig:%{_libdir}/pkgconfig"
-export LIBGNUTLS_CFLAGS="-I/usr/include/gnutls30"
-export LIBGNUTLS_LIBS="-L%{_libdir}/gnutls30/ -lgnutls"
-export CFLAGS="$CFLAGS -I/usr/include/libev -I/usr/include/gnutls30"
-sed -i 's/AM_PROG_AR//g' configure.ac
-autoreconf -fvi
-%endif
-
-%configure \
-        --without-pcl-lib \
+%meson \
+        -Dlocal-llhttp=false \
 %if %{use_systemd}
-	--enable-systemd \
+        -Dsystemd=enabled
 %else
-	--disable-systemd \
-%endif
-%if %{use_local_protobuf}
-	--without-protobuf \
-%endif
-%if %{use_libwrap}
-	--with-libwrap
-%else
-	--without-libwrap
+        -Dsystemd=disabled
 %endif
 
-make %{?_smp_mflags}
+%meson_build
 
 %pre
 mkdir -p %{_sysconfdir}/pki/ocserv/public
@@ -181,7 +109,7 @@ mkdir -p -m 700 %{_sysconfdir}/pki/ocserv/private
 mkdir -p %{_sysconfdir}/pki/ocserv/cacerts
 
 %check
-make check %{?_smp_mflags} VERBOSE=1
+%meson_test
 
 %if %{use_systemd}
 %post
@@ -195,7 +123,6 @@ make check %{?_smp_mflags} VERBOSE=1
 %endif
 
 %install
-rm -rf %{buildroot}
 cp -a %{SOURCE6} PACKAGE-LICENSING
 mkdir -p %{buildroot}/%{_sysconfdir}/pam.d/
 mkdir -p %{buildroot}/%{_sysconfdir}/ocserv/
@@ -208,23 +135,13 @@ install -p -m 755 %{SOURCE8} %{buildroot}/%{_sbindir}
 mkdir -p %{buildroot}/%{_bindir}
 install -p -m 755 %{SOURCE9} %{buildroot}/%{_bindir}
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-sed -i 's|expiration_days=-1|expiration_days=9999|' %{buildroot}/%{_sbindir}/ocserv-genkey
-sed -i 's|tls-priorities = "@SYSTEM"|tls-priorities = "NORMAL:%SERVER_PRECEDENCE:%COMPAT:-VERS-SSL3.0"|' %{buildroot}/%{_sysconfdir}/ocserv/ocserv.conf
-%if 0%{?rhel} <= 6
-sed -i 's|isolate-workers = true|isolate-workers = false|' %{buildroot}/%{_sysconfdir}/ocserv/ocserv.conf
-%endif
-%endif
 
 %if %{use_systemd}
 mkdir -p %{buildroot}/%{_unitdir}
 install -p -m 644 %{SOURCE4} %{buildroot}/%{_unitdir}
-%else
-mkdir -p %{buildroot}/%{_initrddir}
-install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %endif
 
-%make_install
+%meson_install
 
 install -m0644 -D ocserv.sysusers.conf %{buildroot}%{_sysusersdir}/ocserv.conf
 
@@ -238,7 +155,7 @@ install -m0644 -D ocserv.sysusers.conf %{buildroot}%{_sysusersdir}/ocserv.conf
 %config(noreplace) %{_sysconfdir}/pam.d/ocserv
 %config(noreplace) %{_localstatedir}/lib/ocserv/profile.xml
 
-%doc AUTHORS ChangeLog NEWS COPYING README.md PACKAGE-LICENSING doc/README-radius.md
+%doc AUTHORS NEWS COPYING README.md PACKAGE-LICENSING doc/README-radius.md
 %doc src/ccan/licenses/CC0 src/ccan/licenses/LGPL-2.1 src/ccan/licenses/BSD-MIT
 
 %{_mandir}/man8/ocserv.8*
@@ -255,8 +172,6 @@ install -m0644 -D ocserv.sysusers.conf %{buildroot}%{_sysusersdir}/ocserv.conf
 %{_localstatedir}/lib/ocserv/profile.xml
 %if %{use_systemd}
 %{_unitdir}/ocserv.service
-%else
-%{_initrddir}/%{name}
 %endif
 %{_sysusersdir}/ocserv.conf
 

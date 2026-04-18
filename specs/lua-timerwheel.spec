@@ -3,7 +3,7 @@ Name:           lua-timerwheel
 License:        MIT
 
 Version:        1.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 URL:            https://github.com/Tieske/timerwheel.lua
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
@@ -72,6 +72,9 @@ lua -e '
 %{lua_pkgdir}/timerwheel/init.lua
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.0.2-14
+- rebuild
+
 * Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 1.0.2-13
 - rebuild for lua 5.5
 

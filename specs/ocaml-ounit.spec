@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ounit
 Version:        2.2.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
@@ -107,6 +107,9 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.2.7-20
+- Rebuild for ocaml-lwt 6.1.1
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.2.7-19
 - OCaml 5.4.1 rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           apk-tools
 Version:        3.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
@@ -148,6 +148,9 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.4-2
+- rebuild to avoid tag madness
+
 * Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.4-1
 - update to 3.0.4
 - lua 5.5

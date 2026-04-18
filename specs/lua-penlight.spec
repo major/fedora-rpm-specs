@@ -1,6 +1,6 @@
 Name:		lua-penlight
 Version:	1.15.0
-Release:	2%{?dist}
+Release:	4%{?dist}
 Summary:	Penlight Lua Libraries
 License:	MIT
 URL:		https://github.com/lunarmodules/Penlight
@@ -106,6 +106,12 @@ cp -av examples %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.15.0-4
+- rebuild with docs
+
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.15.0-3
+- rebuild without docs
+
 * Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.15.0-2
 - rebuild with docs
 - fix ldoc.ltp for lua 5.5

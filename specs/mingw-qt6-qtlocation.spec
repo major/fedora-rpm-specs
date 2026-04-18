@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.3
+Version:        6.11.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtLocation component
 
@@ -114,6 +114,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationConfigVersion.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationConfigVersionImpl.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargets.cmake
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargetsPrecheck.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargets-relwithdebinfo.cmake
 %{mingw32_libdir}/pkgconfig/Qt6Location.pc
 %{mingw32_libdir}/qt6/qml/QtLocation/
@@ -141,6 +142,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationConfigVersion.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationConfigVersionImpl.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargets.cmake
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargetsPrecheck.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6declarative_locationTargets-relwithdebinfo.cmake
 %{mingw64_libdir}/pkgconfig/Qt6Location.pc
 %{mingw64_libdir}/qt6/qml/QtLocation/
@@ -155,6 +157,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

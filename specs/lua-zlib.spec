@@ -3,7 +3,7 @@
 
 Name:      lua-zlib
 Version:   1.4
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Simple streaming interface to zlib for Lua
 License:   MIT
 URL:       %{forgeurl}
@@ -49,6 +49,9 @@ lua test.lua
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.4-2
+- rebuild
+
 * Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.4-1
 - update to 1.4
 - lua 5.5

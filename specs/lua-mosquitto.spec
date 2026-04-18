@@ -2,7 +2,7 @@
 
 Name:           lua-mosquitto
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 Summary:        Lua bindings to libmosquitto
 Url:            https://github.com/flukso/%{name}/
@@ -49,6 +49,9 @@ export OPT=
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.4.1-2
+- rebuild
+
 * Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.4.1-1
 - update to 0.4.1, rebuild for lua 5.5
 

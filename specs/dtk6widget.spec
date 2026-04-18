@@ -7,6 +7,7 @@ URL:            https://github.com/linuxdeepin/dtkwidget
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:         dtk6widget-fix-build-with-qt-6-10-2.patch
+Patch1:         dtk6widget-fix-build-with-qt-6-11.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

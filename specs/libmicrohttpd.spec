@@ -1,5 +1,5 @@
 Name:           libmicrohttpd
-Version:        1.0.4
+Version:        1.0.5
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Lightweight library for embedding a webserver in applications
@@ -52,8 +52,6 @@ Doxygen documentation for libmicrohttpd and some example source code
 
 %prep
 %autosetup -p1
-# bump MHD_VERSION
-sed -i 's|#define MHD_VERSION 0x01000300|#define MHD_VERSION 0x01000400|g' src/include/microhttpd.h
 
 %build
 %configure --disable-static --with-gnutls --enable-https=yes
@@ -107,6 +105,9 @@ fi
 %doc html
 
 %changelog
+* Thu Apr 16 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:1.0.5-1
+- Update to 1:1.0.5
+
 * Mon Apr 13 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:1.0.4-1
 - Update to 1:1.0.4
 

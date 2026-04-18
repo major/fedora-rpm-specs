@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname miopen
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 1
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -110,12 +113,11 @@
 %endif
 
 Name:           %{miopen_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -129,10 +131,12 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 # Public Domain
 #   src/md5.cpp
 URL:            https://github.com/ROCm/rocm-libraries
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%if %{with preview}
+# New source needed for testing
+# Request a real ctest project here
+# https://github.com/ROCm/rocm-libraries/issues/6500
+Source1:        %{url}/releases/download/%{pkg_src}/ctest.tar.gz#/ctest-%{version}.tar.gz
 %endif
 
 # So we do not thrash memory
@@ -240,12 +244,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/miopen
-%patch -P1 -p1
-%else
 %autosetup -p1 -n %{upstreamname}
+%if %{with preview}
+tar xf %{SOURCE1}
+sed -i -e 's@include(${ROCM_LIBRARIES_ROOT}/shared/ctest/TestCategories.cmake)@include(${CMAKE_CURRENT_SOURCE_DIR}/../../ctest/TestCategories.cmake)@' test/gtest/CMakeLists.txt
+
+# problem with trying to use ck for tests even when disabled
+# https://github.com/ROCm/rocm-libraries/issues/6518
+sed -i -e '/implicitgemm_ck_util/d' src/include/miopen/conv/heuristics/ai_conv_3d_kernel_tuning_utils.hpp
+sed -i -e '/implicitgemm_ck_util/d' test/gtest/conv_ai_3d_kernel_tuning_utils.cpp
+
 %endif
 
 # Readme has executable bit
@@ -294,11 +302,6 @@ sed -i -e 's@opts.push_back("-fno-offload-uniform-block");@//opts.push_back("-fn
 sed -i -e 's@llvm/bin/clang@bin/clang@' src/hip/hip_build_utils.cpp
 
 %build
-%if %{with gitcommit}
-cd projects/miopen
-%endif
-
-
 # Real cores, No hyperthreading
 COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
 if [ ${COMPILE_JOBS}x = x ]; then
@@ -367,9 +370,6 @@ export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
 %endif
 
 %install
-%if %{with gitcommit}
-cd projects/miopen
-%endif
 %cmake_install
 
 # Extra license
@@ -385,14 +385,8 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %files
-%if %{with gitcommit}
-%doc projects/miopen/README.md
-%license projects/miopen/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
-
 %{pkg_prefix}/%{pkg_libdir}/libMIOpen.so.1{,.*}
 %{pkg_prefix}/libexec/miopen/
 
@@ -404,10 +398,16 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 
 %if %{with test}
 %files test
+%if %{without preview}
+# TODO: Something wrong here
 %{pkg_prefix}/bin/test*
+%endif
 %endif
 
 %changelog
+* Thu Apr 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- Change --with gitcommit to preview
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

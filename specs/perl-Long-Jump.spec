@@ -1,11 +1,12 @@
 Name:           perl-Long-Jump
-Version:        0.000003
-Release:        5%{?dist}
+Version:        0.000004
+Release:        1%{?dist}
 Summary:        Mechanism for returning to a specific point from a deeply nested stack
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Long-Jump
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Long-Jump-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -75,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 16 2026 Petr Pisar <ppisar@redhat.com> - 0.000004-1
+- 0.000004 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.000003-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate metrics-exporter-prometheus
 
 Name:           rust-metrics-exporter-prometheus
-Version:        0.17.2
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Metrics-compatible exporter for sending metrics to Prometheus
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/metrics-exporter-prometheus
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * - Switch rustls default provider
+# * - Switch hyper-rustls provider to ring
 Patch:          metrics-exporter-prometheus-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -72,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "_hyper-server" feature of the "%{crate}" crate.
 
 %files       -n %{name}+_hyper-server-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+_push-gateway-common-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+_push-gateway-common-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "_push-gateway-common" feature of the "%{crate}" crate.
+
+%files       -n %{name}+_push-gateway-common-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+async-runtime-devel
@@ -158,6 +170,54 @@ use the "ipnet" feature of the "%{crate}" crate.
 %files       -n %{name}+ipnet-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+mime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+prost-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+prost-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "prost" feature of the "%{crate}" crate.
+
+%files       -n %{name}+prost-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+prost-build-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+prost-build-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "prost-build" feature of the "%{crate}" crate.
+
+%files       -n %{name}+prost-build-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+prost-types-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+prost-types-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "prost-types" feature of the "%{crate}" crate.
+
+%files       -n %{name}+prost-types-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+push-gateway-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -168,6 +228,30 @@ This package contains library source intended for building other packages which
 use the "push-gateway" feature of the "%{crate}" crate.
 
 %files       -n %{name}+push-gateway-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+push-gateway-no-tls-provider-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+push-gateway-no-tls-provider-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "push-gateway-no-tls-provider" feature of the "%{crate}" crate.
+
+%files       -n %{name}+push-gateway-no-tls-provider-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel
@@ -209,19 +293,22 @@ use the "uds-listener" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# Remove proto files which seem to not be accounted for in the license
+# https://github.com/metrics-rs/metrics/issues/677
+rm -r proto/
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -a
+%cargo_build
 
 %install
-%cargo_install -a
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -a
+%cargo_test
 %endif
 
 %changelog

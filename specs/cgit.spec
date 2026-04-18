@@ -35,7 +35,7 @@
 
 Name:           cgit
 Version:        1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A fast web interface for git
 
 License:        GPL-2.0-only
@@ -215,6 +215,9 @@ install -Dp -m0644 httpd.conf %{buildroot}%{httpdconfd}/%{name}.conf
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.3-2
+- rebuild
+
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.3-1
 - update to 1.3, lua 5.5
 

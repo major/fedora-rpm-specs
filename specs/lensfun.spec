@@ -8,7 +8,9 @@ Version: 0.3.4
 Summary: Library to rectify defects introduced by photographic lenses
 Release: 11%{?dist}
 
-License: LGPLv3 and CC-BY-SA
+# libs/regex/ is LGPL-2.1-or-later
+# application is GPL-3.0-only
+License: LGPL-3.0-only AND CC-BY-SA-3.0 AND LGPL-2.1-or-later AND GPL-3.0-only
 URL: https://lensfun.github.io/
 Source0: https://github.com/lensfun/lensfun/archive/v%{version}/%{name}-%{version}.tar.gz
 # Updated database. To generate:
@@ -54,8 +56,7 @@ vignetting and color contribution of a lens.
 
 %package devel
 Summary: Development toolkit for %{name}
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
-License: LGPL-3.0-only
+License: LGPL-3.0-only AND LGPL-2.1-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 This package contains library and header files needed to build applications
@@ -63,8 +64,7 @@ using lensfun.
 
 %package tools
 Summary: Tools for managing %{name} data
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
-License: LGPL-3.0-only
+License: LGPL-3.0-only AND GPL-3.0-only
 Requires: %{python3}-lensfun = %{version}-%{release}
 %description tools
 This package contains tools to fetch lens database updates and manage lens

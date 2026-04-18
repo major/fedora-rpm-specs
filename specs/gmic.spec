@@ -20,6 +20,9 @@ Source2: gmic-qt-%{gmic_qt_version}.tar.gz
 # GIT archive snapshot of https://github.com/dtschump/gmic-community
 Source3: gmic-community-%{gmic_community_version}.tar.gz
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2455205
+Patch1: gmic-gimptool.patch
+
 License: ( CECILL-2.1 OR CECILL-C ) AND GPL-3.0-or-later
 Url: http://gmic.eu/
 %if %{use_system_cimg}
@@ -106,6 +109,7 @@ Provides G'MIC shared libraries
 
 %prep
 %setup -q -a 1 -a 3
+%patch 1 -p1
 
 # gmic bundles 'qt', but we don't assume they have the latest
 # version, so remove it and provide our own
@@ -113,10 +117,6 @@ rm -rf gmic-qt
 tar zxvf %{SOURCE2}
 
 cd gmic-qt
-# no longer needed
-#%%patch 1 -p1
-#%%patch 2 -p1
-#%%patch 3 -p1
 
 # remove stash-file (thanks Wolfgang Lieff <Wolfgang.Lieff@airborneresearch.org.au>)
 rm -f zart/.qmake.stash

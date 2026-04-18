@@ -1,6 +1,6 @@
 Name:           armadillo
 Version:        12.8.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fast C++ matrix library with syntax similar to MATLAB and Octave
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -128,6 +128,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 12.8.1-11
+- Rebuild for hdf5 2.1
+
 * Thu Feb 12 2026 Cristian Le <git@lecris.dev> - 12.8.1-10
 - Allow to build with CMake 4.0 (rhbz#2380466)
 - Allow to build with Ninja generator (rhbz#2380967)

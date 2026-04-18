@@ -1,6 +1,6 @@
 Name:           lumail
 Version:        3.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Modern console-based e-mail client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ make %{?_smp_mflags} CPPFLAGS="%{optflags}" LVER=lua
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.1-23
+- rebuild
+
 * Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.1-22
 - rebuild for lua 5.5
 

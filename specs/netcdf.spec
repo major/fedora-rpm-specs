@@ -1,20 +1,29 @@
 %global sover 22
 
 Name:           netcdf
-Version:        4.9.3
+Version:        4.10.0
 Release:        %autorelease
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        BSD-3-Clause
 URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Unidata/netcdf-c/pull/3300
+Patch:          netcdf-mfhdf.patch
+# Incomplete fix for rpaths
+# https://github.com/Unidata/netcdf-c/issues/3302
+Patch:          netcdf-rpath.patch
+# big-endian fixes
+Patch:          https://github.com/Unidata/netcdf-c/pull/3285.patch
 
-BuildRequires:  libtool
-BuildRequires:  make
+# Hack for now
+BuildRequires:  chrpath
+BuildRequires:  cmake
 BuildRequires:  doxygen
+BuildRequires:  gcc-c++
 BuildRequires:  blosc-devel
 BuildRequires:  bzip2-devel
-BuildRequires:  hdf-static
+BuildRequires:  hdf-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  gawk
 BuildRequires:  libcurl-devel
@@ -101,14 +110,6 @@ This package contains the netCDF C header files, shared devel libs, and
 man pages.
 
 
-%package static
-Summary:        Static libs for netcdf
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description static
-This package contains the netCDF C static libs.
-
-
 %if %{with_mpich}
 %package mpich
 Summary: NetCDF mpich libraries
@@ -133,16 +134,6 @@ Obsoletes: %{name}-mpich2-devel < 4.3.0-4
 
 %description mpich-devel
 NetCDF parallel mpich development files
-
-
-%package mpich-static
-Summary: NetCDF mpich static libraries
-Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
-Provides: %{name}-mpich2-static = %{version}-%{release}
-Obsoletes: %{name}-mpich2-static < 4.3.0-4
-
-%description mpich-static
-NetCDF parallel mpich static libraries
 %endif
 
 
@@ -167,117 +158,102 @@ Requires: libcurl-devel%{?_isa}
 
 %description openmpi-devel
 NetCDF parallel openmpi development files
-
-
-%package openmpi-static
-Summary: NetCDF openmpi static libraries
-Requires: %{name}-openmpi-devel%{?_isa} = %{version}-%{release}
-
-%description openmpi-static
-NetCDF parallel openmpi static libraries
 %endif
 
 
 %prep
 %autosetup -p1 -n %{name}-c-%{version}
-# For Patch0
-./bootstrap
+
+
+%conf
+# $mpi will be evaluated in the loops below
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
+# Options
+%global cmake_opts \\\
+  -DMFHDF_H_INCLUDE_DIR=%{_includedir}/hdf \\\
+  -DNETCDF_ENABLE_DAP_REMOTE_TESTS=OFF \\\
+  -DNETCDF_ENABLE_EXTRA_TESTS=ON \\\
+  -DNETCDF_ENABLE_HDF4=ON \\\
+  -DNETCDF_ENABLE_S3_INTERNAL=ON \\\
+  -DNETCDF_PLUGIN_INSTALL=ON
+
+# Serial build
+%cmake %{cmake_opts} \
+  -DNETCDF_WITH_PLUGIN_DIR=%{_libdir}/hdf5/plugin
+
+# MPI builds
+export CC=mpicc
+export CXX=mpic++
+for mpi in %{?mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake %{cmake_opts} \
+    -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
+    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+    -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/$mpi-%{_arch} \
+    -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+    -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
+    %{?with_parallel_tests:-DNETCDF_ENABLE_PARALLEL_TESTS=ON} \
+    -DNETCDF_WITH_PLUGIN_DIR=%{_libdir}/$mpi/hdf5/plugin
+  module purge
+done
 
 
 %build
-#Do out of tree builds
-%global _configure ../configure
-#Common configure options
-export LDFLAGS="%{__global_ldflags} -L%{_libdir}/hdf"
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-%global configure_opts \\\
-           --enable-shared \\\
-           --enable-netcdf-4 \\\
-           --enable-dap \\\
-           --enable-extra-example-tests \\\
-           CPPFLAGS="-I%{_includedir}/hdf" \\\
-           LIBS="-ltirpc" \\\
-           --enable-hdf4 \\\
-           --disable-dap-remote-tests \\\
-%{nil}
-
-# Serial build
-mkdir build
-pushd build
-ln -s ../configure .
-%configure %{configure_opts} \
-  --with-plugin-dir=%{_libdir}/hdf5/plugin
-# Workaround libtool reordering -Wl,--as-needed after all the libraries.
-sed -e 's|CC="\(.*g..\)"|CC="\1 -Wl,--as-needed"|' -i libtool
-%make_build
-popd
-
-# MPI builds
-for mpi in %{?mpi_list}
+%cmake_build
+for mpi in %{mpi_list}
 do
-  mkdir $mpi
-  pushd $mpi
   module load mpi/$mpi-%{_arch}
-  ln -s ../configure .
-  # parallel tests hang on s390(x)
-  %configure %{configure_opts} \
-    CC=mpicc \
-    --libdir=%{_libdir}/$mpi/lib \
-    --bindir=%{_libdir}/$mpi/bin \
-    --sbindir=%{_libdir}/$mpi/sbin \
-    --includedir=%{_includedir}/$mpi-%{_arch} \
-    --datarootdir=%{_libdir}/$mpi/share \
-    --mandir=%{_libdir}/$mpi/share/man \
-    --with-plugin-dir=%{_libdir}/$mpi/hdf5/plugin \
-    %{?with_parallel_tests:--enable-parallel-tests}
-  # Workaround libtool reordering -Wl,--as-needed after all the libraries.
-  sed -e 's|CC="\(.*g..\)"|CC="\1 -Wl,--as-needed"|' -i libtool
-  %make_build
+  %cmake_build
   module purge
-  popd
 done
 
 
 %install
-make -C build install DESTDIR=${RPM_BUILD_ROOT}
-/bin/rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
+%cmake_install
 for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  make -C $mpi install DESTDIR=${RPM_BUILD_ROOT}
+  %cmake_install
   module purge
 done
-find $RPM_BUILD_ROOT/%{_libdir} -name \*.la -delete
+# rpaths are still present in MPI builds
+chrpath --delete %{buildroot}%{_libdir}/*/hdf5/plugin/lib__*.so %{buildroot}%{_libdir}/*/bin/nc[cdg]*
 
 
 %check
-# Set to 1 to fail if tests fail
-%ifarch %{ix86} s390x
+# hdf4_test_run_get_hdf4_files - requires network
+# nczarr_test_run_external - requires network
+# nczarr_test_run_s3_credentials - requires network
+exclude="hdf4_test_run_get_hdf4_files|nczarr_test_run_(external|s3_credentials)"
+exclude_arch=""
+%ifarch s390x
 # s390x - tst_h5_endians fails - Little_Endian Float/Int
 # https://github.com/Unidata/netcdf-c/issues/3062
+# Various other failures - https://github.com/Unidata/netcdf-c/issues/2696
+exclude_arch="nc_test4_tst_h5_endians|dap4_test_test_raw|dap4_test_test_data|nczarr_test_run_ut_mapapi|nczarr_test_run_jsonconvention|nczarr_test_run_oldkeys|nc_test4_run_par_test|h5_test_run_par_tests"
+exclude="$exclude|$exclude_arch"
+%endif
+%ifarch %{ix86}
 # i686 - tst_netcdf4_4 fails - var5:_Filter difference
 # https://github.com/Unidata/netcdf-c/issues/2433
-fail=0
-%else
-fail=1
+exclude_arch="ncdump_tst_netcdf4_4"
+exclude="$exclude|$exclude_arch"
 %endif
-make -C build check || ( cat build/*/test-suite.log && exit $fail )
+%ctest --verbose -E "$exclude"
+# Keep track of the status of failing tests
+%ctest --verbose -R "$exclude_arch" || :
+
 # Allow openmpi to run with more processes than cores
-export OMPI_MCA_rmaps_base_oversubscribe=1
-# openmpi 5+
 export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
-# openmpi test hangs on armv7hl in h5_test after tst_h_rename
-%ifnarch armv7hl
 for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  make -C $mpi check || ( cat $mpi/*/test-suite.log && exit $fail )
+  %ctest --verbose -E "$exclude"
+  %ctest --verbose -R "$exclude_arch" || :
   module purge
 done
-%endif
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -287,8 +263,6 @@ done
 %{_bindir}/ncdump
 %{_bindir}/ncgen
 %{_bindir}/ncgen3
-%{_bindir}/nc4print
-%{_bindir}/ocprint
 %{_libdir}/hdf5/plugin/lib__nch5deflate.so
 %{_libdir}/hdf5/plugin/lib__nch5shuffle.so
 %{_libdir}/hdf5/plugin/lib__nch5bzip2.so
@@ -309,18 +283,16 @@ done
 %{_includedir}/netcdf_dispatch.h
 %{_includedir}/netcdf_filter.h
 %{_includedir}/netcdf_filter_build.h
-%{_includedir}/netcdf_filter_hdf5_build.h
 %{_includedir}/netcdf_json.h
 %{_includedir}/netcdf_meta.h
 %{_includedir}/netcdf_mem.h
 %{_includedir}/netcdf_proplist.h
+%{_includedir}/netcdf_vutils.h
 %{_libdir}/libnetcdf.settings
 %{_libdir}/*.so
+%{_libdir}/cmake/
 %{_libdir}/pkgconfig/netcdf.pc
 %{_mandir}/man3/*
-
-%files static
-%{_libdir}/*.a
 
 %if %{with_mpich}
 %files mpich
@@ -330,8 +302,6 @@ done
 %{_libdir}/mpich/bin/ncdump
 %{_libdir}/mpich/bin/ncgen
 %{_libdir}/mpich/bin/ncgen3
-%{_libdir}/mpich/bin/nc4print
-%{_libdir}/mpich/bin/ocprint
 %{_libdir}/mpich/hdf5/plugin/*
 %{_libdir}/mpich/lib/*.so.%{sover}*
 %doc %{_libdir}/mpich/share/man/man1/*.1*
@@ -343,19 +313,17 @@ done
 %{_includedir}/mpich-%{_arch}/netcdf_dispatch.h
 %{_includedir}/mpich-%{_arch}/netcdf_filter.h
 %{_includedir}/mpich-%{_arch}/netcdf_filter_build.h
-%{_includedir}/mpich-%{_arch}/netcdf_filter_hdf5_build.h
 %{_includedir}/mpich-%{_arch}/netcdf_json.h
 %{_includedir}/mpich-%{_arch}/netcdf_meta.h
 %{_includedir}/mpich-%{_arch}/netcdf_mem.h
 %{_includedir}/mpich-%{_arch}/netcdf_par.h
 %{_includedir}/mpich-%{_arch}/netcdf_proplist.h
+%{_includedir}/mpich-%{_arch}/netcdf_vutils.h
 %{_libdir}/mpich/lib/libnetcdf.settings
 %{_libdir}/mpich/lib/*.so
+%{_libdir}/mpich/lib/cmake/
 %{_libdir}/mpich/lib/pkgconfig/%{name}.pc
 %doc %{_libdir}/mpich/share/man/man3/*.3*
-
-%files mpich-static
-%{_libdir}/mpich/lib/*.a
 %endif
 
 %if %{with_openmpi}
@@ -366,8 +334,6 @@ done
 %{_libdir}/openmpi/bin/ncdump
 %{_libdir}/openmpi/bin/ncgen
 %{_libdir}/openmpi/bin/ncgen3
-%{_libdir}/openmpi/bin/nc4print
-%{_libdir}/openmpi/bin/ocprint
 %{_libdir}/openmpi/hdf5/plugin/*
 %{_libdir}/openmpi/lib/*.so.%{sover}*
 %doc %{_libdir}/openmpi/share/man/man1/*.1*
@@ -379,19 +345,17 @@ done
 %{_includedir}/openmpi-%{_arch}/netcdf_dispatch.h
 %{_includedir}/openmpi-%{_arch}/netcdf_filter.h
 %{_includedir}/openmpi-%{_arch}/netcdf_filter_build.h
-%{_includedir}/openmpi-%{_arch}/netcdf_filter_hdf5_build.h
 %{_includedir}/openmpi-%{_arch}/netcdf_json.h
 %{_includedir}/openmpi-%{_arch}/netcdf_meta.h
 %{_includedir}/openmpi-%{_arch}/netcdf_mem.h
 %{_includedir}/openmpi-%{_arch}/netcdf_par.h
 %{_includedir}/openmpi-%{_arch}/netcdf_proplist.h
+%{_includedir}/openmpi-%{_arch}/netcdf_vutils.h
 %{_libdir}/openmpi/lib/libnetcdf.settings
 %{_libdir}/openmpi/lib/*.so
+%{_libdir}/openmpi/lib/cmake/
 %{_libdir}/openmpi/lib/pkgconfig/%{name}.pc
 %doc %{_libdir}/openmpi/share/man/man3/*.3*
-
-%files openmpi-static
-%{_libdir}/openmpi/lib/*.a
 %endif
 
 

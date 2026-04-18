@@ -1,10 +1,10 @@
 %global pypi_name PyQt6_WebEngine
 
-%define snap dev2510252014
+#define snap dev2510252014
 
 Name:          python-pyqt6-webengine
-Version:       6.10.1
-Release:       0.1%{?snap:^%{snap}}%{?dist}
+Version:       6.11.0
+Release:       1%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
@@ -88,5 +88,8 @@ done
 
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Thu Jan 29 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.1-0.1
 - Update to snapshot of 6.10.1

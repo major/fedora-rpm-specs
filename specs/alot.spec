@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -8,6 +8,7 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/pazz/alot
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
 Patch:          0001-replace-python-magic-with-file-magic.patch
+Patch:          0001-Replace-glob1-with-glob.patch
 
 BuildArch:      noarch
 
@@ -51,9 +52,11 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %doc NEWS README.md
 %{_bindir}/alot
 %{_mandir}/man1/alot.1*
-%{python3_sitelib}/alot/defaults
 
 %changelog
+* Wed Apr 15 2026 Dick Marinus <dick@mrns.nl> - 0.12-4
+- Replace glob1 with glob to support Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

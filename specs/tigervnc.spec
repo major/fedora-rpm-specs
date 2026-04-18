@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -438,6 +438,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.2-2
+- Fixes CVEs: CVE-2026-33999, CVE-2026-34000, CVE-2026-34001,
+              CVE-2026-34002, CVE-2026-34003
+
 * Fri Mar 27 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.2-1
 - 1.16.2
 

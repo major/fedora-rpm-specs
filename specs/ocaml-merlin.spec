@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.6.1
+Version:        5.7.0
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -142,6 +142,11 @@ mv merlin-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 cd -
 
 %check
+%ifarch s390x
+# For unknown reasons, the no-dune test is attempted on s390x only.  It fails,
+# predictably, since we do have dune in the chroot.  By why s390x only???
+rm tests/test-dirs/config/no-dune.t
+%endif
 %dune_check
 
 %files

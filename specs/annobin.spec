@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.09
+Version: 13.10
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 16 2026 Nick Clifton  <nickc@redhat.com> - 13.10-1
+- Require C++17 for building.
+
 * Mon Apr 13 2026 Nick Clifton  <nickc@redhat.com> - 13.09-1
 - Annocheck: Ignore Risc-V attribute sections.
 

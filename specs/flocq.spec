@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 %global flocqdir %{ocamldir}/coq/user-contrib/Flocq
-%global rocqver 9.1.1
+%global rocqver 9.2.0
 %global commit  7aab8f55bceec0cfafc3b3bc0e77e0dbb5a70c5f
 %global giturl  https://gitlab.inria.fr/flocq/flocq
 

@@ -16,7 +16,7 @@
 
 Name:               quickshell
 Version:            0.2.1%{?commit:^git%{commitdate}.%{shortcommit}}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Flexible QtQuick based desktop shell toolkit
 # Code is LGPL, Hyprland protocols are BSD-3-Clause, wlr protocols are HPND-sell-variant
 License:            LGPL-3.0-or-later and BSD-3-Clause and HPND-sell-variant
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_qt6_qmldir}/Quickshell/
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 0.2.1^git20260209.dacfa9d-2
+- Rebuild (qt6)
+
 * Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.2.1^git20260209.dacfa9d-1
 - Bump to git snapshot
 

@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 171
+%global min_osbuild_version 175
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        165
+Version:        168
 
 %gometa
 
@@ -82,27 +82,27 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/apapsch/go-jsonmerge/v2)) = 2.0.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.3
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.10
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.10
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.18
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.11
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.11
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.19
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.19.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.18
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.18
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.4
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.19
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.19
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.5
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.64.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.293.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.64.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.294.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.18
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.19
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.87.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.0.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.11
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.15
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.41.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.0.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.16
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.41.8
 Provides: bundled(golang(github.com/aws/smithy-go)) = 1.24.2
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
@@ -145,6 +145,7 @@ Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
 Provides: bundled(golang(github.com/go-openapi/jsonpointer)) = 0.21.1
 Provides: bundled(golang(github.com/go-openapi/swag)) = 0.23.1
 Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
+Provides: bundled(golang(github.com/godbus/dbus/v5)) = 5.1.0
 Provides: bundled(golang(github.com/gogo/protobuf)) = 1.3.2
 Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.2
 Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.3.0
@@ -207,8 +208,8 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.497
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.23.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.245.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.26.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.252.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -640,7 +641,11 @@ Requires:   firewalld
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?fedora} && 0%{?fedora} < 40)
 Requires:   podman-plugins
 %endif
-Requires:   dnf-plugins-core
+%if 0%{?fedora} || 0%{?rhel} >= 11
+Requires:   dnf5-command(copr)
+%else
+Requires:   dnf-command(copr)
+%endif
 Requires:   skopeo
 Requires:   make
 Requires:   python3-pip
@@ -666,6 +671,36 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Apr 15 2026 Packit <hello@packit.dev> - 168-1
+Changes with 168
+----------------
+  - Add DequeueAnyChannel to enable multi-tenant BootcPreManifest processing (HMS-10445) (#5084)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Ondřej Budai
+  - Fail bootc composes on composer build version mismatch (HMS-10378) (#5082)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Ondřej Budai
+  - Make bootc container source type configurable (HMS-10262) (#5087)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - Replace monolithic bootc-manifest worker job with multi-stage server-orchestrated job graph (HMS-10378) (#5069)
+    - Author: Tomáš Hozza, Reviewers: Nobody
+  - Update snapshots to 20260405 (#5080)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - chore(deps): update konflux references (#5070)
+    - Author: {}, Reviewers: Anna Vítová, Lukáš Zapletal
+  - chore(deps): update konflux references (#5089)
+    - Author: {}, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - chore: add .gitattributes file (#5078)
+    - Author: Lukáš Zapletal, Reviewers: Anna Vítová, Simon de Vlieger, Tomáš Hozza
+  - cloudapi: Add fedora names for network-installer (#5079)
+    - Author: Brian C. Lane, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - cmd/osbuild-worker: cleanup jobimpl-osbuild.go (#5083)
+    - Author: Anna Vítová, Reviewers: Brian C. Lane, Tomáš Hozza
+  - templates/packer: add container registries init script (#5086)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal
+  - worker: use slices.EqualFunc to compare dependency modules (#5085)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-04-15
+
 * Wed Mar 04 2026 Packit <hello@packit.dev> - 165-1
 Changes with 165
 ----------------

@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.3
+Version:        6.11.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
@@ -31,6 +31,8 @@ Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_relea
 %endif
 
 BuildArch:      noarch
+
+Patch0:         0001-Fix-MinGW-build-add-stdcall-specialization-for-first.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -219,6 +221,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

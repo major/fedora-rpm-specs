@@ -1,5 +1,5 @@
 Name:           typescript
-Version:        5.7.3
+Version:        6.0.2
 Release:        %autorelease
 Summary:        A language for application-scale JavaScript
 License:        Apache-2.0

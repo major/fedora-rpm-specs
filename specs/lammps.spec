@@ -25,7 +25,7 @@ Version:        20250722
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -375,6 +375,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 20250722-5
+- Rebuild for hdf5 2.1
+
 * Sun Feb 22 2026 Orion Poplawski <orion@nwra.com> - 20250722-4
 - Use cmake instead of cmake3
 

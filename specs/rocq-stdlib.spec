@@ -6,7 +6,7 @@
 # the rocq spec for details.
 
 %global stdlibdir %{ocamldir}/coq/user-contrib/Stdlib
-%global rocqver   9.1.1
+%global rocqver   9.2.0
 %global giturl    https://github.com/rocq-prover/stdlib
 
 Name:           rocq-stdlib

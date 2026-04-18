@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
 Version:      2.3.0
-Release:      3%{?dist}
+Release:      4%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -137,6 +137,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 2.3.0-4
+- Rebuild (qt6)
+
 * Tue Feb 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
 - Rebuild for new procps-ng
 

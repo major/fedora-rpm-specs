@@ -57,7 +57,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          23.2.2
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Release:          %{?_rc||?_beta:0.}2%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -1730,6 +1730,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 18 2026 Tom Callaway <spot@fedoraproject.org> - 23.2.2-2
+- rebuild
+
 * Wed Feb 18 2026 Tom Callaway <spot@fedoraproject.org> - 23.2.2-1
 - update to 23.2.2
 - rebuild for lua 5.5

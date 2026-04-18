@@ -1,10 +1,10 @@
 %global debug_package %{nil}
-%global rocqver 9.1.1
+%global rocqver 9.2.0
 %global giturl  https://github.com/zenon-prover/zenon
 
 Name:		zenon
 Version:	0.8.5
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -94,6 +94,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-40
+- Rebuild for rocq 9.2.0
+
 * Thu Mar 19 2026 Jerry James <loganjerry@gmail.com> - 0.8.5-39
 - Rebuild for rocq 9.1.1
 

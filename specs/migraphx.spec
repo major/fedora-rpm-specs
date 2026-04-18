@@ -21,7 +21,7 @@
 #
 %global upstreamname AMDMIGraphX
 %global rocm_release 7.2
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global bundled_llvm_version 22.0.0
@@ -49,7 +49,7 @@
 
 Name:           migraphx
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
@@ -313,6 +313,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/cmake/migraphx/
 
 %changelog
+* Thu Apr 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-1
+- Update to 7.2.2
+
 * Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

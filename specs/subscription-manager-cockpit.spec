@@ -97,6 +97,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 - packaging fixes
 - Resolves: rhbz#2457953
 
+
 * Thu Mar 26 2026 Packit <hello@packit.dev> - 14-1
 - Convert license headers to SPDX format
 - Bug fixes and translation updates
@@ -114,9 +115,34 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 * Thu Nov 13 2025 Packit <hello@packit.dev> - 11.1-1
 - packaging automation fixes
 
+* Tue Sep 09 2025 mhorky <mhorky@redhat.com> 9-1
+- remove src/po.js (tomatus777@tomatus.cz)
+- translate placeholder strings (tomatus777@tomatus.cz)
+- index.html: fix import order and make localization work again (tomatus777@tomatus.cz)
+- Fixes: RHEL-111937
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+  (tomatus777@tomatus.cz)
+* Sat Jul 05 2025 Jiri Hnidek <jhnidek@redhat.com> 8-1
+- Translated using Weblate (Italian) (info@salvatorecocuzza.it)
+- Translated using Weblate (Chinese (Traditional) (zh_TW)) (noreply-mt-weblate-
+  translation-memory@weblate.org)
+- Translated using Weblate (Spanish) (fserrador@gmail.com)
+- Translated using Weblate (Chinese (Traditional) (zh_TW)) (chzang55@gmail.com)
+- Translated using Weblate (Finnish) (ricky.tigg@gmail.com)
+- Various fixes in state management (tomatus777@gmail.com)
+- Upgrade to Patternfly 6 (tomatus777@gmail.com)
+- make eslint happy (tomatus777@gmail.com)
+- test: mock-insights should have /host_exists endpoint (pkoprda@redhat.com)
+- build: switch to esbuild (tomatus777@gmail.com)
+- build: fix installation of sub-man with newer Fedora (ptoscano@redhat.com)
+- refactor: Remove system purpose status (pkoprda@redhat.com)
+- refactor: Display status consistent with subscription-manager
+  (pkoprda@redhat.com)
+- refactor: Simplify displaying of installed products (pkoprda@redhat.com)
+- Stop using deprecated translatable for html (jvanderwaa@redhat.com)
 
 * Fri Jan 17 2025 Pino Toscano <ptoscano@redhat.com> 7-1
 - Translated using Weblate (Italian) (info@salvatorecocuzza.it)

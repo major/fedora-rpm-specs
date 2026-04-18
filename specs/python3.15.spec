@@ -1466,7 +1466,8 @@ done
 %if %{with jit_build_stencils}
 for ConfName in %{?with_debug_build:debug} optimized; do
   if [ -s %{jit_stencils_source} ]; then
-    diff -u %{jit_stencils_source} build/${ConfName}/%{jit_stencils_filename}
+    # The -I option ignores the checksum line (calculated from files incl. pyconfig.h which may change with new autoconf)
+    diff -u -I '^// [0-9a-f]\{64\}$' %{jit_stencils_source} build/${ConfName}/%{jit_stencils_filename}
   else
     echo "%{jit_stencils_source} is empty, not checking if it is up to date"
   fi

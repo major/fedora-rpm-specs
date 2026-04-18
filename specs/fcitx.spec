@@ -5,7 +5,7 @@
 Name:			fcitx
 Summary:		An input method framework
 Version:		4.2.9.9
-Release:		12%{?dist}
+Release:		13%{?dist}
 License:		GPL-2.0-or-later
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
@@ -300,6 +300,9 @@ fi
 %{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 4.2.9.9-13
+- rebuild
+
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 4.2.9.9-12
 - rebuild for lua 5.5
 

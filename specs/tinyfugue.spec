@@ -3,7 +3,7 @@
 
 Name:           tinyfugue
 Version:        5.0
-Release:        0.117.b8%{?dist}
+Release:        0.118.b8%{?dist}
 Summary:        A MU* client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -28,11 +28,13 @@ Patch12:        0009-Fix-spelling-error-in-manual-page.patch
 Patch13:        tinyfigue-configure-c99.patch
 Patch14:        tinyfugue-malloc-c99.h
 Patch15:        tinyfugue-tfio-c99.patch
+Patch16:        tf-50b8-pcre2.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
+BuildRequires:  pkgconfig
 BuildRequires:  openssl-devel
 BuildRequires:  sed
 
@@ -43,7 +45,7 @@ macros, and create hooks and triggers for automated responses to game messages.
 
 %prep
 %autosetup -n tf-%{packageversion} -p1
-# Unbundle the old PCRE and update to 8.30
+# Unbundle the old PCRE
 rm -rfv src/pcre-2.08
 
 %build
@@ -73,6 +75,9 @@ install -D -p -m 644 src/tf.1.nroffman %{buildroot}%{_mandir}/man1/tf.1
 %{_mandir}/man1/tf.1*
 
 %changelog
+* Thu Apr 16 2026 Petr Šabata <contyk@redhat.com> - 5.0-0.118.b8
+- Port from PCRE to PCRE2
+
 * Tue Feb 24 2026 Petr Šabata <contyk@redhat.com> - 5.0-0.117.b8
 - Disable -Wreturn-mismatch and -Wreturn-type errors in signal handlers
 

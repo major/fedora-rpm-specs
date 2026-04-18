@@ -4,7 +4,7 @@
 Name:		ucviewer
 # The only place I could find a version was in the documentation.
 Version:	0.1
-Release:	0.37.%{svndate}svn%{svnrev}%{?dist}
+Release:	0.38.%{svndate}svn%{svnrev}%{?dist}
 Summary:	A tool for browsing Unicode tables
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -62,6 +62,10 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/UnicodeViewer/
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.1-0.38.20101019svn4
+- rebuild
+- the machines are always listening
+
 * Sun Mar 15 2026 Tom Callaway <spot@fedoraproject.org> - 0.1-0.37.20101019svn4
 - rebuild for lua 5.5
 - is anybody out there?

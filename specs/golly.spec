@@ -1,6 +1,6 @@
 Name:       golly
 Version:    5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Cellular automata simulator (includes Conway's Game of Life)
 # The license for the code is GPLv2+ and for the included python parts Python-2.0.1
 #    see  /usr/share/licenses/golly/License.html
@@ -129,6 +129,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/Rules/TreeGenerators/
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 5.0-2
+- rebuild
+
 * Mon Mar  2 2026 Tom Callaway <spot@fedoraproject.org> - 5.0-1
 - update to 5.0
 

@@ -1,6 +1,6 @@
 Name:           perl-Devel-CallParser
-Version:        0.002
-Release:        41%{?dist}
+Version:        0.004
+Release:        1%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
@@ -24,15 +24,17 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
+BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::ParseXS)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::File) >= 1.03
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Optional Tests
 #BuildRequires: perl(Data::Alias) >= 1.13          # Retired in Fedora since Fedora 25, could be revived if desired
 BuildRequires:  perl(Devel::Declare) >= 0.006004
 BuildRequires:  perl(indirect) >= 0.27
-#BuildRequires: perl(Lexical::Sub) >= 0.004        # Test fails with Lexical::Sub 0.010 (CPAN RT#147376, rhbz#2182352)
+BuildRequires:  perl(Lexical::Sub) >= 0.004
 #BuildRequires: perl(Sub::StrictDecl) >= 0.001     # Not yet packaged
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
@@ -75,6 +77,23 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Thu Apr 16 2026 Paul Howarth <paul@city-fan.org> - 0.004-1
+- Update to 0.004
+  - Fix failing tests where '.' was removed from INC
+  - Fix cpantester fails on debug perls; switch to a rv2cv op that dereferences
+    a code reference, matching what Perl expects as the last child of
+    OP_ENTERSUB newUNOP(OP_RV2CV, 0, newSVOP(OP_CONST, 0, newRV_inc((SV*)cv)));
+  - Fix qerror compatibility across perl versions: declare Perl_qerror via
+    EXTERN_C to fix implicit declaration error on blead perl 5.43.9+ and avoid
+    Perl_yyerror linker failure on Windows
+  - PERL_VERSION_GE is now wrapped in #ifndef so it skips the local definition
+    when Perl's handy.h already defines it
+  - The qerror fallback now checks for Perl_qerror first (older Perls), and
+    falls back to Perl_yyerror
+  - Fix t/leximport.t failures on threaded/debugging Perl builds: add
+    find_lexical_cv() helper that checks %%^H hints hash directly for
+    Lexical::Sub CVs before falling back to rv2cv_op_cv() lookup
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

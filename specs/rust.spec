@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.94.1
+Version:        1.95.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.93.0
-%global bootstrap_channel 1.93.0
-%global bootstrap_date 2026-01-22
+%global bootstrap_version 1.94.0
+%global bootstrap_channel 1.94.0
+%global bootstrap_date 2026-03-05
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -134,20 +134,10 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.94.0-unbundle-sqlite.patch
+Patch6:         rustc-1.95.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
-
-# bootstrap: always propagate `CARGO_TARGET_{host}_LINKER`
-# https://github.com/rust-lang/rust/pull/152077
-Patch8:         0001-bootstrap-always-propagate-CARGO_TARGET_-host-_LINKE.patch
-
-# Fixes for LLVM 22 compatibility
-# https://github.com/rust-lang/rust/pull/151410
-Patch9:         0001-Update-amdgpu-data-layout.patch
-Patch10:        0002-Avoid-passing-addrspacecast-to-lifetime-intrinsics.patch
-Patch11:        0003-Don-t-use-evex512-with-LLVM-22.patch
 
 ### RHEL-specific patches below ###
 
@@ -158,7 +148,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.94.1-disable-libssh2.patch
+Patch100:       rustc-1.95.0-disable-libssh2.patch
 
 # When building wasi, prevent linking a compiler-rt builtins library we don't have.
 Patch1000:	wasi-no-link-builtins.patch
@@ -271,7 +261,11 @@ BuildRequires:  ncurses-devel
 BuildRequires:  curl-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(liblzma)
-BuildRequires:  pkgconfig(openssl)
+
+# Only specific versions of openssl are supported. They are 1.0.2 - 1.1.1, or 3
+# The openssl-sys crate will also verify the release is supported.
+BuildRequires:  pkgconfig(openssl) < 4
+
 BuildRequires:  pkgconfig(zlib)
 
 %if %{without bundled_libgit2}
@@ -717,10 +711,6 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1

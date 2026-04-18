@@ -5,6 +5,7 @@ Summary:        Deepin tool kit core modules
 License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtkcore
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         fix-entryList-qt611.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

@@ -7,11 +7,11 @@ ExcludeArch: %{ix86}
 # setting it back to 0 and building (just this package) again.  All
 # this does is avoid building the 'five' subpackage which is the bit
 # that needs sedlex.
-%bcond bootstrap 0
+%bcond five 0
 
 Name:           ocaml-yojson
 Version:        3.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -22,7 +22,7 @@ Source0:        %{url}/releases/download/%{version}/yojson-%{version}.tbz
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel >= 0.8.5
 BuildRequires:  ocaml-dune >= 2.7
-%if %{without bootstrap}
+%if %{with five}
 BuildRequires:  ocaml-sedlex-devel >= 2.5
 %endif
 
@@ -48,7 +48,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 
-%if %{without bootstrap}
+%if %{with five}
 %package        five
 Summary:        Parsing and printing library for the JSON5 format
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -75,26 +75,26 @@ files for developing applications that use %{name}-five.
 
 
 %build
-%if %{with bootstrap}
-%dune_build -p yojson
+%if %{with five}
+%dune_build
 %else
-%dune_build -p yojson,yojson-five
+%dune_build -p yojson
 %endif
 
 
 %install
-%if %{with bootstrap}
-%dune_install -s yojson
+%if %{with five}
+%dune_install -s
 %else
-%dune_install -s yojson yojson-five
+%dune_install -s yojson
 %endif
 
 
 %check
-%if %{with bootstrap}
-%dune_check -p yojson
+%if %{with five}
+%dune_check
 %else
-%dune_check -p yojson,yojson-five
+%dune_check -p yojson
 %endif
 
 
@@ -107,13 +107,16 @@ files for developing applications that use %{name}-five.
 %doc CHANGES.md examples
 
 
-%if %{without bootstrap}
+%if %{with five}
 %files five -f .ofiles-yojson-five
 
 %files five-devel -f .ofiles-yojson-five-devel
 %endif
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 3.0.0-10
+- Disable the five subpackage by default to avoid circular deps
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-9
 - OCaml 5.4.1 rebuild
 

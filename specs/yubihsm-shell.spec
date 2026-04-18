@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		yubihsm-shell
-Version:	2.7.2
+Version:	2.7.3
 Release:	1%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
@@ -112,6 +112,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Thu Apr 16 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.3-1
+- New upstream release (#2458149)
+
 * Fri Mar 13 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.2-1
 - New upstream release (#2447224)
 

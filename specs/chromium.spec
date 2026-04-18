@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 147.0.7727.55
+Version: 147.0.7727.101
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1857,6 +1857,40 @@ fi
 %endif
 
 %changelog
+* Wed Apr 15 2026 Than Ngo <than@redhat.com> - 147.0.7727.101-1
+- Update to 147.0.7727.101
+  * Critical CVE-2026-6296: Heap buffer overflow in ANGLE
+  * Critical CVE-2026-6297: Use after free in Proxy
+  * Critical CVE-2026-6298: Heap buffer overflow in Skia
+  * Critical CVE-2026-6299: Use after free in Prerender
+  * Critical CVE-2026-6358: Use after free in XR
+  * High CVE-2026-6359: Use after free in Video
+  * High CVE-2026-6300: Use after free in CSS
+  * High CVE-2026-6301: Type Confusion in Turbofan
+  * High CVE-2026-6302: Use after free in Video
+  * High CVE-2026-6303: Use after free in Codecs
+  * High CVE-2026-6304: Use after free in Graphite
+  * High CVE-2026-6305: Heap buffer overflow in PDFium
+  * High CVE-2026-6306: Heap buffer overflow in PDFium
+  * High CVE-2026-6307: Type Confusion in Turbofan
+  * High CVE-2026-6308: Out of bounds read in Media
+  * High CVE-2026-6309: Use after free in Viz
+  * High CVE-2026-6360: Use after free in FileSystem
+  * High CVE-2026-6310: Use after free in Dawn
+  * High CVE-2026-6311: Uninitialized Use in Accessibility
+  * High CVE-2026-6312: Insufficient policy enforcement in Passwords
+  * High CVE-2026-6313: Insufficient policy enforcement in CORS
+  * High CVE-2026-6314: Out of bounds write in GPU
+  * High CVE-2026-6315: Use after free in Permissions
+  * High CVE-2026-6316: Use after free in Forms
+  * High CVE-2026-6361: Heap buffer overflow in PDFium
+  * High CVE-2026-6362: Use after free in Codecs
+  * High CVE-2026-6317: Use after free in Cast
+  * Medium CVE-2026-6363: Type Confusion in V8
+  * Medium CVE-2026-6318: Use after free in Codecs
+  * Medium CVE-2026-6319: Use after free in Payments
+  * Medium CVE-2026-6364: Out of bounds read in Skia
+
 * Thu Apr 09 2026 Than Ngo <than@redhat.com> - 147.0.7727.55-1
 - Update to 147.0.7727.55
   * Critical CVE-2026-5858: Heap buffer overflow in WebML

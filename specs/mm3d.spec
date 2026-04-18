@@ -5,7 +5,7 @@
 
 Name:           mm3d
 Version:        1.3.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        3D model editor
 
 License:        GPL-2.0-or-later
@@ -105,6 +105,9 @@ cp -p AUTHORS COPYING ChangeLog README.md TODO %{buildroot}%{_datadir}/doc/%{nam
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.3.15-6
+- rebuild
+
 * Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 1.3.15-5
 - rebuild for lua 5.5
 

@@ -1,7 +1,7 @@
 Summary:        Version 0.6 of this Cross platform C++ game library
 Name:           ClanLib06
 Version:        0.6.5
-Release:        69%{?dist}
+Release:        70%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.clanlib.org/
 # No URL as this old version is no longer available on clanlib.org
@@ -105,6 +105,9 @@ chmod -x $RPM_BUILD_ROOT%{_mandir}/man1/clanlib-config.1*
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.6.5-70
+- rebuild
+
 * Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 0.6.5-69
 - correct license tag
 - rebuild for new lua (inherited from tolua++)

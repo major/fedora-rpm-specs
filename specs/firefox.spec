@@ -203,14 +203,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        149.0.2
+Version:        150.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260407.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260416.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -260,7 +260,6 @@ Patch78:        firefox-i686-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
 Patch82:        build-c11-threads-avail.patch
-Patch83:        build-seccomp.patch
 Patch85:        build-wasm32-wasip1.patch
 
 # Fedora specific patches
@@ -277,8 +276,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-Patch404:        D289234.1774532393.diff
-Patch405:        D291711.1775644067.diff
 
 # Potential fix for PipeWire camera crashes
 # https://bugzilla.mozilla.org/show_bug.cgi?id=2023103
@@ -579,7 +576,6 @@ This package contains results of tests executed during build.
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %patch -P82 -p1 -b .build-c11-threads-avail
-%patch -P83 -p1 -b .build-seccomp
 %patch -P85 -p1 -b .wasm32-wasip1
 %endif
 
@@ -602,8 +598,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P404 -p1 -b .D289234.1774532393
-%patch -P405 -p2 -b .D291711.1775644067
 
 %patch -P408 -p1 -b .libwebrtc-potential-fix-for-pipewire-camera-crashes
 
@@ -1300,6 +1294,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Apr 16 2026 Martin Stransky <stransky@redhat.com> - 150.0-1
+- Update to latest upstream (150.0)
+
 * Wed Apr 8 2026 Martin Stransky <stransky@redhat.com> - 149.0.2-1
 - Update to latest upstream (149.0.2)
 

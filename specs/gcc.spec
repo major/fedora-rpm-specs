@@ -1,11 +1,11 @@
-%global DATE 20260321
-%global gitrev da66e2fe4839df86a5fcfd7440bc80d55745534b
+%global DATE 20260416
+%global gitrev 1ce031bfa84b69736e209fbe7446bf271e2f49d3
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 0
-%global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
+%global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
 %if 0%{?fedora:1}
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.10%{?dist}
+Release: %{gcc_release}.11%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -322,11 +322,11 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-tcl9.patch
-Patch14: gcc16-pr124531.patch
-Patch15: gcc16-pr124547.patch
-Patch16: gcc16-uglification.patch
-Patch17: gcc16-module-exports.patch
+Patch13: gcc16-uglification.patch
+Patch14: gcc16-uglification2.patch
+Patch15: gcc16-module-exports.patch
+Patch16: gcc16-bitint-tests.patch
+Patch17: gcc16-pr124268.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3977,6 +3977,57 @@ end
 %endif
 
 %changelog
+* Thu Apr 16 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.11
+- update from trunk
+  - PRs ada/77535, ada/87170, ada/95452, ada/105212, ada/124596, ada/124606,
+	ada/124607, ada/124836, c/61896, c/123234, c/123424, c/124635,
+	c++/98930, c++/103901, c++/117133, c++/118630, c++/120338, c++/121643,
+	c++/121961, c++/122632, c++/122884, c++/123087, c++/123237,
+	c++/123346, c++/123529, c++/123566, c++/123613, c++/123700,
+	c++/123726, c++/123783, c++/123975, c++/123998, c++/124120,
+	c++/124177, c++/124198, c++/124246, c++/124457, c++/124477,
+	c++/124487, c++/124488, c++/124531, c++/124544, c++/124573,
+	c++/124614, c++/124617, c++/124645, c++/124646, c++/124648,
+	c++/124689, c++/124735, c++/124755, c++/124768, c++/124771,
+	c++/124773, c++/124781, c++/124785, c++/124790, c++/124792,
+	c++/124824, c++/124831, c++/124835, c++/124842, c++/124844,
+	c++/124850, c++/124862, d/88150, debug/94491, debug/124644,
+	fortran/66973, fortran/79330, fortran/79524, fortran/84245,
+	fortran/85352, fortran/93554, fortran/93715, fortran/93814,
+	fortran/94978, fortran/95163, fortran/95879, fortran/96986,
+	fortran/98203, fortran/100155, fortran/100194, fortran/101281,
+	fortran/101760, fortran/102314, fortran/102430, fortran/102619,
+	fortran/103367, fortran/104827, fortran/107425, fortran/109788,
+	fortran/114021, fortran/115315, fortran/119273, fortran/120140,
+	fortran/121185, fortran/124259, fortran/124512, fortran/124567,
+	fortran/124598, fortran/124631, fortran/124652, fortran/124656,
+	fortran/124661, fortran/124666, fortran/124739, fortran/124751,
+	fortran/124780, fortran/124807, gcov-profile/121074, ipa/124700,
+	ipa/124777, libfortran/124543, libgomp/123177, libgomp/124123,
+	libstdc++/124722, lto/124828, middle-end/123635, middle-end/124634,
+	middle-end/124671, middle-end/124697, middle-end/124827,
+	middle-end/124877, modula2/105408, modula2/124081, modula2/124840,
+	other/94182, other/124784, preprocessor/70917,
+	rtl-optimization/124572, rtl-optimization/124649,
+	rtl-optimization/124696, sanitizer/124170, target/69639,
+	target/102309, target/105192, target/107337, target/109116,
+	target/120839, target/122483, target/123102, target/123210,
+	target/123238, target/123852, target/124597, target/124613,
+	target/124670, target/124674, target/124684, target/124704,
+	target/124705, target/124710, target/124712, target/124759,
+	target/124789, target/124818, target/124876, target/124892,
+	target/124897, testsuite/93080, testsuite/113276, testsuite/123135,
+	testsuite/124326, testsuite/124548, testsuite/124849,
+	tree-optimization/88576, tree-optimization/122976,
+	tree-optimization/124597, tree-optimization/124599,
+	tree-optimization/124627, tree-optimization/124677,
+	tree-optimization/124692, tree-optimization/124742,
+	tree-optimization/124743, tree-optimization/124746,
+	tree-optimization/124754, tree-optimization/124802,
+	tree-optimization/124809, tree-optimization/124810,
+	tree-optimization/124826, tree-optimization/124868,
+	tree-optimization/124875, tree-optimization/124891
+
 * Sat Mar 21 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.10
 - update from trunk
   - PRs ada/107475, ada/120669, ada/124369, ada/124376, algol68/124322,

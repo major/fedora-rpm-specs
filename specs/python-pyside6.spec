@@ -6,11 +6,11 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.10.3
+%global qt6ver 6.11.0
 
 Name:           python-%{pypi_name}
-Version:        6.10.3
-Release:        1%{?dist}
+Version:        6.11.0
+Release:        2%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -303,7 +303,7 @@ mkdir -p %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 mv %{buildroot}%{_bindir}/shiboken_tool.py %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 
 # Install shiboken6
-mv redhat-linux-build/sources/shiboken6/generator/shiboken6 %{buildroot}%{python3_sitelib}/shiboken6_generator
+mv redhat-linux-build/sources/shiboken6_generator/generator/shiboken6 %{buildroot}%{python3_sitelib}/shiboken6_generator
 
 # Fix CMake config files to use correct absolute paths (OpenSUSE solution)
 # The upstream build is designed for wheel installation with relative paths,
@@ -329,7 +329,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libpyside6*.so.6.10*
+%{_libdir}/libpyside6*.so.6.11*
 %{python3_sitelib}/%{camel_name}/
 %{python3_sitearch}/%{camel_name}-%{version}-py%{python3_version}.egg-info/
 
@@ -355,7 +355,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-shiboken6
 %doc README.shiboken6.md
 %license LICENSES/*
-%{_libdir}/libshiboken6*.so.6.10*
+%{_libdir}/libshiboken6*.so.6.11*
 %{python3_sitelib}/shiboken6/
 %{python3_sitearch}/shiboken6-%{version}-py%{python3_version}.egg-info/
 
@@ -374,6 +374,12 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
+- Restore shiboken6_generator
+
+* Wed Apr 15 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- Update to 6.11.0
+
 * Thu Apr 02 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

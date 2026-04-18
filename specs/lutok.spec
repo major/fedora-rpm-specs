@@ -1,7 +1,7 @@
 Summary: Lightweight C++ API library for Lua
 Name: lutok
 Version: 0.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: https://github.com/freebsd/lutok
 Source0:https://github.com/freebsd/lutok/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -110,6 +110,9 @@ details on how to run the installed tests.
 %{_testsdir}
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.6.2-2
+- rebuild
+
 * Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.6.2-1
 - update to 0.6.2
 - correct license tag

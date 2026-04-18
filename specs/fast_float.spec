@@ -9,7 +9,7 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for number types
-Version:        8.2.4
+Version:        8.2.5
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float

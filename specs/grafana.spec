@@ -25,7 +25,7 @@ end}
 %global selinux_variants mls targeted
 
 Name:             grafana
-Version:          12.4.2
+Version:          12.4.3
 Release:          1%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
@@ -131,30 +131,30 @@ Requires: grafana-selinux = %{version}-%{release}
 Recommends: grafana-pcp
 %endif
 
-Obsoletes:        grafana-cloudwatch < 7.3.6-1
-Obsoletes:        grafana-elasticsearch < 7.3.6-1
-Obsoletes:        grafana-azure-monitor < 7.3.6-1
-Obsoletes:        grafana-graphite < 7.3.6-1
-Obsoletes:        grafana-influxdb < 7.3.6-1
-Obsoletes:        grafana-loki < 7.3.6-1
-Obsoletes:        grafana-mssql < 7.3.6-1
-Obsoletes:        grafana-mysql < 7.3.6-1
-Obsoletes:        grafana-opentsdb < 7.3.6-1
-Obsoletes:        grafana-postgres < 7.3.6-1
-Obsoletes:        grafana-prometheus < 7.3.6-1
-Obsoletes:        grafana-stackdriver < 7.3.6-1
-Provides:         grafana-cloudwatch = 7.3.6-1
-Provides:         grafana-elasticsearch = 7.3.6-1
-Provides:         grafana-azure-monitor = 7.3.6-1
-Provides:         grafana-graphite = 7.3.6-1
-Provides:         grafana-influxdb = 7.3.6-1
-Provides:         grafana-loki = 7.3.6-1
-Provides:         grafana-mssql = 7.3.6-1
-Provides:         grafana-mysql = 7.3.6-1
-Provides:         grafana-opentsdb = 7.3.6-1
-Provides:         grafana-postgres = 7.3.6-1
-Provides:         grafana-prometheus = 7.3.6-1
-Provides:         grafana-stackdriver = 7.3.6-1
+Obsoletes:        grafana-cloudwatch < 12.4.3-1
+Obsoletes:        grafana-elasticsearch < 12.4.3-1
+Obsoletes:        grafana-azure-monitor < 12.4.3-1
+Obsoletes:        grafana-graphite < 12.4.3-1
+Obsoletes:        grafana-influxdb < 12.4.3-1
+Obsoletes:        grafana-loki < 12.4.3-1
+Obsoletes:        grafana-mssql < 12.4.3-1
+Obsoletes:        grafana-mysql < 12.4.3-1
+Obsoletes:        grafana-opentsdb < 12.4.3-1
+Obsoletes:        grafana-postgres < 12.4.3-1
+Obsoletes:        grafana-prometheus < 12.4.3-1
+Obsoletes:        grafana-stackdriver < 12.4.3-1
+Provides:         grafana-cloudwatch = 12.4.3-1
+Provides:         grafana-elasticsearch = 12.4.3-1
+Provides:         grafana-azure-monitor = 12.4.3-1
+Provides:         grafana-graphite = 12.4.3-1
+Provides:         grafana-influxdb = 12.4.3-1
+Provides:         grafana-loki = 12.4.3-1
+Provides:         grafana-mssql = 12.4.3-1
+Provides:         grafana-mysql = 12.4.3-1
+Provides:         grafana-opentsdb = 12.4.3-1
+Provides:         grafana-postgres = 12.4.3-1
+Provides:         grafana-prometheus = 12.4.3-1
+Provides:         grafana-stackdriver = 12.4.3-1
 
 # vendored golang and node.js build dependencies
 # this is for security purposes, if nodejs-foo ever needs an update,
@@ -513,26 +513,26 @@ Provides: bundled(npm(@rollup/plugin-dynamic-import-vars)) = 2.1.5
 Provides: bundled(npm(@rollup/plugin-image)) = 3.0.3
 Provides: bundled(npm(@rollup/plugin-json)) = 6.1.0
 Provides: bundled(npm(@rollup/plugin-node-resolve)) = 16.0.1
-Provides: bundled(npm(@rollup/plugin-terser)) = 0.4.4
+Provides: bundled(npm(@rollup/plugin-terser)) = 1.0.0
 Provides: bundled(npm(@rsdoctor/webpack-plugin)) = 1.1.10
 Provides: bundled(npm(@rtk-query/codegen-openapi)) = 2.0.0
-Provides: bundled(npm(@storybook/addon-a11y)) = 8.6.15
-Provides: bundled(npm(@storybook/addon-actions)) = 8.6.15
-Provides: bundled(npm(@storybook/addon-docs)) = 8.6.15
-Provides: bundled(npm(@storybook/addon-essentials)) = 8.6.15
-Provides: bundled(npm(@storybook/addon-storysource)) = 8.6.15
+Provides: bundled(npm(@storybook/addon-a11y)) = 8.6.18
+Provides: bundled(npm(@storybook/addon-actions)) = 8.6.18
+Provides: bundled(npm(@storybook/addon-docs)) = 8.6.18
+Provides: bundled(npm(@storybook/addon-essentials)) = 8.6.18
+Provides: bundled(npm(@storybook/addon-storysource)) = 8.6.18
 Provides: bundled(npm(@storybook/addon-webpack5-compiler-swc)) = 2.1.0
-Provides: bundled(npm(@storybook/blocks)) = 8.6.15
-Provides: bundled(npm(@storybook/components)) = 8.6.15
-Provides: bundled(npm(@storybook/core-events)) = 8.6.15
-Provides: bundled(npm(@storybook/manager-api)) = 8.6.15
+Provides: bundled(npm(@storybook/blocks)) = 8.6.18
+Provides: bundled(npm(@storybook/components)) = 8.6.18
+Provides: bundled(npm(@storybook/core-events)) = 8.6.18
+Provides: bundled(npm(@storybook/manager-api)) = 8.6.18
 Provides: bundled(npm(@storybook/mdx2-csf)) = 1.1.0
 Provides: bundled(npm(@storybook/preset-scss)) = 1.0.3
-Provides: bundled(npm(@storybook/preview-api)) = 8.6.15
-Provides: bundled(npm(@storybook/react)) = 8.6.15
-Provides: bundled(npm(@storybook/react-webpack5)) = 8.6.15
+Provides: bundled(npm(@storybook/preview-api)) = 8.6.18
+Provides: bundled(npm(@storybook/react)) = 8.6.18
+Provides: bundled(npm(@storybook/react-webpack5)) = 8.6.18
 Provides: bundled(npm(@storybook/test-runner)) = 0.23.0
-Provides: bundled(npm(@storybook/theming)) = 8.6.15
+Provides: bundled(npm(@storybook/theming)) = 8.6.18
 Provides: bundled(npm(@stylistic/eslint-plugin-ts)) = 4.4.1
 Provides: bundled(npm(@swc/core)) = 1.13.3
 Provides: bundled(npm(@swc/helpers)) = 0.5.17
@@ -634,12 +634,12 @@ Provides: bundled(npm(combokeys)) = 3.0.1
 Provides: bundled(npm(comlink)) = 4.4.2
 Provides: bundled(npm(common-tags)) = 1.8.2
 Provides: bundled(npm(confusing-browser-globals)) = 1.0.11
-Provides: bundled(npm(copy-webpack-plugin)) = 13.0.0
+Provides: bundled(npm(copy-webpack-plugin)) = 14.0.0
 Provides: bundled(npm(core-js)) = 2.6.12
 Provides: bundled(npm(crashme)) = 0.0.15
 Provides: bundled(npm(croner)) = 9.1.0
 Provides: bundled(npm(css-loader)) = 6.10.0
-Provides: bundled(npm(css-minimizer-webpack-plugin)) = 7.0.2
+Provides: bundled(npm(css-minimizer-webpack-plugin)) = 8.0.0
 Provides: bundled(npm(csstype)) = 3.1.3
 Provides: bundled(npm(cypress)) = 14.3.2
 Provides: bundled(npm(cypress-file-upload)) = 5.0.8
@@ -828,7 +828,7 @@ Provides: bundled(npm(slate-plain-serializer)) = 0.7.13
 Provides: bundled(npm(slate-react)) = 0.22.10
 Provides: bundled(npm(smtp-tester)) = 2.1.0
 Provides: bundled(npm(sql-formatter-plus)) = 1.3.6
-Provides: bundled(npm(storybook)) = 8.6.15
+Provides: bundled(npm(storybook)) = 8.6.18
 Provides: bundled(npm(stream-browserify)) = 3.0.0
 Provides: bundled(npm(string-hash)) = 1.1.3
 Provides: bundled(npm(string_decoder)) = 0.10.31
@@ -839,7 +839,7 @@ Provides: bundled(npm(swagger-ui-react)) = 5.30.3
 Provides: bundled(npm(swc-loader)) = 0.2.6
 Provides: bundled(npm(symbol-observable)) = 4.0.0
 Provides: bundled(npm(systemjs)) = 6.15.1
-Provides: bundled(npm(terser-webpack-plugin)) = 5.3.14
+Provides: bundled(npm(terser-webpack-plugin)) = 5.4.0
 Provides: bundled(npm(testing-library-selector)) = 0.3.1
 Provides: bundled(npm(tinycolor2)) = 1.6.0
 Provides: bundled(npm(tracelib)) = 1.0.1
@@ -1153,6 +1153,11 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Thu Apr 16 2026 Sam Feifer <sfeifer@redhat.com> - 12.4.3-1
+- Fix bundled plugins issue from rebase to 12.4.2
+- Remove forbidden unicode code point (issue reported by rpminspect)
+- Rebase to grafana v12.4.3
+
 * Thu Mar 26 2026 Sam Feifer <sfeifer@redhat.com> - 12.4.2-1
 - Update to grafana v12.4.2
 - Stop building for 32 bit architecuture i686

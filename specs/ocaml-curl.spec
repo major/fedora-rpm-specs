@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.10.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -91,6 +91,9 @@ developing applications that use LWT with %{name}.
 
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 0.10.0-6
+- Rebuild for ocaml-lwt 6.1.1
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.10.0-5
 - OCaml 5.4.1 rebuild
 

@@ -2,7 +2,7 @@ Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
 Version: 26.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
 URL:     http://edu.kde.org/marble/
@@ -256,6 +256,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/{marble_geojson,marbl
 
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 1:26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 1:26.04.0-1
 - 26.04.0
 

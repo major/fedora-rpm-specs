@@ -58,6 +58,12 @@ export UJSON_BUILD_DC_INCLUDES="$(
 export UJSON_BUILD_DC_LIBS="$(pkg-config --libs double-conversion)"
 
 
+%install -a
+# For setuptools_scm 10+; see:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2453824
+rm -rvf '%{buildroot}%{python3_sitearch}/src'
+
+
 %check -a
 %pytest -v
 

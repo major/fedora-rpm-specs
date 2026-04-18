@@ -3,7 +3,7 @@
 
 Name:           nexus
 Version:        4.4.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Libraries and tools for the NeXus scientific data file format
 
 # The entire source code is GPLv2+ except nxdir which is MIT
@@ -114,6 +114,9 @@ rm %{buildroot}%{_libdir}/libNeXusCPP.a
 
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.4.3-26
+- Rebuild for hdf5 2.1
+
 * Thu Apr 02 2026 Stuart Campbell <scampbell@bnl.gov> - 4.4.3-25
 - Patch for allocator changes in C++17
 

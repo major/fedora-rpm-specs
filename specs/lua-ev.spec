@@ -3,7 +3,7 @@ Name:           lua-ev
 License:        MIT
 
 Version:        1.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 URL:            https://github.com/brimworks/lua-ev
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ lua -e 'ev = require "ev"; print(ev.version())'
 %{lua_libdir}/ev.so
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.5-13
+- rebuild
+
 * Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 1.5-12
 - rebuild for lua 5.5
 

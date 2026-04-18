@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 9.0.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -335,6 +335,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 9.0.0-4
+- Rebuild (qt6)
+
 * Sun Mar 15 2026 Alexey Kurov <nucleo@fedoraproject.org> - 9.0.0-3
 - Backport fix for rhbz#2447616
 

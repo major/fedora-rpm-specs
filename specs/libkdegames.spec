@@ -1,7 +1,7 @@
 Name:    libkdegames
 Summary: Common code and data for many KDE games
 Version: 26.04.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # libKF5KDEGames is LGPLv2, libKF5KDEGamesPrivate is GPLv2+
 # Automatically converted from old format: LGPLv2 and GPLv2+ - review is highly recommended.
@@ -37,7 +37,7 @@ BuildRequires: kf6-kiconthemes-devel
 BuildRequires: kf6-kio-devel
 BuildRequires: kf6-kitemviews-devel
 BuildRequires: kf6-kjobwidgets-devel
-BuildREquires: kf6-knewstuff-devel
+BuildRequires: kf6-knewstuff-devel
 BuildRequires: kf6-kservice-devel
 BuildRequires: kf6-ktextwidgets-devel
 BuildRequires: kf6-kwidgetsaddons-devel
@@ -110,6 +110,12 @@ Requires: kf6-kwidgetsaddons-devel
 
 
 %changelog
+* Thu Apr 16 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-3
+- Respun
+
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

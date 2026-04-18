@@ -12,8 +12,6 @@ URL:            https://github.com/charmbracelet/gum
 Source0:        %{url}/archive/v%{version}/gum-%{version}.tar.gz
 Source1:        gum-%{version}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
-# https://github.com/alecthomas/chroma/pull/1233
-Patch0:         0001-Include-embedded-font-license-in-COPYING-file.patch
 
 BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
@@ -27,9 +25,6 @@ in your scripts and aliases without writing any Go code!
 
 %prep
 %setup -q -a 1
-
-cd vendor/github.com/alecthomas/chroma/v2
-%patch -p 1 -P 0
 
 
 %build

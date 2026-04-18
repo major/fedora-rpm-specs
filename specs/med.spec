@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 5.0.0-11
+- Rebuild for hdf5 2.1
+
 * Thu Apr 09 2026 Sandro Mani <manisandro@gmail.com> - 5.0.0-10
 - Add med-cmake43.patch
 

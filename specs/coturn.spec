@@ -1,5 +1,5 @@
 Name:           coturn
-Version:        4.9.0
+Version:        4.10.0
 Release:        1%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
@@ -10,7 +10,7 @@ Source1:        coturn.service
 Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
-Patch0:         coturn-4.9.0-openssl-1.1.patch
+Patch0:         coturn-4.10.0-openssl-1.1.patch
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
@@ -112,6 +112,7 @@ sed -i \
     src/apps/uclient/mainuclient.c
 
 %build
+%{?el8:export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE"}
 %configure \
     --confdir=%{_sysconfdir}/%{name} \
     --examplesdir=%{_docdir}/%{name} \
@@ -225,6 +226,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Fri Apr 17 2026 Robert Scheck <robert@fedoraproject.org> - 4.10.0-1
+- Upgrade to 4.10.0 (#2458094)
+
 * Wed Feb 25 2026 Robert Scheck <robert@fedoraproject.org> - 4.9.0-1
 - Upgrade to 4.9.0 (#2442144)
 - Add patch to build successfully using OpenSSL 1.1.1 on RHEL 8

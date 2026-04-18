@@ -1,6 +1,6 @@
 Name:          maui-mauikit-texteditor
 Version:       4.0.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       BSD-2-Clause AND LGPL-2.1-or-later AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause
 Summary:       MauiKit Text Editor components
 URL:           https://invent.kde.org/maui/mauikit-texteditor/
@@ -56,6 +56,9 @@ on %{name}.
 %{_kf6_libdir}/libMauiKitTextEditor4.so
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-5
+- Rebuild (qt6)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

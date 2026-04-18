@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
 Version:        3.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -73,6 +73,9 @@ sed -i "s/16\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
 
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 3.7-5
+- Rebuild for ocaml-ppxlib 0.38.0
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 3.7-4
 - OCaml 5.4.1 rebuild
 

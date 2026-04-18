@@ -7,7 +7,7 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        3.0.17
+Version:        3.0.19
 Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
@@ -133,6 +133,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.19-1
+- update to 3.0.19
+
 * Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.17-1
 - update to 3.0.17, lua 5.5
 

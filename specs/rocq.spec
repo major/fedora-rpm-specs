@@ -7,8 +7,15 @@
 
 %global giturl  https://github.com/rocq-prover/rocq
 
+# As of rocq 9.2.0, the native compiler only works on x86_64
+%ifarch %{x86_64}
+%bcond native 1
+%else
+%bcond native 0
+%endif
+
 Name:           rocq
-Version:        9.1.1
+Version:        9.2.0
 Release:        %autorelease
 Summary:        Proof management system
 
@@ -25,8 +32,6 @@ Source2:        org.rocq-prover.rocqide.metainfo.xml
 Source3:        rocq.xml
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
-# [Backport] Fix documentation build (upstream commit 17e4fb9)
-Patch:          %{name}-no-generated-readme.patch
 
 # Rocq's plugin architecture requires cmxs files.  In addition, neither Java
 # nor OCaml is available on i386, but since i386 is not in
@@ -261,7 +266,7 @@ sed -e 's|-Wall.*-O2|%{build_cflags} %{build_ldflags} -Wno-unused|' \
 sed -i 's,-shared,& -g,g' tools/CoqMakefile.in
 
 # Do not invoke env
-for f in doc/tools/coqrst/notations/fontsupport.py;
+for f in doc/tools/rocqrst/notations/fontsupport.py;
 do
   sed -i.orig 's,/usr/bin/env python2,%{python3},' $f
   fixtimestamp $f
@@ -275,7 +280,7 @@ done
 %global rocqdocdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/rocq-%{version}}
 
 # Regenerate ANTLR files
-cd doc/tools/coqrst/notations
+cd doc/tools/rocqrst/notations
 antlr4 -Dlanguage=Python3 -visitor -no-listener TacticNotations.g
 cd -
 
@@ -284,7 +289,6 @@ cd -
 ./configure -prefix %{_prefix}                       \
             -libdir %{ocamldir}/coq                  \
             -configdir %{_sysconfdir}/xdg/%{name}    \
-            -mandir %{_mandir}                       \
             -docdir %{rocqdocdir}                    \
 %ifarch %{ocaml_natdynlink}
             -natdynlink yes                          \
@@ -293,13 +297,11 @@ cd -
 %endif
             -browser "xdg-open %s"                   \
             -bytecode-compiler yes                   \
+%if %{with native}
+            -native-compiler yes
+%else
             -native-compiler no
-# As of coq 8.17.0, the native compiler cannot be built with OCaml 5.x
-#%%ifarch %%{ocaml_native_compiler}
-#            -native-compiler yes
-#%%else
-#            -native-compiler no
-#%%endif
+%endif
 
 # Build the binary artifacts
 make dunestrap VERBOSE=1 DUNEOPT="--verbose --profile=release"

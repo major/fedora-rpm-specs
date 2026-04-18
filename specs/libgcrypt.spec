@@ -1,5 +1,5 @@
 Name: libgcrypt
-Version: 1.12.1
+Version: 1.12.2
 Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
@@ -141,6 +141,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Thu Apr 16 2026 Jakub Jelen <jjelen@redhat.com> - 1.12.2-1
+- New upstream release (#2458643)
+
 * Mon Feb 23 2026 Jakub Jelen <jjelen@redhat.com> - 1.12.1-1
 - New bugfix upstream release (#2435259)
 

@@ -43,6 +43,7 @@ BuildRequires: python3-lark-parser
 BuildRequires: python3-psutil
 BuildRequires: python3-pyyaml
 BuildRequires: python3-jsonschema
+BuildRequires: python3-rpm
 BuildRequires: python3-setuptools
 BuildRequires: systemd-rpm-macros
 BuildRequires: rpm-sign
@@ -125,6 +126,7 @@ Requires: python3-lark
 Requires: python3-pyasn1
 Requires: python3-pyasn1-modules
 Requires: python3-psutil
+Requires: python3-rpm
 Requires: python3-jsonschema
 Requires: python3-typing-extensions
 Requires: tpm2-tools

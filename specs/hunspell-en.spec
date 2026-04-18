@@ -3,7 +3,7 @@ Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20260225
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2026.02.25.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 Patch1: en_GB-singleletters.patch
@@ -26,7 +26,7 @@ URL: http://wordlist.sourceforge.net/
 # scowl/speller/aspell/en_phonet.dat is LGPLv2
 License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-3-Clause-Modification
 BuildArch: noarch
-BuildRequires: hunspell, zip, dos2unix, perl-Getopt-Long, gcc-c++
+BuildRequires: aspell, hunspell, zip, dos2unix, perl-Getopt-Long, gcc-c++
 BuildRequires: make
 BuildRequires: sqlite
 BuildRequires: python3
@@ -170,6 +170,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_CA.*
 
 %changelog
+* Thu Apr 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.20260225-2
+- Re-BR aspell
+
 * Tue Apr 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.20260225-1
 - 2026.02.25
 - Enable AU and CA.

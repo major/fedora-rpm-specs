@@ -1,6 +1,6 @@
 Name: docbook-utils
 Version: 0.6.15
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 Summary: Shell scripts for managing DocBook documents
 URL: https://github.com/devexp-db/docbook-utils
@@ -38,10 +38,11 @@ for comparing SGML files.
 
 %package pdf
 Requires: texlive-jadetex >= 7
+Requires: texlive-passivetex
 Requires: docbook-utils = %{version}
 Requires: tex(dvips)
 Requires: texlive-collection-fontsrecommended
-Requires: texlive-collection-formatsextra
+Requires: texlive-collection-latex
 License: GPL-1.0-or-later
 Obsoletes: stylesheets-db2pdf <= %{version}-%{release}
 Provides: stylesheets-db2pdf = %{version}-%{release}
@@ -116,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT/tmp
 %{_mandir}/*/docbook2ps.*
 
 %changelog
+* Wed Apr 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.15-7
+- Update pdf dependencies
+
 * Tue Feb 10 2026 Than Ngo <than@redhat.com> - 0.6.15-6
 - Fix rhbz#2437555 - F44FailsToInstall 
 

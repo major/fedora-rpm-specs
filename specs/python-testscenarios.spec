@@ -1,13 +1,10 @@
 Name:           python-testscenarios
-Version:        0.5.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Testscenarios, a pyunit extension for dependency injection
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/testing-cabal/testscenarios
 Source:         %{pypi_source testscenarios}
-
-# Fix load_tests interface
-Patch:          https://github.com/testing-cabal/testscenarios/pull/1.patch
 
 BuildArch:      noarch
 
@@ -33,13 +30,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n testscenarios-%{version}
-# Remove unknown test options from setup.py
-sed -i '/^buffer = 1$/d' setup.cfg
-sed -i '/^catch = 1$/d' setup.cfg
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
@@ -52,12 +46,13 @@ sed -i '/^catch = 1$/d' setup.cfg
 
 
 %check
+%pyproject_check_import
 %{py3_test_envvars} %{python3} -m testtools.run testscenarios.test_suite
 
 
 %files -n python3-testscenarios -f %{pyproject_files}
 %license Apache-2.0 BSD
-%doc GOALS HACKING NEWS README doc/
+%doc GOALS HACKING NEWS README.rst doc/
 
 
 %changelog

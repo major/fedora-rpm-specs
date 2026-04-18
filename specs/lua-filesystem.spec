@@ -12,7 +12,7 @@
 
 Name:           lua-filesystem
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File System Library for the Lua Programming Language
 
 %global gitowner lunarmodules
@@ -109,6 +109,9 @@ LUA_CPATH=%{buildroot}%{lua_compat_libdir}/\?.so lua-%{lua_compat_version} tests
 %endif
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.9.0-2
+- rebuild
+
 * Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.9.0-1
 - update to 1.9.0
 - rebuild for lua 5.5

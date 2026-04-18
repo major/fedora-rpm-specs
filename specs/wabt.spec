@@ -9,8 +9,8 @@
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.39
-Release: 2%{?dist}
+Version: 1.0.40
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -18,7 +18,7 @@ Source2: https://github.com/WebAssembly/wasm-c-api/archive/%{wc_commit}/%{name}-
 # increase test timeout to avoid failures
 Patch0: %{name}-test-timeout.patch
 License: Apache-2.0
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: openssl-devel
 %if %{with check}
@@ -85,14 +85,14 @@ popd
 %endif
 
 %build
-%cmake3 -DUSE_SYSTEM_GTEST=ON \
+%cmake -DUSE_SYSTEM_GTEST=ON \
 %ifarch i686
     -DWASM2C_CFLAGS="-msse2 -mfpmath=sse"
 %endif
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %if %{with check}
 %check
@@ -137,6 +137,10 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Thu Apr 16 2026 Dominik Mierzejewski <dominik@greysector.net> 1.0.40-1
+- update to 1.0.40 (resolves rhbz#2446432)
+- stop using obsolete cmake3 macros
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

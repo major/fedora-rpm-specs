@@ -21,6 +21,8 @@ Source1:        fr.lri.%{name}.desktop
 Source2:        fr.lri.%{name}.metainfo.xml
 # The deprecated Zmod alias was removed in rocq-stdlib 9.1.0
 Patch:          %{name}-zmod.patch
+# Adapt to changes in rocq 9.2.0
+Patch:          %{name}-rocq-9.2.patch
 
 BuildRequires:  coq-core-compat
 BuildRequires:  emacs-nw

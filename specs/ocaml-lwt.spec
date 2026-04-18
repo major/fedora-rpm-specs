@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocsigen/lwt
 
 Name:           ocaml-lwt
-Version:        5.9.1
-Release:        6%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -19,12 +19,9 @@ VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/lwt-%{version}.tar.gz
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
-# Compatibility with ppxlib 0.36
-# https://github.com/ocsigen/lwt/pull/1033
-Patch:          %{name}-ppxlib-0.36.patch
 
-BuildRequires:  ocaml >= 4.08
-BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml >= 5.1
+BuildRequires:  ocaml-dune >= 3.18
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cppo >= 1.1.0
@@ -34,8 +31,8 @@ BuildRequires:  ocaml-ocplib-endian-devel
 BuildRequires:  ocaml-react-devel >= 1.0.0
 
 # lwt_ppx dependencies.
-BuildRequires:  ocaml-ppxlib-devel >= 0.16.0
-BuildRequires:  ocaml-ppx-let-devel
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
+BuildRequires:  ocaml-ppx-let-devel >= 0.17.1
 
 # optional dependencies.
 BuildRequires:  libev-devel
@@ -78,6 +75,23 @@ Requires:       ocaml-react-devel%{?_isa}
 %description    react-devel
 The %{name}-react-devel package contains libraries and signature files for
 developing applications that use %{name}-react.
+
+%package        direct
+Summary:        Direct-style control-flow and await for Lwt
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    direct
+Direct-style control-flow and await for Lwt.
+
+%package        direct-devel
+Summary:        Development files for ocaml-lwt-direct
+
+Requires:       %{name}-direct%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    direct-devel
+The %{name}-direct-devel package contains libraries and signature files for
+developing applications that use %{name}-direct.
 
 %package        ppx
 Summary:        PPX syntax for Lwt
@@ -135,7 +149,7 @@ dune exec src/unix/config/discover.exe -- --save \
 %dune_install -s
 
 # Remove test-only directory
-rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
+rm -rf %{buildroot}%{ocamldir}/lwt_ppx__ppx_let_tests
 
 %check
 # Disable this test on s390x.
@@ -144,11 +158,11 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 %dune_check
 %endif
 
-%files -f .ofiles-lwt
+%files -f .ofiles-lwt -f .ofiles-lwt_runtime_events
 %doc CHANGES README.md
 %license LICENSE.md
 
-%files devel -f .ofiles-lwt-devel
+%files devel -f .ofiles-lwt-devel -f .ofiles-lwt_runtime_events-devel
 %doc CHANGES README.md
 %license LICENSE.md
 
@@ -157,6 +171,12 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 %license LICENSE.md
 
 %files react-devel -f .ofiles-lwt_react-devel
+%doc CHANGES README.md
+
+%files direct -f .ofiles-lwt_direct
+%doc CHANGES README.md
+
+%files direct-devel -f .ofiles-lwt_direct-devel
 %doc CHANGES README.md
 
 %files ppx -f .ofiles-lwt_ppx
@@ -173,6 +193,11 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 6.1.1-1
+- Version 6.1.1
+- New ocaml-lwt-direct subpackage
+- Drop upstreamed patch for ppxlib 0.36 compatibility
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 5.9.1-6
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

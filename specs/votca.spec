@@ -2,7 +2,7 @@ Name:           votca
 Version:        2026
 %global         uversion %{version}
 %global         sover 2026
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -209,6 +209,9 @@ This package contains bash completion support for the VOTCA package.
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 2026-2
+- Rebuild for hdf5 2.1
+
 * Mon Mar 09 2026 Christoph Junghans <junghans@votca.org> - 2026-1
 - Version bump to v2026
 - Drop s390x and some clean up

@@ -37,10 +37,6 @@ To communicate with GNSS receiver's serial it uses ubloxcfg
 
 %prep
 %autosetup
-# Fix paths in systemd unit
-sed -e 's/^Environment=LD_LIBRARY_PATH.*$//' \
-    -e "s@/usr/local/bin@%{_bindir}@" \
-    -i systemd/oscillatord.service
 # Drop hardcoded CFLAGS
 sed -e 's/-O0//g' -i CMakeLists.txt
 

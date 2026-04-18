@@ -3,7 +3,7 @@
 
 Name:      lua-epnf
 Version:   0.3
-Release:   10%{?dist}
+Release:   11%{?dist}
 Summary:   Extended PEG Notation Format (easy grammars for LPeg)
 License:   MIT
 URL:       %{forgeurl}
@@ -50,6 +50,9 @@ done
 
 
 %changelog
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.3-11
+- rebuild
+
 * Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 0.3-10
 - rebuild for lua 5.5
 

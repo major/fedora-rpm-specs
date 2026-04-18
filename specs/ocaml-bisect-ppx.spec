@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -83,6 +83,9 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.8.3-22
+- Rebuild for ocaml-cmdliner 2.1.0 and ocaml-ppxlib 0.38.0
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.8.3-21
 - OCaml 5.4.1 rebuild
 

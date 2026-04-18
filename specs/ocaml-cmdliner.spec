@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-cmdliner
-Version:        2.0.0
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Apr 16 2026 Jerry James <loganjerry@gmail.com> - 2.1.0-1
+- New upstream version 2.1.0
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-4
 - OCaml 5.4.1 rebuild
 

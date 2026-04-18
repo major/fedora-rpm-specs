@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.3
+Version:        6.11.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebChannel component
 
@@ -127,6 +127,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/modules/WebChannel.json
 %{mingw32_libdir}/qt6/modules/WebChannelQuick.json
 %{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
+%{mingw32_datadir}/qt6/webchannel/qwebchannel.js
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -157,9 +158,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/modules/WebChannel.json
 %{mingw64_libdir}/qt6/modules/WebChannelQuick.json
 %{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
+%{mingw64_datadir}/qt6/webchannel/qwebchannel.js
 
 
 %changelog
+* Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
+- 6.11.0
+
 * Tue Mar 31 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.3-1
 - 6.10.3
 

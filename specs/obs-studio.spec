@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -402,6 +402,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 32.1.1-2
+- Rebuild (qt6)
+
 * Fri Apr 03 2026 Hoshino Lina <lina@lina.yt> - 32.1.1-2
 - Update to 32.1.1
 - Drop i686 build
