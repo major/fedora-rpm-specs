@@ -1,5 +1,5 @@
 Name:             3proxy
-Version:          0.9.5
+Version:          0.9.6
 Release:          %autorelease
 
 Summary:          Tiny but very powerful proxy
@@ -17,11 +17,11 @@ BuildRequires:    openssl-devel
 BuildRequires:    systemd-rpm-macros
 
 # I correct config path in man only. It is fully Fedora related.
-Patch0:           3proxy-0.6.1-config-path.patch
+Patch0:           3proxy-0.9.6-config-path.patch
 # Fixes *_poll build error
 Patch1:           3proxy-0.9.4-poll-build.patch
 # Adapt manpages to reflect renamed proxy binary
-Patch2:           3proxy-0.9.4-manpage.patch
+Patch2:           3proxy-0.9.6-manpage.patch
 
 %description
 %{name} -- light proxy server.

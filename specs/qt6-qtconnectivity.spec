@@ -38,7 +38,6 @@ BuildRequires: qt6-qtbase-private-devel >= %{version}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: pkgconfig(bluez)
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
-BuildRequires: openssl-devel
 
 %description
 %{summary}.

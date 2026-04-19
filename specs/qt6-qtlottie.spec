@@ -33,7 +33,6 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: qt6-qtsvg-devel >= %{version}
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: openssl-devel
 
 %description
 Qt Lottie Animation provides a QML API for rendering graphics and animations

@@ -1,4 +1,3 @@
-%undefine __cmake_in_source_build
 # compression tests take up 3GB of disk space and a lot of time
 %global compression_tests 0
 %global desc \
@@ -13,7 +12,7 @@ beginning of the file.
 
 Name:          tng
 Version:       1.8.2
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       Trajectory Next Generation binary format manipulation library
 
 # Automatically converted from old format: BSD and zlib - review is highly recommended.
@@ -23,9 +22,11 @@ Source0:       https://github.com/gromacs/tng/archive/v%{version}/%{name}-%{vers
 Patch0:        tng-gf12.patch
 # bump cmake version, https://gitlab.com/gromacs/tng/-/merge_requests/49
 Patch1:        49.patch
+# backport upstream fix for format truncation
+Patch2:        https://github.com/gromacs/tng/commit/14dd68ff46df1ef1cf2d9bcc1f4f5bddb974ce1c.patch
 URL:           http://www.gromacs.org/Developer_Zone/Programming_Guide/File_formats
 
-BuildRequires:  cmake3 >= 3.1
+BuildRequires: cmake
 BuildRequires: doxygen
 BuildRequires: gcc
 BuildRequires: gcc-gfortran
@@ -57,7 +58,7 @@ This package contains the documentation.
 %autosetup -p1
 
 %build
-%{cmake3} \
+%{cmake} \
     -DTNG_BUILD_DOCUMENTATION=ON \
     -DTNG_BUILD_FORTRAN=ON \
 %if 0%{?compression_tests} > 0
@@ -66,10 +67,10 @@ This package contains the documentation.
     -DTNG_BUILD_WITH_ZLIB=ON \
     %{nil}
 
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 # build/Documentation/html
 rm -r %{buildroot}%{_datadir}/tng/doc/latex
@@ -92,7 +93,7 @@ popd
 %files
 %license COPYING
 %doc AUTHORS Trajectoryformatspecification.mk
-%{_libdir}/libtng_io.so.*
+%{_libdir}/libtng_io.so.1{,.*}
 
 %files devel
 %{_includedir}/tng
@@ -103,6 +104,11 @@ popd
 %{_docdir}/%{name}
 
 %changelog
+* Fri Apr 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.8.2-23
+- stop using obsolete cmake3 macros
+- specify SONAME in file list explicitly
+- apply upstream patch to fix format truncation
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

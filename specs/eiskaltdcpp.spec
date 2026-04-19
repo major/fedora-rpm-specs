@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(lua)
 BuildRequires:  pkgconfig(libglade-2.0)
 BuildRequires:  pkgconfig(libidn)
 BuildRequires:  desktop-file-utils
-BuildRequires:  pkgconfig(libpcre)
+# BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  miniupnpc-devel
 BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  perl-generators
@@ -92,7 +92,7 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
     -DUSE_GTK3=ON \
     -DDBUS_NOTIFY=ON \
     -DUSE_JS=ON \
-    -DPERL_REGEX=ON \
+    -DPERL_REGEX=OFF \
     -DUSE_CLI_XMLRPC=ON \
     -DWITH_SOUNDS=ON \
     -DLUA_SCRIPT=ON \
@@ -145,7 +145,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %changelog
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.4.2-26
-- rebuild
+- rebuild, disable perl_regex due to dep on ancient pcre (now removed)
 
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 2.4.2-25
 - rebuild for lua 5.5

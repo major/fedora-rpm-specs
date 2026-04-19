@@ -1,4 +1,4 @@
-%global         upversion 5.0.3.1683
+%global         upversion 5.0.4.1812
 %global         pkgversion Firebird-%{upversion}-0
 
 %global         major 5.0
@@ -10,14 +10,14 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        SQL relational database management system
 # Automatically converted from old format: Interbase - review is highly recommended.
 License:        Interbase-1.0
 URL:            http://www.firebirdsql.org/
 
-Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v5.0.3/%{pkgversion}-source.tar.xz
+Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v5.0.4/%{pkgversion}-source.tar.xz
 Source1:        firebird-logrotate
 Source2:        README.Fedora
 Source3:        firebird.service
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Fri Apr 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.0.4.1812-1
+- 5.0.4.1812
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3.1683-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

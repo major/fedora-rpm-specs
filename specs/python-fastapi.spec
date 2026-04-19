@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.135.2
+Version:        0.136.0
 Release:        %autorelease
 Summary:        FastAPI framework
 
@@ -53,19 +53,19 @@ BuildRequires:  python3-devel
 # to patch pyproject.toml. We preserve upstream’s lower bounds but remove upper
 # bounds, as we must try to make do with what we have.
 #
-# docs-tests:
-BuildRequires:  %{py3_dist httpx} >= 0.23
-# (we don’t actually need ruff)
 %if %{with deprecated_responses}
 # For UJSONResponse
 BuildRequires:  %{py3_dist ujson} >= 5.8
 # For ORJSONResponse
 BuildRequires:  %{py3_dist orjson} >= 3.9.3
 %endif
+# docs-tests:
+BuildRequires:  %{py3_dist httpx} >= 0.23
+# (we don’t actually need ruff)
 # tests:
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
 BuildRequires:  %{py3_dist dirty-equals} >= 0.9
-BuildRequires:  %{py3_dist flask} >= 1.1.2
+BuildRequires:  %{py3_dist flask} >= 3
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
 %if %{with pwdlib}
 BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
@@ -74,8 +74,8 @@ BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
 BuildRequires:  %{py3_dist pyjwt} >= 2.9
 %endif
 # Upstream wants >= 9.0.0! But this is not really needed yet.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2413573
-BuildRequires:  %{py3_dist pytest}
+# Allow v8 for F44 compatibility.
+BuildRequires:  %{py3_dist pytest} >= 8
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 %if %{with sqlmodel}
 BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
@@ -84,6 +84,8 @@ BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
 BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
 %endif
 BuildRequires:  %{py3_dist a2wsgi} >= 1.9
+BuildRequires:  %{py3_dist pytest-xdist[psutil]} >= 2.5
+BuildRequires:  %{py3_dist pytest-timeout} >= 2.4
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}

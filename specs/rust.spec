@@ -28,7 +28,7 @@ ExclusiveArch:  %{rust_arches}
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-29
+%global wasi_libc_ref wasi-sdk-32
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -149,9 +149,6 @@ Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
 Patch100:       rustc-1.95.0-disable-libssh2.patch
-
-# When building wasi, prevent linking a compiler-rt builtins library we don't have.
-Patch1000:	wasi-no-link-builtins.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -373,6 +370,7 @@ BuildRequires:  mingw64-winpthreads-static
 %if %defined wasm_targets
 %if %with bundled_wasi_libc
 BuildRequires:  clang%{?llvm_compat_version}
+BuildRequires:  cmake >= 3.26
 %else
 BuildRequires:  wasi-libc-static
 %endif
@@ -693,9 +691,9 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %if %{defined wasm_targets} && %{with bundled_wasi_libc}
 %setup -q -n %{wasi_libc_name} -T -b 10
-rm -rf %{wasi_libc_dir}/dlmalloc/
-
-%patch -P1000 -p1
+# We want to make sure we use emmalloc instead of CC0 dlmalloc.
+# The cmake files need the sources to exist, so just truncate instead.
+truncate --no-create --size=0 %{wasi_libc_dir}/dlmalloc/src/*.c
 %endif
 
 %setup -q -n %{rustc_package}
@@ -847,10 +845,19 @@ end}
 
 %if %defined wasm_targets
 %if %with bundled_wasi_libc
-%define wasi_libc_flags MALLOC_IMPL=emmalloc CC=clang AR=llvm-ar NM=llvm-nm
-%make_build --quiet -C %{wasi_libc_dir} %{wasi_libc_flags} TARGET_TRIPLE=wasm32-wasip1
+# Note that we don't want host CFLAGS here!
+env -u CFLAGS %__cmake \
+  -S "%{wasi_libc_dir}" \
+  -B "%{wasi_libc_dir}/%{__cmake_builddir}" \
+  -DCMAKE_C_COMPILER=clang \
+  -DCMAKE_C_FLAGS_RELEASE="-O2 -fstack-protector" \
+  -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
+  -DBUILD_SHARED=OFF \
+  -DMALLOC=emmalloc \
+  -DTARGET_TRIPLE=wasm32-wasip1
+%__cmake --build "%{wasi_libc_dir}/%{__cmake_builddir}" %{?_smp_mflags}
 %define wasm_target_config %{shrink:
-  --set target.wasm32-wasip1.wasi-root=%{wasi_libc_dir}/sysroot
+  --set target.wasm32-wasip1.wasi-root=%{wasi_libc_dir}/%{__cmake_builddir}/sysroot
 }
 %else
 %define wasm_target_config %{shrink:

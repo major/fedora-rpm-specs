@@ -1,5 +1,5 @@
 Name:           perl-Crypt-SMIME
-Version:        0.32
+Version:        0.33
 Release:        %autorelease
 Summary:        S/MIME message signing, verification, encryption and decryption
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -9,7 +9,7 @@ Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKAGE/Crypt-SMIME-%{v
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  openssl-devel
+BuildRequires:  openssl-devel >= 3
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -20,7 +20,7 @@ BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(XSLoader)
 # Tests
-BuildRequires:  openssl
+BuildRequires:  openssl >= 3
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::PkgConfig)
 BuildRequires:  perl(File::Spec)
@@ -31,6 +31,8 @@ BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Taint)
 BuildRequires:  perl(Test::More)
+
+Requires:       openssl >= 3
 
 #Add a test sub package.
 %{?perl_default_subpackage_tests}

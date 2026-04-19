@@ -24,7 +24,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.24.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -89,6 +89,7 @@ BuildRequires:  pkgconfig(opus)
 %{?_with_sdl_client:BuildRequires:  cmake(SDL3_image)}
 %{?_with_sdl_client:BuildRequires:  cmake(SDL3_ttf)}
 %{?_with_soxr:BuildRequires:  pkgconfig(soxr)}
+BuildRequires:  pkgconfig(sso-mib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
 %{?_with_webview:BuildRequires:  pkgconfig(webkit2gtk-4.0)}
@@ -212,6 +213,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_SHADOW_X11=ON \
     -DWITH_SHADOW_MAC=ON \
     -DWITH_SOXR=%{?_with_soxr:ON}%{?!_with_soxr:OFF} \
+    -DWITH_SSO_MIB=ON \
     -DWITH_SWSCALE=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_TIMEZONE_COMPILED=OFF \
     -DWITH_TIMEZONE_FROM_FILE=ON \
@@ -359,6 +361,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Sat Apr 4 2026 Luca Boccassi <luca.boccassi@gmail.com> - 2:3.24.2-2
+- Build with sso-mib support
+
 * Thu Mar 26 2026 Ondrej Holy <oholy@redhat.com> - 2:3.24.2-1
 - Update to 3.24.2 (CVE-2026-33952, CVE-2026-33977, CVE-2026-33982,
   CVE-2026-33983, CVE-2026-33984, CVE-2026-33985, CVE-2026-33986,

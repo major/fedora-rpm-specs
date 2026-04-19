@@ -39,7 +39,6 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtserialport-devel >= %{version}
 
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
-BuildRequires: openssl-devel
 
 %description
 Qt Serial Bus (API) provides classes and functions to access the various

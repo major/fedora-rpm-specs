@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Python-2.0.1
 
 
@@ -219,8 +219,7 @@ BuildRequires: bluez-libs-devel
 BuildRequires: bzip2
 BuildRequires: bzip2-devel
 BuildRequires: desktop-file-utils
-# See the runtime requirement in the -libs subpackage
-BuildRequires: expat-devel >= 2.6
+BuildRequires: expat-devel
 
 BuildRequires: findutils
 BuildRequires: gcc-c++
@@ -243,7 +242,6 @@ BuildRequires: libX11-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
 
-BuildRequires: openssl-devel
 BuildRequires: pkgconfig
 BuildRequires: readline-devel
 BuildRequires: redhat-rpm-config >= 127
@@ -255,6 +253,10 @@ BuildRequires: tcl-devel < 1:9
 BuildRequires: tix-devel
 BuildRequires: tk-devel < 1:9
 BuildRequires: tzdata
+
+# Support for OpenSSL 4 only landed in Python 3.15 for now
+# https://github.com/python/cpython/issues/146207
+BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
 
 %if %{with valgrind}
 BuildRequires: valgrind-devel
@@ -624,14 +626,6 @@ Recommends: (%{pkgname}-tkinter%{?_isa} = %{version}-%{release} if tk%{?_isa})
 # The zoneinfo module needs tzdata
 Requires: tzdata
 
-# The requirement on libexpat is generated, but we need to version it.
-# When built with expat >= 2.6, but installed with older expat, we get:
-#   ImportError: /usr/lib64/python3.X/lib-dynload/pyexpat.cpython-....so:
-#   undefined symbol: XML_SetReparseDeferralEnabled
-# This breaks many things, including python -m venv.
-# Other subpackages (like -debug) also need this, but they all depend on -libs.
-Requires: expat >= 2.6
-
 # https://fedoraproject.org/wiki/Changes/Move_usr_bin_python_into_separate_package
 # In Fedora 31, several "unversioned" files like /usr/bin/pydoc and all the
 # "unversioned" provides were moved from python2 to python3.
@@ -833,14 +827,6 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 
 # The zoneinfo module needs tzdata
 Requires: tzdata
-
-# The requirement on libexpat is generated, but we need to version it.
-# When built with expat >= 2.6, but installed with older expat, we get:
-#   ImportError: /usr/lib64/python3.X/lib-dynload/pyexpat.cpython-....so:
-#   undefined symbol: XML_SetReparseDeferralEnabled
-# This breaks many things, including python -m venv.
-# Other subpackages (like -debug) also need this, but they all depend on -libs.
-Requires: expat >= 2.6
 
 # Provides of the subpackages contained in flatpackage
 Provides: %{pkgname}-libs = %{version}-%{release}
@@ -1938,6 +1924,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Apr 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-8
+- Explicitly build with OpenSSL 3
+
 * Thu Mar 26 2026 Lumír Balhar <lbalhar@redhat.com> - 3.9.25-7
 - Security fix for CVE-2026-4519 (rhbz#2449735)
 

@@ -18,7 +18,7 @@
 %global pie_proj         xpass
 %global pecl_name        xpass
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.2.0
+%global upstream_version 1.2.1
 #global upstream_prever  RC2
 
 # Github forge
@@ -27,11 +27,11 @@
 %global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
 %global tag              v%{upstream_version}%{?upstream_prever}
 
-Summary:        Extended password extension
 Name:           %{php_base}-pecl-%{pecl_name}
-License:        PHP-3.01
+Summary:        Extended password extension
+License:        BSD-3-Clause
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -142,6 +142,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Apr 17 2026 Remi Collet <remi@remirepo.net> - 1.2.1-1
+- update to 1.2.1
+- PHP License updated from version 3 to version 4 (BSD-3-Clause)
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 1.2.0-3
 - drop pear/pecl dependency
 - sources from github

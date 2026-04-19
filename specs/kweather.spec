@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           kweather
 Version:        26.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Convergent KDE weather application
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.%{name}_1x4.so
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

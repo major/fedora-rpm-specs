@@ -5,7 +5,7 @@
 Summary: Hardware-accelerated video processing on Intel integrated GPUs library
 Name: intel-mediasdk
 Version: 23.2.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL: https://github.com/Intel-Media-SDK/MediaSDK
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
 # fix build with GCC 13
@@ -15,7 +15,7 @@ Patch0: %{name}-gcc13.patch
 Patch1: %{name}-cpp17.patch
 License: MIT
 ExclusiveArch: x86_64
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gmock-devel
 BuildRequires: libdrm-devel
@@ -66,11 +66,11 @@ questions and issues.
 
 %prep
 %setup -q -n MediaSDK-%{name}-%{version}
-%patch 0 -p1 -b .gcc13
-%patch 1 -p1 -b .cpp17
+%patch -P0 -p1 -b .gcc13
+%patch -P1 -p1 -b .cpp17
 
 %build
-%cmake3 \
+%cmake \
     -DBUILD_DISPATCHER=ON \
     -DBUILD_SAMPLES=OFF \
     -DBUILD_TESTS=ON \
@@ -81,13 +81,13 @@ questions and issues.
     -DENABLE_X11_DRI3=ON \
     -DUSE_SYSTEM_GTEST=ON \
 
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %check
-%cmake3_build -- test
+%cmake_build -- test
 
 %files
 %license LICENSE
@@ -117,6 +117,10 @@ questions and issues.
 %{_libdir}/libmfx-tracer.so.%{mfx_version}
 
 %changelog
+* Fri Apr 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 23.2.2-11
+- stop using obsolete cmake3 macros
+- use patch macro syntax with better backwards compatibility
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

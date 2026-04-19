@@ -21,6 +21,9 @@
 #
 %global upstreamname hiprand
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global hiprand_name libhiprand1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global hiprand_name hiprand%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -84,12 +88,12 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           %{hiprand_name}
+Name:           hiprand%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 
 Summary:        HIP random number generator
@@ -132,13 +136,19 @@ interface that does not require the client to change, regardless of the chosen
 backend. Currently, hipRAND supports either rocRAND or cuRAND.
 
 %if 0%{?suse_version}
+%package -n %{pkg_name}
+Summary:        The hipRAND runtime package
+
+%description -n %{pkg_name}
+%summary
+
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 %endif
 
 %package devel
 Summary:        The hipRAND development package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       rocrand%{pkg_suffix}-devel
 Provides:       hiprand%{pkg_suffix}-devel = %{version}-%{release}
 
@@ -148,7 +158,7 @@ The hipRAND development package.
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -204,21 +214,21 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
 %if %{with debug}
-%{pkg_prefix}/%{pkg_libdir}/libhiprand-d.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so.%{pkg_library_version}{,.*}
 %else
-%{pkg_prefix}/%{pkg_libdir}/libhiprand.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %endif
 
 %files devel
 %{pkg_prefix}/include/hiprand/
 %if %{with debug}
-%{pkg_prefix}/%{pkg_libdir}/libhiprand-d.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so
 %else
-%{pkg_prefix}/%{pkg_libdir}/libhiprand.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %endif
 %{pkg_prefix}/%{pkg_libdir}/cmake/hiprand/
 
@@ -228,6 +238,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Generate suse package names
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

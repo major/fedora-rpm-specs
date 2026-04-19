@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tonic-prost
+%global crate iobuffer
 
-Name:           rust-tonic-prost
-Version:        0.14.5
+Name:           rust-iobuffer
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Prost codec implementation for tonic
+Summary:        Simple memory-based buffer for IO reading and writing
 
-License:        MIT
-URL:            https://crates.io/crates/tonic-prost
+License:        Apache-2.0
+URL:            https://crates.io/crates/iobuffer
 Source:         %{crates_source}
-# * Missing license file in crate after exploding the crate.
-# * https://github.com/hyperium/tonic/pull/2321#issuecomment-3960424068
-Source10:       https://github.com/hyperium/tonic/raw/refs/tags/v0.14.5/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Prost codec implementation for tonic.}
+A simple memory-based buffer for IO reading and writing.}
 
 %description %{_description}
 
@@ -34,6 +31,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires
@@ -65,8 +63,7 @@ cp -p '%{SOURCE10}' .
 
 %if %{with check}
 %check
-# * encode_too_big: Fails to allocate memory for i686
-%cargo_test -- -- --skip codec::tests::encode_too_big
+%cargo_test
 %endif
 
 %changelog

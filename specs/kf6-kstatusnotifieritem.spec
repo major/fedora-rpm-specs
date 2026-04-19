@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -95,6 +95,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 6.25.0-2
+- Rebuild (qt6)
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

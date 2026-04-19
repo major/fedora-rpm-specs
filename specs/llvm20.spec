@@ -400,6 +400,10 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 #endregion CLANG patches
 
+# Fix test ClangdTests/CompletionTest/EnableSpeculativeIndexRequest
+# https://github.com/llvm/llvm-project/pull/130077
+Patch2001: 130077.patch
+
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
 Patch1902: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
@@ -407,7 +411,7 @@ Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
-Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
+Patch2009: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 #endregion LLD patches
 
 #region polly patches

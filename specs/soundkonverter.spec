@@ -6,9 +6,9 @@
 %global __provides_exclude ^lib%{name}.*\\.so$
 %global __requires_exclude ^lib%{name}.*\\.so$
 
-%global commit          aceda48bf37b77e042769ee5b2337b38a6d40538
+%global commit          dd52d33046cf740415f8507a3ffd5b37dffc5a2c
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate    20200701
+%global snapshotdate    20240225
 
 Name:       soundkonverter
 Version:    3.0.1
@@ -16,8 +16,8 @@ Release:    %autorelease
 Summary:    Audio file converter, CD ripper and Replay Gain tool
 
 License:    GPL-2.0-or-later
-URL:        http://kde-apps.org/content/show.php?content=29024
-Source0:    https://github.com/dfaust/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+URL:        https://github.com/nphantasm/%{name}
+Source:     %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -26,6 +26,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  cmake(KF5Cddb)
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5ConfigWidgets)
+BuildRequires:  cmake(KF5DBusAddons)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KDELibs4Support)
 BuildRequires:  cmake(KF5KIO)
@@ -70,9 +71,10 @@ The key features are:
 
 %prep
 %autosetup -p1 -n %{name}-%{commit}
-# sed 's|<fileref.h|<taglib/fileref.h>|' src/metadata/MetaReplayGain.h
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381458)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_kf5 src "-DKF5_BUILD=ON"
 %cmake_build
 

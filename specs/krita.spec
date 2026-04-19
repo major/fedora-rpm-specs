@@ -25,6 +25,7 @@ Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_versi
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
 Patch: krita-6.0.0-appstream_validate.patch
+Patch: krita-sip-abi-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -333,7 +333,8 @@ Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
 Provides: php-lexbor, php-lexbor%{?_isa}
 # See ext/lexbor/patches/README.md
-Provides: bundled(lexbor) = 2.5.0
+%global lexborver 2.5.0
+Provides: bundled(lexbor) = %{lexborver}
 Provides: php-mhash = %{version}, php-mhash%{?_isa} = %{version}
 Provides: php-iconv, php-iconv%{?_isa}
 Obsoletes: php-json < 8
@@ -931,6 +932,13 @@ vpdo=`sed -n '/#define PDO_DRIVER_API/{s/.*[ 	]//;p}' ext/pdo/php_pdo_driver.h`
 if test "x${vpdo}" != "x%{pdover}"; then
    : Error: Upstream PDO ABI version is now ${vpdo}, expecting %{pdover}.
    : Update the pdover macro and rebuild.
+   exit 1
+fi
+
+vlexbor=`sed -n '/Lexbor version/{s/.* is //;s/\.$//;p}' ext/lexbor/patches/README.md`
+if test "x${vlexbor}" != "x%{lexborver}"; then
+   : Error: Upstream Lexbor version is now ${vlexbor}, expecting %{lexborver}.
+   : Update the lexborver macro and rebuild.
    exit 1
 fi
 

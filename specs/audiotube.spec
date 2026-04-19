@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           audiotube
 Version:        26.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           kongress
 Version:        26.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: CC0 and CC-BY-SA and BSD and GPLv3+ - review is highly recommended.
 License:        CC0-1.0 AND LicenseRef-Callaway-CC-BY-SA AND LicenseRef-Callaway-BSD AND GPL-3.0-or-later
 Summary:        A companion application for conferences made by KDE
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

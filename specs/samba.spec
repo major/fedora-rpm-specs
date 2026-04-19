@@ -137,7 +137,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.24.0
+%global samba_version 4.24.1
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -238,6 +238,8 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
+
+Patch:          0001-printing-Set-default-value-in-case-of-non-exisiting-.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

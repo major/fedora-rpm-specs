@@ -39,6 +39,8 @@ To communicate with GNSS receiver's serial it uses ubloxcfg
 %autosetup
 # Drop hardcoded CFLAGS
 sed -e 's/-O0//g' -i CMakeLists.txt
+# Fix pkg-config name: upstream ubloxcfg renamed libubloxcfg.pc to ubloxcfg.pc in 1.16
+sed -e 's/REQUIRED libubloxcfg/REQUIRED ubloxcfg/' -i CMakeLists.txt
 
 %build
 %cmake -DBUILD_UTILS=1

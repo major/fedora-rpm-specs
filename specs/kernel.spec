@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc0.260416g1d51b370a0f8.65
+%define pkgrelease 0.rc0.260417g43cfbdda5af6.66
 %define kversion 7
-%define tarfile_release 7.0-8391-g1d51b370a0f8
+%define tarfile_release 7.0-9885-g43cfbdda5af6
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260416g1d51b370a0f8.65%{?buildid}%{?dist}
+%define specrelease 0.rc0.260417g43cfbdda5af6.66%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4835,12 +4835,13 @@ fi\
 #
 #
 %changelog
-* Thu Apr 16 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc0.260416g1d51b370a0f8.65]
-- Correct manual merge error in crypto/rng.c (Patrick Talbert)
-
-* Thu Apr 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.1d51b370a0f8.65]
+* Fri Apr 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.43cfbdda5af6.66]
 - add man-page for rv-mon-stall (Thorsten Leemhuis)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Fri Apr 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.43cfbdda5af6.65]
+- Correct manual merge error in crypto/rng.c (Patrick Talbert)
+- Linux v7.1.0-0.rc0.43cfbdda5af6
 
 * Thu Apr 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.1d51b370a0f8.64]
 - Fix up pending for mismatches (Justin M. Forbes)

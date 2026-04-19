@@ -43,39 +43,14 @@
 %global vtk_use_system_cgnslib -DVTK_MODULE_USE_EXTERNAL_ParaView_cgns:BOOL=OFF
 %endif
 
-# VTK currently requires unreleased fmt 8.1.0
-%bcond_with fmt
-
-# VTK currently is carrying local modifications to gl2ps
-%bcond_with gl2ps
-%if !%{with gl2ps}
-%global vtk_use_system_gl2ps -DVTK_MODULE_USE_EXTERNAL_VTK_gl2ps:BOOL=OFF
-%endif
-
 # Enable VisitBridge plugin (bz#1546474)
-%bcond_without VisitBridge
-
-# We need jsoncpp >= 0.7
-%global system_jsoncpp 1
-%global vtk_use_system_jsoncpp -DVTK_MODULE_USE_EXTERNAL_VTK_jsoncpp:BOOL=ON
+%bcond_with VisitBridge
 
 %bcond_without protobuf
 %if %{with protobuf}
 %global vtk_use_system_protobuf -DVTK_MODULE_USE_EXTERNAL_ParaView_protobuf:BOOL=ON
 %else
 %global vtk_use_system_protobuf -DVTK_MODULE_USE_EXTERNAL_ParaView_protobuf:BOOL=OFF
-%endif
-
-# We need pugixml >= 1.9
-%global system_pugixml 1
-%global vtk_use_system_pugixml -DVTK_MODULE_USE_EXTERNAL_VTK_pugixml:BOOL=ON
-
-# Not packaged?
-%bcond_with token
-%if %{with token}
-%global vtk_use_system_token -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=ON
-%else
-%global vtk_use_system_token -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=OFF
 %endif
 
 Name:           paraview
@@ -127,18 +102,7 @@ BuildRequires:  gnuplot
 BuildRequires:  wget
 BuildRequires:  boost-devel
 BuildRequires:  eigen3-devel
-%if %{with fmt}
-BuildRequires:  fmt-devel >= 8.1.0
-%endif
-%if 0%{with gl2ps}
-BuildRequires:  gl2ps-devel >= 1.3.8
-%endif
 BuildRequires:  hwloc-devel
-%if %{system_jsoncpp}
-BuildRequires:  jsoncpp-devel >= 0.7.0
-%endif
-# Requires patched libharu https://github.com/libharu/libharu/pull/157
-#BuildRequires:  libharu-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtheora-devel
@@ -153,11 +117,9 @@ BuildRequires:  proj-devel
 %if %{with protobuf}
 BuildRequires:  protobuf-devel
 %endif
-%if %{system_pugixml}
-BuildRequires:  pugixml-devel >= 1.9
-%endif
 BuildRequires:  sqlite-devel
 BuildRequires:  utf8cpp-devel
+BuildRequires:  vtk-devel
 # For validating desktop and appdata files
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -198,46 +160,20 @@ Provides: bundled(kwsys-systemtools)
 %if !%{with cgnslib}
 Provides: bundled(cgnslib) = 4.1
 %endif
-%if !%{with fmt}
-Provides: bundled(fmt) = 8.1.0
-%endif
-# Bundled jsoncpp
-%if !0%{system_jsoncpp}
-Provides: bundled(jsoncpp) = 0.7.0
-%endif
 # Bundled protobuf
 %if !%{with protobuf}
 Provides: bundled(protobuf) = 2.3.0
 %endif
-%if !0%{system_pugixml}
-Provides: bundled(pugixml) = 1.9
-%endif
-# Bundled vtk
-# https://bugzilla.redhat.com/show_bug.cgi?id=697842
-Provides: bundled(vtk) = 6.3.0
-Provides: bundled(catalyst) = 2.0
-Provides: bundled(diy2)
-Provides: bundled(exprtk) = 2.71
-Provides: bundled(h5part) = 1.6.6
-Provides: bundled(kissfft)
-Provides: bundled(icet)
-Provides: bundled(ioss) = 20210512
-Provides: bundled(libharu)
-Provides: bundled(libproj4)
-Provides: bundled(qttesting)
-Provides: bundled(scn) = 4.0.0
-Provides: bundled(verdict) = 1.4.0
-Provides: bundled(viskores) = 1.0.0
-Provides: bundled(xdmf2)
 
 # Do not provide anything in paraview's library directory
 %global __provides_exclude_from ^(%{_libdir}/paraview/|%{_libdir}/.*/lib/paraview/).*$
 # Do not require anything provided in paraview's library directory
 # This list needs to be maintained by hand
+# TODO - need to just exclude the private paraview "vtk" libraries
 %if %{with protobuf}
-%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|viskores|vtk).*$
+%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|vtk).*$
 %else
-%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|viskores|vtk|protobuf).*$
+%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|vtk|protobuf).*$
 %endif
 
 ExcludeArch: %{ix86}
@@ -247,8 +183,6 @@ ExcludeArch: %{ix86}
 #-- Plugin: ForceTime - Override time requests : Disabled - Build is failing
 #-- Plugin: VaporPlugin - Plugin to read NCAR VDR files : Disabled - Requires vapor
 
-# We want to build with a system vtk someday, but it doesn't work yet
-# -DPARAVIEW_USE_EXTERNAL_VTK:BOOL=ON \\\
 # -DVTK_DIR=%%{_libdir}/vtk \\\
 
 # Add -DOMPI_SKIP_MPICXX to work around issue with MPI linkage and exodus
@@ -266,21 +200,9 @@ ExcludeArch: %{ix86}
         -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \\\
         -DVTK_PYTHON_VERSION=3 \\\
         -DPARAVIEW_BUILD_WITH_EXTERNAL:BOOL=ON \\\
+        -DPARAVIEW_USE_EXTERNAL_VTK:BOOL=ON \\\
         %{?vtk_use_system_cgnslib} \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk:BOOL=OFF \\\
-%if !%{with fmt} \
-        -DVTK_MODULE_USE_EXTERNAL_VTK_fmt:BOOL=OFF \\\
-%endif \
-        %{?vtk_use_system_gl2ps} \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_ioss:BOOL=OFF \\\
-        %{?vtk_use_system_jsoncpp} \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_libharu=OFF \\\
         %{?vtk_use_system_protobuf} \\\
-        %{?vtk_use_system_pugixml} \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_scn:BOOL=OFF \\\
-        %{?vtk_use_system_token} \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
         -DBUILD_EXAMPLES:BOOL=ON \\\
         -DBUILD_TESTING:BOOL=OFF \\\
         -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
@@ -292,14 +214,12 @@ ExcludeArch: %{ix86}
         -DCMAKE_INSTALL_INCLUDEDIR:PATH=../../include/$MPI_COMPILER/%{name} \\\
         -DCMAKE_INSTALL_LIBDIR:PATH=lib/%{name} \\\
         -DHDF5_INCLUDE_DIRS:PATH=$MPI_INCLUDE \\\
-        -DPYTHON_INSTALL_DIR=PATH=$MPI_PYTHON3_SITEARCH \\\
         -DQtTesting_INSTALL_LIB_DIR=lib/%{name} \\\
         -DQtTesting_INSTALL_CMAKE_DIR=lib/%{name}/CMake \\\
         -DPARAVIEW_USE_MPI:BOOL=ON \\\
         -DICET_BUILD_TESTING:BOOL=ON \\\
 %if %{with VisitBridge} \
-        -DPARAVIEW_USE_VISITBRIDGE=ON \\\
-        -DVISIT_BUILD_READER_CGNS=ON \\\
+        -DPARAVIEW_ENABLE_VISITBRIDGE=ON \\\
 %endif \
         %{paraview_cmake_options}
 
@@ -377,6 +297,7 @@ Summary:        Parallel visualization application
 BuildRequires:  openmpi-devel
 BuildRequires:  netcdf-openmpi-devel
 BuildRequires:  python3-mpi4py-openmpi
+BuildRequires:  vtk-openmpi-devel
 
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       python3-autobahn
@@ -417,6 +338,7 @@ Summary:        Parallel visualization application
 BuildRequires:  mpich-devel
 BuildRequires:  netcdf-mpich-devel
 BuildRequires:  python3-mpi4py-mpich
+BuildRequires:  vtk-mpich-devel
 
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       python3-autobahn
@@ -466,25 +388,9 @@ for x in %{?_with_cgnslib:vtkcgns} %{?_with_protobuf:vtkprotobuf}
 do
   rm -r ThirdParty/*/${x}
 done
-%if %{system_pugixml}
-rm -r VTK/ThirdParty/pugixml/vtkpugixml
-%endif
-# TODO - loguru
-# TODO - verdict - This is a kitware library so low priority
-for x in vtk{cli11,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zlib}
-do
-  rm -r VTK/ThirdParty/*/${x}
-done
-# Remove version requirements
-sed -i -e '/VERSION *"/d' VTK/ThirdParty/fast_float/CMakeLists.txt
-# jsoncpp
-%if 0%{system_jsoncpp}
-rm -r VTK/ThirdParty/jsoncpp/vtkjsoncpp
-%endif
-# Remove unused KWSys items
-find VTK/Utilities/KWSys/vtksys/ -name \*.[ch]\* | grep -vE '^VTK/Utilities/KWSys/vtksys/([a-z].*|Configure|SharedForward|Status|String\.hxx|Base64|CommandLineArguments|Directory|DynamicLoader|Encoding|FStream|FundamentalType|Glob|MD5|Process|RegularExpression|System|SystemInformation|SystemTools)(C|CXX|UNIX)?\.' | xargs rm
-# We want to build with a system vtk someday, but it doesn't work yet
-#rm -r VTK
+# We need VTK/Utilities/Doxygen to build docs
+# https://gitlab.kitware.com/paraview/paraview/-/issues/23120
+rm -r VTK/[A-TV-Za-z]* VTK/Utilities/[A-CE-Za-z]* VTK/Utilities/D[A-Za-np-z]*
 
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
@@ -558,18 +464,13 @@ unset mpi
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.paraview.ParaView.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.paraview.ParaView.appdata.xml
 
-#Cleanup only vtk conflicting binaries
-rm %{buildroot}%{_bindir}/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python,SerDes}}*
-for mpi in %{mpi_list}
-do
-  rm %{buildroot}%{_libdir}/$mpi/bin/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python,SerDes}}*
-done
-
 # Build autodocs and move documentation-files to proper location
 mkdir -p %{buildroot}%{_pkgdocdir}
 install -pm 0644 %SOURCE2 %{buildroot}%{_pkgdocdir}/GettingStarted.pdf
 install -pm 0644 README.md %{buildroot}%{_pkgdocdir}
+%if %{with VisitBridge}
 install -pm 0644 Utilities/VisItBridge/README-VisItBridge.md %{buildroot}%{_pkgdocdir}
+%endif
 find %{buildroot}%{_pkgdocdir} -name '.*' -print0 | xargs -0 rm -frv
 find %{buildroot}%{_pkgdocdir} -name '*.map' -or -name '*.md5' -print -delete
 hardlink -cfv %{buildroot}%{_pkgdocdir}
@@ -603,8 +504,9 @@ fi
 %dir %{_pkgdocdir}
 %{_pkgdocdir}/GettingStarted.pdf
 %{_pkgdocdir}/README.md
+%if %{with VisitBridge}
 %{_pkgdocdir}/README-VisItBridge.md
-%{_pkgdocdir}/README-VisItBridge.md
+%endif
 %{_datadir}/metainfo/org.paraview.ParaView.appdata.xml
 %{_datadir}/applications/org.paraview.ParaView.desktop
 %{_datadir}/icons/hicolor/*/apps/paraview.png

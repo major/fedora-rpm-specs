@@ -26,9 +26,9 @@ BuildRequires:	gcc-c++
 BuildRequires:	python3-scons
 BuildRequires:	libglvnd-devel
 
-# arm-compute-library is not available on these architectures
+# arm-compute-library is available on these architectures
 # https://github.com/ARM-software/ComputeLibrary?tab=readme-ov-file#supported-architecturestechnologies
-ExcludeArch:	i686 ppc64le s390x
+ExclusiveArch:	%{arm64} %{x86_64}
 
 %description
 %{desc}

@@ -38,7 +38,6 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtdeclarative-devel
 
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
-BuildRequires: openssl-devel
 
 %description
 The QtWebSockets module implements the WebSocket protocol as specified in RFC

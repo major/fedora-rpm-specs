@@ -1,7 +1,7 @@
 %global major_version 3
 
 Name:           botan3
-Version:        3.9.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        Crypto and TLS for C++
 
@@ -10,12 +10,8 @@ URL:            https://botan.randombit.net/
 Source0:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz
 Source1:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz.asc
 Source2:        https://botan.randombit.net/pgpkey.txt
-# https://github.com/randombit/botan/pull/5140
-Patch0:         install-fix.patch
 # https://github.com/randombit/botan/pull/5040
-Patch1:         pyproject.patch
-# https://github.com/randombit/botan/pull/5152
-Patch2:         shebang-fix.patch
+Patch0:         pyproject.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -137,7 +133,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{py3_test_envvars} %{python3} src/script
 %{_pkgdocdir}/news.txt
 %{_pkgdocdir}/pgpkey.txt
 %exclude %{_pkgdocdir}/license.txt
-%{_libdir}/libbotan-%{major_version}.so.9{,.*}
+%{_libdir}/libbotan-%{major_version}.so.11{,.*}
 %{_bindir}/botan%{major_version}
 %{_mandir}/man1/botan%{major_version}.1*
 

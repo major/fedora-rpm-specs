@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -87,7 +87,7 @@ License: Python-2.0.1
 %bcond jit_build_stencils %[%{with jit} && 0%{?fedora} >= 41]
 %if %{with jit}
 # When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
-%global jit_flag --enable-experimental-jit=yes-off
+%global jit_flag --enable-experimental-jit=yes-off %{!?with_jit_build_stencils:--enable-prebuilt-jit-stencils}
 %endif
 
 # Main interpreter loop optimization
@@ -446,6 +446,34 @@ Patch475: 00475-cve-2025-15367.patch
 # which is modified with this patch, hence they need a
 # direct call to the check function.
 Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-different-python-version.patch
+
+# 00479 # 97404b2cf62e545c2d41be7ccfed4e74da9ee665
+# CVE-2026-1502
+#
+# Reject CR/LF in HTTP tunnel request headers
+Patch479: 00479-cve-2026-1502.patch
+
+# 00480 # 858691f36890b33e713f330d24c6670329695c2e
+# CVE-2026-4786
+#
+# Fix webbrowser `%%action` substitution bypass of dash-prefix check
+Patch480: 00480-cve-2026-4786.patch
+
+# 00481 # 4c1fd39918651c4559a4835d42b86639a192c2c5
+# CVE-2026-5713
+#
+# Validate remote debug offset tables on load
+Patch481: 00481-cve-2026-5713.patch
+
+# 00482 # 69f14bc306fc62400d45565faa980b77858b9151
+# CVE-2026-6100
+#
+# Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
+Patch482: 00482-cve-2026-6100.patch
+
+# 00486 # 5ae0b81b3135319f8d75a886fb7a11fa40ac11f4
+# gh-148646: Add --enable-prebuilt-jit-stencils configure flag
+Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
 
 # (New patches go here ^^^)
 #
@@ -1474,7 +1502,8 @@ done
 %if %{with jit_build_stencils}
 for ConfName in %{?with_debug_build:debug} optimized; do
   if [ -s %{jit_stencils_source} ]; then
-    diff -u %{jit_stencils_source} build/${ConfName}/%{jit_stencils_filename}
+    # The -I option ignores the checksum line (calculated from files incl. pyconfig.h which may change with new autoconf)
+    diff -u -I '^// [0-9a-f]\{64\}$' %{jit_stencils_source} build/${ConfName}/%{jit_stencils_filename}
   else
     echo "%{jit_stencils_source} is empty, not checking if it is up to date"
   fi
@@ -2000,6 +2029,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Apr 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.14.4-2
+- Security fixes for CVE-2026-1502, CVE-2026-4786, CVE-2026-5713, CVE-2026-6100
+Resolves: rhbz#2457944, rhbz#2458224, rhbz#2458488, rhbz#2458016
+
 * Wed Apr 08 2026 Karolina Surma <ksurma@redhat.com> - 3.14.4-1
 - Update to Python 3.14.4
 

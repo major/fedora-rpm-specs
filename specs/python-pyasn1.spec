@@ -1,8 +1,8 @@
 %global module pyasn1
-%global modules_version 0.4.1
+%global modules_version 0.4.2
 
 Name:           python-pyasn1
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
@@ -51,7 +51,7 @@ BuildRequires:  python3-sphinx
 %build
 %pyproject_wheel
 
-pushd ../pyasn1-modules-%{modules_version}
+pushd ../pyasn1_modules-%{modules_version}
 %pyproject_wheel
 popd
 
@@ -83,6 +83,10 @@ popd
 %doc docs/build/html/*
 
 %changelog
+* Fri Apr 17 2026 Simon Pichugin <spichugi@redhat.com> - 0.6.3-1
+- Update to 0.6.3
+- Added nesting depth limit to ASN.1 decoder (CVE-2026-30922).
+
 * Fri Jan 16 2026 Simon Pichugin <spichugi@redhat.com> - 0.6.2-1
 - Update to 0.6.2
 - Fixed continuation octet limits in OID/RELATIVE-OID decoder (CVE-2026-23490)

@@ -2,12 +2,12 @@
 %global sum Another ISO 8601 parser for Python
 
 Name:           python-%{srcname}
-Version:        9.0.1
-Release:        19%{?dist}
+Version:        10.0.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
-URL:            https://bitbucket.org/nielsenb/%{srcname}
+URL:            https://codeberg.org/nielsenb-jf/%{srcname}
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
@@ -43,6 +43,10 @@ in ISO 8601 format into datetime format.
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Apr 17 2026 Brandon Nielsen <nielsenb@jetfuse.net> - 10.0.1-1
+- Change upstream URL to reflect upstream move
+- Update to latest upstream release 10.0.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

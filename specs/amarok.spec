@@ -9,7 +9,7 @@
 Name:    amarok
 Summary: Media player
 Version: 3.3.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -256,6 +256,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 3.3.2-4
+- Rebuild (qt6)
+
 * Tue Feb 03 2026 Michal Schorm <mschorm@redhat.com> - 3.3.2-3
 - Rebuilt for  https://fedoraproject.org/wiki/Changes/switch_distribution_default_MariaDB_from_10.11_to_11.8
 

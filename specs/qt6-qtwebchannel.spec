@@ -38,7 +38,6 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtwebsockets-devel
 
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
-BuildRequires: openssl-devel
 
 %description
 The Qt WebChannel module provides a library for seamless integration of C++

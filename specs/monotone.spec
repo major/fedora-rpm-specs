@@ -25,18 +25,24 @@ Patch6:          monotone-1.1-boost.patch
 Patch7:          monotone-1.1-string-overflow.patch
 Patch8:          monotone-1.1-catch.patch
 Patch9:          monotone-1.1-lua-5.5.patch
+# There are probably more regex corner cases where the pcre2 behavior changes things
+# ... but I'm not sure anyone uses monotone in 2026.
+Patch10:         monotone-pcre2-jpcre2.patch
+Patch11:         monotone-boost-throw-exception.patch
+Patch12:         monotone-lua55-const-loop-vars.patch
 BuildRequires:   gcc-c++
 BuildRequires:   make
 BuildRequires:   perl-generators
 BuildRequires:   zlib-devel
 BuildRequires:   boost-devel >= 1.33.1
 BuildRequires:   botan-devel >= 1.6.3
-BuildRequires:   pcre-devel >= 7.4
+BuildRequires:   pcre2-devel, jpcre2-devel
 BuildRequires:   sqlite-devel >= 3.3.8
 BuildRequires:   lua-devel >= 5.1
 BuildRequires:   libidn-devel
 BuildRequires:   systemd
 BuildRequires:   systemd-rpm-macros
+BuildRequires:   autoconf, automake, libtool
 %{?sysusers_requires_compat}
 
 # Required by the test suite:
@@ -83,7 +89,7 @@ and then pass commands to it.
 
 %prep
 %autosetup -p1
-
+autoreconf -ifv
 
 %build
 export LC_MESSAGES=en_US
@@ -92,10 +98,11 @@ export LC_MESSAGES=en_US
 
 
 %check
-#export LC_MESSAGES=en_US
-#export DISABLE_NETWORK_TESTS=1
-#export MTN_STACKTRACE_ON_CRASH=1
-#make check || { head -n-0 test/work/*.log; false; }
+# This works better than it ever did before, but ... still not great.
+# export LC_MESSAGES=en_US
+# export DISABLE_NETWORK_TESTS=1
+# export MTN_STACKTRACE_ON_CRASH=1
+# make check || { head -n-0 test/work/*.log; false; }
 
 
 %install
@@ -211,7 +218,7 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/monotone-server.con
 
 %changelog
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.1-56
-- rebuild
+- fix monotone to use pcre2, fix more lua 5.5 issues
 
 * Sat Mar 14 2026 Tom Callaway <spot@fedoraproject.org> - 1.1-55
 - rebuild for lua 5.5

@@ -32,7 +32,6 @@ BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: openssl-devel
 
 %description
 The Qt SCXML module provides functionality to create state machines from SCXML files.

@@ -1,7 +1,7 @@
 Name:           spacebar
 Epoch:          1
 Version:        6.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1:6.6.4-2
+- Rebuild (qt6)
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.4-1
 - 6.6.4
 

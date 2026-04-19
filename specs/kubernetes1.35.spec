@@ -16,13 +16,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.35
-%global k8s_ver                 1.35.3
+%global k8s_ver                 1.35.4
 # major:minor version substring
 %global k8s_minver              1.35
 %global k8s_nextver             1.36
-%global k8s_tag                 v1.35.3
+%global k8s_tag                 v1.35.4
 # golang 'built with' version
-%global golangver               1.25.7
+%global golangver               1.25.9
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -378,7 +378,6 @@ fi
 
 ##############################################
 %files systemd -f %{go_vendor_license_filelist}
-%license LICENSE vendor/modules.txt
 %doc *.md
 %{_mandir}/man1/kube-apiserver.1*
 %{_mandir}/man1/kube-controller-manager.1*

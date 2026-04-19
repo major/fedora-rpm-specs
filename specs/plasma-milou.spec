@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
 Version: 6.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -62,6 +62,9 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-2
+- Rebuild (qt6)
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

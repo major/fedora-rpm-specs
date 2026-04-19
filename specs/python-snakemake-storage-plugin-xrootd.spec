@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-xrootd
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Snakemake storage plugin for xrootd storage
 

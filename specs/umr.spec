@@ -39,7 +39,7 @@ BuildRequires: SDL2-devel
 BuildRequires: zlib-devel
 Requires: bash-completion
 #Disable unnecessary arches, as umr requires the amdgpu kernel module:
-ExclusiveArch:  x86_64 aarch64 ppc64le
+ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 
 %description
 AMDGPU Userspace Register Debugger (UMR) is a tool to read and display, as well

@@ -2,7 +2,7 @@
 
 Name:           xar
 Version:        1.8.0.%{subversion}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        The eXtensible ARchiver
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -26,7 +26,6 @@ Patch2:         xar-1.8-arm-ppc.patch
 Patch3:         xar-1.8-openssl-1.1.patch
 
 Patch4:         xar-1.8-Add-OpenSSL-To-Configuration.patch
-Patch5:         xar-1.8-gnuconfig.patch
 
 
 %description
@@ -56,7 +55,6 @@ pushd xar
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-%patch -P5 -p1
 sed 's:-Wl,-rpath,::g' -i configure.ac #No rpath
 sed 's:filetree.h:../lib/filetree.h:g' -i src/xar.c #Fix path
 sed 's:util.h:../lib/util.h:g' -i src/xar.c #Fix path
@@ -64,6 +62,7 @@ popd
 
 %build
 pushd xar
+cp /usr/lib/rpm/redhat/config.{guess,sub} .
 env NOCONFIGURE=1 ./autogen.sh
 %configure --disable-static
 make %{?_smp_mflags}
@@ -92,6 +91,9 @@ popd
 
 
 %changelog
+* Wed Feb 04 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.8.0.417.1-18
+- update gnu-config files to make it build on riscv64
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0.417.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,6 +21,9 @@
 #
 %global upstreamname amdsmi
 
+%global pkg_library_name amd_smi
+%global pkg_library_version 26
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -45,6 +48,12 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%endif
+
+%if 0%{?suse_version}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
+%else
+%global pkg_name %{NAME}
 %endif
 
 # Downloads its own googletest
@@ -77,7 +86,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    2%{?dist}
+Release:    3%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -140,6 +149,10 @@ Requires:      python3dist(pyyaml)
 Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
+%if 0%{?suse_version}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%endif
+
 # University of Illinois/NCSA Open Source License
 Provides: bundled(esmi_ib_library) = %{esmi_ver}
 
@@ -148,9 +161,19 @@ The AMD System Management Interface Library, or AMD SMI library, is a C
 library for Linux that provides a user space interface for applications
 to monitor and control AMD devices.
 
+%if 0%{?suse_version}
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
+%endif
+
 %package devel
-Summary: Libraries and headers for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Libraries and headers for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -158,7 +181,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       libdrm-devel
 
 %description test
@@ -281,22 +304,32 @@ fi
 
 %if %{with preview}
 #ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
-chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/libamd_smi.so
+chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/lib%{pkg_library_name}.so
 
 %endif
 
 %if 0%{?suse_version}
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%endif
+%files
+%{pkg_prefix}/bin/amd-smi
+%{pkg_prefix}/libexec/amdsmi_cli
+%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
+
+%files -n %{pkg_name}
+%doc README.md
+%license LICENSE
+%license esmi_ib_library_License.txt 
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.1{,.*}
+
+%else
 
 %files
 %doc README.md
 %license LICENSE
 %license esmi_ib_library_License.txt 
-%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so.*
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %if %{without compat}
-%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.1{,.*}
 %{pkg_prefix}/bin/amd-smi
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
@@ -304,11 +337,12 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %if %{with preview}
 %{pkg_prefix}/%{pkg_libdir}/libamdsminic.so.*
 %endif
+%endif
 
 %files devel
 %{pkg_prefix}/include/amd_smi/
 %{pkg_prefix}/include/*.h
-%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd_smi/
 %if %{without compat}
 %{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
@@ -329,11 +363,14 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %if %{with preview}
 %if %{with static}
 %files static
-%{pkg_prefix}/%{pkg_libdir}/libamd_smi_static.a
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_static.a
 %endif
 %endif
 
 %changelog
+* Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
+- Generate suse package names
+
 * Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
 - Add --with static
 

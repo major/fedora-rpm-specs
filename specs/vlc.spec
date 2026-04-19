@@ -15,9 +15,6 @@
 %bcond postproc %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 # disabled due to various issues
 %bcond projectm 0
-# Temporary disable libspatialaudio until upstream pick
-# https://code.videolan.org/videolan/vlc/-/issues/29493
-%bcond spatialaudio %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 
 # some dependencies are not yet in EPEL 10
 %bcond daala 1
@@ -55,6 +52,8 @@ Source:		https://get.videolan.org/vlc/%{version}/vlc-%{version}.tar.xz
 Source:		macros.vlc
 
 ## upstream patches
+# spatialaudio: fix compilation with libspatialaudio 4.0
+Patch:          8921.patch
 
 ## backported patches from master
 # freerdp: update to freerdp 2.0 api (#2278)
@@ -227,9 +226,7 @@ BuildRequires:	pkgconfig(shout) >= 2.1
 BuildRequires:	pkgconfig(smbclient)
 BuildRequires:	pkgconfig(soxr) >= 0.1.2
 BuildRequires:	pkgconfig(sqlite3)
-%if %{with spatialaudio}
 BuildRequires:	pkgconfig(spatialaudio)
-%endif
 BuildRequires:	pkgconfig(speex) >= 1.0.5
 BuildRequires:	pkgconfig(speexdsp)
 BuildRequires:	pkgconfig(srt) >= 1.3.0
@@ -675,9 +672,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-tremor						\
 	--enable-speex						\
 	--enable-opus						\
-%if %{with spatialaudio}
 	--enable-spatialaudio					\
-%endif
 	--enable-theora						\
 	--enable-oggspots					\
 	--enable-daala%{!?with_daala:=no}			\
@@ -1152,9 +1147,7 @@ make check
 %{vlc_plugindir}/audio_filter/libmad_plugin.so
 %{vlc_plugindir}/audio_filter/libsamplerate_plugin.so
 %{vlc_plugindir}/audio_filter/libsoxr_plugin.so
-%if %{with spatialaudio}
 %{vlc_plugindir}/audio_filter/libspatialaudio_plugin.so
-%endif
 %{vlc_plugindir}/audio_filter/libspeex_resampler_plugin.so
 %{vlc_plugindir}/codec/libaom_plugin.so
 %{vlc_plugindir}/codec/libaribsub_plugin.so

@@ -24,11 +24,8 @@ License:        MIT
 URL:            https://github.com/cucumber/gherkin
 Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 
-# Man pages hand-written for Fedora in groff_man(7) format: gherkin.1 is based
-# on “gherkin --help”, and gherkin-generate-tokens.1 is written from scratch
-# based on a cursory inspection of gherkin-generate-tokens.cpp.
-Source10:       gherkin.1
-Source11:       gherkin-generate-tokens.1
+# Man page hand-written for Fedora in groff_man(7) format based on --help
+Source10:       gherkin-cpp.1
 
 # Update cmake_minimum_required for C to 3.12; support CMake 4
 # https://github.com/cucumber/gherkin/pull/546
@@ -217,8 +214,16 @@ echo '==== Installing C++ implementation ===='
 pushd cpp
 %cmake_install
 popd
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}' '%{SOURCE11}'
+# Avoid conflict: both C++ and Ruby try to provide /usr/bin/gherkin.
+# Because Ruby was the original implementation, use it for /usr/bin/gherkin.
+mv '%{buildroot}%{_bindir}/gherkin' '%{buildroot}%{_bindir}/gherkin-cpp'
+# Since F45, no longer install gherkin-generate-tokens. It is not clear if this
+# is intended for users, or only for acceptance testing. In any case, there may
+# be conflicts across language implementations as there are for the gherkin
+# executable; Ruby has a gherkin-generate-tokens, but it isn’t installed by
+# default. We can reconsider this, hopefully with a better understanding of the
+# full picture, if it turns out that something actually needs this.
+rm '%{buildroot}%{_bindir}/gherkin-generate-tokens'
 
 echo '==== Installing Python implementation ===='
 %pyproject_install
@@ -226,6 +231,10 @@ echo '==== Installing Python implementation ===='
 ln -s -f %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
     '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 symlinks -c -o '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
+
+echo '==== Installing man pages ===='
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    '%{SOURCE10}'
 
 
 %check
@@ -253,14 +262,11 @@ pushd cpp
 %if %{with acceptance_cpp}
 # Keep make from trying to rebuild the C++ implementation or invoke cmate.
 mkdir -p .built
-# While there are GHERKIN/GHERKIN_GENERATE_TOKENS variables in the Makefile,
-# symlinking the already-built command-line tools in ./stage/bin is the easiest
-# way to make sure the acceptance tests can run them.
-mkdir -p stage
-ln -s '%{buildroot}%{_bindir}' stage/bin
 # The executables need to load libcucumber_gherkin, so we also set
 # LD_LIBRARY_PATH. The acceptance tests are not safe for parallel execution.
-LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %make_build -j1 acceptance
+LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %make_build -j1 acceptance \
+    GHERKIN='%{_vpath_builddir}/src/bin/gherkin/gherkin' \
+    GHERKIN_GENERATE_TOKENS='%{_vpath_builddir}/src/bin/gherkin-generate-tokens/gherkin-generate-tokens'
 %endif
 popd
 
@@ -326,10 +332,8 @@ echo '==== Testing Python implementation ===='
 
 
 %files cpp-tools
-%{_bindir}/gherkin
-%{_bindir}/gherkin-generate-tokens
-%{_mandir}/man1/gherkin.1*
-%{_mandir}/man1/gherkin-generate-tokens.1*
+%{_bindir}/gherkin-cpp
+%{_mandir}/man1/gherkin-cpp.1*
 
 
 %files -n python3-gherkin-official -f %{pyproject_files}

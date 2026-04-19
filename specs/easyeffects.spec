@@ -1,6 +1,6 @@
 Name:           easyeffects
 Version:        8.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Audio effects for PipeWire applications
 
 License:        GPL-3.0-or-later
@@ -131,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 8.1.8-2
+- Rebuild (qt6)
+
 * Tue Apr 07 2026 Vasiliy Glazov <vascom2@gmail.com> - 8.1.8-1
 - Update to 8.1.8
 

@@ -5,7 +5,7 @@ Version: 3.13.2
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,6 +16,8 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-Ignore-btrfs-mount-errors-during-storage-scan.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -133,6 +135,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Fri Apr 17 2026 Vojtech Trefny <vtrefny@redhat.com> - 1:3.13.2-2
+- Ignore btrfs mount errors during storage scan (#2458901)
+
 * Tue Mar 24 2026 Packit <hello@packit.dev> - 1:3.13.2-1
 - Update to version 3.13.2
 

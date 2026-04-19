@@ -1,5 +1,5 @@
 Name:           python-brukerapi
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Python package providing I/O interface for Bruker data sets
 

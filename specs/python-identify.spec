@@ -2,7 +2,7 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.6.18
+Version:        2.6.19
 Release:        1%{?dist}
 Summary:        File identification library for Python
 
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Apr 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.19-1
+- 2.6.19
+
 * Mon Mar 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.18-1
 - 2.6.18
 

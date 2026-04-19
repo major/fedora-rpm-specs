@@ -39,7 +39,6 @@ BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: qt6-qtsvg-devel >= %{version}
 
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
-BuildRequires: openssl-devel
 
 # provides a plugin that can use iio-sensor-proxy
 Recommends: iio-sensor-proxy

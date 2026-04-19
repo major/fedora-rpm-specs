@@ -28,6 +28,7 @@
 %define bcond_override_default_offload 0
 %define bcond_override_default_mlir 0
 %define bcond_override_default_flang 0
+%define bcond_override_default_libclc 0
 %define bcond_override_default_build_bolt 0
 %define bcond_override_default_polly 0
 %define bcond_override_default_pgo 0
@@ -109,6 +110,8 @@
 
 # Set Fortran build flags to nil because they contain flags that don't apply to flang.
 %global build_fflags %{nil}
+%endif
+#endregion flang
 
 %{lua:
 
@@ -145,8 +148,7 @@ function print_max_procs(per_proc_mem)
     print(cpu)
 end
 }
-%endif
-#endregion flang
+
 
 # The libcxx build condition also enables libcxxabi and libunwind.
 %if %{without compat_build} && %{defined fedora}
@@ -222,6 +224,12 @@ end
 # Use LLVM_ENABLE_LTO:BOOL=ON flags to enable LTO instead
 %if 0%{without lto_build} || 0%{with pgo}
 %global _lto_cflags %nil
+%endif
+
+%if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build} && %{with snapshot_build}
+%bcond_without libclc
+%else
+%bcond_with libclc
 %endif
 
 # We are building with clang for faster/lower memory LTO builds.
@@ -404,6 +412,12 @@ end
 #region flang globals
 %global pkg_name_flang flang%{pkg_suffix}
 #endregion flang globals
+
+#region libclc globals
+%if %{with libclc}
+%global pkg_name_libclc libclc%{pkg_suffix}
+%endif
+#endregion libclc globals
 
 #endregion globals
 
@@ -1272,6 +1286,50 @@ Flang runtime libraries.
 %endif
 #endregion flang packages
 
+#region libclc packages
+%if %{with libclc}
+%package -n %{pkg_name_libclc}
+Summary: An open source implementation of the OpenCL 1.1 library requirements
+
+License: Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
+URL: https://libclc.llvm.org
+Obsoletes: %{pkg_name_libclc}-devel < 23
+
+%description -n %{pkg_name_libclc}
+libclc is an open source, BSD licensed implementation of the library
+requirements of the OpenCL C programming language, as specified by the
+OpenCL 1.1 Specification. The following sections of the specification
+impose library requirements:
+
+  * 6.1: Supported Data Types
+  * 6.2.3: Explicit Conversions
+  * 6.2.4.2: Reinterpreting Types Using as_type() and as_typen()
+  * 6.9: Preprocessor Directives and Macros
+  * 6.11: Built-in Functionsj
+  * 9.3: Double Precision Floating-Point
+  * 9.4: 64-bit Atomics
+  * 9.5: Writing to 3D image memory objects
+  * 9.6: Half Precision Floating-Point
+
+libclc is intended to be used with the Clang compiler's OpenCL frontend.
+
+libclc is designed to be portable and extensible. To this end, it provides
+generic implementations of most library requirements, allowing the target
+to override the generic implementation at the granularity of individual
+functions.
+
+libclc currently only supports the PTX target, but support for more
+targets is welcome.
+
+%package        -n %{pkg_name_libclc}-spirv
+Summary:        Spirv subset of %{name}
+
+%description    -n %{pkg_name_libclc}-spirv
+The %{pkg_name_libclc}-spirv package contains the spirv*-mesa3d-.spv files only,
+which are the subset required for upstream Mesa OpenCL support with RustiCL.
+
+%endif
+#endregion libclc packages
 #endregion packages
 
 #region prep
@@ -1423,6 +1481,10 @@ cd llvm/utils/lit
 
 %if %{with offload}
 %global runtimes %{runtimes};offload
+%endif
+
+%if %{with libclc}
+%global runtimes %{runtimes};libclc
 %endif
 
 %global gcc_triple --gcc-triple=%{_target_cpu}-redhat-linux
@@ -1713,6 +1775,13 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 %endif
 #endregion flang options
 
+#region libclc options
+%if %{with libclc}
+# Build SPIR-V targets with the SPIR-V backend.
+%global cmake_config_args %{cmake_config_args} \\\
+  -DLIBCLC_USE_SPIRV_BACKEND:BOOL=ON
+%endif
+#endregion libclc options
 
 #region test options
 %global cmake_config_args %{cmake_config_args} \\\
@@ -2475,6 +2544,7 @@ function reset_test_opts()
     # Set to mark tests as expected to fail.
     # See https://llvm.org/docs/CommandGuide/lit.html#cmdoption-lit-xfail
     unset LIT_XFAIL
+    unset LIT_XFAIL_NOT
 
     # Set to mark tests to not even run.
     # See https://llvm.org/docs/CommandGuide/lit.html#cmdoption-lit-filter-out
@@ -2548,6 +2618,7 @@ reset_test_opts
 reset_test_opts
 # Xfail testing of update utility tools
 export LIT_XFAIL="tools/UpdateTestChecks"
+
 %cmake_build --target check-llvm
 #endregion Test LLVM
 
@@ -3657,8 +3728,6 @@ fi
 %endif
 #endregion MLIR files
 
-#region libcxx files
-
 #region flang files
 %if %{with flang}
 %files -n %{pkg_name_flang}
@@ -3692,6 +3761,27 @@ fi
 %endif
 #region flang files
 
+#region libclc files
+%if %{with libclc}
+%files -n %{pkg_name_libclc}
+%license libclc/LICENSE.TXT
+%doc libclc/README.md libclc/CREDITS.TXT
+%{_prefix}/lib/clang/%{maj_ver}/lib/amdgcn-amd-amdhsa-llvm/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64--/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64--nvidiacl/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64-nvidia-cuda/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/spir--/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/spir64--/libclc.bc
+
+%files -n %{pkg_name_libclc}-spirv
+%license libclc/LICENSE.TXT
+%doc libclc/README.md libclc/CREDITS.TXT
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv32--/libclc.spv
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv64--/libclc.spv
+%endif
+#endregion libclc files
+
+#region libcxx files
 %if %{with libcxx}
 
 %files -n %{pkg_name_libcxx}

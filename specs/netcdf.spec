@@ -15,6 +15,8 @@ Patch:          netcdf-mfhdf.patch
 Patch:          netcdf-rpath.patch
 # big-endian fixes
 Patch:          https://github.com/Unidata/netcdf-c/pull/3285.patch
+# Do not assume that CMAKE_INSTALL_INCLUDEDIR and CMAKE_INSTALL_LIBDIR are relative paths
+Patch:          https://github.com/Unidata/netcdf-c/pull/3350.patch
 
 # Hack for now
 BuildRequires:  chrpath

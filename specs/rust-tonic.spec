@@ -223,8 +223,7 @@ rm -r benches
 
 %if %{with check}
 %check
-# * encode_too_big: Fails to allocate memory for i686
-%cargo_test -- -- --skip codec::prost::tests::encode_too_big
+%cargo_test
 %endif
 
 %changelog

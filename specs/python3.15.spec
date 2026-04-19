@@ -94,7 +94,7 @@ License: Python-2.0.1
 %bcond jit_build_stencils %[%{with jit} && 0%{?fedora} >= 44]
 %if %{with jit}
 # When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
-%global jit_flag --enable-experimental-jit=yes-off
+%global jit_flag --enable-experimental-jit=yes-off %{!?with_jit_build_stencils:--enable-prebuilt-jit-stencils}
 %endif
 
 # Main interpreter loop optimization
@@ -425,6 +425,10 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # in the conditionalized skip to a release available in CentOS Stream 10,
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+
+# 00486 # 650a0228bc7e44b34c64981a42834820c51c1bd6
+# gh-148646: Add --enable-prebuilt-jit-stencils configure flag
+Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
 
 # (New patches go here ^^^)
 #

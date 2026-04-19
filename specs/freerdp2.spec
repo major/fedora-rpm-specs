@@ -26,7 +26,7 @@
 
 Name:           freerdp2
 Version:        2.11.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -143,6 +143,8 @@ find . -name "*.h" -exec chmod 664 {} \;
 find . -name "*.c" -exec chmod 664 {} \;
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380607)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake %{?_cmake_skip_rpath} \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
@@ -268,6 +270,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Thu Apr 16 2026 Cristian Le <git@lecris.dev> - 2.11.7-12
+- Allow to build with CMake 4.0 (rhbz#2380607)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

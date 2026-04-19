@@ -12,7 +12,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -195,7 +195,7 @@ mkdir %{buildroot}%{_bindir}
 pushd %{buildroot}%{_qt6_bindir}
 for i in * ; do
   case "${i}" in
-   assistant|designer|lcheck|lconvert|linguist|lrelease|ltext2id|lupdate|pixeltool| \
+   assistant|designer|lcheck|lconvert|linguist|lrelease|lrelease-pro|ltext2id|lupdate|lupdate-pro|pixeltool| \
    qdbus|qdbusviewer| \
    qtplugininfo|qdistancefieldgenerator|qdoc|qtdiag)
       ln -v  ${i} %{buildroot}%{_bindir}/${i}-qt6
@@ -390,6 +390,9 @@ popd
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
+- Fix lrelease-pro/lupdate-pro conflict with qt5-linguist by adding -qt6 suffix
+
 * Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
 - 6.11.0
 

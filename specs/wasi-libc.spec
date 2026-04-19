@@ -1,18 +1,12 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    29
+Version:    32
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
 URL:        https://github.com/WebAssembly/wasi-libc/
 Source:     %{url}/archive/refs/tags/wasi-sdk-%{version}.tar.gz#/%{name}-wasi-sdk-%{version}.tar.gz
 Source1:    smoke-test.c
-
-# Allow using artifacts from %%build in %%install instead of recompiling
-Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
-
-# Remove explicit linking to compiler-rt.builtins library
-Patch:      0002-Disable-linking-compiler-rt-builtins-library.patch
 
 # Compatibility patches from upstream main
 
@@ -27,9 +21,9 @@ Patch:      0002-Disable-linking-compiler-rt-builtins-library.patch
 BuildArch:  noarch
 
 BuildRequires:  clang >= 10
+BuildRequires:  cmake >= 3.26
 BuildRequires:  git-core
 BuildRequires:  llvm >= 10
-BuildRequires:  make
 
 %global     toolchain clang
 # Re-packaging the static library tends to overwrite files
@@ -42,13 +36,12 @@ BuildRequires:  make
 %global __brp_strip_lto %{nil}
 
 # WASI is a specific architecture; host (build machine) arch flags should not apply by default
-%global     build_cflags --target=wasm32-wasi -fstack-protector
+%global     build_cflags -O2 --target=wasm32-wasi -fstack-protector
 # Define cross-compiling prefix
 %global     wasi_prefix %{_prefix}/wasm32-wasi
 %global     wasi_datadir %{wasi_prefix}/share
 %global     wasi_includedir %{wasi_prefix}/include
 %global     wasi_libdir %{wasi_prefix}/lib
-%global     wasi_make_flags MALLOC_IMPL=emmalloc INSTALL_DIR='%{buildroot}%{wasi_prefix}' SYSROOT='%{_builddir}/sysroot'
 
 %global _description %{expand:
 WASI Libc is a libc for WebAssembly programs built on top of WASI system calls.
@@ -78,11 +71,18 @@ Summary:  C library for WASI - headers and development files
 cp -p libc-bottom-half/cloudlibc/LICENSE LICENSE-cloudlibc
 
 %build
-%make_build %{wasi_make_flags}
-make %{?_smp_mflags} %{wasi_make_flags} check-symbols
+%cmake \
+    -DCMAKE_INSTALL_PREFIX='%{wasi_prefix}' \
+    -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
+    -DBUILD_SHARED=OFF \
+    -DCHECK_SYMBOLS=ON \
+    -DMALLOC=emmalloc \
+    -DTARGET_TRIPLE=wasm32-wasi
+%cmake_build
 
 %install
-%make_install %{wasi_make_flags}
+%cmake_install
+cp -av -t '%{buildroot}%{wasi_prefix}' '%{__cmake_builddir}/sysroot/share'
 
 %check
 # Bundled version checks

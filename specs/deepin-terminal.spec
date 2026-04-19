@@ -48,6 +48,8 @@ sed -i 's|/lib|%{_libdir}|' cmake/translation-generate.cmake
 sed -i 's|DDE;||' src/deepin-terminal.desktop
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380688)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -GNinja
 %cmake_build
 

@@ -1,7 +1,7 @@
 Name:           Silo
 Version:        4.12.0
 %global sover   412
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mesh and Field I/O Library and Scientific Database
 
 License:        BSD-3-Clause 
@@ -110,6 +110,9 @@ This package contains the python module of the %{name} package.
 %{python3_sitelib}/Silo.so
 
 %changelog
+* Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.12.0-3
+- Rebuild for hdf5 2.1
+
 * Wed Apr 08 2026 Christoph Junghans <junghans@votca.org> - 4.12.0-2
 - Review comments from bug #2416748
 - Fixes: rhbz#2416748

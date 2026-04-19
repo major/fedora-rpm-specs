@@ -1,5 +1,5 @@
 Name:           libid3tag
-Version:        0.16.3
+Version:        0.16.4
 Release:        %autorelease
 Summary:        ID3 tag manipulation library
 
@@ -7,10 +7,8 @@ Summary:        ID3 tag manipulation library
 License:        GPL-2.0-or-later
 URL:            https://codeberg.org/tenacityteam/libid3tag
 Source0:        %url/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Based on https://codeberg.org/tenacityteam/libid3tag/pulls/3
-Patch0:         cmake-hook-genre.dat-and-gperf-files-generation.patch
 
-BuildRequires:  gcc-c++
+BuildRequires:  gcc
 BuildRequires:  cmake
 BuildRequires:  gperf
 BuildRequires:  zlib-devel >= 1.1.4
@@ -32,8 +30,6 @@ ID3 tag library development files.
 %autosetup -p1 -n %{name}
 
 %build
-# FIXME: fixed upstream in next release
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -45,7 +41,7 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %ldconfig_scriptlets
 
 %files
-%doc CHANGES CREDITS README TODO
+%doc CHANGES CREDITS README.md
 %license COPYING COPYRIGHT
 %{_libdir}/libid3tag.so.0*
 

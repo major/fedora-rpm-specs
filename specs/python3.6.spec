@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 55%{?dist}
+Release: 56%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -289,12 +289,14 @@ BuildRequires: redhat-rpm-config >= 127
 BuildRequires: sqlite-devel
 BuildRequires: gdb
 
-BuildRequires: openssl-devel
-
 BuildRequires: tar
 BuildRequires: tcl-devel < 1:9
 BuildRequires: tix-devel
 BuildRequires: tk-devel < 1:9
+
+# Support for OpenSSL 4 only landed in Python 3.15 for now
+# https://github.com/python/cpython/issues/146207
+BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
 
 %if %{with valgrind}
 BuildRequires: valgrind-devel
@@ -2226,6 +2228,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Apr 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-56
+- Explicitly build with OpenSSL 3
+
 * Thu Mar 26 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-55
 - Security fix for CVE-2026-4519 (rhbz#2449733)
 

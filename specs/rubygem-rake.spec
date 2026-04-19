@@ -1,12 +1,12 @@
 # Generated from rake-0.7.3.gem by gem2rpm -*- rpm-spec -*-
-%global	majorver	13.3.1
+%global	majorver	13.4.2
 #%%global	preminorver	.beta.5
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
 %global	gem_name	rake
 
-%global	baserelease	2
+%global	baserelease	1
 
 Summary:	Rake is a Make-like program implemented in Ruby
 Name:		rubygem-%{gem_name}
@@ -19,7 +19,7 @@ URL:		https://github.com/ruby/rake
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
 # git clone --no-checkout https://github.com/ruby/rake
-# cd rake && git archive -v -o rake-13.1.0-tests.txz v13.1.0 Rakefile test
+# cd rake && git archive -v -o rake-13.4.2-tests.txz v13.4.2 Rakefile test
 Source1: %{gem_name}-%{version}-tests.txz
 
 BuildRequires:	ruby(release)
@@ -120,6 +120,9 @@ popd
 %doc %{gem_instdir}/*.rdoc
 
 %changelog
+* Thu Apr 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 13.4.2-1
+- 13.4.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

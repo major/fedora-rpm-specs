@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        168
+Version:        169
 
 %gometa
 
@@ -671,6 +671,20 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Fri Apr 17 2026 Packit <hello@packit.dev> - 169-1
+Changes with 169
+----------------
+  - Allow any valid upload target for bootc composes, not just local (HMS-10507) (#5092)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - osbuild-composer.spec: fix version in spec file (#5100)
+    - Author: Sanne Raymaekers, Reviewers: Tomáš Hozza
+  - templates/packer: set authfile location for container registries (#5094)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - test/worker-executor*: add missing '$' when referencing a variable (#5097)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Lukáš Zapletal
+
+— Somewhere on the Internet, 2026-04-17
+
 * Wed Apr 15 2026 Packit <hello@packit.dev> - 168-1
 Changes with 168
 ----------------

@@ -1,16 +1,13 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.2
-Release:	4%{?dist}
+Version:	3.4
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
 URL:		https://socnetv.org/
 Source0:	https://github.com/socnetv/app/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-Patch0:	        socnetv-fix-build-against-qt-6-10.patch
-
 BuildRequires: make
 BuildRequires:	gcc-c++
 BuildRequires:	gzip
@@ -25,7 +22,7 @@ BuildRequires:	pkgconfig(Qt6Charts)
 # qt6-qt5compat-devel
 BuildRequires:	pkgconfig(Qt6Core5Compat)
 %if 0%{?fedora} && 0%{?fedora} > 39
-ExcludeArch:	i686
+#ExcludeArch:	i686
 %endif
 
 
@@ -35,7 +32,7 @@ free software application for social network analysis and visualization.
 
 
 %prep
-%autosetup -p1 -n app-%{version}
+%autosetup -n app-%{version}
 
 %build
 lrelease-qt6 socnetv.pro
@@ -71,6 +68,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 3.4-2
+- Rebuild (qt6)
+
+* Thu Apr 16 2026 RI_Eugene <ti.eugene@gmail.com> - 3.4-1
+- Version bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

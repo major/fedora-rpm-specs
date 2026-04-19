@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:          kontrast
 Version:       26.04.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
 License:       GPL-3.0-only AND GPL-3.0-or-later AND CC-BY-SA-4.0
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

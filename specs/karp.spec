@@ -4,7 +4,7 @@
 
 Name:          karp
 Version:       25.03.70~%{gitdate}.%{shortcommit}
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND FSFAP AND CC-BY-SA-4.0 AND BSD-3-Clause AND LGPL-2.0-or-later
 Summary:       Simple PDF editor to arrange, merge and improve PDF file(s)
 URL:           https://apps.kde.org/karp/
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/karp.categories
 
 %changelog
+* Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 25.03.70~20251108.040727.a5d2573-2
+- Rebuild (qt6)
+
 * Sun Jan 18 2026 Steve Cossette <farchord@gmail.com> - 25.03.70~20251108.040727.a5d2573-1
 - Updated to newer git snapshot
 
