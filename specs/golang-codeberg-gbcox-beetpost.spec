@@ -6,7 +6,7 @@
 %global project beetpost
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit a22160cd7f2140e39af22fa35c3064e82f8be3b5
+%global commit da0c0949cee5c847b3964ad5dac68b39d264c749
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -20,7 +20,7 @@ Beetbrainz.}
 %gometa
 
 Name:           %{goname}
-Version:        1.7.1
+Version:        1.8.1
 Release:        %autorelease
 Summary:        Playback Event Dispatcher for Beetbrainz
 License:        GPL-3.0-or-later

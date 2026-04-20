@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   4.9.0
-Release:   2%{?dist}
+Version:   4.10.0
+Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -74,6 +74,9 @@ done
 %{_datadir}/%{name}
 
 %changelog
+* Sat Apr 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.10.0-1
+- Update to 4.10
+
 * Wed Feb 25 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.9.0-2
 - Enable new platforms, slight build reorg
 

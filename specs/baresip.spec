@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        4.6.0
-Release:        2%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ Patch0:         https://github.com/baresip/baresip/commit/c09b9ff1d11edf9609c8f9
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 4.6.0
+BuildRequires:  libre-devel >= 4.7.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -467,7 +467,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.26*
+%{_libdir}/lib%{name}.so.27*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -620,6 +620,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Apr 18 2026 Robert Scheck <robert@fedoraproject.org> 4.7.0-1
+- Upgrade to 4.7.0 (#2455864)
+
 * Thu Mar 19 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.6.0-2
 - Rebuilt for libvpx-1.6.0
 

@@ -199,9 +199,10 @@ Recommends:     %{name}-dashboard
 
 Provides:       bundled(monado) = %{monado_version}
 
-# no big-endian support, vulkan 32bit headers broken
+# no big-endian support, vulkan 32bit headers broken, android-tools not available on ppc64le
 # https://github.com/WiVRn/WiVRn/issues/271
-ExcludeArch:    s390x %{ix86}
+# https://src.fedoraproject.org/rpms/android-tools/c/38eea7154cb5930259f7a3ae59cdb123fb7d2862?branch=rawhide
+ExcludeArch:    s390x %{ix86} ppc64le
 
 %description
 WiVRn wirelessly connects a standalone VR headset to a Linux computer.

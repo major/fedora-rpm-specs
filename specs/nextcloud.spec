@@ -190,6 +190,9 @@ find . -name \*.orig    -type f -delete -print
 find . -name .gitignore -type f -delete -print
 find . -name .github    -type d -prune -exec rm -r {} \; -print
 
+# fix CLI upgrade advice on splash screen            
+sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' core/src/views/UpdaterAdmin.vue
+
 # prepare package doc
 cp %{SOURCE300} README.%{distro}
 cp %{SOURCE301} README.mysql

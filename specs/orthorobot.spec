@@ -1,6 +1,6 @@
 Name:           orthorobot
 Version:        1.1.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A perspective based puzzle game
 
 License:        WTFPL
@@ -21,7 +21,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 #From the website (see URL above)
 %description
@@ -72,6 +72,9 @@ install -p -D -m 0644 helpplayer.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.1.1-26
+- Rebuilt for correct exclusive arch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

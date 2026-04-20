@@ -1,15 +1,7 @@
-%if 0%{?with_snapshot}
-%global gitdate              20220915
-%global portable_commit      3f638e16a67691a3f11d5e745e545df531af92c3
-%global portable_shortcommit %(c=%{portable_commit}; echo ${c:0:7})
-%global openbsd_commit       43b3801c4cc6d22976048c9d833346a4f42bee72
-%global openbsd_shortcommit  %(c=%{openbsd_commit}; echo ${c:0:7})
-%endif
-
 Summary:        OpenBGPD Routing Daemon
 Name:           openbgpd
-Version:        9.0
-Release:        2%{?with_snapshot:.git%{gitdate}}%{?dist}
+Version:        9.1
+Release:        1%{?dist}
 # OpenBGPD itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h
 # BSD-3-Clause: compat/{fmt_scaled,setproctitle,sha2,vis}.c and include/{sha2_openbsd,util,vis,sys/queue}.h
@@ -18,27 +10,15 @@ Release:        2%{?with_snapshot:.git%{gitdate}}%{?dist}
 #                                  and compat/{{explicit_bzero,getrtable}.c,chacha_private.h}
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.openbgpd.org/
-%if !0%{?with_snapshot}
 Source0:        https://ftp.openbsd.org/pub/OpenBSD/OpenBGPD/%{name}-%{version}.tar.gz
 Source1:        https://ftp.openbsd.org/pub/OpenBSD/OpenBGPD/%{name}-%{version}.tar.gz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/BA3DA14FEE657A6D7931C08EC755429BA6A969A8
-%else
-Source0:        https://github.com/openbgpd-portable/openbgpd-portable/archive/%{portable_commit}/%{name}-portable-%{version}-%{portable_shortcommit}.tar.gz
-Source1:        https://github.com/openbgpd-portable/openbgpd-openbsd/archive/%{openbsd_commit}/%{name}-openbsd-%{version}-%{openbsd_shortcommit}.tar.gz
-%endif
 Source3:        openbgpd.service
 Source4:        openbgpd.tmpfilesd
 Source5:        openbgpd.sysusersd
 # Adjust path of Validated ROA Payloads (VRP) for rpki-client
 Patch0:         openbgpd-6.7p0-rpki-client.patch
-%if !0%{?with_snapshot}
 BuildRequires:  gnupg2
-%else
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
-BuildRequires:  bison
-%endif
 BuildRequires:  gcc
 BuildRequires:  libmnl-devel >= 1.0.4
 BuildRequires:  make
@@ -53,15 +33,8 @@ Version 4. It allows ordinary machines to be used as routers exchanging
 routes with other systems speaking the BGP protocol.
 
 %prep
-%if !0%{?with_snapshot}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%else
-%setup -q -n %{name}-portable-%{portable_commit}
-tar xfz %{SOURCE1}
-mv -f %{name}-openbsd-%{openbsd_commit} openbsd
-./autogen.sh
-%endif
 %patch -P0 -p1 -b .rpki-client
 touch -c -r bgpd.conf{.rpki-client,}
 
@@ -108,6 +81,9 @@ install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %dir %attr(0711,root,root) %{_localstatedir}/empty/bgpd/
 
 %changelog
+* Sat Apr 18 2026 Robert Scheck <robert@fedoraproject.org> 9.1-1
+- Upgrade to 9.1 (#2457823)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

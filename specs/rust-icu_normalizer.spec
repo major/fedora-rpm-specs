@@ -81,6 +81,18 @@ use the "datagen" feature of the "%{crate}" crate.
 %files       -n %{name}+datagen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+harfbuzz_traits-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+harfbuzz_traits-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "harfbuzz_traits" feature of the "%{crate}" crate.
+
+%files       -n %{name}+harfbuzz_traits-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+icu_properties-devel
 Summary:        %{summary}
 BuildArch:      noarch

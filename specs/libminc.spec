@@ -53,7 +53,13 @@ sed -i -e '/SET (LIBMINC_INSTALL_INCLUDE_DIR/s/include/include\/%{name}/' CMakeL
 sed -i -e '/CMAKE_INSTALL_RPATH/d' CMakeLists.txt
 
 %build
+# TODO: Remove CMake 4.0 and GNUInstallDirs workaround at next release
+# https://github.com/BIC-MNI/libminc/pull/132
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake ../ \
+%if "%{?_lib}" == "lib64"
+%{?_cmake_lib_suffix64} \
+%endif
 -DLIBMINC_BUILD_SHARED_LIBS=ON \
 -DLIBMINC_USE_SYSTEM_NIFTI=ON \
 -DLIBMINC_MINC1_SUPPORT=ON \

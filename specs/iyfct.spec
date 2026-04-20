@@ -4,7 +4,7 @@
 
 Name:           iyfct
 Version:        1.0.2
-Release:        %{gitdate}git.%{shortcommit}%{?dist}.18
+Release:        %{gitdate}git.%{shortcommit}%{?dist}.19
 Summary:        Side scrolling endless runner game
 
 #See LICENSE file in source for details
@@ -24,7 +24,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 #From README
 %description
@@ -77,6 +77,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.2-20180819git.ac4555d.19
+- Update exclusive arch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20180819git.ac4555d.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

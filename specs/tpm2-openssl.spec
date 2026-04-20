@@ -1,6 +1,6 @@
 Name:tpm2-openssl
 Version: 1.2.0
-Release: 8%{?candidate:.%{candidate}}%{?dist}
+Release: 9%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
@@ -14,6 +14,8 @@ Source3: run-with-simulator
 # https://bugzilla.redhat.com/show_bug.cgi?id=2301337
 Patch1: 0001-tests-rsa_pki-default-to-sha256.patch
 Patch2: 0002-tests-do-not-test-sha1-by-default.patch
+# OpenSSL 4 build fixes
+Patch3: 0001-Fix-ASN1_STRING-access-and-test-email-config.patch
 
 BuildRequires: gnupg2
 BuildRequires: gcc
@@ -63,6 +65,9 @@ cp %{SOURCE3} %{_builddir}/%{name}-%{version}%{?candidate:-%{candidate}}/test/
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
+* Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 1.2.0-9
+- OpenSSL 4 build fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

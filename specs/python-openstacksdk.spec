@@ -19,6 +19,11 @@ Summary:        An SDK for building applications to work with OpenStack
 License:        Apache-2.0
 URL:            http://www.openstack.org/
 Source0:        https://pypi.io/packages/source/o/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+
+# Patch should go upstream but I have a support request open to enve login into
+# review.opendev.org at the moment....
+Patch0:         0001-fix-hashlib-ValueError-message-check-for-py3.15.patch
+
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -55,7 +60,7 @@ clouds - documentation.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -S git
+%autosetup -n %{pypi_name}-%{version} -S git -p 1
 # This unit test requires python-prometheus, which is optional and not needed
 rm -f openstack/tests/unit/test_stats.py
 

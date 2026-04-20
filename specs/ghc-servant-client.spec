@@ -5,7 +5,8 @@
 %global pkgver %{pkg_name}-%{version}
 %{?haskell_setup}
 
-%bcond tests 1
+# missing markdown-unlit
+%bcond tests 0
 
 Name:           ghc-%{pkg_name}
 Version:        0.20.3.0

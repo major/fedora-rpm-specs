@@ -1,6 +1,6 @@
 Name:           mrrescue
 Version:        1.02e
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Arcade-style fire fighting game
 
 #See LICENSE file in source for details
@@ -29,7 +29,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 #From the website (see URL above)
 %description
@@ -81,6 +81,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.02e-30
+- Update exclusive arch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.02e-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

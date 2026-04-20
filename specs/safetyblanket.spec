@@ -1,6 +1,6 @@
 Name:           safetyblanket
 Version:        1.01
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Creepy blanket simulator
 
 #See LICENSE.txt file in source for details
@@ -22,7 +22,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 #From the website (see URL above)
 %description
@@ -73,6 +73,9 @@ install -p -D -m 0644 res/gfx/title_text1.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.01-22
+- Rebuilt for correct exclusive arch
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

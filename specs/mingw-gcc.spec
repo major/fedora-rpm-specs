@@ -21,7 +21,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -993,6 +993,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Sat Apr 18 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-8
+- Rebuild
+
 * Wed Apr 15 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-7
 - Update to 16.0.1 snapshot 20260321
 

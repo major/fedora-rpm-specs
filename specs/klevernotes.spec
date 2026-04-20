@@ -1,6 +1,6 @@
 Name:          klevernotes
-Version:       1.2.4
-Release:       4%{?dist}
+Version:       1.3.0
+Release:       1%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A convergent markdown note taking application
 URL:           https://apps.kde.org/klevernotes/
@@ -61,6 +61,10 @@ and new features even easier.
 %install
 %cmake_install
 %find_lang %{name} --with-man --with-qt --all-name
+# Remove unneeded headers, we aren't packaging that
+rm -rf %{buildroot}%{_includedir}/md4qt
+rm -rf %{buildroot}%{_kf6_libdir}/cmake/md4qt
+rm -rf %{buildroot}%{_kf6_libdir}/libmd4qt.a
 
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.klevernotes.desktop
@@ -75,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_metainfodir}/org.kde.klevernotes.metainfo.xml
 
 %changelog
+* Sat Apr 18 2026 Steve Cossette <farchord@gmail.com> - 1.3.0-1
+- 1.3.0
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.2.4-4
 - Rebuild (qt6)
 

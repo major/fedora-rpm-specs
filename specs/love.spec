@@ -4,13 +4,10 @@
 %else
 %global luadep luajit
 %endif
-#Big endian systems are not yet supported by love 11+, PPC64LE is broken.
-#This is used in this spec and added to the macro file for others to use:
-%define love_arch_macro ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 Name:           love
 Version:        11.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A free 2D game engine which enables easy game creation in Lua
 
 License:        Zlib
@@ -45,7 +42,8 @@ Provides: bundled(luasocket) = 3.0
 Provides: bundled(lz4) = 1.8.0
 Provides: bundled(physfs) = 3.0.1
 
-%love_arch_macro
+#Big endian systems are not yet supported by love 11+, PPC64LE is broken
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
 
 %description
 LOVE is an open source, cross platform 2D game engine which uses the
@@ -61,23 +59,12 @@ LOVE is an open source, cross platform 2D game engine which uses the
 Lua scripting language. LOVE can be used to make games of any license
 allowing it to be used for both free and non-free projects.
 
-%package rpm-macros
-Summary:        Love RPM macros package
-
-%description rpm-macros
-This package includes useful macros for LOVE
-
 %prep
 %autosetup -p1
 #Fixing line encoding:
 sed -i 's/\r//' license.txt
 #Fixing permissions:
 chmod a-x src/libraries/*/*/*/*.* src/libraries/*/*.*
-#Create macro file:
-cat > macros.love << EOF
-#Big endian systems are not yet supported by love 11+
-%%love_arch_macro %love_arch_macro
-EOF
 
 %build
 platform/unix/automagic
@@ -91,8 +78,6 @@ desktop-file-validate \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 #This seems to be built, despite disabling static libraries
 rm -f %{buildroot}%{_libdir}/lib%{name}.la
-#Install macros file
-install -Dpm 644 macros.love %{buildroot}%{_rpmmacrodir}/macros.love
 
 %ldconfig_scriptlets
 
@@ -114,11 +99,10 @@ install -Dpm 644 macros.love %{buildroot}%{_rpmmacrodir}/macros.love
 #Note that liblove.so is just a symlink, so a devel package is useless
 %{_libdir}/lib%{name}*.so
 
-%files rpm-macros
-%license license.txt
-%{_rpmmacrodir}/macros.love
-
 %changelog
+* Fri Apr 17 2026 Jeremy Newton <alexjnewt AT hotmail DOT com> - 11.5-9
+- Drop macro package
+
 * Fri Apr 17 2026 Jeremy Newton <alexjnewt AT hotmail DOT com> - 11.5-8
 - Add macros package for easier building of love dependent packages
 - Update arch conditions to reflect luagit and buildable targets

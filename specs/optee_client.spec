@@ -1,5 +1,5 @@
 Name:      optee_client
-Version:   4.9.0
+Version:   4.10.0
 Release:   1%{?dist}
 Summary:   OP-TEE Client API and supplicant
 License:   BSD
@@ -62,6 +62,9 @@ Development file for optee_client
 %{_libdir}/libteec.so
 
 %changelog
+* Sat Apr 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.10.0-1
+- Update to 4.10
+
 * Tue Jan 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.9.0-1
 - Update to 4.9.0
 

@@ -1,18 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-libxslt
-Version:        1.1.43
-Release:        5%{?dist}
+Version:        1.1.45
+Release:        1%{?dist}
 Summary:        MinGW Windows Library providing the Gnome XSLT engine
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
 Source0:        https://gitlab.gnome.org/GNOME/libxslt/-/archive/v%{version}/libxslt-v%{version}.tar.bz2
-# Proposed fix for CVE-2025-7424
-# https://gitlab.gnome.org/GNOME/libxslt/-/issues/139#note_2479564
-Patch0:         gnome-libxslt-bug-139-apple-fix.patch
-# Backport fix for CVE-2025-11731
-Patch1:         https://gitlab.gnome.org/GNOME/libxslt/-/commit/fe508f201efb9ea37bfbe95413b8b28251497de3.patch
 # Backport proposed fix for CVE-2025-10911
 Patch2:         https://gitlab.gnome.org/GNOME/libxslt/-/merge_requests/77.patch
 
@@ -21,14 +16,14 @@ BuildArch:      noarch
 BuildRequires:  automake autoconf libtool
 BuildRequires:  make
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-win-iconv
 BuildRequires:  mingw32-libgcrypt
 BuildRequires:  mingw32-libxml2 >= 2.7.2-3
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-win-iconv
@@ -152,6 +147,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sat Apr 18 2026 Sandro Mani <manisandro@gmail.com> - 1.1.45-1
+- Update to 1.1.45
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.43-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

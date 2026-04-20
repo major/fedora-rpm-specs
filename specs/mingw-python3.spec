@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.15
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -85,6 +85,8 @@ Patch23:       https://github.com/python/cpython/commit/e20c6c9667c99ecaab96e1a2
 Patch24:       https://github.com/python/cpython/pull/146136.patch
 # Backport fix for CVE-2026-1502
 Patch25:       https://github.com/python/cpython/pull/148351.patch
+# Backport fix for CVE-2026-4786
+Patch26:       https://github.com/python/cpython/pull/148520.patch
 
 
 BuildRequires: make
@@ -525,6 +527,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Sat Apr 18 2026 Sandro Mani <manisandro@gmail.com> - 3.11.15-4
+- Backport fix for CVE-2026-4786
+
 * Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 3.11.15-3
 - Backport fixes for CVE-2026-6100, CVE-2026-3479, CVE-2026-1502
 

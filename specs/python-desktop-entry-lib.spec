@@ -6,11 +6,13 @@ License:        BSD-2-Clause
 URL:            https://codeberg.org/JakobDev/desktop-entry-lib
 # PyPI tarball is missing test data
 Source:         %{url}/archive/%{version}.tar.gz#/desktop-entry-lib-%{version}.tar.gz
+
+# Support pytest 9 built-in subtests
+Patch: https://codeberg.org/JakobDev/desktop-entry-lib/pulls/19.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-subtests
 BuildRequires:  python3-pyfakefs
 BuildRequires:  tomcli
 
@@ -33,7 +35,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -C
+%autosetup -p1 -C
 # remove coverage options
 tomcli set pyproject.toml del tool.pytest.ini_options.addopts
 

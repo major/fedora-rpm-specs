@@ -3,7 +3,7 @@
 
 Name:           OpenMolcas
 Version:        26.02
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPL-2.1-only
 URL:            https://gitlab.com/Molcas/OpenMolcas
@@ -16,32 +16,22 @@ Patch1:         OpenMolcas-19.11-pymodule.patch
 # Disable trampoline code that causes FTBFS in Fedora rawhide (f34)
 Patch3:         https://gitlab.com/Molcas/OpenMolcas/-/merge_requests/803.patch
 
-# OpenMolcas is only supported on 64-bit architectures
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
-BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-gfortran
-%if 0%{?fedora} >= 33
 BuildRequires:  pkgconfig(flexiblas)
-%else
-BuildRequires:  openblas-devel
-%endif
 BuildRequires:  libxc-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  CheMPS2-devel
 
 # Required by runtime
-%if 0%{?rhel} == 7
-BuildRequires:  python2-devel
-Requires:       pyparsing
-%else
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pyparsing
 Requires:       python3-pyparsing
 Requires:       python3-setuptools
-%endif
 
 # CheMPS2 support at runtime (not linked, calls binary)
 Requires:       CheMPS2
@@ -61,43 +51,23 @@ decision of their authors (or impossibility to reach them), and are
 therefore not included in OpenMolcas.
 
 %prep
-%setup -q -n %{name}-v%{version}-%{commit}
-%patch -P0 -p1 -b .fedora
-%patch -P1 -p1 -b .pymodule
-%patch -P3 -p1 -b .intprocarg
+%autosetup -p1 -n %{name}-v%{version}-%{commit}
 
 # Name of OpenBLAS library to use is
-%if 0%{?fedora} >= 33
 %if 0%{?__isa_bits} == 64
 sed -i 's|@OPENBLAS_LIBRARY@|flexiblas64|g' CMakeLists.txt
 %else
 sed -i 's|@OPENBLAS_LIBRARY@|flexiblas|g' CMakeLists.txt
 %endif
-%else
-%if 0%{?__isa_bits} == 64
-sed -i 's|@OPENBLAS_LIBRARY@|openblaso64|g' CMakeLists.txt
-%else
-sed -i 's|@OPENBLAS_LIBRARY@|openblaso|g' CMakeLists.txt
-%endif
-%endif
+sed -i 's/Host name: ${host_name}/Host name: fedora/' CMakeLists.txt
 
 # Location python modules are installed
 sed -i 's|@MOLCAS_PYTHON@|%{_libdir}/%{name}/python|g' Tools/pymolcas/pymolcas.py
 # Fix shebangs
-%if 0%{?rhel} == 7
-for f in Tools/pymolcas/*.py; do
-    sed -i 's|#!/usr/bin/env python|#!/usr/bin/python2|g' $f
-done
-%else
-for f in Tools/pymolcas/*.py; do
-    sed -i 's|#!/usr/bin/env python|#!/usr/bin/python3|g' $f
-done
-%endif
+%py3_shebang_fix Tools/pymolcas/*.py
+
 
 %build
-export CC=gcc
-export FC=gfortran
-
 export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -Wtrampolines"
 export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -Wtrampolines"
 
@@ -108,11 +78,12 @@ export FFLAGS="$FFLAGS -fallow-argument-mismatch"
 
 %cmake -DCMAKE_INSTALL_PREFIX:PATH=%{_libdir}/%{name}/ \
        -DLINALG=OpenBLAS -DOPENMP=ON -DHDF5=ON -DCHEMPS2=ON \
-       -DEXTERNAL_LIBXC=%{_usr} -S . -B %{_host}
-%make_build -C %{_host}
+       -DEXTERNAL_LIBXC=%{_usr}
+%cmake_build
+
 
 %install
-%{make_install} -C %{_host}
+%cmake_install
 
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 cat > %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh <<EOF
@@ -135,6 +106,7 @@ done
 mkdir -p %{buildroot}%{_bindir} 
 cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 
+
 %files
 %license LICENSE
 %doc CONTRIBUTORS.md
@@ -143,6 +115,11 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Sat Apr 18 2026 Cristian Le <git@lecris.dev> - 26.02-3
+- Use standard CMake macros (rhbz#2380964)
+- Remove various dead %%if checks
+- Use shebang fix macro
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 26.02-2
 - Rebuild for hdf5 2.1
 

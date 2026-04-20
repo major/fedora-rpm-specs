@@ -8,6 +8,8 @@ BuildArch:      noarch
 Source:         %{pypi_source prettyprinter}
 # downstream-only patch
 Patch:          0001-Avoid-build-requirement-on-pytest-runner.patch
+# Fix pytest 9 compatibility
+Patch:          https://github.com/tommikaikkonen/prettyprinter/pull/97.patch
 
 %global _description %{expand:
 Syntax-highlighting, declarative and composable pretty printer.  Drop in

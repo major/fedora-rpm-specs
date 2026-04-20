@@ -1,4 +1,4 @@
-%global baserelease 4
+%global baserelease 1
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -7,7 +7,7 @@
 %global imaplib2_shortcommit %(c=%{imaplib2_commit}; echo ${c:0:7})
 
 Name:           offlineimap
-Version:        8.0.1
+Version:        8.0.2
 Release:        %{baserelease}%{?dist}
 Summary:        Powerful IMAP/Maildir synchronization and reader support
 
@@ -23,10 +23,6 @@ Source3:        https://github.com/jazzband/imaplib2/archive/%{imaplib2_commit}/
 Patch0:         0001-PATCH-Vendor-imaplib2.patch
 Patch1:         0002-PATCH-no-eyeballs.patch
 Patch3:         0003-PATCH-Sphinx-doc-compat.patch
-Patch4:         0004-PATCH-Loosen-urllib3-requirements.patch
-
-# Upstream patches for offlineimap
-Patch101:       https://github.com/OfflineIMAP/offlineimap3/pull/238.patch
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch

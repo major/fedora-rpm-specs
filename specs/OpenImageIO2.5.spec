@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -141,6 +141,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sat Apr 18 2026 Orion Poplawski <orion@nwra.com> - 2.5.19.1-11
+- Rebuild for hdf5 2.1
+
 * Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.19.1-10
 - Libraw rebuild
 

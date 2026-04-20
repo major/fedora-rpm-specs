@@ -1,5 +1,5 @@
 Name:           python-multidict
-Version:        6.6.4
+Version:        6.7.0
 Release:        %autorelease
 Summary:        MultiDict implementation
 

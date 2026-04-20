@@ -9,6 +9,9 @@ Summary:        Python module to handle URLs
 License:        Apache-2.0
 URL:            https://yarl.readthedocs.io
 Source0:        https://github.com/aio-libs/yarl/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+# Compatibility with Python 3.15
+# Adapted from: https://github.com/aio-libs/yarl/pull/1642
+Patch:          Fix-pickling-with-Python-3.15.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

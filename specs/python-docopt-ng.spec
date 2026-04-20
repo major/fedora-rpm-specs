@@ -5,6 +5,8 @@ Summary:        Humane command line arguments parser
 License:        MIT
 URL:            https://github.com/jazzband/docopt-ng
 Source:         %{pypi_source docopt_ng}
+# Fix pytest 9 compatibility: py.path.local arguments deprecated
+Patch:          https://github.com/jazzband/docopt-ng/commit/374d5a5.patch
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -37,7 +39,7 @@ Conflicts:      python3-docopt
 
 
 %prep
-%autosetup -n docopt_ng-%{version}
+%autosetup -p1 -n docopt_ng-%{version}
 
 
 %generate_buildrequires

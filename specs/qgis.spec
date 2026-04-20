@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        4.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -317,6 +317,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Apr 18 2026 Orion Poplawski <orion@nwra.com> - 4.0.1-5
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.0.1-4
 - Rebuild for hdf5 2.1
 

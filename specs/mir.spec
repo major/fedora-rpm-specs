@@ -24,26 +24,24 @@
 
 # Track various library soversions
 %global miral_sover 7
-%global mircommon_sover 11
+%global mircommon_sover 12
 %global mircore_sover 2
 %global miroil_sover 8
 %global mirplatform_sover 34
-%global mirserver_sover 66
+%global mirserver_sover 67
 %global mirwayland_sover 5
 %global mirplatformgraphics_sover 23
 %global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.25.1
-Release:        5%{?dist}
+Version:        2.26.0
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://canonical.com/mir
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Add missing headers for GCC 16 build
-Patch:          https://github.com/canonical/mir/pull/4609.patch
 
 %if %{with ccache}
 BuildRequires:  ccache
@@ -55,6 +53,7 @@ BuildRequires:  gcc-c++
 %endif
 BuildRequires:  git-core
 BuildRequires:  cmake, ninja-build, doxygen, graphviz, lcov, gcovr
+BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  boost-devel
 BuildRequires:  python3
@@ -222,7 +221,10 @@ Mir unit and integration tests.
 
 %prep
 %autosetup -S git_am
+%cargo_prep
 
+%generate_buildrequires
+%cargo_generate_buildrequires
 
 %conf
 %cmake	-GNinja \
@@ -236,6 +238,8 @@ Mir unit and integration tests.
 
 %build
 %cmake_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 
 %install
@@ -289,6 +293,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/%{name}/server-platform/graphics-gbm-kms.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/graphics-wayland.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/input-evdev.so.%{mirplatforminput_sover}
+%{_libdir}/%{name}/server-platform/input-evdev-rs.so.%{mirplatforminput_sover}
 %{_libdir}/%{name}/server-platform/renderer-egl-generic.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/server-virtual.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/server-x11.so.%{mirplatformgraphics_sover}
@@ -322,6 +327,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Sat Apr 18 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.26.0-1
+- Update to 2.26.0
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.25.1-5
 - Rebuild for libdisplay-info 0.3.0
 

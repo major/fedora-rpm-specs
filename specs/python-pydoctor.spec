@@ -48,7 +48,6 @@ BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-pytest-subtests
 
 
 %description %{desc}

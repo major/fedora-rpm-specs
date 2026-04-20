@@ -8,7 +8,7 @@
 Name:           moose
 Version:        3.1.5
 %global codename chamcham
-Release:        34%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
+Release:        35%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
 Summary:        Multiscale Neuroscience and Systems Biology Simulator
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -157,6 +157,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c \
 %doc README.md
 
 %changelog
+* Sat Apr 18 2026 Orion Poplawski <orion@nwra.com> - 3.1.5-35
+- Rebuild for hdf5 2.1
+
 * Fri Apr 03 2026 Cristian Le <git@lecris.dev> - 3.1.5-34
 - Allow to build with CMake 4.0 (rhbz#2380789)
 

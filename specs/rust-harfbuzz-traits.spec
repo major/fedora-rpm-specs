@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cmov
+%global crate harfbuzz-traits
 
-Name:           rust-cmov
-Version:        0.5.3
+Name:           rust-harfbuzz-traits
+Version:        0.6.0
 Release:        %autorelease
-Summary:        Conditional move CPU intrinsics with pure Rust fallback implemenation
+Summary:        Rust Traits for the HarfBuzz text shaping engine
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/cmov
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/harfbuzz-traits
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Conditional move CPU intrinsics which are guaranteed on major platforms
-(ARM32/ARM64, x86/x86_64, RISC-V) to execute in constant-time and not be
-rewritten as branches by the compiler. Provides wrappers for the CMOV
-family of instructions on x86/x86_64 and CSEL on AArch64, along with a
-portable "best-effort" pure Rust fallback implementation.}
+Rust Traits for the HarfBuzz text shaping engine.}
 
 %description %{_description}
 
@@ -36,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
