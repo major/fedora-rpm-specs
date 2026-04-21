@@ -21,6 +21,9 @@
 #
 %global upstreamname rocm-smi-lib
 
+%global pkg_library_name rocm_smi64
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,7 +49,12 @@
 %global pkg_suffix %{nil}
 %global pkg_skip_install_rpath TRUE
 %endif
-%global pkg_name rocm-smi%{pkg_suffix}
+
+%if 0%{?suse_version}
+%global pkg_name %{NAME}-libs
+%else
+%global pkg_name %{NAME}
+%endif
 
 %bcond_with test
 %if %{with test}
@@ -57,12 +65,12 @@
 
 %bcond_with doc
 
-Name:       %{pkg_name}
+Name:       rocm-smi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    1%{?dist}
+Release:    2%{?dist}
 %endif
 Summary:    ROCm System Management Interface Library
 
@@ -128,15 +136,29 @@ BuildRequires:  gtest-devel
 Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
+%if 0%{?suse_version}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%endif
+
 %description
 The ROCm System Management Interface Library, or ROCm SMI library, is part of
 the Radeon Open Compute ROCm software stack . It is a C library for Linux that
 provides a user space interface for applications to monitor and control GPU
 applications.
 
+%if 0%{?suse_version}
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
+%endif
+
 %package devel
 Summary: ROCm SMI Library development files
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name}%{?_isa} = %{version}-%{release}
 # /usr/include/rocm_smi/kfd_ioctl.h:26:10: fatal error: 'libdrm/drm.h' file not found
 Requires: libdrm-devel
 
@@ -146,7 +168,7 @@ ROCm System Management Interface Library development files
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -194,22 +216,31 @@ rm -rf tests
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 
 %if 0%{?suse_version}
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%endif
+%files
+%{pkg_prefix}/bin/rocm-smi
+%{pkg_prefix}/libexec/rocm_smi/
+
+%files -n %{pkg_name}
+%doc README.md
+%license LICENSE.md
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/liboam.so.1{,.*}
+
+%else
 
 %files
 %doc README.md
 %license LICENSE.md
 %{pkg_prefix}/bin/rocm-smi
 %{pkg_prefix}/libexec/rocm_smi/
-%{pkg_prefix}/%{pkg_libdir}/librocm_smi64.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/liboam.so.1{,.*}
+%endif
 
 %files devel
 %{pkg_prefix}/include/rocm_smi/
 %{pkg_prefix}/include/oam/
-%{pkg_prefix}/%{pkg_libdir}/librocm_smi64.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/liboam.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm_smi/
 
@@ -219,6 +250,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- Generate suse package names
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

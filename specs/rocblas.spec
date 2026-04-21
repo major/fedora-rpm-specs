@@ -21,6 +21,9 @@
 #
 %global upstreamname rocblas
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 5
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global rocblas_name librocblas5%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global rocblas_name rocblas%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -165,7 +169,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -318,18 +322,18 @@ rocBLAS is the AMD library for Basic Linear Algebra Subprograms
 programming language and optimized for AMD GPUs.
 
 %if 0%{?suse_version}
-%package -n %{rocblas_name}
+%package -n %{pkg_name}
 Summary:        Shared libraries for %{name}
 
-%description -n %{rocblas_name}
+%description -n %{pkg_name}
 %{summary}
 
-%ldconfig_scriptlets -n %{rocblas_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{rocblas_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %if %{without compat}
 Requires:       cmake(hip)
 %endif
@@ -340,7 +344,7 @@ Requires:       cmake(hip)
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{rocblas_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       diffutils
 
 %description test
@@ -502,10 +506,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files -n %{rocblas_name}
+%files -n %{pkg_name}
 %license LICENSE.md
 %doc README.md
-%{pkg_prefix}/%{pkg_libdir}/librocblas.so.5{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %if %{with tensile}
 %{pkg_prefix}/%{pkg_libdir}/rocblas/
 %endif
@@ -513,7 +517,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %files devel
 %{pkg_prefix}/include/rocblas/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocblas/
-%{pkg_prefix}/%{pkg_libdir}/librocblas.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 
 %if %{with test}
 %files test
@@ -521,6 +525,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Apr 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Generate suse package names
+
 * Tue Mar 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Install tensile with pip
 

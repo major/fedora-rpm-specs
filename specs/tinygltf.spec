@@ -9,13 +9,16 @@
 TinyGLTF is a header only C++11 glTF 2.0 library.}
 
 Name:           tinygltf
-Version:        2.9.7
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Header only C++11 tiny glTF 2.0 library
 
 License:        MIT
 URL:            https://github.com/syoyo/tinygltf
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/syoyo/tinygltf/pull/550
+Patch:          tinygltf-i686-unsigned-int.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -59,7 +62,7 @@ sed -i CMakeLists.txt \
   -e '/json.hpp/d' \
   -e '/stb_image.h/d' \
   -e '/stb_image_write.h/d'
-sed -i tiny_gltf.h tests/tester.cc \
+sed -i tiny_gltf.h tests/tester.cc tests/tester_intensive_customjson.cc \
   -e 's:#include "catch.hpp":#include <catch/catch.hpp>:' \
   -e 's:#include "json.hpp":#include <nlohmann/json.hpp>:' \
   -e 's:#include "stb_image.h":#include <stb_image.h>:' \
@@ -101,6 +104,7 @@ done
 %license LICENSE
 %doc README.md
 %{_includedir}/tiny_gltf.h
+%{_includedir}/tinygltf_json.h
 %{_libdir}/cmake/%{name}/
 
 %files examples

@@ -11,7 +11,7 @@ vendors without requiring that applications have specific knowledge of the
 hardware they are targeting.}
 
 Name:           openvr
-Version:        2.12.14
+Version:        2.15.6
 Release:        %autorelease
 Summary:        OpenVR SDK
 License:        BSD-3-Clause
@@ -29,7 +29,7 @@ Patch:          openvr-skip-steamvr-check.patch
 Patch:          openvr-use-system-sdl2-vulkan.patch
 # Define soversion for the OpenVR API library
 Patch:          openvr-api-soversion.patch
-# Fix samples build errors (removed API types, mismatched enums)
+# Fix samples build errors (removed API types)
 Patch:          openvr-fix-samples-build.patch
 
 BuildRequires:  cmake

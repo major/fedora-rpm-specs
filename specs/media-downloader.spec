@@ -1,6 +1,6 @@
 Name:           media-downloader
-Version:        5.3.2
-Release:        3%{?dist}
+Version:        5.5.1
+Release:        2%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
 URL:            https://github.com/mhogomchungu/media-downloader
@@ -8,7 +8,7 @@ Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  desktop-file-utils
 Requires: yt-dlp
 Requires: aria2
@@ -42,7 +42,10 @@ Features offered:-
 
 %build
 mkdir build && pushd build
-%cmake  -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release ..
+%cmake  -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_WITH_QT6=TRUE     \
+        -DCMAKE_BUILD_TYPE=release  \
+        ..
 %cmake_build
 popd
 
@@ -65,6 +68,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sun Apr 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.5.1-2
+- Enable BUILD_WITH_QT6
+
+* Sun Apr 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.5.1-1
+- Update to 5.5.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

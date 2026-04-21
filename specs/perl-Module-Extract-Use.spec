@@ -1,7 +1,7 @@
 Summary:	Pull out the modules a module explicitly uses
 Name:		perl-Module-Extract-Use
-Version:	1.054
-Release:	3%{?dist}
+Version:	1.055
+Release:	1%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-Use
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Extract-Use-%{version}.tar.gz
@@ -13,17 +13,18 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.10.0
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(ExtUtils::MM_Any)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Spec::Functions)
 BuildRequires:	perl(Test::Manifest) >= 1.21
 # Module Runtime
 BuildRequires:	perl(PPI)
 BuildRequires:	perl(strict)
+BuildRequires:	perl(utf8)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(File::Basename)
 BuildRequires:	perl(Test::More) >= 1.0
-BuildRequires:	perl(version) >= 0.86
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
@@ -59,6 +60,10 @@ make test
 %{_mandir}/man3/Module::Extract::Use.3*
 
 %changelog
+* Sun Apr 19 2026 Paul Howarth <paul@city-fan.org> - 1.055-1
+- Update to 1.055
+  - extract_modules can now search PATH for file
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.054-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

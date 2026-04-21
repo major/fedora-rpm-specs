@@ -23,6 +23,9 @@ License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
 Source:        https://files.pythonhosted.org/packages/source/r/%{srcname}2/%{srcname}2-%{version}.tar.gz
 
+# Patch from Debian to disable vector tests on riscv64
+Patch0:        skip_complex_tests_on_mips64el_and_riscv64_and_loong64.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -58,7 +61,7 @@ Requires:      %add_rver R-core
 %{pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} %{extras}}
 
 %prep
-%setup -q -n %{srcname}2-%{version}
+%autosetup -p1 -n %{srcname}2-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -82,6 +85,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Fri Apr 17 2026 Marcin Juszkiewicz - 3.5.16-12
+- Skip Complex/vector tests on riscv64 port.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.16-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

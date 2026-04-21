@@ -1,9 +1,8 @@
 Name:		HepMC
 Version:	2.06.11
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://hepmc.web.cern.ch/hepmc/
 Source0:	http://hepmc.web.cern.ch/hepmc/releases/%{name}-%{version}.tar.gz
@@ -71,9 +70,7 @@ install -p -m 644 ChangeLog %{buildroot}%{_pkgdocdir}
 install -p -m 644 README %{buildroot}%{_pkgdocdir}
 
 %check
-%make_build check
-
-%ldconfig_scriptlets
+%make_build check -j1
 
 %files
 %{_libdir}/libHepMC.so.*
@@ -96,6 +93,9 @@ install -p -m 644 README %{buildroot}%{_pkgdocdir}
 %license COPYING
 
 %changelog
+* Sun Apr 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.06.11-19
+- Don't run tests in parallel - undeclared inter-dependencies in Makefile
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.06.11-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

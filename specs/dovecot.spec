@@ -53,6 +53,9 @@ Patch24: dovecot-2.4.2-fixbuild.patch
 # https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/FZBVU55TK5332SMZSSDNWIVJCWGUAJQS/
 Patch25: dovecot-2.4.2-ftbfs-workaround.patch
 
+# builders have way too long prefix path, use shorter due to limited socket name length
+Patch26: dovecot-2.4.3-test-socket-path.patch
+
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
 BuildRequires: sqlite-devel
@@ -160,6 +163,7 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
 %patch -P 25 -p1 -b .ftbfs-workaround
+%patch -P 26 -p2 -b .test-socket-path
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude

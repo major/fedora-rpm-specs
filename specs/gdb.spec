@@ -932,6 +932,10 @@ fi
 # endif scl
 
 %changelog
+* Wed Apr 15 2026 Keith Seitz <keiths@redhat.com>
+- Backport upstream commit ef7727ae from Tom de Vries to
+  fix the test suite for newer Tcl releases.
+
 * Wed Feb 25 2026 Kevin Buettner <kevinb@redhat.com>
 - Backport upstream commit d2cc16cd7fc from Jan Vrany to fix
   FAILs in gdb.base/fileio.exp caused by macro expansion of

@@ -251,7 +251,6 @@ xargs rm -rf
 gmsh_cmake_args="\
     %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS} \
     -DENABLE_SYSTEM_CONTRIB=YES \
-    -DENABLE_BUILD_LIB=YES \
     -DENABLE_BUILD_SHARED=YES \
     -DENABLE_BUILD_DYNAMIC=YES \
 %ifarch aarch64
@@ -270,6 +269,7 @@ gmsh_cmake_args="\
 ### openmpi version ###
 %if %{with openmpi}
 %{_openmpi_load}
+export CC=mpicc
 export CXX=mpicxx
 %define _vpath_builddir %{_target_platform}-openmpi
 %cmake \
@@ -289,6 +289,7 @@ export CXX=mpicxx
 ### mpich version ###
 %if %{with mpich}
 %{_mpich_load}
+export CC=mpicc
 export CXX=mpicxx
 %define _vpath_builddir %{_target_platform}-mpich
 %cmake \
@@ -329,9 +330,6 @@ cp -a src/parser/Gmsh.* %{_target_platform}-mpich
 %endif
 %define _vpath_builddir %{_target_platform}
 %cmake_install
-
-# Remove static libraries
-find %{buildroot} -type f -name libgmsh.a -exec rm -f {} \;
 
 # Install icon and .desktop file
 magick utils/icons/gmsh.png -scale 128 icon_128x128.png

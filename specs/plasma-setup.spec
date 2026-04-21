@@ -8,7 +8,7 @@
 
 Name:           plasma-setup
 Version:        6.6.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -29,6 +29,9 @@ Patch501:       0001-fix-give-us-permission-to-create-system-wide-network.patch
 # some of the "strange" behavior observed in
 # https://bugzilla.redhat.com/show_bug.cgi?id=2455469#c0
 Patch502:       0001-wifi-fix-bogus-addAndActivateConnection-arg-from-f80.patch
+# https://invent.kde.org/plasma/plasma-setup/-/merge_requests/101
+# https://bugzilla.redhat.com/show_bug.cgi?id=2453216
+Patch503:       101.patch
 
 # Downstream only changes
 Patch1001:      plasma-setup-load-fedora-wallpaper.patch
@@ -144,6 +147,9 @@ exit 0
 
 
 %changelog
+* Sun Apr 19 2026 Adam Williamson <awilliam@redhat.com> - 6.6.4-6
+- Backport MR #101 to pre-select configured keyboard layout (#2453216)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-5
 - Rebuild (qt6)
 

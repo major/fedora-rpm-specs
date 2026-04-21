@@ -3,8 +3,7 @@ Version:        1.21
 Release:        33%{?dist}
 Summary:        Build structures from CGI data
 # BSD License (two clause), according to lib/CGI/Struct.pm
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 
 URL:            https://metacpan.org/release/CGI-Struct
 Source0:        https://cpan.metacpan.org/authors/id/F/FU/FULLERMD/CGI-Struct-%{version}.tar.gz

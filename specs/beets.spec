@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.9.0
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -68,7 +68,7 @@ both text and html formats.
 sed -i '/sphinx_toolbox/d' docs/conf.py
 
 # Temporarily relax mediafile requirement
-sed -i 's/^mediafile = ">=0\.16\.0"$/mediafile = ">=0.12.0"/' pyproject.toml
+sed -i 's/^mediafile = ">=0\.16\.2"$/mediafile = ">=0.12.0"/' pyproject.toml
 
 echo "==== mediafile dependency after patch ===="
 grep -n '^mediafile' pyproject.toml

@@ -5,18 +5,13 @@
 
 
 Name:           miracle-wm
-Version:        0.8.3
-Release:        3%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
 URL:            https://github.com/miracle-window-manager/miracle-wm
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# bugfix: only install libmirrenderer-dev if it is available
-# https://github.com/miracle-wm-org/miracle-wm/pull/734
-Patch0:         734.patch
-# already fixed upstream
-Patch1:         miracle-wm-0.8.3-fix-for-gcc16.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -25,7 +20,6 @@ BuildRequires:  pkgconfig(miral) >= %{miral_ver}
 BuildRequires:  pkgconfig(mirplatform) >= %{mirversion}
 BuildRequires:  pkgconfig(mircommon) >= %{mirversion}
 BuildRequires:  pkgconfig(mirwayland) >= %{mirversion}
-BuildRequires:  pkgconfig(mircommon-internal) >= %{mirversion}
 BuildRequires:  pkgconfig(mirserver-internal) >= %{mirversion}
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(yaml-cpp)
@@ -44,6 +38,10 @@ BuildRequires:  glm-devel
 BuildRequires:  boost-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  systemd-rpm-macros
+
+%ifarch %{x86_64} %{arm64} %{riscv64}
+BuildRequires:  wasmedge-devel
+%endif
 
 Recommends:     xorg-x11-server-Xwayland%{?_isa}
 
@@ -76,7 +74,11 @@ libraries for manipulating the configuration of %{name}.
 
 
 %build
+%ifarch %{x86_64} %{arm64} %{riscv64}
 %cmake -DSYSTEMD_INTEGRATION=ON
+%else
+%cmake -DSYSTEMD_INTEGRATION=ON -DFEATURE_PLUGIN_SYSTEM:BOOL=OFF
+%endif
 %cmake_build
 
 
@@ -102,15 +104,18 @@ libraries for manipulating the configuration of %{name}.
 
 %files config-libs
 %license LICENSE
-%{_libdir}/libmiracle-wm-config.so.%{miracle_configlib_somajor}{,.*}
+%{_libdir}/libmiracle-wm-c.so.%{miracle_configlib_somajor}{,.*}
 
 %files config-devel
 %{_includedir}/miracle/
-%{_libdir}/libmiracle-wm-config.so
-%{_libdir}/pkgconfig/miracle-wm-config.pc
+%{_libdir}/libmiracle-wm-c.so
+%{_libdir}/pkgconfig/miracle-wm-c.pc
 
 
 %changelog
+* Sun Apr 19 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.9.0-1
+- Update to 0.9.0
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.8.3-3
 - Add patch to fix build with GCC 16
 

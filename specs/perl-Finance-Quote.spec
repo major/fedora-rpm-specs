@@ -1,10 +1,10 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.68
+%global cpan_version 1.69
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -132,6 +132,7 @@ make test
 %{_mandir}/man3/Finance::Quote::CurrencyRates::FinanceAPI.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::Fixer.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::OpenExchange.3*
+%{_mandir}/man3/Finance::Quote::CurrencyRates::TwelveData.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::Deka.3*
 %{_mandir}/man3/Finance::Quote::FinanceAPI.3*
@@ -168,6 +169,18 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun Apr 19 2026 Paul Howarth <paul@city-fan.org> - 1.6900-1
+- Update to 1.69
+  - Sinvestor.pm: Trim whitespace before parsing date and price
+  - XETRA.pm: Trim whitespace from date-time before extracting the actual date
+    value (GH#557)
+  - Modified Stooq.pm to send cookies
+    - Stooq requires European visitors to their website to accept cookies
+    - Cookies are set using JavaScript
+    - Current version of module hard codes these cookies gleaned from a browser
+      session
+    - Added CurrencyRates/TwelveData.pm
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6800-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

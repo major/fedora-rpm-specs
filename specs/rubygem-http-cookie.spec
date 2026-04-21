@@ -1,7 +1,7 @@
 %global	gem_name	http-cookie
 
 Name:		rubygem-%{gem_name}
-Version:	1.1.4
+Version:	1.1.5
 Release:	1%{?dist}
 
 Summary:	Ruby library to handle HTTP Cookies based on RFC 6265
@@ -76,6 +76,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sun Apr 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.5-1
+- 1.1.5
+
 * Wed Apr 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.4-1
 - 1.1.4
 

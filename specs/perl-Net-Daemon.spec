@@ -1,5 +1,5 @@
 Name:           perl-Net-Daemon
-Version:        0.51
+Version:        0.52
 Release:        1%{?dist}
 Summary:        Perl extension for portable daemons
 
@@ -90,13 +90,16 @@ inheriting will safe you a lot of work anyways.
 
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %license LICENSE.*
 %{perl_vendorlib}/Net*
 %{_mandir}/man3/Net*.3*
 
 
 %changelog
+* Sun Apr 19 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.52-1
+- Update to 0.52
+
 * Sun Mar 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.51-1
 - Update to 0.51
 - Remove mentions of Thread.pm (no longer relevant)

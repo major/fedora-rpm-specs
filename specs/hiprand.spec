@@ -142,8 +142,7 @@ Summary:        The hipRAND runtime package
 %description -n %{pkg_name}
 %summary
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel

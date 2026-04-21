@@ -21,6 +21,9 @@
 #
 %global upstreamname rocm-core
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,21 +49,19 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-# 15.6
-# rocm-core.x86_64: E: shlib-policy-name-error (Badness: 10000) librocm-core1
-# Your package contains a single shared library but is not named after its SONAME.
-%global core_name librocm-core1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global core_name rocm-core%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
-Name:           rocm-core
+Name:           rocm-core%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A utility to get the ROCm release version
 License:        MIT
@@ -69,6 +70,10 @@ Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{up
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+
+%if 0%{?suse_version}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%endif
 
 Provides:       rocm-core = %{version}-%{release}
 
@@ -79,18 +84,18 @@ ExclusiveArch:  x86_64
 %{summary}
 
 %if 0%{?suse_version}
-%package -n %{core_name}
-Summary:        Shared libraries for %{name}
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
 
-%description -n %{core_name}
-%{summary}
+%description -n %{pkg_name}
+%summary
 
-%ldconfig_scriptlets -n %{core_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{core_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -124,19 +129,35 @@ rm -rf %{buildroot}/%{pkg_prefix}/include/rocm-core
 
 find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 
-%files -n %{core_name}
-%doc README.md
-%license LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/librocm-core.so.*
+%if 0%{?suse_version}
+%files
 %{pkg_prefix}/bin/rdhc
 %{pkg_prefix}/libexec/rocm-core/
 
+%files -n %{pkg_name}
+%doc README.md
+%license LICENSE.md
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+
+%else
+
+%files
+%doc README.md
+%license LICENSE.md
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/bin/rdhc
+%{pkg_prefix}/libexec/rocm-core/
+%endif
+
 %files devel
 %{pkg_prefix}/include/*.h
-%{pkg_prefix}/%{pkg_libdir}/librocm-core.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-2
+- Generate suse package name
+
 * Wed Apr 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-1
 - Update to 7.2.2
 

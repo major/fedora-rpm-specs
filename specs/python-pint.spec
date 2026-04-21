@@ -64,6 +64,10 @@ Summary:        %{summary}
 tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
     pytest-cov
 
+# pytest-subtests was integrated into pytest 9
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
+    pytest-subtests
+
 # This module is executable in the source, and it might make sense for upstream
 # to run it directly as a script during development, but this package will
 # install it in site-packages without the executable bit set, so it doesn’t

@@ -22,10 +22,9 @@ Source0: https://github.com/HDFGroup/hdf5/archive/%{version}/hdf5-%{version}.tar
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.14.4.3+repack-1~exp3.debian.tar.xz
-# Downstream Patches
-# Remove Fedora build flags from h5cc/h5c++/h5fc
-# https://bugzilla.redhat.com/show_bug.cgi?id=1794625
-#Patch: hdf5-wrappers.patch
+# Fix libhdf5.settings location in wrappers for MPI builds
+# https://github.com/HDFGroup/hdf5/issues/6373
+Patch: hdf5-wrappers.patch
 # Change jar names
 Patch: hdf5-jarname.patch
 # Fix JNI install directory

@@ -33,8 +33,8 @@
 %endif
 
 Name:           kokkos
-Version:        4.7.02
-%global         sover 4.7
+Version:        5.0.2
+%global         sover 5.0
 Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
@@ -45,7 +45,7 @@ URL:            https://github.com/kokkos/kokkos
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake >= 3.16
+BuildRequires:  cmake >= 3.22
 BuildRequires:  hwloc-devel
 %if 0%{?rhel} == 9
 %global gts_version 13
@@ -111,6 +111,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
   -DKokkos_ARCH_POWER8=ON \
 %endif
   -DCMAKE_INSTALL_INCLUDEDIR=include/kokkos \
+  -DKokkos_INSTALL_TESTING=OFF \
   -DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
   -DKokkos_ENABLE_DEPRECATED_CODE=ON \
   -DKokkos_ENABLE_OPENMP=ON \
@@ -129,10 +130,11 @@ do
     %cmake \
 	   -DCMAKE_CXX_COMPILER=${rocm_clang} \
 	   -DCMAKE_CXX_FLAGS="%{rocm_cxxflags}" \
-	   -DCMAKE_CXX_STANDARD=17 \
+	   -DCMAKE_CXX_STANDARD=20 \
 	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
 	   -DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/rocm/${gpu}/include/kokkos \
 	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
+           -DKokkos_INSTALL_TESTING=OFF \
 	   -DKokkos_ARCH_AMD_${ugpu}=ON \
 	   -DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
 	   -DKokkos_ENABLE_DEPRECATED_CODE=ON \
@@ -180,6 +182,7 @@ module purge
 %files devel
 %{_includedir}/kokkos
 %{_libdir}/libkokkos*.so
+%{_libdir}/libkokkos*.a
 %{_libdir}/cmake/Kokkos
 %{_bindir}/nvcc_wrapper
 %{_bindir}/hpcbind
@@ -191,6 +194,7 @@ module purge
 
 %files -n %{name}-rocm-devel
 %{_libdir}/rocm/gfx*/lib/libkokkos*.so
+%{_libdir}/rocm/gfx*/lib/libkokkos*.a
 %{_libdir}/rocm/gfx*/lib/cmake/Kokkos
 %{_libdir}/rocm/gfx*/bin/nvcc_wrapper
 %{_libdir}/rocm/gfx*/bin/hpcbind
@@ -200,6 +204,9 @@ module purge
 
 
 %changelog
+* Mon Apr 13 2026 Richard Berger <richard.berger@outlook.com> - 5.0.2-1
+- Version bump to v5.0.2
+
 * Sat Feb 21 2026 Richard Berger <richard.berger@outlook.com> - 4.7.02-1
 - Version bump to v4.7.02
 

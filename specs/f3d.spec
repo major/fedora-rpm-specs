@@ -5,7 +5,7 @@
 %global usd 0
 
 %global forgeurl https://github.com/f3d-app/f3d
-Version:        3.4.1
+Version:        3.5.0
 %forgemeta
 
 Name:           f3d

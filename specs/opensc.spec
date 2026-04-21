@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.27.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -10,6 +10,10 @@ Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
 # File caching by default (#2000626)
 Patch8:         %{name}-0.22.0-file-cache.patch
+# Registering SHA1 mechanisms does not work in FIPS mode
+# https://github.com/OpenSC/OpenSC/pull/3645
+Patch9:         %{name}-0.27.1-fips-sha1.patch
+
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -29,9 +33,9 @@ BuildRequires:  libcmocka-devel
 BuildRequires:  vim-common
 %if ! 0%{?rhel}
 BuildRequires:  softhsm
-BuildRequires:  openssl
 BuildRequires:  openpace-devel
 %endif
+BuildRequires:  openssl
 Requires:       %{name}-libs = %{version}-%{release}
 Requires:       pcsc-lite
 Obsoletes:      mozilla-opensc-signer < 0.12.0
@@ -61,6 +65,7 @@ OpenSC libraries.
 %setup -q -n opensc-%{version}
 %patch 1 -p1 -b .pinpad
 %patch 8 -p1 -b .file-cache
+%patch 9 -p1 -b .fips-sha1
 
 XFAIL_TESTS="test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh"
 
@@ -233,6 +238,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Sun Apr 19 2026 Jakub Jelen <jjelen@redhat.com> - 0.27.1-2
+- Fix SHA1 mechanism registration in FIPS mode
+
 * Tue Mar 31 2026 Jakub Jelen <jjelen@redhat.com> - 0.27.1-1
 - New upstream release (#2442363) fixing various security issues:
   - CVE-2025-66038 Memory corruption via improper compact-TLV length validation

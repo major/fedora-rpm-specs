@@ -51,7 +51,7 @@
 %endif
 
 %if 0%{?suse_version}
-%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
 %global pkg_name %{NAME}
 %endif
@@ -173,7 +173,7 @@ Summary:        Runtime for %{name}
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -182,6 +182,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+%if 0%{?suse_version}
+Requires:       libgoamdsmi_shim64-1%{?_isa} = %{version}-%{release}
+%endif
 Requires:       libdrm-devel
 
 %description test

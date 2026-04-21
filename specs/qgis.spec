@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        4.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -13,11 +13,9 @@ URL:            http://www.qgis.org
 Source0:        http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 # ./prepare_vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
-Source2:        %{name}-%{version}-vendor-licenses.txt
-Source3:        %{name}-%{version}-yarn.lock
 # Sample configuration files for QGIS server
-Source4:        %{name}-server-httpd.conf
-Source5:        %{name}-server-README.fedora
+Source2:        %{name}-server-httpd.conf
+Source3:        %{name}-server-README.fedora
 
 # Fix QGIS Server prefix calculation
 Patch0:         %{name}-serverprefix.patch
@@ -80,7 +78,7 @@ BuildRequires:  qwt-qt6-devel
 BuildRequires:  spatialindex2.0-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libzstd-devel
-BuildRequires:  yarnpkg
+BuildRequires:  %{_bindir}/npm
 
 # Enable for tests
 #BuildRequires:  xorg-x11-server-Xvfb
@@ -156,22 +154,29 @@ Please refer to %{name}-server-README.fedora for details!
 
 
 %prep
-%autosetup -p1 -a1
-
-# %%{name}-%%{version}-vendor-licenses.txt
-cp -a %{SOURCE2} .
-# %%{name}-%%{version}-yarn.lock
-cp -a %{SOURCE3} resources/server/src/landingpage/yarn.lock
+%autosetup -p1
 
 # Readme file for QGIS server configuration and Lighttpd example
-install -pm0644 %{SOURCE5} .
+install -pm0644 %{SOURCE3} .
 
 gzip ChangeLog
 
-sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20 || 21 || 22"/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20 || 22 || 23 || 24"/' $(find "$PWD/.package-cache" | grep 'node_modules/@achrinza/node-ipc/package.json')
-sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20 || 21 || 22"/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20 || 22 || 23 || 24"/' $(find "$PWD/.package-cache" | grep 'node_modules/@achrinza/node-ipc/.yarn-metadata.json')
 
 %build
+pushd resources/server/src/landingpage/
+tar xf %{SOURCE1}
+tar xf corepack.tgz
+
+cat > yarn/yarn <<EOF
+#!/bin/sh
+node $(pwd)/yarn/*/yarn.js "\$@"
+EOF
+chmod +x yarn/yarn
+export PATH=$PWD/yarn:$PATH
+
+yarn install --immutable --immutable-cache
+popd
+
 %cmake \
       %{_cmake_skip_rpath} \
       %["%{?_lib}" == "lib64" ? "-D LIB_SUFFIX=64" : ""] \
@@ -202,7 +207,7 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
       -D WITH_QSPATIALITE:BOOL=TRUE \
       -D WITH_SERVER_LANDINGPAGE_WEBAPP=ON \
       -G Ninja
-export YARN_CACHE_FOLDER="$PWD/.package-cache"
+
 %cmake_build
 
 
@@ -226,7 +231,7 @@ install -pm0644 images/icons/%{name}-mime-icon.png %{buildroot}%{_datadir}/pixma
 
 # Install basic QGIS Mapserver configuration for Apache
 install -pd %{buildroot}%{_sysconfdir}/httpd/conf.d
-install -pm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/qgis-server.conf
+install -pm0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/httpd/conf.d/qgis-server.conf
 
 # Remove install instructions
 rm -f %{buildroot}%{_datadir}/%{name}/doc/INSTALL*
@@ -245,7 +250,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %files -f %{name}.lang
-%license COPYING %{name}-%{version}-vendor-licenses.txt
+%license COPYING resources/server/src/landingpage/%{name}-%{version}-vendor-licenses.txt
 %doc BUGS NEWS.md README.md Exception_to_GPL_for_Qt.txt ChangeLog.gz
 # QGIS shows the following files in the GUI, including the license text
 %doc %{_datadir}/%{name}/doc/
@@ -317,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sun Apr 19 2026 Sandro Mani <manisandro@gmail.com> - 4.0.1-6
+- Switch to yarn berry
+
 * Sat Apr 18 2026 Orion Poplawski <orion@nwra.com> - 4.0.1-5
 - Rebuild (qt6)
 

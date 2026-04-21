@@ -3,14 +3,14 @@
 # directory.
 %global __requires_exclude pkg-config
 
-%global libmajor 15
+%global libmajor 16
 %global libminor 0
 
 # Use the same directory of the main package for subpackage licence and docs
 %global _docdir_fmt %{name}
 
 Name:           pacman
-Version:        7.0.0
+Version:        7.1.0
 Release:        %autorelease
 Source0:        https://gitlab.archlinux.org/pacman/pacman/-/archive/v%{version}/pacman-v%{version}.tar.gz
 Source1:        https://www.archlinux.org/mirrorlist/all

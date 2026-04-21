@@ -1,8 +1,8 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        16.0
-Release:        2%{?dist}
+Version:        16.4
+Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -33,7 +33,7 @@ GPX, TCX, KML, FIT, IGC and NMEA files.
 
 
 %build
-lrelease-qt6 %{name}.pro
+lrelease-qt6 lang/*.ts
 %{qmake_qt6} PREFIX=%{_prefix} %{name}.pro
 %make_build
 
@@ -69,6 +69,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Apr 19 2026 Packit <hello@packit.dev> - 16.4-1
+- Update to version 16.4
+- Resolves: rhbz#2455102
+
 * Wed Mar 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.0-2
 - Migrate to Qt6
 

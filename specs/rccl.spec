@@ -19,9 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+%bcond_with preview
+%if %{with preview}
+%global upstreamname rccl
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global upstreamname RCCL
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -83,10 +93,13 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
+%endif
 Summary:        ROCm Communication Collectives Library
 
-Url:            https://github.com/ROCm/rccl
 License:        BSD-3-Clause AND MIT AND Apache-2.0
 # From License.txt the main license is BSD 3
 # Modifications from Microsoft is MIT
@@ -94,7 +107,13 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 #  src/include/nvtx3/nv*.h and similar
 # The URL for NVIDIA in the License.txt https://github.com/NVIDIA/NVTX is Apache-2.0
 
+%if %{with preview}
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
+Url:            https://github.com/ROCm/rccl
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}
@@ -170,7 +189,17 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with preview}
+%autosetup -p3 -n %{upstreamname}
+
+# Missing NCCL_NUM_ALGORITHMS define
+# https://github.com/ROCm/rocm-systems/issues/5183
+# There are other problems after this.
+sed -i '/#include "core.h"/a #include "plugin/nccl_tuner.h"' src/include/rccl_common.h
+
+%else
 %autosetup -p1 -n rccl-rocm-%{version}
+%endif
 
 # Allow user to set AMDGPU_TARGETS
 sed -i -e '/AMD GPU targets to compile for/d' CMakeLists.txt
@@ -295,6 +324,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Wed Apr 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Add --with preview
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Use bfd/ld from linking
 

@@ -87,7 +87,6 @@ rm -rf doc/build/html/.{doctrees,buildinfo} doc/build/html/objects.inv
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc ChangeLog README.rst
-%license LICENSE
 
 
 %if 0%{?with_doc}

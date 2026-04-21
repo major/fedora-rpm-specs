@@ -9,7 +9,8 @@ License:        MPL-2.0
 URL:            https://github.com/ActivityWatch/aw-core
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-Patch:          https://github.com/ActivityWatch/aw-core/pull/127.patch
+Patch0:         https://github.com/ActivityWatch/aw-core/pull/127.patch
+Patch1:         https://github.com/ActivityWatch/aw-core/pull/133.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
