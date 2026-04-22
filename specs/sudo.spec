@@ -4,9 +4,9 @@
 Summary: Allows restricted root access for specified users
 Name: sudo
 Version: 1.9.17
-# remove -b 3 after rebase !!!
+# Remove "-b 3" after rebase !!!
 # use "-p -e % {?extraver}" when beta
-# use "-e % {?extraver}"" when patch version
+# use "-e % {?extraver}" when patch version
 # use nothing special when normal version
 Release: %autorelease -e %{?extraver}
 License: ISC
@@ -29,6 +29,8 @@ BuildRequires: libselinux-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: gettext
 BuildRequires: zlib-devel
+
+Patch1: 0001-cve-2026-35535.patch
 
 %description
 Sudo (superuser do) allows a system administrator to give certain

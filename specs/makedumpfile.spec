@@ -1,9 +1,9 @@
 %global eppic_ver 72da440362e20291d5ecbb04b6eb7c7b492f233c
 %global eppic_shortver %(c=%{eppic_ver}; echo ${c:0:7})
 Name: makedumpfile
-Version: 1.7.8
+Version: 1.7.9
 Summary: make a small dumpfile of kdump
-Release: 2%{?dist}
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -57,6 +57,10 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Mon Apr 20 2026 Packit <hello@packit.dev> - 1.7.9-1
+- Update to version 1.7.9
+- Resolves: rhbz#2459607
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

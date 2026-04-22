@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: Python-2.0.1
 
 
@@ -450,6 +450,18 @@ Patch476: 00476-cve-2026-1299.patch
 #
 # Cherry-picked from Python 3.10: ad4d5ba32af4d80b0dfa2ba9d8203bfb219e60a5
 Patch478: 00478-cve-2026-4519.patch
+
+# 00480 # 9f4b1483ecfbc8c08117133c239fba544fcb42e7
+# CVE-2026-4786
+#
+# Fix webbrowser `%%action` substitution bypass of dash-prefix check
+Patch480: 00480-cve-2026-4786.patch
+
+# 00482 # 51e25e8a804257b707e2021655037d07dcfa9cd6
+# CVE-2026-6100
+#
+# Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
+Patch482: 00482-cve-2026-6100.patch
 
 # (New patches go here ^^^)
 #
@@ -1924,6 +1936,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Apr 17 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.9.25-9
+- Security fixes for CVE-2026-4786 and CVE-2026-6100
+Resolves: rhbz#2458019, rhbz#2458227
+
 * Sat Apr 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-8
 - Explicitly build with OpenSSL 3
 

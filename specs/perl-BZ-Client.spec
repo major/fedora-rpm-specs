@@ -1,12 +1,13 @@
 Name:           perl-BZ-Client
-Version:        4.4004
-Release:        17%{?dist}
+Version:        4.9100
+Release:        1%{?dist}
 Summary:        A client for the Bugzilla web services API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/BZ-Client
-Source0:        https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/BZ-Client-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/BZ-Client-4.91.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl(DateTime::Format::ISO8601)
 BuildRequires:  perl(DateTime::Format::Strptime)
@@ -42,11 +43,11 @@ BuildRequires:  perl(utf8)
 This module provides an interface to the Bugzilla web services API.
 
 %prep
-%setup -q -n BZ-Client-%{version}
+%setup -q -n BZ-Client-4.91
 chmod 644 Changes README LICENSE
 
 %build
-%{__perl} Build.PL installdirs=vendor
+/usr/bin/perl Build.PL installdirs=vendor
 ./Build
 
 %install
@@ -64,6 +65,9 @@ chmod 644 Changes README LICENSE
 %{_mandir}/man3/BZ*
 
 %changelog
+* Mon Apr 20 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 4.9100-1
+- Update to 4.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4004-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

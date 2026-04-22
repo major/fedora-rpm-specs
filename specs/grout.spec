@@ -73,6 +73,8 @@ Provides: bundled(dpdk) = %{dpdk_version}
 ExcludeArch: %{ix86}
 # DPDK does not build on s390x: see fedora#2336876
 ExcludeArch: s390x
+# Upstream does not support ppc64le: see fedora#2459679
+ExcludeArch: ppc64le
 
 %description
 grout stands for Graph Router. In English, "grout" refers to thin mortar that

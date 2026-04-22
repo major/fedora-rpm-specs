@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -25,6 +25,8 @@ Source:        https://files.pythonhosted.org/packages/source/r/%{srcname}2/%{sr
 
 # Patch from Debian to disable vector tests on riscv64
 Patch0:        skip_complex_tests_on_mips64el_and_riscv64_and_loong64.patch
+# Backport patch for compatibility with pytest 9
+Patch1:        Remove-IPython-skip-condition-from-tests-fixture.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -85,6 +87,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Mon Apr 20 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.5.16-12
+- Backport patch for compatibility with pytest 9
+
 * Fri Apr 17 2026 Marcin Juszkiewicz - 3.5.16-12
 - Skip Complex/vector tests on riscv64 port.
 

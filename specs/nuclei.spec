@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/nuclei
 %global goipath         github.com/projectdiscovery/nuclei/v3
-Version:                3.7.1
+Version:                3.8.0
 
 %gometa -L -f
 
@@ -32,9 +32,6 @@ configurations.
 %prep
 %goprep -p1
 tar -xf %{S:1}
-# TODO: Fixed upstream in PR #7282, remove in next release
-# Fix spurious-executable-perm warning from rpmlint
-chmod -x SYNTAX-REFERENCE.md
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -71,6 +68,7 @@ install -m 0755 -vp %{gobuilddir}/bin/nuclei %{buildroot}%{_bindir}/
     -s TestSSLProtocol
     -s TestMultiProtoWithDynamicExtractor
     -s TestMultiProtoWithProtoPrefix
+    -s TestWithOptionsRateLimitSetsRuntimeLimiter
 }
 %gocheck2 %{ignores} -t pkg/protocols/headless -t pkg/tmplexec
 %endif

@@ -1,5 +1,5 @@
 %global git 0
-%global commit 51d6927969b3e9c06d6e9494d53e830752517dc6
+%global commit fc6a61720c42604466e626763af66feefde23646
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20250722^%{shortcommit}
+Version:        20260330^%{shortcommit}
 %else
-Version:        20250722
+Version:        20260330
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,7 +25,7 @@ Version:        20250722
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -34,10 +34,14 @@ Source0:        https://github.com/lammps/lammps/archive/%{commit}/lammps-%{comm
 %else
 Source0:        https://github.com/lammps/lammps/archive/%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 %endif
-Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.gz#/googletest-1.12.1.tar.gz
+Source1:        https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2024.05.09.tar.gz
 Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
+# fixed in https://github.com/lammps/lammps/pull/4950
+Patch0:         unittest_fix.patch
+Patch1:         unittest_fix2.patch
+Patch2:         ignore-tests-with-kokkos-openmp.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # mpi is broken on s390x see, bug #2322073
@@ -79,7 +83,7 @@ BuildRequires:  readline-devel
 %global         with_kokkos 1
 # kokkos needs a lot of memory
 %global         _smp_mflags -j1
-BuildRequires:  kokkos-devel >= 4.5
+BuildRequires:  kokkos-devel >= 5.0
 %endif
 %endif
 Requires:       %{name}-data
@@ -239,6 +243,7 @@ for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   -DPKG_VORONOI=ON \
   -DPKG_ATC=ON \
   -DPKG_H5MD=ON \
+  -DPKG_MBX=OFF \
   %{?with_kokkos:-DPKG_KOKKOS=ON -DEXTERNAL_KOKKOS=ON} \
   -DENABLE_TESTING=ON \
   -DGTEST_URL=file://%{S:1} \
@@ -279,14 +284,14 @@ cd python
 
 %check
 
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\)'
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|FFT3D\)'
 
 %ifnarch %ix86
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|Groups\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\)'
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|Groups\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|FFT3D\)'
 %endif
 
 %ifarch s390x
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\|FileOperations\|Groups\|SetProperty\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|TestPairList\)'
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\|FileOperations\|Groups\|SetProperty\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|AtomicPairStyle:meam_ms\|AtomicPairStyle:pedone\|DihedralStyle:cosine_squared_restricted\|BondStyle:harmonic_restrain\|TestPairList\|FFT3D\)'
 %endif
 
 set +e
@@ -375,8 +380,17 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sat Apr 18 2026 Richard Berger <richard.berger@outlook.com> - 20260330-1
+- Version bump to 20260330
+- Add patches to avoid unit test failures
+- Bump Kokkos requirement to 5.0
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 20250722-5
 - Rebuild for hdf5 2.1
+
+* Wed Feb 25 2026 Richard Berger <richard.berger@outlook.com> - 20251210-1
+- Version bump to 20251210
+- disable new FFT3D tests
 
 * Sun Feb 22 2026 Orion Poplawski <orion@nwra.com> - 20250722-4
 - Use cmake instead of cmake3

@@ -25,6 +25,10 @@ Source0:        https://download.gnome.org/sources/gdm/%{major_version}/gdm-%{ta
 Source1:        org.gnome.login-screen.gschema.override
 Source2:        gdm.sysusers
 
+# Upstream patches
+# From PR https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/357
+Patch:		gdm.service.in-Also-conflict-with-kmsconvt.patch
+
 # Downstream patches
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch:          0001-data-add-system-dconf-databases-to-gdm-profile.patch

@@ -28,7 +28,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           gtk4
-Version:        4.22.2
+Version:        4.23.0
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -74,9 +74,6 @@ Summary:        GTK graphical user interface library
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/%{major_minor_version}/gtk-%{version}.tar.xz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2450986
-Patch:          0001-gtkapplication-wayland-null-check.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
@@ -248,7 +245,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
 %{_bindir}/gtk4-builder-tool
-%{_bindir}/gtk4-encode-symbolic-svg
 %{_bindir}/gtk4-path-tool
 %{_bindir}/gtk4-query-settings
 %{_datadir}/bash-completion/completions/gtk4-builder-tool
@@ -257,7 +253,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-4.0/gtk4builder.rng
 %{_datadir}/gtk-4.0/valgrind/
 %{_mandir}/man1/gtk4-builder-tool.1*
-%{_mandir}/man1/gtk4-encode-symbolic-svg.1*
 %{_mandir}/man1/gtk4-path-tool.1*
 %{_mandir}/man1/gtk4-query-settings.1*
 

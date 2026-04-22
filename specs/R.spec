@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,18 @@ BuildRequires:  less
 BuildRequires:  tex(latex)
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(upquote.sty)
+# These fonts are all in texlive-helvetica and texlive-times
+# and are needed for R CMD check base
+BuildRequires:  tex(phvr8t.tfm)
+BuildRequires:  tex(ptmb8t.tfm)
+BuildRequires:  tex(ptmbi8t.tfm)
+BuildRequires:  tex(ptmr8c.tfm)
+BuildRequires:  tex(ptmr8t.tfm)
+BuildRequires:  tex(ptmrc8t.tfm)
+BuildRequires:  tex(ptmri8t.tfm)
+BuildRequires:  tex(ptmro8t.tfm)
+BuildRequires:  tex(ptmri8t.tfm)
+
 %if 0%{?fedora}
 # No inconsolata on RHEL tex
 BuildRequires:  tex(inconsolata.sty)
@@ -962,6 +974,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Mon Apr 20 2026 Tom Callaway <spot@fedoraproject.org> - 4.5.3-2
+- add BR for tex fonts needed for R CMD check base
+
 * Wed Mar 11 2026 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.3-1
 - Update to 4.5.3
 

@@ -21,6 +21,9 @@
 #
 %global upstreamname rocrand
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -44,10 +47,11 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %endif
+
 %if 0%{?suse_version}
-%global rocrand_name librocrand1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global rocrand_name rocrand%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -125,7 +129,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -199,18 +203,18 @@ optimized for AMD's latest discrete GPUs. It is designed to run on top of AMD's
 Radeon Open Compute ROCm runtime, but it also works on CUDA enabled GPUs.
 
 %if 0%{?suse_version}
-%package -n %{rocrand_name}
-Summary:        Shared libraries for %{name}
+%package -n %{pkg_name}
+Summary:        The rocRAND runtime package
 
-%description -n %{rocrand_name}
-%{summary}
+%description -n %{pkg_name}
+%summary
 
-%ldconfig_scriptlets -n %{rocrand_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        The rocRAND development package
-Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The rocRAND development package.
@@ -218,7 +222,7 @@ The rocRAND development package.
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -247,7 +251,7 @@ rm -rf test/fortran/fruit
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 
-%files -n %{rocrand_name}
+%files -n %{pkg_name}
 %if %{with gitcommit}
 %doc projects/rocrand/README.md
 %license projects/rocrand/LICENSE.md
@@ -257,18 +261,18 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %if %{with debug}
-%{pkg_prefix}/%{pkg_libdir}/librocrand-d.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so.%{pkg_library_version}{,.*}
 %else
-%{pkg_prefix}/%{pkg_libdir}/librocrand.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %endif
 
 %files devel
 %{pkg_prefix}/include/rocrand/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocrand/
 %if %{with debug}
-%{pkg_prefix}/%{pkg_libdir}/librocrand-d.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so
 %else
-%{pkg_prefix}/%{pkg_libdir}/librocrand.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %endif
 
 %if %{with test}
@@ -278,6 +282,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package name
+
 * Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

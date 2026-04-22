@@ -1,8 +1,8 @@
 %bcond gpu_demo %{undefined rhel}
 
 Name:           harfbuzz
-Version:        14.1.0
-Release:        2%{?dist}
+Version:        14.2.0
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -151,21 +151,24 @@ This package contains Harfbuzz Vector support library.
 %{_datadir}/gir-1.0/HarfBuzz-0.0.gir
 
 %files icu
-%{_libdir}/libharfbuzz-icu.so.*
+%{_libdir}/libharfbuzz-icu.so.0*
 
 %files cairo
-%{_libdir}/libharfbuzz-cairo.so.*
+%{_libdir}/libharfbuzz-cairo.so.0*
 
 %files raster
-%{_libdir}/libharfbuzz-raster.so.*
+%{_libdir}/libharfbuzz-raster.so.0*
 
 %files vector
-%{_libdir}/libharfbuzz-vector.so.*
+%{_libdir}/libharfbuzz-vector.so.0*
 
 %files gpu
-%{_libdir}/libharfbuzz-gpu.so.*
+%{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Mon Apr 20 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.2.0-1
+- Update to 14.2.0 version (#2459606)
+
 * Sun Apr 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 14.1.0-2
 - Disable hb-gpu on RHEL
 

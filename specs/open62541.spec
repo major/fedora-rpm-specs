@@ -1,7 +1,7 @@
 %bcond_without docs
 
 Name:     open62541
-Version:  1.5.1
+Version:  1.5.4
 Release:  1%{?dist}
 Summary:  OPC UA implementation
 License:  MPL-2.0
@@ -10,7 +10,6 @@ Source0:  https://github.com/open62541/open62541/archive/v%{version}/%{name}-%{v
 
 BuildRequires: cmake
 BuildRequires: gcc
-BuildRequires: graphviz
 BuildRequires: libbpf-devel
 BuildRequires: make
 BuildRequires: openssl-devel
@@ -33,8 +32,10 @@ developing applications that use %{name}.
 %package   doc
 Summary:   Documentation for %{name}
 BuildArch: noarch
+BuildRequires: graphviz
 BuildRequires: python3dist(sphinx)
 BuildRequires: python3dist(sphinx-rtd-theme)
+BuildRequires: texlive-latex
 
 %description doc
 The %{name}-doc package contains documentation for %{name}.
@@ -56,7 +57,6 @@ The %{name}-doc package contains documentation for %{name}.
   -DUA_ENABLE_ENCRYPTION_OPENSSL=ON \
   -DUA_ENABLE_JSON_ENCODING=ON \
   -DUA_ENABLE_METHODCALLS=ON \
-  -DUA_ENABLE_PARSING=ON \
   -DUA_ENABLE_NODEMANAGEMENT=ON \
   -DUA_ENABLE_PUBSUB=ON \
   -DUA_ENABLE_PUBSUB_ETH_UADP=ON \
@@ -65,14 +65,16 @@ The %{name}-doc package contains documentation for %{name}.
   -DUA_ENABLE_PUBSUB_MONITORING=ON \
   -DUA_ENABLE_SUBSCRIPTIONS=ON \
   -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
+  -DGEN_DOC=ON \
   %nil
 
 #  -DUA_BUILD_EXAMPLES=ON \
 
 %cmake_build
+
 %if %{with docs}
 cd %{__cmake_builddir}
-%make_build doc
+make doc
 %endif
 
 %install
@@ -107,11 +109,14 @@ cd -
 
 %if %{with docs}
 %files doc
-%doc %{__cmake_builddir}/doc/*
+%doc doc/*
 %doc examples/
 %endif
 
 %changelog
+* Mon Apr 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.4-1
+- Update to 1.5.4
+
 * Thu Feb 19 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.1-1
 - Update to 1.5.1
 

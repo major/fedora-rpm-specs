@@ -41,14 +41,14 @@ URL:            https://nodejs.org
 %nodejs_define_version libuv 1.51.0
 # Version from node-v24.14.1/deps/llhttp/include/llhttp.h
 %nodejs_define_version llhttp 9.3.0
+# Version from node-v24.14.1/deps/merve/merve.h
+%nodejs_define_version merve 1.0.0
 # Version from node-v24.14.1/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
 %nodejs_define_version nghttp2 1.68.1
 # Version from node-v24.14.1/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 1.6.0
 # Version from node-v24.14.1/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
 %nodejs_define_version ngtcp2 1.11.0
-# Version from node-v24.14.1/deps/merve/merve.h
-%nodejs_define_version merve 1.0.0
 # Version from node-v24.14.1/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
 # Version from node-v24.14.1/deps/undici/src/package.json
@@ -104,10 +104,10 @@ BuildRequires:  pkgconfig(openssl) >= 3.0.2
 %nodejs_declare_bundled -a  icu
 %nodejs_declare_bundled -a  libuv       -p
 %nodejs_declare_bundled -a  llhttp
+%nodejs_declare_bundled -a  merve
 %nodejs_declare_bundled -a  nghttp2
 %nodejs_declare_bundled -a  nghttp3
 %nodejs_declare_bundled -a  ngtcp2
-%nodejs_declare_bundled -a  merve
 %nodejs_declare_bundled -a  nodejs-punycode -npunycode
 %nodejs_declare_bundled -a  nodejs-undici
 %nodejs_declare_bundled -a  sqlite      -psqlite3

@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -114,6 +114,7 @@ Patch0050: 0050-Fix-ssh-pkcs11-client-helper-termination.patch
 Patch0051: 0051-openssh-10.2p1-pam-auth.patch
 Patch0052: 0052-gssapi-s4u.patch
 Patch0053: 0053-openssh-10.2p1-pkcs11-uri.patch
+Patch0054: 0054-gssapi-tests.patch
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
@@ -146,6 +147,9 @@ Obsoletes: openssh-cavs < 8.4p1-5
 
 %if %{kerberos5}
 BuildRequires: krb5-devel
+BuildRequires: krb5-workstation
+BuildRequires: krb5-server
+BuildRequires: nss_wrapper
 %endif
 
 %if %{libedit}
@@ -510,6 +514,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Apr 20 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-2
+- Implement GSS API Key exchange tests
+  Run GSS auth/kex tests on %check phase
+
 * Fri Apr 17 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-1
 - Rebasing OpenSSH to 10.3p1
 

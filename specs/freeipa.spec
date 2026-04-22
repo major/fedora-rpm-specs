@@ -1,4 +1,4 @@
-%define ipa_requires_gt()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} >= %%{epoch}:%%{version}-%%{release}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
+%define ipa_requires_gt()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} >= %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 # ipatests enabled by default, can be disabled with --without ipatests
 %bcond_without ipatests
@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        13%{?rc_version:.%rc_version}%{?dist}
+Release:        14%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1969,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Mon Apr 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-14
+- Rebuild against Samba 4.24.1
+
 * Wed Apr 01 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-13
 - Rebuild with nodejs24
 

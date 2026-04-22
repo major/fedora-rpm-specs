@@ -8,7 +8,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:    eog
-Version: 50.0
+Version: 50.1
 Release: %autorelease
 Summary: Eye of GNOME image viewer
 

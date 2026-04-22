@@ -3,6 +3,11 @@
 
 %global miracle_configlib_somajor 0
 
+%ifarch %{x86_64} %{arm64} %{riscv64}
+%bcond wasm 1
+%else
+%bcond wasm 0
+%endif
 
 Name:           miracle-wm
 Version:        0.9.0
@@ -39,7 +44,7 @@ BuildRequires:  boost-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  systemd-rpm-macros
 
-%ifarch %{x86_64} %{arm64} %{riscv64}
+%if %{with wasm}
 BuildRequires:  wasmedge-devel
 %endif
 
@@ -74,11 +79,7 @@ libraries for manipulating the configuration of %{name}.
 
 
 %build
-%ifarch %{x86_64} %{arm64} %{riscv64}
-%cmake -DSYSTEMD_INTEGRATION=ON
-%else
-%cmake -DSYSTEMD_INTEGRATION=ON -DFEATURE_PLUGIN_SYSTEM:BOOL=OFF
-%endif
+%cmake -DSYSTEMD_INTEGRATION:BOOL=ON %{!?with_wasm:-DFEATURE_PLUGIN_SYSTEM:BOOL=OFF}
 %cmake_build
 
 

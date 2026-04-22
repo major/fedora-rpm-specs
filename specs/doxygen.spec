@@ -18,7 +18,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.16.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -62,7 +62,15 @@ BuildRequires: tex(ifpdf.sty)
 BuildRequires: tex(adjustbox.sty)
 BuildRequires: tex(amssymb.sty)
 BuildRequires: tex(stackengine.sty)
+BuildRequires: tex(xltabular.sty)
+BuildRequires: tex(tabularray.sty)
+BuildRequires: tex(enumitem.sty)
+BuildRequires: tex(alphalph.sty)
 BuildRequires: tex(ulem.sty)
+# regexpatch.sty is still missing in texlive on eln
+%if "%{build_doc}" == "ON"
+BuildRequires: tex(regexpatch.sty)
+%endif
 # From doc/doxygen_manual.tex
 BuildRequires: tex(ifthen.sty)
 BuildRequires: tex(array.sty)
@@ -101,6 +109,8 @@ BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: graphviz
+# fonts
+BuildRequires: texlive-collection-fontsrecommended
 %endif
 
 %if "%{build_wizard}" == "ON"
@@ -250,6 +260,7 @@ Requires: texlive-epstopdf
 # fonts
 Requires: texlive-collection-fontsrecommended
 %endif
+BuildArch: noarch
 
 %description latex
 %{summary}.
@@ -277,6 +288,9 @@ cp %{SOURCE3} .
 	-Duse_sys_fmt=%{system_fmt}
 
 %cmake_build %{?_smp_mflags}
+%if "%{build_doc}" == "ON"
+%cmake_build %{?_smp_mflags} --target docs
+%endif
 
 %install
 %cmake_install
@@ -324,6 +338,10 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 
 %files
 %doc LANGUAGE.HOWTO README.md README.rpm-packaging
+%if "%{build_doc}" == "ON"
+%doc %{__cmake_builddir}/latex/doxygen_manual.pdf
+%doc %{__cmake_builddir}/html
+%endif
 %license LICENSE
 %if ! 0%{?_module_build}
 %if "%{xapian_core_support}" == "ON"
@@ -356,6 +374,10 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Mon Apr 20 2026 Than Ngo <than@redhat.com> - 2:1.16.1-4
+- Add missing BuildRequires for latex
+- Make subpackage latex as noarch
+
 * Wed Mar 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/LLVM-22
 

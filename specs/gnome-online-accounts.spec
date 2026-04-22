@@ -7,7 +7,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:		gnome-online-accounts
-Version:	3.58.0
+Version:	3.58.1
 Release:	%autorelease
 Summary:	Single sign-on framework for GNOME
 

@@ -11,16 +11,13 @@ out of nbconvert (formerly ExecutePreprocessor). NBClient lets you execute noteb
 }
 
 Name:           python-%{pypi_name}
-Version:        0.10.2
+Version:        0.10.4
 Release:        %autorelease
 Summary:        A client library for executing notebooks
 
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %{pypi_source}
-
-# Makes tests compatible with ipython 9.8.0+
-Patch:          https://github.com/jupyter/nbclient/commit/b42ad03acc0bb1ed26db65ab72ac617679cbbb62.patch
 
 BuildArch:      noarch
 
@@ -43,8 +40,9 @@ Summary:        %{summary}
 %autosetup -p1 -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-# Drop version limit from pytest
+# Drop version limit from pytest and pytest-asyncio
 sed -i "/pytest/s/,<8//" pyproject.toml
+sed -i '/pytest-asyncio/s/>=.*"/"/' pyproject.toml
 # Remove unused dependency on pytest-cov
 sed -Ei '/"pytest-cov>=.+",/d' pyproject.toml
 

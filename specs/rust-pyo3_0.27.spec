@@ -4,8 +4,8 @@
 
 %global crate pyo3
 
-Name:           rust-pyo3
-Version:        0.28.3
+Name:           rust-pyo3_0.27
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -363,6 +363,18 @@ use the "indexmap" feature of the "%{crate}" crate.
 %files       -n %{name}+indexmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+indoc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+indoc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "indoc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+indoc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+inventory-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -567,6 +579,18 @@ use the "time" feature of the "%{crate}" crate.
 %files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unindent-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unindent-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unindent" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unindent-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+uuid-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -584,9 +608,7 @@ use the "uuid" feature of the "%{crate}" crate.
 %cargo_prep
 # convert files with CRLF line endings
 dos2unix --keepdate src/call.rs
-dos2unix --keepdate src/impl_/deprecated.rs
 dos2unix --keepdate src/pyclass/guard.rs
-dos2unix --keepdate tests/test_class_init.rs
 # drop files that are not useful
 rm -r emscripten/ newsfragments/
 

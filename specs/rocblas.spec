@@ -99,7 +99,7 @@
 %endif
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -216,7 +216,7 @@ BuildRequires:  rocm-rpm-macros%{pkg_suffix}-modules
 %global tensile_verbose 1
 %global tensile_library_format msgpack
 # suse_version
-%endif 
+%endif
 %else
 %global tensile_verbose %{nil}
 %global tensile_library_format %{nil}
@@ -611,7 +611,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 
 * Wed Aug 13 2025 Egbert Eich <eich@suse.com> - 6.4.2-5
 - Fix build and runtime dependencies of test package.
- 
+
 * Tue Aug 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - remove roctracer
 - Use distro appropriate blas libs
@@ -694,5 +694,3 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-
-

@@ -4,14 +4,16 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       126
+Version:       129
 Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/testsuite-%{wats_shortcommit}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
-Patch1:        https://github.com/WebAssembly/binaryen/pull/8362.patch
+# some tests fail on ppc64le
+# https://github.com/WebAssembly/binaryen/issues/8626
+Patch1:        %{name}-test-spec.patch
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
 License:       Apache-2.0 AND bcrypt-Solar-Designer
@@ -24,7 +26,7 @@ BuildRequires: FP16-devel
 BuildRequires: gcc-c++
 %if %{with check}
 BuildRequires: cmake(GTest)
-BuildRequires: nodejs
+BuildRequires: /usr/bin/node
 BuildRequires: pkgconfig(gmock)
 BuildRequires: python3dist(filecheck)
 BuildRequires: python3dist(lit)
@@ -59,11 +61,15 @@ effective:
   an optimization is block return value generation in SimplifyLocals).
 
 %prep
-%autosetup -p1 -n %{name}-version_%{version}
+%autosetup -N -p1 -n %{name}-version_%{version}
+%patch -P0 -p1
 %if %{with check}
 rmdir test/spec/testsuite
 tar xzf %{S:1} -C test/spec
 mv test/spec/testsuite{-%{wats_commit},}
+%ifarch ppc64le
+%patch -P1 -p1 -b .orig
+%endif
 # v8 tests cannot be executed because we don't have v8 in Fedora
 rm -rv test/lit/d8
 rm -rv third_party/FP16
@@ -111,6 +117,12 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Thu Apr 16 2026 Dominik Mierzejewski <dominik@greysector.net> - 129-1
+- update to 129 (resolves rhbz#2446201)
+- drop obsolete patch
+- skip failing tests on ppc64le for now
+- update BR for nodejs
+
 * Sun Feb 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 126-1
 - update to 126 (resolves rhbz#2439791)
 - backport upstream fix for https://github.com/WebAssembly/binaryen/issues/8360

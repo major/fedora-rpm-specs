@@ -1,15 +1,16 @@
 %global rdnn_name org.gnome.Decibels
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           decibels
-Version:        49.0
+Version:        49.6.1
 Release:        %autorelease
 Summary:        Audio player for the GNOME desktop
 
 # one source file is GPLv2+ the rest are GPLv3
 License:        GPL-2.0-or-later and GPL-3.0-only
 URL:            https://www.gnome.org
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  libappstream-glib
@@ -39,6 +40,9 @@ BuildArch:      noarch
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -n %{name}-%{tarball_version}
 
 

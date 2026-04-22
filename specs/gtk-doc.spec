@@ -3,7 +3,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name: gtk-doc
-Version: 1.36.0
+Version: 1.36.1
 Release: %autorelease
 Summary: API documentation generation tool for GTK+ and GNOME
 

@@ -7,12 +7,15 @@
 # and the binary RPM; “fedpkg mockbuild --with test_data” alone will not
 # suffice. It’s easiest to just temporarily modify the spec file.
 %bcond test_data 0
+# These require the test data, *and* they fail with:
+#   'NoneType' object has no attribute 'glGetError'.
+%bcond orientation_tests 0
 
 # This package is usable both as a library and as a command-line tool. Upstream
 # seems to consider the command-line tool to be the primary interface, so we
 # use application naming guidelines.
 Name:           spec2nii
-Version:        0.8.8
+Version:        0.8.10
 Release:        %autorelease
 Summary:        Multi-format in vivo MR spectroscopy conversion to NIFTI
 
@@ -41,7 +44,7 @@ Source0:        %{url}/archive/%{version}/spec2nii-%{version}.tar.gz
 # Get the test data commit hash by looking at:
 # https://github.com/wtclarke/spec2nii/tree/%%{version}/tests
 %global test_data_url https://git.fmrib.ox.ac.uk/wclarke/spec2nii_test_data
-%global test_data_commit 1594c2625a53a877670f9dd0492c0e1b6f3471d5
+%global test_data_commit c183404e8e95616fbeaabf50bcc35ea8559afd44
 %global test_data_dir spec2nii_test_data-%{test_data_commit}
 Source1:        %{test_data_url}/-/archive/%{test_data_commit}/%{test_data_dir}.tar.bz2
 %endif
@@ -89,9 +92,16 @@ BuildOption(install):   -l spec2nii
 BuildOption(check):     -e spec2nii.Siemens.dicomfunctions
 %endif
 
+BuildRequires:  tomcli
+
+# See project.optional-dependencies.dev in pyproject.toml, but see also
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
-# Required for orientation tests – but those tests fail.
-# BuildRequires:  %%{py3_dist fsleyes}
+%if %{with orientation tests}
+BuildRequires:  %{py3_dist fsleyes}
+BuildRequires:  %{py3_dist h5py}
+BuildRequires:  %{py3_dist pillow}
+%endif
 
 %py_provides python3-spec2nii
 
@@ -116,14 +126,21 @@ mv %{test_data_dir} tests/spec2nii_test_data
 # https://bugzilla.redhat.com/show_bug.cgi?id=2225518
 # Most of the functionality in this package is still available without it, so
 # we can remove the dependency and still get a generally usable package.
-sed -r -i 's/^([[:blank:]]*)?(-[[:blank:]]+)?(pyMapVBVD)\b/\1# \2\3/' \
-    requirements.yml
+tomcli set pyproject.toml lists delitem project.dependencies 'pyMapVBVD\b.*'
 %endif
 
 # Unpin brukerapi, which was pinned in
 # https://github.com/wtclarke/spec2nii/pull/176 for reasons not described in
 # the commit or PR text. We must work with what we have.
-sed -r -i 's/(\bbrukerapi\b.*),<.*/\1/' requirements.yml
+sed -r -i 's/(\bbrukerapi\b.*),<[^"]*/\1/' pyproject.toml
+
+
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a
@@ -141,42 +158,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 # that pass without it generally do so tautologically – e.g. they run a test
 # for all files matching a glob, and succeed on zero files.
 
-# Since pv_version is in brukerapi.schemas.REQUIRED_PROPERTIES["2dseq"], the
-# following failures would seem to suggest that the test data files are not
-# compliant with the current schema. This does not seem worth investigating,
-# but help is welcome.
-#
-# E           subprocess.CalledProcessError: Command '['spec2nii', 'bruker',
-#             '-f', 'fid', '-m', 'FID', '-d', '-o',
-#             PosixPath('/tmp/pytest-of-mockbuild/pytest-0/test_fid0'), '-j',
-#             '/[…]/spec2nii_test_data/bruker/20201208_105201_lego_rod_1_3']'
-#             returned non-zero exit status 1.
-# […] from brukerapi:
-# AttributeError: 'Dataset' object has no attribute 'pv_version'
-k="${k-}${k+ and }not test_fid"
-# E           subprocess.CalledProcessError: Command '['spec2nii', 'bruker',
-#             '-f', '2dseq', '-m', '2DSEQ', '-d', '-o',
-#             PosixPath('/tmp/pytest-of-mockbuild/pytest-0/test_2dseq0'), '-j',
-#             '/[…]/spec2nii_test_data/bruker/20201208_105201_lego_rod_1_3']'
-#             returned non-zero exit status 1.
-# […] from brukerapi:
-# AttributeError: 'Dataset' object has no attribute 'pv_version'
-k="${k-}${k+ and }not test_2dseq"
-
-# Orientation tests fail with an error from fsleyes, e.g.:
-# E           subprocess.CalledProcessError: Command '['fsleyes', 'render',
-#             '-of',
-#             PosixPath('/tmp/pytest-of-mockbuild/pytest-0/test_svs_orientation0/svs_0.png'),
-#             '-vl', '98', '158', '149', '-xc', '0', '0', '-yc', '0', '0',
-#             '-zc', '0', '0', '-hc',
-#             PosixPath('/[…]/tests/spec2nii_test_data/ge/from_dicom/T1.nii.gz'),
-#             '-dr', '-211', '7400',
-#             PosixPath('/tmp/pytest-of-mockbuild/pytest-0/test_svs_orientation0/svs.nii.gz'),
-#             '-ot', 'complex', '-a', '50', '-cm', 'blue']' returned non-zero
-#             exit status 1.
-# For whatever it is worth, upstream CI doesn’t run orientation tests either.
-# Note that we have also omitted the BuildRequires on fsleyes.
+%if %{without orientation tests}
 k="${k-}${k+ and }not orientation"
+%endif
 
 %pytest -k "${k-}" tests -v
 %endif

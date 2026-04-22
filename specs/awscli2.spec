@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.33.0
+Version:            2.34.29
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -19,16 +19,14 @@ Patch0:             ruamel-yaml-0.17.32.patch
 Patch1:             python312.patch
 # fix incorrect assertions in TestKubeconfigLoader
 Patch2:             assertions.patch
-# Bump ceiling for botocore memory leak tests
-# https://github.com/aws/aws-cli/pull/8744
-# https://github.com/boto/botocore/issues/3205
-Patch3:             0001-Bump-the-ceiling-for-botocore-memory-leak-tests-to-1.patch
 # compatibility fixes for urllib3 v2
 Patch4:             urllib3-v2.patch
 # fix Python 3.14 incompatibilities
 Patch5:             python314.patch
 # https://github.com/aws/aws-cli/pull/9684#issuecomment-3804078566
 Patch6:             prompt-toolkit-3.0.52.patch
+# fix Python 3.15 incompatibilities
+Patch7:             python315.patch
 
 BuildArch:          noarch
 
@@ -67,6 +65,9 @@ sed -i 's/,<=\?[^"]*"/"/' pyproject.toml
 
 # loosen awscrt version requirement
 sed -i 's/awscrt==/awscrt>=/' pyproject.toml
+
+# remove wcwidth version cap
+sed -i 's/wcwidth<[^"]*/wcwidth/' pyproject.toml
 
 # remove zipp dependency
 sed -i "/zipp<3.21.0/d" pyproject.toml

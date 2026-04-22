@@ -146,9 +146,7 @@ Patch202: qtwebengine-chromium-ppc64-highway.patch
 Patch203: qtwebengine-chromium-ppc64-skia-musttail.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
-# FIXME use/update qt6_qtwebengine_arches
-# 32-bit arches not supported (https://bugreports.qt.io/browse/QTBUG-102143)
-ExclusiveArch: aarch64 x86_64 ppc64le
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 BuildRequires: cmake
 BuildRequires: ninja-build >= 1.7.2

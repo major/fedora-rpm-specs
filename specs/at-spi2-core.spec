@@ -1,7 +1,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           at-spi2-core
-Version:        2.60.0
+Version:        2.60.1
 Release:        %autorelease
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 

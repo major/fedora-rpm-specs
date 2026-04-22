@@ -17,9 +17,14 @@ Source:         %{crates_source}
 # * relax console dependency from 0.15.0 to >=0.15.0,<0.17.0
 # * bump terminal-colorsaurus from 0.4.8 to 1.0.3:
 #   https://github.com/dandavison/delta/pull/2119
+# * Update xdg from 2.4.1. to 3.0.0:
+#   https://github.com/dandavison/delta/pull/2147; requires a small source-code
+#   patch
 Patch:          git-delta-fix-metadata.diff
 # * https://github.com/dandavison/delta/pull/2119
 Patch2:         0001-Update-terminal-colorsaurus-to-version-1.0.3.patch
+# * https://github.com/dandavison/delta/pull/2147
+Patch3:         0001-Update-xdg-from-2.4.1-to-3.0.0.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

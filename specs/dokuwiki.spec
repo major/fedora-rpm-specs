@@ -5,7 +5,7 @@ License:	GPL-2.0-only
 %global		releasenum 2025-05-14b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 %global php_min_version 7.4
 
@@ -14,6 +14,10 @@ Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
 
 #Fedora specific patches to use Fedora packaged libraries
 Patch1:		dokuwiki-rm-bundled-libs.patch
+
+# Backport from upstream:
+# https://github.com/dokuwiki/dokuwiki/commit/bfc167db63967f8c872b3d797ca81138b9011ef4
+Patch2:		CVE-2026-26477.patch
 
 BuildArch:	noarch
 
@@ -112,7 +116,7 @@ rm -r vendor/splitbrain/php-jsstrip
 rm -r vendor/splitbrain/lesserphp
 rmdir vendor/splitbrain || true
 
-%patch -P1 -p1 -b .bundled
+%autopatch -p1
 
 mv -f conf/mysql.conf.php.example .
 
@@ -276,6 +280,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Mon Apr 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-5
+- Add a patch for CVE-2026-26477
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250514b-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

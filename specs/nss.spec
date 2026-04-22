@@ -1,5 +1,5 @@
 %global nspr_version 4.38.2
-%global nss_version 3.122.0
+%global nss_version 3.122.1
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+6]
+%global nspr_release %[%baserelease+7]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -1098,6 +1098,9 @@ fi
 
 
 %changelog
+* Mon Apr 20 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.122.1-1
+- Update NSS to 3.122.1
+
 * Fri Mar 27 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.122.0-1
 - Update NSS to 3.122
 

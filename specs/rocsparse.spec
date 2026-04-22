@@ -21,6 +21,9 @@
 #
 %global upstreamname rocsparse
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global rocsparse_name librocsparse1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global rocsparse_name rocsparse%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -130,7 +134,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT AND 0BSD
@@ -193,18 +197,18 @@ the HIP programming language and optimized for AMD's
 latest discrete GPUs.
 
 %if 0%{?suse_version}
-%package -n %{rocsparse_name}
+%package -n %{pkg_name}
 Summary:        Shared libraries for %{name}
 
-%description -n %{rocsparse_name}
+%description -n %{pkg_name}
 %{summary}
 
-%ldconfig_scriptlets -n %{rocsparse_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{rocsparse_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -258,15 +262,14 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files -n %{rocsparse_name}
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
-
-%{pkg_prefix}/%{pkg_libdir}/librocsparse.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/rocsparse/
-%{pkg_prefix}/%{pkg_libdir}/librocsparse.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocsparse/
 
 %if %{with test}
@@ -279,6 +282,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package name
+
 * Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

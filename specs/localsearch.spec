@@ -36,7 +36,7 @@
 %global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           localsearch
-Version:        3.11.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 
@@ -44,9 +44,6 @@ Summary:        Localsearch and metadata extractors
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
 Source0:        https://download.gnome.org/sources/%{name}/%{major_minor_version}/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/localsearch/-/merge_requests/666
-Patch: 0001-Fix-crash-in-3_11_0.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc

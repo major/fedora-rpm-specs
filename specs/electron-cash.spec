@@ -1,5 +1,5 @@
 Name:           electron-cash
-Version:        4.4.3
+Version:        4.4.4
 Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
@@ -120,6 +120,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Apr 20 2026 Jonny Heggheim <hegjon@gmail.com> - 4.4.4-1
+- Updated to version 4.4.4
+
 * Sun Mar 08 2026 Jonny Heggheim <hegjon@gmail.com> - 4.4.3-1
 - Updated to version 4.4.3
 

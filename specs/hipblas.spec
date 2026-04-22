@@ -21,6 +21,9 @@
 #
 %global upstreamname hipblas
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 3
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global hipblas_name libhipblas3%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global hipblas_name hipblas%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -90,7 +94,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm BLAS marshaling library
 License:        MIT AND 0BSD
@@ -142,18 +146,18 @@ the client to change, regardless of the chosen backend. Currently,
 hipBLAS supports rocBLAS and cuBLAS as backends.
 
 %if 0%{?suse_version}
-%package -n %{hipblas_name}
+%package -n %{pkg_name}
 Summary:        Shared libraries for %{name}
 
-%description -n %{hipblas_name}
+%description -n %{pkg_name}
 %{summary}
 
-%ldconfig_scriptlets -n %{hipblas_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{hipblas_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       hipblas-common%{pkg_suffix}-devel
 
 %description devel
@@ -201,17 +205,17 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 
 %install
 %cmake_install
-
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 
-%files  -n %{hipblas_name}
+%files  -n %{pkg_name}
 %license LICENSE.md
 %doc README.md
-%{pkg_prefix}/%{pkg_libdir}/libhipblas.so.3{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/hipblas/
-%{pkg_prefix}/%{pkg_libdir}/libhipblas.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipblas/
 
 %if %{with test}
@@ -220,6 +224,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- Generate suse package name
+
 * Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Change --with gitcommit to preview
 

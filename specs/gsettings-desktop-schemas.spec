@@ -4,7 +4,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gsettings-desktop-schemas
-Version:        50.0
+Version:        50.1
 Release:        %autorelease
 Summary:        A collection of GSettings schemas
 

@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.69
+Version:   3.70
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -79,6 +79,11 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Mon Apr 20 2026 Brian C. Lane <bcl@redhat.com> - 3.70-1
+- bootc: Add bootloader and composefs arguments (bcl)
+- Fix handling files with special characters (ben.grande.b)
+- Add details on how to use the bootc command (jikortus)
+
 * Wed Feb 18 2026 Brian C. Lane <bcl@redhat.com> - 3.69-1
 - Makefile: Drop coverage-report.log (bcl)
 - Add Fedora 45 support (bcl)

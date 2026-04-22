@@ -9,6 +9,8 @@ Summary:        Render rich text and beautiful formatting in the terminal
 License:        MIT
 URL:            https://github.com/Textualize/rich
 Source0:        %{url}/archive/v%{version}/rich-%{version}.tar.gz
+# test fix for py3.15
+Patch1:         https://github.com/Textualize/rich/pull/4082.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

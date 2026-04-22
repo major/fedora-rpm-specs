@@ -50,8 +50,11 @@ BuildRequires:  openssl-devel
 Requires:       acpid
 Requires:       adw-gtk3-theme
 Requires:       pop-sound-theme
+Recommends:     breeze-icon-theme
 Recommends:     geoclue2
 Recommends:     playerctl
+Recommends:     qt5ct
+Recommends:     qt6ct
 
 %global _description %{expand:
 %{summary}.}

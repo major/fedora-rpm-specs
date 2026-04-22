@@ -21,6 +21,9 @@
 #
 %global upstreamname rocfft
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 0
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -44,10 +47,11 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %endif
+
 %if 0%{?suse_version}
-%global rocfft_name librocfft0%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global rocfft_name rocfft%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -140,7 +144,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        (MIT AND BSD-3-Clause) AND 0BSD
@@ -204,18 +208,18 @@ Patch0: 0001-cmake-use-gnu-installdirs.patch
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.
 
 %if 0%{?suse_version}
-%package -n %{rocfft_name}
+%package -n %{pkg_name}
 Summary:        Shared libraries for %{name}
 
-%description -n %{rocfft_name}
+%description -n %{pkg_name}
 %{summary}
 
-%ldconfig_scriptlets -n %{rocfft_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        The rocFFT development package
-Requires:       %{rocfft_name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       rocm-hip%{pkg_suffix}-devel
 
 %description devel
@@ -224,7 +228,7 @@ The rocFFT development package.
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -261,8 +265,8 @@ find %{buildroot} -type f -name "rocfft_rtc_helper" -print0 | xargs -0 -I {} /us
 # we don't need or want the client-info file installed by rocfft
 rm -rf %{buildroot}/%{pkg_prefix}/.info
 
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
-
 
 %check
 %if %{with test}
@@ -275,15 +279,14 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 %endif
 
-%files -n %{rocfft_name}
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
-
-%{pkg_prefix}/%{pkg_libdir}/librocfft.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/rocfft/
-%{pkg_prefix}/%{pkg_libdir}/librocfft.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocfft/
 
 %if %{with test}
@@ -293,6 +296,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Generate suse package name
+
 * Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Fix fedora sqlite
 

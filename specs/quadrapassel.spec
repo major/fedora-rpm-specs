@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           quadrapassel
-Version:        50.0.1
+Version:        50.1
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 License:        GPL-3.0-or-later AND CC0-1.0

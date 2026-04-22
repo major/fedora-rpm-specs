@@ -58,7 +58,7 @@ Patch3:         0004-Fix-for-CVE-2026-33056-on-tar.patch
 Patch4:         0005-Fix-sql-statement-from-session-manager.patch
 # Add disclaimer as required by legal only on RHEL
 %if 0%{?rhel}
-Patch5:         0006-Legal-disclaimer.patch
+Patch5:         0006-Include-legal-message-for-goose-proxy-provider.patch
 %endif
 
 # Patch the `build.rs` for `ring` crate to avoid using the pre-generated object

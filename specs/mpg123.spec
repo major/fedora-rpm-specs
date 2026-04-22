@@ -12,6 +12,8 @@ URL: https://mpg123.org
 
 Source0: %{url}/download/%{name}-%{version}.tar.bz2
 
+Patch:  0001-libmpg123-announce-shadow-stack-and-IBT-support-for-.patch
+
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
@@ -92,7 +94,7 @@ Obsoletes: %{name}-libs-devel < 1.23.8-3
 Development files for decoding and output libraries.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 autoreconf -vfi

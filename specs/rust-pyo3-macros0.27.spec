@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-macros-backend
+%global crate pyo3-macros
 
-Name:           rust-pyo3-macros-backend
-Version:        0.28.3
+Name:           rust-pyo3-macros0.27
+Version:        0.27.2
 Release:        %autorelease
-Summary:        Code generation for PyO3 package
+Summary:        Proc macros for PyO3 package
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros-backend
+URL:            https://crates.io/crates/pyo3-macros
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Code generation for PyO3 package.}
+Proc macros for PyO3 package.}
 
 %description %{_description}
 
@@ -71,10 +70,21 @@ use the "experimental-inspect" feature of the "%{crate}" crate.
 %files       -n %{name}+experimental-inspect-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+multiple-pymethods-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+multiple-pymethods-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "multiple-pymethods" feature of the "%{crate}" crate.
+
+%files       -n %{name}+multiple-pymethods-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-dos2unix --keepdate src/derive_attributes.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

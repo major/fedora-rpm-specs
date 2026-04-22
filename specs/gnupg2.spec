@@ -5,7 +5,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -434,6 +434,9 @@ make -k check
 
 
 %changelog
+* Mon Apr 20 2026 Jakub Jelen <jjelen@redhat.com> - 2.4.9-6
+- Fix path to keyboxd service (#2458494)
+
 * Wed Jan 28 2026 Jakub Jelen <jjelen@redhat.com> - 2.4.9-5
 - Fix CVE-2026-24882: Stack-based buffer overflow in tpm2daemon allows arbitrary code execution
 

@@ -1,5 +1,5 @@
 Name:           kalamine
-Version:        0.38
+Version:        0.40
 Release:        %autorelease
 Summary:        Cross-platform Keyboard Layout Maker
 License:        MIT

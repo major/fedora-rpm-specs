@@ -1,5 +1,5 @@
 Name:           perl-Long-Jump
-Version:        0.000004
+Version:        0.000005
 Release:        1%{?dist}
 Summary:        Mechanism for returning to a specific point from a deeply nested stack
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -16,13 +16,14 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Importer)
+BuildRequires:  perl(Importer) >= 0.025
 # Tests:
 # Test2::V0 version from Test2::Suite in META
 BuildRequires:  perl(Test2::V0) >= 0.000126
+Requires:       perl(Importer) >= 0.025
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}^}perl\\(Test2::V0\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}^}perl\\((Importer|Test2::V0)\\)$
 
 %description
 This Perl module essentially provides a multi-level return. You can mark
@@ -76,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 20 2026 Petr Pisar <ppisar@redhat.com> - 0.000005-1
+- 0.000005 bump
+
 * Thu Apr 16 2026 Petr Pisar <ppisar@redhat.com> - 0.000004-1
 - 0.000004 bump
 

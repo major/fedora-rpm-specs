@@ -1,6 +1,6 @@
 Name:       miniupnpd
-Version:    2.3.9
-Release:    4%{?dist}
+Version:    2.3.10
+Release:    1%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -8,7 +8,6 @@ License:    LicenseRef-Callaway-BSD
 URL:        https://miniupnp.tuxfamily.org/
 Source0:    http://miniupnp.free.fr/files/%{name}-%{version}.tar.gz
 Source1:    miniupnpd.service
-Patch0:     miniupnpd-init-selinux.patch
 
 BuildRequires:  gcc
 %{?systemd_requires}
@@ -106,6 +105,9 @@ mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Mon Apr 20 2026 - Michael Cronenworth <mike@cchtml.com> - 2.3.10-1
+- Version update
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

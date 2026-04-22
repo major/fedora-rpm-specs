@@ -31,6 +31,8 @@ Requires:       python3-dateutil
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# Relax packaging version requirement
+sed -i 's/"packaging==[^"]*"/"packaging"/' pyproject.toml
 
 
 %generate_buildrequires

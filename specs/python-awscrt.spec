@@ -3,7 +3,7 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.31.1
+Version:        0.32.1
 Release:        %autorelease
 
 Summary:        Python bindings for the AWS Common Runtime
@@ -16,7 +16,7 @@ URL:            https://github.com/awslabs/aws-crt-python
 
 Source0:        %{pypi_source awscrt}
 
-# two tests require internet connection, skip them
+# some tests require internet connection, skip them
 Patch0:         skip-tests-requiring-network.patch
 # skip SHA1 in test_crypto
 Patch1:         skip-SHA1-in-test_crypto.patch

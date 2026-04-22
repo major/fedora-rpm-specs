@@ -8,7 +8,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-tour
-Version:        50~rc
+Version:        50.0
 Release:        %autorelease
 Summary:        GNOME Tour and Greeter
 
