@@ -67,7 +67,7 @@
 
 # On CS10
 # Depends on finding the build dir
-# $ hipsparselt-test 
+# $ hipsparselt-test
 # hipSPARSELt version: 203
 # ...
 # [ FATAL ] /builddir/build/BUILD/googletest-1.14.0/googletest/src/gtest-internal-inl.h:685:: Condition !original_working_dir_.IsEmpty() failed. Failed to get the current working directory.
@@ -90,7 +90,7 @@
 %global gpu_list "gfx942;gfx950"
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -371,11 +371,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparselt/LICENSE.md
 
 # hipsparselt.x86_64: E: ldd-failed /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8): No such file or directory
 # ldd: warning: you do not have execution permission for `/usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco'
-# 	not a dynamic executable
+# not a dynamic executable
 # Do something about the prems
 chmod a+x %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.hsaco
 # But not much to do about the rest, this is not a normal *.so
-# file /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco 
+# file /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco
 # /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco: ELF 64-bit LSB shared object, AMD GPU architecture version 1, dynamically linked, BuildID[sha1]=99e2194d9647da308804928d27ea1f336bfd76cc, stripped
 
 # hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/extop_gfx942.co
@@ -387,7 +387,7 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
 %if %{with test}
 %if %{without preview}
 # hipsparselt-test's rpath is pretty messed up
-# chrpath -l /usr/bin/hipsparselt-test 
+# chrpath -l /usr/bin/hipsparselt-test
 # /usr/bin/hipsparselt-test: RUNPATH=$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt-clients/lib:/usr/llvm/lib
 # So adjust it here
 chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test

@@ -74,7 +74,13 @@
 %global build_type RelWithDebInfo
 %endif
 
+# Building the rocprim tests is extreemly slow, cut down what we build
+%if %{with test}
+%global gpu_list %{rocm_gpu_list_test}
+%else
 %global gpu_list %{rocm_gpu_list_default}
+%endif
+
 %global _gpu_list gfx1100
 
 Name:           rocprim%{pkg_suffix}

@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 39
+Version: 40
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -39,8 +39,7 @@ Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(lodash)) = 4.17.23
-Provides: bundled(npm(prop-types)) = 15.8.1
+Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
@@ -86,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Apr 21 2026 Packit <hello@packit.dev> - 40-1
+- Dependency updates
+
 * Wed Mar 25 2026 Packit <hello@packit.dev> - 39-1
 - Bugfixes and translation updates
 

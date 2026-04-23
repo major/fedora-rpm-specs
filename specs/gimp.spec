@@ -55,12 +55,10 @@ app - gimp:ui
 # luajit isn’t available on all arches
 %global plain_lua_arches riscv64 ppc64le s390x
 
-%global prerelease 1
-
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.2.2
+Version:        3.2.4
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -90,17 +88,11 @@ ExcludeArch:    s390x
     print((string.gsub(macros.plain_version, '^%d+%.%d+%.(%d+).*$', '%1')))
 }
 %global bin_version %{major}.%{minor}
-%if %prerelease
-%global gettext_version 30
-%global api_version 3.0
-%global lib_api_version 3.0
-%else
 %global gettext_version %{major}0
 %global api_version %{major}.0
 %global lib_api_version %{major}.0
-%endif
 # Mirrored from meson.build
-%global interface_age %micro
+%global interface_age 0
 %global binary_age %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro))}
 %global lt_current %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro) - tonumber(macros.interface_age))}
 %global lt_revision %interface_age

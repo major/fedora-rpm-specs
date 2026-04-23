@@ -1,10 +1,9 @@
 Name:		libftdi
 Version:	1.5
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2
+License:	LGPL-2.1-only AND GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only WITH eCos-exception-2.0) AND MIT AND BSD-2-Clause-Views
 URL:		https://www.intra2net.com/en/developer/libftdi/
 Source0:	https://www.intra2net.com/en/developer/%{name}/download/%{name}1-%{version}.tar.bz2
 
@@ -18,6 +17,12 @@ Patch2:		libftdi-1.5-cmake-deps.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2319133
 # http://developer.intra2net.com/mailarchive/html/libftdi/2024/msg00024.html
 Patch3:		libftdi-1.5-swig-4.3.patch
+# updates for modern cmake
+# http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=3861e7dc9e83f2f6ff4e1579cf3bbf63a6827105
+# http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=61a6bac98bbac623fb33b6153a063b6436f84721
+# http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=3dc444f99bbc780f06ee6115c086e30f2dda471a
+# http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=de9f01ece34d2fe6e842e0250a38f4b16eda2429
+Patch4:		libftdi-1.5-cmake.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -82,7 +87,7 @@ sed -i -e 's/GROUP="plugdev"/TAG+="uaccess"/g' packages/99-libftdi.rules
 
 
 %build
-%cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=on -DDOCUMENTATION=on -DEXAMPLES=off
+%cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=on -DDOCUMENTATION=on -DEXAMPLES=off -DBUILD_TESTS=on
 %cmake_build
 
 %install
@@ -95,7 +100,7 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %check
-#make check
+%cmake_build -t check
 
 
 %files
@@ -128,6 +133,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Tue Apr 21 2026 Dan Horák <dan[at]danny.cz> - 1.5-23
+- updates for modern CMake (rhbz#2380724)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

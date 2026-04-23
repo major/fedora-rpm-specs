@@ -20,6 +20,10 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocALUTION
+
+%global pkg_library_name rocalution
+%global pkg_library_version 1
+
 %global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -36,10 +40,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global rocalution_name librocalution1%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
-%global rocalution_name rocalution%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -82,9 +87,9 @@
 %global cmake_generator %{nil}
 %endif
 
-Name:           %{rocalution_name}
+Name:           rocalution%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -147,13 +152,18 @@ Host
 * MPI: Designed for multi-node clusters and multi-GPU setups
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary: Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:       rocalution%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -162,7 +172,7 @@ Provides:       rocalution%{pkg_suffix}-devel = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -216,19 +226,19 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMa
 
 %install
 %cmake_install
-
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 
-%files
+%files -n %{pkg_name}
 %license LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/librocalution.so.1{,.*}
-%{pkg_prefix}/%{pkg_libdir}/librocalution_hip.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_hip.so.%{pkg_library_version}{,.*}
 
 %files devel
 %doc README.md
 %{pkg_prefix}/include/rocalution/
-%{pkg_prefix}/%{pkg_libdir}/librocalution.so
-%{pkg_prefix}/%{pkg_libdir}/librocalution_hip.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_hip.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocalution/
 
 %if %{with test}
@@ -237,6 +247,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Generate suse package name
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 
@@ -312,4 +325,3 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-

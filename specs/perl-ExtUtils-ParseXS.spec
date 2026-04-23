@@ -1,9 +1,9 @@
-%global cpan_version 3.61
+%global cpan_version 3.63
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.61
-Release:        2%{?dist}
+Version:        3.63
+Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
@@ -46,7 +46,8 @@ Requires:       perl(fields)
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 %global __requires_exclude %{__requires_exclude}|^perl\\(ExtUtils::Typemaps::Test\\)
-%global __requires_exclude %{__requires_exclude}|^perl\\((TypemapTest::Foo\|IncludeTester\|PrimitiveCapture)\)
+%global __requires_exclude %{__requires_exclude}|^perl\\((TypemapTest::Foo\|IncludeTester)\)
+%global __requires_exclude %{__requires_exclude}|^perl\\((PrimitiveCapture\|TestMany)\)
 
 %description
 ExtUtils::ParseXS will compile XS code into C code by embedding the
@@ -116,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.63-1
+- 3.63 bump (rhbz#2455216)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.61-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,6 +6,9 @@
 #
 # Please, preserve the changelog entries
 #
+
+%bcond_without       tests
+
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
 %global gh_project   tc-lib-barcode
@@ -13,12 +16,10 @@
 %global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
 %global tag          %{version}
 
-%bcond_without       tests
-
 Name:           php-%{gh_owner}-%{gh_project}
 Summary:        PHP library to generate linear and bidimensional barcodes
 License:        LGPL-3.0-or-later
-Version:        2.4.31
+Version:        2.4.34
 Release:        1%{?dist}
 
 %forgemeta
@@ -29,7 +30,7 @@ BuildArch:      noarch
 %if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit11
-BuildRequires:  phpunit11 >= 11.5.55
+BuildRequires:  phpunit11 >= 11.5
 BuildRequires:  php(language) >= 8.2
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.3    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
@@ -139,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 21 2026 Remi Collet <remi@remirepo.net> - 2.4.34-1
+- update to 2.4.34 (no change)
+
 * Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 2.4.31-1
 - update to 2.4.31 (no change)
 

@@ -21,6 +21,9 @@
 #
 %global upstreamname hipfft
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 0
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global hipfft_name libhipfft0%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
-%global hipfft_name hipfft%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -83,12 +87,12 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           %{hipfft_name}
+Name:           hipfft%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        1%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm FFT marshaling library
 License:        MIT AND BSD-3-Clause
@@ -137,13 +141,18 @@ application and the backend FFT library, marshaling inputs into
 the backend and results back to the application.
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{pkg_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:       hipfft%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -152,7 +161,7 @@ Provides:       hipfft%{pkg_suffix}-devel = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -193,7 +202,7 @@ sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' 
 
 %install
 %cmake_install
-
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfft/LICENSE.md
 
 %check
@@ -209,16 +218,15 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files
+%files -n %{pkg_name}
 %license LICENSE.md
 %doc README.md
-
-%{pkg_prefix}/%{pkg_libdir}/libhipfft.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.0{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libhipfftw.so.0{,.*}
 
 %files devel
 %{pkg_prefix}/include/hipfft/
-%{pkg_prefix}/%{pkg_libdir}/libhipfft.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/libhipfftw.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfft/
 
@@ -228,6 +236,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Generate suse package name
+
 * Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 - Cleanup specfile
@@ -305,5 +316,3 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-
-

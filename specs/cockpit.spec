@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        360.1
+Version:        361
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -390,7 +390,7 @@ Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.4.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 13.0.0
+Provides: bundled(npm(uuid)) = 14.0.0
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -665,6 +665,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Apr 21 2026 Packit <hello@packit.dev> - 361-1
+- Remove all "Mount" actions in Anaconda mode
+- Dependency updates
+
 * Tue Apr 14 2026 Packit <hello@packit.dev> - 360.1-1
 - Prevent overmounting also for btrfs subvolumes (https://bugzilla.redhat.com/show_bug.cgi?id=2455855)
 - Remove "Mount" action in Anaconda mode (https://bugzilla.redhat.com/show_bug.cgi?id=2455855)

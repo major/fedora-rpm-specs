@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-XML-XPath
-Version:        1.48
-Release:        11%{?dist}
+Version:        1.49
+Release:        1%{?dist}
 Summary:        XPath parser and evaluator for Perl
 # XML/XPath.pm, XML/XPath/PerlSAX.pm, REAME: GPL-1.0-or-later OR Artistic-1.0-Perl
 # Others: Artistic-2.0
@@ -110,9 +110,7 @@ EOF
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a examples t %{buildroot}%{_libexecdir}/%{name}
-%if %{with perl_XML_XPath_enables_load_test}
-rm %{buildroot}%{_libexecdir}/%{name}/t/00load.t
-%endif
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/00load.t
 rm %{buildroot}%{_libexecdir}/%{name}/t/manifest.t
 rm %{buildroot}%{_libexecdir}/%{name}/t/meta-*.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
@@ -137,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.49-1
+- 1.49 bump (rhbz#2452772)
+
 * Wed Feb 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.48-11
 - Conditionalize load test
 

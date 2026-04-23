@@ -1,13 +1,12 @@
 %bcond tests 1
 
 Name:           python-scooby
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        A Great Dane turned Python environment detective
 
 License:        MIT
 URL:            https://github.com/banesullivan/scooby
-# The GitHub archive contains tests; the PyPI sdist lacks them.
 Source0:        %{url}/archive/v%{version}/scooby-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        scooby.1
@@ -16,14 +15,13 @@ BuildSystem:            pyproject
 # We cannot package (nor generate BR’s from) the “cpu” extra because it
 # requires python3dist(mkl), which is proprietary software.
 %if %{with tests}
-BuildOption(generate_buildrequires): requirements_test.txt
+BuildOption(generate_buildrequires): -g test
 %endif
 BuildOption(install):   -l scooby
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
+BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  /usr/bin/time
 %endif
@@ -48,9 +46,7 @@ Recommends:     %{py3_dist psutil}
 %description -n python3-scooby %{common_description}
 
 
-%prep
-%autosetup -n scooby-%{version} -p1
-
+%prep -a
 # - Omit mkl from the test dependencies because it is proprietary
 # - Omit pyvips, which is not packaged (upstream CI lacks it too)
 # - Omit no_version, which is not packaged; it is just a demonstration of a
@@ -58,7 +54,8 @@ Recommends:     %{py3_dist psutil}
 #   seems a reasonable price to pay in order to avoid packaging something which
 #   is merely “for demonstration purposes.”
 # - https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^(mkl|pyvips|no_version|pytest-cov)\b/# &/' requirements_test.txt
+tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
+    '(mkl|pyvips|no-version|pytest-cov)\b.*'
 
 
 %generate_buildrequires -p

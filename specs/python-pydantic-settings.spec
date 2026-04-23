@@ -3,8 +3,8 @@
 # azure-cli is not ready:
 # https://src.fedoraproject.org/rpms/python-azure-keyvault-secrets/pull-request/1
 %bcond azure_key_vault 0
-# The aws-secrets-manager extra needs boto3-stubs[secretsmanager], but
-# python-boto3-stubs is not packaged.
+# The aws-secrets-manager extra needs types-boto3[secretsmanager], but
+# python-types-boto3 is not packaged.
 %bcond aws_secrets_manager 0
 # The gcp-secret-manager extra needs google-cloud-secret-manager>=2.23.1, but
 # python-google-cloud-secret-manager is not packaged.
@@ -14,7 +14,7 @@
 %global tag v%{version}
 
 Name:           python-pydantic-settings
-Version:        2.13.1
+Version:        2.14.0
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
@@ -80,6 +80,10 @@ tomcli set pyproject.toml lists delitem \
 %if %{with tests}
 # These would require python-pytest-examples, not packaged
 ignore="${ignore-} --ignore=tests/test_docs.py"
+
+# This works in a git checkout, but fails in the mock build environment
+# (nothing is read from the FIFO). Why?
+k="${k-}${k+ and }not test_read_dotenv_vars_from_fifo"
 
 # Normally we would test solely against the installed package in the buildroot,
 # but TestTraversableSupport only works if importlib.resources can recognize

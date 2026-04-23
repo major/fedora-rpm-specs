@@ -54,12 +54,11 @@ Source13: kadmind.logrotate
 Source14: krb5-krb5kdc.conf
 Source15: %{name}-tests
 
-# FIXME Backport bug fixes to https://<url>/<repo>/<branch>
+# Backport bug fixes to https://github.com/gssapi/krb5-downstream
 # This will give us CI and makes it easy to generate patchsets.
 #
 # Generate the patchset using:
-#   git format-patch -l1 --stdout -N > krb5-1.22-redhat.patch
-# Where N is the number of patches
+#   git format-patch -l1 --stdout fedora-1.22.2-base > krb5-1.22-redhat.patch
 Patch0:        krb5-1.22-redhat.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision

@@ -16,6 +16,12 @@ Patch:          bout++-fmt12-runtime.patch
 # https://github.com/boutproject/BOUT-dev/commit/27d5c932b6cc
 Patch:          bout++-fake-mesh-accumulate.patch
 
+Patch:          test-timeout.patch
+# Allow installing the docs from top-level build directory
+Patch:          https://github.com/boutproject/BOUT-dev/pull/3111.patch
+
+Patch:          bout++-no-make-bash.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -64,7 +70,6 @@ BuildRequires:  netcdf-devel
 BuildRequires:  netcdf-cxx%{?fedora:4}-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  fftw-devel
-BuildRequires:  make
 BuildRequires:  fmt-devel
 BuildRequires:  chrpath
 BuildRequires:  python%{python3_pkgversion}
@@ -151,7 +156,6 @@ Recommends: python%{python3_pkgversion}-xbout
 Summary: BOUT++ mpich libraries
 Requires:  %{name}-mpich = %{version}-%{release}
 Recommends:  gcc-c++
-Recommends:  make
 Recommends:  mpich-devel
 Recommends:  zlib-devel
 Recommends:  gettext-devel
@@ -235,7 +239,6 @@ Recommends: python%{python3_pkgversion}-xbout
 Summary: BOUT++ openmpi libraries
 Requires: %{name}-openmpi = %{version}-%{release}
 Recommends:  gcc-c++
-Recommends:  make
 Recommends:  openmpi-devel
 Recommends:  zlib-devel
 Recommends:  gettext-devel
@@ -370,6 +373,16 @@ do
     sed -i '/^#!\//d' $f
 done
 
+sed -e '32,35d' -i tests/integrated/test-petsc_laplace_MAST-grid/runtest
+sed -e 's/build_and_log, //' -e 's/, build_and_log//' -e '/ import build_and_log$/d' -e 's/^\(.*\)build_and_log(.*/\1pass/' -i $(find tests -name runtest -type f)
+
+# Increase timeout for copr / s390x
+sed -e 's/ 3s / 30s /' -i tests/integrated/test-coordinates-initialization/runtest
+
+
+# $MPI_SUFFIX will be evaluated in the loops below, set by mpi modules
+%global _vpath_builddir %{_target_platform}${MPI_SUFFIX:-_serial}
+
 
 #
 #           BUILD
@@ -377,21 +390,8 @@ done
 
 %build
 
-# Use Make generator so test runtest scripts can call 'make' in build subdirs.
-# The Fedora %%cmake macro defaults to Ninja via %%_cmake_generator.
-%undefine _cmake_generator
-
-# MPI builds
-export CC=mpicc
-export CXX=mpicxx
-
 for mpi in %{mpi_list}
 do
-  mkdir build_$mpi
-done
-for mpi in %{mpi_list}
-do
-  %global _vpath_builddir build_$mpi
   if [ $mpi = mpich ] ; then
       %_mpich_load
   elif [ $mpi = openmpi ] ; then
@@ -402,6 +402,12 @@ do
   fi
 
   %cmake \
+      -DCMAKE_INSTALL_PREFIX:PATH=${MPI_HOME} \
+      -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+      -DCMAKE_INSTALL_INCLUDEDIR:PATH=${MPI_INCLUDE}/bout++/ \
+      -DCMAKE_INSTALL_PYTHON_SITEARCH:PATH=${MPI_PYTHON3_SITEARCH} \
+      -DCMAKE_INSTALL_DATAROOTDIR:PATH=%{_datadir} \
+      -DBOUT_ENABLE_MPI:BOOL=ON \
       -DBOUT_USE_FFTW=ON \
       -DBOUT_USE_NETCDF=ON \
       -DBOUT_USE_SCOREP=OFF \
@@ -410,12 +416,6 @@ do
       -DBOUT_USE_NLS=ON \
       -DBOUT_USE_SYSTEM_FMT=ON \
       -DBOUT_USE_UUID_SYSTEM_GENERATOR=ON \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_INSTALL_LIBDIR=%{_libdir}/$mpi/lib \
-      -DCMAKE_INSTALL_BINDIR=%{_libdir}/$mpi/bin \
-      -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/$mpi-%{_arch}/bout++/ \
-      -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir} \
-      -DCMAKE_INSTALL_PYTHON_SITEARCH=${MPI_PYTHON3_SITEARCH} \
       -DBOUT_TEST_TIMEOUT=900 \
 %if %{with 3dmetrics}
       -DBOUT_ENABLE_METRIC_3D=ON \
@@ -432,15 +432,8 @@ do
 
       %cmake_build
 
-%if %{with manual}
-      %global _vpath_builddir build_$mpi/manual
-      PYPA=${PYTHONPATH}
-      LDPA=${LD_LIBRARY_PATH}
-      export PYTHONPATH=${PYTHONPATH}:$(pwd)/build_$mpi/tools/pylib/
-      export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/build_$mpi/lib/
-      %cmake_build
-      export LD_LIBRARY_PATH=$LDPA
-      export PYTHONPATH=$PYPA
+%if %{with test}
+      %cmake_build -t build-check
 %endif
 
   if [ $mpi = mpich ] ; then
@@ -450,6 +443,14 @@ do
   fi
 done
 
+# Build the documentaion
+%if %{with manual}
+pushd manual
+# By default they are preferring the sphinx-build-3 which seems to be broken
+make sphinx-build=sphinx-build
+popd
+%endif
+
 #
 #           INSTALL
 #
@@ -458,7 +459,6 @@ done
 
 for mpi in %{mpi_list}
 do
-  %global _vpath_builddir build_$mpi
   if [ $mpi = mpich ] ; then
       %_mpich_load
   else
@@ -486,17 +486,20 @@ prereq mpi/$MPI_COMPILER
 setenv    BOUT_TOP   $MPI_INCLUDE/bout++/
 EOF
 
-%if %{with manual}
-      %global _vpath_builddir build_$mpi/manual
-      %cmake_install
-%endif
-
   if [ $mpi = mpich ] ; then
       %_mpich_unload
   else
       %_openmpi_unload
   fi
 done
+
+# Install the documentation
+%if %{with manual}
+pushd manual/html
+# Copy all non-hidden files/folders
+find ./ -type f -not -path '*/.*' -not -path '.*/' -exec install -D "{}" "%{buildroot}%{_docdir}/bout++/{}" \;
+popd
+%endif
 
 
 %find_lang libbout
@@ -524,7 +527,6 @@ do
     else
         %_openmpi_load
     fi
-    pushd build_$mpi
 
     export OMPI_MCA_rmaps_base_oversubscribe=yes
     export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
@@ -533,17 +535,14 @@ do
     export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
     # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1997717
     export HDF5_USE_FILE_LOCKING=FALSE
-    # Increase timeout for copr / s390x
-    sed -i 's/ 3s / 30s /' tests/integrated/test-coordinates-initialization/runtest
 
-    make %{?_smp_mflags} build-check
-    SEGFAULT_SIGNALS="segv" make check-unit-tests || $(exit $fail)
-    # MMS tests run full MPI simulations and are known to be flaky in
-    # mock/container environments; see https://github.com/boutproject/BOUT-dev/issues/3041
-    SEGFAULT_SIGNALS="segv" make check-mms-tests || true
-    SEGFAULT_SIGNALS="segv" make check-integrated-tests || $(exit $fail)
+    # Skip tests on s390x - they can get stuck
+    %ifnarch s390x
+    SEGFAULT_SIGNALS="segv" %ctest -R serial_tests || $(exit $fail)
+    SEGFAULT_SIGNALS="segv" %ctest -R "MMS-" || $(exit $fail)
+    SEGFAULT_SIGNALS="segv" %ctest -R "test-" || $(exit $fail)
+    %endif
 
-    popd
     if [ $mpi = mpich ] ; then
         %_mpich_unload
     else
@@ -618,7 +617,7 @@ done
 
 %if %{with manual}
 %files -n %{name}-doc
-%doc  %{_defaultdocdir}/bout++/
+%doc  %{_docdir}/bout++/
 %endif
 
 #

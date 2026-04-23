@@ -10,8 +10,6 @@
 %bcond_without tests
 
 
-%global gh_commit    c87f0c3f19fb0d7518d357631713ee59af3d753d
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
 %global php_home     %{_datadir}/php
@@ -24,13 +22,13 @@
 
 
 Name:           %{pk_project}
-Version:        13.0.0
+Version:        13.0.1
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Fix autoload for RPM
@@ -40,28 +38,28 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.0.0 with php-composer(phpunit/php-code-coverage) < 15)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.1.3 with php-composer(phpunit/php-code-coverage) < 15)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
 BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
-BuildRequires:  (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
+BuildRequires:  (php-composer(sebastian/diff)            >= 8.1.0  with php-composer(sebastian/diff)            < 9)
 BuildRequires:  (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 BuildRequires:  php-pecl(Xdebug) >= 3
 # from composer.json, require-dev
-BuildRequires:  phpunit13 >= 13.1
+BuildRequires:  phpunit13 >= 13.1.6
 %endif
 
 # from composer.json
 #        "php": ">=8.4",
-#        "phpunit/php-code-coverage": "^14.0.0",
+#        "phpunit/php-code-coverage": "^14.1.3",
 #        "phpunit/php-file-iterator": "^7.0.0",
 #        "sebastian/cli-parser": "^5.0.0",
-#        "sebastian/diff": "^8.0.0",
+#        "sebastian/diff": "^8.1.0",
 #        "sebastian/version": "^7.0.0"
 Requires:       php(language) >= 8.4
-Requires:       (php-composer(phpunit/php-code-coverage) >= 14.0.0 with php-composer(phpunit/php-code-coverage) < 15)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 14.1.3 with php-composer(phpunit/php-code-coverage) < 15)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
 Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
-Requires:       (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
+Requires:       (php-composer(sebastian/diff)            >= 8.1.0  with php-composer(sebastian/diff)            < 9)
 Requires:       (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 # from phpcompatinfo report for version 4.0.0
 # none
@@ -76,7 +74,7 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 %patch -P0 -p0 -b .rpm
 
@@ -147,6 +145,11 @@ exit $ret;
 
 
 %changelog
+* Sun Apr 19 2026 Remi Collet <remi@remirepo.net> - 13.0.1-1
+- update to 13.0.1
+- raise dependency on phpunit/php-code-coverage 14.1.3
+- raise dependency on sebastian/diff 8.1.0
+
 * Fri Apr  3 2026 Remi Collet <remi@remirepo.net> - 13.0.0-1
 - update to 13.0.0
 - raise dependency on phpunit/php-code-coverage 14

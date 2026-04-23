@@ -1,5 +1,5 @@
 # Docs require pandoc, which is not included in RHEL
-%if %{undefined rhel} || %{defined epel}
+%if %{defined fedora}
 %bcond_without docs
 %else
 %bcond_with docs
@@ -14,7 +14,7 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -38,9 +38,6 @@ Patch0:            %{name}-conf.patch
 Patch1:            %{name}-loadmod.patch
 # clean rpath and set lua module path
 Patch2:            %{name}-lua.patch
-# don't dlopen librdmacm and libibverbs
-# for proper package dependencies
-Patch3:            %{name}-rdma.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -196,7 +193,6 @@ Provides:          redis-doc = %{version}-%{release}
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
 %patch -P2 -p1 -b .lua
-%patch -P3 -p1 -b .rdma
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -461,7 +457,10 @@ fi
 
 
 %changelog
-* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc1
+* Tue Apr 21 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc1-2
+- drop rdma patch, keep upstream feature to dlopen librdmacm and libibverbs
+
+* Tue Mar 17 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc1-1
 - Valkey 9.1.0-rc1
 - Lua scripting engine moved into a Valkey module
 

@@ -104,7 +104,12 @@ done
 
 %install
 %pyproject_install
+# _multiprocess module is only available for Python 3.14 and older
+%if v"0%{python3_version}" >= v"3.15"
+%pyproject_save_files -l multiprocess
+%else
 %pyproject_save_files -l multiprocess _multiprocess
+%endif
 
 %check
 # See tox.ini (but don’t try to use %%tox unless we comment out the explicit

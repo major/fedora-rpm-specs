@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        124
+Version:        125
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -54,7 +54,7 @@ Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
-Provides: bundled(npm(lodash)) = 4.17.23
+Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Apr 21 2026 Packit <hello@packit.dev> - 125-1
+- Dependency updates
+
 * Wed Mar 25 2026 Packit <hello@packit.dev> - 124-1
 - Translation and dependency updates
 

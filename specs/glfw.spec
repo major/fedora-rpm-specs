@@ -20,7 +20,6 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xrandr)
 
-BuildRequires:  extra-cmake-modules
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  vulkan-loader-devel
 BuildRequires:  wayland-devel

@@ -3,7 +3,7 @@
 
 Name:		xrootd-s3-http
 Version:	0.6.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -55,18 +55,21 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 
 %files
 %{_libdir}/libXrdPelicanHttpCore.so.*
-%{_libdir}/libXrdHTTPServer-5.so
-%{_libdir}/libXrdN2NPrefix-5.so
-%{_libdir}/libXrdOssFilter-5.so
-%{_libdir}/libXrdOssGlobus-5.so
-%{_libdir}/libXrdOssHttp-5.so
-%{_libdir}/libXrdOssS3-5.so
-%{_libdir}/libXrdOssPosc-5.so
-%{_libdir}/libXrdS3-5.so
+%{_libdir}/libXrdHTTPServer-6.so
+%{_libdir}/libXrdN2NPrefix-6.so
+%{_libdir}/libXrdOssFilter-6.so
+%{_libdir}/libXrdOssGlobus-6.so
+%{_libdir}/libXrdOssHttp-6.so
+%{_libdir}/libXrdOssS3-6.so
+%{_libdir}/libXrdOssPosc-6.so
+%{_libdir}/libXrdS3-6.so
 %doc README.md
 %license LICENSE
 
 %changelog
+* Tue Apr 21 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.6-2
+- Rebuilt for xrootd 6
+
 * Thu Apr 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.6-1
 - Update to version 0.6.6
 

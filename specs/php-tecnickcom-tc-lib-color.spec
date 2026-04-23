@@ -6,28 +6,30 @@
 #
 # Please, preserve the changelog entries
 #
+
+%bcond_without       tests
+
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
 %global gh_project   tc-lib-color
 %global php_project  %{_datadir}/php/Com/Tecnick/Color
-%global with_tests   0%{!?_without_tests:1}
 %global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
 %global tag          %{version}
 
 Name:           php-%{gh_owner}-%{gh_project}
 Summary:        PHP library to manipulate various color representations
 License:        LGPL-3.0-or-later
-Version:        2.3.12
+Version:        2.3.14
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
 BuildArch:      noarch
-%if %{with_tests}
+%if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit11
-BuildRequires:  phpunit11 >= 11.5.55
+BuildRequires:  phpunit11 >= 11.5
 BuildRequires:  php(language) >= 8.2
 BuildRequires:  php-pcre
 %endif
@@ -77,7 +79,7 @@ cp -pr src %{buildroot}%{php_project}
 
 
 %check
-%if %{with_tests}
+%if %{with tests}
 mkdir vendor
 cat << 'EOF' | tee vendor/autoload.php
 <?php
@@ -111,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 21 2026 Remi Collet <remi@remirepo.net> - 2.3.14-1
+- update to 2.3.14 (no change)
+
 * Tue Apr 14 2026 Remi Collet <remi@remirepo.net> - 2.3.12-1
 - update to 2.3.12 (no change)
 

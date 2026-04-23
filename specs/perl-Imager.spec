@@ -1,6 +1,6 @@
 Name:           perl-Imager
-Version:        1.029
-Release:        2%{?dist}
+Version:        1.030
+Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
@@ -45,6 +45,7 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(IO::Seekable)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
@@ -54,7 +55,6 @@ BuildRequires:  perl(B)
 BuildRequires:  perl(bignum)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Tue Apr 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.030-1
+- 1.030 bump (rhbz#2457802)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.029-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

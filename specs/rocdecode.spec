@@ -20,6 +20,9 @@
 # THE SOFTWARE.
 #
 
+%global pkg_library_name rocdecode
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global upstreamname rocdecode
@@ -47,10 +50,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global rocdecode_name librocdecode1%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
-%global rocdecode_name rocdecode%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -79,12 +83,12 @@
 %global cmake_generator %{nil}
 %endif
 
-Name:           %{rocdecode_name}
+Name:           rocdecode%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        High-performance video decode SDK for AMD GPUs
 
@@ -147,13 +151,18 @@ rocDecode is a high-performance video decode SDK for AMD GPUs. Using the
 rocDecode API, you can access the video decoding features available on your GPU.
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary: The rocDecode development package
-Requires:     %{name}%{?_isa} = %{version}-%{release}
+Requires:     %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:     rocdecode%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -208,20 +217,23 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %ctest
 %endif
 
-%files
+%files -n %{pkg_name}
 %license LICENSE
-%{pkg_prefix}/%{pkg_libdir}/librocdecode.so.1{,.*}
-%{pkg_prefix}/%{pkg_libdir}/librocdecode-host.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-host.so.%{pkg_library_version}{,.*}
 
 %files devel
-%{pkg_prefix}/%{pkg_libdir}/librocdecode.so
-%{pkg_prefix}/%{pkg_libdir}/librocdecode-host.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-host.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocdecode/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocdecode-host/
 %{pkg_prefix}/include/rocdecode
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package name
+
 * Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

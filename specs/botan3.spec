@@ -89,6 +89,7 @@ export CXXFLAGS="${CXXFLAGS:-%{optflags}}"
         --libdir=%{_lib} \
         --docdir=%{_docdir} \
         --cc=gcc \
+        --lto-cxxflags-to-ldflags \
         --os=linux \
         --cpu=%{_arch} \
         --enable-modules=%{enable_modules} \

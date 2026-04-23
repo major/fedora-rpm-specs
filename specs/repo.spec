@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.62
+Version:        2.63
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
@@ -43,7 +43,7 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/%{name}*.1
 install -Dpm0644 completion.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 %check
-%{py3_test_envvars} %{python3} -c 'import multiprocessing, pytest; multiprocessing.set_start_method("fork"); pytest.main()'
+%{py3_test_envvars} %{python3} -c 'import multiprocessing, pytest, sys; multiprocessing.set_start_method("fork"); sys.exit(pytest.main())'
 
 %files
 %license LICENSE

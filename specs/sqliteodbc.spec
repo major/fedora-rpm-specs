@@ -1,6 +1,6 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -58,6 +58,10 @@ make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/libsqliteodbc*.{a,la}
 rm -f %{buildroot}%{_libdir}/libsqlite3odbc*.{a,la}
 rm -f %{buildroot}%{_libdir}/libsqlite3_mod_*.{a,la}
+# Move ODBC driver plugins to a dedicated subdirectory (rhbz#2453060)
+mkdir -p %{buildroot}%{_libdir}/odbc
+mv %{buildroot}%{_libdir}/libsqliteodbc*.so* %{buildroot}%{_libdir}/odbc/
+mv %{buildroot}%{_libdir}/libsqlite3odbc*.so* %{buildroot}%{_libdir}/odbc/
 # install example file
 cat > odbc.ini.sample <<- 'EOD'
 	# ~/.odbc.ini example file
@@ -79,12 +83,12 @@ EOD
 if [ -x %{_bindir}/odbcinst ] ; then
 	INST=$(mktemp)
 
-	if [ -r %{_libdir}/libsqliteodbc.so ] ; then
+	if [ -r %{_libdir}/odbc/libsqliteodbc.so ] ; then
 		cat > $INST <<- 'EOD'
 			[SQLITE]
 			Description=SQLite ODBC 2.X
-			Driver=%{_libdir}/libsqliteodbc.so
-			Setup=%{_libdir}/libsqliteodbc.so
+			Driver=%{_libdir}/odbc/libsqliteodbc.so
+			Setup=%{_libdir}/odbc/libsqliteodbc.so
 			Threading=2
 			FileUsage=1
 		EOD
@@ -104,12 +108,12 @@ if [ -x %{_bindir}/odbcinst ] ; then
 		}
 	fi
 
-	if [ -r %{_libdir}/libsqlite3odbc.so ] ; then
+	if [ -r %{_libdir}/odbc/libsqlite3odbc.so ] ; then
 		cat > $INST <<- 'EOD'
 			[SQLITE3]
 			Description=SQLite ODBC 3.X
-			Driver=%{_libdir}/libsqlite3odbc.so
-			Setup=%{_libdir}/libsqlite3odbc.so
+			Driver=%{_libdir}/odbc/libsqlite3odbc.so
+			Setup=%{_libdir}/odbc/libsqlite3odbc.so
 			Threading=2
 			FileUsage=1
 		EOD
@@ -149,10 +153,16 @@ fi
 %files
 %license license.terms
 %doc README ChangeLog odbc.ini.sample
-%{_libdir}/*.so*
+%dir %{_libdir}/odbc
+%{_libdir}/odbc/libsqliteodbc*.so*
+%{_libdir}/odbc/libsqlite3odbc*.so*
+%{_libdir}/libsqlite3_mod_*.so*
 
 
 %changelog
+* Mon Mar 30 2026 Michal Schorm <mschorm@redhat.com> - 0.99991-9
+- Move ODBC driver plugins to %%{_libdir}/odbc/ (rhbz#2453060)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99991-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

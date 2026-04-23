@@ -5,7 +5,7 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.56.0
+Version: 1.57.3~dev
 Release: 1%{?dist}
 
 ###############################################################################
@@ -92,10 +92,12 @@ Release: 1%{?dist}
 %else
 %bcond_without iwd
 %endif
-%if 0%{?fedora} <= 44 || 0%{?rhel} <= 10
 %bcond_without polkit_noauth_group
+%ifarch %{ix86}
+# there is no bpftool in i686
+%bcond_with clat
 %else
-%bcond_with polkit_noauth_group
+%bcond_without clat
 %endif
 
 ###############################################################################
@@ -144,17 +146,6 @@ Release: 1%{?dist}
 %bcond_with ifcfg_migrate
 %endif
 
-%if 0%{?fedora}
-# Although eBPF would be available on Fedora's kernel, it seems
-# we often get SELinux denials (rh#1651654). But even aside them,
-# bpf(BPF_MAP_CREATE, ...) randomly fails with EPERM. That might
-# be related to `ulimit -l`. Anyway, this is not usable at the
-# moment.
-%global ebpf_enabled "no"
-%else
-%global ebpf_enabled "no"
-%endif
-
 # Fedora 33 enables LTO by default by setting CFLAGS="-flto -ffat-lto-objects".
 # However, we also require "-flto -flto-partition=none", so disable Fedora's
 # default and use our configure option --with-lto instead.
@@ -172,8 +163,7 @@ Source7: 70-nm-connectivity.conf
 Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
 
-Patch1: 0001-polkit-noauth-group.patch
-Patch2: 0002-secret-permission-fixes.patch
+# Patch1: 0001-example.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -186,7 +176,9 @@ Requires: dbus >= %{dbus_version}
 Requires: glib2 >= %{glib2_version}
 Requires: %{name}-libnm%{?_isa} = %{epoch}:%{version}-%{release}
 
-Recommends: iputils
+%if %{with clat}
+Requires: libbpf
+%endif
 
 %if 0%{?rhel} == 8
 # Older libndp versions use select() (rh#1933041). On well known distros,
@@ -235,7 +227,7 @@ Conflicts: NetworkManager-dispatcher-routing-rules <= 1:1.47.5-3
 %endif
 
 BuildRequires: gcc
-BuildRequires: libtool
+BuildRequires: clang
 BuildRequires: pkgconfig
 BuildRequires: meson
 BuildRequires: gettext-devel >= 0.19.8
@@ -290,6 +282,10 @@ BuildRequires: firewalld-filesystem
 BuildRequires: iproute
 BuildRequires: iproute-tc
 BuildRequires: libnvme-devel >= 1.5
+%if %{with clat}
+BuildRequires: libbpf-devel
+BuildRequires: bpftool
+%endif
 
 Provides: %{name}-dispatcher%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -609,18 +605,19 @@ Preferably use nmcli instead.
 %endif
 %if %{with wifi}
 	-Dwifi=true \
-%if 0%{?fedora}
-	-Dwext=true \
-%else
-	-Dwext=false \
-%endif
 %else
 	-Dwifi=false \
 %endif
+	-Dwext=false \
 %if %{with iwd}
 	-Diwd=true \
 %else
 	-Diwd=false \
+%endif
+%if %{with clat}
+	-Dclat=true \
+%else
+	-Dclat=false \
 %endif
 %if %{with bluetooth}
 	-Dbluez5_dun=true \
@@ -667,14 +664,10 @@ Preferably use nmcli instead.
 %else
 	-Dlibpsl=false \
 %endif
-%if %{ebpf_enabled} != "yes"
-	-Debpf=false \
-%else
-	-Debpf=true \
-%endif
 	-Dsession_tracking=systemd \
 	-Dsuspend_resume=systemd \
 	-Dsystemdsystemunitdir=%{_unitdir} \
+	-Dsystemdsystemgeneratordir=%{_systemdgeneratordir} \
 	-Dsystem_ca_path=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 	-Ddbus_conf_dir=%{dbus_sys_dir} \
 	-Dtests=yes \
@@ -747,6 +740,7 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 rm -f %{buildroot}%{nmplugindir}/*.la
 
 # Don't use the *-initrd.service files yet, wait dracut to support them
+rm -f %{buildroot}%{_systemdgeneratordir}/nm-initrd-generator.sh
 rm -f %{buildroot}%{_unitdir}/NetworkManager-config-initrd.service
 rm -f %{buildroot}%{_unitdir}/NetworkManager-initrd.service
 rm -f %{buildroot}%{_unitdir}/NetworkManager-wait-online-initrd.service
@@ -1071,6 +1065,11 @@ fi
 
 
 %changelog
+* Tue Mar 31 2026 Íñigo Huguet <ihuguet@redhat.com> - 1:1.57.3-1
+- Update to 1.57.3 release (development)
+- Enable the CLAT feature
+- Disable the Wext build option, which is already unsupported in Fedora
+
 * Wed Feb 25 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:1.56.0-1
 - Update to 1.56.0 release
 - Enable polkit_noauth_group=wheel (rhbz#2437985)

@@ -1,24 +1,15 @@
 %bcond_without check
 %global pypi_name filecheck
-%global commit a630efd71cc5ad791162a6809334364b8a1c9e8f
-%global shortcommit %%(c=%{commit}; echo ${c:0:7})
 
 %global desc Python port of LLVM's FileCheck, flexible pattern matching file verifier.
 
 Name: python-%{pypi_name}
-Version: 0.0.24
-Release: 10%{?dist}
+Version: 1.0.3
+Release: 1%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
-URL: https://github.com/mull-project/FileCheck.py
-Source0: https://github.com/mull-project/FileCheck.py/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# upstream testsuite includes only x86_64 reference binaries and Fedora llvm9.0 package doesn't include FileCheck
-# https://bugzilla.redhat.com/show_bug.cgi?id=1939414
-Patch0: %{name}-tests-x86_64.patch
-# upstream testsuite measures code coverage
-# that is discouraged in the packaging guidelines
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch1: %{name}-no-coverage.patch
+URL: https://github.com/AntonLydike/filecheck
+Source0: https://github.com/AntonLydike/filecheck/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch: noarch
 
 %description
@@ -27,21 +18,16 @@ BuildArch: noarch
 %package -n python3-%{pypi_name}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: sed
 %if %{with check}
-BuildRequires: %{_bindir}/invoke
 BuildRequires: %{_bindir}/lit
-BuildRequires: %{_bindir}/python
 BuildRequires: python3-pytest
-BuildRequires: gcc
 %endif
 
 %description -n python3-%{pypi_name}
 %{desc}
 
 %prep
-%autosetup -p1 -n FileCheck.py-%{version}
-sed -i -e '/#!.*python3/d' filecheck/filecheck.py
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -57,21 +43,29 @@ sed -i -e '/#!.*python3/d' filecheck/filecheck.py
 %check
 %pyproject_check_import
 # lit seems to overwrite PYTHONPATH, so inject the buildroot paths directly
-if ! grep -q %{buildroot} tests/integration/tests/examples/lit-and-filecheck/lit.local.cfg ; then
-cat << __EOF__ >> tests/integration/tests/examples/lit-and-filecheck/lit.local.cfg
+if ! grep -q %{buildroot} tests/filecheck/lit.local.cfg ; then
+cat << __EOF__ >> tests/filecheck/lit.local.cfg
 
 config.environment['PYTHONPATH'] = '%{buildroot}%{python3_sitelib}'
-config.environment['PATH'] = '${PATH}:%{buildroot}%{_bindir}'
+config.environment["PATH"] = (
+    config.environment["PATH"] + ':' + '%{buildroot}%{_bindir}'
+)
+
 __EOF__
 fi
-%{_bindir}/invoke -e test
+%{_bindir}/lit -v tests/filecheck
+%pytest
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+%license LICENSE.txt
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Mon Apr 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.3-1
+- switch to new upstream
+- clean up
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.24-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

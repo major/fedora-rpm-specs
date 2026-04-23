@@ -1,7 +1,7 @@
 Name:          libdbusmenu-lxqt
 Summary:       Library providing a way to implement DBusMenu protocol for LXQt
-Version:       0.3.0
-Release:       3%{?dist}
+Version:       0.4.0
+Release:       1%{?dist}
 License:       LGPL-2.0-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ Files used for developing and building software that uses %{name}.
 %{_libdir}/pkgconfig/dbusmenu-lxqt.pc
 
 %changelog
+* Mon Apr 20 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.4.0-1
+- Update to 0.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

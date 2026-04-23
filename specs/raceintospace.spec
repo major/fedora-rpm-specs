@@ -6,7 +6,7 @@
 %global archive_suffix tar.gz
 %global commit 623777f
 %global date 20191012
-%global extra rc1
+#global extra rc1
 %global github_owner raceintospace
 
 %if %{without snapshot} && %{without copr}
@@ -27,7 +27,7 @@
 
 Name:		raceintospace
 Version:	2.0.0
-Release:	18%{?extra:.%extra}%{?dist}
+Release:	%autorelease
 Summary:	Race into Space game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,10 +41,13 @@ Source0:	https://github.com/%{github_owner}/%{name}/archive/%{gittag}/%{name}-%{
 BuildRequires:	cmake
 BuildRequires:	SDL-devel protobuf-devel boost-devel
 BuildRequires:	libogg-devel libvorbis-devel libtheora-devel jsoncpp-devel
-BuildRequires:	physfs-devel libpng-devel
+BuildRequires:	physfs-devel
+BuildRequires:	(physfs-devel >= 3.2.0-4 if 0%{?fedora} >= 44)
+BuildRequires:	libpng-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	libappstream-glib
 BuildRequires:	pandoc
+BuildRequires:	cmake(cereal)
 %if %{with clang}
 BuildRequires:	clang
 %else
@@ -96,8 +99,19 @@ export CXXFLAGS="$CFLAGS"
 %endif
 %autosetup -p1 -n %{name}-%{pkgversion}
 
+# Modify runner to have built-in prefix, not computed on current directory.
+sed -e "s|^\(BASEDIR=\).*$|\1%{_prefix}|" -i dist/linux-tgz/run.sh
+# Do not use static library enforced, use non-CONFIG mode
+sed -e 's|QUIET||' -i src/game/CMakeLists.txt
+
+if ! [ -e "%{_libdir}/libphysfs.a" ]; then
+  # stupid issue with cmake physfs interface.
+  # It checks presence of file for PhysFS::PhysFS-static, which is not allowed by Fedora
+  ln -s %{_libdir}/libphysfs.so %{_libdir}/libphysfs.a || true
+fi
+
 %build
-%cmake -DBUILD_PHYSFS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 pushd doc/manual
 pandoc -o manual.html manual.md
@@ -105,6 +119,7 @@ popd
 
 %install
 %cmake_install
+mv %{buildroot}%{_prefix}/run.sh %{buildroot}%{_bindir}/raceintospace-launcher
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -113,7 +128,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.raceintosp
 %files
 %doc AUTHORS README.md
 %license COPYING
-%{_bindir}/raceintospace
+%{_bindir}/raceintospace*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.*
 %{_metainfodir}/*.xml
@@ -125,88 +140,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.raceintosp
 %doc doc/manual
 
 %changelog
-* Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 2.0.0-18.rc1
-- Rebuild (jsoncpp)
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-16.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.0-15.rc1
-- Rebuild (jsoncpp)
-- Explicitly set CMAKE_POLICY_VERSION_MINIMUM=3.5
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-13.rc1
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Nov 03 2021 Björn Esser <besser82@fedoraproject.org> - 2.0.0-5.rc1
-- Rebuild (jsoncpp)
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4.rc1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Feb 16 2021 Petr Menšík <pemensik@redhat.com> - 2.0.0-3.rc1
-- Update to 2.0.0rc1, fix FTBFS (#1923505)
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2.a3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Oct 11 22:05:33 CEST 2020 Petr Menšík <pemensik@redhat.com> - 2.0.0-1.a3
-- Update to 2.0.0 alpha3
-
-* Tue Aug 11 2020 Petr Menšík <pemensik@redhat.com> - 1.2.0-5
-- Update macros, fix build in rawhide (#1865359)
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun May 31 2020 Petr Menšík <pihhan@gmail.com> - 1.2test1.fedora.2.g0b4a6ba-2
-- Development snapshot (0b4a6ba8)
-
-* Sat May 30 2020 Björn Esser <besser82@fedoraproject.org> - 1.1.0-5
-- Rebuild (jsoncpp)
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Nov 14 2019 Björn Esser <besser82@fedoraproject.org> - 1.1.0-3
-- Rebuild (jsoncpp)
-
-* Sat Oct 12 2019 Petr Menšík <pemensik@redhat.com> - 1.1.0-2
-- Fix review comment #2 issues
-- Fix appcheck, test installed files
-
-* Fri Jul 19 2019 Petr Menšík <pemensik@redhat.com> - 1.1.0-1.20190719gitbf6c86a
-- Initial version
-
-
+%autochangelog

@@ -21,6 +21,9 @@
 #
 %global upstreamname hipsparse
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 4
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global hipsparse_name libhipsparse4%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global hipsparse_name hipsparse%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -91,12 +95,12 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           %{hipsparse_name}
+Name:           hipsparse%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm SPARSE marshaling library
 License:        MIT
@@ -160,13 +164,18 @@ backend. Currently, hipSPARSE supports rocSPARSE and
 cuSPARSE backends.
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{pkg_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:       hipsparse%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -175,7 +184,7 @@ Provides:       hipsparse%{pkg_suffix}-devel = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -226,7 +235,7 @@ if [ -f ${json} ]; then
     mkdir -p ${output}
     # Use echo to consume tidy's error code
     %{rocmllvm_bindir}/run-clang-tidy -p ${json_dir} &> ${output}/tidy.log || echo "ran clang-tidy"
-    
+
     output=/tmp/%{name}-cppcheck/
     mkdir -p ${output}
     cppcheck --project=${json} -j ${jobs} --std=c++17 --safety --output-file=${output}/cppcheck.txt
@@ -246,14 +255,14 @@ mkdir -p %{buildroot}/%{pkg_prefix}/share/hipsparse/matrices
 install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix}/share/hipsparse/matrices
 %endif
 
-%files
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/libhipsparse.so.4{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/hipsparse/
-%{pkg_prefix}/%{pkg_libdir}/libhipsparse.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipsparse/
 
 %if %{with test}
@@ -264,6 +273,9 @@ install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix
 %endif
 
 %changelog
+* Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Generate suse package name
+
 * Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Change --with gitcommit to preview
 
@@ -347,4 +359,3 @@ install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-

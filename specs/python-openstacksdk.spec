@@ -20,8 +20,7 @@ License:        Apache-2.0
 URL:            http://www.openstack.org/
 Source0:        https://pypi.io/packages/source/o/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
-# Patch should go upstream but I have a support request open to enve login into
-# review.opendev.org at the moment....
+# https://review.opendev.org/c/openstack/openstacksdk/+/985641
 Patch0:         0001-fix-hashlib-ValueError-message-check-for-py3.15.patch
 
 BuildArch:      noarch

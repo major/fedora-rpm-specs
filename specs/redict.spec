@@ -2,8 +2,8 @@
 %bcond_with        tests
 
 Name:              redict
-Version:           7.3.2
-Release:           4%{?dist}
+Version:           7.3.6
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redict: LGPL-3.0-only
 # hiredict: BSD-3-Clause
@@ -35,7 +35,6 @@ BuildRequires:     systemd-devel
 BuildRequires:     systemd-rpm-macros
 BuildRequires:     openssl-devel
 Requires:          logrotate
-Requires(pre):     shadow-utils
 Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
@@ -176,9 +175,6 @@ taskset -c 1 make %{make_flags} test
 make %{make_flags} test-sentinel
 %endif
 
-%pre
-%sysusers_create_compat %{S:4}
-
 
 %post
 %systemd_post %{name}.service
@@ -229,6 +225,9 @@ make %{make_flags} test-sentinel
 
 
 %changelog
+* Tue Apr 21 2026 Jonathan Wright <jonathan@almalinux.org> - 7.3.6-1
+- update to 7.3.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -60,6 +60,9 @@ Patch4:         0005-Fix-sql-statement-from-session-manager.patch
 %if 0%{?rhel}
 Patch5:         0006-Include-legal-message-for-goose-proxy-provider.patch
 %endif
+# Backport of https://github.com/aaif-goose/goose/pull/8118
+# Sets permissions of newly created secrets.yaml file to 0600.
+Patch6:         0007-Better-default-permissions-for-secrets.patch
 
 # Patch the `build.rs` for `ring` crate to avoid using the pre-generated object
 # files that comes with the vendored crate, and instead, build from system
@@ -306,7 +309,7 @@ Provides:       bundled(leaflet-markercluster-min-js) = 1.5.3
 # any version here.
 Provides:       bundled(mermaid-min-js)
 
-%global _description %{expand: 
+%global _description %{expand:
 Goose is your on-machine AI agent, capable of automating complex development
 tasks from start to finish. More than just code suggestions, goose can build
 entire projects from scratch, write and execute code, debug failures,

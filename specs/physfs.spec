@@ -105,18 +105,19 @@ Static version of the MinGW Win64 compiled physfs library.
 %autosetup -p1 -n %{name}-release-%{version}
 
 %build
-%cmake
+%cmake -DPHYSFS_BUILD_STATIC=OFF
 %cmake_build
 doxygen %{_vpath_builddir}/Doxyfile
 
 %if %{with mingw}
-%mingw_cmake -DPHYSFS_BUILD_TEST=OFF -DPHYSFS_BUILD_WX_TEST=OFF
+%mingw_cmake -DPHYSFS_BUILD_TEST=OFF -DPHYSFS_BUILD_WX_TEST=OFF -DPHYSFS_BUILD_STATIC=ON
 %mingw_make_build
 %endif # %%{with mingw}
 
 %install
 %cmake_install
-rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
+# check disabled static build works
+! [ -e "$RPM_BUILD_ROOT%{_libdir}/lib%{name}.la" ]
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3
 install -m0644 %{_vpath_builddir}/docs/man/man3/* $RPM_BUILD_ROOT%{_mandir}/man3
 

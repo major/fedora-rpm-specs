@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3434,6 +3434,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 22 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-4
+- Rebuilt for xrootd 6
+
 * Thu Apr 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-3
 - Run some tests on aarch64 Fedora 44+ again (gcc 16 regression fixed)
 

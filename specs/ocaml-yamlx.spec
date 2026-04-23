@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mjambon/yamlx
 
 Name:           ocaml-yamlx
-Version:        0.1.0
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Pure OCaml YAML 1.2 parser with lossless comment-preserving AST
 
@@ -13,7 +13,7 @@ Source:         %{giturl}/archive/%{version}/yamlx-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml
+BuildRequires:  ocaml >= 4.14.0
 %ifarch %{x86_64}
 BuildRequires:  ocaml-afl-persistent-devel
 %endif

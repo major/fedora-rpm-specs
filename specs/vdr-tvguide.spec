@@ -1,3 +1,8 @@
+
+# https://gitlab.com/kamel5/tvguide/-/commit/41ae0c825502f7cceed7d7769dab6e6bf8433249
+%global commit0 41ae0c825502f7cceed7d7769dab6e6bf8433249
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gitdate 20260420
 %global pname   tvguide
 
 # Set vdr_version based on Fedora version
@@ -13,14 +18,17 @@
 %endif
 
 Name:           vdr-tvguide
-Version:        1.3.13
-Release:        1%{?dist}
+Version:        1.3.14
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
+# Release:        1%%{?dist}
 Summary:        TvGuide is a highly customizable 2D EPG viewer plugin
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/kamel5/tvguide
-Source0:        https://gitlab.com/kamel5/%{pname}/-/archive/v%{version}/%{pname}-v%{version}.tar.bz2
+Source0:        %url/-/archive/%{commit0}/%{pname}-%{commit0}.tar.gz
+# Source0:        %%url/-/archive/v%%{version}/%%{pname}-v%%{version}.tar.bz2
 # Configuration files for plugin parameters. These are Fedora specific and not in upstream.
 Source1:        %{name}.conf
+Patch0:         vdr-tvguide-compile.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -34,7 +42,8 @@ Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 VDR plugin: tvguide - %{summary}
 
 %prep
-%autosetup -p1 -n %{pname}-v%{version}
+%autosetup -p1 -n %{pname}-%{commit0}
+#%%autosetup -p1 -n %%{pname}-v%%{version}
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 %build
@@ -61,6 +70,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/tvguide/
 
 %changelog
+* Tue Apr 21 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.14-0.1.20260420git41ae0c8
+- Add vdr-tvguide-compile.patch to fix compilation warnings
+
 * Sun Apr 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.13-1
 - Update to 1.3.13
 

@@ -1,15 +1,15 @@
 Name:           libqtxdg
 Summary:        QtXdg, a Qt6 implementation of XDG standards
-Version:        4.3.0
+Version:        4.4.0
 
-Release:        6%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+Release:        1%{?dist}
+License:        LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Xml)
@@ -17,7 +17,6 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  file-devel
-BuildRequires:  lxqt-build-tools
 BuildRequires:  qt6-qtbase-private-devel
 
 Requires:       xdg-user-dirs
@@ -53,8 +52,8 @@ Files used for developing and building software that uses qtxdg.
 %{_libdir}/libQt6Xdg.so.%{version}
 %{_libdir}/libQt6XdgIconLoader.so.4
 %{_libdir}/libQt6XdgIconLoader.so.%{version}
-%{_sysconfdir}/xdg/lxqt-qtxdg.conf
-%{_sysconfdir}/xdg/qtxdg.conf
+%config(noreplace) %{_sysconfdir}/xdg/lxqt-qtxdg.conf
+%config(noreplace) %{_sysconfdir}/xdg/qtxdg.conf
 
 %files devel
 %{_libdir}/libQt6Xdg.so
@@ -68,6 +67,9 @@ Files used for developing and building software that uses qtxdg.
 %{_qt6_archdatadir}/plugins/iconengines/libQt6XdgIconPlugin.so
 
 %changelog
+* Mon Apr 20 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 4.4.0-1
+- Update to 4.4.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 4.3.0-6
 - Rebuild (qt6)
 

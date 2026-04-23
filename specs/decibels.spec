@@ -12,6 +12,8 @@ License:        GPL-2.0-or-later and GPL-3.0-only
 URL:            https://www.gnome.org
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+Patch:          0001-silence-typescript-6_0-depracations.patch
+
 BuildRequires:  meson
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
@@ -19,7 +21,7 @@ BuildRequires:  pkgconfig(blueprint-compiler)
 BuildRequires:  pkgconfig(gjs-1.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  (npm(typescript) >= 5.7.3 with npm(typescript) < 5.8)
+BuildRequires:  (npm(typescript) >= 5.7.3 with npm(typescript) < 7.0)
 Requires:       hicolor-icon-theme
 # Lacking typelib dependency generator, so use package names instead
 Requires:       gtk4
