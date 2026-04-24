@@ -21,6 +21,9 @@
 #
 %global upstreamname hipsolver
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -47,10 +50,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global hipsolver_name libhipsolver1%{pkg_suffix}
+%global pkg_name %{NAME}-libs
 %else
-%global hipsolver_name hipsolver%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -83,12 +87,12 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           %{hipsolver_name}
+Name:           hipsolver%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm SOLVER marshaling library
 License:        MIT
@@ -144,13 +148,18 @@ of the chosen backend. Currently, hipSOLVER supports rocSOLVER
 and cuSOLVER as backends.
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -159,26 +168,16 @@ Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hipsolver
-%patch -P1 -p1
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 %build
-%if %{with gitcommit}
-cd projects/hipsolver
-%endif
-
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
@@ -199,31 +198,21 @@ cd projects/hipsolver
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/hipsolver
-%endif
-
 %cmake_install
 
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 
-%files
-%if %{with gitcommit}
-%doc projects/hipsolver/README.md
-%license projects/hipsolver/LICENSE.md
-%else
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
-%endif
-
-%{pkg_prefix}/%{pkg_libdir}/libhipsolver.so.1{,.*}
-%{pkg_prefix}/%{pkg_libdir}/libhipsolver_fortran.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/hipsolver/
-%{pkg_prefix}/%{pkg_libdir}/libhipsolver.so
-%{pkg_prefix}/%{pkg_libdir}/libhipsolver_fortran.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}_fortran.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipsolver/
 
 %if %{with test}
@@ -233,6 +222,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package names
+
 * Fri Apr 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

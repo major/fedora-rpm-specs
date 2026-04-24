@@ -58,6 +58,7 @@ sed -i \
     -e "/^coverage[[:space:]]*[><=]/d" \
      test-requirements.txt doc/requirements.txt
 
+# https://review.opendev.org/c/openstack/os-client-config/+/985780
 sed -i -e "s/'reno.sphinxext',//" doc/source/conf.py
 
 %generate_buildrequires

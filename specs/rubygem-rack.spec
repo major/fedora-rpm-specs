@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 3.2.3
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT AND BSD-3-Clause
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rack/rack.git && cd rack/
 # git archive -v -o rack-3.2.3-tests.tar.gz v3.2.3 test/
 Source1: rack-%{version}-tests.tar.gz
+# https://github.com/rack/rack/pull/2452
+# Fix Minitest must_raise usage (with Minitest 6.0.5)
+Patch0:  rack-pr2452-fix-Minitest-must_raise-usage.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.4.0
@@ -39,6 +42,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -78,6 +85,9 @@ ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/SPEC.rdoc
 
 %changelog
+* Thu Apr 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.2.3-6
+- Add upstream PR for Minitest 6.0.5 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

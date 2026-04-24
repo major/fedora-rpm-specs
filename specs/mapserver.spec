@@ -23,7 +23,7 @@
 
 
 Name:           mapserver
-Version:        8.6.1
+Version:        8.6.2
 Release:        1%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
@@ -337,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Wed Apr 22 2026 Sandro Mani <manisandro@gmail.com> - 8.6.2-1
+- Update to 8.6.2
+
 * Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 8.6.1-1
 - Update to 8.6.1
 

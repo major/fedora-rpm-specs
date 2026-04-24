@@ -83,10 +83,13 @@ sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
     -e "/^osprofiler[[:space:]]*[!><=]/d" \
     -e "/^hacking[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
     -e "/^bandit[[:space:]]*[!><=]/d" \
     -e "/^flake8-import-order[[:space:]]*[!><=]/d" \
     test-requirements.txt doc/requirements.txt
 
+# https://review.opendev.org/c/openstack/python-neutronclient/+/985789/1
+sed -i "s/'reno.sphinxext',//" doc/source/conf.py
 
 %generate_buildrequires
 %if 0%{?with_doc}

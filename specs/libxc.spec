@@ -81,6 +81,8 @@ This package contains the Python3 interface library to libxc.
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
 %build
+# single file cc1 compiles and lto jobs take up to 5G of RSS
+%constrain_build -m 5632
 # TODO: Please submit an issue to upstream (rhbz#2380769)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Disable var tracking assignments for C sources, since it fails anyhow due to the size of the sources

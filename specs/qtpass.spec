@@ -1,5 +1,5 @@
 Name:           qtpass
-Version:        1.5.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Cross-platform GUI for pass
 

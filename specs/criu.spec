@@ -13,13 +13,17 @@
 
 Name: criu
 Version: 4.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
 Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{version}.tar.gz
 Patch0: 0001-rseq-use-kernel-rseq.h-when-glibc-detects-it.patch
 Patch1: 0001-tty-fix-compiler-error.patch
+Patch2: 0002-net-Route-veth-restore-through-usernsd-for-userns-mode.patch
+Patch3: 0003-zdtm-Fix-rseq01-test-for-kernel-7.0-rseq-changes.patch
+Patch4: 0004-sockets-Treat-UDPLITE-as-optional-in-collect_err.patch
+Patch5: 0005-zdtm-Skip-socket_udplite-test-when-kernel-lacks-UDPLITE.patch
 
 # Add protobuf-c as a dependency.
 # We use this patch because the protobuf-c package name
@@ -118,6 +122,10 @@ This script can help to workaround the so called "PID mismatch" problem.
 %setup -q
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
 %patch -P 99 -p1
 
 %build
@@ -206,6 +214,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Apr 22 2026 Adrian Reber <adrian@lisas.de> - 4.2-18
+- Route veth restore through usernsd for userns mode (upstream PR#3006)
+- Fix rseq01 test for kernel 7.0 rseq changes (upstream PR#3007)
+- Handle UDPLITE removal in kernel 7.1 (upstream PR#3003)
+
 * Thu Mar 26 2026 Adrian Reber <adrian@lisas.de> - 4.2-17
 - Always use nftables network locking backend
 

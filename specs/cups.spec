@@ -14,7 +14,7 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.17
+Version: 2.4.18
 Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
@@ -787,6 +787,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Apr 22 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.18-1
+- 2.4.18
+
 * Fri Apr 17 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.17-1
 - 2.4.17 (fedora#2456363, fedora#2456362, fedora#2454994, fedora#2454993,
   fedora#2454992, fedora#2454990)

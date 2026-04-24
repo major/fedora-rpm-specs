@@ -12,7 +12,7 @@
 %define tag v%{version_no_tilde %{quote:%nil}}
 
 Name:           go-vendor-tools
-Version:        0.11.0
+Version:        0.12.0
 %forgemeta
 Release:        1%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora
@@ -114,6 +114,9 @@ install -Dpm 0644 zsh_completions/* -t %{buildroot}%{zsh_completions_dir}/
 
 
 %check
+%if %{defined rhel} && %{undefined epel}
+export GVTT_FORCE_LICENSE_CHECK_ENABLE=1
+%endif
 export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 %pytest
 
@@ -142,6 +145,9 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 
 
 %changelog
+* Wed Apr 22 2026 Maxwell G <maxwell@gtmx.me> - 0.12.0-1
+- Update to 0.12.0.
+
 * Wed Mar 18 2026 Maxwell G <maxwell@gtmx.me> - 0.11.0-1
 - Update to 0.11.0.
 

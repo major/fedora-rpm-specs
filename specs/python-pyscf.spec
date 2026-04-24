@@ -15,7 +15,7 @@
 %endif
 
 Name:           python-pyscf
-Version:        2.12.1
+Version:        2.13.0
 Release:        1%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -134,6 +134,9 @@ done
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Wed Apr 22 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.13.0-1
+- Update to 2.13.0.
+
 * Wed Feb 04 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12.1-1
 - Update to 2.12.1.
 

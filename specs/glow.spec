@@ -3,7 +3,7 @@
 %global gomodulesmode GO111MODULE=on
 
 Name:           glow
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 ExclusiveArch:  %{golang_arches_future}
 Summary:        Terminal based markdown reader

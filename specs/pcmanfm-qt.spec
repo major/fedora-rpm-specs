@@ -1,6 +1,6 @@
 Name:           pcmanfm-qt
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -17,19 +17,19 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(LayerShellQt)
-BuildRequires:  lxqt-build-tools
+BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libfm)
-BuildRequires:  pkgconfig(libfm-qt6)
+BuildRequires:  cmake(fm-qt6)
 BuildRequires:  pkgconfig(libmenu-cache)
-BuildRequires:  pkgconfig(lxqt) >= 1.0.0
+BuildRequires:  cmake(lxqt) >= 1.0.0
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
-BuildRequires:  lxqt-menu-data
+BuildRequires:  cmake(lxqt-menu-data)
 Requires:       lxqt-sudo
 
 # for /usr/share/backgrounds/default.{jxl,png}
@@ -79,16 +79,14 @@ sed -e "s|Wallpaper=.*$|Wallpaper=%{_datadir}/backgrounds/default.${bg_file_ext}
 
 %install
 %cmake_install
-for dfile in pcmanfm-qt-desktop-pref pcmanfm-qt; do
-    desktop-file-edit \
-        --remove-category=LXQt --add-category=X-LXQt \
-        --remove-category=Help --add-category=X-Help \
-        --remove-only-show-in=LXQt \
-        %{buildroot}/%{_datadir}/applications/${dfile}.desktop
-done
 
 %find_lang %{name} --with-qt
 
+%check
+for i in %{buildroot}%{_datadir}/applications/*.desktop; do
+  desktop-file-validate "$i"
+done
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
 
 %files
 %doc AUTHORS CHANGELOG README.md
@@ -97,7 +95,7 @@ done
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}-desktop-pref.desktop
 %{_mandir}/man1/%{name}.*
-%{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/scalable/apps/pcmanfm-qt.svg
 
@@ -106,6 +104,9 @@ done
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

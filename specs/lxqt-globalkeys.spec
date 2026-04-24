@@ -1,10 +1,11 @@
 Name:          lxqt-globalkeys
 Summary:       Global keys utility for LXQt desktop suite
-Version:       2.3.0
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: cmake(Qt6DBus)
@@ -12,10 +13,10 @@ BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(lxqt)
+BuildRequires: cmake(lxqt)
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 Requires: dbus-x11
 
@@ -45,9 +46,11 @@ This package provides translations for the lxqt-globalkeys package.
 
 %install
 %cmake_install
-desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-config-globalkeyshortcuts.desktop
 %find_lang lxqt-config-globalkeyshortcuts --with-qt
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-globalkeyshortcuts.desktop
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}hortcuts.desktop
 
 %files
 %license LICENSE
@@ -59,7 +62,7 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_libdir}/liblxqt-globalkeys.so.%{version}
 %{_libdir}/liblxqt-globalkeys-ui.so.2
 %{_libdir}/liblxqt-globalkeys-ui.so.%{version}
-%{_sysconfdir}/xdg/autostart/lxqt-globalkeyshortcuts.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-globalkeyshortcuts.desktop
 %{_datadir}/lxqt/globalkeyshortcuts.conf
 
 %files devel
@@ -83,6 +86,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts/lxqt-config-globalkeyshortcuts_arn.qm
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

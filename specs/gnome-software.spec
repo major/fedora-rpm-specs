@@ -7,7 +7,7 @@
 %global libadwaita_version 1.8.0
 %global libxmlb_version 0.3.4
 %global packagekit_version 1.2.5
-%global dnf5_version 5.2.16
+%global dnf5_version 5.4.2
 
 # Disable WebApps for RHEL builds
 %bcond webapps %[!0%{?rhel}]
@@ -42,6 +42,7 @@ Source0:   https://download.gnome.org/sources/gnome-software/%{major_version}/%{
 # to update the patch enter the ./dnf5-plugin/ directory and run from
 # it the ./update-patch.sh script
 Patch:     0001-dnf5-plugin.patch
+Patch:     0003-rhbug2457884-offline-updates-detection.patch
 %endif
 
 Patch:     0002-plain-package-update-notification.patch

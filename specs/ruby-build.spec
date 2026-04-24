@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           ruby-build
-Version:        20260412
+Version:        20260422
 Release:        %autorelease
 Summary:        Compile and install Ruby
 BuildArch:      noarch
@@ -11,8 +11,6 @@ BuildArch:      noarch
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# PR https://github.com/rbenv/ruby-build/pull/2576
-Patch:          2576.patch
 
 BuildRequires:  gawk
 BuildRequires:  grep

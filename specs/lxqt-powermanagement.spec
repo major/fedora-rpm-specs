@@ -1,10 +1,11 @@
 Name:          lxqt-powermanagement
 Summary:       Powermanagement daemon for LXQt desktop suite
-Version:       2.3.0
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: desktop-file-utils
@@ -16,10 +17,10 @@ BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6IdleTime)
 BuildRequires: cmake(KF6Solid)
 BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: pkgconfig(lxqt)
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(lxqt-globalkeys)
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: lxqt-globalkeys-devel
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 %description
 %{summary}.
@@ -41,18 +42,19 @@ This package provides translations for the lxqt-powermanagement package.
 %install
 %cmake_install
 
-desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-   --remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-config-powermanagement.desktop
-
 %find_lang lxqt-powermanagement --with-qt
 %find_lang lxqt-config-powermanagement --with-qt
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-powermanagement.desktop
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 %files
 %{_bindir}/lxqt-powermanagement
 %{_bindir}/lxqt-config-powermanagement
 %{_datadir}/applications/lxqt-config-powermanagement.desktop
 %{_datadir}/icons/hicolor/*
-%{_sysconfdir}/xdg/autostart/lxqt-powermanagement.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-powermanagement.desktop
 
 %files l10n -f lxqt-powermanagement.lang -f lxqt-config-powermanagement.lang
 %license LICENSE
@@ -61,6 +63,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %dir %{_datadir}/lxqt/translations/lxqt-config-powermanagement
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

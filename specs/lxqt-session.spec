@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
-Version:      2.3.0
-Release:      4%{?dist}
+Version:      2.4.0
+Release:      1%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -21,7 +21,7 @@ Patch1001:    1001-Drop-Hyprland-entry-for-Wayland-window-managers.patch
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  pkgconfig(lxqt)
+BuildRequires:  cmake(lxqt)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6GuiPrivate)
@@ -34,8 +34,8 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libproc2)
-BuildRequires:  qtxdg-tools
-BuildRequires:  perl
+BuildRequires:  cmake(qtxdg-tools)
+BuildRequires:  perl-interpreter
 
 #Needs Updated
 #Requires:      lxqt-themes-fedora
@@ -84,10 +84,7 @@ This package provides translations for the lxqt-session package.
 
 %install
 %cmake_install
-for name in config-session hibernate lockscreen logout reboot shutdown suspend; do
-  desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
-done
+
 mkdir %{buildroot}%{_sysconfdir}/lxqt/
 cp %{buildroot}%{_datadir}/lxqt/lxqt.conf %{buildroot}%{_datadir}/lxqt/session.conf %{buildroot}%{_sysconfdir}/lxqt/
 %if 0%{?fedora}
@@ -99,6 +96,11 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %find_lang lxqt-config-session --with-qt
 %find_lang lxqt-leave --with-qt
 
+%check
+for i in %{buildroot}%{_datadir}/applications/*.desktop; do
+  desktop-file-validate "$i"
+done
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
 
 %files
 %dir %{_sysconfdir}/lxqt
@@ -137,6 +139,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 2.3.0-4
 - Rebuild (qt6)
 

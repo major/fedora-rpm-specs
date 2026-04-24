@@ -75,8 +75,8 @@
 %bcond_with          liburiparser
 %endif
 
-%global upver        8.5.5
-#global rcver        RC1
+%global upver        8.5.6
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -333,7 +333,7 @@ Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
 Provides: php-lexbor, php-lexbor%{?_isa}
 # See ext/lexbor/patches/README.md
-%global lexborver 2.5.0
+%global lexborver 2.7.0
 Provides: bundled(lexbor) = %{lexborver}
 Provides: php-mhash = %{version}, php-mhash%{?_isa} = %{version}
 Provides: php-iconv, php-iconv%{?_isa}
@@ -1663,6 +1663,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC1-1
+- update to 8.5.6RC1
+
 * Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 8.5.5-1
 - Update to 8.5.5 - http://www.php.net/releases/8_5_5.php
 

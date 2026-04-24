@@ -113,14 +113,6 @@ applications, the overall memory consumption is reduced as well.
 %package immodules
 Summary: Input methods for GTK+
 Requires: gtk3%{?_isa} = %{version}-%{release}
-# for im-cedilla.conf
-%if 0%{?rhel} > 9
-# No imsettings or gtk2, im-cedilla.conf not needed
-%elif 0%{?fedora} >= 38
-Requires: gtk-immodules-imsettings
-%else
-Requires: gtk2-immodules%{?_isa}
-%endif
 
 %description immodules
 The gtk3-immodules package contains standalone input methods that

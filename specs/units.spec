@@ -1,14 +1,16 @@
 Summary: A utility for converting amounts from one unit to another
 Name: units
 Version: 2.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://ftp.gnu.org/gnu/units/%{name}-%{version}.tar.gz
+Source1: units.tmpfiles.conf
 URL: https://www.gnu.org/software/units/units.html
 License: GPL-3.0-or-later
 
 Requires: less
 
 BuildRequires: bison
+BuildRequires: systemd-rpm-macros
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -39,13 +41,35 @@ well as conversions such as Fahrenheit to Celsius.
 %install
 %make_install
 
-# replace an absolute symlink by a relative symlink
-ln -fsv ../../..%{_sharedstatedir}/units/currency.units %{buildroot}%{_datadir}/units
+# Copy dynamic files to defaults directory as templates for tmpfiles.d
+mkdir -p %{buildroot}%{_datadir}/units/defaults
+for f in currency cpi metal_prices crypto; do
+  cp -p %{buildroot}%{_sharedstatedir}/units/${f}.units %{buildroot}%{_datadir}/units/defaults/
+done
+
+# Remove /var/lib/units from buildroot - now managed by tmpfiles.d
+rm -rf %{buildroot}%{_sharedstatedir}/units
+
+# Replace absolute symlinks by relative symlinks
+for f in currency cpi metal_prices crypto; do
+  ln -fsv ../../../var/lib/units/${f}.units %{buildroot}%{_datadir}/units/${f}.units
+done
+
+# Install tmpfiles.d configuration for Image Mode support
+install -m0644 -D %{SOURCE1} %{buildroot}%{_tmpfilesdir}/units.conf
 
 gzip %{buildroot}%{_infodir}/units.info
 
 # provide a man page for units_cur as a symlink to units.1
 ln -s units.1 %{buildroot}%{_mandir}/man1/units_cur.1
+
+%post
+%tmpfiles_create units.conf
+
+%postun
+if [ $1 -eq 0 ]; then
+  systemd-tmpfiles --purge %{_tmpfilesdir}/units.conf 2>/dev/null || :
+fi
 
 %check
 make check
@@ -55,11 +79,14 @@ make check
 %{_bindir}/units
 %{_bindir}/units_cur
 %{_datadir}/units
-%{_sharedstatedir}/units
+%{_tmpfilesdir}/units.conf
 %{_infodir}/*
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 21 2026 Jan Macku <jamacku@redhat.com> - 2.27-2
+- fix units compatibility with Image Mode
+
 * Wed Apr 08 2026 Jan Macku <jamacku@redhat.com> - 2.27-1
 - new upstream release
 

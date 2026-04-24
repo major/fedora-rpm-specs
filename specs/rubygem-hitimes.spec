@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A fast, high resolution timer library for recording performance metrics
 License: ISC
 URL: http://github.com/copiousfreetime/hitimes
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/copiousfreetime/hitimes.git && cd hitimes
 # git archive -v -o hitimes-3.0.0-spec.tar.gz v3.0.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
+# https://github.com/copiousfreetime/hitimes/pull/92
+# Fix must_raise usage with Minitest 6.0.5
+Patch0:  hitimes-pr92-fix-minitest-must_raise-usage.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
@@ -32,6 +35,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -68,6 +75,9 @@ popd
 %{gem_instdir}/hitimes.gemspec
 
 %changelog
+* Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-5
+- Backport upstream PR for Minitest 6.0.5 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

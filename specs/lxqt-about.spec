@@ -1,16 +1,16 @@
 Name:          lxqt-about
 Summary:       About application for LXQt desktop suite
-Version:       2.3.0
-Release:       3%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
+Version:       2.4.0
+Release:       1%{?dist}
 License:       Apache-2.0 and GPL-2.0-only and GPL-3.0-only and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-2.1-or-later and LGPL-3.0-only and MIT
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
-BuildRequires: perl
 BuildRequires: pkgconfig
+BuildRequires: perl-interpreter
 
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(KF6WindowSystem)
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Mar 27 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
 - Fix License: field for newer SPDX policy
 

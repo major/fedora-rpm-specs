@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        9.3.3
+Version:        9.3.4
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
@@ -7,7 +7,7 @@ URL:            https://github.com/kmscon/kmscon/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
-BuildRequires:  libtsm-devel >= 4.4.0
+BuildRequires:  libtsm-devel >= 4.5.0
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  pkg-config
@@ -27,10 +27,7 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
 
-# Fix agetty launch option
-Patch20: 0001-kmsconvt-fix-agetty-launch-option.patch
-# Fix trivial build issue on i686
-Patch21: 0001-unifont-fix-build-on-i686.patch
+Patch01: 0001-shl_lru-fix-build-error-on-i686.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -86,8 +83,8 @@ mod-gltex.so
 %systemd_preun kmsconvt@.service
 
 %postun
-%systemd_postun_with_reload kmscon.service
-%systemd_postun_with_reload kmsconvt@.service
+%systemd_postun kmscon.service
+%systemd_postun kmsconvt@.service
 
 %files
 %license COPYING

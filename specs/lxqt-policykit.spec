@@ -1,21 +1,22 @@
 Name:          lxqt-policykit
 Summary:       PolicyKit agent for LXQt desktop suite
-Version:       2.3.0
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: cmake(PolkitQt6-1)
 BuildRequires: pkgconfig(polkit-agent-1)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(lxqt)
+BuildRequires: cmake(lxqt)
 BuildRequires: desktop-file-utils
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 Provides: PolicyKit-authentication-agent = %{version}
 
@@ -43,11 +44,14 @@ sed -i 's|=lxqt-policykit-agent|=/usr/libexec/lxqt-policykit-agent|g' autostart/
 install -d %{buildroot}/%{_sysconfdir}/xdg/autostart
 %find_lang lxqt-policykit-agent --with-qt
 
+%check
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-agent.desktop
+
 %files
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_libexecdir}/lxqt-policykit-agent
-%{_sysconfdir}/xdg/autostart/lxqt-policykit-agent.desktop
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-policykit-agent.desktop
 %{_datadir}/lxqt/translations/%{name}-agent
 %{_mandir}/man1/lxqt-policykit*
 
@@ -57,6 +61,9 @@ install -d %{buildroot}/%{_sysconfdir}/xdg/autostart
 %dir %{_datadir}/lxqt/translations/lxqt-policykit-agent
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

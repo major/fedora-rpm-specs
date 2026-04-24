@@ -1,100 +1,64 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-# Enable python3 build by default
-%bcond_without python3
-# Disable python2 build by default
-%bcond_with python2
-%else
-%bcond_with python3
-%bcond_without python2
-%endif
-
-
-%global srcname docker
-
-Name:           python-%{srcname}
+Name:           python-docker
 Version:        7.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python library for the Docker Engine API
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
-URL:            https://pypi.org/project/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/docker/docker-py
+Source:         %{pypi_source docker}
 
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 It lets you do anything the docker command does, but from within Python apps –
-run containers, manage containers, manage Swarms, etc.
+run containers, manage containers, manage Swarms, etc.}
 
-%if %{with python2}
-%package -n python2-%{srcname}
-Summary:        A Python library for the Docker Engine API
-%{?python_provide:%python_provide python2-%{srcname}}
 
-BuildRequires:  python2-devel
-BuildRequires:  python%{?fedora:2}-setuptools
-Obsoletes:      python-docker-py < 1:2
+%description %_description
 
-%description -n python2-%{srcname}
-It lets you do anything the docker command does, but from within Python apps –
-run containers, manage containers, manage Swarms, etc.
-%endif # with python2
 
-%if %{with python3}
-%package -n python3-%{srcname}
-Summary:        A Python library for the Docker Engine API
-%{?python_provide:%python_provide python3-%{srcname}}
-
+%package -n python3-docker
+Summary:        %{summary}
 BuildRequires:  python3-devel
-Obsoletes:      python3-docker-py < 1:2
 
-%description -n python3-%{srcname}
-It lets you do anything the docker command does, but from within Python apps –
-run containers, manage containers, manage Swarms, etc.
-%endif # with_python3
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{srcname} -i %{python3_sitelib}/*.dist-info ssh}
+%description -n python3-docker %_description
 
-%generate_buildrequires
-%pyproject_buildrequires
+
+%pyproject_extras_subpkg -n python3-docker ssh
+
 
 %prep
-%autosetup -n %{srcname}-%{version}
-rm -fr docker.egg-info
+%autosetup -n docker-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x ssh
+
 
 %build
-%if %{with python2}
-%py2_build
-%endif # with python2
-
-%if %{with python3}
 %pyproject_wheel
-%endif # with_python3
+
 
 %install
-%if %{with python2}
-%py2_install
-%endif # with python2
-
-%if %{with python3}
 %pyproject_install
-%pyproject_save_files docker
-%endif # with_python3
+%pyproject_save_files -l docker
 
-%if %{with python2}
-%files -n python2-%{srcname}
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/*
-%endif # with python2
 
-%if %{with python3}
-%files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
+%check
+# skip modules that are only used on windows (and would need pywin32 dependency)
+%pyproject_check_import -e 'docker.transport.npipe*'
+
+
+%files -n python3-docker -f %{pyproject_files}
 %doc README.md
-%endif # with_python3
+
 
 %changelog
+* Wed Apr 22 2026 Carl George <carlwgeorge@fedoraproject.org> - 7.1.0-11
+- Remove duplicate license file
+- Remove old obsoletes on docker-py
+- Run import check
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

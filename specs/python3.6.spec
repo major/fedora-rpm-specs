@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 56%{?dist}
+Release: 57%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -926,6 +926,22 @@ Patch471: 00471-cve-2025-12084.patch
 #
 # Backported from Python 3.10: ad4d5ba32af4d80b0dfa2ba9d8203bfb219e60a5
 Patch478: 00478-cve-2026-4519.patch
+
+# 00480 # 2fdcb1ee7535bec67f807eb9a1ea1477cccbb86d
+# CVE-2026-4786
+#
+# Fix webbrowser `%%action` substitution bypass of dash-prefix check
+#
+# Backported from Python 3.10
+Patch480: 00480-cve-2026-4786.patch
+
+# 00482 # 51e25e8a804257b707e2021655037d07dcfa9cd6
+# CVE-2026-6100
+#
+# Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
+#
+# Backported from Python 3.10
+Patch482: 00482-cve-2026-6100.patch
 
 # (New patches go here ^^^)
 #
@@ -2228,6 +2244,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Apr 17 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-57
+- Security fixes for CVE-2026-4786, CVE-2026-6100
+Resolves: rhbz#2458018, rhbz#2458226
+
 * Sat Apr 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-56
 - Explicitly build with OpenSSL 3
 

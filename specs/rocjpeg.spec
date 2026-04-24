@@ -20,6 +20,9 @@
 # THE SOFTWARE.
 #
 
+%global pkg_library_name rocjpeg
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global upstreamname rocjpeg
@@ -47,10 +50,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global rocjpeg_name librocjpeg1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global rocjpeg_name rocjpeg%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain rocm
@@ -79,12 +83,12 @@
 %global cmake_generator %{nil}
 %endif
 
-Name:           %{rocjpeg_name}
+Name:           rocjpeg%{pkg_suffix}
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
@@ -150,13 +154,18 @@ the rocJPEG API, you can access the JPEG decoding features available
 on your GPU.
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{pkg_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary: The development package for %{name}
-Requires:     %{name}%{?_isa} = %{version}-%{release}
+Requires:     %{pkg_name}%{?_isa} = %{version}-%{release}
 Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -227,17 +236,20 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %ctest
 %endif
 
-%files
+%files -n %{pkg_name}
 %license LICENSE
-%{pkg_prefix}/%{pkg_libdir}/librocjpeg.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
-%{pkg_prefix}/%{pkg_libdir}/librocjpeg.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocjpeg/
 %{pkg_prefix}/include/rocjpeg/
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package names
+
 * Mon Apr 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

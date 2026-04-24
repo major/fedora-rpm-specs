@@ -1,6 +1,6 @@
 Name:           qps
-Version:        2.12.0
-Release:        2%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Qt process viewer and manager
 
 License:        GPL-2.0-or-later
@@ -16,8 +16,8 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(lxqt)
-BuildRequires:  perl
+BuildRequires:  cmake(lxqt)
+BuildRequires:  perl-interpreter
 
 Requires:       hicolor-icon-theme
 
@@ -67,12 +67,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.lxqt.Qps.a
 %doc CHANGELOG README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_metainfodir}/org.lxqt.Qps.appdata.xml
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/translations
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+
 %autochangelog
 

@@ -1,7 +1,7 @@
 %global	gem_name	yard
 
 Name:		rubygem-%{gem_name}
-Version:	0.9.40
+Version:	0.9.43
 Release:	1%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
@@ -112,6 +112,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.43-1
+- 0.9.43
+
 * Mon Apr 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.40-1
 - 0.9.40
 

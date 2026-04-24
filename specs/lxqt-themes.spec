@@ -1,6 +1,6 @@
 Name:           lxqt-themes
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        LXQt standard themes
 
 License:        LGPL-2.0-or-later
@@ -20,7 +20,7 @@ Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{ver
 BuildArch:      noarch
 
 BuildRequires:  cmake(lxqt2-build-tools)
-BuildRequires:  pkgconfig(lxqt)
+BuildRequires:  cmake(lxqt)
 BuildRequires:  perl
 
 Requires:       hicolor-icon-theme
@@ -49,25 +49,25 @@ Requires: fedora-logos
 
 %prep
 %autosetup
-#%%setup -b 1
+%dnl %setup -b 1
 
 %build
 %cmake
 %cmake_build
-#pushd %%{_builddir}/lxqt-themes-fedora-1.0
-#tar Jxf %%{SOURCE1}
-#%%cmake
-#%%cmake_build
-#popd
+%dnl pushd %{_builddir}/lxqt-themes-fedora-1.0
+%dnl tar Jxf %{SOURCE1}
+%dnl %cmake
+%dnl %cmake_build
+%dnl popd
 
 %install
 %cmake_install
-#pushd %%{_builddir}/lxqt-themes-fedora-1.0
-#%%cmake_install
-#popd
-# --- System Center has broken icons, is that because of this?
-#mkdir -p %{buildroot}%{_sysconfdir}/xdg/openbox/
-#install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
+%dnl pushd %{_builddir}/lxqt-themes-fedora-1.0
+%dnl %cmake_install
+%dnl popd
+%dnl --- System Center has broken icons, is that because of this?
+%dnl mkdir -p %{buildroot}%{_sysconfdir}/xdg/openbox/
+%dnl install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 
 %files
 %license COPYING
@@ -80,11 +80,14 @@ Requires: fedora-logos
 %{_datadir}/lxqt/wallpapers
 
 %files fedora
-#%%{_datadir}/sddm/themes/02-lxqt-fedora/
-#%%{_datadir}/lxqt/themes/fedora-lxqt
-#%%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
+%dnl %{_datadir}/sddm/themes/02-lxqt-fedora/
+%dnl %{_datadir}/lxqt/themes/fedora-lxqt
+%dnl %{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

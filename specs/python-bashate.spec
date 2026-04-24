@@ -9,8 +9,13 @@ Summary:        A pep8 equivalent for bash scripts
 License:        Apache-2.0
 URL:            https://pypi.org/project/%{pypi_name}/
 Source0:        %{pypi_source}
+# https://review.opendev.org/c/openstack/bashate/+/985796
+Patch0:         remove_reno_br.patch
 
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  git-core
 
 %description
 It is a pep8 equivalent for bash scripts.
@@ -21,17 +26,6 @@ and will continue to evolve over time.
 
 %package -n python3-%{pypi_name}
 Summary:        A pep8 equivalent for bash scripts
-
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(fixtures)
-BuildRequires:  python3dist(pbr)
-# deps for check
-BuildRequires:  python3dist(autopage)
-BuildRequires:  python3dist(stestr)
-
-Requires:       python3dist(babel)
-Requires:       python3dist(pbr)
-Requires:       python3dist(setuptools)
 
 
 %description -n python3-%{pypi_name}
@@ -45,48 +39,54 @@ and will continue to evolve over time.
 %package -n python-%{pypi_name}-doc
 Summary: Documentation for bashate module
 
-BuildRequires:  python3dist(openstackdocstheme)
-BuildRequires:  python3dist(reno)
-BuildRequires:  python3dist(sphinx)
-
 
 %description -n python-%{pypi_name}-doc
 Documentation for the bashate module
 
+
 %prep
 %autosetup -S git -n %{pypi_name}-%{version}
 
-rm -rf {test-,}requirements.txt
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^hacking[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^discover$/d" \
+    test-requirements.txt doc/requirements.txt
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -t -e %{default_toxenv},docs
+
 
 %build
 #remove shebang
 sed -i -e '1{\@^#!/usr/bin/env python@d}' bashate/bashate.py
 # doc
-sphinx-build-3 -b html -d build/doctrees  doc/source doc/build/html
+%tox -e docs
 rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %pyproject_wheel
 
+
 %install
 %pyproject_install
 
-%check
-stestr --test-path ./bashate/tests run
+%pyproject_save_files -l bashate
 
-%files -n python3-%{pypi_name}
-%doc README.rst
-%license LICENSE
+
+%check
+%tox -e %{default_toxenv}
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %{_bindir}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}.dist-info
-%exclude %{python3_sitelib}/%{pypi_name}/tests
+
 
 %files -n python-%{pypi_name}-doc
 %doc doc/build/html
 %license LICENSE
+
 
 %changelog
 %autochangelog

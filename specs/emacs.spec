@@ -62,6 +62,11 @@ Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2420305
 Patch:         0001-Support-Tree-sitter-version-0.26-and-later.patch
 
+# CVE-2026-6861
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80851
+# https://bugzilla.redhat.com/show_bug.cgi?id=2460586
+Patch:         0001-src-image.c-svg_load_image-Fix-off-by-one-mistake-bu.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

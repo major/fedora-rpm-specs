@@ -1,26 +1,33 @@
 # Fedora spec file for php-pecl-memcache
 #
-# SPDX-FileCopyrightText:  Copyright 2007-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2007-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%bcond_without     tests
+%bcond_without      tests
 
-%global pecl_name  memcache
-%global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
+%global pecl_name   memcache
+%global ini_name    40-%{pecl_name}.ini
+%global pie_vend    websupport-sk
+%global pie_proj    pecl-%{pecl_name}
 
-Summary:      Extension to work with the Memcached caching daemon
+# Github forge
+%global gh_vend     %{pie_vend}
+%global gh_proj     %{pie_proj}
+%global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
+%global tag         %{version}
+
 Name:         php-pecl-memcache
-Version:      8.2
-Release:      13%{?dist}
-Source0:      https://pecl.php.net/get/%{sources}.tgz
+Summary:      Extension to work with the Memcached caching daemon
 License:      PHP-3.01
-Group:        Development/Languages
-URL:          https://pecl.php.net/package/%{pecl_name}
+Version:      8.2
+Release:      14%{?dist}
+%forgemeta
+URL:          %{forgeurl}
+Source0:      %{forgesource}
 
 Patch0:       118.patch
 Patch1:       120.patch
@@ -30,7 +37,6 @@ ExcludeArch:   %{ix86}
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel >= 8.0
-BuildRequires: php-pear
 BuildRequires: zlib-devel
 %if %{with tests}
 BuildRequires: memcached
@@ -39,10 +45,15 @@ BuildRequires: memcached
 Requires:     php(zend-abi) = %{php_zend_api}
 Requires:     php(api) = %{php_core_api}
 
+# Extension
 Provides:     php-pecl(%{pecl_name}) = %{version}
 Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PECL
 Provides:     php-%{pecl_name} = %{version}
 Provides:     php-%{pecl_name}%{?_isa} = %{version}
+# PIE
+Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:     php-%{pie_vend}-%{pie_proj} = %{version}
 
 
 %description
@@ -57,14 +68,8 @@ Memcache can be used as a PHP session handler.
 
 
 %prep 
-%setup -c -q
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-pushd %{sources}
 %patch -P0 -p1 -b .pr118
 %patch -P1 -p1 -b .pr120
 
@@ -74,7 +79,6 @@ if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Update the pdover macro and rebuild.
    exit 1
 fi
-popd
 
 cat >%{ini_name} << 'EOF'
 ; ----- Enable %{pecl_name} extension module
@@ -131,7 +135,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -140,21 +143,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Drop in the bit of configuration
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install XML package description
-install -Dpm 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-: Install the Documentation
-for i in $(grep '<file .* role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %check
@@ -164,7 +157,6 @@ done
     -m | grep %{pecl_name}
 
 %if %{with tests}
-cd %{sources}
 : ignore test with erratic results
 rm tests/040.phpt
 rm tests/056.phpt
@@ -197,14 +189,20 @@ exit $ret
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc CREDITS
+%doc README
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 8.2-14
+- add pie virtual provides (not yet published)
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

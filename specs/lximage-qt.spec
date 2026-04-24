@@ -1,6 +1,6 @@
 Name:           lximage-qt
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        The image viewer and screenshot tool for LXQt
 License:        GPL-2.0-or-later
 URL:            https://lxqt-project.org/
@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  desktop-file-utils
-BuildRequires:  perl
+BuildRequires:  perl-interpreter
 
 # we place additional files in icons/hicolor
 Requires:       hicolor-icon-theme
@@ -45,11 +45,13 @@ This package provides translations for the lximage-qt package.
 
 %install
 %cmake_install
-for desktop in %{buildroot}/%{_datadir}/applications/*.desktop; do
-    # Exclude category as been Service
-    desktop-file-edit --remove-category=LXQt --remove-only-show-in=LXQt --add-only-show-in=X-LXQt ${desktop}
-done
+
 %find_lang lximage-qt --with-qt
+
+%check
+for i in %{buildroot}%{_datadir}/applications/*.desktop; do
+  desktop-file-validate "$i"
+done
 
 %files
 %license COPYING
@@ -66,6 +68,9 @@ done
 %dir %{_datadir}/lximage-qt/translations
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

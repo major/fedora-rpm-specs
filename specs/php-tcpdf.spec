@@ -6,23 +6,20 @@
 #
 # Please, preserve the changelog entries
 #
-# see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    e1e2ade18e574e963473f53271591edd8c0033ec
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2026-03-03
 %global gh_project   TCPDF
 %global real_name    tcpdf
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
+%global tag          %{version}
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.11.2
-Release:        1%{?dist}
-
-URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
-
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
+Version:        6.11.3
+Release:        1%{?dist}
+%forgemeta
+URL:            https://tcpdf.org/
+Source0:        %{forgesource}
 # Disable opcache cahing for font metadata which may consume up to 90MB
 Source1:        %{name}.blacklist
 # See https://github.com/tecnickcom/TCPDF/commit/744c9ffa3be021782476c39cf97e242dbe504f7a#commitcomment-151792556
@@ -207,7 +204,7 @@ This package allow to use system GNU FreeFont serif font faces in TCPDF.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%forgesetup
 
 #: Fix version
 #sed -e '/tcpdf_version/s/6.6.0/%{version}/' -i include/tcpdf_static.php
@@ -331,6 +328,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 6.11.3-1
+- update to 6.11.3
+
 * Tue Mar  3 2026 Remi Collet <remi@remirepo.net> - 6.11.2-1
 - update to 6.11.2
 - rename fonts subpackages to respect guidelines #2372651

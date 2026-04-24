@@ -4,7 +4,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        3.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Commandline option parser for Ruby
 
 License:        MIT
@@ -12,6 +12,15 @@ URL:            https://rubygems.org/gems/optimist
 Source:         https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # https://github.com/ManageIQ/optimist/pull/140
 Patch0:         optimist-pr140-minitest-5_20-compat.patch
+# https://github.com/ManageIQ/optimist/pull/154
+# https://github.com/ManageIQ/optimist/pull/160
+# Minitest 6.0.5 compatibility with assert_raises with matching test
+# on error messages are fixed with the above 2 commits
+# And the error messages are fixed in:
+# https://github.com/ManageIQ/optimist/pull/156
+# All of these are in 3.2.0.
+# Backporting manually
+Patch1:         optimist-3.0.1-prs-minitest-6_0_5-compat.patch
 
 BuildRequires:  rubygems-devel
 %if %{with check}
@@ -37,6 +46,7 @@ Requires:       %{name} = %{version}-%{release}
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 
 %build
@@ -76,6 +86,9 @@ ruby -Ilib:test -e '$0="workaround"; Dir.glob "./test/**/*_test.rb", &method(:re
 
 
 %changelog
+* Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.1-10
+- Backport upstream change to support Minitest 6.0.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

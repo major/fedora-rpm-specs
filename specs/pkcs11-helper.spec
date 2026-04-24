@@ -1,6 +1,6 @@
 Name:           pkcs11-helper
 Version:        1.30.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for using PKCS#11 providers
 
 License:        GPL-2.0-only OR BSD-3-Clause
@@ -8,6 +8,7 @@ URL:            http://www.opensc-project.org/opensc/wiki/pkcs11-helper
 Source0:        https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-%{version}/pkcs11-helper-%{version}.tar.bz2
 # https://github.com/OpenSC/pkcs11-helper/pull/4
 Patch2:         pkcs11-helper-rfc7512.patch
+Patch3:         0001-Use-ASN1_TIME_to_tm-for-certificate-expiration.patch
 
 BuildRequires:  gcc
 BuildRequires:  doxygen graphviz
@@ -71,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Mon Apr 20 2026 Simo Sorce <simo@redhat.com> - 1.30.0-6
+- OpenSSL 4 build fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

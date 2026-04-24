@@ -1,6 +1,6 @@
 Name:          libfm-qt
-Version:       2.3.1
-Release:       3%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -10,6 +10,8 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(lxqt-menu-data)
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xcb)
@@ -17,11 +19,9 @@ BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0)
 BuildRequires: pkgconfig(libfm)
-BuildRequires: pkgconfig(lxqt)
 BuildRequires: pkgconfig(libmenu-cache)
 BuildRequires: pkgconfig(libexif)
-BuildRequires: lxqt-menu-data
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 BuildRequires: qt6-qtbase-private-devel
 
@@ -83,6 +83,9 @@ This package provides translations for the libfm-qt package.
 %dir %{_datadir}/libfm-qt6/translations
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 2.3.1-3
 - Rebuild (qt6)
 

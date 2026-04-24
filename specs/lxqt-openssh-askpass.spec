@@ -1,15 +1,16 @@
 Name:          lxqt-openssh-askpass
 Summary:       Askpass openssh transition dialog for LXQt desktop suite
-Version:       2.3.0
-Release:       3%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only and LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       lxqt-openssh-askpass.sh
 Source2:       lxqt-openssh-askpass.csh
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt2-build-tools)
@@ -25,6 +26,8 @@ BuildRequires: pkgconfig(glib-2.0)
 %package l10n
 Summary:        Translations for lxqt-openssh-askpass
 Requires:       lxqt-openssh-askpass
+BuildArch:      noarch
+
 %description l10n
 This package provides translations for the lxqt-openssh-askpass package.
 
@@ -59,6 +62,9 @@ install -p -m0644 %SOURCE1 %SOURCE2 %{buildroot}%{_sysconfdir}/profile.d/
 %dir %{_datadir}/lxqt/translations/lxqt-openssh-askpass
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Mar 27 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
 - Updated License: field to comply with newer SPDX requirements
 

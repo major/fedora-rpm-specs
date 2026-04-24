@@ -1,10 +1,11 @@
 Name:           lxqt-admin
 Summary:        LXQt system administration tool
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 License:        LGPL-2.1-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
@@ -13,7 +14,7 @@ BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  pkgconfig(polkit-qt6-1)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  perl
+BuildRequires:  perl-interpreter
 
 Requires:       polkit
 
@@ -40,15 +41,14 @@ This package provides translations for the lxqt-admin package.
 
 %install
 %cmake_install
-for admfile in user time; do
-desktop-file-edit \
-    --remove-category=LXQt --add-category=X-LXQt \
-    --remove-category=Help --add-category=X-Help \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-    %{buildroot}%{_datadir}/applications/%{name}-${admfile}.desktop
-done
+
 %find_lang lxqt-admin-time --with-qt
 %find_lang lxqt-admin-user --with-qt
+
+%check
+for i in %{buildroot}%{_datadir}/applications/*.desktop; do
+  desktop-file-validate "$i"
+done
 
 %files
 %license COPYING
@@ -68,6 +68,9 @@ done
 %{_datadir}/lxqt/translations/lxqt-admin-time/lxqt-admin-time_ast.qm
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

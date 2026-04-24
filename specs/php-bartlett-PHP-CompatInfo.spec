@@ -9,24 +9,21 @@
 
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    56d3215bcf8acb2e822fc9ce21fa934cd6129637
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-11-23
-%global gh_owner     llaville
-%global gh_project   php-compatinfo
+%global gh_owner          llaville
+%global gh_project        php-compatinfo
 
-%global upstream_version  7.2.5
+%global upstream_version  7.2.6
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
 License:        BSD-3-Clause and MIT
 URL:            https://github.com/llaville/php-compatinfo
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 # Script for fedora-review
 Source1:        fedora-review-check
 # Generate the archive will all dependencies
@@ -61,7 +58,7 @@ show content of dictionary references.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 %patch -P0 -p1 -b .rpm
 rm bin/*rpm
 
@@ -120,6 +117,10 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 7.2.6-1
+- update to 7.2.6
+- update bundled bartlett/php-compatinfo-db to 6.31.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

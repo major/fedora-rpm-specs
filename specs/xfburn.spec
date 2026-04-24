@@ -1,9 +1,9 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=473679
 
-%global majorversion 0.7
+%global majorversion 0.8
 
 Name:           xfburn
-Version:        0.7.2
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Simple CD burning tool for Xfce
 
@@ -12,21 +12,21 @@ URL:            https://docs.xfce.org/apps/xfburn/start
 #VCS: git:https://gitlab.xfce.org/apps/xfburn.git
 Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  gcc
-BuildRequires:  libxfce4ui-devel >= 4.12.0
-BuildRequires:  exo-devel
-BuildRequires:  libburn-devel >= 0.4.2
-BuildRequires:  libisofs-devel >= 0.6.2
-BuildRequires:  dbus-glib-devel >= 0.34 
-BuildRequires:  gstreamer1-devel >= 0.10.2
+BuildRequires:  libxfce4ui-devel >= 4.18.0
+BuildRequires:  exo-devel >= 4.18.0
+BuildRequires:  libburn-devel
+BuildRequires:  libisofs-devel
+BuildRequires:  gstreamer1-devel
 BuildRequires:  gstreamer1-plugins-base-devel
-BuildRequires:  gtk2-devel >= 2.10.0
-BuildRequires:  desktop-file-utils 
+BuildRequires:  gtk3-devel
+BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  libgudev1-devel
 BuildRequires:  libappstream-glib
+BuildRequires:  docbook-style-xsl
 Requires:       hicolor-icon-theme
 
 %description
@@ -39,13 +39,15 @@ compositions of data to either CD or DVD.
 %autosetup -p1
 
 
+%conf
+%meson
+
 %build
-%configure
-%make_build
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name}
 desktop-file-install --vendor ""                            \

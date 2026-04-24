@@ -227,7 +227,8 @@ end
 %endif
 
 %if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build} && %{with snapshot_build}
-%bcond_without libclc
+# TODO(kkleine): Re-enable once build failures are fixed.
+%bcond_with libclc
 %else
 %bcond_with libclc
 %endif

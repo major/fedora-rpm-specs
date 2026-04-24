@@ -5,12 +5,14 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2.sig
 Source2: https://gnupg.org/signature_key.asc
+Source3: gnupg2.sh
+Source4: gnupg2.csh
 # initialize small amount of secmem for list of algorithms in help
 # (#598847) (necessary in the FIPS mode of libgcrypt)
 Patch1:  gnupg-2.4.7-secmem.patch
@@ -239,6 +241,7 @@ package contains the GnuPG Web Key Service client and server.
 %patch 35 -p1 -b .large-rsa
 
 %patch 40 -p1 -b .coverity
+%patch 45 -p1 -b .cert-bundle
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -272,8 +275,7 @@ mkdir -p $HOME/.gnupg
 mkdir -p %{buildroot}%{_sysconfdir}/gnupg
 touch %{buildroot}%{_sysconfdir}/gnupg/gpgconf.conf
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
-echo "export GPG_TTY=\$(tty)" > %{buildroot}%{_sysconfdir}/profile.d/gnupg2.sh
-echo "setenv GPG_TTY \`tty\`" > %{buildroot}%{_sysconfdir}/profile.d/gnupg2.csh
+install -p %{SOURCE3} %{SOURCE4} %{buildroot}%{_sysconfdir}/profile.d
 
 # more docs
 install -m644 -p AUTHORS NEWS THANKS TODO \
@@ -434,6 +436,9 @@ make -k check
 
 
 %changelog
+* Wed Apr 22 2026 Jakub Jelen <jjelen@redhat.com> - 2.4.9-7
+- Make the profile scripts more robust (RHEL-166369)
+
 * Mon Apr 20 2026 Jakub Jelen <jjelen@redhat.com> - 2.4.9-6
 - Fix path to keyboxd service (#2458494)
 

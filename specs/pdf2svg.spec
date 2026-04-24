@@ -1,18 +1,16 @@
 Name:           pdf2svg
-Version:        0.2.3
-Release:        25%{?dist}
+Version:        0.2.4
+Release:        1%{?dist}
 Summary:        Small tool to convert PDF files into SVG
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.cityinthesky.co.uk/opensource/pdf2svg/
-Source0:        https://github.com/db9052/pdf2svg/archive/v%{version}.tar.gz
+Source0:        https://github.com/dawbarton/pdf2svg/archive/v%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  poppler-glib-devel
 BuildRequires:  cairo-devel
-BuildRequires:  gtk2-devel
 
 %description
 A small tool to convert PDF files into SVG using poppler and cairo.
@@ -32,11 +30,16 @@ make %{?_smp_mflags}
 
 
 %files
-%doc COPYING AUTHORS ChangeLog
+%doc COPYING AUTHORS ChangeLog README.md
 %{_bindir}/pdf2svg
 
 
 %changelog
+* Wed Apr 22 2026 Ben Boeckel <fedora@me.benboeckel.net> - 0.2.4-1
+- Update to 0.2.4
+- Remove unnecessary dependency on gtk2-devel
+- Verify license update
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

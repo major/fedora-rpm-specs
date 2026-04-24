@@ -1,36 +1,30 @@
 # remirepo/fedora spec file for php-pear-CAS
 #
-# Copyright (c) 2010-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2010-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    c129708154852656aabb13d8606cd5b12dbbabac
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+
 %global gh_owner     apereo
 %global gh_project   phpCAS
-
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
+%global tag          %{version}
 
 Name:           php-pear-CAS
-Version:        1.6.1
-Release:        9%{?dist}
 Summary:        Central Authentication Service client library in php
-
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
+Version:        1.6.2
+Release:        1%{?dist}
+%forgemeta
 URL:            https://wiki.jasig.org/display/CASC/phpCAS
-
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-fedora-autoloader-devel
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
 BuildRequires: (php-composer(psr/log) >= 1.0.0 with php-composer(psr/log) < 4)
-%else
-BuildRequires:  php-PsrLog
-%endif
 # only for pear macros
 BuildRequires:  php-pear
 # for %%check
@@ -39,17 +33,8 @@ BuildRequires:  php-cli
 Requires:       php(language) >= 7.1
 Requires:       php-curl
 Requires:       php-dom
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
 Requires:      (php-composer(psr/log) >= 1.0.0 with php-composer(psr/log) < 4)
-%else
-Requires:       php-PsrLog
-%endif
-Requires:       php-date
-Requires:       php-hash
-Requires:       php-pcre
 Requires:       php-pdo
-Requires:       php-session
-Requires:       php-spl
 # Optional: php-imap (when use Proxied Imap)
 Requires:       php-composer(fedora/autoloader)
 
@@ -67,7 +52,7 @@ Autoloader: %{pear_phpdir}/CAS/Autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%forgesetup
 
 
 
@@ -112,7 +97,6 @@ echo "Ok\n";
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc composer.json
 %doc NOTICE *.md
@@ -121,6 +105,10 @@ echo "Ok\n";
 
 
 %changelog
+* Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 1.6.2-1
+- update to 1.6.2
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

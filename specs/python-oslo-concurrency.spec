@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global with_doc 1
 
@@ -15,7 +15,7 @@ external processes.}
 Tests for the Oslo concurrency library.}
 
 Name:           python-oslo-concurrency
-Version:        7.4.0
+Version:        7.4.1
 Release:        %autorelease
 Summary:        OpenStack Oslo concurrency library
 

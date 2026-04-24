@@ -1,25 +1,27 @@
 Name:          lxqt-runner
 Summary:       Application runner agent for LXQt desktop suite
-Version:       2.3.0
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Xml)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(lxqt)
-BuildRequires: pkgconfig(lxqt-globalkeys)
-BuildRequires: pkgconfig(lxqt-globalkeys-ui)
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(lxqt-globalkeys)
+BuildRequires: cmake(lxqt-globalkeys-ui)
 BuildRequires: cmake(LayerShellQt)
 BuildRequires: pkgconfig(libmenu-cache)
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(muparser)
-BuildRequires: perl
+BuildRequires: cmake(muparser)
+BuildRequires: perl-interpreter
 
 
 %description
@@ -45,9 +47,12 @@ This package provides translations for the lxqt-runner package.
 
 %find_lang lxqt-runner --with-qt
 
+%check
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
+
 %files
 %{_bindir}/lxqt-runner
-%{_sysconfdir}/xdg/autostart/lxqt-runner.desktop
+%config(noreplace)%{_sysconfdir}/xdg/autostart/lxqt-runner.desktop
 %{_mandir}/man1/%{name}*
 
 %files l10n -f lxqt-runner.lang
@@ -56,6 +61,9 @@ This package provides translations for the lxqt-runner package.
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

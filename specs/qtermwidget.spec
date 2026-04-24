@@ -1,16 +1,17 @@
 Name:		qtermwidget
-Version:	2.3.0
-Release:	2%{?dist}
+Version:	2.4.0
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 Summary:	Qt6 terminal widget
-URL:		https://github.com/lxqt/%{name}/
-Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:      https://github.com/lxqt/%{name}/
+Source0:  https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(lxqt)
-BuildRequires:	pkgconfig(Qt6Widgets)
+BuildRequires:  cmake(lxqt)
+BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  lxqt-build-tools
+BuildRequires:  cmake(lxqt2-build-tools)
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -82,6 +83,9 @@ EOF
 %dir %{_datadir}/qtermwidget6/translations
 
 %changelog
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Upgrade to 2.4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

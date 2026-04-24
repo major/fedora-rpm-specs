@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc0.260421gb4e07588e743c.3
+%define pkgrelease 0.rc0.260422g6596a02b2078.4
 %define kversion 7
-%define tarfile_release 7.0-12231-gb4e07588e743c
+%define tarfile_release 7.0-12635-g6596a02b2078
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260421gb4e07588e743c.3%{?buildid}%{?dist}
+%define specrelease 0.rc0.260422g6596a02b2078.4%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4835,12 +4835,12 @@ fi\
 #
 #
 %changelog
-* Tue Apr 21 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc0.260421gb4e07588e743c.3]
-- Linux v7.1.0-0.rc0.260421gb4e07588e743c
-
-* Tue Apr 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.b4e07588e743.3]
+* Wed Apr 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.6596a02b2078.4]
 - add man-page for rv-mon-stall (Thorsten Leemhuis)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Wed Apr 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.6596a02b2078.3]
+- Linux v7.1.0-0.rc0.6596a02b2078
 
 * Tue Apr 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.b4e07588e743.2]
 - Trim changelog and reset RHEL_RELEASE for 7.1 (Justin M. Forbes)

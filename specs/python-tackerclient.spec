@@ -80,10 +80,6 @@ This package contains the documentation for tacker client.
 # Fix rpmlint warning for CRLF line termination
 sed -i 's/\r$//' ./doc/source/cli/vnf_package_commands.rst ./doc/source/cli/commands.rst
 
-# Use assertCountEqual instead of assertItemsEqual until
-# https://review.opendev.org/c/openstack/python-tackerclient/+/791095 is in next tag release
-sed -i 's/assertItemsEqual/assertCountEqual/g' tackerclient/tests/unit/osc/v1/test_vnflcm_op_occs.py
-
 # Skip flaky test test_take_action_with_filter
 sed -i '/^import sys/a import unittest' tackerclient/tests/unit/osc/v1/test_vnflcm_op_occs.py
 sed -i '/test_take_action_with_filter/i \    @unittest.skip(reason="Skip flaky test until its fixed upstream lp#1919350")' tackerclient/tests/unit/osc/v1/test_vnflcm_op_occs.py
@@ -94,8 +90,11 @@ sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
     -e "/^hacking[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
     test-requirements.txt doc/requirements.txt
 
+# https://review.opendev.org/c/openstack/python-tackerclient/+/985793
+sed -i "s/'reno.sphinxext',//" doc/source/conf.py
 
 %generate_buildrequires
 %if 0%{?with_doc}

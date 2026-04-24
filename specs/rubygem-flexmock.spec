@@ -3,17 +3,23 @@
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
 Version:	3.0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created fron Source2
 Source2:	flexmock-create-missing-test-files.sh
+# https://github.com/doudou/flexmock/pull/38/changes/e38c5d27a300cc6a7ee458c76dae6e0dcb2db640
 # make testsuite compatible for ruby34 formatting change
-Patch0:	flexmock-3.0.2-testsuite-ruby34-formatting.patch
+Patch0:	flexmock-pr38-3.0.2-testsuite-ruby34-formatting.patch
+# https://github.com/doudou/flexmock/pull/38/changes/ead3616ca6af80144b1f884c2eb9d0fbf9e09dbc
 # Remove warnings for string literal being frozen in the future
-Patch1:	flexmock-3.0.2-ruby34-string-literal-frozen.patch
+Patch1:	flexmock-pr38-3.0.2-ruby34-string-literal-frozen.patch
+# https://github.com/doudou/flexmock/pull/40
+# Fix assert_raises usage with Minitest 6.0.5
+Patch2:	flexmock-pr40-fix-minitest-assert_raises-usage.patch
+
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -43,6 +49,7 @@ mv flexmock/test .
 
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 find . -name \*.rb | xargs sed -i -e '\@/usr/bin/env@d'
 find . -name \*.gem -or -name \*.rb -or -name \*.rdoc | xargs chmod 0644
@@ -101,6 +108,10 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-3
+- Use upstream PR for patches
+- Backport upstream PR for Minitest 6.0.5 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

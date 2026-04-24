@@ -1,18 +1,17 @@
 Summary: A clock for the X Window System
 Name: xdaliclock
-Version: 2.43
-Release: 24%{?dist}
+Version: 2.49
+Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://www.jwz.org/xdaliclock/
 Source0: http://www.jwz.org/xdaliclock/xdaliclock-%{version}.tar.gz
 Source1: xdaliclock.desktop
-Patch0: xdaliclock-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: desktop-file-utils
 BuildRequires: libICE-devel, libXmu-devel, libSM-devel, xorg-x11-proto-devel
-BuildRequires: libXext-devel, libXaw-devel, libXt-devel
+BuildRequires: libXext-devel, libXaw-devel, libXt-devel gtk3-devel
 BuildRequires: redhat-rpm-config
 
 %description
@@ -28,6 +27,8 @@ for window transparency.
 %build
 # easier than patching configure to read those files from own directory
 cp /usr/lib/rpm/redhat/config.{guess,sub} .
+# workaround for it aborting on unrecognised --disable-dependency-tracking
+sed -i "s/^.*exit 2$/echo not aborting/g" X11/configure
 
 cd X11
 %configure
@@ -39,11 +40,15 @@ cd X11
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/X11/app-defaults
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
+
+install -p -m 0644 org.jwz.xdaliclock.gschema.xml \
+         $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/
 
 install -p -m 0755 xdaliclock $RPM_BUILD_ROOT%{_bindir}
 install -p -m 0644 xdaliclock.man \
 	$RPM_BUILD_ROOT%{_mandir}/man1/xdaliclock.1
-install -p -m 0644 XDaliClock.ad \
+install -p -m 0644 Xlib-classic/XDaliClock.ad \
 	$RPM_BUILD_ROOT%{_datadir}/X11/app-defaults/XDaliClock
 
 desktop-file-install  \
@@ -58,6 +63,7 @@ desktop-file-install  \
 %{_mandir}/man1/xdaliclock.1*
 %{_datadir}/X11/app-defaults/XDaliClock
 %{_datadir}/applications/*
+%{_datadir}/glib-2.0/schemas/org.jwz.xdaliclock.gschema.xml
 
 %changelog
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.43-24

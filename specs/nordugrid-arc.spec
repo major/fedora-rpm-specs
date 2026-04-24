@@ -4,7 +4,7 @@
 
 %global with_s3 1
 
-%if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 10
+%if %{?fedora}%{!?fedora:0} >= 43
 %global with_gfal 0
 %else
 %global with_gfal 1
@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -1136,6 +1136,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Wed Apr 22 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-5
+- Rebuilt for xrootd 6
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,6 +21,9 @@
 #
 %global upstreamname origami
 
+%global pkg_library_name %{upstreamname}
+%global pkg_library_version 1
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -46,10 +49,11 @@
 %global pkg_suffix %{nil}
 %global pkg_module default
 %endif
+
 %if 0%{?suse_version}
-%global origami_name liborigami1%{pkg_suffix}
+%global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global origami_name rocm-origami%{pkg_suffix}
+%global pkg_name %{NAME}
 %endif
 
 Name:       rocm-origami%{pkg_suffix}
@@ -57,7 +61,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    3%{?dist}
+Release:    4%{?dist}
 %endif
 Summary:    Analytical GEMM Solution Selection
 
@@ -98,18 +102,18 @@ data and computation mapping for high-performance GEMM
 operations.
 
 %if 0%{?suse_version}
-%package -n %{origami_name}
+%package -n %{pkg_name}
 Summary:        Shared libraries for %{name}
 
-%description -n %{origami_name}
+%description -n %{pkg_name}
 %{summary}
 
-%ldconfig_scriptlets -n %{origami_name}
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary: Libraries and headers for %{name}
-Requires: %{origami_name}%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -135,17 +139,20 @@ sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 
-%files -n %{origami_name}
+%files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/liborigami.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 
 %files devel
 %{pkg_prefix}/include/origami/
 %{pkg_prefix}/%{pkg_libdir}/cmake/origami/
-%{pkg_prefix}/%{pkg_libdir}/liborigami.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 
 %changelog
+* Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Generate suse package name
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

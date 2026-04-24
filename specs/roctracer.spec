@@ -21,6 +21,9 @@
 #
 %global upstreamname roctracer
 
+%global pkg_library_name %{upstreamname}64
+%global pkg_library_version 4
+
 %bcond_with preview
 %if %{with preview}
 %global rocm_release 7.12
@@ -45,6 +48,12 @@
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%endif
+
+%if 0%{?suse_version}
+%global pkg_name %{NAME}-libs
+%else
+%global pkg_name %{NAME}
 %endif
 
 %global toolchain clang
@@ -74,7 +83,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -142,13 +151,18 @@ ROC-tracer
   * roctxRangePop
 
 %if 0%{?suse_version}
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%package -n %{pkg_name}
+Summary:        Runtime for %{name}
+
+%description -n %{pkg_name}
+%summary
+
+%ldconfig_scriptlets -n %{pkg_name}
 %endif
 
 %package devel
 Summary:        The %{name} development package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The headers of libraries for %{name}.
@@ -164,7 +178,7 @@ Summary:        Docs for %{name}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -219,16 +233,16 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 
 
-%files
+%files -n %{pkg_name}
 %license LICENSE.md
 %doc README.md
-%{pkg_prefix}/%{pkg_libdir}/libroctracer64.so.*
-%{pkg_prefix}/%{pkg_libdir}/libroctx64.so.*
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libroctx64.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/roctracer/
 
 %files devel
 %{pkg_prefix}/include/roctracer
-%{pkg_prefix}/%{pkg_libdir}/libroctracer64.so
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 %{pkg_prefix}/%{pkg_libdir}/libroctx64.so
 
 %if %{with doc}
@@ -242,6 +256,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 %endif
 
 %changelog
+* Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-2
+- Generate suse package names
+
 * Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-1
 - Update to 7.2.2
 

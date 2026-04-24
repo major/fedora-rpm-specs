@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 25.09.2
-Release: 82%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 26.03.1
+Release: 10%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit e3e0587865d8f02d0a8f72de53b82e464c5029d8
+%define ovncommit 0cc1ea5bb71d29b91244f5368ecbbda8837bc542
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit da6b84d691593e57951bcc5f2f916336c6e0d5cc
-%define ovsshortcommit da6b84d
+%define ovscommit bdb95cc1920d4ab66fe062a9470eeb33a51d33e2
+%define ovsshortcommit bdb95cc
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -146,6 +146,14 @@ Provides: openvswitch-ovn-vtep = %{?epoch:%{epoch}:}%{version}-%{release}
 %description vtep
 OVN vtep controller
 
+%package br-controller
+Summary: Open Virtual Network support
+License: Apache-2.0
+Requires: ovn = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description br-controller
+OVN bridge controller
+
 %if %{with ovn_docker}
 %package docker
 Summary: Open Virtual Network support
@@ -218,7 +226,8 @@ install -p -D -m 0644 \
         rhel/usr_share_ovn_scripts_systemd_sysconfig.template \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/ovn
 
-for service in ovn-controller ovn-controller-vtep ovn-northd; do
+for service in ovn-controller ovn-controller-vtep ovn-northd \
+               ovn-br-controller ovn-br-db; do
         install -p -D -m 0644 \
                         rhel/usr_lib_systemd_system_${service}.service \
                         $RPM_BUILD_ROOT%{_unitdir}/${service}.service
@@ -436,7 +445,25 @@ fi
 %{_mandir}/man8/ovn-controller-vtep.8*
 %{_unitdir}/ovn-controller-vtep.service
 
+%files br-controller
+%{_bindir}/ovn-br-controller
+%{_bindir}/ovn-brctl
+%{_mandir}/man8/ovn-br-controller.8*
+%{_mandir}/man5/ovn-br.5*
+%config %{_datadir}/ovn/ovn-br.ovsschema
+%{_unitdir}/ovn-br-controller.service
+%{_unitdir}/ovn-br-db.service
+
 %changelog
+* Wed Apr 22 2026 Dumitru Ceara <dceara@redhat.com> - 26.03.3-10
+- Updated the OVN sources to upstream release v26.03.1 with the
+  commit 0cc1ea5bb71d29b91244f5368ecbbda8837bc542 and picked up
+  the commits from v26.03.1 till the tip of branch-26.03
+  a1482006410f09dfe471c6aec76de3902327f1ad (2 commits) in
+  ovn.patch.
+- Updated the OVS sources to the branch-26.03 ovs submodule
+  commit bdb95cc1920d4ab66fe062a9470eeb33a51d33e2
+
 * Mon Mar 9 2026 Dumitru Ceara <dceara@redhat.com> - 25.09.2-82
 - Updated the OVN sources to pick up the commits from v25.09.2 till the
   tip of branch-25.09 (c7066edbc3985f06c6bfa45e3724088baa97c4bd).

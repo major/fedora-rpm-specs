@@ -1,5 +1,5 @@
 Name:           python-jupyter-events
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Jupyter Event System library
 License:        BSD-3-Clause
