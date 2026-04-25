@@ -5,7 +5,7 @@
 %global crate openssl-sys
 
 Name:           rust-openssl-sys
-Version:        0.9.112
+Version:        0.9.114
 Release:        %autorelease
 Summary:        FFI bindings to OpenSSL
 
@@ -22,7 +22,7 @@ Patch:          openssl-sys-fix-metadata.diff
 Patch2:         0001-drop-Windows-specific-references-to-vcpkg.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 4.0.0~)
+BuildRequires:  (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 5.0.0~)
 
 %global _description %{expand:
 FFI bindings to OpenSSL.}
@@ -32,7 +32,7 @@ FFI bindings to OpenSSL.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 4.0.0~)
+Requires:       (pkgconfig(openssl) >= 1.0.1 with pkgconfig(openssl) < 5.0.0~)
 
 %description    devel %{_description}
 

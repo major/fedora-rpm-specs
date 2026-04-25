@@ -241,6 +241,7 @@ pushd build$MPI_COMPILE_TYPE &&
       -DSUNDIALS_DIR:PATH=../src/third_party/cvode-2.6.0 \\\
       -DSUNDIALS_INCLUDE_DIR:PATH=../src/third_party/cvode-2.6.0/include \\\
 %endif
+      -DTARGET_NATIVE_ARCH:BOOL="OFF" \\\
       -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
       -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
       -DCMAKE_Fortran_FLAGS_RELEASE:STRING="-DNDEBUG" \\\

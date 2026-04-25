@@ -10,6 +10,10 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-xrootd
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-xrootd-%{version}.tar.gz
 
+# chore: Bump xrootd version (#49)
+# https://github.com/snakemake/snakemake-storage-plugin-xrootd/pull/49
+Patch:          %{url}/commit/aafc386cb300d2bab87bc18b51ddd6a8bb0160bb.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l snakemake_storage_plugin_xrootd
 

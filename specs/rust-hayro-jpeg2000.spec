@@ -5,19 +5,14 @@
 %global crate hayro-jpeg2000
 
 Name:           rust-hayro-jpeg2000
-Version:        0.3.3
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Memory-safe, pure-Rust JPEG 2000 decoder
 
 License:        (Apache-2.0 OR MIT) AND CC0-1.0
 URL:            https://crates.io/crates/hayro-jpeg2000
 Source:         %{crates_source}
-# * https://github.com/LaurenzV/hayro/pull/1053
-Source2:        https://github.com/LaurenzV/hayro/raw/refs/tags/%{crate}-v%{version}/LICENSE-APACHE
-# * https://github.com/LaurenzV/hayro/pull/1053
-Source3:        https://github.com/LaurenzV/hayro/raw/refs/tags/%{crate}-v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Temporarily downgrade moxcms to 0.7.5
 # * Drop unused indicatif dev-dependency
 # * Update license to document that the content under assets/ under CC0-1.0
 Patch:          hayro-jpeg2000-fix-metadata.diff
@@ -39,9 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/assets/LICENSE.txt
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/assets/LICENSE.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -119,7 +114,6 @@ use the "std" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %SOURCE2 %SOURCE3 .
 %cargo_prep
 
 %generate_buildrequires

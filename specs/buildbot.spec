@@ -1,7 +1,7 @@
 # Enable Python dependency generation
 
 # Missing dependencies for tests
-%bcond_with check
+%bcond_with tests
 
 # Missing dependencies for documentation
 %bcond_with docs
@@ -20,7 +20,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -63,7 +63,23 @@ BuildRequires:  python3dist(treq)
 BuildRequires:  python3dist(boto3)
 BuildRequires:  python3dist(lz4)
 
-%if %{with check}
+# For the import check
+BuildRequires:  python3dist(alembic)
+BuildRequires:  python3dist(cairocffi)
+BuildRequires:  python3dist(cairosvg)
+BuildRequires:  python3dist(croniter)
+BuildRequires:  python3dist(docker)
+BuildRequires:  python3dist(keystoneauth1)
+BuildRequires:  python3dist(klein)
+BuildRequires:  python3dist(libvirt-python)
+BuildRequires:  python3dist(msgpack)
+BuildRequires:  python3dist(msgpack)
+BuildRequires:  python3dist(packaging)
+BuildRequires:  python3dist(python-novaclient)
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(unidiff)
+
+%if %{with tests}
 BuildRequires:  bzr
 BuildRequires:  cvs
 BuildRequires:  git
@@ -409,12 +425,25 @@ mkdir -p %{buildroot}%{_sharedstatedir}/buildbot/{master,worker}
 
 
 
-%if %{with check}
 %check
+%py3_check_import \
+    buildbot \
+    buildbot_worker \
+    buildbot_badges \
+    buildbot_console_view \
+    buildbot_grid_view \
+    buildbot_waterfall_view \
+    buildbot_wsgi_dashboards \
+    buildbot_www
+
+%if %{with tests}
 trial buildbot.test
 %endif
 
 %changelog
+* Tue Apr 21 2026 Carl George <carlwgeorge@fedoraproject.org> - 4.3.0-8
+- Run import check in %%check to avoid missing dependencies
+
 * Mon Mar 09 2026 Charalampos Stratakis <cstratak@redhat.com> - 4.3.0-7
 - Harden systemd template units
 

@@ -1,6 +1,6 @@
 Summary: An easy to use, modeless text editor
 Name: joe
-Version: 4.7
+Version: 4.8
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/joe-editor/
@@ -67,6 +67,9 @@ popd
 %exclude %{_datadir}/applications/j*desktop
 
 %changelog
+* Thu Apr 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.8-1
+- 4.8
+
 * Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.7-1
 - 4.7
 

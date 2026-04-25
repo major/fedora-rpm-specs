@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.3.3
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -86,12 +86,6 @@ This package provides translations for the lxqt-panel package.
 %install
 %cmake_install
 
-for desktop in %{buildroot}/%{_datadir}/lxqt/lxqt-panel/*.desktop; do
-  # Exclude category as been Service
-  desktop-file-edit --remove-category=LXQt --remove-only-show-in=LXQt --add-only-show-in=X-LXQt ${desktop}
-done
-desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop ||:
-
 %find_lang lxqt-panel --with-qt
 %find_lang cpuload --with-qt
 %find_lang desktopswitch --with-qt
@@ -108,6 +102,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %find_lang taskbar --with-qt
 %find_lang volume --with-qt
 %find_lang worldclock --with-qt
+
+%check
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 %files
 %{_bindir}/lxqt-panel
@@ -128,6 +125,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 2.3.3-2
 - Rebuild (qt6)
 

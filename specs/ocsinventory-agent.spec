@@ -16,13 +16,13 @@
 %global debug_package %{nil}
 
 # Official release version
-%global official_version 2.10.4
+%global official_version 2.10.5
 
 Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
-Version:   2.10.4
-Release:   7%{?dist}
+Version:   %{official_version}
+Release:   1%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -74,7 +74,7 @@ Provides:  ocsinventory-client = %{version}-%{release}
 %description
 Open Computer and Software Inventory Next Generation is an application
 designed to help a network or system administrator keep track of computer
-configuration and software installed on the network. 
+configuration and software installed on the network.
 
 It also allows deploying software, commands or files on Windows and
 Linux client computers.
@@ -86,9 +86,9 @@ Linux client computers.
 Open Computer and Software Inventory Next Generation est une application
 destinée à aider l'administrateur système ou réseau à garder un oeil sur
 la configuration des machines du réseau et sur les logiciels qui y sont
-installés. 
+installés.
 
-Elle autorise aussi la télédiffusion (ou déploiement) de logiciels, 
+Elle autorise aussi la télédiffusion (ou déploiement) de logiciels,
 de commandes ou de fichiers sur les clients Windows ou Linux.
 
 %{name} fournit le client pour Linux (Agent Unix Unifié)
@@ -134,8 +134,6 @@ Perl libraries for %{name}
 
 %prep
 %setup -q -n Ocsinventory-Unix-Agent-%{version}
-#%%autopatch -p1
-rm -f lib/Ocsinventory/Agent/Network.pm.orig
 
 sed -e 's/\r//' -i snmp/mibs/local/6876.xml
 
@@ -151,7 +149,7 @@ fi
 #       what the values used by the build environment.
 ###
 cat <<EOF >%{name}.conf
-# 
+#
 # OCS Inventory "Unix Unified Agent" Configuration File
 # used by the ocsinventory-agent.service and
 # related timers.
@@ -176,12 +174,12 @@ OCSMODE[0]=none
 
 # can be used to override the %{name}.cfg setup.
 # OCSSERVER[0]=your.ocsserver.name
-# 
+#
 # corresponds with --local=%{_localstatedir}/lib/%{name}
 # OCSSERVER[0]=local
 %endif
 
-# Wait before inventory 
+# Wait before inventory
 OCSPAUSE[0]=100
 
 # Administrative TAG (optional, must be filed before first inventory)
@@ -192,7 +190,7 @@ OCSTAG[0]=%{?ocstag}
 EOF
 
 cat <<EOF >%{name}.cfg
-# 
+#
 # OCS Inventory "Unix Unified Agent" Configuration File
 #
 # options used by timers or /etc/sysconfig/%{name} overide these.
@@ -220,6 +218,13 @@ rm run-postinst
 
 %install
 %{make_install}
+
+# the source comes with some odd permissions set
+# just fix them to make sense
+find %{buildroot} -type d -exec chmod 755 {} \;
+find %{buildroot} -type f -exec chmod 644 {} \;
+find %{buildroot} -type f -name .DS_Store -exec rm {} \;
+find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
 if [[ "%{_bindir}" != "%{_sbindir}" ]]; then
@@ -261,11 +266,9 @@ rm %{buildroot}%{perl_vendorlib}/Ocsinventory/Unix/postinst.pl
 # Provided by ocsinventtory-ipdiscover
 rm %{buildroot}%{_sbindir}/ipdiscover
 
-# the source comes with some odd permissions set
-# just fix them to make sense
-find %{buildroot} -type f -exec chmod 644 {} \;
-find %{buildroot} -type f -name .DS_Store -exec rm {} \;
-find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
+# set the correct permissions
+chmod 755 %{buildroot}%{_libexecdir}/%{name}/ocsinventory-agent.cron
+chmod 755 %{buildroot}%{perl_vendorlib}/Ocsinventory/Agent.pm
 
 %post
 
@@ -284,7 +287,6 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_libexecdir}/%{name}/
-%attr(0755, root, root) %{_libexecdir}/%{name}/ocsinventory-agent.cron
 %dir %{_localstatedir}/log/%{name}
 %{_mandir}/man1/%{name}*
 %{_unitdir}/*
@@ -297,7 +299,6 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 %config(noreplace) %{_sysconfdir}/ocsinventory/%{name}.cfg
 %config(noreplace) %{_sysconfdir}/ocsinventory/modules.conf
 %{perl_vendorlib}/Ocsinventory
-%attr(0755, root, root) %{perl_vendorlib}/Ocsinventory/Agent.pm
 %{_mandir}/man3/Ocs*
 %dir %{_localstatedir}/lib/%{name}
 %{_localstatedir}/lib/%{name}/download
@@ -307,6 +308,9 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 
 %changelog
+* Thu Apr 23 2026 Pat Riehecky <riehecky@fnal.gov> - 2.10.5-1
+- Update to 2.10.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -538,7 +542,7 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 * Thu May 14 2009 Remi Collet <Fedora@famillecollet.com> 1.0.1-3
 - define PATH in config (workaround for #500594 + tool path if needed)
- 
+
 * Fri Apr 24 2009 Remi Collet <Fedora@famillecollet.com> 1.0.1-2
 - update the README.RPM (new configuration file)
 - change from URL to only servername in config comment
@@ -593,7 +597,7 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 * Sun Feb 17 2008 Remi Collet <Fedora@famillecollet.com> 0.0.8.1-0.1.20080217
 - update to 0.0.8.1 from CVS
 - change config file used
-   from /etc/ocsinventory-agent/ocsinv.conf 
+   from /etc/ocsinventory-agent/ocsinv.conf
      to /etc/ocsinventory/ocsinventory-agent.cfg
 
 * Sat Jan 26 2008 Remi Collet <Fedora@famillecollet.com> 0.0.7-1

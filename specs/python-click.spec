@@ -2,7 +2,7 @@
 
 Name:           python-click
 Epoch:          1
-Version:        8.3.2
+Version:        8.3.3
 Release:        %autorelease
 Summary:        Simple wrapper around optparse for powerful command line utilities
 

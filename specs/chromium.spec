@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 147.0.7727.101
+Version: 147.0.7727.116
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1654,8 +1654,8 @@ pushd %{chromebuilddir}
 	cp -a chrome_sandbox %{buildroot}%{chromium_path}/chrome-sandbox
 	cp -a chrome_crashpad_handler %{buildroot}%{chromium_path}/chrome_crashpad_handler
 	cp -a ../../chrome/app/resources/manpage.1.in %{buildroot}%{_mandir}/man1/chromium-browser.1
-	sed -i "s|@@PACKAGE@@|chromium-browser|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
-	sed -i "s|@@MENUNAME@@|%{chromium_menu_name}|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
+	sed -i "s|@@PACKAGE|chromium-browser|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
+	sed -i "s|@@MENUNAME|%{chromium_menu_name}|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
 
 	# V8 initial snapshots
 	# https://code.google.com/p/chromium/issues/detail?id=421063
@@ -1857,6 +1857,13 @@ fi
 %endif
 
 %changelog
+* Thu Apr 23 2026 Than Ngo <than@redhat.com> - 147.0.7727.116-1
+- Update to 147.0.7727.116
+  * High CVE-2026-6919: Use after free in DevTools
+  * High CVE-2026-6920: Out of bounds read in GPU
+  * Medium CVE-2026-6921: Race in GPU
+- Fix rhbz#2458171, unexpanded macros in manpage
+
 * Wed Apr 15 2026 Than Ngo <than@redhat.com> - 147.0.7727.101-1
 - Update to 147.0.7727.101
   * Critical CVE-2026-6296: Heap buffer overflow in ANGLE

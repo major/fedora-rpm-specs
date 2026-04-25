@@ -1,6 +1,6 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.3.2
+Version:       2.4.0
 Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
@@ -11,12 +11,12 @@ BuildRequires: desktop-file-utils
 BuildRequires: fdupes
 BuildRequires: gcc-c++
 BuildRequires: git-core
-BuildRequires: lxqt-menu-data
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 BuildRequires: cmake(KF6Screen)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt)
+BuildRequires: cmake(lxqt-menu-data)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(zlib)
 
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/lxqt/translations/lxqt-config-locale
 
 %changelog
+* Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
+- Update to 2.4.0
+
 * Fri Apr 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.2-1
 - Update to 2.3.2
 

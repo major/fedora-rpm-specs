@@ -15,7 +15,7 @@
 
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
-Version:    9.9
+Version:    9.10
 Release:    1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
@@ -79,6 +79,9 @@ general might be used separately.
 
 
 %changelog
+* Thu Apr 23 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> - 9.10-1
+- New version v9.10
+
 * Fri Feb 20 2026 Pavel Raiskup <praiskup@redhat.com> - 9.9-1
 - new upstream release (enforcing ipv4 connection)
 

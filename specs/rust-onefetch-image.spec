@@ -12,9 +12,6 @@ Summary:        Display images in the terminal
 License:        MIT
 URL:            https://crates.io/crates/onefetch-image
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Temporarily allow older image 0.25.9: RHBZ#2446057
-Patch:          onefetch-image-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

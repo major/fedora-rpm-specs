@@ -23,8 +23,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.24.2
-Release:        2%{?dist}
+Version:        3.25.0
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -40,6 +40,9 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
+
+# Fix detection of libyuv
+Patch0:         https://github.com/FreeRDP/FreeRDP/pull/12666.patch#/FreeRDP-PR12666.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -74,6 +77,7 @@ BuildRequires:  cmake(json-c)
 # Fixed in https://src.fedoraproject.org/rpms/uriparser/c/1b07302bfc80983fbf84283783370e8338d36429
 %{?_with_uriparser:BuildRequires:  (cmake(uriparser) and uriparser-devel)}
 
+BuildRequires:  pkgconfig(aom)
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(fdk-aac)
@@ -83,6 +87,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(libyuv)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
 %{?_with_sdl_client:BuildRequires:  cmake(SDL3)}
@@ -192,6 +197,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FUSE=ON \
     -DWITH_GSM=ON \
+    -DWITH_GFX_AV1=ON \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
     -DWITH_JSONC_REQUIRED=ON \
@@ -361,6 +367,11 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Apr 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 2:3.25.0-1
+- Update to 3.25.0 (CVE-2026-40254)
+  Resolves: rhbz#2461094
+- Enable AV1 support
+
 * Sat Apr 4 2026 Luca Boccassi <luca.boccassi@gmail.com> - 2:3.24.2-2
 - Build with sso-mib support
 

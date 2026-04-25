@@ -159,7 +159,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.38.2
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.121.1
+%global nss_version 3.122.1
 %global nss_build_version %{nss_version}
 %endif
 
@@ -1305,7 +1305,7 @@ fi
   XDG_CONFIG_HOME for extensions.
 
 * Tue Apr 7 2026 Martin Stransky <stransky@redhat.com> - 149.0-5
-- Add fix for mzbz#2026403 - some popups still blurry with 
+- Add fix for mzbz#2026403 - some popups still blurry with
   fractional scaling in GNOME
 
 * Wed Mar 25 2026 Martin Stransky <stransky@redhat.com> - 149.0-4

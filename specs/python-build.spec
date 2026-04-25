@@ -7,7 +7,7 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
@@ -17,12 +17,6 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 # downstream-only
 #Patch:          0001-fedora-disable-some-build-requirements.patch
-
-# Fix test_isolation failure with Python 3.15 lazy imports
-# The test didn't clear PYTHONPATH in the subprocess, and __lazy_modules__
-# added in 1.4.3 lets 'import build.env' succeed despite missing deps.
-# https://github.com/pypa/build/issues/1047
-Patch:          fix-test-isolation-pythonpath-leak.patch
 
 BuildArch:      noarch
 

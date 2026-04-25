@@ -2,29 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate openssl
+%global crate hashbrown
 
-Name:           rust-openssl
-Version:        0.10.78
+Name:           rust-hashbrown0.16
+Version:        0.16.1
 Release:        %autorelease
-Summary:        OpenSSL bindings
+Summary:        Rust port of Google's SwissTable hash map
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/openssl
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/hashbrown
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop feature and dependencies for AWS-LC support
-# * drop feature and dependencies for unstable BoringSSL support
-# * drop feature and dependencies for building against vendored OpenSSL sources
-Patch:          openssl-fix-metadata.diff
-# * set "PROFILE=SYSTEM" as default argument for SSL_CTX_set_cipher_list so
-#   applications that use the "default" context follow system crypto policy
-Patch2:         0001-set-PROFILE-SYSTEM-as-default-cipher-list.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-OpenSSL bindings.}
+A Rust port of Google's SwissTable hash map.}
 
 %description %{_description}
 
@@ -38,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -56,64 +48,88 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bindgen-devel
+%package     -n %{name}+allocator-api2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bindgen-devel %{_description}
+%description -n %{name}+allocator-api2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bindgen" feature of the "%{crate}" crate.
+use the "allocator-api2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bindgen-devel
+%files       -n %{name}+allocator-api2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+v101-devel
+%package     -n %{name}+default-hasher-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+v101-devel %{_description}
+%description -n %{name}+default-hasher-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "v101" feature of the "%{crate}" crate.
+use the "default-hasher" feature of the "%{crate}" crate.
 
-%files       -n %{name}+v101-devel
+%files       -n %{name}+default-hasher-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+v102-devel
+%package     -n %{name}+equivalent-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+v102-devel %{_description}
+%description -n %{name}+equivalent-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "v102" feature of the "%{crate}" crate.
+use the "equivalent" feature of the "%{crate}" crate.
 
-%files       -n %{name}+v102-devel
+%files       -n %{name}+equivalent-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+v110-devel
+%package     -n %{name}+inline-more-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+v110-devel %{_description}
+%description -n %{name}+inline-more-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "v110" feature of the "%{crate}" crate.
+use the "inline-more" feature of the "%{crate}" crate.
 
-%files       -n %{name}+v110-devel
+%files       -n %{name}+inline-more-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+v111-devel
+%package     -n %{name}+raw-entry-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+v111-devel %{_description}
+%description -n %{name}+raw-entry-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "v111" feature of the "%{crate}" crate.
+use the "raw-entry" feature of the "%{crate}" crate.
 
-%files       -n %{name}+v111-devel
+%files       -n %{name}+raw-entry-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rayon-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rayon-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rayon" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rayon-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -131,11 +147,7 @@ use the "v111" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that fail due to disabled functionality in OpenSSL
-%{cargo_test -- -- --exact %{shrink:
-    --skip pkey_ctx::test::ecdsa_deterministic_signature
-    --skip ssl::test::peer_tmp_key_rsa
-}}
+%cargo_test
 %endif
 
 %changelog

@@ -1,5 +1,5 @@
 Name:           python-virt-firmware
-Version:        26.2
+Version:        26.4
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
@@ -121,6 +121,7 @@ done
 %dir %{python3_sitelib}/virt
 %{python3_sitelib}/virt/firmware
 %{python3_sitelib}/virt/peutils
+%{python3_sitelib}/virt/qemutest
 %{python3_sitelib}/virt_firmware-%{version}.dist-info
 
 %files -n python3-virt-firmware-tests

@@ -5,13 +5,17 @@
 %global crate fearless_simd
 
 Name:           rust-fearless_simd
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Safer and easier SIMD
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/fearless_simd
 Source:         %{crates_source}
+# * Ensure the source package contains “original sources” for generated code.
+# * This is solely for compliance; it is not used when building the package.
+# * https://docs.fedoraproject.org/en-US/packaging-guidelines/what-can-be-packaged/#pregenerated-code
+Source10:       https://github.com/linebender/fearless_simd/archive/v%{version}/fearless_simd-%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -45,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+force_support_fallback-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+force_support_fallback-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "force_support_fallback" feature of the "%{crate}" crate.
+
+%files       -n %{name}+force_support_fallback-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+libm-devel

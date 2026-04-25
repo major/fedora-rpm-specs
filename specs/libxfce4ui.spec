@@ -21,8 +21,6 @@ Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-
 Patch10:        libxfce4ui-%{xfceversion}-keyboard-shortcuts.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(gobject-2.0) >= 2.24.0
-BuildRequires:  pkgconfig(gtk+-2.0) >= 2.20.0
 BuildRequires:  libSM-devel
 BuildRequires:  pkgconfig(libxfce4util-1.0) >= %{xfceversion}
 BuildRequires:  pkgconfig(libxfconf-0) >= %{xfceversion}
@@ -60,7 +58,7 @@ environment, it's contributors, and it's licensing.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       gtk2-devel
+Requires:       gtk3-devel
 Requires:       libxfce4util-devel
 Requires:       glade-devel
 Requires:       pkgconfig

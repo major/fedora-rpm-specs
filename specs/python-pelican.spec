@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
-Version:        4.11.0
-Release:        4%{?dist}
+Version:        4.12.0
+Release:        1%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 # Automatically converted from old format: AGPLv3
@@ -94,11 +94,6 @@ sed -i 's/.*pygments.*/    "pygments",/g' pyproject.toml
 # build docs
 PYTHONPATH=.:$PYTHONPATH sphinx-build-3 docs html
 
-# remove leftovers from sphinxbuild
-rm html/_downloads/*/theme-basic.zip html/_static/theme-basic.zip
-rm -rf html/.doctrees html/.buildinfo
-
-
 %install
 %pyproject_install
 %pyproject_save_files -l %{pypi_name} -L
@@ -135,6 +130,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Thu Apr 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.12.0-1
+- 4.12.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

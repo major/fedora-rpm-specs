@@ -11,8 +11,8 @@ Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: 6.25.0
 Release: 1%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+# kde-modules/clang-format.cmake is MIT
+License: BSD-3-Clause AND BSD-2-Clause AND MIT
 URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig

@@ -141,6 +141,7 @@ Patch0015: 0015-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 Patch0016: 0016-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
 Patch0017: 0017-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
 Patch0018: 0018-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
+Patch0019: 0019-CryptoPkg-TlsLib-downgrade-security-level-from-3-to-.patch
 
 
 # needed by %prep

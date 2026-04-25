@@ -3,7 +3,7 @@
 %global         identity net.gridhead.gi-loadouts
 
 Name:           %{hyphen}
-Version:        0.1.14
+Version:        0.1.15
 Release:        1%{?dist}
 Summary:        Loadouts for Genshin Impact
 

@@ -1,5 +1,5 @@
 Name:           termcolours
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Automatically set unique terminal colour schemes
 

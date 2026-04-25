@@ -12,14 +12,12 @@ URL:           http://mate-desktop.org
 BuildArch:     noarch
 Source0:       http://pub.mate-desktop.org/releases/themes/%{branch}/%{name}-%{version}.tar.xz
 
+Patch:         mate-themes_0001-build-Remove-GTK2-theme-engine-check.patch
+
 BuildRequires: make
 BuildRequires: mate-common
-BuildRequires: gtk2-devel
-BuildRequires: gdk-pixbuf2-devel
 
 Requires:      mate-icon-theme
-Requires:      gtk2-engines
-Requires:      gtk-murrine-engine
 
 %description
 MATE Desktop themes
@@ -27,7 +25,8 @@ MATE Desktop themes
 %prep
 %autosetup -p1
 
-#NOCONFIGURE=1 ./autogen.sh
+# Patch 1
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure

@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    2%{?rcrel}%{?dist}.1
+Release:    5%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -80,6 +80,9 @@ BuildRequires: golang
 
 BuildRequires: git-core
 BuildRequires: jq
+BuildRequires: cmake
+BuildRequires: zlib-devel
+BuildRequires: g++
 BuildRequires: libselinux-devel
 BuildRequires: libseccomp-devel
 BuildRequires: make
@@ -211,7 +214,6 @@ ExcludeArch: ppc64le
                                 SKIP_GO_VERSION_CHECK=y \\\
                                 MACHINETYPE=%{machinetype} \\\
                                 SCRIPTS_DIR=%{_bindir} \\\
-                                DESTDIR=%{buildroot} \\\
                                 PREFIX=/usr \\\
                                 DEFAULTSDIR=%{katadefaults} \\\
                                 CONFDIR=%{katadefaults} \\\
@@ -223,18 +225,19 @@ ExcludeArch: ppc64le
 %global kata_ctl_vars           %{rust_make_vars} \\\
                                 INSTALL_PATH=%{buildroot}%{_prefix}
 
-# runtime-rs (Rust shim). USE_BUILDIN_DB=false skips the dragonball feature so the workspace
-# does not compile nydus (libz-sys / flate2+zlib), which reliably breaks under RPM CFLAGS/mock.
-# QEMU / cloud-hypervisor / Firecracker paths remain available.
+# Disable DragonBall on ppc64le where it does not compile
+%ifarch ppc64le
+%global no_dragonball           USE_BUILTIN_DB=false
+%endif
+
 %global runtime_rs_make_vars    %{rust_make_vars} \\\
-                                USE_BUILDIN_DB=false \\\
+                                %{?no_dragonball} \\\
                                 HYPERVISOR=qemu \\\
                                 QEMUPATH=%{qemupath} \\\
                                 DEFVIRTIOFSDAEMON=%{_libexecdir}/virtiofsd \\\
                                 DEFVIRTIOFSCACHESIZE=0 \\\
                                 DEFSANDBOXCGROUPONLY_QEMU=true \\\
                                 MACHINETYPE=%{machinetype} \\\
-                                DESTDIR=%{buildroot} \\\
                                 PREFIX=/usr \\\
                                 DEFAULTSDIR=%{katadefaults}
 
@@ -251,6 +254,7 @@ tar -xf %{SOURCE1}
 
 # runtime-rs uses openssl-sys; link distro OpenSSL (BuildRequires: openssl-devel).
 export OPENSSL_NO_VENDOR=1
+export LIBZ_SYS_STATIC=0
 
 export PATH=$PATH:"$(pwd)/go/bin"
 export GOPATH="$(pwd)/go"
@@ -425,6 +429,16 @@ fi
 
 
 %changelog
+* Thu Apr 23 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-5
+- Disable DragonBall explicitly on ppc64le
+
+* Tue Apr 21 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-4
+- Remove DESTDIR which conflicts with some internal build configuration
+
+* Fri Apr 17 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-3
+- Try enabling the builtin Dragonball for testing
+- Add BuildRequires for cmake and zlib-devel, needed for DragonBall
+
 * Tue Apr 07 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-2
 - Build and package runtime-rs (Rust containerd shim and defaults)
 - Add BuildRequires for jq needed by runtime-rs

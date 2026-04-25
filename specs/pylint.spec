@@ -23,6 +23,9 @@ Patch:          0001-Bump-astroid-to-4.0.3.patch
 Patch:          0002-Bump-astroid-to-4.1.1-10843.patch
 # Upstream e525835b22b36f95d209d73a16341b35846cf9db
 Patch:          0003-Bump-astroid-from-4.1.1-to-4.1.2.patch
+# Fix test failures with Python 3.15
+# https://github.com/pylint-dev/pylint/issues/10982
+Patch:          python315.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

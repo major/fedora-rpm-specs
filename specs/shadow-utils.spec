@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.19.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -28,6 +28,8 @@ Patch1: shadow-4.19.0-account-tools-setuid.patch
 Patch2: shadow-4-19-useradd-support-btrfs.patch
 # https://github.com/shadow-maint/shadow/commit/6be13b2f84a2c1a0d0f4129b5258b4b443e7f86c
 Patch3: shadow-4.19.3-chkhash.patch
+# https://github.com/shadow-maint/shadow/commit/827f69b864461ab6d7549762bef06ab4495d2587
+Patch4: shadow-4.19.3-useradd-fix-btrfs.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -277,6 +279,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Apr 23 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.19.3-2
+- btrfs: simplify checks improve useradd behavior for non-btrfs
+
 * Wed Feb 11 2026 Debarshi Ray <rishi@fedoraproject.org> - 2:4.19.3-1
 - Rebase to version 4.19.3
   Resolves: #2426288

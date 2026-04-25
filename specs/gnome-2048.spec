@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-2048
-Version:        50.1
+Version:        50.2
 Release:        %autorelease
 Summary:        A 2048 clone for GNOME
 

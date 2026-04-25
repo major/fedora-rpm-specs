@@ -5,7 +5,7 @@
 %global crate image
 
 Name:           rust-image
-Version:        0.25.9
+Version:        0.25.10
 Release:        %autorelease
 Summary:        Imaging library
 
@@ -333,14 +333,15 @@ use the "webp" feature of the "%{crate}" crate.
     --skip codecs::png::tests::underlying_error
     --skip codecs::qoi::tests::decode_test_image
     --skip codecs::tga::encoder::tests::compressed::round_trip_bw
-    --skip images::dynimage::test::color_space_independent_imageops
-    --skip images::dynimage::test::image_dimensions
-    --skip images::dynimage::test::open_16bpc_png
+    --skip hooks::tests::decoding_hook
     --skip imageops::sample::tests::resize_transparent_image
     --skip imageops::sample::tests::test_resize_same_size
     --skip imageops::sample::tests::test_sample_bilinear
     --skip imageops::sample::tests::test_sample_nearest
     --skip imageops::tests::fast_blur_approximates_gaussian_blur_well
+    --skip images::dynimage::test::color_space_independent_imageops
+    --skip images::dynimage::test::image_dimensions
+    --skip images::dynimage::test::open_16bpc_png
 }}
 %endif
 

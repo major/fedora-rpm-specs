@@ -27,7 +27,7 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.36
+Version:        0.7.37
 Release:        %autorelease
 Summary:        Package dependency solver
 
@@ -59,10 +59,6 @@ Patch:          0001-Python-Provide-dist-info-metadata.patch
 # Replaces <https://src.fedoraproject.org/rpms/libsolv/pull-request/14>.
 # Requires Python-Provide-dist-info-metadata.patch.
 Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
-# Fix a buffer overflow when copying SHA-384/512 checksum from a Debian
-# repository, in upstream after 0.7.36,
-# <https://github.com/openSUSE/libsolv/pull/616>
-Patch:          0003-Fix-a-buffer-overflow-when-copying-SHA-384-512-check.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++

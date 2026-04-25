@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-Version: 16.0.0
+Version: 17.0.0
 Release: %autorelease
 URL: https://openmoji.org/
 

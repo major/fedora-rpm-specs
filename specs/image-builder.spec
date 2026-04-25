@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        60
+Version:        62
 
 %gometa
 
@@ -75,6 +75,7 @@ Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.29.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.34.2
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.38.2
 Provides: bundled(golang(github.com/aws/smithy-go)) = 1.23.0
+Provides: bundled(golang(github.com/cespare/xxhash/v2)) = 2.3.0
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = 3.0.5
 Provides: bundled(golang(github.com/containerd/errdefs)) = 1.0.0
@@ -99,7 +100,7 @@ Provides: bundled(golang(github.com/docker/go-units)) = 0.5.0
 Provides: bundled(golang(github.com/fatih/color)) = 1.18.0
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/gabriel-vasile/mimetype)) = 1.4.8
-Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
+Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.1.4
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
 Provides: bundled(golang(github.com/go-openapi/errors)) = 0.22.0
@@ -171,24 +172,24 @@ Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.12.1
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.10.2
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.17.2
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
-Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = 1.1.0
+Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = 1.2.1
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.61.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.36.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.36.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.36.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.39.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.39.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.39.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = 0.41.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.46.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
-Provides: bundled(golang(golang.org/x/net)) = 0.43.0
-Provides: bundled(golang(golang.org/x/sync)) = 0.16.0
+Provides: bundled(golang(golang.org/x/net)) = 0.48.0
+Provides: bundled(golang(golang.org/x/sync)) = 0.19.0
 Provides: bundled(golang(golang.org/x/sys)) = 0.41.0
 Provides: bundled(golang(golang.org/x/term)) = 0.40.0
-Provides: bundled(golang(golang.org/x/text)) = 0.28.0
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 3122310
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 3122310
-Provides: bundled(golang(google.golang.org/grpc)) = 1.74.2
-Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.7
+Provides: bundled(golang(golang.org/x/text)) = 0.32.0
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = ff82c1b
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = ff82c1b
+Provides: bundled(golang(google.golang.org/grpc)) = 1.79.3
+Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.10
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.11006.0
@@ -265,6 +266,16 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Apr 22 2026 Packit <hello@packit.dev> - 62-1
+Changes with 62
+----------------
+  - deps: bump gojose to 4.1.4 (#500)
+    - Author: Anna Vítová, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - deps: bump grpc to 1.79.3 (RHEL-160718) (#499)
+    - Author: Anna Vítová, Reviewers: Sanne Raymaekers, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-04-22
+
 * Tue Apr 14 2026 Packit <hello@packit.dev> - 60-1
 Changes with 60
 ----------------

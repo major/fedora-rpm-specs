@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-208-gdfb150f3aa
+%global glibcsrcdir glibc-2.43.9000-253-gd4c66edeef
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 11
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -347,7 +347,8 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
-Patch19: glibc-rh2457183.patch
+Patch19: glibc-rh2457183-1.patch
+Patch20: glibc-rh2457183-2.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -816,6 +817,7 @@ local locales =  {
   { code="hif", name="Fiji Hindi", regions={ "FJ" } },
   { code="hne", name="Chhattisgarhi", regions={ "IN" } },
   { code="hr", name="Croatian", regions={ "HR" } },
+  { code="hrx", name="Hunsrickisch", regions={ "BR" } },
   { code="hsb", name="Upper Sorbian", regions={ "DE" } },
   { code="ht", name="Haitian Creole", regions={ "HT" } },
   { code="hu", name="Hungarian", regions={ "HU" } },
@@ -2400,6 +2402,56 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Apr 22 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-12
+- Adapted #2457183 patches to new sync.
+- Auto-sync with upstream branch master,
+  commit d4c66edeef6ced8fd15af0b3bfdadfb80501e96e:
+- support: add support_address_diff function
+- advisories: Reject GLIBC-SA-2026-0008
+- advisories: Document rejection process in README.
+- riscv: Add RVV strcpy for both multiarch and non-multiarch builds
+- s390: Remove Wno-CFLAGS for rtld.c/dl-load.c/dl-reloc.c
+- advisories: Fix spelling mistake in GLIBC-SA-2026-0009.
+- Add advisory text for CVE-2026-5450
+- Document CVE-2026-5358 and CVE-2026-5928
+- AArch64: Implement AdvSIMD and SVE powr(f) routines
+- benchtests: add libmvec powr inputs
+- benchtests: add libmvec powrf inputs
+- AArch64: Improve AdvSIMD and SVE pow(f).
+- io: Consolidate ftw implementation
+- io: Consolidate fts implementation
+- riscv: Add RVV strcat for both multiarch and non-multiarch builds
+- CONTRIBUTED-BY: Adjustments regarding s390-32, s390-64
+- s390: Move files out of s390-64 folders
+- s390: Switch to common-code headers
+- s390: Remove s390-32 specific code in non s390-32 specific files
+- s390: Remove support for s390-32.
+- elf: Add test for THP alignment of large load segments
+- Fix 'cbaud_to_speed' defined but not used on LA32
+- localedata: Consistently use one space after 'category'
+- localedata: Add Hunsrickisch locale for Brazil (hrx_BR)
+- locale: Define Hunsrik (hrx) in iso-639.def
+- advisories: Update GLIBC-SA-2026-0007.
+- ga_IE: Add DCO header.
+- Use pending character state in IBM1390, IBM1399 character sets (CVE-2026-4046)
+- loongarch: Enable THP-aligned load segments by default on 64-bit
+- elf: Align large load segments to PMD huge page size for THP
+- tunables: Add glibc.elf.thp tunable for THP-aware segment alignment
+- elf: Introduce _dl_map_segment_align hook for segment alignment tuning
+- elf: Remove redundant _dl_map_segments declaration from dl-load.h
+- mach: Fix tst-default-domain link
+- elf: Remove _dl_process_pt_note
+- hurd: __adjtime() to support NULL delta whilst returning olddelta.
+- hurd: __adjtime(): struct timeval and time_value_t are not identical.
+- hurd: Make adjtime reject out-of-range tv_usec values
+- malloc: Remove unused aliases for malloc symbols
+- hurd: Fix looking up /dev/tty/ (BZ 34070)
+- localedata: Consistently use one space after 'category'
+- Fix Irish date format.
+- nss: fix __get_default_domain logic
+- abilist.awk: Handle weak unversioned defined symbols
+- sysdeps/unix/sysv/linux: Sort and put one test per line
+
 * Wed Apr 15 2026 Adam Williamson <awilliam@redhat.com> - 2.43.9000-11
 - Fix tmt tests to use dnf commands, not yum
 

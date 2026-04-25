@@ -19,13 +19,13 @@ Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-
 Source1:        Documentation.directory
 Patch0:         garcon-%{xfceversion}-fedora-menus.patch
 
-BuildRequires:  pkgconfig(glib-2.0) >= 2.30.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.72.0
 BuildRequires:  pkgconfig(libxfce4util-1.0) >= %{xfceversion}
 BuildRequires:  pkgconfig(libxfce4ui-2) >= %{xfceversion}
-BuildRequires:  pkgconfig(gio-2.0) >= 2.30.0
-BuildRequires:  pkgconfig(gobject-2.0) >= 2.30.0
-BuildRequires:  pkgconfig(gthread-2.0) >= 2.30.0
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
+BuildRequires:  pkgconfig(gio-2.0) >= 2.72.0
+BuildRequires:  pkgconfig(gobject-2.0) >= 2.72.0
+BuildRequires:  pkgconfig(gthread-2.0) >= 2.72.0
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.0
 BuildRequires:  gcc-c++
 BuildRequires:  gtk-doc
 BuildRequires:  gettext
@@ -45,7 +45,7 @@ aims at covering the entire specification except for legacy menus.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       gtk2-devel
+Requires:       pkgconfig(gtk+-3.0) >= 3.24.0
 Requires:       pkgconfig
 Obsoletes:      libxfce4menu-devel < 4.6.2
 

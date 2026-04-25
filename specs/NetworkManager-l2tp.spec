@@ -6,8 +6,8 @@
 
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
-Version:   1.52.0
-Release:   3%{?dist}
+Version:   1.52.2
+Release:   1%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -26,10 +26,8 @@ BuildRequires: NetworkManager-libnm-devel >= 1:1.52.2
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %elif 0%{?rhel} == 9
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
-%elif 0%{?rhel} == 10
-BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %else
-BuildRequires: NetworkManager-libnm-devel >= 1:1.55.91
+BuildRequires: NetworkManager-libnm-devel >= 1:1.56.0
 %endif
 
 BuildRequires: libnma-devel >= 1.8.0
@@ -52,11 +50,9 @@ Requires: NetworkManager >= 1:1.52.2
 %elif 0%{?fedora} == 43
 Requires: NetworkManager >= 1:1.54.3
 %elif 0%{?rhel} == 9
-BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
-%elif 0%{?rhel} == 10
-BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+Requires: NetworkManager >= 1:1.54.3
 %else
-Requires: NetworkManager >= 1:1.55.91
+Requires: NetworkManager >= 1:1.56.0
 %endif
 
 Requires: ppp = %{ppp_version}
@@ -182,8 +178,8 @@ exit 0
 %{_prefix}/lib/NetworkManager/VPN/nm-l2tp-service.name
 %{_libexecdir}/nm-l2tp-service
 %{_libdir}/pppd/%{ppp_version}/nm-l2tp-pppd-plugin.so
-%ghost %attr(0600 - -) %{_sysconfdir}/ipsec.d/ipsec.nm-l2tp.secrets
-%ghost %attr(0600 - -) %{_sysconfdir}/strongswan/ipsec.d/ipsec.nm-l2tp.secrets
+%ghost %attr(0600, -, -) %{_sysconfdir}/ipsec.d/ipsec.nm-l2tp.secrets
+%ghost %attr(0600, -, -) %{_sysconfdir}/strongswan/ipsec.d/ipsec.nm-l2tp.secrets
 %if 0%{?rhel}
 %doc AUTHORS README.md NEWS README.EPEL
 %else
@@ -200,6 +196,11 @@ exit 0
 %endif
 
 %changelog
+* Thu Apr 23 2026 Douglas Kosovic <doug@uq.edu.au> - 1.52.2-1
+- Updated to 1.52.2 release which has experimental IPv6 support.
+- Update CVE-2025-9615 related Requires and BuildRequires.
+- Fix typos found by codespell.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.52.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -312,7 +313,7 @@ exit 0
 * Tue Nov 03 2020 Douglas Kosovic <doug@uq.edu.au> - 1.8.6-1
 - Updated to 1.8.6 release
 - Remove redundant libnm_glib conditionals
-- explictly recommend libreswan >= 4.0 because of change in NSS DB location.
+- explicitly recommend libreswan >= 4.0 because of change in NSS DB location.
 - AppData file now in %%{_datadir}/metainfo/
 - D-Bus policy file now in %%{_datadir}/dbus-1/system.d/
 
@@ -475,7 +476,7 @@ exit 0
 - cleaned .spec file
 - preserve timestamps when installing
 - filtered provides for plugins
-- droped zero-length changelog
+- dropped zero-length changelog
 - use %%global instead of %%define
 
 * Mon Nov 19 2012 Ivan Romanov  <drizt@land.ru> - 0.9.6-1

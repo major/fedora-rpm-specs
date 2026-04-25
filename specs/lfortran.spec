@@ -1,4 +1,4 @@
-Version:        0.62.0
+Version:        0.63.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -135,6 +135,7 @@ This package contains the jupyter kernel for %{name}.
 
 %files devel
 %dir %{_includedir}/lfortran
+%{_includedir}/lfortran/ISO_Fortran_binding.h
 %dir %{_includedir}/lfortran/impure
 %{_includedir}/lfortran/impure/lfortran_intrinsics.h
 %dir %{_datadir}/lfortran
@@ -156,6 +157,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Thu Apr 23 2026 Packit <hello@packit.dev> - 0.63.0-1
+- Update to version 0.63.0
+- Resolves: rhbz#2460969
+
 * Sat Apr 11 2026 Packit <hello@packit.dev> - 0.62.0-1
 - Update to version 0.62.0
 - Resolves: rhbz#2457584

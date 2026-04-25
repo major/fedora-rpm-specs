@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.70
+Version:   3.71
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -45,7 +45,7 @@ Python 3 library for manipulating kickstart files.  The binaries are found in
 the pykickstart package.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 make PYTHON=%{__python3}
@@ -79,6 +79,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Thu Apr 23 2026 Brian C. Lane <bcl@redhat.com> - 3.71-1
+- Add initial RHEL 11 support (yselkowi)
+
 * Mon Apr 20 2026 Brian C. Lane <bcl@redhat.com> - 3.70-1
 - bootc: Add bootloader and composefs arguments (bcl)
 - Fix handling files with special characters (ben.grande.b)

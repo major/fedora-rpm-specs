@@ -18,7 +18,6 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Temporarily allow older image 0.25.9: RHBZ#2446057
 # * Temporarily allow gix 0.75–0.79: RHBZ#2405612
 # * Temporarily allow gix-features 0.44–0.45: RHBZ#2405624
 # * Allow older strum 0.27 for EPEL10.2 and older

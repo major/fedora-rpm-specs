@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 716da6d6af0b252e2f78aba2ad72ee19ae0241e0
 %global commitdatestring 2026-04-01 23:24:55 +0200
-%global cosmic_minver 1.0.10
+%global cosmic_minver 1.0.11
 
 Name:           cosmic-settings-daemon
-Version: 1.0.10
+Version: 1.0.11
 Release:        %autorelease
 Summary:        Settings daemon for the COSMIC Desktop Environment
 

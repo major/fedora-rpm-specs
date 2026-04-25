@@ -1,6 +1,6 @@
 Name:           game-music-emu
-Version:        0.6.4
-Release:        3%{?dist}
+Version:        0.6.5
+Release:        1%{?dist}
 Provides:       libgme%{?_isa} = %{version}-%{release}
 Summary:        Video game music file emulation/playback library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -67,7 +67,7 @@ echo -e "\ninstall(TARGETS gme_player RUNTIME DESTINATION %{_bindir})" >> player
 %cmake_install
 # explicitly install the player as it has EXCLUDE_FROM_ALL set
 pushd %{_vpath_builddir}/player
-make install DESTDIR=%{buildroot}
+DESTDIR=%{buildroot} %__cmake --install .
 popd
 
 
@@ -89,6 +89,10 @@ popd
 
 
 %changelog
+* Thu Apr 23 2026 Karel Volný <kvolny@redhat.com> 0.6.5-1
+- New release 0.6.5 (rhbz#2459866)
+- Replaced make with %%__cmake (rhbz#2381010)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

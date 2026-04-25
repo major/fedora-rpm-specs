@@ -1,5 +1,5 @@
 Name:           qvr
-Version:        4.0.2
+Version:        4.1.0
 Release:        %autorelease
 Summary:        QT library for VR applications
 
@@ -14,13 +14,6 @@ BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
 BuildRequires:  make
-BuildRequires:  texlive-amsmath
-BuildRequires:  texlive-beamer
-BuildRequires:  texlive-babel-english
-BuildRequires:  texlive-dvips
-BuildRequires:  texlive-ec
-BuildRequires:  texlive-latex
-BuildRequires:  texlive-textpos
 
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  openvr-devel
@@ -54,11 +47,6 @@ This package provides additional documentation for %{name}.
 %autosetup -p1
 
 %build
-# Build docs
-pushd doc/intro-slides
-%make_build
-popd
-
 pushd libqvr
 %cmake -DQVR_BUILD_DOCUMENTATION=ON
 %cmake_build
@@ -75,7 +63,7 @@ pushd libqvr
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}.so.4{,.*}
+%{_libdir}/lib%{name}.so.5{,.*}
 
 %files devel
 %{_includedir}/%{name}
@@ -83,7 +71,6 @@ pushd libqvr
 %{_libdir}/cmake/QVR-%{version}/
 
 %files doc
-%doc doc/intro-slides/%{name}.pdf
 %doc %{_docdir}/libqvr
 
 %changelog

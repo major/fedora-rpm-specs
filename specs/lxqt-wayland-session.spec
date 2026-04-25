@@ -2,7 +2,7 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.3.2
+Version:        0.4.0
 Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
@@ -24,7 +24,7 @@ BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  perl
+BuildRequires:  perl-interpreter
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6LinguistTools)
@@ -252,6 +252,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %fdupes %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.4.0-1
+- Update to 0.4.0
+
 * Mon Mar 16 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.3.2-1
 - Update to 0.3.2
 - Rebase configuration patches

@@ -1,10 +1,10 @@
 Name:           perl-Crypt-OpenSSL-RSA
-Version:        0.37
-Release:        2%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for RSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-RSA
-Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Crypt-OpenSSL-RSA-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/Crypt-OpenSSL-RSA-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  findutils
 BuildRequires:  make
@@ -15,6 +15,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(Crypt::OpenSSL::Guess) >= 0.11
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -26,7 +27,8 @@ BuildRequires:  perl(Crypt::OpenSSL::Random)
 BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(base)
-BuildRequires:  perl(Test)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Test::More)
 
 Requires:       perl(Crypt::OpenSSL::Random)
@@ -52,12 +54,15 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc AI_POLICY.md Changes CONTRIBUTING.md README.md SECURITY.md
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Crypt/
 %{_mandir}/man3/*
 
 %changelog
+* Thu Apr 23 2026 Xavier Bachelot <xavier@bachelot.org> - 0.38-1
+- Update to 0.38 (RHBZ#2461134)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

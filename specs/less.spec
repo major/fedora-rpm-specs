@@ -1,12 +1,12 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 5%{?dist}
+Release: 6%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-%global lesspipe_version 2.23
+%global lesspipe_version 2.24
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
 Source2: less.sh
 Source3: less.csh
@@ -18,7 +18,6 @@ Patch9: less-458-less-filters-man.patch
 Patch10: less-458-lesskey-usage.patch
 Patch11: less-458-old-bot-in-help.patch
 Patch13: less-436-help.patch
-Patch14: less-692-dontdoxml.patch
 URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
@@ -47,6 +46,7 @@ files, and you'll use it frequently.
 License: GPL-2.0-or-later
 Summary: Colorizers for less
 Requires: %{name} = %{version}-%{release}
+Recommends: bat
 Conflicts: less < 685-5
 
 %description color
@@ -55,6 +55,8 @@ Syntax highlighting modes for the less pager.
 
 %prep
 %setup -q -a 1
+# make lesspipe directory constat and predictable
+mv lesspipe-%{lesspipe_version} lesspipe-src
 %patch -P 4 -p1 -b .time
 %patch -P 5 -p2 -b .fsync
 %patch -P 6 -p1 -b .manpage-add-old-bot-option
@@ -63,10 +65,9 @@ Syntax highlighting modes for the less pager.
 %patch -P 10 -p1 -b .lesskey-usage
 %patch -P 11 -p1 -b .old-bot
 %patch -P 13 -p1 -b .help
-%patch -P 14 -p1 -b .dontdoxml
 
 # get consistent result localy and on builders
-sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-%{lesspipe_version}/configure
+sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-src/configure
 
 %build
 rm -f ./configure
@@ -74,7 +75,7 @@ autoreconf -fiv
 %configure
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
-pushd lesspipe-%{lesspipe_version}
+pushd lesspipe-src
 ./configure --prefix=%{_prefix} --shell=%{_bindir}/sh --bash-completion-dir=%{_datadir}/bash-completion/completions/  --libexecdir=%{_libexecdir}/%{name}
 # do not run make, it does nothing atm, but it reruns configure with wrong argumens
 popd
@@ -85,13 +86,13 @@ mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d
 install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 
-pushd lesspipe-%{lesspipe_version}
+pushd lesspipe-src
 %make_install
 rm -rf $RPM_BUILD_ROOT/usr/share/bash-completion/
 popd
 
 %check
-pushd lesspipe-%{lesspipe_version}
+pushd lesspipe-src
 # we dont have all required components to pass full test, but it is still
 # useful to run for debug purposes
 make test ||:
@@ -110,9 +111,11 @@ popd
 
 %files color
 %{_bindir}/archive_color
-%{_bindir}/vimcolor
 
 %changelog
+* Thu Apr 16 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-6
+- update lesspipe to 2.24
+
 * Tue Mar 31 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-5
 - use upstream fix for the xml issue
 

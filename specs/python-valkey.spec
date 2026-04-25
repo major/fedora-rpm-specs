@@ -9,6 +9,14 @@ Source:         %{url}/archive/v%{version}/python-valkey-%{version}.tar.gz
 # Upstream issue (merged but not released yet)
 # https://github.com/valkey-io/valkey-py/pull/239
 Patch0:         fix-tests-with-version-lower-than-9.patch
+# Make skip_ifmodversion_lt skip not installed modules
+# Upstream issue:
+# https://github.com/valkey-io/valkey-py/pull/302
+Patch1:         pr-302.patch
+# Fix test_acl_getuser_setuser for newer Valkey versions
+# Upstream issue:
+# https://github.com/valkey-io/valkey-py/pull/303
+Patch2:         pr-303.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

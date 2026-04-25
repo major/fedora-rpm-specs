@@ -191,7 +191,7 @@ ln -s fedora-release %{buildroot}%{_sysconfdir}/system-release
 %global dist_debuginfod_url ima:enforcing https://debuginfod.fedoraproject.org/ ima:ignore
 # -------------------------------------------------------------------------
 
-cat <<EOF >os-release
+cat <<EOF > %{buildroot}%{_prefix}/lib/os-release
 NAME="%{dist_name}"
 VERSION="%{rhel_dist_version}"
 RELEASE_TYPE=development
@@ -276,6 +276,7 @@ install -Dm0644 %{SOURCE8} -t %{buildroot}%{_sysconfdir}/yum.repos.d/
 %files
 %license licenses/LICENSE licenses/Fedora-Legal-README.txt
 %{_prefix}/lib/fedora-release
+%{_prefix}/lib/os-release
 %{_prefix}/lib/system-release-cpe
 %{_sysconfdir}/os-release
 %{_sysconfdir}/fedora-release

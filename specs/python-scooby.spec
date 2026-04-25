@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-scooby
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        A Great Dane turned Python environment detective
 

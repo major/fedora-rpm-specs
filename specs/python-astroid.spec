@@ -10,6 +10,10 @@ License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# Fix compatibility with Python 3.15
+# https://github.com/pylint-dev/astroid/issues/3032
+Patch:          fix-python315-compatibility.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

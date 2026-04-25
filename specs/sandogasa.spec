@@ -1,17 +1,20 @@
 %global tools %{shrink:
+  cpu-sig-tracker
   ebranch
   fedora-cve-triage
   hs-intake
+  hs-meetings
   hs-relmon
   koji-diff
   poi-tracker
   sandogasa-hattrack
   sandogasa-pkg-acl
+  sandogasa-pkg-health
   sandogasa-report
 }
 
 Name:           sandogasa
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -52,9 +55,9 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros
 
-Requires:       fedrq
 Requires:       koji
 Recommends:     fedora-packager
+Recommends:     fedrq
 Suggests:       centos-packager
 
 # ebranch is in Fedora <= 44 and EPEL <= 9
@@ -100,14 +103,17 @@ done
 %license LICENSE-MIT
 %license LICENSE.dependencies
 %doc README.md README.*.md CHANGELOG.md
+%{_bindir}/cpu-sig-tracker
 %{_bindir}/ebranch
 %{_bindir}/fedora-cve-triage
 %{_bindir}/hs-intake
+%{_bindir}/hs-meetings
 %{_bindir}/hs-relmon
 %{_bindir}/koji-diff
 %{_bindir}/poi-tracker
 %{_bindir}/sandogasa-hattrack
 %{_bindir}/sandogasa-pkg-acl
+%{_bindir}/sandogasa-pkg-health
 %{_bindir}/sandogasa-report
 
 

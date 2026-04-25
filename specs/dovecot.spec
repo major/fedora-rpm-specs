@@ -58,6 +58,7 @@ Patch26: dovecot-2.4.3-test-socket-path.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
+BuildRequires: python3
 BuildRequires: sqlite-devel
 BuildRequires: libpq-devel
 BuildRequires: mariadb-connector-c-devel

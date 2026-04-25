@@ -25,37 +25,19 @@ Patch:          bout++-no-make-bash.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-%if 0%{?fedora} >= 33
 %bcond_without flexiblas
-%else
-%bcond_with flexiblas
-%endif
-
-# Disable tests and manual on epel < 8
-%if 0%{?rhel} && 0%{?rhel} < 8
-%bcond_with manual
-%bcond_without test
-%bcond_with sundials
-%bcond_with petsc
-%bcond_with 3dmetrics
-%else
 %bcond_without manual
 %bcond_without test
 %bcond_without sundials
 %bcond_without petsc
 %bcond_with 3dmetrics
-%endif
 
 # Enable both mpi every where
 %bcond_without mpich
 %bcond_without openmpi
 
-%if 0%{?fedora} || ( 0%{?rhel} && 0%{?rhel} > 7 )
 # Use system mpark
 %bcond_without system_mpark
-%else
-%bcond_with system_mpark
-%endif
 
 #
 #           DEPENDENCIES

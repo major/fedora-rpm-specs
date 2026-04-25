@@ -5,13 +5,16 @@
 %global crate hashbrown
 
 Name:           rust-hashbrown
-Version:        0.16.1
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Rust port of Google's SwissTable hash map
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/hashbrown
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          hashbrown-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

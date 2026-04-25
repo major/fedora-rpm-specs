@@ -4,7 +4,9 @@ Name:           python-basemap
 Version:        2.0.0
 Release:        8%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
-License:        LGPL-2.1-or-later
+# main project is MIT
+# basemap-data* is LGPL-3.0-or-later AND MIT AND (MIT AND LicenseRef-Fedora-Public-Domain)
+License:        MIT AND LGPL-3.0-or-later AND MIT AND (MIT AND LicenseRef-Fedora-Public-Domain)
 URL:            https://matplotlib.org/basemap/
 Source0:        https://github.com/matplotlib/basemap/archive/v%{version}/basemap-%{version}.tar.gz
 Patch0:         pyver.patch
@@ -19,7 +21,7 @@ projections (with continental and political boundaries).
 
 %package -n     python-basemap-examples
 Summary:        Example programs and data for python3-basemap
-License:        LicenseRef-Callaway-Copyright-only 
+License:        MIT
 Requires:       python3-basemap
 
 %description -n python-basemap-examples
@@ -27,7 +29,6 @@ Requires:       python3-basemap
 
 %package -n python3-basemap
 Summary:        Plots data on map projections (with continental and political boundaries)
-License:        LGPL-2.1-or-later
 BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, geos-devel
 BuildRequires:  python3-setuptools, python3-pip
 BuildRequires:  chrpath
