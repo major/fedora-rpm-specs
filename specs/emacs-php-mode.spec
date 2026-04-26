@@ -7,7 +7,7 @@ URL:             https://github.com/emacs-php/php-mode
 Source0:         https://github.com/emacs-php/php-mode/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:         php-mode-init.el
 BuildArch:       noarch
-BuildRequires:   emacs eask git
+BuildRequires:   emacs eask
 Requires:        emacs(bin)%{?_emacs_version: >= %{_emacs_version}}
 Requires:        emacs-filesystem
 

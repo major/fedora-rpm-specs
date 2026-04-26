@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rustls-pki-types
+%global crate slog-json
 
-Name:           rust-rustls-pki-types
-Version:        1.14.1
+Name:           rust-slog-json
+Version:        2.6.1
 Release:        %autorelease
-Summary:        Shared types for the rustls PKI ecosystem
+Summary:        JSON drain for slog-rs
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/rustls-pki-types
+License:        MPL-2.0 OR MIT OR Apache-2.0
+URL:            https://crates.io/crates/slog-json
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          rustls-pki-types-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * drop unused x86_64-specific crabgrind dev-dependency
-Patch:          rustls-pki-types-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Shared types for the rustls PKI ecosystem.}
+JSON drain for slog-rs.}
 
 %description %{_description}
 
@@ -37,6 +32,9 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE-MPL2
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/HACKING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,40 +50,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+dynamic-keys-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+dynamic-keys-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "dynamic-keys" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+dynamic-keys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+erased-serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+erased-serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "erased-serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+erased-serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+web-devel
+%package     -n %{name}+nested-values-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+web-devel %{_description}
+%description -n %{name}+nested-values-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "web" feature of the "%{crate}" crate.
+use the "nested-values" feature of the "%{crate}" crate.
 
-%files       -n %{name}+web-devel
+%files       -n %{name}+nested-values-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -3,8 +3,8 @@
 %bcond_with static
 
 Name: elfutils
-Version: 0.194
-%global baserelease 5
+Version: 0.195
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -17,15 +17,25 @@ Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 %global depsuffix %{?_isa}%{!?_isa:-%{_arch}}
 
 # eu-stacktrace currently only supports x86_64
-%ifarch x86_64
+%ifarch x86_64 aarch64
 %global enable_stacktrace 1
 %else
 %global enable_stacktrace 0
 %endif
 
+%global provide_yama_scope      0
+
+%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7
+%global provide_yama_scope      1
+%endif
+
 Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 Requires: elfutils-libs%{depsuffix} = %{version}-%{release}
 Requires: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
+
+%if %{provide_yama_scope}
+Recommends: yama-ptrace-enable
+%endif
 
 BuildRequires: gcc
 # For libstdc++ demangle support
@@ -80,12 +90,6 @@ BuildRequires: gettext-devel
 %global _gnu %{nil}
 %global _program_prefix eu-
 
-%global provide_yama_scope      0
-
-%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7
-%global provide_yama_scope      1
-%endif
-
 %global with_sysusers           0
 
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
@@ -96,19 +100,6 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-
-# Prevent assert failure in readelf for some -ggdb3 binaries.
-Patch2: elfutils-0.194-alloc-jobs.patch
-
-# Fix const warning from newer GCC.
-Patch3: elfutils-0.194-fix-const.patch
-
-# Work around ET_REL files with sh_addr fields set to non-zero
-Patch4: elfutils-0.194-sh_addr-non-zero.patch
-
-# Recognize SHT_AARCH64_ATTRIBUTES.
-# https://sourceware.org/bugzilla/show_bug.cgi?id=33923
-Patch5: elfutils-0.194-aarch64-Recognize-SHT_AARCH64_ATTRIBUTES.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -126,7 +117,7 @@ Provides: elfutils-libs%{depsuffix} = %{version}-%{release}
 %endif
 Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 %if %{provide_yama_scope}
-Requires: default-yama-scope
+Obsoletes: elfutils-default-yama-scope < 0.195-1
 %endif
 %if 0%{?rhel} >= 8 || 0%{?fedora} >= 20
 Recommends: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
@@ -221,10 +212,9 @@ for libelf.
 %endif
 
 %if %{provide_yama_scope}
-%package default-yama-scope
-Summary: Default yama attach scope sysctl setting
+%package -n yama-ptrace-enable
+Summary: Sysctl setting to enable full ptrace functionality
 License: GPL-2.0-or-later OR LGPL-3.0-or-later
-Provides: default-yama-scope
 BuildArch: noarch
 # For the sysctl_apply macro we need systemd as build requires.
 # We also need systemd-sysctl in post to apply the default kernel config.
@@ -245,9 +235,9 @@ Recommends: systemd
 Requires(post): systemd
 %endif
 
-%description default-yama-scope
-Yama sysctl setting to enable default attach scope settings
-enabling programs to use ptrace attach, access to
+%description -n yama-ptrace-enable
+Sysctl setting to enable full ptrace functionality,
+allowing programs to use ptrace attach, access to
 /proc/PID/{mem,personality,stack,syscall}, and the syscalls
 process_vm_readv and process_vm_writev which are used for
 interprocess services, communication and introspection
@@ -394,9 +384,9 @@ uname -r; rpm -q binutils gcc glibc || true
 %endif
 
 %if %{provide_yama_scope}
-%post default-yama-scope
+%post -n yama-ptrace-enable
 # Due to circular dependencies might not be installed yet, so double check.
-# (systemd -> elfutils-libs -> default-yama-scope -> systemd)
+# (systemd -> elfutils-libs -> yama-ptrace-enable -> systemd)
 if [ -x /usr/lib/systemd/systemd-sysctl ] ; then
 %sysctl_apply 10-default-yama-scope.conf
 fi
@@ -470,6 +460,7 @@ fi
 %{_mandir}/man3/elf_*.3*
 %{_mandir}/man3/elf32_*.3*
 %{_mandir}/man3/elf64_*.3*
+%{_mandir}/man3/gelf.3*
 %{_mandir}/man3/gelf_*.3*
 %{_mandir}/man3/libelf.3*
 
@@ -479,7 +470,7 @@ fi
 %endif
 
 %if %{provide_yama_scope}
-%files default-yama-scope
+%files -n yama-ptrace-enable
 %{_sysctldir}/10-default-yama-scope.conf
 %endif
 
@@ -532,6 +523,19 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Apr 24 2026 Aaron Merey <amerey@redhat.com> - 0.195-1
+- Upgrade to upstream elfutils 0.195
+- Drop upstreamed patches
+  elfutils-0.194-aarch64-Recognize-SHT_AARCH64_ATTRIBUTES.patch
+  elfutils-0.194-alloc-jobs.patch
+  elfutils-0.194-fix-const.patch
+  elfutils-0.194-sh_addr-non-zero.patch
+- Add gelf.3 to %files
+- Enable eu-stacktrace on aarch64
+- Rename elfutils-default-yama-scope subpackage to yama-ptrace-enable,
+  drop Requires on elfutils-libs, add Recommends on elfutils main
+  package for FESCo Change #3569 (rhbz#2448388)
+
 * Tue Mar 03 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.194-5
 - Add elfutils-0.194-aarch64-Recognize-SHT_AARCH64_ATTRIBUTES.patch
 

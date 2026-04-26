@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        9.3.4
+Version:        9.3.5
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
@@ -26,8 +26,6 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
-
-Patch01: 0001-shl_lru-fix-build-error-on-i686.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).

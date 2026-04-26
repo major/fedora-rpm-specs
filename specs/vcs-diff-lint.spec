@@ -1,6 +1,6 @@
 Name:    vcs-diff-lint
-Version: 6.4
-Release: 4%{?dist}
+Version: 6.6
+Release: 1%{?dist}
 Summary: VCS Differential Code Analysis Tool
 BuildArch: noarch
 
@@ -21,18 +21,20 @@ Source0: %name-%version.tar.gz
 Source1: https://github.com/praiskup/vcs-diff-lint-testdata/releases/download/v1.0.0/vcs-diff-lint-testdata-1.0.0.bundle
 
 Requires: csdiff
-Requires: git
+Requires: git-core
 Recommends: pylint
 Recommends: python3-mypy
 Recommends: python3-types-requests
 Recommends: ruff
+Recommends: yamllint
 
 %if %{with check}
 BuildRequires: csdiff
-BuildRequires: git
+BuildRequires: git-core
 BuildRequires: pylint
 BuildRequires: rpmdevtools
 BuildRequires: python3-pytest
+BuildRequires: yamllint
 %endif
 
 
@@ -64,6 +66,7 @@ install -p vcs-diff-lint %buildroot%_bindir
 install -p vcs-diff-lint-csdiff-pylint %buildroot%_bindir
 install -p vcs-diff-lint-csdiff-mypy   %buildroot%_bindir
 install -p vcs-diff-lint-csdiff-ruff   %buildroot%_bindir
+install -p vcs-diff-lint-csdiff-yamllint %buildroot%_bindir
 
 %if %{with check}
 %check
@@ -78,14 +81,12 @@ install -p vcs-diff-lint-csdiff-ruff   %buildroot%_bindir
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Fri Apr 24 2026 Pavel Raiskup <pavel@raiskup.cz> 6.6-1
+- Fix stdout buffering
 
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Fri Apr 24 2026 Pavel Raiskup <pavel@raiskup.cz> 6.5-1
+- yamllint support
+- depend on git-core instead of git
 
 * Wed Oct 16 2024 Pavel Raiskup <praiskup@redhat.com> 6.4-1
 - add a basic test-suite

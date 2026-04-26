@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 22.1.3
+%global libclc_version 22.1.4
 #global rc_ver 3
 %global src_tarball_dir llvm-project-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -108,6 +108,10 @@ cd libclc
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 21 2026 Packit <hello@packit.dev> - 22.1.4-1
+- Update to version 22.1.4
+- Resolves: rhbz#2460022
+
 * Tue Apr 07 2026 Packit <hello@packit.dev> - 22.1.3-1
 - Update to version 22.1.3
 - Resolves: rhbz#2455883

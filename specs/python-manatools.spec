@@ -1,59 +1,60 @@
 %global module manatools
 
 Name:           python-%{module}
-Version:        0.0.4
-Release:        17%{?dist}
+Version:        0.99.0
+Release:        1%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/manatools/python-manatools
 Source0:        https://github.com/manatools/python-manatools/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 %description
-Python ManaTools aim is to help in writing tools based on libYui
-(SUSE widget abstraction library), to be collected under the
-ManaTools banner and hopefully with the same look and feel.
+Python ManaTools aim is to help in writing tools to be collected
+under the ManaTools banner and hopefully with the same look and feel.
 
 Every output module supports the Qt, GTK, and ncurses interfaces.
 
 %package -n python3-%{module}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3-yui
 %{?python_provide:%python_provide python3-%{module}}
-Requires:       python3-yui
-Recommends:     (libyui-mga-qt if qt5-qtbase-gui)
-Recommends:     (libyui-mga-gtk if gtk3)
+Recommends:     (python3dist(python-%{name}[qt]) if qt6-qtbase-gui)
+Recommends:     (python3dist(python-%{name}[gtk]) if gtk4)
 
 %description -n python3-%{module}
-Python ManaTools aim is to help in writing tools based on libYui
-(SUSE widget abstraction library), to be collected under the
-ManaTools banner and hopefully with the same look and feel.
+Python ManaTools aim is to help in writing tools to be collected
+under the ManaTools banner and hopefully with the same look and feel.
 
 Every output module supports the Qt, GTK, and ncurses interfaces.
+
+%pyproject_extras_subpkg -n python3-%{module} qt
+%pyproject_extras_subpkg -n python3-%{module} gtk
 
 %prep
 %autosetup -p1
 
-sed -i 's|0.0.1|%{version}|' manatools/version.py
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{module}
 %doc README.md NEWS
 %license LICENSE
 %{python3_sitelib}/%{module}/
-%{python3_sitelib}/python_manatools-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/python_manatools-%{version}.dist-info/
 
 %changelog
+* Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.0-1
+- Rebase to 0.99.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

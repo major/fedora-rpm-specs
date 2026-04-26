@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.40.1
+%global base_version 0.40.2
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -81,6 +81,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Apr 24 2026 Packit <hello@packit.dev> - 0.40.2-1
+- Trailing whitespaces at the end of specfile sections are now ignored during parsing. (#531)
+- Resolves: rhbz#2461109
+
 * Wed Mar 25 2026 Packit <hello@packit.dev> - 0.40.1-1
 - Fixed issues related to introduced sanitization (#523, #524, #525).
 - Resolves: rhbz#2446536

@@ -15,8 +15,16 @@
 # use openssl by default as botan2 is too old
 %bcond_without      openssl
 %else
-# use botan2 as openssl seems experimental/wip
+# use botan2/3 as openssl seems experimental/wip
 %bcond_with         openssl
+%endif
+
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 10
+# New in F44 / EPEL-10.2
+%bcond_without      botan3
+%else
+# Use botan2 by default
+%bcond_with         botan3
 %endif
 
 %global libname     librnp
@@ -26,7 +34,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.18.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -37,6 +45,8 @@ Source1:       %{url}/releases/download/v%{version}/rnp-v%{version}.tar.gz.asc
 Source2:       %{name}-keyring.gpg
 # Use --with licensecheck to generate
 Source3:       %{name}-files-by-license.txt
+
+Patch0:        %{name}-build.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -52,7 +62,11 @@ BuildRequires:  openssl-devel >= 1.1.1
 BuildRequires:  json-c-devel >= 0.11
 BuildRequires:  gtest-devel
 %else
+%if %{with botan3}
+BuildRequires:  pkgconfig(botan-3)
+%else
 BuildRequires:  pkgconfig(botan-2) >= 2.14
+%endif
 BuildRequires:  cmake(json-c) >= 0.11
 BuildRequires:  cmake(GTest)
 %endif
@@ -99,6 +113,8 @@ for %{libname}.
 %setup -q -n %{name}-v%{version}
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
 
+%patch -P0 -p1
+
 %if %{with libsexpp}
 rm -rf  src/libsexp
 : check system version requirement
@@ -139,7 +155,11 @@ rm $LST
 %if %{with openssl}
    -DCRYPTO_BACKEND:STRING=openssl \
 %else
+%if %{with botan3}
+   -DCRYPTO_BACKEND:STRING=botan3 \
+%else
    -DCRYPTO_BACKEND:STRING=botan \
+%endif
 %endif
 %if %{with libsexpp}
    -DSYSTEM_LIBSEXPP:BOOL=ON \
@@ -188,6 +208,10 @@ FILTER="s2k_iteration_tuning|test_key_add_userid|test_ffi_security_profile|Encry
 
 
 %changelog
+* Fri Apr 24 2026 Remi Collet <remi@remirepo.net> - 0.18.1-4
+- switch from botan2 to botan3
+- fix build using patch from https://github.com/rnpgp/rnp/pull/2382
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

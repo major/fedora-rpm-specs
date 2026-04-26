@@ -1,6 +1,6 @@
 %global _lto_cflags %{nil}
-# https://github.com/pytorch/FBGEMM/blob/v0.7.0/CMakeLists.txt#L87
-%global soversion 0.1
+# https://github.com/pytorch/FBGEMM/blob/main/CMakeLists.txt#L55
+%global soversion 1.4.0
 %global desc %{expand: \
 FBGEMM (Facebook GEneral Matrix Multiplication) is a low-precision, high
 performance matrix-matrix multiplications and convolution library for
@@ -13,7 +13,7 @@ fusion opportunities in order to overcome the unique challenges of matrix
 multiplication at lower precision with bandwidth-bound operations.}
 
 Name:		fbgemm
-Version:	1.0.0
+Version:	1.6.0
 Release:	%autorelease
 Summary:	Facebook General Matrix-Matrix Multiplication
 
@@ -52,7 +52,7 @@ sed -i '$a set_target_properties(fbgemm PROPERTIES SOVERSION 1 VERSION %{soversi
 
 %build
 %cmake \
-	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_CXX_FLAGS="%{optflags} -mno-avx512f" \
 	-DCMAKE_C_FLAGS="%{optflags} -mno-avx512f" \
 	-DFBGEMM_LIBRARY_TYPE=shared \

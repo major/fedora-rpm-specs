@@ -7,7 +7,7 @@
 %global crate sequoia-git
 
 Name:           rust-sequoia-git
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Tool for managing and enforcing a commit signing policy
 

@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.11.5
+Version:        4.12.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -17,6 +17,10 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 # output and on the docstring of trimesh.__main__.main
 Source1:        trimesh.1
+
+# In test_rps, use embreex only if it is installed
+# https://github.com/mikedh/trimesh/pull/2531
+Patch:          https://github.com/mikedh/trimesh/pull/2531.patch
 
 BuildSystem:            pyproject
 # With v4, [all] = [easy,recommend,test,test_more,deprecated].

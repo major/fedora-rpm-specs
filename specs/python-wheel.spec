@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-wheel
-Version:        0.46.3
+Version:        0.47.0
 Release:        %autorelease
 Epoch:          1
 Summary:        Command line tool for manipulating wheel files

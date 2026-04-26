@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.10
+Version: 13.12
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 24 2026 Nick Clifton  <nickc@redhat.com> - 13.12-1
+- Annocheck: Skip the dynamic-tags test if a GNU Property note is present.
+
+* Fri Apr 24 2026 Nick Clifton  <nickc@redhat.com> - 13.11-1
+- Annocheck: Look for compromising characters in pathnames.
+
 * Thu Apr 16 2026 Nick Clifton  <nickc@redhat.com> - 13.10-1
 - Require C++17 for building.
 

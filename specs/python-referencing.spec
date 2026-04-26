@@ -14,7 +14,6 @@ BuildRequires:  python3-devel
 
 # For tests
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-subtests)
 
 %global _description %{expand:
 An implementation-agnostic implementation of JSON reference resolution.

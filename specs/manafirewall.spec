@@ -2,10 +2,9 @@
 %undefine __cmake_in_source_build
 
 Name:		manafirewall
-Version:	0.0.3
-Release:	18%{?dist}
+Version:	0.99.1
+Release:	1%{?dist}
 Summary:	ManaTools FirewallD configuration tool
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/manatools/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -20,27 +19,19 @@ BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-yaml
-BuildRequires:	python3-yui
-BuildRequires:	python3-manatools	>= 0.0.3
+BuildRequires:	python3-manatools	>= 0.99.0
 
 Requires:	hicolor-icon-theme
 Requires:	python3-yaml
-Requires:	python3-yui
-Requires:	python3-manatools	>= 0.0.3
+Requires:	python3-manatools	>= 0.99.0
 Requires:	python3-firewall	>= 0.9.0
 Requires:	firewalld
-# Ensure base TUI deps are installed
-Requires:	libyui-ncurses
-Requires:	libyui-mga-ncurses
 
 Provides:	%{name}-gui		= %{version}-%{release}
-Recommends:	(libyui-mga-qt if qt5-qtbase-gui)
-Recommends:	(libyui-mga-gtk if gtk3)
 
 %description
 %{name} is the graphical configuration tool for firewalld based on python
-manatools and libYui (Suse widget abstraction library), to be run using
-Qt 5, GTK+ 3, or ncurses interfaces.
+manatools, to be run using Qt, GTK, or ncurses interfaces.
 
 %prep
 %autosetup -p1
@@ -75,6 +66,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.1-1
+- Rebase to the latest version
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global with_snapshot 1
-%global gitdate 20231007
-%global commit 6e71f6be0c1ccd6d1dab052ae4e6610e3b031aa7
+%global gitdate 20250628
+%global commit a3199e8857792cd10b7589ff5d58343d2c9008ea
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 %global desc %{expand: \

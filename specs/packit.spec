@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.15.3
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Apr 24 2026 Packit <hello@packit.dev> - 1.16.0-1
+- Packit CLI has a new option `--[no-]update-release` that, by default, follows the value of the option set in the config, and also allows you to override manually, if necessary. (#2713)
+- In addition to `version_update_mask`, users can now use a new `version_update_specifiers` configuration option to control the upstream versions allowed to be release-synced. The option accepts [PEP440 version specifier sets](https://packaging.pypa.io/en/stable/specifiers.html), for example `version_update_specifiers: >=1.0,~=1.0`. (#2710)
+- Resolves: rhbz#2461103
+
 * Wed Apr 01 2026 Packit <hello@packit.dev> - 1.15.3-1
 - We've fixed the formatting of the strings Packit appends to the changelog. Now there will be at most one blank line before or after the Packit comment. (#2707)
 - Resolves: rhbz#2453842

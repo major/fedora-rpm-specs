@@ -41,7 +41,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.1.1
+Version:   2.1.2
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -60,7 +60,6 @@ BuildRequires: python3-jinja2
 BuildRequires: sqlite-devel
 BuildRequires: systemd >= %{systemd_version}
 BuildRequires: systemd-devel
-BuildRequires: libcbor-devel
 BuildRequires: libblkid-devel
 BuildRequires: readline-devel
 BuildRequires: libmnl-devel
@@ -211,6 +210,11 @@ or server machines.
     -Dpassim=enabled \
 %else
     -Dpassim=disabled \
+%endif
+%ifarch i686 x86_64
+    -Dhsi=enabled \
+%else
+    -Dhsi=disabled \
 %endif
     -Dman=true \
     -Dsystemd_unit_user="" \

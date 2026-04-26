@@ -2,7 +2,7 @@
 %global gem_name process_executer
 
 Name: rubygem-%{gem_name}
-Version: 4.0.2
+Version: 4.0.3
 Release: %autorelease
 Summary: An API for executing commands in a sub process
 License: MIT

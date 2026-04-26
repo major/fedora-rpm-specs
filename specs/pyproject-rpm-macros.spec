@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.19.0
+Version:        1.20.0
 Release:        1%{?dist}
 
 # Macro files
@@ -29,12 +29,15 @@ Source104:      pyproject_preprocess_record.py
 Source105:      pyproject_construct_toxenv.py
 Source106:      pyproject_requirements_txt.py
 Source107:      pyproject_wheel.py
+Source108:      pyproject_patch_metadata.py
+Source109:      pyproject_dependency_overrides.py
 
 # Tests
 Source201:      test_pyproject_buildrequires.py
 Source202:      test_pyproject_save_files.py
 Source203:      test_pyproject_requirements_txt.py
 Source204:      compare_mandata.py
+Source205:      test_dependency_overrides.py
 
 # Test data
 Source301:      pyproject_buildrequires_testcases.yaml
@@ -136,6 +139,8 @@ install -pm 644 pyproject_preprocess_record.py %{buildroot}%{_rpmconfigdir}/redh
 install -pm 644 pyproject_construct_toxenv.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -pm 644 pyproject_requirements_txt.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -pm 644 pyproject_wheel.py %{buildroot}%{_rpmconfigdir}/redhat/
+install -pm 644 pyproject_patch_metadata.py %{buildroot}%{_rpmconfigdir}/redhat/
+install -pm 644 pyproject_dependency_overrides.py %{buildroot}%{_rpmconfigdir}/redhat/
 
 
 %if %{with tests}
@@ -157,6 +162,8 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 %{_rpmconfigdir}/redhat/pyproject_construct_toxenv.py
 %{_rpmconfigdir}/redhat/pyproject_requirements_txt.py
 %{_rpmconfigdir}/redhat/pyproject_wheel.py
+%{_rpmconfigdir}/redhat/pyproject_patch_metadata.py
+%{_rpmconfigdir}/redhat/pyproject_dependency_overrides.py
 
 %doc README.md
 %license LICENSE
@@ -167,6 +174,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Apr 24 2026 Charalampos Stratakis <cstratak@redhat.com> - 1.20.0-1
+- Add %%pyproject_patch_dependency macro for overriding dependency constraints
+- Overrides apply to both BuildRequires and runtime Requires (via METADATA patching)
+- Resolves: rhbz#2386906
+
 * Tue Mar 31 2026 Miro Hrončok <mhroncok@redhat.com> - 1.19.0-1
 - Add -d option for %%pyproject_buildrequires and %%pyproject_wheel to specify a working directory
 - Fixes: rhbz#2371389

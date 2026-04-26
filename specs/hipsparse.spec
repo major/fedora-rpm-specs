@@ -258,11 +258,19 @@ install -pm 644 %{_builddir}/hipsparse-test-matrices/* %{buildroot}/%{pkg_prefix
 %files -n %{pkg_name}
 %doc README.md
 %license LICENSE.md
+%if %{with debug}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so.%{pkg_library_version}{,.*}
+%else
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
+%endif
 
 %files devel
 %{pkg_prefix}/include/hipsparse/
+%if %{with debug}
+%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so
+%else
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
+%endif
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipsparse/
 
 %if %{with test}

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
@@ -18,6 +18,10 @@ Patch1:  cucumber-ruby-core-pr302-remove-source_location-extra-args.patch
 # Fix compatibilty with cucumber-messages 25+. Roughly equivalent to:
 # https://github.com/cucumber/gherkin/pull/259
 Patch2: rubygem-cucumber-core-15.0.0-Fix-compatibility-with-cucumber-messages-25.patch
+# Fix compatibility with cucumber-messages 31.1+
+# https://github.com/cucumber/messages/commit/63d93d6db59c3c913ba03a683f883d1e0ac40961
+# https://github.com/cucumber/cucumber-ruby-core/pull/309/changes/3ea20e5a13fc7adea101598fd1e435dbe108fed4
+Patch3: rubygem-cucumber-core-16.1.1-Fix-missing-method-from-messages-by-reintroducin-to-single-location.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -46,6 +50,7 @@ Documentation for %{name}.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
@@ -88,6 +93,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Apr 20 2026 Vít Ondruch <vondruch@redhat.com> - 10.1.0-14
+- Fix compatibility with cucumber-messages 31.1+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

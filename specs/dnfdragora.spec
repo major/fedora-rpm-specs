@@ -1,14 +1,14 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global commit 2f707ee21aae9fa512a1fe261959fbaa17291d63
-%global commitdate 20250421
+%global commit bd6ca6f6dc60a0664314bbcfc86329008be457c3
+%global commitdate 20260419
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:		dnfdragora
-Version:	2.99.0^git%{commitdate}.1.%{shortcommit}
-Release:	7%{?dist}
-Summary:	DNF package-manager based on libYui abstraction
+Version:	2.99.2^git%{commitdate}.1.%{shortcommit}
+Release:	1%{?dist}
+Summary:	DNF package-manager frontend from ManaTools
 
 License:	GPL-3.0-or-later
 URL:		https://github.com/manatools/%{name}
@@ -24,58 +24,38 @@ BuildRequires:	libappstream-glib
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
 BuildRequires:	python3-libdnf5		>= 5.2.7
-BuildRequires:	python3-manatools	>= 0.0.3
+BuildRequires:	python3-manatools	>= 0.99.0
 BuildRequires:	python3-PyYAML
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-sphinx
-BuildRequires:	python3-yui
 BuildRequires:	python3-pyxdg
-BuildRequires:	python3-cairosvg
-BuildRequires:	python3-pillow
-BuildRequires:	python3-pystray		>= 0.16
 
 Requires:	dnf5daemon-server	>= 5.2.7
 Requires:	filesystem
 Requires:	comps-extras
 Requires:	hicolor-icon-theme
-Requires:	libyui-mga-ncurses
 Requires:	python3-libdnf5		>= 5.2.7
-Requires:	python3-manatools	>= 0.0.3
+Requires:	python3-manatools	>= 0.99.0
 Requires:	python3-PyYAML
-Requires:	python3-yui		>= 1.1.1-10
 
 Provides:	%{name}-gui		= %{version}-%{release}
-Recommends:	(libyui-mga-qt if qt5-qtbase-gui)
-Recommends:	(libyui-mga-gtk if gtk3)
 
 %description
 %{name} is a DNF frontend, based on rpmdragora from Mageia
 (originally rpmdrake) Perl code.
-
-%{name} is written in Python 3 and uses libYui, the widget
-abstraction library written by SUSE, so that it can be run
-using Qt 5, GTK+ 3, or ncurses interfaces.
-
 
 %package updater
 Summary:	Update notifier applet for %{name}
 
 Requires:	%{name}			== %{version}-%{release}
 Requires:	libnotify
-Requires:	python3-pyxdg
-Requires:	python3-cairosvg
-Requires:	python3-pillow
-Requires:	python3-pystray		>= 0.16
+Requires:	python3-pyside6
 
 Obsoletes:	%{name}-gui		< 1.0.1-7
 
 %description updater
 %{name} is a DNF frontend, based on rpmdragora from Mageia
 (originally rpmdrake) Perl code.
-
-%{name} is written in Python 3 and uses libYui, the widget
-abstraction library written by SUSE, so that it can be run
-using Qt 5, GTK+ 3, or ncurses interfaces.
 
 This package provides the update notifier applet for %{name}.
 
@@ -103,7 +83,7 @@ desktop-file-validate				\
 
 # Validate AppData-files.
 appstream-util validate-relax --nonet		\
-	%{buildroot}%{_datadir}/appdata/*.appdata.xml
+	%{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -114,11 +94,11 @@ appstream-util validate-relax --nonet		\
 %exclude %{python3_sitelib}/%{name}/__pycache__/updater.cpython*.py?
 %license AUTHORS LICENSE
 %{_bindir}/%{name}
-%{_datadir}/appdata/*%{name}.appdata.xml
+%{_metainfodir}/*%{name}.metainfo.xml
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/applications/*%{name}-localinstall.desktop
 %{_datadir}/%{name}
-%{_datadir}/icons/hicolor/*/apps/%{name}*
+%{_datadir}/icons/hicolor/*/apps/*%{name}.{svg,png}
 %{_mandir}/man5/%{name}*.5*
 %{_mandir}/man8/%{name}*.8*
 %dir %{python3_sitelib}/%{name}
@@ -134,6 +114,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.99.2^git20260419.1.bd6ca6f-1
+- Update to the newest snapshot version
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.0^git20250421.1.2f707ee-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

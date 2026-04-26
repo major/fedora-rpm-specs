@@ -23,14 +23,19 @@ Source19:       distro-template.swidtag
 Source31:       20-fedora-defaults.conf
 Source32:       75-eln.preset
 
+Source50:       branding.css
+
 BuildArch:      noarch
 
 BuildRequires:  redhat-rpm-config > 121-1
 BuildRequires:  systemd-rpm-macros
 
 Provides:       fedora-release = %{fedora_dist_version}-%{release}
+Provides:       fedora-release-common = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-common < 46
+Provides:       fedora-release-eln = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-eln < 46
+Provides:       fedora-release-identity-eln = %{fedora_dist_version}-%{release}
 Obsoletes:      fedora-release-identity-eln < 46
 
 Provides:       system-release = %{version}-%{release}
@@ -272,6 +277,9 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 # Install DNF repo file
 install -Dm0644 %{SOURCE8} -t %{buildroot}%{_sysconfdir}/yum.repos.d/
 
+# Install Cockpit (and Anaconda WebUI) theming
+install -Dm0644 %{SOURCE50} -t %{buildroot}%{_sysconfdir}/cockpit/branding/
+
 
 %files
 %license licenses/LICENSE licenses/Fedora-Legal-README.txt
@@ -293,6 +301,9 @@ install -Dm0644 %{SOURCE8} -t %{buildroot}%{_sysconfdir}/yum.repos.d/
 %{_swidtagdir}/org.fedoraproject.Fedora-ELN-%{rhel_dist_version}.swidtag
 %dir %{_sysconfdir}/swid
 %{_sysconfdir}/swid/swidtags.d
+%dir %{_sysconfdir}/cockpit
+%dir %{_sysconfdir}/cockpit/branding
+%{_sysconfdir}/cockpit/branding/branding.css
 %{_prefix}/share/dnf5/libdnf.conf.d/20-fedora-defaults.conf
 %{_presetdir}/80-server.preset
 %{_presetdir}/75-eln.preset

@@ -2,15 +2,15 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.9
-Release: 8%{?dist}
+Version: 4.10
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
 Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-b-flag.patch
 Patch1: sed-c-flag.patch
-Patch2: sed-covscan-annotations.patch
+#Patch2: sed-covscan-annotations.patch
 Patch3: sed-regexp-cache-size.patch
 BuildRequires: make
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
@@ -43,7 +43,8 @@ specified in a script file or from the command line.
 %autosetup -p1
 
 %build
-%configure --without-included-regex
+#%configure --without-included-regex
+%configure 
 %make_build
 
 #rhbz#2396649
@@ -74,6 +75,12 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Fri Apr 24 2026  Jakub Martisko <jamartis@redhat.com> - 4.10-1
+- Update to 4.10
+- Remove the --without-included-regex build option
+  There were some fixes regarding the backrefences in the new release. 
+  Removing the option fixed a testsuire failure in the backref test.
+
 * Mon Feb 09 2026  Jakub Martisko <jamartis@redhat.com> - 4.9-8
 - lib/dfa.c: Increase the maximum size of the transitions table
 - After changes introduced between sed 4.2 and 4.4, some regexps

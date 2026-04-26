@@ -190,7 +190,6 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 BuildRequires:  cargo-rpm-macros >= 25
-BuildRequires:  tomcli
 
 # Required by crate bzip2-sys (vendored)
 BuildRequires:  pkgconfig(bzip2)
@@ -393,7 +392,7 @@ prune_vendor "ring-*" "pregenerated"
 # And will add the `pkg-config` to the default-features, and patch
 # .cargo-checksum.json to ignore the changed files.
 find . -maxdepth 1 -path "*/zstd-*" \
-    -exec tomcli set "{}/Cargo.toml" append features.default pkg-config \; \
+    -exec sed -i '/^default = \[/s/\[/&"pkg-config", /' "{}/Cargo.toml" \; \
     -exec sed -i.uncheck -e 's/"files":{[^}]*}/"files":{ }/' "{}/.cargo-checksum.json" \;
 
 prune_vendor "zstd-sys-*" "zstd"
@@ -406,9 +405,10 @@ prune_vendor "zstd-sys-*" "zstd"
 # Cargo.toml (via our existing patch) and not have to modify the vendored
 # Cargo.toml directly.
 find . -maxdepth 1 -path "*/posthog-rs-*" \
-    -exec tomcli set "{}/Cargo.toml" str dependencies.reqwest.version "0.12.28" \; \
-    -exec tomcli set "{}/Cargo.toml" arrays delitem dependencies.reqwest.features "rustls-tls" \; \
-    -exec tomcli set "{}/Cargo.toml" append dependencies.reqwest.features "native-tls" \; \
+    -exec sed -i \
+        -e '/reqwest.*=.*{/{s/version = "[^"]*"/version = "0.12.28"/;s/"rustls-tls"/"native-tls"/;}' \
+        -e '/^\[dependencies\.reqwest\]/,/^\[/{/^version\s*=/{s/"[^"]*"/"0.12.28"/;};s/"rustls-tls"/"native-tls"/;}' \
+        "{}/Cargo.toml" \; \
     -exec sed -i.uncheck -e 's/"files":{[^}]*}/"files":{ }/' "{}/.cargo-checksum.json" \;
 popd
 

@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
@@ -25,6 +25,9 @@ Patch1: rubygem-cucumber-9.2.0-Fix-error-backtrace-formatting-on-Ruby-3-4.patch
 # Fix Ruby 3.4 Hash#inspect compatibility.
 # https://github.com/cucumber/cucumber-ruby/pull/1771/commits/b9065c96098b893c75fcbb41b7558332b3bfd23b
 Patch2: rubygem-cucumber-9.2.0-CI-support-Ruby-3-4-Hash-inspect.patch
+# Fix compatibility with Cucumber Messages 25.0.0+
+# https://github.com/cucumber/cucumber-ruby/pull/1759/changes/1e0e347aafffc37893ffe2c2822103e3962d2b7d
+Patch3: rubygem-cucumber-10.0.0-Fix-up-references-to-old-id-generator-classes.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -68,6 +71,7 @@ Documentation for %{name}.
 (
 cd %{builddir}
 %patch 2 -p1
+%patch 3 -p1
 )
 
 # The rubygem-cucumber-html-formatter is currently not packaged in Fedora.
@@ -150,6 +154,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Wed Apr 22 2026 Vít Ondruch <vondruch@redhat.com> - 7.1.0-16
+- Fix compatibility with Cucumber Messages 25.0.0+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

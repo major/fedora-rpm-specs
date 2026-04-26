@@ -1,5 +1,5 @@
 Name:    pcp
-Version: 7.1.1
+Version: 7.1.2
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
@@ -226,7 +226,6 @@ Obsoletes: pcp-pmda-nvidia < 3.10.5
 BuildRequires: make
 BuildRequires: gcc gcc-c++
 BuildRequires: procps autoconf bison flex
-BuildRequires: avahi-devel
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
 %if !%{disable_python3}
@@ -3413,6 +3412,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Apr 24 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.2-1
+Latest upstream release.
+
 * Wed Apr 1 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.1-1
 Latest upstream release
 
