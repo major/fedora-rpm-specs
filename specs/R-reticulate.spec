@@ -1,5 +1,5 @@
 Name:           R-reticulate
-Version:        %R_rpm_version 1.44.1
+Version:        %R_rpm_version 1.46.0
 Release:        %autorelease
 Summary:        R Interface to 'Python'
 

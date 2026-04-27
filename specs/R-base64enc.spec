@@ -1,5 +1,5 @@
 Name:           R-base64enc
-Version:        %R_rpm_version 0.1-3
+Version:        %R_rpm_version 0.1-6
 Release:        %autorelease
 Summary:        Tools for base64 encoding
 

@@ -1,5 +1,5 @@
 Name:           R-lobstr
-Version:        %R_rpm_version 1.1.3
+Version:        %R_rpm_version 1.2.1
 Release:        %autorelease
 Summary:        Visualize R Data Structures with Trees
 

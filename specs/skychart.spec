@@ -68,7 +68,6 @@ BuildRequires:  lazarus-lcl-qt5
 BuildRequires:  lazarus-tools
 BuildRequires: desktop-file-utils
 BuildRequires: dos2unix
-BuildRequires: gtk2-devel
 BuildRequires: ImageMagick
 BuildRequires: libappstream-glib
 

@@ -1,5 +1,5 @@
 Name:           R-webfakes
-Version:        %R_rpm_version 1.4.0
+Version:        %R_rpm_version 1.4.1
 Release:        %autorelease
 Summary:        Fake Web Apps for HTTP Testing
 

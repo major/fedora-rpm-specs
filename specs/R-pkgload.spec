@@ -1,5 +1,5 @@
 Name:           R-pkgload
-Version:        %R_rpm_version 1.4.1
+Version:        %R_rpm_version 1.5.2
 Release:        %autorelease
 Summary:        Simulate Package Installation and Attach
 

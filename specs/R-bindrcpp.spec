@@ -1,5 +1,5 @@
 Name:           R-bindrcpp
-Version:        %R_rpm_version 0.2.3
+Version:        %R_rpm_version 0.2.4
 Release:        %autorelease
 Summary:        An 'Rcpp' Interface to Active Bindings
 

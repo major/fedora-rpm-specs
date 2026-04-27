@@ -1,5 +1,5 @@
 Name:           R-tkrplot
-Version:        %R_rpm_version 0.0-30
+Version:        %R_rpm_version 0.0-32
 Release:        %autorelease
 Summary:        TK Rplot
 

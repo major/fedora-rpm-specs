@@ -23,6 +23,8 @@ Patch: gnome-shell-favourite-apps-firefox.patch
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2457884
+Patch: 0002-rhbug2457884-offline-updates-detection.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7

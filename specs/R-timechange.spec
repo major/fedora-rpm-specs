@@ -1,5 +1,5 @@
 Name:           R-timechange
-Version:        %R_rpm_version 0.3.0
+Version:        %R_rpm_version 0.4.0
 Release:        %autorelease
 Summary:        Efficient Updating of Date-Times
 

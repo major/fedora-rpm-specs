@@ -1,7 +1,7 @@
 %global _R_libdir_check %{nil}
 
 Name:           R-littler
-Version:        %R_rpm_version 0.3.22
+Version:        %R_rpm_version 0.3.23
 Release:        %autorelease
 Summary:        littler: R at the Command-Line via 'r'
 

@@ -1,5 +1,5 @@
 Name:           R-RMariaDB
-Version:        %R_rpm_version 1.3.4
+Version:        %R_rpm_version 1.3.5
 Release:        %autorelease
 Summary:        Database Interface and 'MariaDB' Driver
 

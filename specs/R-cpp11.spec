@@ -1,5 +1,5 @@
 Name:           R-cpp11
-Version:        %R_rpm_version 0.5.3
+Version:        %R_rpm_version 0.5.4
 Release:        %autorelease
 Summary:        A C++11 Interface for R's C Interface
 

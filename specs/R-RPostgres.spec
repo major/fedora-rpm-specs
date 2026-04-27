@@ -1,5 +1,5 @@
 Name:           R-RPostgres
-Version:        %R_rpm_version 1.4.8
+Version:        %R_rpm_version 1.4.10
 Release:        %autorelease
 Summary:        Rcpp Interface to PostgreSQL
 

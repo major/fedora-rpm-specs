@@ -1,5 +1,5 @@
 Name:           R-backports
-Version:        %R_rpm_version 1.5.0
+Version:        %R_rpm_version 1.5.1
 Release:        %autorelease
 Summary:        Reimplementations of Functions Introduced Since R-3.0.0
 

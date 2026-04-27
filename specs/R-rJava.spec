@@ -1,5 +1,5 @@
 Name:           R-rJava
-Version:        %R_rpm_version 1.0-14
+Version:        %R_rpm_version 1.0-18
 Release:        %autorelease
 Summary:        Low-Level R to Java Interface
 
@@ -24,10 +24,10 @@ rm rJava/inst/jri/*.jar
 
 %build
 # rebuild jars
-find rJava/jri/REngine -name Makefile -exec sed -i 's/1.6/1.8/g' {} \;
-%make_build -C rJava/jri/REngine
-%make_build -C rJava/jri/REngine/JRI
-mv rJava/jri/REngine/{REngine,JRI/JRIEngine}.jar rJava/inst/jri/
+find rJava/src/jri/REngine -name Makefile -exec sed -i 's/1.6/1.8/g' {} \;
+%make_build -C rJava/src/jri/REngine
+%make_build -C rJava/src/jri/REngine/JRI
+mv rJava/src/jri/REngine/{REngine,JRI/JRIEngine}.jar rJava/inst/jri/
 
 %install
 %R_install

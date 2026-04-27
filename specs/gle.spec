@@ -5,7 +5,7 @@
 Summary:       Graphics Layout Engine
 Name:          gle
 Version:       4.2.5
-Release:       31%{?dist}
+Release:       32%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gle-graphics.org/
@@ -30,9 +30,17 @@ BuildRequires: mesa-libGLU-devel
 BuildRequires: ncurses-devel
 BuildRequires: poppler-glib-devel
 BuildRequires: qt-devel >= 4.1.1
+BuildRequires: tex(epstopdf-base.sty)
+BuildRequires: tex(fancyvrb.sty)
+BuildRequires: tex(geometry.sty)
 BuildRequires: tex(latex)
 BuildRequires: tex(rotating.sty)
 BuildRequires: tex(supertabular.sty)
+BuildRequires: tex(tcrm1000.tfm)
+BuildRequires: texlive-dvips
+BuildRequires: texlive-makeindex
+BuildRequires: texlive-metafont
+BuildRequires: texlive-mfware
 BuildRequires: xorg-x11-proto-devel
 BuildRequires: zlib-devel
 Requires:      ghostscript
@@ -136,6 +144,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/gle-graphics.pc
 %doc gle-manual.pdf GLEusersguide.pdf
 
 %changelog
+* Sat Apr 25 2026 Terje Rosten <terjeros@gmail.com> - 4.2.5-32
+- Fix build
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           R-purrr
-Version:        %R_rpm_version 1.2.1
+Version:        %R_rpm_version 1.2.2
 Release:        %autorelease
 Summary:        Functional Programming Tools
 

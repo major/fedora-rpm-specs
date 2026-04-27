@@ -1,15 +1,15 @@
 # For git snapshots, set to 0 to use release instead:
-%global usesnapshot 0
+%global usesnapshot 1
 %if 0%{?usesnapshot}
-%global commit0 66c21b2b4750b2bb354887454a9977296d2d844e
+%global commit0 21d0da3bd0e0b256cdfec83099fee87fbb62405f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global snapshottag .git%{shortcommit0}
 %endif
 
 Name:       shutter
 %if 0%{?usesnapshot}
-Version:    0.99.6
-Release:    0.5%{?snapshottag}%{?dist}
+Version:    0.99.7
+Release:    0.1%{?snapshottag}%{?dist}
 %else
 Version:    0.99.6
 Release:    3%{?dist}
@@ -140,6 +140,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Sat Apr 25 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.99.7-0.1.git21d0da3
+- Update to 0.99.7-0.1.git21d0da3
+- Fixed .xpm cursor files to work with new glycin version
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           R-RSQLite
-Version:        %R_rpm_version 2.4.5
+Version:        %R_rpm_version 2.4.6
 Release:        %autorelease
 Summary:        SQLite database interface for R
 

@@ -1,5 +1,5 @@
 Name:           R-lazyeval
-Version:        %R_rpm_version 0.2.2
+Version:        %R_rpm_version 0.2.3
 Release:        %autorelease
 Summary:        Lazy (Non-Standard) Evaluation
 

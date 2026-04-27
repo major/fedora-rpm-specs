@@ -1,5 +1,5 @@
 Name:           R-broom
-Version:        %R_rpm_version 1.0.11
+Version:        %R_rpm_version 1.0.12
 Release:        %autorelease
 Summary:        Convert Statistical Objects into Tidy Tibbles
 

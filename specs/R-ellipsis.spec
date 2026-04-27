@@ -1,5 +1,5 @@
 Name:           R-ellipsis
-Version:        %R_rpm_version 0.3.2
+Version:        %R_rpm_version 0.3.3
 Release:        %autorelease
 Summary:        Tools for Working with ...
 
@@ -7,9 +7,7 @@ License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
-
+BuildArch:      noarch
 BuildRequires:  R-devel
 
 %description

@@ -1,5 +1,5 @@
 Name:           R-systemfonts
-Version:        %R_rpm_version 1.3.1
+Version:        %R_rpm_version 1.3.2
 Release:        %autorelease
 Summary:        System Native Font Finding
 

@@ -1,5 +1,5 @@
 Name:           R-RCurl
-Version:        %R_rpm_version 1.98-1.17
+Version:        %R_rpm_version 1.98-1.18
 Release:        %autorelease
 Summary:        General network (HTTP/FTP) client interface for R
 

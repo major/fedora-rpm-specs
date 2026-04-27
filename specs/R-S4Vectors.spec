@@ -1,5 +1,5 @@
 Name:           R-S4Vectors
-Version:        %R_rpm_version 0.48.0
+Version:        %R_rpm_version 0.48.1
 Release:        %autorelease
 Summary:        S4 implementation of vectors and lists
 

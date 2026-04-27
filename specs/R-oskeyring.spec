@@ -1,5 +1,5 @@
 Name:           R-oskeyring
-Version:        %R_rpm_version 0.1.6
+Version:        %R_rpm_version 0.1.7
 Release:        %autorelease
 Summary:        Raw System Credential Store Access from R
 

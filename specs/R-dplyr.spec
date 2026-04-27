@@ -1,5 +1,5 @@
 Name:           R-dplyr
-Version:        %R_rpm_version 1.1.4
+Version:        %R_rpm_version 1.2.1
 Release:        %autorelease
 Summary:        A Grammar of Data Manipulation
 

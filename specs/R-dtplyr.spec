@@ -1,5 +1,5 @@
 Name:           R-dtplyr
-Version:        %R_rpm_version 1.3.2
+Version:        %R_rpm_version 1.3.3
 Release:        %autorelease
 Summary:        Data Table Back-End for 'dplyr'
 

@@ -1,5 +1,5 @@
 Name:           R-S7
-Version:        %R_rpm_version 0.2.1
+Version:        %R_rpm_version 0.2.2
 Release:        %autorelease
 Summary:        An Object Oriented System Meant to Become a Successor to S3 and S4
 

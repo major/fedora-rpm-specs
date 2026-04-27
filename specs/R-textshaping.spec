@@ -1,5 +1,5 @@
 Name:           R-textshaping
-Version:        %R_rpm_version 1.0.4
+Version:        %R_rpm_version 1.0.5
 Release:        %autorelease
 Summary:        Bindings to the HarfBuzz and Fribidi Libraries for Text Shaping
 

@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.47.1
+Version:        1.50.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          just-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * Relax 'clap_mangen' dependency from 0.3.0 to >=0.2,<0.4
 # * Relax 'snafu' dependency from 0.9.0 to >=0.8,<0.10
 # * Unpin 'clap_complete'
 Patch:          just-fix-metadata.diff
@@ -69,7 +70,6 @@ Recommends:     fzf
 %doc GRAMMAR.md
 %doc README.md
 %doc README.中文.md
-%doc crates-io-readme.md
 %{_bindir}/just
 %doc examples
 %{_mandir}/man1/just.1*
@@ -93,7 +93,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/GRAMMAR.md
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/README.中文.md
-%doc %{crate_instdir}/crates-io-readme.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -131,6 +130,8 @@ install -D -m644 -pv completions/just.zsh  %{buildroot}%{zsh_completions_dir}/_j
 
 %if %{with check}
 %check
+# Required for directories::runtime_dir
+export XDG_RUNTIME_DIR=$(mktemp -d)
 # * completions::bash test script does not work outside of git checkout
 # * completions::tests::scripts requires pinned version of clap_complete
 %{cargo_test -- -- %{shrink:

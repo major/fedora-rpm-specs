@@ -1,7 +1,7 @@
 %global _R_libdir_check %{nil}
 
 Name:           R-data.table
-Version:        %R_rpm_version 1.18.0
+Version:        %R_rpm_version 1.18.2.1
 Release:        %autorelease
 Summary:        Extension of `data.frame`
 

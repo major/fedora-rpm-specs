@@ -1,5 +1,5 @@
 Name:           R-processx
-Version:        %R_rpm_version 3.8.6
+Version:        %R_rpm_version 3.9.0
 Release:        %autorelease
 Summary:        Execute and Control System Processes
 

@@ -1,5 +1,5 @@
 Name:           R-Rcpp
-Version:        %R_rpm_version 1.1.1
+Version:        %R_rpm_version 1.1.1-1.1
 Release:        %autorelease
 Summary:        Seamless R and C++ Integration
 

@@ -1,5 +1,5 @@
 Name:       spectre-meltdown-checker
-Version:    26.26.0404682
+Version:    26.33.0420460
 Release:    1%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux
@@ -52,6 +52,9 @@ help2man %{buildroot}%{_bindir}/%{name} -n "Spectre and Meltdown mitigation dete
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Apr 25 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 26.33.0420460-1
+- Update to 26.33.0420460
+
 * Sun Apr 05 2026 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 26.26.0404682-1
 - Update to 26.26.0404682
 

@@ -12,7 +12,6 @@ BuildRequires:  python3-devel
 # For passing the test suites
 BuildRequires:  python3dist(pytest)
 #BuildRequires:  python3dist(pytest-order) # Not packaged
-BuildRequires:  python3dist(pytest-subtests)
 BuildRequires:  python3dist(pytest-xdist)
 # Upstream has an undeclared dep on the torch extra
 # https://github.com/huggingface/accelerate/issues/3696

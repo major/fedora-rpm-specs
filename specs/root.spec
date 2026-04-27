@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3434,6 +3434,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 6.38.04-5
+- R-maint-sig mass rebuild
+
 * Wed Apr 22 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.04-4
 - Rebuilt for xrootd 6
 

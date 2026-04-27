@@ -3,18 +3,19 @@
 
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
-Version:        0.30
+Version:        0.31
 Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
-Patch:          python-llm-0.28-relax-click.patch
-Patch:          python-llm-0.27.1-disable-tests.patch
-Patch:          python-llm-0.27.1-sqlite-3.51.patch
-
+Patch:          0001-Relax-reqs.patch
+Patch:          0002-Skip-tests-failing-with-sqlite-3.51.patch
+Patch:          0003-Skip-tests-which-requires-network-access.patch
 # Fix compatibility with click 8.2+
 # Backported from upstream PR
+%if 0%{?fedora} > 43
 Patch:          https://github.com/simonw/llm/pull/1333.patch
+%endif
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -91,6 +92,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Sat Apr 25 2026 Terje Røsten <terjeros@gmail.com> - 0.31-1
+- 0.31
+
 * Sun Apr 05 2026 Terje Røsten <terjeros@gmail.com> - 0.30-1
 - 0.30
 

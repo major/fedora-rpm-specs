@@ -1,5 +1,5 @@
 Name:           R-magrittr
-Version:        %R_rpm_version 2.0.4
+Version:        %R_rpm_version 2.0.5
 Release:        %autorelease
 Summary:        Provides a mechanism for chaining commands with a new forward-pipe operator
 

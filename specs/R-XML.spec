@@ -1,5 +1,5 @@
 Name:           R-XML
-Version:        %R_rpm_version 3.99-0.20
+Version:        %R_rpm_version 3.99-0.23
 Release:        %autorelease
 Summary:        Tools for Parsing and Generating XML Within R and S-Plus
 

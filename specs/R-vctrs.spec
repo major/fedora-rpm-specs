@@ -1,5 +1,5 @@
 Name:           R-vctrs
-Version:        %R_rpm_version 0.7.0
+Version:        %R_rpm_version 0.7.3
 Release:        %autorelease
 Summary:        Vector Helpers
 

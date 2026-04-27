@@ -7,8 +7,8 @@
 
 
 Name: rabbitmq-server
-Version: 4.2.5
-Release: 2%{?dist}
+Version: 4.2.6
+Release: 1%{?dist}
 Summary: The RabbitMQ server
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -175,6 +175,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Sat Apr 25 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.6-1
+- Ver. 4.2.6
+
 * Thu Mar 26 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.5-2
 - Improve shell wrapper
 

@@ -1,6 +1,6 @@
 Name:		qlipper
-Version:	6.0.0
-Release:	3%{?dist}
+Version:	6.1.0
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Lightweight clipboard history
@@ -28,7 +28,7 @@ Lightweight clipboard history applet.
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON -DENABLE_LXQT_AUTOSTART=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON -DENABLE_LXQT_AUTOSTART=ON
 %cmake_build
 
 
@@ -47,6 +47,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Apr 25 2026 Alexey Kurov <nucleo@fedoraproject.org> - 6.1.0-1
+- qlipper 6.1.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.0.0-3
 - Rebuild (qt6)
 

@@ -1,5 +1,5 @@
 Name:           R-dbplyr
-Version:        %R_rpm_version 2.5.1
+Version:        %R_rpm_version 2.5.2
 Release:        %autorelease
 Summary:        A 'dplyr' Back End for Databases
 
