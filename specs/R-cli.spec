@@ -1,5 +1,5 @@
 Name:           R-cli
-Version:        %R_rpm_version 3.6.5
+Version:        %R_rpm_version 3.6.6
 Release:        %autorelease
 Summary:        Helpers for Developing Command Line Interfaces
 

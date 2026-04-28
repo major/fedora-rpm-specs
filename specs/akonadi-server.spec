@@ -131,6 +131,7 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
 %cmake_kf6 \
   %{?database_backend:-DDATABASE_BACKEND=%{database_backend}} \
   -DINSTALL_APPARMOR:BOOL=OFF \
+  -DKDE_INSTALL_SYSTEMDUSERUNITDIR=%{_userunitdir} \
   -DMYSQLD_EXECUTABLE:FILEPATH=%{_libexecdir}/mysqld \
   -DMYSQLD_SCRIPTS_PATH:FILEPATH=%{_bindir}/mysql_install_db \
   -DPOSTGRES_PATH:FILEPATH=%{_bindir}/pg_ctl

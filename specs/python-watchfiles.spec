@@ -91,6 +91,12 @@ sed -e '/LICENSE/ s/^/%%license /' -i %{pyproject_files}
 
 
 %check
+# test_rust_notify::test_ignore_permission_denied watches '/' recursively by
+# default, which triggers an inotify walk of /proc and /sys and hangs on COPR.
+# Point it at /root (drwx------ root root) so
+# inotify_add_watch fails immediately with EACCES instead.
+export WATCHFILES_TEST_PERMISSION_DENIED_PATH=/root
+
 # We must set the import mode during tests to avoid the watchfiles directory
 # (which will not have the compiled module) taking precedence for the import.
 # https://docs.pytest.org/en/7.4.x/explanation/pythonpath.html

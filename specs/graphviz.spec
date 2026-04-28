@@ -210,6 +210,8 @@ BuildRequires:		golang
 Requires:		urw-base35-fonts
 # rhbz#1838679
 Patch0:			graphviz-12.0.0-gvpack-neato-static.patch
+# fixes for R API 4.6
+Patch1:     swig-4.4.1-r-api-4.6.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -737,6 +739,7 @@ php --no-php-ini \
 %changelog
 * Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 14.1.4-2
 - R-maint-sig mass rebuild
+- Patch for R API 4.6
 
 * Wed Apr 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 14.1.4-1
 - New version

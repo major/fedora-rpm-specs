@@ -1,10 +1,11 @@
 Summary:       Curses-like terminal wrapper, with colored strings
 Name:          python-curtsies
 Version:       0.4.3
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       MIT
 URL:           https://github.com/bpython/curtsies
 Source0:       https://files.pythonhosted.org/packages/source/c/curtsies/curtsies-%{version}.tar.gz
+Patch:         python-curtsies-0.4.3-avoid-crash.patch
 BuildArch:     noarch
 BuildRequires: python3-blessed
 BuildRequires: python3-blessings
@@ -50,6 +51,9 @@ Requires:       python3-cwcwidth
 %doc README.md
 
 %changelog
+* Sun Apr 26 2026 Terje Rosten <terjeros@gmail.com> - 0.4.3-7
+- Add patch to fix crash issue (rhbz#2441762)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

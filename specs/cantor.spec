@@ -38,6 +38,8 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 ## upstreamable patches
 # Kill using cantor internal API
 Patch2:  cantor-21.04.3-no-julia-internal.patch
+# Fixes for R API 4.6
+Patch:   cantor-26.04.0-r-api-4.6.patch
 
 BuildRequires: openblas-devel
 
@@ -265,6 +267,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %changelog
 * Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 26.04.0-2
 - R-maint-sig mass rebuild
+- Patch for R API 4.6
 
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0

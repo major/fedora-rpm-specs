@@ -3,12 +3,17 @@
 
 Name:           python-%{pypi_name}
 Version:        6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
 URL:            https://github.com/facelessuser/backrefs
 Source0:        %{pypi_source %{pypi_name} %{version}}
+
+# Fix compatibility with Unicode 17 (included in Python 3.15)
+# https://github.com/facelessuser/backrefs/issues/196
+Patch:          fix-indicpositionalcategory-unicode17.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -38,7 +43,7 @@ support for some.
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}.dist-info extras}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -61,6 +66,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Sun Apr 26 2026 Lumír Balhar <lbalhar@redhat.com> - 6.2-2
+- Fix indicpositionalcategory alias mismatch with Unicode 17+ (Python 3.15)
+
 * Tue Feb 24 2026 Parag Nemade <pnemade AT redhat DOT com> - 6.2-1
 - Update to 6.2 version (#2440268)
 

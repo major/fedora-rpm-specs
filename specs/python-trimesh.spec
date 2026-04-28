@@ -190,13 +190,9 @@ EOF
 # Patch out unavailable dependencies from extras:
 
 # easy extra:
-#   embreex: not packaged, https://github.com/mikedh/embreeX; this would
-#            require version 2.x of embree, which was once available in a
-#            compat package (https://src.fedoraproject.org/rpms/embree2) but
-#            was retired; the current version was 4.x.
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.easy' '(embreex|manifold3d)\b.*'
+    'project.optional-dependencies.easy' '(manifold3d)\b.*'
 
 # recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
@@ -248,11 +244,9 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 %check
 # Some dependencies are unavailable; see the prep section above.
-# trimesh.ray.ray_pyembree requires embreex or pyembree.
 # trimesh.viewer.widget requires glooey.
 # trimesh.viewer.windowed requires pyglet.
 %{pyproject_check_import \
-  -e trimesh.ray.ray_pyembree \
   -e trimesh.viewer.widget \
   -e trimesh.viewer.windowed \
 }

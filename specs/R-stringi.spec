@@ -10,9 +10,12 @@ Source:         %{cran_source}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+ExcludeArch:    s390x
 
 BuildRequires:  R-devel
-BuildRequires:  libicu-devel >= 61
+# BuildRequires:  libicu-devel >= 61
+# Doesn't compile with libicu >= 77
+Provides:       bundled(libicu) = 74
 
 Obsoletes:      %{name}-devel <= 1.8.7
 
@@ -29,8 +32,8 @@ Components for Unicode) library - portable across all locales and platforms.
 %autosetup -c
 
 # Remove bundled code.
-rm -r stringi/src/icu74
-sed -i -e '/src\/icu74\//d' stringi/MD5
+# rm -r stringi/src/icu74
+# sed -i -e '/src\/icu74\//d' stringi/MD5
 
 %generate_buildrequires
 %R_buildrequires
@@ -38,7 +41,8 @@ sed -i -e '/src\/icu74\//d' stringi/MD5
 %build
 
 %install
-%R_install \--configure-args="--disable-icu-bundle"
+#%%R_install \--configure-args="--disable-icu-bundle"
+%R_install
 %R_save_files
 
 %check

@@ -1,5 +1,5 @@
 Name:           R-igraph
-Version:        %R_rpm_version 2.3.0
+Version:        %R_rpm_version 2.2.3
 Release:        %autorelease
 Summary:        Network Analysis and Visualization
 

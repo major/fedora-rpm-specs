@@ -12,7 +12,9 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(websocketpp)
+# BuildRequires:  pkgconfig(websocketpp)
+# Doesn't work with current version in Fedora
+Provides:       bundled(websocketpp) = 0.8.2
 
 %description
 Provides a WebSocket client interface for R. WebSocket is a protocol for
@@ -22,14 +24,14 @@ low-overhead real-time communication:
 %prep
 %autosetup -c
 # unbundle https://github.com/rstudio/websocket/issues/59
-pushd websocket/src/lib
-    rm -rf websocketpp update.sh
-    cp -r %{_includedir}/websocketpp .
-    find . -type f -print0 | xargs -0 sed -i 's/websocketpp::/ws_websocketpp::/g'
-    find . -type f -print0 | xargs -0 sed -i 's/namespace websocketpp/namespace ws_websocketpp/g'
-    find . -type f -print0 | xargs -0 sed -i 's/&std::cout/(std::ostream*)\&WrappedOstream::cout/g'
-    find . -type f -print0 | xargs -0 sed -i 's/&std::cerr/(std::ostream*)\&WrappedOstream::cerr/g'
-popd
+# pushd websocket/src/lib
+#     rm -rf websocketpp update.sh
+#     cp -r %{_includedir}/websocketpp .
+#     find . -type f -print0 | xargs -0 sed -i 's/websocketpp::/ws_websocketpp::/g'
+#     find . -type f -print0 | xargs -0 sed -i 's/namespace websocketpp/namespace ws_websocketpp/g'
+#     find . -type f -print0 | xargs -0 sed -i 's/&std::cout/(std::ostream*)\&WrappedOstream::cout/g'
+#     find . -type f -print0 | xargs -0 sed -i 's/&std::cerr/(std::ostream*)\&WrappedOstream::cerr/g'
+# popd
 # remove https://github.com/rstudio/websocket/issues/111
 sed -i '/openssl\/engine/d' websocket/src/tests/main.c
 

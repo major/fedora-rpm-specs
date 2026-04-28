@@ -8,6 +8,8 @@ Summary:        ECDSA cryptographic signature library
 License:        MIT
 URL:            https://pypi.python.org/pypi/ecdsa
 Source0:        %{pypi_source ecdsa}
+# Fix test with Python 3.14.4
+Patch:          https://github.com/tlsfuzzer/python-ecdsa/pull/371.patch
 
 BuildArch:      noarch
 

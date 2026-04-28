@@ -3,8 +3,8 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.7.2
-Release:       6%{?dist}
+Version:       3.8
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPL-3.0-only
@@ -19,8 +19,6 @@ Patch1:        osgearth_fastdxt.patch
 Patch2:        osgearth_unbundle.patch
 # Link against liblerct
 Patch3:        osgearth_link-lerc.patch
-# Fix ambiguous namespace with gdal-3.12
-Patch4:        osgearth-gdal-ns.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -205,8 +203,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.7.2
-%{_libdir}/libosgEarth*.so.171
+%{_libdir}/libosgEarth*.so.3.8.0
+%{_libdir}/libosgEarth*.so.185
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
@@ -240,6 +238,7 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{_bindir}/osgearth_minimap
 %{_bindir}/osgearth_mrt
 %{_bindir}/osgearth_occlusionculling
+%{_bindir}/osgearth_server
 %{_bindir}/osgearth_simple
 %{_bindir}/osgearth_skyview
 %{_bindir}/osgearth_terrainprofile
@@ -279,6 +278,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Thu Apr 23 2026 Sandro Mani <manisandro@gmail.com> - 3.8-1
+- Update to 3.8
+
 * Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.7.2-6
 - Drop support for i686
 

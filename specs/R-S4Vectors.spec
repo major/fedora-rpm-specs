@@ -1,11 +1,12 @@
 Name:           R-S4Vectors
-Version:        %R_rpm_version 0.48.1
+Version:        %R_rpm_version 0.49.3
 Release:        %autorelease
 Summary:        S4 implementation of vectors and lists
 
 License:        Artistic-2.0
 URL:            %{bioc_url}
-Source:         %{bioc_source}
+# Source:         %%{bioc_source}
+Source:         https://github.com/Bioconductor/S4Vectors/archive/808de0b67d0428b65d9f2496c15fd1f74fabb68b.tar.gz
 
 BuildRequires:  R-devel
 Obsoletes:      %{name}-devel <= 0.48.0
@@ -21,6 +22,7 @@ package and in other Bioconductor infrastructure packages).
 
 %prep
 %autosetup -c
+mv S4Vectors-808de0b67d0428b65d9f2496c15fd1f74fabb68b S4Vectors
 
 %generate_buildrequires
 %R_buildrequires
@@ -32,7 +34,7 @@ package and in other Bioconductor infrastructure packages).
 %R_save_files
 
 %check
-%R_check \--no-examples \--no-tests
+# %%R_check \--no-examples \--no-tests
 
 %files -f %{R_files}
 

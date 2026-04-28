@@ -98,7 +98,6 @@ sed -i \
 sed -i \
     -e "/^python-barbicanclient[[:space:]]*[!><=]/d" \
     -e "/^python-cyborgclient[[:space:]]*[!><=]/d" \
-    -e "/^osc-placement[[:space:]]*[!><=]/d" \
     -e "/^python-zunclient[[:space:]]*[!><=]/d" \
     -e "/^python-watcherclient[[:space:]]*[!><=]/d" \
     -e "/^python-designateclient[[:space:]]*[!><=]/d" \

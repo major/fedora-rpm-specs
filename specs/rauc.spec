@@ -1,6 +1,6 @@
 Name:           rauc
 Version:        1.15.2
-Release:        %autorelease -b 1
+Release:        %autorelease
 Summary:        Safe and secure software updates for embedded Linux
 
 License:        LGPL-2.1-or-later AND CC0-1.0
@@ -144,71 +144,5 @@ cp -p -r docs/texinfo/%{name}-figures %{buildroot}%{_datadir}/help/en/%{name}
 %doc %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
-* Tue Apr 14 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.2-2
-- Add patch to fix compiling against OpenSSL 4.0
+%autochangelog
 
-* Sun Mar 29 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.2-1
-- Update package from 1.15.1 to 1.15.2
-- Fixes CVE-2026-34155
-
-* Sun Feb 1 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.1-1
-- Update package from 1.14 to 1.15.1
-- Remove upstreamed patches
-- Rework disabled tests patch
-
-* Mon Jul 21 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-12
-- Update patch 4 with CC0-1.0.txt and include it in rauc license
-- Add COPYING to rauc-doc license
-- Fix license as LGPL-2.1-or-later not LGPL-2.1-only
-
-* Sat Jul 12 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-11
-- Don't mark man page as doc
-- Update patches against upstream version
-- Yelp SVG image workaround: Convert SVG to PNG using thorvg
-- thorvg workaround due to command rename in F42/F43
-
-* Fri Jun 13 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-10
-- Mark man page as doc
-- Use same indentation on statements
-
-* Tue Jun 10 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-9
-- Recommend installing separate doc package
-
-* Tue Jun 10 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-8
-- Split large documentation into separate doc package
-
-* Wed May 28 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-7
-- Change dbus-common dependency from BuildRequires to Requires
-- Update upstream license issue and update license information
-- Generate docbook for yelp or khelpcenter
-
-* Tue May 20 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-6
-- Exclude some architectures that does not have grub2-tools-minimal package
-- Add upstream xml file license issue link
-
-* Mon May 19 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-5
-- Add dbus-common dependency as xml is installed in dbus-1 directory
-- Cleanup patches into 3 logical changes and update upstream status
-- Add upstream status of RPM lint incorrect-fsf-address error
-
-* Sat Apr 12 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-4
-- Disable 5 tests that does not work on F43/rawhide
-- Update files section with macros and add patch comments
-
-* Wed Apr 9 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-3
-- Disable network and streaming
-- Enable tests and add extra dependencies
-- Tests expect Debian host with grub-editenv, called grub2-editenv on Fedora
-
-* Thu Apr 3 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-2
-- Add patch that remove OpenSSL engine support
-
-* Wed Apr 2 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-1
-- Version bumped from 1.13 to 1.14
-- Remove test failure comment from spec file
-
-* Thu Mar 13 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.13-1
-- Version bumped from 1.11.3 to 1.13
-
-* Mon Feb 10 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.11.3-1
-- Initial RPM release with test disabled as 6 fail and 17 ok

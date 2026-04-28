@@ -1,5 +1,5 @@
 Name:    buildbox
-Version: 1.4.0
+Version: 1.4.4
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
@@ -14,6 +14,7 @@ BuildRequires: cmake
 BuildRequires: fuse3
 BuildRequires: gcc-c++
 BuildRequires: git
+BuildRequires: libpfm-devel
 BuildRequires: net-tools
 BuildRequires: ninja-build
 BuildRequires: pkgconfig(benchmark)

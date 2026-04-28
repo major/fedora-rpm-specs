@@ -5,7 +5,7 @@
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
 Version:       129
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -13,7 +13,8 @@ Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/t
 Patch0:        %{name}-use-system-gtest.patch
 # some tests fail on ppc64le
 # https://github.com/WebAssembly/binaryen/issues/8626
-Patch1:        %{name}-test-spec.patch
+Patch1:        https://github.com/WebAssembly/binaryen/pull/8645.patch#/%{name}-fix-test-spec.patch
+Patch2:        %{name}-fix-filecheck-empty.patch
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
 License:       Apache-2.0 AND bcrypt-Solar-Designer
@@ -72,6 +73,9 @@ mv test/spec/testsuite{-%{wats_commit},}
 %endif
 # v8 tests cannot be executed because we don't have v8 in Fedora
 rm -rv test/lit/d8
+# lit/help tests fail with python-filecheck-1.0.3
+rm -rv test/lit/help
+%patch -P2 -p1 -b .empty
 rm -rv third_party/FP16
 %endif
 
@@ -117,6 +121,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Sun Apr 26 2026 Dominik Mierzejewski <dominik@greysector.net> - 129-2
+- apply upstream fix for failing tests on ppc64le
+
 * Thu Apr 16 2026 Dominik Mierzejewski <dominik@greysector.net> - 129-1
 - update to 129 (resolves rhbz#2446201)
 - drop obsolete patch

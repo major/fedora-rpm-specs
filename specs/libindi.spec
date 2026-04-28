@@ -20,7 +20,7 @@ ExcludeArch:    %{ix86}
 %global build_tests 1
 
 Name:       libindi
-Version:    2.2.0
+Version:    2.2.1.1
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 

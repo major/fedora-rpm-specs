@@ -44,6 +44,8 @@ Patch:          0003-Fix-jsfile-globs.patch
 Patch:          0004-Add-missing-include-to-fix-build-with-newer-gcc.patch
 # Fix build failure with libsbml-5.20.4
 Patch:          0005-cmake-do-not-skip-building-of-static-libs.patch
+# Fixes for R API 4.6
+Patch:          swig-4.4.1-r-api-4.6.patch
 
 BuildRequires:  cmake
 BuildRequires:  zlib-devel

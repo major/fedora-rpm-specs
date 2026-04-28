@@ -9,6 +9,8 @@ Source:         %{cran_source}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+# Because stringi cannot be built here
+ExcludeArch:    s390x
 
 BuildRequires:  R-devel
 BuildRequires:  libpng-devel

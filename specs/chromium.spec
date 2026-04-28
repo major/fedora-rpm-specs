@@ -263,7 +263,7 @@
 
 Name:	chromium
 Version: 147.0.7727.116
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -431,10 +431,13 @@ Patch357: chromium-134-type-mismatch-error.patch
 # set clang_lib path
 Patch358: chromium-144-rust-clanglib.patch
 
+# fix FTBFS with rustc 1.95 on F45
+Patch359: chromium-147-rustc-1.95.patch
+
 # PowerPC64 LE support
 # Timothy Pearson's patchset
 # https://gitlab.raptorengineering.com/raptor-engineering-public/chromium/openpower-patches
-Patch359: add-ppc64-architecture-string.patch
+Patch360: add-ppc64-architecture-string.patch
 Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
 
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
@@ -503,6 +506,8 @@ Patch511: 0001-fips-disable-options.patch
 %endif
 
 # upstream patches
+# Fix GL native pixmap import support reset in GpuInit
+Patch600: chromium-147-Fix_GL_native_pixmap_import_support_reset_in_GpuInit.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1156,8 +1161,12 @@ Qt6 UI for chromium.
 
 %patch -P358 -p1 -b .rust-clang_lib
 
+%if  0%{?fedora} > 44
+%patch -P359 -p1 -b .ftvfs-with-rustc-1.95
+%endif
+
 %ifarch ppc64le
-%patch -P359 -p1 -b .add-ppc64-architecture-string
+%patch -P360 -p1 -b .add-ppc64-architecture-string
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
@@ -1205,6 +1214,7 @@ Qt6 UI for chromium.
 %endif
 
 # Upstream patches
+%patch -P600 -p1 -b .Fix_GL_native_pixmap_import_support_reset_in_GpuInit
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1857,6 +1867,10 @@ fi
 %endif
 
 %changelog
+* Sun Apr 26 2026 Than Ngo <than@redhat.com> - 147.0.7727.116-2
+- Fix FTBFS with rust 1.95
+- Backport the upstream fix GL native pixmap import support reset in GpuInit
+
 * Thu Apr 23 2026 Than Ngo <than@redhat.com> - 147.0.7727.116-1
 - Update to 147.0.7727.116
   * High CVE-2026-6919: Use after free in DevTools

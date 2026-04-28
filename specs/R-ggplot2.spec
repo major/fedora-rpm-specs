@@ -1,5 +1,5 @@
 Name:           R-ggplot2
-Version:        %R_rpm_version 4.0.1
+Version:        %R_rpm_version 4.0.3
 Release:        %autorelease
 Summary:        Create Elegant Data Visualisations Using the Grammar of Graphics
 

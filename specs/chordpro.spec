@@ -5,7 +5,7 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic-2.0
-Version: 6.090.0
+Version: 6.100.0
 Release: %autorelease
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 Source1: README.ABC
@@ -87,6 +87,7 @@ BuildRequires: perl(Storable)                    >= 3.08
 BuildRequires: perl(String::Interpolate::Named)  >= 1.03
 BuildRequires: perl(SVGPDF)                      >= 0.088
 BuildRequires: perl(Test::More)
+BuildRequires: perl(Test::More::UTF8)
 BuildRequires: perl(Text::Layout)                >= 0.043
 BuildRequires: perl(Unicode::Collate)
 Requires: perl(Unicode::Normalize)
@@ -158,10 +159,10 @@ rm lib/ChordPro/res/linux/setup_desktop.sh
 # LaTeX (not yet supported).
 rm lib/ChordPro/Output/LaTeX.pm
 rm lib/ChordPro/res/templates/*.tt
-rm t/74_latex.t
+rm t/740_latex.t
 # MarkDown (not yet supported).
 rm lib/ChordPro/Output/Markdown.pm
-rm t/73_md.t
+rm t/730_md.t
 # Use system package.
 rm -fr lib/ChordPro/lib/SVGPDF*
 # Fonts (use system fonts).

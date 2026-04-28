@@ -1,15 +1,14 @@
 %global srcname metar
 %global summary Coded METAR and SPECI weather reports parser for Python
-%global packagezipfile python-metar-20250512git-d87ebdf.zip
 
 Name: python-%{srcname}
-Version: 1.11.0
-Release: 20250516git%{?dist}
+Version: 2.0.1
+Release: 1%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
 # (but without the second condition on use of names of contributors)
-License: BSD-Source-Code
+License: BSD-1-Clause
 
 URL: https://github.com/python-metar/python-metar
 
@@ -18,24 +17,33 @@ URL: https://github.com/python-metar/python-metar
 # see also this discussion on the 2 project names:
 # https://github.com/python-metar/python-metar/issues/58
 
-# releases are at pypi
-# Source: https://files.pythonhosted.org/packages/source/m/%%{srcname}/%%{srcname}-%%{version}.tar.gz
-
-# but the latest release does not contain a pyproject.toml file
-# so cannot easily be build with the new pyproject macros.
-# Therefore a snapshot from github is used in stead:
-Source:  https://github.com/python-%{srcname}/python-%{srcname}/archive/d87ebdf3049cb542fb3a94f470dca37821378e91.zip#/%{packagezipfile}
+# releases are at pypi (https://pypi.org/project/metar/)
+Source: https://files.pythonhosted.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch: noarch
 
 BuildRequires: python3-devel python3-pytest
 
 %global _description \
-Python-metar is a python package for interpreting METAR and SPECI coded \
-weather reports.  METAR (Meteorological Aerodrome Report) and SPECI (Specials) \
-are reports containing airport weather information encoded in ASCII \
-following standards set by WMO (World Meteorological Organization) \
-and ICAO (International Civil Aviation Organization).
+  Python-metar is a python package for interpreting METAR and SPECI coded \
+  weather reports. \
+  \
+  METAR and SPECI are coded aviation weather reports. The official coding \
+  schemes are specified in the World Meteorological Organization (WMO) Manual \
+  on Codes, vol I.1, Part A (WMO-306 I.i.A). US conventions for METAR/SPECI \
+  reports vary in a number of ways from the international standard, and are \
+  described in chapter 12 of the Federal Meteorological Handbook No.1. \
+  (FMH-1 1995), issued by the National Oceanic and Atmospheric Administration \
+  (NOAA). General information about the use and history of the METAR standard \
+  can be found here. \
+  \
+  This module extracts the data recorded in the main-body groups of reports \
+  that follow the WMO spec or the US conventions, except for the runway state \
+  and trend groups, which are parsed but ignored. The most useful remark \
+  groups defined in the US spec are parsed, as well, such as the cumulative \
+  precipitation, min/max temperature, peak wind and sea-level pressure groups. \
+  No other regional conventions are formally supported, but a large number of \
+  variant formats found in international reports are accepted.
 
 %description %_description
 
@@ -46,46 +54,41 @@ Summary: %{summary}
 %description -n python3-%{srcname} %_description
 
 %prep
-
-cd %{_builddir}
-unzip %{_sourcedir}/%{packagezipfile}
-mv python-metar-main python-%{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-
-cd %{_builddir}/python-%{srcname}-%{version}
 %pyproject_buildrequires
 
 %build
-
-cd %{_builddir}/python-%{srcname}-%{version}
 %pyproject_wheel
 
 %install
-
-cd %{_builddir}/python-%{srcname}-%{version}
 %pyproject_install
 
-# remove executable permissions from sample.py to
-# prevent dependencies being pulled in from this file
+# remove executable permissions from sample.py
 chmod 644 sample.py
 
 %check
 
-cd %{_builddir}/python-%{srcname}-%{version}
+# check importing the python-metar module
+%py3_check_import metar
+
+# run the test suite
 %{__python3} -m pytest -v
 
-%files -n python3-%{srcname}
-
-%doc python-%{srcname}-%{version}/sample.py
-%doc python-%{srcname}-%{version}/README.md
-%doc python-%{srcname}-%{version}/CHANGELOG.md
-%doc python-%{srcname}-%{version}/LICENSE
-
+%files -n python-%{srcname}
 %{python3_sitelib}/%{srcname}
-%{python3_sitelib}/python_%{srcname}*dist-info
+%{python3_sitelib}/%{srcname}*dist-info
+%doc sample.py
+%doc README.md
+%doc CHANGELOG.md
+%doc LICENSE
+
 
 %changelog
+* Sun Apr 26 2026 Jos de Kloe <josdekloe@gmail.com> 2.0.1-1
+- update to new upstream version 2.0.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-20250516git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

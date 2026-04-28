@@ -2,6 +2,7 @@
 # the source archive. Each language has its own conditional here:
 %bcond regenerate_cpp 1
 %bcond regenerate_python 1
+%bcond regenerate_ruby 1
 
 # Run tests that require network access? We cannot do this routinely in koji,
 # but we can do it manually by enabling this conditional and enabling network
@@ -84,6 +85,39 @@ Cucumber Messages is a message protocol for representing results and other
 information from Cucumber.
 
 
+# We package the RubyGem as a subpackage, rather than as a separate
+# rubygem-cucumber-messages source package based on the relesed Gem archive,
+# because having the full cucumber-messages source code makes it much easier to
+# re-generate the Ruby source code. This approach also makes it easier to keep
+# the RubyGem up to date and synchronized with other languages’ implementations
+# without duplication of effort.
+#
+# The Ruby specific content is kept as close as feasible to the output of
+# `gem2rpm --fetch cucumber-messages`.
+
+%global gem_name cucumber-messages
+
+%package -n rubygem-cucumber-messages
+Summary:        Message protocol for representing results and other information from Cucumber
+BuildRequires:  ruby(release)
+BuildRequires:  rubygems-devel >= 3.2.8
+BuildRequires:  ruby >= 3.2
+BuildRequires:  rubygem(rspec)
+BuildArch:      noarch
+
+%description -n rubygem-cucumber-messages
+JSON schema-based messages for Cucumber's inter-process communication.
+
+
+%package -n rubygem-cucumber-messages-doc
+Summary: Documentation for rubygem-cucumber-messages
+Requires: rubygem-cucumber-messages = %{version}-%{release}
+BuildArch: noarch
+
+%description -n rubygem-cucumber-messages-doc
+%{summary}.
+
+
 %prep
 %autosetup -n messages-%{version} -p1
 # Do not upper-bound (SemVer-bound) the version of uv_build; we must work with
@@ -116,6 +150,15 @@ popd
 %endif
 %pyproject_wheel -d python
 
+pushd ruby
+%if %{with regenerate_ruby}
+%make_build clean
+%make_build generate
+%endif
+gem build %{gem_name}.gemspec
+%gem_install
+popd
+
 
 %install
 pushd cpp
@@ -124,6 +167,12 @@ popd
 
 %pyproject_install
 %pyproject_save_files -l cucumber_messages
+
+pushd ruby
+mkdir -p %{buildroot}%{gem_dir}
+cp -a .%{gem_dir}/* \
+        %{buildroot}%{gem_dir}/
+popd
 
 
 %check
@@ -138,6 +187,14 @@ popd
 ignore="${ignore-} --ignore=tests/test_model_load.py"
 %endif
 %pytest ${ignore-} -v python/tests
+
+pushd ruby
+ln -r -s spec .%{gem_instdir}/spec
+ln -r -s ../testdata .%{gem_instdir}/../testdata
+pushd .%{gem_instdir}
+rspec -rspec_helper spec
+popd
+popd
 
 
 %files cpp-libs
@@ -163,6 +220,20 @@ ignore="${ignore-} --ignore=tests/test_model_load.py"
 
 %files -n python3-cucumber-messages -f %{pyproject_files}
 %doc python/README.md
+
+
+%files -n rubygem-cucumber-messages
+%dir %{gem_instdir}
+%license %{gem_instdir}/LICENSE
+%{gem_instdir}/VERSION
+%{gem_libdir}
+%exclude %{gem_cache}
+%{gem_spec}
+
+
+%files -n rubygem-cucumber-messages-doc
+%doc %{gem_docdir}
+%doc %{gem_instdir}/README.md
 
 
 %changelog

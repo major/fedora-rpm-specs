@@ -25,6 +25,9 @@ Source101:        https://tarballs.openstack.org/%{name}/python_glanceclient-%{v
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
+# https://review.opendev.org/c/openstack/python-glanceclient/+/986313
+Patch0:           0001-fix-hashlib-ValueError-message-check-for-py3.15.patch
+
 BuildArch:        noarch
 
 # Required for tarball sources verification

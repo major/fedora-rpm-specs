@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.12.3
-Release:       2%{?dist}
+Version:       3.12.4
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -880,6 +880,9 @@ done
 
 
 %changelog
+* Sun Apr 26 2026 Sandro Mani <manisandro@gmail.com> - 3.12.4-1
+- Update to 3.12.4
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 3.12.3-2
 - Rebuild for hdf5 2.1
 

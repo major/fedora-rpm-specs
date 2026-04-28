@@ -1,6 +1,6 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 6.19
+Version: 7.0
 Release: 1%{?dist}
 # The test suite is GPLv2+, the bundled headers are GPLv2 with Linux syscall
 # exception, all the rest is LGPLv2.1+.
@@ -152,7 +152,7 @@ received by a process.
 %setup -q
 echo -n %version-%release > .tarball-version
 echo -n 2026 > .year
-echo -n 2025-11-13 > doc/.strace.1.in.date
+echo -n 2026-04-05 > doc/.strace.1.in.date
 echo -n 2025-07-02 > doc/.strace-log-merge.1.in.date
 
 %build
@@ -205,6 +205,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sun Apr 26 2026 Dmitry V. Levin <ldv@strace.io> - 7.0-1
+- v6.19 -> v7.0.
+
 * Tue Feb 10 2026 Dmitry V. Levin <ldv@strace.io> - 6.19-1
 - v6.18 -> v6.19 (resolves: #2435125).
 

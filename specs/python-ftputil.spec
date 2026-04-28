@@ -1,5 +1,5 @@
 Name:           python-ftputil
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        High-level FTP client library (virtual file system and more)
 
@@ -18,9 +18,9 @@ BuildOption(install):   -l ftputil
 
 BuildArch:      noarch
 
-# There is no list of test dependencies anywhere in the PyPI sdist. We could
-# use an archive from https://git.sr.ht/~sschwarzer/ftputil, but it’s easier
-# just to list them manually:
+# We *could* generate test dependencies from tox.ini, but actually running
+# tests via tox adds unnecessary complexity, so we continue to list them
+# manually for now.
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist freezegun}
 # For /usr/bin/ftp:

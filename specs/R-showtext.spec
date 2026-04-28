@@ -1,5 +1,5 @@
 Name:           R-showtext
-Version:        %R_rpm_version 0.9-7
+Version:        %R_rpm_version 0.9-8
 Release:        %autorelease
 Summary:        Using Fonts More Easily in R Graphs
 
