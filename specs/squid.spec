@@ -2,7 +2,7 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  7.4
+Version:  7.5
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
@@ -20,6 +20,7 @@ Source6:  squid.nm
 Source7:  squid.service
 Source8:  cache_swap.sh
 Source9:  squid.sysusers
+Source10: squid.tmpfiles
 
 Source98: perl-requires-squid.sh
 
@@ -209,6 +210,10 @@ rm -f $RPM_BUILD_ROOT/squid.httpd.tmp
 # sysusers.d
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 
+# tmpfiles.d configuration
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 644 -p %{SOURCE10} %{buildroot}%{_tmpfilesdir}/squid.conf
+
 %files
 %license COPYING 
 %doc CONTRIBUTORS README ChangeLog QUICKSTART src/squid.conf.documented
@@ -243,6 +248,7 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 %{_libdir}/squid/*
 %{_datadir}/snmp/mibs/SQUID-MIB.txt
 %{_sysusersdir}/squid.conf
+%{_tmpfilesdir}/squid.conf
 
 %pre
 %sysusers_create_compat %{SOURCE9}
@@ -306,6 +312,10 @@ fi
 
 
 %changelog
+* Mon Apr 27 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.5-1
+- new version 7.5
+- Add tmpfiles.d rules for /var directories (bootc compatibility)
+
 * Thu Jan 22 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.4-1
 - new version 7.4
 

@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Plugin-Sysdeps
-Version:        0.81
+Version:        0.83
 Release:        1%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,14 +100,14 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-unset CPAN_PLUGIN_SYSDEPS_DEBUG PERL_CPAN_SYSDEPS_UV_UTIL_NATIVE
+unset CPAN_PLUGIN_SYSDEPS_DEBUG CPAN_PLUGIN_SYSDEPS_MODULE PERL_CPAN_SYSDEPS_UV_UTIL_NATIVE
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 
 %check
-unset CPAN_PLUGIN_SYSDEPS_DEBUG PERL_CPAN_SYSDEPS_UV_UTIL_NATIVE
+unset CPAN_PLUGIN_SYSDEPS_DEBUG CPAN_PLUGIN_SYSDEPS_MODULE PERL_CPAN_SYSDEPS_UV_UTIL_NATIVE
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 27 2026 Petr Pisar <ppisar@redhat.com> - 0.83-1
+- 0.83 bump
+
 * Thu Apr 23 2026 Petr Pisar <ppisar@redhat.com> - 0.81-1
 - 0.81 bump
 

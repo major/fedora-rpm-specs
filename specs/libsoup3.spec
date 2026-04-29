@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: /usr/bin/ntlm_auth
 
-Recommends: glib-networking%{?_isa} >= %{glib2_version}
+Requires: glib-networking%{?_isa} >= %{glib2_version}
 
 %if %{with_mingw}
 BuildRequires: mingw32-filesystem >= 107

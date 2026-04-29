@@ -6,7 +6,7 @@
 %bcond clang      0   # Use Clang compiler
 %bcond draco      1   # Draco mesh compression support
 %bcond fribidi    1   # Fribidi support
-%bcond harfbuz    1   # Harfbuzz support
+%bcond harfbuzz   1   # Harfbuzz support
 %bcond llvm       1   # Required for OSL support
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
@@ -48,7 +48,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        5.1.0
+Version:        5.1.1
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -278,11 +278,20 @@ BuildRequires:  openvdb-devel
 %endif
 BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(openjph)
 BuildRequires:  pkgconfig(theora)
+%if 0%{?fedora} > 44
+# New for Blender 5.1 (ThorVG 1.0) on Rawhide
+BuildRequires:  pkgconfig(thorvg-1)
+%else
+# New for Blender 5.1 (ThorVG) on Fedora <=44
+BuildRequires:  pkgconfig(thorvg)
+%endif
 BuildRequires:  pkgconfig(vpx)
 # OpenColorIO 2 and up required
 BuildRequires:  cmake(OpenColorIO) > 1
@@ -309,9 +318,13 @@ BuildRequires:  pkgconfig(vorbis)
 
 # Typography stuff
 BuildRequires:  fontpackages-devel
-%{?with_fribidi:BuildRequires:  pkgconfig(fribidi)}
+%if %{with fribidi}
+BuildRequires:  pkgconfig(fribidi)
+%endif
 BuildRequires:  pkgconfig(freetype2)
-%{?with_harfubzz:BuildRequires:  pkgconfig(harfbuzz)}
+%if %{with harfbuzz}
+BuildRequires:  pkgconfig(harfbuzz)
+%endif
 BuildRequires:  pkgconfig(tinyxml)
 # Appstream stuff
 BuildRequires:  libappstream-glib
@@ -366,6 +379,15 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
         build_files/cmake/platform/platform_unix.cmake
 
+# Fix clog format
+# Incorrect format from upstream 5.1 branch
+# https://projects.blender.org/blender/blender/src/commit/b70da489d7f4eae7760cc0a50cc6c60cd5464205/source/blender/gpu/vulkan/vk_texture_pool.cc#L559
+#
+# Correct format from upstream main branch
+# https://projects.blender.org/blender/blender/src/commit/402799c1d9706b1bced1008680ceace9a8434c68/source/blender/gpu/vulkan/vk_texture_pool.cc#L558
+sed -i 's/CLOG_TRACE(&LOG, log_message\.c_str());/CLOG_TRACE(\&LOG, "%s", log_message.c_str());/' \
+        source/blender/gpu/vulkan/vk_texture_pool.cc
+
 %build
 %if %{with hip}
 export HIP_PATH=`hipconfig -p`
@@ -382,25 +404,40 @@ export HIP_CLANG_PATH=`hipconfig -l`
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
-%ifnarch x86_64
-    -DWITH_CYCLES_EMBREE=OFF \
-%endif
+    -DWITH_CYCLES_EMBREE=%{?with_embree:ON}%{!?with_embree:OFF} \
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
-    %{?with_fribidi:-DWITH_FRIBIDI=ON} \
-    %{?with_harfbuzz:-DWITH_HARFBUZZ=ON} \
-    %{?with_manpage:-DWITH_DOC_MANPAGE=ON} \
-    %{!?with_materialx:-DWITH_MATERIALX=OFF} \
-    %{?with_openshading:-DOSL_COMPILER=%{_bindir}/oslc} \
-    %{?with_usd:-DUSD_LIBRARY=%{_libdir}/libusd_ms.so} \
-    %{!?with_usd:-DWITH_USD=OFF} \
+%if %{with fribidi}
+    -DWITH_FRIBIDI=ON \
+%endif
+%if %{with harfbuzz}
+    -DWITH_HARFBUZZ=ON \
+%endif
+%if %{with manpage}
+    -DWITH_DOC_MANPAGE=ON \
+%endif
+%if %{with materialx}
+    -DWITH_MATERIALX=ON \
+%else
+    -DWITH_MATERIALX=OFF \
+%endif
+%if %{with openshading}
+    -DOSL_COMPILER=%{_bindir}/oslc \
+%endif
+%if %{with usd}
+    -DUSD_LIBRARY=%{_libdir}/libusd_ms.so \
+%else
+    -DWITH_USD=OFF \
+%endif
     -D_ffmpeg_INCLUDE_DIR=$(pkg-config --variable=includedir libavformat) \
     -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
 %if %{with hip}
     -DHIP_HIPCC_EXECUTABLE=%{_bindir}/hipcc \
     -DWITH_CYCLES_HIP_BINARIES=ON \
-    %{?with_hiprt:-DWITH_CYCLES_DEVICE_HIPRT=ON} \
+%if %{with hiprt}
+    -DWITH_CYCLES_DEVICE_HIPRT=ON \
+%endif
 %endif
 %if %{with oneapi}
     -DWITH_CYCLES_DEVICE_ONEAPI=ON \
@@ -416,24 +453,10 @@ export HIP_CLANG_PATH=`hipconfig -l`
 %install
 %cmake_install
 
-#%if %{with manpage}
-# See source/creator/CMakeLists.txt.
-# This doesn’t work in %%cmake_install because the assumption is that the
-# blender executable and the libraries are installed directly to the correct
-# system-wide paths. It is easier to re-run the man-page generator manually
-# than to patch out this assumption.
-#LD_LIBRARY_PATH='%%{buildroot}%%{_libdir}' %{python3} doc/manpage/blender.1.py \
-#    --blender '%%{buildroot}%%{_bindir}/blender' \
-#    --output '%%{buildroot}%%{_mandir}/man1/blender.1'
-#%%endif
-
 # Additional installs
 mkdir -p %{buildroot}%{macrosdir}
 install -pm 644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
 sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
-# XXX: This script is completely broken for /usr/bin/ installs
-# install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-softwaregl
-
 
 # Metainfo
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \

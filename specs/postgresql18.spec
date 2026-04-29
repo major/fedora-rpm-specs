@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -67,7 +67,7 @@ Url: http://www.postgresql.org/
 %global prev_prefix16 %{_libdir}/pgsql/postgresql-%{prevmajorversion16}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
-%global setup_version 8.10
+%global setup_version 8.12
 
 %global service_name postgresql.service
 
@@ -1506,6 +1506,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Apr 24 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 18.3-2
+- Update postgresql-setup to 8.12
+
 * Thu Feb 26 2026 Packit <hello@packit.dev> - 18.3-1
 - Update to version 18.3
 - Resolves: rhbz#2439336
@@ -1513,7 +1516,7 @@ make -C postgresql-setup-%{setup_version} check
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Wed Jan 7 2025 Filip Janus <fjanus@redhat.com> - 18.1-2
+* Wed Jan 7 2026 Filip Janus <fjanus@redhat.com> - 18.1-2
 - Add postgresql16 upgrade server
 
 * Thu Nov 13 2025 Packit <hello@packit.dev> - 18.1-1

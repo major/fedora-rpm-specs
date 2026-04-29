@@ -5,7 +5,7 @@
 Name:           texlive-collection-langkorean
 Epoch:          12
 Version:        svn54074
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Korean
 
 License:        LPPL-1.3c
@@ -85,12 +85,6 @@ Requires:       tex(kotexutf.sty)
 Requires:       tex(luatexko.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(xetexko.sty)
-Provides:       tex(cjkutf8-josa.sty) = %{tl_version}
-Provides:       tex(cjkutf8-ko.sty) = %{tl_version}
-Provides:       tex(cjkutf8-nanummjhanja.sty) = %{tl_version}
-Provides:       tex(kolabels-utf.sty) = %{tl_version}
-Provides:       tex(konames-utf.sty) = %{tl_version}
-Provides:       tex(kotex.sty) = %{tl_version}
 
 %description -n texlive-cjk-ko
 The package supports typesetting UTF-8-encoded modern Korean documents with the
@@ -100,7 +94,7 @@ and CJK characters. The package requires nanumtype1 fonts.
 
 %package -n texlive-kotex-oblivoir
 Summary:        A LaTeX document class for typesetting Korean documents
-Version:        svn76503
+Version:        svn78115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -132,34 +126,6 @@ Requires:       tex(xetexko-space.sty)
 Requires:       tex(xetexko-vertical.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(10_5.sty) = %{tl_version}
-Provides:       tex(fapapersize.sty) = %{tl_version}
-Provides:       tex(hfontsel.sty) = %{tl_version}
-Provides:       tex(memhangul-common.sty) = %{tl_version}
-Provides:       tex(memhangul-patch.sty) = %{tl_version}
-Provides:       tex(memhangul-ucs.sty) = %{tl_version}
-Provides:       tex(memhangul-x.sty) = %{tl_version}
-Provides:       tex(memucs-enumerate.sty) = %{tl_version}
-Provides:       tex(memucs-gremph.sty) = %{tl_version}
-Provides:       tex(memucs-interword-x.sty) = %{tl_version}
-Provides:       tex(memucs-interword.sty) = %{tl_version}
-Provides:       tex(memucs-setspace.sty) = %{tl_version}
-Provides:       tex(nanumfontsel.sty) = %{tl_version}
-Provides:       tex(ob-koreanappendix.sty) = %{tl_version}
-Provides:       tex(ob-mathleading.sty) = %{tl_version}
-Provides:       tex(ob-nokoreanappendix.sty) = %{tl_version}
-Provides:       tex(ob-toclof.sty) = %{tl_version}
-Provides:       tex(ob-unfontsdefault.sty) = %{tl_version}
-Provides:       tex(obchapterstyles.sty) = %{tl_version}
-Provides:       tex(obchaptertoc.sty) = %{tl_version}
-Provides:       tex(oblivoir-misc.sty) = %{tl_version}
-Provides:       tex(xetexko-var.sty) = %{tl_version}
-Provides:       tex(xob-amssymb.sty) = %{tl_version}
-Provides:       tex(xob-dotemph.sty) = %{tl_version}
-Provides:       tex(xob-font.sty) = %{tl_version}
-Provides:       tex(xob-hyper.sty) = %{tl_version}
-Provides:       tex(xob-lwarp.sty) = %{tl_version}
-Provides:       tex(xob-paralist.sty) = %{tl_version}
 
 %description -n texlive-kotex-oblivoir
 The class is based on memoir, and is adapted to typesetting Korean documents.
@@ -172,10 +138,6 @@ Version:        svn63689
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hangulcweb.tex) = %{tl_version}
-Provides:       tex(kotexplain.tex) = %{tl_version}
-Provides:       tex(kotexutf-core.tex) = %{tl_version}
-Provides:       tex(kotexutf.tex) = %{tl_version}
 
 %description -n texlive-kotex-plain
 The package provides macros for typesetting Hangul, the native alphabet of the
@@ -207,24 +169,6 @@ Requires:       tex(varioref.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(xetexko.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dhucs-cmap.sty) = %{tl_version}
-Provides:       tex(dhucs-enumerate.sty) = %{tl_version}
-Provides:       tex(dhucs-enumitem.sty) = %{tl_version}
-Provides:       tex(dhucs-gremph.sty) = %{tl_version}
-Provides:       tex(dhucs-interword.sty) = %{tl_version}
-Provides:       tex(dhucs-nanumfont.sty) = %{tl_version}
-Provides:       tex(dhucs-paralist.sty) = %{tl_version}
-Provides:       tex(dhucs-sectsty.sty) = %{tl_version}
-Provides:       tex(dhucs-setspace.sty) = %{tl_version}
-Provides:       tex(dhucs-trivcj.sty) = %{tl_version}
-Provides:       tex(dhucs-ucshyper.sty) = %{tl_version}
-Provides:       tex(dhucs.sty) = %{tl_version}
-Provides:       tex(dhucsfn.sty) = %{tl_version}
-Provides:       tex(kosections-utf.sty) = %{tl_version}
-Provides:       tex(kotex-logo.sty) = %{tl_version}
-Provides:       tex(kotex-sections.sty) = %{tl_version}
-Provides:       tex(kotex-varioref.sty) = %{tl_version}
-Provides:       tex(kotexutf.sty) = %{tl_version}
 
 %description -n texlive-kotex-utf
 The package typesets Hangul, which is the native alphabet of the Korean
@@ -261,16 +205,11 @@ OpenType/TrueType files, which are available from Naver)
 
 %package -n texlive-pmhanguljamo
 Summary:        Poor man's Hangul Jamo input method
-Version:        svn76924
+Version:        svn78114
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(frkjamofull.data.tex) = %{tl_version}
-Provides:       tex(pmhanguljamo-frkim.code.tex) = %{tl_version}
-Provides:       tex(pmhanguljamo-frkim.sty) = %{tl_version}
-Provides:       tex(pmhanguljamo-rrk.sty) = %{tl_version}
-Provides:       tex(pmhanguljamo.sty) = %{tl_version}
 
 %description -n texlive-pmhanguljamo
 This package provides a Hangul transliteration input method that allows to
@@ -429,6 +368,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/fonts/unfonts-extra/
 
 %changelog
+* Mon Apr 27 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
+- Update kotex-oblivoir, pmhanguljamo
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-3
 - fix licensing, descriptions
 - update to latest pmhanguljamo

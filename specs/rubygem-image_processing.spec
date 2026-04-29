@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: High-level wrapper for processing images for the web with ImageMagick or libvips
 License: MIT
 URL: https://github.com/janko/image_processing
@@ -19,6 +19,11 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 # https://github.com/janko/image_processing/issues/139
 # https://github.com/janko/image_processing/commit/89a162926841733c0df53e7aee95aadf5d28f4c3
 Patch0: rubygem-image_processing-1.14.0-Remove-tests-failing-on-newer-IM-versions.patch
+# Handle different ImageMagick / jpeg versions in tests
+# ( https://github.com/janko/image_processing/commit/04c22bed423adc896c7a78ad1ecc0def5f6ffea7 )
+# https://github.com/janko/image_processing/commit/efc26e4ca4aa5085b1a3fa5fc526efadf295c81e
+# https://github.com/janko/image_processing/commit/eafaf0abf24e2e7ab5dfd6e23089ca4c76d39b51
+Patch1: rubygem-image_processing-1.14.0-Handle-different-IM-jpeg-versions.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -54,6 +59,7 @@ Documentation for %{name}.
 
 ( cd %{builddir}
 %patch 0 -p1
+%patch 1 -p1
 )
 
 %build
@@ -98,6 +104,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/image_processing.gemspec
 
 %changelog
+* Mon Apr 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.0-4
+- Backport upstream patch for tests with newer ImageMagick
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

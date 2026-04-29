@@ -2,8 +2,8 @@
 %global gnupghome %(mktemp --directory)
 
 Name:           perl-Module-Signature
-Version:        0.93
-Release:        3%{?dist}
+Version:        0.95
+Release:        1%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -54,6 +54,14 @@ Suggests:       /usr/bin/perldoc
 This package contains a command line tool and module for checking and creating
 SIGNATURE files for Perl CPAN distributions.
 
+Module::Signature has been deprecated because it does not provide the user with
+the security assurance that its usage would imply. Module authors that have used
+Module::Signature have not always replaced their keys before they expire.
+Depending on a user's configuration, it can cause issues with the installation
+of those modules. In addition, since it was written, the key server
+infrastructure has changed and the ability to securely find keys has greatly
+diminished
+
 %prep
 %setup -q -n Module-Signature-%{version}
 
@@ -83,6 +91,10 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 0.95-1
+- Update to 0.95 (rhbz#2461945)
+  - Announce deprecation of the module
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

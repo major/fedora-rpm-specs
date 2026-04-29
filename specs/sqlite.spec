@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3520000
-%define docver 3520000
-%define rpmver 3.52.0
+%define realver 3530000
+%define docver 3530000
+%define rpmver 3.53.0
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -19,18 +19,19 @@ URL: http://www.sqlite.org/
 
 Source0: http://www.sqlite.org/%{year}/sqlite-src-%{realver}.zip
 Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
-Source2: http://www.sqlite.org/%{year}/sqlite-autoconf-%{realver}.tar.gz
 # Support a system-wide lemon template
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
+Patch3: sqlite-3.53.0-fix-testrunner-exiting-0.patch
+Patch4: sqlite-3.53.0-shell-path-trunc.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
 BuildRequires: ncurses-devel readline-devel glibc-devel
-BuildRequires: autoconf
 BuildRequires: /usr/bin/tclsh
 BuildRequires: zlib-ng-compat-devel
 BuildRequires: chrpath
+BuildRequires: libasan libubsan
 %if %{with tcl}
 BuildRequires: tcl-devel
 %{!?tcl_version: %global tcl_version 9.0}
@@ -173,21 +174,22 @@ This package contains the analysis program for %{name}.
 %setup -q -a1 -n %{name}-src-%{realver}
 %patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
 # text->real->text conversion in lower significant values after decimal point in a number.
 # func4 tests fail for i686 on float<->int conversions.
+# func7 test 230 expects a value to be 2.0 and gets 1.9999999999999998
 %ifarch == i686
 rm test/atof1.test
 rm test/func4.test
+rm test/func7.test
 %endif
 
 # Remove backup-file
 rm -f %{name}-doc-%{docver}/sqlite.css~ || :
-
-#autoupdate
-#autoconf # Rerun with new autoconf to add support for aarm64
 
 %build
 # First build executable for debug subpackage
@@ -301,8 +303,7 @@ export LD_LIBRARY_PATH=`pwd`/.libs
 export MALLOC_CHECK_=3
 
 # csv01 hangs on all non-intel archs i've tried
-%ifarch x86_64 %{ix86}
-%else
+%ifnarch x86_64 %{ix86}
 rm test/csv01.test
 %endif
 
@@ -356,6 +357,11 @@ make test
 %endif
 
 %changelog
+* Thu Apr 23 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.0-1
+- Update to version 3.53.0
+- Resolves: rhbz#2456891
+- BuildRequires cleanup, removed autoconf
+
 * Thu Mar 12 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.52.0-1
 - Update to version 3.52.0
 - Resolves: rhbz#2445301

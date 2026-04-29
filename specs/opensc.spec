@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.27.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -13,6 +13,8 @@ Patch8:         %{name}-0.22.0-file-cache.patch
 # Registering SHA1 mechanisms does not work in FIPS mode
 # https://github.com/OpenSC/OpenSC/pull/3645
 Patch9:         %{name}-0.27.1-fips-sha1.patch
+# https://github.com/OpenSC/OpenSC/pull/3670
+Patch10:         %{name}-0.27.1-deepbind-workaround.patch
 
 
 BuildRequires:  make
@@ -238,6 +240,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Mon Apr 27 2026 Jakub Jelen <jjelen@redhat.com> - 0.27.1-3
+- Implement workaround for DEEPBIND in dlopen()
+
 * Sun Apr 19 2026 Jakub Jelen <jjelen@redhat.com> - 0.27.1-2
 - Fix SHA1 mechanism registration in FIPS mode
 

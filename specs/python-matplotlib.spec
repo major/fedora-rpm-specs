@@ -38,7 +38,7 @@
 %global ftver 2.14.1
 
 Name:           python-matplotlib
-Version:        3.10.8
+Version:        3.10.9
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -56,8 +56,8 @@ Source1000:     https://github.com/QuLogic/mpl-images/archive/v%{mpl_images_vers
 Patch1001:      0001-matplotlibrc-path-search-fix.patch
 # Increase tolerances for new FreeType everywhere:
 Patch1002:      0002-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patch
-# We don't need to use older meson-python.
-Patch1003:      0003-Unpin-meson-python-build-requirement.patch
+# We don't need to use older meson-python/setuptools.
+Patch1003:      0003-Unpin-build-requirements.patch
 
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
 Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch

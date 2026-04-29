@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -64,7 +64,7 @@ Url: http://www.postgresql.org/
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
-%global setup_version 8.9
+%global setup_version 8.12
 
 %global service_name postgresql.service
 
@@ -1345,6 +1345,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Apr 24 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 16.13-2
+- Update postgresql-setup to 8.12
+
 * Thu Feb 26 2026 Packit <hello@packit.dev> - 16.13-1
 - Update to version 16.13
 - Resolves: rhbz#2439337

@@ -3,7 +3,7 @@
 # TODO: BR: perl(HTTP::Tiny::Mech) and perl(WWW::Mechanize::Cached) when available
 
 Name:		perl-MetaCPAN-Client
-Version:	2.040000
+Version:	2.042000
 Release:	1%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -89,7 +89,7 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client.3*
 %{_mandir}/man3/MetaCPAN::Client::Author.3*
 %{_mandir}/man3/MetaCPAN::Client::Cover.3*
-%{_mandir}/man3/MetaCPAN::Client::CVE.3*
+%{_mandir}/man3/MetaCPAN::Client::Cve.3*
 %{_mandir}/man3/MetaCPAN::Client::Distribution.3*
 %{_mandir}/man3/MetaCPAN::Client::DownloadURL.3*
 %{_mandir}/man3/MetaCPAN::Client::Favorite.3*
@@ -99,7 +99,6 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Package.3*
 %{_mandir}/man3/MetaCPAN::Client::Permission.3*
 %{_mandir}/man3/MetaCPAN::Client::Pod.3*
-%{_mandir}/man3/MetaCPAN::Client::Rating.3*
 %{_mandir}/man3/MetaCPAN::Client::Release.3*
 %{_mandir}/man3/MetaCPAN::Client::Request.3*
 %{_mandir}/man3/MetaCPAN::Client::ResultSet.3*
@@ -109,6 +108,12 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 2.042000-1
+- Update to 2.042000
+  - Rating: Fail instead of silent empty response (GH#141)
+  - CVE: Clean-up and updated (GH#142)
+  - CVE: Fixed search + unbroke 'all' method (GH#144)
+
 * Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.040000-1
 - Update to 2.040000
   - Use a boolean in reverse_deps term (GH#136)

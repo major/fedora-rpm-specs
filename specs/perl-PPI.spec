@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-PPI
-Version:        1.284
-Release:        2%{?dist}
+Version:        1.286
+Release:        1%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI
@@ -74,6 +74,9 @@ Parse, analyze and manipulate Perl (without perl).
 %prep
 %setup -q -n PPI-%{version}
 
+# Remove spurious executable bits
+find . -type f -exec chmod -c -x {} \;
+
 %if %{without XSAccessor}
 rm lib/PPI/XSAccessor.pm
 sed -i '/^lib\/PPI\/XSAccessor\.pm$/d' MANIFEST
@@ -98,6 +101,14 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 1.286-1
+- Update to 1.286
+  - Add support for dotted bitwise operators (GH#322)
+  - File opening errors are now reported usefully by PPI::Document
+  - Remove the executable bit on several files (GH#323)
+  - Fix for performance degradation on initial parse (GH#318)
+  - Better reporting of Document->new input errors
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.284-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.905.0
+Version:        0.906.0
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,6 +161,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.906.0-1
+- 0.906.0 bump (rhbz#2461908)
+
 * Fri Apr 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.905.0-1
 - 0.905.0 bump (rhbz#2461398)
 

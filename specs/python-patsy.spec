@@ -18,6 +18,9 @@ License: BSD-2-Clause AND PSF-2.0
 URL: https://github.com/pydata/patsy
 Source0:  %{pypi_source %srcname} 
 
+# Fix re.Scanner capturing group for Python 3.15+
+Patch: https://github.com/pydata/patsy/pull/258.patch
+
 BuildArch: noarch
 BuildRequires: python3-devel
 

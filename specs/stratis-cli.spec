@@ -1,5 +1,5 @@
 Name:           stratis-cli
-Version:        3.8.3
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Command-line tool for interacting with the Stratis daemon
 
@@ -20,7 +20,7 @@ BuildRequires:  python3-wcwidth
 %endif
 
 # Require the version of stratisd that supports a compatible D-Bus interface
-Requires:       (stratisd >= 3.8.2 with stratisd < 4.0.0)
+Requires:       (stratisd >= 3.9.0 with stratisd < 4.0.0)
 
 # Exclude the same arches for stratis-cli as are excluded for stratisd
 ExclusiveArch:  %{rust_arches} noarch

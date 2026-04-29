@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.8.6
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -13,8 +13,6 @@ URL:            https://github.com/stratis-storage/stratisd
 Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
 
-# * Allow procfs 0.18: https://github.com/stratis-storage/stratisd/pull/3951
-Patch:          stratisd-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
@@ -28,7 +26,6 @@ BuildRequires:  rust-packaging
 %endif
 BuildRequires:  rust-srpm-macros
 BuildRequires:  systemd-devel
-BuildRequires:  dbus-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  cryptsetup-devel
 BuildRequires:  clang
@@ -46,6 +43,7 @@ Requires:       systemd-libs
 Requires:       dbus-libs
 Requires:       cryptsetup-libs
 Requires:       libblkid
+Requires:       cryptsetup
 
 # stratisd does not require clevis; it can be used in restricted environments
 # where clevis is not available.
@@ -85,7 +83,7 @@ Requires:     stratisd
 %{summary}.
 
 %prep
-%autosetup -n stratisd-stratisd-v%{version} -p1 %{?rhel:-a1}
+%autosetup -n stratisd-stratisd-v%{version} %{?rhel:-a1}
 
 %if 0%{?rhel}
 %cargo_prep -v vendor
@@ -98,7 +96,7 @@ Requires:     stratisd
 %build
 %{cargo_license -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts} > LICENSE.dependencies
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
-%{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
+%{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features dbus_enabled,engine,min,systemd_compat
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd-tools --no-default-features --features engine,extras

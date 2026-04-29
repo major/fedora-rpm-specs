@@ -1,15 +1,17 @@
-%global upstream_version        1.1.1
+%global upstream_version        1.1.2
 
-Name:                   libxchange
-Version:                1.1.1
-Release:                %autorelease
-Summary:                Structured data representation and JSON support for C/C++
-License:                Unlicense
-URL:                    https://sigmyne.github.io/xchange
-Source0:                https://github.com/Sigmyne/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
-BuildRequires:          gcc
-BuildRequires:          sed
-BuildRequires:          doxygen >= 1.9.0
+Name:            libxchange
+Version:         1.1.2
+Release:         %autorelease
+Summary:         Structured data representation and JSON support for C/C++
+License:         Unlicense
+URL:             https://sigmyne.github.io/xchange
+Source0:         https://github.com/Sigmyne/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
+BuildRequires:   gcc
+BuildRequires:   cmake
+BuildRequires:   sed
+BuildRequires:   doxygen >= 1.13.0
+Patch0:          install-examples.patch
 
 %description
 
@@ -35,30 +37,40 @@ This package provides HTML documentation and examples for the xchange C/C++
 library. The HTML API documentation can also be used with the Eclipse IDE.
 
 %prep
-%setup -q -n xchange-%{upstream_version}
+%autosetup -p1 -n xchange-%{upstream_version}
 
 %build
 
-make %{?_smp_mflags}
+%cmake \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_DOC=ON
 
-%check
-
-make test
+%cmake_build
 
 %install
 
-make PACKAGE_NAME=%{name} DESTDIR=%{buildroot} libdir=%{_libdir} install
+%cmake_install
+
+# Rename documentation directory to package name
+mv %{buildroot}/%{_docdir}/xchange %{buildroot}/%{_docdir}/%{name}
+
+%check
+
+%ctest
 
 %files
 %license LICENSE
 %doc CHANGELOG.md
-%{_libdir}/%{name}.so.1{,.*}
+%{_libdir}/libxchange.so.1{,.*}
 
 %files devel
-%{_includedir}/*.h
+%{_includedir}/xchange.h
+%{_includedir}/xjson.h
 %{_libdir}/libxchange.so
-%doc CONTRIBUTING.md
-%doc examples
+%{_libdir}/cmake
+%{_libdir}/pkgconfig
+%doc %{_docdir}/%{name}/*.md
+%doc %{_docdir}/%{name}/examples
 
 %files doc
 %license LICENSE

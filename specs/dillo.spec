@@ -5,13 +5,13 @@
 %define _legacy_common_support 1
 
 Name:           dillo
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        A multi-platform graphical web browser
 
 License:        GPL-3.0-or-later
-URL:            https://dillo-browser.github.io/
-Source0:        https://github.com/%{name}-browser/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://dillo-browser.org/
+Source0:        https://dillo-browser.org/release/%{version}/dillo-%{version}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -80,6 +80,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %doc AUTHORS README.md ChangeLog doc/ NEWS
 %config(noreplace) %{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
+%{_bindir}/dilloc
 %{_bindir}/%{name}-install-hyphenation
 %{_bindir}/dpid
 %{_bindir}/dpidc

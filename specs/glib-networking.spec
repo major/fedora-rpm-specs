@@ -36,6 +36,8 @@ Requires:       gsettings-desktop-schemas
 # For glib-pacrunner
 Recommends:     libproxy-duktape
 
+Supplements:    glib2
+
 %description
 This package contains modules that extend the networking support in
 GIO. In particular, it contains libproxy- and GSettings-based

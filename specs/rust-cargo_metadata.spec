@@ -90,12 +90,14 @@ use the "derive_builder" feature of the "%{crate}" crate.
 # * skip build_dir test: it wants the build directory to end in
 #   cargo_metadata/target, which makes a brittle assumption about the name of
 #   the source directory; we instead have cargo_metadata-%%{version}/target
+# * skip error1 test: brittle comparison with exact cargo stderr output
 %{cargo_test -f builder,derive_builder -- -- %{shrink:
     --skip advanced_feature_configuration
     --skip all_the_fields
     --skip basic_workspace_root_package_exists
     --skip current_dir
     --skip build_dir
+    --skip error1
 }}
 %endif
 

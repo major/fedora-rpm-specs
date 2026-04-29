@@ -1,7 +1,7 @@
 %global         _firmwarepath    /usr/lib/firmware
 
 Name:           wireless-regdb
-Version:        2026.02.04
+Version:        2026.03.18
 Release:        1%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Mon Apr 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.03.18-1
+- 2026.03.18
+
 * Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.02.04-1
 - 2026.02.04
 

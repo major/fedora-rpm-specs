@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        8.rocm%{rocm_version}%{?dist}
+Release:        9.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -139,9 +139,20 @@ Group:          Development/Languages/Other
 %endif
 
 Url:            https://github.com/ROCm/llvm-project
-# llvm is Apache-2.0 WITH LLVM-exception OR NCSA
-# hipcc is MIT, comgr and device-libs are NCSA:
 License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
+# llvm is Apache-2.0 WITH LLVM-exception OR NCSA
+# /amd breakdown
+#
+# /amd/comgr/*
+# Apache-2.0, amd/comgr/LICENSE.txt
+#
+# /amd/hipcc/*
+# MIT, amd/hipcc/LICENSE.txt
+#
+# /amd/device-libs/*
+# NSCA, amd/device-libs/LICENSE.TXT
+
+
 Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 Source1:        rocm-compilersupport.prep.in
 
@@ -157,6 +168,7 @@ Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 Patch5:         0001-lld-workaround-.gnu.version-change.patch
 %if %{without preview}
 # backport
+# https://github.com/ROCm/llvm-project/commit/23f010f1ab09263d79027c70d5f4cddfe0055ca9
 Patch6:         0001-SemaConcept.cpp-fix-MSVC-not-all-control-paths-retur.patch
 %endif
 
@@ -209,10 +221,10 @@ This package contains ROCm compiler related RPM macros.
 
 %package -n %{device_libs_name}
 Summary:        AMD ROCm LLVM bit code libraries
-Requires:       %{rocm_clang_name}-devel
-Requires:       %{rocm_llvm_name}-static
+Requires:       %{rocm_clang_name}-devel = %{version}-%{release}
+Requires:       %{rocm_llvm_name}-static = %{version}-%{release}
 Requires:       %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
-Requires:       rocm-lld%{pkg_suffix}
+Requires:       rocm-lld%{pkg_suffix} = %{version}-%{release}
 
 %description -n %{device_libs_name}
 This package contains a set of AMD specific device-side language runtime
@@ -234,14 +246,13 @@ The AMD Code Object Manager (Comgr) is a shared library which provides
 operations for creating and inspecting code objects.
 
 %if 0%{?suse_version}
-%post -n %{comgr_name}  -p /sbin/ldconfig
-%postun -n %{comgr_name} -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{comgr_name}
 %endif
 
 %package -n %{comgr_name}-devel
 Summary:        AMD ROCm LLVM Code Object Manager
 Requires:       %{comgr_name}%{?_isa} = %{version}-%{release}
-Requires:       %{device_libs_name}
+Requires:       %{device_libs_name} = %{version}-%{release}
 %if 0%{?suse_version}
 Provides:       rocm-comgr%{pkg_suffix}-devel = %{version}-%{release}
 %endif
@@ -259,10 +270,6 @@ Obsoletes:      hip <= %{version}-%{release}
 %endif
 
 %description -n %{hipcc_name}
-hipcc is a compiler driver utility that will call clang or nvcc, depending on
-target, and pass the appropriate include and library options for the target
-compiler and HIP infrastructure.
-
 hipcc will pass-through options to the target compiler. The tools calling hipcc
 must ensure the compiler options are appropriate for the target compiler.
 
@@ -305,15 +312,14 @@ Requires:      zlib-devel
 %{summary}
 
 %if 0%{?suse_version}
-%post -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
-%postun -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{rocm_llvm_name}-devel
 %endif
 
 %package -n %{rocm_llvm_name}-static
 Summary:       Static libraries for ROCm LLVM
 Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
-Provides:      %{rocm_llvm_name}-static(major) = %{llvm_maj_ver}
+Provides:      %{rocm_llvm_name}-static = %{version}-%{release}
 
 %description -n %{rocm_llvm_name}-static
 %{summary}
@@ -327,13 +333,13 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 %{summary}
 
 %if 0%{?suse_version}
-%post -n %{rocm_clang_name}-libs -p /sbin/ldconfig
-%postun -n %{rocm_clang_name}-libs -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{rocm_clang_name}-libs
 %endif
 
 %package -n %{rocm_clang_name}-runtime-devel
 Summary:       The ROCm compiler runtime
 Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Provides:      %{rocm_clang_name}-runtime-static = %{version}-%{release}
 
 %description -n %{rocm_clang_name}-runtime-devel
 %{summary}
@@ -343,7 +349,7 @@ Summary:       The ROCm compiler
 Requires:      git
 Requires:      python3
 Requires:      %{rocm_clang_name}-libs%{?_isa} = %{version}-%{release}
-Requires:      %{rocm_clang_name}-runtime-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_clang_name}-runtime-static = %{version}-%{release}
 Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 %if %{with libcxx}
 Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
@@ -405,6 +411,9 @@ Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 
 %description -n %{rocm_libcxx_name}-static
 %{summary}
+
+%else
+Obsoletes:      %{rocm_libcxx_name} <= %{version}-%{release}
 %endif
 
 %if %{with sa}
@@ -877,6 +886,15 @@ rm -f %{buildroot}%{bundle_prefix}/bin/nvptx-arch
 sed -i -e 's@/usr/bin/env python@/usr/bin/python3@' %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
+# rocm-clang-devel.x86_64: E: zero-length /usr/lib64/rocm/llvm/include/clang/Basic/DiagnosticASTCompatIDs.inc
+# Removing these causea a problem later
+# In file included from /usr/lib64/rocm/llvm/include/clang/Basic/DiagnosticIDs.h:103:
+# /usr/lib64/rocm/llvm/include/clang/Basic/DiagnosticCommonInterface.inc:22:10: fatal error: 'clang/Basic/DiagnosticCommonEnums.inc' file not found
+   22 | #include "clang/Basic/DiagnosticCommonEnums.inc"
+
+# rocm-clang-analyzer.x86_64: W: devel-file-in-non-devel-package /usr/lib64/rocm/llvm/lib/libear/ear.c
+rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
+
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
 %fdupes %{buildroot}%{_prefix}
@@ -917,6 +935,7 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %dir %{bundle_prefix}/include/clang-c
 %dir %{bundle_prefix}/include/llvm
 %dir %{bundle_prefix}/include/llvm-c
+%dir %{bundle_prefix}/include/clang-tidy
 %dir %{bundle_prefix}/lib
 %dir %{bundle_prefix}/lib/clang
 %dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}
@@ -936,14 +955,14 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %dir %{bundle_prefix}/share/opt-viewer
 
 %files -n %{rocm_llvm_name}-libs
+%license llvm/LICENSE.TXT
 %{bundle_prefix}/lib/libLLVM-*.so
 %{bundle_prefix}/lib/libLLVM.so.*
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
 %if 0%{?suse_version}
-%post -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
-%postun -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{rocm_llvm_name}-libs
 %endif
 
 %files -n %{rocm_llvm_name}
@@ -980,9 +999,11 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
 # ROCM CLANG
 %files -n %{rocm_clang_name}-libs
+%license clang/LICENSE.TXT
 %{bundle_prefix}/lib/libclang*.so.*
 
 %files -n %{rocm_clang_name}-runtime-devel
+%license clang/LICENSE.TXT
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/clang_rt.*
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/libclang_rt.*
@@ -1017,7 +1038,6 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %{bundle_prefix}/bin/run-clang-tidy
 
 %files -n %{rocm_clang_tools_extra_name}-devel
-%dir %{bundle_prefix}/include/clang-tidy
 %license clang-tools-extra/LICENSE.TXT
 %{bundle_prefix}/include/clang-tidy/
 
@@ -1038,8 +1058,7 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %{bundle_prefix}/lib/libc++.modules.json
 
 %if 0%{?suse_version}
-%post -n %{rocm_libcxx_name} -p /sbin/ldconfig
-%postun -n %{rocm_libcxx_name} -p /sbin/ldconfig
+%ldconfig_scriptlets -n %{rocm_libcxx_name}
 %endif
 
 %files -n %{rocm_libcxx_name}-devel
@@ -1075,6 +1094,14 @@ chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 %endif
 
 %changelog
+* Fri Apr 24 2026 Tom Rix <Tom.Rix@amd.com> 22-9.rocm7.2.1
+- use suse ldconfig_scriptlets
+- move clang-tidy include dir to filesystem package
+- add static provides for clang runtime
+- Break down amd/ licenses
+- Obsolete libcxx
+- Install license files in more packages
+
 * Wed Mar 25 2026 Tom Rix <Tom.Rix@amd.com> 22-8.rocm7.2.1
 - Reduce build diskspace pressure
 

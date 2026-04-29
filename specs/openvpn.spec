@@ -19,7 +19,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7.2
+Version:           2.7.3
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
@@ -104,7 +104,6 @@ find contrib sample -type f -perm /100 \
     %{?with_pkcs11:--enable-pkcs11} \
     --enable-selinux \
     --enable-systemd \
-    --enable-x509-alt-username \
     --enable-async-push \
     %{?!with_dco:--disable-dco} \
     --docdir=%{_pkgdocdir} \
@@ -237,6 +236,9 @@ done
 
 
 %changelog
+* Mon Apr 27 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.3
+- Update to upstream 2.7.3 release
+
 * Thu Apr 23 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.2
 - Update to upstream 2.7.2 release
 - CVE-2026-40215

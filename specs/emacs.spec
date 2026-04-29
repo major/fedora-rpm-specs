@@ -57,11 +57,6 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
-# Don't wait for Emacs 31 before updating to Tree-sitter 0.26.
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555
-# https://bugzilla.redhat.com/show_bug.cgi?id=2420305
-Patch:         0001-Support-Tree-sitter-version-0.26-and-later.patch
-
 # CVE-2026-6861
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=80851
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460586
@@ -95,7 +90,6 @@ BuildRequires: libpng-devel
 BuildRequires: librsvg2-devel
 BuildRequires: libselinux-devel
 BuildRequires: libtiff-devel
-BuildRequires: libtree-sitter-devel
 BuildRequires: libwebp-devel
 BuildRequires: libxml2-devel
 BuildRequires: m17n-lib-devel
@@ -105,6 +99,12 @@ BuildRequires: sqlite-devel
 BuildRequires: systemd-devel
 BuildRequires: texinfo
 BuildRequires: zlib-devel
+
+%if v"%{version}" < v"31"
+BuildRequires: pkgconfig(tree-sitter) < 0.26
+%else
+BuildRequires: pkgconfig(tree-sitter)
+%endif
 
 %if %{with gpm}
 BuildRequires: gpm-devel

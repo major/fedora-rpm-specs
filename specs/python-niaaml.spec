@@ -9,7 +9,7 @@
 %bcond doc_pdf 1
 
 Name:           python-niaaml
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Python automated machine learning framework
 
@@ -21,20 +21,6 @@ Source:         %{url}/archive/%{version}/NiaAML-%{version}.tar.gz
 Source10:       niaaml.1
 Source11:       niaaml-infer.1
 Source12:       niaaml-optimize.1
-
-# Fix undeclared dependency on typing-extensions
-# https://github.com/firefly-cpp/NiaAML/pull/101
-#
-# Fixes:
-#
-# typing_extension not installed but imported
-# https://github.com/firefly-cpp/NiaAML/issues/100
-#
-# See also:
-#
-# Fix FTBFS - add missing build dependency
-# https://src.fedoraproject.org/rpms/python-niaaml/pull-request/10
-Patch:          %{url}/pull/101.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l niaaml

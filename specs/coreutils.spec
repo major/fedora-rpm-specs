@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.10
-Release: 3%{?dist}
+Version: 9.11
+Release: 1%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -31,14 +31,6 @@ Patch103: coreutils-python3.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
-
-# tests: fix "Hangup" termination of non-interactive runs
-# https://github.com/coreutils/coreutils/commit/8fab3c6d30d812cd681e51221bae27930f62615a
-Patch200: coreutils-9.10-fix-tests-hangup.patch
-
-# fold: fix output truncation with 0xFF bytes in input
-# https://github.com/coreutils/coreutils/commit/a85e9182b1d173c26205dada54133cd9e9174fc1
-Patch201: coreutils-9.10-fold-xFF-truncation.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -74,6 +66,7 @@ BuildRequires: acl
 BuildRequires: gdb
 BuildRequires: perl-interpreter
 BuildRequires: perl(FileHandle)
+BuildRequires: perl(POSIX)
 BuildRequires: python3
 BuildRequires: tzdata
 %ifarch %valgrind_arches
@@ -162,6 +155,10 @@ find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 # FIXME: Force a newer gettext version to workaround `autoreconf -i` errors
 # with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
 sed -i "s/0.19.2/$(rpm -q --queryformat '%%{VERSION}\n' gettext-devel)/" bootstrap.conf configure.ac
+
+# rhbz#2463168: recent perl-IO-Tty (1.24+) breaks the misc/tty-eof.pl test
+# skip setting the custom eof char as workaround
+sed -i 's/set_tty_eof_char ($exp->slave, $eof_char);//' tests/misc/tty-eof.pl
 
 %if 0%{?rhel}
 # Temporarily disable test-getaddrinfo from gnulib because it malfunctions in
@@ -290,6 +287,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Apr 20 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.11-1
+- rebase to the latest upstream release (rhbz#2459776)
+
 * Thu Mar 05 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.10-3
 - fix possible hangups during testsuite execution
 - rewrite (un)expand multibyte support using the mbbuf module (rhbz#2443041)

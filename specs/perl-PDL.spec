@@ -2,8 +2,8 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.103
-Version:        2.103.0
+%global cpan_version 2.104
+Version:        2.104.0
 Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -225,6 +225,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.104.0-1
+- 2.104 bump (rhbz#2456840)
+
 * Wed Mar 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.103.0-1
 - 2.103 bump (rhbz#2443721)
 

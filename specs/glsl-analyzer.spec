@@ -13,9 +13,11 @@ Patch:          0001-Add-fPIE-compiler-flag.patch
 # Updates to 0.15.2
 # https://github.com/nolanderc/glsl_analyzer/pull/83
 Patch:          0002-update-to-zig-0.15.2.patch
+# Updates to 0.16.0
+# https://github.com/nolanderc/glsl_analyzer/pull/94
+Patch:          0003-update-to-zig-0.16.0.patch
 
-# 0.15.2 introduced changes incompatible with 0.15.1
-BuildRequires:  (zig >= 0.15.2 with zig < 0.16)
+BuildRequires:  (zig >= 0.16 with zig < 0.17)
 BuildRequires:  zig-rpm-macros
 # testing
 BuildRequires:  pytest

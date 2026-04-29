@@ -12,8 +12,6 @@ Summary:        Structured access to the output of cargo metadata
 License:        MIT
 URL:            https://crates.io/crates/cargo_metadata
 Source:         %{crates_source}
-# * upstream patch to adapt tests for new error message format with Rust 1.91+
-Patch10:        https://github.com/oli-obk/cargo_metadata/commit/aae754b.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -89,11 +87,13 @@ use the "derive_builder" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that depend on data which is not included in published crates
+# * skip error1 test: brittle comparison with exact cargo stderr output
 %{cargo_test -f builder,derive_builder -- -- %{shrink:
     --skip advanced_feature_configuration
     --skip all_the_fields
     --skip basic_workspace_root_package_exists
     --skip current_dir
+    --skip error1
 }}
 %endif
 

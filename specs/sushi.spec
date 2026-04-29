@@ -4,7 +4,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           sushi
-Version:        50~rc.1
+Version:        50.0
 Release:        %autorelease
 Summary:        A quick previewer for Nautilus
 
@@ -39,6 +39,9 @@ file manager.
 
 
 %prep
+# check for human errors
+if [ `echo "%{version}" | grep -cE "\.alpha|\.beta|\.rc"` = "1" ]; then echo "Error: Use tilde in Version field in front of alpha/beta/rc; checked '%{version}'" 1>&2; exit 1; fi
+
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 

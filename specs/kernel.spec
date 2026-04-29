@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc0.260424gdd6c438c3e64.6
+%define pkgrelease 0.rc1.9
 %define kversion 7
-%define tarfile_release 7.0-13096-gdd6c438c3e64
+%define tarfile_release 7.1-rc1
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260424gdd6c438c3e64.6%{?buildid}%{?dist}
+%define specrelease 0.rc1.9%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4835,10 +4835,21 @@ fi\
 #
 #
 %changelog
-* Fri Apr 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.dd6c438c3e64.6]
+* Mon Apr 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.9]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - add man-page for rv-mon-stall (Thorsten Leemhuis)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Mon Apr 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.8]
+- Linux v7.1.0-0.rc1
+
+* Sun Apr 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.897d54018cc9.7]
+- Linux v7.1.0-0.rc0.897d54018cc9
+
+* Sat Apr 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.27d128c1cff6.6]
+- redhat/configs: enable watchdog pretimout panic functionality for x86 on RHEL (David Arcari)
+- Revert "redhat/configs: enable CONFIG_WATCHDOG_HRTIMER_PRETIMEOUT" (David Arcari)
+- Linux v7.1.0-0.rc0.27d128c1cff6
 
 * Fri Apr 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc0.dd6c438c3e64.5]
 - redhat/configs: rhel: Enable SPD5118 sensor driver (Jennifer Berringer)

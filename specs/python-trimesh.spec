@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.12.0
+Version:        4.12.1
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -18,21 +18,17 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # output and on the docstring of trimesh.__main__.main
 Source1:        trimesh.1
 
-# In test_rps, use embreex only if it is installed
-# https://github.com/mikedh/trimesh/pull/2531
-Patch:          https://github.com/mikedh/trimesh/pull/2531.patch
-
 BuildSystem:            pyproject
 # With v4, [all] = [easy,recommend,test,test_more,deprecated].
 BuildOption(generate_buildrequires): -x easy,recommend,test,test_more
 
-# The combination of an arched package with only noarch binary packages makes
-# it easier for us to detect arch-dependent test failures, since the tests will
+# The combination of an arched package with a noarch binary packages makes it
+# easier for us to detect arch-dependent test failures, since the tests will
 # always be run on every platform, and easier for us to skip failing tests if
 # necessary, since we can be sure that %%ifarch macros work as expected.
-#
-# Since the package still contains no compiled machine code, we still have no
-# debuginfo.
+# Furthermore, we actually do have arch-conditional dependency patching
+# affecting the extras metapackages, and so they must be arched. Since the
+# package still contains no compiled machine code, we still have no debuginfo.
 %global debug_package %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -48,6 +44,12 @@ BuildRequires:  %{py3_dist pytest-xdist}
 # tests/test_gltf.py
 # Not yet packaged: https://github.com/KhronosGroup/glTF-Validator
 #BuildRequires:  /usr/bin/gltf_validator
+
+# embree only supports x86_64, aarch64
+# https://bugzilla.redhat.com/show_bug.cgi?id=2461412
+%ifarch %{x86_64} %{arm64}
+%global arch_has_embree 1
+%endif
 
 %global _description %{expand:
 Trimesh is a pure Python library for loading and using triangular meshes with
@@ -133,11 +135,12 @@ Recommends:     /usr/bin/openscad
 %description -n python3-trimesh %{_description}
 
 
+# Note that the “recommend” and “easy” extras do have an arch-dependent
+# dependencies, and therefore they must not be noarch.
+%pyproject_extras_subpkg -n python3-trimesh easy
+%pyproject_extras_subpkg -n python3-trimesh recommend
 # We skip packaging the “deprecated” extra, since we no longer wish to maintain
 # python-openctm. We therefore cannot package the “all” extra, either.
-%pyproject_extras_subpkg -n python3-trimesh -a easy
-# Note that the "recommend" extra does have an arch-dependent dependency.
-%pyproject_extras_subpkg -n python3-trimesh recommend
 
 
 # We elect not to build a documentation package, for the following reasons:
@@ -193,6 +196,10 @@ EOF
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.easy' '(manifold3d)\b.*'
+%if ! 0%{?arch_has_embree}
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.easy' '(embreex)\b.*'
+%endif
 
 # recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
@@ -247,6 +254,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 # trimesh.viewer.widget requires glooey.
 # trimesh.viewer.windowed requires pyglet.
 %{pyproject_check_import \
+  %{?!arch_has_embree:-e trimesh.ray.ray_pyembree} \
   -e trimesh.viewer.widget \
   -e trimesh.viewer.windowed \
 }

@@ -25,6 +25,9 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # get_system_wheels_paths() from virtualenv.
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
+# importlib.metadata on Python 3.15+ raises MetadataNotFound (FileNotFoundError
+# subclass) instead of returning None for dist-info dirs without a METADATA file
+Patch:          https://github.com/python-poetry/poetry/pull/10860.patch
 
 BuildArch:      noarch
 

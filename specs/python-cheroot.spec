@@ -112,7 +112,11 @@ rm -rf html/.{doctrees,buildinfo}
 rm -rf %{buildroot}%{python3_sitelib}/docs/
 
 %check
-LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning -p no:unraisableexception
+# test_https_over_http_error expects an OpenSSL >=3.1 error string ('record
+# layer failure'), but Python's ssl module reports the mnemonic 'wrong version
+# number' instead. Upstream: https://github.com/cherrypy/cheroot/issues/645
+LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning -p no:unraisableexception \
+    --deselect cheroot/test/test_ssl.py::test_https_over_http_error
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md

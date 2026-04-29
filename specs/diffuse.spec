@@ -1,10 +1,10 @@
 Name:			diffuse
 Version:		0.11.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Graphical tool for merging and comparing text files
 License:		GPL-2.0-or-later
 URL:			https://mightycreak.github.io/diffuse/
-Source0:		https://codeload.github.com/MightyCreak/diffuse/tar.gz/v%{version}
+Source0:		https://github.com/MightyCreak/diffuse/archive/refs/tags/v%{version}.tar.gz
 BuildArch:		noarch
 BuildRequires:		autoconf
 BuildRequires:		desktop-file-utils
@@ -62,7 +62,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak
 %{_mandir}/*/man*/*
 
 %changelog
-* Tue Apr 21 2026 niohiani <notinsideofhereiamnotinside@gmail.com> - 0.11.0-1
+* Tue Apr 21 2026 niohiani <notinsideofhereiamnotinside@gmail.com> - 0.11.0-2
 - New stable release https://github.com/MightyCreak/diffuse/releases/tag/v0.11.0
 
 * Sun May 25 2025 niohiani <notinsideofhereiamnotinside@gmail.com> - 0.10.0-1

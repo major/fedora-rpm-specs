@@ -18,6 +18,8 @@ BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
+# tests
+BuildRequires:  stdair-data
 
 %description
 %{name} is a C++ library of airline revenue accounting classes and

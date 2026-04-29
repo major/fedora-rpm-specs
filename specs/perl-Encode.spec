@@ -1,6 +1,6 @@
 # Because encoding sub-package has an independent version, version macro gets
 # redefined.
-%global cpan_version 3.21
+%global cpan_version 3.22
 Name:           perl-Encode
 Epoch:          4
 Version:        %{cpan_version}
@@ -8,7 +8,7 @@ Version:        %{cpan_version}
 # perl-encoding sub-package has independent version which does not change
 # often and consecutive builds would clash on perl-encoding NEVRA. This is the
 # same case as in perl.spec.
-Release:        521%{?dist}
+Release:        522%{?dist}
 Summary:        Character encodings in Perl
 # ucm:          license in this repository can be ingored based on
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/30#note_1435176617
@@ -216,6 +216,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4:3.22-522
+- 3.22 bump (rhbz#2461834)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.21-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

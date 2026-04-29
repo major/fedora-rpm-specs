@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.44
+Version:        1.45
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -95,6 +95,21 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 1.45-1
+- Update to 1.45
+  Bug Fixes:
+  - Fix: Use syck_base64_free() to fix Windows "Free to wrong pool" crash in
+    base64 encode/decode buffers; also plugs a memory leak (GH#189)
+  - Fix: Clear type tag on blessed scalar alias early-return so the stale tag
+    no longer leaks onto the next emitted item (GH#193, GH#194, rhbz#2459200)
+  - Fix: Negative float#base60 values produce wrong results; strip sign before
+    accumulating and avoid negative zero for portable stringification (GH#191)
+  - Fix: Prevent memory leaks when Load/LoadJSON croak on parse errors (GH#192)
+  Maintenance:
+  - Test: Add coverage for SortKeys and JSON MaxDepth (GH#188)
+  - Test: Add error handling coverage for LoadFile/DumpFile (GH#190)
+  - Update README
+
 * Fri Apr  3 2026 Paul Howarth <paul@city-fan.org> - 1.44-1
 - Update to 1.44
   Bug Fixes:

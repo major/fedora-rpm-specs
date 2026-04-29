@@ -1,6 +1,6 @@
 Name:           perl-Log-Dispatchouli
-Version:        3.013
-Release:        2%{?dist}
+Version:        3.101
+Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatchouli
@@ -16,11 +16,12 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
-BuildRequires:  perl(:VERSION) >= 5.20
+BuildRequires:  perl(:VERSION) >= 5.22
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(experimental)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(JSON::MaybeXS)
 BuildRequires:  perl(Log::Dispatch)
 BuildRequires:  perl(Log::Dispatch::Array)
 BuildRequires:  perl(Log::Dispatch::File)
@@ -28,21 +29,23 @@ BuildRequires:  perl(Log::Dispatch::Screen)
 BuildRequires:  perl(Log::Dispatch::Syslog)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Params::Util)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(String::Flogger)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Sub::Exporter::GlobExporter) >= 0.002
+BuildRequires:  perl(Test::Deep)
+BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Try::Tiny) >= 0.04
+BuildRequires:  perl(utf8)
+# Optional runtime
+# Log::Fmt::XS - Not in Fedora yet
 # Tests only
 BuildRequires:  perl(base)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(JSON::MaybeXS)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More) >= 0.96
-BuildRequires:  perl(utf8)
 Requires:       perl(Log::Dispatch::Array)
 Requires:       perl(Log::Dispatch::File)
 Requires:       perl(Log::Dispatch::Screen)
@@ -111,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.101-1
+- 3.101 bump (rhbz#2453871)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.013-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langjapanese
 Epoch:          12
 Version:        svn76651
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Japanese
 
 License:        LPPL-1.3c
@@ -230,8 +230,6 @@ Version:        svn53411
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ascmac.sty) = %{tl_version}
-Provides:       tex(tascmac.sty) = %{tl_version}
 
 %description -n texlive-ascmac
 The bundle provides boxes and picture macros with Japanese vertical writing
@@ -245,7 +243,6 @@ Version:        svn63838
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(asternote.sty) = %{tl_version}
 
 %description -n texlive-asternote
 This LaTeX package can output annotation symbols enclosed in square brackets
@@ -257,7 +254,6 @@ Version:        svn57733
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(japanese.ldf) = %{tl_version}
 
 %description -n texlive-babel-japanese
 This package provides a japanese option for the babel package. It defines all
@@ -266,20 +262,11 @@ pLaTeX, upLaTeX, XeLaTeX and LuaLaTeX.
 
 %package -n texlive-bxbase
 Summary:        BX bundle base components
-Version:        svn66115
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifxetex.sty)
-Provides:       tex(bxbase.def) = %{tl_version}
-Provides:       tex(bxbase.sty) = %{tl_version}
-Provides:       tex(bxtoolbox-ext.def) = %{tl_version}
-Provides:       tex(bxtoolbox-ja.def) = %{tl_version}
-Provides:       tex(bxtoolbox.def) = %{tl_version}
-Provides:       tex(bxtoolbox.sty) = %{tl_version}
-Provides:       tex(bxutf8.def) = %{tl_version}
-Provides:       tex(bxutf8x.def) = %{tl_version}
-Provides:       tex(zxbase.sty) = %{tl_version}
 
 %description -n texlive-bxbase
 The main purpose of this bundle is to serve as an underlying library for other
@@ -289,17 +276,17 @@ itself.
 
 %package -n texlive-bxcjkjatype
 Summary:        Typeset Japanese with pdfLaTeX and CJK
-Version:        svn67705
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(CJK.sty)
 Requires:       tex(CJKpunct.sty)
 Requires:       tex(CJKspace.sty)
+Requires:       tex(CJKvert.sty)
 Requires:       tex(atbegshi.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(bxcjkjatype.sty) = %{tl_version}
 
 %description -n texlive-bxcjkjatype
 The package provides a working configuration of the CJK package, suitable for
@@ -309,7 +296,7 @@ used by the pLaTeX kernel and some other packages used with it.
 
 %package -n texlive-bxcoloremoji
 Summary:        Use color emojis more conveniently
-Version:        svn74806
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -321,8 +308,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(twemojis.sty)
-Provides:       tex(bxcoloremoji-names.def) = %{tl_version}
-Provides:       tex(bxcoloremoji.sty) = %{tl_version}
 
 %description -n texlive-bxcoloremoji
 This package lets users output color emojis in LaTeX documents. Compared to
@@ -339,14 +324,12 @@ Therefore, this package now contains no image data.
 
 %package -n texlive-bxghost
 Summary:        Ghost insertion for proper xkanjiskip
-Version:        svn66147
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexja-adjust.sty)
 Requires:       tex(luatexja.sty)
-Provides:       tex(bxghost-lib.sty) = %{tl_version}
-Provides:       tex(bxghost.sty) = %{tl_version}
 
 %description -n texlive-bxghost
 The package provides two commands to help authors for documents in Japanese to
@@ -355,11 +338,10 @@ insert proper xkanjiskips. It supports LuaTeX, XeTeX, pTeX, upTeX, and ApTeX
 
 %package -n texlive-bxjaholiday
 Summary:        Support for Japanese holidays
-Version:        svn76924
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bxjaholiday.sty) = %{tl_version}
 
 %description -n texlive-bxjaholiday
 This LaTeX package provides a command to convert dates to names of Japanese
@@ -369,12 +351,11 @@ The package supports pdfTeX, XeTeX, LuaTeX, pTeX, and upTeX.
 
 %package -n texlive-bxjalipsum
 Summary:        Dummy text in Japanese
-Version:        svn67620
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(intcalc.sty)
-Provides:       tex(bxjalipsum.sty) = %{tl_version}
 
 %description -n texlive-bxjalipsum
 This package enables users to print some Japanese text that can be used as
@@ -384,13 +365,12 @@ uses some real text in public domain.
 
 %package -n texlive-bxjaprnind
 Summary:        Adjust the position of parentheses at paragraph head
-Version:        svn59641
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(bxtoolbox.sty)
 Requires:       tex(everyhook.sty)
-Provides:       tex(bxjaprnind.sty) = %{tl_version}
 
 %description -n texlive-bxjaprnind
 In Japanese typesetting, opening parentheses placed at the beginning of
@@ -400,13 +380,12 @@ be 0.5em, 1em or 1.5em deoending on the local rule in effect.
 
 %package -n texlive-bxjatoucs
 Summary:        Convert Japanese character code to Unicode
-Version:        svn71870
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(infwarerr.sty)
 Requires:       tex(ltxcmds.sty)
-Provides:       tex(bxjatoucs.sty) = %{tl_version}
 
 %description -n texlive-bxjatoucs
 This package is meant for macro/package developers: It provides function-like
@@ -417,19 +396,12 @@ set.
 
 %package -n texlive-bxjscls
 Summary:        Japanese document class collection for all major engines
-Version:        svn75447
+Version:        svn78536
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 # Ignoring dependency on bxpandola.sty - not part of TeX Live
 Requires:       tex(inputenc.sty)
-Provides:       tex(bxjscjkcat.sty) = %{tl_version}
-Provides:       tex(bxjscompat.sty) = %{tl_version}
-Provides:       tex(bxjsja-minimal.def) = %{tl_version}
-Provides:       tex(bxjsja-modern.def) = %{tl_version}
-Provides:       tex(bxjsja-pandoc.def) = %{tl_version}
-Provides:       tex(bxjsja-standard.def) = %{tl_version}
-Provides:       tex(bxjspandoc.sty) = %{tl_version}
 
 %description -n texlive-bxjscls
 This package provides an extended version of the Japanese document class
@@ -440,12 +412,11 @@ typesetting.
 
 %package -n texlive-bxorigcapt
 Summary:        To retain the original caption names when using Babel
-Version:        svn64072
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
-Provides:       tex(bxorigcapt.sty) = %{tl_version}
 
 %description -n texlive-bxorigcapt
 This package forces the caption names (\chaptername, \today, etc) declared by
@@ -454,12 +425,10 @@ language introduced by the Babel package.
 
 %package -n texlive-bxwareki
 Summary:        Convert dates from Gregorian to Japanese calender
-Version:        svn67594
+Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bxwareki-cd.def) = %{tl_version}
-Provides:       tex(bxwareki.sty) = %{tl_version}
 
 %description -n texlive-bxwareki
 This LaTeX package provides commands to convert from the Gregorian calendar (e.
@@ -480,7 +449,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(framed.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(chuushaku.sty) = %{tl_version}
 
 %description -n texlive-chuushaku
 This style file is designed for compiling book notes in Japanese as part of the
@@ -498,7 +466,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(convert-jpfonts.sty) = %{tl_version}
 
 %description -n texlive-convert-jpfonts
 This style file is designed for converting Japanese half-width characters to
@@ -507,7 +474,7 @@ don't render properly in a Japanese font.
 
 %package -n texlive-endnotesj
 Summary:        Japanese-style endnotes
-Version:        svn47703
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -515,7 +482,6 @@ Requires:       tex(endnotes.sty)
 Requires:       tex(luatexja-otf.sty)
 Requires:       tex(otf.sty)
 # Ignoring dependency on utf.sty - not part of TeX Live
-Provides:       tex(endnotesj.sty) = %{tl_version}
 
 %description -n texlive-endnotesj
 This package provides customized styles for endnotes to be used with Japanese
@@ -533,7 +499,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifuptex.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(luatexja-adjust.sty)
-Provides:       tex(gckanbun.sty) = %{tl_version}
 
 %description -n texlive-gckanbun
 This package provides a Kanbun (Han Wen , "Chinese writing") typesetting for
@@ -541,7 +506,7 @@ This package provides a Kanbun (Han Wen , "Chinese writing") typesetting for
 
 %package -n texlive-gentombow
 Summary:        Generate Japanese-style crop marks
-Version:        svn64333
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -552,12 +517,6 @@ Requires:       tex(filehook.sty)
 Requires:       tex(pxatbegshi.sty)
 Requires:       tex(pxeveryshi.sty)
 Requires:       tex(textpos.sty)
-Provides:       tex(bounddvi.sty) = %{tl_version}
-Provides:       tex(gentombow.sty) = %{tl_version}
-Provides:       tex(pxesopic.sty) = %{tl_version}
-Provides:       tex(pxgentombow.sty) = %{tl_version}
-Provides:       tex(pxpdfpages.sty) = %{tl_version}
-Provides:       tex(pxtextpos.sty) = %{tl_version}
 
 %description -n texlive-gentombow
 This bundle provides a LaTeX package for generating Japanese-style crop marks
@@ -608,13 +567,11 @@ of Electrical Engineers of Japan (IEEJ) transactions journals and conferences.
 
 %package -n texlive-ifptex
 Summary:        Check if the engine is pTeX or one of its derivatives
-Version:        svn66803
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Provides:       tex(ifptex.sty) = %{tl_version}
-Provides:       tex(ifuptex.sty) = %{tl_version}
 
 %description -n texlive-ifptex
 The ifptex package is a counterpart of ifxetex, ifluatex, etc. for the ptex
@@ -627,7 +584,6 @@ Version:        svn46153
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ifxptex.sty) = %{tl_version}
 
 %description -n texlive-ifxptex
 The package provides commands for detecting pTeX and its derivatives (e-pTeX,
@@ -660,7 +616,6 @@ Requires:       tex(luatexja.sty)
 Requires:       tex(mathtools.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(japanese-mathformulas.sty) = %{tl_version}
 
 %description -n texlive-japanese-mathformulas
 This is a style file for compiling basic maths formulas in Japanese using
@@ -671,16 +626,11 @@ mathtools, and graphics.
 
 %package -n texlive-japanese-otf
 Summary:        Advanced font selection for platex and its friends
-Version:        svn77048
+Version:        svn78329
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(ajmacros.sty) = %{tl_version}
-Provides:       tex(mlcid.sty) = %{tl_version}
-Provides:       tex(mlutf.sty) = %{tl_version}
-Provides:       tex(otf.sty) = %{tl_version}
-Provides:       tex(redeffont.sty) = %{tl_version}
 
 %description -n texlive-japanese-otf
 The package contains pLaTeX support files and virtual fonts for supporting a
@@ -700,14 +650,11 @@ Japanese articles in the Institute of Electrical and Electronics Engineers
 
 %package -n texlive-jlreq
 Summary:        Japanese document class based on requirements for Japanese text layout
-Version:        svn76924
+Version:        svn77682
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(filehook.sty)
-Provides:       tex(jlreq-complements.sty) = %{tl_version}
-Provides:       tex(jlreq-helpers.sty) = %{tl_version}
-Provides:       tex(jlreq-trimmarks.sty) = %{tl_version}
 
 %description -n texlive-jlreq
 This package provides a Japanese document class based on requirements for
@@ -716,12 +663,11 @@ for LuaTeX-ja / pLaTeX / upLaTeX are provided.
 
 %package -n texlive-jlreq-deluxe
 Summary:        Multi-weight Japanese font support for the jlreq class
-Version:        svn76924
+Version:        svn78373
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pxjodel.sty)
-Provides:       tex(jlreq-deluxe.sty) = %{tl_version}
 
 %description -n texlive-jlreq-deluxe
 This package provides multi-weight Japanese font support for the jlreq class.
@@ -736,7 +682,6 @@ Requires:       tex(enumitem.sty)
 Requires:       tex(luatexja-otf.sty)
 Requires:       tex(otf.sty)
 Requires:       tex(refcount.sty)
-Provides:       tex(jpneduenumerate.sty) = %{tl_version}
 
 %description -n texlive-jpneduenumerate
 Mathematical equation representation in Japanese education differs somewhat
@@ -755,7 +700,6 @@ Requires:       tex(empheq.sty)
 Requires:       tex(luatexja-otf.sty)
 Requires:       tex(otf.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(jpnedumathsymbols.sty) = %{tl_version}
 
 %description -n texlive-jpnedumathsymbols
 Mathematical equation representation in Japanese education differs somewhat
@@ -764,15 +708,10 @@ equation representation in Japanese education.
 
 %package -n texlive-jsclasses
 Summary:        Classes tailored for use with Japanese
-Version:        svn75174
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(jslogo.sty) = %{tl_version}
-Provides:       tex(jsverb.sty) = %{tl_version}
-Provides:       tex(minijs.sty) = %{tl_version}
-Provides:       tex(okumacro.sty) = %{tl_version}
-Provides:       tex(okuverb.sty) = %{tl_version}
 
 %description -n texlive-jsclasses
 Classes jsarticle and jsbook are provided, together with packages okumacro and
@@ -781,13 +720,12 @@ TeX system ptex.
 
 %package -n texlive-kanbun
 Summary:        Typeset kanbun-kundoku with support for kanbun annotation
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(kanbun.sty) = %{tl_version}
 
 %description -n texlive-kanbun
 This package allows users to manually input macros for elements in a
@@ -809,7 +747,7 @@ Japanese version of A Short Introduction to LaTeX2e
 
 %package -n texlive-luatexja
 Summary:        Typeset Japanese with Lua(La)TeX
-Version:        svn77538
+Version:        svn78752
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -829,47 +767,13 @@ Requires:       tex(luatexbase-cctb.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(preview.sty)
+Requires:       tex(regexpatch.sty)
 Requires:       tex(siunitx.sty)
 Requires:       tex(stfloats.sty)
 Requires:       tex(tascmac.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xunicode.sty)
-Provides:       tex(lltjcore-241201.sty) = %{tl_version}
-Provides:       tex(lltjcore.sty) = %{tl_version}
-Provides:       tex(lltjdefs.sty) = %{tl_version}
-Provides:       tex(lltjext.sty) = %{tl_version}
-Provides:       tex(lltjfont.sty) = %{tl_version}
-Provides:       tex(lltjp-array.sty) = %{tl_version}
-Provides:       tex(lltjp-atbegshi.sty) = %{tl_version}
-Provides:       tex(lltjp-collcell.sty) = %{tl_version}
-Provides:       tex(lltjp-everyshi.sty) = %{tl_version}
-Provides:       tex(lltjp-fontspec.sty) = %{tl_version}
-Provides:       tex(lltjp-footmisc.sty) = %{tl_version}
-Provides:       tex(lltjp-geometry.sty) = %{tl_version}
-Provides:       tex(lltjp-listings.sty) = %{tl_version}
-Provides:       tex(lltjp-microtype.sty) = %{tl_version}
-Provides:       tex(lltjp-preview.sty) = %{tl_version}
-Provides:       tex(lltjp-siunitx.sty) = %{tl_version}
-Provides:       tex(lltjp-stfloats.sty) = %{tl_version}
-Provides:       tex(lltjp-tascmac.sty) = %{tl_version}
-Provides:       tex(lltjp-unicode-math.sty) = %{tl_version}
-Provides:       tex(lltjp-xunicode.sty) = %{tl_version}
-Provides:       tex(ltj-base.sty) = %{tl_version}
-Provides:       tex(ltj-kinsoku.tex) = %{tl_version}
-Provides:       tex(ltj-latex.sty) = %{tl_version}
-Provides:       tex(ltj-plain.sty) = %{tl_version}
-Provides:       tex(luatexja-adjust.sty) = %{tl_version}
-Provides:       tex(luatexja-ajmacros.sty) = %{tl_version}
-Provides:       tex(luatexja-compat.sty) = %{tl_version}
-Provides:       tex(luatexja-core.sty) = %{tl_version}
-Provides:       tex(luatexja-fontspec-29e.sty) = %{tl_version}
-Provides:       tex(luatexja-fontspec.sty) = %{tl_version}
-Provides:       tex(luatexja-otf.sty) = %{tl_version}
-Provides:       tex(luatexja-preset.sty) = %{tl_version}
-Provides:       tex(luatexja-ruby.sty) = %{tl_version}
-Provides:       tex(luatexja-zhfonts.sty) = %{tl_version}
-Provides:       tex(luatexja.sty) = %{tl_version}
 
 %description -n texlive-luatexja
 The package offers support for typesetting Japanese documents with LuaTeX.
@@ -887,7 +791,6 @@ Requires:       tex(luacolor.sty)
 Requires:       tex(luatexja-adjust.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(luwa-ul.sty) = %{tl_version}
 
 %description -n texlive-luwa-ul
 This package provides underlining and highlighting that remain intact even in
@@ -896,7 +799,7 @@ internally uses lua-ul package, so it can be used only under LuaLaTeX.
 
 %package -n texlive-mendex-doc
 Summary:        Documentation for Mendex index processor
-Version:        svn75172
+Version:        svn77843
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -908,11 +811,10 @@ subversion repository.
 
 %package -n texlive-morisawa
 Summary:        Enables selection of 5 standard Japanese fonts for pLaTeX + dvips
-Version:        svn46946
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(morisawa.sty) = %{tl_version}
 
 %description -n texlive-morisawa
 The package enables selection of 5 standard Japanese fonts for pLaTeX + dvips.
@@ -929,7 +831,6 @@ Requires:       texlive-pxrubrica
 Requires:       tex(infwarerr.sty)
 Requires:       tex(ltxcmds.sty)
 Requires:       tex(pxrubrica.sty)
-Provides:       tex(outoruby.sty) = %{tl_version}
 
 %description -n texlive-outoruby
 This package provides the \outoruby command, which supports line breaks when
@@ -966,7 +867,7 @@ historical reasons, this also contains old documentation files for JBibTeX.
 
 %package -n texlive-platex
 Summary:        PLaTeX2e and miscellaneous macros for pTeX
-Version:        svn73848
+Version:        svn77830
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -991,21 +892,6 @@ Requires:       texlive-unicode-data
 Requires:       texlive-uptex
 Requires:       tex(oldlfont.sty)
 Requires:       tex(plautopatch.sty)
-Provides:       tex(exppl2e.sty) = %{tl_version}
-Provides:       tex(jarticle.sty) = %{tl_version}
-Provides:       tex(jbook.sty) = %{tl_version}
-Provides:       tex(jreport.sty) = %{tl_version}
-Provides:       tex(kinsoku.tex) = %{tl_version}
-Provides:       tex(oldpfont.sty) = %{tl_version}
-Provides:       tex(pfltrace.sty) = %{tl_version}
-Provides:       tex(pl209.def) = %{tl_version}
-Provides:       tex(platexrelease.sty) = %{tl_version}
-Provides:       tex(plexpl3.sty) = %{tl_version}
-Provides:       tex(plext.sty) = %{tl_version}
-Provides:       tex(ptrace.sty) = %{tl_version}
-Provides:       tex(tarticle.sty) = %{tl_version}
-Provides:       tex(tbook.sty) = %{tl_version}
-Provides:       tex(treport.sty) = %{tl_version}
 
 %description -n texlive-platex
 The bundle provides pLaTeX2e and miscellaneous macros for pTeX and e-pTeX. This
@@ -1030,17 +916,6 @@ Requires:       tex(plext.sty)
 Requires:       tex(ptrace.sty)
 # Ignoring dependency on uptrace.sty - not part of TeX Live
 Requires:       tex(xspace.sty)
-Provides:       tex(plarray.sty) = %{tl_version}
-Provides:       tex(pldocverb.sty) = %{tl_version}
-Provides:       tex(plextarray.sty) = %{tl_version}
-Provides:       tex(plextcolortbl.sty) = %{tl_version}
-Provides:       tex(plextdelarray.sty) = %{tl_version}
-Provides:       tex(pxatbegshi.sty) = %{tl_version}
-Provides:       tex(pxeverysel.sty) = %{tl_version}
-Provides:       tex(pxeveryshi.sty) = %{tl_version}
-Provides:       tex(pxftnright.sty) = %{tl_version}
-Provides:       tex(pxmulticol.sty) = %{tl_version}
-Provides:       tex(pxxspace.sty) = %{tl_version}
 
 %description -n texlive-platex-tools
 This bundle is an extended version of the latex-tools bundle developed by the
@@ -1065,7 +940,7 @@ LaTeX" (especially about math-mode).
 
 %package -n texlive-plautopatch
 Summary:        Automated patches for pLaTeX/upLaTeX
-Version:        svn64072
+Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1079,13 +954,6 @@ Requires:       tex(plextcolortbl.sty)
 Requires:       tex(plextdelarray.sty)
 Requires:       tex(pxeveryshi.sty)
 Requires:       tex(stfloats.sty)
-Provides:       tex(plarydshln.sty) = %{tl_version}
-Provides:       tex(plautopatch.sty) = %{tl_version}
-Provides:       tex(plcollcell.sty) = %{tl_version}
-Provides:       tex(plextarydshln.sty) = %{tl_version}
-Provides:       tex(plsiunitx.sty) = %{tl_version}
-Provides:       tex(pxpgfrcs.sty) = %{tl_version}
-Provides:       tex(pxstfloats.sty) = %{tl_version}
 
 %description -n texlive-plautopatch
 Japanese pLaTeX/upLaTeX formats and packages often conflict with other LaTeX
@@ -1102,9 +970,6 @@ Version:        svn64072
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ascii-jplain.tex) = %{tl_version}
-Provides:       tex(kinsoku.tex) = %{tl_version}
-Provides:       tex(ptex.tex) = %{tl_version}
 
 %description -n texlive-ptex-base
 The bundle contains the plain TeX format for pTeX and e-pTeX.
@@ -1135,21 +1000,13 @@ This package contains the Japanese pTeX manual. Feedback is welcome!
 
 %package -n texlive-pxbase
 Summary:        Tools for use with (u)pLaTeX
-Version:        svn66187
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(babel.sty)
 Requires:       tex(ifptex.sty)
 Requires:       tex(ifuptex.sty)
-Provides:       tex(pxbabel.sty) = %{tl_version}
-Provides:       tex(pxbase.def) = %{tl_version}
-Provides:       tex(pxbase.sty) = %{tl_version}
-Provides:       tex(pxbasenc.def) = %{tl_version}
-Provides:       tex(pxbsjc.def) = %{tl_version}
-Provides:       tex(pxbsjc1.def) = %{tl_version}
-Provides:       tex(pxjsfenc.def) = %{tl_version}
-Provides:       tex(upkcat.sty) = %{tl_version}
 
 %description -n texlive-pxbase
 The main purpose of this package is to provide auxiliary functions which are
@@ -1158,7 +1015,7 @@ user commands to assist in creating Japanese documents using (u)pLaTeX.
 
 %package -n texlive-pxchfon
 Summary:        Japanese font setup for pLaTeX and upLaTeX
-Version:        svn72097
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1167,8 +1024,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(pxufont-ruby.sty)
 Requires:       tex(pxufont.sty)
-Provides:       tex(pxchfon.sty) = %{tl_version}
-Provides:       tex(pxchfon0.def) = %{tl_version}
 
 %description -n texlive-pxchfon
 This package enables users to declare in their document which physical fonts
@@ -1182,12 +1037,11 @@ Prerequisite packages: atbegshi.
 
 %package -n texlive-pxcjkcat
 Summary:        LaTeX interface for the CJK category codes of upTeX
-Version:        svn74144
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(pxcjkcat.sty) = %{tl_version}
 
 %description -n texlive-pxcjkcat
 The package provides management of the CJK category code ('kcatcode'> table of
@@ -1197,19 +1051,16 @@ principally written in English or other Western languages.
 
 %package -n texlive-pxjahyper
 Summary:        Hyperref support for pLaTeX
-Version:        svn72114
+Version:        svn78827
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(atbegshi.sty)
+Requires:       tex(bxdvipdfmx-tounicode.sty)
 Requires:       tex(bxjatoucs.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(ltxcmds.sty)
-Provides:       tex(pxjahyper-ajm.def) = %{tl_version}
-Provides:       tex(pxjahyper-enc.sty) = %{tl_version}
-Provides:       tex(pxjahyper-uni.def) = %{tl_version}
-Provides:       tex(pxjahyper.sty) = %{tl_version}
 
 %description -n texlive-pxjahyper
 This package adjusts the behavior of hyperref on (u)pLaTeX so that authors can
@@ -1217,14 +1068,13 @@ properly create PDF documents that contain document information in Japanese.
 
 %package -n texlive-pxjodel
 Summary:        Help change metrics of fonts from japanese-otf
-Version:        svn76323
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifuptex.sty)
 Requires:       tex(otf.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(pxjodel.sty) = %{tl_version}
 
 %description -n texlive-pxjodel
 This package changes the setup of the japanese-otf package so that the TFMs for
@@ -1245,7 +1095,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(pxrubrica.sty) = %{tl_version}
 
 %description -n texlive-pxrubrica
 This package provides a function to add ruby annotations (furigana) that follow
@@ -1256,13 +1105,11 @@ a function to add kenten (emphasis marks) to Japanese text.
 
 %package -n texlive-pxufont
 Summary:        Emulate non-Unicode Japanese fonts using Unicode fonts
-Version:        svn67573
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifuptex.sty)
-Provides:       tex(pxufont-ruby.sty) = %{tl_version}
-Provides:       tex(pxufont.sty) = %{tl_version}
 
 %description -n texlive-pxufont
 The set of the Japanese logical fonts (JFMs) that are used as standard fonts in
@@ -1279,7 +1126,7 @@ fonts are difficult to prepare.
 
 %package -n texlive-texlive-ja
 Summary:        TeX Live manual (Japanese)
-Version:        svn74739
+Version:        svn78540
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1291,12 +1138,10 @@ TeX Live manual (Japanese)
 
 %package -n texlive-uptex-base
 Summary:        Plain TeX formats and documents for upTeX
-Version:        svn76790
+Version:        svn77840
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ukinsoku.tex) = %{tl_version}
-Provides:       tex(uptex.tex) = %{tl_version}
 
 %description -n texlive-uptex-base
 The bundle contains plain TeX format files and documents for upTeX and e-upTeX.
@@ -1327,19 +1172,18 @@ work correctly. All font bundles now contain virtual Unicode subfonts.
 
 %package -n texlive-zxjafbfont
 Summary:        Fallback CJK font support for xeCJK
-Version:        svn28539
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xeCJK.sty)
-Provides:       tex(zxjafbfont.sty) = %{tl_version}
 
 %description -n texlive-zxjafbfont
 Fallback CJK font support for xeCJK
 
 %package -n texlive-zxjatype
 Summary:        Standard conforming typesetting of Japanese, for XeLaTeX
-Version:        svn53500
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1347,7 +1191,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xeCJK.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(zxjatype.sty) = %{tl_version}
 
 %description -n texlive-zxjatype
 Standard conforming typesetting of Japanese, for XeLaTeX
@@ -1890,6 +1733,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/zxjatype/
 
 %changelog
+* Mon Apr 27 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-3
+- Update 34 components
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-2
 - Update luatexja luwa-ul
 
