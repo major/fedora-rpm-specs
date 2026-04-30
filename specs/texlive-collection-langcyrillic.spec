@@ -5,7 +5,7 @@
 Name:           texlive-collection-langcyrillic
 Epoch:          12
 Version:        svn78069
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Cyrillic
 
 License:        LPPL-1.3c
@@ -159,6 +159,8 @@ Version:        svn49022
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-belarusian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-belarusian-doc <= 11:%{version}
 
 %description -n texlive-babel-belarusian
 The package provides support for use of Babel in documents written in
@@ -170,6 +172,8 @@ Version:        svn31902
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-bulgarian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-bulgarian-doc <= 11:%{version}
 
 %description -n texlive-babel-bulgarian
 The package provides support for documents in Bulgarian (or simply containing
@@ -181,6 +185,8 @@ Version:        svn57376
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-russian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-russian-doc <= 11:%{version}
 
 %description -n texlive-babel-russian
 The package provides support for use of Babel in documents written in Russian
@@ -193,6 +199,8 @@ Version:        svn64571
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-serbian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-serbian-doc <= 11:%{version}
 
 %description -n texlive-babel-serbian
 The package provides support for Serbian documents written in Latin, in babel.
@@ -203,6 +211,8 @@ Version:        svn64588
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-serbianc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-serbianc-doc <= 11:%{version}
 
 %description -n texlive-babel-serbianc
 The package provides support for Serbian documents written in Cyrillic, in
@@ -214,6 +224,8 @@ Version:        svn56674
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-ukrainian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-ukrainian-doc <= 11:%{version}
 
 %description -n texlive-babel-ukrainian
 The package provides support for use of babel in documents written in
@@ -226,6 +238,8 @@ Version:        svn67474
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-churchslavonic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-churchslavonic-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       texlive-fonts-churchslavonic
 Requires:       texlive-hyphen-churchslavonic
@@ -249,6 +263,8 @@ Version:        svn68681
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmcyr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmcyr-doc <= 11:%{version}
 
 %description -n texlive-cmcyr
 These are the Computer Modern fonts extended with Russian letters, in Metafont
@@ -276,6 +292,8 @@ Version:        svn43417
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-disser-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-disser-doc <= 11:%{version}
 
 %description -n texlive-disser
 Disser comprises a document class and set of templates for typesetting
@@ -291,6 +309,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eskd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eskd-doc <= 11:%{version}
 
 %description -n texlive-eskd
 The class offers modern Russian text formatting, in accordance with accepted
@@ -303,6 +323,8 @@ Version:        svn29235
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eskdx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eskdx-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(array.sty)
 Requires:       tex(babel.sty)
@@ -332,6 +354,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gost-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gost-doc <= 11:%{version}
 
 %description -n texlive-gost
 BibTeX styles to format bibliographies in English, Russian or Ukrainian
@@ -457,6 +481,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lcyw-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lcyw-doc <= 11:%{version}
 Requires:       tex(ifpdf.sty)
 
 %description -n texlive-lcyw
@@ -468,6 +494,8 @@ Version:        svn77838
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lh-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lh-doc <= 11:%{version}
 Requires:       texlive-ec
 
 %description -n texlive-lh
@@ -564,6 +592,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mongolian-babel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mongolian-babel-doc <= 11:%{version}
 
 %description -n texlive-mongolian-babel
 This package provides support for Mongolian in a Cyrillic alphabet. (The work
@@ -575,6 +605,8 @@ Version:        svn29349
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-montex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-montex-doc <= 11:%{version}
 Requires:       texlive-cbfonts
 Requires:       tex(diagnose.sty)
 Requires:       tex(fontenc.sty)
@@ -662,6 +694,8 @@ Version:        svn25209
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-russ-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-russ-doc <= 11:%{version}
 Requires:       tex(inputenc.sty)
 Requires:       tex(xspace.sty)
 
@@ -678,6 +712,8 @@ Version:        svn23799
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-serbian-apostrophe-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-serbian-apostrophe-doc <= 11:%{version}
 Requires:       tex(tipa.sty)
 Requires:       tex(xspace.sty)
 
@@ -691,6 +727,8 @@ Version:        svn23446
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-serbian-date-lat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-serbian-date-lat-doc <= 11:%{version}
 
 %description -n texlive-serbian-date-lat
 Babel defines dates for Serbian texts, in Latin script. The style it uses does
@@ -703,6 +741,8 @@ Version:        svn23734
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-serbian-def-cyr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-serbian-def-cyr-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(inputenc.sty)
 
@@ -716,6 +756,8 @@ Version:        svn53127
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-serbian-lig-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-serbian-lig-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
 
 %description -n texlive-serbian-lig
@@ -728,6 +770,8 @@ Version:        svn47870
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-t2-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-t2-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(enumerate.sty)
 
@@ -768,6 +812,8 @@ Version:        svn21081
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ukrhyph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ukrhyph-doc <= 11:%{version}
 
 %description -n texlive-ukrhyph
 A range of patterns, depending on the encoding of the output font (including
@@ -1300,6 +1346,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xecyrmongolian/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78069-8
+- Fix missing -doc provides/obsoletes
+
 * Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78069-7
 - Fix hyph-utf8 paths
 

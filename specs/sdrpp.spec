@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -182,6 +182,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.1-7
+- Rebuilt for new uhd
+
 * Mon Mar 02 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.1-6
 - Rebuild for UHD/USRP support.
 

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgerman
 Epoch:          12
 Version:        svn74675
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        German
 
 License:        LPPL-1.3c
@@ -184,10 +184,12 @@ German (old and new orthography).
 
 %package -n texlive-babel-german
 Summary:        Babel support for documents written in German
-Version:        svn78579
+Version:        svn78737
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-german-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-german-doc <= 11:%{version}
 
 %description -n texlive-babel-german
 This bundle is an extension to the babel package for multilingual typesetting.
@@ -201,6 +203,8 @@ Version:        svn21923
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-german-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-german-doc <= 11:%{version}
 Requires:       tex(bibleref.sty)
 Requires:       tex(etoolbox.sty)
 
@@ -256,6 +260,8 @@ Version:        svn72949
 License:        MIT AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dehyph-exptl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dehyph-exptl-doc <= 11:%{version}
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
 
@@ -275,6 +281,8 @@ Version:        svn24035
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dhua-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dhua-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
 
 %description -n texlive-dhua
@@ -391,6 +399,8 @@ Version:        svn42428
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-german-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-german-doc <= 11:%{version}
 
 %description -n texlive-german
 Supports the old German orthography (alte deutsche Rechtschreibung).
@@ -401,6 +411,8 @@ Version:        svn76790
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-germbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-germbib-doc <= 11:%{version}
 Requires:       tex(german.sty)
 
 %description -n texlive-germbib
@@ -415,6 +427,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-germkorr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-germkorr-doc <= 11:%{version}
 
 %description -n texlive-germkorr
 The package germcorr has to be loaded after the package german. It brings some
@@ -427,6 +441,8 @@ Version:        svn56070
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hausarbeit-jura-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hausarbeit-jura-doc <= 11:%{version}
 
 %description -n texlive-hausarbeit-jura
 The class was developed for use by students writing legal essays ("juristische
@@ -567,6 +583,8 @@ Version:        svn15878
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-r_und_s-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-r_und_s-doc <= 11:%{version}
 
 %description -n texlive-r_und_s
 The r_und_s package decodes the german 'R- und S-Satze', which are numerically
@@ -763,6 +781,8 @@ Version:        svn57866
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-udesoftec-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-udesoftec-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(biblatex.sty)
 Requires:       tex(csquotes.sty)
@@ -785,6 +805,8 @@ Version:        svn39570
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uhrzeit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uhrzeit-doc <= 11:%{version}
 Requires:       tex(soul.sty)
 
 %description -n texlive-uhrzeit
@@ -797,6 +819,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-umlaute-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-umlaute-doc <= 11:%{version}
 Requires:       tex(inputenc.sty)
 
 %description -n texlive-umlaute
@@ -1205,6 +1229,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/voss-mathcol/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-7
+- Update babel-german
+- fix -doc provides/obsoletes
+
 * Mon Apr 13 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-6
 - Update babel-german, dtk-bibliography, hyphen-german
 

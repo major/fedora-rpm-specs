@@ -5,7 +5,7 @@
 Name:           texlive-collection-formatsextra
 Epoch:          12
 Version:        svn72250
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Additional formats
 
 License:        LPPL-1.3c
@@ -66,34 +66,12 @@ Version:        svn21933
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-antomega-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-antomega-doc <= 11:%{version}
 Requires:       texlive-omega
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(antomega.sty) = %{tl_version}
-Provides:       tex(grhyph16.tex) = %{tl_version}
-Provides:       tex(lgc0700.def) = %{tl_version}
-Provides:       tex(lgrenc-antomega.def) = %{tl_version}
-Provides:       tex(ograhyph4.tex) = %{tl_version}
-Provides:       tex(ogrmhyph4.tex) = %{tl_version}
-Provides:       tex(ogrphyph4.tex) = %{tl_version}
-Provides:       tex(omega-english.ldf) = %{tl_version}
-Provides:       tex(omega-french.ldf) = %{tl_version}
-Provides:       tex(omega-german.ldf) = %{tl_version}
-Provides:       tex(omega-greek.ldf) = %{tl_version}
-Provides:       tex(omega-latin.ldf) = %{tl_version}
-Provides:       tex(omega-latvian.ldf) = %{tl_version}
-Provides:       tex(omega-polish.ldf) = %{tl_version}
-Provides:       tex(omega-russian.ldf) = %{tl_version}
-Provides:       tex(omega-spanish.ldf) = %{tl_version}
-Provides:       tex(ruhyph16.tex) = %{tl_version}
-Provides:       tex(t1enc-antomega.def) = %{tl_version}
-Provides:       tex(t2aenc-antomega.def) = %{tl_version}
-Provides:       tex(uni0100.def) = %{tl_version}
-Provides:       tex(uni0370.def) = %{tl_version}
-Provides:       tex(uni0400.def) = %{tl_version}
-Provides:       tex(uni1f00.def) = %{tl_version}
-Provides:       tex(ut1enc-antomega.def) = %{tl_version}
 
 %description -n texlive-antomega
 A language support package for Omega/Lambda. This replaces the original omega
@@ -107,16 +85,6 @@ Version:        svn45756
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(elhyph16.tex) = %{tl_version}
-Provides:       tex(grcodes.tex) = %{tl_version}
-Provides:       tex(grmhyph.tex) = %{tl_version}
-Provides:       tex(lambda.tex) = %{tl_version}
-Provides:       tex(lchenc.def) = %{tl_version}
-Provides:       tex(ocherokee.sty) = %{tl_version}
-Provides:       tex(odev.sty) = %{tl_version}
-Provides:       tex(ojapan.sty) = %{tl_version}
-Provides:       tex(omega.sty) = %{tl_version}
-Provides:       tex(ut1enc.def) = %{tl_version}
 
 %description -n texlive-lambda
 LaTeX for Omega and Aleph
@@ -127,8 +95,8 @@ Version:        svn71991
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mxedruli.sty) = %{tl_version}
-Provides:       tex(xucuri.sty) = %{tl_version}
+Provides:       texlive-mxedruli-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mxedruli-doc <= 11:%{version}
 
 %description -n texlive-mxedruli
 Two Georgian fonts, in both Metafont and Type 1 formats, which cover the
@@ -140,11 +108,8 @@ Version:        svn33046
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bghyph.tex) = %{tl_version}
-Provides:       tex(grlccode.tex) = %{tl_version}
-Provides:       tex(lthyph.tex) = %{tl_version}
-Provides:       tex(omega.tex) = %{tl_version}
-Provides:       tex(srhyph.tex) = %{tl_version}
+Provides:       texlive-omega-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-omega-doc <= 11:%{version}
 
 %description -n texlive-omega
 A development of TeX, which deals in multi-octet Unicode characters, to enable
@@ -160,8 +125,8 @@ Version:        svn45777
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(otibet.sty) = %{tl_version}
-Provides:       tex(otibet.tex) = %{tl_version}
+Provides:       texlive-otibet-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-otibet-doc <= 11:%{version}
 
 %description -n texlive-otibet
 support for Tibetan using Omega
@@ -196,13 +161,6 @@ Requires:       tex(tone.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(url.sty)
 Requires:       tex(wasysym.sty)
-Provides:       tex(dummyels.sty) = %{tl_version}
-Provides:       tex(fotex.sty) = %{tl_version}
-Provides:       tex(mlnames.sty) = %{tl_version}
-Provides:       tex(teixml.sty) = %{tl_version}
-Provides:       tex(teixmlslides.sty) = %{tl_version}
-Provides:       tex(ucharacters.sty) = %{tl_version}
-Provides:       tex(unicode.sty) = %{tl_version}
 
 %description -n texlive-passivetex
 Packages providing XML parsing, UTF-8 parsing, Unicode entities, and common
@@ -214,8 +172,8 @@ Version:        svn69742
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mypsizzl.tex) = %{tl_version}
-Provides:       tex(psizzl.tex) = %{tl_version}
+Provides:       texlive-psizzl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-psizzl-doc <= 11:%{version}
 
 %description -n texlive-psizzl
 PSIZZL is a TeX format for physics papers written at SLAC and used at several
@@ -229,7 +187,8 @@ Version:        svn69742
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(startex.tex) = %{tl_version}
+Provides:       texlive-startex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-startex-doc <= 11:%{version}
 
 %description -n texlive-startex
 A TeX format designed to help students write short reports and essays. It
@@ -342,6 +301,12 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/otherformats/startex/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72250-6
+- Fix missing -doc Provides/Obsoletes
+
+* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72250-5
+- Remove file provides (they are autogenerated now)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72250-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/format
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.4
+Version:        1.4.5
 Release:        %autorelease
 Summary:        Formations of finite solvable groups
 

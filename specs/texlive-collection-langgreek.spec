@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgreek
 Epoch:          12
 Version:        svn65038
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Greek
 
 License:        LPPL-1.3c
@@ -103,6 +103,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-greek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-greek-doc <= 11:%{version}
 
 %description -n texlive-babel-greek
 The bundle provides comprehensive support for the Greek language and script via
@@ -117,6 +119,8 @@ Version:        svn63255
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-begingreek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-begingreek-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 
 %description -n texlive-begingreek
@@ -130,6 +134,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-betababel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-betababel-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(teubner.sty)
 
@@ -146,6 +152,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cbfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cbfonts-doc <= 11:%{version}
 Requires:       texlive-cbfonts-fd
 
 %description -n texlive-cbfonts
@@ -162,6 +170,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cbfonts-fd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cbfonts-fd-doc <= 11:%{version}
 
 %description -n texlive-cbfonts-fd
 The package provides font description files for all the many shapes available
@@ -175,6 +185,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsbaskerville-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsbaskerville-doc <= 11:%{version}
 
 %description -n texlive-gfsbaskerville
 The font is a digital implementation of Baskerville's classic Greek font,
@@ -187,6 +199,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsporson-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsporson-doc <= 11:%{version}
 
 %description -n texlive-gfsporson
 Porson is an elegant Greek font, originally cut at the turn of the 19th Century
@@ -200,6 +214,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greek-fontenc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greek-fontenc-doc <= 11:%{version}
 
 %description -n texlive-greek-fontenc
 LICR macros for characters from the Greek script and encoding definition files
@@ -211,6 +227,8 @@ Version:        svn66634
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greek-inputenc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greek-inputenc-doc <= 11:%{version}
 
 %description -n texlive-greek-inputenc
 Input encoding definition files for UTF-8, Macintosh Greek, and ISO 8859-7
@@ -223,6 +241,8 @@ Version:        svn75878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greekdates-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greekdates-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 
 %description -n texlive-greekdates
@@ -238,6 +258,8 @@ Version:        svn28327
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greektex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greektex-doc <= 11:%{version}
 
 %description -n texlive-greektex
 The fonts are based on Silvio Levy's classical Greek fonts; macros and Greek
@@ -249,6 +271,8 @@ Version:        svn39419
 License:        LGPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greektonoi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greektonoi-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
 
 %description -n texlive-greektonoi
@@ -284,6 +308,8 @@ Version:        svn78069
 License:        MIT OR LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hyphen-greek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyphen-greek-doc <= 11:%{version}
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
 
@@ -299,6 +325,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ibycus-babel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ibycus-babel-doc <= 11:%{version}
 
 %description -n texlive-ibycus-babel
 The package allows you to use the Ibycus 4 font for ancient Greek with Babel.
@@ -315,6 +343,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ibygrk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ibygrk-doc <= 11:%{version}
 
 %description -n texlive-ibygrk
 Ibycus is a Greek typeface, based on Silvio Levy's realisation of a classic
@@ -329,6 +359,8 @@ Version:        svn56271
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kerkis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kerkis-doc <= 11:%{version}
 Requires:       tex(txfonts.sty)
 
 %description -n texlive-kerkis
@@ -346,6 +378,8 @@ Version:        svn76924
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-levy-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-levy-doc <= 11:%{version}
 
 %description -n texlive-levy
 These fonts are derivatives of Knuth's CM fonts. Macros for use with Plain TeX
@@ -358,6 +392,8 @@ Version:        svn21818
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lgreek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lgreek-doc <= 11:%{version}
 
 %description -n texlive-lgreek
 A conversion of Silvio Levy's Plain TeX macros for use with LaTeX.
@@ -394,6 +430,8 @@ Version:        svn68074
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-teubner-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-teubner-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(exscale.sty)
 Requires:       tex(graphicx.sty)
@@ -414,6 +452,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xgreek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xgreek-doc <= 11:%{version}
 Requires:       tex(listings.sty)
 Requires:       tex(luahyphenrules.sty)
 
@@ -435,6 +475,8 @@ Version:        svn22613
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-yannisgr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yannisgr-doc <= 11:%{version}
 
 %description -n texlive-yannisgr
 A family of 7-bit fonts with a code table designed for setting modern polytonic
@@ -723,6 +765,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/fonts/yannisgr/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn65038-5
+- Fix -doc provides/obsoletes
+
 * Tue Apr 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn65038-4
 - Update 7 components
 

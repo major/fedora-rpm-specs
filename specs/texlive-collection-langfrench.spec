@@ -5,7 +5,7 @@
 Name:           texlive-collection-langfrench
 Epoch:          12
 Version:        svn72499
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        French
 
 License:        LPPL-1.3c
@@ -176,6 +176,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-aeguill-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aeguill-doc <= 11:%{version}
 Requires:       tex(ae.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(latexsym.sty)
@@ -237,6 +239,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-basque-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-basque-doc <= 11:%{version}
 
 %description -n texlive-babel-basque
 The package establishes Basque conventions in a document.
@@ -247,6 +251,8 @@ Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-french-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-french-doc <= 11:%{version}
 Requires:       texlive-carlisle
 
 %description -n texlive-babel-french
@@ -260,6 +266,8 @@ Version:        svn32924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-basque-book-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-basque-book-doc <= 11:%{version}
 
 %description -n texlive-basque-book
 The class is derived from the LaTeX book class. The extensions solve
@@ -273,6 +281,8 @@ Version:        svn26477
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-basque-date-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-basque-date-doc <= 11:%{version}
 
 %description -n texlive-basque-date
 The package provides two LaTeX commands to print the current date in Basque
@@ -286,6 +296,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bib-fr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bib-fr-doc <= 11:%{version}
 
 %description -n texlive-bib-fr
 These files are French translations of the classical BibTeX style files. The
@@ -298,6 +310,8 @@ Version:        svn75246
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-french-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-french-doc <= 11:%{version}
 Requires:       tex(bibleref.sty)
 Requires:       tex(etoolbox.sty)
 
@@ -336,7 +350,7 @@ schedules and grade books.
 
 %package -n texlive-couleurs-fr
 Summary:        French version of colour definitions from xcolor
-Version:        svn76790
+Version:        svn78637
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -352,6 +366,8 @@ Version:        svn39802
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-droit-fr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-droit-fr-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(verbose-ibid.bbx)
 Requires:       tex(verbose-ibid.cbx)
@@ -368,6 +384,8 @@ Version:        svn52027
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-e-french-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-e-french-doc <= 11:%{version}
 Requires:       tex(german.sty)
 Requires:       tex(latexsym.sty)
 Requires:       tex(msg.sty)
@@ -413,6 +431,8 @@ Version:        svn67538
 License:        CC-BY-SA-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-facture-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-facture-doc <= 11:%{version}
 
 %description -n texlive-facture
 Une classe simple permettant de produire une facture, avec ou sans TVA, avec
@@ -530,6 +550,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-frletter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-frletter-doc <= 11:%{version}
 
 %description -n texlive-frletter
 A small class for typesetting letters in France. No assumption is made about
@@ -592,6 +614,8 @@ Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-impnattypo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-impnattypo-doc <= 11:%{version}
 Requires:       texlive-luacode
 Requires:       texlive-luatexbase
 Requires:       texlive-xcolor
@@ -677,6 +701,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mafr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mafr-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(fontenc.sty)
 
@@ -844,6 +870,8 @@ Version:        svn63921
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tabvar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tabvar-doc <= 11:%{version}
 Requires:       tex(array.sty)
 Requires:       tex(colortbl.sty)
 Requires:       tex(graphicx.sty)
@@ -861,6 +889,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tdsfrmath-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tdsfrmath-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amssymb.sty)
 Requires:       tex(ifthen.sty)
@@ -943,6 +973,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-variations-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-variations-doc <= 11:%{version}
 
 %description -n texlive-variations
 The package provides macros for typesetting tables showing variations of
@@ -1385,6 +1417,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/visualtikz/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-6
+- Update couleurs-fr
+- add missing -doc provides/obsoletes
+
 * Wed Apr 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-5
 - Update 8 components
 

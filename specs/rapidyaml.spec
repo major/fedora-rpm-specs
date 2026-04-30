@@ -37,9 +37,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Minimum version with fix to ensure ${upper_prefix}_VERSION is set, eg
-# RYML_VERSION or C4CORE_VERSION.
-BuildRequires:  c4project >= 0^20260326.1e65b7b-1
+# Minimum version with proper multilib (GNUInstallDirs) support
+BuildRequires:  c4project >= 0^20260428.fa85cab-1
 # CMake builds in Fedora now use the ninja backend by default, but the Python
 # extension build unconditionally uses ninja, so we’re explicit:
 BuildRequires:  ninja-build
@@ -176,6 +175,9 @@ mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 #
 # Installation directory on Linux 64bit OS
 # https://github.com/biojppm/rapidyaml/issues/256
+#
+# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
+# which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'

@@ -34,7 +34,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  c4project
+# Minimum version with proper multilib (GNUInstallDirs) support
+BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
 BuildRequires:  cmake(c4core)
 
@@ -64,7 +65,6 @@ applications that use c4fs.
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-find ext
 cp -rp '%{_datadir}/cmake/c4project' ext/c4core/cmake
 
 # Do not try to link against a nonexistent doctest library (doctest is
@@ -98,6 +98,9 @@ sed -r -i \
 #
 # Installation directory on Linux 64bit OS
 # https://github.com/biojppm/rapidyaml/issues/256
+#
+# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
+# which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'

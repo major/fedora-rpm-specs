@@ -5,7 +5,7 @@
 Name:           texlive-collection-langarabic
 Epoch:          12
 Version:        svn78033
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -162,6 +162,8 @@ Version:        svn65191
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-amiri-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-amiri-doc <= 11:%{version}
 
 %description -n texlive-amiri
 Amiri is a classical Arabic typeface in Naskh style for typesetting books and
@@ -177,6 +179,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arabi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arabi-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(babel.sty)
 Requires:       tex(fp.sty)
@@ -204,6 +208,8 @@ Version:        svn67573
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arabi-add-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arabi-add-doc <= 11:%{version}
 Requires:       tex(amsthm.sty)
 Requires:       tex(atveryend.sty)
 Requires:       tex(bookmark.sty)
@@ -240,6 +246,8 @@ Version:        svn67201
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arabluatex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arabluatex-doc <= 11:%{version}
 Requires:       tex(adjustbox.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontspec.sty)
@@ -271,6 +279,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arabtex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arabtex-doc <= 11:%{version}
 
 %description -n texlive-arabtex
 ArabTeX is a package extending the capabilities of TeX/LaTeX to generate Arabic
@@ -300,6 +310,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidi-doc <= 11:%{version}
 Requires:       tex(auxhook.sty)
 Requires:       tex(bibentry.sty)
 Requires:       tex(changepage.sty)
@@ -332,6 +344,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidihl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidihl-doc <= 11:%{version}
 Requires:       tex(color.sty)
 
 %description -n texlive-bidihl
@@ -343,6 +357,8 @@ Version:        svn54191
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dad-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dad-doc <= 11:%{version}
 
 %description -n texlive-dad
 This package allows simple typesetting in Arabic script, intended for mixed
@@ -376,6 +392,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ghab-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ghab-doc <= 11:%{version}
 Requires:       tex(biditools.sty)
 
 %description -n texlive-ghab
@@ -429,6 +447,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-imsproc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-imsproc-doc <= 11:%{version}
 
 %description -n texlive-imsproc
 The class typesets papers for IMS (Iranian Mathematical Society) conference
@@ -498,11 +518,12 @@ A Persian (Farsi) translation of Oetiker's (not so) short introduction.
 
 %package -n texlive-luabidi
 Summary:        Bidi functions for LuaTeX
-Version:        svn68432
+Version:        svn78654
 License:        LPPL-1.3c AND MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(etoolbox.sty)
+Provides:       texlive-luabidi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luabidi-doc <= 11:%{version}
 
 %description -n texlive-luabidi
 The package attempts to emulate the XeTeX bidi package, in the context of
@@ -575,6 +596,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-persian-bib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-persian-bib-doc <= 11:%{version}
 
 %description -n texlive-persian-bib
 Currently 9 files: acm-fa.bst, asa-fa.bst, chicago-fa.bst, ieeetr-fa.bst,
@@ -591,6 +614,8 @@ Version:        svn78362
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-quran-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-quran-doc <= 11:%{version}
 Requires:       tex(biditools.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(listofitems.sty)
@@ -647,6 +672,8 @@ Version:        svn31719
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-simurgh-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-simurgh-doc <= 11:%{version}
 Requires:       tex(auxhook.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -693,6 +720,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tram-doc <= 11:%{version}
 
 %description -n texlive-tram
 Tram boxes are highlighted with patterns of dots; the package defines an
@@ -705,6 +734,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xepersian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xepersian-doc <= 11:%{version}
 Requires:       tex(bidi.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(fontspec.sty)
@@ -1079,6 +1110,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-6
+- Update luabidi
+- add missing -doc provides/obsoletes
+
 * Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78033-5
 - Fix hyph-utf8 files ownership
 

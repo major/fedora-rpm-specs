@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.27
+Version:        1.29
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -52,7 +52,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%doc AI_POLICY.md ChangeLog README.md
+%doc AI_POLICY.md ChangeLog README.md try
 %{perl_vendorarch}/auto/IO/
 %{perl_vendorarch}/IO/
 %{_mandir}/man3/IO::Pty.3*
@@ -60,6 +60,69 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Thu Apr 23 2026 Paul Howarth <paul@city-fan.org> - 1.29-1
+- Update to 1.29 (rhbz#2461125)
+  Bug Fixes:
+  - Fix make_slave_controlling_terminal() on Solaris/HP-UX to use _open_tty()
+    instead of IO::Tty->open(), ensuring STREAMS modules (ptem, ldterm,
+    ttcompat) are pushed via I_PUSH when the slave is opened for controlling
+    terminal setup - parallel fix to the slave() method fix in 1.24 (GH#69)
+  - Fix Perl 5.40+ "Possible memory corruption: ioctl overflowed 3rd argument"
+    warning in clone_winsize_from() and get_winsize(); use
+    pack_winsize(0,0,0,0) to pre-allocate the ioctl buffer with SvCUR matching
+    sizeof(struct winsize) instead of an empty string (GH#74)
+  - Fix diagnostic warnings being silently suppressed when callers use lexical
+    "use warnings" (the modern standard since Perl 5.6); $^W and PL_dowarn only
+    fire under perl -w - replaced with warnings::enabled() in IO::Tty and
+    IO::Pty (GH#76) and ckWARN(WARN_IO) in Tty.xs (GH#79)
+  - Fix file descriptor leak in IO::Pty when new_from_fd() fails after
+    pty_allocate() or _open_tty() returns raw C-level fds; added POSIX::close()
+    calls on the raw fds before croaking at three sites in new() and slave()
+    (GH#77)
+  - Fix openpty() detection on Alpine Linux and other musl-based systems where
+    openpty() has moved from libutil into libc (glibc 2.34+); probe libc first
+    before falling back to -lutil (GH#78)
+  - Fix -Wsign-compare compiler warnings: change namebuflen parameter type from
+    int to size_t in open_slave() and allocate_pty() to match the return type
+    of strlcpy() and the size argument of snprintf() (GH#80)
+  - Fix spurious "_FORTIFY_SOURCE requires compiling with optimization"
+    warnings during configure probes when $Config{optimize} (e.g. -Os) is
+    separate from $Config{ccflags}; include optimize flags in all configure
+    probe compilations (GH#81)
+  - Fix header probes in Makefile.PL missing platform extension defines
+    (_GNU_SOURCE, _BSD_VISIBLE, etc.) that function probes already included;
+    bare #includes could cause HAVE_PTY_H and similar to be unset on strict
+    POSIX systems even when the header exists (GH#84)
+  - Fix configure-time function detection probes being broken by compiler
+    optimization:
+    - The probes stored function pointers in local variables that -O2/-Os
+      (added to probe flags in GH#81) eliminated as dead stores, so the linker
+      never saw the function reference; on systems where openpty() lives in
+      -lutil (older glibc, BSDs), the probe falsely succeeded without -lutil,
+      producing "undefined symbol: openpty" at runtime
+    - Fixed by storing the function pointer in a file-scope global variable
+      that the optimizer cannot eliminate (GH#87, GH#88)
+  Improvements:
+  - Use L<> instead of C<> for cross-module POD references in Tty.pm and Pty.pm
+    so MetaCPAN renders IO::Pty, IO::Handle, and IO::Stty as clickable links
+    (GH#86)
+  Maintenance:
+  - Modernize POD in Tty.pm and Pty.pm: remove stale platform version
+    references (FreeBSD 4.4, OpenBSD 2.8, HPUX 10.20, Solaris 2.6), replace
+    defunct SourceForge/mailing list URLs with GitHub issue tracker (GH#70)
+  - Modernize the 'try' example script: add strict/warnings, my declarations,
+    3-arg open, and lexical filehandles; the script is shipped to CPAN and
+    referenced in POD as the canonical usage example (GH#73)
+  - Strengthen test coverage for set_raw() and winsize: verify all termios
+    flags set by cfmakeraw (iflag, oflag, PARENB, CSIZE, CS8, VMIN, VTIME) and
+    add a test for the unpack_winsize() length-validation croak (GH#75)
+  - Update GitHub Actions to Node.js 24 versions: actions/checkout v6,
+    cross-platform-actions/action v1, perl-actions/install-with-cpm v2;
+    required before GitHub forces Node.js 24 in June 2026 (GH#85)
+  - Add Ubuntu LTS version matrix (20.04, 22.04, 24.04) to the GitHub Actions
+    test suite; exercises the system perl on each current Ubuntu LTS release
+    via Docker containers, running after the main ubuntu job (GH#89)
+
 * Sat Apr  4 2026 Paul Howarth <paul@city-fan.org> - 1.27-1
 - Update to 1.27 (rhbz#2454942)
   Bug Fixes:

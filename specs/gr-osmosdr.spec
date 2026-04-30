@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       25%{?dist}
+Release:       26%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -107,6 +107,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.5-26
+- Rebuilt for new uhd
+
 * Wed Jan 21 2026 Jerry James <loganjerry@gmail.com> - 0.2.5-25
 - Stop building for 32-bit x86
 

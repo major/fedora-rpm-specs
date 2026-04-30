@@ -41,14 +41,12 @@ Patch1:         kea-sd-daemon.patch
 Patch2:         kea-replace-BOOST_STATIC_ASSERT.patch
 # Based on: https://gitlab.isc.org/isc-projects/kea/-/commit/9a86f27a94677ec9ee1988af892d65b7ab22027e
 Patch3:         kea-move-to-system-timer.patch
+#Fix build with OpenSSL 4.0
+Patch4:         0001-Add-const-qualifiers-to-OpenSSL-X509-pointers.patch
 
 BuildRequires: boost-devel
 # %%meson -D crypto=openssl
 BuildRequires: openssl-devel
-%if 0%{?fedora}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2300868#c4
-BuildRequires: openssl-devel-engine
-%endif
 # %%meson -D krb5=enabled
 BuildRequires: krb5-devel
 # %%meson -D mysql=enabled

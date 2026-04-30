@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/oracle/ktls-utils
-%global baseversion 1.3.0
+%global baseversion 1.4.0
 
 Name:           ktls-utils
 Version:        %{baseversion}
@@ -50,6 +50,7 @@ standard kTLS socket options.
 %{_sbindir}/tlshd
 %{_mandir}/man5/tlshd.conf.5.gz
 %{_mandir}/man8/tlshd.8.gz
+%{_mandir}/man7/tls-session-tags.7.gz
 %{_unitdir}/tlshd.service
 %license COPYING
 %doc README.md

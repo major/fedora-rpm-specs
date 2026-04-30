@@ -5,7 +5,7 @@
 Name:           texlive-collection-langjapanese
 Epoch:          12
 Version:        svn76651
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Japanese
 
 License:        LPPL-1.3c
@@ -266,6 +266,8 @@ Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bxbase-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bxbase-doc <= 11:%{version}
 Requires:       tex(ifxetex.sty)
 
 %description -n texlive-bxbase
@@ -280,6 +282,8 @@ Version:        svn78793
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bxcjkjatype-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bxcjkjatype-doc <= 11:%{version}
 Requires:       tex(CJK.sty)
 Requires:       tex(CJKpunct.sty)
 Requires:       tex(CJKspace.sty)
@@ -400,6 +404,8 @@ Version:        svn78536
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bxjscls-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bxjscls-doc <= 11:%{version}
 # Ignoring dependency on bxpandola.sty - not part of TeX Live
 Requires:       tex(inputenc.sty)
 
@@ -595,6 +601,8 @@ Version:        svn61719
 License:        IPA
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ipaex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ipaex-doc <= 11:%{version}
 
 %description -n texlive-ipaex
 The fonts provide fixed-width glyphs for Kana and Kanji characters,
@@ -630,6 +638,8 @@ Version:        svn78329
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-japanese-otf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-japanese-otf-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-japanese-otf
@@ -712,6 +722,8 @@ Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jsclasses-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jsclasses-doc <= 11:%{version}
 
 %description -n texlive-jsclasses
 Classes jsarticle and jsbook are provided, together with packages okumacro and
@@ -751,6 +763,8 @@ Version:        svn78752
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luatexja-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luatexja-doc <= 11:%{version}
 Requires:       texlive-luatexbase
 Requires:       tex(array.sty)
 Requires:       tex(collcell.sty)
@@ -845,6 +859,8 @@ Version:        svn66085
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pbibtex-base-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pbibtex-base-doc <= 11:%{version}
 
 %description -n texlive-pbibtex-base
 These are miscellaneous files, including bibliography styles (.bst), for
@@ -871,6 +887,8 @@ Version:        svn77830
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-platex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-platex-doc <= 11:%{version}
 Requires:       texlive-babel
 Requires:       texlive-cm
 Requires:       texlive-firstaid
@@ -970,6 +988,8 @@ Version:        svn64072
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ptex-base-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ptex-base-doc <= 11:%{version}
 
 %description -n texlive-ptex-base
 The bundle contains the plain TeX format for pTeX and e-pTeX.
@@ -980,6 +1000,8 @@ Version:        svn64330
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ptex-fonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ptex-fonts-doc <= 11:%{version}
 
 %description -n texlive-ptex-fonts
 The bundle contains fonts for use with pTeX and the documents for the makejvf
@@ -1004,6 +1026,8 @@ Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxbase-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxbase-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(ifptex.sty)
 Requires:       tex(ifuptex.sty)
@@ -1019,6 +1043,8 @@ Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxchfon-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxchfon-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
@@ -1041,6 +1067,8 @@ Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxcjkcat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxcjkcat-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-pxcjkcat
@@ -1055,6 +1083,8 @@ Version:        svn78827
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxjahyper-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxjahyper-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
 Requires:       tex(bxdvipdfmx-tounicode.sty)
 Requires:       tex(bxjatoucs.sty)
@@ -1094,6 +1124,8 @@ Version:        svn66298
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxrubrica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxrubrica-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-pxrubrica
@@ -1142,6 +1174,8 @@ Version:        svn77840
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uptex-base-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uptex-base-doc <= 11:%{version}
 
 %description -n texlive-uptex-base
 The bundle contains plain TeX format files and documents for upTeX and e-upTeX.
@@ -1152,6 +1186,8 @@ Version:        svn74119
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uptex-fonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uptex-fonts-doc <= 11:%{version}
 
 %description -n texlive-uptex-fonts
 The bundle contains fonts (TFM and VF) for use with upTeX. This is a
@@ -1163,6 +1199,8 @@ Version:        svn42428
 License:        LicenseRef-Wadalab
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wadalab-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wadalab-doc <= 11:%{version}
 
 %description -n texlive-wadalab
 These are font bundles for the Japanese Wadalab fonts which work with the CJK
@@ -1176,6 +1214,8 @@ Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zxjafbfont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zxjafbfont-doc <= 11:%{version}
 Requires:       tex(xeCJK.sty)
 
 %description -n texlive-zxjafbfont
@@ -1187,6 +1227,8 @@ Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zxjatype-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zxjatype-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xeCJK.sty)
@@ -1733,6 +1775,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/zxjatype/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-4
+- Fix missing -doc provides/obsoletes
+
 * Mon Apr 27 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-3
 - Update 34 components
 

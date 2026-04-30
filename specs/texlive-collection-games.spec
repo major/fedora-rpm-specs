@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-games
 Epoch:          12
-Version:        svn76381
-Release:        4%{?dist}
+Version:        svn78746
+Release:        6%{?dist}
 Summary:        Games typesetting
 
 License:        LPPL-1.3c
@@ -19,134 +19,139 @@ Source1:        texlive-licenses.tar.xz
 
 Source2:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bartel-chess-fonts.tar.xz
 Source3:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bartel-chess-fonts.doc.tar.xz
-Source4:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess.tar.xz
-Source5:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess.doc.tar.xz
-Source6:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess-problem-diagrams.tar.xz
-Source7:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess-problem-diagrams.doc.tar.xz
-Source8:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessboard.tar.xz
-Source9:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessboard.doc.tar.xz
-Source10:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessfss.tar.xz
-Source11:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessfss.doc.tar.xz
-Source12:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chinesechess.tar.xz
-Source13:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chinesechess.doc.tar.xz
-Source14:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossword.tar.xz
-Source15:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossword.doc.tar.xz
-Source16:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crosswrd.tar.xz
-Source17:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crosswrd.doc.tar.xz
-Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/customdice.tar.xz
-Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/customdice.doc.tar.xz
-Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egameps.tar.xz
-Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egameps.doc.tar.xz
-Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eigo.tar.xz
-Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eigo.doc.tar.xz
-Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebook.tar.xz
-Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebook.doc.tar.xz
-Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebooklib.tar.xz
-Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebooklib.doc.tar.xz
-Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/go.tar.xz
-Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/go.doc.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanoi.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/havannah.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/havannah.doc.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexboard.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexboard.doc.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexgame.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexgame.doc.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hmtrump.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hmtrump.doc.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/horoscop.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/horoscop.doc.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jeuxcartes.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jeuxcartes.doc.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jigsaw.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jigsaw.doc.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/labyrinth.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/labyrinth.doc.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logicpuzzle.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logicpuzzle.doc.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mahjong.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mahjong.doc.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathador.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathador.doc.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maze.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maze.doc.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multi-sudoku.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multi-sudoku.doc.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musikui.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musikui.doc.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimsticks.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimsticks.doc.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onedown.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onedown.doc.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othello.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othello.doc.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othelloboard.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othelloboard.doc.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pas-crosswords.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pas-crosswords.doc.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-go.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-go.doc.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playcards.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playcards.doc.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psgo.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psgo.doc.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quizztex.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quizztex.doc.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realtranspose.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realtranspose.doc.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reverxii.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reverxii.doc.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rouequestions.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rouequestions.doc.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rpgicons.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rpgicons.doc.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schwalbe-chess.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schwalbe-chess.doc.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrabble.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrabble.doc.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sgame.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sgame.doc.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skak.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skak.doc.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skaknew.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skaknew.doc.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soup.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soup.doc.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudoku.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudoku.doc.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudokubundle.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudokubundle.doc.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tangramtikz.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tangramtikz.doc.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thematicpuzzle.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thematicpuzzle.doc.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tictactoe.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tictactoe.doc.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-triminos.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-triminos.doc.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trivialpursuit.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trivialpursuit.doc.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twoxtwogame.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twoxtwogame.doc.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wargame.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wargame.doc.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/weiqi.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/weiqi.doc.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordle.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordle.doc.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xq.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xq.doc.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xskak.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xskak.doc.tar.xz
+Source4:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cardgame.tar.xz
+Source5:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cardgame.doc.tar.xz
+Source6:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess.tar.xz
+Source7:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess.doc.tar.xz
+Source8:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess-problem-diagrams.tar.xz
+Source9:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chess-problem-diagrams.doc.tar.xz
+Source10:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessboard.tar.xz
+Source11:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessboard.doc.tar.xz
+Source12:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessfss.tar.xz
+Source13:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chessfss.doc.tar.xz
+Source14:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chinesechess.tar.xz
+Source15:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chinesechess.doc.tar.xz
+Source16:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossword.tar.xz
+Source17:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossword.doc.tar.xz
+Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crosswrd.tar.xz
+Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crosswrd.doc.tar.xz
+Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/customdice.tar.xz
+Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/customdice.doc.tar.xz
+Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egameps.tar.xz
+Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egameps.doc.tar.xz
+Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eigo.tar.xz
+Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eigo.doc.tar.xz
+Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebook.tar.xz
+Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebook.doc.tar.xz
+Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebooklib.tar.xz
+Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gamebooklib.doc.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/go.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/go.doc.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanoi.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/havannah.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/havannah.doc.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexboard.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexboard.doc.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexgame.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hexgame.doc.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hmtrump.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hmtrump.doc.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/horoscop.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/horoscop.doc.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jeuxcartes.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jeuxcartes.doc.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jigsaw.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jigsaw.doc.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/labyrinth.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/labyrinth.doc.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logicpuzzle.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logicpuzzle.doc.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magicthegathering.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/magicthegathering.doc.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mahjong.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mahjong.doc.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathador.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mathador.doc.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maze.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maze.doc.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multi-sudoku.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multi-sudoku.doc.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musikui.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musikui.doc.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimsticks.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nimsticks.doc.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onedown.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onedown.doc.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othello.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othello.doc.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othelloboard.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/othelloboard.doc.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pas-crosswords.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pas-crosswords.doc.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-go.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-go.doc.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playcards.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/playcards.doc.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psgo.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psgo.doc.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quizztex.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quizztex.doc.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realtranspose.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realtranspose.doc.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reverxii.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reverxii.doc.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rouequestions.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rouequestions.doc.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rpgicons.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rpgicons.doc.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schwalbe-chess.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schwalbe-chess.doc.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrabble.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrabble.doc.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sgame.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sgame.doc.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skak.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skak.doc.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skaknew.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skaknew.doc.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soup.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soup.doc.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudoku.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudoku.doc.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudokubundle.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sudokubundle.doc.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tangramtikz.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tangramtikz.doc.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thematicpuzzle.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thematicpuzzle.doc.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tictactoe.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tictactoe.doc.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-triminos.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-triminos.doc.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trivialpursuit.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trivialpursuit.doc.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twoxtwogame.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twoxtwogame.doc.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wargame.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wargame.doc.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/weiqi.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/weiqi.doc.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordle.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordle.doc.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xq.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xq.doc.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xskak.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xskak.doc.tar.xz
 
 # AppStream metadata for font components
-Source123:        skaknew.metainfo.xml
+Source127:        skaknew.metainfo.xml
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  libappstream-glib
 Requires:       texlive-base
 Requires:       texlive-bartel-chess-fonts
+Requires:       texlive-cardgame
 Requires:       texlive-chess
 Requires:       texlive-chess-problem-diagrams
 Requires:       texlive-chessboard
@@ -171,6 +176,7 @@ Requires:       texlive-jeuxcartes
 Requires:       texlive-jigsaw
 Requires:       texlive-labyrinth
 Requires:       texlive-logicpuzzle
+Requires:       texlive-magicthegathering
 Requires:       texlive-mahjong
 Requires:       texlive-mathador
 Requires:       texlive-maze
@@ -216,21 +222,44 @@ Setups for typesetting various games, including chess.
 
 %package -n texlive-bartel-chess-fonts
 Summary:        A set of fonts supporting chess diagrams
-Version:        svn20619
+Version:        svn78101
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bartel-chess-fonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bartel-chess-fonts-doc <= 11:%{version}
 
 %description -n texlive-bartel-chess-fonts
 The fonts are provided as Metafont source.
 
+%package -n texlive-cardgame
+Summary:        Typeset custom playing cards for printing
+Version:        svn78746
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(tabularray.sty)
+Requires:       tex(tikz.sty)
+Requires:       tex(xcolor.sty)
+Requires:       tex(xparse.sty)
+
+%description -n texlive-cardgame
+The cardgame package allows you to define cards, which have various attributes
+like image, text, and a bunch of layout features. You can then include those
+cards as images or, more importantly, generate a document containing all of the
+cards you defined laid out optimally for printing and cutting. You can
+optionally create card lists for your game's manual, and you can create
+multiple copies of cards and automatically print the correct number of back
+sides.
+
 %package -n texlive-chess
 Summary:        Fonts for typesetting chess boards
-Version:        svn20582
+Version:        svn78101
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chess.sty) = %{tl_version}
+Provides:       texlive-chess-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chess-doc <= 11:%{version}
 
 %description -n texlive-chess
 The original (and now somewhat dated) TeX chess font package. Potential users
@@ -239,16 +268,16 @@ should consider skak (for alternative fonts, and notation support), texmate
 
 %package -n texlive-chess-problem-diagrams
 Summary:        A package for typesetting chess problem diagrams
-Version:        svn74591
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chess-problem-diagrams-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chess-problem-diagrams-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(cpdparse.sty) = %{tl_version}
-Provides:       tex(diagram.sty) = %{tl_version}
 
 %description -n texlive-chess-problem-diagrams
 This package provides macros to typeset chess problem diagrams including fairy
@@ -256,10 +285,12 @@ chess problems (mostly using rotated images of pieces) and other boards.
 
 %package -n texlive-chessboard
 Summary:        Print chess boards
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chessboard-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chessboard-doc <= 11:%{version}
 Requires:       tex(animate.sty)
 Requires:       tex(array.sty)
 Requires:       tex(attachfile.sty)
@@ -285,11 +316,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(UF-chessboard-documentation.sty) = %{tl_version}
-Provides:       tex(chessboard-keys-main.sty) = %{tl_version}
-Provides:       tex(chessboard-keys-pgf.sty) = %{tl_version}
-Provides:       tex(chessboard-pgf.sty) = %{tl_version}
-Provides:       tex(chessboard.sty) = %{tl_version}
 
 %description -n texlive-chessboard
 This package offers commands to print chessboards. It can print partial boards,
@@ -300,24 +326,14 @@ animated chessboard, for those whose PDF viewer can display animations.
 
 %package -n texlive-chessfss
 Summary:        A package to handle chess fonts
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chessfss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chessfss-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(chessfss.sty) = %{tl_version}
-Provides:       tex(lsb1enc.def) = %{tl_version}
-Provides:       tex(lsb2enc.def) = %{tl_version}
-Provides:       tex(lsb3enc.def) = %{tl_version}
-Provides:       tex(lsbc1enc.def) = %{tl_version}
-Provides:       tex(lsbc2enc.def) = %{tl_version}
-Provides:       tex(lsbc3enc.def) = %{tl_version}
-Provides:       tex(lsbc4enc.def) = %{tl_version}
-Provides:       tex(lsbc5enc.def) = %{tl_version}
-Provides:       tex(lsbenc.def) = %{tl_version}
-Provides:       tex(lsfenc.def) = %{tl_version}
-Provides:       tex(lsienc.def) = %{tl_version}
 
 %description -n texlive-chessfss
 This package offers commands to use and switch between chess fonts. It uses the
@@ -330,11 +346,10 @@ documentation contains also a section about installation of chess fonts.
 
 %package -n texlive-chinesechess
 Summary:        Typeset Chinese chess with l3draw
-Version:        svn76924
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chinesechess.sty) = %{tl_version}
 
 %description -n texlive-chinesechess
 This LaTeX3 package based on l3draw provides macros and an environment for
@@ -342,12 +357,13 @@ Chinese chess manual writing.
 
 %package -n texlive-crossword
 Summary:        Typeset crossword puzzles
-Version:        svn73579
+Version:        svn78632
 License:        Crossword
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-crossword-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-crossword-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
-Provides:       tex(cwpuzzle.sty) = %{tl_version}
 
 %description -n texlive-crossword
 An extended grid-based puzzle package, designed to take all input (both grid
@@ -361,7 +377,7 @@ of a grid and a list of words. The goal is to place all words in the grid.
 Sudoku and Kakuro puzzles involve filling in grids of numbers according to
 their own rules. Format may be block-separated, or separated by thick lines.
 Input to the package is somewhat redundant: specification of the grid is
-separate from specification of the clues (if they're necessary). The author
+separate from specification of the clues (if they are necessary). The author
 considers this style both 'natural' and robust.
 
 %package -n texlive-crosswrd
@@ -370,8 +386,9 @@ Version:        svn16896
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-crosswrd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-crosswrd-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
-Provides:       tex(crosswrd.sty) = %{tl_version}
 
 %description -n texlive-crosswrd
 The package provides a LaTeX method of typesetting crosswords, and assists the
@@ -387,7 +404,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(customdice.sty) = %{tl_version}
 
 %description -n texlive-customdice
 The customdice package for LaTeX, LuaLaTeX and XeTeX that provides
@@ -401,7 +417,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(egameps.sty) = %{tl_version}
+Provides:       texlive-egameps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-egameps-doc <= 11:%{version}
 
 %description -n texlive-egameps
 The style is intended to have enough features to draw any extensive game with
@@ -412,7 +429,7 @@ home page.)
 
 %package -n texlive-eigo
 Summary:        Comprehensive tools for creating Go (Weiqi/Baduk) game diagrams in LaTeX
-Version:        svn76251
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -425,7 +442,6 @@ Requires:       tex(pgffor.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(eigo.sty) = %{tl_version}
 
 %description -n texlive-eigo
 The eigo package provides comprehensive tools for creating Go (Weiqi/Baduk)
@@ -443,6 +459,8 @@ Version:        svn24714
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gamebook-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gamebook-doc <= 11:%{version}
 Requires:       tex(draftwatermark.sty)
 Requires:       tex(enumitem.sty)
 Requires:       tex(extramarks.sty)
@@ -450,7 +468,6 @@ Requires:       tex(fancyhdr.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(scrtime.sty)
 Requires:       tex(titlesec.sty)
-Provides:       tex(gamebook.sty) = %{tl_version}
 
 %description -n texlive-gamebook
 This package provides the means in order to lay-out gamebooks with LaTeX. A
@@ -467,7 +484,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(lcg.sty)
 Requires:       tex(macroswap.sty)
 Requires:       tex(silence.sty)
-Provides:       tex(gamebooklib.sty) = %{tl_version}
 
 %description -n texlive-gamebooklib
 This package provides macros and environments to allow the user to typeset a
@@ -482,11 +498,12 @@ packages can be used together or separately.
 
 %package -n texlive-go
 Summary:        Fonts and macros for typesetting go games
-Version:        svn28628
+Version:        svn78101
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(go.sty) = %{tl_version}
+Provides:       texlive-go-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-go-doc <= 11:%{version}
 
 %description -n texlive-go
 The macros provide for nothing more complicated than the standard 19x19 board;
@@ -498,7 +515,6 @@ Version:        svn25019
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hanoi.tex) = %{tl_version}
 
 %description -n texlive-hanoi
 The Plain TeX program (typed in the shape of the towers of Hanoi) serves both
@@ -511,8 +527,9 @@ Version:        svn36348
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-havannah-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-havannah-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(havannah.sty) = %{tl_version}
 
 %description -n texlive-havannah
 This package defines macros for typesetting diagrams of board positions in the
@@ -526,7 +543,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(hexboard.sty) = %{tl_version}
 
 %description -n texlive-hexboard
 hexboard is a package for LaTeX that should also work with LuaTeX and XeTeX,
@@ -540,11 +556,12 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hexgame-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hexgame-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pst-poly.sty)
 Requires:       tex(pstcol.sty)
-Provides:       tex(hexgame.sty) = %{tl_version}
 
 %description -n texlive-hexgame
 Hex is a mathematical game invented by the Danish mathematician Piet Hein and
@@ -560,7 +577,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(hmtrump.sty) = %{tl_version}
 
 %description -n texlive-hmtrump
 This package provides a font with LuaLaTeX support for describing card games.
@@ -571,12 +587,13 @@ Version:        svn56021
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-horoscop-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-horoscop-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 Requires:       tex(marvosym.sty)
 Requires:       tex(starfont.sty)
 Requires:       tex(trig.sty)
 Requires:       tex(wasysym.sty)
-Provides:       tex(horoscop.sty) = %{tl_version}
 
 %description -n texlive-horoscop
 The horoscop package provides a unified interface for astrological font
@@ -600,7 +617,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xinttools.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(JeuxCartes.sty) = %{tl_version}
 
 %description -n texlive-jeuxcartes
 This package provides macros to insert playing cards, single, or hand, or
@@ -618,7 +634,6 @@ Requires:       texlive-pgf
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(jigsaw.sty) = %{tl_version}
 
 %description -n texlive-jigsaw
 This is a small LaTeX package to draw jigsaw pieces with TikZ. It is possible
@@ -631,10 +646,11 @@ Version:        svn33454
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-labyrinth-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-labyrinth-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(picture.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(labyrinth.sty) = %{tl_version}
 
 %description -n texlive-labyrinth
 The labyrinth package provides code and an environment for typesetting simple
@@ -642,16 +658,16 @@ labyrinths with LaTeX, and generating an automatic or manual solution path.
 
 %package -n texlive-logicpuzzle
 Summary:        Typeset (grid-based) logic puzzles
-Version:        svn34491
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-logicpuzzle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-logicpuzzle-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(marginnote.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(logicpuzzle.sty) = %{tl_version}
-Provides:       tex(lpenv.sty) = %{tl_version}
 
 %description -n texlive-logicpuzzle
 The package allows the user to typeset various logic puzzles. At the moment the
@@ -674,6 +690,30 @@ Gartenzaun, ...), Star Battle (aka Sternenschlacht, ...), Stars and Arrows (aka
 Sternenhimmel, ...), Sudoku, Sun and Moon (aka Sternenhaufen, Munraito, ...),
 Tents and Trees (aka Zeltlager, Zeltplatz, Camping, ...), and Tunnel.
 
+%package -n texlive-magicthegathering
+Summary:        LaTeX package for Magic: The Gathering typesetting
+Version:        svn78456
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(array.sty)
+Requires:       tex(booktabs.sty)
+Requires:       tex(enumitem.sty)
+Requires:       tex(graphicx.sty)
+Requires:       tex(hyperref.sty)
+Requires:       tex(multicol.sty)
+Requires:       tex(pgfopts.sty)
+Requires:       tex(svg.sty)
+Requires:       tex(xcolor.sty)
+Requires:       tex(xparse.sty)
+Requires:       tex(xstring.sty)
+
+%description -n texlive-magicthegathering
+The magicthegathering package provides LaTeX commands for typesetting Magic:
+The Gathering content: inline mana symbols, expansion-set icons,
+Scryfall-linked card names, sideboard-guide tables, plain-text deck-list
+import, and tournament match-result tracking.
+
 %package -n texlive-mahjong
 Summary:        Typeset Mahjong Tiles using MPSZ Notation
 Version:        svn76924
@@ -683,7 +723,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(stackengine.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(mahjong.sty) = %{tl_version}
 
 %description -n texlive-mahjong
 The mahjong package provides a LaTeX2e and LaTeX3 interface for typesetting
@@ -704,7 +743,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(listofitems.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(mathador.sty) = %{tl_version}
 
 %description -n texlive-mathador
 This is a LaTeX package with graphic commands for the French game MATHADOR (by
@@ -719,7 +757,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(maze.sty) = %{tl_version}
 
 %description -n texlive-maze
 This package can generate random square mazes of a specified size. The mazes
@@ -728,7 +765,7 @@ The output it based on the picture environment.
 
 %package -n texlive-multi-sudoku
 Summary:        Create and customise Sudoku grids of various sizes
-Version:        svn75941
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -738,7 +775,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(multi-sudoku.sty) = %{tl_version}
 
 %description -n texlive-multi-sudoku
 This package provides tools for typesetting Sudoku grids of various sizes in
@@ -758,7 +794,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
-Provides:       tex(musikui.sty) = %{tl_version}
 
 %description -n texlive-musikui
 This package permits to easily typeset arithmetical restorations using LaTeX.
@@ -773,7 +808,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(lcg.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(nimsticks.sty) = %{tl_version}
 
 %description -n texlive-nimsticks
 This LaTeX package provides commands \drawnimstick to draw a single nim stick
@@ -805,7 +839,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(onedown.sty) = %{tl_version}
 
 %description -n texlive-onedown
 This is a comprehensive package to draw all sorts of bridge diagrams, including
@@ -823,7 +856,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(othello.sty) = %{tl_version}
+Provides:       texlive-othello-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-othello-doc <= 11:%{version}
 
 %description -n texlive-othello
 A package (based on Kolodziejska's go), and fonts (as Metafont source) are
@@ -835,12 +869,13 @@ Version:        svn23714
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-othelloboard-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-othelloboard-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(stringstrings.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(othelloboard.sty) = %{tl_version}
 
 %description -n texlive-othelloboard
 The package enables the user to generate high-quality Othello (also known as
@@ -854,12 +889,13 @@ Version:        svn32313
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pas-crosswords-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pas-crosswords-doc <= 11:%{version}
 Requires:       tex(fp.sty)
 Requires:       tex(multido.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(pas-crosswords.sty) = %{tl_version}
 
 %description -n texlive-pas-crosswords
 The package produces crossword grids, using a wide variety of colours and
@@ -868,21 +904,13 @@ graphical output.
 
 %package -n texlive-pgf-go
 Summary:        Diagramming and commenting on Go games
-Version:        svn74578
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgf.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(pgf-go-coordinate-parser.sty) = %{tl_version}
-Provides:       tex(pgf-go-goban.sty) = %{tl_version}
-Provides:       tex(pgf-go-marks.sty) = %{tl_version}
-Provides:       tex(pgf-go-players.sty) = %{tl_version}
-Provides:       tex(pgf-go-profiles.sty) = %{tl_version}
-Provides:       tex(pgf-go-remember.sty) = %{tl_version}
-Provides:       tex(pgf-go-stones.sty) = %{tl_version}
-Provides:       tex(pgf-go.sty) = %{tl_version}
 
 %description -n texlive-pgf-go
 A LaTeX package for creating Go (Baduk) diagrams with ease. It features an
@@ -900,7 +928,6 @@ Requires:       tex(contour.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(playcards.sty) = %{tl_version}
 
 %description -n texlive-playcards
 This small package provides commands for drawing customized playcards with
@@ -908,15 +935,16 @@ width 59mm and height 89mm, which are typical card dimensions.
 
 %package -n texlive-psgo
 Summary:        Typeset go diagrams with PSTricks
-Version:        svn15878
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-psgo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-psgo-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(psgo.sty) = %{tl_version}
 
 %description -n texlive-psgo
 Typeset go diagrams with PSTricks
@@ -935,7 +963,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(varwidth.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quizztex.sty) = %{tl_version}
 
 %description -n texlive-quizztex
 This LaTeX package permits to create quizzes in the style of the TV shows <<
@@ -949,7 +976,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
-Provides:       tex(realtranspose.sty) = %{tl_version}
 
 %description -n texlive-realtranspose
 With realtranspose you can notate the transposition of a matrix by rotating the
@@ -961,7 +987,8 @@ Version:        svn63753
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(reverxii.tex) = %{tl_version}
+Provides:       texlive-reverxii-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-reverxii-doc <= 11:%{version}
 
 %description -n texlive-reverxii
 Following the lead of xii.tex, this little (938 characters) program that plays
@@ -978,7 +1005,6 @@ Requires:       tex(listofitems.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(tkz-euclide.sty)
-Provides:       tex(RoueQuestions.sty) = %{tl_version}
 
 %description -n texlive-rouequestions
 This package helps to produce a game for students: It is a wheel displaying
@@ -986,14 +1012,11 @@ questions, with hidden answers inside.
 
 %package -n texlive-rpgicons
 Summary:        Icons for tabletop role-playing games
-Version:        svn77702
+Version:        svn78711
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(rpgicons-l3.sty) = %{tl_version}
-Provides:       tex(rpgicons-pgf.sty) = %{tl_version}
-Provides:       tex(rpgicons.sty) = %{tl_version}
 
 %description -n texlive-rpgicons
 This package provides a set of high-quality icons for use in notes for tabletop
@@ -1004,15 +1027,14 @@ PGF/TikZ.
 
 %package -n texlive-schwalbe-chess
 Summary:        Typeset the German chess magazine "Die Schwalbe"
-Version:        svn73582
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-schwalbe-chess-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-schwalbe-chess-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(diagram.sty)
-Provides:       tex(schwalbe.cls) = %{tl_version}
-Provides:       tex(schwalbe.sty) = %{tl_version}
-Provides:       tex(swruler.sty) = %{tl_version}
 
 %description -n texlive-schwalbe-chess
 The package is based on chess-problem-diagrams, which in its turn has a
@@ -1029,7 +1051,6 @@ Requires:       tex(pgf.sty)
 Requires:       tex(pgffor.sty)
 Requires:       tex(randintlist.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(Scrabble.sty) = %{tl_version}
 
 %description -n texlive-scrabble
 This package provides some commands (in English and in French) to work with a
@@ -1043,9 +1064,9 @@ Version:        svn30959
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sgame-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sgame-doc <= 11:%{version}
 Requires:       tex(color.sty)
-Provides:       tex(sgame.sty) = %{tl_version}
-Provides:       tex(sgamevar.sty) = %{tl_version}
 
 %description -n texlive-sgame
 Formats strategic games. For a 2x2 game, for example, the input:
@@ -1056,10 +1077,12 @@ environment will not work in the argument of another command.
 
 %package -n texlive-skak
 Summary:        Fonts and macros for typesetting chess games
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-skak-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-skak-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(chessfss.sty)
 Requires:       tex(ifthen.sty)
@@ -1067,7 +1090,6 @@ Requires:       tex(lambda.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(skak.sty) = %{tl_version}
 
 %description -n texlive-skak
 This package provides macros and fonts in Metafont format which can be used to
@@ -1081,10 +1103,12 @@ chess fonts is provided in chessfss.
 
 %package -n texlive-skaknew
 Summary:        The skak chess fonts redone in Adobe Type 1
-Version:        svn20031
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-skaknew-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-skaknew-doc <= 11:%{version}
 
 %description -n texlive-skaknew
 This package offers Adobe Type 1 versions of the fonts provided as Metafont
@@ -1098,7 +1122,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(soup.sty) = %{tl_version}
 
 %description -n texlive-soup
 Generate alphabet soup puzzles (aka word search puzzles), and variations using
@@ -1108,11 +1131,12 @@ creating numbersoup and soups with custom symbol sets.
 
 %package -n texlive-sudoku
 Summary:        Create sudoku grids
-Version:        svn67189
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sudoku.sty) = %{tl_version}
+Provides:       texlive-sudoku-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sudoku-doc <= 11:%{version}
 
 %description -n texlive-sudoku
 The sudoku package provides an environment for typesetting sudoku grids. A
@@ -1126,13 +1150,12 @@ installed.
 
 %package -n texlive-sudokubundle
 Summary:        A set of sudoku-related packages
-Version:        svn15878
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(createsudoku.sty) = %{tl_version}
-Provides:       tex(printsudoku.sty) = %{tl_version}
-Provides:       tex(solvesudoku.sty) = %{tl_version}
+Provides:       texlive-sudokubundle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sudokubundle-doc <= 11:%{version}
 
 %description -n texlive-sudokubundle
 The bundle provides three packages: printsudoku, which provides a command
@@ -1153,7 +1176,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(TangramTikz.sty) = %{tl_version}
 
 %description -n texlive-tangramtikz
 This package provides some commands (with English and French keys) to work with
@@ -1171,7 +1193,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(thematicpuzzle.sty) = %{tl_version}
 
 %description -n texlive-thematicpuzzle
 With this package it is possible to create a horizontal banner in the form of a
@@ -1185,7 +1206,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(tictactoe.sty) = %{tl_version}
 
 %description -n texlive-tictactoe
 This package which provides commands for drawing grids for the game known
@@ -1204,7 +1224,6 @@ Requires:       tex(settobox.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikz-triminos.sty) = %{tl_version}
 
 %description -n texlive-tikz-triminos
 Create (1 or 9 or 12) TriMinos with some customizations: size, font, logo,
@@ -1223,7 +1242,6 @@ Requires:       tex(listofitems.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
-Provides:       tex(TrivialPursuit.sty) = %{tl_version}
 
 %description -n texlive-trivialpursuit
 This is a package to display a Trivial Pursuit board game, with customization.
@@ -1246,7 +1264,6 @@ Requires:       tex(pgfplots.sty)
 Requires:       tex(tikz-3dplot.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(tikzscale.sty)
-Provides:       tex(twoxtwogame.sty) = %{tl_version}
 
 %description -n texlive-twoxtwogame
 This is a package for the visualization of 2x2 normal form games. The package
@@ -1263,12 +1280,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(tikzlibrarywargame.chit.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarywargame.hex.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarywargame.natoapp6c.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarywargame.util.code.tex) = %{tl_version}
-Provides:       tex(wargame.sty) = %{tl_version}
-Provides:       tex(wgexport.cls) = %{tl_version}
 
 %description -n texlive-wargame
 This package can help make classic Hex'n'Counter wargames using LaTeX. The
@@ -1284,11 +1295,10 @@ tutorial in tutorial/game.pdf).
 
 %package -n texlive-weiqi
 Summary:        Use LaTeX3 to typeset Weiqi (Go)
-Version:        svn76924
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(weiqi.sty) = %{tl_version}
 
 %description -n texlive-weiqi
 This package uses LaTeX3 to typeset Weiqi (Go). Shi Yong LaTeX3 Chuang Jian Yi
@@ -1301,7 +1311,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(wordle.sty) = %{tl_version}
 
 %description -n texlive-wordle
 This package provides environments (in French or English) to display wordle
@@ -1310,11 +1319,12 @@ French version.
 
 %package -n texlive-xq
 Summary:        Support for writing about xiangqi
-Version:        svn35211
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xq.sty) = %{tl_version}
+Provides:       texlive-xq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xq-doc <= 11:%{version}
 
 %description -n texlive-xq
 The package is for writing about xiangqi or chinese chess. You can write games
@@ -1322,16 +1332,15 @@ or parts of games and show diagrams with special positions.
 
 %package -n texlive-xskak
 Summary:        An extension to the skak package for chess typesetting
-Version:        svn77677
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xskak-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xskak-doc <= 11:%{version}
 Requires:       tex(chessboard.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(xifthen.sty)
-Provides:       tex(xskak-keys.sty) = %{tl_version}
-Provides:       tex(xskak-nagdef.sty) = %{tl_version}
-Provides:       tex(xskak.sty) = %{tl_version}
 
 %description -n texlive-xskak
 Xskak, as its prime function, saves information about a chess game for later
@@ -1474,9 +1483,13 @@ tar -xf %{SOURCE119} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE120} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE121} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE122} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE123} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE124} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE125} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE126} -C %{buildroot}%{_texmf_main}
 
 # Install AppStream metadata for font components
-cp %{SOURCE123} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE127} %{buildroot}%{_datadir}/appdata/
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1498,6 +1511,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/source/public/bartel-chess-fonts/
 %{_texmf_main}/fonts/tfm/public/bartel-chess-fonts/
 %doc %{_texmf_main}/doc/fonts/bartel-chess-fonts/
+
+%files -n texlive-cardgame
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/cardgame/
+%doc %{_texmf_main}/doc/latex/cardgame/
 
 %files -n texlive-chess
 %license pd.txt
@@ -1623,6 +1641,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/scripts/logicpuzzle/
 %{_texmf_main}/tex/latex/logicpuzzle/
 %doc %{_texmf_main}/doc/latex/logicpuzzle/
+
+%files -n texlive-magicthegathering
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/magicthegathering/
+%doc %{_texmf_main}/doc/latex/magicthegathering/
 
 %files -n texlive-mahjong
 %license mit.txt
@@ -1824,6 +1847,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/xskak/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78746-6
+- Update collection from svn78456 to svn78746
+- Add cardgame
+- Update crossword, rpgicons
+- Add missing -doc Provides/Obsoletes
+
+* Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78456-5
+- Update collection from svn76381 to svn78456
+- Update 23 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76381-4
 - generate provides for .cls files
 - update chessboard chessfss rpgicons skak xskak

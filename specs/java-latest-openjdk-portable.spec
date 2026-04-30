@@ -406,7 +406,7 @@ exit 1
 # New Version-String scheme-style defines
 %global featurever 26
 %global interimver 0
-%global updatever 0
+%global updatever 1
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -446,7 +446,7 @@ exit 1
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver e55ada9353e
+%global fipsver 57722aab802
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -460,8 +460,8 @@ exit 1
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        35
-%global rpmrelease      2
+%global buildver        8
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -754,7 +754,8 @@ Patch1001: fips-25u-%{fipsver}.patch
 #
 #############################################
 
-# Currently empty
+# JDK-8375294: (fs) Files.copy can fail with EOPNOTSUPP when copy_file_range not supported
+Patch2001: jdk8375294-handle-EOPNOTSUPP-in-copying.patch
 
 #############################################
 #
@@ -833,19 +834,19 @@ BuildRequires: libpng-devel
 BuildRequires: zlib-devel
 %else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.13.3
+Provides: bundled(freetype) = 2.14.2
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
-Provides: bundled(giflib) = 5.2.2
+Provides: bundled(giflib) = 6.1.2
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 10.4.0
+Provides: bundled(harfbuzz) = 12.3.2
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
 Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.51
+Provides: bundled(libpng) = 1.6.57
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
-Provides: bundled(zlib) = 1.3.1
+Provides: bundled(zlib) = 1.3.2
 %endif
 
 # this is always built, also during debug-only build
@@ -1057,6 +1058,8 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # usage in jdk >25 is experimental and may disapear
 %patch -P1001 -p1
+# Add EOPNOTSUPP patch
+%patch -P2001 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"

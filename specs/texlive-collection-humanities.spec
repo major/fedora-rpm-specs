@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-humanities
 Epoch:          12
-Version:        svn75384
-Release:        5%{?dist}
+Version:        svn78303
+Release:        7%{?dist}
 Summary:        Humanities packages
 
 License:        LPPL-1.3c
@@ -117,22 +117,24 @@ Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sc
 Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/screenplay.doc.tar.xz
 Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/screenplay-pkg.tar.xz
 Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/screenplay-pkg.doc.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sides.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sides.doc.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stage.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stage.doc.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textglos.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textglos.doc.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thalie.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thalie.doc.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theatre.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theatre.doc.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tree-dvips.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tree-dvips.doc.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/verse.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/verse.doc.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xyling.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xyling.doc.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sharedline.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sharedline.doc.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sides.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sides.doc.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stage.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stage.doc.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textglos.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textglos.doc.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thalie.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thalie.doc.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theatre.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/theatre.doc.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tree-dvips.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tree-dvips.doc.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/verse.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/verse.doc.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xyling.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xyling.doc.tar.xz
 
 # Patches
 Patch0:         texlive-rtklage-scrpage2-obsolete-fixes.patch
@@ -192,6 +194,7 @@ Requires:       texlive-rrgtrees
 Requires:       texlive-rtklage
 Requires:       texlive-screenplay
 Requires:       texlive-screenplay-pkg
+Requires:       texlive-sharedline
 Requires:       texlive-sides
 Requires:       texlive-stage
 Requires:       texlive-textglos
@@ -211,9 +214,10 @@ Version:        svn51618
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-adtrees-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-adtrees-doc <= 11:%{version}
 Requires:       tex(cancel.sty)
 Requires:       tex(epic.sty)
-Provides:       tex(adtrees.sty) = %{tl_version}
 
 %description -n texlive-adtrees
 This package provides a means to write adpositional trees, a formalism devoted
@@ -226,13 +230,13 @@ Version:        svn75257
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-doc <= 11:%{version}
 Requires:       tex(amsgen.sty)
 Requires:       tex(fmtcount.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(bibleref-xidx.sty) = %{tl_version}
-Provides:       tex(bibleref.sty) = %{tl_version}
 
 %description -n texlive-bibleref
 The bibleref package offers consistent formatting of references to parts of the
@@ -245,10 +249,11 @@ Version:        svn25526
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-lds-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-lds-doc <= 11:%{version}
 Requires:       tex(bibleref-mouth.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(bibleref-lds.sty) = %{tl_version}
 
 %description -n texlive-bibleref-lds
 The package extends the bibleref-mouth package to support references to the
@@ -262,9 +267,10 @@ Version:        svn25527
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-mouth-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-mouth-doc <= 11:%{version}
 Requires:       tex(fmtcount.sty)
 Requires:       tex(hyperref.sty)
-Provides:       tex(bibleref-mouth.sty) = %{tl_version}
 
 %description -n texlive-bibleref-mouth
 The package allows Bible references to be formatted in a consistent way. It is
@@ -279,10 +285,11 @@ Version:        svn22054
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibleref-parse-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibleref-parse-doc <= 11:%{version}
 Requires:       tex(bibleref.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(scrlfile.sty)
-Provides:       tex(bibleref-parse.sty) = %{tl_version}
 
 %description -n texlive-bibleref-parse
 The package parses Bible passages that are given in human readable format. It
@@ -295,9 +302,10 @@ Version:        svn77216
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-covington-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-covington-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 Requires:       tex(varwidth.sty)
-Provides:       tex(covington.sty) = %{tl_version}
 
 %description -n texlive-covington
 Numerous minor LaTeX enhancements for linguistics, including multiple accents
@@ -310,8 +318,9 @@ Version:        svn35866
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dramatist-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dramatist-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
-Provides:       tex(dramatist.sty) = %{tl_version}
 
 %description -n texlive-dramatist
 This package is intended for typesetting drama of any length. It provides two
@@ -326,7 +335,8 @@ Version:        svn29103
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dvgloss.sty) = %{tl_version}
+Provides:       texlive-dvgloss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dvgloss-doc <= 11:%{version}
 
 %description -n texlive-dvgloss
 The package provides extensible macros for setting interlinear glossed text --
@@ -340,7 +350,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ecltree.sty) = %{tl_version}
+Provides:       texlive-ecltree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ecltree-doc <= 11:%{version}
 
 %description -n texlive-ecltree
 The package recursively draws trees: each subtree is defined in a 'bundle'
@@ -353,8 +364,9 @@ Version:        svn21540
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-edfnotes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-edfnotes-doc <= 11:%{version}
 Requires:       tex(fnlineno.sty)
-Provides:       tex(edfnotes.sty) = %{tl_version}
 
 %description -n texlive-edfnotes
 The package modifies the annotation commands and label-test mechanism of the
@@ -367,10 +379,8 @@ Version:        svn72250
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(edmac.tex) = %{tl_version}
-Provides:       tex(edmacfss.sty) = %{tl_version}
-Provides:       tex(edstanza.tex) = %{tl_version}
-Provides:       tex(tabmac.tex) = %{tl_version}
+Provides:       texlive-edmac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-edmac-doc <= 11:%{version}
 
 %description -n texlive-edmac
 This is the type example package for typesetting scholarly critical editions.
@@ -381,8 +391,9 @@ Version:        svn38114
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eledform-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eledform-doc <= 11:%{version}
 Requires:       tex(eledmac.sty)
-Provides:       tex(eledform.sty) = %{tl_version}
 
 %description -n texlive-eledform
 The package provides commands to formalize textual variants in critical
@@ -394,6 +405,8 @@ Version:        svn45418
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eledmac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eledmac-doc <= 11:%{version}
 Requires:       tex(etex.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifluatex.sty)
@@ -403,8 +416,6 @@ Requires:       tex(xargs.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(eledmac.sty) = %{tl_version}
-Provides:       tex(eledpar.sty) = %{tl_version}
 
 %description -n texlive-eledmac
 A package for typesetting scholarly critical editions, replacing the
@@ -415,17 +426,13 @@ the related eledpar package. The package is now superseded by reledmac.
 
 %package -n texlive-expex
 Summary:        Linguistic examples and glosses, with reference capabilities
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-expex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-expex-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
-Provides:       tex(epltxchapno.sty) = %{tl_version}
-Provides:       tex(epltxfn.sty) = %{tl_version}
-Provides:       tex(eptexfn.tex) = %{tl_version}
-Provides:       tex(expex-demo.tex) = %{tl_version}
-Provides:       tex(expex.sty) = %{tl_version}
-Provides:       tex(expex.tex) = %{tl_version}
 
 %description -n texlive-expex
 The package provides macros for typesetting linguistic examples and glosses,
@@ -443,7 +450,6 @@ Requires:       tex(covington.sty)
 Requires:       tex(expex.sty)
 # Ignoring dependency on gb4e-emulate.sty - not part of TeX Live
 Requires:       tex(linguex.sty)
-Provides:       tex(expex-glossonly.sty) = %{tl_version}
 
 %description -n texlive-expex-glossonly
 The ExPex package by John Frampton provides very fine-grained control over
@@ -461,12 +467,12 @@ macros that ExPex provides.
 
 %package -n texlive-gb4e
 Summary:        Linguistic tools
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cgloss4e.sty) = %{tl_version}
-Provides:       tex(gb4e.sty) = %{tl_version}
+Provides:       texlive-gb4e-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gb4e-doc <= 11:%{version}
 
 %description -n texlive-gb4e
 Provides an environment for linguistic examples, tools for glosses, and various
@@ -478,7 +484,6 @@ Version:        svn72692
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gb4e-next.sty) = %{tl_version}
 
 %description -n texlive-gb4e-next
 The package provides gb4e users two relative example reference commands. \Next
@@ -491,7 +496,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gmverse.sty) = %{tl_version}
+Provides:       texlive-gmverse-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gmverse-doc <= 11:%{version}
 
 %description -n texlive-gmverse
 A redefinition of the verse environment to make the \\ command optional for
@@ -516,7 +522,6 @@ Requires:       tex(marginnote.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(interlinear.sty) = %{tl_version}
 
 %description -n texlive-interlinear
 The interlinear package facilitates the creation of interlinear glossed texts,
@@ -532,8 +537,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(alphanum.sty) = %{tl_version}
-Provides:       tex(jura.cls) = %{tl_version}
+Provides:       texlive-jura-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jura-doc <= 11:%{version}
 
 %description -n texlive-jura
 Implements the standard layout for German term papers in law (one-and-half
@@ -546,8 +551,9 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-juraabbrev-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-juraabbrev-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
-Provides:       tex(juraabbrev.sty) = %{tl_version}
 
 %description -n texlive-juraabbrev
 This package should be helpful for people working on (German) law. It helps you
@@ -560,13 +566,11 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-juramisc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-juramisc-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(jurabase.sty) = %{tl_version}
-Provides:       tex(jurabook.cls) = %{tl_version}
-Provides:       tex(juraovw.cls) = %{tl_version}
-Provides:       tex(juraurtl.cls) = %{tl_version}
 
 %description -n texlive-juramisc
 A collection of classes for typesetting court sentences, legal opinions, books
@@ -579,11 +583,12 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jurarsp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jurarsp-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(jurarsp.sty) = %{tl_version}
 
 %description -n texlive-jurarsp
 This package should be helpful for people working on (German) law. It (ab)uses
@@ -596,13 +601,6 @@ Version:        svn69101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(langnames.sty) = %{tl_version}
-Provides:       tex(ln_fams_glot.tex) = %{tl_version}
-Provides:       tex(ln_fams_wals.tex) = %{tl_version}
-Provides:       tex(ln_langs_glot.tex) = %{tl_version}
-Provides:       tex(ln_langs_glot_native.tex) = %{tl_version}
-Provides:       tex(ln_langs_wals.tex) = %{tl_version}
-Provides:       tex(ln_langs_wals_native.tex) = %{tl_version}
 
 %description -n texlive-langnames
 This package attempts to make the typing of language names, codes, and families
@@ -618,10 +616,8 @@ Version:        svn41811
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(afoot.sty) = %{tl_version}
-Provides:       tex(ledarab.sty) = %{tl_version}
-Provides:       tex(ledmac.sty) = %{tl_version}
-Provides:       tex(ledpar.sty) = %{tl_version}
+Provides:       texlive-ledmac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ledmac-doc <= 11:%{version}
 
 %description -n texlive-ledmac
 A macro package for typesetting scholarly critical editions. The ledmac package
@@ -636,8 +632,9 @@ Version:        svn17364
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lexikon-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lexikon-doc <= 11:%{version}
 Requires:       tex(ipa.sty)
-Provides:       tex(lexikon.sty) = %{tl_version}
 
 %description -n texlive-lexikon
 Macros for a two language dictionary
@@ -648,6 +645,8 @@ Version:        svn36026
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lexref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lexref-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(nomencl.sty)
@@ -655,7 +654,6 @@ Requires:       tex(splitidx.sty)
 Requires:       tex(stringstrings.sty)
 Requires:       tex(xargs.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(lexref.sty) = %{tl_version}
 
 %description -n texlive-lexref
 The package is aimed at continental lawyers (especially those in Switzerland
@@ -677,7 +675,6 @@ Requires:       tex(relsize.sty)
 Requires:       tex(stmaryrd.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(upgreek.sty)
-Provides:       tex(ling-macros.sty) = %{tl_version}
 
 %description -n texlive-ling-macros
 This package contains macros for typesetting glosses and formal expressions. It
@@ -685,15 +682,14 @@ covers a range of subfields in formal linguistics.
 
 %package -n texlive-linguex
 Summary:        Format linguists' examples
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-linguex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-linguex-doc <= 11:%{version}
 Requires:       tex(tree-dvips.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(linguex.sty) = %{tl_version}
-Provides:       tex(linguho.sty) = %{tl_version}
-Provides:       tex(ps-trees.sty) = %{tl_version}
 
 %description -n texlive-linguex
 This bundle comprises two packages: The linguex package facilitates the
@@ -704,25 +700,10 @@ macros of tree-dvips, but overcoming some of the older package's shortcomings.
 
 %package -n texlive-linguistix
 Summary:        Enhanced support for linguistics
-Version:        svn77571
+Version:        svn78831
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(linguistix-american.sty) = %{tl_version}
-Provides:       tex(linguistix-base.sty) = %{tl_version}
-Provides:       tex(linguistix-british.sty) = %{tl_version}
-Provides:       tex(linguistix-english.sty) = %{tl_version}
-Provides:       tex(linguistix-fixpex.sty) = %{tl_version}
-Provides:       tex(linguistix-fonts.sty) = %{tl_version}
-Provides:       tex(linguistix-glossing.sty) = %{tl_version}
-Provides:       tex(linguistix-greek.sty) = %{tl_version}
-Provides:       tex(linguistix-ipa.sty) = %{tl_version}
-Provides:       tex(linguistix-languages.sty) = %{tl_version}
-Provides:       tex(linguistix-leipzig.sty) = %{tl_version}
-Provides:       tex(linguistix-logos.sty) = %{tl_version}
-Provides:       tex(linguistix-marathi.sty) = %{tl_version}
-Provides:       tex(linguistix-nfss.sty) = %{tl_version}
-Provides:       tex(linguistix.sty) = %{tl_version}
 
 %description -n texlive-linguistix
 This is an experimental bundle of packages that provide enhanced support for
@@ -743,11 +724,12 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-liturg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-liturg-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(color.sty)
 Requires:       tex(ecclesiastic.sty)
 Requires:       tex(lettrine.sty)
-Provides:       tex(liturg.sty) = %{tl_version}
 
 %description -n texlive-liturg
 The packages offers simple macros for typesetting Catholic liturgical texts,
@@ -769,7 +751,6 @@ Requires:       tex(framed.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(liturgy-cw.sty) = %{tl_version}
 
 %description -n texlive-liturgy-cw
 This package greatly simplifies the typesetting of service sheets and booklets
@@ -783,11 +764,12 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metrix-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metrix-doc <= 11:%{version}
 Requires:       tex(textcomp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(metrix.sty) = %{tl_version}
 
 %description -n texlive-metrix
 The package may be used to type the prosodics/metrics of (latin) verse; it
@@ -804,7 +786,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(nnext.sty) = %{tl_version}
 
 %description -n texlive-nnext
 This is an add-on for the gb4e package used in linguistics. It implements the
@@ -817,7 +798,6 @@ Version:        svn77161
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(opbible-hebrew.tex) = %{tl_version}
 
 %description -n texlive-opbible
 This package includes OpTeX macros which allow to create a study Bible in many
@@ -828,11 +808,12 @@ variants and translation subvariants are provided.
 
 %package -n texlive-parallel
 Summary:        Typeset parallel texts
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(parallel.sty) = %{tl_version}
+Provides:       texlive-parallel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-parallel-doc <= 11:%{version}
 
 %description -n texlive-parallel
 Provides a parallel environment which allows two potentially different texts to
@@ -847,9 +828,10 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-parrun-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-parrun-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(parrun.sty) = %{tl_version}
 
 %description -n texlive-parrun
 For typesetting translated text and the original source, parallel on the same
@@ -861,7 +843,8 @@ Version:        svn43963
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(phonrule.sty) = %{tl_version}
+Provides:       texlive-phonrule-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-phonrule-doc <= 11:%{version}
 
 %description -n texlive-phonrule
 The package provides macros for typesetting phonological rules like those in
@@ -873,7 +856,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(plari.cls) = %{tl_version}
+Provides:       texlive-plari-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-plari-doc <= 11:%{version}
 
 %description -n texlive-plari
 Plari (the name comes from the Finnish usage for the working copy of a play) is
@@ -886,8 +870,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(play.cls) = %{tl_version}
-Provides:       tex(play.sty) = %{tl_version}
+Provides:       texlive-play-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-play-doc <= 11:%{version}
 
 %description -n texlive-play
 A class and style file that supports the typesetting of plays, including
@@ -899,7 +883,8 @@ Version:        svn56082
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(poemscol.sty) = %{tl_version}
+Provides:       texlive-poemscol-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-poemscol-doc <= 11:%{version}
 
 %description -n texlive-poemscol
 The package offers LaTeX macros for typesetting critical editions of poetry.
@@ -911,13 +896,12 @@ titles and first lines, and automatic generation of a table of contents.
 
 %package -n texlive-poetry
 Summary:        Facilities for typesetting poetry and poetical structure
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(imakeidx.sty)
 Requires:       tex(modulus.sty)
-Provides:       tex(poetry.sty) = %{tl_version}
 
 %description -n texlive-poetry
 This package provides some macros and general doodads for typesetting poetry.
@@ -933,8 +917,9 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-poetrytex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-poetrytex-doc <= 11:%{version}
 Requires:       tex(tocloft.sty)
-Provides:       tex(poetrytex.sty) = %{tl_version}
 
 %description -n texlive-poetrytex
 The package is designed to aid in the management and formatting of anthologies
@@ -947,7 +932,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(qobitree.tex) = %{tl_version}
+Provides:       texlive-qobitree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-qobitree-doc <= 11:%{version}
 
 %description -n texlive-qobitree
 Provides commands \branch and \leaf for specifying the elements of the tree;
@@ -960,7 +946,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(qtree.sty) = %{tl_version}
+Provides:       texlive-qtree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-qtree-doc <= 11:%{version}
 
 %description -n texlive-qtree
 The package offers support for drawing tree diagrams, and is especially
@@ -971,10 +958,12 @@ development of the existing qobitree package, offering a new front end.
 
 %package -n texlive-reledmac
 Summary:        Typeset scholarly editions
-Version:        svn77677
+Version:        svn78286
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-reledmac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-reledmac-doc <= 11:%{version}
 Requires:       tex(etex.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifluatex.sty)
@@ -985,8 +974,6 @@ Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(reledmac.sty) = %{tl_version}
-Provides:       tex(reledpar.sty) = %{tl_version}
 
 %description -n texlive-reledmac
 A package for typesetting scholarly critical editions, replacing the
@@ -1001,9 +988,10 @@ Version:        svn27322
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rrgtrees-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rrgtrees-doc <= 11:%{version}
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-tree.sty)
-Provides:       tex(rrgtrees.sty) = %{tl_version}
 
 %description -n texlive-rrgtrees
 A set of LaTeX macros that makes it easy to produce linguistic tree diagrams
@@ -1018,7 +1006,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(rtklage.cls) = %{tl_version}
+Provides:       texlive-rtklage-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rtklage-doc <= 11:%{version}
 
 %description -n texlive-rtklage
 RATeX is a newly developed bundle of packages and classes provided for German
@@ -1031,8 +1020,8 @@ Version:        svn27223
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hardmarg.sty) = %{tl_version}
-Provides:       tex(screenplay.cls) = %{tl_version}
+Provides:       texlive-screenplay-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-screenplay-doc <= 11:%{version}
 
 %description -n texlive-screenplay
 The class implements the format recommended by the Academy of Motion Picture
@@ -1044,9 +1033,10 @@ Version:        svn44965
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-screenplay-pkg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-screenplay-pkg-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(screenplay-pkg.sty) = %{tl_version}
 
 %description -n texlive-screenplay-pkg
 This package implements the tools of the screenplay document class in the form
@@ -1055,13 +1045,29 @@ document class. For full documentation of the available commands, please
 consult the screenplay class documentation in addition to the included package
 documentation.
 
+%package -n texlive-sharedline
+Summary:        Typeset shared lines in dramatic verse
+Version:        svn78303
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(xparse.sty)
+
+%description -n texlive-sharedline
+This package provides a robust and flexible solution for typesetting shared
+lines in dramatic verse, such as in the plays of Shakespeare. It allows a
+single line of verse to be split across multiple speakers while maintaining
+perfect horizontal alignment, creating the visual effect of a single,
+continuous line of iambic pentameter.
+
 %package -n texlive-sides
 Summary:        A LaTeX class for typesetting stage plays
 Version:        svn76924
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sides.cls) = %{tl_version}
+Provides:       texlive-sides-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sides-doc <= 11:%{version}
 
 %description -n texlive-sides
 This is a LaTeX class for typesetting stage plays, based on the plari class
@@ -1075,7 +1081,8 @@ Version:        svn62929
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(stage.cls) = %{tl_version}
+Provides:       texlive-stage-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-stage-doc <= 11:%{version}
 
 %description -n texlive-stage
 Stage.cls is a LaTeX class for creating plays of any length in a standard
@@ -1087,8 +1094,9 @@ Version:        svn30788
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-textglos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-textglos-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
-Provides:       tex(textglos.sty) = %{tl_version}
 
 %description -n texlive-textglos
 The package provides a set of macros for in-line linguistic examples (as
@@ -1102,6 +1110,8 @@ Version:        svn65249
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-thalie-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-thalie-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
@@ -1109,7 +1119,6 @@ Requires:       tex(suffix.sty)
 Requires:       tex(tabularx.sty)
 Requires:       tex(translations.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(thalie.sty) = %{tl_version}
 
 %description -n texlive-thalie
 The package provides tools to typeset drama plays. It defines commands to
@@ -1135,8 +1144,8 @@ Version:        svn21751
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lingmacros.sty) = %{tl_version}
-Provides:       tex(tree-dvips.sty) = %{tl_version}
+Provides:       texlive-tree-dvips-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tree-dvips-doc <= 11:%{version}
 
 %description -n texlive-tree-dvips
 The package defines a mechanism for specifying connected trees that uses a
@@ -1148,11 +1157,12 @@ and gloss macros.
 
 %package -n texlive-verse
 Summary:        Aids for typesetting simple verse
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(verse.sty) = %{tl_version}
+Provides:       texlive-verse-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-verse-doc <= 11:%{version}
 
 %description -n texlive-verse
 The package documentation discusses approaches to the problem; the package is
@@ -1165,10 +1175,11 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xyling-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xyling-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xy.sty)
-Provides:       tex(xyling.sty) = %{tl_version}
 
 %description -n texlive-xyling
 The macros in this package model the construction of linguistic tree structures
@@ -1305,6 +1316,8 @@ tar -xf %{SOURCE114} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE115} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE116} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE117} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE118} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE119} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1575,6 +1588,11 @@ popd
 %{_texmf_main}/tex/latex/screenplay-pkg/
 %doc %{_texmf_main}/doc/latex/screenplay-pkg/
 
+%files -n texlive-sharedline
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sharedline/
+%doc %{_texmf_main}/doc/latex/sharedline/
+
 %files -n texlive-sides
 %license gpl2.txt
 %{_texmf_main}/tex/latex/sides/
@@ -1616,6 +1634,14 @@ popd
 %doc %{_texmf_main}/doc/latex/xyling/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78303-7
+- Update linguistix
+- add missing -doc provides/obsoletes
+
+* Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78303-6
+- Update collection from svn75384 to svn78303
+- Update 8 components
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75384-5
 - Update expex gb4e linguex linguistix parallel poetry verse
 - Add cls Provides

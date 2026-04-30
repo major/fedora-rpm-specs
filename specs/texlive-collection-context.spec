@@ -5,7 +5,7 @@
 Name:           texlive-collection-context
 Epoch:          12
 Version:        svn75426
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ConTeXt and packages
 
 License:        LPPL-1.3c
@@ -97,6 +97,8 @@ Version:        svn75386
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-animation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-animation-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-animation
@@ -147,6 +149,8 @@ Version:        svn47085
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-cyrillicnumbers-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-cyrillicnumbers-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-cyrillicnumbers
@@ -159,6 +163,8 @@ Version:        svn62070
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-filter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-filter-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-filter
@@ -174,6 +180,8 @@ Version:        svn75301
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-gnuplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-gnuplot-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-gnuplot
@@ -199,6 +207,8 @@ Version:        svn77841
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-letter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-letter-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-letter
@@ -212,6 +222,8 @@ Version:        svn47085
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-mathsets-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-mathsets-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-mathsets
@@ -221,7 +233,7 @@ package is at least inspired by braket.
 
 %package -n texlive-context-notes-zh-cn
 Summary:        A ConTeXt LMTX introduction for Chinese users
-Version:        svn76286
+Version:        svn78640
 License:        GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -231,8 +243,8 @@ Requires:       texlive-context
 
 %description -n texlive-context-notes-zh-cn
 An introductory tutorial on ConTeXt, in Chinese. The document covers ConTeXt
-installation, fonts, layout design, cross-reference, project structure, metafun
-and presentation design.
+installation, fonts, layout design, cross-reference, project structure,
+metafun, presentation design and programming in ConTeXt.
 
 %package -n texlive-context-pocketdiary
 Summary:        A personal organiser
@@ -255,6 +267,8 @@ Version:        svn67070
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-simpleslides-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-simpleslides-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-simpleslides
@@ -294,6 +308,8 @@ Version:        svn61127
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-transliterator-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-transliterator-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-transliterator
@@ -307,6 +323,8 @@ Version:        svn76524
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-typescripts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-typescripts-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-typescripts
@@ -320,6 +338,8 @@ Version:        svn62071
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-vim-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-vim-doc <= 11:%{version}
 Requires:       texlive-context
 Requires:       texlive-context-filter
 
@@ -338,6 +358,8 @@ Version:        svn47085
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-context-visualcounter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-context-visualcounter-doc <= 11:%{version}
 Requires:       texlive-context
 
 %description -n texlive-context-visualcounter
@@ -524,6 +546,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/fonts/type1/jmn/hans/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75426-6
+- Update context-notes-zh-cn
+- Add missing -doc Provides/Obsoletes
+
 * Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75426-5
 - Update context-letter, context-squares, context-sudoku
 

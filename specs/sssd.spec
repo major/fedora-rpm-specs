@@ -18,8 +18,12 @@
 # against, or newer
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version})
 
+%if "%{?samba_package_version}" == ""
+%global samba_package_version 4.19
+%endif
+
 Name: sssd
-Version: 2.12.0
+Version: 2.13.0
 Release: %autorelease
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
@@ -33,10 +37,7 @@ Source3: pubkey.asc
 
 ### Patches ###
 # Place your patches here:
-Patch0001: 0001-Fix-libini_config-related-includes.patch
-Patch0002: 0002-INI-get-rid-of-useless-macros.patch
-Patch0003: 0003-INI-use-proper-deallocators.patch
-Patch0004: 0004-Add-support-for-Plasma-Login-Manager-as-a-supported-PAM-service.patch
+# Patch0001:  0001-patch-file.patch
 
 ### Downstream only patches ###
 # Place your downstream only patches here:
@@ -297,7 +298,11 @@ for handling Kerberos PACs.
 %package ipa
 Summary: The IPA back end of the SSSD
 License: GPL-3.0-or-later
+%if 0%{?fedora} >= 44
+Requires: samba-ndr-libs >= %{samba_package_version}
+%else
 Requires: samba-client-libs >= %{samba_package_version}
+%endif
 Requires: sssd-common = %{version}-%{release}
 Requires: sssd-krb5-common = %{version}-%{release}
 Requires: libipa_hbac%{?_isa} = %{version}-%{release}

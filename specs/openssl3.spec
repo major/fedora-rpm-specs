@@ -34,7 +34,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl3
 Version: 3.5.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -121,7 +121,7 @@ BuildRequires: systemtap-sdt-devel
 Requires: coreutils
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Obsoletes: oqsprovider < 0.9.0
-Conflicts: (openssl >= 3.0 with openssl < 4.0)
+Conflicts: (openssl >= 1:3.0 with openssl < 1:4.0)
 
 %description
 The OpenSSL toolkit provides support for secure communications between
@@ -135,6 +135,7 @@ Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20180730
 Requires(pre): sed
 Recommends: pkcs11-provider%{?_isa}
+Provides: deprecated()
 
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
@@ -148,7 +149,9 @@ Requires: pkgconfig
 %if %{without engine}
 Obsoletes: %{name}-devel-engine < %{epoch}:%{version}-%{release}
 %endif
-Conflicts: openssl-devel >= 4.0
+Provides: openssl-devel = %{epoch}:%{version}-%{release}
+Conflicts: openssl-devel >= 1:4.0
+Provides: deprecated()
 
 %description devel
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel
@@ -162,7 +165,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
 Provides: deprecated()
-Conflicts: openssl-devel >= 4.0
+Conflicts: openssl-devel >= 1:4.0
 
 %description devel-engine
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel-engine
@@ -174,7 +177,7 @@ use deprecated OpenSSL ENGINE functionality.
 ##Summary: Perl scripts provided with OpenSSL
 ##Requires: perl-interpreter
 ##Requires: %%{name}%%{?_isa} = %%{epoch}:%%{version}-%%{release}
-##Conflicts: openssl-perl >= 4.0
+##Conflicts: openssl-perl >= 1:4.0
 ##
 ##%%description perl
 ##OpenSSL is a toolkit for supporting cryptography. The openssl-perl
@@ -491,6 +494,9 @@ fi
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Apr 28 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-3
+- Adjusted dependencies. Added 'Provides: deprectaed()' for all the subpackages
+
 * Fri Apr 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-2
 - rebuilt
 

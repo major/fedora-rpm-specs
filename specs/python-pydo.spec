@@ -2,12 +2,12 @@
 
 Name: python-%{srcname}
 Summary: PyDo - DigitalOcean python library
-Version: 0.24.0
+Version: 0.33.0
 Release: 3%{?dist}
 
 License: ASL 2.0
 
-Url: https://github.com/digitalocean/%{srcname}
+Url:            https://github.com/digitalocean/pydo
 Source:         %{url}/archive/v%{version}/pydo-%{version}.tar.gz
 
 BuildArch: noarch

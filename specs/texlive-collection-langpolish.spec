@@ -5,7 +5,7 @@
 Name:           texlive-collection-langpolish
 Epoch:          12
 Version:        svn54074
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Polish
 
 License:        LPPL-1.3c
@@ -73,12 +73,12 @@ Support for Polish.
 
 %package -n texlive-babel-polish
 Summary:        Babel support for Polish
-Version:        svn62680
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(polish-compat.ldf) = %{tl_version}
-Provides:       tex(polish.ldf) = %{tl_version}
+Provides:       texlive-babel-polish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-polish-doc <= 11:%{version}
 
 %description -n texlive-babel-polish
 The package provides the language definition file for support of Polish in
@@ -91,7 +91,6 @@ Version:        svn44371
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bredzenie.sty) = %{tl_version}
 
 %description -n texlive-bredzenie
 This is a polish version of the classic pseudo-Latin "lorem ipsum dolor sit
@@ -105,6 +104,8 @@ Version:        svn58602
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cc-pl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cc-pl-doc <= 11:%{version}
 
 %description -n texlive-cc-pl
 These Metafont sources rely on the availability of the Metafont 'Polish' fonts
@@ -117,22 +118,8 @@ Version:        svn54074
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(biblotex.tex) = %{tl_version}
-Provides:       tex(infr-ex.tex) = %{tl_version}
-Provides:       tex(infram.tex) = %{tl_version}
-Provides:       tex(map.tex) = %{tl_version}
-Provides:       tex(mcol-ex.tex) = %{tl_version}
-Provides:       tex(meashor.tex) = %{tl_version}
-Provides:       tex(mimulcol.tex) = %{tl_version}
-Provides:       tex(plidxmac.tex) = %{tl_version}
-Provides:       tex(przyklad.tex) = %{tl_version}
-Provides:       tex(rbox-ex.tex) = %{tl_version}
-Provides:       tex(roundbox.tex) = %{tl_version}
-Provides:       tex(split.tex) = %{tl_version}
-Provides:       tex(tp-crf.tex) = %{tl_version}
-Provides:       tex(tsp.tex) = %{tl_version}
-Provides:       tex(tun.tex) = %{tl_version}
-Provides:       tex(verbatim-dek.tex) = %{tl_version}
+Provides:       texlive-gustlib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gustlib-doc <= 11:%{version}
 
 %description -n texlive-gustlib
 Includes bibliography support, token manipulation, cross-references, verbatim,
@@ -142,15 +129,12 @@ manipulation, tables.
 
 %package -n texlive-hyphen-polish
 Summary:        Polish hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-pl.qx.tex) = %{tl_version}
-Provides:       tex(hyph-pl.tex) = %{tl_version}
-Provides:       tex(loadhyph-pl.tex) = %{tl_version}
 
 %description -n texlive-hyphen-polish
 Hyphenation patterns for Polish in QX and UTF-8 encodings. These patterns are
@@ -174,6 +158,8 @@ Version:        svn77050
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mwcls-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mwcls-doc <= 11:%{version}
 
 %description -n texlive-mwcls
 mwcls is a set of document classes for LaTeX2e designed with Polish
@@ -191,6 +177,8 @@ Version:        svn58661
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pl-doc <= 11:%{version}
 
 %description -n texlive-pl
 The Polish extension of the Computer Modern fonts (compatible with CM itself)
@@ -199,18 +187,14 @@ distribution (and they are still available that way).
 
 %package -n texlive-polski
 Summary:        Typeset Polish documents with LaTeX and Polish fonts
-Version:        svn60322
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-polski-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-polski-doc <= 11:%{version}
 Requires:       texlive-hyphen-polish
 Requires:       texlive-pl
-Provides:       tex(amigapl.def) = %{tl_version}
-Provides:       tex(mazovia.def) = %{tl_version}
-Provides:       tex(ot1patch.sty) = %{tl_version}
-Provides:       tex(plprefix.sty) = %{tl_version}
-Provides:       tex(polski.sty) = %{tl_version}
-Provides:       tex(qxenc.def) = %{tl_version}
 
 %description -n texlive-polski
 Tools to typeset monolingual Polish documents in LaTeX2e without babel or
@@ -230,6 +214,8 @@ Version:        svn23552
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-przechlewski-book-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-przechlewski-book-doc <= 11:%{version}
 
 %description -n texlive-przechlewski-book
 The bundle provides machine-readable copies of the examples from the book
@@ -241,16 +227,8 @@ Version:        svn45797
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(amspbold.tex) = %{tl_version}
-Provides:       tex(amsqpx.def) = %{tl_version}
-Provides:       tex(amsqpx.tex) = %{tl_version}
-Provides:       tex(amsqtx.def) = %{tl_version}
-Provides:       tex(amsqtx.tex) = %{tl_version}
-Provides:       tex(amstbold.tex) = %{tl_version}
-Provides:       tex(qpxmath.sty) = %{tl_version}
-Provides:       tex(qpxmath.tex) = %{tl_version}
-Provides:       tex(qtxmath.sty) = %{tl_version}
-Provides:       tex(qtxmath.tex) = %{tl_version}
+Provides:       texlive-qpxqtx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-qpxqtx-doc <= 11:%{version}
 
 %description -n texlive-qpxqtx
 Polish macros and fonts supporting Pagella/pxfonts and Termes/txfonts
@@ -261,7 +239,8 @@ Version:        svn31731
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tap.tex) = %{tl_version}
+Provides:       texlive-tap-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tap-doc <= 11:%{version}
 
 %description -n texlive-tap
 The package offers a simple notation for pretty complex tables (to Michael J.
@@ -285,7 +264,7 @@ descriptions, etc.
 
 %package -n texlive-texlive-pl
 Summary:        TeX Live manual (Polish)
-Version:        svn74803
+Version:        svn78337
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -301,8 +280,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(utf8-pl.tex) = %{tl_version}
-Provides:       tex(utf8plsq.tex) = %{tl_version}
+Provides:       texlive-utf8mex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-utf8mex-doc <= 11:%{version}
 
 %description -n texlive-utf8mex
 The bundle provides files for building formats to read input in Polish
@@ -397,7 +376,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-polish
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-pl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-pl.qx.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-pl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pl.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pl.pat.txt
 
 %files -n texlive-lshort-polish
 %license gpl2.txt
@@ -456,6 +439,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/mex/utf8mex/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
+- Update babel-polish, hyphen-polish, polski, texlive-pl
+- Fix missing -doc provides/obsoletes
+- use automatic file provides
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-3
 - fix licensing, descriptions
 - update mwcls

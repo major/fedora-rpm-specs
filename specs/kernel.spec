@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc1.9
+%define pkgrelease 0.rc1.260428g3b3bea6d4b9c1.10
 %define kversion 7
-%define tarfile_release 7.1-rc1
+%define tarfile_release 7.1-rc1-55-g3b3bea6d4b9c1
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.9%{?buildid}%{?dist}
+%define specrelease 0.rc1.260428g3b3bea6d4b9c1.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4835,10 +4835,16 @@ fi\
 #
 #
 %changelog
-* Mon Apr 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.9]
+* Tue Apr 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260428g3b3bea6d4b9c1.10]
+- Linux v7.1.0-0.rc1.260428g3b3bea6d4b9c1
+
+* Tue Apr 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.3b3bea6d4b9c.10]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - add man-page for rv-mon-stall (Thorsten Leemhuis)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Tue Apr 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.3b3bea6d4b9c.9]
+- Linux v7.1.0-0.rc1.3b3bea6d4b9c
 
 * Mon Apr 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.8]
 - Linux v7.1.0-0.rc1

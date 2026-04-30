@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsrecommended
 Epoch:          12
 Version:        svn54074
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Recommended fonts
 
 License:        LPPL-1.3c
@@ -162,6 +162,8 @@ Version:        svn15878
 License:        LicenseRef-Charter
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-charter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-charter-doc <= 11:%{version}
 
 %description -n texlive-charter
 A commercial text font donated for the common good. Support for use with LaTeX
@@ -173,6 +175,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cm-super-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cm-super-doc <= 11:%{version}
 
 %description -n texlive-cm-super
 The CM-Super family provides Adobe Type 1 fonts that replace the T1/TS1-encoded
@@ -216,6 +220,8 @@ Version:        svn22191
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-euro-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-euro-doc <= 11:%{version}
 Requires:       tex(fp-basic.sty)
 Requires:       tex(fp-snap.sty)
 
@@ -243,6 +249,8 @@ Version:        svn78101
 License:        Eurosym
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eurosym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eurosym-doc <= 11:%{version}
 
 %description -n texlive-eurosym
 The European currency symbol for the Euro implemented in Metafont, using the
@@ -256,6 +264,8 @@ Version:        svn54512
 License:        GPL-2.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fpl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fpl-doc <= 11:%{version}
 
 %description -n texlive-fpl
 The FPL Fonts provide a set of SC/OsF fonts for URW Palladio L which are
@@ -293,6 +303,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lm-doc <= 11:%{version}
 
 %description -n texlive-lm
 The Latin Modern family of fonts consists of 72 text fonts and 20 mathematics
@@ -311,6 +323,8 @@ Version:        svn67718
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lm-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lm-math-doc <= 11:%{version}
 
 %description -n texlive-lm-math
 Latin Modern Math is a maths companion for the Latin Modern family of fonts, in
@@ -335,6 +349,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-marvosym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-marvosym-doc <= 11:%{version}
 
 %description -n texlive-marvosym
 Martin Vogel's Symbol font (marvosym) contains the Euro currency symbol as
@@ -350,6 +366,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathpazo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathpazo-doc <= 11:%{version}
 Requires:       texlive-fpl
 Requires:       texlive-palatino
 
@@ -376,6 +394,8 @@ Version:        svn54512
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mflogo-font-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mflogo-font-doc <= 11:%{version}
 
 %description -n texlive-mflogo-font
 These fonts were created in Metafont by Knuth, for his own publications. At
@@ -426,6 +446,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxfonts-doc <= 11:%{version}
 
 %description -n texlive-pxfonts
 Pxfonts supplies virtual text roman fonts using Adobe Palatino (or
@@ -444,6 +466,8 @@ Version:        svn15878
 License:        LicenseRef-Rsfs
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rsfs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rsfs-doc <= 11:%{version}
 
 %description -n texlive-rsfs
 The fonts provide uppercase 'formal' script letters for use as symbols in
@@ -477,6 +501,8 @@ Version:        svn68624
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tex-gyre-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tex-gyre-doc <= 11:%{version}
 Requires:       tex(kvoptions.sty)
 
 %description -n texlive-tex-gyre
@@ -508,6 +534,8 @@ Version:        svn41264
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tex-gyre-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tex-gyre-math-doc <= 11:%{version}
 
 %description -n texlive-tex-gyre-math
 TeX-Gyre-Math is a collection of maths fonts to match the text fonts of the
@@ -541,6 +569,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tipa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tipa-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 
 %description -n texlive-tipa
@@ -555,6 +585,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-txfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-txfonts-doc <= 11:%{version}
 
 %description -n texlive-txfonts
 Txfonts supplies virtual text roman fonts using Adobe Times (or URW
@@ -573,6 +605,8 @@ Version:        svn77682
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-utopia-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-utopia-doc <= 11:%{version}
 
 %description -n texlive-utopia
 The Adobe Standard Encoding set (upright and italic shapes, medium and bold
@@ -586,6 +620,8 @@ Version:        svn53533
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wasy-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wasy-doc <= 11:%{version}
 
 %description -n texlive-wasy
 This font contains all lasy characters (by L.Lamport, copyright notice in
@@ -612,6 +648,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wasysym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wasysym-doc <= 11:%{version}
 
 %description -n texlive-wasysym
 The wasy (Waldi Symbol) font by Roland Waldi provides many glyphs like male and
@@ -1065,6 +1103,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/zapfding/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-8
+- Fix missing -doc provides/obsoletes
+
 * Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-7
 - Update 9 components
 

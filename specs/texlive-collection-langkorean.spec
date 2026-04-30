@@ -5,7 +5,7 @@
 Name:           texlive-collection-langkorean
 Epoch:          12
 Version:        svn54074
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Korean
 
 License:        LPPL-1.3c
@@ -78,6 +78,8 @@ Version:        svn70300
 License:        GPL-2.0-or-later AND LPPL-1.3c AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cjk-ko-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cjk-ko-doc <= 11:%{version}
 Requires:       texlive-cjk
 Requires:       tex(CJKfntef.sty)
 # Ignoring dependency on kotex-euc.sty - not part of TeX Live
@@ -98,6 +100,8 @@ Version:        svn78115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kotex-oblivoir-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kotex-oblivoir-doc <= 11:%{version}
 Requires:       texlive-kotex-utf
 Requires:       texlive-memoir
 Requires:       tex(amsmath.sty)
@@ -138,6 +142,8 @@ Version:        svn63689
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kotex-plain-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kotex-plain-doc <= 11:%{version}
 
 %description -n texlive-kotex-plain
 The package provides macros for typesetting Hangul, the native alphabet of the
@@ -150,6 +156,8 @@ Version:        svn63690
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kotex-utf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kotex-utf-doc <= 11:%{version}
 Requires:       texlive-cjk-ko
 Requires:       tex(enumerate.sty)
 Requires:       tex(enumitem.sty)
@@ -193,6 +201,8 @@ Version:        svn29558
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nanumtype1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nanumtype1-doc <= 11:%{version}
 
 %description -n texlive-nanumtype1
 Nanum is a unicode font designed especially for Korean-language script. The
@@ -223,6 +233,8 @@ Version:        svn16791
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uhc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uhc-doc <= 11:%{version}
 
 %description -n texlive-uhc
 Support for Korean documents written in Korean standard KSC codes for LaTeX2e.
@@ -368,6 +380,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/fonts/unfonts-extra/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-5
+- Fix missing -doc provides/obsoletes
+
 * Mon Apr 27 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
 - Update kotex-oblivoir, pmhanguljamo
 

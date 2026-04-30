@@ -16,17 +16,17 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.2.1
+%global upstream_version  2.3.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
 # Required versions from config.m4
-%global minimal_libmongo  2.2.2
-%global minimal_libcrypt  1.17.2
+%global minimal_libmongo  2.3.0
+%global minimal_libcrypt  1.17.3
 
 # Build dependencies
-%global system_libmongo   2.2.2
-%global system_libcrypt   1.17.2
+%global system_libmongo   2.3.0
+%global system_libcrypt   1.17.3
 
 # Github forge
 %global gh_vend           mongodb
@@ -38,7 +38,7 @@ Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 License:        Apache-2.0
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -81,7 +81,7 @@ components necessary to build a fully-functional MongoDB driver.
 %forgesetup
 
 # Check our macro values
-grep CHECK_MODULES config.m4
+grep 'PHP_MONGODB_MIN_.*_VERSION=' config.m4
 grep -q %{minimal_libmongo} config.m4
 grep -q %{minimal_libcrypt} config.m4
 
@@ -151,6 +151,10 @@ OPT="-n"
 
 
 %changelog
+* Tue Apr 28 2026 Remi Collet <remi@remirepo.net> - 2.3.0-1
+- update to 2.3.0
+- raise dependency on libmongoc 2.3.0 and libmongocrypt 1.17.3
+
 * Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 2.2.1-2
 - drop pear/pecl dependency
 - sources from github

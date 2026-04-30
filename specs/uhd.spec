@@ -29,10 +29,10 @@
 
 Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
-Version:        4.9.0.1
+Version:        4.10.0.0
 #%%global images_ver %%{version}
-%global images_ver 4.9.0.0
-Release:        3%{?dist}
+%global images_ver 4.10.0.0
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -70,11 +70,6 @@ Summary:        Universal Hardware Driver for Ettus Research products
 Source0:        %{url}/archive/v%{version}/uhd-%{version}.tar.gz
 Source1:        %{name}-limits.conf
 Source2:        %{url}/releases/download/v%{images_ver}/uhd-images_%{images_ver}.tar.xz
-# dirty workaround for the https://github.com/EttusResearch/uhd/issues/551
-# until the better fix is available
-Patch:          uhd-4.8.0.0-imagepath-fix.patch
-# already in upstream
-Patch:          uhd-4.9.0.1-cmake-4-fix.patch
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -283,6 +278,10 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.10.0.0-1
+- New version
+  Resolves: rhbz#2451594
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

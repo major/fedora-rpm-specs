@@ -1,5 +1,8 @@
 %bcond blender 1
 %bcond skimage 1
+# https://bugzilla.redhat.com/show_bug.cgi?id=2460576
+# https://github.com/nschloe/meshio/issues/1558
+%bcond meshio %{defined fc44}
 
 Name:           python-trimesh
 Version:        4.12.1
@@ -240,6 +243,12 @@ tomcli set pyproject.toml lists delitem \
 tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.test_more' \
     '(coveralls|pyright|xatlas|pytest-beartype|pymeshlab|triangle|marimo)\b.*'
+%if %{without meshio}
+#   meshio: apparently unmaintained,
+#           https://github.com/nschloe/meshio/issues/1558
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.test_more' '(meshio)\b.*'
+%endif
 
 
 %install

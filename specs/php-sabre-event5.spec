@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-sabre-event5
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,8 +10,6 @@
 %bcond_without      tests
 
 # Github
-%global gh_commit    86d57e305c272898ba3c28e9bd3d65d5464587c2
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   event
 # Packagist
@@ -25,20 +23,19 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Lightweight library for event-based programming
-Version:        5.1.7
-Release:        4%{?dist}
+Version:        5.1.8
+Release:        1%{?dist}
 
 URL:            http://sabre.io/event
 License:        BSD-3-Clause
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 7.1
-BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#        "friendsofphp/php-cs-fixer": "~2.17.1",
+#        "friendsofphp/php-cs-fixer": "~2.17.1||^3.63",
 #        "phpstan/phpstan": "^0.12||^3.63",
 #        "phpunit/phpunit" : "^7.5 || ^8.5 || ^9.6"
 BuildRequires:  phpunit9 >= 9.6
@@ -51,7 +48,7 @@ BuildRequires:  php-composer(fedora/autoloader)
 #        "php": "^7.1 || ^8.0"
 Requires:       php(language) >= 7.1
 # From phpcompatinfo report for version 5.0.2
-Requires:       php-spl
+# Only spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -72,7 +69,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 cat << 'EOF' | tee lib/autoload.php
 <?php
@@ -108,7 +105,7 @@ exit (Sabre\Event\Version::VERSION === "%{version}" ? 0 : 1);
 %if %{with tests}
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -132,6 +129,10 @@ exit $ret
 
 
 %changelog
+* Tue Apr 28 2026 Remi Collet <remi@remirepo.net> - 5.1.8-1
+- update to 5.1.8
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-253-gd4c66edeef
+%global glibcsrcdir glibc-2.43.9000-269-g40a42fc187
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2402,6 +2402,26 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Apr 28 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-13
+- Auto-sync with upstream branch master,
+  commit 40a42fc187c50312b333b6c36da622169affb71b:
+- advisories: Update GLIBC-SA-2026-0012 metadata (Carlos O'Donell)
+- advisories: Update GLIBC-SA-2026-0012 (Carlos O'Donell)
+- Add advisory text for CVE-2026-5435 (Carlos O'Donell)
+- Remove EXIT_UNSUPPORTED in stdlib/test-bz22786 if path is NULL (Stefan Liebler)
+- Document CVE-2026-6238 (Siddhesh Poyarekar)
+- tests: misc: Use new tunable handling for BTI and GCS tests (Yury Khrustalev)
+- tests: time: Use new tunable handling (Yury Khrustalev)
+- tests: nptl: Remove unused code from makefile (Yury Khrustalev)
+- tests: nptl: Use new tunable handling (Yury Khrustalev)
+- tests: misc: Use new tunable handling (Yury Khrustalev)
+- tests: gmon: Use new tunable handling (Yury Khrustalev)
+- tests: elf: Use new tunable handling (Yury Khrustalev)
+- tests: Allow tests to append tunables (Yury Khrustalev)
+- posix: fix false regex match with backrefs and $ anchor (Collin Funk)
+- riscv: Remove duplicte memcpy redirect (Peter Bergner)
+- riscv: Add RVV memcpy for both multiarch and non-multiarch builds (Yao Zihong)
+
 * Wed Apr 22 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-12
 - Adapted #2457183 patches to new sync.
 - Auto-sync with upstream branch master,

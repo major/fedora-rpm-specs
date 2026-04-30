@@ -213,7 +213,7 @@
 %global bundlelibdrm 0
 %global bundleffmpegfree 0
 %global bundlefreetype 0
-%if 0%{?fedora} > 41
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
 # require libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
 %global bundlelibtiff 0
 %endif
@@ -431,7 +431,7 @@ Patch357: chromium-134-type-mismatch-error.patch
 # set clang_lib path
 Patch358: chromium-144-rust-clanglib.patch
 
-# fix FTBFS with rustc 1.95 on F45
+# fix FTBFS with rustc 1.95
 Patch359: chromium-147-rustc-1.95.patch
 
 # PowerPC64 LE support
@@ -1080,7 +1080,7 @@ Qt6 UI for chromium.
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
-%if 0%{?fedora} > 43
+%if 0%{?fedora} > 43 || 0%{?rhel} > 10
 %patch -P97 -p1 -b .glibc-2.42-SYS_SECCOMP
 %endif
 
@@ -1149,7 +1149,7 @@ Qt6 UI for chromium.
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
-%ifarch aarch64 && 0%{?fedora} > 40
+%ifarch aarch64 && (0%{?fedora} > 40 || 0%{?rhel} > 10)
 %patch -P353 -p1 -b .duplicate-case-value
 %endif
 
@@ -1161,7 +1161,7 @@ Qt6 UI for chromium.
 
 %patch -P358 -p1 -b .rust-clang_lib
 
-%if  0%{?fedora} > 44
+%if  0%{?fedora} > 41 || 0%{?rhel} > 10
 %patch -P359 -p1 -b .ftvfs-with-rustc-1.95
 %endif
 

@@ -1,5 +1,5 @@
 Name:           perl-XML-Parser
-Version:        2.57
+Version:        2.58
 Release:        1%{?dist}
 Summary:        Perl module for parsing XML documents
 
@@ -43,7 +43,6 @@ BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(if)
-BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
@@ -140,6 +139,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.58-1
+- 2.58 bump (rhbz#2461138)
+
 * Fri Apr 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.57-1
 - 2.57 bump (rhbz#2451091)
 

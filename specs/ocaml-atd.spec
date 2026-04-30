@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
-Version:        4.1.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Adaptable Type Definitions for cross-language data types
 
@@ -21,7 +21,7 @@ BuildRequires:  ocaml-easy-format-devel
 BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel >= 1.9.0
 BuildRequires:  ocaml-testo-devel >= 0.3.0
-BuildRequires:  ocaml-yamlx-devel >= 0.1.0
+BuildRequires:  ocaml-yamlx-devel >= 0.2.0
 BuildRequires:  ocaml-yojson-devel >= 3.0.0
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  python3-devel

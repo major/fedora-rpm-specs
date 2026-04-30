@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-langother
 Epoch:          12
-Version:        svn74620
-Release:        3%{?dist}
+Version:        svn78607
+Release:        4%{?dist}
 Summary:        Other languages
 
 License:        LPPL-1.3c
@@ -63,65 +63,65 @@ Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/et
 Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ethiop-t1.doc.tar.xz
 Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fc.tar.xz
 Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fc.doc.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-tlwg.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-tlwg.doc.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hebrew-fonts.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hebrew-fonts.doc.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindawi-latex-template.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindawi-latex-template.doc.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-afrikaans.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-armenian.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-coptic.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-esperanto.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-ethiopic.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-georgian.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-hebrew.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-indic.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-indonesian.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-interlingua.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-sanskrit.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-sanskrit.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-thai.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-turkmen.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-vietnamese.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-mr.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-mr.doc.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latexbangla.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latexbangla.doc.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latino-sine-flexione.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latino-sine-flexione.doc.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-thai.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-thai.doc.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-vietnamese.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-vietnamese.doc.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ntheorem-vn.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ntheorem-vn.doc.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-bn.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-bn.doc.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-id.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-id.doc.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-ur.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-ur.doc.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit.doc.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit-t1.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit-t1.doc.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaienum.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaienum.doc.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaispec.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaispec.doc.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuzuk.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuzuk.doc.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-alphabets.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-alphabets.doc.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vntex.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vntex.doc.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri.doc.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri-latex.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri-latex.doc.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-devanagari.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-devanagari.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-arundina.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-arundina.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-tlwg.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fonts-tlwg.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hebrew-fonts.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hebrew-fonts.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindawi-latex-template.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hindawi-latex-template.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-afrikaans.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-armenian.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-coptic.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-esperanto.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-ethiopic.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-georgian.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-hebrew.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-indic.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-indonesian.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-interlingua.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-sanskrit.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-sanskrit.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-thai.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-turkmen.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-vietnamese.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-mr.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-mr.doc.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latexbangla.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latexbangla.doc.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latino-sine-flexione.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latino-sine-flexione.doc.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-thai.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-thai.doc.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-vietnamese.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-vietnamese.doc.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ntheorem-vn.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ntheorem-vn.doc.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-bn.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-bn.doc.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-id.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-id.doc.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-ur.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quran-ur.doc.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit.doc.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit-t1.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sanskrit-t1.doc.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaienum.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaienum.doc.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaispec.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thaispec.doc.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuzuk.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuzuk.doc.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-alphabets.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-alphabets.doc.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vntex.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vntex.doc.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri.doc.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri-latex.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wnri-latex.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -151,6 +151,7 @@ Requires:       texlive-ebong
 Requires:       texlive-ethiop
 Requires:       texlive-ethiop-t1
 Requires:       texlive-fc
+Requires:       texlive-fonts-arundina
 Requires:       texlive-fonts-tlwg
 Requires:       texlive-hebrew-fonts
 Requires:       texlive-hindawi-latex-template
@@ -187,7 +188,6 @@ Requires:       texlive-velthuis
 Requires:       texlive-vntex
 Requires:       texlive-wnri
 Requires:       texlive-wnri-latex
-Requires:       texlive-xetex-devanagari
 
 %description
 Support for languages not otherwise listed, including Indic, Thai, Vietnamese,
@@ -203,7 +203,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
-Provides:       tex(akshar.sty) = %{tl_version}
 
 %description -n texlive-akshar
 This LaTeX3 package provides macros and interfaces to work with Devanagari
@@ -227,9 +226,8 @@ Version:        svn74548
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(assyr.sty) = %{tl_version}
-Provides:       tex(serto.sty) = %{tl_version}
-Provides:       tex(syriac.sty) = %{tl_version}
+Provides:       texlive-aramaic-serto-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aramaic-serto-doc <= 11:%{version}
 
 %description -n texlive-aramaic-serto
 This package enables (La)TeX users to typeset words or phrases (e-TeX
@@ -245,7 +243,6 @@ Version:        svn44197
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(azerbaijani.ldf) = %{tl_version}
 
 %description -n texlive-babel-azerbaijani
 This is the babel style for Azerbaijani. This language poses special challenges
@@ -256,11 +253,12 @@ way to write Azerbaijani documents.
 
 %package -n texlive-babel-esperanto
 Summary:        Babel support for Esperanto
-Version:        svn75781
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(esperanto.ldf) = %{tl_version}
+Provides:       texlive-babel-esperanto-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-esperanto-doc <= 11:%{version}
 
 %description -n texlive-babel-esperanto
 The package provides the language definition file for support of Esperanto in
@@ -273,9 +271,8 @@ Version:        svn45864
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(georgian.ldf) = %{tl_version}
-Provides:       tex(georgian.sty) = %{tl_version}
-Provides:       tex(georgiancaps.tex) = %{tl_version}
+Provides:       texlive-babel-georgian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-georgian-doc <= 11:%{version}
 
 %description -n texlive-babel-georgian
 The package provides support for use of Babel in documents written in Georgian.
@@ -284,46 +281,48 @@ XeTeX and LuaTeX.
 
 %package -n texlive-babel-hebrew
 Summary:        Babel support for Hebrew
-Version:        svn68016
+Version:        svn77914
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-hebrew-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-hebrew-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(inputenc.sty)
-Provides:       tex(hebcal.sty) = %{tl_version}
-Provides:       tex(hebrew.ldf) = %{tl_version}
-Provides:       tex(hebrew_newcode.sty) = %{tl_version}
-Provides:       tex(hebrew_oldcode.sty) = %{tl_version}
-Provides:       tex(hebrew_p.sty) = %{tl_version}
-Provides:       tex(rlbabel.def) = %{tl_version}
 
 %description -n texlive-babel-hebrew
 The package provides the language definition file for support of Hebrew in
 babel. Macros to control the use of text direction control of TeX--XeT and
 e-TeX are provided (and may be used elsewhere). Some shortcuts are defined, as
-well as translations to Hebrew of standard "LaTeX names".
+well as translations to Hebrew of standard "LaTeX names". For questions, bug
+reports, or support, please open an issue in the repository. Note: the package
+is in maintenance mode. Bugs will be fixed, but no new features will be added.
+The .ldf file is only compatible with pdfLaTeX or LaTeX. Even then, for
+documents containing more than a short text in Hebrew, it is strongly
+recommended to use LuaTeX (with babel's .ini file or polyglossia). For short
+texts with pdfTeX, use the .ini file. Consult the documentation of babel for
+better settings for Hebrew.
 
 %package -n texlive-babel-indonesian
 Summary:        Support for Indonesian within babel
-Version:        svn75372
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bahasa.ldf) = %{tl_version}
-Provides:       tex(bahasai.ldf) = %{tl_version}
-Provides:       tex(indon.ldf) = %{tl_version}
-Provides:       tex(indonesian.ldf) = %{tl_version}
+Provides:       texlive-babel-indonesian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-indonesian-doc <= 11:%{version}
 
 %description -n texlive-babel-indonesian
 This is the babel style for Indonesian.
 
 %package -n texlive-babel-interlingua
 Summary:        Babel support for Interlingua
-Version:        svn30276
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(interlingua.ldf) = %{tl_version}
+Provides:       texlive-babel-interlingua-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-interlingua-doc <= 11:%{version}
 
 %description -n texlive-babel-interlingua
 The package provides the language definition file for support of Interlingua in
@@ -334,26 +333,24 @@ normalisation of spelling.
 
 %package -n texlive-babel-malay
 Summary:        Support for Malay within babel
-Version:        svn43234
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bahasam.ldf) = %{tl_version}
-Provides:       tex(malay.ldf) = %{tl_version}
-Provides:       tex(melayu.ldf) = %{tl_version}
-Provides:       tex(meyalu.ldf) = %{tl_version}
+Provides:       texlive-babel-malay-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-malay-doc <= 11:%{version}
 
 %description -n texlive-babel-malay
 This is the babel style for Malay.
 
 %package -n texlive-babel-sorbian
 Summary:        Babel support for Upper and Lower Sorbian
-Version:        svn60975
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lsorbian.ldf) = %{tl_version}
-Provides:       tex(usorbian.ldf) = %{tl_version}
+Provides:       texlive-babel-sorbian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-sorbian-doc <= 11:%{version}
 
 %description -n texlive-babel-sorbian
 The package provides language definitions file for support of both Upper and
@@ -366,9 +363,8 @@ Version:        svn30564
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lthenc.def) = %{tl_version}
-Provides:       tex(thai.ldf) = %{tl_version}
-Provides:       tex(tis620.def) = %{tl_version}
+Provides:       texlive-babel-thai-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-thai-doc <= 11:%{version}
 
 %description -n texlive-babel-thai
 The package provides support for typesetting Thai text. within the babel
@@ -380,7 +376,8 @@ Version:        svn39246
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(vietnamese.ldf) = %{tl_version}
+Provides:       texlive-babel-vietnamese-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-vietnamese-doc <= 11:%{version}
 
 %description -n texlive-babel-vietnamese
 The package provides the language definition file for support of Vietnamese in
@@ -398,8 +395,6 @@ Requires:       tex(CharisSIL.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(polyglossia.sty)
-Provides:       tex(bangla.sty) = %{tl_version}
-Provides:       tex(banglamap.tex) = %{tl_version}
 
 %description -n texlive-bangla
 This package provides all the necessary LaTeX frontends for the Bangla language
@@ -411,7 +406,8 @@ Version:        svn55475
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bangfont.tex) = %{tl_version}
+Provides:       texlive-bangtex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bangtex-doc <= 11:%{version}
 
 %description -n texlive-bangtex
 The bundle provides class files for writing Bangla and Assamese with LaTeX, and
@@ -423,7 +419,8 @@ Version:        svn55475
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(beng.sty) = %{tl_version}
+Provides:       texlive-bengali-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bengali-doc <= 11:%{version}
 
 %description -n texlive-bengali
 The package is based on Velthuis' transliteration scheme, with extensions to
@@ -436,8 +433,9 @@ Version:        svn25185
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-burmese-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-burmese-doc <= 11:%{version}
 Requires:       tex(relsize.sty)
-Provides:       tex(birm.sty) = %{tl_version}
 
 %description -n texlive-burmese
 This package provides basic support for writing Burmese. The package provides a
@@ -449,9 +447,10 @@ Version:        svn43444
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cjhebrew-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cjhebrew-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luabidi.sty)
-Provides:       tex(cjhebrew.sty) = %{tl_version}
 
 %description -n texlive-cjhebrew
 The cjhebrew package provides Adobe Type 1 fonts for Hebrew, and LaTeX macros
@@ -466,10 +465,9 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ctib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ctib-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
-Provides:       tex(ctib.sty) = %{tl_version}
-Provides:       tex(ctib.tex) = %{tl_version}
-Provides:       tex(lctenc.def) = %{tl_version}
 
 %description -n texlive-ctib
 A package using a modified version of Sirlin's Tibetan font. An advantage of
@@ -482,7 +480,6 @@ Version:        svn76924
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(culmus.sty) = %{tl_version}
 
 %description -n texlive-culmus
 Hebrew fonts from the Culmus Project. Both Type1 and Open/TrueType versions of
@@ -491,13 +488,12 @@ use these fonts with the NHE8 font encoding, from the hebrew-fonts package.
 
 %package -n texlive-ethiop
 Summary:        LaTeX macros and fonts for typesetting Amharic
-Version:        svn15878
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(etharab.sty) = %{tl_version}
-Provides:       tex(ethiop.ldf) = %{tl_version}
-Provides:       tex(ethiop.sty) = %{tl_version}
+Provides:       texlive-ethiop-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ethiop-doc <= 11:%{version}
 
 %description -n texlive-ethiop
 Ethiopian language support for the babel package, including a collection of
@@ -511,6 +507,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ethiop-t1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ethiop-t1-doc <= 11:%{version}
 
 %description -n texlive-ethiop-t1
 These fonts are drop-in Adobe type 1 replacements for the fonts of the ethiop
@@ -522,26 +520,39 @@ Version:        svn32796
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fc-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(newlfont.sty)
-Provides:       tex(fclfont.sty) = %{tl_version}
-Provides:       tex(fcuse.sty) = %{tl_version}
-Provides:       tex(t4enc.def) = %{tl_version}
-Provides:       tex(t4phonet.sty) = %{tl_version}
 
 %description -n texlive-fc
 The fonts are provided as Metafont source, in the familiar arrangement of lots
 of (autogenerated) preamble files and a modest set of glyph specifications. (A
 similar arrangement appears in the ec and lh font bundles.)
 
-%package -n texlive-fonts-tlwg
-Summary:        Thai fonts for LaTeX from TLWG
-Version:        svn60817
-License:        GPL-2.0-or-later AND LPPL-1.3c AND Bitstream-Vera
+%package -n texlive-fonts-arundina
+Summary:        DejaVu-compatible Thai fonts
+Version:        svn78421
+License:        Bitstream-Vera AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(fonts-tlwg.sty) = %{tl_version}
+
+%description -n texlive-fonts-arundina
+Arundina is a set of DejaVu-compatible Thai fonts from the Software Industry
+Promotion Agency (Public Organization) of Thailand (otherwise known as SIPA).
+Serif, sans-serif and monospace type faces are included, with LaTeX support
+files.
+
+%package -n texlive-fonts-tlwg
+Summary:        Thai fonts for LaTeX from TLWG
+Version:        svn78431
+License:        GPL-2.0-or-later AND LPPL-1.3c AND Bitstream-Vera
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-fonts-tlwg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fonts-tlwg-doc <= 11:%{version}
+Requires:       tex(xkeyval.sty)
 
 %description -n texlive-fonts-tlwg
 A collection of free Thai fonts, supplied as FontForge sources, and with LaTeX
@@ -553,14 +564,6 @@ Version:        svn68038
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(8859-8.def) = %{tl_version}
-Provides:       tex(cp1255.def) = %{tl_version}
-Provides:       tex(cp862.def) = %{tl_version}
-Provides:       tex(he8enc.def) = %{tl_version}
-Provides:       tex(hebfont.sty) = %{tl_version}
-Provides:       tex(lheenc.def) = %{tl_version}
-Provides:       tex(nhe8enc.def) = %{tl_version}
-Provides:       tex(si960.def) = %{tl_version}
 
 %description -n texlive-hebrew-fonts
 A collection of input encodings, font encodings and font definition files for
@@ -583,16 +586,12 @@ team.
 
 %package -n texlive-hyphen-afrikaans
 Summary:        Afrikaans hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-af.ec.tex) = %{tl_version}
-Provides:       tex(hyph-af.tex) = %{tl_version}
-Provides:       tex(hyph-quote-af.tex) = %{tl_version}
-Provides:       tex(loadhyph-af.tex) = %{tl_version}
 
 %description -n texlive-hyphen-afrikaans
 Hyphenation patterns for Afrikaans in T1/EC and UTF-8 encodings. OpenOffice
@@ -601,14 +600,12 @@ packaged with TeX are considered superior in quality.
 
 %package -n texlive-hyphen-armenian
 Summary:        Armenian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-hy.tex) = %{tl_version}
-Provides:       tex(loadhyph-hy.tex) = %{tl_version}
 
 %description -n texlive-hyphen-armenian
 Hyphenation patterns for Armenian for Unicode engines. Auto-generated from a
@@ -616,15 +613,12 @@ script included in hyph-utf8.
 
 %package -n texlive-hyphen-coptic
 Summary:        Coptic hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(copthyph.tex) = %{tl_version}
-Provides:       tex(hyph-cop.tex) = %{tl_version}
-Provides:       tex(loadhyph-cop.tex) = %{tl_version}
 
 %description -n texlive-hyphen-coptic
 Hyphenation patterns for Coptic in UTF-8 encoding as well as in ASCII-based
@@ -633,15 +627,12 @@ fonts (like CBcoptic). The patterns are considered experimental.
 
 %package -n texlive-hyphen-esperanto
 Summary:        Esperanto hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-eo.il3.tex) = %{tl_version}
-Provides:       tex(hyph-eo.tex) = %{tl_version}
-Provides:       tex(loadhyph-eo.tex) = %{tl_version}
 
 %description -n texlive-hyphen-esperanto
 Hyphenation patterns for Esperanto ISO Latin 3 and UTF-8 encodings. Note that
@@ -651,14 +642,12 @@ engines is highly recommended.
 
 %package -n texlive-hyphen-ethiopic
 Summary:        Hyphenation patterns for Ethiopic scripts.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-mul-ethi.tex) = %{tl_version}
-Provides:       tex(loadhyph-mul-ethi.tex) = %{tl_version}
 
 %description -n texlive-hyphen-ethiopic
 Hyphenation patterns for languages written using the Ethiopic script for
@@ -668,15 +657,12 @@ individual languages.
 
 %package -n texlive-hyphen-georgian
 Summary:        Georgian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ka.t8m.tex) = %{tl_version}
-Provides:       tex(hyph-ka.tex) = %{tl_version}
-Provides:       tex(loadhyph-ka.tex) = %{tl_version}
 
 %description -n texlive-hyphen-georgian
 Hyphenation patterns for Georgian in T8M, T8K and UTF-8 encodings.
@@ -689,43 +675,18 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-he.tex) = %{tl_version}
 
 %description -n texlive-hyphen-hebrew
 Prevents hyphenation in Arabic.
 
 %package -n texlive-hyphen-indic
 Summary:        Indic hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT OR LGPL-3.0-or-later OR GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-as.tex) = %{tl_version}
-Provides:       tex(hyph-bn.tex) = %{tl_version}
-Provides:       tex(hyph-gu.tex) = %{tl_version}
-Provides:       tex(hyph-hi.tex) = %{tl_version}
-Provides:       tex(hyph-kn.tex) = %{tl_version}
-Provides:       tex(hyph-ml.tex) = %{tl_version}
-Provides:       tex(hyph-mr.tex) = %{tl_version}
-Provides:       tex(hyph-or.tex) = %{tl_version}
-Provides:       tex(hyph-pa.tex) = %{tl_version}
-Provides:       tex(hyph-pi.tex) = %{tl_version}
-Provides:       tex(hyph-ta.tex) = %{tl_version}
-Provides:       tex(hyph-te.tex) = %{tl_version}
-Provides:       tex(loadhyph-as.tex) = %{tl_version}
-Provides:       tex(loadhyph-bn.tex) = %{tl_version}
-Provides:       tex(loadhyph-gu.tex) = %{tl_version}
-Provides:       tex(loadhyph-hi.tex) = %{tl_version}
-Provides:       tex(loadhyph-kn.tex) = %{tl_version}
-Provides:       tex(loadhyph-ml.tex) = %{tl_version}
-Provides:       tex(loadhyph-mr.tex) = %{tl_version}
-Provides:       tex(loadhyph-or.tex) = %{tl_version}
-Provides:       tex(loadhyph-pa.tex) = %{tl_version}
-Provides:       tex(loadhyph-pi.tex) = %{tl_version}
-Provides:       tex(loadhyph-ta.tex) = %{tl_version}
-Provides:       tex(loadhyph-te.tex) = %{tl_version}
 
 %description -n texlive-hyphen-indic
 Hyphenation patterns for Assamese, Bengali, Gujarati, Hindi, Kannada,
@@ -733,14 +694,12 @@ Malayalam, Marathi, Oriya, Panjabi, Tamil and Telugu for Unicode engines.
 
 %package -n texlive-hyphen-indonesian
 Summary:        Indonesian hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-id.tex) = %{tl_version}
-Provides:       tex(loadhyph-id.tex) = %{tl_version}
 
 %description -n texlive-hyphen-indonesian
 Hyphenation patterns for Indonesian (Bahasa Indonesia) in ASCII encoding. They
@@ -748,28 +707,26 @@ are probably also usable for Malay (Bahasa Melayu).
 
 %package -n texlive-hyphen-interlingua
 Summary:        Interlingua hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ia.tex) = %{tl_version}
-Provides:       tex(loadhyph-ia.tex) = %{tl_version}
 
 %description -n texlive-hyphen-interlingua
 Hyphenation patterns for Interlingua in ASCII encoding.
 
 %package -n texlive-hyphen-sanskrit
 Summary:        Sanskrit hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LicenseRef-Fedora-UltraPermissive
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hyphen-sanskrit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyphen-sanskrit-doc <= 11:%{version}
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-sa.tex) = %{tl_version}
-Provides:       tex(loadhyph-sa.tex) = %{tl_version}
 
 %description -n texlive-hyphen-sanskrit
 Hyphenation patterns for Sanskrit and Prakrit in transliteration, and in
@@ -777,30 +734,24 @@ Devanagari, Bengali, Kannada, Malayalam and Telugu scripts for Unicode engines.
 
 %package -n texlive-hyphen-thai
 Summary:        Thai hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-th.lth.tex) = %{tl_version}
-Provides:       tex(hyph-th.tex) = %{tl_version}
-Provides:       tex(loadhyph-th.tex) = %{tl_version}
 
 %description -n texlive-hyphen-thai
 Hyphenation patterns for Thai in LTH and UTF-8 encodings.
 
 %package -n texlive-hyphen-turkmen
 Summary:        Turkmen hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-tk.ec.tex) = %{tl_version}
-Provides:       tex(hyph-tk.tex) = %{tl_version}
-Provides:       tex(loadhyph-tk.tex) = %{tl_version}
 
 %description -n texlive-hyphen-turkmen
 Hyphenation patterns for Turkmen in T1/EC and UTF-8 encodings.
@@ -813,7 +764,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-vi.tex) = %{tl_version}
 
 %description -n texlive-hyphen-vietnamese
 Prevents hyphenation in Vietnamese.
@@ -856,7 +806,6 @@ Requires:       tex(titlesec.sty)
 Requires:       tex(ucharclasses.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(latexbangla.sty) = %{tl_version}
 
 %description -n texlive-latexbangla
 This package simplifies the process of writing Bangla in LaTeX and addresses
@@ -875,7 +824,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(datetime.sty)
 Requires:       tex(fontenc.sty)
-Provides:       tex(latino-sine-flexione.sty) = %{tl_version}
 
 %description -n texlive-latino-sine-flexione
 Latino sine Flexione (or Interlingua) is a language constructed by Giuseppe
@@ -935,9 +883,6 @@ Requires:       tex(biditools.sty)
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-bn.sty) = %{tl_version}
-Provides:       tex(qurantext-bni.translation.def) = %{tl_version}
-Provides:       tex(qurantext-bnii.translation.def) = %{tl_version}
 
 %description -n texlive-quran-bn
 The package is prepared for typesetting some Bengali translations of the Holy
@@ -952,9 +897,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-id.sty) = %{tl_version}
-Provides:       tex(qurantext-idi.translation.def) = %{tl_version}
-Provides:       tex(qurantext-idii.translation.def) = %{tl_version}
 
 %description -n texlive-quran-id
 The package is prepared for typesetting some Indonesian translations of the
@@ -970,15 +912,6 @@ Requires:       tex(biditools.sty)
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-ur.sty) = %{tl_version}
-Provides:       tex(qurantext-uri.translation.def) = %{tl_version}
-Provides:       tex(qurantext-urii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-uriii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-uriv.translation.def) = %{tl_version}
-Provides:       tex(qurantext-urv.translation.def) = %{tl_version}
-Provides:       tex(qurantext-urvi.translation.def) = %{tl_version}
-Provides:       tex(qurantext-urvii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-urviii.translation.def) = %{tl_version}
 
 %description -n texlive-quran-ur
 The package is prepared for typesetting some Urdu translations of the Holy
@@ -990,9 +923,10 @@ Version:        svn76869
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sanskrit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sanskrit-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
-Provides:       tex(skt.sty) = %{tl_version}
 
 %description -n texlive-sanskrit
 A font and pre-processor suitable for the production of documents written in
@@ -1004,6 +938,8 @@ Version:        svn55475
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sanskrit-t1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sanskrit-t1-doc <= 11:%{version}
 
 %description -n texlive-sanskrit-t1
 The sanskrit-t1 font package provides Type 1 version of Charles Wikner's skt
@@ -1016,7 +952,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(enumitem.sty)
-Provides:       tex(thaienum.sty) = %{tl_version}
 
 %description -n texlive-thaienum
 This LaTeX package provides a command to use Thai numerals or characters as
@@ -1027,7 +962,7 @@ documentation.
 
 %package -n texlive-thaispec
 Summary:        Thai Language Typesetting in XeLaTeX
-Version:        svn58019
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1042,7 +977,6 @@ Requires:       tex(setspace.sty)
 Requires:       tex(ucharclasses.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(thaispec.sty) = %{tl_version}
 
 %description -n texlive-thaispec
 This package allows you to input Thai characters directly to LaTeX documents
@@ -1085,7 +1019,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(stringstrings.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(unicode-alphabets.sty) = %{tl_version}
 
 %description -n texlive-unicode-alphabets
 While Unicode supports the vast majority of use cases, there are certain
@@ -1102,27 +1035,14 @@ Version:        svn62837
 License:        GPL-1.0-or-later AND LGPL-2.1-or-later AND LPPL-1.3c AND LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-vntex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-vntex-doc <= 11:%{version}
 Requires:       tex(cmap.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(inputenc.sty)
 Requires:       tex(ucs.sty)
-Provides:       tex(dblaccnt.sty) = %{tl_version}
-Provides:       tex(dblaccnt.tex) = %{tl_version}
-Provides:       tex(mcviscii.def) = %{tl_version}
-Provides:       tex(pd1supp.def) = %{tl_version}
-Provides:       tex(swpvntex.sty) = %{tl_version}
-Provides:       tex(t5code.tex) = %{tl_version}
-Provides:       tex(t5enc.def) = %{tl_version}
-Provides:       tex(tcvn.def) = %{tl_version}
-Provides:       tex(varioref-vi.sty) = %{tl_version}
-Provides:       tex(vietnam.sty) = %{tl_version}
-Provides:       tex(viscii.def) = %{tl_version}
-Provides:       tex(vncaps.tex) = %{tl_version}
-Provides:       tex(vntex.sty) = %{tl_version}
-Provides:       tex(vntexinfo.tex) = %{tl_version}
-Provides:       tex(vps.def) = %{tl_version}
 
 %description -n texlive-vntex
 The vntex bundle provides fonts, Plain TeX, texinfo and LaTeX macros for
@@ -1136,6 +1056,8 @@ Version:        svn22459
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wnri-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wnri-doc <= 11:%{version}
 
 %description -n texlive-wnri
 Fonts (as Metafont source) for Old English, Indic languages in Roman
@@ -1148,23 +1070,11 @@ Version:        svn22338
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(wnri.def) = %{tl_version}
-Provides:       tex(wnri.sty) = %{tl_version}
+Provides:       texlive-wnri-latex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wnri-latex-doc <= 11:%{version}
 
 %description -n texlive-wnri-latex
 LaTeX support for the wnri fonts.
-
-%package -n texlive-xetex-devanagari
-Summary:        XeTeX input map for Unicode Devanagari
-Version:        svn34296
-License:        LPPL-1.3c
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-
-%description -n texlive-xetex-devanagari
-The package provides a map for use with Jonathan Kew's TECkit, to translate
-Devanagari (encoded according to the Harvard/Kyoto convention) to Unicode
-(range 0900-097F).
 
 %post -n texlive-hyphen-afrikaans
 if [ $1 -gt 0 ]; then
@@ -1749,6 +1659,17 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/fc/
 %doc %{_texmf_main}/doc/fonts/fc/
 
+%files -n texlive-fonts-arundina
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/afm/public/fonts-arundina/
+%{_texmf_main}/fonts/enc/dvips/fonts-arundina/
+%{_texmf_main}/fonts/map/dvips/fonts-arundina/
+%{_texmf_main}/fonts/tfm/public/fonts-arundina/
+%{_texmf_main}/fonts/type1/public/fonts-arundina/
+%{_texmf_main}/fonts/vf/public/fonts-arundina/
+%{_texmf_main}/tex/latex/fonts-arundina/
+%doc %{_texmf_main}/doc/fonts/fonts-arundina/
+
 %files -n texlive-fonts-tlwg
 %license gpl2.txt
 %license lppl1.3c.txt
@@ -1773,61 +1694,128 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-afrikaans
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-af.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-af.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/quote/hyph-quote-af.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-af.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-af.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-af.pat.txt
 
 %files -n texlive-hyphen-armenian
 %license lgpl.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-hy.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-hy.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hy.pat.txt
 
 %files -n texlive-hyphen-coptic
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-cop.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex-8bit/copthyph.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-cop.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-cop.pat.txt
 
 %files -n texlive-hyphen-esperanto
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-eo.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-eo.il3.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-eo.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-eo.pat.txt
 
 %files -n texlive-hyphen-ethiopic
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-mul-ethi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-mul-ethi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-mul-ethi.pat.txt
 
 %files -n texlive-hyphen-georgian
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ka.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-ka.t8m.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ka.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ka.pat.txt
 
 %files -n texlive-hyphen-hebrew
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-he.tex
 
 %files -n texlive-hyphen-indic
 %license mit.txt
 %license lgpl.txt
 %license gpl3.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-as.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-bn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-gu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-hi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-kn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ml.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-mr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-or.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-pa.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-pi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ta.tex
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-te.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-as.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-bn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-gu.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-hi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-kn.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ml.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-mr.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-or.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-pa.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-pi.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ta.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-te.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-as.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-bn.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-gu.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-hi.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-kn.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ml.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-mr.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-or.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pa.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pi.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ta.pat.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-te.pat.txt
 
 %files -n texlive-hyphen-indonesian
 %license gpl2.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-id.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-id.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-id.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-id.pat.txt
 
 %files -n texlive-hyphen-interlingua
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ia.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ia.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ia.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ia.pat.txt
 
 %files -n texlive-hyphen-sanskrit
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-sa.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-sa.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-sa.pat.txt
 %doc %{_texmf_main}/doc/generic/hyph-utf8/
 
 %files -n texlive-hyphen-thai
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-th.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-th.lth.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-th.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-th.pat.txt
 
 %files -n texlive-hyphen-turkmen
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-tk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-tk.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-tk.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-tk.pat.txt
 
 %files -n texlive-hyphen-vietnamese
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-vi.tex
 
 %files -n texlive-latex-mr
 %license lppl1.3c.txt
@@ -1951,12 +1939,12 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/wnri-latex/
 %doc %{_texmf_main}/doc/latex/wnri-latex/
 
-%files -n texlive-xetex-devanagari
-%license lppl1.3c.txt
-%{_texmf_main}/fonts/misc/xetex/fontmapping/
-%doc %{_texmf_main}/doc/xetex/xetex-devanagari/
-
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78607-4
+- Update collection from svn74620 to svn78607
+- Add fonts-arundina
+- Update 21 components
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74620-3
 - fix licensing, descriptions, update components
 

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langspanish
 Epoch:          12
 Version:        svn72203
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Spanish
 
 License:        LPPL-1.3c
@@ -87,7 +87,8 @@ Version:        svn30259
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(catalan.ldf) = %{tl_version}
+Provides:       texlive-babel-catalan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-catalan-doc <= 11:%{version}
 
 %description -n texlive-babel-catalan
 The package establishes Catalan conventions in a document (or a subset of the
@@ -99,7 +100,8 @@ Version:        svn30270
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(galician.ldf) = %{tl_version}
+Provides:       texlive-babel-galician-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-galician-doc <= 11:%{version}
 
 %description -n texlive-babel-galician
 The package provides a language description file that enables support of
@@ -107,12 +109,12 @@ Galician either with babel or with polyglossia.
 
 %package -n texlive-babel-spanish
 Summary:        Babel support for Spanish
-Version:        svn59367
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(romanidx.sty) = %{tl_version}
-Provides:       tex(spanish.ldf) = %{tl_version}
+Provides:       texlive-babel-spanish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-spanish-doc <= 11:%{version}
 
 %description -n texlive-babel-spanish
 This bundle provides the means to typeset Spanish text, with the support
@@ -134,45 +136,38 @@ Spanish TeX users group.
 
 %package -n texlive-hyphen-catalan
 Summary:        Catalan hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-ca.ec.tex) = %{tl_version}
-Provides:       tex(hyph-ca.tex) = %{tl_version}
-Provides:       tex(loadhyph-ca.tex) = %{tl_version}
 
 %description -n texlive-hyphen-catalan
 Hyphenation patterns for Catalan in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-galician
 Summary:        Galician hyphenation patterns.
-Version:        svn73410
+Version:        svn78069
 License:        Unlicense
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-gl.ec.tex) = %{tl_version}
-Provides:       tex(hyph-gl.tex) = %{tl_version}
-Provides:       tex(loadhyph-gl.tex) = %{tl_version}
 
 %description -n texlive-hyphen-galician
 Hyphenation patterns for Galician in T1/EC and UTF-8 encodings.
 
 %package -n texlive-hyphen-spanish
 Summary:        Spanish hyphenation patterns.
-Version:        svn75447
+Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hyphen-spanish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyphen-spanish-doc <= 11:%{version}
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-es.ec.tex) = %{tl_version}
-Provides:       tex(hyph-es.tex) = %{tl_version}
-Provides:       tex(loadhyph-es.tex) = %{tl_version}
 
 %description -n texlive-hyphen-spanish
 Hyphenation patterns for Spanish in T1/EC and UTF-8 encodings.
@@ -243,10 +238,6 @@ Requires:       tex(biditools.sty)
 Requires:       tex(quran.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(quran-es.sty) = %{tl_version}
-Provides:       tex(qurantext-esi.translation.def) = %{tl_version}
-Provides:       tex(qurantext-esii.translation.def) = %{tl_version}
-Provides:       tex(qurantext-esiii.translation.def) = %{tl_version}
 
 %description -n texlive-quran-es
 The package is designed for typesetting several Spanish translations of the
@@ -255,7 +246,7 @@ translations.
 
 %package -n texlive-texlive-es
 Summary:        TeX Live manual (Spanish)
-Version:        svn74997
+Version:        svn78678
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -387,14 +378,24 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-catalan
 %license lppl1.3c.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-ca.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-ca.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-ca.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ca.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-ca.pat.txt
 
 %files -n texlive-hyphen-galician
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-gl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-gl.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-gl.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-gl.pat.txt
 
 %files -n texlive-hyphen-spanish
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-es.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-es.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-es.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-es.pat.txt
 %doc %{_texmf_main}/doc/generic/hyph-utf8/
 
 %files -n texlive-l2tabu-spanish
@@ -424,6 +425,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-es/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72203-4
+- Update babel-spanish, hyphen-catalan, hyphen-galician, hyphen-spanish, texlive-es
+- Fix missing -doc provides/obsoletes
+- use auto file provides
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72203-3
 - fix licensing, descriptions, update components
 

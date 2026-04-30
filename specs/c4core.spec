@@ -38,9 +38,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-# Minimum version with fix to ensure ${upper_prefix}_VERSION is set, eg
-# RYML_VERSION or C4CORE_VERSION.
-BuildRequires:  c4project >= 0^20260326.1e65b7b-1
+# Minimum version with proper multilib (GNUInstallDirs) support
+BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
@@ -159,22 +158,6 @@ EOF
 
 %install
 %cmake_install
-# Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place. The installation path is
-# determined by the scripts in https://github.com/biojppm/cmake, packaged as
-# c4project.
-#
-# Installation directory on Linux 64bit OS
-# https://github.com/biojppm/rapidyaml/issues/256
-if [ '%{_libdir}' != '%{_prefix}/lib' ]
-then
-  mkdir -p '%{buildroot}%{_libdir}'
-  mv -v %{buildroot}%{_prefix}/lib/libc4core.so* '%{buildroot}%{_libdir}/'
-  mkdir -p '%{buildroot}%{_libdir}/cmake'
-  mv -v %{buildroot}%{_prefix}/lib/cmake/c4core '%{buildroot}%{_libdir}/cmake/'
-  find %{buildroot}%{_libdir}/cmake/c4core -type f -name '*.cmake' -print0 |
-    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
-fi
 
 # Some unbundled header-only libraries that appear in the API may have had
 # their symlinks dereferenced during installation. Make sure they aren’t

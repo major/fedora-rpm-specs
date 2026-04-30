@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-langchinese
 Epoch:          12
-Version:        svn77432
-Release:        7%{?dist}
+Version:        svn78607
+Release:        8%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -29,70 +29,66 @@ Source10:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/as
 Source11:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/asymptote-manual-zh-cn.doc.tar.xz
 Source12:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cns.tar.xz
 Source13:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cns.doc.tar.xz
-Source14:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex.tar.xz
-Source15:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex.doc.tar.xz
-Source16:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex-faq.tar.xz
-Source17:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex-faq.doc.tar.xz
-Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/exam-zh.tar.xz
-Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/exam-zh.doc.tar.xz
-Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fandol.tar.xz
-Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fandol.doc.tar.xz
-Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fduthesis.tar.xz
-Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fduthesis.doc.tar.xz
-Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanzibox.tar.xz
-Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanzibox.doc.tar.xz
-Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-chinese.tar.xz
-Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/impatient-cn.tar.xz
-Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/impatient-cn.doc.tar.xz
-Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/install-latex-guide-zh-cn.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/install-latex-guide-zh-cn.doc.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-notes-zh-cn.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-notes-zh-cn.doc.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-chinese.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-chinese.doc.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-cn.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-cn.doc.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxgw-fonts.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxgw-fonts.doc.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nanicolle.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nanicolle.doc.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njurepo.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njurepo.doc.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament-han.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament-han.doc.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qyxf-book.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qyxf-book.doc.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sjtutex.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sjtutex.doc.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suanpan-l3.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suanpan-l3.doc.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-zh-cn.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-zh-cn.doc.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texproposal.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texproposal.doc.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlmgr-intro-zh-cn.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlmgr-intro-zh-cn.doc.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upzhkinsoku.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upzhkinsoku.doc.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpinyin.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpinyin.doc.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xtuthesis.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xtuthesis.doc.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlineskip.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlineskip.doc.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlipsum.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlipsum.doc.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics.doc.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics-uptex.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics-uptex.doc.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhnumber.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhnumber.doc.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhspacing.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhspacing.doc.tar.xz
+Source14:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/exam-zh.tar.xz
+Source15:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/exam-zh.doc.tar.xz
+Source16:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fandol.tar.xz
+Source17:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fandol.doc.tar.xz
+Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fduthesis.tar.xz
+Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fduthesis.doc.tar.xz
+Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanzibox.tar.xz
+Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hanzibox.doc.tar.xz
+Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyphen-chinese.tar.xz
+Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/impatient-cn.tar.xz
+Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/impatient-cn.doc.tar.xz
+Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/install-latex-guide-zh-cn.tar.xz
+Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/install-latex-guide-zh-cn.doc.tar.xz
+Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-notes-zh-cn.tar.xz
+Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-notes-zh-cn.doc.tar.xz
+Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-chinese.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lshort-chinese.doc.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-cn.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-cn.doc.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxgw-fonts.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lxgw-fonts.doc.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nanicolle.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nanicolle.doc.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njurepo.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njurepo.doc.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament-han.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament-han.doc.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qyxf-book.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qyxf-book.doc.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sjtutex.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sjtutex.doc.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suanpan-l3.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suanpan-l3.doc.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-zh-cn.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-zh-cn.doc.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texproposal.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texproposal.doc.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlmgr-intro-zh-cn.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlmgr-intro-zh-cn.doc.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upzhkinsoku.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upzhkinsoku.doc.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpinyin.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpinyin.doc.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xtuthesis.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xtuthesis.doc.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlineskip.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlineskip.doc.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlipsum.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhlipsum.doc.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics.doc.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics-uptex.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhmetrics-uptex.doc.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhnumber.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhnumber.doc.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhspacing.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zhspacing.doc.tar.xz
 
 # AppStream metadata for font components
-Source75:        fandol.metainfo.xml
+Source71:        fandol.metainfo.xml
 
 # Patches
 Patch0:         texlive-xtuthesis-use-diagbox.patch
@@ -108,8 +104,6 @@ Requires:       texlive-asymptote-faq-zh-cn
 Requires:       texlive-asymptote-manual-zh-cn
 Requires:       texlive-cns
 Requires:       texlive-collection-langcjk
-Requires:       texlive-ctex
-Requires:       texlive-ctex-faq
 Requires:       texlive-exam-zh
 Requires:       texlive-fandol
 Requires:       texlive-fduthesis
@@ -150,6 +144,8 @@ Version:        svn15878
 License:        Arphic-1999
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arphic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arphic-doc <= 11:%{version}
 
 %description -n texlive-arphic
 These are font bundles for the Chinese Arphic fonts which work with the CJK
@@ -213,70 +209,12 @@ Version:        svn45677
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cns-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cns-doc <= 11:%{version}
 
 %description -n texlive-cns
 Fonts to go with the cjk macro package for Chinese, Japanese and Korean with
 LaTeX2e. The package aims to supersede HLaTeX fonts bundle.
-
-%package -n texlive-ctex
-Summary:        LaTeX classes and packages for Chinese typesetting
-Version:        svn77682
-License:        LPPL-1.3c
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Requires:       texlive-adobemapping
-Requires:       texlive-atbegshi
-Requires:       texlive-beamer
-Requires:       texlive-cjk
-Requires:       texlive-cjkpunct
-Requires:       texlive-ec
-Requires:       texlive-epstopdf-pkg
-Requires:       texlive-etoolbox
-Requires:       texlive-everyhook
-Requires:       texlive-fandol
-Requires:       texlive-fontspec
-Requires:       texlive-iftex
-Requires:       texlive-infwarerr
-Requires:       texlive-kvoptions
-Requires:       texlive-kvsetkeys
-Requires:       texlive-latex-bin
-Requires:       texlive-ltxcmds
-Requires:       texlive-luatexja
-Requires:       texlive-mptopdf
-Requires:       texlive-pdftexcmds
-Requires:       texlive-platex-tools
-Requires:       texlive-svn-prov
-Requires:       texlive-tipa
-Requires:       texlive-tools
-Requires:       texlive-ttfutils
-Requires:       texlive-ulem
-Requires:       texlive-uplatex
-Requires:       texlive-xcjk2uni
-Requires:       texlive-xecjk
-Requires:       texlive-xetex
-Requires:       texlive-xkeyval
-Requires:       texlive-xpinyin
-Requires:       texlive-xunicode
-Requires:       texlive-zhmetrics
-Requires:       texlive-zhmetrics-uptex
-Requires:       texlive-zhnumber
-
-%description -n texlive-ctex
-ctex is a collection of macro packages and document classes for LaTeX Chinese
-typesetting.
-
-%package -n texlive-ctex-faq
-Summary:        LaTeX FAQ by the Chinese TeX Society (ctex.org)
-Version:        svn15878
-License:        GFDL-1.3-or-later
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Provides:       texlive-ctex-faq-doc = %{epoch}:%{version}-%{release}
-Obsoletes:      texlive-ctex-faq-doc <= 11:%{version}
-
-%description -n texlive-ctex-faq
-Most questions were collected on the bbs.ctex.org forum, and were answered in
-detail by the author.
 
 %package -n texlive-exam-zh
 Summary:        LaTeX template for Chinese exams
@@ -304,6 +242,8 @@ Version:        svn37889
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fandol-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fandol-doc <= 11:%{version}
 
 %description -n texlive-fandol
 Fandol fonts designed for Chinese typesetting. The current version contains
@@ -620,6 +560,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xpinyin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xpinyin-doc <= 11:%{version}
 
 %description -n texlive-xpinyin
 The package is written to simplify the input of Hanyu Pinyin. Macros are
@@ -687,6 +629,8 @@ Version:        svn22207
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zhmetrics-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zhmetrics-doc <= 11:%{version}
 
 %description -n texlive-zhmetrics
 These are metrics to use existing Chinese TrueType fonts in workflows that use
@@ -700,6 +644,8 @@ Version:        svn40728
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zhmetrics-uptex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zhmetrics-uptex-doc <= 11:%{version}
 
 %description -n texlive-zhmetrics-uptex
 The package contains some Chinese font metrics (JFM, VF, etc) for upTeX engine,
@@ -711,6 +657,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zhnumber-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zhnumber-doc <= 11:%{version}
 
 %description -n texlive-zhnumber
 The package provides commands to typeset Chinese representations of numbers.
@@ -723,6 +671,8 @@ Version:        svn41145
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zhspacing-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zhspacing-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(ulem.sty)
 
@@ -830,13 +780,9 @@ tar -xf %{SOURCE67} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE68} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE69} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE70} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE71} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE72} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE73} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE74} -C %{buildroot}%{_texmf_main}
 
 # Install AppStream metadata for font components
-cp %{SOURCE75} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE71} %{buildroot}%{_datadir}/appdata/
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -914,17 +860,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/fonts/tfm/cns/c7so12/
 %doc %{_texmf_main}/doc/fonts/cns/
 
-%files -n texlive-ctex
-%license lppl1.3c.txt
-%{_texmf_main}/tex/generic/ctex/
-%{_texmf_main}/tex/latex/ctex/
-%{_texmf_main}/tex/luatex/ctex/
-%doc %{_texmf_main}/doc/latex/ctex/
-
-%files -n texlive-ctex-faq
-%license fdl.txt
-%doc %{_texmf_main}/doc/latex/ctex-faq/
-
 %files -n texlive-exam-zh
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/exam-zh/
@@ -949,7 +884,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-hyphen-chinese
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-zh-latn-pinyin.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex-8bit/hyph-zh-latn-pinyin.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-zh-latn-pinyin.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-zh-latn-pinyin.pat.txt
 
 %files -n texlive-impatient-cn
 %license fdl.txt
@@ -1085,6 +1023,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78607-8
+- Update collection from svn77432 to svn78607
+- fix -doc provides/obsoletes
+
 * Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-7
 - Fix incorrect Requires in luatex-cn
 

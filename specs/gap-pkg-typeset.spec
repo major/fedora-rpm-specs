@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/typeset
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.2.3
+Version:        1.2.4
 Release:        %autorelease
 Summary:        Automatic typesetting framework for common GAP objects
 

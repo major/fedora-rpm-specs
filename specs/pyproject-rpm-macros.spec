@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.20.0
+Version:        1.20.1
 Release:        1%{?dist}
 
 # Macro files
@@ -75,7 +75,7 @@ BuildRequires:  python3-rpm-macros
 Requires:       python-rpm-macros
 Requires:       python-srpm-macros
 Requires:       python3-rpm-macros
-Requires:       (pyproject-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release} if pyproject-srpm-macros)
+Requires:       pyproject-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # We use the following tools outside of coreutils
 Requires:       /usr/bin/find
@@ -174,6 +174,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Tue Apr 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.20.1-1
+- Move %%pyproject_patch_dependency implementation to pyproject-srpm-macros
+- Make pyproject-rpm-macros depend on pyproject-srpm-macros
+- Resolves: rhbz#2463187
+
 * Fri Apr 24 2026 Charalampos Stratakis <cstratak@redhat.com> - 1.20.0-1
 - Add %%pyproject_patch_dependency macro for overriding dependency constraints
 - Overrides apply to both BuildRequires and runtime Requires (via METADATA patching)

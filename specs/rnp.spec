@@ -19,7 +19,7 @@
 %bcond_with         openssl
 %endif
 
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 10
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 # New in F44 / EPEL-10.2
 %bcond_without      botan3
 %else

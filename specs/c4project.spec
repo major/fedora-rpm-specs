@@ -1,5 +1,5 @@
-%global commit 1e65b7b29e872ccc1df7ea3cb8091bfb56b24147
-%global snapdate 20260326
+%global commit fa85cab24adf6f7a6182258f7bb0fa1284350102
+%global snapdate 20260428
 
 Name:           c4project
 Summary:        Useful CMake scripts
@@ -32,7 +32,7 @@ Requires:       git-core
 # tool. It would be inconvenient to package this in a way that was useful in
 # practice, and it’s not required by any of the CMake macros that are the real
 # point of packaging this.
-rm -rvf 'bm-xp'
+rm -rv 'bm-xp'
 
 
 %build
@@ -56,7 +56,7 @@ find . -mindepth 1 -maxdepth 1 ! -name '.*' \( -type d -o \
 %license LICENSE.txt
 %doc README.md
 
-%{_datadir}/cmake/c4project
+%{_datadir}/cmake/c4project/
 
 
 %changelog

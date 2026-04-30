@@ -9,7 +9,7 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.13.0
+Version:        6.13.1
 Release:        %autorelease
 Summary:        A bridge from Glyphs source files to UFOs
 
@@ -28,10 +28,6 @@ Source:         %{pypi_source glyphslib}
 # Add additional license text for GlyphData
 # https://github.com/googlefonts/glyphsLib/pull/1073
 Patch:          %{url}/pull/1073.patch
-
-# Adapt tests for markClassPrefix change in ufo2ft 3.7.1
-# https://github.com/googlefonts/glyphsLib/pull/1148
-Patch:          %{url}/pull/1148.patch
 
 BuildArch:      noarch
 

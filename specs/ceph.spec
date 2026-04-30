@@ -149,7 +149,7 @@
 %{!?python3_pkgversion: %global python3_pkgversion 3}
 %{!?python3_version_nodots: %global python3_version_nodots 3}
 %{!?python3_version: %global python3_version 3}
-%define _lto_cflags %{nil}
+### %define _lto_cflags %{nil}
 
 %if ! 0%{?suse_version}
 # use multi-threaded xz compression: xz level 7 using ncpus threads
@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Apr 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-2
+- Ceph 20.2.1, enable LTO
+ 
 * Mon Apr 6 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-1
 - Ceph 20.2.1 GA
  

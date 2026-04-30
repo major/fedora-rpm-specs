@@ -289,7 +289,7 @@
 # New Version-String scheme-style defines
 %global featurever 25
 %global interimver 0
-%global updatever 2
+%global updatever 3
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -326,7 +326,7 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the crypto policy & FIPS support patches
-%global fipsver e55ada9353e
+%global fipsver 57722aab802
 # Define nssadapter variables
 %global nssadapter_version 0.1.1
 %global nssadapter_name nssadapter-%{nssadapter_version}
@@ -345,8 +345,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        10
-%global rpmrelease      5
+%global buildver        9
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1326,19 +1326,19 @@ BuildRequires: libpng-devel
 BuildRequires: zlib-devel
 %else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.13.3
+Provides: bundled(freetype) = 2.14.2
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
-Provides: bundled(giflib) = 5.2.2
+Provides: bundled(giflib) = 6.1.2
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 10.4.0
+Provides: bundled(harfbuzz) = 12.3.2
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
 Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.51
+Provides: bundled(libpng) = 1.6.57
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
-Provides: bundled(zlib) = 1.3.1
+Provides: bundled(zlib) = 1.3.2
 %endif
 %ifarch %{sleef_arches}
 # SLEEF is always bundled

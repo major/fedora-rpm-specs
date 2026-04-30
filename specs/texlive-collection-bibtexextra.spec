@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-bibtexextra
 Epoch:          12
-Version:        svn75480
-Release:        7%{?dist}
+Version:        svn78803
+Release:        8%{?dist}
 Summary:        BibTeX additional styles
 
 License:        LPPL-1.3c
@@ -49,272 +49,276 @@ Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bi
 Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex.doc.tar.xz
 Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-abnt.tar.xz
 Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-abnt.doc.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ajc2020unofficial.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ajc2020unofficial.doc.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-anonymous.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-anonymous.doc.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa.doc.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa6.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa6.doc.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-archaeology.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-archaeology.doc.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-arthistory-bonn.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-arthistory-bonn.doc.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bath.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bath.doc.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinarticle.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinarticle.doc.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinother.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinother.doc.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bwl.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bwl.doc.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-caspervector.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-caspervector.doc.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chem.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chem.doc.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chicago.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chicago.doc.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-claves.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-claves.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cse.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cse.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cv.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cv.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-dw.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-dw.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-enc.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-enc.doc.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ext.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ext.doc.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-fiwi.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-fiwi.doc.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gb7714-2015.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gb7714-2015.doc.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-german-legal.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-german-legal.doc.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gost.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gost.doc.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-historian.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-historian.doc.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ieee.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ieee.doc.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ijsra.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ijsra.doc.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-iso690.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-iso690.doc.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-jura2.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-jura2.doc.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-juradiss.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-juradiss.doc.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-license.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-license.doc.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lncs.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lncs.doc.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lni.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lni.doc.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-luh-ipw.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-luh-ipw.doc.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-manuscripts-philology.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-manuscripts-philology.doc.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-mla.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-mla.doc.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-morenames.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-morenames.doc.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ms.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ms.doc.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-multiple-dm.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-multiple-dm.doc.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-musuos.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-musuos.doc.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nature.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nature.doc.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nejm.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nejm.doc.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nottsclassic.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nottsclassic.doc.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-opcit-booktitle.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-opcit-booktitle.doc.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-oxref.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-oxref.doc.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-philosophy.tar.xz
-Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-philosophy.doc.tar.xz
-Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-phys.tar.xz
-Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-phys.doc.tar.xz
-Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-publist.tar.xz
-Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-publist.doc.tar.xz
-Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-readbbl.tar.xz
-Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-readbbl.doc.tar.xz
-Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-realauthor.tar.xz
-Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-realauthor.doc.tar.xz
-Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-sbl.tar.xz
-Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-sbl.doc.tar.xz
-Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-science.tar.xz
-Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-science.doc.tar.xz
-Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-shortfields.tar.xz
-Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-shortfields.doc.tar.xz
-Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-socialscienceshuberlin.tar.xz
-Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-socialscienceshuberlin.doc.tar.xz
-Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-software.tar.xz
-Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-software.doc.tar.xz
-Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-source-division.tar.xz
-Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-source-division.doc.tar.xz
-Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-spbasic.tar.xz
-Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-spbasic.doc.tar.xz
-Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-subseries.tar.xz
-Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-subseries.doc.tar.xz
-Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-swiss-legal.tar.xz
-Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-swiss-legal.doc.tar.xz
-Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-trad.tar.xz
-Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-trad.doc.tar.xz
-Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-true-citepages-omit.tar.xz
-Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-true-citepages-omit.doc.tar.xz
-Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-unified.tar.xz
-Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-unified.doc.tar.xz
-Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-vancouver.tar.xz
-Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-vancouver.doc.tar.xz
-Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex2bibitem.tar.xz
-Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex2bibitem.doc.tar.xz
-Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblist.tar.xz
-Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblist.doc.tar.xz
-Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtools.tar.xz
-Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopic.tar.xz
-Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopic.doc.tar.xz
-Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopicprefix.tar.xz
-Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopicprefix.doc.tar.xz
-Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibunits.tar.xz
-Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibunits.doc.tar.xz
-Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biolett-bst.tar.xz
-Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biolett-bst.doc.tar.xz
-Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookdb.tar.xz
-Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookdb.doc.tar.xz
-Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/breakcites.tar.xz
-Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/breakcites.doc.tar.xz
-Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cell.tar.xz
-Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cell.doc.tar.xz
-Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chbibref.tar.xz
-Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chbibref.doc.tar.xz
-Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chembst.tar.xz
-Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chembst.doc.tar.xz
-Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago.tar.xz
-Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago-annote.tar.xz
-Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago-annote.doc.tar.xz
-Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagoa.tar.xz
-Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagolinks.tar.xz
-Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagolinks.doc.tar.xz
-Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chscite.tar.xz
-Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chscite.doc.tar.xz
-Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeall.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeall.doc.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeref.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeref.doc.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeright.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeright.doc.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collref.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collref.doc.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/compactbib.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/custom-bib.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/custom-bib.doc.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/din1505.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/din1505.doc.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dk-bib.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dk-bib.doc.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doipubmed.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doipubmed.doc.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecobiblatex.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecobiblatex.doc.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/econ-bst.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/econ-bst.doc.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/economic.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/economic.doc.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbs.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figbib.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figbib.doc.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/footbib.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/footbib.doc.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/francais-bst.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/francais-bst.doc.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gbt7714.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gbt7714.doc.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geschichtsfrkl.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geschichtsfrkl.doc.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvard.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvard.doc.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvmac.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvmac.doc.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-bibliography.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-bibliography.doc.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/historische-zeitschrift.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/historische-zeitschrift.doc.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icite.tar.xz
-Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icite.doc.tar.xz
-Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ietfbibs.tar.xz
-Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ietfbibs.doc.tar.xz
-Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijqc.tar.xz
-Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijqc.doc.tar.xz
-Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inlinebib.tar.xz
-Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inlinebib.doc.tar.xz
-Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iopart-num.tar.xz
-Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iopart-num.doc.tar.xz
-Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/is-bst.tar.xz
-Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/is-bst.doc.tar.xz
-Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jbact.tar.xz
-Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmb.tar.xz
-Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jneurosci.tar.xz
-Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jneurosci.doc.tar.xz
-Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jurabib.tar.xz
-Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jurabib.doc.tar.xz
-Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksfh_nat.tar.xz
-Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logreq.tar.xz
-Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logreq.doc.tar.xz
-Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ltb2bib.tar.xz
-Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ltb2bib.doc.tar.xz
-Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabibentry.tar.xz
-Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabibentry.doc.tar.xz
-Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/margbib.tar.xz
-Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/margbib.doc.tar.xz
-Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multibib.tar.xz
-Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multibib.doc.tar.xz
-Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/munich.tar.xz
-Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/munich.doc.tar.xz
-Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nar.tar.xz
-Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcastle-bst.tar.xz
-Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcastle-bst.doc.tar.xz
-Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nmbib.tar.xz
-Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nmbib.doc.tar.xz
-Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notes2bib.tar.xz
-Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notes2bib.doc.tar.xz
-Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notex-bst.tar.xz
-Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oscola.tar.xz
-Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oscola.doc.tar.xz
-Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/perception.tar.xz
-Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/perception.doc.tar.xz
-Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plainyr.tar.xz
-Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pnas2009.tar.xz
-Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsc.tar.xz
-Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsc.doc.tar.xz
-Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showtags.tar.xz
-Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showtags.doc.tar.xz
-Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sort-by-letters.tar.xz
-Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sort-by-letters.doc.tar.xz
-Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splitbib.tar.xz
-Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splitbib.doc.tar.xz
-Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian-formatting.tar.xz
-Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian-formatting.doc.tar.xz
-Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-ger.tar.xz
-Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-ger.doc.tar.xz
-Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-lin.tar.xz
-Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-lin.doc.tar.xz
-Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/usebib.tar.xz
-Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/usebib.doc.tar.xz
-Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vak.tar.xz
-Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vak.doc.tar.xz
-Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/windycity.tar.xz
-Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/windycity.doc.tar.xz
-Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcite.tar.xz
-Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcite.doc.tar.xz
-Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zootaxa-bst.tar.xz
-Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zootaxa-bst.doc.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-abs-annote.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-abs-annote.doc.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ajc2020unofficial.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ajc2020unofficial.doc.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ams.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ams.doc.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-anonymous.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-anonymous.doc.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa.doc.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa6.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-apa6.doc.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-archaeology.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-archaeology.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-arthistory-bonn.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-arthistory-bonn.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bath.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bath.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinarticle.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinarticle.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinother.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bookinother.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bwl.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-bwl.doc.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-caspervector.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-caspervector.doc.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chem.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chem.doc.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chicago.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-chicago.doc.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-claves.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-claves.doc.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cse.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cse.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cv.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-cv.doc.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-dw.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-dw.doc.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-enc.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-enc.doc.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ext.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ext.doc.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-fiwi.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-fiwi.doc.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gb7714-2015.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gb7714-2015.doc.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-german-legal.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-german-legal.doc.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gost.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-gost.doc.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-historian.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-historian.doc.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ieee.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ieee.doc.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ijsra.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ijsra.doc.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-iso690.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-iso690.doc.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-jura2.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-jura2.doc.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-juradiss.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-juradiss.doc.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-license.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-license.doc.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lncs.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lncs.doc.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lni.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-lni.doc.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-luh-ipw.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-luh-ipw.doc.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-manuscripts-philology.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-manuscripts-philology.doc.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-mla.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-mla.doc.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-morenames.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-morenames.doc.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ms.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-ms.doc.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-multiple-dm.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-multiple-dm.doc.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-musuos.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-musuos.doc.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nature.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nature.doc.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nejm.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nejm.doc.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nottsclassic.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-nottsclassic.doc.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-opcit-booktitle.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-opcit-booktitle.doc.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-oxref.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-oxref.doc.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-philosophy.tar.xz
+Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-philosophy.doc.tar.xz
+Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-phys.tar.xz
+Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-phys.doc.tar.xz
+Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-publist.tar.xz
+Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-publist.doc.tar.xz
+Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-readbbl.tar.xz
+Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-readbbl.doc.tar.xz
+Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-realauthor.tar.xz
+Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-realauthor.doc.tar.xz
+Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-sbl.tar.xz
+Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-sbl.doc.tar.xz
+Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-science.tar.xz
+Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-science.doc.tar.xz
+Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-shortfields.tar.xz
+Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-shortfields.doc.tar.xz
+Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-socialscienceshuberlin.tar.xz
+Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-socialscienceshuberlin.doc.tar.xz
+Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-software.tar.xz
+Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-software.doc.tar.xz
+Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-source-division.tar.xz
+Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-source-division.doc.tar.xz
+Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-spbasic.tar.xz
+Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-spbasic.doc.tar.xz
+Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-subseries.tar.xz
+Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-subseries.doc.tar.xz
+Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-swiss-legal.tar.xz
+Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-swiss-legal.doc.tar.xz
+Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-trad.tar.xz
+Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-trad.doc.tar.xz
+Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-true-citepages-omit.tar.xz
+Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-true-citepages-omit.doc.tar.xz
+Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-unified.tar.xz
+Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-unified.doc.tar.xz
+Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-vancouver.tar.xz
+Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex-vancouver.doc.tar.xz
+Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex2bibitem.tar.xz
+Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblatex2bibitem.doc.tar.xz
+Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblist.tar.xz
+Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biblist.doc.tar.xz
+Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtools.tar.xz
+Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopic.tar.xz
+Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopic.doc.tar.xz
+Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopicprefix.tar.xz
+Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtopicprefix.doc.tar.xz
+Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibunits.tar.xz
+Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibunits.doc.tar.xz
+Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biolett-bst.tar.xz
+Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/biolett-bst.doc.tar.xz
+Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookdb.tar.xz
+Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookdb.doc.tar.xz
+Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/breakcites.tar.xz
+Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/breakcites.doc.tar.xz
+Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cell.tar.xz
+Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cell.doc.tar.xz
+Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chbibref.tar.xz
+Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chbibref.doc.tar.xz
+Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chembst.tar.xz
+Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chembst.doc.tar.xz
+Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago.tar.xz
+Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago-annote.tar.xz
+Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicago-annote.doc.tar.xz
+Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagoa.tar.xz
+Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagolinks.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chicagolinks.doc.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chscite.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chscite.doc.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeall.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeall.doc.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeref.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeref.doc.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeright.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citeright.doc.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collref.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collref.doc.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/compactbib.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/custom-bib.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/custom-bib.doc.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/din1505.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/din1505.doc.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dk-bib.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dk-bib.doc.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doipubmed.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doipubmed.doc.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecobiblatex.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecobiblatex.doc.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/econ-bst.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/econ-bst.doc.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/economic.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/economic.doc.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbs.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figbib.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figbib.doc.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/footbib.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/footbib.doc.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/francais-bst.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/francais-bst.doc.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gbt7714.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gbt7714.doc.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geschichtsfrkl.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geschichtsfrkl.doc.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvard.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvard.doc.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvmac.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harvmac.doc.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-bibliography.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-bibliography.doc.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/historische-zeitschrift.tar.xz
+Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/historische-zeitschrift.doc.tar.xz
+Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icite.tar.xz
+Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icite.doc.tar.xz
+Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ietfbibs.tar.xz
+Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ietfbibs.doc.tar.xz
+Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijqc.tar.xz
+Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijqc.doc.tar.xz
+Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inlinebib.tar.xz
+Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inlinebib.doc.tar.xz
+Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iopart-num.tar.xz
+Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iopart-num.doc.tar.xz
+Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/is-bst.tar.xz
+Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/is-bst.doc.tar.xz
+Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jbact.tar.xz
+Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmb.tar.xz
+Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jneurosci.tar.xz
+Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jneurosci.doc.tar.xz
+Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jurabib.tar.xz
+Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jurabib.doc.tar.xz
+Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksfh_nat.tar.xz
+Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logreq.tar.xz
+Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/logreq.doc.tar.xz
+Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ltb2bib.tar.xz
+Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ltb2bib.doc.tar.xz
+Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabibentry.tar.xz
+Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luabibentry.doc.tar.xz
+Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/margbib.tar.xz
+Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/margbib.doc.tar.xz
+Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multibib.tar.xz
+Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/multibib.doc.tar.xz
+Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/munich.tar.xz
+Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/munich.doc.tar.xz
+Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nar.tar.xz
+Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcastle-bst.tar.xz
+Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newcastle-bst.doc.tar.xz
+Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nmbib.tar.xz
+Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nmbib.doc.tar.xz
+Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notes2bib.tar.xz
+Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notes2bib.doc.tar.xz
+Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/notex-bst.tar.xz
+Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oscola.tar.xz
+Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oscola.doc.tar.xz
+Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/perception.tar.xz
+Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/perception.doc.tar.xz
+Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plainyr.tar.xz
+Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pnas2009.tar.xz
+Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsc.tar.xz
+Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rsc.doc.tar.xz
+Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showtags.tar.xz
+Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showtags.doc.tar.xz
+Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sort-by-letters.tar.xz
+Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sort-by-letters.doc.tar.xz
+Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splitbib.tar.xz
+Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/splitbib.doc.tar.xz
+Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian-formatting.tar.xz
+Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian-formatting.doc.tar.xz
+Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-ger.tar.xz
+Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-ger.doc.tar.xz
+Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-lin.tar.xz
+Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uni-wtal-lin.doc.tar.xz
+Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/usebib.tar.xz
+Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/usebib.doc.tar.xz
+Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vak.tar.xz
+Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vak.doc.tar.xz
+Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/windycity.tar.xz
+Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/windycity.doc.tar.xz
+Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcite.tar.xz
+Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcite.doc.tar.xz
+Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zootaxa-bst.tar.xz
+Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zootaxa-bst.doc.tar.xz
 
 # Patches
 Patch0:         texlive-biblatex-abnt-no-l3regex.patch
@@ -345,7 +349,9 @@ Requires:       texlive-bibexport
 Requires:       texlive-bibhtml
 Requires:       texlive-biblatex
 Requires:       texlive-biblatex-abnt
+Requires:       texlive-biblatex-abs-annote
 Requires:       texlive-biblatex-ajc2020unofficial
+Requires:       texlive-biblatex-ams
 Requires:       texlive-biblatex-anonymous
 Requires:       texlive-biblatex-apa
 Requires:       texlive-biblatex-apa6
@@ -536,6 +542,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-amsrefs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-amsrefs-doc <= 11:%{version}
 Requires:       tex(backref.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(url.sty)
@@ -563,6 +571,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-apacite-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-apacite-doc <= 11:%{version}
 Requires:       tex(index.sty)
 Requires:       tex(multicol.sty)
 Requires:       tex(natbib.sty)
@@ -607,6 +617,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-archaeologie-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-archaeologie-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 Requires:       tex(ulem.sty)
 
@@ -648,6 +660,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-besjournals-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-besjournals-doc <= 11:%{version}
 
 %description -n texlive-besjournals
 The package provides a BibTeX style for use with journals published by the
@@ -660,6 +674,8 @@ Version:        svn76790
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bestpapers-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bestpapers-doc <= 11:%{version}
 
 %description -n texlive-bestpapers
 Many people preparing their resumes find the requirement "please list five (or
@@ -696,6 +712,8 @@ Version:        svn74384
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibarts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibarts-doc <= 11:%{version}
 
 %description -n texlive-bibarts
 BibArts is a LaTeX package to assist in making bibliographical features common
@@ -737,6 +755,8 @@ Version:        svn31607
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibhtml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibhtml-doc <= 11:%{version}
 
 %description -n texlive-bibhtml
 Bibhtml consists of a Perl script and a set of BibTeX style files, which
@@ -754,6 +774,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       texlive-kvoptions
 Requires:       texlive-logreq
@@ -801,6 +823,8 @@ Version:        svn72565
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-abnt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-abnt-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.cbx)
 Requires:       biber
 Requires:       tex(numeric.cbx)
@@ -811,6 +835,30 @@ Requires:       tex(xpatch.sty)
 %description -n texlive-biblatex-abnt
 This package offers a BibLaTeX style for Brazil's ABNT (Brazilian Association
 of Technical Norms) rules.
+
+%package -n texlive-biblatex-abs-annote
+Summary:        Annotated bibliographies with abstracts and annotations for BibLaTeX
+Version:        svn78770
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(changepage.sty)
+Requires:       tex(kvoptions.sty)
+Requires:       tex(xpatch.sty)
+
+%description -n texlive-biblatex-abs-annote
+The package extends any BibLaTeX style with an annotated-bibliography
+presentation: below each reference it renders the entry's abstract and the
+user's annotation, both drawn from standard BibLaTeX fields (abstract, and
+annotation or annote). Either field may be omitted on a per-entry basis, so the
+same bibliography can mix plain and annotated citations freely. The package
+patches the sixteen standard BibLaTeX drivers via xpatch, so it composes with
+any bibliography style that uses the standard driver names (authoryear, apa,
+numeric, chicago-authordate, etc.). All visual aspects (e.g., labels, fonts,
+indentation, and spacing) are controlled by redefinable commands and lengths.
+The package is the LaTeX component of the cross-format ab-annotate toolchain,
+which shares the same .bib conventions with companion packages for Typst and
+Quarto.
 
 %package -n texlive-biblatex-ajc2020unofficial
 Summary:        BibLaTeX style for the Australasian Journal of Combinatorics
@@ -828,12 +876,28 @@ This is an unofficial BibLaTeX style for the Australasian Journal of
 Combinatorics. Note that the journal (as for 01 March 2020) does not accept
 BibLaTeX, so you probably want to use biblatex2bibitem.
 
+%package -n texlive-biblatex-ams
+Summary:        AMS-compatible style for Biber/BibLaTeX
+Version:        svn78803
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(numeric.bbx)
+Requires:       tex(numeric.cbx)
+Requires:       tex(standard.bbx)
+
+%description -n texlive-biblatex-ams
+This citation style is based on https://github.com/konn/biblatex-math. It
+provides a bibliography style similar to amsrefs for Biber/BibLaTeX.
+
 %package -n texlive-biblatex-anonymous
 Summary:        A tool to manage anonymous work with BibLaTeX
 Version:        svn48548
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-anonymous-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-anonymous-doc <= 11:%{version}
 
 %description -n texlive-biblatex-anonymous
 The package provides tools to help manage anonymous work with BibLaTeX. It will
@@ -845,6 +909,8 @@ Version:        svn76158
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-apa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-apa-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(standard.bbx)
 
@@ -955,6 +1021,8 @@ Version:        svn40323
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-bookinarticle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-bookinarticle-doc <= 11:%{version}
 
 %description -n texlive-biblatex-bookinarticle
 This package provides three new BibLaTeX entry types - @bookinarticle,
@@ -968,6 +1036,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-bookinother-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-bookinother-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
@@ -983,6 +1053,8 @@ Version:        svn26556
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-bwl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-bwl-doc <= 11:%{version}
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
 
@@ -997,6 +1069,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-caspervector-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-caspervector-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(numeric-comp.bbx)
@@ -1012,6 +1086,8 @@ Version:        svn76236
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-chem-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-chem-doc <= 11:%{version}
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 
@@ -1027,6 +1103,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-chicago-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-chicago-doc <= 11:%{version}
 Requires:       tex(biblatex.sty)
 Requires:       tex(endnotes.sty)
 Requires:       tex(etoolbox.sty)
@@ -1051,6 +1129,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-claves-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-claves-doc <= 11:%{version}
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
 
@@ -1110,6 +1190,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-dw-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-dw-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 
 %description -n texlive-biblatex-dw
@@ -1204,6 +1286,8 @@ Version:        svn45876
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-fiwi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-fiwi-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 
 %description -n texlive-biblatex-fiwi
@@ -1214,8 +1298,8 @@ standard BibLaTeX styles. The style is highly optimized for documents written
 in German, and the main documentation is only available in German.
 
 %package -n texlive-biblatex-gb7714-2015
-Summary:        A BibLaTeX implementation of the GBT7714-2015 bibliography style for Chinese users
-Version:        svn75481
+Summary:        A BibLaTeX implementation of the GB/T 7714 series bibliography styles for Chinese users
+Version:        svn78680
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1227,10 +1311,11 @@ Requires:       tex(numeric-comp.cbx)
 Requires:       tex(xstring.sty)
 
 %description -n texlive-biblatex-gb7714-2015
-This package provides an implementation of the GBT7714-2015 bibliography style.
-This implementation follows the GBT7714-2015 standard and can be used by simply
-loading BibLaTeX with the appropriate option. A demonstration database is
-provided to show how to format input for the style.
+This package provides the implementation of bibliography styles for the GB/T
+7714 series standards, such as GB/T 7714-1987, GB/T 7714-2005, GB/T 7714-2015,
+GB/T 7714-2025. The package also provides several liberal arts bibliography
+styles, such as chinese-erj, chinese-css, chinese-jmw, and so on. These styles
+can be used simply by loading BibLaTeX with the appropriate option.
 
 %package -n texlive-biblatex-german-legal
 Summary:        Comprehensive citation style for German legal texts
@@ -1256,6 +1341,8 @@ Version:        svn66935
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-gost-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-gost-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(numeric-comp.cbx)
 
@@ -1269,6 +1356,8 @@ Version:        svn19787
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-historian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-historian-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 
 %description -n texlive-biblatex-historian
@@ -1280,6 +1369,8 @@ Version:        svn75952
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-ieee-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-ieee-doc <= 11:%{version}
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 Requires:       tex(numeric-verb.cbx)
@@ -1298,6 +1389,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-ijsra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-ijsra-doc <= 11:%{version}
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
 Requires:       tex(xpatch.sty)
@@ -1312,6 +1405,8 @@ Version:        svn62866
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-iso690-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-iso690-doc <= 11:%{version}
 Requires:       tex(authortitle.cbx)
 Requires:       tex(authoryear.cbx)
 Requires:       tex(numeric.cbx)
@@ -1339,6 +1434,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-juradiss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-juradiss-doc <= 11:%{version}
 Requires:       tex(authortitle-dw.bbx)
 Requires:       tex(authortitle-dw.cbx)
 
@@ -1381,6 +1478,8 @@ Version:        svn73625
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-lni-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-lni-doc <= 11:%{version}
 
 %description -n texlive-biblatex-lni
 BibLaTeX style for the Lecture Notes in Informatics, which is published by the
@@ -1392,6 +1491,8 @@ Version:        svn32180
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-luh-ipw-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-luh-ipw-doc <= 11:%{version}
 Requires:       tex(authoryear-icomp.bbx)
 Requires:       tex(authoryear-icomp.cbx)
 Requires:       tex(verbose-inote.bbx)
@@ -1410,6 +1511,8 @@ Version:        svn66977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-manuscripts-philology-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-manuscripts-philology-doc <= 11:%{version}
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
 
@@ -1423,6 +1526,8 @@ Version:        svn62138
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-mla-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-mla-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 
 %description -n texlive-biblatex-mla
@@ -1435,6 +1540,8 @@ Version:        svn43049
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-morenames-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-morenames-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
@@ -1494,6 +1601,8 @@ Version:        svn37081
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-multiple-dm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-multiple-dm-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(kvoptions.sty)
 
@@ -1507,6 +1616,8 @@ Version:        svn24097
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-musuos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-musuos-doc <= 11:%{version}
 Requires:       tex(authortitle.bbx)
 Requires:       tex(verbose-ibid.cbx)
 
@@ -1516,10 +1627,12 @@ with other classes, too.
 
 %package -n texlive-biblatex-nature
 Summary:        BibLaTeX support for Nature
-Version:        svn57262
+Version:        svn78779
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-nature-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-nature-doc <= 11:%{version}
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 
@@ -1533,6 +1646,8 @@ Version:        svn49839
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-nejm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-nejm-doc <= 11:%{version}
 Requires:       biber
 Requires:       tex(numeric-comp.cbx)
 Requires:       tex(numeric.bbx)
@@ -1547,6 +1662,8 @@ Version:        svn41596
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-nottsclassic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-nottsclassic-doc <= 11:%{version}
 Requires:       tex(authoryear.bbx)
 
 %description -n texlive-biblatex-nottsclassic
@@ -1559,6 +1676,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-opcit-booktitle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-opcit-booktitle-doc <= 11:%{version}
 Requires:       tex(ltxcmds.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xpatch.sty)
@@ -1573,7 +1692,7 @@ Publisher, Year, pages xxx Author2, Title2, in Booktitle, op. cit, pages.
 
 %package -n texlive-biblatex-oxref
 Summary:        BibLaTeX styles inspired by the Oxford Guide to Style
-Version:        svn72164
+Version:        svn78703
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1610,6 +1729,8 @@ Version:        svn64414
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-philosophy-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-philosophy-doc <= 11:%{version}
 Requires:       tex(authortitle.bbx)
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
@@ -1632,6 +1753,8 @@ Version:        svn74898
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-phys-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-phys-doc <= 11:%{version}
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 
@@ -1649,6 +1772,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-publist-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-publist-doc <= 11:%{version}
 Requires:       tex(numeric.cbx)
 Requires:       tex(xcolor.sty)
 
@@ -1680,6 +1805,8 @@ Version:        svn45865
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-realauthor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-realauthor-doc <= 11:%{version}
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
 
@@ -1718,6 +1845,8 @@ Version:        svn48945
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-science-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-science-doc <= 11:%{version}
 Requires:       tex(numeric-comp.bbx)
 Requires:       tex(numeric-comp.cbx)
 
@@ -1778,6 +1907,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-source-division-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-source-division-doc <= 11:%{version}
 Requires:       tex(kvoptions.sty)
 Requires:       tex(xpatch.sty)
 
@@ -1809,6 +1940,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-subseries-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-subseries-doc <= 11:%{version}
 Requires:       tex(verbose.bbx)
 Requires:       tex(xpatch.sty)
 
@@ -1825,6 +1958,8 @@ Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-swiss-legal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-swiss-legal-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       biber
 Requires:       tex(xstring.sty)
@@ -1843,6 +1978,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-trad-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-trad-doc <= 11:%{version}
 Requires:       tex(numeric.cbx)
 Requires:       tex(standard.bbx)
 
@@ -1856,6 +1993,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblatex-true-citepages-omit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblatex-true-citepages-omit-doc <= 11:%{version}
 Requires:       tex(xstring.sty)
 
 %description -n texlive-biblatex-true-citepages-omit
@@ -1915,6 +2054,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-biblist-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-biblist-doc <= 11:%{version}
 
 %description -n texlive-biblist
 The package provides the means of listing an entire BibTeX database, avoiding
@@ -1948,6 +2089,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibtopic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibtopic-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 
 %description -n texlive-bibtopic
@@ -1967,6 +2110,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibtopicprefix-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibtopicprefix-doc <= 11:%{version}
 Requires:       tex(bibtopic.sty)
 Requires:       tex(scrlfile.sty)
 
@@ -1980,6 +2125,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bibunits-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bibunits-doc <= 11:%{version}
 
 %description -n texlive-bibunits
 The package provide a mechanism to generate separate bibliographies for
@@ -2008,6 +2155,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bookdb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bookdb-doc <= 11:%{version}
 
 %description -n texlive-bookdb
 This package provides an extended book entry for use in cataloguing a home
@@ -2021,6 +2170,8 @@ Version:        svn78101
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-breakcites-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-breakcites-doc <= 11:%{version}
 
 %description -n texlive-breakcites
 Makes a very minor change to the operation of the \cite command. Note that the
@@ -2034,6 +2185,8 @@ Version:        svn76790
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cell-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cell-doc <= 11:%{version}
 Requires:       tex(cite.sty)
 
 %description -n texlive-cell
@@ -2047,6 +2200,8 @@ Version:        svn17120
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chbibref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chbibref-doc <= 11:%{version}
 
 %description -n texlive-chbibref
 Defines a single command, \setbibref, which sets whichever of \bibname and
@@ -2059,6 +2214,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chembst-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chembst-doc <= 11:%{version}
 
 %description -n texlive-chembst
 The package offers a collection of advanced BibTeX style files suitable for
@@ -2087,6 +2244,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chicago-annote-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chicago-annote-doc <= 11:%{version}
 
 %description -n texlive-chicago-annote
 This is a revision of chicagoa.bst, using the commonly-used annote field in
@@ -2120,6 +2279,8 @@ Version:        svn28552
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chscite-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chscite-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(url.sty)
 
@@ -2134,6 +2295,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-citeall-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-citeall-doc <= 11:%{version}
 Requires:       tex(xparse.sty)
 
 %description -n texlive-citeall
@@ -2173,6 +2336,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-collref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-collref-doc <= 11:%{version}
 
 %description -n texlive-collref
 The package automatically collects multiple \bibitem references, which always
@@ -2195,6 +2360,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-custom-bib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-custom-bib-doc <= 11:%{version}
 
 %description -n texlive-custom-bib
 Package generating customized BibTeX bibliography styles from a generic file
@@ -2207,6 +2374,8 @@ Version:        svn76790
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-din1505-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-din1505-doc <= 11:%{version}
 
 %description -n texlive-din1505
 A set of bibliography styles that conformt to DIN 1505, and match the original
@@ -2219,6 +2388,8 @@ Version:        svn76790
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dk-bib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dk-bib-doc <= 11:%{version}
 Requires:       tex(url.sty)
 Requires:       tex(xkeyval.sty)
 
@@ -2235,6 +2406,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-doipubmed-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-doipubmed-doc <= 11:%{version}
 Requires:       tex(url.sty)
 
 %description -n texlive-doipubmed
@@ -2248,6 +2421,8 @@ Version:        svn39233
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ecobiblatex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ecobiblatex-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(standard.bbx)
@@ -2277,6 +2452,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-economic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-economic-doc <= 11:%{version}
 Requires:       tex(ulem.sty)
 
 %description -n texlive-economic
@@ -2306,6 +2483,8 @@ Version:        svn19388
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-figbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-figbib-doc <= 11:%{version}
 Requires:       tex(epsfig.sty)
 
 %description -n texlive-figbib
@@ -2322,6 +2501,8 @@ Version:        svn17115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-footbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-footbib-doc <= 11:%{version}
 
 %description -n texlive-footbib
 The package makes bibliographic references appear as footnotes. It defines a
@@ -2339,6 +2520,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-francais-bst-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-francais-bst-doc <= 11:%{version}
 
 %description -n texlive-francais-bst
 The package provides bibliographies (in French) conforming to the rules in
@@ -2372,6 +2555,8 @@ Version:        svn42121
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-geschichtsfrkl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-geschichtsfrkl-doc <= 11:%{version}
 Requires:       tex(standard.bbx)
 
 %description -n texlive-geschichtsfrkl
@@ -2384,6 +2569,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-harvard-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-harvard-doc <= 11:%{version}
 # Adding for dependency on html.sty
 Requires:       latex2html
 Requires:       tex(ifthen.sty)
@@ -2407,6 +2594,8 @@ Version:        svn15878
 License:        CC-BY-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-harvmac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-harvmac-doc <= 11:%{version}
 
 %description -n texlive-harvmac
 Known as 'Harvard macros', since written at that University.
@@ -2434,6 +2623,8 @@ Version:        svn42635
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-historische-zeitschrift-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-historische-zeitschrift-doc <= 11:%{version}
 
 %description -n texlive-historische-zeitschrift
 The package provides citations according with the house style of the
@@ -2478,6 +2669,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ijqc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ijqc-doc <= 11:%{version}
 
 %description -n texlive-ijqc
 ijqc.bst is a BibTeX style file to support publication in Wiley's International
@@ -2491,6 +2684,8 @@ Version:        svn22018
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-inlinebib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-inlinebib-doc <= 11:%{version}
 
 %description -n texlive-inlinebib
 A BibTeX style and a LaTeX package that allow for a full bibliography at the
@@ -2503,6 +2698,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-iopart-num-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-iopart-num-doc <= 11:%{version}
 
 %description -n texlive-iopart-num
 A BibTeX style providing numeric citation in Harvard-like format. Intended for
@@ -2557,6 +2754,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jneurosci-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jneurosci-doc <= 11:%{version}
 
 %description -n texlive-jneurosci
 This is a slightly modified version of the namedplus style, which fully
@@ -2570,6 +2769,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jurabib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jurabib-doc <= 11:%{version}
 Requires:       tex(array.sty)
 Requires:       tex(bibunits.sty)
 Requires:       tex(calc.sty)
@@ -2609,6 +2810,8 @@ Version:        svn53003
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-logreq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-logreq-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
@@ -2648,6 +2851,8 @@ Version:        svn55777
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luabibentry-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luabibentry-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 
 %description -n texlive-luabibentry
@@ -2659,6 +2864,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-margbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-margbib-doc <= 11:%{version}
 # Ignoring dependency on marn.sty - not part of TeX Live
 
 %description -n texlive-margbib
@@ -2671,6 +2878,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-multibib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-multibib-doc <= 11:%{version}
 
 %description -n texlive-multibib
 The package the creation of references to multiple bibliographies within one
@@ -2685,6 +2894,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-munich-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-munich-doc <= 11:%{version}
 
 %description -n texlive-munich
 The Munich BibTeX style is produced with custom-bib, as a German (and, more
@@ -2720,6 +2931,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nmbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nmbib-doc <= 11:%{version}
 Requires:       tex(natbib.sty)
 
 %description -n texlive-nmbib
@@ -2734,6 +2947,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-notes2bib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-notes2bib-doc <= 11:%{version}
 Requires:       tex(xparse.sty)
 
 %description -n texlive-notes2bib
@@ -2765,6 +2980,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-oscola-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-oscola-doc <= 11:%{version}
 Requires:       tex(authortitle.bbx)
 Requires:       biber
 Requires:       tex(verbose-inote.cbx)
@@ -2782,6 +2999,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-perception-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-perception-doc <= 11:%{version}
 
 %description -n texlive-perception
 A product of custom-bib, provided simply to save others' time.
@@ -2816,6 +3035,8 @@ Version:        svn41923
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rsc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rsc-doc <= 11:%{version}
 Requires:       tex(kvoptions.sty)
 Requires:       tex(mciteplus.sty)
 Requires:       tex(natbib.sty)
@@ -2834,6 +3055,8 @@ Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-showtags-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-showtags-doc <= 11:%{version}
 
 %description -n texlive-showtags
 Prints the tag right-aligned on each line of the bibliography.
@@ -2844,6 +3067,8 @@ Version:        svn76790
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sort-by-letters-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sort-by-letters-doc <= 11:%{version}
 
 %description -n texlive-sort-by-letters
 This bundle contains several bibliography styles for separating a document's
@@ -2856,6 +3081,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-splitbib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-splitbib-doc <= 11:%{version}
 
 %description -n texlive-splitbib
 This package enables you to split a bibliography into several categories and
@@ -2868,6 +3095,8 @@ Version:        svn58561
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-turabian-formatting-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-turabian-formatting-doc <= 11:%{version}
 Requires:       tex(endnotes.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(footmisc.sty)
@@ -2885,6 +3114,8 @@ Version:        svn31541
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uni-wtal-ger-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uni-wtal-ger-doc <= 11:%{version}
 Requires:       tex(authortitle-dw.bbx)
 Requires:       tex(authortitle-dw.cbx)
 
@@ -2899,6 +3130,8 @@ Version:        svn31409
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uni-wtal-lin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uni-wtal-lin-doc <= 11:%{version}
 Requires:       tex(authoryear.bbx)
 Requires:       tex(authoryear.cbx)
 
@@ -2913,6 +3146,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-usebib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-usebib-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 Requires:       tex(url.sty)
 
@@ -2929,6 +3164,8 @@ Version:        svn75878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-vak-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-vak-doc <= 11:%{version}
 
 %description -n texlive-vak
 The file can be used to format the bibliographies of PhD theses, books etc.,
@@ -2978,6 +3215,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xcite-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xcite-doc <= 11:%{version}
 Requires:       tex(xr.sty)
 
 %description -n texlive-xcite
@@ -3307,6 +3546,10 @@ tar -xf %{SOURCE296} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE297} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE298} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE299} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE300} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE301} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE302} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE303} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -3419,10 +3662,20 @@ popd
 %{_texmf_main}/tex/latex/biblatex-abnt/
 %doc %{_texmf_main}/doc/latex/biblatex-abnt/
 
+%files -n texlive-biblatex-abs-annote
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/biblatex-abs-annote/
+%doc %{_texmf_main}/doc/latex/biblatex-abs-annote/
+
 %files -n texlive-biblatex-ajc2020unofficial
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/biblatex-ajc2020unofficial/
 %doc %{_texmf_main}/doc/latex/biblatex-ajc2020unofficial/
+
+%files -n texlive-biblatex-ams
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/biblatex-ams/
+%doc %{_texmf_main}/doc/latex/biblatex-ams/
 
 %files -n texlive-biblatex-anonymous
 %license lppl1.3c.txt
@@ -4128,6 +4381,12 @@ popd
 %doc %{_texmf_main}/doc/bibtex/zootaxa-bst/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78803-8
+- Update collection from svn75480 to svn78803
+- Add biblatex-abs-annote
+- Add biblatex-ams
+- Update biblatex-gb7714-2015, biblatex-nature, biblatex-oxref
+
 * Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-7
 - Update 31 components
 

@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.213
+%global device_mapper_version 1.02.214
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,15 +49,11 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.39
+Version: 2.03.40
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-Patch1: 0001-configure-Add-LOCKDSANLOCK_SUPPORT-for-5.0.0.patch
-Patch2: 0002-lvmlockd-fix-building-for-dlm.patch
-Patch3: 0003-lvmlockd-fix-lockstart-with-no-pr.patch
-Patch4: 0004-lvmpersist-fix-grep-warning-about-quoting.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -556,8 +552,10 @@ for the kernel device-mapper.
 %{_sbindir}/dmsetup
 %{_sbindir}/blkdeactivate
 %{_sbindir}/dmstats
+%{_sbindir}/dmvdostats
 %{_mandir}/man8/dmsetup.8.gz
 %{_mandir}/man8/dmstats.8.gz
+%{_mandir}/man8/dmvdostats.8.gz
 %{_mandir}/man8/blkdeactivate.8.gz
 %if %{enable_dmfilemapd}
 %{_sbindir}/dmfilemapd

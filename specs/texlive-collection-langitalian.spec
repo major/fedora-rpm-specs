@@ -5,7 +5,7 @@
 Name:           texlive-collection-langitalian
 Epoch:          12
 Version:        svn72943
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Italian
 
 License:        LPPL-1.3c
@@ -133,6 +133,8 @@ Version:        svn77371
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-italian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-italian-doc <= 11:%{version}
 
 %description -n texlive-babel-italian
 The package provides language definitions for use in babel.
@@ -172,6 +174,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-codicefiscaleitaliano-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-codicefiscaleitaliano-doc <= 11:%{version}
 
 %description -n texlive-codicefiscaleitaliano
 The alphanumeric string that forms the Italian personal Fiscal Code is prone to
@@ -197,6 +201,8 @@ Version:        svn73227
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fixltxhyph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fixltxhyph-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 
 %description -n texlive-fixltxhyph
@@ -212,6 +218,8 @@ Version:        svn24054
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-frontespizio-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-frontespizio-doc <= 11:%{version}
 Requires:       tex(afterpage.sty)
 Requires:       tex(atbegshi.sty)
 Requires:       tex(environ.sty)
@@ -246,10 +254,12 @@ Institution (Ente Nazionale di Unificazione UNI).
 
 %package -n texlive-itnumpar
 Summary:        Spell numbers in words (Italian)
-Version:        svn15878
+Version:        svn78793
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-itnumpar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-itnumpar-doc <= 11:%{version}
 
 %description -n texlive-itnumpar
 Sometimes we need to say "Capitolo primo" or "Capitolo uno" instead of
@@ -275,6 +285,8 @@ Version:        svn19087
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-layaureo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-layaureo-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(keyval.sty)
@@ -489,6 +501,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/verifica/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72943-5
+- Update itnumpar
+- fix missing -doc provides/obsoletes
+
 * Tue Apr 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72943-4
 - Update hyphen-italian
 - Fix hyph-utf8 files

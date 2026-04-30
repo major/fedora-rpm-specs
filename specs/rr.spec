@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 7
+%global baserelease 8
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -34,6 +34,8 @@ Patch1: remove-termio.patch
 Patch2: update-cmake-ver.patch
 # https://github.com/rr-debugger/rr/issues/4037
 Patch3: rr-5.9.0-use-openat2-header.patch
+# https://github.com/rr-debugger/rr/issues/3997
+Patch4: rr-5.9.0-emulate-madv-guard.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -136,6 +138,10 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Tue Apr 28 2026 Aaron Merey <amerey@redhat.com> - 5.9.0-8
+- Backport upstream fix for MADV_GUARD_INSTALL/REMOVE (kernel >= 6.13)
+  to unbreak recording of multi-threaded programs (upstream commit 34ff3a70).
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

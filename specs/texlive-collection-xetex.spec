@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-xetex
 Epoch:          12
-Version:        svn71515
-Release:        3%{?dist}
+Version:        svn78834
+Release:        10%{?dist}
 Summary:        XeTeX and packages
 
 License:        LPPL-1.3c
@@ -33,70 +33,80 @@ Source14:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bu
 Source15:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/businesscard-qrcode.doc.tar.xz
 Source16:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqubeamer.tar.xz
 Source17:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqubeamer.doc.tar.xz
-Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fixlatvian.tar.xz
-Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fixlatvian.doc.tar.xz
-Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/font-change-xetex.tar.xz
-Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/font-change-xetex.doc.tar.xz
-Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontbook.tar.xz
-Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontbook.doc.tar.xz
-Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontwrap.tar.xz
-Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontwrap.doc.tar.xz
-Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interchar.tar.xz
-Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interchar.doc.tar.xz
-Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-position.tar.xz
-Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-position.doc.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philokalia.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philokalia.doc.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptext.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptext.doc.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realscripts.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realscripts.doc.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-resume-cv.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-resume-cv.doc.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-thesis-dissertation.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-thesis-dissertation.doc.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tetragonos.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tetragonos.doc.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharclasses.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharclasses.doc.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-bidi.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-bidi.doc.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unimath-plain-xetex.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unimath-plain-xetex.doc.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unisugar.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unisugar.doc.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xebaposter.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xebaposter.doc.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xechangebar.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xechangebar.doc.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecolor.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecolor.doc.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyr.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyr.doc.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xeindex.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xeindex.doc.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xesearch.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xesearch.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xespotcolor.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xespotcolor.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-itrans.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-itrans.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-pstricks.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-pstricks.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-tibetan.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-tibetan.doc.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexconfig.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexfontinfo.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexfontinfo.doc.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexko.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexko.doc.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xevlna.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xevlna.doc.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zbmath-review-template.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zbmath-review-template.doc.tar.xz
+Source18:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex.tar.xz
+Source19:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex.doc.tar.xz
+Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex-faq.tar.xz
+Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctex-faq.doc.tar.xz
+Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fixlatvian.tar.xz
+Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fixlatvian.doc.tar.xz
+Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/font-change-xetex.tar.xz
+Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/font-change-xetex.doc.tar.xz
+Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontbook.tar.xz
+Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontbook.doc.tar.xz
+Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontwrap.tar.xz
+Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fontwrap.doc.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interchar.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interchar.doc.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-position.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/na-position.doc.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philokalia.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philokalia.doc.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptext.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptext.doc.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shtthesis.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shtthesis.doc.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-resume-cv.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-resume-cv.doc.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-thesis-dissertation.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simple-thesis-dissertation.doc.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tetragonos.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tetragonos.doc.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharclasses.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharclasses.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-bidi.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-bidi.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unimath-plain-xetex.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unimath-plain-xetex.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unisugar.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unisugar.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xebaposter.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xebaposter.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xechangebar.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xechangebar.doc.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecjk.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecjk.doc.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecolor.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecolor.doc.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyr.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xecyr.doc.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xeindex.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xeindex.doc.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xesearch.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xesearch.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xespotcolor.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xespotcolor.doc.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-devanagari.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-devanagari.doc.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-itrans.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-itrans.doc.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-pstricks.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-pstricks.doc.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-tibetan.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex-tibetan.doc.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexconfig.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexfontinfo.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexfontinfo.doc.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexko.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexko.doc.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexref.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexref.doc.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xevlna.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xevlna.doc.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zbmath-review-template.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zbmath-review-template.doc.tar.xz
 
 # AppStream metadata for font components
-Source79:        philokalia.metainfo.xml
+Source89:        philokalia.metainfo.xml
 BuildRequires:  texlive-base
 BuildRequires:  libappstream-glib
 Requires:       texlive-base
@@ -109,6 +119,8 @@ Requires:       texlive-bidishadowtext
 Requires:       texlive-businesscard-qrcode
 Requires:       texlive-collection-basic
 Requires:       texlive-cqubeamer
+Requires:       texlive-ctex
+Requires:       texlive-ctex-faq
 Requires:       texlive-fixlatvian
 Requires:       texlive-font-change-xetex
 Requires:       texlive-fontbook
@@ -117,7 +129,7 @@ Requires:       texlive-interchar
 Requires:       texlive-na-position
 Requires:       texlive-philokalia
 Requires:       texlive-ptext
-Requires:       texlive-realscripts
+Requires:       texlive-shtthesis
 Requires:       texlive-simple-resume-cv
 Requires:       texlive-simple-thesis-dissertation
 Requires:       texlive-tetragonos
@@ -127,6 +139,7 @@ Requires:       texlive-unimath-plain-xetex
 Requires:       texlive-unisugar
 Requires:       texlive-xebaposter
 Requires:       texlive-xechangebar
+Requires:       texlive-xecjk
 Requires:       texlive-xecolor
 Requires:       texlive-xecyr
 Requires:       texlive-xeindex
@@ -134,12 +147,14 @@ Requires:       texlive-xelatex-dev
 Requires:       texlive-xesearch
 Requires:       texlive-xespotcolor
 Requires:       texlive-xetex
+Requires:       texlive-xetex-devanagari
 Requires:       texlive-xetex-itrans
 Requires:       texlive-xetex-pstricks
 Requires:       texlive-xetex-tibetan
 Requires:       texlive-xetexconfig
 Requires:       texlive-xetexfontinfo
 Requires:       texlive-xetexko
+Requires:       texlive-xetexref
 Requires:       texlive-xevlna
 Requires:       texlive-zbmath-review-template
 
@@ -150,14 +165,15 @@ https://tug.org/xetex.
 
 %package -n texlive-arabxetex
 Summary:        An ArabTeX-like interface for XeLaTeX
-Version:        svn38299
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arabxetex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arabxetex-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(bidi.sty)
 Requires:       tex(fontspec.sty)
-Provides:       tex(arabxetex.sty) = %{tl_version}
 
 %description -n texlive-arabxetex
 ArabXeTeX provides a convenient ArabTeX-like user-interface for typesetting
@@ -176,8 +192,9 @@ Version:        svn62009
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidi-atbegshi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidi-atbegshi-doc <= 11:%{version}
 Requires:       tex(atbegshi-ltx.sty)
-Provides:       tex(bidi-atbegshi.sty) = %{tl_version}
 
 %description -n texlive-bidi-atbegshi
 The package adds some commands to the atbegshi package for proper placement of
@@ -187,13 +204,14 @@ loaded before the bidi package.
 
 %package -n texlive-bidicontour
 Summary:        Bidi-aware coloured contour around text
-Version:        svn34631
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidicontour-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidicontour-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(trig.sty)
-Provides:       tex(bidicontour.sty) = %{tl_version}
 
 %description -n texlive-bidicontour
 The package is a re-implementation of the contour package, making it
@@ -202,14 +220,15 @@ package is used).
 
 %package -n texlive-bidipagegrid
 Summary:        Bidi-aware page grid in background
-Version:        svn34632
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidipagegrid-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidipagegrid-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(bidipagegrid.sty) = %{tl_version}
 
 %description -n texlive-bidipagegrid
 The package is based on pagegrid.
@@ -220,6 +239,8 @@ Version:        svn35267
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidipresentation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidipresentation-doc <= 11:%{version}
 
 %description -n texlive-bidipresentation
 A great portion of the code is borrowed from the texpower bundle, with
@@ -228,12 +249,13 @@ right modes.
 
 %package -n texlive-bidishadowtext
 Summary:        Bidi-aware shadow text
-Version:        svn34633
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bidishadowtext-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bidishadowtext-doc <= 11:%{version}
 Requires:       tex(color.sty)
-Provides:       tex(bidishadowtext.sty) = %{tl_version}
 
 %description -n texlive-bidishadowtext
 This package allows you to typeset bidi-aware shadow text. It is a
@@ -271,7 +293,6 @@ Requires:       tex(bookmark.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(perpage.sty)
-Provides:       tex(cqubeamer.sty) = %{tl_version}
 
 %description -n texlive-cqubeamer
 This package provides a LaTeX beamer template designed for researchers of
@@ -279,12 +300,76 @@ Chongqing University. It can be used for academic reports, conferences, or
 thesis defense, and can be helpful for delivering a speech. It should be used
 with the XeTeX engine.
 
+%package -n texlive-ctex
+Summary:        LaTeX classes and packages for Chinese typesetting
+Version:        svn77682
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-ctex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ctex-doc <= 11:%{version}
+Requires:       texlive-adobemapping
+Requires:       texlive-atbegshi
+Requires:       texlive-beamer
+Requires:       texlive-cjk
+Requires:       texlive-cjkpunct
+Requires:       texlive-ec
+Requires:       texlive-epstopdf-pkg
+Requires:       texlive-etoolbox
+Requires:       texlive-everyhook
+Requires:       texlive-fandol
+Requires:       texlive-fontspec
+Requires:       texlive-iftex
+Requires:       texlive-infwarerr
+Requires:       texlive-kvoptions
+Requires:       texlive-kvsetkeys
+Requires:       texlive-latex-bin
+Requires:       texlive-ltxcmds
+Requires:       texlive-luatexja
+Requires:       texlive-mptopdf
+Requires:       texlive-pdftexcmds
+Requires:       texlive-platex-tools
+Requires:       texlive-svn-prov
+Requires:       texlive-tipa
+Requires:       texlive-tools
+Requires:       texlive-ttfutils
+Requires:       texlive-ulem
+Requires:       texlive-uplatex
+Requires:       texlive-xcjk2uni
+Requires:       texlive-xecjk
+Requires:       texlive-xetex
+Requires:       texlive-xkeyval
+Requires:       texlive-xpinyin
+Requires:       texlive-xunicode
+Requires:       texlive-zhmetrics
+Requires:       texlive-zhmetrics-uptex
+Requires:       texlive-zhnumber
+
+%description -n texlive-ctex
+ctex is a collection of macro packages and document classes for LaTeX Chinese
+typesetting.
+
+%package -n texlive-ctex-faq
+Summary:        LaTeX FAQ by the Chinese TeX Society (ctex.org)
+Version:        svn15878
+License:        GFDL-1.3-or-later
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-ctex-faq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ctex-faq-doc <= 11:%{version}
+
+%description -n texlive-ctex-faq
+Most questions were collected on the bbs.ctex.org forum, and were answered in
+detail by the author.
+
 %package -n texlive-fixlatvian
 Summary:        Improve Latvian language support in XeLaTeX
 Version:        svn21631
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fixlatvian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fixlatvian-doc <= 11:%{version}
 Requires:       tex(caption.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(icomma.sty)
@@ -293,7 +378,6 @@ Requires:       tex(perpage.sty)
 Requires:       tex(polyglossia.sty)
 Requires:       tex(svn-prov.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(fixlatvian.sty) = %{tl_version}
 
 %description -n texlive-fixlatvian
 The package offers improvement of the Latvian language support in polyglossia,
@@ -305,7 +389,8 @@ Version:        svn40404
 License:        CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(font-change-xetex.tex) = %{tl_version}
+Provides:       texlive-font-change-xetex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-font-change-xetex-doc <= 11:%{version}
 
 %description -n texlive-font-change-xetex
 This package consists of macros that can be used to typeset "plain" XeTeX
@@ -324,11 +409,12 @@ Version:        svn23608
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontbook-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontbook-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(xunicode.sty)
-Provides:       tex(fontbook.sty) = %{tl_version}
 
 %description -n texlive-fontbook
 The package provides a means of producing a 'book' of font samples (for
@@ -340,11 +426,12 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontwrap-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontwrap-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(perltex.sty)
 Requires:       tex(xltxtra.sty)
 Requires:       tex(xunicode.sty)
-Provides:       tex(fontwrap.sty) = %{tl_version}
 
 %description -n texlive-fontwrap
 The package (which runs under XeLaTeX) lets you bind fonts to specific unicode
@@ -353,12 +440,13 @@ blocks, for automatic font tagging of multilingual text. The package uses Perl
 
 %package -n texlive-interchar
 Summary:        Managing character class schemes in XeTeX
-Version:        svn36312
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-interchar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-interchar-doc <= 11:%{version}
 Requires:       tex(xparse.sty)
-Provides:       tex(interchar.sty) = %{tl_version}
 
 %description -n texlive-interchar
 The package manages character class schemes of XeTeX. Using this package, you
@@ -372,7 +460,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tkz-tab.sty)
-Provides:       tex(na-position.sty) = %{tl_version}
 
 %description -n texlive-na-position
 This package facilitates, in most cases, the creation of tables of relative
@@ -387,9 +474,10 @@ Version:        svn45356
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-philokalia-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-philokalia-doc <= 11:%{version}
 Requires:       tex(lettrine.sty)
 Requires:       tex(xltxtra.sty)
-Provides:       tex(philokalia.sty) = %{tl_version}
 
 %description -n texlive-philokalia
 The philokalia package has been designed to ease the use of the
@@ -398,35 +486,58 @@ digitize the typeface used to typeset the Philokalia books.
 
 %package -n texlive-ptext
 Summary:        A 'lipsum' for Persian
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ptext-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ptext-doc <= 11:%{version}
 Requires:       tex(biditools.sty)
-Provides:       tex(ptext.sty) = %{tl_version}
 
 %description -n texlive-ptext
 The package provides lipsum-like facilities for the Persian language. The
 source of the filling text is the Persian epic "the Shanameh" (100 paragraphs
 are used.) The package needs to be run under XeLaTeX.
 
-%package -n texlive-realscripts
-Summary:        Access OpenType subscript and superscript glyphs
-Version:        svn56594
-License:        LPPL-1.3c
+%package -n texlive-shtthesis
+Summary:        An unofficial LaTeX thesis template for ShanghaiTech University
+Version:        svn62441
+License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(fontspec.sty)
-Provides:       tex(realscripts.sty) = %{tl_version}
+Requires:       texlive-alphalph
+Requires:       biber
+Requires:       texlive-biblatex
+Requires:       texlive-biblatex-gb7714-2015
+Requires:       texlive-booktabs
+Requires:       texlive-caption
+Requires:       texlive-colortbl
+Requires:       texlive-ctex
+Requires:       texlive-datetime
+Requires:       texlive-enumitem
+Requires:       texlive-fancyhdr
+Requires:       texlive-fmtcount
+Requires:       texlive-lastpage
+Requires:       latexmk
+Requires:       texlive-listings
+Requires:       texlive-lua-alt-getopt
+Requires:       texlive-lualatex-math
+Requires:       texlive-mathtools
+Requires:       texlive-ntheorem
+Requires:       texlive-tex-gyre
+Requires:       texlive-tocvsec2
+Requires:       texlive-transparent
+Requires:       texlive-undolabl
+Requires:       texlive-unicode-math
+Requires:       texlive-xits
+Requires:       texlive-xstring
 
-%description -n texlive-realscripts
-This small package replaces \textsuperscript and \textsubscript commands by
-equivalent commands that use OpenType font features to access appropriate
-glyphs if possible. The package also patches LaTeX's default footnote command
-to use this new \textsuperscript for footnote symbols. The package requires
-fontspec running on either XeLaTeX or LuaLaTeX. The package holds functions
-that were once parts of the xltxtra package, which now loads realscripts by
-default.
+%description -n texlive-shtthesis
+This package, forked from ucasthesis, is an unofficial LaTeX thesis template
+for ShanghaiTech University and satisfies all format requirements of the
+school. The user just needs to set \documentclass{shtthesis} and to set up
+mandatory information via \shtsetup, then his or her thesis document will be
+typeset properly.
 
 %package -n texlive-simple-resume-cv
 Summary:        Template for a simple resume or curriculum vitae (CV), in XeLaTeX
@@ -458,8 +569,6 @@ Version:        svn49732
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tetragonos-database.def) = %{tl_version}
-Provides:       tex(tetragonos.sty) = %{tl_version}
 
 %description -n texlive-tetragonos
 This is a XeLaTeX package for mapping Chinese characters to their codes in the
@@ -467,12 +576,13 @@ Four-Corner Method.
 
 %package -n texlive-ucharclasses
 Summary:        Font actions in XeTeX according to what is being processed
-Version:        svn64782
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ucharclasses-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ucharclasses-doc <= 11:%{version}
 Requires:       tex(ifxetex.sty)
-Provides:       tex(ucharclasses.sty) = %{tl_version}
 
 %description -n texlive-ucharclasses
 The package takes care of switching fonts when you switch from one Unicode
@@ -482,11 +592,10 @@ entering block ..., switch font to use ...".
 
 %package -n texlive-unicode-bidi
 Summary:        Experimental unicode bidi package for XeTeX
-Version:        svn42482
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(unicode-bidi.sty) = %{tl_version}
 
 %description -n texlive-unicode-bidi
 The experimental unicode-bidi package allows to mix non-RTL script with RTL
@@ -498,7 +607,6 @@ Version:        svn72498
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(unimath-plain-xetex.tex) = %{tl_version}
 
 %description -n texlive-unimath-plain-xetex
 This package provides OpenType math font support in plain TeX format. It only
@@ -510,8 +618,9 @@ Version:        svn22357
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-unisugar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-unisugar-doc <= 11:%{version}
 Requires:       tex(ifxetex.sty)
-Provides:       tex(unisugar.sty) = %{tl_version}
 
 %description -n texlive-unisugar
 The package allows the user to define shorthand aliases for single Unicode
@@ -525,6 +634,8 @@ Version:        svn75290
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xebaposter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xebaposter-doc <= 11:%{version}
 
 %description -n texlive-xebaposter
 This package is designed for making beautiful scientific Persian/Latin posters.
@@ -534,11 +645,10 @@ using xebaposter (instead of baposter) without any problem.
 
 %package -n texlive-xechangebar
 Summary:        An extension of package changebar that can be used with XeLaTeX
-Version:        svn54080
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xechangebar.sty) = %{tl_version}
 
 %description -n texlive-xechangebar
 The package extends package changebar so it can be used with XeLaTeX. It
@@ -546,15 +656,31 @@ introduces the new option xetex for use with XeLaTeX. Everything else remains
 the same and users should consult the original documentation for usage
 information.
 
-%package -n texlive-xecolor
-Summary:        Support for color in XeLaTeX
-Version:        svn29660
+%package -n texlive-xecjk
+Summary:        Support for CJK documents in XeLaTeX
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xecjk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xecjk-doc <= 11:%{version}
+Requires:       texlive-ctex
+
+%description -n texlive-xecjk
+A LaTeX package for typesetting CJK documents in the way users have become used
+to, in the CJK package. The package requires a current version of xtemplate
+(and hence of the current LaTeX3 development environment).
+
+%package -n texlive-xecolor
+Summary:        Support for color in XeLaTeX
+Version:        svn77682
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-xecolor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xecolor-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
-Provides:       tex(xecolor.sty) = %{tl_version}
 
 %description -n texlive-xecolor
 This is a simple package which defines about 140 different colours using
@@ -563,10 +689,12 @@ any problem.
 
 %package -n texlive-xecyr
 Summary:        Using Cyrillic languages in XeTeX
-Version:        svn54308
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xecyr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xecyr-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(inputenc.sty)
@@ -574,20 +702,20 @@ Requires:       tex(luatextra.sty)
 Requires:       tex(misccorr.sty)
 Requires:       tex(xltxtra.sty)
 Requires:       tex(xunicode.sty)
-Provides:       tex(xecyr.sty) = %{tl_version}
 
 %description -n texlive-xecyr
 Helper tools for using Cyrillic languages with XeLaTeX and babel.
 
 %package -n texlive-xeindex
 Summary:        Automatic index generation for XeLaTeX
-Version:        svn35756
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xeindex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xeindex-doc <= 11:%{version}
 Requires:       tex(makeidx.sty)
 Requires:       tex(xesearch.sty)
-Provides:       tex(xeindex.sty) = %{tl_version}
 
 %description -n texlive-xeindex
 The package is based on XeSearch, and will automatically index words or phrases
@@ -596,12 +724,12 @@ creates an index entry whose content can be fully specified beforehand.
 
 %package -n texlive-xesearch
 Summary:        A string finder for XeTeX
-Version:        svn51908
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(t-xesearch.tex) = %{tl_version}
-Provides:       tex(xesearch.sty) = %{tl_version}
+Provides:       texlive-xesearch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xesearch-doc <= 11:%{version}
 
 %description -n texlive-xesearch
 The package finds strings (e.g. (parts of) words or phrases) and manipulates
@@ -614,20 +742,35 @@ languages.
 
 %package -n texlive-xespotcolor
 Summary:        Spot colours support for XeLaTeX
-Version:        svn58212
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xespotcolor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xespotcolor-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphics.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(xespotcolor.sty) = %{tl_version}
 
 %description -n texlive-xespotcolor
 The package provides macros for using spot colours in LaTeX documents. The
 package is a reimplementation of the spotcolor package for use with XeLaTeX. As
 such, it has the same user interface and the same capabilities.
+
+%package -n texlive-xetex-devanagari
+Summary:        XeTeX input map for Unicode Devanagari
+Version:        svn34296
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-xetex-devanagari-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetex-devanagari-doc <= 11:%{version}
+
+%description -n texlive-xetex-devanagari
+The package provides a map for use with Jonathan Kew's TECkit, to translate
+Devanagari (encoded according to the Harvard/Kyoto convention) to Unicode
+(range 0900-097F).
 
 %package -n texlive-xetex-itrans
 Summary:        Itrans input maps for use with XeLaTeX
@@ -635,6 +778,8 @@ Version:        svn55475
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xetex-itrans-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetex-itrans-doc <= 11:%{version}
 
 %description -n texlive-xetex-itrans
 The package provides maps for use with XeLaTeX with coding done using itrans.
@@ -647,6 +792,8 @@ Version:        svn17055
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xetex-pstricks-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetex-pstricks-doc <= 11:%{version}
 
 %description -n texlive-xetex-pstricks
 The package provides an indirection scheme for XeTeX to use the pstricks
@@ -661,6 +808,8 @@ Version:        svn28847
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xetex-tibetan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetex-tibetan-doc <= 11:%{version}
 
 %description -n texlive-xetex-tibetan
 The package provides a map for use with Jonathan Kew's TECkit, to translate
@@ -682,8 +831,8 @@ Version:        svn15878
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(aat-info.tex) = %{tl_version}
-Provides:       tex(opentype-info.tex) = %{tl_version}
+Provides:       texlive-xetexfontinfo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetexfontinfo-doc <= 11:%{version}
 
 %description -n texlive-xetexfontinfo
 A pair of documents to reveal the font features supported by fonts usable in
@@ -692,18 +841,14 @@ XeTeX. Use OpenType-info.tex for OpenType fonts, and AAT-info.tex for AAT fonts
 
 %package -n texlive-xetexko
 Summary:        Typeset Korean with Xe(La)TeX
-Version:        svn76133
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xetexko-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetexko-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(kolabels-utf.sty)
-Provides:       tex(xetexko-font.sty) = %{tl_version}
-Provides:       tex(xetexko-hanging.sty) = %{tl_version}
-Provides:       tex(xetexko-josa.sty) = %{tl_version}
-Provides:       tex(xetexko-space.sty) = %{tl_version}
-Provides:       tex(xetexko-vertical.sty) = %{tl_version}
-Provides:       tex(xetexko.sty) = %{tl_version}
 
 %description -n texlive-xetexko
 The package supports typesetting Korean documents (including old Hangul texts),
@@ -711,13 +856,27 @@ using XeTeX. It enhances the existing support, in XeTeX, providing features
 that provide quality typesetting. This package requires the cjk-ko package for
 its full functionality.
 
-%package -n texlive-xevlna
-Summary:        Insert non-breakable spaces using XeTeX
-Version:        svn76790
+%package -n texlive-xetexref
+Summary:        Reference documentation of XeTeX
+Version:        svn73885
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xevlna.sty) = %{tl_version}
+Provides:       texlive-xetexref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xetexref-doc <= 11:%{version}
+
+%description -n texlive-xetexref
+The package comprises reference documentation for XeTeX detailing its extended
+features.
+
+%package -n texlive-xevlna
+Summary:        Insert non-breakable spaces using XeTeX
+Version:        svn77682
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-xevlna-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xevlna-doc <= 11:%{version}
 
 %description -n texlive-xevlna
 The package will directly insert nonbreakable spaces (in Czech, vlna or vlnka),
@@ -742,7 +901,6 @@ Requires:       tex(mathtools.sty)
 Requires:       tex(stmaryrd.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(tikz-cd.sty)
-Provides:       tex(zb-basics.sty) = %{tl_version}
 
 %description -n texlive-zbmath-review-template
 This package contains a template for zbMATH Open reviews. It will show what
@@ -843,9 +1001,19 @@ tar -xf %{SOURCE75} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE76} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE77} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE78} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE79} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE80} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE81} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE82} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE83} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE84} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE85} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE86} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE87} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE88} -C %{buildroot}%{_texmf_main}
 
 # Install AppStream metadata for font components
-cp %{SOURCE79} %{buildroot}%{_datadir}/appdata/
+cp %{SOURCE89} %{buildroot}%{_datadir}/appdata/
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -901,6 +1069,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/xelatex/cqubeamer/
 %doc %{_texmf_main}/doc/xelatex/cqubeamer/
 
+%files -n texlive-ctex
+%license lppl1.3c.txt
+%{_texmf_main}/tex/generic/ctex/
+%{_texmf_main}/tex/latex/ctex/
+%{_texmf_main}/tex/luatex/ctex/
+%doc %{_texmf_main}/doc/latex/ctex/
+
+%files -n texlive-ctex-faq
+%license fdl.txt
+%doc %{_texmf_main}/doc/latex/ctex-faq/
+
 %files -n texlive-fixlatvian
 %license lppl1.3c.txt
 %{_texmf_main}/makeindex/fixlatvian/
@@ -945,10 +1124,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/xelatex/ptext/
 %doc %{_texmf_main}/doc/xelatex/ptext/
 
-%files -n texlive-realscripts
-%license lppl1.3c.txt
-%{_texmf_main}/tex/latex/realscripts/
-%doc %{_texmf_main}/doc/latex/realscripts/
+%files -n texlive-shtthesis
+%license gpl3.txt
+%{_texmf_main}/tex/latex/shtthesis/
+%doc %{_texmf_main}/doc/latex/shtthesis/
 
 %files -n texlive-simple-resume-cv
 %license pd.txt
@@ -996,6 +1175,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/xelatex/xechangebar/
 %doc %{_texmf_main}/doc/xelatex/xechangebar/
 
+%files -n texlive-xecjk
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/misc/xetex/fontmapping/
+%{_texmf_main}/tex/xelatex/xecjk/
+%doc %{_texmf_main}/doc/xelatex/xecjk/
+
 %files -n texlive-xecolor
 %license lppl1.3c.txt
 %{_texmf_main}/tex/xelatex/xecolor/
@@ -1020,6 +1205,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %license lppl1.3c.txt
 %{_texmf_main}/tex/xelatex/xespotcolor/
 %doc %{_texmf_main}/doc/xelatex/xespotcolor/
+
+%files -n texlive-xetex-devanagari
+%license lppl1.3c.txt
+%{_texmf_main}/fonts/misc/xetex/fontmapping/
+%doc %{_texmf_main}/doc/xetex/xetex-devanagari/
 
 %files -n texlive-xetex-itrans
 %license lppl1.3c.txt
@@ -1051,6 +1241,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/xetex/xetexko/
 %doc %{_texmf_main}/doc/xetex/xetexko/
 
+%files -n texlive-xetexref
+%license lppl1.3c.txt
+%doc %{_texmf_main}/doc/xetex/xetexref/
+
 %files -n texlive-xevlna
 %license lppl1.3c.txt
 %{_texmf_main}/tex/xelatex/xevlna/
@@ -1063,6 +1257,20 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/xelatex/zbmath-review-template/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78834-10
+- artificial release bump to avoid conflict from component migration
+
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78834-4
+- Update collection from svn71515 to svn78834
+- upstream moved all the xetex dependent packages here...
+- Add ctex
+- Add ctex-faq
+- Add shtthesis
+- Add xecjk
+- Add xetex-devanagari
+- Add xetexref
+- Update 16 components
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn71515-3
 - fix descriptions, licensing
 

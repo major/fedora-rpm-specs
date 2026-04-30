@@ -5,7 +5,7 @@
 Name:           texlive-collection-langczechslovak
 Epoch:          12
 Version:        svn54074
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Czech/Slovak
 
 License:        LPPL-1.3c
@@ -65,6 +65,8 @@ Version:        svn30261
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-czech-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-czech-doc <= 11:%{version}
 
 %description -n texlive-babel-czech
 The package provides the language definition file for support of Czech in
@@ -77,6 +79,8 @@ Version:        svn30292
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-slovak-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-slovak-doc <= 11:%{version}
 
 %description -n texlive-babel-slovak
 The package provides the language definition file for support of Slovak in
@@ -89,6 +93,8 @@ Version:        svn69910
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cnbwp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cnbwp-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(dcolumn.sty)
 Requires:       tex(fontspec.sty)
@@ -127,6 +133,8 @@ Version:        svn77112
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-csbulletin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-csbulletin-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 
@@ -349,6 +357,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-cz/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-7
+- Fix missing -doc provides/obsoletes
+
 * Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-6
 - Update hyphen-czech, hyphen-slovak
 

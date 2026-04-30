@@ -1,8 +1,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.46
-Release:        3%{?dist}
+Version:        3.1.48
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -59,6 +59,10 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Tue Apr 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.48-1
+- Update to 3.1.48; closes RHBZ#2460480, fixes GHSA-rpm5-65cw-6hj4,
+  fixes GHSA-x2qx-6953-8485, and fixes GHSA-7545-fcxq-7j24
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.46-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

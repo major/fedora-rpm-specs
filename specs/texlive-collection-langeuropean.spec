@@ -5,7 +5,7 @@
 Name:           texlive-collection-langeuropean
 Epoch:          12
 Version:        svn73414
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Other European languages
 
 License:        LPPL-1.3c
@@ -217,6 +217,8 @@ Version:        svn69418
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-armtex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-armtex-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(kvoptions.sty)
 
@@ -237,6 +239,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-albanian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-albanian-doc <= 11:%{version}
 
 %description -n texlive-babel-albanian
 The package provides support for typesetting Albanian (as part of the babel
@@ -248,6 +252,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-bosnian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-bosnian-doc <= 11:%{version}
 
 %description -n texlive-babel-bosnian
 The package provides a language definition file that enables support of Bosnian
@@ -259,6 +265,8 @@ Version:        svn77470
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-breton-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-breton-doc <= 11:%{version}
 
 %description -n texlive-babel-breton
 Breton (being, principally, a spoken language) does not have typographic rules
@@ -271,6 +279,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-croatian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-croatian-doc <= 11:%{version}
 
 %description -n texlive-babel-croatian
 The package establishes Croatian conventions in a document (or a subset of the
@@ -282,6 +292,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-danish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-danish-doc <= 11:%{version}
 
 %description -n texlive-babel-danish
 The package provides a language definition, file for use with babel, which
@@ -294,6 +306,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-dutch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-dutch-doc <= 11:%{version}
 
 %description -n texlive-babel-dutch
 The package provides a language definition, file for use with babel, which
@@ -306,6 +320,8 @@ Version:        svn38064
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-estonian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-estonian-doc <= 11:%{version}
 
 %description -n texlive-babel-estonian
 The package provides the language definition file for support of Estonian in
@@ -318,6 +334,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-finnish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-finnish-doc <= 11:%{version}
 
 %description -n texlive-babel-finnish
 The package provides a language description file that enables support of
@@ -329,6 +347,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-friulan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-friulan-doc <= 11:%{version}
 
 %description -n texlive-babel-friulan
 The package provides a language description file that enables support of
@@ -340,6 +360,8 @@ Version:        svn77586
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-hungarian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-hungarian-doc <= 11:%{version}
 
 %description -n texlive-babel-hungarian
 The package provides a language definition file that enables support of
@@ -351,6 +373,8 @@ Version:        svn51551
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-icelandic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-icelandic-doc <= 11:%{version}
 
 %description -n texlive-babel-icelandic
 The package provides the language definition file for support of Icelandic in
@@ -363,6 +387,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-irish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-irish-doc <= 11:%{version}
 
 %description -n texlive-babel-irish
 The package provides the language definition file for support of Irish Gaelic
@@ -375,6 +401,8 @@ Version:        svn30279
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-kurmanji-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-kurmanji-doc <= 11:%{version}
 
 %description -n texlive-babel-kurmanji
 The package provides the language definition file for support of Kurmanji in
@@ -390,6 +418,8 @@ Version:        svn76176
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-latin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-latin-doc <= 11:%{version}
 
 %description -n texlive-babel-latin
 The babel-latin package provides the babel languages latin, classicallatin,
@@ -402,6 +432,8 @@ Version:        svn71108
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-latvian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-latvian-doc <= 11:%{version}
 
 %description -n texlive-babel-latvian
 The package provides the language definition file for support of Latvian in
@@ -425,6 +457,8 @@ Version:        svn39587
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-macedonian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-macedonian-doc <= 11:%{version}
 
 %description -n texlive-babel-macedonian
 The package provides support for Macedonian documents written in Cyrillic, in
@@ -436,6 +470,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-norsk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-norsk-doc <= 11:%{version}
 
 %description -n texlive-babel-norsk
 The package provides the language definition file for support of Norwegian in
@@ -448,6 +484,8 @@ Version:        svn39608
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-occitan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-occitan-doc <= 11:%{version}
 
 %description -n texlive-babel-occitan
 Occitan language description file with usage instructions.
@@ -458,6 +496,8 @@ Version:        svn30282
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-piedmontese-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-piedmontese-doc <= 11:%{version}
 
 %description -n texlive-babel-piedmontese
 The package provides the language definition file for support of Piedmontese in
@@ -470,6 +510,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-romanian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-romanian-doc <= 11:%{version}
 
 %description -n texlive-babel-romanian
 The package provides the language definition file for support of Romanian in
@@ -481,6 +523,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-romansh-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-romansh-doc <= 11:%{version}
 
 %description -n texlive-babel-romansh
 The package provides a language description file that enables support of
@@ -492,6 +536,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-samin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-samin-doc <= 11:%{version}
 
 %description -n texlive-babel-samin
 The package provides the language definition file for support of North Sami in
@@ -506,6 +552,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-scottish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-scottish-doc <= 11:%{version}
 
 %description -n texlive-babel-scottish
 The package provides the language definition file for support of Gaidhlig
@@ -518,6 +566,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-slovenian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-slovenian-doc <= 11:%{version}
 
 %description -n texlive-babel-slovenian
 The package provides the language definition file for support of Slovenian in
@@ -530,6 +580,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-swedish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-swedish-doc <= 11:%{version}
 
 %description -n texlive-babel-swedish
 The package provides the language definition file for Swedish.
@@ -540,6 +592,8 @@ Version:        svn51560
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-turkish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-turkish-doc <= 11:%{version}
 
 %description -n texlive-babel-turkish
 The package provides support, within babel, of the Turkish language.
@@ -550,6 +604,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-babel-welsh-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-welsh-doc <= 11:%{version}
 
 %description -n texlive-babel-welsh
 The package provides the language definition file for Welsh. (Mostly
@@ -583,6 +639,8 @@ Version:        svn18020
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hrlatex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hrlatex-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amsopn.sty)
 Requires:       tex(amssymb.sty)
@@ -739,6 +797,8 @@ Version:        svn78069
 License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hyphen-hungarian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyphen-hungarian-doc <= 11:%{version}
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
 
@@ -997,6 +1057,8 @@ Version:        svn66461
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lithuanian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lithuanian-doc <= 11:%{version}
 
 %description -n texlive-lithuanian
 This language support package provides: extra 8-bit encoding L7x used by
@@ -1072,6 +1134,8 @@ Version:        svn39029
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nevelok-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nevelok-doc <= 11:%{version}
 Requires:       tex(xstring.sty)
 
 %description -n texlive-nevelok
@@ -1097,6 +1161,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-swebib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-swebib-doc <= 11:%{version}
 
 %description -n texlive-swebib
 The bundle contains Swedish versions of the standard bibliography styles, and
@@ -1110,6 +1176,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-turkmen-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-turkmen-doc <= 11:%{version}
 
 %description -n texlive-turkmen
 The package provides support for Turkmen in babel, but integration with babel
@@ -2132,6 +2200,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/turkmen/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-7
+- fix missing -doc provides/obsoletes
+
 * Wed Apr 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-6
 - Update 42 components
 - Move to automatic file provides

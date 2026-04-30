@@ -1,7 +1,7 @@
 %{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        4.0.5
+Version:        4.0.6
 Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
@@ -99,6 +99,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Tue Apr 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.0.6-1
+- 4.0.6
+
 * Wed Feb 11 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-1
 - 4.0.5
 

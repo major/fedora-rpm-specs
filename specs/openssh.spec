@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -118,7 +118,6 @@ Patch0054: 0054-gssapi-tests.patch
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
-Requires: /sbin/nologin
 Requires: openssl-libs >= 1:3.5.0
 
 %if ! %{no_gnome_askpass}
@@ -179,6 +178,7 @@ Requires: openssh = %{version}-%{release}
 %package server
 Summary: An open source SSH server daemon
 Requires: openssh = %{version}-%{release}
+Requires: /sbin/nologin
 Requires(pre): /usr/sbin/useradd
 Requires: pam >= 1.0.1-3
 Requires: crypto-policies >= 20220824-1
@@ -514,6 +514,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Apr 27 2026 Benjamin Sherman <bsherman@redhat.com> - 10.3p1-3
+- Move /sbin/nologin requirement to openssh-server
+
 * Mon Apr 20 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-2
 - Implement GSS API Key exchange tests
   Run GSS auth/kex tests on %check phase

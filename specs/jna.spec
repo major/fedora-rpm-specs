@@ -6,7 +6,7 @@
 %endif
 
 Name:           jna
-Version:        5.17.0
+Version:        5.18.1
 Release:        %autorelease
 Summary:        Pure Java access to native libraries
 # Most of code is dual-licensed under either LGPL 2.1+ only or Apache

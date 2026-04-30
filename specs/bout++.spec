@@ -398,7 +398,7 @@ do
       -DBOUT_USE_NLS=ON \
       -DBOUT_USE_SYSTEM_FMT=ON \
       -DBOUT_USE_UUID_SYSTEM_GENERATOR=ON \
-      -DBOUT_TEST_TIMEOUT=900 \
+      -DBOUT_TEST_TIMEOUT=1800 \
 %if %{with 3dmetrics}
       -DBOUT_ENABLE_METRIC_3D=ON \
 %endif
@@ -505,6 +505,8 @@ do
         %_mpich_load
 	%ifarch s390x
 	fail=0
+        # The following tests appear to completely hang with no timeout
+        exclude_arch="-E test-invertable-operator|test-laplacexy-fv|test-laplacexy-short|test-laplacexz|test-petsc-laplace|test-multigrid-laplace"
 	%endif
     else
         %_openmpi_load
@@ -518,12 +520,9 @@ do
     # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1997717
     export HDF5_USE_FILE_LOCKING=FALSE
 
-    # Skip tests on s390x - they can get stuck
-    %ifnarch s390x
     SEGFAULT_SIGNALS="segv" %ctest -R serial_tests || $(exit $fail)
     SEGFAULT_SIGNALS="segv" %ctest -R "MMS-" || $(exit $fail)
-    SEGFAULT_SIGNALS="segv" %ctest -R "test-" || $(exit $fail)
-    %endif
+    SEGFAULT_SIGNALS="segv" %ctest -R "test-" $exclude_arch || $(exit $fail)
 
     if [ $mpi = mpich ] ; then
         %_mpich_unload

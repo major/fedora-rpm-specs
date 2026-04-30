@@ -5,7 +5,7 @@
 
 # https://github.com/osbuild/weldr-client
 %global goipath         github.com/osbuild/weldr-client/v2
-Version:                36.1
+Version:                36.2
 
 %gometa -L -f
 
@@ -23,7 +23,7 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 %if %{with signed}
 Source3:        %{gosource}.asc
-Source4:        https://keys.openpgp.org/vks/v1/by-fingerprint/117E8C168EFE3A7F#/gpg-117E8C168EFE3A7F.key
+Source4:        https://keys.openpgp.org/vks/v1/by-fingerprint/872F3A8A0B84905AFFBC8766FF9868A2D488A5A9#/gpg-872F3A8A0B84905AFFBC8766FF9868A2D488A5A9.key
 %endif
 
 Obsoletes: composer-cli < 35.0
@@ -100,7 +100,7 @@ Requires: createrepo_c
 Integration tests to be run on a pristine-dedicated system to test the
 composer-cli package against a running osbuild-composer service.
 
-%files -f %{go_vendor_license_filelist} tests
+%files tests
 %{_libexecdir}/tests/composer-cli/
 %endif
 

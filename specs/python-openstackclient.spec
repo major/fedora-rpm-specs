@@ -23,6 +23,12 @@ License:          Apache-2.0
 URL:              http://launchpad.net/%{name}
 Source0:          https://tarballs.openstack.org/%{name}/python_%{sname}-%{version}.tar.gz
 
+Source10:         openstack-completion.service  
+Source11:         openstack-completion.service.8
+Source12:         openstack-completion.timer    
+Source13:         openstack-completion-wrapper  
+Source14:         sysusers.conf
+
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{name}/python_%{sname}-%{version}.tar.gz.asc
@@ -32,6 +38,7 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildArch:        noarch
 
 BuildRequires:    python3-devel
+Buildrequires:    systemd-rpm-macros
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
@@ -78,6 +85,8 @@ Translation files for Openstackclient
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n python_%{sname}-%{version} -S git
+
+cp -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
@@ -149,15 +158,33 @@ sed -i '\|%{python3_sitelib}/%{sname}/locale\(/.*\)\?$|d' %{pyproject_files}
 # Find language files
 %find_lang %{sname} --all-name
 
-
-%post -n python3-%{sname}
-mkdir -p /etc/bash_completion.d
-openstack complete | sed -n '/_openstack/,$p' > /etc/bash_completion.d/osc.bash_completion
+# Install bash-completion service
+install -Dpm 0644 openstack-completion.service \
+    %{buildroot}%{_unitdir}/openstack-completion.service
+install -Dpm 0644 openstack-completion.timer \
+    %{buildroot}%{_unitdir}/openstack-completion.timer
+install -Dpm 0644 openstack-completion-wrapper \
+    %{buildroot}%{_datadir}/bash-completion/completions/openstack
+install -Dpm 0644 sysusers.conf \
+    %{buildroot}%{_sysusersdir}/openstack-completion.conf
+install -Dpm 0644 openstack-completion.service.8 \
+    %{buildroot}%{_mandir}/man8/openstack-completion.service.8
+install -dm 0755 %{buildroot}%{_sharedstatedir}/openstack-client
 
 
 %check
 export PYTHON=%{__python3}
 %tox -e %{default_toxenv} -- -- --exclude-regex 'openstackclient.tests.unit.common.test_module.TestModuleList.*'
+
+
+%post -n python3-%{sname}
+%systemd_post openstack-completion.timer
+ 
+%preun -n python3-%{sname}
+%systemd_preun openstack-completion.timer
+ 
+%postun -n python3-%{sname}
+%systemd_postun_with_restart openstack-completion.timer
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
@@ -166,6 +193,15 @@ export PYTHON=%{__python3}
 %{_bindir}/%{cname}
 %if 0%{?with_doc}
 %{_mandir}/man1/%{cname}.1*
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/openstack
+%{_unitdir}/openstack-completion.service
+%{_unitdir}/openstack-completion.timer
+%{_sysusersdir}/openstack-completion.conf
+%dir %attr(0755, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client
+%ghost %attr(0644, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client/bash-completion
+%{_mandir}/man8/openstack-completion.service.8*
 
 
 %files -n python-%{sname}-doc

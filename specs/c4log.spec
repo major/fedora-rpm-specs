@@ -36,7 +36,8 @@ Patch:          c4log-b8b86f3-external-c4core.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  c4project
+# Minimum version with proper multilib (GNUInstallDirs) support
+BuildRequires:  c4project >= 0^20260428.fa85cab-1
 # A Python 3 interpreter is required for the patch-no-download script.
 BuildRequires:  python3-devel
 
@@ -103,6 +104,9 @@ sed -r -i 's/\bdoctest\b//' test/CMakeLists.txt
 #
 # Installation directory on Linux 64bit OS
 # https://github.com/biojppm/rapidyaml/issues/256
+#
+# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
+# which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'

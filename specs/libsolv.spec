@@ -59,6 +59,9 @@ Patch:          0001-Python-Provide-dist-info-metadata.patch
 # Replaces <https://src.fedoraproject.org/rpms/libsolv/pull-request/14>.
 # Requires Python-Provide-dist-info-metadata.patch.
 Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
+# Cope with integer overflow in data size arithmetics in repo_add_solv(),
+# in upstream after 0.7.37, <https://github.com/openSUSE/libsolv/pull/617>
+Patch:          0003-Cope-with-integer-overflow-in-data-size-arithmetics-.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++

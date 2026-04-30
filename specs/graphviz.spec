@@ -105,8 +105,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		14.1.4
-Release:		2%{?dist}
+Version:		14.1.5
+Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -737,6 +737,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 14.1.5-1
+- New version
+  Resolves: rhbz#2457622
+
 * Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 14.1.4-2
 - R-maint-sig mass rebuild
 - Patch for R API 4.6

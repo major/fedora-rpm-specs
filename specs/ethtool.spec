@@ -3,7 +3,7 @@
 Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
-Version:        6.19
+Version:        7.0
 Release:        1%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -49,6 +49,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream
 %{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %changelog
+* Tue Apr 28 2026 Robert Scheck <robert@fedoraproject.org> - 2:7.0-1
+- Upgrade to 7.0 (#2463460)
+
 * Fri Mar 06 2026 Robert Scheck <robert@fedoraproject.org> - 2:6.19-1
 - Upgrade to 6.19 (#2444822)
 

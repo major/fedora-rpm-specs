@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -118,6 +118,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-amsfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-amsfonts-doc <= 11:%{version}
 
 %description -n texlive-amsfonts
 An extended set of fonts for use in mathematics, including: extra mathematical
@@ -138,6 +140,8 @@ Version:        svn57963
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cm-doc <= 11:%{version}
 
 %description -n texlive-cm
 Knuth's final iteration of his re-interpretation of a c.19 Modern-style font
@@ -167,6 +171,8 @@ Version:        svn25033
 License:        LicenseRef-ec
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ec-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ec-doc <= 11:%{version}
 
 %description -n texlive-ec
 The EC fonts are European Computer Modern Fonts, supporting the complete LaTeX
@@ -189,6 +195,8 @@ Version:        svn34957
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-enctex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-enctex-doc <= 11:%{version}
 
 %description -n texlive-enctex
 EncTeX is (another) TeX extension, written at the change-file level. It
@@ -201,6 +209,8 @@ Version:        svn77830
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-etex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-etex-doc <= 11:%{version}
 
 %description -n texlive-etex
 An extended version of TeX (capable of running as if it were unmodified TeX).
@@ -218,6 +228,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-etex-pkg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-etex-pkg-doc <= 11:%{version}
 
 %description -n texlive-etex-pkg
 The package provides support for LaTeX documents to use many of the extensions
@@ -245,6 +257,8 @@ Version:        svn78069
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hyph-utf8-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyph-utf8-doc <= 11:%{version}
 
 %description -n texlive-hyph-utf8
 Modern native UTF-8 engines such as XeTeX and LuaTeX need hyphenation patterns
@@ -289,6 +303,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ifplatform-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ifplatform-doc <= 11:%{version}
 Requires:       tex(catchfile.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(pdftexcmds.sty)
@@ -308,6 +324,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-iftex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-iftex-doc <= 11:%{version}
 
 %description -n texlive-iftex
 The package, which works both for Plain TeX and for LaTeX, defines the
@@ -344,6 +362,8 @@ Version:        svn78415
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lua-alt-getopt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lua-alt-getopt-doc <= 11:%{version}
 
 %description -n texlive-lua-alt-getopt
 lua_altgetopt is a MIT-licensed module for Lua, for processing application
@@ -357,6 +377,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mflogo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mflogo-doc <= 11:%{version}
 
 %description -n texlive-mflogo
 LaTeX package and font definition file to access the Knuthian mflogo fonts
@@ -396,6 +418,8 @@ Version:        svn78524
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tex-ini-files-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tex-ini-files-doc <= 11:%{version}
 
 %description -n texlive-tex-ini-files
 This bundle provides a collection of model .ini files for creating TeX formats.
@@ -406,7 +430,7 @@ with XeTeX and LuaTeX.
 
 %package -n texlive-texlive-common
 Summary:        TeX Live documentation (common elements)
-Version:        svn77830
+Version:        svn78660
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -418,7 +442,7 @@ TeX Live documentation (common elements)
 
 %package -n texlive-texlive-msg-translations
 Summary:        Translations of the TeX Live installer and TeX Live Manager
-Version:        svn78256
+Version:        svn78661
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -434,6 +458,8 @@ Version:        svn76413
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-unicode-data-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-unicode-data-doc <= 11:%{version}
 
 %description -n texlive-unicode-data
 This bundle provides generic access to Unicode Consortium data for TeX use. It
@@ -581,7 +607,15 @@ popd
 
 %files -n texlive-hyph-utf8
 %license mit.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-il2.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-il3.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-l7x.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-lmc.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-lth.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-qx.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-t2a.tex
+%{_texmf_main}/tex/generic/hyph-utf8/conversions/conv-utf8-t8m.tex
 %{_texmf_main}/tex/luatex/hyph-utf8/
 %doc %{_texmf_main}/doc/generic/hyph-utf8/
 %doc %{_texmf_main}/doc/luatex/hyph-utf8/
@@ -662,6 +696,10 @@ popd
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-11
+- Update texlive-common, texlive-msg-translations
+- fix missing -doc provides/obsoletes
+
 * Wed Apr 01 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-10
 - Update 12 components
 

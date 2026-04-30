@@ -209,15 +209,16 @@ end
 %endif
 %endif
 
-# Historically, LLD was used used at the same combinations that enabled PGO.
-# If this changes, we need to update the following lines.
-# However, we should be able to link using LLD even if PGO is disabled.
-# Reminder: RHEL8 still builds with gcc + ld.bfd.
-%if %{with pgo}
-%bcond_without use_lld
-%else
+
+%if 0%{?rhel} == 8
 # RHEL8 still builds with gcc + ld.bfd.
 %bcond_with use_lld
+%else
+%bcond_without use_lld
+%endif
+
+%if %{with pgo} && %{without use_lld}
+%{error:PGO requires --with=lld}
 %endif
 
 # For PGO Disable LTO for now because of LLVMgold.so not found error

@@ -1,10 +1,20 @@
 %global zig_pixman_ver 0.3.0
-%global zig_wayland_ver 0.5.0
-%global zig_wlroots_ver 0.20.0
+%global zig_wayland_ver 0.6.0
+%global zig_wlroots_ver 0.20.1
 %global zig_xkbcommon_ver 0.4.0
+%global translatec_commit 57c559cf581b1fcad90494eda219f98abeb155ce
+%global aro_commit 5f5a050569a95ecc40a426f0c3666ae7ef987ede
+
+# llvm needs to be explicitly enabled because Zigs
+# own ELF2 linker doesn't support build-id's yet
+%global zig_build_options %{shrink:
+    -Dpie  \
+    -Dxwayland \
+    -Dllvm=true \
+}
 
 Name:           river
-Version:        0.4.2
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Non-monolithic Wayland compositor
 
@@ -31,13 +41,15 @@ Source4:        https://codeberg.org/ifreund/zig-pixman/archive/v%{zig_pixman_ve
 Source5:        https://codeberg.org/ifreund/zig-wayland/archive/v%{zig_wayland_ver}.tar.gz#/zig-wayland-%{zig_wayland_ver}.tar.gz
 Source6:        https://codeberg.org/ifreund/zig-wlroots/archive/v%{zig_wlroots_ver}.tar.gz#/zig-wlroots-%{zig_wlroots_ver}.tar.gz
 Source7:        https://codeberg.org/ifreund/zig-xkbcommon/archive/v%{zig_xkbcommon_ver}.tar.gz#/zig-xkbcommon-%{zig_xkbcommon_ver}.tar.gz
+Source8:        https://codeberg.org/ziglang/translate-c/archive/%{translatec_commit}.tar.gz#/translate-c-%{translatec_commit}.tar.gz
+Source9:        https://github.com/Vexu/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
 
 ExclusiveArch:  %{zig_arches}
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  scdoc
-BuildRequires:  (zig >= 0.15.2 with zig < 0.16)
+BuildRequires:  (zig >= 0.16 with zig < 0.17)
 BuildRequires:  zig-rpm-macros
 
 BuildRequires:  pkgconfig(libevdev)
@@ -85,24 +97,22 @@ License:        MIT
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -a 4 -a 5 -a 6 -a 7
+%setup -q -a 4 -a 5 -a 6 -a 7 -a 8 -a 9
 
 %zig_fetch zig-pixman
 %zig_fetch zig-wayland
 %zig_fetch zig-wlroots
 %zig_fetch zig-xkbcommon
+%zig_fetch translate-c
+%zig_fetch arocc-%{aro_commit}
 
 
 %build
-%zig_build \
-    -Dpie  \
-    -Dxwayland
+%zig_build
 
 
 %install
-%zig_install \
-    -Dpie    \
-    -Dxwayland
+%zig_install
 install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}.desktop
 
 

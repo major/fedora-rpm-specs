@@ -2,7 +2,7 @@
 %global gnupghome %(mktemp --directory)
 
 Name:           perl-Module-Signature
-Version:        0.95
+Version:        0.96
 Release:        1%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
@@ -84,13 +84,18 @@ make test TEST_SIGNATURE=0
 rm -rf %{buildroot} %{gnupghome}
 
 %files
-%doc AUTHORS Changes SECURITY.md *.pub
+%doc AUTHORS Changes *.pub
 %{_bindir}/cpansign
 %{perl_vendorlib}/Module/
 %{_mandir}/man1/cpansign.1*
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Tue Apr 28 2026 Paul Howarth <paul@city-fan.org> - 0.96-1
+- Update to 0.96
+  - Fix issue from last release where search keys is interactive
+- SECURITY.md no longer shipped
+
 * Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 0.95-1
 - Update to 0.95 (rhbz#2461945)
   - Announce deprecation of the module

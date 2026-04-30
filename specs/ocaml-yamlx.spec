@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mjambon/yamlx
 
 Name:           ocaml-yamlx
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Pure OCaml YAML 1.2 parser with lossless comment-preserving AST
 

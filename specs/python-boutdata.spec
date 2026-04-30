@@ -2,7 +2,7 @@
 %global pypi_name boutdata
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Python package for collecting BOUT++ data
 
@@ -10,11 +10,6 @@ License:        LGPL-3.0-or-later
 URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
-
-# Fix for 3.14: allow pickling
-Patch:          https://github.com/boutproject/boutdata/pull/126.patch
-# Fix license format
-Patch:          https://github.com/boutproject/boutdata/pull/125.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

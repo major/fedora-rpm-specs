@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-langenglish
 Epoch:          12
-Version:        svn74022
-Release:        5%{?dist}
+Version:        svn78607
+Release:        6%{?dist}
 Summary:        US and UK English
 
 License:        LPPL-1.3c
@@ -154,10 +154,8 @@ Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/w
 Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/webguide.doc.tar.xz
 Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wrapstuff-doc-en.tar.xz
 Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wrapstuff-doc-en.doc.tar.xz
-Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexref.tar.xz
-Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetexref.doc.tar.xz
-Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yet-another-guide-latex2e.tar.xz
-Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yet-another-guide-latex2e.doc.tar.xz
+Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yet-another-guide-latex2e.tar.xz
+Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yet-another-guide-latex2e.doc.tar.xz
 BuildRequires:  texlive-base
 Requires:       texlive-base
 Requires:       texlive-amiweb2c-guide
@@ -230,7 +228,6 @@ Requires:       texlive-undergradmath
 Requires:       texlive-visualfaq
 Requires:       texlive-webguide
 Requires:       texlive-wrapstuff-doc-en
-Requires:       texlive-xetexref
 Requires:       texlive-yet-another-guide-latex2e
 
 %description
@@ -362,7 +359,7 @@ An introduction to the components and files users of TeX may encounter.
 
 %package -n texlive-comprehensive
 Summary:        Symbols accessible from LaTeX
-Version:        svn69619
+Version:        svn78693
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -370,7 +367,7 @@ Provides:       texlive-comprehensive-doc = %{epoch}:%{version}-%{release}
 Obsoletes:      texlive-comprehensive-doc <= 11:%{version}
 
 %description -n texlive-comprehensive
-Over 20000 symbols accessible from LaTeX are listed in a set of tables
+Over 25000 symbols accessible from LaTeX are listed in a set of tables
 organized by topic and package. The aim is to make it easy to find symbols and
 learn how to incorporate them into a LaTeX document. An index further helps
 locate symbols of interest.
@@ -785,6 +782,8 @@ Version:        svn26760
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-latexfileinfo-pkgs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-latexfileinfo-pkgs-doc <= 11:%{version}
 
 %description -n texlive-latexfileinfo-pkgs
 The package provides an HTML file that lists and compares CTAN packages that
@@ -814,6 +813,8 @@ Version:        svn77050
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-macros2e-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-macros2e-doc <= 11:%{version}
 Requires:       tex(hyperref.sty)
 Requires:       tex(lipsum.sty)
 Requires:       tex(zref-abspos.sty)
@@ -1253,19 +1254,6 @@ Obsoletes:      texlive-wrapstuff-doc-en-doc <= 11:%{version}
 This package provides an English translation of the documentation for the
 wrapstuff package.
 
-%package -n texlive-xetexref
-Summary:        Reference documentation of XeTeX
-Version:        svn73885
-License:        LPPL-1.3c
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Provides:       texlive-xetexref-doc = %{epoch}:%{version}-%{release}
-Obsoletes:      texlive-xetexref-doc <= 11:%{version}
-
-%description -n texlive-xetexref
-The package comprises reference documentation for XeTeX detailing its extended
-features.
-
 %package -n texlive-yet-another-guide-latex2e
 Summary:        A short guide to using LaTeX2e to typeset high quality documents
 Version:        svn77842
@@ -1465,8 +1453,6 @@ tar -xf %{SOURCE137} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE138} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE139} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE140} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE141} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE142} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1762,15 +1748,16 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %license lppl1.3c.txt
 %doc %{_texmf_main}/doc/latex/wrapstuff-doc-en/
 
-%files -n texlive-xetexref
-%license lppl1.3c.txt
-%doc %{_texmf_main}/doc/xetex/xetexref/
-
 %files -n texlive-yet-another-guide-latex2e
 %license fdl.txt
 %doc %{_texmf_main}/doc/latex/yet-another-guide-latex2e/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78607-6
+- Update collection from svn74022 to svn78607
+- Update comprehensive
+- fix missing -doc provides/obsoletes
+
 * Tue Apr 07 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-5
 - Update hyphen-english, knuth-hint, knuth-pdf, yet-another-guide-latex2e
 

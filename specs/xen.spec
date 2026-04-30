@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -79,6 +79,10 @@ Patch7: xen.gcc12.fixes.patch
 Patch8: xen.efi.build.patch
 Patch9: xen.python3.12.patch
 Patch11: xen.json.nocpuid.patch
+Patch12: xsa483.patch
+Patch13: xsa484.patch
+Patch14: xsa486.patch
+Patch15: xen.git-90b20547b756a5cf9b0fec9fb0de5b361e8bf4c3.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -265,6 +269,10 @@ This package contains files used in testing the xen builds
 %patch 8 -p1
 %patch 9 -p1
 %patch 11 -p1
+%patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
+%patch 15 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -820,8 +828,15 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Tue Apr 28 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-2
+- oxenstored keeps quota related use counts across domain destruction
+	[XSA-483, CVE-2026-23556]
+- Xenstored DoS via XS_RESET_WATCHES command [XSA-484, CVE-2026-23557]
+- grant table v2 race in status page mapping [XSA-486, CVE-2026-23558]
+- x86: Floating Point Divider State Sampling [XSA-488, CVE-2025-54505]
+
 * Thu Mar 26 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-1
-- update to xen 4.21.0
+- update to xen 4.21.1
   remove patches now included or superceded upstream
 
 * Tue Mar 17 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-5

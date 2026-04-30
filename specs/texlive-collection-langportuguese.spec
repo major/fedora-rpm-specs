@@ -5,7 +5,7 @@
 Name:           texlive-collection-langportuguese
 Epoch:          12
 Version:        svn73303
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Portuguese
 
 License:        LPPL-1.3c
@@ -65,14 +65,12 @@ Support for Portuguese and Brazilian Portuguese.
 
 %package -n texlive-babel-portuges
 Summary:        Babel support for Portuges
-Version:        svn77468
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(brazil.ldf) = %{tl_version}
-Provides:       tex(brazilian.ldf) = %{tl_version}
-Provides:       tex(portuges.ldf) = %{tl_version}
-Provides:       tex(portuguese.ldf) = %{tl_version}
+Provides:       texlive-babel-portuges-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-babel-portuges-doc <= 11:%{version}
 
 %description -n texlive-babel-portuges
 The package provides the language definition file for support of Portuguese and
@@ -109,6 +107,8 @@ Version:        svn30962
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-feupphdteses-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-feupphdteses-doc <= 11:%{version}
 Requires:       tex(adjustbox.sty)
 Requires:       tex(amsmath.sty)
 Requires:       tex(array.sty)
@@ -150,7 +150,6 @@ Requires:       tex(tabulary.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(url.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(feupphdteses.sty) = %{tl_version}
 
 %description -n texlive-feupphdteses
 A complete template for thesis/works of Faculdade de Engenharia da Universidade
@@ -158,22 +157,19 @@ do Porto (FEUP) Faculty of Engineering University of Porto.
 
 %package -n texlive-hyphen-portuguese
 Summary:        Portuguese hyphenation patterns.
-Version:        svn74203
+Version:        svn78069
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-hyph-utf8
 Requires:       texlive-hyphen-base
-Provides:       tex(hyph-pt.ec.tex) = %{tl_version}
-Provides:       tex(hyph-pt.tex) = %{tl_version}
-Provides:       tex(loadhyph-pt.tex) = %{tl_version}
 
 %description -n texlive-hyphen-portuguese
 Hyphenation patterns for Portuguese in T1/EC and UTF-8 encodings.
 
 %package -n texlive-latex-via-exemplos
 Summary:        A LaTeX course written in Brazilian Portuguese language
-Version:        svn77105
+Version:        svn78322
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -215,7 +211,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xparse.sty)
-Provides:       tex(numberpt.sty) = %{tl_version}
 
 %description -n texlive-numberpt
 This packages defines commands to display counters spelled out in Portuguese.
@@ -233,7 +228,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ordinalpt.sty) = %{tl_version}
+Provides:       texlive-ordinalpt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ordinalpt-doc <= 11:%{version}
 
 %description -n texlive-ordinalpt
 The package provides a counter style (like \arabic, \alph and others) which
@@ -253,7 +249,6 @@ Requires:       tex(algorithmic.sty)
 Requires:       tex(amsmath.sty)
 Requires:       tex(biblatex.sty)
 Requires:       tex(graphicx.sty)
-Provides:       tex(PTLatexCommands.sty) = %{tl_version}
 
 %description -n texlive-ptlatexcommands
 This package transforms common commands used in LaTeX to commands in
@@ -267,8 +262,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(float.sty)
 Requires:       tex(tabularray.sty)
-Provides:       tex(tabularray-abnt-2025A.sty) = %{tl_version}
-Provides:       tex(tabularray-abnt.sty) = %{tl_version}
 
 %description -n texlive-tabularray-abnt
 This is the abnt Brazilian standard style for tabularray. It provides the
@@ -374,7 +367,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-hyphen-portuguese
 %license bsd.txt
-%{_texmf_main}/tex/generic/hyph-utf8/
+%{_texmf_main}/tex/generic/hyph-utf8/loadhyph/loadhyph-pt.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/ptex/hyph-pt.ec.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/tex/hyph-pt.tex
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pt.hyp.txt
+%{_texmf_main}/tex/generic/hyph-utf8/patterns/txt/hyph-pt.pat.txt
 
 %files -n texlive-latex-via-exemplos
 %license lppl1.3c.txt
@@ -413,6 +410,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/generic/xypic-tut-pt/
 
 %changelog
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73303-4
+- Update babel-portuges, hyphen-portuguese, latex-via-exemplos
+- Fix missing -doc provides/obsoletes
+- Use auto file provides
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73303-3
 - fix licensing, descriptions
 - update components

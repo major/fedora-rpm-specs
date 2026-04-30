@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsextra
 Epoch:          12
 Version:        svn78246
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -1267,6 +1267,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-academicons-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-academicons-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 
@@ -1291,6 +1293,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-accanthis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-accanthis-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -1310,6 +1314,8 @@ Version:        svn78315
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-adforn-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-adforn-doc <= 11:%{version}
 Requires:       tex(fixtounicode.sty)
 Requires:       tex(svn-prov.sty)
 
@@ -1325,6 +1331,8 @@ Version:        svn78315
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-adfsymbols-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-adfsymbols-doc <= 11:%{version}
 Requires:       tex(fixtounicode.sty)
 Requires:       tex(svn-prov.sty)
 
@@ -1353,6 +1361,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-alegreya-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-alegreya-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -1414,6 +1424,8 @@ Version:        svn42221
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-allrunes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-allrunes-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 
 %description -n texlive-allrunes
@@ -1449,6 +1461,8 @@ Version:        svn35065
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-almfixed-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-almfixed-doc <= 11:%{version}
 
 %description -n texlive-almfixed
 Arabic-Latin Modern Fixed is an extension of TeX-Gyre Latin Modern Mono 10
@@ -1495,6 +1509,8 @@ Version:        svn51631
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-anonymouspro-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-anonymouspro-doc <= 11:%{version}
 Requires:       tex(kvoptions.sty)
 
 %description -n texlive-anonymouspro
@@ -1508,6 +1524,8 @@ Version:        svn24266
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-antiqua-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-antiqua-doc <= 11:%{version}
 
 %description -n texlive-antiqua
 The package contains a copy of the Type 1 font "URW Antiqua 2051 Regular
@@ -1520,6 +1538,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-antt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-antt-doc <= 11:%{version}
 
 %description -n texlive-antt
 Antykwa Torunska is a serif font designed by the late Polish typographer
@@ -1531,6 +1551,8 @@ Version:        svn38005
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-archaic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-archaic-doc <= 11:%{version}
 
 %description -n texlive-archaic
 The collection contains fonts to represent Aramaic, Cypriot, Etruscan, Greek of
@@ -1563,6 +1585,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arev-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arev-doc <= 11:%{version}
 Requires:       tex(amsfonts.sty)
 Requires:       tex(amssymb.sty)
 Requires:       tex(beramono.sty)
@@ -1658,6 +1682,8 @@ Version:        svn76895
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-asana-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-asana-math-doc <= 11:%{version}
 
 %description -n texlive-asana-math
 The Asana-Math font is an OpenType font that includes almost all mathematical
@@ -1672,6 +1698,8 @@ Version:        svn40201
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-asapsym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-asapsym-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 
 %description -n texlive-asapsym
@@ -1687,6 +1715,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ascii-font-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ascii-font-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
 
 %description -n texlive-ascii-font
@@ -1701,6 +1731,8 @@ Version:        svn25243
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-aspectratio-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aspectratio-doc <= 11:%{version}
 
 %description -n texlive-aspectratio
 The package provides fonts (both as Adobe Type 1 format, and as Metafont
@@ -1713,6 +1745,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-astro-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-astro-doc <= 11:%{version}
 
 %description -n texlive-astro
 Astrosym is a font containing astronomical symbols, including those used for
@@ -1747,6 +1781,8 @@ Version:        svn61719
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-augie-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-augie-doc <= 11:%{version}
 
 %description -n texlive-augie
 A calligraphic font for simulating American-style informal handwriting. The
@@ -1758,6 +1794,8 @@ Version:        svn62977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-auncial-new-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-auncial-new-doc <= 11:%{version}
 
 %description -n texlive-auncial-new
 The auncial-new bundle provides packages and fonts for a script based on the
@@ -1775,6 +1813,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-aurical-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aurical-doc <= 11:%{version}
 
 %description -n texlive-aurical
 The package that implements a set (AuriocusKalligraphicus) of three
@@ -1789,6 +1829,8 @@ Version:        svn21271
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-b1encoding-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-b1encoding-doc <= 11:%{version}
 
 %description -n texlive-b1encoding
 The package characterises and defines the author's B1 encoding for use with
@@ -1815,6 +1857,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-barcodes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-barcodes-doc <= 11:%{version}
 
 %description -n texlive-barcodes
 The package deals with EAN barcodes; Metafont sources for fonts are provided,
@@ -1847,6 +1891,8 @@ Version:        svn73362
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-baskervaldx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-baskervaldx-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -1889,6 +1935,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbding-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbding-doc <= 11:%{version}
 
 %description -n texlive-bbding
 A symbol font (distributed as Metafont source) that contains many of the
@@ -1902,6 +1950,8 @@ Version:        svn77682
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbm-doc <= 11:%{version}
 
 %description -n texlive-bbm
 Blackboard variants of Computer Modern fonts. The fonts are distributed as
@@ -1916,6 +1966,8 @@ Version:        svn17224
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbm-macros-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbm-macros-doc <= 11:%{version}
 
 %description -n texlive-bbm-macros
 Provides LaTeX support for Blackboard variants of Computer Modern fonts.
@@ -1928,6 +1980,8 @@ Version:        svn77682
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbold-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbold-doc <= 11:%{version}
 
 %description -n texlive-bbold
 A geometric sans serif blackboard bold font, for use in mathematics; Metafont
@@ -1942,6 +1996,8 @@ Version:        svn33143
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbold-type1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbold-type1-doc <= 11:%{version}
 
 %description -n texlive-bbold-type1
 The files offer an Adobe Type 1 format version of the 5pt, 7pt and 10pt
@@ -1970,6 +2026,8 @@ Version:        svn66115
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-belleek-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-belleek-doc <= 11:%{version}
 
 %description -n texlive-belleek
 This package replaces the original MathTime fonts, not MathTime-Plus or
@@ -1982,6 +2040,8 @@ Version:        svn77682
 License:        Bitstream-Vera
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bera-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bera-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(textcomp.sty)
@@ -1999,6 +2059,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-berenisadf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-berenisadf-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
@@ -2031,6 +2093,8 @@ Version:        svn27401
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bguq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bguq-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 
 %description -n texlive-bguq
@@ -2068,6 +2132,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-blacklettert1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-blacklettert1-doc <= 11:%{version}
 
 %description -n texlive-blacklettert1
 This package contains virtual fonts that offer T1-alike encoded variants of
@@ -2081,6 +2147,8 @@ Version:        svn15878
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-boisik-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-boisik-doc <= 11:%{version}
 
 %description -n texlive-boisik
 Boisik is a serif font set (inspired by the Baskerville typeface), written in
@@ -2107,6 +2175,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bookhands-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bookhands-doc <= 11:%{version}
 
 %description -n texlive-bookhands
 This is a set of book-hand (Metafont) fonts and packages covering manuscript
@@ -2126,6 +2196,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-boondox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-boondox-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-boondox
@@ -2140,6 +2212,8 @@ Version:        svn20655
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-braille-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-braille-doc <= 11:%{version}
 
 %description -n texlive-braille
 This package allows the user to produce Braille documents on paper for the
@@ -2154,6 +2228,8 @@ Version:        svn28363
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-brushscr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-brushscr-doc <= 11:%{version}
 
 %description -n texlive-brushscr
 The BrushScript font simulates hand-written characters; it is distributed in
@@ -2167,6 +2243,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cabin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cabin-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -2192,6 +2270,8 @@ Version:        svn77682
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-caladea-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-caladea-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
@@ -2210,6 +2290,8 @@ Version:        svn15878
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-calligra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-calligra-doc <= 11:%{version}
 
 %description -n texlive-calligra
 A calligraphic font in the handwriting style of the author, Peter Vanroose. The
@@ -2222,6 +2304,8 @@ Version:        svn24302
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-calligra-type1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-calligra-type1-doc <= 11:%{version}
 
 %description -n texlive-calligra-type1
 This is a conversion (using mf2pt1) of Peter Vanroose's handwriting font.
@@ -2232,6 +2316,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cantarell-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cantarell-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -2251,6 +2337,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-carlito-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-carlito-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -2271,6 +2359,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-carolmin-ps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-carolmin-ps-doc <= 11:%{version}
 
 %description -n texlive-carolmin-ps
 The bundle offers Adobe Type 1 format versions of Peter Wilson's Carolingian
@@ -2319,6 +2409,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ccicons-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ccicons-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-ccicons
@@ -2332,6 +2424,8 @@ Version:        svn75712
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cfr-initials-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cfr-initials-doc <= 11:%{version}
 
 %description -n texlive-cfr-initials
 This is a set of 23 tiny packages designed to make it easier to use fonts from
@@ -2347,6 +2441,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cfr-lm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cfr-lm-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
@@ -2397,6 +2493,8 @@ Version:        svn21046
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cherokee-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cherokee-doc <= 11:%{version}
 
 %description -n texlive-cherokee
 The Cherokee script was designed in 1821 by Segwoya. The alphabet is
@@ -2415,6 +2513,8 @@ Version:        svn65029
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chivo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chivo-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
@@ -2432,6 +2532,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cinzel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cinzel-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -2475,6 +2577,8 @@ Version:        svn74767
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-clearsans-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-clearsans-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -2501,6 +2605,8 @@ Version:        svn28250
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cm-lgc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cm-lgc-doc <= 11:%{version}
 
 %description -n texlive-cm-lgc
 The fonts are converted from Metafont sources of the Computer Modern font
@@ -2530,6 +2636,8 @@ Version:        svn58661
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cm-unicode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cm-unicode-doc <= 11:%{version}
 
 %description -n texlive-cm-unicode
 Computer Modern Unicode fonts, converted from Metafont sources using mftrace
@@ -2559,6 +2667,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmbright-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmbright-doc <= 11:%{version}
 
 %description -n texlive-cmbright
 A family of sans serif fonts for TeX and LaTeX, based on Donald Knuth's CM
@@ -2575,6 +2685,8 @@ Version:        svn54074
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmexb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmexb-doc <= 11:%{version}
 
 %description -n texlive-cmexb
 Computer Modern Math Extension bold, metrics and .pfb file. Made by Petr Olsak
@@ -2586,6 +2698,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmll-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmll-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
@@ -2603,6 +2717,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmpica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmpica-doc <= 11:%{version}
 
 %description -n texlive-cmpica
 An approximate equivalent of the Xerox Pica typeface; the font is optimised for
@@ -2636,6 +2752,8 @@ Version:        svn77050
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmtiup-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmtiup-doc <= 11:%{version}
 
 %description -n texlive-cmtiup
 The cmtiup fonts address a problem with the appearance of punctuation in italic
@@ -2661,6 +2779,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cochineal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cochineal-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -2715,6 +2835,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-comfortaa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-comfortaa-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
@@ -2733,6 +2855,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-comicneue-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-comicneue-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(mweights.sty)
@@ -2750,6 +2874,8 @@ Version:        svn17218
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-concmath-fonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-concmath-fonts-doc <= 11:%{version}
 
 %description -n texlive-concmath-fonts
 The fonts are derived from the computer modern mathematics fonts and from
@@ -2776,6 +2902,8 @@ Version:        svn74247
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cookingsymbols-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cookingsymbols-doc <= 11:%{version}
 
 %description -n texlive-cookingsymbols
 The package provides 11 symbols for typesetting recipes: oven, gasstove,
@@ -2830,6 +2958,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-countriesofeurope-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-countriesofeurope-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(graphicx.sty)
@@ -2851,6 +2981,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-courier-scaled-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-courier-scaled-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-courier-scaled
@@ -2881,6 +3013,8 @@ Version:        svn75712
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-crimson-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-crimson-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -2901,7 +3035,7 @@ Bold or Semibold.
 
 %package -n texlive-crimsonpro
 Summary:        CrimsonPro fonts with LaTeX support
-Version:        svn64565
+Version:        svn78719
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2925,6 +3059,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cryst-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cryst-doc <= 11:%{version}
 
 %description -n texlive-cryst
 The font is provided as an Adobe Type 1 font, and as Metafont source.
@@ -2948,6 +3084,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cyklop-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cyklop-doc <= 11:%{version}
 
 %description -n texlive-cyklop
 The Cyclop typeface was designed in the 1920s at the workshop of Warsaw type
@@ -3012,6 +3150,8 @@ Version:        svn38599
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dantelogo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dantelogo-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
@@ -3027,6 +3167,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dejavu-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dejavu-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-dejavu
@@ -3070,6 +3212,8 @@ Version:        svn28501
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dice-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dice-doc <= 11:%{version}
 
 %description -n texlive-dice
 A Metafont font that can produce die faces in 2D or with various 3D effects.
@@ -3080,6 +3224,8 @@ Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dictsym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dictsym-doc <= 11:%{version}
 Requires:       texlive-psnfss
 Requires:       tex(keyval.sty)
 Requires:       tex(pifont.sty)
@@ -3096,6 +3242,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dingbat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dingbat-doc <= 11:%{version}
 
 %description -n texlive-dingbat
 The fonts (ark10 and dingbat) are specified in Metafont; support macros are
@@ -3128,6 +3276,8 @@ Version:        svn77682
 License:        LicenseRef-DoubleStroke
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-doublestroke-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-doublestroke-doc <= 11:%{version}
 
 %description -n texlive-doublestroke
 A font based on Computer Modern Roman useful for typesetting the mathematical
@@ -3153,6 +3303,8 @@ Version:        svn75722
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dozenal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dozenal-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(mfirstuc.sty)
@@ -3175,6 +3327,8 @@ Version:        svn38157
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-drm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-drm-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(gmp.sty)
@@ -3198,6 +3352,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-droid-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-droid-doc <= 11:%{version}
 Requires:       tex(droidsansmono.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -3235,6 +3391,8 @@ Version:        svn20741
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-duerer-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-duerer-doc <= 11:%{version}
 
 %description -n texlive-duerer
 These fonts are designed for titling use, and consist of capital roman letters
@@ -3248,6 +3406,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-duerer-latex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-duerer-latex-doc <= 11:%{version}
 
 %description -n texlive-duerer-latex
 LaTeX support for Hoenig's Computer Duerer fonts, using their standard fontname
@@ -3259,6 +3419,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dutchcal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dutchcal-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-dutchcal
@@ -3273,6 +3435,8 @@ Version:        svn20851
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ean-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ean-doc <= 11:%{version}
 
 %description -n texlive-ean
 Provides EAN-8 and EAN-13 forms. The package needs the ocr-b fonts; note that
@@ -3284,6 +3448,8 @@ Version:        svn78251
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ebgaramond-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ebgaramond-doc <= 11:%{version}
 Requires:       texlive-xkeyval
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -3305,6 +3471,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ebgaramond-maths-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ebgaramond-maths-doc <= 11:%{version}
 Requires:       tex(svn-prov.sty)
 
 %description -n texlive-ebgaramond-maths
@@ -3319,6 +3487,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ecc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ecc-doc <= 11:%{version}
 
 %description -n texlive-ecc
 The Metafont sources and TFM files of the European Concrete Fonts. This is the
@@ -3332,6 +3502,8 @@ Version:        svn29349
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eco-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eco-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
 
@@ -3366,6 +3538,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eiad-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eiad-doc <= 11:%{version}
 
 %description -n texlive-eiad
 In both lower and upper case 32 letters are defined (18 'plain' ones, 5 long
@@ -3381,6 +3555,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eiad-ltx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eiad-ltx-doc <= 11:%{version}
 
 %description -n texlive-eiad-ltx
 The package provides macros to support use of the eiad fonts in OT1 encoding.
@@ -3424,6 +3600,8 @@ Version:        svn15878
 License:        LicenseRef-Elvish
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-elvish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-elvish-doc <= 11:%{version}
 
 %description -n texlive-elvish
 The bundle provides fonts for Cirth (cirth.mf, etc.) and for Tengwar
@@ -3436,6 +3614,8 @@ Version:        svn17210
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-epigrafica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epigrafica-doc <= 11:%{version}
 Requires:       tex(pxfonts.sty)
 
 %description -n texlive-epigrafica
@@ -3450,6 +3630,8 @@ Version:        svn78315
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-epsdice-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epsdice-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 
@@ -3465,6 +3647,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-erewhon-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-erewhon-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -3504,6 +3688,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-esrelation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-esrelation-doc <= 11:%{version}
 
 %description -n texlive-esrelation
 Around 2008, researcher Byron Cook and several colleagues began developing a
@@ -3527,6 +3713,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-esstix-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-esstix-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-esstix
@@ -3542,6 +3730,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-esvect-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-esvect-doc <= 11:%{version}
 
 %description -n texlive-esvect
 Write vectors using an arrow which differs from the Computer Modern one. You
@@ -3595,6 +3785,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eulervm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eulervm-doc <= 11:%{version}
 
 %description -n texlive-eulervm
 The well-known Euler fonts are suitable for typesetting mathematics in
@@ -3625,6 +3817,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fbb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fbb-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -3649,6 +3843,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fdsymbol-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fdsymbol-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
@@ -3663,6 +3859,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fetamont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fetamont-doc <= 11:%{version}
 
 %description -n texlive-fetamont
 The fetamont typeface was designed in Metafont and extends the Logo fonts to
@@ -3676,6 +3874,8 @@ Version:        svn63945
 License:        BSD-2-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-feyn-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-feyn-doc <= 11:%{version}
 
 %description -n texlive-feyn
 Feyn may be used to produce relatively simple Feynman diagrams within equations
@@ -3690,6 +3890,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fge-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fge-doc <= 11:%{version}
 
 %description -n texlive-fge
 The fonts are provided as Metafont source and Adobe Type 1 (pfb) files. A small
@@ -3701,6 +3903,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fira-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fira-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -3752,6 +3956,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-foekfont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-foekfont-doc <= 11:%{version}
 
 %description -n texlive-foekfont
 The bundle provides an Adobe Type 1 font, and LaTeX support for its use. The
@@ -3763,6 +3969,8 @@ Version:        svn21326
 License:        GPL-1.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fonetika-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fonetika-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 
 %description -n texlive-fonetika
@@ -3777,6 +3985,8 @@ Version:        svn78348
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontawesome-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontawesome-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
@@ -3873,6 +4083,8 @@ Version:        svn43546
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontmfizz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontmfizz-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 
 %description -n texlive-fontmfizz
@@ -3887,6 +4099,8 @@ Version:        svn67473
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fonts-churchslavonic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fonts-churchslavonic-doc <= 11:%{version}
 
 %description -n texlive-fonts-churchslavonic
 The package provides Unicode-encoded OpenType fonts for Church Slavonic which
@@ -3938,6 +4152,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fourier-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fourier-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
@@ -3959,6 +4175,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fouriernc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fouriernc-doc <= 11:%{version}
 Requires:       tex(fourier.sty)
 
 %description -n texlive-fouriernc
@@ -3972,6 +4190,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-frcursive-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-frcursive-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 
 %description -n texlive-frcursive
@@ -4085,6 +4305,8 @@ Version:        svn25112
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-genealogy-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-genealogy-doc <= 11:%{version}
 
 %description -n texlive-genealogy
 A simple compilation of the genealogical symbols found in the wasy and gen
@@ -4134,6 +4356,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsartemisia-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsartemisia-doc <= 11:%{version}
 Requires:       tex(euler.sty)
 Requires:       tex(txfonts.sty)
 
@@ -4149,6 +4373,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsbodoni-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsbodoni-doc <= 11:%{version}
 
 %description -n texlive-gfsbodoni
 Bodoni's Greek fonts in the 18th century broke, for the first time, with the
@@ -4163,6 +4389,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfscomplutum-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfscomplutum-doc <= 11:%{version}
 
 %description -n texlive-gfscomplutum
 GFS Complutum derives, via a long development, from a minuscule-only font cut
@@ -4177,6 +4405,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsdidot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsdidot-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(longtable.sty)
 Requires:       tex(pxfonts.sty)
@@ -4206,6 +4436,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfsneohellenic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfsneohellenic-doc <= 11:%{version}
 
 %description -n texlive-gfsneohellenic
 The NeoHellenic style evolved in academic circles in the 19th and 20th century;
@@ -4240,6 +4472,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gfssolomos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfssolomos-doc <= 11:%{version}
 
 %description -n texlive-gfssolomos
 Solomos is a font which traces its descent from a calligraphically-inspired
@@ -4252,6 +4486,8 @@ Version:        svn19878
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gillcm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gillcm-doc <= 11:%{version}
 
 %description -n texlive-gillcm
 This is a demonstration of the use of virtual fonts for unusual effects: the
@@ -4264,6 +4500,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gillius-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gillius-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -4284,6 +4522,8 @@ Version:        svn68624
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gnu-freefont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gnu-freefont-doc <= 11:%{version}
 
 %description -n texlive-gnu-freefont
 The package provides a set of outline (i.e. OpenType) fonts covering as much as
@@ -4320,6 +4560,8 @@ Version:        svn49869
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gothic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gothic-doc <= 11:%{version}
 
 %description -n texlive-gothic
 A collection of fonts that reproduce those used in "old German" printing and
@@ -4334,6 +4576,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-greenpoint-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-greenpoint-doc <= 11:%{version}
 
 %description -n texlive-greenpoint
 A Metafont-implementation of the logo commonly known as 'Der Grune Punkt' ('The
@@ -4346,6 +4590,8 @@ Version:        svn35859
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-grotesq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-grotesq-doc <= 11:%{version}
 
 %description -n texlive-grotesq
 The directory contains a copy of the Type 1 font "URW Grotesq 2031 Bold'
@@ -4374,6 +4620,8 @@ Version:        svn27671
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hacm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hacm-doc <= 11:%{version}
 
 %description -n texlive-hacm
 The package supports typesetting hacm, the alphabet of the constructed language
@@ -4484,6 +4732,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-heuristica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-heuristica-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -4504,6 +4754,8 @@ Version:        svn29349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hfbright-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hfbright-doc <= 11:%{version}
 
 %description -n texlive-hfbright
 These are Adobe Type 1 versions of the OT1-encoded and maths parts of the
@@ -4515,6 +4767,8 @@ Version:        svn29349
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hfoldsty-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hfoldsty-doc <= 11:%{version}
 Requires:       tex(fix-cm.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
@@ -4569,6 +4823,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ifsym-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ifsym-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 
 %description -n texlive-ifsym
@@ -4584,6 +4840,8 @@ Version:        svn64568
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-imfellenglish-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-imfellenglish-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -4604,6 +4862,8 @@ Version:        svn77682
 License:        OFL-1.1 AND Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-inconsolata-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-inconsolata-doc <= 11:%{version}
 Requires:       tex(textcomp.sty)
 Requires:       tex(upquote.sty)
 Requires:       tex(xkeyval.sty)
@@ -4637,6 +4897,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-initials-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-initials-doc <= 11:%{version}
 
 %description -n texlive-initials
 For each font, at least a .pfb and a .tfm file is provided, with an .fd file
@@ -4694,6 +4956,8 @@ Version:        svn47700
 License:        IPA
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ipaex-type1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ipaex-type1-doc <= 11:%{version}
 
 %description -n texlive-ipaex-type1
 The package contains the IPAex Fonts converted into Unicode subfonts in Type1
@@ -4706,6 +4970,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-iwona-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-iwona-doc <= 11:%{version}
 
 %description -n texlive-iwona
 Iwona is a two-element sans-serif typeface. It was created as an alternative
@@ -4726,6 +4992,8 @@ Version:        svn16364
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jablantile-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jablantile-doc <= 11:%{version}
 
 %description -n texlive-jablantile
 This is a small Metafont font to implement the modular tiles described by
@@ -4738,6 +5006,8 @@ Version:        svn20408
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jamtimes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jamtimes-doc <= 11:%{version}
 Requires:       tex(amsfonts.sty)
 Requires:       tex(eucal.sty)
 Requires:       tex(xkeyval.sty)
@@ -4767,7 +5037,7 @@ jetbrainscode-thin for thin version.
 
 %package -n texlive-josefin
 Summary:        Josefin fonts with LaTeX support
-Version:        svn77682
+Version:        svn78793
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4805,6 +5075,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-junicode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-junicode-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -4843,6 +5115,8 @@ Version:        svn18488
 License:        LicenseRef-Fedora-UltraPermissive
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kixfont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kixfont-doc <= 11:%{version}
 
 %description -n texlive-kixfont
 The KIX code is a barcode-like format used by the Dutch PTT to encode country
@@ -4857,6 +5131,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kpfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kpfonts-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(ifthen.sty)
@@ -4904,6 +5180,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kurier-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kurier-doc <= 11:%{version}
 
 %description -n texlive-kurier
 Kurier is a two-element sans-serif typeface. It was designed for a diploma in
@@ -4923,6 +5201,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lato-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lato-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -4973,6 +5253,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lfb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lfb-doc <= 11:%{version}
 
 %description -n texlive-lfb
 This is a Greek font written in Metafont, with inspiration from the Bodoni
@@ -4989,6 +5271,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-libertine-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-libertine-doc <= 11:%{version}
 Requires:       texlive-fontaxes
 Requires:       texlive-iftex
 Requires:       texlive-mweights
@@ -5015,6 +5299,8 @@ Version:        svn44616
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-libertinegc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-libertinegc-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(libertine.sty)
 Requires:       tex(xkeyval.sty)
@@ -5031,6 +5317,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-libertinus-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-libertinus-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 Requires:       tex(xkeyval.sty)
 
@@ -5096,6 +5384,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-libertinust1math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-libertinust1math-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amsthm.sty)
 Requires:       tex(etoolbox.sty)
@@ -5114,6 +5404,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-librebaskerville-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-librebaskerville-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5134,6 +5426,8 @@ Version:        svn64431
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-librebodoni-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-librebodoni-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5152,6 +5446,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-librecaslon-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-librecaslon-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5191,6 +5487,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-libris-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-libris-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
@@ -5209,6 +5507,8 @@ Version:        svn63169
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lineara-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lineara-doc <= 11:%{version}
 Requires:       tex(xspace.sty)
 
 %description -n texlive-lineara
@@ -5244,6 +5544,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lobster2-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lobster2-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5317,6 +5619,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lxfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lxfonts-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 
 %description -n texlive-lxfonts
@@ -5331,6 +5635,8 @@ Version:        svn63565
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ly1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ly1-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 
 %description -n texlive-ly1
@@ -5401,6 +5707,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathabx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathabx-doc <= 11:%{version}
 
 %description -n texlive-mathabx
 Mathabx is a set of 3 mathematical symbols font series: matha, mathb and mathx.
@@ -5415,6 +5723,8 @@ Version:        svn21129
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathabx-type1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathabx-type1-doc <= 11:%{version}
 Requires:       texlive-mathabx
 
 %description -n texlive-mathabx-type1
@@ -5426,6 +5736,8 @@ Version:        svn31639
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathdesign-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathdesign-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
@@ -5446,6 +5758,8 @@ Version:        svn20298
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mdputu-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mdputu-doc <= 11:%{version}
 
 %description -n texlive-mdputu
 The Annals of Mathematics uses italics for theorems. However, slanted digits
@@ -5459,6 +5773,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mdsymbol-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mdsymbol-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(etoolbox.sty)
@@ -5477,6 +5793,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-merriweather-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-merriweather-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5538,6 +5856,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-miama-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-miama-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-miama
@@ -5550,6 +5870,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mintspirit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mintspirit-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5608,6 +5930,8 @@ Version:        svn18651
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mnsymbol-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mnsymbol-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(eufrak.sty)
 Requires:       tex(textcomp.sty)
@@ -5691,6 +6015,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mweights-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mweights-doc <= 11:%{version}
 
 %description -n texlive-mweights
 Many font families available for use with LaTeX are available at multiple
@@ -5702,8 +6028,8 @@ provides a solution to these difficulties.
 
 %package -n texlive-newcomputermodern
 Summary:        Computer Modern fonts including matching non-latin alphabets
-Version:        svn77682
-License:        LPPL-1.3c
+Version:        svn78793
+License:        LPPL-1.3c AND GPL-3.0-or-later WITH Font-exception-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
@@ -5714,6 +6040,10 @@ This is a new assembly of Computer Modern fonts including extensions in many
 directions for both Latin based languages, non-Latin based languages and
 Mathematics, all compatible in style to CM fonts. In addition to the Regular
 weight of Computer Modern, it provides a Book weight for heavier printing.
+Regarding license: Some fonts are now distributed under
+GPL3+FontException+DistributionException in Chapter7 of the GPL. This is
+explicitly written and described in the License.txt file and the documentation
+of the package.
 
 %package -n texlive-newpx
 Summary:        Alternative uses of the PX fonts, with improved metrics
@@ -5721,6 +6051,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-newpx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-newpx-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amsthm.sty)
 Requires:       tex(centernot.sty)
@@ -5755,6 +6087,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-newtx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-newtx-doc <= 11:%{version}
 Requires:       texlive-kastrup
 Requires:       tex(amsmath.sty)
 Requires:       tex(amsthm.sty)
@@ -5790,6 +6124,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-newtxsf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-newtxsf-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(xkeyval.sty)
 
@@ -5804,6 +6140,8 @@ Version:        svn77682
 License:        GPL-3.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-newtxtt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-newtxtt-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xkeyval.sty)
@@ -5830,6 +6168,8 @@ Version:        svn72894
 License:        AGPL-3.0-or-later WITH PS-or-PDF-font-exception-20170817 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nimbus15-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nimbus15-doc <= 11:%{version}
 Requires:       texlive-fontools
 Requires:       tex(fontenc.sty)
 Requires:       tex(mweights.sty)
@@ -5849,6 +6189,8 @@ Version:        svn16437
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nkarta-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nkarta-doc <= 11:%{version}
 
 %description -n texlive-nkarta
 A development of the karta font, offering more mathematical stability in
@@ -5861,6 +6203,8 @@ Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-noto-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-noto-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -5928,6 +6272,8 @@ Version:        svn33355
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-obnov-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-obnov-doc <= 11:%{version}
 
 %description -n texlive-obnov
 The Obyknovennaya Novaya (Ordinary New Face) typeface was widely used in the
@@ -5942,6 +6288,8 @@ Version:        svn25689
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ocherokee-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ocherokee-doc <= 11:%{version}
 
 %description -n texlive-ocherokee
 Macros and Type 1 fonts for Typesetting the Cherokee language with the Omega
@@ -5953,6 +6301,8 @@ Version:        svn20852
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ocr-b-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ocr-b-doc <= 11:%{version}
 
 %description -n texlive-ocr-b
 Metafont source for OCR-B at several sizes.
@@ -5963,6 +6313,8 @@ Version:        svn20969
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ocr-b-outline-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ocr-b-outline-doc <= 11:%{version}
 
 %description -n texlive-ocr-b-outline
 The package contains OCR-B fonts in Type1 and OpenType formats. They were
@@ -5975,6 +6327,8 @@ Version:        svn24876
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ogham-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ogham-doc <= 11:%{version}
 
 %description -n texlive-ogham
 The font provides the Ogham alphabet, which is found on a number of Irish and
@@ -5989,6 +6343,8 @@ Version:        svn28668
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-oinuit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-oinuit-doc <= 11:%{version}
 
 %description -n texlive-oinuit
 The package provides a set of Lambda (Omega LaTeX) typesetting tools for the
@@ -6001,6 +6357,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-old-arrows-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-old-arrows-doc <= 11:%{version}
 
 %description -n texlive-old-arrows
 This package provides Computer Modern old-style arrows with smaller arrowheads,
@@ -6015,6 +6373,8 @@ Version:        svn17932
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-oldlatin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-oldlatin-doc <= 11:%{version}
 
 %description -n texlive-oldlatin
 Metafont sources modified from Computer Modern in order to generate "long s"
@@ -6026,6 +6386,8 @@ Version:        svn70421
 License:        OFL-1.1 AND LPPL-1.3c AND GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-oldstandard-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-oldstandard-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6052,6 +6414,8 @@ Version:        svn77682
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-opensans-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-opensans-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -6072,6 +6436,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-orkhun-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-orkhun-doc <= 11:%{version}
 
 %description -n texlive-orkhun
 The font covers an old Turkic script. It is provided as Metafont source.
@@ -6099,6 +6465,8 @@ Version:        svn77682
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-overlock-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-overlock-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6121,6 +6489,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pacioli-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pacioli-doc <= 11:%{version}
 
 %description -n texlive-pacioli
 Pacioli was a c.15 mathematician, and his font was designed according to 'the
@@ -6150,6 +6520,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-paratype-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-paratype-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 
 %description -n texlive-paratype
@@ -6179,6 +6551,8 @@ Version:        svn18651
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-phaistos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-phaistos-doc <= 11:%{version}
 
 %description -n texlive-phaistos
 A font that contains all the symbols of the famous Disc of Phaistos, together
@@ -6196,6 +6570,8 @@ Version:        svn56468
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-phonetic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-phonetic-doc <= 11:%{version}
 
 %description -n texlive-phonetic
 The fonts are based on Computer Modern, and specified in Metafont. Macros for
@@ -6207,6 +6583,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pigpen-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pigpen-doc <= 11:%{version}
 
 %description -n texlive-pigpen
 The Pigpen cipher package provides the font and the necessary wrappers (style
@@ -6220,6 +6598,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-playfair-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-playfair-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6318,6 +6698,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-poltawski-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-poltawski-doc <= 11:%{version}
 
 %description -n texlive-poltawski
 The package contains the Antykwa Poltawskiego family of fonts in the PostScript
@@ -6344,6 +6726,8 @@ Version:        svn21893
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-prodint-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-prodint-doc <= 11:%{version}
 
 %description -n texlive-prodint
 Product integrals are to products, as integrals are to sums. They have been
@@ -6358,6 +6742,8 @@ Version:        svn27388
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-punk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-punk-doc <= 11:%{version}
 
 %description -n texlive-punk
 A response to the assertion in a lecture that "typography tends to lag behind
@@ -6374,6 +6760,8 @@ Version:        svn27389
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-punk-latex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-punk-latex-doc <= 11:%{version}
 
 %description -n texlive-punk-latex
 The package and .fd file provide support for Knuth's punk fonts. That bundle
@@ -6385,6 +6773,8 @@ Version:        svn24649
 License:        LicenseRef-Punknova
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-punknova-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-punknova-doc <= 11:%{version}
 
 %description -n texlive-punknova
 The font was generated from a MetaPost version of the sources of the 'original'
@@ -6399,6 +6789,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pxtxalfa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxtxalfa-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-pxtxalfa
@@ -6423,6 +6815,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-quattrocento-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-quattrocento-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6446,6 +6840,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-raleway-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-raleway-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6467,6 +6863,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-recycle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-recycle-doc <= 11:%{version}
 
 %description -n texlive-recycle
 This single-character font is provided as Metafont source, and in Adobe Type 1
@@ -6500,6 +6898,8 @@ Version:        svn77682
 License:        Apache-2.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-roboto-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-roboto-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6544,6 +6944,8 @@ Version:        svn51688
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rosario-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rosario-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
@@ -6563,6 +6965,8 @@ Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rsfso-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rsfso-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-rsfso
@@ -6588,6 +6992,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sansmathaccent-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sansmathaccent-doc <= 11:%{version}
 Requires:       tex(scrlfile.sty)
 
 %description -n texlive-sansmathaccent
@@ -6603,6 +7009,8 @@ Version:        svn77723
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sansmathfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sansmathfonts-doc <= 11:%{version}
 
 %description -n texlive-sansmathfonts
 Sans serif small caps and math fonts for use with Computer Modern.
@@ -6626,6 +7034,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sauterfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sauterfonts-doc <= 11:%{version}
 
 %description -n texlive-sauterfonts
 The package provides font definition files (plus a replacement for the package
@@ -6679,6 +7089,8 @@ Version:        svn59388
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-schulschriften-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-schulschriften-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(eepic.sty)
 Requires:       tex(ifthen.sty)
@@ -6696,6 +7108,8 @@ Version:        svn18651
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-semaphor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-semaphor-doc <= 11:%{version}
 
 %description -n texlive-semaphor
 These fonts represent semaphore in a highly schematic, but very clear, fashion.
@@ -6727,7 +7141,7 @@ Shobhika.
 
 %package -n texlive-simpleicons
 Summary:        Simple Icons for LaTeX
-Version:        svn78525
+Version:        svn78804
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6757,6 +7171,8 @@ Version:        svn77682
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sourcecodepro-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sourcecodepro-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -6877,6 +7293,8 @@ Version:        svn19982
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-starfont-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-starfont-doc <= 11:%{version}
 
 %description -n texlive-starfont
 The package contains StarFontSans and StarFontSerif, two public-domain
@@ -6890,6 +7308,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-staves-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-staves-doc <= 11:%{version}
 
 %description -n texlive-staves
 This package contains all the necessary tools to typeset the "magical"
@@ -6955,6 +7375,8 @@ Version:        svn78101
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-stix-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-stix-doc <= 11:%{version}
 Requires:       tex(textcomp.sty)
 
 %description -n texlive-stix
@@ -7005,6 +7427,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-superiors-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-superiors-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(ifthen.sty)
@@ -7023,6 +7447,8 @@ Version:        svn50019
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-svrsymbols-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-svrsymbols-doc <= 11:%{version}
 
 %description -n texlive-svrsymbols
 The svrsymbols package is a LaTeX interface to the SVRsymbols font. The glyphs
@@ -7048,6 +7474,8 @@ Version:        svn20484
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tapir-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tapir-doc <= 11:%{version}
 
 %description -n texlive-tapir
 Tapir is a simple geometrical font mostly created of line and circular segments
@@ -7061,6 +7489,8 @@ Version:        svn77682
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tempora-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tempora-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(textcomp.sty)
@@ -7079,6 +7509,8 @@ Version:        svn34594
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tengwarscript-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tengwarscript-doc <= 11:%{version}
 Requires:       tex(fp-basic.sty)
 Requires:       tex(fp-snap.sty)
 
@@ -7113,6 +7545,8 @@ Version:        svn20770
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tfrupee-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tfrupee-doc <= 11:%{version}
 
 %description -n texlive-tfrupee
 The package provides LaTeX support for the (Indian) Rupee symbol font, created
@@ -7216,6 +7650,8 @@ Version:        svn42428
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tpslifonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tpslifonts-doc <= 11:%{version}
 Requires:       tex(cmbright.sty)
 Requires:       tex(eulervm.sty)
 Requires:       tex(ifthen.sty)
@@ -7239,6 +7675,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-trajan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-trajan-doc <= 11:%{version}
 
 %description -n texlive-trajan
 Provides fonts (both as Metafont source and in Adobe Type 1 format) based on
@@ -7264,6 +7702,8 @@ Version:        svn54512
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-txfontsb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-txfontsb-doc <= 11:%{version}
 Requires:       tex(txfonts.sty)
 
 %description -n texlive-txfontsb
@@ -7290,6 +7730,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-typicons-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-typicons-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 
 %description -n texlive-typicons
@@ -7322,6 +7764,8 @@ Version:        svn51984
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-universa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-universa-doc <= 11:%{version}
 
 %description -n texlive-universa
 An implementation of the "universal" font by Herbert Bayer of the Bauhaus
@@ -7334,6 +7778,8 @@ Version:        svn77682
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-universalis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-universalis-doc <= 11:%{version}
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
 Requires:       tex(fontspec.sty)
@@ -7369,6 +7815,8 @@ Version:        svn21701
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-urwchancal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-urwchancal-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
 
 %description -n texlive-urwchancal
@@ -7384,6 +7832,8 @@ Version:        svn77682
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-venturisadf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-venturisadf-doc <= 11:%{version}
 Requires:       tex(fontenc.sty)
 Requires:       tex(nfssext-cfr.sty)
 Requires:       tex(svn-prov.sty)
@@ -7402,6 +7852,8 @@ Version:        svn25469
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wsuipa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wsuipa-doc <= 11:%{version}
 
 %description -n texlive-wsuipa
 The package provides a 7-bit IPA font, as Metafont source, and macros for
@@ -7414,6 +7866,8 @@ Version:        svn71564
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xcharter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xcharter-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontaxes.sty)
 Requires:       tex(fontenc.sty)
@@ -7457,6 +7911,8 @@ Version:        svn55730
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xits-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xits-doc <= 11:%{version}
 
 %description -n texlive-xits
 XITS is a Times-like font for scientific typesetting with proper mathematical
@@ -7470,6 +7926,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-yfonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yfonts-doc <= 11:%{version}
 
 %description -n texlive-yfonts
 A LaTeX interface to the old-german fonts designed by Yannis Haralambous:
@@ -7497,6 +7955,8 @@ Version:        svn36013
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-yfonts-t1-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yfonts-t1-doc <= 11:%{version}
 
 %description -n texlive-yfonts-t1
 This package comprises type 1 versions of the Gothic, Schwabacher and Fraktur
@@ -7508,6 +7968,8 @@ Version:        svn40207
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-yinit-otf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yinit-otf-doc <= 11:%{version}
 
 %description -n texlive-yinit-otf
 This package is a conversion of the yinit font into OTF. Original Metafont
@@ -7543,6 +8005,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-zlmtt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-zlmtt-doc <= 11:%{version}
 Requires:       tex(mweights.sty)
 Requires:       tex(xkeyval.sty)
 
@@ -12081,9 +12545,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
-* Thu Apr 02 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78246-5
+* Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78246-6
 - Update collection from svn77044 to svn78246
-- Update 193 components
+- Add sourcesans
+- Add sourceserif
+- Update 192 components
 
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-4
 - Update almost every component (thanks upstream)

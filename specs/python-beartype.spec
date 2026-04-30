@@ -9,7 +9,10 @@ Summary:        Unbearably fast runtime type checking in pure Python
 License:        MIT
 URL:            https://beartype.readthedocs.io
 Source:         %forgesource
-
+# Upstream has initial support for Py 3.15 but
+# there are a lot of changes and their commits
+# do not apply cleanly.
+Patch:          python315.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
