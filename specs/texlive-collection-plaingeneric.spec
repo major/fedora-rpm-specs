@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-plaingeneric
 Epoch:          12
-Version:        svn75599
-Release:        3%{?dist}
+Version:        svn78552
+Release:        4%{?dist}
 Summary:        Plain (La)TeX packages
 
 License:        LPPL-1.3c
@@ -216,36 +216,38 @@ Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t
 Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timetable.tar.xz
 Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tokmap.tar.xz
 Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tokmap.doc.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tracklang.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tracklang.doc.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/transparent-io.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/transparent-io.doc.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/treetex.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/treetex.doc.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trigonometry.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trigonometry.doc.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuple.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuple.doc.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulem.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulem.doc.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upca.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upca.doc.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/varisize.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/varisize.doc.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualtoks.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualtoks.doc.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii.doc.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii-lat.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii-lat.doc.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xintsession.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xintsession.doc.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xlop.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xlop.doc.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yax.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yax.doc.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zztex.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zztex.doc.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tokstools.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tokstools.doc.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tracklang.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tracklang.doc.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/transparent-io.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/transparent-io.doc.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/treetex.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/treetex.doc.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trigonometry.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/trigonometry.doc.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuple.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuple.doc.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulem.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulem.doc.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upca.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upca.doc.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/varisize.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/varisize.doc.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualtoks.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualtoks.doc.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii.doc.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii-lat.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xii-lat.doc.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xintsession.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xintsession.doc.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xlop.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xlop.doc.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yax.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yax.doc.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zztex.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zztex.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -359,6 +361,7 @@ Requires:       texlive-texdimens
 Requires:       texinfo
 Requires:       texlive-timetable
 Requires:       texlive-tokmap
+Requires:       texlive-tokstools
 Requires:       texlive-tracklang
 Requires:       texlive-transparent-io
 Requires:       texlive-treetex
@@ -386,7 +389,8 @@ Version:        svn77161
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(abbr.tex) = %{tl_version}
+Provides:       texlive-abbr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-abbr-doc <= 11:%{version}
 
 %description -n texlive-abbr
 The package provides some simple macros to support abbreviations in Plain TeX
@@ -399,7 +403,8 @@ Version:        svn76790
 License:        Abstyles
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(apreambl.tex) = %{tl_version}
+Provides:       texlive-abstyles-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-abstyles-doc <= 11:%{version}
 
 %description -n texlive-abstyles
 A family of modifications of the standard BibTeX styles whose behaviour may be
@@ -414,10 +419,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(collargs.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(advice-tikz.code.tex) = %{tl_version}
-Provides:       tex(advice.sty) = %{tl_version}
-Provides:       tex(advice.tex) = %{tl_version}
-Provides:       tex(t-advice.tex) = %{tl_version}
 
 %description -n texlive-advice
 Like its namesake from the Emacs world, this cross-format package implements a
@@ -432,7 +433,8 @@ Version:        svn47510
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(apnum.tex) = %{tl_version}
+Provides:       texlive-apnum-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-apnum-doc <= 11:%{version}
 
 %description -n texlive-apnum
 The basic operations (addition, subtraction, multiplication, division, power to
@@ -447,13 +449,10 @@ TeX) and \newcount macro.
 
 %package -n texlive-autoaligne
 Summary:        Align terms and members in math expressions
-Version:        svn66655
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(autoaligne-fr.tex) = %{tl_version}
-Provides:       tex(autoaligne.sty) = %{tl_version}
-Provides:       tex(autoaligne.tex) = %{tl_version}
 
 %description -n texlive-autoaligne
 This package allows to align terms and members between lines containing math
@@ -465,7 +464,8 @@ Version:        svn38479
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(diagxy.tex) = %{tl_version}
+Provides:       texlive-barr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-barr-doc <= 11:%{version}
 
 %description -n texlive-barr
 Diagxy is a general diagramming package, useful for diagrams in a number of
@@ -478,8 +478,8 @@ Version:        svn25779
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bitedemo.tex) = %{tl_version}
-Provides:       tex(bitelist.sty) = %{tl_version}
+Provides:       texlive-bitelist-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bitelist-doc <= 11:%{version}
 
 %description -n texlive-bitelist
 The package provides commands for "splitting" a token list at the first
@@ -497,6 +497,8 @@ Version:        svn21047
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-borceux-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-borceux-doc <= 11:%{version}
 
 %description -n texlive-borceux
 The macros support the construction of diagrams, such as those that appear in
@@ -513,11 +515,8 @@ Version:        svn18337
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cap.tex) = %{tl_version}
-Provides:       tex(cap_c.tex) = %{tl_version}
-Provides:       tex(cap_comm.tex) = %{tl_version}
-Provides:       tex(cap_pas.tex) = %{tl_version}
-Provides:       tex(cap_pyt.tex) = %{tl_version}
+Provides:       texlive-c-pascal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-c-pascal-doc <= 11:%{version}
 
 %description -n texlive-c-pascal
 A TeX macro package for easy typesetting programs in Python, C and Pascal.
@@ -529,8 +528,6 @@ Version:        svn68684
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(calcfrac.sty) = %{tl_version}
-Provides:       tex(calcfrac.tex) = %{tl_version}
 
 %description -n texlive-calcfrac
 This package is an engine for calculating numerical expressions containing
@@ -547,9 +544,8 @@ Version:        svn38859
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(actcodes.sty) = %{tl_version}
-Provides:       tex(catchdq.sty) = %{tl_version}
-Provides:       tex(stacklet.sty) = %{tl_version}
+Provides:       texlive-catcodes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-catcodes-doc <= 11:%{version}
 
 %description -n texlive-catcodes
 The bundle deals with category code switching; the packages of the bundle
@@ -564,11 +560,9 @@ Version:        svn26700
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chronosys-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chronosys-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(chronosys.sty) = %{tl_version}
-Provides:       tex(chronosys.tex) = %{tl_version}
-Provides:       tex(chronosyschr.tex) = %{tl_version}
-Provides:       tex(x-chronosys.tex) = %{tl_version}
 
 %description -n texlive-chronosys
 Macros to produce time line diagrams. Interfaces for Plain TeX, ConTeXt and
@@ -582,9 +576,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(pgfkeys.sty)
-Provides:       tex(collargs.sty) = %{tl_version}
-Provides:       tex(collargs.tex) = %{tl_version}
-Provides:       tex(t-collargs.tex) = %{tl_version}
 
 %description -n texlive-collargs
 This is a cross-format package providing a command which can determine the
@@ -610,7 +601,6 @@ Version:        svn54265
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(compare.tex) = %{tl_version}
 
 %description -n texlive-compare
 The file defines a macro \compare, which takes two arguments; the macro expands
@@ -623,9 +613,6 @@ Version:        svn76004
 License:        GPL-3.0-or-later AND GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(crossrefenum.sty) = %{tl_version}
-Provides:       tex(crossrefenum.tex) = %{tl_version}
-Provides:       tex(t-crossrefenum.tex) = %{tl_version}
 
 %description -n texlive-crossrefenum
 This package lets TeX manage the formatting of bunches of cross-references for
@@ -646,12 +633,6 @@ Version:        svn49271
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pdfXcwebmac.tex) = %{tl_version}
-Provides:       tex(pdfcwebmac.tex) = %{tl_version}
-Provides:       tex(pdfdcwebmac.tex) = %{tl_version}
-Provides:       tex(pdffcwebmac.tex) = %{tl_version}
-Provides:       tex(pdficwebmac.tex) = %{tl_version}
-Provides:       tex(pdfwebmac.tex) = %{tl_version}
 
 %description -n texlive-cweb-old
 A collection of obsolete cweb files, included in case they are somehow useful
@@ -663,6 +644,8 @@ Version:        svn76790
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dinat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dinat-doc <= 11:%{version}
 
 %description -n texlive-dinat
 Bibliography style files intended for texts in german. They draw up
@@ -670,12 +653,12 @@ bibliographies in accordance with the german DIN 1505, parts 2 and 3.
 
 %package -n texlive-dirtree
 Summary:        Display trees in the style of windows explorer
-Version:        svn42428
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dirtree.sty) = %{tl_version}
-Provides:       tex(dirtree.tex) = %{tl_version}
+Provides:       texlive-dirtree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dirtree-doc <= 11:%{version}
 
 %description -n texlive-dirtree
 This package is designed to emulate the way windows explorer displays directory
@@ -689,7 +672,8 @@ Version:        svn34294
 License:        LicenseRef-Fedora-UltraPermissive
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(docby.tex) = %{tl_version}
+Provides:       texlive-docbytex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-docbytex-doc <= 11:%{version}
 
 %description -n texlive-docbytex
 The package creates documentation from C source code, or other programming
@@ -701,8 +685,8 @@ Version:        svn38860
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(domore.sty) = %{tl_version}
-Provides:       tex(dowith.sty) = %{tl_version}
+Provides:       texlive-dowith-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dowith-doc <= 11:%{version}
 
 %description -n texlive-dowith
 The package provides macros for applying a command to all elements of a list
@@ -718,10 +702,6 @@ Version:        svn15878
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(CD_labeler.tex) = %{tl_version}
-Provides:       tex(CD_labeler_test.tex) = %{tl_version}
-Provides:       tex(DB_process.tex) = %{tl_version}
-Provides:       tex(repeat.tex) = %{tl_version}
 
 %description -n texlive-eijkhout
 Three unrelated packages: DB_process, to parse and process database output;
@@ -734,8 +714,8 @@ Version:        svn34087
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(encxvlna.sty) = %{tl_version}
-Provides:       tex(encxvlna.tex) = %{tl_version}
+Provides:       texlive-encxvlna-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-encxvlna-doc <= 11:%{version}
 
 %description -n texlive-encxvlna
 The package provides tools for inserting nonbreakable spaces after nonsyllabic
@@ -750,8 +730,6 @@ Version:        svn76050
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eoldef.sty) = %{tl_version}
-Provides:       tex(eoldef.tex) = %{tl_version}
 
 %description -n texlive-eoldef
 This macro allows you to define commands that take the entire source line as
@@ -771,7 +749,6 @@ Version:        svn20513
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(epigram.tex) = %{tl_version}
 
 %description -n texlive-epigram
 The package determines (on the basis of the width of the text of the epigram,
@@ -779,12 +756,12 @@ laid out on a single line) whether to produce a line or a displayed paragraph.
 
 %package -n texlive-epsf
 Summary:        Simple macros for EPS inclusion
-Version:        svn21461
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(epsf.sty) = %{tl_version}
-Provides:       tex(epsf.tex) = %{tl_version}
+Provides:       texlive-epsf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epsf-doc <= 11:%{version}
 
 %description -n texlive-epsf
 The original (and now obsolescent) graphics inclusion macros for use with
@@ -800,7 +777,8 @@ Version:        svn35575
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(epsf-dvipdfmx.tex) = %{tl_version}
+Provides:       texlive-epsf-dvipdfmx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epsf-dvipdfmx-doc <= 11:%{version}
 
 %description -n texlive-epsf-dvipdfmx
 epsf-dvipdfmx.tex is a plain TeX file to be \input after epsf.tex when using
@@ -814,7 +792,6 @@ Version:        svn68513
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(etoolbox-generic.tex) = %{tl_version}
 
 %description -n texlive-etoolbox-generic
 This package implements a wrapper which allows the user to load the
@@ -832,7 +809,6 @@ Requires:       tex(enumitem.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(expex.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(expex-acro.sty) = %{tl_version}
 
 %description -n texlive-expex-acro
 This is a small wrapper for the expex package, adding ways to define, use, and
@@ -846,20 +822,6 @@ Version:        svn73212
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(expkv-cs.sty) = %{tl_version}
-Provides:       tex(expkv-cs.tex) = %{tl_version}
-Provides:       tex(expkv-def.sty) = %{tl_version}
-Provides:       tex(expkv-def.tex) = %{tl_version}
-Provides:       tex(expkv-opt-2020-10-10.sty) = %{tl_version}
-Provides:       tex(expkv-opt.sty) = %{tl_version}
-Provides:       tex(expkv-pop.sty) = %{tl_version}
-Provides:       tex(expkv-pop.tex) = %{tl_version}
-Provides:       tex(expkv.sty) = %{tl_version}
-Provides:       tex(expkv.tex) = %{tl_version}
-Provides:       tex(t-expkv-cs.tex) = %{tl_version}
-Provides:       tex(t-expkv-def.tex) = %{tl_version}
-Provides:       tex(t-expkv-pop.tex) = %{tl_version}
-Provides:       tex(t-expkv.tex) = %{tl_version}
 
 %description -n texlive-expkv-bundle
 This is a collection of different packages that provide key=value functionality
@@ -881,8 +843,8 @@ Version:        svn24730
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fenixpar.sty) = %{tl_version}
-Provides:       tex(fenixtok.sty) = %{tl_version}
+Provides:       texlive-fenixpar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fenixpar-doc <= 11:%{version}
 
 %description -n texlive-fenixpar
 The bundle provides two packages, fenxitok and fenixpar. The fenixtok package
@@ -900,7 +862,8 @@ Version:        svn21462
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(figflow.tex) = %{tl_version}
+Provides:       texlive-figflow-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-figflow-doc <= 11:%{version}
 
 %description -n texlive-figflow
 Provides a Plain TeX macro \figflow that allows one to insert a figure into an
@@ -915,7 +878,6 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fixpdfmag.tex) = %{tl_version}
 
 %description -n texlive-fixpdfmag
 A recent change to pdfTeX has caused magnification to apply to page dimensions.
@@ -928,9 +890,8 @@ Version:        svn56594
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(deccomma.sty) = %{tl_version}
-Provides:       tex(fltpoint.sty) = %{tl_version}
-Provides:       tex(fltpoint.tex) = %{tl_version}
+Provides:       texlive-fltpoint-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fltpoint-doc <= 11:%{version}
 
 %description -n texlive-fltpoint
 The package provides simple floating point operations (addition, subtraction,
@@ -942,7 +903,8 @@ Version:        svn20638
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fntproof.tex) = %{tl_version}
+Provides:       texlive-fntproof-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fntproof-doc <= 11:%{version}
 
 %description -n texlive-fntproof
 The package implements all the font testing commands of Knuth's testfont.tex,
@@ -958,53 +920,8 @@ Version:        svn40403
 License:        CC-BY-SA-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(default-amssymbols.tex) = %{tl_version}
-Provides:       tex(font_antp_euler.tex) = %{tl_version}
-Provides:       tex(font_antt-condensed-light.tex) = %{tl_version}
-Provides:       tex(font_antt-condensed-medium.tex) = %{tl_version}
-Provides:       tex(font_antt-condensed.tex) = %{tl_version}
-Provides:       tex(font_antt-light.tex) = %{tl_version}
-Provides:       tex(font_antt-medium.tex) = %{tl_version}
-Provides:       tex(font_antt.tex) = %{tl_version}
-Provides:       tex(font_arev.tex) = %{tl_version}
-Provides:       tex(font_artemisia_euler.tex) = %{tl_version}
-Provides:       tex(font_bera_concrete.tex) = %{tl_version}
-Provides:       tex(font_bera_euler.tex) = %{tl_version}
-Provides:       tex(font_bera_fnc.tex) = %{tl_version}
-Provides:       tex(font_bookman.tex) = %{tl_version}
-Provides:       tex(font_century.tex) = %{tl_version}
-Provides:       tex(font_charter.tex) = %{tl_version}
-Provides:       tex(font_cm.tex) = %{tl_version}
-Provides:       tex(font_cmbright.tex) = %{tl_version}
-Provides:       tex(font_concrete.tex) = %{tl_version}
-Provides:       tex(font_epigrafica_euler.tex) = %{tl_version}
-Provides:       tex(font_epigrafica_palatino.tex) = %{tl_version}
-Provides:       tex(font_iwona-bold.tex) = %{tl_version}
-Provides:       tex(font_iwona-condensed-bold.tex) = %{tl_version}
-Provides:       tex(font_iwona-condensed-light.tex) = %{tl_version}
-Provides:       tex(font_iwona-condensed-medium.tex) = %{tl_version}
-Provides:       tex(font_iwona-condensed.tex) = %{tl_version}
-Provides:       tex(font_iwona-light.tex) = %{tl_version}
-Provides:       tex(font_iwona-medium.tex) = %{tl_version}
-Provides:       tex(font_iwona.tex) = %{tl_version}
-Provides:       tex(font_kp-light.tex) = %{tl_version}
-Provides:       tex(font_kp.tex) = %{tl_version}
-Provides:       tex(font_kurier-bold.tex) = %{tl_version}
-Provides:       tex(font_kurier-condensed-bold.tex) = %{tl_version}
-Provides:       tex(font_kurier-condensed-light.tex) = %{tl_version}
-Provides:       tex(font_kurier-condensed-medium.tex) = %{tl_version}
-Provides:       tex(font_kurier-condensed.tex) = %{tl_version}
-Provides:       tex(font_kurier-light.tex) = %{tl_version}
-Provides:       tex(font_kurier-medium.tex) = %{tl_version}
-Provides:       tex(font_kurier.tex) = %{tl_version}
-Provides:       tex(font_libertine_kp.tex) = %{tl_version}
-Provides:       tex(font_libertine_palatino.tex) = %{tl_version}
-Provides:       tex(font_libertine_times.tex) = %{tl_version}
-Provides:       tex(font_mdutopia.tex) = %{tl_version}
-Provides:       tex(font_pagella.tex) = %{tl_version}
-Provides:       tex(font_palatino.tex) = %{tl_version}
-Provides:       tex(font_times.tex) = %{tl_version}
-Provides:       tex(font_utopia.tex) = %{tl_version}
+Provides:       texlive-font-change-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-font-change-doc <= 11:%{version}
 
 %description -n texlive-font-change
 Macros to Change Text and Mathematics fonts in TeX: 45 Beautiful Variants The
@@ -1021,11 +938,8 @@ Version:        svn17859
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(DSmac.tex) = %{tl_version}
-Provides:       tex(TS1mac.tex) = %{tl_version}
-Provides:       tex(bsymbols.tex) = %{tl_version}
-Provides:       tex(fontch.tex) = %{tl_version}
-Provides:       tex(fontch_doc.tex) = %{tl_version}
+Provides:       texlive-fontch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontch-doc <= 11:%{version}
 
 %description -n texlive-fontch
 The fontch macros allow the user to change font size and family anywhere in a
@@ -1046,6 +960,8 @@ Version:        svn75544
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontname-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontname-doc <= 11:%{version}
 
 %description -n texlive-fontname
 The scheme for assigning names is described (in the documentation part of the
@@ -1058,9 +974,8 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gates.sty) = %{tl_version}
-Provides:       tex(gates.tex) = %{tl_version}
-Provides:       tex(t-gates.tex) = %{tl_version}
+Provides:       texlive-gates-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gates-doc <= 11:%{version}
 
 %description -n texlive-gates
 The package provides the means of writing code in a modular fashion: big macros
@@ -1081,8 +996,8 @@ Version:        svn23567
 License:        CeCILL-B
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(getoptk.tex) = %{tl_version}
-Provides:       tex(guide.tex) = %{tl_version}
+Provides:       texlive-getoptk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-getoptk-doc <= 11:%{version}
 
 %description -n texlive-getoptk
 The package provides a means of defining macros whose options are taken from a
@@ -1096,7 +1011,8 @@ Version:        svn37156
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(GFnotation.tex) = %{tl_version}
+Provides:       texlive-gfnotation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gfnotation-doc <= 11:%{version}
 
 %description -n texlive-gfnotation
 The package implements macros for plain TeX to typeset the notation invented by
@@ -1109,10 +1025,8 @@ Version:        svn64967
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gobble-user.sty) = %{tl_version}
-Provides:       tex(gobble-user.tex) = %{tl_version}
-Provides:       tex(gobble.sty) = %{tl_version}
-Provides:       tex(gobble.tex) = %{tl_version}
+Provides:       texlive-gobble-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gobble-doc <= 11:%{version}
 
 %description -n texlive-gobble
 The LaTeX package gobble includes several gobble macros not included in the
@@ -1130,12 +1044,8 @@ Version:        svn71575
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(autopict.sty) = %{tl_version}
-Provides:       tex(color.tex) = %{tl_version}
-Provides:       tex(graphicx.tex) = %{tl_version}
-Provides:       tex(miniltx.tex) = %{tl_version}
-Provides:       tex(picture.tex) = %{tl_version}
-Provides:       tex(psfrag.tex) = %{tl_version}
+Provides:       texlive-graphics-pln-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-graphics-pln-doc <= 11:%{version}
 
 %description -n texlive-graphics-pln
 The Plain TeX graphics package is mostly a thin shell around the LaTeX graphicx
@@ -1150,7 +1060,8 @@ Version:        svn69297
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(gtl.sty) = %{tl_version}
+Provides:       texlive-gtl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gtl-doc <= 11:%{version}
 
 %description -n texlive-gtl
 The package provides tools for simple operations on lists of tokens which are
@@ -1160,12 +1071,10 @@ entire braced groups at a time.
 
 %package -n texlive-hlist
 Summary:        Horizontal and columned lists
-Version:        svn44983
+Version:        svn78315
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hlist.sty) = %{tl_version}
-Provides:       tex(hlist.tex) = %{tl_version}
 
 %description -n texlive-hlist
 This plain TeX and LaTeX package provides the "hlist" environment in which
@@ -1178,9 +1087,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hylang.tex) = %{tl_version}
-Provides:       tex(hyplain.tex) = %{tl_version}
-Provides:       tex(hyrules.tex) = %{tl_version}
+Provides:       texlive-hyplain-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hyplain-doc <= 11:%{version}
 
 %description -n texlive-hyplain
 The package offers a means to set up hyphenation suitable for several languages
@@ -1192,9 +1100,6 @@ Version:        svn75195
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ifisdimension.tex) = %{tl_version}
-Provides:       tex(ifisglue.tex) = %{tl_version}
-Provides:       tex(ifisinteger.tex) = %{tl_version}
 
 %description -n texlive-ifis-macros
 This package provides three macros: \ifisint, \ifisdim, and \ifisglue. They
@@ -1203,11 +1108,10 @@ dimension or a valid (mu)glue specification for TeX.
 
 %package -n texlive-inputnormalization
 Summary:        Wrapper for XeTeX's and LuaTeX's input normalization
-Version:        svn59850
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(inputnormalization.sty) = %{tl_version}
 
 %description -n texlive-inputnormalization
 This package provides a cross engine interface to normalizing input before it's
@@ -1220,7 +1124,8 @@ Version:        svn34299
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(insbox.tex) = %{tl_version}
+Provides:       texlive-insbox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-insbox-doc <= 11:%{version}
 
 %description -n texlive-insbox
 The package provides convenient bundling of the \parshape primitive. LaTeX
@@ -1233,12 +1138,8 @@ Version:        svn16211
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cassette.tex) = %{tl_version}
-Provides:       tex(idverb.tex) = %{tl_version}
-Provides:       tex(js-misc.tex) = %{tl_version}
-Provides:       tex(schild.tex) = %{tl_version}
-Provides:       tex(sperr.tex) = %{tl_version}
-Provides:       tex(xfig.tex) = %{tl_version}
+Provides:       texlive-js-misc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-js-misc-doc <= 11:%{version}
 
 %description -n texlive-js-misc
 A bunch of packages, including: idverb.tex, for 'short verbatim'; xfig.tex, for
@@ -1251,7 +1152,8 @@ Version:        svn15878
 License:        Kastrup
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(binhex.tex) = %{tl_version}
+Provides:       texlive-kastrup-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kastrup-doc <= 11:%{version}
 
 %description -n texlive-kastrup
 Provides expandable macros for both fixed-width and minimum-width numbers to
@@ -1263,7 +1165,8 @@ Version:        svn31402
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lambda.sty) = %{tl_version}
+Provides:       texlive-lambda-lists-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lambda-lists-doc <= 11:%{version}
 
 %description -n texlive-lambda-lists
 These list-processing macros avoid the reassignments employed in the macros
@@ -1276,9 +1179,10 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-langcode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-langcode-doc <= 11:%{version}
 Requires:       tex(dhua.sty)
 Requires:       tex(dowith.sty)
-Provides:       tex(langcode.sty) = %{tl_version}
 
 %description -n texlive-langcode
 The package provides a command \uselangcode{<code>} to adjust
@@ -1294,15 +1198,8 @@ Version:        svn23916
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lecturer.sty) = %{tl_version}
-Provides:       tex(lecturer.tex) = %{tl_version}
-Provides:       tex(ltr-areas.tex) = %{tl_version}
-Provides:       tex(ltr-graphics.tex) = %{tl_version}
-Provides:       tex(ltr-job.tex) = %{tl_version}
-Provides:       tex(ltr-navigation.tex) = %{tl_version}
-Provides:       tex(ltr-slides.tex) = %{tl_version}
-Provides:       tex(ltr-steps.tex) = %{tl_version}
-Provides:       tex(t-lecturer.tex) = %{tl_version}
+Provides:       texlive-lecturer-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lecturer-doc <= 11:%{version}
 
 %description -n texlive-lecturer
 The package creates slides for on-screen presentations based on PDF features
@@ -1328,7 +1225,6 @@ Version:        svn54266
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(letterspacing.tex) = %{tl_version}
 
 %description -n texlive-letterspacing
 Space out the letters of text; the command is \letterspace<\hbox
@@ -1343,9 +1239,8 @@ Version:        svn19880
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(librarian.sty) = %{tl_version}
-Provides:       tex(librarian.tex) = %{tl_version}
-Provides:       tex(t-librarian.tex) = %{tl_version}
+Provides:       texlive-librarian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-librarian-doc <= 11:%{version}
 
 %description -n texlive-librarian
 The package extracts information in bib files, makes it available in the
@@ -1359,12 +1254,10 @@ file for ConTeXt and a style file for LaTeX. As an example of use, an Author
 
 %package -n texlive-listofitems
 Summary:        Grab items in lists using user-specified sep char
-Version:        svn70579
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(listofitems.sty) = %{tl_version}
-Provides:       tex(listofitems.tex) = %{tl_version}
 
 %description -n texlive-listofitems
 This simple package is designed to read a list of items whose parsing character
@@ -1383,7 +1276,8 @@ Version:        svn56496
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(localloc.sty) = %{tl_version}
+Provides:       texlive-localloc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-localloc-doc <= 11:%{version}
 
 %description -n texlive-localloc
 This package approaches the problem of the shortage of registers, by providing
@@ -1392,12 +1286,12 @@ LaTeX 2.09.
 
 %package -n texlive-mathdots
 Summary:        Commands to produce dots in math that respect font size
-Version:        svn34301
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mathdots.sty) = %{tl_version}
-Provides:       tex(mathdots.tex) = %{tl_version}
+Provides:       texlive-mathdots-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathdots-doc <= 11:%{version}
 
 %description -n texlive-mathdots
 Redefines \ddots and \vdots, and defines \iddots. The dots produced by \iddots
@@ -1411,7 +1305,6 @@ Version:        svn75139
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(measurebox.tex) = %{tl_version}
 
 %description -n texlive-measurebox
 MeasureBox is a (plain TeX) package for measuring material. It is intended for
@@ -1425,7 +1318,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(metatex.tex) = %{tl_version}
+Provides:       texlive-metatex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metatex-doc <= 11:%{version}
 
 %description -n texlive-metatex
 METATeX is a set of plain TeX and Metafont macros that you can use to define
@@ -1441,13 +1335,8 @@ Version:        svn15878
 License:        LicenseRef-midnight
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(border.tex) = %{tl_version}
-Provides:       tex(dolines.tex) = %{tl_version}
-Provides:       tex(gloss.tex) = %{tl_version}
-Provides:       tex(labels.tex) = %{tl_version}
-Provides:       tex(loop.tex) = %{tl_version}
-Provides:       tex(quire.tex) = %{tl_version}
-Provides:       tex(styledef.tex) = %{tl_version}
+Provides:       texlive-midnight-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-midnight-doc <= 11:%{version}
 
 %description -n texlive-midnight
 Included are: quire: making booklets, etc.; gloss: vertically align words in
@@ -1461,7 +1350,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mkpatter.tex) = %{tl_version}
+Provides:       texlive-mkpattern-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mkpattern-doc <= 11:%{version}
 
 %description -n texlive-mkpattern
 Mkpattern is a general purpose program for the generation of hyphenation
@@ -1476,7 +1366,6 @@ Version:        svn67558
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mlawriter.tex) = %{tl_version}
 
 %description -n texlive-mlawriter
 With this Plain TeX extension, papers can be written in MLA style. These appear
@@ -1488,7 +1377,6 @@ Version:        svn47599
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(modulus.sty) = %{tl_version}
 
 %description -n texlive-modulus
 The package provides an easy way to take the remainder of a division operation
@@ -1500,12 +1388,12 @@ programming.
 
 %package -n texlive-multido
 Summary:        A loop facility for Generic TeX
-Version:        svn18302
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(multido.sty) = %{tl_version}
-Provides:       tex(multido.tex) = %{tl_version}
+Provides:       texlive-multido-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-multido-doc <= 11:%{version}
 
 %description -n texlive-multido
 The package provides the \multido command, which was originally designed for
@@ -1515,12 +1403,11 @@ like PSTricks as it is with the more common integer loops.
 
 %package -n texlive-namedef
 Summary:        TeX definitions with named parameters
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-l3kernel
-Provides:       tex(namedef.sty) = %{tl_version}
 
 %description -n texlive-namedef
 This package provides a prefix \named to be used in TeX definitions so that
@@ -1537,9 +1424,8 @@ Version:        svn41413
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(navigator.sty) = %{tl_version}
-Provides:       tex(navigator.tex) = %{tl_version}
-Provides:       tex(t-navigator.tex) = %{tl_version}
+Provides:       texlive-navigator-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-navigator-doc <= 11:%{version}
 
 %description -n texlive-navigator
 Navigator implements PDF features for all formats (with some limitations in
@@ -1556,18 +1442,18 @@ Version:        svn15878
 License:        Newsletr
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(newsletr.tex) = %{tl_version}
+Provides:       texlive-newsletr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-newsletr-doc <= 11:%{version}
 
 %description -n texlive-newsletr
 Macros for making newsletters with Plain TeX
 
 %package -n texlive-nth
 Summary:        Generate English ordinal numbers
-Version:        svn54252
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(nth.sty) = %{tl_version}
 
 %description -n texlive-nth
 The command \nth{<number>} generates English ordinal numbers of the form 1st,
@@ -1581,36 +1467,8 @@ Version:        svn16991
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(a117.tex) = %{tl_version}
-Provides:       tex(a35.sty) = %{tl_version}
-Provides:       tex(a35.tex) = %{tl_version}
-Provides:       tex(allfonts.sty) = %{tl_version}
-Provides:       tex(allfonts.tex) = %{tl_version}
-Provides:       tex(amsfn.tex) = %{tl_version}
-Provides:       tex(mtfn.tex) = %{tl_version}
-Provides:       tex(ofs-6a.tex) = %{tl_version}
-Provides:       tex(ofs-6c.tex) = %{tl_version}
-Provides:       tex(ofs-6k.tex) = %{tl_version}
-Provides:       tex(ofs-6s.tex) = %{tl_version}
-Provides:       tex(ofs-6t.tex) = %{tl_version}
-Provides:       tex(ofs-6x.tex) = %{tl_version}
-Provides:       tex(ofs-6y.tex) = %{tl_version}
-Provides:       tex(ofs-8c.tex) = %{tl_version}
-Provides:       tex(ofs-8t.tex) = %{tl_version}
-Provides:       tex(ofs-8x.tex) = %{tl_version}
-Provides:       tex(ofs-8z.tex) = %{tl_version}
-Provides:       tex(ofs-ams.tex) = %{tl_version}
-Provides:       tex(ofs-cm.tex) = %{tl_version}
-Provides:       tex(ofs-mt.tex) = %{tl_version}
-Provides:       tex(ofs-ps.tex) = %{tl_version}
-Provides:       tex(ofs-px.tex) = %{tl_version}
-Provides:       tex(ofs-slt.tex) = %{tl_version}
-Provides:       tex(ofs-tx.tex) = %{tl_version}
-Provides:       tex(ofs.sty) = %{tl_version}
-Provides:       tex(ofs.tex) = %{tl_version}
-Provides:       tex(ofsdef.tex) = %{tl_version}
-Provides:       tex(pantyk.tex) = %{tl_version}
-Provides:       tex(txfn.tex) = %{tl_version}
+Provides:       texlive-ofs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ofs-doc <= 11:%{version}
 
 %description -n texlive-ofs
 OFS (Olsak's Font System) is a set of Plain TeX and LaTeX macros for managing
@@ -1630,12 +1488,6 @@ Version:        svn74906
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(booklet.tex) = %{tl_version}
-Provides:       tex(cropmarks.tex) = %{tl_version}
-Provides:       tex(qrcode.tex) = %{tl_version}
-Provides:       tex(scanbase.tex) = %{tl_version}
-Provides:       tex(scancsv.tex) = %{tl_version}
-Provides:       tex(xmlparser.tex) = %{tl_version}
 
 %description -n texlive-olsak-misc
 This is a collection of various single-file plain TeX macros written by Petr
@@ -1656,7 +1508,6 @@ Version:        svn54254
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(outerhbox.sty) = %{tl_version}
 
 %description -n texlive-outerhbox
 The package provides the \outerhbox command, which is similar to \hbox, except
@@ -1666,11 +1517,12 @@ is \unhbox'ed.
 
 %package -n texlive-path
 Summary:        Typeset paths, making them breakable
-Version:        svn22045
+Version:        svn77682
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(path.sty) = %{tl_version}
+Provides:       texlive-path-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-path-doc <= 11:%{version}
 
 %description -n texlive-path
 Defines a macro \path|...|, similar to the LaTeX \verb|...|, that sets the text
@@ -1684,7 +1536,8 @@ Version:        svn32809
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pdf-trans.tex) = %{tl_version}
+Provides:       texlive-pdf-trans-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pdf-trans-doc <= 11:%{version}
 
 %description -n texlive-pdf-trans
 pdf-trans is a set of macros offering various transformations of TeX boxes
@@ -1697,7 +1550,6 @@ Version:        svn66618
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pdfmsym.tex) = %{tl_version}
 
 %description -n texlive-pdfmsym
 This package defines a handful of mathematical symbols many of which are
@@ -1712,32 +1564,6 @@ Version:        svn74832
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pdfToolbox.tex) = %{tl_version}
-Provides:       tex(ptb-arrays.tex) = %{tl_version}
-Provides:       tex(ptb-colorboxes.tex) = %{tl_version}
-Provides:       tex(ptb-colors.tex) = %{tl_version}
-Provides:       tex(ptb-counters.tex) = %{tl_version}
-Provides:       tex(ptb-dictionaries.tex) = %{tl_version}
-Provides:       tex(ptb-fonts.tex) = %{tl_version}
-Provides:       tex(ptb-hooks.tex) = %{tl_version}
-Provides:       tex(ptb-hyperlinks.tex) = %{tl_version}
-Provides:       tex(ptb-index.tex) = %{tl_version}
-Provides:       tex(ptb-key-value.tex) = %{tl_version}
-Provides:       tex(ptb-layout.tex) = %{tl_version}
-Provides:       tex(ptb-listings.tex) = %{tl_version}
-Provides:       tex(ptb-lists.tex) = %{tl_version}
-Provides:       tex(ptb-math.tex) = %{tl_version}
-Provides:       tex(ptb-mergesort.tex) = %{tl_version}
-Provides:       tex(ptb-pdfData.tex) = %{tl_version}
-Provides:       tex(ptb-pdfDstruct.tex) = %{tl_version}
-Provides:       tex(ptb-pdfGraphics.tex) = %{tl_version}
-Provides:       tex(ptb-pdfdraw-utils.tex) = %{tl_version}
-Provides:       tex(ptb-pdfdraw.tex) = %{tl_version}
-Provides:       tex(ptb-stack.tex) = %{tl_version}
-Provides:       tex(ptb-syntax-C.tex) = %{tl_version}
-Provides:       tex(ptb-syntax-TeX.tex) = %{tl_version}
-Provides:       tex(ptb-tableofcontents.tex) = %{tl_version}
-Provides:       tex(ptb-utils.tex) = %{tl_version}
 
 %description -n texlive-pdftoolbox
 pdfToolbox is a toolbox of various "subpackages" intended for programming and
@@ -1756,7 +1582,8 @@ Version:        svn24731
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pitex.tex) = %{tl_version}
+Provides:       texlive-pitex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pitex-doc <= 11:%{version}
 
 %description -n texlive-pitex
 The bundle provides macros that the author uses when writing documentation (for
@@ -1770,7 +1597,6 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(placeins.tex) = %{tl_version}
 
 %description -n texlive-placeins-plain
 This TeX file provides various mechanisms (for plain TeX and close relatives)
@@ -1785,10 +1611,6 @@ Version:        svn75230
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pxwmanual.tex) = %{tl_version}
-Provides:       tex(pxwreport.tex) = %{tl_version}
-Provides:       tex(pxwsingle.tex) = %{tl_version}
-Provides:       tex(pxwspread.tex) = %{tl_version}
 
 %description -n texlive-plain-widow
 This package contains three output routines that extend \plainoutput. The first
@@ -1802,7 +1624,8 @@ Version:        svn27765
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(plainpkg.tex) = %{tl_version}
+Provides:       texlive-plainpkg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-plainpkg-doc <= 11:%{version}
 
 %description -n texlive-plainpkg
 The package provides a minimal method for making generic (i.e.,
@@ -1818,7 +1641,8 @@ Version:        svn30353
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(plipsum.tex) = %{tl_version}
+Provides:       texlive-plipsum-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-plipsum-doc <= 11:%{version}
 
 %description -n texlive-plipsum
 The package provides a paragraph generator designed for use in Plain TeX
@@ -1831,8 +1655,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(MIKmathf.tex) = %{tl_version}
-Provides:       tex(plnfss.tex) = %{tl_version}
+Provides:       texlive-plnfss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-plnfss-doc <= 11:%{version}
 
 %description -n texlive-plnfss
 Plnfss is a set of macros to provide easy font access (somewhat similar to NFSS
@@ -1848,7 +1672,8 @@ Version:        svn31088
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(stmary.tex) = %{tl_version}
+Provides:       texlive-plstmary-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-plstmary-doc <= 11:%{version}
 
 %description -n texlive-plstmary
 The package provides commands to produce all the symbols of the St Mary's Road
@@ -1856,12 +1681,10 @@ fonts, in a Plain TeX environment.
 
 %package -n texlive-poormanlog
 Summary:        Logarithms and powers with (almost) 9 digits
-Version:        svn63400
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(poormanlog.sty) = %{tl_version}
-Provides:       tex(poormanlog.tex) = %{tl_version}
 
 %description -n texlive-poormanlog
 This small package (usable with Plain e-TeX, LaTeX, or others) with no
@@ -1880,7 +1703,8 @@ Version:        svn50048
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(present.tex) = %{tl_version}
+Provides:       texlive-present-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-present-doc <= 11:%{version}
 
 %description -n texlive-present
 The package offers a collection of simple macros for preparing presentations in
@@ -1896,7 +1720,6 @@ Version:        svn74648
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pwebmac.tex) = %{tl_version}
 
 %description -n texlive-pwebmac
 The original WEB system by Donald Knuth has the macros webmac.tex that produce
@@ -1922,7 +1745,6 @@ Version:        svn54723
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(random.tex) = %{tl_version}
 
 %description -n texlive-random
 Generates pseudo-random integers in the range 1 to 2^{31}. Macros are to
@@ -1931,13 +1753,11 @@ used to provide random `real' numbers, are also available.
 
 %package -n texlive-randomlist
 Summary:        Deal with database, loop, and random in order to build personalized exercises
-Version:        svn76924
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xkeyval.sty)
-Provides:       tex(randomlist.sty) = %{tl_version}
-Provides:       tex(randomlist.tex) = %{tl_version}
 
 %description -n texlive-randomlist
 The main aim of this package is to work on lists, especially with random
@@ -1950,7 +1770,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(resumemac.tex) = %{tl_version}
+Provides:       texlive-resumemac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-resumemac-doc <= 11:%{version}
 
 %description -n texlive-resumemac
 A set of macros is provided, together with an file that offers an example of
@@ -1962,7 +1783,6 @@ Version:        svn54251
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ruler.tex) = %{tl_version}
 
 %description -n texlive-ruler
 The file processes to produce (real) rulers; the author suggests printing them
@@ -1975,7 +1795,8 @@ Version:        svn76178
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(schemata.sty) = %{tl_version}
+Provides:       texlive-schemata-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-schemata-doc <= 11:%{version}
 
 %description -n texlive-schemata
 The package facilitates the creation of "topical schemata", i.e. outlines that
@@ -1988,7 +1809,8 @@ Version:        svn22212
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(shade.tex) = %{tl_version}
+Provides:       texlive-shade-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-shade-doc <= 11:%{version}
 
 %description -n texlive-shade
 The package provides a shaded backdrop to a box of text. It uses a Metafont
@@ -1997,27 +1819,24 @@ resolution used in the Metafont printer parameters.
 
 %package -n texlive-simplekv
 Summary:        A simple key/value system for TeX and LaTeX
-Version:        svn75515
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(simplekv.sty) = %{tl_version}
-Provides:       tex(simplekv.tex) = %{tl_version}
 
 %description -n texlive-simplekv
 The package provides a simple key/value system for TeX and LaTeX.
 
 %package -n texlive-soul
 Summary:        Hyphenation for letterspacing, underlining, and more
-Version:        svn67365
+Version:        svn78291
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-soul-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-soul-doc <= 11:%{version}
 Requires:       tex(etexcmds.sty)
 Requires:       tex(infwarerr.sty)
-Provides:       tex(soul-ori.sty) = %{tl_version}
-Provides:       tex(soul.sty) = %{tl_version}
-Provides:       tex(soulutf8.sty) = %{tl_version}
 
 %description -n texlive-soul
 The package provides hyphenable spacing out (letterspacing), underlining,
@@ -2034,11 +1853,6 @@ Version:        svn75140
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(stretchy.tex) = %{tl_version}
-Provides:       tex(strty-logo.tex) = %{tl_version}
-Provides:       tex(strty-repeatedsyms.tex) = %{tl_version}
-Provides:       tex(strty-stretchedsyms.tex) = %{tl_version}
-Provides:       tex(strty-utils.tex) = %{tl_version}
 
 %description -n texlive-stretchy
 This package helps to create "stretchy" math symbols. It provides various
@@ -2051,7 +1865,6 @@ Version:        svn54267
 License:        swrule
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(swrule.sty) = %{tl_version}
 
 %description -n texlive-swrule
 Defines commands that create rules split into a (specified) number of pieces,
@@ -2059,14 +1872,14 @@ whose size varies to produce the effect of a rule that swells in its centre.
 
 %package -n texlive-systeme
 Summary:        Format systems of equations
-Version:        svn77138
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-systeme-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-systeme-doc <= 11:%{version}
 Requires:       tex(simplekv.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(systeme.sty) = %{tl_version}
-Provides:       tex(systeme.tex) = %{tl_version}
 
 %description -n texlive-systeme
 The package allows you to enter systems of equations or inequalities in an
@@ -2082,7 +1895,6 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tabto.tex) = %{tl_version}
 
 %description -n texlive-tabto-generic
 \tabto{<length>} moves the typesetting position to <length> from the left
@@ -2095,7 +1907,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(termmenu.tex) = %{tl_version}
+Provides:       texlive-termmenu-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-termmenu-doc <= 11:%{version}
 
 %description -n texlive-termmenu
 When writing programs, it's often required to present the user with a list of
@@ -2109,10 +1922,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cmyk-hax.tex) = %{tl_version}
-Provides:       tex(epsfx.tex) = %{tl_version}
-Provides:       tex(poligraf.sty) = %{tl_version}
-Provides:       tex(trans.tex) = %{tl_version}
+Provides:       texlive-tex-ps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tex-ps-doc <= 11:%{version}
 
 %description -n texlive-tex-ps
 TeX to PostScript generic macros and add-ons: transformations of EPS files,
@@ -2124,7 +1935,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(texapi.tex) = %{tl_version}
+Provides:       texlive-texapi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-texapi-doc <= 11:%{version}
 
 %description -n texlive-texapi
 Texapi provides utility macros to write format-independent (and -aware)
@@ -2144,7 +1956,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(iflang.sty)
 Requires:       tex(modulus.sty)
 Requires:       tex(padcount.sty)
-Provides:       tex(texdate.sty) = %{tl_version}
 
 %description -n texlive-texdate
 TeX and LaTeX provide few facilities for dates by default, though many packages
@@ -2157,12 +1968,10 @@ automatically, and can be easily localized for non-English languages.
 
 %package -n texlive-texdimens
 Summary:        Conversion of TeX dimensions to decimals
-Version:        svn61070
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(texdimens.sty) = %{tl_version}
-Provides:       tex(texdimens.tex) = %{tl_version}
 
 %description -n texlive-texdimens
 Utilities and documentation related to TeX dimensional units, usable both with
@@ -2170,34 +1979,10 @@ Plain (\input texdimens) and with LaTeX (\usepackage{texdimens}).
 
 %package -n texlive-texinfo
 Summary:        Texinfo documentation system
-Version:        svn77327
+Version:        svn78334
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(texinfo-ja.tex) = %{tl_version}
-Provides:       tex(texinfo-zh.tex) = %{tl_version}
-Provides:       tex(texinfo.tex) = %{tl_version}
-Provides:       tex(txi-ca.tex) = %{tl_version}
-Provides:       tex(txi-cs.tex) = %{tl_version}
-Provides:       tex(txi-de.tex) = %{tl_version}
-Provides:       tex(txi-en.tex) = %{tl_version}
-Provides:       tex(txi-es.tex) = %{tl_version}
-Provides:       tex(txi-fi.tex) = %{tl_version}
-Provides:       tex(txi-fr.tex) = %{tl_version}
-Provides:       tex(txi-hu.tex) = %{tl_version}
-Provides:       tex(txi-is.tex) = %{tl_version}
-Provides:       tex(txi-it.tex) = %{tl_version}
-Provides:       tex(txi-ja.tex) = %{tl_version}
-Provides:       tex(txi-nb.tex) = %{tl_version}
-Provides:       tex(txi-nl.tex) = %{tl_version}
-Provides:       tex(txi-nn.tex) = %{tl_version}
-Provides:       tex(txi-pl.tex) = %{tl_version}
-Provides:       tex(txi-pt.tex) = %{tl_version}
-Provides:       tex(txi-ru.tex) = %{tl_version}
-Provides:       tex(txi-sr.tex) = %{tl_version}
-Provides:       tex(txi-tr.tex) = %{tl_version}
-Provides:       tex(txi-uk.tex) = %{tl_version}
-Provides:       tex(txi-zh.tex) = %{tl_version}
 
 %description -n texlive-texinfo
 Texinfo is the preferred format for documentation in the GNU project; the
@@ -2215,7 +2000,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(timetable.tex) = %{tl_version}
 
 %description -n texlive-timetable
 A highly-configurable package, with nice output and simple input. The macros
@@ -2227,8 +2011,6 @@ Version:        svn75599
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tokmap.sty) = %{tl_version}
-Provides:       tex(tokmap.tex) = %{tl_version}
 
 %description -n texlive-tokmap
 Usage: \tokmap <command> { <tokens> } applies command over the token list
@@ -2241,17 +2023,34 @@ Expandable. This package may be used in LaTeX by \usepackage{tokmap}, or in
 plain TeX and other formats by \input{tokmap}. See the visualtoks package for
 an example application.
 
-%package -n texlive-tracklang
-Summary:        Language and dialect tracker
-Version:        svn74576
+%package -n texlive-tokstools
+Summary:        Tools for manipulating tokens
+Version:        svn78736
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tracklang-region-codes.tex) = %{tl_version}
-Provides:       tex(tracklang-scripts.sty) = %{tl_version}
-Provides:       tex(tracklang-scripts.tex) = %{tl_version}
-Provides:       tex(tracklang.sty) = %{tl_version}
-Provides:       tex(tracklang.tex) = %{tl_version}
+Requires:       tex(simplekv.sty)
+
+%description -n texlive-tokstools
+This package is still in the experimental stage. Therefore, its behavior is not
+guaranteed to match the description in the manual, and bugs of varying severity
+may occur. Additionally, some features, as well as their syntax, may be subject
+to change. It requires any modern engine that supports etex primitives and can
+therefore be used with either TeX or LaTeX. The tokstools package provides
+tools for manipulating tokens and implements "PEG"-style grammars in TeX.
+Predefined elementary patterns can be combined to form grammars that search for
+matches within tokens. Two categories of macros are provided: those operating
+on individual tokens (\toksdo, \tokscount, and \printtoks); those operating on
+tokens that have matched a grammar (\ifpegmatch, \pegcount, and \pegreplace)
+
+%package -n texlive-tracklang
+Summary:        Language and dialect tracker
+Version:        svn77682
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Provides:       texlive-tracklang-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tracklang-doc <= 11:%{version}
 
 %description -n texlive-tracklang
 The tracklang package is provided for package developers who want a simple
@@ -2289,9 +2088,8 @@ Version:        svn28176
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(classes.tex) = %{tl_version}
-Provides:       tex(l_pic.tex) = %{tl_version}
-Provides:       tex(treetex.tex) = %{tl_version}
+Provides:       texlive-treetex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-treetex-doc <= 11:%{version}
 
 %description -n texlive-treetex
 Macros to draw trees, within TeX (or LaTeX). The algorithm used is discussed in
@@ -2303,7 +2101,6 @@ Version:        svn43006
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(trigonometry.tex) = %{tl_version}
 
 %description -n texlive-trigonometry
 A document that both provides macros that are usable elsewhere, and
@@ -2312,12 +2109,10 @@ sin and cos (the more recent trig uses a "numerical analyst's" expansion).
 
 %package -n texlive-tuple
 Summary:        Expandable operations for tuples of numbers
-Version:        svn77463
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tuple.sty) = %{tl_version}
-Provides:       tex(tuple.tex) = %{tl_version}
 
 %description -n texlive-tuple
 This package provides expandable operations for tuples of numbers: len, sum,
@@ -2335,11 +2130,12 @@ object.methode1.methode2... (*) : methode non developpable
 
 %package -n texlive-ulem
 Summary:        Package for underlining
-Version:        svn53365
+Version:        svn77682
 License:        ulem
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ulem.sty) = %{tl_version}
+Provides:       texlive-ulem-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ulem-doc <= 11:%{version}
 
 %description -n texlive-ulem
 The package provides an \ul (underline) command which will break over line
@@ -2355,7 +2151,8 @@ Version:        svn22511
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(upca.tex) = %{tl_version}
+Provides:       texlive-upca-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-upca-doc <= 11:%{version}
 
 %description -n texlive-upca
 The package defines a single macro \upca, to print UPC-A barcodes.
@@ -2366,16 +2163,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(10point.tex) = %{tl_version}
-Provides:       tex(10pointss.tex) = %{tl_version}
-Provides:       tex(11point.tex) = %{tl_version}
-Provides:       tex(12point.tex) = %{tl_version}
-Provides:       tex(14point.tex) = %{tl_version}
-Provides:       tex(17point.tex) = %{tl_version}
-Provides:       tex(20point.tex) = %{tl_version}
-Provides:       tex(7point.tex) = %{tl_version}
-Provides:       tex(8point.tex) = %{tl_version}
-Provides:       tex(9point.tex) = %{tl_version}
+Provides:       texlive-varisize-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-varisize-doc <= 11:%{version}
 
 %description -n texlive-varisize
 A series of files, each of which defines a size-change macro. Note that
@@ -2389,8 +2178,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tokmap.sty)
-Provides:       tex(visualtoks.sty) = %{tl_version}
-Provides:       tex(visualtoks.tex) = %{tl_version}
 
 %description -n texlive-visualtoks
 This package provides the \visualtoks command to display arbitrary list of
@@ -2429,7 +2216,6 @@ Version:        svn60926
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xintsession.tex) = %{tl_version}
 
 %description -n texlive-xintsession
 This package provides support for interactive computing sessions with etex (or
@@ -2443,12 +2229,12 @@ variables. A file is automatically created storing inputs and outputs.
 
 %package -n texlive-xlop
 Summary:        Calculates and displays arithmetic operations
-Version:        svn56910
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xlop.sty) = %{tl_version}
-Provides:       tex(xlop.tex) = %{tl_version}
+Provides:       texlive-xlop-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xlop-doc <= 11:%{version}
 
 %description -n texlive-xlop
 Xlop (eXtra Large OPeration) will typeset arithmetic problems either in-line or
@@ -2464,9 +2250,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(t-yax.tex) = %{tl_version}
-Provides:       tex(yax.sty) = %{tl_version}
-Provides:       tex(yax.tex) = %{tl_version}
+Provides:       texlive-yax-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yax-doc <= 11:%{version}
 
 %description -n texlive-yax
 YaX is advertised as a key system, but it rather organizes attributes in
@@ -2483,59 +2268,6 @@ Version:        svn55862
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(zzart.tex) = %{tl_version}
-Provides:       tex(zzbiblio.tex) = %{tl_version}
-Provides:       tex(zzbibtex.tex) = %{tl_version}
-Provides:       tex(zzblock.tex) = %{tl_version}
-Provides:       tex(zzcmmath.tex) = %{tl_version}
-Provides:       tex(zzcomenc.tex) = %{tl_version}
-Provides:       tex(zzdiv.tex) = %{tl_version}
-Provides:       tex(zzdoc.tex) = %{tl_version}
-Provides:       tex(zzerror.tex) = %{tl_version}
-Provides:       tex(zzfloat.tex) = %{tl_version}
-Provides:       tex(zzfont.tex) = %{tl_version}
-Provides:       tex(zzfront.tex) = %{tl_version}
-Provides:       tex(zzhelp.tex) = %{tl_version}
-Provides:       tex(zzhmode.tex) = %{tl_version}
-Provides:       tex(zzhmodeb.tex) = %{tl_version}
-Provides:       tex(zzhyper.tex) = %{tl_version}
-Provides:       tex(zzhyph.tex) = %{tl_version}
-Provides:       tex(zzindexv1.tex) = %{tl_version}
-Provides:       tex(zzindexv2.tex) = %{tl_version}
-Provides:       tex(zzio.tex) = %{tl_version}
-Provides:       tex(zzlist.tex) = %{tl_version}
-Provides:       tex(zzltrspc.tex) = %{tl_version}
-Provides:       tex(zzlucida.tex) = %{tl_version}
-Provides:       tex(zzmath.tex) = %{tl_version}
-Provides:       tex(zzmathv3.tex) = %{tl_version}
-Provides:       tex(zzmathv4.tex) = %{tl_version}
-Provides:       tex(zzmathv5.tex) = %{tl_version}
-Provides:       tex(zzmathv6.tex) = %{tl_version}
-Provides:       tex(zzmerge.tex) = %{tl_version}
-Provides:       tex(zzmisc.tex) = %{tl_version}
-Provides:       tex(zzmtime.tex) = %{tl_version}
-Provides:       tex(zznewmath.tex) = %{tl_version}
-Provides:       tex(zznote.tex) = %{tl_version}
-Provides:       tex(zzoverlay.tex) = %{tl_version}
-Provides:       tex(zzpage.tex) = %{tl_version}
-Provides:       tex(zzplain.tex) = %{tl_version}
-Provides:       tex(zzprog.tex) = %{tl_version}
-Provides:       tex(zzps.tex) = %{tl_version}
-Provides:       tex(zzreg.tex) = %{tl_version}
-Provides:       tex(zzrunner.tex) = %{tl_version}
-Provides:       tex(zzsect.tex) = %{tl_version}
-Provides:       tex(zztabbing.tex) = %{tl_version}
-Provides:       tex(zztabularv1.tex) = %{tl_version}
-Provides:       tex(zztabularv2.tex) = %{tl_version}
-Provides:       tex(zztabularv3.tex) = %{tl_version}
-Provides:       tex(zztag.tex) = %{tl_version}
-Provides:       tex(zztex.tex) = %{tl_version}
-Provides:       tex(zztext.tex) = %{tl_version}
-Provides:       tex(zzttladj.tex) = %{tl_version}
-Provides:       tex(zztures.tex) = %{tl_version}
-Provides:       tex(zzver.tex) = %{tl_version}
-Provides:       tex(zzvmode.tex) = %{tl_version}
-Provides:       tex(zzxref.tex) = %{tl_version}
 
 %description -n texlive-zztex
 The ZzTeX macro package is a full-featured TeX macro package specially designed
@@ -2786,6 +2518,8 @@ tar -xf %{SOURCE227} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE228} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE229} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE230} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE231} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE232} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -3331,6 +3065,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/tokmap/
 %doc %{_texmf_main}/doc/generic/tokmap/
 
+%files -n texlive-tokstools
+%license lppl1.3c.txt
+%{_texmf_main}/tex/generic/tokstools/
+%doc %{_texmf_main}/doc/generic/tokstools/
+
 %files -n texlive-tracklang
 %license lppl1.3c.txt
 %{_texmf_main}/tex/generic/tracklang/
@@ -3405,6 +3144,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/plain/zztex/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78552-4
+- Update collection from svn75599 to svn78552
+- Add tokstools
+- Update 22 components
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75599-3
 - fix descriptions, licensing
 

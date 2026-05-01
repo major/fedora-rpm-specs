@@ -17,7 +17,6 @@ BuildOption(generate_buildrequires): -t
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  tomcli
 BuildRequires:  make
 BuildRequires:  gcc-c++
 
@@ -34,12 +33,9 @@ Summary:        %{summary}
 
 
 %prep -a
-# Drop the setuptools_git_ls_files dependency
-#
 # This dependency makes sense upstream, but we do not need it (and it is
 # not packaged) in Fedora.
-tomcli set pyproject.toml lists delitem 'build-system.requires' \
-    'setuptools_git_ls_files\b.*'
+%pyproject_patch_dependency setuptools_git_ls_files:ignore
 
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.

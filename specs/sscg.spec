@@ -29,6 +29,10 @@ BuildRequires:  help2man
 # https://github.com/sgallagher/sscg/commit/0c37e7ace585cfb550a0ffd9d5c331d059fd687f
 Patch: 0001-Avoid-segfault-on-receiving-bad-CLI-arguments.patch
 
+# Upstream patch to support OpenSSL API adjustments without warnings
+# https://github.com/sgallagher/sscg/commit/5547334edbf609ee987157fb19444865f8d351dc
+Patch: 0002-Adapt-to-OpenSSL-4.patch
+
 
 %description
 A utility to aid in the creation of more secure "self-signed"

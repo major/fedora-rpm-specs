@@ -31,7 +31,6 @@ BuildOption(install):   -l asyncpg
 BuildOption(generate_buildrequires): -x gssauth -g test
 
 BuildRequires:  gcc
-BuildRequires:  tomcli
 
 # Unbundled header-only library. Dependency on -static per guidelines,
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries.
@@ -85,8 +84,9 @@ Obsoletes:      %{name}-doc < 0.27.0-5
 find asyncpg -type f -name '*.c' ! -name 'recordobj.c' -print -delete
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem \
-    'dependency-groups.test' '(flake8|mypy)\b.*'
+%pyproject_patch_dependency flake8-pyi:ignore
+%pyproject_patch_dependency flake8:ignore
+%pyproject_patch_dependency mypy:ignore
 
 # Do not upper-bound the Python interpreter version for the uvloop test
 # dependency. First, a missing uvloop breaks the test if we do not adjust the
@@ -95,7 +95,7 @@ tomcli set pyproject.toml lists delitem \
 # ... lists replace ..." only supports a fixed replacement string.
 sed -r -i "s/('uvloop\\b.*);.*'/\\1'/" pyproject.toml
 %if %{without uvloop}
-tomcli set pyproject.toml lists delitem 'dependency-groups.test' '(uvloop)\b.*'
+%pyproject_patch_dependency uvloop:ignore
 %endif
 
 # Unbundle pythoncapi-compat.

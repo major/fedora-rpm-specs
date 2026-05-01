@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate asn1
+%global crate salsa-macros
 
-Name:           rust-asn1
-Version:        0.24.1
+Name:           rust-salsa-macros
+Version:        0.26.1
 Release:        %autorelease
-Summary:        ASN.1 (DER) parser and writer for Rust
+Summary:        Procedural macros for the salsa crate
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/asn1
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/salsa-macros
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          asn1-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-ASN.1 (DER) parser and writer for Rust.}
+Procedural macros for the salsa crate.}
 
 %description %{_description}
 
@@ -32,8 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,16 +47,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+persistence-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+persistence-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "persistence" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+persistence-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

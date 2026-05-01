@@ -1,7 +1,7 @@
 #%%global _rc 1
 #%%global _beta 3
 
-%global           pjsip_version   2.15.1
+%global           pjsip_version   2.16
 %global           jansson_version 2.14
 %global           jwt_version 1.15.3
 
@@ -56,8 +56,8 @@
 
 Summary:          The Open Source PBX
 Name:             asterisk
-Version:          23.2.2
-Release:          %{?_rc||?_beta:0.}2%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Version:          23.3.0
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -84,10 +84,12 @@ Source6:          asterisk-tmpfiles
 Source7:          asterisk-gpgkeys.gpg
 
 # Now building Asterisk with bundled pjproject, because they apply custom patches to it
-Source8:          https://raw.githubusercontent.com/asterisk/third-party/master/pjproject/%{pjsip_version}/pjproject-%{pjsip_version}.tar.bz2
+# wget https://github.com/pjsip/pjproject/archive/2.16/pjproject-2.16.tar.gz
+# zcat pjproject-2.16.tar.gz | bzip2 > pjproject-2.16.tar.bz2
+Source8:          pjproject-%{pjsip_version}.tar.bz2
 
 # Bundling jansson on EL7 and EL8, because the version in CentOS is too old
-Source9:          http://www.digip.org/jansson/releases/jansson-%{jansson_version}.tar.bz2
+Source9:          https://github.com/akheron/jansson/releases/download/v%{jansson_version}/jansson-%{jansson_version}.tar.bz2
 
 # Bundling libjwt because it depends on a version that is newer than Fedora, but still really old.
 Source10:         https://github.com/benmcollins/libjwt/releases/download/v%{jwt_version}/libjwt-%{jwt_version}.tar.gz
@@ -1214,6 +1216,7 @@ fi
 %{_libdir}/asterisk/modules/res_ari_recordings.so
 %{_libdir}/asterisk/modules/res_ari_sounds.so
 %{_libdir}/asterisk/modules/res_audiosocket.so
+%{_libdir}/asterisk/modules/res_cdrel_custom.so
 %{_libdir}/asterisk/modules/res_chan_stats.so
 %{_libdir}/asterisk/modules/res_clialiases.so
 %{_libdir}/asterisk/modules/res_cliexec.so
@@ -1730,7 +1733,10 @@ fi
 %endif
 
 %changelog
-* Thu Apr 18 2026 Tom Callaway <spot@fedoraproject.org> - 23.2.2-2
+* Wed Apr 29 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.3.0-1
+- update to 23.3.0
+
+* Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 23.2.2-2
 - rebuild
 
 * Wed Feb 18 2026 Tom Callaway <spot@fedoraproject.org> - 23.2.2-1

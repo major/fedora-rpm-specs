@@ -2,7 +2,7 @@
 
 Name:		yubihsm-shell
 Version:	2.7.3
-Release:	1%{?dist}
+Release:	%autorelease
 Summary:	Tools to interact with YubiHSM 2
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -13,6 +13,8 @@ Source1:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.g
 Source2:	gpgkey-9588EA0F.gpg
 # https://github.com/Yubico/yubihsm-shell/pull/411
 Patch2:	yubihsm-shell-2.5.0-pcsc-lite.patch
+# OpenSSL 4.0 build fixes
+Patch3: 0001-Add-const-qualifiers-in-attest-example.patch
 
 BuildRequires:	cmake
 BuildRequires:	cppcheck
@@ -45,8 +47,7 @@ Development libraries for working with yubihsm 2.
 
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-%setup -q
-%patch 2 -p1
+%autosetup -p1
 
 
 %build
@@ -109,147 +110,5 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 %{_datadir}/pkgconfig/yubihsm.pc
 %{_datadir}/pkgconfig/ykhsmauth.pc
 
-
-
 %changelog
-* Thu Apr 16 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.3-1
-- New upstream release (#2458149)
-
-* Fri Mar 13 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.2-1
-- New upstream release (#2447224)
-
-* Tue Jan 20 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.1-1
-- New upstream release (#2431274)
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 17 2025 Jakub Jelen <jjelen@redhat.com> - 2.7.0-1
-- New upstream release (#2372452)
-
-* Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.6.0-3
-- Fix gcc15 warnings (#2341598)
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 11 2024 Jakub Jelen <jjelen@redhat.com> - 2.6.0-1
-- New upstream release (#2311424)
-
-* Tue Jul 30 2024 Jakub Jelen <jjelen@redhat.com> - 2.5.0-4
-- Fix build against pcsc-lite >= 2.2 (#2301379)
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.0-3
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Apr 02 2024 Jakub Jelen <jjelen@redhat.com> - 2.5.0-1
-- New upstream release (#2272123)
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Nov 08 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.2-1
-- New upstream release (#2248609)
-
-* Thu Aug 17 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.1-1
-- New upstream release (#2232340)
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jan 30 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.0-1
-- New upstream release (#2165239)
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 27 2022 Jakub Jelen <jjelen@redhat.com> - 2.3.2-1
-- New upstream release (#2100542)
-
-* Tue Feb 22 2022 Veronika Hanulikova <vhanulik@redhat.com> - 2.3.1-1
-- New upstream release (#2050104)
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0b-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 03 2022 Jakub Jelen <jjelen@redhat.com> - 2.3.0b-1
-- New upstream release (#2035159)
-
-* Mon Dec 13 2021 Jakub Jelen <jjelen@redhat.com> - 2.3.0-1
-- New upstream release (#2030694)
-
-* Thu Nov 18 2021 Jakub Jelen <jjelen@redhat.com> - 2.2.0-5
-- Rebuild with deprecated OpenSSL 3.0 functions (#2021878)
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 2.2.0-4
-- Rebuilt with OpenSSL 3.0.0
-
-* Tue Aug 03 2021 Jakub Jelen <jjelen@redhat.com> - 2.2.0-3
-- Disable rpath to allow build in Fedora 35 (#1988058)
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 16 2021 Jakub Jelen <jjelen@redhat.com> - 2.2.0-1
-- New upstream release (#1950207)
-
-* Thu Mar 18 2021 Jakub Jelen <jjelen@redhat.com> - 2.1.0-1
-- New upstream release (#1936041)
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Oct 21 2020 Jakub Jelen <jjelen@redhat.com> - 2.0.3-1
-- New upstream release (#1889941)
-
-* Thu Aug 06 2020 Jakub Jelen <jjelen@redhat.com> - 2.0.2-7
-- Workaround FTBFS on s390x (#1865658)
-
-* Thu Aug 06 2020 Jakub Jelen <jjelen@redhat.com> - 2.0.2-6
-- Rebuild after libz3 soname bump (#1865658)
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Mar 16 2020 Jakub Jelen <jjelen@redhat.com> - 2.0.2-3
-- Avoid warnings/errors with new gcc on s390x (#1800289)
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 07 2020 Jakub Jelen <jjelen@redhat.com> - 2.0.2-1
-- New upstream release (#1772013)
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Apr 02 2019 Jakub Jelen <jjelen@redhat.com> - 2.0.1-1
-- New upstream release (#1692935)
-
-* Wed Feb 13 2019 Jakub Jelen <jjelen@redhat.com> - 2.0.0-4
-- Workaround unreasonagle error from GCC9 (#1676257)
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Dec 03 2018 Jakub Jelen <jjelen@redhat.com> - 2.0.0-2
-- Pull the latest signed tarballs
-- Address review comments (#1654689)
-
-* Thu Nov 29 2018 Jakub Jelen <jjelen@redhat.com> - 2.0.0-1
-- Initial release
-
-
+%autochangelog

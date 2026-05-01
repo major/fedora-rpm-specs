@@ -21,10 +21,10 @@ BuildOption(install):   -l engineio
 # uwsgi. There are no integration tests for them and they are not otherwise
 # BuildRequires, and we don’t want to add them solely for this purpose.
 BuildOption(check):     %{shrink:
-                        -e engineio.async_drivers.eventlet
-                        -e engineio.async_drivers.gevent
-                        -e engineio.async_drivers.gevent_uwsgi
-                        }
+    -e engineio.async_drivers.eventlet
+    -e engineio.async_drivers.gevent
+    -e engineio.async_drivers.gevent_uwsgi
+    }
 
 BuildArch:      noarch
 

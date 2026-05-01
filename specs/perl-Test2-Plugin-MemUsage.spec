@@ -1,6 +1,6 @@
 Name:           perl-Test2-Plugin-MemUsage
-%global cpan_version 0.002005
-Version:        0.2.5
+%global cpan_version 0.002006
+Version:        0.2.6
 Release:        1%{?dist}
 Summary:        Test2 plugin that collects and displays memory usage information
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,9 +55,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test2-Plugin-MemUsage-%{cpan_version}
-# Removed pregenerated files,
-# <https://github.com/Test-More/Test2-Plugin-MemUsage/issues/1>.
-rm -r ./blib Makefile
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -97,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 29 2026 Petr Pisar <ppisar@redhat.com> - 0.2.6-1
+- 0.002006 bump
+
 * Mon Apr 27 2026 Petr Pisar <ppisar@redhat.com> - 0.2.5-1
 - 0.002005 bump
 - Package the tests

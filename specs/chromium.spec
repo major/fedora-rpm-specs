@@ -262,8 +262,8 @@
 %endif
 
 Name:	chromium
-Version: 147.0.7727.116
-Release: 2%{?dist}
+Version: 147.0.7727.137
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -273,6 +273,9 @@ Patch1: chromium-115-initial_prefs-etc-path.patch
 
 # Try to load widevine from other places
 Patch8: chromium-117-widevine-other-locations.patch
+
+# Enable Widevine on Arm64
+Patch9: chromium-147-widevine-on-arm64.patch
 
 # debian patches
 # disable font-test 
@@ -1050,6 +1053,7 @@ Qt6 UI for chromium.
 ### Chromium Fedora Patches ###
 %patch -P1 -p1 -b .etc
 %patch -P8 -p1 -b .widevine-other-locations
+%patch -P9 -p1 -b .widevine-on-arm64
 
 %patch -P20 -p1 -b .disable-font-test
 %patch -P21 -p1 -b .screen-ai-service
@@ -1162,7 +1166,7 @@ Qt6 UI for chromium.
 %patch -P358 -p1 -b .rust-clang_lib
 
 %if  0%{?fedora} > 41 || 0%{?rhel} > 10
-%patch -P359 -p1 -b .ftvfs-with-rustc-1.95
+%patch -P359 -p1 -b .ftbfs-with-rustc-1.95
 %endif
 
 %ifarch ppc64le
@@ -1867,6 +1871,39 @@ fi
 %endif
 
 %changelog
+* Wed Apr 29 2026 Than Ngo <than@redhat.com> - 147.0.7727.137-1
+- Update to 147.0.7727.137
+   * Critical CVE-2026-7363: Use after free in Canvas
+   * Critical CVE-2026-7361: Use after free in iOS
+   * Critical CVE-2026-7344: Use after free in Accessibility
+   * Critical CVE-2026-7343: Use after free in Views
+   * High CVE-2026-7333: Use after free in GPU
+   * High CVE-2026-7360: Insufficient validation of untrusted input in Compositing
+   * High CVE-2026-7359: Use after free in ANGLE
+   * High CVE-2026-7358: Use after free in Animation
+   * High CVE-2026-7334: Use after free in Views
+   * High CVE-2026-7357: Use after free in GPU
+   * High CVE-2026-7356: Use after free in Navigation
+   * High CVE-2026-7354: Out of bounds read and write in Angle
+   * High CVE-2026-7353: Heap buffer overflow in Skia
+   * High CVE-2026-7352: Use after free in Media
+   * High CVE-2026-7351: Race in MHTML
+   * High CVE-2026-7350: Use after free in WebMIDI
+   * High CVE-2026-7349: Use after free in Cast
+   * High CVE-2026-7348: Use after free in Codecs
+   * High CVE-2026-7335: Use after free in media
+   * High CVE-2026-7336: Use after free in WebRTC
+   * High CVE-2026-7337: Type Confusion in V8
+   * High CVE-2026-7347: Use after free in Chromoting
+   * High CVE-2026-7346: Inappropriate implementation in Tint
+   * High CVE-2026-7345: Insufficient validation of untrusted input in Feedback
+   * High CVE-2026-7338: Use after free in Cast
+   * High CVE-2026-7342: Use after free in WebView
+   * High CVE-2026-7341: Use after free in WebRTC
+   * Medium CVE-2026-7339: Heap buffer overflow in WebRTC
+   * Medium CVE-2026-7340: Integer overflow in ANGLE
+   * Medium CVE-2026-7355: Use after free in Media
+
 * Sun Apr 26 2026 Than Ngo <than@redhat.com> - 147.0.7727.116-2
 - Fix FTBFS with rust 1.95
 - Backport the upstream fix GL native pixmap import support reset in GpuInit

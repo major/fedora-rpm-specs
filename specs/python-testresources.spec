@@ -1,13 +1,11 @@
 Name:           python-testresources
-Version:        2.1.0
+Version:        2.1.2
 Release:        %autorelease
 BuildArch:      noarch
 Summary:        Testresources, a pyunit extension for managing expensive test resources
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://github.com/testing-cabal/testresources
 Source:         %{url}/archive/%{version}/testresources-%{version}.tar.gz
-# https://github.com/testing-cabal/testresources/pull/29
-Patch:          0001-Include-all-license-files-in-sdist-and-wheel.patch
 
 %global _description %{expand:
 testresources: extensions to python unittest to allow declarative use

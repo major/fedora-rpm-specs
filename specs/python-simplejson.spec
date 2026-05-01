@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-simplejson
-Version:        3.20.2
+Version:        4.1.1
 Release:        %autorelease
 Summary:        Simple, fast, extensible JSON encoder/decoder for Python
 

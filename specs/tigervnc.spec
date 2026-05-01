@@ -257,12 +257,6 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 %endif
 export CXXFLAGS="$CFLAGS -std=c++11"
 
-%if 0%{?fedora} >= 35 || 0%{?rhel} >= 10
-%define __cmake_builddir %{_target_platform}
-
-mkdir -p %{__cmake_builddir}
-%endif
-
 %cmake -DCMAKE_INSTALL_UNITDIR=%{_unitdir}
 
 %cmake_build
@@ -285,7 +279,7 @@ autoreconf -fiv
         --disable-devel-docs \
         --disable-selective-werror
 
-make TIGERVNC_BUILDDIR="`pwd`/../../%{__cmake_builddir}" %{?_smp_mflags}
+make TIGERVNC_BUILDDIR="`pwd`/../../%{_vpath_builddir}" %{?_smp_mflags}
 popd
 %endif
 
@@ -294,18 +288,6 @@ pushd unix/vncserver/selinux
 make
 popd
 
-%if 0%{?rhel}
-# Build icons
-%if 0%{?rhel} >= 9
-pushd %{_target_platform}/media
-%else
-pushd media
-%endif
-make
-popd
-%endif
-
-
 
 %install
 %cmake_install
@@ -313,7 +295,7 @@ rm -f %{buildroot}%{_docdir}/%{name}-%{version}/{README.rst,LICENCE.TXT}
 
 %if %{with xserver}
 pushd unix/xserver/hw/vnc
-%make_install TIGERVNC_BUILDDIR="`pwd`/../../../../%{__cmake_builddir}"
+%make_install TIGERVNC_BUILDDIR="`pwd`/../../../../%{_vpath_builddir}"
 popd
 
 # Install systemd unit file

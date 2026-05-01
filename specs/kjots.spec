@@ -1,7 +1,7 @@
 Name:           kjots
 Summary:        KDE Notes application
 Version:        6.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            https://userbase.kde.org/KJots
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/org.kde.k
 
 
 %changelog
+* Wed Apr 29 2026 Steve Cossette <farchord@gmail.com> - 6.0.0-6
+- Rebuild for ktextaddons
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

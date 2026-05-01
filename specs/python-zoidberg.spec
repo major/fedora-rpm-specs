@@ -12,6 +12,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-pytest
+BuildRequires:  python3-xarray
 
 %description
 A Flux-Coordinate Independent (FCI) Grid Generator for BOUT++

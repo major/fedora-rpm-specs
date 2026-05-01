@@ -20,8 +20,8 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.7.1
-%define radicale_release  2
+%define radicale_version  3.7.2
+%define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -526,6 +526,9 @@ fi
 
 
 %changelog
+* Wed Apr 29 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.2-1
+- Update to 3.7.2
+
 * Wed Apr 15 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.1-2
 - Rework selinux by using macros and align location of policy
 

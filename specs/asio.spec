@@ -16,11 +16,7 @@ BuildRequires:  boost-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-%if 0%{?fedora} >= 45
-BuildRequires:  openssl3-devel
-%else
 BuildRequires:  openssl-devel
-%endif
 BuildRequires:  perl-generators
 
 %description

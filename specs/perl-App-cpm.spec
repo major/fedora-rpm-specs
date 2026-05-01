@@ -1,8 +1,7 @@
-%global cpan_version 0.998003
-
 Name:           perl-App-cpm
-Version:        0.998.3
-Release:        2%{?dist}
+Version:        1.0.1
+%global cpan_version v%{version}
+Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
@@ -10,26 +9,24 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/App-cpm-%{cpan_v
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(:VERSION) >= 5.24.0
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(Module::Build::Tiny) >= 0.051
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
 # None of them are used at tests.
-# BuildRequires:  gzip
 # BuildRequires:  perl(Archive::Tar)
 # BuildRequires:  perl(Archive::Zip) >= 1.68
 # BuildRequires:  perl(Carton::Snapshot)
-# BuildRequires:  perl(Command::Runner) >= 0.100
+# BuildRequires:  perl(Command::Runner) >= 0.201
 # BuildRequires:  perl(Config)
 # BuildRequires:  perl(constant)
 # BuildRequires:  perl(CPAN::02Packages::Search) >= 0.100
 # BuildRequires:  perl(CPAN::DistnameInfo)
 # BuildRequires:  perl(CPAN::Meta)
-# BuildRequires:  perl(CPAN::Meta::Prereqs)
 # BuildRequires:  perl(CPAN::Meta::Requirements)
 # BuildRequires:  perl(CPAN::Meta::YAML)
 # BuildRequires:  perl(Cwd)
@@ -55,53 +52,62 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(HTTP::Tiny)
 # BuildRequires:  perl(HTTP::Tinyish) >= 0.12
 # BuildRequires:  perl(HTTP::Tinyish::Base)
-# BuildRequires:  perl(IO::Handle)
+# BuildRequires:  perl(IO::Uncompress::Bunzip2)
+# BuildRequires:  perl(IO::Uncompress::Gunzip)
 # BuildRequires:  perl(IPC::Run3)
-# BuildRequires:  perl(JSON::PP) >= 2.27300
+# BuildRequires:  perl(JSON::PP)
 # BuildRequires:  perl(List::Util)
 # BuildRequires:  perl(Module::CoreList)
 # BuildRequires:  perl(Module::CPANfile)
 # BuildRequires:  perl(Module::cpmfile) >= 0.001
 # BuildRequires:  perl(Module::Metadata)
-# BuildRequires:  perl(Parse::LocalDistribution)
-# BuildRequires:  perl(Parallel::Pipes::App) >= 0.100
+# BuildRequires:  perl(Parallel::Pipes::App) >= 0.201
 # BuildRequires:  perl(parent)
-# BuildRequires:  perl(Pod::Text)
+# BuildRequires:  perl(Parse::LocalDistribution)
+# BuildRequires:  perl(Pod::Man)
 # BuildRequires:  perl(POSIX)
 # BuildRequires:  perl(Proc::ForkSafe) >= 0.001
+# BuildRequires:  perl(TAP::Harness::Env)
 # BuildRequires:  perl(Time::HiRes)
 # BuildRequires:  perl(version)
 # BuildRequires:  perl(YAML::PP) >= 0.026
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       gzip
 Requires:       perl(Archive::Tar)
 Requires:       perl(Archive::Zip) >= 1.68
-Requires:       perl(Command::Runner) >= 0.100
+Requires:       perl(Command::Runner) >= 0.201
 Requires:       perl(ExtUtils::Install) >= 2.20
+Requires:       perl(ExtUtils::InstallPaths) >= 0.002
 Requires:       perl(File::HomeDir)
 Requires:       perl(HTTP::Tinyish) >= 0.12
-Requires:       perl(JSON::PP) >= 2.27300
 Requires:       perl(Module::CoreList)
 Requires:       perl(Module::cpmfile) >= 0.001
-Requires:       perl(Parallel::Pipes::App) >= 0.100
-Requires:       perl(Parse::PMFile) >= 0.43
+Requires:       perl(Parallel::Pipes::App) >= 0.201
 Requires:       perl(Pod::Man)
+Requires:       perl(Proc::ForkSafe) >= 0.001
 Requires:       perl(TAP::Harness::Env)
 Requires:       perl(YAML::PP) >= 0.026
 Suggests:       perl(Carton::Snapshot)
 
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(JSON::PP\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(Command::Runner\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Command::Runner\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::Install\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::InstallPaths\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Tinyish\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Module::cpmfile\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Parallel::Pipes::App\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Proc::ForkSafe\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(YAML::PP\\)$
 
 %description
 cpm is a fast CPAN module installer.
+
+cpm prepares dependencies first and performs final installation separately. By
+default, it installs the requested distributions and their runtime dependency
+closure.
+
+This makes installs more stable and more predictable, especially for larger
+dependency graphs and parallel work.
+
 
 %package tests
 Summary:        Tests for %{name}
@@ -126,7 +132,6 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
-find %{buildroot}%{_mandir} -type f -empty -delete
 # Correct permissions
 %{_fixperms} %{buildroot}/*
 
@@ -150,7 +155,6 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %dir %{perl_vendorlib}/App
 %{perl_vendorlib}/App/cpm
 %{perl_vendorlib}/App/cpm.pm
-%{_mandir}/man1/cpm.*
 %{_mandir}/man3/App::cpm.*
 %{_mandir}/man3/App::cpm::*
 
@@ -158,6 +162,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 29 2026 Petr Pisar <ppisar@redhat.com> - 1.0.1-1
+- 1.0.1 bump
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.998.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

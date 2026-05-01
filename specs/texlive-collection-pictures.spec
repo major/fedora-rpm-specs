@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-pictures
 Epoch:          12
-Version:        svn77389
-Release:        1%{?dist}
+Version:        svn78823
+Release:        2%{?dist}
 Summary:        Graphics, pictures, diagrams
 
 License:        LPPL-1.3c
@@ -77,492 +77,500 @@ Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/co
 Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/coloredbelts.doc.tar.xz
 Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/combinedgraphics.tar.xz
 Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/combinedgraphics.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve2e.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve2e.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curves.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curves.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dcpic.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dcpic.doc.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/diagmac2.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/diagmac2.doc.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ditaa.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ditaa.doc.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doc-pictex.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doc-pictex.doc.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dot2texi.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dot2texi.doc.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dottex.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dottex.doc.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dpcircling.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dpcircling.doc.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dratex.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dratex.doc.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drs.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drs.doc.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duotenzor.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duotenzor.doc.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dynkin-diagrams.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dynkin-diagrams.doc.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecgdraw.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecgdraw.doc.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eepic.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eepic.doc.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egpeirce.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egpeirce.doc.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ellipse.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ellipse.doc.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/endofproofwd.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/endofproofwd.doc.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epspdfconversion.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epspdfconversion.doc.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esk.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esk.doc.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euflag.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euflag.doc.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fadingimage.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fadingimage.doc.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fast-diagram.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fast-diagram.doc.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fenetrecas.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fenetrecas.doc.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figchild.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figchild.doc.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figput.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figput.doc.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fitbox.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fitbox.doc.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/flowchart.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/flowchart.doc.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest.doc.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest-ext.tar.xz
-Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest-ext.doc.tar.xz
-Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogytree.tar.xz
-Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogytree.doc.tar.xz
-Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gincltex.tar.xz
-Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gincltex.doc.tar.xz
-Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnuplottex.tar.xz
-Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnuplottex.doc.tar.xz
-Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradientframe.tar.xz
-Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradientframe.doc.tar.xz
-Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grafcet.tar.xz
-Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grafcet.doc.tar.xz
-Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graph35.tar.xz
-Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graph35.doc.tar.xz
-Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphicxpsd.tar.xz
-Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphicxpsd.doc.tar.xz
-Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphviz.tar.xz
-Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphviz.doc.tar.xz
-Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gtrlib-largetrees.tar.xz
-Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gtrlib-largetrees.doc.tar.xz
-Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harveyballs.tar.xz
-Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harveyballs.doc.tar.xz
-Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/here.tar.xz
-Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/here.doc.tar.xz
-Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hf-tikz.tar.xz
-Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hf-tikz.doc.tar.xz
-Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobby.tar.xz
-Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobby.doc.tar.xz
-Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvfloat.tar.xz
-Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvfloat.doc.tar.xz
-Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/istgame.tar.xz
-Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/istgame.doc.tar.xz
-Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kblocks.tar.xz
-Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kblocks.doc.tar.xz
-Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/keisennote.tar.xz
-Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/keisennote.doc.tar.xz
-Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kinematikz.tar.xz
-Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kinematikz.doc.tar.xz
-Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knitting.tar.xz
-Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knitting.doc.tar.xz
-Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knittingpattern.tar.xz
-Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knittingpattern.doc.tar.xz
-Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ladder.tar.xz
-Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ladder.doc.tar.xz
-Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lapdf.tar.xz
-Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lapdf.doc.tar.xz
-Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-make.tar.xz
-Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-make.doc.tar.xz
-Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/liftarm.tar.xz
-Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/liftarm.doc.tar.xz
-Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lpic.tar.xz
-Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lpic.doc.tar.xz
-Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lroundrect.tar.xz
-Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lroundrect.doc.tar.xz
-Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tikz3dtools.tar.xz
-Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tikz3dtools.doc.tar.xz
-Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamesh.tar.xz
-Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamesh.doc.tar.xz
-Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luasseq.tar.xz
-Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luasseq.doc.tar.xz
-Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lucide-icons.tar.xz
-Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lucide-icons.doc.tar.xz
-Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maker.tar.xz
-Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maker.doc.tar.xz
-Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/makeshape.tar.xz
-Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/makeshape.doc.tar.xz
-Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maritime.tar.xz
-Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maritime.doc.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mercatormap.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mercatormap.doc.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/milsymb.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/milsymb.doc.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miniplot.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miniplot.doc.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modiagram.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modiagram.doc.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/neuralnetwork.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/neuralnetwork.doc.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nl-interval.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nl-interval.doc.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nndraw.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nndraw.doc.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numericplots.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numericplots.doc.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/open-everyday-symbols.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/open-everyday-symbols.doc.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/openmoji.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/openmoji.doc.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optikz.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optikz.doc.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/outilsgeomtikz.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/outilsgeomtikz.doc.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/papiergurvan.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/papiergurvan.doc.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pb-diagram.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pb-diagram.doc.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf.doc.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-blur.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-blur.doc.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-interference.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-interference.doc.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-periodictable.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-periodictable.doc.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-pie.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-pie.doc.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-soroban.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-soroban.doc.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-spectra.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-spectra.doc.tar.xz
-Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlcd.tar.xz
-Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlcd.doc.tar.xz
-Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlsd.tar.xz
-Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlsd.doc.tar.xz
-Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfgantt.tar.xz
-Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfgantt.doc.tar.xz
-Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeysearch.tar.xz
-Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeysearch.doc.tar.xz
-Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeyx.tar.xz
-Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeyx.doc.tar.xz
-Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmolbio.tar.xz
-Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmolbio.doc.tar.xz
-Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmorepages.tar.xz
-Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmorepages.doc.tar.xz
-Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfopts.tar.xz
-Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfopts.doc.tar.xz
-Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament.tar.xz
-Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament.doc.tar.xz
-Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplots.tar.xz
-Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplots.doc.tar.xz
-Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplotsthemebeamer.tar.xz
-Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplotsthemebeamer.doc.tar.xz
-Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/picinpar.tar.xz
-Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/picinpar.doc.tar.xz
-Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pict2e.tar.xz
-Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pict2e.doc.tar.xz
-Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex.tar.xz
-Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex.doc.tar.xz
-Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex2.tar.xz
-Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictochrono.tar.xz
-Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictochrono.doc.tar.xz
-Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pinlabel.tar.xz
-Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pinlabel.doc.tar.xz
-Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelart.tar.xz
-Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelart.doc.tar.xz
-Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelarttikz.tar.xz
-Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelarttikz.doc.tar.xz
-Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pmgraph.tar.xz
-Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pmgraph.doc.tar.xz
-Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyhedra.tar.xz
-Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyhedra.doc.tar.xz
-Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyomino.tar.xz
-Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyomino.doc.tar.xz
-Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postage.tar.xz
-Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postage.doc.tar.xz
-Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postit.tar.xz
-Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postit.doc.tar.xz
-Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prerex.tar.xz
-Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prerex.doc.tar.xz
-Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prisma-flow-diagram.tar.xz
-Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prisma-flow-diagram.doc.tar.xz
-Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/productbox.tar.xz
-Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/productbox.doc.tar.xz
-Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptolemaicastronomy.tar.xz
-Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptolemaicastronomy.doc.tar.xz
-Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/puyotikz.tar.xz
-Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/puyotikz.doc.tar.xz
-Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpgfmark.tar.xz
-Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpgfmark.doc.tar.xz
-Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpic.tar.xz
-Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpic.doc.tar.xz
-Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qcircuit.tar.xz
-Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qcircuit.doc.tar.xz
-Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcode.tar.xz
-Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcode.doc.tar.xz
-Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcodetikz.tar.xz
-Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcodetikz.doc.tar.xz
-Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randbild.tar.xz
-Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randbild.doc.tar.xz
-Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randomwalk.tar.xz
-Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randomwalk.doc.tar.xz
-Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realhats.tar.xz
-Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realhats.doc.tar.xz
-Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reotex.tar.xz
-Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reotex.doc.tar.xz
-Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/robotarm.tar.xz
-Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/robotarm.doc.tar.xz
-Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rviewport.tar.xz
-Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rviewport.doc.tar.xz
-Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sa-tikz.tar.xz
-Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sa-tikz.doc.tar.xz
-Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sacsymb.tar.xz
-Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sacsymb.doc.tar.xz
-Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schemabloc.tar.xz
-Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schemabloc.doc.tar.xz
-Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch.tar.xz
-Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch.doc.tar.xz
-Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch3.tar.xz
-Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch3.doc.tar.xz
-Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scsnowman.tar.xz
-Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scsnowman.doc.tar.xz
-Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setdeck.tar.xz
-Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setdeck.doc.tar.xz
-Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/signchart.tar.xz
-Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/signchart.doc.tar.xz
-Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplenodes.tar.xz
-Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplenodes.doc.tar.xz
-Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleoptics.tar.xz
-Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleoptics.doc.tar.xz
-Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smartdiagram.tar.xz
-Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smartdiagram.doc.tar.xz
-Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spath3.tar.xz
-Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spath3.doc.tar.xz
-Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectralsequences.tar.xz
-Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectralsequences.doc.tar.xz
-Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/strands.tar.xz
-Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/strands.doc.tar.xz
-Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sunpath.tar.xz
-Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sunpath.doc.tar.xz
-Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/swimgraf.tar.xz
-Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/swimgraf.doc.tar.xz
-Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syntaxdi.tar.xz
-Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syntaxdi.doc.tar.xz
-Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/table-fct.tar.xz
-Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/table-fct.doc.tar.xz
-Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texdraw.tar.xz
-Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texdraw.doc.tar.xz
-Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ticollege.tar.xz
-Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ticollege.doc.tar.xz
-Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-3dplot.tar.xz
-Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-3dplot.doc.tar.xz
-Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-among-us.tar.xz
-Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-among-us.doc.tar.xz
-Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bagua.tar.xz
-Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bagua.doc.tar.xz
-Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bayesnet.tar.xz
-Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bayesnet.doc.tar.xz
-Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bbox.tar.xz
-Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bbox.doc.tar.xz
-Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bpmn.tar.xz
-Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bpmn.doc.tar.xz
-Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cd.tar.xz
-Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cd.doc.tar.xz
-Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cookingsymbols.tar.xz
-Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cookingsymbols.doc.tar.xz
-Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-decofonts.tar.xz
-Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-decofonts.doc.tar.xz
-Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dependency.tar.xz
-Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dependency.doc.tar.xz
-Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dimline.tar.xz
-Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dimline.doc.tar.xz
-Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ext.tar.xz
-Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ext.doc.tar.xz
-Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynhand.tar.xz
-Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynhand.doc.tar.xz
-Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynman.tar.xz
-Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynman.doc.tar.xz
-Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-imagelabels.tar.xz
-Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-imagelabels.doc.tar.xz
-Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-inet.tar.xz
-Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-inet.doc.tar.xz
-Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-kalender.tar.xz
-Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-kalender.doc.tar.xz
-Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-karnaugh.tar.xz
-Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-karnaugh.doc.tar.xz
-Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ladder.tar.xz
-Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ladder.doc.tar.xz
-Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-lake-fig.tar.xz
-Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-lake-fig.doc.tar.xz
-Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-layers.tar.xz
-Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-layers.doc.tar.xz
-Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-mirror-lens.tar.xz
-Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-mirror-lens.doc.tar.xz
-Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nef.tar.xz
-Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nef.doc.tar.xz
-Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-network.tar.xz
-Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-network.doc.tar.xz
-Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nfold.tar.xz
-Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nfold.doc.tar.xz
-Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-opm.tar.xz
-Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-opm.doc.tar.xz
-Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-optics.tar.xz
-Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-optics.doc.tar.xz
-Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-osci.tar.xz
-Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-osci.doc.tar.xz
-Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-page.tar.xz
-Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-page.doc.tar.xz
-Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-palattice.tar.xz
-Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-palattice.doc.tar.xz
-Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-planets.tar.xz
-Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-planets.doc.tar.xz
-Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-qtree.tar.xz
-Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-qtree.doc.tar.xz
-Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-relay.tar.xz
-Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-relay.doc.tar.xz
-Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-sfc.tar.xz
-Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-sfc.doc.tar.xz
-Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-shields.tar.xz
-Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-shields.doc.tar.xz
-Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-swigs.tar.xz
-Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-swigs.doc.tar.xz
-Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-timing.tar.xz
-Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-timing.doc.tar.xz
-Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-trackschematic.tar.xz
-Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-trackschematic.doc.tar.xz
-Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-truchet.tar.xz
-Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-truchet.doc.tar.xz
-Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz2d-fr.tar.xz
-Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz2d-fr.doc.tar.xz
-Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz3d-fr.tar.xz
-Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz3d-fr.doc.tar.xz
-Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbrickfigurines.tar.xz
-Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbrickfigurines.doc.tar.xz
-Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbricks.tar.xz
-Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbricks.doc.tar.xz
-Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcalendarnotes.tar.xz
-Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcalendarnotes.doc.tar.xz
-Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcodeblocks.tar.xz
-Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcodeblocks.doc.tar.xz
-Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzdotncross.tar.xz
-Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzdotncross.doc.tar.xz
-Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzducks.tar.xz
-Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzducks.doc.tar.xz
-Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfill.tar.xz
-Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfill.doc.tar.xz
-Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfxgraph.tar.xz
-Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfxgraph.doc.tar.xz
-Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzinclude.tar.xz
-Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzinclude.doc.tar.xz
-Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzlings.tar.xz
-Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzlings.doc.tar.xz
-Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmark.tar.xz
-Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmark.doc.tar.xz
-Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmarmots.tar.xz
-Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmarmots.doc.tar.xz
-Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzorbital.tar.xz
-Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzorbital.doc.tar.xz
-Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpackets.tar.xz
-Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpackets.doc.tar.xz
-Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpagenodes.tar.xz
-Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpagenodes.doc.tar.xz
-Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpeople.tar.xz
-Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpeople.doc.tar.xz
-Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpfeile.tar.xz
-Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpfeile.doc.tar.xz
-Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpingus.tar.xz
-Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpingus.doc.tar.xz
-Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzposter.tar.xz
-Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzposter.doc.tar.xz
-Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquads.tar.xz
-Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquads.doc.tar.xz
-Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquests.tar.xz
-Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquests.doc.tar.xz
-Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzscale.tar.xz
-Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzscale.doc.tar.xz
-Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzsymbols.tar.xz
-Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzsymbols.doc.tar.xz
-Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzviolinplots.tar.xz
-Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzviolinplots.doc.tar.xz
-Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tile-graphic.tar.xz
-Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tile-graphic.doc.tar.xz
-Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tilings.tar.xz
-Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tilings.doc.tar.xz
-Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timechart.tar.xz
-Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timechart.doc.tar.xz
-Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timing-diagrams.tar.xz
-Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timing-diagrams.doc.tar.xz
-Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tipfr.tar.xz
-Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tipfr.doc.tar.xz
-Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-base.tar.xz
-Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-base.doc.tar.xz
-Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-berge.tar.xz
-Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-berge.doc.tar.xz
-Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-bernoulli.tar.xz
-Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-bernoulli.doc.tar.xz
-Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-doc.tar.xz
-Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-doc.doc.tar.xz
-Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-elements.tar.xz
-Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-elements.doc.tar.xz
-Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-euclide.tar.xz
-Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-euclide.doc.tar.xz
-Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-fct.tar.xz
-Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-fct.doc.tar.xz
-Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-graph.tar.xz
-Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-graph.doc.tar.xz
-Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-grapheur.tar.xz
-Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-grapheur.doc.tar.xz
-Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-orm.tar.xz
-Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-orm.doc.tar.xz
-Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-tab.tar.xz
-Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-tab.doc.tar.xz
-Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkzexample.tar.xz
-Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkzexample.doc.tar.xz
-Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tonevalue.tar.xz
-Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tonevalue.doc.tar.xz
-Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tqft.tar.xz
-Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tqft.doc.tar.xz
-Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsemlines.tar.xz
-Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tufte-latex.tar.xz
-Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tufte-latex.doc.tar.xz
-Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemojis.tar.xz
-Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemojis.doc.tar.xz
-Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tzplot.tar.xz
-Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tzplot.doc.tar.xz
-Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utfsym.tar.xz
-Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utfsym.doc.tar.xz
-Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vectorlogos.tar.xz
-Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vectorlogos.doc.tar.xz
-Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venndiagram.tar.xz
-Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venndiagram.doc.tar.xz
-Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vexillology.tar.xz
-Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vexillology.doc.tar.xz
-Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualpstricks.tar.xz
-Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualpstricks.doc.tar.xz
-Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wheelchart.tar.xz
-Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wheelchart.doc.tar.xz
-Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcloud.tar.xz
-Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcloud.doc.tar.xz
-Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/worldflags.tar.xz
-Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/worldflags.doc.tar.xz
-Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xistercian.tar.xz
-Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xistercian.doc.tar.xz
-Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpicture.tar.xz
-Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpicture.doc.tar.xz
-Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xypic.tar.xz
-Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xypic.doc.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/corasdiagram.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/corasdiagram.doc.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve.doc.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve2e.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curve2e.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curves.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/curves.doc.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dcpic.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dcpic.doc.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/diagmac2.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/diagmac2.doc.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ditaa.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ditaa.doc.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doc-pictex.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/doc-pictex.doc.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dot2texi.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dot2texi.doc.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dottex.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dottex.doc.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dpcircling.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dpcircling.doc.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dratex.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dratex.doc.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drs.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/drs.doc.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duotenzor.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/duotenzor.doc.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dynkin-diagrams.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dynkin-diagrams.doc.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecgdraw.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecgdraw.doc.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eepic.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eepic.doc.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egpeirce.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/egpeirce.doc.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ellipse.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ellipse.doc.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/endofproofwd.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/endofproofwd.doc.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epspdfconversion.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/epspdfconversion.doc.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esk.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/esk.doc.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euflag.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/euflag.doc.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eurion.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eurion.doc.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fadingimage.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fadingimage.doc.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fast-diagram.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fast-diagram.doc.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fenetrecas.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fenetrecas.doc.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figchild.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figchild.doc.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figput.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/figput.doc.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fitbox.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fitbox.doc.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/flowchart.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/flowchart.doc.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest.doc.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest-ext.tar.xz
+Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/forest-ext.doc.tar.xz
+Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogytree.tar.xz
+Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/genealogytree.doc.tar.xz
+Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gincltex.tar.xz
+Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gincltex.doc.tar.xz
+Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnuplottex.tar.xz
+Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gnuplottex.doc.tar.xz
+Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradientframe.tar.xz
+Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradientframe.doc.tar.xz
+Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grafcet.tar.xz
+Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grafcet.doc.tar.xz
+Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graph35.tar.xz
+Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graph35.doc.tar.xz
+Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphicxpsd.tar.xz
+Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphicxpsd.doc.tar.xz
+Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphviz.tar.xz
+Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/graphviz.doc.tar.xz
+Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gtrlib-largetrees.tar.xz
+Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gtrlib-largetrees.doc.tar.xz
+Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harveyballs.tar.xz
+Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/harveyballs.doc.tar.xz
+Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/here.tar.xz
+Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/here.doc.tar.xz
+Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hf-tikz.tar.xz
+Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hf-tikz.doc.tar.xz
+Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobby.tar.xz
+Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobby.doc.tar.xz
+Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvfloat.tar.xz
+Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hvfloat.doc.tar.xz
+Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/istgame.tar.xz
+Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/istgame.doc.tar.xz
+Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kblocks.tar.xz
+Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kblocks.doc.tar.xz
+Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/keisennote.tar.xz
+Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/keisennote.doc.tar.xz
+Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kinematikz.tar.xz
+Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kinematikz.doc.tar.xz
+Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knitting.tar.xz
+Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knitting.doc.tar.xz
+Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knittingpattern.tar.xz
+Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/knittingpattern.doc.tar.xz
+Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ladder.tar.xz
+Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ladder.doc.tar.xz
+Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lapdf.tar.xz
+Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lapdf.doc.tar.xz
+Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-make.tar.xz
+Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex-make.doc.tar.xz
+Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/liftarm.tar.xz
+Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/liftarm.doc.tar.xz
+Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lpic.tar.xz
+Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lpic.doc.tar.xz
+Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lroundrect.tar.xz
+Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lroundrect.doc.tar.xz
+Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tikz3dtools.tar.xz
+Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tikz3dtools.doc.tar.xz
+Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamesh.tar.xz
+Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamesh.doc.tar.xz
+Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luasseq.tar.xz
+Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luasseq.doc.tar.xz
+Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lucide-icons.tar.xz
+Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lucide-icons.doc.tar.xz
+Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maker.tar.xz
+Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maker.doc.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/makeshape.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/makeshape.doc.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maritime.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maritime.doc.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mercatormap.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mercatormap.doc.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/milsymb.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/milsymb.doc.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miniplot.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/miniplot.doc.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modiagram.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modiagram.doc.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/neuralnetwork.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/neuralnetwork.doc.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nl-interval.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nl-interval.doc.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nndraw.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nndraw.doc.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numericplots.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/numericplots.doc.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/open-everyday-symbols.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/open-everyday-symbols.doc.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/openmoji.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/openmoji.doc.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optikz.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optikz.doc.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/outilsgeomtikz.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/outilsgeomtikz.doc.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/papiergurvan.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/papiergurvan.doc.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pb-diagram.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pb-diagram.doc.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf.doc.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-blur.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-blur.doc.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-interference.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-interference.doc.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-periodictable.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-periodictable.doc.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-pie.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-pie.doc.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-soroban.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-soroban.doc.tar.xz
+Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-spectra.tar.xz
+Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-spectra.doc.tar.xz
+Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlcd.tar.xz
+Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlcd.doc.tar.xz
+Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlsd.tar.xz
+Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgf-umlsd.doc.tar.xz
+Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfgantt.tar.xz
+Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfgantt.doc.tar.xz
+Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeysearch.tar.xz
+Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeysearch.doc.tar.xz
+Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeyx.tar.xz
+Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfkeyx.doc.tar.xz
+Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmolbio.tar.xz
+Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmolbio.doc.tar.xz
+Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmorepages.tar.xz
+Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfmorepages.doc.tar.xz
+Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfopts.tar.xz
+Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfopts.doc.tar.xz
+Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament.tar.xz
+Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfornament.doc.tar.xz
+Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplots.tar.xz
+Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplots.doc.tar.xz
+Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplotsthemebeamer.tar.xz
+Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pgfplotsthemebeamer.doc.tar.xz
+Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/picinpar.tar.xz
+Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/picinpar.doc.tar.xz
+Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pict2e.tar.xz
+Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pict2e.doc.tar.xz
+Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex.tar.xz
+Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex.doc.tar.xz
+Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictex2.tar.xz
+Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictochrono.tar.xz
+Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pictochrono.doc.tar.xz
+Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pinlabel.tar.xz
+Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pinlabel.doc.tar.xz
+Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelart.tar.xz
+Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelart.doc.tar.xz
+Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelarttikz.tar.xz
+Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pixelarttikz.doc.tar.xz
+Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pmgraph.tar.xz
+Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pmgraph.doc.tar.xz
+Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyhedra.tar.xz
+Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyhedra.doc.tar.xz
+Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyomino.tar.xz
+Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyomino.doc.tar.xz
+Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postage.tar.xz
+Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postage.doc.tar.xz
+Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postit.tar.xz
+Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/postit.doc.tar.xz
+Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prerex.tar.xz
+Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prerex.doc.tar.xz
+Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prisma-flow-diagram.tar.xz
+Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prisma-flow-diagram.doc.tar.xz
+Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/productbox.tar.xz
+Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/productbox.doc.tar.xz
+Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptolemaicastronomy.tar.xz
+Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptolemaicastronomy.doc.tar.xz
+Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/puyotikz.tar.xz
+Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/puyotikz.doc.tar.xz
+Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpgfmark.tar.xz
+Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpgfmark.doc.tar.xz
+Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpic.tar.xz
+Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pxpic.doc.tar.xz
+Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qcircuit.tar.xz
+Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qcircuit.doc.tar.xz
+Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcode.tar.xz
+Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcode.doc.tar.xz
+Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcodetikz.tar.xz
+Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrcodetikz.doc.tar.xz
+Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randbild.tar.xz
+Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randbild.doc.tar.xz
+Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randomwalk.tar.xz
+Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/randomwalk.doc.tar.xz
+Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realhats.tar.xz
+Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/realhats.doc.tar.xz
+Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reotex.tar.xz
+Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/reotex.doc.tar.xz
+Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/robotarm.tar.xz
+Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/robotarm.doc.tar.xz
+Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rviewport.tar.xz
+Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rviewport.doc.tar.xz
+Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sa-tikz.tar.xz
+Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sa-tikz.doc.tar.xz
+Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sacsymb.tar.xz
+Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sacsymb.doc.tar.xz
+Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schemabloc.tar.xz
+Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schemabloc.doc.tar.xz
+Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch.tar.xz
+Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch.doc.tar.xz
+Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch3.tar.xz
+Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratch3.doc.tar.xz
+Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scsnowman.tar.xz
+Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scsnowman.doc.tar.xz
+Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setdeck.tar.xz
+Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setdeck.doc.tar.xz
+Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/signchart.tar.xz
+Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/signchart.doc.tar.xz
+Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplenodes.tar.xz
+Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplenodes.doc.tar.xz
+Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleoptics.tar.xz
+Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpleoptics.doc.tar.xz
+Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smartdiagram.tar.xz
+Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smartdiagram.doc.tar.xz
+Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sneaker.tar.xz
+Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sneaker.doc.tar.xz
+Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spath3.tar.xz
+Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spath3.doc.tar.xz
+Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectralsequences.tar.xz
+Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spectralsequences.doc.tar.xz
+Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/strands.tar.xz
+Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/strands.doc.tar.xz
+Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sunpath.tar.xz
+Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sunpath.doc.tar.xz
+Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svg-animate.tar.xz
+Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/svg-animate.doc.tar.xz
+Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/swimgraf.tar.xz
+Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/swimgraf.doc.tar.xz
+Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syntaxdi.tar.xz
+Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syntaxdi.doc.tar.xz
+Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/table-fct.tar.xz
+Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/table-fct.doc.tar.xz
+Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texdraw.tar.xz
+Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texdraw.doc.tar.xz
+Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ticollege.tar.xz
+Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ticollege.doc.tar.xz
+Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-3dplot.tar.xz
+Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-3dplot.doc.tar.xz
+Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-among-us.tar.xz
+Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-among-us.doc.tar.xz
+Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bagua.tar.xz
+Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bagua.doc.tar.xz
+Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bayesnet.tar.xz
+Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bayesnet.doc.tar.xz
+Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bbox.tar.xz
+Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bbox.doc.tar.xz
+Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bpmn.tar.xz
+Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-bpmn.doc.tar.xz
+Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cd.tar.xz
+Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cd.doc.tar.xz
+Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cookingsymbols.tar.xz
+Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-cookingsymbols.doc.tar.xz
+Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-decofonts.tar.xz
+Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-decofonts.doc.tar.xz
+Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dependency.tar.xz
+Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dependency.doc.tar.xz
+Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dimline.tar.xz
+Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-dimline.doc.tar.xz
+Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ext.tar.xz
+Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ext.doc.tar.xz
+Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynhand.tar.xz
+Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynhand.doc.tar.xz
+Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynman.tar.xz
+Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-feynman.doc.tar.xz
+Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-imagelabels.tar.xz
+Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-imagelabels.doc.tar.xz
+Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-inet.tar.xz
+Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-inet.doc.tar.xz
+Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-kalender.tar.xz
+Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-kalender.doc.tar.xz
+Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-karnaugh.tar.xz
+Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-karnaugh.doc.tar.xz
+Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ladder.tar.xz
+Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-ladder.doc.tar.xz
+Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-lake-fig.tar.xz
+Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-lake-fig.doc.tar.xz
+Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-layers.tar.xz
+Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-layers.doc.tar.xz
+Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-mirror-lens.tar.xz
+Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-mirror-lens.doc.tar.xz
+Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nef.tar.xz
+Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nef.doc.tar.xz
+Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-network.tar.xz
+Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-network.doc.tar.xz
+Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nfold.tar.xz
+Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-nfold.doc.tar.xz
+Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-opm.tar.xz
+Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-opm.doc.tar.xz
+Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-optics.tar.xz
+Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-optics.doc.tar.xz
+Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-osci.tar.xz
+Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-osci.doc.tar.xz
+Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-page.tar.xz
+Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-page.doc.tar.xz
+Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-palattice.tar.xz
+Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-palattice.doc.tar.xz
+Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-planets.tar.xz
+Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-planets.doc.tar.xz
+Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-qtree.tar.xz
+Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-qtree.doc.tar.xz
+Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-relay.tar.xz
+Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-relay.doc.tar.xz
+Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-sfc.tar.xz
+Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-sfc.doc.tar.xz
+Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-shields.tar.xz
+Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-shields.doc.tar.xz
+Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-swigs.tar.xz
+Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-swigs.doc.tar.xz
+Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-timing.tar.xz
+Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-timing.doc.tar.xz
+Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-trackschematic.tar.xz
+Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-trackschematic.doc.tar.xz
+Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-truchet.tar.xz
+Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz-truchet.doc.tar.xz
+Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz2d-fr.tar.xz
+Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz2d-fr.doc.tar.xz
+Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz3d-fr.tar.xz
+Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikz3d-fr.doc.tar.xz
+Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbrickfigurines.tar.xz
+Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbrickfigurines.doc.tar.xz
+Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbricks.tar.xz
+Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzbricks.doc.tar.xz
+Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcalendarnotes.tar.xz
+Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcalendarnotes.doc.tar.xz
+Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcodeblocks.tar.xz
+Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzcodeblocks.doc.tar.xz
+Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzdotncross.tar.xz
+Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzdotncross.doc.tar.xz
+Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzducks.tar.xz
+Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzducks.doc.tar.xz
+Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfill.tar.xz
+Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfill.doc.tar.xz
+Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfxgraph.tar.xz
+Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzfxgraph.doc.tar.xz
+Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzinclude.tar.xz
+Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzinclude.doc.tar.xz
+Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzlings.tar.xz
+Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzlings.doc.tar.xz
+Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmark.tar.xz
+Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmark.doc.tar.xz
+Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmarmots.tar.xz
+Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzmarmots.doc.tar.xz
+Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzorbital.tar.xz
+Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzorbital.doc.tar.xz
+Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpackets.tar.xz
+Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpackets.doc.tar.xz
+Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpagenodes.tar.xz
+Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpagenodes.doc.tar.xz
+Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpeople.tar.xz
+Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpeople.doc.tar.xz
+Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpfeile.tar.xz
+Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpfeile.doc.tar.xz
+Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpingus.tar.xz
+Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzpingus.doc.tar.xz
+Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzposter.tar.xz
+Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzposter.doc.tar.xz
+Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquads.tar.xz
+Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquads.doc.tar.xz
+Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquests.tar.xz
+Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzquests.doc.tar.xz
+Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzscale.tar.xz
+Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzscale.doc.tar.xz
+Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzsymbols.tar.xz
+Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzsymbols.doc.tar.xz
+Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzviolinplots.tar.xz
+Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikzviolinplots.doc.tar.xz
+Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tile-graphic.tar.xz
+Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tile-graphic.doc.tar.xz
+Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tilings.tar.xz
+Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tilings.doc.tar.xz
+Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timechart.tar.xz
+Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timechart.doc.tar.xz
+Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timing-diagrams.tar.xz
+Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timing-diagrams.doc.tar.xz
+Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tipfr.tar.xz
+Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tipfr.doc.tar.xz
+Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-base.tar.xz
+Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-base.doc.tar.xz
+Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-berge.tar.xz
+Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-berge.doc.tar.xz
+Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-bernoulli.tar.xz
+Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-bernoulli.doc.tar.xz
+Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-doc.tar.xz
+Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-doc.doc.tar.xz
+Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-elements.tar.xz
+Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-elements.doc.tar.xz
+Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-euclide.tar.xz
+Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-euclide.doc.tar.xz
+Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-fct.tar.xz
+Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-fct.doc.tar.xz
+Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-graph.tar.xz
+Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-graph.doc.tar.xz
+Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-grapheur.tar.xz
+Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-grapheur.doc.tar.xz
+Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-orm.tar.xz
+Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-orm.doc.tar.xz
+Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-tab.tar.xz
+Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-tab.doc.tar.xz
+Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkzexample.tar.xz
+Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkzexample.doc.tar.xz
+Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tonevalue.tar.xz
+Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tonevalue.doc.tar.xz
+Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tqft.tar.xz
+Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tqft.doc.tar.xz
+Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsemlines.tar.xz
+Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tufte-latex.tar.xz
+Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tufte-latex.doc.tar.xz
+Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemojis.tar.xz
+Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/twemojis.doc.tar.xz
+Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tzplot.tar.xz
+Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tzplot.doc.tar.xz
+Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utfsym.tar.xz
+Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utfsym.doc.tar.xz
+Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vectorlogos.tar.xz
+Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vectorlogos.doc.tar.xz
+Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venndiagram.tar.xz
+Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venndiagram.doc.tar.xz
+Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vexillology.tar.xz
+Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vexillology.doc.tar.xz
+Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualpstricks.tar.xz
+Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/visualpstricks.doc.tar.xz
+Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wheelchart.tar.xz
+Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wheelchart.doc.tar.xz
+Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcloud.tar.xz
+Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcloud.doc.tar.xz
+Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/worldflags.tar.xz
+Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/worldflags.doc.tar.xz
+Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xistercian.tar.xz
+Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xistercian.doc.tar.xz
+Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpicture.tar.xz
+Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpicture.doc.tar.xz
+Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xypic.tar.xz
+Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xypic.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -599,6 +607,7 @@ Requires:       texlive-coffeestains
 Requires:       texlive-collection-basic
 Requires:       texlive-coloredbelts
 Requires:       texlive-combinedgraphics
+Requires:       texlive-corasdiagram
 Requires:       texlive-curve
 Requires:       texlive-curve2e
 Requires:       texlive-curves
@@ -622,6 +631,7 @@ Requires:       texlive-epspdf
 Requires:       texlive-epspdfconversion
 Requires:       texlive-esk
 Requires:       texlive-euflag
+Requires:       texlive-eurion
 Requires:       texlive-fadingimage
 Requires:       texlive-fast-diagram
 Requires:       texlive-fenetrecas
@@ -742,10 +752,12 @@ Requires:       texlive-signchart
 Requires:       texlive-simplenodes
 Requires:       texlive-simpleoptics
 Requires:       texlive-smartdiagram
+Requires:       texlive-sneaker
 Requires:       texlive-spath3
 Requires:       texlive-spectralsequences
 Requires:       texlive-strands
 Requires:       texlive-sunpath
+Requires:       texlive-svg-animate
 Requires:       texlive-swimgraf
 Requires:       texlive-syntaxdi
 Requires:       texlive-table-fct
@@ -867,7 +879,6 @@ Requires:       tex(fp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(adigraph.sty) = %{tl_version}
 
 %description -n texlive-adigraph
 This LaTeX package provides the means to easily draw augmenting oriented
@@ -881,7 +892,8 @@ Version:        svn70952
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibraryoverlay-beamer-styles.code.tex) = %{tl_version}
+Provides:       texlive-aobs-tikz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aobs-tikz-doc <= 11:%{version}
 
 %description -n texlive-aobs-tikz
 The package defines auxiliary TikZ styles useful for overlaying pictures'
@@ -896,7 +908,8 @@ Version:        svn56730
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(askmaps.sty) = %{tl_version}
+Provides:       texlive-askmaps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-askmaps-doc <= 11:%{version}
 
 %description -n texlive-askmaps
 The package provides 1, 2, 3, 4 and 5 variable Karnaugh maps, in the style used
@@ -910,6 +923,8 @@ Version:        svn17512
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-asyfig-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-asyfig-doc <= 11:%{version}
 Requires:       tex(catchfile.sty)
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
@@ -921,9 +936,6 @@ Requires:       tex(pdftexcmds.sty)
 Requires:       tex(preview.sty)
 Requires:       tex(suffix.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(asyalign.sty) = %{tl_version}
-Provides:       tex(asyfig.sty) = %{tl_version}
-Provides:       tex(asyprocess.sty) = %{tl_version}
 
 %description -n texlive-asyfig
 The package provides a means of reading Asymptote figures from separate files,
@@ -939,12 +951,13 @@ Version:        svn73611
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-asypictureb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-asypictureb-doc <= 11:%{version}
 Requires:       tex(fancyvrb.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifplatform.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(verbatimcopy.sty)
-Provides:       tex(asypictureB.sty) = %{tl_version}
 
 %description -n texlive-asypictureb
 The package is an unofficial alternative to the package provided with the
@@ -961,7 +974,8 @@ Version:        svn59552
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(autoarea.sty) = %{tl_version}
+Provides:       texlive-autoarea-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-autoarea-doc <= 11:%{version}
 
 %description -n texlive-autoarea
 This package makes PiCTeX recognize lines and arcs in determining the "bounding
@@ -975,6 +989,8 @@ Version:        svn22013
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bardiag-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bardiag-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(fp-snap.sty)
 Requires:       tex(geometry.sty)
@@ -988,9 +1004,6 @@ Requires:       tex(pstcol.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(subfigure.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(barddoc.sty) = %{tl_version}
-Provides:       tex(bardiag.sty) = %{tl_version}
-Provides:       tex(pstfp.sty) = %{tl_version}
 
 %description -n texlive-bardiag
 The main purpose of the package is to make the drawing of bar diagrams possible
@@ -1019,7 +1032,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(binarytree.sty) = %{tl_version}
 
 %description -n texlive-binarytree
 This package provides an easy but flexible way to draw binary trees using TikZ.
@@ -1035,13 +1047,14 @@ Version:        svn38388
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-blochsphere-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-blochsphere-doc <= 11:%{version}
 Requires:       tex(environ.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(kvsetkeys.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(blochsphere.sty) = %{tl_version}
 
 %description -n texlive-blochsphere
 This package is used to draw pseudo-3D Blochsphere diagrams. It supports
@@ -1055,8 +1068,9 @@ Version:        svn22490
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bloques-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bloques-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(bloques.sty) = %{tl_version}
 
 %description -n texlive-bloques
 The package uses TikZ to provide commands for generating control diagrams
@@ -1068,10 +1082,11 @@ Version:        svn57949
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-blox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-blox-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(pgffor.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(blox.sty) = %{tl_version}
 
 %description -n texlive-blox
 This package, along with TikZ, will typeset block diagrams for use with
@@ -1084,11 +1099,12 @@ Version:        svn72949
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bodegraph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bodegraph-doc <= 11:%{version}
 Requires:       tex(ifsym.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(bodegraph.sty) = %{tl_version}
 
 %description -n texlive-bodegraph
 The package provides facilities to draw Bode, Nyquist and Black plots using
@@ -1101,9 +1117,10 @@ Version:        svn21670
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bondgraph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bondgraph-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(bondgraph.sty) = %{tl_version}
 
 %description -n texlive-bondgraph
 The package draws bond graphs using PGF and TikZ.
@@ -1114,11 +1131,12 @@ Version:        svn36605
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bondgraphs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bondgraphs-doc <= 11:%{version}
 Requires:       tex(amsfonts.sty)
 Requires:       tex(bm.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(bondgraphs.sty) = %{tl_version}
 
 %description -n texlive-bondgraphs
 The package is used to draw bond graphs in LaTeX. It uses a recent version
@@ -1135,7 +1153,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(bootstrapicons.sty) = %{tl_version}
 
 %description -n texlive-bootstrapicons
 The package provides over 2,000 icons from the frontend framework Bootstrap.
@@ -1147,8 +1164,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(braids.sty) = %{tl_version}
-Provides:       tex(tikzlibrarybraids.code.tex) = %{tl_version}
+Provides:       texlive-braids-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-braids-doc <= 11:%{version}
 
 %description -n texlive-braids
 The package enables drawing of braid diagrams with PGF/TikZ using a simple
@@ -1157,12 +1174,12 @@ there are many options for styling the strands and for drawing "floors".
 
 %package -n texlive-bxeepic
 Summary:        Eepic facilities using pict2e
-Version:        svn30559
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(bxdpxp2e.def) = %{tl_version}
-Provides:       tex(bxeepic.sty) = %{tl_version}
+Provides:       texlive-bxeepic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bxeepic-doc <= 11:%{version}
 
 %description -n texlive-bxeepic
 The package provides an eepic driver to use pict2e facilities.
@@ -1176,7 +1193,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(byo-twemojis.sty) = %{tl_version}
 
 %description -n texlive-byo-twemojis
 This package provides the means to create your own emojis (the simple, round,
@@ -1193,7 +1209,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ifmtarg.sty)
 Requires:       tex(luamplib.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(byrne.sty) = %{tl_version}
 
 %description -n texlive-byrne
 This package is a LaTeX adaptation of a set of tools developed for ConTeXt
@@ -1211,7 +1226,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
-Provides:       tex(callouts.sty) = %{tl_version}
 
 %description -n texlive-callouts
 The package defines the annotation environment in which callouts, notes,
@@ -1225,8 +1239,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(callouts-box-colors.sty) = %{tl_version}
-Provides:       tex(callouts-box.sty) = %{tl_version}
 
 %description -n texlive-callouts-box
 This package provides a collection of visually appealing, structured callout
@@ -1241,21 +1253,22 @@ Version:        svn39797
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibraryceltic.code.tex) = %{tl_version}
+Provides:       texlive-celtic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-celtic-doc <= 11:%{version}
 
 %description -n texlive-celtic
 The package provides a TikZ library for drawing celtic knots.
 
 %package -n texlive-chemfig
 Summary:        Draw molecules with easy syntax
-Version:        svn76701
+Version:        svn78296
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-chemfig-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chemfig-doc <= 11:%{version}
+Requires:       texlive-simplekv
 Requires:       tex(tikz.sty)
-Provides:       tex(chemfig-lewis.tex) = %{tl_version}
-Provides:       tex(chemfig.sty) = %{tl_version}
-Provides:       tex(chemfig.tex) = %{tl_version}
 
 %description -n texlive-chemfig
 The package provides the command \chemfig{<code>}, which draws molecules using
@@ -1267,11 +1280,10 @@ drawing operations.
 
 %package -n texlive-circuit-macros
 Summary:        M4 macros for electric circuit diagrams
-Version:        svn76218
+Version:        svn78292
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(boxdims.sty) = %{tl_version}
 
 %description -n texlive-circuit-macros
 A set of m4 macros for drawing high-quality electric circuits containing
@@ -1289,61 +1301,15 @@ the pgf bundle, or SVG.
 
 %package -n texlive-circuitikz
 Summary:        Draw electrical networks with TikZ
-Version:        svn77296
+Version:        svn77600
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-circuitikz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-circuitikz-doc <= 11:%{version}
 Requires:       tex(siunitx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(circuitikz-0.4-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.4.sty) = %{tl_version}
-Provides:       tex(circuitikz-0.6-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.6.sty) = %{tl_version}
-Provides:       tex(circuitikz-0.7-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.7.sty) = %{tl_version}
-Provides:       tex(circuitikz-0.8.3-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.8.3.sty) = %{tl_version}
-Provides:       tex(circuitikz-0.9.3-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.9.3.sty) = %{tl_version}
-Provides:       tex(circuitikz-0.9.6-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-0.9.6.sty) = %{tl_version}
-Provides:       tex(circuitikz-1.0-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-1.0.sty) = %{tl_version}
-Provides:       tex(circuitikz-1.1.2-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-1.1.2.sty) = %{tl_version}
-Provides:       tex(circuitikz-1.2.7-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-1.2.7.sty) = %{tl_version}
-Provides:       tex(circuitikz-1.4.6-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-1.4.6.sty) = %{tl_version}
-Provides:       tex(circuitikz-1.7.2-body.tex) = %{tl_version}
-Provides:       tex(circuitikz-1.7.2.sty) = %{tl_version}
-Provides:       tex(circuitikz.sty) = %{tl_version}
-Provides:       tex(ctikzstyle-example.tex) = %{tl_version}
-Provides:       tex(ctikzstyle-legacy.tex) = %{tl_version}
-Provides:       tex(ctikzstyle-romano.tex) = %{tl_version}
-Provides:       tex(pgfcirc.defines.tex) = %{tl_version}
-Provides:       tex(pgfcircbipoles.tex) = %{tl_version}
-Provides:       tex(pgfcirccurrent.tex) = %{tl_version}
-Provides:       tex(pgfcircflow.tex) = %{tl_version}
-Provides:       tex(pgfcirclabel.tex) = %{tl_version}
-Provides:       tex(pgfcircmonopoles.tex) = %{tl_version}
-Provides:       tex(pgfcircmultipoles.tex) = %{tl_version}
-Provides:       tex(pgfcircpath.tex) = %{tl_version}
-Provides:       tex(pgfcircquadpoles.tex) = %{tl_version}
-Provides:       tex(pgfcircshapes.tex) = %{tl_version}
-Provides:       tex(pgfcirctripoles.tex) = %{tl_version}
-Provides:       tex(pgfcircutils.tex) = %{tl_version}
-Provides:       tex(pgfcircvoltage.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-0.8.3.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-0.9.3.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-0.9.6.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-1.0.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-1.1.2.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-1.2.7.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-1.4.6.tex) = %{tl_version}
-Provides:       tex(t-circuitikz-1.7.2.tex) = %{tl_version}
-Provides:       tex(t-circuitikz.tex) = %{tl_version}
 
 %description -n texlive-circuitikz
 The package provides a set of macros for naturally typesetting electrical and
@@ -1362,7 +1328,6 @@ Requires:       tex(calc.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(circularglyphs.sty) = %{tl_version}
 
 %description -n texlive-circularglyphs
 Circular Glyphs is a graphic alphabet of substitution based on a geometric
@@ -1378,7 +1343,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(coffeestains.sty) = %{tl_version}
 
 %description -n texlive-coffeestains
 This package provides an essential feature that LaTeX has been missing for too
@@ -1387,13 +1351,10 @@ printing stains directly on the page rather than adding them manually.
 
 %package -n texlive-coloredbelts
 Summary:        Insert colored belts in documents (to present skills, for example)
-Version:        svn76924
+Version:        svn78037
 License:        LPPL-1.3c AND CC-BY-SA-3.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(graphicx.sty)
-Requires:       tex(tikz.sty)
-Provides:       tex(coloredbelts.sty) = %{tl_version}
 
 %description -n texlive-coloredbelts
 The package provides commands (English and French version) to insert 'colored
@@ -1405,10 +1366,11 @@ Version:        svn27198
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-combinedgraphics-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-combinedgraphics-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(combinedgraphics.sty) = %{tl_version}
 
 %description -n texlive-combinedgraphics
 This package provides a macro (\includecombinedgraphics) for the inclusion of
@@ -1421,12 +1383,33 @@ graphics part, as far as LaTeX part does not do it (e.g., for files exported
 from Gnuplot before version 4.2); and rescaling and rotating of complete
 graphics (similar to \includegraphics from the graphicx package).
 
+%package -n texlive-corasdiagram
+Summary:        A LaTeX package for authoring CORAS risk management diagrams
+Version:        svn78538
+License:        MIT
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(array.sty)
+Requires:       tex(graphicx.sty)
+Requires:       tex(longtable.sty)
+Requires:       tex(pgfkeys.sty)
+Requires:       tex(tikz.sty)
+Requires:       tex(xparse.sty)
+
+%description -n texlive-corasdiagram
+corasdiagram is a LaTeX package for authoring CORAS risk management diagrams
+with reusable notation macros, package-managed icons, and high-level analysis
+tables. It supports asset, threat, risk, treatment, and treatment overview
+diagrams, plus high-level analysis tables.
+
 %package -n texlive-curve
 Summary:        A class for making curriculum vitae
 Version:        svn20745
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-curve-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-curve-doc <= 11:%{version}
 
 %description -n texlive-curve
 CurVe is a class for writing a CV, with configuration for the language in which
@@ -1441,16 +1424,16 @@ support for use with AUC-TeX.
 
 %package -n texlive-curve2e
 Summary:        Extensions for package pict2e
-Version:        svn72842
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-curve2e-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-curve2e-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(xfp.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(curve2e-v161.sty) = %{tl_version}
-Provides:       tex(curve2e.sty) = %{tl_version}
 
 %description -n texlive-curve2e
 The package extends the drawing capacities of the pict2e that serves as a
@@ -1466,8 +1449,8 @@ Version:        svn45255
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(curves.sty) = %{tl_version}
-Provides:       tex(curvesls.sty) = %{tl_version}
+Provides:       texlive-curves-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-curves-doc <= 11:%{version}
 
 %description -n texlive-curves
 This package draws curves in the standard LaTeX picture environment using
@@ -1484,7 +1467,8 @@ Version:        svn30206
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(dcpic.sty) = %{tl_version}
+Provides:       texlive-dcpic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dcpic-doc <= 11:%{version}
 
 %description -n texlive-dcpic
 DCpic is a package for typesetting Commutative Diagrams within a LaTeX and TeX
@@ -1499,7 +1483,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(diagmac2.sty) = %{tl_version}
+Provides:       texlive-diagmac2-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-diagmac2-doc <= 11:%{version}
 
 %description -n texlive-diagmac2
 This is a development of the long-established diagmac package, using pict2e so
@@ -1514,7 +1499,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fancyvrb.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(ditaa.sty) = %{tl_version}
 
 %description -n texlive-ditaa
 With this package ditaa (DIagrams Through Ascii Art) diagrams can be embedded
@@ -1539,9 +1523,10 @@ Version:        svn26237
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dot2texi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dot2texi-doc <= 11:%{version}
 Requires:       tex(moreverb.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(dot2texi.sty) = %{tl_version}
 
 %description -n texlive-dot2texi
 The dot2texi package allows you to embed graphs in the DOT graph description
@@ -1556,10 +1541,11 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dottex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dottex-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(moreverb.sty)
-Provides:       tex(dottex.sty) = %{tl_version}
 
 %description -n texlive-dottex
 The dottex package allows you to encapsulate 'dot' and 'neato' files in your
@@ -1576,7 +1562,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(DPcircling.sty) = %{tl_version}
 
 %description -n texlive-dpcircling
 This simple package provides four types of text decorations using TikZ. You can
@@ -1592,10 +1577,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(AlDraTex.sty) = %{tl_version}
-Provides:       tex(DraTex.sty) = %{tl_version}
-Provides:       tex(TeXProject.sty) = %{tl_version}
-Provides:       tex(wotree.sty) = %{tl_version}
+Provides:       texlive-dratex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dratex-doc <= 11:%{version}
 
 %description -n texlive-dratex
 A low level (DraTex.sty) and a high-level (AlDraTex.sty) drawing package
@@ -1607,7 +1590,8 @@ Version:        svn19232
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(drs.sty) = %{tl_version}
+Provides:       texlive-drs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-drs-doc <= 11:%{version}
 
 %description -n texlive-drs
 The package draws Discourse Representation Structures (DRSs). It can draw
@@ -1622,9 +1606,10 @@ Version:        svn76130
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-duotenzor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-duotenzor-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(duotenzor.sty) = %{tl_version}
 
 %description -n texlive-duotenzor
 This is a drawing package for circuit and duotensor diagrams within LaTeX
@@ -1644,7 +1629,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(dynkin-diagrams.sty) = %{tl_version}
 
 %description -n texlive-dynkin-diagrams
 Draws Dynkin, Coxeter, and Satake diagrams in LaTeX documents, using the TikZ
@@ -1659,7 +1643,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(ecgdraw.sty) = %{tl_version}
 
 %description -n texlive-ecgdraw
 This package provides the \ECG{<code>} command which draws electrocardiograms
@@ -1668,13 +1651,12 @@ different types of wave.
 
 %package -n texlive-eepic
 Summary:        Extensions to epic and the LaTeX drawing tools
-Version:        svn15878
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eepic.sty) = %{tl_version}
-Provides:       tex(eepicemu.sty) = %{tl_version}
-Provides:       tex(epic.sty) = %{tl_version}
+Provides:       texlive-eepic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eepic-doc <= 11:%{version}
 
 %description -n texlive-eepic
 Extensions to epic and the LaTeX picture drawing environment, include the
@@ -1698,7 +1680,6 @@ Requires:       tex(pst-text.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(egpeirce.sty) = %{tl_version}
 
 %description -n texlive-egpeirce
 This package is for drawing existential graphs invented and developed by
@@ -1712,7 +1693,8 @@ Version:        svn39025
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ellipse.sty) = %{tl_version}
+Provides:       texlive-ellipse-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ellipse-doc <= 11:%{version}
 
 %description -n texlive-ellipse
 Draw ellipses and elliptical arcs using the standard LaTeX2e picture
@@ -1726,7 +1708,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(import.sty)
-Provides:       tex(endofproofwd.sty) = %{tl_version}
 
 %description -n texlive-endofproofwd
 This package provides an additional "end of proof" sign. The command's name is
@@ -1738,10 +1719,11 @@ Version:        svn18703
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-epspdfconversion-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epspdfconversion-doc <= 11:%{version}
 Requires:       tex(epstopdf-base.sty)
 Requires:       tex(graphics.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(epspdfconversion.sty) = %{tl_version}
 
 %description -n texlive-epspdfconversion
 The package calls the epstopdf package to convert EPS graphics to PDF, on the
@@ -1754,9 +1736,10 @@ Version:        svn18115
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-esk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-esk-doc <= 11:%{version}
 Requires:       tex(kvsetkeys.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(esk.sty) = %{tl_version}
 
 %description -n texlive-esk
 The ESK package allows to encapsulate Sketch files in LaTeX sources. This is
@@ -1776,12 +1759,29 @@ Requires:       texlive-kpathsea
 Requires:       tex(amssymb.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(euflag.sty) = %{tl_version}
 
 %description -n texlive-euflag
 This LaTeX package implements a command to reproduce the official flag of the
 European Union (EU). The flag is reproduced at 1em high based on the current
 font size, so it can be scaled arbitrarily by changing the font size.
+
+%package -n texlive-eurion
+Summary:        EURion constellation overlay for LaTeX documents
+Version:        svn78823
+License:        WTFPL
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(eso-pic.sty)
+Requires:       tex(tikz.sty)
+Requires:       tex(xkeyval.sty)
+
+%description -n texlive-eurion
+This package overlays the five-circle EURion anti-photocopy constellation on
+document pages. It provides three modes: scatter, for banknote-style tiling
+across every page; corner, for a single discreet mark in a selected corner; and
+manual, for user placement with the \eurion command. The color, size, density,
+rotation, and random seed are configurable. The package provides a visual
+reproduction only; it is not a real anti-counterfeiting feature.
 
 %package -n texlive-fadingimage
 Summary:        Add full width fading pictures at the top or bottom of a page
@@ -1790,7 +1790,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(fadingimage.sty) = %{tl_version}
 
 %description -n texlive-fadingimage
 This package provides commands for adding full width fading pictures at the top
@@ -1803,11 +1802,12 @@ Version:        svn29264
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fast-diagram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fast-diagram-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(relsize.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xargs.sty)
-Provides:       tex(fast-diagram.sty) = %{tl_version}
 
 %description -n texlive-fast-diagram
 The package provides simple means of producing FAST diagrams, using TikZ/pgf
@@ -1825,7 +1825,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(FenetreCas.sty) = %{tl_version}
 
 %description -n texlive-fenetrecas
 This package provides some commands (in French) to display, with TikZ, windows
@@ -1840,7 +1839,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(figchild.sty) = %{tl_version}
 
 %description -n texlive-figchild
 This package was created with the aim of facilitating the work of Elementary
@@ -1866,7 +1864,6 @@ Requires:       tex(zref-pagelayout.sty)
 Requires:       tex(zref-savepos.sty)
 Requires:       tex(zref-thepage.sty)
 Requires:       tex(zref-user.sty)
-Provides:       tex(figput.sty) = %{tl_version}
 
 %description -n texlive-figput
 FigPut allows figures to be specified using JavaScript. The resulting document
@@ -1876,12 +1873,13 @@ interactive widgets are included.
 
 %package -n texlive-fitbox
 Summary:        Fit graphics on a page
-Version:        svn50088
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fitbox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fitbox-doc <= 11:%{version}
 Requires:       tex(xkeyval.sty)
-Provides:       tex(fitbox.sty) = %{tl_version}
 
 %description -n texlive-fitbox
 The package allows a box (usually an \includegraphics box) to fit on the page.
@@ -1894,9 +1892,10 @@ Version:        svn36572
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-flowchart-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-flowchart-doc <= 11:%{version}
 Requires:       tex(makeshape.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(flowchart.sty) = %{tl_version}
 
 %description -n texlive-flowchart
 The package provides a set of 'traditional' flowchart element shapes; the
@@ -1905,10 +1904,12 @@ pgf/TikZ. The package also requires the makeshape package.
 
 %package -n texlive-forest
 Summary:        Drawing (linguistic) trees
-Version:        svn57398
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-forest-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-forest-doc <= 11:%{version}
 Requires:       texlive-elocalloc
 Requires:       texlive-environ
 Requires:       texlive-etoolbox
@@ -1926,12 +1927,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(forest-compat.sty) = %{tl_version}
-Provides:       tex(forest-doc.sty) = %{tl_version}
-Provides:       tex(forest-index.sty) = %{tl_version}
-Provides:       tex(forest-lib-edges.sty) = %{tl_version}
-Provides:       tex(forest-lib-linguistics.sty) = %{tl_version}
-Provides:       tex(forest.sty) = %{tl_version}
 
 %description -n texlive-forest
 The package provides a PGF/TikZ-based mechanism for drawing linguistic (and
@@ -1945,18 +1940,11 @@ mechanism sensitive to code-changes.
 
 %package -n texlive-forest-ext
 Summary:        Additional Forest libraries providing bug fixes, extensions and support for tagging
-Version:        svn77412
+Version:        svn78039
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(forest-lib-ext.ling-debug.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.ling.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.multi-debug.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.multi.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.tagging-debug.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.tagging.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.utils-debug.sty) = %{tl_version}
-Provides:       tex(forest-lib-ext.utils.sty) = %{tl_version}
+Requires:       tex(memoize-ext.sty)
 
 %description -n texlive-forest-ext
 forest-ext is a new package offering additional libraries for Forest:
@@ -1972,31 +1960,11 @@ Version:        svn66513
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-genealogytree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-genealogytree-doc <= 11:%{version}
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(xfp.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(genealogytree.sty) = %{tl_version}
-Provides:       tex(gtrcore.contour.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.drawing.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.node.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.options.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.parser.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.processing.code.tex) = %{tl_version}
-Provides:       tex(gtrcore.symbols.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.catalan.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.chinese.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.danish.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.dutch.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.english.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.french.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.german.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.italian.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.portuguese.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.spanish.code.tex) = %{tl_version}
-Provides:       tex(gtrlang.swedish.code.tex) = %{tl_version}
-Provides:       tex(gtrlib.debug.code.tex) = %{tl_version}
-Provides:       tex(gtrlib.fanchart.code.tex) = %{tl_version}
-Provides:       tex(gtrlib.templates.code.tex) = %{tl_version}
 
 %description -n texlive-genealogytree
 Pedigree and genealogical tree diagrams are proven tools to visualize genetic
@@ -2010,13 +1978,15 @@ algorithm which can be customized, e. g., to prioritize certain paths.
 
 %package -n texlive-gincltex
 Summary:        Include TeX files as graphics (.tex support for \includegraphics)
-Version:        svn64967
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gincltex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gincltex-doc <= 11:%{version}
+Requires:       texlive-svn-prov
 Requires:       tex(adjustbox.sty)
 Requires:       tex(svn-prov.sty)
-Provides:       tex(gincltex.sty) = %{tl_version}
 
 %description -n texlive-gincltex
 The package builds on the standard LaTeX packages graphics and/or graphicx and
@@ -2032,12 +2002,13 @@ Version:        svn54758
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gnuplottex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gnuplottex-doc <= 11:%{version}
 Requires:       tex(catchfile.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(moreverb.sty)
-Provides:       tex(gnuplottex.sty) = %{tl_version}
 
 %description -n texlive-gnuplottex
 This package allows you to include Gnuplot graphs in your LaTeX documents. The
@@ -2053,9 +2024,10 @@ Version:        svn21387
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gradientframe-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gradientframe-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(gradientframe.sty) = %{tl_version}
 
 %description -n texlive-gradientframe
 The package provides a means of drawing graded frames around objects. The
@@ -2067,10 +2039,11 @@ Version:        svn22509
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-grafcet-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-grafcet-doc <= 11:%{version}
 Requires:       tex(ifsym.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(grafcet.sty) = %{tl_version}
 
 %description -n texlive-grafcet
 The package provides a library (GRAFCET) that can draw Grafcet Sequential
@@ -2092,9 +2065,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(sansmath.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(graph35-keys.sty) = %{tl_version}
-Provides:       tex(graph35-pixelart.sty) = %{tl_version}
-Provides:       tex(graph35.sty) = %{tl_version}
 
 %description -n texlive-graph35
 This package defines commands to draw the Casio Graph 35 / fx-9750GII
@@ -2104,12 +2074,10 @@ documents instructing students how to use their calculator.
 
 %package -n texlive-graphicxpsd
 Summary:        Adobe Photoshop Data format (PSD) support for graphicx package
-Version:        svn57341
+Version:        svn78362
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(shellesc.sty)
-Provides:       tex(graphicxpsd.sty) = %{tl_version}
 
 %description -n texlive-graphicxpsd
 This package provides Adobe Photoshop Data format (PSD) support for the
@@ -2121,9 +2089,10 @@ Version:        svn31517
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-graphviz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-graphviz-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(psfrag.sty)
-Provides:       tex(graphviz.sty) = %{tl_version}
 
 %description -n texlive-graphviz
 The package allows inline use of graphviz code, in a LaTeX document.
@@ -2135,8 +2104,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(genealogytree.sty)
-Provides:       tex(gtrlib.largetrees.code.tex) = %{tl_version}
-Provides:       tex(gtrlib.largetrees.sty) = %{tl_version}
 
 %description -n texlive-gtrlib-largetrees
 The main goal of this package is to offer additional database fields and
@@ -2149,8 +2116,9 @@ Version:        svn32003
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-harveyballs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-harveyballs-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(harveyballs.sty) = %{tl_version}
 
 %description -n texlive-harveyballs
 The package provides 5 commands (giving symbols that indicate values from
@@ -2158,12 +2126,13 @@ The package provides 5 commands (giving symbols that indicate values from
 
 %package -n texlive-here
 Summary:        Emulation of obsolete package for "here" floats
-Version:        svn16135
+Version:        svn78348
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-here-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-here-doc <= 11:%{version}
 Requires:       tex(float.sty)
-Provides:       tex(here.sty) = %{tl_version}
 
 %description -n texlive-here
 Provides the H option for floats in LaTeX to signify that the environment is
@@ -2178,10 +2147,11 @@ Version:        svn34733
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hf-tikz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hf-tikz-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(hf-tikz.sty) = %{tl_version}
 
 %description -n texlive-hf-tikz
 The package provides a way to highlight formulas and formula parts in both
@@ -2193,11 +2163,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hobby-l3draw.sty) = %{tl_version}
-Provides:       tex(hobby.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryhobby.code.tex) = %{tl_version}
-Provides:       tex(pml3array.sty) = %{tl_version}
-Provides:       tex(tikzlibraryhobby.code.tex) = %{tl_version}
+Provides:       texlive-hobby-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hobby-doc <= 11:%{version}
 
 %description -n texlive-hobby
 This package defines a path generation function for PGF/TikZ which implements
@@ -2207,10 +2174,12 @@ The implementation is in LaTeX3.
 
 %package -n texlive-hvfloat
 Summary:        Controlling captions, fullpage and doublepage floats
-Version:        svn77209
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hvfloat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hvfloat-doc <= 11:%{version}
 Requires:       tex(afterpage.sty)
 Requires:       tex(atbegshi.sty)
 Requires:       tex(caption.sty)
@@ -2228,8 +2197,6 @@ Requires:       tex(trimclip.sty)
 Requires:       tex(varwidth.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(zref-savepos.sty)
-Provides:       tex(hvfloat-fps.sty) = %{tl_version}
-Provides:       tex(hvfloat.sty) = %{tl_version}
 
 %description -n texlive-hvfloat
 This package defines a macro to place objects (tables and figures) and their
@@ -2248,7 +2215,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(istgame.sty) = %{tl_version}
 
 %description -n texlive-istgame
 This LaTeX package provides macros based on TikZ to draw a game tree. The main
@@ -2267,7 +2233,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(circuitikz.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(kblocks.sty) = %{tl_version}
 
 %description -n texlive-kblocks
 Kblocks defines a number of commands to make drawing control block diagrams
@@ -2287,7 +2252,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(zref-savepos.sty)
 Requires:       tex(zref.sty)
-Provides:       tex(keisennote.sty) = %{tl_version}
 
 %description -n texlive-keisennote
 Typeset Japanese-style ruled notebook lines in LaTeX. It supports full-page
@@ -2307,7 +2271,6 @@ Requires:       tex(tikz-3dplot.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(kinematikz.sty) = %{tl_version}
 
 %description -n texlive-kinematikz
 This package provides functionalities to draw kinematic diagrams for mechanisms
@@ -2324,9 +2287,9 @@ Version:        svn50782
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-knitting-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-knitting-doc <= 11:%{version}
 Requires:       tex(color.sty)
-Provides:       tex(knitting.sty) = %{tl_version}
-Provides:       tex(knitting.tex) = %{tl_version}
 
 %description -n texlive-knitting
 The package provides symbol fonts and commands to write charted instructions
@@ -2339,6 +2302,8 @@ Version:        svn17205
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-knittingpattern-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-knittingpattern-doc <= 11:%{version}
 
 %description -n texlive-knittingpattern
 The class provides a simple, effective method for knitters to produce
@@ -2355,7 +2320,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(ladder.sty) = %{tl_version}
 
 %description -n texlive-ladder
 This package permits the creation of simple ladder diagrams within LaTeX
@@ -2367,8 +2331,9 @@ Version:        svn23806
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lapdf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lapdf-doc <= 11:%{version}
 Requires:       tex(calc.sty)
-Provides:       tex(lapdf.sty) = %{tl_version}
 
 %description -n texlive-lapdf
 The package provides the means to use PDF drawing primitives to produce high
@@ -2386,6 +2351,8 @@ Version:        svn60874
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-latex-make-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-latex-make-doc <= 11:%{version}
 Requires:       tex(ae.sty)
 Requires:       tex(aeguill.sty)
 Requires:       tex(color.sty)
@@ -2399,10 +2366,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(thumbpdf.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(figlatex.sty) = %{tl_version}
-Provides:       tex(pdfswitch.sty) = %{tl_version}
-Provides:       tex(texdepends.sty) = %{tl_version}
-Provides:       tex(texgraphicx.sty) = %{tl_version}
 
 %description -n texlive-latex-make
 This package provides several tools that aim to simplify the compilation of
@@ -2423,7 +2386,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(liftarm.sty) = %{tl_version}
 
 %description -n texlive-liftarm
 This package is based on the package TikZ and can be used to draw geometric
@@ -2439,12 +2401,13 @@ Version:        svn20843
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lpic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lpic-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(color.sty)
 Requires:       tex(epsfig.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(rotating.sty)
-Provides:       tex(lpic.sty) = %{tl_version}
 
 %description -n texlive-lpic
 The package defines a convenient interface to put any LaTeX material on top of
@@ -2462,7 +2425,8 @@ Version:        svn39804
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lroundrect.sty) = %{tl_version}
+Provides:       texlive-lroundrect-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lroundrect-doc <= 11:%{version}
 
 %description -n texlive-lroundrect
 This LaTeX package provides ways to use the extremely configurable rounded
@@ -2472,13 +2436,12 @@ useful on their own.
 
 %package -n texlive-lua-tikz3dtools
 Summary:        Not-so-experimental LuaLaTeX package for 3D illustrations in TikZ
-Version:        svn77460
+Version:        svn78842
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(lua-tikz3dtools.sty) = %{tl_version}
 
 %description -n texlive-lua-tikz3dtools
 This package improves on existing 3D capabilities in TikZ. In particular, the
@@ -2491,7 +2454,7 @@ parametric objects.
 
 %package -n texlive-luamesh
 Summary:        Computes and draws 2D Delaunay triangulation
-Version:        svn63875
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2500,11 +2463,10 @@ Requires:       tex(luamplib.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luamesh.sty) = %{tl_version}
 
 %description -n texlive-luamesh
 The package allows to compute and draw 2D Delaunay triangulation. The algorithm
-is written with lua, and depending upon the choice of the engine, the drawing
+is written with Lua, and depending upon the choice of the engine, the drawing
 is done by MetaPost (with luamplib) or by TikZ. The Delaunay triangulation
 algorithm is the Bowyer and Watson algorithm. Several macros are provided to
 draw the global mesh, the set of points, or a particular step of the algorithm.
@@ -2515,12 +2477,13 @@ Version:        svn65511
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luasseq-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luasseq-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pgf.sty)
 Requires:       tex(pifont.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luasseq.sty) = %{tl_version}
 
 %description -n texlive-luasseq
 The package is an update of the author's sseq package, for use with LuaLaTeX.
@@ -2529,7 +2492,7 @@ offers several enhancements.
 
 %package -n texlive-lucide-icons
 Summary:        Use lucide-icons through LaTeX commands
-Version:        svn77188
+Version:        svn78729
 License:        LPPL-1.3c AND ISC
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2538,7 +2501,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(lucide-icons.sty) = %{tl_version}
 
 %description -n texlive-lucide-icons
 This package provides commands like twemojis which allow to use Lucide-Icons
@@ -2554,7 +2516,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(listings.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(maker.sty) = %{tl_version}
 
 %description -n texlive-maker
 The first version of the package allows to include Arduino or Processing code
@@ -2569,8 +2530,9 @@ Version:        svn28973
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-makeshape-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-makeshape-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(makeshape.sty) = %{tl_version}
 
 %description -n texlive-makeshape
 The package simplifies production of custom shapes with correct anchor borders,
@@ -2590,7 +2552,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(maritime.sty) = %{tl_version}
 
 %description -n texlive-maritime
 This package provides LaTeX commands for drawing international maritime signal
@@ -2598,16 +2559,13 @@ flags using TikZ (A-Z, NATO 0-9).
 
 %package -n texlive-mercatormap
 Summary:        Spherical Mercator coordinate systems and Web Mercator tile integration
-Version:        svn76924
+Version:        svn77981
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(graphicx.sty)
 Requires:       tex(siunitx.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(mercatormap.sty) = %{tl_version}
-Provides:       tex(mercatorpy.def) = %{tl_version}
-Provides:       tex(mercatorsupplier.def) = %{tl_version}
 
 %description -n texlive-mercatormap
 This package extends TikZ with tools to create map graphics. The provided
@@ -2619,7 +2577,7 @@ pieces, and more are part of the package.
 
 %package -n texlive-milsymb
 Summary:        LaTeX package for TikZ based drawing of military symbols as per NATO APP-6(C)
-Version:        svn77463
+Version:        svn78431
 License:        CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2633,7 +2591,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(milsymb.sty) = %{tl_version}
 
 %description -n texlive-milsymb
 The package offers commands to draw military symbols as per NATO APP-6(C)
@@ -2649,11 +2606,12 @@ Version:        svn17483
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-miniplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-miniplot-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(epsfig.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(miniplot.sty) = %{tl_version}
 
 %description -n texlive-miniplot
 MiniPlot is a package to help the LaTeX user typeset EPS figures using an
@@ -2670,7 +2628,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(modiagram.sty) = %{tl_version}
+Provides:       texlive-modiagram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-modiagram-doc <= 11:%{version}
 
 %description -n texlive-modiagram
 The package provides an environment MOdiagram and some commands, to create
@@ -2686,13 +2645,14 @@ Version:        svn31500
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-neuralnetwork-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-neuralnetwork-doc <= 11:%{version}
 Requires:       tex(algorithmicx.sty)
 Requires:       tex(environ.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(mathtools.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(neuralnetwork.sty) = %{tl_version}
 
 %description -n texlive-neuralnetwork
 The package provides facilities for graph-drawing, with facilities designed for
@@ -2707,7 +2667,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(tkz-fct.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(nl-interval.sty) = %{tl_version}
 
 %description -n texlive-nl-interval
 This package provides macros to simplify the process of representing intervals
@@ -2720,7 +2679,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(nndraw.sty) = %{tl_version}
 
 %description -n texlive-nndraw
 With this package you can create fully connected neural networks in a simple
@@ -2732,6 +2690,8 @@ Version:        svn31729
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-numericplots-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-numericplots-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(fp.sty)
 Requires:       tex(ifthen.sty)
@@ -2742,12 +2702,6 @@ Requires:       tex(pstricks.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xkvview.sty)
-Provides:       tex(NumericPlots.sty) = %{tl_version}
-Provides:       tex(NumericPlots_TickLabels.tex) = %{tl_version}
-Provides:       tex(NumericPlots_labels.tex) = %{tl_version}
-Provides:       tex(NumericPlots_legend.tex) = %{tl_version}
-Provides:       tex(NumericPlots_macros.tex) = %{tl_version}
-Provides:       tex(NumericPlots_styles.tex) = %{tl_version}
 
 %description -n texlive-numericplots
 Plotting numeric data is a task which has often to be done for scientific
@@ -2765,7 +2719,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(open-everyday-symbols.sty) = %{tl_version}
 
 %description -n texlive-open-everyday-symbols
 This is meant to be a community project: It's a list of symbols/icons from an
@@ -2786,7 +2739,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(openmoji.sty) = %{tl_version}
 
 %description -n texlive-openmoji
 This package provides commands like twemojis which allow to use OpenMoji
@@ -2795,7 +2747,7 @@ unicode-font stuff is needed and it should work on every installation.
 
 %package -n texlive-optikz
 Summary:        Customizable optical components for drawing laser setups and optical systems using TikZ
-Version:        svn75922
+Version:        svn77916
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2803,7 +2755,6 @@ Requires:       tex(amssymb.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(optikz.sty) = %{tl_version}
 
 %description -n texlive-optikz
 This package provides a collection of TikZ-based commands for drawing laser
@@ -2815,7 +2766,7 @@ visualize beam size and dispersion in e.g. stretcher-compressor setups.
 
 %package -n texlive-outilsgeomtikz
 Summary:        Some geometric tools, with TikZ
-Version:        svn75985
+Version:        svn78362
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2824,7 +2775,6 @@ Requires:       tex(pgffor.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(OutilsGeomTikz.sty) = %{tl_version}
 
 %description -n texlive-outilsgeomtikz
 This package provides some commands, with French keys, to display geometric
@@ -2841,7 +2791,6 @@ Requires:       tex(setspace.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(PapierGurvan.sty) = %{tl_version}
 
 %description -n texlive-papiergurvan
 This package provides commands to display Gurvan grids or Gurvan full pages,
@@ -2854,20 +2803,20 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lamsarrow.sty) = %{tl_version}
-Provides:       tex(pb-diagram.sty) = %{tl_version}
-Provides:       tex(pb-lams.sty) = %{tl_version}
-Provides:       tex(pb-xy.sty) = %{tl_version}
+Provides:       texlive-pb-diagram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pb-diagram-doc <= 11:%{version}
 
 %description -n texlive-pb-diagram
 A commutative diagram package using LAMSTeX or Xy-pic fonts
 
 %package -n texlive-pgf
 Summary:        Create PostScript and PDF graphics in TeX
-Version:        svn76180
+Version:        svn78101
 License:        LPPL-1.3c AND GPL-2.0-only AND GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-doc <= 11:%{version}
 Requires:       texlive-atveryend
 Requires:       texlive-fp
 Requires:       texlive-graphics
@@ -2877,285 +2826,6 @@ Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(pgf.revision.tex) = %{tl_version}
-Provides:       tex(pgf.sty) = %{tl_version}
-Provides:       tex(pgf.tex) = %{tl_version}
-Provides:       tex(pgfarrows.sty) = %{tl_version}
-Provides:       tex(pgfautomata.sty) = %{tl_version}
-Provides:       tex(pgfbaseimage.sty) = %{tl_version}
-Provides:       tex(pgfbaseimage.tex) = %{tl_version}
-Provides:       tex(pgfbaselayers.sty) = %{tl_version}
-Provides:       tex(pgfbaselayers.tex) = %{tl_version}
-Provides:       tex(pgfbasematrix.sty) = %{tl_version}
-Provides:       tex(pgfbasematrix.tex) = %{tl_version}
-Provides:       tex(pgfbasepatterns.sty) = %{tl_version}
-Provides:       tex(pgfbasepatterns.tex) = %{tl_version}
-Provides:       tex(pgfbaseplot.sty) = %{tl_version}
-Provides:       tex(pgfbaseplot.tex) = %{tl_version}
-Provides:       tex(pgfbaseshapes.sty) = %{tl_version}
-Provides:       tex(pgfbaseshapes.tex) = %{tl_version}
-Provides:       tex(pgfbasesnakes.sty) = %{tl_version}
-Provides:       tex(pgfbasesnakes.tex) = %{tl_version}
-Provides:       tex(pgfcalendar.code.tex) = %{tl_version}
-Provides:       tex(pgfcalendar.sty) = %{tl_version}
-Provides:       tex(pgfcalendar.tex) = %{tl_version}
-Provides:       tex(pgfcomp-version-0-65.sty) = %{tl_version}
-Provides:       tex(pgfcomp-version-1-18.sty) = %{tl_version}
-Provides:       tex(pgfcore.code.tex) = %{tl_version}
-Provides:       tex(pgfcore.sty) = %{tl_version}
-Provides:       tex(pgfcore.tex) = %{tl_version}
-Provides:       tex(pgfcorearrows.code.tex) = %{tl_version}
-Provides:       tex(pgfcoreexternal.code.tex) = %{tl_version}
-Provides:       tex(pgfcoregraphicstate.code.tex) = %{tl_version}
-Provides:       tex(pgfcoreimage.code.tex) = %{tl_version}
-Provides:       tex(pgfcorelayers.code.tex) = %{tl_version}
-Provides:       tex(pgfcoreobjects.code.tex) = %{tl_version}
-Provides:       tex(pgfcorepathconstruct.code.tex) = %{tl_version}
-Provides:       tex(pgfcorepathprocessing.code.tex) = %{tl_version}
-Provides:       tex(pgfcorepathusage.code.tex) = %{tl_version}
-Provides:       tex(pgfcorepatterns.code.tex) = %{tl_version}
-Provides:       tex(pgfcorepoints.code.tex) = %{tl_version}
-Provides:       tex(pgfcorequick.code.tex) = %{tl_version}
-Provides:       tex(pgfcorerdf.code.tex) = %{tl_version}
-Provides:       tex(pgfcorescopes.code.tex) = %{tl_version}
-Provides:       tex(pgfcoreshade.code.tex) = %{tl_version}
-Provides:       tex(pgfcoretransformations.code.tex) = %{tl_version}
-Provides:       tex(pgfcoretransparency.code.tex) = %{tl_version}
-Provides:       tex(pgfexternal.tex) = %{tl_version}
-Provides:       tex(pgfexternalwithdepth.tex) = %{tl_version}
-Provides:       tex(pgffor.code.tex) = %{tl_version}
-Provides:       tex(pgffor.sty) = %{tl_version}
-Provides:       tex(pgffor.tex) = %{tl_version}
-Provides:       tex(pgfheaps.sty) = %{tl_version}
-Provides:       tex(pgfint.code.tex) = %{tl_version}
-Provides:       tex(pgfkeys.code.tex) = %{tl_version}
-Provides:       tex(pgfkeys.sty) = %{tl_version}
-Provides:       tex(pgfkeys.tex) = %{tl_version}
-Provides:       tex(pgfkeyslibraryfiltered.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryarrows.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryarrows.meta.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryarrows.spaced.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryarrows.sty) = %{tl_version}
-Provides:       tex(pgflibraryautomata.sty) = %{tl_version}
-Provides:       tex(pgflibrarycurvilinear.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydatavisualization.barcharts.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydatavisualization.formats.functions.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydatavisualization.polar.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.footprints.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.fractals.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.markings.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.pathmorphing.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.pathreplacing.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.shapes.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarydecorations.text.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryfadings.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryfixedpointarithmetic.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryfpu.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.circular.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.examples.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.force.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.layered.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarygraphdrawing.trees.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryintersections.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarylindenmayersystems.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryluamath.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypatterns.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypatterns.meta.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryplothandlers.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryplothandlers.sty) = %{tl_version}
-Provides:       tex(pgflibraryplotmarks.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryplotmarks.sty) = %{tl_version}
-Provides:       tex(pgflibraryprofiler.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshadings.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.arrows.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.callouts.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.gates.ee.IEC.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.gates.ee.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.gates.logic.IEC.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.gates.logic.US.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.gates.logic.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.geometric.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.misc.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.multipart.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryshapes.sty) = %{tl_version}
-Provides:       tex(pgflibraryshapes.symbols.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarysnakes.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarysnakes.sty) = %{tl_version}
-Provides:       tex(pgflibrarysvg.path.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarytikzbackgrounds.sty) = %{tl_version}
-Provides:       tex(pgflibrarytikztrees.sty) = %{tl_version}
-Provides:       tex(pgflibrarytimelines.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual-en-macros.tex) = %{tl_version}
-Provides:       tex(pgfmanual.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual.pdflinks.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual.prettyprinter.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual.sty) = %{tl_version}
-Provides:       tex(pgfmath.code.tex) = %{tl_version}
-Provides:       tex(pgfmath.sty) = %{tl_version}
-Provides:       tex(pgfmath.tex) = %{tl_version}
-Provides:       tex(pgfmathcalc.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfloat.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.base.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.basic.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.comparison.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.integerarithmetics.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.misc.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.random.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.round.code.tex) = %{tl_version}
-Provides:       tex(pgfmathfunctions.trigonometric.code.tex) = %{tl_version}
-Provides:       tex(pgfmathode.code.tex) = %{tl_version}
-Provides:       tex(pgfmathparser.code.tex) = %{tl_version}
-Provides:       tex(pgfmathutil.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduleanimations.code.tex) = %{tl_version}
-Provides:       tex(pgfmodulebending.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduledatavisualization.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduledecorations.code.tex) = %{tl_version}
-Provides:       tex(pgfmodulematrix.code.tex) = %{tl_version}
-Provides:       tex(pgfmodulenonlineartransformations.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduleoo.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduleparser.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduleplot.code.tex) = %{tl_version}
-Provides:       tex(pgfmoduleshapes.code.tex) = %{tl_version}
-Provides:       tex(pgfmodulesnakes.code.tex) = %{tl_version}
-Provides:       tex(pgfmodulesorting.code.tex) = %{tl_version}
-Provides:       tex(pgfnodes.sty) = %{tl_version}
-Provides:       tex(pgfpages.sty) = %{tl_version}
-Provides:       tex(pgfparser.sty) = %{tl_version}
-Provides:       tex(pgfpict2e.sty) = %{tl_version}
-Provides:       tex(pgfrcs.code.tex) = %{tl_version}
-Provides:       tex(pgfrcs.sty) = %{tl_version}
-Provides:       tex(pgfrcs.tex) = %{tl_version}
-Provides:       tex(pgfshade.sty) = %{tl_version}
-Provides:       tex(pgfsys-common-pdf-via-dvi.def) = %{tl_version}
-Provides:       tex(pgfsys-common-pdf.def) = %{tl_version}
-Provides:       tex(pgfsys-common-postscript.def) = %{tl_version}
-Provides:       tex(pgfsys-common-svg.def) = %{tl_version}
-Provides:       tex(pgfsys-dvi.def) = %{tl_version}
-Provides:       tex(pgfsys-dvipdfm.def) = %{tl_version}
-Provides:       tex(pgfsys-dvipdfmx.def) = %{tl_version}
-Provides:       tex(pgfsys-dvips.def) = %{tl_version}
-Provides:       tex(pgfsys-dvisvgm.def) = %{tl_version}
-Provides:       tex(pgfsys-dvisvgm4ht.def) = %{tl_version}
-Provides:       tex(pgfsys-luatex.def) = %{tl_version}
-Provides:       tex(pgfsys-pdftex.def) = %{tl_version}
-Provides:       tex(pgfsys-tex4ht.def) = %{tl_version}
-Provides:       tex(pgfsys-textures.def) = %{tl_version}
-Provides:       tex(pgfsys-vtex.def) = %{tl_version}
-Provides:       tex(pgfsys-xetex.def) = %{tl_version}
-Provides:       tex(pgfsys.code.tex) = %{tl_version}
-Provides:       tex(pgfsys.sty) = %{tl_version}
-Provides:       tex(pgfsys.tex) = %{tl_version}
-Provides:       tex(pgfsysanimations.code.tex) = %{tl_version}
-Provides:       tex(pgfsysprotocol.code.tex) = %{tl_version}
-Provides:       tex(pgfsyssoftpath.code.tex) = %{tl_version}
-Provides:       tex(pgfutil-common-lists.tex) = %{tl_version}
-Provides:       tex(pgfutil-common.tex) = %{tl_version}
-Provides:       tex(pgfutil-context.def) = %{tl_version}
-Provides:       tex(pgfutil-latex.def) = %{tl_version}
-Provides:       tex(pgfutil-plain.def) = %{tl_version}
-Provides:       tex(t-pgf.tex) = %{tl_version}
-Provides:       tex(t-pgfbim.tex) = %{tl_version}
-Provides:       tex(t-pgfbla.tex) = %{tl_version}
-Provides:       tex(t-pgfbma.tex) = %{tl_version}
-Provides:       tex(t-pgfbpl.tex) = %{tl_version}
-Provides:       tex(t-pgfbpt.tex) = %{tl_version}
-Provides:       tex(t-pgfbsh.tex) = %{tl_version}
-Provides:       tex(t-pgfbsn.tex) = %{tl_version}
-Provides:       tex(t-pgfcal.tex) = %{tl_version}
-Provides:       tex(t-pgfcor.tex) = %{tl_version}
-Provides:       tex(t-pgffor.tex) = %{tl_version}
-Provides:       tex(t-pgfkey.tex) = %{tl_version}
-Provides:       tex(t-pgfmat.tex) = %{tl_version}
-Provides:       tex(t-pgfmod.tex) = %{tl_version}
-Provides:       tex(t-pgfrcs.tex) = %{tl_version}
-Provides:       tex(t-pgfsys.tex) = %{tl_version}
-Provides:       tex(t-tikz.tex) = %{tl_version}
-Provides:       tex(tikz.code.tex) = %{tl_version}
-Provides:       tex(tikz.sty) = %{tl_version}
-Provides:       tex(tikz.tex) = %{tl_version}
-Provides:       tex(tikzexternal.sty) = %{tl_version}
-Provides:       tex(tikzexternalshared.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrary3d.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryangles.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryanimations.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryarrows.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryautomata.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarybabel.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarybackgrounds.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarybending.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycalc.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycalendar.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarychains.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.ee.IEC.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.ee.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.logic.CDH.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.logic.IEC.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.logic.US.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycircuits.logic.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.3d.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.barcharts.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.formats.functions.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.polar.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydatavisualization.sparklines.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.footprints.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.fractals.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.markings.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.pathmorphing.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.pathreplacing.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.shapes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.text.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryer.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryexternal.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfadings.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfit.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfixedpointarithmetic.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfolding.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfpu.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarygraphdrawing.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarygraphdrawing.evolving.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarygraphs.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarygraphs.standard.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryintersections.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarylindenmayersystems.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarymath.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarymatrix.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarymindmap.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypatterns.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypatterns.meta.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryperspective.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypetri.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryplothandlers.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryplotmarks.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypositioning.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryquotes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryrdf.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryscopes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshadings.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshadows.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.arrows.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.callouts.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.gates.logic.IEC.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.gates.logic.US.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.geometric.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.misc.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.multipart.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryshapes.symbols.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarysnakes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryspy.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarysvg.path.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarythrough.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytopaths.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrees.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryturtle.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryviews.code.tex) = %{tl_version}
-Provides:       tex(xxcolor.sty) = %{tl_version}
 
 %description -n texlive-pgf
 PGF is a macro package for creating graphics. It is platform- and
@@ -3171,7 +2841,8 @@ Version:        svn54512
 License:        LPPL-1.3c AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibraryshadows.blur.code.tex) = %{tl_version}
+Provides:       texlive-pgf-blur-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-blur-doc <= 11:%{version}
 
 %description -n texlive-pgf-blur
 The package adds blurred/faded/fuzzy shadows to PGF/TikZ pictures. It is
@@ -3184,7 +2855,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pgf-interference.sty) = %{tl_version}
 
 %description -n texlive-pgf-interference
 This LaTeX package makes it possible to simulate interference patterns
@@ -3203,21 +2873,6 @@ Requires:       tex(lmodern.sty)
 Requires:       tex(silence.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(zhnumber.sty)
-Provides:       tex(pgf-PeriodicTable.sty) = %{tl_version}
-Provides:       tex(pgfPT.backcolors.keys.tex) = %{tl_version}
-Provides:       tex(pgfPT.buildcell.tex) = %{tl_version}
-Provides:       tex(pgfPT.coordinates.tex) = %{tl_version}
-Provides:       tex(pgfPT.data.tex) = %{tl_version}
-Provides:       tex(pgfPT.drawing.keys.tex) = %{tl_version}
-Provides:       tex(pgfPT.formatNumbers.tex) = %{tl_version}
-Provides:       tex(pgfPT.input.library.tex) = %{tl_version}
-Provides:       tex(pgfPT.labels.tex) = %{tl_version}
-Provides:       tex(pgfPT.lang.nl.tex) = %{tl_version}
-Provides:       tex(pgfPT.lang.undefined.tex) = %{tl_version}
-Provides:       tex(pgfPT.lang.zh.tex) = %{tl_version}
-Provides:       tex(pgfPT.library.colorschemes.tex) = %{tl_version}
-Provides:       tex(pgfPT.names.tex) = %{tl_version}
-Provides:       tex(pgfPT.process.language.tex) = %{tl_version}
 
 %description -n texlive-pgf-periodictable
 The purpose of this package is to provide the Periodic Table of Elements in a
@@ -3238,8 +2893,6 @@ Requires:       texlive-carlisle
 Requires:       texlive-latex
 Requires:       texlive-pgf
 Requires:       tex(tikz.sty)
-Provides:       tex(pgf-pie.sty) = %{tl_version}
-Provides:       tex(tikzlibrarypie.code.tex) = %{tl_version}
 
 %description -n texlive-pgf-pie
 The package provides the means to draw pie (and variant) charts, using
@@ -3251,10 +2904,11 @@ Version:        svn32269
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgf-soroban-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-soroban-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgf-soroban.sty) = %{tl_version}
 
 %description -n texlive-pgf-soroban
 The package makes it possible to create pictures of the soroban (Japanese
@@ -3266,15 +2920,9 @@ Version:        svn75535
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgf-spectra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-spectra-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(pgf-spectra.data.LSE.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.data.NIST.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.input.library.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.library.data.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.library.pgfplots.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.library.rainbow.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.library.tempercolor.tex) = %{tl_version}
-Provides:       tex(pgf-spectra.sty) = %{tl_version}
 
 %description -n texlive-pgf-spectra
 The purpose of this package is to draw the spectrum of elements in a simple
@@ -3295,11 +2943,11 @@ Version:        svn63386
 License:        GPL-2.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgf-umlcd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-umlcd-doc <= 11:%{version}
 Requires:       texlive-latex
 Requires:       texlive-pgf
 Requires:       tex(tikz.sty)
-Provides:       tex(pgf-umlcd.sty) = %{tl_version}
-Provides:       tex(tikzlibraryumlcd.code.tex) = %{tl_version}
 
 %description -n texlive-pgf-umlcd
 Some LaTeX macros for UML Class Diagrams.
@@ -3310,11 +2958,12 @@ Version:        svn55342
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgf-umlsd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgf-umlsd-doc <= 11:%{version}
 Requires:       texlive-latex
 Requires:       texlive-pgf
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgf-umlsd.sty) = %{tl_version}
 
 %description -n texlive-pgf-umlsd
 LaTeX macros to draw UML diagrams using pgf
@@ -3325,10 +2974,11 @@ Version:        svn71565
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfgantt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfgantt-doc <= 11:%{version}
 Requires:       texlive-pgf
 Requires:       tex(pgfcalendar.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgfgantt.sty) = %{tl_version}
 
 %description -n texlive-pgfgantt
 The package provides an environment for drawing Gantt charts that contain
@@ -3338,10 +2988,9 @@ customize the appearance of the chart elements.
 %package -n texlive-pgfkeysearch
 Summary:        Find keys in a given path 'recursively'
 Version:        svn77050
-License:        LPPL-1.3c AND GPL-2.0-or-later
+License:        LPPL-1.3c OR AGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pgfkeysearch.sty) = %{tl_version}
 
 %description -n texlive-pgfkeysearch
 The command \pgfkeysvalueof, unlike \pgfkeys, does not use the .unknown
@@ -3356,8 +3005,9 @@ Version:        svn26093
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfkeyx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfkeyx-doc <= 11:%{version}
 Requires:       tex(pdftexcmds.sty)
-Provides:       tex(pgfkeyx.sty) = %{tl_version}
 
 %description -n texlive-pgfkeyx
 The package extends and improves the robustness of the pgfkeys package. In
@@ -3372,14 +3022,12 @@ Version:        svn71551
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfmolbio-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfmolbio-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase-modutils.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(pgfmolbio.chromatogram.tex) = %{tl_version}
-Provides:       tex(pgfmolbio.convert.tex) = %{tl_version}
-Provides:       tex(pgfmolbio.domains.tex) = %{tl_version}
-Provides:       tex(pgfmolbio.sty) = %{tl_version}
 
 %description -n texlive-pgfmolbio
 The package draws graphs typically found in molecular biology texts. Currently,
@@ -3394,8 +3042,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(pgfcore.sty)
-Provides:       tex(pgfmorepages.sty) = %{tl_version}
-Provides:       tex(pgfmorepageslayouts.code.tex) = %{tl_version}
 
 %description -n texlive-pgfmorepages
 This package replaces and extends the pgfpages sub-package of the PGF system.
@@ -3404,13 +3050,14 @@ It provides the capability to arrange multiple "logical" pages on multiple
 
 %package -n texlive-pgfopts
 Summary:        LaTeX package options with pgfkeys
-Version:        svn56615
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfopts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfopts-doc <= 11:%{version}
 Requires:       texlive-pgf
 Requires:       tex(pgfkeys.sty)
-Provides:       tex(pgfopts.sty) = %{tl_version}
 
 %description -n texlive-pgfopts
 The pgfkeys package (part of the pgf distribution) is a well-designed way of
@@ -3425,14 +3072,11 @@ Version:        svn72029
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfornament-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfornament-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgflibraryam.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypgfhan.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryvectorian.code.tex) = %{tl_version}
-Provides:       tex(pgfornament.sty) = %{tl_version}
-Provides:       tex(tikzrput.sty) = %{tl_version}
 
 %description -n texlive-pgfornament
 This package allows the drawing of Vectorian ornaments (196) with PGF/TikZ. The
@@ -3440,10 +3084,12 @@ documentation presents the syntax and parameters of the macro "pgfornament".
 
 %package -n texlive-pgfplots
 Summary:        Create normal/logarithmic plots in two and three dimensions
-Version:        svn76111
+Version:        svn77682
 License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pgfplots-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pgfplots-doc <= 11:%{version}
 Requires:       texlive-pgf
 Requires:       tex(array.sty)
 Requires:       tex(graphicx.sty)
@@ -3451,98 +3097,6 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(listings.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(bugtracker.sty) = %{tl_version}
-Provides:       tex(pgflibraryfillbetween.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.colorbrewer.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.colortol.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-dvipdfmx.def) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-dvips.def) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-luatex.def) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-luatexpatch.def) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-pdftex.def) = %{tl_version}
-Provides:       tex(pgflibrarypgfplots.surfshading.pgfsys-xetex.def) = %{tl_version}
-Provides:       tex(pgfplots.assert.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.assert.sty) = %{tl_version}
-Provides:       tex(pgfplots.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.errorbars.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.markers.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.paths.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.revision.tex) = %{tl_version}
-Provides:       tex(pgfplots.scaling.code.tex) = %{tl_version}
-Provides:       tex(pgfplots.sty) = %{tl_version}
-Provides:       tex(pgfplots.tex) = %{tl_version}
-Provides:       tex(pgfplotsarray.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsbinary.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsbinary.data.code.tex) = %{tl_version}
-Provides:       tex(pgfplotscolor.code.tex) = %{tl_version}
-Provides:       tex(pgfplotscolormap.code.tex) = %{tl_version}
-Provides:       tex(pgfplotscoordprocessing.code.tex) = %{tl_version}
-Provides:       tex(pgfplotscore.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsdeque.code.tex) = %{tl_version}
-Provides:       tex(pgfplotslibrary.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsliststructure.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsliststructureext.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsmatrix.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsmeshplothandler.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsmeshplotimage.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_leq.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_loader.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_misc.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfcoreexternal.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfcoreimage.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfcorelayers.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfcorescopes.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfkeys.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfkeysfiltered.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgflibraryfpu.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgflibraryintersections.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgflibraryluamath.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgflibraryplothandlers.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfmanual.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfmanual.pdflinks.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfmanual.prettyprinter.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfmathfloat.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_pgfutil-common-lists.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_tikzexternal.sty) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_tikzexternalshared.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_tikzlibraryexternal.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsoldpgfsupp_trig_format.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsplothandlers.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsstackedplots.code.tex) = %{tl_version}
-Provides:       tex(pgfplotssysgeneric.code.tex) = %{tl_version}
-Provides:       tex(pgfplotstable.code.tex) = %{tl_version}
-Provides:       tex(pgfplotstable.coltype.code.tex) = %{tl_version}
-Provides:       tex(pgfplotstable.sty) = %{tl_version}
-Provides:       tex(pgfplotstable.tex) = %{tl_version}
-Provides:       tex(pgfplotstableshared.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsticks.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsutil.code.tex) = %{tl_version}
-Provides:       tex(pgfplotsutil.verb.code.tex) = %{tl_version}
-Provides:       tex(pgfregressiontest.sty) = %{tl_version}
-Provides:       tex(pgfsys-luatexpatch.def) = %{tl_version}
-Provides:       tex(t-pgfplots.tex) = %{tl_version}
-Provides:       tex(t-pgfplotstable.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycolorbrewer.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarycolortol.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydateplot.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarydecorations.softclip.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfillbetween.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.clickable.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.colormaps.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.contourlua.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.dateplot.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.decorations.softclip.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.external.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.fillbetween.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.groupplots.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.patchplots.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.polar.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.smithchart.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.statistics.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.ternary.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplots.units.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarypgfplotsclickable.code.tex) = %{tl_version}
 
 %description -n texlive-pgfplots
 PGFPlots draws high-quality function plots in normal or logarithmic scaling
@@ -3564,7 +3118,6 @@ Requires:       texlive-pgfopts
 Requires:       texlive-pgfplots
 Requires:       texlive-tools
 Requires:       tex(pgfplots.sty)
-Provides:       tex(pgfplotsthemebeamer.sty) = %{tl_version}
 
 %description -n texlive-pgfplotsthemebeamer
 A LaTeX package for using colours from the current beamer theme in pgfplots
@@ -3572,11 +3125,12 @@ diagrams.
 
 %package -n texlive-picinpar
 Summary:        Insert pictures into paragraphs
-Version:        svn76726
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(picinpar.sty) = %{tl_version}
+Provides:       texlive-picinpar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-picinpar-doc <= 11:%{version}
 
 %description -n texlive-picinpar
 A legacy package for creating 'windows' in paragraphs, for inserting graphics,
@@ -3586,22 +3140,13 @@ package; Picins is recommended instead.
 
 %package -n texlive-pict2e
 Summary:        New implementation of picture commands
-Version:        svn56504
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pict2e-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pict2e-doc <= 11:%{version}
 Requires:       tex(trig.sty)
-Provides:       tex(p2e-dvipdfm.def) = %{tl_version}
-Provides:       tex(p2e-dvipdfmx.def) = %{tl_version}
-Provides:       tex(p2e-dvips.def) = %{tl_version}
-Provides:       tex(p2e-luatex.def) = %{tl_version}
-Provides:       tex(p2e-pctex32.def) = %{tl_version}
-Provides:       tex(p2e-pctexps.def) = %{tl_version}
-Provides:       tex(p2e-pdftex.def) = %{tl_version}
-Provides:       tex(p2e-textures.def) = %{tl_version}
-Provides:       tex(p2e-vtex.def) = %{tl_version}
-Provides:       tex(p2e-xetex.def) = %{tl_version}
-Provides:       tex(pict2e.sty) = %{tl_version}
 
 %description -n texlive-pict2e
 This package was described in the 2nd edition of 'LaTeX: A Document Preparation
@@ -3620,19 +3165,8 @@ Version:        svn59551
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(errorbars.tex) = %{tl_version}
-Provides:       tex(latexpicobjs.tex) = %{tl_version}
-Provides:       tex(piccorr.sty) = %{tl_version}
-Provides:       tex(picmore.tex) = %{tl_version}
-Provides:       tex(pictex.sty) = %{tl_version}
-Provides:       tex(pictex.tex) = %{tl_version}
-Provides:       tex(pictexwd.sty) = %{tl_version}
-Provides:       tex(pictexwd.tex) = %{tl_version}
-Provides:       tex(pointers.tex) = %{tl_version}
-Provides:       tex(postpictex.tex) = %{tl_version}
-Provides:       tex(prepictex.tex) = %{tl_version}
-Provides:       tex(texpictex.tex) = %{tl_version}
-Provides:       tex(tree.sty) = %{tl_version}
+Provides:       texlive-pictex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pictex-doc <= 11:%{version}
 
 %description -n texlive-pictex
 PicTeX is an early and very comprehensive drawing package that mostly draws by
@@ -3647,7 +3181,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pictex.sty)
-Provides:       tex(pictex2.sty) = %{tl_version}
 
 %description -n texlive-pictex2
 Adds two user commands to standard PiCTeX. One command uses relative
@@ -3666,7 +3199,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(pictochrono.sty) = %{tl_version}
 
 %description -n texlive-pictochrono
 Small package to insert, inline with automatic height and vertical offset,
@@ -3678,8 +3210,9 @@ Version:        svn24769
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pinlabel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pinlabel-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
-Provides:       tex(pinlabel.sty) = %{tl_version}
 
 %description -n texlive-pinlabel
 Pinlabel is a labelling package for attaching perfectly formatted TeX labels to
@@ -3701,8 +3234,6 @@ Requires:       tex(pgf.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pixelart.sty) = %{tl_version}
-Provides:       tex(pixelart0.sty) = %{tl_version}
 
 %description -n texlive-pixelart
 A LuaLaTeX package to draw pixel-art pictures using TikZ.
@@ -3724,8 +3255,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xinttools.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(PixelArtTikz.sty) = %{tl_version}
-Provides:       tex(pixelarttikz-l3.sty) = %{tl_version}
 
 %description -n texlive-pixelarttikz
 The package defines commands and an environment for displaying pixel arts.
@@ -3736,7 +3265,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pmgraph.sty) = %{tl_version}
+Provides:       texlive-pmgraph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pmgraph-doc <= 11:%{version}
 
 %description -n texlive-pmgraph
 A set of extensions to LaTeX picture environment, including a wider range of
@@ -3754,7 +3284,6 @@ Requires:       tex(xcolor-solarized.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(polyhedra.sty) = %{tl_version}
 
 %description -n texlive-polyhedra
 This package provides macros for creating polyhedral objects in 2D and 3D. It
@@ -3768,7 +3297,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(polyomino.sty) = %{tl_version}
 
 %description -n texlive-polyomino
 This package is based on the package TikZ and can be used to draw polyominoes.
@@ -3784,7 +3312,6 @@ Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(postage.sty) = %{tl_version}
 
 %description -n texlive-postage
 The postage package is used for franking letters with >>Deutsche Post<<'s
@@ -3803,7 +3330,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(varwidth.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(postit.sty) = %{tl_version}
 
 %description -n texlive-postit
 This package provides some commands and options for creating Post-it-like boxes
@@ -3816,6 +3342,8 @@ Version:        svn54512
 License:        GPL-2.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-prerex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-prerex-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(pgf.sty)
@@ -3823,7 +3351,6 @@ Requires:       tex(relsize.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(prerex.sty) = %{tl_version}
 
 %description -n texlive-prerex
 This package consists of prerex.sty, a LaTeX package for producing charts of
@@ -3843,7 +3370,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(float.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(prisma-flow-diagram.sty) = %{tl_version}
 
 %description -n texlive-prisma-flow-diagram
 This package provides an abstraction for creating PRISMA 2009 flow diagrams in
@@ -3856,9 +3382,10 @@ Version:        svn20886
 License:        LicenseRef-Fedora-UltraPermissive
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-productbox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-productbox-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(productbox.sty) = %{tl_version}
 
 %description -n texlive-productbox
 The package enables typesetting of a three-dimensional product box. This
@@ -3874,7 +3401,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(ptolemaicastronomy.sty) = %{tl_version}
 
 %description -n texlive-ptolemaicastronomy
 David K. Lewis (Counterfactuals, Blackwell 1973) introduced a sphere semantics
@@ -3892,7 +3418,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
 Requires:       tex(pythontex.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(puyotikz.sty) = %{tl_version}
 
 %description -n texlive-puyotikz
 This LaTeX package permits to quickly typeset board states of Puyo Puyo games.
@@ -3902,11 +3427,12 @@ in support of scripts driven by PythonTeX.
 
 %package -n texlive-pxpgfmark
 Summary:        E-pTeX driver for PGF inter-picture connections
-Version:        svn30212
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pxpgfmark.sty) = %{tl_version}
+Provides:       texlive-pxpgfmark-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pxpgfmark-doc <= 11:%{version}
 
 %description -n texlive-pxpgfmark
 The distributed drivers do not support the PGF feature of "inter-picture
@@ -3915,13 +3441,12 @@ dvipdfmx to fix this problem
 
 %package -n texlive-pxpic
 Summary:        Draw pixel pictures
-Version:        svn67955
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(expkv.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(pxpic.sty) = %{tl_version}
 
 %description -n texlive-pxpic
 With pxpic you draw pictures pixel by pixel. It was inspired by a lovely post
@@ -3934,9 +3459,10 @@ Version:        svn48400
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-qcircuit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-qcircuit-doc <= 11:%{version}
 Requires:       tex(ifpdf.sty)
 Requires:       tex(xy.sty)
-Provides:       tex(qcircuit.sty) = %{tl_version}
 
 %description -n texlive-qcircuit
 The package supports those within the quantum information community who typeset
@@ -3945,13 +3471,14 @@ generate circuits.
 
 %package -n texlive-qrcode
 Summary:        Generate QR codes in LaTeX
-Version:        svn36065
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-qrcode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-qrcode-doc <= 11:%{version}
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(qrcode.sty) = %{tl_version}
 
 %description -n texlive-qrcode
 The package generates QR (Quick Response) codes in LaTeX, without the need for
@@ -3965,7 +3492,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(qrcode.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(qrcodetikz.sty) = %{tl_version}
 
 %description -n texlive-qrcodetikz
 This package improves the display of QR codes provided by qrcode. The Quick
@@ -3983,8 +3509,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-randbild-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-randbild-doc <= 11:%{version}
 Requires:       tex(pst-plot.sty)
-Provides:       tex(randbild.sty) = %{tl_version}
 
 %description -n texlive-randbild
 Provides environments randbild to draw small marginal plots (using the packages
@@ -3997,9 +3524,10 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-randomwalk-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-randomwalk-doc <= 11:%{version}
 Requires:       tex(pgfcore.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(randomwalk.sty) = %{tl_version}
 
 %description -n texlive-randomwalk
 The randomwalk package provides a user command, \RandomWalk, to draw random
@@ -4019,7 +3547,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(lcg.sty)
 Requires:       tex(stackengine.sty)
-Provides:       tex(realhats.sty) = %{tl_version}
 
 %description -n texlive-realhats
 This LaTeX package makes \hat put real hats on symbols. The package depends on
@@ -4031,10 +3558,11 @@ Version:        svn34924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-reotex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-reotex-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(reotex.sty) = %{tl_version}
 
 %description -n texlive-reotex
 The package defines macros and other utilities to design Reo Circuits. The
@@ -4047,7 +3575,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(robotarm.sty) = %{tl_version}
 
 %description -n texlive-robotarm
 This LaTeX package uses TikZ to draw parameterized 2D robot arms, for example
@@ -4059,8 +3586,9 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-rviewport-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rviewport-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
-Provides:       tex(rviewport.sty) = %{tl_version}
 
 %description -n texlive-rviewport
 Package graphicx provides a useful keyword viewport which allows to show just a
@@ -4080,9 +3608,9 @@ Version:        svn32815
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sa-tikz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sa-tikz-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(sa-tikz.sty) = %{tl_version}
-Provides:       tex(tikzlibraryswitching-architectures.code.tex) = %{tl_version}
 
 %description -n texlive-sa-tikz
 The package provides a library that offers an easy way to draw switching
@@ -4095,7 +3623,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(sacsymb.sty) = %{tl_version}
 
 %description -n texlive-sacsymb
 The author tells us: This is "a package with symbols prepared with TikZ. These
@@ -4110,9 +3637,10 @@ Version:        svn68445
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-schemabloc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-schemabloc-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(schemabloc.sty) = %{tl_version}
 
 %description -n texlive-schemabloc
 The package provides a set of macros for constructing block diagrams, using
@@ -4126,7 +3654,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(scratch.sty) = %{tl_version}
 
 %description -n texlive-scratch
 This package is now obsolete. From now on, scratch at scratch.mit.edu is now
@@ -4143,7 +3670,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(scratch3.sty) = %{tl_version}
 
 %description -n texlive-scratch3
 This package permits to draw program charts in the style of the scatch project
@@ -4158,9 +3684,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
 Requires:       tex(pxeveryshi.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(scsnowman-normal.def) = %{tl_version}
-Provides:       tex(scsnowman.sty) = %{tl_version}
-Provides:       tex(sctkzsym-base.sty) = %{tl_version}
 
 %description -n texlive-scsnowman
 This LaTeX package provides a command \scsnowman which can display many
@@ -4173,9 +3696,10 @@ Version:        svn40613
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-setdeck-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-setdeck-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(setdeck.sty) = %{tl_version}
 
 %description -n texlive-setdeck
 The package will typeset cards for use in a game of Set.
@@ -4186,11 +3710,12 @@ Version:        svn39707
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-signchart-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-signchart-doc <= 11:%{version}
 Requires:       tex(pgfplots.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(signchart.sty) = %{tl_version}
 
 %description -n texlive-signchart
 The package allows users to easily typeset beautiful looking sign charts
@@ -4205,7 +3730,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(color.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(simplenodes.sty) = %{tl_version}
 
 %description -n texlive-simplenodes
 This is a LaTeX macro package for generating simple node-based flow graphs or
@@ -4223,7 +3747,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(simpleoptics.sty) = %{tl_version}
 
 %description -n texlive-simpleoptics
 This package provides some of macros for drawing simple lenses and mirrors for
@@ -4235,19 +3758,32 @@ Version:        svn42781
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-smartdiagram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-smartdiagram-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(smartdiagram.sty) = %{tl_version}
-Provides:       tex(smartdiagramlibraryadditions.code.tex) = %{tl_version}
-Provides:       tex(smartdiagramlibrarycore.commands.code.tex) = %{tl_version}
-Provides:       tex(smartdiagramlibrarycore.definitions.code.tex) = %{tl_version}
-Provides:       tex(smartdiagramlibrarycore.styles.code.tex) = %{tl_version}
 
 %description -n texlive-smartdiagram
 The package will create 'smart' diagrams from lists of items, for simple
 documents and for presentations.
+
+%package -n texlive-sneaker
+Summary:        Configurable Sneakers with TikZ
+Version:        svn78609
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(tikz.sty)
+
+%description -n texlive-sneaker
+The sneaker package provides a TikZ pic for drawing stylized sneakers in an
+isometric-like perspective. The illustration is highly configurable via a
+simple key-value interface, allowing users to customize colors, shoelaces,
+velcro straps, decorative patterns (like bolts or stars), stitching details,
+and even inline-skate wheels. It is ideal for presentations, feature model
+illustrations, or as a visual gimmick in LaTeX documents.
 
 %package -n texlive-spath3
 Summary:        Manipulate "soft paths" in PGF
@@ -4255,12 +3791,10 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-spath3-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-spath3-doc <= 11:%{version}
 Requires:       tex(pgf.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(spath3.sty) = %{tl_version}
-Provides:       tex(tikzlibrarycalligraphy.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryknots.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryspath3.code.tex) = %{tl_version}
 
 %description -n texlive-spath3
 The spath3 library provides methods for manipulating the "soft paths" of
@@ -4279,16 +3813,6 @@ Requires:       tex(pdfcomment.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(spectralsequences.sty) = %{tl_version}
-Provides:       tex(sseqcheckdefinitions.code.tex) = %{tl_version}
-Provides:       tex(sseqdrawing.code.tex) = %{tl_version}
-Provides:       tex(sseqforeach.code.tex) = %{tl_version}
-Provides:       tex(sseqkeys.code.tex) = %{tl_version}
-Provides:       tex(sseqloadstore.code.tex) = %{tl_version}
-Provides:       tex(sseqmacromakers.code.tex) = %{tl_version}
-Provides:       tex(sseqmain.code.tex) = %{tl_version}
-Provides:       tex(sseqmessages.code.tex) = %{tl_version}
-Provides:       tex(sseqparsers.code.tex) = %{tl_version}
 
 %description -n texlive-spectralsequences
 The package is a specialized tool built on top of PGF/TikZ for drawing spectral
@@ -4315,7 +3839,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xfp.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(strands.sty) = %{tl_version}
 
 %description -n texlive-strands
 This package permits to draw objects constructed from strands, like set
@@ -4329,10 +3852,31 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(sunpath.sty) = %{tl_version}
 
 %description -n texlive-sunpath
 This package can help to draw sun path charts using a polar coordinate system.
+
+%package -n texlive-svg-animate
+Summary:        Generate animated SVG diagrams with TikZ
+Version:        svn78632
+License:        AGPL-3.0-only
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(graphicx.sty)
+Requires:       tex(tikz.sty)
+
+%description -n texlive-svg-animate
+This package provides step-by-step animations for TikZ diagrams in SVG format.
+The resulting animations run natively in web browsers and do not require
+JavaScript or plugins. From a single source file, both an animated SVG and a
+static PDF can be generated. In the PDF output, steps may be stacked or
+collapsed into a single frame. The animation model is based on discrete steps.
+A TikZ picture is enclosed in \begin{animate}, material to be shown at a given
+step is marked with \reveal{...}, and \animstep is used to advance to the next
+step. Additional features include per-step durations, visibility over multiple
+steps or step ranges, blinking elements, one-shot or looping playback, and a
+\noanimate fallback for PDF output. In SVG output, visibility changes are
+implemented by means of SMIL animations with instantaneous opacity transitions.
 
 %package -n texlive-swimgraf
 Summary:        Graphical/textual representations of swimming performances
@@ -4340,12 +3884,13 @@ Version:        svn25446
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-swimgraf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-swimgraf-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 Requires:       tex(mathpazo.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pstcol.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(swimgraf.sty) = %{tl_version}
 
 %description -n texlive-swimgraf
 The package provides two macros that produce representations of a swimmer's
@@ -4366,7 +3911,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(syntaxdi.sty) = %{tl_version}
 
 %description -n texlive-syntaxdi
 This package provides TikZ styles for creating special syntax diagrams known as
@@ -4387,7 +3931,6 @@ Requires:       tex(xargs.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(table-fct.sty) = %{tl_version}
 
 %description -n texlive-table-fct
 Draw a variations table of functions and a convexity table of its graph This
@@ -4400,12 +3943,9 @@ Version:        svn64477
 License:        CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-texdraw-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-texdraw-doc <= 11:%{version}
 Requires:       tex(graphics.sty)
-Provides:       tex(blockdiagram.tex) = %{tl_version}
-Provides:       tex(texdraw.sty) = %{tl_version}
-Provides:       tex(texdraw.tex) = %{tl_version}
-Provides:       tex(txdps.tex) = %{tl_version}
-Provides:       tex(txdtools.tex) = %{tl_version}
 
 %description -n texlive-texdraw
 TeXdraw is a set of macro definitions for TeX, which allow the user to produce
@@ -4422,6 +3962,8 @@ Version:        svn36306
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ticollege-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ticollege-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(mathtools.sty)
@@ -4431,7 +3973,6 @@ Requires:       tex(newtxtt.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ticollege.sty) = %{tl_version}
 
 %description -n texlive-ticollege
 This package provides commands to draw scientific calculator keys with the help
@@ -4444,9 +3985,10 @@ Version:        svn25087
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-3dplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-3dplot-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(pgf.sty)
-Provides:       tex(tikz-3dplot.sty) = %{tl_version}
 
 %description -n texlive-tikz-3dplot
 The package provides straightforward ways to define three-dimensional
@@ -4469,9 +4011,6 @@ Requires:       tex(fancyhdr.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
-Provides:       tex(tikz-among-us-fancyhdr.sty) = %{tl_version}
-Provides:       tex(tikz-among-us-watermark-eso-pic.sty) = %{tl_version}
-Provides:       tex(tikz-among-us.sty) = %{tl_version}
 
 %description -n texlive-tikz-among-us
 This package recreates some AmongUs characters in TikZ environments. Some
@@ -4488,7 +4027,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikz-bagua.sty) = %{tl_version}
 
 %description -n texlive-tikz-bagua
 This package provides commands for drawing symbols in Yijing (I Ching) or
@@ -4501,7 +4039,8 @@ Version:        svn38295
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarybayesnet.code.tex) = %{tl_version}
+Provides:       texlive-tikz-bayesnet-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-bayesnet-doc <= 11:%{version}
 
 %description -n texlive-tikz-bayesnet
 The package provides a library supporting the display of Bayesian networks,
@@ -4513,7 +4052,6 @@ Version:        svn57444
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pgflibrarybbox.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-bbox
 The built-in determination of the bounding box in TikZ is not entirely
@@ -4528,7 +4066,6 @@ Version:        svn73368
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarybpmn.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-bpmn
 This package provides primitives for drawing Business Process Modelling and
@@ -4538,13 +4075,13 @@ possible. Please refer to the documentation for further information.
 
 %package -n texlive-tikz-cd
 Summary:        Create commutative diagrams with TikZ
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-cd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-cd-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-cd.sty) = %{tl_version}
-Provides:       tex(tikzlibrarycd.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-cd
 The general-purpose drawing package TikZ can be used to typeset commutative
@@ -4562,7 +4099,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-cookingsymbols.sty) = %{tl_version}
 
 %description -n texlive-tikz-cookingsymbols
 The package uses TikZ for drawing cooking symbols like top heat, airfryer and
@@ -4584,7 +4120,6 @@ Requires:       tex(tikz-3dplot.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikz-decofonts.sty) = %{tl_version}
 
 %description -n texlive-tikz-decofonts
 Some simple "decoration" fonts made with TikZ, for short texts: paint brush;
@@ -4597,12 +4132,10 @@ Version:        svn54512
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-dependency-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-dependency-doc <= 11:%{version}
 Requires:       tex(environ.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgfmanual.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual.pdflinks.code.tex) = %{tl_version}
-Provides:       tex(pgfmanual.prettyprinter.code.tex) = %{tl_version}
-Provides:       tex(tikz-dependency.sty) = %{tl_version}
 
 %description -n texlive-tikz-dependency
 The package provides a library that draws together existing TikZ facilities to
@@ -4616,10 +4149,11 @@ Version:        svn35805
 License:        WTFPL
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-dimline-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-dimline-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(pgfplots.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-dimline.sty) = %{tl_version}
 
 %description -n texlive-tikz-dimline
 tikz-dimline helps drawing technical dimension lines in TikZ picture
@@ -4634,40 +4168,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgfcalendar.sty)
 Requires:       tex(pgffor.sty)
-Provides:       tex(pgfcalendar-ext.code.tex) = %{tl_version}
-Provides:       tex(pgfcalendar-ext.sty) = %{tl_version}
-Provides:       tex(pgfcalendar-ext.tex) = %{tl_version}
-Provides:       tex(pgffor-ext.code.tex) = %{tl_version}
-Provides:       tex(pgffor-ext.sty) = %{tl_version}
-Provides:       tex(pgffor-ext.tex) = %{tl_version}
-Provides:       tex(pgfkeyslibraryext.pgfkeys-plus.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.arrows.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.circlearrow.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.circlecrosssplit.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.heatmark.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.rectangleroundedcorners.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.superellipse.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.shapes.uncenteredrectangle.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryext.transformations.mirror.code.tex) = %{tl_version}
-Provides:       tex(tikzext-util.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.arrows-plus.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.beamer.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.calendar-plus.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.layers.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.misc.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.node-families.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.node-families.shapes.geometric.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.nodes.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.paths.arcto.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.paths.ortho.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.paths.timer.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.patterns.images.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.positioning-plus.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.scalepicture.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.shapes.uncenteredrectangle.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.topaths.arcthrough.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.topaths.autobend.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryext.transformations.mirror.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-ext
 This is a collection of PGF and TikZ libraries which were developed in response
@@ -4682,9 +4182,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-feynhand.sty) = %{tl_version}
-Provides:       tex(tikzfeynhand.keys.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfeynhand.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-feynhand
 This package lets you draw Feynman diagrams using TikZ. It is a low-end
@@ -4704,14 +4201,13 @@ Version:        svn56615
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-feynman-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-feynman-doc <= 11:%{version}
 Requires:       texlive-iftex
 Requires:       texlive-pgfopts
 Requires:       tex(ifluatex.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-feynman.sty) = %{tl_version}
-Provides:       tex(tikzfeynman.keys.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfeynman.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-feynman
 This is a LaTeX package allowing Feynman diagrams to be easily generated within
@@ -4729,7 +4225,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
-Provides:       tex(tikz-imagelabels.sty) = %{tl_version}
 
 %description -n texlive-tikz-imagelabels
 This package allows to add label texts to an existing image with the aid of
@@ -4741,26 +4236,27 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-inet-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-inet-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-inet.sty) = %{tl_version}
 
 %description -n texlive-tikz-inet
 The package extends TikZ with macros to draw interaction nets.
 
 %package -n texlive-tikz-kalender
 Summary:        A LaTeX based calendar using TikZ
-Version:        svn77508
+Version:        svn77915
 License:        LicenseRef-Unknown
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 
 %description -n texlive-tikz-kalender
 For usage see the example files tikz-kalender-example1.tex,
-tikz-kalender-example2.tex, and *.events. The Code is inspired by this document
-and is subject to the >>Creative Commons attribution license (CC-BY-SA)<<. The
-class tikz-kalender requires the package TikZ and the TikZ libraries calc and
-calendar.
+tikz-kalender-example2.tex, tikz-kalender-example3.tex, and *.events. The Code
+is inspired by this document and is subject to the >>Creative Commons
+attribution license (CC-BY-SA)<<. The class tikz-kalender requires the package
+TikZ and the TikZ libraries calc and calendar.
 
 %package -n texlive-tikz-karnaugh
 Summary:        Typeset Karnaugh maps using TikZ
@@ -4768,7 +4264,6 @@ Version:        svn62040
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarykarnaugh.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-karnaugh
 The tikz-karnaugh package is a LaTeX package used to draw Karnaugh maps. It
@@ -4795,7 +4290,6 @@ Version:        svn62992
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarycircuits.plc.ladder.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-ladder
 The tikz-ladder package contains a collection of symbols for typesetting ladder
@@ -4819,7 +4313,6 @@ Requires:       tex(relsize.sty)
 Requires:       tex(subfiles.sty)
 Requires:       tex(tabularx.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-lake-fig.sty) = %{tl_version}
 
 %description -n texlive-tikz-lake-fig
 This package contains a collection of schematic diagrams of lakes for use in
@@ -4833,7 +4326,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-layers.sty) = %{tl_version}
 
 %description -n texlive-tikz-layers
 TikZ-layers is a tiny package that provides, along side "background", typical
@@ -4849,7 +4341,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-mirror-lens.sty) = %{tl_version}
 
 %description -n texlive-tikz-mirror-lens
 This package allows the automatic drawing of the image of objects in spherical
@@ -4863,7 +4354,6 @@ Version:        svn55920
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarynef.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-nef
 The nef TikZ library provides predefined styles and shapes to create diagrams
@@ -4886,7 +4376,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(trimspaces.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tikz-network.sty) = %{tl_version}
 
 %description -n texlive-tikz-network
 This package allows the creation of images of complex networks that are
@@ -4899,10 +4388,6 @@ Version:        svn67718
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pgflibrarybezieroffset.code.tex) = %{tl_version}
-Provides:       tex(pgflibrarynfold.code.tex) = %{tl_version}
-Provides:       tex(pgflibraryoffsetpath.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarynfold.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-nfold
 This library adds higher-order paths to TikZ and also fixes some graphical
@@ -4916,10 +4401,11 @@ Version:        svn32769
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-opm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-opm-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(makeshape.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-opm.sty) = %{tl_version}
 
 %description -n texlive-tikz-opm
 Typeset OPM (Object-Process Methodology) diagrams using LaTeX and PGF/TikZ.
@@ -4930,7 +4416,6 @@ Version:        svn62977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibraryoptics.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-optics
 This package provides a new TikZ library designed to easily draw optical setups
@@ -4947,7 +4432,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfplots.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(tikz-osci.sty) = %{tl_version}
 
 %description -n texlive-tikz-osci
 This package enables you to produce oscilloscope "screen shots".
@@ -4963,7 +4447,6 @@ Requires:       tex(fancyhdr.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(textpos.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-page.sty) = %{tl_version}
 
 %description -n texlive-tikz-page
 The package provides a small macro to help building nice and complex layout
@@ -4975,13 +4458,14 @@ Version:        svn43442
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-palattice-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-palattice-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(iflang.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(siunitx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xargs.sty)
-Provides:       tex(tikz-palattice.sty) = %{tl_version}
 
 %description -n texlive-tikz-palattice
 This package allows for drawing a map of a particle accelerator just by giving
@@ -5003,7 +4487,6 @@ Requires:       tex(pgfkeys.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(planets.sty) = %{tl_version}
 
 %description -n texlive-tikz-planets
 This TikZ-package makes it easy to illustrate celestial mechanics and the solar
@@ -5017,16 +4500,11 @@ Version:        svn26108
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-qtree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-qtree-doc <= 11:%{version}
 Requires:       tex(pgf.sty)
 Requires:       tex(pgffor.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(pgfsubpic.sty) = %{tl_version}
-Provides:       tex(pgfsubpic.tex) = %{tl_version}
-Provides:       tex(pgftree.sty) = %{tl_version}
-Provides:       tex(pgftree.tex) = %{tl_version}
-Provides:       tex(tikz-qtree-compat.sty) = %{tl_version}
-Provides:       tex(tikz-qtree.sty) = %{tl_version}
-Provides:       tex(tikz-qtree.tex) = %{tl_version}
 
 %description -n texlive-tikz-qtree
 The package provides a macro for drawing trees with TikZ using the easy syntax
@@ -5041,7 +4519,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarycircuits.ee.IEC.relay.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-relay
 This package contains a collection of symbols for typesetting electrical wiring
@@ -5057,7 +4534,6 @@ Version:        svn49424
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarycircuits.plc.sfc.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-sfc
 This package contains a collection of symbols for typesetting Sequential
@@ -5079,7 +4555,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tikz-shields.sty) = %{tl_version}
 
 %description -n texlive-tikz-shields
 A small package that allows to include in a LaTeX document shields badges, as
@@ -5092,7 +4567,6 @@ Version:        svn59889
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibraryswigs.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-swigs
 This package provides horizontally and vertically split elliptical (pairs of)
@@ -5106,6 +4580,8 @@ Version:        svn64967
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikz-timing-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikz-timing-doc <= 11:%{version}
 Requires:       texlive-svn-prov
 Requires:       tex(amsmath.sty)
 Requires:       tex(array.sty)
@@ -5113,18 +4589,6 @@ Requires:       tex(booktabs.sty)
 Requires:       tex(environ.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-timing-advnodes.sty) = %{tl_version}
-Provides:       tex(tikz-timing-arrows.sty) = %{tl_version}
-Provides:       tex(tikz-timing-beamer.sty) = %{tl_version}
-Provides:       tex(tikz-timing-clockarrows.sty) = %{tl_version}
-Provides:       tex(tikz-timing-columntype.sty) = %{tl_version}
-Provides:       tex(tikz-timing-counters.sty) = %{tl_version}
-Provides:       tex(tikz-timing-either.sty) = %{tl_version}
-Provides:       tex(tikz-timing-ifsym.sty) = %{tl_version}
-Provides:       tex(tikz-timing-interval.sty) = %{tl_version}
-Provides:       tex(tikz-timing-nicetabs.sty) = %{tl_version}
-Provides:       tex(tikz-timing-overlays.sty) = %{tl_version}
-Provides:       tex(tikz-timing.sty) = %{tl_version}
 
 %description -n texlive-tikz-timing
 This package provides macros and an environment to generate timing diagrams
@@ -5142,15 +4606,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tikz-trackschematic.sty) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.constructions.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.electrics.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.measures.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.symbology.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.topology.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.trafficcontrol.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytrackschematic.vehicles.code.tex) = %{tl_version}
 
 %description -n texlive-tikz-trackschematic
 This TikZ library is a toolbox of symbols geared primarily towards creating
@@ -5168,7 +4623,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikz-truchet.sty) = %{tl_version}
 
 %description -n texlive-tikz-truchet
 This is a package for LaTeX that draws Truchet tiles, as used in Colin
@@ -5186,7 +4640,6 @@ Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikz2d-fr.sty) = %{tl_version}
 
 %description -n texlive-tikz2d-fr
 This is a small package to work with some (French) 2D commands for TikZ:
@@ -5207,7 +4660,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xinttools.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikz3d-fr.sty) = %{tl_version}
 
 %description -n texlive-tikz3d-fr
 This is a package for working with some 3D figures.
@@ -5226,7 +4678,6 @@ Requires:       tex(listofitems.sty)
 Requires:       tex(simplekv.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikzbrickfigurines.sty) = %{tl_version}
 
 %description -n texlive-tikzbrickfigurines
 A small LaTeX package to draw (2D) brick-figurines with TikZ. The user can
@@ -5245,7 +4696,6 @@ Requires:       texlive-tikz-3dplot
 Requires:       tex(tikz-3dplot.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tikzbricks.sty) = %{tl_version}
 
 %description -n texlive-tikzbricks
 A small LaTeX package to draw bricks with TikZ. The user can modify color,
@@ -5254,10 +4704,9 @@ shape, and viewpoint.
 %package -n texlive-tikzcalendarnotes
 Summary:        Highlighting, marking and annotating dates in a TikZ calendar
 Version:        svn77050
-License:        LPPL-1.3c AND GPL-3.0-or-later
+License:        LPPL-1.3c OR AGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzcalendarnotes.sty) = %{tl_version}
 
 %description -n texlive-tikzcalendarnotes
 This package offers a "calendar arrangement" (atop of the TikZ calendar
@@ -5279,7 +4728,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(translations.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(tikzcodeblocks.sty) = %{tl_version}
 
 %description -n texlive-tikzcodeblocks
 tikzcodeblocks is a LaTeX package for typesetting blockwise graphic programming
@@ -5288,11 +4736,10 @@ languages like scratch, nepo or pxt.
 %package -n texlive-tikzdotncross
 Summary:        Marking coordinates and crossing paths
 Version:        svn77050
-License:        LPPL-1.3c AND GPL-3.0-or-later
+License:        LPPL-1.3c OR AGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
-Provides:       tex(tikzdotncross.sty) = %{tl_version}
 
 %description -n texlive-tikzdotncross
 This package offers a few alternative ways for declaring and marking
@@ -5302,7 +4749,7 @@ which is quite a common issue when drawing, for instance, electronic circuits
 
 %package -n texlive-tikzducks
 Summary:        A little fun package for using rubber ducks in TikZ
-Version:        svn77080
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5310,8 +4757,6 @@ Requires:       texlive-epstopdf-pkg
 Requires:       texlive-iftex
 Requires:       texlive-pgf
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzducks.sty) = %{tl_version}
-Provides:       tex(tikzlibraryducks.code.tex) = %{tl_version}
 
 %description -n texlive-tikzducks
 The package is a LaTeX package for ducks to be used in TikZ pictures. This
@@ -5319,19 +4764,11 @@ project is a continuation of an answer at StackExchange How we can draw a duck?
 
 %package -n texlive-tikzfill
 Summary:        TikZ libraries for filling with images and patterns
-Version:        svn76924
+Version:        svn78793
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzfill-common.sty) = %{tl_version}
-Provides:       tex(tikzfill.hexagon.sty) = %{tl_version}
-Provides:       tex(tikzfill.image.sty) = %{tl_version}
-Provides:       tex(tikzfill.rhombus.sty) = %{tl_version}
-Provides:       tex(tikzfill.sty) = %{tl_version}
-Provides:       tex(tikzlibraryfill.hexagon.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfill.image.code.tex) = %{tl_version}
-Provides:       tex(tikzlibraryfill.rhombus.code.tex) = %{tl_version}
 
 %description -n texlive-tikzfill
 This is a collection of TikZ libraries which add further options to fill TikZ
@@ -5342,10 +4779,9 @@ provided.
 %package -n texlive-tikzfxgraph
 Summary:        Plotting functions in a simplified way
 Version:        svn77050
-License:        LPPL-1.3c AND GPL-3.0-or-later
+License:        LPPL-1.3c OR AGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzfxgraph.sty) = %{tl_version}
 
 %description -n texlive-tikzfxgraph
 This package is mostly a wrap around pgfplots and Gnuplot, hiding most of their
@@ -5357,10 +4793,11 @@ Version:        svn28715
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzinclude-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzinclude-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzinclude.sty) = %{tl_version}
 
 %description -n texlive-tikzinclude
 The package addresses the problem of importing only one TikZ-image from a file
@@ -5368,7 +4805,7 @@ holding multiple images.
 
 %package -n texlive-tikzlings
 Summary:        A collection of cute little animals and similar creatures
-Version:        svn77079
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5377,38 +4814,6 @@ Requires:       texlive-iftex
 Requires:       texlive-pgf
 Requires:       texlive-pgf-blur
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzlibrarytikzlings.code.tex) = %{tl_version}
-Provides:       tex(tikzlings-addons.sty) = %{tl_version}
-Provides:       tex(tikzlings-anteaters.sty) = %{tl_version}
-Provides:       tex(tikzlings-apes.sty) = %{tl_version}
-Provides:       tex(tikzlings-bats.sty) = %{tl_version}
-Provides:       tex(tikzlings-bears.sty) = %{tl_version}
-Provides:       tex(tikzlings-bees.sty) = %{tl_version}
-Provides:       tex(tikzlings-bugs.sty) = %{tl_version}
-Provides:       tex(tikzlings-cats.sty) = %{tl_version}
-Provides:       tex(tikzlings-chickens.sty) = %{tl_version}
-Provides:       tex(tikzlings-coatis.sty) = %{tl_version}
-Provides:       tex(tikzlings-dogs.sty) = %{tl_version}
-Provides:       tex(tikzlings-elephants.sty) = %{tl_version}
-Provides:       tex(tikzlings-hippos.sty) = %{tl_version}
-Provides:       tex(tikzlings-koalas.sty) = %{tl_version}
-Provides:       tex(tikzlings-list.sty) = %{tl_version}
-Provides:       tex(tikzlings-marmots.sty) = %{tl_version}
-Provides:       tex(tikzlings-meerkats.sty) = %{tl_version}
-Provides:       tex(tikzlings-mice.sty) = %{tl_version}
-Provides:       tex(tikzlings-moles.sty) = %{tl_version}
-Provides:       tex(tikzlings-owls.sty) = %{tl_version}
-Provides:       tex(tikzlings-pandas.sty) = %{tl_version}
-Provides:       tex(tikzlings-penguins.sty) = %{tl_version}
-Provides:       tex(tikzlings-pigs.sty) = %{tl_version}
-Provides:       tex(tikzlings-rhinos.sty) = %{tl_version}
-Provides:       tex(tikzlings-sheep.sty) = %{tl_version}
-Provides:       tex(tikzlings-sloths.sty) = %{tl_version}
-Provides:       tex(tikzlings-snowmen.sty) = %{tl_version}
-Provides:       tex(tikzlings-squirrels.sty) = %{tl_version}
-Provides:       tex(tikzlings-turkeys.sty) = %{tl_version}
-Provides:       tex(tikzlings-wolves.sty) = %{tl_version}
-Provides:       tex(tikzlings.sty) = %{tl_version}
 
 %description -n texlive-tikzlings
 A collection of LaTeX packages for drawing cute little animals and similar
@@ -5423,10 +4828,8 @@ Version:        svn64819
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarytikzmark.code.tex) = %{tl_version}
-Provides:       tex(tikzmarklibraryams.code.tex) = %{tl_version}
-Provides:       tex(tikzmarklibraryhighlighting.code.tex) = %{tl_version}
-Provides:       tex(tikzmarklibrarylistings.code.tex) = %{tl_version}
+Provides:       texlive-tikzmark-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzmark-doc <= 11:%{version}
 
 %description -n texlive-tikzmark
 The tikzmark package defines a command to "remember" a position on a page for
@@ -5443,9 +4846,6 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(tikzlings-marmots.sty)
-Provides:       tex(tikzlibrarymarmots.code.tex) = %{tl_version}
-Provides:       tex(tikzmarmots-v1.sty) = %{tl_version}
-Provides:       tex(tikzmarmots.sty) = %{tl_version}
 
 %description -n texlive-tikzmarmots
 This is a LaTeX package for marmots to be used in TikZ pictures. These little
@@ -5458,9 +4858,10 @@ Version:        svn36439
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzorbital-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzorbital-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzorbital.sty) = %{tl_version}
 
 %description -n texlive-tikzorbital
 Atomic s, p and d orbitals may be drawn, as well as molecular orbital diagrams.
@@ -5475,7 +4876,6 @@ Requires:       tex(pbox.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(tikzPackets.sty) = %{tl_version}
 
 %description -n texlive-tikzpackets
 This package allows you to easily display network packets graphically.
@@ -5486,9 +4886,10 @@ Version:        svn64967
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzpagenodes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzpagenodes-doc <= 11:%{version}
 Requires:       tex(ifoddpage.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzpagenodes.sty) = %{tl_version}
 
 %description -n texlive-tikzpagenodes
 The package provides special PGF/TikZ nodes for the text, marginpar, footer and
@@ -5507,36 +4908,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(tikzpeople.shape.alice.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.bob.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.bride.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.builder.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.businessman.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.charlie.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.chef.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.conductor.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.cowboy.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.criminal.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.dave.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.devil.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.duck.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.graduate.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.groom.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.guard.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.jester.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.judge.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.maninblack.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.mexican.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.nun.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.nurse.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.physician.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.pilot.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.police.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.priest.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.sailor.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.santa.sty) = %{tl_version}
-Provides:       tex(tikzpeople.shape.surgeon.sty) = %{tl_version}
-Provides:       tex(tikzpeople.sty) = %{tl_version}
 
 %description -n texlive-tikzpeople
 This package provides people-shaped nodes in the style of Microsoft Visio clip
@@ -5552,9 +4923,10 @@ Version:        svn25777
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzpfeile-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzpfeile-doc <= 11:%{version}
 Requires:       tex(kvoptions.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzpfeile.sty) = %{tl_version}
 
 %description -n texlive-tikzpfeile
 In a document with a lot of diagrams created with PGF/TikZ, there is a
@@ -5564,13 +4936,12 @@ macros to create all arrows using PGF/TikZ, so as to avoid the problem.
 
 %package -n texlive-tikzpingus
 Summary:        Penguins with TikZ
-Version:        svn75543
-License:        GPL-3.0-only
+Version:        svn78219
+License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(tikzpingus.sty) = %{tl_version}
 
 %description -n texlive-tikzpingus
 tikzpingus is a package similar to TikZducks but with penguins and a vast set
@@ -5583,14 +4954,8 @@ Version:        svn32732
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzposterBackgroundstyles.tex) = %{tl_version}
-Provides:       tex(tikzposterBlockstyles.tex) = %{tl_version}
-Provides:       tex(tikzposterColorpalettes.tex) = %{tl_version}
-Provides:       tex(tikzposterColorstyles.tex) = %{tl_version}
-Provides:       tex(tikzposterInnerblockstyles.tex) = %{tl_version}
-Provides:       tex(tikzposterLayoutthemes.tex) = %{tl_version}
-Provides:       tex(tikzposterNotestyles.tex) = %{tl_version}
-Provides:       tex(tikzposterTitlestyles.tex) = %{tl_version}
+Provides:       texlive-tikzposter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzposter-doc <= 11:%{version}
 
 %description -n texlive-tikzposter
 A document class provides a simple way of using TikZ for generating posters.
@@ -5605,7 +4970,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgfkeysearch.sty)
 Requires:       tex(tikzdotncross.sty)
-Provides:       tex(tikzquads.sty) = %{tl_version}
 
 %description -n texlive-tikzquads
 This package defines a few extra shapes, Quadripoles and single port, which can
@@ -5614,10 +4978,9 @@ be used 'standalone', but are mainly meant to be used with CircuiTikZ.
 %package -n texlive-tikzquests
 Summary:        A parametric questions' repositories framework
 Version:        svn77050
-License:        LPPL-1.3c AND GPL-3.0-or-later
+License:        LPPL-1.3c OR AGPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzquests.sty) = %{tl_version}
 
 %description -n texlive-tikzquests
 This is a framework for building parametric questions' repositories, which can
@@ -5627,17 +4990,19 @@ format, focusing only on how to set a repository of questions and use them.
 
 %package -n texlive-tikzscale
 Summary:        Resize pictures while respecting text size
-Version:        svn30637
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzscale-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzscale-doc <= 11:%{version}
+Requires:       texlive-xstring
 Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(letltxmacro.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tikzscale.sty) = %{tl_version}
 
 %description -n texlive-tikzscale
 The package extends the \includegraphics command to support tikzpictures. It
@@ -5650,24 +5015,22 @@ Version:        svn61300
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tikzsymbols-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tikzsymbols-doc <= 11:%{version}
 Requires:       tex(xparse.sty)
-Provides:       tex(tikzsymbols.sty) = %{tl_version}
 
 %description -n texlive-tikzsymbols
 The package provides various emoticons, cooking symbols and trees.
 
 %package -n texlive-tikzviolinplots
 Summary:        Draws violin plots from data
-Version:        svn76451
+Version:        svn78566
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(ifthen.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(pgfplots.sty)
 Requires:       tex(pgfplotstable.sty)
-Requires:       tex(stringstrings.sty)
-Provides:       tex(tikzviolinplots.sty) = %{tl_version}
 
 %description -n texlive-tikzviolinplots
 This package enables the user to draw violin plots, calculating the kernel
@@ -5686,7 +5049,6 @@ Requires:       tex(multido.sty)
 Requires:       tex(shellesc.sty)
 Requires:       tex(web.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tile-graphic.sty) = %{tl_version}
 
 %description -n texlive-tile-graphic
 This package breaks a given graphical file into n rows and m columns of
@@ -5699,10 +5061,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tikzlibrarypenrose.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytilings.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytilings.penrose.code.tex) = %{tl_version}
-Provides:       tex(tikzlibrarytilings.polykite.code.tex) = %{tl_version}
 
 %description -n texlive-tilings
 This package provides a TikZ library for working with tiles, tilings, and
@@ -5719,7 +5077,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(timechart.sty) = %{tl_version}
 
 %description -n texlive-timechart
 This package provides for the easy creation of chronological charts which show
@@ -5735,9 +5092,10 @@ Version:        svn31491
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-timing-diagrams-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-timing-diagrams-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(timing-diagrams.sty) = %{tl_version}
 
 %description -n texlive-timing-diagrams
 The package provides commands to draw and annotate various kinds of timing
@@ -5750,6 +5108,8 @@ Version:        svn38646
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tipfr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tipfr-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(mathtools.sty)
@@ -5758,7 +5118,6 @@ Requires:       tex(newtxtt.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tipfr.sty) = %{tl_version}
 
 %description -n texlive-tipfr
 The package provides commands to draw calculator keys with the help of TikZ. It
@@ -5770,27 +5129,12 @@ Version:        svn69460
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tkz-base-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tkz-base-doc <= 11:%{version}
 Requires:       tex(fp.sty)
 Requires:       tex(numprint.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xfp.sty)
-Provides:       tex(tkz-base.sty) = %{tl_version}
-Provides:       tex(tkz-lib-marks.tex) = %{tl_version}
-Provides:       tex(tkz-lib-shape.tex) = %{tl_version}
-Provides:       tex(tkz-obj-axes.tex) = %{tl_version}
-Provides:       tex(tkz-obj-grids.tex) = %{tl_version}
-Provides:       tex(tkz-obj-marks.tex) = %{tl_version}
-Provides:       tex(tkz-obj-points.tex) = %{tl_version}
-Provides:       tex(tkz-obj-rep.tex) = %{tl_version}
-Provides:       tex(tkz-tools-BB.tex) = %{tl_version}
-Provides:       tex(tkz-tools-arith.tex) = %{tl_version}
-Provides:       tex(tkz-tools-base.tex) = %{tl_version}
-Provides:       tex(tkz-tools-colors.tex) = %{tl_version}
-Provides:       tex(tkz-tools-misc.tex) = %{tl_version}
-Provides:       tex(tkz-tools-modules.tex) = %{tl_version}
-Provides:       tex(tkz-tools-print.tex) = %{tl_version}
-Provides:       tex(tkz-tools-text.tex) = %{tl_version}
-Provides:       tex(tkz-tools-utilities.tex) = %{tl_version}
 
 %description -n texlive-tkz-base
 The bundle is a set of packages, designed to give mathematics teachers (and
@@ -5803,7 +5147,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tkz-graph.sty)
-Provides:       tex(tkz-berge.sty) = %{tl_version}
 
 %description -n texlive-tkz-berge
 The package provides a collection of useful macros for drawing classic graphs
@@ -5823,7 +5166,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xintbinhex.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tkz-bernoulli.sty) = %{tl_version}
 
 %description -n texlive-tkz-bernoulli
 This is a package for representing Bernoulli trees with PGF/TikZ.
@@ -5842,12 +5184,11 @@ tkz-euclide, tkz-fct, tkz-linknodes, and tkz-tab.
 
 %package -n texlive-tkz-elements
 Summary:        A Lua library for drawing Euclidean geometry with TikZ or tkz-euclide
-Version:        svn77479
+Version:        svn78679
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Provides:       tex(tkz-elements.sty) = %{tl_version}
 
 %description -n texlive-tkz-elements
 This package provides a library written in Lua, allowing to make all the
@@ -5864,55 +5205,12 @@ Version:        svn77515
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tkz-euclide-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tkz-euclide-doc <= 11:%{version}
 Requires:       tex(luacode.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xfp.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(tkz-draw-eu-angles.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-arcs.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-circles.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-compass.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-ellipses.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-lines.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-points.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-polygons.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-protractor.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-sectors.tex) = %{tl_version}
-Provides:       tex(tkz-draw-eu-show.tex) = %{tl_version}
-Provides:       tex(tkz-euclide.sty) = %{tl_version}
-Provides:       tex(tkz-lib-eu-marks.tex) = %{tl_version}
-Provides:       tex(tkz-lib-eu-shape.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-axesmin.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-circles-by.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-circles.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-grids.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lines.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-circles-by.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-circles.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-points-by.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-points-spc.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-points-with.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-lua-points.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-points-by.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-points-rnd.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-points-spc.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-points-with.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-points.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-polygons.tex) = %{tl_version}
-Provides:       tex(tkz-obj-eu-triangles.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-BB.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-angles.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-base.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-colors.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-intersections.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-lua-angles.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-lua-base.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-lua-intersections.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-lua-math.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-math.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-modules.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-text.tex) = %{tl_version}
-Provides:       tex(tkz-tools-eu-utilities.tex) = %{tl_version}
 
 %description -n texlive-tkz-euclide
 The tkz-euclide package is a set of files designed to give math teachers and
@@ -5924,9 +5222,10 @@ Version:        svn61949
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tkz-fct-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tkz-fct-doc <= 11:%{version}
 Requires:       tex(fp.sty)
 Requires:       tex(tkz-base.sty)
-Provides:       tex(tkz-fct.sty) = %{tl_version}
 
 %description -n texlive-tkz-fct
 The tkz-fct package is designed to give math teachers (and students) easy
@@ -5942,7 +5241,6 @@ Requires:       tex(etex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tkz-graph.sty) = %{tl_version}
 
 %description -n texlive-tkz-graph
 The package is designed to create graph diagrams as simply as possible, using
@@ -5950,7 +5248,7 @@ TikZ.
 
 %package -n texlive-tkz-grapheur
 Summary:        A LaTeX package with tools for graph plotting (and TikZ)
-Version:        svn77346
+Version:        svn78694
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5963,7 +5261,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xint-regression.sty)
 Requires:       tex(xintexpr.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tkz-grapheur.sty) = %{tl_version}
 
 %description -n texlive-tkz-grapheur
 This package provides some commands to help French mathematics teachers for
@@ -5978,8 +5275,9 @@ Version:        svn61719
 License:        GPL-2.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tkz-orm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tkz-orm-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
-Provides:       tex(tkz-orm.sty) = %{tl_version}
 
 %description -n texlive-tkz-orm
 The package provides styles for drawing Object-Role Model (ORM) diagrams in TeX
@@ -5991,10 +5289,11 @@ Version:        svn66115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tkz-tab-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tkz-tab-doc <= 11:%{version}
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(tkz-tab.sty) = %{tl_version}
 
 %description -n texlive-tkz-tab
 The package provides comprehensive facilities for preparing lists of signs and
@@ -6011,7 +5310,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(fancyvrb.sty)
 Requires:       tex(mdframed.sty)
-Provides:       tex(tkzexample.sty) = %{tl_version}
 
 %description -n texlive-tkzexample
 This package is needed to compile the documentation of all tkz-* packages (like
@@ -6030,7 +5328,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(tonevalue.sty) = %{tl_version}
 
 %description -n texlive-tonevalue
 This package provides a TikZ-based solution to typeset visualisations of tone
@@ -6043,10 +5340,10 @@ Version:        svn71401
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tqft-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tqft-doc <= 11:%{version}
 Requires:       tex(pgf.sty)
 Requires:       tex(pgfkeys.sty)
-Provides:       tex(tikzlibrarytqft.code.tex) = %{tl_version}
-Provides:       tex(tqft.sty) = %{tl_version}
 
 %description -n texlive-tqft
 The package defines some node shapes useful for drawing TQFT diagrams with
@@ -6060,7 +5357,6 @@ Version:        svn23440
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tsemlines.sty) = %{tl_version}
 
 %description -n texlive-tsemlines
 Occasional Documents appear, that use graphics generated by texcad from the
@@ -6070,17 +5366,18 @@ using TikZ.
 
 %package -n texlive-tufte-latex
 Summary:        Document classes inspired by the work of Edward Tufte
-Version:        svn37649
+Version:        svn77682
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       texlive-xifthen
-Requires:       texlive-ifmtarg
+Provides:       texlive-tufte-latex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tufte-latex-doc <= 11:%{version}
 Requires:       texlive-changepage
+Requires:       texlive-ifmtarg
 Requires:       texlive-paralist
-Requires:       texlive-sauerj
 Requires:       texlive-placeins
-Provides:       tex(tufte-common.def) = %{tl_version}
+Requires:       texlive-sauerj
+Requires:       texlive-xifthen
 
 %description -n texlive-tufte-latex
 Provided are two classes inspired, respectively, by handouts and books created
@@ -6088,13 +5385,12 @@ by Edward Tufte.
 
 %package -n texlive-twemojis
 Summary:        Use Twitter's open source emojis through LaTeX commands
-Version:        svn62930
+Version:        svn77682
 License:        LPPL-1.3c AND CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(twemojis.sty) = %{tl_version}
 
 %description -n texlive-twemojis
 This package provides a simple wrapper which allows to use Twitter's open
@@ -6109,7 +5405,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(tzplot.sty) = %{tl_version}
 
 %description -n texlive-tzplot
 This is a LaTeX package that provides TikZ-based macros to make it easy to draw
@@ -6129,7 +5424,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(newunicodechar.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(utfsym.sty) = %{tl_version}
 
 %description -n texlive-utfsym
 This package provides various symbols from the Unicode in order to be able to
@@ -6144,7 +5438,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(vectorlogos.sty) = %{tl_version}
 
 %description -n texlive-vectorlogos
 With this package you can insert vectorial logos of some 'classic' software.
@@ -6157,10 +5450,11 @@ Version:        svn47952
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-venndiagram-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-venndiagram-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(venndiagram.sty) = %{tl_version}
 
 %description -n texlive-venndiagram
 The package assists generation of simple two- and three-set Venn diagrams for
@@ -6173,7 +5467,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(vexillology.sty) = %{tl_version}
 
 %description -n texlive-vexillology
 This package implements symbols used by vexillologists (people who study flags)
@@ -6196,12 +5489,11 @@ command or per parameter.
 
 %package -n texlive-wheelchart
 Summary:        Diagrams with circular or other shapes using TikZ and LaTeX3
-Version:        svn76924
+Version:        svn78755
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(wheelchart.sty) = %{tl_version}
 
 %description -n texlive-wheelchart
 This package is based on the package TikZ and can be used to draw various kinds
@@ -6213,12 +5505,11 @@ and the table of contents can be displayed as one of these diagrams.
 
 %package -n texlive-wordcloud
 Summary:        Drawing wordclouds with MetaPost and Lua
-Version:        svn76890
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luamplib.sty)
-Provides:       tex(wordcloud.sty) = %{tl_version}
 
 %description -n texlive-wordcloud
 This MetaPost and LuaLaTeX package allows drawing wordclouds from a list of
@@ -6238,315 +5529,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(worldflag_0.tex) = %{tl_version}
-Provides:       tex(worldflag_1.tex) = %{tl_version}
-Provides:       tex(worldflag_2.tex) = %{tl_version}
-Provides:       tex(worldflag_3.tex) = %{tl_version}
-Provides:       tex(worldflag_4.tex) = %{tl_version}
-Provides:       tex(worldflag_5.tex) = %{tl_version}
-Provides:       tex(worldflag_6.tex) = %{tl_version}
-Provides:       tex(worldflag_7.tex) = %{tl_version}
-Provides:       tex(worldflag_8.tex) = %{tl_version}
-Provides:       tex(worldflag_9.tex) = %{tl_version}
-Provides:       tex(worldflag_A.tex) = %{tl_version}
-Provides:       tex(worldflag_AD.tex) = %{tl_version}
-Provides:       tex(worldflag_AE.tex) = %{tl_version}
-Provides:       tex(worldflag_AF.tex) = %{tl_version}
-Provides:       tex(worldflag_AG.tex) = %{tl_version}
-Provides:       tex(worldflag_AL.tex) = %{tl_version}
-Provides:       tex(worldflag_AM.tex) = %{tl_version}
-Provides:       tex(worldflag_AO.tex) = %{tl_version}
-Provides:       tex(worldflag_AQ.tex) = %{tl_version}
-Provides:       tex(worldflag_AR.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-B.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-K.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-N.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-O.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-S.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-St.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-T.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-V.tex) = %{tl_version}
-Provides:       tex(worldflag_AT-W.tex) = %{tl_version}
-Provides:       tex(worldflag_AT.tex) = %{tl_version}
-Provides:       tex(worldflag_AU.tex) = %{tl_version}
-Provides:       tex(worldflag_AX.tex) = %{tl_version}
-Provides:       tex(worldflag_AZ.tex) = %{tl_version}
-Provides:       tex(worldflag_Abkhazia.tex) = %{tl_version}
-Provides:       tex(worldflag_Artsakh.tex) = %{tl_version}
-Provides:       tex(worldflag_B.tex) = %{tl_version}
-Provides:       tex(worldflag_BA.tex) = %{tl_version}
-Provides:       tex(worldflag_BB.tex) = %{tl_version}
-Provides:       tex(worldflag_BD.tex) = %{tl_version}
-Provides:       tex(worldflag_BE.tex) = %{tl_version}
-Provides:       tex(worldflag_BF.tex) = %{tl_version}
-Provides:       tex(worldflag_BG.tex) = %{tl_version}
-Provides:       tex(worldflag_BH.tex) = %{tl_version}
-Provides:       tex(worldflag_BI.tex) = %{tl_version}
-Provides:       tex(worldflag_BJ.tex) = %{tl_version}
-Provides:       tex(worldflag_BN.tex) = %{tl_version}
-Provides:       tex(worldflag_BO.tex) = %{tl_version}
-Provides:       tex(worldflag_BR.tex) = %{tl_version}
-Provides:       tex(worldflag_BS.tex) = %{tl_version}
-Provides:       tex(worldflag_BT.tex) = %{tl_version}
-Provides:       tex(worldflag_BW.tex) = %{tl_version}
-Provides:       tex(worldflag_BY.tex) = %{tl_version}
-Provides:       tex(worldflag_BZ.tex) = %{tl_version}
-Provides:       tex(worldflag_Bonaire.tex) = %{tl_version}
-Provides:       tex(worldflag_Buddhism.tex) = %{tl_version}
-Provides:       tex(worldflag_C.tex) = %{tl_version}
-Provides:       tex(worldflag_CA.tex) = %{tl_version}
-Provides:       tex(worldflag_CD.tex) = %{tl_version}
-Provides:       tex(worldflag_CF.tex) = %{tl_version}
-Provides:       tex(worldflag_CG.tex) = %{tl_version}
-Provides:       tex(worldflag_CH.tex) = %{tl_version}
-Provides:       tex(worldflag_CI.tex) = %{tl_version}
-Provides:       tex(worldflag_CK.tex) = %{tl_version}
-Provides:       tex(worldflag_CL.tex) = %{tl_version}
-Provides:       tex(worldflag_CM.tex) = %{tl_version}
-Provides:       tex(worldflag_CN.tex) = %{tl_version}
-Provides:       tex(worldflag_CO.tex) = %{tl_version}
-Provides:       tex(worldflag_CR.tex) = %{tl_version}
-Provides:       tex(worldflag_CU.tex) = %{tl_version}
-Provides:       tex(worldflag_CV.tex) = %{tl_version}
-Provides:       tex(worldflag_CY.tex) = %{tl_version}
-Provides:       tex(worldflag_CZ.tex) = %{tl_version}
-Provides:       tex(worldflag_Christian.tex) = %{tl_version}
-Provides:       tex(worldflag_D.tex) = %{tl_version}
-Provides:       tex(worldflag_DE-BY.tex) = %{tl_version}
-Provides:       tex(worldflag_DE.tex) = %{tl_version}
-Provides:       tex(worldflag_DJ.tex) = %{tl_version}
-Provides:       tex(worldflag_DK.tex) = %{tl_version}
-Provides:       tex(worldflag_DM.tex) = %{tl_version}
-Provides:       tex(worldflag_DO.tex) = %{tl_version}
-Provides:       tex(worldflag_DZ.tex) = %{tl_version}
-Provides:       tex(worldflag_E.tex) = %{tl_version}
-Provides:       tex(worldflag_EC.tex) = %{tl_version}
-Provides:       tex(worldflag_EE.tex) = %{tl_version}
-Provides:       tex(worldflag_EG.tex) = %{tl_version}
-Provides:       tex(worldflag_EH.tex) = %{tl_version}
-Provides:       tex(worldflag_ER.tex) = %{tl_version}
-Provides:       tex(worldflag_ES.tex) = %{tl_version}
-Provides:       tex(worldflag_ET.tex) = %{tl_version}
-Provides:       tex(worldflag_EU.tex) = %{tl_version}
-Provides:       tex(worldflag_Esperanto.tex) = %{tl_version}
-Provides:       tex(worldflag_F.tex) = %{tl_version}
-Provides:       tex(worldflag_FI.tex) = %{tl_version}
-Provides:       tex(worldflag_FJ.tex) = %{tl_version}
-Provides:       tex(worldflag_FM.tex) = %{tl_version}
-Provides:       tex(worldflag_FO.tex) = %{tl_version}
-Provides:       tex(worldflag_FR.tex) = %{tl_version}
-Provides:       tex(worldflag_G.tex) = %{tl_version}
-Provides:       tex(worldflag_GA.tex) = %{tl_version}
-Provides:       tex(worldflag_GB-ENG.tex) = %{tl_version}
-Provides:       tex(worldflag_GB-RAF.tex) = %{tl_version}
-Provides:       tex(worldflag_GB-RED.tex) = %{tl_version}
-Provides:       tex(worldflag_GB-RN.tex) = %{tl_version}
-Provides:       tex(worldflag_GB-SCT.tex) = %{tl_version}
-Provides:       tex(worldflag_GB.tex) = %{tl_version}
-Provides:       tex(worldflag_GD.tex) = %{tl_version}
-Provides:       tex(worldflag_GE.tex) = %{tl_version}
-Provides:       tex(worldflag_GF.tex) = %{tl_version}
-Provides:       tex(worldflag_GG.tex) = %{tl_version}
-Provides:       tex(worldflag_GH.tex) = %{tl_version}
-Provides:       tex(worldflag_GI.tex) = %{tl_version}
-Provides:       tex(worldflag_GL.tex) = %{tl_version}
-Provides:       tex(worldflag_GM.tex) = %{tl_version}
-Provides:       tex(worldflag_GN.tex) = %{tl_version}
-Provides:       tex(worldflag_GQ.tex) = %{tl_version}
-Provides:       tex(worldflag_GR.tex) = %{tl_version}
-Provides:       tex(worldflag_GT.tex) = %{tl_version}
-Provides:       tex(worldflag_GW.tex) = %{tl_version}
-Provides:       tex(worldflag_GY.tex) = %{tl_version}
-Provides:       tex(worldflag_H.tex) = %{tl_version}
-Provides:       tex(worldflag_HN.tex) = %{tl_version}
-Provides:       tex(worldflag_HR.tex) = %{tl_version}
-Provides:       tex(worldflag_HT.tex) = %{tl_version}
-Provides:       tex(worldflag_HU.tex) = %{tl_version}
-Provides:       tex(worldflag_I.tex) = %{tl_version}
-Provides:       tex(worldflag_ID.tex) = %{tl_version}
-Provides:       tex(worldflag_IE.tex) = %{tl_version}
-Provides:       tex(worldflag_IL.tex) = %{tl_version}
-Provides:       tex(worldflag_IM.tex) = %{tl_version}
-Provides:       tex(worldflag_IN.tex) = %{tl_version}
-Provides:       tex(worldflag_IQ.tex) = %{tl_version}
-Provides:       tex(worldflag_IR.tex) = %{tl_version}
-Provides:       tex(worldflag_IS.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-AA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-AB.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-AO.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-BA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-CL.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-CM.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-EM.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-FR.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-LA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-LI.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-LO.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-MA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-MO.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-PI.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-PU.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-SA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-SI.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-TA.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-TN.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-TO.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-UM.tex) = %{tl_version}
-Provides:       tex(worldflag_IT-VE.tex) = %{tl_version}
-Provides:       tex(worldflag_IT.tex) = %{tl_version}
-Provides:       tex(worldflag_J.tex) = %{tl_version}
-Provides:       tex(worldflag_JE.tex) = %{tl_version}
-Provides:       tex(worldflag_JM.tex) = %{tl_version}
-Provides:       tex(worldflag_JO.tex) = %{tl_version}
-Provides:       tex(worldflag_JP.tex) = %{tl_version}
-Provides:       tex(worldflag_JollyRoger.tex) = %{tl_version}
-Provides:       tex(worldflag_K.tex) = %{tl_version}
-Provides:       tex(worldflag_KE.tex) = %{tl_version}
-Provides:       tex(worldflag_KG.tex) = %{tl_version}
-Provides:       tex(worldflag_KH.tex) = %{tl_version}
-Provides:       tex(worldflag_KI.tex) = %{tl_version}
-Provides:       tex(worldflag_KM.tex) = %{tl_version}
-Provides:       tex(worldflag_KN.tex) = %{tl_version}
-Provides:       tex(worldflag_KO.tex) = %{tl_version}
-Provides:       tex(worldflag_KP.tex) = %{tl_version}
-Provides:       tex(worldflag_KR.tex) = %{tl_version}
-Provides:       tex(worldflag_KW.tex) = %{tl_version}
-Provides:       tex(worldflag_KZ.tex) = %{tl_version}
-Provides:       tex(worldflag_L.tex) = %{tl_version}
-Provides:       tex(worldflag_LA.tex) = %{tl_version}
-Provides:       tex(worldflag_LB.tex) = %{tl_version}
-Provides:       tex(worldflag_LC.tex) = %{tl_version}
-Provides:       tex(worldflag_LI.tex) = %{tl_version}
-Provides:       tex(worldflag_LK.tex) = %{tl_version}
-Provides:       tex(worldflag_LR.tex) = %{tl_version}
-Provides:       tex(worldflag_LS.tex) = %{tl_version}
-Provides:       tex(worldflag_LT.tex) = %{tl_version}
-Provides:       tex(worldflag_LU.tex) = %{tl_version}
-Provides:       tex(worldflag_LV.tex) = %{tl_version}
-Provides:       tex(worldflag_LY.tex) = %{tl_version}
-Provides:       tex(worldflag_M.tex) = %{tl_version}
-Provides:       tex(worldflag_MA.tex) = %{tl_version}
-Provides:       tex(worldflag_MC.tex) = %{tl_version}
-Provides:       tex(worldflag_MD.tex) = %{tl_version}
-Provides:       tex(worldflag_ME.tex) = %{tl_version}
-Provides:       tex(worldflag_MG.tex) = %{tl_version}
-Provides:       tex(worldflag_MH.tex) = %{tl_version}
-Provides:       tex(worldflag_MK.tex) = %{tl_version}
-Provides:       tex(worldflag_ML.tex) = %{tl_version}
-Provides:       tex(worldflag_MM.tex) = %{tl_version}
-Provides:       tex(worldflag_MN.tex) = %{tl_version}
-Provides:       tex(worldflag_MR.tex) = %{tl_version}
-Provides:       tex(worldflag_MT.tex) = %{tl_version}
-Provides:       tex(worldflag_MU.tex) = %{tl_version}
-Provides:       tex(worldflag_MV.tex) = %{tl_version}
-Provides:       tex(worldflag_MW.tex) = %{tl_version}
-Provides:       tex(worldflag_MX.tex) = %{tl_version}
-Provides:       tex(worldflag_MY.tex) = %{tl_version}
-Provides:       tex(worldflag_MZ.tex) = %{tl_version}
-Provides:       tex(worldflag_N.tex) = %{tl_version}
-Provides:       tex(worldflag_NA.tex) = %{tl_version}
-Provides:       tex(worldflag_NATO.tex) = %{tl_version}
-Provides:       tex(worldflag_NE.tex) = %{tl_version}
-Provides:       tex(worldflag_NG.tex) = %{tl_version}
-Provides:       tex(worldflag_NI.tex) = %{tl_version}
-Provides:       tex(worldflag_NL.tex) = %{tl_version}
-Provides:       tex(worldflag_NO.tex) = %{tl_version}
-Provides:       tex(worldflag_NP.tex) = %{tl_version}
-Provides:       tex(worldflag_NR.tex) = %{tl_version}
-Provides:       tex(worldflag_NU.tex) = %{tl_version}
-Provides:       tex(worldflag_NZ.tex) = %{tl_version}
-Provides:       tex(worldflag_O.tex) = %{tl_version}
-Provides:       tex(worldflag_OM.tex) = %{tl_version}
-Provides:       tex(worldflag_Olympics.tex) = %{tl_version}
-Provides:       tex(worldflag_P.tex) = %{tl_version}
-Provides:       tex(worldflag_PA.tex) = %{tl_version}
-Provides:       tex(worldflag_PE.tex) = %{tl_version}
-Provides:       tex(worldflag_PG.tex) = %{tl_version}
-Provides:       tex(worldflag_PH.tex) = %{tl_version}
-Provides:       tex(worldflag_PK.tex) = %{tl_version}
-Provides:       tex(worldflag_PL.tex) = %{tl_version}
-Provides:       tex(worldflag_PR.tex) = %{tl_version}
-Provides:       tex(worldflag_PS.tex) = %{tl_version}
-Provides:       tex(worldflag_PT.tex) = %{tl_version}
-Provides:       tex(worldflag_PW.tex) = %{tl_version}
-Provides:       tex(worldflag_PY.tex) = %{tl_version}
-Provides:       tex(worldflag_Q.tex) = %{tl_version}
-Provides:       tex(worldflag_QA.tex) = %{tl_version}
-Provides:       tex(worldflag_R.tex) = %{tl_version}
-Provides:       tex(worldflag_RE.tex) = %{tl_version}
-Provides:       tex(worldflag_RO.tex) = %{tl_version}
-Provides:       tex(worldflag_RS.tex) = %{tl_version}
-Provides:       tex(worldflag_RU.tex) = %{tl_version}
-Provides:       tex(worldflag_RW.tex) = %{tl_version}
-Provides:       tex(worldflag_Rainbow.tex) = %{tl_version}
-Provides:       tex(worldflag_RedCrescent.tex) = %{tl_version}
-Provides:       tex(worldflag_RedCross.tex) = %{tl_version}
-Provides:       tex(worldflag_RedCrystal.tex) = %{tl_version}
-Provides:       tex(worldflag_S.tex) = %{tl_version}
-Provides:       tex(worldflag_SA.tex) = %{tl_version}
-Provides:       tex(worldflag_SB.tex) = %{tl_version}
-Provides:       tex(worldflag_SC.tex) = %{tl_version}
-Provides:       tex(worldflag_SD.tex) = %{tl_version}
-Provides:       tex(worldflag_SE.tex) = %{tl_version}
-Provides:       tex(worldflag_SG.tex) = %{tl_version}
-Provides:       tex(worldflag_SI.tex) = %{tl_version}
-Provides:       tex(worldflag_SK.tex) = %{tl_version}
-Provides:       tex(worldflag_SL.tex) = %{tl_version}
-Provides:       tex(worldflag_SM.tex) = %{tl_version}
-Provides:       tex(worldflag_SN.tex) = %{tl_version}
-Provides:       tex(worldflag_SO.tex) = %{tl_version}
-Provides:       tex(worldflag_SR.tex) = %{tl_version}
-Provides:       tex(worldflag_SS.tex) = %{tl_version}
-Provides:       tex(worldflag_ST.tex) = %{tl_version}
-Provides:       tex(worldflag_SU.tex) = %{tl_version}
-Provides:       tex(worldflag_SV.tex) = %{tl_version}
-Provides:       tex(worldflag_SY.tex) = %{tl_version}
-Provides:       tex(worldflag_SZ.tex) = %{tl_version}
-Provides:       tex(worldflag_Saba.tex) = %{tl_version}
-Provides:       tex(worldflag_Somaliland.tex) = %{tl_version}
-Provides:       tex(worldflag_StEustasius.tex) = %{tl_version}
-Provides:       tex(worldflag_T.tex) = %{tl_version}
-Provides:       tex(worldflag_TD.tex) = %{tl_version}
-Provides:       tex(worldflag_TG.tex) = %{tl_version}
-Provides:       tex(worldflag_TH.tex) = %{tl_version}
-Provides:       tex(worldflag_TJ.tex) = %{tl_version}
-Provides:       tex(worldflag_TL.tex) = %{tl_version}
-Provides:       tex(worldflag_TM.tex) = %{tl_version}
-Provides:       tex(worldflag_TN.tex) = %{tl_version}
-Provides:       tex(worldflag_TO.tex) = %{tl_version}
-Provides:       tex(worldflag_TR.tex) = %{tl_version}
-Provides:       tex(worldflag_TT.tex) = %{tl_version}
-Provides:       tex(worldflag_TV.tex) = %{tl_version}
-Provides:       tex(worldflag_TW.tex) = %{tl_version}
-Provides:       tex(worldflag_TZ.tex) = %{tl_version}
-Provides:       tex(worldflag_Tibet.tex) = %{tl_version}
-Provides:       tex(worldflag_Transnistria.tex) = %{tl_version}
-Provides:       tex(worldflag_U.tex) = %{tl_version}
-Provides:       tex(worldflag_UA.tex) = %{tl_version}
-Provides:       tex(worldflag_UG.tex) = %{tl_version}
-Provides:       tex(worldflag_UNESCO.tex) = %{tl_version}
-Provides:       tex(worldflag_UNO.tex) = %{tl_version}
-Provides:       tex(worldflag_US.tex) = %{tl_version}
-Provides:       tex(worldflag_UY.tex) = %{tl_version}
-Provides:       tex(worldflag_UZ.tex) = %{tl_version}
-Provides:       tex(worldflag_V.tex) = %{tl_version}
-Provides:       tex(worldflag_VA.tex) = %{tl_version}
-Provides:       tex(worldflag_VC.tex) = %{tl_version}
-Provides:       tex(worldflag_VE.tex) = %{tl_version}
-Provides:       tex(worldflag_VN.tex) = %{tl_version}
-Provides:       tex(worldflag_VU.tex) = %{tl_version}
-Provides:       tex(worldflag_W.tex) = %{tl_version}
-Provides:       tex(worldflag_WB.tex) = %{tl_version}
-Provides:       tex(worldflag_WHO.tex) = %{tl_version}
-Provides:       tex(worldflag_WS.tex) = %{tl_version}
-Provides:       tex(worldflag_X.tex) = %{tl_version}
-Provides:       tex(worldflag_Y.tex) = %{tl_version}
-Provides:       tex(worldflag_YE.tex) = %{tl_version}
-Provides:       tex(worldflag_Z.tex) = %{tl_version}
-Provides:       tex(worldflag_ZA.tex) = %{tl_version}
-Provides:       tex(worldflag_ZM.tex) = %{tl_version}
-Provides:       tex(worldflag_ZW.tex) = %{tl_version}
-Provides:       tex(worldflags.sty) = %{tl_version}
 
 %description -n texlive-worldflags
 This is a package for drawing flags using TikZ. Currently the national flags of
@@ -6557,13 +5539,12 @@ text, as a picture element within a TikZ-picture. The appearance of a flag
 
 %package -n texlive-xistercian
 Summary:        Cistercian numerals in LaTeX
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(expkv-opt.sty)
 Requires:       tex(pgf.sty)
-Provides:       tex(xistercian.sty) = %{tl_version}
 
 %description -n texlive-xistercian
 This package allows you to use Cistercian numerals in LaTeX. The glyphs are
@@ -6579,9 +5560,10 @@ Version:        svn28770
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xpicture-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xpicture-doc <= 11:%{version}
 Requires:       tex(calculus.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(xpicture.sty) = %{tl_version}
 
 %description -n texlive-xpicture
 The package extends the facilities of the pict2e and the curve2e packages,
@@ -6590,73 +5572,13 @@ functions and other parametric curves.
 
 %package -n texlive-xypic
 Summary:        Flexible diagramming macros
-Version:        svn61719
+Version:        svn78101
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xypic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xypic-doc <= 11:%{version}
 Requires:       tex(ifpdf.sty)
-Provides:       tex(xy.sty) = %{tl_version}
-Provides:       tex(xy.tex) = %{tl_version}
-Provides:       tex(xy16textures.tex) = %{tl_version}
-Provides:       tex(xy17oztex.tex) = %{tl_version}
-Provides:       tex(xy2cell.tex) = %{tl_version}
-Provides:       tex(xyall.tex) = %{tl_version}
-Provides:       tex(xyarc.tex) = %{tl_version}
-Provides:       tex(xyarrow.tex) = %{tl_version}
-Provides:       tex(xybarr.tex) = %{tl_version}
-Provides:       tex(xycmactex.tex) = %{tl_version}
-Provides:       tex(xycmtip.tex) = %{tl_version}
-Provides:       tex(xycolor.tex) = %{tl_version}
-Provides:       tex(xycrayon.tex) = %{tl_version}
-Provides:       tex(xycurve.tex) = %{tl_version}
-Provides:       tex(xydummy.tex) = %{tl_version}
-Provides:       tex(xydvidrv.tex) = %{tl_version}
-Provides:       tex(xydvips.tex) = %{tl_version}
-Provides:       tex(xydvitops.tex) = %{tl_version}
-Provides:       tex(xyemtex.tex) = %{tl_version}
-Provides:       tex(xyframe.tex) = %{tl_version}
-Provides:       tex(xygraph.tex) = %{tl_version}
-Provides:       tex(xyidioms.tex) = %{tl_version}
-Provides:       tex(xyimport.tex) = %{tl_version}
-Provides:       tex(xyknot.tex) = %{tl_version}
-Provides:       tex(xyline.tex) = %{tl_version}
-Provides:       tex(xymatrix.tex) = %{tl_version}
-Provides:       tex(xymovie.tex) = %{tl_version}
-Provides:       tex(xynecula.tex) = %{tl_version}
-Provides:       tex(xyoztex.tex) = %{tl_version}
-Provides:       tex(xypdf-co.tex) = %{tl_version}
-Provides:       tex(xypdf-cu.tex) = %{tl_version}
-Provides:       tex(xypdf-fr.tex) = %{tl_version}
-Provides:       tex(xypdf-li.tex) = %{tl_version}
-Provides:       tex(xypdf-ro.tex) = %{tl_version}
-Provides:       tex(xypdf.tex) = %{tl_version}
-Provides:       tex(xypic.sty) = %{tl_version}
-Provides:       tex(xypic.tex) = %{tl_version}
-Provides:       tex(xypicture.tex) = %{tl_version}
-Provides:       tex(xypoly.tex) = %{tl_version}
-Provides:       tex(xyps-c.tex) = %{tl_version}
-Provides:       tex(xyps-col.tex) = %{tl_version}
-Provides:       tex(xyps-f.tex) = %{tl_version}
-Provides:       tex(xyps-l.tex) = %{tl_version}
-Provides:       tex(xyps-pro.tex) = %{tl_version}
-Provides:       tex(xyps-ps.tex) = %{tl_version}
-Provides:       tex(xyps-r.tex) = %{tl_version}
-Provides:       tex(xyps-s.tex) = %{tl_version}
-Provides:       tex(xyps-t.tex) = %{tl_version}
-Provides:       tex(xyps.tex) = %{tl_version}
-Provides:       tex(xypsdict.tex) = %{tl_version}
-Provides:       tex(xypspatt.tex) = %{tl_version}
-Provides:       tex(xyrecat.tex) = %{tl_version}
-Provides:       tex(xyrotate.tex) = %{tl_version}
-Provides:       tex(xysmart.tex) = %{tl_version}
-Provides:       tex(xytextures.tex) = %{tl_version}
-Provides:       tex(xytile.tex) = %{tl_version}
-Provides:       tex(xytips.tex) = %{tl_version}
-Provides:       tex(xytp-f.tex) = %{tl_version}
-Provides:       tex(xytpic.tex) = %{tl_version}
-Provides:       tex(xyv2.tex) = %{tl_version}
-Provides:       tex(xyweb.tex) = %{tl_version}
-Provides:       tex(xyxdvi.tex) = %{tl_version}
 
 %description -n texlive-xypic
 A package for typesetting a variety of graphs and diagrams with TeX. Xy-pic
@@ -7221,6 +6143,14 @@ tar -xf %{SOURCE544} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE545} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE546} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE547} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE548} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE549} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE550} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE551} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE552} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE553} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE554} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE555} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -7393,6 +6323,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/combinedgraphics/
 %doc %{_texmf_main}/doc/latex/combinedgraphics/
 
+%files -n texlive-corasdiagram
+%license mit.txt
+%{_texmf_main}/tex/latex/corasdiagram/
+%doc %{_texmf_main}/doc/latex/corasdiagram/
+
 %files -n texlive-curve
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/curve/
@@ -7500,6 +6435,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/euflag/
 %doc %{_texmf_main}/doc/latex/euflag/
+
+%files -n texlive-eurion
+%license other-free.txt
+%{_texmf_main}/tex/latex/eurion/
+%doc %{_texmf_main}/doc/latex/eurion/
 
 %files -n texlive-fadingimage
 %license lppl1.3c.txt
@@ -7855,7 +6795,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-pgfkeysearch
 %license lppl1.3c.txt
-%license gpl2.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/pgfkeysearch/
 %doc %{_texmf_main}/doc/latex/pgfkeysearch/
 
@@ -8104,6 +7044,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/smartdiagram/
 %doc %{_texmf_main}/doc/latex/smartdiagram/
 
+%files -n texlive-sneaker
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sneaker/
+%doc %{_texmf_main}/doc/latex/sneaker/
+
 %files -n texlive-spath3
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/spath3/
@@ -8123,6 +7068,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/sunpath/
 %doc %{_texmf_main}/doc/latex/sunpath/
+
+%files -n texlive-svg-animate
+%license other-free.txt
+%{_texmf_main}/tex/latex/svg-animate/
+%doc %{_texmf_main}/doc/latex/svg-animate/
 
 %files -n texlive-swimgraf
 %license lppl1.3c.txt
@@ -8373,7 +7323,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-tikzcalendarnotes
 %license lppl1.3c.txt
-%license gpl3.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/tikzcalendarnotes/
 %doc %{_texmf_main}/doc/latex/tikzcalendarnotes/
 
@@ -8384,7 +7334,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-tikzdotncross
 %license lppl1.3c.txt
-%license gpl3.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/tikzdotncross/
 %doc %{_texmf_main}/doc/latex/tikzdotncross/
 
@@ -8400,7 +7350,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-tikzfxgraph
 %license lppl1.3c.txt
-%license gpl3.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/tikzfxgraph/
 %doc %{_texmf_main}/doc/latex/tikzfxgraph/
 
@@ -8450,7 +7400,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/tikzpfeile/
 
 %files -n texlive-tikzpingus
-%license gpl3.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/latex/tikzpingus/
 %doc %{_texmf_main}/doc/latex/tikzpingus/
 
@@ -8467,7 +7417,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-tikzquests
 %license lppl1.3c.txt
-%license gpl3.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/tikzquests/
 %doc %{_texmf_main}/doc/latex/tikzquests/
 
@@ -8666,6 +7616,14 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/generic/xypic/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78823-2
+- Update collection from svn77389 to svn78823
+- Add corasdiagram
+- Add eurion
+- Add sneaker
+- Add svg-animate
+- Update 45 components
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77389-1
 - Update to svn77389, fix descriptions, licensing
 

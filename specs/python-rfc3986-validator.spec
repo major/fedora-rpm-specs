@@ -14,8 +14,6 @@ BuildOption(install):   -l rfc3986_validator
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
 # Removing deprecated pytest-runner and adding missing test dependencies
 # https://github.com/naimetti/rfc3986-validator/pull/3
 #

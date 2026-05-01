@@ -37,8 +37,6 @@ BuildOption(check):     %{shrink:
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 # We do not generate BuildRequires from the “dev” extra because it depends on
 # other extras that may be disabled by build conditionals, and because it
 # includes documentation dependencies and other dependencies that may be
@@ -82,7 +80,7 @@ flexibility, and readily handle a wide variety of source data types.
 
 %prep -a
 %if %{without drmaa}
-tomcli set pyproject.toml lists delitem project.dependencies drmaa
+%pyproject_patch_dependency drmaa:ignore
 %endif
 
 # Remove shebangs from sources that will be installed in site-packages and

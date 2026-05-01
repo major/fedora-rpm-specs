@@ -10,11 +10,11 @@
 %bcond_with tests
 
 %global upstream_version 9.1.0
-%global upstream_prever  rc1
+%global upstream_prever  rc2
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           2%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -36,8 +36,6 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 Patch0:            %{name}-conf.patch
 # Workaround to https://github.com/valkey-io/valkey/issues/2678
 Patch1:            %{name}-loadmod.patch
-# clean rpath and set lua module path
-Patch2:            %{name}-lua.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -192,7 +190,6 @@ Provides:          redis-doc = %{version}-%{release}
 %setup -n %{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}} -a50
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
-%patch -P2 -p1 -b .lua
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -220,7 +217,7 @@ fi
 
 # Generates macro file
 cat << 'EOF' | tee macros.%{name}
-%%valkey_version     %version
+%%valkey_version     %upstream_version
 %%valkey_modules_abi %valkey_modules_abi
 %%valkey_modules_dir %valkey_modules_dir
 %%valkey_modules_cfg %valkey_modules_cfg
@@ -326,10 +323,6 @@ install -pm640 rdma.conf          %{buildroot}%{valkey_modules_cfg}/rdma.conf
 
 %if %{with tests}
 %check
-# Search path for libvalkeylua.so
-LD_LIBRARY_PATH=src/modules/lua
-export LD_LIBRARY_PATH
-
 # https://github.com/redis/redis/issues/1417 (for "taskset -c 1")
 taskset -c 1 ./runtest --clients 50 --skiptest "Active defrag - AOF loading"
 
@@ -413,7 +406,6 @@ fi
 %attr(0640, valkey, root) %config(noreplace) %{_sysconfdir}/%{name}/sentinel.conf
 %dir %{_libdir}/%{name}
 %dir %{valkey_modules_dir}
-%{valkey_modules_dir}/lua.so
 %dir %attr(0750, valkey, valkey) %{_sharedstatedir}/%{name}
 %dir %attr(0750, valkey, valkey) %{_localstatedir}/log/%{name}
 %{_bindir}/%{name}-*
@@ -457,6 +449,10 @@ fi
 
 
 %changelog
+* Wed Apr 29 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc2
+- Valkey 9.1.0-rc2
+- Drop lua module (built statically)
+
 * Tue Apr 21 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc1-2
 - drop rdma patch, keep upstream feature to dlopen librdmacm and libibverbs
 

@@ -1,29 +1,22 @@
-# We must use a GitHub snapshot because the PyPI sdist lacks the LICENSE file
-# (https://github.com/MobileDynasty/pytest-env/issues/6) and releases are not
-# tagged on GitHub.
-%global commit afb13a0e908f649b69273f299262ac12f1b71113
-%global snapdate 20170617
-
 Name:           python-pytest-env
-Version:        0.6.2^%{snapdate}git%{sub %{commit} 1 7}
+Version:        1.2.0
 Release:        %autorelease
-Summary:        Plugin for pytest that allows you to add environment variables
+Summary:        Pytest plugin that allows you to add environment variables
 
 # SPDX
 License:        MIT
-URL:            https://github.com/MobileDynasty/pytest-env
-Source:         %{url}/archive/%{commit}/pytest-env-%{commit}.tar.gz
+URL:            https://github.com/pytest-dev/pytest-env
+Source:         %{url}/archive/%{version}/pytest-env-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pytest_env
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
 %global common_description %{expand:
-This is a py.test plugin that enables you to set environment variables in the
-pytest.ini file.}
+A pytest plugin that sets environment variables from pyproject.toml,
+pytest.toml, .pytest.toml, or pytest.ini configuration files. It can also load
+variables from .env files.}
 
 %description %{common_description}
 
@@ -34,7 +27,16 @@ Summary:        %{summary}
 %description -n python3-pytest-env %{common_description}
 
 
-# Upstream has no tests.
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%check -a
+%pytest -v
 
 
 %files -n python3-pytest-env -f %{pyproject_files}

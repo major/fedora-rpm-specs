@@ -17,8 +17,6 @@ BuildOption(generate_buildrequires): -g test
 BuildOption(install):   -l fasteners
 BuildOption(check):     -e 'fasteners.pywin32*'
 
-BuildRequires:  tomcli
-
 BuildArch:      noarch
 
 %global common_description %{expand:
@@ -35,7 +33,7 @@ Summary:        A python package that provides useful locks
 
 %prep -a
 # Omit eventlet integration tests: retired since Fedora 41
-tomcli set pyproject.toml lists delitem dependency-groups.test eventlet
+%pyproject_patch_dependency eventlet:ignore
 
 
 %check -a

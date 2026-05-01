@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-pstricks
 Epoch:          12
-Version:        svn77232
-Release:        1%{?dist}
+Version:        svn78700
+Release:        2%{?dist}
 Summary:        PSTricks
 
 License:        LPPL-1.3c
@@ -205,48 +205,50 @@ Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/p
 Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-soroban.doc.tar.xz
 Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spectra.tar.xz
 Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spectra.doc.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-sphericaltrochoid.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-sphericaltrochoid.doc.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spinner.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spinner.doc.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-stru.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-stru.doc.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-support.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-support.doc.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-text.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-text.doc.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-thick.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-thick.doc.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tools.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tools.doc.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tree.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tree.doc.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-turtle.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-turtle.doc.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tvz.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tvz.doc.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-uml.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-uml.doc.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vectorian.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vectorian.doc.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vehicle.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vehicle.doc.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-venn.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-venn.doc.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vowel.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vowel.doc.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks.doc.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks-add.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks-add.doc.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks_calcnotes.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks_calcnotes.doc.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uml.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uml.doc.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vaucanson-g.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vaucanson-g.doc.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vocaltract.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vocaltract.doc.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spectrum.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spectrum.doc.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-sphericaltrochoid.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-sphericaltrochoid.doc.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spinner.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-spinner.doc.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-stru.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-stru.doc.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-support.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-support.doc.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-text.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-text.doc.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-thick.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-thick.doc.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tools.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tools.doc.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tree.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tree.doc.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-turtle.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-turtle.doc.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tvz.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-tvz.doc.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-uml.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-uml.doc.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vectorian.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vectorian.doc.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vehicle.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vehicle.doc.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-venn.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-venn.doc.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vowel.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pst-vowel.doc.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks.doc.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks-add.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks-add.doc.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks_calcnotes.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pstricks_calcnotes.doc.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uml.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uml.doc.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vaucanson-g.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vaucanson-g.doc.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vocaltract.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vocaltract.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -349,6 +351,7 @@ Requires:       texlive-pst-solarsystem
 Requires:       texlive-pst-solides3d
 Requires:       texlive-pst-soroban
 Requires:       texlive-pst-spectra
+Requires:       texlive-pst-spectrum
 Requires:       texlive-pst-sphericaltrochoid
 Requires:       texlive-pst-spinner
 Requires:       texlive-pst-stru
@@ -378,10 +381,12 @@ PSTricks core and all add-on packages.
 
 %package -n texlive-auto-pst-pdf
 Summary:        Wrapper for pst-pdf (with some psfrag features)
-Version:        svn56596
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-auto-pst-pdf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-auto-pst-pdf-doc <= 11:%{version}
 Requires:       texlive-ifplatform
 Requires:       texlive-iftex
 Requires:       texlive-xkeyval
@@ -389,7 +394,6 @@ Requires:       tex(ifpdf.sty)
 Requires:       tex(ifplatform.sty)
 Requires:       tex(pst-pdf.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(auto-pst-pdf.sty) = %{tl_version}
 
 %description -n texlive-auto-pst-pdf
 The package uses --shell-escape to execute pst-pdf when necessary. This makes
@@ -401,10 +405,12 @@ easily.
 
 %package -n texlive-bclogo
 Summary:        Creating colourful boxes with logos
-Version:        svn69578
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bclogo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bclogo-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifpdf.sty)
@@ -416,7 +422,6 @@ Requires:       tex(pst-grad.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(bclogo.sty) = %{tl_version}
 
 %description -n texlive-bclogo
 The package facilitates the creation of colorful boxes with a title and logo.
@@ -428,6 +433,8 @@ Version:        svn68753
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dsptricks-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dsptricks-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(fmtcount.sty)
 Requires:       tex(fp.sty)
@@ -435,9 +442,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(dspblocks.sty) = %{tl_version}
-Provides:       tex(dspfunctions.sty) = %{tl_version}
-Provides:       tex(dsptricks.sty) = %{tl_version}
 
 %description -n texlive-dsptricks
 The package provides a set of LaTeX macros (based on PSTricks) for plotting the
@@ -468,11 +472,12 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-makeplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-makeplot-doc <= 11:%{version}
 Requires:       tex(fp.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(makeplot.sty) = %{tl_version}
 
 %description -n texlive-makeplot
 Existing approaches to create EPS files from Matlab (laprint, mma2ltx, print
@@ -486,11 +491,12 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pdftricks-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pdftricks-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(moreverb.sty)
-Provides:       tex(pdftricks.sty) = %{tl_version}
 
 %description -n texlive-pdftricks
 The PSTricks macros cannot be used (directly) with pdfTeX, since PSTricks uses
@@ -508,13 +514,14 @@ Version:        svn31016
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pdftricks2-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pdftricks2-doc <= 11:%{version}
 Requires:       tex(geometry.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifplatform.sty)
 Requires:       tex(moreverb.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pdftricks2.sty) = %{tl_version}
 
 %description -n texlive-pdftricks2
 The package provides the means of processing documents (that contain pstricks
@@ -526,12 +533,13 @@ Version:        svn55013
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-psbao-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-psbao-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(cool.sty)
 Requires:       tex(etex.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(psbao.sty) = %{tl_version}
 
 %description -n texlive-psbao
 The package draws Bao diagrams in LaTeX. The package is a development of psgo,
@@ -543,7 +551,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pst-2dplot.sty) = %{tl_version}
+Provides:       texlive-pst-2dplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-2dplot-doc <= 11:%{version}
 
 %description -n texlive-pst-2dplot
 Pst-2dplot is a pstricks package that offers an easy-to-use and intuitive tool
@@ -552,13 +561,13 @@ MATLAB for plotting.
 
 %package -n texlive-pst-3d
 Summary:        A PSTricks package for tilting and other pseudo-3D tricks
-Version:        svn17257
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-3d-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-3d.sty) = %{tl_version}
-Provides:       tex(pst-3d.tex) = %{tl_version}
 
 %description -n texlive-pst-3d
 The package provides basic macros that use PSTricks for shadows, tilting and
@@ -570,13 +579,13 @@ Version:        svn68727
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-3dplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-3dplot-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pst-3d.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-3dplot.sty) = %{tl_version}
-Provides:       tex(pst-3dplot.tex) = %{tl_version}
 
 %description -n texlive-pst-3dplot
 A package using PSTricks to draw a large variety of graphs and plots, including
@@ -590,9 +599,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-abspos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-abspos-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-abspos.sty) = %{tl_version}
-Provides:       tex(pst-abspos.tex) = %{tl_version}
 
 %description -n texlive-pst-abspos
 The (PSTricks-related) package provides a command \pstPutAbs(x,y) to put an
@@ -604,13 +613,14 @@ Version:        svn19591
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-am-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-am-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(numprint.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-am.sty) = %{tl_version}
 
 %description -n texlive-pst-am
 The package allows the simulation of the modulated and demodulated amplitude of
@@ -625,8 +635,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-solides3d.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-antiprism.sty) = %{tl_version}
-Provides:       tex(pst-antiprism.tex) = %{tl_version}
 
 %description -n texlive-pst-antiprism
 pst-antiprism is a PSTricks related package which draws an antiprism, which is
@@ -639,8 +647,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-arrow.sty) = %{tl_version}
-Provides:       tex(pst-arrow.tex) = %{tl_version}
 
 %description -n texlive-pst-arrow
 This package has all the code from the package pstricks-add which was related
@@ -652,10 +658,10 @@ Version:        svn22138
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-asr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-asr-doc <= 11:%{version}
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-asr.sty) = %{tl_version}
-Provides:       tex(pst-asr.tex) = %{tl_version}
 
 %description -n texlive-pst-asr
 The package allows the user to typeset autosegmental representations. It uses
@@ -667,9 +673,9 @@ Version:        svn64331
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-bar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-bar-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-bar.sty) = %{tl_version}
-Provides:       tex(pst-bar.tex) = %{tl_version}
 
 %description -n texlive-pst-bar
 The package uses pstricks to draw bar charts from data stored in a
@@ -679,13 +685,13 @@ those that are part of the standard PSTricks distribution.
 
 %package -n texlive-pst-barcode
 Summary:        Print barcodes using PostScript
-Version:        svn77091
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-barcode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-barcode-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-barcode.sty) = %{tl_version}
-Provides:       tex(pst-barcode.tex) = %{tl_version}
 
 %description -n texlive-pst-barcode
 The pst-barcode package allows printing of barcodes, in a huge variety of
@@ -700,9 +706,9 @@ Version:        svn41981
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-bezier-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-bezier-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-bezier.sty) = %{tl_version}
-Provides:       tex(pst-bezier.tex) = %{tl_version}
 
 %description -n texlive-pst-bezier
 The package provides a macro \psbcurve for drawing a Bezier curve. Provision is
@@ -714,9 +720,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-blur-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-blur-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-blur.sty) = %{tl_version}
-Provides:       tex(pst-blur.tex) = %{tl_version}
 
 %description -n texlive-pst-blur
 Pst-blur is a package built for use with PSTricks. It provides macros that
@@ -728,9 +734,9 @@ Version:        svn40685
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-bspline-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-bspline-doc <= 11:%{version}
 Requires:       tex(multido.sty)
-Provides:       tex(pst-bspline.sty) = %{tl_version}
-Provides:       tex(pst-bspline.tex) = %{tl_version}
 
 %description -n texlive-pst-bspline
 The package draws uniform, cubic B-spline curves, open and closed, based on a
@@ -740,14 +746,13 @@ Graphical output is created using PStricks.
 
 %package -n texlive-pst-calculate
 Summary:        Support for floating point operations at LaTeX level
-Version:        svn49817
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(siunitx.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(pst-calculate.sty) = %{tl_version}
 
 %description -n texlive-pst-calculate
 This package provides an interface to the LaTeX3 floating point unit (part of
@@ -761,12 +766,13 @@ Version:        svn60480
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-calendar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-calendar-doc <= 11:%{version}
 Requires:       tex(fp.sty)
 Requires:       tex(multido.sty)
 Requires:       tex(pst-3d.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-calendar.sty) = %{tl_version}
 
 %description -n texlive-pst-calendar
 The package uses pstricks and pst-3d to draw tabular calendars, or calendars on
@@ -781,9 +787,9 @@ Version:        svn60959
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-cie-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-cie-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-cie.sty) = %{tl_version}
-Provides:       tex(pst-cie.tex) = %{tl_version}
 
 %description -n texlive-pst-cie
 pst-cie is a PSTricks related package to show the different CIE color spaces:
@@ -795,9 +801,9 @@ Version:        svn72519
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-circ-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-circ-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-circ.sty) = %{tl_version}
-Provides:       tex(pst-circ.tex) = %{tl_version}
 
 %description -n texlive-pst-circ
 The package is built using PSTricks and in particular pst-node. It can easily
@@ -808,13 +814,13 @@ user of purely graphical considerations when expressing a circuit.
 
 %package -n texlive-pst-coil
 Summary:        A PSTricks package for coils, etc.
-Version:        svn75878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-coil-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-coil-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-coil.sty) = %{tl_version}
-Provides:       tex(pst-coil.tex) = %{tl_version}
 
 %description -n texlive-pst-coil
 Pst-coil is a PSTricks based package for coils and zigzags and for coil and
@@ -827,8 +833,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-contourplot.sty) = %{tl_version}
-Provides:       tex(pst-contourplot.tex) = %{tl_version}
 
 %description -n texlive-pst-contourplot
 This package allows to draw implicit functions "f(x,y) = 0" with options for
@@ -842,11 +846,9 @@ Version:        svn15878
 License:        LGPL-2.1-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-cox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-cox-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-coxcoor.sty) = %{tl_version}
-Provides:       tex(pst-coxcoor.tex) = %{tl_version}
-Provides:       tex(pst-coxeterp.sty) = %{tl_version}
-Provides:       tex(pst-coxeterp.tex) = %{tl_version}
 
 %description -n texlive-pst-cox
 Pst-cox is a PSTricks package for drawing 2-dimensional projections of complex
@@ -871,8 +873,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(multido.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-dart.sty) = %{tl_version}
-Provides:       tex(pst-dart.tex) = %{tl_version}
 
 %description -n texlive-pst-dart
 pst-dart is a PSTricks related package and draws Dart Boards. Optional
@@ -884,7 +884,8 @@ Version:        svn17556
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pst-dbicons.sty) = %{tl_version}
+Provides:       texlive-pst-dbicons-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-dbicons-doc <= 11:%{version}
 
 %description -n texlive-pst-dbicons
 The package provides some useful macros in the database area. The package
@@ -901,11 +902,11 @@ Version:        svn71819
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-diffraction-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-diffraction-doc <= 11:%{version}
 Requires:       tex(pst-3dplot.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-diffraction.sty) = %{tl_version}
-Provides:       tex(pst-diffraction.tex) = %{tl_version}
 
 %description -n texlive-pst-diffraction
 The package enables the user to draw (using PSTricks) the diffraction patterns
@@ -923,9 +924,9 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-electricfield-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-electricfield-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-electricfield.sty) = %{tl_version}
-Provides:       tex(pst-electricfield.tex) = %{tl_version}
 
 %description -n texlive-pst-electricfield
 The package provides macros to plot electric field and equipotential lines
@@ -934,13 +935,13 @@ cartesian coordinate system by (x,y) values.
 
 %package -n texlive-pst-eps
 Summary:        Create EPS files from PSTricks figures
-Version:        svn15878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-eps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-eps-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-eps.sty) = %{tl_version}
-Provides:       tex(pst-eps.tex) = %{tl_version}
 
 %description -n texlive-pst-eps
 Pst-eps is a PSTricks-based package for exporting PSTricks images 'on the fly'
@@ -949,16 +950,16 @@ document in the usual way.
 
 %package -n texlive-pst-eucl
 Summary:        Euclidean geometry with PSTricks
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-eucl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-eucl-doc <= 11:%{version}
 Requires:       tex(pst-calculate.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-tools.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-eucl.sty) = %{tl_version}
-Provides:       tex(pst-eucl.tex) = %{tl_version}
 
 %description -n texlive-pst-eucl
 The package allows the drawing of Euclidean geometric figures using TeX
@@ -972,13 +973,14 @@ Version:        svn45289
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-exa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-exa-doc <= 11:%{version}
 Requires:       tex(accsupp.sty)
 Requires:       tex(changepage.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(showexpl.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(pst-exa.sty) = %{tl_version}
 
 %description -n texlive-pst-exa
 The (PSTricks-related) package provides an environment PSTexample to put code
@@ -991,8 +993,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-feyn.sty) = %{tl_version}
-Provides:       tex(pst-feyn.tex) = %{tl_version}
 
 %description -n texlive-pst-feyn
 pst-feyn is a set of drawing graphical elements which are used for Feynman
@@ -1001,13 +1001,13 @@ uses the capabilities of PSTricks.
 
 %package -n texlive-pst-fill
 Summary:        Fill or tile areas with PSTricks
-Version:        svn60671
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-fill-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-fill-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-fill.sty) = %{tl_version}
-Provides:       tex(pst-fill.tex) = %{tl_version}
 
 %description -n texlive-pst-fill
 Pst-fill is a PSTricks-based package for filling and tiling areas or
@@ -1019,11 +1019,11 @@ Version:        svn70686
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-fit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-fit-doc <= 11:%{version}
 Requires:       tex(pst-tools.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-fit.sty) = %{tl_version}
-Provides:       tex(pst-fit.tex) = %{tl_version}
 
 %description -n texlive-pst-fit
 The package uses PSTricks to fit curves to: Linear Functions; Power Functions;
@@ -1041,28 +1041,6 @@ Requires:       tex(pst-all.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xfp.sty)
-Provides:       tex(pst-Albania-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Angola-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Anguilla-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Barbados-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Dominica-flag.tex) = %{tl_version}
-Provides:       tex(pst-Egypt-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Eritrea-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Iraq-flag-slogan.tex) = %{tl_version}
-Provides:       tex(pst-Lesotho-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Malta-flag-seal-corner.tex) = %{tl_version}
-Provides:       tex(pst-Malta-flag-seal-horse.tex) = %{tl_version}
-Provides:       tex(pst-Malta-flag-seal-text.tex) = %{tl_version}
-Provides:       tex(pst-Mongolia-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Nicaragua-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-Oman-seal.tex) = %{tl_version}
-Provides:       tex(pst-Paraguay-seal-wreath.tex) = %{tl_version}
-Provides:       tex(pst-Saudi-flag-seal.tex) = %{tl_version}
-Provides:       tex(pst-SriLanka-seal.tex) = %{tl_version}
-Provides:       tex(pst-Tajikistan-flag-seal-crown.tex) = %{tl_version}
-Provides:       tex(pst-Uganda-flagseal.tex) = %{tl_version}
-Provides:       tex(pst-flags-colors-html.sty) = %{tl_version}
-Provides:       tex(pst-flags.sty) = %{tl_version}
 
 %description -n texlive-pst-flags
 This package provides a number of macros for rendering flags of countries and
@@ -1081,8 +1059,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-fourbarlinkage.sty) = %{tl_version}
-Provides:       tex(pst-fourbarlinkage.tex) = %{tl_version}
 
 %description -n texlive-pst-fourbarlinkage
 An Articulated Quadrilateral is a four-bar linkage mechanism (four rods
@@ -1097,8 +1073,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pst-fr3d.sty) = %{tl_version}
-Provides:       tex(pst-fr3d.tex) = %{tl_version}
+Provides:       texlive-pst-fr3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-fr3d-doc <= 11:%{version}
 
 %description -n texlive-pst-fr3d
 A package using PSTricks to draw three dimensional framed boxes using a macro
@@ -1111,9 +1087,9 @@ Version:        svn64714
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-fractal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-fractal-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-fractal.sty) = %{tl_version}
-Provides:       tex(pst-fractal.tex) = %{tl_version}
 
 %description -n texlive-pst-fractal
 The package uses PSTricks to draw the Julia and Mandelbrot sets, the Sierpinski
@@ -1128,12 +1104,12 @@ Version:        svn17909
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-fun-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-fun-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pst-grad.sty)
 Requires:       tex(pst-slpe.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-fun.sty) = %{tl_version}
-Provides:       tex(pst-fun.tex) = %{tl_version}
 
 %description -n texlive-pst-fun
 This is a PSTricks related package for drawing funny objects, like ant, bird,
@@ -1142,10 +1118,12 @@ macros and/or packages. (Or they can be used for fun...)
 
 %package -n texlive-pst-func
 Summary:        PSTricks package for plotting mathematical functions
-Version:        svn70822
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-func-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-func-doc <= 11:%{version}
 Requires:       tex(iftex.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(pst-math.sty)
@@ -1154,8 +1132,6 @@ Requires:       tex(pst-tools.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-func.sty) = %{tl_version}
-Provides:       tex(pst-func.tex) = %{tl_version}
 
 %description -n texlive-pst-func
 The package is built for use with PSTricks. It provides macros for plotting and
@@ -1180,9 +1156,9 @@ Version:        svn35832
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-gantt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-gantt-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-gantt.sty) = %{tl_version}
-Provides:       tex(pst-gantt.tex) = %{tl_version}
 
 %description -n texlive-pst-gantt
 The package uses PSTricks to draw GANTT charts, which are a kind of bar chart
@@ -1197,8 +1173,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-gears.sty) = %{tl_version}
-Provides:       tex(pst-gears.tex) = %{tl_version}
 
 %description -n texlive-pst-gears
 The macro \pstgears[options](x,y) allows, among other things, the drawing of a
@@ -1210,17 +1184,9 @@ Version:        svn74247
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-geo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-geo-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(Staedte3dJG.tex) = %{tl_version}
-Provides:       tex(capitals.tex) = %{tl_version}
-Provides:       tex(capitals3d.tex) = %{tl_version}
-Provides:       tex(cities.tex) = %{tl_version}
-Provides:       tex(pst-geo.sty) = %{tl_version}
-Provides:       tex(pst-geo.tex) = %{tl_version}
-Provides:       tex(villesFrance.tex) = %{tl_version}
-Provides:       tex(villesFrance3d.tex) = %{tl_version}
-Provides:       tex(villesItalia.tex) = %{tl_version}
-Provides:       tex(villesItalia3d.tex) = %{tl_version}
 
 %description -n texlive-pst-geo
 The package offers a set of PSTricks related packages for various cartographic
@@ -1242,8 +1208,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-geometrictools.sty) = %{tl_version}
-Provides:       tex(pst-geometrictools.tex) = %{tl_version}
 
 %description -n texlive-pst-geometrictools
 This PSTricks package facilitates the drawing of protractors, rulers, compasses
@@ -1255,9 +1219,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-gr3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-gr3d-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-gr3d.sty) = %{tl_version}
-Provides:       tex(pst-gr3d.tex) = %{tl_version}
 
 %description -n texlive-pst-gr3d
 This PSTricks package provides a command \PstGridThreeD that will draw a three
@@ -1265,13 +1229,13 @@ dimensional grid, offering a number of options for its appearance.
 
 %package -n texlive-pst-grad
 Summary:        Filling with colour gradients, using PSTricks
-Version:        svn15878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-grad-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-grad-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-grad.sty) = %{tl_version}
-Provides:       tex(pst-grad.tex) = %{tl_version}
 
 %description -n texlive-pst-grad
 The package fills with colour gradients, using PSTricks. The RGB, CMYK and HSB
@@ -1284,7 +1248,8 @@ Version:        svn21717
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pst-graphicx.tex) = %{tl_version}
+Provides:       texlive-pst-graphicx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-graphicx-doc <= 11:%{version}
 
 %description -n texlive-pst-graphicx
 The package provides a version of graphicx that avoids loading the graphics
@@ -1297,9 +1262,9 @@ Version:        svn66739
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-hsb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-hsb-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-hsb.sty) = %{tl_version}
-Provides:       tex(pst-hsb.tex) = %{tl_version}
 
 %description -n texlive-pst-hsb
 This is a PSTricks-related package. It can plot lines and/or curves with
@@ -1311,10 +1276,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(infix-RPN.sty) = %{tl_version}
-Provides:       tex(infix-RPN.tex) = %{tl_version}
-Provides:       tex(pst-infixplot.sty) = %{tl_version}
-Provides:       tex(pst-infixplot.tex) = %{tl_version}
+Provides:       texlive-pst-infixplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-infixplot-doc <= 11:%{version}
 
 %description -n texlive-pst-infixplot
 Plotting functions with pst-plot is very powerful but sometimes difficult to
@@ -1329,12 +1292,12 @@ Version:        svn33210
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-intersect-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-intersect-doc <= 11:%{version}
 Requires:       tex(pst-func.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-intersect.sty) = %{tl_version}
-Provides:       tex(pst-intersect.tex) = %{tl_version}
 
 %description -n texlive-pst-intersect
 The package computes the intersections between arbitrary PostScript paths or
@@ -1346,8 +1309,8 @@ Version:        svn20946
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pst-jtree.sty) = %{tl_version}
-Provides:       tex(pst-jtree.tex) = %{tl_version}
+Provides:       texlive-pst-jtree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-jtree-doc <= 11:%{version}
 
 %description -n texlive-pst-jtree
 jTree uses PSTricks to enable linguists to typeset complex trees. The package
@@ -1367,8 +1330,6 @@ Requires:       tex(pst-eucl.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xint.sty)
 Requires:       tex(xintexpr.sty)
-Provides:       tex(pst-kepler.sty) = %{tl_version}
-Provides:       tex(pst-kepler.tex) = %{tl_version}
 
 %description -n texlive-pst-kepler
 This package is dedicated to Jurgen Gilg (8.2.1966-6.5.2022). It defines macros
@@ -1380,9 +1341,9 @@ Version:        svn16033
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-knot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-knot-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-knot.sty) = %{tl_version}
-Provides:       tex(pst-knot.tex) = %{tl_version}
 
 %description -n texlive-pst-knot
 The package can produce a fair range of knot shapes, with all the standard
@@ -1394,10 +1355,9 @@ Version:        svn74874
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-labo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-labo-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-labo.sty) = %{tl_version}
-Provides:       tex(pst-labo.tex) = %{tl_version}
-Provides:       tex(pst-laboObj.tex) = %{tl_version}
 
 %description -n texlive-pst-labo
 Pst-labo is a PSTricks related package for drawing basic and complex chemical
@@ -1410,10 +1370,11 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-layout-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-layout-doc <= 11:%{version}
 Requires:       tex(arrayjobx.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
-Provides:       tex(pst-layout.sty) = %{tl_version}
 
 %description -n texlive-pst-layout
 The package provides a means of creating elaborate ("pseudo-tabular") layouts
@@ -1427,9 +1388,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-lens-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-lens-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-lens.sty) = %{tl_version}
-Provides:       tex(pst-lens.tex) = %{tl_version}
 
 %description -n texlive-pst-lens
 This PSTricks package provides a really rather simple command \PstLens that
@@ -1441,9 +1402,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-light3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-light3d-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-light3d.sty) = %{tl_version}
-Provides:       tex(pst-light3d.tex) = %{tl_version}
 
 %description -n texlive-pst-light3d
 A PSTricks package for three dimensional lighting effects on characters and
@@ -1456,8 +1417,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-lsystem.sty) = %{tl_version}
-Provides:       tex(pst-lsystem.tex) = %{tl_version}
 
 %description -n texlive-pst-lsystem
 pst-lsystem is a PSTricks based package for creating images based on a
@@ -1471,11 +1430,11 @@ Version:        svn69493
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-magneticfield-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-magneticfield-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pst-3d.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-magneticfield.sty) = %{tl_version}
-Provides:       tex(pst-magneticfield.tex) = %{tl_version}
 
 %description -n texlive-pst-magneticfield
 pst-magneticfield is a PSTricks related package to draw the magnetic field
@@ -1490,8 +1449,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-marble.sty) = %{tl_version}
-Provides:       tex(pst-marble.tex) = %{tl_version}
 
 %description -n texlive-pst-marble
 This is a PSTricks package to draw marble-like patterns.
@@ -1503,8 +1460,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-massspring.sty) = %{tl_version}
-Provides:       tex(pst-massspring.tex) = %{tl_version}
 
 %description -n texlive-pst-massspring
 This package can create animations (gif or pdf) for two masses connected by a
@@ -1512,17 +1467,17 @@ spring in a free fall.
 
 %package -n texlive-pst-math
 Summary:        Enhancement of PostScript math operators to use with PSTricks
-Version:        svn67535
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-math-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(multido.sty)
 Requires:       tex(pst-calculate.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(pst-math.sty) = %{tl_version}
-Provides:       tex(pst-math.tex) = %{tl_version}
 
 %description -n texlive-pst-math
 PostScript lacks a lot of basic operators such as tan, acos, asin, cosh, sinh,
@@ -1541,9 +1496,9 @@ Version:        svn71294
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-mirror-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-mirror-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-mirror.sty) = %{tl_version}
-Provides:       tex(pst-mirror.tex) = %{tl_version}
 
 %description -n texlive-pst-mirror
 The package provides commands and supporting PostScript material for drawing
@@ -1556,22 +1511,19 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-moire.sty) = %{tl_version}
-Provides:       tex(pst-moire.tex) = %{tl_version}
 
 %description -n texlive-pst-moire
 This is a PSTricks package to draw moire patterns.
 
 %package -n texlive-pst-node
 Summary:        Nodes and node connections in PSTricks
-Version:        svn71773
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-node-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-node-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-node.sty) = %{tl_version}
-Provides:       tex(pst-node.tex) = %{tl_version}
-Provides:       tex(pst-node97.tex) = %{tl_version}
 
 %description -n texlive-pst-node
 The package enables the user to connect information, and to place labels,
@@ -1588,8 +1540,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-nutation.sty) = %{tl_version}
-Provides:       tex(pst-nutation.tex) = %{tl_version}
 
 %description -n texlive-pst-nutation
 This package illustrates the concepts of rotation, precession, and nutation of
@@ -1602,9 +1552,9 @@ Version:        svn54514
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-ob3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-ob3d-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-ob3d.sty) = %{tl_version}
-Provides:       tex(pst-ob3d.tex) = %{tl_version}
 
 %description -n texlive-pst-ob3d
 The package uses PSTricks to provide basic three-dimensional objects. As yet,
@@ -1617,9 +1567,9 @@ Version:        svn69296
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-ode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-ode-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-ode.sty) = %{tl_version}
-Provides:       tex(pst-ode.tex) = %{tl_version}
 
 %description -n texlive-pst-ode
 The package defines \pstODEsolve for solving initial value problems for sets of
@@ -1636,6 +1586,8 @@ Version:        svn62977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-optexp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-optexp-doc <= 11:%{version}
 Requires:       tex(environ.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(multido.sty)
@@ -1646,7 +1598,6 @@ Requires:       tex(pst-plot.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-optexp.sty) = %{tl_version}
 
 %description -n texlive-pst-optexp
 The package is a collection of optical components that facilitate easy
@@ -1662,9 +1613,9 @@ Version:        svn72694
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-optic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-optic-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-optic.sty) = %{tl_version}
-Provides:       tex(pst-optic.tex) = %{tl_version}
 
 %description -n texlive-pst-optic
 A package for drawing both reflective and refractive optics diagrams. The
@@ -1676,9 +1627,9 @@ Version:        svn68781
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-osci-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-osci-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-osci.sty) = %{tl_version}
-Provides:       tex(pst-osci.tex) = %{tl_version}
 
 %description -n texlive-pst-osci
 This PSTricks package enables you to produce oscilloscope "screen shots". Three
@@ -1689,13 +1640,13 @@ two other signals. Lissajous diagrams (XY-mode) can also be obtained.
 
 %package -n texlive-pst-ovl
 Summary:        Create and manage graphical overlays
-Version:        svn54963
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-ovl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-ovl-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-ovl.sty) = %{tl_version}
-Provides:       tex(pst-ovl.tex) = %{tl_version}
 
 %description -n texlive-pst-ovl
 The package is useful when building an image from assorted material, as in the
@@ -1708,9 +1659,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-pad-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-pad-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-pad.sty) = %{tl_version}
-Provides:       tex(pst-pad.tex) = %{tl_version}
 
 %description -n texlive-pst-pad
 The package collects a set of graphical elements based on PStricks that can be
@@ -1725,9 +1676,9 @@ Version:        svn45875
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-pdgr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-pdgr-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-pdgr.sty) = %{tl_version}
-Provides:       tex(pst-pdgr.tex) = %{tl_version}
 
 %description -n texlive-pst-pdgr
 The package provides a set of macros based on PSTricks to draw medical
@@ -1743,10 +1694,10 @@ Version:        svn39585
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-perspective-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-perspective-doc <= 11:%{version}
 Requires:       tex(pst-grad.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-perspective.sty) = %{tl_version}
-Provides:       tex(pst-perspective.tex) = %{tl_version}
 
 %description -n texlive-pst-perspective
 The package provides the means to draw an orthogonal parallel projection with
@@ -1758,10 +1709,11 @@ Version:        svn16538
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-platon-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-platon-doc <= 11:%{version}
 Requires:       tex(pst-3d.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-platon.sty) = %{tl_version}
 
 %description -n texlive-pst-platon
 The package adds to PSTricks the ability to draw 3-dimensional views of the
@@ -1769,16 +1721,15 @@ five Platonic solids.
 
 %package -n texlive-pst-plot
 Summary:        Plot data using PSTricks
-Version:        svn65346
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-plot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-plot-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-plot.sty) = %{tl_version}
-Provides:       tex(pst-plot.tex) = %{tl_version}
-Provides:       tex(pst-plot97.tex) = %{tl_version}
 
 %description -n texlive-pst-plot
 The package provides plotting of data (typically from external files), using
@@ -1795,7 +1746,6 @@ Requires:       tex(multido.sty)
 Requires:       tex(pst-blur.sty)
 Requires:       tex(pst-fill.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-poker.sty) = %{tl_version}
 
 %description -n texlive-pst-poker
 This PSTricks related package can create poker cards in various manners.
@@ -1806,9 +1756,9 @@ Version:        svn35062
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-poly-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-poly-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-poly.sty) = %{tl_version}
-Provides:       tex(pst-poly.tex) = %{tl_version}
 
 %description -n texlive-pst-poly
 This PSTricks package provides a really rather simple command \PstPolygon that
@@ -1823,9 +1773,9 @@ Version:        svn62977
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-pulley-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-pulley-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-pulley.sty) = %{tl_version}
-Provides:       tex(pst-pulley.tex) = %{tl_version}
 
 %description -n texlive-pst-pulley
 The package enables the user to draw pulley systems with up to 6 pulleys. The
@@ -1838,10 +1788,10 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-qtree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-qtree-doc <= 11:%{version}
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-tree.sty)
-Provides:       tex(pst-qtree.sty) = %{tl_version}
-Provides:       tex(pst-qtree.tex) = %{tl_version}
 
 %description -n texlive-pst-qtree
 The package provides a qtree-like front end for PSTricks.
@@ -1854,8 +1804,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-node.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-rputover.sty) = %{tl_version}
-Provides:       tex(pst-rputover.tex) = %{tl_version}
 
 %description -n texlive-pst-rputover
 This is a PSTricks package which allows to place text over objects without
@@ -1867,9 +1815,9 @@ Version:        svn23464
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-rubans-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-rubans-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-rubans.sty) = %{tl_version}
-Provides:       tex(pst-rubans.tex) = %{tl_version}
 
 %description -n texlive-pst-rubans
 The package uses PStricks and pst-solides3d to draw three dimensional ribbons
@@ -1885,8 +1833,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-shell.sty) = %{tl_version}
-Provides:       tex(pst-shell.tex) = %{tl_version}
 
 %description -n texlive-pst-shell
 pst-shell is a PSTricks related package to draw seashells in 3D view:
@@ -1902,9 +1848,9 @@ Version:        svn21667
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-sigsys-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-sigsys-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-sigsys.sty) = %{tl_version}
-Provides:       tex(pst-sigsys.tex) = %{tl_version}
 
 %description -n texlive-pst-sigsys
 The package offers a collection of useful macros for disciplines related to
@@ -1921,9 +1867,9 @@ Version:        svn24391
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-slpe-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-slpe-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-slpe.sty) = %{tl_version}
-Provides:       tex(pst-slpe.tex) = %{tl_version}
 
 %description -n texlive-pst-slpe
 This PStricks package covers all the colour gradient functionality of pst-grad
@@ -1940,9 +1886,9 @@ Version:        svn69675
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-solarsystem-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-solarsystem-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-solarsystem.sty) = %{tl_version}
-Provides:       tex(pst-solarsystem.tex) = %{tl_version}
 
 %description -n texlive-pst-solarsystem
 The package uses pstricks to produce diagrams of the visible planets, projected
@@ -1957,9 +1903,9 @@ Version:        svn68786
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-solides3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-solides3d-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-solides3d.sty) = %{tl_version}
-Provides:       tex(pst-solides3d.tex) = %{tl_version}
 
 %description -n texlive-pst-solides3d
 The package is designed to draw solids in 3d perspective. Features include:
@@ -1976,10 +1922,11 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-soroban-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-soroban-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pstricks-add.sty)
-Provides:       tex(pst-soroban.sty) = %{tl_version}
 
 %description -n texlive-pst-soroban
 The package uses PSTricks to draw a Japanese abacus, or soroban. The soroban is
@@ -1991,17 +1938,34 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-spectra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-spectra-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(pst-spectra.sty) = %{tl_version}
-Provides:       tex(pst-spectra.tex) = %{tl_version}
 
 %description -n texlive-pst-spectra
 The package is a PSTricks extension, based on a NASA lines database. It allows
 you to draw continuum, emission and absorption spectra. A Total of 16 880
 visible lines from 99 elements can be displayed. The package requires the
 xkeyval package for decoding its arguments.
+
+%package -n texlive-pst-spectrum
+Summary:        Output of a color spectrum for different color models
+Version:        svn78793
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(pstricks.sty)
+
+%description -n texlive-pst-spectrum
+To represent the spectrum of light decomposition, we have several packages at
+our disposal with PSTricks: pst-spectra, xcolor, and pstricks-add. All use the
+same source code by Dan Bruton. This package provides an extended visible
+spectrum. However, it is possible to obtain the representation of the spectrum
+directly from the data of the >>International Commission on Illumination<<
+(CIE), and we have the choice between the data of (CIE 1931) and that of (CIE
+1964}). Then we must choose a color space, sRGB, Adobe,etc.
 
 %package -n texlive-pst-sphericaltrochoid
 Summary:        Create animations of a spherical trochoid
@@ -2010,8 +1974,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-sphericaltrochoid.sty) = %{tl_version}
-Provides:       tex(pst-sphericaltrochoid.tex) = %{tl_version}
 
 %description -n texlive-pst-sphericaltrochoid
 This package simulates the generation of a spherical trochoid by a point on a
@@ -2026,8 +1988,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-node.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-spinner.sty) = %{tl_version}
-Provides:       tex(pst-spinner.tex) = %{tl_version}
 
 %description -n texlive-pst-spinner
 This package aims to propose a model of the fidget spinner gadget. It exists
@@ -2041,10 +2001,10 @@ Version:        svn38613
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-stru-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-stru-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-stru.sty) = %{tl_version}
-Provides:       tex(pst-stru.tex) = %{tl_version}
 
 %description -n texlive-pst-stru
 This PSTricks-based package provides facilities to draw structural schemes in
@@ -2065,14 +2025,13 @@ TeXnicCenter/
 
 %package -n texlive-pst-text
 Summary:        Text and character manipulation in PSTricks
-Version:        svn49542
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-text-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-text-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-char.sty) = %{tl_version}
-Provides:       tex(pst-text.sty) = %{tl_version}
-Provides:       tex(pst-text.tex) = %{tl_version}
 
 %description -n texlive-pst-text
 Pst-text is a PSTricks based package for plotting text along a different path
@@ -2085,9 +2044,9 @@ Version:        svn16369
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-thick-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-thick-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-thick.sty) = %{tl_version}
-Provides:       tex(pst-thick.tex) = %{tl_version}
 
 %description -n texlive-pst-thick
 The package supports drawing of very thick lines and curves in PSTricks, with
@@ -2099,22 +2058,22 @@ Version:        svn60621
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-tools-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-tools-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-tools.sty) = %{tl_version}
-Provides:       tex(pst-tools.tex) = %{tl_version}
 
 %description -n texlive-pst-tools
 The package provides helper functions for other PSTricks related packages.
 
 %package -n texlive-pst-tree
 Summary:        Trees, using PSTricks
-Version:        svn60421
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-tree-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-tree-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-tree.sty) = %{tl_version}
-Provides:       tex(pst-tree.tex) = %{tl_version}
 
 %description -n texlive-pst-tree
 pst-tree is a pstricks package that defines a macro \pstree which offers a
@@ -2128,8 +2087,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-turtle.sty) = %{tl_version}
-Provides:       tex(pst-turtle.tex) = %{tl_version}
 
 %description -n texlive-pst-turtle
 This is a PSTricks related package for creating "Turtle" graphics. It supports
@@ -2141,9 +2098,9 @@ Version:        svn77256
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-tvz-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-tvz-doc <= 11:%{version}
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-tvz.sty) = %{tl_version}
-Provides:       tex(pst-tvz.tex) = %{tl_version}
 
 %description -n texlive-pst-tvz
 The package uses PSTricks to draw trees with more than one root node. It is
@@ -2155,6 +2112,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-uml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-uml-doc <= 11:%{version}
 Requires:       texlive-multido
 Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
@@ -2164,7 +2123,6 @@ Requires:       tex(pst-node.sty)
 Requires:       tex(pst-tree.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-uml.sty) = %{tl_version}
 
 %description -n texlive-pst-uml
 This a PSTricks package that provides support for drawing moderately complex
@@ -2173,13 +2131,14 @@ in French.)
 
 %package -n texlive-pst-vectorian
 Summary:        Printing ornaments
-Version:        svn60488
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-vectorian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-vectorian-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(psvectorian.sty) = %{tl_version}
 
 %description -n texlive-pst-vectorian
 The package uses PSTricks to draw ornaments (a substantial repertoire of
@@ -2192,8 +2151,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-vehicle.sty) = %{tl_version}
-Provides:       tex(pst-vehicle.tex) = %{tl_version}
 
 %description -n texlive-pst-vehicle
 This package permits to represent vehicles rolling without slipping on
@@ -2208,7 +2165,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pst-venn.sty) = %{tl_version}
 
 %description -n texlive-pst-venn
 This is a PSTricks related package for drawing Venn diagrams with three
@@ -2220,9 +2176,10 @@ Version:        svn25228
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pst-vowel-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pst-vowel-doc <= 11:%{version}
 Requires:       tex(pst-node.sty)
 Requires:       tex(vowel.sty)
-Provides:       tex(pst-vowel.sty) = %{tl_version}
 
 %description -n texlive-pst-vowel
 The package extends the vowel package (distributed as part of the tipa bundle)
@@ -2231,10 +2188,12 @@ as diphthong membership. The package depends on use of pstricks.
 
 %package -n texlive-pstricks
 Summary:        PostScript macros for TeX
-Version:        svn77093
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pstricks-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pstricks-doc <= 11:%{version}
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifplatform.sty)
 Requires:       tex(iftex.sty)
@@ -2252,28 +2211,6 @@ Requires:       tex(pst-text.sty)
 Requires:       tex(pst-tree.sty)
 Requires:       tex(pstricks-add.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(pst-all.sty) = %{tl_version}
-Provides:       tex(pst-code-arc.tex) = %{tl_version}
-Provides:       tex(pst-code-box.tex) = %{tl_version}
-Provides:       tex(pst-code-circle_ellipse.tex) = %{tl_version}
-Provides:       tex(pst-code-grid.tex) = %{tl_version}
-Provides:       tex(pst-code-pspicture.tex) = %{tl_version}
-Provides:       tex(pst-code-put.tex) = %{tl_version}
-Provides:       tex(pst-code-ref_rot.tex) = %{tl_version}
-Provides:       tex(pst-fp.tex) = %{tl_version}
-Provides:       tex(pst-key.sty) = %{tl_version}
-Provides:       tex(pst-key.tex) = %{tl_version}
-Provides:       tex(pstcol.sty) = %{tl_version}
-Provides:       tex(pstricks-arrows.tex) = %{tl_version}
-Provides:       tex(pstricks-color.tex) = %{tl_version}
-Provides:       tex(pstricks-dots.tex) = %{tl_version}
-Provides:       tex(pstricks-pdf.sty) = %{tl_version}
-Provides:       tex(pstricks-plain.tex) = %{tl_version}
-Provides:       tex(pstricks-tex.def) = %{tl_version}
-Provides:       tex(pstricks-xetex.def) = %{tl_version}
-Provides:       tex(pstricks.sty) = %{tl_version}
-Provides:       tex(pstricks.tex) = %{tl_version}
-Provides:       tex(pstricks97.tex) = %{tl_version}
 
 %description -n texlive-pstricks
 PSTricks offers an extensive collection of macros for generating PostScript
@@ -2291,10 +2228,12 @@ document is processed XeTeX, without the need for other supporting packages.
 
 %package -n texlive-pstricks-add
 Summary:        A collection of add-ons and bugfixes for PSTricks
-Version:        svn66887
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pstricks-add-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pstricks-add-doc <= 11:%{version}
 Requires:       tex(multido.sty)
 Requires:       tex(pst-3d.sty)
 Requires:       tex(pst-calculate.sty)
@@ -2302,8 +2241,6 @@ Requires:       tex(pst-math.sty)
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(pstricks-add.sty) = %{tl_version}
-Provides:       tex(pstricks-add.tex) = %{tl_version}
 
 %description -n texlive-pstricks-add
 Collects together examples that have been posted to the PSTricks mailing list,
@@ -2334,11 +2271,12 @@ Version:        svn17476
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uml-doc <= 11:%{version}
 Requires:       tex(pst-node.sty)
 Requires:       tex(pst-xkey.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(relsize.sty)
-Provides:       tex(uml.sty) = %{tl_version}
 
 %description -n texlive-uml
 A PSTricks related package for writing UML (Unified Modelling Language)
@@ -2352,6 +2290,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-vaucanson-g-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-vaucanson-g-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(multido.sty)
@@ -2361,14 +2301,6 @@ Requires:       tex(pst-node.sty)
 Requires:       tex(pst-plot.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(VCColor-names.def) = %{tl_version}
-Provides:       tex(VCPref-beamer.tex) = %{tl_version}
-Provides:       tex(VCPref-default.tex) = %{tl_version}
-Provides:       tex(VCPref-mystyle.tex) = %{tl_version}
-Provides:       tex(VCPref-slides.tex) = %{tl_version}
-Provides:       tex(Vaucanson-G.tex) = %{tl_version}
-Provides:       tex(vaucanson-g.sty) = %{tl_version}
-Provides:       tex(vaucanson.sty) = %{tl_version}
 
 %description -n texlive-vaucanson-g
 VauCanSon-G is a package that enables the user to draw automata within texts
@@ -2380,6 +2312,8 @@ Version:        svn25629
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-vocaltract-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-vocaltract-doc <= 11:%{version}
 Requires:       tex(animate.sty)
 Requires:       tex(arrayjob.sty)
 Requires:       tex(color.sty)
@@ -2390,7 +2324,6 @@ Requires:       tex(multido.sty)
 Requires:       tex(multimedia.sty)
 Requires:       tex(pst-coil.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(VocalTract.sty) = %{tl_version}
 
 %description -n texlive-vocaltract
 The package enables the user to visualise the vocal tract. The vocal tract (in
@@ -2641,6 +2574,8 @@ tar -xf %{SOURCE228} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE229} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE230} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE231} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE232} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE233} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -3237,6 +3172,13 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/pst-spectra/
 %doc %{_texmf_main}/doc/generic/pst-spectra/
 
+%files -n texlive-pst-spectrum
+%license lppl1.3c.txt
+%{_texmf_main}/dvips/pst-spectrum/
+%{_texmf_main}/tex/generic/pst-spectrum/
+%{_texmf_main}/tex/latex/pst-spectrum/
+%doc %{_texmf_main}/doc/generic/pst-spectrum/
+
 %files -n texlive-pst-sphericaltrochoid
 %license lppl1.3c.txt
 %{_texmf_main}/tex/generic/pst-sphericaltrochoid/
@@ -3360,6 +3302,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/vocaltract/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78700-2
+- Update collection from svn77232 to svn78700
+- Add pst-spectrum
+- Update 20 components
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77232-1
 - Update to svn77232, fix descriptions, licensing
 

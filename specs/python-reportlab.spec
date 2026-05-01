@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        4.4.10
+Version:        4.5.0
 Release:        %autorelease
 Summary:        Library for generating PDFs and graphics
 License:        BSD-3-Clause AND BSD-4-Clause AND MIT
@@ -14,7 +14,6 @@ URL:            https://www.reportlab.com/opensource/
 Source0:        %pypi_source
 Patch0:         %{name}-fix_python_3.15.patch
 BuildArch:      noarch
-
 BuildRequires:  gcc
 BuildRequires:  freetype-devel
 BuildRequires:  ghostscript
@@ -22,9 +21,7 @@ Buildrequires:  fontpackages-devel
 Buildrequires:  python3-html5lib+chardet
 %global fonts font(dejavusans)
 BuildRequires:  %{fonts}
-
 Obsoletes:      %{name}-doc < 0:3.5.21-1
-
 %description
 This is the ReportLab PDF Toolkit. It allows rapid creation of rich PDF
 documents, and also creation of charts in a variety of bitmap and vector
@@ -38,13 +35,11 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pillow
 Requires:       %{fonts}
 %py_provides python3-%{pypi_name}
-Obsoletes: python2-reportlab < 0:%{version}-%{release}
-
+Obsoletes:      python2-reportlab < 0:%{version}-%{release}
 %description -n python3-%{pypi_name}
 This is the ReportLab PDF Toolkit. It allows rapid creation of rich PDF 
 documents, and also creation of charts in a variety of bitmap and vector 
 formats.
-
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -N
@@ -65,7 +60,7 @@ rm -rf src/reportlab.egg-info
 rm -rf src/rl_addons/renderPM/libart_lgpl
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 
 %build
 # "--no-download-t1-files" flag exists to avoid T1 font curves files downloading, anyway it cannot be passed with pyproject macros.
@@ -113,7 +108,6 @@ cp -a build/lib/reportlab docs/userguide/
 %doc README.txt CHANGES.md docs/reportlab-userguide.pdf
 %{python3_sitelib}/reportlab/demos/
 %{python3_sitelib}/reportlab/tools/
-
 
 %changelog
 %autochangelog

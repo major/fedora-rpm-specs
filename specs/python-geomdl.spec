@@ -41,7 +41,6 @@ BuildOption(check):     %{shrink:
 %endif
 
 BuildRequires:  gcc
-BuildRequires:  tomcli
 
 # Upstream uses weird tox environments for testing:
 #  https://github.com/orbingol/NURBS-Python/blob/v5.3.1/tox.ini#L5
@@ -94,8 +93,8 @@ Obsoletes:      python-geomdl-doc < 5.3.1-34
 
 %prep -a
 %if %{without plotly}
-tomcli set pyproject.toml lists delitem project.optional-dependencies.vis \
-    'plotly\b.*'
+# Note that this removes plotly from the “vis” extra.
+%pyproject_patch_dependency plotly:ignore
 %endif
 
 

@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.21
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -39,9 +39,14 @@ Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
 Patch0001:	0001-Replace-deprecated-OpenSSL-3.0.0-function-calls.patch
 Patch0002:	0002-Add-initial-ML-DSA-support-with-OpenSSL-3.5.0.patch
 Patch0003:	0003-Add-initial-ML-DSA-support-with-NSS-3.112.0-4.patch
-Patch0004:	0004-Test-for-PQ-support-in-NSS-print-summary-at-end-of-c.patch
-Patch0005:	0005-Implement-more-PQ-testing-for-both-NSS-and-OpenSSL.patch
-Patch0006:	0006-Allow-requesting-a-ML-DSA-key-using-a-strength.patch
+Patch0004:	0004-Add-helper-to-get-the-generated-key-size.patch
+Patch0005:	0005-Test-for-PQ-support-in-NSS-print-summary-at-end-of-c.patch
+Patch0006:	0006-Implement-more-PQ-testing-for-both-NSS-and-OpenSSL.patch
+Patch0007:	0007-Add-abstraction-to-ML-DSA-key-sizing-to-be-in-line-w.patch
+Patch0008:	0008-Add-helper-function-to-extract-an-ML-DSA-public-key.patch
+Patch0009:	0009-csrgen-o.c-implement-a-new-way-to-get-the-signing-al.patch
+Patch0010:	0010-Add-a-function-to-return-the-right-digest-for-signin.patch
+Patch0011:	0011-Add-a-selfsign-test-for-ML-DSA.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -271,6 +276,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 29 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-5
+- Update to latest upstream experimental patches to support ML-DSA keys
+
 * Mon Jan 19 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-4
 - Include upstream experimental patches to support ML-DSA keys
 - Clean patches in the repo that are no longer used

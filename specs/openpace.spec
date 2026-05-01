@@ -1,12 +1,13 @@
 Name:           openpace
 Version:        1.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cryptographic library for EAC version 2
 
 License:        GPL-3.0-only
 URL:            https://frankmorgner.github.io/openpace/
 Source:         https://github.com/frankmorgner/openpace/releases/download/%{version}/openpace-%{version}.tar.gz
 Patch1:         openpace-1.1.3-unsupported-tests.patch
+Patch2:         openpace-openssl4.patch
 
 BuildRequires:  autoconf automake libtool gcc
 BuildRequires:  openssl openssl-devel
@@ -39,6 +40,7 @@ HTML documentation for OpenPACE.
 %prep
 %setup -q
 %patch 1 -p1 -b .unsupported-tests
+%patch 2 -p1 -b .openssl4
 
 %build	
 autoreconf -fvi
@@ -94,6 +96,9 @@ rm -rf %{buildroot}%{_docdir}/openpace/_static/bootswatch-3.3.7/fonts
 %doc %{_docdir}/openpace
 
 %changelog
+* Wed Apr 29 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.1.4-2
+- Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
+
 * Fri Feb 27 2026 Jakub Jelen <jjelen@redhat.com> - 1.1.4-1
 - New upstream release
 

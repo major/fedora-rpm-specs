@@ -7,9 +7,12 @@ License:        BSD-3-Clause
 URL:            https://github.com/hgrecco/flexparser
 Source:         %{pypi_source flexparser}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l flexparser
+# We remove flexparser.testsuite manually in %%install.
+BuildOption(check):     -e 'flexparser.testsuite*'
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # See requirements.test.txt. We list test dependencies manually since we do not
 # want pytest-cov
@@ -33,22 +36,7 @@ Summary:        %{summary}
 %description -n python3-flexparser %{common_description}
 
 
-%prep
-%autosetup -n flexparser-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l flexparser
-
+%install -a
 # Upstream probably doesn’t want to install flexparser.testsuite, but we don’t
 # know how to suggest a fix given “[BUG] options.packages.find.exclude not
 # taking effect when include_package_data = True”,
@@ -60,7 +48,7 @@ rm -rvf '%{buildroot}%{python3_sitelib}/flexparser/testsuite'
 sed -r -i '/\/flexparser\/testsuite/d' %{pyproject_files}
 
 
-%check
+%check -a
 %pytest
 
 

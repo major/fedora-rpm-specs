@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/svarshavchik/%{name}
-%global commit   7fdc8c7e85eac842b179f99f3394aba0e96c2ab8
-%global date     20260224
+%global commit   946b9ee686d0bda3e1202820ba31eb0cc1e969f7
+%global date     20260429
 %forgemeta
 
 Name:           clean-rpm-gpg-pubkey

@@ -42,14 +42,6 @@ BuildRequires:  %{py3_dist gdal}
 BuildRequires:  openjpeg2
 BuildRequires:  libtiff
 
-%if %{defined fc42}
-# Workaround for setuptools<77.0.3; see
-# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
-%global no_pep_639_backend 1
-
-BuildRequires:  tomcli
-%endif
-
 %global _description %{expand:
 Glymur contains a Python interface to the OpenJPEG
 library which allows one to read and write JPEG 2000 files.}
@@ -69,12 +61,6 @@ Requires:       libtiff
 Recommends:     %{py3_dist gdal}
 
 %description -n python3-glymur %_description
-
-
-%prep -a
-%if 0%{?no_pep_639_backend}
-tomcli set pyproject.toml del project.license
-%endif
 
 
 %install -a

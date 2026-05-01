@@ -13,7 +13,7 @@
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.27.0
+Version:        1.28.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -163,8 +163,6 @@ Source:         woodstox.tar.zst
 Source:         xmlunit.tar.zst
 Source:         xmvn.tar.zst
 Source:         xz-java.tar.zst
-
-Patch:          0001-Switch-Dola-to-Lua-5.5.patch
 
 BuildRequires:  byaccj
 BuildRequires:  java-25-openjdk-devel

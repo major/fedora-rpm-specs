@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep -a
-# Since we have patched out pytest-benchmark, this would not be recognized.
+# Since we have omitted pytest-benchmark, this would not be recognized.
 sed -r -i '/--benchmark/d' pytest.ini
 
 

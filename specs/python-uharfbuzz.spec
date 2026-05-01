@@ -1,5 +1,5 @@
 Name:           python-uharfbuzz
-Version:        0.53.7
+Version:        0.54.0
 Release:        %autorelease
 Summary:        Streamlined Cython bindings for the harfbuzz shaping engine
 
@@ -51,12 +51,17 @@ URL:            https://github.com/harfbuzz/uharfbuzz
 Source0:        uharfbuzz-%{version}-filtered.tar.gz
 Source1:        get_source
 
+# When using system Harfbuzz, link the harfbuzz-raster component
+# https://github.com/harfbuzz/uharfbuzz/pull/292
+Patch:          %{url}/pull/292.patch
+
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -t
 BuildOption(install):   -l uharfbuzz
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(harfbuzz-subset)
+BuildRequires:  pkgconfig(harfbuzz-raster)
 
 %global common_description %{expand:
 %{summary}.}
@@ -96,11 +101,12 @@ k="${k-}${k+ and }not test_sparsefont_coretext"
 k="${k-}${k+ and }not test_paint"
 # Require test_glyphs-glyf_colr_1.ttf, omitted from the source archive, via the
 # colorv1font fixture:
-k="${k-}${k+ and }not test_color_palettes"
-k="${k-}${k+ and }not test_color_palette_color_get_name_id"
-k="${k-}${k+ and }not test_has_color_paint"
-k="${k-}${k+ and }not test_glyph_has_color_paint"
+k="${k-}${k+ and }not (TestRasterPaint and test_render_bgra32)"
 k="${k-}${k+ and }not TestOTColor"
+k="${k-}${k+ and }not test_color_palette_color_get_name_id"
+k="${k-}${k+ and }not test_color_palettes"
+k="${k-}${k+ and }not test_glyph_has_color_paint"
+k="${k-}${k+ and }not test_has_color_paint"
 
 %tox -- -- -k "${k-}" -v
 

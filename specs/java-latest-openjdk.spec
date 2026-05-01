@@ -289,7 +289,7 @@
 # New Version-String scheme-style defines
 %global featurever 26
 %global interimver 0
-%global updatever 0
+%global updatever 1
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -326,7 +326,7 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the crypto policy & FIPS support patches
-%global fipsver e55ada9353e
+%global fipsver 57722aab802
 # Define nssadapter variables
 %global nssadapter_version 0.1.1
 %global nssadapter_name nssadapter-%{nssadapter_version}
@@ -345,8 +345,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        35
-%global rpmrelease      2
+%global buildver        8
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions

@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate thin-vec
+%global crate ctutils
 
-Name:           rust-thin-vec
-Version:        0.2.18
+Name:           rust-ctutils
+Version:        0.4.2
 Release:        %autorelease
-Summary:        Vec that takes up less space on the stack
+Summary:        Constant-time utility library with selection and equality testing support
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/thin-vec
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/ctutils
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Vec that takes up less space on the stack.}
+Constant-time utility library with selection and equality testing
+support targeting cryptographic applications. Supports `const fn` where
+appropriate. Built on the `cmov` crate which provides architecture-
+specific predication intrinsics. Heavily inspired by the `subtle` crate.}
 
 %description %{_description}
 
@@ -32,8 +35,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASES.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,52 +51,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const_new-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const_new-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const_new" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const_new-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gecko-ffi-devel
+%package     -n %{name}+subtle-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gecko-ffi-devel %{_description}
+%description -n %{name}+subtle-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gecko-ffi" feature of the "%{crate}" crate.
+use the "subtle" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gecko-ffi-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+subtle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -111,9 +90,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * The skipped test relies on a panic from a debug_assert, which does not
-#   happen in release mode.
-%cargo_test -- -- --skip std_tests::test_set_len_invalid
+%cargo_test
 %endif
 
 %changelog

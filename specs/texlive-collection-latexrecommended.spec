@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-latexrecommended
 Epoch:          12
-Version:        svn77082
-Release:        2%{?dist}
+Version:        svn78568
+Release:        3%{?dist}
 Summary:        LaTeX recommended packages
 
 License:        LPPL-1.3c
@@ -108,52 +108,50 @@ Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pd
 Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfcolfoot.doc.tar.xz
 Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdflscape.tar.xz
 Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdflscape.doc.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfmanagement-testphase.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfmanagement-testphase.doc.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfpages.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfpages.doc.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyglossia.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyglossia.doc.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psfrag.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psfrag.doc.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ragged2e.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ragged2e.doc.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rcs.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rcs.doc.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmath.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmath.doc.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/section.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/section.doc.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seminar.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seminar.doc.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sepnum.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sepnum.doc.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setspace.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setspace.doc.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subfig.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subfig.doc.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textcase.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textcase.doc.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/translator.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/translator.doc.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typehtml.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typehtml.doc.tar.xz
-Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharcat.tar.xz
-Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharcat.doc.tar.xz
-Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/underscore.tar.xz
-Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/underscore.doc.tar.xz
-Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-math.tar.xz
-Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-math.doc.tar.xz
-Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcolor.tar.xz
-Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcolor.doc.tar.xz
-Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xfrac.tar.xz
-Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xfrac.doc.tar.xz
-Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xkeyval.tar.xz
-Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xkeyval.doc.tar.xz
-Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xltxtra.tar.xz
-Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xltxtra.doc.tar.xz
-Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xunicode.tar.xz
-Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xunicode.doc.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfpages.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfpages.doc.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyglossia.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/polyglossia.doc.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psfrag.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/psfrag.doc.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ragged2e.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ragged2e.doc.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rcs.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rcs.doc.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmath.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sansmath.doc.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/section.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/section.doc.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seminar.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seminar.doc.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sepnum.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sepnum.doc.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setspace.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/setspace.doc.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subfig.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subfig.doc.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textcase.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textcase.doc.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/translator.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/translator.doc.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typehtml.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typehtml.doc.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharcat.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucharcat.doc.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/underscore.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/underscore.doc.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-math.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unicode-math.doc.tar.xz
+Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcolor.tar.xz
+Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xcolor.doc.tar.xz
+Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xfrac.tar.xz
+Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xfrac.doc.tar.xz
+Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xkeyval.tar.xz
+Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xkeyval.doc.tar.xz
+Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xltxtra.tar.xz
+Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xltxtra.doc.tar.xz
+Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xunicode.tar.xz
+Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xunicode.doc.tar.xz
 BuildRequires:  texlive-base
 Requires:       texlive-base
 Requires:       texlive-anysize
@@ -205,7 +203,6 @@ Requires:       texlive-ntgclass
 Requires:       texlive-parskip
 Requires:       texlive-pdfcolfoot
 Requires:       texlive-pdflscape
-Requires:       texlive-pdfmanagement-testphase
 Requires:       texlive-pdfpages
 Requires:       texlive-polyglossia
 Requires:       texlive-psfrag
@@ -239,11 +236,12 @@ use.
 
 %package -n texlive-anysize
 Summary:        A simple package to set up document margins
-Version:        svn15878
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(anysize.sty) = %{tl_version}
+Provides:       texlive-anysize-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-anysize-doc <= 11:%{version}
 
 %description -n texlive-anysize
 This package is considered obsolete; alternatives are the typearea package from
@@ -251,10 +249,12 @@ the koma-script bundle, or the geometry package.
 
 %package -n texlive-beamer
 Summary:        A LaTeX class for producing presentations and slides
-Version:        svn77450
+Version:        svn78101
 License:        LPPL-1.3c AND GPL-2.0-or-later AND GFDL-1.3-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-beamer-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-beamer-doc <= 11:%{version}
 Requires:       texlive-amscls
 Requires:       texlive-amsfonts
 Requires:       texlive-amsmath
@@ -280,122 +280,6 @@ Requires:       tex(pgfpages.sty)
 Requires:       tex(sansmathaccent.sty)
 Requires:       tex(translator.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(beamerarticle.sty) = %{tl_version}
-Provides:       tex(beamerbasearticle.sty) = %{tl_version}
-Provides:       tex(beamerbaseauxtemplates.sty) = %{tl_version}
-Provides:       tex(beamerbaseboxes.sty) = %{tl_version}
-Provides:       tex(beamerbasecolor.sty) = %{tl_version}
-Provides:       tex(beamerbasecompatibility.sty) = %{tl_version}
-Provides:       tex(beamerbasedecode.sty) = %{tl_version}
-Provides:       tex(beamerbasefont.sty) = %{tl_version}
-Provides:       tex(beamerbaseframe.sty) = %{tl_version}
-Provides:       tex(beamerbaseframecomponents.sty) = %{tl_version}
-Provides:       tex(beamerbaseframesize.sty) = %{tl_version}
-Provides:       tex(beamerbaselocalstructure.sty) = %{tl_version}
-Provides:       tex(beamerbasemisc.sty) = %{tl_version}
-Provides:       tex(beamerbasemodes.sty) = %{tl_version}
-Provides:       tex(beamerbasenavigation.sty) = %{tl_version}
-Provides:       tex(beamerbasenavigationsymbols.tex) = %{tl_version}
-Provides:       tex(beamerbasenotes.sty) = %{tl_version}
-Provides:       tex(beamerbaseoptions.sty) = %{tl_version}
-Provides:       tex(beamerbaseoverlay.sty) = %{tl_version}
-Provides:       tex(beamerbaserequires.sty) = %{tl_version}
-Provides:       tex(beamerbasesection.sty) = %{tl_version}
-Provides:       tex(beamerbasetemplates.sty) = %{tl_version}
-Provides:       tex(beamerbasethemes.sty) = %{tl_version}
-Provides:       tex(beamerbasetheorems.sty) = %{tl_version}
-Provides:       tex(beamerbasetitle.sty) = %{tl_version}
-Provides:       tex(beamerbasetoc.sty) = %{tl_version}
-Provides:       tex(beamerbasetranslator.sty) = %{tl_version}
-Provides:       tex(beamerbasetwoscreens.sty) = %{tl_version}
-Provides:       tex(beamerbaseverbatim.sty) = %{tl_version}
-Provides:       tex(beamercolorthemealbatross.sty) = %{tl_version}
-Provides:       tex(beamercolorthemebeaver.sty) = %{tl_version}
-Provides:       tex(beamercolorthemebeetle.sty) = %{tl_version}
-Provides:       tex(beamercolorthemecrane.sty) = %{tl_version}
-Provides:       tex(beamercolorthemedefault.sty) = %{tl_version}
-Provides:       tex(beamercolorthemedolphin.sty) = %{tl_version}
-Provides:       tex(beamercolorthemedove.sty) = %{tl_version}
-Provides:       tex(beamercolorthemefly.sty) = %{tl_version}
-Provides:       tex(beamercolorthemelily.sty) = %{tl_version}
-Provides:       tex(beamercolorthememonarca.sty) = %{tl_version}
-Provides:       tex(beamercolorthemeorchid.sty) = %{tl_version}
-Provides:       tex(beamercolorthemerose.sty) = %{tl_version}
-Provides:       tex(beamercolorthemeseagull.sty) = %{tl_version}
-Provides:       tex(beamercolorthemeseahorse.sty) = %{tl_version}
-Provides:       tex(beamercolorthemesidebartab.sty) = %{tl_version}
-Provides:       tex(beamercolorthemespruce.sty) = %{tl_version}
-Provides:       tex(beamercolorthemestructure.sty) = %{tl_version}
-Provides:       tex(beamercolorthemewhale.sty) = %{tl_version}
-Provides:       tex(beamercolorthemewolverine.sty) = %{tl_version}
-Provides:       tex(beamerfoils.sty) = %{tl_version}
-Provides:       tex(beamerfontthemedefault.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeprofessionalfonts.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeserif.sty) = %{tl_version}
-Provides:       tex(beamerfontthemestructurebold.sty) = %{tl_version}
-Provides:       tex(beamerfontthemestructureitalicserif.sty) = %{tl_version}
-Provides:       tex(beamerfontthemestructuresmallcapsserif.sty) = %{tl_version}
-Provides:       tex(beamericonarticle.tex) = %{tl_version}
-Provides:       tex(beamericonbook.tex) = %{tl_version}
-Provides:       tex(beamerinnerthemecircles.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemedefault.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeinmargin.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemerectangles.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemerounded.sty) = %{tl_version}
-Provides:       tex(beamerouterthemedefault.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeinfolines.sty) = %{tl_version}
-Provides:       tex(beamerouterthememiniframes.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeshadow.sty) = %{tl_version}
-Provides:       tex(beamerouterthemesidebar.sty) = %{tl_version}
-Provides:       tex(beamerouterthemesmoothbars.sty) = %{tl_version}
-Provides:       tex(beamerouterthemesmoothtree.sty) = %{tl_version}
-Provides:       tex(beamerouterthemesplit.sty) = %{tl_version}
-Provides:       tex(beamerouterthemetree.sty) = %{tl_version}
-Provides:       tex(beamerpatchparalist.sty) = %{tl_version}
-Provides:       tex(beamerprosper.sty) = %{tl_version}
-Provides:       tex(beamerseminar.sty) = %{tl_version}
-Provides:       tex(beamertexpower.sty) = %{tl_version}
-Provides:       tex(beamerthemeAnnArbor.sty) = %{tl_version}
-Provides:       tex(beamerthemeAntibes.sty) = %{tl_version}
-Provides:       tex(beamerthemeBergen.sty) = %{tl_version}
-Provides:       tex(beamerthemeBerkeley.sty) = %{tl_version}
-Provides:       tex(beamerthemeBerlin.sty) = %{tl_version}
-Provides:       tex(beamerthemeBoadilla.sty) = %{tl_version}
-Provides:       tex(beamerthemeCambridgeUS.sty) = %{tl_version}
-Provides:       tex(beamerthemeCopenhagen.sty) = %{tl_version}
-Provides:       tex(beamerthemeDarmstadt.sty) = %{tl_version}
-Provides:       tex(beamerthemeDresden.sty) = %{tl_version}
-Provides:       tex(beamerthemeEastLansing.sty) = %{tl_version}
-Provides:       tex(beamerthemeFrankfurt.sty) = %{tl_version}
-Provides:       tex(beamerthemeGoettingen.sty) = %{tl_version}
-Provides:       tex(beamerthemeHannover.sty) = %{tl_version}
-Provides:       tex(beamerthemeIlmenau.sty) = %{tl_version}
-Provides:       tex(beamerthemeJuanLesPins.sty) = %{tl_version}
-Provides:       tex(beamerthemeLuebeck.sty) = %{tl_version}
-Provides:       tex(beamerthemeMadrid.sty) = %{tl_version}
-Provides:       tex(beamerthemeMalmoe.sty) = %{tl_version}
-Provides:       tex(beamerthemeMarburg.sty) = %{tl_version}
-Provides:       tex(beamerthemeMontpellier.sty) = %{tl_version}
-Provides:       tex(beamerthemePaloAlto.sty) = %{tl_version}
-Provides:       tex(beamerthemePittsburgh.sty) = %{tl_version}
-Provides:       tex(beamerthemeRochester.sty) = %{tl_version}
-Provides:       tex(beamerthemeSingapore.sty) = %{tl_version}
-Provides:       tex(beamerthemeSzeged.sty) = %{tl_version}
-Provides:       tex(beamerthemeWarsaw.sty) = %{tl_version}
-Provides:       tex(beamerthemebars.sty) = %{tl_version}
-Provides:       tex(beamerthemeboxes.sty) = %{tl_version}
-Provides:       tex(beamerthemeclassic.sty) = %{tl_version}
-Provides:       tex(beamerthemecompatibility.sty) = %{tl_version}
-Provides:       tex(beamerthemedefault.sty) = %{tl_version}
-Provides:       tex(beamerthemelined.sty) = %{tl_version}
-Provides:       tex(beamerthemeplain.sty) = %{tl_version}
-Provides:       tex(beamerthemeshadow.sty) = %{tl_version}
-Provides:       tex(beamerthemesidebar.sty) = %{tl_version}
-Provides:       tex(beamerthemesplit.sty) = %{tl_version}
-Provides:       tex(beamerthemetree.sty) = %{tl_version}
-Provides:       tex(multimedia.sty) = %{tl_version}
-Provides:       tex(multimediasymbols.sty) = %{tl_version}
-Provides:       tex(xmpmulti.sty) = %{tl_version}
 
 %description -n texlive-beamer
 The beamer LaTeX class can be used for producing slides. The class works in
@@ -414,11 +298,12 @@ etoolbox, hyperref, ifpdf, pgf, and translator.
 
 %package -n texlive-booktabs
 Summary:        Publication quality tables in LaTeX
-Version:        svn53402
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(booktabs.sty) = %{tl_version}
+Provides:       texlive-booktabs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-booktabs-doc <= 11:%{version}
 
 %description -n texlive-booktabs
 The package enhances the quality of tables in LaTeX, providing extra commands
@@ -428,17 +313,16 @@ longtable compatibility.
 
 %package -n texlive-breqn
 Summary:        Automatic line breaking of displayed equations
-Version:        svn60881
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-breqn-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-breqn-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(breqn.sty) = %{tl_version}
-Provides:       tex(flexisym.sty) = %{tl_version}
-Provides:       tex(mathstyle.sty) = %{tl_version}
 
 %description -n texlive-breqn
 The package provides solutions to a number of common difficulties in writing
@@ -455,34 +339,14 @@ support for breqn.
 
 %package -n texlive-caption
 Summary:        Customising captions in floating environments
-Version:        svn68425
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-caption-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-caption-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 Requires:       tex(newfloat.sty)
-Provides:       tex(bicaption.sty) = %{tl_version}
-Provides:       tex(caption-light.sty) = %{tl_version}
-Provides:       tex(caption.sty) = %{tl_version}
-Provides:       tex(caption2.sty) = %{tl_version}
-Provides:       tex(caption2_1995-10-09.sty) = %{tl_version}
-Provides:       tex(caption2_2005-10-03.sty) = %{tl_version}
-Provides:       tex(caption3.sty) = %{tl_version}
-Provides:       tex(caption3_2007-04-11.sty) = %{tl_version}
-Provides:       tex(caption3_2010-01-14.sty) = %{tl_version}
-Provides:       tex(caption3_2011-11-01.sty) = %{tl_version}
-Provides:       tex(caption3_2019-09-01.sty) = %{tl_version}
-Provides:       tex(caption3_2020-07-29.sty) = %{tl_version}
-Provides:       tex(caption3_2020-10-26.sty) = %{tl_version}
-Provides:       tex(caption_1995-04-05.sty) = %{tl_version}
-Provides:       tex(caption_2007-04-16.sty) = %{tl_version}
-Provides:       tex(caption_2010-01-09.sty) = %{tl_version}
-Provides:       tex(caption_2011-11-10.sty) = %{tl_version}
-Provides:       tex(caption_2019-09-01.sty) = %{tl_version}
-Provides:       tex(caption_2020-07-29.sty) = %{tl_version}
-Provides:       tex(caption_2020-10-26.sty) = %{tl_version}
-Provides:       tex(ltcaption.sty) = %{tl_version}
-Provides:       tex(subcaption.sty) = %{tl_version}
 
 %description -n texlive-caption
 The caption package provides many ways to customise the captions in floating
@@ -495,14 +359,12 @@ packages like capt-of do. The package supersedes caption2.
 
 %package -n texlive-cite
 Summary:        Improved citation handling in LaTeX
-Version:        svn36428
+Version:        svn77682
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chapterbib.sty) = %{tl_version}
-Provides:       tex(cite.sty) = %{tl_version}
-Provides:       tex(drftcite.sty) = %{tl_version}
-Provides:       tex(overcite.sty) = %{tl_version}
+Provides:       texlive-cite-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cite-doc <= 11:%{version}
 
 %description -n texlive-cite
 The package supports compressed, sorted lists of numerical citations, and also
@@ -513,11 +375,12 @@ of the author's citation-related packages.
 
 %package -n texlive-cmap
 Summary:        Make PDF files searchable and copyable
-Version:        svn57640
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(cmap.sty) = %{tl_version}
+Provides:       texlive-cmap-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmap-doc <= 11:%{version}
 
 %description -n texlive-cmap
 The cmap package provides character map tables, which make PDF files generated
@@ -530,14 +393,15 @@ be resolved in a future version of pdfTeX.
 
 %package -n texlive-crop
 Summary:        Support for cropmarks
-Version:        svn55424
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-crop-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-crop-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphics.sty)
 Requires:       tex(ifluatex.sty)
-Provides:       tex(crop.sty) = %{tl_version}
 
 %description -n texlive-crop
 A package providing corner marks for camera alignment as well as for trimming
@@ -552,10 +416,12 @@ are provided.
 
 %package -n texlive-ctable
 Summary:        Flexible typesetting of table and figure floats using key/value directives
-Version:        svn76639
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ctable-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ctable-doc <= 11:%{version}
 Requires:       tex(array.sty)
 Requires:       tex(booktabs.sty)
 Requires:       tex(etoolbox.sty)
@@ -565,7 +431,6 @@ Requires:       tex(tabularx.sty)
 Requires:       tex(transparent.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(ctable.sty) = %{tl_version}
 
 %description -n texlive-ctable
 Provides commands to typeset centered, left- or right-aligned table and
@@ -576,15 +441,15 @@ extensions.
 
 %package -n texlive-eso-pic
 Summary:        Add picture commands (or backgrounds) to every page
-Version:        svn77066
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-eso-pic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-eso-pic-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(eso-pic.sty) = %{tl_version}
-Provides:       tex(showframe.sty) = %{tl_version}
 
 %description -n texlive-eso-pic
 The package adds one or more user commands to LaTeX's shipout routine, which
@@ -597,8 +462,8 @@ Version:        svn19795
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(eu1enc.def) = %{tl_version}
-Provides:       tex(eu2enc.def) = %{tl_version}
+Provides:       texlive-euenc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-euenc-doc <= 11:%{version}
 
 %description -n texlive-euenc
 Font encoding definitions for unicode fonts loaded by LaTeX in XeTeX or LuaTeX.
@@ -612,11 +477,12 @@ Latin Modern OpenType fonts.
 
 %package -n texlive-euler
 Summary:        Use AMS Euler fonts for math
-Version:        svn42428
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(euler.sty) = %{tl_version}
+Provides:       texlive-euler-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-euler-doc <= 11:%{version}
 
 %description -n texlive-euler
 Provides a setup for using the AMS Euler family of fonts for mathematics in
@@ -632,8 +498,6 @@ Version:        svn57489
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(everysel-2011-10-28.sty) = %{tl_version}
-Provides:       tex(everysel.sty) = %{tl_version}
 
 %description -n texlive-everysel
 The package provided hooks whose arguments are executed just after LaTeX has
@@ -645,12 +509,10 @@ instructions how to use lthooks instead of everysel.
 
 %package -n texlive-everyshi
 Summary:        Take action at every \shipout
-Version:        svn57001
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(everyshi-2001-05-15.sty) = %{tl_version}
-Provides:       tex(everyshi.sty) = %{tl_version}
 
 %description -n texlive-everyshi
 This package provides hooks into \sshipout called \EveryShipout and
@@ -663,12 +525,12 @@ loading everyshi-2001-05-15.
 
 %package -n texlive-extsizes
 Summary:        Extend the standard classes' size options
-Version:        svn17263
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(autopagewidth.sty) = %{tl_version}
-Provides:       tex(extsizes.sty) = %{tl_version}
+Provides:       texlive-extsizes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-extsizes-doc <= 11:%{version}
 
 %description -n texlive-extsizes
 Provides classes extarticle, extreport, extletter, extbook and extproc which
@@ -678,11 +540,12 @@ it cannot be guaranteed to work with any given class.
 
 %package -n texlive-fancybox
 Summary:        Variants of \fbox and other games with boxes
-Version:        svn18304
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(fancybox.sty) = %{tl_version}
+Provides:       texlive-fancybox-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fancybox-doc <= 11:%{version}
 
 %description -n texlive-fancybox
 Provides variants of \fbox: \shadowbox, \doublebox, \ovalbox, \Ovalbox, with
@@ -691,12 +554,13 @@ mathematics, floats, center, flushleft, and flushright, lists, and pages.
 
 %package -n texlive-fancyref
 Summary:        A LaTeX package for fancy cross-referencing
-Version:        svn15878
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fancyref-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fancyref-doc <= 11:%{version}
 Requires:       tex(varioref.sty)
-Provides:       tex(fancyref.sty) = %{tl_version}
 
 %description -n texlive-fancyref
 Provides fancy cross-referencing support, based on the package's reference
@@ -706,17 +570,15 @@ of the form 'sec:foo': the package would recognise the 'sec:' part.
 
 %package -n texlive-fancyvrb
 Summary:        Sophisticated verbatim text
-Version:        svn75920
+Version:        svn78721
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fancyvrb-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fancyvrb-doc <= 11:%{version}
 Requires:       tex(keyval.sty)
 Requires:       tex(pstricks.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(fancyvrb-ex.sty) = %{tl_version}
-Provides:       tex(fancyvrb.sty) = %{tl_version}
-Provides:       tex(hbaw.sty) = %{tl_version}
-Provides:       tex(hcolor.sty) = %{tl_version}
 
 %description -n texlive-fancyvrb
 Flexible handling of verbatim text including: verbatim commands in footnotes; a
@@ -727,21 +589,15 @@ environments (showing both result and verbatim source).
 
 %package -n texlive-filehook
 Summary:        Hooks for input files
-Version:        svn64822
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-filehook-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-filehook-doc <= 11:%{version}
 Requires:       tex(currfile.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(pgfkeys.sty)
-Provides:       tex(filehook-2019.sty) = %{tl_version}
-Provides:       tex(filehook-2020.sty) = %{tl_version}
-Provides:       tex(filehook-fink.sty) = %{tl_version}
-Provides:       tex(filehook-listings.sty) = %{tl_version}
-Provides:       tex(filehook-memoir.sty) = %{tl_version}
-Provides:       tex(filehook-scrlfile.sty) = %{tl_version}
-Provides:       tex(filehook.sty) = %{tl_version}
-Provides:       tex(pgf-filehook.sty) = %{tl_version}
 
 %description -n texlive-filehook
 The package provides several file hooks (AtBegin, AtEnd, ...) for files read by
@@ -752,11 +608,12 @@ and one after the final \clearpage.
 
 %package -n texlive-float
 Summary:        Improved interface for floating objects
-Version:        svn15878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(float.sty) = %{tl_version}
+Provides:       texlive-float-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-float-doc <= 11:%{version}
 
 %description -n texlive-float
 Improves the interface for defining floating objects such as figures and
@@ -767,10 +624,12 @@ You can select this as automatic default with \floatplacement{figure}{H}.
 
 %package -n texlive-fontspec
 Summary:        Advanced font selection in XeLaTeX and LuaLaTeX
-Version:        svn76430
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fontspec-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fontspec-doc <= 11:%{version}
 Requires:       texlive-euenc
 Requires:       texlive-iftex
 Requires:       texlive-l3kernel
@@ -780,9 +639,6 @@ Requires:       texlive-xunicode
 Requires:       tex(fontenc.sty)
 Requires:       tex(luaotfload.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(fontspec-luatex.sty) = %{tl_version}
-Provides:       tex(fontspec-xetex.sty) = %{tl_version}
-Provides:       tex(fontspec.sty) = %{tl_version}
 
 %description -n texlive-fontspec
 Fontspec is a package for XeLaTeX and LuaLaTeX. It provides an automatic and
@@ -792,11 +648,12 @@ xparse bundles from the LaTeX3 development team.
 
 %package -n texlive-footnotehyper
 Summary:        A hyperref aware footnote environment
-Version:        svn76871
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(footnotehyper.sty) = %{tl_version}
+Provides:       texlive-footnotehyper-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-footnotehyper-doc <= 11:%{version}
 
 %description -n texlive-footnotehyper
 This package provides a footnote environment allowing verbatim material and a
@@ -807,24 +664,12 @@ babel-french).
 
 %package -n texlive-fp
 Summary:        Fixed point arithmetic
-Version:        svn49719
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(defpattern.sty) = %{tl_version}
-Provides:       tex(fp-addons.sty) = %{tl_version}
-Provides:       tex(fp-basic.sty) = %{tl_version}
-Provides:       tex(fp-eqn.sty) = %{tl_version}
-Provides:       tex(fp-eval.sty) = %{tl_version}
-Provides:       tex(fp-exp.sty) = %{tl_version}
-Provides:       tex(fp-pas.sty) = %{tl_version}
-Provides:       tex(fp-random.sty) = %{tl_version}
-Provides:       tex(fp-snap.sty) = %{tl_version}
-Provides:       tex(fp-trigo.sty) = %{tl_version}
-Provides:       tex(fp-upn.sty) = %{tl_version}
-Provides:       tex(fp.sty) = %{tl_version}
-Provides:       tex(fp.tex) = %{tl_version}
-Provides:       tex(lfp.sty) = %{tl_version}
+Provides:       texlive-fp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fp-doc <= 11:%{version}
 
 %description -n texlive-fp
 An extensive collection of arithmetic operations for fixed point real numbers
@@ -832,7 +677,7 @@ of high precision.
 
 %package -n texlive-grffile
 Summary:        Extended file name support for graphics (legacy package)
-Version:        svn52756
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -843,8 +688,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(stringenc.sty)
-Provides:       tex(grffile-2017-06-30.sty) = %{tl_version}
-Provides:       tex(grffile.sty) = %{tl_version}
 
 %description -n texlive-grffile
 The original package extended the file name processing of package graphics to
@@ -855,7 +698,7 @@ graphicx. However, \usepackage{grffile}[=v1] may be used to access version
 
 %package -n texlive-hologo
 Summary:        A collection of logos with bookmark support
-Version:        svn76851
+Version:        svn78580
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -866,7 +709,6 @@ Requires:       tex(kvoptions.sty)
 Requires:       tex(kvsetkeys.sty)
 Requires:       tex(ltxcmds.sty)
 Requires:       tex(pdftexcmds.sty)
-Provides:       tex(hologo.sty) = %{tl_version}
 
 %description -n texlive-hologo
 The package defines a single command \hologo, whose argument is the usual
@@ -875,11 +717,12 @@ that every logo becomes available in bookmarks without further work.
 
 %package -n texlive-index
 Summary:        Extended index for LaTeX including multiple indexes
-Version:        svn73880
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(index.sty) = %{tl_version}
+Provides:       texlive-index-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-index-doc <= 11:%{version}
 
 %description -n texlive-index
 This is a reimplementation of LaTeX's indexing macros to provide better support
@@ -890,11 +733,10 @@ that prints the word being indexed, as well as creating an index entry for it.
 
 %package -n texlive-infwarerr
 Summary:        Complete set of information/warning/error message macros
-Version:        svn53023
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(infwarerr.sty) = %{tl_version}
 
 %description -n texlive-infwarerr
 This package provides a complete set of macros for information, warning and
@@ -907,22 +749,10 @@ Version:        svn19440
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jknapltx-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jknapltx-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(textcomp.sty)
-Provides:       tex(greekctr.sty) = %{tl_version}
-Provides:       tex(holtpolt.sty) = %{tl_version}
-Provides:       tex(latin1jk.def) = %{tl_version}
-Provides:       tex(latin2jk.def) = %{tl_version}
-Provides:       tex(latin3jk.def) = %{tl_version}
-Provides:       tex(mathbbol.sty) = %{tl_version}
-Provides:       tex(mathrsfs.sty) = %{tl_version}
-Provides:       tex(parboxx.sty) = %{tl_version}
-Provides:       tex(sans.sty) = %{tl_version}
-Provides:       tex(semtrans.sty) = %{tl_version}
-Provides:       tex(sgmlcmpt.sty) = %{tl_version}
-Provides:       tex(smartmn.sty) = %{tl_version}
-Provides:       tex(tccompat.sty) = %{tl_version}
-Provides:       tex(young.sty) = %{tl_version}
 
 %description -n texlive-jknapltx
 Miscellaneous macros by Jorg Knappen, including: represent counters in greek;
@@ -946,177 +776,6 @@ Requires:       tex(keyval.sty)
 Requires:       tex(multicol.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(authorpart-de.tex) = %{tl_version}
-Provides:       tex(authorpart-en.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-nopatch-de.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-nopatch-de.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-nopatch-en.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-nopatch-en.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-patch-de.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-patch-de.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-patch-en.tex) = %{tl_version}
-Provides:       tex(book-remarkbox-patch-en.tex) = %{tl_version}
-Provides:       tex(common-compatibility-de.tex) = %{tl_version}
-Provides:       tex(common-compatibility-en.tex) = %{tl_version}
-Provides:       tex(common-dictum-de.tex) = %{tl_version}
-Provides:       tex(common-dictum-en.tex) = %{tl_version}
-Provides:       tex(common-draftmode-de.tex) = %{tl_version}
-Provides:       tex(common-draftmode-en.tex) = %{tl_version}
-Provides:       tex(common-fontsize-de.tex) = %{tl_version}
-Provides:       tex(common-fontsize-en.tex) = %{tl_version}
-Provides:       tex(common-footnotes-de.tex) = %{tl_version}
-Provides:       tex(common-footnotes-en.tex) = %{tl_version}
-Provides:       tex(common-footnotes-experts-de.tex) = %{tl_version}
-Provides:       tex(common-footnotes-experts-en.tex) = %{tl_version}
-Provides:       tex(common-headfootheight-de.tex) = %{tl_version}
-Provides:       tex(common-headfootheight-en.tex) = %{tl_version}
-Provides:       tex(common-interleafpage-de.tex) = %{tl_version}
-Provides:       tex(common-interleafpage-en.tex) = %{tl_version}
-Provides:       tex(common-lists-de.tex) = %{tl_version}
-Provides:       tex(common-lists-en.tex) = %{tl_version}
-Provides:       tex(common-marginpar-de.tex) = %{tl_version}
-Provides:       tex(common-marginpar-en.tex) = %{tl_version}
-Provides:       tex(common-oddorevenpage-de.tex) = %{tl_version}
-Provides:       tex(common-oddorevenpage-en.tex) = %{tl_version}
-Provides:       tex(common-options-de.tex) = %{tl_version}
-Provides:       tex(common-options-en.tex) = %{tl_version}
-Provides:       tex(common-pagestylemanipulation-de.tex) = %{tl_version}
-Provides:       tex(common-pagestylemanipulation-en.tex) = %{tl_version}
-Provides:       tex(common-parmarkup-de.tex) = %{tl_version}
-Provides:       tex(common-parmarkup-en.tex) = %{tl_version}
-Provides:       tex(common-textmarkup-de.tex) = %{tl_version}
-Provides:       tex(common-textmarkup-en.tex) = %{tl_version}
-Provides:       tex(common-titles-de.tex) = %{tl_version}
-Provides:       tex(common-titles-en.tex) = %{tl_version}
-Provides:       tex(common-typearea-de.tex) = %{tl_version}
-Provides:       tex(common-typearea-en.tex) = %{tl_version}
-Provides:       tex(expertpart-de.tex) = %{tl_version}
-Provides:       tex(expertpart-en.tex) = %{tl_version}
-Provides:       tex(introduction-de.tex) = %{tl_version}
-Provides:       tex(introduction-en.tex) = %{tl_version}
-Provides:       tex(japanlco-en.tex) = %{tl_version}
-Provides:       tex(letter-example-00-de.tex) = %{tl_version}
-Provides:       tex(letter-example-00-en.tex) = %{tl_version}
-Provides:       tex(letter-example-01-de.tex) = %{tl_version}
-Provides:       tex(letter-example-01-en.tex) = %{tl_version}
-Provides:       tex(letter-example-02-de.tex) = %{tl_version}
-Provides:       tex(letter-example-02-en.tex) = %{tl_version}
-Provides:       tex(letter-example-03-de.tex) = %{tl_version}
-Provides:       tex(letter-example-03-en.tex) = %{tl_version}
-Provides:       tex(letter-example-04-de.tex) = %{tl_version}
-Provides:       tex(letter-example-04-en.tex) = %{tl_version}
-Provides:       tex(letter-example-05-de.tex) = %{tl_version}
-Provides:       tex(letter-example-05-en.tex) = %{tl_version}
-Provides:       tex(letter-example-06-de.tex) = %{tl_version}
-Provides:       tex(letter-example-06-en.tex) = %{tl_version}
-Provides:       tex(letter-example-07-de.tex) = %{tl_version}
-Provides:       tex(letter-example-07-en.tex) = %{tl_version}
-Provides:       tex(letter-example-08-de.tex) = %{tl_version}
-Provides:       tex(letter-example-08-en.tex) = %{tl_version}
-Provides:       tex(letter-example-09-de.tex) = %{tl_version}
-Provides:       tex(letter-example-09-en.tex) = %{tl_version}
-Provides:       tex(letter-example-10-de.tex) = %{tl_version}
-Provides:       tex(letter-example-10-en.tex) = %{tl_version}
-Provides:       tex(letter-example-11-de.tex) = %{tl_version}
-Provides:       tex(letter-example-11-en.tex) = %{tl_version}
-Provides:       tex(letter-example-12-de.tex) = %{tl_version}
-Provides:       tex(letter-example-12-en.tex) = %{tl_version}
-Provides:       tex(letter-example-13-de.tex) = %{tl_version}
-Provides:       tex(letter-example-13-en.tex) = %{tl_version}
-Provides:       tex(letter-example-14-de.tex) = %{tl_version}
-Provides:       tex(letter-example-14-en.tex) = %{tl_version}
-Provides:       tex(letter-example-15-de.tex) = %{tl_version}
-Provides:       tex(letter-example-15-en.tex) = %{tl_version}
-Provides:       tex(letter-example-16-de.tex) = %{tl_version}
-Provides:       tex(letter-example-16-en.tex) = %{tl_version}
-Provides:       tex(letter-example-17-de.tex) = %{tl_version}
-Provides:       tex(letter-example-17-en.tex) = %{tl_version}
-Provides:       tex(letter-example-18-de.tex) = %{tl_version}
-Provides:       tex(letter-example-18-en.tex) = %{tl_version}
-Provides:       tex(letter-example-19-de.tex) = %{tl_version}
-Provides:       tex(letter-example-19-en.tex) = %{tl_version}
-Provides:       tex(letter-example-20-de.tex) = %{tl_version}
-Provides:       tex(letter-example-20-en.tex) = %{tl_version}
-Provides:       tex(letter-example-21-de.tex) = %{tl_version}
-Provides:       tex(letter-example-21-en.tex) = %{tl_version}
-Provides:       tex(letter-example-22-de.tex) = %{tl_version}
-Provides:       tex(letter-example-22-en.tex) = %{tl_version}
-Provides:       tex(letter-example-23-de.tex) = %{tl_version}
-Provides:       tex(letter-example-23-en.tex) = %{tl_version}
-Provides:       tex(linkalias.tex) = %{tl_version}
-Provides:       tex(plength-tikz.tex) = %{tl_version}
-Provides:       tex(preface-de.tex) = %{tl_version}
-Provides:       tex(preface-en.tex) = %{tl_version}
-Provides:       tex(scraddr-de.tex) = %{tl_version}
-Provides:       tex(scraddr-en.tex) = %{tl_version}
-Provides:       tex(scraddr.sty) = %{tl_version}
-Provides:       tex(scrbase-de.tex) = %{tl_version}
-Provides:       tex(scrbase-en.tex) = %{tl_version}
-Provides:       tex(scrbase.sty) = %{tl_version}
-Provides:       tex(scrbookreportarticle-de.tex) = %{tl_version}
-Provides:       tex(scrbookreportarticle-en.tex) = %{tl_version}
-Provides:       tex(scrbookreportarticle-experts-de.tex) = %{tl_version}
-Provides:       tex(scrbookreportarticle-experts-en.tex) = %{tl_version}
-Provides:       tex(scrdate-de.tex) = %{tl_version}
-Provides:       tex(scrdate-en.tex) = %{tl_version}
-Provides:       tex(scrdate.sty) = %{tl_version}
-Provides:       tex(scrdocstrip.tex) = %{tl_version}
-Provides:       tex(scrextend-de.tex) = %{tl_version}
-Provides:       tex(scrextend-en.tex) = %{tl_version}
-Provides:       tex(scrextend.sty) = %{tl_version}
-Provides:       tex(scrfontsizes.sty) = %{tl_version}
-Provides:       tex(scrguide-body.tex) = %{tl_version}
-Provides:       tex(scrguide-de.tex) = %{tl_version}
-Provides:       tex(scrguide-en.tex) = %{tl_version}
-Provides:       tex(scrjura-de.tex) = %{tl_version}
-Provides:       tex(scrjura-en.tex) = %{tl_version}
-Provides:       tex(scrjura.sty) = %{tl_version}
-Provides:       tex(scrkbase.sty) = %{tl_version}
-Provides:       tex(scrlayer-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-example-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-example-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-example-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn-example-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-notecolumn.sty) = %{tl_version}
-Provides:       tex(scrlayer-scrpage-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-scrpage-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-scrpage-experts-de.tex) = %{tl_version}
-Provides:       tex(scrlayer-scrpage-experts-en.tex) = %{tl_version}
-Provides:       tex(scrlayer-scrpage.sty) = %{tl_version}
-Provides:       tex(scrlayer.sty) = %{tl_version}
-Provides:       tex(scrletter.sty) = %{tl_version}
-Provides:       tex(scrlfile-de.tex) = %{tl_version}
-Provides:       tex(scrlfile-en.tex) = %{tl_version}
-Provides:       tex(scrlfile-hook-3.34.sty) = %{tl_version}
-Provides:       tex(scrlfile-hook.sty) = %{tl_version}
-Provides:       tex(scrlfile-patcholdlatex.sty) = %{tl_version}
-Provides:       tex(scrlfile.sty) = %{tl_version}
-Provides:       tex(scrlogo-de.tex) = %{tl_version}
-Provides:       tex(scrlogo-en.tex) = %{tl_version}
-Provides:       tex(scrlogo.sty) = %{tl_version}
-Provides:       tex(scrlttr2-de.tex) = %{tl_version}
-Provides:       tex(scrlttr2-en.tex) = %{tl_version}
-Provides:       tex(scrlttr2-experts-de.tex) = %{tl_version}
-Provides:       tex(scrlttr2-experts-en.tex) = %{tl_version}
-Provides:       tex(scrtime-de.tex) = %{tl_version}
-Provides:       tex(scrtime-en.tex) = %{tl_version}
-Provides:       tex(scrtime.sty) = %{tl_version}
-Provides:       tex(scrwfile-de.tex) = %{tl_version}
-Provides:       tex(scrwfile-en.tex) = %{tl_version}
-Provides:       tex(terms-de.tex) = %{tl_version}
-Provides:       tex(terms-en.tex) = %{tl_version}
-Provides:       tex(tocbasic-de.tex) = %{tl_version}
-Provides:       tex(tocbasic-en.tex) = %{tl_version}
-Provides:       tex(tocbasic.sty) = %{tl_version}
-Provides:       tex(typearea-de.tex) = %{tl_version}
-Provides:       tex(typearea-en.tex) = %{tl_version}
-Provides:       tex(typearea-experts-de.tex) = %{tl_version}
-Provides:       tex(typearea-experts-en.tex) = %{tl_version}
-Provides:       tex(typearea.sty) = %{tl_version}
-Provides:       tex(variables-tikz.tex) = %{tl_version}
 
 %description -n texlive-koma-script
 The KOMA-Script bundle provides replacements for the article, report, and book
@@ -1132,15 +791,13 @@ scrartcl, scrlttr2 and typearea (which are the main parts of the bundle).
 
 %package -n texlive-l3experimental
 Summary:        Experimental LaTeX3 concepts
-Version:        svn76637
+Version:        svn78549
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-l3experimental-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-l3experimental-doc <= 11:%{version}
 Requires:       texlive-l3kernel
-Provides:       tex(l3draw.sty) = %{tl_version}
-Provides:       tex(l3galley.sty) = %{tl_version}
-Provides:       tex(xcoffins.sty) = %{tl_version}
-Provides:       tex(xgalley.sty) = %{tl_version}
 
 %description -n texlive-l3experimental
 The l3experimental packages are a collection of experimental implementations
@@ -1150,15 +807,13 @@ functionality, and can be used on top of LaTeX2e with no changes to the
 existing kernel. The present release includes: l3draw, a code-level interface
 for constructing drawings; xcoffins, which allows the alignment of boxes using
 a series of 'handle' positions, supplementing the simple TeX reference point;
-xgalley, which controls boxes receiving text for typesetting.
 
 %package -n texlive-latexbug
 Summary:        Bug classification for LaTeX related bugs
-Version:        svn77050
+Version:        svn78389
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(latexbug.sty) = %{tl_version}
 
 %description -n texlive-latexbug
 The package is written in order to help identifying the rightful addressee for
@@ -1167,21 +822,18 @@ is intended to be sent to the LaTeX bug database as part of a bug report.
 
 %package -n texlive-lineno
 Summary:        Line numbers on paragraphs
-Version:        svn75200
+Version:        svn78315
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lineno-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lineno-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(finstrut.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(longtable.sty)
 Requires:       tex(ltabptch.sty)
 Requires:       tex(varioref.sty)
-Provides:       tex(ednmath0.sty) = %{tl_version}
-Provides:       tex(edtable.sty) = %{tl_version}
-Provides:       tex(fnlineno.sty) = %{tl_version}
-Provides:       tex(lineno.sty) = %{tl_version}
-Provides:       tex(vplref.sty) = %{tl_version}
 
 %description -n texlive-lineno
 Adds line numbers to selected paragraphs with reference possible through the
@@ -1190,10 +842,12 @@ extended to footnote lines, using the fnlineno package.
 
 %package -n texlive-listings
 Summary:        Typeset source code listings using LaTeX
-Version:        svn76899
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-listings-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-listings-doc <= 11:%{version}
 Requires:       tex(algorithmic.sty)
 Requires:       tex(color.sty)
 Requires:       tex(fancyvrb.sty)
@@ -1202,13 +856,6 @@ Requires:       tex(keyval.sty)
 # Ignoring dependency on lgrind.sty - non-free
 Requires:       tex(textcomp.sty)
 Requires:       tex(xurl.sty)
-Provides:       tex(listings.sty) = %{tl_version}
-Provides:       tex(lstdoc.sty) = %{tl_version}
-Provides:       tex(lstlang1.sty) = %{tl_version}
-Provides:       tex(lstlang2.sty) = %{tl_version}
-Provides:       tex(lstlang3.sty) = %{tl_version}
-Provides:       tex(lstmisc.sty) = %{tl_version}
-Provides:       tex(lstpatch.sty) = %{tl_version}
 
 %description -n texlive-listings
 The package enables the user to typeset programs (programming code) within
@@ -1225,7 +872,7 @@ token with the \lstMakeShortInline command).
 
 %package -n texlive-ltx-talk
 Summary:        A class for typesetting presentations
-Version:        svn77585
+Version:        svn78710
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1253,26 +900,10 @@ without additional steps.
 
 %package -n texlive-lua-unicode-math
 Summary:        OpenType Math font support for LuaLaTeX
-Version:        svn77584
+Version:        svn78498
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lua-unicode-math.sty) = %{tl_version}
-Provides:       tex(lum-bonum.sty) = %{tl_version}
-Provides:       tex(lum-concrete.sty) = %{tl_version}
-Provides:       tex(lum-dejavu.sty) = %{tl_version}
-Provides:       tex(lum-erewhon.sty) = %{tl_version}
-Provides:       tex(lum-fira.sty) = %{tl_version}
-Provides:       tex(lum-gfsneohellenic.sty) = %{tl_version}
-Provides:       tex(lum-lmodern.sty) = %{tl_version}
-Provides:       tex(lum-newcomputermodern.sty) = %{tl_version}
-Provides:       tex(lum-newcomputermodernsans.sty) = %{tl_version}
-Provides:       tex(lum-pagella.sty) = %{tl_version}
-Provides:       tex(lum-schola.sty) = %{tl_version}
-Provides:       tex(lum-stix2.sty) = %{tl_version}
-Provides:       tex(lum-termes.sty) = %{tl_version}
-Provides:       tex(lum-xcharter.sty) = %{tl_version}
-Provides:       tex(lum-xits.sty) = %{tl_version}
 
 %description -n texlive-lua-unicode-math
 A faster and more compatible package to support using OpenType math fonts in
@@ -1280,17 +911,18 @@ LuaLaTeX as an alternative for unicode-math.
 
 %package -n texlive-mathspec
 Summary:        Specify arbitrary fonts for mathematics in XeTeX
-Version:        svn42773
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathspec-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathspec-doc <= 11:%{version}
 Requires:       tex(MnSymbol.sty)
 Requires:       tex(amstext.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mathspec.sty) = %{tl_version}
 
 %description -n texlive-mathspec
 The mathspec package provides an interface to typeset mathematics in XeLaTeX
@@ -1301,18 +933,18 @@ least version 0.9995 of XeTeX.
 
 %package -n texlive-mathtools
 Summary:        Mathematical tools to use with amsmath
-Version:        svn72487
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mathtools-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mathtools-doc <= 11:%{version}
 Requires:       texlive-amsmath
+Requires:       texlive-tools
 Requires:       tex(amsmath.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(empheq.sty) = %{tl_version}
-Provides:       tex(mathtools.sty) = %{tl_version}
-Provides:       tex(mhsetup.sty) = %{tl_version}
 
 %description -n texlive-mathtools
 Mathtools provides a series of packages designed to enhance the appearance of
@@ -1335,17 +967,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(at.sty) = %{tl_version}
-Provides:       tex(cmtt.sty) = %{tl_version}
-Provides:       tex(doafter.sty) = %{tl_version}
-Provides:       tex(footnote.sty) = %{tl_version}
-Provides:       tex(mTTenc.def) = %{tl_version}
-Provides:       tex(mathenv.sty) = %{tl_version}
-Provides:       tex(mdwlist.sty) = %{tl_version}
-Provides:       tex(mdwmath.sty) = %{tl_version}
-Provides:       tex(mdwtab.sty) = %{tl_version}
-Provides:       tex(sverb.sty) = %{tl_version}
-Provides:       tex(syntax.sty) = %{tl_version}
+Provides:       texlive-mdwtools-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mdwtools-doc <= 11:%{version}
 
 %description -n texlive-mdwtools
 This collection of tools includes: support for short commands starting with @,
@@ -1356,11 +979,12 @@ LaTeX's tabular and array environments; verbatim handling; and syntax diagrams.
 
 %package -n texlive-memoir
 Summary:        Typeset fiction, non-fiction and mathematical books
-Version:        svn76756
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(memhfixc.sty) = %{tl_version}
+Provides:       texlive-memoir-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-memoir-doc <= 11:%{version}
 
 %description -n texlive-memoir
 The memoir class is for typesetting poetry, fiction, non-fiction, and
@@ -1376,14 +1000,15 @@ running under memoir.
 
 %package -n texlive-metalogo
 Summary:        Extended TeX logo macros
-Version:        svn18611
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metalogo-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metalogo-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifxetex.sty)
-Provides:       tex(metalogo.sty) = %{tl_version}
 
 %description -n texlive-metalogo
 This package exposes spacing parameters for various TeX logos to the end user,
@@ -1392,22 +1017,18 @@ users.
 
 %package -n texlive-microtype
 Summary:        Subliminal refinements towards typographical perfection
-Version:        svn75729
+Version:        svn78228
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-microtype-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-microtype-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(letterspace.sty) = %{tl_version}
-Provides:       tex(microtype-luatex.def) = %{tl_version}
-Provides:       tex(microtype-pdftex.def) = %{tl_version}
-Provides:       tex(microtype-show.sty) = %{tl_version}
-Provides:       tex(microtype-xetex.def) = %{tl_version}
-Provides:       tex(microtype.sty) = %{tl_version}
 
 %description -n texlive-microtype
 The package provides a LaTeX interface to the micro-typographic extensions that
@@ -1429,14 +1050,11 @@ extensions.
 
 %package -n texlive-newfloat
 Summary:        Define new floating environments
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(newfloat.sty) = %{tl_version}
-Provides:       tex(newfloat_v1.0.sty) = %{tl_version}
-Provides:       tex(newfloat_v1.1.sty) = %{tl_version}
 
 %description -n texlive-newfloat
 The package offers the command \DeclareFloatingEnvironment, which the user may
@@ -1449,7 +1067,8 @@ Version:        svn77239
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(a4.sty) = %{tl_version}
+Provides:       texlive-ntgclass-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ntgclass-doc <= 11:%{version}
 
 %description -n texlive-ntgclass
 The bundle offers versions of the standard LaTeX article and report classes,
@@ -1461,14 +1080,14 @@ members of the Dutch TeX Users Group NTG.
 
 %package -n texlive-parskip
 Summary:        Layout with zero \parindent, non-zero \parskip
-Version:        svn58358
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-parskip-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-parskip-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(parskip-2001-04-09.sty) = %{tl_version}
-Provides:       tex(parskip.sty) = %{tl_version}
 
 %description -n texlive-parskip
 Simply changing \parskip and \parindent leaves a layout that is untidy; this
@@ -1477,12 +1096,11 @@ alleviate this untidiness.
 
 %package -n texlive-pdfcolfoot
 Summary:        Separate color stack for footnotes with pdfTeX
-Version:        svn75712
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pdfcol.sty)
-Provides:       tex(pdfcolfoot.sty) = %{tl_version}
 
 %description -n texlive-pdfcolfoot
 Since version 1.40 pdfTeX supports several colour stacks. This package uses a
@@ -1490,64 +1108,30 @@ separate colour stack for footnotes that can break across pages.
 
 %package -n texlive-pdflscape
 Summary:        Make landscape pages display as landscape
-Version:        svn75593
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(lscape.sty)
-Provides:       tex(pdflscape-nometadata.sty) = %{tl_version}
-Provides:       tex(pdflscape.sty) = %{tl_version}
 
 %description -n texlive-pdflscape
 The package adds PDF support to the landscape environment of package lscape, by
 setting the PDF /Rotate page attribute. Pages with this attribute will be
 displayed in landscape orientation by conforming PDF viewers.
 
-%package -n texlive-pdfmanagement-testphase
-Summary:        LaTeX PDF management testphase bundle
-Version:        svn77467
-License:        LPPL-1.3c
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Requires:       tex(tagpdf-base.sty)
-Provides:       tex(color-ltx.sty) = %{tl_version}
-Provides:       tex(colorspace-patches-tmp-ltx.sty) = %{tl_version}
-Provides:       tex(hgeneric-testphase.def) = %{tl_version}
-Provides:       tex(hgeneric.def) = %{tl_version}
-Provides:       tex(hyperref-colorschemes.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-dvipdfmx.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-dvips.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-dvisvgm.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-luatex.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-pdftex.def) = %{tl_version}
-Provides:       tex(l3backend-testphase-xetex.def) = %{tl_version}
-Provides:       tex(l3pdffield-testphase.sty) = %{tl_version}
-Provides:       tex(l3pdffield.sty) = %{tl_version}
-Provides:       tex(pdfmanagement-firstaid.sty) = %{tl_version}
-Provides:       tex(pdfmanagement-testphase.sty) = %{tl_version}
-Provides:       tex(pdfmanagement.sty) = %{tl_version}
-Provides:       tex(xcolor-patches-tmp-ltx.sty) = %{tl_version}
-
-%description -n texlive-pdfmanagement-testphase
-This is a temporary package, which is used during a test phase to load the new
-PDF management code of LaTeX. The new PDF management code offers
-backend-independent interfaces to central PDF dictionaries, tools to create
-annotations, form Xobjects, to embed files, and to handle PDF standards. The
-code is provided, during a testphase, as an independent package to allow users
-and package authors to safely test the code. At a later stage it will be
-integrated into the LaTeX kernel (or in parts into permanent support packages),
-and the current testphase bundle will be removed.
-
 %package -n texlive-pdfpages
 Summary:        Include PDF documents in LaTeX
-Version:        svn75881
+Version:        svn78558
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pdfpages-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pdfpages-doc <= 11:%{version}
 Requires:       texlive-eso-pic
 Requires:       texlive-graphics
 Requires:       texlive-oberdiek
+Requires:       texlive-pdflscape
 Requires:       texlive-tools
 Requires:       tex(calc.sty)
 Requires:       tex(eso-pic.sty)
@@ -1555,14 +1139,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(pdflscape.sty)
-Provides:       tex(pdfpages.sty) = %{tl_version}
-Provides:       tex(ppdvipdfmx.def) = %{tl_version}
-Provides:       tex(ppdvips.def) = %{tl_version}
-Provides:       tex(ppluatex.def) = %{tl_version}
-Provides:       tex(ppnull.def) = %{tl_version}
-Provides:       tex(pppdftex.def) = %{tl_version}
-Provides:       tex(ppvtex.def) = %{tl_version}
-Provides:       tex(ppxetex.def) = %{tl_version}
 
 %description -n texlive-pdfpages
 This package simplifies the inclusion of external multi-page PDF documents in
@@ -1574,10 +1150,12 @@ use this package to insert PostScript files, in addition to PDF files.
 
 %package -n texlive-polyglossia
 Summary:        An alternative to babel for XeLaTeX and LuaLaTeX
-Version:        svn76990
+Version:        svn78740
 License:        MIT AND LPPL-1.3c AND CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-polyglossia-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-polyglossia-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       texlive-filehook
 Requires:       texlive-fontspec
@@ -1590,265 +1168,7 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(luabidi.sty)
-Provides:       tex(arabicnumbers.sty) = %{tl_version}
-Provides:       tex(babel-hebrewalph.def) = %{tl_version}
-Provides:       tex(babelsh.def) = %{tl_version}
-Provides:       tex(bengalidigits.sty) = %{tl_version}
-Provides:       tex(cal-util.def) = %{tl_version}
-Provides:       tex(devanagaridigits.sty) = %{tl_version}
-Provides:       tex(farsical.sty) = %{tl_version}
-Provides:       tex(gloss-acadian.ldf) = %{tl_version}
-Provides:       tex(gloss-aeb.ldf) = %{tl_version}
-Provides:       tex(gloss-af.ldf) = %{tl_version}
-Provides:       tex(gloss-afb.ldf) = %{tl_version}
-Provides:       tex(gloss-afrikaans.ldf) = %{tl_version}
-Provides:       tex(gloss-albanian.ldf) = %{tl_version}
-Provides:       tex(gloss-am.ldf) = %{tl_version}
-Provides:       tex(gloss-american.ldf) = %{tl_version}
-Provides:       tex(gloss-amharic.ldf) = %{tl_version}
-Provides:       tex(gloss-apd.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-IQ.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-JO.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-LB.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-MR.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-PS.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-SY.ldf) = %{tl_version}
-Provides:       tex(gloss-ar-YE.ldf) = %{tl_version}
-Provides:       tex(gloss-ar.ldf) = %{tl_version}
-Provides:       tex(gloss-arabic.ldf) = %{tl_version}
-Provides:       tex(gloss-armenian.ldf) = %{tl_version}
-Provides:       tex(gloss-arq.ldf) = %{tl_version}
-Provides:       tex(gloss-ary.ldf) = %{tl_version}
-Provides:       tex(gloss-arz.ldf) = %{tl_version}
-Provides:       tex(gloss-ast.ldf) = %{tl_version}
-Provides:       tex(gloss-asturian.ldf) = %{tl_version}
-Provides:       tex(gloss-australian.ldf) = %{tl_version}
-Provides:       tex(gloss-austrian.ldf) = %{tl_version}
-Provides:       tex(gloss-ayl.ldf) = %{tl_version}
-Provides:       tex(gloss-bahasa.ldf) = %{tl_version}
-Provides:       tex(gloss-bahasai.ldf) = %{tl_version}
-Provides:       tex(gloss-bahasam.ldf) = %{tl_version}
-Provides:       tex(gloss-basque.ldf) = %{tl_version}
-Provides:       tex(gloss-be-tarask.ldf) = %{tl_version}
-Provides:       tex(gloss-be.ldf) = %{tl_version}
-Provides:       tex(gloss-belarusian.ldf) = %{tl_version}
-Provides:       tex(gloss-bengali.ldf) = %{tl_version}
-Provides:       tex(gloss-bg.ldf) = %{tl_version}
-Provides:       tex(gloss-bn.ldf) = %{tl_version}
-Provides:       tex(gloss-bo.ldf) = %{tl_version}
-Provides:       tex(gloss-bosnian.ldf) = %{tl_version}
-Provides:       tex(gloss-br.ldf) = %{tl_version}
-Provides:       tex(gloss-brazil.ldf) = %{tl_version}
-Provides:       tex(gloss-breton.ldf) = %{tl_version}
-Provides:       tex(gloss-british.ldf) = %{tl_version}
-Provides:       tex(gloss-bs.ldf) = %{tl_version}
-Provides:       tex(gloss-bulgarian.ldf) = %{tl_version}
-Provides:       tex(gloss-ca.ldf) = %{tl_version}
-Provides:       tex(gloss-canadian.ldf) = %{tl_version}
-Provides:       tex(gloss-canadien.ldf) = %{tl_version}
-Provides:       tex(gloss-catalan.ldf) = %{tl_version}
-Provides:       tex(gloss-chinese.ldf) = %{tl_version}
-Provides:       tex(gloss-ckb-Arab.ldf) = %{tl_version}
-Provides:       tex(gloss-ckb-Latn.ldf) = %{tl_version}
-Provides:       tex(gloss-ckb.ldf) = %{tl_version}
-Provides:       tex(gloss-classicallatin.ldf) = %{tl_version}
-Provides:       tex(gloss-classiclatin.ldf) = %{tl_version}
-Provides:       tex(gloss-cop.ldf) = %{tl_version}
-Provides:       tex(gloss-coptic.ldf) = %{tl_version}
-Provides:       tex(gloss-croatian.ldf) = %{tl_version}
-Provides:       tex(gloss-cy.ldf) = %{tl_version}
-Provides:       tex(gloss-cz.ldf) = %{tl_version}
-Provides:       tex(gloss-czech.ldf) = %{tl_version}
-Provides:       tex(gloss-da.ldf) = %{tl_version}
-Provides:       tex(gloss-danish.ldf) = %{tl_version}
-Provides:       tex(gloss-de-AT-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-AT-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-AT.ldf) = %{tl_version}
-Provides:       tex(gloss-de-CH-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-CH-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-CH.ldf) = %{tl_version}
-Provides:       tex(gloss-de-DE-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-DE-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-DE.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-AT-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-AT-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-AT.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-CH-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-CH-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-CH.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-DE-1901.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-DE-1996.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf-DE.ldf) = %{tl_version}
-Provides:       tex(gloss-de-Latf.ldf) = %{tl_version}
-Provides:       tex(gloss-de.ldf) = %{tl_version}
-Provides:       tex(gloss-divehi.ldf) = %{tl_version}
-Provides:       tex(gloss-dsb.ldf) = %{tl_version}
-Provides:       tex(gloss-dutch.ldf) = %{tl_version}
-Provides:       tex(gloss-dv.ldf) = %{tl_version}
-Provides:       tex(gloss-ecclesiasticallatin.ldf) = %{tl_version}
-Provides:       tex(gloss-ecclesiasticlatin.ldf) = %{tl_version}
-Provides:       tex(gloss-el-monoton.ldf) = %{tl_version}
-Provides:       tex(gloss-el-polyton.ldf) = %{tl_version}
-Provides:       tex(gloss-el.ldf) = %{tl_version}
-Provides:       tex(gloss-en-AU.ldf) = %{tl_version}
-Provides:       tex(gloss-en-CA.ldf) = %{tl_version}
-Provides:       tex(gloss-en-GB.ldf) = %{tl_version}
-Provides:       tex(gloss-en-NZ.ldf) = %{tl_version}
-Provides:       tex(gloss-en-US.ldf) = %{tl_version}
-Provides:       tex(gloss-en.ldf) = %{tl_version}
-Provides:       tex(gloss-english.ldf) = %{tl_version}
-Provides:       tex(gloss-eo.ldf) = %{tl_version}
-Provides:       tex(gloss-es-ES.ldf) = %{tl_version}
-Provides:       tex(gloss-es-MX.ldf) = %{tl_version}
-Provides:       tex(gloss-es.ldf) = %{tl_version}
-Provides:       tex(gloss-esperanto.ldf) = %{tl_version}
-Provides:       tex(gloss-estonian.ldf) = %{tl_version}
-Provides:       tex(gloss-et.ldf) = %{tl_version}
-Provides:       tex(gloss-eu.ldf) = %{tl_version}
-Provides:       tex(gloss-fa.ldf) = %{tl_version}
-Provides:       tex(gloss-farsi.ldf) = %{tl_version}
-Provides:       tex(gloss-fi.ldf) = %{tl_version}
-Provides:       tex(gloss-finnish.ldf) = %{tl_version}
-Provides:       tex(gloss-fr-CA-u-sd-canb.ldf) = %{tl_version}
-Provides:       tex(gloss-fr-CA.ldf) = %{tl_version}
-Provides:       tex(gloss-fr-CH.ldf) = %{tl_version}
-Provides:       tex(gloss-fr-FR.ldf) = %{tl_version}
-Provides:       tex(gloss-fr.ldf) = %{tl_version}
-Provides:       tex(gloss-french.ldf) = %{tl_version}
-Provides:       tex(gloss-friulan.ldf) = %{tl_version}
-Provides:       tex(gloss-friulian.ldf) = %{tl_version}
-Provides:       tex(gloss-fur.ldf) = %{tl_version}
-Provides:       tex(gloss-ga.ldf) = %{tl_version}
-Provides:       tex(gloss-gaelic.ldf) = %{tl_version}
-Provides:       tex(gloss-galician.ldf) = %{tl_version}
-Provides:       tex(gloss-gd.ldf) = %{tl_version}
-Provides:       tex(gloss-georgian.ldf) = %{tl_version}
-Provides:       tex(gloss-german.ldf) = %{tl_version}
-Provides:       tex(gloss-germanb.ldf) = %{tl_version}
-Provides:       tex(gloss-gl.ldf) = %{tl_version}
-Provides:       tex(gloss-grc.ldf) = %{tl_version}
-Provides:       tex(gloss-greek.ldf) = %{tl_version}
-Provides:       tex(gloss-he.ldf) = %{tl_version}
-Provides:       tex(gloss-hebrew.ldf) = %{tl_version}
-Provides:       tex(gloss-hi.ldf) = %{tl_version}
-Provides:       tex(gloss-hindi.ldf) = %{tl_version}
-Provides:       tex(gloss-hr.ldf) = %{tl_version}
-Provides:       tex(gloss-hsb.ldf) = %{tl_version}
-Provides:       tex(gloss-hu.ldf) = %{tl_version}
-Provides:       tex(gloss-hungarian.ldf) = %{tl_version}
-Provides:       tex(gloss-hy.ldf) = %{tl_version}
-Provides:       tex(gloss-ia.ldf) = %{tl_version}
-Provides:       tex(gloss-icelandic.ldf) = %{tl_version}
-Provides:       tex(gloss-id.ldf) = %{tl_version}
-Provides:       tex(gloss-interlingua.ldf) = %{tl_version}
-Provides:       tex(gloss-irish.ldf) = %{tl_version}
-Provides:       tex(gloss-is.ldf) = %{tl_version}
-Provides:       tex(gloss-it.ldf) = %{tl_version}
-Provides:       tex(gloss-italian.ldf) = %{tl_version}
-Provides:       tex(gloss-ja.ldf) = %{tl_version}
-Provides:       tex(gloss-japanese.ldf) = %{tl_version}
-Provides:       tex(gloss-ka.ldf) = %{tl_version}
-Provides:       tex(gloss-kannada.ldf) = %{tl_version}
-Provides:       tex(gloss-khmer.ldf) = %{tl_version}
-Provides:       tex(gloss-km.ldf) = %{tl_version}
-Provides:       tex(gloss-kmr-Arab.ldf) = %{tl_version}
-Provides:       tex(gloss-kmr-Latn.ldf) = %{tl_version}
-Provides:       tex(gloss-kmr.ldf) = %{tl_version}
-Provides:       tex(gloss-kn.ldf) = %{tl_version}
-Provides:       tex(gloss-ko.ldf) = %{tl_version}
-Provides:       tex(gloss-korean.ldf) = %{tl_version}
-Provides:       tex(gloss-ku-Arab.ldf) = %{tl_version}
-Provides:       tex(gloss-ku-Latn.ldf) = %{tl_version}
-Provides:       tex(gloss-ku.ldf) = %{tl_version}
-Provides:       tex(gloss-kurdish.ldf) = %{tl_version}
-Provides:       tex(gloss-kurmanji.ldf) = %{tl_version}
-Provides:       tex(gloss-la-x-classic.ldf) = %{tl_version}
-Provides:       tex(gloss-la-x-ecclesia.ldf) = %{tl_version}
-Provides:       tex(gloss-la-x-medieval.ldf) = %{tl_version}
-Provides:       tex(gloss-la.ldf) = %{tl_version}
-Provides:       tex(gloss-lao.ldf) = %{tl_version}
-Provides:       tex(gloss-latex.ldf) = %{tl_version}
-Provides:       tex(gloss-latin.ldf) = %{tl_version}
-Provides:       tex(gloss-latvian.ldf) = %{tl_version}
-Provides:       tex(gloss-lithuanian.ldf) = %{tl_version}
-Provides:       tex(gloss-lo.ldf) = %{tl_version}
-Provides:       tex(gloss-lowersorbian.ldf) = %{tl_version}
-Provides:       tex(gloss-lsorbian.ldf) = %{tl_version}
-Provides:       tex(gloss-lt.ldf) = %{tl_version}
-Provides:       tex(gloss-lv.ldf) = %{tl_version}
-Provides:       tex(gloss-macedonian.ldf) = %{tl_version}
-Provides:       tex(gloss-magyar.ldf) = %{tl_version}
-Provides:       tex(gloss-malay.ldf) = %{tl_version}
-Provides:       tex(gloss-malayalam.ldf) = %{tl_version}
-Provides:       tex(gloss-marathi.ldf) = %{tl_version}
-Provides:       tex(gloss-medievallatin.ldf) = %{tl_version}
-Provides:       tex(gloss-mk.ldf) = %{tl_version}
-Provides:       tex(gloss-ml.ldf) = %{tl_version}
-Provides:       tex(gloss-mn.ldf) = %{tl_version}
-Provides:       tex(gloss-mongolian.ldf) = %{tl_version}
-Provides:       tex(gloss-mr.ldf) = %{tl_version}
-Provides:       tex(gloss-naustrian.ldf) = %{tl_version}
-Provides:       tex(gloss-nb.ldf) = %{tl_version}
-Provides:       tex(gloss-newzealand.ldf) = %{tl_version}
-Provides:       tex(gloss-ngerman.ldf) = %{tl_version}
-Provides:       tex(gloss-nko.ldf) = %{tl_version}
-Provides:       tex(gloss-norsk.ldf) = %{tl_version}
-Provides:       tex(gloss-norwegian.ldf) = %{tl_version}
-Provides:       tex(gloss-nswissgerman.ldf) = %{tl_version}
-Provides:       tex(gloss-nynorsk.ldf) = %{tl_version}
-Provides:       tex(gloss-occitan.ldf) = %{tl_version}
-Provides:       tex(gloss-odia.ldf) = %{tl_version}
-Provides:       tex(gloss-or.ldf) = %{tl_version}
-Provides:       tex(gloss-pa.ldf) = %{tl_version}
-Provides:       tex(gloss-persian.ldf) = %{tl_version}
-Provides:       tex(gloss-piedmontese.ldf) = %{tl_version}
-Provides:       tex(gloss-polish.ldf) = %{tl_version}
-Provides:       tex(gloss-polutonikogreek.ldf) = %{tl_version}
-Provides:       tex(gloss-portuges.ldf) = %{tl_version}
-Provides:       tex(gloss-portuguese.ldf) = %{tl_version}
-Provides:       tex(gloss-punjabi.ldf) = %{tl_version}
-Provides:       tex(gloss-romanian.ldf) = %{tl_version}
-Provides:       tex(gloss-romansh.ldf) = %{tl_version}
-Provides:       tex(gloss-russian.ldf) = %{tl_version}
-Provides:       tex(gloss-sami.ldf) = %{tl_version}
-Provides:       tex(gloss-samin.ldf) = %{tl_version}
-Provides:       tex(gloss-sanskrit.ldf) = %{tl_version}
-Provides:       tex(gloss-scottish.ldf) = %{tl_version}
-Provides:       tex(gloss-serbian.ldf) = %{tl_version}
-Provides:       tex(gloss-serbianc.ldf) = %{tl_version}
-Provides:       tex(gloss-slovak.ldf) = %{tl_version}
-Provides:       tex(gloss-slovene.ldf) = %{tl_version}
-Provides:       tex(gloss-slovenian.ldf) = %{tl_version}
-Provides:       tex(gloss-sorbian.ldf) = %{tl_version}
-Provides:       tex(gloss-spanish.ldf) = %{tl_version}
-Provides:       tex(gloss-spanishmx.ldf) = %{tl_version}
-Provides:       tex(gloss-swedish.ldf) = %{tl_version}
-Provides:       tex(gloss-swissgerman.ldf) = %{tl_version}
-Provides:       tex(gloss-syriac.ldf) = %{tl_version}
-Provides:       tex(gloss-tamil.ldf) = %{tl_version}
-Provides:       tex(gloss-telugu.ldf) = %{tl_version}
-Provides:       tex(gloss-thai.ldf) = %{tl_version}
-Provides:       tex(gloss-tibetan.ldf) = %{tl_version}
-Provides:       tex(gloss-turkish.ldf) = %{tl_version}
-Provides:       tex(gloss-turkmen.ldf) = %{tl_version}
-Provides:       tex(gloss-ug.ldf) = %{tl_version}
-Provides:       tex(gloss-ukrainian.ldf) = %{tl_version}
-Provides:       tex(gloss-uppersorbian.ldf) = %{tl_version}
-Provides:       tex(gloss-urdu.ldf) = %{tl_version}
-Provides:       tex(gloss-usorbian.ldf) = %{tl_version}
-Provides:       tex(gloss-uyghur.ldf) = %{tl_version}
-Provides:       tex(gloss-vietnamese.ldf) = %{tl_version}
-Provides:       tex(gloss-welsh.ldf) = %{tl_version}
-Provides:       tex(gloss-zh-CN.ldf) = %{tl_version}
-Provides:       tex(gloss-zh-TW.ldf) = %{tl_version}
-Provides:       tex(gurmukhidigits.sty) = %{tl_version}
-Provides:       tex(hebrewcal.sty) = %{tl_version}
-Provides:       tex(hijrical.sty) = %{tl_version}
-Provides:       tex(nkonumbers.sty) = %{tl_version}
-Provides:       tex(odiadigits.sty) = %{tl_version}
-Provides:       tex(polyglossia.sty) = %{tl_version}
-Provides:       tex(xgreek-fixes.def) = %{tl_version}
-Provides:       tex(xpg-cyrillicnumbers.sty) = %{tl_version}
+Requires:       tex(unibidi-lua.sty)
 
 %description -n texlive-polyglossia
 This package provides a complete Babel replacement for users of LuaLaTeX and
@@ -1860,8 +1180,9 @@ Version:        svn15878
 License:        psfrag
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-psfrag-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-psfrag-doc <= 11:%{version}
 Requires:       tex(graphics.sty)
-Provides:       tex(psfrag.sty) = %{tl_version}
 
 %description -n texlive-psfrag
 Allows LaTeX constructions (equations, picture environments, etc.) to be
@@ -1873,13 +1194,12 @@ construction, properly aligned, scaled, and/or rotated.
 
 %package -n texlive-ragged2e
 Summary:        Alternative versions of "ragged"-type commands
-Version:        svn67441
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(everysel.sty)
 Requires:       tex(footmisc.sty)
-Provides:       tex(ragged2e.sty) = %{tl_version}
 
 %description -n texlive-ragged2e
 The package defines new commands \Centering, \RaggedLeft, and \RaggedRight and
@@ -1893,7 +1213,8 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(rcs.sty) = %{tl_version}
+Provides:       texlive-rcs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-rcs-doc <= 11:%{version}
 
 %description -n texlive-rcs
 The rcs package utilizes the inclusion of RCS supplied data in LaTeX documents.
@@ -1908,11 +1229,12 @@ the implementation, style information for AUC-TeX, and test cases.
 
 %package -n texlive-sansmath
 Summary:        Maths in a sans font
-Version:        svn17997
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sansmath.sty) = %{tl_version}
+Provides:       texlive-sansmath-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sansmath-doc <= 11:%{version}
 
 %description -n texlive-sansmath
 The package defines a new math version sans, and a command \sansmath that
@@ -1924,7 +1246,8 @@ Version:        svn20180
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(section.sty) = %{tl_version}
+Provides:       texlive-section-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-section-doc <= 11:%{version}
 
 %description -n texlive-section
 The package implements a pretty extensive scheme to make more manageable the
@@ -1932,26 +1255,14 @@ business of configuring LaTeX output.
 
 %package -n texlive-seminar
 Summary:        Make overhead slides
-Version:        svn59801
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-seminar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-seminar-doc <= 11:%{version}
 Requires:       tex(hyperref.sty)
 Requires:       tex(pst-ovl.sty)
-Provides:       tex(npsfont.sty) = %{tl_version}
-Provides:       tex(sem-a4.sty) = %{tl_version}
-Provides:       tex(sem-dem.sty) = %{tl_version}
-Provides:       tex(sem-page.sty) = %{tl_version}
-Provides:       tex(semcolor.sty) = %{tl_version}
-Provides:       tex(semhelv.sty) = %{tl_version}
-Provides:       tex(seminar.sty) = %{tl_version}
-Provides:       tex(semlayer.sty) = %{tl_version}
-Provides:       tex(semlcmss.sty) = %{tl_version}
-Provides:       tex(semrot.sty) = %{tl_version}
-Provides:       tex(slidesec.sty) = %{tl_version}
-Provides:       tex(tvz-code.sty) = %{tl_version}
-Provides:       tex(tvz-hax.sty) = %{tl_version}
-Provides:       tex(tvz-user.sty) = %{tl_version}
 
 %description -n texlive-seminar
 A class that produces overhead slides (transparencies), with many facilities.
@@ -1969,7 +1280,8 @@ Version:        svn20186
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sepnum.sty) = %{tl_version}
+Provides:       texlive-sepnum-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sepnum-doc <= 11:%{version}
 
 %description -n texlive-sepnum
 Provides a command to print a number with (potentially different) separators
@@ -1980,11 +1292,12 @@ may be used when defining \the<counter> macros.
 
 %package -n texlive-setspace
 Summary:        Set space between lines
-Version:        svn65206
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(setspace.sty) = %{tl_version}
+Provides:       texlive-setspace-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-setspace-doc <= 11:%{version}
 
 %description -n texlive-setspace
 Provides support for setting the spacing between lines in a document. Package
@@ -1995,13 +1308,14 @@ available.
 
 %package -n texlive-subfig
 Summary:        Figures broken into subfigures
-Version:        svn15878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-subfig-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-subfig-doc <= 11:%{version}
 Requires:       tex(caption.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(subfig.sty) = %{tl_version}
 
 %description -n texlive-subfig
 The package provides support for the manipulation and reference of small or
@@ -2021,11 +1335,12 @@ subcaption package.
 
 %package -n texlive-textcase
 Summary:        Case conversion ignoring mathematics, etc.
-Version:        svn75878
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(textcase.sty) = %{tl_version}
+Provides:       texlive-textcase-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-textcase-doc <= 11:%{version}
 
 %description -n texlive-textcase
 The textcase package offers commands \MakeTextUppercase and \MakeTextLowercase
@@ -2041,12 +1356,11 @@ names \MakeTextUppercase and \MakeTextLowercase.
 
 %package -n texlive-translator
 Summary:        Easy translation of strings in LaTeX
-Version:        svn59412
+Version:        svn77682
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(keyval.sty)
-Provides:       tex(translator.sty) = %{tl_version}
 
 %description -n texlive-translator
 This LaTeX package provides a flexible mechanism for translating individual
@@ -2063,20 +1377,22 @@ Version:        svn17134
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-typehtml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-typehtml-doc <= 11:%{version}
 Requires:       tex(exscale.sty)
-Provides:       tex(typehtml.sty) = %{tl_version}
 
 %description -n texlive-typehtml
 Can handle almost all of HTML2, and most of the math fragment of the draft
 HTML3.
 
 %package -n texlive-ucharcat
-Summary:        Implementation of the (new in 2015) XeTeX \Ucharcat command in lua, for LuaTeX
-Version:        svn38907
+Summary:        Implementation of the (new in 2015) XeTeX \Ucharcat command in Lua, for LuaTeX
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ucharcat.sty) = %{tl_version}
+Provides:       texlive-ucharcat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ucharcat-doc <= 11:%{version}
 
 %description -n texlive-ucharcat
 The package implements the \Ucharcat command for LuaLaTeX. \Ucharcat is a new
@@ -2086,13 +1402,14 @@ token being constructed.
 
 %package -n texlive-underscore
 Summary:        Control the behaviour of "_" in text
-Version:        svn18261
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-underscore-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-underscore-doc <= 11:%{version}
 Requires:       tex(chicago.sty)
 Requires:       tex(fontenc.sty)
-Provides:       tex(underscore.sty) = %{tl_version}
 
 %description -n texlive-underscore
 With the package, \_ in text mode (i.e., \textunderscore) prints an underscore
@@ -2104,21 +1421,21 @@ is not affected).
 
 %package -n texlive-unicode-math
 Summary:        Unicode mathematics support for XeTeX and LuaTeX
-Version:        svn75152
+Version:        svn78251
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-unicode-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-unicode-math-doc <= 11:%{version}
+Requires:       texlive-amsmath
 Requires:       texlive-fontspec
 Requires:       texlive-lm-math
+Requires:       texlive-lualatex-math
 Requires:       tex(amsmath.sty)
 Requires:       tex(fix-cm.sty)
 Requires:       tex(fontspec.sty)
 Requires:       tex(lualatex-math.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(unicode-math-luatex.sty) = %{tl_version}
-Provides:       tex(unicode-math-table.tex) = %{tl_version}
-Provides:       tex(unicode-math-xetex.sty) = %{tl_version}
-Provides:       tex(unicode-math.sty) = %{tl_version}
 
 %description -n texlive-unicode-math
 This package provides a comprehensive implementation of unicode maths for
@@ -2131,16 +1448,14 @@ one.
 
 %package -n texlive-xcolor
 Summary:        Driver-independent color extensions for LaTeX and pdfLaTeX
-Version:        svn72484
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xcolor-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xcolor-doc <= 11:%{version}
 Requires:       tex(colortbl.sty)
 Requires:       tex(pdfcolmk.sty)
-Provides:       tex(svgnam.def) = %{tl_version}
-Provides:       tex(x11nam.def) = %{tl_version}
-Provides:       tex(xcolor-2022-06-12.sty) = %{tl_version}
-Provides:       tex(xcolor.sty) = %{tl_version}
 
 %description -n texlive-xcolor
 The package starts from the basic facilities of the color package, and provides
@@ -2153,13 +1468,12 @@ mixed like \color{red!30!green!40!blue}.
 
 %package -n texlive-xfrac
 Summary:        Split-level fractions
-Version:        svn71430
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amstext.sty)
 Requires:       tex(graphicx.sty)
-Provides:       tex(xfrac.sty) = %{tl_version}
 
 %description -n texlive-xfrac
 This package uses the interface defined by LaTeX templates to provide flexible
@@ -2169,20 +1483,13 @@ functionality in LaTeX2e.
 
 %package -n texlive-xkeyval
 Summary:        Extension of the keyval package
-Version:        svn76763
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xkeyval-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xkeyval-doc <= 11:%{version}
 Requires:       tex(longtable.sty)
-Provides:       tex(keyval.tex) = %{tl_version}
-Provides:       tex(pst-xkey.sty) = %{tl_version}
-Provides:       tex(pst-xkey.tex) = %{tl_version}
-Provides:       tex(xkeyval.sty) = %{tl_version}
-Provides:       tex(xkeyval.tex) = %{tl_version}
-Provides:       tex(xkvltxp.sty) = %{tl_version}
-Provides:       tex(xkvtxhdr.tex) = %{tl_version}
-Provides:       tex(xkvutils.tex) = %{tl_version}
-Provides:       tex(xkvview.sty) = %{tl_version}
 
 %description -n texlive-xkeyval
 This package is an extension of the keyval package and offers additional macros
@@ -2193,17 +1500,18 @@ in documents where several packages define their own sets of keys.
 
 %package -n texlive-xltxtra
 Summary:        "Extras" for LaTeX users of XeTeX
-Version:        svn56594
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xltxtra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xltxtra-doc <= 11:%{version}
 Requires:       texlive-metalogo
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(metalogo.sty)
 Requires:       tex(realscripts.sty)
-Provides:       tex(xltxtra.sty) = %{tl_version}
 
 %description -n texlive-xltxtra
 This package was previously used to provide a number of features that were
@@ -2215,13 +1523,14 @@ correctly; and define two extra commands: \vfrac and \namedglyph.
 
 %package -n texlive-xunicode
 Summary:        Generate Unicode characters from accented glyphs
-Version:        svn30466
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xunicode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xunicode-doc <= 11:%{version}
 Requires:       texlive-tipa
 Requires:       tex(graphicx.sty)
-Provides:       tex(xunicode.sty) = %{tl_version}
 
 %description -n texlive-xunicode
 The package supports XeTeX's (and other putative future similar engines') need
@@ -2376,8 +1685,6 @@ tar -xf %{SOURCE133} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE134} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE135} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE136} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE137} -C %{buildroot}%{_texmf_main}
-tar -xf %{SOURCE138} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -2620,11 +1927,6 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/latex/pdflscape/
 %doc %{_texmf_main}/doc/latex/pdflscape/
 
-%files -n texlive-pdfmanagement-testphase
-%license lppl1.3c.txt
-%{_texmf_main}/tex/latex/pdfmanagement-testphase/
-%doc %{_texmf_main}/doc/latex/pdfmanagement-testphase/
-
 %files -n texlive-pdfpages
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/pdfpages/
@@ -2743,6 +2045,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/xelatex/xunicode/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78568-3
+- Update collection from svn77082 to svn78568
+- Update 57 components
+- Remove pdfmanagement-testphase
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77082-2
 - fix licensing files
 - update koma-script, ltx-talk, lua-unicode-math, pdfmanagement-testphase

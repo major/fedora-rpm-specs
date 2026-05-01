@@ -5,8 +5,8 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           13.0.4
-Release:           3%{?dist}
+Version:           13.0.5
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -169,7 +169,7 @@ if [ ! -f %{sslkey} ]; then
   umask 077
   %{_bindir}/openssl genrsa 4096 > %{sslkey} 2> /dev/null
   chown root:%{name} %{sslkey}
-  chmod 640 %{sslkey}
+  chmod 0640 %{sslkey}
 fi
 
 if [ ! -f %{sslcert} ]; then
@@ -214,6 +214,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Thu Apr 30 2026 Robert Scheck <robert@fedoraproject.org> 13.0.5-1
+- Upgrade to 13.0.5 (#2463898)
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 13.0.4-3
 - rebuild
 

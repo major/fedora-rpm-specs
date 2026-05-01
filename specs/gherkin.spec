@@ -164,10 +164,9 @@ Requires:       gherkin-data = %{version}-%{release}
 sed -r -i 's/^(\.run:) cli \$\(GHERKIN\)/\1/' c/Makefile
 # Python: Fix unversioned python interpreter.
 sed -r -i 's@python -m@%{python3} -m@' python/Makefile
-# Python: Do not upper-bound (SemVer-bound) the version of uv_build; we must
-# work with what we have, and compatibility across SemVer boundaries is quite
-# good in practice.
-sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
+# Python: We must work with what we have, and compatibility is quite good in
+# practice.
+%pyproject_patch_dependency uv_build:drop_upper
 
 
 %generate_buildrequires

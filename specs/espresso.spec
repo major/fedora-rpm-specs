@@ -1,6 +1,6 @@
 Name:           espresso
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -10,8 +10,6 @@ License:        GPL-3.0-or-later
 URL:            https://espressomd.org
 Source0:        https://github.com/espressomd/espresso/archive/%{version}.tar.gz#/espresso-%{version}.tar.gz
 Source1:        https://i10git.cs.fau.de/walberla/walberla/-/archive/3247aa73.tar.gz#/waberla-3247aa73.tar.gz
-Source2:        https://github.com/ECP-copa/Cabana/archive/0.7.0.tar.gz#/Cabana-0.7.0.tar.gz
-Source3:        https://github.com/highfive-devs/highfive/archive/v3.3.0.tar.gz#/highfive-v3.3.0.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 4.0.0
@@ -26,19 +24,15 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  boost-devel
-BuildRequires:  hdf5-devel
 BuildRequires:  gsl-devel
 BuildRequires:  NLopt-devel
 BuildRequires:  boost-devel
-BuildRequires:  kokkos-devel
 BuildRequires:  mpich-devel
 BuildRequires:  boost-mpich-devel
 BuildRequires:  heffte-mpich-devel
-BuildRequires:  hdf5-mpich-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  boost-openmpi-devel
 BuildRequires:  heffte-openmpi-devel
-BuildRequires:  hdf5-openmpi-devel
 BuildRequires:  python%{python3_pkgversion}-h5py
 
 Requires:       python%{python3_pkgversion}-numpy
@@ -108,10 +102,6 @@ This package contains %{name} compiled against MPICH2.
 # ESPResSo patches would go here:
 # patch 0 -p1
 %setup -q -T -D -a 1
-%setup -q -T -D -a 2
-%setup -q -T -D -a 3
-sed -ri "s|GIT_REPOSITORY +https://github.com/ECP-copa/Cabana.git|URL $(realpath Cabana-*/)|" CMakeLists.txt
-sed -ri "s|GIT_REPOSITORY +https://github.com/highfive-devs/highfive.git|URL $(realpath highfive-*/)|" CMakeLists.txt
 sed -ri "s|GIT_REPOSITORY +https://i10git.cs.fau.de/walberla/walberla.git|URL $(realpath walberla-*/)|" CMakeLists.txt
 
 %build
@@ -127,9 +117,8 @@ sed -ri "s|GIT_REPOSITORY +https://i10git.cs.fau.de/walberla/walberla.git|URL $(
  -D ESPRESSO_BUILD_WITH_FFTW=ON \\\
  -D ESPRESSO_BUILD_WITH_WALBERLA=ON \\\
  -D ESPRESSO_BUILD_WITH_WALBERLA_AVX=OFF \\\
- -D ESPRESSO_BUILD_WITH_SHARED_MEMORY_PARALLELISM=ON \\\
+ -D ESPRESSO_BUILD_WITH_SHARED_MEMORY_PARALLELISM=OFF \\\
  -D ESPRESSO_BUILD_WITH_NLOPT=ON \\\
- -D ESPRESSO_BUILD_WITH_HDF5=ON \\\
  -D ESPRESSO_BUILD_WITH_GSL=ON \\\
  -D ESPRESSO_BUILD_WITH_SCAFACOS=OFF \\\
  -D ESPRESSO_BUILD_WITH_STOKESIAN_DYNAMICS=OFF \\\
@@ -189,6 +178,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Wed Apr 29 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 5.0.0-3
+- Build without Kokkos/Cabana/hdf5/HighFive
+
 * Thu Mar 19 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 5.0.0-2
 - Build with maxset configuration
 - Rename tarballs

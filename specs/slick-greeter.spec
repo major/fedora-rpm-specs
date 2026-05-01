@@ -3,13 +3,12 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.2.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	10_%{name}-cinnamon.gschema.override.in
-Source2:	10_%{name}-mate.gschema.override
-Source3:	%{name}.conf
+Source2:	%{name}.conf
 
 ExcludeArch:    %{ix86}
 
@@ -36,6 +35,8 @@ Requires:	desktop-backgrounds-compat
 Recommends:	lightdm-settings
 Recommends:	onboard
 
+Obsoletes:  %{name}-mate < %{version}-%{release}
+
 # Make sure cinnamon override is installed
 Requires:	(%{name}-cinnamon = %{version}-%{release} if cinnamon)
 
@@ -54,15 +55,6 @@ Recommends: paper-icon-theme
 
 %description -n %{name}-cinnamon
 Slick-greeter customisation for the CINNAMON desktop.
-
-%package -n %{name}-mate
-Summary: Slick-greeter customisation for the MATE desktop
-BuildArch: noarch
-Requires: %{name} = %{version}-%{release}
-
-%description -n %{name}-mate
-Slick-greeter customisation for the MATE desktop.
-
 
 %prep
 %autosetup -p1
@@ -89,11 +81,8 @@ Slick-greeter customisation for the MATE desktop.
 	< %{SOURCE1}								\
 	> %{buildroot}%{_datadir}/glib-2.0/schemas/10_%{name}-cinnamon.gschema.override
 
-%{__install} --target-directory=%{buildroot}%{_datadir}/glib-2.0/schemas	\
-	-Dpm 0644 %{SOURCE2}
-
 %{__install} --target-directory=%{buildroot}%{_sysconfdir}/lightdm	\
-	-Dpm 0644 %{SOURCE3}
+	-Dpm 0644 %{SOURCE2}
 
 %{__chmod} -c a+x %{buildroot}%{_bindir}/*
 
@@ -126,11 +115,10 @@ Slick-greeter customisation for the MATE desktop.
 %files -n %{name}-cinnamon
 %{_datadir}/glib-2.0/schemas/10_%{name}-cinnamon.gschema.override
 
-%files -n %{name}-mate
-%{_datadir}/glib-2.0/schemas/10_%{name}-mate.gschema.override
-
-
 %changelog
+* Wed Apr 29 2026 Leigh Scott <leigh123linux@gmail.com> - 2.2.6-3
+- Drop unmaintained mate sub-package (rhbz#2354999)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

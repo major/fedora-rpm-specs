@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-luatex
 Epoch:          12
-Version:        svn77516
-Release:        2%{?dist}
+Version:        svn78670
+Release:        3%{?dist}
 Summary:        LuaTeX packages
 
 License:        LPPL-1.3c
@@ -39,214 +39,222 @@ Source20:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cl
 Source21:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cloze.doc.tar.xz
 Source22:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/combofont.tar.xz
 Source23:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/combofont.doc.tar.xz
-Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cstypo.tar.xz
-Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cstypo.doc.tar.xz
-Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctablestack.tar.xz
-Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctablestack.doc.tar.xz
-Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekdosis.tar.xz
-Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekdosis.doc.tar.xz
-Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emoji.tar.xz
-Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emoji.doc.tar.xz
-Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emojicite.tar.xz
-Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emojicite.doc.tar.xz
-Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/enigma.tar.xz
-Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/enigma.doc.tar.xz
-Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fancymag.tar.xz
-Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fancymag.doc.tar.xz
-Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/farbe.tar.xz
-Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/farbe.doc.tar.xz
-Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gitinfo-lua.tar.xz
-Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gitinfo-lua.doc.tar.xz
-Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ideavault.tar.xz
-Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ideavault.doc.tar.xz
-Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/innerscript.tar.xz
-Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/innerscript.doc.tar.xz
-Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interpreter.tar.xz
-Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interpreter.doc.tar.xz
-Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kanaparser.tar.xz
-Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kanaparser.doc.tar.xz
-Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkluaverb.tar.xz
-Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkluaverb.doc.tar.xz
-Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkran.tar.xz
-Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkran.doc.tar.xz
-Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kksymbols.tar.xz
-Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kksymbols.doc.tar.xz
-Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ligtype.tar.xz
-Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ligtype.doc.tar.xz
-Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linebreaker.tar.xz
-Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linebreaker.doc.tar.xz
-Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/longmath.tar.xz
-Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/longmath.doc.tar.xz
-Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lparse.tar.xz
-Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lparse.doc.tar.xz
-Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lt3luabridge.tar.xz
-Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lt3luabridge.doc.tar.xz
-Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-placeholders.tar.xz
-Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-placeholders.doc.tar.xz
-Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tinyyaml.tar.xz
-Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tinyyaml.doc.tar.xz
-Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-typo.tar.xz
-Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-typo.doc.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-uca.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-uca.doc.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-ul.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-ul.doc.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-visual-debug.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-visual-debug.doc.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-widow-control.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-widow-control.doc.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaaddplot.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaaddplot.doc.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacas.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacas.doc.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacensor.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacensor.doc.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacode.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacode.doc.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacolor.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacolor.doc.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacomplex.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacomplex.doc.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luagcd.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luagcd.doc.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahttp.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahttp.doc.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyphenrules.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyphenrules.doc.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaimageembed.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaimageembed.doc.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaindex.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaindex.doc.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luainputenc.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luainputenc.doc.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeys.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeys.doc.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeyval.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeyval.doc.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-math.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-math.doc.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-truncate.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-truncate.doc.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualibs.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualibs.doc.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualinalg.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualinalg.doc.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamathalign.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamathalign.doc.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamaths.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamaths.doc.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamml.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamml.doc.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamodulartables.tar.xz
-Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamodulartables.doc.tar.xz
-Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamplib.tar.xz
-Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamplib.doc.tar.xz
-Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaoptions.tar.xz
-Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaoptions.doc.tar.xz
-Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luapackageloader.tar.xz
-Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luapackageloader.doc.tar.xz
-Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaplot.tar.xz
-Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaplot.doc.tar.xz
-Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaprogtable.tar.xz
-Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaprogtable.doc.tar.xz
-Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaquotes.tar.xz
-Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaquotes.doc.tar.xz
-Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luarandom.tar.xz
-Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luarandom.doc.tar.xz
-Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaset.tar.xz
-Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaset.doc.tar.xz
-Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatbls.tar.xz
-Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatbls.doc.tar.xz
-Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-type-definitions.tar.xz
-Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-type-definitions.doc.tar.xz
-Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex85.tar.xz
-Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex85.doc.tar.xz
-Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexbase.tar.xz
-Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexbase.doc.tar.xz
-Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexko.tar.xz
-Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexko.doc.tar.xz
-Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatextra.tar.xz
-Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatextra.doc.tar.xz
-Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatikz.tar.xz
-Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatikz.doc.tar.xz
-Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatruthtable.tar.xz
-Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatruthtable.doc.tar.xz
-Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luavlna.tar.xz
-Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luavlna.doc.tar.xz
-Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaxml.tar.xz
-Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaxml.doc.tar.xz
-Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lutabulartools.tar.xz
-Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lutabulartools.doc.tar.xz
-Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marginalia.tar.xz
-Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marginalia.doc.tar.xz
-Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim.tar.xz
-Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim.doc.tar.xz
-Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-math.tar.xz
-Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-math.doc.tar.xz
-Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-mp.tar.xz
-Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-mp.doc.tar.xz
-Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-pdf.tar.xz
-Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-pdf.doc.tar.xz
-Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-xmp.tar.xz
-Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-xmp.doc.tar.xz
-Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpax.tar.xz
-Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpax.doc.tar.xz
-Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nodetree.tar.xz
-Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nodetree.doc.tar.xz
-Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/odsfile.tar.xz
-Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/odsfile.doc.tar.xz
-Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parstat.tar.xz
-Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parstat.doc.tar.xz
-Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfarticle.tar.xz
-Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfarticle.doc.tar.xz
-Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfextra.tar.xz
-Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfextra.doc.tar.xz
-Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlight.tar.xz
-Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlight.doc.tar.xz
-Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlightplus.tar.xz
-Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlightplus.doc.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/piton.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/piton.doc.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/placeat.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/placeat.doc.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plantuml.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plantuml.doc.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pyluatex.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pyluatex.doc.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scikgtex.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scikgtex.doc.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seatingchart.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seatingchart.doc.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/selnolig.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/selnolig.doc.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semesterplannerlua.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semesterplannerlua.doc.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showhyphenation.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showhyphenation.doc.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showkerning.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showkerning.doc.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spacekern.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spacekern.doc.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spelling.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spelling.doc.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stricttex.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stricttex.doc.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympycalc.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympycalc.doc.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tango.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tango.doc.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/truthtable.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/truthtable.doc.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsvtemplate.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsvtemplate.doc.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typewriter.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typewriter.doc.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unibidi-lua.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unibidi-lua.doc.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uninormalize.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uninormalize.doc.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yamlvars.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yamlvars.doc.tar.xz
+Source24:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countwords.tar.xz
+Source25:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/countwords.doc.tar.xz
+Source26:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cstypo.tar.xz
+Source27:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cstypo.doc.tar.xz
+Source28:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctablestack.tar.xz
+Source29:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctablestack.doc.tar.xz
+Source30:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekdosis.tar.xz
+Source31:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekdosis.doc.tar.xz
+Source32:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emoji.tar.xz
+Source33:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emoji.doc.tar.xz
+Source34:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emojicite.tar.xz
+Source35:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emojicite.doc.tar.xz
+Source36:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/enigma.tar.xz
+Source37:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/enigma.doc.tar.xz
+Source38:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fancymag.tar.xz
+Source39:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fancymag.doc.tar.xz
+Source40:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/farbe.tar.xz
+Source41:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/farbe.doc.tar.xz
+Source42:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gitinfo-lua.tar.xz
+Source43:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gitinfo-lua.doc.tar.xz
+Source44:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ideavault.tar.xz
+Source45:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ideavault.doc.tar.xz
+Source46:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/innerscript.tar.xz
+Source47:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/innerscript.doc.tar.xz
+Source48:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interpreter.tar.xz
+Source49:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/interpreter.doc.tar.xz
+Source50:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kanaparser.tar.xz
+Source51:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kanaparser.doc.tar.xz
+Source52:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkluaverb.tar.xz
+Source53:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkluaverb.doc.tar.xz
+Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkran.tar.xz
+Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kkran.doc.tar.xz
+Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kksymbols.tar.xz
+Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kksymbols.doc.tar.xz
+Source58:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ligtype.tar.xz
+Source59:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ligtype.doc.tar.xz
+Source60:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linebreaker.tar.xz
+Source61:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/linebreaker.doc.tar.xz
+Source62:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/longmath.tar.xz
+Source63:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/longmath.doc.tar.xz
+Source64:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lparse.tar.xz
+Source65:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lparse.doc.tar.xz
+Source66:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lt3luabridge.tar.xz
+Source67:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lt3luabridge.doc.tar.xz
+Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-list-hyphen.tar.xz
+Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-list-hyphen.doc.tar.xz
+Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-placeholders.tar.xz
+Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-placeholders.doc.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tinyyaml.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-tinyyaml.doc.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-typo.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-typo.doc.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-uca.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-uca.doc.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-ul.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-ul.doc.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-visual-debug.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-visual-debug.doc.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-widow-control.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lua-widow-control.doc.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaaddplot.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaaddplot.doc.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacas.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacas.doc.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacensor.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacensor.doc.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacode.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacode.doc.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacolor.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacolor.doc.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacomplex.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luacomplex.doc.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luagcd.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luagcd.doc.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahttp.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahttp.doc.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyperbolic.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyperbolic.doc.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyphenrules.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luahyphenrules.doc.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaimageembed.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaimageembed.doc.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaindex.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaindex.doc.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luainputenc.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luainputenc.doc.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeys.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeys.doc.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeyval.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luakeyval.doc.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-math.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-math.doc.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-truncate.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualatex-truncate.doc.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualibs.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualibs.doc.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualinalg.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualinalg.doc.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualineno.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lualineno.doc.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamathalign.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamathalign.doc.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamaths.tar.xz
+Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamaths.doc.tar.xz
+Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamml.tar.xz
+Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamml.doc.tar.xz
+Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamodulartables.tar.xz
+Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamodulartables.doc.tar.xz
+Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamplib.tar.xz
+Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luamplib.doc.tar.xz
+Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaoptions.tar.xz
+Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaoptions.doc.tar.xz
+Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luapackageloader.tar.xz
+Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luapackageloader.doc.tar.xz
+Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaplot.tar.xz
+Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaplot.doc.tar.xz
+Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaprogtable.tar.xz
+Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaprogtable.doc.tar.xz
+Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaquotes.tar.xz
+Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaquotes.doc.tar.xz
+Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luarandom.tar.xz
+Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luarandom.doc.tar.xz
+Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaset.tar.xz
+Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaset.doc.tar.xz
+Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatbls.tar.xz
+Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatbls.doc.tar.xz
+Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-type-definitions.tar.xz
+Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex-type-definitions.doc.tar.xz
+Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex85.tar.xz
+Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatex85.doc.tar.xz
+Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexbase.tar.xz
+Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexbase.doc.tar.xz
+Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexko.tar.xz
+Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatexko.doc.tar.xz
+Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatextra.tar.xz
+Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatextra.doc.tar.xz
+Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatikz.tar.xz
+Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatikz.doc.tar.xz
+Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatruthtable.tar.xz
+Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luatruthtable.doc.tar.xz
+Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luavlna.tar.xz
+Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luavlna.doc.tar.xz
+Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaxml.tar.xz
+Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luaxml.doc.tar.xz
+Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lutabulartools.tar.xz
+Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lutabulartools.doc.tar.xz
+Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marginalia.tar.xz
+Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/marginalia.doc.tar.xz
+Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim.tar.xz
+Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim.doc.tar.xz
+Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-math.tar.xz
+Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-math.doc.tar.xz
+Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-mp.tar.xz
+Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-mp.doc.tar.xz
+Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-pdf.tar.xz
+Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-pdf.doc.tar.xz
+Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-xmp.tar.xz
+Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minim-xmp.doc.tar.xz
+Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpax.tar.xz
+Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/newpax.doc.tar.xz
+Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nodetree.tar.xz
+Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nodetree.doc.tar.xz
+Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/odsfile.tar.xz
+Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/odsfile.doc.tar.xz
+Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parstat.tar.xz
+Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/parstat.doc.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfarticle.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfarticle.doc.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfextra.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdfextra.doc.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlight.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlight.doc.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlightplus.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/penlightplus.doc.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/piton.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/piton.doc.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/placeat.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/placeat.doc.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plantuml.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/plantuml.doc.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pyluatex.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pyluatex.doc.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scikgtex.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scikgtex.doc.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seatingchart.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seatingchart.doc.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/selnolig.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/selnolig.doc.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semesterplannerlua.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/semesterplannerlua.doc.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showhyphenation.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showhyphenation.doc.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showkerning.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/showkerning.doc.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spacekern.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spacekern.doc.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spelling.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spelling.doc.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stricttex.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stricttex.doc.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympycalc.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympycalc.doc.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tango.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tango.doc.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/truthtable.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/truthtable.doc.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsvtemplate.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tsvtemplate.doc.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typewriter.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typewriter.doc.tar.xz
+Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unibidi-lua.tar.xz
+Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unibidi-lua.doc.tar.xz
+Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uninormalize.tar.xz
+Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uninormalize.doc.tar.xz
+Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yamlvars.tar.xz
+Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yamlvars.doc.tar.xz
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -264,6 +272,7 @@ Requires:       texlive-chinese-jfm
 Requires:       texlive-cloze
 Requires:       texlive-collection-basic
 Requires:       texlive-combofont
+Requires:       texlive-countwords
 Requires:       texlive-cstypo
 Requires:       texlive-ctablestack
 Requires:       texlive-ekdosis
@@ -285,6 +294,7 @@ Requires:       texlive-linebreaker
 Requires:       texlive-longmath
 Requires:       texlive-lparse
 Requires:       texlive-lt3luabridge
+Requires:       texlive-lua-list-hyphen
 Requires:       texlive-lua-placeholders
 Requires:       texlive-lua-tinyyaml
 Requires:       texlive-lua-typo
@@ -300,6 +310,7 @@ Requires:       texlive-luacolor
 Requires:       texlive-luacomplex
 Requires:       texlive-luagcd
 Requires:       texlive-luahttp
+Requires:       texlive-luahyperbolic
 Requires:       texlive-luahyphenrules
 Requires:       texlive-luaimageembed
 Requires:       texlive-luaindex
@@ -310,6 +321,7 @@ Requires:       texlive-lualatex-math
 Requires:       texlive-lualatex-truncate
 Requires:       texlive-lualibs
 Requires:       texlive-lualinalg
+Requires:       texlive-lualineno
 Requires:       texlive-luamathalign
 Requires:       texlive-luamaths
 Requires:       texlive-luamml
@@ -381,11 +393,10 @@ in collection-basic.
 
 %package -n texlive-addliga
 Summary:        Access basic ligatures in legacy TrueType fonts
-Version:        svn50912
+Version:        svn78793
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(addliga.sty) = %{tl_version}
 
 %description -n texlive-addliga
 This small and simple package allows LuaLaTeX users to access basic ligatures
@@ -399,7 +410,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
-Provides:       tex(addtoluatexpath.sty) = %{tl_version}
 
 %description -n texlive-addtoluatexpath
 This package provides a convenient way to add input and Lua package paths in
@@ -408,7 +418,7 @@ is located on a network or cloud storage drive.
 
 %package -n texlive-auto-pst-pdf-lua
 Summary:        Using LuaLaTeX together with PostScript code
-Version:        svn66637
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -418,7 +428,6 @@ Requires:       tex(ifpdf.sty)
 Requires:       tex(ifplatform.sty)
 Requires:       tex(pst-pdf.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(auto-pst-pdf-lua.sty) = %{tl_version}
 
 %description -n texlive-auto-pst-pdf-lua
 This package is a slightly modified version of auto-pst-pdf by Will Robertson,
@@ -432,7 +441,6 @@ Version:        svn63708
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(barracuda.sty) = %{tl_version}
 
 %description -n texlive-barracuda
 The barracuda library is a modular Lua package for drawing barcode symbols. It
@@ -448,7 +456,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(bezierplot.sty) = %{tl_version}
 
 %description -n texlive-bezierplot
 This package consists of a Lua program as well as a (Lua)LaTeX .sty file. Given
@@ -468,10 +475,6 @@ Requires:       texlive-kpathsea
 Requires:       texlive-gates
 Requires:       texlive-texapi
 Requires:       texlive-yax
-Provides:       tex(blot-files.tex) = %{tl_version}
-Provides:       tex(blot-fonts.tex) = %{tl_version}
-Provides:       tex(blot-lua.tex) = %{tl_version}
-Provides:       tex(blot.tex) = %{tl_version}
 
 %description -n texlive-blopentype
 This is a basic LuaTeX OpenType handler, based on Paul Isambert's PiTeX code.
@@ -485,32 +488,19 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(char2path.sty) = %{tl_version}
-Provides:       tex(ctp-lmm-alpha-caps.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmm-alpha-small.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmm-arabic.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmm-others.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmr-alpha-caps.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmr-alpha-small.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmr-arabic.data.tex) = %{tl_version}
-Provides:       tex(ctp-lmr-others.data.tex) = %{tl_version}
-Provides:       tex(ctp-lms-alpha-caps.data.tex) = %{tl_version}
-Provides:       tex(ctp-lms-alpha-small.data.tex) = %{tl_version}
-Provides:       tex(ctp-lms-arabic.data.tex) = %{tl_version}
-Provides:       tex(ctp-lms-others.data.tex) = %{tl_version}
 
 %description -n texlive-char2path
 This TikZ-based LaTeX package provides an easy way to convert characters to
 TikZ-paths representing these characters.
 
 %package -n texlive-chickenize
-Summary:        Use lua callbacks for "interesting" textual effects
-Version:        svn57325
+Summary:        Use Lua callbacks for "interesting" textual effects
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chickenize.sty) = %{tl_version}
-Provides:       tex(chickenize.tex) = %{tl_version}
+Provides:       texlive-chickenize-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-chickenize-doc <= 11:%{version}
 
 %description -n texlive-chickenize
 The package allows manipulations of any LuaTeX document (it is known to work
@@ -538,11 +528,10 @@ Version:        svn75681
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cloze-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cloze-doc <= 11:%{version}
 Requires:       tex(luakeys.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(cloze-doc.tex) = %{tl_version}
-Provides:       tex(cloze.sty) = %{tl_version}
-Provides:       tex(cloze.tex) = %{tl_version}
 
 %description -n texlive-cloze
 This is a LuaTeX or LuaLaTeX package for generating cloze texts. The main
@@ -553,13 +542,12 @@ cloze texts.
 
 %package -n texlive-combofont
 Summary:        Add NFSS-declarations of combo fonts to LuaLaTeX documents
-Version:        svn51348
+Version:        svn78793
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xfp.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(combofont.sty) = %{tl_version}
 
 %description -n texlive-combofont
 This highly experimental package can be used to add NFSS-declarations of combo
@@ -569,6 +557,23 @@ or if fontspec itself includes the code. It is also possible that the package's
 syntax and commands may change in an incompatible way. So if you use it in a
 production environment: You have been warned.
 
+%package -n texlive-countwords
+Summary:        Exact word counts, stored in LaTeX counters, using Lua
+Version:        svn78714
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(luatexbase.sty)
+
+%description -n texlive-countwords
+This is a simple package for generating exact wordcounts in LaTeX projects. It
+counts words, storing the value in a standard LaTeX counter, which can then be
+printed in the normal way. Word counting can be paused and resumed, so you can
+skip certain environments like mathematics, and multiple word counts can happen
+in parallel (you could keep separate global and per-chapter counts, for
+example). The word counting engine itself is pulled from
+https://gist.github.com/phi-gamma/2622252 .
+
 %package -n texlive-cstypo
 Summary:        Czech typography rules enforced through LuaTeX hooks
 Version:        svn41986
@@ -576,8 +581,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
-Provides:       tex(cstypo-tex.tex) = %{tl_version}
-Provides:       tex(cstypo.sty) = %{tl_version}
 
 %description -n texlive-cstypo
 This package provides macros that enforce basic Czech typography rules through
@@ -585,11 +588,12 @@ Lua hooks available in LuaTeX.
 
 %package -n texlive-ctablestack
 Summary:        Catcode table stable support
-Version:        svn38514
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(ctablestack.sty) = %{tl_version}
+Provides:       texlive-ctablestack-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ctablestack-doc <= 11:%{version}
 
 %description -n texlive-ctablestack
 This package provides a method for defining category code table stacks in
@@ -622,7 +626,6 @@ Requires:       tex(trivfloat.sty)
 Requires:       tex(verse.sty)
 Requires:       tex(zref-abspage.sty)
 Requires:       tex(zref-user.sty)
-Provides:       tex(ekdosis.sty) = %{tl_version}
 
 %description -n texlive-ekdosis
 ekdosis is a LuaLaTeX package designed for multilingual critical editions. It
@@ -637,12 +640,10 @@ borrowings between texts.
 
 %package -n texlive-emoji
 Summary:        Emoji support in (Lua)LaTeX
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(emoji-table.def) = %{tl_version}
-Provides:       tex(emoji.sty) = %{tl_version}
 
 %description -n texlive-emoji
 This package allows users to typeset emojis in LaTeX documents. It requires the
@@ -658,7 +659,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(emoji.sty)
 Requires:       tex(natbib.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(emojicite.sty) = %{tl_version}
 
 %description -n texlive-emojicite
 This package adds emojis to citations.
@@ -669,9 +669,9 @@ Version:        svn29802
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-enigma-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-enigma-doc <= 11:%{version}
 Requires:       tex(luatexbase.sty)
-Provides:       tex(enigma.sty) = %{tl_version}
-Provides:       tex(enigma.tex) = %{tl_version}
 
 %description -n texlive-enigma
 The package provides historical encryption (Enigma cipher) for LuaTeX-based
@@ -710,7 +710,6 @@ Requires:       tex(titlesec.sty)
 Requires:       tex(wrapfig.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(fancymag.sty) = %{tl_version}
 
 %description -n texlive-fancymag
 fancymag is a LaTeX package designed to provide enhanced typographic styling
@@ -727,8 +726,6 @@ Version:        svn75449
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(farbe.sty) = %{tl_version}
-Provides:       tex(farbe.tex) = %{tl_version}
 
 %description -n texlive-farbe
 This package is mainly a Lua library for converting and manipulating colors. It
@@ -736,12 +733,11 @@ is based on Lua module lua-color.
 
 %package -n texlive-gitinfo-lua
 Summary:        Display git project information in your LaTeX projects
-Version:        svn72284
+Version:        svn78348
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgfopts.sty)
-Provides:       tex(gitinfo-lua.sty) = %{tl_version}
 
 %description -n texlive-gitinfo-lua
 This project aims to display git project information in PDF documents. It is
@@ -764,7 +760,6 @@ Requires:       tex(mdframed.sty)
 Requires:       tex(needspace.sty)
 Requires:       tex(xargs.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(ideavault.sty) = %{tl_version}
 
 %description -n texlive-ideavault
 This LuaLaTeX package provides tools for the management (i.e. creation and
@@ -778,7 +773,6 @@ Version:        svn75161
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(innerscript.sty) = %{tl_version}
 
 %description -n texlive-innerscript
 This package optionally modifies four aspects of TeX's automatic math
@@ -790,12 +784,12 @@ to completely cover their contents. Using LuaLaTeX is required.
 
 %package -n texlive-interpreter
 Summary:        Translate input files on the fly
-Version:        svn27232
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(interpreter.sty) = %{tl_version}
-Provides:       tex(interpreter.tex) = %{tl_version}
+Provides:       texlive-interpreter-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-interpreter-doc <= 11:%{version}
 
 %description -n texlive-interpreter
 The package preprocesses input files to a Lua(La)TeX run, on the fly. The user
@@ -806,7 +800,7 @@ language) and turned into 'proper' TeX for processing. The source of the
 documentation is typed in such a lightweight language and is thus easily
 readable in a text editor (the PDF file is also available, of course); the
 transformation to TeX syntax via Interpreter's functions is explained in the
-documentation itself. Interpreter is implemented using the author's gates (lua
+documentation itself. Interpreter is implemented using the author's gates (Lua
 version), and works for plain TeX and LaTeX, but not ConTeXt.
 
 %package -n texlive-kanaparser
@@ -815,7 +809,6 @@ Version:        svn48052
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(kanaparser.tex) = %{tl_version}
 
 %description -n texlive-kanaparser
 The package provides a kana parser for LuaTeX. It is a set of 4 macros that
@@ -835,7 +828,6 @@ Requires:       tex(luacode.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(KKluaverb.sty) = %{tl_version}
 
 %description -n texlive-kkluaverb
 This package provides a Lua-enhanced command similar to \verb, as well as an
@@ -846,7 +838,7 @@ number of text-replacement rules and color presets.
 
 %package -n texlive-kkran
 Summary:        Generate answer fields in tests and exams
-Version:        svn77172
+Version:        svn78190
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -857,9 +849,9 @@ Requires:       tex(kvoptions.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luatexja-fontspec.sty)
 Requires:       tex(luatexja-preset.sty)
+Requires:       tex(pgfkeys.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(KKran.sty) = %{tl_version}
 
 %description -n texlive-kkran
 A Lua- and TikZ-based package created for the Japanese education sector. It
@@ -873,14 +865,15 @@ space".
 
 %package -n texlive-kksymbols
 Summary:        LaTeX commands for enclosing characters in circles, squares, diamonds, or brackets
-Version:        svn77427
+Version:        svn78727
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
+Requires:       tex(kvoptions.sty)
+Requires:       tex(luacode.sty)
 Requires:       tex(luatexja-adjust.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(KKsymbols.sty) = %{tl_version}
 
 %description -n texlive-kksymbols
 This package offers LaTeX commands for enclosing characters in circles,
@@ -890,13 +883,12 @@ package relies on TikZ and works only with LuaLaTeX.
 
 %package -n texlive-ligtype
 Summary:        Comprehensive ligature suppression functionalities
-Version:        svn67601
+Version:        svn78793
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(ligtype.sty) = %{tl_version}
 
 %description -n texlive-ligtype
 This package suppresses inappropriate ligatures following specified rules. Both
@@ -908,12 +900,11 @@ as well. The package requires LuaLaTeX.
 
 %package -n texlive-linebreaker
 Summary:        Prevent overflow boxes with LuaLaTeX
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexbase.sty)
-Provides:       tex(linebreaker.sty) = %{tl_version}
 
 %description -n texlive-linebreaker
 This package tries to prevent overflow lines in paragraphs or boxes. It changes
@@ -923,12 +914,11 @@ happens. If that doesn't help, it chooses the solution with the lowest badness.
 
 %package -n texlive-longmath
 Summary:        Nested delimiter groups extending over multiple array cells or lines
-Version:        svn71709
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luatexbase.sty)
-Provides:       tex(longmath.sty) = %{tl_version}
 
 %description -n texlive-longmath
 This package provides yet another solution to some well known typesetting
@@ -947,12 +937,10 @@ the line splitting and alignment.
 
 %package -n texlive-lparse
 Summary:        Parse macro arguments with Lua using xparse-like specification
-Version:        svn75712
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lparse.sty) = %{tl_version}
-Provides:       tex(lparse.tex) = %{tl_version}
 
 %description -n texlive-lparse
 The name lparse is derived from xparse. The 'x' has been replaced by an 'l'
@@ -968,14 +956,23 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(lt3luabridge.sty) = %{tl_version}
-Provides:       tex(lt3luabridge.tex) = %{tl_version}
-Provides:       tex(t-lt3luabridge.tex) = %{tl_version}
 
 %description -n texlive-lt3luabridge
 This is an expl3(-generic) package for plain TeX, LaTeX, and ConTeXt that
 allows you to execute Lua code in LuaTeX or any other TeX engine that exposes
 the shell.
+
+%package -n texlive-lua-list-hyphen
+Summary:        Per-language listing of hyphenated words for LuaLaTeX
+Version:        svn78839
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-lua-list-hyphen
+This LuaLaTeX package writes each word that has been hyphenated across lines to
+a file, using a different file for each language, for subsequent external
+checking.
 
 %package -n texlive-lua-placeholders
 Summary:        Specifying placeholders for demonstration purposes
@@ -986,7 +983,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(lua-placeholders.sty) = %{tl_version}
 
 %description -n texlive-lua-placeholders
 This package is meant for setting parameters in a LuaLaTeX document in a more
@@ -1011,7 +1007,7 @@ packages including markdown and citeproc-lua.
 
 %package -n texlive-lua-typo
 Summary:        Highlighting typographical flaws with LuaLaTeX
-Version:        svn77296
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1020,9 +1016,6 @@ Requires:       tex(kvoptions.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luacolor.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(lua-typo-2021-04-18.sty) = %{tl_version}
-Provides:       tex(lua-typo-2023-03-08.sty) = %{tl_version}
-Provides:       tex(lua-typo.sty) = %{tl_version}
 
 %description -n texlive-lua-typo
 Prints the list of pages on which typographical flaws were found (i.e. widows,
@@ -1046,14 +1039,12 @@ etc.
 
 %package -n texlive-lua-ul
 Summary:        Underlining for LuaLaTeX
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(luacolor.sty)
-Provides:       tex(docstrip-luacode.sty) = %{tl_version}
-Provides:       tex(lua-ul.sty) = %{tl_version}
 
 %description -n texlive-lua-ul
 This package provides underlining, strikethough, and highlighting using
@@ -1064,12 +1055,14 @@ commands, hyphenation works etc. The package requires LuaTeX version [?]
 
 %package -n texlive-lua-visual-debug
 Summary:        Visual debugging with LuaLaTeX
-Version:        svn77207
+Version:        svn78797
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lua-visual-debug-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lua-visual-debug-doc <= 11:%{version}
+Requires:       texlive-luakeyval
 Requires:       tex(ifluatex.sty)
-Provides:       tex(lua-visual-debug.sty) = %{tl_version}
 
 %description -n texlive-lua-visual-debug
 The package uses lua code to provide visible indications of boxes, glues, kerns
@@ -1078,15 +1071,12 @@ Plain TeX documents.
 
 %package -n texlive-lua-widow-control
 Summary:        Automatically remove widows and orphans from any document
-Version:        svn76924
+Version:        svn77682
 License:        MPL-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(microtype.sty)
-Provides:       tex(lua-widow-control-2022-02-22.sty) = %{tl_version}
-Provides:       tex(lua-widow-control.sty) = %{tl_version}
-Provides:       tex(lua-widow-control.tex) = %{tl_version}
 
 %description -n texlive-lua-widow-control
 Unmodified TeX has very few ways of preventing widows and orphans. In documents
@@ -1110,8 +1100,6 @@ Version:        svn72350
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luaaddplot.sty) = %{tl_version}
-Provides:       tex(luaaddplot.tex) = %{tl_version}
 
 %description -n texlive-luaaddplot
 This package is an extension to pgfplots. It extends the \addplot macro by a
@@ -1134,7 +1122,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(luacas.sty) = %{tl_version}
 
 %description -n texlive-luacas
 This package provides a portable computer algebra system capable of symbolic
@@ -1159,7 +1146,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(luacensor.sty) = %{tl_version}
 
 %description -n texlive-luacensor
 This package provides simple tools for creating redacted Its tools are useful
@@ -1171,14 +1157,15 @@ prevent jigsaw identification. It also is friendly to screen readers by adding
 alt-text indicating redacted content.
 
 %package -n texlive-luacode
-Summary:        Helper for executing lua code from within TeX
-Version:        svn25193
+Summary:        Helper for executing Lua code from within TeX
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luacode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luacode-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(luacode.sty) = %{tl_version}
 
 %description -n texlive-luacode
 Executing Lua code from within TeX with directlua can sometimes be tricky:
@@ -1188,13 +1175,12 @@ hard, and Lua comments don't work the way you expect. The package provides the
 
 %package -n texlive-luacolor
 Summary:        Color support based on LuaTeX's node attributes
-Version:        svn67987
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(atbegshi.sty)
 Requires:       tex(color.sty)
-Provides:       tex(luacolor.sty) = %{tl_version}
 
 %description -n texlive-luacolor
 This package implements color support based on LuaTeX's node attributes.
@@ -1209,7 +1195,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luamaths.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luacomplex.sty) = %{tl_version}
 
 %description -n texlive-luacomplex
 The luacomplex package is developed to define complex numbers and perform basic
@@ -1227,7 +1212,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
-Provides:       tex(luagcd.sty) = %{tl_version}
 
 %description -n texlive-luagcd
 Using Lua, the luagcd package is developed to find the greatest common divisor
@@ -1248,7 +1232,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(url.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(luahttp.sty) = %{tl_version}
 
 %description -n texlive-luahttp
 This small package provides five commands to make HTTP requests using Lua and
@@ -1256,13 +1239,33 @@ LuaTeX. Functionalities include API calls, fetch RSS feeds and the possibility
 to include images using a link. These commands run during the compilation of
 the PDF-Document and may require user interaction.
 
+%package -n texlive-luahyperbolic
+Summary:        Hyperbolic geometry in the Poincare disk model
+Version:        svn78431
+License:        CC0-1.0
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(iftex.sty)
+Requires:       tex(luacode.sty)
+Requires:       tex(tikz.sty)
+
+%description -n texlive-luahyperbolic
+This package allows to draw pictures and do computations in plane hyperbolic
+geometry, in the Poincare disk model. Computations are done with Lua, and
+graphics are generated with TikZ. The package is written in Lua and requires
+LuaLaTeX. Features: Draw geodesic lines, segments, polygons, rays, circles,
+horocycles, hypercycles. Label and mark segments, angles Compute intersections
+of geodesics, circles, symmetries, reflections, exponential maps, automorphisms
+Draw hyperbolic triangle tilings with a simple LaTeX macro Example tiling :
+https://raw.githubusercontent.com/dmegy/luahyperbolic/refs/head
+s/main/triangle-tiling-2-4-5.png
+
 %package -n texlive-luahyphenrules
 Summary:        Loading patterns in LuaLaTeX with language.dat
-Version:        svn56200
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luahyphenrules.sty) = %{tl_version}
 
 %description -n texlive-luahyphenrules
 Preloading hyphenation patterns (or 'hyphen rules.) into any format based upon
@@ -1278,7 +1281,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
-Provides:       tex(luaimageembed.sty) = %{tl_version}
 
 %description -n texlive-luaimageembed
 This package allows to embed images directly as base64-encoded strings into an
@@ -1291,29 +1293,29 @@ Version:        svn25882
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luaindex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luaindex-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase-compat.sty)
 Requires:       tex(luatexbase-modutils.sty)
 Requires:       tex(scrbase.sty)
-Provides:       tex(luaindex.sty) = %{tl_version}
 
 %description -n texlive-luaindex
 Luaindex provides (yet another) index processor, written in Lua.
 
 %package -n texlive-luainputenc
 Summary:        Replacing inputenc for use in LuaTeX
-Version:        svn75712
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luainputenc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luainputenc-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(inputenc.sty)
 Requires:       tex(luatexbase.sty)
 # Ignoring dependency on xetex-inputenc.sty - not part of TeX Live
-Provides:       tex(luainputenc.sty) = %{tl_version}
-Provides:       tex(lutf8.def) = %{tl_version}
-Provides:       tex(lutf8x.def) = %{tl_version}
 
 %description -n texlive-luainputenc
 LuaTeX operates by default in UTF-8 input; thus LaTeX documents that need 8-bit
@@ -1325,14 +1327,10 @@ as inputenc has under pdfTeX.
 
 %package -n texlive-luakeys
 Summary:        A Lua module for parsing key-value options
-Version:        svn75824
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luakeys-debug.sty) = %{tl_version}
-Provides:       tex(luakeys-debug.tex) = %{tl_version}
-Provides:       tex(luakeys.sty) = %{tl_version}
-Provides:       tex(luakeys.tex) = %{tl_version}
 
 %description -n texlive-luakeys
 This package provides a Lua module that can parse key-value options like the
@@ -1355,13 +1353,14 @@ creating use interface macros from within a Lua module.
 
 %package -n texlive-lualatex-math
 Summary:        Fixes for mathematics-related LuaLaTeX issues
-Version:        svn76924
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lualatex-math-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lualatex-math-doc <= 11:%{version}
 Requires:       texlive-etoolbox
 Requires:       texlive-filehook
-Provides:       tex(lualatex-math.sty) = %{tl_version}
 
 %description -n texlive-lualatex-math
 The package patches a few commands of the LaTeX2e kernel and the amsmath and
@@ -1373,14 +1372,13 @@ Unicode mathematics typesetting.
 
 %package -n texlive-lualatex-truncate
 Summary:        A wrapper for using the truncate package with LuaLaTeX
-Version:        svn67201
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(letltxmacro.sty)
 Requires:       tex(truncate.sty)
-Provides:       tex(lualatex-truncate.sty) = %{tl_version}
 
 %description -n texlive-lualatex-truncate
 This package provides a wrapper for the truncate package, thus fixing issues
@@ -1388,14 +1386,16 @@ related to LuaTeX's hyphenation algorithm.
 
 %package -n texlive-lualibs
 Summary:        Additional Lua functions for LuaTeX macro programmers
-Version:        svn67994
+Version:        svn78415
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lualibs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lualibs-doc <= 11:%{version}
 
 %description -n texlive-lualibs
 Lualibs is a collection of Lua modules useful for general programming. The
-bundle is based on lua modules shipped with ConTeXt, and made available in this
+bundle is based on Lua modules shipped with ConTeXt, and made available in this
 bundle for use independent of ConTeXt.
 
 %package -n texlive-lualinalg
@@ -1408,7 +1408,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luamaths.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(lualinalg.sty) = %{tl_version}
 
 %description -n texlive-lualinalg
 The lualinalg package is developed to perform operations on vectors and
@@ -1424,14 +1423,24 @@ also save users' efforts to copy vectors and matrices from other software
 The vectors and matrices of reasonable size can be handled with ease. The
 package can be modified or extended by writing custom Lua programs.
 
+%package -n texlive-lualineno
+Summary:        Line numbering in LuaTeX-based formats
+Version:        svn77766
+License:        LicenseRef-Unknown
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-lualineno
+The package provides flexible line numbering for LuaTeX-based formats. It
+supports OpTeX, LuaLaTeX, and Plain LuaTeX.
+
 %package -n texlive-luamathalign
 Summary:        More flexible alignment in amsmath environments
-Version:        svn76790
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
-Provides:       tex(luamathalign.sty) = %{tl_version}
 
 %description -n texlive-luamathalign
 Allow aligning mathematical expressions on points where directly using & is not
@@ -1446,7 +1455,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luamaths.sty) = %{tl_version}
 
 %description -n texlive-luamaths
 The luamaths package is developed to perform standard mathematical operations
@@ -1459,14 +1467,10 @@ bundled with LuaLaTeX.
 
 %package -n texlive-luamml
 Summary:        Automatically generate MathML from LuaLaTeX math mode material
-Version:        svn76924
+Version:        svn78219
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luamml-patches-amsmath.sty) = %{tl_version}
-Provides:       tex(luamml-patches-kernel.sty) = %{tl_version}
-Provides:       tex(luamml-pdf.sty) = %{tl_version}
-Provides:       tex(luamml.sty) = %{tl_version}
 
 %description -n texlive-luamml
 LuaMML is an experimental package to automatically generate a MathML
@@ -1482,7 +1486,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luamodulartables.sty) = %{tl_version}
 
 %description -n texlive-luamodulartables
 This package is developed to generate modular addition and multiplication
@@ -1496,11 +1499,12 @@ Lua, and TeX file is to be compiled with LuaLaTeX engine.
 
 %package -n texlive-luamplib
 Summary:        Use LuaTeX's built-in MetaPost interpreter
-Version:        svn77524
+Version:        svn78841
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luamplib.sty) = %{tl_version}
+Provides:       texlive-luamplib-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luamplib-doc <= 11:%{version}
 
 %description -n texlive-luamplib
 The package enables the user to specify MetaPost diagrams (which may include
@@ -1509,14 +1513,13 @@ LuaTeX's built-in MetaPost library. The facility is only available in PDF mode.
 
 %package -n texlive-luaoptions
 Summary:        Option handling for LuaLaTeX packages
-Version:        svn64870
+Version:        svn78101
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luaotfload.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luaoptions.sty) = %{tl_version}
 
 %description -n texlive-luaoptions
 This LuaLaTeX package provides extensive support for handling options, on
@@ -1537,7 +1540,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       texlive-iftex
 Requires:       tex(ifluatex.sty)
-Provides:       tex(luapackageloader.sty) = %{tl_version}
 
 %description -n texlive-luapackageloader
 This package allows LuaTeX to load packages from the default package.path and
@@ -1554,7 +1556,6 @@ Requires:       tex(luacode.sty)
 Requires:       tex(luamplib.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luaplot.sty) = %{tl_version}
 
 %description -n texlive-luaplot
 This package uses Lua to plot graphs of real-valued functions of a real
@@ -1579,7 +1580,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(luaprogtable.sty) = %{tl_version}
 
 %description -n texlive-luaprogtable
 This package allows you to modify a cell based on the contents of other cells
@@ -1594,7 +1594,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(fontspec.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(luacode.sty)
-Provides:       tex(luaquotes.sty) = %{tl_version}
 
 %description -n texlive-luaquotes
 This package automatically generates quotation marks and punctuation depending
@@ -1602,13 +1601,12 @@ on the selected language.
 
 %package -n texlive-luarandom
 Summary:        Create lists of random numbers
-Version:        svn68847
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(iftex.sty)
 Requires:       tex(luacode.sty)
-Provides:       tex(luarandom.sty) = %{tl_version}
 
 %description -n texlive-luarandom
 This package can create lists of random numbers for any given interval [a;b].
@@ -1626,7 +1624,6 @@ Requires:       tex(amsmath.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luamaths.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luaset.sty) = %{tl_version}
 
 %description -n texlive-luaset
 The luaset package is developed to define finite sets and perform operations on
@@ -1647,7 +1644,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
 Requires:       tex(luakeys.sty)
 Requires:       tex(penlightplus.sty)
-Provides:       tex(luatbls.sty) = %{tl_version}
 
 %description -n texlive-luatbls
 This package provides a LaTeX interface to create, modify, and use the Lua data
@@ -1673,31 +1669,26 @@ the LSP.
 
 %package -n texlive-luatex85
 Summary:        PdfTeX aliases for LuaTeX
-Version:        svn41456
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(luatex85.sty) = %{tl_version}
+Provides:       texlive-luatex85-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luatex85-doc <= 11:%{version}
 
 %description -n texlive-luatex85
 The package provides emulation of pdfTeX primitives for LuaTeX v0.85+.
 
 %package -n texlive-luatexbase
 Summary:        Basic resource management for LuaTeX code
-Version:        svn52663
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luatexbase-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luatexbase-doc <= 11:%{version}
 Requires:       texlive-ctablestack
 Requires:       tex(ctablestack.sty)
-Provides:       tex(luatexbase-attr.sty) = %{tl_version}
-Provides:       tex(luatexbase-cctb.sty) = %{tl_version}
-Provides:       tex(luatexbase-compat.sty) = %{tl_version}
-Provides:       tex(luatexbase-loader.sty) = %{tl_version}
-Provides:       tex(luatexbase-mcb.sty) = %{tl_version}
-Provides:       tex(luatexbase-modutils.sty) = %{tl_version}
-Provides:       tex(luatexbase-regs.sty) = %{tl_version}
-Provides:       tex(luatexbase.sty) = %{tl_version}
 
 %description -n texlive-luatexbase
 The LaTeX kernel (LaTeX2e 2015/10/01 onward) builds in support for LuaTeX
@@ -1709,13 +1700,14 @@ upgrade smoothly to the new support structure.
 
 %package -n texlive-luatexko
 Summary:        Typeset Korean with Lua(La)TeX
-Version:        svn77490
+Version:        svn78005
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luatexko-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luatexko-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(kolabels-utf.sty)
-Provides:       tex(luatexko.sty) = %{tl_version}
 
 %description -n texlive-luatexko
 This is a Lua(La)TeX macro package that supports typesetting Korean documents
@@ -1727,16 +1719,17 @@ run. This package also requires the cjk-ko package for its full functionality.
 
 %package -n texlive-luatextra
 Summary:        Additional macros for Plain TeX and LaTeX in LuaTeX
-Version:        svn20747
+Version:        svn77682
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luatextra-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luatextra-doc <= 11:%{version}
 Requires:       tex(fontspec.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(metalogo.sty)
-Provides:       tex(luatextra.sty) = %{tl_version}
 
 %description -n texlive-luatextra
 The package provides a coherent extended programming environment for use with
@@ -1751,7 +1744,6 @@ License:        LPPL-1.3c AND MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
-Provides:       tex(luatikz.sty) = %{tl_version}
 
 %description -n texlive-luatikz
 This package provides a comfort graphics library to work with graphic objects
@@ -1763,32 +1755,29 @@ more complicated, Lua may just be easier to work with as base.
 
 %package -n texlive-luatruthtable
 Summary:        Generate truth tables of boolean values in LuaLaTeX
-Version:        svn76924
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsmath.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(luatruthtable.sty) = %{tl_version}
 
 %description -n texlive-luatruthtable
 This package provides an easy way for generating truth tables of boolean values
 in LuaLaTeX. The time required for operations is no issue while compiling with
 LuaLaTeX. The package supports nesting of commands for multiple operations. It
-can be modified or extended by writing custom lua programs. There is no need to
-install lua on users system as TeX distributions (TeX Live or MiKTeX) come
+can be modified or extended by writing custom Lua programs. There is no need to
+install Lua on users system as TeX distributions (TeX Live or MiKTeX) come
 bundled with LuaLaTeX.
 
 %package -n texlive-luavlna
 Summary:        Prevent line breaks after single letter words, units, or academic titles
-Version:        svn76687
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
-Provides:       tex(luavlna.sty) = %{tl_version}
-Provides:       tex(luavlna.tex) = %{tl_version}
 
 %description -n texlive-luavlna
 In some languages, like Czech or Polish, there should be no single letter words
@@ -1804,12 +1793,13 @@ used for "unbreakable spaces".
 
 %package -n texlive-luaxml
 Summary:        Lua library for reading and serialising XML files
-Version:        svn77537
+Version:        svn78101
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-luaxml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-luaxml-doc <= 11:%{version}
 Requires:       tex(luacode.sty)
-Provides:       tex(luaxml.sty) = %{tl_version}
 
 %description -n texlive-luaxml
 LuaXML is a pure Lua library for reading and serializing XML files. The current
@@ -1833,7 +1823,6 @@ Requires:       tex(multirow.sty)
 Requires:       tex(penlightplus.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(lutabulartools.sty) = %{tl_version}
 
 %description -n texlive-lutabulartools
 This package provides some useful commands for tabular matter. It uses LuaLaTeX
@@ -1847,7 +1836,6 @@ Version:        svn77235
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(marginalia.sty) = %{tl_version}
 
 %description -n texlive-marginalia
 This LuaLaTeX package allows the placement of marginal content anywhere,
@@ -1861,13 +1849,6 @@ Version:        svn73816
 License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(minim-alloc.tex) = %{tl_version}
-Provides:       tex(minim-doc.sty) = %{tl_version}
-Provides:       tex(minim-etex.tex) = %{tl_version}
-Provides:       tex(minim-lmodern.tex) = %{tl_version}
-Provides:       tex(minim-pdfresources.tex) = %{tl_version}
-Provides:       tex(minim-plain.tex) = %{tl_version}
-Provides:       tex(minim.tex) = %{tl_version}
 
 %description -n texlive-minim
 This is a modern plain format for the LuaTeX engine, adding improved low-level
@@ -1886,7 +1867,6 @@ Version:        svn73816
 License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(minim-math.tex) = %{tl_version}
 
 %description -n texlive-minim-math
 This package provides a simple and highly configurable way to use Unicode and
@@ -1896,27 +1876,24 @@ proper settings and definitions for almost all Unicode mathematical characters.
 
 %package -n texlive-minim-mp
 Summary:        Low-level mplib integration for LuaTeX
-Version:        svn73816
+Version:        svn78415
 License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(minim-mp.sty) = %{tl_version}
-Provides:       tex(minim-mp.tex) = %{tl_version}
 
 %description -n texlive-minim-mp
 This package offers low-level mplib integration for LuaLaTeX and plain LuaTeX.
 It is designed with the purpose of being easy to extend. The use of multiple
-simultaneous MetaPost instances is supported, as well as running TeX or lua
+simultaneous MetaPost instances is supported, as well as running TeX or Lua
 code from within MetaPost. With the included minim-mp and minim-lamp format
 files, you can even use Lua(La)TeX as a stand-alone MetaPost compiler.
 
 %package -n texlive-minim-pdf
 Summary:        Low-level PDF integration for LuaTeX
-Version:        svn74207
+Version:        svn77682
 License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(minim-pdf.tex) = %{tl_version}
 
 %description -n texlive-minim-pdf
 This package adds low-level support to plain LuaTeX for marking up the
@@ -1929,7 +1906,6 @@ Version:        svn73816
 License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(minim-xmp.tex) = %{tl_version}
 
 %description -n texlive-minim-xmp
 This package enables the inclusion of XMP (eXtensible Metadata Platform) data
@@ -1938,18 +1914,17 @@ PDF standards such as PDF/A.
 
 %package -n texlive-newpax
 Summary:        Experimental package to extract and reinsert PDF annotations
-Version:        svn76924
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(pdfmanagement.sty)
-Provides:       tex(newpax.sty) = %{tl_version}
 
 %description -n texlive-newpax
 The package is based on the pax package from Heiko Oberdiek. It offers a
-lua-based alternative to the java based pax.jar to extract the annotations from
+Lua-based alternative to the java based pax.jar to extract the annotations from
 a PDF. The resulting file can then be used together with pax.sty. It also
 offers an extended style which works with all three major engines.
 
@@ -1964,9 +1939,6 @@ Requires:       tex(kvoptions.sty)
 Requires:       tex(mdframed.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(nodetree-embed.sty) = %{tl_version}
-Provides:       tex(nodetree.sty) = %{tl_version}
-Provides:       tex(nodetree.tex) = %{tl_version}
 
 %description -n texlive-nodetree
 nodetree is a development package that visualizes the structure of node lists.
@@ -1976,20 +1948,21 @@ tree command for a folder structure.
 
 %package -n texlive-odsfile
 Summary:        Read OpenDocument Spreadsheet documents as LaTeX tables
-Version:        svn76707
+Version:        svn78415
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-odsfile-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-odsfile-doc <= 11:%{version}
 Requires:       tex(luacode.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(odsfile.sty) = %{tl_version}
 
 %description -n texlive-odsfile
-The distribution includes a package and a lua library that can together read
+The distribution includes a package and a Lua library that can together read
 OpenDocument spreadsheet documents as LaTeX tables. Cells in the tables may be
 processed by LaTeX macros, so that (for example) the package may be used for
-drawing some plots. The package uses lua's zip library.
+drawing some plots. The package uses Lua's zip library.
 
 %package -n texlive-parstat
 Summary:        A Paragraph statistic package for OpTeX
@@ -2020,8 +1993,6 @@ Version:        svn65184
 License:        0BSD
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pdfextra.sty) = %{tl_version}
-Provides:       tex(pdfextra.tex) = %{tl_version}
 
 %description -n texlive-pdfextra
 This package provides extra PDF features for OpTeX (or in limited form for
@@ -2037,7 +2008,6 @@ Version:        svn73362
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(penlight.sty) = %{tl_version}
 
 %description -n texlive-penlight
 This LuaLaTeX package provides a wrapper to use the penlight Lua libraries with
@@ -2054,7 +2024,6 @@ Requires:       tex(luacode.sty)
 Requires:       tex(luakeys.sty)
 Requires:       tex(penlight.sty)
 Requires:       tex(tokcycle.sty)
-Provides:       tex(penlightplus.sty) = %{tl_version}
 
 %description -n texlive-penlightplus
 This package extends the penlight package by adding useful functions for
@@ -2062,12 +2031,11 @@ interfacing with LaTeX.
 
 %package -n texlive-piton
 Summary:        Typeset computer listings with LPEG of LuaLaTeX
-Version:        svn77302
+Version:        svn78751
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tcolorbox.sty)
-Provides:       tex(piton.sty) = %{tl_version}
 
 %description -n texlive-piton
 This package uses the Lua library LPEG to typeset and highlight computer
@@ -2080,11 +2048,12 @@ Version:        svn45145
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-placeat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-placeat-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(placeat.sty) = %{tl_version}
 
 %description -n texlive-placeat
 The package provides commands so that the user of LuaLaTeX may position
@@ -2106,7 +2075,6 @@ Requires:       tex(pdftexcmds.sty)
 Requires:       tex(pythontex.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(plantuml.sty) = %{tl_version}
 
 %description -n texlive-plantuml
 PlantUML is a program which transforms text into UML diagrams. This LaTeX
@@ -2115,12 +2083,10 @@ Currently, this project runs with LuaLaTeX only.
 
 %package -n texlive-pyluatex
 Summary:        Execute Python code on the fly in your LaTeX documents
-Version:        svn76924
+Version:        svn78739
 License:        MIT AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(kvoptions.sty)
-Provides:       tex(pyluatex.sty) = %{tl_version}
 
 %description -n texlive-pyluatex
 PyLuaTeX allows you to execute Python code and to include the resulting output
@@ -2140,7 +2106,6 @@ License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(suffix.sty)
-Provides:       tex(scikgtex.sty) = %{tl_version}
 
 %description -n texlive-scikgtex
 Scientific Knowledge Graph TeX (SciKgTeX) is a LuaLaTeX package which makes it
@@ -2158,7 +2123,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(etoolbox.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(seatingchart.sty) = %{tl_version}
 
 %description -n texlive-seatingchart
 This package enables the visualization of seating charts, whereby the seating
@@ -2169,17 +2133,14 @@ LuaLaTeX.
 
 %package -n texlive-selnolig
 Summary:        Selectively disable typographic ligatures
-Version:        svn68747
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-selnolig-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-selnolig-doc <= 11:%{version}
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(selnolig-english-hyphex.sty) = %{tl_version}
-Provides:       tex(selnolig-english-patterns.sty) = %{tl_version}
-Provides:       tex(selnolig-german-hyphex.sty) = %{tl_version}
-Provides:       tex(selnolig-german-patterns.sty) = %{tl_version}
-Provides:       tex(selnolig.sty) = %{tl_version}
 
 %description -n texlive-selnolig
 The package suppresses typographic ligatures selectively, i.e., based on
@@ -2208,7 +2169,6 @@ Requires:       tex(fontawesome.sty)
 Requires:       tex(pgfkeys.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(semesterplannerlua.sty) = %{tl_version}
 
 %description -n texlive-semesterplannerlua
 This LaTeX package provides commands to print timetables, lists of appointments
@@ -2218,13 +2178,12 @@ which makes it very flexible.
 
 %package -n texlive-showhyphenation
 Summary:        Marking of hyphenation points
-Version:        svn67602
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(showhyphenation.sty) = %{tl_version}
 
 %description -n texlive-showhyphenation
 The package shows the hyphenation points in the document by either inserting
@@ -2235,13 +2194,12 @@ glyphs. The package requires LuaLaTeX.
 
 %package -n texlive-showkerning
 Summary:        Showing kerns in a document
-Version:        svn67603
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(showkerning.sty) = %{tl_version}
 
 %description -n texlive-showkerning
 The package displays all kerning values in the form of colored bars directly at
@@ -2252,13 +2210,12 @@ of the glyphs. The package requires LuaLaTeX.
 
 %package -n texlive-spacekern
 Summary:        Kerning between words and against space
-Version:        svn67604
+Version:        svn78632
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(spacekern.sty) = %{tl_version}
 
 %description -n texlive-spacekern
 This package provides two shorthands for typesetting breaking and non-breaking
@@ -2271,12 +2228,13 @@ Version:        svn73571
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-spelling-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-spelling-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase-attr.sty)
 Requires:       tex(luatexbase-mcb.sty)
 Requires:       tex(luatexbase-modutils.sty)
-Provides:       tex(spelling.sty) = %{tl_version}
 
 %description -n texlive-spelling
 The package aids spell-checking of TeX documents compiled with the LuaTeX
@@ -2291,7 +2249,6 @@ Version:        svn56320
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(stricttex.sty) = %{tl_version}
 
 %description -n texlive-stricttex
 This is a small, LuaLaTeX-only package providing you with three, sometimes
@@ -2308,7 +2265,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xstring.sty)
-Provides:       tex(SympyCalc.sty) = %{tl_version}
 
 %description -n texlive-sympycalc
 This package provides some commands (mostly for French users) to perform SymPy
@@ -2336,7 +2292,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(luacode.sty)
-Provides:       tex(truthtable.sty) = %{tl_version}
 
 %description -n texlive-truthtable
 This LuaLaTeX package permits to automatically generate truth tables given a
@@ -2350,8 +2305,6 @@ License:        EUPL-1.2
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(environ.sty)
-Provides:       tex(tsvtemplate.sty) = %{tl_version}
-Provides:       tex(tsvtemplate.tex) = %{tl_version}
 
 %description -n texlive-tsvtemplate
 This is a simple tsv (tab-separated values) reader for LuaLaTeX and plain
@@ -2364,7 +2317,6 @@ Version:        svn73877
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(typewriter.sty) = %{tl_version}
 
 %description -n texlive-typewriter
 The typewriter package uses the OpenType Computer Modern Unicode Typewriter
@@ -2374,12 +2326,10 @@ answer to a question on stackexchange.
 
 %package -n texlive-unibidi-lua
 Summary:        Unicode bidi algorithm implementation for various LuaTeX formats
-Version:        svn77352
+Version:        svn78655
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(unibidi-lua.sty) = %{tl_version}
-Provides:       tex(unibidi-lua.tex) = %{tl_version}
 
 %description -n texlive-unibidi-lua
 The package adopts the unicode bidi algorithm implementation provided in
@@ -2388,14 +2338,13 @@ under LuaTeX only.
 
 %package -n texlive-uninormalize
 Summary:        Unicode normalization support
-Version:        svn57257
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(kvoptions.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luatexbase.sty)
-Provides:       tex(uninormalize.sty) = %{tl_version}
 
 %description -n texlive-uninormalize
 This package provides Unicode normalization (useful for composed characters)
@@ -2411,7 +2360,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(luakeys.sty)
 Requires:       tex(penlightplus.sty)
-Provides:       tex(yamlvars.sty) = %{tl_version}
 
 %description -n texlive-yamlvars
 This LuaLaTeX package provides a YAML parser and some functions to declare and
@@ -2658,14 +2606,17 @@ tar -xf %{SOURCE228} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE229} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE230} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE231} -C %{buildroot}%{_texmf_main}
-
-# move the luakeyval LICENSE file to 0bsd.txt in the topdir
-mv %{buildroot}%{_texmf_main}/doc/luatex/luakeyval/LICENSE 0bsd-luakeyval.txt
-# same for pdfextra but we can't reuse the file because copyright attribution matters here
-mv %{buildroot}%{_texmf_main}/doc/optex/pdfextra/LICENSE 0bsd-pdfextra.txt
-
-# minim is EUPL
+tar -xf %{SOURCE232} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE233} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE234} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE235} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE236} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE237} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE238} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE239} -C %{buildroot}%{_texmf_main}
 mv %{buildroot}%{_texmf_main}/doc/luatex/minim/EUPL-1.2-EN.txt eupl-1.2-en.txt
+mv %{buildroot}%{_texmf_main}/doc/luatex/luakeyval/LICENSE 0bsd-luakeyval.txt
+mv %{buildroot}%{_texmf_main}/doc/optex/pdfextra/LICENSE 0bsd-pdfextra.txt
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -2733,6 +2684,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %license lppl1.3c.txt
 %{_texmf_main}/tex/lualatex/combofont/
 %doc %{_texmf_main}/doc/lualatex/combofont/
+
+%files -n texlive-countwords
+%license lppl1.3c.txt
+%{_texmf_main}/tex/lualatex/countwords/
+%doc %{_texmf_main}/doc/lualatex/countwords/
 
 %files -n texlive-cstypo
 %license mit.txt
@@ -2847,6 +2803,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/lt3luabridge/
 %doc %{_texmf_main}/doc/generic/lt3luabridge/
 
+%files -n texlive-lua-list-hyphen
+%license lppl1.3c.txt
+%{_texmf_main}/tex/lualatex/lua-list-hyphen/
+%doc %{_texmf_main}/doc/lualatex/lua-list-hyphen/
+
 %files -n texlive-lua-placeholders
 %license lppl1.3c.txt
 %{_texmf_main}/scripts/lua-placeholders/
@@ -2928,6 +2889,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/lualatex/luahttp/
 %doc %{_texmf_main}/doc/lualatex/luahttp/
 
+%files -n texlive-luahyperbolic
+%license cc-zero-1.txt
+%{_texmf_main}/tex/lualatex/luahyperbolic/
+%doc %{_texmf_main}/doc/lualatex/luahyperbolic/
+
 %files -n texlive-luahyphenrules
 %license lppl1.3c.txt
 %{_texmf_main}/tex/lualatex/luahyphenrules/
@@ -2978,6 +2944,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %license lppl1.3c.txt
 %{_texmf_main}/tex/lualatex/lualinalg/
 %doc %{_texmf_main}/doc/lualatex/lualinalg/
+
+%files -n texlive-lualineno
+%{_texmf_main}/tex/luatex/lualineno/
+%doc %{_texmf_main}/doc/luatex/lualineno/
 
 %files -n texlive-luamathalign
 %license lppl1.3c.txt
@@ -3251,7 +3221,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/lualatex/truthtable/
 
 %files -n texlive-tsvtemplate
-%license other-free.txt
+%license eupl-1.2-en.txt
 %{_texmf_main}/tex/luatex/tsvtemplate/
 %doc %{_texmf_main}/doc/luatex/tsvtemplate/
 
@@ -3276,6 +3246,14 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/lualatex/yamlvars/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78670-3
+- Update collection from svn77516 to svn78670
+- Add countwords
+- Add lua-list-hyphen
+- Add luahyperbolic
+- Add lualineno
+- Update 50 components
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77516-2
 - Update to svn77516
 - fix licensing files

@@ -44,8 +44,6 @@ BuildArch:      noarch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 
-BuildRequires:  python3-devel
-
 # Since dependency groups contain overly-strict version bounds and some
 # unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
@@ -174,12 +172,12 @@ It makes sure the dependencies are installed.
 # Break a dependency cycle with fastapi-cli by commenting out all dependencies
 # on it. Note that this removes it from the “standard”,
 # “standard-no-fastapi-cloud-cli”, and “all” extras metapackages.
-sed -r -i 's/("fastapi-cli?\b.*",)/# \1/' pyproject.toml
+%pyproject_patch_dependency fastapi-cli:ignore
 %endif
 %if %{without uvicorn}
 # Comment out all dependencies on uvicorn. Note that this removes it from the
 # “all” extra metapackage.
-sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
+%pyproject_patch_dependency uvicorn:ignore
 %endif
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.13
+Version: 13.14
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 29 2026 Nick Clifton  <nickc@redhat.com> - 13.14-1
+- Annocheck: Do not complain about GO binaries that do not support branch protection.
+
 * Tue Apr 28 2026 Nick Clifton  <nickc@redhat.com> - 13.13-1
 - Annocheck: Do not complain about Rust binaries that do not support branch protection.
 

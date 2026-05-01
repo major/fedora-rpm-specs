@@ -5,7 +5,7 @@
 Name:           texlive-collection-metapost
 Epoch:          12
 Version:        svn73627
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MetaPost and Metafont packages
 
 License:        LPPL-1.3c
@@ -183,6 +183,8 @@ Version:        svn19717
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-automata-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-automata-doc <= 11:%{version}
 
 %description -n texlive-automata
 The package offers a collection of macros for MetaPost to make easier to draw
@@ -192,11 +194,13 @@ of nodes through arbitrary paths. Parameters, that specify the shapes of nodes
 and the styles of edges, may be adjusted.
 
 %package -n texlive-bbcard
-Summary:        BS bingo, calendar and baseball-score cards
+Summary:        Bullshit bingo, calendar and baseball-score cards
 Version:        svn19440
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bbcard-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bbcard-doc <= 11:%{version}
 
 %description -n texlive-bbcard
 Three jiffy packages for creating cards of various sorts with MetaPost.
@@ -207,6 +211,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-blockdraw_mp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-blockdraw_mp-doc <= 11:%{version}
 
 %description -n texlive-blockdraw_mp
 A set of simple MetaPost macros for the task. While the task is not itself
@@ -219,6 +225,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bpolynomial-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bpolynomial-doc <= 11:%{version}
 
 %description -n texlive-bpolynomial
 This MetaPost package helps plotting polynomial and root functions up to order
@@ -233,6 +241,8 @@ Version:        svn24378
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmarrows-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmarrows-doc <= 11:%{version}
 
 %description -n texlive-cmarrows
 This MetaPost package contains macros to draw arrows and braces in the Computer
@@ -244,6 +254,8 @@ Version:        svn29349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-drv-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-drv-doc <= 11:%{version}
 
 %description -n texlive-drv
 A set of MetaPost macros for typesetting derivation trees (such as used in
@@ -256,6 +268,8 @@ Version:        svn29349
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dviincl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dviincl-doc <= 11:%{version}
 
 %description -n texlive-dviincl
 DVItoMP is one of the auxiliary programs available to any MetaPost package; it
@@ -269,9 +283,10 @@ Version:        svn23483
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-emp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-emp-doc <= 11:%{version}
 Requires:       tex(graphics.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(emp.sty) = %{tl_version}
 
 %description -n texlive-emp
 Emp is a package for encapsulating MetaPost figures in LaTeX: the package
@@ -289,6 +304,8 @@ Version:        svn29349
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-epsincl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-epsincl-doc <= 11:%{version}
 
 %description -n texlive-epsincl
 The package facilitates including EPS files in MetaPost figures; it makes use
@@ -300,6 +317,8 @@ Version:        svn29349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-expressg-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-expressg-doc <= 11:%{version}
 
 %description -n texlive-expressg
 A MetaPost package providing facilities to assist in drawing diagrams that
@@ -314,6 +333,8 @@ Version:        svn19859
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-exteps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-exteps-doc <= 11:%{version}
 
 %description -n texlive-exteps
 Exteps is a module for including external EPS figures into MetaPost figures. It
@@ -326,6 +347,8 @@ Version:        svn35346
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-featpost-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-featpost-doc <= 11:%{version}
 
 %description -n texlive-featpost
 These macros allow the production of three-dimensional schemes containing:
@@ -333,13 +356,13 @@ angles, circles, cylinders, cones and spheres, among other things.
 
 %package -n texlive-feynmf
 Summary:        Macros and fonts for creating Feynman (and other) diagrams
-Version:        svn17259
+Version:        svn77682
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-feynmf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-feynmf-doc <= 11:%{version}
 Requires:       tex(graphics.sty)
-Provides:       tex(feynmf.sty) = %{tl_version}
-Provides:       tex(feynmp.sty) = %{tl_version}
 
 %description -n texlive-feynmf
 The feynmf package provides an interface to Metafont (inspired by the
@@ -351,15 +374,16 @@ theories, where the structure is semi-algorithmically determined.
 
 %package -n texlive-feynmp-auto
 Summary:        Automatic processing of feynmp graphics
-Version:        svn30223
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-feynmp-auto-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-feynmp-auto-doc <= 11:%{version}
 Requires:       tex(feynmp.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(pdftexcmds.sty)
-Provides:       tex(feynmp-auto.sty) = %{tl_version}
 
 %description -n texlive-feynmp-auto
 The package takes care of running Metapost on the output files produced by the
@@ -368,7 +392,7 @@ of LaTeX. The package honours options that apply to feynmp.
 
 %package -n texlive-fiziko
 Summary:        A MetaPost library for physics textbook illustrations
-Version:        svn61944
+Version:        svn78681
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -386,6 +410,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-garrigues-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-garrigues-doc <= 11:%{version}
 
 %description -n texlive-garrigues
 MetaPost macros for the reproduction of Garrigues' Easter nomogram. These
@@ -395,16 +421,17 @@ pages 88-104)
 
 %package -n texlive-gmp
 Summary:        Enable integration between MetaPost pictures and LaTeX
-Version:        svn21691
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gmp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gmp-doc <= 11:%{version}
 Requires:       tex(environ.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(ifxetex.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(gmp.sty) = %{tl_version}
 
 %description -n texlive-gmp
 The package allows integration between MetaPost pictures and LaTeX. The main
@@ -417,6 +444,8 @@ Version:        svn23818
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hatching-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hatching-doc <= 11:%{version}
 
 %description -n texlive-hatching
 The file hatching.mp contains a set of MetaPost macros for hatching interior of
@@ -453,6 +482,8 @@ Version:        svn55643
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-latexmp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-latexmp-doc <= 11:%{version}
 
 %description -n texlive-latexmp
 The MetaPost package latexMP implements a user-friendly interface to access
@@ -468,6 +499,8 @@ Version:        svn76506
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mcf2graph-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mcf2graph-doc <= 11:%{version}
 
 %description -n texlive-mcf2graph
 The Molecular Coding Format (MCF) is a linear notation for describing chemical
@@ -475,10 +508,12 @@ structure diagrams. This package converts MCF to graphic files using MetaPost.
 
 %package -n texlive-metago
 Summary:        MetaPost output of Go positions
-Version:        svn15878
+Version:        svn78101
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metago-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metago-doc <= 11:%{version}
 
 %description -n texlive-metago
 The package allows you to draw Go game positions with MetaPost. Two methods of
@@ -491,6 +526,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metaobj-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metaobj-doc <= 11:%{version}
 
 %description -n texlive-metaobj
 METAOBJ is a large MetaPost package providing high-level objects. It implements
@@ -505,6 +542,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metaplot-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metaplot-doc <= 11:%{version}
 
 %description -n texlive-metaplot
 MetaPlot is a set of MetaPost macros for manipulating pre-generated plots (and
@@ -539,6 +578,8 @@ Version:        svn49923
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-metauml-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-metauml-doc <= 11:%{version}
 
 %description -n texlive-metauml
 MetaUML is a MetaPost library for typesetting UML diagrams, which provides a
@@ -551,10 +592,9 @@ Version:        svn28444
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mfpic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mfpic-doc <= 11:%{version}
 Requires:       tex(graphics.sty)
-Provides:       tex(mfpic.sty) = %{tl_version}
-Provides:       tex(mfpic.tex) = %{tl_version}
-Provides:       tex(mfpicdef.tex) = %{tl_version}
 
 %description -n texlive-mfpic
 Mfpic is a scheme for producing pictures from (La)TeX commands. Commands \mfpic
@@ -571,8 +611,8 @@ Version:        svn75712
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mfpic4ode.sty) = %{tl_version}
-Provides:       tex(mfpic4ode.tex) = %{tl_version}
+Provides:       texlive-mfpic4ode-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mfpic4ode-doc <= 11:%{version}
 
 %description -n texlive-mfpic4ode
 The package is a small set of macros for drawing direction fields, phase
@@ -625,6 +665,8 @@ Version:        svn29349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mp3d-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mp3d-doc <= 11:%{version}
 
 %description -n texlive-mp3d
 Create animations of 3-dimensional objects (such as polyhedra) in MetaPost.
@@ -635,6 +677,8 @@ Version:        svn39729
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mparrows-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mparrows-doc <= 11:%{version}
 
 %description -n texlive-mparrows
 A package to provide different types of arrow heads to be used with MetaPost
@@ -646,6 +690,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mpattern-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mpattern-doc <= 11:%{version}
 
 %description -n texlive-mpattern
 A package for defining and using patterns in MetaPost, using the Pattern Color
@@ -653,7 +699,7 @@ Space available in PostScript Level 2.
 
 %package -n texlive-mpchess
 Summary:        Drawing chess boards and positions with MetaPost
-Version:        svn73149
+Version:        svn78101
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -671,6 +717,8 @@ Version:        svn23252
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mpcolornames-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mpcolornames-doc <= 11:%{version}
 
 %description -n texlive-mpcolornames
 The MetaPost format plain.mp provides only five built-in colour names
@@ -685,6 +733,8 @@ Version:        svn29776
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mpgraphics-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mpgraphics-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifpdf.sty)
@@ -692,7 +742,6 @@ Requires:       tex(ifplatform.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(moreverb.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(mpgraphics.sty) = %{tl_version}
 
 %description -n texlive-mpgraphics
 The package allows LaTeX users to typeset MetaPost code inline and display
@@ -729,6 +778,8 @@ Version:        svn19440
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-piechartmp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-piechartmp-doc <= 11:%{version}
 
 %description -n texlive-piechartmp
 The piechartmp package is an easy way to draw pie-charts with MetaPost. The
@@ -743,6 +794,8 @@ Version:        svn66998
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-repere-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-repere-doc <= 11:%{version}
 
 %description -n texlive-repere
 This package provides MetaPost macros for drawing secondary school mathematics
@@ -772,6 +825,8 @@ Version:        svn39796
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-roundrect-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-roundrect-doc <= 11:%{version}
 
 %description -n texlive-roundrect
 The roundrect macros for MetaPost provide ways to produce rounded rectangles,
@@ -784,6 +839,8 @@ Version:        svn42428
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-shapes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-shapes-doc <= 11:%{version}
 
 %description -n texlive-shapes
 The shapes set of macros allows drawing regular polygons; their corresponding
@@ -796,6 +853,8 @@ Version:        svn15878
 License:        McPhee-slideshow
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-slideshow-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-slideshow-doc <= 11:%{version}
 
 %description -n texlive-slideshow
 The package provides a means of creating presentations in MetaPost, without
@@ -808,6 +867,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-splines-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-splines-doc <= 11:%{version}
 
 %description -n texlive-splines
 This is a small package of macros for creating cubic spline interpolants in
@@ -822,6 +883,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-suanpan-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-suanpan-doc <= 11:%{version}
 
 %description -n texlive-suanpan
 These macros are described in Denis Roegel: MetaPost macros for drawing Chinese
@@ -833,8 +896,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-textpath-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-textpath-doc <= 11:%{version}
 Requires:       tex(soul.sty)
-Provides:       tex(textpathmp.sty) = %{tl_version}
 
 %description -n texlive-textpath
 This MetaPost package provides macros to typeset text along a free path with
@@ -847,6 +911,8 @@ Version:        svn20675
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-threeddice-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-threeddice-doc <= 11:%{version}
 
 %description -n texlive-threeddice
 The package provides MetaPost code to create all possible symmetrical views (up
@@ -963,6 +1029,7 @@ tar -xf %{SOURCE97} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE98} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE99} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE100} -C %{buildroot}%{_texmf_main}
+mv %{buildroot}%{_texmf_main}/doc/latex/minim-hatching/EUPL-1.2-EN.txt eupl-1.2-en.txt
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -1067,7 +1134,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/metapost/hatching/
 
 %files -n texlive-hershey-mp
-%license other-free.txt
+%license eupl-1.2-en.txt
 %{_texmf_main}/metapost/hershey-mp/
 %doc %{_texmf_main}/doc/metapost/hershey-mp/
 
@@ -1124,7 +1191,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/mfpic4ode/
 
 %files -n texlive-minim-hatching
-%license other-free.txt
+%license eupl-1.2-en.txt
 %{_texmf_main}/metapost/minim-hatching/
 %doc %{_texmf_main}/doc/latex/minim-hatching/
 
@@ -1231,6 +1298,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/metapost/threeddice/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73627-4
+- Update 6 components
+- Fix missing -doc provides/obsoletes
+- Use automatic file provides
+
 * Sat Jan 31 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73627-3
 - fix licensing, descriptions
 

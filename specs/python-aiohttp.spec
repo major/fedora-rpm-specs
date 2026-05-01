@@ -6,7 +6,7 @@
 %bcond uvloop 0
 
 Name:           python-aiohttp
-Version:        3.13.3
+Version:        3.13.5
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 
@@ -20,9 +20,7 @@ BuildRequires:  gcc
 
 # CVE-2024-27982 requires >= 9.2.1. The actual lower bound is based on the
 # version that upstream bundles/vendors.
-BuildRequires:  llhttp-devel >= 9.3.0
-
-BuildRequires:  python3-devel
+BuildRequires:  llhttp-devel >= 9.3.1
 
 %global common_description %{expand:
 Python HTTP client/server for asyncio which supports both the client and the
@@ -155,6 +153,14 @@ k="${k-}${k+ and }not test_no_warnings[aiohttp.worker]"
 # Work around https://bugzilla.redhat.com/show_bug.cgi?id=2434949
 k="${k-}${k+ and }not test_send_compress_text_notakeover"
 %endif
+
+# This seems to have started with Python 3.14.4, probably due to:
+#   gh-143919: Reject control characters in http cookies
+#   https://github.com/python/cpython/pull/143920
+# We would like to try to report this upstream, but it’s proving hard to
+# reproduce this in a git checkout without too many unrelated difficulties.
+# We expect that upstream will encounter the issue in their own CI soon enough.
+k="${k-}${k+ and }not test_parse_set_cookie_headers_uses_unquote_with_octal"
 
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
 %endif

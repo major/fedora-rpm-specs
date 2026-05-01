@@ -66,7 +66,8 @@
 %bcond_without   lmdb
 
 # liburiparser version 1.0.0 required
-%global liburiparser_ver 1.0.0
+%global liburiparser_minver 1.0.0
+%global liburiparser_bunver 1.0.1
 %if 0%{?fedora}
 # use system liburiparser when available
 %bcond_without       liburiparser
@@ -76,7 +77,7 @@
 %endif
 
 %global upver        8.5.6
-%global rcver        RC1
+%global rcver        RC2
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -142,6 +143,7 @@ Patch47: php-8.4.0-phpinfo.patch
 Patch48: php-8.5.0-openssl-ec-param.patch
 
 # Upstream fixes (100+)
+Patch100: php-openssl4.patch
 
 # Security fixes (200+)
 
@@ -185,9 +187,9 @@ BuildRequires: systemtap-sdt-devel
 BuildRequires: systemtap-sdt-dtrace
 %endif
 %if %{with liburiparser}
-BuildRequires: pkgconfig(liburiparser) >= %{liburiparser_ver}
+BuildRequires: pkgconfig(liburiparser) >= %{liburiparser_minver}
 %else
-Provides:      bundled(liburiparser) = %{liburiparser_ver}
+Provides:      bundled(liburiparser) = %{liburiparser_bunver}
 %endif
 # used for tests
 BuildRequires: %{_bindir}/ps
@@ -862,6 +864,7 @@ in pure PHP.
 %patch -P48 -p1 -b .ec-param
 
 # upstream patches
+%patch -P100 -p1 -b .v4
 
 # security patches
 
@@ -1663,6 +1666,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Apr 29 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC2-1
+- update to 8.5.6RC2
+
 * Wed Apr 22 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC1-1
 - update to 8.5.6RC1
 

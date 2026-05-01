@@ -20,7 +20,6 @@ BuildOption(generate_buildrequires): -x testing
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
 %if %{with tkinter}
 BuildRequires:  python3-tkinter
 %endif
@@ -39,8 +38,8 @@ Summary:        %{summary}
 
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem project.optional-dependencies.testing \
-    'cov(erage|defaults)\b.*'
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency covdefaults:ignore
 
 
 %generate_buildrequires -p

@@ -21,7 +21,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        26.1
+Version:        26.2
 Release:        %autorelease
 Summary:        Core utilities for Python packages
 

@@ -24,10 +24,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit ec56d4d935a0e2ab9d52b88dd00c93ec51233055
-%global access 20260412
+%global commit fa9dacd8eff0bbec4a542c69907659cdd3db8989
+%global access 20260429
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2359
+%global position 2381
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja

@@ -71,6 +71,15 @@ BuildRequires:  %{py3_dist sphinx-math-dollar}
 BuildRequires:  %{py3_dist sphinx-reredirects}
 BuildRequires:  %{py3_dist sphinxcontrib-jquery}
 BuildRequires:  tex(latex)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(amsmath.sty)
+BuildRequires:  tex(amssymb.sty)
+BuildRequires:  tex(calc.sty)
+BuildRequires:  tex(geometry.sty)
+BuildRequires:  tex(ifthen.sty)
+BuildRequires:  tex(multicol.sty)
+BuildRequires:  tex(tikz.sty)
+BuildRequires:  tex(url.sty)
 BuildRequires:  tex-dvipng
 
 # Tests

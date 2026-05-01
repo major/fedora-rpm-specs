@@ -310,9 +310,11 @@ sed -i 's/param.set workspace_thread 0.55k/param.set workspace_thread 0.5k/' bin
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/jemalloc-%{jemalloc_version}/lib
 %endif
 
-# This works when ran alone, but not in the whole suite. Load and/or timing issues
-#rm bin/vinyltest/tests/t02014.vtc
-#rm bin/vinyltest/tests/c00108.vtc
+# This runs fine in the emulator, but not on Red Hat's builders
+# Upstream is looking at it, upstream issue #36
+%ifarch s390x
+rm bin/vinyltest/tests/t02033.vtc
+%endif
 
 # Just a hack to avoid too high load on secondary arch builders
 %ifarch s390x ppc64le %ix86

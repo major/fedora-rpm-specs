@@ -35,10 +35,9 @@ Summary:        %{summary}
 
 
 %prep -a
-# Python: Do not upper-bound (SemVer-bound) the version of uv_build; we must
-# work with what we have, and compatibility across SemVer boundaries is quite
-# good in practice.
-sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
+# We must work with what we have, and compatibility is quite good in practice.
+cd python
+%pyproject_patch_dependency uv_build:drop_upper
 
 
 %generate_buildrequires -p

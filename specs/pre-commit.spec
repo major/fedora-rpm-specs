@@ -33,7 +33,7 @@ Source114:       pre-commit-validate-manifest.1
 BuildSystem:            pyproject
 BuildOption(prep):      -S git
 %if %{with check}
-BuildOption(generate_buildrequires): requirements-dev-filtered.txt
+BuildOption(generate_buildrequires): requirements-dev.txt
 %endif
 BuildOption(install):   -l pre_commit
 # Any Python files inside pre_commit.resources are templates and are not
@@ -56,9 +56,9 @@ A framework for managing and maintaining multi-language pre-commit hooks.
 
 
 %prep -a
-# Do not generate BR’s for coverage, linters, etc.:
-sed -r '/^(covdefaults|coverage)\b/d' requirements-dev.txt |
-  tee requirements-dev-filtered.txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency covdefaults:ignore
+%pyproject_patch_dependency coverage:ignore
 
 
 %install -a

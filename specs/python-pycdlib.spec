@@ -8,8 +8,8 @@ extensions, and UDF.
 
 Summary:        A pure python ISO9660 read and write library
 Name:           python-%{srcname}
-Version:        1.15.0
-Release:        6%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 License:        LGPL-2.0-only
 URL:            https://github.com/clalancette/%{srcname}
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -64,7 +64,11 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
                        and not test_parse_eltorito_rr \
                        and not test_parse_overflow_root_dir_record \
                        and not test_parse_deep_rr_symlink \
-                       and not test_parse_joliet_encoded_system_identifier" \
+                       and not test_parse_joliet_encoded_system_identifier \
+                       and not test_rrtfrecord_new_creation_seconds_forces_creation_bit \
+                       and not test_extended_file_entry_new_creation_seconds \
+                       and not test_new_rock_ridge_creation_time_round_trip \
+                       and not test_new_udf_creation_time_forces_efe_round_trip" \
                        -v tests
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -79,6 +83,9 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
 %{_mandir}/man1/*
 
 %changelog
+* Wed Apr 29 2026 Federico Pellegrin <fede@evolware.org> - 1.16.0-1
+- Update to 1.16.0 (#2463722)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

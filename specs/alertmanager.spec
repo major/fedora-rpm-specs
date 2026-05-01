@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/alertmanager
 %global goipath         github.com/prometheus/alertmanager
-Version:                0.31.1
+Version:                0.32.1
 
 %gometa -L -f
 
@@ -26,12 +26,16 @@ Source5:        %{shortname}.conf
 Source6:        %{shortname}.yml
 Source7:        README.templates
 Source8:        %{shortname}.logrotate
+Source20:       https://github.com/prometheus/alertmanager/releases/download/v%{version}/alertmanager-web-ui-%{version}.tar.gz
 # Replace defaults paths for config files
 Patch:          0001-Default-paths-for-Fedora-EPEL-based-on-Debian-s.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
 Requires(pre):  shadow-utils
+Provides: bundled(nodejs-bootstrap) = 4.6.2
+Provides: bundled(nodejs-font-awesome) = 4.7.0
+Provides: npm(elm-ui) = 0.0.1
 
 Obsoletes:      golang-github-prometheus-alertmanager < 0.28.1-5
 
@@ -44,6 +48,7 @@ takes care of silencing and inhibition of alerts.
 %prep
 %goprep -p1
 tar -xf %{S:1}
+tar -xf %{S:20} -C ui/app/
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -91,6 +96,13 @@ sed -i '/^  /d; /^.SH "NAME"/,+1c.SH "NAME"\namtool \\- Tooling for the Promethe
 # Fix executable path in amtool examples
 sed -i 's/\.\/amtool/amtool/' %{buildroot}/%{_mandir}/man1/amtool.1
 
+# Workaround to fix ppc64le's unknown race condition.
+# There are other solutions like not using the same binary but that means copying the binary to a different place. This is simpler.
+# Message error in logs looks like:
+# debugedit: Failed to open input file '/builddir/build/BUILD/alertmanager-0.31.1-build/BUILDROOT/usr/bin/prometheus-alertmanager': Text file busy
+# debugedit: Failed to open input file '/builddir/build/BUILD/alertmanager-0.31.1-build/BUILDROOT/usr/bin/amtool': Text file busy
+sleep 3
+
 %pre
 %sysusers_create_compat %{SOURCE4}
 
@@ -102,13 +114,6 @@ sed -i 's/\.\/amtool/amtool/' %{buildroot}/%{_mandir}/man1/amtool.1
 
 %postun
 %systemd_postun_with_restart %{shortname}.service
-
-# Workaround to fix ppc64le's unknown race condition.
-# There are other solutions like not using the same binary but that means copying the binary to a different place. This is simpler.
-# Message error in logs looks like:
-# debugedit: Failed to open input file '/builddir/build/BUILD/alertmanager-0.31.1-build/BUILDROOT/usr/bin/prometheus-alertmanager': Text file busy
-# debugedit: Failed to open input file '/builddir/build/BUILD/alertmanager-0.31.1-build/BUILDROOT/usr/bin/amtool': Text file busy
-sleep 1
 
 %check
 %go_vendor_license_check -c %{S:2}

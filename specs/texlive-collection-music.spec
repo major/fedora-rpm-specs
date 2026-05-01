@@ -5,16 +5,12 @@
 Name:           texlive-collection-music
 Epoch:          12
 Version:        svn76267
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Music packages
 
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
 BuildArch:      noarch
-# Fix latex3 issue with leadsheets
-# https://github.com/cgnieder/leadsheets/issues/43
-Patch0:         https://patch-diff.githubusercontent.com/raw/cgnieder/leadsheets/pull/46.patch
-
 # Main collection source
 Source0:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/collection-music.tar.xz
 
@@ -77,6 +73,9 @@ Source54:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/un
 Source55:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/undar-digitacion.doc.tar.xz
 Source56:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpiano.tar.xz
 Source57:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpiano.doc.tar.xz
+
+# Patches
+Patch0:         https://patch-diff.githubusercontent.com/raw/cgnieder/leadsheets/pull/46.patch
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -131,6 +130,8 @@ Version:        svn41157
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-abc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-abc-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(ifpdf.sty)
@@ -150,6 +151,8 @@ Version:        svn34393
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bagpipe-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bagpipe-doc <= 11:%{version}
 
 %description -n texlive-bagpipe
 Typesetting bagpipe music in MusixTeX is needlessly tedious. This package
@@ -211,6 +214,8 @@ Version:        svn28943
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-figbas-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-figbas-doc <= 11:%{version}
 
 %description -n texlive-figbas
 This package consists of three mini-fonts (and associated metrics) of
@@ -220,7 +225,7 @@ and Palatino/Palladio, respectively.
 
 %package -n texlive-fretplot
 Summary:        Create scale and chord diagrams for guitar-like instruments
-Version:        svn76337
+Version:        svn78741
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -242,6 +247,8 @@ Version:        svn29803
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gchords-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gchords-doc <= 11:%{version}
 
 %description -n texlive-gchords
 A LaTeX package for typesetting of guitar chord diagrams, including options for
@@ -255,6 +262,8 @@ Version:        svn32484
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gtrcrd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gtrcrd-doc <= 11:%{version}
 
 %description -n texlive-gtrcrd
 The package provides the means to specify guitar chords to be played with each
@@ -269,6 +278,8 @@ Version:        svn32258
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-guitar-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-guitar-doc <= 11:%{version}
 Requires:       tex(toolbox.sty)
 
 %description -n texlive-guitar
@@ -283,6 +294,8 @@ Version:        svn54512
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-guitarchordschemes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-guitarchordschemes-doc <= 11:%{version}
 Requires:       tex(cnltx-base.sty)
 Requires:       tex(tikz.sty)
 
@@ -313,6 +326,8 @@ Version:        svn72045
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-harmony-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-harmony-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(mathtools.sty)
@@ -343,6 +358,8 @@ Version:        svn61504
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-leadsheets-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-leadsheets-doc <= 11:%{version}
 Requires:       tex(translations.sty)
 Requires:       tex(xparse.sty)
 
@@ -426,6 +443,8 @@ Version:        svn21649
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-musixguit-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-musixguit-doc <= 11:%{version}
 Requires:       tex(musixtex.sty)
 Requires:       tex(setspace.sty)
 
@@ -439,6 +458,8 @@ Version:        svn65517
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-musixtex-fonts-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-musixtex-fonts-doc <= 11:%{version}
 
 %description -n texlive-musixtex-fonts
 These are fonts for use with MusixTeX; they are provided both as original
@@ -466,6 +487,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-piano-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-piano-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xargs.sty)
@@ -498,6 +521,8 @@ Version:        svn18136
 License:        LGPL-2.1-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-songbook-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-songbook-doc <= 11:%{version}
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(multicol.sty)
@@ -536,6 +561,8 @@ Version:        svn51494
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-songs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-songs-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(etex.sty)
 Requires:       tex(ifpdf.sty)
@@ -576,6 +603,8 @@ Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xpiano-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xpiano-doc <= 11:%{version}
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 
@@ -657,13 +686,13 @@ tar -xf %{SOURCE55} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE56} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE57} -C %{buildroot}%{_texmf_main}
 
+# Remove tlpobj files
+rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
+
 # Fix leadsheets
 pushd %{buildroot}%{_texmf_main}/tex/latex/leadsheets/
 patch -p1 < %{_sourcedir}/46.patch
 popd
-
-# Remove tlpobj files
-rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 # Fix Python shebangs
 %py3_shebang_fix %{buildroot}%{_texmf_main}/*
@@ -819,6 +848,11 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xpiano/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76267-3
+- Update fretplot
+- fix missing -doc provides/obsoletes
+- use auto file provides
+
 * Mon Apr 06 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76267-2
 - Update musicography, piano, xpiano
 - fix latex3 issue with leadsheets (bz2455217)

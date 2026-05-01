@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.20.1
+Version:        1.21.0
 Release:        1%{?dist}
 
 # Macro files
@@ -174,6 +174,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Wed Apr 29 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.21.0-1
+- Implement extras validation
+- %%pyproject_buildrequires: validates if extras exist in upstream metadata, otherwise ValueError is raised on Fedora >=45 and RHEL >=11. It will emit a warning instead on older releases.
+- Both user-specified extras and metadata extras are normalized following PEP 685 conventions.
+
 * Tue Apr 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.20.1-1
 - Move %%pyproject_patch_dependency implementation to pyproject-srpm-macros
 - Make pyproject-rpm-macros depend on pyproject-srpm-macros

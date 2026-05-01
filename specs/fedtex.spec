@@ -1,11 +1,16 @@
+%global forgeurl https://github.com/sanjayankur31/fedtex
+
 Name:           fedtex
 Version:        0.2
 Release:        %autorelease
 Summary:        Simple TeX dependency installer for Fedora
 
+%global tag v%{version}
+%forgemeta
+
 License:        MIT
-URL:            https://pagure.io/fedtex
-Source0:        https://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 Requires:       coreutils
 Requires:       sed
@@ -18,7 +23,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup
+%forgesetup
 
 
 %build

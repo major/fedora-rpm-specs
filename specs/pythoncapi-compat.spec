@@ -71,15 +71,11 @@ sed -r -i "s/^([[:blank:]]*)(['\"]-Werror)/\1# \2/" tests/setup.py
 
 
 %generate_buildrequires
-pushd tests >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
+%pyproject_buildrequires -d tests
 
 
 %build
-pushd tests >/dev/null
-%pyproject_wheel
-popd >/dev/null
+%pyproject_wheel -d tests
 
 
 %install

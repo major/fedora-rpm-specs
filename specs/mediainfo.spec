@@ -9,7 +9,7 @@ License:        BSD-2-Clause
 URL:            http://mediaarea.net/MediaInfo
 Source0:        http://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
 Source1:        mediainfo-qt.desktop
-Source2:        mediainfo-qt.kde4.desktop
+Source2:        mediainfo-qt.kde6.desktop
 
 ExclusiveArch:  %qt6_qtwebengine_arches
 
@@ -191,7 +191,8 @@ install -dm 755 %{buildroot}%{_datadir}/applications
 desktop-file-install --dir="%{buildroot}%{_datadir}/applications" \
 Project/GNU/GUI/%{name}-gui.desktop
 desktop-file-install --dir="%{buildroot}%{_datadir}/applications" %{SOURCE1}
-install -m 644 -p %{SOURCE2} %{buildroot}%{_datadir}/kservices5/ServiceMenus/%{name}-qt.desktop
+install -dm 755 %{buildroot}%{_datadir}/kio/servicemenus
+install -m 644 -p %{SOURCE2} %{buildroot}%{_datadir}/kio/servicemenus/%{name}-qt.desktop
 rm -rf %{buildroot}%{_datadir}/kde4
 rm %{buildroot}%{_datadir}/kservices5/ServiceMenus/%{name}-gui.desktop
 
@@ -231,7 +232,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/pixmaps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/kservices5/ServiceMenus/%{name}-qt.desktop
+%{_datadir}/kio/servicemenus/%{name}-qt.desktop
 
 
 %changelog

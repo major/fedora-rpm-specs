@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc1.260428g3b3bea6d4b9c1.10
+%define pkgrelease 0.rc1.260429gdca922e019dd7.11
 %define kversion 7
-%define tarfile_release 7.1-rc1-55-g3b3bea6d4b9c1
+%define tarfile_release 7.1-rc1-58-gdca922e019dd7
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260428g3b3bea6d4b9c1.10%{?buildid}%{?dist}
+%define specrelease 0.rc1.260429gdca922e019dd7.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -3523,9 +3523,15 @@ for dir in bpf bpf/no_alu32 bpf/cpuv4 bpf/progs; do
 	# other issues. If something did not get built, just skip it.
 	test -d $dir || continue
 	mkdir -p %{buildroot}%{_libexecdir}/kselftests/$dir
-	find $dir -maxdepth 1 -type f \( -executable -o -name '*.py' -o -name settings -o \
-		-name 'btf_dump_test_case_*.c' -o -name '*.ko' -o \
-		-name '*.o' -exec sh -c 'readelf -h "{}" | grep -q "^  Machine:.*BPF"' \; \) -print0 | \
+	find $dir -maxdepth 1 -type f \( \
+		-executable -o \
+		-name '*.py' -o \
+		-name settings -o \
+		-name DENYLIST -o \
+		-name 'btf_dump_test_case_*.c' -o \
+		-name '*.ko' -o \
+		-name '*.o' -exec sh -c 'readelf -h "{}" | grep -q "^  Machine:.*BPF"' \; \
+	\) -print0 | \
 	xargs -0 cp -t %{buildroot}%{_libexecdir}/kselftests/$dir || true
 done
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs"
@@ -3545,6 +3551,12 @@ rm -f %{buildroot}/usr/libexec/kselftests/bpf/cpuv4/urandom_read
 # Copy bpftool to kselftests so selftests is packaged with
 # the full bpftool instead of bootstrap bpftool
 cp ./bpf/tools/sbin/bpftool %{buildroot}%{_libexecdir}/kselftests/bpf/bpftool
+
+# Append RHEL-specific BPF selftests DENYLIST.rhel to the global DENYLIST that
+# is automatically picked by BPF selftest runners.
+%if 0%{?rhel}%{?centos}
+    cat ./bpf/DENYLIST.rhel >> %{buildroot}%{_libexecdir}/kselftests/bpf/DENYLIST
+%endif
 
 popd
 %{log_msg "end build selftests"}
@@ -4835,13 +4847,20 @@ fi\
 #
 #
 %changelog
-* Tue Apr 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260428g3b3bea6d4b9c1.10]
-- Linux v7.1.0-0.rc1.260428g3b3bea6d4b9c1
+* Wed Apr 29 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260429gdca922e019dd7.11]
+- Linux v7.1.0-0.rc1.260429gdca922e019dd7
 
-* Tue Apr 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.3b3bea6d4b9c.10]
+* Wed Apr 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.dca922e019dd.11]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
-- add man-page for rv-mon-stall (Thorsten Leemhuis)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Wed Apr 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.dca922e019dd.10]
+- Delete Fedora configs removed upstream for 7.1 (Justin M. Forbes)
+- add man-page for rv-mon-stall (Thorsten Leemhuis)
+- Enable FFA for TPM on AArch64 (Marcin Juszkiewicz)
+- redhat: rh_flags: mark !CONFIG_RHEL_DIFFERENCES stubs as static inline (Jonathan Steffan)
+- redhat: Add DENYLIST.rhel to BPF selftests (Viktor Malik)
+- Linux v7.1.0-0.rc1.dca922e019dd
 
 * Tue Apr 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.3b3bea6d4b9c.9]
 - Linux v7.1.0-0.rc1.3b3bea6d4b9c

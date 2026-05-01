@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        31%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        32%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -74,11 +74,11 @@ BuildRequires:  ffmpeg-devel
 BuildRequires:  flac-devel
 BuildRequires:  fontconfig-devel
 BuildRequires:  gcc
+BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  gettext-devel
 BuildRequires:  gnutls-devel
 # System lib cannot currently be used
 #BuildRequires:  gsm-devel
-BuildRequires:  gtk2-devel
 %{!?_without_imagemagick:BuildRequires:  ImageMagick-devel}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
@@ -361,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Apr 29 2026 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-32
+- Drop orphaned BR: gtk2-devel and replace with missing BR: gdk-pixbuf2-devel
+
 * Wed Apr 15 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.2.13-31
 - Rebuilt for vmaf-3.1.0
 

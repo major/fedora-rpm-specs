@@ -6,7 +6,7 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2026.3.0
+Version:        2026.4.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
@@ -45,8 +45,8 @@ interface.}
 %package -n     python3-%{srcname}
 Summary:        %{summary}
 
-Obsoletes:      python3-fsspec+gcs < 2026.1.0-3
-Obsoletes:      python3-fsspec+gs < 2026.1.0-3
+Obsoletes:      python3-fsspec+gcs < 2026.4.0-2
+Obsoletes:      python3-fsspec+gs < 2026.4.0-2
 
 %description -n python3-%{srcname} %{_description}
 

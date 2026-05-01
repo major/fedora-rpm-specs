@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 8
+%global baserelease 9
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -36,6 +36,8 @@ Patch2: update-cmake-ver.patch
 Patch3: rr-5.9.0-use-openat2-header.patch
 # https://github.com/rr-debugger/rr/issues/3997
 Patch4: rr-5.9.0-emulate-madv-guard.patch
+# Fix FTBFS on rawhide (gcc 16, glibc 2.43+): missing <limits.h> for INT_MAX.
+Patch5: rr-5.9.0-include-limits-h.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -138,6 +140,11 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Tue Apr 28 2026 Aaron Merey <amerey@redhat.com> - 5.9.0-9
+- Fix FTBFS on rawhide (gcc 16, glibc 2.43+) by including <limits.h>
+  in src/test/util.h, which several test files rely on for INT_MAX
+  and other limit macros.
+
 * Tue Apr 28 2026 Aaron Merey <amerey@redhat.com> - 5.9.0-8
 - Backport upstream fix for MADV_GUARD_INSTALL/REMOVE (kernel >= 6.13)
   to unbreak recording of multi-threaded programs (upstream commit 34ff3a70).

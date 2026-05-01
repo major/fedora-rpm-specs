@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        62
+Version:        63
 
 %gometa
 
@@ -148,7 +148,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.258.0
+Provides: bundled(golang(github.com/osbuild/images)) = f755297
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -266,6 +266,20 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Apr 29 2026 Packit <hello@packit.dev> - 63-1
+Changes with 63
+----------------
+  - deps: bump images to 0.259.0 (#501)
+    - Author: Anna Vítová, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - docs: update satellite info (#503)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Tomáš Hozza
+  - main: `--version` -> `version` subcommand (#505)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - many: Generate rpmlist as an output of manifestgen (#502)
+    - Author: Anna Vítová, Reviewers: Lukáš Zapletal, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-04-29
+
 * Wed Apr 22 2026 Packit <hello@packit.dev> - 62-1
 Changes with 62
 ----------------

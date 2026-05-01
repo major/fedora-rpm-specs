@@ -22,8 +22,6 @@ BuildOption(install):   -l editorconfig
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 # For tests:
 BuildRequires:  cmake
 
@@ -55,12 +53,10 @@ rm -vrf tests
 %setup -q -n editorconfig-core-py-%{version} -T -D -b 1
 mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
-# Remove overly-strict setuptools minimum version bound. Each new release
-# requires an extremely current setuptools because the version bound is
-# automatically bumped by renovate automation; the bound  does not necessarily
-# reflect the actual minimum version that will work correctly.
-tomcli set pyproject.toml lists replace build-system.requires \
-    'setuptools>.*' 'setuptools'
+# Each new release requires an extremely current setuptools because the version
+# bound is automatically bumped by renovate automation; the bound does not
+# necessarily reflect the actual minimum version that will work correctly.
+%pyproject_patch_dependency setuptools:drop_lower
 
 
 %build -a

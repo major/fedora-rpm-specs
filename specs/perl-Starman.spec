@@ -1,10 +1,10 @@
 Name:           perl-Starman
-Version:        0.4017
-Release:        7%{?dist}
+Version:        0.4018
+Release:        1%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Starman
+URL:            https://metacpan.org/dist/Starman
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Starman-%{version}.tar.gz
 BuildArch:      noarch
 # build requirements
@@ -86,6 +86,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Wed Apr 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.4018-1
+- Update to 0.4018 (which contains a fix for CVE-2026-40560)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4017-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

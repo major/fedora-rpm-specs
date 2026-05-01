@@ -1,6 +1,6 @@
 Name: ustreamer
-Version: 6.55
-Release: 1%{?dist}
+Version: 6.56
+Release: %autorelease
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
 URL: https://github.com/pikvm/ustreamer
@@ -19,6 +19,12 @@ BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(build)
 BuildRequires: python3dist(wheel)
 BuildRequires: python3dist(pip)
+BuildRequires: janus-devel
+BuildRequires: glib2-devel
+BuildRequires: jansson-devel
+BuildRequires: opus-devel
+BuildRequires: alsa-lib-devel
+BuildRequires: speexdsp-devel
 
 %description
 ustreamer(µStreamer) is a lightweight and very quick server to stream MJPG video
@@ -39,11 +45,13 @@ screencast hardware data with the highest resolution and FPS possible.
 %make_build \
     WITH_SYSTEMD=1 \
     WITH_GPIO=1 \
-    WITH_PYTHON=1
+    WITH_PYTHON=1 \
+    WITH_JANUS=1
 
 %install
 %make_install 'PREFIX=%{_prefix}'\
-    WITH_PYTHON=1
+    WITH_PYTHON=1 \
+    WITH_JANUS=1
 
 %files
 %license LICENSE
@@ -52,6 +60,8 @@ screencast hardware data with the highest resolution and FPS possible.
 %{_bindir}/ustreamer-dump
 %{_mandir}/man1/ustreamer.1*
 %{_mandir}/man1/ustreamer-dump.1*
+%dir %{_prefix}/lib/ustreamer/janus
+%{_prefix}/lib/ustreamer/janus/libjanus_ustreamer.so
 
 %package -n python3-%{name}
 Summary: Python 3 bindings for %{name}

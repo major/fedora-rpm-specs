@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.11.6
+Version:       2.11.7
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -70,7 +70,7 @@ BuildRequires: perl(IPC::Run3)
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.59.2-1
+BuildRequires: libguestfs-devel >= 1:1.59.7-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion
 %if 0%{?fedora} || 0%{?rhel} >= 11
@@ -116,7 +116,7 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.59.2-1
+Requires:      libguestfs%{?_isa} >= 1:1.59.7-1
 Requires:      guestfs-tools >= 1.54
 
 # XFS is the default filesystem in Fedora and RHEL.
@@ -368,6 +368,10 @@ done
 
 
 %changelog
+* Wed Apr 29 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.11.7-1
+- New upstream development version 2.11.7
+- Requires libguestfs >= 1.59.7 for base64 encoded keys.
+
 * Thu Apr 23 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.11.6-1
 - New upstream development version 2.11.6
 

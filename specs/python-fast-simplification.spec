@@ -75,7 +75,7 @@ Provides:       bundled(Fast-Quadric-Mesh-Simplification) = 0^20201008git4aeffce
 
 %prep -a
 %if %{without pyvista}
-sed -r -i 's/^pyvista\b/# &/' requirements_test.txt
+%pyproject_patch_dependency pyvista:ignore
 %endif
 
 

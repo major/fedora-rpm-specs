@@ -5,7 +5,7 @@
 Name:           texlive-collection-langjapanese
 Epoch:          12
 Version:        svn76651
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Japanese
 
 License:        LPPL-1.3c
@@ -1086,7 +1086,6 @@ Requires:       texlive-kpathsea
 Provides:       texlive-pxjahyper-doc = %{epoch}:%{version}-%{release}
 Obsoletes:      texlive-pxjahyper-doc <= 11:%{version}
 Requires:       tex(atbegshi.sty)
-Requires:       tex(bxdvipdfmx-tounicode.sty)
 Requires:       tex(bxjatoucs.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(keyval.sty)
@@ -1775,6 +1774,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/zxjatype/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-5
+- Drop unpackaged "optional" dependency
+
 * Tue Apr 28 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-4
 - Fix missing -doc provides/obsoletes
 

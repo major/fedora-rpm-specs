@@ -19,7 +19,7 @@
 Name:           php-%{gh_owner}-%{gh_project}
 Summary:        PHP library to manipulate various color representations
 License:        LGPL-3.0-or-later
-Version:        2.3.14
+Version:        2.4.1
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 29 2026 Remi Collet <remi@remirepo.net> - 2.4.1-1
+- update to 2.4.1
+
 * Tue Apr 21 2026 Remi Collet <remi@remirepo.net> - 2.3.14-1
 - update to 2.3.14 (no change)
 
