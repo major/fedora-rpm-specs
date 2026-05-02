@@ -1,46 +1,39 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  7a4ac38119883bf198dcfb646ddee9e755e136a8
+%global cadicommit  3f87cdbe4565fba7e0dabb4c0638b00bbf05d9cc
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
-Version:        5.13.0
+Version:        5.14.4
 Release:        %autorelease
 Summary:        SAT solver
 
 License:        MIT
 URL:            https://www.msoos.org/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/archive/release/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/archive/release/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{cadiurl}/archive/%{cadicommit}/cadiback-%{sub %{cadicommit} 1 7}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch:          %{name}-cmake.patch
 # Unbundle picosat
 Patch:          %{name}-picosat.patch
-# Do not rebuild the entire library for python; just link the existing library
-Patch:          %{name}-python-library.patch
-# Use tomllib instead of tomli
-Patch:          %{name}-toml.patch
 # Use zlib-ng instead of zlib
 Patch:          %{name}-zlib-ng.patch
 # Adapt to a changed function name in breakid 3.1.3
 Patch:          %{name}-breakid.patch
-# Post-release bug fix w.r.t. -fPIC
-# https://github.com/msoos/cryptominisat/commit/8988f0dda1674cc824a98d1854b37b205bfb5008
-Patch:          %{name}-fpic.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
-BuildRequires:  cadical-devel
 BuildRequires:  cmake
 BuildRequires:  cmake(breakid)
+BuildRequires:  cmake(cadical)
 BuildRequires:  gcc-c++
 BuildRequires:  gperftools-devel
 BuildRequires:  help2man
-BuildRequires:  make
+BuildRequires:  ninja-build
 BuildRequires:  picosat-devel
 BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  python3-devel
@@ -82,11 +75,20 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Python 3 interface to %{name}.
 
 %prep
-%autosetup -n %{name}-release-%{version} -p1 -b1
+%autosetup -n %{name}-release-v%{version} -p1 -a1
 
-%conf
+# Permit use of cmake 4
+sed -i 's/,<4//' pyproject.toml
+
 # Make cadiback visible to cmake
-mv ../cadiback-%{cadicommit} ../cadiback
+mkdir -p %{_vpath_builddir}
+mv cadiback-%{cadicommit} cadiback
+sed -i '/CADIBACK_GITID/s/unknown/%{cadicommit}/' cadiback/CMakeLists.txt
+
+# Do not try to checkout cadiback with git
+sed -e '/GIT_REPOSITORY.*cadiback/i\            SOURCE_DIR     ../cadiback)' \
+    -e '/GIT_REPOSITORY.*cadiback/,/GIT_SHALLOW/d' \
+    -i CMakeLists.txt
 
 # Fix install paths
 if [ "%{_lib}" != "lib" ]; then
@@ -101,76 +103,90 @@ sed -i 's/INSTALL_RPATH_USE_LINK_PATH TRUE//' src/CMakeLists.txt
 rm -fr src/mpicosat
 
 %generate_buildrequires
-# Do not confuse pyproject_buildrequires by requiring a python builtin
-sed -i 's/, "pathlib"//' pyproject.toml
 %pyproject_buildrequires
 
 %build
-# Build cadiback first
-cd ../cadiback
-sed -i '/-d \.git/d;s/^GITID=.*/GITID=%{cadicommit}/' generate
-sed -e 's|@COMPILE@|g++ %{build_cxxflags} -fPIC -std=c++17 -DNDEBUG -I%{_includedir}/cadical %{build_ldflags} -Wl,-h,libcadiback.so.0|' \
-    -e 's|@LINK@|ar|' \
-    -e 's| \.\./cadical/build/libcadical\.a||' \
-    -e 's|\.\./cadical/build/libcadical\.so|%{_libdir}/libcadical.so|' \
-    -e 's|-lcadical cadiback\.o|cadiback.o -lcadical|' \
-    -e 's|\.\./cadical/src/cadical\.hpp|%{_includedir}/cadical/cadical.hpp|' \
-    makefile.in > makefile
-%make_build
-mv libcadiback.so libcadiback.so.0.0.0
-ln -s libcadiback.so.0.0.0 libcadiback.so.0
-ln -s libcadiback.so.0 libcadiback.so
-ln -s include/cadiback.h cadiback.h
-cd -
-
+export CFLAGS='%{build_cflags} -DNTRACING'
+export CXXFLAGS='%{build_cxxflags} -DNTRACING'
 %cmake \
+    -Dcadical_DIR:PATH=%{_prefix} \
+    -DBUILD_PYTHON_EXTENSION:BOOL=ON \
     -DCMAKE_INSTALL_BINDIR=bin \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DENABLE_ASSERTIONS:BOOL=OFF \
     -DNOBREAKID:BOOL=OFF
 %cmake_build
-%pyproject_wheel
 
 %install
 %cmake_install
-%pyproject_install
-%pyproject_save_files pycryptosat
-sed -i '/msvc/d;/oracle/d' \
-  %{buildroot}%{python3_sitearch}/pycryptosat-%{version}.dist-info/top_level.txt
 
-# Install cadiback
-cd ../cadiback
-cp -p libcadiback.so.0.0.0 %{buildroot}%{_libdir}
-ln -s libcadiback.so.0.0.0 %{buildroot}%{_libdir}/libcadiback.so.0
-ln -s libcadiback.so.0 %{buildroot}%{_libdir}/libcadiback.so
-cp -p cadiback.h %{buildroot}%{_includedir}
-cd -
+# We don't want the bundled cadiback
+rm -fr %{buildroot}%{_includedir}/cadiback
+rm -fr %{buildroot}%{_libdir}/cmake/cadiback
+rm %{buildroot}%{_libdir}/*.a
 
-# Fix the cmake files
-sed -i 's,/builddir.*cadiback/,%{_libdir}/,' %{buildroot}%{_libdir}/cmake/cryptominisat5/cryptominisat5Targets.cmake
+# Remove a bogus dependency that leads to cvc5 build failures
+sed -i 's/;PkgConfig::GMP//' \
+    %{buildroot}%{_libdir}/cmake/cryptominisat5/cryptominisat5Targets.cmake
+
+# The Python interface is installed in the wrong place
+mkdir -p %{buildroot}%{python3_sitearch}
+mv %{buildroot}%{_prefix}/pycryptosat* %{buildroot}%{python3_sitearch}
+
+# Fake some Python metadata
+%global metadata %{buildroot}%{python3_sitearch}/pycryptosat-%{version}.dist-info
+mkdir -p %{metadata}
+cat > %{metadata}/INSTALLER << EOF
+rpm
+EOF
+cat > %{metadata}/METADATA << EOF
+Metadata-Version: 2.4
+Name: pycryptosat
+Version: %{version}
+Summary: Bindings to CryptoMiniSat, an advanced SAT solver
+Home-page: https://github.com/msoos/cryptominisat
+Author-email: Mate Soos <soos.mate@gmail.com>
+Maintainer-email: Mate Soos <soos.mate@gmail.com>
+License: MIT
+Keywords: sat,cryptography
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Utilities
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+License-File: AUTHORS
+Dynamic: license-file
+EOF
+cat > %{metadata}/top_level.txt << EOF
+pycryptosat
+EOF
 
 %files
-%doc README.markdown
+%doc README.md
 %{_bindir}/cryptominisat5
 %{_mandir}/man1/cryptominisat5.1*
 
 %files devel
-%{_includedir}/cadiback.h
 %{_includedir}/cryptominisat5/
-%{_libdir}/libcadiback.so
 %{_libdir}/libcryptominisat5.so
 %{_libdir}/cmake/cryptominisat5/
 
 %files libs
 %doc AUTHORS
 %license LICENSE.txt
-%{_libdir}/libcadiback.so.0{,.*}
-%{_libdir}/libcryptominisat5.so.5.13
+%{_libdir}/libcryptominisat5.so.5.14
 
-%files -n python3-pycryptosat -f %{pyproject_files}
+%files -n python3-pycryptosat
 %doc python/README.md
-%exclude %{python3_sitearch}/msvc
-%exclude %{python3_sitearch}/oracle
+%license python/LICENSE
+%{python3_sitearch}/pycryptosat.*.so
+%{python3_sitearch}/pycryptosat-%{version}.dist-info/
 
 %changelog
 %autochangelog

@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -349,6 +349,13 @@ Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
 Patch19: glibc-rh2457183-1.patch
 Patch20: glibc-rh2457183-2.patch
+Patch21: glibc-RHEL-172421.patch
+Patch22: glibc-RHEL-172425-1.patch
+Patch23: glibc-RHEL-172425-2.patch
+Patch24: glibc-RHEL-172425-3.patch
+Patch25: glibc-RHEL-172425-4.patch
+Patch26: glibc-RHEL-172425-5.patch
+Patch27: glibc-RHEL-172420.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2402,6 +2409,13 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Apr 30 2026 Florian Weimer  <fweimer@redhat.com> - 2.43.9000-14
+- Add downstream patches with fixes for vulnerabilities.
+- Fix buffer overflow in scanf %%mc (CVE-2026-5450)
+- Fix ns_sprintrrf buffer overreads (CVE-2026-6238)
+- Fix ns_sprintrrf buffer overflow in TSIG record processing (CVE-2026-5435)
+- Fix memory corruption in ungetwc (CVE-2026-5928)
+
 * Tue Apr 28 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-13
 - Auto-sync with upstream branch master,
   commit 40a42fc187c50312b333b6c36da622169affb71b:

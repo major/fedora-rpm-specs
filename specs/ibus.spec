@@ -56,7 +56,7 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.34~rc2
+Version:        1.5.34
 # https://github.com/fedora-infra/rpmautospec/issues/101
 Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
@@ -583,6 +583,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Apr 30 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34-1
+- Bump to 1.5.34
+
 * Fri Apr 03 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~rc2-1
 - Bump to 1.5.34-rc2
 - Fix typo in switch

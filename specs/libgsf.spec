@@ -5,7 +5,7 @@
 %endif
 
 Name: libgsf
-Version: 1.14.56
+Version: 1.14.57
 Release: %autorelease
 Summary: GNOME Structured File library
 

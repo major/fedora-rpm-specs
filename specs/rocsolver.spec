@@ -76,7 +76,7 @@
 %global build_compress OFF
 %endif
 
-%if 0%{?rhel} < 10
+%if 0%{?rhel} && 0%{?rhel} < 10
 # RHEL 9 has no blas-static, so disable testing
 %else
 %bcond_with test

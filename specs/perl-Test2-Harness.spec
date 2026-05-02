@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000163
-Version:        1.0.163
+%global cpan_version 1.000172
+Version:        1.0.172
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,6 +24,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 # git not used by App::Yath::Plugin::Git at the tests
+# App::Yath::Script implicitly required by App::Yath::Util::find_yath()
+BuildRequires:  perl(App::Yath::Script) >= 2.000011
 BuildRequires:  perl(B)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
@@ -115,6 +117,7 @@ BuildRequires:  perl(Test2::Require::Module) >= %{test2_require_module_min_versi
 # gcc not used
 # App::Yath::Plugin::Git tries "git" command
 Suggests:       git-core
+Requires:       perl(App::Yath::Script) >= 2.000011
 Suggests:       perl(Cpanel::JSON::XS)
 Requires:       perl(Data::Dumper)
 Suggests:       perl(Devel::Cover)
@@ -158,7 +161,7 @@ Requires:       perl(Test::Builder::Formatter) >= 1.302170
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|List::Util|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover|Test2::Require::Module)\\)$
 # Filter private modules
 %global __requires_exclude %{__requires_exclude}|^perl\\((Ax|Bar|Baz|Bx|Cx|Foo|main::HBase|main::HBase::Wrapped)\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|Bar|Baz|Bx|BBB|Broken|CCC|Cx|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SmokePlugin|TestPreload|TestSimplePreload)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|Bar|Baz|Bx|BBB|Broken|CCC|Cx|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SchedulerKillerResource|SmokePlugin|StalledResource|TestPreload|TestSimplePreload|UnavailableResource)\\)
 
 %description
 This is a test harness toolkit for Perl Test2 system. It provides a yath tool,
@@ -213,10 +216,13 @@ cp -a test.pl t t2 %{buildroot}%{_libexecdir}/%{name}
 for F in t/0-load_all.t t/1-pod_name.t; do
     rm %{buildroot}%{_libexecdir}/%{name}/"$F"
 done
-# Use /usr/bin/yath
-ln -s $(realpath --relative-to %{buildroot}%{_libexecdir}/%{name} \
-    %{buildroot}%{_bindir}) \
-    %{buildroot}%{_libexecdir}/%{name}/scripts
+# t/yath_script.t parses App::Yath::Script::V1 module file in ./lib
+# But copying it there breaks t/integration/encoding.t because then
+# App::Yath::Script warns on using modules from ./lib.
+# So rewrite the path in the test.
+perl -i -pe \
+    's{\Qlib/App/Yath/Script/V1.pm\E}{%{perl_vendorlib}/App/Yath/Script/V1.pm}' \
+    %{buildroot}%{_libexecdir}/%{name}/t/yath_script.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -233,7 +239,7 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST YATH_TESTER_TIMEOUT
 export AUTOMATED_TESTING=1
 T2_HARNESS_JOB_COUNT="$(getconf _NPROCESSORS_ONLN)" ./test.pl
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r ./t
@@ -251,7 +257,7 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST YATH_TESTER_TIMEOUT
 export AUTOMATED_TESTING=1
 export T2_HARNESS_JOB_COUNT=$(perl -e \
     'for (@ARGV) { $j=$1 if m/\A-j(\d+)\z/; }; $j=1 unless $j; print "$j"' -- \
@@ -263,8 +269,8 @@ make test
 
 %files
 %license LICENSE
+# ./docs are author's scripts not helpful for the users
 %doc Changes README
-%{_bindir}/yath
 %dir %{perl_vendorlib}/App
 %{perl_vendorlib}/App/Yath
 %{perl_vendorlib}/App/Yath.pm
@@ -274,7 +280,6 @@ make test
 %{perl_vendorlib}/Test2/Harness.pm
 %dir %{perl_vendorlib}/Test2/Tools
 %{perl_vendorlib}/Test2/Tools/HarnessTester.pm
-%{_mandir}/man1/yath.*
 %{_mandir}/man3/App::Yath.*
 %{_mandir}/man3/App::Yath::*
 %{_mandir}/man3/Test2::Formatter*
@@ -286,6 +291,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 29 2026 Petr Pisar <ppisar@redhat.com> - 1.0.172-1
+- 1.000172 bump
+
 * Wed Feb 25 2026 Petr Pisar <ppisar@redhat.com> - 1.0.163-1
 - 1.000163 bump
 

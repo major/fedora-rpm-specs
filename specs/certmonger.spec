@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.21
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -276,6 +276,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Apr 30 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-6
+- Sync patches to upstream
+
 * Wed Apr 29 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-5
 - Update to latest upstream experimental patches to support ML-DSA keys
 

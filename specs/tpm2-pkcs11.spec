@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.9.1
-Release:	7%{?candidate:.%{candidate}}%{?dist}
+Release:	8%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -11,6 +11,8 @@ Source0:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{
 Source1:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz.asc
 # William Roberts (Bill Roberts) key from pgp.mit.edu
 Source2:	gpgkey-8E1F50C1.gpg
+
+Patch1:         0001-Use-ASN1_STRING-accessors-for-compatibility.patch
 
 BuildRequires:	gcc
 BuildRequires:	make
@@ -111,6 +113,9 @@ make check
 
 
 %changelog
+* Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 1.9.1-8
+- OpenSSL 4 build fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

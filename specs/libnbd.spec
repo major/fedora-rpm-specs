@@ -8,9 +8,13 @@
 %global have_ublk 1
 %endif
 
-# No nbd.ko in RHEL 9.
+# nbd kernel module and nbd package (only used for testing).
+# There is no nbd package in RHEL.
+# The nbd package was disabled in Fedora i686 >= 44.
 %if !0%{?rhel}
+%ifnarch %{ix86}
 %global have_nbd_ko 1
+%endif
 %endif
 
 # If we should verify tarball signature with GPGv2.
@@ -20,7 +24,7 @@
 %global source_directory 1.25-development
 
 Name:           libnbd
-Version:        1.25.4
+Version:        1.25.5
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -401,6 +405,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Apr 30 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.5-1
+- New upstream development version 1.25.5
+
 * Tue Mar 03 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.4-1
 - New upstream development version 1.25.4
 

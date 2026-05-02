@@ -13,6 +13,7 @@
 %global _with_static_uwac 1
 
 # Disable unwanted dependencies for RHEL
+%{!?rhel:%global _with_aom 1}
 %{!?rhel:%global _with_openh264 1}
 %{!?rhel:%global _with_sdl_client 1}
 %{!?rhel:%global _with_soxr 1}
@@ -24,7 +25,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -77,7 +78,7 @@ BuildRequires:  cmake(json-c)
 # Fixed in https://src.fedoraproject.org/rpms/uriparser/c/1b07302bfc80983fbf84283783370e8338d36429
 %{?_with_uriparser:BuildRequires:  (cmake(uriparser) and uriparser-devel)}
 
-BuildRequires:  pkgconfig(aom)
+%{?_with_aom:BuildRequires:  pkgconfig(aom)}
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(fdk-aac)
@@ -87,7 +88,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(libyuv)
+%{?_with_aom:BuildRequires:  pkgconfig(libyuv)}
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
 %{?_with_sdl_client:BuildRequires:  cmake(SDL3)}
@@ -197,7 +198,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FUSE=ON \
     -DWITH_GSM=ON \
-    -DWITH_GFX_AV1=ON \
+    -DWITH_GFX_AV1=%{?_with_aom:ON}%{?!_with_aom:OFF} \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
     -DWITH_JSONC_REQUIRED=ON \
@@ -367,6 +368,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Tue Apr 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.25.0-2
+- Disable AOM AV1 support on RHEL
+
 * Thu Apr 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 2:3.25.0-1
 - Update to 3.25.0 (CVE-2026-40254)
   Resolves: rhbz#2461094

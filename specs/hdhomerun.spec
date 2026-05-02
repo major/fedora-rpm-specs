@@ -3,7 +3,12 @@
 %global fw_services %{_prefix}/lib/firewalld/services
 
 # Use if gtk2 is not available
-%bcond_without gui
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+%bcond gui 0
+%else
+%bcond gui 1
+%endif
+
 
 %if %{with gui}
 %global make_subfolder hdhomerun_config_gui
@@ -13,7 +18,7 @@
 
 Name:           hdhomerun
 Version:        20250506
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Silicon Dust HDHomeRun configuration utility
 
 License:        LGPL-2.1-or-later
@@ -141,6 +146,9 @@ install -pm 0644 %{SOURCE3} %{buildroot}%{fw_services}/
 
 
 %changelog
+* Thu Apr 30 2026 Xavier Bachelot <xavier@bachelot.org> - 20250506-4
+- Disable gui on F45+ because of orphaned gtk2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250506-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -43,7 +43,9 @@ web server.
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
+%if %{without bootstrap}
 BuildRequires:  python%{python3_pkgversion}-conda-build
+%endif
 BuildRequires:  python%{python3_pkgversion}-myst-parser
 BuildRequires:  python%{python3_pkgversion}-sphinx-click
 

@@ -10,10 +10,16 @@
 %bcond libdv 1
 %endif
 
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+%bcond gtk2 0
+%else
+%bcond gtk2 1
+%endif
+
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4^%{date}git%{shortcommit}
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{commit}.zip
@@ -25,7 +31,7 @@ BuildRequires:  automake
 BuildRequires:  faad2-devel
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
-BuildRequires:  gtk2-devel
+%{?with_gtk2:BuildRequires:  gtk2-devel}
 BuildRequires:  lame-devel
 %ifnarch s390x
 BuildRequires:  libavc1394-devel
@@ -113,7 +119,7 @@ rm -v %{buildroot}%{_libdir}/%{name}{,/lqt_*}.la
 %{_libdir}/%{name}/lqt_vorbis.so
 
 %files utils
-%{_bindir}/libquicktime_config
+%{?with_gtk2:%{_bindir}/libquicktime_config}
 %{_bindir}/lqt_transcode
 %{_bindir}/lqtplay
 %{_bindir}/lqtremux
@@ -132,6 +138,9 @@ rm -v %{buildroot}%{_libdir}/%{name}{,/lqt_*}.la
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Apr 29 2026 Xavier Bachelot <xavier@bachelot.org> - 1.2.4^20240202git2213b76-4
+- Disable orphaned gtk2 on F45+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4^20240202git2213b76-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

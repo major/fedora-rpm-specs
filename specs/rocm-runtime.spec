@@ -69,7 +69,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:    ROCm Runtime Library
 
@@ -143,6 +143,7 @@ Provides:  rocm-runtime%{pkg_suffix}-static = %{version}-%{release}
 %if %{with kfdtest}
 %package -n kfdtest
 Summary: Test suite for ROCm's KFD kernel module
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: rocm-smi%{pkg_suffix}
 
 %description -n kfdtest
@@ -246,6 +247,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Thu Apr 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- Add requires for kfdtest
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

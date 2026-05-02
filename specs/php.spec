@@ -77,7 +77,7 @@
 %endif
 
 %global upver        8.5.6
-%global rcver        RC2
+%global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -86,7 +86,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1666,6 +1666,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Apr 30 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC3-2
+- more upstream patch for OpenSSL 4.0
+
+* Thu Apr 30 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC3-1
+- update to 8.5.6RC3
+
 * Wed Apr 29 2026 Remi Collet <remi@remirepo.net> - 8.5.6~RC2-1
 - update to 8.5.6RC2
 

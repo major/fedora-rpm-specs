@@ -5,8 +5,7 @@ Version:        4.2.1
 Release:        %autorelease
 Summary:        Django app providing database and form fields for pytz timezone objects
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/mfogel/django-timezone-field
 Source:         %{pypi_source}
 

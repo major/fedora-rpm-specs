@@ -4,8 +4,8 @@
 
 Name:           texlive-collection-publishers
 Epoch:          12
-Version:        svn77587
-Release:        2%{?dist}
+Version:        svn78756
+Release:        3%{?dist}
 Summary:        Publisher styles, theses, etc.
 
 License:        LPPL-1.3c
@@ -87,565 +87,591 @@ Source68:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bf
 Source69:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bfh-ci.doc.tar.xz
 Source70:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bgteubner.tar.xz
 Source71:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bgteubner.doc.tar.xz
-Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bjfuthesis.tar.xz
-Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bjfuthesis.doc.tar.xz
-Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu.tar.xz
-Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu.doc.tar.xz
-Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu-iu8.tar.xz
-Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu-iu8.doc.tar.xz
-Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/br-lex.tar.xz
-Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/br-lex.doc.tar.xz
-Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-dissertation.tar.xz
-Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-dissertation.doc.tar.xz
-Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-problemset.tar.xz
-Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-problemset.doc.tar.xz
-Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-thesis.tar.xz
-Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-thesis.doc.tar.xz
-Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/buctthesis.tar.xz
-Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/buctthesis.doc.tar.xz
-Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cascadilla.tar.xz
-Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cascadilla.doc.tar.xz
-Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cesenaexam.tar.xz
-Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cesenaexam.doc.tar.xz
-Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chem-journal.tar.xz
-Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chifoot.tar.xz
-Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chifoot.doc.tar.xz
-Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chs-physics-report.tar.xz
-Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chs-physics-report.doc.tar.xz
-Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cidarticle.tar.xz
-Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cidarticle.doc.tar.xz
-Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cje.tar.xz
-Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cje.doc.tar.xz
-Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjs-rcs-article.tar.xz
-Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjs-rcs-article.doc.tar.xz
-Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/classicthesis.tar.xz
-Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/classicthesis.doc.tar.xz
-Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cleanthesis.tar.xz
-Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cleanthesis.doc.tar.xz
-Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpj.tar.xz
-Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpj.doc.tar.xz
-Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/confproc.tar.xz
-Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/confproc.doc.tar.xz
-Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/contract.tar.xz
-Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/contract.doc.tar.xz
-Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqjtuthesis.tar.xz
-Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqjtuthesis.doc.tar.xz
-Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cquthesis.tar.xz
-Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cquthesis.doc.tar.xz
-Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dccpaper.tar.xz
-Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dccpaper.doc.tar.xz
-Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dithesis.tar.xz
-Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dithesis.doc.tar.xz
-Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dlrg-templates.tar.xz
-Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dlrg-templates.doc.tar.xz
-Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebook.tar.xz
-Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebook.doc.tar.xz
-Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebsthesis.tar.xz
-Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebsthesis.doc.tar.xz
-Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecothesis.tar.xz
-Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecothesis.doc.tar.xz
-Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/edmaths.tar.xz
-Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/edmaths.doc.tar.xz
-Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ejpecp.tar.xz
-Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ejpecp.doc.tar.xz
-Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekaia.tar.xz
-Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekaia.doc.tar.xz
-Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elbioimp.tar.xz
-Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elbioimp.doc.tar.xz
-Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/els-cas-templates.tar.xz
-Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/els-cas-templates.doc.tar.xz
-Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elsarticle.tar.xz
-Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elsarticle.doc.tar.xz
-Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteiktdk.tar.xz
-Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteiktdk.doc.tar.xz
-Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteikthesis.tar.xz
-Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteikthesis.doc.tar.xz
-Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emisa.tar.xz
-Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emisa.doc.tar.xz
-Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erdc.tar.xz
-Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erdc.doc.tar.xz
-Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/estcpmm.tar.xz
-Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/estcpmm.doc.tar.xz
-Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etsvthor.tar.xz
-Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etsvthor.doc.tar.xz
-Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/facture-belge-simple-sans-tva.tar.xz
-Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/facture-belge-simple-sans-tva.doc.tar.xz
-Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbithesis.tar.xz
-Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbithesis.doc.tar.xz
-Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcavtex.tar.xz
-Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcavtex.doc.tar.xz
-Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcltxdoc.tar.xz
-Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcltxdoc.doc.tar.xz
-Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fei.tar.xz
-Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fei.doc.tar.xz
-Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fhj-script.tar.xz
-Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fhj-script.doc.tar.xz
-Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ftc-notebook.tar.xz
-Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ftc-notebook.doc.tar.xz
-Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gaceta.tar.xz
-Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gaceta.doc.tar.xz
-Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gammas.tar.xz
-Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gammas.doc.tar.xz
-Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geradwp.tar.xz
-Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geradwp.doc.tar.xz
-Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfdl.tar.xz
-Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfdl.doc.tar.xz
-Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradstudentresume.tar.xz
-Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradstudentresume.doc.tar.xz
-Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grant.tar.xz
-Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grant.doc.tar.xz
-Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gsemthesis.tar.xz
-Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gsemthesis.doc.tar.xz
-Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gzt.tar.xz
-Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gzt.doc.tar.xz
-Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/h2020proposal.tar.xz
-Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/h2020proposal.doc.tar.xz
-Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hagenberg-thesis.tar.xz
-Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hagenberg-thesis.doc.tar.xz
-Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/har2nat.tar.xz
-Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/har2nat.doc.tar.xz
-Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hduthesis.tar.xz
-Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hduthesis.doc.tar.xz
-Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hecthese.tar.xz
-Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hecthese.doc.tar.xz
-Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-paper.tar.xz
-Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-paper.doc.tar.xz
-Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heria.tar.xz
-Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heria.doc.tar.xz
-Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutexam.tar.xz
-Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutexam.doc.tar.xz
-Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutthesis.tar.xz
-Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutthesis.doc.tar.xz
-Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hithesis.tar.xz
-Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hithesis.doc.tar.xz
-Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszbeamer.tar.xz
-Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszbeamer.doc.tar.xz
-Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszthesis.tar.xz
-Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszthesis.doc.tar.xz
-Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobete.tar.xz
-Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobete.doc.tar.xz
-Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hu-berlin-bundle.tar.xz
-Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hu-berlin-bundle.doc.tar.xz
-Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustthesis.tar.xz
-Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustthesis.doc.tar.xz
-Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustvisual.tar.xz
-Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustvisual.doc.tar.xz
-Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria.tar.xz
-Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria.doc.tar.xz
-Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria-lite.tar.xz
-Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria-lite.doc.tar.xz
-Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icsv.tar.xz
-Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icsv.doc.tar.xz
-Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeeconf.tar.xz
-Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeeconf.doc.tar.xz
-Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeepes.tar.xz
-Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeepes.doc.tar.xz
-Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeetran.tar.xz
-Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeetran.doc.tar.xz
-Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijmart.tar.xz
-Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijmart.doc.tar.xz
-Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijsra.tar.xz
-Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijsra.doc.tar.xz
-Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imac.tar.xz
-Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imac.doc.tar.xz
-Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imtekda.tar.xz
-Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imtekda.doc.tar.xz
-Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inkpaper.tar.xz
-Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inkpaper.doc.tar.xz
-Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iodhbwm.tar.xz
-Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iodhbwm.doc.tar.xz
-Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iscram.tar.xz
-Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iscram.doc.tar.xz
-Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jacow.tar.xz
-Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jacow.doc.tar.xz
-Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmlr.tar.xz
-Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmlr.doc.tar.xz
-Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jnuexam.tar.xz
-Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jnuexam.doc.tar.xz
-Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourcl.tar.xz
-Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourcl.doc.tar.xz
-Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourrr.tar.xz
-Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourrr.doc.tar.xz
-Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jpsj.tar.xz
-Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jpsj.doc.tar.xz
-Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jsonresume.tar.xz
-Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jsonresume.doc.tar.xz
-Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jwjournal.tar.xz
-Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jwjournal.doc.tar.xz
-Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdgdocs.tar.xz
-Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdgdocs.doc.tar.xz
-Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdpcover.tar.xz
-Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdpcover.doc.tar.xz
-Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kfupm-math-exam.tar.xz
-Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kfupm-math-exam.doc.tar.xz
-Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kluwer.tar.xz
-Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kluwer.doc.tar.xz
-Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksp-thesis.tar.xz
-Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksp-thesis.doc.tar.xz
-Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ku-template.tar.xz
-Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ku-template.doc.tar.xz
-Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci.tar.xz
-Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci.doc.tar.xz
-Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci-avm.tar.xz
-Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci-avm.doc.tar.xz
-Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/limecv.tar.xz
-Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/limecv.doc.tar.xz
-Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lion-msc.tar.xz
-Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lion-msc.doc.tar.xz
-Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncs.tar.xz
-Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncs.doc.tar.xz
-Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncsconf.tar.xz
-Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncsconf.doc.tar.xz
-Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lni.tar.xz
-Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lni.doc.tar.xz
-Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lps.tar.xz
-Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lps.doc.tar.xz
-Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maine-thesis.tar.xz
-Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maine-thesis.doc.tar.xz
-Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3.tar.xz
-Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3.doc.tar.xz
-Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3mem.tar.xz
-Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3mem.doc.tar.xz
-Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mcmthesis.tar.xz
-Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mcmthesis.doc.tar.xz
-Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mentis.tar.xz
-Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mentis.doc.tar.xz
-Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mitthesis.tar.xz
-Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mitthesis.doc.tar.xz
-Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlacls.tar.xz
-Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlacls.doc.tar.xz
-Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mluexercise.tar.xz
-Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mluexercise.doc.tar.xz
-Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnras.tar.xz
-Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnras.doc.tar.xz
-Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modeles-factures-belges-assocs.tar.xz
-Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modeles-factures-belges-assocs.doc.tar.xz
-Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modernnewspaper.tar.xz
-Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modernnewspaper.doc.tar.xz
-Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/msu-thesis.tar.xz
-Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/msu-thesis.doc.tar.xz
-Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mucproc.tar.xz
-Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mucproc.doc.tar.xz
-Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mugsthesis.tar.xz
-Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mugsthesis.doc.tar.xz
-Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muling.tar.xz
-Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muling.doc.tar.xz
-Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musuos.tar.xz
-Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musuos.doc.tar.xz
-Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muthesis.tar.xz
-Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muthesis.doc.tar.xz
-Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mynsfc.tar.xz
-Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mynsfc.doc.tar.xz
-Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nature.tar.xz
-Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nature.doc.tar.xz
-Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/navydocs.tar.xz
-Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/navydocs.doc.tar.xz
-Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nddiss.tar.xz
-Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nddiss.doc.tar.xz
-Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis.tar.xz
-Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis.doc.tar.xz
-Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis-2022.tar.xz
-Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis-2022.doc.tar.xz
-Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nih.tar.xz
-Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nih.doc.tar.xz
-Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nihbiosketch.tar.xz
-Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nihbiosketch.doc.tar.xz
-Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njustthesis.tar.xz
-Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njustthesis.doc.tar.xz
-Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuthesis.tar.xz
-Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuthesis.doc.tar.xz
-Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuvisual.tar.xz
-Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuvisual.doc.tar.xz
-Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nostarch.tar.xz
-Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nostarch.doc.tar.xz
-Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/novel.tar.xz
-Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/novel.doc.tar.xz
-Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nrc.tar.xz
-Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nrc.doc.tar.xz
-Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nstc-proposal.tar.xz
-Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nstc-proposal.doc.tar.xz
-Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwafuthesis.tar.xz
-Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwafuthesis.doc.tar.xz
-Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwejm.tar.xz
-Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwejm.doc.tar.xz
-Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxuthesis.tar.xz
-Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxuthesis.doc.tar.xz
-Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/omgtudoc-asoiu.tar.xz
-Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/omgtudoc-asoiu.doc.tar.xz
-Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onrannual.tar.xz
-Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onrannual.doc.tar.xz
-Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opteng.tar.xz
-Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opteng.doc.tar.xz
-Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oststud.tar.xz
-Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oststud.doc.tar.xz
-Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ou-tma.tar.xz
-Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ou-tma.doc.tar.xz
-Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oup-authoring-template.tar.xz
-Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oup-authoring-template.doc.tar.xz
-Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pats-resume.tar.xz
-Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pats-resume.doc.tar.xz
-Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philosophersimprint.tar.xz
-Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philosophersimprint.doc.tar.xz
-Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phimisci.tar.xz
-Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phimisci.doc.tar.xz
-Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pittetd.tar.xz
-Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pittetd.doc.tar.xz
-Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pkuthss.tar.xz
-Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pkuthss.doc.tar.xz
-Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-fuberlin.tar.xz
-Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-fuberlin.doc.tar.xz
-Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-tuliplab.tar.xz
-Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-tuliplab.doc.tar.xz
-Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pracjourn.tar.xz
-Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pracjourn.doc.tar.xz
-Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prociagssymp.tar.xz
-Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prociagssymp.doc.tar.xz
-Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/proposal.tar.xz
-Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/proposal.doc.tar.xz
-Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prtec.tar.xz
-Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prtec.doc.tar.xz
-Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptptex.tar.xz
-Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptptex.doc.tar.xz
-Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrbill.tar.xz
-Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrbill.doc.tar.xz
-Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quantumarticle.tar.xz
-Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quantumarticle.doc.tar.xz
-Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rebuttal.tar.xz
-Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rebuttal.doc.tar.xz
-Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/regulatory.tar.xz
-Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/regulatory.doc.tar.xz
-Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resphilosophica.tar.xz
-Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resphilosophica.doc.tar.xz
-Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resumecls.tar.xz
-Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resumecls.doc.tar.xz
-Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/retosmatematicos.tar.xz
-Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/retosmatematicos.doc.tar.xz
-Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex.tar.xz
-Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex.doc.tar.xz
-Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4.tar.xz
-Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4.doc.tar.xz
-Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4-1.tar.xz
-Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4-1.doc.tar.xz
-Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rub-kunstgeschichte.tar.xz
-Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rub-kunstgeschichte.doc.tar.xz
-Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rutitlepage.tar.xz
-Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rutitlepage.doc.tar.xz
-Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rwth-ci.tar.xz
-Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rwth-ci.doc.tar.xz
-Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryersonsgsthesis.tar.xz
-Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryersonsgsthesis.doc.tar.xz
-Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryethesis.tar.xz
-Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryethesis.doc.tar.xz
-Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sageep.tar.xz
-Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sageep.doc.tar.xz
-Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sapthesis.tar.xz
-Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sapthesis.doc.tar.xz
-Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schule.tar.xz
-Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schule.doc.tar.xz
-Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scientific-thesis-cover.tar.xz
-Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scientific-thesis-cover.doc.tar.xz
-Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scripture.tar.xz
-Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scripture.doc.tar.xz
-Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrjrnl.tar.xz
-Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrjrnl.doc.tar.xz
-Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sduthesis.tar.xz
-Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sduthesis.doc.tar.xz
-Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/se2thesis.tar.xz
-Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/se2thesis.doc.tar.xz
-Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seu-ml-assign.tar.xz
-Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seu-ml-assign.doc.tar.xz
-Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesis.tar.xz
-Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesis.doc.tar.xz
-Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesix.tar.xz
-Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesix.doc.tar.xz
-Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfee.tar.xz
-Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfee.doc.tar.xz
-Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shortmathj.tar.xz
-Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shortmathj.doc.tar.xz
-Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shtthesis.tar.xz
-Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shtthesis.doc.tar.xz
-Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smflatex.tar.xz
-Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smflatex.doc.tar.xz
-Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soton.tar.xz
-Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soton.doc.tar.xz
-Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sphdthesis.tar.xz
-Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sphdthesis.doc.tar.xz
-Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spie.tar.xz
-Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spie.doc.tar.xz
-Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sr-vorl.tar.xz
-Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sr-vorl.doc.tar.xz
-Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srdp-mathematik.tar.xz
-Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srdp-mathematik.doc.tar.xz
-Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sshrc-insight.tar.xz
-Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sshrc-insight.doc.tar.xz
-Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch.tar.xz
-Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch.doc.tar.xz
-Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch-2.tar.xz
-Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch-2.doc.tar.xz
-Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suftesi.tar.xz
-Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suftesi.doc.tar.xz
-Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sugconf.tar.xz
-Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sugconf.doc.tar.xz
-Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sysuthesis.tar.xz
-Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sysuthesis.doc.tar.xz
-Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tabriz-thesis.tar.xz
-Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tabriz-thesis.doc.tar.xz
-Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/technion-thesis-template.tar.xz
-Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/technion-thesis-template.doc.tar.xz
-Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texilikechaps.tar.xz
-Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texilikecover.tar.xz
-Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-ekf.tar.xz
-Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-ekf.doc.tar.xz
-Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-gwu.tar.xz
-Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-gwu.doc.tar.xz
-Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-qom.tar.xz
-Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-qom.doc.tar.xz
-Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-titlepage-fhac.tar.xz
-Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-titlepage-fhac.doc.tar.xz
-Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuaslogos.tar.xz
-Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuaslogos.doc.tar.xz
-Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thubeamer.tar.xz
-Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thubeamer.doc.tar.xz
-Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thucoursework.tar.xz
-Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thucoursework.doc.tar.xz
-Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuthesis.tar.xz
-Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuthesis.doc.tar.xz
-Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tidyres.tar.xz
-Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tidyres.doc.tar.xz
-Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiet-question-paper.tar.xz
-Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiet-question-paper.doc.tar.xz
-Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timbreicmc.tar.xz
-Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timbreicmc.doc.tar.xz
-Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlc-article.tar.xz
-Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlc-article.doc.tar.xz
-Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/topletter.tar.xz
-Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/topletter.doc.tar.xz
-Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/toptesi.tar.xz
-Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/toptesi.doc.tar.xz
-Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuda-ci.tar.xz
-Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuda-ci.doc.tar.xz
-Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tudscr.tar.xz
-Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tudscr.doc.tar.xz
-Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat.tar.xz
-Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat.doc.tar.xz
-Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat-plain.tar.xz
-Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat-plain.doc.tar.xz
-Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tui.tar.xz
-Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tui.doc.tar.xz
-Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian.tar.xz
-Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian.doc.tar.xz
-Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uaclasses.tar.xz
-Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uaclasses.doc.tar.xz
-Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uafthesis.tar.xz
-Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uafthesis.doc.tar.xz
-Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ualberta.tar.xz
-Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ualberta.doc.tar.xz
-Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uantwerpendocs.tar.xz
-Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uantwerpendocs.doc.tar.xz
-Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucalgmthesis.tar.xz
-Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucalgmthesis.doc.tar.xz
-Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucbthesis.tar.xz
-Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucbthesis.doc.tar.xz
-Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucdavisthesis.tar.xz
-Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucdavisthesis.doc.tar.xz
-Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucph-revy.tar.xz
-Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucph-revy.doc.tar.xz
-Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucsmonograph.tar.xz
-Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucsmonograph.doc.tar.xz
-Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucthesis.tar.xz
-Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucthesis.doc.tar.xz
-Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udepcolor.tar.xz
-Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udepcolor.doc.tar.xz
-Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udes-genie-these.tar.xz
-Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udes-genie-these.doc.tar.xz
-Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udiss.tar.xz
-Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udiss.doc.tar.xz
-Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uestcthesis.tar.xz
-Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uestcthesis.doc.tar.xz
-Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ufrgscca.tar.xz
-Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ufrgscca.doc.tar.xz
-Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uhhassignment.tar.xz
-Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uhhassignment.doc.tar.xz
-Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucredborder.tar.xz
-Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucredborder.doc.tar.xz
-Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucthesis.tar.xz
-Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucthesis.doc.tar.xz
-Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukbill.tar.xz
-Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukbill.doc.tar.xz
-Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulthese.tar.xz
-Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulthese.doc.tar.xz
-Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umbclegislation.tar.xz
-Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umbclegislation.doc.tar.xz
-Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umich-thesis.tar.xz
-Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umich-thesis.doc.tar.xz
-Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umthesis.tar.xz
-Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umthesis.doc.tar.xz
-Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unam-thesis.tar.xz
-Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unam-thesis.doc.tar.xz
-Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamth-template.tar.xz
-Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamth-template.doc.tar.xz
-Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamthesis.tar.xz
-Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamthesis.doc.tar.xz
-Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unbtex.tar.xz
-Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unbtex.doc.tar.xz
-Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unifith.tar.xz
-Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unifith.doc.tar.xz
-Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unigrazpub.tar.xz
-Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unigrazpub.doc.tar.xz
-Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitn-bimrep.tar.xz
-Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitn-bimrep.doc.tar.xz
-Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/univie-ling.tar.xz
-Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/univie-ling.doc.tar.xz
-Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unizgklasa.tar.xz
-Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unizgklasa.doc.tar.xz
-Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unswcover.tar.xz
-Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unswcover.doc.tar.xz
-Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uol-physics-report.tar.xz
-Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uol-physics-report.doc.tar.xz
-Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uothesis.tar.xz
-Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uothesis.doc.tar.xz
-Source589:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesis.tar.xz
-Source590:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesis.doc.tar.xz
-Source591:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesistitlepage.tar.xz
-Source592:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesistitlepage.doc.tar.xz
-Source593:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urcls.tar.xz
-Source594:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urcls.doc.tar.xz
-Source595:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uspatent.tar.xz
-Source596:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uspatent.doc.tar.xz
-Source597:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ut-thesis.tar.xz
-Source598:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ut-thesis.doc.tar.xz
-Source599:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utexasthesis.tar.xz
-Source600:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utexasthesis.doc.tar.xz
-Source601:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvaletter.tar.xz
-Source602:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvaletter.doc.tar.xz
-Source603:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-colours.tar.xz
-Source604:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-colours.doc.tar.xz
-Source605:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-letterhead.tar.xz
-Source606:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-letterhead.doc.tar.xz
-Source607:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pcf.tar.xz
-Source608:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pcf.doc.tar.xz
-Source609:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pif.tar.xz
-Source610:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pif.doc.tar.xz
-Source611:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwthesis.tar.xz
-Source612:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwthesis.doc.tar.xz
-Source613:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vancouver.tar.xz
-Source614:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vancouver.doc.tar.xz
-Source615:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsemclassic.tar.xz
-Source616:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsemclassic.doc.tar.xz
-Source617:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduthesis.tar.xz
-Source618:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduthesis.doc.tar.xz
-Source619:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduts.tar.xz
-Source620:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduts.doc.tar.xz
-Source621:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmuthesis.tar.xz
-Source622:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmuthesis.doc.tar.xz
-Source623:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yathesis.tar.xz
-Source624:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yathesis.doc.tar.xz
-Source625:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yazd-thesis.tar.xz
-Source626:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yazd-thesis.doc.tar.xz
-Source627:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yb-book.tar.xz
-Source628:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yb-book.doc.tar.xz
-Source629:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/york-thesis.tar.xz
-Source630:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/york-thesis.doc.tar.xz
+Source72:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibleref-sbl.tar.xz
+Source73:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibleref-sbl.doc.tar.xz
+Source74:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bjfuthesis.tar.xz
+Source75:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bjfuthesis.doc.tar.xz
+Source76:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu.tar.xz
+Source77:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu.doc.tar.xz
+Source78:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu-iu8.tar.xz
+Source79:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bmstu-iu8.doc.tar.xz
+Source80:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/br-lex.tar.xz
+Source81:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/br-lex.doc.tar.xz
+Source82:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-dissertation.tar.xz
+Source83:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-dissertation.doc.tar.xz
+Source84:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-problemset.tar.xz
+Source85:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-problemset.doc.tar.xz
+Source86:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-thesis.tar.xz
+Source87:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/brandeis-thesis.doc.tar.xz
+Source88:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/buctthesis.tar.xz
+Source89:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/buctthesis.doc.tar.xz
+Source90:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cascadilla.tar.xz
+Source91:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cascadilla.doc.tar.xz
+Source92:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cesenaexam.tar.xz
+Source93:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cesenaexam.doc.tar.xz
+Source94:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chem-journal.tar.xz
+Source95:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chifoot.tar.xz
+Source96:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chifoot.doc.tar.xz
+Source97:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chs-physics-report.tar.xz
+Source98:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chs-physics-report.doc.tar.xz
+Source99:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cidarticle.tar.xz
+Source100:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cidarticle.doc.tar.xz
+Source101:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cje.tar.xz
+Source102:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cje.doc.tar.xz
+Source103:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjs-rcs-article.tar.xz
+Source104:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjs-rcs-article.doc.tar.xz
+Source105:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/classicthesis.tar.xz
+Source106:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/classicthesis.doc.tar.xz
+Source107:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cleanthesis.tar.xz
+Source108:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cleanthesis.doc.tar.xz
+Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpj.tar.xz
+Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cmpj.doc.tar.xz
+Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/confproc.tar.xz
+Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/confproc.doc.tar.xz
+Source113:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/contract.tar.xz
+Source114:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/contract.doc.tar.xz
+Source115:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqjtuthesis.tar.xz
+Source116:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cqjtuthesis.doc.tar.xz
+Source117:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cquthesis.tar.xz
+Source118:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cquthesis.doc.tar.xz
+Source119:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dccpaper.tar.xz
+Source120:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dccpaper.doc.tar.xz
+Source121:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/delvierre.tar.xz
+Source122:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/delvierre.doc.tar.xz
+Source123:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/deutschesmuseum.tar.xz
+Source124:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/deutschesmuseum.doc.tar.xz
+Source125:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dithesis.tar.xz
+Source126:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dithesis.doc.tar.xz
+Source127:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dlrg-templates.tar.xz
+Source128:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/dlrg-templates.doc.tar.xz
+Source129:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebook.tar.xz
+Source130:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebook.doc.tar.xz
+Source131:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebsthesis.tar.xz
+Source132:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ebsthesis.doc.tar.xz
+Source133:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecothesis.tar.xz
+Source134:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ecothesis.doc.tar.xz
+Source135:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/edmaths.tar.xz
+Source136:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/edmaths.doc.tar.xz
+Source137:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ejpecp.tar.xz
+Source138:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ejpecp.doc.tar.xz
+Source139:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekaia.tar.xz
+Source140:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ekaia.doc.tar.xz
+Source141:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elbioimp.tar.xz
+Source142:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elbioimp.doc.tar.xz
+Source143:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/els-cas-templates.tar.xz
+Source144:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/els-cas-templates.doc.tar.xz
+Source145:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elsarticle.tar.xz
+Source146:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elsarticle.doc.tar.xz
+Source147:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteiktdk.tar.xz
+Source148:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteiktdk.doc.tar.xz
+Source149:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteikthesis.tar.xz
+Source150:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/elteikthesis.doc.tar.xz
+Source151:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emisa.tar.xz
+Source152:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/emisa.doc.tar.xz
+Source153:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erdc.tar.xz
+Source154:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/erdc.doc.tar.xz
+Source155:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/estcpmm.tar.xz
+Source156:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/estcpmm.doc.tar.xz
+Source157:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etsvthor.tar.xz
+Source158:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/etsvthor.doc.tar.xz
+Source159:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/facture-belge-simple-sans-tva.tar.xz
+Source160:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/facture-belge-simple-sans-tva.doc.tar.xz
+Source161:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbithesis.tar.xz
+Source162:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fbithesis.doc.tar.xz
+Source163:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcavtex.tar.xz
+Source164:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcavtex.doc.tar.xz
+Source165:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcltxdoc.tar.xz
+Source166:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fcltxdoc.doc.tar.xz
+Source167:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fei.tar.xz
+Source168:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fei.doc.tar.xz
+Source169:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fhj-script.tar.xz
+Source170:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/fhj-script.doc.tar.xz
+Source171:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ftc-notebook.tar.xz
+Source172:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ftc-notebook.doc.tar.xz
+Source173:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gaceta.tar.xz
+Source174:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gaceta.doc.tar.xz
+Source175:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gammas.tar.xz
+Source176:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gammas.doc.tar.xz
+Source177:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geradwp.tar.xz
+Source178:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/geradwp.doc.tar.xz
+Source179:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfdl.tar.xz
+Source180:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gfdl.doc.tar.xz
+Source181:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradstudentresume.tar.xz
+Source182:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gradstudentresume.doc.tar.xz
+Source183:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grant.tar.xz
+Source184:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/grant.doc.tar.xz
+Source185:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gsemthesis.tar.xz
+Source186:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gsemthesis.doc.tar.xz
+Source187:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gzt.tar.xz
+Source188:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/gzt.doc.tar.xz
+Source189:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/h2020proposal.tar.xz
+Source190:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/h2020proposal.doc.tar.xz
+Source191:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hagenberg-thesis.tar.xz
+Source192:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hagenberg-thesis.doc.tar.xz
+Source193:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/har2nat.tar.xz
+Source194:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/har2nat.doc.tar.xz
+Source195:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hduthesis.tar.xz
+Source196:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hduthesis.doc.tar.xz
+Source197:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hecthese.tar.xz
+Source198:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hecthese.doc.tar.xz
+Source199:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-paper.tar.xz
+Source200:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hep-paper.doc.tar.xz
+Source201:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heria.tar.xz
+Source202:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/heria.doc.tar.xz
+Source203:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutexam.tar.xz
+Source204:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutexam.doc.tar.xz
+Source205:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutthesis.tar.xz
+Source206:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hfutthesis.doc.tar.xz
+Source207:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hithesis.tar.xz
+Source208:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hithesis.doc.tar.xz
+Source209:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszbeamer.tar.xz
+Source210:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszbeamer.doc.tar.xz
+Source211:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszthesis.tar.xz
+Source212:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitszthesis.doc.tar.xz
+Source213:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobete.tar.xz
+Source214:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hobete.doc.tar.xz
+Source215:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hu-berlin-bundle.tar.xz
+Source216:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hu-berlin-bundle.doc.tar.xz
+Source217:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustthesis.tar.xz
+Source218:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustthesis.doc.tar.xz
+Source219:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustvisual.tar.xz
+Source220:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hustvisual.doc.tar.xz
+Source221:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iacrj.tar.xz
+Source222:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iacrj.doc.tar.xz
+Source223:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria.tar.xz
+Source224:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria.doc.tar.xz
+Source225:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria-lite.tar.xz
+Source226:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iaria-lite.doc.tar.xz
+Source227:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icsv.tar.xz
+Source228:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/icsv.doc.tar.xz
+Source229:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeeconf.tar.xz
+Source230:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeeconf.doc.tar.xz
+Source231:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeepes.tar.xz
+Source232:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeepes.doc.tar.xz
+Source233:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeetran.tar.xz
+Source234:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ieeetran.doc.tar.xz
+Source235:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijmart.tar.xz
+Source236:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijmart.doc.tar.xz
+Source237:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijsra.tar.xz
+Source238:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ijsra.doc.tar.xz
+Source239:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imac.tar.xz
+Source240:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imac.doc.tar.xz
+Source241:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imtekda.tar.xz
+Source242:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/imtekda.doc.tar.xz
+Source243:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inkpaper.tar.xz
+Source244:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/inkpaper.doc.tar.xz
+Source245:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iodhbwm.tar.xz
+Source246:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iodhbwm.doc.tar.xz
+Source247:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iscram.tar.xz
+Source248:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/iscram.doc.tar.xz
+Source249:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jacow.tar.xz
+Source250:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jacow.doc.tar.xz
+Source251:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmlr.tar.xz
+Source252:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jmlr.doc.tar.xz
+Source253:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jnuexam.tar.xz
+Source254:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jnuexam.doc.tar.xz
+Source255:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourcl.tar.xz
+Source256:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourcl.doc.tar.xz
+Source257:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourrr.tar.xz
+Source258:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jourrr.doc.tar.xz
+Source259:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jouthesis.tar.xz
+Source260:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jouthesis.doc.tar.xz
+Source261:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jpsj.tar.xz
+Source262:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jpsj.doc.tar.xz
+Source263:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jsonresume.tar.xz
+Source264:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jsonresume.doc.tar.xz
+Source265:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jwjournal.tar.xz
+Source266:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jwjournal.doc.tar.xz
+Source267:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jyu-chem-thesis.tar.xz
+Source268:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/jyu-chem-thesis.doc.tar.xz
+Source269:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdgdocs.tar.xz
+Source270:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdgdocs.doc.tar.xz
+Source271:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdpcover.tar.xz
+Source272:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kdpcover.doc.tar.xz
+Source273:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kfupm-math-exam.tar.xz
+Source274:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kfupm-math-exam.doc.tar.xz
+Source275:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kluwer.tar.xz
+Source276:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/kluwer.doc.tar.xz
+Source277:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksp-thesis.tar.xz
+Source278:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ksp-thesis.doc.tar.xz
+Source279:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ku-template.tar.xz
+Source280:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ku-template.doc.tar.xz
+Source281:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci.tar.xz
+Source282:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci.doc.tar.xz
+Source283:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci-avm.tar.xz
+Source284:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/langsci-avm.doc.tar.xz
+Source285:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/limecv.tar.xz
+Source286:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/limecv.doc.tar.xz
+Source287:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lion-msc.tar.xz
+Source288:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lion-msc.doc.tar.xz
+Source289:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncs.tar.xz
+Source290:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncs.doc.tar.xz
+Source291:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncsconf.tar.xz
+Source292:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/llncsconf.doc.tar.xz
+Source293:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lni.tar.xz
+Source294:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lni.doc.tar.xz
+Source295:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lps.tar.xz
+Source296:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lps.doc.tar.xz
+Source297:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maine-thesis.tar.xz
+Source298:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/maine-thesis.doc.tar.xz
+Source299:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3.tar.xz
+Source300:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3.doc.tar.xz
+Source301:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3mem.tar.xz
+Source302:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/matc3mem.doc.tar.xz
+Source303:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mcmthesis.tar.xz
+Source304:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mcmthesis.doc.tar.xz
+Source305:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mentis.tar.xz
+Source306:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mentis.doc.tar.xz
+Source307:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mitthesis.tar.xz
+Source308:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mitthesis.doc.tar.xz
+Source309:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlacls.tar.xz
+Source310:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mlacls.doc.tar.xz
+Source311:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mluexercise.tar.xz
+Source312:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mluexercise.doc.tar.xz
+Source313:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnras.tar.xz
+Source314:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mnras.doc.tar.xz
+Source315:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modeles-factures-belges-assocs.tar.xz
+Source316:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modeles-factures-belges-assocs.doc.tar.xz
+Source317:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modernnewspaper.tar.xz
+Source318:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/modernnewspaper.doc.tar.xz
+Source319:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/msu-thesis.tar.xz
+Source320:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/msu-thesis.doc.tar.xz
+Source321:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mucproc.tar.xz
+Source322:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mucproc.doc.tar.xz
+Source323:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mugsthesis.tar.xz
+Source324:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mugsthesis.doc.tar.xz
+Source325:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muling.tar.xz
+Source326:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muling.doc.tar.xz
+Source327:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musuos.tar.xz
+Source328:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/musuos.doc.tar.xz
+Source329:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muthesis.tar.xz
+Source330:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/muthesis.doc.tar.xz
+Source331:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mynsfc.tar.xz
+Source332:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/mynsfc.doc.tar.xz
+Source333:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nature.tar.xz
+Source334:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nature.doc.tar.xz
+Source335:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/navydocs.tar.xz
+Source336:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/navydocs.doc.tar.xz
+Source337:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nddiss.tar.xz
+Source338:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nddiss.doc.tar.xz
+Source339:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis.tar.xz
+Source340:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis.doc.tar.xz
+Source341:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis-2022.tar.xz
+Source342:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ndsu-thesis-2022.doc.tar.xz
+Source343:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nih.tar.xz
+Source344:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nih.doc.tar.xz
+Source345:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nihbiosketch.tar.xz
+Source346:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nihbiosketch.doc.tar.xz
+Source347:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njustthesis.tar.xz
+Source348:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njustthesis.doc.tar.xz
+Source349:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuthesis.tar.xz
+Source350:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuthesis.doc.tar.xz
+Source351:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuvisual.tar.xz
+Source352:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/njuvisual.doc.tar.xz
+Source353:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nostarch.tar.xz
+Source354:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nostarch.doc.tar.xz
+Source355:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/novel.tar.xz
+Source356:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/novel.doc.tar.xz
+Source357:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nrc.tar.xz
+Source358:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nrc.doc.tar.xz
+Source359:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nstc-proposal.tar.xz
+Source360:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nstc-proposal.doc.tar.xz
+Source361:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwafuthesis.tar.xz
+Source362:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwafuthesis.doc.tar.xz
+Source363:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwejm.tar.xz
+Source364:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nwejm.doc.tar.xz
+Source365:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxtlatex.tar.xz
+Source366:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxtlatex.doc.tar.xz
+Source367:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxuthesis.tar.xz
+Source368:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/nxuthesis.doc.tar.xz
+Source369:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/omgtudoc-asoiu.tar.xz
+Source370:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/omgtudoc-asoiu.doc.tar.xz
+Source371:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onlinebrief24.tar.xz
+Source372:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onlinebrief24.doc.tar.xz
+Source373:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onrannual.tar.xz
+Source374:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/onrannual.doc.tar.xz
+Source375:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opteng.tar.xz
+Source376:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/opteng.doc.tar.xz
+Source377:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oststud.tar.xz
+Source378:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oststud.doc.tar.xz
+Source379:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ou-tma.tar.xz
+Source380:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ou-tma.doc.tar.xz
+Source381:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oup-authoring-template.tar.xz
+Source382:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oup-authoring-template.doc.tar.xz
+Source383:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pats-resume.tar.xz
+Source384:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pats-resume.doc.tar.xz
+Source385:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philosophersimprint.tar.xz
+Source386:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/philosophersimprint.doc.tar.xz
+Source387:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phimisci.tar.xz
+Source388:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/phimisci.doc.tar.xz
+Source389:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pittetd.tar.xz
+Source390:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pittetd.doc.tar.xz
+Source391:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pkuthss.tar.xz
+Source392:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pkuthss.doc.tar.xz
+Source393:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-fuberlin.tar.xz
+Source394:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-fuberlin.doc.tar.xz
+Source395:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-tuliplab.tar.xz
+Source396:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/powerdot-tuliplab.doc.tar.xz
+Source397:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pracjourn.tar.xz
+Source398:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pracjourn.doc.tar.xz
+Source399:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prociagssymp.tar.xz
+Source400:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prociagssymp.doc.tar.xz
+Source401:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/proposal.tar.xz
+Source402:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/proposal.doc.tar.xz
+Source403:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prtec.tar.xz
+Source404:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/prtec.doc.tar.xz
+Source405:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptptex.tar.xz
+Source406:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ptptex.doc.tar.xz
+Source407:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrbill.tar.xz
+Source408:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/qrbill.doc.tar.xz
+Source409:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quantumarticle.tar.xz
+Source410:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/quantumarticle.doc.tar.xz
+Source411:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rebuttal.tar.xz
+Source412:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rebuttal.doc.tar.xz
+Source413:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/regulatory.tar.xz
+Source414:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/regulatory.doc.tar.xz
+Source415:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resphilosophica.tar.xz
+Source416:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resphilosophica.doc.tar.xz
+Source417:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resumecls.tar.xz
+Source418:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/resumecls.doc.tar.xz
+Source419:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/retosmatematicos.tar.xz
+Source420:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/retosmatematicos.doc.tar.xz
+Source421:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex.tar.xz
+Source422:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex.doc.tar.xz
+Source423:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4.tar.xz
+Source424:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4.doc.tar.xz
+Source425:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4-1.tar.xz
+Source426:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/revtex4-1.doc.tar.xz
+Source427:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rub-kunstgeschichte.tar.xz
+Source428:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rub-kunstgeschichte.doc.tar.xz
+Source429:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rutitlepage.tar.xz
+Source430:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rutitlepage.doc.tar.xz
+Source431:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rwth-ci.tar.xz
+Source432:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/rwth-ci.doc.tar.xz
+Source433:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryersonsgsthesis.tar.xz
+Source434:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryersonsgsthesis.doc.tar.xz
+Source435:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryethesis.tar.xz
+Source436:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ryethesis.doc.tar.xz
+Source437:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sageep.tar.xz
+Source438:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sageep.doc.tar.xz
+Source439:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sapthesis.tar.xz
+Source440:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sapthesis.doc.tar.xz
+Source441:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblarticle.tar.xz
+Source442:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblarticle.doc.tar.xz
+Source443:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblbook.tar.xz
+Source444:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblbook.doc.tar.xz
+Source445:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblfonts.tar.xz
+Source446:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblfonts.doc.tar.xz
+Source447:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblidx.tar.xz
+Source448:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblidx.doc.tar.xz
+Source449:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblreport.tar.xz
+Source450:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sblreport.doc.tar.xz
+Source451:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schule.tar.xz
+Source452:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/schule.doc.tar.xz
+Source453:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scientific-thesis-cover.tar.xz
+Source454:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scientific-thesis-cover.doc.tar.xz
+Source455:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scripture.tar.xz
+Source456:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scripture.doc.tar.xz
+Source457:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrjrnl.tar.xz
+Source458:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scrjrnl.doc.tar.xz
+Source459:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sduthesis.tar.xz
+Source460:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sduthesis.doc.tar.xz
+Source461:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/se2thesis.tar.xz
+Source462:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/se2thesis.doc.tar.xz
+Source463:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seu-ml-assign.tar.xz
+Source464:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seu-ml-assign.doc.tar.xz
+Source465:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesis.tar.xz
+Source466:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesis.doc.tar.xz
+Source467:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesix.tar.xz
+Source468:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seuthesix.doc.tar.xz
+Source469:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfee.tar.xz
+Source470:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfee.doc.tar.xz
+Source471:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shortmathj.tar.xz
+Source472:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shortmathj.doc.tar.xz
+Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smflatex.tar.xz
+Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/smflatex.doc.tar.xz
+Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soton.tar.xz
+Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/soton.doc.tar.xz
+Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sphdthesis.tar.xz
+Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sphdthesis.doc.tar.xz
+Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spie.tar.xz
+Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spie.doc.tar.xz
+Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sr-vorl.tar.xz
+Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sr-vorl.doc.tar.xz
+Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srdp-mathematik.tar.xz
+Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/srdp-mathematik.doc.tar.xz
+Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sshrc-insight.tar.xz
+Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sshrc-insight.doc.tar.xz
+Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch.tar.xz
+Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch.doc.tar.xz
+Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch-2.tar.xz
+Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stellenbosch-2.doc.tar.xz
+Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suftesi.tar.xz
+Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/suftesi.doc.tar.xz
+Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sugconf.tar.xz
+Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sugconf.doc.tar.xz
+Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sysuthesis.tar.xz
+Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sysuthesis.doc.tar.xz
+Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tabriz-thesis.tar.xz
+Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tabriz-thesis.doc.tar.xz
+Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/technion-thesis-template.tar.xz
+Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/technion-thesis-template.doc.tar.xz
+Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texilikechaps.tar.xz
+Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texilikecover.tar.xz
+Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-ekf.tar.xz
+Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-ekf.doc.tar.xz
+Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-gwu.tar.xz
+Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-gwu.doc.tar.xz
+Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-qom.tar.xz
+Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-qom.doc.tar.xz
+Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-titlepage-fhac.tar.xz
+Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thesis-titlepage-fhac.doc.tar.xz
+Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuaslogos.tar.xz
+Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuaslogos.doc.tar.xz
+Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thubeamer.tar.xz
+Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thubeamer.doc.tar.xz
+Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thucoursework.tar.xz
+Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thucoursework.doc.tar.xz
+Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuthesis.tar.xz
+Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thuthesis.doc.tar.xz
+Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tidyres.tar.xz
+Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tidyres.doc.tar.xz
+Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiet-question-paper.tar.xz
+Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiet-question-paper.doc.tar.xz
+Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timbreicmc.tar.xz
+Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/timbreicmc.doc.tar.xz
+Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlc-article.tar.xz
+Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tlc-article.doc.tar.xz
+Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/topletter.tar.xz
+Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/topletter.doc.tar.xz
+Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/toptesi.tar.xz
+Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/toptesi.doc.tar.xz
+Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuda-ci.tar.xz
+Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tuda-ci.doc.tar.xz
+Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tudscr.tar.xz
+Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tudscr.doc.tar.xz
+Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat.tar.xz
+Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat.doc.tar.xz
+Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat-plain.tar.xz
+Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tugboat-plain.doc.tar.xz
+Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tui.tar.xz
+Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tui.doc.tar.xz
+Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian.tar.xz
+Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turabian.doc.tar.xz
+Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uaclasses.tar.xz
+Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uaclasses.doc.tar.xz
+Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uafthesis.tar.xz
+Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uafthesis.doc.tar.xz
+Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ualberta.tar.xz
+Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ualberta.doc.tar.xz
+Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uantwerpendocs.tar.xz
+Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uantwerpendocs.doc.tar.xz
+Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucalgmthesis.tar.xz
+Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucalgmthesis.doc.tar.xz
+Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucbthesis.tar.xz
+Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucbthesis.doc.tar.xz
+Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucdavisthesis.tar.xz
+Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucdavisthesis.doc.tar.xz
+Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucph-revy.tar.xz
+Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucph-revy.doc.tar.xz
+Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucsmonograph.tar.xz
+Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucsmonograph.doc.tar.xz
+Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucthesis.tar.xz
+Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ucthesis.doc.tar.xz
+Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udepcolor.tar.xz
+Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udepcolor.doc.tar.xz
+Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udes-genie-these.tar.xz
+Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udes-genie-these.doc.tar.xz
+Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udiss.tar.xz
+Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/udiss.doc.tar.xz
+Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uestcthesis.tar.xz
+Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uestcthesis.doc.tar.xz
+Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ufrgscca.tar.xz
+Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ufrgscca.doc.tar.xz
+Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uhhassignment.tar.xz
+Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uhhassignment.doc.tar.xz
+Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucredborder.tar.xz
+Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucredborder.doc.tar.xz
+Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucthesis.tar.xz
+Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uiucthesis.doc.tar.xz
+Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukbill.tar.xz
+Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ukbill.doc.tar.xz
+Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulthese.tar.xz
+Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulthese.doc.tar.xz
+Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umbclegislation.tar.xz
+Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umbclegislation.doc.tar.xz
+Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umich-thesis.tar.xz
+Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umich-thesis.doc.tar.xz
+Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umthesis.tar.xz
+Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/umthesis.doc.tar.xz
+Source589:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unam-thesis.tar.xz
+Source590:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unam-thesis.doc.tar.xz
+Source591:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamth-template.tar.xz
+Source592:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamth-template.doc.tar.xz
+Source593:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamthesis.tar.xz
+Source594:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unamthesis.doc.tar.xz
+Source595:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unbtex.tar.xz
+Source596:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unbtex.doc.tar.xz
+Source597:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unifith.tar.xz
+Source598:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unifith.doc.tar.xz
+Source599:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unigrazpub.tar.xz
+Source600:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unigrazpub.doc.tar.xz
+Source601:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitn-bimrep.tar.xz
+Source602:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitn-bimrep.doc.tar.xz
+Source603:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/univie-ling.tar.xz
+Source604:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/univie-ling.doc.tar.xz
+Source605:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unizgklasa.tar.xz
+Source606:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unizgklasa.doc.tar.xz
+Source607:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unswcover.tar.xz
+Source608:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unswcover.doc.tar.xz
+Source609:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uol-physics-report.tar.xz
+Source610:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uol-physics-report.doc.tar.xz
+Source611:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uothesis.tar.xz
+Source612:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uothesis.doc.tar.xz
+Source613:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesis.tar.xz
+Source614:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesis.doc.tar.xz
+Source615:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesistitlepage.tar.xz
+Source616:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uowthesistitlepage.doc.tar.xz
+Source617:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urcls.tar.xz
+Source618:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urcls.doc.tar.xz
+Source619:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uspatent.tar.xz
+Source620:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uspatent.doc.tar.xz
+Source621:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ut-thesis.tar.xz
+Source622:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ut-thesis.doc.tar.xz
+Source623:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utexasthesis.tar.xz
+Source624:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/utexasthesis.doc.tar.xz
+Source625:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvaletter.tar.xz
+Source626:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvaletter.doc.tar.xz
+Source627:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvlhighlight.tar.xz
+Source628:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uvlhighlight.doc.tar.xz
+Source629:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-colours.tar.xz
+Source630:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-colours.doc.tar.xz
+Source631:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-letterhead.tar.xz
+Source632:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-letterhead.doc.tar.xz
+Source633:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pcf.tar.xz
+Source634:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pcf.doc.tar.xz
+Source635:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pif.tar.xz
+Source636:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwa-pif.doc.tar.xz
+Source637:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwthesis.tar.xz
+Source638:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uwthesis.doc.tar.xz
+Source639:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vancouver.tar.xz
+Source640:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vancouver.doc.tar.xz
+Source641:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsemclassic.tar.xz
+Source642:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wsemclassic.doc.tar.xz
+Source643:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduthesis.tar.xz
+Source644:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduthesis.doc.tar.xz
+Source645:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduts.tar.xz
+Source646:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xduts.doc.tar.xz
+Source647:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmuthesis.tar.xz
+Source648:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmuthesis.doc.tar.xz
+Source649:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yathesis.tar.xz
+Source650:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yathesis.doc.tar.xz
+Source651:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yazd-thesis.tar.xz
+Source652:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yazd-thesis.doc.tar.xz
+Source653:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yb-book.tar.xz
+Source654:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yb-book.doc.tar.xz
+Source655:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/york-thesis.tar.xz
+Source656:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/york-thesis.doc.tar.xz
 
 # Patches
 Patch0:         texlive-proposal-no-workaddress.patch
@@ -691,6 +717,7 @@ Requires:       texlive-beamer-verona
 Requires:       texlive-beilstein
 Requires:       texlive-bfh-ci
 Requires:       texlive-bgteubner
+Requires:       texlive-bibleref-sbl
 Requires:       texlive-bjfuthesis
 Requires:       texlive-bmstu
 Requires:       texlive-bmstu-iu8
@@ -716,6 +743,8 @@ Requires:       texlive-contract
 Requires:       texlive-cqjtuthesis
 Requires:       texlive-cquthesis
 Requires:       texlive-dccpaper
+Requires:       texlive-delvierre
+Requires:       texlive-deutschesmuseum
 Requires:       texlive-dithesis
 Requires:       texlive-dlrg-templates
 Requires:       texlive-ebook
@@ -764,6 +793,7 @@ Requires:       texlive-hobete
 Requires:       texlive-hu-berlin-bundle
 Requires:       texlive-hustthesis
 Requires:       texlive-hustvisual
+Requires:       texlive-iacrj
 Requires:       texlive-iaria
 Requires:       texlive-iaria-lite
 Requires:       texlive-icsv
@@ -782,9 +812,11 @@ Requires:       texlive-jmlr
 Requires:       texlive-jnuexam
 Requires:       texlive-jourcl
 Requires:       texlive-jourrr
+Requires:       texlive-jouthesis
 Requires:       texlive-jpsj
 Requires:       texlive-jsonresume
 Requires:       texlive-jwjournal
+Requires:       texlive-jyu-chem-thesis
 Requires:       texlive-kdgdocs
 Requires:       texlive-kdpcover
 Requires:       texlive-kfupm-math-exam
@@ -833,8 +865,10 @@ Requires:       texlive-nrc
 Requires:       texlive-nstc-proposal
 Requires:       texlive-nwafuthesis
 Requires:       texlive-nwejm
+Requires:       texlive-nxtlatex
 Requires:       texlive-nxuthesis
 Requires:       texlive-omgtudoc-asoiu
+Requires:       texlive-onlinebrief24
 Requires:       texlive-onrannual
 Requires:       texlive-opteng
 Requires:       texlive-oststud
@@ -869,6 +903,11 @@ Requires:       texlive-ryersonsgsthesis
 Requires:       texlive-ryethesis
 Requires:       texlive-sageep
 Requires:       texlive-sapthesis
+Requires:       texlive-sblarticle
+Requires:       texlive-sblbook
+Requires:       texlive-sblfonts
+Requires:       texlive-sblidx
+Requires:       texlive-sblreport
 Requires:       texlive-schule
 Requires:       texlive-scientific-thesis-cover
 Requires:       texlive-scripture
@@ -880,7 +919,6 @@ Requires:       texlive-seuthesis
 Requires:       texlive-seuthesix
 Requires:       texlive-sfee
 Requires:       texlive-shortmathj
-Requires:       texlive-shtthesis
 Requires:       texlive-smflatex
 Requires:       texlive-soton
 Requires:       texlive-sphdthesis
@@ -959,6 +997,7 @@ Requires:       texlive-uspatent
 Requires:       texlive-ut-thesis
 Requires:       texlive-utexasthesis
 Requires:       texlive-uvaletter
+Requires:       texlive-uvlhighlight
 Requires:       texlive-uwa-colours
 Requires:       texlive-uwa-letterhead
 Requires:       texlive-uwa-pcf
@@ -984,6 +1023,8 @@ Version:        svn75970
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-aastex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aastex-doc <= 11:%{version}
 
 %description -n texlive-aastex
 The package provides a document class for preparing papers for American
@@ -1007,7 +1048,6 @@ Requires:       tex(newfloat.sty)
 Requires:       tex(scrlayer-scrpage.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(tocbasic.sty)
-Provides:       tex(abnt.sty) = %{tl_version}
 
 %description -n texlive-abnt
 The ABNT package provides a clean and practical implementation of the ABNT
@@ -1020,6 +1060,8 @@ Version:        svn49248
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-abntex2-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-abntex2-doc <= 11:%{version}
 Requires:       tex(breakurl.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(ifpdf.sty)
@@ -1028,8 +1070,6 @@ Requires:       tex(ifxetex.sty)
 Requires:       tex(relsize.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(url.sty)
-Provides:       tex(abntex2abrev.sty) = %{tl_version}
-Provides:       tex(abntex2cite.sty) = %{tl_version}
 
 %description -n texlive-abntex2
 The bundle provides support for typesetting technical and scientific Brazilian
@@ -1039,7 +1079,7 @@ replaces the old abntex.
 
 %package -n texlive-abntexto
 Summary:        LaTeX class for formatting academic papers in ABNT standards
-Version:        svn76889
+Version:        svn78280
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1067,15 +1107,13 @@ Version:        svn76177
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-acmart-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-acmart-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(numeric.cbx)
 Requires:       tex(trad-plain.bbx)
 Requires:       tex(xpatch.sty)
-Provides:       tex(acmauthoryear.bbx) = %{tl_version}
-Provides:       tex(acmauthoryear.cbx) = %{tl_version}
-Provides:       tex(acmnumeric.bbx) = %{tl_version}
-Provides:       tex(acmnumeric.cbx) = %{tl_version}
 
 %description -n texlive-acmart
 This package provides a class for typesetting publications of the Association
@@ -1087,6 +1125,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-acmconf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-acmconf-doc <= 11:%{version}
 
 %description -n texlive-acmconf
 This class may be used to typeset articles to be published in the proceedings
@@ -1099,6 +1139,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-active-conf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-active-conf-doc <= 11:%{version}
 
 %description -n texlive-active-conf
 Active-conf is a class for typesetting papers for the Active conference on
@@ -1113,6 +1155,8 @@ Version:        svn26048
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-adfathesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-adfathesis-doc <= 11:%{version}
 
 %description -n texlive-adfathesis
 The bundle includes a BibTeX style file.
@@ -1134,13 +1178,6 @@ Requires:       tex(substr.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(tikzducks.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(aes.sty) = %{tl_version}
-Provides:       tex(aeskwadraat.sty) = %{tl_version}
-Provides:       tex(aeskwadraatfactuur.sty) = %{tl_version}
-Provides:       tex(aeskwadraatnotulen.sty) = %{tl_version}
-Provides:       tex(aeskwadraattaal.sty) = %{tl_version}
-Provides:       tex(beamerthemeaes2.sty) = %{tl_version}
-Provides:       tex(beamerthemeaeskwadraat.sty) = %{tl_version}
 
 %description -n texlive-aeskwadraat
 This is the official package catalogue of the A-Eskwadraat association.
@@ -1156,10 +1193,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(afthes10.sty) = %{tl_version}
-Provides:       tex(afthes11.sty) = %{tl_version}
-Provides:       tex(afthes12.sty) = %{tl_version}
-Provides:       tex(afthesis.sty) = %{tl_version}
+Provides:       texlive-afthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-afthesis-doc <= 11:%{version}
 
 %description -n texlive-afthesis
 LaTeX thesis/dissertation class for US Air Force Institute Of Technology.
@@ -1170,8 +1205,8 @@ Version:        svn17156
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(aguplus.sty) = %{tl_version}
-Provides:       tex(agupp.sty) = %{tl_version}
+Provides:       texlive-aguplus-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aguplus-doc <= 11:%{version}
 
 %description -n texlive-aguplus
 This bundle started as an extension to the AGU's own published styles,
@@ -1185,6 +1220,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-aiaa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-aiaa-doc <= 11:%{version}
 
 %description -n texlive-aiaa
 A bundle of LaTeX/BibTeX files and sample documents to aid those producing
@@ -1208,7 +1245,6 @@ Version:        svn55121
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(anonymous-acm.sty) = %{tl_version}
 
 %description -n texlive-anonymous-acm
 Academics often need to submit anonymous versions of their papers for
@@ -1238,6 +1274,8 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-apa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-apa-doc <= 11:%{version}
 
 %description -n texlive-apa
 A LaTeX class to format text according to the American Psychological
@@ -1255,6 +1293,8 @@ Version:        svn67848
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-apa6-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-apa6-doc <= 11:%{version}
 
 %description -n texlive-apa6
 The class formats documents in APA style (6th Edition). It provides a full set
@@ -1270,6 +1310,8 @@ Version:        svn23350
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-apa6e-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-apa6e-doc <= 11:%{version}
 
 %description -n texlive-apa6e
 This is a minimalist class file for formatting manuscripts in the style
@@ -1296,11 +1338,12 @@ Version:        svn45656
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-arsclassica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-arsclassica-doc <= 11:%{version}
 Requires:       tex(caption.sty)
 Requires:       tex(classicthesis.sty)
 Requires:       tex(soul.sty)
 Requires:       tex(titlesec.sty)
-Provides:       tex(arsclassica.sty) = %{tl_version}
 
 %description -n texlive-arsclassica
 The package changes some typographical points of the ClassicThesis style, by
@@ -1313,6 +1356,8 @@ Version:        svn38741
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-articleingud-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-articleingud-doc <= 11:%{version}
 
 %description -n texlive-articleingud
 The class is for articles published in INGENIERIA review. It is derived from
@@ -1324,8 +1369,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(asaesub.sty) = %{tl_version}
-Provides:       tex(asaetr.sty) = %{tl_version}
+Provides:       texlive-asaetr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-asaetr-doc <= 11:%{version}
 
 %description -n texlive-asaetr
 A class and BibTeX style for submissions to the Transactions of the American
@@ -1338,11 +1383,11 @@ Version:        svn75662
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ascelike-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ascelike-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(standard.bbx)
-Provides:       tex(ascelike.bbx) = %{tl_version}
-Provides:       tex(ascelike.cbx) = %{tl_version}
 
 %description -n texlive-ascelike
 A document class and bibliographic style that prepares documents in the style
@@ -1353,7 +1398,7 @@ of how to use the class.
 
 %package -n texlive-asmeconf
 Summary:        A LaTeX template for ASME conference papers
-Version:        svn77677
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1375,7 +1420,7 @@ guidelines for conference papers.
 
 %package -n texlive-asmejour
 Summary:        A template for ASME journal papers
-Version:        svn77677
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1409,6 +1454,8 @@ Version:        svn75154
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bangorcsthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bangorcsthesis-doc <= 11:%{version}
 
 %description -n texlive-bangorcsthesis
 The class typesets thesis/dissertation documents for all levels (i.e., both
@@ -1445,10 +1492,8 @@ Version:        svn63161
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(beamercolorthemeBerlinFU.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeBerlinFU.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeBerlinFU.sty) = %{tl_version}
-Provides:       tex(beamerthemeBerlinFU.sty) = %{tl_version}
+Provides:       texlive-beamer-fuberlin-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-beamer-fuberlin-doc <= 11:%{version}
 
 %description -n texlive-beamer-fuberlin
 The bundle provides a beamer-derived class and a theme style file for the
@@ -1464,9 +1509,10 @@ Version:        svn39180
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-beamer-verona-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-beamer-verona-doc <= 11:%{version}
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(beamerthemeVerona.sty) = %{tl_version}
 
 %description -n texlive-beamer-verona
 This package provides the 'Verona' theme for the beamer class by Till Tantau.
@@ -1487,7 +1533,7 @@ Beilstein Journal of Nanotechnology.
 
 %package -n texlive-bfh-ci
 Summary:        Corporate Design for Bern University of Applied Sciences
-Version:        svn76924
+Version:        svn78248
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1510,7 +1556,7 @@ Requires:       texlive-listings
 Requires:       texlive-nunito
 Requires:       texlive-pgf
 Requires:       texlive-qrcode
-Requires:       texlive-sourceserifpro
+Requires:       texlive-sourceserif
 Requires:       texlive-tcolorbox
 Requires:       texlive-tools
 Requires:       texlive-translations
@@ -1535,17 +1581,6 @@ Requires:       tex(trimclip.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(zref.sty)
-Provides:       tex(beamercolorthemeBFH.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeBFH.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeBFH.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeBFH-sidebar.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeBFH.sty) = %{tl_version}
-Provides:       tex(beamerthemeBFH.sty) = %{tl_version}
-Provides:       tex(bfhcolors.sty) = %{tl_version}
-Provides:       tex(bfhfonts.sty) = %{tl_version}
-Provides:       tex(bfhlayout.sty) = %{tl_version}
-Provides:       tex(bfhletter.sty) = %{tl_version}
-Provides:       tex(bfhmodule.sty) = %{tl_version}
 
 %description -n texlive-bfh-ci
 This bundle provides possibilities to use the Corporate Design of Bern
@@ -1559,15 +1594,14 @@ Version:        svn54080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-bgteubner-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-bgteubner-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(mathcomp.sty)
 Requires:       tex(textcomp.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(hhfixme.sty) = %{tl_version}
-Provides:       tex(hhsubfigure.sty) = %{tl_version}
-Provides:       tex(ptmxcomp.sty) = %{tl_version}
 
 %description -n texlive-bgteubner
 The bgteubner document class has been programmed by order of the Teubner
@@ -1579,6 +1613,20 @@ to use the document class for another purpose than publishing with the Teubner
 Verlag, this may arouse unwanted restrictions (for instance, the document class
 provides only two paper sizes: DIN A5 and 17cm x 24cm; only two font families
 are supported: Times and European Computer Modern).
+
+%package -n texlive-bibleref-sbl
+Summary:        SBL style for the bibleref and bibleref-parse packages
+Version:        svn78602
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(bibleref.sty)
+
+%description -n texlive-bibleref-sbl
+This package extends the bibleref and bibleref-parse packages to support Bible
+book names as specified by the Society of Biblical Literature. This includes
+adjustment of abbreviations, addition of extra Deuterocanonical books, an
+interface for acceptable options and correct index sorting.
 
 %package -n texlive-bjfuthesis
 Summary:        A thesis class for Beijing Forestry University
@@ -1614,14 +1662,6 @@ Requires:       tex(tikzscale.sty)
 Requires:       tex(totcount.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(wrapfig.sty)
-Provides:       tex(bmstu-appendix.sty) = %{tl_version}
-Provides:       tex(bmstu-biblio.sty) = %{tl_version}
-Provides:       tex(bmstu-defabbr.sty) = %{tl_version}
-Provides:       tex(bmstu-essay.sty) = %{tl_version}
-Provides:       tex(bmstu-figure.sty) = %{tl_version}
-Provides:       tex(bmstu-listing.sty) = %{tl_version}
-Provides:       tex(bmstu-title.sty) = %{tl_version}
-Provides:       tex(bmstu-toc.sty) = %{tl_version}
 
 %description -n texlive-bmstu
 The class defines commands and environments for creating reports and
@@ -1712,28 +1752,6 @@ Requires:       tex(xassoccnt.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xltabular.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(IU8-01-base.sty) = %{tl_version}
-Provides:       tex(IU8-02-construction.sty) = %{tl_version}
-Provides:       tex(IU8-03-numbering.sty) = %{tl_version}
-Provides:       tex(IU8-04-section-numbering.sty) = %{tl_version}
-Provides:       tex(IU8-05-figures.sty) = %{tl_version}
-Provides:       tex(IU8-06-tables.sty) = %{tl_version}
-Provides:       tex(IU8-07-footnotes.sty) = %{tl_version}
-Provides:       tex(IU8-08-formulas.sty) = %{tl_version}
-Provides:       tex(IU8-09-cites.sty) = %{tl_version}
-Provides:       tex(IU8-10-titlepage.sty) = %{tl_version}
-Provides:       tex(IU8-11-performers.sty) = %{tl_version}
-Provides:       tex(IU8-12-abstract.sty) = %{tl_version}
-Provides:       tex(IU8-13-contents.sty) = %{tl_version}
-Provides:       tex(IU8-14-terms-and-definitions.sty) = %{tl_version}
-Provides:       tex(IU8-15-list-of-abbreviations.sty) = %{tl_version}
-Provides:       tex(IU8-16-references.sty) = %{tl_version}
-Provides:       tex(IU8-17-appendices.sty) = %{tl_version}
-Provides:       tex(IU8-18-extra.sty) = %{tl_version}
-Provides:       tex(IU8-19-counters.sty) = %{tl_version}
-Provides:       tex(IU8-20-listing.sty) = %{tl_version}
-Provides:       tex(IU8-21-math.sty) = %{tl_version}
-Provides:       tex(IU8-22-algorithms.sty) = %{tl_version}
 
 %description -n texlive-bmstu-iu8
 This package consists of a class file and style files for writing reports at
@@ -1748,6 +1766,8 @@ Version:        svn44939
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-br-lex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-br-lex-doc <= 11:%{version}
 
 %description -n texlive-br-lex
 This class implements rules to typeset Brazilian legal texts. Its purpose is to
@@ -1759,6 +1779,8 @@ Version:        svn67935
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-brandeis-dissertation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-brandeis-dissertation-doc <= 11:%{version}
 
 %description -n texlive-brandeis-dissertation
 The class will enable the user to typeset a dissertation which adheres to the
@@ -1782,7 +1804,6 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(brandeis-problemset.sty) = %{tl_version}
 
 %description -n texlive-brandeis-problemset
 Brandeis University's computer science ("COSI") courses often assign "problem
@@ -1819,6 +1840,8 @@ Version:        svn25144
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cascadilla-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cascadilla-doc <= 11:%{version}
 
 %description -n texlive-cascadilla
 The class provides an extension of the standard LaTeX article class that may be
@@ -1837,7 +1860,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(titlesec.sty)
-Provides:       tex(cesenaexam.sty) = %{tl_version}
 
 %description -n texlive-cesenaexam
 This LaTeX document class has been designed to typeset exams.
@@ -1860,7 +1882,6 @@ Version:        svn57312
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(chifoot.sty) = %{tl_version}
 
 %description -n texlive-chifoot
 A very short snippet. Will set the footnotes to be conformant with the Chicago
@@ -1883,7 +1904,6 @@ Requires:       tex(letltxmacro.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(transparent.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(chs-physics-report.sty) = %{tl_version}
 
 %description -n texlive-chs-physics-report
 This package may optionally be used by students at Carmel High School in
@@ -1915,8 +1935,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(amsbsy.sty)
 Requires:       tex(natbib.sty)
-Provides:       tex(cjenatbib.sty) = %{tl_version}
-Provides:       tex(cjeupmath.sty) = %{tl_version}
 
 %description -n texlive-cje
 The cje article class allows authors to format their papers to Canadian Journal
@@ -1927,7 +1945,7 @@ approval).
 
 %package -n texlive-cjs-rcs-article
 Summary:        Article class for The Canadian Journal of Statistics
-Version:        svn76790
+Version:        svn78289
 License:        LPPL-1.3c AND CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1944,6 +1962,8 @@ Version:        svn73676
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-classicthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-classicthesis-doc <= 11:%{version}
 Requires:       tex(beramono.sty)
 Requires:       tex(booktabs.sty)
 Requires:       tex(caption.sty)
@@ -1969,10 +1989,6 @@ Requires:       tex(tocloft.sty)
 Requires:       tex(typearea.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(classicthesis-arsclassica.sty) = %{tl_version}
-Provides:       tex(classicthesis-linedheaders.sty) = %{tl_version}
-Provides:       tex(classicthesis-plain.sty) = %{tl_version}
-Provides:       tex(classicthesis.sty) = %{tl_version}
 
 %description -n texlive-classicthesis
 This package provides an elegant layout designed in homage to Bringhurst's "The
@@ -1986,6 +2002,8 @@ Version:        svn51472
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cleanthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cleanthesis-doc <= 11:%{version}
 Requires:       tex(biblatex.sty)
 Requires:       tex(blindtext.sty)
 Requires:       tex(caption.sty)
@@ -2006,7 +2024,6 @@ Requires:       tex(tgheros.sty)
 Requires:       tex(tocloft.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
-Provides:       tex(cleanthesis.sty) = %{tl_version}
 
 %description -n texlive-cleanthesis
 The package offers a clean, simple, and elegant LaTeX style for thesis
@@ -2018,6 +2035,8 @@ Version:        svn58506
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cmpj-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cmpj-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amssymb.sty)
 Requires:       tex(doi.sty)
@@ -2040,9 +2059,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(txfonts.sty)
 Requires:       tex(url.sty)
-Provides:       tex(cmpj.sty) = %{tl_version}
-Provides:       tex(cmpj2.sty) = %{tl_version}
-Provides:       tex(cmpj3.sty) = %{tl_version}
 
 %description -n texlive-cmpj
 The package contains macros and some documentation for typesetting papers for
@@ -2055,7 +2071,8 @@ Version:        svn29349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(newapave.sty) = %{tl_version}
+Provides:       texlive-confproc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-confproc-doc <= 11:%{version}
 
 %description -n texlive-confproc
 The confproc collection comprises a class, a BibTeX style, and some scripts for
@@ -2075,7 +2092,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(scrkbase.sty)
 Requires:       tex(tocbasic.sty)
-Provides:       tex(contract.sty) = %{tl_version}
 
 %description -n texlive-contract
 This package enables the typesetting of formalized legal documents such as
@@ -2088,7 +2104,7 @@ texts according to Anglo-American specifications, for example.
 
 %package -n texlive-cqjtuthesis
 Summary:        Thesis template for Chongqing Jiaotong University (CQJTU)
-Version:        svn77587
+Version:        svn77769
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2105,8 +2121,9 @@ Version:        svn55643
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-cquthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-cquthesis-doc <= 11:%{version}
 Requires:       tex(dirtree.sty)
-Provides:       tex(cquthesis.sty) = %{tl_version}
 
 %description -n texlive-cquthesis
 CQUThesis stands for Chongqing University Thesis Template for LaTeX, bearing
@@ -2119,6 +2136,8 @@ Version:        svn75491
 License:        LPPL-1.3c AND CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dccpaper-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dccpaper-doc <= 11:%{version}
 Requires:       tex(GoSans.sty)
 Requires:       tex(array.sty)
 Requires:       tex(atbegshi.sty)
@@ -2145,7 +2164,6 @@ Requires:       tex(tgheros.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(dccpaper-base.sty) = %{tl_version}
 
 %description -n texlive-dccpaper
 The LaTeX class ijdc-v14 produces camera-ready papers and articles suitable for
@@ -2157,12 +2175,38 @@ the 2015 conference. As of August 2023 these classes are no longer officially
 supported for new submissions to the IJDC and IDCC, but nevertheless they
 continue to be maintained to support existing documents.
 
+%package -n texlive-delvierre
+Summary:        LaTeX journal article class and example template for Delvierre
+Version:        svn78550
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-delvierre
+delvierre is a LaTeX journal article class and template bundle for preparing
+manuscripts for Delvierre publications. The package provides the delvierre>
+document class, a sample manuscript source, package documentation, and an
+example graphical abstract asset. It is intended for pdfLaTeX-based journal
+article preparation.
+
+%package -n texlive-deutschesmuseum
+Summary:        A LaTeX class for contributions to Deutsches Museum publications
+Version:        svn77878
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-deutschesmuseum
+This is a LaTeX class for contributions to Deutsches Museum publications.
+
 %package -n texlive-dithesis
 Summary:        A class for undergraduate theses at the University of Athens
 Version:        svn34295
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-dithesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-dithesis-doc <= 11:%{version}
 
 %description -n texlive-dithesis
 The class conforms to the requirements of the Department of Informatics and
@@ -2192,43 +2236,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(beamercolorthemeDLRG.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeDLRG.sty) = %{tl_version}
-Provides:       tex(beamerthemeDLRG.sty) = %{tl_version}
-Provides:       tex(dlrg.mod.Adler.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Adler.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Bauchbinde.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Bauchbinde.optionen.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Bauchbinde.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Farben.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Hausarbeit.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Hausarbeit.optionen.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Hausarbeit.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Paketbeschreibung.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Paketbeschreibung.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Personenicon.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Rettungssport.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Rettungssport.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Schrift.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Schrift.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Stoerer.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Stoerer.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Tabellen.code.tex) = %{tl_version}
-Provides:       tex(dlrg.mod.Tabellen.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.sty) = %{tl_version}
-Provides:       tex(dlrg.typ.beamer.code.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.beamer.optionen.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.beamer.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.doc.code.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.doc.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.letter.code.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.letter.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.message.code.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.message.optionen.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.message.pakete.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.pub.code.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.pub.optionen.tex) = %{tl_version}
-Provides:       tex(dlrg.typ.pub.pakete.tex) = %{tl_version}
 
 %description -n texlive-dlrg-templates
 This bundle provides templates for members of the German Lifesaving Association
@@ -2243,11 +2250,12 @@ Version:        svn29466
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ebook-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ebook-doc <= 11:%{version}
 Requires:       tex(geometry.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(moreverb.sty)
-Provides:       tex(ebook.sty) = %{tl_version}
 
 %description -n texlive-ebook
 The package defines a command \ebook that defines page layout, fonts, and
@@ -2260,6 +2268,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ebsthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ebsthesis-doc <= 11:%{version}
 
 %description -n texlive-ebsthesis
 The ebsthesis class and ebstools package facilitate the production of
@@ -2301,7 +2311,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(microtype.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(edmaths.sty) = %{tl_version}
 
 %description -n texlive-edmaths
 A report and thesis package for The School of Mathematics, Scotland at the
@@ -2320,6 +2329,8 @@ Version:        svn60950
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ejpecp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ejpecp-doc <= 11:%{version}
 
 %description -n texlive-ejpecp
 The class is designed for typesetting articles for the mathematical research
@@ -2334,6 +2345,8 @@ Version:        svn49594
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ekaia-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ekaia-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(basque-date.sty)
 Requires:       tex(ccicons.sty)
@@ -2341,7 +2354,6 @@ Requires:       tex(fancyhdr.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(indentfirst.sty)
 Requires:       tex(sectsty.sty)
-Provides:       tex(ekaia.sty) = %{tl_version}
 
 %description -n texlive-ekaia
 The package provides the article format for publishing the Basque Country
@@ -2353,6 +2365,8 @@ Version:        svn21758
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-elbioimp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-elbioimp-doc <= 11:%{version}
 
 %description -n texlive-elbioimp
 A document class for writing articles to the Journal of Electrical
@@ -2366,7 +2380,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(moreverb.sty)
 Requires:       tex(wrapfig.sty)
-Provides:       tex(cas-common.sty) = %{tl_version}
 
 %description -n texlive-els-cas-templates
 This bundle provides two class and corresponding template files for typesetting
@@ -2381,6 +2394,8 @@ Version:        svn77318
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-elsarticle-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-elsarticle-doc <= 11:%{version}
 
 %description -n texlive-elsarticle
 This class for typesetting journal articles is accepted for submitted articles
@@ -2416,6 +2431,8 @@ Version:        svn71087
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-elteikthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-elteikthesis-doc <= 11:%{version}
 
 %description -n texlive-elteikthesis
 This package provides a Bachelor and Master thesis template for the Eotvos
@@ -2428,10 +2445,10 @@ Version:        svn71883
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-emisa-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-emisa-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.cbx)
 Requires:       tex(authoryear.bbx)
-Provides:       tex(emisa.bbx) = %{tl_version}
-Provides:       tex(emisa.cbx) = %{tl_version}
 
 %description -n texlive-emisa
 The EMISA LaTeX package is provided for preparing manuscripts for submission to
@@ -2446,6 +2463,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-erdc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-erdc-doc <= 11:%{version}
 
 %description -n texlive-erdc
 A class for typesetting Technical Information Reports of the Engineer Research
@@ -2459,6 +2478,8 @@ Version:        svn17335
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-estcpmm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-estcpmm-doc <= 11:%{version}
 
 %description -n texlive-estcpmm
 Provides a class which supports typesetting Cost and Performance Reports and
@@ -2475,7 +2496,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(epsfig.sty)
 Requires:       tex(graphicx.sty)
-Provides:       tex(etsvthor.sty) = %{tl_version}
 
 %description -n texlive-etsvthor
 "e.t.s.v. Thor" stands for "Elektrotechnische Studievereniging Thor", a study
@@ -2493,7 +2513,6 @@ Version:        svn67573
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(facture-belge-simple-sans-tva.sty) = %{tl_version}
 
 %description -n texlive-facture-belge-simple-sans-tva
 This package can be used to generate invoices for Belgian individuals who do
@@ -2511,6 +2530,8 @@ Version:        svn21340
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fbithesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fbithesis-doc <= 11:%{version}
 
 %description -n texlive-fbithesis
 At the department of computer science at the University of Dortmund there are
@@ -2525,6 +2546,8 @@ Version:        svn38074
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fcavtex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fcavtex-doc <= 11:%{version}
 
 %description -n texlive-fcavtex
 This package provides a class and a bibliography style for the FCAV-UNESP
@@ -2537,11 +2560,12 @@ Version:        svn24500
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fcltxdoc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fcltxdoc-doc <= 11:%{version}
 Requires:       tex(amsfonts.sty)
 Requires:       tex(amsmath.sty)
 Requires:       tex(amsopn.sty)
 Requires:       tex(amssymb.sty)
-Provides:       tex(fcltxdoc.sty) = %{tl_version}
 
 %description -n texlive-fcltxdoc
 The package is not advertised for public use, but is necessary for the support
@@ -2553,6 +2577,8 @@ Version:        svn65352
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-fei-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-fei-doc <= 11:%{version}
 
 %description -n texlive-fei
 fei is a class created by graduate students and LaTeX enthusiasts that allows
@@ -2569,14 +2595,13 @@ works, such as ABNT NBR 10520:2002 (Citations) and ABNT NBR 6023:2002
 
 %package -n texlive-fhj-script
 Summary:        Classes and packages for formatting documents for FH JOANNEUM
-Version:        svn77111
+Version:        svn78168
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(fhjcommon.sty) = %{tl_version}
 
 %description -n texlive-fhj-script
 This is a collection of classes and packages for the university of applied
@@ -2625,7 +2650,6 @@ Requires:       tex(tocloft.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(ftc-notebook.sty) = %{tl_version}
 
 %description -n texlive-ftc-notebook
 This LaTeX package will greatly simplify filling entries for your FIRST Tech
@@ -2642,6 +2666,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gaceta-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gaceta-doc <= 11:%{version}
 
 %description -n texlive-gaceta
 The class will typeset papers for <<La Gaceta de la Real Sociedad Matematica
@@ -2684,10 +2710,6 @@ Requires:       tex(expkv-opt.sty)
 Requires:       tex(float.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(hyperxmp.sty)
-Provides:       tex(gfdl-tex-1p1.tex) = %{tl_version}
-Provides:       tex(gfdl-tex-1p2.tex) = %{tl_version}
-Provides:       tex(gfdl-tex-1p3.tex) = %{tl_version}
-Provides:       tex(gfdl.sty) = %{tl_version}
 
 %description -n texlive-gfdl
 The GFDL (GNU Free Documentation License) is a popular license used for
@@ -2703,6 +2725,8 @@ Version:        svn38832
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gradstudentresume-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gradstudentresume-doc <= 11:%{version}
 
 %description -n texlive-gradstudentresume
 The package offers a template for graduate students writing an academic CV. The
@@ -2729,6 +2753,8 @@ Version:        svn56291
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gsemthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gsemthesis-doc <= 11:%{version}
 
 %description -n texlive-gsemthesis
 The class provides a PhD thesis template for the Geneva School of Economics and
@@ -2743,6 +2769,8 @@ Version:        svn74605
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-gzt-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-gzt-doc <= 11:%{version}
 
 %description -n texlive-gzt
 This bundle provides two classes and BibLaTeX styles for the French journal "La
@@ -2760,6 +2788,8 @@ Version:        svn38428
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-h2020proposal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-h2020proposal-doc <= 11:%{version}
 
 %description -n texlive-h2020proposal
 This package consists of a class file as well as FET and ICT proposal templates
@@ -2821,18 +2851,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(hgb.sty) = %{tl_version}
-Provides:       tex(hgbabbrev.sty) = %{tl_version}
-Provides:       tex(hgbalgo.sty) = %{tl_version}
-Provides:       tex(hgbbib.sty) = %{tl_version}
-Provides:       tex(hgbdict.sty) = %{tl_version}
-Provides:       tex(hgbheadings.sty) = %{tl_version}
-Provides:       tex(hgblistings.sty) = %{tl_version}
-Provides:       tex(hgbmath.sty) = %{tl_version}
-Provides:       tex(hgbpdfa.sty) = %{tl_version}
-Provides:       tex(hgbtheme-custom.sty) = %{tl_version}
-Provides:       tex(hgbtheme-default.sty) = %{tl_version}
-Provides:       tex(hgbtheme-fhooe24.sty) = %{tl_version}
 
 %description -n texlive-hagenberg-thesis
 This is a collection of modern LaTeX classes, style files and example documents
@@ -2844,13 +2862,14 @@ are immediately usable and convenient to customize.
 
 %package -n texlive-har2nat
 Summary:        Replace the harvard package with natbib
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-har2nat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-har2nat-doc <= 11:%{version}
 Requires:       tex(natbib.sty)
 Requires:       tex(suffix.sty)
-Provides:       tex(har2nat.sty) = %{tl_version}
 
 %description -n texlive-har2nat
 This small package allows a LaTeX document containing the citation commands
@@ -2867,14 +2886,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
-Provides:       tex(beamerthemehdu.sty) = %{tl_version}
-Provides:       tex(hdu-bc.config.code.tex) = %{tl_version}
-Provides:       tex(hdu-exam.code.tex) = %{tl_version}
-Provides:       tex(hdu-l3doc.code.tex) = %{tl_version}
-Provides:       tex(hdu-layout.code.tex) = %{tl_version}
-Provides:       tex(hdu-pg.config.code.tex) = %{tl_version}
-Provides:       tex(hdu-stationery.code.tex) = %{tl_version}
-Provides:       tex(hdu-typeset.code.tex) = %{tl_version}
 
 %description -n texlive-hduthesis
 This package provides a LaTeX template for graduation theses from Hangzhou
@@ -2883,7 +2894,7 @@ theses.
 
 %package -n texlive-hecthese
 Summary:        A class for dissertations and theses at HEC Montreal
-Version:        svn68584
+Version:        svn78769
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2898,8 +2909,7 @@ except those that take care of the document's layout. Dissertations and theses
 at HEC Montreal can be written on a per-chapter or per-article basis. Documents
 that are written on a per-article basis require a bibliography for each of the
 included articles and a general bibliography for the entire document. The
-hecthese class takes care of these requirements. The class depends on babel,
-color, enumitem, fontawesome, framed, numprint, url, and hyperref.
+hecthese class takes care of these requirements.
 
 %package -n texlive-hep-paper
 Summary:        Publications in High Energy Physics
@@ -2925,9 +2935,6 @@ Requires:       tex(parskip.sty)
 Requires:       tex(pdftexcmds.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(hep-paper.sty) = %{tl_version}
-Provides:       tex(hep-revtex.sty) = %{tl_version}
-Provides:       tex(hep-sissa.sty) = %{tl_version}
 
 %description -n texlive-hep-paper
 This package aims to provide a single style file containing most configurations
@@ -2943,31 +2950,6 @@ Version:        svn76077
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(hi-annexes.tex) = %{tl_version}
-Provides:       tex(hi-capacity.tex) = %{tl_version}
-Provides:       tex(hi-criticalrisks.tex) = %{tl_version}
-Provides:       tex(hi-deliverables-key.tex) = %{tl_version}
-Provides:       tex(hi-deliverables.tex) = %{tl_version}
-Provides:       tex(hi-excellence.tex) = %{tl_version}
-Provides:       tex(hi-impact.tex) = %{tl_version}
-Provides:       tex(hi-inkind.tex) = %{tl_version}
-Provides:       tex(hi-measures.tex) = %{tl_version}
-Provides:       tex(hi-methodology.tex) = %{tl_version}
-Provides:       tex(hi-milestones.tex) = %{tl_version}
-Provides:       tex(hi-objectives.tex) = %{tl_version}
-Provides:       tex(hi-othercosts.tex) = %{tl_version}
-Provides:       tex(hi-participant-numbering.tex) = %{tl_version}
-Provides:       tex(hi-participants.tex) = %{tl_version}
-Provides:       tex(hi-pathways.tex) = %{tl_version}
-Provides:       tex(hi-purchasecosts.tex) = %{tl_version}
-Provides:       tex(hi-quality.tex) = %{tl_version}
-Provides:       tex(hi-staffeffort.tex) = %{tl_version}
-Provides:       tex(hi-subcontractingcosts.tex) = %{tl_version}
-Provides:       tex(hi-summary.tex) = %{tl_version}
-Provides:       tex(hi-tables.tex) = %{tl_version}
-Provides:       tex(hi-workplan.tex) = %{tl_version}
-Provides:       tex(hi-wp-description.tex) = %{tl_version}
-Provides:       tex(hi-wp-objectives.tex) = %{tl_version}
 
 %description -n texlive-heria
 This class facilitates the preparation of Research and Innovation Action (RIA)
@@ -3018,8 +3000,6 @@ Requires:       tex(rotating.sty)
 Requires:       tex(siunitx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(ctex-fontset-siyuan.def) = %{tl_version}
-Provides:       tex(hithesis.sty) = %{tl_version}
 
 %description -n texlive-hithesis
 hithesis is a LaTeX thesis template package for Harbin Institute of Technology
@@ -3038,10 +3018,6 @@ Requires:       tex(multimedia.sty)
 Requires:       tex(natbib.sty)
 Requires:       tex(pgf.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(beamercolorthemehitszbeamer.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemehitszbeamer.sty) = %{tl_version}
-Provides:       tex(beamerouterthemehitszbeamer.sty) = %{tl_version}
-Provides:       tex(beamerthemehitszbeamer.sty) = %{tl_version}
 
 %description -n texlive-hitszbeamer
 This is a beamer theme designed for Harbin Institute of Technology, ShenZhen
@@ -3062,7 +3038,6 @@ Requires:       tex(rotating.sty)
 Requires:       tex(siunitx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(hitszthesis.sty) = %{tl_version}
 
 %description -n texlive-hitszthesis
 This package provides a dissertation template for Harbin Institute of
@@ -3075,14 +3050,11 @@ Version:        svn27036
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-hobete-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-hobete-doc <= 11:%{version}
 Requires:       tex(tikz.sty)
 Requires:       tex(xfrac.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(beamercolorthemehohenheim.sty) = %{tl_version}
-Provides:       tex(beamerouterthemehohenheim.sty) = %{tl_version}
-Provides:       tex(beamerouterthemehohenheimposter.sty) = %{tl_version}
-Provides:       tex(beamerthemehohenheim.sty) = %{tl_version}
-Provides:       tex(hobete.sty) = %{tl_version}
 
 %description -n texlive-hobete
 The package provides a beamer theme which features the Ci colors of the
@@ -3128,8 +3100,6 @@ Requires:       tex(url.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(hu-berlin-base.sty) = %{tl_version}
-Provides:       tex(hu-berlin-bundle-style.sty) = %{tl_version}
 
 %description -n texlive-hu-berlin-bundle
 This package provides files according to the corporate design of the
@@ -3143,17 +3113,12 @@ bundle.
 
 %package -n texlive-hustthesis
 Summary:        Unofficial thesis template for Huazhong University
-Version:        svn76924
+Version:        svn78285
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(gb7714-2015.bbx)
 Requires:       tex(gb7714-2015.cbx)
-Provides:       tex(hustthesis-d.def) = %{tl_version}
-Provides:       tex(hustthesis-doc.sty) = %{tl_version}
-Provides:       tex(hustthesis-m.def) = %{tl_version}
-Provides:       tex(hustthesis.bbx) = %{tl_version}
-Provides:       tex(hustthesis.cbx) = %{tl_version}
 
 %description -n texlive-hustthesis
 The package provides an Unofficial Thesis Template in LaTeX for Huazhong
@@ -3167,17 +3132,35 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(hustvisual-vi-emblem.def) = %{tl_version}
-Provides:       tex(hustvisual-vi-horizontal-name-zh.def) = %{tl_version}
-Provides:       tex(hustvisual.sty) = %{tl_version}
 
 %description -n texlive-hustvisual
 The package provides a collection of visual identity assets for Huazhong
 University of Science and Technology (HUST), implemented using LaTeX3 and TikZ.
 
+%package -n texlive-iacrj
+Summary:        A document class for IACR journal publications
+Version:        svn77813
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-iacrj
+The iacrj document class is used to produce publications for three IACR
+journals. It is intended as an eventual replacement for iacrcc.cls and
+iacrtrans.cls. It can be used to produce publications for IACR Communications
+in Cryptology, IACR Transactions on Symmetric Cryptology, and IACR Transactions
+on Cryptographic Hardware and Embedded Systems. iacrj.cls is part of a larger
+set of tools for implementing a journal publishing workflow, and it depends on
+the metacapture.sty package. There is also a companion open source
+implementation of a publishing workflow written in Python that is used for this
+journal and provides a simplified workflow for copy editing and production.
+Further information on this workflow can be found in two articles that were
+published by the authors: Lowering the Cost of Diamond Open Access Journals, A
+LaTeX publishing workflow
+
 %package -n texlive-iaria
 Summary:        Write documents for the IARIA publications
-Version:        svn77504
+Version:        svn78137
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3189,7 +3172,7 @@ implements the specifications for the IARIA citation style.
 
 %package -n texlive-iaria-lite
 Summary:        Write documents for the IARIA publications
-Version:        svn77505
+Version:        svn78138
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3206,6 +3189,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-icsv-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-icsv-doc <= 11:%{version}
 
 %description -n texlive-icsv
 This is an ad-hoc class for typesetting articles for the ICSV conference, based
@@ -3228,11 +3213,12 @@ Version:        svn17359
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ieeepes-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ieeepes-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(mathptm.sty)
 Requires:       tex(times.sty)
 Requires:       tex(vmargin.sty)
-Provides:       tex(ieeepes.sty) = %{tl_version}
 
 %description -n texlive-ieeepes
 Supports typesetting of transactions, as well as discussions and closures, for
@@ -3244,7 +3230,6 @@ Version:        svn59672
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(IEEEtrantools.sty) = %{tl_version}
 
 %description -n texlive-ieeetran
 The class and its BibTeX style enable authors to produce officially-correct
@@ -3257,6 +3242,8 @@ Version:        svn30958
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ijmart-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ijmart-doc <= 11:%{version}
 
 %description -n texlive-ijmart
 The Israel Journal of Mathematics is published by The Hebrew University Magnes
@@ -3284,11 +3271,12 @@ Version:        svn17347
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-imac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-imac-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(cite.sty)
 # Ignoring dependency on citesort.sty - not part of TeX Live
 Requires:       tex(ifthen.sty)
-Provides:       tex(imac.sty) = %{tl_version}
 
 %description -n texlive-imac
 A set of files for producing correctly formatted documents for the
@@ -3301,6 +3289,8 @@ Version:        svn17667
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-imtekda-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-imtekda-doc <= 11:%{version}
 
 %description -n texlive-imtekda
 The class permits typesetting of diploma, bachelor's and master's theses for
@@ -3331,8 +3321,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(pgfopts.sty)
 Requires:       tex(totalcount.sty)
 Requires:       tex(xpatch.sty)
-Provides:       tex(iodhbwm-i18n.def) = %{tl_version}
-Provides:       tex(iodhbwm-templates.sty) = %{tl_version}
 
 %description -n texlive-iodhbwm
 This package provides an unofficial template of the DHBW Mannheim for the
@@ -3356,6 +3344,8 @@ Version:        svn63060
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jacow-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jacow-doc <= 11:%{version}
 
 %description -n texlive-jacow
 The jacow class is used for submissions to the proceedings of conferences on
@@ -3369,12 +3359,13 @@ Version:        svn61957
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jmlr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jmlr-doc <= 11:%{version}
 Requires:       tex(aliascnt.sty)
 Requires:       tex(amsmath.sty)
 Requires:       tex(cleveref.sty)
 Requires:       tex(etoolbox.sty)
 Requires:       tex(hyperref.sty)
-Provides:       tex(jmlrutils.sty) = %{tl_version}
 
 %description -n texlive-jmlr
 The jmlr bundle provides a class for authors (jmlr) and a class for production
@@ -3440,12 +3431,38 @@ Yours sincerely, Yours faithfully, Best regards, etc.) Custom greeting (e.g.,
 (Optional) Table of contents, jump to the reply you wish to address Option to
 add custom Signature (i.e. an image of your hand-written signature)
 
+%package -n texlive-jouthesis
+Summary:        Template for Jiangsu Ocean University undergraduate thesis
+Version:        svn78319
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(array.sty)
+Requires:       tex(fontspec.sty)
+Requires:       tex(graphicx.sty)
+Requires:       tex(iftex.sty)
+Requires:       tex(indentfirst.sty)
+Requires:       tex(makecell.sty)
+Requires:       tex(multirow.sty)
+Requires:       tex(setspace.sty)
+Requires:       tex(xeCJK.sty)
+
+%description -n texlive-jouthesis
+This is a standards-first LaTeX template for Jiangsu Ocean University
+undergraduate theses. It provides a thesis class, handbook form templates,
+academic heading rules, reproducible font routing for
+KaiTi_GB2312/SimSun/SimHei/Times New Roman, bundled open-source fallback fonts,
+and end-to-end regression checks for handbook alignment and cross-platform
+builds.
+
 %package -n texlive-jpsj
 Summary:        Document Class for Journal of the Physical Society of Japan
 Version:        svn66115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-jpsj-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-jpsj-doc <= 11:%{version}
 
 %description -n texlive-jpsj
 Document Class for Journal of the Physical Society of Japan
@@ -3460,7 +3477,6 @@ Requires:       tex(enumitem.sty)
 Requires:       tex(hyperref.sty)
 Requires:       tex(ifluatex.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(jsonresume.sty) = %{tl_version}
 
 %description -n texlive-jsonresume
 A minimal LuaLaTeX package for rendering JSON Resume data into clean,
@@ -3485,12 +3501,28 @@ Requires:       texlive-einfart
 This LaTeX document class enables the user to turn simple pure text entries
 into a colorful and nicely formatted journal.
 
+%package -n texlive-jyu-chem-thesis
+Summary:        Template for theses at the Department of Chemistry, University of Jyvaskyla
+Version:        svn77876
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(numeric-comp.cbx)
+Requires:       tex(numeric.bbx)
+
+%description -n texlive-jyu-chem-thesis
+This is a template for producing Bachelor and Master theses according to the
+guidelines by the Department of Chemistry, University of Jyvaskyla. The
+formatting follows the guide "Tieteellisen opinnaytetyon kirjoitusohje".
+
 %package -n texlive-kdgdocs
 Summary:        Document classes for Karel de Grote University College
 Version:        svn24498
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kdgdocs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kdgdocs-doc <= 11:%{version}
 
 %description -n texlive-kdgdocs
 The bundle provides two classes for usage by KdG professors and master
@@ -3543,6 +3575,8 @@ Version:        svn54074
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-kluwer-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-kluwer-doc <= 11:%{version}
 Requires:       tex(amssymb.sty)
 Requires:       tex(doc.sty)
 Requires:       tex(fontenc.sty)
@@ -3550,19 +3584,6 @@ Requires:       tex(mathptm.sty)
 # Ignoring dependency on mathtime.sty - non-free
 Requires:       tex(textcomp.sty)
 Requires:       tex(wasysym.sty)
-Provides:       tex(klucite.sty) = %{tl_version}
-Provides:       tex(kluedit.sty) = %{tl_version}
-Provides:       tex(klufloa.sty) = %{tl_version}
-Provides:       tex(klulist.sty) = %{tl_version}
-Provides:       tex(klumac.sty) = %{tl_version}
-Provides:       tex(klumath.sty) = %{tl_version}
-Provides:       tex(klumono.sty) = %{tl_version}
-Provides:       tex(klunote.sty) = %{tl_version}
-Provides:       tex(kluopen.sty) = %{tl_version}
-Provides:       tex(klups.sty) = %{tl_version}
-Provides:       tex(kluref.sty) = %{tl_version}
-Provides:       tex(klusec.sty) = %{tl_version}
-Provides:       tex(klutab.sty) = %{tl_version}
 
 %description -n texlive-kluwer
 Most likely long obsolete, unfortunately.
@@ -3573,6 +3594,8 @@ Version:        svn39080
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ksp-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ksp-thesis-doc <= 11:%{version}
 
 %description -n texlive-ksp-thesis
 This package provides a LaTeX class intended for authors who want to publish
@@ -3590,7 +3613,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(titling.sty)
 Requires:       tex(wallpaper.sty)
-Provides:       tex(ku-template.sty) = %{tl_version}
 
 %description -n texlive-ku-template
 A comprehensive package for adding University of Copenhagen or faculty logo to
@@ -3603,6 +3625,8 @@ Version:        svn73027
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-langsci-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-langsci-doc <= 11:%{version}
 Requires:       tex(array.sty)
 Requires:       tex(authoryear.bbx)
 Requires:       tex(calc.sty)
@@ -3619,18 +3643,6 @@ Requires:       tex(titletoc.sty)
 Requires:       tex(todonotes.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(langsci-affiliations.sty) = %{tl_version}
-Provides:       tex(langsci-bidi.sty) = %{tl_version}
-Provides:       tex(langsci-gb4e.sty) = %{tl_version}
-Provides:       tex(langsci-lgr.sty) = %{tl_version}
-Provides:       tex(langsci-optional.sty) = %{tl_version}
-Provides:       tex(langsci-plot-templates.sty) = %{tl_version}
-Provides:       tex(langsci-series.def) = %{tl_version}
-Provides:       tex(langsci-subparts.sty) = %{tl_version}
-Provides:       tex(langsci-tbls.sty) = %{tl_version}
-Provides:       tex(langsci-textipa.sty) = %{tl_version}
-Provides:       tex(langsci-unified.bbx) = %{tl_version}
-Provides:       tex(langsci-unified.cbx) = %{tl_version}
 
 %description -n texlive-langsci
 This package allows you to typeset monographs and edited volumes for
@@ -3650,7 +3662,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(langsci-avm.sty) = %{tl_version}
 
 %description -n texlive-langsci-avm
 A package for typesetting feature structures, also known as attribute-value
@@ -3689,7 +3700,7 @@ to change the layout of the text but should leave the title page as it is.
 
 %package -n texlive-llncs
 Summary:        Document class and bibliography style for Lecture Notes in Computer Science (LNCS)
-Version:        svn77677
+Version:        svn77682
 License:        CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3710,7 +3721,6 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(rcsinfo.sty)
 Requires:       tex(svninfo.sty)
-Provides:       tex(llncsconf.sty) = %{tl_version}
 
 %description -n texlive-llncsconf
 The package extends Springer's llncs class for adding additional notes
@@ -3721,7 +3731,7 @@ for Springer's LNCS series).
 
 %package -n texlive-lni
 Summary:        Official class for the "Lecture Notes in Informatics"
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3738,6 +3748,8 @@ Version:        svn21322
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-lps-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-lps-doc <= 11:%{version}
 
 %description -n texlive-lps
 The 'Logic and Philosophy of Science' journal is an online publication of the
@@ -3766,7 +3778,8 @@ Version:        svn29845
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(matc3.sty) = %{tl_version}
+Provides:       texlive-matc3-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-matc3-doc <= 11:%{version}
 
 %description -n texlive-matc3
 The package provides support for the Matematica C3 project to produce free
@@ -3778,6 +3791,8 @@ Version:        svn35773
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-matc3mem-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-matc3mem-doc <= 11:%{version}
 
 %description -n texlive-matc3mem
 The class is a development of memoir, with additions (specifically,
@@ -3791,6 +3806,8 @@ Version:        svn69538
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mcmthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mcmthesis-doc <= 11:%{version}
 
 %description -n texlive-mcmthesis
 The package offers a template for MCM (The Mathematical Contest in Modeling)
@@ -3803,6 +3820,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mentis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mentis-doc <= 11:%{version}
 
 %description -n texlive-mentis
 This LaTeX class loads scrbook and provides changes necessary for publishing at
@@ -3811,7 +3830,7 @@ merely one developed by an author in close co-operation with Mentis.
 
 %package -n texlive-mitthesis
 Summary:        A LaTeX template for an MIT thesis
-Version:        svn77677
+Version:        svn77682
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3864,6 +3883,8 @@ Version:        svn68878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mnras-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mnras-doc <= 11:%{version}
 
 %description -n texlive-mnras
 Package for preparing papers in the journal "Monthly Notices of the Royal
@@ -3894,7 +3915,6 @@ Requires:       tex(mathtools.sty)
 Requires:       tex(multirow.sty)
 Requires:       tex(soul.sty)
 Requires:       tex(ulem.sty)
-Provides:       tex(modeles-factures-belges-associations.sty) = %{tl_version}
 
 %description -n texlive-modeles-factures-belges-assocs
 This package provides templates and a sty file for generating invoices for
@@ -3918,7 +3938,6 @@ Requires:       tex(polyglossia.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(wrapfig.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(modernnewspaper.sty) = %{tl_version}
 
 %description -n texlive-modernnewspaper
 modernnewspaper is a Unicode-first LaTeX package for producing newspaper-style
@@ -3933,6 +3952,8 @@ Version:        svn71883
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-msu-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-msu-thesis-doc <= 11:%{version}
 
 %description -n texlive-msu-thesis
 This is a class file for producing dissertations and theses according to the
@@ -3963,6 +3984,8 @@ Version:        svn75301
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-mugsthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mugsthesis-doc <= 11:%{version}
 
 %description -n texlive-mugsthesis
 The bundle offers a thesis class, based on memoir, that complies with Marquette
@@ -3985,6 +4008,8 @@ Version:        svn24857
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-musuos-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-musuos-doc <= 11:%{version}
 
 %description -n texlive-musuos
 The package provides a LaTeX class for typesetting term papers at the institute
@@ -3997,6 +4022,8 @@ Version:        svn23861
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-muthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-muthesis-doc <= 11:%{version}
 
 %description -n texlive-muthesis
 The bundle provides thesis and project report document classes from the
@@ -4008,7 +4035,8 @@ Version:        svn77520
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(mynsfc.def) = %{tl_version}
+Provides:       texlive-mynsfc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-mynsfc-doc <= 11:%{version}
 
 %description -n texlive-mynsfc
 This package provides a CTeX-based template for writing the main text of
@@ -4022,6 +4050,8 @@ Version:        svn21819
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nature-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nature-doc <= 11:%{version}
 
 %description -n texlive-nature
 Nature does not accept papers in LaTeX, but it does accept PDF. This class and
@@ -4041,7 +4071,6 @@ Requires:       tex(relsize.sty)
 Requires:       tex(rotating.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(navydocs.sty) = %{tl_version}
 
 %description -n texlive-navydocs
 The navydocs package provides an easy means for creating title pages and the
@@ -4058,6 +4087,8 @@ Version:        svn45107
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nddiss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nddiss-doc <= 11:%{version}
 
 %description -n texlive-nddiss
 This class file conforms to the requirements of the Graduate School of the
@@ -4070,6 +4101,8 @@ Version:        svn46639
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ndsu-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ndsu-thesis-doc <= 11:%{version}
 
 %description -n texlive-ndsu-thesis
 A class for generating disquisitions, intended to be in compliance with North
@@ -4100,7 +4133,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(denselists.sty) = %{tl_version}
+Provides:       texlive-nih-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nih-doc <= 11:%{version}
 
 %description -n texlive-nih
 The nih class offers support for grant applications to NIH, the National
@@ -4113,21 +4147,23 @@ the LaTeX licence.)
 
 %package -n texlive-nihbiosketch
 Summary:        A class for NIH biosketches based on the 2015 updated format
-Version:        svn54191
+Version:        svn78482
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nihbiosketch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nihbiosketch-doc <= 11:%{version}
 
 %description -n texlive-nihbiosketch
 This LaTeX document class tries to adhere to the Biographical Sketch formatting
 requirements outlined in NIH Notice [NOT-OD-15-032]
-(grants.nih.gov/grants/guide/notice-files/NOT-OD-15-032.html). This new format
-is required for applications submitted for due dates on or after May 25, 2015.
-The package tries to mimic the example documents provided on the [SF 424 (R&R)
-Forms and Applications page]
-(grants.nih.gov/grants/funding/424/index.htm#format) as closely as possible.
-The author has used this class for his own grant submissions; however he offers
-no guarantee of conformity to NIH requirements.
+(http://grants.nih.gov/grants/guide/notice-files/NOT-OD-15-032. html). This new
+format is required for applications submitted for due dates on or after May 25,
+2015. The package tries to mimic the example documents provided on the [SF 424
+(R&R) Forms and Applications page]
+(http://grants.nih.gov/grants/funding/424/index.htm#format) as closely as
+possible. The author has used this class for his own grant submissions; however
+he offers no guarantee of conformity to NIH requirements.
 
 %package -n texlive-njustthesis
 Summary:        Thesis template for the Nanjing University of Science and Technology
@@ -4146,9 +4182,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(njuthesis-graduate.def) = %{tl_version}
-Provides:       tex(njuthesis-postdoctoral.def) = %{tl_version}
-Provides:       tex(njuthesis-undergraduate.def) = %{tl_version}
 
 %description -n texlive-njuthesis
 The njuthesis class is intended for typesetting Nanjing University
@@ -4162,19 +4195,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(njuvisual-emblem-ai.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-chem.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-cs.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-dii.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-eng.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-nju.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-physics.def) = %{tl_version}
-Provides:       tex(njuvisual-emblem-software.def) = %{tl_version}
-Provides:       tex(njuvisual-motto-nju.def) = %{tl_version}
-Provides:       tex(njuvisual-name-en-nju.def) = %{tl_version}
-Provides:       tex(njuvisual-name-zh-nju.def) = %{tl_version}
-Provides:       tex(njuvisual-spirit-nju.def) = %{tl_version}
-Provides:       tex(njuvisual.sty) = %{tl_version}
 
 %description -n texlive-njuvisual
 The njuvisual package collects standard colors and logos related to Nanjing
@@ -4187,8 +4207,9 @@ Version:        svn67683
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nostarch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nostarch-doc <= 11:%{version}
 Requires:       tex(hyperref.sty)
-Provides:       tex(nshyper.sty) = %{tl_version}
 
 %description -n texlive-nostarch
 The package provides the "official" LaTeX style for No Starch Press. Provided
@@ -4197,7 +4218,7 @@ style serves both for printed and for electronic books.
 
 %package -n texlive-novel
 Summary:        Class for printing fiction, such as novels
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4206,20 +4227,6 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(luacode.sty)
 Requires:       tex(microtype.sty)
 Requires:       tex(wrapfig.sty)
-Provides:       tex(novel-CalculateLayout.sty) = %{tl_version}
-Provides:       tex(novel-ChapterScene.sty) = %{tl_version}
-Provides:       tex(novel-DropCap.sty) = %{tl_version}
-Provides:       tex(novel-FileData.sty) = %{tl_version}
-Provides:       tex(novel-Fonts.sty) = %{tl_version}
-Provides:       tex(novel-Footnotes.sty) = %{tl_version}
-Provides:       tex(novel-HeadFootStyles.sty) = %{tl_version}
-Provides:       tex(novel-Images.sty) = %{tl_version}
-Provides:       tex(novel-LayoutSettings.sty) = %{tl_version}
-Provides:       tex(novel-PostLayout.sty) = %{tl_version}
-Provides:       tex(novel-Sandbox.sty) = %{tl_version}
-Provides:       tex(novel-TextMacros.sty) = %{tl_version}
-Provides:       tex(novel-pdfx.sty) = %{tl_version}
-Provides:       tex(novel-xmppacket.sty) = %{tl_version}
 
 %description -n texlive-novel
 This LuaLaTeX document class is specifically written to meet the needs of
@@ -4235,8 +4242,8 @@ Version:        svn29027
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(nrc1.sty) = %{tl_version}
-Provides:       tex(nrc2.sty) = %{tl_version}
+Provides:       texlive-nrc-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nrc-doc <= 11:%{version}
 
 %description -n texlive-nrc
 Macros, and some documentation, for typesetting papers for submission to
@@ -4273,15 +4280,14 @@ template.
 
 %package -n texlive-nwejm
 Summary:        Support for the journal "North-Western European Journal of Mathematics"
-Version:        svn70597
+Version:        svn77980
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-nwejm-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-nwejm-doc <= 11:%{version}
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
-Provides:       tex(nwejm-logos-collection.tex) = %{tl_version}
-Provides:       tex(nwejm.bbx) = %{tl_version}
-Provides:       tex(nwejm.cbx) = %{tl_version}
 
 %description -n texlive-nwejm
 The bundle includes LaTeX classes and BibLaTeX styles files dedicated to the
@@ -4293,9 +4299,32 @@ to be able to work their document in actual conditions, provide a number of
 tools (commands and environments) to facilitate the drafting of documents, in
 particular those containing mathematical formulas.
 
+%package -n texlive-nxtlatex
+Summary:        Classes and themes for faculty NXT (Reutlingen University)
+Version:        svn78768
+License:        LPPL-1.3c AND OFL-1.1
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(amsmath.sty)
+Requires:       tex(amssymb.sty)
+Requires:       tex(fontspec.sty)
+Requires:       tex(graphicx.sty)
+Requires:       tex(unicode-math.sty)
+Requires:       tex(xcolor.sty)
+
+%description -n texlive-nxtlatex
+This bundle provides LaTeX tools for the faculty NXT Nachhaltigkeit und
+Technologie (Sustainability and Technology) at Reutlingen University, Germany.
+It comprises three components: a thesis class (nxtthesis) based on KOMA-Script
+scrreprt; a letter class option (nxtbrief) for KOMA-Script scrlttr2; and a
+Beamer presentation theme (beamerthemeNXT) in 16:9 format with configurable
+header and footer graphics. An OpenType font (NXT_Logo.otf, OFL 1.1) encodes
+the NXT logo as a typographic glyph. All components can be adapted for use at
+other institutions.
+
 %package -n texlive-nxuthesis
 Summary:        Thesis template for Ningxia University
-Version:        svn74831
+Version:        svn78731
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4311,7 +4340,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(gost-standard.bbx)
-Provides:       tex(omgtudoc-asoiu-gost-numeric.bbx) = %{tl_version}
 
 %description -n texlive-omgtudoc-asoiu
 This package provides a class for documents which are prepared on the
@@ -4321,12 +4349,33 @@ class and requires XeLaTeX or LuaLaTeX for its proper working. Formatting
 complies with the instructions issued on January 29, 2024 and at GOST
 7.32-2017.
 
+%package -n texlive-onlinebrief24
+Summary:        LaTeX class for DIN 5008 type-B business letters for use with onlinebrief24.de
+Version:        svn78738
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-onlinebrief24
+This is a LaTeX letter class based on KOMA-Script scrlttr2. It is calibrated
+against the onlinebrief24.de letter specifications and provides: a plain letter
+layout a modern layout with header, footer, and accent colors a guides mode for
+technical layout inspection validated address-window inputs verified pdfLaTeX,
+XeLaTeX, LuaLaTeX workflows The package currently supports one letter per
+document as the hardened use case. Onlinebrief24.de is a hybrid mail service
+for business customers: documents are submitted digitally, and the service
+handles printing, enveloping, franking, and postal delivery. The trademark
+holders have formally authorized the maintainer to use the Onlinebrief24 mark
+in connection with this LaTeX class.
+
 %package -n texlive-onrannual
 Summary:        Class for Office of Naval Research Ocean Battlespace Sensing annual report
 Version:        svn17474
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-onrannual-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-onrannual-doc <= 11:%{version}
 
 %description -n texlive-onrannual
 This is an unofficial document class for writing ONR annual reports using
@@ -4339,13 +4388,14 @@ Version:        svn27331
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-opteng-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-opteng-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(fancybox.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(overcite.sty)
 Requires:       tex(pstricks.sty)
-Provides:       tex(opteng.sty) = %{tl_version}
 
 %description -n texlive-opteng
 With this template, and associated style and LaTeX packages, it is possible to
@@ -4370,8 +4420,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(kvoptions.sty)
 Requires:       tex(listings.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(hsrstud.sty) = %{tl_version}
-Provides:       tex(oststud.sty) = %{tl_version}
 
 %description -n texlive-oststud
 This package is made by the student organization at the University of Applied
@@ -4404,7 +4452,6 @@ Requires:       tex(upgreek.sty)
 Requires:       tex(verbatim.sty)
 Requires:       tex(wasysym.sty)
 Requires:       tex(xifthen.sty)
-Provides:       tex(ou-tma.sty) = %{tl_version}
 
 %description -n texlive-ou-tma
 The ou-tma package simplifies the creation of TMAs (Tutor Marked Assessments)
@@ -4415,7 +4462,7 @@ facilitating mathematical entry based on the styles used by the Open University
 
 %package -n texlive-oup-authoring-template
 Summary:        A general template for journals published by Oxford University Press (OUP)
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4443,6 +4490,8 @@ Version:        svn56954
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-philosophersimprint-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-philosophersimprint-doc <= 11:%{version}
 
 %description -n texlive-philosophersimprint
 In its mission statement we read "Philosophers' Imprint is a refereed series of
@@ -4458,7 +4507,7 @@ freely distributed fonts, only.
 
 %package -n texlive-phimisci
 Summary:        A document class for the journal "Philosophy and the Mind Sciences"
-Version:        svn76924
+Version:        svn78451
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4473,6 +4522,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pittetd-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pittetd-doc <= 11:%{version}
 
 %description -n texlive-pittetd
 A document class for theses and dissertations. Provides patch files that enable
@@ -4486,9 +4537,8 @@ Version:        svn70491
 License:        LPPL-1.3c AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(pkuthss-gbk.def) = %{tl_version}
-Provides:       tex(pkuthss-utf8.def) = %{tl_version}
-Provides:       tex(pkuthss.def) = %{tl_version}
+Provides:       texlive-pkuthss-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pkuthss-doc <= 11:%{version}
 
 %description -n texlive-pkuthss
 The package provides a simple, clear and flexible LaTeX template for
@@ -4505,7 +4555,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(helvet.sty)
 Requires:       tex(pifont.sty)
 Requires:       tex(tabularx.sty)
-Provides:       tex(powerdot-BerlinFU.sty) = %{tl_version}
 
 %description -n texlive-powerdot-fuberlin
 The bundle provides a powerdot-derived class and a package for use with
@@ -4522,7 +4571,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pifont.sty)
-Provides:       tex(powerdot-tuliplab.sty) = %{tl_version}
 
 %description -n texlive-powerdot-tuliplab
 powerdot-tuliplab is the LaTeX package used in TULIP Lab for presentation
@@ -4535,6 +4583,8 @@ Version:        svn61719
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-pracjourn-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-pracjourn-doc <= 11:%{version}
 
 %description -n texlive-pracjourn
 The pracjourn class is used for typesetting articles in the PracTeX Journal. It
@@ -4547,7 +4597,8 @@ Version:        svn70888
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(procIAGssymp.sty) = %{tl_version}
+Provides:       texlive-prociagssymp-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-prociagssymp-doc <= 11:%{version}
 
 %description -n texlive-prociagssymp
 This package provides (re-)definitions of some LaTeX commands that can be
@@ -4561,12 +4612,11 @@ Version:        svn40538
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-proposal-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-proposal-doc <= 11:%{version}
 Requires:       tex(eurosym.sty)
 # Ignoring dependency on workaddress.sty - not part of TeX Live
 Requires:       tex(xspace.sty)
-Provides:       tex(dfgpdata.sty) = %{tl_version}
-Provides:       tex(eupdata.sty) = %{tl_version}
-Provides:       tex(pdata.sty) = %{tl_version}
 
 %description -n texlive-proposal
 The process of preparing a collaborative proposal, to a major funding body,
@@ -4597,8 +4647,9 @@ Version:        svn19440
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ptptex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ptptex-doc <= 11:%{version}
 Requires:       tex(wrapfig.sty)
-Provides:       tex(wrapft.sty) = %{tl_version}
 
 %description -n texlive-ptptex
 The distribution contains the class (which offers an option file for
@@ -4619,9 +4670,6 @@ Requires:       tex(marvosym.sty)
 Requires:       tex(numprint.sty)
 Requires:       tex(qrcode.sty)
 Requires:       tex(scrbase.sty)
-Provides:       tex(epc.qrbill-cfg.tex) = %{tl_version}
-Provides:       tex(qrbill.sty) = %{tl_version}
-Provides:       tex(swiss.qrbill-cfg.tex) = %{tl_version}
 
 %description -n texlive-qrbill
 This LaTeX package provides support for creating QR-bills for the new Swiss
@@ -4670,7 +4718,6 @@ Requires:       tex(todonotes.sty)
 Requires:       tex(ulem.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(rebuttal.sty) = %{tl_version}
 
 %description -n texlive-rebuttal
 This package provides means for writing structured journal and conference paper
@@ -4706,7 +4753,6 @@ Requires:       tex(zref-hyperref.sty)
 Requires:       tex(zref-user.sty)
 Requires:       tex(zref-xr.sty)
 Requires:       tex(zref.sty)
-Provides:       tex(regulatory.sty) = %{tl_version}
 
 %description -n texlive-regulatory
 This package aims to simplify the writing process, especially for Dutch legal
@@ -4720,6 +4766,8 @@ Version:        svn76471
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-resphilosophica-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-resphilosophica-doc <= 11:%{version}
 
 %description -n texlive-resphilosophica
 The bundle provides a class for typesetting articles for the journal Res
@@ -4731,6 +4779,8 @@ Version:        svn54815
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-resumecls-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-resumecls-doc <= 11:%{version}
 
 %description -n texlive-resumecls
 A LaTeX document class to typeset a resume or CV both in English and Chinese
@@ -4762,7 +4812,6 @@ Requires:       tex(upgreek.sty)
 Requires:       tex(wrapfig.sty)
 Requires:       tex(xfrac.sty)
 Requires:       tex(yhmath.sty)
-Provides:       tex(RetoExtra.sty) = %{tl_version}
 
 %description -n texlive-retosmatematicos
 This package provides the class RetoMatematico.cls, which is used to typeset
@@ -4779,13 +4828,10 @@ Version:        svn67271
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-revtex-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-revtex-doc <= 11:%{version}
 Requires:       tex(shortvrb.sty)
 Requires:       tex(verbatim.sty)
-Provides:       tex(ltxdocext.sty) = %{tl_version}
-Provides:       tex(ltxfront.sty) = %{tl_version}
-Provides:       tex(ltxgrid.sty) = %{tl_version}
-Provides:       tex(ltxutil.sty) = %{tl_version}
-Provides:       tex(revsymb4-2.sty) = %{tl_version}
 
 %description -n texlive-revtex
 Includes styles for American Physical Society, American Institute of Physics,
@@ -4798,7 +4844,8 @@ Version:        svn56589
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(revsymb.sty) = %{tl_version}
+Provides:       texlive-revtex4-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-revtex4-doc <= 11:%{version}
 
 %description -n texlive-revtex4
 This is an old version of revtex, and is kept as a courtesy to users having
@@ -4810,7 +4857,6 @@ Version:        svn56590
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(revsymb4-1.sty) = %{tl_version}
 
 %description -n texlive-revtex4-1
 This is an old version of revtex, and is kept as a courtesy to users having
@@ -4839,7 +4885,6 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(iflang.sty)
 Requires:       tex(ifpdf.sty)
 Requires:       tex(keyval.sty)
-Provides:       tex(rutitlepage.sty) = %{tl_version}
 
 %description -n texlive-rutitlepage
 This is an unofficial LaTeX package to generate titlepages for the Radboud
@@ -4849,7 +4894,7 @@ keyval, iflang, and, optionally, babel-dutch.
 
 %package -n texlive-rwth-ci
 Summary:        LaTeX templates using CI of RWTH Aachen University
-Version:        svn77480
+Version:        svn78586
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4864,16 +4909,6 @@ Requires:       tex(scrlayer-scrpage.sty)
 Requires:       tex(scrletter.sty)
 Requires:       tex(trimclip.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(beamercolorthemeRWTH.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeRWTH.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeRWTH.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeRWTH.sty) = %{tl_version}
-Provides:       tex(beamerthemeRWTH.sty) = %{tl_version}
-Provides:       tex(rwth-colors.sty) = %{tl_version}
-Provides:       tex(rwth-fonts.sty) = %{tl_version}
-Provides:       tex(rwth-layout.sty) = %{tl_version}
-Provides:       tex(rwth-letter.sty) = %{tl_version}
-Provides:       tex(rwthcolors.def) = %{tl_version}
 
 %description -n texlive-rwth-ci
 The RWTH-CI-Bundle is the official LaTeX bundle of RWTH Aachen University to
@@ -4896,6 +4931,8 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ryethesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ryethesis-doc <= 11:%{version}
 
 %description -n texlive-ryethesis
 The class offers support for formatting a thesis, dissertation or project
@@ -4908,6 +4945,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sageep-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sageep-doc <= 11:%{version}
 
 %description -n texlive-sageep
 The class provides formatting for papers for the annual meeting of the
@@ -4920,10 +4959,76 @@ Version:        svn63810
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sapthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sapthesis-doc <= 11:%{version}
 
 %description -n texlive-sapthesis
 The class will typeset Ph.D., Master, and Bachelor theses that adhere to the
 publishing guidelines of the Sapienza University of Rome.
+
+%package -n texlive-sblarticle
+Summary:        A LaTeX class for SBL style articles and papers
+Version:        svn78599
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-sblarticle
+This package provides a LaTeX class for producing articles and papers
+conforming to the style required by the Society of Biblical Literature. It
+depends on sblfonts for language support and biblatex-sbl for referencing.
+
+%package -n texlive-sblbook
+Summary:        A LaTeX class for SBL style print ready books
+Version:        svn78598
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-sblbook
+sblbook provides a LaTeX class for producing print ready books conforming to
+the style required by the Society of Biblical Literature. It depends on
+sblfonts for language support, biblatex-sbl for referencing, sblidx for
+indexing and biblatex-sbl for Scripture references.
+
+%package -n texlive-sblfonts
+Summary:        Font and language set up for SBL style documents
+Version:        svn78597
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-sblfonts
+This package provides a LaTeX package for setting up font and language support
+for documents conforming to the requirements of the Society of Biblical
+Literature. Greek and Hebrew languages are supported using the SBL fonts. If
+these fonts are not available then fonts included with TeX Live are used.
+
+%package -n texlive-sblidx
+Summary:        A LaTeX package for SBL style indices
+Version:        svn78596
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-sblidx
+This package provides a LaTeX package for creating indices in line with the
+requirements of the Society of Biblical Literature. Indices for ancient sources
+(via biblatex-sbl), modern authors (via biblatex-sbl) and subjects are
+supported. Number ranges are compressed and indexed items in notes are
+indicated using n. and nn.
+
+%package -n texlive-sblreport
+Summary:        A LaTeX class for SBL style theses
+Version:        svn78595
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+
+%description -n texlive-sblreport
+This package provides a LaTeX class for producing theses conforming to the
+style required by the Society of Biblical Literature. It depends on sblfonts
+for language support and biblatex-sbl for referencing.
 
 %package -n texlive-schule
 Summary:        Support for teachers at German schools
@@ -4931,6 +5036,8 @@ Version:        svn77551
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-schule-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-schule-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amssymb.sty)
 Requires:       tex(babel.sty)
@@ -4972,74 +5079,6 @@ Requires:       tex(xmpincl.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(relaycircuit.sty) = %{tl_version}
-Provides:       tex(schule.fach.EvReligion.code.tex) = %{tl_version}
-Provides:       tex(schule.fach.Geschichte.code.tex) = %{tl_version}
-Provides:       tex(schule.fach.Geschichte.pakete.tex) = %{tl_version}
-Provides:       tex(schule.fach.Informatik.code.tex) = %{tl_version}
-Provides:       tex(schule.fach.Informatik.pakete.tex) = %{tl_version}
-Provides:       tex(schule.fach.Physik.code.tex) = %{tl_version}
-Provides:       tex(schule.fach.Physik.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Aufgaben.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Aufgaben.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Aufgaben.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Aufgabenpool.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Aufgabenpool.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Bewertung.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Bewertung.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Bewertung.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Format.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Format.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Format.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Formulare.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Kuerzel.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Kuerzel.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Lizenzen.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Lizenzen.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Lizenzen.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Metadaten.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Metadaten.optionen.tex) = %{tl_version}
-Provides:       tex(schule.mod.Papiertypen.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Storycard.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Storycard.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Symbole.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Symbole.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.Texte.code.tex) = %{tl_version}
-Provides:       tex(schule.mod.Texte.pakete.tex) = %{tl_version}
-Provides:       tex(schule.mod.genord.code.tex) = %{tl_version}
-Provides:       tex(schule.sty) = %{tl_version}
-Provides:       tex(schule.typ.Beurteilung.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.Beurteilung.optionen.tex) = %{tl_version}
-Provides:       tex(schule.typ.Beurteilung.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.ab.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.ab.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.folie.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.folie.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.kl.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.kl.optionen.tex) = %{tl_version}
-Provides:       tex(schule.typ.kl.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.leit.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.leit.optionen.tex) = %{tl_version}
-Provides:       tex(schule.typ.leit.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.lzk.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.lzk.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.ub.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.ub.pakete.tex) = %{tl_version}
-Provides:       tex(schule.typ.ueb.code.tex) = %{tl_version}
-Provides:       tex(schule.typ.ueb.pakete.tex) = %{tl_version}
-Provides:       tex(schulealt.sty) = %{tl_version}
-Provides:       tex(schulekl.sty) = %{tl_version}
-Provides:       tex(schulinf.sty) = %{tl_version}
-Provides:       tex(schullzk.sty) = %{tl_version}
-Provides:       tex(schulphy.sty) = %{tl_version}
-Provides:       tex(xsim.style.schule-binnen.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-default.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-keinenummer.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-keinepunkte.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-keintitel.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-randpunkte.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-tabelle-kurz.code.tex) = %{tl_version}
-Provides:       tex(xsim.style.schule-tcolorbox.code.tex) = %{tl_version}
 
 %description -n texlive-schule
 The 'schule' bundle was built to provide packages and commands that could be
@@ -5060,7 +5099,6 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(scientific-thesis-cover.sty) = %{tl_version}
 
 %description -n texlive-scientific-thesis-cover
 Institutions require a cover page and an affirmation at the end of a thesis.
@@ -5072,7 +5110,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(scripture.sty) = %{tl_version}
 
 %description -n texlive-scripture
 The scripture package provides a set of macros for typesetting quotations from
@@ -5087,6 +5124,8 @@ Version:        svn74998
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-scrjrnl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-scrjrnl-doc <= 11:%{version}
 
 %description -n texlive-scrjrnl
 A class, based on scrbook, designed for typesetting diaries, journals or
@@ -5098,43 +5137,19 @@ Version:        svn41401
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sduthesis-cover.def) = %{tl_version}
-Provides:       tex(sduthesis-statement.def) = %{tl_version}
+Provides:       texlive-sduthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sduthesis-doc <= 11:%{version}
 
 %description -n texlive-sduthesis
 Thesis Template of Shandong University.
 
 %package -n texlive-se2thesis
 Summary:        A Thesis Class for the Chair of Software Engineering II at the University of Passau, Germany
-Version:        svn76924
+Version:        svn78585
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Requires:       tex(biblatex.sty)
-Requires:       tex(booktabs.sty)
-Requires:       tex(cleveref.sty)
-Requires:       tex(csquotes.sty)
-Requires:       tex(fontenc.sty)
-Requires:       tex(fontspec.sty)
-Requires:       tex(fvextra.sty)
-Requires:       tex(inconsolata-nerd-font.sty)
-Requires:       tex(inconsolata.sty)
-Requires:       tex(libertinus-otf.sty)
-Requires:       tex(libertinus-type1.sty)
-Requires:       tex(listings.sty)
-Requires:       tex(lua-widow-control.sty)
-Requires:       tex(microtype.sty)
-Requires:       tex(minted.sty)
-Requires:       tex(mismath.sty)
-Requires:       tex(selnolig.sty)
-Requires:       tex(sidenotesplus.sty)
-Requires:       tex(siunitx.sty)
-Requires:       tex(software-biblatex.sty)
-Requires:       tex(unicode-math.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(se2colors.sty) = %{tl_version}
-Provides:       tex(se2fonts.sty) = %{tl_version}
-Provides:       tex(se2packages.sty) = %{tl_version}
 
 %description -n texlive-se2thesis
 The se2thesis bundle provides a document class for writing a theses with the
@@ -5165,6 +5180,8 @@ Version:        svn33042
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-seuthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-seuthesis-doc <= 11:%{version}
 
 %description -n texlive-seuthesis
 This template is for theses at Southeastern University, Nanjing, China.
@@ -5175,6 +5192,8 @@ Version:        svn40088
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-seuthesix-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-seuthesix-doc <= 11:%{version}
 
 %description -n texlive-seuthesix
 This project provides a LaTeX document class as well as a bibliography style
@@ -5204,52 +5223,11 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(ifthen.sty)
 Requires:       tex(xstring.sty)
-Provides:       tex(shortmathj.sty) = %{tl_version}
 
 %description -n texlive-shortmathj
 This small dummy package just contains a simple list of full and short journal
 names as written in AMS standard:
 https://mathscinet.ams.org/msnhtml/serials.pdf
-
-%package -n texlive-shtthesis
-Summary:        An unofficial LaTeX thesis template for ShanghaiTech University
-Version:        svn62441
-License:        GPL-3.0-only
-Requires:       texlive-base
-Requires:       texlive-kpathsea
-Requires:       texlive-alphalph
-Requires:       biber
-Requires:       texlive-biblatex
-Requires:       texlive-biblatex-gb7714-2015
-Requires:       texlive-booktabs
-Requires:       texlive-caption
-Requires:       texlive-colortbl
-Requires:       texlive-ctex
-Requires:       texlive-datetime
-Requires:       texlive-enumitem
-Requires:       texlive-fancyhdr
-Requires:       texlive-fmtcount
-Requires:       texlive-lastpage
-Requires:       latexmk
-Requires:       texlive-listings
-Requires:       texlive-lua-alt-getopt
-Requires:       texlive-lualatex-math
-Requires:       texlive-mathtools
-Requires:       texlive-ntheorem
-Requires:       texlive-tex-gyre
-Requires:       texlive-tocvsec2
-Requires:       texlive-transparent
-Requires:       texlive-undolabl
-Requires:       texlive-unicode-math
-Requires:       texlive-xits
-Requires:       texlive-xstring
-
-%description -n texlive-shtthesis
-This package, forked from ucasthesis, is an unofficial LaTeX thesis template
-for ShanghaiTech University and satisfies all format requirements of the
-school. The user just needs to set \documentclass{shtthesis} and to set up
-mandatory information via \shtsetup, then his or her thesis document will be
-typeset properly.
 
 %package -n texlive-smflatex
 Summary:        Classes for Societe mathematique de France publications
@@ -5269,13 +5247,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(url.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(xy.sty)
-Provides:       tex(smfbib.sty) = %{tl_version}
-Provides:       tex(smfbull.sty) = %{tl_version}
-Provides:       tex(smfenum.sty) = %{tl_version}
-Provides:       tex(smfgen.sty) = %{tl_version}
-Provides:       tex(smfhyperref.sty) = %{tl_version}
-Provides:       tex(smfmulti.sty) = %{tl_version}
-Provides:       tex(smfthm.sty) = %{tl_version}
 
 %description -n texlive-smflatex
 The Societe mathematique de France provides a set of classes, packages and
@@ -5293,9 +5264,9 @@ Version:        svn16215
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-soton-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-soton-doc <= 11:%{version}
 Requires:       tex(xcolor.sty)
-Provides:       tex(soton-beamer.sty) = %{tl_version}
-Provides:       tex(soton-palette.sty) = %{tl_version}
 
 %description -n texlive-soton
 The bundle contains two packages: soton-palette which defines colour-ways, and
@@ -5307,6 +5278,8 @@ Version:        svn34374
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sphdthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sphdthesis-doc <= 11:%{version}
 
 %description -n texlive-sphdthesis
 The package provides a LaTeX document class for writing a PhD thesis. The
@@ -5321,6 +5294,8 @@ Version:        svn75447
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-spie-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-spie-doc <= 11:%{version}
 
 %description -n texlive-spie
 A class and a BibTeX style are provided.
@@ -5331,6 +5306,8 @@ Version:        svn59333
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sr-vorl-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sr-vorl-doc <= 11:%{version}
 
 %description -n texlive-sr-vorl
 This package provides a LaTeX class and templates for books to be published at
@@ -5387,8 +5364,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
 Requires:       tex(ziffer.sty)
-Provides:       tex(srdp-mathematik.sty) = %{tl_version}
-Provides:       tex(srdp-tables.sty) = %{tl_version}
 
 %description -n texlive-srdp-mathematik
 This package provides basic commands for the defined formats of the Austrian
@@ -5423,17 +5398,14 @@ Version:        svn68039
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-stellenbosch-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-stellenbosch-doc <= 11:%{version}
 Requires:       tex(array.sty)
 Requires:       tex(calc.sty)
 Requires:       tex(colortbl.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(keyval.sty)
 Requires:       tex(longtable.sty)
-Provides:       tex(usbib.sty) = %{tl_version}
-Provides:       tex(usnomencl.sty) = %{tl_version}
-Provides:       tex(ussummary.sty) = %{tl_version}
-Provides:       tex(usthesis.sty) = %{tl_version}
-Provides:       tex(ustitle.sty) = %{tl_version}
 
 %description -n texlive-stellenbosch
 Note: This bundle should only be used for typesetting legacy documents. For new
@@ -5463,11 +5435,6 @@ Requires:       tex(etoolbox.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(stb-beamer-a.sty) = %{tl_version}
-Provides:       tex(stb-beamer-b.sty) = %{tl_version}
-Provides:       tex(stb-bib.sty) = %{tl_version}
-Provides:       tex(stb-nomencl.sty) = %{tl_version}
-Provides:       tex(stb-titlepage.sty) = %{tl_version}
 
 %description -n texlive-stellenbosch-2
 Typesetting dissertations, theses and reports as well as presentations of
@@ -5480,6 +5447,8 @@ Version:        svn73055
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-suftesi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-suftesi-doc <= 11:%{version}
 
 %description -n texlive-suftesi
 The class can be used to typeset any kind of book (originally designed for use
@@ -5491,6 +5460,8 @@ Version:        svn58752
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-sugconf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-sugconf-doc <= 11:%{version}
 
 %description -n texlive-sugconf
 The class may be used to typeset articles to be published in the proceedings of
@@ -5499,11 +5470,10 @@ is based on that published by SAS Institute (2021).
 
 %package -n texlive-sysuthesis
 Summary:        LaTeX thesis template for Sun Yat-sen University
-Version:        svn77677
+Version:        svn77646
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(sysuvisual.sty) = %{tl_version}
 
 %description -n texlive-sysuthesis
 This class is intended for typesetting Sun Yat-sen University dissertations
@@ -5516,6 +5486,8 @@ Version:        svn51729
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tabriz-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tabriz-thesis-doc <= 11:%{version}
 
 %description -n texlive-tabriz-thesis
 The package offers a document class for typesetting theses and dissertations at
@@ -5527,7 +5499,6 @@ Version:        svn49889
 License:        CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(technionThesisSetup.sty) = %{tl_version}
 
 %description -n texlive-technion-thesis-template
 This is a template for writing a thesis according to the Technion
@@ -5539,7 +5510,6 @@ Version:        svn28553
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(texilikechaps.sty) = %{tl_version}
 
 %description -n texlive-texilikechaps
 The package enables the user to reduce the size of the rather large chapter
@@ -5552,7 +5522,6 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(texilikecover.sty) = %{tl_version}
 
 %description -n texlive-texilikecover
 The package creates document cover pages, like those that TeXinfo produces.
@@ -5563,6 +5532,8 @@ Version:        svn77332
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-thesis-ekf-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-thesis-ekf-doc <= 11:%{version}
 
 %description -n texlive-thesis-ekf
 This bundle provides a LaTeX class for theses and dissertations at Eszterhazy
@@ -5603,12 +5574,11 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-thesis-titlepage-fhac-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-thesis-titlepage-fhac-doc <= 11:%{version}
 Requires:       tex(color.sty)
 Requires:       tex(figbib.sty)
 Requires:       tex(gloss.sty)
-Provides:       tex(fhACtitlepage.sty) = %{tl_version}
-Provides:       tex(figbib_add.sty) = %{tl_version}
-Provides:       tex(gloss_add.sty) = %{tl_version}
 
 %description -n texlive-thesis-titlepage-fhac
 Yet another thesis titlepage style: support of Fachhochschule Aachen (Standort
@@ -5621,7 +5591,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(pgf.sty)
-Provides:       tex(thuaslogos.sty) = %{tl_version}
 
 %description -n texlive-thuaslogos
 This package contains some logos of The Hague University of Applied Sciences
@@ -5660,10 +5629,6 @@ Requires:       tex(stackengine.sty)
 Requires:       tex(tabularx.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(beamercolorthemethubeamer.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemethubeamer.sty) = %{tl_version}
-Provides:       tex(beamerouterthemethubeamer.sty) = %{tl_version}
-Provides:       tex(beamerthemethubeamer.sty) = %{tl_version}
 
 %description -n texlive-thubeamer
 This package provides a beamer theme designed for Tsinghua University.
@@ -5679,7 +5644,6 @@ Requires:       tex(amsthm.sty)
 Requires:       tex(enumitem.sty)
 Requires:       tex(fancyhdr.sty)
 Requires:       tex(kvoptions.sty)
-Provides:       tex(iidef.sty) = %{tl_version}
 
 %description -n texlive-thucoursework
 A LaTeX package for students of Tsinghua University to write coursework more
@@ -5693,17 +5657,12 @@ Version:        svn74775
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-thuthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-thuthesis-doc <= 11:%{version}
 Requires:       tex(gb7714-2015.bbx)
 Requires:       tex(gb7714-2015.cbx)
 Requires:       tex(gb7714-2015ay.bbx)
 Requires:       tex(gb7714-2015ay.cbx)
-Provides:       tex(thuthesis-author-year.bbx) = %{tl_version}
-Provides:       tex(thuthesis-author-year.cbx) = %{tl_version}
-Provides:       tex(thuthesis-bachelor.bbx) = %{tl_version}
-Provides:       tex(thuthesis-bachelor.cbx) = %{tl_version}
-Provides:       tex(thuthesis-inline.cbx) = %{tl_version}
-Provides:       tex(thuthesis-numeric.bbx) = %{tl_version}
-Provides:       tex(thuthesis-numeric.cbx) = %{tl_version}
 
 %description -n texlive-thuthesis
 This package establishes a simple and easy-to-use LaTeX template for Tsinghua
@@ -5732,7 +5691,6 @@ Requires:       tex(tabularray.sty)
 Requires:       tex(tcolorbox.sty)
 Requires:       tex(unicode-math.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(tidyres.sty) = %{tl_version}
 
 %description -n texlive-tidyres
 This LaTeX package aims to provide users with a simple interface to create
@@ -5761,7 +5719,6 @@ Requires:       tex(ifthen.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xwatermark.sty)
-Provides:       tex(timbreicmc.sty) = %{tl_version}
 
 %description -n texlive-timbreicmc
 With this package you can typeset documents with ICMC/USP Sao Carlos
@@ -5802,6 +5759,8 @@ Version:        svn73464
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-toptesi-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-toptesi-doc <= 11:%{version}
 Requires:       tex(amsmath.sty)
 Requires:       tex(amssymb.sty)
 Requires:       tex(amsthm.sty)
@@ -5833,14 +5792,6 @@ Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(topcoman.sty) = %{tl_version}
-Provides:       tex(topfront.sty) = %{tl_version}
-Provides:       tex(toptesi-dottorale.sty) = %{tl_version}
-Provides:       tex(toptesi-magistrale.sty) = %{tl_version}
-Provides:       tex(toptesi-monografia.sty) = %{tl_version}
-Provides:       tex(toptesi-scudo.sty) = %{tl_version}
-Provides:       tex(toptesi-sss.sty) = %{tl_version}
-Provides:       tex(toptesi.sty) = %{tl_version}
 
 %description -n texlive-toptesi
 This bundle contains everything needed for typesetting a bachelor, master, or
@@ -5877,24 +5828,6 @@ Requires:       tex(textcomp.sty)
 Requires:       tex(trimclip.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(beamercolorthemeTUDa.sty) = %{tl_version}
-Provides:       tex(beamercolorthemeTUDa2008.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeTUDa.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeTUDa2008.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeTUDa.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeTUDa2008.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeTUDa2023.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeTUDa.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeTUDa2008.sty) = %{tl_version}
-Provides:       tex(beamerthemeTUDa-mecheng.sty) = %{tl_version}
-Provides:       tex(beamerthemeTUDa.sty) = %{tl_version}
-Provides:       tex(beamerthemeTUDa2008.sty) = %{tl_version}
-Provides:       tex(beamerthemeTUDa2023.sty) = %{tl_version}
-Provides:       tex(tuda-pgfplots.sty) = %{tl_version}
-Provides:       tex(tudacolors.def) = %{tl_version}
-Provides:       tex(tudacolors.sty) = %{tl_version}
-Provides:       tex(tudafonts.sty) = %{tl_version}
-Provides:       tex(tudarules.sty) = %{tl_version}
 
 %description -n texlive-tuda-ci
 The TUDa-CI-Bundle provides a possibility to use the Corporate Design of TU
@@ -5908,6 +5841,8 @@ Version:        svn64085
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tudscr-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tudscr-doc <= 11:%{version}
 Requires:       texlive-cbfonts
 Requires:       texlive-environ
 Requires:       texlive-etoolbox
@@ -5964,16 +5899,6 @@ Requires:       tex(varioref.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xspace.sty)
-Provides:       tex(fix-tudscrfonts.sty) = %{tl_version}
-Provides:       tex(mathswap.sty) = %{tl_version}
-Provides:       tex(tudscr-gitinfo.sty) = %{tl_version}
-Provides:       tex(tudscrbase.sty) = %{tl_version}
-Provides:       tex(tudscrcolor.sty) = %{tl_version}
-Provides:       tex(tudscrcomp.sty) = %{tl_version}
-Provides:       tex(tudscrfonts.sty) = %{tl_version}
-Provides:       tex(tudscrmanual.sty) = %{tl_version}
-Provides:       tex(tudscrsupervisor.sty) = %{tl_version}
-Provides:       tex(twocolfix.sty) = %{tl_version}
 
 %description -n texlive-tudscr
 The TUD-Script bundle provides both classes and packages in order to create
@@ -5997,14 +5922,13 @@ documentation as well as several tutorials.
 
 %package -n texlive-tugboat
 Summary:        LaTeX macros for TUGboat articles
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tugboat-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tugboat-doc <= 11:%{version}
 Requires:       tex(mflogo.sty)
-Provides:       tex(ltugboat.sty) = %{tl_version}
-Provides:       tex(ltugcomn.sty) = %{tl_version}
-Provides:       tex(ltugproc.sty) = %{tl_version}
 
 %description -n texlive-tugboat
 Provides ltugboat.cls for both regular and proceedings issues of the TUGboat
@@ -6016,8 +5940,8 @@ Version:        svn75521
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(tugboat.sty) = %{tl_version}
-Provides:       tex(tugproc.sty) = %{tl_version}
+Provides:       texlive-tugboat-plain-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tugboat-plain-doc <= 11:%{version}
 
 %description -n texlive-tugboat-plain
 The macros defined in this directory (in files tugboat.sty and tugboat.cmn) are
@@ -6029,6 +5953,8 @@ Version:        svn27253
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-tui-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-tui-doc <= 11:%{version}
 
 %description -n texlive-tui
 Doctoral Dissertations from the Faculty of Engineering at the Universidad de
@@ -6042,6 +5968,8 @@ Version:        svn36298
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-turabian-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-turabian-doc <= 11:%{version}
 
 %description -n texlive-turabian
 The bundle provides a class file and a template for creating Turabian-formatted
@@ -6054,8 +5982,8 @@ Version:        svn15878
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(my-title.sty) = %{tl_version}
-Provides:       tex(ua-title.sty) = %{tl_version}
+Provides:       texlive-uaclasses-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uaclasses-doc <= 11:%{version}
 
 %description -n texlive-uaclasses
 This package provides a LaTeX2e document class named 'ua-thesis' for
@@ -6071,13 +5999,15 @@ Version:        svn57349
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uafthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uafthesis-doc <= 11:%{version}
 
 %description -n texlive-uafthesis
 This is an "unofficial" official class.
 
 %package -n texlive-ualberta
 Summary:        A LaTeX template for the University of Alberta
-Version:        svn77677
+Version:        svn78431
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6093,10 +6023,12 @@ formatting.
 
 %package -n texlive-uantwerpendocs
 Summary:        Course texts, master theses, and exams in University of Antwerp style
-Version:        svn76924
+Version:        svn78619
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uantwerpendocs-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uantwerpendocs-doc <= 11:%{version}
 Requires:       tex(adjustbox.sty)
 Requires:       tex(bm.sty)
 Requires:       tex(cmbright.sty)
@@ -6107,19 +6039,14 @@ Requires:       tex(graphicx.sty)
 Requires:       tex(iftex.sty)
 Requires:       tex(sansmathaccent.sty)
 Requires:       tex(tikz.sty)
-Provides:       tex(beamercolorthemeuantwerpen.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeuantwerpen.sty) = %{tl_version}
-Provides:       tex(beamerinnerthemeuantwerpen.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeuantwerpen.sty) = %{tl_version}
-Provides:       tex(beamerthemeuantwerpen.sty) = %{tl_version}
-Provides:       tex(uantwerpencolorlogoscheme.sty) = %{tl_version}
 
 %description -n texlive-uantwerpendocs
 These class files implement the house style of the University of Antwerp. This
 package originated from the Faculty of Applied Engineering. Using these class
 files will make it easy for you to make and keep your documents compliant to
 this version and future versions of the house style of the University of
-Antwerp.
+Antwerp. This includes classes for course texts, master theses, phd theses,
+exams, reports and a beamer theme for slides.
 
 %package -n texlive-ucalgmthesis
 Summary:        LaTeX thesis class for University of Calgary Faculty of Graduate Studies
@@ -6146,6 +6073,8 @@ Version:        svn51690
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ucbthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ucbthesis-doc <= 11:%{version}
 
 %description -n texlive-ucbthesis
 The class provides the necessary framework for electronic submission of Masters
@@ -6158,6 +6087,8 @@ Version:        svn40772
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ucdavisthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ucdavisthesis-doc <= 11:%{version}
 
 %description -n texlive-ucdavisthesis
 The ucdavisthesis class is a LaTeX class that allows you to create a
@@ -6194,6 +6125,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ucthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ucthesis-doc <= 11:%{version}
 
 %description -n texlive-ucthesis
 A modified version of the standard LaTeX report style that is accepted for use
@@ -6207,7 +6140,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xcolor.sty)
-Provides:       tex(udepcolor.sty) = %{tl_version}
 
 %description -n texlive-udepcolor
 This package defines University of Piura (UDEP) institutional and corporate
@@ -6253,6 +6185,8 @@ Version:        svn36371
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uestcthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uestcthesis-doc <= 11:%{version}
 
 %description -n texlive-uestcthesis
 The class is for typesetting a thesis at the University of Electronic Science
@@ -6292,16 +6226,6 @@ Requires:       tex(starray.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(titletoc.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(ufrgscca-abnt.sty) = %{tl_version}
-Provides:       tex(ufrgscca-base-en.def) = %{tl_version}
-Provides:       tex(ufrgscca-base-ptBR.def) = %{tl_version}
-Provides:       tex(ufrgscca-coord.sty) = %{tl_version}
-Provides:       tex(ufrgscca-core.sty) = %{tl_version}
-Provides:       tex(ufrgscca-cover.sty) = %{tl_version}
-Provides:       tex(ufrgscca-curr.sty) = %{tl_version}
-Provides:       tex(ufrgscca-forms.sty) = %{tl_version}
-Provides:       tex(ufrgscca-lists.sty) = %{tl_version}
-Provides:       tex(ufrgscca-ppc.sty) = %{tl_version}
 
 %description -n texlive-ufrgscca
 This bundle is aimed at producing undergraduate students' final work/report at
@@ -6327,6 +6251,8 @@ Version:        svn29974
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uiucredborder-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uiucredborder-doc <= 11:%{version}
 
 %description -n texlive-uiucredborder
 The class offers a means of filling out the "red-bordered form" that gets
@@ -6339,8 +6265,9 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uiucthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uiucthesis-doc <= 11:%{version}
 Requires:       tex(setspace.sty)
-Provides:       tex(uiucthesis.sty) = %{tl_version}
 
 %description -n texlive-uiucthesis
 The class produces a document that conforms to the format described in the
@@ -6363,6 +6290,8 @@ Version:        svn77089
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ulthese-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ulthese-doc <= 11:%{version}
 
 %description -n texlive-ulthese
 The package provides a class based on memoir to prepare theses and memoirs
@@ -6378,6 +6307,8 @@ Version:        svn41348
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-umbclegislation-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-umbclegislation-doc <= 11:%{version}
 
 %description -n texlive-umbclegislation
 LaTeX class for building legislation files for UMBC Student Government
@@ -6390,6 +6321,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-umich-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-umich-thesis-doc <= 11:%{version}
 
 %description -n texlive-umich-thesis
 A LaTeX2e class to create a University of Michigan dissertation according to
@@ -6401,6 +6334,8 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-umthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-umthesis-doc <= 11:%{version}
 
 %description -n texlive-umthesis
 The class loads book class, and makes minimal changes to it; its coding aims to
@@ -6438,9 +6373,10 @@ Version:        svn43639
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-unamthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-unamthesis-doc <= 11:%{version}
 Requires:       tex(graphicx.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(UNAMThesis.sty) = %{tl_version}
 
 %description -n texlive-unamthesis
 The package provides a customisable format to typeset Theses according to the
@@ -6502,14 +6438,12 @@ publication performed by a student.
 
 %package -n texlive-univie-ling
 Summary:        Papers, theses and research proposals in (Applied) Linguistics at Vienna University
-Version:        svn77677
+Version:        svn77682
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(authoryear-comp.bbx)
 Requires:       tex(authoryear-comp.cbx)
-Provides:       tex(univie-ling.bbx) = %{tl_version}
-Provides:       tex(univie-ling.cbx) = %{tl_version}
 
 %description -n texlive-univie-ling
 This bundle provides LaTeX2e classes, BibLaTeX files, and templates suitable
@@ -6541,10 +6475,11 @@ Version:        svn66115
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-unswcover-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-unswcover-doc <= 11:%{version}
 Requires:       tex(babel.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(pdfpages.sty)
-Provides:       tex(unswcover.sty) = %{tl_version}
 
 %description -n texlive-unswcover
 The package an UNSW cover sheet following the 2011 GRS guidelines. It may also
@@ -6572,6 +6507,8 @@ Version:        svn25355
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uothesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uothesis-doc <= 11:%{version}
 
 %description -n texlive-uothesis
 The class generates documents that are suitable for submission to the Graduate
@@ -6584,6 +6521,8 @@ Version:        svn19700
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uowthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uowthesis-doc <= 11:%{version}
 
 %description -n texlive-uowthesis
 A document class for higher degree research theses in compliance with the
@@ -6597,11 +6536,12 @@ Version:        svn54512
 License:        LPPL-1.3c AND CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uowthesistitlepage-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uowthesistitlepage-doc <= 11:%{version}
 Requires:       tex(etoolbox.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(setspace.sty)
-Provides:       tex(uowthesistitlepage.sty) = %{tl_version}
 
 %description -n texlive-uowthesistitlepage
 The package redefines \maketitle to generate a title page for a University of
@@ -6616,20 +6556,13 @@ Version:        svn49903
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-urcls-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-urcls-doc <= 11:%{version}
 Requires:       tex(scrlayer-scrpage.sty)
 Requires:       tex(textcase.sty)
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(URcolors.sty) = %{tl_version}
-Provides:       tex(URoptions.sty) = %{tl_version}
-Provides:       tex(URpagestyles.sty) = %{tl_version}
-Provides:       tex(URrules.sty) = %{tl_version}
-Provides:       tex(URspecialopts.sty) = %{tl_version}
-Provides:       tex(beamercolorthemeUR.sty) = %{tl_version}
-Provides:       tex(beamerfontthemeUR.sty) = %{tl_version}
-Provides:       tex(beamerouterthemeUR.sty) = %{tl_version}
-Provides:       tex(beamerthemeUR.sty) = %{tl_version}
 
 %description -n texlive-urcls
 The bundle provides a beamer-derived class and a theme style file for the
@@ -6645,6 +6578,8 @@ Version:        svn27744
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uspatent-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uspatent-doc <= 11:%{version}
 
 %description -n texlive-uspatent
 The package provides a class and other tools for developing a beautifully
@@ -6652,10 +6587,12 @@ formatted, consistent U.S. Patent Application using LaTeX and/or LyX.
 
 %package -n texlive-ut-thesis
 Summary:        University of Toronto thesis style
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-ut-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-ut-thesis-doc <= 11:%{version}
 
 %description -n texlive-ut-thesis
 This LaTeX document class implements the formatting requirements of the
@@ -6676,7 +6613,7 @@ and Ph.D. thesis submissions of the University of Texas at Austin.
 
 %package -n texlive-uvaletter
 Summary:        Unofficial letterhead template for the University of Amsterdam
-Version:        svn66712
+Version:        svn78821
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6691,12 +6628,32 @@ Requires:       tex(microtype.sty)
 Requires:       tex(setspace.sty)
 Requires:       tex(soul.sty)
 Requires:       tex(times.sty)
-Provides:       tex(uvaletter.sty) = %{tl_version}
 
 %description -n texlive-uvaletter
 This is an unofficial LaTeX package that provides a letterhead template for the
 University of Amsterdam. The design mimics the official Word template of the
 University and complies with the University's house style.
+
+%package -n texlive-uvlhighlight
+Summary:        Syntax Highlighting for Universal Variability Language
+Version:        svn78690
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(beramono.sty)
+Requires:       tex(fontenc.sty)
+Requires:       tex(listings.sty)
+Requires:       tex(lmodern.sty)
+Requires:       tex(xcolor.sty)
+Requires:       tex(xspace.sty)
+
+%description -n texlive-uvlhighlight
+This package provides syntax highlighting for the Universal Variability
+Language (UVL) in LaTeX. It is based on the listings package and supports all
+UVL keywords. The package includes multiple visual themes (default, Flamapy,
+UVLS dark mode, and black & white) and provides inline commands for semantic
+highlighting. It also supports user-defined features' attributes and the
+inclusion of external .uvl files.
 
 %package -n texlive-uwa-colours
 Summary:        The colour palette of The University of Western Australia
@@ -6705,7 +6662,6 @@ License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(xcolor.sty)
-Provides:       tex(uwa-colours.sty) = %{tl_version}
 
 %description -n texlive-uwa-colours
 This package uses the xcolor package to define macros for the colour palette of
@@ -6713,7 +6669,7 @@ The University of Western Australia.
 
 %package -n texlive-uwa-letterhead
 Summary:        The letterhead of the University of Western Australia
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6728,7 +6684,6 @@ Requires:       tex(stringstrings.sty)
 Requires:       tex(textpos.sty)
 Requires:       tex(titlesec.sty)
 Requires:       tex(xcolor.sty)
-Provides:       tex(uwa-letterhead.sty) = %{tl_version}
 
 %description -n texlive-uwa-letterhead
 This package generates the letterhead of the University of Western Australia.
@@ -6739,7 +6694,7 @@ works with XeLaTeX and LuaLaTeX.
 
 %package -n texlive-uwa-pcf
 Summary:        A Participant Consent Form (PCF) for a human research protocol at the University of Western Australia
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6754,7 +6709,7 @@ works with XeLaTeX and LuaLaTeX. It depends on the uwa-letterhead package.
 
 %package -n texlive-uwa-pif
 Summary:        A Participant Information Form (PIF) for a human research protocol at the University of Western Australia
-Version:        svn77677
+Version:        svn78431
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6773,6 +6728,8 @@ Version:        svn15878
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-uwthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-uwthesis-doc <= 11:%{version}
 
 %description -n texlive-uwthesis
 University of Washington thesis class
@@ -6783,6 +6740,8 @@ Version:        svn76790
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-vancouver-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-vancouver-doc <= 11:%{version}
 
 %description -n texlive-vancouver
 This BibTeX style file is generated with the docstrip utility and modified
@@ -6797,6 +6756,8 @@ Version:        svn31532
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-wsemclassic-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-wsemclassic-doc <= 11:%{version}
 
 %description -n texlive-wsemclassic
 The class is designed either to conform with the recommendations of the
@@ -6810,6 +6771,8 @@ Version:        svn63116
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-xduthesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-xduthesis-doc <= 11:%{version}
 
 %description -n texlive-xduthesis
 This is a XeLaTeX template for writing theses to apply academic degrees in
@@ -6825,7 +6788,6 @@ Version:        svn76924
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
-Provides:       tex(xdufont.sty) = %{tl_version}
 
 %description -n texlive-xduts
 XDUTS is designed to help Xidian University students use LaTeX typesetting
@@ -6843,7 +6805,6 @@ Requires:       texlive-kpathsea
 Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
-Provides:       tex(xmulogo.sty) = %{tl_version}
 
 %description -n texlive-xmuthesis
 This class is designed for XMU thesis's writing.
@@ -6854,14 +6815,14 @@ Version:        svn70511
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-yathesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-yathesis-doc <= 11:%{version}
 Requires:       tex(letltxmacro.sty)
 Requires:       tex(xifthen.sty)
 Requires:       tex(xparse.sty)
 Requires:       tex(xpatch.sty)
 Requires:       tex(xstring.sty)
 Requires:       tex(zref.sty)
-Provides:       tex(yathesis-demo.sty) = %{tl_version}
-Provides:       tex(yathesis-translations.tex) = %{tl_version}
 
 %description -n texlive-yathesis
 The purpose of yathesis is to facilitate the typesetting of theses prepared in
@@ -6890,7 +6851,7 @@ at the Yazd University. The class requires use of XeLaTeX.
 
 %package -n texlive-yb-book
 Summary:        Template for YB Branded Books
-Version:        svn74649
+Version:        svn78744
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6946,6 +6907,8 @@ Version:        svn23348
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       texlive-york-thesis-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      texlive-york-thesis-doc <= 11:%{version}
 
 %description -n texlive-york-thesis
 York Graduate Studies has again changed the requirements for theses and
@@ -7592,6 +7555,32 @@ tar -xf %{SOURCE627} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE628} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE629} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE630} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE631} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE632} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE633} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE634} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE635} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE636} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE637} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE638} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE639} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE640} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE641} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE642} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE643} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE644} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE645} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE646} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE647} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE648} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE649} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE650} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE651} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE652} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE653} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE654} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE655} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE656} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -7805,6 +7794,11 @@ popd
 %{_texmf_main}/tex/latex/bgteubner/
 %doc %{_texmf_main}/doc/latex/bgteubner/
 
+%files -n texlive-bibleref-sbl
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/bibleref-sbl/
+%doc %{_texmf_main}/doc/latex/bibleref-sbl/
+
 %files -n texlive-bjfuthesis
 %license gpl3.txt
 %{_texmf_main}/tex/latex/bjfuthesis/
@@ -7933,6 +7927,16 @@ popd
 %license cc-by-4.txt
 %{_texmf_main}/tex/latex/dccpaper/
 %doc %{_texmf_main}/doc/latex/dccpaper/
+
+%files -n texlive-delvierre
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/delvierre/
+%doc %{_texmf_main}/doc/latex/delvierre/
+
+%files -n texlive-deutschesmuseum
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/deutschesmuseum/
+%doc %{_texmf_main}/doc/latex/deutschesmuseum/
 
 %files -n texlive-dithesis
 %license lppl1.3c.txt
@@ -8186,6 +8190,11 @@ popd
 %{_texmf_main}/tex/latex/hustvisual/
 %doc %{_texmf_main}/doc/latex/hustvisual/
 
+%files -n texlive-iacrj
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/iacrj/
+%doc %{_texmf_main}/doc/latex/iacrj/
+
 %files -n texlive-iaria
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/iaria/
@@ -8281,6 +8290,11 @@ popd
 %{_texmf_main}/tex/latex/jourrr/
 %doc %{_texmf_main}/doc/latex/jourrr/
 
+%files -n texlive-jouthesis
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/jouthesis/
+%doc %{_texmf_main}/doc/latex/jouthesis/
+
 %files -n texlive-jpsj
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/jpsj/
@@ -8295,6 +8309,11 @@ popd
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/jwjournal/
 %doc %{_texmf_main}/doc/latex/jwjournal/
+
+%files -n texlive-jyu-chem-thesis
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/jyu-chem-thesis/
+%doc %{_texmf_main}/doc/latex/jyu-chem-thesis/
 
 %files -n texlive-kdgdocs
 %license lppl1.3c.txt
@@ -8547,6 +8566,13 @@ popd
 %{_texmf_main}/tex/latex/nwejm/
 %doc %{_texmf_main}/doc/latex/nwejm/
 
+%files -n texlive-nxtlatex
+%license lppl1.3c.txt
+%license ofl.txt
+%{_texmf_main}/fonts/opentype/public/nxtlatex/
+%{_texmf_main}/tex/latex/nxtlatex/
+%doc %{_texmf_main}/doc/latex/nxtlatex/
+
 %files -n texlive-nxuthesis
 %license lppl1.3c.txt
 %{_texmf_main}/bibtex/bst/nxuthesis/
@@ -8557,6 +8583,11 @@ popd
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/omgtudoc-asoiu/
 %doc %{_texmf_main}/doc/latex/omgtudoc-asoiu/
+
+%files -n texlive-onlinebrief24
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/onlinebrief24/
+%doc %{_texmf_main}/doc/latex/onlinebrief24/
 
 %files -n texlive-onrannual
 %license lppl1.3c.txt
@@ -8741,6 +8772,32 @@ popd
 %{_texmf_main}/tex/latex/sapthesis/
 %doc %{_texmf_main}/doc/latex/sapthesis/
 
+%files -n texlive-sblarticle
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sblarticle/
+%doc %{_texmf_main}/doc/latex/sblarticle/
+
+%files -n texlive-sblbook
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sblbook/
+%doc %{_texmf_main}/doc/latex/sblbook/
+
+%files -n texlive-sblfonts
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sblfonts/
+%doc %{_texmf_main}/doc/latex/sblfonts/
+
+%files -n texlive-sblidx
+%license lppl1.3c.txt
+%{_texmf_main}/makeindex/sblidx/
+%{_texmf_main}/tex/latex/sblidx/
+%doc %{_texmf_main}/doc/latex/sblidx/
+
+%files -n texlive-sblreport
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/sblreport/
+%doc %{_texmf_main}/doc/latex/sblreport/
+
 %files -n texlive-schule
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/schule/
@@ -8797,11 +8854,6 @@ popd
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/shortmathj/
 %doc %{_texmf_main}/doc/latex/shortmathj/
-
-%files -n texlive-shtthesis
-%license gpl3.txt
-%{_texmf_main}/tex/latex/shtthesis/
-%doc %{_texmf_main}/doc/latex/shtthesis/
 
 %files -n texlive-smflatex
 %license lppl1.3c.txt
@@ -9206,6 +9258,11 @@ popd
 %{_texmf_main}/tex/latex/uvaletter/
 %doc %{_texmf_main}/doc/latex/uvaletter/
 
+%files -n texlive-uvlhighlight
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/uvlhighlight/
+%doc %{_texmf_main}/doc/latex/uvlhighlight/
+
 %files -n texlive-uwa-colours
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/uwa-colours/
@@ -9277,6 +9334,25 @@ popd
 %doc %{_texmf_main}/doc/latex/york-thesis/
 
 %changelog
+* Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78756-3
+- Update collection from svn77587 to svn78756
+- Add bibleref-sbl
+- Add delvierre
+- Add deutschesmuseum
+- Add iacrj
+- Add jouthesis
+- Add jyu-chem-thesis
+- Add nxtlatex
+- Add onlinebrief24
+- Add sblarticle
+- Add sblbook
+- Add sblfonts
+- Add sblidx
+- Add sblreport
+- Add uvlhighlight
+- Update 34 components
+- Remove shtthesis
+
 * Mon Feb  9 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77587-2
 - remove Requires: tex(uarial.sty), it is optional in the code and not provided by texlive (bz437624)
 - update asmeconf asmejour har2nat llncs lni mitthesis novel oup-authoring-template sysuthesis tugboat

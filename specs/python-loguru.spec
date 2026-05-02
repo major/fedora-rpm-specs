@@ -48,10 +48,6 @@ Summary:        %{summary}
 %description -n python3-loguru %{common_description}
 
 
-%prep
-%autosetup -n loguru-%{version} -p1
-
-
 %check -a
 %if %{with tests}
 # Make sure we don’t run the detailed typing tests; see

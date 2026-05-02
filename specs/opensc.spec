@@ -17,6 +17,7 @@ Patch9:         %{name}-0.27.1-fips-sha1.patch
 Patch10:         %{name}-0.27.1-deepbind-workaround.patch
 # OpenSSL 4.0 build fixes
 # https://github.com/OpenSC/OpenSC/pull/3655
+# https://github.com/OpenSC/OpenSC/pull/3672
 Patch11:        0001-Use-OpenSSL-accessors-for-opaque-structures.patch
 
 

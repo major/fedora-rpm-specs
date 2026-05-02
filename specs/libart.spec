@@ -9,8 +9,7 @@ Version:        0
 Release:        %autorelease
 Summary:        Adaptive Radix Trees implemented in C
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

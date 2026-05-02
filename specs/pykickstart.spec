@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.71
+Version:   3.72
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -79,6 +79,16 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Thu Apr 30 2026 Brian C. Lane <bcl@redhat.com> - 3.72-1
+- rhell11: Update handlers for removed commands (bcl)
+- vnc: Remove command in F45 (bcl)
+- nvdimm: Remove command in F45 (bcl)
+- module: Remove command in F45 (bcl)
+- docs: Add version to standalone RHEL document page titles (bcl)
+- docs: Move RHEL 9 docs to commands_rhel9 and generate RHEL 10 docs (bcl)
+- Update rhel11 handler partition command (rvykydal)
+- Update rhel11 handler autopart version to support hw-passphrase (rvykydal)
+
 * Thu Apr 23 2026 Brian C. Lane <bcl@redhat.com> - 3.71-1
 - Add initial RHEL 11 support (yselkowi)
 

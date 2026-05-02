@@ -1,7 +1,7 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# Fedora does not have crowbar, ezjsonm, or junit_alcotest
+# Fedora does not have ezjsonm or junit_alcotest
 %global run_tests 0
 
 %global giturl  https://github.com/avsm/ocaml-yaml

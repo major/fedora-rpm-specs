@@ -17,13 +17,13 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
+%global baserelease 1
 %global mod_proxy_version 0.9.5
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9
+Version:		1.3.9a
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -461,6 +461,44 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Thu Apr 30 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-1
+- Update to 1.3.9a
+  - SCP transfers failed for files with spaces in their names (GH#1886)
+  - LDAPDefaultGID ignored since 1.3.9 (GH#1898)
+  - Compilation of mod_wrap2 failed when the --enable-wrapper-options configure
+    option was used (Bug #4512)
+  - mod_sftp failed to parse authorized user/host public keys with CRLF line
+    endings (GH#1904)
+  - Uploads using MODE Z sometimes resulted in corrupted files or broken
+    transfers (GH#1896)
+  - Remove usage of the deprecated MySQL_OPT_RECONNECT option for newer MySQL
+    versions (GH#1911)
+  - Update usage of MySQL API for SSL/TLS connections to server (GH#340)
+  - mod_sftp leaked file descriptor when reading SFTPHostKey file (GH#1959)
+  - Large/slow SCP downloads could be unnecessarily truncated by TimeoutStalled
+    (GH#1964)
+  - Handling of CRLs in mod_tls was incorrect, leading to confusing errors
+    (GH#1960)
+  - Resumed SSL_SESSION management in mod_tls lead to memory growth, infinite
+    loop using newer OpenSSL versions (GH#1963)
+  - mod_quotatab_ldap interactions could lead to segfault due to stale pointer
+    (GH#1984)
+  - RNTO before authentication lead to out-of-order response codes (GH#2003)
+  - MaxLoginAttemptsFromUser event never triggered in mod_ban for SFTP sessions
+    (GH#2009)
+  - Using toupper(3) on non-ASCII FTP command bytes might cause remote DoS
+    (GH#2019)
+  - Out-of-bounds single byte read when FTP command input buffer starts with LF
+    (GH#2020)
+  - FTP command LIST/NLST -B could cause buffer overflow when listing certain
+    crafted filenames (GH#2030)
+  - Memory exhaustion with mod_log_forensic when downloading very large files
+    via SFTP (GH#2043)
+  - Setting process groups during authentication crashed when using mod_radius
+    and <IfGroup> (GH#2046)
+  - SQL injection possible via mod_sql because of is_escaped_text() logic error
+    (GH#2052, CVE-2026-42167)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

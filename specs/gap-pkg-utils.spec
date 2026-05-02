@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/utils
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.93
+Version:        0.94
 Release:        %autorelease
 Summary:        Utility functions for GAP
 
@@ -51,12 +51,11 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %check -p
-# The download test cannot be run on the koji builders, which provide no
-# network access during a package build.
-rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/download.tst
+# Skip tests that require network access.
+rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/{download,utils09}.tst
 
 %check -a
-cp -p tst/download.tst %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst
+cp -p tst/{download,utils09}.tst %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst
 
 %files
 %doc CHANGES.md README.md

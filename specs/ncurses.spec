@@ -4,7 +4,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz
@@ -244,8 +244,9 @@ xz NEWS
 %{_mandir}/man7/*
 
 %files libs
-%exclude %{_libdir}/libncurses++*.so.6*
-%{_libdir}/lib*.so.6*
+%{_libdir}/lib[fmpt]*.so.6*
+%{_libdir}/libncursesw.so.6*
+%{_libdir}/libncurses.so.6*
 
 %if %{with compat_libs}
 %files compat-libs
@@ -284,6 +285,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Apr 30 2026 Miroslav Lichvar <mlichvar@redhat.com> 6.6-2
+- fix dangling build-id symlinks (#2463897)
+
 * Tue Feb 03 2026 Miroslav Lichvar <mlichvar@redhat.com> 6.6-1
 - update to 6.6
 - move screen5 terminfo entry to -base (#2435327)

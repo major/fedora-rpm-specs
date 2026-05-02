@@ -4,7 +4,7 @@
 %bcond saml2 0
 
 Name:       matrix-synapse
-Version:    1.147.1
+Version:    1.151.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -45,7 +45,7 @@ to showcase the concept of Matrix and let folks see the spec in the context of
 a coded base and let you run your own homeserver and generally help bootstrap
 the ecosystem.
 
-%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres %{?with_saml2:saml2} oidc systemd url_preview sentry jwt cache_memory
+%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres %{?with_saml2:saml2} oidc url_preview sentry jwt cache_memory
 
 
 %prep
@@ -69,7 +69,7 @@ cd rust
 cd ..
 
 # Missing: opentracing,redis
-%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres%{?with_saml2:,saml2},oidc,systemd,url-preview,sentry,jwt,cache-memory
+%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres%{?with_saml2:,saml2},oidc,url-preview,sentry,jwt,cache-memory
 
 
 %build

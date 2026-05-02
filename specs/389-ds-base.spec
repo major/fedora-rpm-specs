@@ -344,6 +344,7 @@ BuildRequires:    pkgconfig(libpcre2-8)
 BuildRequires:    autoconf
 BuildRequires:    automake
 BuildRequires:    libtool
+BuildRequires:    make
 # For our documentation
 BuildRequires:    doxygen
 # For tests!
@@ -648,8 +649,8 @@ mkdir -p ../%{libdb_base_version}
 pushd ../%{libdb_base_version}
 tar -xjf  %{_topdir}/SOURCES/%{libdb_full_version}.tar.bz2
 mv %{libdb_full_version} SOURCES
-sed -i -e '/^CFLAGS=/s/-fno-strict-aliasing/& -std=gnu99/' %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec
-rpmbuild  --define "_topdir $PWD" -bc %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec
+sed -i -e '/^CFLAGS=/s/-fno-strict-aliasing/& -std=gnu99/' %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec.in
+rpmbuild  --define "_topdir $PWD" -bc %{_builddir}/%{name}-%{version}/rpm/bundle-libdb.spec.in
 popd
 %endif
 

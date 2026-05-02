@@ -26,7 +26,6 @@ BuildOption(check):     %{shrink:
 BuildArch:      noarch
 
 BuildRequires:  help2man
-BuildRequires:  tomcli
 
 %if %{with tests}
 %if %{with desktop_tests}
@@ -97,8 +96,7 @@ sed -r -i '1{/^#!/d}' keyring/cli.py
 # we were building from a GitHub source archive, since its normal operation
 # requires network access. Fortunately, we’re using the PyPI sdist, so the
 # LICENSE file is already copied in, and we can simply omit the dependency.
-tomcli set pyproject.toml lists delitem build-system.requires \
-    'coherent\.licensed\b.*'
+%pyproject_patch_dependency coherent.licensed:ignore
 
 
 %install -a

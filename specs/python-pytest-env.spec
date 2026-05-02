@@ -1,5 +1,5 @@
 Name:           python-pytest-env
-Version:        1.2.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Pytest plugin that allows you to add environment variables
 

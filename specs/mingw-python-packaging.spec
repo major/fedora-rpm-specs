@@ -9,7 +9,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python packaging core utils
-Version:        26.1
+Version:        26.2
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -68,7 +68,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 26.1
+Version: 26.2
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -113,6 +113,9 @@ cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Thu Apr 30 2026 Sandro Mani <manisandro@gmail.com> - 26.2-1
+- Update to 26.2
+
 * Fri Apr 17 2026 Sandro Mani <manisandro@gmail.com> - 26.1-1
 - Update to 26.1
 

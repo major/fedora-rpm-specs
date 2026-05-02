@@ -41,6 +41,7 @@ BuildRequires:  fmt-devel
 BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  glew-devel
+BuildRequires:  imath-devel
 # Only available on RPM Fusion
 BuildRequires:  libheif-devel
 BuildRequires:  libultrahdr-devel

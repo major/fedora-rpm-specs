@@ -34,9 +34,20 @@ BuildRequires:  libpoly-devel
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(cite.sty)
+BuildRequires:  tex(epstopdf.sty)
+BuildRequires:  tex(listings.sty)
+BuildRequires:  tex(xcolor.sty)
 BuildRequires:  tex(latex)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-cm
 BuildRequires:  texlive-courier
+BuildRequires:  texlive-ec
 BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-makeindex
+BuildRequires:  texlive-metafont
+BuildRequires:  texlive-mfware
 BuildRequires:  texlive-times
 
 # See Source1 comment

@@ -31,9 +31,6 @@ BuildOption(install):   -l mesonpy
 
 BuildArch:      noarch
 
-# for %%pyproject_buildrequires -p
-BuildRequires:  pyproject-rpm-macros >= 1.15.1
-
 %if %{with tests}
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -80,12 +77,13 @@ Requires:       /usr/bin/patchelf
 %endif
 # build: used only by skipped PEP 518 test
 # pytest-cov: https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i "s/^  '(build|pytest-cov)/#&/" pyproject.toml
+%pyproject_patch_dependency build:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 %if %{without pytest_mock}
-sed -r -i "s/^  '(pytest-mock)/#&/" pyproject.toml
+%pyproject_patch_dependency pytest-mock:ignore
 %endif
 %if %{without wheel}
-sed -r -i "s/^  '(wheel)/#&/" pyproject.toml
+%pyproject_patch_dependency wheel:ignore
 %endif
 
 

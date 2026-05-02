@@ -1,6 +1,6 @@
 Name:           diff-pdf
-Version:        0.5.2
-Release:        7%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 Summary:        A simple tool for visually comparing two PDF files
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -39,6 +39,9 @@ automake --add-missing --copy --foreign
 
 
 %changelog
+* Thu Apr 30 2026 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.3-1
+- Update to 0.5.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

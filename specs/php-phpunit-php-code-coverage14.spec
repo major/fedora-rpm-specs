@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.1.3
+Version:        14.1.6
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -51,6 +51,7 @@ BuildRequires:  (php-composer(theseer/tokenizer)                  >= 2.0.1  with
 BuildRequires:  php-dom
 BuildRequires:  php-json
 BuildRequires:  php-libxml
+BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
@@ -63,6 +64,7 @@ BuildRequires:  php-xdebug
 #        "php": ">=8.3",
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
+#        "ext-mbstring": "*",
 #        "ext-xmlwriter": "*",
 #        "nikic/php-parser": "^5.7.0",
 #        "phpunit/php-text-template": "^6.0",
@@ -75,6 +77,7 @@ BuildRequires:  php-xdebug
 Requires:       php(language) >= 8.3
 Requires:       php-dom
 Requires:       php-libxml
+Requires:       php-mbstring
 Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
@@ -158,6 +161,7 @@ export XDEBUG_MODE=coverage
 cat << 'EOF' | tee -a tests/bootstrap.php
 define('TEST_FILES_PATH', __DIR__ . '/_files/');
 \Fedora\Autoloader\Dependencies::required([
+  TEST_FILES_PATH . '/Target/TraitOne.php',
   TEST_FILES_PATH . '/CoveredClass.php',
 ]);
 EOF
@@ -187,6 +191,9 @@ exit $ret
 
 
 %changelog
+* Sat Apr 25 2026 Remi Collet <remi@remirepo.net> - 14.1.6-1
+- update to 14.1.6
+
 * Sun Apr 19 2026 Remi Collet <remi@remirepo.net> - 14.1.3-1
 - update to 14.1.3
 

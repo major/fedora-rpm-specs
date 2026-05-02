@@ -24,8 +24,6 @@ BuildOption(install):   -l inline_snapshot
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 %global common_description %{expand:
 Golden master/snapshot/approval testing library which puts the values right
 into your source code.}
@@ -43,14 +41,14 @@ Summary:        %{summary}
 
 
 %prep -a
-# Remove linters, typecheckers, formatters, coverage analysis tools, etc. from
-# the “dev” dependency group so we can use it to generate BuildRequires.
+%pyproject_patch_dependency black:drop_upper
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem --no-first --type regex \
-    dependency-groups.dev '(mypy|pyright|coverage)\b.*'
+%pyproject_patch_dependency mypy:ignore
+%pyproject_patch_dependency pyright:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency coverage-enable-subprocess:ignore
 %if %{without pydantic_tests}
-tomcli set pyproject.toml lists delitem --no-first --type regex \
-    dependency-groups.dev '(pydantic)\b.*'
+%pyproject_patch_dependency pydantic:ignore
 %endif
 
 

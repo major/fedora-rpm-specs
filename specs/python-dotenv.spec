@@ -1,5 +1,5 @@
 Name:           python-dotenv
-Version:        1.1.0
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
@@ -8,18 +8,18 @@ URL:            https://github.com/theskumar/python-dotenv
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+%global _description %{expand:
+Reads the key/value pairs from a .env file and can add them to environment
+variables.}
 
-%description
-Reads the key/value pair from .env file and adds them to environment variable.
+%description %{_description}
 
 
 %package -n     python3-dotenv
 Summary:        %{summary}
 Recommends:     python3-dotenv+cli
 
-%description -n python3-dotenv
-Reads the key/value pair from .env file and adds them to environment variable.
+%description -n python3-dotenv %{_description}
 
 
 %prep
@@ -32,7 +32,7 @@ sed -Ei -e "/^ +pytest-cov$/d" \
         -e "s/--cov-[[:alnum:]]+(=| +)[^ ]+ //g" \
     tox.ini
 
-%if 0%{?rhel}
+%if %{defined rhel}
 # Avoid IPython dependency in tests only needed for optional integration
 sed -i -e '/ipython/d' requirements.txt tox.ini
 %endif
@@ -48,7 +48,7 @@ sed -i -e '/ipython/d' requirements.txt tox.ini
 
 %install
 %pyproject_install
-%pyproject_save_files dotenv
+%pyproject_save_files -l dotenv
 
 
 %check

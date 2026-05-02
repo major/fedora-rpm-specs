@@ -1,5 +1,8 @@
 # SPDX-FileCopyrightText: (C) 2025 Siemens AG
 
+# only needed for sso-mib-tool
+%bcond libjwt %{undefined rhel}
+
 %define soversion 0
 
 Name:           sso-mib
@@ -10,6 +13,8 @@ Summary:        Tools and library for Single-Sign-On with CA for Entra via Himme
 License:        LGPL-2.1-only AND GPL-2.0-only AND MIT
 URL:            https://github.com/siemens/sso-mib
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/siemens/sso-mib/pull/41
+Patch0:         libjwt.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53
@@ -17,7 +22,9 @@ BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
+%if %{with libjwt}
 BuildRequires:  pkgconfig(libjwt)
+%endif
 BuildRequires:  pkgconfig(uuid)
 
 %description
@@ -67,10 +74,10 @@ This package contains a git send-email credential helper to authenticate SMTP
 on O365.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %conf
-%meson
+%meson %{!?with_libjwt:-Dlibjwt=disabled}
 
 %build
 %meson_build

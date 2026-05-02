@@ -1,6 +1,6 @@
 Name:           perl-Test-Most
-Version:        0.38
-Release:        9%{?dist}
+Version:        0.41
+Release:        1%{?dist}
 Summary:        Perl module with test functions and features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Most
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Most-%{ver
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -33,6 +32,7 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(lib)
+BuildRequires:  perl(List::Util)
 # Not automatically detected
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
@@ -54,12 +54,11 @@ control over your test suite.
 %setup -q -n Test-Most-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -72,6 +71,11 @@ make test
 %{_mandir}/man3/Test::Most::Exception.3*
 
 %changelog
+* Thu Apr 30 2026 Paul Howarth <paul@city-fan.org> - 0.41-1
+- Update to 0.41
+  - Prevent strange import behaviour caused by @EXPORT twiddling
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -11,6 +11,9 @@ License:        MIT
 URL:            https://github.com/camlp5/camlp5-buildscripts
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/camlp5-buildscripts-%{version}.tar.gz
+# Adapt to ocaml-bos 0.3.0
+# https://github.com/camlp5/camlp5-buildscripts/pull/4
+Patch:          %{name}-bos.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -31,7 +34,7 @@ and Camlp5-based projects.  These scripts allow removing a dependency on Perl
 for such projects.
 
 %prep
-%autosetup -n camlp5-buildscripts-%{version}
+%autosetup -n camlp5-buildscripts-%{version} -p1
 
 %conf
 # Build native executables when possible

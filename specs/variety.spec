@@ -11,7 +11,7 @@ Name:           variety
 %if 0%{?usesnapshot}
 #Release:        0.17%%{?snapshottag}%%{?dist}
 Version:        0.9.0
-Release:        0.1.beta1%{?dist}
+Release:        0.2.beta1%{?dist}
 %else
 Version:        0.8.13
 Release:        8%{?dist}
@@ -27,11 +27,15 @@ Source0:        %{url}/archive/refs/tags/%{upstream_tag}.tar.gz#/%{name}-%{upstr
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 
+# Fix wheel-based installations to include variety_build_settings
+# Patch0:          https://github.com/varietywalls/variety/pull/796.patch
+
+Patch1:         variety-GExiv2.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-distutils-extra
-BuildRequires:  python3dist(setuptools-gettext)
 BuildRequires:  python3-configobj
 BuildRequires:  python3-lxml
 BuildRequires:  python3-gexiv2
@@ -92,6 +96,9 @@ desktop is always fresh and unique.
 %autosetup -p1
 %endif
 
+# Replace deprecated getiterator() with iter()
+sed -i -e 's|getiterator|iter|' variety_lib/Builder.py
+
 # Fix setuptools package discovery warnings (Python 3.14)
 sed -i 's/include = \["variety", "variety_lib"\]/include = ["variety*","variety_lib*"]/' pyproject.toml || :
 
@@ -102,7 +109,7 @@ sed -i \
   variety.desktop.in
 
 # remove debian part
-#rm -rf debian
+# rm -rf debian
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -112,30 +119,6 @@ sed -i \
 
 %install
 %pyproject_install
-%pyproject_save_files variety variety_lib jumble
-
-# --------------------------------------------------------------------
-# Move media files from site-packages to /usr/share/variety/media
-# --------------------------------------------------------------------
-install -d %{buildroot}%{_datadir}/%{name}/media
-
-cp -a %{buildroot}%{python3_sitelib}/variety/data/media/* \
-      %{buildroot}%{_datadir}/%{name}/media/
-
-# Remove duplicate media from Python directory
-rm -rf %{buildroot}%{python3_sitelib}/variety/data/media
-
-# --------------------------------------------------------------------
-# Install application icons properly (hicolor theme)
-# --------------------------------------------------------------------
-install -d %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-install -d %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
-
-install -m 0644 %{buildroot}%{_datadir}/%{name}/media/variety.svg \
-        %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/variety.svg
-
-install -m 0644 %{buildroot}%{_datadir}/%{name}/media/variety128.png \
-        %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/variety.png
 
 # Install desktop file
 install -D -m 644 %{name}.desktop.in %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -150,6 +133,7 @@ fi
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
+#%%py3_check_import variety_lib.variety_build_settings
 
 %files -f %{name}.lang
 %doc README.md
@@ -157,9 +141,6 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.appdata.xml
-%{_datadir}/%{name}
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{python3_sitelib}/jumble/
 %{python3_sitelib}/%{name}-*.dist-info
 %{python3_sitelib}/%{name}/
@@ -167,6 +148,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Apr 29 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.0-0.2.beta1
+- add variety-GExiv2.patch fix (BZ#2463715)
+
 * Mon Mar 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.0-0.1.beta1
 - Update to 0.9.0-0.1.beta1
 - Add python3dist(setuptools-gettext)

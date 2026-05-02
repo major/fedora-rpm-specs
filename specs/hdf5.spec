@@ -395,9 +395,9 @@ export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 export HDF5_ALARM_SECONDS=8000
 for mpi in %{?mpi_list}
 do
-  # t_pmulti_dset hangs sometimes with mpich-aarch64/ppc64le so do not test on those architectures
+  # t_pmulti_dset hangs sometimes with mpich-aarch64/ppc64le/riscv64 so do not test on those architectures
   # https://github.com/HDFGroup/hdf5/issues/3768
-  if [ "$mpi-%{_arch}" != mpich-aarch64 -a "$mpi-%{_arch}" != mpich-ppc64le ]
+  if [ "$mpi-%{_arch}" != mpich-aarch64 -a "$mpi-%{_arch}" != mpich-ppc64le -a "$mpi-%{_arch}" != mpich-riscv64 ]
   then
     module load mpi/$mpi-%{_arch}
     cd build-serial

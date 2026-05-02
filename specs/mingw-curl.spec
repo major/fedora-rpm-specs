@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-curl
-Version:        8.19.0
+Version:        8.20.0
 Release:        1%{?dist}
 Summary:        MinGW Windows port of curl and libcurl
 
@@ -186,6 +186,9 @@ rm -f %{buildroot}%{mingw64_bindir}/wcurl
 
 
 %changelog
+* Thu Apr 30 2026 Sandro Mani <manisandro@gmail.com> - 8.20.0-1
+- Update to 8.20.0
+
 * Wed Mar 11 2026 Sandro Mani <manisandro@gmail.com> - 8.19.0-1
 - Update to 8.19.0
 

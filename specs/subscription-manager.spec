@@ -95,8 +95,8 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.30.5
-Release: 6%{?dist}
+Version: 1.30.14
+Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -736,6 +736,10 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Fri Mar 27 2026 Packit <hello@packit.dev> - 1.30.14-1
+- Update to version 1.30.14
+- Resolves: rhbz#2366196
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

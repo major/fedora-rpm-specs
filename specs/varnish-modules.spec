@@ -1,16 +1,11 @@
 %global varnishver %(pkg-config --silence-errors --modversion varnishapi || echo 0)
 
-%if 0%{?rhel} == 7
-%global docutils python34-docutils
-%global rst2man rst2man-3.4
-%else
 %global docutils python3-docutils
 %global rst2man rst2man
-%endif
 
 Name:    varnish-modules
 Version: 0.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
 License: BSD-2-Clause
@@ -81,6 +76,9 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Thu Apr 30 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.28.0-2
+- Built for varnish-9.0.1
+
 * Mon Apr 13 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.28.0-1
 - New upstream release varnish-modules-0.28.0, built for varnish-9.0.0
 

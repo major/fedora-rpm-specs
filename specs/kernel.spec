@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc1.260429gdca922e019dd7.11
+%define pkgrelease 0.rc1.260430ge75a43c7cec45.12
 %define kversion 7
-%define tarfile_release 7.1-rc1-58-gdca922e019dd7
+%define tarfile_release 7.1-rc1-123-ge75a43c7cec45
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260429gdca922e019dd7.11%{?buildid}%{?dist}
+%define specrelease 0.rc1.260430ge75a43c7cec45.12%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,12 +4847,15 @@ fi\
 #
 #
 %changelog
-* Wed Apr 29 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260429gdca922e019dd7.11]
-- Linux v7.1.0-0.rc1.260429gdca922e019dd7
+* Thu Apr 30 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260430ge75a43c7cec45.12]
+- Linux v7.1.0-0.rc1.260430ge75a43c7cec45
 
-* Wed Apr 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.dca922e019dd.11]
+* Thu Apr 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.e75a43c7cec4.12]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Thu Apr 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.e75a43c7cec4.11]
+- Linux v7.1.0-0.rc1.e75a43c7cec4
 
 * Wed Apr 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.dca922e019dd.10]
 - Delete Fedora configs removed upstream for 7.1 (Justin M. Forbes)

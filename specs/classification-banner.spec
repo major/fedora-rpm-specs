@@ -13,9 +13,11 @@ BuildRequires:  python3-gobject
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk3
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  gobject-introspection
 Requires:       xrandr
 Requires:       python3-gobject
 Requires:       gtk3
+Requires:       gobject-introspection
 
 %description
 Classification Banner is a python script that will display the

@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.99.1
-Release: 3%{?dist}
+Version: 4.99.2
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -512,6 +512,11 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Thu Apr 30 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.99.2-1
+- New version
+  Resolves: rhbz#2463798
+- Refreshed keyring
+
 * Mon Jan 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.99.1-3
 - Dummy rebuild to check the CI functionality
 

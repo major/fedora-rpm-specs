@@ -154,7 +154,7 @@ Documentation files for %name
 
 %prep
 %setup -q
-%if 0%{?fedora} > 44
+%if 0%{?fedora} > 44 || 0%{?rhel} > 10
 %patch 1 -p1
 %endif
 tar xzf %SOURCE1

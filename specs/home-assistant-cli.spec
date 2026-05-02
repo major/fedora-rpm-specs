@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
-Version:        0.9.6
-Release:        19%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -8,38 +8,10 @@ URL:            https://github.com/home-assistant/home-assistant-cli
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-# Allow later dateparser
-# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/403
-Patch0:          %{url}/pull/403.patch
-# Resolve patch conflict
-Patch1:          %{url}/commit/edb0af38fbf1c2533e87745dbb7d75ce3aed6cb5.patch
-# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/426
-Patch2:          %{url}/pull/426.patch
-
-# Allow later ruamel
-# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/412
-Patch3:          %{url}/pull/412.patch
+# Slightly adapted version of https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/458 based on 1.0.0
+Patch0:         458.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-ruamel-yaml
-BuildRequires:  python3-aiohttp
-BuildRequires:  python3-regex
-# Omit linters, typecheckers, and coverage analysis
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters);
-# omit pyest-sugar since it only makes the output prettier.
-# BuildRequires:  python3-mypy
-# BuildRequires:  python3-pytest-cov
-# BuildRequires:  python3-pytest-sugar
-BuildRequires:  python3-pytest-timeout
-BuildRequires:  python3-pytest
-BuildRequires:  python3-requests-mock
-BuildRequires:  python3-dateparser
-BuildRequires:  python3-click-log
-BuildRequires:  python3-click
-BuildRequires:  python3-netdisco
-BuildRequires:  python3-tabulate
-BuildRequires:  python3-jsonpath-ng
 
 %description
 The Home Assistant Command-line interface (hass-cli) allows one to work with
@@ -48,24 +20,43 @@ a local or a remote Home Assistant instance directly from the command-line.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Main dependencies
+%pyproject_patch_dependency packaging:drop_upper
+%pyproject_patch_dependency regex:drop_upper
+%pyproject_patch_dependency tabulate:drop_upper
+
+# Test dependencies
+%pyproject_patch_dependency pre-commit:drop_upper
+%pyproject_patch_dependency pytest-cov:drop_upper
+%pyproject_patch_dependency pytest:drop_constraints
+%pyproject_patch_dependency types-dateparser:ignore
+%pyproject_patch_dependency types-requests:drop_constraints
+%pyproject_patch_dependency types-tabulate:ignore
+
+%generate_buildrequires
+%pyproject_buildrequires -g test
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files homeassistant_cli
 
 %check
-PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
-  -k "not test_commands_loads[template]"
+%pytest -k "not test_commands_loads[template]"
 
-%files
+%files -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.md
 %{_bindir}/hass-cli
-%{python3_sitelib}/homeassistant_cli/
-%{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Thu Apr 30 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.0.0-1
+- Update to 1.0.0 (rhbz#2457679)
+- Migrate to pyproject-srpm-macros (rhbz#2377284)
+- Fix Fedora 44 FTBFS (rhbz#2429404)
+
 * Wed Apr 08 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.6-19
 - Omit some unwanted test dependencies
 

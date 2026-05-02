@@ -1,15 +1,11 @@
 Name:           keepsecret
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Client for a Secret Service compatible provider
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://apps.kde.org/keepsecret/
-Source0:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
-
-# Fixes the keep secret icon using the kwalletmanager5 one
-# https://invent.kde.org/utilities/keepsecret/-/merge_requests/15
-Patch0:         15.patch
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -33,6 +29,7 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  pkgconfig(libsecret-1)
 
@@ -75,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.keepsecre
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.keepsecret.svg
 
 %changelog
+* Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 1.1.0-1
+- 1.1.0
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-3
 - Rebuild (qt6)
 
