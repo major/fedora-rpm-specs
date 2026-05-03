@@ -1,5 +1,5 @@
 Name:           chafa
-Version:        1.18.1
+Version:        1.18.2
 Release:        %autorelease
 %global sum     Image-to-text converter for terminal
 Summary:        %{sum}

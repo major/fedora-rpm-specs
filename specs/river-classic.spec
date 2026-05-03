@@ -1,10 +1,18 @@
 %global zig_pixman_ver 0.3.0
-%global zig_wayland_ver 0.4.0
-%global zig_wlroots_ver 0.20.0
+%global zig_wayland_ver 0.6.0
+%global zig_wlroots_ver 0.20.1
 %global zig_xkbcommon_ver 0.3.0
 
+# llvm needs to be explicitly enabled because Zigs
+# own ELF2 linker doesn't support build-id's yet
+%global zig_build_options %{shrink:
+    -Dpie
+    -Dxwayland
+    -Dllvm
+}
+
 Name:           river-classic
-Version:        0.3.15
+Version:        0.3.17
 Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor
 
@@ -30,12 +38,14 @@ Source5:        https://codeberg.org/ifreund/zig-wayland/archive/v%{zig_wayland_
 Source6:        https://codeberg.org/ifreund/zig-wlroots/archive/v%{zig_wlroots_ver}.tar.gz#/zig-wlroots-%{zig_wlroots_ver}.tar.gz
 Source7:        https://codeberg.org/ifreund/zig-xkbcommon/archive/v%{zig_xkbcommon_ver}.tar.gz#/zig-xkbcommon-%{zig_xkbcommon_ver}.tar.gz
 
+Patch:          river-classic-0.3.16-Revert-build-switch-to-translate-c-package.patch
+
 ExclusiveArch:  %{zig_arches}
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  scdoc
-BuildRequires:  (zig >= 0.15.2 with zig < 0.16)
+BuildRequires:  (zig >= 0.16 with zig < 0.17)
 BuildRequires:  zig-rpm-macros
 
 BuildRequires:  pkgconfig(libevdev)
@@ -93,6 +103,7 @@ License:        ISC
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -a 4 -a 5 -a 6 -a 7
+%autopatch -p1
 
 %zig_fetch zig-pixman
 %zig_fetch zig-wayland
@@ -101,15 +112,11 @@ License:        ISC
 
 
 %build
-%zig_build \
-    -Dpie  \
-    -Dxwayland
+%zig_build
 
 
 %install
-%zig_install \
-    -Dpie    \
-    -Dxwayland
+%zig_install
 install -D -m755 -pv example/init %{buildroot}%{_datadir}/river/init.example
 install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/river.desktop
 

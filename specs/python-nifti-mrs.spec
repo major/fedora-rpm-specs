@@ -1,9 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc %{defined fc42}
-
 # For now, we treat https://github.com/wtclarke/mrs_nifti_standard as a bundled
 # dependency. However, it’s not clear if it makes sense to try to unbundle it
 # or if (since what is bundled is merely a data file) it even makes sense to
@@ -58,12 +52,6 @@ ExcludeArch:    %{ix86}
  
 BuildRequires:  %{py3_dist pytest}
 
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
-
 %global common_description %{expand:
 This package contains python-based tools for representing, validating, and
 manipulating the NIfTI-MRS format. NIfTI-MRS is a standardized format for
@@ -102,10 +90,8 @@ Provides:       bundled(mrs_nifti_standard) = %{std_version}
 Provides:       mrs_tools = %{version}-%{release}
 Obsoletes:      mrs_tools < 1.3.0-3
 
-%if %{without doc}
 # Removed for F43, so we can drop the Obsoletes after F45:
 Obsoletes:      python-nifti-mrs-doc < 1.3.3-5
-%endif
 
 %description -n python3-nifti-mrs %{common_description}
 
@@ -113,19 +99,6 @@ Obsoletes:      python-nifti-mrs-doc < 1.3.3-5
 # We don’t generate a metapackage for the “VIS” extra because it requires
 # fsl-mrs, which (1) is not packaged, (2) is not on PyPI, (3) is non-free
 # (non-commercial use only).
-
-
-%if %{with doc}
-%package        doc
-Summary:        Documentation for python-nifti-mrs
-# This subpackage contains neither _version.py (under Unlicense) nor content
-# from the standard specification, Source1, under CC-BY-4.0.
-License:        BSD-3-Clause
-
-BuildArch:      noarch
-
-%description    doc %{common_description}
-%endif
 
 
 %prep
@@ -138,14 +111,6 @@ find ../mrs_nifti_standard-%{std_version} -mindepth 1 -maxdepth 1 -type f \
     -exec ln '{}' src/nifti_mrs/standard/ ';'
 # We do also want to package a copy of the license text for the standard.
 ln ../mrs_nifti_standard-%{std_version}/LICENSE LICENSE-mrs_nifti_standard
-
-
-%build -a
-%if %{with doc}
-PYTHONPATH="${PWD}/src" %make_build -C apidoc latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C apidoc/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install -a
@@ -177,21 +142,10 @@ m="${m-}${m+ and }not with_fsl_mrs"
 
 
 %files -n python3-nifti-mrs -f %{pyproject_files}
-%if %{without doc}
 %doc CHANGELOG.md
 %doc README.md
-%endif
 %{_bindir}/mrs_tools
 %{_mandir}/man1/mrs_tools*.1*
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc CHANGELOG.md
-%doc README.md
-%doc apidoc/_build/latex/nifti-mrs.pdf
-%endif
 
 
 %changelog

@@ -6,18 +6,13 @@
 %bcond jsonschema_rs 0
 
 Name:           python-%{srcname}
-Version:        0.8.4
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
 License:        Apache-2.0
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
-
-# Loosen the upper bound on the jsonschema dependency to <5.0.0; we cannot
-# respect upstream’s choice to pin this dependency to a particular minor
-# release number.
-Patch:          relax_jsonschema_dep.patch
 
 BuildArch:      noarch
 

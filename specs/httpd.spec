@@ -28,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.66
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -79,7 +79,7 @@ Source47: apachectl.xml
 Source48: apache-poweredby.png
 Source49: httpd.sysusers
 
-# build/scripts patches
+# Build/scripts patches
 Patch2: httpd-2.4.43-apxs.patch
 Patch3: httpd-2.4.43-deplibs.patch
 # Needed for socket activation and mod_systemd patch
@@ -96,6 +96,7 @@ Patch27: httpd-2.4.64-sslprotdefault.patch
 Patch28: httpd-2.4.43-logjournal.patch
 Patch29: httpd-2.4.63-r1912477+.patch
 Patch30: httpd-2.4.64-separate-systemd-fns.patch
+Patch31: httpd-2.4.66-openssl4.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -851,6 +852,12 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri May 01 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-7
+- add OpenSSL 4.0 compatibility fixes
+
+* Fri Mar 20 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-6
+- stop building mod_dav_lock
+
 * Tue Mar 03 2026 Tom Callaway <spot@fedoraproject.org> - 2.4.66-5
 - rebuild for lua 5.5
 

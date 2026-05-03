@@ -11,7 +11,7 @@
 %global gap_makedoc makedocrel.g
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.1.10
+Version:        2.1.11
 Release:        %autorelease
 Summary:        GAP interface to the Atlas of Group Representations
 

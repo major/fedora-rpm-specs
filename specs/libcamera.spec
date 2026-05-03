@@ -1,5 +1,5 @@
 Name:    libcamera
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
@@ -191,6 +191,7 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %files tools
 %license LICENSES/GPL-2.0-only.txt
 %{_bindir}/cam
+%{_bindir}/libcamera-bug-report
 
 %files v4l2
 %{_bindir}/libcamerify
@@ -200,6 +201,10 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Fri May 01 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.1-1
+- Update to version 0.7.1
+- New libcamera-bug-report utility added to tools
+
 * Thu Jan 29 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.0-1
 - Update to version 0.7.0
 

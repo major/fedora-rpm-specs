@@ -11,7 +11,7 @@
 
 Name:       openconnect
 Version:    9.12
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Open multi-protocol SSL VPN client
 License:    LGPL-2.1-or-later
 URL:        https://www.infradead.org/%{name}/
@@ -19,6 +19,7 @@ URL:        https://www.infradead.org/%{name}/
 Source0:    %{url}/download/%{name}-%{version}.tar.gz
 Source1:    %{url}/download/%{name}-%{version}.tar.gz.asc
 Source2:    gpgkey-BE07D9FD54809AB2C4B0FF5F63762CDA67E2F359.asc
+Patch0:     openconnect-5fec1e2-fixed.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -118,6 +119,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Apr 27 2026 Angelo Theodorakis <angelotheo@meta.com> - 9.12-11
+- Backport upstream commit 5fec1e2: Fix Cisco DTLS MTU detection
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

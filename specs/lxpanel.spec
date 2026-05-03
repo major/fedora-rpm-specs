@@ -189,7 +189,7 @@ export LDFLAGS="${LDFLAGS} -pthread"
 %configure \
 	--enable-indicator-support \
 	--disable-silent-rules \
-	--with-plugins='netstatus,volume,cpu,deskno,batt,kbled,xkb,thermal,cpufreq,monitors,indicator,weather' \
+	--with-plugins='all,-netstat' \
 	%{nil}
 %make_build
 

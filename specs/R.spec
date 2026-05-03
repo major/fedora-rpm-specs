@@ -12,6 +12,9 @@
 %bcond_without tests
 %endif
 
+# We don't want the tex provides that generate here
+%global __provides_exclude tex\\\(.*\\\)
+
 # We need at least gcc 10
 %if 0%{?rhel} && 0%{?rhel} < 9
 %global _lto_cflags %nil
@@ -35,7 +38,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -969,6 +972,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri May  1 2026 Tom Callaway <spot@fedoraproject.org> - 4.6.0-2
+- exclude tex autoprovides
+
 * Fri Apr 24 2026 Iñaki Úcar <iucar@fedoraproject.org> - 4.6.0-1
 - Update to 4.6.0
 

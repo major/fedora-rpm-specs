@@ -1,5 +1,5 @@
 Name:    libcamera-apps
-Version: 1.11.1
+Version: 1.12.0
 Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
@@ -82,6 +82,9 @@ Headers for developing against libcamera-apps.
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.12.0-1
+- Update to 1.12.0
+
 * Sat Feb 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.11.1-1
 - Update to 1.11.1
 - Enable NEON for aarch64

@@ -1,7 +1,7 @@
 %global		framework kcalendarcore
 
 Name:		kf6-%{framework}
-Version:	6.25.0
+Version:	6.26.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 KCalendarCore Library
 License:	BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-3.0-or-later
@@ -16,12 +16,23 @@ BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	bison
 BuildRequires:	libical-devel
-BuildRequires:	qt6-qtbase-devel
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:  clang-devel
+BuildRequires:  python3-devel
+BuildRequires:  cmake(Shiboken6)
+BuildRequires:  cmake(PySide6)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  python3dist(build)
+BuildRequires:  python3dist(setuptools)
 
 %description
 %{summary}.
+
+%package	-n python3-%{name}
+Summary:        Qt for Python bindings for %{name}
+%description	-n python3-%{name}
+The package contains the pyside6 bindings library for %{name}
 
 %package	devel
 Summary:	Development files for %{name}
@@ -59,11 +70,16 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_libdir}/libKF6CalendarCore.so.*
 %{_kf6_qmldir}/org/kde/calendarcore/
 
+%files -n python3-%{name}
+%{python3_sitearch}/KCalendarCore.cpython-%{python3_version_nodots}*.so
+
 %files devel
 %{_kf6_includedir}/KCalendarCore/
 %{_kf6_libdir}/libKF6CalendarCore.so
 %{_kf6_libdir}/cmake/KF6CalendarCore/
 %{_kf6_libdir}/pkgconfig/KF6CalendarCore.pc
+%{_includedir}/PySide6/KCalendarCore/
+%{_kf6_datadir}/PySide6/typesystems/typesystem_kcalendarcore.xml
 %{_qt6_docdir}/*/*.tags
 %{_qt6_docdir}/*/*.index
 
@@ -76,6 +92,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
+- 6.26.0
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

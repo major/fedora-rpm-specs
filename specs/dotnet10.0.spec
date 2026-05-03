@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.106
+%global upstream_tag v10.0.107
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.6
-%global aspnetcore_runtime_version 10.0.6
-%global sdk_version 10.0.106
+%global runtime_version 10.0.7
+%global aspnetcore_runtime_version 10.0.7
+%global sdk_version 10.0.107
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -930,6 +930,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Fri May 01 2026 Omair Majid <omajid@redhat.com> - 10.0.107-1
+- Update to .NET SDK 10.0.107 and Runtime 10.0.7
+
 * Fri Apr 17 2026 Omair Majid <omajid@redhat.com> - 10.0.106-1
 - Update to .NET SDK 10.0.106 and Runtime 10.0.6
 

@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        9.rocm%{rocm_version}%{?dist}
+Release:        10.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -179,6 +179,7 @@ BuildRequires:  fdupes
 BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  zlib-devel
 %if %{with gold}
 BuildRequires:  binutils-devel
@@ -223,7 +224,7 @@ This package contains ROCm compiler related RPM macros.
 Summary:        AMD ROCm LLVM bit code libraries
 Requires:       %{rocm_clang_name}-devel = %{version}-%{release}
 Requires:       %{rocm_llvm_name}-static = %{version}-%{release}
-Requires:       %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:       %{rocm_llvm_name}-filesystem = %{version}-%{release}
 Requires:       rocm-lld%{pkg_suffix} = %{version}-%{release}
 
 %description -n %{device_libs_name}
@@ -238,6 +239,7 @@ libraries in the form of bit code. Specifically:
  
 %package -n %{comgr_name}
 Summary:        AMD ROCm LLVM Code Object Manager
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       comgr%{pkg_suffix}(major) = %{comgr_maj_api_ver}
 Provides:       rocm-comgr%{pkg_suffix} = %{comgr_full_api_ver}-%{release}
 
@@ -264,6 +266,7 @@ The AMD Code Object Manager (Comgr) development package.
 Summary:        HIP compiler driver
 Requires:       %{device_libs_name} = %{version}-%{release}
 Requires:       rocminfo%{pkg_suffix}
+Requires:       rocm-filesystem%{pkg_suffix}
 %if 0%{?suse_version}
 Provides:       hip = %{version}-%{release}
 Obsoletes:      hip <= %{version}-%{release}
@@ -283,7 +286,7 @@ This package owns the rocm llvm directory : %{bundle_prefix}
 
 %package -n %{rocm_llvm_name}-libs
 Summary: The ROCm LLVM lib
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 %if %{with libcxx}
 Requires:      %{rocm_libcxx_name}%{?_isa} = %{version}-%{release}
 %endif
@@ -293,6 +296,8 @@ Requires:      %{rocm_libcxx_name}%{?_isa} = %{version}-%{release}
 
 %package -n %{rocm_llvm_name}
 Summary:       The ROCm LLVM
+Requires:      rocm-filesystem%{pkg_suffix}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2362780
 #  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
@@ -306,6 +311,8 @@ Recommends:      rocm-runtime%{pkg_suffix}-devel
 Summary:       Libraries and header files for ROCm LLVM
 Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_llvm_name}%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
+Requires:      rocm-filesystem%{pkg_suffix}
 Requires:      zlib-devel
 
 %description -n %{rocm_llvm_name}-devel
@@ -318,7 +325,7 @@ Requires:      zlib-devel
 %package -n %{rocm_llvm_name}-static
 Summary:       Static libraries for ROCm LLVM
 Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 Provides:      %{rocm_llvm_name}-static = %{version}-%{release}
 
 %description -n %{rocm_llvm_name}-static
@@ -327,7 +334,9 @@ Provides:      %{rocm_llvm_name}-static = %{version}-%{release}
 # ROCM CLANG
 %package -n %{rocm_clang_name}-libs
 Summary:       The ROCm compiler libs
+Requires:      rocm-filesystem%{pkg_suffix}
 Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_clang_name}-libs
 %{summary}
@@ -338,7 +347,7 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 
 %package -n %{rocm_clang_name}-runtime-devel
 Summary:       The ROCm compiler runtime
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 Provides:      %{rocm_clang_name}-runtime-static = %{version}-%{release}
 
 %description -n %{rocm_clang_name}-runtime-devel
@@ -350,7 +359,7 @@ Requires:      git
 Requires:      python3
 Requires:      %{rocm_clang_name}-libs%{?_isa} = %{version}-%{release}
 Requires:      %{rocm_clang_name}-runtime-static = %{version}-%{release}
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 %if %{with libcxx}
 Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 %endif
@@ -361,6 +370,7 @@ Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 %package -n %{rocm_clang_name}-devel
 Summary:       Libraries and header files for ROCm CLANG
 Requires:      %{rocm_clang_name}%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_clang_name}-devel
 %{summary}
@@ -369,7 +379,7 @@ Requires:      %{rocm_clang_name}%{?_isa} = %{version}-%{release}
 %package -n %{rocm_clang_tools_extra_name}
 Summary:       Extra tools for clang
 Requires:      rocm-clang%{pkg_suffix}-libs%{?_isa} = %{version}-%{release}
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_clang_tools_extra_name}
 A set of extra tools built using Clang's tooling API.
@@ -377,6 +387,7 @@ A set of extra tools built using Clang's tooling API.
 %package -n %{rocm_clang_tools_extra_name}-devel
 Summary: Development header files for clang tools
 Requires: %{rocm_clang_tools_extra_name} = %{version}-%{release}
+Requires: %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_clang_tools_extra_name}-devel
 Development header files for clang tools.
@@ -385,6 +396,7 @@ Development header files for clang tools.
 %package -n %{rocm_lld_name}
 Summary:        The ROCm Linker
 Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_lld_name}
 %{summary}
@@ -393,7 +405,7 @@ Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 # ROCM LIBC++
 %package -n %{rocm_libcxx_name}
 Summary:       The ROCm libc++
-Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 
 %description -n %{rocm_libcxx_name}
 %{summary}
@@ -420,6 +432,7 @@ Obsoletes:      %{rocm_libcxx_name} <= %{version}-%{release}
 %package -n %{rocm_clang_analyzer_name}
 Summary:       The ROCm code analysis framework
 Requires:      %{rocm_clang_name} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 # For scan-build
 Requires:      perl(File::Copy)
 Requires:      perl(File::Find)
@@ -1094,6 +1107,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %endif
 
 %changelog
+* Thu Apr 30 2026 Tom Rix <Tom.Rix@amd.com> 22-10.rocm7.2.1
+- Merge rocm-compilersupport7.2 changes back
+
 * Fri Apr 24 2026 Tom Rix <Tom.Rix@amd.com> 22-9.rocm7.2.1
 - use suse ldconfig_scriptlets
 - move clang-tidy include dir to filesystem package

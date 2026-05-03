@@ -1,5 +1,5 @@
 Name:           python-uharfbuzz
-Version:        0.54.0
+Version:        0.54.1
 Release:        %autorelease
 Summary:        Streamlined Cython bindings for the harfbuzz shaping engine
 
@@ -50,10 +50,6 @@ URL:            https://github.com/harfbuzz/uharfbuzz
 # Source0:        %%{url}/archive/v%%{version}/uharfbuzz-%%{version}.tar.gz
 Source0:        uharfbuzz-%{version}-filtered.tar.gz
 Source1:        get_source
-
-# When using system Harfbuzz, link the harfbuzz-raster component
-# https://github.com/harfbuzz/uharfbuzz/pull/292
-Patch:          %{url}/pull/292.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -t

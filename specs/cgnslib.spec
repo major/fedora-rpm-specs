@@ -6,8 +6,8 @@
 %bcond mpich %{undefined flatpak}
 
 Name:           cgnslib
-Version:        4.5.1
-Release:        4%{?dist}
+Version:        4.5.2
+Release:        1%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -18,8 +18,6 @@ Patch0:         cgnslib-cmake-install-dirs.patch
 Patch1:         cgnslib_desktop.patch
 Patch2:         cgnslib-c99.patch
 Patch3:         cgnslib-i686.patch
-# Allow building with Ninja generator
-Patch4:         https://github.com/CGNS/CGNS/pull/845.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -405,6 +403,9 @@ ctest || :
 
 
 %changelog
+* Fri May 01 2026 Sandro Mani <manisandro@gmail.com> - 4.5.2-1
+- Update to 4.5.2
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.5.1-4
 - Rebuild for hdf5 2.1
 

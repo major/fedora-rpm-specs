@@ -1,6 +1,6 @@
 Name:       libsignal-protocol-c
 Version:    2.3.3
-Release:    17%{?dist}
+Release:    18%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
@@ -40,6 +40,8 @@ Development files for libsignal-protocol-c.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380753)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE=Debug .
 %cmake_build
 
@@ -65,6 +67,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Thu Apr 30 2026 Cristian Le <git@lecris.dev> - 2.3.3-17
+- Allow to build with CMake 4.0 (rhbz#2380753)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

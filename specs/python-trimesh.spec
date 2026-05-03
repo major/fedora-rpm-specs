@@ -5,7 +5,7 @@
 %bcond meshio %{defined fc44}
 
 Name:           python-trimesh
-Version:        4.12.1
+Version:        4.12.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -105,6 +105,9 @@ Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 # report. As a workaround, this works just fine.
 BuildRequires:  (blender or python3(s390-64))
 Recommends:     (blender or python3(s390-64))
+%ifnarch s390x
+%global have_blender 1
+%endif
 %endif
 # trimesh.graph
 BuildRequires:  /usr/bin/dot
@@ -276,6 +279,13 @@ deselect="${deselect-} --deselect=tests/test_primitives.py::test_primitives"
 # https://github.com/mikedh/trimesh/issues/1351#issuecomment-3016671094
 # https://github.com/mikedh/trimesh/issues/1351#issuecomment-4088830874
 deselect="${deselect-} --deselect=tests/test_color.py::test_data_model"
+
+%if !0%{?have_blender}
+# This test requires a boolean backend: either blender or manifold3d, which is
+# not yet packaged.
+k="${k-}${k+ and }not test_contains_cavity"
+%endif
+
 # This test fails if it doesn’t finish within 30 seconds, and executing it in
 # parallel with other tests tends to slow it down too much. We exclude it here,
 # then run it serially on its own.

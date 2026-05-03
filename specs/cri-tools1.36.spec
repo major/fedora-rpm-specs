@@ -50,12 +50,6 @@ tar -xf %{S:1}
 %global gomodulesmode GO111MODULE=on
 export GO_BUILDTAGS="selinux seccomp"
 
-# set cgo related flags except for ppcle64 and s390x
-%ifnarch s390x ppc64le 
-export CGO_CFLAGS="%{build_cflags}"
-export CGO_LDFLAGS="%{build_ldflags}"
-%endif
-
 # the export below fixes the crictl -v unknown version result
 export GO_LDFLAGS="-X %{goipath}/pkg/version.Version=%{version}"
 

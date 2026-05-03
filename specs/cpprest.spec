@@ -5,7 +5,7 @@
 %define minor 10
 Name:           cpprest
 Version:        2.10.19
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
@@ -33,7 +33,9 @@ BuildRequires:  pkgconfig(libbrotlienc) >= 0.6.0
 BuildRequires:  cmake >= 3.1
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(openssl) >= 1.0
+%if 0%{?fedora} >= 40 && 0%{?fedora} < 45
 BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires:  websocketpp-devel >= 0.5.1
 BuildRequires:  pkgconfig(zlib)
 
@@ -103,6 +105,9 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Thu Apr 30 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.10.19-12
+- Fix build with OpenSSL 4.0 (bound openssl-devel-engine to Fedora < 45)
+
 * Fri Jan 30 2026 Wolfgang Stöggl <c72578@yahoo.de> - 2.10.19-11
 - Add patch:
   cpprest-2.10.19-fix-boost-asio-errors.patch

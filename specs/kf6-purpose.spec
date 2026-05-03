@@ -2,8 +2,8 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 6.25.0
-Release: 2%{?dist}
+Version: 6.26.0
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -116,6 +116,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
+- 6.26.0
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.25.0-2
 - Rebuild (qt6)
 

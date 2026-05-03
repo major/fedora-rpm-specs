@@ -1,8 +1,8 @@
 # SPDX-License-Identifqier: MIT
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
-Version:   3.4.3
-Release:   5%{?dist}
+Version:   v3.5.0
+Release:   1%{?dist}
 
 %forgemeta
 
@@ -44,10 +44,12 @@ chmod 755 generate.pe
 
 %check
 %fontcheck
-
 %fontfiles
 
 %changelog
+* Fri May 01 2026  Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 3.5.0-1
+- Updated to Unicode Version 18.0 for Bengali
+- Fixed missing open type rules
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

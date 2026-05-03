@@ -15,8 +15,8 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.14.1
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Version: 2.14.2
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -134,6 +134,9 @@ done
 %endif
 
 %changelog
+* Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.2-1
+- Update to 2.14.2
+
 * Tue Mar 03 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.1-2
 - Actually ship rk3576
 

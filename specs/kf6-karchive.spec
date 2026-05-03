@@ -1,7 +1,7 @@
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        6.25.0
+Version:        6.26.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
@@ -64,8 +64,10 @@ Developer Documentation files for %{name} in HTML format
 
 %install
 %cmake_install_kf6
-
 %find_lang_kf6 karchive6_qt
+# Seems one of the arches generate an extra file. Neal said to delete it, at least for now
+# It is being built on all arches, except s390x and i686.
+rm -f %{buildroot}%{_qt6_docdir}/karchive/karchivedirectory-obsolete.html
 
 %files -f karchive6_qt.lang
 %doc AUTHORS README.md
@@ -91,6 +93,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
+- 6.26.0
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

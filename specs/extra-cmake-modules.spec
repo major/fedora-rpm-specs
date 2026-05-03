@@ -9,7 +9,7 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 6.25.0
+Version: 6.26.0
 Release: 1%{?dist}
 # kde-modules/clang-format.cmake is MIT
 License: BSD-3-Clause AND BSD-2-Clause AND MIT
@@ -85,6 +85,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
+- 6.26.0
+
 * Thu Apr 09 2026 Steve Cossette <farchord@gmail.com> - 6.25.0-1
 - 6.25.0
 

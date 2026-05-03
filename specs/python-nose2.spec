@@ -20,8 +20,6 @@ BuildOption(check):     -e nose2.tests* -e nose2.sphinxext
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 %global common_description %{expand:
 nose2 is the successor to nose.
 
@@ -41,15 +39,16 @@ Obsoletes:      python-nose2-doc < 0.15.1-9
 # Deprecated upstream (and renamed from coverage_plugin to coverage-plugin, a
 # breaking change) in 0.16.0. We dropped the extra at that time, from F44
 # onward. We can therefore remove the Obsoletes after Fedora 46.
-Obsoletes:      python-nose2-coverage_plugin < 0.16.0-1
+Obsoletes:      python-nose2+coverage_plugin < 0.16.0-1
 
 %description -n python3-nose2 %{common_description}
 
 
 %prep -a
 # We are not building documentation.
-tomcli set pyproject.toml lists delitem project.optional-dependencies.dev \
-    'sphinx*'
+%pyproject_patch_dependency sphinx:ignore
+%pyproject_patch_dependency sphinx-issues:ignore
+%pyproject_patch_dependency sphinx-rtd-theme:ignore
 
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.

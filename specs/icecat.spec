@@ -25,6 +25,10 @@ ExcludeArch: %{ix86} %{arm}
 %define _lto_cflags %{nil}
 %endif
 
+# Increase the DIE limit so our debuginfo package can be size-optimized
+%global _dwz_max_die_limit_x86_64 250000000
+%global _dwz_max_die_limit_aarch64 250000000
+
 # Build PGO+LTO on x86_64 only due to build and/or runtime issues
 %if %{release_build}
 %ifarch x86_64
@@ -108,7 +112,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.10.0
+Version: 140.10.1
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -155,6 +159,7 @@ Patch226: rhbz-1354671.patch
 
 # Build patches
 Patch228: %{name}-protobuf_s390.patch
+Patch229: mozilla-2034301.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -332,11 +337,10 @@ and translations langpack add-ons.
 # Copy license files
 tar -xf %{SOURCE5}
 
-# Fedora patches
-%if 0%{?fedora}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
-%endif
 %patch -P 224 -p 1 -b .glibcxx
+
+# Fedora patches
 %if 0%{?fedora} >= 44
 %patch -P 225 -p 1 -b .build-c11
 %patch -P 227 -p 1 -b .build-seccomp
@@ -346,6 +350,8 @@ tar -xf %{SOURCE5}
 %ifarch s390x
 %patch -P 228 -p 1 -b .build-protobuf
 %endif
+
+%patch -P 229 -p 1 -b .incom-pointer
 
 # ARM64
 %ifarch %{arm64}

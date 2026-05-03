@@ -1,8 +1,8 @@
 Name: mbedtls
 Version: 3.6.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
-License: Apache-2.0
+License: Apache-2.0 or GPLv2.0-or-later
 URL: https://www.trustedfirmware.org/projects/mbed-tls
 Source0: https://github.com/Mbed-TLS/%{name}/archive/refs/tags/%{name}-%{version}.tar.bz2
 
@@ -93,6 +93,9 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.6.6-2
+- Update licence to Apache-2.0 or GPLv2.0-or-later
+
 * Thu Apr 02 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.6.6-1
 - Update to 3.6.6
 

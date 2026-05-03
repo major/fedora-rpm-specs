@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.180.0
-Release:        3%{?dist}
+Version:        0.182.0
+Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-MockModule
@@ -26,8 +26,15 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(SUPER) >= 1.20
 BuildRequires:  perl(vars)
 # Test Suite
+BuildRequires:  perl(Class::Load)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(Moose)
+BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Mouse)
+BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warnings)
 %if %{with perl_Test_MockModule_enables_optional_test}
@@ -68,6 +75,11 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Fri May  1 2026 Paul Howarth <paul@city-fan.org> - 0.182.0-1
+- Update to 0.182.0
+  - See https://github.com/geofffranks/test-mockmodule/releases for details
+  - Highlight: Moose and Mouse meta-class aware mocking (GH#55)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.180.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -39,7 +39,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        ROCm directories
 
@@ -83,6 +83,7 @@ mkdir -p %{buildroot}%{pkg_prefix}/include
 mkdir -p %{buildroot}%{pkg_prefix}/libexec
 mkdir -p %{buildroot}%{pkg_prefix}/share/cmake
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
+mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %endif
 
 %files
@@ -95,6 +96,7 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/share/cmake
 %dir %{pkg_prefix}/%{pkg_libdir}
 %dir %{pkg_prefix}/%{pkg_libdir}/cmake
+%dir %{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %endif
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/bin
@@ -212,6 +214,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Fri May 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Add lib/pkgconfig for rocm-runtime
+
 * Sun Mar 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Add some dirs for hipblas-common
 

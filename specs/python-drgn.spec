@@ -14,7 +14,7 @@ drgn exposes the types and variables in a program for easy, expressive
 scripting in Python.}
 
 Name:           python-%{pypi_name}
-Version:        0.1.0
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Programmable debugger
 
@@ -38,6 +38,7 @@ BuildRequires:  make
 BuildRequires:  bzip2-devel
 BuildRequires:  elfutils-devel
 BuildRequires:  elfutils-debuginfod-client-devel
+BuildRequires:  json-c-devel
 BuildRequires:  libkdumpfile-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  zlib-devel

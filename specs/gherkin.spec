@@ -9,6 +9,7 @@
 %bcond acceptance_c 1
 %bcond acceptance_cpp 1
 %bcond acceptance_python 1
+%bcond acceptance_ruby 1
 
 Name:           gherkin
 Version:        39.0.0
@@ -24,8 +25,10 @@ License:        MIT
 URL:            https://github.com/cucumber/gherkin
 Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 
-# Man page hand-written for Fedora in groff_man(7) format based on --help
-Source10:       gherkin-cpp.1
+# Man pages hand-written for Fedora in groff_man(7) format based on --help
+Source10:       gherkin.1
+Source11:       gherkin-cpp.1
+Source12:       gherkin-ruby.1
 
 # Update cmake_minimum_required for C to 3.12; support CMake 4
 # https://github.com/cucumber/gherkin/pull/546
@@ -42,7 +45,10 @@ BuildRequires:  cmake
 # C++ library has "LANGUAGES C CXX" in CMake, so it still needs a C compiler
 BuildRequires:  gcc
 
-%if %{with acceptance_c} || %{with acceptance_cpp} || %{with acceptance_python}
+%if %{with acceptance_c} || \
+    %{with acceptance_cpp} || \
+    %{with acceptance_python} || \
+    %{with acceptance_ruby}
 BuildRequires:  make
 BuildRequires:  jq
 %endif
@@ -152,6 +158,39 @@ Requires:       gherkin-data = %{version}-%{release}
 %description -n python3-gherkin-official %{common_description}
 
 
+# We package the RubyGem as a subpackage, rather than as a separate
+# rubygem-cucumber-gherkin source package based on the relesed Gem archive,
+# because having the full gherkin source code makes it much easier to run
+# acceptance tests and to keep the RubyGem up to date and synchronized with
+# other languages’ implementations without duplication of effort.
+#
+# The Ruby specific content is kept as close as feasible to the output of
+# `gem2rpm --fetch cucumber-gherkin`.
+
+%global gem_name cucumber-gherkin
+
+%package -n rubygem-cucumber-gherkin
+Summary:        Gherkin parser
+BuildRequires:  ruby(release)
+BuildRequires:  rubygems-devel >= 3.2.8
+BuildRequires:  ruby >= 3.2
+BuildRequires:  rubygem(cucumber-messages)
+BuildRequires:  rubygem(rspec)
+BuildArch:      noarch
+
+%description -n rubygem-cucumber-gherkin
+%{summary}.
+
+
+%package -n rubygem-cucumber-gherkin-doc
+Summary: Documentation for rubygem-cucumber-gherkin
+Requires: rubygem-cucumber-gherkin = %{version}-%{release}
+BuildArch: noarch
+
+%description -n rubygem-cucumber-gherkin-doc
+%{summary}.
+
+
 %prep
 %autosetup -n gherkin-%{version} -p1
 
@@ -199,6 +238,12 @@ popd
 echo '==== Building Python implementation ===='
 %pyproject_wheel -d python
 
+echo '==== Building Ruby implementation ===='
+pushd ruby
+gem build %{gem_name}.gemspec
+%gem_install
+popd
+
 
 %install
 install -t '%{buildroot}%{_datadir}/gherkin' -D -p -m 0644 \
@@ -231,9 +276,24 @@ ln -s -f %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
     '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 symlinks -c -o '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 
+echo '==== Installing Ruby implementation ===='
+pushd ruby
+mkdir -p %{buildroot}%{gem_dir}
+cp -a .%{gem_dir}/* \
+        %{buildroot}%{gem_dir}/
+# Allow Ruby to provide /usr/bin/gherkin, since the Ruby implementation was the
+# original.
+mkdir -p %{buildroot}%{_bindir}
+cp -a .%{_bindir}/* \
+        %{buildroot}%{_bindir}/
+find %{buildroot}%{gem_instdir}/bin -type f -executable \
+    -exec chmod -v a-x '{}' '+'
+popd
+
+
 echo '==== Installing man pages ===='
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}'
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 
 %check
@@ -280,6 +340,26 @@ echo '==== Testing Python implementation ===='
     GHERKIN_GENERATE_EVENTS='%{python3} scripts/generate_events.py' \
     GHERKIN_GENERATE_TOKENS='%{python3} scripts/generate_tokens.py'
 %endif
+
+echo '==== Testing Ruby implementation ===='
+pushd ruby
+ln -r -s spec .%{gem_instdir}/spec
+ln -r -s ../testdata .%{gem_instdir}/../testdata
+pushd .%{gem_instdir}
+rspec -rspec_helper spec
+popd
+%if %{with acceptance_ruby}
+# Keep make from trying to rebuild the Ruby implemention
+mkdir -p .built
+touch Gemfile.lock
+# Override commands so that they don’t use “bundle”; we don’t want a dependency
+# on bundle, and we can’t respect Gemfile.lock or download dependencies from
+# the network.
+%make_build acceptance \
+    GHERKIN='ruby bin/gherkin' \
+    GHERKIN_GENERATE_TOKENS='ruby bin/gherkin-generate-tokens'
+%endif
+popd
 
 
 %files data
@@ -337,6 +417,24 @@ echo '==== Testing Python implementation ===='
 
 %files -n python3-gherkin-official -f %{pyproject_files}
 %doc README.md
+
+
+%files -n rubygem-cucumber-gherkin
+%dir %{gem_instdir}
+%{_bindir}/gherkin-ruby
+%{_bindir}/gherkin
+%{_mandir}/man1/gherkin.1*
+%{_mandir}/man1/gherkin-ruby.1*
+%license %{gem_instdir}/LICENSE
+%{gem_instdir}/bin
+%{gem_libdir}
+%exclude %{gem_cache}
+%{gem_spec}
+
+
+%files -n rubygem-cucumber-gherkin-doc
+%doc %{gem_docdir}
+%doc %{gem_instdir}/README.md
 
 
 %changelog

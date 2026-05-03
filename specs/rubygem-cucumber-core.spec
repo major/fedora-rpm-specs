@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
@@ -55,6 +55,8 @@ Documentation for %{name}.
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
 
+%gemspec_remove_dep -g cucumber-gherkin "~> 22.0"
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 
@@ -93,6 +95,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Wed Apr 29 2026 Vít Ondruch <vondruch@redhat.com> - 10.1.0-15
+- Relax cucumber-gherkin dependency.
+
 * Mon Apr 20 2026 Vít Ondruch <vondruch@redhat.com> - 10.1.0-14
 - Fix compatibility with cucumber-messages 31.1+
 

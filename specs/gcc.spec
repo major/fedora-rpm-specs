@@ -1,13 +1,14 @@
-%global DATE 20260416
-%global gitrev 1ce031bfa84b69736e209fbe7446bf271e2f49d3
-%global gcc_version 16.0.1
+%global DATE 20260501
+%global gitrev f4e68dc3bdc8f1c5d202db92c8c7bcd89c638688
+%global gcc_version 16.1.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 0
+%global gcc_release 1
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
+%global _find_debuginfo_opts --keep-section .a68_exports
 %if 0%{?fedora:1}
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -158,7 +159,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.11%{?dist}
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -322,11 +323,7 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-uglification.patch
-Patch14: gcc16-uglification2.patch
-Patch15: gcc16-module-exports.patch
-Patch16: gcc16-bitint-tests.patch
-Patch17: gcc16-pr124268.patch
+Patch13: gcc16-pr125079.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3977,6 +3974,28 @@ end
 %endif
 
 %changelog
+* Fri May  1 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-1
+- update from trunk and releases/gcc-16 branch
+  - GCC 16.1.0 release
+  - PRs ada/107391, ada/107392, ada/124918, ada/125044, c/84717, c++/120502,
+	c++/123879, c++/124582, c++/124632, c++/124706, c++/124756,
+	c++/124855, c++/124910, c++/124926, c++/124927, c++/124944,
+	c++/124950, c++/124953, c++/124973, c++/124981, c++/124989,
+	c++/125035, c++/125096, cobol/119818, d/123411, d/124157, d/124922,
+	fortran/63858, fortran/93329, fortran/93463, fortran/108382,
+	fortran/117077, fortran/120431, ipa/120098, libfortran/120431,
+	libstdc++/112490, libstdc++/119714, libstdc++/124410,
+	libstdc++/124540, libstdc++/124890, libstdc++/125024,
+	libstdc++/125112, middle-end/95551, middle-end/122021,
+	middle-end/124900, middle-end/124971, modula2/120189,
+	preprocessor/124930, rtl-optimization/124643, sanitizer/124248,
+	sanitizer/124969, target/103383, target/124133, target/124933,
+	target/124959, target/124984, target/125117, testsuite/124682,
+	testsuite/124939, tree-optimization/116463, tree-optimization/124909,
+	tree-optimization/124941, tree-optimization/124988,
+	tree-optimization/125019, tree-optimization/125039,
+	tree-optimization/125079
+
 * Thu Apr 16 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.11
 - update from trunk
   - PRs ada/77535, ada/87170, ada/95452, ada/105212, ada/124596, ada/124606,
