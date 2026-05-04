@@ -7,7 +7,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -15,7 +15,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionpack
 # git archive -v -o actionpack-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
-
+# https://github.com/rails/rails/issues/57282
+# https://github.com/rails/rails/pull/57283
+# Support Minitest 6.0.6 assert_nil? implementation change
+Patch0:  rubygem-actionpack-pr57283-Minitest6_0_6-assert_nil.patch
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
@@ -59,6 +62,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+(
+cd %{_builddir}
+%patch -P0 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -128,6 +135,9 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat May 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-3
+- Backport upstream patch for Minitest 6.0.6 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

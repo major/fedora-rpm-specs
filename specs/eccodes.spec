@@ -3,7 +3,7 @@
 %endif
 
 Name:           eccodes
-Version:        2.46.0
+Version:        2.47.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -68,8 +68,8 @@ BuildRequires:  jasper-devel
 BuildRequires:  openjpeg2-devel >= 2.5.2
 BuildRequires:  libpng-devel
 BuildRequires:  netcdf-devel
-BuildRequires:  libaec-devel
-BuildRequires:  libaec-static
+BuildRequires:  libaec-devel >= 1.1.4
+BuildRequires:  libaec-static >= 1.1.4
 
 # For tests
 BuildRequires:  perl(Getopt::Long)
@@ -478,6 +478,9 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Sat May 02 2026 Jos de Kloe <josdekloe@gmail.com> - 2.47.0-1
+- Update to 2.47.0
 
 * Fri Mar 13 2026 Jos de Kloe <josdekloe@gmail.com> - 2.46.0-1
 - Update to 2.46.0

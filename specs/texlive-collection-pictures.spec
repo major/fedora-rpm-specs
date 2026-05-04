@@ -5,7 +5,7 @@
 Name:           texlive-collection-pictures
 Epoch:          12
 Version:        svn78823
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphics, pictures, diagrams
 
 License:        LPPL-1.3c
@@ -7616,6 +7616,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/generic/xypic/
 
 %changelog
+* Sat May 2 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78823-3
+- rebuild with fixed generator
+
 * Wed Apr 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn78823-2
 - Update collection from svn77389 to svn78823
 - Add corasdiagram

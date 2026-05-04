@@ -4,10 +4,10 @@
 # consider it as a bundled dependency. The only part that might be used by
 # other packages is the machine-readable specification, definitions.json; this
 # is also the only part we need.
-%global std_version 0.10
+%global std_version 0.11.2
 
 Name:           python-nifti-mrs
-Version:        1.3.5
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Software tools for the NIfTI-MRS data format
 
@@ -25,7 +25,7 @@ URL:            https://github.com/wtclarke/nifti_mrs_tools
 # would not need a second source for the standard specification.)
 Source0:        %{url}/archive/%{version}/nifti_mrs_tools-%{version}.tar.gz
 %global std_url https://github.com/wtclarke/mrs_nifti_standard
-Source1:        %{std_url}/archive/v%{std_version}/mrs_nifti_standard-%{std_version}.tar.gz
+Source1:        %{std_url}/archive/%{std_version}/mrs_nifti_standard-%{std_version}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       mrs_tools.1

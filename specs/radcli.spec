@@ -1,6 +1,6 @@
 Summary: RADIUS protocol client library
 Name: radcli
-Version: 1.5.0
+Version: 1.5.1
 Release: %autorelease
 
 #Breakdown of licenses. Under MIT license:

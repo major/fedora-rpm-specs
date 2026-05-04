@@ -19,7 +19,7 @@ ExcludeArch:    ppc64le s390x
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
-Version:                0.19.0
+Version:                0.20.7
 
 %gometa -L -f
 

@@ -1,7 +1,7 @@
 
 Name:		nfdump
-Version:	1.7.7
-Release:	2%{?dist}
+Version:	1.7.8
+Release:	1%{?dist}
 Summary:	NetFlow collecting and processing tools
 
 License:	BSD-3-Clause AND GPL-2.0-or-later
@@ -68,6 +68,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 chmod 0644 AUTHORS ChangeLog README.md
 rm -rf %{buildroot}/%{_sysconfdir}
 rm -f %{buildroot}%{_libdir}/*.la
+rm -rf %{buildroot}%{_libdir}/pkgconfig
 
 
 %ldconfig_scriptlets libs
@@ -86,6 +87,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat May 02 2026 Denis Fateyev <denis@fateyev.com> - 1.7.8-1
+- Update to version 1.7.8
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

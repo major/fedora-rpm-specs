@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -25,10 +25,6 @@ Patch2: rubygem-bootsnap-1.16.0-Fix-compatibility-with-Minitest-5.19.patch
 # Patch for ruby3.3.0dev: relax method invocation checking for KernelRequireTest
 # https://github.com/Shopify/bootsnap/pull/460
 Patch3: rubygem-bootsnap-pr460-KernelRequireTest-method-invocation-check.patch
-# Patch for Minitest6: Minitest6 now refuses assert_same(exp, value)
-# when exp == nil, so it checks internally by exp.nil?, but
-# BasicObject does not have nil? method
-Patch4: rubygem-bootsnap-1.15.0-Minitest6-assert_same.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -62,7 +58,6 @@ pushd %{_builddir}
 %patch 1 -p1
 %patch 2 -p1
 %patch 3 -p1
-%patch 4 -p1
 popd
 
 sed -i -e "/^\s*\$CFLAGS / s/^/#/g" \
@@ -125,6 +120,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat May 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-16
+- Remove Minitest6-assert_same.patch : fixed in Minitest 6.0.6
+
 * Fri Apr 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-15
 - Fix compatibility for Minitest 6
 

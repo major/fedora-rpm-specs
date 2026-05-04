@@ -73,16 +73,16 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20250808
-%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
-%global gcc_version 15.2.1
-%global gcc_major 15
+%global DATE 20260501
+%global gitrev f4e68dc3bdc8f1c5d202db92c8c7bcd89c638688
+%global gcc_version 16.1.1
+%global gcc_major 16
 
 # Note, cross_gcc_release must be integer, if you want to add suffixes
 # to %%{release}, append them after %%{cross_gcc_release} on Release:
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
-%global gcc_release 2
+%global gcc_release 1
 %global cross_gcc_release 1
 %global cross_binutils_version 2.43.1-1
 %global isl_version 0.16.1
@@ -95,7 +95,7 @@
 Summary: Cross C compiler
 Name: %{cross}-gcc
 Version: %{gcc_version}
-Release: %{cross_gcc_release}%{?dist}.2
+Release: %{cross_gcc_release}%{?dist}
 # License tag value taken from the gcc package except the values related
 # to newlib which isn't present here
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND (GPL-3.0-or-later WITH Texinfo-exception) AND (LGPL-2.1-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GNU-compiler-exception) AND BSL-1.0 AND GFDL-1.3-or-later AND Linux-man-pages-copyleft-2-para AND SunPro AND BSD-1-Clause AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-4-Clause AND BSD-Source-Code AND Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 WITH LLVM-Exception) AND ZPL-2.1 AND ISC AND LicenseRef-Fedora-Public-Domain AND HP-1986 AND curl
@@ -112,18 +112,19 @@ BuildRequires: isl-devel >= %{isl_version}
 %global srcdir gcc-%{version}-%{DATE}
 Source0: %{srcdir}.tar.xz
 
-Patch0: gcc15-hack.patch
-Patch2: gcc15-sparc-config-detection.patch
-Patch3: gcc15-libgomp-omp_h-multilib.patch
-Patch4: gcc15-libtool-no-rpath.patch
-Patch5: gcc15-isl-dl.patch
-Patch6: gcc15-isl-dl2.patch
-Patch7: gcc15-libstdc++-docs.patch
-Patch8: gcc15-no-add-needed.patch
-Patch9: gcc15-Wno-format-security.patch
-Patch10: gcc15-rh1574936.patch
-Patch11: gcc15-d-shared-libphobos.patch
-Patch12: gcc15-pr119006.patch
+Patch0: gcc16-hack.patch
+Patch2: gcc16-sparc-config-detection.patch
+Patch3: gcc16-libgomp-omp_h-multilib.patch
+Patch4: gcc16-libtool-no-rpath.patch
+Patch5: gcc16-isl-dl.patch
+Patch6: gcc16-isl-dl2.patch
+Patch7: gcc16-libstdc++-docs.patch
+Patch8: gcc16-no-add-needed.patch
+Patch9: gcc16-Wno-format-security.patch
+Patch10: gcc16-rh1574936.patch
+Patch11: gcc16-d-shared-libphobos.patch
+Patch12: gcc16-pr119006.patch
+Patch13: gcc16-pr125079.patch
 
 Patch900: cross-gcc-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
@@ -286,6 +287,7 @@ cd %{srcdir}
 %patch -P10 -p0 -b .rh1574936
 %patch -P11 -p0 -b .shared-libphobos
 %patch -P12 -p0 -b .pr119006
+%patch -P13 -p0 -b .pr125079
 
 %patch -P900 -p0 -b .cross-intl~
 %patch -P901 -p0 -b .format-config~
@@ -869,6 +871,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sat May 02 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 16.1.1-1
+- Update to 16.1.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.2.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

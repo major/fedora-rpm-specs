@@ -1,7 +1,7 @@
 %global srcname xarray
 
 Name:           python-%{srcname}
-Version:        2025.12.0
+Version:        2026.2.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
@@ -10,9 +10,8 @@ URL:            https://github.com/pydata/xarray
 Source:         %pypi_source %{srcname}
 # Fedora specific.
 Patch:          0001-Drop-pydap-from-dependencies.patch
-# RHBZ#2395128
-# https://github.com/pydata/xarray/pull/10788
-Patch:          0002-Ensure-netcdf4-is-locked-while-closing.patch
+# Fix failures with latest dependencies.
+Patch:          https://github.com/pydata/xarray/pull/11204.patch
 
 BuildArch:      noarch
 

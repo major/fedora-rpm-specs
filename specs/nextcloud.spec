@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        33.0.1
+Version:        33.0.3
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -191,7 +191,7 @@ find . -name .gitignore -type f -delete -print
 find . -name .github    -type d -prune -exec rm -r {} \; -print
 
 # fix CLI upgrade advice on splash screen            
-sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' core/src/views/UpdaterAdmin.vue
+sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' dist/9396-9396.js.map
 
 # prepare package doc
 cp %{SOURCE300} README.%{distro}

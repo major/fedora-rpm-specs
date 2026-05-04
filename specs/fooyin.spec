@@ -1,5 +1,5 @@
 Name:           fooyin
-Version:        0.10.3
+Version:        0.10.4
 Release:        %autorelease
 Summary:        A customizable music player
 
@@ -41,6 +41,7 @@ BuildRequires:  cmake(GTest)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
+Patch0:         disable-pffft-altivec.patch
 
 %description
 fooyin is a music player built around customization. It provides a variety
@@ -55,6 +56,7 @@ This package provides development files used to create plugins for fooyin.
 
 %prep
 %autosetup -p1
+mv 3rdparty/pffft/src/LICENSE.txt 3rdparty/pffft/src/LICENSE_pffft.txt
 
 %build
 %cmake -DBUILD_LIBVGM=OFF -DBUILD_TESTING=ON -DINSTALL_HEADERS=ON
@@ -73,6 +75,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f fooyin.lang
 %license COPYING
+%license 3rdparty/pffft/src/LICENSE_pffft.txt
 %doc README.md
 %doc CHANGELOG.md
 %{_bindir}/fooyin

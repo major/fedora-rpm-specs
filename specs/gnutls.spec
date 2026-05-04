@@ -12,16 +12,12 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-Version: 3.8.12
+Version: 3.8.13
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
-
-# upstreamed: https://gitlab.com/gnutls/gnutls/-/merge_requests/2075
-# upstreamed: https://gitlab.com/gnutls/gnutls/-/merge_requests/2080
-Patch: gnutls-3.8.12-nettle4.patch
 
 %bcond_without bootstrap
 %bcond_without dane

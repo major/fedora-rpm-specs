@@ -37,9 +37,6 @@ BuildOption(generate_buildrequires): -x easy,recommend,test,test_more
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  python3-devel
-BuildRequires:  tomcli
-
 # Run tests in parallel:
 BuildRequires:  %{py3_dist pytest-xdist}
 
@@ -199,30 +196,27 @@ EOF
 # Patch out unavailable dependencies from extras:
 
 # easy extra:
-#   manifold3d: not yet packaged, https://github.com/elalish/manifold/
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.easy' '(manifold3d)\b.*'
+#   manifold3d: not yet packaged, https://github.com/elalish/manifold/;
+#               in either “easy” or “recommend” depending on Python version
+%pyproject_patch_dependency manifold3d:ignore
 %if ! 0%{?arch_has_embree}
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.easy' '(embreex)\b.*'
+%pyproject_patch_dependency embreex:ignore
 %endif
 
 # recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
-#   manifold3d: not yet packaged, https://github.com/elalish/manifold/
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' '(pyglet|manifold3d)\b.*'
+#   manifold3d: in either “easy” or “recommend” depending on Python version;
+#               already handled above
+%pyproject_patch_dependency pyglet:ignore
 %if %{without skimage}
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' 'scikit-image\b.*'
+%pyproject_patch_dependency scikit-image:ignore
 %endif
 %ifarch s390x
 # The python-cascadio package is currently ExcludeArch: s390x
 # python-cascadio: Tests for cascadio fail on s390x, wrong endianness
 # https://bugzilla.redhat.com/show_bug.cgi?id=2298452
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' 'cascadio\b.*'
+%pyproject_patch_dependency cascadio:ignore
 %endif
 
 # test extra:
@@ -230,8 +224,9 @@ tomcli set pyproject.toml lists delitem \
 #   pytest-cov: linters/coverage/etc.
 #   pyinstrument: not packaged; see “stub” workaround in %%prep
 #   ruff: linters/coverage/etc.
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.test' '(pytest-cov|pyinstrument|ruff)\b.*'
+%pyproject_patch_dependency pytest-cov:ignore
+%pyproject_patch_dependency pyinstrument:ignore
+%pyproject_patch_dependency ruff:ignore
 
 # test_more extra:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -243,14 +238,17 @@ tomcli set pyproject.toml lists delitem \
 #   pymeshlab: not yet packaged
 #   triangle: nonfree license
 #   marimo: not yet packaged
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.test_more' \
-    '(coveralls|pyright|xatlas|pytest-beartype|pymeshlab|triangle|marimo)\b.*'
+%pyproject_patch_dependency coveralls:ignore
+%pyproject_patch_dependency pyright:ignore
+%pyproject_patch_dependency xatlas:ignore
+%pyproject_patch_dependency pytest-beartype:ignore
+%pyproject_patch_dependency pymeshlab:ignore
+%pyproject_patch_dependency triangle:ignore
+%pyproject_patch_dependency marimo:ignore
 %if %{without meshio}
 #   meshio: apparently unmaintained,
 #           https://github.com/nschloe/meshio/issues/1558
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.test_more' '(meshio)\b.*'
+%pyproject_patch_dependency meshio:ignore
 %endif
 
 

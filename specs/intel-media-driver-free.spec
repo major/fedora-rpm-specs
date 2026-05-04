@@ -1,5 +1,5 @@
 Name:       intel-media-driver-free
-Version:    25.4.6
+Version:    26.1.5
 Release:    %autorelease
 Summary:    The Intel Media Driver for VAAPI
 License:    MIT and BSD
@@ -81,6 +81,8 @@ chmod -x LICENSE.md README.md CMakeLists.txt
 rm -rv Tools/MediaDriverTools/UMDPerfProfiler/MediaPerfParser
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380654)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %ifarch %{ix86}
 export CXXFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64"
 %endif

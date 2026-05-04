@@ -1,12 +1,12 @@
-%global gittag 1.9.1
+%global gittag 1.10.0
 Name:           tlp
-Version:        1.9.1
+Version:        1.10.0
 Release:        2%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
 Source0:        https://github.com/linrunner/TLP/archive/%{gittag}.tar.gz#/%{name}-%{gittag}.tar.gz
-Patch0:         0000-license-wrong-address.patch
+Patch0:         0000-tlp-service-in.patch
 
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -170,6 +170,16 @@ fi
 
 
 %changelog
+* Sat May 02 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.10.0-2
+- Fix tlp.service start
+
+* Sat May 02 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.10.0-1
+- Update to version 1.10.0
+- Remove license patch
+
+* Thu Apr 30 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.9.1-3
+- Fix RHBZ#2463452
+
 * Sun Apr 12 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.9.1-2
 - Fix changelog
 

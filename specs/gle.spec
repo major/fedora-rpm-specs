@@ -5,7 +5,7 @@
 Summary:       Graphics Layout Engine
 Name:          gle
 Version:       4.2.5
-Release:       32%{?dist}
+Release:       33%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gle-graphics.org/
@@ -36,7 +36,11 @@ BuildRequires: tex(geometry.sty)
 BuildRequires: tex(latex)
 BuildRequires: tex(rotating.sty)
 BuildRequires: tex(supertabular.sty)
+%if 0%{?fedora} > 44
 BuildRequires: tex(tcrm1000.tfm)
+%else
+BuildRequires: texlive-ec
+%endif
 BuildRequires: texlive-dvips
 BuildRequires: texlive-makeindex
 BuildRequires: texlive-metafont
@@ -144,6 +148,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/gle-graphics.pc
 %doc gle-manual.pdf GLEusersguide.pdf
 
 %changelog
+* Sat May 02 2026 Terje Rosten <terjeros@gmail.com> - 4.2.5-33
+- F44 don't understand tex(tcrm1000.tfm)
+
 * Sat Apr 25 2026 Terje Rosten <terjeros@gmail.com> - 4.2.5-32
 - Fix build
 

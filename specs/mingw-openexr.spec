@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.4.10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sat May 02 2026 Simone Caronni <negativo17@gmail.com> - 3.4.10-2
+- Rebuild for OpenJPH update.
+
 * Fri Apr 17 2026 Sandro Mani <manisandro@gmail.com> - 3.4.10-1
 - Update to 3.4.10
 
