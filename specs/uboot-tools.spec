@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc1
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,8 +9,8 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2026.04
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Version:  2026.07
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -37,7 +37,6 @@ Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch8:   uefi-enable-https-boot-by-default.patch
-Patch9:   efi_loader-disk-Add-EFI_PARTITION_INFO_PROTOCOL-support-for-MBR.patch
 
 # Device improvments
 # USB-PD improvements
@@ -53,9 +52,10 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch20:  ARM-RPi5-Enable-PCIe.patch
-Patch21:  0001-Add-bcm2712-compat.patch
-Patch22:  ARM-RPi-PCIe-fixes.patch
-Patch23:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
+Patch21:  nvme-Fix-missing-inbound-DMA-offset-calculation.patch
+Patch22:  rpi-enable-nvme.patch
+Patch23:  0001-Add-bcm2712-compat.patch
+Patch24:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -314,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.1.rc1
+- Update to 2026.07 RC1
+
 * Sat Apr 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-2
 - Fix PCIe/USB on Raspberry Pi 4 (rhbz#2448365)
 - Fix detection of some revisions of RPi5

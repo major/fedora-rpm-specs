@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           bpftop
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 

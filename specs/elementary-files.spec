@@ -5,7 +5,7 @@
 
 Name:           elementary-files
 Summary:        File manager from elementary
-Version:        7.2.0
+Version:        7.3.0
 Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-3.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-3.0-only AND LGPL-2.1-or-later
 
@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(libhandy-1) >= 0.83.0
 BuildRequires:  pkgconfig(libportal)
 BuildRequires:  pkgconfig(libportal-gtk3)
 BuildRequires:  pkgconfig(pango) >= 1.1.2
+BuildRequires:  pkgconfig(poppler-glib)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(systemd) >= 206
 

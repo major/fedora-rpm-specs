@@ -1,41 +1,44 @@
+%global gitcommit 4e03e61216ac6cc62ea4c432bae013f171a01f7e
+%global gitdate 20260502.101040
+%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
+
 Name:           krename
-Version:        5.0.2
-Release:        14%{?dist}
+Version:        5.0.60~%{gitdate}.%{shortcommit}
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Powerful batch file renamer
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:            https://invent.kde.org/utilities/krename
-Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
-# Add support for PoDoFo-0.10
-Patch0:         https://github.com/KDE/krename/commit/056d614dc2166cd25749caf264b1b4d9d348f4d4.patch
-Patch1:         https://github.com/KDE/krename/commit/930e995dbcadc796424d261f75c90e98f02fc0b4.patch
-#Support for exiv2 >= 0.28.0
-Patch2:         https://invent.kde.org/utilities/krename/-/commit/e7dd767a9a1068ee1fe1502c4d619b57d3b12add.patch
-
+#Source0:        https://download.kde.org/stable/%%{name}/%%{version}/src/%%{name}-%%{version}.tar.xz
+Source0:        https://invent.kde.org/utilities/%{name}/-/archive/%{gitcommit}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(KF5Archive)
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5ItemViews)
-BuildRequires:  cmake(KF5JobWidgets)
-BuildRequires:  cmake(KF5JS)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  taglib-devel
-BuildRequires:  exiv2-devel
-BuildRequires:  podofo-devel
-BuildRequires:  freetype-devel
+BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Core5Compat)
+
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6ItemViews)
+BuildRequires:  cmake(KF6JobWidgets)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6Archive)
+
+BuildRequires:  cmake(taglib)
+BuildRequires:  pkgconfig(exiv2)
+BuildRequires:  cmake(podofo)
+BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -48,13 +51,13 @@ image.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{gitcommit}
 
 
 %build
 # fixed upstream in Qt6 port
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%{cmake_kf5}
+#export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake_kf6
 %cmake_build
 
 
@@ -69,16 +72,18 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %files -f %{name}.lang
-%license COPYING COPYING-CMAKE-SCRIPTS
-%doc AUTHORS README.md TODO
+%license LICENSES/*
+%doc AUTHORS INSTALL TODO
 %{_bindir}/%{name}
 %{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/*.png
-%{_datadir}/kservices5/ServiceMenus/%{name}*.desktop
-
+%{_datadir}/kio/servicemenus/%{name}*.desktop
 
 %changelog
+* Sun May 3 2026 Steve Cossette <farchord@gmail.com> - 1:5.0.60~4e03e612.20260502.101040-1
+- Conversion to qt6
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.182.0
+Version:        0.183.0
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,14 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Sun May  3 2026 Paul Howarth <paul@city-fan.org> - 0.183.0-1
+- Update to 0.183.0
+  - Drop unused weaken import
+  - Fix: new() returns distinct objects per package (GH#48)
+  - Fix: Correct stacking edge cases in mock-layer restore (follow-up to GH#48)
+  - Refactor: integrate stacking with Moose/Mouse meta layer and re-mock
+    corners (follow-up to GH#77)
+
 * Fri May  1 2026 Paul Howarth <paul@city-fan.org> - 0.182.0-1
 - Update to 0.182.0
   - See https://github.com/geofffranks/test-mockmodule/releases for details
