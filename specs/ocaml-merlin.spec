@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.7.0
+Version:        5.7.1
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -16,10 +16,8 @@ Summary:        Context sensitive completion for OCaml
 # - src/ocaml/preprocess/lexer_raw.ml{i,l}
 # LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 # - src/ocaml/preprocess/parser_raw.mly
-# - upstream/ocaml_413/parsing/parser.mly
-# - upstream/ocaml_413/utils/domainstate.ml{,i}.c
-# - upstream/ocaml_414/parsing/parser.mly
-# - upstream/ocaml_414/utils/domainstate.ml{,i}.c
+# - upstream/ocaml_*/parsing/parser.mly
+# - upstream/ocaml_*/utils/domainstate.ml{,i}.c
 License:        MIT AND QPL-1.0 AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocaml.github.io/merlin/
 VCS:            git:%{giturl}.git
@@ -39,7 +37,7 @@ BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 3.0.0
 BuildRequires:  ocaml-findlib-devel >= 1.6.0
-BuildRequires:  ocaml-menhir >= 20201216
+BuildRequires:  ocaml-menhir >= 20230608
 BuildRequires:  ocaml-ppxlib-devel
 BuildRequires:  ocaml-source
 BuildRequires:  ocaml-yojson-devel >= 2.0.0
@@ -142,11 +140,6 @@ mv merlin-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 cd -
 
 %check
-%ifarch s390x
-# For unknown reasons, the no-dune test is attempted on s390x only.  It fails,
-# predictably, since we do have dune in the chroot.  By why s390x only???
-rm tests/test-dirs/config/no-dune.t
-%endif
 %dune_check
 
 %files

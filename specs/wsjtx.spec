@@ -3,7 +3,7 @@
 %undefine _hardened_linker_errors
 
 Name:		wsjtx
-Version:	3.0.0
+Version:	3.0.1
 Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 
@@ -40,9 +40,6 @@ BuildRequires:	asciidoc
 BuildRequires:	rubygem-asciidoctor
 BuildRequires:	libappstream-glib
 %endif
-# Sent upstream
-# https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
-Patch:		wsjtx-3.0.0-rename-split.patch
 # Temporal fix, problem reported upstream
 # https://github.com/WSJTX/wsjtx/issues/5
 # https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
@@ -134,11 +131,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_bindir}/ft8code
 %{_bindir}/message_aggregator
 %{_bindir}/msk144code
+%{_bindir}/qmap
 %{_bindir}/q65sim
 %{_bindir}/q65code
 %{_bindir}/udp_daemon
 %{_bindir}/wsjtx
-%{_bindir}/wsjtx_app_version/
+%{_bindir}/wsjtx_app_version
 %{_bindir}/wsprd
 %{_bindir}/EchoCallSim
 %{_bindir}/ft8sim
@@ -152,6 +150,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon May 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.1-1
+- New version
+  Resolves: rhbz#2464806
+
 * Tue Apr 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.0-1
 - New version
 

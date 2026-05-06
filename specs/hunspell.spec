@@ -3,7 +3,7 @@
 Name:      hunspell
 Summary:   A spell checker and morphological analyzer library
 Version:   1.7.2
-Release:   11%{?dist}
+Release:   12%{?dist}
 Source:    https://github.com/hunspell/hunspell/releases/download/v%{version}/hunspell-%{version}.tar.gz
 URL:       https://github.com/hunspell/hunspell
 License:   LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
@@ -21,6 +21,9 @@ Requires:  hunspell-en-US
 Requires:  hunspell-filesystem = %{version}-%{release}
 
 Patch0: 0001-Resolves-rhbz-2158548-allow-longer-words-for-hunspel.patch
+
+# Backport upstream patch to correct Basque language code
+Patch1: basque_language_code.patch
 
 %description
 Hunspell is a spell checker and morphological analyzer library and program
@@ -45,6 +48,7 @@ packages.
 %prep
 %setup -q
 %patch -P0 -p1 -b .rhbz2158548
+%patch -P1 -p1
 
 %build
 autoreconf -vfi
@@ -129,6 +133,9 @@ mkdir $RPM_BUILD_ROOT/%{_datadir}/myspell
 %{_datadir}/myspell
 
 %changelog
+* Mon May 04 2026 Mattia Verga <mattia.verga@proton.me> - 1.7.2-12
+- Backport upstream patch to correct Basque language code (Fedora#2447736)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

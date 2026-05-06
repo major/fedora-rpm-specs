@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kwayland-integration
 Version: 6.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only AND LGPL-3.0-only)
@@ -22,10 +22,8 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  kf5-kidletime-devel
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  kf5-kwayland-devel
-BuildRequires:  cmake(KF5GuiAddons)
 
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
@@ -57,6 +55,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Mon May 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.6.4-2
+- Update dependencies
+
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4
 

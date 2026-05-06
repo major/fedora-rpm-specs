@@ -1,8 +1,7 @@
 Name:		perl-Rose-DB-Object
-Version:	0.822
+Version:	0.823
 Release:	%autorelease
 Summary:	Extensible, high performance object-relational mapper (ORM)
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Rose-DB-Object
 Source0:	https://cpan.metacpan.org/authors/id/J/JS/JSIRACUSA/Rose-DB-Object-%{version}.tar.gz
@@ -53,19 +52,19 @@ this class.
 
 %prep
 %setup -q -n Rose-DB-Object-%{version}
-find . -type f -executable -exec chmod -x {} \;
+find . -type f -executable -exec chmod -x {} +
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+make pure_install DESTDIR=%{buildroot}
 
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+find $RPM_BUILD_ROOT -type f -name .packlist -delete
 find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 %check
 export AUTOMATED_TESTING=1

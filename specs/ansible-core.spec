@@ -33,6 +33,9 @@ Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uver
 # The needlessly required wheel version was pinned, so get rid of it rather than unpinning.
 # Also, wheel is unwanted in ELN: https://github.com/fedora-eln/eln/issues/284
 Patch:          nowheel.patch
+# ansible-core 2.20 does not support Python 3.15 and upstream does not plan to do so until 2.22
+# This is a downstream-only patch to make it possible to build 2.20 with Python 3.15
+Patch:          allow-python3.15-build.patch
 
 BuildArch:      noarch
 

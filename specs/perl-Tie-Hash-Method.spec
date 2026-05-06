@@ -1,18 +1,16 @@
 Name:           perl-Tie-Hash-Method
 Version:        0.02
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Tied hash with specific methods overridden by callbacks
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-Hash-Method
 Source0:        https://cpan.metacpan.org/authors/id/Y/YV/YVES/Tie-Hash-Method-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runt-time:
@@ -33,27 +31,58 @@ specific overridden behavior without having to create a new class to do it.
 A tied hash with no methods overridden is functionally equivalent to a normal
 hash.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Tie-Hash-Method-%{version}
+# Remove always skipped tests
+rm t/git-status.t
+perl -i -ne 'print $_ unless m{\Agit-status\.t\b}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove tests that need ./lib directory.
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Tie
+%dir %{perl_vendorlib}/Tie/Hash
+%{perl_vendorlib}/Tie/Hash/Method.pm
+%{_mandir}/man3/Tie::Hash::Method.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon May 04 2026 Petr Pisar <ppisar@redhat.com> - 0.02-32
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

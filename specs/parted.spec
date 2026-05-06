@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -9,6 +9,9 @@ Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: pubkey.phillip.susi
 Source3: pubkey.brian.lane
+
+Patch0001: 0001-bug-80795-PATCH-build-mark-functions-with-const-attr.patch
+Patch0004: 0004-Cleanup-zero-as-null-pointer-constant-warnings.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -112,6 +115,10 @@ make check
 
 
 %changelog
+* Mon May 04 2026 Brian C. Lane <bcl@redhat.com> - 3.7-2
+- Cleanup zero as null pointer constant warnings (bcl)
+- bug#80795: [PATCH] build: mark functions with const attribute, per gcc warnings (bug-parted)
+
 * Thu Apr 09 2026 Brian C. Lane <bcl@redhat.com> - 3.7-1
 - Upstream 3.7 stable release
   Resolves: rhbz#2456839

@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.88.1
+Version:                2.92.0
 
 %gometa -L -f
 
@@ -20,6 +20,8 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
+Patch:          0001-Downstream-only-make-telemetry-sending-opt-in.patch
+
 BuildRequires:  git-core
 BuildRequires:  go-vendor-tools
 BuildRequires:  sed
@@ -35,9 +37,8 @@ actions right from the command line, eliminating the need to switch between your
 terminal and the GitHub website.
 
 %prep
-%goprep -A
-%setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
+%goprep -p1
+tar -xf %{S:1}
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -77,15 +78,10 @@ install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-for test in "TestNewInspectCmd" \
-; do
-awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
-done
-%gocheck -t github.com/cli/cli/v2/third-party
+%gocheck2 -t github.com/cli/cli/v2/third-party -s TestNewInspectCmd -s 'TestVerifyIntegration.*'
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*.1*

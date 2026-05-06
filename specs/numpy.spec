@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -164,7 +164,7 @@ find . -type f -print0 | xargs -0 sed -i s/mcpu=power8/mcpu=power9/
 %endif
 %endif
 
-%pyproject_wheel -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack -Ccompile-args=-v
+%pyproject_wheel -Csetup-args=-Dcpu-baseline="none" -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack -Ccompile-args=-v
 
 %install
 mkdir docs
@@ -261,6 +261,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sun May 03 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1:2.4.4-2
+- Fix for x86-64-v1 #rhbz2452329
+
 * Sun Mar 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.4-1
 - 2.4.4
 

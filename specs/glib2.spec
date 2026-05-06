@@ -1,7 +1,7 @@
 %global major_minor_version %%(echo %%{version} | cut -d "." -f 1-2)
 
 Name:           glib2
-Version:        2.88.0
+Version:        2.88.1
 Release:        %autorelease
 Summary:        A library of handy utility functions
 

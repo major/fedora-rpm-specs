@@ -1,5 +1,5 @@
 Name:		libmetal
-Version:	2025.10.0
+Version:	2026.04.0
 Release:	%autorelease
 Summary:	An abstraction layer across user-space Linux, baremetal, and RTOS environments 
 License:	BSD-3-Clause OR Apache-2.0 OR GPL-2.0-only
@@ -47,7 +47,7 @@ baremetal, and RTOS environments.
 %files
 %license LICENSE.md
 %doc README.md
-%{_bindir}/test-metal-shared
+%{_bindir}/test*metal-shared
 %{_libdir}/libmetal.so.1
 %{_libdir}/libmetal.so.1.*
 

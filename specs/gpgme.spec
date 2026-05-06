@@ -1,7 +1,4 @@
 %bcond check 1
-# No Qt5 on RHEL 10 and higher
-%bcond qt5 %[ 0%{?rhel} < 10 ]
-%bcond qt6 1
 
 %global gnupg2_min_ver 2.2.24
 %global libgpg_error_min_ver 1.36
@@ -12,8 +9,7 @@
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        2.0.1
-%global spversion 2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -22,12 +18,6 @@ Source0:        https://gnupg.org/ftp/gcrypt/gpgme/gpgme-%{version}.tar.bz2
 Source1:        https://gnupg.org/ftp/gcrypt/gpgme/gpgme-%{version}.tar.bz2.sig
 Source2:        gpgme-multilib.h
 Source3:        https://gnupg.org/signature_key.asc
-Source4:        https://gnupg.org/ftp/gcrypt/gpgmepp/qgpgme-%{spversion}.tar.xz
-Source5:        https://gnupg.org/ftp/gcrypt/gpgmepp/gpgmepp-%{spversion}.tar.xz
-Source6:        https://gnupg.org/ftp/gcrypt/gpgmepy/gpgmepy-%{spversion}.tar.bz2
-Source7:        https://gnupg.org/ftp/gcrypt/gpgmepp/qgpgme-%{spversion}.tar.xz.sig
-Source8:        https://gnupg.org/ftp/gcrypt/gpgmepp/gpgmepp-%{spversion}.tar.xz.sig
-Source9:        https://gnupg.org/ftp/gcrypt/gpgmepy/gpgmepy-%{spversion}.tar.bz2.sig
 
 ## downstream patches
 # Don't add extra libs/cflags in gpgme-config/cmake equivalent
@@ -38,12 +28,6 @@ Patch1002:      gpgme-1.3.2-largefile.patch
 #Patch1004:      0002-setup_py_extra_opts.patch
 
 ## temporary downstream fixes
-# Skip lang/qt/tests/t-remarks on gnupg 2.4+
-Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
-
-# prevent soname .so.15 conflict for qgpgme with compat-qgpgme124-qt{5,6}
-Patch3002:      gpgme-2.0.1-soname2.patch
-
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -80,109 +64,11 @@ Requires:       libgpg-error-devel%{?_isa} >= %{libgpg_error_min_ver}
 %description devel
 %{summary}.
 
-%package -n %{name}pp
-Summary:        C++ bindings/wrapper for GPGME
-Obsoletes:      gpgme-pp < 1.8.0-7
-Provides:       gpgme-pp = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       gpgme-pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description -n %{name}pp
-%{summary}.
-
-%package -n %{name}pp-devel
-Summary:        Development libraries and header files for %{name}-pp
-Obsoletes:      gpgme-pp-devel < 1.8.0-7
-Provides:       gpgme-pp-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       gpgme-pp-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       %{name}-devel%{?_isa}
-
-%description -n %{name}pp-devel
-%{summary}
-
-%if %{with qt5}
-%package -n q%{name}-qt5
-Summary:        Qt5 API bindings/wrapper for GPGME
-Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Test)
-Obsoletes:      q%{name} < 1.20.0
-Provides:       q%{name}
-
-%description -n q%{name}-qt5
-%{summary}.
-%endif
-
-%if %{with qt6}
-%package -n q%{name}-qt6
-Summary:        Qt6 API bindings/wrapper for GPGME
-Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-BuildRequires:  pkgconfig(Qt6Core)
-BuildRequires:  pkgconfig(Qt6Test)
-
-%description -n q%{name}-qt6
-%{summary}.
-%endif
-
-%if %{with qt5} || %{with qt6}
-%package -n q%{name}-common-devel
-Summary:        Common development header files for %{name}-qt5 and %{name}-qt6
-Requires:       %{name}pp-devel%{?_isa}
-
-%description -n q%{name}-common-devel
-%{summary}.
-%endif
-
-%if %{with qt5}
-%package -n q%{name}-qt5-devel
-Summary:        Development libraries and header files for %{name}-qt5
-# before libqgpgme.so symlink was moved to avoid conflict
-Conflicts:      kdepimlibs-devel < 4.14.10-17
-Requires:       q%{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       q%{name}-common-devel%{?_isa}
-Obsoletes:      q%{name}-devel < 1.20.0
-Provides:       q%{name}-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       q%{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description -n q%{name}-qt5-devel
-%{summary}.
-%endif
-
-%if %{with qt6}
-%package -n q%{name}-qt6-devel
-Summary:        Development libraries and header files for %{name}-qt6
-Requires:       q%{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       q%{name}-common-devel%{?_isa}
-
-%description -n q%{name}-qt6-devel
-%{summary}.
-%endif
-
-%package -n python3-gpg
-Summary:        %{name} bindings for Python 3
-BuildRequires:  python3-devel
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      platform-python-gpg < %{version}-%{release}
-
-%description -n python3-gpg
-%{summary}.
-
 %prep
 %autosetup -N -p1 -S gendiff
 # verify sources
 gpg2 --import --import-options import-export,import-minimal %{SOURCE3} > ./gpg-keyring.gpg
 gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE1} %{SOURCE0}
-gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE7} %{SOURCE4}
-gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE8} %{SOURCE5}
-# pub key of gpgmepy signature not published yet
-# gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE9} %{SOURCE6}
-
-# constant and predictable names for scripts and patches
-mkdir gpgmepp qgpgme gpgmepy
-tar --xz -xf %{SOURCE4} --directory=qgpgme --strip-components=1
-tar --xz -xf %{SOURCE5} --directory=gpgmepp --strip-components=1
-tar --bzip2 -xf %{SOURCE6} --directory=gpgmepy --strip-components=1
 
 %autopatch -p1 
 
@@ -194,14 +80,7 @@ sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 # The build machinery does not support the newest Pythons
 sed -i 's/3.13/%{python3_version}/g' configure
 
-%generate_buildrequires
-cd gpgmepy
-%pyproject_buildrequires
-
 %build
-# People neeed to learn that you can't run autogen.sh anymore
-#./autogen.sh
-
 # Since 1.16.0, we need to explicitly pass -D_LARGEFILE_SOURCE and
 # -D_FILE_OFFSET_BITS=64 for the QT binding to build successfully on 32-bit
 # platforms.
@@ -210,93 +89,15 @@ export CXXFLAGS="%{optflags} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I$(pwd)
 # Explicit new lines in C(XX)FLAGS can break naive build scripts
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
-export SETUPTOOLS_USE_DISTUTILS=local
-#export PYTHON=%{python3}
-#export PYTHON_VERSION=%{python3_version}
 
-GPGME_TOPDIR=$(pwd)
 mkdir build
 cd build
 %configure --disable-static --disable-silent-rules --enable-languages=
 %make_build
 
-
-# for bindings to find this build while not yet installed
-export CMAKE_INCLUDE_PATH=$GPGME_TOPDIR/src/
-export CMAKE_LIBRARY_PATH=$GPGME_TOPDIR/build/src/.libs/
-export PKG_CONFIG_PATH=$GPGME_TOPDIR/build/src/
-GPGME_INC_DIR=$GPGME_TOPDIR/src/
-GPGME_LIB_DIR=$GPGME_TOPDIR/build/src/.libs/
-
-# build python bindings gpgmepy
-cd $GPGME_TOPDIR/gpgmepy
-ln -s ../build/src/gpgme.h gpgme.h
-cp ../build/src/gpgme-config .
-echo "libs=\"-L$GPGME_TOPDIR/build/src/.libs/ $(./gpgme-config --libs)\"" | sed -i '/^libs="/r /dev/stdin' gpgme-config
-GPGME_CONFIG=$GPGME_TOPDIR/gpgmepy ./configure
-mv src gpg
-%pyproject_wheel
-
-
-# build c++ bindings gpgmepp
-cd $GPGME_TOPDIR/gpgmepp
-%cmake -DENALE_SHARED=yes -DENABLE_STATIC=no -DGpgme_INCLUDE_DIR=$GPGME_TOPDIR/build/src -DGpgme_LIBRARIES='-L$(GPGME_LIB_DIR) -lgpgme' -DGpgme_VERSION=%{version}
-%cmake_build
-#temp install for qgpgme
-DESTDIR=$GPGME_TOPDIR/gpgmepp/buildroot/ cmake --install redhat-linux-build/
-
-# build qt5/6 bindings qgpgme
-cd $GPGME_TOPDIR/qgpgme
-export CMAKE_APPBUNDLE_PATH=$GPGME_TOPDIR/gpgmepp/buildroot%{_libdir}/cmake/
-
-%if %{with qt5}
-%cmake -DENALE_SHARED=yes -DENABLE_STATIC=no -DGpgme_INCLUDE_DIR=$GPGME_TOPDIR/build/src -DGpgme_LIBRARIES='-L$(GPGME_LIB_DIR) -lgpgme' -DGpgme_VERSION=%{version}  -DBUILD_WITH_QT5=ON -DBUILD_WITH_QT6=OFF
-%cmake_build
-mv redhat-linux-build build-qt5
-%endif
-
-%if %{with qt6}
-%cmake -DENALE_SHARED=yes -DENABLE_STATIC=no -DGpgme_INCLUDE_DIR=$GPGME_TOPDIR/build/src -DGpgme_LIBRARIES='-L$(GPGME_LIB_DIR) -lgpgme' -DGpgme_VERSION=%{version}  -DBUILD_WITH_QT5=OFF -DBUILD_WITH_QT6=ON
-%cmake_build
-mv redhat-linux-build build-qt6
-%endif
-
-
 %install
-GPGME_TOPDIR=$(pwd)
-
-# When using distutils from setuptools 60+, ./setup.py install use
-# the .egg format. This forces setuptools to use .egg-info format.
-# SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
-export SETUPTOOLS_USE_DISTUTILS=local
-export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
-# Also install either qt5 or qt6
 cd build
 %make_install
-
-# install gpgmepy
-cd $GPGME_TOPDIR/gpgmepy
-%pyproject_install
-
-# install gpgmepp
-cd $GPGME_TOPDIR/gpgmepp
-%cmake_install
-
-
-# install qgpgme for qt5 and qt6
-%if %{with qt5}
-cd $GPGME_TOPDIR/qgpgme
-rm -f redhat-linux-build
-ln -s build-qt5 redhat-linux-build
-%cmake_install
-%endif 
-
-%if %{with qt6}
-cd $GPGME_TOPDIR/qgpgme
-rm -f redhat-linux-build
-ln -s build-qt6 redhat-linux-build
-%cmake_install
-%endif 
 
 # unpackaged files
 rm -fv %{buildroot}%{_infodir}/dir
@@ -317,25 +118,11 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_includedir}/gpgme.h
 chrpath -d %{buildroot}%{_bindir}/%{name}-tool
 chrpath -d %{buildroot}%{_bindir}/%{name}-json
 chrpath -d %{buildroot}%{_bindir}/gnupg-key-manage
-chrpath -d %{buildroot}%{_libdir}/lib%{name}pp.so*
-# qt5
-%if %{with qt5}
-chrpath -d %{buildroot}%{_libdir}/libq%{name}.so*
-%endif
-# qt6
-%if %{with qt6}
-chrpath -d %{buildroot}%{_libdir}/libq%{name}qt6.so*
-%endif
-
-# autofoo installs useless stuff for uninstall
-rm -vf %{buildroot}%{python2_sitelib}/gpg/install_files.txt
-rm -vf %{buildroot}%{python3_sitelib}/gpg/install_files.txt
 
 %if %{with check}
 %check
-pushd build
+cd build
 make check
-popd
 %endif
 
 %files
@@ -359,50 +146,10 @@ popd
 %{_infodir}/%{name}.info*
 %{_libdir}/pkgconfig/%{name}*.pc
 
-%files -n %{name}pp
-%doc gpgmepp/README
-%{_libdir}/lib%{name}pp.so.7*
-
-%files -n %{name}pp-devel
-%{_includedir}/%{name}++/
-%{_libdir}/lib%{name}pp.so
-%{_libdir}/cmake/Gpgmepp/
-
-%if %{with qt5}
-%files -n q%{name}-qt5
-%doc qgpgme/README
-%{_libdir}/libq%{name}.so.15*
-%endif
-
-%if %{with qt6}
-%files -n q%{name}-qt6
-%{_libdir}/libq%{name}qt6.so.15*
-%endif
-
-%if %{with qt5} || %{with qt6}
-%files -n q%{name}-common-devel
-%endif
-
-%if %{with qt5}
-%files -n q%{name}-qt5-devel
-%{_includedir}/q%{name}-qt5/
-%{_libdir}/libq%{name}.so
-%{_libdir}/cmake/QGpgme/
-%endif
-
-%if %{with qt6}
-%files -n q%{name}-qt6-devel
-%{_includedir}/q%{name}-qt6/
-%{_libdir}/libq%{name}qt6.so
-%{_libdir}/cmake/QGpgmeQt6/
-%endif
-
-%files -n python3-gpg
-%doc gpgmepy/README
-%{python3_sitearch}/gpg-*.dist-info/
-%{python3_sitearch}/gpg/
-
 %changelog
+* Mon May 04 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.0.1-4
+- put gpgmepp, qgpgme and pygpgme into separate packages
+
 * Fri Jan 16 2026 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-3
 - Drop undesired and unnecessary build dependency on python3-wheel
 

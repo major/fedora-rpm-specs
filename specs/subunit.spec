@@ -5,7 +5,7 @@
 %bcond bootstrap 0
 
 Name:           subunit
-Version:        1.4.5
+Version:        1.4.6
 Release:        %autorelease
 Summary:        C bindings for subunit
 
@@ -16,10 +16,6 @@ License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/subunit
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix compatibility with testtools 2.8.2
-# https://github.com/testing-cabal/subunit/commit/a72e9c343bd369cf840b29e074417fed5d05d59c
-# https://github.com/testing-cabal/subunit/commit/790f6086002919d28deb6aaefb8489227baebb8c
-Patch:          %{name}-testtools.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -36,6 +32,10 @@ BuildRequires:  pkgconfig(check)
 
 # This can be removed when F43 reaches EOL
 Obsoletes:      %{name}-perl < 1.4.3
+
+# This can be removed when F48 reaches EOL
+Obsoletes:      python3-%{name}-test < 1.4.6
+Provides:       python3-%{name}-test = %{version}-%{release}
 
 %description
 Subunit C bindings.  See the python-subunit package for test processing
@@ -98,15 +98,6 @@ A number of useful things can be done easily with subunit:
 - Grid testing: subunit can act as the necessary serialization and
   deserialization to get test runs on distributed machines to be reported in
   real time.
-
-%package -n python3-%{name}-test
-Summary:        Test code for the python 3 subunit bindings
-BuildArch:      noarch
-Requires:       python3-%{name} = %{version}-%{release}
-Requires:       %{name}-filters = %{version}-%{release}
-
-%description -n python3-%{name}-test
-%{summary}.
 
 %package filters
 Summary:        Command line filters for processing subunit streams
@@ -178,9 +169,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %pyproject_install
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/run.py
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-script.py
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
 
 # We set pkgpython_PYTHON for efficiency to disable automake python compilation
 %make_install pkgpython_PYTHON='' INSTALL="%{_bindir}/install -p"
@@ -190,10 +178,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 cp -p shell/share/%{name}.sh %{buildroot}%{_sysconfdir}/profile.d
 
 # Fix permissions
+chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/run.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/*.py
 chmod 0644 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/__init__.py
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-script.py
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
 
 # Fix timestamps
 touch -r c/include/%{name}/child.h %{buildroot}%{_includedir}/%{name}/child.h
@@ -238,15 +225,13 @@ make check
 %license Apache-2.0 BSD COPYING
 %{python3_sitelib}/%{name}/
 %{python3_sitelib}/python_%{name}-%{version}.dist-info/
-%exclude %{python3_sitelib}/%{name}/tests/
-
-%files -n python3-%{name}-test
-%{python3_sitelib}/%{name}/tests/
 
 %files static
 %{_libdir}/*.a
 
 %files filters
+%{_bindir}/gojson2subunit
+%{_bindir}/junitxml2subunit
 %{_bindir}/subunit*
 %{_bindir}/tap2subunit
 

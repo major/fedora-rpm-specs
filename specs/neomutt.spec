@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20260406
-Release: 3%{?dist}
+Version: 20260504
+Release: 1%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -84,6 +84,29 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Mon May 04 2026 Richard Russon <rich@flatcap.org> - 20260504-1
+- Security
+  - Fix GSSAPI buffer underflow on short unwrapped tokens
+  - Reject percent-encoded NUL bytes in URL decoding
+  - Skip CN fallback when SAN dNSName entries exist (RFC6125)
+  - Cap POP3 UIDL responses to prevent OOM from a malicious server
+  - Harden POP host URL copy
+- Bug Fixes
+  - #4836 imap: fix memory leak in `msg_parse_flags`
+  - #4849 Fix memmove in `mutt_str_expand_tabs`
+  - #4850 IMAP: enhance stability with re-entrancy protection and reconnection fixes
+  - #4852 Say which mailcap field we are looking for
+  - #4853 Don't overwrite content_type
+  - pager: fix crash on `uncolor *`
+  - pager: fix wrong line index in signature syntax realloc
+  - pager: fix OOB read on short log lines in `display_line()`
+  - pager: fix off-by-one in newline restoration
+  - imap: fix sort for missing emails
+  - imap: fix crash when syncing mailbox on exit
+  - Fix crash in `cmd_parse_fetch()` when edata is NULL
+  - log: fix missing errors on startup
+  - Force cursor to be visible on exit
+
 * Mon Apr 06 2026 Richard Russon <rich@flatcap.org> - 20260406-1
 - Features
   - #4799 Add IMAP connection monitoring, timeouts, and reconnection backoff

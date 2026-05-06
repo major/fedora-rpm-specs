@@ -1,12 +1,12 @@
 Name:           python-repoze-tm2
-Version:        2.2.0
-Release:        17%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        Zope-like transaction manager via WSGI middleware
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://pypi.python.org/pypi/repoze.tm2
-Source0:        https://pypi.python.org/packages/source/r/repoze.tm2/repoze.tm2-%{version}.tar.gz
+Source0:        %pypi_source repoze_tm2
 BuildArch:      noarch
 
 %global _description\
@@ -32,7 +32,7 @@ This package contains the python3 version of the library.
 
 
 %prep
-%setup -q -n repoze.tm2-%{version}
+%setup -q -n repoze_tm2-%{version}
 
 
 %generate_buildrequires
@@ -56,10 +56,15 @@ This package contains the python3 version of the library.
 
 %files -n python3-repoze-tm2 -f %{pyproject_files}
 %doc README.rst COPYRIGHT.txt CHANGES.rst
-%{python3_sitelib}/repoze.tm2-%{version}-py*-nspkg.pth
+#%%{python3_sitelib}/repoze.tm2-%%{version}-py*-nspkg.pth
 
 
 %changelog
+* Mon May 04 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3-1
+- Update to upstream.
+- Use pypi_source as source url.
+- Removed pth file.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

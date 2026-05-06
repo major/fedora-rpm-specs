@@ -10,7 +10,7 @@
 %global gap_skip_check %{?with_bootstrap}
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.1.30
+Version:        4.1.31
 Release:        %autorelease
 Summary:        GAP support for crystallographic groups
 

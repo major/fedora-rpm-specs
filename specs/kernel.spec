@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc1.260501g26fd6bff2c050.13
+%define pkgrelease 0.rc2.260504g6d35786de2811.16
 %define kversion 7
-%define tarfile_release 7.1-rc1-267-g26fd6bff2c050
+%define tarfile_release 7.1-rc2-5-g6d35786de2811
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260501g26fd6bff2c050.13%{?buildid}%{?dist}
+%define specrelease 0.rc2.260504g6d35786de2811.16%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,12 +4847,22 @@ fi\
 #
 #
 %changelog
-* Fri May 01 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc1.260501g26fd6bff2c050.13]
-- Linux v7.1.0-0.rc1.260501g26fd6bff2c050
+* Mon May 04 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc2.260504g6d35786de2811.16]
+- Linux v7.1.0-0.rc2.260504g6d35786de2811
 
-* Fri May 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.26fd6bff2c05.13]
+* Mon May 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.6d35786de281.16]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Mon May 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.6d35786de281.15]
+- redhat/configs: enable CONFIG_SCLP_OFB for s390x (Jan Polensky)
+- Linux v7.1.0-0.rc2.6d35786de281
+
+* Sun May 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.66edb901bf87.14]
+- Linux v7.1.0-0.rc1.66edb901bf87
+
+* Sat May 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.f1a5e78a55eb.13]
+- Linux v7.1.0-0.rc1.f1a5e78a55eb
 
 * Fri May 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc1.26fd6bff2c05.12]
 - Linux v7.1.0-0.rc1.26fd6bff2c05

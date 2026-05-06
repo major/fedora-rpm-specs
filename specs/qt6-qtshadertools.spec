@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
 Version: 6.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -23,7 +23,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Downstream patches
-# Patch0: qtshadertools-unbundle-glslang.patch
+Patch0: qtshadertools-unbundle-glslang.patch
 
 # Upstream patches
 
@@ -35,8 +35,8 @@ BuildRequires: ninja-build
 BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
-# BuildRequires: glslang-devel
-# BuildRequires: spirv-tools-devel
+BuildRequires: glslang-devel
+BuildRequires: spirv-tools-devel
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 
 Provides: bundled(spirv-cross)
@@ -56,10 +56,13 @@ Requires: spirv-tools
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
-# Make sure 3rdparty/glslang isn't used
-# pushd src/3rdparty
-# rm -rf glslang
-# popd
+# Remove bundled glslang, keeping only SPVRemapper (removed from glslang 16.x)
+# and doc.h (internal header not installed by glslang-devel)
+rm -rf src/3rdparty/glslang/glslang
+pushd src/3rdparty/glslang/SPIRV
+find . -not -name SPVRemapper.cpp -not -name SPVRemapper.h -not -name doc.h \
+       -not -path . -delete
+popd
 
 %build
 %cmake_qt6
@@ -124,6 +127,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Mon May 04 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
+- Build against system glslang
+
 * Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
 - 6.11.0
 

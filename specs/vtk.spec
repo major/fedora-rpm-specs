@@ -118,7 +118,6 @@ BuildRequires:  cli11-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  expat-devel
 BuildRequires:  fast_float-devel
-BuildRequires:  ffmpeg-free-devel
 %if %{with fmt}
 BuildRequires:  fmt-devel >= 8.1.0
 %endif
@@ -230,7 +229,6 @@ Requires: eigen3-static \
 Requires: expat-devel%{?_isa} \
 # fast_float is noarch and header-only \
 Requires: fast_float-devel \
-Requires: ffmpeg-free-devel%{?_isa} \
 %if %{with fmt} \
 Requires: fmt-devel%{?_isa} \
 %endif \

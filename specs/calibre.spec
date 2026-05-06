@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.7.0
+Version:        9.8.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -99,6 +99,7 @@ BuildRequires:  python3-zstd
 BuildRequires:  python3dist(xxhash)
 BuildRequires:  pykakasi
 BuildRequires:  mesa-libEGL
+BuildRequires:  python3-tzlocal
 
 %{?pyqt6_requires}
 # once ^^ %%pyqt5_requires is everywhere, can drop python-qt5 dep below -- rex

@@ -1,5 +1,9 @@
+# Optional support for zstandard compression.
+# Compress::Zstd yet packaged.
+%bcond_with perl_Atomic_Pipe_enables_zstd
+
 Name:           perl-Atomic-Pipe
-Version:        0.023
+Version:        0.029
 Release:        1%{?dist}
 Summary:        Send atomic messages from multiple writers across a POSIX pipe
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,11 +25,16 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(Fcntl)
-# IO version from IO::Handle in META
-BuildRequires:  perl(IO) >= 1.27
+BuildRequires:  perl(IO)
+BuildRequires:  perl(IO::Handle) >= 1.27
 BuildRequires:  perl(List::Util) >= 1.44
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
+# Optional run-time:
+%if %{with perl_Atomic_Pipe_enables_zstd}
+BuildRequires:  perl(Compress::Zstd)
+%endif
+BuildRequires:  perl(IO::Select)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
@@ -34,12 +43,16 @@ BuildRequires:  perl(Test2::Util)
 BuildRequires:  perl(Test2::V0) >= 0.000127
 # threads never used
 BuildRequires:  perl(Time::HiRes)
-Requires:       perl(IO) >= 1.27
+%if %{with perl_Atomic_Pipe_enables_zstd}
+Recommends:     perl(Compress::Zstd)
+%endif
+Requires:       perl(IO::Handle) >= 1.27
+Recommends:     perl(IO::Select)
 Requires:       perl(List::Util) >= 1.44
 Requires:       perl(POSIX)
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((IO|List::Util|Test2::V0))$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((IO::Handle|List::Util|Test2::V0))$
 
 %description
 Normally if you write to a pipe from multiple processes/threads, the
@@ -52,6 +65,11 @@ arbitrary data down a pipe in atomic chunks to avoid the issue.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+%if %{with perl_Atomic_Pipe_enables_zstd}
+Requires:       perl(Compress::Zstd)
+%endif
+Requires:       perl(IO::Handle) >= 1.27
+Requires:       perl(IO::Select)
 Requires:       perl(Test2::V0) >= 0.000127
 Requires:       perl(warnings)
 
@@ -61,6 +79,10 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Atomic-Pipe-%{version}
+%if %{without perl_Atomic_Pipe_enables_zstd}
+rm t/compression.t
+perl -i -ne 'print $_ unless m{\At/compression\.t\b}' MANIFEST
+%endif
 
 %build
 unset AUTOMATED_TESTING
@@ -85,6 +107,9 @@ make test
 
 %files
 %license LICENSE
+%if %{with perl_Atomic_Pipe_enables_zstd}
+%doc bench
+%endif
 # README.md is redundand to README.
 %doc Changes README
 %dir %{perl_vendorlib}/Atomic
@@ -95,5 +120,8 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 04 2026 Petr Pisar <ppisar@redhat.com> - 0.029-1
+- 0.029 bump
+
 * Thu Apr 02 2026 Petr Pisar <ppisar@redhat.com> 0.023-1
 - 0.023 version packaged

@@ -109,6 +109,9 @@ Patch0: %{name}-use_manual_installation.patch
 Patch1: %{name}-gcc14.patch
 Patch2: %{name}-fix_GCC15.patch
 
+# https://github.com/pioneerspacesim/pioneer/issues/6343
+Patch3: %{name}-bug6320.patch
+
 %fontpkg -a
 
 
@@ -141,9 +144,10 @@ Data files of %{name}.
 
 %prep
 %autosetup -n %{name}-%{version} -N
-%patch -P 0 -p1 -b .backup
-%patch -P 1 -p1 -b .backup
-%patch -P 2 -p1 -b .backup
+%patch -P 0 -p1 -b .backup0
+%patch -P 1 -p1 -b .backup1
+%patch -P 2 -p1 -b .backup2
+%patch -P 3 -p1 -b .backup3
 
 %build
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \

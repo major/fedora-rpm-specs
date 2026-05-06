@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.11.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -96,6 +96,9 @@ Patch56: qtbase-mysql.patch
 
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
+
+# Upstream patches
+Patch100: qtbase-freetype-handle-failing-glyph-rendering.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -947,6 +950,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Mon May 04 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-3
+- Upstream backport: freetype: handle failing glyph rendering
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
 - Rebuild (openssl)
 

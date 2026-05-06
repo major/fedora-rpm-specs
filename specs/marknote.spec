@@ -1,6 +1,6 @@
 Name:          marknote
-Version:       1.4.1
-Release:       3%{?dist}
+Version:       1.5.2
+Release:       1%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A simple markdown note management app for KDE
 URL:           https://apps.kde.org/%{name}/
@@ -30,6 +30,8 @@ BuildRequires: cmake(KF6XmlGui)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6BreezeIcons)
 BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6WindowSystem)
 
 BuildRequires: cmake(KPim6Mime)
 
@@ -42,6 +44,7 @@ Requires:      qt6qml(org.kde.kitemmodels)
 Requires:      qt6qml(org.kde.sonnet)
 Requires:      qt6qml(org.kde.desktop)
 Requires:      qt6qml(org.kde.kirigami)
+Requires:      qt6qml(org.kde.syntaxhighlighting)
 
 %description
 Marknote lets you create rich text notes and easily organize them
@@ -74,8 +77,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.marknote.svg
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/marknote.categories
+%{_kf6_datadir}/knotifications6/marknote.notifyrc
+%{_kf6_datadir}/krunner/dbusplugins/plasma-runner-marknote.desktop
 
 %changelog
+* Mon May 04 2026 Steve Cossette <farchord@gmail.com> - 1.5.2-1
+- 1.5.2
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.4.1-3
 - Rebuild (qt6)
 

@@ -7,7 +7,7 @@
 
 Name:    kio-extras-kf5
 Version: 24.02.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -32,14 +32,12 @@ BuildRequires:  kf5-kconfig-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdelibs4support-devel
 BuildRequires:  kf5-kdnssd-devel
 BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-khtml-devel
+BuildRequires:  kf5-kguiaddons-devel
 BuildRequires:  kf5-ki18n-devel
 BuildRequires:  kf5-kiconthemes-devel
 BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kpty-devel
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-solid-devel
 BuildRequires:  cmake(KF5SyntaxHighlighting)
@@ -174,6 +172,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Mon May 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 24.02.2-10
+- Update build dependencies
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 24.02.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

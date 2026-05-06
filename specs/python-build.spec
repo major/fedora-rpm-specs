@@ -4,19 +4,14 @@
 # virtualenv is not included in RHEL
 %bcond extras %{undefined rhel}
 
-%global pypi_name build
-
-Name:           python-%{pypi_name}
-Version:        1.4.4
+Name:           python-build
+Version:        1.5.0
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
 URL:            https://github.com/pypa/build
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# downstream-only
-#Patch:          0001-fedora-disable-some-build-requirements.patch
+Source:         %{pypi_source build}
 
 BuildArch:      noarch
 
@@ -27,10 +22,10 @@ BuildRequires:  pyproject-rpm-macros >= 0-41
 A simple, correct PEP517 package builder.
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-build
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name}
+%description -n python3-build
 A simple, correct PEP517 package builder.
 
 
@@ -41,12 +36,15 @@ A simple, correct PEP517 package builder.
 # or else they are pulled into ELN proper (not ELN Extras).
 # https://github.com/fedora-eln/eln/issues/309
 %if %{with extras} || %{defined eln}
-%pyproject_extras_subpkg -n python3-%{pypi_name} virtualenv uv
+%pyproject_extras_subpkg -n python3-build virtualenv uv
 %endif
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n build-%{version}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency pytest-cov:ignore
+%pyproject_patch_dependency covdefaults:ignore
 
 
 %generate_buildrequires
@@ -57,7 +55,7 @@ A simple, correct PEP517 package builder.
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l build
 
 %check
 %pyproject_check_import
@@ -69,8 +67,7 @@ A simple, correct PEP517 package builder.
 %pytest -v -m "not network"
 %endif
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+%files -n python3-build -f %{pyproject_files}
 %doc README.md
 %{_bindir}/pyproject-build
 

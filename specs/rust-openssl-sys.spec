@@ -5,7 +5,7 @@
 %global crate openssl-sys
 
 Name:           rust-openssl-sys
-Version:        0.9.114
+Version:        0.9.115
 Release:        %autorelease
 Summary:        FFI bindings to OpenSSL
 

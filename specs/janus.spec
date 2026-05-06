@@ -1,20 +1,20 @@
-%global __provides_exclude_from %{_includedir}/%{name}/events/.*\\.so$
-%global __provides_exclude_from %{_includedir}/%{name}/loggers/.*\\.so$
-%global __provides_exclude_from %{_includedir}/%{name}/plugins/.*\\.so$
-%global __provides_exclude_from %{_includedir}/%{name}/transports/.*\\.so$
+%global __provides_exclude_from %{_libdir}/%{name}/events/.*\\.so$
+%global __provides_exclude_from %{_libdir}/%{name}/loggers/.*\\.so$
+%global __provides_exclude_from %{_libdir}/%{name}/plugins/.*\\.so$
+%global __provides_exclude_from %{_libdir}/%{name}/transports/.*\\.so$
 
-%global __requires_exclude_from %{_includedir}/%{name}/events/.*\\.so$
-%global __requires_exclude_from %{_includedir}/%{name}/loggers/.*\\.so$
-%global __requires_exclude_from %{_includedir}/%{name}/plugins/.*\\.so$
-%global __requires_exclude_from %{_includedir}/%{name}/transports/.*\\.so$
+%global __requires_exclude_from %{_libdir}/%{name}/events/.*\\.so$
+%global __requires_exclude_from %{_libdir}/%{name}/loggers/.*\\.so$
+%global __requires_exclude_from %{_libdir}/%{name}/plugins/.*\\.so$
+%global __requires_exclude_from %{_libdir}/%{name}/transports/.*\\.so$
 
 %global api_version_major 2
 %global api_version_minor 0
-%global api_version_patch 9
+%global api_version_patch 10
 %global api_version %{api_version_major}.%{api_version_minor}.%{api_version_patch}
 
 Name: janus
-Version: 1.4.0
+Version: 1.4.1
 Release: %autorelease
 Summary: An open source WebRTC server designed and developed by Meetecho
 
@@ -25,7 +25,7 @@ Source1: %{name}.service
 Source2: %{name}.sysusers
 
 # this patch changes the use of TLS ciphers to use the system's default
-patch0: janus-dtls.patch
+Patch0: janus-dtls.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -33,7 +33,6 @@ BuildRequires: doxygen
 BuildRequires: duktape-devel
 BuildRequires: gcc
 BuildRequires: glib2-devel
-BuildRequires: intltool
 BuildRequires: jansson-devel
 
 %if 0%{?rhel} == 8
@@ -139,6 +138,7 @@ This is a trivial logger plugin for %{name}.
 %package plugins-audiobridge
 Summary: An audio conference bridge plugin for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides: bundled(speexdsp)
 
 %description plugins-audiobridge
 This is a plugin implementing an audio conference bridge for %{name}, specifically mixing Opus streams.
@@ -147,6 +147,7 @@ This is a plugin implementing an audio conference bridge for %{name}, specifical
 %package plugins-duktape
 Summary: A simple bridge to JavaScript via Duktape for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides: bundled(duktape-add-ons)
 
 %description plugins-duktape
 This is a plugin that implements a simple bridge to JavaScript via Duktape for
@@ -297,10 +298,13 @@ This is an implementation of a WebSockets transport for the %{name} API.
 
 %prep
 %autosetup -p 1 -n %{name}-gateway-%{version}
+# Copy bundled licenses for %%license
+cp src/plugins/audiobridge-deps/COPYING COPYING.speexdsp
+cp src/plugins/duktape-deps/LICENSE.txt LICENSE.duktape-add-ons
 
 
 %build
-sh autogen.sh
+autoreconf -vfi
 %configure \
     --enable-docs \
     --enable-json-logger \
@@ -313,7 +317,7 @@ sh autogen.sh
 %make_build
 
 %check
-make check
+%make_build check
 
 
 %install
@@ -349,12 +353,14 @@ find %{buildroot} -type f -iname '*.la' -delete
 
 
 %postun
-%systemd_postun_with_restart %{name}.service
+%systemd_postun %{name}.service
 
 
 %files
 # licenses and docs
 %license COPYING
+%license COPYING.speexdsp
+%license LICENSE.duktape-add-ons
 %doc README.md
 %doc SECURITY.md
 %doc CHANGELOG.md
@@ -389,6 +395,9 @@ find %{buildroot} -type f -iname '*.la' -delete
 
 # data filesystem
 %dir %{_datadir}/%{name}
+
+# shared state
+%ghost %dir %attr(0755,janus,janus) %{_sharedstatedir}/%{name}
 
 
 ## event handlers

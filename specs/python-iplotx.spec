@@ -5,7 +5,7 @@
 %global giturl  https://github.com/fabilab/iplotx
 
 Name:           python-iplotx
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Visualize networks and trees
 
@@ -36,6 +36,7 @@ BuildRequires:  %{py3_dist types-requests}
 - trees:
     - ETE4
     - cogent3
+    - phyloframe
     - Biopython
     - scikit-bio
     - dendropy
@@ -64,12 +65,14 @@ Summary:        Visualize networks and trees
 # avoid spurious failures.
 k="${k-}${k+ and }not (test_complex)"
 k="${k-}${k+ and }not (test_curved_waypoints)"
-k="${k-}${k+ and }not (test_directed_graph)"
+k="${k-}${k+ and }not (test_directed)"
 k="${k-}${k+ and }not (test_display_shortest_path)"
 k="${k-}${k+ and }not (test_leaf_labels)"
 k="${k-}${k+ and }not (test_labels)"
 k="${k-}${k+ and }not (test_leafedges)"
 k="${k-}${k+ and }not (test_show_support)"
+k="${k-}${k+ and }not (test_simple_graph)"
+k="${k-}${k+ and }not (test_undirected)"
 k="${k-}${k+ and }not (test_vertex_labels)"
 %pytest -v -k "${k-}"
 

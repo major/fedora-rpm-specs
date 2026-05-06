@@ -12,6 +12,7 @@ Source1:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{
 # William Roberts (Bill Roberts) key from pgp.mit.edu
 Source2:	gpgkey-8E1F50C1.gpg
 
+# https://github.com/tpm2-software/tpm2-pkcs11/pull/929
 Patch1:         0001-Use-ASN1_STRING-accessors-for-compatibility.patch
 
 BuildRequires:	gcc

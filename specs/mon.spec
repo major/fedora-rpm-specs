@@ -7,7 +7,7 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
@@ -24,6 +24,10 @@ Patch1:         mon-1.2.0-uucp.patch
 # Use libtirpc instead of rpc/rpc.h from glibc, bug #1675405
 Patch2:         mon-1.2.0-Port-to-libtirpc.patch
 Patch3:         mon-1.2.0-fix_signal.patch
+Patch4:         mon.cgi-1.52-add_config_file.patch
+Patch5:         mon.cgi-1.52-fix_cgi_start_form.patch
+Patch6:         mon.cgi-1.52-fix_perl_syntax.patch
+Patch7:         mon-1.2.0-rewrite_gethostbyname.patch
 
 Requires:       perl(Authen::PAM)
 Requires:       iputils
@@ -63,6 +67,10 @@ required, the mon server will not need to be changed.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
 
 # Filter out unwanted requires
 cat << \EOF > %{name}-req
@@ -179,7 +187,9 @@ fi
 %{_libdir}/mon/alert.d
 %dir %{_libdir}/mon/mon.d
 %{_libdir}/mon/mon.d/*.monitor
-%attr(2755, root, uucp) %{_libdir}/mon/mon.d/dialin.monitor.wrap
+# setgid uucp is required so dialin.monitor can access UUCP lock files
+# in /var/lock when checking dial-in lines.
+%attr(2555, root, uucp) %{_libdir}/mon/mon.d/dialin.monitor.wrap
 
 # These packages are not in EPEL
 %if 0%{?rhel} <= 5
@@ -197,6 +207,14 @@ fi
 
 
 %changelog
+* Mon May 04 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-44
+- Add comment for setgit uucp for dialin.monitor.wrap.
+- Add default config file to CGI script.
+- Correct the permissions of the dialin.monitor.wrap file as indicated in the source code.
+- Fix CGI->start_form() method.
+- Fix Perl syntax (defined %hash and defined @array).
+- Rewrite gethostbyname, inet_addr to new common api.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

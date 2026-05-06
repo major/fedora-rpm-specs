@@ -1,12 +1,12 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 6%{?dist}
+Release: 7%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-%global lesspipe_version 2.24
+%global lesspipe_version 2.25
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
 Source2: less.sh
 Source3: less.csh
@@ -113,6 +113,9 @@ popd
 %{_bindir}/archive_color
 
 %changelog
+* Tue Apr 28 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-7
+- update lesspipe to 2.25
+
 * Thu Apr 16 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-6
 - update lesspipe to 2.24
 

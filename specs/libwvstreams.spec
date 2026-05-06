@@ -1,6 +1,6 @@
 Name: libwvstreams
 Version: 4.6.1
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: WvStreams is a network programming library written in C++
 Source: http://wvstreams.googlecode.com/files/wvstreams-%{version}.tar.gz
 #fixed multilib issue (bug #192717)
@@ -22,6 +22,7 @@ Patch9: wvstreams-4.6.1-fix-stack-size.patch
 Patch10: wvstreams-4.6.1-gcc10.patch
 # patch was taken from debian
 Patch11: wvstreams-4.6.1-openssl11.patch
+Patch12: libwvstreams-openssl4.patch
 URL: https://code.google.com/p/wvstreams/
 BuildRequires: gcc-c++
 BuildRequires: openssl-devel, pkgconfig, zlib-devel, readline-devel, dbus-devel
@@ -63,6 +64,7 @@ doing network applications development. This package contains static libraries.
 %patch -P9 -p1 -b .fix-stack-size
 %patch -P10 -p1 -b .gcc10
 %patch -P11 -p1 -b .openssl11
+%patch -P12 -p1 -b .openssl4
 
 %build
 
@@ -120,6 +122,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Thu Apr 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 4.6.1-50
+- Migrated to OpenSSL 4.0: use ASN1_STRING accessors instead of direct struct access
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

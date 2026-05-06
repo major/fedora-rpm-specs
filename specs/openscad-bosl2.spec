@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/BelfrySCAD/BOSL2
-%global version 2.0.736
+%global version 2.0.739
 
 %forgemeta
 
@@ -15,8 +15,8 @@ Source:  %{forgesource}
 BuildArch:     noarch
 
 # For running the tests
-BuildRequires: openscad
-BuildRequires: sed
+# BuildRequires: openscad
+# BuildRequires: sed
 
 Requires: openscad
 

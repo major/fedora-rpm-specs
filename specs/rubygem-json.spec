@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		2.19.4
+%global	pkg_version_num		2.19.5
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Mon May 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.19.5-1
+- 2.19.5
+
 * Sun Apr 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.19.4-1
 - 2.19.4
 

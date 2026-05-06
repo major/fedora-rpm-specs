@@ -1,5 +1,5 @@
 Name:           fooyin
-Version:        0.10.4
+Version:        0.10.5
 Release:        %autorelease
 Summary:        A customizable music player
 

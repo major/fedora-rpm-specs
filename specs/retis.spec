@@ -14,8 +14,6 @@ Patch:          retis-release-profile.diff
 # - Remove the dev-dependencies.
 # - Downgrade the libbpf-rs/cargo and pcap dependencies.
 Patch:          retis-fix-deps.diff
-# Manually created to downgrade the elf dependency and fix its use.
-Patch:          retis-downgrade-elf.diff
 
 ExclusiveArch:  x86_64 aarch64
 

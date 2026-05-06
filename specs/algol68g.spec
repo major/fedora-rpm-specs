@@ -6,12 +6,12 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.11.3
+Version: 3.12.0
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html
-Source: https://jmvdveer.home.xs4all.nl/%{name}-%{version}.tar.gz
+Source: https://algol68genie.nl/%{name}-%{version}.tar.gz
 BuildRequires: gcc
 BuildRequires: pkgconfig(ncurses)
 BuildRequires: pkgconfig(gsl)
@@ -56,6 +56,10 @@ that has continuing responsibility for Algol 60 and Algol 68.
 %exclude %{_pkgdocdir}/COPYING
 
 %changelog
+* Mon May 04 2026 Oleg Girko <ol@infoserver.lv> - 3.12.0-1
+- Update download URL
+- Update to 3.12.0
+
 * Thu Apr 23 2026 Oleg Girko <ol@infoserver.lv> - 3.11.3-1
 - Update to 3.11.3
 

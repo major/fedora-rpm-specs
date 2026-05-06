@@ -25,6 +25,8 @@ Source0:        https://gitlab.com/duplicity/duplicity/-/archive/rel.%{version}/
 # chg:test: Add test case for issue #683.
 # https://gitlab.com/duplicity/duplicity/-/commit/e6671cdf4ed8b21b4a8bd1973bd458f62792cd29
 Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
+# Unpin the upper Python bound
+Patch:          allow-python3.15-build.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6

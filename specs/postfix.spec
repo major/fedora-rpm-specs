@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.11.1
-Release: 2%{?dist}
+Version: 3.11.2
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -100,7 +100,7 @@ Patch1: postfix-3.11.1-config.patch
 Patch2: postfix-3.11.0-files.patch
 Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
-Patch4: postfix-3.8.0-large-fs.patch
+Patch4: postfix-3.11.2-large-fs.patch
 # rhbz#1931403, sent upstream
 Patch9: pflogsumm-1.1.6-syslog-name-underscore-fix.patch
 Patch11: postfix-3.4.4-chroot-example-fix.patch
@@ -854,6 +854,10 @@ fi
 %endif
 
 %changelog
+* Mon May 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.11.2-1
+- New version
+  Resolves: rhbz#2464614
+
 * Mon Apr 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.11.1-2
 - Fixed default TLS config to work with the removed ca-bundle.crt
   Resolves: rhbz#2447292

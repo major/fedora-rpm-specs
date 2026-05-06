@@ -1,12 +1,12 @@
-%define prerelease beta1
+#define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        19.0.0
-Release:        0.4%{?dist}
+Version:        19.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -23,8 +23,6 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # Fix debuginfod detection
 Patch3:         qt-creator-debuginfod.patch
-# Add ppc64le and s390x to OsArch enum
-Patch4:         qt-creator-osarch.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -222,6 +220,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Mon May 04 2026 Sandro Mani <manisandro@gmail.com> - 19.0.1-1
+- Update to 19.0.1
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 
