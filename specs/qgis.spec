@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        4.0.1
-Release:        6%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -322,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue May 05 2026 Sandro Mani <manisandro@gmail.com> - 4.0.2-1
+- Update to 4.0.2
+
 * Sun Apr 19 2026 Sandro Mani <manisandro@gmail.com> - 4.0.1-6
 - Switch to yarn berry
 

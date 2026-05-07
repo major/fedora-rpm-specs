@@ -1,5 +1,5 @@
 Name:           litecli
-Version:        1.15.0
+Version:        1.17.1
 Release:        %autorelease
 Summary:        CLI for SQLite Databases with auto-completion and syntax highlighting
 License:        BSD-3-Clause

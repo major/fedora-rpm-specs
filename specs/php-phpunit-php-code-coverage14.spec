@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.1.6
+Version:        14.1.7
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -191,6 +191,9 @@ exit $ret
 
 
 %changelog
+* Tue May  5 2026 Remi Collet <remi@remirepo.net> - 14.1.7-1
+- update to 14.1.7
+
 * Sat Apr 25 2026 Remi Collet <remi@remirepo.net> - 14.1.6-1
 - update to 14.1.6
 

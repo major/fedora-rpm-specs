@@ -15,7 +15,7 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.55.7
+Version:       1.55.8
 Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
@@ -388,6 +388,9 @@ end
 
 
 %changelog
+* Tue May 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1.55.8-1
+- New upstream development version 1.55.8
+
 * Wed Apr 29 2026 Richard W.M. Jones <rjones@redhat.com> - 1.55.7-1
 - New upstream development version 1.55.7
 - Requires libguestfs >= 1.59.7 for base64 encoded keys.

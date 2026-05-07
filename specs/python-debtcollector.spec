@@ -1,8 +1,9 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
+%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 
 %global pypi_name debtcollector
 %global with_doc 1
+
 %global common_desc %{expand:
 It is a collection of functions/decorators which is used to signal a user when
 *  a method (static method, class method, or regular instance method) or a class
@@ -12,7 +13,7 @@ It is a collection of functions/decorators which is used to signal a user when
 * further customizing the emitted messages}
 
 Name:        python-%{pypi_name}
-Version:     3.0.0
+Version:     3.1.0
 Release:     %autorelease
 Summary:     A collection of Python deprecation patterns and strategies
 
@@ -21,13 +22,13 @@ URL:         https://pypi.python.org/pypi/%{pypi_name}
 Source0:     https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz.asc
-Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+Source101:   https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz.asc
+Source102:   https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
 BuildRequires: python3-devel
 
-BuildArch:   noarch
+BuildArch:     noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
@@ -36,8 +37,10 @@ BuildRequires:  /usr/bin/gpgv2
 
 BuildRequires: git-core
 
+
 %description
 %{common_desc}
+
 
 %package -n python3-%{pypi_name}
 Summary:     A collection of Python deprecation patterns and strategies
@@ -72,7 +75,7 @@ sed -i \
     -e "/^reno[[:space:]]*[!><=]/d" \
     -e "/^doc8[[:space:]]*[!><=]/d" \
     -e "/^pre-commit[[:space:]]*[!><=]/d" \
-    test-requirements.txt
+    test-requirements.txt doc/requirements.txt
 
 
 %generate_buildrequires
@@ -90,6 +93,8 @@ sed -i \
 %install
 %pyproject_install
 
+%pyproject_save_files -l debtcollector
+
 
 %if 0%{?with_doc}
 # doc
@@ -101,13 +106,11 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 
 
 %check
-%tox
+%tox -e %{default_toxenv}
 
-%files -n python3-%{pypi_name}
-%doc README.rst CONTRIBUTING.rst
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}*.dist-info
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc README.rst CONTRIBUTING.rst ChangeLog
 %exclude %{python3_sitelib}/%{pypi_name}/tests
 
 

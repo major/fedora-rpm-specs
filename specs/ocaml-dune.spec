@@ -17,7 +17,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.22.2
+Version:        3.23.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -25,6 +25,7 @@ Summary:        Composable build system for OCaml and Reason
 # BSD-2-Clause:
 # - vendor/ocaml-blake3-mini
 # BSD-3-Clause:
+# - otherlibs/dune-rpc/dbus_address.mll
 # - vendor/bigstringaf
 # ISC:
 # - vendor/cmdliner
@@ -55,6 +56,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/dune-%{version}.tar.gz
 # Unbundle lmdb
 Patch:          %{name}-unbundle-lmdb.patch
+# Unbundle libev
+Patch:          %{name}-unbundle-libev.patch
 # Temporary workaround for broken debuginfo (rhbz#2168932)
 # See https://github.com/ocaml/dune/issues/6929
 Patch:          %{name}-debuginfo.patch
@@ -63,8 +66,9 @@ Patch:          %{name}-debuginfo.patch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  emacs-nw
+BuildRequires:  libev-devel
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml >= 4.14
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-csexp-devel >= 1.5.0
 BuildRequires:  ocaml-pp-devel >= 2.0.0
@@ -397,6 +401,9 @@ developing applications that use ocaml-top-closure.
 # Make sure we don't use the bundled lmdb
 rm vendor/ocaml-lmdb/{lmdb.h,mdb.c,midl.*}
 
+# Make sure we don't use the bundled libev
+rm -fr src/lev/vendor
+
 %build
 ./configure \
   --prefix %{_prefix} \
@@ -494,6 +501,10 @@ cd -
 %files -n ocaml-top-closure-devel -f .ofiles-top-closure-devel
 
 %changelog
+* Tue May 05 2026 Jerry James <loganjerry@gmail.com> - 3.23.0-1
+- Version 3.23.0
+- Unbundle libev
+
 * Tue Apr 14 2026 Jerry James <loganjerry@gmail.com> - 3.22.2-1
 - Version 3.22.2
 

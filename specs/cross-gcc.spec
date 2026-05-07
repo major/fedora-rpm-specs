@@ -62,8 +62,6 @@
 # not available in binutils-2.22
 %global build_unicore32		0
 
-%global multilib_64_archs sparc64 ppc64 s390x x86_64
-
 # we won't build libgcc for these as it depends on C library or kernel headers
 # % global no_libgcc_targets	nios2*
 %global no_libgcc_targets	none
@@ -464,7 +462,7 @@ function config_target () {
 	    CONFIG_FLAGS="--with-cpu-32=power8 --with-tune-32=power8 --with-cpu-64=power8 --with-tune-64=power8 --enable-secureplt"
 	    ;;
 	s390*-*)
-	    CONFIG_FLAGS="--with-arch=zEC12 --with-tune=z13 --enable-decimal-float"
+	    CONFIG_FLAGS="--with-arch=z13 --with-tune=z14 --enable-decimal-float --enable-multilib --enable-obsolete"
 	    ;;
 	sh-*)
 	    CONFIG_FLAGS=--with-multilib-list=m1,m2,m2e,m2a,m2a-single,m4,m4-single,m4-single-only,m4-nofpu

@@ -23,6 +23,21 @@ Patch:          %{name}-popcount.patch
 Patch:          %{name}-vector.patch
 # Unbundle amd, cli11, metis, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
+# Fix 2957
+# https://github.com/ERGO-Code/HiGHS/pull/2961
+#
+# Fixes:
+#
+# - MIP incorrect solution in HiGHS 1.14:
+#   https://github.com/ERGO-Code/HiGHS/issues/2957
+# - highspy v1.14 regression: presolve in toy example is reaching non-optimal
+#   solution: https://github.com/ERGO-Code/HiGHS/issues/3002
+# - Test regressions in 3.3.0 with HiGHS 1.14:
+#   https://github.com/coin-or/pulp/issues/904
+# - python-pulp: FTBFS in Fedora Rawhide: pulp.constants.PulpError: Tests
+#   failed for solver <pulp.apis.highs_api.HiGHS_CMD object at 0x7f39f283cb00>:
+#   var x == 2.0 != 3: https://bugzilla.redhat.com/show_bug.cgi?id=2466661
+Patch:          %{name}-issue-2957.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,7 +1,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0 and partially v3.1
 Version: 3.26.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -19,6 +19,10 @@ Patch2: opencryptoki-3.24.0-tmpfiles-image-mode.patch
 # everything using /var/lock should be fixed in the end to use /run/lock
 # https://gitlab.com/fedora/bootc/base-images/-/issues/48
 Patch3: opencryptoki-lockdir-image-mode.patch
+
+# upstream patches
+# CVE-3-2026-23893
+Patch100: opencryptoki-3.26.0-CVE-3-2026-23893.patch
 
 Requires(pre): coreutils
 Requires: (selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -406,6 +410,9 @@ fi
 
 
 %changelog
+* Tue May 05 2026 Than Ngo <than@redhat.com> - 3.26.0-3
+- Fix rhbz#2432016: CVE-2026-23893, Privilege Escalation or Data Exposure via Symlink Following
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

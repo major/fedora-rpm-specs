@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.6a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -10,6 +10,11 @@ URL:            https://tmux.github.io/
 Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source2:        tmux@.service
 Source3:        README.polkit
+
+# related to https://github.com/tmux/tmux/commit/f58b8d0d6abb2477b584547a4e72cc362ecbbcdb
+# this patch should be removed during next tmux upgrade since it's in the master branch
+Patch0:         0001-Setting-working-directory-after-fork-means-there-is-.patch
+
 BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
@@ -73,6 +78,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Tue May 05 2026 Dridi Boukelmoune <dridi@fedoraproject.org> - 3.6a-2
+- Patch #{pane_current_path} race condition
+
 * Mon Feb 23 2026 Filipe Rosset <rosset.filipe@gmail.com> - 3.6a-1
 - Update to tmux 3.6a
 

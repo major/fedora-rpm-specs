@@ -1,6 +1,6 @@
 Name:           librhsm
 Version:        0.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Red Hat Subscription Manager library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librhsm
@@ -8,6 +8,9 @@ Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
+
+#OpenSSL 4.0 build fixes
+Patch1:         0001-Use-OpenSSL-accessors-for-ASN1-structures.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.37.0
@@ -50,6 +53,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Apr 27 2026 Simo Sorce <simo@redhat.com> - 0.0.4-3
+- OpenSSL 4.0 build fixes
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

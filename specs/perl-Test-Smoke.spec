@@ -1,6 +1,6 @@
 Name:           perl-Test-Smoke
-Version:        1.84
-Release:        3%{?dist}
+Version:        1.87
+Release:        1%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
@@ -11,6 +11,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -65,6 +66,7 @@ BuildRequires:  perl(IO::Zlib)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(subs)
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::Fatal)
@@ -155,7 +157,7 @@ make test
 %{_bindir}/tsarchive.pl
 %{_bindir}/tsarchivelog.pl
 %{_bindir}/tsconfigsmoke.pl
-#%%{_bindir}/tshandlequeue.pl
+%{_bindir}/tshandlequeue.pl
 %{_bindir}/tsreport.pl
 %{_bindir}/tsrepostjsn.pl
 %{_bindir}/tsrunsmoke.pl
@@ -176,6 +178,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.87-1
+- 1.87 bump (rhbz#2461207)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.84-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

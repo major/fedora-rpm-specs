@@ -14,8 +14,6 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    a0b7c13588b102d7d6536823e96d1c88d3dba85e
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     justinrainbow
 %global gh_project   json-schema
 %global php_home     %{_datadir}/php
@@ -34,14 +32,14 @@
 %global eolv2        0
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.3.3
+Version:        5.3.4
 Release:        1%{?dist}
 Summary:        A library to validate a json schema
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 
 # git snapshot to get upstream test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        https://github.com/%{ts_owner}/%{ts_project}/archive/%{ts_commit}/%{ts_project}-%{ts_version}-%{ts_short}.tar.gz
 Source2:        %{name}-autoload.php
 Source3:        %{name}-makesrc.sh
@@ -98,7 +96,7 @@ Autoloader: %{php_home}/JsonSchema%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit} -a 1
+%setup -q -n %{gh_project}-%{version} -a 1
 
 %patch -P0 -p1 -b .rpm
 find src -name \*.rpm -delete -print
@@ -176,6 +174,9 @@ exit $ret
 
 
 %changelog
+* Tue May  5 2026 Remi Collet <remi@remirepo.net> - 5.3.4-1
+- update to 5.3.4
+
 * Wed Mar 25 2026 Remi Collet <remi@remirepo.net> - 5.3.3-1
 - update to 5.3.3
 

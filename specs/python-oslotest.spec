@@ -3,25 +3,20 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name oslotest
 
-
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order reno
 
 %if %{without bootstrap}
 %global with_doc 1
 %else
 %global with_doc 0
-%global excluded_brs %{excluded_brs} sphinx openstackdocstheme oslo.config
 %endif
 
 %global common_desc OpenStack test framework and test fixtures.
 
 Name:           python-%{pypi_name}
-Version:        6.0.0
+Version:        6.1.1
 Release:        %autorelease
 Summary:        OpenStack test framework
 
@@ -41,6 +36,7 @@ BuildRequires:  /usr/bin/gpgv2
 %endif
 
 BuildRequires:  git-core
+BuildRequires:  python3-devel
 
 %description
 %{common_desc}
@@ -48,7 +44,7 @@ BuildRequires:  git-core
 %package -n python3-%{pypi_name}
 Summary:        OpenStack test framework
 
-BuildRequires:  python3-devel
+
 BuildRequires:  pyproject-rpm-macros
 
 
@@ -68,31 +64,26 @@ Summary:        Documentation for the OpenStack test framework
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n %{pypi_name}-%{upstream_version} -S git
+%autosetup -n %{pypi_name}-%{version} -S git
 
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
-sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
+#sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs};do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+sed -i \
+    -e "/^coverage[[:space:]]*[!><=]/d" \
+    -e "/^reno[[:space:]]*[!><=]/d" \
+    test-requirements.txt doc/requirements.txt
 
-# Automatic BR generation
+
 %generate_buildrequires
 %if %{without bootstrap}
-  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
-  %pyproject_buildrequires
+%pyproject_buildrequires
 %endif
+
 
 %build
 %pyproject_wheel
@@ -104,19 +95,22 @@ done
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
+
 %install
 %pyproject_install
+
+%pyproject_save_files -l oslotest
+
 
 %check
 %if %{without bootstrap}
 %tox -e %{default_toxenv}
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %{_bindir}/oslo_debug_helper
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}*.dist-info
+%doc ChangeLog
 
 %if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
@@ -124,6 +118,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %doc doc/build/html
 %doc README.rst
 %endif
+
 
 %changelog
 %autochangelog

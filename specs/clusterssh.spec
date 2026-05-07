@@ -1,5 +1,5 @@
 Name:          clusterssh
-Version:       4.18_09
+Version:       4.19
 Release:       %autorelease
 Summary:       Secure concurrent multiple server terminal control
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl

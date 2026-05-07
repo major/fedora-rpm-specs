@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.35
+Version: 45.1
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -520,6 +520,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 29 2026 Packit <hello@packit.dev> - 45.1-1
+- storage: skip reformat warning for empty filesystems on allowlisted mounts
+  (k.koukiou)
+- docs: Document inst.remote-debugger boot option for remote debugging
+  (bciconel)
+- Add script to fetch RPM packages from COPR repositories (bciconel)
+- Add remote debugging support via debugpy (bciconel)
+
 * Tue Apr 28 2026 Packit <hello@packit.dev> - 44.35-1
 - Update ELN profile (yselkowi)
 - fix(users): ensure SSH config directory exists before writing (yueyuankun)

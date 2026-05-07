@@ -35,6 +35,14 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 
+# The python-reactivex package was introduced by mistake; it duplicates this
+# package and was therefore retired for F44. Provide a clean upgrade path,
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#renaming-or-replacing-existing-packages,
+# while simultaneously satisfying
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+# since the importable module really is called reactivex.
+%py_provides python3-reactivex
+Obsoletes:      python3-reactivex < 4.0.4-17
 
 %description -n python3-%{pkgname} %{_description}
 

@@ -1,7 +1,7 @@
 %global pypi_name openstackdocstheme
 
 Name:           python-%{pypi_name}
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        OpenStack Docs Theme
 
@@ -17,11 +17,11 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-sphinx
 BuildRequires:  git-core
 
-%global common_desc \
-OpenStack docs.openstack.org Sphinx Theme\
-\
-Theme and extension support for Sphinx documentation that is published to\
-docs.openstack.org. Intended for use by OpenStack projects.
+%global common_desc %{expand:
+OpenStack docs.openstack.org Sphinx Theme
+
+Theme and extension support for Sphinx documentation that is published to
+docs.openstack.org. Intended for use by OpenStack projects.}
 
 %description
 %{common_desc}

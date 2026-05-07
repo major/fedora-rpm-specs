@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.26.3
+%global downstream_so_version 0.26.5
 
 %bcond alembic       1
 %bcond draco         1
@@ -25,7 +25,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        26.03
+Version:        26.05
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -151,18 +151,6 @@ Patch:          0006-Downstream-only-use-the-system-libavif.patch
 # Backport fixes for CVE-2025-64181 etc. in OpenEXRCore
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/3903
 Patch:          %{forgeurl}/pull/3903.patch
-# Backport fix for CVE-2026-34544 in OpenEXRCore
-# https://github.com/PixarAnimationStudios/OpenUSD/pull/4028
-Patch:          %{forgeurl}/pull/4028.patch
-# Backport several OpenEXRCore security fixes
-# https://github.com/PixarAnimationStudios/OpenUSD/pull/4030
-# Fixes:
-# - CVE-2026-34378 / GHSA-v76p-4qvv-vh4g / RHBZ#2455493
-# - CVE-2026-34380 / GHSA-q3v8-hw4m-59w5 / RHBZ#2455534
-# - CVE-2026-34588 / GHSA-588r-cr5c-w6hf / RHBZ#2455505
-# - CVE-2026-34589 / GHSA-p8xc-w3q4-h64x / RHBZ#2455501
-# - CVE-2026-34379 / GHSA-w88v-vqhq-5p24 / RHBZ#2455497
-Patch:          %{forgeurl}/pull/4030.patch
 
 # Base
 BuildRequires:  gcc-c++
@@ -242,7 +230,7 @@ BuildRequires:  openvdb-devel
 %endif
 
 %if %{with ptex}
-BuildRequires:  pkgconfig(ptex)
+BuildRequires:  cmake(ptex)
 %endif
 
 # Header-only library: -static is for tracking per guidelines

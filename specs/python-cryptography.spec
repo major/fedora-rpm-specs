@@ -5,7 +5,7 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        47.0.0
+Version:        48.0.0
 Release:        %autorelease
 Summary:        PyCA's cryptography library
 
@@ -24,6 +24,10 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
                 # created by ./vendor_rust.py helper script
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
+
+# Temporarily drop cc dependency to .60 since it's the same as .61
+# except for a docblock change.
+Patch:          0001-Lower-cc-dependency.patch
 
 ExclusiveArch:  %{rust_arches}
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           extra-enforcer-rules
-Version:        1.10.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Extra rules for maven-enforcer-plugin
 License:        Apache-2.0
@@ -16,14 +16,16 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-codec:commons-codec)
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.enforcer:enforcer-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
-BuildRequires:  mvn(org.apache.maven.shared:maven-dependency-tree)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 BuildRequires:  mvn(org.mockito:mockito-core)
+BuildRequires:  mvn(org.mockito:mockito-junit-jupiter)
+
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.8.0-11
@@ -38,6 +40,8 @@ provides extra rules which are not part of the standard rule set.
 
 # Integration tests fetch upstream poms
 %pom_remove_plugin :maven-invoker-plugin
+
+%pom_remove_plugin :maven-enforcer-plugin
 
 %build
 %mvn_build -j

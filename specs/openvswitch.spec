@@ -205,6 +205,10 @@ This provides ovs-vswitchd linked with DPDK library.
 %autosetup -p 1
 %endif
 
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
+
 %build
 %if 0%{?commit0:1}
 # fix the snapshot unreleased version to be the released one.
@@ -268,6 +272,14 @@ make %{?_smp_mflags}
 popd
 %endif
 %endif
+
+pushd python
+(
+export CPPFLAGS="-I ../build/include -I ../include"
+export LDFLAGS="%{__global_ldflags} -L ../build/lib/.libs"
+%pyproject_wheel
+)
+popd
 
 /usr/bin/python3 build-aux/dpdkstrip.py \
         --dpdk \
@@ -334,19 +346,11 @@ install -p -m 0755 rhel/etc_sysconfig_network-scripts_ifup-ovs \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/ifup-ovs
 %endif
 
-install -d -m 0755 $RPM_BUILD_ROOT%{python3_sitelib}
-cp -a $RPM_BUILD_ROOT/%{_datadir}/openvswitch/python/ovstest \
-        $RPM_BUILD_ROOT%{python3_sitelib}
-
 # Build the JSON C extension for the Python lib (#1417738)
 pushd python
-(
-export CPPFLAGS="-I ../build/include -I ../include"
-export LDFLAGS="%{__global_ldflags} -L $RPM_BUILD_ROOT%{_libdir}"
-%py3_build
-%py3_install
+%pyproject_install
+%pyproject_save_files ovs
 [ -f "$RPM_BUILD_ROOT/%{python3_sitearch}/ovs/_json$(python3-config --extension-suffix)" ]
-)
 popd
 
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/openvswitch/python/
@@ -367,9 +371,13 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/system-id.conf
 # remove unpackaged files
 rm -f $RPM_BUILD_ROOT/%{_bindir}/ovs-benchmark \
         $RPM_BUILD_ROOT/%{_bindir}/ovs-docker \
+        $RPM_BUILD_ROOT/%{_bindir}/ovs-l3ping \
         $RPM_BUILD_ROOT/%{_bindir}/ovs-parse-backtrace \
+        $RPM_BUILD_ROOT/%{_bindir}/ovs-test \
         $RPM_BUILD_ROOT/%{_sbindir}/ovs-vlan-bug-workaround \
         $RPM_BUILD_ROOT/%{_mandir}/man1/ovs-benchmark.1* \
+        $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-l3ping.8* \
+        $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-test.8* \
         $RPM_BUILD_ROOT/%{_mandir}/man8/ovs-vlan-bug-workaround.8*
 
 # remove ovn unpackages files
@@ -477,8 +485,8 @@ fi
 %endif
 
 %files -n python3-openvswitch
-%{python3_sitearch}/ovs
-%{python3_sitearch}/ovs-*.egg-info
+%{python3_sitearch}/ovs/
+%{python3_sitearch}/ovs-%{version}.dist-info/
 %{_datadir}/openvswitch/bugtool-plugins/
 %{_datadir}/openvswitch/scripts/ovs-bugtool-*
 %{_datadir}/openvswitch/scripts/ovs-check-dead-ifs
@@ -497,13 +505,8 @@ fi
 %{_mandir}/man1/ovs-pcap.1*
 %{_mandir}/man8/ovs-tcpdump.8*
 %{_mandir}/man1/ovs-tcpundump.1*
-%{_bindir}/ovs-test
 %{_bindir}/ovs-vlan-test
-%{_bindir}/ovs-l3ping
-%{_mandir}/man8/ovs-test.8*
 %{_mandir}/man8/ovs-vlan-test.8*
-%{_mandir}/man8/ovs-l3ping.8*
-%{python3_sitelib}/ovstest
 
 %files testcontroller
 %{_bindir}/ovs-testcontroller

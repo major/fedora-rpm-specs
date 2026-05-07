@@ -2,8 +2,8 @@
 %global modulename bitcoin
 
 Name:           bitcoin-core-selinux
-Version:        0.1
-Release:        4%{?dist}
+Version:        0.2
+Release:        %autorelease
 Summary:        Bitcoin Core SELinux policy
 License:        GPL-3.0-only
 URL:            https://github.com/scaronni/%{name}
@@ -63,67 +63,4 @@ fi
 %ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 0.1-1
-- Update to 0.1 for https://fedoraproject.org/wiki/Releases/42/ChangeSet#Unify_/usr/bin_and_/usr/sbin
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231127git4505616-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Oct 25 2024 Simone Caronni <negativo17@gmail.com> - 0^20231127git4505616-16
-- Convert to new snapshot format.
-
-* Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0-15.20231127git4505616
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-14.20231127git4505616
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-13.20231127git4505616
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-12.20231127git4505616
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 27 2023 Simone Caronni <negativo17@gmail.com> - 0-11.20231127git4505616
-- Update policies (#2246255).
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-10.20210312giteaa9a04
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20210312giteaa9a04
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-8.20210312giteaa9a04
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Mar 02 2022 Simone Caronni <negativo17@gmail.com> - 0-7.20210312giteaa9a04
-- Do not use forge macros. Breaks changelog, date in package release, changelog
-  and complete release on EPEL 8.
-
-* Wed Sep 22 2021 Simone Caronni <negativo17@gmail.com> - 0-6
-- Rename to bitcoin-core-selinux.
-
-* Sun Mar 14 2021 Simone Caronni <negativo17@gmail.com> - 0-5
-- Use forge macros from packaging guidelines.
-
-* Fri Mar 12 2021 Simone Caronni <negativo17@gmail.com> - 0-4.20210312giteaa9a04
-- Updated policy.
-
-* Fri Mar 12 2021 Simone Caronni <negativo17@gmail.com> - 0-3.20210312git7d10d99
-- Allow connections to tor ports, remove permissive.
-
-* Fri Mar 12 2021 Simone Caronni <negativo17@gmail.com> - 0-2.20210310gitc539073
-- Update postuninstall scriptlet with correct ports.
-
-* Wed Mar 10 2021 Simone Caronni <negativo17@gmail.com> - 0.1-1.20210310git5eccc2a
-- First build.
-
+%autochangelog

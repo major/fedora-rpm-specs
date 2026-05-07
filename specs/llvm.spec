@@ -593,12 +593,6 @@ BuildRequires:	lld
 # This intentionally does not use python3_pkgversion. RHEL 8 does not have
 # python3.12-sphinx, and we are only using it as a binary anyway.
 BuildRequires:	python3-sphinx
-%if 0%{?rhel} != 8
-# RHEL 8 does not have these packages for python3.12. However, they are only
-# needed for LLDB tests.
-BuildRequires:	python%{python3_pkgversion}-psutil
-BuildRequires:	python%{python3_pkgversion}-pexpect
-%endif
 %if %{undefined rhel}
 BuildRequires:	python%{python3_pkgversion}-myst-parser
 %endif
@@ -1648,11 +1642,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 %ifarch ppc64le
 	%global cmake_config_args %{cmake_config_args} -DLLDB_TEST_USER_ARGS=--skip-category=watchpoint
 %endif
-%if 0%{?rhel} == 8
-	%global cmake_config_args %{cmake_config_args} -DLLDB_INCLUDE_TESTS:BOOL=OFF
-%else
-	%global cmake_config_args %{cmake_config_args} -DLLDB_ENFORCE_STRICT_TEST_REQUIREMENTS:BOOL=ON
-%endif
+%global cmake_config_args %{cmake_config_args} -DLLDB_INCLUDE_TESTS:BOOL=OFF
 %endif
 #endregion lldb options
 

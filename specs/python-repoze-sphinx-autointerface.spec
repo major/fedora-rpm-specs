@@ -1,24 +1,20 @@
 %global pkgname repoze.sphinx.autointerface
-%global srcname %(tr . - <<< %{pkgname})
+%global srcname %{gsub %pkgname %. -}
 
 Name:           python-%{srcname}
-Version:        1.0.0
-Release:        12%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD-3-Clause-Modification
 URL:            https://github.com/repoze/%{pkgname}
 Source0:        https://github.com/repoze/%{pkgname}/archive/%{version}/%{pkgname}-%{version}.tar.gz
-# Adapt to Sphinx 7.2+ and 8.2+
-Patch0:         https://github.com/repoze/repoze.sphinx.autointerface/pull/22.patch
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -L repoze
 
-BuildRequires:  python3-devel
-
-# There is a test dependency loop, so we need a way to build this without tests
-# repoze.sphinx.autointerface -> zope.testrunner -> zope.exceptions -> repoze.sphinx.autointerface
-%bcond tests 1
+BuildRequires:  python3-pytest
 
 %global common_desc %{expand:
 This package defines an extension for the Sphinx documentation system.
@@ -35,31 +31,25 @@ Summary:        Auto-generate Sphinx API docs from Zope interfaces
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x test}
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp CHANGES.rst CHANGES.html
 rst2html --no-datestamp README.rst README.html
 
-%install
-%pyproject_install
-%pyproject_save_files -L repoze
-
 %check
-%pyproject_check_import
-%if %{with tests}
-export PYTHONPATH=$PWD/build/lib
-zope-testrunner --test-path=$PWD/build/lib
-%endif
+%pytest
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGES.html CONTRIBUTORS.txt README.html
-%license COPYRIGHT.txt LICENSE.txt
-%{python3_sitelib}/repoze*
+%license COPYRIGHT.txt
 
 %changelog
+* Mon May 04 2026 Jerry James <loganjerry@gmail.com> - 1.1.0-1
+- Version 1.1.0
+- Drop upstreamed patch for Sphinx 7.2+ and 8.2+
+- Use the pyproject declarative buildsystem
+- Remove conditional for a build loop resolved by upstream
+- Test with pytest
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

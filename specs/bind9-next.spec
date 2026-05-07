@@ -77,7 +77,6 @@ Source37: named.service
 Source38: named-chroot.service
 Source41: setup-named-chroot.sh
 Source42: generate-rndc-key.sh
-Source43: named.rwtab
 Source44: named-chroot-setup.service
 Source46: named-setup-rndc.service
 Source48: setup-named-softhsm.sh
@@ -91,6 +90,8 @@ Patch1: bind-9.16-redhat_doc.patch
 Patch4: bind-9.21-unittest-qpdb-i386.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11825
 Patch5: bind-9.21-unittest-32b-mem.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11865
+Patch6: bind-9.21-openssl4-malloc.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -622,9 +623,6 @@ done
 mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
 install -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 
-mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
-install -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
-
 install -m0644 -D bind9-next.sysusers.conf %{buildroot}%{_sysusersdir}/bind9-next.conf
 
 %post
@@ -725,7 +723,6 @@ fi;
 %config(noreplace) %{_sysconfdir}/logrotate.d/named
 %{_tmpfilesdir}/named.conf
 %{_sysusersdir}/bind9-next.conf
-%{_sysconfdir}/rwtab.d/named
 %{_unitdir}/named.service
 %{_unitdir}/named-setup-rndc.service
 %{_bindir}/named-journalprint

@@ -1,6 +1,6 @@
 Name: perl-Set-Object
-Version: 1.42
-Release: 15%{?dist}
+Version: 1.43
+Release: 1%{?dist}
 License: Artistic-2.0
 Summary: Set of objects and strings
 URL: https://metacpan.org/release/Set-Object
@@ -67,11 +67,14 @@ make test
 %files
 %license LICENSE
 %doc Changes.pod META.yml README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Set*
 %{perl_vendorarch}/Set*
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Set::*.3*
 
 %changelog
+* Tue May 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.43-1
+- 1.43 bump (rhbz#2395196)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

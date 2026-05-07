@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global library osc-lib
 %global module osc_lib
@@ -8,7 +8,7 @@
 %global with_doc 1
 
 Name:       python-%{library}
-Version:    4.4.0
+Version:    4.5.0
 Release:    %autorelease
 Summary:    OpenStack library for writing OSC plugins
 License:    Apache-2.0

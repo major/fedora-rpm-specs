@@ -2,7 +2,7 @@
 %global pypi_name confluent-kafka
 
 Name:           python-%{sname}
-Version:        2.12.0
+Version:        2.14.0
 Release:        %autorelease
 Summary:        Confluent's Apache Kafka client for Python
 
@@ -26,7 +26,7 @@ BuildRequires:  python3-devel
 # Unit tests are present in the upstream repo, but not in the PyPi distribution
 # https://github.com/confluentinc/confluent-kafka-python/issues/508
 #BuildRequires:  python3dist(pytest)
-Requires:       librdkafka >= 2.4.0
+Requires:       librdkafka >= 2.14.0
 
 
 %description -n python3-%{sname} %_description

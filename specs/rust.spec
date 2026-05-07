@@ -139,6 +139,10 @@ Patch6:         rustc-1.95.0-unbundle-sqlite.patch
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 
+# https://github.com/rust-openssl/rust-openssl/pull/2591/
+# (only the openssl-sys changes, backported for 0.9.111)
+Patch8:         0001-openssl-4-support-2591.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -259,9 +263,9 @@ BuildRequires:  curl-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(liblzma)
 
-# Only specific versions of openssl are supported. They are 1.0.2 - 1.1.1, or 3
+# Only specific versions of openssl are supported. They are 1.0.2 - 1.1.1, 3, or 4
 # The openssl-sys crate will also verify the release is supported.
-BuildRequires:  pkgconfig(openssl) < 4
+BuildRequires:  pkgconfig(openssl) < 5~
 
 BuildRequires:  pkgconfig(zlib)
 
@@ -709,6 +713,7 @@ truncate --no-create --size=0 %{wasi_libc_dir}/dlmalloc/src/*.c
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
+%patch -P8 -p2 -d vendor/openssl-sys-0.9.111
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -913,6 +918,7 @@ test -r "%{optimized_builtins}"
   --set build.optimized-compiler-builtins=false \
   --set rust.llvm-tools=false \
   --set rust.verify-llvm-ir=true \
+  --set rust.remap-debuginfo=false \
   --enable-extended \
   --tools=cargo,clippy,rust-analyzer,rustdoc,rustfmt,src \
   --enable-vendor \

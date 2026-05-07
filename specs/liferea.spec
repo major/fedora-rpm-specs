@@ -1,12 +1,12 @@
 Name:           liferea
 Epoch:          1
-Version:        1.16.9
-Release:        1%{?dist}
+Version:        2.0
+Release:        0.rc1%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
-Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
+Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}-RC1/liferea-%{version}-RC1.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -15,22 +15,20 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
-BuildRequires:  make
+BuildRequires:  meson
+BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(girepository-2.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libpeas-2)
-BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(sqlite)
-BuildRequires:  pkgconfig(webkit2gtk-4.1)
-BuildRequires:  pkgconfig(webkit2gtk-web-extension-4.1)
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  pkgconfig(webkitgtk-6.0)
 
 Requires:       libpeas-loader-python%{?_isa} >= 2
 # gobject introspection dependencies
@@ -46,16 +44,16 @@ It can be used to maintain a list of subscribed feeds,
 browse through their items, and show their contents.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}-RC1
 
 
 %build
-%configure --disable-static
+%meson
+%meson_build
 
-xvfb-run -- %make_build
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name}
 
@@ -71,25 +69,18 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 %doc AUTHORS ChangeLog
 %license COPYING
 %{_mandir}/man1/%{name}.1*
-%lang(it) %{_mandir}/it/man1/%{name}.1*
 %{_bindir}/%{name}
-%{_bindir}/%{name}-add-feed
 %{_libdir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/metainfo/net.sourceforge.liferea.appdata.xml
 %{_datadir}/applications/net.sourceforge.liferea.desktop
-%{_datadir}/dbus-1/services/net.sourceforge.liferea.service
 %{_datadir}/glib-2.0/schemas/net.sf.liferea.gschema.xml
-%{_datadir}/GConf/gsettings/liferea.convert
-%{_datadir}/icons/hicolor/16x16/apps/net.sourceforge.liferea.png
-%{_datadir}/icons/hicolor/22x22/apps/net.sourceforge.liferea.png
-%{_datadir}/icons/hicolor/24x24/apps/net.sourceforge.liferea.png
-%{_datadir}/icons/hicolor/32x32/apps/net.sourceforge.liferea.png
-%{_datadir}/icons/hicolor/48x48/apps/net.sourceforge.liferea.png
-%{_datadir}/icons/hicolor/scalable/apps/net.sourceforge.liferea*.svg
 
 
 %changelog
+* Tue May  5 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0-0.rc1
+- Update to 2.0-RC1. Port to gtk4
+
 * Sat May  2 2026 Yanko Kaneti <yaneti@declera.com> - 1:1.16.9-1
 - Update to 1.16.9
 

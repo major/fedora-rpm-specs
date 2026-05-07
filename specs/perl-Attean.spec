@@ -2,8 +2,8 @@
 %bcond_without perl_Attean_enables_optional_test
 
 Name:           perl-Attean
-Version:        0.035
-Release:        4%{?dist}
+Version:        0.037
+Release:        1%{?dist}
 Summary:        Semantic web framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Attean
@@ -12,10 +12,7 @@ Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/Attean-%{ver
 # <https://github.com/kasei/attean/pull/117>, refused by the upstream
 Patch0:         Attean-0.017-Canonize-shebangs.patch
 # Disable changelog generator and other not helpful dependencies
-Patch1:         Attean-0.034-Disable-unwanted-build-time-dependecies.patch
-# Add missing modules from a git tree, bug #2341871,
-# <https://github.com/kasei/attean/issues/174>
-Patch2:         Attean-0.035-Copy-missing-modules-from-a-git-tree.patch
+Patch1:         Attean-0.037-Disable-unwanted-build-time-dependecies.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -52,7 +49,7 @@ BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(I18N::LangTags)
 BuildRequires:  perl(IRI) >= 0.005
 BuildRequires:  perl(JSON)
-BuildRequires:  perl(List::Util)
+BuildRequires:  perl(List::Util) >= 1.56
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Math::Cartesian::Product) >= 1.008
 BuildRequires:  perl(Module::Load::Conditional)
@@ -113,6 +110,7 @@ BuildRequires:  perl(RDF::Trine)
 %endif
 Requires:       perl(Exporter::Tiny) >= 1
 Requires:       perl(IRI) >= 0.005
+Requires:       perl(List::Util) >= 1.56
 Requires:       perl(Math::Cartesian::Product) >= 1.008
 Requires:       perl(Moo) >= 2.000002
 Requires:       perl(MooX::Log::Any)
@@ -130,7 +128,7 @@ Provides:       perl(Attean::Expression) = %{version}
 Provides:       perl(Attean::Plan) = %{version}
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter::Tiny|IRI|Math::Cartesian::Product|Moo|Role::Tiny|Sub::Util|Test::Modern|Test::More|URI::Escape|URI::NamespaceMap)\\)
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter::Tiny|IRI|List::Util|Math::Cartesian::Product|Moo|Role::Tiny|Sub::Util|Test::Modern|Test::More|URI::Escape|URI::NamespaceMap)\\)
 
 %description
 Attean provides APIs for parsing, storing, querying, and serializing semantic
@@ -139,6 +137,7 @@ web (RDF and SPARQL) data.
 %package -n perl-Test-Attean
 Summary:        Modules for testing Attean semantic web framework
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(List::Util) >= 1.56
 Requires:       perl(Test::Modern) >= 0.012
 # Renamed from perl-Attean-tests-0.030-6.
 # No Obsoletes and Provides because perl-Attean-tests was reused for a different purpose.
@@ -222,6 +221,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 05 2026 Petr Pisar <ppisar@redhat.com> - 0.037-1
+- 0.037 bump
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.035-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

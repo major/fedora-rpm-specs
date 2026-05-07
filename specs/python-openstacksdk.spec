@@ -12,7 +12,7 @@ A collection of libraries for building applications to work with OpenStack
 clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.10.0
+Version:        4.12.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 

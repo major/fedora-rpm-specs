@@ -6,7 +6,7 @@
 %bcond tests 0
 
 Name:           nix
-Version:        2.34.6
+Version:        2.34.7
 Release:        %autorelease
 Summary:        A purely functional package manager
 
@@ -21,6 +21,8 @@ Source5:        nix-filesystem.conf
 # https://bugzilla.redhat.com/show_bug.cgi?id=2425413
 # https://github.com/NixOS/nix/pull/14922
 Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14922.patch
+# https://github.com/NixOS/nix/issues/15797
+Patch7:         nix-meson-1.11.patch
 
 # https://nixos.org/manual/nix/unstable/installation/prerequisites-source
 # missing aws-cpp-sdk-s3 aws-c-auth aws-c-s3

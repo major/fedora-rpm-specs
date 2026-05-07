@@ -61,13 +61,14 @@ This package contains the python3 bindings for %{name}
 %files
 %license COPYING
 %doc AUTHORS NEWS README.md THANKS
-%{_libdir}/libgexiv2-0.16.so*
+%{_libdir}/libgexiv2-0.16.so.4{,.*}
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GExiv2-0.16.typelib
 
 %files devel
 %{_includedir}/gexiv2-0.16/gexiv2/
 %{_libdir}/pkgconfig/gexiv2-0.16.pc
+%{_libdir}/libgexiv2-0.16.so
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GExiv2-0.16.gir
 %dir %{_datadir}/doc/

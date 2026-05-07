@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.21
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -47,6 +47,7 @@ Patch0008:	0008-Add-helper-function-to-extract-an-ML-DSA-public-key.patch
 Patch0009:	0009-csrgen-o.c-implement-a-new-way-to-get-the-signing-al.patch
 Patch0010:	0010-Add-a-function-to-return-the-right-digest-for-signin.patch
 Patch0011:	0011-Add-a-selfsign-test-for-ML-DSA.patch
+Patch0012:	0012-Skip-the-mldsa-tests-if-NSS-is-not-capable-of-mldsa.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -276,6 +277,10 @@ exit 0
 %endif
 
 %changelog
+* Tue May 05 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-7
+- Don't run the mldsa tests if MLDSA is not allowed by NSS crypto
+  policy.
+
 * Thu Apr 30 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-6
 - Sync patches to upstream
 

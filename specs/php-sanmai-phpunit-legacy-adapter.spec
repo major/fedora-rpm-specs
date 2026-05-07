@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sanmai-phpunit-legacy-adapter
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,29 +9,29 @@
 
 %bcond_without       tests
 
-%global gh_commit    aa08b49eac291a49f50e9a094f23b267cc5a9bec
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      20150618
 %global gh_owner     sanmai
 %global gh_project   phpunit-legacy-adapter
 %global ns_project   LegacyPHPUnit
+%global tag          %{version}
+%global forgeurl     https://github.com/%{gh_owner}/%{gh_project}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        8.2.2
-Release:        9%{?dist}
 Summary:        PHPUnit Legacy Versions Adapter
-
 License:        Apache-2.0
-URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
+Version:        8.2.3
+Release:        1%{?dist}
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  phpunit8
-BuildRequires:  phpunit9
-BuildRequires:  phpunit10
-BuildRequires:  phpunit11
-BuildRequires:  phpunit12
+BuildRequires:  phpunit8  >= 8.5.29
+BuildRequires:  phpunit9  >= 9.5.24
+BuildRequires:  phpunit10 >= 10.1.2
+BuildRequires:  phpunit11 >= 11.5.55
+BuildRequires:  phpunit12 >= 12.5.24
+BuildRequires:  phpunit13 >= 13.1.8
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -55,7 +55,7 @@ Autoloader: %{_datadir}/php/%{ns_project}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%forgesetup
 
 
 %build
@@ -82,20 +82,20 @@ EOF
 
 : run upstream test suite with all php and phpunit versions
 ret=0
-for cmd in php80 php81 php82 php83 php84
+for cmd in php82 php83 php84 php85
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
 done
-for cmd in php80 php81 php82 php83 php84
+for cmd in php82 php83 php84 php85
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
 done
 if [ -x %{_bindir}/phpunit10 ]; then
-  for cmd in php81 php82 php83 php84
+  for cmd in php82 php83 php84 php85
   do
     if which $cmd; then
       $cmd %{_bindir}/phpunit10 || ret=1
@@ -103,7 +103,7 @@ if [ -x %{_bindir}/phpunit10 ]; then
   done
 fi
 if [ -x %{_bindir}/phpunit11 ]; then
-  for cmd in php82 php83 php84
+  for cmd in php82 php83 php84 php85
   do
     if which $cmd; then
       $cmd %{_bindir}/phpunit11 || ret=1
@@ -111,10 +111,18 @@ if [ -x %{_bindir}/phpunit11 ]; then
   done
 fi
 if [ -x %{_bindir}/phpunit12 ]; then
-  for cmd in php83 php84
+  for cmd in php83 php84 php85
   do
     if which $cmd; then
       $cmd %{_bindir}/phpunit12 || ret=1
+    fi
+  done
+fi
+if [ -x %{_bindir}/phpunit13 ]; then
+  for cmd in php84 php85
+  do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit13 || ret=1
     fi
   done
 fi
@@ -132,6 +140,10 @@ exit $ret
 
 
 %changelog
+* Sun May  3 2026 Remi Collet <remi@remirepo.net> - 8.2.3-1
+- update to 8.2.2 (no change)
+- tests: add phpunit13
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

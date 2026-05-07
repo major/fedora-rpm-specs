@@ -1,12 +1,12 @@
 Name:           perl-IRI
-Version:        0.013
-Release:        4%{?dist}
+Version:        0.014
+Release:        1%{?dist}
 Summary:        Internationalized Resource Identifiers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IRI
 Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/IRI-%{version}.tar.gz
 # Simplify Makefile.PL to skip unwanted dependencies
-Patch0:         IRI-0.011-Disable-author-features.patch
+Patch0:         IRI-0.014-Disable-author-features.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 05 2026 Petr Pisar <ppisar@redhat.com> - 0.014-1
+- 0.014 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

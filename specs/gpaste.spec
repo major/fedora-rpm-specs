@@ -1,15 +1,13 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        45.3
-Release:        4%{?dist}
+Version:        45.4
+Release:        1%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
 URL:            https://github.com/Keruspe/%{alt_name}/
 Source0:        https://www.imagination-land.org/files/%{name}/%{alt_name}-%{version}.tar.xz
-# Fix GNOME 49 support (see https://github.com/Keruspe/GPaste/commit/c67a4df)
-Patch0:         gpaste-45.3-GNOME_Shell_49.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -89,7 +87,6 @@ GPaste is a clipboard management system.
 This package provides the GNOME Shell extension for GPaste.
 
 
-
 %package bash-completion
 Summary:        Bash completion for %{name}
 Requires:       %{name} = %{version}-%{release}
@@ -111,7 +108,7 @@ Zsh command line completion support for %{name}.
 
 
 %prep
-%autosetup -p0 -n %{alt_name}-%{version}
+%autosetup -n %{alt_name}-%{version}
 
 
 %build
@@ -202,6 +199,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Tue May 05 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45.4-1
+- Update to 45.4
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 45.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

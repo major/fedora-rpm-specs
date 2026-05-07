@@ -15,6 +15,11 @@ URL:           https://github.com/zhuyaliang/%{project_name}
 # spectool -g mate-user-admin.spec
 # wget https://github.com/zhuyaliang/user-admin/archive/refs/tags/v1.7.0.tar.gz -O mate-user-admin-1.7.0.tar.gz
 Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
+# add some upstream commits
+Patch1:        mate-user-admin_0001-Fix-switch-interface-and-Fix-code-format.patch
+Patch2:        mate-user-admin_0002-Fix-typo-in-logging-function-name.patch
+Patch3:        mate-user-admin_0003-Add-and-disable-enabled-password-strength-check-func.patch
+Patch4:        mate-user-admin_0004-Add-handling-scenarios-for-situations-where-there-ar.patch
 
 BuildRequires: accountsservice-devel
 BuildRequires: cmake

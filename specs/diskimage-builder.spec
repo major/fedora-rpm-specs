@@ -7,7 +7,7 @@
 
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
-Version:        3.40.2
+Version:        3.41.0
 Release:        %autorelease
 License:        Apache-2.0
 Group:          System Environment/Base

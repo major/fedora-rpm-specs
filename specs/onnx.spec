@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -74,6 +74,7 @@ sed -r \
 %pyproject_buildrequires requirements-reference.txt
 
 %build
+export VPATH_BUILDDIR=%{_vpath_builddir}
 %cmake \
     -DONNX_USE_LITE_PROTO=OFF \
     -DONNX_USE_PROTOBUF_SHARED_LIBS=ON \
@@ -130,6 +131,9 @@ export PYTEST_ADDOPTS="-k 'not test_make_tensor_raw'"
 %{_bindir}/check-node
 
 %changelog
+* Sun May 04 2026 Autumn Nash <autumnnash@microsoft.com> - 1.17.0-13
+- Replace hardcoded redhat-linux-build with %%{_vpath_builddir} via env var
+
 * Mon Feb 16 2026 Diego Herrera <dherrera@fedoraproject.org> - 1.17.0-12
 - Re-enable s390x
 

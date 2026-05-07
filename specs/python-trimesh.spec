@@ -1,8 +1,16 @@
-%bcond blender 1
+# Since the tests for manifold’s Python bindings depend on trimesh, a
+# dependency cycle exists: trimesh → manifold → blender, and then trimesh
+# normally depends on both manifold and blender.
+%bcond bootstrap 0
+
+%bcond blender %{without bootstrap}
 %bcond skimage 1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460576
 # https://github.com/nschloe/meshio/issues/1558
 %bcond meshio %{defined fc44}
+# Python bindings for manifold are not yet built in F44:
+# https://src.fedoraproject.org/rpms/manifold/pull-request/1#comment-321943
+%bcond manifold %[ %{without bootstrap} && %{undefined fc44} ]
 
 Name:           python-trimesh
 Version:        4.12.2
@@ -198,7 +206,10 @@ EOF
 # easy extra:
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/;
 #               in either “easy” or “recommend” depending on Python version
+%if %{without manifold}
+#   manifold3d: in either “easy” or “recommend” depending on Python version
 %pyproject_patch_dependency manifold3d:ignore
+%endif
 %if ! 0%{?arch_has_embree}
 %pyproject_patch_dependency embreex:ignore
 %endif
@@ -206,8 +217,6 @@ EOF
 # recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
-#   manifold3d: in either “easy” or “recommend” depending on Python version;
-#               already handled above
 %pyproject_patch_dependency pyglet:ignore
 %if %{without skimage}
 %pyproject_patch_dependency scikit-image:ignore
@@ -278,9 +287,8 @@ deselect="${deselect-} --deselect=tests/test_primitives.py::test_primitives"
 # https://github.com/mikedh/trimesh/issues/1351#issuecomment-4088830874
 deselect="${deselect-} --deselect=tests/test_color.py::test_data_model"
 
-%if !0%{?have_blender}
-# This test requires a boolean backend: either blender or manifold3d, which is
-# not yet packaged.
+%if !0%{?have_blender} && %{without manifold}
+# This test requires a boolean backend: either blender or manifold3d
 k="${k-}${k+ and }not test_contains_cavity"
 %endif
 

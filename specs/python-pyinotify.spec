@@ -21,6 +21,11 @@ Monitoring filesystems events with inotify on Linux.}
 
 %package -n     python3-pyinotify
 Summary:        %{summary}
+# python-inotify will retire shortly
+# https://bugzilla.redhat.com/show_bug.cgi?id=2465416
+# last version was python-inotify-0.9.6-43.fc45
+Provides:       python3-inotify = %{version}-%{release}
+Obsoletes:      python3-inotify < 0.9.6-44
 
 %description -n python3-pyinotify %_description
 
