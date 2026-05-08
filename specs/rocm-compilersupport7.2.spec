@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        9.rocm%{rocm_version}%{?dist}
+Release:        10.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -216,6 +216,12 @@ Summary:        ROCm Compiler RPM macros
 BuildArch:      noarch
 
 Requires:       rpm
+# Compat version of macros conflict with the normal version
+%if %{with compat}
+Conflicts: rocm-compilersupport-macros
+%else
+Conflicts: rocm-compilersupport7.2-macros
+%endif
 
 %description macros
 This package contains ROCm compiler related RPM macros.
@@ -1107,6 +1113,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %endif
 
 %changelog
+* Wed May 6 2026 Tom Rix <Tom.Rix@amd.com> - 22-10.rocm7.2.1
+- Add conflicts for rocm-compilersupport-macros
+
 * Fri Apr 24 2026 Tom Rix <Tom.Rix@amd.com> 22-9.rocm7.2.1
 - use suse ldconfig_scriptlets
 - move clang-tidy include dir to filesystem package

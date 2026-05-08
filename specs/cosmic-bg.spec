@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 06970d5945b45a634b9ed314f5ca3a86a8502fd8
-%global commitdatestring 2026-04-14 09:51:55 -0600
-%global cosmic_minver 1.0.11
+%global commit b1ca4c180ab29dd185472b777ab0abdb1f96ccaf
+%global commitdatestring 2026-04-29 18:55:25 -0600
+%global cosmic_minver 1.0.12
 
 Name:           cosmic-bg
-Version: 1.0.11
+Version: 1.0.12
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 
@@ -36,7 +36,6 @@ BuildRequires:  cargo
 BuildRequires:  wayland-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  just
-BuildRequires:  desktop-file-utils
 BuildRequires:  desktop-backgrounds-compat
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
@@ -89,7 +88,6 @@ fi
 echo "true" > %{buildroot}%{_datadir}/cosmic/com.system76.CosmicBackground/v1/same-on-all
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicBackground.desktop
 %if %{with check}
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
@@ -103,12 +101,8 @@ export VERGEN_GIT_SHA="%{commit}"
 %license cargo-vendor.txt
 %doc README.md
 %{_bindir}/cosmic-bg
-%{_datadir}/applications/com.system76.CosmicBackground.desktop
-%{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicBackground.svg
-%{_datadir}/icons/hicolor/symbolic/apps/com.system76.CosmicBackground-symbolic.svg
 %dir %{_datadir}/cosmic/com.system76.CosmicBackground
 %{_datadir}/cosmic/com.system76.CosmicBackground/*
-%{_metainfodir}/com.system76.CosmicBackground.metainfo.xml
 
 %changelog
 %autochangelog

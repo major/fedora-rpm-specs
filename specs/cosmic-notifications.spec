@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit dbd0658f0dc2671f32f514261bd9b3fa664264bd
-%global commitdatestring 2026-04-14 09:53:08 -0600
-%global cosmic_minver 1.0.11
+%global commit a899bfbc6715c36b1f02d7a0f4d3601a3ea0295f
+%global commitdatestring 2026-04-29 16:05:13 -0600
+%global cosmic_minver 1.0.12
 
 Name:           cosmic-notifications
-Version: 1.0.11
+Version: 1.0.12
 Release:        %autorelease
 Summary:        Notifications daemon for the COSMIC Desktop Environment
 
@@ -36,7 +36,6 @@ BuildRequires:  cargo
 BuildRequires:  wayland-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  just
-BuildRequires:  desktop-file-utils
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 
@@ -77,7 +76,6 @@ export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicNotifications.desktop
 %if %{with check}
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
@@ -91,9 +89,6 @@ export VERGEN_GIT_SHA="%{commit}"
 %license cargo-vendor.txt
 %doc README.md
 %{_bindir}/cosmic-notifications
-%{_datadir}/applications/com.system76.CosmicNotifications.desktop
-%{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicNotifications.svg
-%{_metainfodir}/com.system76.CosmicNotifications.metainfo.xml
 
 %changelog
 %autochangelog

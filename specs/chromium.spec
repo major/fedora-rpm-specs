@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 147.0.7727.137
+Version: 148.0.7778.96
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -292,13 +292,10 @@ Patch22: chromium-131-fix-qt-ui.pach
 Patch23: chromium-143-revert-libpng_for_testonly.patch
 
 # Get around the problem of auto darkmode webcontent inverting and making them unreadable
-Patch30: chromium-143-autodarkmode-workaround.patch
+Patch30: chromium-148-autodarkmode-workaround.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
-
-# Disable tests on remoting build
-Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
 Patch89: chromium-142-system-brotli.patch
@@ -314,6 +311,9 @@ Patch92: chromium-138-checkversion-nodejs.patch
 
 # fix build error
 Patch93: chromium-141-csss_style_sheet.patch
+
+# revert the patch to fix the build error: "ld.lld: error: undefined symbol: __sanitizer_set_death_callback"
+Patch94: chromium-148-v8-sanitize-build-error.patch
 
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
@@ -345,8 +345,9 @@ Patch137: chromium-147-system-ffmpeg.patch
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
-Patch143: chromium-146-rust-1.88-enable-unstable_features.patch
+Patch143: chromium-148-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
+Patch145: chromium-148-use-system-rustc.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -396,8 +397,10 @@ Patch314: chromium-136-rust-skrifa-build-error.patch
 # error with old rustc
 Patch315: chromium-145-rustc-ftbfs.patch
 
-# llvm <= 22: clang++: error: unknown argument: '-fno-lifetime-dse'
-Patch316: chromium-147-clang++-unknown-argument.patch
+# llvm <= 22
+# clang++: error: unknown argument: '-fno-lifetime-dse'
+# clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=return'
+Patch316: chromium-148-clang++-unknown-argument.patch
 
 # unknown warning option -Wno-nontrivial-memcall
 Patch317: chromium-142-clang++-unknown-argument.patch
@@ -509,8 +512,6 @@ Patch511: 0001-fips-disable-options.patch
 %endif
 
 # upstream patches
-# Fix GL native pixmap import support reset in GpuInit
-Patch600: chromium-147-Fix_GL_native_pixmap_import_support_reset_in_GpuInit.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1064,7 +1065,6 @@ Qt6 UI for chromium.
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
 %patch -P30 -p1 -b .autodarkmode-workaround
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
-%patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
 %patch -P89 -p1 -b .system-brotli
@@ -1082,6 +1082,7 @@ Qt6 UI for chromium.
 
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
+%patch -P94 -p1 -R -b .v8-sanitize-build-error
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if 0%{?fedora} > 43 || 0%{?rhel} > 10
@@ -1109,7 +1110,7 @@ Qt6 UI for chromium.
 %patch -P143 -p1 -b .rust-1.88-enable-unstable_features
 %patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
-
+%patch -P145 -p1 -R -b .use-system-rustc
 %patch -P150 -p1 -b .qt6
 
 %patch -P300 -p1 -b .swiftshader-missing-include
@@ -1218,7 +1219,6 @@ Qt6 UI for chromium.
 %endif
 
 # Upstream patches
-%patch -P600 -p1 -b .Fix_GL_native_pixmap_import_support_reset_in_GpuInit
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1476,6 +1476,10 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libjpeg=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libpng=true'
 %endif
 
+%if ! %{bundleharfbuzz}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_harfbuzz=true'
+%endif 
+
 %if ! %{bundlelibopenjpeg2}
 CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libopenjpeg2=true'
 %endif
@@ -1535,7 +1539,7 @@ system_libs=()
 	system_libs+=(freetype)
 %endif
 %if ! %{bundleharfbuzz}
-	system_libs+=(harfbuzz-ng)
+	system_libs+=(harfbuzz)
 %endif
 %if ! %{bundleicu}
 	system_libs+=(icu)
@@ -1871,6 +1875,143 @@ fi
 %endif
 
 %changelog
+* Wed May 06 2026 Than Ngo <than@redhat.com> - 148.0.7778.96-1
+- Update to 148.0.7778.96
+   * CVE-2026-7896: Integer overflow in Blink
+   * CVE-2026-7897: Use after free in Mobile
+   * CVE-2026-7898: Use after free in Chromoting
+   * CVE-2026-7899: Out of bounds read and write in V8
+   * CVE-2026-7900: Heap buffer overflow in ANGLE
+   * CVE-2026-7901: Use after free in ANGLE
+   * CVE-2026-7902: Out of bounds memory access in V8
+   * CVE-2026-7903: Integer overflow in ANGLE
+   * CVE-2026-7904: Out of bounds read in Fonts
+   * CVE-2026-7905: Insufficient validation of untrusted input in Media
+   * CVE-2026-7906: Use after free in SVG
+   * CVE-2026-7907: Use after free in DOM
+   * CVE-2026-7908: Use after free in Fullscreen
+   * CVE-2026-7909: Inappropriate implementation in ServiceWorker
+   * CVE-2026-7910: Use after free in Views
+   * CVE-2026-7911: Use after free in Aura
+   * CVE-2026-7912: Integer overflow in GPU
+   * CVE-2026-7913: Insufficient policy enforcement in DevTools
+   * CVE-2026-7914: Type Confusion in Accessibility
+   * CVE-2026-7915: Insufficient data validation in DevTools
+   * CVE-2026-7916: Insufficient data validation in InterestGroups
+   * CVE-2026-7917: Use after free in Fullscreen
+   * CVE-2026-7918: Use after free in GPU
+   * CVE-2026-7919: Use after free in Aura
+   * CVE-2026-7920: Use after free in Skia
+   * CVE-2026-7921: Use after free in Passwords
+   * CVE-2026-7922: Use after free in ServiceWorker
+   * CVE-2026-7923: Out of bounds write in Skia
+   * CVE-2026-7924: Uninitialized Use in Dawn
+   * CVE-2026-7925: Use after free in Chromoting
+   * CVE-2026-7926: Use after free in PresentationAPI
+   * CVE-2026-7927: Type Confusion in Runtime
+   * CVE-2026-7928: Use after free in WebRTC
+   * CVE-2026-7929: Use after free in MediaRecording
+   * CVE-2026-7930: Insufficient validation of untrusted input in Cookies
+   * CVE-2026-7931: Insufficient validation of untrusted input in iOS
+   * CVE-2026-7932: Insufficient policy enforcement in Downloads
+   * CVE-2026-7933: Out of bounds read in WebCodecs
+   * CVE-2026-7934: Insufficient validation of untrusted input in Popup Blocker
+   * CVE-2026-7935: Inappropriate implementation in Speech
+   * CVE-2026-7936: Object lifecycle issue in V8
+   * CVE-2026-7937: Insufficient policy enforcement in DevTools
+   * CVE-2026-7938: Use after free in CSS
+   * CVE-2026-7939: Inappropriate implementation in SanitizerAPI
+   * CVE-2026-7940: Use after free in V8
+   * CVE-2026-7941: Insufficient validation of untrusted input in Mobile
+   * CVE-2026-7942: Integer overflow in ANGLE
+   * CVE-2026-7943: Insufficient validation of untrusted input in ANGLE
+   * CVE-2026-7944: Insufficient validation of untrusted input in Persistent Cache
+   * CVE-2026-7945: Insufficient validation of untrusted input in COOP
+   * CVE-2026-7946: Insufficient policy enforcement in WebUI
+   * CVE-2026-7947: Insufficient validation of untrusted input in Network
+   * CVE-2026-7948: Race in Chromoting
+   * CVE-2026-7949: Out of bounds read in Skia
+   * CVE-2026-7950: Out of bounds read and write in GFX
+   * CVE-2026-7951: Out of bounds write in WebRTC
+   * CVE-2026-7952: Insufficient policy enforcement in Extensions
+   * CVE-2026-7953: Insufficient validation of untrusted input in Omnibox
+   * CVE-2026-7954: Race in Shared Storage
+   * CVE-2026-7955: Uninitialized Use in GPU
+   * CVE-2026-7956: Use after free in Navigation
+   * CVE-2026-7957: Out of bounds write in Media
+   * CVE-2026-7958: Inappropriate implementation in ServiceWorker
+   * CVE-2026-7959: Inappropriate implementation in Navigation
+   * CVE-2026-7960: Race in Speech
+   * CVE-2026-7961: Insufficient validation of untrusted input in Permissions
+   * CVE-2026-7962: Insufficient policy enforcement in DirectSockets
+   * CVE-2026-7963: Inappropriate implementation in ServiceWorker
+   * CVE-2026-7964: Insufficient validation of untrusted input in FileSystem
+   * CVE-2026-7965: Insufficient validation of untrusted input in DevTools
+   * CVE-2026-7966: Insufficient validation of untrusted input in SiteIsolation
+   * CVE-2026-7967: Insufficient validation of untrusted input in Navigation
+   * CVE-2026-7968: Insufficient validation of untrusted input in CORS
+   * CVE-2026-7969: Integer overflow in Network
+   * CVE-2026-7970: Use after free in TopChrome
+   * CVE-2026-7971: Inappropriate implementation in ORB
+   * CVE-2026-7972: Uninitialized Use in GPU
+   * CVE-2026-7973: Integer overflow in Dawn
+   * CVE-2026-7974: Use after free in Blink
+   * CVE-2026-7975: Use after free in DevTools
+   * CVE-2026-7976: Use after free in Views
+   * CVE-2026-7977: Inappropriate implementation in Canvas
+   * CVE-2026-7978: Inappropriate implementation in Companion
+   * CVE-2026-7979: Inappropriate implementation in Media
+   * CVE-2026-7980: Use after free in WebAudio
+   * CVE-2026-7981: Out of bounds read in Codecs
+   * CVE-2026-7982: Uninitialized Use in WebCodecs
+   * CVE-2026-7983: Out of bounds read in Dawn
+   * CVE-2026-7984: Use after free in ReadingMode
+   * CVE-2026-7985: Use after free in GPU
+   * CVE-2026-7986: Insufficient policy enforcement in Autofill
+   * CVE-2026-7987: Use after free in WebRTC
+   * CVE-2026-7988: Type Confusion in WebRTC
+   * CVE-2026-7989: Insufficient data validation in DataTransfer
+   * CVE-2026-7990: Insufficient validation of untrusted input in Updater
+   * CVE-2026-7991: Use after free in UI
+   * CVE-2026-7992: Insufficient validation of untrusted input in UI
+   * CVE-2026-7993: Insufficient validation of untrusted input in Payments
+   * CVE-2026-7994: Inappropriate implementation in Chromoting
+   * CVE-2026-7995: Out of bounds read in AdFilter
+   * CVE-2026-7996: Insufficient validation of untrusted input in SSL
+   * CVE-2026-7997: Insufficient validation of untrusted input in Updater
+   * CVE-2026-7998: Insufficient validation of untrusted input in Dialog
+   * CVE-2026-7999: Inappropriate implementation in V8
+   * CVE-2026-8000: Insufficient validation of untrusted input in ChromeDriver
+   * CVE-2026-8001: Use after free in Printing
+   * CVE-2026-8002: Use after free in Audio
+   * CVE-2026-8003: Insufficient validation of untrusted input in TabGroups
+   * CVE-2026-8004: Insufficient policy enforcement in DevTools
+   * CVE-2026-8005: Insufficient validation of untrusted input in Cast
+   * CVE-2026-8006: Insufficient policy enforcement in DevTools
+   * CVE-2026-8007: Insufficient validation of untrusted input in Cast
+   * CVE-2026-8008: Inappropriate implementation in DevTools
+   * CVE-2026-8009: Inappropriate implementation in Cast
+   * CVE-2026-8010: Insufficient validation of untrusted input in SiteIsolation
+   * CVE-2026-8011: Insufficient policy enforcement in Search
+   * CVE-2026-8012: Inappropriate implementation in MHTML
+   * CVE-2026-8013: Insufficient validation of untrusted input in FedCM
+   * CVE-2026-8014: Inappropriate implementation in Preload
+   * CVE-2026-8015: Inappropriate implementation in Media
+   * CVE-2026-8016: Use after free in WebRTC
+   * CVE-2026-8017: Side-channel information leakage in Media
+   * CVE-2026-8018: Insufficient policy enforcement in DevTools
+   * CVE-2026-8019: Insufficient policy enforcement in WebApp
+   * CVE-2026-8020: Uninitialized Use in GPU
+   * CVE-2026-8021: Script injection in UI
+   * CVE-2026-8022: Inappropriate implementation in MHTML
+- Remove old remoting-no-tests patch
+- Remove fix_GL_native_pixmap_import_support_reset_in_GpuInit patch
+- Fix build error causing by sanitizer defines in GN
+- Refresh rust-enable-unstable_feature patch
+- Fix build error with system rust compiler
+- Fix build error causing by new clang++ options which are not supported yet
+- Fix build error causing by harfbuzz library rename
+
 * Wed Apr 29 2026 Than Ngo <than@redhat.com> - 147.0.7727.137-1
 - Update to 147.0.7727.137
    * Critical CVE-2026-7363: Use after free in Canvas

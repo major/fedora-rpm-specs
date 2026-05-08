@@ -53,10 +53,8 @@ BuildRequires:  libgit2-devel
 BuildRequires:  jq
 BuildRequires:  json-devel
 BuildRequires:  libarchive-devel
-%if %{defined fedora}
 %ifarch x86_64
 BuildRequires:  libcpuid-devel
-%endif
 %endif
 BuildRequires:  libcurl-devel
 BuildRequires:  libseccomp-devel
@@ -204,12 +202,7 @@ MESON_OPTS=(
     # manual needs mdbook
     -Dnix-manual:html-manual=false
     -Djson-schema-checks=false
-%ifarch x86_64
-# missing from epel10: https://bugzilla.redhat.com/show_bug.cgi?id=2368495
-%if %{undefined fedora}
-    -Dlibutil:cpuid=disabled
-%endif
-%else
+%ifnarch x86_64
     -Dlibutil:cpuid=disabled
 %endif
     )

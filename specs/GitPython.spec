@@ -1,7 +1,7 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.49
+Version:        3.1.50
 Release:        1%{?dist}
 Summary:        Python Git Library
 
@@ -59,6 +59,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed May 06 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.50-1
+- Update to 3.1.50; closes RHBZ#2466957 and fixes CVE-2026-42215
+
 * Wed Apr 29 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.49-1
 - Update to 3.1.49; closes RHBZ#2463714 and fixes GHSA-v87r-6q3f-2j67
 

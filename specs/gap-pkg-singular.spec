@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/singular
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2026.04.09
+Version:        2026.05.05
 Release:        %autorelease
 Summary:        GAP interface to Singular
 

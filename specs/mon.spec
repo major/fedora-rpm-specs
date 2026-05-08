@@ -7,7 +7,7 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
@@ -72,19 +72,6 @@ required, the mon server will not need to be changed.
 %patch -P6 -p1
 %patch -P7 -p1
 
-# Filter out unwanted requires
-cat << \EOF > %{name}-req
-#!/bin/sh
-%{__perl_requires} $* |\
-sed -e '
-        /perl(Math::TrulyRandom)/d
-        /perl(Net::hostent)/d
-'
-EOF
-
-%define __perl_requires %{_builddir}/%{name}-%{version}/%{name}-req
-chmod +x %{__perl_requires}
-
 
 %build
 for F in CHANGES doc/README.syslog.monitor
@@ -96,8 +83,10 @@ done
 
 dos2unix -q -k alerts/sms/sms.alert
 
-make %{?_smp_mflags} -C mon.d \
-        CFLAGS="%{optflags} -DUSE_VENDOR_CF_PATH=1"
+%set_build_flags
+%make_build %{?_smp_mflags} -C mon.d \
+        CFLAGS="%{optflags} -DUSE_VENDOR_CF_PATH=1" \
+        LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -207,6 +196,10 @@ fi
 
 
 %changelog
+* Mon May 04 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-45
+- Improve compilation of mon.d.
+- Remove unnecessary dependency filtering.
+
 * Mon May 04 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-44
 - Add comment for setgit uucp for dialin.monitor.wrap.
 - Add default config file to CGI script.

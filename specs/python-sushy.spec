@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global with_doc 1
 %global sname sushy
@@ -10,7 +10,7 @@ Sushy is a Python library to communicate with Redfish based systems (http://redf
 %global common_desc_tests Tests for Sushy
 
 Name: python-%{sname}
-Version: 5.10.0
+Version: 5.11.0
 Release: %autorelease
 Summary: Sushy is a Python library to communicate with Redfish based systems
 License: Apache-2.0
@@ -70,8 +70,6 @@ Documentation for Sushy
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-#sed -i /^minversion.*/d tox.ini
-#sed -i /^requires.*virtualenv.*/d tox.ini
 
 
 sed -i \

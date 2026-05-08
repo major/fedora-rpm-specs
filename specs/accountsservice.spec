@@ -1,5 +1,5 @@
 Name:           accountsservice
-Version:        26.12.8
+Version:        26.13.3
 Release:        %autorelease
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPL-3.0-or-later

@@ -27,8 +27,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.66
-Release: 7%{?dist}
+Version: 2.4.67
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -852,6 +852,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Wed May 06 2026 Luboš Uhliarik <luhliari@redhat.com> - 2.4.67-1
+- new version 2.4.67
+
 * Fri May 01 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-7
 - add OpenSSL 4.0 compatibility fixes
 

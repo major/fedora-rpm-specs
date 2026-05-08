@@ -9,15 +9,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  %{_bindir}/a2x
-%if 0%{?rhel}
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-dbus-client-gen
-BuildRequires:  python3-dbus-python-client-gen
-BuildRequires:  python3-justbytes
-BuildRequires:  python3-packaging
-BuildRequires:  python3-psutil
-BuildRequires:  python3-wcwidth
-%endif
 
 # Require the version of stratisd that supports a compatible D-Bus interface
 Requires:       (stratisd >= 3.9.0 with stratisd < 4.0.0)

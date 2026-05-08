@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 21
+%global micro 22
 #global pre ...
 %global pyversion 3.11
 Name:           pypy%{pyversion}
@@ -105,10 +105,6 @@ Patch7: 007-remove-startup-message.patch
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
 
-# Fix JIT translation failure on ppc64le and s390x
-# Sent upstream: https://github.com/pypy/pypy/pull/5394
-Patch10: 010-fix-ppc-s390x-jit-backend.patch
-
 # Build-time requirements:
 
 # pypy's can be rebuilt using pypy2, rather than with CPython 2; doing so
@@ -141,10 +137,8 @@ BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  expat-devel
-BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
+BuildRequires:  (openssl-devel < 1:4 or openssl3-devel)
+BuildRequires:  (openssl-devel-engine < 1:4 or openssl3-devel-engine)
 BuildRequires:  gdbm-devel
 BuildRequires:  xz-devel
 
@@ -312,9 +306,6 @@ rm lib-python/3/ensurepip/_bundled/*.whl
 # This append to _sysconfigdata.py is a hacked equivalent to CPython's configure --with-wheel-pkg-dir
 echo "build_time_vars['WHEEL_PKG_DIR'] = '%{python_wheel_dir}'" >> lib_pypy/_sysconfigdata.py
 %endif
-
-# Remove bundled ply
-rm -r lib_pypy/cffi/_pycparser/ply
 
 # Replace /usr/local/bin/python or /usr/bin/env python shebangs with /usr/bin/python2 or pypy2:
 find -name "*.py" -exec \

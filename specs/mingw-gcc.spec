@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20260321
-%global gitrev da66e2fe4839df86a5fcfd7440bc80d55745534b
-%global gcc_version 16.0.1
+%global DATE 20260501
+%global gitrev f4e68dc3bdc8f1c5d202db92c8c7bcd89c638688
+%global gcc_version 16.1.1
 %global gcc_major 16
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -149,6 +149,9 @@ MinGW Windows cross-C Preprocessor for the win32 target.
 %package -n mingw32-gcc-c++
 Summary:        MinGW Windows cross-compiler for C++ for the win32 target
 Requires:       mingw32-gcc = %{version}-%{release}
+%if 0%{bootstrap} == 0
+Requires:       mingw32-libstdc++ = %{version}-%{release}
+%endif
 
 %description -n mingw32-gcc-c++
 MinGW Windows cross-compiler for C++ for the win32 target.
@@ -245,6 +248,9 @@ MinGW Windows cross-C Preprocessor for the win64 target
 %package -n mingw64-gcc-c++
 Summary:        MinGW Windows cross-compiler for C++ for the win64 target
 Requires:       mingw64-gcc = %{version}-%{release}
+%if 0%{bootstrap} == 0
+Requires:       mingw64-libstdc++ = %{version}-%{release}
+%endif
 
 %description -n mingw64-gcc-c++
 MinGW Windows cross-compiler for C++ for the win64 target.
@@ -342,6 +348,9 @@ MinGW Windows cross-C Preprocessor for the win64 target
 %package -n ucrt64-gcc-c++
 Summary:        MinGW Windows cross-compiler for C++ for the win64 target
 Requires:       ucrt64-gcc = %{version}-%{release}
+%if 0%{bootstrap} == 0
+Requires:       ucrt64-libstdc++ = %{version}-%{release}
+%endif
 
 %description -n ucrt64-gcc-c++
 MinGW Windows cross-compiler for C++ for the win64 target.
@@ -993,6 +1002,12 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Wed May 06 2026 Sandro Mani <manisandro@gmail.com> - 16.1.1-1
+- Update to 16.1.1 (20260501)
+
+* Wed May 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.0.1-9
+- gcc-c++ requires libstdc++ (except for bootstrap)
+
 * Sat Apr 18 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-8
 - Rebuild
 

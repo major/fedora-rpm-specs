@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mjambon/testo
 
 Name:           ocaml-testo
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Test framework for OCaml
 

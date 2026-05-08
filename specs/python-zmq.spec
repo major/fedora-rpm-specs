@@ -95,7 +95,7 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides    python3-zmq
 
-%if %[ %{defined fc42} || %{defined fc43} || %{defined fc44} ]
+%if %[ %{defined fc43} || %{defined fc44} ]
 # Beginning with Fedora 42, the binary packages are renamed from
 # python3-zmq/python3-zmq-tests to python3-pyzmq/python3-pyzmq-tests to match
 # the canonical package name. Ideally, the source package would also be called

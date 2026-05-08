@@ -93,6 +93,7 @@ Requires: cmake-srpm-macros
 Requires: fonts-srpm-macros
 # ↓ Provides macros.forge and forge.lua originally shipped by us
 Requires: forge-srpm-macros
+Requires: gnome-srpm-macros
 Requires: go-srpm-macros
 Requires: java-srpm-macros
 # ↓ Provides kmod.attr originally shipped by us

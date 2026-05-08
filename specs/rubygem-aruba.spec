@@ -3,8 +3,8 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.3.3
-Release:    2%{?dist}
+Version:    2.4.0
+Release:    1%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -19,6 +19,9 @@ Patch1:         rubygem-aruba-2.0.0-make-bundler-optional.patch
 # https://github.com/cucumber/aruba/commit/bd2aea600f7e989e4da734c3e823c3ce12ce629b
 # We still use diff-lcs 1.5, revert the above patch for now
 Patch2:         rubygem-aruba-2.3.1-diff-lcs-1_6-change.patch
+# And for aruba 2.4.0: we still use (old) diff-lcs 1.5 and
+# some diff output still needs adjusting
+Patch3:         rubygem-aruba-2.4.0-diff-lcs-change.patch
 
 
 BuildRequires:  ruby(release)
@@ -63,6 +66,7 @@ ln -sf ../lib
 popd
 %patch -P1 -p1
 %patch -P2 -p1 -R
+%patch -P3 -p1 -R
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -164,6 +168,10 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Wed May 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.0-1
+- 2.4.0
+- Some diff-lcs related diffs between 1.5.0 and 1.6.2 are reverted
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

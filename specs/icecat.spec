@@ -459,7 +459,7 @@ echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
 
 echo "ac_add_options --with-libclang-path=`llvm-config-%{?llvm_suffix} --libdir`" >> .mozconfig
-echo "ac_add_options --with-clang-path=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
+echo "ac_add_options --with-clang-path=`which clang-%{?llvm_suffix}`" >> .mozconfig
 
 %ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
@@ -579,13 +579,13 @@ export PKG_CONFIG="`which pkg-config`"
 export PYTHON='%{__python3}'
 
 %if "%toolchain" == "clang"
-echo "export LLVM_PROFDATA=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-profdata" >> .mozconfig
-echo "export AR=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-ar" >> .mozconfig
-echo "export NM=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-nm" >> .mozconfig
-echo "export RANLIB=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-ranlib" >> .mozconfig
+echo "export LLVM_PROFDATA=llvm-profdata-%{?llvm_suffix}" >> .mozconfig
+echo "export AR=llvm-ar-%{?llvm_suffix}" >> .mozconfig
+echo "export NM=llvm-nm-%{?llvm_suffix}" >> .mozconfig
+echo "export RANLIB=llvm-ranlib-%{?llvm_suffix}" >> .mozconfig
 echo "ac_add_options --enable-linker=lld" >> .mozconfig
-echo "export CC=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang" >> .mozconfig
-echo "export CXX=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/clang++" >> .mozconfig
+echo "export CC=clang-%{?llvm_suffix}" >> .mozconfig
+echo "export CXX=clang++-%{?llvm_suffix}" >> .mozconfig
 %else
 echo "export CC=gcc" >> .mozconfig
 echo "export CXX=g++" >> .mozconfig
@@ -595,7 +595,7 @@ echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
 
 # llvm-objdump is always required
-echo "export LLVM_OBJDUMP=%{_prefix}/%{_lib}/llvm%{?llvm_suffix}/bin/llvm-objdump" >> .mozconfig
+echo "export LLVM_OBJDUMP=llvm-objdump-%{?llvm_suffix}" >> .mozconfig
 
 # Require 4 GB of RAM per CPU core
 %global _smp_tasksize_proc 4096

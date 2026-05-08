@@ -1,6 +1,6 @@
 Name:           autoconf-archive
 Version:        2024.10.16
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The Autoconf Macro Archive
 
 # The following licenses were seen in the binary rpm.
@@ -16,6 +16,8 @@ BuildArch:      noarch
 BuildRequires:  gnupg2
 BuildRequires:  make
 Requires:       autoconf
+
+Patch: 0001-ax_check_gl.m4-properly-quote-m4_fatal.patch
 
 %description
 The GNU Autoconf Archive is a collection of more than 450 macros for
@@ -44,6 +46,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Wed Apr 22 2026 Frédéric Bérat <fberat@redhat.com> - 2024.10.16-6
+- Backport ax_check_gl.m4: properly quote m4_fatal (RHBZ#2336906)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

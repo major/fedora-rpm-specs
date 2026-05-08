@@ -47,12 +47,6 @@ possible), plus lots of nifty extra stuff on top.}
 %package -n python3-smart-open
 Summary:        %{summary}
 
-%if %{defined fc42}
-# For backwards compatibility with old manual Requires
-Requires:       python3-smart-open+s3 = %{version}-%{release}
-Requires:       python3-smart-open+http = %{version}-%{release}
-%endif
-
 # The source package is named python-smart_open for historical reasons.The
 # binary package, python3-smart-open, is named using the canonical project
 # name[1]; see also [2].

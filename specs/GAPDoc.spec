@@ -17,7 +17,7 @@
 %global gap_makedoc makedocrel.g
 
 Name:           %{gap_pkgname}
-Version:        1.6.7
+Version:        1.6.8
 Release:        %autorelease
 Summary:        GAP documentation tool
 
@@ -44,10 +44,10 @@ BuildRequires:  tex(geometry.sty)
 BuildRequires:  tex(grfext.sty)
 BuildRequires:  tex(pslatex.sty)
 BuildRequires:  tex(tex)
-BuildRequires:  tex-latex-bin
 BuildRequires:  texlive-cm-super
 BuildRequires:  texlive-ec
 BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-latex
 BuildRequires:  texlive-psnfss
 BuildRequires:  texlive-rsfs
 BuildRequires:  texlive-symbol
@@ -117,10 +117,10 @@ Requires:       tex(geometry.sty)
 Requires:       tex(grfext.sty)
 Requires:       tex(pslatex.sty)
 Requires:       tex(tex)
-Requires:       tex-latex-bin
 Requires:       texlive-cm-super
 Requires:       texlive-ec
 Requires:       texlive-helvetic
+Requires:       texlive-latex
 Requires:       texlive-psnfss
 Requires:       texlive-rsfs
 Requires:       texlive-symbol

@@ -92,8 +92,6 @@ BuildOption(install):   -l spec2nii
 BuildOption(check):     -e spec2nii.Siemens.dicomfunctions
 %endif
 
-BuildRequires:  tomcli
-
 # See project.optional-dependencies.dev in pyproject.toml, but see also
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
@@ -126,13 +124,13 @@ mv %{test_data_dir} tests/spec2nii_test_data
 # https://bugzilla.redhat.com/show_bug.cgi?id=2225518
 # Most of the functionality in this package is still available without it, so
 # we can remove the dependency and still get a generally usable package.
-tomcli set pyproject.toml lists delitem project.dependencies 'pyMapVBVD\b.*'
+%pyproject_patch_dependency pyMapVBVD:ignore
 %endif
 
 # Unpin brukerapi, which was pinned in
 # https://github.com/wtclarke/spec2nii/pull/176 for reasons not described in
 # the commit or PR text. We must work with what we have.
-sed -r -i 's/(\bbrukerapi\b.*),<[^"]*/\1/' pyproject.toml
+%pyproject_patch_dependency brukerapi:drop_upper
 
 
 %generate_buildrequires -p

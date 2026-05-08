@@ -1,15 +1,18 @@
+# not compatible with Plasma 6
+%bcond plasma 0
+
 %global gitcommit_full 5bfa8fa9c880db2374c75d2d25107da3926b8f29
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
 %global date 20220606
 
 Name:           fancontrol-gui
 Version:        0.8
-Release:        9.%{date}git%{gitcommit}%{?dist}
+Release:        10.%{date}git%{gitcommit}%{?dist}
 Summary:        GUI for fancontrol
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/Maldela/fancontrol-gui
-Source0:        %{url}/tarball/%{gitcommit_full}
+Source0:        %{url}/archive/%{gitcommit_full}/%{name}-%{gitcommit_full}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.0.2
@@ -24,7 +27,9 @@ BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(KF5ConfigWidgets)
 BuildRequires:  cmake(KF5KCMUtils)
+%if %{with plasma}
 BuildRequires:  cmake(KF5Plasma)
+%endif
 BuildRequires:  gettext
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(KF5Declarative)
@@ -38,6 +43,10 @@ Requires:       lm_sensors
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
 Requires:       polkit
+
+%if %{without plasma}
+Obsoletes:      %{name}-plasmoid < %{version}-%{release}
+%endif
 
 %description
 GUI for fancontrol which is part of lm_sensors.
@@ -55,6 +64,7 @@ Requires:       kf5-kcmutils
 %description    kcm
 KCM for %{name}.
 
+%if %{with plasma}
 %package        plasmoid
 Summary:        Plasmoid for %{name}
 BuildArch:      noarch
@@ -64,15 +74,17 @@ Requires:       kf5-filesystem
 
 %description    plasmoid
 Plasmoid for %{name}.
+%endif
 
 %prep
-%autosetup -n Maldela-%{name}-%{gitcommit}
+%autosetup -n %{name}-%{gitcommit_full}
 
 
 %build
 # TODO: Please submit an issue to upstream (rhbz#2380570)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake_kf5 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_KCM=on -DBUILD_PLASMOID=on
+%cmake_kf5 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_KCM=on \
+  -DBUILD_PLASMOID=%{?with_plasma:ON}%{!?with_plasma:OFF}
 %cmake_build
 
 %install
@@ -81,7 +93,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Remove icon tag
 sed -i '/icon/d' %{buildroot}%{_metainfodir}/org.kde.fancontrol.gui.appdata.xml
 sed -i '/icon/d' %{buildroot}%{_metainfodir}/org.kde.fancontrol.kcm.appdata.xml
+%if %{with plasma}
 sed -i '/icon/d' %{buildroot}%{_metainfodir}/org.kde.fancontrol.plasmoid.appdata.xml
+%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.fancontrol.gui.desktop
@@ -107,12 +121,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.fancon
 %{_datadir}/kservices5/kcm_fancontrol.desktop
 %{_metainfodir}/org.kde.fancontrol.kcm.appdata.xml
 
+%if %{with plasma}
 %files plasmoid
 %{_datadir}/kservices5/plasma-applet-org.kde.fancontrol.plasmoid.desktop
 %{_metainfodir}/org.kde.fancontrol.plasmoid.appdata.xml
 %{_datadir}/plasma/plasmoids/org.kde.fancontrol.plasmoid
+%endif
 
 %changelog
+* Tue May 05 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8-10.20220606git5bfa8fa
+- Disable plasmoid
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9.20220606git5bfa8fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

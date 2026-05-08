@@ -4,11 +4,14 @@
 Name:           perl-LWP-ConsoleLogger
 %define cpan_version 1.000001
 Version:        1.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-%{cpan_version}.tar.gz
+# Adapt tests to Test-Most-0.39, bug #2466962, proposed upstream,
+# <https://github.com/oalders/lwp-consolelogger/pull/50>
+Patch0:         LWP-ConsoleLogger-1.000001-Adapt-to-Test-More-0.39.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -113,7 +116,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n LWP-ConsoleLogger-%{cpan_version}
+%autosetup -p1 -n LWP-ConsoleLogger-%{cpan_version}
 # Correct shebangs
 perl -i -MConfig -pe 's|#!/usr/bin/env perl|$Config{startperl}|' examples/*
 # Help generators to recognize Perl scripts
@@ -157,6 +160,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 06 2026 Petr Pisar <ppisar@redhat.com> - 1.0.1-9
+- Adapt tests to Test-Most-0.39 (bug #2466962)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -29,7 +29,7 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 tomcli set pyproject.toml lists delitem dependency-groups.test 'coverage.*'
 
-%if %[ %{defined fc41} || %{defined fc42} || %{defined el10} ]
+%if %{defined el10}
 # Allow older pytest/pytest-asyncio (remove minimum versions)
 for dep in pytest pytest-asyncio
 do

@@ -12,7 +12,7 @@
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
 Version: 5.15.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -209,13 +209,12 @@ make check -k -C tests ||:
 %{_qt5_libdir}/libQt5QmlWorkerScript.prl
 %{_qt5_libdir}/libQt5Quick*.so
 %{_qt5_libdir}/libQt5Quick*.prl
-%dir %{_qt5_libdir}/cmake/Qt5Quick*/
+%dir %{_qt5_libdir}/cmake/Qt5*/
 %{_qt5_libdir}/cmake/Qt5*/Qt5*Config*.cmake
 %{_qt5_libdir}/metatypes/qt5*_metatypes.json
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
 %{_qt5_archdatadir}/mkspecs/features/*.prf
-%dir %{_qt5_libdir}/cmake/Qt5Qml/
 %{_qt5_libdir}/cmake/Qt5Qml/Qt5Qml_*Factory.cmake
 %{_qt5_libdir}/cmake/Qt5QmlImportScanner/
 
@@ -234,6 +233,10 @@ make check -k -C tests ||:
 
 
 %changelog
+* Wed May 06 2026 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.15.18-3
+- Ensure that -devel owns all installed CMake configuration directories
+  (fixes rhbz 2300253)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

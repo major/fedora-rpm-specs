@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -13,13 +13,13 @@ Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pipx
+BuildOption(generate_buildrequires): -x uv
 
 BuildArch:      noarch
 
+BuildRequires:  /usr/bin/register-python-argcomplete
 # noxfile.py: MAN_DEPENDENCIES
 BuildRequires:  python3dist(argparse-manpage[setuptools])
-
-BuildRequires:  /usr/bin/register-python-argcomplete
 
 %description
 pipx is a tool to help you install and run end-user applications written in
@@ -29,6 +29,9 @@ apt.
 It’s closely related to pip. In fact, it uses pip, but is focused on installing
 and managing Python packages that can be run from the command line directly as
 applications.
+
+
+%pyproject_extras_subpkg -n pipx uv
 
 
 %generate_buildrequires -p

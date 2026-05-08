@@ -3,12 +3,12 @@
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 6fafded5edfff7693224f3ccf01b861896c35f3e
-%global commitdatestring 2026-04-15 01:25:45 +0200
-%global cosmic_minver 1.0.11
+%global commit 2c697e8e97cfd619107a872b28c31317281184ff
+%global commitdatestring 2026-04-29 12:47:05 -0600
+%global cosmic_minver 1.0.12
 
 Name:           cosmic-icon-theme
-Version: 1.0.11
+Version: 1.0.12
 Release:        %autorelease
 Summary:        Icon theme for the COSMIC Desktop Environment
 

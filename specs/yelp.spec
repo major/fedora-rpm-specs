@@ -4,7 +4,7 @@
 
 Name:          yelp
 Epoch:         2
-Version:       49.0
+Version:       49.1
 Release:       %autorelease
 Summary:       Help browser for the GNOME desktop
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0 AND CC0-1.0

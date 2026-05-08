@@ -15,12 +15,12 @@
 ExclusiveArch: %{x86_64} %{arm64}
 
 Name:           openmw
-Version:        0.50.0
+Version:        0.51.0rc2
 Release:        %autorelease
 Summary:        OpenMW is an open-source game engine
 
 # Stable release source code
-%global         tag0 %{name}-%{version}
+%global         tag0 %{name}-51-rc2
 # Latest bullet3 release tag
 %global         tag1 3.25
 # Latest OSG OpenMW fork commit tag

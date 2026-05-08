@@ -50,11 +50,13 @@ Source0:        https://github.com/bpfman/bpfman/archive/refs/tags/v%{version}.t
 # remove "fiat-crypto-0.2.9/src/p434.rs" and references to it
 # removed forbidden Unicode code points (RTLO 0x202E) from idna-0.5.0 IdnaTestV2.txt
 # compress with "tar -Jcvf"
+# Source1:        https://github.com/marioferh/ebpf_sources/raw/refs/heads/bpfman-0.5.4/bpfman-0.5.4-vendor.tar.xz
 Source1:        bpfman-%{version}-vendor.tar.xz
 Patch0:         0001-bump-cargo-lock-for-idna-1-0-3.diff
 Patch1:         0002-bump-openssl-to-0.10.70-CVE-2025-0977.patch
 Patch2:         0003-bump-quinn-proto-to-0.11.14-CVE-2026-31812.patch
 Patch3:         0004-bump-tar-to-0.4.45-CVE-2026-33056.patch
+Patch4:         0005-bump-time-to-0.3.47-CVE-2026-25727.patch
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}

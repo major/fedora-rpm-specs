@@ -1,5 +1,5 @@
 %global gap_pkgname lpres
-%global giturl       https://github.com/gap-packages/lpres
+%global giturl      https://github.com/gap-packages/lpres
 
 Name:           gap-pkg-%{gap_pkgname}
 Version:        1.1.1
@@ -63,11 +63,12 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %build -a
 # A second BiBTeX run is needed to resolve \cite within a reference
+# https://github.com/gap-packages/lpres/issues/26
 cd doc
-bibtex lpres
-pdflatex lpres
-pdflatex lpres
-mv lpres.pdf manual.pdf
+bibtex _main
+pdflatex _main
+pdflatex _main
+mv _main.pdf manual.pdf
 cd -
 
 %files

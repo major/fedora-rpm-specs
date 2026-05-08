@@ -46,7 +46,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.19.0
+Version:        9.20.0
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -158,14 +158,11 @@ Source2:        get_assets
 # original assets in order to then modify them. The signal for this behavior is
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
-# Downstream-only: do not upper-bound packaging version
-#
-# Upstream added the upper bound in
-# 5ae43aa7ae108b7b87cee524a6015dc3d228dc17 to work around some unspecified
-# “pixi solving caveat.” Whatever was going there (and it doesn’t seem to
-# have been written down), it doesn’t affect us downstream, and we must
-# work with what we have in any case.
-Patch:          0001-Downstream-only-do-not-upper-bound-packaging-version.patch
+
+# Remove useless shebang lines from two modules
+# https://github.com/snakemake/snakemake/pull/4186
+# Rebased on v9.20.0
+Patch:          0001-Remove-useless-shebang-lines-from-one-module.patch
 
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
@@ -453,7 +450,14 @@ EOF
 # and it’s too tedious to keep updating the version bound, either
 # downstream-only or via repeated upstream PR’s. We might re-evaluate this once
 # sqlmodel reaches 0.1.0.
-sed -r -i 's/(sqlmodel>=[[:alnum:].]+),<[[:alnum:].]+/\1/' pyproject.toml
+%pyproject_patch_dependency sqlmodel:drop_upper
+
+# Downstream-only: remove the upper bound on the version of packaging.
+# Upstream added the upper bound in 5ae43aa7ae108b7b87cee524a6015dc3d228dc17 to
+# work around some unspecified “pixi solving caveat.” Whatever was going there
+# (and it doesn’t seem to have been written down), it doesn’t affect us
+# downstream, and we must work with what we have in any case.
+%pyproject_patch_dependency packaging:drop_upper
 
 
 %generate_buildrequires -p

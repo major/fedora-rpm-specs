@@ -2,6 +2,15 @@
 # Top-level metadata
 # ==================
 
+# Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
+# Uses upstream bundled prebuilt wheels otherwise.
+# pip 26.1 no longer supports Python 3.9, so rpmwheels are disabled on Fedora 45+.
+%if 0%{?fedora} >= 45
+%bcond_with rpmwheels
+%else
+%bcond_without rpmwheels
+%endif
+
 %global pybasever 3.9
 
 # pybasever without the dot:
@@ -17,9 +26,108 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 9%{?dist}
+Release: 10%{?dist}
+# Python is Python-2.0.1
+# pip is MIT and bundles:
+#   CacheControl: Apache-2.0
+#   certifi: MPL-2.0
+#   chardet: LGPL-2.1-or-later
+#   colorama: BSD-3-Clause
+#   distlib: PSF-2.0
+#   distro: Apache-2.0
+#   idna: BSD-3-Clause
+#   msgpack: Apache-2.0
+#   packaging: Apache-2.0 OR BSD-2-Clause
+#   platformdirs: MIT
+#   pygments: BSD-2-Clause
+#   pyparsing: MIT
+#   pyproject-hooks: MIT
+#   requests: Apache-2.0
+#   resolvelib: ISC
+#   rich: MIT
+#   setuptools (pkg_resources): MIT
+#   six: MIT
+#   tenacity: Apache-2.0
+#   tomli: MIT
+#   typing_extensions: PSF-2.0
+#   urllib3: MIT
+#   webencodings: BSD-3-Clause
+# setuptools is MIT and bundles:
+#   autocommand: LGPL-3.0-or-later
+#   backports.tarfile: MIT
+#   importlib-metadata: Apache-2.0
+#   inflect: MIT
+#   jaraco.collections: MIT
+#   jaraco.context: MIT
+#   jaraco.functools: MIT
+#   jaraco.text: MIT
+#   more-itertools: MIT
+#   packaging: Apache-2.0 OR BSD-2-Clause
+#   platformdirs: MIT
+#   tomli: MIT
+#   typeguard: MIT
+#   typing-extensions: PSF-2.0
+#   wheel: MIT
+#   zipp: MIT
+%if %{with rpmwheels}
 License: Python-2.0.1
+%else
+License: Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT AND MPL-2.0 AND PSF-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+%endif
 
+# If the rpmwheels condition is disabled, we use the bundled wheel packages
+# from Python with the versions below.
+%global pip_version 23.0.1
+%global setuptools_version 79.0.1
+# All of those also include a list of indirect bundled libs:
+# pip
+#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
+%global pip_bundled_provides %{expand:
+Provides: bundled(python3dist(cachecontrol)) = 0.12.11
+Provides: bundled(python3dist(certifi)) = 2022.12.7
+Provides: bundled(python3dist(chardet)) = 5.1
+Provides: bundled(python3dist(colorama)) = 0.4.6
+Provides: bundled(python3dist(distlib)) = 0.3.6
+Provides: bundled(python3dist(distro)) = 1.8
+Provides: bundled(python3dist(idna)) = 3.4
+Provides: bundled(python3dist(msgpack)) = 1.0.4
+Provides: bundled(python3dist(packaging)) = 21.3
+Provides: bundled(python3dist(platformdirs)) = 2.6.2
+Provides: bundled(python3dist(pygments)) = 2.13
+Provides: bundled(python3dist(pyparsing)) = 3.0.9
+Provides: bundled(python3dist(pyproject-hooks)) = 1
+Provides: bundled(python3dist(requests)) = 2.28.2
+Provides: bundled(python3dist(resolvelib)) = 0.8.1
+Provides: bundled(python3dist(rich)) = 12.6
+Provides: bundled(python3dist(setuptools)) = 44
+Provides: bundled(python3dist(six)) = 1.16
+Provides: bundled(python3dist(tenacity)) = 8.1
+Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(typing-extensions)) = 4.4
+Provides: bundled(python3dist(urllib3)) = 1.26.14
+Provides: bundled(python3dist(webencodings)) = 0.5.1
+}
+# setuptools
+# vendor.txt not in .whl
+# %%{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/ensurepip/_bundled/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@')
+%global setuptools_bundled_provides %{expand:
+Provides: bundled(python3dist(autocommand)) = 2.2.2
+Provides: bundled(python3dist(backports-tarfile)) = 1.2
+Provides: bundled(python3dist(importlib-metadata)) = 8
+Provides: bundled(python3dist(inflect)) = 7.3.1
+Provides: bundled(python3dist(jaraco-collections)) = 5.1
+Provides: bundled(python3dist(jaraco-context)) = 5.3
+Provides: bundled(python3dist(jaraco-functools)) = 4.0.1
+Provides: bundled(python3dist(jaraco-text)) = 3.12.1
+Provides: bundled(python3dist(more-itertools)) = 10.3
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.2.2
+Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(typeguard)) = 4.3
+Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(wheel)) = 0.45.1
+Provides: bundled(python3dist(zipp)) = 3.19.2
+}
 
 # ==================================
 # Conditionals controlling the build
@@ -62,10 +170,6 @@ License: Python-2.0.1
 #   setuptools are not available. Turn off the rpmwheels bcond until
 #   the two packages are built with wheels to get around the issue.
 %bcond_with bootstrap
-
-# Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
-# Uses upstream bundled prebuilt wheels otherwise
-%bcond_without rpmwheels
 
 # Expensive optimizations (mainly, profile-guided optimizations)
 %bcond_without optimizations
@@ -329,12 +433,6 @@ Patch111: 00111-no-static-lib.patch
 # Downstream only: upstream bundles
 # We might eventually pursuit upstream support, but it's low prio
 Patch189: 00189-use-rpm-wheels.patch
-# The following versions of setuptools/pip are bundled when this patch is not applied.
-# The versions are written in Lib/ensurepip/__init__.py, this patch removes them.
-# When the bundled setuptools/pip wheel is updated, the patch no longer applies cleanly.
-# In such cases, the patch needs to be amended and the versions updated here:
-%global pip_version 23.0.1
-%global setuptools_version 79.0.1
 
 # 00251 # 1b1047c14ff98eae6d355b4aac4df3e388813f62
 # Change user install location
@@ -617,7 +715,9 @@ Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
+%pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+%setuptools_bundled_provides
 %endif
 
 # Provides for the bundled libmpdec
@@ -830,7 +930,9 @@ Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
+%pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+%setuptools_bundled_provides
 %endif
 
 # Provides for the bundled libmpdec
@@ -869,12 +971,21 @@ that support it, such as CentOS or RHEL or older Fedora releases.
 %gpgverify -k2 -s1 -d0
 %autosetup -S git_am -N -n Python-%{upstream_version}
 
+# Verify the second level of bundled provides is up to date
+# Arguably this should be done in %%check, but %%prep has a faster feedback loop
+# setuptools.whl does not contain the vendored.txt files
+if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/ensurepip/_bundled/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@') --compare-with '%setuptools_bundled_provides'
+fi
+
 # Apply patches up to 188
 %autopatch -M 188
 
 %if %{with rpmwheels}
 %autopatch 189
-rm Lib/ensurepip/_bundled/*.whl
+rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+rm Lib/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
 %endif
 
 # Apply the remaining patches
@@ -1486,7 +1597,8 @@ CheckPython optimized
 %exclude %{pylibdir}/ensurepip/_bundled
 %else
 %dir %{pylibdir}/ensurepip/_bundled
-%{pylibdir}/ensurepip/_bundled/*.whl
+%{pylibdir}/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+%{pylibdir}/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
 %{pylibdir}/ensurepip/_bundled/__init__.py
 %{pylibdir}/ensurepip/_bundled/__pycache__/*%{bytecode_suffixes}
 %endif
@@ -1936,6 +2048,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 29 2026 Lumír Balhar <lbalhar@redhat.com> - 3.9.25-10
+- Switch to bundled wheels
+
 * Fri Apr 17 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.9.25-9
 - Security fixes for CVE-2026-4786 and CVE-2026-6100
 Resolves: rhbz#2458019, rhbz#2458227

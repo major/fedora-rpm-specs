@@ -8,7 +8,7 @@
 %global with_doc 1
 
 Name:       python-%{library}
-Version:    4.5.0
+Version:    4.6.0
 Release:    %autorelease
 Summary:    OpenStack library for writing OSC plugins
 License:    Apache-2.0

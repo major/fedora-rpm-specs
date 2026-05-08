@@ -20,17 +20,13 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.35.0
+Version:        4.53.1
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
 License:        MIT
 URL:            https://tox.readthedocs.io/
 Source:         %{pypi_source tox}
-
-# Adjust for virtualenv 21 API changes, from upsteam, rebased.
-# https://github.com/tox-dev/tox/commit/a9533f575f
-Patch:          virtualenv-21.patch
 
 # Remove usage of devpi-process.
 # Remove coverage options.
@@ -47,6 +43,7 @@ BuildRequires:  pyproject-rpm-macros >= 1.16
 %if %{with tests}
 BuildRequires:  /usr/bin/gcc
 BuildRequires:  /usr/bin/git
+BuildRequires:  /usr/bin/man
 BuildRequires:  /usr/bin/pip
 BuildRequires:  /usr/bin/pytest
 BuildRequires:  /usr/bin/python
@@ -91,6 +88,9 @@ Recommends:     python3.9
 # Instead of adding new Pythons here, add `Supplements: tox` to them, see:
 # https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/NVVUXSVSPFQOWIGBE2JNI67HEO7R63ZQ/
 
+# Enable completions by default
+Recommends:     (tox+completion if (bash-completion or fish or zsh))
+
 %py_provides    python3-tox
 
 %description -n tox %_description
@@ -104,8 +104,7 @@ Recommends:     python3.9
 # First, carefully adjust the pins of build and runtime dependencies,
 # then remove all the >= specifiers from tests deps, whatever they are,
 # finally, remove undesired test dependencies.
-sed -ri -e 's/"(packaging|filelock|platformdirs|pyproject-api|cachetools|hatch-vcs)>=.*/"\1",/g' \
-        -e 's/"(virtualenv)>=.*/"\1>=20.29",/g' \
+sed -ri -e 's/"(filelock|platformdirs|pyproject-api|cachetools|hatch-vcs)>=.*/"\1",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
         -e 's/"(pluggy)>=.*/"\1>=1.5",/g' \
         -e '/^test = \[/,/^\]/ { s/>=[^;"]+// }' \
@@ -114,7 +113,7 @@ sed -ri -e 's/"(packaging|filelock|platformdirs|pyproject-api|cachetools|hatch-v
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
-%pyproject_buildrequires -r %{?with_tests:-g test}
+%pyproject_buildrequires -r %{?with_tests:-g test} -x completion
 
 
 %build
@@ -126,17 +125,20 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_install
 %pyproject_save_files tox
 
+for shell in bash fish zsh; do
+  register-python-argcomplete --shell $shell tox > tox.$shell
+done
+# The bash-completion package has tox already, we use the .bash suffix,
+# see https://github.com/scop/bash-completion/issues/1628#issuecomment-4380971779
+install -Dpm 0644 tox.bash %{buildroot}%{bash_completions_dir}/tox.bash
+install -Dpm 0644 tox.fish %{buildroot}%{fish_completions_dir}/tox.fish
+install -Dpm 0644 tox.zsh  %{buildroot}%{zsh_completions_dir}/_tox
+
 
 %if %{with tests}
 %check
 # A macro that returns a version of the installed Python package, as an RPM v-string, defaults to v"0"
 %define pyversion() v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("%{1}"))' 2>/dev/null || echo 0)"
-
-# Upstream requires virtualenv >= 20.31 for tests, and no longer sets VIRTUALENV_WHEEL.
-# To support environments with older virtualenv, we set it manually:
-%if %{pyversion virtualenv} < v"20.31"
-export VIRTUALENV_WHEEL=bundle
-%endif
 
 # Skipped tests use internal virtualenv functionality to
 # download wheels which does not work with "bundled" version of wheel in
@@ -145,11 +147,6 @@ k="${k-}${k+ and }not test_virtualenv_flipped_settings"
 k="${k-}${k+ and }not test_virtualenv_env_ignored_if_set"
 k="${k-}${k+ and }not test_virtualenv_env_used_if_not_set"
 
-# https://github.com/tox-dev/tox/issues/3290
-%if v"0%{?python3_version}" >= v"3.13"
-k="${k-}${k+ and }not test_str_convert_ok_py39"
-%endif
-
 # https://github.com/tox-dev/tox/commit/698f1dd663
 # The tests fail with setuptools < 70.1
 %if %{pyversion setuptools} < v"70.1"
@@ -157,17 +154,6 @@ k="${k-}${k+ and }not test_result_json_sequential"
 k="${k-}${k+ and }not test_setuptools_package"
 k="${k-}${k+ and }not test_skip_develop_mode"
 k="${k-}${k+ and }not test_tox_install_pkg_sdist"
-%else
-# this test fails with virtualenv < 20.31 with bundled wheel
-test -z $VIRTUALENV_WHEEL || k="${k-}${k+ and }not test_result_json_sequential"
-%endif
-
-# Skip tests only working with packaging 26+
-# Adjusted upstream in https://github.com/tox-dev/tox/pull/3673
-%if %{pyversion packaging} < v"26"
-k="${k-}${k+ and }not (test_req_file and name-extra-protocol)"
-k="${k-}${k+ and }not (test_req_file and whitespace and around)"
-k="${k-}${k+ and }not test_dependency_groups_bad_requirement"
 %endif
 
 # The following tests either need internet connection or installed tox
@@ -179,7 +165,9 @@ k="${k-}${k+ and }not test_call_as_module"
 k="${k-}${k+ and }not test_call_as_exe"
 k="${k-}${k+ and }not test_run_installpkg_targz"
 k="${k-}${k+ and }not test_pyproject_installpkg_pep517_envs"
-test -z $VIRTUALENV_WHEEL && k="${k-}${k+ and }not test_result_json_sequential"
+k="${k-}${k+ and }not test_pylock_install_integration"
+k="${k-}${k+ and }not test_interrupt_post_commands"
+k="${k-}${k+ and }not test_second_interrupt_stops_post_commands"
 %endif
 
 %pytest -v -n auto -k "${k-}" --run-integration
@@ -188,6 +176,12 @@ test -z $VIRTUALENV_WHEEL && k="${k-}${k+ and }not test_result_json_sequential"
 
 %files -n tox -f %{pyproject_files}
 %{_bindir}/tox
+%{_mandir}/man1/tox.1*
+
+%pyproject_extras_subpkg -n tox completion
+%{bash_completions_dir}/tox.bash
+%{fish_completions_dir}/tox.fish
+%{zsh_completions_dir}/_tox
 
 
 %changelog

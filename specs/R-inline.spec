@@ -18,12 +18,6 @@ conventions.
 %prep
 %autosetup -c
 
-%if ! %{?fedora}%{!?fedora:0}
-# R-tinytest is not available in EPEL
-sed 's/, tinytest//' -i inline/DESCRIPTION
-rm inline/tests/tinytest.R
-%endif
-
 %generate_buildrequires
 %R_buildrequires
 

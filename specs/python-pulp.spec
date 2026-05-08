@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           python-pulp
-Version:        3.3.0
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Linear and mixed integer programming modeler
 
@@ -32,6 +32,14 @@ Patch:          0003-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
 # A temporary downstream workaround for
 # https://github.com/coin-or/pulp/issues/887#issuecomment-3621838359
 Patch:          0004-Skip-HiGHS_CMDTest.test_relaxed_mip.patch
+# Increase the time limit on test_measuring_solving_time
+#
+# Change it from 10 to 30 seconds in order to help accommodate slower
+# architectures and/or emulation. The new limit is arbitrarily chosen, just
+# like the original one. This is downstream-only for now because this test is
+# commented out in the upstream master branch, which is currently in the throes
+# of a major rewrite of the core in Rust for the future 4.0 release.
+Patch:          0005-Increase-the-time-limit-on-test_measuring_solving_ti.patch
 
 # These alternative solvers appear to be free software, but are not packaged.
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
@@ -165,6 +173,11 @@ find pulp/solverdir -type f \
 
 # Increase test verbosity
 sed -r -i 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' pulp/tests/run_tests.py
+
+# Upstream pinned highspy to 1.13 in
+# https://github.com/coin-or/pulp/commit/07c7b5ecc7b66ff7a96727a1817d6f3e428a6251;
+# we must, of course, use what we have.
+%pyproject_patch_dependency highspy:drop_upper
 
 
 %install -a

@@ -2,7 +2,7 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	2.0.37
+Version:	2.0.39
 Release:	%autorelease
 Summary:	module implementing HTTP/2 for Apache 2
 License:	Apache-2.0

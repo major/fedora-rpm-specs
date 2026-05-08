@@ -10,7 +10,7 @@ License:        BSL-1.0
 URL:            https://github.com/BenHanson/parsertl17
 Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
 
-%if %{undefined fc43} && %{undefined fc42}
+%if %{undefined fc43}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 %endif

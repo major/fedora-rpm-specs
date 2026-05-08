@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.183.0
+Version:        0.184.0
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Wed May  6 2026 Paul Howarth <paul@city-fan.org> - 0.184.0-1
+- Update to 0.184.0
+  - Fix: Restore noop() to return 1 for backward compatibility (GH#80)
+
 * Sun May  3 2026 Paul Howarth <paul@city-fan.org> - 0.183.0-1
 - Update to 0.183.0
   - Drop unused weaken import

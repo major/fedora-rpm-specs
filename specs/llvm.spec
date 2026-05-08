@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 22
 %global min_ver 1
-%global patch_ver 4
+%global patch_ver 5
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -593,6 +593,10 @@ BuildRequires:	lld
 # This intentionally does not use python3_pkgversion. RHEL 8 does not have
 # python3.12-sphinx, and we are only using it as a binary anyway.
 BuildRequires:	python3-sphinx
+%if 0%{?rhel} != 8
+# RHEL 8 does not have these packages for python3.12.
+BuildRequires: python%{python3_pkgversion}-psutil
+%endif
 %if %{undefined rhel}
 BuildRequires:	python%{python3_pkgversion}-myst-parser
 %endif

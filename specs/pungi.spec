@@ -1,15 +1,11 @@
 Name:           pungi
-Version:        4.10.1
-Release:        6%{?dist}
+Version:        4.13.0
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch:          https://pagure.io/pungi/pull-request/1860.patch
-# https://pagure.io/pungi/pull-request/1885
-Patch:          0001-Drop-parameterized-dependency.patch
-Patch:          https://pagure.io/pungi/pull-request/1898.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -30,6 +26,7 @@ BuildRequires:  python3-libmodulemd >= 2.8.0
 BuildRequires:  python3-gobject
 BuildRequires:  python3-createrepo_c
 BuildRequires:  python3-flufl-lock
+BuildRequires:  python3-ruamel-yaml
 
 #deps for doc building
 BuildRequires:  python3-sphinx
@@ -52,6 +49,7 @@ Requires:       python3-createrepo_c
 Requires:       python3-PyYAML
 Requires:       python3-flufl-lock
 Requires:       xorriso
+Requires:       python3-ruamel-yaml
 
 # This package is not available on i686, hence we cannot require it
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1743421
@@ -136,6 +134,24 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Wed May 06 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.13.0-1
+- phase/kiwi, phase/image-builder: xorrisofs (cmdr)
+- phase/kiwi, phase/image-builder: iso fields (cmdr)
+- imagebuilder,kiwibuild: fix failable wildcard arch expansion (lsedlar)
+- Improve Koji task ID discovery and logging (awilliam)
+- phases/buildinstall: remove unused non-lorax paths (awilliam)
+- Correct ostree_installer phase name in log messages (awilliam)
+- phase/imagebuilder: failable arches fix (cmdr)
+- Move image sanity checks from test phase to image-generating phases (lsedlar)
+- Update phase diagram (lsedlar)
+- Remove OSBS and ImageContainer phases (awilliam)
+- Drop size check for ISOs (lsedlar)
+- Support list of URLs for rpm_repo_mapping (hlin)
+- docs: modernize Sphinx conf.py (hlin)
+- kiwi: also include subvariant in failure logging (awilliam)
+- kiwi: include image profile in global logs and watch-task filenames
+  (awilliam)
+
 * Tue Mar 31 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-6
 - Backport improved logging for kiwibuild phase
 

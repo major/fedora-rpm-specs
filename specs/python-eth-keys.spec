@@ -10,13 +10,13 @@ URL:           https://github.com/ethereum/eth-keys
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 BuildRequires: python3-asn1tools
+BuildRequires: python3-cffi
 BuildRequires: python3-coincurve
 BuildRequires: python3-factory-boy
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pyasn1
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description

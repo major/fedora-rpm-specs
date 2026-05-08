@@ -1,19 +1,12 @@
 %global _hardened_build 1
 
-%define isprerelease 0
-
-%if %isprerelease
-%define prerelease pre3
-%endif
-
 Summary: A program for synchronizing files over a network
 Name: rsync
-Version: 3.4.1
-Release: 6%{?prerelease}%{?dist}
+Version: 3.4.2
+Release: 1%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
-Source1: https://download.samba.org/pub/rsync/src/rsync-patches-%{version}%{?prerelease}.tar.gz
 Source2: rsyncd.socket
 Source3: rsyncd.service
 Source4: rsyncd.conf
@@ -31,6 +24,9 @@ BuildRequires: systemd
 BuildRequires: lz4-devel
 BuildRequires: openssl-devel
 BuildRequires: libzstd-devel
+BuildRequires: git-core
+BuildRequires: automake
+BuildRequires: python3-cmarkgfm
 %if %{undefined rhel}
 BuildRequires: xxhash-devel
 %endif
@@ -41,11 +37,6 @@ Provides: bundled(zlib) = 1.2.8
 #popt provided by popt-devel from the system. Should this change, X11 license should be 
 #mentioned here as well.
 License: GPL-3.0-or-later
-
-Patch1: rsync-3.2.2-runtests.patch
-Patch2: rsync-3.4.1-rrsync-man.patch
-Patch3: rsync-3.4.1-gcc15-fixes.patch
-Patch4: rsync-3.4.1-cve-2025-10158.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -75,24 +66,7 @@ This subpackage provides rrsync script and its manpage. rrsync
 may be used to setup a restricted rsync users via ssh logins.
 
 %prep
-# TAG: for pre versions use
-
-%if %isprerelease
-%setup -q -n rsync-%{version}%{?prerelease}
-%setup -q -b 1 -n rsync-%{version}%{?prerelease}
-%else
-%setup -q
-%setup -q -b 1
-%endif
-
-%patch 1 -p1 -b .runtests
-%patch 2 -p1 -b .rrsync
-
-patch -p1 -i patches/detect-renamed.diff
-patch -p1 -i patches/detect-renamed-lax.diff
-
-%patch 3 -p1 -b .gcc15
-%patch 4 -p1 -b .cve-2025-10158
+%autosetup -S git
 
 %build
 %configure \
@@ -150,6 +124,10 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Tue Apr 28 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.2-1
+- New version 3.4.2
+- Removing rsync-patches, these are no longer maintained
+
 * Fri Feb 13 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.1-6
 - Fix for CVE-2025-10158
 

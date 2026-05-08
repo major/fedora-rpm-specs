@@ -275,7 +275,7 @@ fi
 %endif
 
 %ifarch %{x86_64}
-%if %{undefined fc43} && %{undefined fc42} && %{undefined el10}
+%if %{undefined fc43} && %{undefined el10}
 # At least one test within this executable fails since GCC 16 landed in Fedora
 # 44. It’s not very easy to tell exactly what is going wrong, and upstream is
 # not likely to be interested since (as determined by bisection) the failure

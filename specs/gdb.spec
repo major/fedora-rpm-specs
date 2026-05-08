@@ -932,7 +932,7 @@ fi
 # endif scl
 
 %changelog
-* Tue Apr 21 2025 Andrew Burgess <aburgess@redhat.com>
+* Tue Apr 21 2026 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commits 8bd08ee92c4 and cd289df068e to address
   rhbz2366461.  These backports will not be needed once we rebase to
   GDB 18.

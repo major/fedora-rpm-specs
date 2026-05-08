@@ -2,7 +2,7 @@
 %bcond_with docs
 
 Name:           python-jaraco-collections
-Version:        5.1.0
+Version:        5.2.1
 Release:        %autorelease
 Summary:        Collection objects similar to those in stdlib by jaraco
 

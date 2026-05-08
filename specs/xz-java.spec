@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           xz-java
-Version:        1.9
+Version:        1.12
 Release:        %autorelease
 Summary:        Java implementation of XZ data compression
 License:        LicenseRef-Fedora-Public-Domain
@@ -38,7 +38,7 @@ for advanced users, including LZMA2 with preset dictionary.
 # package-list from oracle.com. Create a dummy package-list to prevent that.
 mkdir -p extdoc && touch extdoc/package-list
 
-%ant -Dsourcever=8 maven
+%ant -Dsourcever=8 -Dsourcever9=9 maven
 
 %install
 %mvn_artifact build/maven/xz-%{version}.pom build/jar/xz.jar
@@ -46,7 +46,7 @@ mkdir -p extdoc && touch extdoc/package-list
 %mvn_install
 
 %files -f .mfiles
-%doc README THANKS
+%doc README.md THANKS.md
 %license COPYING
 
 %changelog

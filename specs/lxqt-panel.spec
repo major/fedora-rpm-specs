@@ -1,17 +1,21 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
 Version:       2.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Fedora config patches
+# Changes fancymenu icon to fedora default icon
+Patch0:        0001-set-fedora-launcher-icon.patch
 
 # Proposed upstream
 # https://github.com/lxqt/lxqt-panel/pull/2161
 Patch0101:   0101-use-wlroots-backend-with-unknown-compositors.patch
 
 BuildRequires:  cmake
-BuildREquires:  desktop-file-utils
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  lm_sensors-devel
@@ -59,6 +63,8 @@ BuildRequires:  pkgconfig(wayland-client)
 Requires: lxqt-menu-data
 Recommends: xscreensaver-base
 
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+Provides:       %{name}-l10n = %{version}-%{release}
 %description
 %{summary}.
 
@@ -68,13 +74,6 @@ Requires: %{name} = %{version}-%{release}
 
 %description devel
 %{summary}.
-
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-panel
-Requires:       lxqt-panel
-%description l10n
-This package provides translations for the lxqt-panel package.
 
 %prep
 %autosetup -S git_am
@@ -86,27 +85,12 @@ This package provides translations for the lxqt-panel package.
 %install
 %cmake_install
 
-%find_lang lxqt-panel --with-qt
-%find_lang cpuload --with-qt
-%find_lang desktopswitch --with-qt
-%find_lang directorymenu --with-qt
-%find_lang mainmenu --with-qt
-%find_lang mount --with-qt
-%find_lang networkmonitor --with-qt
-%find_lang quicklaunch --with-qt
-%find_lang sensors --with-qt
-%find_lang showdesktop --with-qt
-%find_lang spacer --with-qt
-%find_lang statusnotifier --with-qt
-%find_lang sysstat --with-qt
-%find_lang taskbar --with-qt
-%find_lang volume --with-qt
-%find_lang worldclock --with-qt
+%find_lang %{name} --with-qt --all-name
 
 %check
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
-%files
+%files -f %{name}.lang
 %{_bindir}/lxqt-panel
 %{_libdir}/lxqt-panel/
 %{_datadir}/lxqt
@@ -119,12 +103,11 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %dir %{_includedir}/lxqt
 %{_includedir}/lxqt/*
 
-%files l10n -f lxqt-panel.lang -f cpuload.lang -f desktopswitch.lang -f directorymenu.lang  -f mainmenu.lang -f mount.lang -f networkmonitor.lang -f quicklaunch.lang -f sensors.lang -f showdesktop.lang -f spacer.lang -f statusnotifier.lang -f sysstat.lang -f taskbar.lang -f volume.lang -f worldclock.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Wed May 06 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-2
+- Drop l10n package, add patch for Fedora launcher icon
+
 * Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
 - Update to 2.4.0
 

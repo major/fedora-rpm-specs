@@ -1,16 +1,18 @@
+%global git_commit 545fdf1faedc5fb5342a3ea44a043edde501c3eb
+%global git_date 20250620
+
 Name:		fcode-utils
 Version:	1.0.3
-Release:	%autorelease
+Release:	%autorelease -s %{git_date}git%{sub %git_commit 0 7}
 Summary:	Utilities for dealing with FCode
 # The entire source code is GPL-2.0-only except localvalues/ and documentation/
 # which are CPL-1.0 licensed
 License:	GPL-2.0-only AND CPL-1.0
 URL:		http://www.openfirmware.info/FCODE_suite
-Source0:	https://github.com/openbios/fcode-utils/archive/v%{version}/%{name}-%{version}.tar.gz
-# Submitted upstream: https://github.com/openbios/fcode-utils/pull/16
-Patch1:		fcode-utils-0001-Allow-overriding-some-more-Makefile-variables.patch
-# Submitted upstream: https://github.com/openbios/fcode-utils/pull/14
-Patch2:		fcode-utils-0002-toke-Makefile-Declare-return-type-of-main-in-GCC-fla.patch
+Source:		https://github.com/openbios/fcode-utils/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
+# https://patch-diff.githubusercontent.com/raw/openbios/fcode-utils/pull/32.patch
+Patch:		0001-fixes-compiling-with-gcc-15.patch
+Patch:		0002-toke-add-prototypes-to-TIC-vocabulary-function-point.patch
 # For tests only
 BuildRequires:	gcc
 BuildRequires:	make
@@ -21,7 +23,7 @@ Utilities for dealing with FCode, a Forth programming language dialect
 compliant with ANS Forth.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{git_commit}
 install -p -m 0644 detok/README README.detok
 install -p -m 0644 toke/README README.toke
 
@@ -44,7 +46,6 @@ make tests
 %{_bindir}/romheaders
 %{_bindir}/toke
 %{_datadir}/%{name}
-
 
 %changelog
 %autochangelog

@@ -8,6 +8,12 @@ Summary:          Extra features for standard library's cmd module
 License:          MIT
 URL:              https://pypi.python.org/pypi/cmd2
 Source0:          %{pypi_source}
+
+# This is fixed upstream but with a much bigger patch and re-org
+# https://github.com/python-cmd2/cmd2/commit/79c984ac3d937fff8e92c5848fe5b7a229836ec6
+# drop with next release.
+Patch0:           0001-Fix-Python-3.15-compat-accept-kwargs-in-_get_formatt.patch
+
 BuildArch:        noarch
 
 BuildRequires:    python3-devel

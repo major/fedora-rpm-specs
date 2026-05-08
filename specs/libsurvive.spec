@@ -1,5 +1,5 @@
-%global date 20250328
-%global commit 440518bb7b0015a235f2e209b3fb454b2cf13ea2
+%global date 20260323
+%global commit 2f4303c76f53be1919d89d801172fddd7b09aa7a
 %global shortcommit %{sub %{commit} 1 7}
 
 # These are artifacts used by the unit tests
@@ -14,7 +14,16 @@ Summary:        Open Source Lighthouse Tracking System
 URL:            https://github.com/collabora/libsurvive
 
 # libsurvive is MIT, the rest comes from bundled libraries
-License:        MIT AND (MIT AND BSD-2-Clause) AND Minpack AND LicenseRef-Fedora-UltraPermissive AND HIDAPI AND ((MIT OR X11) OR BSD-3-Clause OR GPL-1.0-or-later) AND (MIT AND (MIT OR X11) OR BSD-3-Clause) AND (MIT AND (MIT OR X11)) AND Zlib
+License:        %{shrink:
+                MIT AND
+                (MIT AND BSD-2-Clause) AND
+                Minpack AND
+                LicenseRef-Fedora-UltraPermissive AND
+                HIDAPI AND
+                ((MIT OR X11) OR BSD-3-Clause OR GPL-1.0-or-later) AND
+                (MIT AND (MIT OR X11) OR BSD-3-Clause) AND
+                (MIT AND (MIT OR X11)) AND
+                Zlib}
 # License breakdown:
 # ./src/test_cases/libsurvive-extras-data/
 # ./libs/cnkalman/

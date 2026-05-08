@@ -43,12 +43,6 @@ dos2unix -k \
     Rcpp/inst/tinytest/cpp/InternalFunction.cpp \
     Rcpp/inst/tinytest/cpp/InternalFunctionCPP11.cpp
 
-%if ! %{?fedora}%{!?fedora:0}
-# R-tinytest is not available in EPEL
-sed 's/tinytest, //' -i Rcpp/DESCRIPTION
-rm Rcpp/tests/tinytest.R
-%endif
-
 %generate_buildrequires
 %R_buildrequires
 

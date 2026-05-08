@@ -1,6 +1,4 @@
-# Requires python-pymongo 4.4.0 or later, so disable for F41/F42.
-# F43: disable until RHBZ#2356166 is fixed in python-pymongo.
-%bcond bson %[ %{undefined fc42} && %{undefined fc41} ]
+%bcond bson 1
 %bcond cbor2 1
 %bcond msgpack 1
 %bcond msgspec 1
@@ -58,9 +56,6 @@ Summary:        %{summary}
 
 BuildArch:      noarch
 
-%if %{without bson}
-Obsoletes:      python3-cattrs+bson < 25.1.1-2
-%endif
 # Removed for Fedora 42; we can drop the Obsoletes after Fedora 44.
 Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
 

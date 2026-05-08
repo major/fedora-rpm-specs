@@ -1,5 +1,5 @@
 Name:           python-ujson
-Version:        5.12.0
+Version:        5.12.1
 Release:        %autorelease
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 

@@ -4,7 +4,7 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          26.02.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -15,6 +15,7 @@ BuildRequires:    systemd gcc make autoconf autoconf-archive automake libtool sy
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
 ExcludeArch:      %{arm} aarch64 %{power64} s390x i686 riscv64
+Patch0:           force-32-bit-MMIO-CSR-reads.patch
 
 %description
 Intel QuickAssist Technology (Intel QAT) provides hardware acceleration
@@ -142,6 +143,9 @@ fi
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Wed May 06 2026 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 26.02.0-2
+- Add patch to force 32 bit MMIO CSR reads for GCC 16
+
 * Fri Feb 06 2026 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 26.02.0-1
 - Update to qatlib 26.02.0
 

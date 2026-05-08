@@ -1,5 +1,5 @@
 Name:           tree-sitter-srpm-macros
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        RPM macros for Tree-sitter parsers
 License:        MIT

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.11
+Version:        0.15.12
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -65,12 +65,8 @@ Summary:        Extremely fast Python linter and code formatter
 #
 # Apache-2.0 OR MIT:
 #   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
-#   - salsa, salsa-macros, salsa-macros-rules, Source300
 #
 # MIT:
-#   - book/mermaid.min.js in the vendored salsa snapshot; does not contribute
-#     to the licenses of the binary RPMs, since we do not package the book, and
-#     it is removed in %%prep to be sure
 #   - lsp-types, Source200
 #
 # =====
@@ -175,21 +171,6 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 %global lsp_types_snapdate 20260220
 Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
-# For now, ruff still needs to use a git snapshot of salsa because it
-# frequently needs bug fixes faster than the salsa release cycle delivers them;
-# see https://github.com/astral-sh/ruff/pull/17566#issuecomment-2823146473. We
-# therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-#
-# Check https://github.com/salsa-rs/salsa/blob/%%{salsa_rev}/Cargo.toml to
-# observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
-# observe the date.
-%global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev 2f687a17ceea8ec7aaa605561ccbde938ccef086
-%global salsa_baseversion 0.26.1
-%global salsa_snapdate 20260320
-Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
-
 # Get this from crates/ty_vendored/vendor/typeshed/source_commit.txt.
 %global typeshed_rev c03c2b926422c82ab680d27f3ad2491845000802
 # The typeshed project as a whole has never been versioned.
@@ -224,13 +205,6 @@ BuildRequires:  python3-devel
 %global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
 %global lsp_types_version %{lsp_types_baseversion}^%{lsp_types_snapinfo}
 Provides:       bundled(crate(lsp-types)) = %{lsp_types_version}
-
-# This is a snapshot of salsa; see the notes about Source300.
-%global salsa_snapinfo %{salsa_snapdate}git%{sub %{salsa_rev} 1 7}
-%global salsa_version %{salsa_baseversion}^%{salsa_snapinfo}
-Provides:       bundled(crate(salsa)) = %{salsa_version}
-Provides:       bundled(crate(salsa-macros)) = %{salsa_version}
-Provides:       bundled(crate(salsa-macro-rules)) = %{salsa_version}
 
 # This is not versioned or released as a whole, and it is normal for
 # type-checkers to vendor it. See
@@ -315,55 +289,6 @@ pushd crates/lsp-types
 popd
 install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
 
-# See comments above Source300:
-%setup -q -T -D -b 300 -n ruff-%{version}
-mv ../salsa-%{salsa_rev} crates/salsa
-mv crates/salsa/components/salsa-macro-rules crates/salsa-macro-rules
-mv crates/salsa/components/salsa-macros crates/salsa-macros
-git2path workspace.dependencies.salsa crates/salsa
-pushd crates/salsa
-%autopatch -p1 -m300 -M399
-popd
-# These were taken from salsa’s workspace, but we have added the salsa crates
-# to ruff’s workspace, and we cannot have more than one workspace.
-tomcli set crates/salsa/Cargo.toml del 'workspace.package.authors'
-tomcli set crates/salsa/Cargo.toml list package.authors 'Salsa developers'
-for field in edition license repository rust-version
-do
-  value="$(tomcli get crates/salsa/Cargo.toml "workspace.package.${field}")"
-  tomcli set crates/salsa/Cargo.toml del "workspace.package.${field}"
-  tomcli set crates/salsa/Cargo.toml str "package.${field}" "${value}"
-done
-# Now remove salsa’s workspace entirely.
-tomcli set crates/salsa/Cargo.toml del workspace
-# Fix up paths to ancillary salsa crates since we have moved them into the
-# workspace.
-tomcli set crates/salsa/Cargo.toml str dependencies.salsa-macro-rules.path \
-    '../salsa-macro-rules'
-tomcli set crates/salsa/Cargo.toml str dependencies.salsa-macros.path \
-    '../salsa-macros'
-tomcli set crates/salsa/Cargo.toml str \
-    "target.'cfg(any())'.dependencies.salsa-macros.path" \
-    '../salsa-macros'
-# Remove examples, and omit dev-dependencies that are only for examples:
-rm -rv crates/salsa/examples/
-tomcli set crates/salsa/Cargo.toml del example
-for crate in crossbeam-channel eyre notify-debouncer-mini ordered-float
-do
-  tomcli set crates/salsa/Cargo.toml del "dev-dependencies.${crate}"
-done
-# Remove benchmark-only dev-dependencies
-for crate in annotate-snippets codspeed-criterion-compat
-do
-  tomcli set crates/salsa/Cargo.toml del "dev-dependencies.${crate}"
-done
-# Remove the shuttle feature since rust-shuttle is not packaged
-tomcli set crates/salsa/Cargo.toml del features.shuttle
-tomcli set crates/salsa/Cargo.toml del dependencies.shuttle
-# Remove bundled, pre-compiled mermaid JavaScript to prove it is not used.
-rm crates/salsa/book/mermaid.min.js
-install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
-
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.
 #
@@ -404,20 +329,6 @@ Mismatch between %%{typeshed_rev}:
 and ${typeshed_rev_file}:
   ${typeshed_rev_in_source}
 Please update %%{typeshed_rev} in the spec file!
-EOF
-  exit 1
-fi
-
-# Verify we have the correct base version for salsa
-salsa_version_in_source="$(tomcli get crates/salsa/Cargo.toml package.version)"
-if [[ '%{salsa_baseversion}' != "${salsa_version_in_source}" ]]
-then
-  cat 1>&2 <<EOF
-Mismatch between %%{salsa_baseversion}:
-  %{salsa_baseversion}
-and version in crates/salsa/Cargo.toml:
-  ${salsa_version_in_source}
-Please update %%{salsa_baseversion} in the spec file!
 EOF
   exit 1
 fi
@@ -479,24 +390,6 @@ install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
 # We may need this if rustc diagnostics change from what upstream expects.
 #export TRYBUILD=overwrite
 
-# In the bundled salsa, this fails because the source paths are different than
-# expected, i.e. crates/salsa/tests/backtrace.rs instead of tests/backtrace.rs.
-# We skip the test because it is unnecessary and potentially brittle, but the
-# error message notes that exporting UPDATE_EXPECT=1 would also be a way to
-# ignore this kind of discrepancy.
-skip="${skip-} --skip backtrace_works"
-# These also fail due to similar path issues.
-#   color/ann_{eof,insertion,multiline,multiline2,removed_nl}.toml
-#   color/ensure-emoji-highlight-width.toml
-#   color/fold_{ann_multiline,bad_origin_line,leading,trailing}.toml
-#   color/issue_9.toml
-#   color/multiple_annotations.toml
-#   color/simple.toml
-#   color/strip_line{,_char,_non_ws}.toml
-# We could export SNAPSHOTS=overwrite, but that would ignore many other
-# possible discrepancies. Skipping the affected tests is better.
-skip="${skip-} --skip color/"
-
 # Fails cryptically: requires network, perhaps?
 #   error: no matching package named `boxcar` found
 #   location searched: crates.io index
@@ -523,12 +416,6 @@ skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
 # This panics consistently on s390x only; not reported upstream since it
 # couldn’t be reproduced in a git checkout under qemu-user-static emulation.
 skip="${skip-} --skip mdtest__generics_specialize_constrained"
-
-%if %{defined fc42}
-# Segfaults on F42 only. LLVM bug? Not worth reporting upstream since it
-# doesn’t appear elsewhere.
-skip="${skip-} --skip cycle_nested_deep_panic"
-%endif
 %endif
 
 # Avoid flaky “text file busy” errors in insta tests

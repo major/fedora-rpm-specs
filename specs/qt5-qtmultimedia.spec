@@ -10,7 +10,7 @@
 Summary: Qt5 - Multimedia support
 Name:    qt5-%{qt_module}
 Version: 5.15.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -145,7 +145,9 @@ popd
 %{_qt5_libdir}/libQt5MultimediaGstTools.prl
 %{_qt5_libdir}/cmake/Qt5Multimedia/Qt5MultimediaConfig*.cmake
 %{_qt5_libdir}/cmake/Qt5MultimediaWidgets/Qt5MultimediaWidgetsConfig*.cmake
+%dir %{_qt5_libdir}/cmake/Qt5MultimediaGstTools/
 %{_qt5_libdir}/cmake/Qt5MultimediaGstTools/Qt5MultimediaGstToolsConfig*.cmake
+%dir %{_qt5_libdir}/cmake/Qt5MultimediaQuick/
 %{_qt5_libdir}/cmake/Qt5MultimediaQuick/Qt5MultimediaQuickConfig*.cmake
 %{_qt5_libdir}/pkgconfig/Qt5Multimedia.pc
 %{_qt5_libdir}/pkgconfig/Qt5MultimediaWidgets.pc
@@ -159,6 +161,9 @@ popd
 
 
 %changelog
+* Wed May 06 2026 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.15.18-3
+- Ensure all CMake configuration directories are owned (rhbz 2300254)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

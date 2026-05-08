@@ -12,7 +12,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.17.6
+Version:        1.17.7
 Release:        %autorelease
 Summary:        Application deployment framework for desktop apps
 
@@ -84,13 +84,7 @@ Requires:       /usr/bin/xdg-dbus-proxy
 Requires:       (flatpak-selinux = %{?epoch:%{epoch}:}%{version}-%{release} if selinux-policy-targeted)
 Requires:       %{name}-session-helper%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Recommends:     p11-kit-server
-
-# Make sure the document portal is installed
-%if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     xdg-desktop-portal >= %{xdg_portal_version}
-%else
-Requires:       xdg-desktop-portal >= %{xdg_portal_version}
-%endif
 
 %description
 flatpak is a system for building, distributing and running sandboxed desktop
@@ -279,7 +273,7 @@ fi
 
 %files selinux
 %{_datadir}/selinux/packages/flatpak.pp.bz2
-%{_datadir}/selinux/devel/include/contrib/flatpak.if
+%{_datadir}/selinux/devel/include/distributed/flatpak.if
 
 %files session-helper
 %license COPYING

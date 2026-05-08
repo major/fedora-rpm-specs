@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mcmtroffaes/sphinxcontrib-bibtex
 
 Name:           python-sphinxcontrib-bibtex
-Version:        2.6.5
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Sphinx extension for BibTeX style citations
 
@@ -9,8 +9,6 @@ License:        BSD-2-Clause
 URL:            https://sphinxcontrib-bibtex.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinxcontrib-bibtex-%{version}.tar.gz
-# Fix compatibility with docutils 0.22+
-Patch:          https://github.com/mcmtroffaes/sphinxcontrib-bibtex/pull/377.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject

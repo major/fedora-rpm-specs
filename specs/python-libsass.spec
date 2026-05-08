@@ -57,7 +57,7 @@ Obsoletes:      python-libsass-doc < 0.23.0-6
 # site-packages without executable permissions; therefore, the shebang becomes
 # useless, and we should remove it downstream.
 sed -r -i '1{/^#!/d}' pysassc.py
-%if %{undefined fc42} && %{undefined fc43} && %{undefined fc44}
+%if %{undefined fc43} && %{undefined fc44}
 # Omit the sassutils.wsgi WSGI middleware. It relies on pkg_resources, which
 # has been deprecated, distributed with setuptools, and now will be removed in
 # setuptools 82+, https://fedoraproject.org/wiki/Changes/Setuptools_82+, in
