@@ -5,8 +5,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kalk
-Version:        26.04.0
-Release:        2%{?dist}
+Version:        26.04.1
+Release:        1%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later
 Summary:        %{name} is a convergent calculator for Plasma.
 Url:            https://apps.kde.org/%{name}/
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
 - Rebuild (qt6)
 

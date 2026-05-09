@@ -5,7 +5,7 @@
 Name:           ec2-instance-connect
 Summary:        EC2 Instance Connect scripts
 Version:        1.1.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        Apache-2.0
 URL:            https://github.com/aws/%{project}
@@ -25,6 +25,7 @@ Patch1:         0001-Update-curl-command-to-not-fail-silently-on-HTTP-ser.patch
 BuildArch:      noarch
 
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  sed
 %{?sysusers_requires_compat}
 
 Requires:       openssh >= 6.9.0
@@ -71,6 +72,8 @@ specific AuthorizedKeysCommand and AuthorizedKeysCommandUser
 
 %prep
 %autosetup -p1 -n %{project}-%{version}
+# from bin/make_rpm.sh
+sed -i "s%^ca_path=/etc/ssl/certs$%ca_path=/etc/ssl/certs/ca-bundle.crt%" "src/bin/eic_curl_authorized_keys"
 
 
 %build
@@ -151,6 +154,9 @@ fi
 
 
 %changelog
+* Wed May 06 2026 Christian Krause <chkr@fedoraproject.org> - 1.1.17-5
+- Fixes BZ #2430855 by changing ca_path
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

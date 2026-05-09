@@ -1,6 +1,6 @@
 Name:    baloo-widgets
 Summary: Widgets for Baloo
-Version: 26.04.0
+Version: 26.04.1
 Release: 1%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
@@ -62,6 +62,9 @@ Requires: kf6-kio-devel
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

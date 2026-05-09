@@ -922,7 +922,7 @@ Development header files for clang tools.
 %package -n git-clang-format%{pkg_suffix}
 Summary:	Integration of clang-format for git
 Requires:	%{pkg_name_clang}-tools-extra = %{version}-%{release}
-Requires:	git
+Requires:	git-core
 Requires:	python%{python3_pkgversion}
 
 %description -n git-clang-format%{pkg_suffix}
@@ -3481,6 +3481,7 @@ fi
 
 %if %{maj_ver} >= 23
 %{expand_bins %{expand:
+    clang-ssaf-analyzer
     clang-ssaf-format
     clang-ssaf-linker
 }}

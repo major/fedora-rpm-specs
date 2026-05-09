@@ -25,6 +25,19 @@ SourceLicense:  %{license} AND MIT AND OFL-1.1
 URL:            https://github.com/googlefonts/fontmake
 Source:         %{pypi_source fontmake}
 
+BuildSystem:    pyproject
+BuildOption(install): --assert-license fontmake
+# From setup.py:
+#   - this [lxml] is now default; kept here for backward compatibility
+#   - MutatorMath is no longer supported but a dummy extras [sic] is kept below
+#     to avoid fontmake installation failing if requested
+# We therefore don’t need to generate dependencies for these.
+BuildOption(generate_buildrequires): %{shrink:
+    %{?with_pathops:--extras pathops}
+    %{?with_autohint:--extras autohint}
+    %{?with_json:--extras json}
+    %{?with_repacker:--extras repacker}}
+
 BuildArch:      noarch
 
 BuildRequires:  help2man
@@ -56,31 +69,7 @@ fonts.
 %endif
 
 
-%prep
-%autosetup
-
-
-%generate_buildrequires
-# From setup.py:
-#   - this [lxml] is now default; kept here for backward compatibility
-#   - MutatorMath is no longer supported but a dummy extras [sic] is kept below
-#     to avoid fontmake installation failing if requested
-# We therefore don’t need to generate dependencies for these.
-%{pyproject_buildrequires \
-    %{?with_pathops:-x pathops} \
-    %{?with_autohint:-x autohint} \
-    %{?with_json:-x json} \
-    %{?with_repacker:-x repacker}}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l fontmake
-
+%install -a
 # We do this in %%install rather than in %%build because we need to use the
 # script entry point that was generated during installation.
 install -d '%{buildroot}%{_mandir}/man1'
@@ -91,9 +80,7 @@ install -d '%{buildroot}%{_mandir}/man1'
     %{buildroot}%{_bindir}/fontmake
 
 
-%check
-%pyproject_check_import
-
+%check -a
 # A number of integer IDs differ from the expected output. It feels like this
 # is probably a brittle test that is sensitive to dependency versions rather
 # than a real problem.

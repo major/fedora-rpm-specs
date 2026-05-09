@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        26.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -34,6 +34,10 @@ Python3 module for ansible-lint.
 %prep
 %autosetup -n %{archive_name}-%{version}
 
+# https://github.com/ansible/ansible-lint/commit/16ec984dfcc8ced362aad5c0dafd6ccd3b9f00c8
+# Update pathspec dependency version
+sed -i 's/1.0.3,<1.1.0/1.0.3,<1.2.0/g' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -58,6 +62,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu May 07 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-3
+- Update pathspec dependency version
+
 * Sun Apr 12 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-2
 - Remove sed line from %%prep section (#2457600)
 

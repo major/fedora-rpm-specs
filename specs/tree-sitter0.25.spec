@@ -81,6 +81,9 @@ export PREFIX='%{_prefix}' LIBDIR='%{_libdir}' INCLUDEDIR='%{_includedir}'
 
 find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -print
 
+# Conflicts with the non-compatibility version of this package:
+rm %{buildroot}%{_libdir}/libtree-sitter.so.%{tree_sitter_so_version}
+
 install -d %{buildroot}%{_datadir}/tree-sitter/queries
 
 

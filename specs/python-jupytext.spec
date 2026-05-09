@@ -15,6 +15,28 @@ Source1:        jupytext-%{version}-vendor.tar.xz
 Source2:        jupytext-%{version}-vendor-licenses.txt
 Source3:        prepare_vendor.sh
 
+# Fix the homepage link in package.json
+Patch:          %{giturl}/pull/1494.patch
+# Bump flatted from 3.3.3 to 3.4.2 in /jupyterlab
+Patch:          %{giturl}/pull/1495.patch
+# Bump picomatch from 2.3.1 to 2.3.2 in /jupyterlab
+Patch:          %{giturl}/pull/1497.patch
+# Bump handlebars from 4.7.8 to 4.7.9 in /jupyterlab
+Patch:          %{giturl}/pull/1498.patch
+# Bump lodash from 4.17.23 to 4.18.1 in /jupyterlab
+Patch:          %{giturl}/pull/1516.patch
+# Bump ip-address from 10.1.0 to 10.2.0 in /jupyterlab
+Patch:          %{giturl}/pull/1520.patch
+# Bump ajv from 6.12.6 to 6.15.0 in /jupyterlab
+# Bump ajv from 8.17.1 to 8.20.0 in /jupyterlab
+Patch:          CVE-2025-69873.patch
+# Bump @tootallnate/once from 2.0.0 to 3.0.1 in /jupyterlab
+Patch:          CVE-2026-3449.patch
+# Bump fast-uri from 3.1.0 to 3.1.2 in /jupyterlab
+Patch:          CVE-2026-6321.patch
+# Bump dompurify from 3.3.1 to 3.4.2 in /jupyterlab
+Patch:          CVE-2026-41240.patch
+
 # s390x builds fail due to a bug in jupyterlab
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278011
 # ppc64le builds fail due to lack of a binary builder

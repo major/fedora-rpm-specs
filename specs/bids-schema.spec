@@ -86,13 +86,13 @@ Source13:       bst-pre-receive-hook.1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2307781.
 Patch:          0001-Downstream-only-allow-pyparsing-3.1.2-for-now.patch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 BuildOption(generate_buildrequires): %{shrink:
-    -d tools/schemacode
-    -x expressions,render,validation,all
-}
-BuildOption(build):     -d tools/schemacode
-BuildOption(install):   -L bidsschematools
+    --directory tools/schemacode
+    --extras expressions,render,validation,all
+    }
+BuildOption(build): --directory tools/schemacode
+BuildOption(install): -L bidsschematools
 
 BuildArch:      noarch
 

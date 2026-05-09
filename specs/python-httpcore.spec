@@ -36,7 +36,7 @@ one thing only: Sending HTTP requests. It does not provide any high level
 model abstractions over the API, does not handle redirects, multipart uploads,
 building authentication headers, transparent HTTP caching, URL parsing, etc.
 
-%pyproject_extras_subpkg -n python3-httpcore http2,socks
+%pyproject_extras_subpkg -n python3-httpcore http2,socks,trio,asyncio
 
 %prep
 %autosetup -n %{pypi_name}-%{version}

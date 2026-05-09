@@ -1,12 +1,12 @@
 %global srcname eyed3
 
 Name:           python-%{srcname}
-Version:        0.9.7
-Release:        15%{?dist}
+Version:        0.9.9
+Release:        1%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
-Source0:        https://github.com/nicfit/eyeD3/releases/download/v%{version}/eyeD3-%{version}.tar.gz
+Source0:        https://github.com/nicfit/eyeD3/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -34,7 +34,7 @@ Requires:       python3-six
 
 
 %prep
-%autosetup -n eyeD3-%{version}
+%autosetup -n %{srcname}-%{version}
 
 
 %build
@@ -57,10 +57,13 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 %license LICENSE
 %{_bindir}/eyeD3
 %{python3_sitelib}/%{srcname}
-%{python3_sitelib}/eyed3-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/eyeD3-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Thu May 07 2026 David King <amigadave@amigadave.com> - 0.9.9-1
+- Update to 0.9.9 (#2467654)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

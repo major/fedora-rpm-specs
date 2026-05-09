@@ -46,7 +46,7 @@ URL:            https://zeromq.org/languages/python/
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): test-requirements-filtered.txt
+BuildOption(generate_buildrequires): test-requirements.txt
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build):     %{shrink:
                         -Ccmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF
@@ -128,11 +128,14 @@ find 'src' -type f -name '*.py' \
   xargs -r sed -r -i '1{/^#!/d}'
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-# - pymongo is used only in examples/mongodb/, and we don’t run examples
-sed -r \
-    -e 's/^(black|codecov|coverage|flake8|mypy|pytest-cov)\b/# &/' \
-    -e 's/^(pymongo)\b/# &/' \
-    test-requirements.txt | tee test-requirements-filtered.txt
+%pyproject_patch_dependency black:ignore
+%pyproject_patch_dependency codecov:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency flake8:ignore
+%pyproject_patch_dependency mypy:ignore
+%pyproject_patch_dependency pytest-cov:ignore
+# pymongo is used only in examples/mongodb/, and we don’t run examples
+%pyproject_patch_dependency pymongo:ignore
 
 
 %check -p

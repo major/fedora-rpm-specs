@@ -5,7 +5,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Patch3:        003-pcre2.patch
 Patch4:        004-cpp-curl.patch
 Patch5:        005-gcc-c23-changes.patch
 Patch6:        006-evolution-data-server-3.59.1-api-change.patch
+Patch7:        007-fix-pygments2.20-compat.patch
 
 BuildRequires: pkgconfig(dbus-glib-1)
 
@@ -222,6 +223,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Thu May 07 2026 Karolina Surma <ksurma@redhat.com> - 1:2.0.0-19
+- Fix compatibility with Pygments 2.20+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

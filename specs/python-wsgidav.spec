@@ -100,19 +100,8 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 # - pytest-cov is a coverage tool
 # - pytest-html is not packaged, and is only used for generating reports
-sed -r -i 's/^([[:blank:]]*)(pytest-(cov|html)\b)/\1# \2/' tox.ini
-%if v"0%{?python3_version}" >= v"3.13"
-# python-webob fails to build with Python 3.13: ModuleNotFoundError: No module
-# named 'cgi'
-# https://bugzilla.redhat.com/show_bug.cgi?id=2245641
-#
-# DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13
-# https://github.com/Pylons/webob/issues/437
-#
-# The webtest test dependency depends on webob, which does not support Python
-# 3.13.
-sed -r -i 's/^([[:blank:]]*)(webtest\b)/\1# \2/' tox.ini
-%endif
+%pyproject_patch_dependency pytest-cov:ignore
+%pyproject_patch_dependency pytest-html:ignore
 
 
 %install -a
@@ -120,9 +109,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %check -a
-%if v"0%{?python3_version}" >= v"3.13"
-ignore="${ignore-} --ignore=tests/test_wsgidav_app.py"
-%endif
 # While tox.ini is useful for generating test dependencies, it also attempts to
 # pip-install pytest-html. Rather than patching this out (and patching out the
 # pytest arguments related to pytest-cov and pytest-html), we just run pytest

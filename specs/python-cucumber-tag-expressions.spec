@@ -13,8 +13,6 @@ BuildOption(install):   -l cucumber_tag_expressions
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 # Test dependencies are intermixed with unwanted linting and coverage-analysis
 # tools in the “dev” dependency group, so we enumerate them manually.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters

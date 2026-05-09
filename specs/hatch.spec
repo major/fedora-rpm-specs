@@ -65,8 +65,8 @@ Source1620:     hatch-self-restore.1
 Source1630:     hatch-self-update.1
 Source1700:     hatch-test.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l hatch
+BuildSystem:    pyproject
+BuildOption(install): --assert-license hatch
 %if %{with tests}
 BuildOption(generate_buildrequires): _envs.hatch-test.extra-dependencies.txt
 %endif

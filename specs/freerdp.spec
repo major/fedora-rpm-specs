@@ -24,8 +24,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.25.0
-Release:        2%{?dist}
+Version:        3.26.0
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -42,8 +42,8 @@ URL:            http://www.freerdp.com/
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
 
-# Fix detection of libyuv
-Patch0:         https://github.com/FreeRDP/FreeRDP/pull/12666.patch#/FreeRDP-PR12666.patch
+# Fix TestNTLM with OpenSSL without legacy provider
+Patch0:         https://github.com/FreeRDP/FreeRDP/commit/e9b95a5a3cf6a182837773b92c825f48df953821.patch#/FreeRDP-e9b95a5.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -368,6 +368,10 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu May 07 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-1
+- Update to 3.26.0
+  Resolves: rhbz#2467244
+
 * Tue Apr 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.25.0-2
 - Disable AOM AV1 support on RHEL
 

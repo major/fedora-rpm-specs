@@ -48,8 +48,7 @@ Recommends:     %{py3_dist colorama}
 
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem \
-    project.optional-dependencies.tests 'pytest-cov*'
+%pyproject_patch_dependency pytest-cov:ignore
 tomcli set pyproject.toml str tool.pytest.ini_options.addopts -- "$(
   tomcli get pyproject.toml tool.pytest.ini_options.addopts |
   sed -r 's/--cov[^[:blank:]]*//g')"

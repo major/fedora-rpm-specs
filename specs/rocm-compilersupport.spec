@@ -130,7 +130,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        10.rocm%{rocm_version}%{?dist}
+Release:        11.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -216,6 +216,12 @@ Summary:        ROCm Compiler RPM macros
 BuildArch:      noarch
 
 Requires:       rpm
+# Compat version of macros conflict with the normal version
+%if %{with compat}
+Conflicts: rocm-compilersupport-macros
+%else
+Conflicts: rocm-compilersupport7.2-macros
+%endif
 
 %description macros
 This package contains ROCm compiler related RPM macros.
@@ -1107,6 +1113,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %endif
 
 %changelog
+* Thu May 7 2026 Tom Rix <Tom.Rix@amd.com> - 22-11.rocm7.2.1
+- Add conflicts for rocm-compilersupport-macros
+
 * Thu Apr 30 2026 Tom Rix <Tom.Rix@amd.com> 22-10.rocm7.2.1
 - Merge rocm-compilersupport7.2 changes back
 

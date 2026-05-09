@@ -11,8 +11,8 @@ Source:         %{url}/archive/v%{version}/jello-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l jello
+BuildSystem:    pyproject
+BuildOption(install): --assert-license jello
 
 %description
 Query, filter, and transform JSON and JSON Lines at the command line with

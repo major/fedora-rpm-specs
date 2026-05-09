@@ -22,18 +22,18 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/Donders-Institute/bidscoin
 Source:         %{url}/archive/%{version}/bidscoin-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l bidscoin
+BuildSystem:    pyproject
+BuildOption(install): --assert-license bidscoin
 BuildOption(generate_buildrequires): %{shrink:
-                                     -x dcm2niix2bids
-                                     -x spec2nii2bids
-                                     %{?with_deface:-x deface}
-                                     %{?with_deface:-x all}
-                                     %{?with_extras:-x extras}
-                                     }
-BuildOption(check):     %{shrink:
-                        %{?!with_deface:-e 'bidscoin.bidsapps.*deface'}
-                        }
+    --extras dcm2niix2bids
+    --extras spec2nii2bids
+    %{?with_deface:--extras deface}
+    %{?with_deface:--extras all}
+    %{?with_extras:--extras extras}
+    }
+BuildOption(check): %{shrink:
+    %{?!with_deface:--exclude 'bidscoin.bidsapps.*deface'}
+    }
 
 BuildArch:      noarch
 

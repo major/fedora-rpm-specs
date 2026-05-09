@@ -9,7 +9,7 @@
 
 Name:           plasma-login-manager
 Version:        6.6.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
@@ -31,6 +31,8 @@ Source12:       plasmalogin.sysusers
 Source13:       plasmalogin.conf
 
 # upstream patches
+## Avoid conflict with kmsconvt service
+Patch0001:	Fix-launch-when-kmscon-is-used.patch
 
 # proposed patches
 
@@ -221,6 +223,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Sat Apr 11 2026 Jocelyn Falempe <jfalempe@redhat.com> - 6.6.4-3
+- Fix conflicts with kmscon
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-2
 - Rebuild (qt6)
 

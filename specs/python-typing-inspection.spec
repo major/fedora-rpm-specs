@@ -14,8 +14,6 @@ BuildOption(install):   -l typing_inspection
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 %global common_description %{expand:
 This module provides tools to inspect type annotations at runtime.}
 
@@ -30,8 +28,8 @@ Summary:        %{summary}
 
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem dependency-groups.tests \
-    '(coverage|pytest-cov)\b.*'
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 
 %check -a

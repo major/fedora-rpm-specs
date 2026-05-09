@@ -2,7 +2,7 @@
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 26.04.0
+Version: 26.04.1
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.akonadiim
 %{_includedir}/KPim6/ImportWizard/
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

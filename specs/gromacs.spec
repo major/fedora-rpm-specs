@@ -30,7 +30,7 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2026.1
+Version:	2026.2
 Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -377,6 +377,10 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Tue May 05 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2026.2-1
+- Update to 2026.2
+- Fixes: rhbz#2466880
+
 * Fri Mar 06 2026 Christoph Junghans <junghans@votca.org> - 2026.1-1
 - Version bump to v2026.1
 - Fixes: rhbz#2445176

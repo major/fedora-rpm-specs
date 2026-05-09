@@ -4,15 +4,18 @@
 # PASTA - Pack A Subtle Tap Abstraction
 #  for network namespace/tap device mode
 #
+# PESTO - Programmable Extensible Socket Translation Orchestrator
+#  front-end for passt(1) and pasta(1) forwarding configuration
+#
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 386b5f5472b89769c025f5d5056348532a823b93
+%global git_hash 1afd4edb0eab5cb06197ab721739aa8dfef4b3ce
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20260120.g386b5f5
+Version:	0^20260507.g1afd4ed
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -51,7 +54,8 @@ Requires(post):		container-selinux
 Requires(post):		selinux-policy-%{selinuxtype}
 
 %description selinux
-This package adds SELinux enforcement to passt(1), pasta(1), passt-repair(1).
+This package adds SELinux enforcement to passt(1), pasta(1), passt-repair(1),
+pesto(1).
 
 %prep
 %setup -q -n passt-%{git_hash}
@@ -90,17 +94,18 @@ install -p -m 644 -D passt.pp %{buildroot}%{_datadir}/selinux/packages/%{selinux
 install -p -m 644 -D passt.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/passt.if
 install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 install -p -m 644 -D passt-repair.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
+install -p -m 644 -D pesto.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/pesto.pp
 popd
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp %{_datadir}/selinux/packages/%{selinuxtype}/pesto.pp
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-	%selinux_modules_uninstall -s %{selinuxtype} passt pasta passt-repair
+	%selinux_modules_uninstall -s %{selinuxtype} passt pasta passt-repair pesto
 fi
 
 %posttrans selinux
@@ -115,10 +120,12 @@ fi
 %{_bindir}/pasta
 %{_bindir}/qrap
 %{_bindir}/passt-repair
+%{_bindir}/pesto
 %{_mandir}/man1/passt.1*
 %{_mandir}/man1/pasta.1*
 %{_mandir}/man1/qrap.1*
 %{_mandir}/man1/passt-repair.1*
+%{_mandir}/man1/pesto.1*
 %ifarch x86_64
 %{_bindir}/passt.avx2
 %{_mandir}/man1/passt.avx2.1*
@@ -131,8 +138,13 @@ fi
 %{_datadir}/selinux/devel/include/distributed/passt.if
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
+%{_datadir}/selinux/packages/%{selinuxtype}/pesto.pp
 
 %changelog
+* Thu May  7 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260507.g1afd4ed-1
+- Install pesto, its SELinux policy, and the man page from the spec file
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_01_20.386b5f5..2026_05_07.1afd4ed
+
 * Tue Jan 20 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260120.g386b5f5-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_01_17.81c97f6..2026_01_20.386b5f5
 

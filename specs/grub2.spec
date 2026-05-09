@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -621,6 +621,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 10 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-59
+- Complete second phase of Confidential-Computing changes
+
 * Fri Apr 10 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-58
 - Move the EFI config's stub generation into EFI posttrans
 - Related: #2457071

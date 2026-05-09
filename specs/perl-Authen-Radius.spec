@@ -1,5 +1,5 @@
 Name:           perl-Authen-Radius
-Version:        0.35
+Version:        0.36
 Release:        1%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
@@ -24,6 +24,7 @@ BuildRequires:  perl(IO) >= 1.12
 BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(Net::IP) >= 1.26
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
@@ -31,6 +32,7 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Test::MockModule)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 # Optional Tests
@@ -76,6 +78,12 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Thu May  7 2026 Paul Howarth <paul@city-fan.org> - 0.36-1
+- Update to 0.36
+  - Treat EINTR from can_read() as a retryable signal interruption rather than
+    ETIMEOUT, so a signal arriving during recv_packet() no longer triggers a
+    spurious retransmit when the reply is actually in flight
+
 * Wed Mar 25 2026 Paul Howarth <paul@city-fan.org> - 0.35-1
 - Update to 0.35
   - Reinstate module metadata files (META.json and META.yml)

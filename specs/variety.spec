@@ -1,5 +1,5 @@
 #For git snapshots, set to 0 to use release instead:
-%global usesnapshot 1
+%global usesnapshot 0
 %if 0%{?usesnapshot}
 %global commit0 8b8bb63a10fa22760eb976b1fd57338f3dba3233
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -13,8 +13,8 @@ Name:           variety
 Version:        0.9.0
 Release:        0.2.beta1%{?dist}
 %else
-Version:        0.8.13
-Release:        8%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -29,8 +29,6 @@ Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Fix wheel-based installations to include variety_build_settings
 # Patch0:          https://github.com/varietywalls/variety/pull/796.patch
-
-Patch1:         variety-GExiv2.patch
 
 BuildArch:      noarch
 
@@ -55,10 +53,8 @@ BuildRequires:  python3-cairo
 Requires:       python3-dbus
 Requires:       hicolor-icon-theme
 Requires:       ImageMagick
-Requires:       libappindicator-gtk3
 Requires:       python3-lxml
 Requires:       python3-pillow
-#Requires:       python3-appindicator -- not available yet
 Requires:       python3-beautifulsoup4
 Requires:       python3-configobj
 Requires:       python3-gexiv2
@@ -93,7 +89,7 @@ desktop is always fresh and unique.
 #%%autosetup -p1 -n %%{name}-%%{commit0}
 %autosetup -p1 -n %{name}-%{upstream_tag}
 %else
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 # Replace deprecated getiterator() with iter()
@@ -102,11 +98,11 @@ sed -i -e 's|getiterator|iter|' variety_lib/Builder.py
 # Fix setuptools package discovery warnings (Python 3.14)
 sed -i 's/include = \["variety", "variety_lib"\]/include = ["variety*","variety_lib*"]/' pyproject.toml || :
 
-# Fix invalid gettext-style desktop keys (_Name/_Comment not allowed anymore)
-sed -i \
-  -e 's/^_Name=/Name=/' \
-  -e 's/^_Comment=/Comment=/' \
-  variety.desktop.in
+# use a simple SPDX license string 
+sed -i 's/license = { text = "GPL-3.0-only" }/license = "GPL-3.0-only"/' pyproject.toml
+
+# include variety.data in package
+sed -i '/\[tool.setuptools-gettext\]/i [tool.setuptools]\npackages = { find = {} }\n' pyproject.toml
 
 # remove debian part
 # rm -rf debian
@@ -120,13 +116,24 @@ sed -i \
 %install
 %pyproject_install
 
-# Install desktop file
-install -D -m 644 %{name}.desktop.in %{buildroot}%{_datadir}/applications/%{name}.desktop
+# Install desktop file, as this is not handled by setuptools automatically
+install -D -m 644 %{name}.desktop \
+    %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+# Install application icon
+install -D -m 644 variety/data/media/variety.svg \
+    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/variety.svg
+
+# optional png as well
+install -D -m 644 variety/data/media/variety128.png \
+    %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/variety.png
 
 # Install man page (if exists)
 if [ -f debian/%{name}.1 ]; then
     install -D -m 644 debian/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 fi
+
+rm -rf %{buildroot}%{python3_sitelib}/tests
 
 %find_lang %{name}
 
@@ -140,14 +147,20 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/variety.svg
+%{_datadir}/icons/hicolor/128x128/apps/variety.png
 %{_metainfodir}/%{name}.appdata.xml
 %{python3_sitelib}/jumble/
+#%%{python3_sitelib}/tests/
 %{python3_sitelib}/%{name}-*.dist-info
 %{python3_sitelib}/%{name}/
 %{python3_sitelib}/%{name}_lib/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed May 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.0-1
+- Update to 0.9.0-1
+
 * Wed Apr 29 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.0-0.2.beta1
 - add variety-GExiv2.patch fix (BZ#2463715)
 

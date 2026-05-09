@@ -19,8 +19,6 @@ BuildOption(generate_buildrequires): -x test
 BuildOption(install):   -l pykeepass
 
 BuildArch:      noarch
- 
-BuildRequires:  tomcli
 
 %global common_description %{expand:
 This library allows you to write entries to a KeePass database.}
@@ -38,7 +36,7 @@ Summary:        %{summary}
 %autosetup -n pykeepass-%{version} -p1
 
 # This is actually a documentation dependency:
-tomcli set pyproject.toml lists delitem project.optional-dependencies.test pdoc
+%pyproject_patch_dependency pdoc:ignore
 
 
 %check -a

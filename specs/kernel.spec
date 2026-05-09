@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc2.260506g74fe02ce122a.18
+%define pkgrelease 0.rc2.260507g8ab992f815d6.19
 %define kversion 7
-%define tarfile_release 7.1-rc2-76-g74fe02ce122a
+%define tarfile_release 7.1-rc2-117-g8ab992f815d6
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260506g74fe02ce122a.18%{?buildid}%{?dist}
+%define specrelease 0.rc2.260507g8ab992f815d6.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,13 +4847,18 @@ fi\
 #
 #
 %changelog
-* Wed May 06 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc2.260506g74fe02ce122a.18]
-- Flip module sig key type for RHEL for debugging (Justin M. Forbes)
+* Thu May 07 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc2.260507g8ab992f815d6.19]
+- xfrm: esp: avoid in-place decrypt on shared skb frags (Kuan-Ting Chen)
+- rxrpc: Also unshare DATA/RESPONSE packets when paged frags are present (Hyunwoo Kim)
 
-* Wed May 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.74fe02ce122a.18]
-- Enable PKCS7_WAIVE_AUTHATTRS_REJECTION_FOR_MLDSA (Justin M. Forbes)
+* Thu May 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.8ab992f815d6.19]
+- Disable MODULE_SIG_KEY_TYPE_MLDSA_87 for RHEL right now (Justin M. Forbes)
+- Gate Fedora ELN kernel updates on openQA tests (Adam Williamson)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Thu May 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.8ab992f815d6.18]
+- Linux v7.1.0-0.rc2.8ab992f815d6
 
 * Wed May 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc2.74fe02ce122a.17]
 - redhat/configs: enable CONFIG_GPIO_NOVALAKE for x86 on RHEL (Steve Best)

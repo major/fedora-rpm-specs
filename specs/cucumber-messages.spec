@@ -125,7 +125,7 @@ BuildArch: noarch
 
 
 %generate_buildrequires
-%pyproject_buildrequires -d python
+%pyproject_buildrequires --directory python
 
 
 %conf
@@ -136,18 +136,18 @@ popd
 
 %build
 %if %{with regenerate_cpp}
-%make_build -C cpp clean
-%make_build -C cpp generate
+%make_build --directory cpp clean
+%make_build --directory cpp generate
 %endif
 pushd cpp
 %cmake_build
 popd
 
 %if %{with regenerate_python}
-%make_build -C python clean
-%make_build -C python generate
+%make_build --directory python clean
+%make_build --directory python generate
 %endif
-%pyproject_wheel -d python
+%pyproject_wheel --directory python
 
 pushd ruby
 %if %{with regenerate_ruby}
@@ -165,7 +165,7 @@ pushd cpp
 popd
 
 %pyproject_install
-%pyproject_save_files -l cucumber_messages
+%pyproject_save_files --assert-license cucumber_messages
 
 pushd ruby
 mkdir -p %{buildroot}%{gem_dir}

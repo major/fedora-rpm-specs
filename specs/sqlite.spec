@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3530000
-%define docver 3530000
-%define rpmver 3.53.0
+%define realver 3530100
+%define docver 3530100
+%define rpmver 3.53.1
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -23,7 +23,6 @@ Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
 Patch3: sqlite-3.53.0-fix-testrunner-exiting-0.patch
-Patch4: sqlite-3.53.0-shell-path-trunc.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -175,7 +174,6 @@ This package contains the analysis program for %{name}.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
-%patch -P 4 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -357,6 +355,10 @@ make test
 %endif
 
 %changelog
+* Tue May 05 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.1-1
+- Update to version 3.53.1
+- Resolves: rhbz#2466691
+
 * Thu Apr 23 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.0-1
 - Update to version 3.53.0
 - Resolves: rhbz#2456891

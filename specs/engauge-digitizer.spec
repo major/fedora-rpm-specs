@@ -3,7 +3,7 @@ Summary: Convert graphs or map files into numbers
 Version: 12.9.1
 Release: %autorelease
 License: GPL-2.0-or-later
-URL:     https://akhuettel.github.io/%{name}/
+URL:     https://engaugedigitizer.com/
 Source0: https://github.com/markummitchell/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Epoch:   1
 
@@ -25,13 +25,9 @@ BuildRequires: desktop-file-utils
 BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qttools-devel
 BuildRequires: qt6-doctools
-
-%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: libappstream-glib
 BuildRequires: openjpeg2-devel
 BuildRequires: poppler-qt6-devel
-%endif
-
 %description
 The Engauge Digitizer tool accepts image files
 (like PNG, JPEG and TIFF) containing graphs,
@@ -74,11 +70,9 @@ New features already added to Engauge:
 -  Geometry Window displays geometric information about the selected curve
 -  Curve Fitting Window fits a polynomial function to the selected curve
 
-
 %package samples
 Summary: Sample files for %{name}
 Requires: %{name}%{?_isa} = 1:%{version}-%{release}
-
 %description samples
 This package contains several sample image files that may be imported into
 Engauge Digitizer (http://digitizer.sourceforge.net).
@@ -126,7 +120,6 @@ BuildArch: noarch
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: doxygen
-
 %description doc
 HTML documentation of %{name}.
 
@@ -152,16 +145,13 @@ find . -type f -name "*.cpp" -exec chmod 0644 '{}' \;
 
 %build
 export ENGAUGE_RELEASE=1
-%if 0%{?fedora} || 0%{?rhel} > 9
 export OPENJPEG_INCLUDE=`pkg-config --cflags libopenjp2 | sed 's/-I//'`
 export OPENJPEG_LIB=%{_libdir}
 export POPPLER_INCLUDE=`pkg-config --cflags poppler-qt6 | sed 's/-I//'`
 export POPPLER_LIB=%{_libdir}
 %{qmake_qt6} engauge.pro "CONFIG+=pdf jpeg2000" QT_SELECT=qt6 \
-%else
-%{qmake_qt5} engauge.pro "CONFIG+=log4cpp_null" QT_SELECT=qt5 \
-%endif
- DEFINES+=HELPDIR=%{_datadir}/doc/%{name}/help
+ DEFINES+=HELPDIR=%{_datadir}/doc/%{name}/help \
+ QMAKE_CXXFLAGS_RELEASE="%{optflags} %(pkgconf --cflags Qt6Widgets)"
 %make_build
 
 ## Build HELP files
@@ -228,7 +218,7 @@ sed -e \
 
 %check
 %if 0%{?fedora}
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %files

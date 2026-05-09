@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kcolorchooser
 Summary: A color chooser 
-Version: 26.04.0
+Version: 26.04.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

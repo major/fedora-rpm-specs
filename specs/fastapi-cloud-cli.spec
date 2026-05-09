@@ -28,9 +28,9 @@ Source193:      fastapi-cloud-env-delete.1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-from-script-test.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L fastapi_cloud_cli
-BuildOption(generate_buildrequires): -x standard
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license fastapi_cloud_cli
+BuildOption(generate_buildrequires): --extras standard
 
 BuildArch:      noarch
 

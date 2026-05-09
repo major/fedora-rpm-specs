@@ -10,8 +10,8 @@ Summary:        Documentation tool for GObject-based libraries
 # .reuse/dep5, and on inspection of SPDX headers or other file contents with
 # assistance from licensecheck.
 #
-# The entire source is (Apache-2.0 OR GPL-3.0-or-later) except the following files that are
-# packaged or are used to generate packaged files:
+# The entire source is (Apache-2.0 OR GPL-3.0-or-later) except the following
+# files that are packaged or are used to generate packaged files:
 #
 # (Apache-2.0 OR GPL-3.0-or-later) AND BSD-2-Clause:
 #   - gidocgen/mdext.py
@@ -23,19 +23,10 @@ Summary:        Documentation tool for GObject-based libraries
 # CC0-1.0:
 #   - gi-docgen.pc.in (from which gi-docgen.pc is generated)
 #   - gidocgen/templates/basic/*.png
-#   - docs/CODEOWNERS (-doc subpackage)
-#   - examples/*.toml (-doc subpackage)
+#   - examples/*.toml
 #
 # Note that CC0-1.0 is allowed in Fedora for content only; all of the above
 # files may reasonably be called content.
-#
-# Additionally, CC0-1.0 appears in certain sample configuration snippets within
-# the following files, which are otherwise (Apache-2.0 OR GPL-3.0-or-later):
-#   - docs/project-configuration.rst
-#   - docs/tutorial.rst
-# On one hand, these are copied from real projects; on the other hand, they are
-# very trivial. It’s not obvious whether they should be considered “real”
-# CC0-1.0 content or not.
 #
 # The identifier LGPL-2.1-or-later also appears in a sample configuration
 # template in docs/tutorial.rst, but the configuration in question is filled
@@ -43,11 +34,11 @@ Summary:        Documentation tool for GObject-based libraries
 # reasonable to consider LGPL-2.1-or-later a placeholder rather than a real
 # license as well.
 License:        %{shrink:
-                (Apache-2.0 OR GPL-3.0-or-later) AND
-                BSD-2-Clause AND
-                MIT AND
-                CC0-1.0
-                }
+    (Apache-2.0 OR GPL-3.0-or-later) AND
+    BSD-2-Clause AND
+    MIT AND
+    CC0-1.0
+    }
 # Additionally, the following sources are under licenses other than (Apache-2.0
 # OR GPL-3.0-or-later), but are not packaged in any of the binary RPMs:
 #
@@ -58,6 +49,16 @@ License:        %{shrink:
 #   - MANIFEST.in (not installed)
 #   - pytest.ini (not installed; test only)
 #   - tests/data/config/*.toml (not installed; test only)
+#   - docs/CODEOWNERS
+#
+#   Additionally, CC0-1.0 appears in certain sample configuration snippets
+#   within the following files, which are otherwise (Apache-2.0 OR
+#   GPL-3.0-or-later):
+#     - docs/project-configuration.rst
+#     - docs/tutorial.rst
+#   On one hand, these are copied from real projects; on the other hand, they
+#   are very trivial. It’s not obvious whether they should be considered “real”
+#   CC0-1.0 content or not.
 #
 # CC-BY-SA-3.0:
 #   - docs/gi-docgen.{png,svg} (for HTML docs; not currently packaged)
@@ -75,13 +76,13 @@ License:        %{shrink:
 # LGPL-2.0-or-later OR MPL-1.1:
 #   - tests/data/gir/cairo-1.0.gir (not installed; test only)
 SourceLicense:  %{shrink:
-                %{license} AND
-                CC-BY-SA-3.0 AND
-                GPL-2.0-or-later AND
-                LGPL-2.0-or-later AND
-                (LGPL-2.0-or-later OR MPL-1.1) AND
-                OFL-1.1
-                }
+    %{license} AND
+    CC-BY-SA-3.0 AND
+    GPL-2.0-or-later AND
+    LGPL-2.0-or-later AND
+    (LGPL-2.0-or-later OR MPL-1.1) AND
+    OFL-1.1
+    }
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
 Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 
@@ -97,17 +98,12 @@ Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # or stand-in local system fonts.
 Patch:          0001-Downstream-only-use-local-packaged-fonts-instead-of-.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   gidocgen
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license gidocgen
 
 BuildArch:      noarch
 
 BuildRequires:  python3dist(pytest)
-
-# Documentation
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
 
 # Unbundle fonts.
 # Fonts we expect to be in redhat-display-fonts:
@@ -151,6 +147,9 @@ Requires:       graphviz
 
 # Unbundling fonts:
 Requires:       gi-docgen-fonts = %{version}-%{release}
+
+# Removed for F45; upgrade path can be dropped after F47
+Obsoletes:      gi-docgen-doc < 2026.1-10
 
 # Trivial fork of https://github.com/jhawthorn/fzy.js (looks like it was
 # basically just wrapped in an IIFE). Given that modification, it’s not clear
@@ -212,34 +211,10 @@ documentation packages generated with gi-docgen must depend on this metapackage
 to ensure the proper system fonts are present.
 
 
-%package doc
-Summary:        Documentation for gi-docgen
-License:        (Apache-2.0 OR GPL-3.0-or-later) AND CC0-1.0
-
-%description doc
-Documentation for gi-docgen.
-
-
 %prep -a
 # Remove all bundled fonts.
 # See 0001-Downstream-only-use-local-packaged-fonts-instead-of-.patch.
 find . -type f \( -name '*.woff' -o -name '*.woff2' \) -print -delete
-
-
-%build -a
-sphinx-build -b html -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_html
-# Do not ship hashes and caches for incremental rebuilds.
-rm -rv %{_vpath_builddir}/_html/{.buildinfo,.doctrees}
-
-
-%install -a
-install -t '%{buildroot}%{_pkgdocdir}' -D -m 0644 -p \
-    CHANGES.md \
-    CONTRIBUTING.md \
-    docs/CODEOWNERS \
-    README.md
-cp -rp '%{_vpath_builddir}/_html' '%{buildroot}%{_pkgdocdir}/html'
-cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 
 %check -a
@@ -248,6 +223,9 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 %files -f %{pyproject_files}
 %license LICENSES/ REUSE.toml
+%doc CHANGES.md
+%doc README.md
+%doc examples/
 
 %{_bindir}/gi-docgen
 %{_mandir}/man1/gi-docgen.1*
@@ -259,11 +237,6 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 %files fonts
 # Empty; this is a metapackage
-
-
-%files doc
-%license LICENSES/ REUSE.toml
-%doc %{_pkgdocdir}/
 
 
 %changelog

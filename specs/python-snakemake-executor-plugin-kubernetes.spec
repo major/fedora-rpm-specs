@@ -45,7 +45,7 @@ Summary:        %{summary}
 # Upstream will still (eventually) keep up with new versions without us filing
 # PR’s because they have configured dependabot, e.g.
 # https://github.com/snakemake/snakemake-executor-plugin-kubernetes/pull/45.
-sed -r -i 's/(kubernetes = ".*),<[^"]+"/\1"/' pyproject.toml
+%pyproject_patch_dependency kubernetes:drop_upper
 
 
 %check -a

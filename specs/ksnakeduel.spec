@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:    ksnakeduel
 Summary: Snake duel game
-Version: 26.04.0
+Version: 26.04.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

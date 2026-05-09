@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -21,6 +21,10 @@ Patch1:         sddm-PR1876.patch
 # SDDM crashes on loginctl terminate-user/terminate-session
 # Submitted: https://github.com/sddm/sddm/pull/2103
 Patch2:         sddm-0.21.0-fix-restart-greeter-when-helper-is-in-a-wrong-state.patch
+
+# Conflict with kmsconvt
+# Submitted: https://github.com/sddm/sddm/pull/2166
+Patch3:		sddm-service-conflicts-with-kmsconvt-ttyX.patch
 
 ## upstreamable patches
 # Fix race with logind restart, and start seat0 if !CanGraphical on timer
@@ -303,6 +307,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Fri Mar 27 2026 Jocelyn Falempe <jfalempe@redhat.com> - 0.21.0-14
+- Add an upstream patch to fix conflict with kmsconvt
+
 * Tue Feb 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-13
 - Fix build with CMake 4
 - Switch GraphicsMagick with ImageMagick to fix JXL image resize failures

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.1
+Version: 45.2
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -520,6 +520,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 05 2026 Packit <hello@packit.dev> - 45.2-1
+- Increase GUI startup timeout to 120 seconds (mkolman)
+- Refactor remaining X timeout references (mkolman)
+- Do not setup default_environment for fedora-eln profile (yselkowi)
+
 * Wed Apr 29 2026 Packit <hello@packit.dev> - 45.1-1
 - storage: skip reformat warning for empty filesystems on allowlisted mounts
   (k.koukiou)

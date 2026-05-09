@@ -3,7 +3,7 @@
 %bcond_with network_tests
 
 Name:           perl-Net-RDAP
-Version:        0.41
+Version:        0.42
 Release:        1%{?dist}
 Summary:        Interface to the Registration Data Access Protocol (RDAP)
 # LICENSE:      BSD-2-Clause
@@ -26,9 +26,11 @@ BuildRequires:  perl(DateTime::Tiny)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Slurp)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::stat)
+BuildRequires:  perl(File::XDG)
 BuildRequires:  perl(HTTP::Date)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(JSON)
@@ -116,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 07 2026 Petr Pisar <ppisar@redhat.com> - 0.42-1
+- 0.42 bump
+
 * Tue Jan 27 2026 Petr Pisar <ppisar@redhat.com> - 0.41-1
 - 0.41 bump
 

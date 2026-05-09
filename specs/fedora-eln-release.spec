@@ -1,3 +1,6 @@
+# Ship our own repos subpackage rather than mainline Fedora's
+%bcond repos 0
+
 %define fedora_dist_version 45
 %define rhel_dist_version 11
 
@@ -45,7 +48,18 @@ Conflicts:      system-release
 
 Provides:       redhat-release = %{rhel_dist_version}
 
+%if %{with repos}
 Requires:       fedora-eln-repos = %{version}-%{release}
+%else
+Requires:       fedora-repos-eln = %{fedora_dist_version}
+# required by fedora-repos-eln
+Provides:       system-release(%{fedora_dist_version})
+# not provided by fedora-repos-eln
+Provides:       system-repos = %{version}-%{release}
+Provides:       fedora-eln-repos(%{rhel_dist_version}) = %{version}
+Provides:       fedora-eln-repos = %{fedora_dist_version}-%{release}
+Obsoletes:      fedora-eln-repos < %{version}-%{release}
+%endif
 
 # We need to ensure that the systemd presets common to all Fedora installs are
 # pulled in here. Spin-specific ones are located further below. These are kept
@@ -136,6 +150,7 @@ Fedora ELN release files such as various /etc/ files that define the release
 and systemd preset files that determine which services are enabled by default.
 # See https://docs.fedoraproject.org/en-US/packaging-guidelines/DefaultServices/ for details.
 
+%if %{with repos}
 %package -n fedora-eln-repos
 Summary:        Fedora ELN package repositories
 Provides:       system-repos = %{version}-%{release}
@@ -146,6 +161,7 @@ Requires:       fedora-gpg-keys = %{fedora_dist_version}
 
 %description -n fedora-eln-repos
 This package provides the package repository files for Fedora ELN.
+%endif
 
 
 %prep
@@ -274,8 +290,10 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 # Install DNF 5 configuration defaults
 install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 
+%if %{with repos}
 # Install DNF repo file
 install -Dm0644 %{SOURCE8} -t %{buildroot}%{_sysconfdir}/yum.repos.d/
+%endif
 
 # Install Cockpit (and Anaconda WebUI) theming
 install -Dm0644 %{SOURCE50} -t %{buildroot}%{_sysconfdir}/cockpit/branding/
@@ -308,8 +326,10 @@ install -Dm0644 %{SOURCE50} -t %{buildroot}%{_sysconfdir}/cockpit/branding/
 %{_presetdir}/80-server.preset
 %{_presetdir}/75-eln.preset
 
+%if %{with repos}
 %files -n fedora-eln-repos
 %{_sysconfdir}/yum.repos.d/fedora-eln.repo
+%endif
 
 
 %changelog

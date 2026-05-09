@@ -30,8 +30,8 @@ hybrid ground truth extracellular recordings.
 
 %prep -a
 # Do not pin an exact version of PyQt5
-sed -r -i 's/(PyQt5)==/\1>=/' setup.py
-# These also have unnecesary shebangs, and were not included in PR#13
+%pyproject_patch_dependency PyQt5:drop_upper
+# These also have unnecessary shebangs, and were not included in PR#13
 find examples -type f -name '*.py' -exec sed -r -i '1{/^#!/d}' '{}' '+'
 
 

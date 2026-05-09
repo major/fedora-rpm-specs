@@ -48,7 +48,7 @@ Obsoletes:      python-socketio-doc < 5.11.2-4
 
 %prep -a
 %if %{without uvicorn}
-sed -r -i 's/^([[:blank:]]*)(uvicorn)\b/\1# \2/' tox.ini
+%pyproject_patch_dependency uvicorn:ignore
 %endif
 
 

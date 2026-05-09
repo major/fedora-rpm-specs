@@ -2,7 +2,7 @@
 %bcond_with perl_rdapper_enables_online_test
 
 Name:           perl-rdapper
-Version:        1.24
+Version:        1.25
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -37,6 +37,7 @@ BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
 BuildRequires:  perl(Net::IDN::PP)
+# No need to increase to 0.42 <https://github.com/gbxyz/rdapper/issues/26>
 BuildRequires:  perl(Net::RDAP) >= 0.41
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
@@ -134,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 07 2026 Petr Pisar <ppisar@redhat.com> - 1.25-1
+- 1.25 bump
+
 * Thu Feb 19 2026 Petr Pisar <ppisar@redhat.com> - 1.24-1
 - 1.24 bump
 

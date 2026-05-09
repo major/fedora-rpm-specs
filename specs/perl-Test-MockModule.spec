@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.184.0
+Version:        0.185.0
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,14 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Thu May  7 2026 Paul Howarth <paul@city-fan.org> - 0.185.0-1
+- Update to 0.185.0
+  - Revert to pre-v0.181.0 behavior: new() returns singleton-per-package by
+    default again; pass distinct => 1 for v0.181's fresh-object-per-call
+    behavior (GH#83)
+  - New: Test::MockModule->original_for($pkg, $sub): Call the original sub from
+    inside a mock closure without capturing $mock
+
 * Wed May  6 2026 Paul Howarth <paul@city-fan.org> - 0.184.0-1
 - Update to 0.184.0
   - Fix: Restore noop() to return 1 for backward compatibility (GH#80)

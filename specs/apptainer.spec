@@ -27,7 +27,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.5.0-rc.2
+%global package_version 1.5.0
 
 %global gocryptfs_version 2.6.1
 %global squashfuse_version 0.6.1
@@ -43,7 +43,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.5.0~rc.2
+Version: 1.5.0
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -139,7 +139,7 @@ Provides: bundled(golang(github.com/astromechza/etcpwdparse)) = v0.0.0_201703191
 Provides: bundled(golang(github.com/beorn7/perks)) = v1.0.1
 Provides: bundled(golang(github.com/blang/semver/v4)) = v4.0.0
 Provides: bundled(golang(github.com/buger/goterm)) = v1.0.4
-Provides: bundled(golang(github.com/buger/jsonparser)) = v1.1.2
+Provides: bundled(golang(github.com/buger/jsonparser)) = v1.2.0
 Provides: bundled(golang(github.com/ccoveille/go_safecast)) = v1.8.2
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = v4.3.0
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = v2.3.0
@@ -163,11 +163,11 @@ Provides: bundled(golang(github.com/creack/pty)) = v1.1.24
 Provides: bundled(golang(github.com/cyberphone/json_canonicalization)) = v0.0.0_20241213102144_19d51d7fe467
 Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.6.1
 Provides: bundled(golang(github.com/distribution/reference)) = v0.6.0
-Provides: bundled(golang(github.com/docker/cli)) = v29.4.0+incompatible
+Provides: bundled(golang(github.com/docker/cli)) = v29.4.2+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker)) = v28.5.2+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.9.3
-Provides: bundled(golang(github.com/docker/go_connections)) = v0.6.0
+Provides: bundled(golang(github.com/docker/go_connections)) = v0.7.0
 Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
 Provides: bundled(golang(github.com/docker/go_units)) = v0.5.0
 Provides: bundled(golang(github.com/docker/libtrust)) = v0.0.0_20160708172513_aabc10ec26b7
@@ -207,8 +207,8 @@ Provides: bundled(golang(github.com/miekg/pkcs11)) = v1.1.1
 Provides: bundled(golang(github.com/mitchellh/go_homedir)) = v1.1.0
 Provides: bundled(golang(github.com/moby/docker_image_spec)) = v1.3.1
 Provides: bundled(golang(github.com/moby/go_archive)) = v0.2.0
-Provides: bundled(golang(github.com/moby/moby/api)) = v1.54.1
-Provides: bundled(golang(github.com/moby/moby/client)) = v0.4.0
+Provides: bundled(golang(github.com/moby/moby/api)) = v1.54.2
+Provides: bundled(golang(github.com/moby/moby/client)) = v0.4.1
 Provides: bundled(golang(github.com/moby/patternmatcher)) = v0.6.0
 Provides: bundled(golang(github.com/moby/sys/capability)) = v0.4.0
 Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.7.2
@@ -520,6 +520,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed May 06 2026 Dave Dykstra <dwd@cern.ch> - 1.5.0
+- Update to upstream 1.5.0
+
 * Tue Apr 14 2026 Dave Dykstra <dwd@cern.ch> - 1.5.0~rc.2
 - Update to upstream 1.5.0~rc.2
 

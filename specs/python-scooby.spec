@@ -21,7 +21,6 @@ BuildOption(install):   -l scooby
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  /usr/bin/time
 %endif
@@ -47,15 +46,17 @@ Recommends:     %{py3_dist psutil}
 
 
 %prep -a
-# - Omit mkl from the test dependencies because it is proprietary
-# - Omit pyvips, which is not packaged (upstream CI lacks it too)
-# - Omit no_version, which is not packaged; it is just a demonstration of a
-#   package without a __version__. Without this, we must skip two tests; that
-#   seems a reasonable price to pay in order to avoid packaging something which
-#   is merely “for demonstration purposes.”
-# - https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
-    '(mkl|pyvips|no-version|pytest-cov)\b.*'
+# Omit mkl from the test dependencies because it is proprietary
+%pyproject_patch_dependency mkl:ignore
+# Omit pyvips, which is not packaged (upstream CI lacks it too)
+%pyproject_patch_dependency pyvips:ignore
+# Omit no_version, which is not packaged; it is just a demonstration of a
+# package without a __version__. Without this, we must skip two tests; that
+# seems a reasonable price to pay in order to avoid packaging something which
+# is merely “for demonstration purposes.”
+%pyproject_patch_dependency no_version:ignore
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency pytest-cov:ignore
 
 
 %generate_buildrequires -p

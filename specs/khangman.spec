@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 
 Name:    khangman
 Summary: Hangman game 
-Version: 26.04.0
-Release: 2%{?dist}
+Version: 26.04.1
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
 - Rebuild (qt6)
 

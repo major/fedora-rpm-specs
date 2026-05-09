@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kruler
 Summary: A screen ruler and color measurement tool 
-Version: 26.04.0
-Release: 2%{?dist}
+Version: 26.04.1
+Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/kruler/
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
 - Rebuild (qt6)
 

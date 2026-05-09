@@ -1,7 +1,7 @@
 %global srcname traitlets
 
 Name:           python-%{srcname}
-Version:        5.14.3
+Version:        5.15.0
 Release:        %autorelease
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 

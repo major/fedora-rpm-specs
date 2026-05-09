@@ -29,8 +29,6 @@ BuildOption(install):   -l smart_open
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
-
 %global common_description %{expand:
 smart_open is a Python library for efficient streaming of very large files
 from/to storages such as S3, GCS, Azure Blob Storage, HDFS, WebHDFS, HTTP,
@@ -73,17 +71,19 @@ Obsoletes:      python3-smart_open < 7.1.0-5
 
 
 %prep -a
+# Don’t generate a circular BR on smart_open[all].
+%pyproject_patch_dependency smart_open:ignore:br_only
 %if %{without moto}
-tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
-    '(smart_open\[all\]|moto\b).*'
+%pyproject_patch_dependency moto:ignore
 %endif
 # The dependencies on pytest_benchmark, awscli, pyopenssl, and numpy were all
 # added in upstream commit 8a58abe5e751af5b72e219e1bf3a90bb54e13b12. We do not
 # care about benchmarks, so do not need pytest_benchmark; and awscli and
 # pyopenssl are not needed for any tests that we can run (if at all). The numpy
 # dependency is real; it is used by integration-tests/test_207.py.
-tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
-    '(pytest_benchmark|awscli|pyopenssl)\b.*'
+%pyproject_patch_dependency pytest_benchmark:ignore
+%pyproject_patch_dependency awscli:ignore
+%pyproject_patch_dependency pyopenssl:ignore
 
 
 %generate_buildrequires -p

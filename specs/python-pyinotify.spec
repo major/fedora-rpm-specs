@@ -12,7 +12,6 @@ BuildRequires:  python3-devel
 # This module was removed from Python 3.12 but was
 # available as a core python module before then
 BuildRequires:  python3dist(pyasyncore)
-Requires:       python3dist(pyasyncore)
 
 %global _description %{expand:
 Monitoring filesystems events with inotify on Linux.}
@@ -21,6 +20,7 @@ Monitoring filesystems events with inotify on Linux.}
 
 %package -n     python3-pyinotify
 Summary:        %{summary}
+Requires:       python3dist(pyasyncore)
 # python-inotify will retire shortly
 # https://bugzilla.redhat.com/show_bug.cgi?id=2465416
 # last version was python-inotify-0.9.6-43.fc45

@@ -1,8 +1,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 26.04.0
-Release: 2%{?dist}
+Version: 26.04.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -195,6 +195,9 @@ done
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 26.04.0-2
 - Rebuild (qt6)
 

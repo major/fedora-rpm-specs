@@ -11,9 +11,10 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_script-without-coverage.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x standard,standard-no-fastapi-cloud-cli,new
-BuildOption(install):   -l fastapi_cli
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    --extras standard,standard-no-fastapi-cloud-cli,new}
+BuildOption(install): --assert-license fastapi_cli
 
 BuildArch:      noarch
 

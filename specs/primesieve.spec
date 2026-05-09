@@ -1,5 +1,5 @@
 Name:     primesieve
-Version:  12.13
+Version:  12.14
 Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
@@ -71,6 +71,20 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Thu May 07 2026 Kim Walisch <walki@fedoraproject.org> - 12.14-1
+- malloc_vector.h: Fix undefined behavior
+- calculator.hpp: Fix std::tolower undefined behavior
+- CpuInfo.cpp: Fix std::isdigit undefined behavior
+- CmdOptions.cpp: Fix 64-bit integer overflow in optionTimeout()
+- PrimeSieveClass.cpp: Reduce mutex contention
+- iterator-c.cpp: Fix use after free in primesieve_free_iterator()
+- config.hpp: Add MAX_CACHE_LINE_SIZE
+- macros.hpp: Add MAYBE_UNUSED
+- Vector.hpp: Improve Vector exception safety
+- GitHub Actions CI: Fix node 20 deprecation warning
+- CMakeLists.txt: On Windows rename static library to primesieve_static.lib #183
+- CMakeLists.txt: Remove WITH_MSVC_CRT_STATIC option
+
 * Fri Feb 06 2026 Kim Walisch <walki@fedoraproject.org> - 12.13-1
 - Fix missing version in .pc file
 

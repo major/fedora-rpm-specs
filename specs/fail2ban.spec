@@ -11,7 +11,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -60,7 +60,7 @@ BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 # For testcases
-BuildRequires: python3-inotify
+BuildRequires: %{py3_dist pyinotify}
 # using a python3_version-based conditional does not work here, so
 # this is a proxy for "Python version greater than 3.12". asyncore
 # and asynchat were dropped from cpython core in 3.12, these modules
@@ -145,7 +145,7 @@ Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-shorewall = %{version}-%{release}
 %endif
 Requires: perl-interpreter
-Requires: python3-inotify
+Requires: %{py3_dist pyinotify}
 Requires: /usr/bin/whois
 
 %description all
@@ -428,6 +428,9 @@ fi
 
 
 %changelog
+* Thu May 07 2026 Orion Poplawski <orion@nwra.com> - 1.1.0-17
+- Fix pyinotify requires
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

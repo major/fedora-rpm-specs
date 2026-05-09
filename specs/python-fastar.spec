@@ -14,7 +14,6 @@ Patch:          fastar-0.11.0-allow-pyo3-0.27.patch
 BuildSystem:            pyproject
 BuildOption(install):   -l fastar
 
-BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 
 # Test dependencies; see the “dev” dependency group, which also contains

@@ -1,6 +1,6 @@
 Name:           libwacom
 Version:        2.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
 
@@ -8,6 +8,8 @@ License:        HPND
 URL:            https://github.com/linuxwacom/libwacom
 
 Source0:        https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
+
+Patch01:        0001-database-skip-any-entries-with-an-unknown-bus-type.patch
 
 BuildRequires:  meson gcc
 BuildRequires:  glib2-devel libgudev1-devel libevdev-devel
@@ -94,6 +96,9 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-show-stylus.1*
 
 %changelog
+* Thu May 07 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.18.0-2
+- Ignore device matches with unknown bustypes
+
 * Tue Feb 03 2026 Peter Hutterer <peter.hutterer@redhat.com> - 2.18.0-1
 - libwacom 2.18.0
 

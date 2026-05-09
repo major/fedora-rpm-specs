@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        68
+Version:        69
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -53,7 +53,7 @@ Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
-Provides: bundled(npm(lodash)) = 4.17.23
+Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(luxon)) = 3.7.2
 Provides: bundled(npm(memoize-one)) = 5.2.1
@@ -129,6 +129,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu May 07 2026 Packit <hello@packit.dev> - 69-1
+- Initial support for KS installations was added; currently only enabled when 'pauseatsummary' option is used
+- storage: Add tooltips to Reclaim dialog partition action icons
+  (Resolves: rhbz#2403027)
+- storage: centralize applyStorage and validation UI and show
+  partitioning warnings (Resolves: rhbz#2461077)
+
 * Tue Mar 24 2026 Packit <hello@packit.dev> - 68-1
 - Log Bugzilla bug number when crash report is created (Resolves: rhbz#2443015)
 - storage: fixe the UI flipping Reformat to YES on next/back (Resolves: rhbz#2443812)

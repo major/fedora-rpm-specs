@@ -18,8 +18,8 @@ Source10:       fastapi-new.1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-from-script-test.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L fastapi_new
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license fastapi_new
 
 BuildArch:      noarch
 

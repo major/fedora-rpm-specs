@@ -16,11 +16,14 @@ Source:         %{forgeurl}/archive/%{version}/pulp-%{version}.tar.gz
 # Beginning with Fedora 42, the cbc executable in coin-or-Cbc is renamed to Cbc
 # due to a file conflict with libcouchbase-tools (RHBZ#2335063).
 Patch:          0001-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
-# Skip HiGHS_CMDTest.test_time_limit_no_solution
+# Skip solving-time tests for HiGHS_CMDTest/HiGHS_PYTest
 #
-# A temporary downstream workaround for
-# https://github.com/coin-or/pulp/issues/832.
-Patch:          0002-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
+# This was originally a temporary downstream workaround for
+# https://github.com/coin-or/pulp/issues/832; these tests continue to be
+# problematic in various ways on non-x86_64 architectures, and we choose to
+# wait and see what happens with the in-progress PuLP 4.0 development before
+# trying to report these again.
+Patch:          0002-Skip-solving-time-tests-for-HiGHS_CMDTest-HiGHS_PYTe.patch
 # Expect SCIP_PY to report unbounded problems the same way as SCIP_CMD
 #
 # This seems to have changed from scip 9.2.0 to 9.2.2; we cannot usefully
@@ -32,14 +35,6 @@ Patch:          0003-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
 # A temporary downstream workaround for
 # https://github.com/coin-or/pulp/issues/887#issuecomment-3621838359
 Patch:          0004-Skip-HiGHS_CMDTest.test_relaxed_mip.patch
-# Increase the time limit on test_measuring_solving_time
-#
-# Change it from 10 to 30 seconds in order to help accommodate slower
-# architectures and/or emulation. The new limit is arbitrarily chosen, just
-# like the original one. This is downstream-only for now because this test is
-# commented out in the upstream master branch, which is currently in the throes
-# of a major rewrite of the core in Rust for the future 4.0 release.
-Patch:          0005-Increase-the-time-limit-on-test_measuring_solving_ti.patch
 
 # These alternative solvers appear to be free software, but are not packaged.
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)

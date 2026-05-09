@@ -1,5 +1,5 @@
 Name:    libkleo
-Version: 26.04.0
+Version: 26.04.1
 Release: 1%{?dist}
 Summary: KDE PIM cryptographic library
 
@@ -85,6 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 

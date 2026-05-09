@@ -6,7 +6,7 @@
 
 Name:       ursa-major
 Version:    0.5.1
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A utility for working with module's koji tags in koji's tag inheritance.
 
 Group:      Development/Tools
@@ -16,9 +16,6 @@ Source0:    https://files.pythonhosted.org/packages/source/u/%{name}/%{name}-%{v
 Patch0:     ursa-major-rm-python-mock-usage.diff
 
 BuildArch:      noarch
-# libmodulemd is not available for ppc or i686
-ExclusiveArch:  noarch aarch64 ppc64le s390x x86_64
-
 
 BuildRequires:  help2man
 
@@ -198,6 +195,9 @@ py.test
 
 
 %changelog
+* Thu May 07 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.5.1-10
+- Drop ExclusiveArch as package is built on all available architectures.
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.5.1-9
 - Rebuilt without python-mock
 

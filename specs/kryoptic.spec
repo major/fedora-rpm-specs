@@ -6,7 +6,7 @@
 
 %global soname libkryoptic_pkcs11
 
-%global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic
+%global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic,profiles
 
 Name:           kryoptic
 Version:        1.5.0
@@ -35,6 +35,8 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 # https://github.com/latchset/kryoptic/pull/439
 Patch:          kryoptic-1.5.0-asn1.patch
+# https://github.com/latchset/kryoptic/pull/452
+Patch:          kryoptic-i386.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
@@ -67,8 +69,7 @@ Most notably a migration tool for the SoftHSM database.
 
 %build
 export CONFDIR=%{_sysconfdir}
-%cargo_build -f %{features} -- --package kryoptic
-%cargo_build -f %{features} -- --package kryoptic-tools
+%cargo_build -f %{features} -- --all
 %{cargo_license_summary -f %{features}}
 %{cargo_license -f %{features}} > LICENSE.dependencies
 

@@ -3,8 +3,8 @@
 %global pkgname conda_content_trust
 
 Name:           python-%{srcname}
-Version:        0.2.0
-Release:        7%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Signing and verification tools for conda
 
 License:        BSD-3-Clause
@@ -34,6 +34,7 @@ package metadata signatures when they are available.}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-conda
 Recommends:     gnupg2
 
 %description -n python%{python3_pkgversion}-%{srcname} %{_description}
@@ -41,7 +42,7 @@ Recommends:     gnupg2
 %prep
 %autosetup -n %{srcname}-%{version}
 # do not run coverage in pytest
-sed -i -E '/--(no-)?cov/d' setup.cfg
+sed -i -E -e '/--(no-)?cov/d' -e '/--benchmark/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -56,6 +57,7 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %check
 # securesystemslib is not packaged, skip those tests
 %{pytest} -v tests \
+  --deselect=tests/test_benchmark.py \
   --deselect=tests/test_root.py::test_sign_root_metadata_dict_via_gpg \
   --deselect=tests/test_root.py::test_sign_root_metadata_via_gpg \
   --deselect=tests/test_root.py::test_gpg_pubkey_in_ssl_format
@@ -65,6 +67,10 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %{_bindir}/conda-content-trust
 
 %changelog
+* Fri May 08 2026 Orion Poplawski <orion@nwra.com> - 0.3.2-1
+- Update to version 0.3.2
+- Resolves: rhbz#2467892
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

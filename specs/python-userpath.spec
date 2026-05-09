@@ -18,7 +18,7 @@ Source13:       userpath-verify.1
 BuildArch:      noarch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): requirements-dev.filtered.txt
+BuildOption(generate_buildrequires): requirements-dev.txt
 BuildOption(install):   -l userpath
 
 %global common_description %{expand:
@@ -36,8 +36,7 @@ Summary:        %{summary}
 
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r '/^(coverage)$/d' requirements-dev.txt |
-  tee requirements-dev.filtered.txt
+%pyproject_patch_dependency coverage:ignore
 
 
 %install -a

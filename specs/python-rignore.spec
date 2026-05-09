@@ -11,7 +11,6 @@ BuildSystem:            pyproject
 BuildOption(install):   -l rignore
 BuildOption(generate_buildrequires): -g dev
 
-BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 
 # Some tests need to create temporary git repositories.
@@ -43,11 +42,11 @@ License:        %{shrink:
 
 
 %prep -a
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem dependency-groups.dev \
-    '(pytest-cov|coverage)\b.*'
-
 %cargo_prep
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 
 %generate_buildrequires -a

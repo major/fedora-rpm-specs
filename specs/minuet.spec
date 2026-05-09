@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           minuet
-Version:        26.04.0
+Version:        26.04.1
 Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desk
 
 
 %changelog
+* Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
+- 26.04.1
+
 * Sat Apr 11 2026 Steve Cossette <farchord@gmail.com> - 26.04.0-1
 - 26.04.0
 
