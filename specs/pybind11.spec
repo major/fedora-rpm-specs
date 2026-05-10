@@ -9,7 +9,7 @@
 
 
 Name:    pybind11
-Version: 3.0
+Version: 3.0.4
 Release: %autorelease
 Summary: Seamless operability between C++11 and Python
 License: BSD-3-Clause
@@ -18,9 +18,6 @@ Source0: https://github.com/pybind/pybind11/archive/v%{version}/%{name}-%{versio
 
 # Use the `/usr` prefix for the python commands
 Patch1:  pybind11-2.13.6-Use_usr_prefix.patch
-# tomlkit is only used when creating an upstream package
-# https://github.com/pybind/pybind11/pull/5990
-Patch2:  pybind11-3.0-tomlkit-dep.patch
 
 # Needed to build the python libraries
 BuildRequires: python3-devel

@@ -11,9 +11,9 @@ URL:            https://pypa.github.io/pipx
 %global forgeurl https://github.com/pypa/pipx
 Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l pipx
-BuildOption(generate_buildrequires): -x uv
+BuildSystem:    pyproject
+BuildOption(install): --assert-license pipx
+BuildOption(generate_buildrequires): --extras uv
 
 BuildArch:      noarch
 

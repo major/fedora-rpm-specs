@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/luarocks/argparse
 %global tag %{version}
-%global extractdir argparse-412e6aca393e365f92c0315dfe50181b193f1ace
+%global extractdir argparse-%{version}
 %global archivename lua-argparse-%{version}
 
 Name:           lua-argparse
-Version:        0.7.1
-Release:        9%{?dist}
+Version:        0.7.2
+Release:        1%{?dist}
 Summary:        Feature-rich command line parser for Lua
 
 License:        MIT
@@ -62,6 +62,9 @@ assert(#parser == 0)'
 %doc doc/*
 
 %changelog
+* Fri May 08 2026 Jonny Heggheim <hegjon@gmail.com> - 0.7.2-1
+- Updated to version 0.7.2
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.7.1-9
 - rebuild
 

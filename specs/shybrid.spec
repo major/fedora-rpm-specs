@@ -14,8 +14,8 @@ Patch:          %{url}/pull/13.patch
 
 BuildArch:      noarch 
 
-BuildSystem:            pyproject
-BuildOption(install):   -l hybridizer
+BuildSystem:    pyproject
+BuildOption(install): --assert-license hybridizer
 
 BuildRequires:  python3-matplotlib-qt5
 Requires:       python3-matplotlib-qt5

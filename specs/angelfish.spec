@@ -1,9 +1,9 @@
 # adblock requires rust and corrosion
-%bcond adblock 0
+%bcond adblock 1
 
 Name:           angelfish
 Version:        26.04.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Fri May 08 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-2
+- Rebuild to enable rust
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

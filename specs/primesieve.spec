@@ -1,6 +1,6 @@
 Name:     primesieve
 Version:  12.14
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,10 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Fri May 08 2026 Kim Walisch <walki@fedoraproject.org> - 12.14-2
+- ParallelSieve.cpp: Fix CPU false sharing
+- PrimeSieveClass.hpp: Fix CPU false sharing
+
 * Thu May 07 2026 Kim Walisch <walki@fedoraproject.org> - 12.14-1
 - malloc_vector.h: Fix undefined behavior
 - calculator.hpp: Fix std::tolower undefined behavior

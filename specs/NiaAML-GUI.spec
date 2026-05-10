@@ -10,8 +10,8 @@ URL:            https://github.com/firefly-cpp/NiaAML-GUI
 # tests and other auxiliary files.
 Source:         %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L niaaml_gui
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license niaaml_gui
 
 BuildArch:      noarch
 

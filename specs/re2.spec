@@ -63,7 +63,7 @@ need to install re2-devel.
 
 
 %if %{with python}
-%package -n     python3-google-re2
+%package -n python3-google-re2
 Summary:        RE2 Python bindings
 Version:        %{py_version}
 
@@ -107,8 +107,7 @@ rm lib/git/commit-msg.hook
 
 %if %{with python}
 %generate_buildrequires
-cd python
-%pyproject_buildrequires
+%pyproject_buildrequires --directory python
 %endif
 
 
@@ -130,8 +129,7 @@ EOF
 %build
 %cmake_build
 %if %{with python}
-cd python
-%pyproject_wheel
+%pyproject_wheel --directory python
 %endif
 
 
@@ -139,9 +137,8 @@ cd python
 %cmake_install
 
 %if %{with python}
-cd python
 %pyproject_install
-%pyproject_save_files -l re2
+%pyproject_save_files --assert-license re2
 %endif
 
 
@@ -196,7 +193,7 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %pytest re2_test.py
 %{_libdir}/libre2.so.%{so_version}{,.*}
 
 
-%files          devel
+%files devel
 %doc doc/syntax.{html,txt}
 %{_includedir}/re2/
 %{_libdir}/libre2.so
@@ -205,7 +202,7 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %pytest re2_test.py
 
 
 %if %{with python}
-%files -n       python3-google-re2 -f %{pyproject_files}
+%files -n python3-google-re2 -f %{pyproject_files}
 %endif
 
 

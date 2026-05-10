@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           bcvk
-Version:        0.14.0
+Version:        0.15.0
 Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 
@@ -14,7 +14,6 @@ Source1:        %{url}/releases/download/v%{version}/bcvk-%{version}-vendor.tar.
 # Only build for architectures with full support and testing
 ExclusiveArch:  x86_64 aarch64
 
-Requires: binutils
 Requires: openssh-clients
 Requires: podman
 Requires: qemu-img

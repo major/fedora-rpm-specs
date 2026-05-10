@@ -54,7 +54,8 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 # remove superfluous build dependencies
-sed '/pytest-cov/d' tox.ini -i
+sed '/pytest-cov/d' tox.ini -i  # coverage not desired
+sed -E '/(uvloop|python-pkcs11)/d' tox.ini -i  # not available, tests skipped when missing
 
 
 %generate_buildrequires

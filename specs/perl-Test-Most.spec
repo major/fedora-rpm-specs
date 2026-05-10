@@ -1,5 +1,5 @@
 Name:           perl-Test-Most
-Version:        0.41
+Version:        0.42
 Release:        1%{?dist}
 Summary:        Perl module with test functions and features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,11 @@ make test
 %{_mandir}/man3/Test::Most::Exception.3*
 
 %changelog
+* Fri May  8 2026 Paul Howarth <paul@city-fan.org> - 0.42-1
+- Update to 0.42 (rhbz#2467785)
+  - Restore support for 'use Test::Most import => [...]' to select which
+    symbols to export; the 0.39 export rework broke it (GH#18)
+
 * Thu Apr 30 2026 Paul Howarth <paul@city-fan.org> - 0.41-1
 - Update to 0.41
   - Prevent strange import behaviour caused by @EXPORT twiddling

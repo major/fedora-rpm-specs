@@ -14,7 +14,7 @@
 %global tag v%{version}
 
 Name:           python-pydantic-settings
-Version:        2.14.0
+Version:        2.14.1
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
@@ -59,12 +59,12 @@ tomcli set pyproject.toml lists delitem \
 
 
 %generate_buildrequires
-%{pyproject_buildrequires \
-    -x yaml \
-    -x toml \
-    %{?with_azure_key_vault:-x azure-key-vault} \
-    %{?with_aws_secrets_manager:-x aws-secrets-manager} \
-    %{?with_gcp_secret_manager:-x gcp-secret-manager}}
+%{pyproject_buildrequires %{shrink:
+    -x yaml
+    -x toml
+    %{?with_azure_key_vault:-x azure-key-vault}
+    %{?with_aws_secrets_manager:-x aws-secrets-manager}
+    %{?with_gcp_secret_manager:-x gcp-secret-manager}}}
 
 
 %build

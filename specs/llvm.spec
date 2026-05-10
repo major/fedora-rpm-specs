@@ -3182,6 +3182,7 @@ fi
 %if %{maj_ver} >= 23
 %{expand_bins %{expand:
     llubi
+    llvm-extract-bundle-entry
     llvm-gpu-loader
 }}
 %else
@@ -3252,6 +3253,7 @@ fi
 %if %{maj_ver} >= 23
 %{expand_mans %{expand:
     llubi
+    llvm-extract-bundle-entry
 }}
 %else
 %{expand_mans %{expand:

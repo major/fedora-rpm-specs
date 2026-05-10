@@ -1,6 +1,7 @@
 %global libname mesonbuild
 
 %bcond check 1
+%bcond docs 1
 
 Name:           meson
 Version:        1.11.1
@@ -16,8 +17,13 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 Requires:       ninja-build
 
-%if %{with check}
+%if %{with docs}
+BuildRequires:  python3-pyyaml
+%endif
+%if %{with check} || %{with docs}
 BuildRequires:  ninja-build
+%endif
+%if %{with check}
 # Some tests expect the unversioned executable
 BuildRequires:  /usr/bin/python
 # Various languages
@@ -114,9 +120,19 @@ sed -i -e "/^%%__meson /s| .*$| %{_bindir}/%{name}|" data/macros.%{name}
 %build
 %pyproject_wheel
 
+%if %{with docs}
+%{python3} ./meson.py setup docs docs.build \
+	--prefix=%{_prefix} --mandir=%{_mandir} -Dhtml=false -Dunsafe_yaml=true
+%{python3} ./meson.py compile -C docs.build
+%endif
+
 %install
 %pyproject_install
 %pyproject_save_files -l mesonbuild
+
+%if %{with docs}
+%{python3} ./meson.py install -C docs.build --destdir=%{buildroot}
+%endif
 
 install -Dpm0644 -t %{buildroot}%{rpmmacrodir} data/macros.%{name}
 install -Dpm0644 -t %{buildroot}%{_datadir}/bash-completion/completions/ data/shell-completions/bash/meson
@@ -132,6 +148,9 @@ export MESON_PRINT_TEST_OUTPUT=1
 %license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
+%if %{with docs}
+%{_mandir}/man3/%{name}-reference.3*
+%endif
 %{rpmmacrodir}/macros.%{name}
 %dir %{_datadir}/polkit-1
 %dir %{_datadir}/polkit-1/actions

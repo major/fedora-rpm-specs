@@ -23,6 +23,7 @@ BuildRequires:  lyx inkscape ghostscript
 BuildRequires:  latex2html
 BuildRequires:  tex(ulem.sty) tex-preview
 BuildRequires:  texinfo texlive-xetex texlive-footnotehyper texlive-epstopdf
+BuildRequires:  texlive-collection-fontsrecommended
 # Work around to lyx-common missing R: /usr/bin/python
 BuildRequires:  /usr/bin/python3 gdb-headless
 Provides:       bundled(libiberty)

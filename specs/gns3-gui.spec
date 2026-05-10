@@ -4,7 +4,7 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.58.1
+Version:        2.2.59
 Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri May 08 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.59-1
+- Update to 2.2.59
+
 * Sun Apr 12 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.58.1-1
 - Update to 2.2.58.1
 

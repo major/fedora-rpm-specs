@@ -164,14 +164,14 @@ Patch:          snakemake-9.1.1-modified-assets.patch
 # Rebased on v9.20.0
 Patch:          0001-Remove-useless-shebang-lines-from-one-module.patch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
-BuildOption(generate_buildrequires): -x reports
-BuildOption(install):   -l snakemake
-BuildOption(check):     %{shrink:
-                        -e '*.tests*'
-                        %{?!with_gcs_tests:-e 'snakemake.executors.google_lifesciences_helper'}
-                        }
+BuildOption(generate_buildrequires): --extras reports
+BuildOption(install): --assert-license snakemake
+BuildOption(check):  %{shrink:
+    --exclude '*.tests*'
+    %{?!with_gcs_tests:--exclude 'snakemake.executors.google_lifesciences_helper'}
+    }
 
 BuildArch:      noarch
 

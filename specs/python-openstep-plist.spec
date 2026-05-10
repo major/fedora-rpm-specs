@@ -11,9 +11,9 @@ SourceLicense:  %{license} AND BSD-3-Clause
 URL:            https://github.com/fonttools/openstep-plist
 Source:         %{pypi_source openstep_plist}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t
-BuildOption(install):   -l openstep_plist
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --tox
+BuildOption(install): --assert-license openstep_plist
 
 BuildRequires:  gcc-c++
 
@@ -46,7 +46,7 @@ rm -rv vendor/
 
 
 %check -a
-%tox -e %{default_toxenv}-nocov -- -- -v
+%tox --toxenv %{default_toxenv}-nocov -- -- -v
 
 
 %files -n python3-openstep-plist -f %{pyproject_files}

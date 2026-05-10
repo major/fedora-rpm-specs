@@ -85,11 +85,11 @@ ExcludeArch:    %{ix86}
 # software from the nmrglue project.” We assess that neither case of selective
 # copying and adaptation rises to the level of a bundled dependency.
 
-BuildSystem:            pyproject
-BuildOption(install):   -l spec2nii
+BuildSystem:    pyproject
+BuildOption(install): --assert-license spec2nii
 %ifarch s390x
 # Skip import-checking modules that need pymapvbvd.
-BuildOption(check):     -e spec2nii.Siemens.dicomfunctions
+BuildOption(check): --exclude spec2nii.Siemens.dicomfunctions
 %endif
 
 # See project.optional-dependencies.dev in pyproject.toml, but see also

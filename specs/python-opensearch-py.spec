@@ -1,7 +1,7 @@
 %global pypi_name opensearch-py
 
 Name:           python-%{pypi_name}
-Version:        3.0.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Python low-level client for OpenSearch
 
@@ -32,6 +32,11 @@ Summary:        %{summary}
 
 # Fedora patches certifi anyway to use system certs
 sed -i 's/"certifi>=.*"/"certifi"/' setup.py
+
+# The protobuf is currently optional and very awkward to package in Fedora
+# https://github.com/opensearch-project/opensearch-protobufs/issues/307
+#
+sed -i 's/"opensearch-protobufs==.*",//' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x async -x kerberos

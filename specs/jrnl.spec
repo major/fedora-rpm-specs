@@ -21,9 +21,9 @@ Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
 # to install.
 Patch:          0002-Downstream-only-do-not-upper-bound-the-version-of-ri.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l jrnl
-BuildOption(generate_buildrequires): -t
+BuildSystem:    pyproject
+BuildOption(install): --assert-license jrnl
+BuildOption(generate_buildrequires): --tox
 
 BuildArch:      noarch
 

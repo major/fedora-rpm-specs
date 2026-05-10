@@ -3,8 +3,8 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 10.2.1
-Release: 2%{?dist}
+Version: 11.1.1
+Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 # Automatically converted from old format: GPLv2 or ASL 2.0 and BSD - review is highly recommended.
@@ -19,9 +19,6 @@ Patch1: shared-liburing.patch
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
 Patch3: disable-static.patch
-
-# Fix GCC 15 compile errors
-Patch4: https://patch-diff.githubusercontent.com/raw/facebook/rocksdb/pull/13437.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -71,7 +68,6 @@ Development files for RocksDB.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
-%patch -P 4 -p1
 
 %build
 %cmake \
@@ -113,8 +109,8 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 %license COPYING
 %license LICENSE.Apache
 %license LICENSE.leveldb
-%{_libdir}/librocksdb.so.10
-%{_libdir}/librocksdb.so.10.2.1
+%{_libdir}/librocksdb.so.11
+%{_libdir}/librocksdb.so.11.1.1
 
 
 %files tools
@@ -141,6 +137,9 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Fri May 08 2026 Jonny Heggheim <hegjon@gmail.com> - 11.1.1-1
+- Updated to version 11.1.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 # Ship our own repos subpackage rather than mainline Fedora's
-%bcond repos 0
+%bcond repos 1
 
 %define fedora_dist_version 45
 %define rhel_dist_version 11
@@ -57,8 +57,9 @@ Provides:       system-release(%{fedora_dist_version})
 # not provided by fedora-repos-eln
 Provides:       system-repos = %{version}-%{release}
 Provides:       fedora-eln-repos(%{rhel_dist_version}) = %{version}
-Provides:       fedora-eln-repos = %{fedora_dist_version}-%{release}
+Provides:       fedora-eln-repos = %{version}-%{release}
 Obsoletes:      fedora-eln-repos < %{version}-%{release}
+Conflicts:      fedora-eln-repos
 %endif
 
 # We need to ensure that the systemd presets common to all Fedora installs are

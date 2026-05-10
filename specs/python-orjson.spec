@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.11.8
+Version:        3.11.9
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -42,7 +42,7 @@ Source1:        get_source
 
 # Still allow PyO3 0.27 for now (upstream wants 0.28):
 # https://bugzilla.redhat.com/show_bug.cgi?id=2435852
-Patch:          orjson-3.11.8-pyo3-0.27.patch
+Patch:          orjson-3.11.9-pyo3-0.27.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel

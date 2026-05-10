@@ -36,11 +36,11 @@ Source24:       %{ne_url}/raw/%{ne_commit}/110m_cultural/ne_110m_admin_0_tiny_co
 %global data_commit 2583dba70d0892fc787e1a837df07c3ea8e69950
 Source25:       %{data_url}/raw/%{data_commit}/gis_osm_natural_a_free_1.zip
 
-BuildSystem:            pyproject
-BuildOption(install):   -l shapefile
+BuildSystem:    pyproject
+BuildOption(install): --assert-license shapefile
 # We do not package the “stubs” extra because we do not need or wish to package
 # python-pyshp-stubs.
-BuildOption(generate_buildrequires): -x test
+BuildOption(generate_buildrequires): --extras test
 
 BuildArch:      noarch
 

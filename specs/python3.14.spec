@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.4
-#global prerel ...
+%global general_version %{pybasever}.5
+%global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -112,31 +112,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.0.1
+%global pip_version 26.1
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.1.4
-Provides: bundled(python3dist(dependency-groups)) = 1.3.1
+Provides: bundled(python3dist(certifi)) = 2026.2.25
 Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.11
 Provides: bundled(python3dist(msgpack)) = 1.1.2
-Provides: bundled(python3dist(packaging)) = 26
+Provides: bundled(python3dist(packaging)) = 26.2
 Provides: bundled(python3dist(platformdirs)) = 4.5.1
 Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.5
+Provides: bundled(python3dist(requests)) = 2.33.1
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
 Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.3
+Provides: bundled(python3dist(tomli)) = 2.3.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 1.26.20
+Provides: bundled(python3dist(urllib3)) = 2.6.3
 }
 # setuptools
 # vendor.txt not in .whl
@@ -447,29 +446,11 @@ Patch475: 00475-cve-2025-15367.patch
 # direct call to the check function.
 Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-different-python-version.patch
 
-# 00479 # 97404b2cf62e545c2d41be7ccfed4e74da9ee665
-# CVE-2026-1502
-#
-# Reject CR/LF in HTTP tunnel request headers
-Patch479: 00479-cve-2026-1502.patch
-
-# 00480 # 858691f36890b33e713f330d24c6670329695c2e
-# CVE-2026-4786
-#
-# Fix webbrowser `%%action` substitution bypass of dash-prefix check
-Patch480: 00480-cve-2026-4786.patch
-
 # 00481 # 4c1fd39918651c4559a4835d42b86639a192c2c5
 # CVE-2026-5713
 #
 # Validate remote debug offset tables on load
 Patch481: 00481-cve-2026-5713.patch
-
-# 00482 # 69f14bc306fc62400d45565faa980b77858b9151
-# CVE-2026-6100
-#
-# Fix a possible UAF in {LZMA,BZ2,_Zlib}Decompressor
-Patch482: 00482-cve-2026-6100.patch
 
 # 00486 # 5ae0b81b3135319f8d75a886fb7a11fa40ac11f4
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
@@ -2029,6 +2010,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue May 05 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14.5~rc1-1
+- Update to 3.14.5rc1
+
 * Thu Apr 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.14.4-2
 - Security fixes for CVE-2026-1502, CVE-2026-4786, CVE-2026-5713, CVE-2026-6100
 Resolves: rhbz#2457944, rhbz#2458224, rhbz#2458488, rhbz#2458016

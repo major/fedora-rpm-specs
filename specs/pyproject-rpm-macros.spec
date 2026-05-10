@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.22.0
+Version:        1.22.1
 Release:        1%{?dist}
 
 # Macro files
@@ -179,6 +179,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Thu May 07 2026 Miro Hrončok <mhroncok@redhat.com> - 1.22.1-1
+- Fix a regression wrt option parsing for macros with backslash-escaped newlines in argument list
+
 * Thu May 07 2026 Miro Hrončok <mhroncok@redhat.com> - 1.22.0-1
 - Add long option support for all public parametric macros
 - E.g. %%pyproject_buildrequires --no-runtime is equivalent to %%pyproject_buildrequires -R

@@ -6,7 +6,7 @@
 %global crate netlink-packet-route
 
 Name:           rust-netlink-packet-route
-Version:        0.28.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Netlink packet types
 
@@ -47,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rich_nlas-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rich_nlas-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rich_nlas" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rich_nlas-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
