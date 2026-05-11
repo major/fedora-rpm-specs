@@ -62,7 +62,7 @@ ln -s /usr/include/lest test/lest
 
 %if %{with regenerate}
 %generate_buildrequires
-%pyproject_buildrequires -N
+%pyproject_buildrequires --no-use-build-system
 %endif
 
 

@@ -17,8 +17,8 @@ Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
 # Cherry-picked to v2.6.1, without changes to poetry.lock.
 Patch:          0001-chore-deps-dev-bump-pytest-asyncio-from-0.26.0-to-1..patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L aiohappyeyeballs
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license aiohappyeyeballs
 
 BuildArch:      noarch
 

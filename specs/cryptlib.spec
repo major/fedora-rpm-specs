@@ -3,14 +3,14 @@
 %global cryptlibdir %{_libdir}/%{name}
 
 Name:       cryptlib
-Version:    3.4.9
-Release:    2%{?dist}
+Version:    3.4.9.1
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cl349_fedora.zip     
-Source1:    https://senderek.ie/fedora/cl349_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cl3491_fedora.zip     
+Source1:    https://senderek.ie/fedora/cl3491_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -136,7 +136,7 @@ cd %{name}-%{version}
 %patch 0 -p1
 
 # enable ADDFLAGS
-sed -i '98s/-I./-I. \$(ADDFLAGS)/' makefile
+sed -i '89s/-I./-I. \$(ADDFLAGS)/' makefile
 # enable JAVA in config
 sed -i 's/\/\* #define USE_JAVA \*\// #define USE_JAVA /' misc/config.h
 
@@ -191,9 +191,12 @@ cd bindings
 
 # build javadoc
 mkdir javadoc
+chmod +x ../tools/cryptlibConverter.py3
+cp function-comments.py3 javadoc
+../tools/cryptlibConverter.py3 javadoc.h javadoc java
 cd javadoc
 jar -xf ../cryptlib.jar
-javadoc cryptlib
+javadoc cryptlib -encoding utf-8
 
 
 %install
@@ -241,7 +244,7 @@ mkdir -p %{buildroot}%{_libdir}/perl5
 mkdir -p %{buildroot}%{_mandir}/man3
 cd %{_builddir}/%{name}-%{version}/bindings
 mkdir -p %{_builddir}/include
-cp ../cryptlib.h %{_builddir}/include
+cp cryptlib-perl.h %{_builddir}/include/cryptlib.h
 cp ../tools/GenPerl.pl .
 export PERL_CRYPT_LIB_HEADER=%{_builddir}/include/cryptlib.h
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor
@@ -343,6 +346,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat May 09 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.1-1
+- update Cryptlib to version 3.4.9.1 and update cryptlib tools to version 1.3
+
 * Tue Feb 24 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9-2
 - apply new m64patch
 

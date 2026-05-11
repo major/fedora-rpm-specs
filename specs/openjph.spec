@@ -2,12 +2,13 @@
 %bcond mingw 1
 
 Name:           openjph
-Version:        0.27.0
+Version:        0.27.1
 Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
 Source:         https://github.com/aous72/%{real_name}/archive/refs/tags/%{version}/%{real_name}-%{version}.tar.gz
+Patch:          %{name}-version.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

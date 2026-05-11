@@ -1,11 +1,11 @@
 Name:           perl-Promise-XS
-Version:        0.20
-Release:        4%{?dist}
+Version:        0.21
+Release:        1%{?dist}
 Summary:        Fast promises in Perl
 # bundled easyxs is MIT
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:            https://metacpan.org/dist/Promise-XS
-Source0:        https://cpan.metacpan.org/authors/id/F/FE/FELIPE/Promise-XS-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANATOFUZ/Promise-XS-%{version}.tar.gz
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Promise::XS*
 
 %changelog
+* Fri May 08 2026 Chris Adams <linux@cmadams.net> 0.21-1
+- new upstream version/author URL
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

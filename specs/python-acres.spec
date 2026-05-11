@@ -7,8 +7,8 @@ License:        Apache-2.0
 URL:            https://github.com/nipreps/acres
 Source:         %{url}/archive/%{version}/acres-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L acres
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license acres
 
 BuildArch:      noarch
 

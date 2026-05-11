@@ -1,5 +1,5 @@
 # adblock requires rust and corrosion
-%bcond adblock 1
+%bcond adblock 0
 
 Name:    kdepim-addons
 Version: 26.04.1

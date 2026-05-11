@@ -6,7 +6,7 @@
 %endif
 
 Name:       pgbouncer
-Version:    1.25.1
+Version:    1.25.2
 Release:    %autorelease
 Summary:    Lightweight connection pooler for PostgreSQL
 License:    ISC and BSD-2-Clause

@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       2.0.1
+Version:       2.0.2
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -170,6 +170,9 @@ BuildArch:      noarch
 %doc README.md
 
 %changelog
+* Sat May 09 2026 Steve Cossette <farchord@gmail.com> - 2.0.2-1
+- 2.0.2
+
 * Mon Mar 16 2026 Steve Cossette <farchord@gmail.com> - 2.0.1-1
 - 2.0.1
 

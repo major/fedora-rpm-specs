@@ -14,8 +14,8 @@ Patch:          0001-Downstream-only-patch-out-coverage-options.patch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0002-Downstream-only-do-not-fail-on-warnings.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l aiosignal
+BuildSystem:    pyproject
+BuildOption(install): --assert-license aiosignal
 
 BuildArch:      noarch
 

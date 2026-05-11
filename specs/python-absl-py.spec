@@ -7,8 +7,8 @@ License:        Apache-2.0
 URL:            https://github.com/abseil/abseil-py/
 Source:         %{url}/archive/v%{version}/abseil-py-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l absl
+BuildSystem:    pyproject
+BuildOption(install): --assert-license absl
 
 BuildArch:      noarch
 

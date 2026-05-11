@@ -1,5 +1,5 @@
 Name:          whichfont
-Version:       3.0.0
+Version:       3.0.1
 Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
@@ -36,6 +36,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Sat May 09 2026 Sudip Shil <sshil@redhat.com> - 3.0.1-1
+- whichfont will always accept and override --help option
+
 * Thu Apr 02 2026 Sudip Shil <sshil@redhat.com> - 3.0.0-1
 - resolve snowflake emoji incorrectly defaulting to Symbola
 - emoji detection for BMP ranges and remove redundant logic

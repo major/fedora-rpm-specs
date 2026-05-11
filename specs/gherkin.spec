@@ -12,7 +12,7 @@
 %bcond acceptance_ruby 1
 
 Name:           gherkin
-Version:        39.0.0
+Version:        39.1.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
@@ -29,10 +29,6 @@ Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 Source10:       gherkin.1
 Source11:       gherkin-cpp.1
 Source12:       gherkin-ruby.1
-
-# Update cmake_minimum_required for C to 3.12; support CMake 4
-# https://github.com/cucumber/gherkin/pull/546
-Patch:          %{url}/pull/546.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -59,7 +55,6 @@ BuildRequires:  cmake(nlohmann_json)
 BuildRequires:  cmake(cucumber_messages) >= 31
 
 # For Python only:
-BuildRequires:  python3-devel
 # The “dev” dependency group contains test dependencies intermixed with
 # unwanted dependencies for coverage analysis
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
@@ -209,7 +204,7 @@ sed -r -i 's@python -m@%{python3} -m@' python/Makefile
 
 
 %generate_buildrequires
-%pyproject_buildrequires -d python
+%pyproject_buildrequires --directory python
 
 
 %conf
@@ -236,7 +231,7 @@ pushd cpp
 popd
 
 echo '==== Building Python implementation ===='
-%pyproject_wheel -d python
+%pyproject_wheel --directory python
 
 echo '==== Building Ruby implementation ===='
 pushd ruby
@@ -271,7 +266,7 @@ rm '%{buildroot}%{_bindir}/gherkin-generate-tokens'
 
 echo '==== Installing Python implementation ===='
 %pyproject_install
-%pyproject_save_files -l gherkin
+%pyproject_save_files --assert-license gherkin
 ln -s -f %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
     '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 symlinks -c -o '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
@@ -287,7 +282,7 @@ mkdir -p %{buildroot}%{_bindir}
 cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 find %{buildroot}%{gem_instdir}/bin -type f -executable \
-    -exec chmod -v a-x '{}' '+'
+    -exec chmod -v a-x '{}' '+' -exec sed -r -i '1{/^#!/d}' '{}' '+'
 popd
 
 

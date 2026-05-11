@@ -9,6 +9,7 @@ Source0:        https://github.com/curl/trurl/releases/download/%{name}-%{versio
 
 # Fix tests to use uppercase-hex
 # https://github.com/curl/trurl/issues/394
+# https://github.com/curl/trurl/issues/440
 Patch:          uppercase-hex.patch
 
 # Fix discarded qualifiers

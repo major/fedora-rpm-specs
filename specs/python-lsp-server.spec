@@ -12,6 +12,9 @@ License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+# Fixes one test with jedi 0.20.0
+Patch:          https://github.com/python-lsp/python-lsp-server/pull/709.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

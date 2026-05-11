@@ -12,8 +12,8 @@ Source:         %{url}/archive/%{version}/argparse_dataclass-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l argparse_dataclass
+BuildSystem:    pyproject
+BuildOption(install): --assert-license argparse_dataclass
 
 # The dev extra and the requirements_dev.txt file both have too many linters
 # and other unwanted dependencies; it makes more sense to BR what we need for

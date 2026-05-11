@@ -57,6 +57,7 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  git
+BuildRequires:  libpfm-devel
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(catch2)
@@ -107,8 +108,9 @@ Devel information for Basalt.
 %prep
 %forgesetup
 
-# Remove bundled FindEigen3.cmake - it fails to detect Eigen 3.4+ which moved
-# version macros from Macros.h to Eigen/Version. Use system/Eigen's config instead.
+# Remove bundled FindEigen3.cmake so that find_package falls through to CONFIG
+# mode (Eigen3Config.cmake) rather than the bundled MODULE finder which has an
+# EXACT version requirement and cannot handle Eigen 5.x.
 rm cmake_modules/FindEigen3.cmake
 
 # Extract bundled submodule tarballs before applying patches so that patches

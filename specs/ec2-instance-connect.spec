@@ -5,7 +5,7 @@
 Name:           ec2-instance-connect
 Summary:        EC2 Instance Connect scripts
 Version:        1.1.17
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 License:        Apache-2.0
 URL:            https://github.com/aws/%{project}
@@ -73,7 +73,7 @@ specific AuthorizedKeysCommand and AuthorizedKeysCommandUser
 %prep
 %autosetup -p1 -n %{project}-%{version}
 # from bin/make_rpm.sh
-sed -i "s%^ca_path=/etc/ssl/certs$%ca_path=/etc/ssl/certs/ca-bundle.crt%" "src/bin/eic_curl_authorized_keys"
+sed -i "s%^ca_path=/etc/ssl/certs$%ca_path=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem%" "src/bin/eic_curl_authorized_keys"
 
 
 %build
@@ -154,6 +154,10 @@ fi
 
 
 %changelog
+* Sat May 09 2026 Christian Krause <chkr@fedoraproject.org> - 1.1.17-6
+- Update location of ca bundle according to
+  https://fedoraproject.org/wiki/Changes/droppingOfCertPemFile
+
 * Wed May 06 2026 Christian Krause <chkr@fedoraproject.org> - 1.1.17-5
 - Fixes BZ #2430855 by changing ca_path
 

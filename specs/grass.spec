@@ -1,8 +1,8 @@
-%global shortver 84
+%global shortver 85
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:		grass
-Version:	8.4.2
+Version:	8.5.0
 Release:	6%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
@@ -15,6 +15,9 @@ Summary:	GRASS GIS - Geographic Resources Analysis Support System
 %global python3_version_nodots 36
 %global main_python3 1
 %endif
+
+# PDAL requires CMAKE_CXX_STANDARD 17, GRASS supports it as well
+%global _pkg_extra_cxxflags "-std=gnu++17"
 
 # Note that the bcond macros are named for the CLI option they create.
 # "%%bcond_without" means "ENABLE by default and create a --without option"
@@ -165,7 +168,7 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--prefix=%{_libdir} \
 	--with-blas \
 %if %{with flexiblas}
-	--with-blas-includes=%{_includedir}/flexiblas \
+	--with-blas=flexiblas \
 %endif
 	--with-bzlib \
 	--with-cairo \
@@ -176,9 +179,10 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--with-freetype-includes=%{_includedir}/freetype2 \
 	--with-gdal=%{_bindir}/gdal-config \
 	--with-geos=%{_bindir}/geos-config \
-	--with-lapack \
 %if %{with flexiblas}
-	--with-lapack-includes=%{_includedir}/flexiblas \
+	--with-lapack=flexiblas \
+%else
+	--with-lapack \
 %endif
 %if 0%{?rhel} > 7
 	--with-mysql=no \
@@ -332,6 +336,11 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat May 09 2026 Markus Neteler <neteler@mundialis.de> - 8.5.0-1
+- Update to GRASS 8.5.0 (BZ#2416357)
+- Update to CMAKE_CXX_STANDARD 17 as PDAL requirement
+- Fix flexiblas config
+
 * Mon Feb 16 2026 Markus Neteler <neteler@mundialis.de> - 8.4.2-6
 - Drop non-existing configure flags
 

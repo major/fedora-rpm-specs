@@ -1,5 +1,5 @@
 Name:       virtualbox-guest-additions
-Version:    7.2.6
+Version:    7.2.8
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
@@ -198,6 +198,9 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Fri May 01 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.8-1
+- Update Virtualbox Guest Additions to 7.2.8 (rhbz#2460053)
+
 * Sun Feb 01 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.6-1
 - Update Virtualbox Guest Additions to 7.2.6 (rhbz#2434018)
 

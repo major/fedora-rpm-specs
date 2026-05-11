@@ -7,8 +7,8 @@ License:        MIT
 URL:            https://github.com/fastapi/annotated-doc
 Source:         %{url}/archive/%{version}/annotated-doc-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l annotated_doc
+BuildSystem:    pyproject
+BuildOption(install): --assert-license annotated_doc
 
 BuildArch:      noarch
 

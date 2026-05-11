@@ -1,5 +1,5 @@
 Name:           mathicgb
-Version:        1.2
+Version:        1.3
 Release:        %autorelease
 Summary:        Groebner basis computations
 

@@ -5,7 +5,7 @@
 %global crate retry-policies
 
 Name:           rust-retry-policies
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Collection of plug-and-play retry policies for Rust projects
 

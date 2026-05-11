@@ -11,7 +11,7 @@
 # situation is unlikely to change, as JPEG2000 only offered incremental
 # benefits over the simpler classic JPEG, and is outperformed by the more
 # recent HEIF. This has implications for DICOM, as there is little active
-# development on libraries to decode JPEG2000.  Indeed, the two popular
+# development on libraries to decode JPEG2000. Indeed, the two popular
 # open-source libraries that decode JPEG2000 have serious limitations for
 # processing these images. Some JPEG2000 DICOM images can not be decoded by the
 # default compilation of OpenJPEG library after version 2.1.0. On the other
@@ -39,11 +39,11 @@
 %bcond jnifti 1
 
 Name:           dcm2niix
-Version:        1.0.20250506
+Version:        1.0.20260416
 Release:        %autorelease
 Summary:        DICOM to NIfTI converter
 
-# The entire source is BSD-3-Clause, except:
+# The entire source is BSD-2-Clause, except:
 #
 # - bundled niftilib (nifti.h, nifti1_io.h/nifti1_io_core.cpp) is
 #   LicenseRef-Fedora-Public-Domain
@@ -58,19 +58,11 @@ Summary:        DICOM to NIfTI converter
 #   the license of the binary RPM
 # - bundled ucm (ucm.cmake), https://github.com/onqtam/ucm, is MIT; as a
 #   build-system file, it does not contribute to the licenses of the binary RPMs
-# - The JavaScript library in js/ claims to be BSD-2-Clause in package.json,
-#   but it has no separate license text; in any case, it is removed in %%prep.
-#   See “JavaScript library claims to be BSD-2-Clause but has no license text,”
-#   https://github.com/rordenlab/dcm2niix/issues/951; the resolution was
-#   “Noted, this tool uses the 2-clause license and the development branch has
-#   been changed to reflect this.” We can therefore expect that the main
-#   license of dcm2niix will change in the next release. For this release, we
-#   retain BSD-3-Clause since that is what is in the source archive.
 # - the files docs/source/dcm2niibatch.rst and docs/source/dcm2niix.rst, and
 #   therefore the man pages dcm2niibatch.1 and dcm2niix.1 derived from them,
 #   are FSFAP
 #
-# The bundled CharLS (console/charls/) is also BSD-3-Clause.
+# The bundled CharLS (console/charls/) is BSD-3-Clause.
 #
 # Upstream was asked about bundled/vendored dependencies in accordance with
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling in
@@ -86,8 +78,8 @@ Summary:        DICOM to NIfTI converter
 #
 # See also the notes above virtual Provides for bundled dependencies.
 License:        %{shrink:
-                BSD-3-Clause AND
                 BSD-2-Clause AND
+                BSD-3-Clause AND
                 FSFAP AND
                 LicenseRef-Fedora-Public-Domain AND
                 MIT
@@ -96,13 +88,6 @@ SourceLicense:  %{license} AND Unlicense
 URL:            https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage
 %global forgeurl https://github.com/rordenlab/dcm2niix
 Source:         %{forgeurl}/archive/v%{version}/dcm2niix-%{version}.tar.gz
-
-# Update scikit-build-core to 0.11, without pyproject extra
-# https://github.com/rordenlab/dcm2niix/pull/950
-Patch:          %{forgeurl}/pull/950.patch
-# Only compile nanojpeg/ujpeg when TurboJPEG is disabled
-# https://github.com/rordenlab/dcm2niix/pull/952
-Patch:          %{forgeurl}/pull/952.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
@@ -121,6 +106,7 @@ BuildRequires:  symlinks
 BuildRequires:  pkgconfig(jasper)
 %endif
 BuildRequires:  pkgconfig(libturbojpeg)
+BuildRequires:  pkgconfig(libzstd)
 %if %{with openjpeg}
 BuildRequires:  cmake(OpenJPEG)
 %endif
@@ -192,7 +178,7 @@ Summary:        Thin wrapper around dcm2niix binary
 # This subpackage is pure-Python and does not contain anything derived from any
 # of the bundled libraries or the man pages, so only the “main” license
 # applies.
-License:        BSD-3-Clause
+License:        BSD-2-Clause
 
 BuildArch:      noarch
 
@@ -245,6 +231,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 # USE_OPENJPEG: Build with JPEG2000 support using OpenJPEG
 # USE_JPEGLS: Build with JPEG-LS support using CharLS
 # USE_JNIFTI: USE_JNIFTI
+# USE_ZSTD: Build with Zstandard compression support
 # BATCH_VERSION: Build dcm2niibatch for multiple conversions
 # BUILD_DCM2NIIXFSLIB: Build libdcm2niixfs.a
 #   - Avoid static libraries:
@@ -260,6 +247,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
     -Ccmake.define.USE_OPENJPEG:STRING=%{?with_openjpeg:System}%{?!with_openjpeg:OFF} \
     -Ccmake.define.USE_JPEGLS:BOOL=%{?with_jpegls:ON}%{?!with_jpegls:OFF} \
     -Ccmake.define.USE_JNIFTI:BOOL=%{?with_jnifti:ON}%{?!with_jnifti:OFF} \
+    -Ccmake.define.USE_ZSTD:BOOL=ON \
     -Ccmake.define.BATCH_VERSION:BOOL=ON \
     -Ccmake.define.BUILD_DCM2NIIXFSLIB:BOOL=OFF \
     -Ccmake.define.BUILD_DOCS:BOOL=ON \
@@ -307,7 +295,9 @@ fi
 
 
 %files
-%doc README.md VERSIONS.md
+%doc README.md
+%doc FILENAMING.md
+%doc VERSIONS.md
 %license license.txt
 %if %{with jpegls} || %{with jnifti}
 %license license-*.txt

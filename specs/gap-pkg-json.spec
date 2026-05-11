@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/json
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.2.3
+Version:        2.4.0
 Release:        %autorelease
 Summary:        JSON reading and writing for GAP
 

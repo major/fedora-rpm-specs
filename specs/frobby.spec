@@ -1,6 +1,6 @@
 Name:           frobby
 Summary:        Computations with monomial ideals
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 
 # GPL-2.0-or-later: the frobby code
@@ -69,8 +69,8 @@ export STRIP=true
 
 # generate docs
 cd doc
-pdflatex manual.tex
-pdflatex manual.tex
+pdflatex -interaction=nonstopmode manual.tex
+pdflatex -interaction=nonstopmode manual.tex
 cd -
 
 %install

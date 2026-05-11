@@ -1,7 +1,7 @@
 %global pypi_name pysam
 
 Name:           python-%{pypi_name}
-Version:        0.23.3
+Version:        0.24.0
 Release:        %autorelease
 Summary:        pysam
 
@@ -27,9 +27,9 @@ The module supports compression and random access through indexing.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-Provides:  bundled(samtools) = 1.31
-Provides:  bundled(htslib) = 1.31
-Provides:  bundled(bcftools) = 1.31
+Provides:  bundled(samtools) = 1.23.1
+Provides:  bundled(htslib) = 1.23.1
+Provides:  bundled(bcftools) = 1.23.1
 
 %description -n python3-%{pypi_name}
 pysam - a python module for reading, manipulating and writing genomic data

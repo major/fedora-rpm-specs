@@ -1,5 +1,5 @@
-%global commit      6c6fab467e19af2d0d2b37abca489b821874aa67
-%global date        20260505
+%global commit      9e968d486b026ca39658b8e1ea3e19e9ffd09659
+%global date        20260508
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           monado
@@ -18,56 +18,7 @@ License:        %{shrink:
                 MIT AND
                 Unlicense AND
                 Zlib}
-# CC0-1.0 AND Apache-2.0
-# src/external/glad/include/glad/*
-# src/external/glad/src/*
-# MIT OR Unlicense
-# src/external/bcdec/*
-# src/external/imgui/imstb*
-# src/external/stb/*
-# Apache-2.0
-# gradle*
-# src/external/{cardboard,flexkalman,glad,mermaid,openxr_includes}/*
-# src/xrt/auxiliary/math/m_quatexpmap.cpp
-# Apache-2.0 OR MIT
-# src/external/openxr_includes/openxr/openxr*.h
-# BSD-2-Clause
-# src/external/hungarian/*
-# BSD-3-Clause
-# cmake/{FindEGL.cmake,FindSystemd.cmake,OptionWithDeps.cmake}
-# src/external/openvr_includes/*
-# src/external/tinyceres/*
-# src/external/tracy/{client,common,libbacktrace}/*
-# src/xrt/drivers/north_star/distortion_3d/*
-# src/xrt/tracking/hand/mercury/kine_lm/lm_rotations_ceres.inl
-# BSD-3-Clause AND BSL-1.0
-# src/xrt/targets/steamvr_drv/*
-# BSL-1.0
-# {CMakeLists.txt,CompilerFlags.cmake,build.gradle}
-# cmake/{CleanDirectoryList.cmake,FindHIDAPI.cmake,FindLeapV2.cmake,FindLibcheck.cmake,FindLibusb1.cmake,FindONNXRuntime.cmake,FindOpenGLES.cmake,FindOpenHMD.cmake,FindPercetto.cmake,Findbluetooth.cmake,FindcJSON.cmake,Findudev.cmake,GenerateKhrManifest.cmake,GenerateKhrManifestInternals.cmake.in,GenerateOpenXRRuntimeManifest.cmake,GenerateVulkanApiLayerManifest.cmake,GetGitRevisionDescription.cmake,GetGitRevisionDescription.cmake.in,PrefixListGlob.cmake,ProgramFilesGlob.cmake,SPIR-V.cmake,openxr_manifest.in.json.license}
-# src/external/{Catch2,android-jni-wrap,flexkalman,imgui,openxr_includes,util-headers,vit_includes,vulkan}
-# src/xrt/auxiliary/{android,bindings,d3d,gstreamer,math,ogl,os,tracking,util,vive,vk}/*
-# src/xrt/compositor/*
-# src/xrt/drivers/{android,arduino,daydream,depthai,euroc,hdk,ht,ht_ctrl_emu,hydra,illixr,multi_wrapper,north_star,ohmd,opengloves,psmv,qwerty,realsense,remote,rift_s,rokid,sample,simula,simulated,solarxr,steamvr_lh,survive,twrap,ultraleap_v2,v4l2,vf,vive,wmr,xreal_air}/*
-# src/xrt/include/tracking/t_hand_tracking.h
-# src/xrt/include/xrt/*
-# src/xrt/{ipc,state_trackers,targets,tracking}/*
-# tests/*
-# BSL-1.0 AND CC0-1.0
-# {doc,scripts}/*
-# CC-BY-4.0
-# CONTRIBUTING.md README.md
-# src/xrt/targets/android_common/src/main/res/drawable/*
-# src/xrt/targets/openxr_android/src/*/res/{drawable,mipmap}*/*
-# MIT (Khronos variant using "Materials" instead of "Software", treated as MIT)
-# src/external/glad/include/KHR/khrplatform.h
-# MIT
-# cmake/sanitizers/{FindASan.cmake,FindMSan.cmake,FindSanitizers.cmake,FindTSan.cmake,FindUBSan.cmake,asan-wrapper,sanitize-helpers.cmake}
-# doc/doxygen-awesome-css/*
-# src/external/{cjson,imgui,jnipp,mermaid,renderdoc_api,valve-file-vdf}/*
-# src/xrt/targets/android_common/src/main/res/raw/*
-# Zlib
-# src/external/nanopb/*
+# For a per-file license breakdown see LicenseBreakdown.
 
 
 URL:            https://gitlab.freedesktop.org/monado/monado

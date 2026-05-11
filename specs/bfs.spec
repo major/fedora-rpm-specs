@@ -1,11 +1,11 @@
 Name:           bfs
-Version:        4.1
+Version:        4.1.2
 Release:        %autorelease
 Summary:        A breadth-first version of the UNIX find command
 
 License:        0BSD
-URL:            https://github.com/tavianator/bfs
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://tavianator.com/projects/bfs.html
+Source0:        https://github.com/tavianator/bfs/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc

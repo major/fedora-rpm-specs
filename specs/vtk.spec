@@ -118,6 +118,12 @@ BuildRequires:  cli11-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  expat-devel
 BuildRequires:  fast_float-devel
+# FFMPEG libaries
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
 %if %{with fmt}
 BuildRequires:  fmt-devel >= 8.1.0
 %endif
@@ -229,6 +235,12 @@ Requires: eigen3-static \
 Requires: expat-devel%{?_isa} \
 # fast_float is noarch and header-only \
 Requires: fast_float-devel \
+# FFMPEG libraries \
+Requires: pkgconfig(libavcodec) \
+Requires: pkgconfig(libavformat) \
+Requires: pkgconfig(libavutil) \
+Requires: pkgconfig(libswresample) \
+Requires: pkgconfig(libswscale) \
 %if %{with fmt} \
 Requires: fmt-devel%{?_isa} \
 %endif \
