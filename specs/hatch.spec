@@ -13,7 +13,6 @@ Summary:        A modern project, package, and virtual env manager
 %else
 %global tag %{commit}
 %endif
-%global archivename hatch-%{tag}
 
 # The entire source is (SPDX) MIT. Apache-2.0 license text in the tests is used
 # as a sample license text, not as a license for the source.

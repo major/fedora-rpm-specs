@@ -12,7 +12,7 @@
 Name:           xmlada
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        XML library for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -279,6 +279,9 @@ find %{buildroot}%{_includedir}/%{name}/sources -type d -empty -delete
 ###############
 
 %changelog
+* Sun May 10 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:26.0.0-4
+- Rebuilt because GCC broke ALI again.
+
 * Sat Mar 28 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:26.0.0-3
 - Rebuilt because GCC 16.0.1-0.10 broke ALI.
 

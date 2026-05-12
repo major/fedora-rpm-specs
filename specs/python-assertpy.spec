@@ -7,8 +7,8 @@ License:        BSD-3-Clause
 URL:            https://github.com/assertpy/assertpy
 Source:         %{url}/archive/%{version}/assertpy-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l assertpy
+BuildSystem:    pyproject
+BuildOption(install): --assert-license assertpy
 
 BuildArch:      noarch
 

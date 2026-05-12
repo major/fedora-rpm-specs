@@ -1,30 +1,29 @@
-%global gittag 1.10.0
+%global gittag 1.10.1
 Name:           tlp
-Version:        1.10.0
-Release:        2%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
 Source0:        https://github.com/linrunner/TLP/archive/%{gittag}.tar.gz#/%{name}-%{gittag}.tar.gz
-Patch0:         0000-tlp-service-in.patch
 
+# https://linrunner.de/tlp/developers/packaging.html
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  systemd
 BuildRequires:  libappstream-glib
 
-#The following requires are not detected:
-Requires:       ethtool
 Requires:       hdparm
 Requires:       iw
-Requires:       rfkill
-Requires:       systemd
-Requires:       udev
-Requires:       usbutils
 Requires:       pciutils
+Requires:       rfkill
+Requires:       usbutils
 Recommends:     smartmontools
-
+Recommends:     tlp-pd
+Recommends:     ethtool
+Conflicts:      laptop-mode-tools
 Conflicts:      tuned
+
 BuildArch:      noarch
 
 %description
@@ -57,10 +56,12 @@ switching of Bluetooth, NFC, Wi-Fi and WWAN radio devices on:
 
 %package pd
 Summary:        Profiles Daemon for TLP
-Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 Requires:       polkit
-Conflicts:      power-profiles-daemon
+Requires:       python3
+Requires:       python3-gobject
+Requires:       %{name} = %{version}-%{release}
+Provides:       power-profiles-daemon
 Conflicts:      tuned-ppd
 
 %description pd
@@ -170,6 +171,11 @@ fi
 
 
 %changelog
+* Sun May 10 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.10.1-1
+- Update to version 1.10.1
+- Bugfix release
+- Fix tlp.service start on Fedora
+
 * Sat May 02 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.10.0-2
 - Fix tlp.service start
 

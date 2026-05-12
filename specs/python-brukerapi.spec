@@ -18,8 +18,8 @@ Source11:       bruker-filter.1
 Source12:       bruker-report.1
 Source13:       bruker-split.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l brukerapi
+BuildSystem:    pyproject
+BuildOption(install): --assert-license brukerapi
 
 BuildArch:      noarch
 

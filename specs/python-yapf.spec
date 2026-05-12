@@ -8,12 +8,14 @@ be}
 
 %global forgeurl https://github.com/google/yapf
 
+%global vimfiles_root %{_datadir}/vim/vimfiles
+
 Name:           python-%{pypi_name}
-Version:        0.40.2
+Version:        0.43.0
 Release:        %autorelease
 Summary:        A formatter for Python code
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License:        Apache-2.0
+# All code is under Apache-2.0 except bundled lib2to3  which is under PSF-2.0
+License:        Apache-2.0 AND PSF-2.0
 
 %global tag v%{version}
 %forgemeta
@@ -49,13 +51,16 @@ Requires:       python3dist(setuptools)
 Provides:       bundled(python3dist(lib2to3))
 %description -n python3-%{pypi_name} %{desc}
 
+%package -n vim-%{pypi_name}
+Summary:  %{summary}
+Requires:      python3-%{pypi_name}
+Requires:      vim-common
+
+%description -n vim-%{pypi_name}
+Enable formatting when using Vim.
 
 %prep
 %forgeautosetup -S git
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-
-cp plugins/README.md README-plugins.md
 
 # Remove shebang
 sed -i '/^#!/d' third_party/yapf_third_party/_ylib2to3/pgen2/token.py
@@ -73,6 +78,12 @@ sed -i '/^#!/d' third_party/yapf_third_party/_ylib2to3/pgen2/token.py
 %pyproject_install
 %pyproject_save_files %{pypi_name} yapf_third_party
 
+# Install vim plugins
+install -Dm 0644 plugins/vim/autoload/yapf.vim \
+  %{buildroot}%{vimfiles_root}/autoload/yapf.vim
+
+install -Dm 0644 plugins/vim/plugin/yapf.vim \
+  %{buildroot}%{vimfiles_root}/plugin/yapf.vim
 
 %check
 %tox
@@ -80,10 +91,14 @@ sed -i '/^#!/d' third_party/yapf_third_party/_ylib2to3/pgen2/token.py
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README*
+%doc README.md
 %{_bindir}/yapf
 %{_bindir}/yapf-diff
 
+%files -n vim-%{pypi_name}
+%doc plugins/README.md
+%{vimfiles_root}/autoload/yapf.vim
+%{vimfiles_root}/plugin/yapf.vim
 
 %changelog
 %autochangelog

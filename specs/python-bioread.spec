@@ -10,9 +10,9 @@ URL:            https://github.com/uwmadison-chm/bioread
 # PyPI sdists lack.
 Source:         %{url}/archive/v%{version}/bioread-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l bioread
-BuildOption(generate_buildrequires): -x all,dev
+BuildSystem:    pyproject
+BuildOption(install): --assert-license bioread
+BuildOption(generate_buildrequires): --extras all,dev
 
 BuildArch:      noarch
 
@@ -62,7 +62,7 @@ done
 
 
 %check -a
-%pytest -k "${k-}" -v
+%pytest -v
 
 
 %files -n python3-bioread -f %{pyproject_files}

@@ -1,7 +1,3 @@
-%bcond bootstrap 0
-# Break a test-dependency loop between this package and python-trimesh.
-%bcond tests %{without bootstrap}
-
 Name:           python-cascadio
 Version:        0.0.17
 Release:        %autorelease
@@ -12,18 +8,17 @@ URL:            https://github.com/mikedh/cascadio
 # The PyPI project does not have sdists, so we must use the GitHub archive.
 Source:         %{url}/archive/%{version}/cascadio-%{version}.tar.gz
 
-BuildSystem:            pyproject
-%if %{with tests}
-BuildOption(generate_buildrequires): -x tests
-%endif
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras tests
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
-BuildOption(build):     %{shrink:
-                        -Ccmake.define.SYSTEM_OPENCASCADE=ON
-                        -Clogging.level=INFO
-                        -Cbuild.verbose=true
-                        -Ccmake.build-type="RelWithDebInfo"
-                        -Cinstall.strip=false}
-BuildOption(install):   -L cascadio
+BuildOption(build): %{shrink:
+    --config-settings cmake.define.SYSTEM_OPENCASCADE=ON
+    --config-settings logging.level=INFO
+    --config-settings build.verbose=true
+    --config-settings cmake.build-type=RelWithDebInfo
+    --config-settings install.strip=false
+    }
+BuildOption(install): --no-assert-license cascadio
 
 # Tests for cascadio fail on s390x, wrong endianness
 # https://github.com/mikedh/trimesh/issues/2251
@@ -69,9 +64,7 @@ sed -r -i 's/\bCXX\b/C &/' CMakeLists.txt
 
 
 %check -a
-%if %{with tests}
 %pytest
-%endif
 
 
 %files -n python3-cascadio -f %{pyproject_files}

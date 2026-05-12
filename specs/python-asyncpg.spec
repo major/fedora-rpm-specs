@@ -26,9 +26,9 @@ Source:         %{pypi_source asyncpg}
 # 82+; see https://fedoraproject.org/wiki/Changes/Setuptools_82+.
 Patch:          %{url}/pull/1314.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l asyncpg
-BuildOption(generate_buildrequires): -x gssauth -g test
+BuildSystem:    pyproject
+BuildOption(install): --assert-license asyncpg
+BuildOption(generate_buildrequires): --extras gssauth --dependency-groups test
 
 BuildRequires:  gcc
 

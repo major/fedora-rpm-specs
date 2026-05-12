@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/asottile/cfgv
 Source:         %{url}/archive/v%{version}/cfgv-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l cfgv
+BuildSystem:    pyproject
+BuildOption(install): --assert-license cfgv
 
 BuildArch:      noarch
 

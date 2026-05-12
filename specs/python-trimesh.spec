@@ -1,15 +1,18 @@
-# Since the tests for manifold’s Python bindings depend on trimesh, a
-# dependency cycle exists: trimesh → manifold → blender, and then trimesh
-# normally depends on both manifold and blender.
+# This breaks several dependency cycles involving test dependencies.
 %bcond bootstrap 0
 
 %bcond blender %{without bootstrap}
+%bcond cascadio %{without bootstrap}
 %bcond skimage 1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460576
 # https://github.com/nschloe/meshio/issues/1558
 %bcond meshio %{defined fc44}
 # Python bindings for manifold are not yet built in F44:
 # https://src.fedoraproject.org/rpms/manifold/pull-request/1#comment-321943
+#
+# Since the tests for manifold’s Python bindings depend on trimesh, a
+# dependency cycle exists: trimesh → manifold → blender, and then trimesh
+# normally depends on both manifold and blender.
 %bcond manifold %[ %{without bootstrap} && %{undefined fc44} ]
 
 Name:           python-trimesh
@@ -53,6 +56,17 @@ BuildRequires:  %{py3_dist pytest-xdist}
 # Not yet packaged: https://github.com/KhronosGroup/glTF-Validator
 #BuildRequires:  /usr/bin/gltf_validator
 
+# trimesh.interfaces.blender
+# Since 5.0.0, Blender doesn’t support big-endian architectures.
+%ifnarch s390x
+%global arch_has_blender 1
+%endif
+# The python-cascadio package is currently ExcludeArch: s390x
+# python-cascadio: Tests for cascadio fail on s390x, wrong endianness
+# https://bugzilla.redhat.com/show_bug.cgi?id=2298452
+%ifnarch s390x
+%global arch_has_cascadio 1
+%endif
 # embree only supports x86_64, aarch64
 # https://bugzilla.redhat.com/show_bug.cgi?id=2461412
 %ifarch %{x86_64} %{arm64}
@@ -110,9 +124,7 @@ Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 # report. As a workaround, this works just fine.
 BuildRequires:  (blender or python3(s390-64))
 Recommends:     (blender or python3(s390-64))
-%ifnarch s390x
-%global have_blender 1
-%endif
+%global have_blender 0%{?arch_has_blender}
 %endif
 # trimesh.graph
 BuildRequires:  /usr/bin/dot
@@ -210,7 +222,7 @@ EOF
 #   manifold3d: in either “easy” or “recommend” depending on Python version
 %pyproject_patch_dependency manifold3d:ignore
 %endif
-%if ! 0%{?arch_has_embree}
+%if !0%{?arch_has_embree}
 %pyproject_patch_dependency embreex:ignore
 %endif
 
@@ -221,10 +233,7 @@ EOF
 %if %{without skimage}
 %pyproject_patch_dependency scikit-image:ignore
 %endif
-%ifarch s390x
-# The python-cascadio package is currently ExcludeArch: s390x
-# python-cascadio: Tests for cascadio fail on s390x, wrong endianness
-# https://bugzilla.redhat.com/show_bug.cgi?id=2298452
+%if %{without cascadio} || !0%{?arch_has_cascadio}
 %pyproject_patch_dependency cascadio:ignore
 %endif
 

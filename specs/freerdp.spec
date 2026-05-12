@@ -25,7 +25,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.26.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -83,6 +83,8 @@ BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(fdk-aac)
 BuildRequires:  pkgconfig(fuse3)
+BuildRequires:  pkgconfig(libcbor)
+BuildRequires:  pkgconfig(libfido2)
 BuildRequires:  pkgconfig(libpcsclite)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsystemd)
@@ -183,6 +185,8 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DBUILD_TESTING_NO_H264=ON \
     -DCHANNEL_RDP2TCP=ON \
     -DCHANNEL_RDP2TCP_CLIENT=ON \
+    -DCHANNEL_RDPEWA=ON \
+    -DCHANNEL_RDPEWA_CLIENT=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
@@ -368,6 +372,15 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Sun May 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 2:3.26.0-4
+- Enable WebAuthN/FIDO2 passthrough support
+
+* Sun May 10 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2:3.26.0-3
+- Drop 0001-add-sso-mib-dependency-to-client-cmake.patch
+
+* Sun May 10 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2:3.26.0-2
+- Add 0001-add-sso-mib-dependency-to-client-cmake.patch
+
 * Thu May 07 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-1
 - Update to 3.26.0
   Resolves: rhbz#2467244

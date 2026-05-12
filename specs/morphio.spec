@@ -30,7 +30,7 @@ read/write one.
 %bcond pytests 1
 
 Name:           morphio
-Version:        3.4.0
+Version:        3.4.2
 Release:        %autorelease
 Summary:        A python and C++ library for reading and writing neuronal morphologies
 %forgemeta
@@ -42,12 +42,6 @@ URL:            %forgeurl
 Source:         %forgesource
 
 # Patches
-# https://github.com/sanjayankur31/MorphIO/tree/fedora-3.3.2
-# Some sent upstream: https://github.com/BlueBrain/MorphIO/pull/293
-# Do not let cmake use $FLAGS env var
-Patch:          stop-them-using-a-random-env-var.patch
-# Remove more hard-coded compiler flags
-Patch:          remove-upstreams-flags.patch
 # Add install target for the compiled python module
 Patch:          install-python-shared-object.patch
 # Downstream-only: Allow passing CMake defs through an env. var.
@@ -60,7 +54,7 @@ Patch:          0001-Downstream-only-Allow-passing-CMake-defs-through-an-.patch
 # sure why upstream is not experiencing this.
 Patch:          pytest-float32.patch
 # use LIB_INSTALL_DIR which is defined by %%cmake
-Patch:          use-lib_install_dir.patch
+#Patch:          use-lib_install_dir.patch
 # Allow use of external ghc_filesystem
 Patch:          allow_use_of_external_ghc_filesystem.patch
 # Above patch fails with:
@@ -72,24 +66,12 @@ Patch:          allow_use_of_external_ghc_filesystem.patch
 #  Target "ghc_filesystem" not found.
 # So let's circumvent CMake foo for ghc_filesystem
 Patch:          dont_use_cmake_for_finding_ghc_filesystem.patch
-# Fix a test regression with pybind11 2.11.2, 2.12.1, 2.13.6+
-# https://github.com/BlueBrain/MorphIO/pull/515
-Patch:          https://github.com/BlueBrain/MorphIO/pull/515.patch
 # Include <cstdint> for fixed-width integers in API headers
 # https://github.com/openbraininstitute/MorphIO/pull/1
 # Fixes failure to build with GCC 15.
 Patch:          %{forgeurl}/pull/1.patch
-# Set CMake min. version to a range, 3.2...3.12: support CMake 4.0
-# https://github.com/openbraininstitute/MorphIO/pull/3
-Patch:          %{forgeurl}/pull/3.patch
-
-# skip locale check if std::locale fails
-Patch:          https://github.com/BlueBrain/MorphIO/pull/512.patch
-
-# use updated lexertl14
-# https://github.com/openbraininstitute/MorphIO/pull/16
-# (only the MorphIO source change, not the submodule change)
-Patch:          morphio-16.4.0-lexertl.patch
+# Use system catch library
+Patch:          morphio-catch.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -99,7 +81,7 @@ BuildRequires:  tomcli
 BuildRequires:  hdf5-devel
 BuildRequires:  boost-devel
 %if %{with tests}
-BuildRequires:  cmake(Catch2) < 3
+BuildRequires:  cmake(Catch2) >= 3.11
 %endif
 
 BuildRequires:  gcc-c++
@@ -202,6 +184,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %cmake \
     -DBUILD_BINDINGS:BOOL=FALSE \
+    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DEXTERNAL_CATCH2:BOOL=TRUE \
     -DEXTERNAL_GHC_FILESYSTEM:BOOL=TRUE \
     -DEXTERNAL_HIGHFIVE:BOOL=TRUE \

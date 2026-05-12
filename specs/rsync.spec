@@ -3,7 +3,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -37,6 +37,8 @@ Provides: bundled(zlib) = 1.2.8
 #popt provided by popt-devel from the system. Should this change, X11 license should be 
 #mentioned here as well.
 License: GPL-3.0-or-later
+
+Patch1: rsync-0001-use-openat2.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -124,6 +126,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Wed May 06 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.2-2
+- Fixing a regression introduced with CVE-2024-12086 fix
+
 * Tue Apr 28 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.2-1
 - New version 3.4.2
 - Removing rsync-patches, these are no longer maintained

@@ -1,8 +1,9 @@
 # header-only library
 %global debug_package %{nil}
+%bcond check 0
 
 %global forgeurl https://github.com/jlblancoc/nanoflann
-Version:        1.8.0
+Version:        1.9.0
 %forgemeta
 
 Name:           nanoflann
@@ -46,8 +47,10 @@ rm -r tests/gtest-1.8.0
 %install
 %cmake_install
 
+%if %{with check}
 %check
 %ctest
+%endif
 
 %files devel
 %license COPYING

@@ -1,4 +1,3 @@
-%undefine __cmake3_in_source_build
 %global debug_package %{nil}
 
 Name: doctest
@@ -14,7 +13,7 @@ URL: https://github.com/doctest/%{name}
 Source0: %{url}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires: gcc-c++
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: git
 
 %description
@@ -35,24 +34,24 @@ Requires: libstdc++-devel%{?_isa}
 %autosetup -p1
 
 %build
-%cmake3 \
+%cmake \
   -DCMAKE_BUILD_TYPE=Release \
-  -DDOCTEST_WITH_MAIN_IN_STATIC_LIB:BOOL=OFF \
   -DDOCTEST_WITH_TESTS:BOOL=ON \
   %{nil}
-%cmake3_build
+%cmake_build
 
 %check
-%ctest3
+%ctest
 
 %install
-%cmake3_install
+%cmake_install
 
 %files devel
 %doc README.md CHANGELOG.md CONTRIBUTING.md
 %license LICENSE.txt
 %{_includedir}/%{name}/
 %{_libdir}/cmake/%{name}/
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
 %autochangelog

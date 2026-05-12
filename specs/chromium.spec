@@ -344,7 +344,8 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 Patch137: chromium-147-system-ffmpeg.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
-
+# Fix FTBFS with rustc-1.88 on el9 and epel10.1
+Patch142: chromium-148-rust-1.88-build-error.patch
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
 Patch143: chromium-148-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
@@ -352,8 +353,6 @@ Patch145: chromium-148-use-system-rustc.patch
 
 # Fix FTBFS with python-3.9 on el9
 Patch146: chromium-148-el9-python-3.9-build-error.patch
-# Fix FTBFS with rustc-1.88 on el9
-Patch147: chromium-148-el9-rust-1.88-build-error.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -444,7 +443,7 @@ Patch357: chromium-134-type-mismatch-error.patch
 Patch358: chromium-144-rust-clanglib.patch
 
 # fix FTBFS with rustc 1.95
-Patch359: chromium-147-rustc-1.95.patch
+Patch359: chromium-148-rust-1.95-bytemuck-ftbfs.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -1114,14 +1113,14 @@ Qt6 UI for chromium.
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P142 -p1 -b .rust-1.88-build-error
 %patch -P143 -p1 -b .rust-1.88-enable-unstable_features
-%patch -P144 -p1 -b .rustc-1.88-undefined-symbol
+%patch -P144 -p1 -b .rust-1.88-undefined-symbol
 %endif
 %patch -P145 -p1 -R -b .use-system-rustc
 
 %if 0%{?rhel} == 9
 %patch -P146 -p1 -b .el9-python-3.9-build-error
-%patch -P147 -p1 -b .el9-rust-1.88-build-error
 %endif
 
 %patch -P150 -p1 -b .qt6
@@ -1179,7 +1178,7 @@ Qt6 UI for chromium.
 
 %patch -P358 -p1 -b .rust-clang_lib
 
-%if  0%{?fedora} > 41 || 0%{?rhel} > 10
+%if  0%{?fedora} > 41 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} > 2)
 %patch -P359 -p1 -b .ftbfs-with-rustc-1.95
 %endif
 

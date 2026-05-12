@@ -1,7 +1,7 @@
 %bcond docs 1
 
 Name:     gmobile
-Version:  0.7.0
+Version:  0.7.1
 Release:  %autorelease
 Summary:  Functions useful in mobile related, glib based projects
 

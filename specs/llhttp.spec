@@ -24,9 +24,9 @@
 %bcond bootstrap 0
 
 Name:           llhttp
-Version:        9.3.1
-%global so_version 9.3
-%global previous_so_version 9.2
+Version:        9.4.1
+%global so_version 9.4
+%global previous_so_version 9.3
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 

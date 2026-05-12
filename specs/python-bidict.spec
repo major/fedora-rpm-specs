@@ -7,8 +7,8 @@ License:        MPL-2.0
 URL:            https://bidict.readthedocs.io
 Source:         https://github.com/jab/bidict/archive/v%{version}/bidict-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l bidict
+BuildSystem:    pyproject
+BuildOption(install): --assert-license bidict
 
 BuildArch:      noarch
 

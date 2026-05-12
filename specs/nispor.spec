@@ -2,13 +2,16 @@
 %bcond_with check
 
 Name:           nispor
-Version:        2.0.0
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz
+# We need to remove wireguard support before
+# https://bugzilla.redhat.com/show_bug.cgi?id=2467908 landed into Fedora
+Patch1:         0001-Remove-wireguard-feature.patch
 BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  systemd-devel
@@ -25,7 +28,7 @@ BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
 BuildRequires:  (crate(mptcp-pm/default) >= 0.1.4 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(rtnetlink/default) >= 0.20.0 with crate(rtnetlink/default) < 0.21)
+BuildRequires:  (crate(rtnetlink/default) >= 0.21.0 with crate(rtnetlink/default) < 0.22)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)

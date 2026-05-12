@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.4
-Release:        1%{?dist}
+Version:        8.5
+Release:        3%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,38 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sun May 10 2026 Kim Walisch <walki@fedoraproject.org> - 8.5-3
+- OpenMP.cmake: Fix LLVM OpenMP detection
+
+* Sun May 10 2026 Kim Walisch <walki@fedoraproject.org> - 8.5-2
+- main.cpp: Fix MSVC getenv deprecation warning
+- ci.yml: Add Windows/Clang GitHub Actions CI tests
+
+* Sun May 10 2026 Kim Walisch <walki@fedoraproject.org> - 8.5-1
+- ci.yml: Add FreeBSD GitHub Actions CI tests
+- PiTable.cpp: Annotate OpenMP barrier with nowait
+- main.cpp: Set LLVM OpenMP environment variables to tune performance
+- CMakeLists.txt: Set WITH_DIV32=OFF by default to fix Clang-22 performance regression in the D algorithm
+- CMakeLists.txt: Add support for building primecount as a shared library (primecount.dll) on Windows using MSVC
+- CMakeLists.txt: Remove WITH_MSVC_CRT_STATIC option
+- FactorTable.hpp: Fix 64-bit integer overflow
+- CmdOptions.cpp: Validate alpha tuning factor command-line options
+- calculator.hpp: Fix std::tolower() undefined behavior
+- util.cpp: Improve get_time() precision
+- StatusS2.cpp: Support use in lockfree code
+- LoadBalancerS2.cpp: Use lockfree implementation, get rid of mutex
+- LoadBalancerAC.cpp: Use lockfree implementation, get rid of mutex
+- LoadBalancerP2.cpp: Use lockfree implementation, get rid of mutex
+- nth_prime.cpp: Use new nth_prime_sieve() implementation
+- nth_prime_sieve.cpp: Improved multi-threading
+- RiemannR.cpp: Add RiemannR(psi(x)) implementation
+- CmdOptions.cpp: Add --RiemannR-psi & --RiemannR-psi-inverse
+- README.md: Document --RiemannR-psi & --RiemannR-psi-inverse
+- doc/primecount.txt: Add --RiemannR-psi & --RiemannR-psi-inverse
+- doc/primecount.1: Add --RiemannR-psi & --RiemannR-psi-inverse
+- test/nth_prime_sieve.cpp: Update nth_prime_sieve() test
+- test/RiemannR_psi.cpp: New test for RiemannR(psi(x)) implementation
+
 * Sun Apr 05 2026 Kim Walisch <walki@fedoraproject.org> - 8.4-1
 - test/codegen: Add assembly code generation tests
 - doc/Hard-Special-Leaves-SIMD-Filtering.pdf: New math paper about the branchfree SIMD hard special leaves algorithm

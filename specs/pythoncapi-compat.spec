@@ -16,7 +16,6 @@ Source1:        upgrade_pythoncapi.py.1
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  python3-devel
 
 # As a header-only library package (with an additional command-line tool
 # subpackage), the base package is arched so that it is compiled and tested on
@@ -71,11 +70,11 @@ sed -r -i "s/^([[:blank:]]*)(['\"]-Werror)/\1# \2/" tests/setup.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -d tests
+%pyproject_buildrequires --directory tests
 
 
 %build
-%pyproject_wheel -d tests
+%pyproject_wheel --directory tests
 
 
 %install
