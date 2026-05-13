@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -168,6 +168,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-af
 %endif
 
 %changelog
+* Mon May 11 2026 Fabio Valentini <decathorpe@gmail.com> - 5.10.0-7
+- Rebuild for rust-openssl CVE-2026-{41676,41677,41678,41681,41898,42327,44662}
+
 * Mon Mar 30 2026 Timothée Ravier <tim@siosm.fr> - 5.10.0-6
 - F44+: Ship OpenSSH config file specifying AuthorizedKeysFile
 

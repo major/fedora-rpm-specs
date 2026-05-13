@@ -8,9 +8,9 @@ License:        MIT
 URL:            https://github.com/miguelgrinberg/Flask-SocketIO/
 Source:         %{url}/archive/v%{version}/Flask-SocketIO-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t
-BuildOption(install):   -l flask_socketio
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --tox
+BuildOption(install): --assert-license flask_socketio
 
 BuildArch:      noarch
 

@@ -96,7 +96,7 @@ Summary:        Development files for %{name}
 
 %build
 %cmake
-unzip -o %{SOURCE1} -d redhat-linux-build/src/test/bin/
+unzip -o %{SOURCE1} -d %{_vpath_builddir}/src/test/bin/
 %cmake_build
 
 

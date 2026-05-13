@@ -106,9 +106,7 @@ Requires: iso-codes
 Requires: malcontent
 Recommends: malcontent-control
 %endif
-# For the network panel
 Recommends: NetworkManager-wifi
-Recommends: nm-connection-editor
 # For Show Details in the color panel
 Recommends: gnome-color-manager
 # For the sharing panel

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	59%{?dist}
+Release:	60%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -621,6 +621,10 @@ fi
 %endif
 
 %changelog
+* Thu May 07 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-60
+- util/grub-editenv: remove stale env_block on unsupported filesystem
+- Related: #2457333
+
 * Fri Apr 10 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-59
 - Complete second phase of Confidential-Computing changes
 

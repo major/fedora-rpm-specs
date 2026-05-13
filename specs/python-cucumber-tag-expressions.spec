@@ -8,8 +8,8 @@ URL:            https://github.com/cucumber/tag-expressions
 # The GitHub archive has test data files; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/tag-expressions-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l cucumber_tag_expressions
+BuildSystem:    pyproject
+BuildOption(install): --assert-license cucumber_tag_expressions
 
 BuildArch:      noarch
 
@@ -34,7 +34,6 @@ Summary:        %{summary}
 
 %prep -a
 # We must work with what we have, and compatibility is quite good in practice.
-cd python
 %pyproject_patch_dependency uv_build:drop_upper
 
 

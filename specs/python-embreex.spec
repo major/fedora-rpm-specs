@@ -7,8 +7,8 @@ License:        BSD-2-Clause
 URL:            https://github.com/trimesh/embreex
 Source:         %{url}/archive/%{version}/embreex-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l embreex
+BuildSystem:    pyproject
+BuildOption(install): --assert-license embreex
 
 # embree only supports x86_64, aarch64
 # https://bugzilla.redhat.com/show_bug.cgi?id=2461412

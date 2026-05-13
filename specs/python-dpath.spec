@@ -11,8 +11,8 @@ Source:         %{url}/archive/v%{version}/dpath-python-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildSystem:    pyproject
-BuildOption(install):   -l dpath
-BuildOption(generate_buildrequires): -t
+BuildOption(install): --assert-license dpath
+BuildOption(generate_buildrequires): --tox
 
 %global common_description %{expand:
 A python library for accessing and searching dictionaries via /slashed/paths

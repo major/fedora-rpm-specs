@@ -1,5 +1,5 @@
 Name: libkiwix
-Version: 14.2.0
+Version: 14.2.1
 Release: %autorelease
 
 License: GPL-3.0-or-later

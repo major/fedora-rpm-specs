@@ -21,11 +21,11 @@ Source:         %{url}/archive/v%{version}/fast-simplification-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
 Patch:          0001-Downstream-only-do-not-override-system-compiler-flag.patch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 %if %{with tests}
 BuildOption(generate_buildrequires): requirements_test.txt
 %endif
-BuildOption(install):   -l fast_simplification
+BuildOption(install): --assert-license fast_simplification
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

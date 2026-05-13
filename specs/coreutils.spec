@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -10,6 +10,8 @@ Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 # From https://savannah.gnu.org/project/release-gpgkeys.php?group=coreutils&download=1
 # which is linked as project keyring on https://savannah.gnu.org/projects/coreutils
 Source2: coreutils-keyring.gpg
+
+# Note that supported_utils must NOT include *.single, see below
 Source50:   supported_utils
 Source105:  coreutils-colorls.sh
 Source106:  coreutils-colorls.csh
@@ -262,10 +264,10 @@ grep LC_TIME %name.lang | cut -d'/' -f1-6 | sed -e 's/) /) %%dir /g' >>%name.lan
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %files -f supported_utils
-%exclude %{_bindir}/*.single
 %dir %{_libexecdir}/coreutils
 %{_libexecdir}/coreutils/*.so
 
+# The *.single files are picked up here so they must not be in supported_utils
 %files single
 %{_bindir}/*.single
 %if "%{_sbindir}" != "%{_bindir}"
@@ -287,6 +289,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Fri May 01 2026 Davide Bolcioni <dbolcioni@gmail.com> - 9.11-2
+- fix coreutils.single dangling symlink (rhbz#2464618)
+
 * Mon Apr 20 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.11-1
 - rebase to the latest upstream release (rhbz#2459776)
 

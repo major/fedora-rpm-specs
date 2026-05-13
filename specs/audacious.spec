@@ -1,16 +1,14 @@
 # 'without' = build with Gtk+ by default
 %bcond_without gtk
 
-%bcond_without meson
-
 Name: audacious
-Version: 4.5.1
-Release: 3%{?dist}
+Version: 4.6
+Release: 0.4.beta1%{?dist}
 
-%global tar_ver %{version}
+%global tar_ver %{version}-beta1
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.4
+%global aud_ver 4.6
 
 # Audacious Generic Plugin API is defined in audacious-libs subpackage.
 
@@ -32,7 +30,6 @@ BuildRequires: gettext
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: desktop-file-utils
 BuildRequires: meson
-BuildRequires: make
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: qt6-qtbase-devel
@@ -126,11 +123,6 @@ api=$(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\+' src/libaudcore/plugin.h | s
 api_min=$(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION_MIN' src/libaudcore/plugin.h | sed 's!.*_AUD_PLUGIN_VERSION_MIN[ ]*\([0-9]\+\).*!\1!')
 [ "${api_min}" == "%{aud_plugin_api_min}" ] || exit -1
 
-%if %{without meson}
-sed -i '\,^.SILENT:,d' buildsys.mk.in
-sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
-%endif
-
 
 %build
 # temporarily was required to make Qt's MOC accessible
@@ -139,7 +131,6 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 #ln -s /usr/bin/moc-qt5 _bin/moc
 #export PATH=$PATH:$(pwd)/_bin
 
-%if %{with meson}
 %meson \
 %if 0%{?fedora} || 0%{?rhel} >= 9
     -Dqt=true \
@@ -150,25 +141,10 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
     -Dlibarchive=false \
     -Dbuildstamp="Fedora package"
 %meson_build
-%else
-%configure  \
-    %{?with_gtk:--enable-gtk} \
-    %{!?with_gtk:--disable-gtk} \
-    --disable-libarchive \
-    --with-buildstamp="Fedora package"  \
-    --disable-silent-rules \
-    --disable-rpath \
-    --disable-dependency-tracking
-make %{?_smp_mflags}
-%endif
 
 
 %install
-%if %{with meson}
 %meson_install
-%else
-%make_install INSTALL="install -p"
-%endif
 find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 %find_lang %{name}
@@ -177,11 +153,8 @@ desktop-file-install  \
     --dir ${RPM_BUILD_ROOT}%{_datadir}/applications  \
     ${RPM_BUILD_ROOT}%{_datadir}/applications/audacious.desktop
 
-install -D -m0644 contrib/%{name}.appdata.xml ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{name}.appdata.xml
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{name}.appdata.xml
-
-
-%ldconfig_scriptlets libs
+install -D -m0644 %{name}.metainfo.xml ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{name}.metainfo.xml
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{name}.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -192,7 +165,7 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 %{_mandir}/man[^3]/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.metainfo.xml
 
 %files libs
 # license file included in this subpkg
@@ -210,6 +183,23 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 
 
 %changelog
+* Mon May 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.4.beta1
+- update to beta1
+
+* Sun Apr 19 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.3.20260418git6ffe0b6
+- update git snapshot
+
+* Tue Apr 14 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.3.20260414gita19bfab
+- update git snapshot
+
+* Wed Mar 04 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.2.20260304gitb562441
+- update git snapshot
+
+* Mon Feb 23 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.1.20260223git46e11c5
+- upgrade to 4.6 pre git snapshot
+- remove ldconfig_scriplets macro usage
+- remove "configure" based build conditionals
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

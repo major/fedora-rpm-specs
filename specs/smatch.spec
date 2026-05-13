@@ -1,5 +1,5 @@
 Name:       smatch
-Version:    1.74
+Version:    1.75
 Release:    1%{?dist}
 Summary:    A static analyzer for C
 
@@ -69,6 +69,9 @@ grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 %{_datadir}/%{name}
 
 %changelog
+* Mon May 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1.75-1
+- rebase to the latest upstream release (rhbz#2464665)
+
 * Mon Jan 26 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1.74-1
 - rebase to the latest upstream release (rhbz#2432015)
 - update sanity check test case

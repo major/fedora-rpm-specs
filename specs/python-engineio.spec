@@ -14,16 +14,16 @@ Source:         %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x client,asyncio_client -t
-BuildOption(install):   -l engineio
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras client,asyncio_client --tox
+BuildOption(install): --assert-license engineio
 # We omit the async drivers for eventlet (retired since Fedora 41), gevent, and
 # uwsgi. There are no integration tests for them and they are not otherwise
 # BuildRequires, and we don’t want to add them solely for this purpose.
 BuildOption(check):     %{shrink:
-    -e engineio.async_drivers.eventlet
-    -e engineio.async_drivers.gevent
-    -e engineio.async_drivers.gevent_uwsgi
+    --exclude engineio.async_drivers.eventlet
+    --exclude engineio.async_drivers.gevent
+    --exclude engineio.async_drivers.gevent_uwsgi
     }
 
 BuildArch:      noarch

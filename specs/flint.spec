@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flintlib/flint
 
 Name:           flint
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 
@@ -18,8 +18,6 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # Defeat upstream's attempt to optimize for the builder's CPU
 Patch:          %{name}-arch.patch
-# Do not discard const qualifiers
-Patch:          %{giturl}/pull/2506.patch
 
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
@@ -29,7 +27,6 @@ BuildRequires:  make
 BuildRequires:  ntl-devel
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  tex(latex)
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -94,10 +91,6 @@ sed -i "s/'default'/'classic'/" doc/source/conf.py
 # Look for flexiblas
 sed -i 's/openblas/flexiblas/' configure
 
-# FLINT builds and passes all tests without this using GCC <= 14
-# Tests fail with incorrect answers using GCC >= 15.0
-CFLAGS='%{build_cflags} -fno-strict-aliasing'
-CXXFLAGS='%{build_cxxflags} -fno-strict-aliasing'
 %configure \
   --disable-static \
   --with-blas-include=%{_includedir}/flexiblas \
@@ -124,7 +117,7 @@ make check
 %doc AUTHORS
 %doc README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libflint.so.22{,.*}
+%{_libdir}/libflint.so.23{,.*}
 
 
 %files devel

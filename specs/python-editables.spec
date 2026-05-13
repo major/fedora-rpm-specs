@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/pfmoore/editables
 Source:         %{url}/archive/%{version}/editables-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l editables
+BuildSystem:    pyproject
+BuildOption(install): --assert-license editables
 
 BuildArch:      noarch
 

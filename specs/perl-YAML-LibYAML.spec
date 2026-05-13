@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.906.0
+Version:        0.907.0
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -57,6 +57,7 @@ BuildRequires:  perl(IO::Pipe)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More) >= 0.90
+BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(utf8)
@@ -106,7 +107,7 @@ for file in api.c dumper.c emitter.c loader.c parser.c reader.c scanner.c \
     sed -i -e "/^LibYAML\/$file/d" MANIFEST
 done
 # Help generators to recognize Perl scripts
-for F in t/*.t; do
+for F in `find t -name *.t`; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -161,6 +162,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.907.0-1
+- 0.907.0 bump (rhbz#2468643)
+
 * Mon Apr 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.906.0-1
 - 0.906.0 bump (rhbz#2461908)
 

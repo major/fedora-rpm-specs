@@ -2,7 +2,7 @@
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 %global pypi_name keystoneauth1
 
-%global common_desc %{expand:
+%global _description %{expand:
 Keystoneauth provides a standard way to do authentication and service requests
 within the OpenStack ecosystem. It is designed for use in conjunction with
 the existing OpenStack clients and for simplifying the process of writing
@@ -35,16 +35,17 @@ BuildRequires:  /usr/bin/gpgv2
 %endif
 
 
-%description
-%{common_desc}
+%description %_description
+
+
+%pyproject_extras_subpkg -n python3-%{pypi_name} kerberos saml2 oauth1 betamax
 
 
 %package -n     python3-%{pypi_name}
 Summary:        Authentication Libarary for OpenStack Identity
 
 
-%description -n python3-%{pypi_name}
-%{common_desc}
+%description -n python3-%{pypi_name} %{_description}
 
 
 %if 0%{?with_doc}
@@ -79,6 +80,7 @@ sed -i \
     -e "/^flake8-docstrings[[:space:]]*[~!><=]/d" \
     -e "/^flake8-import-order[[:space:]]*[~!><=]/d" \
     -e "/^bandit[[:space:]]*[~!><=]/d" \
+    -e "/^pbr[[:space:]]*[~!><=]/d" \
     test-requirements.txt doc/requirements.txt
 
 

@@ -68,10 +68,10 @@ find $RPM_BUILD_ROOT%{_datadir}/mime -type d \
 find $RPM_BUILD_ROOT%{_datadir}/mime -type f -not -path "*/packages/*" \
 | sed -e "s|^$RPM_BUILD_ROOT|%%ghost |" >> %{name}.files
 
-# Support fallback/generic mimeapps.list (currently based on an old version of
-# gnome-mimeapps.list), see:
-# https://lists.fedoraproject.org/pipermail/devel/2015-July/212403.html
-# https://bugzilla.redhat.com/show_bug.cgi?id=1243049
+# Install the distro fallback / DE-agnostic mimeapps.list. This is used whenever
+# a DE-specific mimeapps.list file doesn't provide an app for a given type, or
+# whenever the provided app isn't installed.
+# See: https://specifications.freedesktop.org/mime-apps/latest/index.html
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/applications
 install -m 644 %SOURCE1 $RPM_BUILD_ROOT/%{_datadir}/applications/mimeapps.list
 

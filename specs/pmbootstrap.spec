@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.3.5
 
 Name:           pmbootstrap
-Version:        3.9.0
+Version:        3.10.2
 Release:        %autorelease
 Summary:        A sophisticated chroot/build/flash tool to develop and install postmarketOS
 
@@ -12,9 +12,9 @@ URL:            https://www.postmarketos.org
 Source0:        https://gitlab.postmarketos.org/postmarketOS/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 # s390x is currently unsupported:
-# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.9.0/pmb/core/arch.py#L84
+# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.10.2/pmb/core/arch.py#L84
 # which is then used in
-# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.9.0/pmb/core/arch.py#L309
+# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.10.2/pmb/core/arch.py#L297
 ExcludeArch:    s390x
 
 BuildRequires:  python3-devel

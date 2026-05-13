@@ -3,31 +3,27 @@
 %global debug_package %{nil}
 
 %global crate libgit2-sys
-%global crate_version 0.18.3+1.9.2
+%global crate_version 0.18.4+1.9.3
 
 Name:           rust-libgit2-sys
-Version:        0.18.3
+Version:        0.18.4
 Release:        %autorelease
 Summary:        Native bindings to the libgit2 library
 
-# * libgit2-sys crate:      MIT OR Apache-2.0
-# * bundled libgit2:        GPL-2.0-only WITH GCC-exception-2.0
-# * bundled llhttp:         MIT
-# * bundled pcre:           BSD-3-Clause
-License:        (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/libgit2-sys
 Source:         %{crates_source %{crate} %{crate_version}}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          libgit2-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * update package.license field to reflect bundled dependencies
-# * drop features for statically linking against vendored OpenSSL
+# * drop features for statically linking libgit2 and OpenSSL
+# * drop feature for using zlib-ng via the zlib compatibility layer
+# * drop feature for experimental sha256 support
 Patch:          libgit2-sys-fix-metadata.diff
-# * build against the bundled copy of libgit2 unconditionally:
-#   the version in the Fedora repositories is always either too old or too new
-Patch:          0001-build-with-vendored-libgit2-unconditionally.patch
+Patch2:         0001-Link-against-system-libgit2-unconditionally.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  (pkgconfig(libgit2) >= 1.9.3 with pkgconfig(libgit2) < 1.10.0~)
 
 %global _description %{expand:
 Native bindings to the libgit2 library.}
@@ -37,10 +33,7 @@ Native bindings to the libgit2 library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-
-Provides:       bundled(libgit2) = 1.9.2
-Provides:       bundled(llhttp) = 9.2.1
-Provides:       bundled(pcre) = 8.45
+Requires:       (pkgconfig(libgit2) >= 1.9.3 with pkgconfig(libgit2) < 1.10.0~)
 
 %description    devel %{_description}
 
@@ -50,9 +43,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/libgit2/COPYING
-%license %{crate_instdir}/libgit2/deps/llhttp/LICENSE-MIT
-%license %{crate_instdir}/libgit2/deps/pcre/LICENCE
 %doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
@@ -116,28 +106,11 @@ use the "ssh" feature of the "%{crate}" crate.
 %files       -n %{name}+ssh-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vendored-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vendored-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vendored" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vendored-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
-# remove upstream development scripts from libgit2
-rm -r libgit2/script/
-# remove unused bundled dependencies
-rm -r libgit2/deps/chromium-zlib
-rm -r libgit2/deps/ntlmclient
-rm -r libgit2/deps/winhttp
-rm -r libgit2/deps/zlib
+# remove bundled copy of libgit2 sources
+rm -rv libgit2/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

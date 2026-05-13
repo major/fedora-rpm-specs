@@ -11,8 +11,8 @@ Source:         %{url}/archive/v%{version}/fastar-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=2435852
 Patch:          fastar-0.11.0-allow-pyo3-0.27.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l fastar
+BuildSystem:    pyproject
+BuildOption(install): --assert-license fastar
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -39,12 +39,12 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 License:        %{shrink:
-                MIT AND
-                (0BSD OR MIT OR Apache-2.0) AND
-                (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-                (MIT OR Apache-2.0) AND
-                (MIT OR Zlib OR Apache-2.0)
-                }
+    MIT AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0) AND
+    (MIT OR Zlib OR Apache-2.0)
+    }
 
 %description -n python3-fastar %{common_description}
 

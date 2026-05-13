@@ -19,7 +19,7 @@ ExcludeArch:    ppc64le s390x
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
-Version:                0.20.7
+Version:                0.22.1
 
 %gometa -L -f
 
@@ -120,6 +120,20 @@ mv llama/README.md llama-README.md
 %if %{without vulkan}
 sed -i -e 's@Vulkan_FOUND@FALSE@' CMakeLists.txt
 %endif
+
+# web-search ollama plugins are not working well
+# Here is what they do https://docs.ollama.com/capabilities/web-search
+# disable
+#
+# For openclaw.go
+#	if ensureWebSearchPlugin() {
+#		registerWebSearchPlugin()
+#	}
+sed -i '/if ensureWebSearchPlugin()/,+2d' cmd/launch/openclaw.go
+#
+# For pi.go
+sed -i '/ensurePiWebSearchPackage(bin)/d' cmd/launch/pi.go
+
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

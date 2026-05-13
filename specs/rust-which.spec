@@ -5,15 +5,13 @@
 %global crate which
 
 Name:           rust-which
-Version:        8.0.1
+Version:        8.0.2
 Release:        %autorelease
 Summary:        Rust equivalent of Unix command "which"
 
 License:        MIT
 URL:            https://crates.io/crates/which
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          which-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

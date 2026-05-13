@@ -4,14 +4,11 @@
 Name:           perl-LWP-ConsoleLogger
 %define cpan_version 1.000001
 Version:        1.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-%{cpan_version}.tar.gz
-# Adapt tests to Test-Most-0.39, bug #2466962, proposed upstream,
-# <https://github.com/oalders/lwp-consolelogger/pull/50>
-Patch0:         LWP-ConsoleLogger-1.000001-Adapt-to-Test-More-0.39.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -160,6 +157,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 11 2026 Petr Pisar <ppisar@redhat.com> - 1.0.1-10
+- Remove a patch for Test-More-0.39, resolved in Test-More-0.42
+  (bugs #2466962, #2467785)
+
 * Wed May 06 2026 Petr Pisar <ppisar@redhat.com> - 1.0.1-9
 - Adapt tests to Test-Most-0.39 (bug #2466962)
 

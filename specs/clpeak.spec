@@ -1,5 +1,5 @@
 Name:       clpeak
-Version:    1.1.7
+Version:    2.0.5
 Release:    1%{?dist}
 Summary:    Find peak OpenCL capacities like bandwidth & compute
 License:    Apache-2.0
@@ -9,9 +9,12 @@ Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gcc-c++
+BuildRequires: glslc
 BuildRequires: mesa-libGL-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: opencl-headers
+BuildRequires: vulkan-headers
+BuildRequires: vulkan-loader-devel
 
 
 %description
@@ -43,6 +46,10 @@ rm -v %{buildroot}/%{_datadir}/clpeak/LICENSE
 
 
 %changelog
+* Mon May 11 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0.5-1
+- update to 2.0.5 (resolves rhbz#2467551)
+- add Vulkan build dependencies to enable Vulkan backend
+
 * Mon Apr 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.1.7-1
 - update to 1.1.7 (resolves rhbz#2446009)
 

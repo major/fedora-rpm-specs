@@ -10,12 +10,12 @@ URL:            https://github.com/harlowja/fasteners
 # We need to use the GitHub archive instead of the PyPI sdist to get tests.
 Source:         %{url}/archive/%{version}/fasteners-%{version}.tar.gz
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 %if %{with tests}
-BuildOption(generate_buildrequires): -g test
+BuildOption(generate_buildrequires): --dependency-groups test
 %endif
-BuildOption(install):   -l fasteners
-BuildOption(check):     -e 'fasteners.pywin32*'
+BuildOption(install): --assert-license fasteners
+BuildOption(check): --exclude 'fasteners.pywin32*'
 
 BuildArch:      noarch
 

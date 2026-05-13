@@ -7,8 +7,8 @@ License:        MIT
 URL:            https://github.com/Sonic0/cron-converter
 Source:         %{url}/archive/v%{version}/cron-converter-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l cron_converter
+BuildSystem:    pyproject
+BuildOption(install): --assert-license cron_converter
 
 BuildArch:      noarch
 

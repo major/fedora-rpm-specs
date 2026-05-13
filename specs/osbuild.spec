@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        178
+Version:        181
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -204,6 +204,17 @@ Provides: osbuild-dnf-json-api = 8
 
 %description    depsolve-dnf
 Contains depsolving capabilities for package managers.
+
+%if ! (0%{?rhel} && "%{_arch}" == "ppc64le")
+%package        virt-deps
+Summary:        Dependencies required for running osbuild pipelines in a VM.
+Requires:       %{name} = %{version}-%{release}
+Requires:       qemu-kvm
+Requires:       virtiofsd
+
+%description    virt-deps
+Dependencies required for running osbuild pipelines in a VM.
+%endif
 
 %prep
 %forgeautosetup -p1
@@ -469,7 +480,19 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 %{pkgdir}/solver.json
 
+%if ! (0%{?rhel} && "%{_arch}" == "ppc64le")
+%files virt-deps
+%endif
+
 %changelog
+* Mon May 11 2026 Packit <hello@packit.dev> - 181-1
+Changes with 181
+----------------
+  - stages/bootc.install-to-fs: remount /dev (#2440)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-05-11
+
 * Thu Apr 02 2026 Packit <hello@packit.dev> - 178-1
 Changes with 178
 ----------------

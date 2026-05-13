@@ -10,9 +10,9 @@ Source0:        %{url}/archive/v%{version}/compreffor-%{version}.tar.gz
 # command’s --help output
 Source1:        compreffor.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l compreffor
-BuildOption(generate_buildrequires): -t
+BuildSystem:    pyproject
+BuildOption(install): --assert-license compreffor
+BuildOption(generate_buildrequires): --tox
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

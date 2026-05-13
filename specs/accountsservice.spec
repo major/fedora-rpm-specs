@@ -96,7 +96,7 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_unitdir}/accounts-daemon.service
 
 %files libs
-%{_libdir}/libaccountsservice.so.*
+%{_libdir}/libaccountsservice.so.1{,.*}
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/AccountsService-1.0.typelib
 

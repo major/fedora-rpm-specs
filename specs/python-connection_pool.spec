@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/zhouyl/ConnectionPool
 Source:         %{url}/archive/%{version}/connection_pool-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l connection_pool
+BuildSystem:    pyproject
+BuildOption(install): --assert-license connection_pool
 
 BuildArch:      noarch
 

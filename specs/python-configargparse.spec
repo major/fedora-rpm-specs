@@ -8,9 +8,9 @@ License:        MIT
 URL:            https://github.com/bw2/ConfigArgParse
 Source:         %{url}/archive/v%{version}/ConfigArgParse-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l configargparse
-BuildOption(generate_buildrequires): -x yaml
+BuildSystem:    pyproject
+BuildOption(install): --assert-license configargparse
+BuildOption(generate_buildrequires): --extras yaml
 
 BuildArch:      noarch
 
@@ -18,7 +18,6 @@ BuildArch:      noarch
 # analysis tools, etc.:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-subtests}
 
 %global common_description %{expand:
 A drop-in replacement for argparse that allows options to also be set via

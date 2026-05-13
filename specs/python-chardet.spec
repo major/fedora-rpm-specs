@@ -1,10 +1,4 @@
-# Version 6.0.0 had __version__ = "6.0.0dev0" in chardet/version.py. A
-# follow-up commit fixed this, updating the version to "6.0.0.post1", and was
-# released on PyPI as 6.0.0.post1, but no corresponding tag was pushed to
-# GitHub. We package from the commit; we don’t put snapshot information in the
-# Version because we know that this commit does correspond to the 6.0.0.post1
-# release.
-%global commit 2fa72d84fdb9cb926eb1e7e40230a33b1dd81bb8
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Name:           python-chardet
 Version:        6.0.0.post1
@@ -26,14 +20,17 @@ URL:            https://github.com/chardet/chardet
 #
 #   problematic licensing of /tests?
 #   https://github.com/chardet/chardet/issues/231
-# Source0:        chardet-%%{version}-filtered.tar.zst
+%if %{undefined commit}
+Source0:        chardet-%{version}-filtered.tar.zst
+%else
 Source0:        chardet-%{commit}-filtered.tar.zst
+%endif
 Source1:        get_source
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source2:        chardetect.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l chardet
+BuildSystem:    pyproject
+BuildOption(install): --assert-license chardet
 
 BuildArch:      noarch
 

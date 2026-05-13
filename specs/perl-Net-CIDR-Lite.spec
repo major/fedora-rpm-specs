@@ -1,6 +1,6 @@
 Summary:        Perl extension for merging IPv4 or IPv6 CIDR addresses
 Name:           perl-Net-CIDR-Lite
-Version:        0.23
+Version:        0.24
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CIDR-Lite
@@ -49,6 +49,12 @@ make test
 %{_mandir}/man3/Net::CIDR::Lite.3*
 
 %changelog
+* Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 0.24-1
+- Update to 0.24
+  - Reject Unicode digits and trailing newlines in parser inputs
+    (CVE-2026-45190)
+  - Reject zero-padded CIDR masks (CVE-2026-45191)
+
 * Sat Apr 11 2026 Paul Howarth <paul@city-fan.org> - 0.23-1
 - Update to 0.23
   - Security: Fix IPv4 mapped IPv6 packed length (CVE-2026-40199)

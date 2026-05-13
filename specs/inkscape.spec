@@ -22,7 +22,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:10})
 
 Name:           inkscape
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        Vector-based drawing program using SVG
 
@@ -31,7 +31,7 @@ URL:            https://inkscape.org/
 Source0:        https://media.inkscape.org/dl/resources/file/inkscape-%{version}.tar.xz
 
 # The signatures were uploaded by the responsible release manager, and includes release date and commit, not using macros because it's inconsistent.
-Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-1.4.3_2025-12-25_0d15f75042.tar.xz.sig
+Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-1.4.4_2026-05-05_dcaf3e7d9e.tar.xz.sig
 
 # Keyring(s)
 Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
@@ -41,10 +41,6 @@ Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
 # to clarify the upstream license for this package? -- mochaa, 2023-10-23
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source100:      Fedora-Color-Palette.gpl
-
-Patch0:         7722.patch
-# Poppler 26.01.0
-Patch1:         3a528728ebe33e10bb44d152f47cfedfddbfe18a.patch
 
 # Don't drop i686 until at least texlive no longer needs it -GC, 2023-08-10
 #%%if 0%%{?fedora} >= 39
@@ -182,7 +178,7 @@ graphics in W3C standard Scalable Vector Graphics (SVG) file format.
 %prep
 %{gpgverify} --keyring='%{SOURCE10}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-%autosetup -n inkscape-1.4.3_2025-12-25_0d15f75042 -p1
+%autosetup -n inkscape-1.4.4_2026-05-05_dcaf3e7d9e -p1
 %py3_shebang_fix .
 
 # https://bugs.launchpad.net/inkscape/+bug/314381

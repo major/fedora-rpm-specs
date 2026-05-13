@@ -1,8 +1,6 @@
 # 'without' = build with Gtk+ by default
 %bcond_without gtk
 
-%bcond_without meson
-
 %global aud_plugin_api %(grep '[ ]*#define[ ]*_AUD_PLUGIN_VERSION[ ]\\+' %{_includedir}/libaudcore/plugin.h 2>/dev/null | sed 's!.*_AUD_PLUGIN_VERSION[ ]*\\([0-9]\\+\\).*!\\1!')
 %if 0%{aud_plugin_api} > 0
 %global aud_plugin_dep Requires: audacious(plugin-api)%{?_isa} = %{aud_plugin_api}
@@ -10,13 +8,13 @@
 %{?aud_plugin_dep}
 
 Name: audacious-plugins
-Version: 4.5.1
-Release: 5%{?dist}
+Version: 4.6
+Release: 0.5.beta1%{?dist}
 
-%global tar_ver %{version}
+%global tar_ver %{version}-beta1
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.5
+%global aud_ver 4.6-0.4.beta1
 Requires: audacious%{?_isa} >= %{aud_ver}
 
 Summary: Plugins for the Audacious audio player
@@ -26,6 +24,7 @@ URL: https://audacious-media-player.org/
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND MIT AND BSD-2-Clause-pkgconf-disclaimer AND LicenseRef-Fedora-Public-Domain
 
 Source0: https://distfiles.audacious-media-player.org/%{name}-%{tar_ver}.tar.bz2
+
 Source3: README.licenses
 # for optional packages
 Source100: audacious-plugins-amidi.metainfo.xml
@@ -38,7 +37,6 @@ Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
 Patch2: audacious-plugins-3.6-ladspa.patch
 
 BuildRequires: gcc-c++
-BuildRequires: make
 BuildRequires: meson
 BuildRequires: audacious-devel >= %{aud_ver}
 BuildRequires: gettext-devel
@@ -182,11 +180,6 @@ do
 done
 grep -q -s __RPM_LIB * -R && exit 1 || echo
 
-%if %{without meson}
-sed -i '\,^.SILENT:,d' buildsys.mk.in
-sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
-%endif
-
 
 %build
 # Enforce availability of the audacious(plugin-api) dependency.
@@ -202,7 +195,6 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 # not defining true/false for all plugins here, since for the RPM
 # package build, all wanted plugins are specified in the %%files section,
 # and the package build would fail for any missing files
-%if %{with meson}
 %meson \
     -Dsndio=false \
     -Dfilewriter-mp3=true \
@@ -219,29 +211,11 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
     -Dqt5=true
 %endif
 %meson_build
-%else
-%configure  \
-    --enable-filewriter-mp3 \
-    --enable-streamtuner \
-    --disable-sndio \
-%if 0%{?fedora} || 0%{?rhel} >= 9
-    --enable-ffaudio \
-%else
-    --disable-ffaudio \
-%endif
-    %{?with_gtk:--enable-gtk} \
-    %{!?with_gtk:--disable-gtk} \
-    --disable-rpath
-%make_build
-%endif
 
 
 %install
-%if %{with meson}
 %meson_install
-%else
-%make_install INSTALL="install -p"
-%endif
+
 %find_lang %{name}
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/appdata
@@ -279,6 +253,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %dir %{_libdir}/audacious/General/
 %{_libdir}/audacious/General/albumart-qt.so
 %{_libdir}/audacious/General/ampache.so
+%{_libdir}/audacious/General/filebrowser.so
+%{_libdir}/audacious/General/filebrowser-qt.so
+%{_libdir}/audacious/General/playback-history.so
 %{_libdir}/audacious/General/playback-history-qt.so
 %{_libdir}/audacious/General/playlist-manager-qt.so
 %{_libdir}/audacious/General/qtui.so
@@ -373,6 +350,26 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Mon May 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.5.beta1
+- strictly BR audacious-devel >= 4.6-0.4.beta1 for the "Bitrate" changes
+
+* Mon May 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.4.beta1
+- update to beta1
+
+* Sun Apr 19 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.3.20260419git28aea39
+- update git snapshot
+
+* Tue Apr 14 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.3.20260414gitf00109c
+- update git snapshot
+
+* Wed Mar 04 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.2.20260304gitd7c1ee1
+- update git snapshot
+
+* Mon Feb 23 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.1.20260223git353550d
+- new plugin "filebrowser"
+- upgrade to 4.6 pre git snapshot
+- remove "configure" based build conditionals
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

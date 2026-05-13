@@ -1,5 +1,5 @@
 Name:           python-pyscipopt
-Version:        6.1.0
+Version:        6.2.0
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 
@@ -56,11 +56,7 @@ export CFLAGS="${CFLAGS} -I/usr/include/scip"
 
 
 %check -a
-# Regression: test_tree fails with scip 10.0.2
-# https://github.com/scipopt/PySCIPOpt/issues/1206
-k="${k-}${k+ and }not test_tree"
-
-%pytest -k "${k-}" -v
+%pytest -v
 
 
 %files -n python3-pyscipopt -f %{pyproject_files}

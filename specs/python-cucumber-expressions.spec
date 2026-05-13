@@ -8,12 +8,8 @@ URL:            https://github.com/cucumber/cucumber-expressions
 # The GitHub archive has test data files; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/cucumber-expressions-%{version}.tar.gz
 
-# Downstream-only: remove the upper bound on the version of uv_build
-# We must work with what is packaged; multiple compat versions are not planned.
-Patch:          0001-Downstream-only-remove-the-upper-bound-on-the-versio.patch
-
-BuildSystem:            pyproject
-BuildOption(install):   -l cucumber_expressions
+BuildSystem:    pyproject
+BuildOption(install): --assert-license cucumber_expressions
 
 BuildArch:      noarch
 
@@ -34,6 +30,12 @@ intuitive syntax.}
 Summary:        %{summary}
 
 %description -n python3-cucumber-expressions %{common_description}
+
+
+%prep -a
+# Downstream-only: remove the upper bound on the version of uv_build
+# We must work with what is packaged; multiple compat versions are not planned.
+%pyproject_patch_dependency uv_build:drop_upper
 
 
 %generate_buildrequires -p

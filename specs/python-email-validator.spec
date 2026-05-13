@@ -14,8 +14,8 @@ Source0:        %{url}/archive/v%{version}/python-email-validator-%{version}.tar
 # https://github.com/JoshData/python-email-validator/issues/146
 Source1:        email_validator.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l email_validator
+BuildSystem:    pyproject
+BuildOption(install): --assert-license email_validator
 
 BuildArch:      noarch
 

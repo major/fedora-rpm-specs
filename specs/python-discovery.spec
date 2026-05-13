@@ -11,12 +11,13 @@ URL:            https://github.com/tox-dev/python-discovery
 Source:         %{url}/archive/%{version}/python-discovery-%{version}.tar.gz
 
 # Restore support for Python 3.6 virtual environments
-# Downstream only, split from virtualenv, see https://bugzilla.redhat.com/2427756
+# Downstream only, split from virtualenv.
+# See https://bugzilla.redhat.com/2427756.
 Patch:          python3.6.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l python_discovery
-BuildOption(generate_buildrequires): -x testing
+BuildSystem:    pyproject
+BuildOption(install): --assert-license python_discovery
+BuildOption(generate_buildrequires): --extras testing
 
 BuildArch:      noarch
 

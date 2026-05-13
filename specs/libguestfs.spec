@@ -69,6 +69,9 @@ Source7:       libguestfs.keyring
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
 
+# For applying patches:
+BuildRequires: git
+
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
 # Basic build requirements.
@@ -619,8 +622,7 @@ for %{name}.
 %if 0%{verify_tarball_signature}
 %{gpgverify} --keyring='%{SOURCE7}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-%setup -q
-%autopatch -p1
+%autosetup -S git -p1
 
 # ACLOCAL_PATH is temporarily required to work around
 # https://bugzilla.redhat.com/show_bug.cgi?id=2366708

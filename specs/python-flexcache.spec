@@ -16,10 +16,10 @@ Source:         %{pypi_source flexcache}
 # https://github.com/hgrecco/flexcache/issues/4
 Patch:          %{url}/pull/5.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l flexcache
+BuildSystem:    pyproject
+BuildOption(install): --assert-license flexcache
 # We remove flexcache.testsuite manually in %%install.
-BuildOption(check):     -e 'flexcache.testsuite*'
+BuildOption(check): --exclude 'flexcache.testsuite*'
 
 BuildArch:      noarch
 

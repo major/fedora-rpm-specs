@@ -1,6 +1,6 @@
 Name:          openapv
 Release:       %autorelease
-Version:       0.2.1.2
+Version:       0.2.1.3
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv

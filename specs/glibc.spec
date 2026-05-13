@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-269-g40a42fc187
+%global glibcsrcdir glibc-2.43.9000-297-gb28ffb926f
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 14
+%global baserelease 15
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -349,13 +349,11 @@ Patch17: glibc-cs-path.patch
 Patch18: glibc-rh2426825.patch
 Patch19: glibc-rh2457183-1.patch
 Patch20: glibc-rh2457183-2.patch
-Patch21: glibc-RHEL-172421.patch
 Patch22: glibc-RHEL-172425-1.patch
 Patch23: glibc-RHEL-172425-2.patch
 Patch24: glibc-RHEL-172425-3.patch
 Patch25: glibc-RHEL-172425-4.patch
 Patch26: glibc-RHEL-172425-5.patch
-Patch27: glibc-RHEL-172420.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2409,6 +2407,41 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon May 11 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-15
+- Auto-sync with upstream branch master,
+  commit b28ffb926f34934a19c5e853504bdc8a8d57137f:
+- riscv: redirect strlen in early startup (Andreas Schwab)
+- resolv, rt: Change some extern inline functions to static inline (Peter Collingbourne)
+- riscv: Add RVV strncmp for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV strcmp for both multiarch and non-multiarch builds (Yao Zihong)
+- support: add support_ptr_after_free (Yury Khrustalev)
+- stdio-common: Fix buffer overflow in scanf %mc [BZ #34008] (Rocket Ma)
+- i386: Replace inline asm rotates in pointer_guard with stdc_rotate_{left,right} (Uros Bizjak)
+- x86_64: Replace inline asm rotates in pointer_guard with stdc_rotate_{left,right} (Uros Bizjak)
+- stdlib: Add internal stdc_rotate_left implementation (Uros Bizjak)
+- Drop "(C) YYYY" from DCO'd contributions. (Carlos O'Donell)
+- libio: Fix ungetwc operating on byte stream [BZ #33998] (Rocket Ma)
+- stdlib: add missing stdc_rotate_right_ull alias when builtin is available (Uros Bizjak)
+- stdbit: Fix builtin name used in __glibc_has_builtin check for rotate_right (Uros Bizjak)
+- misc: fix lint-makefiles failures (Yury Khrustalev)
+- riscv: Add RVV strlen for both multiarch and non-multiarch builds (Yao Zihong)
+- support: Improve tst-support_descriptors compatibility with containers (Florian Weimer)
+- localedata: update LC_ADDRESS and LC_NAME for ko_KR (Jiho Lee)
+- Use Linux 7.0, MPC 1.4.1 in build-many-glibcs.py (Joseph Myers)
+- x86: Enable Prefer_No_AVX512 for Hygon model 0x8 (xiejiamei)
+- stdio-common: Fix overflow registering modifier [BZ #34086] (Rocket Ma)
+- Return different exit codes when gai_result is > -100 (Petr Menšík)
+- nss: Add verbose flag to getent tool (Petr Menšík)
+- hugepages: close fd on error path in __get_thp_mode (Shamil Abdulaev)
+- Update link in SECURITY.md. (Collin Funk)
+- locale: memory leak in newlocale [BZ #25770] (Dmitry Kovalenko)
+- README: fix stale bug-reporting URL [BZ #34094] (Shamil Abdulaev)
+- manual: clarify _FILE_OFFSET_BITS Y2038 implications [BZ #34095] (Shamil Abdulaev)
+- misc: Optimize getusershell.c (Rocket Ma)
+- Remove applied or redundant patches:
+  - glibc-RHEL-172420.patch
+  - glibc-RHEL-172421.patch
+
 * Thu Apr 30 2026 Florian Weimer  <fweimer@redhat.com> - 2.43.9000-14
 - Add downstream patches with fixes for vulnerabilities.
 - Fix buffer overflow in scanf %%mc (CVE-2026-5450)

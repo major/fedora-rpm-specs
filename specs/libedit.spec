@@ -1,4 +1,4 @@
-%global snap 20251016
+%global snap 20260508
 
 # Build man pages with mdoc2man.awk to avoid circular dependencies
 %bcond bootstrap 0
@@ -6,7 +6,7 @@
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	58.%{snap}cvs%{?dist}
+Release:	59.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -86,6 +86,9 @@ sed -i "s/lncurses/ltinfo/" configure
 %{_includedir}/editline/readline.h
 
 %changelog
+* Mon May 11 2026 Jerry James  <loganjerry@gmail.com> - 3.1-59.20260508cvs
+- New version (20260508-3.1)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-58.20251016cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

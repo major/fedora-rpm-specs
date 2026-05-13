@@ -10,8 +10,8 @@ Source:         %{pypi_source expandvars}
 # Fix pytest 9: addopts must be a list, not a string
 Patch:          https://github.com/sayanarijit/expandvars/commit/0ab5747.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l expandvars
+BuildSystem:    pyproject
+BuildOption(install): --assert-license expandvars
 
 BuildArch:      noarch
 

@@ -1,6 +1,6 @@
 Name:          python-paramiko
-Version:       3.5.1
-Release:       7%{?dist}
+Version:       5.0.0
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -15,9 +15,9 @@ Patch3:        0003-remove-pytest-relaxed-dep.patch
 # icecream not packaged in Fedora, nor needed for regular builds
 Patch4:        0004-remove-icecream-dep.patch
 
-# Avoid use of lexicon via invoke since we're avoiding invoke as a dependency;
+# Avoid use of lexicon via invoke since the Fedora invoke package does not include vendored lexicon
 # instead, use lexicon directly
-Patch5:        0005-remove-invoke-dep.patch
+Patch5:        0005-use-lexicon-directly.patch
 
 BuildArch:     noarch
 
@@ -63,9 +63,6 @@ This is the documentation and demos.
 %prep
 %autosetup -p1 -n paramiko-%{version}
 
-chmod -c a-x demos/*
-sed -i -e '/^#!/,1d' demos/*
-
 %build
 %pyproject_wheel
 
@@ -81,14 +78,114 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 
 %files -n python%{python3_pkgversion}-paramiko
 %license LICENSE
-%doc README.rst
+%doc README.rst SECURITY.md
 %{python3_sitelib}/paramiko/
 %{python3_sitelib}/paramiko-%{version}.dist-info/
 
 %files doc
-%doc html/ demos/
+%doc html/
 
 %changelog
+* Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 5.0.0-1
+- Update to 5.0.0 (rhbz#2468545)
+  - Fix 'Ed25519Key <paramiko.ed25519key.Ed25519Key>'s internals such that it
+    no longer throws 'AttributeError' during calls to '__repr__' when only
+    partly initialized; this isn't a normal runtime problem (it only happens
+    inside error handling for fatal errors like "not a valid private key") but
+    was perennially complicating test failure diagnosis and similar scenarios
+  - The 'PKey <paramiko.pkey.PKey>' class family tree reorganized the
+    'write_private_key' and 'write_private_key_file' methods; with other recent
+    changes, having individual implementations on the child classes made no
+    sense, so key writing is now implemented in 'PKey <paramiko.pkey.PKey>'
+    itself and the included child classes such as
+    'ECDSAKey <paramiko.ecdsakey.ECDSAKey>' no longer define their own such
+    methods, instead simply exposing their underlying cryptographic private key
+    objects as '.private_key'
+  - Added a new, optional 'file_format' keyword argument to
+    'PKey.write_private_key <paramiko.pkey.PKey.write_private_key>' and
+    'PKey.write_private_key_file <paramiko.pkey.PKey.write_private_key_file>' to
+    allow writing out OpenSSH-style private key files in addition to the legacy
+    PEM format
+    - Warning: While the default format remains PEM in Paramiko 5, future major
+      releases are likely to change that default to the OpenSSH format; we
+      recommend updating any key-writing code you have to be explicit now, to
+      insulate yourself from such an update
+  - Raised the minimum modulus size in 'diffie-hellman-group-exchange-sha256'
+    key exchange from 1024 (the original spec's minimum) to 2048 (the
+    contemporary minimum according to RFC-9142, and matching a similar change by
+    OpenSSH ten years ago in 7.2 / 2016)
+    - Warning: This change may be backwards incompatible if you were targeting
+      servers supporting *only* this kex method and whose own maximum modulus
+      size for group-exchange was lower than 2048
+  - Removed GSSAPI support, as the current (buggy, no longer easily testable in
+    CI, poorly understood and not used by the core team) implementation is
+    SHA-1 based and no SHA-256 upgrade appeared to be forthcoming from
+    contributors
+    - We don't like removing functionality, but this feature has been on the
+      rocks for years and it makes sense to remove it as an insecure support
+      burden; we will definitely consider merging a SHA256-based replacement in
+      the future if a high-quality one appears
+    - Side note: the GSS related constants in 'paramiko/common.py' have been
+      left in place as they are essentially mapping out known protocol numbers
+    - Warning: This change is backwards incompatible if you require GSS
+  - Removed support for key exchange using SHA-1, meaning the kex methods
+    'diffie-hellman-group-exchange-sha1', '`diffie-hellman-group14-sha1', and
+    'diffie-hellman-group1-sha1' are now gone; implementing classes have been
+    removed/merged/shuffled as required
+    - Warning: This change is backwards incompatible if you were still
+      supporting old systems that don't implement sha256/sha512 DH kex (or
+      ECDH kex)
+  - Removed support for verifying/signing with RSA keys using SHA-1 hashing;
+    generally, this means most cases where "ssh-rsa" was used as an algorithm
+    identifier (as opposed to a key material identifier) will no longer accept
+    that string as valid, and the relevant code that actually used e.g.
+    'hashes.SHA1' no longer does
+    - Warning: This change is backwards incompatible if you are stuck
+      supporting legacy systems with Paramiko that are unable to use SHA2-based
+      signatures with RSA keys (or other workarounds, such as switching from
+      RSA keys to Ed25519 ones)
+  - Added a 'password' kwarg to
+    'PKey.from_type_string <paramiko.pkey.PKey.from_type_string>' so it can
+    handle encrypted keys like most other PKey constructors already could
+  - Renamed 'PKey.from_path <paramiko.pkey.PKey.from_path>'s 'passphrase'
+    argument to 'password' so it's consistent with all the other methods of
+    instantiating PKey objects
+    - Warning: This change is backwards incompatible if you were using this
+      relatively new constructor and were doing so to load encrypted keys
+  - Removed the 'demos/' folder; they've become too big a support burden and
+    we've wanted to remove them for years
+    - Users who enjoyed the client-side demos should look at our wrapper
+      library, 'Fabric <https://fabfile.org>'
+    - We suspect the most-used demo was 'demos/demo-server.py' and may consider
+      adding a variant of it to the actual Python package in future
+
+* Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 4.0.0-1
+- Update to 4.0.0
+  - Dropped support for Python <3.9
+  - Migrated packaging metadata and practices to use 'pyproject.toml'
+  - Removed the now-vestigial 'ed25519' packaging 'extra' (support for this
+    hasn't required additional dependencies in a number of releases now, just
+    the core ones)
+  - Moved Invoke requirement to core dependencies, and removed
+    'paramiko[invoke]' from extras
+  - With those two changes, 'paramiko[all]' becomes much less useful, and has
+    itself been axed
+  - Removed the very old and wizened 'setup_helper.py' which was only needed on
+    ancient (for this century) versions of macOS
+  - Removed 'paramiko.__all__', as it was redundant (guessing it dated back to
+    some *very* old Python versions; anyone using 'import *' these days -
+    shame! - should still be fine as we never *had* any 'private' members in
+    '__all__' and AFAICT that was the only reason ever to use it in the first
+    place (as 'import *' skips names like '_private')
+  - Removed support for the DSA (aka DSS) key algorithm, as it has been badly
+    outdated and insecure for a decade or more at this point, and was recently
+    completely removed from OpenSSH as well (GH#973)
+    - If you were still using DSA out of sheer inertia: we strongly recommend
+      upgrading to Ed25519 (or maybe ECDSA)
+    - If you were still using DSA because of target hosts you do not control:
+      please continue using Paramiko 3.x
+- Reinstate use of invoke since it's now a core dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

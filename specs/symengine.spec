@@ -13,6 +13,10 @@ ExcludeArch:    %{ix86}
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         https://github.com/symengine/symengine/commit/d8234815beee37447bd85d51c70f4a855509c20f.patch
 Patch1:         https://github.com/symengine/symengine/commit/00085a24acbffd95dafb94331fa4a07a0da44ffa.patch
+# LLVM 20 compatibility
+Patch2:         https://github.com/symengine/symengine/commit/de7305e5e2fee97d80c25164a8f8c9f7ecfc9953.patch
+# LLVM 22 compatibility
+Patch3:         https://github.com/symengine/symengine/commit/ea9868e64ced2cd2abb9cdc3ae97d965b892b974.patch
 
 BuildRequires:  cereal-devel
 BuildRequires:  cmake
@@ -46,7 +50,6 @@ sed -i -e 's|DEF_INSTALL_CMAKE_DIR lib/cmake|DEF_INSTALL_CMAKE_DIR %{_lib}/cmake
     -DHAVE_SYMENGINE_RTTI=no \
 %endif
     -DWITH_GMP=on \
-    -DWITH_LLVM=on \
     -DWITH_LLVM=on \
     -DWITH_MPFR=on \
     -DWITH_SYSTEM_CEREAL=on \

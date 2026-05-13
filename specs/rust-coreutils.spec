@@ -14,10 +14,12 @@
 %global feature_flags feat_acl,feat_os_unix,feat_selinux,uudoc
 %endif
 
-%ifarch s390x
-# the default setting causes the build to get killed
-%global rustflags_debuginfo 1
-%endif
+# Peak memory usage is (on x86_64) roughly 4–5 GB in two parallel rustc
+# processes, building the uudoc and coreutils crates. This is OK on the
+# primary-architecture koji builders, but on more severely memory-constrained
+# systems (like some in RISC-V koji) this may cause swapping or memory
+# exhaustion. Setting a conservative memory limit per process helps.
+%global _smp_tasksize_proc 8192
 
 %global crate coreutils
 

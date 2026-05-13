@@ -12,7 +12,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.20.0~rc3
+Version: 8.20.0
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -388,7 +388,7 @@ for size in minimal full; do (
     export LD_LIBRARY_PATH="${PWD}/lib/.libs"
 
     # tests that must run in serial to avoid intermittent failures under parallel execution
-    serial_tests="766 2404 2500 2502 3300"
+    serial_tests="766 2402 2404 2500 2502 3300"
     serial_excludes=$(for t in $serial_tests; do printf ' !%s' "$t"; done)
     # run the bulk of tests in parallel, excluding serial ones
     # cap at 64 jobs to avoid overwhelming system resources on high-CPU machines
@@ -468,6 +468,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu May 07 2026 Jan Macku <jamacku@redhat.com> - 8.20.0-1
+- new upstream release
+
 * Thu Apr 30 2026 Jan Macku <jamacku@redhat.com> - 8.20.0~rc3-1
 - new upstream release candidate
 

@@ -13,7 +13,8 @@ Patch:          0001-Downstream-only-run-test_script-without-coverage.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): %{shrink:
-    --extras standard,standard-no-fastapi-cloud-cli,new}
+    --extras standard,standard-no-fastapi-cloud-cli,new
+    }
 BuildOption(install): --assert-license fastapi_cli
 
 BuildArch:      noarch

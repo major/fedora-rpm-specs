@@ -4,9 +4,9 @@
 %global neo_hotfix 12
 
 %if 0%{?rhel}
-%global use_system_headers  0
+%global use_system_headers 0
 %else
-%global use_system_headers  1
+%global use_system_headers 1
 %endif
 
 Name: intel-compute-runtime
@@ -33,19 +33,21 @@ BuildRequires: gcc-c++
 BuildRequires: intel-gmmlib-devel
 BuildRequires: libva-devel
 BuildRequires: libdrm-devel
-BuildRequires: kernel-devel
 BuildRequires: intel-igc-devel
 BuildRequires: intel-opencl-clang
 BuildRequires: ninja-build
-BuildRequires: libglvnd-devel
 BuildRequires: libnl3-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: opencl-headers
 BuildRequires: oneapi-level-zero-devel
-BuildRequires: spirv-headers-devel
 BuildRequires: spirv-tools-devel
 #Need libudev headers
 BuildRequires: systemd-devel
+%if 0%{?use_system_headers}
+BuildRequires: opencl-headers
+BuildRequires: libglvnd-devel
+BuildRequires: spirv-headers-devel
+%endif
 
 # This doesn't get added automatically, so specify it explicitly
 Requires: intel-igc

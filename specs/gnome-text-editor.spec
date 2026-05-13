@@ -9,7 +9,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:		gnome-text-editor
-Version:	50.0
+Version:	50.1
 Release:	%autorelease
 Summary:	A simple text editor for the GNOME desktop
 

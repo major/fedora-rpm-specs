@@ -10,8 +10,8 @@ URL:            https://github.com/koesterlab/conda-inject
 # also gives us the tests, but we are unable to run them.
 Source:         %{url}/archive/v%{version}/conda-inject-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L conda_inject
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license conda_inject
 
 BuildArch:      noarch
 

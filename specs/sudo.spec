@@ -31,6 +31,7 @@ BuildRequires: gettext
 BuildRequires: zlib-devel
 
 Patch1: 0001-cve-2026-35535.patch
+Patch2: 0002-Fix-OpenSSL-4.0-compatibility.patch
 
 %description
 Sudo (superuser do) allows a system administrator to give certain

@@ -13,6 +13,8 @@ Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # been incorporated into the Fedora versions.  Make e-antic skip attempts to
 # build the patched files.
 Patch:          %{name}-unpatch.patch
+# Fix the Sturm sign change count
+Patch:          %{giturl}/pull/302.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

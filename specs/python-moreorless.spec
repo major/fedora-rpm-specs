@@ -1,6 +1,8 @@
 %global srcname moreorless
 
-%bcond_without tests
+# missing parameterized, which is retired due to pytest 8.4 incompatibility
+# https://github.com/thatch/moreorless/issues/11
+%bcond tests 0
 
 Name:           python-%{srcname}
 Version:        0.5.0
@@ -18,6 +20,8 @@ BuildRequires:  %{py3_dist setuptools_scm}
 %if %{with tests}
 BuildRequires:  %{py3_dist coverage}
 BuildRequires:  %{py3_dist parameterized}
+%else
+BuildRequires:  sed
 %endif
 
 
@@ -37,6 +41,11 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+%if %{without tests}
+# tests reference parameterized
+sed -E -i '/^[[:blank:]]+moreorless.tests/d' setup.cfg
+rm -rf moreorless/tests
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -53,6 +62,7 @@ Summary:        %{summary}
 
 
 %check
+%pyproject_check_import moreorless
 %if %{with tests}
 %{python3} -m coverage run -m moreorless.tests -v
 %endif

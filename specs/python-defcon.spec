@@ -19,9 +19,9 @@ Patch:          defcon-0.12.2-fonttools-4.60.0.patch
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x lxml%{?with_pens:,pens}
-BuildOption(install):   -l defcon
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras lxml%{?with_pens:,pens}
+BuildOption(install): --assert-license defcon
 
 BuildRequires:  %{py3_dist pytest}
 

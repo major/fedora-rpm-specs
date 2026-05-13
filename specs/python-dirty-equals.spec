@@ -11,11 +11,11 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/dirty-equals
 Source:         %{pypi_source dirty_equals}
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 %if %{without bootstrap}
-BuildOption(generate_buildrequires): -x pydantic
+BuildOption(generate_buildrequires): --extras pydantic
 %endif
-BuildOption(install):   -l dirty_equals
+BuildOption(install): --assert-license dirty_equals
 
 BuildArch:      noarch
 

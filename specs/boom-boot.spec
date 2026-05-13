@@ -3,12 +3,13 @@
 
 Name:		boom-boot
 Version:	1.6.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	%{summary}
 
 License:	Apache-2.0
 URL:		https://github.com/snapshotmanager/boom-boot
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:		0001-mounts-_parse_mount_unit-does-not-understand-hex-esc.patch
 
 BuildArch:	noarch
 
@@ -161,6 +162,10 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Mon May 11 2026 Bryn M. Reeves <bmr@redhat.com> - 1.6.8-5
+- Fix _parse_mount_unit() does not understand hex escapes or NFS/CIFS
+Resolves: bz#2469064
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

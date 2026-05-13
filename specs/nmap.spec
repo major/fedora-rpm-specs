@@ -29,6 +29,8 @@ Patch8: nmap-pcre2.patch
 Patch9: nmap-ems-ssl-enum-ciphers.patch
 # Fix build with libpcap 1.10.5
 Patch10: nmap-libpcap.patch
+# Fix OpenSSL 4.0 compatibility
+Patch11: nmap-openssl4.patch
 
 BuildRequires: automake make
 BuildRequires: autoconf

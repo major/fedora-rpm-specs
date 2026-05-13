@@ -4,7 +4,7 @@
 Summary: Utilities for devices that use SCSI command sets
 Name:    sg3_utils
 Version: 1.48
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later AND BSD-2-Clause
 URL:     https://sg.danny.cz/sg/sg3_utils.html
 Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
@@ -25,8 +25,8 @@ Patch3: udev_rules-avoid_spurious_warning_for_non-SCSI_devices.patch
 Patch4: 0004-rescan-scsi-bus.sh-Correctly-read-RMB-bit-on-enquiry.patch
 # https://github.com/doug-gilbert/sg3_utils/pull/68
 # rescan-scsi-bus.sh Replace 'which' with build in 'command -v'
-Patch5: 0005-rescan-scsi-bus.sh-Replace-which-with-build-in-comma.patch
-# https://github.com/doug-gilbert/sg3_utils/pull/69
+Patch5: 0005-PATCH-v2-rescan-scsi-bus.sh-Replace-which-with-build.patch
+# https://github.com/doug-gilbert/sg3_utils/pull/75
 # Update sg_safte.c to update short option of version
 Patch6: 0006-Update-sg_safte.c-to-update-short-option-of-version.patch
 # https://github.com/doug-gilbert/sg3_utils/pull/56
@@ -37,7 +37,7 @@ Patch7: 0007-Update-sg_rdac.c-to-accept--help-or--h-without-erro.patch
 Patch8: 0008-sg_inq-fix-missing-output-fields-in--export-format.patch
 # https://github.com/doug-gilbert/sg3_utils/pull/49
 # sg_inq: re-add Unit serial number field
-#Patch9: 0009-sg_inq-re-add-Unit-serial-number-field.patch
+Patch9: 0009-sg_inq-re-add-Unit-serial-number-field.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: make
@@ -154,6 +154,9 @@ install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
 
 
 %changelog
+* Mon May 11 2026 Paul Evans <pevans@redhat.com> - 1.48-9
+- rescan-scsi-bus.sh: Replace 'which' with built in 'command -v' [Patch v2]
+
 * Mon Feb 09 2026 Paul Evans <pevans@redhat.com> - 1.48-8
 - rescan-scsi-bus.sh: Correctly read RMB bit on enquiry (RHEL-122982)
 - rescan-scsi-bus.sh: Replace 'which' with built in 'command -v' (RHEL-70693)

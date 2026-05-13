@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 22.1.4
+%global libclc_version 22.1.5
 #global rc_ver 3
 %global src_tarball_dir llvm-project-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -108,6 +108,10 @@ cd libclc
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed May 06 2026 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 22.1.5-1
+- Update to LLVM 22.1.5
+- Resolves: rhbz#2466849
+
 * Tue Apr 21 2026 Packit <hello@packit.dev> - 22.1.4-1
 - Update to version 22.1.4
 - Resolves: rhbz#2460022

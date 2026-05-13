@@ -34,9 +34,11 @@ Source12:       fastapi-run.1
 Source13:       fastapi-deploy.1
 Source14:       fastapi-login.1
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x standard,standard-no-fastapi-cloud-cli,all
-BuildOption(install):   -l fastapi
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    --extras standard,standard-no-fastapi-cloud-cli,all
+    }
+BuildOption(install): --assert-license fastapi
 
 BuildArch:      noarch
 

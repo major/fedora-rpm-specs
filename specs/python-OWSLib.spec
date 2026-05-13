@@ -23,8 +23,8 @@ URL:            https://geopython.github.io/OWSLib
 Source0:        OWSLib-%{version}-filtered.tar.zst
 Source1:        get_source
 
-BuildSystem:            pyproject
-BuildOption(install):   -l owslib
+BuildSystem:    pyproject
+BuildOption(install): --assert-license owslib
 
 BuildArch:      noarch
 

@@ -12,7 +12,7 @@ Summary:        Thin Python bindings to de/compression algorithms in Rust
 License:        MIT
 URL:            https://github.com/milesgranger/cramjam
 
-%if !%{defined commit}
+%if %{undefined commit}
 
 # This handles pre-release versioning:
 %global srcversion %(echo '%{version}' | tr -d '~')
@@ -33,10 +33,10 @@ Source1:        get_source
 
 %endif
 
-BuildSystem:            pyproject
-BuildOption(install):   -l cramjam
+BuildSystem:    pyproject
+BuildOption(install): --assert-license cramjam
 
-BuildRequires:  tomcli >= 0.8.0
+BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 
 %if %{with tests}

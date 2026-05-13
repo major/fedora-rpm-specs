@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 Name:   ibus-speech-to-text
-Version:  0.8.0
+Version:  0.9.0
 Release:  1%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
 ExcludeArch: %{ix86}
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Thu May 7 2026 Manish Tiwari <matiwari@redhat.com> 0.9.0-1
+- Update to release 0.9.0
+
 * Wed Apr 1 2026 Manish Tiwari <matiwari@redhat.com> 0.8.0-1
 - Update to release 0.8.0
 

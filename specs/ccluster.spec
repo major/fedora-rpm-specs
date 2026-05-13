@@ -10,6 +10,7 @@ URL:            https://github.com/rimbach/Ccluster
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Public definition of type "number" breaks the Singular build
+# https://github.com/rimbach/Ccluster/pull/79
 Patch:          %{name}-number.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

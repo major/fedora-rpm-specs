@@ -1,5 +1,5 @@
 Name:           fooyin
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        A customizable music player
 
@@ -41,7 +41,6 @@ BuildRequires:  cmake(GTest)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
-Patch0:         disable-pffft-altivec.patch
 
 %description
 fooyin is a music player built around customization. It provides a variety

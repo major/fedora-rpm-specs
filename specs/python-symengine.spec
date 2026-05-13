@@ -49,6 +49,8 @@ This package contains tests for SymEngine.py.
 %pyproject_buildrequires
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381387)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %pyproject_wheel
 
 %install

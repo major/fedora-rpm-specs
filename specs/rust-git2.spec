@@ -114,18 +114,6 @@ use the "unstable" feature of the "%{crate}" crate.
 %files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vendored-libgit2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vendored-libgit2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vendored-libgit2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vendored-libgit2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

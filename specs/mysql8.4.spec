@@ -2,7 +2,7 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.4.8
+%global package_version 8.4.9
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -25,7 +25,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.4.8
+%global last_tested_version 8.4.9
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -99,7 +99,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1025,6 +1025,8 @@ popd
 %{_libdir}/mysql/plugin/component_test_sensitive_system_variables.so
 %{_libdir}/mysql/plugin/component_test_server_telemetry_metrics.so
 %{_libdir}/mysql/plugin/component_test_server_telemetry_traces.so
+%{_libdir}/mysql/plugin/component_test_server_telemetry_logs_client.so
+%{_libdir}/mysql/plugin/component_test_server_telemetry_logs_export.so
 %{_libdir}/mysql/plugin/component_test_status_var_reader.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_int.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_reg_only.so
@@ -1096,6 +1098,9 @@ popd
 %endif
 
 %changelog
+* Wed May 06 2026 Michal Schorm <mschorm@redhat.com> - 8.4.9-1
+- Rebase to 8.4.9
+
 * Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.4.8-3
 - Never provide unversioned packages in RHEL
 

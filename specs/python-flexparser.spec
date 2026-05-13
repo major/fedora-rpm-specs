@@ -7,10 +7,10 @@ License:        BSD-3-Clause
 URL:            https://github.com/hgrecco/flexparser
 Source:         %{pypi_source flexparser}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l flexparser
+BuildSystem:    pyproject
+BuildOption(install): --assert-license flexparser
 # We remove flexparser.testsuite manually in %%install.
-BuildOption(check):     -e 'flexparser.testsuite*'
+BuildOption(check): --exclude 'flexparser.testsuite*'
 
 BuildArch:      noarch
 

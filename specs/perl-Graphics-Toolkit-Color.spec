@@ -1,5 +1,5 @@
 Name:           perl-Graphics-Toolkit-Color
-Version:        2.02
+Version:        2.11
 Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,11 +30,17 @@ BuildRequires:  perl(Exporter) >= 5
 # schemata are spread over many packages, we cannot and should not list all of
 # them we know of. None of them is used at tests.
 # Tests:
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::Builder) >= 1
+BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More) >= 1.3
 Requires:       perl(Exporter) >= 5
 
 # Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter|Test::More|)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter|Test::Builder|Test::More)\\)$
+# Hide private modules
+%global __requires_exclude %{__requires_exclude}|^perl\\(Test::Color\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Test::Color\\)
 
 %description
 Read-only, color-holding Perl objects with methods to obtain their RGB, HSL,
@@ -49,6 +55,7 @@ you to get the color palette you desire.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness 
+Requires:       perl(Test::Builder) >= 1
 Requires:       perl(Test::More) >= 1.3
 
 %description tests
@@ -91,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 11 2026 Petr Pisar <ppisar@redhat.com> - 2.11-1
+- 2.11 bump
+
 * Tue Mar 31 2026 Petr Pisar <ppisar@redhat.com> - 2.02-1
 - 2.02 bump
 

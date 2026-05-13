@@ -64,6 +64,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	gfan
 BuildRequires:	gmp-devel
 BuildRequires:	graphviz
+BuildRequires:	latex2html
 BuildRequires:	libgfan-devel
 BuildRequires:	libspasm-devel
 BuildRequires:	libtool
@@ -83,8 +84,9 @@ BuildRequires:	python2-devel
 %if %{without bootstrap}
 BuildRequires:	qepcad-B
 %endif
+BuildRequires:	texinfo
 BuildRequires:	texinfo-tex
-BuildRequires:	tex(latex)
+BuildRequires:	texlive-latex
 BuildRequires:	TOPCOM
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:	environment(modules)

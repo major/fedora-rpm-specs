@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -180,6 +180,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Mon May 11 2026 Fabio Valentini <decathorpe@gmail.com> - 0.26.0-2
+- Rebuild for rust-openssl CVE-2026-{41676,41677,41678,41681,41898,42327,44662}
+
 * Wed Mar 04 2026 Packit <hello@packit.dev> - 0.26.0-1
 - New upstream release
 - Drop old patches for F45 signing key

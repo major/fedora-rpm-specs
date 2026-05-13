@@ -6,8 +6,8 @@
 #
 
 Name:		perl-DBIx-SearchBuilder
-Version:	1.82
-Release:	5%{?dist}
+Version:	1.85
+Release:	1%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -29,12 +29,15 @@ BuildRequires:	perl(DBI)
 BuildRequires:	perl(Encode) >= 1.99
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.59
+BuildRequires:	perl(feature)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.52
 BuildRequires:	perl(Want)
 
 BuildRequires:	perl(base)
+BuildRequires:	perl(constant)
+BuildRequires:	perl(Cwd)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(version)
@@ -80,8 +83,9 @@ chmod -R u+w "$RPM_BUILD_ROOT"/*
 %files
 %doc Changes
 %doc README ROADMAP
-%{perl_vendorlib}/DBIx
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/DBIx
+%{perl_vendorlib}/DBIx/SearchBuilder*
+%{_mandir}/man3/DBIx::SearchBuilder*
 %exclude %{perl_vendorlib}/DBIx/SearchBuilder/Handle/Oracle*
 %exclude %{_mandir}/man3/DBIx::SearchBuilder::Handle::Oracle*
 
@@ -100,6 +104,9 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.85-1
+- 1.85 bump (rhbz#2459643)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

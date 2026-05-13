@@ -1,5 +1,5 @@
 Name:           perl-TOML-Tiny
-Version:        0.20
+Version:        0.21
 Release:        %autorelease
 Summary:        A minimal, pure perl TOML parser and serializer
 
@@ -25,7 +25,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Math::BigFloat)
 BuildRequires:  perl(Math::BigInt) >= 1.999718
-BuildRequires:  perl(TOML::Parser)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Unicode::GCString)
@@ -52,7 +51,7 @@ format. It conforms to TOML v1.0 (with a few caveats)
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%make_build
+%{make_build}
 
 
 %install
@@ -61,7 +60,7 @@ format. It conforms to TOML v1.0 (with a few caveats)
 
 
 %check
-make test
+%{make_build} test
 
 
 %files

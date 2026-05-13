@@ -2,7 +2,13 @@
 %bcond_without python
 # Build -python subpackage with C++. This significantly improves performance
 # compared to the pure-Python implementation.
+%if v"0%{?python3_version}" >= v"3.14"
+# TypeError: Metaclasses with custom tp_new are not supported
+# https://bugzilla.redhat.com/show_bug.cgi?id=2343969
+%bcond_with python_cpp
+%else
 %bcond_without python_cpp
+%endif
 
 #global rcver rc2
 
@@ -72,6 +78,12 @@ Patch2:         disable-tests-on-32-bit-systems.patch
 #
 #   The PyFrameObject structure members have been removed from the public C API.
 Patch4:         protobuf-3.19.4-python3.11.patch
+# Fix build with GCC 15 on s390x and i686
+# From https://bugzilla.redhat.com/show_bug.cgi?id=2343969#c16
+#  and https://github.com/protocolbuffers/protobuf/commit/47c1998e4e7f21175bc1e3840907d4219a11b25a
+#  and https://github.com/protocolbuffers/protobuf/commit/a2859cc2ce25711613002104022186c0c37d9f1f
+Patch6:         protobuf-3.19.6-gcc15.patch
+
 
 # A bundled copy of jsoncpp is included in the conformance tests, but the
 # result is not packaged, so we do not treat it as a formal bundled
@@ -155,8 +167,6 @@ lacks descriptors, reflection, and some other features.
 %package -n python3-protobuf3
 Summary:        Python bindings for Google Protocol Buffers
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(wheel)
 %if %{with python_cpp}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %else
@@ -201,6 +211,7 @@ descriptions in the Emacs editor.
 %patch 2 -p0
 %endif
 %patch 4 -p1 -b .python311
+%patch 6 -p1 -b .gcc15
 
 # Copy in the needed gtest/gmock implementations.
 %setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}
@@ -211,6 +222,10 @@ find -name \*.cc -o -name \*.h | xargs chmod -x
 chmod 644 examples/*
 
 rm -f src/solaris/libstdc++.la
+
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
 
 %build
 iconv -f iso8859-1 -t utf-8 CONTRIBUTORS.txt > CONTRIBUTORS.txt.utf8
@@ -228,7 +243,7 @@ export PTHREAD_LIBS="-lpthread"
 
 %if %{with python}
 pushd python
-%py3_build %{?with_python_cpp:-- --cpp_implementation}
+%pyproject_wheel %{?with_python_cpp:-C--global-option=--cpp_implementation}
 popd
 %endif
 
@@ -237,6 +252,10 @@ popd
 
 %check
 %make_build check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
+%if %{with python_cpp}
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%endif
+%pyproject_check_import -e '*json_format_proto3_pb2' %{!?with_python_cpp:-e '*.pyext*'}
 
 
 %install
@@ -248,7 +267,8 @@ install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' '%{SOURCE4}'
 
 %if %{with python}
 pushd python
-%py3_install %{?with_python_cpp:-- --cpp_implementation}
+%pyproject_install
+%pyproject_save_files -L google
 %if %{without python_cpp}
 find %{buildroot}%{python3_sitelib} -name \*.py -exec sed -i -e '1{\@^#!@d}' {} +
 %endif
@@ -297,19 +317,13 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_libdir}/pkgconfig/protobuf-lite.pc
 
 %if %{with python}
-%files -n python3-protobuf3
+%files -n python3-protobuf3 -f %{pyproject_files}
 %if %{with python_cpp}
-%dir %{python3_sitearch}/google
-%{python3_sitearch}/google/protobuf/
-%{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
 %{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
 %else
-%license LICENSE
-%dir %{python3_sitelib}/google
-%{python3_sitelib}/google/protobuf/
-%{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
 %{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
 %endif
+%license LICENSE
 %doc python/README.md
 %doc examples/add_person.py examples/list_people.py examples/addressbook.proto
 %endif

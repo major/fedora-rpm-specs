@@ -1,30 +1,30 @@
-Name:               python-flask-migrate
-Version:            4.1.0
-Release:            %autorelease
-Summary:            SQLAlchemy database migrations for Flask applications using Alembic
+Name:           python-flask-migrate
+Version:        4.1.0
+Release:        %autorelease
+Summary:        SQLAlchemy database migrations for Flask applications using Alembic
 
 # SPDX
-License:            MIT
-URL:                https://github.com/miguelgrinberg/Flask-Migrate
-Source:             %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz
+License:        MIT
+URL:            https://github.com/miguelgrinberg/Flask-Migrate
+Source:         %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz
 
-BuildArch:          noarch
+BuildArch:      noarch
 
 # For %%py3_shebang_fix in %%prep, before generated BuildRequires are ready
-BuildRequires:      python3-devel
+BuildRequires:  python3-devel
 
-BuildSystem:            pyproject
-BuildOption(install):   -l flask_migrate
+BuildSystem:    pyproject
+BuildOption(install): --assert-license flask_migrate
 # Both flask_migrate/templates/aioflask/env.py and
 # flask_migrate/templates/flask/env.py are meant for execution via alembic;
 # importing them directly fails with:
 #   AttributeError: module 'alembic.context' has no attribute 'config'
-BuildOption(check):     -e flask_migrate.templates.*flask.env
+BuildOption(check): --exclude flask_migrate.templates.*flask.env
 
 # We do not use %%pyproject_buildrequires -t and %%tox because tox.ini
 # explicitly runs “pip install.” We do not use %%pyproject_buildrequires -x dev
 # because this brings in tox and at least one linter (flake8).
-BuildRequires:      %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 SQLAlchemy database migrations for Flask applications using Alembic.}
@@ -33,11 +33,11 @@ SQLAlchemy database migrations for Flask applications using Alembic.}
 
 
 %package -n python3-flask-migrate
-Summary:            %{summary}
+Summary:        %{summary}
 
 # We stopped building PDF documentation and removed the -doc subpackage for
 # Fedora 42; this can be removed after Fedora 44 reaches end of life.
-Obsoletes:          python-flask-migrate-doc < 4.1.0-3
+Obsoletes:      python-flask-migrate-doc < 4.1.0-3
 
 %description -n python3-flask-migrate %{common_description}
 
