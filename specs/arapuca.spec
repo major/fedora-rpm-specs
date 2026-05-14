@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           arapuca
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Cross-platform process sandbox with kernel-enforced isolation
 
@@ -46,6 +46,7 @@ ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  pandoc
+BuildRequires:  git-core
 
 %description
 arapuca applies OS-level sandbox restrictions to processes using
@@ -71,7 +72,7 @@ Static library, C header, and pkg-config file for linking against
 libarapuca.
 
 %prep
-%autosetup -p1 -a1
+%autosetup -S git -a1
 %cargo_prep -v vendor
 
 %generate_buildrequires

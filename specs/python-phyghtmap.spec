@@ -2,7 +2,7 @@
 
 Name:           python-phyghtmap
 Version:        2.23
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
 License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
@@ -17,6 +17,13 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+# Following ones are to test it at least starts
+BuildRequires:  python3-packaging
+BuildRequires:  python3-gdal
+BuildRequires:  python3-numpy
+BuildRequires:  python3-beautifulsoup4
+BuildRequires:  python3-matplotlib
+BuildRequires:  python3-contourpy
 
 %global _description\
 %{modname} is a little program which lets you easily generate OSM contour\
@@ -33,6 +40,7 @@ Requires:       python3-beautifulsoup4
 Requires:       python3-matplotlib
 # With matplotlib > 3.6.0, contour is used from external package
 Requires:       python3-contourpy
+Requires:       python3-packaging
 
 %description -n python3-phyghtmap %_description
 
@@ -44,6 +52,10 @@ Requires:       python3-contourpy
 
 %build
 %pyproject_wheel
+
+%check
+# see it if runs
+PYTHONPATH=.:$PYTHONPATH %{buildroot}%{_bindir}/phyghtmap -v
 
 %install
 %pyproject_install
@@ -58,6 +70,9 @@ install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 %{_mandir}/man1/%{modname}.1*
 
 %changelog
+* Tue May 12 2026 Federico Pellegrin <fede@evolware.org> - 2.23-18
+- Fix package with Python > 3.10 (rhbz#2469045)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

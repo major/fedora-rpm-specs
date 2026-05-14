@@ -60,7 +60,7 @@ export CXXFLAGS="%{build_cxxflags} -DFMT_HEADER_ONLY=1"
 %cmake_install
 # Install also the zello_world binary to ease up testing of the l0
 mkdir -p %{buildroot}%{_bindir}/
-install -p -m 755 ./redhat-linux-build/bin/zello_world %{buildroot}%{_bindir}/zello_world
+install -p -m 755 ./%{_vpath_builddir}/bin/zello_world %{buildroot}%{_bindir}/zello_world
 chrpath --delete %{buildroot}%{_bindir}/zello_world
 
 # Generate and install man pages.

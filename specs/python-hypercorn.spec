@@ -21,22 +21,14 @@ Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 # https://github.com/pgjones/hypercorn/pull/343
 Patch:          %{url}/pull/343.patch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 BuildOption(generate_buildrequires): %{shrink:
-    -x h3
-    -x trio
-    %{?with_uvloop:-x uvloop}
-    -g dev
+    --extras h3
+    --extras trio
+    %{?with_uvloop:--extras uvloop}
+    --dependency-groups dev
     }
-BuildOption(install):   -L hypercorn
-%if %{defined fc44}
-# python-pylsqpack: Fails to import in F44/Rawhide
-# https://bugzilla.redhat.com/show_bug.cgi?id=2413628
-BuildOption(check):     %{shrink:
-    -e hypercorn.protocol.h3
-    -e hypercorn.protocol.quic
-    }
-%endif
+BuildOption(install): --no-assert-license hypercorn
 
 BuildArch:      noarch
 

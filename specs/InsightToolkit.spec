@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
@@ -170,6 +170,8 @@ sed -r -i 's/resample->SetDefaultPixelValue/\/\/\0/' \
     Modules/Registration/Metricsv4/test/itkMeanSquaresImageToImageMetricv4VectorRegistrationTest.cxx
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380458)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 extra_cflags=(
 	-DITK_LEGACY_FUTURE_REMOVE # fix build with new vtk
 	-Wno-deprecated-copy       # reduce noise in the logs...
@@ -281,6 +283,10 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Tue May 12 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 4.13.3-33
+- Include PR by Cristian Le <git@lecris.dev>
+- Allow to build with CMake 4.0 (rhbz#2380458)
+
 * Fri Feb 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 4.13.3-32
 - fix build on RISC-V
 

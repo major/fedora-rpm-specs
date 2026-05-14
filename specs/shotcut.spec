@@ -4,7 +4,7 @@
 
 Name:           shotcut
 Version:        26.4.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -125,16 +125,16 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg da Danish
 %lang_subpkg de German
 %lang_subpkg el Greek
-%lang_subpkg en_GB "(Great Britain)"
+%lang_subpkg en_GB %{quote:(Great Britain)}
 %lang_subpkg en English
 %lang_subpkg es Spanish
 %lang_subpkg et Estonian
 %lang_subpkg eu Euskara
 %lang_subpkg fi Finnish
-%lang_subpkg fr_CA "(Canadian French)"
+%lang_subpkg fr_CA %{quote:(Canadian French)}
 %lang_subpkg fr French
-%lang_subpkg ga "(Irish Gaeilge)"
-%lang_subpkg gd "(Scottish Gaelic)"
+%lang_subpkg ga %{quote:(Irish Gaeilge)}
+%lang_subpkg gd %{quote:(Scottish Gaelic)}
 %lang_subpkg gl Galician
 %lang_subpkg he_IL Hebrew
 %lang_subpkg hu Hungarian
@@ -148,8 +148,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg nn Norwegian
 %lang_subpkg oc Occitan
 %lang_subpkg pl Polish
-%lang_subpkg pt_BR "Portuguese (Brazil)"
-%lang_subpkg pt_PT "Portuguese (Portugal)"
+%lang_subpkg pt_BR %{quote:(Portuguese (Brazil))}
+%lang_subpkg pt_PT %{quote:(Portuguese (Portugal))}
 %lang_subpkg ro Romanian
 %lang_subpkg ru Russian
 %lang_subpkg sk Slovakian
@@ -158,8 +158,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg th Thai
 %lang_subpkg tr Turkish
 %lang_subpkg uk Ukrainian
-%lang_subpkg zh_CN "Chinese (S)"
-%lang_subpkg zh_TW "Chinese (T)"
+%lang_subpkg zh_CN %{quote:(Chinese (S))}
+%lang_subpkg zh_TW %{quote:(Chinese (T))}
 
 %prep
 %autosetup -p0
@@ -241,6 +241,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Tue May 12 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.4.30-2
+- Use %%{quote:(Great Britain)} in langpack macros to handle whitespace correctly
+
 * Fri May 01 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.4.30-1
 - Update to version 26.4.30
 

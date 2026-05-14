@@ -13,8 +13,8 @@ License:        MIT
 URL:            https://github.com/ofek/hatch-vcs
 Source:         %{pypi_source hatch_vcs}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l hatch_vcs
+BuildSystem:    pyproject
+BuildOption(install): --assert-license hatch_vcs
 
 BuildArch:      noarch
 

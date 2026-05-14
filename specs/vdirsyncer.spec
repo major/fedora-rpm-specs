@@ -18,7 +18,7 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -46,6 +46,7 @@ BuildRequires:  python3-aiohttp-oauthlib
 BuildRequires:  python3-trustme
 BuildRequires:  python3-pytest-httpserver
 BuildRequires:  python3-pytest-localserver
+BuildRequires:  python3-pkg-resources
 
 Requires:       python3-click >= 5.0
 Requires:       python3-click-log >= 0.4
@@ -160,6 +161,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.20.0-5
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

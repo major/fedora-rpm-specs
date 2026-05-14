@@ -14,6 +14,7 @@ Source0:            %pypi_source
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+BuildRequires:      python3-pkg-resources
 BuildRequires:      python3-pytest
 BuildRequires:      python3-legacy-cgi
 
@@ -28,6 +29,7 @@ TurboGears projects.\
 
 %package -n python3-gearbox
 Summary:            Command line toolkit born as a PasteScript replacement for TurboGears2
+Requires:           python3-pkg-resources
 
 %description -n python3-gearbox
 gearbox is a paster command replacement for TurboGears2. It has been

@@ -89,6 +89,7 @@ Patch2:         sentry-sdk-2.48.0-starlette-1.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 %if %{with tests}
 BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  python3dist(botocore)

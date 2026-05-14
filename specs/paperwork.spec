@@ -9,6 +9,8 @@ License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork
 Source:         %pypi_source %{srcname}
 Patch:          0001-Drop-extra-icon-dirs.patch
+# Drop pkg_resources.
+Patch:          https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/ab244d9c483b23f53e2548b73236d7fe4b94cb3f.patch
 
 BuildArch:      noarch
 

@@ -16,9 +16,9 @@ Source:         %{url}/archive/v%{version}/python-crc32c-%{version}.tar.gz
 # https://github.com/googleapis/python-crc32c/issues/324
 Patch:          %{url}/pull/325.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x testing
-BuildOption(install):   -l google_crc32c
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras testing
+BuildOption(install): --assert-license google_crc32c
 
 BuildRequires:  gcc-c++
 BuildRequires:  google-crc32c-devel >= 1.1.2

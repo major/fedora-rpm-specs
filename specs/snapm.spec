@@ -8,6 +8,16 @@ Summary:	%{summary}
 License:	Apache-2.0
 URL:		https://github.com/snapshotmanager/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:		0001-tests-skip-a-handful-of-tests-in-RH-CI-environments-.patch
+Patch1:		0002-fsdiff-warn-user-when-no-s-start-path-Options.from_p.patch
+Patch2:		0003-doc-clarify-default-diff-start-path-behaviour-in-sna.patch
+Patch3:		0004-doc-add-discussion-of-s-start-path-to-user_guide.rst.patch
+Patch4:		0005-stratis-fix-pool-limit-accounting-in-create-delete-_.patch
+Patch5:		0006-lvm2-fix-pool-origin-limit-accounting.patch
+Patch6:		0007-stratis-handle-DbusClientMissingPropertyError-on-D-B.patch
+Patch7:		0008-tests-bump-stratisd-test-dependency-to-stratisd-v3.8.patch
+Patch8:		0009-stratis-refactor-filter_stratis_snapshot-to-allow-lo.patch
+Patch9:		0010-stratis-handle-DbusClientMissingPropertyError-on-.se.patch
 
 BuildArch:	noarch
 

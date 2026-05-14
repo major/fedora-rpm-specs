@@ -95,6 +95,7 @@ Microsoft Azure CLI SDK testing tools
 
 %prep
 %forgeautosetup -p1
+%pyproject_patch_dependency paramiko:set_upper:6.0
 
 # Remove upper version boundaries on anything that isn't azure-related.
 # Upstream has strict requirements on azure SDK packages, but many of the
@@ -174,7 +175,6 @@ sed -i 's/azure-core~=1.35.0/azure-core>=1.35.0,<2/' src/azure-cli-core/setup.py
 sed -i 's/^cryptography>=.*$/oauthlib>=37.0.2/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^oauthlib>=.*$/oauthlib>=3.2.1/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^packaging>=.*$/packaging>=21.3/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^paramiko>=.*$/paramiko>=2.12.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^PyNaCl>=.*$/PyNaCl>=1.4.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/PyNaCl>=1.5.0/PyNaCl>=1.4.0/'  src/azure-cli/setup.py

@@ -32,7 +32,7 @@ checks for dimensional consistency and automatic unit conversion.
 Read the documentation at http://neo.readthedocs.io/}
 
 Name:       python-neo
-Version:    0.14.2
+Version:    0.14.4
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
@@ -132,6 +132,11 @@ git config --global user.name "Your Name"
 # and installed manually.
 k="${k:-}${k:+ and }not TestMaxwell"
 %endif
+
+# fails in 0.14.4:
+# https://github.com/NeuralEnsemble/python-neo/issues/1848
+k="${k:-}${k:+ and }not test__time_slice_deepcopy_data"
+
 %pytest \
 %if %{without io_tests}
   --ignore=neo/test/iotest/ \

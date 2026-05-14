@@ -2,13 +2,13 @@
 %global modname types_requests
 
 Name:           python-%{srcname}
-Version:        2.26.1
+Version:        2.32.4.20260107
 Release:        %autorelease
 Summary:        Typing stubs for requests
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/python/typeshed
-Source0:        %{pypi_source %{srcname}}
+Source0:        %{pypi_source %{modname}}
 
 BuildArch:      noarch
 
@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 
 
 %generate_buildrequires

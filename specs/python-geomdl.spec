@@ -29,15 +29,15 @@ Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x test,vis
-BuildOption(install):   -l geomdl
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras test,vis
+BuildOption(install): --assert-license geomdl
 %if %{without vtk_dep} || %{without plotly}
-BuildOption(check):     %{shrink:
-                        %{?!with_vtk_dep:-e geomdl.visualization.vtk_helpers}
-                        %{?!with_vtk_dep:-e geomdl.visualization.VisVTK}
-                        %{?!with_plotly:-e geomdl.visualization.VisPlotly}
-                        }
+BuildOption(check): %{shrink:
+    %{?!with_vtk_dep:--exclude geomdl.visualization.vtk_helpers}
+    %{?!with_vtk_dep:--exclude geomdl.visualization.VisVTK}
+    %{?!with_plotly:--exclude geomdl.visualization.VisPlotly}
+    }
 %endif
 
 BuildRequires:  gcc

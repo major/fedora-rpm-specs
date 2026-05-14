@@ -2,7 +2,7 @@
 
 Name:           python-repoze-who
 Version:        3.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,6 +17,7 @@ BuildRequires:      python3-coverage
 BuildRequires:      python3-zope-interface
 BuildRequires:      python3-webob
 BuildRequires:      python3dist(legacy-cgi)
+BuildRequires:      python3-pkg-resources
 
 
 %global _description\
@@ -34,6 +35,8 @@ considered to be the domain of the WSGI application.\
 
 %package -n python3-repoze-who
 Summary:        An identification and authentication framework for WSGI
+
+Requires:      python3-pkg-resources
 
 %description -n python3-repoze-who
 repoze.who is an identification and authentication framework for arbitrary WSGI
@@ -76,6 +79,9 @@ considered to be the domain of the WSGI application.
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.1.0-8
+- Add build and runtime requires on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

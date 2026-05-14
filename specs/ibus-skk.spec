@@ -1,18 +1,18 @@
 Name:		ibus-skk
-Version:	1.4.3
+Version:	1.4.4
 Release:	%{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:	Japanese SKK input method for ibus
 
 License:	GPL-2.0-or-later
 URL:		http://github.com/ueno/ibus-skk
 Source0:	http://cloud.github.com/downloads/ueno/ibus-skk/%{name}-%{version}.tar.xz
-Patch:		ibus-skk-1.4.3-coalesce-commit-text.patch
 
 BuildRequires:	vala
 BuildRequires:	intltool
 BuildRequires:	libskk-devel >= 0.0.11
 BuildRequires:	ibus-devel
 BuildRequires:	gtk3-devel
+BuildRequires:	libgee-devel
 BuildRequires:	desktop-file-utils
 BuildRequires: make
 Requires:	ibus, skkdic

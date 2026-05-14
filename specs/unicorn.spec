@@ -44,6 +44,7 @@ needed for developing applications using unicorn.
 Summary:        %{summary}
 Requires:       %{name} = %{version}-%{release}
 Requires:       python3-setuptools
+Requires:       python3-pkg-resources
 %{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-unicorn

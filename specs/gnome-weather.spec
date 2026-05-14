@@ -17,6 +17,8 @@ Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{t
 # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/216/
 Patch:          no-absolute-symlinks.patch
 
+Patch:          typescript-6.0.patch
+
 BuildArch:	noarch
 
 BuildRequires:	desktop-file-utils

@@ -15,8 +15,8 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.11.0
-Release: 2%{?dist}
+Version: 6.11.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -29,10 +29,7 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 Patch0:  qtquick3d-fix-build-with-gcc11.patch
-%if 0%{?fedora}
-# From https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-quick3d
-Patch1:  qtquick3d-fix-build-with-assimp6.patch
-%endif
+
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -299,6 +296,9 @@ popd
 %endif
 
 %changelog
+* Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
+- Update to 6.11.1
+
 * Sun May 03 2026 Sandro Mani <manisandro@gmail.com> - 6.11.0-2
 - Rebuild (assimp)
 

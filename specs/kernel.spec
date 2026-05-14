@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc3.23
+%define pkgrelease 0.rc3.260512g50897c955902.24
 %define kversion 7
-%define tarfile_release 7.1-rc3
+%define tarfile_release 7.1-rc3-4-g50897c955902
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.23%{?buildid}%{?dist}
+%define specrelease 0.rc3.260512g50897c955902.24%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,11 +4847,16 @@ fi\
 #
 #
 %changelog
-* Mon May 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.23]
+* Tue May 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.50897c955902.24]
 - yamlsanity.py: allow multiple docs within a yaml file (Scott Weaver)
 - Disable MODULE_SIG_KEY_TYPE_MLDSA_87 for RHEL right now (Justin M. Forbes)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Tue May 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.50897c955902.23]
+- configs: rhel: riscv config updates (Jennifer Berringer)
+- Re-enable Intel MEI for Fedora x86 (Justin M. Forbes)
+- Linux v7.1.0-0.rc3.50897c955902
 
 * Mon May 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.22]
 - Linux v7.1.0-0.rc3

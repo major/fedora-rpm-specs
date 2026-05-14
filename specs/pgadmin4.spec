@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.14
-Release:        3%{?dist}
+Version:        9.15
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -55,9 +55,9 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1.1
 Requires: python3dist(azure-mgmt-resource) >= 24
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(bcrypt) >= 4.3
-Requires: python3dist(boto3) >= 1.42
+Requires: python3dist(boto3) >= 1.43
 Requires: python3dist(certifi) >= 2026.1.4
-Requires: python3dist(cryptography) >= 46
+Requires: python3dist(cryptography) >= 47
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
 Requires: python3dist(flask-login) >= 0
@@ -67,7 +67,7 @@ Requires: python3dist(flask-paranoid) >= 0
 Requires: python3dist(flask-security-too) >= 5.6.2
 Requires: python3dist(flask-socketio) >= 5.6
 Requires: python3dist(flask-sqlalchemy) >= 3.0.5
-Requires: python3dist(flask-wtf) >= 1.2
+Requires: python3dist(flask-wtf) >= 1.2.2
 Requires: python3dist(flask) >= 3.1
 Requires: python3dist(google-api-python-client) >= 2
 Requires: python3dist(google-auth-oauthlib) >= 1.2.4
@@ -79,7 +79,7 @@ Requires: python3dist(libgravatar) >= 1
 Requires: python3dist(paramiko) >= 3.5.1
 Requires: python3dist(passlib) >= 1
 Requires: python3dist(psutil) >= 7.2
-Requires: python3dist(psycopg) >= 3.3.3
+Requires: python3dist(psycopg) >= 3.3.4
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2026
@@ -88,7 +88,7 @@ Requires: python3dist(setuptools) >= 80.10.2
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
-Requires: python3dist(typer) >= 0.24
+Requires: python3dist(typer) >= 0.25
 Requires: python3dist(urllib3) >= 2.6
 Requires: python3dist(user-agents) >= 2.2
 Requires: python3dist(werkzeug) >= 3.1
@@ -251,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon May 11 2026 Sandro Mani <manisandro@gmail.com> - 9.15-1
+- Update to 9.15
+
 * Tue Apr 14 2026 Sandro Mani <manisandro@gmail.com> - 9.14-3
 - Add pgadmin4_CVE-2026-40175.prebundle.patch
 

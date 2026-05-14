@@ -1,9 +1,8 @@
 Name:           asciinema
-Version:        3.0.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Terminal session recorder, streamer and player
 
-# https://github.com/asciinema/asciinema/issues/699
 SourceLicense:  GPL-3.0-or-later
 # Rust dependencies:
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -47,15 +46,8 @@ License:        %{shrink:
 URL:            https://asciinema.org
 Source:         https://github.com/asciinema/asciinema/archive/v%{version}/asciinema-%{version}.tar.gz
 
-# Update tokio-tungstenite from 0.26 to 0.28
-#
-# This matches the verison used by the latest axum, 0.8.6.
-#
-# This was proposed upstream as part of a larger set of updates, “chore:
-# update dependencies” at https://github.com/asciinema/asciinema/pull/698.
-#
-# In this minimal downstream patch, only Cargo.toml is adjusted.
-Patch:          0001-Update-tokio-tungstenite-from-0.26-to-0.28.patch
+# Update avt dependency from 0.17 to 0.18.0
+Patch:      update-avt-from-0.17-to-0.18.0.patch
 
 BuildRequires:  cargo-rpm-macros
 
@@ -81,7 +73,7 @@ install -Dpm 0755 target/rpm/asciinema -t %{buildroot}/%{_bindir}/
 install -Dpm 0644 assets/man/*.1 -t %{buildroot}/%{_mandir}/man1/
 install -Dpm 0644 assets/completion/asciinema.bash -t %{buildroot}/%{bash_completions_dir}/
 install -Dpm 0644 assets/completion/asciinema.fish -t %{buildroot}/%{fish_completions_dir}/
-install -Dpm 0644 assets/completion/_asciinema -t %{buildroot}/%{zsh_completions_dir}
+install -Dpm 0644 assets/completion/_asciinema -t %{buildroot}/%{zsh_completions_dir}/
 
 %check
 %cargo_test -- -- --test-threads 1

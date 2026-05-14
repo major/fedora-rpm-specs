@@ -24,6 +24,9 @@ License:        MIT AND BSD-2-Clause
 URL:            https://pybtex-docutils.readthedocs.io/
 VCS:            git:https://github.com/mcmtroffaes/pybtex-docutils.git
 Source:         %pypi_source pybtex-docutils
+# Adapt to setuptools 82.0.1, without pkg_resources
+# https://github.com/mcmtroffaes/pybtex-docutils/pull/27
+Patch:          %{name}-setuptools.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -51,7 +54,7 @@ Provides:       bundled(js-underscore)
 %common_desc
 
 %prep
-%autosetup -n pybtex-docutils-%{version}
+%autosetup -n pybtex-docutils-%{version} -p1
 
 %conf
 # Update the sphinx theme name

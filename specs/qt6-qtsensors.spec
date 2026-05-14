@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Sensors component
 Name:    qt6-%{qt_module}
-Version: 6.11.0
+Version: 6.11.1
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -131,6 +131,9 @@ popd
 %endif
 
 %changelog
+* Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
+- Update to 6.11.1
+
 * Mon Apr 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
 - 6.11.0
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -34,6 +34,7 @@ BuildRequires: python3-setuptools
 BuildRequires: python3-ply
 BuildRequires: python3-pytest
 BuildRequires: python3-six
+BuildRequires: python3-pkg-resources
 %{?python_provide:%python_provide python3-lesscpy}
 
 %description -n python3-lesscpy
@@ -70,6 +71,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.14.0-25
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -23,6 +23,7 @@ BuildRequires:  python3-decorator
 BuildRequires:  python3-markupsafe
 BuildRequires:  python3-speaklater
 BuildRequires:  python3-six
+BuildRequires:  python3-pkg-resources
 
 # Specifically for the test suite
 #BuildRequires:  python3-pytest
@@ -53,6 +54,7 @@ Requires: python3-webob >= 0.9.7
 Requires: python3-simplejson >= 2.0
 Requires: python3-decorator
 Requires: python3-markupsafe
+Requires: python3-pkg-resources
 Requires: python3-speaklater
 #Requires: python3-paste-deploy
 Requires: python3-six
@@ -93,6 +95,9 @@ rm -rf tw2/core/testbase tw2/core/test_templates
 %{python3_sitelib}/tw2.core-*-nspkg.pth
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.3.0-27
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Thu Mar 12 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-26
 - Use pyproject_wheel and pyproject_install macros
 

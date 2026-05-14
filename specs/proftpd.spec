@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_proxy_version 0.9.5
 %global mod_vroot_version 0.9.12
 
@@ -43,6 +43,10 @@ Source11:		http://github.com/Castaglia/proftpd-mod_proxy/archive/v%{mod_proxy_ve
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
+Patch11:		https://github.com/proftpd/proftpd/commit/04d89957.patch
+Patch12:		https://github.com/proftpd/proftpd/commit/7e076e84.patch
+Patch13:		https://github.com/proftpd/proftpd/commit/07797aba.patch
+Patch14:		https://github.com/proftpd/proftpd/commit/5e06acc4.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -223,6 +227,17 @@ mv contrib/README contrib/README.contrib
 
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
+
+# Additional escaping for avoidance of SQL injection issues with %%{note:...} and %%{env:...}
+# These are on top of the existing fix for CVE-2026-42167 in 1.3.10rc1
+# https://github.com/proftpd/proftpd/issues/2052
+%patch -P 11 -p1
+%patch -P 12 -p1
+
+# Fix for SQL Injection in mod_wrap2_sql via reverse DNS hostname (CVE-2026-44331)
+# https://github.com/proftpd/proftpd/issues/2057
+%patch -P 13 -p1
+%patch -P 14 -p1
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -461,6 +476,13 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-2
+- Additional escaping for avoidance of SQL injection issues with %%{note:...}
+  and %%{env:...}; these are on top of the existing fix for CVE-2026-42167 in
+  1.3.9a
+- Fix for SQL Injection in mod_wrap2_sql via reverse DNS hostname
+  (CVE-2026-44331, rhbz#2466899, https://github.com/proftpd/proftpd/issues/2057)
+
 * Thu Apr 30 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-1
 - Update to 1.3.9a
   - SCP transfers failed for files with spaces in their names (GH#1886)

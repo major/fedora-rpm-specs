@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
@@ -42,6 +42,7 @@ Summary:    Files common to Deluge sub packages
 License:    LicenseRef-Callaway-GPLv3-with-exceptions
 Requires:   rb_libtorrent-python3
 Requires:   python3-service-identity
+Requires:   python3-pkg-resources
 Recommends: python3-GeoIP
 
 %description common
@@ -236,6 +237,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-8
+- Add runtime dependency on python3-pkg-resources
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

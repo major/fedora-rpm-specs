@@ -15,8 +15,8 @@ Source1:        jp2dump.1
 Source2:        jpeg2jp2.1
 Source3:        tiff2jp2.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l glymur
+BuildSystem:    pyproject
+BuildOption(install): --assert-license glymur
 
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported

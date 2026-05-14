@@ -25,6 +25,8 @@ BuildRequires:  python3-devel
 %prep
 %autosetup -p1 -n %{srcname}.py-%{version}
 sed -i -e "s/’/'/g" README.rst
+# Relax paramiko requirements
+sed -i -e '/paramiko/s/,<4//' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t

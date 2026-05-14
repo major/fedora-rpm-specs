@@ -1,12 +1,12 @@
-#define prerelease beta1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        19.0.1
-Release:        1%{?dist}
+Version:        20.0.0
+Release:        0.1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -14,7 +14,7 @@ ExcludeArch:    %{ix86}
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/19.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/20.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Fix leading whitespace in desktop file
@@ -220,6 +220,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue May 12 2026 Sandro Mani <manisandro@gmail.com> - 20.0.0-0.1.beta1
+- Update to 20.0.0-beta1
+
 * Mon May 04 2026 Sandro Mani <manisandro@gmail.com> - 19.0.1-1
 - Update to 19.0.1
 

@@ -5,12 +5,16 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.1
+Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.2
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
 Source: https://github.com/softhsm/SoftHSMv2/archive/refs/tags/%{version}%{?prever:-%prever}/%{origname}-%{version}%{?prever:-%prever}.tar.gz
 Source2: %{name}-sysusers.conf
+
+# https://github.com/softhsm/SoftHSMv2/commit/57e10cbbe75069be92c7e9720c180a05833481fc
+# https://github.com/softhsm/SoftHSMv2/commit/d23ea09d318c03c033420d065f1c64b019cc94ed
+Patch0: memory-leaks-and-openssl-4.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -43,6 +47,7 @@ The devel package contains the libsofthsm include files
 
 %prep
 %setup -q -n %{origname}-%{version}%{?prever:-%prever}
+%autopatch -p1
 
 %if 0%{?prever:1} || 0%{?prerelease:1}
    # pre-release or post-release snapshots fixup
@@ -127,6 +132,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Tue May 12 2026 Pavol Žáčik <pzacik@redhat.com> - 2.7.0-0.1.rc1.2
+- Backport upstream memory leak and OpenSSL 4.0 compatibility patches
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-0.1.rc1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

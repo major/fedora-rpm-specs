@@ -33,7 +33,7 @@
 %endif
 
 Name:           neovim
-Version:        0.12.0
+Version:        0.12.2
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT

@@ -13,8 +13,8 @@ URL:            https://ftputil.sschwarzer.net/
 # Git hosting: https://git.sr.ht/~sschwarzer/ftputil
 Source:         %{pypi_source ftputil}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l ftputil
+BuildSystem:    pyproject
+BuildOption(install): --assert-license ftputil
 
 BuildArch:      noarch
 

@@ -10,9 +10,9 @@
 %bcond_with  internet
 
 # support for apache / nginx / php-fpm
-%global with_phpfpm 1
-%global upstream_version     1.7
-%global upstream_prever      rc6
+%global with_phpfpm          1
+%global upstream_version     1.7.0
+#global upstream_prever      rc6
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
@@ -271,6 +271,9 @@ fi
 
 
 %changelog
+* Mon May 11 2026 Remi Collet <remi@remirepo.net> - 1.7.0-1
+- update to 1.7.0
+
 * Mon Mar 30 2026 Remi Collet <remi@remirepo.net> - 1.7~rc6-1
 - update to 1.7-rc6
 

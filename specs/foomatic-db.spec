@@ -1,12 +1,12 @@
 %global dbver_rel 4.0
 # When you change dbver_snap, rebuild also foomatic against this build to pick up new IEEE 1284 Device IDs.
 # The postscriptdriver tags get put onto foomatic, because that's there the actual CUPS driver lives.
-%global dbver_snap 20230810
+%global dbver_snap 20260511
 
 Summary: Database of printers and printer drivers
 Name: foomatic-db
 Version: %{dbver_rel}
-Release: 83.%{dbver_snap}%{?dist}
+Release: 84.%{dbver_snap}%{?dist}
 # GPL-2.0-or-later non-PPD files and some PPDs
 # MIT for ppds
 License: GPL-2.0-or-later AND MIT
@@ -180,6 +180,9 @@ ln -sf ../../foomatic/db/source/PPD %{buildroot}%{_datadir}/cups/model/foomatic-
 %{_datadir}/cups/model/foomatic-db-ppds
 
 %changelog
+* Tue May 12 2026 Zdenek Dohnal <zdohnal@redhat.com> - 4.0-84.20260511
+- update foomatic-db to snapshot 20260511
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-83.20230810
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

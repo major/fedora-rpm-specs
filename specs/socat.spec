@@ -9,6 +9,7 @@ Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
 
 Patch1: socat-1.8.1.0-printtime.patch
+Patch2: socat-1.8.1.0-openssl4.patch
 
 BuildRequires: make
 BuildRequires:  gcc

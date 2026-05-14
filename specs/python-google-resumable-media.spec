@@ -21,9 +21,9 @@ License:        Apache-2.0
 URL:            https://pypi.org/project/google-resumable-media
 Source:         %{pypi_source google_resumable_media}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x requests
-BuildOption(install):   -l google
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras requests
+BuildOption(install): --assert-license google
 
 BuildArch:      noarch
 

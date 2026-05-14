@@ -12,6 +12,7 @@ Source0:	%{pypi_source makefun}
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
 BuildRequires:	python3dist(pytest)
+BuildRequires:	python3-pkg-resources
 
 %global _description \
 %summary.

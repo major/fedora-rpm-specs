@@ -6,7 +6,7 @@ fun, more predictable, and more productive.
 
 Name:           python-%{modname}
 Version:        2.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
@@ -34,6 +34,10 @@ Summary:        %{sum}
 
 %prep
 %autosetup -n pyramid-%{version} -p1
+
+# This package uses pkg-resources (removed from setuptools 82+) on runtime,
+# upstream pinned the dependency in https://github.com/Pylons/pyramid/commit/e239cb693b
+sed -i "s/'setuptools'/'setuptools < 82'/" setup.py
 
 # Remove bundled egg info
 rm -rf %{modname}.egg-info
@@ -90,6 +94,10 @@ done;
 
 
 %changelog
+* Wed May 06 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.2-12
+- Runtime require python3-setuptools < 82, for pkg_resources
+- https://fedoraproject.org/wiki/Changes/Setuptools_82+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

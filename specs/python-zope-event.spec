@@ -9,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -28,6 +28,7 @@ Summary:        Zope Event Publication (Python 3)
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 %if %{with docs}
 BuildRequires:  python3-docs
 BuildRequires:  %{py3_dist sphinx}
@@ -96,6 +97,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 6.0-3
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

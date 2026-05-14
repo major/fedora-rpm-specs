@@ -104,8 +104,9 @@ sed -i -e "s|^CFLAGS=.*|CFLAGS=${CFLAGS}|" \
 
 # Build the shared library
 cd lib
-gcc ${CFLAGS} -DUSEOPENMP -fopenmp -fPIC -shared -Wl,--soname=libsdp.so.6 *.c \
-  -o libsdp.so.%{version} %{build_ldflags} -lgomp -lflexiblas -lm
+gcc ${CFLAGS} -DUSEOPENMP -DSETNUMTHREADS -fopenmp -fPIC -shared \
+    -Wl,--soname=libsdp.so.6 *.c -o libsdp.so.%{version} %{build_ldflags} \
+    -lgomp -lflexiblas -lm
 ln -s libsdp.so.%{version} libsdp.so.6
 ln -s libsdp.so.6 libsdp.so
 

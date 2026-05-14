@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -24,6 +24,7 @@ Patch1:         paste-import-urlparse.patch
 
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  python3-pyOpenSSL
 BuildRequires:  python3-pytest
 BuildRequires:  python3-six >= 1.4.0
@@ -93,6 +94,9 @@ py.test -k \
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.1-14
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

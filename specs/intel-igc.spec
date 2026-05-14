@@ -16,6 +16,9 @@
 %global llvm_compat 16
 # Disable LTO; LLVM/clang under LTO has produced miscompiled binaries here.
 %define _lto_cflags %{nil}
+# Disable dwz: this fails anyways, due to static linking, sometimes fails builds
+# when builders do not have enough RAM
+%define _find_debuginfo_dwz_opts %{nil}
 %else
 # Fedora build here
 %global use_system_headers 1

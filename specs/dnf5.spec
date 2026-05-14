@@ -7,11 +7,12 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch0:         0001-copr-update-detection-of-ELN.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1144,6 +1145,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue May 12 2026 Petr Pisar <ppisar@redhat.com> - 5.4.2.1-2
+- Adapt copr plugin for new ELN os-release identification (upstream GH#2729)
+
 * Wed May 06 2026 Evan Goode <mail@evangoo.de> - 5.4.2.1-1
 - Update to version 5.4.2.1
 

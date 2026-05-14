@@ -131,6 +131,8 @@ BuildRequires:  python3dist(setuptools)
 # In build_files/utils/make_bpy_wheel.py, the call to setuptools.setup has
 # install_requires=["cython", "numpy", "requests", "zstandard"]; these are
 # therefore both build-time and runtime dependencies.
+BuildRequires:  python3dist(cattrs)
+Requires:       python3dist(cattrs)
 BuildRequires:  python3dist(cython)
 Requires:       python3dist(cython)
 BuildRequires:  python3dist(numpy)

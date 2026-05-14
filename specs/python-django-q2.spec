@@ -2,17 +2,13 @@
 %bcond_with tests
 
 Name:           python-django-q2
-Version:        1.7.2
+Version:        1.10.0
 Release:        %autorelease
 Summary:        A multiprocessing distributed task queue for Django
 
-# Check if the automatically generated License and its spelling is correct for Fedora
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 License:        MIT
 URL:            https://django-q2.readthedocs.org
 Source:         %{pypi_source django_q2}
-# without this CHANGELOG.md gets copied to site-packages
-Patch:          django-q2-rm-changelog.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -54,7 +50,7 @@ Obsoletes:      python3-django-q < 1.3.10
 
 %install
 %pyproject_install
-%pyproject_save_files django_q
+%pyproject_save_files -l django_q
 
 
 %check
@@ -63,7 +59,6 @@ export DJANGO_SETTINGS_MODULE=django_q.tests.settings
 
 
 %files -n python3-django-q2 -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md README.rst
 
 

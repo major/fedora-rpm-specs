@@ -9,7 +9,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.0.0
+Version:       1.0.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -61,7 +61,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 1.0.0
+Version: 1.0.1
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -106,6 +106,9 @@ cp -a src/installer %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Tue May 12 2026 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Sun Mar 29 2026 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
 - Update to 1.0.0
 

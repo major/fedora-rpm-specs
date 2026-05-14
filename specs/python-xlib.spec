@@ -1,6 +1,6 @@
 Name:           python-xlib
 Version:        0.33
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        X client library for Python
 
 License:        LGPL-2.1-or-later
@@ -33,6 +33,7 @@ Summary:        X client library for Python 3
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-tkinter
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-pkg-resources
 Suggests:       python%{python3_pkgversion}-tkinter
 
 %description -n python%{python3_pkgversion}-xlib
@@ -80,6 +81,9 @@ chmod a-x examples/*.py
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.33-18
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Mon Feb 16 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.33-17
 - Modernize spec for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
 - Use xwfb-run instead of Xorg+drv-dummy for tests

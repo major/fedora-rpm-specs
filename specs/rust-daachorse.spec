@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zerofrom
+%global crate daachorse
 
-Name:           rust-zerofrom
-Version:        0.1.8
+Name:           rust-daachorse
+Version:        1.0.1
 Release:        %autorelease
-Summary:        ZeroFrom trait for constructing
+Summary:        Daachorse: Double-Array Aho-Corasick
 
-License:        Unicode-3.0
-URL:            https://crates.io/crates/zerofrom
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/daachorse
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-ZeroFrom trait for constructing.}
+Daachorse: Double-Array Aho-Corasick.}
 
 %description %{_description}
 
@@ -30,8 +30,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/figures/
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -56,18 +59,6 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

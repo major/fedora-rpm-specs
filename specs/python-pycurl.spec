@@ -8,8 +8,8 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.45.7
-Release:        2%{?dist}
+Version:        7.46.0
+Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -18,8 +18,8 @@ Source0:        %{pypi_source pycurl}
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
-# skip Kerberos tests on libcurl >= 8.17.0
-Patch2:         ea92e3ca230a3ff3d464cb6816102fa157177aca.patch
+# backport test hardening from upstream PR #990
+Patch2:         0002-harden-multi-socket-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -32,7 +32,9 @@ BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-flaky
 BuildRequires:  python3-flask
+BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
+BuildRequires:  python3-websockets
 BuildRequires:  vsftpd
 %endif
 
@@ -64,7 +66,6 @@ Requires:       libcurl%{?_isa} >= %{libcurl_ver}
 
 # use %%{python3} instead of python to invoke tests
 sed -e 's|python |%{python3} |' -i tests/ext/test-suite.sh
-%py3_shebang_fix tests/*.py setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -96,6 +97,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Mon May 11 2026 Jacek Migacz <jmigacz@redhat.com> - 7.46.0-1
+- Update to 7.46.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

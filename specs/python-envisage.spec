@@ -44,7 +44,9 @@ build GUIs from Envisage.  It is now recommended to use the Task framework.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        Extensible application framework
+Requires:       python%{python3_pkgversion}-pkg-resources
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pkg-resources
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Envisage is a Python-based framework for building extensible applications,

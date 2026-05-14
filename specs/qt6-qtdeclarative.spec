@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.11.0
-Release: 2%{?dist}
+Version: 6.11.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -753,6 +753,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
+- Update to 6.11.1
+
 * Mon May 04 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
 - Upstream backport:
   - Dialogs: Use generic QtQuick.Controls import in base fallback dialogs

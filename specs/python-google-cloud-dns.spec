@@ -20,6 +20,7 @@ Patch0:         python-google-cloud-dns-mock.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pkg-resources
 
 %if %{with tests}
 BuildRequires:  python3dist(google-cloud-core)

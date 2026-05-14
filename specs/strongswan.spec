@@ -10,7 +10,7 @@
 %global forgeurl0 https://github.com/strongswan/strongswan
 
 Name:           strongswan
-Version:        6.0.4
+Version:        6.0.6
 Release:        %autorelease
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

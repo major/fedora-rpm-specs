@@ -25,8 +25,8 @@ Patch:          0001-Downstream-only-Build-normal-wheels-in-place.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2416992
 Patch:          %{url}/pull/723.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l frozenlist
+BuildSystem:    pyproject
+BuildOption(install): --assert-license frozenlist
 
 BuildRequires:  gcc-c++
 

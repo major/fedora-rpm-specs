@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zerofrom
+%global crate nonempty
 
-Name:           rust-zerofrom
-Version:        0.1.8
+Name:           rust-nonempty
+Version:        0.12.0
 Release:        %autorelease
-Summary:        ZeroFrom trait for constructing
+Summary:        Correct by construction non-empty vector
 
-License:        Unicode-3.0
-URL:            https://crates.io/crates/zerofrom
+License:        MIT
+URL:            https://crates.io/crates/nonempty
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-ZeroFrom trait for constructing.}
+Correct by construction non-empty vector.}
 
 %description %{_description}
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -46,28 +47,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+bincode-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+bincode-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "bincode" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+bincode-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serialize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serialize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serialize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serialize-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

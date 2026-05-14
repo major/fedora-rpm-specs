@@ -1,7 +1,7 @@
 %global modname traitsui 
 Name:           python-%{modname}
 Version:        8.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        User interface tools designed to complement Traits
 
 # Images have different licenses. For image license breakdown check
@@ -34,6 +34,7 @@ BuildRequires:  liberation-fonts
 BuildRequires:  python%{python3_pkgversion}-devel
 # pyproject install python3-pyqt5-base instead, this is needed for PyQt5.QtSvg
 BuildRequires:  python%{python3_pkgversion}-qt5
+BuildRequires:  python3-pkg-resources
 
 %description -n python%{python3_pkgversion}-%{modname}
 The TraitsUI package is a set of user interface tools designed to complement
@@ -101,6 +102,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 8.0.0-13
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

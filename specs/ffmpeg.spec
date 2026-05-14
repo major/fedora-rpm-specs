@@ -107,8 +107,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        8.0.1
-Release:        7%{?dist}
+Version:        8.1.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -125,8 +125,6 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
-# Support building with EVC base profile libraries
-Patch3:         https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/20329.patch#/ffmpeg-support-evc-base-libraries.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -974,6 +972,10 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Sat May 09 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.1-1
+- Update to 8.1.1
+- Drop merged patch
+
 * Wed Apr 15 2026 Nicolas Chauvet <kwizart@gmail.com> - 8.0.1-7
 - Rebuilt for vmaf-3.1.0
 

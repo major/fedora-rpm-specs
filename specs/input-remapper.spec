@@ -15,6 +15,7 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pkg-resources
 BuildRequires:  python3-wheel
 BuildRequires:  gettext
 
@@ -43,6 +44,7 @@ Requires:       gtk3
 # gi.require_version("GtkSource", "4")
 BuildRequires:  gtksourceview4
 Requires:       gtksourceview4
+Requires:       python3-pkg-resources
 
 %generate_buildrequires
 %pyproject_buildrequires -r

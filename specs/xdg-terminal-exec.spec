@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xdg-terminal-exec
-Version:        0.14.1
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Proposed XDG Default Terminal Execution Spec implementation
 
@@ -34,7 +34,7 @@ compatibility is maintained as best effort and is not guaranteed.
 %make_build
 
 %install
-%make_install prefix="%{buildroot}%{_prefix}"
+%make_install prefix=%{_prefix}
 
 %if %{with check}
 %check

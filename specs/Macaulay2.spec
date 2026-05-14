@@ -18,7 +18,7 @@
 # We have to bundle the linbox package.  It has global constructors that cause
 # the same problem as libfplll.
 
-%global emacscommit 524968452e95d010769ece30092edaa09d1e814f
+%global emacscommit a95ab17170bf6234b77fa8ccdb2431b7fb9e9dd9
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %{sub %{emacscommit} 1 7}
 %global m2url       https://github.com/Macaulay2/M2
@@ -47,7 +47,7 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.25.11
+Version: 1.26.05
 Release: %autorelease
 
 # GPL-2.0-only OR GPL-3.0-only:
@@ -79,8 +79,10 @@ Release: %autorelease
 #   - Macaulay2/packages/GroebnerWalk.m2
 #   - Macaulay2/packages/HyperplaneArrangements.m2
 #   - Macaulay2/packages/InvariantRing*
+#   - Macaulay2/packages/K3Surfaces.m2
 #   - Macaulay2/packages/KustinMiller.m2
 #   - Macaulay2/packages/LieTypes.m2
+#   - Macaulay2/packages/MRDI.m2
 #   - Macaulay2/packages/MonomialAlgebras.m2
 #   - Macaulay2/packages/MultiprojectiveVarieties.m2
 #   - Macaulay2/packages/NAGtypes.m2
@@ -89,6 +91,7 @@ Release: %autorelease
 #   - Macaulay2/packages/NumericalAlgebraicGeometry.m2
 #   - Macaulay2/packages/PackageCitations.m2
 #   - Macaulay2/packages/Posets.m2
+#   - Macaulay2/packages/RInterface.m2
 #   - Macaulay2/packages/RationalPoints*
 #   - Macaulay2/packages/ResLengthThree.m2
 #   - Macaulay2/packages/ResolutionsOfStanleyReisnerRings.m2
@@ -115,8 +118,6 @@ Release: %autorelease
 #   - Macaulay2/packages/MultiplierIdeals.m2
 #   - Macaulay2/packages/NormalToricVarieties.m2
 #   - Macaulay2/packages/NumericSolutions.m2
-#   - Macaulay2/packages/OldPolyhedra.m2
-#   - Macaulay2/packages/OldToricVectorBundles.m2
 #   - Macaulay2/packages/PieriMaps.m2
 #   - Macaulay2/packages/Polyhedra.m2
 #   - Macaulay2/packages/PositivityToricBundles.m2
@@ -173,7 +174,7 @@ Source20: etags.sh
 ## BUNDLED code
 # Normaliz must sometimes be bundled due to version differences
 %if ! %system_normaliz
-%global normalizver 3.11.0
+%global normalizver 3.11.1
 Source100: http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/normaliz-%{normalizver}.tar.gz
 Provides:  bundled(normaliz) = %{normalizver}
 %endif
@@ -184,7 +185,7 @@ Source101: https://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.gz
 Provides:  bundled(mpfr) = %{mpfrver}
 
 # FLINT is bundled because it must be linked with the specially-built MPFR
-%global flintver 3.3.1
+%global flintver 3.5.0
 Source102: https://github.com/flintlib/flint/archive/v%{flintver}/flint-%{flintver}.tar.gz
 Provides:  bundled(flint) = %{flintver}
 
@@ -202,11 +203,11 @@ Provides:  bundled(linbox) = %{linboxver}
 # No patches
 
 ## FAKE library tarballs that convince Macaulay2 to use the system versions
-Source300: frobby_v0.9.5.tar.gz
-Source301: cddlib-094m.tar.gz
+Source300: frobby_v0.9.8.tar.gz
+Source301: cddlib-094n.tar.gz
 # lapack
 Source302: v3.12.1.tar.gz
-Source303: 4ti2-1.6.13.tar.gz
+Source303: 4ti2-1.6.15.tar.gz
 Source304: fplll-5.5.0.tar.gz
 Source305: gfan0.6.2.tar.gz
 Source306: givaro-4.2.1.tar.gz
@@ -217,7 +218,7 @@ Source310: glpk-5.0.tar.gz
 Source311: Csdp-6.2.0.tgz
 Source312: mpsolve-3.2.3.tar.gz
 # msolve
-%global msolvever 0.9.2
+%global msolvever 0.9.5
 Source313: v%{msolvever}.tar.gz
 
 # let Fedora optflags override the defaults
@@ -271,7 +272,7 @@ BuildRequires: libatomic
 BuildRequires: libfplll-static
 BuildRequires: libfrobby-devel
 BuildRequires: libgfan-devel
-BuildRequires: libnormaliz-devel >= 3.10.4
+BuildRequires: libnormaliz-devel >= 3.11.1
 BuildRequires: libtool
 BuildRequires: lrslib-devel
 BuildRequires: lrslib-utils
@@ -290,6 +291,7 @@ BuildRequires: pkgconfig(fflas-ffpack)
 BuildRequires: pkgconfig(flexiblas)
 BuildRequires: pkgconfig(gmp)
 BuildRequires: pkgconfig(gtest)
+BuildRequires: pkgconfig(jansson)
 BuildRequires: pkgconfig(libffi)
 BuildRequires: pkgconfig(libmariadb)
 BuildRequires: pkgconfig(libnauty)
@@ -308,6 +310,8 @@ BuildRequires: pkgconfig(tbb)
 BuildRequires: pkgconfig(tinyxml2)
 BuildRequires: polymake
 BuildRequires: python3-devel
+BuildRequires: pythoncapi-compat-devel
+BuildRequires: %{py3_dist matplotlib}
 BuildRequires: R
 BuildRequires: scip
 BuildRequires: texinfo
@@ -317,9 +321,6 @@ BuildRequires: transfig
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
-
-# Temporarily work around Lmod brokenness
-BuildRequires:  environment-modules
 
 Requires: 4ti2
 Requires: cohomCalg
@@ -383,9 +384,6 @@ tar -C Macaulay2/editors/emacs --strip-components=1 -xzf %{SOURCE1}
 
 install -p -m755 %{SOURCE20} ./etags
 
-## TODO: Remove this when Fedora moves to normaliz 3.11.0
-sed -i 's/3\.11\.0/3.10.5/' libraries/normaliz/Makefile.in
-
 ## bundled code
 %if ! %system_normaliz
 install -p -m644 %{SOURCE100} BUILD/tarfiles/
@@ -393,15 +391,12 @@ install -p -m644 %{SOURCE100} BUILD/tarfiles/
 install -p -m644 %{SOURCE101} %{SOURCE102} %{SOURCE103} BUILD/tarfiles/
 install -p -m644 %{SOURCE104} BUILD/tarfiles/v%{linboxver}.tar.gz
 sed -i 's/\(VERSION = \).*/\1%{mpfrver}/' libraries/mpfr/Makefile.in
-sed -e 's/\(VERSION = \).*/\1%{linboxver}/' \
-    -e 's,--with-gmp.*,--without-archnative GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
+sed -e 's,--with-gmp.*,--without-archnative GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
     -i libraries/linbox/Makefile.in
 
 ## patches for bundled code
 sed -e 's,--disable-shared,& --disable-arch --with-blas-include=%{_includedir}/flexiblas --with-ntl-include=%{_includedir}/NTL,' \
-    -e 's/3\.2\.1/%{flintver}/' \
     -e 's/\(LICENSEFILES = \).*/\1COPYING COPYING.LESSER/' \
-    -e 's/-pedantic-errors/& -fno-strict-aliasing/' \
     -e "s,PRECONFIGURE.*,& \&\& sed -i 's/openblas/flexiblas/' configure," \
     -i libraries/flint/Makefile.in
 
@@ -414,6 +409,8 @@ sed -i '/PRECONFIGURE/d' libraries/{4ti2,cddlib,givaro,normaliz,topcom}/Makefile
 sed -i '/PATCHFILE/d' libraries/{csdp,frobby,gfan,givaro,lrslib,mpsolve,normaliz,topcom}/Makefile.in
 sed -i '/INSTALLCMD/,/stdinc/d' libraries/frobby/Makefile.in
 sed -i 's,install \(lib.*\.a\),ln -s %{_libdir}/\1,' libraries/lapack/Makefile.in
+sed -i 's/\(^SHA256SUM = \).*/\1true/' \
+    libraries/{cohomcalg,csdp,factory,fplll,gfan,glpk,lapack,linbox,lrslib,mpfr,mpsolve,msolve,topcom}/Makefile.in
 
 ## fake givaro submodule
 tar -C submodules/givaro --strip-components=1 -xzf %{SOURCE306}
@@ -425,6 +422,10 @@ tar -C submodules/flint --strip-components=1 -xzf %{SOURCE102}
 
 
 %conf
+# Unbundle pythoncapi-compat
+rm Macaulay2/d/pythoncapi_compat.h
+ln -s %{_includedir}/pythoncapi_compat.h Macaulay2/d/pythoncapi_compat.h
+
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
 
@@ -440,18 +441,16 @@ sed -e 's/BUILD_cddlib=yes/BUILD_cddlib=no/' \
     -e 's/BUILD_gc=yes/BUILD_gc=no/' \
     -e 's/BUILD_fflas_ffpack=yes/BUILD_fflas_ffpack=no/' \
     -e 's,-lfplll,%{_libdir}/libfplll.a -lqd,' \
-    -e 's,`\$PKG_CONFIG --libs givaro`,%{_libdir}/libgivaro.a,' \
     -e 's,-lgivaro,%{_libdir}/libgivaro.a,' \
     -e 's,-lrefblas,-lflexiblas,' \
     -e 's,-llapack,-lflexiblas,' \
-    -e 's,\$added_fclibs != yes,"$added_fclibs" != yes,' \
     -i configure.ac
 
 # Do not try to download tarballs
 sed -i '/^fetch: download-enabled/d' libraries/Makefile.library.in
 
 # Do not try to fetch sources with git
-sed -i 's/^\(fetch:\) update-submodule/\1/' libraries/Makefile.library.in
+sed -i 's/^\(fetch:\) .submodule-updated/\1/' libraries/Makefile.library.in
 
 # All examples should produce expected results on x86_64.  Other platforms
 # sometimes encounter problems; e.g., due to differences in rounding error of
@@ -474,8 +473,6 @@ module load lrslib-%{_arch}
 mkdir -p BUILD/%{_target_platform}
 cd BUILD/%{_target_platform}
 CPPFLAGS="$CPPFLAGS -I%{_includedir}/cddlib -I%{_includedir}/frobby" \
-CFLAGS='%{build_cflags} -fsigned-char' \
-CXXFLAGS='%{build_cflags} -fsigned-char' \
 LIBS="-lflexiblas" \
 ../../configure \
   --build=%{_build} \
@@ -486,9 +483,10 @@ LIBS="-lflexiblas" \
   --disable-strip \
   --enable-linbox \
   --with-blas=flexiblas \
+  --with-jansson=yes \
   --with-lapack=flexiblas \
   --with-system-libs \
-  --with-unbuilt-programs="cddplus nauty" \
+  --with-unbuilt-programs="nauty" \
   --enable-build-libraries="mpfr flint factory lapack fplll givaro linbox"
   # The list of libraries and submodules above should include only those that:
   # 1. We bundle (mpfr, flint, factory, and linbox)

@@ -1,5 +1,5 @@
 Name:           pgbadger
-Version:        13.1
+Version:        13.2
 Release:        %autorelease
 Summary:        PostgreSQL log analyzer with fully detailed reports and graphs
 
@@ -13,7 +13,7 @@ Summary:        PostgreSQL log analyzer with fully detailed reports and graphs
 # GPL-2.0-only: resources/jqplot.*
 License:        PostgreSQL AND MIT AND Artistic-2.0 AND OFL-1.1 AND CC-BY-3.0 AND GPL-2.0-only
 URL:            https://github.com/darold/%{name}
-Source:         https://github.com/darold/%{name}/archive/refs/tags/v%{version}.tar.gz
+Source:         https://github.com/darold/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Update Makefile.PL to not ignore command line arguments
 Patch0:         %{name}-13.0-Update-Makefile.patch

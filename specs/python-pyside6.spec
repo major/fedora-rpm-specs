@@ -256,13 +256,13 @@ tar xf %{SOURCE1}
 # a cmake build.
 TODAY=$(date -Id)
 mkdir build_history/$TODAY
-echo $PWD/%{__cmake_builddir}/sources > build_history/$TODAY/build_dir.txt
-export PYTHONPATH=$PWD/%{__cmake_builddir}/sources
+echo $PWD/%{_vpath_builddir}/sources > build_history/$TODAY/build_dir.txt
+export PYTHONPATH=$PWD/%{_vpath_builddir}/sources
 
 %cmake_build
 %if 0%{?docs}
 # build api documentation
-cd %{__cmake_builddir}
+cd %{_vpath_builddir}
 ninja apidoc
 %endif
 
@@ -271,7 +271,7 @@ ninja apidoc
 %cmake_install
 %if 0%{?docs}
 # install api documentation
-cd %{__cmake_builddir}
+cd %{_vpath_builddir}
 ninja apidocinstall
 %endif
 
@@ -279,8 +279,8 @@ ninja apidocinstall
 #
 # Copy CMake configuration files from the BINARY dir back to the SOURCE dir so
 # setuptools can find them.
-cp %{__cmake_builddir}/sources/shiboken6/shibokenmodule/{*.py,*.txt} sources/shiboken6/shibokenmodule/
-cp %{__cmake_builddir}/sources/pyside6/PySide6/*.py sources/pyside6/PySide6/
+cp %{_vpath_builddir}/sources/shiboken6/shibokenmodule/{*.py,*.txt} sources/shiboken6/shibokenmodule/
+cp %{_vpath_builddir}/sources/pyside6/PySide6/*.py sources/pyside6/PySide6/
 %{__python3} setup.py --qtpaths=/usr/%{_lib}/qt6/bin/qtpaths install_scripts --install-dir=%{buildroot}%{_bindir}
 for name in PySide6 shiboken6 shiboken6_generator; do
   mkdir -p %{buildroot}%{python3_sitearch}/$name-%{version}-py%{python3_version}.egg-info
@@ -303,7 +303,7 @@ mkdir -p %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 mv %{buildroot}%{_bindir}/shiboken_tool.py %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 
 # Install shiboken6
-mv %{__cmake_builddir}/sources/shiboken6_generator/generator/shiboken6 %{buildroot}%{python3_sitelib}/shiboken6_generator
+mv %{_vpath_builddir}/sources/shiboken6_generator/generator/shiboken6 %{buildroot}%{python3_sitelib}/shiboken6_generator
 
 # Fix CMake config files to use correct absolute paths (OpenSUSE solution)
 # The upstream build is designed for wheel installation with relative paths,

@@ -28,9 +28,9 @@ Source:         %{forgesource}
 # https://gitlab.com/dpizetta/helpdev/-/merge_requests/4
 Patch:          %{forgeurl}/-/merge_requests/4.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x memory_info
-BuildOption(install):   -l helpdev
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras memory_info
+BuildOption(install): --assert-license helpdev
 
 BuildArch:      noarch
 

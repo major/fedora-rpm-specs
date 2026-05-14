@@ -1,5 +1,5 @@
 Name:       dino
-Version:    0.5.0
+Version:    0.5.1
 Release:    %autorelease
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.

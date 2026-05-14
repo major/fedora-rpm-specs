@@ -17,10 +17,12 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(testtools) >= 1.4
+BuildRequires:  python3-pkg-resources
 
 # Explicitly require a version of python3-jenkins that includes the patch from
 # https://src.fedoraproject.org/rpms/python-jenkins/pull-request/1
 Requires:       python3dist(python-jenkins) >= 1.8
+Requires:       python3-pkg-resources
 
 %description
 Jenkins Job Builder takes simple descriptions of Jenkins jobs in YAML format

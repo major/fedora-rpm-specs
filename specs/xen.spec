@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -83,6 +83,7 @@ Patch12: xsa483.patch
 Patch13: xsa484.patch
 Patch14: xsa486.patch
 Patch15: xen.git-90b20547b756a5cf9b0fec9fb0de5b361e8bf4c3.patch
+Patch16: xsa490-4.21.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -273,6 +274,7 @@ This package contains files used in testing the xen builds
 %patch 13 -p1
 %patch 14 -p1
 %patch 15 -p1
+%patch 16 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -828,6 +830,9 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Tue May 12 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-3
+- x86: CPU Opcode Cache corruption [XSA-490,CVE-2025-54518]
+
 * Tue Apr 28 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-2
 - oxenstored keeps quota related use counts across domain destruction
 	[XSA-483, CVE-2026-23556]

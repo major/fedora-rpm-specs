@@ -1,21 +1,22 @@
-%global commit 6beed311c2ecb3f9662f35ecc06948bd89ed9455
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global forgeurl https://github.com/smcameron/wordwarvi/
 
 Name:           wordwarvi
-Version:        1.1
-Release:        24.git%{shortcommit}%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
+# Accidentally used 1.1 for 1.0.1
+Epoch:          1
+%forgemeta
 Summary:        Side-scrolling shoot 'em up '80s style arcade game
 # Automatically converted from old format: GPLv2+ and CC-BY and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://smcameron.github.io/wordwarvi/
-# The 1.1 release never got a tag in git, so we use the commit-id
-Source0:        https://github.com/smcameron/wordwarvi/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Source0:        %{forgesource}
 Source1:        %{name}.desktop
 Source2:        %{name}.png
 Source3:        %{name}.appdata.xml
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  gtk2-devel portaudio-devel libvorbis-devel
+Patch1:         Port-to-GTK-3.patch
+BuildRequires:  make gcc
+BuildRequires:  gtk3-devel portaudio-devel libvorbis-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 Requires:       hicolor-icon-theme
 
@@ -32,15 +33,15 @@ vi, mmm-kay?
 
 
 %prep
-%setup -qn %{name}-%{commit}
+%autosetup -p1
 
 
 %build
-make %{?_smp_mflags} PREFIX=%{_prefix} CFLAGS="$RPM_OPT_FLAGS"
+%make_build PREFIX=%{_prefix}
 
 
 %install
-make install PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT
+%make_install PREFIX=%{_prefix} BINDIR=%{_bindir}
 
 # below is the desktop file and icon stuff.
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
@@ -53,8 +54,10 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}/appdata
 appstream-util validate-relax --nonet \
   $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml
 
+
 %files
-%doc AUTHORS COPYING README changelog.txt sounds/Attribution.txt
+%doc AUTHORS README changelog.txt sounds/Attribution.txt
+%license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man6/%{name}.6*
@@ -64,6 +67,11 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue May 12 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1:1.0.4-1
+- Update to 1.0.4 release
+- Add Epoch because the 1.1 release from git was 1.0.1
+- Add Debian patch to port to GTK3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-24.git6beed31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

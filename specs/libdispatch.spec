@@ -9,6 +9,7 @@ License:        Apache-2.0
 URL:            https://github.com/apple/swift-corelibs-libdispatch
 
 Source0:        https://github.com/apple/swift-corelibs-libdispatch/archive/swift-%{reltag}.tar.gz#/corelibs-libdispatch.tar.gz
+Patch0:         https://github.com/swiftlang/swift-corelibs-libdispatch/commit/38872e2d44d66d2fb94186988509defc734888a5.patch#/libdispatch-epoll-fix-implicit-conv.diff
 
 
 BuildRequires:  clang
@@ -55,7 +56,7 @@ Development files for libdispatch
 
 
 %prep
-%setup -q -n swift-corelibs-libdispatch-swift-%{reltag}
+%autosetup -p1 -n swift-corelibs-libdispatch-swift-%{reltag}
 
 
 %build

@@ -46,7 +46,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.5
-%global prerel rc1
+#global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -112,7 +112,7 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.1
+%global pip_version 26.1.1
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
@@ -445,12 +445,6 @@ Patch475: 00475-cve-2025-15367.patch
 # which is modified with this patch, hence they need a
 # direct call to the check function.
 Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-different-python-version.patch
-
-# 00481 # 4c1fd39918651c4559a4835d42b86639a192c2c5
-# CVE-2026-5713
-#
-# Validate remote debug offset tables on load
-Patch481: 00481-cve-2026-5713.patch
 
 # 00486 # 5ae0b81b3135319f8d75a886fb7a11fa40ac11f4
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
@@ -2010,6 +2004,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon May 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14.5-1
+- Update to 3.14.5
+
 * Tue May 05 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14.5~rc1-1
 - Update to 3.14.5rc1
 

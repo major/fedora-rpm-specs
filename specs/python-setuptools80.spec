@@ -8,11 +8,11 @@
 
 %global python_wheel_name setuptools-%{version}-py3-none-any.whl
 
-Name:           python-setuptools
+Name:           python-setuptools80
 # When updating, update the bundled libraries versions bellow!
-Version:        82.0.1
+Version:        80.10.2
 Release:        %autorelease
-Summary:        Easily build and distribute Python packages
+Summary:        setuptools 80.x.x for compatibility purposes
 # setuptools is MIT
 # autocommand is LGPL-3.0-only
 # backports-tarfile is MIT
@@ -37,6 +37,17 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # The `setup.py install` deprecation notice might be confusing for RPM packagers
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
+
+# setuptools rewrites all shebangs to "#!python" which breaks workflows
+# where no external installers (usually rewriting this) are involved.
+# https://github.com/pypa/setuptools/issues/4883
+# - Resolution: deprecated functionality won't be fixed.
+# brp-mangle-shebang script cannot mangle this and fails for many pkgs.
+Patch:          Revert-Always-rewrite-a-Python-shebang-to-python.patch
+
+# Avoid using (deprecated in Python 3.15) json.__version__ in tests,
+# merged upstream.
+Patch:          https://github.com/pypa/setuptools/pull/5194.patch
 
 BuildArch:      noarch
 
@@ -67,6 +78,12 @@ Setuptools is a collection of enhancements to the Python distutils that allow
 you to more easily build and distribute Python packages, especially ones that
 have dependencies on other packages.
 
+This package also contains the runtime components of setuptools, necessary to
+execute the software that requires pkg_resources.
+
+This package contains setuptools 80.x.x for compatibility reasons.
+Use the latest python-setuptools if at all possible.
+
 # Virtual provides for the packages bundled by setuptools.
 # Bundled packages are defined in multiple files. Generate the list with:
 # pip freeze --path setuptools/_vendor > vendored.txt
@@ -86,22 +103,39 @@ Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.46.3
 Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.23
 }
 
-%package -n python%{python3_pkgversion}-setuptools
+%package -n python%{python3_pkgversion}-setuptools80
 Summary:        Easily build and distribute Python 3 packages
 %{bundled}
 
-%description -n python%{python3_pkgversion}-setuptools
+Requires: python3-pkg-resources = %{version}-%{release}
+
+%py_provides    python%{python3_pkgversion}-setuptools
+Conflicts:      python%{python3_pkgversion}-setuptools
+Provides:       deprecated()
+
+%description -n python%{python3_pkgversion}-setuptools80
 Setuptools is a collection of enhancements to the Python 3 distutils that allow
 you to more easily build and distribute Python 3 packages, especially ones that
 have dependencies on other packages.
 
+This package also contains the runtime components of setuptools, necessary to
+execute the software that requires pkg_resources.
 
-%package -n     %{python_wheel_pkg_prefix}-setuptools-wheel
-Summary:        The setuptools wheel
-%{bundled}
+This package contains setuptools 80.x.x for compatibility reasons.
+Use the latest python-setuptools if at all possible.
 
-%description -n %{python_wheel_pkg_prefix}-setuptools-wheel
-A Python wheel of setuptools to use with venv.
+
+%package -n python%{python3_pkgversion}-pkg-resources
+Summary:        Package resources API for Python
+
+%py_provides    python%{python3_pkgversion}-pkg_resources
+# This ensures clean upgrade path from before the compat package was introduced
+Conflicts:      python%{python3_pkgversion}-pkg-resources < 82
+Provides:       deprecated()
+
+%description -n python%{python3_pkgversion}-pkg-resources
+This package contains pkg_resources module from setuptools, provided for compatibility reasons.
+Encourage upstream to use more modern tools if at all possible.
 
 
 %prep
@@ -114,7 +148,7 @@ rm -r setuptools.egg-info
 %endif
 
 # Strip shbang
-find setuptools -name \*.py | xargs sed -i -e '1 {/^#!\//d}'
+find setuptools pkg_resources -name \*.py | xargs sed -i -e '1 {/^#!\//d}'
 # Remove bundled exes
 rm -f setuptools/*.exe
 # Don't ship these
@@ -152,12 +186,6 @@ sed -Ei '/\/tests\b/d' %{pyproject_files}
 # https://github.com/pypa/setuptools/issues/2709
 find %{buildroot}%{python3_sitelib} -name tests -print0 | xargs -0 rm -r
 
-# Install the wheel for the python-setuptools-wheel package
-# and inject SBOM into it (if the macro is available)
-mkdir -p %{buildroot}%{python_wheel_dir}
-install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
-%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{python_wheel_dir}/%{python_wheel_name}}
-
 
 %check
 %if %{without bootstrap}
@@ -173,6 +201,7 @@ test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 130000
 %endif
 
 # Regression test, the tests are not supposed to be installed
+test ! -d %{buildroot}%{python3_sitelib}/pkg_resources/tests
 test ! -d %{buildroot}%{python3_sitelib}/setuptools/tests
 test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 
@@ -199,11 +228,11 @@ PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
  --ignore=tools \
- -k "not test_wheel_includes_cli_scripts and not test_equivalent_output and not test_pkg_info_roundtrip"
+ -k "not test_wheel_includes_cli_scripts and not test_equivalent_output"
 %endif # with tests
 
 
-%files -n python%{python3_pkgversion}-setuptools %{?!with_bootstrap:-f %{pyproject_files}}
+%files -n python%{python3_pkgversion}-setuptools80 %{?!with_bootstrap:-f %{pyproject_files}}
 %doc docs/* NEWS.rst README.rst
 %{python3_sitelib}/distutils-precedence.pth
 %if %{with bootstrap}
@@ -211,14 +240,12 @@ PYTHONPATH=$(pwd) %pytest \
 %license %{python3_sitelib}/setuptools-%{version}.dist-info/licenses/LICENSE
 %{python3_sitelib}/setuptools/
 %{python3_sitelib}/_distutils_hack/
+%exclude %{python3_sitelib}/pkg_resources/
 %endif
 
-%files -n %{python_wheel_pkg_prefix}-setuptools-wheel
+%files -n python%{python3_pkgversion}-pkg-resources
+%{python3_sitelib}/pkg_resources/
 %license LICENSE
-# we own the dir for simplicity
-%dir %{python_wheel_dir}/
-%{python_wheel_dir}/%{python_wheel_name}
-
 
 %changelog
 %autochangelog

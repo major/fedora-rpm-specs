@@ -1,4 +1,7 @@
 %bcond check 1
+# Recent versions of python-datasets require a recent libarrow, so it was not
+# branched to all releases.
+%bcond datasets %[ %{undefined fc43} && %{undefined fc42} ]
 
 Name:           python-tokenizers
 Version:        0.22.2
@@ -50,7 +53,9 @@ BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli
 # For tests
+%if %{with datasets}
 BuildRequires:  python3dist(datasets)
+%endif
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -162,8 +167,12 @@ cd bindings/python
         --deselect="tests/documentation/test_pipeline.py::TestPipeline::test_bert_example" \
         --deselect="tests/documentation/test_pipeline.py::TestPipeline::test_pipeline" \
         --deselect="tests/documentation/test_quicktour.py::TestQuicktour::test_quicktour" \
+%if %{with datasets}
         --deselect="tests/documentation/test_tutorial_train_from_iterators.py::TestTrainFromIterators::test_datasets" \
         --deselect="tests/documentation/test_tutorial_train_from_iterators.py::TestTrainFromIterators::test_gzip" \
+%else
+        --ignore="tests/documentation/test_tutorial_train_from_iterators.py" \
+%endif
         --deselect="tests/implementations/test_bert_wordpiece.py::TestBertWordPieceTokenizer::test_basic_encode" \
         --deselect="tests/implementations/test_bert_wordpiece.py::TestBertWordPieceTokenizer::test_multiprocessing_with_parallelism" \
         --deselect="tests/implementations/test_byte_level_bpe.py::TestByteLevelBPE::test_add_prefix_space" \

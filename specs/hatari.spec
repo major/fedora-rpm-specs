@@ -1,7 +1,7 @@
 Summary: An Atari ST/STE/TT/Falcon emulator suitable for playing games
 Name: hatari
 Version: 2.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.hatari-emu.org/
 Source0: https://framagit.org/%{name}/releases/-/raw/main/v%{version}/%{name}-%{version}.tar.bz2
@@ -18,6 +18,7 @@ BuildRequires: capstone-devel
 BuildRequires: systemd-devel
 BuildRequires: python3-devel
 BuildRequires: python3-gobject
+BuildRequires: gobject-introspection
 BuildRequires: gtk3
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
@@ -33,6 +34,7 @@ Summary: External user interface for Hatari
 Requires: %{name} = %{version}-%{release}
 Requires: python3
 Requires: python3-gobject
+Requires: gobject-introspection
 Requires: gtk3
 Requires: hicolor-icon-theme
 
@@ -123,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Sat May 02 2026 Andrea Musuruane <musuruan@gmail.com> - 2.6.1-3
+- Rebuilt for SDL3 >= 3.4.2 (fixes BZ #2434639)
+- Added missing dependency for gobject-introspection
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

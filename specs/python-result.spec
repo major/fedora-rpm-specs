@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # requirements-dev.txt has extras we don't need
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
 
 %global _description %{expand:
 A simple Result type for Python 3 inspired by Rust, fully type annotated.

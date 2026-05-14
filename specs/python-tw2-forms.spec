@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -14,6 +14,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-webob >= 0.9.7
 BuildRequires:  python3-tw2-core >= 2.1.4
+BuildRequires:  python3-pkg-resources
 
 # Specifically for the test suite
 #BuildRequires:  python3-pytest
@@ -73,6 +74,9 @@ This package contains the basic form widgets build for python3.
 %{python3_sitelib}/tw2.forms-*-nspkg.pth
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.2.6-32
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Thu Mar 12 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.6-31
 - Use pyproject_wheel and pyproject_install macros
 

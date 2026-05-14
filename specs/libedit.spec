@@ -1,4 +1,4 @@
-%global snap 20260508
+%global snap 20260512
 
 # Build man pages with mdoc2man.awk to avoid circular dependencies
 %bcond bootstrap 0
@@ -86,6 +86,9 @@ sed -i "s/lncurses/ltinfo/" configure
 %{_includedir}/editline/readline.h
 
 %changelog
+* Tue May 12 2026 Jerry James  <loganjerry@gmail.com> - 3.1-59.20260512cvs
+- New version (20260512-3.1)
+
 * Mon May 11 2026 Jerry James  <loganjerry@gmail.com> - 3.1-59.20260508cvs
 - New version (20260508-3.1)
 

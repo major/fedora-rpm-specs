@@ -19,6 +19,7 @@ BuildRequires: python3dist(pycdio)
 BuildRequires: python3dist(pygobject)
 BuildRequires: python3dist(ruamel-yaml)
 BuildRequires: python3dist(twisted)
+BuildRequires: python3-pkg-resources
 
 Requires: cdrdao
 Requires: flac
