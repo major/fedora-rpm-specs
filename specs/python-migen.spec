@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        37.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        38.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,6 +17,7 @@ Source0:        https://git.m-labs.hk/M-Labs/%{srcname}/archive/%{commit0}.tar.g
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 # for the pdf manual:
 BuildRequires:  make
 BuildRequires:  latexmk
@@ -64,6 +65,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.9.2-38.20260115git673e0e8
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Thu Jan 15 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-37.20260115git673e0e8
 - update upstream location
 - update to newer snapshot

@@ -9,7 +9,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -116,26 +116,33 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %ldconfig_scriptlets
 
 %files
+%license COPYING
 %doc README
 %{_libdir}/lib*.so.*
 
 %files devel
+%license COPYING
 %{_includedir}/*
 %{_mandir}/man3/*
 %{_libdir}/lib*.so
 
 %if %{with_static}
 %files static
+%license COPYING
 %{_libdir}/lib*.a
 %endif
 
 %if %{with python}
 %files -n python3-libpfm
+%license COPYING
 %{python3_sitearch}/perfmon-*.egg-info/
 %{python3_sitearch}/perfmon/
 %endif
 
 %changelog
+* Wed May 13 2026 Aaron Merey <amerey@redhat.com> - 4.13.0-20
+- Install COPYING license file in all subpackages
+
 * Wed Jan 21 2026 Aaron Merey <amerey@redhat.com> - 4.13.0-19
 - Add libpfm-unused-vars.patch
 

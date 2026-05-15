@@ -1,7 +1,7 @@
 %global pypi_name dropbox
 Name:           python-%{pypi_name}
 Version:        12.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Official Dropbox REST API Client
 License:        MIT
 
@@ -16,6 +16,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pkg-resources
 
 %description
 A Python library for Dropbox's HTTP-based Core and Datastore APIs.
@@ -49,6 +50,9 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 12.0.2-13
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Mon Jan 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 12.0.2-12
 - Finish removing dependency on deprecated pytest-runner
 

@@ -21,7 +21,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -47,11 +47,13 @@ BuildRequires:  mingw32-filesystem >= 96
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt6-qtbase = %{version}
 BuildRequires:  mingw32-qt6-qtshadertools = %{version}
+BuildRequires:  mingw32-qt6-qtsvg = %{version}
 
 BuildRequires:  mingw64-filesystem >= 96
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt6-qtbase = %{version}
 BuildRequires:  mingw64-qt6-qtshadertools = %{version}
+BuildRequires:  mingw64-qt6-qtsvg = %{version}
 
 %description
 This package contains the Qt software toolkit for developing
@@ -165,6 +167,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6QuickShapesDesignHelpers.dll
 %{mingw32_bindir}/Qt6QuickTemplates2.dll
 %{mingw32_bindir}/Qt6QuickTest.dll
+%{mingw32_bindir}/Qt6QuickVectorImage.dll
+%{mingw32_bindir}/Qt6QuickVectorImageGenerator.dll
+%{mingw32_bindir}/Qt6QuickVectorImageHelpers.dll
 %{mingw32_bindir}/Qt6QuickWidgets.dll
 %{mingw32_bindir}/qml-qt6.exe
 %{mingw32_bindir}/qmleasing-qt6.exe
@@ -224,6 +229,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQuickTemplates2/
 %{mingw32_includedir}/qt6/QtQuickTest/
 %{mingw32_includedir}/qt6/QtQuickTestUtils/
+%{mingw32_includedir}/qt6/QtQuickVectorImage/
+%{mingw32_includedir}/qt6/QtQuickVectorImageGenerator/
+%{mingw32_includedir}/qt6/QtQuickVectorImageHelpers/
 %{mingw32_includedir}/qt6/QtQuickWidgets/
 %{mingw32_libdir}/Qt6LabsAnimation.prl
 %{mingw32_libdir}/Qt6LabsFolderListModel.prl
@@ -276,6 +284,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QuickShapesDesignHelpers.prl
 %{mingw32_libdir}/Qt6QuickTemplates2.prl
 %{mingw32_libdir}/Qt6QuickTest.prl
+%{mingw32_libdir}/Qt6QuickVectorImageGenerator.prl
+%{mingw32_libdir}/Qt6QuickVectorImageHelpers.prl
+%{mingw32_libdir}/Qt6QuickVectorImage.prl
 %{mingw32_libdir}/Qt6QuickTestUtils.prl
 %{mingw32_libdir}/Qt6QuickWidgets.prl
 %{mingw32_libdir}/cmake/Qt6BuildInternals/
@@ -333,6 +344,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw32_libdir}/cmake/Qt6QuickTest/
 %{mingw32_libdir}/cmake/Qt6QuickTestUtilsPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickVectorImage/
+%{mingw32_libdir}/cmake/Qt6QuickVectorImageHelpersPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickVectorImageHelpers/
+%{mingw32_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickVectorImagePrivate/
 %{mingw32_libdir}/cmake/Qt6QuickWidgets/
 %{mingw32_libdir}/cmake/Qt6LabsAnimationPrivate/
 %{mingw32_libdir}/cmake/Qt6LabsFolderListModelPrivate/
@@ -426,6 +442,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QuickTemplates2.dll.a
 %{mingw32_libdir}/libQt6QuickTest.dll.a
 %{mingw32_libdir}/libQt6QuickTestUtils.a
+%{mingw32_libdir}/libQt6QuickVectorImage.dll.a
+%{mingw32_libdir}/libQt6QuickVectorImageGenerator.dll.a
+%{mingw32_libdir}/libQt6QuickVectorImageHelpers.dll.a
 %{mingw32_libdir}/libQt6QuickWidgets.dll.a
 %{mingw32_libdir}/pkgconfig/Qt6LabsAnimation.pc
 %{mingw32_libdir}/pkgconfig/Qt6LabsFolderListModel.pc
@@ -470,6 +489,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6QuickShapes.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickTest.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickVectorImage.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickVectorImageHelpers.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickWidgets.pc
 %{mingw32_libdir}/qt6/metatypes/qt6labsanimation_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6labsfolderlistmodel_metatypes.json
@@ -523,6 +544,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickvectorimagegeneratorprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickvectorimagehelpers_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickvectorimage_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickwidgets_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw32_libdir}/qt6/mkspecs/features/qmlcache.prf
@@ -620,6 +644,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagegenerator_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagehelpers.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagehelpers_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimage.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimage_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets_private.pri
 %{mingw32_libdir}/qt6/modules/LabsAnimation.json
@@ -675,6 +704,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw32_libdir}/qt6/modules/QuickTest.json
 %{mingw32_libdir}/qt6/modules/QuickTestUtilsPrivate.json
+%{mingw32_libdir}/qt6/modules/QuickVectorImageGeneratorPrivate.json
+%{mingw32_libdir}/qt6/modules/QuickVectorImageHelpers.json
+%{mingw32_libdir}/qt6/modules/QuickVectorImage.json
 %{mingw32_libdir}/qt6/modules/QuickWidgets.json
 %{mingw32_libdir}/qt6/plugins/qmltooling/
 %{mingw32_libdir}/qt6/qml/
@@ -728,6 +760,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6QuickShapesDesignHelpers.dll
 %{mingw64_bindir}/Qt6QuickTemplates2.dll
 %{mingw64_bindir}/Qt6QuickTest.dll
+%{mingw64_bindir}/Qt6QuickVectorImageGenerator.dll
+%{mingw64_bindir}/Qt6QuickVectorImageHelpers.dll
+%{mingw64_bindir}/Qt6QuickVectorImage.dll
 %{mingw64_bindir}/Qt6QuickWidgets.dll
 
 
@@ -789,6 +824,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQuickTemplates2/
 %{mingw64_includedir}/qt6/QtQuickTest/
 %{mingw64_includedir}/qt6/QtQuickTestUtils/
+%{mingw64_includedir}/qt6/QtQuickVectorImage/
+%{mingw64_includedir}/qt6/QtQuickVectorImageGenerator/
+%{mingw64_includedir}/qt6/QtQuickVectorImageHelpers/
 %{mingw64_includedir}/qt6/QtQuickWidgets/
 %{mingw64_libdir}/Qt6LabsAnimation.prl
 %{mingw64_libdir}/Qt6LabsFolderListModel.prl
@@ -842,6 +880,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QuickTemplates2.prl
 %{mingw64_libdir}/Qt6QuickTest.prl
 %{mingw64_libdir}/Qt6QuickTestUtils.prl
+%{mingw64_libdir}/Qt6QuickVectorImageGenerator.prl
+%{mingw64_libdir}/Qt6QuickVectorImageHelpers.prl
+%{mingw64_libdir}/Qt6QuickVectorImage.prl
 %{mingw64_libdir}/Qt6QuickWidgets.prl
 %{mingw64_libdir}/cmake/Qt6BuildInternals/
 %{mingw64_libdir}/cmake/Qt6LabsAnimation/
@@ -898,6 +939,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw64_libdir}/cmake/Qt6QuickTest/
 %{mingw64_libdir}/cmake/Qt6QuickTestUtilsPrivate/
+%{mingw64_libdir}/cmake/Qt6QuickVectorImagePrivate/
+%{mingw64_libdir}/cmake/Qt6QuickVectorImage/
+%{mingw64_libdir}/cmake/Qt6QuickVectorImageHelpersPrivate/
+%{mingw64_libdir}/cmake/Qt6QuickVectorImageHelpers/
+%{mingw64_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickWidgets/
 %{mingw64_libdir}/cmake/Qt6LabsAnimationPrivate/
 %{mingw64_libdir}/cmake/Qt6LabsFolderListModelPrivate/
@@ -991,6 +1037,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QuickTemplates2.dll.a
 %{mingw64_libdir}/libQt6QuickTest.dll.a
 %{mingw64_libdir}/libQt6QuickTestUtils.a
+%{mingw64_libdir}/libQt6QuickVectorImageGenerator.dll.a
+%{mingw64_libdir}/libQt6QuickVectorImageHelpers.dll.a
+%{mingw64_libdir}/libQt6QuickVectorImage.dll.a
 %{mingw64_libdir}/libQt6QuickWidgets.dll.a
 %{mingw64_libdir}/pkgconfig/Qt6LabsAnimation.pc
 %{mingw64_libdir}/pkgconfig/Qt6LabsFolderListModel.pc
@@ -1035,6 +1084,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6QuickShapes.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickTest.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickVectorImageHelpers.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickVectorImage.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickWidgets.pc
 %{mingw64_libdir}/qt6/metatypes/qt6labsanimation_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6labsfolderlistmodel_metatypes.json
@@ -1088,6 +1139,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickvectorimagegeneratorprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickvectorimagehelpers_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickvectorimage_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickwidgets_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw64_libdir}/qt6/mkspecs/features/qmlcache.prf
@@ -1185,6 +1239,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagegenerator_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagehelpers.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimagehelpers_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimage.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickvectorimage_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets_private.pri
 %{mingw64_libdir}/qt6/modules/LabsAnimation.json
@@ -1240,6 +1299,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw64_libdir}/qt6/modules/QuickTest.json
 %{mingw64_libdir}/qt6/modules/QuickTestUtilsPrivate.json
+%{mingw64_libdir}/qt6/modules/QuickVectorImageGeneratorPrivate.json
+%{mingw64_libdir}/qt6/modules/QuickVectorImageHelpers.json
+%{mingw64_libdir}/qt6/modules/QuickVectorImage.json
 %{mingw64_libdir}/qt6/modules/QuickWidgets.json
 %{mingw64_libdir}/qt6/plugins/qmltooling/
 %{mingw64_libdir}/qt6/qml/
@@ -1247,6 +1309,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Wed May 13 2026 fornacis origin <fornacis.origin@gmail.com> - 6.11.1-2
+- Activate build of VectorImage QML type by enabling qtsvg build dep
+
 * Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
 - Update to 6.11.1
 

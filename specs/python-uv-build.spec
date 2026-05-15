@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.11.12
+Version:        0.11.14
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -35,26 +35,26 @@ Summary:        The uv build backend
 # Zlib
 # bzip2-1.0.6
 License:        %{shrink:
-                (Apache-2.0 OR MIT) AND
-                (Apache-2.0 OR BSD-2-Clause) AND
-                MPL-2.0
-                }
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 OR BSD-2-Clause) AND
+    MPL-2.0
+    }
 %global extra_crate_licenses %{shrink:
-                0BSD AND
-                Apache-2.0 AND
-                (Apache-2.0 OR BSL-1.0) AND
-                (Apache-2.0 OR MIT OR Zlib) AND
-                (Apache-2.0 OR MIT-0) AND
-                (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-                BSD-3-Clause AND
-                CC0-1.0 AND
-                MIT AND
-                (MIT OR Unlicense) AND
-                Unicode-3.0 AND
-                Unicode-DFS-2016 AND
-                Zlib AND
-                bzip2-1.0.6
-                }
+    0BSD AND
+    Apache-2.0 AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT OR Zlib) AND
+    (Apache-2.0 OR MIT-0) AND
+    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
+    BSD-3-Clause AND
+    CC0-1.0 AND
+    MIT AND
+    (MIT OR Unlicense) AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    Zlib AND
+    bzip2-1.0.6
+    }
 URL:            https://pypi.org/project/uv-build
 Source:         %{pypi_source uv_build}
 
@@ -73,8 +73,8 @@ Source:         %{pypi_source uv_build}
 # keep updating uv (primarily a developer tool) while holding uv-build
 # (primarily used for building packages) at an older version for compatibility.
 
-BuildSystem:            pyproject
-BuildOption(install):   -l uv_build
+BuildSystem:    pyproject
+BuildOption(install): --assert-license uv_build
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Also, there are a couple of test failures on 32-bit platforms.

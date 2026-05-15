@@ -6,11 +6,11 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.11.0
+%global qt6ver 6.11.1
 
 Name:           python-%{pypi_name}
-Version:        6.11.0
-Release:        2%{?dist}
+Version:        6.11.1
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,7 +27,6 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 Patch:          0001-Revert-Modify-headers-installation-for-CMake-builds.patch
 Patch:          0001-Always-link-to-python-libraries.patch
 Patch:          0001-Fix-installation.patch
-Patch:          0001-shiboken6-Fix-build-with-clang-22.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -374,6 +373,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Wed May 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
+- Update to 6.11.1
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-2
 - Restore shiboken6_generator
 

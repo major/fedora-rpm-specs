@@ -7,8 +7,8 @@ License:        BSD-3-Clause
 URL:            https://www.dbcli.com
 Source:         %{pypi_source pgspecial}
 
-BuildSystem:            pyproject
-BuildOption(install):   -L pgspecial
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license pgspecial
 
 BuildArch:      noarch
 

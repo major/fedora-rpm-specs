@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/dahlia/libsass-python
 Source:         %{url}/archive/%{version}/libsass-python-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l sass pysassc sasstests sassutils _sass
+BuildSystem:    pyproject
+BuildOption(install): --assert-license sass pysassc sasstests sassutils _sass
 
 # Selected test dependencies from requirements-dev.txt; most entries in that
 # file are for linters, code coverage, etc.

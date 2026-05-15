@@ -20,6 +20,9 @@ License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+# fix: Adjust tests for Pydantic 2.13
+Patch:          %{forgeurl}/commit/6f0217de5e26b99d09ffd9bb95da415779e6bef6.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

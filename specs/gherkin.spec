@@ -282,7 +282,7 @@ mkdir -p %{buildroot}%{_bindir}
 cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 find %{buildroot}%{gem_instdir}/bin -type f -executable \
-    -exec chmod -v a-x '{}' '+' -exec sed -r -i '1{/^#!/d}' '{}' '+'
+    -exec chmod -v a+x '{}' '+'
 popd
 
 

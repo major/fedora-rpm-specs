@@ -190,6 +190,9 @@ Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
+BuildSystem:    pyproject
+BuildOption(install): --assert-license ruff
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -199,7 +202,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
-BuildRequires:  python3-devel
 
 # This is a fork of lsp-types; see the notes about Source200.
 %global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
@@ -334,7 +336,7 @@ EOF
 fi
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 # For unclear reasons, maturin checks for all crate dependencies when it is
 # invoked as part of %%pyproject_buildrequires – including those corresponding
 # to optional features.
@@ -349,17 +351,12 @@ fi
 %pyproject_buildrequires
 
 
-%build
-%pyproject_wheel
-
+%build -a
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 
-%install
-%pyproject_install
-%pyproject_save_files ruff
-
+%install -a
 if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
 then
   # Maturin is really designed to build compiled Python extensions, but (when
@@ -382,7 +379,7 @@ install -Dpm 0644 ruff.fish -t %{buildroot}/%{fish_completions_dir}
 install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
 
 
-%check
+%check -a
 %if %{with check}
 # Ignore false positive snapshot test failures.
 #export INSTA_UPDATE=always

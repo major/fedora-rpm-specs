@@ -1,7 +1,7 @@
 %global srcname idna
 
 Name:           python-%{srcname}
-Version:        3.14
+Version:        3.15
 Release:        %autorelease
 Summary:        Internationalized Domain Names in Applications (IDNA)
 
@@ -57,7 +57,7 @@ rm -rf %{srcname}.egg-info
 
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE.md
-%doc README.rst
+%doc README.md
 
 %changelog
 %autochangelog

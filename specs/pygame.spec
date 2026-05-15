@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -24,6 +24,8 @@ BuildRequires:  gcc
 
 # https://github.com/pygame/pygame/issues/4716
 Patch:          pygame-2.6.1-python-3.15-fix.patch
+# https://github.com/pygame/pygame/pull/4849
+Patch:          pygame-2.6.1-setuptools-82-fix.patch
 
 %global _description\
 Pygame is a set of Python modules designed for writing games. It is\
@@ -76,10 +78,6 @@ iconv -f iso8859-1 -t utf-8 README.txt > README.txt.conv && mv -f README.txt.con
 # repository that does not have restrictions on providing non-free software
 rm -f src_c/ffmovie.[ch]
 
-# Fix compatibility with the latest setuptools/distutils
-# https://github.com/pygame/pygame/issues/4469
-sed -i "s/distutils.ccompiler.spawn/distutils.spawn.spawn/" setup.py
-
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -118,6 +116,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Wed May 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.1-10
+- Fixed build with setuptools >= 82
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

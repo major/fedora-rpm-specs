@@ -12,8 +12,8 @@
 
 Summary: Network UPS Tools
 Name: nut
-Version: 2.8.4
-Release: 7%{?dist}
+Version: 2.8.5
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -23,7 +23,8 @@ Patch2: nut-2.8.0-piddir-owner.patch
 #quick fix. TODO: fix it properly
 Patch9: nut-2.6.5-rmpidf.patch
 Patch15: nut-c99-strdup.patch
-Patch16: nut-2.8.3-rhinoname.patch
+Patch16: nut-2.8-rhinoname.patch
+Patch17: nut-2.8.5-nutuser.patch
 
 Requires(post): coreutils systemd
 Requires(preun): systemd
@@ -139,6 +140,7 @@ necessary to develop NUT client applications.
 %patch -P 9 -p1 -b .rmpidf
 #patch -P 15 -p1
 %patch -P 16 -p2 -b .rhinoname
+%patch -P 17 -p2 -b .nutuser
 
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient-config.in
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient.pc.in
@@ -150,8 +152,8 @@ find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
 sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
 
 # Create a sysusers.d config file
-cat >nut.sysusers.conf <<EOF
-u nut %{nut_uid} 'Network UPS Tools' %{_localstatedir}/lib/ups /bin/false
+cat >scripts/systemd/nut-common-sysusers.conf.in <<EOF
+u nut %{nut_uid} 'Network UPS Tools' @STATEPATH@ /bin/false
 m nut dialout
 m nut tty
 EOF
@@ -221,6 +223,7 @@ mkdir -p %{buildroot}%{modeldir} \
 #mv %{buildroot}%{_tmpfilesdir}/nut-common.tmpfiles %{buildroot}%{_tmpfilesdir}/nut-common.conf
 
 rm -rf %{buildroot}%{_prefix}/html
+rm -rf %{buildroot}%{_docdir}/nut/html-{man,doc}
 rm -f %{buildroot}%{_libdir}/*.la
 rm -rf docs/man
 rm -rf %{buildroot}%{_datadir}/nut/solaris-init
@@ -269,8 +272,6 @@ done
 # Setup permissions for pid file
 touch %{buildroot}/%{piddir}/upsmon.pid
 chmod 0644 %{buildroot}/%{piddir}/upsmon.pid
-
-install -m0644 -D nut.sysusers.conf %{buildroot}%{_sysusersdir}/nut.conf
 
 %pre
 # do not let upsmon run during upgrade rhbz#916472
@@ -334,7 +335,6 @@ fi
 %{_unitdir}/nut-server.service
 %{_unitdir}/nut.target
 %{_presetdir}/nut-systemd.preset
-%{_unitdir}/enphase-monitor@.service
 %{_unitdir}/nut-logger.service
 %{_unitdir}/nut-udev-settle.service
 %{_sbindir}/upsd
@@ -346,7 +346,6 @@ fi
 %{_libdir}/libnutconf.so.*
 %{_libexecdir}/nut-driver-enumerator.sh
 %{_libexecdir}/sockdebug
-%{_libexecdir}/enphase-monitor
 %{_datadir}/augeas/lenses/dist/nut*
 %{_datadir}/augeas/lenses/dist/tests/test_nut.aug
 %{_datadir}/%{name}/cmdvartab
@@ -396,21 +395,25 @@ fi
 %{_mandir}/man8/liebert-esp2.8.gz
 %{_mandir}/man8/liebert-gxe.8.gz
 %{_mandir}/man8/masterguard.8.gz
+%{_mandir}/man8/meanwell_ntu.8.gz
 %{_mandir}/man8/metasys.8.gz
 %{_mandir}/man8/microdowell.8.gz
 %{_mandir}/man8/microsol-apc.8.gz
 %{_mandir}/man8/mge-utalk.8.gz
 %{_mandir}/man8/mge-shut.8.gz
+%{_mandir}/man8/must_ep2000pro.8.gz
 %{_mandir}/man8/nhs_ser.8.gz
 %{_mandir}/man8/nutupsdrv.8.gz
 %{_mandir}/man8/nutdrv_atcl_usb.8.gz
 %{_mandir}/man8/nutdrv_hashx.8.gz
-%{_mandir}/man8/nutdrv_siemens_sitop.8.gz
+%{_mandir}/man8/nutdrv_qx.8.gz
+%{_mandir}/man8/nutdrv_siemens-sitop.8.gz
+%{_mandir}/man8/nutdrv_rhino.8.gz
 %{_mandir}/man8/nut-driver-enumerator.8.gz
 %{_mandir}/man8/nut-ipmipsu.8.gz
 %{_mandir}/man8/nut-recorder.8.gz
 %{_mandir}/man8/nut-scanner.8.gz
-%{_mandir}/man8/nutdrv_qx.8.gz
+%{_mandir}/man8/nut-upower.8.gz
 %{_mandir}/man8/oneac.8.gz
 %{_mandir}/man8/optiups.8.gz
 %{_mandir}/man8/phoenixcontact_modbus.8.gz
@@ -422,7 +425,6 @@ fi
 %{_mandir}/man8/powerpanel.8.gz
 %{_mandir}/man8/powervar_cx_ser.8.gz
 %{_mandir}/man8/powervar_cx_usb.8.gz
-%{_mandir}/man8/nutdrv_rhino.8.gz
 %{_mandir}/man8/richcomm_usb.8.gz
 %{_mandir}/man8/riello_ser.8.gz
 %{_mandir}/man8/riello_usb.8.gz
@@ -442,7 +444,7 @@ fi
 %{_mandir}/man8/usbhid-ups.8.gz
 %{_mandir}/man8/victronups.8.gz
 %{_mandir}/man8/ve-direct.8.gz
-%{_sysusersdir}/nut.conf
+%{_sysusersdir}/nut-common-sysusers.conf
 
 %files client
 %license COPYING LICENSE-GPL2 LICENSE-GPL3
@@ -482,7 +484,7 @@ fi
 %{_mandir}/man8/upsmon.8.gz
 %{_mandir}/man8/upssched.8.gz
 %{_datadir}/nut
-%{_sysusersdir}/nut.conf
+%{_sysusersdir}/nut-common-sysusers.conf
 
 %files monitor
 %{_bindir}/nut-monitor
@@ -493,13 +495,15 @@ fi
 %{_datadir}/nut-monitor/
 %{_mandir}/man8/NUT-Monitor*.8.gz
 %pycached %{python3_sitelib}/PyNUT.py
-%pycached %{python3_sitelib}/test_nutclient.py
 
 %files cgi
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/ups/hosts.conf
 %config(noreplace) %attr(600,nut,root) %{_sysconfdir}/ups/upsset.conf
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/ups/upsstats.html
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/ups/upsstats-single.html
+%config(noreplace) %attr(640,nut,root) %{_sysconfdir}/ups/upsstats-modern-list.html
+%config(noreplace) %attr(640,nut,root) %{_sysconfdir}/ups/upsstats-modern-single.html
+
 %{cgidir}/
 %{_mandir}/man5/hosts.conf.5.gz
 %{_mandir}/man5/upsstats.html.5.gz
@@ -530,6 +534,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed May 13 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.8.5-1
+- updated to 2.8.5 (#2456132)
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.4-7
 - Rebuilt for net-snmp 5.9.5.2
 

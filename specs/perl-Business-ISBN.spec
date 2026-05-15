@@ -6,14 +6,14 @@
 %endif
 
 Name:           perl-Business-ISBN
-%global cpan_version 3.011
+%global cpan_version 3.014
 Version:        %(echo '%{cpan_version}' | tr '_' '.'})
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Perl module to work with International Standard Book Numbers
 
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISBN
-Source0:        https://cpan.metacpan.org/modules/by-module/Business/Business-ISBN-%{cpan_version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-%{cpan_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -22,6 +22,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(ExtUtils::MM_Any)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(strict)
@@ -106,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 13 2026 Petr Pisar <ppisar@redhat.com> - 3.014-1
+- 3.014 bump
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.011-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

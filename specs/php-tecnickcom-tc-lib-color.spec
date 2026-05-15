@@ -19,7 +19,7 @@
 Name:           php-%{gh_owner}-%{gh_project}
 Summary:        PHP library to manipulate various color representations
 License:        LGPL-3.0-or-later
-Version:        2.5.3
+Version:        2.6.0
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -36,9 +36,9 @@ BuildRequires:  php-pcre
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=8.1",
+#        "php": ">=8.2",
 #        "ext-pcre": "*"
-Requires:       php(language) >= 8.1
+Requires:       php(language) >= 8.2
 Requires:       php-pcre
 # From phpcompatinfo report for version 1.12.4
 # none
@@ -113,6 +113,10 @@ exit $ret
 
 
 %changelog
+* Wed May 13 2026 Remi Collet <remi@remirepo.net> - 2.6.0-1
+- update to 2.6.0
+- raise dependency on PHP 8.2
+
 * Sun May  3 2026 Remi Collet <remi@remirepo.net> - 2.5.3-1
 - update to 2.5.3
 

@@ -2,9 +2,9 @@
 %bcond_without perl_LWP_ConsoleLogger_enables_mojo
 
 Name:           perl-LWP-ConsoleLogger
-%define cpan_version 1.000001
-Version:        1.0.1
-Release:        10%{?dist}
+%define cpan_version 1.000002
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
@@ -23,11 +23,12 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Class::Method::Modifiers)
 BuildRequires:  perl(Data::Printer) >= 0.36
 BuildRequires:  perl(DateTime)
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(HTML::Restrict)
 BuildRequires:  perl(HTTP::Body)
 BuildRequires:  perl(HTTP::CookieMonster)
-BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(JSON::MaybeXS) >= 1.003005
 BuildRequires:  perl(List::AllUtils)
 BuildRequires:  perl(Log::Dispatch) >= 2.56
@@ -43,23 +44,27 @@ BuildRequires:  perl(Ref::Util)
 BuildRequires:  perl(String::Trim)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Term::Size::Any)
-BuildRequires:  perl(Text::SimpleTable::AutoWidth) >= 0.09
 BuildRequires:  perl(Try::Tiny)
+BuildRequires:  perl(Term::Table) >= 0.028
 BuildRequires:  perl(Types::Common::Numeric)
 BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(URI::QueryParam)
-BuildRequires:  perl(XML::Simple)
 # Optional run-time:
 BuildRequires:  perl(HTML::FormatText::Lynx) >= 23
 %if %{with perl_LWP_ConsoleLogger_enables_mojo}
 BuildRequires:  perl(Mojo::UserAgent)
 %endif
+BuildRequires:  perl(XML::Simple)
 # Tests:
 # CPAN::Meta not helpful
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTML::FormatText::WithLinks)
+BuildRequires:  perl(HTTP::Cookies)
 BuildRequires:  perl(HTTP::CookieJar::LWP)
+BuildRequires:  perl(HTTP::Headers)
+BuildRequires:  perl(IPC::Run3)
 BuildRequires:  perl(Log::Dispatch::Array)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Path::Tiny)
@@ -69,16 +74,17 @@ BuildRequires:  perl(Plack::Test::Agent)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::LWP::UserAgent)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Most)
+BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(URI::file)
 BuildRequires:  perl(version)
 BuildRequires:  perl(WWW::Mechanize)
-%if %{with perl_LWP_ConsoleLogger_enables_mojo}
 # Optional tests:
+%if %{with perl_LWP_ConsoleLogger_enables_mojo}
 BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojolicious) >= 7.13
 %endif
+BuildRequires:  perl(Unicode::GCString)
 Requires:       perl(Data::Printer) >= 0.36
 Recommends:     perl(HTML::FormatText::Lynx) >= 23
 Requires:       perl(JSON::MaybeXS) >= 1.003005
@@ -86,6 +92,7 @@ Requires:       perl(Log::Dispatch) >= 2.56
 %if %{with perl_LWP_ConsoleLogger_enables_mojo}
 Suggests:       perl(Mojo::UserAgent)
 %endif
+Recommends:     perl(XML::Simple)
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Data::Printer|JSON::MaybeXS|Log::Dispatch)\\)$
@@ -107,6 +114,7 @@ Requires:       perl-Test-Harness
 Requires:       perl(Mojo::Base)
 Requires:       perl(Mojolicious) >= 7.13
 %endif
+Requires:       perl(Unicode::GCString)
 
 %description tests
 Tests from %{name}. Execute them
@@ -157,6 +165,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 13 2026 Petr Pisar <ppisar@redhat.com> - 1.0.2-1
+- 1.000002 bump
+
 * Mon May 11 2026 Petr Pisar <ppisar@redhat.com> - 1.0.1-10
 - Remove a patch for Test-More-0.39, resolved in Test-More-0.42
   (bugs #2466962, #2467785)

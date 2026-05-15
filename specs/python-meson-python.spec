@@ -24,18 +24,21 @@ Source:         %{pypi_source meson_python}
 # functionality), controlled by the patchelf build conditional
 Patch100:       meson-python-0.18.0-remove-patchelf.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -p %{?with_tests:-g test}
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    --pyproject-dependencies
+    %{?with_tests:--dependency-groups test}
+    }
 # LICENSE duplicates LICENSES/MIT.txt, which is handled automatically.
-BuildOption(install):   -l mesonpy
+BuildOption(install): --assert-license mesonpy
 
 BuildArch:      noarch
 
+BuildRequires:  git-core
 %if %{with tests}
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  git-core
 %endif
 
 %global common_description %{expand:

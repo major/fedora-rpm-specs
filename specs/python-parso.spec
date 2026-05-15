@@ -1,5 +1,5 @@
 Name:           python-parso
-Version:        0.8.5
+Version:        0.8.7
 Release:        %autorelease
 Summary:        Parser that supports error recovery and round-trip parsing
 License:        MIT AND PSF-2.0

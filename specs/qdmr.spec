@@ -13,7 +13,7 @@
 # published by the Open Source Initiative.
 
 Name:		qdmr
-Version:	0.14.1
+Version:	0.15.0
 Release:	1%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
@@ -41,6 +41,7 @@ BuildRequires:	pkgconfig(Qt6Test)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2364151
 BuildRequires:	pkgconfig(Qt6UiTools)
 BuildRequires:	pkgconfig(Qt6Widgets)
+BuildRequires:	pkgconfig(Qt6Multimedia)
 BuildRequires:	desktop-file-utils
 # for appdata metainfo validation with appstream-util
 BuildRequires:	libappstream-glib
@@ -131,6 +132,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Wed May 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.15.0-1
+- New version
+  Resolves: rhbz#2468688
+
 * Tue Apr 07 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.14.1-1
 - New version
   Resolves: rhbz#2455966

@@ -5,7 +5,7 @@
 %global crate filetime
 
 Name:           rust-filetime
-Version:        0.2.27
+Version:        0.2.29
 Release:        %autorelease
 Summary:        Platform-agnostic accessors of timestamps in File metadata
 
@@ -13,8 +13,6 @@ Summary:        Platform-agnostic accessors of timestamps in File metadata
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/filetime
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          filetime-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

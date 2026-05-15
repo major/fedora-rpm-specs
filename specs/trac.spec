@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
@@ -32,6 +32,7 @@ BuildRequires:  /usr/bin/svnadmin
 #  BuildRequires:  /usr/bin/geckodriver
 # No tidylib in Fedora either
 #  BuildRequires:  python3-tidylib
+Requires:       python3-pkg-resources
 
 %description
 Trac is an integrated system for managing software projects, an
@@ -89,6 +90,9 @@ install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 1.6-12
+- Add runtime dependency on python3-pkg-resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

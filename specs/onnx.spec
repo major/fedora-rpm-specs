@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -32,7 +32,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-pybind11
 BuildRequires:  python3-pytest
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf3-devel
 
 %global _description %{expand:
 %{name} provides an open source format for AI models, both deep learning and
@@ -131,6 +131,9 @@ export PYTEST_ADDOPTS="-k 'not test_make_tensor_raw'"
 %{_bindir}/check-node
 
 %changelog
+* Wed May 13 2026 Miroslav Suchy <msuchy@redhat.com> - 1.17.0-14
+- Use protobuf3 instead of protobuf
+
 * Sun May 04 2026 Autumn Nash <autumnnash@microsoft.com> - 1.17.0-13
 - Replace hardcoded redhat-linux-build with %%{_vpath_builddir} via env var
 

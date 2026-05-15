@@ -3,7 +3,7 @@
 %global gmtconf %{_sysconfdir}/gmt
 %global gmtdoc %{_docdir}/gmt
 
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
 %else
 %bcond_with flexiblas
@@ -16,9 +16,8 @@
 %global octave_octdir %(octave-config -p LOCALAPIOCTFILEDIR || echo)
 %endif
 
-%global completion_dir %(pkg-config --variable=completionsdir bash-completion)
-%if "%{completion_dir}" == ""
-%global completion_dir "/etc/bash_completion.d"
+%if %{undefined bash_completions_dir}
+%global bash_completions_dir %{_datadir}/bash-completion/completions
 %endif
 
 Name:           GMT
@@ -38,11 +37,6 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-%if 0%{?fedora} >= 41
-BuildRequires:  bash-completion-devel
-%else
-BuildRequires:  bash-completion
-%endif
 %if %{with flexiblas}
 BuildRequires:  flexiblas-devel
 %else
@@ -170,7 +164,7 @@ applications that use %{name}.
   -DBLAS_LIBRARY=-lflexiblas \
   -DLAPACK_LIBRARY=-lflexiblas \
 %endif
-  -DBASH_COMPLETION_DIR=%{completion_dir}
+  -DBASH_COMPLETION_DIR=%{bash_completions_dir}
 %cmake_build
 
 
@@ -214,7 +208,7 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 %config(noreplace) %{gmtconf}/mgg/gmtfile_paths
 %config(noreplace) %{gmtconf}/mgd77/mgd77_paths.txt
 %{gmthome}/
-%{completion_dir}/
+%{bash_completions_dir}/
 
 %files devel
 %{_includedir}/*

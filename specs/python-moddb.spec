@@ -1,6 +1,6 @@
 Name:           python-moddb
 Version:        0.12.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python scraper/parser for ModDB
 License:        MIT
 URL:            https://github.com/ClementJ18/moddb
@@ -8,6 +8,7 @@ Source0:        %{url}/archive/v%{version}/moddb-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 %global _description %{expand:
                        The goal of the library is to be able to navigate ModDB purely
                        programmatically through scraping and parsing of the various models
@@ -53,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.12.0-7
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        63
+Version:        64
 
 %gometa
 
@@ -88,6 +88,7 @@ Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
 Provides: bundled(golang(github.com/containers/storage)) = 1.59.1
 Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
+Provides: bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.7
 Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = 19d51d7
 Provides: bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.4.1
 Provides: bundled(golang(github.com/davecgh/go-spew)) = d8f796a
@@ -130,7 +131,7 @@ Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
 Provides: bundled(golang(github.com/leodido/go-urn)) = 1.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = de9c061
 Provides: bundled(golang(github.com/mattn/go-colorable)) = 0.1.14
-Provides: bundled(golang(github.com/mattn/go-isatty)) = 0.0.20
+Provides: bundled(golang(github.com/mattn/go-isatty)) = 0.0.22
 Provides: bundled(golang(github.com/mattn/go-runewidth)) = 0.0.16
 Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.28
 Provides: bundled(golang(github.com/miekg/pkcs11)) = 1.1.1
@@ -148,12 +149,13 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
-Provides: bundled(golang(github.com/osbuild/images)) = f755297
+Provides: bundled(golang(github.com/osbuild/images)) = 0.262.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
 Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.23.0
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.4.7
+Provides: bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
 Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0.9.0
 Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.6
 Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
@@ -238,14 +240,20 @@ GOTAGS="exclude_graphdriver_btrfs"
 %endif
 
 export LDFLAGS="${LDFLAGS} -X 'main.version=%{version}'"
-%gobuild ${GOTAGS:+-tags=$GOTAGS} -o %{gobuilddir}/bin/image-builder %{goipath}/cmd/image-builder
+%gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/image-builder %{goipath}/cmd/image-builder
+
+# Generate man pages
+mkdir -p man/man1
+_bin/image-builder doc man/man1/
 
 %install
 install -m 0755 -vd                                 %{buildroot}%{_bindir}
-install -m 0755 -vp %{gobuilddir}/bin/image-builder %{buildroot}%{_bindir}/
+install -m 0755 -vp _bin/image-builder              %{buildroot}%{_bindir}/
 # tmpfiles.d snippet
 install -m 0755 -vd                                 %{buildroot}%{_tmpfilesdir}
 install -m 0644 -vp data/tmpfiles.d/image-builder.conf %{buildroot}%{_tmpfilesdir}/image-builder.conf
+install -m 0755 -vd                                 %{buildroot}%{_mandir}/man1
+install -m 0644 -vp man/man1/image-builder*.1       %{buildroot}%{_mandir}/man1/
 %check
 export GOFLAGS="-buildmode=pie"
 %if 0%{?rhel}
@@ -263,9 +271,32 @@ cd $PWD/_build/src/%{goipath}
 %doc README.md
 %{_bindir}/image-builder
 %{_tmpfilesdir}/image-builder.conf
+%{_mandir}/man1/image-builder*.1*
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed May 13 2026 Packit <hello@packit.dev> - 64-1
+Changes with 64
+----------------
+  - cmd: drop "bootc is experimental" (#510)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - deps: bump osbuild/images dependency (#507)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - deps: update dependencies (w/o osbuild/images) (#508)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - doc: fix broken link (#509)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Lukáš Zapletal
+  - doc: introduce advanced bootc (#462)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - docs: generate manpages (#504)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - main: hide `--use-librepo` (#513)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - main: hide `--with-rpmlist` (#512)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-05-13
+
 * Wed Apr 29 2026 Packit <hello@packit.dev> - 63-1
 Changes with 63
 ----------------

@@ -17,8 +17,8 @@ License:        %{shrink:
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l jiter
+BuildSystem:    pyproject
+BuildOption(install): --assert-license jiter
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli

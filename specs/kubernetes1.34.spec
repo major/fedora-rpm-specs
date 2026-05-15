@@ -16,11 +16,11 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.34
-%global k8s_ver                 1.34.7
+%global k8s_ver                 1.34.8
 # major:minor version substring
 %global k8s_minver              1.34
 %global k8s_nextver             1.35
-%global k8s_tag                 v1.34.7
+%global k8s_tag                 v1.34.8
 # golang 'built with' version
 %global golangver               1.25.9
 
@@ -337,7 +337,6 @@ fi
 
 ##############################################
 %files -f %{go_vendor_license_filelist}
-%license LICENSE vendor/modules.txt
 %doc *.md
 
 # kubelet
@@ -357,7 +356,6 @@ fi
 
 ##############################################
 %files kubeadm -f %{go_vendor_license_filelist}
-%license LICENSE vendor/modules.txt
 %doc *.md
 %{_mandir}/man1/kubeadm.1*
 %{_mandir}/man1/kubeadm-*
@@ -367,7 +365,6 @@ fi
 
 ##############################################
 %files client -f %{go_vendor_license_filelist}
-%license LICENSE vendor/modules.txt
 %doc *.md
 %{_mandir}/man1/kubectl.1*
 %{_mandir}/man1/kubectl-*
@@ -378,7 +375,6 @@ fi
 
 ##############################################
 %files systemd -f %{go_vendor_license_filelist}
-%license LICENSE vendor/modules.txt
 %doc *.md
 %{_mandir}/man1/kube-apiserver.1*
 %{_mandir}/man1/kube-controller-manager.1*

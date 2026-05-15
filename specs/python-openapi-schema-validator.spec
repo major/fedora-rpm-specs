@@ -8,8 +8,8 @@ URL:            https://github.com/python-openapi/openapi-schema-validator
 # The GitHub tarball contains tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/openapi-schema-validator-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l openapi_schema_validator
+BuildSystem:    pyproject
+BuildOption(install): --assert-license openapi_schema_validator
 
 BuildArch:      noarch
 

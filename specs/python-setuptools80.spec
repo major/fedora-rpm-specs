@@ -14,20 +14,13 @@ Version:        80.10.2
 Release:        %autorelease
 Summary:        setuptools 80.x.x for compatibility purposes
 # setuptools is MIT
-# autocommand is LGPL-3.0-only
-# backports-tarfile is MIT
 # importlib-metadata is Apache-2.0
-# jaraco-context is MIT
-# jaraco-functools is MIT
-# jaraco-text is MIT
-# more-itertools is MIT
-# packaging is BSD-2-Clause OR Apache-2.0
-# platformdirs is MIT
 # tomli is MIT
 # wheel is MIT
 # zipp is MIT
 # the setuptools logo is MIT
-License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND LGPL-3.0-only
+# The pkg-resources subpackage has its own license declaration
+License:        MIT AND Apache-2.0
 URL:            https://pypi.python.org/pypi/setuptools
 Source0:        %{pypi_source setuptools %{version}}
 
@@ -48,6 +41,12 @@ Patch:          Revert-Always-rewrite-a-Python-shebang-to-python.patch
 # Avoid using (deprecated in Python 3.15) json.__version__ in tests,
 # merged upstream.
 Patch:          https://github.com/pypa/setuptools/pull/5194.patch
+
+# Move vendored packages used in pkg_resources to pkg_resources.
+# This makes the subpackage work without setuptools installed.
+# The actual vendored packages are moved with mv in %%prep.
+# Fixes https://bugzilla.redhat.com/2477013
+Patch:          pkg_resources_vendor.patch
 
 BuildArch:      noarch
 
@@ -85,27 +84,33 @@ This package contains setuptools 80.x.x for compatibility reasons.
 Use the latest python-setuptools if at all possible.
 
 # Virtual provides for the packages bundled by setuptools.
-# Bundled packages are defined in multiple files. Generate the list with:
-# pip freeze --path setuptools/_vendor > vendored.txt
-# %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' vendored.txt
-%global bundled %{expand:
+# Generate the list with:
+# pip freeze --path setuptools/_vendor > vendored_setuptools.txt
+# %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' vendored_setuptools.txt
+%global bundled_setuptools %{expand:
+Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 8.7.1
+Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.4
+Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.46.3
+Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.23
+}
+# Virtual provides for the packages bundled by pkg_resources.
+# Generate the list with:
+# pip freeze --path pkg_resources/_vendor > vendored_pkg_resources.txt
+# %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' vendored_pkg_resources.txt
+%global bundled_pkg_resources %{expand:
 Provides: bundled(python%{python3_pkgversion}dist(autocommand)) = 2.2.2
 Provides: bundled(python%{python3_pkgversion}dist(backports-tarfile)) = 1.2
-Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 8.7.1
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-context)) = 6.1
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-functools)) = 4.4
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 4
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 10.8
 Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 26
 Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.4
-Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.4
-Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.46.3
-Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.23
 }
 
 %package -n python%{python3_pkgversion}-setuptools80
 Summary:        Easily build and distribute Python 3 packages
-%{bundled}
+%{bundled_setuptools}
 
 Requires: python3-pkg-resources = %{version}-%{release}
 
@@ -127,11 +132,23 @@ Use the latest python-setuptools if at all possible.
 
 %package -n python%{python3_pkgversion}-pkg-resources
 Summary:        Package resources API for Python
+%{bundled_pkg_resources}
 
 %py_provides    python%{python3_pkgversion}-pkg_resources
 # This ensures clean upgrade path from before the compat package was introduced
 Conflicts:      python%{python3_pkgversion}-pkg-resources < 82
 Provides:       deprecated()
+
+# pkg_resources is MIT
+# autocommand is LGPL-3.0-only
+# backports-tarfile is MIT
+# jaraco-context is MIT
+# jaraco-functools is MIT
+# jaraco-text is MIT
+# more-itertools is MIT
+# packaging is BSD-2-Clause OR Apache-2.0
+# platformdirs is MIT
+License:        MIT AND LGPL-3.0-only AND (BSD-2-Clause OR Apache-2.0)
 
 %description -n python%{python3_pkgversion}-pkg-resources
 This package contains pkg_resources module from setuptools, provided for compatibility reasons.
@@ -156,6 +173,11 @@ rm -r docs/conf.py
 # Remove a filter for coverage warning from pytest config
 # In pytest < 9, such a warning filter triggers ImportError without coverage
 sed -i '/:coverage/d' pytest.ini
+
+# pkg_resources_vendor.patch cont.
+mkdir -p pkg_resources/_vendor
+mv setuptools/_vendor/{autocommand,backports,jaraco,more_itertools,packaging,platformdirs}* pkg_resources/_vendor/
+
 
 %if %{without bootstrap}
 %generate_buildrequires
@@ -190,14 +212,16 @@ find %{buildroot}%{python3_sitelib} -name tests -print0 | xargs -0 rm -r
 %check
 %if %{without bootstrap}
 # Verify bundled provides are up to date
-%{python3} -m pip freeze --path setuptools/_vendor > vendored.txt
-%{_rpmconfigdir}/pythonbundles.py vendored.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
+%{python3} -m pip freeze --path setuptools/_vendor > vendored_setuptools.txt
+%{python3} -m pip freeze --path pkg_resources/_vendor > vendored_pkg_resources.txt
+%{_rpmconfigdir}/pythonbundles.py vendored_setuptools.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled_setuptools}'
+%{_rpmconfigdir}/pythonbundles.py vendored_pkg_resources.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled_pkg_resources}'
 
 # Regression test, the wheel should not be larger than 1300 kB
 # https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
 test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 1300000
 
-%pyproject_check_import -e '*.tests' -e '*.tests.*'
+%pyproject_check_import -e '*.tests' -e '*.tests.*' pkg_resources
 %endif
 
 # Regression test, the tests are not supposed to be installed

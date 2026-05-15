@@ -1,5 +1,3 @@
-%bcond tests 1
-
 Name:           python-loguru
 Version:        0.7.3
 Release:        %autorelease
@@ -20,8 +18,8 @@ Patch:          %{url}/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l loguru
+BuildSystem:    pyproject
+BuildOption(install): --assert-license loguru
 
 # The dev extra pins exact versions and includes unwanted coverage tools etc.
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters), 
@@ -49,13 +47,11 @@ Summary:        %{summary}
 
 
 %check -a
-%if %{with tests}
 # Make sure we don’t run the detailed typing tests; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 ignore="${ignore-} --ignore=tests/typesafety/test_logger.yml"
 
-%pytest ${ignore-} -k "${k-}" -rs
-%endif
+%pytest ${ignore-} -rs
 
 
 %files -n python3-loguru -f %{pyproject_files}

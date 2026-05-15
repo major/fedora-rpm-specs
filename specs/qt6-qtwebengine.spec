@@ -87,7 +87,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.11.0
+Version: 6.11.1
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -136,6 +136,7 @@ Patch80:  qtwebengine-fix-arm-build.patch
 
 ## Upstreamable patches:
 Patch101: qtwebengine-fix-build-against-gcc16.patch
+Patch102: qtwebengine-fix-delay-signature.patch
 
 ## ppc64le port
 Patch200: qtwebengine-6.9-ppc64.patch
@@ -490,6 +491,7 @@ popd
 
 ## upstreamable patches
 %patch -P101 -p1 -b .fix-build-against-gcc16
+%patch -P102 -p1 -b .fix-delay-signature
 
 # ppc64le support
 %patch -P200 -p1
@@ -844,6 +846,9 @@ done
 %endif
 
 %changelog
+* Wed May 13 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
+- Update to 6.11.1
+
 * Wed Apr 15 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-1
 - 6.11.0
 

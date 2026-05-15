@@ -11,17 +11,17 @@ License:        MIT
 URL:            https://github.com/jaraco/keyring
 Source:         %{pypi_source keyring}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x %{?with_tests:test,}completion
-BuildOption(install):   -l keyring
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras %{?with_tests:test,}completion
+BuildOption(install): --assert-license keyring
 # - keyring.backends.macOS does not import on this platform
 # - keyring.devpi_client and keyring.testing are test hooks that require pluggy
 #   and/or pytest; we can import them only if the test dependencies are present
-BuildOption(check):     %{shrink:
-                        -e 'keyring.backends.macOS*'
-                        %{?!with_tests:-e 'keyring.devpi_client'}
-                        %{?!with_tests:-e 'keyring.testing*'}
-                        }
+BuildOption(check): %{shrink:
+    --exclude 'keyring.backends.macOS*'
+    %{?!with_tests:--exclude 'keyring.devpi_client'}
+    %{?!with_tests:--exclude 'keyring.testing*'}
+    }
 
 BuildArch:      noarch
 
@@ -58,7 +58,7 @@ Other keyring implementations are available through third-party backends.}
 %description %desc
 
 
-%package -n     python3-keyring
+%package -n python3-keyring
 Summary:        Python 3 library to access the system keyring service
 
 Recommends:     python3-keyring+completion = %{version}-%{release}
@@ -69,7 +69,7 @@ Recommends:     python3-keyring+completion = %{version}-%{release}
 # We don’t use “%%pyproject_extras_subpkg -n python3-keyring completion”
 # because we want to add the completion scripts to the files list and provide a
 # custom summary and description.
-%package -n     python3-keyring+completion
+%package -n python3-keyring+completion
 Summary:        Shell completion support for the keyring command
 
 Requires:       python3-keyring = %{version}-%{release}

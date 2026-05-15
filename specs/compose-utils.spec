@@ -6,7 +6,7 @@
 
 Name:       compose-utils
 Version:    0.1.51
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -20,6 +20,7 @@ BuildRequires:  python%{python3_pkgversion}-productmd >= 1.33
 BuildRequires:  python%{python3_pkgversion}-freezegun
 BuildRequires:  python%{python3_pkgversion}-kobo
 BuildRequires:  python%{python3_pkgversion}-kobo-rpmlib >= 0.10.0
+BuildRequires:  python%{python3_pkgversion}-pkg-resources
 BuildRequires:  python%{python3_pkgversion}-pytest
 %endif
 
@@ -79,6 +80,9 @@ Python 3 libraries supporting tools for working with composes
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.51-2
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Thu Feb 12 2026 Lubomír Sedlář <lsedlar@redhat.com> - 0.1.51-1
 - Upstream dropped build dep on python3-mock
 

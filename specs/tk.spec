@@ -1,6 +1,6 @@
 %global major 9
 %global majorver %{major}.0
-%global vers %{majorver}.2
+%global vers %{majorver}.3
 
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
@@ -20,7 +20,6 @@ BuildRequires: libXft-devel
 Conflicts: itcl <= 3.2
 Obsoletes: tile <= 0.8.2
 Provides: tile = 0.8.2
-Patch: tk-8.6.12-make.patch
 Patch: tk-8.6.15-conf.patch
 
 %description
@@ -109,6 +108,10 @@ ln -s %{_bindir}/wish %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %{_mandir}/man3/*
 
 %changelog
+* Wed May 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.3-1
+- New version
+  Related: rhbz#2476982
+
 * Tue Jul 08 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 1:9.0.2-1
 - New version
   Related: rhbz#2347162

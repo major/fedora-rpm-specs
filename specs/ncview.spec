@@ -31,6 +31,8 @@ color maps, invert the data, etc.
 
 
 %build
+# netcdf.m4 requires this to string-match exactly
+export CC=$(nc-config --cc)
 # We need to pass X_CFLAGS to properly compile configure tests for X libraries
 %configure X_CFLAGS="%{optflags}" --with-udunits2_incdir=%{_includedir}/udunits2 \
  --x-libraries=%{_libdir}  --datadir=%{_datadir}/ncview

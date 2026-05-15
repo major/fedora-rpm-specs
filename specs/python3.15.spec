@@ -47,7 +47,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a8
+%global prerel b1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -82,7 +82,7 @@ License: Python-2.0.1
 # Only possible on certain architectures: https://peps.python.org/pep-0744/#support
 # The freethreading build (when enabled) does not support JIT yet:
 # https://github.com/python/cpython/issues/133171
-%bcond jit %["%{_arch}" == "x86_64" || "%{_arch}" == "aarch64"]
+%bcond jit %[("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64") && %{without bootstrap}]
 # Whether to build the JIT stencils (or else use the prebuilt ones)
 # We can only do this on Fedora 43+, where clang 21 is available
 # We don't do it in RHEL, see https://github.com/fedora-eln/eln/issues/207
@@ -119,31 +119,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.0.1
+%global pip_version 26.1.1
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.1.4
-Provides: bundled(python3dist(dependency-groups)) = 1.3.1
+Provides: bundled(python3dist(certifi)) = 2026.2.25
 Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.11
 Provides: bundled(python3dist(msgpack)) = 1.1.2
-Provides: bundled(python3dist(packaging)) = 26
+Provides: bundled(python3dist(packaging)) = 26.2
 Provides: bundled(python3dist(platformdirs)) = 4.5.1
 Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.5
+Provides: bundled(python3dist(requests)) = 2.33.1
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
 Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.3
+Provides: bundled(python3dist(tomli)) = 2.3.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 1.26.20
+Provides: bundled(python3dist(urllib3)) = 2.6.3
 }
 # setuptools
 # vendor.txt not in .whl
@@ -283,6 +282,7 @@ BuildRequires: libzstd-devel
 BuildRequires: make
 BuildRequires: mpdecimal-devel
 BuildRequires: ncurses-devel
+BuildRequires: openssl-devel
 BuildRequires: pkgconfig
 BuildRequires: python-rpm-macros
 BuildRequires: readline-devel
@@ -295,10 +295,6 @@ BuildRequires: xz-devel
 BuildRequires: zlib-devel
 BuildRequires: /usr/bin/dtrace
 
-# Support for OpenSSL 4 already landed in Python 3.15, but there are test failures
-# https://github.com/python/cpython/issues/148292
-BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
-
 %if %{with tests}
 BuildRequires: gcc-c++
 BuildRequires: gdb
@@ -307,8 +303,14 @@ BuildRequires: tzdata
 %endif
 
 %if %{with jit_build_stencils}
+# We need the upstream-specified clang+llvm version to build the JIT stencils.
 BuildRequires: clang(major) = 21
 BuildRequires: llvm(major) = 21
+%elif %{with jit}
+# We need any clang with __attribute__((preserve_none)) support to build+link the JIT shim.
+# We also use the "primary" clang package here, so we can use the unversioned clang command.
+BuildRequires: clang >= 19
+BuildRequires: llvm >= 19
 %endif
 
 %ifarch %{valgrind_arches}
@@ -383,7 +385,7 @@ Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
 
 # (Patches taken from github.com/fedora-python/cpython)
 
-# 00251 # 5ac6e7781923cbb3e4606e3bca381a1167d322e5
+# 00251 # ec2f6147355d485f23af08d5b204b331cadcea4f
 # Change user install location
 #
 # Set values of base and platbase in sysconfig from /usr
@@ -426,7 +428,7 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
 
-# 00486 # 650a0228bc7e44b34c64981a42834820c51c1bd6
+# 00486 # 1a2c71465a24c72fd06c7839e7cbd2d17ddf4ebc
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
 Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
 
@@ -1084,6 +1086,16 @@ BuildPython() {
 }
 EOF
 
+%if %{with jit} && %{without jit_build_stencils}
+  if [[ ! "$ConfName" =~ ^freethreading ]]; then
+    # Drop the prebuilt stencils to target location
+    cp -a %{jit_stencils_source} %{jit_stencils_filename}
+    # Use the available clang version to build+link the shim,
+    # instead of enforcing the upstream preferred version.
+    export LLVM_VERSION=$(clang -dumpversion | cut -d. -f1)
+  fi
+%endif
+
 %configure \
   --with-platlibdir=%{_lib} \
   --with-missing-stdlib-config=missing-stdlib-config.json \
@@ -1106,12 +1118,6 @@ EOF
 %endif
   $ExtraConfigArgs \
   %{nil}
-
-%if %{with jit} && %{without jit_build_stencils}
-  if [[ ! "$ConfName" =~ ^freethreading ]]; then
-    cp -a %{jit_stencils_source} %{jit_stencils_filename}
-  fi
-%endif
 
 %global flags_override EXTRA_CFLAGS="$MoreCFlags" CFLAGS_NODIST="$CFLAGS_NODIST $MoreCFlags"
 
@@ -2009,6 +2015,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon May 11 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~b1-1
+- Update to Python 3.15.0b1
+
 * Wed Apr 08 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~a8-1
 - Update to Python 3.15.0a8
 

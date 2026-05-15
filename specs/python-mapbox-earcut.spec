@@ -25,13 +25,14 @@ Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.g
 # to wait for the python-scikit-build-core package to be updated.
 Patch:          mapbox_earcut_python-2.0.0-scikit-build-core-0.11.5.patch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 # https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build):     %{shrink:
-                        -Clogging.level=INFO
-                        -Cbuild.verbose=true
-                        -Ccmake.build-type="RelWithDebInfo"}
-BuildOption(install):   -L mapbox_earcut
+    --config-settings logging.level=INFO
+    --config-settings build.verbose=true
+    --config-settings cmake.build-type="RelWithDebInfo"
+    }
+BuildOption(install): --no-assert-license mapbox_earcut
 
 BuildRequires:  gcc-c++
 BuildRequires:  dos2unix
@@ -45,8 +46,7 @@ BuildRequires:  earcut-hpp-static
 # package, and therefore also the header-only robin-map library.
 BuildRequires:  robin-map-static
 
-# For tests. We could use the “dev” extra, but it contains unwanted
-# typecheckers, etc.; see
+# For tests. We could use the “dev” extra, but it contains unwanted deps:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
 BuildRequires:  %{py3_dist pytest}
 

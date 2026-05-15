@@ -31,6 +31,8 @@ Source5:        ssh-opkssh.conf
 Source6:        sudoers-opkssh
 Source7:        sysuser-opkssh.conf
 Source8:        logrotate.conf
+# Overwrite logfile path to adhere to Packaging Guidelines, see https://docs.fedoraproject.org/en-US/packaging-guidelines/#_log_files
+Patch0:         opkssh.logfile-in-subdir.patch
 
 BuildRequires:  bzip2
 BuildRequires:  go-vendor-tools
@@ -80,9 +82,8 @@ Documentation for opkssh (OpenPubkey SSH).
 
 %build
 %global gomodulesmode GO111MODULE=on
-# Overwrite logfile path to adhere to Packaging Guidelines, see https://docs.fedoraproject.org/en-US/packaging-guidelines/#_log_files
-export GO_LDFLAGS="-X main.Version=%{version} \
-                   -X main.logFilePathServer=/var/log/opkssh/opkssh.log"
+# Set version
+export GO_LDFLAGS="-X main.Version=%{version}"
 %gobuild -o %{gobuilddir}/bin/opkssh %{goipath}
 # In Fedora >= 43, the sshd server has been split into a listener binary and a per-session binary.
 # The SELinux type for the per-session binary is sshd_session_t.

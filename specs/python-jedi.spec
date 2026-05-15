@@ -13,10 +13,10 @@ than all other static analysis frameworks for Python.}
 # when using the git tarball, the projects need to be pulled separately
 # when using tarballs from PyPI, those are included
 %global django_stubs_commit fd057010f6cbf176f57d1099e82be46d39b99cb9
-%global typeshed_commit     ae9d4f4b21bb5e1239816c301da7b1ea904b44c3
+%global typeshed_commit     4bb9d8351d0795fbc7dee3da069013a48641689d
 
 Name:           python-jedi
-Version:        0.19.2
+Version:        0.20.0
 Release:        %autorelease
 Summary:        An auto completion tool for Python that can be used for text editors
 
@@ -29,10 +29,6 @@ URL:            https://jedi.readthedocs.org
 Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{version}.tar.gz
 Source1:        https://github.com/davidhalter/django-stubs/archive/%{django_stubs_commit}/django-stubs-%{django_stubs_commit}.tar.gz
 Source2:        https://github.com/davidhalter/typeshed/archive/%{typeshed_commit}/typeshed-%{typeshed_commit}.tar.gz
-
-# Patch to fix compatibility with Python 3.14 and 3.15
-# Proposed upstream partially: https://github.com/davidhalter/jedi/pull/2093
-Patch:          py_314_315_compatibility.patch
 
 BuildArch:      noarch
 
@@ -59,17 +55,14 @@ popd
 cp -p jedi/third_party/django-stubs/LICENSE.txt LICENSE-django-stubs.txt
 cp -p jedi/third_party/typeshed/LICENSE LICENSE-typeshed.txt
 
-# relax upper limits on test dependencies
-sed -e 's/pytest<7.0.0/pytest/' \
-    -e 's/Django<3.1/Django/' \
-    -i setup.py
+%pyproject_patch_dependency pytest:drop_upper
+%pyproject_patch_dependency flake8:ignore
+%pyproject_patch_dependency zuban:ignore
+%pyproject_patch_dependency types-setuptools:ignore
 
-# Fix for compatibility with pytest 8
-# Proposed upstream: https://github.com/davidhalter/jedi/pull/1996
-sed -i "/def __init__/s/__init__/setUp/" test/test_utils.py
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x testing}
+%pyproject_buildrequires %{?with_tests:-x dev}
 
 
 %build

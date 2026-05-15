@@ -3,7 +3,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.29.0
+Version:                0.30.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -102,7 +102,6 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc docs examples AUTHORS README.md
 %{_bindir}/buildctl
 %{_bindir}/buildkitd

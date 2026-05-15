@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        170
+Version:        172
 
 %gometa
 
@@ -208,7 +208,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.499
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.255.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.261.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -674,6 +674,22 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed May 13 2026 Packit <hello@packit.dev> - 172-1
+Changes with 172
+----------------
+  - Schutzfile: drop minor versions from bootc-foundry (#5134)
+    - Author: Lukáš Zapletal, Reviewers: Simon Steinbeiß, Simon de Vlieger, Tomáš Hozza
+  - cloudapi/v2: add default target for bootc iso (#5125)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - go.mod: update osbuild/images to v0.261.0 (#5115)
+    - Author: Tomáš Hozza, Reviewers: Anna Vítová, Lukáš Zapletal, Sanne Raymaekers
+  - test/repositories: switch RHEL 9.7 and 10.1 test repos to GA (#5122)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - test: drop ubi-wsl.sh test (#5130)
+    - Author: Simon Steinbeiß, Reviewers: Achilleas Koutsou, Sanne Raymaekers, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-05-13
+
 * Wed Apr 22 2026 Packit <hello@packit.dev> - 170-1
 Changes with 170
 ----------------

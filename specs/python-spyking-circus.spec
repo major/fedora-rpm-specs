@@ -39,6 +39,7 @@ BuildArch:      noarch
 
 %package -n python3-spyking-circus
 Summary:        %{summary}
+Requires:       python3-pkg-resources
 BuildRequires:  python3-devel
 BuildRequires:  /usr/bin/patch
 %if %{with tests}

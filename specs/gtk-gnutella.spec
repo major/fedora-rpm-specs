@@ -1,7 +1,7 @@
 Name: gtk-gnutella
 Summary: GUI based Gnutella Client
-Version: 1.2.3
-Release: 5%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://gtk-gnutella.sourceforge.net
@@ -33,7 +33,8 @@ features.
 
 
 %prep
-%autosetup -p1
+%setup -q
+%patch 0 -p1
 
 
 %build
@@ -87,6 +88,9 @@ desktop-file-install --delete-original	\
 
 
 %changelog
+* Wed May 13 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.3.1-1
+- update to 1.3.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

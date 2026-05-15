@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -95,6 +95,7 @@ Patch9: postgresql-server-pg_config.patch
 # rhbz#1940964
 Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
+Patch13: postgresql-default-ssl-config.patch
 
 # This macro is used for package names in the files section
 %if %?postgresql_default
@@ -520,6 +521,7 @@ goal of accelerating analytics queries.
 %endif
 %patch 9 -p1
 %patch 10 -p1
+%patch 13 -p1
 
 
 %if ! %external_libpq
@@ -1354,6 +1356,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue May 12 2026 Pavol Sloboda <psloboda@redhat.com> - 17.9-3
+- Release bump
+
 * Fri Apr 24 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 17.9-2
 - Update postgresql-setup to 8.12
 

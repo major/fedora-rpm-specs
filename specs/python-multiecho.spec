@@ -14,8 +14,8 @@ License:        Apache-2.0 OR MIT
 URL:            https://github.com/Donders-Institute/multiecho
 Source:         %{url}/archive/%{version}/multiecho-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l multiecho
+BuildSystem:    pyproject
+BuildOption(install): --assert-license multiecho
 
 BuildArch:      noarch
 

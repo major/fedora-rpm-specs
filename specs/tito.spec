@@ -23,7 +23,7 @@
 
 Name: tito
 Version: 0.6.27
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -38,9 +38,11 @@ BuildArch: noarch
 %if %{use_python3}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-pkg-resources
 Requires: python3-setuptools
 Requires: python3-bugzilla
 Requires: python3-blessed
+Requires: python3-pkg-resources
 Requires: rpm-python3
 Recommends: python3-fedora-distro-aliases
 %else
@@ -133,6 +135,9 @@ git config --global user.name "Your Name"
 
 
 %changelog
+* Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 0.6.27-8
+- Add runtime and buildtime dependency on python3-pkg-resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

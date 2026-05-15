@@ -44,7 +44,8 @@ find %{buildroot} -name '*.la' -print -delete
 %doc AUTHORS NEWS README
 %license COPYING
 %{_libexecdir}/libgtop_daemon2
-%{_libexecdir}/libgtop_server2
+# Strip the suid bit.
+%attr(755, -, -)%{_libexecdir}/libgtop_server2
 %{_libdir}/libgtop-2.0.so.11*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GTop-2.0.typelib

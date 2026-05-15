@@ -1,7 +1,7 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        MIT
 
@@ -16,6 +16,7 @@ Patch:          0001-Remove-pytest-runner-setup.py-test-support.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 
 %description
 %{summary}
@@ -49,6 +50,9 @@ Summary:        %{summary}
 %{_bindir}/stone
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.2.1-23
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

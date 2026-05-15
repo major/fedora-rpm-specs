@@ -43,6 +43,8 @@ Summary:    Represent electrophysiology data in Python
 License:    BSD-3-Clause
 URL:        %forgeurl
 Source:     %forgesource
+Patch:      https://patch-diff.githubusercontent.com/raw/NeuralEnsemble/python-neo/pull/1849.patch
+BuildRequires:  git-core
 
 BuildArch:  noarch
 
@@ -96,7 +98,7 @@ Recommends:  %{py3_dist scipy}
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -S git
 # remove rpm's SPECPARTS file
 rm -rf SPECPARTS
 
@@ -132,10 +134,6 @@ git config --global user.name "Your Name"
 # and installed manually.
 k="${k:-}${k:+ and }not TestMaxwell"
 %endif
-
-# fails in 0.14.4:
-# https://github.com/NeuralEnsemble/python-neo/issues/1848
-k="${k:-}${k:+ and }not test__time_slice_deepcopy_data"
 
 %pytest \
 %if %{without io_tests}

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc3.260512g50897c955902.24
+%define pkgrelease 0.rc3.260513g1d5dcaa3bd65.25
 %define kversion 7
-%define tarfile_release 7.1-rc3-4-g50897c955902
+%define tarfile_release 7.1-rc3-9-g1d5dcaa3bd65
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260512g50897c955902.24%{?buildid}%{?dist}
+%define specrelease 0.rc3.260513g1d5dcaa3bd65.25%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,11 +4847,21 @@ fi\
 #
 #
 %changelog
-* Tue May 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.50897c955902.24]
-- yamlsanity.py: allow multiple docs within a yaml file (Scott Weaver)
-- Disable MODULE_SIG_KEY_TYPE_MLDSA_87 for RHEL right now (Justin M. Forbes)
+* Wed May 13 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260513g1d5dcaa3bd65.25]
+- net: skbuff: preserve shared-frag marker during coalescing (William Bowling)
+- net: skbuff: propagate shared-frag marker through pskb_copy() (Hyunwoo Kim)
+
+* Wed May 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.1d5dcaa3bd65.25]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Wed May 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.1d5dcaa3bd65.24]
+- configs: arm64: Enable Tegra410 PMUs (Mark Salter)
+- Disable MODULE_SIG_KEY_TYPE_MLDSA_87 for RHEL right now (Justin M. Forbes)
+- redhat/configs: enable CONFIG_TCP_AO in centos-stream (Davide Caratti) [RHEL-142637]
+- Gate Fedora ELN kernel updates on openQA tests (Adam Williamson)
+- Change MODPROBE_PATH to /usr/bin (Justin M. Forbes)
+- Linux v7.1.0-0.rc3.1d5dcaa3bd65
 
 * Tue May 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.50897c955902.23]
 - configs: rhel: riscv config updates (Jennifer Berringer)

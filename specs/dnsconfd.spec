@@ -2,7 +2,7 @@
 %global selinuxtype targeted
 
 Name:           dnsconfd
-Version:        2.1.0
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
@@ -28,6 +28,8 @@ Requires:  dbus-common
 Requires:  %{name}-cache
 Suggests:  %{name}-unbound
 Requires:  (%{name}-unbound = %{version}-%{release} if %{name}-unbound)
+Provides:  %{name}-micro = %{version}-%{release}
+Obsoletes: %{name}-micro < %{version}-%{release}
 
 %description
 Dnsconfd configures local DNS cache services.
@@ -40,31 +42,10 @@ Requires:            %{name} = %{version}-%{release}
 Requires:            selinux-policy-%{selinuxtype}
 Requires(post):      selinux-policy-%{selinuxtype}
 BuildRequires:       selinux-policy-devel
-%{?selinux_requires}
+%{?selinux_requires_min}
 
 %description selinux
 Dnsconfd SELinux policy module.
-
-%package micro
-Summary:  Minimized native implementation of Dnsconfd
-Requires:  %{name} = %{version}-%{release}
-Requires:  (%{name}-selinux if selinux-policy-%{selinuxtype})
-Suggests:  %{name}-unbound = %{version}-%{release}
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: pkgconfig(libcurl)
-BuildRequires: pkgconfig(check)
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: gcc
-BuildRequires: cmake
-Requires: glib2
-Requires: libcurl
-Requires: systemd-libs
-Requires: unbound-dracut
-
-%description micro
-Minimized native implementation of Dnsconfd. Able to configure
-Unbound according to NetworkManager global configuration.
 
 %package unbound
 Summary:             dnsconfd unbound module
@@ -78,7 +59,7 @@ Dnsconfd management of unbound server
 
 %package dracut
 Summary:            dnsconfd dracut module
-Requires:           %{name}-micro%{?_isa} = %{version}-%{release}
+Requires:           %{name} = %{version}-%{release}
 Requires:           unbound
 Requires:           dracut
 Requires:           dracut-network
@@ -109,13 +90,6 @@ Dnsconfd dracut module
 make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
 bzip2 -9 %{modulename}.pp
 
-### micro part
-
-pushd micro-dnsconfd
-%cmake
-%cmake_build
-popd
-
 %install
 %meson_install
 mkdir   -m 0755 -p %{buildroot}%{_datadir}/dbus-1/system.d/
@@ -129,25 +103,23 @@ mkdir   -m 0755 -p %{buildroot}/%{_mandir}/man8
 mkdir   -m 0755 -p %{buildroot}/%{_mandir}/man5
 mkdir   -m 0755 -p %{buildroot}%{_rundir}/dnsconfd
 mkdir   -m 0755 -p %{buildroot}%{_tmpfilesdir}
-mkdir   -m 0755 -p %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
+mkdir   -m 0755 -p %{buildroot}%{_prefix}/lib/dracut/modules.d/70dnsconfd
 mkdir   -m 0755 -p %{buildroot}%{_libexecdir}
 
 install -m 0644 -p distribution/com.redhat.dnsconfd.conf %{buildroot}%{_datadir}/dbus-1/system.d/com.redhat.dnsconfd.conf
 install -m 0644 -p distribution/com.redhat.dnsconfd.service %{buildroot}%{_datadir}/dbus-1/system-services/com.redhat.dnsconfd.service
 install -m 0644 -p distribution/dnsconfd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/dnsconfd
-install -m 0644 -p distribution/micro-dnsconfd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/micro-dnsconfd
 install -m 0644 -p distribution/dnsconfd.service %{buildroot}%{_unitdir}/dnsconfd.service
-install -m 0644 -p distribution/micro-dnsconfd.service %{buildroot}%{_unitdir}/micro-dnsconfd.service
 install -m 0644 -p distribution/dnsconfd-unbound-control.path %{buildroot}%{_unitdir}/dnsconfd-unbound-control.path
 install -m 0644 -p distribution/dnsconfd-unbound-control.service %{buildroot}%{_unitdir}/dnsconfd-unbound-control.service
-install -m 0644 -p distribution/dnsconfd.conf %{buildroot}%{_sysconfdir}/dnsconfd.conf
+mkdir   -m 0755 -p %{buildroot}%{_sysconfdir}/dnsconfd/conf.d
+install -m 0644 -p distribution/dnsconfd.conf %{buildroot}%{_sysconfdir}/dnsconfd/dnsconfd.conf
 install -m 0644 -p distribution/dnsconfd-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -m 0644 -p distribution/dnsconfd-unbound-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}-unbound.conf
-install -m 0755 -p distribution/dracut_module/module-setup.sh %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
+install -m 0755 -p distribution/dracut_module/module-setup.sh %{buildroot}%{_prefix}/lib/dracut/modules.d/70dnsconfd
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-prepare
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-cleanup
 install -m 0755 -p distribution/dnsconfd-unbound-control.sh %{buildroot}%{_libexecdir}/dnsconfd-unbound-control.sh
-install -m 0644 -p distribution/dracut_module/*.conf %{buildroot}%{_prefix}/lib/dracut/modules.d/99dnsconfd
 
 touch %{buildroot}%{_rundir}/dnsconfd/unbound.conf
 chmod 0644 %{buildroot}%{_rundir}/dnsconfd/unbound.conf
@@ -169,17 +141,8 @@ install -m 0644 -p distribution/dnsconfd.conf.5 %{buildroot}/%{_mandir}/man5/dns
 
 install -p -D -m 0644 distribution/dnsconfd.sysusers %{buildroot}%{_sysusersdir}/dnsconfd.conf
 
-### micro part
-
-pushd micro-dnsconfd
-%cmake_install
-popd
-
 %check
 %meson_test
-pushd micro-dnsconfd
-%ctest
-popd
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -210,7 +173,7 @@ fi
 %systemd_preun dnsconfd-unbound-control.path
 
 %postun unbound
-%systemd_postun_with_restart dnsconfd-unbound-control.path
+%systemd_postun dnsconfd-unbound-control.path
 
 %post
 %systemd_post %{name}.service
@@ -221,13 +184,23 @@ fi
 %postun
 %systemd_postun_with_restart %{name}.service
 
+%posttrans
+# Warn about legacy /etc/dnsconfd.conf left behind after upgrade from < 2.1.0
+if [ -s %{_sysconfdir}/dnsconfd.conf.rpmsave ] && [ ! -L %{_sysconfdir}/dnsconfd.conf.rpmsave ]; then
+    echo "dnsconfd: WARNING: legacy configuration found at %{_sysconfdir}/dnsconfd.conf.rpmsave" >&2
+    echo "  The configuration file has moved to %{_sysconfdir}/dnsconfd/dnsconfd.conf." >&2
+    echo "  Please move your customizations to the new location and remove the old file." >&2
+fi
+
 %files
 %license LICENSE
 %{_bindir}/dnsconfd
 %{_datadir}/dbus-1/system.d/com.redhat.dnsconfd.conf
 %{_datadir}/dbus-1/system-services/com.redhat.dnsconfd.service
 %config(noreplace) %{_sysconfdir}/sysconfig/dnsconfd
-%config(noreplace) %{_sysconfdir}/dnsconfd.conf
+%dir %{_sysconfdir}/dnsconfd
+%dir %{_sysconfdir}/dnsconfd/conf.d
+%config(noreplace) %{_sysconfdir}/dnsconfd/dnsconfd.conf
 %{_unitdir}/dnsconfd.service
 %{_libexecdir}/dnsconfd-prepare
 %{_libexecdir}/dnsconfd-cleanup
@@ -237,11 +210,6 @@ fi
 %doc README.md docs/com.redhat.dnsconfd.md
 %dir %attr(755,dnsconfd,dnsconfd) %{_rundir}/dnsconfd
 %{_tmpfilesdir}/%{name}.conf
-
-%files micro
-%{_bindir}/micro-dnsconfd
-%{_unitdir}/micro-dnsconfd.service
-%config(noreplace) %{_sysconfdir}/sysconfig/micro-dnsconfd
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
@@ -259,83 +227,7 @@ fi
 %{_libexecdir}/dnsconfd-unbound-control.sh
 
 %files dracut
-%{_prefix}/lib/dracut/modules.d/99dnsconfd
+%{_prefix}/lib/dracut/modules.d/70dnsconfd
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jan 07 2026 Tomas Korbar <tkorbar@redhat.com> - 1.7.5-2
-- Rebuild to fix gating
-
-* Wed Jan 07 2026 Tomas Korbar <tkorbar@redhat.com> - 1.7.5-1
-- Rebase to 1.7.5
-- Resolves: rhbz#2377244
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.3-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.3-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.3-2
-- Rebuilt for Python 3.14
-
-* Mon Mar 03 2025 Tomas Korbar <tkorbar@redhat.com> - 1.7.2-1
-- Rebase to 1.7.2
-- Resolves: rhbz#2340084
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Oct 11 2024 Tomas Korbar <tkorbar@redhat.com> - 1.4.2-1
-- Release 1.4.2
-
-* Fri Oct 04 2024 Tomas Korbar <tkorbar@redhat.com> - 1.4.1-1
-- Release 1.4.1
-
-* Thu Aug 15 2024 Tomas Korbar <tkorbar@redhat.com> - 1.2.0-1
-- Release 1.2.0
-
-* Tue Jul 30 2024 Tomas Korbar <tkorbar@redhat.com> - 1.1.2-1
-- Release 1.1.2
-- Resolves: rhbz#2290332
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jun 27 2024 Tomas Korbar <tkorbar@redhat.com> - 1.0.2-1
-- Release 1.0.2
-
-* Wed Jun 26 2024 Tomas Korbar <tkorbar@redhat.com> - 1.0.1-2
-- Fix /var/run selinux rules
-
-* Wed Jun 26 2024 Tomas Korbar <tkorbar@redhat.com> - 1.0.1-1
-- Release 1.0.1
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.0.0-2
-- Rebuilt for Python 3.13
-
-* Mon May 27 2024 Tomas Korbar <tkorbar@redhat.com> - 1.0.0-1
-- Release 1.0.0
-
-* Fri May 17 2024 Tomas Korbar <tkorbar@redhat.com> - 0.0.6-1
-- Release 0.0.6
-
-* Fri May 03 2024 Tomas Korbar <tkorbar@redhat.com> - 0.0.5-1
-- Release 0.0.5
-
-* Tue Apr 30 2024 Tomas Korbar <tkorbar@redhat.com> - 0.0.4-2
-- Fix dnsconfd user installation
-
-* Mon Apr 29 2024 Tomas Korbar <tkorbar@redhat.com> - 0.0.4-1
-- Release 0.0.4
-
-* Sun Jan 28 2024 Tomas Korbar <tkorbar@redhat.com> - 0.0.2-1
-- Initial version of the package
+%autochangelog

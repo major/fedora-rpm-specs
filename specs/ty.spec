@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.34
+Version:        0.0.35
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -162,9 +162,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev e990dfd069fceef96f797b46161ef78862608449
+%global ruff_rev ac6361d83e4d51ab123043b00d5285a842077b81
 %global ruff_baseversion 0.15.12
-%global ruff_snapdate 20260501
+%global ruff_snapdate 20260510
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -199,6 +199,9 @@ Patch102:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch103:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
+BuildSystem:    pyproject
+BuildOption(install): --assert-license ty
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -208,7 +211,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
-BuildRequires:  python3-devel
 
 # See the notes about Source100.
 %global ruff_snapinfo %{ruff_snapdate}git%{sub %{ruff_rev} 1 7}
@@ -357,7 +359,7 @@ EOF
 fi
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 # For unclear reasons, maturin checks for all crate dependencies when it is
 # invoked as part of %%pyproject_buildrequires – including those corresponding
 # to optional features.
@@ -374,24 +376,15 @@ pushd crates/ty >/dev/null
 %cargo_generate_buildrequires -a -t
 popd >/dev/null
 popd >/dev/null
-%pyproject_buildrequires
 
 
-%build
-export RUSTFLAGS='%{build_rustflags}'
-%pyproject_wheel
-
-LDEPS="${PWD}/LICENSE.dependencies"
-pushd ruff
+%build -a
+cd ruff
 %{cargo_license_summary}
-%{cargo_license} > "${LDEPS}"
-popd
+%{cargo_license} > LICENSE.dependencies
 
 
-%install
-%pyproject_install
-%pyproject_save_files ty
-
+%install -a
 if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
 then
   # Maturin is really designed to build compiled Python extensions, but (when
@@ -414,7 +407,7 @@ install -Dpm 0644 ty.fish -t %{buildroot}/%{fish_completions_dir}
 install -Dpm 0644 _ty -t %{buildroot}/%{zsh_completions_dir}
 
 
-%check
+%check -a
 %if %{with check}
 # Ignore false positive snapshot test failures.
 #export INSTA_UPDATE=always
@@ -450,18 +443,15 @@ skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
 skip="${skip-} --skip mdtest__generics_specialize_constrained"
 %endif
 
-pushd ruff
+cd ruff
 # Avoid flaky “text file busy” errors in insta tests
 export RUST_TEST_THREADS=1
 %cargo_test -- -- ${skip-}
-popd
 %endif
-
-%pyproject_check_import
 
 
 %files
-%license LICENSE LICENSE.dependencies LICENSE.bundled/
+%license LICENSE ruff/LICENSE.dependencies LICENSE.bundled/
 %doc CHANGELOG.md
 %doc README.md
 

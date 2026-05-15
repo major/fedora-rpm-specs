@@ -5,7 +5,7 @@ started in context of the Linux-Kernel documentation, you can use these
 extensions in common Sphinx-doc projects.}
 
 Name:           python-linuxdoc
-Version:        20240924
+Version:        20260504
 Release:        %{autorelease}
 Summary:        Sphinx-doc extensions for sophisticated C developer
 
@@ -23,7 +23,10 @@ BuildArch:      noarch
 %package -n python3-linuxdoc
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  help2man
+
+Requires:       python3-pkg-resources
 
 %description -n python3-linuxdoc %_description
 

@@ -46,7 +46,6 @@ Source19:       distro-template.swidtag
 Source20:       distro-edition-template.swidtag
 Source21:       fedora-workstation.conf
 Source22:       80-coreos.preset
-Source23:       zezere-ignition-url
 Source24:       80-iot-user.preset
 Source25:       plasma-desktop.conf
 Source26:       80-kde-desktop.preset
@@ -1629,7 +1628,6 @@ echo "VARIANT_ID=iot" >> %{buildroot}%{_prefix}/lib/os-release.iot
 sed -i -e "s|(%{release_name}%{?prerelease})|(IoT Edition%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.iot
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/IoT/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.iot
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.iot
-install -p %{SOURCE23} %{buildroot}/%{_prefix}/lib/
 install -Dm0644 %{SOURCE18} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -Dm0644 %{SOURCE24} -t %{buildroot}%{_prefix}/lib/systemd/user-preset/
 
@@ -1990,7 +1988,6 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %{_prefix}/lib/systemd/system-preset/80-iot.preset
 %{_prefix}/lib/systemd/user-preset/80-iot-user.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.iot
-%{_prefix}/lib/zezere-ignition-url
 
 
 %files kde-desktop

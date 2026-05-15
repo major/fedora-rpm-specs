@@ -10,11 +10,14 @@ Source0:        %{url}/archive/v%{version}/python-irodsclient-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        prc_write_irodsA.py.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l irods
+BuildSystem:    pyproject
+BuildOption(install): --assert-license irods
 # * The test runner module requires xmlrunner, which is no longer packaged.
 # * Merely importing ssl_test_client requires configured iRODS credentials.
-BuildOption(check): -e irods.test.runner -e irods.test.ssl_test_client
+BuildOption(check): %{shrink:
+    --exclude irods.test.runner
+    --exclude irods.test.ssl_test_client
+    }
 # All tests require network access and a valid account on a running iRODS grid.
 # See irods/test/README.rst.
 

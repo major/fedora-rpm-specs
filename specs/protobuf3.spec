@@ -166,6 +166,7 @@ lacks descriptors, reflection, and some other features.
 %if %{with python}
 %package -n python3-protobuf3
 Summary:        Python bindings for Google Protocol Buffers
+BuildRequires:  python3-pkg-resources
 BuildRequires:  python3-devel
 %if %{with python_cpp}
 Requires:       %{name}%{?_isa} = %{version}-%{release}

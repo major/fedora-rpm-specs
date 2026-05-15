@@ -20,6 +20,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-mypy
+BuildRequires:  python3-pkg-resources
 
 %global _description %{expand:
 The aim of this module is to provide a common base representation of python

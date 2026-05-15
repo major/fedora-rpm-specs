@@ -1,5 +1,3 @@
-%bcond tests 1
-
 Name:           python-lazy-loader
 Version:        0.5
 Release:        %autorelease
@@ -9,12 +7,11 @@ License:        BSD-3-Clause
 URL:            https://github.com/scientific-python/lazy-loader
 Source:         %{pypi_source lazy_loader}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l lazy_loader
+BuildSystem:    pyproject
+BuildOption(install): --assert-license lazy_loader
 
 BuildArch:      noarch
 
-%if %{with tests}
 # The “test” extra includes unwanted linters, etc.; we manually BR pytest
 # rather than patching out all the others from pyproject.toml.
 BuildRequires:  %{py3_dist pytest}
@@ -22,7 +19,6 @@ BuildRequires:  %{py3_dist pytest}
 # metadata, so we must BR them manually as well:
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist scipy}
-%endif
 
 %global common_description %{expand:
 lazy-loader makes it easy to load subpackages and functions on demand.
@@ -43,9 +39,7 @@ Summary:        %{summary}
 
 
 %check -a
-%if %{with tests}
 %pytest
-%endif
 
 
 %files -n python3-lazy-loader -f %{pyproject_files}

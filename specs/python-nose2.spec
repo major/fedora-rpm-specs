@@ -12,11 +12,11 @@ Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        nose2.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l nose2
+BuildSystem:    pyproject
+BuildOption(install): --assert-license nose2
 # - We remove nose2.tests from the buildroot in %%install.
 # - The nose2.sphinxext module depends on docutils.
-BuildOption(check):     -e nose2.tests* -e nose2.sphinxext
+BuildOption(check): --exclude nose2.tests* --exclude nose2.sphinxext
 
 BuildArch:      noarch
 

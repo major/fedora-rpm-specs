@@ -23,7 +23,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools < 82
 %if %{with doc}
 # For building documentation
 BuildRequires:  dvipng

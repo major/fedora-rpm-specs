@@ -37,10 +37,10 @@ Source15:       mrs_tools-reshape.1
 Source16:       mrs_tools-split.1
 Source17:       mrs_tools-vis.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l nifti_mrs mrs_tools
+BuildSystem:    pyproject
+BuildOption(install): --assert-license nifti_mrs mrs_tools
 # - nifti_mrs.vis requires (via the VIS extra), the nonfree fsl-mrs
-BuildOption(check):     -e nifti_mrs.vis
+BuildOption(check): --exclude nifti_mrs.vis
 
 # The base package is arched due to endian-dependent test failures, but the
 # binary packages are noarch and contain no compiled code.

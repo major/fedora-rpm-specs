@@ -9,7 +9,7 @@
 %bcond pydantic_tests %[ %{without bootstrap} && %{without pydantic_fti} ]
 
 Name:           python-inline-snapshot
-Version:        0.32.7
+Version:        0.33.0
 Release:        %autorelease
 Summary:        Golden master/snapshot/approval testing library
 
@@ -18,9 +18,12 @@ License:        MIT
 URL:            https://github.com/15r10nk/inline-snapshot
 Source:         %{pypi_source inline_snapshot}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -g dev -x black,dirty-equals
-BuildOption(install):   -l inline_snapshot
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{shrink:
+    --dependency-groups dev
+    --extras black,dirty-equals
+    }
+BuildOption(install): --assert-license inline_snapshot
 
 BuildArch:      noarch
 

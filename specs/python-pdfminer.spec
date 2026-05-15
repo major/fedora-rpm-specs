@@ -38,13 +38,13 @@ Summary:        Tool for extracting information from PDF documents
 #       https://partners.adobe.com/public/developer/en/opentype/glyphlist.txt
 #       under the Adobe Glyph List License
 License:        %{shrink:
-                MIT AND
-                LicenseRef-Fedora-Public-Domain AND
-                APAFML AND
-                BSD-3-Clause AND
-                (Apache-2.0 AND MIT) AND
-                Adobe-Glyph
-                }
+    MIT AND
+    LicenseRef-Fedora-Public-Domain AND
+    APAFML AND
+    BSD-3-Clause AND
+    (Apache-2.0 AND MIT) AND
+    Adobe-Glyph
+    }
 URL:            https://github.com/pdfminer/pdfminer.six
 # This has the samples/ directory stripped out. While upstream claims the
 # sample PDFs are “freely distributable”, they have unclear or unspecified
@@ -60,10 +60,10 @@ Source1:        get_source.sh
 Source2:        dumppdf.1
 Source3:        pdf2txt.1
 
-BuildSystem:            pyproject
-BuildOption(prep):      -S git
-BuildOption(generate_buildrequires): -x image
-BuildOption(install):   -l pdfminer
+BuildSystem:    pyproject
+BuildOption(prep): -S git
+BuildOption(generate_buildrequires): --extras image
+BuildOption(install): --assert-license pdfminer
 
 BuildArch:      noarch
 

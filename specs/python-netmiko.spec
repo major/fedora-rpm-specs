@@ -2,8 +2,8 @@
 %global sum Multi-vendor library to simplify Paramiko SSH connections to network devices
 
 Name:           python-%{srcname}
-Version:        4.5.0
-Release:        6%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -50,6 +50,9 @@ sed -i '/^cffi/s/1.17.0rc1/1.16.0/' pyproject.toml
 # Years after Python 2 removal, Fedora still considers just "python" ambiguous.
 # Let's assume they shouldn't be invoked directly, only via generated scripts.
 sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
+# NOTE(hjensas): 4.7.0 pinned to Paramiko <5.0 because Paramiko 5 removed SHA-1
+# support/workarounds. Removing the pin; legacy SHA-1-only SSH is unsupported.
+sed -si '/^paramiko/s/>=3.5.0,<5.0/>=3.5.0/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -77,6 +80,11 @@ sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
 
 
 %changelog
+* Wed May 13 2026 Harald Jensas <hjensas@redhat.com> - 4.7.0-1
+- Update to 4.7.0 (#2296411)
+  - Relax Paramiko dependency cap for python-paramiko 5.x; legacy SHA-1-only SSH
+    is unsupported by that stack.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

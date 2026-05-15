@@ -10,7 +10,7 @@
 %endif
 
 Name:           miracle-wm
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
@@ -114,6 +114,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Wed May 13 2026 Adam Williamson <awilliam@redhat.com> - 0.9.1-1
+- Update to 0.9.1
+
 * Sun Apr 19 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.9.0-1
 - Update to 0.9.0
 

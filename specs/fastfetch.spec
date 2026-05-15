@@ -19,11 +19,7 @@ BuildRequires:  sqlite-devel
 BuildRequires:  ImageMagick-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libglvnd-devel
-%if 0%{?fedora} > 42
 BuildRequires:  mesa-libGL-devel
-%else
-BuildRequires:  mesa-libOSMesa-devel
-%endif
 BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  rpm-devel
