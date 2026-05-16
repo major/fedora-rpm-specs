@@ -91,6 +91,7 @@ BuildRequires:  pkgconfig(cairo-gobject) >= %{cairo_version}
 BuildRequires:  pkgconfig(colord)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)

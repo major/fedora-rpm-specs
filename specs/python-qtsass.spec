@@ -16,11 +16,11 @@ URL:            https://github.com/spyder-ide/qtsass
 # that the PyPI sdist lacks.
 Source:         %{url}/archive/v%{version}/qtsass-%{version}.tar.gz
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
+BuildOption(install): --assert-license qtsass
 %if %{without qt}
-BuildOption(check):     -e qtsass.watchers.qt
+BuildOption(check): --exclude qtsass.watchers.qt
 %endif
-BuildOption(install):   -l qtsass
 
 BuildArch:      noarch
 
@@ -61,7 +61,7 @@ Summary:        %{summary}
 
 
 %install -a
-install -d '%{buildroot}%{_mandir}/man1'
+install --directory '%{buildroot}%{_mandir}/man1'
 # Building the man page in %%install instead of %%build is a little weird, but
 # we need to use the generated entry point from the buildroot.
 PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
@@ -72,7 +72,7 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-qtsass -f %{pyproject_files}

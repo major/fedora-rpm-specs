@@ -1,6 +1,6 @@
 Name:           python-textual
-Version:        4.0.0
-Release:        5%{?dist}
+Version:        8.1.1
+Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -41,7 +41,7 @@ Summary:        Docs and examples for python3-textual
 %autosetup -n textual-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x dev
+%pyproject_buildrequires -r
 
 
 %build
@@ -58,7 +58,7 @@ Summary:        Docs and examples for python3-textual
 # is packaged
 rm -rf tests/snapshot_tests
 rm -rf tests/test_slug.py
-%pytest -k "not test_textual_env_var and not test_softbreak_split_links_rendered_correctly and not test_setting_unknown_language and not test_register_language and not test_update_highlight_query"
+%pytest -k "not test_textual_env_var and not test_setting_unknown_language and not test_register_language and not test_update_highlight_query and not test_progress_bar_width_1fr"
 
 
 %files -n python3-textual -f %{pyproject_files}
@@ -70,6 +70,9 @@ rm -rf tests/test_slug.py
 
 
 %changelog
+* Thu May 14 2026 Maxime Ripard <mripard@kernel.org> - 8.1.1-1
+- Update to 8.1.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

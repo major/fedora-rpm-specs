@@ -70,14 +70,13 @@ BuildRequires:  perl >= 5.28
 BuildRequires:  perl(YAML::PP) >= 0.030
 %endif
 
-%global common_description %{expand: \
+%global common_description %{expand:
 Rapid YAML, or ryml, for short. ryml is a C++ library to parse and emit YAML,
 and do it fast, on everything from x64 to bare-metal chips without operating
 system. (If you are looking to use your programs with a YAML tree as a
 configuration tree with override facilities, take a look at c4conf).}
 
-%description
-%{common_description}
+%description %{common_description}
 
 
 %package devel
@@ -88,8 +87,7 @@ Requires:       c4core-devel%{?_isa}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
 Conflicts:      rapidyaml0.10.0-devel
 
-%description devel
-%{common_description}
+%description devel %{common_description}
 
 The rapidyaml-devel package contains libraries and header files for developing
 applications that use Rapid YAML.
@@ -101,8 +99,7 @@ applications that use Rapid YAML.
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-rm -rvf ext/c4core/cmake
-cp -rvp %{_datadir}/cmake/c4project ext/c4core/cmake
+cp --recursive --preserve '%{_datadir}/cmake/c4project' ext/c4core/cmake
 # Patch out download of gtest:
 '%{SOURCE10}' 'ext/c4core/cmake/c4Project.cmake' \
     '^    if\(_GTEST\)' '^    endif'
@@ -110,7 +107,7 @@ cp -rvp %{_datadir}/cmake/c4project ext/c4core/cmake
 # Patch out download of c4core:
 '%{SOURCE10}' 'CMakeLists.txt' 'c4_require_subproject\(c4core' '\)$'
 # Use external c4core
-sed -r -i '/INCORPORATE c4core/d' 'CMakeLists.txt'
+sed --regexp-extended --in-place '/INCORPORATE c4core/d' 'CMakeLists.txt'
 
 # Patch out download of c4fs:
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4fs' '\)$'
@@ -123,10 +120,10 @@ sed -r -i '/INCORPORATE c4core/d' 'CMakeLists.txt'
 # Patch out download of yaml-test-suite:
 '%{SOURCE10}' 'test/CMakeLists.txt' \
     'c4_download_remote_proj\(yaml-test-suite' '\)$'
-sed -r -i \
+sed --regexp-extended --in-place \
     's@([[:blank:]]*)set\(tsdir.*\).*@&\nset\(suite_dir test/extern/yaml-test-suite\)\1@' \
     'test/CMakeLists.txt'
-mkdir -p 'test/extern/'
+mkdir --parents 'test/extern/'
 
 # Original sources (including LICENSE)
 %setup -q -T -D -b 1 -n rapidyaml-%{version}
@@ -141,12 +138,12 @@ mv '../yaml-test-suite-data-%{yamltest_date}' 'test/extern/yaml-test-suite'
 # We need to rebuild the test data before running CMake configuration, since it
 # checks to be sure it is present.
 pushd ../yaml-test-suite-%{yamltest_date}
-mkdir -p data
+mkdir --parents data
 perl bin/suite-to-data.pl src/*.yaml
 popd
 # Remove the pre-generated data from Source2 and replace it with the data we
 # rebuilt from Source1.
-rm -rv test/extern/yaml-test-suite
+rm --recursive --verbose test/extern/yaml-test-suite
 mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 %endif
 
@@ -180,18 +177,19 @@ mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 # which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
-  mkdir -p '%{buildroot}%{_libdir}'
-  mv -v %{buildroot}%{_prefix}/lib/libryml.so* '%{buildroot}%{_libdir}/'
-  mkdir -p '%{buildroot}%{_libdir}/cmake'
-  mv -v %{buildroot}%{_prefix}/lib/cmake/ryml '%{buildroot}%{_libdir}/cmake/'
+  mkdir --parents '%{buildroot}%{_libdir}'
+  mv --verbose %{buildroot}%{_prefix}/lib/libryml.so* '%{buildroot}%{_libdir}/'
+  mkdir --parents '%{buildroot}%{_libdir}/cmake'
+  mv --verbose %{buildroot}%{_prefix}/lib/cmake/ryml \
+      '%{buildroot}%{_libdir}/cmake/'
   find %{buildroot}%{_libdir}/cmake/ryml -type f -name '*.cmake' -print0 |
-    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
+    xargs --no-run-if-empty --verbose --null \
+        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
 fi
 
 # We don’t believe this will be useful on Linux. See:
 # https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/natvis
-rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
-
+rm '%{buildroot}%{_includedir}/ryml.natvis'
 
 
 %check

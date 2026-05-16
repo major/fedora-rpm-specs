@@ -1,7 +1,7 @@
 %global libjit_soversion 3
 Name:           jitterentropy
-Version:        3.6.0
-Release:        4%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Library implementing the jitter entropy source
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -13,6 +13,8 @@ BuildRequires: make
 
 # Disable Upstream Makefiles debuginfo strip on install
 Patch0: jitterentropy-rh-makefile.patch
+# Gcc with -std=c11 defines __powerpc__ only
+Patch1: jitterentropy-rh-powerpc.patch
 
 %description
 Library implementing the CPU jitter entropy source
@@ -46,6 +48,10 @@ mkdir -p %{buildroot}%{_includedir}
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 15 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-1
+- Update to the upstream v3.7.0 @ e783cf1c
+- Fix PowerPC architecture detection code
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

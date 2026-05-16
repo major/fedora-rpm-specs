@@ -88,7 +88,8 @@ flexibility, and readily handle a wide variety of source data types.
 # preserves mtimes on sources that did not need to be modified.
 find bidscoin/ -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i '1{/^#!/d}'
+  xargs --no-run-if-empty --verbose \
+      sed --regexp-extended --in-place '1{/^#!/d}'
 
 
 %check -a
@@ -97,7 +98,7 @@ k="${k-}${k+ and }not test_check_version"
 # Tries to access the man page outside the buildroot:
 k="${k-}${k+ and }not test_list_executables"
 
-%pytest -k "${k-}" -v
+%pytest -k "${k-}" --verbose
 
 
 %files -f %{pyproject_files}

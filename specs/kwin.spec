@@ -1,6 +1,6 @@
 Name:    kwin
-Version: 6.6.4
-Release: 3%{?dist}
+Version: 6.6.5
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -275,6 +275,12 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
+- 6.6.5
+
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-4
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-3
 - Rebuild (qt6)
 

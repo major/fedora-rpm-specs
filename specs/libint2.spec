@@ -22,8 +22,9 @@ ExcludeArch: %{ix86}
 %global apiversion 1
 
 Name:		libint2
-Version:	2.9.0
-Release:	6%{?dist}
+Version:	2.13.1
+%global postver -post999
+Release:	2%{?dist}
 Summary:	A library for efficient evaluation of electron repulsion integrals
 # Generator itself is GPLv2+, generated library packaged in Fedora is LGPLv3
 License:	LGPL-3.0-only
@@ -41,12 +42,7 @@ Source0:	https://github.com/evaleev/libint/archive/v%{version}.tar.gz
 # generate the sources, run the generate-sources.sh script.
 Source1:	libint-%{version}.tar.xz
 # The programmers' manual is compiled from the LaTeX source by generate-sources.sh
-Source2:	progman-%{version}.pdf
-
-# The source tarball generator does not introduce all info in the CMake config for now, this patches in the missing info
-Patch0:         libint-2.8.2-fedoraver.patch
-# Fix location of data directory in generated CMake config
-Patch1:         libint-2.9.0-datadir.patch
+Source2:       progman-%{version}.pdf
 
 Provides:	libint2(api)%{?_isa} = %{apiversion}
 
@@ -103,14 +99,13 @@ Requires:       mpfr-devel
 This package contains development headers and libraries for libint2.
 
 %prep
-%setup -q -T -b 1 -n libint-%{version}
-%patch 0 -p1 -b .fedora
+%setup -q -T -b 1 -n libint-%{version}%{?postver}
 # Copy programmers manual
 cp -p %{SOURCE2} doc/progman.pdf
 
 %build
 export CXX=g++
-%cmake -DENABLE_FORTRAN=ON -DENABLE_MPFR=ON -DLIBINT2_PYTHON=ON -DLIBINT2_INSTALL_LIBDIR=%{_libdir} -DLIBINT2_INSTALL_DATADIR=%{_datadir}/%{name} -DLIBINT2_INSTALL_CMAKEDIR=%{_libdir}/cmake/%{name}
+%cmake -DLIBINT2_REQUIRE_CXX_API=ON -DLIBINT2_ENABLE_FORTRAN=ON -DLIBINT2_ENABLE_MPFR=ON -DLIBINT2_PYTHON=ON -DLIBINT2_INSTALL_LIBDIR=%{_libdir} -DLIBINT2_INSTALL_DATADIR=%{_datadir}/%{name} -DLIBINT2_INSTALL_CMAKEDIR=%{_libdir}/cmake/%{name} #-DBUILD_TESTING=ON #Tests don't compile
 %cmake_build
 
 %install
@@ -132,10 +127,13 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 
 %ldconfig_scriptlets
 
+# FIXME: enable tests when they compile
+#%check
+#%ctest
+
 %files
 %doc LICENSE COPYING
 %{_libdir}/libint2.so.2
-%{_libdir}/libint2.so.%{version}
 
 %files data
 %{_datadir}/libint2/
@@ -149,11 +147,16 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_includedir}/libint2/
 %{_includedir}/libint2.h
 %{_includedir}/libint2.hpp
-%{_libdir}/pkgconfig/libint2.pc
 %{_fmoddir}/libint_f.mod
 %{_libdir}/libint2.so
 
 %changelog
+* Thu May 14 2026 Susi Lehtola <jussilehtola@fedoraproject.org>  2.13.1-2
+- Bump spec.
+
+* Thu May 14 2026 Susi Lehtola <jussilehtola@fedoraproject.org>  2.13.1-1
+- Update to 2.13.1.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

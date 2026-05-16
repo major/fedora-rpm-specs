@@ -939,7 +939,9 @@ clang-format integration for git.
 %package -n python%{python3_pkgversion}-%{pkg_name_clang}
 Summary:       Python3 bindings for clang
 Requires:      %{pkg_name_clang}-devel%{?_isa} = %{version}-%{release}
+%if "%{?python3_version}" != ""
 Requires:      python(abi) = %{python3_version}
+%endif
 Provides:      python%{python3_pkgversion}-clang(major) = %{maj_ver}
 %if 0%{?rhel} == 8
 # Became python3.12-clang in LLVM 19

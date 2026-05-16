@@ -2,7 +2,7 @@
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-Version:	4.34.0
+Version:	4.35.0
 Release:	%autorelease
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
@@ -10,7 +10,7 @@ Release:	%autorelease
 # ext_libs/sqlite/ has the SQLite blessing.
 License:	(GPL-2.0-only OR Linux-OpenIB) AND BSD-3-Clause AND MIT AND blessing
 Url:		https://github.com/Mellanox/%{name}
-Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-2/%{name}-%{version}-2.tar.gz
+Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
 
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc

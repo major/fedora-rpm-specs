@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        38%{?dist}
+Release:        39%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -771,6 +771,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.6.5-39
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 4.6.5-38
 - Rebuild (qt6)
 

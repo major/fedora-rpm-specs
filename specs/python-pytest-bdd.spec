@@ -19,18 +19,15 @@ Source12:       pytest-bdd-migrate.1
 # https://github.com/pytest-dev/pytest-bdd/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47
 Patch:          %{forgeurl}/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t
-BuildOption(install):   -L pytest_bdd
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --tox
+BuildOption(install): --no-assert-license pytest_bdd
 
 BuildArch:      noarch
 
 # Required for: tests/feature/test_report.py::test_complex_types
-# Also in pyproject.toml:[tool.poetry.group.dev.dependencies]
+# Also in pyproject.toml: [tool.poetry.group.dev.dependencies]
 BuildRequires:  %{py3_dist pytest-xdist} >= 3.3.1
-
-# Required for: tests/feature/test_tags.py (top-level pkg_resources import)
-BuildRequires:  %{py3_dist setuptools}
 
 %global common_description %{expand:
 pytest-bdd implements a subset of the Gherkin language to enable automating
@@ -59,7 +56,8 @@ Obsoletes:      python-pytest-bdd-doc < 7.3.0-3
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
+install -D --mode 0644 --preserve-timestamps \
+    --target-directory '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 
@@ -68,7 +66,8 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # gherkin-official
 # https://github.com/pytest-dev/pytest-bdd/issues/779
 k="${k-}${k+ and }not test_step_outside_scenario_or_background_error"
-%tox -- -- -k "${k-}" -n auto -v
+
+%tox -- -- -k "${k-}" --numprocesses auto --verbose
 
 
 %files -n python3-pytest-bdd -f %{pyproject_files}

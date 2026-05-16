@@ -4,7 +4,7 @@
 
 Name:           karton
 Version:        0.1^%{gitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Libvirt-based Virtual Machine Manager for KDE
 
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-3.0-or-later
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.karton.deskt
 %{_kf6_datadir}/qlogging-categories6/karton.categories
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.1^20251110.023853.07520e0-4
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 0.1^20251110.023853.07520e0-3
 - Rebuild (qt6)
 

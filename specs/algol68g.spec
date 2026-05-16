@@ -6,7 +6,7 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.12.0
+Version: 3.12.1
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -56,6 +56,9 @@ that has continuing responsibility for Algol 60 and Algol 68.
 %exclude %{_pkgdocdir}/COPYING
 
 %changelog
+* Thu May 14 2026 Oleg Girko <ol@infoserver.lv> - 3.12.1-1
+- Update to 3.12.1
+
 * Mon May 04 2026 Oleg Girko <ol@infoserver.lv> - 3.12.0-1
 - Update download URL
 - Update to 3.12.0

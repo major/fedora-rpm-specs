@@ -4,44 +4,48 @@ Release:        %autorelease
 Summary:        Scientific Calculator X11 Client
 
 License:        MIT
-URL:            http://xorg.freedesktop.org
-Source0:        http://xorg.freedesktop.org/releases/individual/app/xcalc-%{version}.tar.xz
+URL:            https://xorg.freedesktop.org
+Source0:        https://xorg.freedesktop.org/releases/individual/app/xcalc-%{version}.tar.xz
 Source1:        xcalc.desktop
 
-BuildRequires:  gcc make
-BuildRequires:  xorg-x11-proto-devel
-BuildRequires:  libXaw-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  xorg-x11-util-macros
+BuildRequires:  gcc
 BuildRequires:  libX11-devel
-BuildRequires:  libXmu-devel
+BuildRequires:  libXaw-devel
 BuildRequires:  libXext-devel
-BuildRequires:  libXt-devel
+BuildRequires:  libXmu-devel
 BuildRequires:  libXpm-devel
+BuildRequires:  libXt-devel
+BuildRequires:  make
+BuildRequires:  xorg-x11-proto-devel
+BuildRequires:  xorg-x11-util-macros
 
-Requires:       xorg-x11-xbitmaps
-Requires:       xorg-x11-fonts-75dpi
 Requires:       xorg-x11-fonts-100dpi
+Requires:       xorg-x11-fonts-75dpi
 Requires:       xorg-x11-fonts-misc
+Requires:       xorg-x11-xbitmaps
 
 
 %description
 xcalc is a scientific calculator X11 client.
 
 %prep
-%setup -q
+%autosetup
 cp -p %{SOURCE1} .
 
 %build
 %configure
-make V=1 %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
 
-install -d ${RPM_BUILD_ROOT}%{_datadir}/applications
-install -p -m 644 xcalc.desktop ${RPM_BUILD_ROOT}%{_datadir}/applications
-desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/xcalc.desktop
+install -d %{buildroot}%{_datadir}/applications
+install -p -m 644 xcalc.desktop %{buildroot}%{_datadir}/applications
+desktop-file-validate %{buildroot}%{_datadir}/applications/xcalc.desktop
+
+%check
+%make_build check
 
 %files
 %{_bindir}/xcalc

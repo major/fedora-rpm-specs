@@ -9,9 +9,9 @@ URL:            https://github.com/pgjones/quart-trio
 # PyPI source distributions lack tests, changelog, etc.; use the GitHub archive
 Source:         %{url}/archive/%{version}/quart-trio-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t
-BuildOption(install):   -L quart_trio
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --tox
+BuildOption(install): --no-assert-license quart_trio
 
 # Downstream-only:
 #
@@ -39,7 +39,7 @@ Summary:        %{summary}
 
 
 %check -a
-%tox -- -- -v
+%tox -- -- --verbose
 
 
 %files -n python3-quart-trio -f %{pyproject_files}

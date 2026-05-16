@@ -1,6 +1,6 @@
 Name:          klevernotes
 Version:       1.3.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A convergent markdown note taking application
 URL:           https://apps.kde.org/klevernotes/
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_metainfodir}/org.kde.klevernotes.metainfo.xml
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.3.1-2
+- Rebuild (qt6)
+
 * Tue May 12 2026 Steve Cossette <farchord@gmail.com> - 1.3.1-1
 - 1.3.1
 

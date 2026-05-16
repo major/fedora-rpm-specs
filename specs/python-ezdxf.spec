@@ -1,5 +1,5 @@
 Name:           python-ezdxf
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        Python package to create/manipulate DXF drawings
 
@@ -154,7 +154,8 @@ dos2unix --keepdate examples/copydxf.py
 
 # qtviewer.py is not executable and is not script-like (no main routine or
 # useful side effects), so it does not need a shebang
-sed -r -i '1{/^#!/d}' src/ezdxf/addons/drawing/qtviewer.py
+sed --regexp-extended --in-place '1{/^#!/d}' \
+    src/ezdxf/addons/drawing/qtviewer.py
 
 # A couple of examples are installed as executables, with shebangs that need to
 # be corrected.
@@ -166,9 +167,11 @@ find . -type f -name '.gitignore' -print -delete
 %install -a
 # Do not package header files
 find '%{buildroot}%{python3_sitearch}' -type f -name '*.h' -print -delete
-sed -r -i 's@%{python3_sitearch}.*/[^/]+\.h$@# &@' %{pyproject_files}
+sed --regexp-extended --in-place 's@%{python3_sitearch}.*/[^/]+\.h$@# &@' \
+    %{pyproject_files}
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE15}' '%{SOURCE16}' '%{SOURCE17}' '%{SOURCE18}' '%{SOURCE19}'
 
@@ -180,11 +183,11 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 # See tox-extras.ini:
 # Note: It is NOT safe to parallelize these tests with pytest-xdist!
-%pytest -k "${k-}" tests integration_tests -v
+%pytest -k "${k-}" tests integration_tests --verbose
 
 # Since the user can disable the C extensions, test the pure-Python
 # implementations too:
-EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests -v
+EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests --verbose
 
 # Verify that no bundled fonts were installed.
 if [ "$(

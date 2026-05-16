@@ -1,5 +1,5 @@
 %global repo_name vcpkg-tool
-%global repo_tag 2026-03-04
+%global repo_tag 2026-04-08
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
@@ -9,7 +9,6 @@ License: MIT
 Summary: C++ Library Manager
 URL: https://github.com/microsoft/%{repo_name}
 Source0: %{url}/archive/%{repo_tag}/%{name}-%{version}.tar.gz
-Patch0:         vcpkg-fmt12-formatter.patch
 Source1: %{name}.sh
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

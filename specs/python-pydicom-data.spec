@@ -13,8 +13,8 @@ License:        MIT
 URL:            https://github.com/pydicom/pydicom-data
 Source:         %{url}/archive/%{commit}/pydicom-data-%{commit}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l data_store
+BuildSystem:    pyproject
+BuildOption(install): --assert-license data_store
 
 BuildArch:      noarch
 

@@ -14,9 +14,9 @@ Source0:        %{pypi_source pymapvbvd}
 Source1:        pymapvbvd-test-data.tar.zst
 Source2:        get_test_data.sh
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x tests
-BuildOption(install):   -l mapvbvd
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras tests
+BuildOption(install): --assert-license mapvbvd
 
 BuildArch:      noarch
 # PyMapVBVD assumes the platform is little-endian
@@ -48,7 +48,7 @@ Summary:        %{summary}
 %setup -q -T -D -a 1 -c -n pymapvbvd-%{version}
 # We can use the system versioneer to generate _version.py, and can remove the
 # bundled, amaglamated versioneer.py to indicate we aren’t using it.
-rm -v versioneer.py
+rm versioneer.py
 
 
 %generate_buildrequires -p
@@ -60,7 +60,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-pymapvbvd -f %{pyproject_files}

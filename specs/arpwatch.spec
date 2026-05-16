@@ -16,12 +16,12 @@ License:        BSD-3-Clause
 #   - install-sh is X11
 #   - mkdep is BSD-4.3RENO
 SourceLicense:  %{shrink:
-                %{license} AND
-                BSD-4.3RENO AND
-                FSFUL AND
-                GPL-3.0-or-later AND
-                X11
-                }
+    %{license} AND
+    BSD-4.3RENO AND
+    FSFUL AND
+    GPL-3.0-or-later AND
+    X11
+    }
 URL:            https://ee.lbl.gov/
 
 Requires:       /usr/sbin/sendmail
@@ -35,7 +35,6 @@ BuildRequires:  autoconf
 
 BuildRequires:  /usr/sbin/sendmail
 BuildRequires:  systemd-rpm-macros
-%{?sysuser_requires_compat}
 BuildRequires:  python3-devel
 BuildRequires:  libpcap-devel
 
@@ -113,16 +112,19 @@ will automatically keep track of the IP addresses on your network.
 %autosetup -p1
 
 # Substitute absolute paths to awk scripts in shell scripts
-sed -r -i 's|(-f *)([^[:blank:]+]\.awk)|\1%{_datadir}/arpwatch/\2|' arp2ethers
+sed --regexp-extended --in-place \
+    's|(-f *)([^[:blank:]+]\.awk)|\1%{_datadir}/arpwatch/\2|' arp2ethers
 
 # Fix default directory in man pages to match ARPDIR in build section. This was
 # formerly done by arpwatch-dir-man.patch. For thoroughness, do the same
 # replacement in update-ethercodes.sh.in and bihourly.sh, even though they are
 # not installed.
-sed -r -i 's|/usr/local/arpwatch|%{pkgstatedir}|g' *.8.in *.sh.in *.sh
+sed --regexp-extended --in-place \
+    's|/usr/local/arpwatch|%{pkgstatedir}|g' *.8.in *.sh.in *.sh
 
 # Fix Python interpreter path (but note that this script is not installed)
-sed -r -i 's|/usr/local/bin/python|%{python3}|g' update-ethercodes.sh.in
+sed --regexp-extended --in-place \
+    's|/usr/local/bin/python|%{python3}|g' update-ethercodes.sh.in
 
 # Emailed upstream requesting a separate LICENSE/COPYING file 2022-07-30.
 # For now, we extract it from the main source file’s “header” comment.
@@ -149,53 +151,63 @@ export CPPFLAGS="${CPPFLAGS-} -DTIME_WITH_SYS_TIME=1"
 
 
 %install
-install -p -D -m 0644 %{SOURCE6} '%{buildroot}%{_sysusersdir}/arpwatch.conf'
+install -D --preserve-timestamps --mode 0644 %{SOURCE6} \
+    '%{buildroot}%{_sysusersdir}/arpwatch.conf'
 
 # The upstream Makefile does not create the directories it requires, so we must
 # do it manually. Additionally, it attempts to comment out the installation of
 # the init script on non-FreeBSD platforms, but this does not quite work as
 # intended. We just let it install the file, then remove it afterwards.
-install -d %{buildroot}%{_mandir}/man8 \
-    %{buildroot}%{_sbindir} \
+install --directory \
     %{buildroot}%{_datadir}/arpwatch \
-    %{buildroot}%{pkgstatedir} \
+    %{buildroot}%{_mandir}/man8 \
+    %{buildroot}%{_prefix}/etc/rc.d \
+    %{buildroot}%{_sbindir} \
     %{buildroot}%{_unitdir} \
-    %{buildroot}%{_prefix}/etc/rc.d
+    %{buildroot}%{pkgstatedir}
 
 %make_install
 
 # Make install uses mode 0555, which is unconventional, and which can interfere
 # with debuginfo generation since the file is not writable by its owner.
-chmod -v 0755 %{buildroot}%{_sbindir}/arpwatch %{buildroot}%{_sbindir}/arpsnmp
+chmod --verbose 0755 %{buildroot}%{_sbindir}/arp{snmp,watch}
 
-install -p -t %{buildroot}%{_datadir}/arpwatch -m 0644 *.awk
-install -p -t %{buildroot}%{_sbindir} arp2ethers
-install -p massagevendor.py %{buildroot}%{_sbindir}/massagevendor
+install --preserve-timestamps --mode 0644 \
+    --target %{buildroot}%{_datadir}/arpwatch *.awk
+install --preserve-timestamps \
+    --target %{buildroot}%{_sbindir} arp2ethers
+install --preserve-timestamps massagevendor.py \
+    %{buildroot}%{_sbindir}/massagevendor
 
-install -p -t %{buildroot}%{pkgstatedir} -m 0644 *.dat
+install --preserve-timestamps --mode 0644 \
+    --target %{buildroot}%{pkgstatedir} *.dat
 touch %{buildroot}%{pkgstatedir}/arp.dat- \
     %{buildroot}%{pkgstatedir}/arp.dat.new
 
-install -p -t %{buildroot}%{_unitdir} -m 0644 %{SOURCE2}
-%{python3} massagevendor.py < %{SOURCE1} \
+install --preserve-timestamps --mode 0644 \
+    --target %{buildroot}%{_unitdir} %{SOURCE2}
+%{python3} massagevendor.py \
+    < %{SOURCE1} \
     > %{buildroot}%{pkgstatedir}/ethercodes.dat
-touch -r %{SOURCE1} ethercodes.dat
+touch --reference %{SOURCE1} ethercodes.dat
 
 # Add an environment/sysconfig file:
-install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/arpwatch
+install --directory %{buildroot}%{_sysconfdir}/sysconfig
+install --preserve-timestamps --mode 0644 \
+    %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/arpwatch
 
 # Add extra man pages not provided upstream:
-install -p -t %{buildroot}%{_mandir}/man8 -m 0644 %{SOURCE4} %{SOURCE5}
+install --preserve-timestamps --mode 0644 \
+    --target %{buildroot}%{_mandir}/man8 %{SOURCE4} %{SOURCE5}
 
 # Remove legacy init scripts:
-rm -rvf %{buildroot}%{_prefix}/etc/rc.d
+rm --recursive --verbose %{buildroot}%{_prefix}/etc/rc.d
 
 
 %check
 # Verify the sed script in the prep section did not miss fixing the ARPDIR
 # anywhere
-if grep -FrnI '/usr/local/arpwatch' .
+if grep --fixed --recursive --line-number -I '/usr/local/arpwatch' .
 then
   echo 'Missed fixing ARPDIR in at least one file' 1>&2
   exit 1
@@ -203,7 +215,8 @@ fi
 
 # Verify we did not miss any PATH alterations in
 # arpwatch-no-usr-local-path.patch.
-if grep -ErnI --exclude=mkdep --exclude='config.*' '^[^#].*/usr/local/s?bin' .
+if grep --extended-regexp --recursive --line-number -I \
+    --exclude=mkdep --exclude='config.*' '^[^#].*/usr/local/s?bin' .
 then
   echo 'Probably missed an uncommented PATH alteration with /usr/local' 1>&2
   exit 1
@@ -235,10 +248,11 @@ fi
 %{_sbindir}/massagevendor
 
 %dir %{_datadir}/arpwatch
-%{_datadir}/arpwatch/*.awk
+%{_datadir}/arpwatch/{d,duplicates,e,euppertolower,p}.awk
 
 # make install uses mode 0444, which is unconventional
-%attr(0644,-,-) %{_mandir}/man8/*.8*
+%attr(0644,-,-) %{_mandir}/man8/arp{2ethers,snmp,watch}.8*
+%attr(0644,-,-) %{_mandir}/man8/massagevendor.8*
 
 %{_unitdir}/arpwatch.service
 %{_sysusersdir}/arpwatch.conf

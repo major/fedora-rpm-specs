@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc3.260513g1d5dcaa3bd65.25
+%define pkgrelease 0.rc3.260514ge1914add2799.26
 %define kversion 7
-%define tarfile_release 7.1-rc3-9-g1d5dcaa3bd65
+%define tarfile_release 7.1-rc3-39-ge1914add2799
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260513g1d5dcaa3bd65.25%{?buildid}%{?dist}
+%define specrelease 0.rc3.260514ge1914add2799.26%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,13 +4847,17 @@ fi\
 #
 #
 %changelog
-* Wed May 13 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260513g1d5dcaa3bd65.25]
-- net: skbuff: preserve shared-frag marker during coalescing (William Bowling)
-- net: skbuff: propagate shared-frag marker through pskb_copy() (Hyunwoo Kim)
+* Thu May 14 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260514ge1914add2799.26]
+- net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
+- Revert "net: skbuff: propagate shared-frag marker through frag-transfer helpers" (Justin M. Forbes)
 
-* Wed May 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.1d5dcaa3bd65.25]
+* Thu May 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.e1914add2799.26]
+- net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Thu May 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.e1914add2799.25]
+- Linux v7.1.0-0.rc3.e1914add2799
 
 * Wed May 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.1d5dcaa3bd65.24]
 - configs: arm64: Enable Tegra410 PMUs (Mark Salter)

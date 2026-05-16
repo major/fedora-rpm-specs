@@ -3,8 +3,7 @@ Version:        2.6
 Release:        %autorelease
 Summary:        Recompression utilities for .png, .mng, .zip and .gz files
 
-# Source file headers all specify GPL-2.0-or-later (see source file headers),
-# except:
+# Source file headers all specify GPL-2.0-or-later, except:
 #
 #   The bundled and forked 7z (7-Zip code) in 7z/ is under the “LGPL” license.
 #   Based on https://www.7-zip.org/license.txt, and the absence of any mention
@@ -20,15 +19,14 @@ Summary:        Recompression utilities for .png, .mng, .zip and .gz files
 License:        GPL-3.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later
 # Additionally, the following bundled libraries are removed in %%prep and do
 # not contribute to the licenses of the binary RPMs:
-#
-# Apache-2.0:
-#   - zopfli/
-# MIT:
-#   - libdeflate/
+# - Apache-2.0: zopfli/
+# - MIT: libdeflate/
 SourceLicense:  %{license} AND Apache-2.0 AND MIT
 URL:            https://www.advancemame.it/
 %global forgeurl https://github.com/amadvance/advancecomp
 Source:         %{forgeurl}/archive/v%{version}/advancecomp-%{version}.tar.gz
+
+BuildRequires:  dos2unix
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -36,8 +34,6 @@ BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-
-BuildRequires:  dos2unix
 
 # System library supported by upstream
 BuildRequires:  zlib-devel
@@ -86,30 +82,32 @@ This package contains:
 %prep
 %autosetup
 
-dos2unix -k doc/*.txt
+dos2unix --keepdate doc/*.txt
 
 # Patch out bundled libdeflate
-rm -rv libdeflate
-sed -r -i '/libdeflate[\/_]/d' Makefile.am
+rm --recursive --verbose libdeflate
+sed --regexp-extended --in-place '/libdeflate[\/_]/d' Makefile.am
 # Fix up #include paths. The find-then-modify pattern keeps us from discarding
 # mtimes on any sources that do not need modification.
 find . -type f -exec gawk \
     '/^[[:blank:]]*#include.*libdeflate/ { print FILENAME; nextfile }' \
     '{}' '+' |
-  xargs -r -t sed -r -i 's@^([[:blank:]]*#include.*)libdeflate/@\1@'
+  xargs --no-run-if-empty --verbose sed --regexp-extended --in-place \
+      's@^([[:blank:]]*#include.*)libdeflate/@\1@'
 
 # Patch out bundled zopfli
-rm -rv zopfli
-sed -r -i \
-    -e '/zopfli[\/_]/d' \
-    -e 's/((\(7z_SOURCES\)|WindowOut\.h).*)[[:blank:]]*\\/\1/' \
+rm --recursive --verbose zopfli
+sed --regexp-extended --in-place \
+    --expression '/zopfli[\/_]/d' \
+    --expression 's/((\(7z_SOURCES\)|WindowOut\.h).*)[[:blank:]]*\\/\1/' \
     Makefile.am
 # Fix up #include paths. The find-then-modify pattern keeps us from discarding
 # mtimes on any sources that do not need modification.
 find . -type f -exec gawk \
     '/^[[:blank:]]*#include.*zopfli/ { print FILENAME; nextfile }' \
     '{}' '+' |
-  xargs -r -t sed -r -i -e 's@^([[:blank:]]*#include.*)zopfli/@\1@'
+  xargs --no-run-if-empty -t sed --regexp-extended --in-place \
+      --expression 's@^([[:blank:]]*#include.*)zopfli/@\1@'
 
 
 %conf

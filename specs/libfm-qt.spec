@@ -1,6 +1,6 @@
 Name:          libfm-qt
 Version:       2.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -83,6 +83,9 @@ This package provides translations for the libfm-qt package.
 %dir %{_datadir}/libfm-qt6/translations
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.0-2
+- Rebuild (qt6)
+
 * Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-1
 - Update to 2.4.0
 

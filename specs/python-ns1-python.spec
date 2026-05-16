@@ -1,15 +1,13 @@
 %global srcname ns1-python
 
 Name:           python-%{srcname}
-Version:        0.17.1
+Version:        0.27.4
 Release:        %autorelease
 Summary:        Python SDK for the NS1 DNS platform
 
 License:        MIT
 URL:            https://github.com/ns1/ns1-python
-Source:         %{pypi_source}
-
-Patch0001:      https://github.com/ns1/ns1-python/pull/75.patch#/0001-Fixup-compatibility-with-Python-3.10.patch
+Source:         %{pypi_source ns1_python}
 
 BuildArch:      noarch
 
@@ -34,22 +32,23 @@ Suggests:       python%{python3_version}dist(twisted)
 Python 3 version.
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
-rm -vrf *.egg-info
+%autosetup -n ns1_python-%{version} -p1
 # Tests are not distributed on PyPI
 sed -i -e '/setup_requires/,+3d' setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires -R
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files ns1
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/ns1_python-*.egg-info/
-%{python3_sitelib}/ns1/
 
 %changelog
 %autochangelog

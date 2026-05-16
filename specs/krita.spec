@@ -8,7 +8,7 @@
 
 Name:           krita
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -233,6 +233,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.0.1-3
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.0.1-2
 - Rebuild (qt6)
 

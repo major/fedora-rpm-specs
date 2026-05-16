@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.15.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -54,10 +54,6 @@ BuildRequires:  cmake(SDL2)
 
 Requires:       %{name}-server = %{version}-%{release}
 
-#Drop after f42
-Provides:       %{name}-data-game = %{version}-%{release}
-Obsoletes:      %{name}-data-game < 5.8.0-1
-
 Requires:       hicolor-icon-theme
 
 Provides:  bundled(irrlicht) = %{irr_version}
@@ -86,11 +82,6 @@ Minetest common data. This package is shared between minetest server and client.
 
 %prep
 %autosetup -p1 -n luanti-%{version}
-
-#pushd lib
-#tar xf %%{SOURCE9}
-#mv irrlicht-%%{irr_version} irrlichtmt
-#popd
 
 cp %{SOURCE7} doc/
 
@@ -223,6 +214,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Thu May 14 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.15.2-2
+- Spec, prov/obs cleanup
+
 * Thu Apr 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.15.2-1
 - 5.15.2
 

@@ -72,12 +72,12 @@ Patch:          0004-Skip-HiGHS_CMDTest.test_relaxed_mip.patch
 # - XPRESS_CMD
 # - XPRESS_PY
 
-BuildSystem:            pyproject
-BuildOption(install):   -L pulp
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license pulp
 # Omitted extras for non-free solvers: copt, cplex, gurobi, mosek, xpress
 BuildOption(generate_buildrequires): %{shrink:
-  -x highs
-  -x scip
+  --extras highs
+  --extras scip
 }
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

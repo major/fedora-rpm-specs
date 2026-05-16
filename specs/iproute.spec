@@ -1,6 +1,6 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.17.0
+Version:            7.0.0
 Release:            %autorelease
 URL:                https://kernel.org/pub/linux/utils/net/%{name}2/
 Source0:            https://kernel.org/pub/linux/utils/net/%{name}2/%{name}2-%{version}.tar.xz
@@ -84,8 +84,6 @@ echo -e "\nPREFIX=%{_prefix}\nSBINDIR=%{_sbindir}" >> config.mk
 %install
 %make_install
 
-echo '.so man8/tc-cbq.8' > %{buildroot}%{_mandir}/man8/cbq.8
-
 # libnetlink
 install -D -m644 include/libnetlink.h %{buildroot}%{_includedir}/libnetlink.h
 install -D -m644 lib/libnetlink.a %{buildroot}%{_libdir}/libnetlink.a
@@ -122,20 +120,18 @@ fi
 %exclude %{_mandir}/man7/tc-*
 %{_mandir}/man8/*
 %exclude %{_mandir}/man8/tc*
-%exclude %{_mandir}/man8/cbq*
 %exclude %{_mandir}/man8/arpd*
 %attr(644,root,root) %config %{_datadir}/iproute2/*
 %{_sbindir}/*
 %attr(644,root,root) %{_sysconfdir}/iproute2/*
 %exclude %{_sbindir}/tc
 %exclude %{_sbindir}/routel
-%{_datadir}/bash-completion/completions/devlink
+%{_datadir}/bash-completion/completions/*
 
 %files tc
 %license COPYING
 %{_mandir}/man7/tc-*
 %{_mandir}/man8/tc*
-%{_mandir}/man8/cbq*
 %dir %{_libdir}/tc/
 %{_libdir}/tc/*
 %{_sbindir}/tc

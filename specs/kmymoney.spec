@@ -10,7 +10,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -195,6 +195,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 5.2.2-3
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 5.2.2-2
 - Rebuild (qt6)
 

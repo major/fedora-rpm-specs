@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/pytest-dev/pytest-env
 Source:         %{url}/archive/%{version}/pytest-env-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l pytest_env
+BuildSystem:    pyproject
+BuildOption(install): --assert-license pytest_env
 
 BuildArch:      noarch
 
@@ -36,7 +36,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-pytest-env -f %{pyproject_files}

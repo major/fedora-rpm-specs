@@ -23,23 +23,19 @@ Release:        %autorelease
 License:        MIT
 URL:            https://github.com/biojppm/c4log
 Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
-# Helper script to patch out unconditional download of dependencies in CMake
-Source10:       patch-no-download
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 
 # Upstream always wants to build with c4core as a git submodule, but we want to
 # unbundle it and build with an external library. We therefore maintain this
 # patch without sending it upstream.
 Patch:          c4log-b8b86f3-external-c4core.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
-# A Python 3 interpreter is required for the patch-no-download script.
-BuildRequires:  python3-devel
 
 BuildRequires:  cmake(c4core)
 
@@ -69,17 +65,15 @@ applications that use c4log.
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-rm -rvf ext/c4core/cmake
-cp -rvp %{_datadir}/cmake/c4project ext/c4core/cmake
-
-# Patch out download of doctest:
-'%{SOURCE10}' 'ext/c4core/cmake/c4Project.cmake' \
-    '^    if\(_DOCTEST\)' '^    endif'
+cp --recursive --preserve '%{_datadir}/cmake/c4project' ext/c4core/cmake
 
 # Do not try to link against a nonexistent doctest library (doctest is
 # header-only, and we do not have the complete CMake project for doctest that
 # would provide a target that knows this):
-sed -r -i 's/\bdoctest\b//' test/CMakeLists.txt
+sed --regexp-extended --in-place \
+    --expression 's/(LIBS.*)\bdoctest\b/\1/' \
+    --expression 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
+    test/CMakeLists.txt
 
 
 %conf
@@ -109,12 +103,15 @@ sed -r -i 's/\bdoctest\b//' test/CMakeLists.txt
 # which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
-  mkdir -p '%{buildroot}%{_libdir}'
-  mv -v %{buildroot}%{_prefix}/lib/libc4log.so* '%{buildroot}%{_libdir}/'
-  mkdir -p '%{buildroot}%{_libdir}/cmake'
-  mv -v %{buildroot}%{_prefix}/lib/cmake/c4log '%{buildroot}%{_libdir}/cmake/'
+  mkdir --parents '%{buildroot}%{_libdir}'
+  mv --verbose %{buildroot}%{_prefix}/lib/libc4log.so* \
+      '%{buildroot}%{_libdir}/'
+  mkdir --parents '%{buildroot}%{_libdir}/cmake'
+  mv --verbose %{buildroot}%{_prefix}/lib/cmake/c4log \
+      '%{buildroot}%{_libdir}/cmake/'
   find %{buildroot}%{_libdir}/cmake/c4log -type f -name '*.cmake' -print0 |
-    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
+    xargs --no-run-if-empty --verbose --null \
+        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
 fi
 
 

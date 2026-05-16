@@ -1,7 +1,7 @@
 %global extras cli,rich,ws
 
 Name:           python-mcp
-Version:        1.26.0
+Version:        1.27.1
 Release:        %autorelease
 Summary:        Model Context Protocol SDK
 
@@ -30,7 +30,6 @@ Patch3:         remove-subject-from-exchange-request-test.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  tomcli
 # Test dependencies
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
@@ -54,9 +53,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n mcp-%{version}
-
-# relax dependency for pyjwt[crypto] as f43 has 2.8.0 and rawhide has 2.10+.
-tomcli set pyproject.toml arrays replace project.dependencies '^pyjwt\[crypto\].*$' "pyjwt[crypto]>=2.8.0"
 
 
 %generate_buildrequires

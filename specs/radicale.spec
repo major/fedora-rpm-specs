@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.7.2
+%define radicale_version  3.7.3
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -526,6 +526,9 @@ fi
 
 
 %changelog
+* Thu May 14 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.3-1
+- Update to 3.7.3
+
 * Wed Apr 29 2026 Peter Bieringer <pb@bieringer.de>  - 3.7.2-1
 - Update to 3.7.2
 

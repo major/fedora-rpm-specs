@@ -37,9 +37,9 @@ Source12:       ulid-show.1
 # Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2436255.
 Patch:          0001-Depend-on-typing-extensions-for-Python-3.11-avoid-it.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x pydantic
-BuildOption(install):   -l ulid
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras pydantic
+BuildOption(install): --assert-license ulid
 
 BuildArch:      noarch
 
@@ -82,12 +82,13 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-python-ulid -f %{pyproject_files}

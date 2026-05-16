@@ -8,8 +8,8 @@ License:        MIT
 URL:            https://github.com/asottile/re-assert
 Source:         %{url}/archive/v%{version}/re-assert-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l re_assert
+BuildSystem:    pyproject
+BuildOption(install): --assert-license re_assert
 
 BuildArch:      noarch
 

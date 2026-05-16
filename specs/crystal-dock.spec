@@ -3,7 +3,7 @@
 Name:           crystal-dock
 Summary:        Modern cross-desktop dock for the Linux Desktop
 Version:        2.14.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/dangvd/crystal-dock
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/crystal-dock.desktop
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 2.14.0-7
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 2.14.0-6
 - Rebuild (qt6)
 

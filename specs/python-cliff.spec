@@ -14,7 +14,7 @@ http://readthedocs.org/docs/cliff/en/latest/}
 %global common_desc_tests This package contains tests for the python cliff library.
 
 Name:             python-%{modname}
-Version:          4.13.3
+Version:          4.14.0
 Release:          %autorelease
 Summary:          Command Line Interface Formulation Framework
 
@@ -97,7 +97,6 @@ rm cliff/tests/test_sphinxext.py
 
 
 %files -n python3-%{modname} -f %{pyproject_files}
-%license LICENSE
 %doc doc/ README.rst ChangeLog AUTHORS CONTRIBUTING.rst
 
 

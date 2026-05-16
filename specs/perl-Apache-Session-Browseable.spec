@@ -1,11 +1,11 @@
 Name:		perl-Apache-Session-Browseable
-Version:	1.3.18
-Release:	4%{?dist}
+Version:	1.3.19
+Release:	1%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
 Source0:	https://cpan.metacpan.org/modules/by-module/Apache/Apache-Session-Browseable-%{version}.tar.gz
-Patch0:		Apache-Session-Browseable-1.3.6-synopsis-cafile.patch
+Patch0:		Apache-Session-Browseable-1.3.19-synopsis-cafile.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -29,6 +29,7 @@ BuildRequires:	perl(Apache::Session::Store::Postgres)
 BuildRequires:	perl(Apache::Session::Store::Sybase)
 BuildRequires:	perl(AutoLoader)
 BuildRequires:	perl(base)
+BuildRequires:	perl(Crypt::URandom)
 BuildRequires:	perl(DBI)
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(JSON)
@@ -57,11 +58,12 @@ BuildRequires:	perl(DBD::SQLite) > 1.19
 BuildRequires:	perl(DBI)
 BuildRequires:	valkey
 # Dependencies
+Requires:	perl(Digest::SHA)
 Requires:	perl(MIME::Base64)
 Requires:	perl(Redis)
 Requires:	perl(Storable)
 %if 0%{?fedora} || 0%{?rhel} >= 10
-Recommends:     perl(Redis::Fast)
+Recommends:	perl(Redis::Fast)
 %endif
 
 %description
@@ -112,6 +114,16 @@ kill $(cat /tmp/valkey.pid)
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Thu May 14 2026 Paul Howarth <paul@city-fan.org> - 1.3.19-1
+- Update to 1.3.19 (rhbz#2477392)
+  - Apache::Session::Generate::SHA256 used a low-entropy seed (time, PID, rand,
+    stringified hash ref) to derive session identifiers; use Crypt::URandom to
+    generate session ids from a cryptographically secure source, falling back
+    to the previous hashing method only if Crypt::URandom is unavailable
+    (CVE-2026-8503, similar in scope to CVE-2025-40931 and CVE-2025-40932)
+  - Fix Redis indexes: never cleaned before
+  - Improve resilience and reliability of Patroni driver
+
 * Thu Apr 09 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.18-4
 - BR: perl(DBD::Cassandra) to improve test coverage
 

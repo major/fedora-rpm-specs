@@ -1,11 +1,11 @@
 %global pypi_name pyqt5_sip
 %global _sip_api_major 12
-%global _sip_api_minor 17
+%global _sip_api_minor 18
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-pyqt5-sip
-Version:        12.17.1
-Release:        2%{?dist}
+Version:        12.18.0
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %doc README
 
 %changelog
+* Thu May 14 2026 Scott Talbert <swt@techie.net> - 12.18.0-1
+- Update to new upstream release 12.18.0 (#2429131)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

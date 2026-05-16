@@ -10,7 +10,7 @@
 Name:    libalkimia
 Summary: Financial library
 Version: 8.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -199,6 +199,9 @@ time \
 
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 8.2.1-5
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 8.2.1-4
 - Rebuild (qt6)
 

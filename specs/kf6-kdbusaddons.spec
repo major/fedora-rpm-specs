@@ -2,7 +2,7 @@
 
 Name:			kf6-%{framework}
 Version:		6.26.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		KDE Frameworks 6 Tier 1 addon with various classes on top of QtDBus
 License:		CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
 URL:			https://invent.kde.org/frameworks/%{framework}
@@ -80,6 +80,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.26.0-2
+- Rebuild (qt6)
+
 * Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
 - 6.26.0
 

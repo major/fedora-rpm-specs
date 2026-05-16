@@ -1,22 +1,19 @@
-
 Name:           python-pykeepass
 Version:        4.1.1.post1
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
 
-# The entire source is GPL-3.0-only, except:
-#
-# MIT:
-#   pykeepass/kdbx_parsing/twofish.py
+# The entire source is GPL-3.0-only, except that
+# pykeepass/kdbx_parsing/twofish.py is MIT.
 License:        GPL-3.0-only AND MIT
 URL:            https://github.com/libkeepass/pykeepass
 # The GitHub archive has tests; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x test
-BuildOption(install):   -l pykeepass
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras test
+BuildOption(install): --assert-license pykeepass
 
 BuildArch:      noarch
 
@@ -40,7 +37,8 @@ Summary:        %{summary}
 
 
 %check -a
-%{py3_test_envvars} %{python3} -m unittest discover -s tests -v
+%{py3_test_envvars} %{python3} -m unittest \
+    discover --start-directory tests --verbose
 
 
 %files -n python3-pykeepass -f %{pyproject_files}

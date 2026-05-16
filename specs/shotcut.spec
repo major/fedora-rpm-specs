@@ -4,7 +4,7 @@
 
 Name:           shotcut
 Version:        26.4.30
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -241,6 +241,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 26.4.30-3
+- Rebuild (qt6)
+
 * Tue May 12 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.4.30-2
 - Use %%{quote:(Great Britain)} in langpack macros to handle whitespace correctly
 

@@ -10,8 +10,8 @@ URL:            https://github.com/ohsu-comp-bio/py-tes
 # GitHub source archive.
 Source:         %{url}/archive/%{version}/py-tes-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l tes
+BuildSystem:    pyproject
+BuildOption(install): --assert-license tes
 
 BuildArch:      noarch
 
@@ -41,9 +41,9 @@ Summary:        %{summary}
 
 %check -a
 # Integration tests require a running server
-ignore="${ignore-} --ignore=tests/integration"
+skips="${x-} --ignore=tests/integration"
 
-%pytest ${ignore-} -v
+%pytest ${skips-} --verbose
 
 
 %files -n python3-py-tes -f %{pyproject_files}

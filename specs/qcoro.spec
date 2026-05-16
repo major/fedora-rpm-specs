@@ -15,7 +15,7 @@ application remains responsive.}
 
 Name: qcoro
 Version: 0.12.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -181,6 +181,9 @@ popd
 %endif
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.12.0-6
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 0.12.0-5
 - Rebuild (qt6)
 

@@ -2,8 +2,8 @@
 %global src_name Pypubsub
 
 Name:           python-pypubsub
-Version:        4.0.3
-Release:        30%{?dist}
+Version:        4.0.7
+Release:        1%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD-2-Clause
@@ -37,15 +37,19 @@ messages in larger applications.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+%pyproject_patch_dependency setuptools:drop_upper
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
 %pyproject_install
+rm -r %{buildroot}%{python3_sitelib}/contrib
 %pyproject_save_files pubsub
 
 %check
@@ -61,6 +65,9 @@ popd
 %license src/pubsub/LICENSE_BSD_Simple.txt
 
 %changelog
+* Thu May 14 2026 Scott Talbert <swt@techie.net> - 4.0.7-1
+- Update to new upstream release 4.0.7 (#2419735)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        6.6.4
-Release:        2%{?dist}
+Version:        6.6.5
+Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
 Url:            https://invent.kde.org/plasma/%{name}
@@ -78,6 +78,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
+- 6.6.5
+
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-3
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-2
 - Rebuild (qt6)
 

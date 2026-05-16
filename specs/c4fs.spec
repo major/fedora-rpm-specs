@@ -65,14 +65,14 @@ applications that use c4fs.
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-cp -rp '%{_datadir}/cmake/c4project' ext/c4core/cmake
+cp --recursive --preserve '%{_datadir}/cmake/c4project' ext/c4core/cmake
 
 # Do not try to link against a nonexistent doctest library (doctest is
 # header-only, and we do not have the complete CMake project for doctest that
 # would provide a target that knows this):
-sed -r -i \
-    -e 's/(LIBS.*)\bdoctest\b/\1/' \
-    -e 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
+sed --regexp-extended --in-place \
+    --expression 's/(LIBS.*)\bdoctest\b/\1/' \
+    --expression 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
     test/CMakeLists.txt
 
 
@@ -103,12 +103,14 @@ sed -r -i \
 # which worked for c4core?
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
-  mkdir -p '%{buildroot}%{_libdir}'
-  mv -v %{buildroot}%{_prefix}/lib/libc4fs.so* '%{buildroot}%{_libdir}/'
-  mkdir -p '%{buildroot}%{_libdir}/cmake'
-  mv -v %{buildroot}%{_prefix}/lib/cmake/c4fs '%{buildroot}%{_libdir}/cmake/'
+  mkdir --parents '%{buildroot}%{_libdir}'
+  mv --verbose %{buildroot}%{_prefix}/lib/libc4fs.so* '%{buildroot}%{_libdir}/'
+  mkdir --parents '%{buildroot}%{_libdir}/cmake'
+  mv --verbose %{buildroot}%{_prefix}/lib/cmake/c4fs \
+      '%{buildroot}%{_libdir}/cmake/'
   find %{buildroot}%{_libdir}/cmake/c4fs -type f -name '*.cmake' -print0 |
-    xargs -r -t -0 sed -r -i "s@/lib/@/$(basename '%{_libdir}')/@"
+    xargs --no-run-if-empty --verbose --null \
+        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
 fi
 
 

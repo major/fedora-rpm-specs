@@ -1,6 +1,6 @@
 Name: QXlsx
 Version:  1.4.10
-Release:  8%{?dist}
+Release:  9%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
@@ -57,6 +57,9 @@ These are the development files.
 
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.4.10-9
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 1.4.10-8
 - Rebuild (qt6)
 

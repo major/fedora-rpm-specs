@@ -5,15 +5,11 @@ Summary:        Python tool configuration
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/bagel897/pytoolconfig
-# The documentation sources are only included in the GitHub archive, not in the
-# PyPI sdist. However, the GitHub archive would require arcane incantations to
-# get the correct release version in the wheel metadata; we judge that this is
-# not worth it, and just do without the Sphinx documentation.
 Source:         %{pypi_source pytoolconfig}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x validation,global,doc
-BuildOption(install):   -L pytoolconfig
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras validation,global,doc
+BuildOption(install): --no-assert-license pytoolconfig
 
 BuildArch:      noarch
 
@@ -42,7 +38,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-pytoolconfig -f %{pyproject_files}

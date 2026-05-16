@@ -56,7 +56,7 @@ chmod -x demos/*/*.{py,sh}
 
 
 %check
-%pyproject_check_import sysv_ipc
+%{py3_test_envvars} %{python3} -m unittest discover
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

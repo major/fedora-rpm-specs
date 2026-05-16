@@ -13,7 +13,6 @@ Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 # Additionally, the following do not affect the License because they are not
 # part of the binary RPM:
-#
 #   - test/TestCase.vala is LGPL-2.0-or-later
 SourceLicense:  %{license} AND LGPL-2.0-or-later
 URL:            https://github.com/dahenson/agenda
@@ -30,8 +29,6 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
-
-BuildRequires:  hardlink
 
 BuildRequires:  meson
 BuildRequires:  vala
@@ -159,11 +156,6 @@ Funcionalidades principais:
 %meson_install
 
 %find_lang %{app_id}
-
-# Upstream installs the same SVG icon in many size-specific directories like
-# /usr/share/icons/hicolor/64x64@2/; we can save space by hardlinking these
-# together.
-hardlink -c -v '%{buildroot}%{_datadir}/icons/hicolor'
 
 
 %check

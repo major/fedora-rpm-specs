@@ -7,8 +7,8 @@ License:        Apache-2.0
 URL:            https://github.com/Kludex/python-multipart
 Source:         %{pypi_source python_multipart}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l python_multipart
+BuildSystem:    pyproject
+BuildOption(install): --assert-license python_multipart
 
 BuildArch:      noarch
 

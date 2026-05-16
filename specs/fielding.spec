@@ -4,7 +4,7 @@
 
 Name:          fielding
 Version:       0.1~%{gitdate}.%{shortcommit}
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       A simple REST API testing tool
 
 # The following files contribute to the licenses of the binary RPMs:
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fi
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.fielding.svg
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.1~20231028.022709.1912c80-11
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 0.1~20231028.022709.1912c80-10
 - Rebuild (qt6)
 

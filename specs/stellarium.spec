@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        26.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -102,6 +102,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 26.1-3
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 26.1-2
 - Rebuild (qt6)
 

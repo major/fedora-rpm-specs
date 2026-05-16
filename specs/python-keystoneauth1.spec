@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name keystoneauth1
 
 %global _description %{expand:
@@ -11,7 +11,7 @@ new clients.}
 %global with_doc 1
 
 Name:       python-%{pypi_name}
-Version:    5.13.1
+Version:    5.14.0
 Release:    %autorelease
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0
@@ -66,9 +66,6 @@ Documentation for OpenStack Identity Authentication Library
 %autosetup -n %{pypi_name}-%{version} -S git
 
 sed -i '/sphinx.ext.intersphinx.*$/d'  doc/source/conf.py
-
-# remove syntax tests
-rm keystoneauth1/tests/unit/test_hacking_checks.py
 
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini

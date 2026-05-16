@@ -34,13 +34,11 @@ Patch:          %{url}/pull/355.patch
 # https://github.com/ColinDuquesnoy/QDarkStyleSheet/pull/356
 Patch:          %{url}/pull/356.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x develop,example
-BuildOption(install):   -l qdarkstyle
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras develop,example
+BuildOption(install): --assert-license qdarkstyle
 
 BuildArch:      noarch
- 
-BuildRequires:  hardlink
 
 # This is required for the error-reporting option in the CLI. We have it as a
 # weak dependency, so we make it a BR to ensure we don’t end up with an
@@ -93,7 +91,8 @@ rm -vf qdarkstyle/*/*style.{qrc,qss} qdarkstyle/*/_variables.scss
 # be modified.
 find 'qdarkstyle' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i '1{/^#!/d}'
+  xargs --no-run-if-empty --verbose \
+      sed --regexp-extended --in-place '1{/^#!/d}'
 
 
 %build -p
@@ -108,12 +107,9 @@ QT_QPA_PLATFORM=offscreen PYTHONPATH="${PWD}" %{python3} -m qdarkstyle.utils \
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
-
-# Some files, particularly icons, are duplicated across themes and can be
-# hardlinked to save space.
-hardlink -c -v '%{buildroot}%{python3_sitelib}/qdarkstyle/'
 
 
 %check -a

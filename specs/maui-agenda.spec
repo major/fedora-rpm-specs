@@ -1,6 +1,6 @@
 Name:          maui-agenda
 Version:       1.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 # SPDX licenses missing from project, for the most part.
 License:       MIT AND GPL-3.0-or-later AND LGPL-3.0-only
 Summary:       Maui Calendar App for Plasma Mobile
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_datadir}/icons/hicolor/scalable/apps/agenda.svg
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-6
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-5
 - Rebuild (qt6)
 

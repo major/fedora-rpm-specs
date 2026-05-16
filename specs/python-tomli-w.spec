@@ -31,7 +31,7 @@ Summary:        %{summary}
 # Measuring coverage is discouraged in Python packaging guidelines:
 sed -i '/pytest-cov/d' tests/requirements.txt
 # We don't need tomli on Python 3.11+
-%if v"%{python3_version}" >= v"3.11"
+%if v"0%{?python3_version}" >= v"3.11"
 sed -i '/tomli/d' tests/requirements.txt
 sed -Ei 's/tomli(\.|$)/tomllib\1/' tests/*.py
 %endif

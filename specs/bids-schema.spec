@@ -92,7 +92,7 @@ BuildOption(generate_buildrequires): %{shrink:
     --extras expressions,render,validation,all
     }
 BuildOption(build): --directory tools/schemacode
-BuildOption(install): -L bidsschematools
+BuildOption(install): --no-assert-license bidsschematools
 
 BuildArch:      noarch
 
@@ -130,7 +130,7 @@ A Python library (available after installation in the Python interpreter as
 bidsschematools) for working with the Brain Imaging Data Structure (BIDS)
 schema.
 
-Features: 
+Features:
 
   • lightweight
   • reference schema parsing implementation used for schema testing
@@ -152,68 +152,77 @@ Features:
 # used or shipped. We also preemptively remove the CSS sources, which currently
 # don’t contain anything bundled or pre-minified, but are unused and might
 # contain something objectionable in a future release.
-rm -rf src/js/ src/css/
+rm --recursive --verbose src/js/ src/css/
 
 
 %install -p
 # Imitate the structure of https://github.com/bids-standard/bids-schema/ in
 # case we start packaging from that in the future.
-install -d '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}'
-ln -s '%{bidsversion}' '%{buildroot}%{_datadir}/bids-schema/versions/latest'
-cp -rvp src/schema \
+install --directory \
+    '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}'
+ln --symbolic '%{bidsversion}' \
+    '%{buildroot}%{_datadir}/bids-schema/versions/latest'
+cp --recursive --verbose --preserve src/schema \
     '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}/schema'
 # While https://github.com/bids-standard/bids-schema does not install
 # metaschema.json alongside the schema/ directory, it *is* included in the PyPI
 # sdist for bidsschematools.
-install -t '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
-    -p -m 0644 src/metaschema.json
+install --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
+    src/metaschema.json
 
 
 %install -a
 # Include a copy of the “exported” JSON version of the schema in the base
 # package to imitate the structure of
 # https://github.com/bids-standard/bids-schema. See readthedocs.yml.
-install -p -m 0644 \
-    -t '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
+install --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
     '%{buildroot}%{python3_sitelib}/bidsschematools/data/schema.json'
 
 # Unbundle the schema data from the Python library.
-sed -r -i '/\/bidsschematools\/data\/schema(\/|$)/d' %{pyproject_files}
+sed --regexp-extended --in-place \
+    '/\/bidsschematools\/data\/schema(\/|$)/d' %{pyproject_files}
 for thing in metaschema.json schema.json
 do
   rm "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
   # Create an absolute symlink into the buildroot and then convert it to a
   # relative one; the relative symlink works both in %%check and after the
   # package is actually installed.
-  ln -s \
+  ln --symbolic \
       "%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}/${thing}" \
       "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
   symlinks -c -o "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
 done
 
 # Do not ship the tests.
-sed -r -i '/\/bidsschematools\/tests(\/|$)/d' %{pyproject_files}
-sed -r -i '/bidsschematools\.tests(\.|$)/d' '%{_pyproject_modules}'
-rm -rvf '%{buildroot}%{python3_sitelib}/bidsschematools/tests'
+sed --regexp-extended --in-place '/\/bidsschematools\/tests(\/|$)/d' \
+    %{pyproject_files}
+sed --regexp-extended --in-place '/bidsschematools\.tests(\.|$)/d' \
+    '%{_pyproject_modules}'
+rm --recursive --verbose \
+    '%{buildroot}%{python3_sitelib}/bidsschematools/tests'
 
 # Install the man pages
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 # Install documentation. (Since we use %%doc with an absolute path for the
 # README.md file in the schema directory, we must use absolute paths for all
 # documentation; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_documentation.)
-install -t '%{buildroot}%{_pkgdocdir}' -D -p -m 0644 \
-    CITATION.cff
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_pkgdocdir}' CITATION.cff
 # The top-level README.md in the source tree is really for the *specification*,
 # and this package is for the *schema*. We therefore form a relative symlink to
 # the README.md in the schema directory (in two steps).
-ln -s \
+ln --symbolic \
     '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}/schema/README.md' \
     '%{buildroot}%{_pkgdocdir}/README.md'
 symlinks -c -o '%{buildroot}%{_pkgdocdir}/README.md'
-install -t '%{buildroot}%{_docdir}/python3-bidsschematools' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_docdir}/python3-bidsschematools' \
     tools/schemacode/README.md
 
 
@@ -229,9 +238,9 @@ k="${k-}${k+ and }not test_bids_datasets[fnirs_automaticity]"
 
 # Since we removed the tests from the installed package, we now link the
 # example data into the original source copy of the library for testing.
-ln -s "${PWD}/bids-examples-%{examples_commit}" \
+ln --symbolic "${PWD}/bids-examples-%{examples_commit}" \
     tools/schemacode/tests/data/bids-examples
-ln -s "${PWD}/bids-error-examples-%{error_examples_commit}" \
+ln --symbolic "${PWD}/bids-error-examples-%{error_examples_commit}" \
     tools/schemacode/tests/data/bids-error-examples
 # All of this manipulation is OK here in %%check because we already built the
 # wheel and installed the library to the buildroot.
@@ -240,7 +249,7 @@ ln -s "${PWD}/bids-error-examples-%{error_examples_commit}" \
 k="${k-}${k+ and }not test_valid_schema_with_check_jsonschema"
 %endif
 
-%pytest ${ignore-} -k "${k-}" -v
+%pytest ${ignore-} -k "${k-}" --verbose
 
 
 %files

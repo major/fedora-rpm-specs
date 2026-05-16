@@ -1,13 +1,13 @@
-%global git_commit 2367deb8e2c408a2d38e90d80b5a9580dbdff959
+%global git_commit 985272ff3d7ebc5e9f24ad9f8fcf8b1d2549f1b6
 
-%global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly osp rtp.io sngtc tls_wolfssl
+%global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly opentelemetry osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.6.4
-Release:  %autorelease
+Version:  4.0.0
+Release:  %autorelease -p -s beta
 License:  GPL-2.0-or-later
-Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:  https://github.com/%{name}/%{name}/archive/%{version}-beta/%{name}-%{version}-beta.tar.gz
 Source3:  opensips.sysusers
 # Fedora-specific patches
 Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
@@ -21,17 +21,6 @@ Patch: opensips-0008-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
 Patch: opensips-0009-Fix-format-specifier-warnings-on-32-bit-architecture.patch
 Patch: opensips-0010-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
 Patch: opensips-0011-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
-Patch: opensips-0012-support-for-libmongc-libbson-version-2.patch
-Patch: opensips-0013-require-libpcre2.patch
-Patch: opensips-0014-update-dialplan-module-for-pcre2.patch
-Patch: opensips-0015-create-pcre2-compile-context-once-instead-of-for-eac.patch
-Patch: opensips-0016-Makefile-tweaks-to-avoid-shell-.-expansions-from-fai.patch
-Patch: opensips-0017-dialplan-fix-copying-subst-s-out-vector.patch
-Patch: opensips-0018-dialplan-make-module-work-with-both-pcre2-and-pcre3-.patch
-Patch: opensips-0019-update-regex-module-for-pcre2.patch
-Patch: opensips-0020-regex-allow-pcre3-library.patch
-Patch: opensips-0021-regex-make-module-work-with-both-pcre2-and-pcre3-not.patch
-Patch: opensips-0022-regex-fix-broken-merge.patch
 
 URL:      https://opensips.org
 
@@ -126,6 +115,20 @@ BuildRequires: pkgconfig(openssl)
 The module implements authentication over JSON Web Tokens. Any database module
 (currently mysql, postgres, dbtext), must be loaded before this module in case
 the db_url parameter is set.
+
+%package  auth_web3
+Summary:  Performs Web3-based authentication
+Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: curl-devel
+BuildRequires: pkgconfig(openssl)
+
+%description auth_web3
+The auth_web3 module provides Web3-based authentication for OpenSIPS, enabling
+SIP authentication through blockchain technology and ENS (Ethereum Name
+Service) resolution.
+
+This module integrates with the Oasis Sapphire blockchain network to verify SIP
+digest authentication responses and resolve ENS names to wallet addresses.
 
 %package  b2bua
 Summary:  Back-2-Back User Agent
@@ -465,17 +468,17 @@ Requires: %{name}-httpd%{?_isa} = %{version}-%{release}
 This module implements a JSON server for the Management Interface that handles
 GET requests and generates JSON responses.
 
-%package  mi_xmlrpc_ng
+%package  mi_xmlrpc
 Summary:  A xmlrpc server for the Management Interface (new version)
 BuildRequires: libxml2-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-httpd%{?_isa} = %{version}-%{release}
 Provides: %{name}-xmlrpc_ng%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-mi_xmlrpc_ng < 2.2.2
+Obsoletes: %{name}-mi_xmlrpc_ng < 4.0.0
 Obsoletes: %{name}-xmlrpc_ng < 1.11.6
 Obsoletes: %{name}-xmlrpc < 1.11.6
 
-%description mi_xmlrpc_ng
+%description mi_xmlrpc
 This module implements a xmlrpc server that handles xmlrpc requests and generates
 xmlrpc responses. When a xmlrpc message is received a default method is executed.
 
@@ -924,16 +927,16 @@ the exchange of instant messages between SIP clients and XMPP(jabber)
 clients.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}-beta
 
 %build
-LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes \
+LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes STIR_SHAKEN_OPENSSL=yes \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   cfg_target=%{_sysconfdir}/opensips/
 
 %install
-NICER=0 make install TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes LIBDIR=%{_lib} \
+NICER=0 make install TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes STIR_SHAKEN_OPENSSL=yes LIBDIR=%{_lib} \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   basedir=%{buildroot} prefix=%{_prefix} \
@@ -1242,6 +1245,10 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/auth_jwt.so
 %doc docdir/README.auth_jwt
 
+%files auth_web3
+%{_libdir}/opensips/modules/auth_web3.so
+%doc docdir/README.auth_web3
+
 %files b2bua
 %{_libdir}/opensips/modules/b2b_entities.so
 %{_libdir}/opensips/modules/b2b_logic.so
@@ -1411,9 +1418,9 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/mi_http.so
 %doc docdir/README.mi_http
 
-%files mi_xmlrpc_ng
-%{_libdir}/opensips/modules/mi_xmlrpc_ng.so
-%doc docdir/README.mi_xmlrpc_ng
+%files mi_xmlrpc
+%{_libdir}/opensips/modules/mi_xmlrpc.so
+%doc docdir/README.mi_xmlrpc
 
 %files mmgeoip
 %{_libdir}/opensips/modules/mmgeoip.so

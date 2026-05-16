@@ -1,6 +1,6 @@
 Name:          maui-mauikit-arca
 Version:       1.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 # SPDX licenses missing from project, using license in licenses/
 License:       LGPL-3.0-only
 Summary:       Maui Archiver for compressed files
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.arca.appdata.xml
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-6
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-5
 - Rebuild (qt6)
 

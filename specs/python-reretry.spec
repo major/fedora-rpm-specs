@@ -10,9 +10,9 @@ URL:            https://github.com/leshchenko1979/reretry
 # Source:         %%{pypi_source reretry}
 Source:         %{url}/archive/%{version}/reretry-%{version}.tar.gz
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 BuildOption(generate_buildrequires): tests/test-requirements.txt
-BuildOption(install):   -l reretry
+BuildOption(install): --assert-license reretry
 
 BuildArch:      noarch
 

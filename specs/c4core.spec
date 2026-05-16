@@ -26,11 +26,11 @@ SourceLicense:  MIT AND BSL-1.0
 # The doctest-static BR is used only for tests and does not contribute to the
 # binary RPMs.
 License:        %{shrink:
-                MIT AND
-                BSL-1.0 AND
-                BSD-2-Clause AND
-                (Apache-2.0 OR MIT OR BSL-1.0)
-                }
+    MIT AND
+    BSL-1.0 AND
+    BSD-2-Clause AND
+    (Apache-2.0 OR MIT OR BSL-1.0)
+    }
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -102,28 +102,28 @@ Provides:       bundled(SG14) = 0^20190524git3a3b806
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
-rm -rvf cmake
-ln -s '%{_datadir}/cmake/c4project' cmake
+rm --recursive --verbose cmake
+ln --symbolic '%{_datadir}/cmake/c4project' cmake
 
 # Do not try to link against a nonexistent doctest library (doctest is
 # header-only, and we do not have the complete CMake project for doctest that
 # would provide a target that knows this):
-sed -r -i \
-    -e 's/(LIBS.*)\bdoctest\b/\1/' \
-    -e 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
+sed --regexp-extended --in-place \
+    --expression 's/(LIBS.*)\bdoctest\b/\1/' \
+    --expression 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
     test/CMakeLists.txt
 
 # Normally, in releases, the “current.md” changelog file is empty and
 # zero-length. When this is true, we remove it so it is not packaged.
-if [ "$(stat -c '%s' changelog/current.md)" = '0' ]
+if [ "$(stat --format '%s' changelog/current.md)" = '0' ]
 then
-  rm -vf changelog/current.md
+  rm --verbose changelog/current.md
 fi
 
 # debugbreak
-rm -rvf src/c4/ext/debugbreak
+rm --recursive --verbose src/c4/ext/debugbreak
 mkdir src/c4/ext/debugbreak
-ln -sv %{_includedir}/debugbreak.h src/c4/ext/debugbreak/
+ln --symbolic %{_includedir}/debugbreak.h src/c4/ext/debugbreak/
 
 # fast_float
 #
@@ -133,9 +133,9 @@ ln -sv %{_includedir}/debugbreak.h src/c4/ext/debugbreak/
 # the *system* fast_float headers. Once the amalgamated header is produced, we
 # again replace it with a symbolic link to the main system fast_float header,
 # thereby fully unbundling fast_float.
-rm -rv src/c4/ext/fast_float
-mkdir -p src/c4/ext/fast_float/include
-ln -sv %{_includedir}/fast_float src/c4/ext/fast_float/include/
+rm --recursive --verbose src/c4/ext/fast_float
+mkdir --parents src/c4/ext/fast_float/include
+ln --symbolic %{_includedir}/fast_float src/c4/ext/fast_float/include/
 # Replace amalgamated single-file header produced by build system with one that
 # trivially includes the main system fast_float header.
 cat > src/c4/ext/fast_float_all.h <<EOF
@@ -164,7 +164,7 @@ EOF
 # “re-bundled” as a result.
 
 # debugbreak
-ln -svf '%{_includedir}/debugbreak.h' \
+ln --symbolic --force '%{_includedir}/debugbreak.h' \
     '%{buildroot}%{_includedir}/c4/ext/debugbreak/'
 
 
@@ -172,7 +172,7 @@ ln -svf '%{_includedir}/debugbreak.h' \
 %cmake_build --target c4core-test-run-verbose
 
 # Verify that we did not accidentally bundle a real copy of fast_float
-if grep -F 'FASTFLOAT_' \
+if grep --fixed 'FASTFLOAT_' \
     '%{buildroot}%{_includedir}/c4/ext/fast_float_all.h' >/dev/null
 then
   echo 'Unwanted bundling of fast_float was detected!' 1>&2

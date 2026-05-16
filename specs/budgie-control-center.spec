@@ -11,7 +11,7 @@
 
 Name:          budgie-control-center
 Version:       2.1.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -230,6 +230,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Thu May 14 2026 Adam Williamson <awilliam@redhat.com> - 2.1.1-2
+- Rebuild for new accountsservice soname
+
 * Sat Mar 28 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.1-1
 - Update to 2.1.1 release
 - Fixes BZ#2445518

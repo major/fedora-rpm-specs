@@ -46,8 +46,8 @@ Source1:        %{libccd_forgeurl}/archive/v%{libccd_version}/libccd-%{libccd_ve
 %global fcl_forgeurl https://github.com/flexible-collision-library/fcl
 Source2:        %{fcl_forgeurl}/archive/%{fcl_version}/fcl-%{fcl_version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l fcl
+BuildSystem:    pyproject
+BuildOption(install): --assert-license fcl
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -147,7 +147,7 @@ Provides:       bundled(fcl) = %{fcl_version}
 %autosetup -n python-fcl-%{version} -N
 %autopatch -M999 -p1
 # Compile as C++14 instead of C++11, for compatibility with eigen3 5.0.
-sed -r -i 's/(-std=c\+\+)11\b/\114/' setup.py
+sed --regexp-extended --in-place 's/(-std=c\+\+)11\b/\114/' setup.py
 
 %if %{without system_fcl}
 %setup -q -T -D -b 1 -n python-fcl-%{version}
@@ -161,17 +161,17 @@ cp -p ../libccd-%{libccd_version}/BSD-LICENSE libccd-LICENSE
 pushd ../fcl-%{fcl_version}/
 %autopatch -m2000 -M2999 -p1
 # Compile as C++14 instead of C++11, for compatibility with eigen3 5.0.
-sed -r -i 's/(-std=c\+\+)11\b/\114/' \
+sed --regexp-extended --in-place 's/(-std=c\+\+)11\b/\114/' \
     CMakeModules/CompilerSettings.cmake CMakeLists.txt
 popd
-cp -p ../fcl-%{fcl_version}/LICENSE fcl-LICENSE
+cp --preserve ../fcl-%{fcl_version}/LICENSE fcl-LICENSE
 %endif
 
 
 %build -p
 %if %{without system_fcl}
 BUNDLEROOT="%{_vpath_builddir}/_bundled"
-mkdir -p "${BUNDLEROOT}"
+mkdir --parents "${BUNDLEROOT}"
 # Ensure we have an absolute path
 pushd "${BUNDLEROOT}"
 BUNDLEROOT="${PWD}"
@@ -228,7 +228,7 @@ export PYTHON_FCL_OMIT_LIBRARIES='fcl'
 # issues like https://github.com/pypa/setuptools/issues/2710), and no patch has
 # been attempted.
 find '%{buildroot}%{python3_sitearch}' -type f -name '*.cpp' -print -delete
-sed -r -i '/\.cpp$/d' %{pyproject_files}
+sed --regexp-extended --in-place '/\.cpp$/d' %{pyproject_files}
 
 
 %check -a

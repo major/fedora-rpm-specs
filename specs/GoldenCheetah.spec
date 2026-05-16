@@ -12,10 +12,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.37.RC4%%{?dist}
+Release:        0.38.RC4%%{?dist}
 %else
 Version:        3.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1:3.7.1-5
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1:3.7.1-4
 - Rebuild (qt6)
 

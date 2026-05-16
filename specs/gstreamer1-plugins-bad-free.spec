@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -173,7 +173,7 @@ BuildRequires:  pkgconfig(zxing)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Provides:       gstreamer1-vaapi = %{version}-%{release}
-Obsoletes:      gstreamer1-vaapi < 1.26.10-3
+Obsoletes:      gstreamer1-vaapi < 1.26.11-2
 
 # mpeg2enc, mplex used to be shipped in -freeworld
 Conflicts: gstreamer1-plugins-bad-freeworld < 1:1.26.3-3
@@ -928,6 +928,9 @@ EOF
 
 
 %changelog
+* Thu May 14 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.3-2
+- Update Obsoletes for gstreamer1-vaapi
+
 * Tue May 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.3-1
 - 1.28.3
 

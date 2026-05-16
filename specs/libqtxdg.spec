@@ -2,7 +2,7 @@ Name:           libqtxdg
 Summary:        QtXdg, a Qt6 implementation of XDG standards
 Version:        4.4.0
 
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
@@ -67,6 +67,9 @@ Files used for developing and building software that uses qtxdg.
 %{_qt6_archdatadir}/plugins/iconengines/libQt6XdgIconPlugin.so
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.4.0-3
+- Rebuild (qt6)
+
 * Wed May 13 2026 Jan Grulich <jgrulich@redhat.com> - 4.4.0-2
 - Rebuild (qt6)
 

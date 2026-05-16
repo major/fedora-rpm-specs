@@ -11,6 +11,7 @@ Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  %{py3_dist setuptools}
 
 # This package is imported but is not listed as a dep

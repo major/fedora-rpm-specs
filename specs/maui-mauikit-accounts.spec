@@ -1,6 +1,6 @@
 Name:          maui-mauikit-accounts
 Version:       4.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       BSD-2-Clause AND LGPL-2.1-or-later AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later
 Summary:       MauiKit utilities to handle User Accounts
 URL:           https://invent.kde.org/maui/mauikit-accounts
@@ -57,6 +57,9 @@ on %{name}.
 %{_includedir}/MauiKit4/Accounts/
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-6
+- Rebuild (qt6)
+
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-5
 - Rebuild (qt6)
 

@@ -21,9 +21,9 @@ Source13:       quart-shell.1
 # (This also patches out pytest-sugar because it’s unnecessary.)
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x dotenv requirements/tests.in
-BuildOption(install):   -l quart
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras dotenv requirements/tests.in
+BuildOption(install): --assert-license quart
 
 BuildArch:      noarch
 
@@ -49,12 +49,13 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-quart -f %{pyproject_files}

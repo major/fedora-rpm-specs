@@ -46,7 +46,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.20.0
+Version:        9.21.0
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -127,13 +127,13 @@ Summary:        Workflow management system to create reproducible and scalable d
 # - npm(fast-json-patch)
 # - npm(json-stringify-pretty-compact)
 License:        %{shrink:
-                Apache-2.0 AND
-                BSD-2-Clause AND
-                BSD-3-Clause AND
-                ISC AND
-                MIT AND
-                MIT-0
-                }
+    Apache-2.0 AND
+    BSD-2-Clause AND
+    BSD-3-Clause AND
+    ISC AND
+    MIT AND
+    MIT-0
+    }
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
 %global forgeurl https://github.com/snakemake/snakemake
 # We could use the PyPI sdist, which already contains the HTML report assets,
@@ -422,7 +422,7 @@ which will be automatically deployed to any execution environment.}
 # documentation directory.
 for editor in nano vim
 do
-  cp -vp "misc/${editor}/README.md" "README-${editor}.md"
+  cp --preserve "misc/${editor}/README.md" "README-${editor}.md"
 done
 
 # The CDN URL for tailwind.css does not deliver a file with a stable checksum,
@@ -438,7 +438,7 @@ cat >> src/snakemake/assets/__init__.py <<EOF
 # package a copy of the file, we record the checksum of the actual packaged
 # file.
 Assets.spec["tailwindcss/tailwind.css"].sha256 = "$(
-  sha256sum -b src/snakemake/assets/data/tailwindcss/tailwind.css |
+  sha256sum --binary src/snakemake/assets/data/tailwindcss/tailwind.css |
     awk '{print $1}'
 )"
 EOF
@@ -474,12 +474,13 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 # Remove shebangs from non-executable scripts. The Python script is executable
 # in the source tree but will be installed without executable permissions.
-sed -r -i '1{/^#!/d}' \
+sed --regexp-extended --in-place '1{/^#!/d}' \
     %{buildroot}%{python3_sitelib}/snakemake/executors/jobscript.sh \
     %{buildroot}%{python3_sitelib}/snakemake/executors/google_lifesciences_helper.py
 
 # Mark license files in the asset bundle.
-sed -r -i 's@^.*/(LICEN[CS]E|NOTICE)[^/]*$@%%license &@' %{pyproject_files}
+sed --regexp-extended --in-place \
+    's@^.*/(LICEN[CS]E|NOTICE)[^/]*$@%%license &@' %{pyproject_files}
 
 # We wait until %%install to generate the man page so that we can use the
 # proper script entry point. The generated man page is not perfect, but it is
@@ -495,8 +496,9 @@ install -t '%{buildroot}%{_datadir}/nano' -D -m 0644 -p \
     misc/nano/syntax/snakemake.nanorc
 
 # Install vim syntax highlighting
-install -d '%{buildroot}%{_datadir}/vim/vimfiles'
-cp -vrp misc/vim/* '%{buildroot}%{_datadir}/vim/vimfiles'
+install --directory '%{buildroot}%{_datadir}/vim/vimfiles'
+cp --verbose --recursive --preserve misc/vim/* \
+    '%{buildroot}%{_datadir}/vim/vimfiles'
 find '%{buildroot}%{_datadir}/vim/vimfiles' \
     -type f -name 'README.*' -print -delete
 
@@ -585,7 +587,7 @@ cd src/
 # discover them freely, and see the “Running the full test suite” section in
 # docs/project_info/contributing.rst for the list of tests that should be run.
 #   - tests/test_api.py requires network access and S3 credentials
-%pytest -v -k "${k-}" ${ignore-} \
+%pytest --verbose -k "${k-}" \
     ../tests/tests.py \
 %if %{with conda_tests}
     ../tests/tests_using_conda.py \

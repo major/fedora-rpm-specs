@@ -28,7 +28,9 @@ Summary:        Coverage PTH file to enable coverage at the virtualenv level
 Requires:       python3-coverage
 
 # since there are no .py files, this is not picked automatically
+%if "%{?python3_version}" != ""
 Requires:       python(abi) = %python3_version
+%endif
 
 %description -n python3-%{pypi_name}
 A .pth file to site-packages to enable coverage.py.

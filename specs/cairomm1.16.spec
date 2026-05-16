@@ -33,12 +33,12 @@ License:        LGPL-2.0-or-later
 #   untracked/docs/reference/html/menu.js
 #   untracked/docs/reference/html/menudata.js
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFAP AND
-                GPL-2.0-or-later AND
-                LGPL-2.1-or-later AND
-                MIT
-                }
+    %{license} AND
+    FSFAP AND
+    GPL-2.0-or-later AND
+    LGPL-2.1-or-later AND
+    MIT
+    }
 
 %global src_base https://www.cairographics.org/releases
 Source0:        %{src_base}/cairomm-%{version}.tar.xz
@@ -147,19 +147,19 @@ The API/ABI version series is %{apiver}.
 
 # Remove the tag file, which triggers a rebuild of the documentation.
 # While we are at it, we might as well rebuild the devhelp XML too.
-rm -rf untracked/docs/reference/html
+rm --recursive untracked/docs/reference/html
 rm untracked/docs/reference/cairomm-%{apiver}.tag \
    untracked/docs/reference/cairomm-%{apiver}.devhelp2
 
 
 %conf
 %meson \
-  -Dmaintainer-mode=%{?with_maintainer_mode:true}%{?!with_maintainer_mode:false} \
-  -Dbuild-documentation=true \
-  -Dbuild-examples=false \
-  -Dbuild-tests=true \
-  -Dboost-shared=true \
-  -Dwarnings=max
+    -Dmaintainer-mode=%{?with_maintainer_mode:true}%{?!with_maintainer_mode:false} \
+    -Dbuild-documentation=true \
+    -Dbuild-examples=false \
+    -Dbuild-tests=true \
+    -Dboost-shared=true \
+    -Dwarnings=max
 
 
 %build
@@ -169,9 +169,10 @@ rm untracked/docs/reference/cairomm-%{apiver}.tag \
 %install
 %meson_install
 
-install -t %{buildroot}%{_docdir}/cairomm-%{apiver} -m 0644 -p \
+install --preserve-timestamps --mode 0644 \
+    --target %{buildroot}%{_docdir}/cairomm-%{apiver} \
     ChangeLog NEWS README.md
-cp -rp examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
+cp --recursive --preserve examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
 
 %{doxygen_unbundle_buildroot}
 

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.15
+Version: 13.16
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -347,17 +347,21 @@ CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 %endif
 
 %if %{without clangplugin}
-CONFIG_ARGS="$CONFIG_ARGS --without-clang-plugin"
+CONFIG_ARGS="$CONFIG_ARGS --with-clang-plugin=no"
+%else
+CONFIG_ARGS="$CONFIG_ARGS --with-clang-plugin=yes"
 %endif
 
 %if %{without gccplugin}
-CONFIG_ARGS="$CONFIG_ARGS --without-gcc-plugin"
+CONFIG_ARGS="$CONFIG_ARGS --with-gcc-plugin=no"
 %else
 CONFIG_ARGS="$CONFIG_ARGS --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}"
 %endif
 
 %if %{without llvmplugin}
-CONFIG_ARGS="$CONFIG_ARGS --without-llvm-plugin"
+CONFIG_ARGS="$CONFIG_ARGS --with-llvm-plugin=no"
+%else
+CONFIG_ARGS="$CONFIG_ARGS --with-llvm-plugin=yes"
 %endif
 
 %if %{without tests}
@@ -536,6 +540,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 14 2026 Nick Clifton  <nickc@redhat.com> - 13.16-1
+- GCC Plugin: Fix error when checking for function level changes in the PIC and GOW settings. 
+
 * Thu May 07 2026 Nick Clifton  <nickc@redhat.com> - 13.15-1
 - Annocheck: LTO test: Add exceptions for Clang runtime support object files.
 

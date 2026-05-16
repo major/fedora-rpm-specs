@@ -1,6 +1,6 @@
 Name:          optiimage
 Version:       1.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-3.0-only AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later AND GPL-3.0-or-later AND BSD-2-Clause AND LGPL-3.0-only AND FSFAP
 Summary:       A useful image compressor that supports many file types
 URL:           https://apps.kde.org/%{name}/
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/org.kde.optiimage.metainfo.xml
 
 %changelog
+* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-6
+- Rebuild (qt6)
+
 * Fri Apr 17 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.0-5
 - Rebuild (qt6)
 

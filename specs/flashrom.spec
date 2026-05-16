@@ -1,6 +1,6 @@
 Name:		flashrom
 Version:	1.6.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPL-2.0-only
 URL:		https://flashrom.org
@@ -23,7 +23,6 @@ BuildRequires:	gcc
 BuildRequires:	gnupg2
 %if ! 0%{?rhel}
 BuildRequires:	libftdi-devel
-BuildRequires:	libjaylink-devel
 %endif
 BuildRequires:	libusb1-devel
 BuildRequires:	meson
@@ -86,6 +85,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Thu Feb 09 2023 Richard Hughes <richard@hughsie.com> - 1.6.0-4
+- Remove support for libjaylink as it has been orphaned in Fedora.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

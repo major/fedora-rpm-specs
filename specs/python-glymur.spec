@@ -1,6 +1,5 @@
 Name:           python-glymur
-Version:        0.14.7
-%global srcversion %(echo '%{version}' | sed -r 's/\\.(post)/\\1/')
+Version:        0.14.8
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -8,7 +7,7 @@ Summary:        Interface to the OpenJPEG library for working with JPEG 2000 fil
 License:        MIT
 URL:            https://github.com/quintusdias/glymur
 # The PyPI sdist lacks documentation.
-Source0:        %{url}/archive/v%{srcversion}/glymur-%{srcversion}.tar.gz
+Source0:        %{url}/archive/v%{version}/glymur-%{version}.tar.gz
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 # output:
 Source1:        jp2dump.1
@@ -20,8 +19,8 @@ BuildOption(install): --assert-license glymur
 
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported
-# architectures.  We can still make all the built RPMs noarch.  Since the
-# package does not in fact contain any compiled code, there is no corresponding
+# architectures. We can still make all the built RPMs noarch. Since the package
+# does not in fact contain any compiled code, there is no corresponding
 # debuginfo package.
 %global debug_package %{nil}
 
@@ -48,6 +47,7 @@ library which allows one to read and write JPEG 2000 files.}
 
 %description %_description
 
+
 %package -n python3-glymur
 Summary:        %{summary}
 
@@ -64,12 +64,13 @@ Recommends:     %{py3_dist gdal}
 
 
 %install -a
-install -m 0644 -p -D -t '%{buildroot}%{_mandir}/man1' \
+install -D --mode 0644 --preserve-timestamps \
+    --target-directory '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE1}' '%{SOURCE2}' '%{SOURCE3}'
 
 
 %check -a
-%pytest -n auto -rs -v
+%pytest --numprocesses auto -rs --verbose
 
 
 %files -n python3-glymur -f %{pyproject_files}

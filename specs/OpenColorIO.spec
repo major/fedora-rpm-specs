@@ -28,12 +28,12 @@ BuildRequires:  python3-markupsafe
 BuildRequires:  python3-setuptools
 
 # Libraries
-BuildRequires:  cmake(OpenEXR)
+BuildRequires:  cmake(OpenEXR) > 3
 BuildRequires:  boost-devel
 BuildRequires:  expat-devel
 BuildRequires:  freeglut-devel
 BuildRequires:  glew-devel
-BuildRequires:  imath-devel
+BuildRequires:  cmake(Imath)
 BuildRequires:  libX11-devel libXmu-devel libXi-devel
 BuildRequires:  mesa-libGL-devel mesa-libGLU-devel
 BuildRequires:  minizip-ng-compat-devel >= 3.0.6
