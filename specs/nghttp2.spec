@@ -13,7 +13,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.69.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -33,6 +33,7 @@ BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: systemd-rpm-macros
+BuildRequires: systemd-devel
 BuildRequires: zlib-devel
 
 # For gpg verification of source tarball
@@ -146,6 +147,8 @@ pushd build
 install -D -m0444 -p contrib/nghttpx.service \
     "$RPM_BUILD_ROOT%{_unitdir}/nghttpx.service"
 popd
+install -D -m0644 -p nghttpx.conf.sample \
+    "$RPM_BUILD_ROOT%{_sysconfdir}/nghttpx/nghttpx.conf"
 
 # not needed on Fedora/RHEL
 rm -f "$RPM_BUILD_ROOT%{_libdir}/libnghttp2.la"
@@ -191,6 +194,8 @@ popd
 %{_mandir}/man1/nghttpd.1*
 %{_mandir}/man1/nghttpx.1*
 %{_unitdir}/nghttpx.service
+%dir %{_sysconfdir}/nghttpx
+%config(noreplace) %{_sysconfdir}/nghttpx/nghttpx.conf
 
 %files -n libnghttp2
 %{_libdir}/libnghttp2.so.*
@@ -223,6 +228,10 @@ popd
 
 
 %changelog
+* Fri May 15 2026 Jan Macku <jamacku@redhat.com> - 1.69.0-2
+- add missing build dependency on systemd-devel (#2477798)
+- install missing sample configuration file for nghttpx service (#2477799)
+
 * Tue Apr 21 2026 Jan Macku <jamacku@redhat.com> - 1.69.0-1
 - update to the latest upstream release
 

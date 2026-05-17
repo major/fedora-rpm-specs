@@ -1,6 +1,6 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        4.7.0
+Version:        4.8.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
@@ -107,6 +107,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri May 15 2026 Robert Scheck <robert@fedoraproject.org> 4.8.0-1
+- Upgrade to 4.8.0 (#2476983)
+
 * Sat Apr 18 2026 Robert Scheck <robert@fedoraproject.org> 4.7.0-1
 - Upgrade to 4.7.0 (#2455853)
 

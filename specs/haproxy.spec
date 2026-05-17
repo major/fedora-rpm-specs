@@ -1,42 +1,30 @@
-%define haproxy_user    haproxy
-%define haproxy_group   %{haproxy_user}
-%define haproxy_homedir %{_localstatedir}/lib/haproxy
-%define haproxy_confdir %{_sysconfdir}/haproxy
-%define haproxy_datadir %{_datadir}/haproxy
-
 %global _hardened_build 1
 
+Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
-Version:        3.0.19
+Version:        3.0.23
 Release:        1%{?dist}
-Summary:        HAProxy reverse proxy for high availability environments
-
-License:        GPL-2.0-or-later
-
-URL:            http://www.haproxy.org/
-Source0:        %{url}/download/3.0/src/haproxy-%{version}.tar.gz
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
+URL:            https://www.haproxy.org/
+Source0:        https://www.haproxy.org/download/%(b=%{version}; echo ${b%.*})/src/%{name}-%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        %{name}.cfg
 Source3:        %{name}.logrotate
 Source4:        %{name}.sysconfig
-Source5:        %{name}.sysusers
-Source6:        halog.1
-
-# https://github.com/haproxy/haproxy/commit/1c0f781994a89b5cbd7b4b893c23e6d2b75b1764
-Patch0:		haproxy-3.0.17-lua-5.5.patch
-
+Source5:        %{name}.sysusersd
+Source6:        https://salsa.debian.org/haproxy-team/haproxy/-/raw/c30a7411203b8c4234698e47325d2543359f9d66/debian/halog.1
+Patch0:         https://github.com/haproxy/haproxy/commit/1c0f781994a89b5cbd7b4b893c23e6d2b75b1764.patch#/haproxy-3.0.17-lua-5.5.patch
 BuildRequires:  gcc
 BuildRequires:  libxcrypt-devel
 BuildRequires:  lua-devel
-BuildRequires:  pcre2-devel
-BuildRequires:  openssl-devel
-BuildRequires:  systemd-devel
-BuildRequires:  systemd
-BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
-
+BuildRequires:  openssl-devel
+BuildRequires:  pcre2-devel
+BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 Requires(pre):  shadow-utils
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 
 %description
 HAProxy is a TCP/HTTP reverse proxy which is particularly suited for high
@@ -49,56 +37,50 @@ availability environments. Indeed, it can:
  - stop accepting connections without breaking existing ones
  - add, modify, and delete HTTP headers in both directions
  - block requests matching particular patterns
- - report detailed status to authenticated users from a URI
-   intercepted from the application
+ - report detailed status to authenticated users from a URI intercepted
+   from the application
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .lua55
+%autosetup -p1
 
 %build
-
-make %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
-
-make admin/halog/halog ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
-
-pushd admin/iprange
-make OPTIMIZE="%{build_cflags}" LDFLAGS="%{build_ldflags}"
-popd
+%make_build \
+  TARGET="linux-glibc" \
+  EXTRAVERSION="-%{release}" \
+  USE_PCRE2=1 \
+  USE_OPENSSL=1 \
+  USE_LUA=1 \
+  USE_PROMEX=1 \
+  CFLAGS="%{optflags}" \
+  LDFLAGS="%{__global_ldflags}" \
+  DEFINE=-DMAX_SESS_STKCTR=12 \
+  EXTRA="admin/halog/halog admin/iprange/iprange admin/iprange/ip6range"
 
 %install
-make install-bin DESTDIR=%{buildroot} PREFIX=%{_prefix} SBINDIR=%{_sbindir} TARGET="linux2628"
-make install-man DESTDIR=%{buildroot} PREFIX=%{_prefix}
+make install-{bin,man} DESTDIR=%{buildroot} PREFIX=%{_prefix} SBINDIR=%{_sbindir} \
+  EXTRA="admin/halog/halog admin/iprange/iprange admin/iprange/ip6range"
 
-install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-install -p -D -m 0644 %{SOURCE2} %{buildroot}%{haproxy_confdir}/%{name}.cfg
-install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/%{name}.cfg
+install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/halog.1
-install -d -m 0755 %{buildroot}%{haproxy_homedir}
-install -d -m 0755 %{buildroot}%{haproxy_datadir}
-install -d -m 0755 %{buildroot}%{haproxy_confdir}/conf.d
-install -d -m 0755 %{buildroot}%{_bindir}
-install -p -m 0755 ./admin/halog/halog %{buildroot}%{_bindir}/halog
-install -p -m 0755 ./admin/iprange/iprange %{buildroot}%{_bindir}/iprange
-install -p -m 0755 ./admin/iprange/ip6range %{buildroot}%{_bindir}/ip6range
+mkdir -p %{buildroot}{%{_sysconfdir}/%{name}/conf.d,%{_localstatedir}/lib/%{name}}/
 
-for httpfile in $(find ./examples/errorfiles/ -type f) 
-do
-    install -p -m 0644 $httpfile %{buildroot}%{haproxy_datadir}
+for httpfile in $(find examples/errorfiles/ -type f); do
+  install -D -p -m 0644 ${httpfile} %{buildroot}%{_datadir}/%{name}/${httpfile##*/}
 done
+rm -rf examples/{errorfiles/,haproxy.init}
 
-rm -rf ./examples/errorfiles/
+# Convert from ISO-8859-1 to UTF-8
+iconv -f ISO-8859-1 -t UTF-8 -o doc/internals/connection-scale.txt{.utf8,}
+touch -c -r doc/internals/connection-scale.txt{,.utf8}
+mv -f doc/internals/connection-scale.txt{.utf8,}
 
-find ./examples/* -type f ! -name "*.cfg" -exec rm -f "{}" \;
-
-for textfile in $(find ./ -type f -name '*.txt')
-do
-    mv $textfile $textfile.old
-    iconv --from-code ISO8859-1 --to-code UTF-8 --output $textfile $textfile.old
-    rm -f $textfile.old
-done
+# Prepare doc/ for %%doc inclusion
+mv -f doc/{gpl,lgpl}.txt .
+rm -f doc/{gpl,lgpl}.txt doc/%{name}.1
 
 %pre
 %sysusers_create_compat %{SOURCE5}
@@ -113,26 +95,29 @@ done
 %systemd_postun_with_restart %{name}.service
 
 %files
-%doc doc/* examples/*
-%doc CHANGELOG README VERSION
-%license LICENSE
-%dir %{haproxy_homedir}
-%dir %{haproxy_confdir}
-%dir %{haproxy_confdir}/conf.d
-%dir %{haproxy_datadir}
-%{haproxy_datadir}/*
-%config(noreplace) %{haproxy_confdir}/%{name}.cfg
+%license LICENSE gpl.txt lgpl.txt
+%doc CHANGELOG README doc/* examples/
+%dir %{_sysconfdir}/%{name}/
+%config(noreplace) %{_sysconfdir}/%{name}/%{name}.cfg
+%dir %{_sysconfdir}/%{name}/conf.d/
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%{_unitdir}/%{name}.service
-%{_sbindir}/%{name}
 %{_bindir}/halog
 %{_bindir}/iprange
 %{_bindir}/ip6range
-%{_mandir}/man1/*
+%{_sbindir}/%{name}
+%{_unitdir}/%{name}.service
 %{_sysusersdir}/%{name}.conf
+%{_datadir}/%{name}/
+%{_mandir}/man1/halog.1*
+%{_mandir}/man1/%{name}.1*
+%dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sat May 16 2026 Robert Scheck <robert@fedoraproject.org> - 3.0.23-1
+- Upgrade to 3.0.23
+- Spec file cleanup and modernization (thanks to Xose Vazquez Perez)
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.19-1
 - update to 3.0.19
 
@@ -303,13 +288,13 @@ done
 
 * Thu Oct 01 2020 Ryan O'Hara <rohara@redhat.com> - 2.2.4-1
 - Update to 2.2.4 (#1883742)
-    
+
 * Thu Sep 17 2020 Ryan O'Hara <rohara@redhat.com> - 2.2.3-2
 - Fix build for late loading of libgcc_s
 
 * Mon Sep 14 2020 Ryan O'Hara <rohara@redhat.com> - 2.2.3-1
 - Update to 2.2.3 (#1876932)
-    
+
 * Fri Jul 31 2020 Ryan O'Hara <rohara@redhat.com> - 2.2.2-1
 - Update to 2.2.2 (#1862400)
 
@@ -730,7 +715,7 @@ done
 - remove upstream patches, they are now part of source distribution
 
 * Sat Nov 22 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.3.15.6-2
-- apply upstream patches 
+- apply upstream patches
 
 * Sat Nov 15 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.3.15.6-1
 - update to 1.3.15.6

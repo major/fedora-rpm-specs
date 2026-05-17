@@ -7,8 +7,8 @@ License:        GPL-3.0-or-later
 URL:            https://codeberg.org/atufi/rfc3987
 Source:         %{pypi_source rfc3987}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l rfc3987
+BuildSystem:    pyproject
+BuildOption(install): --assert-license rfc3987
 
 BuildArch:      noarch
 
@@ -31,11 +31,12 @@ Summary:        %{summary}
 %install -a
 # Remove shebang from non-executable library file.
 # https://codeberg.org/atufi/rfc3987/pulls/19
-sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/rfc3987.py
+sed --regexp-extended --in-place '1{/^#!/d}' \
+    %{buildroot}%{python3_sitelib}/rfc3987.py
 
 
 %check -a
-%{py3_test_envvars} %{python3} -m doctest -v rfc3987.py
+%{py3_test_envvars} %{python3} -m doctest --verbose rfc3987.py
 
 
 %files -n python3-rfc3987 -f %{pyproject_files}

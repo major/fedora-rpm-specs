@@ -19,7 +19,7 @@ Name:           protobuf3
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        %autorelease
+Release:        %autorelease -b 50
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -105,6 +105,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  emacs
 BuildRequires:  zlib-devel
 
+Provides:       protobuf = %{version}-%{release}
+Provides:       protobuf%{?_isa} = %{version}-%{release}
+
 %description
 Protocol Buffers are a way of encoding structured data in an efficient
 yet extensible format. Google uses Protocol Buffers for almost all of
@@ -121,6 +124,8 @@ breaking deployed programs that are compiled against the "old" format.
 %package compiler
 Summary:        Protocol Buffers compiler
 Requires:       %{name} = %{version}-%{release}
+Provides:       protobuf-compiler = %{version}-%{release}
+Provides:       protobuf-compiler%{?_isa} = %{version}-%{release}
 
 %description compiler
 This package contains Protocol Buffers compiler for all programming
@@ -131,6 +136,8 @@ Summary:        Protocol Buffers C++ headers and libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-compiler = %{version}-%{release}
 Requires:       zlib-devel
+Provides:       protobuf-devel = %{version}-%{release}
+Provides:       protobuf-devel%{?_isa} = %{version}-%{release}
 
 Obsoletes:      protobuf-static < 3.19.6-4
 
@@ -140,6 +147,8 @@ C++ headers and libraries
 
 %package lite
 Summary:        Protocol Buffers LITE_RUNTIME libraries
+Provides:       protobuf-lite = %{version}-%{release}
+Provides:       protobuf-lite%{?_isa} = %{version}-%{release}
 
 %description lite
 Protocol Buffers built with optimize_for = LITE_RUNTIME.
@@ -152,6 +161,8 @@ lacks descriptors, reflection, and some other features.
 Summary:        Protocol Buffers LITE_RUNTIME development libraries
 Requires:       %{name}-devel = %{version}-%{release}
 Requires:       %{name}-lite = %{version}-%{release}
+Provides:       protobuf-lite-devel = %{version}-%{release}
+Provides:       protobuf-lite-devel%{?_isa} = %{version}-%{release}
 
 Obsoletes:      protobuf-lite-static < 3.19.6-4
 
@@ -170,11 +181,13 @@ BuildRequires:  python3-pkg-resources
 BuildRequires:  python3-devel
 %if %{with python_cpp}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       python3-protobuf%{?_isa} = %{version}-%{release}
 %else
 BuildArch:      noarch
 %endif
 Conflicts:      %{name}-compiler > %{version}
 Conflicts:      %{name}-compiler < %{version}
+%py_provides    python3-protobuf
 
 %description -n python3-protobuf3
 This package contains Python libraries for Google Protocol Buffers
@@ -183,6 +196,7 @@ This package contains Python libraries for Google Protocol Buffers
 %package vim
 Summary:        Vim syntax highlighting for Google Protocol Buffers descriptions
 BuildArch:      noarch
+Provides:       protobuf-vim = %{version}-%{release}
 # We don’t really need vim or vim-enhanced to be already installed in order to
 # install a plugin for it. We do need to depend on vim-filesystem, which
 # provides the necessary directory structure.
@@ -195,6 +209,7 @@ descriptions in Vim editor
 %package emacs
 Summary:        Emacs mode for Google Protocol Buffers descriptions
 BuildArch:      noarch
+Provides:       protobuf-emacs = %{version}-%{release}
 Requires:       emacs-filesystem >= %{_emacs_version}
 Obsoletes:      protobuf-emacs-el < 3.6.1-4
 

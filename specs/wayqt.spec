@@ -1,6 +1,6 @@
 Name:           wayqt
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Qt-based library to handle Wayland and Wlroots protocols
 License:        MIT
 URL:            https://gitlab.com/desktop-frameworks/%{name}
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{docdir}/wayqt/ReleaseNotes
 %{_libdir}/pkgconfig/wayqt-qt6.pc
 
 %changelog
+* Fri May 15 2026 Jan Grulich <jgrulich@redhat.com> - 0.3.0-3
+- Rebuild (qt6)
+
 * Wed Apr 29 2026 Steve Cossette <farchord@gmail.com> - 0.3.0-2
 - Fix -devel package install issue
 

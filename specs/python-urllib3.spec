@@ -5,7 +5,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-urllib3
-Version:        2.6.3
+Version:        2.7.0
 Release:        %autorelease
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
@@ -111,9 +111,9 @@ sed -i "s/^RECENT_DATE = datetime.date(.*)/RECENT_DATE = datetime.date($recent_d
 %if %{with tests}
 # Possible improvements to dependency groups
 # https://github.com/urllib3/urllib3/issues/3594
-# Adjust the contents of the "dev" dependency group by removing:
+# Adjust the contents of the "dev-base" dependency group by removing:
 remove_from_dev() {
-  tomcli set pyproject.toml lists delitem 'dependency-groups.dev' "($1)\b.*"
+  tomcli set pyproject.toml lists delitem 'dependency-groups.dev-base' "($1)\b.*"
 }
 #   - Linters, coverage tools, profilers, etc.:
 #     https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -133,7 +133,7 @@ remove_from_dev 'hypercorn'
 # constraints, which is currently fine, but could theoretically cause trouble
 # in the future. We’ll cross that bridge if we ever arrive at it.)
 tomcli set pyproject.toml lists replace --type regex_search \
-    'dependency-groups.dev' '[>=]=.*' ''
+    'dependency-groups.dev-base' '[>=]=.*' ''
 %endif
 
 

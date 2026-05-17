@@ -1,5 +1,5 @@
 Name:       xrandr
-Version:    1.5.3
+Version:    1.5.4
 Release:    %autorelease
 Summary:    Commandline utility to change output properties
 
@@ -7,12 +7,14 @@ License:    HPND-sell-variant
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
-BuildRequires:  automake libtool
-BuildRequires:  gcc make
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xrender)
-BuildRequires:  pkgconfig(xorg-macros) >= 1.8
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: libtool
+BuildRequires: make
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xorg-macros) >= 1.8
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: pkgconfig(xrender)
 
 Obsoletes:  xorg-x11-server-utils < 7.7-40
 
@@ -34,6 +36,9 @@ autoreconf -v --install
 
 # "needs more nickle bindings" since 2009...
 rm -f $RPM_BUILD_ROOT%{_bindir}/xkeystone
+
+%check
+%make_build check
 
 %files
 %license COPYING

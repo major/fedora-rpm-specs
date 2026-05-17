@@ -5,8 +5,8 @@
 %global fullver %{majorver}.%{minorver}
 
 Name:          mingw-tk
-Version:       9.0.2
-Release:       2%{?dist}
+Version:       9.0.3
+Release:       1%{?dist}
 Summary:       MinGW Windows graphical toolkit for the Tcl scripting language
 
 License:       TCL
@@ -104,6 +104,10 @@ for i in *.h ; do
 done
 )
 
+# Delete man files
+rm -rf %{buildroot}%{mingw32_mandir}/man1/ %{buildroot}%{mingw32_mandir}/man3/ %{buildroot}%{mingw32_mandir}/mann/
+rm -rf %{buildroot}%{mingw64_mandir}/man1/ %{buildroot}%{mingw64_mandir}/man3/ %{buildroot}%{mingw64_mandir}/mann/
+
 
 %files -n mingw32-tk
 %{mingw32_bindir}/wish.exe
@@ -113,6 +117,7 @@ done
 %{mingw32_libdir}/libtkstub.a
 %{mingw32_libdir}/libtk.dll.a
 %{mingw32_libdir}/tkConfig.sh
+%{mingw32_libdir}/pkgconfig/tk.pc
 %{mingw32_includedir}/*
 %{mingw32_libdir}/tk%{fullver}/
 %{mingw32_datadir}/tk%{majorver}.%{minorver}
@@ -126,6 +131,7 @@ done
 %{mingw64_libdir}/libtkstub.a
 %{mingw64_libdir}/libtk.dll.a
 %{mingw64_libdir}/tkConfig.sh
+%{mingw64_libdir}/pkgconfig/tk.pc
 %{mingw64_includedir}/*
 %{mingw64_libdir}/tk%{fullver}/
 %{mingw64_datadir}/tk%{majorver}.%{minorver}
@@ -133,6 +139,9 @@ done
 
 
 %changelog
+* Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 9.0.3-1
+- Update to 9.0.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

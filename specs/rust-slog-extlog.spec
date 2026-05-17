@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rpds
+%global crate slog-extlog
 
-Name:           rust-rpds
-Version:        1.2.1
+Name:           rust-slog-extlog
+Version:        8.1.0
 Release:        %autorelease
-Summary:        Persistent data structures with structural sharing
+Summary:        Object-based logging and statistics tracking through logs
 
-License:        MIT
-URL:            https://crates.io/crates/rpds
+License:        Apache-2.0
+URL:            https://crates.io/crates/slog-extlog
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          rpds-fix-metadata.diff
+# * enable debug logging during tests also in release mode
+Patch:          slog-extlog-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Persistent data structures with structural sharing.}
+Object-based logging and statistics tracking through logs.}
 
 %description %{_description}
 
@@ -33,9 +33,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/release-notes.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -50,40 +51,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rayon-devel
+%package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rayon-devel %{_description}
+%description -n %{name}+derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rayon" feature of the "%{crate}" crate.
+use the "derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rayon-devel
+%files       -n %{name}+derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+interval_logging-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+interval_logging-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "interval_logging" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+interval_logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+slog-extlog-derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+slog-extlog-derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "slog-extlog-derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+slog-extlog-derive-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

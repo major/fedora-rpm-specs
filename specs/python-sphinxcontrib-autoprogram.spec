@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        LicenseRef-Callaway-BSD
@@ -18,6 +18,7 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  python3-six
+BuildRequires:  python3-pkg-resources
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -64,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.9-13
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

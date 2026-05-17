@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           arapuca
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Cross-platform process sandbox with kernel-enforced isolation
 

@@ -7,9 +7,9 @@ License:        MIT
 URL:            https://github.com/patrick91/rignore
 Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l rignore
-BuildOption(generate_buildrequires): -g dev
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --dependency-groups dev
+BuildOption(install): --assert-license rignore
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -32,11 +32,11 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        %{shrink:
-                MIT AND
-                Unicode-DFS-2016 AND
-                (MIT OR Apache-2.0) AND
-                (Unlicense OR MIT)
-                }
+    MIT AND
+    Unicode-DFS-2016 AND
+    (MIT OR Apache-2.0) AND
+    (Unlicense OR MIT)
+    }
 
 %description -n python3-rignore %{common_description}
 

@@ -12,8 +12,8 @@ License:        MIT
 URL:            https://github.com/patrick91/rich-toolkit
 Source:         %{pypi_source rich_toolkit}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l rich_toolkit
+BuildSystem:    pyproject
+BuildOption(install): --assert-license rich_toolkit
 
 BuildArch:      noarch
 
@@ -50,7 +50,7 @@ ignore="${ignore-} --ignore=tests/test_toolkit.py"
 ignore="${ignore-} --ignore=tests/test_tagged_style.py"
 %endif
 
-%pytest ${ignore-} -v
+%pytest ${ignore-} --verbose
 %endif
 
 

@@ -1,7 +1,7 @@
-%global extras json,lua,valkey
+%global extras json,lua,valkey,vectorset
 
 Name:           python-fakeredis
-Version:        2.34.0
+Version:        2.35.1
 Release:        %autorelease
 Summary:        A python implementation of Redis Protocol API
 
@@ -17,9 +17,18 @@ Source:         %{pypi_source fakeredis}
 # as it correctly picks the LuaJIT and Lua 5.1 that is installed alongside with
 # python3-lupa.
 Patch:          patch-script-mixing-to-use-luaruntime-directly.diff
+# This patch adds a command called "fakeredis" in one of the tests, to avoid
+# erroring out during the pytest execution. This has no effect on the
+# get_connection function, as the `command_name` is not being used anywhere,
+# but the interface for the function requires it. In newer versions of
+# redis-py, this is made optional and it should work, but since python-redis is
+# not being updated for a while, we need to maintain this patch.
+Patch1:         patch-get_connection.diff
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+
+BuildRequires:  tomcli
+
 # Test dependencies
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
@@ -44,7 +53,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n fakeredis-%{version}
-
 
 %generate_buildrequires
 %pyproject_buildrequires -x %{extras}

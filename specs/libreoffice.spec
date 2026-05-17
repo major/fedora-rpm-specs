@@ -935,7 +935,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l dz -n Dzongkha -F -s ctl -T -X
 %langpack -l el -n Greek -F -H -Y -M -A -T -X
 %define langpack_lang British English
-%langpack -l en-GB -n %{langpack_lang} -F -h en-GB -Y -M -A -L en-GB -T -X -g en_GB
+%langpack -l en-GB -n %{langpack_lang} -F -h en -y en -m en -a en -T -X -g en_GB
 %langpack -l eo -n Esperanto -F -H -M -T -X
 %langpack -l es -n Spanish -F -H -Y -M -A -T -X
 %langpack -l et -n Estonian -F -H -Y -T -X

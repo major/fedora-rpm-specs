@@ -128,8 +128,8 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %ldconfig_scriptlets
 
 # FIXME: enable tests when they compile
-#%check
-#%ctest
+#check
+#ctest
 
 %files
 %doc LICENSE COPYING

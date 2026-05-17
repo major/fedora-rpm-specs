@@ -1,11 +1,10 @@
 Name:           perl-UUID
-Version:        0.37
-Release:        4%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Universally Unique Identifier library for Perl
+# lib/UUID.pm:  Artistic-2.0
 # README:       Artistic-2.0
-# ulib/md5.c:   (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
-# ulib/sha1.c:  LicenseRef-Fedora-Public-Domain
-# UUID.pm:      Artistic-2.0
+# ulib/hash.c:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD AND LicenseRef-Fedora-Public-Domain
 # RSA-MD was raplaced by 2000 RSA grant and should not be enumerated
 # <https://docs.fedoraproject.org/en-US/legal/misc/#_licensing_of_rsa_implementations_of_md5>.
 License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
@@ -18,12 +17,11 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.5.63
+BuildRequires:  perl(:VERSION) >= 5.8.1
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Devel::CheckLib) >= 1.14
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.06
 BuildRequires:  perl(File::Temp) >= 0.10
-BuildRequires:  perl(List::Util) >= 1.29
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -33,8 +31,9 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
@@ -42,12 +41,13 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(version) >= 0.77
 # Optional tests:
 BuildRequires:  perl(Digest::SHA1)
+Requires:       perl(Time::HiRes)
 
 # Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Temp|Test::More)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(File::Temp\\)$
 # Filter private modules
-%global __requires_exclude %{__requires_exclude}|^perl\\(MyNote\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(MyNote\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(MyTest\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((MyTest|MyTmpTimer)\\)
 
 %description
 The UUID library is used to generate unique identifiers for objects that may
@@ -66,8 +66,8 @@ License:        Artistic-2.0
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 Requires:       perl(Digest::SHA1)
+Requires:       perl(Fcntl)
 Requires:       perl(File::Temp) >= 0.10
 
 %description tests
@@ -96,6 +96,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+export USE_ITHREADS=1
 cd %{_libexecdir}/%{name} && exec prove -r -I t/0LIB -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
@@ -115,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri May 15 2026 Petr Pisar <ppisar@redhat.com> - 0.38-1
+- 0.38 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -185,7 +185,7 @@ popd
 # Requires network access (remote git clone):
 ignore="${ignore-} --ignore=tests/test_model_load.py"
 %endif
-%pytest ${ignore-} -v python/tests
+%pytest ${ignore-} --verbose python/tests
 
 pushd ruby
 ln -r -s spec .%{gem_instdir}/spec

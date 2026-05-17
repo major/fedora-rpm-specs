@@ -1,5 +1,5 @@
 Name:       iceauth
-Version:    1.0.10
+Version:    1.0.11
 Release:    %autorelease
 Summary:    Display the authorization information used in connecting with ICE
 
@@ -7,11 +7,13 @@ License:    MIT-open-group
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
-BuildRequires:  automake libtool
-BuildRequires:  gcc make
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(ice)
-BuildRequires:  pkgconfig(xorg-macros) >= 1.8
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: libtool
+BuildRequires: make
+BuildRequires: pkgconfig(ice)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xorg-macros) >= 1.8
 
 Obsoletes:  xorg-x11-server-utils < 7.7-40
 
@@ -30,6 +32,9 @@ autoreconf -v --install
 
 %install
 %make_install
+
+%check
+%make_build check
 
 %files
 %license COPYING

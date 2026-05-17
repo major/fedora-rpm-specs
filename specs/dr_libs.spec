@@ -52,6 +52,8 @@ Requires:       dr_mp3-static = %{dr_mp3_version}-%{release}
 Requires:       dr_wav-devel = %{dr_wav_version}-%{release}
 Requires:       dr_wav-static = %{dr_wav_version}-%{release}
 
+Obsoletes:      dr_libs-doc < 0^20260302.fa931f3-4
+
 %description devel
 The dr_libs-devel package contains libraries and header files for developing
 applications that use dr_libs.
@@ -96,22 +98,14 @@ Provides:       dr_wav-static = %{dr_wav_version}-%{release}
 WAV audio loader and writer.
 
 
-%package doc
-Summary:        Documentation for dr_libs
-
-BuildArch:      noarch
-
-%description doc
-Documentation for dr_libs.
-
-
 %prep
 %autosetup -n dr_libs-%{commit}
 
 # Omit the "playback" tests. We cannot run these anyway, so we would have to
 # skip them, and by not even compiling them, we can avoid a BuildRequires on
 # miniaudio.
-sed -r -i 's/^([[:blank:]]*)(.*_playback)/\1# \2/' CMakeLists.txt
+sed --regexp-extended --in-place \
+    's/^([[:blank:]]*)(.*_playback)/\1# \2/' CMakeLists.txt
 
 mkdir -p tests/testvectors/mp3/tests
 
@@ -127,7 +121,8 @@ mkdir -p tests/testvectors/mp3/tests
 %install
 # There are no install targets in CMakeLists.txt, so %%cmake_install would do
 # nothing. We install manually instead:
-install -t '%{buildroot}%{_includedir}' -p -m 0644 -D dr_*.h
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}' dr_*.h
 
 
 %check
@@ -144,7 +139,7 @@ skips="${skips})$"
 # in the corresponding headers.
 while read -r version header
 do
-  grep -E "\\bv$(echo "${version}" | sed -r 's/\./\\./g')\\b" \
+  grep --extended-regexp "\\bv$(echo "${version}" | sed -r 's/\./\\./g')\\b" \
       "%{buildroot}%{_includedir}/${header}" >/dev/null
 done <<'EOF'
 %(printf '%s\n' '%{dr_flac_version}' | sed -r 's/[~^].*//') dr_flac.h
@@ -157,23 +152,21 @@ EOF
 # Empty metapackage
 
 
-%files doc
-%license LICENSE
-%doc README.md
-
-
 %files -n dr_flac-devel
 %license LICENSE
+%doc README.md
 %{_includedir}/dr_flac.h
 
 
 %files -n dr_mp3-devel
 %license LICENSE
+%doc README.md
 %{_includedir}/dr_mp3.h
 
 
 %files -n dr_wav-devel
 %license LICENSE
+%doc README.md
 %{_includedir}/dr_wav.h
 
 

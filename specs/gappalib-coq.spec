@@ -4,11 +4,11 @@
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
 %global rocqver 9.2.0
-%global commit  20d239160d980d452f39f06e0f428ffb0e8e4dd4
+%global commit  df59b68361b1efbd697b17c40f7fae4a35991c44
 %global giturl  https://gitlab.inria.fr/gappa/coq
 
 Name:           gappalib-coq
-Version:        1.8.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Coq support library for gappa
 

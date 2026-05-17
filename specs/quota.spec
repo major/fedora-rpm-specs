@@ -13,7 +13,7 @@
 Name:       quota
 Epoch:      1
 Version:    4.11
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    System administration tools for monitoring users' disk usage
 # quota_nld.c, quotaio_xfs.h:       GPL-2.0-only
 # bylabel.c copied from util-linux: GPL-2.0-or-later
@@ -272,20 +272,29 @@ make check
 
 
 %files
-%{_bindir}/*
-%{_sbindir}/*
-%exclude %{_sbindir}/quota_nld
-%if %{with quota_enables_rpc}
-%exclude %{_sbindir}/rpc.rquotad
-%endif
-%exclude %{_sbindir}/warnquota
-%{_mandir}/man1/*
-%{_mandir}/man8/*
-%exclude %{_mandir}/man8/quota_nld.8*
-%if %{with quota_enables_rpc}
-%exclude %{_mandir}/man8/rpc.rquotad.8*
-%endif
-%exclude %{_mandir}/man8/warnquota.8*
+%{_bindir}/quota
+%{_bindir}/quotasync
+%{_sbindir}/convertquota
+%{_sbindir}/edquota
+%{_sbindir}/quotacheck
+%{_sbindir}/quotaoff
+%{_sbindir}/quotaon
+%{_sbindir}/quotastats
+%{_sbindir}/repquota
+%{_sbindir}/setproject
+%{_sbindir}/setquota
+%{_sbindir}/xqmstats
+%{_mandir}/man1/quota.*
+%{_mandir}/man1/quotasync.*
+%{_mandir}/man8/convertquota.*
+%{_mandir}/man8/edquota.*
+%{_mandir}/man8/quotacheck.*
+%{_mandir}/man8/quotaoff.*
+%{_mandir}/man8/quotaon.*
+%{_mandir}/man8/quotastats.*
+%{_mandir}/man8/repquota.*
+%{_mandir}/man8/setquota.*
+%{_mandir}/man8/xqmstats.*
 %doc Changelog
 
 %if %{with quota_enables_netlink}
@@ -293,7 +302,7 @@ make check
 %config(noreplace) %{_sysconfdir}/sysconfig/quota_nld
 %{_unitdir}/quota_nld.service
 %{_sbindir}/quota_nld
-%{_mandir}/man8/quota_nld.8*
+%{_mandir}/man8/quota_nld.*
 %doc Changelog
 %endif
 
@@ -302,7 +311,7 @@ make check
 %config(noreplace) %{_sysconfdir}/sysconfig/rpc-rquotad
 %{_unitdir}/rpc-rquotad.service
 %{_sbindir}/rpc.rquotad
-%{_mandir}/man8/rpc.rquotad.8*
+%{_mandir}/man8/rpc.rquotad.*
 %doc Changelog
 %endif
 
@@ -311,8 +320,10 @@ make check
 %config(noreplace) %{_sysconfdir}/quotatab
 %config(noreplace) %{_sysconfdir}/warnquota.conf
 %{_sbindir}/warnquota
-%{_mandir}/man5/*
-%{_mandir}/man8/warnquota.8*
+%{_mandir}/man5/quotagrpadmins.*
+%{_mandir}/man5/quotatab.*
+%{_mandir}/man5/warnquota.conf.*
+%{_mandir}/man8/warnquota.*
 %doc Changelog README.ldap-support README.mailserver
 
 %files nls -f %{name}.lang
@@ -324,8 +335,8 @@ make check
 %files devel
 %license COPYING
 %dir %{_includedir}/rpcsvc
-%{_includedir}/rpcsvc/*
-%{_mandir}/man3/*
+%{_includedir}/rpcsvc/rquota.*
+%{_mandir}/man3/rquota.*
 %endif
 
 %files doc
@@ -333,6 +344,9 @@ make check
 
 
 %changelog
+* Fri May 15 2026 Petr Pisar <ppisar@redhat.com> - 1:4.11-3
+- List packaged files explicitly
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

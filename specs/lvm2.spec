@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.214
+%global device_mapper_version 1.02.215
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.40
+Version: 2.03.41
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2

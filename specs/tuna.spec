@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.20
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -14,6 +14,11 @@ Requires: python3-linux-procfs >= 0.6
 # Requires: python-inet_diag
 
 # Patches
+Patch: tuna-Update-pyproject.toml-license-format-for-modern.patch
+Patch: tuna-Disable-the-tuna-apply-functionality.patch
+Patch: tuna-Remove-tuna-apply-from-the-man-page.patch
+Patch: tuna-Print-warning-if-setting-affinity-results-in-EP.patch
+Patch: tuna-Add-testing-infrastructure-using-unittest-frame.patch
 
 %description
 Provides interface for changing scheduler and IRQ tunables, at whole CPU and at
@@ -104,6 +109,13 @@ done
 %endif
 
 %changelog
+* Fri May 15 2026 John Kacur <jkacur@redhat.com> - 0.20-4
+- Update pyproject.toml license format for modern setuptools
+- Disable the tuna apply functionality
+- Remove tuna apply from the man page
+- Print warning if setting affinity results in EPERM and continue
+- Add testing infrastructure using unittest framework
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

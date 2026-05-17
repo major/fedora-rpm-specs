@@ -5,11 +5,10 @@ License:       Artistic-2.0 and Zlib and NTP and LicenseRef-Fedora-Public-Domain
                # Zlib: zlib/*
                # NTP: base64.c
                # PD: librcksum/*
-Version:       0.6.3
+Version:       0.6.4
 Release:       %autorelease
 
 Source0:       https://zsync.moria.org.uk/download/%{name}-%{version}.tar.bz2
-Patch0:        zsync-0.6.3-fix-tests.patch
 
 BuildRequires: gcc
 BuildRequires: make

@@ -102,7 +102,7 @@ requested compression level (NONE, PARTIAL or FULL).
 %autosetup
 dos2unix --keepdate *.TXT *.txt
 # Nothing in this package is a script; nothing should be executable.
-find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
+find . -type f -perm /0111 -exec chmod --verbose a-x '{}' '+'
 
 # Header name conflict with cpl (cpl_error.h)
 # http://bugzilla.maptools.org/show_bug.cgi?id=2367
@@ -110,7 +110,7 @@ find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 # Leave the upstream locations in the documentation since it assumes developers
 # will use a static library or possibly copy sources into a dependent project’s
 # source tree.
-sed -r -i 's@"(e00compr)\.h"@<\1/\1.h>@' ex_*.c
+sed --regexp-extended --in-place 's@"(e00compr)\.h"@<\1/\1.h>@' ex_*.c
 
 # New account creation is broken on upstream bug tracker
 # http://bugzilla.maptools.org/; suggested creation of a separate file by email
@@ -120,8 +120,9 @@ awk 'toupper($0) ~ /(COPYRIGHT|LICENSE)/ { o=1 }; /[-]{3,}/ { o=0 }; o' \
 
 # Unless upstream accepts Source1, we will need to maintain an soversion
 # downstream. Replace the suggested “1” with an “earlier” downstream version.
-cp -p '%{SOURCE1}' Makefile.shared
-sed -r -i 's/(SOVER=[[:blank:]]*)1/\1%{downstream_soversion}/' Makefile.shared
+cp --preserve '%{SOURCE1}' Makefile.shared
+sed --regexp-extended --in-place \
+    's/(SOVER=[[:blank:]]*)1/\1%{downstream_soversion}/' Makefile.shared
 
 
 %build
@@ -129,19 +130,21 @@ sed -r -i 's/(SOVER=[[:blank:]]*)1/\1%{downstream_soversion}/' Makefile.shared
     CC="${CC-gcc}" \
     CFLAGS="${CFLAGS}" \
     LFLAGS="${LDFLAGS}" \
-    -f Makefile.shared
+    --file=Makefile.shared
 
 
 %install
 # Upstream Makefile lacks an “install” target.
 # Header name conflict with cpl (cpl_error.h)
 # http://bugzilla.maptools.org/show_bug.cgi?id=2367
-install -t '%{buildroot}%{_includedir}/e00compr' -D -p -m 0644 *.h
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 e00conv.1
-install -d '%{buildroot}%{_libdir}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/e00compr' *.h
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' e00conv.1
+install --directory '%{buildroot}%{_libdir}'
 # Use cp with an extra option, instead of install, to preserve symlinks
-cp -p --no-dereference *.so *.so.* '%{buildroot}%{_libdir}'
-install -t '%{buildroot}%{_bindir}' -D -p e00conv
+cp --preserve --no-dereference *.so *.so.* '%{buildroot}%{_libdir}'
+install -D --preserve-timestamps --target='%{buildroot}%{_bindir}' e00conv
 
 
 # Upstream does not provide any tests.

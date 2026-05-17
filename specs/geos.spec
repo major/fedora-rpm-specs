@@ -8,12 +8,16 @@
 
 Name:          geos
 Version:       3.14.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GEOS is a C++ port of the Java Topology Suite
 
 License:       LGPL-2.1-only
 URL:           http://trac.osgeo.org/geos/
 Source0:       http://download.osgeo.org/%{name}/%{name}-%{version}.tar.bz2
+# Workaround undefined reference to
+# geos::algorithm::distance::DistanceToPoint::computeDistance(geos::geom::Geometry const&, geos::geom::CoordinateXY const&, geos::algorithm::distance::PointPairDistance&)
+# on mingw
+Patch0:        geos_mingw.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
@@ -161,6 +165,9 @@ rm -f %{buildroot}%{mingw64_bindir}/geos-config
 
 
 %changelog
+* Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 3.14.1-2
+- Add geos_mingw.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

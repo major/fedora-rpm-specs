@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        10.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -35,8 +35,13 @@ BuildRequires:  make
 BuildRequires:  nng-devel
 BuildRequires:  opencascade-devel
 BuildRequires:  poppler-glib-devel
+%if 0%{?fedora} <= 44
 BuildRequires:  protobuf-compiler
 BuildRequires:  protobuf-devel
+%else
+BuildRequires:  protobuf3-compiler
+BuildRequires:  protobuf3-devel
+%endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-wxpython4
 BuildRequires:  shared-mime-info
@@ -62,7 +67,11 @@ Requires:       libngspice
 Requires:       libsecret
 Requires:       libspnav
 Requires:       ngspice-codemodel
+%if 0%{?fedora} <= 44
 Requires:       protobuf
+%else
+Requires:       protobuf3
+%endif
 Requires:       python3-wxpython4
 Requires:       unixODBC
 
@@ -77,7 +86,7 @@ diagrams and printed circuit board artwork of up to
 Summary:        3D Models for KiCad
 License:        CC-BY-SA-4.0
 BuildArch:      noarch
-Requires:       kicad >= 10.0.0
+Requires:       kicad >= %{epoch}:10.0.0
 
 %description    packages3d
 3D Models for KiCad.
@@ -228,6 +237,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri May 15 2026 Miroslav Suchy <msuchy@redhat.com> - 1:10.0.3-2
+- Use protobuf3 instead of protobuf
+
 * Thu May 14 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.3-1
 - Update to 10.0.3
 

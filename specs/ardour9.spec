@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.2.0
+Version:    9.4.0
 
 # Compute version related macros.
 
@@ -89,6 +89,7 @@ BuildRequires:  graphviz
 BuildRequires:  itstool >= 2.0.0
 BuildRequires:  kernel-headers
 BuildRequires:  libappstream-glib
+BuildRequires:  libjpeg-devel
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(aubio) >= 0.3.2
 BuildRequires:  pkgconfig(cairo) >= 1.12.0

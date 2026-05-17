@@ -36,6 +36,11 @@ BuildRequires:  python3-requests
 BuildRequires:  python3-inline-snapshot
 BuildRequires:  python3-dirty-equals
 
+# This package provides a binary called mcp and it will conflict with our
+# package, as both installs the resulting binary to `/usr/bin/mcp`, so it's
+# better that we indicate it has a conflict.
+Conflicts: mmv
+
 %global _description %{expand:
 The Model Context Protocol allows applications to provide context for LLMs in a
 standardized way, separating the concerns of providing context from the actual

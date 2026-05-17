@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           bcvk
-Version:        0.15.0
+Version:        0.17.0
 Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 

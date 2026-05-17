@@ -345,15 +345,18 @@ Bir ekranın yoğunluğunu:
 # While https://github.com/cassidyjames/dippi/issues/82 is fixed upstream, the
 # typo is still present in non-US English localizations—shall we say
 # localisations?
-sed -r -i 's/(display)‘s/\1’s/g' po/en_*.po
+sed --regexp-extended --in-place 's/(display)‘s/\1’s/g' po/en_*.po
 
 rename_lang() {
-  set -ue
-  sed -r -i "s/(Language:[[:blank:]]+)${1}\\b/\\1${2}/" \
+  set -o nounset
+  set -o errexit
+  sed --regexp-extended --in-place \
+      "s/(Language:[[:blank:]]+)${1}\\b/\\1${2}/" \
       "po/${1}.po" "po/extra/${1}.po"
   mv "po/${1}.po" "po/${2}.po"
   mv "po/extra/${1}.po" "po/extra/${2}.po"
-  sed -r -i "s/^${1}(\\r?)\$/${2}\\1/" po/LINGUAS po/extra/LINGUAS
+  sed --regexp-extended --in-place "s/^${1}(\\r?)\$/${2}\\1/" \
+      po/LINGUAS po/extra/LINGUAS
 }
 
 # https://salsa.debian.org/iso-codes-team/iso-codes/-/blob/v4.16.0/CHANGELOG.md

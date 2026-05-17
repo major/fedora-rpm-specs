@@ -14,9 +14,9 @@ Patch:          %{url}/pull/13.patch
 # https://github.com/willynilly/rfc3987-syntax/pull/9
 Patch:          %{url}/pull/9.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l rfc3987_syntax
-BuildOption(generate_buildrequires): -x testing
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras testing
+BuildOption(install): --assert-license rfc3987_syntax
 
 BuildArch:      noarch
 
@@ -49,7 +49,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-rfc3987-syntax -f %{pyproject_files}

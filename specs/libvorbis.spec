@@ -30,6 +30,8 @@ Patch:		libvorbis-0005-Update-minimum-cmake-version-from-3.0-to-3.6.patch
 Patch:		libvorbis-0006-Specify-the-languages-used-by-CMake.patch
 Patch:		libvorbis-0007-Windows-fix-syntax-error-in-.def-files.patch
 Patch:		libvorbis-0008-Set-both-VERSION-and-SOVERSION-for-cmake-builds.patch
+# Add a soversion to the mingw dlls (like the autotools build used to)
+Patch:		libvorbis-mingw-sover.patch
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	pkgconfig(ogg) >= 1.0
@@ -135,12 +137,9 @@ install -D -p -m 0644 ./vorbis.m4 %{buildroot}%{mingw64_datadir}/aclocal/vorbis.
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
-#%%{mingw32_bindir}/libvorbis-0.dll
-#%%{mingw32_bindir}/libvorbisenc-2.dll
-#%%{mingw32_bindir}/libvorbisfile-3.dll
-%{mingw32_bindir}/libvorbis.dll
-%{mingw32_bindir}/libvorbisenc.dll
-%{mingw32_bindir}/libvorbisfile.dll
+%{mingw32_bindir}/libvorbis-0.dll
+%{mingw32_bindir}/libvorbisenc-2.dll
+%{mingw32_bindir}/libvorbisfile-3.dll
 %{mingw32_includedir}/vorbis/
 %{mingw32_libdir}/cmake/Vorbis/
 %{mingw32_libdir}/libvorbis.dll.a
@@ -153,12 +152,9 @@ install -D -p -m 0644 ./vorbis.m4 %{buildroot}%{mingw64_datadir}/aclocal/vorbis.
 
 %files -n mingw64-%{name}
 %license COPYING
-#%{mingw64_bindir}/libvorbis-0.dll
-#%{mingw64_bindir}/libvorbisenc-2.dll
-#%{mingw64_bindir}/libvorbisfile-3.dll
-%{mingw64_bindir}/libvorbis.dll
-%{mingw64_bindir}/libvorbisenc.dll
-%{mingw64_bindir}/libvorbisfile.dll
+%{mingw64_bindir}/libvorbis-0.dll
+%{mingw64_bindir}/libvorbisenc-2.dll
+%{mingw64_bindir}/libvorbisfile-3.dll
 %{mingw64_includedir}/vorbis/
 %{mingw64_libdir}/cmake/Vorbis/
 %{mingw64_libdir}/libvorbis.dll.a
@@ -170,5 +166,4 @@ install -D -p -m 0644 ./vorbis.m4 %{buildroot}%{mingw64_datadir}/aclocal/vorbis.
 %{mingw64_datadir}/aclocal/vorbis.m4
 %endif
 
-%changelog
 %autochangelog

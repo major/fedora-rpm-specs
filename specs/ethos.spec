@@ -1,5 +1,8 @@
+# Whether to run tests
+%bcond ctest 1
+
 Name:           ethos
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Flexible and efficient proof checker for SMT solvers
 
@@ -10,8 +13,10 @@ Source:         %{url}/archive/%{name}-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+# Tests spuriously fail when run in parallel
+BuildOption(check): -j1
 
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 
@@ -28,17 +33,9 @@ sed -i '/Wno-deprecated/d' CMakeLists.txt
 # Make sure the bundled copy of drat-trim is not used in the build
 rm -fr contrib/drat_trim
 
-%build
-%cmake
-%cmake_build
-
 %install
 mkdir -p %{buildroot}%{_bindir}
 cp -p %{_vpath_builddir}/src/ethos %{buildroot}%{_bindir}
-
-%check
-# Tests spuriously fail when run in parallel
-%ctest -j1
 
 %files
 %doc AUTHORS NEWS.md README.md user_manual.md

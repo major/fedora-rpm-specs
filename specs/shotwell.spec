@@ -2,7 +2,7 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        33~alpha
+Version:        33~alpha.2
 Release:        %autorelease
 Summary:        A photo organizer for the GNOME desktop
 
@@ -32,7 +32,7 @@ BuildRequires:  pkgconfig(gdk-3.0) >= 3.22
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gdk-x11-3.0)
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.5
-BuildRequires:  pkgconfig(gexiv2) >= 0.11.0
+BuildRequires:  pkgconfig(gexiv2-0.16)
 BuildRequires:  pkgconfig(gio-2.0) >= 2.40
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.40
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
@@ -106,7 +106,7 @@ popd
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shotwell.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shotwell.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -128,7 +128,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Shotwell.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
-%{_metainfodir}/org.gnome.Shotwell.appdata.xml
+%{_metainfodir}/org.gnome.Shotwell.metainfo.xml
 %{_mandir}/man1/shotwell.1*
 %if %{with facedetect}
 %{_datadir}/dbus-1/services/org.gnome.Shotwell.Faces1.service

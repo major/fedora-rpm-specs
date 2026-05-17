@@ -20,7 +20,7 @@ Source1:        rnc2rng.1
 Patch:          %{url}/pull/54.patch
 
 BuildSystem:    pyproject
-BuildOption(install):   -l rnc2rng
+BuildOption(install): --assert-license rnc2rng
 
 BuildArch:      noarch
 
@@ -38,7 +38,8 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a

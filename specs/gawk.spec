@@ -47,7 +47,7 @@
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
 Version:          5.4.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 
@@ -120,6 +120,7 @@ BuildRequires: make
 #Patch008: gawk-api-version.patch
 Patch001: gawk-5.4.0-pma_performance.patch
 Patch002: gawk-5.4.0-back_references.patch
+Patch003: gawk-5.4.0-charset.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -296,6 +297,10 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Fri May 15 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.0-3
+- Port another upstream fix
+- https://lists.gnu.org/archive/html/bug-gawk/2026-05/msg00009.html
+
 * Mon Feb 23 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.0-2
 - Port Several fixes from the usptream:
 - PMA performance: https://lists.gnu.org/archive/html/bug-gawk/2026-02/msg00026.html

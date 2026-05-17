@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        14%{?rc_version:.%rc_version}%{?dist}
+Release:        15%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1969,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Fri May 15 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-15
+- Rebuild against Samba 4.24.2
+
 * Mon Apr 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-14
 - Rebuild against Samba 4.24.1
 

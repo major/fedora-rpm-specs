@@ -1,10 +1,10 @@
-%global DATE 20260501
-%global gitrev f4e68dc3bdc8f1c5d202db92c8c7bcd89c638688
+%global DATE 20260515
+%global gitrev d776f42bb910ebccf652b010b80c22bcca736f7f
 %global gcc_version 16.1.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -323,7 +323,6 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr125079.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -1862,6 +1861,7 @@ ln -sf ../../../libgcobol.so.2.* libgcobol.so
 %endif
 %if %{build_algol68}
 ln -sf ../../../libga68.so.2.* libga68.so
+objcopy --dump-section .a68_exports=ga68.m68 ../../../libga68.so.2.*
 %endif
 %if %{build_libitm}
 ln -sf ../../../libitm.so.1.* libitm.so
@@ -1909,6 +1909,7 @@ ln -sf ../../../../%{_lib}/libgcobol.so.2.* libgcobol.so
 %endif
 %if %{build_algol68}
 ln -sf ../../../../%{_lib}/libga68.so.2.* libga68.so
+objcopy --dump-section .a68_exports=ga68.m68 ../../../../%{_lib}/libga68.so.2.*
 %endif
 %if %{build_libitm}
 ln -sf ../../../../%{_lib}/libitm.so.1.* libitm.so
@@ -2084,6 +2085,7 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgcobol.so.2.* | sed 's,
 rm -f libga68.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > libga68.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > 64/libga68.so
+objcopy --dump-section .a68_exports=64/ga68.m68 ../../../../lib/libga68.so.2.*
 %endif
 %if %{build_libitm}
 rm -f libitm.so
@@ -2227,6 +2229,7 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgcobol.so.2.* | sed '
 rm -f libga68.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > libga68.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > 32/libga68.so
+objcopy --dump-section .a68_exports=32/ga68.m68 ../../../../lib64/libga68.so.2.*
 %endif
 %if %{build_libitm}
 rm -f libitm.so
@@ -3487,15 +3490,18 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.a
 %endif
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/ga68.m68
 %ifarch sparcv9 ppc
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libga68.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libga68.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/ga68.m68
 %endif
 %ifarch %{multilib_64_archs}
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libga68.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libga68.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/ga68.m68
 %endif
 %{_infodir}/ga68*
 %doc rpm.doc/algol68/*
@@ -3974,6 +3980,21 @@ end
 %endif
 
 %changelog
+* Fri May 15 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-2
+- update from releases/gcc-16 branch
+  - PRs ada/125168, ada/125240, c++/100903, c++/115181, c++/124628,
+	c++/124770, c++/124957, c++/124979, c++/124991, c++/125043,
+	c++/125111, c++/125115, c++/125179, c++/125184, c++/125206,
+	c++/125208, c++/125280, c++/125315, d/125089, fortran/111952,
+	fortran/125059, fortran/125192, fortran/125198, libfortran/125095,
+	libstdc++/109965, libstdc++/121919, middle-end/125146,
+	middle-end/125259, rtl-optimization/123967, target/53929,
+	target/120587, target/124316, target/125049, target/125057,
+	target/125155, target/125180, target/125194, target/125308,
+	tree-optimization/120003, tree-optimization/125025,
+	tree-optimization/125153, tree-optimization/125185
+- create and include ga68.m68 files in gcc-algol68 package (#2463921)
+
 * Fri May  1 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-1
 - update from trunk and releases/gcc-16 branch
   - GCC 16.1.0 release

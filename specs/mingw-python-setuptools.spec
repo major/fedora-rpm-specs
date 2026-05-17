@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       80.10.2
+Version:       82.0.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -75,12 +75,10 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/%{pypi_name}/
-%{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/pkg_resources/
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/_distutils_hack/
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/distutils-precedence.pth
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/pkg_resources/
 %{mingw32_python3_sitearch}/_distutils_hack/
 %{mingw32_python3_sitearch}/distutils-precedence.pth
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
@@ -88,18 +86,19 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/%{pypi_name}/
-%{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/pkg_resources/
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/_distutils_hack/
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/distutils-precedence.pth
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
 %{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/pkg_resources/
 %{mingw64_python3_sitearch}/_distutils_hack/
 %{mingw64_python3_sitearch}/distutils-precedence.pth
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
 
 
 %changelog
+* Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 82.0.1-1
+- Update to 82.0.1
+
 * Fri Jan 30 2026 Sandro Mani <manisandro@gmail.com> - 80.10.2-1
 - Update to 80.10.2
 

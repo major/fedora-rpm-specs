@@ -1,0 +1,166 @@
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
+%global upstreamname rocminfo
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.12
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
+%global rocm_release 7.2
+%global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
+%global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_without compat
+%if %{with compat}
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_skip_rpath OFF
+%global pkg_rpath %{_prefix}/lib64/rocm/rocm-%{rocm_release}/lib
+%global pkg_suffix %{rocm_release}
+%else
+%global pkg_prefix %{_prefix}
+%global pkg_skip_rpath ON
+%global pkg_rpath %{nil}
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocminfo%{pkg_suffix}
+
+Name:       %{pkg_name}
+Version:    %{rocm_version}
+%if %{with preview}
+Release:    0%{?dist}
+%else
+Release:    3%{?dist}
+%endif
+
+Summary:    ROCm system info utility
+
+License:    NCSA AND MIT
+# Main license is NCSA
+# This file is MIT
+#   rocm_agent_enumerator
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+ExclusiveArch:  x86_64
+
+BuildRequires:  make
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  python3-devel
+
+# rocminfo calls lsmod to check the kernel mode driver status
+Requires:       kmod
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix}
+
+%description
+ROCm system info utility
+
+%prep
+%autosetup -p1 -n %{upstreamname}
+
+%if 0%{?fedora} || 0%{?rhel}
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} rocm_agent_enumerator
+%else
+# suse
+sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
+%endif
+
+%build
+%cmake \
+    -DROCM_DIR=%{pkg_prefix} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_rpath} \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{pkg_skip_rpath}
+
+%cmake_build
+
+%install
+%cmake_install
+
+#FIXME:
+chmod 755 %{buildroot}%{pkg_prefix}/bin/*
+
+# Extra licenses
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/License.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
+
+%files
+%doc README.md
+%license License.txt
+%{pkg_prefix}/bin/rocm_agent_enumerator
+%{pkg_prefix}/bin/rocminfo
+
+%changelog
+* Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Fix OpenSUSE
+
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+- Fix python path on SUSE
+
+* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Add Fedora copyright
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Sat Dec 7 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
+- Update to 6.3.0
+
+* Sat Nov 9 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
+- Stub for tumbleweed
+
+
+

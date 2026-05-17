@@ -1,7 +1,7 @@
 %global libjit_soversion 3
 Name:           jitterentropy
 Version:        3.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library implementing the jitter entropy source
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -48,6 +48,9 @@ mkdir -p %{buildroot}%{_includedir}
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 15 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-2
+- Simplify jent_get_nstime() for PowerPC
+
 * Fri May 15 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-1
 - Update to the upstream v3.7.0 @ e783cf1c
 - Fix PowerPC architecture detection code

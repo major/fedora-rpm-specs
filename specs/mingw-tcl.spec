@@ -5,8 +5,8 @@
 %global fullver %{majorver}.%{minorver}
 
 Name:          mingw-tcl
-Version:       9.0.2
-Release:       2%{?dist}
+Version:       9.0.3
+Release:       1%{?dist}
 Summary:       MinGW Windows Tool Command Language, pronounced tickle
 
 License:       TCL
@@ -145,6 +145,11 @@ mv %{buildroot}%{mingw64_libdir}/dde* %{buildroot}%{mingw64_libdir}/tcl%{fullver
 mv %{buildroot}%{mingw32_libdir}/reg* %{buildroot}%{mingw32_libdir}/tcl%{fullver}/
 mv %{buildroot}%{mingw64_libdir}/reg* %{buildroot}%{mingw64_libdir}/tcl%{fullver}/
 
+# Delete man files
+rm -rf %{buildroot}%{mingw32_mandir}/man1/ %{buildroot}%{mingw32_mandir}/man3/ %{buildroot}%{mingw32_mandir}/mann/
+rm -rf %{buildroot}%{mingw64_mandir}/man1/ %{buildroot}%{mingw64_mandir}/man3/ %{buildroot}%{mingw64_mandir}/mann/
+
+
 
 %files -n mingw32-tcl
 %{mingw32_bindir}/tclsh.exe
@@ -155,6 +160,7 @@ mv %{buildroot}%{mingw64_libdir}/reg* %{buildroot}%{mingw64_libdir}/tcl%{fullver
 %{mingw32_libdir}/libtcl.dll.a
 %{mingw32_libdir}/tclConfig.sh
 %{mingw32_libdir}/tcl%{fullver}
+%{mingw32_libdir}/pkgconfig/tcl.pc
 %{mingw32_datadir}/tcl%{fullver}
 %{mingw32_datadir}/tcl%{majorver}
 %{mingw32_includedir}/*
@@ -169,6 +175,7 @@ mv %{buildroot}%{mingw64_libdir}/reg* %{buildroot}%{mingw64_libdir}/tcl%{fullver
 %{mingw64_libdir}/libtcl.dll.a
 %{mingw64_libdir}/tclConfig.sh
 %{mingw64_libdir}/tcl%{fullver}
+%{mingw64_libdir}/pkgconfig/tcl.pc
 %{mingw64_datadir}/tcl%{fullver}
 %{mingw64_datadir}/tcl%{majorver}
 %{mingw64_includedir}/*
@@ -176,6 +183,9 @@ mv %{buildroot}%{mingw64_libdir}/reg* %{buildroot}%{mingw64_libdir}/tcl%{fullver
 
 
 %changelog
+* Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 9.0.3-1
+- Update to 9.0.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

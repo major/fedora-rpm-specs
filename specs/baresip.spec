@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        4.7.0
+Version:        4.8.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -10,11 +10,10 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://github.com/baresip/baresip/commit/c09b9ff1d11edf9609c8f91f9bf1c4a1c1d3b767.patch#/baresip-4.5.0-disable-peerconn-test.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 4.7.0
+BuildRequires:  libre-devel >= 4.8.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -33,6 +32,7 @@ Obsoletes:      %{name}-gsm < 2.6.0-1
 Obsoletes:      %{name}-gst_video < 2.6.0-1
 Obsoletes:      %{name}-omx < 2.7.0-1
 Obsoletes:      %{name}-mpa < 4.3.0-1
+Obsoletes:      %{name}-g726 < 4.8.0-1
 
 %description
 A modular SIP user-agent with support for audio and video, and many IETF
@@ -40,12 +40,12 @@ standards such as SIP, SDP, RTP/RTCP and STUN/TURN/ICE for both, IPv4 and
 IPv6.
 
 Additional modules provide support for audio codecs like Codec2, G.711,
-G.722, G.726, GSM, L16, MPA and Opus, audio drivers like ALSA, GStreamer,
-JACK Audio Connection Kit, Portaudio, and PulseAudio, video codecs like
-AV1, VP8 or VP9, video sources like Video4Linux, video outputs like SDL2
-or X11, NAT traversal via STUN, TURN, ICE, and NAT-PMP, media encryption
-via TLS, SRTP or DTLS-SRTP, management features like embedded web-server
-with HTTP interface, command-line console and interface, and MQTT.
+G.722, GSM, L16 and Opus, audio drivers like ALSA, GStreamer, JACK Audio
+Connection Kit, Portaudio, and PulseAudio, video codecs like AV1, VP8 or
+VP9, video sources like Video4Linux, video outputs like SDL2 or X11, NAT
+traversal via STUN, TURN, ICE, and NAT-PMP, media encryption via TLS,
+SRTP or DTLS-SRTP, management features like embedded web-server with HTTP
+interface, command-line console and interface, and MQTT.
 
 %package devel
 Summary:        Development files for the baresip library
@@ -175,16 +175,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Baresip is a modular SIP user-agent with audio and video support.
 
 This module provides the G.722 audio codec, often used for HD voice.
-
-%package g726
-Summary:        G.726 audio codec module for baresip
-BuildRequires:  spandsp-devel
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description g726
-Baresip is a modular SIP user-agent with audio and video support.
-
-This module provides the G.726 audio codec.
 
 %package gst
 Summary:        GStreamer audio source driver for baresip
@@ -420,7 +410,6 @@ This module provides the X11 video output driver.
 %else
   -DDEFAULT_AUDIO_DEVICE:STRING="pulse" \
 %endif
-  -DEXTRA_MODULES:STRING="g726" \
 %if 0%{?rhel} == 8
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl3;%{_libdir}/openssl3"
 %endif
@@ -549,9 +538,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files g722
 %{_libdir}/%{name}/modules/g722.so
 
-%files g726
-%{_libdir}/%{name}/modules/g726.so
-
 %files gst
 %{_libdir}/%{name}/modules/gst.so
 
@@ -620,6 +606,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Fri May 15 2026 Robert Scheck <robert@fedoraproject.org> 4.8.0-1
+- Upgrade to 4.8.0 (#2476966)
+
 * Sat Apr 18 2026 Robert Scheck <robert@fedoraproject.org> 4.7.0-1
 - Upgrade to 4.7.0 (#2455864)
 

@@ -51,12 +51,15 @@ Provides:       debugbreak-static = %{version}-%{release}
 
 
 %build
-%make_build -f GNUmakefile CFLAGS="${CFLAGS} -I." CXXFLAGS="${CXXFLAGS} -I."
+%make_build --file GNUmakefile \
+    CFLAGS="${CFLAGS} -I." CXXFLAGS="${CXXFLAGS} -I."
 
 
 %install
-install -t '%{buildroot}%{_includedir}' -D -p -m 0644 debugbreak.h
-install -t '%{buildroot}%{_datadir}/debugbreak' -D -p -m 0644 debugbreak-gdb.py
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_includedir}' debugbreak.h
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_datadir}/debugbreak' debugbreak-gdb.py
 
 
 %check
@@ -77,10 +80,11 @@ bt
 set logging off
 quit
 EOF
-    gdb -q -x "${exe}-rpm-test.gdb" --batch </dev/null || :
+    gdb --quiet --command="${exe}-rpm-test.gdb" --batch </dev/null || :
     # Check that the program received SIGTRAP, trace/breakpoint trap
-    grep -E 'SIG(TRAP|ILL)' "${exe}-rpm-test.txt"
+    grep --extended-regexp 'SIG(TRAP|ILL)' "${exe}-rpm-test.txt"
   done
+
 
 %files devel
 %license COPYING

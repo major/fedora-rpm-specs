@@ -12,7 +12,7 @@ Source:         %{url}/archive/v%{version}/rply-%{version}.tar.gz
 Patch:          %{url}/pull/116.patch
 
 BuildSystem:    pyproject
-BuildOption(install):   -l rply
+BuildOption(install): --assert-license rply
 
 BuildArch:      noarch
 
@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -rs -v
+%pytest -rs --verbose
 
 
 %files -n python3-rply -f %{pyproject_files}

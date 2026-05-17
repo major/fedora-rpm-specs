@@ -53,7 +53,7 @@ applications that use clibs-list.
 %install
 %make_install PREFIX='%{_prefix}' LIBDIR='%{_libdir}'
 # We did not want the static library.
-rm -vf '%{buildroot}%{_libdir}/libclibs_list.a'
+rm '%{buildroot}%{_libdir}/libclibs_list.a'
 
 
 %check

@@ -1,15 +1,15 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
 # Use the cvc5 branch.
-%global gittag   e6ac3af9c2c574498ea171c957425b407625448b
+%global gittag   227a7246b8ce513b393cc2645d6d65d3490ea1de
 %global shorttag %{sub %{gittag} 1 7}
-%global gitdate  20230627
+%global gitdate  20260406
 
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
 Name:           symfpu
 Version:        0
-Release:        0.21.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.22.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
@@ -54,6 +54,9 @@ cp -a core utils %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}/
 
 %changelog
+* Fri May 15 2026 Jerry James <loganjerry@gmail.com> - 0-0.22.20260406git227a724
+- Update for cvc5 1.3.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21.20230627gite6ac3af
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

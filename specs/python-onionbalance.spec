@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -54,6 +54,7 @@ Requires:  python3-PyYAML >= 4.2b1
 Requires:  python3-cryptography >= 2.5
 Requires:  python3-pycryptodomex
 Requires:  python3-setproctitle >= 1.1.9
+Requires:  python3-pkg-resources
 %{?python_provide:%python_provide python3-%{pkgname}}
 Requires: tor
 Requires: logrotate
@@ -132,6 +133,9 @@ install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/
 %{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-22
+- Add runtime dependency on python3-pkg-resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

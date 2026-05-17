@@ -45,7 +45,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -511,6 +511,9 @@ fi
 %endif
 
 %changelog
+* Fri May 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-5
+- Additional fix for GFileInfo warnings with menu/application window
+
 * Thu May 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-4
 - Additional fix for GFileInfo warnings with search window
 

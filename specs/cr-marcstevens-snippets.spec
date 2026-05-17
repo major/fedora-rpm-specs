@@ -29,11 +29,11 @@ License:        MIT AND BSL-1.0
 # • GPL-2.0-or-later WITH Autoconf-exception-generic:
 #     autoconf/ax_cuda.m4
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFAP AND
-                GPL-3.0-or-later WITH Autoconf-exception-macro AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic
-                }
+    %{license} AND
+    FSFAP AND
+    GPL-3.0-or-later WITH Autoconf-exception-macro AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic
+    }
 URL:            https://github.com/cr-marcstevens/snippets
 Source0:        %{url}/archive/%{commit}/snippets-%{commit}.tar.gz
 # License URL referenced in cxxheaderonly/progress_display.hpp, converted from
@@ -160,17 +160,17 @@ Provides:       %{name}-thread_pool-static = %{?epoch:%{epoch}:}%{version}-%{rel
 # We are not packaging these, and many have licenses that are acceptable for
 # packaging but differ from those listed in the License field. To keep things
 # clean, we remove them.
-rm -rvf autoconf
+rm --recursive --verbose autoconf
 # Please add Boost license text
 # https://github.com/cr-marcstevens/snippets/issues/3
-cp -p '%{SOURCE1}' .
+cp --preserve '%{SOURCE1}' .
 
 
 %build
 # There is no compiled code to install, since all libraries are header-only. We
 # do do a compile-only “smoke test” for each library.
 %set_build_flags
-mkdir -p _test '%{_vpath_builddir}'
+mkdir --parents _test '%{_vpath_builddir}'
 for hdr in cxxheaderonly/*.hpp
 do
   lib="$(basename "${hdr}" '.hpp')"
@@ -184,8 +184,9 @@ done
 
 
 %install
-install -t '%{buildroot}%{_includedir}/cr-marcstevens' \
-    -p -m 0644 -D cxxheaderonly/*.hpp
+install -D --preserve-timestamps --mode 0644 \
+    --target '%{buildroot}%{_includedir}/cr-marcstevens' \
+    cxxheaderonly/*.hpp
 
 
 # Upstream has no tests.

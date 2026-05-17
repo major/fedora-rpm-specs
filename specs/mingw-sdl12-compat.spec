@@ -3,7 +3,7 @@
 %global origname sdl12-compat
 
 Name:           mingw-%{origname}
-Version:        1.2.74
+Version:        1.2.76
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 1.2.76-1
+- Update to 1.2.76
+
 * Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.74-1
 - Update to 1.2.74
 

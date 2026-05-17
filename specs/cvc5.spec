@@ -1,6 +1,9 @@
 # CVC5 wants a modified glpk (glpk-cut-log), unavailable in Fedora.  Therefore,
 # we currently build without glpk support.
 
+# Whether to run tests
+%bcond ctest 1
+
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
@@ -9,7 +12,7 @@
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.3.3
+Version:        1.3.4
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -33,11 +36,26 @@ Patch:          %{name}-cadical.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): --debug-find
+BuildOption(conf): -DBUILD_BINDINGS_JAVA:BOOL=ON
+BuildOption(conf): -DBUILD_BINDINGS_PYTHON:BOOL=ON
+BuildOption(conf): -DBUILD_DOCS:BOOL=OFF
+BuildOption(conf): -DBUILD_SHARED_LIBS:BOOL=ON
+BuildOption(conf): -DENABLE_GPL:BOOL=ON
+BuildOption(conf): -DENABLE_IPO:BOOL=ON
+BuildOption(conf): -DONLY_PYTHON_EXT_SRC:BOOL=ON
+BuildOption(conf): -DSKIP_SET_RPATH:BOOL=ON
+BuildOption(conf): -DUSE_COCOA:BOOL=ON
+BuildOption(conf): -DUSE_CRYPTOMINISAT:BOOL=ON
+BuildOption(conf): -DUSE_DEFAULT_LINKER:BOOL=ON
+BuildOption(conf): -DUSE_EDITLINE:BOOL=ON
+BuildOption(conf): -DUSE_KISSAT:BOOL=ON
+BuildOption(conf): -DUSE_POLY:BOOL=ON
 
 BuildRequires:  cadical
 BuildRequires:  cadical-devel
 BuildRequires:  chrpath
-BuildRequires:  cmake
 BuildRequires:  cmake(cryptominisat5)
 BuildRequires:  cocoalib-devel
 BuildRequires:  drat2er-devel
@@ -137,7 +155,6 @@ Python 3 interface to %{name}.
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1
 
-%conf
 mkdir -p %{_vpath_builddir}/deps/src/CVC5PythonicAPI
 cp -p %{SOURCE1} %{_vpath_builddir}/deps/src
 
@@ -152,35 +169,18 @@ sed -e 's,\(--ethos-binary \).*,\1%{_bindir}/ethos,' \
 # Without this, the python interface has version 0.0.0
 sed -i 's/CVC5_WHEEL_VERSION/CVC5_VERSION/' src/api/python/__init__.py.in
 
-%build
+%conf -p
 export BUILDFLAGS='-DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'
 export CFLAGS="%{build_cflags} $BUILDFLAGS"
 export CXXFLAGS="%{build_cxxflags} $BUILDFLAGS"
-%cmake --debug-find \
-  -DBUILD_BINDINGS_JAVA:BOOL=ON \
-  -DBUILD_BINDINGS_PYTHON:BOOL=ON \
-  -DBUILD_DOCS:BOOL=OFF \
-  -DBUILD_SHARED_LIBS:BOOL=ON \
-  -DENABLE_GPL:BOOL=ON \
-  -DENABLE_IPO:BOOL=ON \
-  -DONLY_PYTHON_EXT_SRC:BOOL=ON \
-  -DSKIP_SET_RPATH:BOOL=ON \
-  -DUSE_COCOA:BOOL=ON \
-  -DUSE_CRYPTOMINISAT:BOOL=ON \
-  -DUSE_DEFAULT_LINKER:BOOL=ON \
-  -DUSE_EDITLINE:BOOL=ON \
-  -DUSE_KISSAT:BOOL=ON \
-  -DUSE_POLY:BOOL=ON
-%cmake_build
 
+%build -a
 # Build the python interface the Fedora way
 cd %{_vpath_builddir}/src/api/python
 %pyproject_wheel
 cd -
 
-%install
-%cmake_install
-
+%install -a
 # Link the JNI interface to where Fedora mandates it should go
 mkdir -p %{buildroot}%{_jnidir}/%{name}
 ln -s ../../%{_lib}/libcvc5jni.so %{buildroot}%{_jnidir}/%{name}
@@ -193,7 +193,8 @@ cd -
 # FIXME: What is causing an rpath to be added in the first place?
 chrpath -d %{buildroot}%{python3_sitearch}/cvc5/*.so
 
-%check
+%check -p
+%if %{with ctest}
 # Increase the test timeout for slow builders
 export TEST_TIMEOUT=2000
 
@@ -202,7 +203,7 @@ cp -p %{_vpath_builddir}/src/api/python/build/lib.*/cvc5/cvc5_python_base.*.so \
       %{_vpath_builddir}/src/api/python/cvc5
 
 %cmake_build -t build-tests
-%ctest
+%endif
 
 %files
 %doc AUTHORS NEWS.md README.md THANKS
@@ -210,8 +211,8 @@ cp -p %{_vpath_builddir}/src/api/python/build/lib.*/cvc5/cvc5_python_base.*.so \
 
 %files libs
 %license COPYING
-%{_libdir}/libcvc5.so.1
-%{_libdir}/libcvc5parser.so.1
+%{_libdir}/libcvc5.so.1{,.*}
+%{_libdir}/libcvc5parser.so.1{,.*}
 
 %files devel
 %{_includedir}/%{name}/

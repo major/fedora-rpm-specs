@@ -6,7 +6,7 @@
 
 Name:           kobo
 Version:        0.41.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPL-2.1-only
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
@@ -14,7 +14,6 @@ Source0:        %pypi_source
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 Kobo is a set of python modules designed for rapid tools development.
@@ -116,12 +115,16 @@ Python library for kobo-admin command.
 %py3_shebang_fix kobo/admin/kobo-admin kobo/admin/templates/*/*
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 %if ! 0%{?with_admin}
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/admin
@@ -154,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
 %{python3_sitelib}/kobo/*.py*
 %{python3_sitelib}/kobo/__pycache__
 %exclude %{python3_sitelib}/kobo/rpmlib.py*
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}.dist-info
 %doc AUTHORS
 %license COPYING LICENSE
 
@@ -194,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
 
 
 %changelog
+* Fri May 15 2026 Kamil Dudka <kdudka@redhat.com> - 0.41.0-3
+- migrate to pyproject macros (rhbz#2377300)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
