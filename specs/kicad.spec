@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        10.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -62,18 +62,9 @@ Provides:       bundled(potrace) = 1.15
 %if %{undefined flatpak}
 Requires:       electronics-menu
 %endif
-Requires:       libgit2
 Requires:       libngspice
-Requires:       libsecret
-Requires:       libspnav
 Requires:       ngspice-codemodel
-%if 0%{?fedora} <= 44
-Requires:       protobuf
-%else
-Requires:       protobuf3
-%endif
 Requires:       python3-wxpython4
-Requires:       unixODBC
 
 Suggests:       kicad
 
@@ -237,6 +228,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat May 16 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.3-3
+- Remove unneeded requires
+
 * Fri May 15 2026 Miroslav Suchy <msuchy@redhat.com> - 1:10.0.3-2
 - Use protobuf3 instead of protobuf
 

@@ -1,4 +1,6 @@
 Name: cfitsio
+# When bumping this, you MUST also rebuild kst
+# kst-fits depends on the exact cfitsio version
 Version: 4.6.4
 Release: %autorelease
 Summary: Library for manipulating FITS data files

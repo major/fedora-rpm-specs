@@ -1,8 +1,8 @@
 %global _distro_extra_ldflags -L%{_libdir}/fdk-aac
 
 Name:           fdkaac
-Version:        1.0.6
-Release:        6%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        Command line frontend for libfdk-aac encoder
 
 # Most files are under Zlib, except:
@@ -54,6 +54,9 @@ autoreconf -fiv
 
 
 %changelog
+* Sun May 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.7-1
+- update to 1.0.7 (resolves rhbz#2464767)
+
 * Wed Feb 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.6-6
 - Switch to pkg-config style dependency
 - Use SPDX identifier in License: tag and add licensing break-down

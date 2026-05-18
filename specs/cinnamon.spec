@@ -13,7 +13,7 @@
 
 Name:           cinnamon
 Version:        6.7.0^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -38,7 +38,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  systemd
 BuildRequires:  desktop-file-utils
-BuildRequires:  python3-libsass
+BuildRequires:  sassc
 BuildRequires:  python3-rpm-macros
 BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
 BuildRequires:  pkgconfig(dbus-glib-1)
@@ -338,6 +338,9 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sat May 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
+- Switch to sassc
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

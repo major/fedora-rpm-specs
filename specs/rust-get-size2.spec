@@ -8,7 +8,7 @@
 %global crate get-size2
 
 Name:           rust-get-size2
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Determine the size in bytes an object occupies inside RAM
 
@@ -98,6 +98,18 @@ use the "compact-str" feature of the "%{crate}" crate.
 %files       -n %{name}+compact-str-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dashmap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dashmap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dashmap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dashmap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -120,6 +132,18 @@ This package contains library source intended for building other packages which
 use the "get-size-derive2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+get-size-derive2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+half-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+half-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "half" feature of the "%{crate}" crate.
+
+%files       -n %{name}+half-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+hashbrown-devel
@@ -156,6 +180,18 @@ This package contains library source intended for building other packages which
 use the "ordermap" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ordermap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parking_lot-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parking_lot-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parking_lot" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parking_lot-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+smallvec-devel

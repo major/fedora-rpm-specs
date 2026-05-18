@@ -98,7 +98,8 @@ developing applications that use Easylogging++.
 # Remove .gitignore and similar files that might accidentally be packaged,
 # especially in the samples.
 find . -type f \( -name '.git*' -o -name '.travis*' \) -print -delete
-find . -depth -type d -name '.vs' -print -execdir rm -rvf '{}' ';'
+find . -depth -type d -name '.vs' -print \
+    -execdir rm --recursive --verbose --force '{}' ';'
 # Fix CRNL line endings
 dos2unix --keepdate samples/Qt/fast-dictionary/words.txt
 find samples/VC++ -type f -execdir dos2unix --keepdate '{}' '+'
@@ -115,8 +116,9 @@ find samples/VC++ -type f -execdir dos2unix --keepdate '{}' '+'
 %install
 %cmake_install
 
-install -d '%{buildroot}%{_pkgdocdir}'
-cp -rvp *.md doc samples '%{buildroot}%{_pkgdocdir}'
+install --directory '%{buildroot}%{_pkgdocdir}'
+cp --recursive --verbose --preserve *.md doc samples \
+    '%{buildroot}%{_pkgdocdir}'
 # Symlink headers to the -devel package: use absolute symlinks in the buildroot
 # and then use the symlinks utility to convert them into relative ones.
 find '%{buildroot}%{_pkgdocdir}/samples' -type f \

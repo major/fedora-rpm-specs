@@ -1,21 +1,24 @@
 %bcond check 1
 
-%global commit 9a8802a374d8e9f587b343dfedf3859ec1a9bba2
+%global commit df49b3d01f8f98cd4382df082355ff0b350309a3
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           aw-server-rust
-Version:        0.13.1^20260309.git%{short_commit}
+Version:        0.14.0^20260516.git%{short_commit}
 Release:        %autorelease
 Summary:        A re-implementation of aw-server in Rust
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# ISC
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
@@ -24,7 +27,7 @@ Summary:        A re-implementation of aw-server in Rust
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT) AND Unicode-3.0 AND Zlib
+License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND ISC AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT) AND Unicode-3.0 AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/ActivityWatch/aw-server-rust

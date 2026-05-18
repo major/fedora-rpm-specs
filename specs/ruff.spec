@@ -300,6 +300,12 @@ install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
+# # get-size2
+# #   wanted: 0.8.0
+# #   currently packaged: 0.9.0
+tomcli set Cargo.toml str workspace.dependencies.get-size2.version \
+    '>=0.8.0, <0.10.0'
+
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/typeshed -D -p -m 0644 \
     crates/ty_vendored/vendor/typeshed/LICENSE

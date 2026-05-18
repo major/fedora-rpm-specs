@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.35
+Version:        0.0.37
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -162,9 +162,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev ac6361d83e4d51ab123043b00d5285a842077b81
-%global ruff_baseversion 0.15.12
-%global ruff_snapdate 20260510
+%global ruff_rev a7ab646e3e2aeb138a0de9dee5d7a28e9e054a56
+%global ruff_baseversion 0.15.13
+%global ruff_snapdate 20260516
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -321,7 +321,13 @@ install -t LICENSE.bundled/lsp-types -D -p -m 0644 ruff/crates/lsp-types/LICENSE
 # #   wanted: 0.2.0
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
-# tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+# tomcli set ruff/Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# # get-size2
+# #   wanted: 0.8.0
+# #   currently packaged: 0.9.0
+tomcli set ruff/Cargo.toml str workspace.dependencies.get-size2.version \
+    '>=0.8.0, <0.10.0'
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/typeshed -D -p -m 0644 \

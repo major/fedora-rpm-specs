@@ -7,11 +7,11 @@ License:        BSD-3-Clause
 URL:            https://github.com/scipy/scipy_doctest
 Source:         %{pypi_source scipy_doctest}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x test
-BuildOption(install):   -l scipy_doctest
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras test
+BuildOption(install): --assert-license scipy_doctest
 # We *can* smoke-test imports from the test suite, but we do not *want* to.
-BuildOption(check):     -e scipy_doctest.tests*
+BuildOption(check): --exclude scipy_doctest.tests*
 
 BuildArch:      noarch
 
@@ -42,11 +42,12 @@ export PYTHONPATH='%{buildroot}%{python3_sitelib}'
 # be brittle.
 
 echo '==== Self-test with SciPy and MPL ====' 1>&2
-%pytest --pyargs '%{buildroot}%{python3_sitelib}/scipy_doctest' -k "${k-}" -v
+pkg='%{buildroot}%{python3_sitelib}/scipy_doctest'
+%pytest --pyargs "${pkg}" -k "${k-}" --verbose
 # Ideally, setting PYTEST_ADDOPTS to '-p no:cacheprovider' would prevent the
 # creation of this cache directory, but it does not, so we just clean it up
 # after the fact.
-rm -rv '%{buildroot}%{python3_sitelib}/scipy_doctest/tests/.pytest_cache'
+rm -rv "${pkg}/tests/.pytest_cache"
 
 echo '==== Self-test CLI with SciPy and MPL ====' 1>&2
 f='scipy_doctest/tests/finder_cases.py'
@@ -64,7 +65,7 @@ for f in \
     'scipy_doctest/tests/stopwords_cases.py' \
     'scipy_doctest/tests/local_file_cases.py'
 do
-  %pytest "%{buildroot}%{python3_sitelib}/${f}" --doctest-modules -v
+  %pytest "%{buildroot}%{python3_sitelib}/${f}" --doctest-modules --verbose
 done
 
 

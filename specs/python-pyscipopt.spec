@@ -1,5 +1,5 @@
 Name:           python-pyscipopt
-Version:        6.2.0
+Version:        6.2.1
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 

@@ -54,7 +54,7 @@
 %global source_directory 1.47-development
 
 Name:           nbdkit
-Version:        1.47.8
+Version:        1.47.9
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -692,6 +692,8 @@ nbdkit-time-limit-filter   Set an overall time limit for each connection.
 nbdkit-tls-fallback-filter TLS protection filter.
 
 nbdkit-truncate-filter     Truncate, expand, round up or round down size.
+
+nbdkit-xor-filter          Obfuscate contents of a plugin with XOR..
 
 
 %package bzip2-filter
@@ -1414,6 +1416,7 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-time-limit-filter.so
 %{_libdir}/%{name}/filters/nbdkit-tls-fallback-filter.so
 %{_libdir}/%{name}/filters/nbdkit-truncate-filter.so
+%{_libdir}/%{name}/filters/nbdkit-xor-filter.so
 %{_mandir}/man1/nbdkit-blocksize-filter.1*
 %{_mandir}/man1/nbdkit-blocksize-policy-filter.1*
 %{_mandir}/man1/nbdkit-cache-filter.1*
@@ -1462,6 +1465,7 @@ fi
 %{_mandir}/man1/nbdkit-time-limit-filter.1*
 %{_mandir}/man1/nbdkit-tls-fallback-filter.1*
 %{_mandir}/man1/nbdkit-truncate-filter.1*
+%{_mandir}/man1/nbdkit-xor-filter.1*
 
 
 %files bzip2-filter
@@ -1582,6 +1586,10 @@ fi
 
 
 %changelog
+* Sat May 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.9-1
+- New upstream development version 1.47.9
+- New nbdkit-xor-filter
+
 * Sat Apr 25 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.8-1
 - New upstream development version 1.47.8
 

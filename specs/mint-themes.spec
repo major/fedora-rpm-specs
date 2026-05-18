@@ -1,6 +1,6 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.3.8
+Version:        2.3.9
 Release:        1%{?dist}
 Summary:        Mint themes
 
@@ -8,13 +8,14 @@ Summary:        Mint themes
 License:        GPL-3.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         switch_to_sassc.patch
 
 BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  fdupes
 BuildRequires:  python3
-BuildRequires:  python3-libsass
+BuildRequires:  sassc
 
 Recommends:     mint-x-icons
 
@@ -100,6 +101,10 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Sat May 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1:2.3.9-1
+- Update to 2.3.9
+- Switch to sassc
+
 * Fri Jan 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1:2.3.8-1
 - Update to 2.3.8
 

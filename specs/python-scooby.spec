@@ -11,13 +11,13 @@ Source0:        %{url}/archive/v%{version}/scooby-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        scooby.1
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 # We cannot package (nor generate BR’s from) the “cpu” extra because it
 # requires python3dist(mkl), which is proprietary software.
 %if %{with tests}
-BuildOption(generate_buildrequires): -g test
+BuildOption(generate_buildrequires): --dependency-groups test
 %endif
-BuildOption(install):   -l scooby
+BuildOption(install): --assert-license scooby
 
 BuildArch:      noarch
 
@@ -83,7 +83,7 @@ k="${k-}${k+ and }not test_import_os_error"
 # Import performance test may fail flakily or on slower hardware
 k="${k-}${k+ and }not test_import_time"
 
-%pytest -k "${k-}" -v
+%pytest -k "${k-}" --verbose
 %endif
 
 

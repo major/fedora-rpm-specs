@@ -66,7 +66,8 @@ Provides:       %{name}-static = %{version}-%{release}
 %prep
 %autosetup -n earcut.hpp-%{version} -p1
 # Increase precision of test output so we can understand any failures:
-sed -r -i 's/(setprecision\()6(\))/\116\2/' test/test.cpp
+sed --regexp-extended --in-place \
+    's/(setprecision\()6(\))/\116\2/' test/test.cpp
 
 
 %conf
@@ -106,7 +107,8 @@ export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 %install
 # The upstream CMakeLists.txt has no install target; there is only one file to
 # copy, so it is easy to do manually.
-install -D -t '%{buildroot}%{_includedir}/mapbox' -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/mapbox' \
     'include/mapbox/earcut.hpp'
 
 

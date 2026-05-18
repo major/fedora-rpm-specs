@@ -1,14 +1,13 @@
 Name:           Silo
-Version:        4.12.0
+Version:        4.12.1~pre2
+%global         uversion 4.12.1-pre2
 %global sover   412
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Mesh and Field I/O Library and Scientific Database
 
 License:        BSD-3-Clause 
 URL:            https://silo.llnl.gov/
-Source0:        https://github.com/LLNL/Silo/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix build with python-3.14
-Patch0:         https://patch-diff.githubusercontent.com/raw/llnl/Silo/pull/533.patch
+Source0:        https://github.com/LLNL/Silo/archive/%{uversion}/%{name}-%{uversion}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -48,7 +47,7 @@ Requires:       %{name} = %{version}-%{release}
 
 This package contains the python module of the %{name} package.
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{uversion}
 
 %build
 # json support is still experimental
@@ -73,9 +72,14 @@ This package contains the python module of the %{name} package.
 %cmake_install
 
 %check
+# https://github.com/llnl/Silo/issues/543#issuecomment-4277549781
+# checksums test is broken is HDF5 versions > 14.4 
+
 # LLNL/Silo#504, memfile_simple-hdf5 is broken on s390x
 %ifarch s390x
-%global testargs --exclude-regex memfile_simple-hdf5
+%global testargs --exclude-regex '\(memfile_simple-hdf5\|checksums\)'
+%else
+%global testargs --exclude-regex checksums
 %endif
 
 # LLNL/Silo#502, parallel testing not supported
@@ -110,6 +114,12 @@ This package contains the python module of the %{name} package.
 %{python3_sitelib}/Silo.so
 
 %changelog
+* Fri May 15 2026 Christoph Junghans <junghans@votca.org> - 4.12.1~pre2-1
+- Version bump to v4.12.1-pre2
+- Fixes: rhbz#2459406
+- Fixes: rhbz#2459464
+- Fixes: rhbz#2478009
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.12.0-3
 - Rebuild for hdf5 2.1
 

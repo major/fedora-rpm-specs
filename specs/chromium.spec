@@ -1,6 +1,6 @@
 # macro for el10 minor version
 %if 0%{?rhel} == 10
-%define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+%global rhel_minor_version %(echo %{dist} | sed -n 's/.*el10_\\([0-9]\\+\\).*/\\1/p')
 %endif
 
 %define _lto_cflags %{nil}

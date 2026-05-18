@@ -13,7 +13,9 @@ Source0:        https://files.pythonhosted.org/packages/source/g/%{name}/%{name}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 Requires: python3-configobj
+Requires: python3-pkg-resources
 
 %description
 GNS3 is a graphical network simulator that allows you to design complex network

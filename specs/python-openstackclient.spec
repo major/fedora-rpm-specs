@@ -9,10 +9,10 @@
 
 %global with_doc 1
 
-%global common_desc \
-python-%{sname} is a unified command-line client for the OpenStack APIs. \
-It is a thin wrapper to the stock python-*client modules that implement the \
-actual REST API client actions.
+%global _description %{expand:
+python-%{sname} is a unified command-line client for the OpenStack APIs.
+It is a thin wrapper to the stock python-*client modules that implement the
+actual REST API client actions.}
 
 Name:             python-%{sname}
 Version:          9.0.0
@@ -22,6 +22,8 @@ Summary:          OpenStack Command-line Client
 License:          Apache-2.0
 URL:              http://launchpad.net/%{name}
 Source0:          https://tarballs.openstack.org/%{name}/python_%{sname}-%{version}.tar.gz
+# for latest      new column ha_chassis_priority, merged upstream already.
+Patch0:           https://github.com/openstack/python-openstackclient/commit/177a6b3460713be02381d6d4cad1fdd2df15dc60.patch
 
 Source10:         openstack-completion.service  
 Source11:         openstack-completion.service.8
@@ -47,8 +49,9 @@ BuildRequires:  /usr/bin/gpgv2
 
 BuildRequires:    git-core
 
-%description
-%{common_desc}
+
+%description %_description
+
 
 %package -n python3-%{sname}
 Summary:          OpenStack Command-line Client
@@ -58,8 +61,9 @@ BuildRequires:    python3-babel
 Requires:         python-%{sname}-lang = %{version}-%{release}
 Recommends:       bash-completion
 
-%description -n python3-%{sname}
-%{common_desc}
+
+%description -n python3-%{sname} %_description
+
 
 %if 0%{?with_doc}
 %package -n python-%{sname}-doc
@@ -67,17 +71,20 @@ Summary:          Documentation for OpenStack Command-line Client
 
 Requires: python3-%{sname} = %{version}-%{release}
 
-%description -n python-%{sname}-doc
-%{common_desc}
+
+%description -n python-%{sname}-doc %_description
 
 This package contains auto-generated documentation.
 %endif
 
+
 %package  -n python-%{sname}-lang
 Summary:   Translation files for Openstackclient
 
+
 %description -n python-%{sname}-lang
 Translation files for Openstackclient
+
 
 %prep
 # Required for tarball sources verification
@@ -113,6 +120,7 @@ sed -i \
     -e "/^python-magnumclient[[:space:]]*[!><=]/d" \
     -e "/^python-ironic-inspector-client[[:space:]]*[!><=]/d" \
     doc/requirements.txt
+
 
 %generate_buildrequires
 %if 0%{?with_doc}
@@ -179,12 +187,15 @@ export PYTHON=%{__python3}
 
 %post -n python3-%{sname}
 %systemd_post openstack-completion.timer
+
  
 %preun -n python3-%{sname}
 %systemd_preun openstack-completion.timer
+
  
 %postun -n python3-%{sname}
 %systemd_postun_with_restart openstack-completion.timer
+
 
 
 %files -n python3-%{sname} -f %{pyproject_files}

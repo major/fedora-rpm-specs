@@ -1634,6 +1634,9 @@ rm -f %{buildroot}%{_mandir}/man3/PyLdb*
 # CTDB
 %if %{with clustering}
 touch %{buildroot}%{_libexecdir}/ctdb/statd_callout
+
+# Remove symlinks that are marked as %ghost (CTDB will create them at runtime)
+rm -f %{buildroot}%{_sysconfdir}/ctdb/statd-callout
 #endif with clustering
 %endif
 
@@ -3933,6 +3936,7 @@ fi
 %else
 %{_libdir}/samba/libdsdb-module-private-samba.so
 %endif
+%{_libdir}/samba/libcmocka-private-samba.so
 
 ### USERSHARES
 %files usershares

@@ -1,12 +1,12 @@
 # NOTE: The documentation is no longer built because Fedora does not have
 # hugo-book or doxygen-awesome-css.
 
-# TODO: Unbundle backward-cpp, catch2, magic_enum, and rx-ranges.
+# TODO: Unbundle backward-cpp, magic_enum, and rx-ranges.
 
 %global giturl  https://github.com/libsemigroups/libsemigroups
 
 Name:           libsemigroups
-Version:        3.5.5
+Version:        3.6.0
 Release:        %autorelease
 Summary:        C++ library for semigroups and monoids
 
@@ -22,6 +22,7 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  catch-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -118,6 +119,7 @@ autoreconf -fi .
 %else
     --disable-hpcombi \
 %endif
+    --with-external-catch \
     --enable-eigen \
     --with-external-eigen \
     --enable-fmt \

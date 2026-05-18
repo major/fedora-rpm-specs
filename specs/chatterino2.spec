@@ -8,6 +8,7 @@ ExcludeArch: %{ix86}
 #pin to commit for patch fixes
 %global         forgeurl0 https://github.com/Chatterino/chatterino2
 %global         tag0  v2.5.5
+%global         version %%(echo %%{tag0} | tr -d 'v')
 
 %forgemeta
 
@@ -50,7 +51,7 @@ ExcludeArch: %{ix86}
 
 
 Name:           chatterino2
-Version:        %{tag0}
+Version:        %{version}
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 

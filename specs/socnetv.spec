@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.4
-Release:	3%{?dist}
+Version:	3.5
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri May 15 2026 RI_Eugene <ti.eugene@gmail.com> - 3.5-1
+- Version bump
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 3.4-3
 - Rebuild (qt6)
 

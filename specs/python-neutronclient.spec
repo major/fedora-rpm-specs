@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global with_doc 1
 
 %global cname neutron
@@ -10,7 +10,7 @@ Client library and command line utility for interacting with the OpenStack
 Neutron API.}
 
 Name:       python-neutronclient
-Version:    11.8.0
+Version:    12.0.0
 Release:    %autorelease
 Summary:    Python API and CLI for OpenStack Neutron
 
@@ -125,7 +125,6 @@ rm neutronclient/tests/unit/test_http.py
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
 %exclude %{python3_sitelib}/%{sname}/tests
 
 
