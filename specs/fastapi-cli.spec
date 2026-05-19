@@ -85,7 +85,7 @@ It makes sure the dependencies are installed.
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -f %{pyproject_files}

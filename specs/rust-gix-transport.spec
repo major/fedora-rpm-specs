@@ -5,7 +5,7 @@
 %global crate gix-transport
 
 Name:           rust-gix-transport
-Version:        0.50.0
+Version:        0.57.0
 Release:        %autorelease
 Summary:        Implementation of the git transport layer used by gix
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-transport
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Patch out macos feature of reqwest
+# * relax reqwest dependency
 Patch:          gix-transport-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -192,6 +192,18 @@ This package contains library source intended for building other packages which
 use the "http-client-curl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+http-client-curl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http-client-curl-openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http-client-curl-openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http-client-curl-openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http-client-curl-openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+http-client-insecure-credentials-devel

@@ -1,5 +1,4 @@
 %global extdir		caffeine@patapon.info
-%global gschemadir	%{_datadir}/glib-2.0/schemas
 
 Name:		gnome-shell-extension-caffeine
 Version:	60
@@ -18,9 +17,7 @@ Source0:	https://github.com/eonpatapon/%{name}/archive/v%{version}.tar.gz#/%{nam
 BuildArch:	noarch
 
 BuildRequires:	gettext
-BuildRequires:	%{_bindir}/glib-compile-schemas
 
-Requires:	gnome-shell-extension-common
 
 %description
 This extension allows the user to easily disable the screen saver and auto
@@ -31,28 +28,36 @@ to disable gnome shell's night light as well.
 %prep
 %autosetup %{?commit:-n %{name}-%{commit}}
 
-%build
-./update-locale.sh
-glib-compile-schemas --strict --targetdir=%{extdir}/schemas/ %{extdir}/schemas
 
 %install
-mkdir -p %{buildroot}%{_datadir}/gnome-shell/extensions
-cp -ar %{extdir} %{buildroot}%{_datadir}/gnome-shell/extensions/%{extdir}
+pushd %{extdir}
 
-# Fedora and EPEL 8 handles post scripts via triggers
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%postun
-if [ $1 -eq 0 ] ; then
-	%{_bindir}/glib-compile-schemas %{gschemadir} &> /dev/null || :
-fi
+# install main extension files
+install -d -m 0755 %{buildroot}%{_datadir}/gnome-shell/extensions/%{extdir}
+cp -r --preserve=timestamps \
+    *.js metadata.json icons preferences \
+    %{buildroot}%{_datadir}/gnome-shell/extensions/%{extdir}
 
-%posttrans
-%{_bindir}/glib-compile-schemas %{gschemadir} &> /dev/null || :
-%endif
+# install the schema file
+install -D -p -m 0644 \
+    schemas/org.gnome.shell.extensions.caffeine.gschema.xml \
+    %{buildroot}%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.caffeine.gschema.xml
 
-%files
+# install locale files
+for po in locale/*.po; do
+    install -d -m 0755 %{buildroot}%{_datadir}/${po%.po}/LC_MESSAGES
+    msgfmt -o %{buildroot}%{_datadir}/${po%.po}/LC_MESSAGES/gnome-shell-extension-caffeine.mo $po
+done
+
+popd
+
+%find_lang gnome-shell-extension-caffeine
+
+
+%files -f gnome-shell-extension-caffeine.lang
 %license COPYING
 %{_datadir}/gnome-shell/extensions/%{extdir}
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.caffeine.gschema.xml
 
 %changelog
 %autochangelog

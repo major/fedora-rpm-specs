@@ -19,11 +19,15 @@ URL:            https://github.com/snakemake/snakemake-interface-storage-plugins
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-storage-plugins-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_interface_storage_plugins
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_interface_storage_plugins
 %if %{with bootstrap}
 # Some things can’t be imported because we don’t have snakemake.
-BuildOption(check):     -e '*.registry*' -e '*.storage_object' -e '*.tests'
+BuildOption(check): %{shrink:
+    --exclude '*.registry*'
+    --exclude '*.storage_object'
+    --exclude '*.tests'
+    }
 %endif
 
 BuildArch:      noarch
@@ -57,7 +61,7 @@ k="${k-}${k+ and }not (TestTestStorageBase and test_storage_not_existing)"
 k="${k-}${k+ and }not (TestTestStorageBase and test_inventory)"
 %endif
 
-%pytest -k "${k-}" -v tests/tests.py
+%pytest -k "${k-}" --verbose tests/tests.py
 %endif
 
 

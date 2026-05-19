@@ -36,7 +36,8 @@ BuildOption(generate_buildrequires): %{shrink:
     %{?with_pathops:--extras pathops}
     %{?with_autohint:--extras autohint}
     %{?with_json:--extras json}
-    %{?with_repacker:--extras repacker}}
+    %{?with_repacker:--extras repacker}
+    }
 
 BuildArch:      noarch
 
@@ -72,10 +73,10 @@ fonts.
 %install -a
 # We do this in %%install rather than in %%build because we need to use the
 # script entry point that was generated during installation.
-install -d '%{buildroot}%{_mandir}/man1'
+install --directory '%{buildroot}%{_mandir}/man1'
 %{py3_test_envvars} help2man \
     --no-info \
-    --name '%{summary}' \
+    --name='%{summary}' \
     --output='%{buildroot}%{_mandir}/man1/fontmake.1' \
     %{buildroot}%{_bindir}/fontmake
 
@@ -95,7 +96,7 @@ k="${k-}${k+ and }not test_autohinting"
 k="${k-}${k+ and }not test_data_independence"
 k="${k-}${k+ and }not test_skipped_fontinfo_attributes"
 
-%pytest -k "${k-}" -rs -vv
+%pytest -k "${k-}" -rs --verbosity=2
 
 
 %files -f %{pyproject_files}

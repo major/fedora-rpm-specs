@@ -13,7 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/dua-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump gix-glob dependency to 0.22
+# * bump gix-glob dependency to 0.26
+# * bump gix-path dependency to 0.12
 # * relax trash dependency to >=3,<6
 # * drop atty dependency to use stdlib instead
 Patch:          dua-cli-fix-metadata.diff

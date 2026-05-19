@@ -18,8 +18,8 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Temporarily allow gix 0.75–0.79: RHBZ#2405612
-# * Temporarily allow gix-features 0.44–0.45: RHBZ#2405624
+# * Bump gix to version 0.83
+# * Bump gix-features to version 0.48
 # * Allow older strum 0.27 for EPEL10.2 and older
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,

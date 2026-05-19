@@ -14,8 +14,7 @@ URL:            https://crates.io/crates/tame-index
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove unused benchmark-only tiny-bench dev-dependency
-# * allow older gix 0.73 (wants 0.75):
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2405612
+# * bump gix to version 0.83
 Patch:          tame-index-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

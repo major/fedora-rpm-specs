@@ -4,7 +4,7 @@ a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
@@ -41,18 +41,32 @@ Summary:        %{summary}
 
 # Drop unneeded dependencies not available in Fedora
 tomcli set pyproject.toml arrays delitem "build-system.requires" "standard-distutils\b.*"
-%{?with_tests:sed -i -E '/^\s*standard-distutils\b/d' dev/requirements-dev.txt}
+%if %{with tests}
+sed -i -E '/^\s*standard-distutils\b/d' dev/requirements-dev.txt
+%if !0%{?fedora} || 0%{?fedora} >= 45
+# pytest-subtests is unmaintained but pytest >= 9 provides the functionality
+for f in dev/requirements-dev.txt dev/requirements-test.txt; do
+    sed -i -E '/^\s*pytest\b/d; /^\s*pytest-subtests\b/d' "$f"
+    echo "pytest>=9" >> "$f"
+done
+%endif
+%endif
+
+%if 0%{?fedora} >= 45
+# Drop max version constraint on setuptools_scm[toml]
+sed -i -E 's/^(\s*setuptools_scm\[toml\]>=[^,<]+),<.*$/\1/' setup.cfg %{?with_tests:dev/requirements-dev.txt}
+%endif
 
 %if 0%{?fedora} <= 43
 # Drop version constraint on setuptools
 tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools)\s*[><=]+.*" "\1"
 sed -i -E 's/^(\s*setuptools)\s*[><=]+.*$/\1/' setup.cfg %{?with_tests:dev/requirements-dev.txt}
+%endif
 
 %if 0%{?fedora} < 43
 # Drop version constraint on Cython
 tomcli set pyproject.toml arrays replace "build-system.requires" "(Cython)\s*[><=]+.*" "\1"
 sed -i -E 's/^(\s*cython)\s*[><=]+.*$/\1/' setup.cfg %{?with_tests:dev/requirements-dev.txt}
-%endif
 %endif
 
 
@@ -84,6 +98,10 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Sun May 17 2026 Nils Philippsen <nils@tiptoe.de> - 2.3.13-2
+- Drop build dependency on unmaintained pytest-subtests on Fedora >= 45
+- Relax build dependency on setuptools_scm on Fedora >= 45
+
 * Sat Mar 07 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.3.13-1
 - Update to 2.3.13
 

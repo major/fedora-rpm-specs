@@ -6,13 +6,16 @@
 %global crate git2-hooks
 
 Name:           rust-git2-hooks
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Adds git hooks support based on git2-rs
 
 License:        MIT
 URL:            https://crates.io/crates/git2-hooks
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump gix-path to version 0.12
+Patch:          git2-hooks-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

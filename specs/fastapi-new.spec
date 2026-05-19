@@ -43,9 +43,10 @@ Create a new FastAPI project in one command. ✨}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE10}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE10}'
 
-install -d \
+install --directory \
     '%{buildroot}%{bash_completions_dir}' \
     '%{buildroot}%{zsh_completions_dir}' \
     '%{buildroot}%{fish_completions_dir}'
@@ -70,7 +71,7 @@ k="${k-}${k+ and }not test_creates_project_without_python_flag"
 k="${k-}${k+ and }not test_file_write_failure"
 %endif
 
-%pytest -k "${k-}" -v
+%pytest -k "${k-}" --verbose
 
 
 %files -f %{pyproject_files}

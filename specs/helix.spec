@@ -380,8 +380,9 @@ Prebuilt tree-sitter parsers for Helix
 
 %prep
 %autosetup -c -p1
-# Bump gix to version 0.75
-tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.75
+# Bump gix to version 0.83
+tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.83
+tomcli set helix-vcs/Cargo.toml arrays str dependencies.gix.features attributes status sha1
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
 # Allow etcetera 0.11; not suitable for offering upstream yet because this has

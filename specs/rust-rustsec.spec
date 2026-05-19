@@ -12,12 +12,15 @@ Summary:        Client library for the RustSec security advisory database
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustsec
 Source:         %{crates_source}
+
+# * Bump gix to version 0.78
+#   https://github.com/rustsec/rustsec/commit/0e60c1a24809cc1d8b1c32f0e8a17922209cd1f4
+Patch:          0001-rustsec-upgrade-gix-to-0.78.patch
 # Manually created patch for downstream crate metadata changes
 # * drop unused binary-scanning feature with missing dependencies
-# * allow older gix 0.73 (for now); allow newer gix 0.75 and tame-index 0.25,
-#   https://github.com/rustsec/rustsec/commit/24d08569602a67b5d914b47f098cc897c222860a
+# * Bump gix to version 0.83
+#   https://github.com/rustsec/rustsec/commit/0e60c1a24809cc1d8b1c32f0e8a17922209cd1f4
 Patch:          rustsec-fix-metadata.diff
-
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:

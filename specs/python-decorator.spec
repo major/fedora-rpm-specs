@@ -1,7 +1,7 @@
 %global pypi_name decorator
 
 Name:           python-%{pypi_name}
-Version:        5.2.1
+Version:        5.3.0
 Release:        %autorelease
 Summary:        Module to simplify usage of decorators
 

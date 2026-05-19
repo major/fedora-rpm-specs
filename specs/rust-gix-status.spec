@@ -7,7 +7,7 @@
 %global crate gix-status
 
 Name:           rust-gix-status
-Version:        0.22.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Git status implemenation used by gix
 
@@ -63,6 +63,18 @@ use the "document-features" feature of the "%{crate}" crate.
 %files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+worktree-rewrites-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -80,17 +92,17 @@ use the "worktree-rewrites" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f sha1
 
 %build
-%cargo_build
+%cargo_build -f sha1
 
 %install
-%cargo_install
+%cargo_install -f sha1
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f sha1
 %endif
 
 %changelog

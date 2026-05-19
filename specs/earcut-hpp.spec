@@ -27,8 +27,18 @@ Patch:          %{url}/pull/120.patch
 # Cherry-picked on v2.2.4.
 Patch:          0001-Use-a-range-for-CMake-minimum-versions-3.2.3.12-supp.patch
 
+BuildSystem:    cmake
+# We do want to build the tests, but we have no use for the benchmarks or the
+# visualizer program.
+BuildOption(conf): %{shrink:
+    -DEARCUT_BUILD_TESTS:BOOL=ON
+    -DEARCUT_BUILD_BENCH:BOOL=OFF
+    -DEARCUT_BUILD_VIZ:BOOL=OFF
+    -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
+    }
+
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 # For tests (and benchmarks, if enabled):
 BuildRequires:  pkgconfig(opengl)
@@ -63,14 +73,13 @@ Provides:       %{name}-static = %{version}-%{release}
 %description devel %{common_description}
 
 
-%prep
-%autosetup -n earcut.hpp-%{version} -p1
+%prep -a
 # Increase precision of test output so we can understand any failures:
 sed --regexp-extended --in-place \
     's/(setprecision\()6(\))/\116\2/' test/test.cpp
 
 
-%conf
+%conf -p
 # Disabling floating-point contraction fixes certain failures on aarch64,
 # ppc64le, and s390x. See:
 #
@@ -90,18 +99,6 @@ sed --regexp-extended --in-place \
 # add this flag too if they want the behavior of the library to exactly match
 # upstream’s expectations.
 export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
-
-# We do want to build the tests, but we have no use for the benchmarks or the
-# visualizer program.
-%cmake \
-    -DEARCUT_BUILD_TESTS:BOOL=ON \
-    -DEARCUT_BUILD_BENCH:BOOL=OFF \
-    -DEARCUT_BUILD_VIZ:BOOL=OFF \
-    -DEARCUT_WARNING_IS_ERROR:BOOL=OFF
-
-
-%build
-%cmake_build
 
 
 %install

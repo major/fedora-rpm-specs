@@ -1,4 +1,5 @@
-# Build and run exhaustive tests?
+%bcond ctest 1
+# Build and run exhaustive tests? (Only if ctest bcond is enabled.)
 #
 # These really do take a long time—at least an hour on the fastest machines,
 # and over ten hours on s390x (affected also by limited parallelism). Some
@@ -28,12 +29,21 @@ Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz
 %global stf_url https://github.com/fastfloat/supplemental_test_files
 Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_commit}.tar.gz
 
-BuildRequires:  gcc-c++
-BuildRequires:  cmake
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+    -DSYSTEM_DOCTEST:BOOL=ON
+    -DFASTFLOAT_TEST:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DFASTFLOAT_EXHAUSTIVE:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
+    }
 
+BuildRequires:  gcc-c++
+
+%if %{with ctest}
 BuildRequires:  cmake(doctest)
 # Doctest is header-only, so we must BR:
 BuildRequires:  doctest-static
+%endif
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -65,33 +75,15 @@ Provides:       fast_float-static = %{version}-%{release}
 %setup -q -T -D -b 1
 # Compiling with -Werror makes sense for upstream CI, but is excessively strict
 # for downstream builds across a variety of compiler versions.
-sed -r -i 's/-Werror//' tests/CMakeLists.txt
+sed --regexp-extended --in-place 's/-Werror//' tests/CMakeLists.txt
 
 
-%conf
+%conf -p
 # Partially emulate the activity of FetchContent_Declare() in
 # tests/CMakeLists.txt so that we can run the tests offline.
-mkdir -p '%{_vpath_builddir}/_deps'
-ln -s "${PWD}/../supplemental_test_files-%{stf_commit}/" \
+mkdir --parents '%{_vpath_builddir}/_deps'
+ln --symbolic "${PWD}/../supplemental_test_files-%{stf_commit}/" \
     '%{_vpath_builddir}/_deps/supplemental_test_files-src'
-
-%cmake \
-    -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON \
-    -DSYSTEM_DOCTEST:BOOL=ON \
-    -DFASTFLOAT_TEST:BOOL=ON \
-    -DFASTFLOAT_EXHAUSTIVE:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

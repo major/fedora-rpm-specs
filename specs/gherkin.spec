@@ -195,9 +195,9 @@ BuildArch: noarch
 # with CMake. This is easier than trying to convince make that the targets in
 # question have already been built, which is the strategy we follow for the C++
 # acceptance tests.
-sed -r -i 's/^(\.run:) cli \$\(GHERKIN\)/\1/' c/Makefile
+sed --regexp-extended --in-place 's/^(\.run:) cli \$\(GHERKIN\)/\1/' c/Makefile
 # Python: Fix unversioned python interpreter.
-sed -r -i 's@python -m@%{python3} -m@' python/Makefile
+sed --regexp-extended --in-place 's@python -m@%{python3} -m@' python/Makefile
 # Python: We must work with what we have, and compatibility is quite good in
 # practice.
 %pyproject_patch_dependency uv_build:drop_upper
@@ -241,8 +241,8 @@ popd
 
 
 %install
-install -t '%{buildroot}%{_datadir}/gherkin' -D -p -m 0644 \
-    gherkin-languages.json
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_datadir}/gherkin' gherkin-languages.json
 
 echo '==== Installing C implementation ===='
 pushd c
@@ -267,7 +267,7 @@ rm '%{buildroot}%{_bindir}/gherkin-generate-tokens'
 echo '==== Installing Python implementation ===='
 %pyproject_install
 %pyproject_save_files --assert-license gherkin
-ln -s -f %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
+ln --symbolic --force %{buildroot}%{_datadir}/gherkin/gherkin-languages.json \
     '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 symlinks -c -o '%{buildroot}%{python3_sitelib}/gherkin/gherkin-languages.json'
 
@@ -287,7 +287,8 @@ popd
 
 
 echo '==== Installing man pages ===='
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 
@@ -315,7 +316,7 @@ pushd cpp
 %ctest
 %if %{with acceptance_cpp}
 # Keep make from trying to rebuild the C++ implementation or invoke cmate.
-mkdir -p .built
+mkdir --parents .built
 # The executables need to load libcucumber_gherkin, so we also set
 # LD_LIBRARY_PATH. The acceptance tests are not safe for parallel execution.
 LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %make_build -j1 acceptance \

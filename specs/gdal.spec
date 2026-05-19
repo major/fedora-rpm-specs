@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -409,6 +409,7 @@ cp -a %{SOURCE4} .
 
 %build
 %cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_USE_EXTERNAL_LIB=ON \
   -DGDAL_USE_INTERNAL_LIBS=OFF \
@@ -426,6 +427,7 @@ cp -a %{SOURCE4} .
 
 %if %{with mingw}
 %mingw_cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DBUILD_TESTING=OFF \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_USE_EXTERNAL_LIB=ON \
@@ -880,6 +882,9 @@ done
 
 
 %changelog
+* Sun May 17 2026 Sandro Mani <manisandro@gmail.com> - 3.12.4-2
+- Set CMAKE_BUILD_TYPE=RelWithDebInfo
+
 * Sun Apr 26 2026 Sandro Mani <manisandro@gmail.com> - 3.12.4-1
 - Update to 3.12.4
 

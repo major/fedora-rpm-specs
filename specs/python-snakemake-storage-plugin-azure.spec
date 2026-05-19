@@ -16,8 +16,8 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-azure
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-azure-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_azure
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_azure
 
 BuildArch:      noarch
 
@@ -41,7 +41,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{with tests}
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

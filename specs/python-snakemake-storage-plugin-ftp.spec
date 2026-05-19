@@ -15,8 +15,8 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-ftp
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-ftp-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_ftp
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_storage_plugin_ftp
 
 BuildArch:      noarch
 
@@ -45,7 +45,7 @@ k="${k-}${k+ and }not (TestStorage and test_storage_not_existing)"
 k="${k-}${k+ and }not (TestStorage and test_inventory)"
 %endif
 
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-ftp -f %{pyproject_files}

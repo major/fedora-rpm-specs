@@ -16,10 +16,10 @@ Source:         %{url}/archive/v%{version}/snakemake-interface-common-%{version}
 # Do not upper-bound the version of packaging
 Patch:          %{url}/pull/89.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l snakemake_interface_common
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_interface_common
 %if %{without bootstrap}
-BuildOption(generate_buildrequires): -g dev
+BuildOption(generate_buildrequires): --dependency-groups dev
 %endif
 
 BuildArch:      noarch
@@ -44,7 +44,7 @@ Summary:        %{summary}
 k="${k-}${k+ and }not test_snakemake_version"
 %endif
 
-%pytest -k "${k-}" -v tests/tests.py
+%pytest -k "${k-}" --verbose tests/tests.py
 
 
 %files -n python3-snakemake-interface-common -f %{pyproject_files}

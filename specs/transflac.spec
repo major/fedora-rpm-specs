@@ -1,8 +1,9 @@
-%global forgeurl    https://bitbucket.org/gbcox/transflac/
-%global commit      6b689cf7f5d1
+%global project transflac
+%global forgeurl https://codeberg.org/gbcox/%{project}/
+%global tag v%{version}
 
-Name:           transflac
-Version:        1.2.7
+Name:           %{project}
+Version:        1.3.0
 Summary:        Transcode FLAC to lossy formats
 License:        GPL-3.0-or-later
 
@@ -30,7 +31,6 @@ that transcodes FLAC audio files into various lossy formats.
 
 %prep
 %{forgesetup}
-%autosetup -n %{archivename}
 
 %build
 

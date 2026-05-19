@@ -14,8 +14,8 @@ Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{ver
 # Man page hand-written for Fedora in groff_man(7) format based on --help.
 Source1:        generate-slurm-partition-config.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_executor_plugin_slurm
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_executor_plugin_slurm
 
 BuildArch:      noarch
 
@@ -60,7 +60,7 @@ k="${k-}${k+ and }not TestArrayJobsAllWithLimit"
 k="${k-}${k+ and }not test_group_workflow"
 k="${k-}${k+ and }not test_simple_workflow"
 
-%pytest -k "${k-}" -v tests/tests.py
+%pytest -k "${k-}" --verbose tests/tests.py
 %endif
 
 

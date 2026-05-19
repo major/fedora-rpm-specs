@@ -2,7 +2,7 @@
 %global libcall_ui_version v0.1.5
 
 Name:     phosh
-Version:  0.54.0
+Version:  0.55.0
 Release:  %autorelease
 Summary:  Graphical shell for mobile devices
 License:  GPL-3.0-or-later
@@ -57,6 +57,7 @@ BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libcallaudio-0.1)
 BuildRequires:  pkgconfig(mm-glib) >= 1.24.0
 BuildRequires:  pkgconfig(qrcodegen)
+BuildRequires:  pkgconfig(wlroots-0.20) >= 0.20.0
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth
 BuildRequires:  dbus-daemon
@@ -180,6 +181,7 @@ desktop-file-validate \
 %{_libdir}/phosh/plugins/scaling-quick-setting.plugin
 %{_libdir}/phosh/plugins/media-players.plugin
 %{_libdir}/phosh/plugins/simple-custom-status-icon.plugin
+%{_libdir}/phosh/plugins/syncthing-quick-setting.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-caffeine-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-calendar.so
 %{_libdir}/phosh/plugins/libphosh-plugin-dark-mode-quick-setting.so
@@ -196,6 +198,7 @@ desktop-file-validate \
 %{_libdir}/phosh/plugins/libphosh-plugin-scaling-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-media-players.so
 %{_libdir}/phosh/plugins/libphosh-plugin-simple-custom-status-icon.so
+%{_libdir}/phosh/plugins/libphosh-plugin-syncthing-quick-setting.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-emergency-info.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-upcoming-events.so

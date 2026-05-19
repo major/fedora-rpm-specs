@@ -13,8 +13,8 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-kubernete
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-kubernetes-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_executor_plugin_kubernetes
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_executor_plugin_kubernetes
 
 BuildArch:      noarch
 
@@ -50,7 +50,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{with tests}
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

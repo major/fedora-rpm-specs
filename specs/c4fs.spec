@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit a5bbd666a60ea522674f82c005575ad96a3135aa
-%global snapdate 20260107
+%global commit 657930255ee750333bd4629d86825e7859147d81
+%global snapdate 20260508
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
@@ -29,11 +29,19 @@ Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 # patch without sending it upstream.
 Patch:          c4fs-1abba00-external-c4core.patch
 
+BuildSystem:    cmake
+# We can stop the CMake scripts from downloading doctest by setting
+# C4FS_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
+BuildOption(conf): %{shrink:
+    -DCMAKE_CXX_STANDARD=%{cxx_std}
+    -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/
+    -DC4FS_BUILD_TESTS=ON
+    }
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
@@ -59,9 +67,7 @@ The c4fs-devel package contains libraries and header files for developing
 applications that use c4fs.
 
 
-%prep
-%autosetup -n c4fs-%{commit} -p1
-
+%prep -a
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
@@ -74,44 +80,6 @@ sed --regexp-extended --in-place \
     --expression 's/(LIBS.*)\bdoctest\b/\1/' \
     --expression 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
     test/CMakeLists.txt
-
-
-%conf
-# We can stop the CMake scripts from downloading doctest by setting
-# C4FS_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake \
-  -DCMAKE_CXX_STANDARD=%{cxx_std} \
-  -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
-  -DC4FS_BUILD_TESTS=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-# Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place. The installation path is
-# determined by the scripts in https://github.com/biojppm/cmake, packaged as
-# c4project.
-#
-# Installation directory on Linux 64bit OS
-# https://github.com/biojppm/rapidyaml/issues/256
-#
-# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
-# which worked for c4core?
-if [ '%{_libdir}' != '%{_prefix}/lib' ]
-then
-  mkdir --parents '%{buildroot}%{_libdir}'
-  mv --verbose %{buildroot}%{_prefix}/lib/libc4fs.so* '%{buildroot}%{_libdir}/'
-  mkdir --parents '%{buildroot}%{_libdir}/cmake'
-  mv --verbose %{buildroot}%{_prefix}/lib/cmake/c4fs \
-      '%{buildroot}%{_libdir}/cmake/'
-  find %{buildroot}%{_libdir}/cmake/c4fs -type f -name '*.cmake' -print0 |
-    xargs --no-run-if-empty --verbose --null \
-        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
-fi
 
 
 %check

@@ -47,8 +47,10 @@ Patch:          %{url}/pull/863.patch
 # No compiled code is installed, so there are no debugging symbols.
 %global debug_package %{nil}
 
+BuildSystem:    cmake
+BuildOption(conf): -Dtest:BOOL=TRUE
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 BuildRequires:  cmake(gtest)
 
@@ -93,8 +95,7 @@ The easyloggingpp-doc package contains documentation and examples for
 developing applications that use Easylogging++.
 
 
-%prep
-%autosetup -n easyloggingpp-%{version} -p1
+%prep -a
 # Remove .gitignore and similar files that might accidentally be packaged,
 # especially in the samples.
 find . -type f \( -name '.git*' -o -name '.travis*' \) -print -delete
@@ -105,17 +106,7 @@ dos2unix --keepdate samples/Qt/fast-dictionary/words.txt
 find samples/VC++ -type f -execdir dos2unix --keepdate '{}' '+'
 
 
-%conf
-%cmake -Dtest:BOOL=TRUE
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
+%install -a
 install --directory '%{buildroot}%{_pkgdocdir}'
 cp --recursive --verbose --preserve *.md doc samples \
     '%{buildroot}%{_pkgdocdir}'

@@ -4,18 +4,24 @@
 # Upstream defaults to C++11, but gtest 1.17.0 requires C++17 or later.
 %global cxx_std 17
 
+# Post-release snapshot adapts for latest c4project macros and fixes
+# multilib/GNUInstallDirs support.
+%global commit 2505c3567d9cc32b36afc61e04b57acd91600106
+%global snapdate 20260508
+
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.11.1
+Version:        0.12.1^%{snapdate}.%{sub %{commit} 1 7}
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.11.1
+%global so_version 0.12.1
 Release:        %autorelease
 
 # SPDX
 License:        MIT
 URL:            https://github.com/biojppm/rapidyaml
-Source0:        %{url}/archive/v%{version}/rapidyaml-%{version}.tar.gz
+# Source0:        %%{url}/archive/v%%{version}/rapidyaml-%%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/rapidyaml-%{commit}.tar.gz
 # Read this from the unpatched original test/CMakeLists.txt:
 #   c4_download_remote_proj(yaml-test-suite … GIT_TAG <USE THIS>)
 %global yamltest_url https://github.com/yaml/yaml-test-suite
@@ -32,16 +38,24 @@ Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yaml
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
 
+BuildSystem:    cmake
+# Disable RYML_TEST_FUZZ so that we do not have to include the contents of
+# https://github.com/biojppm/rapidyaml-data (and document the licenses of the
+# contents). We *could* do so, and add an additional source similar to the one
+# for yaml-test-suite, but running these test cases downstream doesn’t seem
+# important enough to bother.
+BuildOption(conf): %{shrink:
+    -DRYML_CXX_STANDARD=%{cxx_std}
+    -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF}
+    -DRYML_TEST_FUZZ:BOOL=OFF
+    }
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
-# CMake builds in Fedora now use the ninja backend by default, but the Python
-# extension build unconditionally uses ninja, so we’re explicit:
-BuildRequires:  ninja-build
 
 BuildRequires:  cmake(c4core) >= 0.2.10
 
@@ -84,8 +98,6 @@ Summary:        Development files for Rapid YAML
 
 Requires:       rapidyaml%{?_isa} = %{version}-%{release}
 Requires:       c4core-devel%{?_isa}
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
-Conflicts:      rapidyaml0.10.0-devel
 
 %description devel %{common_description}
 
@@ -94,7 +106,8 @@ applications that use Rapid YAML.
 
 
 %prep
-%autosetup -p1
+# %%autosetup -p1
+%autosetup -p1 -n rapidyaml-%{commit}
 
 # Remove/unbundle additional dependencies
 
@@ -126,14 +139,16 @@ sed --regexp-extended --in-place \
 mkdir --parents 'test/extern/'
 
 # Original sources (including LICENSE)
-%setup -q -T -D -b 1 -n rapidyaml-%{version}
+# %%setup -q -T -D -b 1 -n rapidyaml-%%{version}
+%setup -q -T -D -b 1 -n rapidyaml-%{commit}
 
 # Data in the form rapidyaml needs it
-%setup -q -T -D -b 2 -n rapidyaml-%{version}
+# %%setup -q -T -D -b 2 -n rapidyaml-%%{version}
+%setup -q -T -D -b 2 -n rapidyaml-%{commit}
 mv '../yaml-test-suite-data-%{yamltest_date}' 'test/extern/yaml-test-suite'
 
 
-%conf
+%conf -p
 %if %{with rebuild_yaml_data}
 # We need to rebuild the test data before running CMake configuration, since it
 # checks to be sure it is present.
@@ -147,46 +162,8 @@ rm --recursive --verbose test/extern/yaml-test-suite
 mv ../yaml-test-suite-%{yamltest_date}/data test/extern/yaml-test-suite
 %endif
 
-# Disable RYML_TEST_FUZZ so that we do not have to include the contents of
-# https://github.com/biojppm/rapidyaml-data (and document the licenses of the
-# contents). We *could* do so, and add an additional source similar to the one
-# for yaml-test-suite, but running these test cases downstream doesn’t seem
-# important enough to bother.
-%cmake -GNinja \
-    -DRYML_CXX_STANDARD=%{cxx_std} \
-    -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF} \
-    -DRYML_TEST_FUZZ:BOOL=OFF
 
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-# Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place. The installation path is
-# determined by the scripts in https://github.com/biojppm/cmake, packaged as
-# c4project.
-#
-# Installation directory on Linux 64bit OS
-# https://github.com/biojppm/rapidyaml/issues/256
-#
-# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
-# which worked for c4core?
-if [ '%{_libdir}' != '%{_prefix}/lib' ]
-then
-  mkdir --parents '%{buildroot}%{_libdir}'
-  mv --verbose %{buildroot}%{_prefix}/lib/libryml.so* '%{buildroot}%{_libdir}/'
-  mkdir --parents '%{buildroot}%{_libdir}/cmake'
-  mv --verbose %{buildroot}%{_prefix}/lib/cmake/ryml \
-      '%{buildroot}%{_libdir}/cmake/'
-  find %{buildroot}%{_libdir}/cmake/ryml -type f -name '*.cmake' -print0 |
-    xargs --no-run-if-empty --verbose --null \
-        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
-fi
-
+%install -a
 # We don’t believe this will be useful on Linux. See:
 # https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/natvis
 rm '%{buildroot}%{_includedir}/ryml.natvis'

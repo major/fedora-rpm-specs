@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           libdivide
 Version:        5.3.0
 Release:        %autorelease
@@ -9,11 +11,15 @@ URL:            https://libdivide.com/
 VCS:            git:%{forgeurl}.git
 Source:         %{forgeurl}/archive/v%{version}/libdivide-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DLIBDIVIDE_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    }
+
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 %global _description %{expand:
 This package contains a header-only C/C++ library for optimizing integer
@@ -41,27 +47,9 @@ Provides:       libdivide-static = %{version}-%{release}
 %description    devel %_description
 
 
-%prep
-%autosetup -p1
-
+%prep -a
 # Disable -Werror
 sed -i 's/;-Werror//;/-Werror/d' CMakeLists.txt
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

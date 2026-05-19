@@ -12,7 +12,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cargo-deny
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * temporarily allow older gix 0.73
+# * bump gix to version 0.83
 Patch:          cargo-deny-fix-metadata.diff
 # * Downstream: temporarily preserve gix 0.73 compatibility
 # * This partially reverts 7e0cff3.

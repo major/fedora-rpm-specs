@@ -13,8 +13,8 @@ URL:            https://github.com/snakemake/snakemake-interface-report-plugins
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-report-plugins-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_interface_report_plugins
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_interface_report_plugins
 
 BuildArch:      noarch
 
@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{without bootstrap}
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

@@ -15,8 +15,9 @@ Source1:        gram_grep.1
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildSystem:    cmake
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  dos2unix
 
 BuildRequires:  boost-devel
@@ -30,9 +31,7 @@ Search text using a grammar, lexer, or straight regex. Chain searches for
 greater refinement.
 
 
-%prep
-%autosetup -n gram_grep-%{version}
-
+%prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
@@ -42,14 +41,6 @@ find . -type f -exec file '{}' '+' |
 # Remove include paths for unbundled header-only library dependencies
 sed -r -i 's@^([[:blank:]]*)(include_directories.*"\.\./)@\1# \2@' \
     CMakeLists.txt
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
 
 
 %install

@@ -5,16 +5,13 @@
 %global crate gix-error
 
 Name:           rust-gix-error
-Version:        0.1.0
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Common errors and error-handling utilities for gitoxide
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-error
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax dependency on insta
-Patch:          gix-error-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

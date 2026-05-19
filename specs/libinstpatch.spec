@@ -38,7 +38,13 @@ SourceLicense:  %{license} AND GPL-2.0-only
 %global forgeurl https://github.com/swami/libinstpatch
 Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DINTROSPECTION_ENABLED:BOOL=%{?with_introspection:ON}%{!?with_introspection:OFF}
+    -DGTKDOC_ENABLED:BOOL=ON
+    }
+# Upstream provides no tests.
+
 BuildRequires:  gcc
 
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -109,29 +115,9 @@ The libinstpatch-doc package contains documentation and examples for
 libinstpatch.
 
 
-%prep
-%autosetup -p1
-
+%prep -a
 # Remove example for nonexistent Python bindings
 find examples -type f -name '*.py' -print -delete
-
-
-%conf
-%cmake \
-    -DINTROSPECTION_ENABLED:BOOL=\
-%{?with_introspection:ON}%{!?with_introspection:OFF} \
-    -DGTKDOC_ENABLED:BOOL=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-# Upstream provides no tests.
 
 
 %files

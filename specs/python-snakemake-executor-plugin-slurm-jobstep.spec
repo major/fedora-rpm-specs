@@ -13,8 +13,8 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm-job
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-jobstep-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l snakemake_executor_plugin_slurm_jobstep
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_executor_plugin_slurm_jobstep
 
 BuildArch:      noarch
 
@@ -39,7 +39,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{with tests}
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

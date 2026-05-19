@@ -38,8 +38,8 @@ Source0:        %{url}/archive/refs/tags/release/v%{version}/llhttp-release-v%{v
 # RPM per packaging guidelines.
 Source1:        %{url}/archive/v%{version}/llhttp-%{version}.tar.gz
 
-# For compiling the C library
-BuildRequires:  cmake
+BuildSystem:    cmake
+
 BuildRequires:  gcc
 # There is no C++ involved, but CMake searches for a C++ compiler.
 BuildRequires:  gcc-c++
@@ -68,21 +68,7 @@ The llhttp-devel package contains libraries and header files for
 developing applications that use llhttp.
 
 
-%prep
-%autosetup -n llhttp-release-v%{version}
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
+%install -a
 %if %{with bootstrap}
 cp -vp %{_libdir}/libllhttp.so.%{previous_so_version}{,.*} \
     %{buildroot}%{_libdir}

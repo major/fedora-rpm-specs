@@ -10,8 +10,8 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-cluster-s
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-cluster-sync-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_executor_plugin_cluster_sync
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_executor_plugin_cluster_sync
 
 BuildArch:      noarch
 
@@ -32,7 +32,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 
 
 %files -n python3-snakemake-executor-plugin-cluster-sync -f %{pyproject_files}

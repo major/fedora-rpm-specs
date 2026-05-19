@@ -70,7 +70,8 @@ Requires:       gh
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
     '%{SOURCE140}' '%{SOURCE150}' '%{SOURCE160}' '%{SOURCE170}' \
     '%{SOURCE180}' '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' \
@@ -78,7 +79,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -f %{pyproject_files}

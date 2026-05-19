@@ -13,7 +13,7 @@
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.219
+Version:        2.220
 Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -211,6 +211,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun May 17 2026 Paul Howarth <paul@city-fan.org> - 2.220-1
+- 2.220 bump (rhbz#2478225)
+
 * Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.219-1
 - 2.219 bump (rhbz#2445768)
 

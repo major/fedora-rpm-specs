@@ -1,3 +1,6 @@
+# There is circular dependency with just about all of openstack and docs
+%bcond_with bootstrap
+
 %global sources_gpg 1
 %global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 
@@ -7,7 +10,6 @@
 # library name
 %global sname %{cname}client
 
-%global with_doc 1
 
 %global _description %{expand:
 python-%{sname} is a unified command-line client for the OpenStack APIs.
@@ -27,7 +29,6 @@ Patch0:           https://github.com/openstack/python-openstackclient/commit/177
 
 Source10:         openstack-completion.service  
 Source11:         openstack-completion.service.8
-Source12:         openstack-completion.timer    
 Source13:         openstack-completion-wrapper  
 Source14:         sysusers.conf
 
@@ -65,7 +66,7 @@ Recommends:       bash-completion
 %description -n python3-%{sname} %_description
 
 
-%if 0%{?with_doc}
+%if %{without bootstrap}
 %package -n python-%{sname}-doc
 Summary:          Documentation for OpenStack Command-line Client
 
@@ -93,7 +94,7 @@ Translation files for Openstackclient
 %endif
 %autosetup -n python_%{sname}-%{version} -S git
 
-cp -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
+cp -p %{SOURCE10} %{SOURCE11} %{SOURCE13} %{SOURCE14} .
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
@@ -123,7 +124,7 @@ sed -i \
 
 
 %generate_buildrequires
-%if 0%{?with_doc}
+%if %{without bootstrap}
 %pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
 %pyproject_buildrequires -t -e %{default_toxenv}
@@ -143,7 +144,7 @@ sed -i \
 %{__python3} setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/%{sname}/locale --domain openstackclient
 
 
-%if 0%{?with_doc}
+%if %{without bootstrap}
 export PYTHONPATH=.
 %tox -e docs
 sphinx-build -b man doc/source doc/build/man
@@ -169,8 +170,6 @@ sed -i '\|%{python3_sitelib}/%{sname}/locale\(/.*\)\?$|d' %{pyproject_files}
 # Install bash-completion service
 install -Dpm 0644 openstack-completion.service \
     %{buildroot}%{_unitdir}/openstack-completion.service
-install -Dpm 0644 openstack-completion.timer \
-    %{buildroot}%{_unitdir}/openstack-completion.timer
 install -Dpm 0644 openstack-completion-wrapper \
     %{buildroot}%{_datadir}/bash-completion/completions/openstack
 install -Dpm 0644 sysusers.conf \
@@ -185,36 +184,23 @@ export PYTHON=%{__python3}
 %tox -e %{default_toxenv} -- -- --exclude-regex 'openstackclient.tests.unit.common.test_module.TestModuleList.*'
 
 
-%post -n python3-%{sname}
-%systemd_post openstack-completion.timer
-
- 
-%preun -n python3-%{sname}
-%systemd_preun openstack-completion.timer
-
- 
-%postun -n python3-%{sname}
-%systemd_postun_with_restart openstack-completion.timer
-
-
-
 %files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/%{cname}
-%if 0%{?with_doc}
+%if %{without bootstrap}
 %{_mandir}/man1/%{cname}.1*
+%endif
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/openstack
 %{_unitdir}/openstack-completion.service
-%{_unitdir}/openstack-completion.timer
 %{_sysusersdir}/openstack-completion.conf
 %dir %attr(0755, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client
 %ghost %attr(0644, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client/bash-completion
 %{_mandir}/man8/openstack-completion.service.8*
 
-
+%if %{without bootstrap}
 %files -n python-%{sname}-doc
 %license LICENSE
 %doc doc/build/html

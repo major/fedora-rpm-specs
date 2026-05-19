@@ -7,17 +7,13 @@
 %global crate gix-archive
 
 Name:           rust-gix-archive
-Version:        0.24.0
+Version:        0.32.0
 Release:        %autorelease
 Summary:        Archive generation from of a worktree stream
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-archive
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax zip version to allow 6.x, 7.x, and 8.x; not offered upstream because
-#   upstream switched to rawzip in gix-archive 0.25 instead.
-Patch:          gix-archive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -64,6 +60,18 @@ use the "document-features" feature of the "%{crate}" crate.
 %files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tar-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -105,17 +113,17 @@ use the "zip" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f sha1
 
 %build
-%cargo_build
+%cargo_build -f sha1
 
 %install
-%cargo_install
+%cargo_install -f sha1
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f sha1
 %endif
 
 %changelog

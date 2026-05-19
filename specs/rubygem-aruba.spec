@@ -3,7 +3,7 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.4.0
+Version:    2.4.1
 Release:    1%{?dist}
 
 # SPDX confirmed
@@ -168,6 +168,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sat May 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.1-1
+- 2.4.1
+
 * Wed May 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.0-1
 - 2.4.0
 - Some diff-lcs related diffs between 1.5.0 and 1.6.2 are reverted

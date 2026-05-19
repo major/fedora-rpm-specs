@@ -11,16 +11,13 @@ Memtest86+.
 %global mt_isa x64
 
 Name:          memtest86+
-Version:       8.00
+Version:       8.10
 Release:       %autorelease
 Summary:       Stand-alone memory tester for x86-64 computers
 License:       GPL-2.0-only
 URL:           https://www.memtest.org/
 Source0:       https://github.com/memtest86plus/memtest86plus/archive/v%{version}/memtest86-plus-%{version}.tar.gz
 Source1:       memtest86+.kernel-install-plugin
-
-# https://github.com/memtest86plus/memtest86plus/pull/572
-Patch1000:     memtest86+.support-nx-booting.patch
 
 BuildRequires: gcc, make, xorriso, dosfstools, mtools
 Requires(pre): systemd-udev >= 252

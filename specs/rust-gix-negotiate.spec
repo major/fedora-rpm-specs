@@ -7,7 +7,7 @@
 %global crate gix-negotiate
 
 Name:           rust-gix-negotiate
-Version:        0.23.0
+Version:        0.31.0
 Release:        %autorelease
 Summary:        Implementation of various negotiation algorithms used by gix
 
@@ -48,22 +48,34 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f sha1
 
 %build
-%cargo_build
+%cargo_build -f sha1
 
 %install
-%cargo_install
+%cargo_install -f sha1
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f sha1
 %endif
 
 %changelog

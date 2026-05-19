@@ -11,8 +11,9 @@ License:        BSL-1.0
 URL:            https://github.com/BenHanson/lexertl14
 Source:         %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
 
+BuildSystem:    cmake
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  dos2unix
 
 # No compiled binaries are installed, so this would be empty.
@@ -38,30 +39,12 @@ Obsoletes:      lexertl14-examples < 0.1.0^20240216git7a365a2-5
 %description devel %{common_description}
 
 
-%prep
-%autosetup -n lexertl14-%{commit} -p1
-
+%prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
   cut -d ':' -f 1 |
   xargs -r dos2unix --keepdate
-
-
-%conf
-%cmake -DBUILD_TESTING:BOOL=ON -DBUILD_EXAMPLES:BOOL=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

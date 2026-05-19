@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 947f7ab2b7bbd71248b5bec738b5790a640c6cec
-%global snapdate 20250418
+%global commit 42ca2fae12b018de5e70fe9f8eda9dc4084b3925
+%global snapdate 20260508
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
@@ -91,28 +91,6 @@ sed --regexp-extended --in-place \
 
 %install
 %cmake_install
-# Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place. The installation path is
-# determined by the scripts in https://github.com/biojppm/cmake, packaged as
-# c4project.
-#
-# Installation directory on Linux 64bit OS
-# https://github.com/biojppm/rapidyaml/issues/256
-#
-# TODO: Why was this not fixed by https://github.com/biojppm/cmake/pull/16,
-# which worked for c4core?
-if [ '%{_libdir}' != '%{_prefix}/lib' ]
-then
-  mkdir --parents '%{buildroot}%{_libdir}'
-  mv --verbose %{buildroot}%{_prefix}/lib/libc4log.so* \
-      '%{buildroot}%{_libdir}/'
-  mkdir --parents '%{buildroot}%{_libdir}/cmake'
-  mv --verbose %{buildroot}%{_prefix}/lib/cmake/c4log \
-      '%{buildroot}%{_libdir}/cmake/'
-  find %{buildroot}%{_libdir}/cmake/c4log -type f -name '*.cmake' -print0 |
-    xargs --no-run-if-empty --verbose --null \
-        sed --regexp-extended --in-place "s@/lib/@/$(basename '%{_libdir}')/@"
-fi
 
 
 %check

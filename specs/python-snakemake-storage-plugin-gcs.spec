@@ -10,8 +10,8 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-gcs
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-gcs-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_gcs
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_gcs
 # All tests require Docker, network access, and/or cloud credentials.
 
 BuildArch:      noarch

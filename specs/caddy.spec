@@ -41,7 +41,6 @@ ExclusiveArch:  %{golang_arches_future}
 
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 Requires:       system-logos-httpd
 Provides:       webserver
@@ -303,8 +302,6 @@ cd src/%{goipath}
 %gotest ./...
 
 
-%pre
-%sysusers_create_compat %{S:22}
 
 
 %post

@@ -10,8 +10,8 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-flux
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-flux-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_executor_plugin_flux
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_executor_plugin_flux
 
 BuildArch:      noarch
 
@@ -34,7 +34,7 @@ Summary:        %{summary}
 
 %check -a
 # While testing is stubbed out, there are no actual tests to collect:
-# %%pytest -v tests/tests.py
+# %%pytest --verbose tests/tests.py
 
 
 %files -n python3-snakemake-executor-plugin-flux -f %{pyproject_files}

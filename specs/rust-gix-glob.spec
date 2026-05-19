@@ -7,7 +7,7 @@
 %global crate gix-glob
 
 Name:           rust-gix-glob
-Version:        0.22.1
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Glob pattern matching implementation for gix
 

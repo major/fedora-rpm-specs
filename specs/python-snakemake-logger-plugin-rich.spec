@@ -12,8 +12,8 @@ Source:         %{url}/archive/v%{version}/snakemake-logger-plugin-rich-%{versio
 # https://github.com/cademirch/snakemake-logger-plugin-rich/pull/27
 Patch:          %{url}/pull/27.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l snakemake_logger_plugin_rich
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_logger_plugin_rich
 
 BuildArch:      noarch
 
@@ -36,7 +36,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-snakemake-logger-plugin-rich -f %{pyproject_files}

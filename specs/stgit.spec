@@ -43,6 +43,11 @@ Patch:      stgit-fix-metadata.diff
 # Bump gix to version 0.75
 # https://github.com/stacked-git/stgit/commit/630b77d1288811b6d5b959b7165f1d9d13e86f0b
 Patch:      update-gix-to-0.75.0.patch
+# Bump gix to version 0.81
+# https://github.com/stacked-git/stgit/commit/6a0c4121629f2f5e533e36608c9ce64043ed01f6
+Patch:      0001-chore-update-gix-to-0.81.patch
+# Bump gix to version 0.83
+Patch:      0002-Update-gix-to-0.83.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  asciidoc

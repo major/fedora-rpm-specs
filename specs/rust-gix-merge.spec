@@ -7,7 +7,7 @@
 %global crate gix-merge
 
 Name:           rust-gix-merge
-Version:        0.8.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Git merge algorithms
 
@@ -34,7 +34,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 %exclude %{crate_instdir}/tests/
 
@@ -74,22 +73,34 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f sha1
 
 %build
-%cargo_build
+%cargo_build -f sha1
 
 %install
-%cargo_install
+%cargo_install -f sha1
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f sha1
 %endif
 
 %changelog

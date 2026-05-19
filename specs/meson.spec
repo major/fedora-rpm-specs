@@ -145,7 +145,6 @@ export MESON_PRINT_TEST_OUTPUT=1
 %endif
 
 %files -f %{pyproject_files}
-%license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %if %{with docs}

@@ -29,11 +29,13 @@ Patch:          harmonyseq-0.17-pr-8-metadata-improvements.patch
 # https://github.com/rafalcieslak/harmonySEQ/issues/11
 Patch:          %{forgeurl}/pull/12.patch
 
+BuildSystem:    cmake
+BuildOption(conf): -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 #BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(gtkmm-3.0)
@@ -48,8 +50,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
-
-BuildRequires:  hardlink
 
 # For %%{_datadir}/share/mime/packages
 Requires:       shared-mime-info
@@ -88,11 +88,7 @@ More information can be found on the project’s (dated) website:
 https://harmonyseq.wordpress.com
 
 
-%prep
-%autosetup -n harmonySEQ-%{version} -p1
-
-
-%conf
+%conf -p
 # We need the preprocessor macro RELEASE set so that src/main.cpp looks for
 # resoures in the installation path (DATA_PATH). Normally this is set with
 # -DCMAKE_BUILD_TYPE=Release, but this also asks to strip debugging symbols,
@@ -100,24 +96,6 @@ https://harmonyseq.wordpress.com
 # the preprocessor macro. Instead, we set it manually:
 CFLAGS="${CFLAGS} -DRELEASE"
 CXXFLAGS="${CXXFLAGS} -DRELEASE"
-
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-# Not a standard size for GNOME icons, so gnome-icon-theme does not have the
-# directories:
-rm -rvf '%{buildroot}%{_datadir}/icons/gnome/192x192'
-
-# There are some duplicate PNG and SVG icons that can be hardlinked to save a
-# little space.
-hardlink -c -v '%{buildroot}%{_datadir}/harmonySEQ'
 
 
 %check

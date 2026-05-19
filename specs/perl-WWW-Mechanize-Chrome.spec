@@ -1,13 +1,12 @@
-# 2026-03-13 v0.76 cleaned up tests so let's try enabling them
-# - they work on my local system but not in Fedora infrastructure
-%bcond do_tests 0
+# 2026-05-17 v0.77 cleaned up tests so enable them (but only on Chrome arches)
+%bcond do_tests 1
 %bcond debug_tests 0
 # some tests require Internet access, don't enable by default
 %bcond network_tests 0
 
 Name:           perl-WWW-Mechanize-Chrome
-Version:        0.76
-Release:        2%{?dist}
+Version:        0.77
+Release:        1%{?dist}
 Summary:        Automate the Chrome browser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/WWW-Mechanize-Chrome
@@ -22,6 +21,9 @@ Source0:        WWW-Mechanize-Chrome-%{version}-nocopyright.tar.gz
 Source1:        WWW-Mechanize-Chrome-generate-tarball.sh
 
 BuildArch:      noarch
+# package is not arch-specific, but requires Chrome/Chromium, which are
+ExclusiveArch:  noarch x86_64 aarch64
+
 BuildRequires:  make perl-interpreter perl-generators coreutils
 BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Exporter) >= 5
@@ -163,6 +165,11 @@ make test
 %{_mandir}/man3/WWW::Mechanize::Chrome*
 
 %changelog
+* Sun May 17 2026 Chris Adams <linux@cmadams.net> - 0.77-1
+- new version
+- add ExclusiveArch to match where Chrome/Chromium is supported
+- tests cleaned up more, so enable by default
+
 * Fri Mar 13 2026 Chris Adams <linux@cmadams.net> - 0.76-2
 - tests work locally but not in Fedora infrastructure, disable
 

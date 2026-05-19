@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.12.5
+Version:        2.13.4
 #%%global srcversion %%{lua:return(rpm.expand("%%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -13,7 +13,6 @@ Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 # For check phase
 %if %{with tests}
@@ -66,6 +65,12 @@ This package includes the documentation for Pydantic in Markdown format.
 %prep
 %autosetup -n pydantic-%{version} -p1
 
+# While pydantic-core is now developed in the same git repository, it is still
+# separately versioned and separately published on PyPI for now, so we still
+# package it in its own source package. Demonstrate that we don’t use any of
+# the pydantic-core sources to build Pydantic.
+rm -rv pydantic-core/
+
 # Delete pytest addopts. We don't care about benchmarking or coverage.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 # Work around patched-out pytest-run-parallel plugin dependency (avoid
@@ -75,7 +80,7 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x email -x timezone
+%pyproject_buildrequires --extras email,timezone
 
 
 %build
@@ -86,11 +91,11 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 
 %install
 %pyproject_install
-%pyproject_save_files -l pydantic
+%pyproject_save_files --assert-license pydantic
 
 
 %check
-%pyproject_check_import -e pydantic.mypy -e pydantic.v1.mypy
+%pyproject_check_import --exclude pydantic.mypy --exclude pydantic.v1.mypy
 %if %{with tests}
 # We don't build docs or care about benchmarking
 ignore="${ignore-} --ignore=tests/test_docs.py"

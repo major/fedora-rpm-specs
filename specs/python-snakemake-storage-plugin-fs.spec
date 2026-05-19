@@ -12,8 +12,8 @@ Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-fs-%{version
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_fs
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_fs
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-fs -f %{pyproject_files}

@@ -14,8 +14,8 @@ URL:            https://github.com/snakemake/snakemake-interface-logger-plugins
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-logger-plugins-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l snakemake_interface_logger_plugins
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_interface_logger_plugins
 
 BuildArch:      noarch
 
@@ -41,7 +41,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{without bootstrap}
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

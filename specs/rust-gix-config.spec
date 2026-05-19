@@ -5,7 +5,7 @@
 %global crate gix-config
 
 Name:           rust-gix-config
-Version:        0.48.0
+Version:        0.56.0
 Release:        %autorelease
 Summary:        Git-config file parser and editor from the gitoxide project
 
@@ -72,6 +72,18 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Drop benchmark dependency
@@ -79,18 +91,18 @@ tomcli-set Cargo.toml del 'dev-dependencies.criterion'
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f sha1
 
 %build
-%cargo_build
+%cargo_build -f sha1
 
 %install
-%cargo_install
+%cargo_install -f sha1
 
 %if %{with check}
 %check
 # * Disable test that only runs on 64 bit architectures
-%cargo_test -- -- --skip parse::tests::section::size_of_events
+%cargo_test -f sha1 -- -- --skip parse::tests::section::size_of_events
 %endif
 
 %changelog

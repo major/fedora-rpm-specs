@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           lexertl17
 Summary:        The Modular Lexical Analyser Generator
 # Upstream switched away from calendar-based versioning, and the new version
@@ -17,17 +19,22 @@ License:        BSL-1.0 AND Unicode-3.0
 URL:            https://github.com/BenHanson/lexertl17
 Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DBUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DBUILD_EXAMPLES:BOOL=ON
+    }
+
 %if %{undefined fc43}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 %endif
 
+BuildRequires:  gcc-c++
+BuildRequires:  dos2unix
+
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
-
-BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  dos2unix
 
 %global common_description %{expand:
 lexertl is a header-only library for writing lexical analyzers. With lexertl
@@ -52,9 +59,7 @@ Conflicts:      lexertl14-devel
 %description devel %{common_description}
 
 
-%prep
-%autosetup -n lexertl17-%{version} -p1
-
+%prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
   grep -E '\bCRLF\b' |
@@ -62,26 +67,12 @@ find . -type f -exec file '{}' '+' |
   xargs -r dos2unix --keepdate
 
 
-%conf
-%cmake -DBUILD_TESTING:BOOL=ON -DBUILD_EXAMPLES:BOOL=ON
-
-
-%build
-%cmake_build
-
+%build -a
 # Make a copy of the examples directory without CMakeLists.txt files, which are
 # not useful without the top-level CMakeLists.txt for the project.
 mkdir _cleaned
 cp -rvp examples _cleaned
 find _cleaned/examples -type f -name CMakeLists.txt -print -delete
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

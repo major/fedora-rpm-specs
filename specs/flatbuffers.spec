@@ -177,7 +177,7 @@ BuildArch:      noarch
 %prep
 %autosetup -p1
 # Remove unused directories that contain pre-compiled .jar files:
-rm -rvf android/ kotlin/
+rm --recursive --verbose android/ kotlin/
 
 %py3_shebang_fix samples
 # Fix paths in the Python test script to match how our build is organized:
@@ -189,12 +189,12 @@ rm -rvf android/ kotlin/
 #     handled by %%{py3_test_envvars}, but the test script overrides it
 #   - Make sure we don’t do coverage analysis even if python3-coverage is
 #     somehow installed as an indirect dependency
-sed -r -i.upstream \
-    -e 's|[^[:blank:]]*(/flatc)|%{buildroot}%{_bindir}\1|' \
-    -e 's| python3 | %{python3} |' \
-    -e 's|run_tests [^/]|# &|' \
-    -e 's|PYTHONPATH=|&%{buildroot}%{python3_sitelib}:|' \
-    -e 's|which coverage|/bin/false|' \
+sed --regexp-extended --in-place=.upstream \
+    --expression='s|[^[:blank:]]*(/flatc)|%{buildroot}%{_bindir}\1|' \
+    --expression='s| python3 | %{python3} |' \
+    --expression='s|run_tests [^/]|# &|' \
+    --expression='s|PYTHONPATH=|&%{buildroot}%{python3_sitelib}:|' \
+    --expression='s|which coverage|/bin/false|' \
     tests/PythonTest.sh
 
 

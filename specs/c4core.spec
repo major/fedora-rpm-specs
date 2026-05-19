@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.2.11
+Version:        0.2.12
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.11
+%global so_version 0.2.12
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -33,11 +33,19 @@ License:        %{shrink:
     }
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 
+BuildSystem:    cmake
+# We can stop the CMake scripts from downloading doctest by setting
+# C4CORE_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
+BuildOption(conf): %{shrink:
+    -DCMAKE_CXX_STANDARD=%{cxx_std}
+    -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/
+    -DC4CORE_BUILD_TESTS=ON
+    }
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
@@ -68,8 +76,6 @@ no equivalent under consideration.}
 Summary:        %{summary}
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
-Conflicts:      c4core0.2.8-devel
 
 # Each of these header-only libraries is made available under c4/ext/… in the
 # API of this package. Dependent packages that use them should really have
@@ -96,9 +102,7 @@ Provides:       bundled(SG14) = 0^20190524git3a3b806
 %description devel %{common_description}
 
 
-%prep
-%autosetup -n c4core-%{version}
-
+%prep -a
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
@@ -143,22 +147,7 @@ cat > src/c4/ext/fast_float_all.h <<EOF
 EOF
 
 
-%conf
-# We can stop the CMake scripts from downloading doctest by setting
-# C4CORE_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake \
-  -DCMAKE_CXX_STANDARD=%{cxx_std} \
-  -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
-  -DC4CORE_BUILD_TESTS=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
+%install -a
 # Some unbundled header-only libraries that appear in the API may have had
 # their symlinks dereferenced during installation. Make sure they aren’t
 # “re-bundled” as a result.

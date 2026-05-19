@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           lest
 Version:        1.37.0
 Release:        %autorelease
@@ -7,8 +9,16 @@ License:        BSL-1.0
 URL:            https://github.com/martinmoene/lest
 Source:         %{url}/archive/v%{version}/lest-%{version}.tar.gz
 
+BuildSystem:    cmake
+# https://github.com/martinmoene/lest/issues/56#issuecomment-344417309:
+# > The numbered 'tests' are actually examples of which several fail for
+# > educational reasons.
+# >
+# > CMake variable LEST_BUILD_EXAMPLE lets you control inclusion of the
+# > examples in the build process; by default it's on.
+BuildOption(conf): -DLEST_BUILD_EXAMPLE:BOOL=OFF
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -32,32 +42,6 @@ Provides:       %{name}-static = %{version}-%{release}
 
 The %{name}-devel package contains header files for developing applications
 that use %{name}.
-
-
-%prep
-%autosetup -n lest-%{version} -p1
-
-
-%conf
-# https://github.com/martinmoene/lest/issues/56#issuecomment-344417309:
-# > The numbered 'tests' are actually examples of which several fail for
-# > educational reasons.
-# >
-# > CMake variable LEST_BUILD_EXAMPLE lets you control inclusion of the
-# > examples in the build process; by default it's on.
-%cmake -DLEST_BUILD_EXAMPLE:BOOL=OFF
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

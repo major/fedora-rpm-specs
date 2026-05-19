@@ -1,5 +1,3 @@
-%global blaslib openblas
-
 Name:           qm-vamp-plugins
 Version:        1.8.0
 Release:        %autorelease
@@ -18,7 +16,7 @@ Patch0:         qm-vamp-plugins-build.patch
 Patch1:         qm-vamp-plugins-1.8.0-unbundle.patch
 
 BuildRequires:  make
-BuildRequires:  %{blaslib}-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
 BuildRequires:  kiss-fft-static
 BuildRequires:  qm-dsp-static >= 1.8.0
@@ -60,7 +58,7 @@ EXTRA_CFLAGS="-msse -msse2 -mfpmath=sse"
 
 CFLAGS="-I%{_includedir}/qm-dsp $EXTRA_CFLAGS %{?optflags}" \
 LDFLAGS="%{?__global_ldflags}" \
-BLAS_LIBS="-l%{blaslib}" \
+BLAS_LIBS="-lflexiblas" \
 make %{?_smp_mflags}
 
 

@@ -1,9 +1,3 @@
-# This package is arch-specific, because it computes properties of the system
-# (such as endianness) and stores them in generated header files. Hence, the
-# files DO vary by platform. However, there is no actual compiled code, so turn
-# off debuginfo generation.
-%global debug_package %{nil}
-
 Name:           fflas-ffpack
 Version:        2.5.0
 Release:        %autorelease
@@ -24,14 +18,14 @@ License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 #   - macros/ltoptions.m4, macros/ltsugar.m4, macros/ltversion.m4, and
 #     macros/lt~obsolete.m4 are FSFULLR
 SourceLicense:  %{shrink:
-                %{license} AND
-                CECILL-B AND
-                FSFAP AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic
-                }
+    %{license} AND
+    CECILL-B AND
+    FSFAP AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic
+    }
 URL:            https://linbox-team.github.io/fflas-ffpack/
 %global forgeurl https://github.com/linbox-team/fflas-ffpack
 VCS:            git:%{forgeurl}.git
@@ -65,6 +59,12 @@ Patch:          %{forgeurl}/pull/385.patch
 # instruction set
 # https://github.com/linbox-team/fflas-ffpack/issues/378
 Patch:          %{forgeurl}/pull/379.patch
+
+# This package is arch-specific, because it computes properties of the system
+# (such as endianness) and stores them in generated header files. Hence, the
+# files DO vary by platform. However, there is no actual compiled code, so turn
+# off debuginfo generation.
+%global debug_package %{nil}
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -111,15 +111,15 @@ FFLAS-FFPACK.
 %autosetup -n fflas_ffpack-%{version} -p1
 # Skip test-echelon for now due to failures.
 # See https://github.com/linbox-team/fflas-ffpack/issues/282
-sed -i '/^[[:blank:]]*test-echelon/d' tests/Makefile.am
+sed --in-place '/^[[:blank:]]*test-echelon/d' tests/Makefile.am
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_shebang_lines
-sed -i 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
+sed --in-place 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
 
 # Remove parts of the configure script that select non-default architectures
 # and ABIs. On x86_64, we could rely on up to SSE2, but there are no explicit
 # SIMD routines below SSE4.1 in the library, so it is not worth worrying about.
-sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
+sed --in-place '/INSTR_SET/,/fabi-version/d' configure.ac
 
 
 %conf
@@ -130,12 +130,14 @@ autoreconf --force --install --verbose
 # configure script detects USER LAPACK. Ideally, this would be reported
 # upstream, but it’s difficult to describe the problem precisely.
 %configure \
-  --disable-static \
-  --enable-openmp \
-  --without-archnative \
-  --with-blas-cflags="$(pkgconf --cflags flexiblas) -D__FFLASFFPACK_HAVE_CBLAS=1" \
-  --with-blas-libs="$(pkgconf --libs flexiblas)"
-chmod -v a+x fflas-ffpack-config
+    --disable-static \
+    --enable-openmp \
+    --without-archnative \
+    --with-blas-cflags="$(
+      pkgconf --cflags flexiblas
+    ) -D__FFLASFFPACK_HAVE_CBLAS=1" \
+    --with-blas-libs="$(pkgconf --libs flexiblas)"
+chmod --verbose a+x fflas-ffpack-config
 
 
 %build
@@ -144,7 +146,8 @@ chmod -v a+x fflas-ffpack-config
 
 %install
 %make_install
-install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check

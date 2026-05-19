@@ -1,3 +1,4 @@
+%bcond ctest 1
 # Use the system Catch2? We need 2.x and cannot straightforwarly port to 3.x
 # (and upstream will not migrate to 3.x because they need to test C++11
 # support, https://github.com/gulrak/filesystem/issues/165). If a Catch2 2.x
@@ -18,9 +19,12 @@ License:        MIT
 URL:            https://github.com/gulrak/filesystem
 Source:         %{url}/archive/v%{version}/filesystem-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DGHC_FILESYSTEM_BUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+}
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  make
 
 %if %{with system_catch2}
 # Consider migrating to Catch2 v3
@@ -61,31 +65,13 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%prep
-%autosetup -n filesystem-%{version}
-
+%prep -a
 %if %{with system_catch2}
 # Remove bundled Catch library and use the system version
 rm -vf test/catch.hpp
 sed -r -i 's|(include[[:blank:]]+")(catch.hpp")|\1catch2/\2|' test/*.cpp
 sed -r -i 's|[[:blank:]]+catch\.hpp||' test/CMakeLists.txt
 %endif
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files devel

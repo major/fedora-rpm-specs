@@ -45,7 +45,7 @@ Version: 17.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -932,6 +932,12 @@ fi
 # endif scl
 
 %changelog
+* Sat May 16 2026 Andrew Burgess <aburgess@redhat.com>
+- Backport the following upstream commits in order to address RHBZ
+  2467251: d980317c7f1, 958d06262a7, 7d1d7386561, 8915de0883c,
+  8f65ab7b71f.  These commits will all drop out when we rebase to GDB
+  18.
+
 * Tue Apr 21 2026 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commits 8bd08ee92c4 and cd289df068e to address
   rhbz2366461.  These backports will not be needed once we rebase to

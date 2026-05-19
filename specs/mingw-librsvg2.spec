@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-librsvg2
-Version:        2.62.1
+Version:        2.62.2
 Release:        1%{?dist}
 Summary:        SVG library based on cairo for MinGW
 
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/librsvg
 
 
 %changelog
+* Sun May 17 2026 Sandro Mani <manisandro@gmail.com> - 2.62.2-1
+- Update to 2.62.2
+
 * Sun Apr 12 2026 Sandro Mani <manisandro@gmail.com> - 2.62.1-1
 - Update to 2.62.1
 

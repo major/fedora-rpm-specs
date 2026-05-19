@@ -1,7 +1,7 @@
 %global gvc_commit d2442f455844e5292cb4a74ffc66ecc8d7595a9f
 
 Name:		phosh-mobile-settings
-Version:	0.54.0
+Version:	0.55.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later
@@ -10,6 +10,8 @@ Source0:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
 Source1:	https://gitlab.gnome.org/guidog/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
+# https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/355
+Patch0:	0001-polkit-Allow-to-specify-group.patch
 
 ExcludeArch:	%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415478
@@ -21,6 +23,8 @@ BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	meson >= 1.7.0
 
+BuildRequires:	pkgconfig(accountsservice) >= 23.13
+BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(glib-2.0) >= 2.84
 BuildRequires:	pkgconfig(gio-2.0) >= 2.84
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.84
@@ -40,6 +44,7 @@ BuildRequires:	pkgconfig(libportal-gtk4) >= 0.9.1
 BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.8.0
 BuildRequires:	pkgconfig(libcellbroadcast-0.0) >= 0.0.2
 BuildRequires:	pkgconfig(yaml-0.1)
+BuildRequires:	pkgconfig(polkit-gobject-1) >= 126
 BuildRequires:	/usr/bin/rst2man
 BuildRequires:	gobject-introspection
 BuildRequires:	appstream-devel
@@ -63,6 +68,7 @@ Mobile Settings App for phosh and related components
 %package -n libphosh-mobile-settings
 License:	LGPL-2.1-or-later
 Summary:	Allows to configure advanced settings
+Requires:	polkit
 
 %description -n libphosh-mobile-settings
 Allows to configure some advanced settings of Phosh
@@ -81,7 +87,7 @@ mkdir -p /tmp/runtime-dir
 chmod 0700 /tmp/runtime-dir
 
 %conf
-%meson -Dtweaks-data-dir=%{_datadir}/phosh-tweaks -Dman=true
+%meson -Dtweaks-data-dir=%{_datadir}/phosh-tweaks -Dman=true -Dpolkit-group=wheel
 
 %build
 %meson_build
@@ -106,11 +112,13 @@ dbus-launch phoc --no-xwayland -E "%meson_test"
 %dir %{_libdir}/phosh-mobile-settings
 %{_libdir}/phosh-mobile-settings/plugins/libms-plugin-librem5.so
 %{_datadir}/applications/mobi.phosh.MobileSettings.desktop
+%{_datadir}/applications/mobi.phosh.MobileSettings.nobuiltins.desktop
 %{_datadir}/dbus-1/services/mobi.phosh.MobileSettings.service
 %{_datadir}/glib-2.0/schemas/mobi.phosh.MobileSettings.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/mobi.phosh.MobileSettings.svg
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.MobileSettings-symbolic.svg
 %{_datadir}/metainfo/mobi.phosh.MobileSettings.metainfo.xml
+%{_datadir}/polkit-1/rules.d/phosh-mobile-settings.rules
 %dir %{_datadir}/phosh-tweaks
 %{_mandir}/man1/phosh-mobile-settings.1*
 

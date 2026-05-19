@@ -10,8 +10,8 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-cluster-g
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-cluster-generic-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_executor_plugin_cluster_generic
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_executor_plugin_cluster_generic
 
 BuildArch:      noarch
 
@@ -39,7 +39,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{without bootstrap}
-%pytest -v tests/tests.py
+%pytest --verbose tests/tests.py
 %endif
 
 

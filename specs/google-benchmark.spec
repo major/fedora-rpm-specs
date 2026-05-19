@@ -1,3 +1,5 @@
+%bcond ctest 1
+# Build with libpfm for hardware performance counter support?
 %bcond libpfm   1
 
 Name:           google-benchmark
@@ -19,68 +21,24 @@ Source:         %{url}/archive/v%{version}/benchmark-%{version}.tar.gz
 # https://github.com/google/benchmark/issues/2173
 Patch:          0001-In-PerfCountersTest.MultiThreaded-serialize-worker-t.patch
 
-BuildRequires:  cmake
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
-
-BuildRequires:  cmake(GTest)
-BuildRequires:  gmock-devel
-# Required for locale_impermeablity_test so the en_US.UTF-8 locale is valid.
-BuildRequires:  glibc-langpack-en
-%if %{with libpfm}
-BuildRequires:  libpfm-devel
-%endif
-
-%description
-A library to support the benchmarking of functions, similar to unit-tests.
-
-
-%package devel
-Summary:        Development files for %{name}
-
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Removed for Fedora 43; we can drop the Obsoletes after Fedora 45.
-Obsoletes:      %{name}-doc < 1.9.4-9
-
-%description devel
-%{summary}.
-
-
-%prep
-%autosetup -n benchmark-%{version} -p1
-sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
-
-
-%conf
+BuildSystem:    cmake
 # Do not enable BENCHMARK_ENABLE_ASSEMBLY_TESTS, since it is for a very
 # specific OS and compiler:
 # https://github.com/google/benchmark/issues/1326#issuecomment-1015221235
-%cmake \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DGIT_VERSION='%{version}' \
-    -DBENCHMARK_DOWNLOAD_DEPENDENCIES:BOOL=OFF \
-    -DBENCHMARK_ENABLE_DOXYGEN:BOOL=OFF \
-    -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=ON \
-    -DBENCHMARK_ENABLE_ASSEMBLY_TESTS:BOOL=OFF \
-%if %{with libpfm}
-    -DBENCHMARK_ENABLE_LIBPFM:BOOL=ON \
-%endif
-    -DBENCHMARK_ENABLE_INSTALL:BOOL=ON \
-    -DBENCHMARK_ENABLE_TESTING:BOOL=ON \
-    -DBENCHMARK_INSTALL_DOCS:BOOL=OFF \
-    -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF \
+BuildOption(conf): %{shrink:
+    -DCMAKE_BUILD_TYPE=Release
+    -DGIT_VERSION='%{version}'
+    -DBENCHMARK_DOWNLOAD_DEPENDENCIES:BOOL=OFF
+    -DBENCHMARK_ENABLE_DOXYGEN:BOOL=OFF
+    -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DBENCHMARK_ENABLE_ASSEMBLY_TESTS:BOOL=OFF
+    -DBENCHMARK_ENABLE_LIBPFM:BOOL=%{?with_libfpm:ON}%{?!with_libfpm:OFF}
+    -DBENCHMARK_ENABLE_INSTALL:BOOL=ON
+    -DBENCHMARK_ENABLE_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DBENCHMARK_INSTALL_DOCS:BOOL=OFF
+    -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF
     -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
+    }
 %ifarch s390x
 # [BUG] Multiple PerfCountersTest failures with counter.num_counters() zero on
 # some s390x systems
@@ -106,10 +64,40 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 # We don’t bother attempting to run the four tests that do succeed in
 # perf_counters_gtest; it’s much more straightforward to just skip these two
 # executables at the ctest level entirely, and little is lost by doing so.
-%ctest --exclude-regex '^perf_counters_g?test$'
-%else
-%ctest
+BuildOption(check): --exclude-regex '^perf_counters_g?test$'
 %endif
+
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+
+%if %{with libpfm}
+BuildRequires:  libpfm-devel
+%endif
+
+%if %{with ctest}
+BuildRequires:  cmake(GTest)
+BuildRequires:  gmock-devel
+# Required for locale_impermeablity_test so the en_US.UTF-8 locale is valid.
+BuildRequires:  glibc-langpack-en
+%endif
+
+%description
+A library to support the benchmarking of functions, similar to unit-tests.
+
+
+%package devel
+Summary:        Development files for %{name}
+
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# Removed for Fedora 43; we can drop the Obsoletes after Fedora 45.
+Obsoletes:      %{name}-doc < 1.9.4-9
+
+%description devel
+%{summary}.
+
+
+%prep -a
+sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 
 
 %files

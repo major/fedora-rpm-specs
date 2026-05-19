@@ -81,9 +81,12 @@ Documentation for festival-freebsoft-utils in info, PDF, and HTML formats.
 
 
 %install
-install -t '%{buildroot}/%{_datadir}/festival' -D -p -m 0644 *.scm
-install -t '%{buildroot}/%{_infodir}' -D -p -m 0644 doc/*.info
-install -t '%{buildroot}/%{_pkgdocdir}' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}/%{_datadir}/festival' *.scm
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}/%{_infodir}' doc/*.info
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}/%{_pkgdocdir}' \
     doc/*.pdf doc/*.html ANNOUNCE NEWS README
 
 

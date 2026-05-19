@@ -124,15 +124,15 @@ MinGW Windows freexl library.
 %autosetup -p1
 
 # We want to install a “clean” version of the examples
-mkdir -p clean
-cp -rp examples clean/
+mkdir --parents clean
+cp --recursive --preserve examples clean/
 # Automake files don’t work without a configure.ac; don’t bother installing
 # them.
-rm -vf clean/examples/Makefile.*
+rm --verbose clean/examples/Makefile.*
 
 # Prepare native build dir with testdata
 mkdir build_native
-cp -a tests build_native
+cp --archive tests build_native
 
 
 %conf
@@ -164,7 +164,7 @@ popd
 
 
 %install
-%make_install -C build_native
+%make_install --directory=build_native
 
 %if %{with mingw}
 %mingw_make_install
@@ -173,7 +173,7 @@ popd
 
 
 %check
-%make_build -C build_native check
+%make_build --directory=build_native check
 
 
 %files

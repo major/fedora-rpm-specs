@@ -1,6 +1,8 @@
 %global commit fa931f3285ced10ace628f7f1ac951e1951e7ea6
 %global snapdate 20260302
 
+%bcond ctest 1
+
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
 # collection is not, and there are no releases. These libraries follow the
@@ -22,12 +24,18 @@ License:        Unlicense OR MIT-0
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DDR_LIBS_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    }
+BuildOption(check): --exclude-regex "${skips}"
+
 BuildRequires:  gcc-c++
 
-# For tests:
+%if %{with ctest}
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  libsndfile-devel
+%endif
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -98,9 +106,7 @@ Provides:       dr_wav-static = %{dr_wav_version}-%{release}
 WAV audio loader and writer.
 
 
-%prep
-%autosetup -n dr_libs-%{commit}
-
+%prep -a
 # Omit the "playback" tests. We cannot run these anyway, so we would have to
 # skip them, and by not even compiling them, we can avoid a BuildRequires on
 # miniaudio.
@@ -110,14 +116,6 @@ sed --regexp-extended --in-place \
 mkdir -p tests/testvectors/mp3/tests
 
 
-%conf
-%cmake -DDR_LIBS_BUILD_TESTS:BOOL=ON
-
-
-%build
-%cmake_build
-
-
 %install
 # There are no install targets in CMakeLists.txt, so %%cmake_install would do
 # nothing. We install manually instead:
@@ -125,16 +123,7 @@ install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_includedir}' dr_*.h
 
 
-%check
-skips='^($.'
-# Fails with “No output file specified.”
-skips="${skips}|wav_encoding"
-# These require files in tests/testvectors/mp3/tests/ that are not distributed:
-skips="${skips}|mp3_(basic|extract)"
-skips="${skips})$"
-
-%ctest --exclude-regex "${skips}"
-
+%check -p
 # As a sanity check, verify that all of the subpackage version numbers appear
 # in the corresponding headers.
 while read -r version header
@@ -146,6 +135,13 @@ done <<'EOF'
 %(printf '%s\n' '%{dr_mp3_version}' | sed -r 's/[~^].*//') dr_mp3.h
 %(printf '%s\n' '%{dr_wav_version}' | sed -r 's/[~^].*//') dr_wav.h
 EOF
+
+skips='^($.'
+# Fails with “No output file specified.”
+skips="${skips}|wav_encoding"
+# These require files in tests/testvectors/mp3/tests/ that are not distributed:
+skips="${skips}|mp3_(basic|extract)"
+skips="${skips})$"
 
 
 %files devel

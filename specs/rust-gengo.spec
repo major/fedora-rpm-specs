@@ -14,10 +14,7 @@ URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Use older gix 0.75; upstream wants 0.81,
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2405612; there are no
-#   source-code changes, but we must not specify the sha1 feature, which was not
-#   introduced yet.
+# * Bump gix to version 0.83
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -13,19 +13,19 @@ License:        MIT
 URL:            https://github.com/piskvorky/smart_open
 Source:         %{url}/archive/v%{version}/smart_open-%{version}.tar.gz
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 BuildOption(generate_buildrequires): %{shrink:
-                                     -x s3
-                                     %{?with_gcs:-x gcs}
-                                     -x azure
-                                     -x http
-                                     -x webhdfs
-                                     -x ssh
-                                     -x zst
-                                     %{?with_gcs:-x all}
-                                     %{?with_tests:-x test}
-                                     }
-BuildOption(install):   -l smart_open
+    --extras s3
+    %{?with_gcs:--extras gcs}
+    --extras azure
+    --extras http
+    --extras webhdfs
+    --extras ssh
+    --extras zst
+    %{?with_gcs:--extras all}
+    %{?with_tests:--extras test}
+    }
+BuildOption(install): --assert-license smart_open
 
 BuildArch:      noarch
 

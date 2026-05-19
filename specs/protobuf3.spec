@@ -10,6 +10,12 @@
 %bcond_without python_cpp
 %endif
 
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 #global rcver rc2
 
 Summary:        Protocol Buffers - Google's data interchange format
@@ -105,8 +111,19 @@ BuildRequires:  gcc-c++
 BuildRequires:  emacs
 BuildRequires:  zlib-devel
 
+%if %{with mingw}
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw32-zlib
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw64-zlib
+%endif
+
 Provides:       protobuf = %{version}-%{release}
 Provides:       protobuf%{?_isa} = %{version}-%{release}
+Conflicts:      protobuf < 4~~
 
 %description
 Protocol Buffers are a way of encoding structured data in an efficient
@@ -126,6 +143,7 @@ Summary:        Protocol Buffers compiler
 Requires:       %{name} = %{version}-%{release}
 Provides:       protobuf-compiler = %{version}-%{release}
 Provides:       protobuf-compiler%{?_isa} = %{version}-%{release}
+Conflicts:      protobuf-compiler < 4~~
 
 %description compiler
 This package contains Protocol Buffers compiler for all programming
@@ -138,6 +156,7 @@ Requires:       %{name}-compiler = %{version}-%{release}
 Requires:       zlib-devel
 Provides:       protobuf-devel = %{version}-%{release}
 Provides:       protobuf-devel%{?_isa} = %{version}-%{release}
+Conflicts:      protobuf-devel < 4~~
 
 Obsoletes:      protobuf-static < 3.19.6-4
 
@@ -149,6 +168,7 @@ C++ headers and libraries
 Summary:        Protocol Buffers LITE_RUNTIME libraries
 Provides:       protobuf-lite = %{version}-%{release}
 Provides:       protobuf-lite%{?_isa} = %{version}-%{release}
+Conflicts:      protobuf-lite < 4~~
 
 %description lite
 Protocol Buffers built with optimize_for = LITE_RUNTIME.
@@ -163,6 +183,7 @@ Requires:       %{name}-devel = %{version}-%{release}
 Requires:       %{name}-lite = %{version}-%{release}
 Provides:       protobuf-lite-devel = %{version}-%{release}
 Provides:       protobuf-lite-devel%{?_isa} = %{version}-%{release}
+Conflicts:      protobuf-lite-devel < 4~~
 
 Obsoletes:      protobuf-lite-static < 3.19.6-4
 
@@ -188,6 +209,7 @@ BuildArch:      noarch
 Conflicts:      %{name}-compiler > %{version}
 Conflicts:      %{name}-compiler < %{version}
 %py_provides    python3-protobuf
+Conflicts:      python3-protobuf < 4~~
 
 %description -n python3-protobuf3
 This package contains Python libraries for Google Protocol Buffers
@@ -197,6 +219,7 @@ This package contains Python libraries for Google Protocol Buffers
 Summary:        Vim syntax highlighting for Google Protocol Buffers descriptions
 BuildArch:      noarch
 Provides:       protobuf-vim = %{version}-%{release}
+Conflicts:      protobuf-vim < 4~~
 # We don’t really need vim or vim-enhanced to be already installed in order to
 # install a plugin for it. We do need to depend on vim-filesystem, which
 # provides the necessary directory structure.
@@ -210,12 +233,42 @@ descriptions in Vim editor
 Summary:        Emacs mode for Google Protocol Buffers descriptions
 BuildArch:      noarch
 Provides:       protobuf-emacs = %{version}-%{release}
+Conflicts:      protobuf-emacs < 4~~
 Requires:       emacs-filesystem >= %{_emacs_version}
 Obsoletes:      protobuf-emacs-el < 3.6.1-4
 
 %description emacs
 This package contains syntax highlighting for Google Protocol Buffers
 descriptions in the Emacs editor.
+
+%if %{with mingw}
+%package -n mingw32-protobuf
+Summary:       MinGW Windows protobuf library
+
+%description -n mingw32-protobuf
+MinGW Windows protobuf library.
+
+%package -n mingw32-protobuf-tools
+Summary:       MinGW Windows protobuf library tools
+
+%description -n mingw32-protobuf-tools
+MinGW Windows protobuf library tools.
+
+%package -n mingw64-protobuf
+Summary:       MinGW Windows protobuf library
+
+%description -n mingw64-protobuf
+MinGW Windows protobuf library.
+
+%package -n mingw64-protobuf-tools
+Summary:       MinGW Windows protobuf library tools
+
+%description -n mingw64-protobuf-tools
+MinGW Windows protobuf library tools.
+
+%{?mingw_debug_package}
+%endif
+
 
 %prep
 %setup -q -n protobuf-%{version}%{?rcver} -a 3
@@ -248,6 +301,9 @@ iconv -f iso8859-1 -t utf-8 CONTRIBUTORS.txt > CONTRIBUTORS.txt.utf8
 mv CONTRIBUTORS.txt.utf8 CONTRIBUTORS.txt
 export PTHREAD_LIBS="-lpthread"
 ./autogen.sh
+mkdir build_native
+pushd build_native
+%global _configure ../configure
 %configure --disable-static
 
 # -Wno-error=type-limits:
@@ -256,8 +312,11 @@ export PTHREAD_LIBS="-lpthread"
 #     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95148
 #  (also set in %%check)
 %make_build CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
+popd
 
 %if %{with python}
+# Copy protoc where the python toolchain expects it
+cp -a build_native/src/protoc build_native/src/.libs/ src
 pushd python
 %pyproject_wheel %{?with_python_cpp:-C--global-option=--cpp_implementation}
 popd
@@ -265,9 +324,14 @@ popd
 
 %{_emacs_bytecompile} editors/protobuf-mode.el
 
+%if %{with mingw}
+%mingw_configure --disable-static
+%mingw_make_build
+%endif
+
 
 %check
-%make_build check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
+%make_build -C build_native check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
 %if %{with python_cpp}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %endif
@@ -275,7 +339,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %install
-%make_install %{?_smp_mflags} STRIPBINARIES=no INSTALL="%{__install} -p" CPPROG="cp -p"
+%make_install -C build_native %{?_smp_mflags} STRIPBINARIES=no INSTALL="%{__install} -p" CPPROG="cp -p"
 find %{buildroot} -type f -name "*.la" -exec rm -f {} +
 
 # protoc.1 man page
@@ -298,6 +362,14 @@ install -p -m 0644 editors/protobuf-mode.el %{buildroot}%{_emacs_sitelispdir}/pr
 install -p -m 0644 editors/protobuf-mode.elc %{buildroot}%{_emacs_sitelispdir}/protobuf
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
+
+%if %{with mingw}
+%mingw_make_install
+%mingw_debug_install_post
+# Delete *.la files
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
+%endif
+
 
 %files
 %doc CHANGES.txt CONTRIBUTORS.txt README.md
@@ -348,6 +420,41 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %license LICENSE
 %{_datadir}/vim/vimfiles/ftdetect/proto.vim
 %{_datadir}/vim/vimfiles/syntax/proto.vim
+
+%if %{with mingw}
+%files -n mingw32-protobuf
+%license LICENSE
+%{mingw32_bindir}/libprotobuf-30.dll
+%{mingw32_bindir}/libprotobuf-lite-30.dll
+%{mingw32_bindir}/libprotoc-30.dll
+%dir %{mingw32_includedir}/google
+%{mingw32_includedir}/google/protobuf/
+%{mingw32_libdir}/pkgconfig/protobuf-lite.pc
+%{mingw32_libdir}/pkgconfig/protobuf.pc
+%{mingw32_libdir}/libprotobuf-lite.dll.a
+%{mingw32_libdir}/libprotobuf.dll.a
+%{mingw32_libdir}/libprotoc.dll.a
+
+%files -n mingw32-protobuf-tools
+%{mingw32_bindir}/i686-w64-mingw32-protoc.exe
+
+%files -n mingw64-protobuf
+%license LICENSE
+%{mingw64_bindir}/libprotobuf-30.dll
+%{mingw64_bindir}/libprotobuf-lite-30.dll
+%{mingw64_bindir}/libprotoc-30.dll
+%dir %{mingw64_includedir}/google
+%{mingw64_includedir}/google/protobuf/
+%{mingw64_libdir}/pkgconfig/protobuf-lite.pc
+%{mingw64_libdir}/pkgconfig/protobuf.pc
+%{mingw64_libdir}/libprotobuf-lite.dll.a
+%{mingw64_libdir}/libprotobuf.dll.a
+%{mingw64_libdir}/libprotoc.dll.a
+
+%files -n mingw64-protobuf-tools
+%{mingw64_bindir}/x86_64-w64-mingw32-protoc.exe
+%endif
+
 
 %changelog
 %autochangelog
