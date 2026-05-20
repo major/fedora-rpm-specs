@@ -2,13 +2,16 @@
 %bcond tests 0
 
 Name:           python-optking
-Version:        0.4.2
-Release:        2%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        A Python version of the PSI4 geometry optimization program by R.A. King
 License:        BSD-3-Clause
 URL:            https://github.com/psi-rking/optking
 Source0:        https://github.com/psi-rking/optking/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
+# Drop pydantic v1
+Patch0:         https://github.com/psi-rking/optking/pull/114.patch
 
 BuildRequires:  python3-devel
 %if %{with tests}
@@ -41,6 +44,7 @@ reaction path methods.
 
 %prep
 %setup -q -n optking-%{version}
+%patch -P 0 -p 1 -b .nov1
 # Remove bundled egg-info
 rm -rf optking.*-info
 # Remove test that requires internet access to pubchem
@@ -66,6 +70,9 @@ rm -rf optking.*-info
 %doc README.rst
 
 %changelog
+* Mon May 18 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

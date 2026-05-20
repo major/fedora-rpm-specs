@@ -1,16 +1,25 @@
 # Whether to run the tests; disabled till the tests are ported to pydantic v2
 %bcond tests 0
 
+%global rc rc5
+
 Name:           python-qcelemental
-Version:        0.29.0
-Release:        7%{?dist}
+Version:        0.50.0
+Release:        0.2.%{rc}%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/MolSSI/QCElemental
-Source0:        https://github.com/MolSSI/QCElemental/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/MolSSI/QCElemental/archive/v%{version}%{?rc}/%{name}-%{version}%{?rc}.tar.gz
 BuildArch:      noarch
- 
+
+# Don't try to query git for the version
+Patch0:         python-qcelemental-0.50-nogit.patch
+# Fix circular import
+Patch1:         python-qcelemental-0.50-fix_circular_import.patch
+# Add all packages
+Patch2:         python-qcelemental-0.50-pkgs.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-numpy
@@ -52,9 +61,14 @@ This project also contains a generator, validator, and translator for
 Molecule QCSchema.
 
 %prep
-%setup -q -n QCElemental-%{version}
+%setup -q -n QCElemental-%{version}%{?rc}
+%patch -P 0 -p 1 -b .nogit
+%patch -P 1 -p 1 -b .fiximport
+%patch -P 2 -p 1 -b .pkgs
 # Remove bundled egg-info
 rm -rf QCElemental.*-info
+# Put in the version in pyproject.toml
+sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -74,9 +88,18 @@ rm -rf QCElemental.*-info
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/qcelemental
-%{python3_sitelib}/qcelemental-%{version}.dist-info
+%{python3_sitelib}/qcelemental-%{version}%{?rc}.dist-info
 
 %changelog
+* Mon May 18 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.0-0.2.rc5
+- Fix various issues in package.
+
+* Mon May 18 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.0-0.1.rc5
+- Update to 0.50.0rc5.
+
+* Mon Apr 20 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.30.1-1
+- Update to 0.30.1.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

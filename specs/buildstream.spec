@@ -12,6 +12,7 @@ Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9
+BuildRequires: python3-setuptools < 82
 BuildRequires: python3-grpcio-tools
 
 Requires:      buildbox

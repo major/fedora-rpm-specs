@@ -13,8 +13,8 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-zenodo
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-zenodo-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_zenodo
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_zenodo
 
 BuildArch:      noarch
 
@@ -42,7 +42,7 @@ Summary:        %{summary}
 
 %check -a
 %if %{with tests}
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose -k "${k-}" tests/tests.py
 %endif
 
 

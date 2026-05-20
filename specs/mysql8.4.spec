@@ -99,7 +99,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -141,6 +141,7 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch54:          %{pkgnamepatch}-gcc-15.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
+Patch57:          %{pkgnamepatch}-fix-compilation-with-openssl4.patch
 
 # Patches taken from boost 1.59
 Patch112:         boost-1.57.0-mpl-print.patch
@@ -1098,6 +1099,9 @@ popd
 %endif
 
 %changelog
+* Wed May 13 2026 Pavol Sloboda <psloboda@redhat.com> - 8.4.9-2
+- Bump release for openssl4 fixup
+
 * Wed May 06 2026 Michal Schorm <mschorm@redhat.com> - 8.4.9-1
 - Rebase to 8.4.9
 

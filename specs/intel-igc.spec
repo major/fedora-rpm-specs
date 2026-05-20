@@ -4,9 +4,9 @@
 %if 0%{?rhel}
 # RHEL build here
 %global use_system_headers 0
-%global clang_commit 7161d7c6d97da80f12739cebad9bf508555bbfd9
+%global clang_commit 07e7c931d8bdb38549a907cf04fd06a278f7cdce
 %global clang_shortcommit %(c=%{clang_commit}; echo ${c:0:7})
-%global translator_commit de396f26ade6b0ac1f0f367b741dd5c78a76a2d9
+%global translator_commit 308a0d7acfd7330e64d72a1cd23d272deafb113b
 %global translator_shortcommit %(c=%{translator_commit}; echo ${c:0:7})
 %global spirv_headers_commit 9268f3057354a2cb65991ba5f38b16d81e803692
 %global spirv_headers_shortcommit %(c=%{spirv_headers_commit}; echo ${c:0:7})
@@ -29,10 +29,10 @@
 %global optflags %{optflags} -w
 
 # This patch level is reused in cflags
-%global igc_patch 3
+%global igc_patch 4
 
 Name: intel-igc
-Version: 2.30.%{igc_patch}
+Version: 2.34.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 

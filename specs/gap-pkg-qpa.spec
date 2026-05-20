@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/qpa
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.36
+Version:        1.37
 Release:        %autorelease
 Summary:        GAP package for quivers and path algebras
 
@@ -53,20 +53,16 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
-# Fix a broken reference
-sed -i 's/Basic Construction/Constructing Quivers/' doc/chapter_path_algebras.xml
-
 %build -a
 cd doc/gap-days-lectures
-pdflatex lecture1
-pdflatex lecture1
-pdflatex lecture2
-pdflatex lecture2
-pdflatex lecture3
-pdflatex lecture3
-pdflatex lecture4a
-pdflatex lecture4a
+pdflatex -interaction=nonstopmode lecture1
+pdflatex -interaction=nonstopmode lecture1
+pdflatex -interaction=nonstopmode lecture2
+pdflatex -interaction=nonstopmode lecture2
+pdflatex -interaction=nonstopmode lecture3
+pdflatex -interaction=nonstopmode lecture3
+pdflatex -interaction=nonstopmode lecture4a
+pdflatex -interaction=nonstopmode lecture4a
 
 %install -a
 %gap_copy_docs -d doc/gap-days-lectures

@@ -1,7 +1,7 @@
 %bcond_without tests
 # Packaging unstable?
 #%%global prerel rc1
-%global general_version 5.6.2
+%global general_version 5.6.3
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-celery
@@ -70,7 +70,6 @@ BuildRequires:  python3-msgpack
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-click
 BuildRequires:  python3-pytest-timeout
-BuildRequires:  python3-pytest-subtests
 BuildRequires:  python3-pydantic
 BuildRequires:  python3-pyyaml
 BuildRequires:  python3-redis

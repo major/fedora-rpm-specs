@@ -15,9 +15,9 @@ Source:         %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x client,asyncio_client -t
-BuildOption(install):   -l socketio
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras client,asyncio_client --tox
+BuildOption(install): --assert-license socketio
 
 BuildArch:      noarch
 

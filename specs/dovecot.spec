@@ -4,9 +4,9 @@
 Summary: Secure imap and pop3 server
 Name: dovecot
 Epoch: 1
-Version: 2.4.3
+Version: 2.4.4
 %global prever %{nil}
-Release: 2%{?dist}
+Release: 1%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -52,9 +52,6 @@ Patch24: dovecot-2.4.2-fixbuild.patch
 # temporary workaround for s390x build test failure
 # https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/FZBVU55TK5332SMZSSDNWIVJCWGUAJQS/
 Patch25: dovecot-2.4.2-ftbfs-workaround.patch
-
-# builders have way too long prefix path, use shorter due to limited socket name length
-Patch26: dovecot-2.4.3-test-socket-path.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
@@ -157,14 +154,13 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 8 -p2 -b .initbysystemd
 %patch -P 9 -p1 -b .systemd_w_protectsystem
 %patch -P 15 -p1 -b .bigkey
-%patch -P 16 -p2 -b .opensslhmac3
+%patch -P 16 -p1 -b .opensslhmac3
 %patch -P 17 -p2 -b .fixvalcond
 %patch -P 18 -p1 -b .valbasherr
 %patch -P 19 -p1 -b .lua55
 %patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
 %patch -P 25 -p1 -b .ftbfs-workaround
-%patch -P 26 -p2 -b .test-socket-path
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
@@ -494,6 +490,9 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Fri May 15 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.4-1
+- updated to 2.4.4 (#2476459)
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1:2.4.3-2
 - rebuild
 

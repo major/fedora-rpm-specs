@@ -13,7 +13,7 @@
 %endif
 
 Name:           libkrun
-Version:        1.17.4
+Version:        1.18.0
 Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
@@ -34,8 +34,12 @@ Patch1:         libkrun-remove-nitro-deps.diff
 Patch2:         libkrun-remove-tdx-deps.diff
 # Bump bzip2 dependency to match the version packaged in Fedora.
 Patch3:         libkrun-bump-bzip-dep.diff
+# Bump kvm-bindings dependency to match the version packaged in Fedora.
+Patch4:         libkrun-bump-kvm-bindings-dep.diff
+# Bump kvm-ioctls dependency to match the version packaged in Fedora.
+Patch5:         libkrun-bump-kvm-ioctls-dep.diff
 # For aarch64, remove references to SEV and TDX deps which are only available on x86_64
-Patch4:         libkrun-remove-sev-deps.diff
+Patch6:         libkrun-remove-sev-deps.diff
 %endif
 
 # libkrun only supports x86_64 and aarch64
@@ -166,15 +170,15 @@ capabilities.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
-%if ! 0%{?build_sev}
 %patch -P 4 -p1
+%patch -P 5 -p1
+%if ! 0%{?build_sev}
+%patch -P 6 -p1
 %endif
 %cargo_prep
 %endif
 
 %build
-%make_build init/init
-%make_build libkrun.pc
 %make_build BLK=1 NET=1 %{?with_gpu:GPU=1} %{?with_snd:SND=1}
 %if 0%{?build_sev}
     rm init/init
@@ -232,6 +236,9 @@ capabilities.
 %endif
 
 %changelog
+* Tue Apr 28 2026 Sergio Lopez <slp@redhat.com> - 1.18.0-1
+- Update to version 1.18.0
+
 * Wed Feb 18 2026 Sergio Lopez <slp@redhat.com> - 1.17.4-1
 - Update to version 1.17.4
 

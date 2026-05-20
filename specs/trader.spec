@@ -1,19 +1,19 @@
 # ***********************************************************************
 # *                                                                     *
 # *            Star Traders: A Game of Interstellar Trading             *
-# *               Copyright (C) 1990-2024, John Zaitseff                *
+# *               Copyright (C) 1990-2026, John Zaitseff                *
 # *                                                                     *
 # ***********************************************************************
 
 # Author: John Zaitseff <J.Zaitseff@zap.org.au>
-# $Id: 60b7467370a91b8d874bd0a0bff37b4ac2a267b1 $
+# $Id: d80e656d1d7053586df8e534a07ec89096b4f8d3 $
 
 # This file is distributed under the same licence as Star Traders itself:
 # the GNU General Public License, version 3 or later.
 
 Name:           trader
-Version:        7.20
-Release:        5%{?dist}
+Version:        7.21
+Release:        1%{?dist}
 Summary:        Star Traders, a simple game of interstellar trading
 License:        GPL-3.0-or-later
 Url:            https://www.zap.org.au/projects/trader/
@@ -55,17 +55,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.20-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.20-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.20-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.20-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Mon May 18 2026 John Zaitseff <J.Zaitseff@zap.org.au> - 7.21-1
+- Updated the RPM package for a new release of Star Traders: version 7.21.
 
 * Wed Jan 31 2024 John Zaitseff <J.Zaitseff@zap.org.au> - 7.20-1
 - Updated the RPM package for a new release of Star Traders: version 7.20.

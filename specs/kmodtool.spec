@@ -1,5 +1,5 @@
 Name:           kmodtool
-Version:        1.2
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Tool for building kmod packages
 License:        MIT

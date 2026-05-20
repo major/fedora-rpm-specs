@@ -25,9 +25,9 @@ Patch:          libArcus-5.2.2-actually-export-symbols.patch
 # Add missing stdint includes
 Patch:          https://github.com/Ultimaker/libArcus/pull/160.patch
 
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  python3-devel
-BuildRequires:  python3-protobuf
+BuildRequires:  python3-protobuf < 4
 BuildRequires:  python3-pyqt6-sip
 BuildRequires:  python3-sip-devel
 BuildRequires:  /usr/bin/sip

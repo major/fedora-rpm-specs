@@ -17,6 +17,9 @@ Source:         %{pypi_source pydocket}
 Patch:          remove-pytest-unrecognized-arguments.diff
 # Fix unpack in lua script for execution
 Patch:          fix-lua-unpack.diff
+# Use FakeAsyncRedisConnection instead of deprecated FakeConnection
+# https://github.com/cunla/fakeredis-py/issues/446
+Patch:          fix-fakeredis-deprecated-fakeconnection.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -50,6 +53,9 @@ Summary:        %{summary}
 # changes from 5.x to 6.x have not affected this project.
 tomcli set pyproject.toml arrays replace project.dependencies "croniter>=([0-9]+)" "croniter>=5"
 
+# Relax fakeredis dependency
+tomcli set pyproject.toml arrays replace project.dependencies "fakeredis.*" "fakeredis[lua]"
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -71,7 +77,7 @@ tomcli set pyproject.toml arrays replace project.dependencies "croniter>=([0-9]+
 export REDIS_VERSION=memory
 # Depends on opentelemetry-sdk, which is not packaged in Fedora (and is an
 # optional for this package).
-%pytest --ignore tests/instrumentation/test_tracing.py -k "not test_exports_metrics_as_prometheus_metrics and not test_json_logging_format"
+%pytest --ignore tests/cli/test_clear.py --ignore tests/instrumentation/test_tracing.py -k "not test_exports_metrics_as_prometheus_metrics and not test_json_logging_format"
 
 
 %files -n python3-pydocket -f %{pyproject_files}

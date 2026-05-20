@@ -1,12 +1,11 @@
 Name:           perl-Net-Server
-Version:        2.014
-Release:        10%{?dist}
+Version:        2.018
+Release:        1%{?dist}
 Summary:        Extensible, general Perl server engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Server
-Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-Server-%{version}.tar.gz
-# Only initialize existing Net::SSLeay methods (RT#154333)
-Patch0:         https://github.com/rhandom/perl-net-server/pull/Net-Server-2.014-Fix-using-OpenSSL-ENGINE-API-routines.patch
+Source0:        https://cpan.metacpan.org/authors/id/B/BB/BBB/Net-Server-%{version}.tar.gz
+Patch1:         Net-Server-2.018-Fix-Net-Server-IP-sanity-check-for-AI_ADDRCONFIG.patch
 
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -46,7 +45,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(re)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(Socket6)
 # BuildRequires:  perl(Symbol)
 # BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(Time::HiRes)
@@ -127,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 18 2026 Michal Josef Špaček <mspacek@redhat.com> - 2.018-1
+- Update to 2.018
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.014-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

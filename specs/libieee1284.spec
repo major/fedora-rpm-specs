@@ -1,7 +1,7 @@
 Summary: A library for interfacing IEEE 1284-compatible devices
 Name: libieee1284
 Version: 0.2.11
-Release: 48%{?dist}
+Release: 49%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/libieee1284/
@@ -11,6 +11,7 @@ BuildRequires: gcc
 BuildRequires: xmlto
 BuildRequires: make
 BuildRequires: libtool
+BuildRequires: kernel-headers
 
 %description
 The libieee1284 library is for communicating with parallel port devices.
@@ -28,6 +29,12 @@ developing applications that use libieee1284.
 # Fixed strict aliasing warnings (bug #605170).
 %patch -P1 -p1 -b .strict-aliasing
 
+# Bad license: GFDL-1.1-or-later is not allowed for code.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2258654
+rm src/parport.h
+sed -r -i 's|src/parport\.h||' Makefile.am
+sed -r -i 's|#include "parport.h"|#include <linux/parport.h>|' src/*.c
+
 %build
 autoreconf -iv
 touch doc/interface.xml
@@ -35,7 +42,6 @@ touch doc/interface.xml
 %make_build
 
 %install
-rm -rf %{buildroot}
 %make_install
 rm -f %{buildroot}%{_libdir}/python*/*/*a
 rm -f %{buildroot}%{_libdir}/*.a
@@ -51,9 +57,11 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/*.so
 %{_mandir}/*/*
 
-%ldconfig_scriptlets
 
 %changelog
+* Mon May 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 0.2.11-49
+- fix licensing issue by using kernel-headers (fedora#2258654)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

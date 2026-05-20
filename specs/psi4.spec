@@ -14,30 +14,19 @@ ExcludeArch: %{ix86}
 
 Name:           psi4
 Epoch:          1
-Version:        1.9.1
-Release:        9%{?dist}
+Version:        1.10.0
+Release:        0.1.alpha%{?dist}
 Summary:        An ab initio quantum chemistry package
 # Automatically converted from old format: LGPLv3 and MIT - review is highly recommended.
 License:        LGPL-3.0-only AND LicenseRef-Callaway-MIT
 URL:            http://www.psicode.org/
-Source0:        https://github.com/psi4/psi4/archive/v%{version}/psi4-%{version}.tar.gz
+#Source0:        https://github.com/psi4/psi4/archive/v%{version}/psi4-%{version}.tar.gz
+Source0:        https://github.com/psi4/psi4/archive/refs/heads/master.zip
 
-# Fix memory error, patch extracted from https://github.com/psi4/psi4/pull/3194
-Patch0:         psi4-1.9.1-libint2.patch
-# Tests should call python3 not python
-Patch1:         psi4-1.3.2-python3.patch
-# Fix memory overflow issue
-Patch2:         psi4-1.9.1-overflow.patch
-# Disable test that uses qcengine, since psi4 backend of python-qcengine is broken (BZ#2309462)
-Patch3:         psi4-1.9.1-noqcetest.patch
-# Disable test that uses qcengine, since psi4 backend of python-qcengine is broken (BZ#2309462)
-Patch4:         psi4-1.9.1-noecpgrad.patch
-# Don't strip the library
-Patch5:         psi4-1.9.1-nostrip.patch
-# Patch build system so that libxc 7.0.0 is accepted
-Patch6:         psi4-1.9.1-libxc7.patch
-# Add an include to fix the build error "uint64_t does not name a type"
-Patch7:         psi4-1.9.1-uint64.patch
+# Make qcmanybody optional
+Patch0:         https://github.com/psi4/psi4/pull/3389.patch
+# Fix the propagation of cmake flags to the deeper build
+Patch1:         https://github.com/psi4/psi4/pull/3400.patch
 
 BuildRequires:  cmake
 BuildRequires:  bison-devel
@@ -127,15 +116,12 @@ This package contains necessary data files for PSI4, e.g., basis sets
 and the quadrature grids.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .libint2
-%patch -P1 -p1 -b .python3
-%patch -P2 -p1 -b .overflow
-%patch -P3 -p1 -b .noqcetest
-%patch -P4 -p1 -b .noecpgrad
-%patch -P5 -p1 -b .nostrip
-%patch -P6 -p1 -b .libxc7
-%patch -P7 -p1 -b .uint64
+#setup -q
+%setup -q -n psi4-master
+%patch -P 0 -p 1 -b .noqcmb
+%patch -P 1 -p 1 -b .cmakeflags
+# Prevent versioner from seeing any top-level git directories
+sed -i 's/if is_git_repo(cwd=cwd, extraneous_toplevel_patterns=.*):/if False:/' psi4/versioner.py
 
 %build
 export F77=gfortran

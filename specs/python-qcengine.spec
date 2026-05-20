@@ -1,15 +1,18 @@
 # There's a dependency loop with psi4 which needs to be broken for new Python bootstrap
 %bcond tests 0
 
-Name:           python-qcengine
-Version:        0.30.0
-Release:        %autorelease
-Summary:        A compute wrapper for Quantum Chemistry
+%global rc rc4
 
+Name:           python-qcengine
+Version:        0.50.0
+Release:        0.2.rc4%{?dist}
+Summary:        A compute wrapper for Quantum Chemistry
 License:        BSD-3-Clause
 URL:            https://github.com/MolSSI/QCEngine
-Source:         %{pypi_source qcengine}
-Patch0:         https://github.com/MolSSI/QCEngine/pull/451.patch
+Source0:        https://github.com/MolSSI/QCEngine/archive/v%{version}%{?rc}/%{name}-%{version}%{?rc}.tar.gz
+
+# Don't try to query git for version
+Patch0:         python-qcengine-0.50-nogit.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -23,7 +26,7 @@ BuildRequires:  python3-msgpack
 #BuildRequires:  xtb # requires xtb-python which is not available in Fedora and whose development appears to be ceased
 BuildRequires:  psi4
 BuildRequires:  mrchem
-#BuildRequires: python3-dftd4 # Package still in review https://bugzilla.redhat.com/show_bug.cgi?id=2310392
+BuildRequires:  python3-dftd4
 %endif
 
 %global _description %{expand:
@@ -40,8 +43,10 @@ Summary:        %{summary}
 %{_description}
 
 %prep
-%setup -n qcengine-%{version}
-%patch 0 -p1 -b .psi4
+%setup -n QCEngine-%{version}%{?rc}
+%patch -P 0 -p1 -b .nogit
+# Put in the version in pyproject.toml
+sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -3,7 +3,7 @@
 Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
 Version:        3.0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.haproxy.org/
 Source0:        https://www.haproxy.org/download/%(b=%{version}; echo ${b%.*})/src/%{name}-%{version}.tar.gz
@@ -51,8 +51,10 @@ availability environments. Indeed, it can:
   USE_OPENSSL=1 \
   USE_LUA=1 \
   USE_PROMEX=1 \
-  CFLAGS="%{optflags}" \
-  LDFLAGS="%{__global_ldflags}" \
+  CC=gcc \
+  CFLAGS="%{build_cflags}" \
+  LDFLAGS="%{build_ldflags}" \
+  OPT_CFLAGS="" ARCH_FLAGS="" \
   DEFINE=-DMAX_SESS_STKCTR=12 \
   EXTRA="admin/halog/halog admin/iprange/iprange admin/iprange/ip6range"
 
@@ -111,9 +113,12 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1
 %{_datadir}/%{name}/
 %{_mandir}/man1/halog.1*
 %{_mandir}/man1/%{name}.1*
-%dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
+%dir %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Mon May 18 2026 Robert Scheck <robert@fedoraproject.org> - 3.0.23-2
+- Revert to permissions 0755 for root:root on /var/lib/haproxy
+
 * Sat May 16 2026 Robert Scheck <robert@fedoraproject.org> - 3.0.23-1
 - Upgrade to 3.0.23
 - Spec file cleanup and modernization (thanks to Xose Vazquez Perez)

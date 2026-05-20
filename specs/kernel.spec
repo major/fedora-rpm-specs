@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc3.260515g70eda68668d1.27
+%define pkgrelease 0.rc3.260518g6916d5703ddf.29
 %define kversion 7
-%define tarfile_release 7.1-rc3-200-g70eda68668d1
+%define tarfile_release 7.1-rc3-362-g6916d5703ddf
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260515g70eda68668d1.27%{?buildid}%{?dist}
+%define specrelease 0.rc3.260518g6916d5703ddf.29%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,14 +4847,27 @@ fi\
 #
 #
 %changelog
-* Fri May 15 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260515g70eda68668d1.27]
+* Mon May 18 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260518g6916d5703ddf.29]
+- net/sched: act_pedit: extend the writable skb range per key (Zhang Cen)
 - net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
-- Revert "net: skbuff: propagate shared-frag marker through frag-transfer helpers" (Justin M. Forbes)
+- Revert fragnesia v4 in favor of v5 (Justin M. Forbes)
 
-* Fri May 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.70eda68668d1.27]
+* Sun May 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.6916d5703ddf.29]
 - net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Sun May 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.6916d5703ddf.28]
+- Add missing config file for Fedora (Justin M. Forbes)
+- Turn on XFS_ONLINE_REPAIR for Fedora (Justin M. Forbes)
+- Enable SND_DESIGNWARE for Fedora x86 (Justin M. Forbes)
+
+* Sat May 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.6916d5703ddf.27]
+- Enable HID_SENSOR_PROX for Fedora x86 (Justin M. Forbes)
+- Fedora: set default panic screen to QR code (Jocelyn Falempe)
+- redhat/configs/fedora: Enable MPAM options (Gavin Shan)
+- redhat/configs/rhel: Enable MPAM options (Gavin Shan)
+- Linux v7.1.0-0.rc3.6916d5703ddf
 
 * Fri May 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.70eda68668d1.26]
 - Linux v7.1.0-0.rc3.70eda68668d1

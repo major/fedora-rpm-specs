@@ -13,6 +13,13 @@ Summary:        Useful additions to futures, from the future
 License:        Apache-2.0
 URL:            http://docs.openstack.org/developer/futurist
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+
+# Upstream is totally aware that supporting fork_server is important and urgent.
+# Buying time by forcing the use of the old fork makes sense:
+# https://lists.openstack.org/archives/list/openstack-discuss@lists.openstack.org/message/CIKLAGYX23SQTKOSNAOITEVVR6KTWHNQ/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2466672
+Patch0:         fix-process-pool-executor-fork-context.patch
+
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}.tar.gz.asc

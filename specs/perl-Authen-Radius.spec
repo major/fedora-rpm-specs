@@ -1,5 +1,5 @@
 Name:           perl-Authen-Radius
-Version:        0.36
+Version:        0.37
 Release:        1%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
@@ -78,6 +78,16 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Mon May 18 2026 Paul Howarth <paul@city-fan.org> - 0.37-1
+- Update to 0.37
+  - Enable Rfc3579MessageAuth by default and emit Message-Authenticator as the
+    first attribute in Access-Request packets (RFC 9716 section 4.2),
+    mitigating the Blast-RADIUS protocol vulnerability (callers that need the
+    previous behaviour can pass Rfc3579MessageAuth => 0 explicitly)
+  - Stabilise t/eintr.t on loaded smokers and MSWin32 by relaxing the timeout
+    budget and skipping the SIGALRM sub-test on MSWin32 where
+    Time::HiRes::alarm is unimplemented
+
 * Thu May  7 2026 Paul Howarth <paul@city-fan.org> - 0.36-1
 - Update to 0.36
   - Treat EINTR from can_read() as a retryable signal interruption rather than

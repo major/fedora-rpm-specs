@@ -3,7 +3,7 @@
 Name:           dolphin
 Summary:        KDE File Manager
 Version:        26.04.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
@@ -19,7 +19,9 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 
 BuildRequires:  cmake(KF6Baloo)
-BuildRequires:  cmake(KF6BalooWidgets)
+# baloo-widget is part of Gear like Dolphin thus both versions need to match.
+# We use the major.minor.patch macros to not fail the build on hotfix releases.
+BuildRequires:  cmake(KF6BalooWidgets) >= %{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}
 BuildRequires:  cmake(KF6Bookmarks)
 BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KF6Completion)
@@ -163,6 +165,12 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Mon May 18 2026 Timothée Ravier <tim@siosm.fr> - 26.04.1-3
+- Add version constraint for KF6BalooWidgets
+
+* Mon May 18 2026 Timothée Ravier <tim@siosm.fr> - 26.04.1-2
+- Rebuild to use a matching version for KF6BalooWidgets (part of Gear)
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

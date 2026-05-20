@@ -1,21 +1,16 @@
 %global majorversion 18
 %global obsoletes_version %( echo $(( %majorversion + 1 )) )
-%global betaversion 18beta1
 
 Summary: PostgreSQL client library
 Name: libpq
-Version: %{majorversion}.0
-Release: 4%{?dist}
+Version: %{majorversion}.4
+Release: 1%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
 
-# Use this when 18.0 is released
-# Source0: https://ftp.postgresql.org/pub/source/v%%{version}/postgresql-%%{version}.tar.bz2
-# Source1: https://ftp.postgresql.org/pub/source/v%%{version}/postgresql-%%{version}.tar.bz2.sha256
-
-Source0: https://ftp.postgresql.org/pub/source/v%{betaversion}/postgresql-%{betaversion}.tar.bz2
-Source1: https://ftp.postgresql.org/pub/source/v%{betaversion}/postgresql-%{betaversion}.tar.bz2.sha256
+Source0: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2
+Source1: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2.sha256
 
 
 # Comments for these patches are in the patch files.
@@ -64,7 +59,7 @@ package or any clients that need to connect to a PostgreSQL server.
 
 %prep
 ( cd "$(dirname "%SOURCE1")" ; sha256sum -c "%SOURCE1" )
-%autosetup -n postgresql-%{betaversion} -p1
+%autosetup -n postgresql-%{version} -p1
 
 # remove .gitignore files to ensure none get into the RPMs (bug #642210)
 find . -type f -name .gitignore | xargs rm
@@ -145,6 +140,11 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Mon May 18 2026 Filip Janus <fjanus@redhat.com> - 18.4-1
+- Update to 18.4
+- Rebase to actual upstream release sources (was incorrectly built from 18beta1)
+- Resolves: rhbz#2468555
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

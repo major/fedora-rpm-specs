@@ -3,7 +3,7 @@
 %global tag v%{version}
 
 Name:           %{project}
-Version:        1.3.0
+Version:        1.3.1
 Summary:        Transcode FLAC to lossy formats
 License:        GPL-3.0-or-later
 

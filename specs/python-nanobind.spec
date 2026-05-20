@@ -59,7 +59,7 @@ Obsoletes:      python%{python3_pkgversion}-nanobind-devel < 2.6.1-4
 
 %build
 # See https://github.com/scikit-build/scikit-build-core?tab=readme-ov-file#configuration
-%{pyproject_wheel: \
+%{pyproject_wheel \
 -C"build-dir=%{__cmake_builddir}" \
 -C"cmake.define.NB_USE_SUBMODULE_DEPS=false" \
 -C"cmake.build-type=RelWithDebInfo" \

@@ -1,5 +1,5 @@
 Name:    haruna
-Version: 1.7.1
+Version: 1.8.0
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
@@ -10,6 +10,11 @@ Source1: https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.t
 Source2: gpgkey-4E421C6554B89766DF9B7A37E12AB207C8755905.gpg
 
 ## upstream patches
+
+## upstreamable patches
+#  Reverting commit 27dccce62ca2136641325e8cd425cd01cf81f314 that causes hang on start
+#  (https://invent.kde.org/multimedia/haruna/-/commit/27dccce62ca2136641325e8cd425cd01cf81f314)
+Patch0: haruna-1.8.0-fix-hang-on-start.patch
 
 BuildRequires: cmake
 BuildRequires: gnupg2
@@ -29,6 +34,7 @@ BuildRequires: cmake(Qt6Qml)
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6ShaderTools)
 
 BuildRequires: cmake(KF6ColorScheme)
 BuildRequires: cmake(KF6Config)

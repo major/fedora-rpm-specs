@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/autpgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Compute the automorphism group of a p-Group in GAP
 
@@ -13,11 +13,11 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): gap htm tst
+BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
-BuildRequires:  tth
+BuildRequires:  gap-pkg-autodoc
 
 Requires:       gap-core
 
@@ -51,20 +51,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
-# Use the system GAP macro file instead of the bundled version
-rm -f doc/gapmacro.tex
-ln -s %{gap_libdir}/doc/gapmacro.tex doc
-
-%build
-# Link to main GAP documentation
-ln -s %{gap_libdir}/etc ../../etc
-ln -s %{gap_libdir}/doc ../../doc
-pushd doc
-./make_doc
-popd
-rm -f ../../{doc,etc}
-
 %files
 %doc README CHANGES.md
 %license LICENSE
@@ -75,9 +61,7 @@ rm -f ../../{doc,etc}
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
-%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
 %{gap_libdir}/pkg/%{gap_upname}/doc/
-%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

@@ -1,3 +1,7 @@
+# Break the dependency loop - this is needed by maturin through python-setuptools-rust
+# while django requires cryptography which requires maturin
+%bcond bootstrap 0
+
 Name:           python-semantic_version
 Version:        2.10.0
 Release:        %autorelease
@@ -14,7 +18,7 @@ BuildRequires:  python3-devel
 # Test dependencies manually cherry-picked from the [dev] extra
 # Upstream uses nose2, but pytest works as well
 BuildRequires:  python3-pytest
-%if %{undefined rhel} || %{defined epel}
+%if (%{undefined rhel} || %{defined epel}) && %{without bootstrap}
 # Optional test dependency
 BuildRequires:  python3-django
 %endif

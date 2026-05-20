@@ -1,3 +1,8 @@
+# While the top-level CMakeLists.txt supports a BUILD_TESTING option, there are
+# not yet any tests that can be built or run via CMake, and enabling it causes
+# a build failure.
+%bcond ctest 0
+
 Name:           parsertl17
 Summary:        The Modular Parser Generator
 # Upstream switched away from calendar-based versioning, and the new version
@@ -9,6 +14,9 @@ Release:        %autorelease
 License:        BSL-1.0
 URL:            https://github.com/BenHanson/parsertl17
 Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
+
+BuildSystem:    cmake
+BuildOption(conf): -DBUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
 
 %if %{undefined fc43}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -23,7 +31,6 @@ ExcludeArch:    %{ix86}
 %global min_lexertl17 1:1.1.3
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  dos2unix
 
 # Header-only library:
@@ -49,32 +56,15 @@ Requires:       lexertl17-devel >= %{min_lexertl17}
 %description devel %{common_description}
 
 
-%prep
-%autosetup -n parsertl17-%{version}
-
+%prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep -E '\bCRLF\b' |
-  cut -d ':' -f 1 |
-  xargs -r dos2unix --keepdate
+  grep --extended-regexp '\bCRLF\b' |
+  cut --delimiter=':' --fields=1 |
+  xargs --no-run-if-empty dos2unix --keepdate
 
 
-%conf
-# While the top-level CMakeLists.txt supports a BUILD_TESTING option, there are
-# not yet any tests that can be built or run via CMake.
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
+%check -a
 # There are not yet any tests that can be built or run via CMake. This is a
 # compile-only “smoke test.”
 %set_build_flags

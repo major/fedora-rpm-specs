@@ -93,7 +93,7 @@ BuildRequires: clang
 
 %if %{with grpc}
 BuildRequires:  grpc-devel
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  gcc-c++
 %endif
 

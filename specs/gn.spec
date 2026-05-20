@@ -1,6 +1,3 @@
-# Build HTML docs from markdown using pandoc?
-%bcond html_docs 1
-
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
 # See gn --version, which outputs something like “1874 (2b683eff)”. The commit
@@ -24,10 +21,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 78e67afc82faf52b2f7025265d412fd7418d88c2
-%global access 20260509
+%global commit f9c7754576bc77871f6c45409ab010922dd0e209
+%global access 20260518
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2395
+%global position 2400
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -71,10 +68,6 @@ BuildRequires:  gcc-c++
 # For RPM macros:
 BuildRequires:  emacs-common
 
-%if %{with html_docs}
-BuildRequires:  pandoc
-BuildRequires:  parallel
-%endif
 BuildRequires:  help2man
 
 Requires:       vim-filesystem
@@ -114,12 +107,12 @@ The gn-doc package contains detailed documentation for GN.
 %autosetup -c -n gn-%{commit} -p1
 
 # Use pre-generated last_commit_position.h.
-mkdir -p ./out
-cp -vp '%{SOURCE1}' ./out
+mkdir ./out
+cp --preserve '%{SOURCE1}' ./out/
 
 # Copy and rename vim extensions readme for use in the main documentation
 # directory.
-cp -vp misc/vim/README.md README-vim.md
+cp --preserve misc/vim/README.md README-vim.md
 
 # Fix shebangs in examples and such.
 %py3_shebang_fix .
@@ -142,47 +135,46 @@ AR='gcc-ar'; export AR
 %build
 ninja -j %{_smp_build_ncpus} -C out -v
 
-%if %{with html_docs}
-# There is a script, misc/help_as_html.py, that generates some HTML help, but
-# pandoc does a better job and we can cover more Markdown sources.
-find . -type f -name '*.md' | parallel -v pandoc -o '{.}.html' '{}'
-%endif
-
 help2man \
     --name='%{summary}' \
     --version-string="gn $(./out/gn --version)" \
     --no-info \
     ./out/gn |
   # Clean up a couple of stray binary bytes in the help output
-  tr -d '\302\240' |
+  tr --delete '\302\240' |
   # Format the entries within the sections as tagged paragraphs, and italicise
   # [placeholders in square brackets].
-  sed -r -e 's/(^[[:alnum:]_]+:)/.TP\n.B \1\n/' \
-      -e 's/\[([^]]+)\]/\\fI[\1]\\fR/g' > out/gn.1
+  sed --regexp-extended --expression='s/(^[[:alnum:]_]+:)/.TP\n.B \1\n/' \
+      --expression='s/\[([^]]+)\]/\\fI[\1]\\fR/g' > out/gn.1
 
 
 %install
-install -t '%{buildroot}%{_bindir}' -D -p out/gn
+install -D --preserve-timestamps --target='%{buildroot}%{_bindir}' out/gn
 
-install -d '%{buildroot}%{_datadir}/vim/vimfiles'
-cp -vrp misc/vim/* '%{buildroot}%{_datadir}/vim/vimfiles'
+install --directory '%{buildroot}%{_datadir}/vim/vimfiles'
+cp --verbose --recursive --preserve misc/vim/* \
+    '%{buildroot}%{_datadir}/vim/vimfiles'
 find '%{buildroot}%{_datadir}/vim/vimfiles' \
     -type f -name 'README.*' -print -delete
 %py_byte_compile %{python3} '%{buildroot}%{_datadir}/vim/vimfiles/gn-format.py'
 
-install -t '%{buildroot}%{_emacs_sitestartdir}' -D -p -m 0644 misc/emacs/*.el
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_emacs_sitestartdir}' misc/emacs/*.el
 
-install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p out/gn.1
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' out/gn.1
 
 
 %check
 out/gn_unittests
 
 # Verify consistency of the version header with the spec file
-grep -E '^#define[[:blank:]]+LAST_COMMIT_POSITION_NUM[[:blank:]]+'\
+grep --extended-regexp \
+    '^#define[[:blank:]]+LAST_COMMIT_POSITION_NUM[[:blank:]]+'\
 '%{position}[[:blank:]]*' \
     'out/last_commit_position.h' >/dev/null
-grep -E '^#define[[:blank:]]+LAST_COMMIT_POSITION[[:blank:]]+'\
+grep --extended-regexp \
+    '^#define[[:blank:]]+LAST_COMMIT_POSITION[[:blank:]]+'\
 '"%{position} \(%{shortcommit}\)"[[:blank:]]*' \
     'out/last_commit_position.h' >/dev/null
 
@@ -207,9 +199,6 @@ grep -E '^#define[[:blank:]]+LAST_COMMIT_POSITION[[:blank:]]+'\
 %doc AUTHORS
 %doc OWNERS
 %doc README*.md
-%if %{with html_docs}
-%doc README*.html
-%endif
 %doc docs/
 %doc examples/
 %doc infra/

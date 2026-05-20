@@ -57,7 +57,7 @@ Recommends:     pari-gp
 GP2C is a PARI/GP script to C program translator.
 
 
-%package        doc
+%package doc
 Summary:        Documentation for gp2c
 BuildArch:      noarch
 
@@ -70,12 +70,12 @@ This package contains documentation for GP2C.
 %autosetup -n gp2c-%{upver}
 
 # Convert to Unicode
-iconv -f ISO8859-1 -t UTF-8 ChangeLog > ChangeLog.utf8
-touch -r ChangeLog ChangeLog.utf8
+iconv --from-code=ISO8859-1 --to-code=UTF-8 ChangeLog > ChangeLog.utf8
+touch --reference=ChangeLog ChangeLog.utf8
 mv ChangeLog.utf8 ChangeLog
 
 # Regenerate the documentation
-rm -v doc/*.{dvi,html,pdf}
+rm --verbose doc/*.{dvi,html,pdf}
 
 
 %conf
@@ -103,7 +103,7 @@ cd -
 %make_install
 
 # We will install the files we want with %%doc below
-rm -vrf '%{buildroot}%{_docdir}/gp2c'
+rm --verbose --recursive '%{buildroot}%{_docdir}/gp2c'
 
 
 %check

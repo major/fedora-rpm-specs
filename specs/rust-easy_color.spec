@@ -2,21 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate llvm-bitcode
+%global crate easy_color
 
-Name:           rust-llvm-bitcode
-Version:        0.4.0
+Name:           rust-easy_color
+Version:        0.1.13
 Release:        %autorelease
-Summary:        LLVM Bitcode parser in Rust
+Summary:        Very simple and easy-to-use color conversion tool
 
-License:        MIT AND Apache-2.0 WITH LLVM-exception
-URL:            https://crates.io/crates/llvm-bitcode
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/easy_color
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update rand dependency from 0.8 to 0.10:
+#   https://github.com/zjhsd2007/easy_color/pull/2; an accompanying source-code
+#   patch is required.
+Patch:          easy_color-fix-metadata.diff
+# * Fix a minor typo (creat for create)
+Patch10:        https://github.com/zjhsd2007/easy_color/pull/1.patch
+# * Source-code changes for rand 0.10
+# * https://github.com/zjhsd2007/easy_color/pull/2
+Patch11:        easy_color-0.1.13-rand-0.10.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-LLVM Bitcode parser in Rust.}
+A very simple and easy-to-use color conversion tool.}
 
 %description %{_description}
 

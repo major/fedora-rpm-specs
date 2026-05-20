@@ -7,7 +7,7 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        45%{?dist}
+Release:        46%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
@@ -113,6 +113,7 @@ install -Dp -m0644 %{SOURCE4} %{buildroot}%{_unitdir}/mon.service
 install -Dp -m0600 %{SOURCE5} %{buildroot}%{_sysconfdir}/mon/userfile
 
 install -Dp -m0755 mon.cgi-%{moncgi_version}/mon.cgi %{buildroot}%{_localstatedir}/www/cgi-bin/mon.cgi
+install -p -m0644 mon.cgi-%{moncgi_version}/config/mon.cgi.cf %{buildroot}%{_sysconfdir}/mon/mon.cgi.cf
 
 # Fix permissions in examples documentation files
 chmod -x mon.cgi-1.52/mon.cgi                   \
@@ -196,6 +197,10 @@ fi
 
 
 %changelog
+* Wed May 06 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-46
+- Add config file for mon.cgi.
+- Fix Perl syntax defined in 1.2.0-44.
+
 * Mon May 04 2026 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-45
 - Improve compilation of mon.d.
 - Remove unnecessary dependency filtering.

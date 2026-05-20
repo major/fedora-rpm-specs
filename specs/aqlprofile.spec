@@ -24,7 +24,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -49,11 +49,15 @@
 %endif
 
 # Testing is broken
+%if %{with preview}
+%global build_test OFF
+%else
 %bcond_with test
 %if %{with test}
 %global build_test ON
 %else
 %global build_test OFF
+%endif
 %endif
 
 %bcond_with debug
@@ -136,6 +140,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # Do not hardcode CMAKE_BUILD_TYPE
 # https://github.com/ROCm/aqlprofile/issues/12
 sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/env.cmake
+
+%if %{with preview}
+# Try to build the tests
+# This is one problem.
+# Problems with runtime detection
+sed -i '/add_definitions ( -DHSA_DEPRECATED= )/aadd_definitions ( -D__HIP_PLATFORM_AMD__= )' cmake_modules/env.cmake
+# give up and disable testing
+%endif
 
 %build
 %cmake \

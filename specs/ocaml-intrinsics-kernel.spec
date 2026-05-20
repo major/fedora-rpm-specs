@@ -1,5 +1,5 @@
 Name:           ocaml-intrinsics-kernel
-Version:        0.17.1
+Version:        0.17.2
 Release:        %autorelease
 Summary:        OCaml interface to CPU intrinsics
 

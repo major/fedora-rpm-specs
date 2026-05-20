@@ -110,7 +110,11 @@ Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstre
 # https://github.com/amd/esmi_ib_library/issues/13
 # This tag was choosen by the amdsmi project because 4.0+ introduced variables not
 # found in the upstream kernel.
+%if %{without preview}
 %global esmi_ver 4.2
+%else
+%global esmi_ver 5.1.1
+%endif
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
 %if %{without preview}
 # https://github.com/ROCm/amdsmi/pull/165

@@ -1,7 +1,7 @@
 %global neo_major 26
-%global neo_minor 09
-%global neo_build 37435
-%global neo_hotfix 12
+%global neo_minor 18
+%global neo_build 38308
+%global neo_hotfix 1
 
 %if 0%{?rhel}
 %global use_system_headers 0
@@ -23,13 +23,8 @@ ExclusiveArch:  x86_64
 
 BuildRequires: cmake
 BuildRequires: make
-%if 0%{?fedora} >= 44
-BuildRequires: gcc15
-BuildRequires: gcc15-c++
-%else
 BuildRequires: gcc
 BuildRequires: gcc-c++
-%endif
 BuildRequires: intel-gmmlib-devel
 BuildRequires: libva-devel
 BuildRequires: libdrm-devel
@@ -124,11 +119,6 @@ Devel files for developing against intel-level-zero
 rm -rv third_party/sse2neon
 
 %build
-%if 0%{?fedora} >= 44
-#Use gcc15 until gcc16 bugs are fixed
-export CC=gcc-15
-export CXX=g++-15
-%endif
 # mitigations are handled by the kernel, unnecessary for the GPU/userspace
 # disabling mitigations adds up to 20% performance improvement
 %cmake \

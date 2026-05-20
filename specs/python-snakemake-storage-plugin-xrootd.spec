@@ -14,8 +14,8 @@ Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-xrootd-%{ver
 # https://github.com/snakemake/snakemake-storage-plugin-xrootd/pull/49
 Patch:          %{url}/commit/aafc386cb300d2bab87bc18b51ddd6a8bb0160bb.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l snakemake_storage_plugin_xrootd
+BuildSystem:    pyproject
+BuildOption(install): --assert-license snakemake_storage_plugin_xrootd
 
 BuildArch:      noarch
 
@@ -45,7 +45,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-xrootd -f %{pyproject_files}

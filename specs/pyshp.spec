@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        3.0.4
+Version:        3.0.5
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
@@ -40,7 +40,7 @@ BuildSystem:    pyproject
 BuildOption(install): --assert-license shapefile
 # We do not package the “stubs” extra because we do not need or wish to package
 # python-pyshp-stubs.
-BuildOption(generate_buildrequires): --extras test
+BuildOption(generate_buildrequires): --dependency-groups test
 
 BuildArch:      noarch
 
@@ -73,7 +73,7 @@ Summary:        %{summary}
 
 
 %prep -a
-mkdir -p _testdata
+mkdir --parents _testdata
 ln '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE20}' '%{SOURCE21}' '%{SOURCE22}' '%{SOURCE23}' '%{SOURCE24}' \
     '%{SOURCE25}' _testdata/
@@ -88,7 +88,7 @@ trap "kill '${SERVER_PID}'" INT TERM EXIT
 popd
 export REPLACE_REMOTE_URLS_WITH_LOCALHOST='yes'
 
-%pytest -v
+%pytest --verbose
 # Doctests
 %{py3_test_envvars} %{python3} test_shapefile.py
 

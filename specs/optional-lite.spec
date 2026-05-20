@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           optional-lite
 Version:        3.6.0
 Release:        %autorelease
@@ -7,8 +9,12 @@ License:        BSL-1.0
 URL:            https://github.com/martinmoene/optional-lite
 Source:         %{url}/archive/v%{version}/optional-lite-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DOPTIONAL_LITE_OPT_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    }
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 # Required for testing; bundled upstream, unbundled in %%prep.
 # Header-only library (-static required by policy)
@@ -36,28 +42,10 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%prep
-%autosetup -n optional-lite-%{version}
-
+%prep -a
 # Unbundle lest
-rm -rvf test/lest
-ln -s /usr/include/lest test/lest
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
+rm --recursive --verbose test/lest
+ln --symbolic /usr/include/lest test/lest
 
 
 %files devel

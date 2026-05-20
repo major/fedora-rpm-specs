@@ -11,8 +11,8 @@ Source:         %{url}/archive/%{version}/sqlmodel-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-Patch-for-running-tests-without-cove.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l sqlmodel
+BuildSystem:    pyproject
+BuildOption(install): --assert-license sqlmodel
 
 BuildArch:      noarch
 
@@ -82,7 +82,7 @@ Obsoletes:      python3-sqlmodel-slim < 0.0.37-1
 %prep -a
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
-rm -rvf docs/*/docs/js docs/*/docs/css
+rm --recursive --verbose docs/js docs/css
 
 
 %check -a
@@ -112,7 +112,7 @@ warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
 #   python3 -m docs_src.tutorial.something_or_other
 export PYTHONPATH="%{buildroot}%{python3_sitelib}:${PWD}"
 
-%pytest ${warningsfilter-} -k "${k-}" ${ignore-} -v -rs
+%pytest ${warningsfilter-} -k "${k-}" ${ignore-} --verbose -rs
 
 
 %files -n python3-sqlmodel -f %{pyproject_files}

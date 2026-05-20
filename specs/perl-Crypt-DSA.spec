@@ -1,7 +1,7 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
-Version:	1.19
-Release:	4%{?dist}
+Version:	1.20
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://www.cpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
@@ -13,7 +13,6 @@ BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:	perl(warnings)
 # Module Runtime
 BuildRequires:	openssl
 BuildRequires:	perl(base)
@@ -21,6 +20,7 @@ BuildRequires:	perl(Carp)
 BuildRequires:	perl(constant)
 BuildRequires:	perl(Convert::ASN1)
 BuildRequires:	perl(Convert::PEM) >= 0.13
+BuildRequires:	perl(Crypt::SysRandom)
 BuildRequires:	perl(Crypt::URandom)
 BuildRequires:	perl(Data::Buffer) >= 0.01
 BuildRequires:	perl(Digest::SHA)
@@ -36,6 +36,7 @@ BuildRequires:	perl(MIME::Base64)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Symbol)
 BuildRequires:	perl(vars)
+BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More) >= 0.42
 # Optional Tests
@@ -57,7 +58,8 @@ DSA (Digital Signature Algorithm) signatures are no longer considered to be
 adequate for security. This module should only be used for verifying old
 signatures and should not be used for new signatures. That being said, some
 technologies still require DSA signatures even now. Consider using other
-solutions or explicitly not using DSA signatures.
+solutions or explicitly not using DSA signatures. Crypt-DSA-GMP is a possible
+replacement.
 
 %prep
 %setup -q -n Crypt-DSA-%{version}
@@ -75,7 +77,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc Changes README SECURITY.md
 %{perl_vendorlib}/Crypt/
 %{_mandir}/man3/Crypt::DSA.3*
 %{_mandir}/man3/Crypt::DSA::Key.3*
@@ -86,6 +88,17 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Mon May 18 2026 Paul Howarth <paul@city-fan.org> - 1.20-1
+- Update to 1.20
+  - This module is now marked as deprecated: Crypt-DSA-GMP is a possible
+    replacement
+  - Improve the call to IPC::Open3::open3
+  - Replace two arg open (CVE-2026-8704)
+  - Replace rand() (CVE-2026-8700)
+  - Add a security policy
+  - Add use warnings
+  - Typo fix (CPAN RT#86424)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

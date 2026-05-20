@@ -1,6 +1,6 @@
 %bcond ctest 1
 # Build with libpfm for hardware performance counter support?
-%bcond libpfm   1
+%bcond libpfm 1
 
 Name:           google-benchmark
 Version:        1.9.5
@@ -97,7 +97,10 @@ Obsoletes:      %{name}-doc < 1.9.4-9
 
 
 %prep -a
-sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
+sed --in-place \
+    --expression='/get_git_version/d' \
+    --expression='/-Werror/d' \
+    CMakeLists.txt
 
 
 %files

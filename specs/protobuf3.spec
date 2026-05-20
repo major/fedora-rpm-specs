@@ -158,8 +158,6 @@ Provides:       protobuf-devel = %{version}-%{release}
 Provides:       protobuf-devel%{?_isa} = %{version}-%{release}
 Conflicts:      protobuf-devel < 4~~
 
-Obsoletes:      protobuf-static < 3.19.6-4
-
 %description devel
 This package contains Protocol Buffers compiler for all languages and
 C++ headers and libraries
@@ -184,8 +182,6 @@ Requires:       %{name}-lite = %{version}-%{release}
 Provides:       protobuf-lite-devel = %{version}-%{release}
 Provides:       protobuf-lite-devel%{?_isa} = %{version}-%{release}
 Conflicts:      protobuf-lite-devel < 4~~
-
-Obsoletes:      protobuf-lite-static < 3.19.6-4
 
 %description lite-devel
 This package contains development libraries built with
@@ -235,35 +231,42 @@ BuildArch:      noarch
 Provides:       protobuf-emacs = %{version}-%{release}
 Conflicts:      protobuf-emacs < 4~~
 Requires:       emacs-filesystem >= %{_emacs_version}
-Obsoletes:      protobuf-emacs-el < 3.6.1-4
 
 %description emacs
 This package contains syntax highlighting for Google Protocol Buffers
 descriptions in the Emacs editor.
 
 %if %{with mingw}
-%package -n mingw32-protobuf
-Summary:       MinGW Windows protobuf library
+%package -n mingw32-protobuf3
+Summary:        MinGW Windows protobuf library
+Provides:       mingw32-protobuf = %{version}-%{release}
+Conflicts:      mingw32-protobuf < 4~~
 
-%description -n mingw32-protobuf
+%description -n mingw32-protobuf3
 MinGW Windows protobuf library.
 
-%package -n mingw32-protobuf-tools
-Summary:       MinGW Windows protobuf library tools
+%package -n mingw32-protobuf3-tools
+Summary:        MinGW Windows protobuf library tools
+Provides:       mingw32-protobuf-tools = %{version}-%{release}
+Conflicts:      mingw32-protobuf-tools < 4~~
 
-%description -n mingw32-protobuf-tools
+%description -n mingw32-protobuf3-tools
 MinGW Windows protobuf library tools.
 
-%package -n mingw64-protobuf
+%package -n mingw64-protobuf3
 Summary:       MinGW Windows protobuf library
+Provides:       mingw64-protobuf = %{version}-%{release}
+Conflicts:      mingw64-protobuf < 4~~
 
-%description -n mingw64-protobuf
+%description -n mingw64-protobuf3
 MinGW Windows protobuf library.
 
-%package -n mingw64-protobuf-tools
+%package -n mingw64-protobuf3-tools
 Summary:       MinGW Windows protobuf library tools
+Provides:       mingw64-protobuf-tools = %{version}-%{release}
+Conflicts:      mingw64-protobuf-tools < 4~~
 
-%description -n mingw64-protobuf-tools
+%description -n mingw64-protobuf3-tools
 MinGW Windows protobuf library tools.
 
 %{?mingw_debug_package}
@@ -422,7 +425,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/vim/vimfiles/syntax/proto.vim
 
 %if %{with mingw}
-%files -n mingw32-protobuf
+%files -n mingw32-protobuf3
 %license LICENSE
 %{mingw32_bindir}/libprotobuf-30.dll
 %{mingw32_bindir}/libprotobuf-lite-30.dll
@@ -435,10 +438,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{mingw32_libdir}/libprotobuf.dll.a
 %{mingw32_libdir}/libprotoc.dll.a
 
-%files -n mingw32-protobuf-tools
+%files -n mingw32-protobuf3-tools
 %{mingw32_bindir}/i686-w64-mingw32-protoc.exe
 
-%files -n mingw64-protobuf
+%files -n mingw64-protobuf3
 %license LICENSE
 %{mingw64_bindir}/libprotobuf-30.dll
 %{mingw64_bindir}/libprotobuf-lite-30.dll
@@ -451,7 +454,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{mingw64_libdir}/libprotobuf.dll.a
 %{mingw64_libdir}/libprotoc.dll.a
 
-%files -n mingw64-protobuf-tools
+%files -n mingw64-protobuf3-tools
 %{mingw64_bindir}/x86_64-w64-mingw32-protoc.exe
 %endif
 

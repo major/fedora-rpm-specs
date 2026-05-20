@@ -23,6 +23,11 @@ Patch0: 0001-Add-5.4.1-in-appdata.patch
 Patch1: darktable-5.4.1-lua-5.5.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2454222
 Patch2: cve-2026-5318.patch
+# This upstream change is necessary for the CVE-2026-5318 patch above to actually find the enum values
+# https://github.com/LibRaw/LibRaw/commit/8dc68e2a4551f03838b7f2da9276e5d1eb20bca0
+Patch3: 8dc68e2a4551f03838b7f2da9276e5d1eb20bca0.patch
+# https://github.com/darktable-org/lua-scripts/pull/678
+Patch4: darktable-5.4.1-lua-5.5-scripts.patch
 
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)

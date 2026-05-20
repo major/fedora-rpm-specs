@@ -2,7 +2,7 @@
 %global mod_name requests_cache
 
 Name:           python-%{pypi_name}
-Version:        1.2.0
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Persistent cache for requests library
 
@@ -32,6 +32,7 @@ to get better performance with the python requests library.
 
 %prep
 %autosetup -n requests_cache-%{version}
+%pyproject_patch_dependency url-normalize:drop_lower
 
 %build
 %pyproject_wheel

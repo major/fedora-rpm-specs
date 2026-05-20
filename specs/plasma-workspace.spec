@@ -3,7 +3,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.6.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -39,6 +39,10 @@ Source41:       spice-vdagent.conf
 Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
+
+# Notifications are partially broken in Qt 6.11.1
+# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/6615
+Patch108:       6615.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -661,6 +665,9 @@ fi
 
 
 %changelog
+* Mon May 18 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-2
+- Fix for notifications being partially broken since Qt 6.11.1
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

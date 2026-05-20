@@ -26,7 +26,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libarcus-devel >= 5.2.2
 BuildRequires:  polyclipping-devel >= 6.1.2
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  rapidjson-devel
 BuildRequires:  cmake
 BuildRequires:  git-core

@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           luminance-hdr
 Version:        2.6.1.1
 Release:        %autorelease
@@ -62,14 +64,14 @@ Summary:        GUI that provides a complete workflow for HDR imaging
 #
 # Note that CC0-1.0 is allowed only for content, such as this AppData XML file.
 License:        %{shrink:
-                GPL-2.0-only AND
-                GPL-3.0-or-later AND
-                LGPL-2.1-or-later AND
-                BSD-3-Clause AND
-                MIT AND
-                BSL-1.0 AND
-                CC0-1.0
-                }
+    GPL-2.0-only AND
+    GPL-3.0-or-later AND
+    LGPL-2.1-or-later AND
+    BSD-3-Clause AND
+    MIT AND
+    BSL-1.0 AND
+    CC0-1.0
+    }
 # Additionally, the following are only build system files and do not contribute
 # to the License field:
 #
@@ -132,7 +134,13 @@ Patch:          %{forgeurl}/pull/288.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/284
 Patch:          %{forgeurl}/pull/284.patch
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    -DENABLE_UNIT_TEST:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    }
+BuildOption(check): --exclude-regex "^Test(${x})\$"
+
 BuildRequires:  gcc-c++
 
 BuildRequires:  desktop-file-utils
@@ -195,7 +203,9 @@ BuildRequires:  (pkgconfig(eigen3) with eigen3-static)
 
 BuildRequires:  librtprocess-devel
 
+%if %{with ctest}
 BuildRequires:  gtest-devel
+%endif
 
 Obsoletes:      qtpfsgui < 2.2.0
 Provides:       qtpfsgui = %{version}-%{release}
@@ -270,62 +280,55 @@ Architecture-independent data files for luminance-hdr, such as HTML help and
 translations.
 
 
-%prep
-%autosetup -n LuminanceHDR-v.%{version} -p1
-
+%prep -a
 # Just in case the bundled librtprocess shows up in the tarball:
-rm -rf librtprocess
+rm --recursive --force --verbose librtprocess
 
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/236
-sed -r -i \
-    -e 's/(TARGET_LINK_LIBRARIES\(TestPoissonSolver\b.*pfstmo)'\
-'[[:blank:]]*$/\1 common/' \
+sed --regexp-extended --in-place \
+    --expression='s/(TARGET_LINK_LIBRARIES'\
+'\(TestPoissonSolver\b.*pfstmo)[[:blank:]]*$/\1 common/' \
     test/CMakeLists.txt
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/237
-sed -r -i \
-    -e 's/(TARGET_LINK_LIBRARIES\(pfstmo[[:blank:]]+)(Qt5::)/\1pfs \2/' \
+sed --regexp-extended --in-place \
+    --expression='s/(TARGET_LINK_LIBRARIES\(pfstmo[[:blank:]]+)'\
+'(Qt5::)/\1pfs \2/' \
      src/TonemappingOperators/CMakeLists.txt
 # https://github.com/LuminanceHDR/LuminanceHDR/issues/240
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/238
-sed -r -i \
-    -e 's/(TARGET_LINK_LIBRARIES\(pfs[[:blank:]]+)(Qt5::)/\1rtprocess \2/' \
+sed --regexp-extended --in-place \
+    --expression='s/(TARGET_LINK_LIBRARIES\(pfs[[:blank:]]+)'\
+'(Qt5::)/\1rtprocess \2/' \
      src/Libpfs/CMakeLists.txt
 
 # Remove bundled copy of hdrhtml from pfstools package; let the build system
 # install an empty directory, then replace it with a symbolic link to the
 # pfstools copy.
-rm -rf hdrhtml/*
+rm --recursive --force --verbose hdrhtml/*
 
 # build error against boost 1.88 due to outdated C++ std version
 # https://github.com/LuminanceHDR/LuminanceHDR/issues/291
-sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' \
+sed --regexp-extended --in-place \
+    's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' \
     build_files/Modules/CompilerSettings.cmake
 
 
-%conf
+%conf -p
 # Since Fedora 44 / eigen3 5.0, we actually need to set the proper include path
 # for eigen3. There are still no linker flags for eigen3, but we check anyway.
 export CXXFLAGS="${CXXFLAGS} $(pkgconf --cflags eigen3)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs eigen3)"
 
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_UNIT_TEST:BOOL=ON
 
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
+%install -a
 # Upstream installs AUTHORS, Changelog, LICENSE, and README.md. We install
 # documentation and license files with the %%doc and %%license macros instead,
 # putting them in the usual locations favored by Fedora.
-rm -rvf '%{buildroot}%{_datadir}/luminance-hdr/doc'
+rm --recursive --force --verbose '%{buildroot}%{_datadir}/luminance-hdr/doc'
 
 # Install mimeinfo file
-install -t '%{buildroot}/%{_datadir}/mime/packages' -D -p -m 0644 \
-    luminance-hdr.xml
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}/%{_datadir}/mime/packages' luminance-hdr.xml
 
 desktop-file-install --dir=%{buildroot}/%{_datadir}/applications \
     %{app_id}.desktop
@@ -334,8 +337,8 @@ desktop-file-install --dir=%{buildroot}/%{_datadir}/applications \
 # rename the file from upstream using the legacy .appdata.xml name to the
 # current .metainfo.xml used for AppData. See
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/AppData/.
-install -d '%{buildroot}%{_metainfodir}'
-mv -v '%{buildroot}%{_datadir}/appdata/%{app_id}.appdata.xml' \
+install --directory '%{buildroot}%{_metainfodir}'
+mv '%{buildroot}%{_datadir}/appdata/%{app_id}.appdata.xml' \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 # Still required by guidelines for now
 # (https://pagure.io/packaging-committee/issue/1053):
@@ -345,16 +348,17 @@ appstream-util validate-relax --nonet \
 appstreamcli validate --no-net --explain \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE1}' '%{SOURCE2}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}' '%{SOURCE2}'
 
 %find_lang lang --with-qt
 
-rm -rvf '%{buildroot}%{_datadir}/luminance-hdr/hdrhtml'
-ln -s ../pfstools '%{buildroot}%{_datadir}/luminance-hdr/hdrhtml'
+rm --recursive --force --verbose \
+    '%{buildroot}%{_datadir}/luminance-hdr/hdrhtml'
+ln --symbolic ../pfstools '%{buildroot}%{_datadir}/luminance-hdr/hdrhtml'
 
 
-%check
+%check -p
 # https://github.com/LuminanceHDR/LuminanceHDR/issues/154
 x='Mantiuk06Pyramid'
 %ifarch %{ix86}
@@ -363,7 +367,6 @@ x='Mantiuk06Pyramid'
 # solution.
 x="${x}|PoissonSolver"
 %endif
-%ctest --exclude-regex "^Test(${x})\$"
 
 
 %files

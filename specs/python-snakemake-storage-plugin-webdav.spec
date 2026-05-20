@@ -14,8 +14,8 @@ Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-webdav-%{ver
 # https://github.com/snakemake/snakemake-storage-plugin-webdav/pull/11
 Patch:          %{url}/pull/11.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_webdav
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_webdav
 
 BuildArch:      noarch
 
@@ -41,7 +41,7 @@ Summary:        %{summary}
 k="${k-}${k+ and }not (TestStorage and test_storage)"
 k="${k-}${k+ and }not (TestStorage and test_storage_not_existing)"
 
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-webdav -f %{pyproject_files}

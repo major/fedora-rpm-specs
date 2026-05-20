@@ -25,7 +25,7 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_major 7
-%global rocm_minor 12
+%global rocm_minor 13
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global pkg_src therock-%{rocm_release}
@@ -127,9 +127,11 @@ Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 #https://github.com/ROCm/clr/pull/97
 patch2:        909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
 
+%if %{without preview}
 # std::filesystem is c++17 and that is too new for suse 15
 # https://github.com/ROCm/rocm-systems/issues/1947
 patch3:        0001-rocclr-replace-std-filesystem-exists-with-access.patch
+%endif
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -385,8 +387,10 @@ chmod 755 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib*.so*
 # Unnecessary file and is not FHS compliant:
 rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/.hipInfo
 
+%if %{without preview}
 # Windows files:
 rm %{buildroot}%{pkg_prefix}/bin/*.bat
+%endif
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocclr*/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/opencl*/LICENSE.md
@@ -432,16 +436,18 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %{pkg_prefix}/share/hip
 
 %files -n rocm-hip%{pkg_suffix}-devel
-%{pkg_prefix}/bin/roc-*
 %{pkg_prefix}/%{pkg_libdir}/libamdhip64.so
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc.so
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hip*
-%{pkg_prefix}/bin/hipdemangleatp
-%{pkg_prefix}/bin/hipcc_cmake_linker_helper
 %{pkg_prefix}/include/hip
 %if %{with cppheaderparser}
 %{pkg_prefix}/include/hip_prof_str.h
+%endif
+%if %{without preview}
+%{pkg_prefix}/bin/roc-*
+%{pkg_prefix}/bin/hipcc_cmake_linker_helper
+%{pkg_prefix}/bin/hipdemangleatp
 %endif
 
 %if %{with docs}

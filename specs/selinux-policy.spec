@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 280ba9014975363bcd52c6450b4e6541a3690d56
+%global commit 07f0cb4f38ece8ba3a8cdaab6acf8b469680df99
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -19,7 +19,7 @@
 %define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 45.2
+Version: 45.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -141,6 +141,9 @@ and some additional files.
 %{_datadir}/selinux/devel/include/*
 %exclude %{_datadir}/selinux/devel/include/contrib/container.if
 %exclude %{_datadir}/selinux/devel/include/contrib/flatpak.if
+%exclude %{_datadir}/selinux/devel/include/contrib/linuxptp.if
+%exclude %{_datadir}/selinux/devel/include/contrib/nbdkit.if
+%exclude %{_datadir}/selinux/devel/include/contrib/passt.if
 %exclude %{_datadir}/selinux/devel/include/contrib/tabrmd.if
 %dir %{_datadir}/selinux/devel/html
 %{_datadir}/selinux/devel/html/*html

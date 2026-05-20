@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate llvm-bitcode
+%global crate zbus_polkit
 
-Name:           rust-llvm-bitcode
-Version:        0.4.0
+Name:           rust-zbus_polkit
+Version:        5.0.0
 Release:        %autorelease
-Summary:        LLVM Bitcode parser in Rust
+Summary:        PolicyKit binding
 
-License:        MIT AND Apache-2.0 WITH LLVM-exception
-URL:            https://crates.io/crates/llvm-bitcode
+License:        MIT
+URL:            https://crates.io/crates/zbus_polkit
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-LLVM Bitcode parser in Rust.}
+PolicyKit binding.}
 
 %description %{_description}
 
@@ -44,6 +44,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+blocking-api-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+blocking-api-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "blocking-api" feature of the "%{crate}" crate.
+
+%files       -n %{name}+blocking-api-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

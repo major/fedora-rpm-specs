@@ -3,14 +3,13 @@ Version:        13.2
 Release:        %autorelease
 Summary:        PostgreSQL log analyzer with fully detailed reports and graphs
 
-
 # List of all licenses - each with an example of a file that uses it
-# PostgreSQL: pgbadger
-# MIT: resources/jqplot
-# Artistic-2.0: pgbadger
-# OFL-1.1: resources/fontawesome.css
-# CC-BY-3.0: /resources/jqplot.canvasTextRenderer.js
-# GPL-2.0-only: resources/jqplot.*
+# - PostgreSQL: pgbadger
+# - MIT: resources/jqplot
+# - Artistic-2.0: pgbadger
+# - OFL-1.1: resources/fontawesome.css
+# - CC-BY-3.0: /resources/jqplot.canvasTextRenderer.js
+# - GPL-2.0-only: resources/jqplot.*
 License:        PostgreSQL AND MIT AND Artistic-2.0 AND OFL-1.1 AND CC-BY-3.0 AND GPL-2.0-only
 URL:            https://github.com/darold/%{name}
 Source:         https://github.com/darold/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -63,7 +62,6 @@ PgBadger is a PostgreSQL log analyzer built for speed providing fully
 detailed reports based on your PostgreSQL log files. It's a small 
 standalone Perl script that outperforms any other PostgreSQL log analyzer.
 
-
 %prep
 %autosetup
 
@@ -71,16 +69,15 @@ standalone Perl script that outperforms any other PostgreSQL log analyzer.
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %make_build
 
-
 %install
 %make_install
 %{_fixperms} %{buildroot}/%{_bindir}/pgbadger
 
 %check
-make test
+%make_build test
 
 %files
-%doc README
+%doc README ChangeLog
 %license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1p.*

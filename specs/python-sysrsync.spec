@@ -18,8 +18,8 @@ Patch:          %{url}/pull/39.patch
 # Rebased on 1.1.1 with https://github.com/gchamon/sysrsync/pull/39.
 Patch:          0001-In-Python-3.11-and-later-use-tomllib-instead-of-toml.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -l sysrsync
+BuildSystem:    pyproject
+BuildOption(install): --assert-license sysrsync
 
 BuildArch:      noarch
 
@@ -42,7 +42,8 @@ Requires:       rsync
 %check -a
 # We cannot run the end-to-end-tests/ because they require Docker and network
 # access, but we can run the unit tests.
-%{py3_test_envvars} %{python3} -m unittest discover -v -s test/
+%{py3_test_envvars} %{python3} -m unittest discover \
+    --verbose --start-directory=test/
 
 
 %files -n python3-sysrsync -f %{pyproject_files}

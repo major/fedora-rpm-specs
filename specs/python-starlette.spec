@@ -7,9 +7,9 @@ License:        BSD-3-Clause
 URL:            https://www.starlette.io/
 Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x full
-BuildOption(install):   -l starlette
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras full
+BuildOption(install): --assert-license starlette
 
 BuildArch:      noarch
 
@@ -54,7 +54,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-starlette -f %{pyproject_files}

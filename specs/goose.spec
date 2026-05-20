@@ -1,6 +1,30 @@
 %bcond check 1
-# Limit parallel processes to prevent OOM during build:
-%global _smp_tasksize_proc 4096
+
+# Goose is being shipped in RHEL 9.x extensions, and in such environment, we
+# don't have access to `_smp_tasksize_proc` due to it being added a newer
+# version of rpm, and to allow our package to build in such environment and to
+# avoid OOM during our builds, we have borrowed a macro from the rust commpiler
+# package to allow us to set constraints in that environment.
+#   * https://src.fedoraproject.org/rpms/rust/blob/rawhide/f/rust.spec#_820 
+%if %undefined constrain_build
+%define constrain_build(m:) %{lua:
+  for l in io.lines('/proc/meminfo') do
+    if l:sub(1, 9) == "MemTotal:" then
+      local opt_m = math.tointeger(rpm.expand("%{-m*}"))
+      local mem_total = math.tointeger(string.match(l, "MemTotal:%s+(%d+)"))
+      local cpu_limit = math.max(1, mem_total // (opt_m * 1024))
+      if cpu_limit < math.tointeger(rpm.expand("%_smp_build_ncpus")) then
+        rpm.define("_smp_build_ncpus " .. cpu_limit)
+      end
+      break
+    end
+  end
+}
+%endif
+
+%constrain_build -m 6144
+
+%global rustflags_codegen_units 16
 
 Name:           goose
 # We are currently stuck on this stable version due to some constraints related
@@ -39,40 +63,49 @@ Source7:        mermaid.license
 Source99:       generate-vendor-tarball.sh
 
 # Remove windows specific dependencies (winapi/winreg) from goose crates.
-Patch:          0001-Patch-windows-dependencies-across-workspace.patch
+Patch:          0000-Patch-windows-dependencies-across-workspace.patch
 # This patch disable the default features for some dependencies that were
 # bringing unwanted crates, like `rustls` or `ring` and swap to use
 # `native-tls` where is possible for the other dependencies.
-Patch1:         0002-Disable-rustls-and-default-features-for-some-librari.patch
+Patch1:         0001-Disable-rustls-and-default-features-for-some-librari.patch
 # Patch the source code of goose to make use of `native-tls` instead of
 # `rustls`. This is not contained in the above patch on purpose, so we can
 # re-create the dependencies patch easily without having to modify source code
 # when a new version is pushed.
-Patch2:         0003-Patch-code-to-use-native-tls-instead-of-rustls.patch
+Patch2:         0002-Patch-code-to-use-native-tls-instead-of-rustls.patch
 # Downstream patch to update tar for version 0.4.45. This patch can be dropped
 # once https://issues.redhat.com/browse/RSPEED-2434 is fixed.
-Patch3:         0004-Fix-for-CVE-2026-33056-on-tar.patch
+Patch3:         0003-Fix-for-CVE-2026-33056-on-tar.patch
 # This fix is intended to be EPEL 9 only, but for convenience, we will try to
 # use it on all versions since that should not be a breaking change across any
 # target and the functionality should be the same.
-Patch4:         0005-Fix-sql-statement-from-session-manager.patch
-# Add disclaimer as required by legal only on RHEL
-%if 0%{?rhel}
-Patch5:         0006-Include-legal-message-for-goose-proxy-provider.patch
-%endif
+Patch4:         0004-Fix-sql-statement-from-session-manager.patch
 # Backport of https://github.com/aaif-goose/goose/pull/8118
 # Sets permissions of newly created secrets.yaml file to 0600.
-Patch6:         0007-Better-default-permissions-for-secrets.patch
+Patch5:         0005-Better-default-permissions-for-secrets.patch
+# Update a transitive dependency for openssl to fix CVEs:
+#   * CVE-2026-41676, CVE-2026-41677, CVE-2026-41678, 
+#   * CVE-2026-41681, CVE-2026-41898, CVE-2026-42327, 
+#   * CVE-2026-44662
+Patch6:         0006-Update-openssl-transitive-dependency.patch
 
+## Downstream only patches
+#
 # Patch the `build.rs` for `ring` crate to avoid using the pre-generated object
 # files that comes with the vendored crate, and instead, build from system
 # libraries.
 # The patch was taken from:
 #   * https://src.fedoraproject.org/rpms/rust-ring/blob/d6d681ed07c088671cb5accc0102470b059a5e88/f/rust-ring.spec#_24
-Patch1001:      1001-Downstream-only-never-use-pre-generated-object-files.patch
+Patch0100:      0100-Downstream-only-never-use-pre-generated-object-files.patch
 # Raise recursion limit to fix test failures. This is fixed upstream so is only needed
 # to prevent test failures when packaging.
-Patch1002:      1002-Raise-recursion-limit.patch
+Patch0101:      0101-Raise-recursion-limit.patch
+
+## RHEL only patches
+# Patches in the 800-899 range are applied only to RHEL.
+#
+# Add disclaimer as required by legal only on RHEL
+Patch800:       0800-Include-legal-message-for-goose-proxy-provider.patch
 
 # i686: https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -222,6 +255,13 @@ BuildRequires:  libzstd-devel
 # - Rust: MIT
 Provides:       bundled(sublime-syntax) = 4075~gitfa6b862
 
+# In RHEL 9, we depend on sqlite3 3.34.1-10 as it contains a necessary fix for
+# exporting the `sqlite3_deserialize` function for goose builds.
+# More info on: https://redhat.atlassian.net/browse/RHEL-155950
+%if 0%{?rhel} == 9
+Requires:       sqlite-libs >= 3.34.1-10
+%endif
+
 # Third-party language definitions for syntax highlighting The `syntect` crate
 # is bundling all of sublimehq/Packages syntax definitions. To achieve the
 # below list of langauge definitions syntaxes, use the following command:
@@ -327,7 +367,15 @@ faster and focus on innovation.}
 %description    %{_description}
 
 %prep
-%autosetup -p1 -a1
+
+# Break the patches into batches since
+# patches >= 800 are only applied on RHEL systems.
+%setup -q -a1
+%autopatch -p1 -M 799
+
+%if 0%{?rhel}
+%autopatch -p1 -m 800 -M 899
+%endif
 
 # Copy JavaScript/CSS license text into %%{name}-%%{version} folder.
 cp -pav %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} .

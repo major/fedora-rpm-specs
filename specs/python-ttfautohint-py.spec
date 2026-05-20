@@ -22,8 +22,8 @@ URL:            https://github.com/fonttools/ttfautohint-py
 # appear in the source archive.
 Source:         %{url}/archive/v%{version}/ttfautohint-py-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l ttfautohint
+BuildSystem:    pyproject
+BuildOption(install): --assert-license ttfautohint
 
 BuildArch: noarch
 
@@ -68,7 +68,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %check -a
 %if %{with tests}
-%pytest -v
+%pytest --verbose
 %endif
 
 

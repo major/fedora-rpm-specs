@@ -1,6 +1,6 @@
 Name:           lumail
 Version:        3.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Modern console-based e-mail client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -19,6 +19,7 @@ Patch5:         https://github.com/lumail/lumail/commit/05079ed.patch#/0004-perl
 Patch6:         https://github.com/lumail/lumail/commit/9650e8b.patch#/0005-perl-imap-proxy-croak-early-on-bad-params.patch
 Patch7:         lumail-3.1-lua54.patch
 Patch8:         lumail-3.1-lua-5.5.patch
+Patch9:         lumail-3.1-pcre2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -26,7 +27,7 @@ BuildRequires:  perl-generators
 BuildRequires:  pkgconfig(lua)
 BuildRequires:  pkgconfig(gmime-2.6)
 BuildRequires:  pkgconfig(ncursesw)
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  file-devel
 
 %description
@@ -45,6 +46,7 @@ scripting, implemented in the Lua programming language.
 %patch -P6 -p1
 %patch -P7 -p1
 %patch -P8 -p1 -b .lua55
+%patch -P9 -p1 -b .pcre2
 
 
 %build
@@ -66,6 +68,9 @@ make %{?_smp_mflags} CPPFLAGS="%{optflags}" LVER=lua
 
 
 %changelog
+* Mon May 18 2026 Tom Callaway <spot@fedoraproject.org> - 3.1-24
+- fix code to use pcre2
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.1-23
 - rebuild
 

@@ -9,13 +9,13 @@ Currently for form previews and multi-step forms.}
 
 
 Name:           python-%{pypi_name}
-Version:        2.5.1
+Version:        2.6.1
 Release:        %autorelease
 Summary:        A set of high-level abstractions for Django forms
 
 License:        BSD-3-Clause
 URL:            http://django-formtools.readthedocs.org/en/latest/
-Source0:        https://pypi.io/packages/source/d/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://pypi.io/packages/source/d/%{pypi_name}/django_formtools-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -46,7 +46,7 @@ This is the associated documentation.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n django_formtools-%{version}
 
 sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
@@ -88,8 +88,6 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%exclude %{python3_sitelib}/tests
 
 
 %files -n python3-%{pypi_name}-doc

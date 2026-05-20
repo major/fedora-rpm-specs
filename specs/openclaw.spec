@@ -110,6 +110,7 @@ find . -name '*.so' -type f -print0 | xargs -0 rm -rf
 
 # remove fonts
 find . -name '*.ttf' -type f -print0 | xargs -0 rm -rf
+find . -name '*.pfb' -type f -print0 | xargs -0 rm -rf
 
 # remove arch things
 N="linux-arm64 linux-x64 darwin-arm64 darwin-x64 win32-arm64 win32-x86"
@@ -167,6 +168,9 @@ done
 # fix line endings
 dos2unix node_modules_prod/node-edge-tts/bin.js
 
+# Make sure skills/skill-creator/license.txt is noticed
+cp -p skills/skill-creator/license.txt license.skills.skills-creator.txt
+
 %build
 #nothing to do
 
@@ -183,7 +187,7 @@ popd
 %fdupes %{buildroot}
 
 %files
-%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt
+%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt license.skills.skills-creator.txt
 %doc README.md
 %{nodejs_sitelib}/%{npm_name}
 %{_bindir}/openclaw

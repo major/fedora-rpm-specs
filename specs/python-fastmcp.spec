@@ -80,8 +80,8 @@ tomcli set pyproject.toml arrays replace "project.dependencies" "authlib.*" "aut
 tomcli set pyproject.toml arrays replace "project.dependencies" "pyperclip.*" "pyperclip >=1.8.2,<1.9.0"
 tomcli set pyproject.toml arrays replace "dependency-groups.dev" "pyperclip.*" "pyperclip >=1.8.2,<1.9.0"
 
-# Relax openai optional dependency
-# tomcli set pyproject.toml arrays replace "project.optional-dependencies.openai" "openai.*" "openai>=1.95"
+# Adjust version of fakeredis
+tomcli set pyproject.toml arrays replace "project.dependencies" "fakeredis.*" "fakeredis[lua]>=2.35"
 
 %generate_buildrequires
 %pyproject_buildrequires -x %{extras}

@@ -1,7 +1,7 @@
 %global libzen_version  0.4.41
 
 Name:           mediainfo
-Version:        26.01
+Version:        26.05
 Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
@@ -229,6 +229,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
 %{_bindir}/%{name}-qt
 %{_datadir}/applications/%{name}-qt.desktop
+%{_datadir}/kio/servicemenus/mediainfo-gui.desktop
 %{_datadir}/pixmaps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
@@ -236,6 +237,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Mon May 18 2026 Vasiliy Glazov <vascom2@gmail.com> - 26.05-1
+- Update to 26.05
+
 * Tue Apr 07 2026 Vasiliy Glazov <vascom2@gmail.com> - 26.01-1
 - Update to 26.01
 

@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -26,8 +26,8 @@ BuildArch: noarch
 
 # To build an official pcs-web-ui release, comment out ui_branch_or_commit
 # Last tagged version, also used as fallback version for untagged tarballs
-%global ui_version 0.1.24.2
-%global ui_modules_version 0.1.24.2
+%global ui_version 0.1.24.3
+%global ui_modules_version 0.1.24.3
 # Use long commit hash or branch name to build an unreleased version
 # %%global ui_branch_or_commit 34372d1268f065ed186546f55216aaa2d7e76b54
 %global ui_version_or_commit %{ui_version}
@@ -75,6 +75,8 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_vers
 Patch1: show-info-page-instead-of-webui.patch
 Patch2: drop-dependency-on-rubygem-cgi.patch
 Patch3: typing-fixes-for-python-3.15.patch
+Patch4: bz2458608-01-fix-a-crash-when-determining-terminal-size.patch
+Patch5: bz2461143-01-Update-constraint-order-printout.patch
 
 # ui patches: >200
 # Patch201: name-web-ui.patch
@@ -343,6 +345,8 @@ update_times_patch(){
 update_times_patch %{PATCH1}
 update_times_patch %{PATCH2}
 update_times_patch %{PATCH3}
+update_times_patch %{PATCH4}
+update_times_patch %{PATCH5}
 
 # generate .tarball-version if building from an untagged commit, not a released version
 # autogen uses git-version-gen which uses .tarball-version for generating version number
@@ -585,6 +589,14 @@ fi
 
 
 %changelog
+* Fri May 15 2026 Michal Pospíšil <mpospisi@redhat.com> - 0.12.2-2
+- Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.24.3 (see CHANGELOG_WUI.md)
+  Resolves: rhbz#2454042
+- Fixed a crash when running pcs resource|stonith list
+  Resolves: rhbz#2458608
+- Fixed order of resources in sets when listing configuration of constraints
+  Resolves: rhbz#2461143
+
 * Thu Mar 5 2026 Michal Pospíšil <mpospisi@redhat.com> - 0.12.2-1
 - Rebased pcs to the newest major version (see CHANGELOG.md)
 - Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.24.2 (see CHANGELOG_WUI.md)

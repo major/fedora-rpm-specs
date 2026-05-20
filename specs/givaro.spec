@@ -47,14 +47,14 @@ License:        CECILL-B AND LGPL-3.0-or-later
 # X11:
 #   - build-aux/install-sh
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFAP-no-warranty-disclaimer AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                GPL-2.0-or-later WITH Libtool-exception AND
-                X11
-                }
+    %{license} AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    X11
+    }
 URL:            https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
 %global forgeurl https://github.com/linbox-team/givaro
 VCS:            git:%{forgeurl}.git
@@ -85,7 +85,7 @@ sparse, structured), and univariate polynomials (and therefore recursive
 multivariate).
 
 
-%package        devel
+%package devel
 Summary:        Files useful for givaro development
 
 Requires:       givaro%{?_isa} = %{version}-%{release}
@@ -104,7 +104,7 @@ The libraries and header files for using givaro for development.
 #   allow the shared libraries to be unloaded, which happens as a normal part
 #   of Macaulay2's functioning, then GC tries to free objects it did not
 #   allocate, which leads to a segfault.
-%package        static
+%package static
 Summary:        Static library for givaro
 
 Requires:       givaro-devel%{?_isa} = %{version}-%{release}
@@ -130,10 +130,11 @@ autoreconf --force --install --verbose
 
 # Get rid of undesirable hardcoded rpaths, and workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
-    -i libtool
+sed --regexp-extended --in-place \
+    --expression='s@^(hardcode_libdir_flag_spec=).*@\1""@g' \
+    --expression='s@^(runpath_var=)LD_RUN_PATH@\1DIE_RPATH_DIE@g' \
+    --expression='s@(CC="g..)"@\1 -Wl,--as-needed"@' \
+    libtool
 
 
 %build

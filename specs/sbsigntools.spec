@@ -58,10 +58,6 @@ BuildRequires: libuuid-devel
 BuildRequires: openssl
 %endif
 BuildRequires: openssl-devel
-%if 0%{?fedora} >= 41
-# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
-BuildRequires: openssl-devel-engine
-%endif
 Provides: bundled(ccan-array_size)
 Provides: bundled(ccan-build_assert)
 Provides: bundled(ccan-check_type)
@@ -88,10 +84,7 @@ Tools to add signatures to EFI binaries and Drivers.
 %patch -p 1 -P 0
 %patch -p 1 -P 1
 %patch -p 1 -P 2
-%if %{defined el10}
-# EL10 disables openssl engines
 %patch -p 1 -P 3
-%endif
 %patch -p 1 -P 4
 %patch -p 1 -P 5
 

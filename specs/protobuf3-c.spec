@@ -18,7 +18,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  protobuf3-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  pkgconfig(protobuf)
 
 %description

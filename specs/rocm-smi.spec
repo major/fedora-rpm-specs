@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -125,6 +125,7 @@ BuildRequires:  doxygen-latex >= 1.9.7
 %endif
 %endif
 BuildRequires:  gcc-c++
+BuildRequires:  git
 BuildRequires:  libdrm-devel
 BuildRequires:  rocm-filesystem%{pkg_suffix}
 
@@ -188,7 +189,11 @@ sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
 # https://github.com/ROCm/rocm-systems/issues/1022
 sed -i -e 's@FetchContent_MakeAvailable(googletest)@#FetchContent_MakeAvailable(googletest)@' tests/rocm_smi_test/CMakeLists.txt
 sed -i -e 's@PUBLIC GTest::gtest_main@PUBLIC gtest_main gtest@' tests/rocm_smi_test/CMakeLists.txt
+%if %{with preview}
+sed -i -e '/install googletest/,+5d' tests/rocm_smi_test/CMakeLists.txt
+%else
 sed -i -e '/TARGETS gtest gtest_main/,+3d' tests/rocm_smi_test/CMakeLists.txt
+%endif
 
 # fix iomanip include
 # https://github.com/ROCm/rocm-systems/issues/1021

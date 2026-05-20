@@ -1,9 +1,10 @@
+# if not building for centos/rhel, include parallel port support
+%bcond libieee1284 %{undefined rhel}
+# if not building for flatpak, have runtime dep on systemd
+%bcond runtimedep_systemd %{undefined flatpak}
 # let -devel require drivers to make them available as multilib
-%global needs_multilib_quirk 1
+%bcond needs_multilib_quirk 1
 
-%global _hardened_build 1
-
-%global libusb1 1
 
 %global __provides_exclude_from ^%{_libdir}/sane/.*\.so.*$
 %global __requires_exclude ^libsane-.*\.so\.[0-9]*(\(\).*)?+$
@@ -11,20 +12,21 @@
 %global _maindocdir %{_docdir}/%{name}
 %global _docdocdir %{_docdir}/%{name}-doc
 
-%global scanner_backends_list abaton agfafocus apple artec artec_eplus48u as6e avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3500 hp3900 hp4200 hp5400 hp5590 hpljm1005 hpsj5s hs2p ibm kodak kodakaio kvs1025 kvs20xx kvs40xx leo lexmark lexmark_x2600 ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb mustek_usb2 nec net niash p5 pie pieusb pixma plustek plustek_pp ricoh ricoh2 rts8891 s9036 sceptre sharp sm3600 sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp
-%global camera_backends_list dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
-%global config_files_list abaton agfafocus apple artec artec_eplus48u avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3900 hp4200 hp5400 hpsj5s hs2p ibm kodak kodakaio kvs1025 leo lexmark lexmark_x2600 ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb nec net p5 pie pieusb pixma plustek plustek_pp ricoh rts8891 s9036 sceptre sharp sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
-
-%if 0%{?flatpak}
-%bcond_with runtimedep_systemd
+%if %{with libieee1284}
+  %global libieee1284_backends canon_pp hpsj5s mustek_pp
 %else
-%bcond_without runtimedep_systemd
+  %global libieee1284_backends %{nil}
 %endif
+
+%global scanner_backends_list abaton agfafocus apple artec artec_eplus48u as6e avision bh canon canon630u canon_dr canon_lide70 cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3500 hp3900 hp4200 hp5400 hp5590 hpljm1005 hs2p ibm kodak kodakaio kvs1025 kvs20xx kvs40xx leo lexmark lexmark_x2600 ma1509 magicolor matsushita microtek microtek2 mustek mustek_usb mustek_usb2 nec net niash p5 pie pieusb pixma plustek plustek_pp ricoh ricoh2 rts8891 s9036 sceptre sharp sm3600 sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp %{libieee1284_backends}
+%global camera_backends_list dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
+%global config_files_list abaton agfafocus apple artec artec_eplus48u avision bh canon canon630u canon_dr canon_lide70 cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3900 hp4200 hp5400 hs2p ibm kodak kodakaio kvs1025 leo lexmark lexmark_x2600 ma1509 magicolor matsushita microtek microtek2 mustek mustek_usb nec net p5 pie pieusb pixma plustek plustek_pp ricoh rts8891 s9036 sceptre sharp sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l %{libieee1284_backends}
+
 
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.4.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -79,15 +81,10 @@ BuildRequires: gcc-c++
 BuildRequires: git-core
 BuildRequires: gphoto2-devel
 BuildRequires: texlive-base
-BuildRequires: libieee1284-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
 BuildRequires: libtiff-devel
-%if %libusb1
 BuildRequires: libusbx-devel
-%else
-BuildRequires: libusb-devel
-%endif
 BuildRequires: libv4l-devel
 # uses make
 BuildRequires: make
@@ -97,6 +94,10 @@ BuildRequires: systemd-devel
 BuildRequires: systemd
 # needed by macros in rpm scriptlets
 BuildRequires: systemd-rpm-macros
+
+%if %{with libieee1284}
+BuildRequires: libieee1284-devel
+%endif
 
 Requires: libpng
 Requires: sane-airscan
@@ -135,21 +136,21 @@ want to access scanners.
 
 %package devel
 Summary: SANE development toolkit
-Requires: libieee1284-devel
 Requires: libjpeg-devel
 Requires: libtiff-devel
-%if %libusb1
 Requires: libusbx-devel
-%else
-Requires: libusb-devel
-%endif
 Requires: pkgconfig
 Requires: sane-backends = %{?epoch:%{epoch}:}%{version}-%{release}
-%if %needs_multilib_quirk
+Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%if %{with libieee1284}
+Requires: libieee1284-devel
+%endif
+
+%if %{with needs_multilib_quirk}
 Requires: sane-backends-drivers-scanners%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: sane-backends-drivers-cameras%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %endif
-Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description devel
 This package contains libraries and header files for writing Scanner Access Now
@@ -193,20 +194,12 @@ access image acquisition devices available on the local host.
 
 %build
 CFLAGS="%optflags -fno-strict-aliasing"
-%if ! 0%{?_hardened_build}
-# use PIC/PIE because SANE-enabled software is likely to deal with data coming
-# from untrusted sources (client <-> saned via network)
-CFLAGS="$CFLAGS -fPIC"
-LDFLAGS="-pie"
-%endif
 %configure \
     --with-gphoto2=%{_prefix} \
     --with-docdir=%{_maindocdir} \
     --with-systemd \
     --disable-locking --disable-rpath \
-%if %libusb1
     --with-usb \
-%endif
     --enable-pthread
 %make_build
 
@@ -316,15 +309,6 @@ fi
 %postun
 udevadm hwdb --update >/dev/null 2>&1 || :
 
-%ldconfig_scriptlets libs
-
-# remove the pre daemon scriptlet for creating sysusers once F41 goes EOL
-# because the step is done automatically by RPM in F42 and newer
-%if 0%{?fedora} < 42
-%pre daemon
-%sysusers_create_compat %{SOURCE6}
-%endif
-
 %post daemon
 %systemd_post saned.socket
 
@@ -407,6 +391,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Mon May 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-7
+- drop libieee1284 backends for CentOS, because the library is not maintained upstream
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

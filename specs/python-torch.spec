@@ -180,7 +180,7 @@ BuildRequires:  onnx-devel
 BuildRequires:  openmpi-devel
 %endif
 %if %{with protobuf}
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 %endif
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel

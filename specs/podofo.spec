@@ -5,14 +5,14 @@
 %endif
 
 #global pre rc1
-%global podofo_resources_commit 394fcb3ea4c8e89bbabafbc1aa6caf20f801620c
+%global podofo_resources_commit e3b10e69f58be5d50d90935907058388ff56af7e
 
 Name:           podofo
-Version:        1.0.3
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
-License:        LGPL-2.0-or-later
+License:        (LGPL-2.0-or-later or MPL-2.0) and MIT and Apache-2.0 and BSD-3-Clause and BSL-1.0
 URL:            https://github.com/podofo/podofo
 Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 Source1:        https://github.com/podofo/podofo-resources/archive/%{podofo_resources_commit}/podofo-resources-%{podofo_resources_commit}.tar.gz
@@ -177,16 +177,20 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %check
 %ifarch i686
 %ctest -E TestMaxObjectCount
-%else
+%endif
+%ifarch s390x
+%ctest -E TestBitsPerComponent1
+%endif
+%ifnarch i686 s390x
 %ctest
 %endif
 
 
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
-%license COPYING
-%{_libdir}/*.so.1.0.3
-%{_libdir}/*.so.3
+%license COPYING.LGPL COPYING.MPL
+%{_libdir}/*.so.1.1.0
+%{_libdir}/*.so.4
 
 %files devel
 %doc html examples
@@ -197,7 +201,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %if %{with mingw}
 %files -n mingw32-%{name}
-%license COPYING
+%license COPYING.LGPL COPYING.MPL
 %{mingw32_bindir}/libpodofo.dll
 %{mingw32_libdir}/libpodofo.dll.a
 %{mingw32_libdir}/cmake/%{name}/
@@ -205,7 +209,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw32_includedir}/podofo/
 
 %files -n mingw64-%{name}
-%license COPYING
+%license COPYING.LGPL COPYING.MPL
 %{mingw64_bindir}/libpodofo.dll
 %{mingw64_libdir}/libpodofo.dll.a
 %{mingw64_libdir}/cmake/%{name}/
@@ -215,6 +219,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri May 01 2026 Sandro Mani <manisandro@gmail.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

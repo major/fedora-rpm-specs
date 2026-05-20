@@ -19,8 +19,8 @@ Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-http-%{versi
 # https://github.com/snakemake/snakemake-storage-plugin-http/pull/37
 Patch:          %{url}/pull/37.patch
 
-BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_storage_plugin_http
+BuildSystem:    pyproject
+BuildOption(install): --no-assert-license snakemake_storage_plugin_http
 
 BuildArch:      noarch
 
@@ -48,7 +48,7 @@ k="${k-}${k+ and }not (TestStorageNoSettings and test_storage_not_existing)"
 k="${k-}${k+ and }not (TestStorageNoSettings and test_inventory)"
 %endif
 
-%pytest -v -k "${k-}" tests/tests.py
+%pytest --verbose -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-http -f %{pyproject_files}

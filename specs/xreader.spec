@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.6.3
-Release:	2%{?dist}
+Version:	4.6.4
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -170,6 +170,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Mon May 18 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-1
+- Update to 4.6.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
