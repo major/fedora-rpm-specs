@@ -2,8 +2,8 @@
 
 Name:		nomacs
 Summary:	Lightweight image viewer
-Version:	3.22.0
-Release:	5%{?dist}
+Version:	3.22.1
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Tue May 19 2026 TI_Eugene <ti.eugene@gmail.com> 3.22.1-1
+- Version bump
+
 * Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.22.0-5
 - Libraw rebuild
 

@@ -38,7 +38,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libmspub-0.1)
 BuildRequires:  pkgconfig(libpagemaker-0.0)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libpodofo) < 1.0
+BuildRequires:  pkgconfig(libpodofo)
 BuildRequires:  pkgconfig(libqxp-0.0)
 BuildRequires:  pkgconfig(librevenge-0.0)
 BuildRequires:  pkgconfig(libtiff-4)

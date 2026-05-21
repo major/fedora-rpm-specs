@@ -20,9 +20,9 @@ Source17:       dav-rm.1
 Source18:       dav-run.1
 Source19:       dav-sync.1
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x all,fsspec,http2,tests
-BuildOption(install):   -l webdav4
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --extras all,fsspec,http2,tests
+BuildOption(install): --assert-license webdav4
 
 BuildArch:      noarch
 
@@ -51,17 +51,18 @@ Recommends:     %{py3_dist colorama}
 %pyproject_patch_dependency pytest-cov:ignore
 tomcli set pyproject.toml str tool.pytest.ini_options.addopts -- "$(
   tomcli get pyproject.toml tool.pytest.ini_options.addopts |
-  sed -r 's/--cov[^[:blank:]]*//g')"
+  sed --regexp-extended 's/--cov[^[:blank:]]*//g')"
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE15}' '%{SOURCE16}' '%{SOURCE17}' '%{SOURCE18}' '%{SOURCE19}'
 
 
 %check -a
-%pytest ${ignore-} -rs -vv
+%pytest ${ignore-} -rs --verbosity=2
 
 
 %files -n python3-webdav4 -f %{pyproject_files}

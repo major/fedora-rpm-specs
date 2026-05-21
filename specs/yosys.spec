@@ -1,10 +1,10 @@
-%global commit0 3bc26ff4d055adfbba8b424508ab4a36405ffc0b
+%global commit0 90c26fe6714b441363d2ddb47a6d646b8868ff5d
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20260304
+%global snapdate 20260512
 
 Name:           yosys
-Version:        0.63
+Version:        0.65
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -34,18 +34,24 @@ Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 # referencing the cxxopts.hpp include file.
 Patch3:         0003-fedora-yosys-cxxopts-patch.patch
 
+# Fedora-specific patch:
+# Fix aiger tests when ABCEXTERNAL is set
+# (see https://github.com/YosysHQ/yosys/pull/5890)
+Patch4:         0004-Fix-aiger-tests-when-ABCEXTERNAL-is-set.patch
+
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.63
+BuildRequires:  yosyshq-abc >= 0.65
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
 BuildRequires:  txt2man
 BuildRequires:  gtkwave
 BuildRequires:  gtest-devel
+BuildRequires:  gmock-devel
 
 # required for documentation:
 BuildRequires: graphviz
@@ -64,7 +70,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.63
+Requires:       yosyshq-abc >= 0.65
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -175,6 +181,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Tue May 12 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.65.1.20260512git90c26fe
+- update to 0.65 snapshot
+
 * Wed Mar 04 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.63.1.20260304git3bc26ff
 - update to 0.63 snapshot
 

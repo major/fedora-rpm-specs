@@ -32,7 +32,6 @@ BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  glew-devel
 BuildRequires:  hdf5-devel
-BuildRequires:  imath-devel
 BuildRequires:  jasper-devel
 BuildRequires:  libheif-devel
 BuildRequires:  turbojpeg-devel
@@ -42,7 +41,7 @@ BuildRequires:  libsquish-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libwebp-devel
 BuildRequires:  opencv-devel
-BuildRequires:  cmake(OpenEXR)
+BuildRequires:  cmake(OpenEXR) < 3
 BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  openjpeg2-devel
 BuildRequires:  openssl-devel

@@ -53,15 +53,15 @@ License:        BSD-3-Clause
 #   - install-sh
 #   - config/install-sh
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                GPL-2.0-or-later WITH Libtool-exception AND
-                GPL-3.0-or-later WITH Autoconf-exception-generic AND
-                X11
-                }
+    %{license} AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    X11
+    }
 URL:            https://cs.uwaterloo.ca/~astorjoh/iml.html
 Source0:        https://cs.uwaterloo.ca/~astorjoh/iml-%{version}.tar.bz2
 Source1:        iml-license-clarification.eml
@@ -103,10 +103,10 @@ applications that use iml.
 
 %prep
 %autosetup
-cp -p '%{SOURCE1}' .
-awk  '/Copyright notice/ {n=1}; n && /\*\// {n=0}; n' src/iml.h |
-  sed -r 's/^ \* ?//' > LICENSE
-rm -v cblas.h
+cp --preserve '%{SOURCE1}' .
+awk '/Copyright notice/ {n=1}; n && /\*\// {n=0}; n' src/iml.h |
+  sed --regexp-extended 's/^ \* ?//' > LICENSE
+rm cblas.h
 
 
 %conf
@@ -122,10 +122,11 @@ autoreconf --force --install --verbose
 
 # Get rid of undesirable hardcoded rpaths; work around libtool reordering
 # -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC=.g..|& -Wl,--as-needed|' \
-    -i libtool
+sed --regexp-extended --in-place \
+    --expression='s/^(hardcode_libdir_flag_spec=).*/\1""/g' \
+    --expression='s/^(runpath_var=)LD_RUN_PATH/\1DIE_RPATH_DIE/g' \
+    --expression='s/(CC="g..)"/\1 -Wl,--as-needed"/' \
+    libtool
 
 
 %build
@@ -137,7 +138,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 # This contains the files “liblink” and “libroutines”, which are actually
 # documentation and should be installed in a documentation directory.
-rm -vr '%{buildroot}%{_datadir}/iml'
+rm --recursive --verbose '%{buildroot}%{_datadir}/iml'
 
 
 %check

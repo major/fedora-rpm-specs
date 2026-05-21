@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 # Command name
 %global cname openstack
@@ -17,15 +17,13 @@ It is a thin wrapper to the stock python-*client modules that implement the
 actual REST API client actions.}
 
 Name:             python-%{sname}
-Version:          9.0.0
+Version:          10.0.0
 Release:          %autorelease
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
 URL:              http://launchpad.net/%{name}
 Source0:          https://tarballs.openstack.org/%{name}/python_%{sname}-%{version}.tar.gz
-# for latest      new column ha_chassis_priority, merged upstream already.
-Patch0:           https://github.com/openstack/python-openstackclient/commit/177a6b3460713be02381d6d4cad1fdd2df15dc60.patch
 
 Source10:         openstack-completion.service  
 Source11:         openstack-completion.service.8

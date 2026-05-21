@@ -12,16 +12,13 @@ A collection of libraries for building applications to work with OpenStack
 clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.12.0
+Version:        4.13.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        Apache-2.0
 URL:            http://www.openstack.org/
 Source0:        https://pypi.io/packages/source/o/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-
-# https://review.opendev.org/c/openstack/openstacksdk/+/985641
-Patch0:         0001-fix-hashlib-ValueError-message-check-for-py3.15.patch
 
 BuildArch:      noarch
 

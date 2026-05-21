@@ -28,7 +28,7 @@
 %global ver_minor    1
 
 Name:           %{pk_project}%{ver_major}
-Version:        13.1.9
+Version:        13.1.10
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -52,8 +52,8 @@ BuildRequires:  (php-composer(phpunit/php-invoker) >= 7.0.0           with php-c
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 6.0.0     with php-composer(phpunit/php-text-template) < 7)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 9.0.0             with php-composer(phpunit/php-timer) < 10)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 5.0.0          with php-composer(sebastian/cli-parser) < 6)
-BuildRequires:  (php-composer(sebastian/comparator) >= 8.1.2          with php-composer(sebastian/comparator) < 9)
-BuildRequires:  (php-composer(sebastian/diff) >= 8.1.0                with php-composer(sebastian/diff) < 9)
+BuildRequires:  (php-composer(sebastian/comparator) >= 8.1.3          with php-composer(sebastian/comparator) < 9)
+BuildRequires:  (php-composer(sebastian/diff) >= 8.3.0                with php-composer(sebastian/diff) < 9)
 BuildRequires:  (php-composer(sebastian/environment) >= 9.3.0         with php-composer(sebastian/environment) < 10)
 BuildRequires:  (php-composer(sebastian/exporter) >= 8.0.2            with php-composer(sebastian/exporter) < 9)
 BuildRequires:  (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
@@ -89,8 +89,8 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-text-template": "^6.0.0",
 #        "phpunit/php-timer": "^9.0.0",
 #        "sebastian/cli-parser": "^5.0.0",
-#        "sebastian/comparator": "^8.1.2",
-#        "sebastian/diff": "^8.1.0",
+#        "sebastian/comparator": "^8.1.3",
+#        "sebastian/diff": "^8.3.0",
 #        "sebastian/environment": "^9.3.0",
 #        "sebastian/exporter": "^8.0.2",
 #        "sebastian/git-state": "^1.0",
@@ -117,8 +117,8 @@ Requires:       (php-composer(phpunit/php-invoker) >= 7.0.0           with php-c
 Requires:       (php-composer(phpunit/php-text-template) >= 6.0.0     with php-composer(phpunit/php-text-template) < 7)
 Requires:       (php-composer(phpunit/php-timer) >= 9.0.0             with php-composer(phpunit/php-timer) < 10)
 Requires:       (php-composer(sebastian/cli-parser) >= 5.0.0          with php-composer(sebastian/cli-parser) < 6)
-Requires:       (php-composer(sebastian/comparator) >= 8.1.2          with php-composer(sebastian/comparator) < 9)
-Requires:       (php-composer(sebastian/diff) >= 8.1.0                with php-composer(sebastian/diff) < 9)
+Requires:       (php-composer(sebastian/comparator) >= 8.1.3          with php-composer(sebastian/comparator) < 9)
+Requires:       (php-composer(sebastian/diff) >= 8.3.0                with php-composer(sebastian/diff) < 9)
 Requires:       (php-composer(sebastian/environment) >= 9.3.0         with php-composer(sebastian/environment) < 10)
 Requires:       (php-composer(sebastian/exporter) >= 8.0.2            with php-composer(sebastian/exporter) < 9)
 Requires:       (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
@@ -288,6 +288,11 @@ exit $ret
 
 
 %changelog
+* Sat May 16 2026 Remi Collet <remi@remirepo.net> - 13.1.10-1
+- update to 13.1.10
+- raise dependency on sebastian/comparator 8.1.3
+- raise dependency on sebastian/diff 8.3
+
 * Wed May 13 2026 Remi Collet <remi@remirepo.net> - 13.1.9-1
 - update to 13.1.9
 - raise dependency on phpunit/php-code-coverage 14.1.8

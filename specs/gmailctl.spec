@@ -3,7 +3,7 @@
 
 # https://github.com/mbrt/gmailctl
 %global goipath         github.com/mbrt/gmailctl
-Version:                0.11.0
+Version:                0.12.0
 
 %gometa -L -f
 

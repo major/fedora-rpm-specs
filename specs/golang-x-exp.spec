@@ -9,7 +9,7 @@
 # https://github.com/golang/exp
 %global goipath         golang.org/x/exp
 %global forgeurl        https://github.com/golang/exp
-%global commit          ce4c2cf36ca66590d58a095f544974374ea9c33e
+%global commit          74f9aab9d74a4012175b91c1a8e1ba154982d891
 
 %gometa
 
@@ -33,6 +33,9 @@ License:        BSD-3-Clause AND Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 
+# Fix format specifier in scan_test.go for integer values
+Patch0:         fix-scan-test-format.patch
+
 BuildRequires:  libglvnd-devel
 
 %description %{common_description}
@@ -41,8 +44,10 @@ BuildRequires:  libglvnd-devel
 
 %prep
 %goprep -A
-# %autopatch -p1
+%autopatch -p1
 rm -rfv event jsonrpc2 shiny
+# Remove test file that imports unavailable packagestest dependency
+rm -fv apidiff/apidiff_test.go
 
 %if %{without bootstrap}
 %generate_buildrequires

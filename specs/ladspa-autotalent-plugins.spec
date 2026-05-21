@@ -65,8 +65,8 @@ http://tombaran.info/autotalent-%{version}_refcard.pdf
 %setup -q -n autotalent-%{version}
 
 # Use the system ladspa.h
-rm -v ladspa.h
-sed -i 's|ladspa.h||' Makefile
+rm ladspa.h
+sed --in-place 's|ladspa.h||' Makefile
 
 
 %build

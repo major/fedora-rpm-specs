@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.3
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -44,6 +44,7 @@ Langpack meta-package to provide individual langpacks packages.
 # meta: dependencies foe langpacks meta package
 #  requires: required packages by meta package
 #  recommends: recommended packages by meta package
+# only_default_font: boolean variable to generate only default-fonts package for any language
 #
 # Adding fedora_ prefix to inputmethod and meta.requires/meta.recommends will be available for Fedora only.
 #
@@ -558,6 +559,7 @@ local langpacks_package_list = {
    meta={ requires={},
           recommends={}
    },
+   only_default_font=true,
  },
  { lang="is", fclang="", langname="Icelandic", default={
                 sans="",
@@ -1526,10 +1528,12 @@ local function defappstream(table)
   sdf = defappstream_metabody(sdf, "cjk", "Chinese/Japanese/Korean")
 
   for i = 1, #table do
-    slpc = defappstream_body(slpc, "localization", "LangPack-Core", table[i]["lang"], table[i]["lang"], table[i]["langname"], "Core Localization support", "Core Meta-package to install default font, glibc locale and input-method if available.")
-    slp = defappstream_body(slp, "localization", "LangPack", table[i]["lang"], table[i]["lang"], table[i]["langname"], "Localization support", "Meta-package to install available langpacks for the language available for the installed packages.")
     sdf = defappstream_body(sdf, "font", "default-fonts", table[i]["lang"], table[i]["fclang"], table[i]["langname"], "Localization Font support", "Core font package to install default font.")
-    slf = defappstream_body(slf, "font", "langpacks-fonts", table[i]["lang"], table[i]["fclang"], table[i]["langname"], "Localization Font support", "Meta-package to install extra font.")
+    if not table[i]["only_default_font"] then
+      slpc = defappstream_body(slpc, "localization", "LangPack-Core", table[i]["lang"], table[i]["lang"], table[i]["langname"], "Core Localization support", "Core Meta-package to install default font, glibc locale and input-method if available.")
+      slp = defappstream_body(slp, "localization", "LangPack", table[i]["lang"], table[i]["lang"], table[i]["langname"], "Localization support", "Meta-package to install available langpacks for the language available for the installed packages.")
+      slf = defappstream_body(slf, "font", "langpacks-fonts", table[i]["lang"], table[i]["fclang"], table[i]["langname"], "Localization Font support", "Meta-package to install extra font.")
+    end
   end
 
   rpm.define("langpacks_metainfo_lpc " .. defappstream_close(slpc))
@@ -1561,6 +1565,7 @@ for i = 1, #langpacks_package_list do
   local im = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["fedora_inputmethod"] ~= nil and langpacks_package_list[i]["fedora_inputmethod"] or langpacks_package_list[i]["inputmethod"])
   local fclang = (langpacks_package_list[i]["fclang"] == "" and string.gsub(lang, "_", "-") or langpacks_package_list[i]["fclang"])
   local prov = ""
+  local only_default_pkg = langpacks_package_list[i]["only_default_font"]
 
   if orth ~= "" then
     --Try to validate orth in table
@@ -1642,16 +1647,22 @@ for i = 1, #langpacks_package_list do
         deffontpkg("default-fonts-" .. lang, "default fonts", langname, append_obsolete(default_deps, "langpacks-core-font-" .. lang))
       end
     end
-    deffontpkg("langpacks-fonts-" .. lang, "extra fonts", langname, append_obsolete(extra_deps, "default-fonts-extra-" .. lang))
+    if only_default_pkg == nil then
+      deffontpkg("langpacks-fonts-" .. lang, "extra fonts", langname, append_obsolete(extra_deps, "default-fonts-extra-" .. lang))
+    end
   end
-  defcorepkg(lang, fclang, langname, im)
+  if only_default_pkg == nil then
+    defcorepkg(lang, fclang, langname, im)
+  end
 
   --Generate langpacks-* meta packages
-  local metadeps = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_requires"] ~= nil and langpacks_package_list[i]["meta"]["fedora_requires"] or langpacks_package_list[i]["meta"]["requires"])
-  local metarecd = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_recommends"] ~= nil and langpacks_package_list[i]["meta"]["fedora_recommends"] or langpacks_package_list[i]["meta"]["recommends"])
-  local deps = build_deps("", "Requires", drop_duplicate(metadeps))
-  deps = build_deps(deps, "Recommends", drop_duplicate(metarecd))
-  defmetapkg(lang, fclang, langname, deps)
+  if only_default_pkg == nil then
+    local metadeps = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_requires"] ~= nil and langpacks_package_list[i]["meta"]["fedora_requires"] or langpacks_package_list[i]["meta"]["requires"])
+    local metarecd = (tonumber(rpm.expand("0%{?fedora}")) ~= 0 and langpacks_package_list[i]["meta"]["fedora_recommends"] ~= nil and langpacks_package_list[i]["meta"]["fedora_recommends"] or langpacks_package_list[i]["meta"]["recommends"])
+    local deps = build_deps("", "Requires", drop_duplicate(metadeps))
+    deps = build_deps(deps, "Recommends", drop_duplicate(metarecd))
+    defmetapkg(lang, fclang, langname, deps)
+  end
 end
 
 --Generate AppStream files
@@ -1763,6 +1774,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Tue May 12 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.3-2
+- Add functionality to only generate default-fonts for any language
+
 * Mon Mar 02 2026 Jens Petersen <petersen@redhat.com> - 4.3-1
 - add ii langpack for Sichuan Yi (Nuosu)
 - add README.md (#2237646)

@@ -54,7 +54,6 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  cmake(gtest)
 
-BuildRequires:  hardlink
 BuildRequires:  symlinks
 BuildRequires:  dos2unix
 
@@ -119,8 +118,6 @@ find '%{buildroot}%{_pkgdocdir}/samples' -type f \
     ln -svf "%{buildroot}%{_includedir}/$(basename "${fn}")" "${fn}"
     symlinks -c -o "${fn}"
   done
-# Hardlink duplicate shell scripts and such within the examples
-hardlink '%{buildroot}%{_pkgdocdir}/samples'
 # The following allows us to mark samples/OpenGL/Cube/LICENCE as an additional
 # license file under the package documentation directory, without manually
 # listing the contents of the samples directory. That’s perhaps a little fussy,

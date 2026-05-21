@@ -59,6 +59,10 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
+# Compat with Python 3.15
+# https://github.com/sqlalchemy/sqlalchemy/pull/13307
+# https://github.com/sqlalchemy/sqlalchemy/pull/13308
+Patch:          Adjust-TypeError-message-to-Python-3.15.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

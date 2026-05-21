@@ -28,6 +28,8 @@ BuildRequires:  vala
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(openal)
 
+Provides:       bundled(libgnome-games-support)
+
 %description
 The Russian game of falling geometric shapes.
 

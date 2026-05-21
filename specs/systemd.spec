@@ -175,6 +175,8 @@ BuildRequires:  cryptsetup-devel
 # Require (previous version) of our macros package.
 # We use the %%systemd_{post,preun,…} macros for various services.
 BuildRequires:  systemd-rpm-macros
+# Use dlopen-notes to generate Requires/Recommends from embedded metadata.
+BuildRequires:  package-notes
 %endif
 BuildRequires:  dbus-devel
 BuildRequires:  util-linux
@@ -339,44 +341,15 @@ Provides:       /usr/sbin/shutdown
 %endif
 
 # libmount is always required, even in containers, so make it a hard dependency.
-Requires:       libmount.so.1%{?elf_suffix}
-Requires:       libmount.so.1(MOUNT_2.26)%{?elf_bits}
 # Various systemd services have syscall filters so make libseccomp a hard dependency.
-Requires:       libseccomp.so.2%{?elf_suffix}
+#
+# Libkmod is used to load modules. Assume that if we need udevd, we certainly
+# want to load modules, so make this into a hard dependency here.
+# udev uses libblkid in various builtins so make it a hard dependency.
 
-# Recommends to replace normal Requires deps for stuff that is dlopen()ed
-Recommends:     libxkbcommon.so.0%{?elf_suffix}
-Recommends:     libidn2.so.0%{?elf_suffix}
-Recommends:     libidn2.so.0(IDN2_0.0.0)%{?elf_bits}
-Recommends:     libpcre2-8.so.0%{?elf_suffix}
-Recommends:     libpwquality.so.1%{?elf_suffix}
-Recommends:     libpwquality.so.1(LIBPWQUALITY_1.0)%{?elf_bits}
-%if 0%{?fedora}
-Recommends:     libqrencode.so.4%{?elf_suffix}
-%endif
-Recommends:     libbpf.so.1%{?elf_suffix}
-Recommends:     libbpf.so.1(LIBBPF_0.4.0)%{?elf_bits}
-
-# used by systemd-coredump and systemd-analyze
-Recommends:     libdw.so.1%{?elf_suffix}
-Recommends:     libdw.so.1(ELFUTILS_0.186)%{?elf_bits}
-Recommends:     libelf.so.1%{?elf_suffix}
-Recommends:     libelf.so.1(ELFUTILS_1.7)%{?elf_bits}
-
-# used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home
-Recommends:     libcryptsetup.so.12%{?elf_suffix}
-Recommends:     libcryptsetup.so.12(CRYPTSETUP_2.4)%{?elf_bits}
-
-# Libkmod is used to load modules.
-Recommends:     libkmod.so.2%{?elf_suffix}
-# kmod_list_next, kmod_load_resources, kmod_module_get_initstate,
-# kmod_module_get_module, kmod_module_get_name, kmod_module_new_from_lookup,
-# kmod_module_probe_insert_module, kmod_module_unref, kmod_module_unref_list,
-# kmod_new, kmod_set_log_fn, kmod_unref, kmod_validate_resources
-# are part of LIBKMOD_5.
-Recommends:     libkmod.so.2(LIBKMOD_5)%{?elf_bits}
-
-Recommends:     libarchive.so.13%{?elf_suffix}
+%define __dlopen_notes_requires_opts   --rpm-features=systemd:mount,systemd:seccomp,systemd-udev:kmod,systemd-udev:blkid,systemd-resolved:idn
+# Upgrade upstream priority:suggested to Recommends
+%define __dlopen_notes_recommends_opts --rpm-features=*:cryptsetup,*:xkbcommon,*:idn,*:pcre2,*:pwquality,%[0%{?fedora}?"*:qrencode":""],*:bpf,*:dw,*:elf,*:archive,systemd-udev:fido2,systemd-udev:tpm,systemd-udev:p11-kit
 
 %description
 systemd is a system and service manager that runs as PID 1 and starts the rest
@@ -466,22 +439,6 @@ Requires(preun):  systemd%{_isa} = %{version}-%{release}
 Requires(postun): systemd%{_isa} = %{version}-%{release}
 Requires(post): grep
 Requires:       kmod >= 18-4
-Provides:       udev = %{version}
-Provides:       udev%{_isa} = %{version}
-%if 0%{?fedora} || 0%{?rhel} >= 10
-Requires:       (grubby > 8.40-72 if grubby)
-%endif
-%if 0%{?fedora}
-Requires:       (sdubby > 1.0-3 if sdubby)
-%endif
-# A backport of systemd-timesyncd is shipped as a separate package in EPEL so
-# let's make sure we properly handle that.
-%if 0%{?rhel}
-Conflicts:      systemd-timesyncd < %{version}-%{release}
-Obsoletes:      systemd-timesyncd < %{version}-%{release}
-Provides:       systemd-timesyncd = %{version}-%{release}
-%endif
-Conflicts:      systemd-networkd < %{version}-%{release}
 
 # Libkmod is used to load modules. Assume that if we need udevd, we certainly
 # want to load modules, so make this into a hard dependency here.
@@ -508,6 +465,23 @@ Recommends:     libp11-kit.so.0%{?elf_suffix}
 Recommends:     libtss2-esys.so.0%{?elf_suffix}
 Recommends:     libtss2-mu.so.0%{?elf_suffix}
 Recommends:     libtss2-rc.so.0%{?elf_suffix}
+
+Provides:       udev = %{version}
+Provides:       udev%{_isa} = %{version}
+%if 0%{?fedora} || 0%{?rhel} >= 10
+Requires:       (grubby > 8.40-72 if grubby)
+%endif
+%if 0%{?fedora}
+Requires:       (sdubby > 1.0-3 if sdubby)
+%endif
+# A backport of systemd-timesyncd is shipped as a separate package in EPEL so
+# let's make sure we properly handle that.
+%if 0%{?rhel}
+Conflicts:      systemd-timesyncd < %{version}-%{release}
+Obsoletes:      systemd-timesyncd < %{version}-%{release}
+Provides:       systemd-timesyncd = %{version}-%{release}
+%endif
+Conflicts:      systemd-networkd < %{version}-%{release}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1377733#c9
 Suggests:       systemd-bootchart
@@ -842,7 +816,6 @@ CONFIGURE_OPTS=(
         -Daudit=enabled
         -Delfutils=enabled
         -Dlibcryptsetup=%[%{with bootstrap}?"disabled":"enabled"]
-        -Delfutils=enabled
         -Drepart=enabled
         -Dpwquality=enabled
         -Dqrencode=%[%{defined rhel}?"disabled":"enabled"]
@@ -1352,18 +1325,6 @@ fi
                        }
 
 %post udev
-# Move old stuff around in /var/lib
-mv %{_localstatedir}/lib/random-seed %{_localstatedir}/lib/systemd/random-seed &>/dev/null
-mv %{_localstatedir}/lib/backlight %{_localstatedir}/lib/systemd/backlight &>/dev/null
-if [ -L %{_localstatedir}/lib/systemd/timesync ]; then
-    rm %{_localstatedir}/lib/systemd/timesync
-    mv %{_localstatedir}/lib/private/systemd/timesync %{_localstatedir}/lib/systemd/timesync
-fi
-if [ -f %{_localstatedir}/lib/systemd/clock ]; then
-    mkdir -p %{_localstatedir}/lib/systemd/timesync
-    mv %{_localstatedir}/lib/systemd/clock %{_localstatedir}/lib/systemd/timesync/.
-fi
-
 systemd-hwdb update &>/dev/null
 
 %systemd_post %udev_services
@@ -1371,11 +1332,6 @@ systemd-hwdb update &>/dev/null
 # Try to save the random seed, but don't complain if /dev/urandom is unavailable
 /usr/lib/systemd/systemd-random-seed save 2>&1 | \
     grep -v 'Failed to open /dev/urandom' || :
-
-# Replace obsolete keymaps
-# https://bugzilla.redhat.com/show_bug.cgi?id=1151958
-grep -q -E '^KEYMAP="?fi-latin[19]"?' /etc/vconsole.conf 2>/dev/null &&
-    sed -i.rpm.bak -r 's/^KEYMAP="?fi-latin[19]"?/KEYMAP="fi"/' /etc/vconsole.conf || :
 
 %preun udev
 %systemd_preun %udev_services
@@ -1415,20 +1371,7 @@ fi
                            }
 
 %post networkd
-# systemd-networkd was split out in systemd-246.6-2.
-# Ideally, we would have a trigger scriptlet to record enablement
-# state when upgrading from systemd <= systemd-246.6-1. But, AFAICS,
-# rpm doesn't allow us to trigger on another package, short of
-# querying the rpm database ourselves, which seems risky. For rpm,
-# systemd and systemd-networkd are completely unrelated.  So let's use
-# a hack to detect if an old systemd version is currently present in
-# the file system.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1943263
-if [ $1 -eq 1 ] && ls /usr/lib/systemd/libsystemd-shared-24[0-6].so &>/dev/null; then
-    echo "Skipping presets for systemd-networkd.service, seems we are upgrading from old systemd."
-else
-    %systemd_post %networkd_services
-fi
+%systemd_post %networkd_services
 
 %preun networkd
 %systemd_preun %networkd_services

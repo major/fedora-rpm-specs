@@ -6,7 +6,7 @@
 %dnl %global max_types 16
 %dnl %global max_types 5
 
-%bcond tests 1
+%bcond ctest 1
 
 Name:           variant-lite
 Version:        3.0.0
@@ -17,15 +17,19 @@ License:        BSL-1.0
 URL:            https://github.com/martinmoene/variant-lite
 Source:         %{url}/archive/v%{version}/variant-lite-%{version}.tar.gz
 
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DVARIANT_LITE_OPT_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    }
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 %if %{with regenerate}
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist jinja2}
 %endif
 
-%if %{with tests}
+%if %{with ctest}
 # Required for testing; bundled upstream, unbundled in %%prep.
 # Header-only library (-static required by policy)
 BuildRequires:  lest-devel lest-static
@@ -52,42 +56,24 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%prep
-%autosetup -n variant-lite-%{version} -p1
-
+%prep -a
 # Unbundle lest
-rm -rvf test/lest
-ln -s /usr/include/lest test/lest
+rm --recursive --verbose test/lest
+ln --symbolic /usr/include/lest test/lest
 
 
 %if %{with regenerate}
-%generate_buildrequires
+%generate_buildrequires -a
 %pyproject_buildrequires --no-use-build-system
 %endif
 
 
-%conf
-%cmake %{?!with_tests:-DVARIANT_LITE_OPT_BUILD_TESTS:BOOL=OFF}
-
-
-%build
 %if %{with regenerate}
+%build -p
 %{python3} script/generate_header.py \
     %{?max_types:--max-types %{max_types}} \
     %{?max_args:--max-args %{max_args}} \
     --verbose
-%endif
-
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%if %{with tests}
-%ctest
 %endif
 
 

@@ -11,6 +11,7 @@ Summary:        Fedora 22 default desktop background
 License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F22_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
+Patch0:         f22-backgrounds-fix-neboticnik-name.patch
 
 BuildArch:      noarch
 
@@ -118,7 +119,7 @@ This package contains F22 supplemental wallpapers for XFCE
 
 %prep
 %setup -q
-
+%patch 0 -p1
 
 %build
 make %{?_smp_mflags}

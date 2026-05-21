@@ -4,7 +4,7 @@
 %endif
 
 Name:           centpkg
-Version:        0.10.3
+Version:        0.10.4
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Tue May 19 2026 Troy Dawson <tdawson@redhat.com> - 0.10.4-1
+- determine_rhel_state(): Conform to new Product Pages : CS-3385 (sgallagh)
+
 * Wed Mar 11 2026 Troy Dawson <tdawson@redhat.com> - 0.10.3-1
 - Raise correct Exception in is_locked_rhel_tag : CS-3310 (sgallagh)
 

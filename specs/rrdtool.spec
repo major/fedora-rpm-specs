@@ -17,8 +17,8 @@
 
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
-Version: 1.9.0
-Release: 11%{?dist}
+Version: 1.10.0
+Release: 1%{?dist}
 # gd license in php bindings isn't by default built-in
 License: gpl-1.0-or-later AND gpl-2.0-or-later AND gpl-2.0-or-later WITH rrdtool-floss-exception-2.0 AND mit AND lgpl-2.0-or-later AND lgpl-2.1-or-later AND bsd-source-code AND snprintf AND bsd-3-clause AND gpl-2.0-only AND licenseref-fedora-public-domain AND gtkbook
 URL: https://oss.oetiker.ch/rrdtool/
@@ -27,13 +27,9 @@ Source1: php4-%{svnrev}.tar.gz
 Patch1: rrdtool-1.4.4-php54.patch
 # disable logo for php 5.5.
 Patch2: rrdtool-1.4.7-php55.patch
-Patch3: rrdtool-1.6.0-ruby-2-fix.patch
+Patch3: rrdtool-1.10.0-ruby-2-fix.patch
 # enable php bindings on ppc
 Patch4: rrdtool-1.4.8-php-ppc-fix.patch
-# fix compatibility with tcl 9.0
-Patch5: rrdtool-1.9.0-tcl90.patch
-# https://github.com/oetiker/rrdtool-1.x/issues/1304
-Patch6: rrdtool-1.9.0-lua-5.5-fix.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -399,6 +395,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Tue May 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-1
+- New version
+  Resolves: rhbz#2479732
+
 * Thu Feb 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.9.0-11
 - Fixed FTBFS with Lua 5.5
   Resolves: rhbz#2440557

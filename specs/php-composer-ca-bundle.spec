@@ -9,21 +9,19 @@
 
 %bcond_without       tests
 
-%global gh_commit    68ff39175e8e94a4bb1d259407ce51a6a60f09e6
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.11
+Version:        1.5.12
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to get everything, despite .gitattributes
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 # Never bundle a CA file
@@ -71,7 +69,7 @@ Autoloader: %{php_home}/Composer/CaBundle/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 %patch -P0 -p0 -b .rpm
 find src -name \*.rpm -exec rm {} \;
@@ -127,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Tue May 19 2026 Remi Collet <remi@remirepo.net> - 1.5.12-1
+- update to 1.5.12 (no change)
+
 * Tue Mar 31 2026 Remi Collet <remi@remirepo.net> - 1.5.11-1
 - update to 1.5.11 (no change)
 

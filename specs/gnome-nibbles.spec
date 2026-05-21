@@ -25,6 +25,8 @@ BuildRequires:  pkgconfig(gsound) >= 1.0.2
 BuildRequires:  pkgconfig(gtk4) >= 4.13.4
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.5.0
 
+Provides:       bundled(libgnome-games-support)
+
 %description
 Pilot a worm around a maze trying to collect diamonds and at the same time
 avoiding the walls and yourself. With each diamond your worm grows longer and

@@ -2,7 +2,7 @@
 
 Name:           sdbus-cpp
 Version:        2.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -31,6 +31,7 @@ Development files for %{name}.
 Summary:        Developer documentation for %{name}
 BuildArch:      noarch
 BuildRequires:  doxygen
+Requires:       %{name}-devel = %{version}-%{release}
 
 %description devel-doc
 Developer documentation for %{name}
@@ -102,8 +103,12 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %files devel-doc
-%dir %{_docdir}/sdbus-c++
 %doc %{_docdir}/sdbus-c++/*
+%exclude %{_docdir}/sdbus-c++/COPYING
+%exclude %{_docdir}/sdbus-c++/AUTHORS
+%exclude %{_docdir}/sdbus-c++/ChangeLog
+%exclude %{_docdir}/sdbus-c++/NEWS
+%exclude %{_docdir}/sdbus-c++/README.md
 
 
 %files tools
@@ -118,6 +123,9 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Tue May 19 2026 Marek Blaha <mblaha@redhat.com> - 2.2.1-3
+- Fix duplicate ownership of documentation files
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

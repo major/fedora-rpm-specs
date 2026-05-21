@@ -6,13 +6,15 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
 URL:            https://github.com/robotis/lesscpy
 Source0:        https://pypi.python.org/packages/source/l/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 Patch1:         0001-Remove-tabfile-support-as-PLY-removed-it-as-well.patch
+# drop the dependency on python-six
+Patch2:         https://github.com/lesscpy/lesscpy/pull/126.patch
 
 BuildArch:      noarch
  
@@ -28,12 +30,10 @@ supported (JavaScript evaluation).
 %package -n python3-lesscpy
 Summary:    %summary
 Requires:   python3-ply
-Requires:   python3-six
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-ply
 BuildRequires: python3-pytest
-BuildRequires: python3-six
 BuildRequires: python3-pkg-resources
 %{?python_provide:%python_provide python3-lesscpy}
 
@@ -71,6 +71,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Tue May 19 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.14.0-26
+- Backport upstream patch to drop the dependency on python-six
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.14.0-25
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

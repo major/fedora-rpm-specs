@@ -5,7 +5,7 @@
 %global crate reqwest-middleware
 
 Name:           rust-reqwest-middleware
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Wrapper around reqwest to allow for client middleware chains
 
@@ -140,6 +140,18 @@ This package contains library source intended for building other packages which
 use the "rustls" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+stream-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+stream-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "stream" feature of the "%{crate}" crate.
+
+%files       -n %{name}+stream-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

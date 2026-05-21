@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20260410
+Version:	20260519
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -586,6 +586,7 @@ end
 %{_firmwarepath}/mediatek/mt76*
 %{_firmwarepath}/mediatek/mt791*
 %{_firmwarepath}/mediatek/mt7925/
+%{_firmwarepath}/mediatek/mt7927/
 %{_firmwarepath}/mediatek/mt7996/
 %{_firmwarepath}/mediatek/BT*
 %{_firmwarepath}/mediatek/WIFI*
@@ -725,6 +726,50 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue May 19 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260519-1
+- Update to 20260519
+- ASoC: tas2783: Add Firmware files for tas2783A projects
+- add firmware for MT7927 WiFi device
+- Add HP ISH firmware for Intel Panther Lake systems
+- ti: Add PCM6240 firmware with multiple audio profiles support
+- qcom: add CDSP firmware for shikra platform
+- amdgpu: updates for various ASICs
+- qcom: update ADSP firmware for x1e80100 platform
+- qcom: Add cdsp1r.jsn for sa8775p platform
+- Add firmware for Lontium LT9611C
+- xe: Update GUC to v70.65.0 for LNL, BMG, PTL
+- rtl_bt: Add missing rtl8761a_config.bin for RTL8761AU
+- Add Dell ISH firmware 581.7783.0 for Intel Panther Lake systems.
+- qcom: update ADSP firmware for x1e80100 platform
+- linux-firmware:Add firmware for Lontium LT7911EXC bridge
+- qcom/x1e80100/dell: mark that qcom/NOTICE.txt is applicable too
+- qcom: Update CDSP firmware for Kaanapali platform
+- qcom: vpu: add Gen2 firmware binary for Agatti
+- amdgpu: DMCUB updates for various ASICs
+- Add firmware file for Intel BlazarIGfp2/BlazarIW/ScorpiusGfp2
+- Update firmware file for Intel BlazarI/BlazarU/BlazarU-HrPGfP/Scorpius core
+- qcom: Update ADSP firmware for Glymur platform
+- mediatek MT7925: update bluetooth firmware to 20260414153243
+- update firmware for MT7925 WiFi device
+- Revert "Update firmware file for Intel Quasar core"
+- qcom: Add gpdspr.jsn for qcs8300 platform
+- ath12k: QCC2072 hw1.0: add to WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+- ath12k: QCC2072 hw1.0: add board-2.bin
+- ath12k: IPQ5424 hw1.0: add to WLAN.WBE.1.6-01275-QCAHKSWPL_SILICONZ-1
+- ath12k: IPQ5424 hw1.0: add board-2.bin
+- qcom: Update ADSP firmware for Kaanapali platform
+- cirrus: cs35l56: Add firmware for Cirrus Amps for some Lenovo laptops (17aa235c 17aa235d)
+- QCA: Update Bluetooth WCN6856 firmware 2.1.0-00665 to 2.1.0-00666
+- amdgpu: DMCUB updates for DCN36
+- Update AMD cpu microcode
+- powervr: update Imagination Rogue firmware images
+- qcom: Update ADSP firmware for Kaanapali platform
+- i915: Xe3LPD DMC v2.34
+- i915: Xe3LPD_3002 DMC v2.29
+- qcom: Update ADSP firmware for QCM6490 platform
+- firmware/amdgpu: Update DMCUB fw to Release 0.1.55.0
+- mediatek: vpu: drop old sym link
+
 * Sat Apr 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260410-1
 - Update to 20260410
 - amdgpu: Revert Yellow Carp DMUB fw to 0x4000045

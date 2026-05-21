@@ -1,9 +1,9 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.42
+Version: 2.42.1
 # -p -e rc1
-Release: %autorelease -b7
+Release: %autorelease
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -106,6 +106,7 @@ Provides:       /usr/sbin/sfdisk
 ### Fedora specific patches
 Patch0: 0000-login-use-O_CREAT-on-lastlog.patch
 Patch1: 0001-login-add-run-motd.d-to-the-hardcoded-MOTD_FILE.patch
+Patch2: 0002-pam_lastlog2-fix-libpam-linking-in-autotools-build.patch
 
 %description
 The util-linux package contains a large variety of low-level system

@@ -40,7 +40,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.24.2
+Version: 1.25.0
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -65,7 +65,6 @@ Source18: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz.asc
 Source19: https://nlnetlabs.nl/downloads/keys/releases-g2.asc#/nlnetlabs2026-g2.asc
 Source20: unbound.sysusers
 Source21: remote-control.conf
-Source22: https://nlnetlabs.nl/downloads/keys/Yorgos.asc
 Source23: unbound-as112-networks.conf
 Source24: unbound-local-root.conf
 Source25: openssl-sha1.conf
@@ -76,14 +75,8 @@ Source29: tmpfiles-unbound-libs.conf
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
-# https://github.com/NLnetLabs/unbound/pull/1331
-Patch2:   unbound-1.24-swig-function.patch
-# https://github.com/NLnetLabs/unbound/pull/1381
-Patch3:   unbound-1.24-quic-on-demand-only.patch
-# https://github.com/NLnetLabs/unbound/pull/1349
-Patch4:   %{forgeurl0}/pull/1349.patch#/unbound-1.25-tls-crypto-policy.patch
-# https://github.com/NLnetLabs/unbound/pull/1401
-Patch5:   %{forgeurl0}/pull/1401.patch#/unbound-1.25-tls-crypto-policy-default.patch
+# https://github.com/NLnetLabs/unbound/pull/1437
+Patch6:   0001-Fix-build-failure-with-openssl4.0.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -234,8 +227,6 @@ in initramfs.
 
 %prep
 %if 0%{?fedora} || 0%{?rhel} >= 9
-# TODO: Remove Yorgos.asc and extra verification once releases start to be signed by new g2 key
-%{gpgverify} --keyring='%{SOURCE22}' --signature='%{SOURCE18}' --data='%{SOURCE0}' || \
 %{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE18}' --data='%{SOURCE0}'
 %endif
 %global pkgname %{name}-%{version}%{?extra_version}

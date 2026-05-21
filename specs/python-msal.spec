@@ -2,6 +2,8 @@
 # For testing/development purposes, it could make sense to do a mock build with
 # --with network_tests --enable-network.
 %bcond network_tests 0
+# Break the circular dependency on self via azure-identity
+%bcond bootstrap 0
 
 Name:           python-msal
 Version:        1.36.0
@@ -61,6 +63,10 @@ sed -r \
     -e 's/^(pytest-benchmark|perf_baseline)\b/# &/' \
 %if %{without network_tests} || 0%{?el9}
     -e 's/^(python-dotenv)\b/# &/' \
+%if %{with bootstrap}
+    -e 's/^(azure-identity)\b/# &/' \
+    -e 's/^(azure-keyvault-secrets)\b/# &/' \
+%endif
 %endif
     requirements.txt | tee requirements-filtered.txt
 
@@ -104,6 +110,9 @@ k="${k-}${k+ and }not TestRemoveTokensForClient"
 ignore="${ignore-} --ignore=tests/test_cryptography.py"
 ignore="${ignore-} --ignore=tests/test_e2e.py"
 ignore="${ignore-} --ignore=tests/test_e2e_manual.py"
+%if %{with bootstrap}
+ignore="${ignore-} --ignore=tests/test_fmi_e2e.py"
+%endif
 %else
 # This test requires browser interaction.
 k="${k-}${k+ and }not (SshCertTestCase and test_ssh_cert_for_user_should_work_with_any_account)"

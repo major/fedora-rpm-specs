@@ -1,3 +1,5 @@
+%bcond ctest 1
+
 Name:           tinyxml2
 Version:        11.0.0
 %global so_version 11
@@ -28,7 +30,12 @@ Source:         %{url}/archive/%{version}/tinyxml2-%{version}.tar.gz
 # Upstream supports CMake, meson, and plain makefiles. Of these, CMake and
 # meson are reasonable choices; choosing CMake allows us to generate and
 # install .cmake files to be used by dependent packages, which is worthwhile.
-BuildRequires:  cmake >= 2.6
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -Dtinyxml2_BUILD_TESTING:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -Dtinyxml2_INSTALL_PKGCONFIG:BOOL=ON
+    }
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -41,7 +48,7 @@ and then written to disk or another output stream.
 TinyXML-2 doesn’t parse or use DTDs (Document Type Definitions) nor XSLs
 (eXtensible Stylesheet Language).
 
-TinyXML-2 uses a similar API to TinyXML-1, But the implementation of the parser
+TinyXML-2 uses a similar API to TinyXML-1, but the implementation of the parser
 was completely re-written to make it more appropriate for use in a game. It
 uses less memory, is faster, and uses far fewer memory allocations.
 
@@ -55,30 +62,10 @@ This package contains the libraries and header files that are needed
 for writing applications with the tinyxml2 library.
 
 
-%prep
-%autosetup -p1
-
+%prep -a
 # Demonstrate that bundled JS/CSS sources from pre-rendered HTML documentation
 # do not contribute to the binary RPMs:
-rm -rv docs/
-
-
-%conf
-%cmake \
-    -Dtinyxml2_BUILD_TESTING:BOOL=ON \
-    -Dtinyxml2_INSTALL_PKGCONFIG:BOOL=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
+rm --recursive --verbose docs/
 
 
 %files

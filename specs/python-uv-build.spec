@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.11.14
+Version:        0.11.15
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -20,6 +20,7 @@ Summary:        The uv build backend
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
+# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSD-2-Clause
 # Apache-2.0 OR BSL-1.0
@@ -28,6 +29,7 @@ Summary:        The uv build backend
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
+# MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # Unicode-3.0
@@ -41,6 +43,7 @@ License:        %{shrink:
     }
 %global extra_crate_licenses %{shrink:
     0BSD AND
+    (0BSD OR Apache-2.0 OR MIT) AND
     Apache-2.0 AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT OR Zlib) AND
@@ -118,8 +121,10 @@ Provides:       bundled(crate(pep508_rs)) = 0.7.0
 %autosetup -n uv_build-%{version} -p1
 
 # Collect license files of vendored dependencies in the main source archive
-install -t LICENSE.bundled/pep440_rs -D -p -m 0644 crates/uv-pep440/License-*
-install -t LICENSE.bundled/pep508_rs -D -p -m 0644 crates/uv-pep508/License-*
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/pep440_rs crates/uv-pep440/License-*
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/pep508_rs crates/uv-pep508/License-*
 
 # Patch out foreign (e.g. Windows-only) dependencies.
 find -L . -type f -name Cargo.toml -print \

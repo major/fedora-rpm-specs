@@ -50,7 +50,7 @@ dos2unix --keepdate \
 %install -a
 # https://github.com/jrnl-org/jrnl/issues/74
 # https://github.com/jrnl-org/jrnl/issues/1274
-install -d '%{buildroot}%{_mandir}/man1'
+install --directory '%{buildroot}%{_mandir}/man1'
 %{py3_test_envvars} help2man --no-info jrnl \
     --output='%{buildroot}%{_mandir}/man1/jrnl.1'
 

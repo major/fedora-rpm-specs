@@ -392,6 +392,13 @@ rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/.hipInfo
 rm %{buildroot}%{pkg_prefix}/bin/*.bat
 %endif
 
+%if %{with preview}
+# 7.13+ needs some help installing scripts
+mkdir -p %{buildroot}%{pkg_prefix}/bin
+install -m 755 hip/bin/hipcc_cmake_linker_helper %{buildroot}%{pkg_prefix}/bin/
+install -m 755 hip/bin/hipdemangleatp            %{buildroot}%{pkg_prefix}/bin/
+%endif
+
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocclr*/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/opencl*/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hip-asan/LICENSE.md
@@ -446,9 +453,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 %if %{without preview}
 %{pkg_prefix}/bin/roc-*
+%endif
 %{pkg_prefix}/bin/hipcc_cmake_linker_helper
 %{pkg_prefix}/bin/hipdemangleatp
-%endif
 
 %if %{with docs}
 %files -n hip%{pkg_suffix}-doc

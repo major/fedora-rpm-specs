@@ -27,11 +27,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  meson
-# No pandoc on EPEL10 yet:
-%if !0%{?el10}
 # Rebuild jo.1 and jo.md; we can omit this if it ever breaks.
 BuildRequires:  pandoc
-%endif
 
 # For automatic installation of completions support via meson
 BuildRequires:  pkgconfig(bash-completion)
@@ -86,11 +83,12 @@ or arrays
 %meson_install
 # Upstream’s Autotools build system installs the zsh completions, but the meson
 # version does not; we can handle it manually.
-install -D -p -m 0644 jo.zsh '%{buildroot}%{zsh_completions_dir}/_jo'
+install -D --preserve-timestamps --mode=0644 \
+    jo.zsh '%{buildroot}%{zsh_completions_dir}/_jo'
 
 
 %check
-ln -s '%{buildroot}%{_bindir}/jo' .
+ln --symbolic '%{buildroot}%{_bindir}/jo' .
 bash -e ./tests/jo.test
 
 

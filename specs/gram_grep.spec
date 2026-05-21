@@ -34,20 +34,23 @@ greater refinement.
 %prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep -E '\bCRLF\b' |
-  cut -d ':' -f 1 |
-  xargs -r dos2unix --keepdate
+  grep --extended-regexp '\bCRLF\b' |
+  cut --delimiter=':' --fields1 |
+  xargs --no-run-if-empty dos2unix --keepdate
 
 # Remove include paths for unbundled header-only library dependencies
-sed -r -i 's@^([[:blank:]]*)(include_directories.*"\.\./)@\1# \2@' \
+sed --regexp-extended --in-place \
+    's@^([[:blank:]]*)(include_directories.*"\.\./)@\1# \2@' \
     CMakeLists.txt
 
 
 %install
 # The CMake build system has no provision for installing the program, so
 # %%cmake_install would do nothing. We must install the executable manually.
-install -t '%{buildroot}%{_bindir}' -p -D %{_vpath_builddir}/gram_grep
-install -t '%{buildroot}%{_mandir}/man1' -p -D -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps \
+    --target='%{buildroot}%{_bindir}' '%{_vpath_builddir}/gram_grep'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check

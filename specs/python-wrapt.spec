@@ -7,8 +7,8 @@ License:        BSD-2-Clause
 URL:            https://github.com/GrahamDumpleton/wrapt
 Source:         %{url}/archive/%{version}/wrapt-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l wrapt
+BuildSystem:    pyproject
+BuildOption(install): --assert-license wrapt
 
 BuildRequires:  gcc
 
@@ -41,7 +41,8 @@ Obsoletes:      python-wrapt-doc < 1.16.0-8
 # users; it is in the debugsource RPM anyway. It is not immediately obvious
 # what to suggest that upstream should do to avoid this.
 rm '%{buildroot}%{python3_sitearch}/wrapt/_wrappers.c'
-sed -r -i 's@^.*/wrapt/_wrappers\.c$@# &@' %{pyproject_files}
+sed --regexp-extended --in-place \
+    's@^.*/wrapt/_wrappers\.c$@# &@' %{pyproject_files}
 
 
 %check -a
@@ -49,8 +50,8 @@ sed -r -i 's@^.*/wrapt/_wrappers\.c$@# &@' %{pyproject_files}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 ignore="${ignore-} --ignore=tests/conftest.py"
 
-%pytest ${ignore-} -v
-WRAPT_DISABLE_EXTENSIONS=true %pytest ${ignore-} -v
+%pytest ${ignore-} --verbose
+WRAPT_DISABLE_EXTENSIONS=true %pytest ${ignore-} --verbose
 
 
 %files -n python3-wrapt -f %{pyproject_files}

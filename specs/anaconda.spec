@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.2
+Version: 45.4
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -520,6 +520,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 19 2026 Packit <hello@packit.dev> - 45.4-1
+- webui: hide network screen on Fedora KDE (Live ISO) (rvykydal)
+- webui: hide network screen on Fedora Workstation (Live ISO) (rvykydal)
+
 * Tue May 05 2026 Packit <hello@packit.dev> - 45.2-1
 - Increase GUI startup timeout to 120 seconds (mkolman)
 - Refactor remaining X timeout references (mkolman)

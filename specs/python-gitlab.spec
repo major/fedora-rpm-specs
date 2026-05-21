@@ -9,6 +9,8 @@ Summary:        Interact with GitLab API
 License:        LGPL-3.0-only
 URL:            https://github.com/python-gitlab/python-gitlab
 Source0:        %{pypi_source python_gitlab}
+# py3.15 pprint change
+Patch0:         https://github.com/python-gitlab/python-gitlab/pull/3400.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

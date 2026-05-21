@@ -27,6 +27,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{na
 
 Patch:          evince-46.3.1-kpathsea-header-files.patch
 
+# https://gitlab.gnome.org/GNOME/evince/-/merge_requests/789
+Patch:          CVE-2026-46529.patch
+
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(adwaita-icon-theme)

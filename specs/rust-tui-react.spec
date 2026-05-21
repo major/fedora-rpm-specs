@@ -5,7 +5,7 @@
 %global crate tui-react
 
 Name:           rust-tui-react
-Version:        0.23.3
+Version:        0.24.0
 Release:        %autorelease
 Summary:        TUI widgets using a react-like paradigm
 

@@ -46,7 +46,7 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.07.0
+Version:          10.07.1
 Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
@@ -482,6 +482,9 @@ done
 # =============================================================================
 
 %changelog
+* Tue May 19 2026 Zdenek Dohnal <zdohnal@redhat.com> - 10.07.1-1
+- ghostscript-10.07.1 is available (fedora#2479884)
+
 * Fri Mar 20 2026 Zdenek Dohnal <zdohnal@redhat.com> - 10.07.0-1
 - ghostscript-10.07.0 is available (fedora#2448063)
 

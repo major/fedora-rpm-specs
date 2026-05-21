@@ -42,7 +42,7 @@ that use %{name}.
 %autosetup -n utest.h-%{commit}
 
 # -Werror is too strict for distribution packaging:
-sed -r -i 's/-Werror//' test/CMakeLists.txt
+sed --regexp-extended --in-place 's/-Werror//' test/CMakeLists.txt
 
 
 %conf
@@ -56,7 +56,8 @@ cd test
 
 
 %install
-install -t '%{buildroot}%{_includedir}' -D -p -m 0644 utest.h
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}' utest.h
 
 
 %check

@@ -2,8 +2,8 @@
 %global pypi_name backrefs
 
 Name:           python-%{pypi_name}
-Version:        6.2
-Release:        2%{?dist}
+Version:        7.0
+Release:        1%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -66,6 +66,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Tue May 19 2026 Parag Nemade <pnemade AT redhat DOT com> - 7.0-1
+- Update to 7.0 version (#2463518)
+
 * Sun Apr 26 2026 Lumír Balhar <lbalhar@redhat.com> - 6.2-2
 - Fix indicpositionalcategory alias mismatch with Unicode 17+ (Python 3.15)
 

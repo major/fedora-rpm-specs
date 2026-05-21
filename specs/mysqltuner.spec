@@ -3,8 +3,8 @@
 #%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        2.7.0
-Release:        2%{?dist}
+Version:        2.8.41
+Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
@@ -45,6 +45,9 @@ install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulne
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
+* Tue May 19 2026 josef radinger <cheese@nosuchhost.net> - 2.8.41-1
+- bump version
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

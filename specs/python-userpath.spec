@@ -17,9 +17,9 @@ Source13:       userpath-verify.1
 
 BuildArch:      noarch
 
-BuildSystem:            pyproject
+BuildSystem:    pyproject
 BuildOption(generate_buildrequires): requirements-dev.txt
-BuildOption(install):   -l userpath
+BuildOption(install): --assert-license userpath
 
 %global common_description %{expand:
 Cross-platform tool for adding locations to the user PATH, no elevated
@@ -40,7 +40,8 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 

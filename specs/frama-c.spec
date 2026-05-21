@@ -49,7 +49,6 @@ BuildRequires:  clang
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
 BuildRequires:  emacs-nw
-BuildRequires:  fdupes
 BuildRequires:  flamegraph
 BuildRequires:  graphviz
 BuildRequires:  libappstream-glib
@@ -223,11 +222,6 @@ ln -s %{_bindir}/flamegraph.pl \
 if [ "%{_lib}" != "lib" ]; then
     sed -i '/EACSL_LIB/s,/lib/,/%{_lib}/,' %{buildroot}%{_bindir}/e-acsl-gcc
 fi
-
-# Link duplicate files
-%fdupes %{buildroot}%{ocamldir}
-%fdupes %{buildroot}%{_datadir}/frama-c
-%fdupes frama-c-api
 
 # FIXME: tests fail on ppc6le due to redefinition of bool
 # FIXME: test issue-eacsl-40.1.exec.wtests fails on aarch64

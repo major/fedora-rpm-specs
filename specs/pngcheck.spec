@@ -15,12 +15,13 @@ SourceLicense:  %{license} AND BSL-1.0
 URL:            https://github.com/pnggroup/pngcheck
 Source:         %{url}/archive/v%{version}/pngcheck-%{version}.tar.gz
 
+BuildSystem:    cmake
+# Upstream provides no tests
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  cmake
 BuildRequires:  gcc
-
 BuildRequires:  cmake(zlib)
 
 # Removed for Fedora 43; Obsoletes can be removed after Fedora 45.
@@ -32,26 +33,10 @@ PNG, for validity and to give information about metadate inside the file (apart
 from the actual image data).
 
 
-%prep
-%autosetup
+%prep -a
 # Remove bundled libraries (currently: wildargs) that are not needed on this
 # platform, in order to prove they do not contribute to the binary RPMs.
-rm -rv third_party/
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-# Upstream provides no tests
+rm --recursive --verbose third_party/
 
 
 %files

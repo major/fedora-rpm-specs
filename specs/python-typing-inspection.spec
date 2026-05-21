@@ -8,9 +8,9 @@ License:        MIT
 URL:            https://github.com/pydantic/typing-inspection
 Source:         %{pypi_source typing_inspection}
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -g tests
-BuildOption(install):   -l typing_inspection
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --dependency-groups tests
+BuildOption(install):   --assert-license typing_inspection
 
 BuildArch:      noarch
 

@@ -2,12 +2,15 @@
 
 Name:           python-netaddr
 Version:        1.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
 URL:            https://github.com/netaddr/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
+
+# https://github.com/netaddr/netaddr/pull/402
+Patch0:         0001-Fix-doctest-failures-with-Python-3.15-pprint-changes.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -101,6 +104,9 @@ popd
 %{_bindir}/netaddr
 
 %changelog
+* Tue May 19 2026 John Eckersberg <jeckersb@redhat.com> - 1.3.0-12
+- Add patch for Python 3.15 pprint change (rhbz#2479751)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

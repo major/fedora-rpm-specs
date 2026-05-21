@@ -68,9 +68,11 @@ developing applications that use %{name}.
 %prep -a
 %if %{with system_catch2}
 # Remove bundled Catch library and use the system version
-rm -vf test/catch.hpp
-sed -r -i 's|(include[[:blank:]]+")(catch.hpp")|\1catch2/\2|' test/*.cpp
-sed -r -i 's|[[:blank:]]+catch\.hpp||' test/CMakeLists.txt
+rm test/catch.hpp
+sed --regexp-extended --in-place \
+    's|(include[[:blank:]]+")(catch.hpp")|\1catch2/\2|' test/*.cpp
+sed --regexp-extended --in-place \
+    's|[[:blank:]]+catch\.hpp||' test/CMakeLists.txt
 %endif
 
 

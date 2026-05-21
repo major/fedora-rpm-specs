@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-297-gb28ffb926f
+%global glibcsrcdir glibc-2.43.9000-322-gdee4e2446f
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1279,6 +1279,7 @@ inherit_flags.cc_main = string_to_array [[
 -mtune=z13
 -mtune=z14
 -mtune=z15
+-mtune=z16
 -mtune=zEC12
 ]]
 
@@ -2407,6 +2408,35 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue May 19 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-16
+- Auto-sync with upstream branch master,
+  commit dee4e2446f09ab2f2d125f5021b93e22c50fa6e5:
+- Regenerate 'configure' (Paul Eggert)
+- AArch64: Optimize memcmp for Kunpeng 950 with SVE (Weihong Ye)
+- Simplify tzdb-related configuration (Paul Eggert)
+- timezone: sync to tzdb 2026b (Paul Eggert)
+- x86: Lower non-temporal copy threshold for Hygon (xiejiamei)
+- libio: Fix fmemopen_write on appending mode (BZ 34006) (Rocket Ma)
+- elf: Defer all IRELATIVE relocations until after PLT setup (Adhemerval Zanella)
+- malloc: Remove dynamic mmap/trim threshold [BZ #30769] (Wilco Dijkstra)
+- intl: Fix memory leak in _nl_find_domain on allocation failure (Avinal Kumar)
+- intl: Remove pre-C99 fallbacks from plural-exp.c (Avinal Kumar)
+- intl: Remove PRI_MACROS_BROKEN from loadmsgcat.c (Avinal Kumar)
+- intl: Remove IN_LIBGLOCALE dead code (Avinal Kumar)
+- AArch64: simplify __libc_arm_za_disable failure path (Muhammad Kamran)
+- stdio-common: Silence clang -Wfortify-source warning in tst-vfscanf-bz34008 (Adhemerval Zanella)
+- elf: Batch program-header reads in _dl_map_segments (oversight fix) (Adhemerval Zanella)
+- elf: Fix 785a028ab70 for PTHREAD_STACK_MIN platforms (Adhemerval Zanella)
+- elf: Fix elf/tst-bz26577-minstack.c on hurd (Adhemerval Zanella)
+- libio: Fix race in _IO_new_file_init_internal initialization order [BZ #33785] (Shamil Abdulaev)
+- test: Add gconv refcount leak test for swscanf (Frédéric Bérat)
+- libio: Fix gconv module reference counter overflow in swscanf (Frédéric Bérat)
+- elf: Eliminate alloca for program-header table in the ELF loader (Adhemerval Zanella)
+- elf: Fix stack overflow in _dl_map_object_from_fd with large e_phnum (BZ 26577) (Adhemerval Zanella)
+- intl: Add tests for plural expression hardening (Avinal Kumar)
+- intl: Import plural expression hardening from GNU gettext (Avinal Kumar)
+- arm: Enable static-pie support (BZ 34098) (Adhemerval Zanella)
+
 * Mon May 11 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-15
 - Auto-sync with upstream branch master,
   commit b28ffb926f34934a19c5e853504bdc8a8d57137f:

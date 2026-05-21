@@ -54,7 +54,8 @@ Provides:       hedley-static = %{version}-%{release}
 
 
 %install
-install -t %{buildroot}%{_includedir} -p -m 0644 -D hedley.h
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}' hedley.h
 
 
 %check

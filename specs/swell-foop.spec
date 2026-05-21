@@ -22,6 +22,7 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  yelp-tools
 
+Provides:       bundled(libgnome-games-support)
 
 %description
 Clear the screen by removing groups of colored and shaped tiles

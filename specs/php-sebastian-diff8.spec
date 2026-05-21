@@ -22,7 +22,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.2.1
+Version:        8.3.0
 Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
@@ -105,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Sat May 16 2026 Remi Collet <remi@remirepo.net> - 8.3.0-1
+- update to 8.3.0
+
 * Thu May 14 2026 Remi Collet <remi@remirepo.net> - 8.2.1-1
 - update to 8.2.1 (no change)
 

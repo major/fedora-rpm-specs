@@ -10,8 +10,10 @@ Summary:        A modern project, package, and virtual env manager
 
 %if %{undefined commit}
 %global tag hatch-v%{version}
+%global scmversion %{version}
 %else
 %global tag %{commit}
+%global scmversion %(echo '%{version}' | cut --delimiter='^' --fields=1)
 %endif
 
 # The entire source is (SPDX) MIT. Apache-2.0 license text in the tests is used
@@ -116,7 +118,7 @@ Features:
 
 %if %{defined commit}
 %generate_buildrequires -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%(echo '%{version}' | cut -d '^' -f 1)'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{scmversion}'
 %endif
 
 
@@ -128,12 +130,13 @@ tomcli get hatch.toml -F newline-list envs.hatch-test.extra-dependencies |
 
 %if %{defined commit}
 %build -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%(echo '%{version}' | cut -d '^' -f 1)'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{scmversion}'
 %endif
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE100}' \
     '%{SOURCE200}' \
     '%{SOURCE300}' \
@@ -212,7 +215,7 @@ k="${k-}${k+ and }not test_verbose_output_to_stderr"
 # https://bugzilla.redhat.com/show_bug.cgi?id=2432349
 k="${k-}${k+ and }not (TestUserAgent and test_user_agent_header_format)"
 
-%pytest -k "${k-}" ${ignore-} -vv
+%pytest -k "${k-}" ${ignore-} --verbosity=2
 %endif
 
 

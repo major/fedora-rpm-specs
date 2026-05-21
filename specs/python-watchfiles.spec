@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the
@@ -84,10 +84,6 @@ export RUSTFLAGS='%{build_rustflags}'
 %install
 %pyproject_install
 %pyproject_save_files -l watchfiles
-
-# The maturin build backend includes the license files, but currently the
-# pyproject macros don't mark these files as licenses.
-sed -e '/LICENSE/ s/^/%%license /' -i %{pyproject_files}
 
 
 %check

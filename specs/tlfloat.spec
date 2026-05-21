@@ -1,3 +1,4 @@
+%bcond ctest 1
 # Build and run exhaustive tests for 16-bit and 32-bit arguments? This is far
 # too slow to do on every build, but it is still useful for it to be possible.
 #
@@ -19,10 +20,27 @@ SourceLicense:  %{license} AND CC-BY-SA-4.0
 URL:            https://github.com/shibatch/tlfloat
 Source:         %{url}/archive/v%{version}/tlfloat-%{version}.tar.gz
 
+# Enable position-independent code for tlfloat_inline
+Patch:          %{url}/commit/c44b279033be35c55efa74267259f5df4321c213.patch
+
+BuildSystem:    cmake
+# BUILD_UTILS: These utilities (genmathcoef, mkrpitab) are intended for library
+# maintainers, and are not installed, so we do not build them.
+BuildOption(conf): %{shrink:
+    -DBUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DBUILD_UTILS:BOOL=OFF
+    -DBUILD_EXHAUSTIVE_TESTING:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
+    -DENABLE_EXHAUSTIVE_TESTING:BOOL=%{?with_exhaustive:ON}%{?!with_exhaustive:OFF}
+    }
+# Set a one-week timeout if we are doing exhaustive tests. See notes above the
+# conditional; these may take over a day on some server-class hardware.
+%if %{with exhaustive}
+BuildOption(check): --timeout 604800
+%endif
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
 # Architectures with libquadmath from gcc.spec, line 78 (as of 16.0.1):
@@ -59,40 +77,10 @@ The tlfloat-devel package contains libraries and header files for
 developing applications that use TLFloat.
 
 
-%prep
-%autosetup -p1
-
-
-%conf
-# BUILD_UTILS: These utilities (genmathcoef,  mkrpitab) are intended for
-#   library maintainers, and are not installed, so we do not build them.
-%cmake \
-%if %{with exhaustive}
-    -DBUILD_EXHAUSTIVE_TESTING:BOOL=TRUE \
-    -DENABLE_EXHAUSTIVE_TESTING:BOOL=TRUE \
-%endif
-    -DBUILD_UTILS:BOOL=FALSE
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-# Set a one-week timeout if we are doing exhaustive tests. See notes above the
-# conditional; these may take over a day on some server-class hardware.
-%ctest %{?with_exhaustive:--timeout 604800}
-
-
 %files
 %license LICENSE.txt
 %doc README.adoc
 %{_libdir}/libtlfloat.so.%{so_version}{,.*}
-
 
 
 %files devel

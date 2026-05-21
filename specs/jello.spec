@@ -20,7 +20,8 @@ Python syntax.
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 man/*
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' man/*
 
 
 %check -a

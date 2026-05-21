@@ -3,7 +3,8 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+
 %global sname oslo.config
 %global pypi_name oslo-config
 # doc and tests are enabled by default unless %%repo_bootstrap
@@ -13,7 +14,7 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    10.3.0
+Version:    10.4.0
 Release:    %autorelease
 Summary:    OpenStack common configuration library
 
@@ -74,6 +75,8 @@ Documentation for the oslo-config library.
 %autosetup -n oslo_config-%{version} -S git
 # Remove shebang from non executable file, it's used by the oslo-config-validator binary.
 sed -i '/\/usr\/bin\/env/d' oslo_config/validator.py
+
+sed -i 's/sphinx-build -W /sphinx-build /' tox.ini
 
 # Remove tests requiring sphinx if sphinx is not available
 %if %{with doc} == 0

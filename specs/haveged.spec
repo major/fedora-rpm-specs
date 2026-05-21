@@ -1,8 +1,8 @@
 %define dracutlibdir lib/dracut
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
-Version:        1.9.18
-Release:        11%{?dist}
+Version:        1.9.21
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/jirka-h/haveged
@@ -105,6 +105,12 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Wed May 20 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.21-1
+- Update to 1.9.21
+- Security fix: CVE-2026-41054 — privilege escalation via command socket
+- Fix semaphore error handling (SEM_FAILED vs NULL)
+- Fix /dev/shm permissions (use 01777 with sticky bit)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

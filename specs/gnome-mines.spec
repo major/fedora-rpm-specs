@@ -21,6 +21,8 @@ BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  vala
 
+Provides:       bundled(libgnome-games-support)
+
 %description
 The popular logic puzzle minesweeper. Find mines on a grid
 using hints from squares you have already cleared.

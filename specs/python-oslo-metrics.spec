@@ -1,5 +1,6 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global pypi_name oslo.metrics
 %global pypi_name_under oslo_metrics
@@ -11,7 +12,7 @@ Oslo metrics API supports collecting metrics data from other Oslo
 libraries and exposing the metrics data to monitoring system.}
 
 Name:           python-oslo-metrics
-Version:        0.15.1
+Version:        0.16.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Metrics library
 

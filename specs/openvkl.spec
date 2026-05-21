@@ -62,6 +62,7 @@ sed -i '/vdb_volume_dense.cpp/d' testing/apps/CMakeLists.txt
 
 %build
 %cmake \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 	-DBUILD_EXAMPLES=OFF \
 	-DBUILD_OPENVKL_TESTING=ON \
 	-DBUILD_BENCHMARKS=OFF \

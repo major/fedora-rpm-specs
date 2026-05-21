@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-luv
 Version:        0.5.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
@@ -62,6 +62,9 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue May 19 2026 Jerry James <loganjerry@gmail.com> - 0.5.14-9
+- Rebuild for ocaml-integers 0.8.0
+
 * Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.5.14-8
 - Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
 

@@ -1,12 +1,23 @@
 Name:           pyshp
-Version:        3.0.5
+Version:        3.0.6
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
-# SPDX
+# The entire source is MIT, except:
+#
+# - Test data in Source10-Source25 is either LicenseRef-Fedora-Public-Domain or
+#   ODbl-1.0; see comments near individual Source fields for details.
+# - shapefiles/test/REL.zip is CC-BY-4.0
+#
+# These do not affect the licenses of binary RPMs because they are used only as
+# test data.
 License:        MIT
-# See Source10-Source25.
-SourceLicense:  %{license} AND LicenseRef-Fedora-Public-Domain AND ODbl-1.0
+SourceLicense:  %{shrink:
+    %{license} AND
+    CC-BY-4.0 AND
+    LicenseRef-Fedora-Public-Domain AND
+    ODbl-1.0
+    }
 URL:            https://github.com/GeospatialPython/pyshp
 Source0:        %{url}/archive/%{version}/pyshp-%{version}.tar.gz
 

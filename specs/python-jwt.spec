@@ -41,7 +41,7 @@ Recommends:     python3-%{pkgname}+crypto
 %autosetup -n %{srcname}-%{version}
 # remove coverage buildreq and relax pytest req
 sed -e '/coverage\[toml\]/d' \
-    -e '/pytest/ s/,<7.0.0//' \
+    -e '/pytest/ s/,<9.0.0//' \
     -i pyproject.toml
 
 

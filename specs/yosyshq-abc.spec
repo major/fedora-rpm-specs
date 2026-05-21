@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 8e401543d3ecf65e3a3631c7a271793a4d356cb0
+%global commit0 5d51a5e420f5de493d07bf61109a977248c86ffb
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20260304
+%global snapdate 20260512
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,7 +23,7 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.63
+Version:        0.65
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
@@ -44,7 +44,6 @@ Patch3:         0003-fedora-fix-minor-header-issue.patch
 Patch4:         0004-fedora-set-soname-on-the-library.patch
 Patch5:         0005-fedora-fix-sprintf-calls-that-may-overflow-their-buf.patch
 Patch6:         0006-fedora-fix-out-of-bounds-array-access-in-gia-code-be.patch
-Patch7:         0007-fedora-weaken-overzealous-assert.patch
 
 
 BuildRequires:  cmake
@@ -171,6 +170,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Tue May 12 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.65-1.20260512git5d51a5e
+- update to 0.65 snapshot
+
 * Wed Mar 04 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.63-1.20260304git8e40154
 - update to 0.63 snapshot
 

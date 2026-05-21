@@ -15,7 +15,7 @@ external processes.}
 Tests for the Oslo concurrency library.}
 
 Name:           python-oslo-concurrency
-Version:        7.4.1
+Version:        7.5.0
 Release:        %autorelease
 Summary:        OpenStack Oslo concurrency library
 

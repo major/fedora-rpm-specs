@@ -1,6 +1,6 @@
 Name:           easyeffects
-Version:        8.2.1
-Release:        2%{?dist}
+Version:        8.2.2
+Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
 License:        GPL-3.0-or-later
@@ -127,10 +127,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 %{_bindir}/%{name}
 %{_datadir}/applications/com.github.wwmm.%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/com.github.wwmm.%{name}{,-symbolic}.svg
+%{_datadir}/icons/hicolor/scalable/apps/com.github.wwmm.easyeffects-off-symbolic.svg
 %{_datadir}/metainfo/com.github.wwmm.%{name}.metainfo.xml
 
 
 %changelog
+* Tue May 19 2026 Vasiliy Glazov <vascom2@gmail.com> - 8.2.2-1
+- Update to 8.2.2
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 8.2.1-2
 - Rebuild (qt6)
 

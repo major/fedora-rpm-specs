@@ -1,8 +1,9 @@
+%bcond ctest 1
 # The Python extension tests now segfault on i686. Starting with Fedora 42, we
 # no longer build the Python extension on i686; in the medium term, we wish to
 # drop i686 support altogether, but we must coordinate all reverse dependencies
-# doing so first; see the notes in %%check.
-%bcond python %[ %{?__isa_bits} != 32 ]
+# doing so first.
+%bcond python %[ 0%{?__isa_bits} != 32 ]
 
 Name:           re2
 %global tag 2025-11-05
@@ -23,16 +24,23 @@ SourceLicense:  %{license} AND Apache-2.0
 URL:            https://github.com/google/re2
 Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DRE2_TEST:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DRE2_BENCHMARK:BOOL=OFF
+    -DRE2_USE_ICU:BOOL=ON
+    }
+
 BuildRequires:  gcc-c++
 
 BuildRequires:  cmake(absl)
 BuildRequires:  pkgconfig(icu-uc)
+%if %{with ctest}
 BuildRequires:  cmake(GTest)
+%endif
 
 %if %{with python}
 # Python extension
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pybind11}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 BuildRequires:  pybind11-static
@@ -98,26 +106,20 @@ Known differences between this module’s API and the re module’s API:
 %endif
 
 
-%prep
-%autosetup -n re2-%{tag}
+%prep -a
 # Show that a file licensed Apache-2.0 is not used in the build and does not
 # contribute to the licenses of the binary RPMs:
 rm lib/git/commit-msg.hook
 
 
 %if %{with python}
-%generate_buildrequires
+%generate_buildrequires -a
 %pyproject_buildrequires --directory python
 %endif
 
 
-%conf
-%cmake \
-    -DRE2_TEST:BOOL=ON \
-    -DRE2_BENCHMARK:BOOL=OFF \
-    -DRE2_USE_ICU:BOOL=ON
-
 %if %{with python}
+%conf -a
 cat >> python/setup.cfg <<EOF
 [build_ext]
 include_dirs=${PWD}
@@ -126,60 +128,21 @@ EOF
 %endif
 
 
-%build
-%cmake_build
 %if %{with python}
+%build -a
 %pyproject_wheel --directory python
 %endif
 
 
-%install
-%cmake_install
-
 %if %{with python}
+%install -a
 %pyproject_install
 %pyproject_save_files --assert-license re2
 %endif
 
 
-%check
-%ctest
-
 %if %{with python}
-# Python tests now segfault on i686, but we cannot drop support under
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval because re2
-# is not yet a leaf package on that architecture. Instead, we skip the Python
-# tests on i686.
-#
-# The following directly-dependent packages are ExcludeArch: %%{ix86}:
-#   bloaty, ceph, credentials-fetcher, CuraEngine_grpc_definitions, dnsdist,
-#   libarrow, mtxclient, nheko, onnx, onnxruntime, parlaylib,
-#   perl-re-engine-RE2, python-torchtext
-#
-# The following are not (yet):
-# - grpc:
-#   Not blocked by: CuraEngine_grpc_definitions, bear, buildbox, buildstream,
-#                   ceph, credentials-fetcher, frr, libarrow, libphonenumber,
-#                   syslog-ng
-#     Note that syslog-ng does depend on grpc *and* builds on i686, but grpc
-#     support is disabled on i686, so all is well.
-#   Blocked by:
-#   - duplicity (indirect, via noarch intermediate packages:
-#     grpc <- python-google-api-core <- google-api-python-client <- duplicity)
-#     - Not blocked by: duply
-#     - Blocked by:
-#       - deja-dup
-#   - fastnetmon: https://src.fedoraproject.org/rpms/fastnetmon/pull-request/2
-#   - matrix-synapse (indirect, via noarch intermediate package:
-#     grpc <- python-sentry-sdk <- matrix-synapse)
-#   - nanopb
-#   - perl-grpc-xs
-#   - qt6-qtgrpc
-#   TBD:
-#     There are many more packages that depend directly or indirectly on
-#     python3-grpcio in particular at install time, but not at build time. We
-#     must explore the entire tree looking for arched packages that build on
-#     i686.
+%check -a
 # Run the tests from the top-level directory to make sure we don’t accidentally
 # import the “un-built” package instead of the one in the buildroot.
 ln -s python/re2_test.py

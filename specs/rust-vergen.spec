@@ -15,7 +15,6 @@ URL:            https://crates.io/crates/vergen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump git2 dependency from v0.19 to v0.20
-# * update gix dependency to 0.75
 Patch:          vergen-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -147,30 +146,6 @@ This package contains library source intended for building other packages which
 use the "gitcl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gitcl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gitoxide-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gitoxide-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gitoxide" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gitoxide-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gix-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gix-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gix" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+regex-devel

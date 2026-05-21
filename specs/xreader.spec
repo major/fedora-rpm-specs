@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.6.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,7 @@ BuildRequires:	yelp-tools
 Requires:	shared-mime-info%{?_isa}
 Requires:	gsettings-desktop-schemas%{?_isa}
 Requires:	xapps%{?_isa}
+Requires:   xapp-symbolic-icons
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 Recommends:	yelp%{?_isa}
@@ -170,6 +171,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Tue May 19 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-2
+- Add requires xapp-symbolic-icons
+
 * Mon May 18 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.4-1
 - Update to 4.6.4
 

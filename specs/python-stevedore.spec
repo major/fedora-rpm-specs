@@ -2,12 +2,12 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global common_desc Manage dynamic plugins for Python applications
 
 Name:           python-stevedore
-Version:        5.7.0
+Version:        5.8.0
 Release:        %autorelease
 Summary:        Manage dynamic plugins for Python applications
 

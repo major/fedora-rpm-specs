@@ -4,16 +4,13 @@
 %bcond tests 1
 
 Name:           python-pygments
-Version:        2.19.2
+Version:        2.20.0
 Release:        %autorelease
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
 URL:            https://pygments.org/
 Source0:        %{pypi_source pygments}
-# https://github.com/pygments/pygments/issues/2992
-# https://github.com/pygments/pygments/pull/3016
-Patch0:         0001-Fix-test_lexer_classes-search-path.patch
 
 BuildArch:      noarch
 

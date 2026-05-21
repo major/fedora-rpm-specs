@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc3.260518g6916d5703ddf.29
+%define pkgrelease 0.rc4.260519gab5fce87a778.31
 %define kversion 7
-%define tarfile_release 7.1-rc3-362-g6916d5703ddf
+%define tarfile_release 7.1-rc4-46-gab5fce87a778
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.260518g6916d5703ddf.29%{?buildid}%{?dist}
+%define specrelease 0.rc4.260519gab5fce87a778.31%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,15 +4847,22 @@ fi\
 #
 #
 %changelog
-* Mon May 18 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc3.260518g6916d5703ddf.29]
+* Tue May 19 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc4.260519gab5fce87a778.31]
+- net/sched: fix pedit partial COW leading to page cache corruption (Rajat Gupta)
 - net/sched: act_pedit: extend the writable skb range per key (Zhang Cen)
-- net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
-- Revert fragnesia v4 in favor of v5 (Justin M. Forbes)
+- net: gro: don't copy frags between mixed zcopy skbs (Sabrina Dubroca)
 
-* Sun May 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.6916d5703ddf.29]
+* Tue May 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.ab5fce87a778.31]
 - net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Tue May 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.ab5fce87a778.30]
+- redhat/configs: realign LOCKDEP_STACK_TRACE_*_BITS with upstream KASAN defaults (Mikhail Gavrilov)
+- Linux v7.1.0-0.rc4.ab5fce87a778
+
+* Mon May 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.29]
+- Linux v7.1.0-0.rc4
 
 * Sun May 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc3.6916d5703ddf.28]
 - Add missing config file for Fedora (Justin M. Forbes)

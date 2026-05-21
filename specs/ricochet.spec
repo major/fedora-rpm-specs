@@ -10,8 +10,8 @@ Source0:	https://ricochet.im/releases/%{version}/ricochet-%{version}-src.tar.bz2
 
 BuildRequires: make
 BuildRequires:	openssl-devel
-BuildRequires:	protobuf-compiler
-BuildRequires:	protobuf-devel
+BuildRequires:	protobuf-compiler < 4
+BuildRequires:	protobuf-devel < 4
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtbase-gui
 BuildRequires:	qt5-qtdeclarative-devel

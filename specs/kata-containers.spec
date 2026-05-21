@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    5%{?rcrel}%{?dist}
+Release:    7%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -232,14 +232,12 @@ ExcludeArch: ppc64le
 
 %global runtime_rs_make_vars    %{rust_make_vars} \\\
                                 %{?no_dragonball} \\\
+                                %{runtime_make_vars} \\\
                                 HYPERVISOR=qemu \\\
-                                QEMUPATH=%{qemupath} \\\
-                                DEFVIRTIOFSDAEMON=%{_libexecdir}/virtiofsd \\\
-                                DEFVIRTIOFSCACHESIZE=0 \\\
-                                DEFSANDBOXCGROUPONLY_QEMU=true \\\
-                                MACHINETYPE=%{machinetype} \\\
-                                PREFIX=/usr \\\
-                                DEFAULTSDIR=%{katadefaults}
+                                BINDIR=%{_bindir} \\\
+                                PROJECT_COMPONENT=containerd-shim-kata-rs-v2 \\\
+                                CONTAINERD_RUNTIME_NAME=io.containerd.kata-rs.v2
+
 
 %prep
 %autosetup -S git -p1 -n %{kata_build_dir}
@@ -263,6 +261,16 @@ mkdir -p go/src/%{domain}/%{org}
 ln -s $(pwd)/../%{kata_build_dir} go/src/%{importname}
 cd go/src/%{importname}
 
+# pci-ids build.rs refreshes pci.ids via curl, which mutates vendor/ and breaks
+# Cargo vendored checksums. Prefer vendored pci.ids; block curl only for runtime-rs.
+mkdir -p runtime-rs-pci-ids-download-blocker
+cat > runtime-rs-pci-ids-download-blocker/curl <<'EOF'
+#!/bin/sh
+echo "rpm build: skipping pci.ids network refresh (vendored copy is used)" >&2
+exit 1
+EOF
+chmod 0755 runtime-rs-pci-ids-download-blocker/curl
+
 pushd src/runtime
 %make_build %{runtime_make_vars}
 popd
@@ -277,7 +285,7 @@ pushd src/tools/kata-ctl
 popd
 
 pushd src/runtime-rs
-%make_build %{runtime_rs_make_vars}
+PATH="$(pwd)/../../runtime-rs-pci-ids-download-blocker:$PATH" %make_build %{runtime_rs_make_vars}
 popd
 
 pushd tools/osbuilder
@@ -287,6 +295,9 @@ popd
 
 # Not using gopkginstall here in order to stick to how upstream builds
 %install
+export OPENSSL_NO_VENDOR=1
+export LIBZ_SYS_STATIC=0
+
 export GOPATH=$(pwd)/go
 export PATH=$PATH:$GOPATH/bin
 
@@ -309,7 +320,13 @@ rm -f %{buildroot}%{_prefix}/.crates2.json
 popd
 
 pushd src/runtime-rs
-%make_install %{runtime_rs_make_vars}
+PATH="$(pwd)/../../runtime-rs-pci-ids-download-blocker:$PATH" \
+    %{__make} install-configs DESTDIR=%{buildroot} %{runtime_rs_make_vars}
+# %make_install always adds the "install" target, which runs install-runtime and
+# looks for containerd-shim-kata-rs-v2 (from PROJECT_COMPONENT). Cargo always
+# emits containerd-shim-kata-v2 (runtime-rs/Cargo.toml [[bin]]).
+install -D ../../target/%{_arch}-unknown-linux-gnu/release/containerd-shim-kata-v2 \
+    %{buildroot}%{_bindir}/containerd-shim-kata-rs-v2
 popd
 
 pushd tools/osbuilder
@@ -402,12 +419,7 @@ fi
 %{_bindir}/kata-ctl
 
 # runtime-rs
-%dir %{_prefix}/runtime-rs
-%dir %{_prefix}/runtime-rs/bin
-%{_prefix}/runtime-rs/bin/*
-%dir %{katadefaults}/kata-containers
-%dir %{katadefaults}/kata-containers/runtime-rs
-%{katadefaults}/kata-containers/runtime-rs/*
+%{_bindir}/containerd-shim-kata-rs-v2
 
 #osbuilder
 %dir %{kataosbuilderdir}
@@ -429,6 +441,17 @@ fi
 
 
 %changelog
+* Tue May 19 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-7
+- Consolidate build variables and binary location for runtime-rs
+- Build runtime-rs with alternative name under /usr/bin
+- Additional debugging tools to decode guest log files
+- Add some drivers and shared libraries in VM imagecase
+
+* Tue Apr 28 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-6
+- kata-osbuilder: copy missing kata-agent shared libraries from host (ldd-based)
+- kata-osbuilder: sync ldd deps for tc/ip (tcfilter needs working tc)
+- kata-osbuilder: mask initrd.target with symlinks (broken systemctl --root)
+
 * Thu Apr 23 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-5
 - Disable DragonBall explicitly on ppc64le
 

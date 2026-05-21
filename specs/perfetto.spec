@@ -24,10 +24,10 @@ BuildRequires:  gcc-c++
 BuildRequires:  gn
 BuildRequires:  ninja-build
 BuildRequires:  pandoc
-BuildRequires:  protobuf-compiler
+BuildRequires:  protobuf-compiler < 4
 BuildRequires:  systemd-rpm-macros
 
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  zlib-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}

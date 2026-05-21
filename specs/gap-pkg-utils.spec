@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/utils
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.94
+Version:        0.95
 Release:        %autorelease
 Summary:        Utility functions for GAP
 

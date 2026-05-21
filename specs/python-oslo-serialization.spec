@@ -1,14 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
-
-# we are excluding some runtime reqs from automatic generator
-%global excluded_reqs tzdata
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
-# Exclude sphinx from BRs if docs are disabled
-%if ! 0%{?with_doc}
-%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
-%endif
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global pypi_name oslo.serialization
 %global pkg_name oslo-serialization
@@ -19,7 +10,7 @@ An OpenStack library for representing objects in transmittable and
 storable formats.}
 
 Name:           python-%{pkg_name}
-Version:        5.9.1
+Version:        5.10.0
 Release:        %autorelease
 Summary:        OpenStack oslo.serialization library
 
@@ -88,6 +79,7 @@ sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i \
     -e "/^coverage[[:space:]]*[!><=]/d" \
     -e "/^reno[[:space:]]*[!><=]/d" \
+    -e "/^tzdata[[:space:]]*[!><=]/d" \
     test-requirements.txt doc/requirements.txt
 
 

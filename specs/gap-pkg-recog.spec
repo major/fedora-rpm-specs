@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/recog
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.4
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Group recognition methods
 
@@ -62,11 +62,12 @@ SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/"
 EOF
 
 # Do not run the very slow tests
-gap -l '%{buildroot}%{gap_libdir};' tst/testquick.g
-gap -l '%{buildroot}%{gap_libdir};' tst/testslow.g
+rm -fr %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/working/veryslow
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+cp -a tst/working/veryslow %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/working
 
 %files
-%doc CHANGES NOTES README.md TODO WISHLIST
+%doc CHANGES NOTES README.md TODO
 %license COPYRIGHT LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

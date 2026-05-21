@@ -6,8 +6,9 @@
 # this feature disabled until someone asks for it.
 %bcond static 0
 
+%bcond ctest 1
 # Adds a BuildRequires on tlfloat and enables more tests
-%bcond tlfloat 1
+%bcond tlfloat %{with ctest}
 
 Name:           sleef
 Version:        3.9.0
@@ -36,6 +37,47 @@ URL:            https://sleef.org
 Source0:        sleef-%{tag}-filtered.tar.zst
 Source1:        get_source.sh
 
+BuildSystem:    cmake
+# -DSLEEFDFT_ENABLE_STREAM: The author writes, “The recommended value for
+#   SLEEFDFT_ENABLE_STREAM depends on the architecture, and it is only
+#   recommended to be turned on on x86_64.”
+#   https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
+%ifarch %{x86_64}
+%global stream_enabled 1
+%endif
+#
+# -DSLEEF_BUILD_GNUABI_LIBS: See https://sleef.org/additional.xhtml#gnuabi. The
+#   gnuabi version of the library only applies to these architectures.
+%global gnuabi_arches %{ix86} %{x86_64} %{arm64}
+%ifarch %{gnuabi_arches}
+%global gnuabi_enabled 1
+%endif
+#
+# -DSLEEF_BUILD_INLINE_HEADERS: See https://github.com/shibatch/sleef/pull/283.
+#   This would provide an arch-specific collection of sleefinline_*.h headers
+#   in %%_includedir, as well as a static support library, libsleefinline.a, in
+#   %%_libdir.
+%if %{with static}
+%global inline_enabled 1
+%endif
+#
+# -DENFORCE_TESTER3: The build should fail if we cannot build all tests.
+# -DENFORCE_TESTER4: Likewise, except that tester4 requires tlfloat.
+BuildOption(conf): %{shrink:
+    -DSLEEF_BUILD_DFT:BOOL=%{?with_dft:ON}%{?!with_dft:OFF}
+    -DSLEEF_ENFORCE_DFT:BOOL=%{?with_dft:ON}%{?!with_dft:OFF}
+    -DSLEEFDFT_ENABLE_STREAM:BOOL=%{?stream_enabled:ON}%{?!stream_enabled:OFF}
+    -DSLEEF_BUILD_GNUABI_LIBS:BOOL=%{?gnuabi_enabled:ON}%{?!gnuabi_enabled:OFF}
+    -DSLEEF_BUILD_TESTS:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DSLEEF_BUILD_INLINE_HEADERS:BOOL=%{?inline_enabled:ON}%{?!inline_enabled:OFF}
+    -DSLEEF_BUILD_QUAD:BOOL=%{?with_quad:ON}%{?!with_quad:OFF}
+    -DSLEEF_BUILD_SHARED_LIBS:BOOL=ON
+    -DSLEEF_ENFORCE_TESTER3:BOOL=%{?with_ctest:ON}%{?!with_ctest:OFF}
+    -DSLEEF_ENFORCE_TESTER4:BOOL=%{?with_tlfloat:ON}%{?!with_tlfloat:OFF}
+    -DSLEEF_ENABLE_TLFLOAT:BOOL=%{?with_tlfloat:ON}%{?!with_tlfloat:OFF}
+    }
+BuildOption(check): --exclude-regex "${skips}" --extra-verbose
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -55,8 +97,8 @@ ExcludeArch:    %{ix86}
 #   confused by earlier errors, bailing out
 #
 # This might be an upstream bug, but it is hard to understand. Upstream
-# provides their own LTO option, SLEEF_ENABLE_LTO, but for does not support it
-# in combination with shared libraries.
+# provides their own LTO option, SLEEF_ENABLE_LTO, but does not support it in
+# combination with shared libraries.
 #
 # - We could still build the library with LTO and not test it
 #   (-DSLEEF_BUILD_TESTS:BOOL=FALSE) on aarch64.
@@ -68,27 +110,19 @@ ExcludeArch:    %{ix86}
 %global _lto_cflags %{nil}
 %endif
 
-BuildRequires:  cmake >= 3.4.3
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-# For tests only:
+%if %{with ctest}
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(libssl)
 BuildRequires:  pkgconfig(libcrypto)
+%endif
 %if %{with dft}
 BuildRequires:  pkgconfig(fftw3)
 %endif
 %if %{with tlfloat}
 BuildRequires:  pkgconfig(tlfloat)
-%endif
-
-# See https://sleef.org/additional.xhtml#gnuabi. The gnuabi version of the
-# library only applies to these architectures.
-%global gnuabi_arches %{ix86} %{x86_64} %{arm64}
-# See https://github.com/shibatch/sleef/pull/283.
-%if %{with static}
-%global inline_enabled 1
 %endif
 
 %description
@@ -138,8 +172,6 @@ applications that use sleef.
 %ifarch %{gnuabi_arches}
 %package gnuabi
 Summary:        GNUABI version of sleef
-
-%global gnuabi_enabled 1
 
 %description gnuabi
 The GNUABI version of the library (libsleefgnuabi.so) is built for x86 and
@@ -200,54 +232,12 @@ developing applications that use sleef-quad.
 %endif
 
 
-%prep
-%autosetup -n sleef-%{tag} -p1
+%prep -a
 # Remove an unwanted hidden file from the docs
 find docs/ -type f -name .nojekyll -print -delete
 
 
-%conf
-# -DENFORCE_TESTER3: The build should fail if we cannot build all tests.
-# -DENFORCE_TESTER4: Likewise, except that tester4 requires tlfloat.
-#
-# -DBUILD_INLINE_HEADERS: Do not build the “inline” headers. This would provide
-#   an arch-specific collection of sleefinline_*.h headers in _includedir, as
-#   well as a static support library, libsleefinline.a, in _libdir. Both the
-#   static library and the headers (which are basically a header-only library,
-#   and would thus also be treated as a static library in the Fedora
-#   guidelines) should be omitted unless something in Fedora absolutely
-#   requires them.
-#
-# -DSLEEFDFT_ENABLE_STREAM: The author writes, “The recommended value for
-#   SLEEFDFT_ENABLE_STREAM depends on the architecture, and it is only
-#   recommended to be turned on on x86_64.”
-#   https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
-%cmake \
-    -DSLEEF_BUILD_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
-    -DSLEEF_ENFORCE_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
-%ifarch %{x86_64}
-    -DSLEEFDFT_ENABLE_STREAM:BOOL=TRUE \
-%else
-    -DSLEEFDFT_ENABLE_STREAM:BOOL=FALSE \
-%endif
-    -DSLEEF_BUILD_GNUABI_LIBS:BOOL=%{?gnuabi_enabled:TRUE}%{?!gnuabi_enabled:FALSE} \
-    -DSLEEF_BUILD_INLINE_HEADERS:BOOL=%{?inline_enabled:TRUE}%{?!inline_enabled:FALSE} \
-    -DSLEEF_BUILD_QUAD:BOOL=%{?with_quad:TRUE}%{?!with_quad:FALSE} \
-    -DSLEEF_BUILD_SHARED_LIBS:BOOL=TRUE \
-    -DSLEEF_ENFORCE_TESTER3:BOOL=TRUE \
-    -DSLEEF_ENFORCE_TESTER4:BOOL=%{?with_tlfloat:TRUE}%{?!with_tlfloat:FALSE} \
-    -DSLEEF_ENABLE_TLFLOAT:BOOL=%{?with_tlfloat:TRUE}%{?!with_tlfloat:FALSE}
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
+%check -p
 # Logging CPU features is helpful for debugging, especially in COPR builds
 # where the builder hardware information is not necessarily logged separately.
 echo '==== Build host CPU features ===='
@@ -259,7 +249,8 @@ skips='^($.'
 # Some tests are specifically for SVE code. We can only run these tests on
 # builder hardware that has the SVE extensions, which are not part of the
 # aarch64 baseline.
-if ! grep -E '[Ff](lags|eatures).*\bsve\b' /proc/cpuinfo >/dev/null
+if ! grep --extended-regexp '[Ff](lags|eatures).*\bsve\b' /proc/cpuinfo \
+    >/dev/null
 then
   skips="${skips}|gnuabi_compatibility_SVE(_masked)?|qiutsve"
 fi
@@ -268,7 +259,7 @@ fi
 # Some tests are specifically for VSX3 code. We can only run these tests on
 # builder hardware that has the VSX3 extensions (POWER 9 or later), which are
 # not part of the ppc64le baseline (POWER 8).
-if grep -E -i '\bPOWER8\b' /proc/cpuinfo >/dev/null
+if grep --extended-regexp --ignore-case '\bPOWER8\b' /proc/cpuinfo >/dev/null
 then
   skips="${skips}|.*vsx3(nofma)?"
 fi
@@ -287,8 +278,6 @@ skips="${skips}|tester4ypurec_scalar"
 %endif
 
 skips="${skips})$"
-
-%ctest --exclude-regex "${skips}" --extra-verbose
 
 
 %files

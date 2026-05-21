@@ -5,7 +5,7 @@
 %global crate cliclack
 
 Name:           rust-cliclack
-Version:        0.5.2
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Beautiful, minimal, opinionated CLI prompts inspired by the Clack NPM package
 

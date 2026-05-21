@@ -11,7 +11,9 @@ Source0:        https://github.com/mapbox/%{name}/archive/v%{version}.tar.gz#/%{
 
 BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz
-BuildRequires:  protobuf-devel protobuf-lite-devel protobuf-compiler
+BuildRequires:  protobuf-devel < 4
+BuildRequires:  protobuf-lite-devel < 4
+BuildRequires:  protobuf-compiler < 4
 BuildRequires:  catch2-devel
 
 %description

@@ -43,8 +43,9 @@ writing, and using HDMF-common data types.
 
 %install
 # There is no build-system script or standard install location for the schemas.
-install -d '%{buildroot}%{_datadir}/hdmf-common-schema'
-cp -rp 'common/' '%{buildroot}%{_datadir}/hdmf-common-schema/'
+install --directory '%{buildroot}%{_datadir}/hdmf-common-schema'
+cp --recursive --preserve 'common/' \
+    '%{buildroot}%{_datadir}/hdmf-common-schema/'
 
 
 %files

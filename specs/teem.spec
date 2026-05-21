@@ -1,3 +1,4 @@
+%bcond ctest 1
 %bcond levmar %{defined fedora}
 
 Name:           teem
@@ -25,6 +26,18 @@ License:        LGPL-2.1-or-later WITH Simple-Library-Usage-exception
 SourceLicense:  %{license} AND BSD-3-Clause AND MIT AND Zlib
 URL:            https://teem.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/teem-%{version}-src.tar.gz
+
+BuildSystem:    cmake
+BuildOption(conf): %{shrink:
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
+    -DTeem_USE_LIB_INSTALL_SUBDIR=ON
+    -DTeem_FFTW3=ON
+    -DTeem_LEVMAR=%{?with_levmar:ON}%{?!with_levmar:OFF}
+    }
+# Tests probeSS_ctmr04 and probeSS_ctmr10 have overly-strict rounding
+# requirements; they fail on certain architectures, and the details may differ
+# in e.g. EPEL branches. We find it best to skip them unconditionally.
+BuildOption(check): --exclude-regex '^(probeSS_ctmr(04|10))$'
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -153,8 +166,6 @@ Source961:      unu-save.1
 Patch:          teem-1.11.0-cmake.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  make
 
 BuildRequires:  zlib-devel
 BuildRequires:  libpng-devel
@@ -254,34 +265,18 @@ The teem-examples package contains examples for developing applications that
 use Teem.
 
 
-%prep
-%autosetup -n teem-%{version}-src -p1
-
+%prep -a
 # Remove files that, while they have acceptable licenses, we want to assert do
 # not contribute to the built RPMs:
 #   - Not applicable to this platform
-rm -rvf arch/win32
+rm --recursive --verbose arch/win32
 #   - Nothing here appears suitable for packaging:
-rm -rvf python
+rm --recursive --verbose python
 
 
-%conf
-%cmake \
-    -DCMAKE_SKIP_INSTALL_RPATH=ON \
-    -DTeem_USE_LIB_INSTALL_SUBDIR=ON \
-    -DTeem_FFTW3=ON \
-    -DTeem_LEVMAR=%{?with_levmar:ON}%{?!with_levmar:OFF}
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-install -d %{buildroot}%{_mandir}/man1
-install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
+%install -a
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
     %{SOURCE7} %{SOURCE8} %{SOURCE9} %{SOURCE10} \
     %{SOURCE800} %{SOURCE801} %{SOURCE802} %{SOURCE803} %{SOURCE804} \
@@ -307,15 +302,9 @@ install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
     %{SOURCE960} %{SOURCE961}
 
 
-%check
-# Tests probeSS_ctmr04 and probeSS_ctmr10 have overly-strict rounding
-# requirements; they fail on certain architectures, and the details may differ
-# in e.g. EPEL branches. We find it best to skip them unconditionally.
-%global ctest_excludes --exclude-regex '^(probeSS_ctmr(04|10))$'
-
+%check -p
 # Tests are not parallel-safe
-%global _smp_mflags -j1
-%ctest %{?ctest_excludes}
+%global _smp_build_ncpus 1
 
 
 %files

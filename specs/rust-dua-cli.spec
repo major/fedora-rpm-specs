@@ -5,7 +5,7 @@
 %global crate dua-cli
 
 Name:           rust-dua-cli
-Version:        2.32.2
+Version:        2.34.0
 Release:        %autorelease
 Summary:        Tool to conveniently learn about the disk usage of directories
 
@@ -18,10 +18,6 @@ Source:         %{crates_source}
 # * relax trash dependency to >=3,<6
 # * drop atty dependency to use stdlib instead
 Patch:          dua-cli-fix-metadata.diff
-# * Replace atty dependency with Rust 1.70+ stdlib functionality,
-#   https://github.com/Byron/dua-cli/pull/317; source-code changes only, rebased
-#   on 2.32.2, without Cargo.toml/Cargo.lock changes
-Patch11:        dua-cli-2.32.2-no-atty.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -89,16 +85,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crosstermion-devel
+%package     -n %{name}+crossterm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+crosstermion-devel %{_description}
+%description -n %{name}+crossterm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "crosstermion" feature of the "%{crate}" crate.
+use the "crossterm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+crosstermion-devel
+%files       -n %{name}+crossterm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+open-devel
@@ -159,18 +155,6 @@ This package contains library source intended for building other packages which
 use the "tui-crossplatform" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tui-crossplatform-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tui-react-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tui-react-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tui-react" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tui-react-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unicode-segmentation-devel

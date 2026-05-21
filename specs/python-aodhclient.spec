@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global pypi_name aodhclient
 
@@ -8,7 +8,7 @@ This is a client library for Aodh built on the Aodh API. It
 provides a Python API (the aodhclient module) and a command-line tool.}
 
 Name:             python-aodhclient
-Version:          3.10.1
+Version:          3.11.0
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Aodh
 

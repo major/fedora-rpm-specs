@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.4.0
+Version:    9.5.0
 
 # Compute version related macros.
 

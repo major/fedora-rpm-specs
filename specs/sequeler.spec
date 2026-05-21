@@ -34,8 +34,6 @@ BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
 
-BuildRequires:  hardlink
-
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  vala
 BuildRequires:  gcc
@@ -159,11 +157,6 @@ Ypatybės:
 %meson_install
 
 %find_lang %{appname}
-
-# Upstream installs the same SVG icon in many size-specific directories like
-# /usr/share/icons/hicolor/64x64@2/; we can save space by hardlinking these
-# together.
-hardlink -c -v '%{buildroot}%{_datadir}/icons/hicolor'
 
 
 %check

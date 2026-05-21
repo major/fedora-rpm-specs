@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.9.4
+Version:        2.9.5
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -85,6 +85,7 @@ BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  glew-devel
 BuildRequires:  gtest-devel
+BuildRequires:  hidapi-devel
 BuildRequires:  ilmbase-devel
 BuildRequires:  ImageMagick
 BuildRequires:  libgudev
@@ -417,7 +418,7 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %_datadir/applications/PrusaSlicer.desktop
 %_datadir/appdata/%name.appdata.xml
 %dir %_datadir/PrusaSlicer
-%_datadir/PrusaSlicer/{icons,models,profiles,shaders,shapes,udev,applications,data,web}/
+%_datadir/PrusaSlicer/{icons,models,profiles,shaders,shapes,udev,applications,data,web,workflows}/
 %if !0%{?flatpak}
 %_udevrulesdir/90-3dconnexion.rules
 %endif

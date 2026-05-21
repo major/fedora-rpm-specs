@@ -18,6 +18,13 @@ License:        MIT
 URL:            https://github.com/pydantic/pydantic-core
 Source:         %{pypi_source pydantic_core}
 
+# Manually created patch for downstream crate metadata changes
+# * Allow jiter 0.15. API changes from 0.14 to 0.15 are purely additive, so
+#   this is compatible. Downstream-only because jiter is developed by the
+#   Pydantic people, and we can reasonably assume that they will update in due
+#   course without prompting from us.
+Patch:          pydantic-core-fix-metadata.diff
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

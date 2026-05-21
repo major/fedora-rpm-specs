@@ -42,9 +42,9 @@ Obsoletes:      lexertl14-examples < 0.1.0^20240216git7a365a2-5
 %prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep -E '\bCRLF\b' |
-  cut -d ':' -f 1 |
-  xargs -r dos2unix --keepdate
+  grep --regexp-extended '\bCRLF\b' |
+  cut --delimiter=':' --fields=1 |
+  xargs --no-run-if-empty dos2unix --keepdate
 
 
 %files devel

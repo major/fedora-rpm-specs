@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.41.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -1135,6 +1135,10 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue May 19 2026 Dan Horák <dan[at]danny.cz> - 2:2.41.0-2
+- rebuilt for rust-openssl CVEs
+- Resolves: CVE-2026-41676 CVE-2026-41677 CVE-2026-41678 CVE-2026-41681 CVE-2026-41898 CVE-2026-42327 CVE-2026-44662
+
 * Fri Feb 27 2026 Dan Horák <dan[at]danny.cz> - 2:2.41.0-1
 - rebased to 2.41.0 (rhbz#2440223)
 

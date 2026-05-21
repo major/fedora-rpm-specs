@@ -38,6 +38,13 @@ BuildRequires:  go-vendor-tools
 BuildRequires:  lsof
 BuildRequires:  git
 
+# Delve needs ptrace access to debug processes. On F45+, yama ptrace restrictions
+# are enabled by default (ptrace_scope=1). This package relaxes them for debugging.
+# rhbz#2461719
+%if 0%{?fedora} >= 45
+Recommends:     yama-ptrace-enable
+%endif
+
 %description
 %{common_description}
 
