@@ -10,8 +10,8 @@ License:        PSF-2.0
 URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l zlib_ng
+BuildSystem:    pyproject
+BuildOption(install): --assert-license zlib_ng
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib-ng)
@@ -78,7 +78,7 @@ export PYTHON_ZLIB_NG_LINK_DYNAMIC='1'
 %check -a
 # Note that it is *not* safe to run tests in parallel (pytest-xdist, -n auto)
 # due to filesystem race conditions.
-%pytest -v -k "${k-}" tests/
+%pytest --verbose tests/
 
 
 %files -n python3-zlib-ng -f %{pyproject_files}

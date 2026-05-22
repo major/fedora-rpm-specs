@@ -13,6 +13,8 @@ Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{s
 # Fix compatibility with Python 3.15
 # https://github.com/pylint-dev/astroid/issues/3032
 Patch:          fix-python315-compatibility.patch
+# Fix KW_ONLY sentinel and namespace .pth test behavior on Python 3.15
+Patch:          https://github.com/pylint-dev/astroid/pull/3047.patch
 
 BuildArch:      noarch
 

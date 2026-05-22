@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2026a
-%define tzdata_version 2026a
-%define tzcode_version 2026a
+Version: 2026b
+%define tzdata_version 2026b
+%define tzcode_version 2026b
 Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
@@ -142,6 +142,11 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed May 13 2026 Patsy Griffin <patsy@redhat.com> - 2026b-1
+  Update to tzdata-2026b (#2461119)
+  - British Columbia’s 2026-03-08 spring forward is expected
+    to be its last transition as it moves to permanent -07.
+
 * Fri Mar 13 2026 Patsy Griffin <patsy@redhat.com> - 2026a-1
   Update to tzdata-2026a (#2443910)
   - Correct the transition times for Moldova.

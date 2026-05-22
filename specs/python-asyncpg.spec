@@ -116,8 +116,8 @@ export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 # even if we set PYTHONPATH to the installed sitearch directory. This
 # workaround is ugly, but there is nothing actually wrong with it, as the
 # install is already done by the time the check section runs:
-rm -rf asyncpg
-ln -s %{buildroot}%{python3_sitearch}/asyncpg/
+rm --recursive asyncpg
+ln --symbolic %{buildroot}%{python3_sitearch}/asyncpg/
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 k="${k-}${k+ and }not TestFlake8"

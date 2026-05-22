@@ -1,5 +1,5 @@
 Name:           libusb-compat-0.1
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Compatibility shim around libusb-1.0 offering the old 0.1 API
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.

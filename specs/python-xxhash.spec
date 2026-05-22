@@ -11,8 +11,8 @@ License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
 Source:         %{pypi_source xxhash}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l xxhash
+BuildSystem:    pyproject
+BuildOption(install): --assert-license xxhash
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libxxhash) >= 0.8.2
@@ -31,7 +31,7 @@ Summary:        %{summary}
 
 %prep -a
 # Remove bundled xxhash library
-rm -rvf deps
+rm --recursive --verbose deps
 
 
 %build -p

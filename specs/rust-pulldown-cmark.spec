@@ -4,7 +4,7 @@
 %global crate pulldown-cmark
 
 Name:           rust-pulldown-cmark
-Version:        0.13.3
+Version:        0.13.4
 Release:        %autorelease
 Summary:        Pull parser for CommonMark
 

@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        3.3.0
+Version:        3.3.1
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -329,6 +329,10 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Sun May 17 2026 Packit <hello@packit.dev> - 3.3.1-1
+- Update to version 3.3.1
+- Resolves: rhbz#2478340
+
 * Fri May 01 2026 Packit <hello@packit.dev> - 3.3.0-1
 - Update to version 3.3.0
 - Resolves: rhbz#2464593

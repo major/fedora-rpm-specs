@@ -1,7 +1,7 @@
 %global octpkg datatypes
 
 Name:           octave-%{octpkg}
-Version:        1.2.0
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Extra data types for GNU Octave
 

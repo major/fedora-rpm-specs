@@ -1,6 +1,6 @@
 Name:		libzdnn
-Version:	1.0.1
-Release:	8%{?dist}
+Version:	1.1.2
+Release:	1%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
 License:	Apache-2.0
@@ -47,19 +47,24 @@ The %{name}-static package contains the static library of %{name}.
 autoreconf -i
 
 %build
-# libzdnn needs to be built with z14 support so override the distro wide options to append -march=z14.
+# libzdnn needs to be built with at least z14 support so override the distro wide options
+# to append -march=z14 when the default is lower.
 # cflags for the init routines in e.g. zdnn_init.c should just use the distro options.
 # export CFLAGS_INIT explicitely since it is not handled by configure
-CFLAGS_INIT="%{build_cflags}"; export CFLAGS_INIT; CFLAGS="%{build_cflags} -march=z14 -mtune=z14" CXXFLAGS="%{build_cxxflags} -march=z14 -mtune=z14" %configure
+CFLAGS_INIT="%{build_cflags}"; export CFLAGS_INIT
+%if 0%{?fedora}
+CFLAGS="%{build_cflags} -march=z14 -mtune=z14" CXXFLAGS="%{build_cxxflags} -march=z14 -mtune=z14" \
+%endif
+%configure
 %make_build build
 
 %install
 %make_install
-mv $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{soversion} $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version}
-ln -s -r $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{soversion}
+mv %{buildroot}%{_libdir}/libzdnn.so.%{soversion} %{buildroot}%{_libdir}/libzdnn.so.%{version}
+ln -s -r %{buildroot}%{_libdir}/libzdnn.so.%{version} %{buildroot}%{_libdir}/libzdnn.so.%{soversion}
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/libzdnn.so
-ln -s -r $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libzdnn.so
+rm -f %{buildroot}%{_libdir}/libzdnn.so
+ln -s -r %{buildroot}%{_libdir}/libzdnn.so.%{version} %{buildroot}%{_libdir}/libzdnn.so
 
 
 %files
@@ -76,6 +81,9 @@ ln -s -r $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version} $RPM_BUILD_ROOT%{_libdi
 %{_libdir}/libzdnn.a
 
 %changelog
+* Wed May 20 2026 Dan Horák <dan[at]danny.cz> - 1.1.2-1
+- updated to 1.1.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

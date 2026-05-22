@@ -1,23 +1,28 @@
 Name:           perl-Class-Accessor-Lite
 Version:        0.08
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Minimalistic variant of Class::Accessor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Accessor-Lite
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Class-Accessor-Lite-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  %{__make}
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Test::More)
-
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Remove bundled inc::Module::Install
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)
-
+# Module
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(strict)
+# Tests
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(warnings)
+# Dependencies
+Requires:       perl(Carp)
 
 %description
 The module is a variant of Class::Accessor. It is fast and requires
@@ -26,25 +31,35 @@ up the @ISA.
 
 %prep
 %setup -q -n Class-Accessor-Lite-%{version}
-rm -r inc
+
+# Remove bundled inc::Module::Install
+rm -rv inc/
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} -c %{buildroot}
 
 %check
-%{__make} test
+make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Class/
+%{_mandir}/man3/Class::Accessor::Lite.3*
 
 %changelog
+* Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 0.08-34
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Clean MANIFEST to account for unbundling of inc::Module::Install
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

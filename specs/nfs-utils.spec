@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.9.1
-Release: 2.rc3%{?dist}
+Release: 3.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -442,7 +442,7 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd/sm.bak
 %ghost %attr(644,rpcuser,rpcuser) %{_statdpath}/state
 %attr(0644,root,root) %config(noreplace) %{_datadir}/nfs-utils/nfsmount.conf.d/10-nfsv3.conf
-%config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv3.conf
+%ghost %config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv3.conf
 %{_sbindir}/rpc.statd
 %{_sbindir}/sm-notify
 %{_sbindir}/start-statd
@@ -456,7 +456,7 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %dir %attr(555, root, root) %{_sharedstatedir}/nfs/rpc_pipefs
 %config(noreplace) %{_sysconfdir}/request-key.d/id_resolver.conf
 %attr(0644,root,root) %config(noreplace) %{_datadir}/nfs-utils/nfsmount.conf.d/10-nfsv4.conf
-%config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
+%ghost %config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_sbindir}/mount.nfs4
 %{_sbindir}/nfsidmap
 %{_sbindir}/umount.nfs4
@@ -476,6 +476,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Wed May 20 2026 Steve Dickson <steved@redhat.com> 2.9.1-3-rc3
+- Add %%ghost to clean up 10-nfsv4.conf and 10-nfsv3.conf declarations
+
 * Fri May 15 2026 Steve Dickson <steved@redhat.com> 2.9.1-2-rc3
 - Updated to the latest RC release: nfs-utils-2-9-2-rc3
 

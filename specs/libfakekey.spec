@@ -46,7 +46,7 @@ applications that use libfakekey.
 # The tarball generated from the git tag has no configure script, so this is
 # mandatory. See autogen.sh (which, however, we do not use because we need to
 # use the %%configure macro).
-autoreconf -f -i -v
+autoreconf --force --install --verbose
 %configure --disable-static
 
 

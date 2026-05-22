@@ -1,30 +1,9 @@
-################################################################################
-### Copyright 2013-2024 Broadcom. All rights reserved.
-### The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
-###
-### RPM SPEC file for building open-vm-tools packages.
-###
-###
-### This program is free software; you can redistribute it and/or modify
-### it under the terms of version 2 of the GNU General Public License as
-### published by the Free Software Foundation.
-###
-### This program is distributed in the hope that it will be useful,
-### but WITHOUT ANY WARRANTY; without even the implied warranty of
-### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-### GNU General Public License for more details.
-###
-### You should have received a copy of the GNU General Public License
-### along with this program; if not, write to the Free Software
-### Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-################################################################################
-
-%global toolsbuild      25056151
+%global toolsbuild      25218885
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
 
 Name:             open-vm-tools
-Version:          13.0.10
+Version:          13.1.0
 Release:          %autorelease
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0-only AND W3C AND LGPL-2.1-only AND ICU AND ISC AND MIT
@@ -38,6 +17,7 @@ Source4:          open-vm-tools.conf
 Source5:          vmtoolsd.pam
 
 Patch0:           open-vm-tools-gcc16.patch
+Patch1:           open-vm-tools-sigc++3.patch
 
 ExclusiveArch:    %{ix86} x86_64 aarch64
 
@@ -61,8 +41,8 @@ BuildRequires:    pkgconfig(glib-2.0) >= 2.34.0
 BuildRequires:    pkgconfig(gmodule-2.0) >= 2.34.0
 BuildRequires:    pkgconfig(gobject-2.0) >= 2.34.0
 BuildRequires:    pkgconfig(gthread-2.0) >= 2.34.0
-BuildRequires:    pkgconfig(gtk+-3.0) >= 3.0.0
-BuildRequires:    pkgconfig(gtkmm-3.0) >= 3.0.0
+BuildRequires:    pkgconfig(gtk4) >= 4.0.0
+BuildRequires:    pkgconfig(gtkmm-4.0) >= 4.0.0
 BuildRequires:    pkgconfig(icu-i18n)
 BuildRequires:    pkgconfig(libdrm)
 BuildRequires:    pkgconfig(libmspack) >= 0.0.20040308alpha
@@ -157,19 +137,18 @@ machines.
 autoreconf -vif
 
 %configure \
+    --disable-static \
     --enable-resolutionkms \
-    --enable-servicediscovery \
 %ifarch x86_64
     --enable-salt-minion \
 %endif
+    --enable-servicediscovery \
     --enable-vmwgfxctrl \
     --with-fuse \
+    --with-gtk4 \
     --with-tirpc \
     --with-xmlsec1 \
-    --without-gtk2 \
-    --without-gtkmm \
-    --without-kernel-modules \
-    --disable-static
+    --without-kernel-modules
 
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %make_build
@@ -207,7 +186,6 @@ install -p -m 644 -D %{SOURCE5} %{buildroot}%{_sysconfdir}/pam.d/vmtoolsd
 # file. We can add %%check secion once 'make check' is fixed upstream.
 
 %post
-%?ldconfig
 # Setup mount point for Shared Folders
 # NOTE: Use systemd-detect-virt to detect VMware platform because
 #       vmware-checkvm might misbehave on non-VMware platforms.
@@ -253,7 +231,6 @@ if %{_bindir}/systemctl is-active %{toolsdaemon}.service &> /dev/null; then
 fi
 
 %preun
-%?ldconfig
 %systemd_preun %{toolsdaemon}.service %{vgauthdaemon}.service
 
 if [ "$1" = "0" -a                                       \
@@ -278,7 +255,6 @@ fi
 %systemd_preun run-vmblock\\x2dfuse.mount
 
 %postun
-%?ldconfig
 %systemd_postun_with_restart %{toolsdaemon}.service %{vgauthdaemon}.service
 
 %postun desktop

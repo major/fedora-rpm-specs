@@ -91,8 +91,8 @@
 %endif
 
 Name:		musl
-Version:	1.2.5
-Release:	6%{?dist}
+Version:	1.2.6
+Release:	1%{?dist}
 Summary:	Fully featured lightweight standard C library for Linux
 License:	MIT
 URL:		https://musl.libc.org
@@ -104,9 +104,6 @@ Source2:	%{url}/musl.pub
 Patch0:		musl-1.1.18-Makefile-rename-INSTALL-var.patch
 # Support PIE with static linking
 Patch1:		musl-1.2.0-Support-static-pie-with-musl-gcc-specs.patch
-
-# From upstream to fix systemd builds on musl
-Patch10:        https://git.musl-libc.org/cgit/musl/patch/?id=fde29c04adbab9d5b081bf6717b5458188647f1c#/musl-1.2.5-stdio-skip-empty-iovec-when-buffering-is-disabled.patch
 
 # musl is only for Linux
 ExclusiveOS:	linux
@@ -330,6 +327,9 @@ EOF
 
 
 %changelog
+* Wed May 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.6-1
+- Update to 1.2.6
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

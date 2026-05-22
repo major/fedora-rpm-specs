@@ -9,7 +9,7 @@ Available features:\
 - Remove test_ and underscores for every test.
 
 Name:           python-%{pypi_name}
-Version:        6.0.0
+Version:        6.1.0
 Release:        1%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
@@ -54,6 +54,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Wed May 20 2026 Federico Pellegrin <fede@evolware.org> - 6.1.0-1
+- Bump to 6.1.0 (rhbz#2478346)
+
 * Wed Feb 25 2026 Federico Pellegrin <fede@evolware.org> - 6.0.0-1
 - Bump to 6.0.0 (rhbz#2441815)
 

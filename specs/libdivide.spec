@@ -49,13 +49,13 @@ Provides:       libdivide-static = %{version}-%{release}
 
 %prep -a
 # Disable -Werror
-sed -i 's/;-Werror//;/-Werror/d' CMakeLists.txt
+sed --in-place 's/;-Werror//;/-Werror/d' CMakeLists.txt
 
 
 %files devel
 %license LICENSE.txt
 %doc README.md
-%doc doc
+%doc doc/
 
 %{_includedir}/libdivide.h
 %{_libdir}/cmake/libdivide/

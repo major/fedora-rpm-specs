@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.5.3
+%global package_version 2.5.4
 
 %global oldname vault
 
 Name: openbao
-Version: 2.5.3
+Version: 2.5.4
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -361,17 +361,17 @@ Provides: bundled(golang(go.uber.org/zap)) = v1.27.1
 Provides: bundled(golang(go.uber.org/zap/exp)) = v0.3.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = v2.4.3
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = v0.47.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.50.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20260112195511_716be5621a96
-Provides: bundled(golang(golang.org/x/mod)) = v0.32.0
-Provides: bundled(golang(golang.org/x/net)) = v0.49.0
+Provides: bundled(golang(golang.org/x/mod)) = v0.34.0
+Provides: bundled(golang(golang.org/x/net)) = v0.53.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.34.0
-Provides: bundled(golang(golang.org/x/sync)) = v0.19.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.42.0
-Provides: bundled(golang(golang.org/x/term)) = v0.39.0
-Provides: bundled(golang(golang.org/x/text)) = v0.33.0
+Provides: bundled(golang(golang.org/x/sync)) = v0.20.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.43.0
+Provides: bundled(golang(golang.org/x/term)) = v0.42.0
+Provides: bundled(golang(golang.org/x/text)) = v0.36.0
 Provides: bundled(golang(golang.org/x/time)) = v0.14.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.41.0
+Provides: bundled(golang(golang.org/x/tools)) = v0.43.0
 Provides: bundled(golang(google.golang.org/api)) = v0.259.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20251202230838_ff82c1b0f217
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20260120221211_b8f7ae30c516

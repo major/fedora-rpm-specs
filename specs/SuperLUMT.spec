@@ -1,34 +1,40 @@
-# This flag breaks the linkage among libraries
-%undefine _ld_as_needed
-
 %global genname superlumt
 %global majorver 4.0
-%global soname_version %{majorver}.1
+%global soname_version %{version}
+
+%ifarch %{ix86}
+%bcond_with longint
+%else
+%bcond_without longint
+%endif
+
+%bcond_without check
 
 Name: SuperLUMT
-Version: %{majorver}.1
+Version: %{majorver}.2
 Release: %autorelease
 Summary: Single precision real SuperLU routines for shared memory parallel machines
 License: BSD-3-Clause
 URL: https://portal.nersc.gov/project/sparse/superlu/
-Source0: https://github.com/xiaoyeli/superlu_mt/archive/refs/tags/v%{majorver}.1/superlu_mt-%{majorver}.1.tar.gz
+Source0: https://github.com/xiaoyeli/superlu_mt/archive/refs/tags/v%{version}/superlu_mt-%{version}.tar.gz
 
+BuildRequires: cmake
 BuildRequires: make
 BuildRequires: pkgconfig(flexiblas)
 BuildRequires: pkgconfig
 BuildRequires: tcsh
 BuildRequires: gcc
+BuildRequires: gcc-gfortran
 Requires: %{name}-common = %{version}-%{release}
 
-# Patches to build shared object libraries
-# and files for testing
-Patch0: %{name}-build_shared.patch
-Patch1: %{name}-fix_testsuite.patch
-Patch2: %{name}64-build_shared.patch
-Patch3: %{name}64-fix_testsuite.patch
-Patch4: %{name}-fix_examples.patch
-Patch5: %{name}64-fix_examples.patch
-Patch6: %{name}-fix_several_prototype_errors.patch
+# This patch removes the `_OPENMP` suffix and produces a versioned library
+Patch0: %{name}-rename_shared_libraries.patch
+
+# This patch produces a versioned 64bit library
+Patch1: %{name}64-build_shared.patch
+
+# https://github.com/xiaoyeli/superlu_mt/commit/e60ed2c1dd491e1832d783f519c1851288f9d422
+Patch2: %{name}64-resolve_prototype_mismatches.patch
 
 %description
 Subroutines to solve sparse linear systems for shared memory parallel machines.
@@ -38,43 +44,20 @@ The columns of A may be preordered before factorization; the
 preordering for sparsity is completely separate from the factorization.
 
 
-%package double
-Summary: Double precision real SuperLU routines for shared memory parallel machines
-Requires: %{name}-common = %{version}-%{release}
-%description double
-This package contains double precision real SuperLU routines library
-by SuperLUMT.
-
-
-%package complex
-Summary: Single precision complex SuperLU routines for shared memory parallel machines
-Requires: %{name}-common = %{version}-%{release}
-%description complex
-This package contains single precision complex routines library by SuperLUMT.
-
-
-%package complex16
-Summary: Double precision complex SuperLU routines for shared memory parallel machines
-Requires: %{name}-common = %{version}-%{release}
-%description complex16
-This package contains double precision complex routines library by SuperLUMT.
-
-
 %package devel
 Summary: The SuperLUMT headers and development-related files
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-double%{?_isa} = %{version}-%{release}
-Requires: %{name}-complex%{?_isa} = %{version}-%{release}
-Requires: %{name}-complex16%{?_isa} = %{version}-%{release}
-
+Obsoletes: SuperLUMT-double < 0:4.0.2-1
+Obsoletes: SuperLUMT-complex < 0:4.0.2-1
+Obsoletes: SuperLUMT-complex16 < 0:4.0.2-1
 %description devel
 Shared links and header files used by SuperLUMT.
 
 ########################################################
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
+%if %{with longint}
 %package -n SuperLUMT64
 Summary: Single precision real SuperLU routines (64bit INTEGER)
-
+# Upstream: SuperLU_MT always uses 32-bit BLAS, even when LONINT is defined.
 BuildRequires: pkgconfig(flexiblas)
 Requires: %{name}-common = %{version}-%{release}
 %description -n SuperLUMT64
@@ -85,40 +68,13 @@ A*X=B. It uses Gaussian elimination with partial pivoting (GEPP).
 The columns of A may be preordered before factorization; the 
 preordering for sparsity is completely separate from the factorization.
 
-
-%package -n SuperLUMT64-double
-Summary: Double precision real SuperLU routines (64bit INTEGER)
-
-Requires: %{name}-common = %{version}-%{release}
-%description -n SuperLUMT64-double
-This package contains double precision real SuperLU routines library
-by SuperLUMT (64bit INTEGER).
-
-
-%package -n SuperLUMT64-complex
-Summary: Single precision complex SuperLU routines (64bit INTEGER)
-Requires: %{name}-common = %{version}-%{release}
-%description -n SuperLUMT64-complex
-This package contains single precision complex routines library by SuperLUMT
-(64bit INTEGER).
-
-
-%package -n SuperLUMT64-complex16
-Summary: Double precision complex SuperLU routines (64bit INTEGER)
-Requires: %{name}-common = %{version}-%{release}
-%description -n SuperLUMT64-complex16
-This package contains double precision complex routines library
-by SuperLUMT (64bit INTEGER).
-
 %package -n SuperLUMT64-devel
-Summary: The MUMPS headers and development-related files (64bit INTEGER)
-Requires: SuperLUMT64%{?_isa} = %{version}-%{release}
-Requires: SuperLUMT64-double%{?_isa} = %{version}-%{release}
-Requires: SuperLUMT64-complex%{?_isa} = %{version}-%{release}
-Requires: SuperLUMT64-complex16%{?_isa} = %{version}-%{release}
-
+Summary: The SuperLUMT64 headers and development-related files (64bit INTEGER)
+Obsoletes: SuperLUMT64-double < 0:4.0.2-1
+Obsoletes: SuperLUMT64-complex < 0:4.0.2-1
+Obsoletes: SuperLUMT64-complex16 < 0:4.0.2-1
 %description -n SuperLUMT64-devel
-Shared links, header files for %{name} (64bit INTEGER).
+Shared links, header files for SuperLUMT (64bit INTEGER).
 %endif
 ##########################################################
 
@@ -130,221 +86,111 @@ BuildArch: noarch
 This package contains common documentation files for SuperLUMT.
 
 %prep
-%setup -q -n superlu_mt-%{majorver}.1
+%setup -qc
 
-rm -fr SRC/mc64ad.f.bak
 find . -type f | sed -e "/TESTING/d" | xargs chmod a-x
+
 # Remove the shippped executables from EXAMPLE
 find EXAMPLE -type f | while read file
 do
    [ "$(file $file | awk '{print $2}')" = ELF ] && rm $file || :
 done
 
-mkdir -p lib
+# Remove bundled CBLAS source files
+rm -rf CBLAS
 
-# Duplicating of examples source code
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-cp -a EXAMPLE EXAMPLE64
+pushd superlu_mt-%{version}
+%patch -P 0 -p1 -b .backup0
+%patch -P 2 -p1 -b .backup2
+popd
+
+%if %{with longint}
+cp -a superlu_mt-%{version} superlu_mt64-%{version}
+pushd superlu_mt64-%{version}
+%patch -P 1 -p1 -b .backup1
+popd
 %endif
-
-%patch -P 0 -p0
-%patch -P 1 -p0
-%patch -P 4 -p0
-%patch -P 6 -p1
 
 %build
-cp -p MAKE_INC/make.linux.openmp make.inc
-sed -i -e "s|-O3|$RPM_OPT_FLAGS -std=gnu17|" \
-make.inc
-
-## Build lib ##########################################
-export LIBBLASLINK=-lflexiblas
-export LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK"
-
-make -j1 \
- SONAME=%{majorver} \
- BLASLIB="-L%{_libdir} $LIBBLASLINK" \
- PREDEFS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- NOOPTS="-O0 -fPIC -fopenmp $LIBBLASLINK" \
- CDEFS=-DAdd_ \
- FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- FORTRAN=gfortran \
- LOADER=gcc \
- CC=gcc \
- CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
- MATHLIB=-lm \
- MPLIB= -C SRC single double complex complex16
- 
-cp -p SRC/libsuperlumt_*.so.%{majorver} lib/
-cp -p SRC/libsuperlumt_*.so lib/
-
-# Make example files
-export LIBBLASLINK=-lflexiblas
-export LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK"
-
-make -j1 \
- SONAME=%{majorver} \
- BLASLIB="-L%{_libdir} $LIBBLASLINK" \
- PREDEFS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- NOOPTS="-O0 -fPIC -fopenmp $LIBBLASLINK" \
- CDEFS=-DAdd_ \
- FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- FORTRAN=gfortran \
- LOADER=gcc \
- LOADOPTS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- CC=gcc \
- CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
- LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
- MATHLIB=-lm \
- MPLIB= -C EXAMPLE single double complex complex16
-
-make -C SRC clean
-make -C TESTING/MATGEN clean
-#######################################################
-
-## Build 64 ##########################################
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-# Reverting previous patches
-# and patch again for new libraries
-patch -R -p0 < %{PATCH0}
-patch -R -p0 < %{PATCH1}
-patch -p0 < %{PATCH2}
-patch -p0 < %{PATCH3}
-patch -p0 < %{PATCH5}
-
-export LIBBLASLINK=-lflexiblas64
-export LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK"
-
-make -j1 \
- SONAME=%{majorver} \
- BLASLIB="-L%{_libdir} $LIBBLASLINK" \
- PREDEFS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
- NOOPTS="-O0 -fPIC -fopenmp $LIBBLASLINK" \
- CDEFS=-DAdd_ \
- FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -fdefault-integer-8" \
- FORTRAN=gfortran \
- CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
- LOADER=gcc \
- CC=gcc \
- LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
- MATHLIB=-lm \
- MPLIB= -C SRC single double complex complex16
-
-cp -p SRC/libsuperlumt64_*.so.%{majorver} lib/
-cp -p SRC/libsuperlumt64_*.so lib/
-
-# Make example files
-
-export LIBBLASLINK=-lflexiblas64
-export LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK"
-
-make -j1 \
- SONAME=%{majorver} \
- BLASLIB="-L%{_libdir} $LIBBLASLINK" \
- PREDEFS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
- NOOPTS="-O0 -fPIC -fopenmp $LIBBLASLINK" \
- CDEFS=-DAdd_ \
- FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -fdefault-integer-8" \
- FORTRAN=gfortran \
- CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
- LOADER=gcc \
- LOADOPTS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
- CC=gcc \
- LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
- MATHLIB=-lm \
- MPLIB= -C EXAMPLE64 single double complex complex16
+## Build 32bit library ##
+pushd superlu_mt-%{version}
+export LDFLAGS="%{__global_ldflags} -fPIC"
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17 -fPIC -fopenmp -I%{_includedir}/flexiblas"
+%cmake -DPLAT:STRING=_OPENMP -DSUPERLUMT_INSTALL_INCLUDEDIR:STRING=%{_includedir}/%{name} \
+       -Denable_fortran:BOOL=ON -DCMAKE_EXE_LINKER_FLAGS:STRING=-Wl,--copy-dt-needed-entries \
+       -DBLAS_flexiblas_LIBRARY:FILEPATH=%{_libdir}/libflexiblas.so \
+       -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DLONGINT:BOOL=OFF \
+%if %{without check}
+       -Denable_tests:BOOL=OFF -Denable_examples:BOOL=OFF
 %endif
+%cmake_build
+popd
+#########################
 
+## Build 64bit library ##
+%if %{with longint}
+pushd superlu_mt64-%{version}
+export LDFLAGS="%{__global_ldflags} -fPIC -lflexiblas"
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17 -fPIC -fopenmp -I%{_includedir}/flexiblas"
+%cmake -DPLAT:STRING=_OPENMP -DSUPERLUMT_INSTALL_INCLUDEDIR:STRING=%{_includedir}/%{name}64 \
+       -Denable_fortran:BOOL=ON -DCMAKE_EXE_LINKER_FLAGS:STRING=-Wl,--copy-dt-needed-entries \
+       -DLONGINT:BOOL=ON -DBLAS_flexiblas_LIBRARY:FILEPATH=%{_libdir}/libflexiblas.so \
+       -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+%if %{without check}
+       -Denable_tests:BOOL=OFF -Denable_examples:BOOL=OFF
+%endif
+%cmake_build
+popd
+%endif
+##########################
+
+%if %{with check}
 %check
-pushd EXAMPLE
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-./pslinsol < big.rua
-./pdlinsol < big.rua
-./pclinsol < cmat
-./pzlinsol < cmat
-./pslinsolx < big.rua
-./pdlinsolx < big.rua
-./pclinsolx < cmat
-./pzlinsolx < cmat
-./pslinsolx1 < big.rua
-./pdlinsolx1 < big.rua
-./pclinsolx1 < cmat
-./pzlinsolx1 < cmat
+pushd superlu_mt-%{version}
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:MATGEN
+%ctest
 popd
 
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-pushd EXAMPLE64
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-./pslinsol < big.rua
-./pdlinsol < big.rua
-./pclinsol < cmat
-./pzlinsol < cmat
+%if %{with longint}
+pushd superlu_mt64-%{version}
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:MATGEN
+%ctest
 popd
+%endif
 %endif
 
 %install
-mkdir -p %{buildroot}%{_libdir}
-mkdir -p %{buildroot}%{_includedir}/%{name}
-cp -P lib/libsuperlumt_*.so.%{majorver} %{buildroot}%{_libdir}/
-install -p SRC/*.h %{buildroot}%{_includedir}/%{name}/
-chmod a-x %{buildroot}%{_includedir}/%{name}/*.h
-cp -P lib/libsuperlumt_*.so %{buildroot}%{_libdir}/
+pushd superlu_mt-%{version}
+%cmake_install
+popd
 
-for i in s d c z
-do
- ln -sf  libsuperlumt_${i}.so.%{majorver} %{buildroot}%{_libdir}/libsuperlumt_${i}.so
-done
-
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-cp -P lib/libsuperlumt64_*.so.%{majorver} %{buildroot}%{_libdir}/
-cp -P lib/libsuperlumt64_*.so %{buildroot}%{_libdir}/
-
-for i in s d c z
-do
- ln -sf  libsuperlumt64_${i}.so.%{majorver} %{buildroot}%{_libdir}/libsuperlumt64_${i}.so
-done
+%if %{with longint}
+pushd superlu_mt64-%{version}
+%cmake_install
+popd
 %endif
 
 %files
-%{_libdir}/libsuperlumt_s.so.%{majorver}
-
-%files double
-%{_libdir}/libsuperlumt_d.so.%{majorver}
-
-%files complex
-%{_libdir}/libsuperlumt_c.so.%{majorver}
-
-%files complex16
-%{_libdir}/libsuperlumt_z.so.%{majorver}
+%{_libdir}/libsuperlu_mt.so.4
+%{_libdir}/libsuperlu_mt.so.%{majorver}
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/libsuperlumt_*.so
+%{_libdir}/libsuperlu_mt.so
 
-########################################################
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
+%if %{with longint}
 %files -n SuperLUMT64
-%{_libdir}/libsuperlumt64_s.so.%{majorver}
-
-%files -n SuperLUMT64-double
-%{_libdir}/libsuperlumt64_d.so.%{majorver}
-
-%files -n SuperLUMT64-complex
-%{_libdir}/libsuperlumt64_c.so.%{majorver}
-
-%files -n SuperLUMT64-complex16
-%{_libdir}/libsuperlumt64_z.so.%{majorver}
+%{_libdir}/libsuperlu_mt64.so.4
+%{_libdir}/libsuperlu_mt64.so.%{majorver}
 
 %files -n SuperLUMT64-devel
-%{_includedir}/%{name}/
-%{_libdir}/libsuperlumt64_*.so
+%{_includedir}/%{name}64/
+%{_libdir}/libsuperlu_mt64.so
 %endif
-#######################################################
 
 %files common
-%license License.txt
-%doc DOC README
+%license superlu_mt-%{version}/License.txt
+%doc superlu_mt-%{version}/DOC superlu_mt-%{version}/README
 
 %changelog
 %autochangelog

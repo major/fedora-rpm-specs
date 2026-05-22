@@ -1,5 +1,5 @@
 Name:           perl-XML-Parser
-Version:        2.58
+Version:        2.59
 Release:        1%{?dist}
 Summary:        Perl module for parsing XML documents
 
@@ -36,6 +36,7 @@ BuildRequires:  perl(IO::Handle)
 # LWPExternEnt.pl script is loaded by Parser.pm
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::file)
@@ -49,6 +50,7 @@ BuildRequires:  perl(warnings)
 Requires:       perl(IO::File)
 Requires:       perl(IO::Handle)
 Requires:       perl(LWP::UserAgent)
+Requires:       perl(Scalar::Util)
 Requires:       perl(URI)
 Requires:       perl(URI::file)
 
@@ -88,13 +90,13 @@ for F in t/*.t; do
 done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -a -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
+%{_fixperms} %{buildroot}/*
 
 for file in samples/REC-xml-19980210.xml; do
   iconv -f iso-8859-1 -t utf-8 < "$file" > "${file}_"
@@ -139,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.59-1
+- 2.59 bump (rhbz#2480134)
+
 * Tue Apr 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.58-1
 - 2.58 bump (rhbz#2461138)
 

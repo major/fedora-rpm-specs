@@ -10,8 +10,8 @@
 %{bcond_without perl_File_MimeInfo_enables_usage}
 
 Name:           perl-File-MimeInfo
-Version:        0.36
-Release:        2%{?dist}
+Version:        0.37
+Release:        1%{?dist}
 Summary:        Determine file type and open application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-MimeInfo
@@ -25,8 +25,10 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(B)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Encode::Locale)
 BuildRequires:  perl(Exporter)
@@ -61,6 +63,7 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 # Test::Pod::No404s not used
 %endif
+Requires:       perl(Cwd)
 Requires:       perl(File::BaseDir) >= 0.03
 Requires:       perl(File::DesktopEntry) >= 0.04
 %if %{with perl_File_MimeInfo_enables_stdin}
@@ -137,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 0.37-1
+- 0.37 bump (rhbz#2480138)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

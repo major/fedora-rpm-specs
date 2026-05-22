@@ -1,13 +1,13 @@
 %global pypi_name propcache
 
 Name:           python-%{pypi_name}
-Version:        0.4.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Module for fast property caching
 
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/propcache
-Source:        https://github.com/aio-libs/propcache/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         https://github.com/aio-libs/propcache/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

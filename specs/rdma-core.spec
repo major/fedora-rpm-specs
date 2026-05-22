@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 62.0
+Version: 63.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -625,6 +625,7 @@ fi
 %{_libdir}/libmlx4.so.*
 %config(noreplace) %{_sysconfdir}/libibverbs.d/*.driver
 %doc %{_pkgdocdir}/libibverbs.md
+%{_prefix}/lib/sysusers.d/rdma.conf
 
 %files -n libibverbs-utils
 %{_bindir}/ibv_*

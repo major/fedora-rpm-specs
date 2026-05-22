@@ -10,11 +10,8 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    4f21bb7768e1c997722ccc7efb1d6b5c11bfd471
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   lines-of-code
-%global gh_date      2026-02-06
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,32 +22,32 @@
 %global ns_project   LinesOfCode
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Counting the lines of code in PHP source code, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
-BuildRequires: (php-composer(nikic/php-parser)     >= 5.0   with php-composer(nikic/php-parser)     < 6)
+BuildRequires: (php-composer(nikic/php-parser)     >= 5.7.0 with php-composer(nikic/php-parser)     < 6)
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.0"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.1.10"
+BuildRequires:  phpunit13 >= 13.1.10
 %endif
 
 # from composer.json, "require": {
 #        "php": ">=8.4",
-#        "nikic/php-parser": "^5.0"
+#        "nikic/php-parser": "^5.7.0"
 Requires:       php(language) >= 8.4
-Requires:      (php-composer(nikic/php-parser)     >= 5.0   with php-composer(nikic/php-parser)     < 6)
+Requires:      (php-composer(nikic/php-parser)     >= 5.7.0 with php-composer(nikic/php-parser)     < 6)
 # from phpcompatinfo report for version 2.0.0
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -67,7 +64,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -114,6 +111,10 @@ exit $ret
 
 
 %changelog
+* Wed May 20 2026 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+- raise dependency on nikic/php-parser 5.7.0
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 5.0.0-2
 - enable test suite
 

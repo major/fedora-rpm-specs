@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -275,7 +275,7 @@ BuildRequires:  pkgconfig(libzstd)
 
 %if %{with test}
 %if %{with preview}
-BuildRequires:  amdsmi%{pkg_suffix}-static
+BuildRequires:  amdsmi%{pkg_suffix}-devel
 %endif
 BuildRequires:  libomp-devel
 BuildRequires:  rocminfo%{pkg_suffix}

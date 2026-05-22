@@ -17,6 +17,8 @@
 %global forgeurl0 https://github.com/NLnetLabs/unbound
 %global downloads https://nlnetlabs.nl/downloads
 %global _hardened_build 1
+%global upstream_sources 0 1
+%global pgp_signed_sources 1
 
 #global extra_version rc1
 
@@ -40,13 +42,14 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.25.0
+Version: 1.25.1
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 VCS: git:%{forgeurl0}
-Source: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
-Source1: unbound.service
+Source0: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
+Source1: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz.asc
+Source2: unbound.service
 Source3: unbound.munin
 Source4: unbound_munin_
 Source5: mkroot.sh
@@ -60,7 +63,6 @@ Source14: unbound.sysconfig
 Source15: unbound-anchor.timer
 Source16: unbound-munin.README
 Source17: unbound-anchor.service
-Source18: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz.asc
 # https://nlnetlabs.nl/signing-keys/
 Source19: https://nlnetlabs.nl/downloads/keys/releases-g2.asc#/nlnetlabs2026-g2.asc
 Source20: unbound.sysusers
@@ -227,7 +229,7 @@ in initramfs.
 
 %prep
 %if 0%{?fedora} || 0%{?rhel} >= 9
-%{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE18}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %global pkgname %{name}-%{version}%{?extra_version}
 
@@ -340,7 +342,7 @@ install -m 0755 streamtcp %{buildroot}%{_sbindir}/unbound-streamtcp
 install -p -m 0644 doc/example.conf %{buildroot}%{_sysconfdir}/unbound/unbound.conf
 
 install -d -m 0755 %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig
-install -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/unbound.service
+install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/unbound.service
 install -p -m 0644 %{SOURCE7} %{buildroot}%{_unitdir}/unbound-keygen.service
 install -p -m 0644 %{SOURCE15} %{buildroot}%{_unitdir}/unbound-anchor.timer
 install -p -m 0644 %{SOURCE17} %{buildroot}%{_unitdir}/unbound-anchor.service

@@ -1,5 +1,5 @@
 Name:           python-aiohappyeyeballs
-Version:        2.6.1
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Happy Eyeballs for asyncio
 
@@ -12,13 +12,9 @@ Source:         %{url}/archive/v%{version}/aiohappyeyeballs-%{version}.tar.gz
 # Downstream-only: remove pytest options for coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
-# chore(deps-dev): bump pytest-asyncio from 0.26.0 to 1.1.0
-# https://github.com/aio-libs/aiohappyeyeballs/pull/181
-# Cherry-picked to v2.6.1, without changes to poetry.lock.
-Patch:          0001-chore-deps-dev-bump-pytest-asyncio-from-0.26.0-to-1..patch
 
 BuildSystem:    pyproject
-BuildOption(install): --no-assert-license aiohappyeyeballs
+BuildOption(install): --assert-license aiohappyeyeballs
 
 BuildArch:      noarch
 
@@ -47,7 +43,6 @@ Summary:        %{summary}
 
 
 %files -n python3-aiohappyeyeballs -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 

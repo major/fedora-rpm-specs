@@ -8,12 +8,13 @@
 Name:           perl-YAML-LibYAML
 Epoch:          1
 Version:        0.907.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-v%{version}.tar.gz
 Patch0:         YAML-LibYAML-0.79-Unbundled-libyaml.patch
+Patch1:         YAML-LibYAML-0.907.0-Fix-application-crash-on-missing-JSON-PP-dependency.patch
 
 # Build
 BuildRequires:  coreutils
@@ -100,7 +101,8 @@ with "%{_libexecdir}/%{name}/test".
 # Unbundled libyaml, the source files are the same as in libyaml-0.2.4
 # It was determined by comparing commits in upstream repo:
 # https://github.com/yaml/libyaml/
-%patch -P 0 -p1 -b .orig
+%patch -P 0 -p1
+%patch -P 1 -p1
 for file in api.c dumper.c emitter.c loader.c parser.c reader.c scanner.c \
     writer.c yaml.h yaml_private.h; do
     rm LibYAML/$file
@@ -162,6 +164,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> -
+- Safely check for JSON::PP in 13-utf8.t
+
 * Mon May 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.907.0-1
 - 0.907.0 bump (rhbz#2468643)
 

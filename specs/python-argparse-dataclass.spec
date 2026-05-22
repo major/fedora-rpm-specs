@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest --doctest-modules -v
+%pytest --doctest-modules --verbose
 
 
 %files -n python3-argparse-dataclass -f %{pyproject_files}

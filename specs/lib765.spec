@@ -2,8 +2,7 @@ Name:           lib765
 Version:        0.4.2
 Release:        34%{?dist}
 Summary:        A library for emulating the uPD765a floppy controller
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.seasip.demon.co.uk/Unix/LibDsk
 Source0:        http://www.seasip.demon.co.uk/Unix/LibDsk/%{name}-%{version}.tar.gz
 BuildRequires: libtool

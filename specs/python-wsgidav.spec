@@ -29,9 +29,9 @@ Source1:        wsgidav.1
 # https://github.com/mar10/wsgidav/issues/340#event-17603260087
 Patch:         %{url}/commit/991a23f5f5f3f46232eacd96666e23c1b5e110b5.patch
 
-BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x pam -t
-BuildOption(install):   -l wsgidav
+BuildSystem:   pyproject
+BuildOption(generate_buildrequires): --extras pam --tox
+BuildOption(install): --assert-license wsgidav
 # - wsgidav.dc.nt_dc: platform-specific (Windows); requires
 #   https://pypi.org/project/pywin32/, not packaged for obvious reasons
 # - wsgidav.prop_man.couch_property_manager: requires python-couchdb, retired
@@ -44,13 +44,13 @@ BuildOption(install):   -l wsgidav
 # - wsgidav.samples.mysql_dav_provider: requires python-mysqlclient, which *is*
 #   packaged, but which we do not want to pull in just for an import check
 BuildOption(check):     %{shrink:
-                        -e wsgidav.dc.nt_dc
-                        -e wsgidav.prop_man.couch_property_manager
-                        %{?!with_pymongo:-e wsgidav.prop_man.mongo_property_manager}
-                        %{?!with_mercurial:-e wsgidav.samples.hg_dav_provider}
-                        %{?!with_pymongo:-e wsgidav.samples.mongo_dav_provider}
-                        %{?!with_mysqlclient:-e wsgidav.samples.mysql_dav_provider}
-                        }
+    --exclude wsgidav.dc.nt_dc
+    --exclude wsgidav.prop_man.couch_property_manager
+    %{?!with_pymongo:--exclude wsgidav.prop_man.mongo_property_manager}
+    %{?!with_mercurial:--exclude wsgidav.samples.hg_dav_provider}
+    %{?!with_pymongo:--exclude wsgidav.samples.mongo_dav_provider}
+    %{?!with_mysqlclient:--exclude wsgidav.samples.mysql_dav_provider}
+    }
 
 
 BuildArch:      noarch
@@ -105,7 +105,8 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a
@@ -113,7 +114,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 # pip-install pytest-html. Rather than patching this out (and patching out the
 # pytest arguments related to pytest-cov and pytest-html), we just run pytest
 # directly.
-%pytest -ra -v -x ${ignore-}
+%pytest -ra --verbose
 
 
 %files -n python3-wsgidav -f %{pyproject_files}

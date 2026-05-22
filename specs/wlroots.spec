@@ -4,7 +4,7 @@
 %global liftoff_ver 0.5.0
 
 Name:           wlroots
-Version:        0.20.0
+Version:        0.20.1
 Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
@@ -143,6 +143,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Tue May 19 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.20.1-1
+- Update to 0.20.1 (#2480014)
+
 * Thu Mar 26 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.20.0-1
 - Update to 0.20.0 (#2435845)
 

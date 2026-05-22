@@ -150,6 +150,7 @@ Requires:       python3dist(html2text)
 Requires:       python3dist(markdown) >= 3.0
 Requires:       python3dist(pychm)
 Requires:       python3dist(pyqt6-sip)
+Requires:       python3dist(tzlocal)
 %if %{undefined flatpak}
 Requires:       udisks2
 %endif

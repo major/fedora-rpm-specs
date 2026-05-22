@@ -10,7 +10,7 @@
 %bcond_with tests
 
 %global upstream_version 9.1.0
-%global upstream_prever  rc2
+#%%global upstream_prever
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
@@ -449,6 +449,10 @@ fi
 
 
 %changelog
+* Tue May 19 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.1.0
+- Valkey 9.1.0
+- Fixes CVE-2026-23631 CVE-2026-25243 CVE-2026-23479
+
 * Wed Apr 29 2026 Remi Collet <remi@remirepo.net> - 9.1.0~rc2
 - Valkey 9.1.0-rc2
 - Drop lua module (built statically)

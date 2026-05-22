@@ -6,8 +6,8 @@
 Name:    oxygen-icon-theme
 Summary: Oxygen icon theme
 Epoch:   1
-Version: 6.1.0
-Release: 4%{?dist}
+Version: 6.2.0
+Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPL-3.0-or-later
@@ -22,6 +22,7 @@ BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 
+BuildRequires:  libappstream-glib
 BuildRequires:  hardlink
 # for optimizegraphics
 BuildRequires:  kde-dev-scripts
@@ -93,14 +94,20 @@ gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 %transfiletriggerpostun -- %{_datadir}/icons/oxygen
 gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.oxygenicon.metainfo.xml
 
 %files
 %doc AUTHORS CONTRIBUTING
 %license COPYING
 %{_datadir}/icons/oxygen/
+%{_metainfodir}/org.kde.oxygenicon.metainfo.xml
 
 
 %changelog
+* Wed May 20 2026 Steve Cossette <farchord@gmail.com> - 1:6.2.0-1
+- 6.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

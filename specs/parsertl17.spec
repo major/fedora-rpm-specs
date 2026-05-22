@@ -68,8 +68,8 @@ find . -type f -exec file '{}' '+' |
 # There are not yet any tests that can be built or run via CMake. This is a
 # compile-only “smoke test.”
 %set_build_flags
-${CXX-g++} -I"${PWD}/include" ${CPPFLAGS} ${CXXFLAGS} -o include_test ${LDFLAGS} \
-    tests/include_test/*.cpp
+${CXX-g++} -I"${PWD}/include" ${CPPFLAGS} ${CXXFLAGS} -o include_test \
+    ${LDFLAGS} tests/include_test/*.cpp
 
 
 %files devel

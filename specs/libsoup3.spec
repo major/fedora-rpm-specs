@@ -21,6 +21,9 @@ Patch:   no-ntlm-in-fips-mode.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2433867
 Patch:   0001-CVE-2026-1539-Also-remove-Proxy-Authorization-header-on-cross-origin-redirect.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2452935
+Patch:   0002-CVE-2026-5119-cookies-do-not-send-cookies-to-HTTP-proxy-for-HTTPS-request.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: glib-networking >= %{glib2_version}

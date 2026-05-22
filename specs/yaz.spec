@@ -1,5 +1,5 @@
 Name:           yaz
-Version:        5.37.1
+Version:        5.37.3
 Release:        1%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
@@ -150,6 +150,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Thu May 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.37.3-1
+- 5.37.3
+
 * Sat May 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.37.1-1
 - 5.37.1
 

@@ -1,48 +1,63 @@
 Name:           perl-Meta-Builder
 Version:        0.004
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Tools for creating Meta objects to track custom metrics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Meta-Builder
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Meta-Builder-%{version}.tar.gz
 BuildArch:      noarch
+# Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(Fennec::Lite)
 BuildRequires:  perl(Module::Build)
+# Module
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(Fennec::Lite)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
+# Dependencies
+# (none)
 
 %description
 Meta programming is becoming more and more popular. The popularity of Meta
 programming comes from the fact that many problems are made significantly
 easier. There are a few specialized Meta tools out there, for instance
-Class:MOP which is used by Moose to track class metadata.
+Class::MOP, which is used by Moose to track class metadata.
 
 %prep
 %setup -q -n Meta-Builder-%{version}
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
-%doc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/Meta/
+%{_mandir}/man3/Meta::Builder.3*
+%{_mandir}/man3/Meta::Builder::Base.3*
+%{_mandir}/man3/Meta::Builder::Util.3*
 
 %changelog
+* Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 0.004-22
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+  - Package Changes file
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

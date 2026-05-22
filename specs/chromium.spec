@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 148.0.7778.167
+Version: 148.0.7778.178
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -290,9 +290,6 @@ Patch22: chromium-131-fix-qt-ui.pach
 #//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
 #  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
 Patch23: chromium-143-revert-libpng_for_testonly.patch
-
-# Get around the problem of auto darkmode webcontent inverting and making them unreadable
-Patch30: chromium-148-autodarkmode-workaround.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
@@ -521,7 +518,12 @@ Patch511: 0001-fips-disable-options.patch
 Patch520: build-with-wasm-rollup.patch
 Patch521: disable-ai.patch
 
-# upstream patches
+# Upstream patches
+# Fix auto dark mode
+Patch600: chromium-148-Add-luminance-ratio-feature-for-dark-mode-image-classification.patch
+Patch601: chromium-148-Prefix-dark-mode-decision-tree-threshold-constants-with-kFeature.patch
+Patch602: chromium-148-Add-saturation-feature-for-dark-mode-image-classification.patch
+Patch603: chromium-148-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1068,7 +1070,6 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
-%patch -P30 -p1 -b .autodarkmode-workaround
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 
 %if ! %{bundlebrotli}
@@ -1234,6 +1235,11 @@ Qt6 UI for chromium.
 %patch -P521 -p1 -b .disable-ai
 
 # Upstream patches
+# improve auto dark image inversion logic
+%patch -P600 -p1 -b .Add-luminance-ratio-feature-for-dark-mode-image-classification
+%patch -P601 -p1 -b .Prefix-dark-mode-decision-tree-threshold-constants-with-kFeature
+%patch -P602 -p1 -b .Add-saturation-feature-for-dark-mode-image-classification
+%patch -P603 -p1 -b .Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1885,6 +1891,11 @@ fi
 %endif
 
 %changelog
+* Wed May 20 2026 Than Ngo <than@redhat.com> - 148.0.7778.178-1
+- Update to 148.0.7778.178
+- Backport upstream patches to improve auto dark image inversion logic
+- Update default chromium browser config
+
 * Fri May 15 2026 Than Ngo <than@redhat.com> - 148.0.7778.167-1
 - Update to 148.0.7778.167
    * CVE-2026-8509: Heap buffer overflow in WebML

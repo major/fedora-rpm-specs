@@ -59,17 +59,17 @@ License:        LGPL-2.1-or-later AND MIT AND CC0-1.0
 # X11:
 #   - install-sh
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFAP-no-warranty-disclaimer AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later WITH Libtool-exception AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                GPL-3.0-or-later AND
-                GPL-3.0-or-later WITH Autoconf-exception-generic AND
-                GPL-3.0-or-later WITH Autoconf-exception-macro AND
-                X11
-                }
+    %{license} AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later WITH Autoconf-exception-macro AND
+    X11
+    }
 URL:            https://fplll.github.io/fplll/
 Source0:        https://github.com/fplll/fplll/releases/download/%{version}/fplll-%{version}.tar.gz
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
@@ -212,10 +212,11 @@ export LDFLAGS="${LDFLAGS-} $(pkgconf --libs nlohmann_json)"
 
 # Eliminate hardcoded rpaths, and work around libtool moving all -Wl options
 # after the libraries to be linked
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|-nostdlib|-Wl,--as-needed &|' \
-    -i libtool
+sed --regexp-extended --in-place \
+    --expression='s/^(hardcode_libdir_flag_spec=).*/\1""/g' \
+    --expression='s/^(runpath_var=)LD_RUN_PATH/\1DIE_RPATH_DIE/g' \
+    --expression='s/(CC="g..)"/\1 -Wl,--as-needed"/' \
+    libtool
 
 
 %build
@@ -225,8 +226,8 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %install
 %make_install
 
-install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p \
-    '%{SOURCE1}' '%{SOURCE2}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}' '%{SOURCE2}'
 
 
 %check

@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        89%{?dist}
+Release:        90%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -117,6 +117,8 @@ Patch49:        tog-pegasus-2.14.1-bin-sbin-unify.patch
 Patch50:        pegasus-2.14.1-ssl-certs-gen-changes.patch
 # 51: add mechanism to load fall back certificate/key pair
 Patch51:        pegasus-2.14.1-post-quantum.patch
+# 52: fix OpenSSL 4.0 compatibility
+Patch52:        pegasus-2.14.1-openssl-4.0-fix.patch
 
 BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -278,6 +280,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch -P49 -p1 -b .bin-sbin-unify
 %patch -P50 -p1 -b .ssl-certs-gen-changes
 %patch -P51 -p1 -b .post-quantum
+%patch -P52 -p1 -b .openssl-4.0-fix
 
 
 %build
@@ -577,6 +580,9 @@ fi
 
 
 %changelog
+* Tue May 12 2026 Pavol Žáčik <pzacik@redhat.com> - 2:2.14.1-90
+- Add OpenSSL 4.0 compatibility patch
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2:2.14.1-89
 - Rebuilt for net-snmp 5.9.5.2
 

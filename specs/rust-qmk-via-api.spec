@@ -2,21 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pastey
+%global crate qmk-via-api
 
-Name:           rust-pastey
-Version:        0.2.3
+Name:           rust-qmk-via-api
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Macros for all your token pasting needs. Successor of paste
+Summary:        VIA api implementation for QMK-based keyboards
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pastey
+License:        GPL-3.0-only
+URL:            https://crates.io/crates/qmk-via-api
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Remove cdylib crate type. Upstream builds a shared library, which is
+#   intended to be linked by the Python bindings
+#   https://pypi.org/project/qmk-via-api/, which are co-developed in the same
+#   git repository. This is fine, but installing the shared library system-wide
+#   would require either downstream SONAME versioning or integrating cargo-c
+#   support, something like https://github.com/rust-lang/rustc-demangle/pull/74.
+#   Let’s put off that work until there is demand for the Python bindings.
+#   Perhaps it will not be needed.
+Patch:          qmk-via-api-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Macros for all your token pasting needs. Successor of paste.}
+VIA api implementation for QMK-based keyboards.}
 
 %description %{_description}
 
@@ -30,9 +40,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

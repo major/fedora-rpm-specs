@@ -1,6 +1,6 @@
 Name:           inotify-tools
-Version:        4.23.9.0
-Release:        6%{?dist}
+Version:        4.25.9.0
+Release:        1%{?dist}
 Summary:        Command line utilities for inotify
 
 # GPL-2.0-only: the project as a whole
@@ -9,7 +9,6 @@ Summary:        Command line utilities for inotify
 License:        GPL-2.0-only AND GPL-2.0-only WITH Linux-syscall-note AND LGPL-2.1-or-later
 URL:            https://github.com/inotify-tools/inotify-tools
 Source0:        https://github.com/inotify-tools/inotify-tools/archive/%{version}/inotify-tools-%{version}.tar.gz
-Patch0:         too-many-args.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  autoconf
@@ -40,8 +39,7 @@ that use the libinotifytools library.
 %configure \
         --disable-dependency-tracking \
         --disable-static \
-        --enable-doxygen \
-        --enable-fanotify
+        --enable-doxygen
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -56,13 +54,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %install
 %make_install
 
-find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
+find %{buildroot} -type f -name "*.la" -delete
 # We'll install documentation in the proper place
 rm -rf %{buildroot}/%{_datadir}/doc/
-
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -89,6 +83,11 @@ rm -rf %{buildroot}/%{_datadir}/doc/
 
 
 %changelog
+* Wed Feb 11 2026 Jerry James <loganjerry@gmail.com> - 4.25.9.0-1
+- Update to 4.25.9.0
+- Drop upstreamed patch to fix memory corruption with too many arguments
+- Minor spec file cleanups
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.23.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

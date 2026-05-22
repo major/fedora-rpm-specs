@@ -2,7 +2,7 @@ Name: mbedtls
 Version: 3.6.6
 Release: 2%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
-License: Apache-2.0 or GPLv2.0-or-later
+License: Apache-2.0 OR GPL-2.0-or-later
 URL: https://www.trustedfirmware.org/projects/mbed-tls
 Source0: https://github.com/Mbed-TLS/%{name}/archive/refs/tags/%{name}-%{version}.tar.bz2
 

@@ -1,10 +1,10 @@
 %global selinuxtype targeted
 %global moduletype distributed
-%define semodule_version 1.1
+%define semodule_version 1.2
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.4.5
+Version: 1.5
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -227,6 +227,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed May 20 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.5-1
+- fapolicyd-1.5
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.5
+
 * Mon Mar 30 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.5-1
 - fapolicyd-1.4.5
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.5

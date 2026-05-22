@@ -5,7 +5,7 @@
 %global crate crypto-common
 
 Name:           rust-crypto-common
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Common traits used by cryptographic algorithms
 

@@ -12,6 +12,10 @@ License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{url}/archive/%{version}/typeguard-%{version}.tar.gz
 
+# Fix compatibility with Python 3.15: cache_from_source() debug_override is keyword-only
+# Upstream PR: https://github.com/agronholm/typeguard/pull/554.patch
+Patch:          Fix-compatibility-with-Python-3.15.patch
+
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires):  -g test
 BuildOption(install):   -l typeguard

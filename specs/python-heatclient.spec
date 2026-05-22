@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global with_doc 1
 
@@ -11,7 +11,7 @@ heatclient module), and a command-line script (heat). Each implements 100% of
 the OpenStack Heat API.}
 
 Name:    python-heatclient
-Version: 5.1.0
+Version: 5.2.0
 Release: %autorelease
 Summary: Python API and CLI for OpenStack Heat
 

@@ -2,7 +2,7 @@
 %bcond mingw 1
 
 Name:           openjph
-Version:        0.27.2
+Version:        0.27.3
 Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause

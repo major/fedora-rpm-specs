@@ -1,41 +1,41 @@
 Name:           perl-Validation-Class
 Version:        7.900059
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Powerful Data Validation Framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Validation-Class
 Source0:        https://cpan.metacpan.org/authors/id/C/CK/CKRAS/Validation-Class-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
-
-BuildRequires:  perl-interpreter >= 0:5.010
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-
+BuildRequires:  perl-interpreter >= 4:5.10.0
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Module
+BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Clone)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Hash::Flatten)
 BuildRequires:  perl(Hash::Merge)
 BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Module::Find)
 BuildRequires:  perl(Module::Runtime)
-BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(base)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-
-BuildRequires:  perl(Test::More)
+# Test Suite
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
-
-# Optional testsuite requirement
+BuildRequires:  perl(Test::More)
+# Optional Tests
 BuildRequires:  perl(Class::Method::Modifiers)
+# Dependencies
+# (none)
 
 %description
 Validation::Class is a scalable data validation library with interfaces for
@@ -50,23 +50,40 @@ complete set of pre-defined validations and filters referred to as
 %setup -q -n Validation-Class-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
-%{make_install} DESTDIR="$RPM_BUILD_ROOT"
-%{_fixperms} "$RPM_BUILD_ROOT"/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
-%{__make} test
+make test
 
 %files
-%doc Changes README
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/Validation/
+%{_mandir}/man3/Validation::Class.3*
+%{_mandir}/man3/Validation::Class::Cookbook.3*
+%{_mandir}/man3/Validation::Class::Directive.3*
+%{_mandir}/man3/Validation::Class::Directive::*.3*
+%{_mandir}/man3/Validation::Class::Directives.3*
+%{_mandir}/man3/Validation::Class::Exporter.3*
+%{_mandir}/man3/Validation::Class::Listing.3*
+%{_mandir}/man3/Validation::Class::Mapping.3*
+%{_mandir}/man3/Validation::Class::Prototype.3*
+%{_mandir}/man3/Validation::Class::Simple.3*
+%{_mandir}/man3/Validation::Class::Simple::Streamer.3*
+%{_mandir}/man3/Validation::Class::Whitepaper.3*
 
 %changelog
+* Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 7.900059-9
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.900059-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,10 @@
-# not all test dependencies are included in RHEL: filelock, pytest-mock
-%bcond tests %{undefined rhel}
 # uv has many build dependencies which are not included in RHEL;
 # virtualenv is not included in RHEL
 %bcond extras %{undefined rhel}
+# not all test dependencies are included in RHEL: filelock, pytest-mock
+# test dependencies also drag in extra dependencies, so if we want a build without
+# extras, we can't run tests either
+%bcond tests %[%{undefined rhel} && %{with extras}]
 
 Name:           python-build
 Version:        1.5.0

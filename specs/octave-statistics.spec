@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.7.7
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -9,8 +9,10 @@ URL:            https://github.com/gnu-octave/%{octpkg}
 Source0:        https://github.com/gnu-octave/%{octpkg}/archive/refs/tags/release-%{version}/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  octave-devel
+BuildRequires:  octave-datatypes
 BuildRequires:  octave-io
 Requires:       octave(api) = %{octave_api}
+Requires:       octave-datatypes
 Requires:       octave-io
 Requires(post): octave
 Requires(postun): octave
@@ -68,7 +70,6 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/private/*.m
 %{octpkgdir}/packinfo/
 %{octpkgdir}/Regression/
-%{octpkgdir}/shadow9/
 %{octpkglibdir}/
 
 %files demos

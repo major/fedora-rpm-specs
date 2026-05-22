@@ -2,7 +2,7 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.27.0
+Version: 3.27.1
 Release: 1%{?dist}
 Epoch: 1
 
@@ -503,6 +503,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Wed May 20 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.27.1-1
+- Valgrind 3.27.1 final
+
 * Mon Apr 20 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.27.0-1
 - Valgrind 3.27.0 final
 

@@ -6,7 +6,7 @@
 %bcond man 1
 
 %global srcname pip
-%global base_version 26.0.1
+%global base_version 26.1.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -20,7 +20,6 @@ Summary:        A tool for installing and managing Python packages
 
 # certifi: MPL-2.0
 # CacheControl: Apache-2.0
-# dependency-groups: MIT
 # distlib: Python-2.0.1
 # distro: Apache-2.0
 # idna: BSD-3-Clause
@@ -96,11 +95,6 @@ Patch:          dummy-certifi.patch
 # We don't need a layer to check that, as we're by default in an offline environment
 Patch:          downstream-remove-pytest-subket.patch
 
-# Patch for the bundled urllib3 for CVE-2025-50181
-# Redirects are not disabled when retries are disabled on PoolManager instantiation
-# Upstream fix: https://github.com/urllib3/urllib3/commit/f05b1329126d5be6de501f9d1e3e36738bc08857
-Patch:          urllib3-CVE-2025-50181.patch
-
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s
@@ -118,24 +112,23 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.4
-Provides: bundled(python%{1}dist(certifi)) = 2026.1.4
-Provides: bundled(python%{1}dist(dependency-groups)) = 1.3.1
+Provides: bundled(python%{1}dist(certifi)) = 2026.2.25
 Provides: bundled(python%{1}dist(distlib)) = 0.4
 Provides: bundled(python%{1}dist(distro)) = 1.9
 Provides: bundled(python%{1}dist(idna)) = 3.11
 Provides: bundled(python%{1}dist(msgpack)) = 1.1.2
-Provides: bundled(python%{1}dist(packaging)) = 26
+Provides: bundled(python%{1}dist(packaging)) = 26.2
 Provides: bundled(python%{1}dist(platformdirs)) = 4.5.1
 Provides: bundled(python%{1}dist(pygments)) = 2.19.2
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
-Provides: bundled(python%{1}dist(requests)) = 2.32.5
+Provides: bundled(python%{1}dist(requests)) = 2.33.1
 Provides: bundled(python%{1}dist(resolvelib)) = 1.2.1
 Provides: bundled(python%{1}dist(rich)) = 14.2
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
-Provides: bundled(python%{1}dist(tomli)) = 2.3
+Provides: bundled(python%{1}dist(tomli)) = 2.3.1
 Provides: bundled(python%{1}dist(tomli-w)) = 1.2
 Provides: bundled(python%{1}dist(truststore)) = 0.10.4
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.20
+Provides: bundled(python%{1}dist(urllib3)) = 2.6.3
 }
 
 # Some manylinux1 wheels need libcrypt.so.1.

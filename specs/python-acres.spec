@@ -38,7 +38,7 @@ export PDM_BUILD_SCM_VERSION='%{version}'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-acres -f %{pyproject_files}

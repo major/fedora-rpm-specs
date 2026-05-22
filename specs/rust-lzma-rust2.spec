@@ -12,7 +12,7 @@
 %global crate lzma-rust2
 
 Name:           rust-lzma-rust2
-Version:        0.16.2
+Version:        0.16.3
 Release:        %autorelease
 Summary:        LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'
 
@@ -24,6 +24,8 @@ Source:         %{crates_source}
 # * Patch out liblzma dev-dependency, not packaged and nontrivial, used for
 #   benchmarks and some tests
 # * Unpin crc dependency; pinned upstream solely for MSRV purposes
+# * Continue to allow sha2 0.10 for now; upstream wants 0.11:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2451399
 Patch:          lzma-rust2-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -62,16 +62,16 @@ Conflicts:      lexertl14-devel
 %prep -a
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep -E '\bCRLF\b' |
-  cut -d ':' -f 1 |
-  xargs -r dos2unix --keepdate
+  grep --regexp-extended '\bCRLF\b' |
+  cut --delimiter=':' --fields=1 |
+  xargs --no-run-if-empty dos2unix --keepdate
 
 
 %build -a
 # Make a copy of the examples directory without CMakeLists.txt files, which are
 # not useful without the top-level CMakeLists.txt for the project.
 mkdir _cleaned
-cp -rvp examples _cleaned
+cp --recursive --verbose --preserve examples _cleaned
 find _cleaned/examples -type f -name CMakeLists.txt -print -delete
 
 

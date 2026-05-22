@@ -15,7 +15,7 @@ end}
 %global gomodulesmode GO111MODULE=auto
 
 Name:           grafana-pcp
-Version:        6.0.0
+Version:        6.0.1
 Release:        1%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
@@ -244,6 +244,9 @@ yarn test
 
 
 %changelog
+* Wed May 20 2026 Sam Feifer <sfeifer@redhat.com> - 6.0.1-1
+- Rebase to upstream version v6.0.1
+
 * Mon May 04 2026 Sam Feifer <sfeifer@redhat.com> - 6.0.0-1
 - Rebase to upstream v6.0.0
 - Disable builds for i686

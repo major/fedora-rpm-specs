@@ -40,10 +40,8 @@
 ###########
 
 %global with_hypre 1
-%ifarch x86_64
 %global with_openmpicheck 1
-%global with_mpichcheck 0
-%endif
+%global with_mpichcheck 1
 ###########
 %global with_sercheck 1
 
@@ -68,7 +66,7 @@
 %endif
 %ifarch s390x x86_64 %{power64} %{arm64} riscv64
 %global with_klu 1
-%global with_klu64 1
+%global with_klu64 0
 %global with_fortran 1
 %endif
 %endif
@@ -81,7 +79,8 @@
 ##########
 ##########
 %if 0%{?rhel} && 0%{?rhel} == 9
-%global with_klu64 1
+%global with_klu 1
+%global with_klu64 0
 %global with_fortran 1
 %endif
 ##########
@@ -117,6 +116,8 @@ Patch3:     %{name}-klu64.patch
 
 Patch4:     %{name}-7.6.0-set_python_cmake_flags.patch
 
+Patch5:     %{name}-bug903.patch
+
 BuildRequires: make
 %if 0%{?with_fortran}
 BuildRequires: gcc-gfortran
@@ -129,17 +130,18 @@ BuildRequires: epel-rpm-macros
 BuildRequires: cmake >= 3.10
 BuildRequires: %{blaslib}-devel
 %if 0%{?with_superlumt}
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
-BuildRequires: SuperLUMT64-devel
+%if 0%{?with_klu64}
+BuildRequires: SuperLUMT64-devel > 0:4.0.2-1
 %endif
-%ifarch %{arm} %{ix86}
-BuildRequires: SuperLUMT-devel
+%if 0%{?with_klu}
+BuildRequires: SuperLUMT-devel > 0:4.0.2-1
 %endif
 %endif
 
 # KLU support
 %if 0%{?with_klu64}
 BuildRequires: suitesparse64-devel
+BuildRequires: petsc64-devel
 %endif
 %if 0%{?with_klu}
 BuildRequires: suitesparse-devel
@@ -289,19 +291,22 @@ This package contains the documentation source files.
 
 pushd %{name}-%{version}
 
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
-%patch 1 -p0 -b .set_superlumt64_name
-%endif
-%ifarch %{arm} %{ix86}
-%patch 0 -p0 -b .set_superlumt_name
+%if 0%{?with_klu64}
+%patch -P 1 -p1 -b .set_superlumt64_name
+%else
+%patch -P 0 -p1 -b .set_superlumt_name
 %endif
 
 %if 0%{?with_klu64}
-%patch 3 -p1 -b .klu64
+%patch -P 3 -p1 -b .klu64
 %endif
 
 %if %{with python}
-%patch 4 -p1 -b .backup
+%patch -P 4 -p1 -b .backup
+%endif
+
+%if 0%{?fedora} > 43
+%patch -P 5 -p1 -b .backup5
 %endif
 
 mv src/arkode/README.md src/README-arkode.md
@@ -337,11 +342,11 @@ export LIBBLASLINK=-l%{blaslib}%{blasvar}
 export INCBLAS=%{_includedir}/%{blaslib}
 
 %if 0%{?with_superlumt}
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
-export LIBSUPERLUMTLINK=-lsuperlumt64_d
+%if 0%{?with_klu64}
+export LIBSUPERLUMTLINK=-lsuperlu_mt64
 %endif
-%ifarch %{arm} %{ix86}
-export LIBSUPERLUMTLINK=-lsuperlumt_d
+%if 0%{?with_klu}
+export LIBSUPERLUMTLINK=-lsuperlu_mt
 %endif
 %endif
 
@@ -364,7 +369,6 @@ export FFLAGS="%{build_fflags} -fPIC"
 %cmake -B sundials-%{version}/build -S sundials-%{version} \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
- -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
 %endif
 %if 0%{?with_klu64}
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
@@ -373,6 +377,13 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+%if 0%{?with_superlumt}
+ -DENABLE_SUPERLUMT:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT64 \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt64.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
+%endif
 %endif
 %if 0%{?with_klu}
  -DSUNDIALS_INDEX_SIZE:STRING=32 \
@@ -381,7 +392,15 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+%if 0%{?with_superlumt}
+ -DSUPERLUMT_ENABLE:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
 %endif
+%endif
+ -DENABLE_PETSC:BOOL=OFF \
  -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
  -DCMAKE_BUILD_TYPE:STRING=Release \
@@ -391,17 +410,19 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DCMAKE_MODULE_LINKER_FLAGS:STRING="%{__global_ldflags}" \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=ON \
  -DMPI_ENABLE:BOOL=OFF \
 %if 0%{?with_fortran}
  -DF77_INTERFACE_ENABLE:BOOL=ON \
- -DEXAMPLES_ENABLE_F77:BOOL=ON \
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DF2003_INTERFACE_ENABLE:BOOL=ON \
 %endif
+%if 0%{?with_sercheck}
  -DEXAMPLES_ENABLE_F90:BOOL=ON \
+ -DEXAMPLES_ENABLE_F77:BOOL=ON \
+ -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
+%endif
  -DFortran_INSTALL_MODDIR:PATH=%{_fmoddir}/%{name} \
 %endif
  -DUSE_GENERIC_MATH:BOOL=ON \
@@ -410,12 +431,6 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DPTHREAD_ENABLE:BOOL=ON \
 %endif
  -DSUNDIALS_PRECISION:STRING=double \
-%if 0%{?with_superlumt}
- -DSUPERLUMT_ENABLE:BOOL=ON \
- -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
- -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
- -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
-%endif
  -DSUPERLUDIST_ENABLE:BOOL=OFF \
  -DHYPRE_ENABLE:BOOL=OFF \
  -DEXAMPLES_INSTALL:BOOL=OFF \
@@ -445,11 +460,11 @@ export INCBLAS=%{_includedir}/%{blaslib}
 
 ## SuperLUMT
 %if 0%{?with_superlumt}
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
-export LIBSUPERLUMTLINK=-lsuperlumt64_d
+%if 0%{?with_klu64}
+export LIBSUPERLUMTLINK=-lsuperlu_mt64
 %endif
-%ifarch %{arm} %{ix86}
-export LIBSUPERLUMTLINK=-lsuperlumt_d
+%if 0%{?with_klu}
+export LIBSUPERLUMTLINK=-lsuperlu_mt
 %endif
 %endif
 
@@ -495,7 +510,18 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
- -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
+%if 0%{?with_petsc}
+ -DENABLE_PETSC:BOOL=ON \
+ -DPETSC_INCLUDES:PATH=%{_includedir}/petsc64 \
+ -DPETSC_LIBRARIES:PATH=%{_libdir}/libpetsc64.so \
+%endif
+%if 0%{?with_superlumt}
+ -DENABLE_SUPERLUMT:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT64 \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt64.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
+%endif
 %endif
 %if 0%{?with_klu}
  -DSUNDIALS_INDEX_SIZE:STRING=32 \
@@ -505,10 +531,16 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
 %if 0%{?with_petsc}
- -DPETSC_ENABLE:BOOL=ON \
+ -DENABLE_PETSC:BOOL=ON \
  -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
- -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
- -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
+ -DPETSC_LIBRARIES:FILEPATH=$MPI_LIB/libpetsc.so \
+%endif
+%if 0%{?with_superlumt}
+ -DENABLE_SUPERLUMT:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
 %endif
 %endif
  -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
@@ -520,7 +552,6 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DLAPACK_ENABLE:BOOL=OFF \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/openmpi/lib \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
  -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=ON \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DMPI_ENABLE:BOOL=ON \
@@ -531,23 +562,20 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DMPI_Fortran_COMPILER:STRING=$MPI_BIN/mpif77 \
 %endif
  -DF77_INTERFACE_ENABLE:BOOL=ON \
+%if 0%{?with_openmpicheck}
+ -DEXAMPLES_ENABLE_F90:BOOL=ON \
  -DEXAMPLES_ENABLE_F77:BOOL=ON \
+ -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
+%endif
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DF2003_INTERFACE_ENABLE:BOOL=ON \
 %endif
- -DEXAMPLES_ENABLE_F90:BOOL=ON \
  -DFortran_INSTALL_MODDIR:PATH=$MPI_FORTRAN_MOD_DIR/%{name} \
 %endif
  -DUSE_GENERIC_MATH:BOOL=ON \
  -DOPENMP_ENABLE:BOOL=ON \
 %if %{with pthread}
  -DPTHREAD_ENABLE:BOOL=ON \
-%endif
-%if 0%{?with_superlumt}
- -DSUPERLUMT_ENABLE:BOOL=ON \
- -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
- -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
- -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
 %endif
 %if 0%{?with_superludist}
  -DSUPERLUDIST_ENABLE:BOOL=ON \
@@ -582,11 +610,11 @@ export INCBLAS=%{_includedir}/%{blaslib}
 
 ## SuperLUMT
 %if 0%{?with_superlumt}
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
-export LIBSUPERLUMTLINK=-lsuperlumt64_d
+%if 0%{?with_klu64}
+export LIBSUPERLUMTLINK=-lsuperlu_mt64
 %endif
-%ifarch %{arm} %{ix86}
-export LIBSUPERLUMTLINK=-lsuperlumt_d
+%if 0%{?with_klu}
+export LIBSUPERLUMTLINK=-lsuperlu_mt
 %endif
 %endif
 
@@ -632,7 +660,18 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
- -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
+%if 0%{?with_superlumt}
+ -DENABLE_SUPERLUMT:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT64 \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt64.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
+%endif
+%if 0%{?with_petsc}
+ -DENABLE_PETSC:BOOL=ON \
+ -DPETSC_INCLUDES:PATH=%{_includedir}/petsc64 \
+ -DPETSC_LIBRARIES:PATH=%{_libdir}/libpetsc64.so \
+%endif
 %endif
 %if 0%{?with_klu}
  -DSUNDIALS_INDEX_SIZE:STRING=32 \
@@ -641,11 +680,17 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+%if 0%{?with_superlumt}
+ -DENABLE_SUPERLUMT:BOOL=ON \
+ -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
+ -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
+ -DSUPERLUMT_LIBRARY:FILEPATH=%{_libdir}/libsuperlu_mt.so \
+ -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
+%endif
 %if 0%{?with_petsc}
- -DPETSC_ENABLE:BOOL=ON \
+ -DENABLE_PETSC:BOOL=ON \
  -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
- -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
- -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
+ -DPETSC_LIBRARIES:FILEPATH=$MPI_LIB/libpetsc.so \
 %endif
 %endif
  -DSUNDIALS_BUILD_WITH_PROFILING:BOOL=OFF \
@@ -657,7 +702,6 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/mpich/lib \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
  -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=ON \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DMPI_ENABLE:BOOL=ON \
@@ -668,29 +712,20 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DMPI_Fortran_COMPILER:STRING=$MPI_BIN/mpif77 \
 %endif
  -DF77_INTERFACE_ENABLE:BOOL=ON \
+%if 0%{?with_openmpicheck}
+ -DEXAMPLES_ENABLE_F90:BOOL=ON \
  -DEXAMPLES_ENABLE_F77:BOOL=ON \
+ -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
+%endif
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DF2003_INTERFACE_ENABLE:BOOL=ON \
 %endif
- -DEXAMPLES_ENABLE_F90:BOOL=ON \
  -DFortran_INSTALL_MODDIR:PATH=$MPI_FORTRAN_MOD_DIR/%{name} \
 %endif
  -DUSE_GENERIC_MATH:BOOL=ON \
  -DOPENMP_ENABLE:BOOL=ON \
 %if %{with pthread}
  -DPTHREAD_ENABLE:BOOL=ON \
-%endif
-%if 0%{?with_superlumt}
- -DSUPERLUMT_ENABLE:BOOL=ON \
- -DSUPERLUMT_INCLUDE_DIR:PATH=%{_includedir}/SuperLUMT \
- -DSUPERLUMT_LIBRARY_DIR:PATH=%{_libdir} \
- -DSUPERLUMT_THREAD_TYPE:STRING=OpenMP \
-%endif
-%if 0%{?with_superludist}
- -DSUPERLUDIST_ENABLE:BOOL=ON \
- -DSUPERLUDIST_INCLUDE_DIR:PATH=$MPI_INCLUDE/superlu_dist \
- -DSUPERLUDIST_LIBRARY_DIR:PATH=$MPI_LIB \
- -DSUPERLUDIST_LIBRARIES:STRING=libsuperlu_dist.so \
 %endif
 %if 0%{?with_hypre}
  -DHYPRE_ENABLE:BOOL=ON \

@@ -72,6 +72,9 @@ Source8:       copy-patches.sh
 # For applying patches:
 BuildRequires: git
 
+# RHEL-only patch because the location of qemu is different.
+Patch1000:     0001-RHEL-Use-alternate-location-for-qemu-kvm-in-direct-b.patch
+
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
 # Basic build requirements.
@@ -622,7 +625,11 @@ for %{name}.
 %if 0%{verify_tarball_signature}
 %{gpgverify} --keyring='%{SOURCE7}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-%autosetup -S git -p1
+%autosetup -S git -N
+%autopatch -p1 -M 999
+%if 0%{?rhel}
+%autopatch -p1 -m 1000
+%endif
 
 # ACLOCAL_PATH is temporarily required to work around
 # https://bugzilla.redhat.com/show_bug.cgi?id=2366708

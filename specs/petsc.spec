@@ -1,23 +1,19 @@
-# Broken package_note links in rules and variables files
-# Disabling this functionality
-%undefine _package_note_file
-
-# Disable LTO
-%global _lto_cflags %{nil}
-
-# Python binding and its testing
+## Python binding and its testing
 %bcond_without python
+%bcond_with pybind11
+#
 
 %if %{with python}
-# Failed on s390x, see https://gitlab.com/petsc/petsc/-/issues/1694
+## Failed on s390x, see https://gitlab.com/petsc/petsc/-/issues/1694
 %ifnarch s390x
 %bcond_without pycheck
 %else
 %bcond_with pycheck
 %endif
 %endif
+#
 
-# PETSc fails yet on s390x
+## PETSc fails yet on s390x
 # Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
 %if 0%{?fedora}
 %ifnarch s390x
@@ -26,8 +22,9 @@
 %bcond_with check
 %endif
 %endif
+#
 
-# Openmpi-5.0.6 mpirun fails to run due to https://github.com/open-mpi/ompi/issues/12939 
+## Openmpi-5.0.6 mpirun fails to run due to https://github.com/open-mpi/ompi/issues/12939 
 %if 0%{?rhel}
 %ifnarch s390x
 %bcond_with check
@@ -44,12 +41,15 @@
 %bcond_with debug
 #
 
-## Fix Epoch in EPEL9
-%if 0%{?el9}
+## Fix Epoch in EPEL9 (rhbz 2459969)
+%if 0%{?rhel} && 0%{?rhel} < 10
 %global epoch 1
+%global openmpi_epoch 2
 %else
 %global epoch 0
+%global openmpi_epoch 0
 %endif
+#
 
 %ifarch %{ix86}
 %bcond_with openmpi
@@ -72,10 +72,6 @@
 %global blaslib flexiblas
 %global blasvar %{nil}
 
-#
-## MUMPS support
-%bcond_without mumps_serial
-#
 ## Sundials needs mpi ?
 %bcond_with sundials_serial
 #
@@ -89,13 +85,16 @@
 
 ## SuperLUDIST needs parmetis
 %bcond_without superludist >= 6.3.0
-%bcond_with cgns
+#
+
+## CGNS needs HDF5 with MPI
+%bcond_without cgns
 %bcond_without hdf5
 %bcond_with superlumt
 #
 
 ## Tetgen
-%bcond_with tetgen
+%bcond_without tetgen
 #
 
 ## Metis
@@ -106,22 +105,24 @@
 # 'scalapack' is required by 'MUMPS'
 %if %{with openmpi}
 %bcond_without mpi
-# PETSC-3.* is incompatible with Sundials 3+
+## PETSC-3.* is incompatible with Sundials 3+
 %bcond_with sundials
 %bcond_without scalapack
 %bcond_without mumps
 %bcond_without ptscotch
 %bcond_without hypre
+#
 %endif
 
 %if %{with mpich}
 %bcond_without mpi
-# PETSC-3.* is incompatible with Sundials 3+
+## PETSC-3.* is incompatible with Sundials 3+
 %bcond_with sundials
 %bcond_without scalapack
 %bcond_without mumps
 %bcond_without ptscotch
 %bcond_without hypre
+#
 %endif
 
 %global petsc_build_options \\\
@@ -131,15 +132,13 @@
   FCFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules" \\\
  %else \
  CFLAGS="$CFLAGS -O3" CXXFLAGS="$CXXFLAGS -O3" FFLAGS="$FFLAGS -O3" LDFLAGS="$LDFLAGS" \\\
-  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3 -std=gnu++17" FOPTFLAGS="$FFLAGS -O3" \\\
+  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3" FOPTFLAGS="$FFLAGS -O3" \\\
   FCFLAGS="$FFLAGS -O3" \\\
  %endif \
  --CC_LINKER_FLAGS="$LDFLAGS" \\\
  --FC_LINKER_FLAGS="$LDFLAGS -lgfortran" \\\
  --with-default-arch=0 --with-make=1 \\\
  --with-cmake-exec=%{_bindir}/cmake --with-ctest-exec=%{_bindir}/ctest \\\
- --with-single-library=1 \\\
- --with-precision=double \\\
  --with-petsc-arch=%{_arch} \\\
  --with-clanguage=C \\\
  --with-shared-libraries=1 \\\
@@ -151,6 +150,7 @@
  --with-shared-ld=ld \\\
  --with-pic=1 \\\
  --with-clib-autodetect=0 \\\
+ --with-cxx-dialect=auto \\\
  --with-fortranlib-autodetect=0 \\\
  --with-threadsafety=0 --with-log=1 \\\
  --with-mkl_sparse=0 \\\
@@ -164,8 +164,12 @@
  %else \
   --with-debugging=0 \\\
  %endif \
- %if %{with mumps_serial} \
-  --with-mumps-serial=1 \\\
+ %if %{with mumps} \
+ %if %{without arch64} \
+  --with-mumps=1 \\\
+  --with-mumps-include=%{_includedir}/MUMPS \\\
+  --with-mumps-lib="-lcmumps -ldmumps -lsmumps -lzmumps -lpord -lmumps_common" \\\
+ %endif \
  %endif \
   --with-mpi=0 \\\
  %if %{with hdf5} \
@@ -173,11 +177,9 @@
   --with-hdf5-include= \\\
   --with-hdf5-lib="-lhdf5 -lhdf5_hl" \\\
  %endif \
- %if %{with cgns} \
   --with-cgns=0 \\\
- %endif \
   --with-x=1 \\\
-  --with-openmp=0 \\\
+  --with-openmp=1 \\\
   --with-hwloc=0 \\\
   --with-ssl=0 \\\
  %if %{with sundials_serial} \
@@ -185,6 +187,11 @@
   --with-sundials-include=%{_includedir} \\\
   --with-sundials-lib="-lsundials_nvecserial -lsundials_cvode" \\\
  %endif \
+%if %{with tetgen} \
+ --with-tetgen=1 \\\
+ --with-tetgen-lib=-ltet \\\
+ --with-tetgen-include=%{_includedir} \\\
+%endif \
  %ifarch %{valgrind_arches} \
   --with-valgrind=1 \\\
  %endif \
@@ -197,7 +204,7 @@
   FCFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}" \\\
  %else \
  CFLAGS="$CFLAGS -O3" CXXFLAGS="$CXXFLAGS -O3" FFLAGS="$FFLAGS -O3" LDFLAGS="$LDFLAGS" \\\
-  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3 -std=gnu++17" FOPTFLAGS="$FFLAGS -O3" \\\
+  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3" FOPTFLAGS="$FFLAGS -O3" \\\
   FCFLAGS="$FFLAGS -O3" \\\
  %endif \
   --CC_LINKER_FLAGS="$LDFLAGS" \\\
@@ -216,6 +223,7 @@
   --with-shared-ld=ld \\\
   --with-pic=1 \\\
   --with-clib-autodetect=0 \\\
+  --with-cxx-dialect=auto \\\
   --with-fortranlib-autodetect=0 \\\
   --with-mkl_sparse=0 \\\
   --with-mkl_sparse_optimize=0 \\\
@@ -226,6 +234,10 @@
   --with-python-exec=%{__python3} \\\
   --with-petsc4py=1 \\\
   --with-petsc4py-test-np=2 \\\
+ %endif \
+ %if %{with pybind11} \
+ --with-pybind11=1 \\\
+ --with-pybind11-include=%{_includedir}/pybind11 \\\
  %endif \
   --with-cxxlib-autodetect=1 \\\
    %if %{with debug} \
@@ -244,7 +256,7 @@
  %endif \
  %if %{with cgns} \
   --with-cgns=1 \\\
-  --with-cgns-include=%{_includedir} \\\
+  --with-cgns-include=$MPI_INCLUDE \\\
   --with-cgns-lib=-lcgns \\\
  %endif \
  %if %{with hdf5} \
@@ -260,6 +272,8 @@
   --with-ptscotch-lib="-L$MPI_LIB -lptscotch -lscotch -lptscotcherr -lscotcherr" \\\
  %endif \
  %if %{with mumps} \
+  --with-mumps-include=$MPI_INCLUDE \\\
+  --with-mumps-lib="-lcmumps -ldmumps -lsmumps -lzmumps -lpord -lmumps_common" \\\
   --with-mumps=1 \\\
  %endif \
  %if %{with sundials} \
@@ -272,8 +286,13 @@
   --with-superlu_dist-include=$MPI_INCLUDE/superlu_dist \\\
   --with-superlu_dist-lib=-lsuperlu_dist \\\
  %endif \
+%if %{with tetgen} \
+ --with-tetgen=1 \\\
+ --with-tetgen-lib=-ltet \\\
+ --with-tetgen-include=%{_includedir} \\\
+%endif \
   --with-x=1 \\\
-  --with-openmp=0 \\\
+  --with-openmp=1 \\\
   --with-hwloc=0 \\\
   --with-ssl=0 \\\
  %if %{with hypre} \
@@ -294,11 +313,12 @@
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
 %global majorver 3
-%global releasever %{majorver}.24
+%global releasever %{majorver}.25
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.6
+Version: %{releasever}.1
+Epoch:   %{epoch}
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -308,8 +328,6 @@ Source0: https://web.cels.anl.gov/projects/%{name}/download/release-snapshots/%{
 Patch0:  %{name}-3.21.1-no-rpath.patch
 
 ## Rename library name for 64-bit integer package
-Patch1:  %{name}-lib64.patch
-Patch3:  %{name}-3.19.4-fix_mumps_includes.patch
 Patch4:  %{name}-3.24.0-fix_metis64.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.22.2-avoid_fake_MKL_detection.patch
@@ -320,7 +338,7 @@ BuildRequires: SuperLU-devel >= 5.2.0
 %if %{with superlumt}
 BuildRequires: SuperLUMT-devel
 %endif
-%if %{with mumps_serial}
+%if %{with mumps}
 BuildRequires: MUMPS-devel
 %endif
 %if %{with metis}
@@ -345,10 +363,6 @@ BuildRequires: pcre2-devel
 %if %{with hdf5}
 BuildRequires: hdf5-devel
 %endif
-%if %{with cgns}
-BuildRequires: cgnslib-devel
-BuildRequires: hdf5-devel
-%endif
 BuildRequires: tcsh
 %if %{with tetgen}
 BuildRequires: tetgen-devel
@@ -356,15 +370,14 @@ BuildRequires: tetgen-devel
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
-
 %description
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
 and routines for the scalable (parallel) solution of scientific applications
 modeled by partial differential equations.
 
 %package devel
-Summary:    Portable Extensible Toolkit for Scientific Computation (developer files)
-Requires:   %{name}%{?_isa} = %{version}-%{release}
+Summary:  Portable Extensible Toolkit for Scientific Computation (developer files)
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: gcc-gfortran%{?_isa}
 %description devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
@@ -379,24 +392,22 @@ PDF and HTML documentation files.
 
 %if %{with arch64}
 %package -n petsc64
-Summary: Portable Extensible Toolkit for Scientific Computation (64bit INTEGER)
+Summary: Portable Extensible Toolkit for Scientific Computation (64bit INTEGER SIZE)
 %if %{with metis64}
 BuildRequires: metis64-devel >= 5.1.0
 %endif
-
 %description -n petsc64
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
 and routines for the scalable (parallel) solution of scientific applications
-modeled by partial differential equations (64bit INTEGER).
+modeled by partial differential equations (Integer-size: 64-bit, 
+scalar-type: real, precision: double).
 
 %package -n petsc64-devel
-Requires:   %{name}64%{?_isa} = %{version}-%{release}
+Requires:   %{name}64%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:   gcc-gfortran%{?_isa}
-Summary:    Portable Extensible Toolkit for Scientific Computation (64bit INTEGER)
-
+Summary:    Portable Extensible Toolkit for Scientific Computation (64bit INTEGER SIZE)
 %description -n petsc64-devel
-Portable Extensible Toolkit for Scientific Computation (developer files)
-(64bit INTEGER).
+Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
 
 #############################################################################
@@ -410,7 +421,7 @@ BuildRequires: prrte
 BuildRequires: hdf5-openmpi-devel
 %endif
 %if %{with cgns}
-BuildRequires: cgnslib-devel
+BuildRequires: cgnslib-openmpi-devel
 BuildRequires: hdf5-openmpi-devel
 %endif
 %if %{with ptscotch}
@@ -438,7 +449,6 @@ BuildRequires: fftw-openmpi-devel
 %if %{with hypre}
 BuildRequires: hypre-openmpi-devel >= 2.32.0
 %endif
-
 %description openmpi
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
 and routines for the scalable (parallel) solution of scientific applications
@@ -446,8 +456,8 @@ modeled by partial differential equations.
 
 %package openmpi-devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (OpenMPI)
-Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
-Requires:   openmpi-devel%{?_isa} >= %{epoch}:4.1.5
+Requires:   %{name}-openmpi%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:   openmpi-devel%{?_isa} >= %{openmpi_epoch}:%{openmpiversion}
 Requires:   hdf5-openmpi-devel%{?_isa}
 %description openmpi-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
@@ -456,7 +466,6 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 %package -n     python3-%{name}-openmpi
 Summary:        Python3 bindings for OpenMPI PETSc
 %py_provides    python3-%{name}-openmpi
-
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
@@ -465,19 +474,20 @@ BuildRequires:  scalapack-openmpi-devel
 BuildRequires:  ptscotch-openmpi-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-Cython
+%if %{with pybind11}
+BuildRequires:  pybind11-devel
+%endif
 Requires:       petsc-openmpi%{?_isa}
 Requires:       hdf5-openmpi%{?_isa}
 Requires:       scalapack-openmpi%{?_isa}
 Requires:       ptscotch-openmpi%{?_isa}
-Requires:       openmpi%{?_isa} >= %{epoch}:4.1.5
+Requires:       openmpi%{?_isa} >= %{openmpi_epoch}:%{openmpiversion}
 Requires:       MUMPS-openmpi%{?_isa}
-
 Obsoletes:      %{pymodule_name}-openmpi < 0:3.14.0-3
 Obsoletes:      python3-%{pymodule_name}-openmpi < 0:3.14.0-3
 Provides:       python3-%{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 Provides:       python-%{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 Provides:       %{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
-
 %description -n python3-%{name}-openmpi
 This package provides Python3 bindings for OpenMPI PETSc,
 the Portable, Extensible Toolkit for Scientific Computation.
@@ -494,7 +504,7 @@ BuildRequires: mpich-devel
 BuildRequires: hdf5-mpich-devel
 %endif
 %if %{with cgns}
-BuildRequires: cgnslib-devel
+BuildRequires: cgnslib-mpich-devel
 BuildRequires: hdf5-mpich-devel
 %endif
 %if %{with ptscotch}
@@ -522,8 +532,7 @@ BuildRequires: hypre-mpich-devel >= 2.32.0
 BuildRequires: fftw-devel
 BuildRequires: fftw-mpich-devel
 %endif
-Requires:   mpich%{?_isa} >= %{epoch}:4.1.1
-
+Requires:   mpich%{?_isa} >= 0:%{mpichversion}
 %description mpich
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
 and routines for the scalable (parallel) solution of scientific applications
@@ -531,8 +540,8 @@ modeled by partial differential equations.
 
 %package mpich-devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (MPICH)
-Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
-Requires:   mpich-devel%{?_isa} >= %{epoch}:4.1.1
+Requires:   %{name}-mpich%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:   mpich-devel%{?_isa} >= 0:%{mpichversion}
 Requires:   hdf5-mpich-devel%{?_isa}
 %description mpich-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
@@ -541,7 +550,6 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 %package -n     python3-%{name}-mpich
 Summary:        Python3 bindings for MPICH PETSc
 %py_provides    python3-%{name}-mpich
-
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
@@ -551,19 +559,20 @@ BuildRequires:  ptscotch-mpich-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pip
 BuildRequires:  python3-Cython
+%if %{with pybind11}
+BuildRequires:  pybind11-devel
+%endif
 Requires:       petsc-mpich%{?_isa}
 Requires:       hdf5-mpich%{?_isa}
 Requires:       scalapack-mpich%{?_isa}
 Requires:       ptscotch-mpich%{?_isa}
-Requires:       mpich%{?_isa} >= %{epoch}:4.1.1
+Requires:       mpich%{?_isa} >= 0:%{mpichversion}
 Requires:       MUMPS-mpich%{?_isa}
-
 Obsoletes:      %{pymodule_name}-mpich < 0:3.14.0-3
 Obsoletes:      python3-%{pymodule_name}-mpich < 0:3.14.0-3
 Provides:       python3-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
 Provides:       python-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
 Provides:       %{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
-
 %description -n python3-%{name}-mpich
 This package provides Python3 bindings for MPICH PETSc,
 the Portable, Extensible Toolkit for Scientific Computation.
@@ -597,7 +606,6 @@ popd
 %if %{with arch64}
 cp -a %{name}-%{version} build64
 pushd build64
-%patch -P 1 -p0 -b .backup
 %if %{with metis64}
 %patch -P 4 -p1 -b .metis64
 %endif
@@ -616,11 +624,6 @@ cp -a %{name}-%{version} buildopenmpi_dir
 %if %{with mpich}
 cp -a %{name}-%{version} buildmpich_dir
 %endif
-
-# Do NOT move up this patch
-pushd %{name}-%{version}
-%patch -P 3 -p1 -b .backup
-popd
 
 %if %{with python}
 #generate_buildrequires
@@ -642,15 +645,13 @@ pushd %{name}-%{version}
 %configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran \
  %{petsc_build_options} \
  --with-64-bit-indices=0 \
+ --with-single-library=1 \
+ --with-precision=double --with-scalar-type=real \
 %if %{with blas}
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
 %endif
 %if %{with metis}
  --with-metis=1 \
-%endif
-%if %{with tetgen}
- --with-tetgen=1 \
- --with-tetgen-lib=-ltetgen \
 %endif
 %if %{with superlu}
  --with-superlu=1 \
@@ -673,6 +674,10 @@ pushd build64
 %configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran \
  %{petsc_build_options} \
  --with-64-bit-indices=1 \
+ --with-64-bit-blas-indices=1 \
+ --with-library-name-suffix=64 \
+ --with-single-library=1 \
+ --with-precision=double --with-scalar-type=real \
 %if %{with metis64}
  --with-metis=1 \
 %endif
@@ -681,10 +686,9 @@ pushd build64
 %endif
 %if %{with suitesparse64}
  --with-suitesparse=1 \
- --with-suitesparse-include=%{_includedir}/suitesparse \
+ --with-suitesparse-include=%{_includedir}/SuiteSparse64 \
  --with-suitesparse-lib="-lumfpack64 -lklu64 -lcholmod64 -lamd64"
 %endif
-##
 
 make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/build64 PETSC_ARCH=%{_arch} all
 popd
@@ -819,7 +823,7 @@ mkdir -p %{buildroot}%{_fmoddir}/%{name}64
 mkdir -p %{buildroot}%{_libdir}/%{name}64/conf
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
 
-install -pm 755 %{_arch}/lib/libpetsc64.* %{buildroot}%{_libdir}
+install -pm 755 %{_arch}/lib/libpetsc64.* %{buildroot}%{_libdir}/
 ln -sf libpetsc64.so.%{version} %{buildroot}%{_libdir}/libpetsc64.so
 ln -sf libpetsc64.so.%{version} %{buildroot}%{_libdir}/libpetsc64.so.%{releasever}
 ln -sf libpetsc64.so.%{version} %{buildroot}%{_libdir}/libpetsc64.so.%{majorver}
@@ -995,7 +999,6 @@ cp -a %{name}-%{version}/docs/* %{buildroot}%{_pkgdocdir}
 #
 
 %check
-
 %if %{with openmpi}
 %if %{with python}
 %if %{with pycheck}
@@ -1130,11 +1133,7 @@ export PETSC_ARCH=%{_arch}
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/build64/share/petsc/datafiles
 export MPIEXEC=lib/petsc/bin/petscmpiexec
-
-## 'make test' needs to link against -lpetsc
-ln -s %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc64.so %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc.so
-export LD_PRELOAD=%{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc.so
-
+export LD_PRELOAD=%{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc64.so
 %if %{with debug}
 %ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"

@@ -4,11 +4,10 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://www.cs.ubc.ca/research/flann
 Source0:        https://www.github.com/mariusmuja/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -16,11 +15,15 @@ Source0:        https://www.github.com/mariusmuja/%{name}/archive/%{version}/%{n
 # Not submitted upstream
 Patch0:         flann-1.9.1-fixpyflann.patch
 # Distutils -> Setuptools
-Patch3:         flann-1.9.2-py3.12.patch
+Patch1:         flann-1.9.2-py3.12.patch
 # Install cmake scripts to correct libdir
-Patch4:         flann-1.9.2-cmakeinstall.patch
+Patch2:         flann-1.9.2-cmakeinstall.patch
 # Fix pkgconfig file generation
-Patch5:         flann-1.9.2-pkgconfig.patch
+Patch3:         flann-1.9.2-pkgconfig.patch
+# CMake 4+ no longer accepts cmake_minimum_required(VERSION 2.6)
+Patch4:         flann-1.9.2-cmake-minimum.patch
+# CMake 4: ADD_DEPENDENCIES must name targets, not manual.tex (html -> pdf)
+Patch5:         flann-1.9.2-uselatex-cmake4.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -37,6 +40,8 @@ BuildRequires:  texlive-%{!?rhel:scheme-}tetex
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(numpy)
+BuildRequires:  python3dist(pytest)
 
 %description
 FLANN is a library for performing fast approximate nearest neighbor searches
@@ -77,17 +82,19 @@ Python 3 bindings for flann
 %prep
 %setup 
 %patch 0 -p0 -b .fixpyflann
-%patch 3 -p0 -b .py3.12
-%patch 4 -p0 -b .cmakeinstall
-%patch 5 -p0 -b .pkgconfig
+%patch 1 -p0 -b .py3.12
+%patch 2 -p0 -b .cmakeinstall
+%patch 3 -p0 -b .pkgconfig
+%patch 4 -p0 -b .cmakeminimum
+%patch 5 -p0 -b .uselatexcmake4
 
 # Fix library install directory
 sed -i 's/"lib"/"%{_lib}"/' cmake/flann_utils.cmake
 
 %build
-%cmake -DBUILD_MATLAB_BINDINGS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON 
+%cmake -DBUILD_MATLAB_BINDINGS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=ON
 %cmake_build
-%cmake_build %{!?rhel:--target} doc
+%cmake_build --target doc
 
 %install
 %cmake_install
@@ -109,6 +116,17 @@ rm -rf %{buildroot}%{_bindir}*
 # Remove installed documentation, we'll install it later with the doc macro
 rm -rf %{buildroot}%{_datadir}/doc/flann
 
+%check
+pushd %{_builddir}/%{buildsubdir}
+# Upstream C++ tests need large datasets downloaded over the network, so limit to Python tests.
+# test_nn_autotune is skipped: autotune precision assertions fail under release/LTO (rawhide/COPR).
+pushd test
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
+export PYTHONPATH=%{buildroot}%{python3_sitearch}:$PYTHONPATH
+%pytest test_nn.py test_nn_index.py test_index_save.py
+popd
+popd
+
 %files
 %doc doc/manual.pdf
 %{_libdir}/*.so.%{version}
@@ -128,6 +146,12 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Thu Mar 26 2026 Sayan Paul <saypaul@redhat.com> - 1.9.2-15
+- Add Python unit test suite to %%check
+- Bring in pytest/numpy build dependencies for the tests
+- Patch: raise cmake_minimum_required to 3.5 for CMake 4+ compatibility
+- Patch UseLATEX.cmake: make html target depend on pdf target (CMake 4)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.2-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -84,6 +84,7 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
+Patch0:         0001-filter-graph-sync_volume-initializes-the-control-por.patch
 
 ## upstreamable patches
 
@@ -933,6 +934,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Wed May 20 2026 Janne Grunau <j@jannau.net> - 1.6.5-2
+- Add patch for filter-graph sync_volume control port init
+
 * Wed May 13 2026 Wim Taymans <wtaymans@redhat.com> - 1.6.5-1
 - Update version to 1.6.5
 

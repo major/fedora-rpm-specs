@@ -80,11 +80,10 @@ closed-source blob running with high privilege.}
 
 %prep
 %autosetup -n ots-%{version} -p1
-# Remove bundled dependencies
-rm -rf third_party
+
 # Disable tests that use fonts that were filtered out for license issues.
-sed -r -i "/$(tr '\n' '|' < '%{SOURCE2}' | sed -r 's@\|+$@@')/d" \
-    tests/meson.build
+sed --regexp-extended --in-place \
+    "/$(tr '\n' '|' < '%{SOURCE2}' | sed -r 's@\|+$@@')/d" tests/meson.build
 
 
 %conf

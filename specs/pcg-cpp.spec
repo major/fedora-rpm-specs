@@ -78,7 +78,7 @@ BuildArch:      noarch
 find . -name '.gitignore' -print -delete
 # Make a copy of the sample/ directory that will not contain compiled
 # executables, since we would like to install the sources as documentation.
-cp -rp sample examples
+cp --recursive --preserve sample examples
 
 
 %build

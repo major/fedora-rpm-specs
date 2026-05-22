@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.72
+Version:   3.73
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -79,6 +79,10 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Wed May 20 2026 Brian C. Lane <bcl@redhat.com> - 3.73-1
+- Add --type option to %certificate section (rvykydal)
+  Resolves: RHEL-143387
+
 * Thu Apr 30 2026 Brian C. Lane <bcl@redhat.com> - 3.72-1
 - rhell11: Update handlers for removed commands (bcl)
 - vnc: Remove command in F45 (bcl)

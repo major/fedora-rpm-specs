@@ -62,7 +62,8 @@ A framework for managing and maintaining multi-language pre-commit hooks.
 
 
 %install -a
-install -t %{buildroot}%{_mandir}/man1 -p -m 0644 -D \
+install -D --preserve-timestamps --mode=0644 \
+    --target=%{buildroot}%{_mandir}/man1 \
     %{SOURCE100} %{SOURCE101} %{SOURCE102} %{SOURCE103} %{SOURCE104} \
     %{SOURCE105} %{SOURCE106} %{SOURCE107} %{SOURCE108} %{SOURCE109} \
     %{SOURCE110} %{SOURCE111} %{SOURCE112} %{SOURCE113} %{SOURCE114}
@@ -90,7 +91,7 @@ k="${k-}${k+ and }not test_local_python_repo"
 
 # These are the tests that run by default via tox; see tox.ini. See also
 # .github/workflows/main.yml.
-%pytest --ignore=tests/languages -k "${k-}" -v
+%pytest --ignore=tests/languages -k "${k-}" --verbose
 %endif
 
 

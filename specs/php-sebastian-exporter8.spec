@@ -23,7 +23,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.2
+Version:        8.0.3
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -39,8 +39,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.0",
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.1.10",
+BuildRequires:  phpunit13 >= 13.1.10
 BuildRequires:  (php-composer(%{pk_vendor}/recursion-context) >= 8.0 with php-composer(%{pk_vendor}/recursion-context) < 9)
 %endif
 
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed May 20 2026 Remi Collet <remi@remirepo.net> - 8.0.3-1
+- update to 8.0.3
+
 * Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 8.0.2-1
 - update to 8.0.2
 

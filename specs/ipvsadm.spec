@@ -1,25 +1,27 @@
 Name: ipvsadm
 Summary: Utility to administer the Linux Virtual Server
 Version: 1.31
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPL-2.0-or-later
-URL: https://kernel.org/pub/linux/utils/kernel/ipvsadm/
+URL: https://git.kernel.org/pub/scm/utils/kernel/ipvsadm/ipvsadm.git/
 
 Source0: https://kernel.org/pub/linux/utils/kernel/ipvsadm/%{name}-%{version}.tar.gz
 Source1: ipvsadm.service
-Source2: ipvsadm-config
 
-Patch0: 0003-ipvsadm-use-CFLAGS-and-LDFLAGS-environment-variables.patch
+Patch0: 0001-ipvsadm-fix-wrong-negative-FWMARK-values-in-output.patch
+Patch1: 0002-ipvsadm-increase-maximum-weight-value.patch
+Patch2: 0003-ipvsadm-fix-ambiguous-usage-error-message.patch
+Patch3: 0004-Use-variable-for-pkg-config-in-Makefiles.patch
+Patch4: 0005-Support-environmental-and-command-line-FLAGS-variabl.patch
+Patch5: 0006-Make-sure-libipvs.a-is-built-before-ipvsadm.patch
 
 BuildRequires: gcc
 Buildrequires: libnl3-devel
 Buildrequires: popt-devel
+%{?systemd_requires}
 BuildRequires: systemd
 BuildRequires: make
-
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+BuildRequires: git
 
 %description
 ipvsadm is used to setup, maintain, and inspect the virtual server
@@ -36,8 +38,7 @@ services. Supported Features include:
     replication, destination-hashing, and source-hashing)
 
 %prep
-%setup -q
-%patch -P0 -p1
+%autosetup -S git_am
 
 %build
 %set_build_flags
@@ -50,7 +51,6 @@ services. Supported Features include:
 
 %{__rm} -f %{buildroot}%{_sysconfdir}/rc.d/init.d/%{name}
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-%{__install} -p -D -m 0600 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-config
 
 %post
 %systemd_post %{name}.service
@@ -64,7 +64,6 @@ services. Supported Features include:
 %files
 %doc MAINTAINERS README
 %{_unitdir}/%{name}.service
-%config(noreplace) %{_sysconfdir}/sysconfig/%{name}-config
 %{_sbindir}/%{name}
 %{_sbindir}/%{name}-restore
 %{_sbindir}/%{name}-save
@@ -73,6 +72,21 @@ services. Supported Features include:
 %{_mandir}/man8/%{name}-save.8*
 
 %changelog
+* Wed May 20 2026 Jan Friesse <jfriesse@redhat.com> - 1.31-18
+- Modernize specfile
+- Use autosetup
+- Remove unused init script and its configuration file
+- Remove obsolete CFLAGS and LDFLAGS environment variables patch
+  (improved functionality is now part of upstream patches)
+- Add merged upstream patches (effectively rebasing to current git):
+- Upstream patch: ipvsadm: fix wrong (negative) FWMARK values in output
+- Upstream patch: ipvsadm: increase maximum weight value
+- Upstream patch: ipvsadm: fix ambiguous usage error message
+- Upstream patch: Use variable for pkg-config in Makefiles
+- Upstream patch: Support environmental and command-line *FLAGS
+  variable in Makefiles
+- Upstream patch: Make sure libipvs.a is built before ipvsadm
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -138,7 +152,7 @@ services. Supported Features include:
 - Use CFLAGS and LDFLAGS environment variables (#1543790)
 
 * Fri Feb 23 2018 Ryan O'Hara <rohara@redhat.com> - 1.29-7
-- Add %set_build_flags (#1543790)
+- Add set_build_flags (#1543790)
 
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild

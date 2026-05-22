@@ -32,8 +32,9 @@ how to use this module, look at the file test.pl.
 %autosetup -n pgsql_perl5-%{version}
 
 # Fix shebangs and permissions on examples and tests
-sed -r -i 's|^#!/usr/local/bin/perl\b|#!%{_bindir}/perl|' eg/*.pl test.pl
-chmod -v a+x eg/*.pl test.pl
+sed --regexp-extended --in-place \
+    's|^#!/usr/local/bin/perl\b|#!%{_bindir}/perl|' eg/*.pl test.pl
+chmod --verbose a+x eg/*.pl test.pl
 
 
 %conf

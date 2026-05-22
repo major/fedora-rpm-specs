@@ -1,7 +1,7 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
 Version: 6.9.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/652/aqbanking-%{version}.tar.gz
 License: GPL-2.0-only AND GPL-3.0-only
@@ -15,8 +15,6 @@ BuildRequires: gmp-devel, gettext, libtool
 BuildRequires: xmlsec1-gnutls-devel, xmlsec1-devel, libtool-ltdl-devel, libxslt-devel, libxml2-devel
 # For AutoReq cmake-filesystem
 BuildRequires: cmake
-# bug in xmlscec1
-BuildRequires: xmlsec1-gnutls, xmlsec1-gcrypt
 BuildRequires: make
 Requires: libchipcard
 Obsoletes: aqhbci <= 1.0.3
@@ -118,6 +116,9 @@ make check ||:
 
 
 %changelog
+* Wed May 20 2026 Tomas Halman <thalman@redhat.com> - 6.9.1-4
+- Fix specfile for xmlsec 1.3 update
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

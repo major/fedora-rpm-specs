@@ -2,7 +2,7 @@
 %bcond_without perl_Attean_enables_optional_test
 
 Name:           perl-Attean
-Version:        0.037
+Version:        0.038
 Release:        1%{?dist}
 Summary:        Semantic web framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -221,6 +221,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 20 2026 Petr Pisar <ppisar@redhat.com> - 0.038-1
+- 0.038 bump
+
 * Tue May 05 2026 Petr Pisar <ppisar@redhat.com> - 0.037-1
 - 0.037 bump
 

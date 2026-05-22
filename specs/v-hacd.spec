@@ -1,7 +1,3 @@
-# TODO: Can we find a package with a suitable .obj file that we can use to run
-# the tests in EPEL10?
-%bcond tests %{undefined el10}
-
 Name:           v-hacd
 Version:        4.1.0
 Release:        %autorelease
@@ -10,6 +6,8 @@ Summary:        Decomposes a 3D surface into a set of “near” convex parts
 # The entire source is BSD-3-Clause, except:
 #   - app/wavefront.{h,cpp} are MIT
 License:        BSD-3-Clause AND MIT
+# We use an OBJ file from mcut, which is LGPL-3.0-only, for testing: Source3
+SourceLicense:  %{license} AND LGPL-3.0-only
 URL:            https://github.com/kmammou/v-hacd
 # This has the app/meshes/ directory stripped out. The .obj files therein have
 # unclear or unspecified licenses, which makes them unsuitable for Fedora.
@@ -24,16 +22,15 @@ Source1:        get_source.sh
 # Man page hand-written for Fedora in groff_man(7) format based on help output
 # and README.md contents.
 Source2:        TestVHACD.1
+# Very trivial OBJ mesh file from mcut, which is LGPL-3.0-only
+Source3:        https://github.com/cutdigital/mcut/raw/refs/tags/v1.3.0/tutorials/BasicCmdLineApp/data/cube.obj
+
+BuildSystem:    cmake
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-
-%if %{with tests}
-BuildRequires:  vtk-data
-%endif
 
 %global common_description %{expand:
 The V-HACD library decomposes a 3D surface into a set of “near” convex parts.
@@ -69,7 +66,6 @@ Summary:        Development files for V-HACD
 # The MIT-licensed app/wavefront.{h,cpp} do not contribute to this subpackage.
 License:        BSD-3-Clause
 
-
 BuildArch:      noarch
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
@@ -98,44 +94,31 @@ library. Currently, this means TestVHACD; despite the name, this tool has
 general utility beyond testing.
 
 
-%prep
-%autosetup -p1
+%conf -p
+cd app
 
 
-%conf
-pushd app >/dev/null
-%cmake
-popd >/dev/null
-
-
-%build
-pushd app >/dev/null
-%cmake_build
-popd >/dev/null
+%build -p
+cd app
 
 
 %install
-pushd app >/dev/null
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}' 'include/VHACD.h'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE2}'
+
+cd app
 # There are currently no install targets in app/CMakeLists.txt, so
 # %%cmake_install will not work. We install the executable manually instead.
-install -t '%{buildroot}%{_bindir}' -p -D '%{_vpath_builddir}/TestVHACD'
-popd >/dev/null
-
-install -t '%{buildroot}%{_includedir}' -m 0644 -p -D 'include/VHACD.h'
-
-install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE2}'
+install -D --preserve-timestamps \
+    --target='%{buildroot}%{_bindir}' '%{_vpath_builddir}/TestVHACD'
 
 
-%if %{with tests}
 %check
 # Use the example from README.md as a sanity check, but use an arbitrary mesh
-# from vtk as input since we cannot ship upstream’s sample meshes. Decrease the
-# max recursion depth from 15 to the default (10) so this doesn’t explode on
-# 32-bit ARM in Fedora 36.
-%{buildroot}%{_bindir}/TestVHACD \
-    %{_datadir}/vtkdata/Testing/Data/Viewpoint/cow.obj \
-    -e 0.01 -d 10 -r 10000000 -r 128
-%endif
+# as input since we cannot ship upstream’s sample meshes.
+%{buildroot}%{_bindir}/TestVHACD '%{SOURCE3}' -e 0.01 -d 15 -r 10000000 -r 128
 
 
 %files devel

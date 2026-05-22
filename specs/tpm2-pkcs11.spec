@@ -1,8 +1,8 @@
 #global candidate RC0
 
 Name:		tpm2-pkcs11
-Version:	1.9.1
-Release:	8%{?candidate:.%{candidate}}%{?dist}
+Version:	1.10.0
+Release:	1%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -11,9 +11,6 @@ Source0:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{
 Source1:	https://github.com/tpm2-software/%{name}/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz.asc
 # William Roberts (Bill Roberts) key from pgp.mit.edu
 Source2:	gpgkey-8E1F50C1.gpg
-
-# https://github.com/tpm2-software/tpm2-pkcs11/pull/929
-Patch1:         0001-Use-ASN1_STRING-accessors-for-compatibility.patch
 
 BuildRequires:	gcc
 BuildRequires:	make
@@ -70,7 +67,9 @@ popd >&2
 
 
 %build
-%configure --enable-unit --with-fapi=yes
+# the ptool checks require ancient pkcs11 module
+# https://github.com/tpm2-software/tpm2-pkcs11/issues/908
+%configure --enable-unit --with-fapi=yes --disable-ptool-checks
 %{make_build}
 pushd tools
 %pyproject_wheel
@@ -79,12 +78,14 @@ popd
 
 %install
 %make_install
-mkdir $RPM_BUILD_ROOT/%{_includedir}/
-install src/pkcs11.h $RPM_BUILD_ROOT/%{_includedir}/
-[ -f $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.la ] && \
-  rm $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.la
-[ -f $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.a ] && \
-  rm $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.a
+mkdir $RPM_BUILD_ROOT%{_includedir}/
+install src/pkcs11.h $RPM_BUILD_ROOT%{_includedir}/
+# The installation is broken since
+# https://github.com/tpm2-software/tpm2-pkcs11/pull/818
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
+install misc/p11-kit/tpm2_pkcs11.module $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
+mkdir $RPM_BUILD_ROOT%{_libdir}/pkcs11
+mv $RPM_BUILD_ROOT%{_libdir}/libtpm2_pkcs11.so* $RPM_BUILD_ROOT%{_libdir}/pkcs11
 
 pushd tools
 %pyproject_install
@@ -114,6 +115,9 @@ make check
 
 
 %changelog
+* Wed May 20 2026 Jakub Jelen <jjelen@redhat.com> - 1.10.0-1}
+- New upstream release (#2400481)
+
 * Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 1.9.1-8
 - OpenSSL 4 build fixes
 

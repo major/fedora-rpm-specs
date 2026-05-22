@@ -1,5 +1,10 @@
 %global forgeurl0 https://github.com/yhirose/cpp-httplib
+%global upstream_sources 0
+%global pgp_signed_sources %{nil}
 %undefine __cmake_in_source_build
+%global git_tag v%{version}
+# only SOURCE0 is changed on a rebase
+%global upstream_sources 0
 
 %bcond_without tests
 %bcond_with    online
@@ -13,7 +18,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.38.0
+Version:        0.45.0
 %forgemeta
 Release:        %autorelease
 

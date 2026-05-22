@@ -16,7 +16,7 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.3.0
+%global upstream_version  2.3.2
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
@@ -34,8 +34,8 @@
 %global forgeurl          https://github.com/%{gh_vend}/%{gh_proj}
 %global tag               %{upstream_version}%{?upstream_prever}
 
-Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
+Summary:        MongoDB driver for PHP version 2
 License:        Apache-2.0
 Version:        %{upstream_version}%{?upstream_lower}
 Release:        1%{?dist}
@@ -151,6 +151,9 @@ OPT="-n"
 
 
 %changelog
+* Wed May 20 2026 Remi Collet <remi@remirepo.net> - 2.3.2-1
+- update to 2.3.2
+
 * Tue Apr 28 2026 Remi Collet <remi@remirepo.net> - 2.3.0-1
 - update to 2.3.0
 - raise dependency on libmongoc 2.3.0 and libmongocrypt 1.17.3

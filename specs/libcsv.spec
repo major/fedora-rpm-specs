@@ -56,15 +56,15 @@ License:        LGPL-2.1-or-later
 # X11:
 #   - install-sh
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                GPL-2.0-or-later WITH Libtool-exception AND
-                GPL-3.0-or-later WITH Autoconf-exception-generic AND
-                LicenseRef-Fedora-UltraPermissive AND
-                X11
-                }
+    %{license} AND
+    FSFUL AND
+    FSFULLR AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-2.0-or-later WITH Libtool-exception AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    LicenseRef-Fedora-UltraPermissive AND
+    X11
+    }
 URL:            https://github.com/rgamble/libcsv
 Source:         %{url}/archive/%{commit}/libcsv-%{commit}.tar.gz
 

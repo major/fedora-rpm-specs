@@ -1,10 +1,10 @@
 Name:           dot2tex
-Version:        2.11.3
+Version:        2.12.0
 Release:        %autorelease
 Summary:        A Graphviz to LaTeX converter
 License:        MIT
-URL:            http://www.fauskes.net/code/dot2tex/
-Source0:        https://github.com/kjellmf/dot2tex/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:            https://dot2tex.readthedocs.io/
+Source0:        https://github.com/sagemath/dot2tex/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

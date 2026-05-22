@@ -1,5 +1,5 @@
 Name: tuned-switcher
-Version: 1.0.2
+Version: 1.1.0
 Release: %autorelease
 
 # Main code - GPL-3.0-or-later.
@@ -16,6 +16,7 @@ BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6Widgets)
 
 BuildRequires: cmake

@@ -1,6 +1,6 @@
-#global candidate rc1
+%global candidate rc0
 # LTS has slightly adjusted naming
-%global lts 1
+#global lts 1
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
@@ -15,14 +15,13 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.14.2
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Version: 2.15
+Release: 0.1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
-Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}%{?lts:-lts}-v%{version}%{?candidate:-%{candidate}}.tar.gz
+Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}%{?lts:-lts}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
-Patch1:  0001-fix-rk3576-shorten-names-to-fit-into-the-allocated-s.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -59,7 +58,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %endif
 
 %prep
-%autosetup -n %{pname}%{?lts:-lts}-v%{version}%{?candidate:-%{candidate}} -p1
+%autosetup -n %{pname}%{?lts:-lts}-%{version}%{?candidate:-%{candidate}} -p1
 
 cp %SOURCE1 .
 
@@ -134,6 +133,9 @@ done
 %endif
 
 %changelog
+* Wed May 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.15.0-0.1.rc0
+- Update to 2.15 RC0
+
 * Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.2-1
 - Update to 2.14.2
 

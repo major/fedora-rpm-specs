@@ -14,7 +14,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.17
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -74,7 +74,7 @@ TPM, jitter) and supplies entropy from them to a kernel entropy pool.
 ./autogen.sh
 # a dirty hack so libdarn_impl_a_CFLAGS overrides common CFLAGS
 sed -i -e 's/$(libdarn_impl_a_CFLAGS) $(CFLAGS)/$(CFLAGS) $(libdarn_impl_a_CFLAGS)/' Makefile.in
-%configure --disable-jitterentropy %{?_without_pkcs11} %{?_without_rtlsdr} %{?_without_radiacode}
+%configure %{?_without_pkcs11} %{?_without_rtlsdr} %{?_without_radiacode}
 %make_build
 
 %install
@@ -106,6 +106,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Wed May 20 2026 Vladislav Dronov <vdronov@redhat.com> - 6.17-10
+- Build with the updated jitterentropy v3.7.0 library
+
 * Fri May 15 2026 Vladislav Dronov <vdronov@redhat.com> - 6.17-9
 - Update to the upstream v6.17 @ e8da3cdc
 - Handle new radiacode entropy source

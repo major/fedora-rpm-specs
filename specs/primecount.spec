@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        8.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -9,11 +9,14 @@ License:        BSD-2-Clause AND (Zlib OR BSL-1.0)
 URL:            https://github.com/kimwalisch/%{name}/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libdivide-static
-%ifarch %{ix86} x86_64 ia64 ppc64le
+%ifarch %{x86_64} ia64 %{power64}
 BuildRequires:  libquadmath-devel
 %endif
 BuildRequires:  make
@@ -39,7 +42,6 @@ nth_prime(10**24) (https://oeis.org/A006988).
 
 %package        libs
 Summary:        C++ library for fast prime counting
-%ldconfig_scriptlets
 
 %description    libs
 This package contains a C++ library for counting primes below an
@@ -68,15 +70,30 @@ ln -s %{_includedir}/libdivide.h include/libdivide.h
 # - All x86/x86_64 CPUs have __float128; it is different from long double
 # - ppc64le has __float128; it is the same as long double
 # - No other architecture has libquadmath
-%ifarch %{ix86} x86_64
+%ifarch %{x86_64_v4}
+export CFLAGS='%{build_cflags} -DLIBDIVIDE_AVX512'
+export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_AVX512'
+%else
+%ifarch %{x86_64_v3}
+export CFLAGS='%{build_cflags} -DLIBDIVIDE_AVX2'
+export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_AVX2'
+%else
+%ifarch %{x86_64}
 export CFLAGS='%{build_cflags} -DLIBDIVIDE_SSE2'
 export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
+%else
+%ifarch %{arm64}
+export CFLAGS='%{build_cflags} -DLIBDIVIDE_NEON'
+export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
+%endif
+%endif
+%endif
 %endif
 %cmake -DBUILD_LIBPRIMESIEVE=OFF \
        -DBUILD_MANPAGE=ON \
        -DBUILD_SHARED_LIBS=ON \
        -DBUILD_STATIC_LIBS=OFF \
-%ifarch %{ix86} x86_64
+%ifarch %{x86_64}
        -DWITH_FLOAT128=ON \
 %endif
        -DBUILD_TESTS=ON
@@ -107,6 +124,12 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue May 19 2026 Jerry James  <loganjerry@gmail.com> - 8.5-4
+- Stop building for 32-bit x86
+- Remove obsolete ldconfig_scriptlets macro
+- Use macros for architecture families
+- Enable future use of AVX2/AVX512 with libdivide
+
 * Sun May 10 2026 Kim Walisch <walki@fedoraproject.org> - 8.5-3
 - OpenMP.cmake: Fix LLVM OpenMP detection
 

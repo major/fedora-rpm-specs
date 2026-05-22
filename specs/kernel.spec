@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc4.260519gab5fce87a778.31
+%define pkgrelease 0.rc4.260520g27fa82620cba.32
 %define kversion 7
-%define tarfile_release 7.1-rc4-46-gab5fce87a778
+%define tarfile_release 7.1-rc4-93-g27fa82620cba
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260519gab5fce87a778.31%{?buildid}%{?dist}
+%define specrelease 0.rc4.260520g27fa82620cba.32%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,15 +4847,19 @@ fi\
 #
 #
 %changelog
-* Tue May 19 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc4.260519gab5fce87a778.31]
-- net/sched: fix pedit partial COW leading to page cache corruption (Rajat Gupta)
+* Wed May 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.27fa82620cba.32]
+- rxrpc: Fix RESPONSE packet verification to extract skb to a linear buffer (David Howells)
+- rxrpc: Fix DATA decrypt vs splice() by copying data to buffer in recvmsg (David Howells)
+- crypto/krb5, rxrpc: Fix lack of pre-decrypt/pre-verify length checks (David Howells)
 - net/sched: act_pedit: extend the writable skb range per key (Zhang Cen)
-- net: gro: don't copy frags between mixed zcopy skbs (Sabrina Dubroca)
-
-* Tue May 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.ab5fce87a778.31]
 - net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Wed May 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.27fa82620cba.31]
+- redhat/configs: do not enable ARCH_TEGRA_238_SOC (Eric Chanudet)
+- redhat/configs: do not enable ARCH_R9A08G046 (Eric Chanudet)
+- Linux v7.1.0-0.rc4.27fa82620cba
 
 * Tue May 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.ab5fce87a778.30]
 - redhat/configs: realign LOCKDEP_STACK_TRACE_*_BITS with upstream KASAN defaults (Mikhail Gavrilov)

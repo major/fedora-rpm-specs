@@ -86,17 +86,21 @@ PYTHONPATH="${PWD}/src" %{python3} scripts/generate_man.py
 
 
 %install -a
-install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' pipx.1
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' pipx.1
 
-install -p -m 0644 -D -t '%{buildroot}%{bash_completions_dir}' pipx.bash
-install -p -m 0644 -D -t '%{buildroot}%{fish_completions_dir}' pipx.fish
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{bash_completions_dir}' pipx.bash
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{fish_completions_dir}' pipx.fish
 # It seems that there is not a reasonable way to install tcsh completions
 # system-wide, so we just make the completions file available for interested
 # users.
-install -p -m 0644 -D pipx.tcsh \
+install -D --preserve-timestamps --mode=0644 pipx.tcsh \
     '%{buildroot}%{_datadir}/pipx/pipx-completion.tcsh'
 # Install the same generated bash completion for zsh
-install -p -m 0644 -D pipx.bash '%{buildroot}%{zsh_completions_dir}/_pipx'
+install -D --preserve-timestamps --mode=0644 pipx.bash \
+    '%{buildroot}%{zsh_completions_dir}/_pipx'
 
 
 %check -a
@@ -110,7 +114,7 @@ install -p -m 0644 -D pipx.bash '%{buildroot}%{zsh_completions_dir}/_pipx'
 # and confirming it can print its help output without crashing.
 
 # Make sure the source copy of the package is not in the Python path.
-mkdir -p empty
+mkdir --parents empty
 cd empty
 %{py3_test_envvars} pipx --help >/dev/null
 

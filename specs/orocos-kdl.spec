@@ -1,14 +1,17 @@
 %global sover 1.5
+# skip solvertest due to unstable behavior for that architecture
+%global ctest_extra_args -E solvertest
+
 Name:       orocos-kdl
-Version:    1.5.1
+Version:    1.5.3
 Release:    %autorelease
 Summary:    A framework for modeling and computation of kinematic chains
+ExcludeArch: %{ix86}
 
 License:    LGPL-2.0-or-later
 URL:        http://www.orocos.org/kdl.html
-Source0:    https://github.com/orocos/orocos_kinematics_dynamics/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:     orocos-kdl.pybind11.patch
-Patch1:     orocos-kdl.python-site-packages.patch
+Source0:    https://github.com/orocos/orocos_kinematics_dynamics/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     0-cmake-eigen3.patch
 
 BuildRequires:  cmake
 BuildRequires:  cppunit-devel
@@ -16,6 +19,7 @@ BuildRequires:  doxygen
 BuildRequires:  eigen3-devel
 BuildRequires:  gcc-c++
 BuildRequires:  graphviz
+BuildRequires:  python3-psutil
 
 Requires:   eigen3
 
@@ -39,6 +43,8 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Documentation for %{name}
 BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+
 %description    doc
 The %{name}-doc package contains documentation for %{name}.
 
@@ -81,7 +87,6 @@ CXXFLAGS="${CXXFLAGS:-%optflags} -Iinclude" \
 %cmake_build
 popd
 
-
 %install
 pushd orocos_kdl
 %cmake_install
@@ -94,27 +99,38 @@ popd
 
 %check
 pushd orocos_kdl
-%cmake_build --target check
+%ctest -- --test-dir %{_vpath_builddir}/tests %{ctest_extra_args}
+popd
+
+pushd python_orocos_kdl
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
+%{py3_test_envvars} %{python3} tests/PyKDLtest.py
 popd
 
 
 %files
 %doc README.md
 %license orocos_kdl/COPYING
-%{_libdir}/*.so.%{sover}*
+%{_libdir}/liborocos-kdl.so.%{sover}
+%{_libdir}/liborocos-kdl.so.%{version}
 
 %files devel
-%{_includedir}/*
-%{_datadir}/orocos_kdl
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*
+%{_includedir}/kdl/
+%{_libdir}/liborocos-kdl.so
+%{_libdir}/pkgconfig/orocos-kdl.pc
+%{_libdir}/pkgconfig/orocos_kdl.pc
+%{_datadir}/orocos_kdl/
 
 %files doc
 %doc orocos_kdl/%{_vpath_builddir}/doc/api/html
 
 %files -n python%{python3_pkgversion}-pykdl
-%{python3_sitearch}/PyKDL.so
 
+%ifarch ppc64le
+    %{python3_sitearch}/PyKDL.cpython-%{python3_version_nodots}-powerpc64le-linux-gnu.so
+%else
+    %{python3_sitearch}/PyKDL.cpython-%{python3_version_nodots}-%{_arch}-linux-gnu.so
+%endif
 
 %changelog
 %autochangelog

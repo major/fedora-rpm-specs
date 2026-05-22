@@ -63,8 +63,8 @@ Summary:        Wayland Conformance Test Suite
 #   - tests/xdg_surface_v6.cpp
 #   - tests/xdg_toplevel_stable.cpp
 #   - tests/xdg_toplevel_v6.cpp
-# > Files in tests/ are all test code that is not installed (so does not
-#   contribute to the licenses of the binary RPMs). Files in src/protocol/ are
+# > Files in tests/ are included in the test-suite executables and do
+#   contribute to the licenses of the binary RPMs. Files in src/protocol/ are
 #   used as inputs to “wayland-scanner” to generate C source files and headers,
 #   and are not directly included in the binary RPMs.
 #
@@ -73,18 +73,29 @@ Summary:        Wayland Conformance Test Suite
 # > Files in src/protocol/ are used as inputs to “wayland-scanner” to generate
 #   C source files and headers, and are not directly included in the binary
 #   RPMs.
-License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only)
+License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only) AND MIT
 SourceLicense:  %{shrink:
-                %{license} AND
-                (GPL-2.0-only OR GPL-3.0-only) AND
-                GPL-2.0-or-later AND
-                HPND-sell-variant AND
-                MIT
-                }
+    %{license} AND
+    (GPL-2.0-only OR GPL-3.0-only) AND
+    GPL-2.0-or-later AND
+    HPND-sell-variant
+    }
 URL:            https://github.com/MirServer/wlcs
 Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
 
-BuildRequires:  cmake
+BuildSystem:    cmake
+# WLCS_FATAL_COMPILE_WARNINGS: makes sense for upstream CI, but too strict for
+#                              downstream packaging
+BuildOption(conf): %{shrink:
+    -DWLCS_BUILD_ASAN=%{?with_asan:ON}%{?!with_asan:OFF}
+    -DWLCS_BUILD_TSAN=%{?with_tsan:ON}%{?!with_tsan:OFF}
+    -DWLCS_BUILD_UBSAN=%{?with_ubsan:ON}%{?!with_ubsan:OFF}
+    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF
+    }
+# We have built a test suite for compositors, but we have no tests for the test
+# suite, i.e., %%ctest would find no tests and there is nothing useful we could
+# do in %%check.
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -132,32 +143,6 @@ Wayland compositor implementors.
 
 The wlcs-devel package contains libraries and header files for developing
 Wayland compositor tests that use wlcs.
-
-
-%prep
-%autosetup
-
-
-%conf
-# WLCS_FATAL_COMPILE_WARNINGS: makes sense for upstream CI, but too strict for
-#                              downstream packaging
-%cmake \
-    -DWLCS_BUILD_ASAN=%{?with_asan:ON}%{?!with_asan:OFF} \
-    -DWLCS_BUILD_TSAN=%{?with_tsan:ON}%{?!with_tsan:OFF} \
-    -DWLCS_BUILD_UBSAN=%{?with_ubsan:ON}%{?!with_ubsan:OFF} \
-    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
-
-
-%check
-%ctest
 
 
 %files

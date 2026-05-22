@@ -1,15 +1,10 @@
 Name:           perftest
 Summary:        IB Performance Tests
-# Upstream uses a dash in the version. Not valid in the Version field, so we use a dot instead.
-# Issue "Please avoid dashes in version":
-#   https://github.com/linux-rdma/perftest/issues/18
-%global upstream_ver 25.10.0-0.128
-Version:        %{gsub %upstream_ver - .}
+Version:        26.01.5
 Release:        %autorelease
 License:        GPL-2.0-only OR BSD-2-Clause
-Source:		https://github.com/linux-rdma/perftest/releases/download/25.10.0-0.128/perftest-25.10.0-0.128.gd01b183.tar.gz
+Source:		https://github.com/linux-rdma/perftest/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Url:            https://github.com/linux-rdma/perftest
-Patch0:		Perftest-Fix-RDMA-CM-DMAH-bug.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -27,12 +22,8 @@ connections.  It does not work on normal TCP/IP networks, only on
 RDMA networks.
 
 %prep
-# The directory in the tarball has only the part before the dash.
-%global tarball_ver %{lua: _,_,v=string.find(rpm.expand("%{upstream_ver}"),"([^-]+)"); print(v)}
-
-%setup -q -n %{name}-%{tarball_ver}
+%setup -q
 find src -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'
-%autopatch -p1
 
 %build
 %configure

@@ -1,7 +1,7 @@
 %define dracutlibdir lib/dracut
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
-Version:        1.9.21
+Version:        1.9.22
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -105,6 +105,10 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Thu May 21 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.22-1
+- Update to 1.9.22
+- Fix systemd sandboxing: add ReadWritePaths=/dev/shm for semaphore creation
+
 * Wed May 20 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.21-1
 - Update to 1.9.21
 - Security fix: CVE-2026-41054 — privilege escalation via command socket

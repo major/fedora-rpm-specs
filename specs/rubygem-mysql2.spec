@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -14,6 +14,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/brianmario/mysql2.git
 # cd mysql2 && git archive -v -o mysql2-0.5.7-tests.tar.gz 0.5.7 spec/
 Source1: %{gem_name}-%{version}-tests.tar.gz
+# Adapt tests to SSL-enforcing mariadb-connector-c (DEFAULT_SSL_VERIFY_SERVER_CERT=ON)
+# Upstream: https://github.com/brianmario/mysql2/pull/1432
+Patch0: rubygem-mysql2-0.5.7-ssl-error-messages.patch
 
 # Required in lib/mysql2.rb
 Requires: rubygem(bigdecimal)
@@ -54,6 +57,8 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+%patch -P0 -p1 -d %{_builddir}
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -189,6 +194,9 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Thu Apr 09 2026 Michal Schorm <mschorm@redhat.com> - 0.5.7-4
+- Adapt tests to SSL-enforcing mariadb-connector-c
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-logger-plugins
-Version:        2.0.1
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Logger plugin interface for snakemake
 

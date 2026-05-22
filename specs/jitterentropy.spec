@@ -1,7 +1,7 @@
 %global libjit_soversion 3
 Name:           jitterentropy
 Version:        3.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library implementing the jitter entropy source
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -14,7 +14,9 @@ BuildRequires: make
 # Disable Upstream Makefiles debuginfo strip on install
 Patch0: jitterentropy-rh-makefile.patch
 # Gcc with -std=c11 defines __powerpc__ only
-Patch1: jitterentropy-rh-powerpc.patch
+Patch1: jitterentropy-powerpc.patch
+# Restore previous jitterentropy public api
+Patch2: jitterentropy-api.patch
 
 %description
 Library implementing the CPU jitter entropy source
@@ -48,6 +50,9 @@ mkdir -p %{buildroot}%{_includedir}
 %{_mandir}/man3/*
 
 %changelog
+* Wed May 20 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-3
+- Restore previous jitterentropy public api
+
 * Fri May 15 2026 Vladislav Dronov <vdronov@redhat.com> - 3.7.0-2
 - Simplify jent_get_nstime() for PowerPC
 

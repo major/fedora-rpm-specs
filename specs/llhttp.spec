@@ -70,7 +70,7 @@ developing applications that use llhttp.
 
 %install -a
 %if %{with bootstrap}
-cp -vp %{_libdir}/libllhttp.so.%{previous_so_version}{,.*} \
+cp --verbose --preserve %{_libdir}/libllhttp.so.%{previous_so_version}{,.*} \
     %{buildroot}%{_libdir}
 %endif
 

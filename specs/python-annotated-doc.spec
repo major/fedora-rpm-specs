@@ -34,7 +34,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-annotated-doc -f %{pyproject_files}

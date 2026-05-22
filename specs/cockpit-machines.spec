@@ -3,15 +3,16 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        352
+Version:        353
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
 
 # distributions which ship nodejs-esbuild can rebuild the bundle during package build
+# allow override from command line (e.g. for development builds)
 %if 0%{?fedora} >= 42
-%define rebuild_bundle 1
+%{!?rebuild_bundle: %define rebuild_bundle 1}
 %endif
 
 Source0: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -28,7 +29,7 @@ BuildRequires: gettext
 %if 0%{?rhel} && 0%{?rhel} <= 8
 BuildRequires: libappstream-glib-devel
 %endif
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 BuildRequires: /usr/bin/node
 BuildRequires: nodejs-esbuild
 %endif
@@ -68,10 +69,10 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
@@ -92,12 +93,12 @@ Cockpit component for managing libvirt virtual machines.
 
 %prep
 %setup -q -n %{name}
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 %setup -q -D -T -a 1 -n %{name}
 %endif
 
 %build
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 rm -rf dist
 # HACK: node module packaging is broken in Fedora ≤ 43; should be in
 # common location, not major version specific one
@@ -118,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed May 20 2026 Packit <hello@packit.dev> - 353-1
+- Bug fixes and translation updates
+
 * Tue Apr 21 2026 Packit <hello@packit.dev> - 352-1
 - Improvements to the "Add disk" and "Create Volume" dialogs
 

@@ -32,12 +32,20 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  29%{?dist}
+Release:  30%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:      https://github.com/%{name}/%{name}
 Source0:  %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# GCC 16: operator<<(ostream, wchar_t) is deleted in C++23; comment out debug-only call
+# https://github.com/libyui/libyui/issues/123
+Patch0:   fix-gcc16-compatibility.patch
+# CMake 4 compatibility
+# Partially covered upstream already:
+#   https://github.com/libyui/libyui/commit/3ae85a40e80fea68fe404dbde47ad18f129ee967
+Patch1:   fix-cmake-4-compatibility.patch
 
 
 BuildRequires:  gcc-c++
@@ -346,6 +354,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Wed Apr 22 2026 Lumír Balhar <lbalhar@redhat.com> - 4.2.16-30
+- Fix build with G++16 and Cmake 4 (rhbz#2427943)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.16-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

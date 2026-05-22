@@ -1,6 +1,6 @@
 %global tarname FreeFem-sources
-%global tarvers 4.15
-%global ffvers 4.15
+%global tarvers 4.16
+%global ffvers 4.16
 
 %bcond_without serial
 
@@ -28,7 +28,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 10%{?dist}
+Release: 1%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -232,24 +232,24 @@ This package contains the MPICH version of FreeFem++.
 
 mv %{tarname}-%{tarvers} serial
 pushd serial
-%patch -P 01 -p1
-%patch -P 02 -p1
-%patch -P 03 -p1
-%patch -P 04 -p1
-%patch -P 05 -p1
-%patch -P 06 -p1
-%patch -P 07 -p1
-%patch -P 08 -p1
-%patch -P 09 -p1
-%patch -P 10 -p1
-%patch -P 11 -p1
-%patch -P 12 -p1
-%patch -P 13 -p1
-%patch -P 14 -p1
-%patch -P 15 -p1
-%patch -P 16 -p1
-%patch -P 17 -p1
-%patch -P 18 -p1
+%patch -P 01 -p1 -b .backup1
+%patch -P 02 -p1 -b .backup2
+%patch -P 03 -p1 -b .backup3
+%patch -P 04 -p1 -b .backup4
+%patch -P 05 -p1 -b .backup5
+%patch -P 06 -p1 -b .backup6
+%patch -P 07 -p1 -b .backup7
+%patch -P 08 -p1 -b .backup8
+%patch -P 09 -p1 -b .backup9
+%patch -P 10 -p1 -b .backup10
+%patch -P 11 -p1 -b .backup11
+%patch -P 12 -p1 -b .backup12
+#patch -P 13 -p1 -b .backup13
+%patch -P 14 -p1 -b .backup14
+%patch -P 15 -p1 -b .backup15
+%patch -P 16 -p1 -b .backup16
+%patch -P 17 -p1 -b .backup17
+%patch -P 18 -p1 -b .backup18
 
 sed -i \
   -e 's,5.0.2,%{MUMPS_VERS},' \
@@ -459,6 +459,10 @@ done
 %endif
 
 %changelog
+* Sat Apr 25 2026 Antonio Trande <sagitter@fedoraproject.org> - 4.16-1
+- Rebuild for petsc-3.25.0
+- Release 4.16
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 4.15-10
 - Rebuild for hdf5 2.1
 

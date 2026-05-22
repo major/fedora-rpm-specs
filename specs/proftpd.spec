@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 3
 %global mod_proxy_version 0.9.5
 %global mod_vroot_version 0.9.12
 
@@ -47,6 +47,7 @@ Patch11:		https://github.com/proftpd/proftpd/commit/04d89957.patch
 Patch12:		https://github.com/proftpd/proftpd/commit/7e076e84.patch
 Patch13:		https://github.com/proftpd/proftpd/commit/07797aba.patch
 Patch14:		https://github.com/proftpd/proftpd/commit/5e06acc4.patch
+Patch15:		https://github.com/proftpd/proftpd/commit/1a5ce646.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -238,6 +239,9 @@ mv contrib/README contrib/README.contrib
 # https://github.com/proftpd/proftpd/issues/2057
 %patch -P 13 -p1
 %patch -P 14 -p1
+
+# Address another avenue for SQL injection, via custom SQLUserInfo queries
+%patch -P 15 -p1
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -476,6 +480,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue May 19 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-3
+- Address another avenue for SQL injection, via custom SQLUserInfo queries
+
 * Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-2
 - Additional escaping for avoidance of SQL injection issues with %%{note:...}
   and %%{env:...}; these are on top of the existing fix for CVE-2026-42167 in

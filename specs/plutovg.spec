@@ -1,5 +1,5 @@
 Name:           plutovg
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Tiny 2D vector graphics library in C
 License:        MIT AND FTL

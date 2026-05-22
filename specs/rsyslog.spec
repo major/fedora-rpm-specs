@@ -51,6 +51,8 @@ Source4: rsyslog.service
 # separatae sub-package with it statically linked(see rhbz#1713427)
 Source5: https://archive.apache.org/dist/qpid/proton/%{qpid_proton_v}/qpid-proton-%{qpid_proton_v}.tar.gz
 
+Patch1: 0001-Use-OpenSSL-accessors-for-opaque-structs.patch
+
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: autoconf
@@ -386,6 +388,8 @@ This module allows rsyslog to send messages to a RabbitMQ server.
 %if %{with omamqp1}
 # Unpack qpid-proton
 %setup -q -D -T -b 5
+cd %{_builddir}/qpid-proton-%{qpid_proton_v}
+%patch 1 -p1
 %endif
 
 %build

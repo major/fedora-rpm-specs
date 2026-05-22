@@ -1,19 +1,27 @@
 Name:           perl-XML-Filter-BufferText
 Version:        1.01
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Filter to put all characters() in one event
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Filter-BufferText
 Source0:        https://cpan.metacpan.org/modules/by-module/XML/XML-Filter-BufferText-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Runtime
 BuildRequires:  perl(base)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(XML::SAX) >= 0.04
 BuildRequires:  perl(XML::SAX::Base)
-
+# Tests
+BuildRequires:  perl(Test::More)
+# Dependencies
+# (none)
 
 %description
 This is a very simple filter. One common cause of grief (and programmer
@@ -24,31 +32,34 @@ single event.
 
 %prep
 %setup -q -n XML-Filter-BufferText-%{version}
-chmod 644 Changes README BufferText.pm
+chmod -c 644 Changes README BufferText.pm
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/XML/
+%{_mandir}/man3/XML::Filter::BufferText.3*
 
 %changelog
+* Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 1.01-53
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Use %%{make_build} and %%{make_install}
+  - Drop redundant buildroot cleaning in %%install section
+  - Don't need to remove empty directories from the buildroot
+  - Make %%files list more explicit
+  - Make permission changes visible in build log
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

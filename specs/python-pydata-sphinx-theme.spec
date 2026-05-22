@@ -6,7 +6,7 @@
 %global giturl  https://github.com/pydata/pydata-sphinx-theme
 
 Name:           python-pydata-sphinx-theme
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -44,7 +44,7 @@ BuildRequires:  /usr/bin/node
 BuildRequires:  /usr/bin/npm
 BuildRequires:  yarnpkg
 
-Provides:       bundled(js-bootstrap) = 5.3.8
+Provides:       bundled(npm(bootstrap)) = 5.3.8
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -107,16 +107,13 @@ sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.p
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
 # Skip the playwright tests, since playwright is not available in Fedora
-sed -i '/pytest-playwright/d' pyproject.toml
+%pyproject_patch_dependency pytest-playwright:ignore
 
 # Do not run coverage tools in an RPM build
-sed -i '/pytest-cov/d' pyproject.toml
+%pyproject_patch_dependency pytest-cov:ignore
 
-%generate_buildrequires -p
 # The Fedora sphinx package does not provide sphinx[test]
 sed -i 's/\(sphinx\)\[test\]/\1/' pyproject.toml
-# Do not run code coverage tools
-sed -i 's/, "pytest-cov"//' pyproject.toml
 
 %build -p
 export YARN_CACHE_FOLDER="$PWD/.package-cache"

@@ -10,15 +10,17 @@
 %{!?rhel:%global with_rbd 1}
 %endif
 
+# no glfs in epel
+%if 0%{?fedora}
 %ifnarch ppc64
 %global with_glfs 1
 %endif
-
+%endif
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
 Version:        1.0.97
-Release:        2%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://stgt.sourceforge.net/
@@ -138,6 +140,16 @@ pushd usr
 %endif
 
 %changelog
+* Wed May 20 2026 Terje Rosten <terjeros@gmail.com> - 1.0.97-5
+- Use undefined variable for epel case
+
+* Wed May 20 2026 Terje Rosten <terjeros@gmail.com> - 1.0.97-4
+- Fix a typo in prev. change
+
+* Tue May 19 2026 Davide Cavalca <dcavalca@fedoraproject.org> - 1.0.97-3
+- Gate glfs support to Fedora
+  Fixes: RHBZ#2479935
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.97-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
