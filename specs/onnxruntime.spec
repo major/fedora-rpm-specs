@@ -105,7 +105,7 @@ BuildRequires:  gsl-devel
 BuildRequires:  gtest-devel
 BuildRequires:  guidelines-support-library-devel
 BuildRequires:  json-devel
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools

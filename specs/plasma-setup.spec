@@ -8,7 +8,7 @@
 
 Name:           plasma-setup
 Version:        6.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -19,6 +19,9 @@ Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 # Backported changes
 
 # Proposed changes
+# https://invent.kde.org/plasma/plasma-setup/-/merge_requests/101
+# https://bugzilla.redhat.com/show_bug.cgi?id=2453216
+Patch501:       101.patch
 
 # Downstream only changes
 Patch1001:      plasma-setup-load-fedora-wallpaper.patch
@@ -134,6 +137,9 @@ exit 0
 
 
 %changelog
+* Sun Apr 19 2026 Adam Williamson <awilliam@redhat.com> - 6.6.5-2
+- Re-backport MR #101 to pre-select configured keyboard layout (#2453216)
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

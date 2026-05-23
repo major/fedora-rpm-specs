@@ -1,17 +1,17 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 %global pypi_name oslo.i18n
 %global pkg_name oslo-i18n
 %global with_doc 1
 
-%global common_desc \
-The oslo.i18n library contain utilities for working with internationalization \
-(i18n) features, especially translation for text strings in an application \
-or library.
+%global _description %{expand:
+The oslo.i18n library contain utilities for working with internationalization
+(i18n) features, especially translation for text strings in an application
+or library.}
 
 Name:           python-oslo-i18n
-Version:        6.7.2
+Version:        6.8.0
 Release:        %autorelease
 Summary:        OpenStack i18n library
 License:        Apache-2.0

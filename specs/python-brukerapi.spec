@@ -40,7 +40,8 @@ Obsoletes:      python-brukerapi-doc < 0.1.10-1
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 
@@ -57,7 +58,7 @@ for zip in '0.2H2.zip' \
     '20210128_122257_LEGO_PHANTOM_API_TEST_1_1.zip'
 do
     # Make an empty zip file so the test code doesn’t try to re-download
-    %{python3} -m zipfile -c "test/zenodo_zips/${zip}"
+    %{python3} -m zipfile --create "test/zenodo_zips/${zip}"
 done
 
 # Avoid tests that try to use any external data sets
@@ -67,7 +68,7 @@ ignore="${ignore-} --ignore=test/test_random_access.py"
 ignore="${ignore-} --ignore=test/test_dataset.py"
 
 # We are not left with a great many tests, but we run what we can.
-%pytest -v ${ignore-}
+%pytest --verbose ${ignore-}
 
 
 %files -n python3-brukerapi -f %{pyproject_files}

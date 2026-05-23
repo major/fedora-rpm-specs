@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -64,7 +64,9 @@ Patch8:         mozc-abseil-cpp-20240116-includes.patch
 Patch9:		mozc-fix-2257171.patch
 
 BuildRequires:	python gettext
-BuildRequires:	libstdc++-devel zlib-devel libxcb-devel protobuf-devel protobuf-c glib2-devel gtk2-devel
+BuildRequires:	libstdc++-devel zlib-devel libxcb-devel glib2-devel gtk2-devel
+BuildRequires:  protobuf-devel < 4
+BuildRequires:  protobuf3-c
 BuildRequires:	abseil-cpp-devel
 %if %{with qt}
 BuildRequires:	qt5-qtbase-devel
@@ -254,6 +256,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu May 21 2026 Miroslav Suchy <msuchy@redhat.com> - 2.29.5111.102-19
+- Use protobuf2 because of https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-18
 - Rebuilt for abseil-cpp 20260107.0
 

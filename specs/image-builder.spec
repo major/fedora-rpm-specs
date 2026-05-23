@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 178
+%global min_osbuild_version 181
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        64
+Version:        65
 
 %gometa
 
@@ -148,8 +148,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.29.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.262.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.30.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.266.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -166,6 +166,7 @@ Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.2
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.10
 Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
+Provides: bundled(golang(github.com/supakeen/yamlplus)) = 1.1.0
 Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.21.1
 Provides: bundled(golang(github.com/tchap/go-patricia/v2)) = 2.3.3
 Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
@@ -275,6 +276,61 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu May 21 2026 Packit <hello@packit.dev> - 65-1
+Changes with 65
+----------------
+  - deps: bump images to 0.266.0 (#520)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - deps: bump osbuild/images dependency (#515)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - main: default to XDG cache directory for non-root users (#511)
+    - Author: Guillermo N. Leiro Arroyo, Reviewers: Brian C. Lane, Lukáš Zapletal
+
+osbuild/images changes (v0.262.0 -> v0.266.0):
+
+  - Add bootc-foundry boot test infrastructure (HMS-10336) (#2335)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - Update RHEL 9 and 10 OCI image definitions [HMS-10328, HMS-10472] (#2333)
+    - Author: Achilleas Koutsou, Reviewers: Simon Steinbeiß, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2321)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update osbuild dependency commit ID (#2328)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20260504 (#2323)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - boot-azure: switch machine type (#2344)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers, Simon Steinbeiß
+  - ci: include flatpaks (#2349)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - ci: use f43 for cross-arch (#2322)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - defs/bootc: set XBOOTLDR GUID (#2325)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - disk: partition table policies (#2330)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - distro/rhel-9: fix OCI partitioning (#2351)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger, Tomáš Hozza
+  - experimental: use yamlplus (#2319)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - fedora: remove vc4 module blacklist from ostree kernel options (#2331)
+    - Author: Paul Whalen, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - flatpak: use container resolver to resolve flatpak refs (#2334)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - import ELN (HMS-10620, HMS-10621, HMS-10623) (#2318)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - many: bootc sealed images (composefs, and bootloader) (HMS-10628) (#2326)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - pkg/bootc/resolver: handle missing 'bootc container inspect' (#2342)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - rhel: enable sshd service for WSL images (#2332)
+    - Author: Simon Steinbeiß, Reviewers: Achilleas Koutsou, Sanne Raymaekers, Simon de Vlieger
+  - schutzbot: update terraform commit ID (#2341)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Brian C. Lane
+  - test: close filesystem/disk customization coverage gaps with osbuild-composer (#2329)
+    - Author: Simon Steinbeiß, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-05-21
+
 * Wed May 13 2026 Packit <hello@packit.dev> - 64-1
 Changes with 64
 ----------------

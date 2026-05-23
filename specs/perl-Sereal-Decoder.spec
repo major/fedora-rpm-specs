@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        5.005
+Version:        5.006
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -117,6 +117,12 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Thu May 21 2026 Paul Howarth <paul@city-fan.org> - 5.006-1
+- Update to 5.006 (rhbz#2480334)
+  - Update bundled miniz to 3.1.1
+  - Avoid deprecated ZSTD api
+  - Tidy and regen
+
 * Wed May 20 2026 Paul Howarth <paul@city-fan.org> - 5.005-1
 - Update to 5.005 (rhbz#2480052)
   - Update bundled Zstd to 1.5.7, and other changes

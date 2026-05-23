@@ -3,7 +3,7 @@
 
 Name:           perl-Inline
 Version:        0.87
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Inline Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
@@ -40,8 +40,14 @@ BuildRequires:  perl(version) >= 0.82
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Inline::Files)
+BuildRequires:  perl(JSON::PP)
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Text::Diff)
+BuildRequires:  perl(XXX)
 # Test::Pod 1.41 not used
 BuildRequires:  perl(Test::Warn) >= 0.23
 %if %{with perl_Inline_enables_optional_test}
@@ -137,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 21 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.87-3
+- Fix test dependencies
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

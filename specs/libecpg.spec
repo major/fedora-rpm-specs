@@ -3,7 +3,7 @@
 Summary: ECPG - Embedded SQL in C
 Name: libecpg
 Version: %majorversion.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -27,7 +27,7 @@ BuildRequires: krb5-devel
 BuildRequires: openldap-devel
 BuildRequires: libpq-devel
 BuildRequires: gettext
-BuildRequires: multilib-rpm-config
+%{!?rhel:BuildRequires: multilib-rpm-config}
 BuildRequires: make
 BuildRequires: libicu-devel
 
@@ -91,7 +91,9 @@ export CFLAGS="$CFLAGS -std=c17"
 # remove files not to be packaged
 find $RPM_BUILD_ROOT -name '*.a' -delete
 
+%if %{undefined rhel}
 %multilib_fix_c_header --file "%{_includedir}/ecpg_config.h"
+%endif
 
 # function from postgresql.spec
 find_lang_bins ()
@@ -133,6 +135,11 @@ find_lang_bins %name-devel.lst  ecpg
 
 
 %changelog
+* Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 16.4-5
+- Drop multilib-rpm-config usage on RHEL
+  Related: RHEL-178013
+  Related: https://github.com/fedora-eln/eln/issues/525
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

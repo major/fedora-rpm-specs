@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -124,7 +124,7 @@ BuildRequires: perl-generators
 %endif
 BuildRequires: readline-devel zlib-devel
 BuildRequires: systemd systemd-devel util-linux
-BuildRequires: multilib-rpm-config
+%{!?rhel:BuildRequires: multilib-rpm-config}
 %if %external_libpq
 BuildRequires: libpq-devel >= %version
 %endif
@@ -906,12 +906,14 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libpq.a
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/pgsql/contrib
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/pgsql/extension
 
+%if %{undefined rhel}
 # multilib header hack
 for header in \
 	%{_includedir}/pgsql/server/pg_config.h
 do
 %multilib_fix_c_header --file "$header"
 done
+%endif
 
 install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/pgsql/tutorial
 cp -p src/tutorial/* $RPM_BUILD_ROOT%{_libdir}/pgsql/tutorial
@@ -1508,6 +1510,11 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 18.3-4
+- Drop multilib-rpm-config usage on RHEL
+  Related: RHEL-178013
+  Related: https://github.com/fedora-eln/eln/issues/525
+
 * Mon May 11 2026 Pavol Sloboda <psloboda@redhat.com> - 18.3-3
 - Release bump
 

@@ -39,7 +39,7 @@ Summary:        %{summary}
 
 %prep -a
 # Since we have omitted pytest-benchmark, this would not be recognized.
-sed -r -i '/--benchmark/d' pytest.ini
+sed --regexp-extended --in-place '/--benchmark/d' pytest.ini
 
 
 %check -a

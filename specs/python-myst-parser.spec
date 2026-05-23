@@ -26,6 +26,7 @@ BuildRequires:  python3-pytest-regressions
 BuildRequires:  python3-pytest-param-files
 BuildRequires:  python3-sphinx-pytest
 BuildRequires:  python3-linkify-it-py
+BuildRequires:  python3-soupsieve
 
 
 %global _description %{expand:

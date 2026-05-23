@@ -17,6 +17,7 @@ URL:            %forgeurl
 Source:         %{url}/-/archive/%{commit}/%{reponame}-%{shortcommit}.tar.gz
 BuildRequires:  python3-devel
 # Tests
+BuildRequires:  gobject-introspection
 BuildRequires:  gtk3-devel
 BuildRequires:  gzip
 BuildRequires:  python3dist(pytest)

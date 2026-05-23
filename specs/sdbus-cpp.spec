@@ -1,8 +1,8 @@
 %global libso_major 2
 
 Name:           sdbus-cpp
-Version:        2.2.1
-Release:        3%{?dist}
+Version:        2.3.1
+Release:        2%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -81,10 +81,12 @@ Requires:       %{name}
 mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
 mv %{buildroot}%{_sysconfdir}/dbus-1/system.d/org.sdbuscpp.integrationtests.conf %{buildroot}%{_datadir}/dbus-1/system.d/
 rm -rf %{buildroot}%{_sysconfdir}
+rm %{buildroot}%{_docdir}/sdbus-c++/COPYING
 
 
 %files
-%license %{_docdir}/sdbus-c++/COPYING
+%license COPYING
+%license COPYING-LGPL-Exception
 %dir %{_docdir}/sdbus-c++
 %doc %{_docdir}/sdbus-c++/AUTHORS
 %doc %{_docdir}/sdbus-c++/ChangeLog
@@ -94,6 +96,8 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %files devel
+%license COPYING
+%license COPYING-LGPL-Exception
 %{_libdir}/pkgconfig/sdbus-c++.pc
 %{_libdir}/pkgconfig/sdbus-c++-tools.pc
 %{_libdir}/libsdbus-c++.so
@@ -103,8 +107,9 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %files devel-doc
+%license COPYING
+%license COPYING-LGPL-Exception
 %doc %{_docdir}/sdbus-c++/*
-%exclude %{_docdir}/sdbus-c++/COPYING
 %exclude %{_docdir}/sdbus-c++/AUTHORS
 %exclude %{_docdir}/sdbus-c++/ChangeLog
 %exclude %{_docdir}/sdbus-c++/NEWS
@@ -112,17 +117,29 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %files tools
+%license COPYING
+%license COPYING-LGPL-Exception
 %{_bindir}/sdbus-c++-xml2cpp
 %dir %{_libdir}/cmake/sdbus-c++-tools
 %{_libdir}/cmake/sdbus-c++-tools/*.cmake
 
 
 %files tests
+%license COPYING
+%license COPYING-LGPL-Exception
 %{_datadir}/dbus-1/system.d/org.sdbuscpp.integrationtests.conf
 %{_libexecdir}/installed-tests/sdbus*
 
 
 %changelog
+* Thu May 21 2026 Marek Blaha <mblaha@redhat.com> - 2.3.1-2
+- Relocate the license files to %{_licensedir}
+- Resolves: rhbz#2280338
+
+* Wed May 20 2026 Packit <hello@packit.dev> - 2.3.1-1
+- Update to version 2.3.1
+- Resolves: rhbz#2277126
+
 * Tue May 19 2026 Marek Blaha <mblaha@redhat.com> - 2.2.1-3
 - Fix duplicate ownership of documentation files
 

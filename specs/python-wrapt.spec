@@ -1,5 +1,5 @@
 Name:           python-wrapt
-Version:        2.1.2
+Version:        2.2.0
 Release:        %autorelease
 Summary:        A Python module for decorators, wrappers and monkey patching
 
@@ -8,7 +8,7 @@ URL:            https://github.com/GrahamDumpleton/wrapt
 Source:         %{url}/archive/%{version}/wrapt-%{version}.tar.gz
 
 BuildSystem:    pyproject
-BuildOption(install): --assert-license wrapt
+BuildOption(install): --assert-license wrapt wrapt-stubs
 
 BuildRequires:  gcc
 

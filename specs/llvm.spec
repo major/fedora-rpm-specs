@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 22
 %global min_ver 1
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -3556,9 +3556,12 @@ fi
     libompd.so
     libarcher.so
 }}
+
+%if %{maj_ver} < 23
 %if %{with offload}
 %expand_libs libomptarget.so.%{so_suffix}
 %expand_libs libLLVMOffload.so.%{so_suffix}
+%endif
 %endif
 
 %files -n %{pkg_name_libomp}-devel

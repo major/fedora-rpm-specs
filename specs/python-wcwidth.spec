@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-wcwidth
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Measures number of Terminal column cells of wide-character codes
 

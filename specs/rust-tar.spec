@@ -5,7 +5,7 @@
 %global crate tar
 
 Name:           rust-tar
-Version:        0.4.45
+Version:        0.4.46
 Release:        %autorelease
 Summary:        Rust implementation of a TAR file reader and writer
 
@@ -13,9 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tar
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Update astral-tokio-tar requirement from 0.5 to 0.6:
-#   https://github.com/alexcrichton/tar-rs/pull/446. Downstream, we still allow
-#   0.5 for non-leading EPEL10 branches.
+# * Relax astral-tokio-tar requirement from 0.6 to also allow 0.5
 Patch:          tar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

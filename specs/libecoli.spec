@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/rjarry/libecoli
 
 Name: libecoli
-Version: 0.11.3
+Version: 0.11.6
 Summary: Extensible COmmand LIne library
 License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 
@@ -14,13 +14,14 @@ URL: %{forgeurl}
 Release: %{autorelease}
 Source: %{forgesource}
 
+BuildRequires: doxygen
+BuildRequires: doxygen2man
 BuildRequires: gcc
+BuildRequires: libedit-devel
+BuildRequires: libxml2
 BuildRequires: meson
 BuildRequires: ninja-build
-BuildRequires: libedit-devel
 BuildRequires: pkgconf
-BuildRequires: doxygen
-BuildRequires: fdupes
 
 %description
 libecoli stands for Extensible COmmand LIne library.
@@ -69,23 +70,6 @@ This package contains the HTML documentation for %{name}.
 
 %install
 %meson_install
-
-# Doxygen creates man links which are text files containing a reference to
-# another man page. Upstream tried to convert them to symlinks but meson
-# converts them back to regular files on install. Handle the conversion from
-# man "link" to symbolic link to avoid duplicated files in the rpm.
-for man in "%{buildroot}%{_mandir}"/*/*; do
-	read -r so link < "$man"
-	if [ "$so" = ".so" ]; then
-		rm -f "$man"
-		if [ -f "%{buildroot}%{_mandir}/$link" ]; then
-			ln -sr "%{buildroot}%{_mandir}/$link" "$man"
-		fi
-	fi
-done
-
-# Replace duplicate files with hardlinks.
-%fdupes "%{buildroot}%{_datadir}/doc/libecoli"
 
 %files
 %doc README.md

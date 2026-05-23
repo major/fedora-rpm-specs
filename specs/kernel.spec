@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc4.260520g27fa82620cba.32
+%define pkgrelease 0.rc4.260521g8bc67e4db64a.33
 %define kversion 7
-%define tarfile_release 7.1-rc4-93-g27fa82620cba
+%define tarfile_release 7.1-rc4-100-g8bc67e4db64a
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260520g27fa82620cba.32%{?buildid}%{?dist}
+%define specrelease 0.rc4.260521g8bc67e4db64a.33%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,7 +4847,11 @@ fi\
 #
 #
 %changelog
-* Wed May 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.27fa82620cba.32]
+* Thu May 21 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc4.260521g8bc67e4db64a.33]
+- net: skbuff: preserve shared-frag marker during coalescing (William Bowling)
+- xfrm: esp: restore combined single-frag length gate (Jingguo Tan)
+
+* Thu May 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.8bc67e4db64a.33]
 - rxrpc: Fix RESPONSE packet verification to extract skb to a linear buffer (David Howells)
 - rxrpc: Fix DATA decrypt vs splice() by copying data to buffer in recvmsg (David Howells)
 - crypto/krb5, rxrpc: Fix lack of pre-decrypt/pre-verify length checks (David Howells)
@@ -4855,6 +4859,9 @@ fi\
 - net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Thu May 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.8bc67e4db64a.32]
+- Linux v7.1.0-0.rc4.8bc67e4db64a
 
 * Wed May 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.27fa82620cba.31]
 - redhat/configs: do not enable ARCH_TEGRA_238_SOC (Eric Chanudet)

@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       42.%{git_suffix}%{?dist}
+Release:       43.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -27,6 +27,9 @@ BuildRequires: pybind11-devel
 Summary:       GNURadio block for suppressing IQ imbalance
 #Source0:       https://github.com/osmocom/gr-iqbal/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 Source0:       https://github.com/osmocom/gr-iqbal/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 This GNURadio block can suppress IQ imbalance in the RX path of
@@ -82,6 +85,9 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jan 27 2026 Jerry James <loganjerry@gmail.com> - 0.38.2-43.20210210gitfbee239a
+- Stop building for 32-bit x86
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-42.20210210gitfbee239a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

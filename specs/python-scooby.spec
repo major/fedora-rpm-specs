@@ -68,7 +68,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a
@@ -82,6 +83,10 @@ k="${k-}${k+ and }not test_tracking"
 k="${k-}${k+ and }not test_import_os_error"
 # Import performance test may fail flakily or on slower hardware
 k="${k-}${k+ and }not test_import_time"
+# This test is too brittle for downstream use. It tests the precise list of
+# dependencies of beautifulsoup4 against a hard-coded list. It might be OK for
+# upstream CI, but we are better off skipping it.
+k="${k-}${k+ and }not test_get_distribution_dependencies_separate_extras"
 
 %pytest -k "${k-}" --verbose
 %endif

@@ -45,7 +45,7 @@ BuildRequires:  cmake(OpenEXR) < 3
 BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  openjpeg2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  openvdb-devel
+#BuildRequires:  openvdb-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  python3-devel
 BuildRequires:  ptex-devel
@@ -93,6 +93,9 @@ rm -f src/include/OpenImageIO/pugixml.hpp \
 # Remove bundled tbb
 rm -rf src/include/tbb
 
+# Work around for OpenEXR < 3 where the Imath library has not been split out
+sed -i "s|Imath\/half.h|OpenEXR\/half.h|g" src/include/OpenImageIO/half.h.in
+
 
 %build
 # CMAKE_SKIP_RPATH is OK here because it is set to FALSE internally and causes
@@ -110,6 +113,7 @@ mkdir build/linux && pushd build/linux
        -DJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libjpeg) \
        -DOPENJPEG_INCLUDE_DIR=$(pkgconf --variable=includedir libopenjp2) \
        -DOpenGL_GL_PREFERENCE=GLVND \
+	   -DUSE_OPENVDB=OFF \
        -DVERBOSE=TRUE \
 	   -USE_PYTHON=FALSE
 

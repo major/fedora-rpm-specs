@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           tmux
-Version:        3.6a
-Release:        2%{?dist}
+Version:        3.6b
+Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -78,6 +78,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Thu May 21 2026 Filipe Rosset <rosset.filipe@gmail.com> - 3.6b-1
+- updateo to 3.6b
+
 * Tue May 05 2026 Dridi Boukelmoune <dridi@fedoraproject.org> - 3.6a-2
 - Patch #{pane_current_path} race condition
 

@@ -1,5 +1,5 @@
 Name:           libsigc++20
-Version:        2.12.1
+Version:        2.12.2
 Release:        %autorelease
 Summary:        Typesafe signal framework for C++
 

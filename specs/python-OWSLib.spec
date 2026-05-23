@@ -74,12 +74,13 @@ Obsoletes:      python-OWSLIB-doc < 0.32.0-1
 
 %prep -a
 # Don’t analyze/report test coverage
-sed -r -i 's/^([[:blank:]]*)(--cov\b)/\1# \2/' tox.ini
+sed --regexp-extended --in-place \
+    's/^([[:blank:]]*)(--cov\b)/\1# \2/' tox.ini
 
 
 %check -a
 # Otherwise, pytest finds the package twice in the Python path and complains.
-rm -rf owslib
+rm --recursive owslib
 
 # These require test data files from tests/resources/, which we have removed:
 ignore="${ignore-} --ignore-glob=tests/doctests/*.txt"
@@ -132,7 +133,7 @@ k="${k-}${k+ and }not test_md_reference_system"
 k="${k-}${k+ and }not test_service2"
 k="${k-}${k+ and }not test_md_distribution"
 
-%pytest -m 'not online' -k "${k-}" ${ignore-} -v -rs
+%pytest -m 'not online' -k "${k-}" ${ignore-} --verbose -rs
 
 
 %files -n python3-OWSLib -f %{pyproject_files}

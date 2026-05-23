@@ -4,7 +4,7 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi e8e39111b9d37f0e90130e8c66c53acc9be1d3f4
+%global abi 0a625649cd40af4b6c10be5e58a2e89a5e275baa
 %global vrt 23.1
 
 # Package scripts are now external
@@ -31,7 +31,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 9.0.1
+Version: 9.0.3
 Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
@@ -427,6 +427,13 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu May 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.3-1
+- New upstream release: A security relase
+- Includes fix for VSV00019
+
+* Fri May 15 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.2-1
+- New upstream release: A bugfix release
+
 * Fri Apr 10 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.1-1
 - New upstream release
 - Add patch for openssl-4.0.0 in rawhide

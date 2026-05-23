@@ -1,6 +1,6 @@
 Summary: Graphical Boot Animation and Logger
 Name: plymouth
-Version: 24.004.60
+Version: 26.134.222
 Release: %autorelease
 License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
@@ -10,112 +10,6 @@ Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%
 # Drop this on next rebase to latest upstream
 Source1: spinner-update.tar.gz
 Source2: charge.plymouth
-
-# Revert https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/48881ba
-# to fix console display on minimal installs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2269385
-# This bug should also be fixed by:
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/d2ab367e12423646d3a6bb35d16570f8e3126234
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/1e206268df99d28e9fb3d3cf8379a553abb05af0
-# Drop this Fedora patch on next rebase to latest upstream
-Patch: 0001-Revert-src-Hide-console-text-when-splash-is-requeste.patch
-
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/10ac8d2dc927b112ce6aeb06bc73d9c46550954c
-# Fix encryption passphrase appearing in plain text in text mode
-# https://bugzilla.redhat.com/show_bug.cgi?id=2271337
-Patch: 0001-ply-boot-splash-Set-unbuffered-input-when-creating-a.patch
-
-# Revert patch to immediately switch to text mode on first renderer plugin error
-# Fixes unwanted text mode when drm-plugin init races with simpledrm unregistration
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/319 (merged)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2270030
-Patch: 0001-ply-device-manager-Revert-Fall-back-to-text-plugin-i.patch
-
-# Probe simpledrm immediately instead of waiting for udev_device_get_is_initialized ()
-# to return true. This fixes users getting the text splash on laptops with somewhat
-# slower CPUs combined with loading the amdgpu module which may take 7+ seconds
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/323/ (merged)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2183743
-# https://bugzilla.redhat.com/show_bug.cgi?id=2274770
-Patch: plymouth-24.004.60-immediately-probe-simpledrm.patch
-
-# Backport of upstream commit 709f21e80199ee51badff2d9b5dc6bae8af2a1a1
-# "renderers: Do not assume all keyboards have LEDs"
-# This fixes:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2282384
-Patch: 0001-renderers-Do-not-assume-all-keyboards-have-LEDs.patch
-
-# Fix Dvorak layout icon not showing when the evdev keyboard driver is used
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/341 (merged)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2341810
-Patch: 0001-ply-keymap-icon-Make-Dvorak-check-case-insensitive.patch
-# And a generic fix for missing pre-rendered keyboard-layout texts
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/358
-Patch: 0001-ply-keymap-icon-Fix-falling-back-to-label-plugin-whe.patch
-
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/792fe7474a02a1facacdd52e0dcf9053da4b1f6e
-# Fix for the label plugin not finding fonts
-Patch: 0001-label-freetype-fix-fallback-not-working-when-fc-matc.patch
-
-# 2 tweaks for hidpi scale factor calculations
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/acf97c73670b80a65329aaa35e40438d86fca3c6
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/3b8e918479f47a845d4f88d281f7dfe412195628
-Patch: plymouth-24.004.60-device-scale-fixes.patch
-
-# A set of 5 patches to make use-simpledrm configurable from the config file
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/342
-# https://bugzilla.redhat.com/show_bug.cgi?id=2346150
-Patch: plymouth-24.004.60-use_simpledrm-config.patch
-
-# Backport upstream fix for crash when using 2 GPUs with displays attached and
-# using evdev input support (XKBLAYOUT set in /etc/vconsole.conf)
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/d20b1be527817c21500c3daa4dfdd0e9c7c731b8
-# https://bugzilla.redhat.com/show_bug.cgi?id=2368186
-Patch: 0001-drm-Check-for-NULL-terminal-in-watch_input_device.patch
-
-# Fix a crash caused by calling ply_event_loop_watch_fd () with a -1 fd
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/354
-# https://bugzilla.redhat.com/show_bug.cgi?id=2370979
-Patch: 0001-drm-Fix-crash-when-terminal-fd-is-still-1-after-reco.patch
-
-# Don't use simpledrm together with LUKS, see commit message for details
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/355
-# https://bugzilla.redhat.com/show_bug.cgi?id=2359283
-Patch: 0001-Add-UseSimpledrmNoLuks-config-file-keyword.patch
-
-# Fix Disk unlock screen keymap and capslock icons not shown on monitor on second GPU
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/356
-# https://bugzilla.redhat.com/show_bug.cgi?id=2375854
-Patch: 0001-Fix-keymap-and-capslock-icon-on-displays-on-second-G.patch
-
-# Make the prompt below the diskunlock password entry box look a bit better
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/357
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/294
-# https://bugzilla.redhat.com/show_bug.cgi?id=2356893
-Patch: 0001-two-step-Remove-at-the-end-of-passphrase-prompt-belo.patch
-Patch: 0002-two-step-Add-some-padding-between-text-entry-field-a.patch
-
-# Patches from upstream to fix messages being logged twice on serial consoles
-Patch: 0001-utils-Don-t-lose-log-level-when-silencing-kmsg.patch
-Patch: 0002-details-Suppress-kernel-s-own-kmsg-console-output.patch
-Patch: 0003-kmsg-reader-Seek-to-the-end-of-the-ringbuffer.patch
-
-# Fix crash in drm plugin close_input_source() rhbz#2416551
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/5c10072a978dd7566559f44a54c3e031bb4cb216
-Patch: 0001-renderers-Only-call-ply_terminal_set_unbuffered_inpu.patch
-
-# Fix wrong KBD layout when a user has configured multiple layouts rhbz#2416197
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/b609687e8d15b23aaa39100221b62d37b5859011
-Patch: 0001-Display-the-first-specified-XKBLAYOUT-as-the-active-.patch
-
-# Fix race in fb_device_has_drm_device () causing frame-buffer plugin to
-# sometimes load while drm plugin is already handling the display
-Patch: 0001-ply-device-manager-Fix-race-in-fb_device_has_drm_dev.patch
-
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/321
-# https://bugzilla.redhat.com/show_bug.cgi?id=2433079
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/45655f12fa2d5553ab4ba509f2e203c249191664
-Patch: 0001-ply-keyboard-Fix-hang-on-read-of-incomplete-terminal.patch
 
 BuildRequires: meson
 BuildRequires: system-logos

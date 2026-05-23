@@ -10,6 +10,9 @@ License:        PSF-2.0
 URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
 
+# https://github.com/pycompression/python-zlib-ng/issues/75
+Patch:          0001-Fix-crash-when-copying-flushed-compress-objects.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license zlib_ng
 

@@ -1,6 +1,6 @@
-%bcond docs %{undefined rhel}
-%bcond pbr %{undefined rhel}
-%bcond tests %{undefined rhel}
+%bcond docs  %{expr:!%{defined el8} && !%{defined el9}}
+%bcond pbr   %{expr:!%{defined el8} && !%{defined el9}}
+%bcond tests %{expr:!%{defined el8} && !%{defined el9}}
 
 %global sname pyghmi
 %global common_summary Python General Hardware Management Initiative (IPMI and others)
@@ -14,15 +14,15 @@ incorporate the pyghmi library into a Python application.
 
 Summary: %{common_summary}
 Name: python-%{sname}
-Version: %{?version:%{version}}%{!?version:1.6.2}
-Release: 5%{?dist}
+Version: %{?version:%{version}}%{!?version:1.6.16}
+Release: 1%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 Prefix: %{_prefix}
 BuildArch: noarch
 Url: https://opendev.org/x/pyghmi
 
-## RHEL-specific patches
+## NO-PBR-specific patches
 Patch1000:  nopbr.patch
 Patch1001:  setup.patch
 
@@ -31,7 +31,6 @@ Patch1001:  setup.patch
 
 %package -n python3-%{sname}
 Summary: %{common_summary}
-%{?python_provide:%python_provide python3-%{sname}}
 
 BuildRequires: python3-devel
 %if %{with pbr}
@@ -124,6 +123,9 @@ stestr run
 %endif
 
 %changelog
+* Thu May 21 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.16-1
+- Update to v1.6.16
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

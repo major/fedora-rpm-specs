@@ -19,38 +19,27 @@ The project is now split into smaller modules to isolate and reduce
 responsibilities and improve reusability.
 
 Documentation: https://python-social-auth.readthedocs.io/en/latest/
-Release notes: https://github.com/python-social-auth/%{module_name}/releases/tag/4.2.0
+Release notes: https://github.com/python-social-auth/social-core/releases/tag/%version
 }
 
 %global summary Python Social Auth is an easy to setup social authentication\/registration mechanism with support for several frameworks and auth providers.
 
 Name:           python-%{pypi_name}
-Version:        4.5.4
-Release:        8%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        %{summary}
 License:        BSD-3-Clause
 URL:            https://github.com/python-social-auth/social-core/
 Source0:        %{pypi_source}
+Patch:          relax-google-auth-dep.patch
+Patch:          remove-typing-extensions-import.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-
-# Requirements for running social-core
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(oauthlib)
-BuildRequires:  python3dist(requests-oauthlib)
-BuildRequires:  python3dist(pyjwt) >= 2.7.0
-BuildRequires:  python3dist(cryptography)
-BuildRequires:  python3dist(defusedxml)
-BuildRequires:  python3dist(python3-openid) >= 3.0.10
-BuildRequires:  python3dist(python3-saml)
 
 # Requirements for running tests
-BuildRequires:  python3dist(coverage)
-BuildRequires:  python3dist(httpretty)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
+BuildRequires:  python3-pytest
+BuildRequires:  python3-responses
 
 %description
 %{desc}
@@ -73,28 +62,38 @@ If you want social-core to work with azuread (the Azure Active Directory), this
 is the package you need.
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{egginfo_name}-%{version}
 
-rm -rf %{egginfo_name}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires -x azuread -x google-onetap -x saml
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{module_name}
 
+# Remove tests from installed files and from the file list
 rm -r %{buildroot}%{python3_sitelib}/%{module_name}/tests/
+sed -i '/\/tests/d' %{pyproject_files}
 
 %check
-%{pytest} %{module_name}/tests/
+# Disable tests GoogleOneTapTest and SteamOpenIdMissingSteamIdTest. Both of them require network.
+%{pytest} %{module_name}/tests/ \
+    --deselect=social_core/tests/backends/test_google.py::GoogleOneTapTest \
+    --deselect=social_core/tests/backends/test_steam.py::SteamOpenIdMissingSteamIdTest
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md CHANGELOG.md
-%{python3_sitelib}/%{module_name}/
-%{python3_sitelib}/%{egginfo_name}-%{version}-py*.egg-info
+
+%pyproject_extras_subpkg -n python3-%{pypi_name} azuread google-onetap saml
 
 %changelog
+* Thu May 14 2026 Chenxiong Qi <qcxhome@gmail.com> - 4.7.0-1
+- Build upstream release 4.7.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

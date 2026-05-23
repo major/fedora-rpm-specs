@@ -1,6 +1,6 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	7.0.0
+Version:	7.0.1
 Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
@@ -114,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libexecdir}/xfsprogs/*
 %{_mandir}/man5/*
 %{_mandir}/man8/*
+%{_unitdir}/*
 %{_sbindir}/*
 %{_datadir}/xfsprogs/mkfs/*.conf
 %dir %{_datadir}/xfsprogs/
@@ -122,15 +123,15 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %exclude %{_sbindir}/xfs_scrub*
 %exclude %{_sbindir}/xfs_protofile*
 %exclude %{_mandir}/man8/xfs_scrub*
-%exclude %{_libexecdir}/xfsprogs/xfs_scrub*
-%exclude %{_mandir}/man8/xfs_scrub_all*
 %exclude %{_mandir}/man8/xfs_protofile*
+%exclude %{_libexecdir}/xfsprogs/xfs_scrub*
+%exclude %{_unitdir}/*xfs_scrub*
 
 %files xfs_scrub
 %{_sbindir}/xfs_scrub*
 %{_mandir}/man8/xfs_scrub*
 %{_libexecdir}/xfsprogs/xfs_scrub*
-%{_unitdir}/*
+%{_unitdir}/*xfs_scrub*
 %{_udevrulesdir}/64-xfs.rules
 %{_datadir}/xfsprogs/xfs_scrub_all.cron
 
@@ -158,6 +159,11 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Thu May 21 2026 Pavel Reichl <preichl@redhat.com> - 7.0.1-1
+- Update to upstream v7.0.1
+- Move xfs_healer systemd units from xfsprogs-xfs_scrub to main xfsprogs package
+- Related: rhbz#2467694
+
 * Tue May 19 2026 Pavel Reichl <preichl@redhat.com> - 7.0.0-1
 - Update to upstream v7.0.0
 - Related: rhbz#2467694

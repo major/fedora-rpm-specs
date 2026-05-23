@@ -1,5 +1,5 @@
 Name:           oscillatord
-Version:        3.9.1
+Version:        3.9.2
 Release:        %autorelease
 Summary:        Daemon for disciplining an oscillator
 

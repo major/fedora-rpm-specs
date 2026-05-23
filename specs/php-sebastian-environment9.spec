@@ -22,7 +22,7 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        9.3.0
+Version:        9.3.1
 Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
@@ -40,8 +40,8 @@ BuildRequires:  php-posix
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.0"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.1.10"
+BuildRequires:  phpunit13 >= 13.1.10
 %endif
 
 # from composer.json, "require": {
@@ -107,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Thu May 21 2026 Remi Collet <remi@remirepo.net> - 9.3.1-1
+- update to 9.3.1
+
 * Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 9.3.0-1
 - update to 9.3.0
 

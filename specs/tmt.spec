@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.73.0
+Version:        1.74.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -31,6 +31,11 @@ Recommends:     bash-completion
 Recommends:     ansible-core
 
 %py_provides    python3-tmt
+
+# Prevent brp-mangle-shebangs from rewriting #!/bin/bash to #!/usr/bin/bash
+# in the bundled helper scripts. Those scripts are pushed to test guests at
+# runtime and must use /bin/bash to work on pre-/usr-merge systems (e.g. RHEL 6).
+%global __brp_mangle_shebangs_exclude_from %{python3_sitelib}/tmt/steps/scripts/
 
 %global _metapackage_description %{expand:
 This is a metapackage bringing in extra dependencies for tmt.

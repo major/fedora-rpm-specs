@@ -60,7 +60,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a

@@ -28,7 +28,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        12.5.25
+Version:        12.5.26
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -51,15 +51,15 @@ BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.1     with php-c
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
-BuildRequires:  (php-composer(sebastian/cli-parser) >= 4.2.0          with php-composer(sebastian/cli-parser) < 5)
-BuildRequires:  (php-composer(sebastian/comparator) >= 7.1.6          with php-composer(sebastian/comparator) < 8)
+BuildRequires:  (php-composer(sebastian/cli-parser) >= 4.2.1          with php-composer(sebastian/cli-parser) < 5)
+BuildRequires:  (php-composer(sebastian/comparator) >= 7.1.8          with php-composer(sebastian/comparator) < 8)
 BuildRequires:  (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-BuildRequires:  (php-composer(sebastian/environment) >= 8.1.0         with php-composer(sebastian/environment) < 9)
-BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
+BuildRequires:  (php-composer(sebastian/environment) >= 8.1.1         with php-composer(sebastian/environment) < 9)
+BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.3            with php-composer(sebastian/exporter) < 8)
 BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
 BuildRequires:  (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
-BuildRequires:  (php-composer(sebastian/type) >= 6.0.3                with php-composer(sebastian/type) < 7)
+BuildRequires:  (php-composer(sebastian/type) >= 6.0.4                with php-composer(sebastian/type) < 7)
 BuildRequires:  (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 BuildRequires:  (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 BuildRequires:  php-dom
@@ -87,15 +87,15 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-invoker": "^6.0.0",
 #        "phpunit/php-text-template": "^5.0.0",
 #        "phpunit/php-timer": "^8.0.0",
-#        "sebastian/cli-parser": "^4.2.0",
-#        "sebastian/comparator": "^7.1.6",
+#        "sebastian/cli-parser": "^4.2.1",
+#        "sebastian/comparator": "^7.1.8",
 #        "sebastian/diff": "^7.0.0",
-#        "sebastian/environment": "^8.1.0",
-#        "sebastian/exporter": "^7.0.2",
+#        "sebastian/environment": "^8.1.1",
+#        "sebastian/exporter": "^7.0.3",
 #        "sebastian/global-state": "^8.0.2",
 #        "sebastian/object-enumerator": "^7.0.0",
 #        "sebastian/recursion-context": "^7.0.1",
-#        "sebastian/type": "^6.0.3",
+#        "sebastian/type": "^6.0.4",
 #        "sebastian/version": "^6.0.0",
 #        "staabm/side-effects-detector": "^1.0.5"
 Requires:       php(language) >= 8.3
@@ -114,15 +114,15 @@ Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.1     with php-c
 Requires:       (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 Requires:       (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 Requires:       (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
-Requires:       (php-composer(sebastian/cli-parser) >= 4.2.0          with php-composer(sebastian/cli-parser) < 5)
-Requires:       (php-composer(sebastian/comparator) >= 7.1.6          with php-composer(sebastian/comparator) < 8)
+Requires:       (php-composer(sebastian/cli-parser) >= 4.2.1          with php-composer(sebastian/cli-parser) < 5)
+Requires:       (php-composer(sebastian/comparator) >= 7.1.8          with php-composer(sebastian/comparator) < 8)
 Requires:       (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-Requires:       (php-composer(sebastian/environment) >= 8.1.0         with php-composer(sebastian/environment) < 9)
-Requires:       (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
+Requires:       (php-composer(sebastian/environment) >= 8.1.1         with php-composer(sebastian/environment) < 9)
+Requires:       (php-composer(sebastian/exporter) >= 7.0.3            with php-composer(sebastian/exporter) < 8)
 Requires:       (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
 Requires:       (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
-Requires:       (php-composer(sebastian/type) >= 6.0.3                with php-composer(sebastian/type) < 7)
+Requires:       (php-composer(sebastian/type) >= 6.0.4                with php-composer(sebastian/type) < 7)
 Requires:       (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 Requires:       (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 # recommends latest versions
@@ -284,6 +284,14 @@ exit $ret
 
 
 %changelog
+* Thu May 21 2026 Remi Collet <remi@remirepo.net> - 12.5.26-1
+- update to 12.5.26
+- raise dependency on sebastian/cli-parser 4.2.1
+- raise dependency on sebastian/comparator 7.1.8
+- raise dependency on sebastian/environment 8.1.1
+- raise dependency on sebastian/exporter 7.0.3
+- raise dependency on sebastian/type 6.0.4
+
 * Wed May 13 2026 Remi Collet <remi@remirepo.net> - 12.5.25-1
 - update to 12.5.25
 

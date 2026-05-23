@@ -1893,6 +1893,22 @@ fi
 %changelog
 * Wed May 20 2026 Than Ngo <than@redhat.com> - 148.0.7778.178-1
 - Update to 148.0.7778.178
+  * CVE-2026-9111: Use after free in WebRTC
+  * CVE-2026-9110: Inappropriate implementation in UI
+  * CVE-2026-9112: Use after free in GPU
+  * CVE-2026-9113: Out of bounds read in GPU
+  * CVE-2026-9114: Use after free in QUIC
+  * CVE-2026-9115: Insufficient policy enforcement in Service Worker
+  * CVE-2026-9116: Insufficient policy enforcement in ServiceWorker
+  * CVE-2026-9117: Type Confusion in GFX
+  * CVE-2026-9118: Use after free in XR
+  * CVE-2026-9119: Heap buffer overflow in WebRTC
+  * CVE-2026-9120: Use after free in WebRTC
+  * CVE-2026-9126: Use after free in DOM
+  * CVE-2026-9121: Out of bounds read in GPU
+  * CVE-2026-9122: Out of bounds read in GPU
+  * CVE-2026-9123: Heap buffer overflow in Chromecast
+  * CVE-2026-9124: Insufficient validation of untrusted input in Input
 - Backport upstream patches to improve auto dark image inversion logic
 - Update default chromium browser config
 

@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        9.3.5
+Version:        10.0.0
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
@@ -9,16 +9,19 @@ BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libtsm-devel >= 4.5.0
 BuildRequires:  meson
+BuildRequires:  ncurses
 BuildRequires:  gcc
 BuildRequires:  pkg-config
 BuildRequires:  xsltproc
 BuildRequires:  xz
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libseat)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libudev) >= 172
 BuildRequires:  pkgconfig(pango)
@@ -26,6 +29,9 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
+
+# Avoid libseat warning
+Patch1: Set-LIBSEAT_BACKEND-to-logind-on-Fedora.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -61,7 +67,7 @@ mod-gltex.so
 %autosetup -p1
 
 %conf
-%meson -Dmulti_seat=disabled -Dvideo_fbdev=disabled
+%meson -Dvideo_fbdev=disabled
 
 %build
 %meson_build
@@ -95,7 +101,9 @@ mod-gltex.so
 %{_mandir}/man5/kmscon.conf.5*
 %{_unitdir}/kmscon.service
 %{_unitdir}/kmsconvt@.service
+%{_sysconfdir}/pam.d/%{name}
 %config /etc/kmscon/kmscon.conf.example
+%{_datadir}/terminfo/k/kmscon
 
 %files pango
 %{_libdir}/kmscon/mod-pango.so

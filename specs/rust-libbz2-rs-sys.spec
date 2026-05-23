@@ -5,7 +5,7 @@
 %global crate libbz2-rs-sys
 
 Name:           rust-libbz2-rs-sys
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Drop-in compatible rust bzip2 implementation
 

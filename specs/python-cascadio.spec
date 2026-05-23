@@ -60,7 +60,7 @@ Summary:        %{summary}
 # The CMake scripts shipped with the system VTK try to find HDF5 by compiling
 # and linking a C program; we need to enable the C language in the top-level
 # project in order for this to work.
-sed -r -i 's/\bCXX\b/C &/' CMakeLists.txt
+sed --regexp-extended --in-place 's/\bCXX\b/C &/' CMakeLists.txt
 
 
 %check -a

@@ -24,7 +24,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 500
+%define patchlevel 506
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -36,7 +36,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -308,10 +308,10 @@ This subpackage contains files needed to set Vim as the default editor.
 Summary: The VIM version of the vi editor for the X Window System - GVim
 # move evim manpage to common - remove the conflict after C11S is branched
 Conflicts: %{name}-common < 2:9.1.1706-2
-# devel of libICE, gtk3, libSM, libX11, libXpm and libXt are needed in buildroot
+# devel of libICE, gtk4, libSM, libX11, libXpm and libXt are needed in buildroot
 # so configure script can have correct macros enabled for GUI (#1603272)
 # generic gnome toolkit for graphical support
-BuildRequires: gtk3-devel
+BuildRequires: gtk4-devel
 # inter-client exchange library - for X session management protocol
 BuildRequires: libICE-devel
 # X session management library
@@ -336,7 +336,7 @@ Provides: %{_bindir}/gvim
 # https://bugzilla.redhat.com/show_bug.cgi?id=2262371
 Requires: glib2 >= 2.79.1
 # GVIM graphics are based on GTK3
-Requires: gtk3
+Requires: gtk4
 # needed for icons (#226526)
 Requires: hicolor-icon-theme
 # for getting/setting extended attributes - they are pairs (name:value)
@@ -544,7 +544,7 @@ cp vim enhanced-vim
 # More configure options:
 # --enable-xim - enabling X Input Method - international input module for X,
 #                it is for multibyte languages in Vim with X
-# --enable-gtk3-check - checks for GTK3
+# --enable-gtk4-check - checks for GTK3
 # --enable-socketserver - using unix domain socket for inter-Vim processes communication
 
 %configure \
@@ -553,8 +553,8 @@ cp vim enhanced-vim
   --enable-cscope \
   --enable-fail-if-missing \
   --enable-fips-warning \
-  --enable-gtk3-check \
-  --enable-gui=gtk3 \
+  --enable-gtk4-check \
+  --enable-gui=gtk4 \
   --enable-multibyte \
   --enable-python3interp=dynamic \
   --enable-socketserver \
@@ -1037,6 +1037,12 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Thu May 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.506-2
+- switch to GTK4 for GVim
+
+* Thu May 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.506-1
+- patchlevel 506
+
 * Tue May 19 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.500-1
 - patchlevel 500
 

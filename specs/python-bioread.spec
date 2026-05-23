@@ -43,9 +43,11 @@ Summary:        %{summary}
 # Upstream may like to run these as scripts during development, but they will
 # be installed under site-packages without executable permissions, so we should
 # remove the shebangs.
-find bioread/runners/ -type f -name '*.py' -exec sed -r -i '1{/^#!/d}' '{}' '+'
+find bioread/runners/ -type f -name '*.py' \
+    -exec sed --regexp-extended --in-place '1{/^#!/d}' '{}' '+'
 # We might as well go ahead and drop the executable bit while we’re at it.
-find bioread/runners/ -type f -perm /0111 -exec chmod -v a-x '{}' '+'
+find bioread/runners/ -type f -perm /0111 \
+    -exec chmod --verbose a-x '{}' '+'
 
 
 %install -a
@@ -62,7 +64,7 @@ done
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-bioread -f %{pyproject_files}

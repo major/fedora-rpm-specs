@@ -1,4 +1,4 @@
-%global candidate rc0
+%global candidate rc1
 # LTS has slightly adjusted naming
 #global lts 1
 
@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.15
-Release: 0.1%{?candidate:.%{candidate}}%{?dist}
+Release: 0.2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -133,6 +133,9 @@ done
 %endif
 
 %changelog
+* Thu May 21 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.15-0.2.rc1
+- Update to 2.15 rc1
+
 * Wed May 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.15.0-0.1.rc0
 - Update to 2.15 RC0
 

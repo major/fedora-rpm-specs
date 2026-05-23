@@ -89,6 +89,8 @@ Patch4:         protobuf-3.19.4-python3.11.patch
 #  and https://github.com/protocolbuffers/protobuf/commit/47c1998e4e7f21175bc1e3840907d4219a11b25a
 #  and https://github.com/protocolbuffers/protobuf/commit/a2859cc2ce25711613002104022186c0c37d9f1f
 Patch6:         protobuf-3.19.6-gcc15.patch
+# pkg_resources dropped from latest setuptools, only needed on Mac OS
+Patch7:         protobuf-3.19.6-pkg_resources.patch
 
 
 # A bundled copy of jsoncpp is included in the conformance tests, but the
@@ -194,7 +196,6 @@ lacks descriptors, reflection, and some other features.
 %if %{with python}
 %package -n python3-protobuf3
 Summary:        Python bindings for Google Protocol Buffers
-BuildRequires:  python3-pkg-resources
 BuildRequires:  python3-devel
 %if %{with python_cpp}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -284,6 +285,7 @@ MinGW Windows protobuf library tools.
 %endif
 %patch 4 -p1 -b .python311
 %patch 6 -p1 -b .gcc15
+%patch 7 -p1 -b .pkg_resources
 
 # Copy in the needed gtest/gmock implementations.
 %setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}

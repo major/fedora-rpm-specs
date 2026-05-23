@@ -23,7 +23,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.3
+Version:        8.1.0
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Thu May 21 2026 Remi Collet <remi@remirepo.net> - 8.1.0-1
+- update to 8.1.0
+
 * Wed May 20 2026 Remi Collet <remi@remirepo.net> - 8.0.3-1
 - update to 8.0.3
 

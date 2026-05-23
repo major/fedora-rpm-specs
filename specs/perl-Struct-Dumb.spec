@@ -12,6 +12,7 @@ BuildRequires:  coreutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dump)
 BuildRequires:  perl(experimental)
@@ -19,8 +20,10 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Test2::IPC)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::Pod)
+BuildRequires:  perl(threads)
 BuildRequires:  perl(warnings)
 Requires:       perl(experimental)
 Requires:       perl(overload)

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.16
+Version: 13.17
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -348,8 +348,6 @@ CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 
 %if %{without clangplugin}
 CONFIG_ARGS="$CONFIG_ARGS --with-clang-plugin=no"
-%else
-CONFIG_ARGS="$CONFIG_ARGS --with-clang-plugin=yes"
 %endif
 
 %if %{without gccplugin}
@@ -360,8 +358,6 @@ CONFIG_ARGS="$CONFIG_ARGS --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}"
 
 %if %{without llvmplugin}
 CONFIG_ARGS="$CONFIG_ARGS --with-llvm-plugin=no"
-%else
-CONFIG_ARGS="$CONFIG_ARGS --with-llvm-plugin=yes"
 %endif
 
 %if %{without tests}
@@ -540,6 +536,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 21 2026 Nick Clifton  <nickc@redhat.com> - 13.17-1
+- Annocheck: Add exceptions for kernel bootstrap tools.
+- Add new tests.
+
 * Thu May 14 2026 Nick Clifton  <nickc@redhat.com> - 13.16-1
 - GCC Plugin: Fix error when checking for function level changes in the PIC and GOW settings. 
 

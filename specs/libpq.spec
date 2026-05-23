@@ -4,7 +4,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -25,7 +25,7 @@ BuildRequires: openssl-devel
 BuildRequires: krb5-devel
 BuildRequires: openldap-devel
 BuildRequires: gettext
-BuildRequires: multilib-rpm-config
+%{!?rhel:BuildRequires: multilib-rpm-config}
 BuildRequires: make
 BuildRequires: libicu-devel
 BuildRequires: perl
@@ -110,7 +110,9 @@ mv $RPM_BUILD_ROOT%{_includedir}/pgsql/errcodes.h \
 rm $RPM_BUILD_ROOT%_datadir/pgsql/postgres.bki
 rm $RPM_BUILD_ROOT%_datadir/pgsql/system_constraints.sql
 
+%if %{undefined rhel}
 %multilib_fix_c_header --file "%_includedir/pg_config.h"
+%endif
 
 find_lang_bins ()
 {
@@ -140,6 +142,11 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 18.4-2
+- Drop multilib-rpm-config usage on RHEL
+  Related: RHEL-178013
+  Related: https://github.com/fedora-eln/eln/issues/525
+
 * Mon May 18 2026 Filip Janus <fjanus@redhat.com> - 18.4-1
 - Update to 18.4
 - Rebase to actual upstream release sources (was incorrectly built from 18beta1)

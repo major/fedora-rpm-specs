@@ -3,7 +3,7 @@
 
 Name:           perl-Text-Bidi
 Version:        2.18
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # t/MirrorTest.txt: Unicode-DFS-2016 (a copy of
@@ -14,6 +14,7 @@ Summary:        Unicode bidirectional algorithm using libfribidi
 #                   <https://www.unicode.org/Public/6.2.0/ucd/BidiTest.txt>)
 %endif
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+SourceLicense:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016 AND Unicode-DFS-2015
 URL:            https://metacpan.org/release/Text-Bidi
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAMENSKY/Text-Bidi-%{version}.tar.gz
 # bidi is a plugin, CPAN RT#108737
@@ -86,7 +87,7 @@ text (e.g., Hebrew or Arabic mixed with English) is displayed correctly.
 
 %package tests
 Summary:        Tests for %{name}
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016%[%{with ucdtest}?" AND Unicode-DFS-2015":""]
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -168,6 +169,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 21 2026 Petr Pisar <ppisar@redhat.com> - 2.18-17
+- Specify a source license
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

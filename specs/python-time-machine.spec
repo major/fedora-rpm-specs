@@ -6,6 +6,10 @@ License:        MIT
 URL:            https://github.com/adamchainz/time-machine
 Source:         %{url}/archive/%{version}/time-machine-%{version}.tar.gz
 
+# Fix date.today() for Python 3.15+
+# https://github.com/adamchainz/time-machine/pull/618
+Patch:          python315-date-today.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 

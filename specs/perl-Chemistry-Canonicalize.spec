@@ -7,10 +7,17 @@ Summary:        Number the atoms in a molecule in a unique way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Chemistry-Canonicalize
 Source0:        https://cpan.metacpan.org/authors/id/I/IT/ITUB/Chemistry-Canonicalize-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Math::BigInt)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 %if %{with check}
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
