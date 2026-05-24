@@ -7,6 +7,8 @@
 %bcond_without libwrap
 %endif
 
+%bcond pandoc %{undefined rhel}
+
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
 Version: 5.78
@@ -49,7 +51,9 @@ BuildRequires: autoconf automake libtool
 %if %{with libwrap}
 Buildrequires: tcp_wrappers-devel
 %endif
+%if %{with pandoc}
 BuildRequires: pandoc
+%endif
 # build test requirements
 BuildRequires: /usr/bin/nc, /usr/bin/lsof, /usr/bin/ps
 BuildRequires: python3 python3-cryptography openssl
@@ -82,6 +86,10 @@ fi
 %endif
 	--with-bashcompdir=%{_datadir}/bash-completion/completions \
 	CPPFLAGS="-UPIDFILE -DPIDFILE='\"%{_localstatedir}/run/stunnel.pid\"'"
+%if %{without pandoc}
+# avoid regeneration of files already in the tarball
+touch doc/stunnel*.in
+%endif
 make V=1 LDADD="-pie -Wl,-z,defs,-z,relro,-z,now"
 
 %install

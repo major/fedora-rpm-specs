@@ -1,6 +1,14 @@
+%if 0%{?fedora} >= 42
+%global tracker localsearch
+%global trackerdevel tinysparql-devel
+%else
+%global tracker tracker3
+%global trackerdevel tracker3-devel
+%endif
+
 Name:              netatalk
 Epoch:             5
-Version:           4.4.1
+Version:           4.4.3
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
@@ -9,8 +17,6 @@ License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND Li
 URL:               http://netatalk.sourceforge.net
 Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
-
-Patch0:            netatalk-AfpErr2name.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -53,8 +59,8 @@ BuildRequires:     rpm
 BuildRequires:     sed
 BuildRequires:     systemd
 BuildRequires:     systemtap-sdt-devel
-BuildRequires:     localsearch
-BuildRequires:     tinysparql-devel
+BuildRequires:     %{tracker}
+BuildRequires:     %{trackerdevel}
 BuildRequires:     cups-devel
 
 Requires:     dconf
@@ -363,6 +369,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/manual
 
 %changelog
+* Sat Feb 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.4.3-1
+- 4.4.3 release
+- See the github release page for list of many CVEs fixed
+
 * Sat Feb 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.4.1-1
 - 4.4.1 release
 

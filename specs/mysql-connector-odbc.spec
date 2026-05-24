@@ -76,7 +76,9 @@ rm -rf %{buildroot}/usr/test
 %files
 %license LICENSE.txt
 %doc ChangeLog README.txt
-%{_libdir}/odbc/lib*so
+%{_libdir}/odbc/libmyodbc9.so
+%{_libdir}/odbc/libmyodbc9a.so
+%{_libdir}/odbc/libmyodbc9w.so
 
 %changelog
 %autochangelog

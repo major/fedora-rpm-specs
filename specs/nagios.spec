@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.5.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -73,7 +73,7 @@ BuildRequires:  libtool
 # For selinux tools
 BuildRequires: checkpolicy, selinux-policy-devel
 
-Requires:       httpd
+Recommends:     nagios-httpd
 Requires:       php
 Requires:       %{_bindir}/mail
 Requires:       nagios-common
@@ -167,7 +167,7 @@ SElinux security policy for %{name}.
 
 %package contrib
 Summary:          Eventhandlers contributed to nagios
-Requires:         %name = %version-%release
+Requires:         %{name} = %{version}-%{release}
 
 %description contrib
 Various contributed items used by plugins and other tools.
@@ -178,6 +178,14 @@ Various contributed items used by plugins and other tools.
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
 %endif
+
+%package httpd
+Summary:          Configuration files for Apache httpd
+Requires:         %{name} = %{version}-%{release}
+Requires:         httpd
+
+%description httpd
+Configuration files for Apache httpd.
 
 %prep
 %autosetup -p1 -n nagioscore-nagios-%{version}
@@ -339,8 +347,6 @@ install -m0644 -D nagios.sysusers.conf %{buildroot}%{_sysusersdir}/nagios.conf
 
 
 %post
-%{_sbindir}/usermod -a -G %{name} apache || :
-
 %if 0%{?rhel} > 6 || 0%{?fedora} > 20
 %systemd_post %{name}.service  > /dev/null 2>&1 || :
 %else
@@ -350,18 +356,6 @@ if [ $1 -eq 1 ]; then
 fi
 %endif
 
-%if 0%{?el5}%{?el6}
-/sbin/service httpd condrestart > /dev/null 2>&1 || :
-if [ $1 -gt 1 ]; then
-  /sbin/service nagios reload > /dev/null 2>&1 || :
-fi
-%else
-/usr/bin/systemctl condrestart httpd > /dev/null 2>&1 || :
-
-if [ $1 -gt 1 ]; then
-  /usr/bin/systemctl reload nagios  > /dev/null 2>&1 || :
-fi
-%endif
 
 %preun
 %if 0%{?rhel} > 6 || 0%{?fedora} > 20
@@ -376,13 +370,6 @@ fi
 
 
 %postun
-%if 0%{?el5}%{?el6}
-/sbin/service httpd condrestart > /dev/null 2>&1 || :
-%else
-/usr/bin/systemctl condrestart httpd  > /dev/null 2>&1 || :
-%endif
-
-
 %if 0%{?fedora} > 20
 %triggerun -- %{name} < 3.5.1-2
 # Save the current service runlevel info
@@ -412,6 +399,28 @@ if [ $1 -eq 0 ]; then
 fi
 %endif
 
+%post httpd
+%{_sbindir}/usermod -a -G %{name} apache || :
+%if 0%{?el5}%{?el6}
+/sbin/service httpd condrestart > /dev/null 2>&1 || :
+if [ $1 -gt 1 ]; then
+  /sbin/service nagios reload > /dev/null 2>&1 || :
+fi
+%else
+/usr/bin/systemctl condrestart httpd > /dev/null 2>&1 || :
+
+if [ $1 -gt 1 ]; then
+  /usr/bin/systemctl reload nagios  > /dev/null 2>&1 || :
+fi
+%endif
+
+%postun httpd
+%if 0%{?el5}%{?el6}
+/sbin/service httpd condrestart > /dev/null 2>&1 || :
+%else
+/usr/bin/systemctl condrestart httpd  > /dev/null 2>&1 || :
+%endif
+
 
 %files
 %dir %{_libdir}/%{name}/cgi-bin
@@ -436,7 +445,6 @@ fi
 %else
 %{_initrddir}/nagios
 %endif
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/nagios.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/*cfg
 %config(noreplace) %{_sysconfdir}/%{name}/objects/*cfg
@@ -479,7 +487,13 @@ fi
 %attr(0750,root,root) %{_libdir}/%{name}/plugins/eventhandlers/*
 %{_libdir}/%{name}/cgi/
 
+%files httpd
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/nagios.conf
+
 %changelog
+* Fri May 22 2026 Guido Aulisi <guido.aulisi@gmail.com> - 4.5.12-2
+- Split httpd integration into nagios-httpd subpackage #2476408
+
 * Sun May 17 2026 Guido Aulisi <guido.aulisi@gmail.com> - 4.5.12-1
 - Update to 4.5.12
 

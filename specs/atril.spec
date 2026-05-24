@@ -1,6 +1,6 @@
 
 Name:          atril
-Version:       1.28.1
+Version:       1.28.5
 Release:       %autorelease
 Summary:       Document viewer
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.

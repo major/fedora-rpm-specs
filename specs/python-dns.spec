@@ -77,7 +77,10 @@ sed -i 's/requests-toolbelt = {version=">=0.9.1,<0.11.0"/requests-toolbelt = {ve
 
 %check
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
-%pytest
+# The asserted string changed in Python 3.15
+# Upstream commented out the assertion, essentially skipping the test for now:
+# https://github.com/rthalley/dnspython/commit/d91f1ee30
+%pytest -k "not testInvalidDigestLengthCDS0"
 
 %files -n python3-dns -f %{pyproject_files}
 %license LICENSE

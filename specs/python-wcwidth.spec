@@ -51,7 +51,7 @@ sed -i -e 's|--cov[^[:space:]]*||g' tox.ini
 %endif
 
 %files -n python3-wcwidth -f %{pyproject_files}
-%doc README.rst
+%doc docs/*.rst
 
 %changelog
 %autochangelog

@@ -76,7 +76,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:260.1}
+Version:        %{?version_override}%{!?version_override:261~rc1}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -147,7 +147,7 @@ Patch:          30846.patch
 
 # userdb: create userdb root directory with correct label
 # We can drop this after SELinux policy is updated to handle the transition.
-Patch:          38769.patch
+Patch:          0001-core-create-userdb-root-directory-with-correct-label.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2415701
 Patch:          0002-machined-continue-without-resolve.hook-socket.patch
@@ -175,8 +175,6 @@ BuildRequires:  cryptsetup-devel
 # Require (previous version) of our macros package.
 # We use the %%systemd_{post,preun,…} macros for various services.
 BuildRequires:  systemd-rpm-macros
-# Use dlopen-notes to generate Requires/Recommends from embedded metadata.
-BuildRequires:  package-notes
 %endif
 BuildRequires:  dbus-devel
 BuildRequires:  util-linux
@@ -291,6 +289,8 @@ Requires:       systemd-shared%{_isa} = %{version}-%{release}
 Requires:       /usr/bin/systemd-sysusers
 # The standalone version doesn't Provide the _isa suffix,
 # so this biases towards the common version.
+Requires:       libzstd.so.1%{?elf_suffix}
+
 Recommends:     systemd-sysusers%{_isa} = %{version}-%{release}
 Recommends:     diffutils
 Requires:       (util-linux-core or util-linux)
@@ -341,15 +341,55 @@ Provides:       /usr/sbin/shutdown
 %endif
 
 # libmount is always required, even in containers, so make it a hard dependency.
+Requires:       libmount.so.1%{?elf_suffix}
+Requires:       libmount.so.1(MOUNT_2.26)%{?elf_bits}
 # Various systemd services have syscall filters so make libseccomp a hard dependency.
-#
-# Libkmod is used to load modules. Assume that if we need udevd, we certainly
-# want to load modules, so make this into a hard dependency here.
-# udev uses libblkid in various builtins so make it a hard dependency.
+Requires:       libseccomp.so.2%{?elf_suffix}
 
-%define __dlopen_notes_requires_opts   --rpm-features=systemd:mount,systemd:seccomp,systemd-udev:kmod,systemd-udev:blkid,systemd-resolved:idn
-# Upgrade upstream priority:suggested to Recommends
-%define __dlopen_notes_recommends_opts --rpm-features=*:cryptsetup,*:xkbcommon,*:idn,*:pcre2,*:pwquality,%[0%{?fedora}?"*:qrencode":""],*:bpf,*:dw,*:elf,*:archive,systemd-udev:fido2,systemd-udev:tpm,systemd-udev:p11-kit
+Requires:       libacl.so.1%{?elf_suffix}
+
+Recommends:     libaudit.so.1%{?elf_suffix}
+
+# Recommends to replace normal Requires deps for stuff that is dlopen()ed
+Recommends:     libxkbcommon.so.0%{?elf_suffix}
+Recommends:     libidn2.so.0%{?elf_suffix}
+Recommends:     libidn2.so.0(IDN2_0.0.0)%{?elf_bits}
+Recommends:     libpcre2-8.so.0%{?elf_suffix}
+Recommends:     libpwquality.so.1%{?elf_suffix}
+Recommends:     libpwquality.so.1(LIBPWQUALITY_1.0)%{?elf_bits}
+%if 0%{?fedora}
+Recommends:     libqrencode.so.4%{?elf_suffix}
+%endif
+Recommends:     libbpf.so.1%{?elf_suffix}
+Recommends:     libbpf.so.1(LIBBPF_0.4.0)%{?elf_bits}
+
+# used by systemd-coredump and systemd-analyze
+Recommends:     libdw.so.1%{?elf_suffix}
+Recommends:     libdw.so.1(ELFUTILS_0.186)%{?elf_bits}
+Recommends:     libelf.so.1%{?elf_suffix}
+Recommends:     libelf.so.1(ELFUTILS_1.7)%{?elf_bits}
+
+# used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home
+Recommends:     libcryptsetup.so.12%{?elf_suffix}
+Recommends:     libcryptsetup.so.12(CRYPTSETUP_2.4)%{?elf_bits}
+
+# Libkmod is used to load modules.
+Recommends:     libkmod.so.2%{?elf_suffix}
+# kmod_list_next, kmod_load_resources, kmod_module_get_initstate,
+# kmod_module_get_module, kmod_module_get_name, kmod_module_new_from_lookup,
+# kmod_module_probe_insert_module, kmod_module_unref, kmod_module_unref_list,
+# kmod_new, kmod_set_log_fn, kmod_unref, kmod_validate_resources
+# are part of LIBKMOD_5.
+Recommends:     libkmod.so.2(LIBKMOD_5)%{?elf_bits}
+
+# This is mentioned here, but the assumption is that systems which use SELinux
+# will have the libraries.
+Suggests:       libselinux.so.1%{?elf_suffix}
+
+# Those can be useful to read old journal files.
+Suggests:       liblzma.so.5%{?elf_suffix}
+Suggests:       liblz4.so.1%{?elf_suffix}
+Suggests:       libz.so.1%{?elf_suffix}
 
 %description
 systemd is a system and service manager that runs as PID 1 and starts the rest
@@ -448,6 +488,8 @@ Requires:       libkmod.so.2(LIBKMOD_5)%{?elf_bits}
 Requires:       libblkid.so.1%{?elf_suffix}
 Requires:       libblkid.so.1(BLKID_2.30)%{?elf_bits}
 
+Requires:       libfdisk.so.1%{?elf_suffix}
+
 # Recommends to replace normal Requires deps for stuff that is dlopen()ed
 # used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home
 Recommends:     libcryptsetup.so.12%{?elf_suffix}
@@ -465,6 +507,9 @@ Recommends:     libp11-kit.so.0%{?elf_suffix}
 Recommends:     libtss2-esys.so.0%{?elf_suffix}
 Recommends:     libtss2-mu.so.0%{?elf_suffix}
 Recommends:     libtss2-rc.so.0%{?elf_suffix}
+Recommends:     libtss2-tcti-device.so.0%{?elf_suffix}
+
+Recommends:     libarchive.so.13%{?elf_suffix}
 
 Provides:       udev = %{version}
 Provides:       udev%{_isa} = %{version}
@@ -482,6 +527,32 @@ Obsoletes:      systemd-timesyncd < %{version}-%{release}
 Provides:       systemd-timesyncd = %{version}-%{release}
 %endif
 Conflicts:      systemd-networkd < %{version}-%{release}
+
+# Libkmod is used to load modules. Assume that if we need udevd, we certainly
+# want to load modules, so make this into a hard dependency here.
+Requires:       libkmod.so.2%{?elf_suffix}
+Requires:       libkmod.so.2(LIBKMOD_5)%{?elf_bits}
+# udev uses libblkid in various builtins so make it a hard dependency.
+Requires:       libblkid.so.1%{?elf_suffix}
+Requires:       libblkid.so.1(BLKID_2.30)%{?elf_bits}
+
+# Recommends to replace normal Requires deps for stuff that is dlopen()ed
+# used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home
+Recommends:     libcryptsetup.so.12%{?elf_suffix}
+Recommends:     libcryptsetup.so.12(CRYPTSETUP_2.4)%{?elf_bits}
+
+# used by systemd-coredump and systemd-analyze
+Recommends:     libdw.so.1%{?elf_suffix}
+Recommends:     libdw.so.1(ELFUTILS_0.186)%{?elf_bits}
+Recommends:     libelf.so.1%{?elf_suffix}
+Recommends:     libelf.so.1(ELFUTILS_1.7)%{?elf_bits}
+
+# used by home, cryptsetup, cryptenroll, logind
+Recommends:     libfido2.so.1%{?elf_suffix}
+Recommends:     libp11-kit.so.0%{?elf_suffix}
+Recommends:     libtss2-esys.so.0%{?elf_suffix}
+Recommends:     libtss2-mu.so.0%{?elf_suffix}
+Recommends:     libtss2-rc.so.0%{?elf_suffix}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1377733#c9
 Suggests:       systemd-bootchart
@@ -605,6 +676,12 @@ Recommends:     qemu-kvm-core
 Recommends:     qemu-device-display-virtio-gpu
 Recommends:     qemu-device-display-virtio-vga
 %endif
+
+# May be used to decompress downloads
+Recommends:     liblzma.so.5%{?elf_suffix}
+Recommends:     libz.so.1%{?elf_suffix}
+Recommends:     libbz2.so.1%{?elf_suffix}
+
 # Bias the system towards libcurl-minimal if nothing pulls in full libcurl (#1997040)
 Suggests:       libcurl-minimal
 License:        LGPL-2.1-or-later
@@ -623,6 +700,8 @@ License:        LGPL-2.1-or-later
 Requires:       firewalld-filesystem
 Provides:       systemd-journal-gateway = %{version}-%{release}
 Provides:       systemd-journal-gateway%{_isa} = %{version}-%{release}
+Requires:       libmicrohttpd.so.12%{?elf_suffix}
+Requires:       libcurl.so.4%{?elf_suffix}
 # Bias the system towards libcurl-minimal if nothing pulls in full libcurl (#1997040)
 Suggests:       libcurl-minimal
 
@@ -784,8 +863,6 @@ VMLINUX_H_PATH=$(%python3 -c '%find_vmlinux_h')
 CONFIGURE_OPTS=(
         -Dmode=release
         -Dslow-tests=true
-        -Dsysvinit-path=/etc/rc.d/init.d
-        -Drc-local=/etc/rc.d/rc.local
         -Dntp-servers='0.%{ntpvendor}.pool.ntp.org 1.%{ntpvendor}.pool.ntp.org 2.%{ntpvendor}.pool.ntp.org 3.%{ntpvendor}.pool.ntp.org'
         -Ddns-servers=
         -Dservice-watchdog=
@@ -823,7 +900,6 @@ CONFIGURE_OPTS=(
         -Dmicrohttpd=enabled
         -Dvmspawn=enabled
         -Dlibidn2=enabled
-        -Dlibiptc=disabled
         -Dlibcurl=enabled
         -Dlibfido2=enabled
         -Dxenctrl=%[0%{?have_xen}?"enabled":"disabled"]
@@ -1287,6 +1363,7 @@ fi
                         systemd-pcrlock.socket
                         systemd-pcrlock@.service
                         systemd-pcrmachine.service
+                        systemd-pcrosseparator.service
                         systemd-pcrphase-initrd.service
                         systemd-pcrphase-sysinit.service
                         systemd-pcrphase.service

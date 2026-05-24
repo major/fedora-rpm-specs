@@ -30,7 +30,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   50.1
+Version:   50.2
 Release:   %autorelease
 Summary:   A software center for GNOME
 
@@ -42,7 +42,6 @@ Source0:   https://download.gnome.org/sources/gnome-software/%{major_version}/%{
 # to update the patch enter the ./dnf5-plugin/ directory and run from
 # it the ./update-patch.sh script
 Patch:     0001-dnf5-plugin.patch
-Patch:     0003-rhbug2457884-offline-updates-detection.patch
 %endif
 
 Patch:     0002-plain-package-update-notification.patch

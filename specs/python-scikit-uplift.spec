@@ -13,7 +13,7 @@ campaign.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Uplift modeling in scikit-learn style in python
 
 License:        MIT
@@ -91,6 +91,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.1-15
+- Rebuild for Pandas3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

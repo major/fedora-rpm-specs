@@ -1,13 +1,14 @@
 %global bigname QXmlEdit
 Name:           qxmledit
 Version:        0.9.18
-Release:        9%{?dist}
+Release:        10%{?dist}
 # QXmlEdit - LGPLv2, some icons (oxygen) - GPLv3, QwtPlot3D - zlib-like
 # Automatically converted from old format: LGPLv2+ and GPLv3 and zlib - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-only AND Zlib
 Summary:        Simple XML Editor and XSD Viewer
 Url:            http://qxmledit.org/
-Source:         https://github.com/lbellonda/qxmledit/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/lbellonda/qxmledit/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %{name}-%{version}.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
@@ -59,8 +60,9 @@ This package includes QXmlEdit development files.
 
 
 %prep
-%autosetup
-# tmp fix (https://github.com/lbellonda/qxmledit/issues/74)
+#autosetup
+%setup
+%patch 0
 desktop-file-edit --add-mime-type=application/xml install_scripts/environment/desktop/%{bigname}.desktop
 
 %build
@@ -121,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{bigname}.desktop
 
 
 %changelog
+* Fri May 22 2026 TI_Eugene <ti.eugene@gmail.com> - 0.9.18-10
+- gcc fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.18-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

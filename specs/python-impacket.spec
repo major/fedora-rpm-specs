@@ -1,11 +1,12 @@
 Name:           python-impacket
 Summary:        Collection of Python classes providing access to network packets
-Version:        0.12.0
+Version:        0.13.1
 
 License:        Apache-1.1 AND Zlib
 URL:            https://github.com/fortra/impacket
 # was           https://github.com/SecureAuthCorp/impacket
 # was           https://github.com/CoreSecurity/impacket
+VCS:            git:%{url}
 
 # During re-add of the python2-impacket we found about dependency to ldapdomaindump
 # feature can be avoided by option --no-dump to ntlmrelay.py
@@ -33,8 +34,8 @@ the object oriented API makes it simple to work with deep protocol hierarchies.}
 
 %global         gituser         fortra
 %global         gitname         impacket
-%global         commit          5af85c240076444d631d5f504e294daff065796b
-%global         gitdate         20230731
+%global         commit          c456746d7a0f0bb25e8968a59f25aae1ad519935
+%global         gitdate         20260515
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 # By defualt build with python3
@@ -60,7 +61,8 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{nam
 Patch0:         python-impacket-0.12.0-cleanup.patch
 
 # relax the strict requirement for version ==24.0.0
-Patch1:         python-impacket-0.12.0-pyopenssl.patch
+# not needed in 0.13.1
+# Patch1:         python-impacket-0.12.0-pyopenssl.patch
 
 BuildArch:      noarch
 

@@ -1,15 +1,18 @@
 # TODO: Algorithms are available for the following, not yet packaged:
 # - Ada
 # - C#
+# - Dart
 # - Go
 # - JavaScript
 # - Pascal
+# - PHP
 # - Rust
+# - Zig
 
 %global giturl  https://github.com/snowballstem/snowball
 
 Name:           snowball
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Snowball compiler and stemming algorithms
 
@@ -18,9 +21,11 @@ URL:            https://snowballstem.org/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Test data for the compiler
-Source1:        https://github.com/snowballstem/snowball-data/archive/refs/heads/master.zip
+Source1:        https://github.com/snowballstem/snowball-data/archive/refs/heads/main.zip
 # Build a shared library instead of a static library
 Patch:          %{name}-sharedlib.patch
+# Avoid a segfault in the analyzer
+Patch:          %{giturl}/pull/287.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -52,6 +57,7 @@ a metaphor for how the project grows by gathering contributions over time.}
 - Armenian
 - Basque
 - Catalan
+- Czech
 - Danish
 - Dutch
 - English (Standard, Porter)
@@ -69,10 +75,13 @@ a metaphor for how the project grows by gathering contributions over time.}
 - Lithuanian
 - Nepali
 - Norwegian
+- Persian (Farsi)
+- Polish
 - Portuguese
 - Romanian
 - Russian
 - Serbian
+- Sesotho
 - Spanish
 - Swedish
 - Tamil
@@ -155,8 +164,7 @@ ln -s ../libstemmer/modules.txt python
 ln -s . python/src
 
 %generate_buildrequires
-cd python
-%pyproject_buildrequires
+%pyproject_buildrequires -d python
 
 %build
 # Build the compiler and C library
@@ -180,9 +188,7 @@ cd -
 unlink python/modules.txt
 unlink python/src
 %make_build dist_libstemmer_python
-cd python
-%pyproject_wheel
-cd -
+%pyproject_wheel -d python
 
 # Convert the RST docs to HTML for readability
 rst2html --no-datestamp README.rst README.html
@@ -222,7 +228,7 @@ cd -
 %check
 # Check the compiler
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-mv ../snowball-data-master ../snowball-data
+mv ../snowball-data-main ../snowball-data
 make check
 %ifarch %{java_arches}
 make check_java

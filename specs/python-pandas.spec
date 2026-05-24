@@ -15,8 +15,8 @@
 %bcond_with single_tests
 
 Name:           python-pandas
-Version:        2.3.3
-Release:        5%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -80,22 +80,6 @@ License:        BSD-3-Clause AND (Apache-2.0 OR BSD-2-Clause) AND (BSD-3-Clause 
 URL:            https://pandas.pydata.org/
 # The GitHub archive contains tests; the PyPI sdist does not.
 Source0:        https://github.com/pandas-dev/pandas/archive/v%{version}/pandas-%{version}.tar.gz
-# https://github.com/pandas-dev/pandas/pull/57389
-Patch:          0001-TST-Ensure-Matplotlib-is-always-cleaned-up.patch
-# Fix big-endian issues:
-# https://github.com/pandas-dev/pandas/pull/57393
-Patch:          0003-TST-Fix-IntervalIndex-constructor-tests-on-big-endia.patch
-# https://github.com/pandas-dev/pandas/issues/57373
-# https://github.com/pandas-dev/pandas/pull/57394
-Patch:          0004-TST-Fix-test_str_encode-on-big-endian-machines.patch
-# Patches for fixing tests due to changes/bugs in dependencies
-# (not yet submitted upstream)
-Patch:          0005-Use-zoneinfo-instead-of-pytz.patch
-Patch:          0006-Adjust-test-to-accomodate-changes-in-Python.patch
-Patch:          0007-Replace-deprecated-xarray.cftime_range.patch
-# Fix build with Cython 3.2
-# Resolved upstream: https://github.com/pandas-dev/pandas/pull/62832
-Patch:          0008-Fix-Cython-3.2-build.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -232,10 +216,6 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
 BuildRequires:  python3-devel
-
-# Runtime dependencies
-BuildRequires:  python3dist(numpy) >= 1.26
-BuildRequires:  python3dist(python-dateutil) >= 2.8.2
 
 %if %{with tests}
 # From the [test] extra
@@ -481,17 +461,8 @@ sed -r -i '/\boldest-supported-numpy\b/d' pyproject.toml
 # We don't need the python tzdata package because we have the system tzdata package
 sed -i '/tzdata>=2022.7/d' pyproject.toml
 
-# Unpin meson
-sed -i 's/meson-python==0.13.1/meson-python>=0.13.1/' pyproject.toml
-sed -i 's/meson==1.2.1/meson>=1.2.1/' pyproject.toml
-
-# Unpin Cython
-sed -i 's/Cython~=3.0.5/Cython>=3.0.5/' pyproject.toml
-
 %generate_buildrequires
-# the build is expensive, so we don't use -w
-# we list the runtime and test BuildRequires manually
-%pyproject_buildrequires -R
+%pyproject_buildrequires -p
 
 
 %build
@@ -634,6 +605,16 @@ k="${k-}${k+ and }not test_complibs[blosc2"
 
 # Fails on s390x (rawhide)
 k="${k-}${k+ and }not (TestParquetPyArrow and test_unsupported_float16)"
+
+# PyArrow int16/uint16 setitem failures due to big-endian byte ordering
+k="${k-}${k+ and }not (TestArrowArray and test_setitem_sequence_broadcasts)"
+k="${k-}${k+ and }not (TestArrowArray and test_setitem_integer_array)"
+k="${k-}${k+ and }not (TestArrowArray and test_setitem_mask_broadcast)"
+k="${k-}${k+ and }not (TestArrowArray and test_setitem_slice)"
+k="${k-}${k+ and }not (TestArrowArray and test_setitem_loc_iloc_slice)"
+
+# Stata GSO string reference key encoding broken on big-endian
+k="${k-}${k+ and }not test_ascii_error"
 %endif
 
 
@@ -680,7 +661,8 @@ export PYTHONHASHSEED="$(
     -m "${m-}" \
     -k "${k-}" \
     -n 1 \
-    -r sxX
+    -r sxX \
+    --ignore='%{buildroot}%{python3_sitearch}/pandas/tests/io/pytables/test_compat.py'
 
 %else
 # Some imports require optional dependencies, and must be excluded during
@@ -711,6 +693,12 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.3-1
+- Update to Pandas 3.0.3
+
+* Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.3-0
+- Update to Pandas 3.0.3 (bootstrap)
+
 * Sun Feb 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.3-5
 - Drop gcsfs as python bindings have been orphaned
 

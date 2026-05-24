@@ -9,7 +9,7 @@
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.40
+Version: 1.0.41
 Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
@@ -137,6 +137,9 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Thu May 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.41-1
+- update to 1.0.41 (resolves rhbz#2467788)
+
 * Thu Apr 16 2026 Dominik Mierzejewski <dominik@greysector.net> 1.0.40-1
 - update to 1.0.40 (resolves rhbz#2446432)
 - stop using obsolete cmake3 macros

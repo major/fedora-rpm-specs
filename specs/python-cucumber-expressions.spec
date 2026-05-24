@@ -9,6 +9,8 @@ URL:            https://github.com/cucumber/cucumber-expressions
 Source:         %{url}/archive/v%{version}/cucumber-expressions-%{version}.tar.gz
 
 BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --directory python
+BuildOption(build): --directory python
 BuildOption(install): --assert-license cucumber_expressions
 
 BuildArch:      noarch
@@ -38,22 +40,16 @@ Summary:        %{summary}
 %pyproject_patch_dependency uv_build:drop_upper
 
 
-%generate_buildrequires -p
-cd python
-
-
-%build -p
-cd python
-
-
 %install -p
-install -t '%{buildroot}%{_pkgdocdir}/general' -p -m 0644 -D \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_pkgdocdir}/general' \
     ARCHITECTURE.md CHANGELOG.md README.md
-install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 -D python/README.md
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_pkgdocdir}' python/README.md
 
 
 %check -a
-%pytest python/tests -v
+%pytest python/tests --verbose
 
 
 %files -n python3-cucumber-expressions -f %{pyproject_files}

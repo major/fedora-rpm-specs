@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -27,6 +27,14 @@ Source193:      fastapi-cloud-env-delete.1
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-from-script-test.patch
+
+# Avoid packaging detect-install
+# https://pypi.org/project/detect-installer/#Vendoring
+Patch:          fastapi-cloud-cli-0.18.0-detect-installer.patch
+
+# Upstream forgot test version update
+# https://github.com/fastapilabs/fastapi-cloud-cli/commit/ecff13dcb28dd2ace3cadf4e9d905a1ede2984ea
+Patch:          fastapi-cloud-cli-0.18.0-test-version.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --no-assert-license fastapi_cloud_cli
@@ -61,6 +69,7 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 # functionality.
 BuildRequires:  gh
 Requires:       gh
+BuildRequires: python3-pdm-backend
 
 %description
 %{summary}.

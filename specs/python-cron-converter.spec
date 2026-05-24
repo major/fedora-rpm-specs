@@ -26,8 +26,8 @@ Summary:        %{summary}
 
 
 %check -a
-%{py3_test_envvars} %{python3} -m unittest discover -v tests/unit
-%{py3_test_envvars} %{python3} -m unittest discover -v tests/integration
+%{py3_test_envvars} %{python3} -m unittest discover --verbose tests/unit
+%{py3_test_envvars} %{python3} -m unittest discover --verbose tests/integration
 
 
 %files -n python3-cron-converter -f %{pyproject_files}

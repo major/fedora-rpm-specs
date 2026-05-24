@@ -16,12 +16,12 @@
 %global debug_package %{nil}
 %endif
 
-# edk2-stable202602
-%define GITDATE        20260213
-%define GITCOMMIT      b7a715f7c03c
+# edk2-stable202605
+%define GITDATE        20260508
+%define GITCOMMIT      b03a21a63e3b
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT c3efe816e1bb
+%define PLATFORMS_COMMIT 04470160f671
 
 %define OPENSSL_VER    3.5.6
 

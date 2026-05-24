@@ -63,12 +63,12 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 License:        %{shrink:
-                (0BSD OR MIT OR Apache-2.0) AND
-                Apache-2.0 AND
-                BSD-3-Clause AND
-                MIT AND
-                (MIT OR Zlib OR Apache-2.0)
-                }
+    (0BSD OR MIT OR Apache-2.0) AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    MIT AND
+    (MIT OR Zlib OR Apache-2.0)
+    }
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n python3-cramjam %{common_description}
@@ -108,9 +108,9 @@ static_features="$(
 for sf in ${static_features}
 do
   tomcli set Cargo.toml del "features.${sf}"
-  if ! echo "${sf}" | grep -E '^use-system-' >/dev/null
+  if ! printf '%s\n' "${sf}" | grep --extended-regexp '^use-system-' >/dev/null
   then
-    binding="$(echo "${sf}" | sed -r 's/-static//')"
+    binding="$(echo "${sf}" | sed --regexp-extended 's/-static//')"
     tomcli set Cargo.toml lists replace --type regex \
         "features.${binding}" "${binding}-static" "${binding}-shared"
   fi
@@ -145,7 +145,7 @@ k="${k-}${k+ and }not test_variants_decompress_into"
 # Failed: DID NOT RAISE <class 'cramjam.DecompressionError'>
 k="${k-}${k+ and }not test_variants_raise_exception[deflate]"
 
-%pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v
+%pytest -k "${k-}" --ignore=benchmarks/test_bench.py --verbose
 %endif
 
 

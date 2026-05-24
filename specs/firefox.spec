@@ -203,14 +203,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        151.0
-Release:        2%{?pre_tag}%{?dist}
+Version:        151.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260518.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260522.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -1287,6 +1287,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri May 22 2026 Martin Stransky <stransky@redhat.com> - 151.0.1-1
+- Update to latest upstream (151.0.1)
+
 * Mon May 18 2026 Martin Stransky <stransky@redhat.com> - 151.0-2
 - Update to latest upstream (151.0) build 2
 

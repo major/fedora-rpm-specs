@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -87,6 +87,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.5.16-14
+- Rebuild for Pandas3
+
 * Sat Apr 25 2026 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-13
 - R-maint-sig mass rebuild
 - Disable tests, don't work under R 4.6

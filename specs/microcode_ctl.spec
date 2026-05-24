@@ -1,16 +1,16 @@
-%define upstream_version 2.1-51
+%define upstream_version 2.1-52
 %global debug_package %{nil}
 
 Summary:        Tool to transform and deploy CPU microcode update for x86
 Name:           microcode_ctl
 Version:        2.1
-Release:        74%{?dist}
+Release:        75%{?dist}
 Epoch:          2
 License:        GPL-2.0-or-later AND LicenseRef-Fedora-Firmware
 URL:            https://pagure.io/microcode_ctl
 Source0:        https://releases.pagure.org/microcode_ctl/%{name}-%{upstream_version}.tar.xz
 ExclusiveArch:  %{ix86} x86_64
-BuildRequires: make
+BuildRequires:  make
 
 %description
 The microcode_ctl utility is a companion to the microcode driver written
@@ -36,6 +36,23 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} INSDIR=/usr/sbin install clean
 
 
 %changelog
+* Fri May 22 2026 Denys Vlasenko <dvlasenk@redhat.com> 2:2.1-75
+- Update to upstream 2.1-52. 20260512
+- New microcode files (in hex):
+  06-cc-02: Panther Lake: revision 011b
+  06-cc-03: Panther Lake: revision 011b
+- Microcode files (/platform_mask shown) with revision updates (in hex):
+  06-8f-07/87: Sapphire Rapids: 2b000661 to 2b000670
+  06-8f-08/87: Sapphire Rapids: 2b000661 to 2b000670
+  06-ad-01/20: Granite Rapids-X: a000133 to a000142
+  06-ad-01/95: Granite Rapids-X: 1000405 to 1000423
+  06-ae-01/97: Granite Rapids-D: 10002f3 to 1000307
+  06-af-03/01: Crestmont (Sierra Forest): 3000382 to 30003a3
+  06-bd-01/80: Lunar Lake: 0125 to 0126
+  06-c5-02/82: Arrow Lake-H: 011b to 0121
+  06-c6-02/82: Arrow Lake: 011b to 0121
+  06-cf-02/87: Emerald Rapids: 210002d3 to 210002e0
+
 * Wed Feb 18 2026 Eugene Syromiatnikov <evgsyr@gmail.com> 2:2.1-74
 - Update to upstream 2.1-51. 20260210
   - Addition of 06-ae-01/0x97 (GNR-D B0/B1) microcode at revision

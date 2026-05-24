@@ -15,7 +15,7 @@ via POST requests. }
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -91,6 +91,9 @@ done
 %endif
 
 %changelog
+* Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.4-2
+- Rebuild for Pandas3
+
 * Tue Apr 14 2026 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.4-1
 - Update to 0.4.4
 

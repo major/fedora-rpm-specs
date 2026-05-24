@@ -6,7 +6,7 @@
 
 Name:		libssh2
 Version:	1.11.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -14,6 +14,7 @@ Source0:	https://libssh2.org/download/libssh2-%{version}.tar.gz
 Source1:	https://libssh2.org/download/libssh2-%{version}.tar.gz.asc
 # Daniel Stenberg's GPG keys; linked from https://daniel.haxx.se/address.html
 Source2:	https://daniel.haxx.se/mykey.asc
+Patch0:		libssh2-1.11.1-CVE-2026-7598.patch
 
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -61,6 +62,10 @@ developing applications that use libssh2.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
+
+# CVE-2026-7598 libssh2: integer overflow via large username or password arguments
+# https://github.com/libssh2/libssh2/pull/1858
+%patch -P0
 
 # Replace hard wired port number in the test suite to avoid collisions
 # between 32-bit and 64-bit builds running on a single build-host
@@ -116,6 +121,10 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Fri May 22 2026 Paul Howarth <paul@city-fan.org> - 1.11.1-6
+- Fix CVE-2026-7598: integer overflow via large username or password arguments
+  (https://github.com/libssh2/libssh2/pull/1858)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,16 +6,14 @@
 %global qt_version 6.4
 %global cmake_version 3.22
 
-%global fullversion %{version}
-#global fullversion 6.1
-
+#%%global fullversion %%{version}
+%global fullversion 6.2-beta1
 
 Name:           CGAL
-Version:        6.1.1
-Release:        1%{?dist}
+Version:        6.2
+Release:        0.1.beta1%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
-# Automatically converted from old format: LGPLv3+ and GPLv3+ and Boost - review is highly recommended.
 License:        LGPL-3.0-or-later AND GPL-3.0-or-later AND BSL-1.0
 URL:            http://www.cgal.org/
 Source0:        https://github.com/CGAL/cgal/releases/download/v%{fullversion}/%{name}-%{fullversion}.tar.xz
@@ -155,15 +153,5 @@ ldd ./constrained_plus
 %{_datadir}/CGAL/demo
 %{_datadir}/CGAL/examples
 %exclude %{_datadir}/CGAL/*/*/skip_vcproj_auto_generation
-
-%changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sun Jan 11 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 6.1-2
-- Rebuilt for Boost 1.90
 
 %autochangelog

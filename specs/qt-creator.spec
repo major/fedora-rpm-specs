@@ -1,4 +1,4 @@
-%define prerelease beta1
+%define prerelease beta2
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        20.0.0
-Release:        0.3%{?prerelease:.%prerelease}%{?dist}
+Release:        0.4%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -220,6 +220,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu May 21 2026 Sandro Mani <manisandro@gmail.com> - 20.0.0-0.4.beta2
+- Update to 20.0.0-beta2
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

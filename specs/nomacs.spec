@@ -3,16 +3,18 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.22.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
-Url:		http://nomacs.org
+Url:		https://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	qt6-linguist
 BuildRequires:	qt6-qttools-devel
+# qt6-qt5compat-devel
+BuildRequires:  cmake(Qt6Core5Compat)
 # qt6-qtsvg-devel
 BuildRequires:	cmake(Qt6Svg)
 # quazip-qt6-devel
@@ -26,7 +28,6 @@ BuildRequires:	pkgconfig(libraw) >= 0.12.0
 # libtiff-devel
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	lcov
-Obsoletes:	nomacs-plugins < %{version}
 Recommends:	qt6-qtimageformats
 Recommends:	kf6-kimageformats
 
@@ -40,8 +41,6 @@ e.g. schemes of architects to show the progress).
 
 %package  plugins
 Summary:  Plugins for nomacs image viewer.
-# qt6-qt5compat-devel
-BuildRequires:  cmake(Qt6Core5Compat)
 Requires: %{name} = %{version}-%{release}
 
 %description  plugins
@@ -94,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Fri May 22 2026 Alexey Kurov <nucleo@fedoraproject.org> - 3.22.1-2
+- Remove Obsoletes: nomacs-plugins
+
 * Tue May 19 2026 TI_Eugene <ti.eugene@gmail.com> 3.22.1-1
 - Version bump
 

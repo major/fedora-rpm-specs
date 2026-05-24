@@ -11,7 +11,7 @@ URL:            https://github.com/koesterlab/conda-inject
 Source:         %{url}/archive/v%{version}/conda-inject-%{version}.tar.gz
 
 BuildSystem:    pyproject
-BuildOption(install): --no-assert-license conda_inject
+BuildOption(install): --assert-license conda_inject
 
 BuildArch:      noarch
 
@@ -37,7 +37,6 @@ Summary:        %{summary}
 
 
 %files -n python3-conda-inject -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 
