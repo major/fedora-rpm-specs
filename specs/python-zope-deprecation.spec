@@ -1,7 +1,7 @@
 %define modname zope_deprecation
 
 Name:           python-zope-deprecation
-Version:        5.1
+Version:        6.0
 Release:        %autorelease
 Summary:        Zope 3 Deprecation Infrastructure
 
@@ -31,8 +31,7 @@ deprecate the previously mentioned Python objects.
 %autosetup -p1 -n %{modname}-%{version}
 
 # Allow newer setuptools
-sed -i 's/"setuptools .*"/"setuptools"/' pyproject.toml
-sed -i 's/setuptools <=.*/setuptools/'  tox.ini
+%pyproject_patch_dependency setuptools:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -49,7 +48,6 @@ sed -i 's/setuptools <=.*/setuptools/'  tox.ini
 
 %files -n python3-zope-deprecation -f %{pyproject_files}
 %doc README.rst LICENSE.txt
-%{python3_sitelib}/zope.deprecation-5.1-py%{python3_version}-nspkg.pth
 
 
 %changelog

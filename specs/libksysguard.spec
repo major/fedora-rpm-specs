@@ -1,6 +1,6 @@
 Name:    libksysguard
 Summary: Library for managing processes running on the system
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -109,6 +109,7 @@ developing applications that use %{name}.
 %caps(cap_net_raw=ep) %{_libexecdir}/ksysguard/ksgrd_network_helper
 %{_kf6_datadir}/dbus-1/interfaces/org.kde.ksystemstats1.xml
 %{_qt6_plugindir}/kf6/packagestructure/ksysguard_sensorface.so
+%{_kf6_bindir}/ksysguard-identify
 
 %files common
 %if %{undefined flatpak}
@@ -127,6 +128,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

@@ -57,11 +57,12 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a
-%pytest -v tests -m 'not network'
+%pytest --verbose tests -m 'not network'
 
 
 %files -n python3-email-validator -f %{pyproject_files}

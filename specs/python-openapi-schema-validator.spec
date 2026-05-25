@@ -37,7 +37,7 @@ Summary:        %{summary}
 %prep -a
 # Patch coverage analysis out of [tool.pytest.ini_options]:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i '/^--cov\b/d' pyproject.toml
+sed --regexp-extended --in-place '/^--cov\b/d' pyproject.toml
 
 
 %check -a

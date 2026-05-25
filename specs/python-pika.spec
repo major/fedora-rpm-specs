@@ -6,17 +6,13 @@ tries to stay fairly independent of the underlying network support \
 library.
 
 Name:           python-%{srcname}
-Version:        1.3.2
+Version:        1.4.1
 Release:        %autorelease
 Summary:        AMQP 0-9-1 client library for Python
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{srcurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Fix tests with Python 3.14, except RuntimeError from asyncio.get_event_loop
-# https://github.com/pika/pika/pull/1524
-Patch:          python3.14.patch
 
 BuildArch:      noarch
 
@@ -29,7 +25,8 @@ BuildRequires:  python3-tornado
 BuildRequires:  python3-sphinx
 
 # Test requirements
-BuildRequires:  python3-nose2
+BuildRequires:  python3-pytest
+
 
 %description
 %{desc}
@@ -61,9 +58,6 @@ Obsoletes: python3-%{srcname}-doc <= 0.12.0-5
 %autosetup -p1 -n %{srcname}-%{version}
 # These require a broker and should be run as part of the new CI/CD stuff
 rm -rf tests/acceptance
-sed -i -e s#tests=tests/unit,tests/acceptance#tests=tests/unit#g nose2.cfg
-# don't run code coverage
-sed -i 's/with-coverage = 1/with-coverage = 0/g' nose2.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -80,7 +74,7 @@ sphinx-build -b html -d doctrees docs html
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} nose2
+PYTHONPATH=%{buildroot}%{python3_sitelib} pytest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

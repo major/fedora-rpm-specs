@@ -9,6 +9,7 @@ Source:         %{pypi_source flufl.bounce}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 
 
 # Fill in the actual package description to submit package to Fedora

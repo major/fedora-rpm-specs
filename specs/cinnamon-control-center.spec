@@ -5,11 +5,11 @@
 %global cinnamon_menus_version 6.7.0
 %global redhat_menus_version 1.8
 
-%global upstream_version 6.7.0-unstable
+%global upstream_version 6.7.1-unstable
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.7.0^unstable
+Version: 6.7.1^unstable
 Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
@@ -132,6 +132,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
+- Update to 6.7.1-unstable
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

@@ -36,7 +36,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-embreex -f %{pyproject_files}

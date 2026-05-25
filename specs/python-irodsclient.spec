@@ -40,7 +40,8 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 %py3_shebang_fix '%{buildroot}%{_bindir}/prc_write_irodsA.py'
 
 # Remove useless shebangs in files that will be installed without executable
@@ -51,7 +52,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 # the copy in %%{_bindir}.
 find '%{buildroot}%{python3_sitelib}/irods' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r sed -r -i '1{/^#!/d}'
+  xargs --no-run-if-empty sed --regexp-extended --in-place '1{/^#!/d}'
 
 
 %files -n python3-irodsclient -f %{pyproject_files}

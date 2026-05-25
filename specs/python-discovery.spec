@@ -52,7 +52,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
-%pytest -rs -v
+%pytest -rs --verbose
 
 
 %files -n python3-discovery -f %{pyproject_files}

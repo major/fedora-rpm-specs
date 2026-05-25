@@ -37,7 +37,7 @@ Obsoletes:      python-flask-socketio-doc < 5.6.0-2
 %prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 %pyproject_patch_dependency pytest-cov:ignore
-sed -r -i 's/--cov[^[:blank:]]*//g' tox.ini
+sed --regexp-extended --in-place 's/--cov[^[:blank:]]*//g' tox.ini
 
 
 %check -a

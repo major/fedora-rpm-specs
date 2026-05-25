@@ -1,21 +1,13 @@
 %global forgeurl https://github.com/qtile/qtile
-%global tag v0.35.0
+%global tag v0.36.0
 
 Name: qtile
-Version: 0.35.0
+Version: 0.36.0
 Release: %{autorelease}
 Summary: A pure-Python tiling window manager
 %forgemeta
 Source: %{forgesource}
-
-# Everything licensed under MIT except for the following files.
-# GPL-3.0-or-later:
-#   libqtile/widget/cmus.py
-#   libqtile/widget/moc.py
-#
-# Slated for removal in the next Qtile release. See:
-# https://github.com/qtile/qtile/pull/5738
-License: MIT AND GPL-3.0-or-later
+License: MIT
 Url: http://qtile.org
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -113,7 +105,7 @@ sed -i '/xdg/d' ./pyproject.toml
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -x test,wayland,dev,optional_core,widgets
+%pyproject_buildrequires -x dev,optional-core,widgets
 
 
 %build

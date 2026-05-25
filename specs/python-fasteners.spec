@@ -41,7 +41,7 @@ Summary:        A python package that provides useful locks
 # See notes in %%prep:
 ignore="${ignore-} --ignore=tests/test_eventlet.py"
 
-%pytest ${ignore-} -rs -v
+%pytest ${ignore-} -rs --verbose
 %endif
 
 

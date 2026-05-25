@@ -63,7 +63,7 @@ k="${k-}${k+ and }not (TestPublicServers and test_servers)"
 # exist.
 touch Makefile
 
-%pytest ${ignore-} -k "${k-}" -v
+%pytest ${ignore-} -k "${k-}" --verbose
 
 
 %files -n python3-ftputil -f %{pyproject_files}

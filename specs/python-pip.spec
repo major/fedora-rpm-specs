@@ -170,7 +170,9 @@ Requires:       ca-certificates
 # Virtual provides for the packages bundled by pip:
 %{bundled %{python3_pkgversion}}
 
+%if "%{python3_pkgversion}" == "3"
 Provides:       pip = %{version}-%{release}
+%endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
 pip is a package management system used to install and manage software packages

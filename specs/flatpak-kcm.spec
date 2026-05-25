@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          flatpak-kcm
-Version:       6.6.5
+Version:       6.6.90
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_app-permissions.d
 %{_kf6_datadir}/applications/kcm_app-permissions.desktop
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

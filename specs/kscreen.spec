@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kscreen
 Epoch:   1
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -42,6 +42,11 @@ BuildRequires:  cmake(Plasma)
 
 BuildRequires:  pkgconfig(xcb-atom)
 BuildRequires:  pkgconfig(xi)
+BuildRequires:  qt6qml(org.kde.kitemmodels)
+BuildRequires:  qt6qml(org.kde.plasma.plasma5support)
+Requires:       qt6qml(org.kde.kitemmodels)
+Requires:       qt6qml(org.kde.plasma.plasma5support)
+
 
 %description
 KCM and KDED modules for managing displays in KDE.
@@ -77,6 +82,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.5-1
 - 6.6.5
 

@@ -3,12 +3,12 @@
 %global gtk_doc_version  1.9
 %global po_package       cinnamon-desktop-3.0
 
-%global upstream_version 6.7.0-unstable
+%global upstream_version 6.7.1-unstable
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.7.0^unstable
-Release: 1%{?dist}
+Version: 6.7.1^unstable
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -18,6 +18,7 @@ Source1: x-cinnamon-mimeapps.list
 ExcludeArch: %{ix86}
 
 Patch0:   set_font_defaults.patch
+Patch1:   %url/pull/272.patch#/cinnamon-desktop-bwrap.patch
 
 Requires: redhat-menus
 
@@ -27,6 +28,7 @@ Requires: system-backgrounds-gnome
 %endif
 
 BuildRequires: pkgconfig(accountsservice)
+BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gtk-doc) >= %{gtk_doc_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -68,7 +70,12 @@ libcinnamon-desktop.
 %autosetup -p1 -n %{name}-%{upstream_version}
 
 %build
-%meson -Ddeprecation_warnings=false
+%meson \
+ -Dalsa=true \
+%ifarch ppc64le s390x
+ -Dbubblewrap=disabled \
+%endif
+ -Ddeprecation_warnings=false
 %meson_build
 
 %install
@@ -98,6 +105,12 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
+- Enable alsa
+
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
+- Update to 6.7.1-unstable
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

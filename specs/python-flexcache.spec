@@ -51,8 +51,8 @@ Summary:        %{summary}
 #
 # Still, we don’t want to install the test suite, so we just remove the files
 # manually for now.
-rm -rvf '%{buildroot}%{python3_sitelib}/flexcache/testsuite'
-sed -r -i '/\/flexcache\/testsuite/d' %{pyproject_files}
+rm --recursive --verbose '%{buildroot}%{python3_sitelib}/flexcache/testsuite'
+sed --regexp-extended --in-place '/\/flexcache\/testsuite/d' %{pyproject_files}
 
 
 %check -a

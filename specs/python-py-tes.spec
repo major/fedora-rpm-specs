@@ -1,5 +1,5 @@
 Name:           python-py-tes
-Version:        1.1.2
+Version:        1.1.4
 Release:        %autorelease
 Summary:        Python SDK for the GA4GH Task Execution API
 
@@ -16,9 +16,8 @@ BuildOption(install): --assert-license tes
 BuildArch:      noarch
 
 # Most of the dependencies in tests/requirements.txt pertain to linting and
-# coverage analysis. (Plus, the package wants to use the deprecated nose
-# package as the test runner.) Rather than working around all of these, it is
-# simpler to BR and invoke pytest manually.
+# coverage analysis. Rather than working around all of these, it is simpler to
+# BR and invoke pytest manually.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist requests_mock} >= 1.3

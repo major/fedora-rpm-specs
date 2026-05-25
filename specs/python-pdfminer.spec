@@ -145,14 +145,14 @@ Obsoletes:      python-pdfminer-doc < 20240706-4
 
 %prep -a
 # Unbundle cmap data; it will be replaced in %%build.
-rm -vf cmaprsrc/* pdfminer/cmap/*
+rm --verbose cmaprsrc/* pdfminer/cmap/*
 
 # Remove shebang line in non-script source
-sed -r -i '1{/^#!/d}' pdfminer/psparser.py
+sed --regexp-extended --in-place '1{/^#!/d}' pdfminer/psparser.py
 
 # Copy the pyHanko license to the top-level directory so it is automatically
 # included in the licenses in the installed dist-info directory.
-cp -p docs/licenses/LICENSE.pyHanko ./
+cp --preserve docs/licenses/LICENSE.pyHanko ./
 
 
 %build -p
@@ -160,7 +160,7 @@ cp -p docs/licenses/LICENSE.pyHanko ./
 # format.
 for cmap in Japan1 Korea1 GB1 CNS1
 do
-  ln -s "%{adobe_mappings_rootpath}/${cmap}/cid2code.txt" \
+  ln --symbolic "%{adobe_mappings_rootpath}/${cmap}/cid2code.txt" \
       "cmaprsrc/cid2code_Adobe_${cmap}.txt"
 done
 # Prior to release 20251229, there was a “cmap” Makefile target. It was
@@ -169,7 +169,7 @@ done
 # %%make_build cmap PYTHON='%%{python3}'
 #
 # The following is equivalent to what the “cmap” target used to do.
-mkdir -p pdfminer/cmap
+mkdir --parents pdfminer/cmap
 %{python3} tools/conv_cmap.py -c B5=cp950 -c UniCNS-UTF8=utf-8 \
     pdfminer/cmap Adobe-CNS1 cmaprsrc/cid2code_Adobe_CNS1.txt
 %{python3} tools/conv_cmap.py -c GBK-EUC=cp936 -c UniGB-UTF8=utf-8 \
@@ -193,8 +193,8 @@ mkdir -p pdfminer/cmap
 # during %%pyproject_wheel, or we will still end up with a dirty/postrelease
 # version.
 echo '*pyproject*' >> .gitignore
-git add -A
-git commit -m 'Imitate upstream release %{version}'
+git add --all
+git commit --message='Imitate upstream release %{version}'
 git tag '%{version}'
 
 
@@ -205,15 +205,15 @@ git tag '%{version}'
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE2}' '%{SOURCE3}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE2}' '%{SOURCE3}'
 
 %py3_shebang_fix '%{buildroot}%{_bindir}'
 
 # Also, ship symlinks of the scripts without the .py extension.
 for script in pdf2txt dumppdf
 do
-  ln -sf "${script}.py" "%{buildroot}%{_bindir}/${script}"
+  ln --symbolic --force "${script}.py" "%{buildroot}%{_bindir}/${script}"
 done
 
 

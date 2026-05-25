@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -31,6 +31,7 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  cmake(QCoro6)
 BuildRequires:  cmake(Qca-qt6)
+BuildRequires:  cmake(Qt6Keychain)
 
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KCMUtils)
@@ -47,6 +48,8 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6ModemManagerQt)
 BuildRequires:  cmake(KF6Svg)
+# For some reason, it's not pulling it up on s390x
+BuildRequires:  pkgconfig(libcrypto)
 
 # Plasma
 BuildRequires:  cmake(Plasma)
@@ -243,6 +246,7 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %{_kf6_datadir}/knotifications6/networkmanagement.notifyrc
 # plasma-nm kded
 %{_kf6_plugindir}/kded/networkmanagement.so
+%{_libdir}/libplasmanm_cellular.so
 
 # kcm
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_networkmanagement.so
@@ -303,6 +307,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

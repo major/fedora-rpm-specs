@@ -36,6 +36,8 @@ BuildRequires:      python3-devel
 %autosetup -p 1 -n arrow-%{version}
 # Fix python tzdata dependency
 sed -i 's/tzdata;python_version/pytzdata;python_version/' pyproject.toml
+# In Fedora there is simplejson 4+, which is not officially supported yet
+%pyproject_patch_dependency simplejson:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

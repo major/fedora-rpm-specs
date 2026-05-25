@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.136.1
+Version:        0.136.3
 Release:        %autorelease
 Summary:        FastAPI framework
 
@@ -31,8 +31,6 @@ Source:         %{url}/archive/%{version}/fastapi-%{version}.tar.gz
 Source10:       fastapi.1
 Source11:       fastapi-dev.1
 Source12:       fastapi-run.1
-Source13:       fastapi-deploy.1
-Source14:       fastapi-login.1
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): %{shrink:
@@ -184,15 +182,16 @@ It makes sure the dependencies are installed.
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
-rm -rvf docs/*/docs/js docs/*/docs/css
+rm --recursive --verbose docs/*/docs/js docs/*/docs/css
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 %if %{without bootstrap}
-install -d \
+install --directory \
     '%{buildroot}%{bash_completions_dir}' \
     '%{buildroot}%{zsh_completions_dir}' \
     '%{buildroot}%{fish_completions_dir}'

@@ -76,9 +76,9 @@ BuildSystem:    pyproject
 BuildOption(install): --no-assert-license pulp
 # Omitted extras for non-free solvers: copt, cplex, gurobi, mosek, xpress
 BuildOption(generate_buildrequires): %{shrink:
-  --extras highs
-  --extras scip
-}
+    --extras highs
+    --extras scip
+    }
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -151,7 +151,7 @@ Recommends:     python3-pulp+scip = %{version}-%{release}
 # dereferenced in the build environment during %%build; we form relative
 # symbolic links in the buildroot using %%{_bindir} in %%install.
 find pulp/solverdir/cbc/linux -type f -executable \
-    -exec ln -s -v -f '/usr/bin/Cbc' '{}' ';'
+    -exec ln --symbolic --verbose --force '/usr/bin/Cbc' '{}' ';'
 # Remove remaining bundled cbc executables
 find pulp/solverdir/cbc -type f \
     \( -executable -o -name '*.exe' \) -print -delete
@@ -167,7 +167,8 @@ find pulp/solverdir -type f \
     -print -delete
 
 # Increase test verbosity
-sed -r -i 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' pulp/tests/run_tests.py
+sed --regexp-extended --in-place \
+    's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' pulp/tests/run_tests.py
 
 # Upstream pinned highspy to 1.13 in
 # https://github.com/coin-or/pulp/commit/07c7b5ecc7b66ff7a96727a1817d6f3e428a6251;
@@ -179,7 +180,8 @@ sed -r -i 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' pulp/tests/run_tests.py
 # Remove shebang from non-executable library file. Upstream may have intended
 # this to be run directly during development, but it is installed without the
 # execute permission bit set, so the shebang is useless.
-sed -r -i '1{/^#!/d}' '%{buildroot}%{python3_sitelib}/pulp/pulp.py'
+sed --regexp-extended --in-place \
+    '1{/^#!/d}' '%{buildroot}%{python3_sitelib}/pulp/pulp.py'
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebangs
 %py3_shebang_fix '%{buildroot}%{python3_sitelib}/pulp'
 
@@ -190,21 +192,22 @@ sed -r -i '1{/^#!/d}' '%{buildroot}%{python3_sitelib}/pulp/pulp.py'
 # Begin by temporarily making absolute symlinks within the buildroot *not*
 # dangle, so that symlinks will convert them. Ensure that we clean them up
 # afterward so they don’t affect %%fils.
-install -d '%{buildroot}%{_bindir}'
-ln -s '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
-trap 'rm -v %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
+install --directory '%{buildroot}%{_bindir}'
+ln --symbolic '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
+trap 'rm --verbose %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
 # Now recreate the symlinks and convert to relative.
 find '%{buildroot}%{python3_sitelib}/pulp/solverdir/cbc/linux' \
     -type f -executable \
-    -exec ln -s -v -f '%{buildroot}%{_bindir}/Cbc' '{}' ';' \
+    -exec ln --symbolic --verbose --force \
+    '%{buildroot}%{_bindir}/Cbc' '{}' ';' \
     -exec symlinks -c '{}' ';'
 
 
 %check -a
 %if %{with tests}
 # Work around dangling relative symlinks in the buildroot.
-ln -s '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
-trap 'rm -v %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
+ln --symbolic '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
+trap 'rm --verbose %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
 # Using pulptest binary to test the package
 %{py3_test_envvars} pulptest
 %endif

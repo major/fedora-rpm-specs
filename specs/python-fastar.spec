@@ -73,7 +73,7 @@ k="${k-}${k+ and }not test_unpack_preserves_file_modification_time_only_if_optio
 # We are not interested in benchmarks
 ignore="${ignore-} --ignore=tests/benchmarks/"
 
-%pytest -k "${k-}" ${ignore} -v
+%pytest -k "${k-}" ${ignore} --verbose
 
 
 

@@ -71,7 +71,7 @@ export PYTHONWARNINGS='ignore::DeprecationWarning'
 # meaningingfully test the package without black; there would be 100+ test
 # failures.
 
-%pytest ${ignore-} -vv -rs
+%pytest ${ignore-} --verbosity=2 -rs
 
 
 %files -n python3-inline-snapshot -f %{pyproject_files}

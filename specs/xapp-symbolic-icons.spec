@@ -1,5 +1,5 @@
 Name:           xapp-symbolic-icons
-Version:        1.0.9
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        A set of symbolic icons which replaces the GNOME-specific Adwaita set
 License:        CC0-1.0 AND CC-BY-SA-4.0 AND LGPL-3.0-only AND MIT
@@ -39,6 +39,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/xapp/
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.9-1
 - Update to 1.0.9
 

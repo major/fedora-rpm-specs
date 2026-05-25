@@ -80,7 +80,7 @@ BuildRequires: pkgconfig(lua)
 # opencl-headers is optional (OpenCL kernel build test)
 BuildRequires: opencl-headers
 %if (%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora}
-BuildRequires: cmake(OpenEXR)
+BuildRequires: cmake(OpenEXR) > 3.0
 BuildRequires: cmake(Imath)
 %else
 BuildRequires: OpenEXR-devel

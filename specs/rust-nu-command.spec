@@ -28,7 +28,10 @@ Patch:          nu-command-fix-metadata-auto.diff
 #   https://github.com/nushell/nushell/pull/14489, and which 8,
 #   https://github.com/nushell/nushell/pull/16045, and procfs 0.18,
 #   https://github.com/nushell/nushell/pull/17195
-# * allow roxmltree 0.20: https://github.com/nushell/nushell/pull/14513
+# * update to roxmltree 0.21, https://github.com/nushell/nushell/pull/18269; see
+#   also https://github.com/nushell/nushell/pull/17228, and
+#   https://github.com/nushell/nushell/pull/14513 for roxmltree 0.20, and note
+#   that an accompanying source-code patch is required
 # * allow lscolors from 0.17 to 0.21:
 #   https://github.com/nushell/nushell/pull/15737
 # * Allow indicatif 0.18: https://github.com/nushell/nushell/pull/16248
@@ -42,7 +45,12 @@ Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354
 Patch2:         nu-command-fix-for-quick-xml-0_33.diff
+# * port to uutils 0.7.0
 Patch3:         https://gist.githubusercontent.com/decathorpe/3a17b07797adeea3858deebfe41d79bf/raw/a4c4e124a2110929eb5f449a6379444d794e4830/nu-command-0.99.1-port-to-uutils-0.7.0.patch
+# * source-code patch for roxmltree 0.21
+# * https://github.com/nushell/nushell/pull/18269
+# * backported to 0.99.1, which formats error messages rather differently
+Patch4:         nu-command-0.99.1-roxmltree-0.21.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.6.5
+Version:        6.6.90
 Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -48,6 +48,9 @@ BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  /usr/bin/winpr-makecert
+BuildRequires:  qt6qml(org.kde.kirigamiaddons.formcard)
+BuildRequires:  pkgconfig(epoxy)
+Requires:       qt6qml(org.kde.kirigamiaddons.formcard)
 Requires:       /usr/bin/openssl
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -122,6 +125,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

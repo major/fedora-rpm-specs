@@ -75,7 +75,7 @@ Summary:        %{summary}
 
 %prep -a
 # Remove bundled earcut.hpp library
-rm -rv include/mapbox
+rm --recursive --verbose include/mapbox
 
 # Fix CRLF line endings in files that will be installed.
 dos2unix --keepdate *.md
@@ -90,7 +90,7 @@ export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-mapbox-earcut -f %{pyproject_files}

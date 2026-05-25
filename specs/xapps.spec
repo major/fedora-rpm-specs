@@ -1,11 +1,13 @@
+%global upstream_version 3.3.1-unstable
+
 Name:           xapps
-Version:        3.2.2
-Release:        3%{?dist}
+Version:        3.3.1^unstable
+Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.4.tar.xz
 Patch0:         watcher_fix_libexec.patch
 
@@ -16,6 +18,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
 BuildRequires:  gtk3-devel
+BuildRequires:  gtk-layer-shell-devel
 BuildRequires:  intltool
 BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libX11-devel
@@ -66,7 +69,7 @@ Provides:       python3-xapps-overrides%{?_isa} = %{version}-%{release}
 Python%{python3_version} files for XApp apps.
 
 %prep
-%autosetup -p1 -n xapp-%{version}
+%autosetup -p1 -n xapp-%{upstream_version}
 
 %build
 %meson \
@@ -124,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.1^unstable-1
+- Update to 3.3.1-unstable
+
 * Sat Feb 28 2026 Leigh Scott <leigh123linux@gmail.com> - 3.2.2-3
 - Update flags
 

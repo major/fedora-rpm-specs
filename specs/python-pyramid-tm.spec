@@ -10,7 +10,7 @@ or docs/index.rst in this distribution for detailed documentation.
 
 Name:           python-pyramid-tm
 Version:        2.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,6 +22,7 @@ BuildArch:      noarch
 
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 #BuildRequires:  python3-setuptools
 #BuildRequires:  python3-pyramid >= 1.5
 #BuildRequires:  python3-transaction >= 2.0
@@ -84,6 +85,9 @@ or docs/index.rst in this distribution for detailed documentation.
 
 
 %changelog
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.6-8
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

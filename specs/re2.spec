@@ -145,7 +145,7 @@ EOF
 %check -a
 # Run the tests from the top-level directory to make sure we don’t accidentally
 # import the “un-built” package instead of the one in the buildroot.
-ln -s python/re2_test.py
+ln --symbolic python/re2_test.py
 LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %pytest re2_test.py
 %endif
 

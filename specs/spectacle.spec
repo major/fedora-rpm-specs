@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -28,9 +28,6 @@ Source1: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}
 ## upstream patches
 
 ## Upstreamable patches
-
-# Submitted upstream, but the fix wasn't working. Maybe it'll be fixed in 6.6.4/6.7
-Patch0: tesseract.patch
 
 ## downstream patches
 
@@ -81,15 +78,13 @@ BuildRequires: pkgconfig(xcb-cursor)
 BuildRequires: pkgconfig(xcb-image)
 BuildRequires: pkgconfig(xcb-util)
 BuildRequires: pkgconfig(xcb-xfixes)
+BuildRequires: cmake(tesseract)
 
 # for systemd-related macros
 BuildRequires:  systemd-devel
 
 # Animated tray icon: https://pagure.io/fedora-kde/SIG/issue/601
 Recommends:     qt6-qtimageformats%{?_isa}
-# 6.6.0: Scanning capabilities
-# Cf. https://bugs.kde.org/show_bug.cgi?id=516162
-Recommends:     (libtesseract.so.5.5%{?lib64_suffix} or libtesseract.so.5.3.4%{?lib64_suffix})
 
 # f26+ upgrade path
 %if 0%{?fedora} > 25
@@ -143,6 +138,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.5-1
 - 6.6.5
 

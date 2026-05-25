@@ -12,7 +12,7 @@ Speex, WavPack, TrueAudio files, as well as APE Tags.}
 
 Name:       taglib
 Summary:    Audio Meta-Data Library
-Version:    2.2.1
+Version:    2.3
 Release:    %autorelease
 
 License:    (LGPL-2.1-only OR MPL-1.1) AND BSD-2-Clause AND LGPL-2.1-only
@@ -30,7 +30,7 @@ BuildRequires: pkgconfig
 %if %{defined fedora}
 BuildRequires: utf8cpp-static
 %else
-Provides:      bundled(utf8cpp)
+Provides:      bundled(utf8cpp) = 4.0.9
 %endif
 BuildRequires: zlib-devel
 %if %{with tests}
@@ -77,6 +77,7 @@ Files needed when building software with %{name}.
 %package -n mingw32-%{name}
 Summary:        %{summary}
 BuildArch:      noarch
+Provides:       bundled(utf8cpp) = 4.0.9
 
 %description -n mingw32-%{name}
 %{common_description}
@@ -86,15 +87,15 @@ This is the MinGW version, built for the win32 target.
 %package -n mingw64-%{name}
 Summary:        %{summary}
 BuildArch:      noarch
+Provides:       bundled(utf8cpp) = 4.0.9
 
 %description -n mingw64-%{name}
 %{common_description}
 
 This is the MinGW version, built for the win64 target.
 
-%endif
-
 %{?mingw_debug_package}
+%endif
 
 %prep
 %autosetup -n taglib-%{version}%{?beta} -p1
@@ -133,9 +134,9 @@ find %{apidocdir} -name '*.md5' | xargs rm -fv
 
 %if %{with mingw}
 %mingw_make_install
-%endif
 
 %{?mingw_debug_install_post}
+%endif
 
 %check
 export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig
@@ -175,6 +176,8 @@ test "$(pkg-config --modversion taglib_c)" = "%{version}"
 %{mingw32_bindir}/libtag_c.dll
 %{mingw32_bindir}/taglib-config.cmd
 %{mingw32_includedir}/taglib/
+%{mingw32_includedir}/utf8cpp/
+%{mingw32_datadir}/utf8cpp/
 %{mingw32_libdir}/cmake/taglib/
 %{mingw32_libdir}/libtag.dll.a
 %{mingw32_libdir}/libtag_c.dll.a
@@ -188,6 +191,8 @@ test "$(pkg-config --modversion taglib_c)" = "%{version}"
 %{mingw64_bindir}/libtag_c.dll
 %{mingw64_bindir}/taglib-config.cmd
 %{mingw64_includedir}/taglib/
+%{mingw64_includedir}/utf8cpp/
+%{mingw64_datadir}/utf8cpp/
 %{mingw64_libdir}/cmake/taglib/
 %{mingw64_libdir}/libtag.dll.a
 %{mingw64_libdir}/libtag_c.dll.a

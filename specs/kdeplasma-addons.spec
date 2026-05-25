@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -42,6 +42,7 @@ BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  kf6-rpm-macros >= 5.25.0-2
 BuildRequires:  libicu-devel
 BuildRequires:  libxcb-devel
+BuildRequires:  cmake(Qt6Quick3D)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  cmake(Qt6Core5Compat)
@@ -54,6 +55,9 @@ BuildRequires:  cmake(KF6XmlGui)
 
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(PlasmaActivities)
+
+BuildRequires:  cmake(Corrosion)
+BuildRequires:  rust-packaging
 
 # for notes.svgz
 Requires:       kf6-plasma
@@ -94,9 +98,22 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+%cargo_prep
+find -name "Cargo.lock" -print -delete
+
+%generate_buildrequires
+cd kdeds/kameleon/qmk/kameleon-qmk-helper
+%cargo_generate_buildrequires
+cd ../../../../
+
+%conf
+%cmake_kf6
+cd kdeds/kameleon/qmk/kameleon-qmk-helper
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+cd ../../../../
 
 %build
-%cmake_kf6
 %cmake_build
 
 %install
@@ -104,7 +121,7 @@ developing applications that use %{name}.
 %find_lang kdeplasmaaddons5_qt --with-qt --all-name
 
 %files -f kdeplasmaaddons5_qt.lang
-%license LICENSES/*.txt
+%license LICENSES/*.txt kdeds/kameleon/qmk/kameleon-qmk-helper/LICENSE.dependencies
 %{_kf6_datadir}/kwin/effects/cube/
 %{_kf6_datadir}/plasma/plasmoids/*
 %{_kf6_datadir}/plasma/desktoptheme/default/widgets/*
@@ -148,6 +165,10 @@ developing applications that use %{name}.
 %{_kf6_qtplugindir}/plasma/weather_ions/wettercom.so
 %{_datadir}/plasma/weather/noaa_station_list.xml
 %{_datadir}/kwin/scripts/virtualdesktopsonlyonprimary/
+%{_kf6_libexecdir}/kameleon-qmk-helper
+%{_kf6_datadir}/dbus-1/system-services/org.kde.kameleon.qmk.helper.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.kameleon.qmk.helper.conf
+%{_kf6_datadir}/polkit-1/actions/org.kde.kameleon.qmk.helper.policy
 
 %files -n kate-krunner-plugin
 %{_kf6_plugindir}/krunner/krunner_katesessions.so
@@ -159,9 +180,13 @@ developing applications that use %{name}.
 %{_includedir}/plasma/potdprovider/
 %{_kf6_datadir}/kdevappwizard/templates/plasmapotdprovider.tar.bz2
 %{_kf6_libdir}/libplasmapotdprovidercore.so
-
+%{_includedir}/plasma/weather/
+%{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

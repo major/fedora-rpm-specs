@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -42,6 +42,7 @@ BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  wayland-devel
 BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xcb-event)
 
 # Plasma
 BuildRequires:  cmake(PlasmaQuick)
@@ -95,6 +96,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

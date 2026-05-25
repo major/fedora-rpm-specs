@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-sdk
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -96,7 +96,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookan
 %{_bindir}/kqml
 %{_kf6_plugindir}/ktexteditor/iconexplorerplugin.so
 %{_kf6_datadir}/applications/org.kde.plasma.lookandfeelexplorer.desktop
-%{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.themeexplorer
 %{_kf6_datadir}/plasma/shells/org.kde.plasma.plasmoidviewershell
 %{_kf6_datadir}/applications/org.kde.iconexplorer.desktop
 %{_kf6_datadir}/applications/org.kde.plasma.themeexplorer.desktop
@@ -113,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookan
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

@@ -67,7 +67,7 @@ install -d %{buildroot}%{_mandir}/man1
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-hypercorn -f %{pyproject_files}

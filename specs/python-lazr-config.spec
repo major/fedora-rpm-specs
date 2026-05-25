@@ -12,6 +12,7 @@ Patch:          lazr.config-avoid-python-sP.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 
 
 %global _description %{expand:
@@ -28,6 +29,7 @@ The format supports schema validation.}
 
 %package -n     python3-lazr-config
 Summary:        %{summary}
+Requires:       python3-pkg-resources
 
 %description -n python3-lazr-config %_description
 

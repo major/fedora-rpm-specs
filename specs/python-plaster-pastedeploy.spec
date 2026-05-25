@@ -17,6 +17,7 @@ URL:     https://github.com/Pylons/plaster_pastedeploy
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires: python3-devel
+BuildRequires: python3-pkg-resources
 
 
 %description %{desc}

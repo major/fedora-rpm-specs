@@ -32,7 +32,8 @@ hybrid ground truth extracellular recordings.
 # Do not pin an exact version of PyQt5
 %pyproject_patch_dependency PyQt5:drop_upper
 # These also have unnecessary shebangs, and were not included in PR#13
-find examples -type f -name '*.py' -exec sed -r -i '1{/^#!/d}' '{}' '+'
+find examples -type f -name '*.py' \
+    -exec sed --regexp-extended --in-place '1{/^#!/d}' '{}' '+'
 
 
 %install -a

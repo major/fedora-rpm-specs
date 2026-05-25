@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -246,6 +246,8 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_libexecdir}/kwin_killer_helper
 %{_libexecdir}/kwin-applywindowdecoration
 %{_libexecdir}/kwin-tabbox-preview
+%{_libexecdir}/kwin_dialog_helper
+%{_libexecdir}/kwin_eis_prompter
 %{_datadir}/kconf_update/kwin.upd
 %{_kf6_datadir}/knotifications6/kwin.notifyrc
 %{_kf6_datadir}/config.kcfg/kwin.kcfg
@@ -275,6 +277,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

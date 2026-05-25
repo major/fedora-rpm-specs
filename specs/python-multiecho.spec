@@ -45,7 +45,7 @@ Summary:        %{summary}
 # source, but it will not be installed with the executable bit set, so the
 # shebang is useless. When packaged, we have the entry point “mecombine”
 # anyway.
-sed -r -i '1{/^#!/d}' multiecho/combination.py
+sed --regexp-extended --in-place '1{/^#!/d}' multiecho/combination.py
 
 
 %check -a

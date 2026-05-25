@@ -81,7 +81,7 @@ Provides:       bundled(Fast-Quadric-Mesh-Simplification) = 0^20201008git4aeffce
 
 %check -a
 %if %{with tests}
-%pytest -v -rs
+%pytest --verbose -rs
 %endif
 
 

@@ -114,7 +114,8 @@ ln ../mrs_nifti_standard-%{std_version}/LICENSE LICENSE-mrs_nifti_standard
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE15}' '%{SOURCE16}' '%{SOURCE17}'
 
@@ -138,7 +139,7 @@ k="${k-}${k+ and }not test_conjugate"
 # noncommercial use).
 m="${m-}${m+ and }not with_fsl_mrs"
 
-%pytest -k "${k-}" -m "${m-}" -v
+%pytest -k "${k-}" -m "${m-}" --verbose
 
 
 %files -n python3-nifti-mrs -f %{pyproject_files}

@@ -26,6 +26,7 @@ entry-points.}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pkg-resources
 
 Provides: deprecated()
 

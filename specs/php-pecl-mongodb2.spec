@@ -16,7 +16,7 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.3.2
+%global upstream_version  2.3.3
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
@@ -151,6 +151,9 @@ OPT="-n"
 
 
 %changelog
+* Sat May 23 2026 Remi Collet <remi@remirepo.net> - 2.3.3-1
+- update to 2.3.3
+
 * Wed May 20 2026 Remi Collet <remi@remirepo.net> - 2.3.2-1
 - update to 2.3.2
 

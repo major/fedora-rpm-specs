@@ -51,11 +51,12 @@ find . -type f -name '*.c' -print -delete
 
 # Patch out coverage-related pytest options:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]]*)(.*[-_]cov)/\1# \2/' pytest.ini
+sed --regexp-extended --in-place \
+    's/^([[:blank:]]*)(.*[-_]cov)/\1# \2/' pytest.ini
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-frozenlist -f %{pyproject_files}

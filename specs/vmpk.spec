@@ -1,5 +1,5 @@
 Name:           vmpk
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Virtual MIDI Piano Keyboard
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -34,7 +34,7 @@ display the played MIDI notes from another instrument or MIDI file player.
 %autosetup
 
 %build
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install

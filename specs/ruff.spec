@@ -289,7 +289,8 @@ git2path workspace.dependencies.lsp-types crates/lsp-types
 pushd crates/lsp-types
 %autopatch -p1 -m200 -M299
 popd
-install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/lsp-types crates/lsp-types/LICENSE
 
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.
@@ -307,9 +308,11 @@ tomcli set Cargo.toml str workspace.dependencies.get-size2.version \
     '>=0.8.0, <0.10.0'
 
 # Collect license files of vendored dependencies in the main source archive
-install -t LICENSE.bundled/typeshed -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/typeshed \
     crates/ty_vendored/vendor/typeshed/LICENSE
-install -t LICENSE.bundled/annotate_snippets -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/annotate_snippets \
     crates/ruff_annotate_snippets/LICENSE-*
 
 # Patch out foreign (e.g. Windows-only) dependencies. Follow symbolic links so
@@ -319,12 +322,12 @@ find -L . -type f -name Cargo.toml -print \
 
 # Drop unused subproject crates.
 # binary crate for running micro-benchmarks.
-rm -rv crates/ruff_benchmark
+rm --recursive --verbose crates/ruff_benchmark
 # binary crate containing utilities used in the development of Ruff itself
-rm -rv crates/ruff_dev
+rm --recursive --verbose crates/ruff_dev
 # library crate for exposing Ruff as a WebAssembly module. Powers the
 # [Ruff Playground](https://play.ruff.rs/).
-rm -rv crates/ruff_wasm crates/ty_wasm
+rm --recursive --verbose crates/ruff_wasm crates/ty_wasm
 
 # Verify we have the correct snapshot hash for typeshed
 typeshed_rev_file='crates/ty_vendored/vendor/typeshed/source_commit.txt'
@@ -370,9 +373,10 @@ then
   # library is actually pure-Python, and the python3-ruff subpackage can be
   # noarch. We can’t tell maturin to install to the appropriate site-packages
   # directory, but we can fix the installation path manually.
-  install -d %{buildroot}%{python3_sitelib}
+  install --directory %{buildroot}%{python3_sitelib}
   mv %{buildroot}%{python3_sitearch}/ruff* %{buildroot}%{python3_sitelib}
-  sed -r -i 's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
+  sed --regexp-extended --in-place \
+      's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
 fi
 
 # generate and install shell completions

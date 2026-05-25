@@ -1,23 +1,23 @@
-%global cpan_version 1.42
+%global cpan_version 1.43
 
 Name:           perl-Crypt-PasswdMD5
 # Keep 1-digit version because of history
 Version:        %(echo '%{cpan_version}' | sed 's/\.\(.\)/.\1./')
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Provides interoperable MD5-based crypt() functions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-PasswdMD5
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-PasswdMD5-%{cpan_version}.tgz
-Patch0:         Crypt-PasswdMD5-1.42-d:md5-version.patch
+Patch0:         Crypt-PasswdMD5-1.43-d:md5-version.patch
 BuildArch:      noarch
 # Build:
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
+BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(Digest::MD5) >= 2.53
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
@@ -26,6 +26,7 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 1.001002
 # Dependencies:
+# (none)
 
 %description
 This package provides MD5-based crypt() functions.
@@ -39,24 +40,30 @@ This package provides MD5-based crypt() functions.
 %patch -P0
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%license LICENSE
-%doc Changes README
+%license LICENSE-GPL-3
+%doc AI_POLICY.md Changes README SECURITY.md
 %{perl_vendorlib}/Crypt/
 %{_mandir}/man3/Crypt::PasswdMD5.3*
 
 %changelog
+* Sat May 23 2026 Paul Howarth <paul@city-fan.org> - 1.4.3-1
+- Update to 1.43
+  - Replace use of the cryptographically weak rand() function with the much
+    stronger Crypt::URandom::urandom() (GH#3, CVE-2026-6659, rhbz#2479575)
+  - Add Encode, Exporter, ExtUtils::MakeMaker to Makefile.PL
+  - Add files AI_POLICY.md and SECURITY.md
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

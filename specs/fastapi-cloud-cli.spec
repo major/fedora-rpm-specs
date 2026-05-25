@@ -10,6 +10,8 @@ URL:            https://github.com/fastapilabs/fastapi-cloud-cli
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Written for Fedora in groff_man(7) format based on --help output
+Source11:       fastapi-deploy.1
+Source13:       fastapi-login.1
 Source100:      fastapi-cloud.1
 Source110:      fastapi-cloud-deploy.1
 Source120:      fastapi-cloud-link.1
@@ -28,13 +30,14 @@ Source193:      fastapi-cloud-env-delete.1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-from-script-test.patch
 
-# Avoid packaging detect-install
-# https://pypi.org/project/detect-installer/#Vendoring
-Patch:          fastapi-cloud-cli-0.18.0-detect-installer.patch
-
-# Upstream forgot test version update
-# https://github.com/fastapilabs/fastapi-cloud-cli/commit/ecff13dcb28dd2ace3cadf4e9d905a1ede2984ea
-Patch:          fastapi-cloud-cli-0.18.0-test-version.patch
+# Downstream-only: disable built-in update checker
+#
+# Informing the user about available upstream updates does not make sense for a
+# distribution package.
+#
+# Move the detect_installer import to the function where it is used so we
+# can omit the dependency.
+Patch:          0002-Downstream-only-disable-built-in-update-checker.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --no-assert-license fastapi_cloud_cli
@@ -69,7 +72,6 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 # functionality.
 BuildRequires:  gh
 Requires:       gh
-BuildRequires: python3-pdm-backend
 
 %description
 %{summary}.
@@ -78,9 +80,15 @@ BuildRequires: python3-pdm-backend
 %pyproject_extras_subpkg -n fastapi-cloud-cli standard
 
 
+%prep -a
+# Only used for built-in update checker, which we have disabled
+%pyproject_patch_dependency detect-installer:ignore
+
+
 %install -a
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_mandir}/man1' \
+    '%{SOURCE11}' '%{SOURCE13}' \
     '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
     '%{SOURCE140}' '%{SOURCE150}' '%{SOURCE160}' '%{SOURCE170}' \
     '%{SOURCE180}' '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' \
@@ -88,7 +96,11 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
-%pytest --verbose
+# We have disabled the built-in update checker.
+k="${k-}${k+ and }not test_embedded_fastapi_cli_prints_forced_update_message"
+skips="${skips-} --ignore=tests/test_version_check.py"
+
+%pytest ${skips-} -k "${k-}" --verbose
 
 
 %files -f %{pyproject_files}
@@ -102,6 +114,8 @@ install -D --preserve-timestamps --mode=0644 \
 # integrate with those in python3-fastapi.
 %{_mandir}/man1/fastapi-cloud.1*
 %{_mandir}/man1/fastapi-cloud-*.1*
+%{_mandir}/man1/fastapi-deploy.1*
+%{_mandir}/man1/fastapi-login.1*
 
 
 %changelog

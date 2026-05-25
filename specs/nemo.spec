@@ -1,9 +1,9 @@
-%global upstream_version 6.7.0-unstable
+%global upstream_version 6.7.2-unstable
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.7.0^unstable
-Release:        2%{?dist}
+Version:        6.7.2^unstable
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -181,6 +181,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Tue Apr 14 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-2
 - Enable gtk_layer_shell
 

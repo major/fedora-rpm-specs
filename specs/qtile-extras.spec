@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-%global tag v0.35.0
+%global tag v0.36.0
 
 Name: qtile-extras
-Version: 0.35.0
+Version: 0.36.0
 Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta

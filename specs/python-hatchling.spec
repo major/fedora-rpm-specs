@@ -35,7 +35,8 @@ Summary:        %{summary}
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE100}' \
     '%{SOURCE200}' \
     '%{SOURCE300}' '%{SOURCE310}' \

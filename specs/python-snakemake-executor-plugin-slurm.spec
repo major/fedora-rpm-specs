@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        2.6.1
+Version:        2.7.0
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -14,13 +14,16 @@ Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{ver
 # Man page hand-written for Fedora in groff_man(7) format based on --help.
 Source1:        generate-slurm-partition-config.1
 
+# build: Allow pandas 3.x
+Patch:          %{url}/pull/462.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --no-assert-license snakemake_executor_plugin_slurm
 
 BuildArch:      noarch
 
-# See: [tool.poetry.dev-dependencies] in pyproject.toml
-BuildRequires:  snakemake >= 8
+# See: [tool.poetry.group.dev.dependencies] in pyproject.toml
+BuildRequires:  snakemake >= 9.21
 # If slurm is not installed, importing snakemake_executor_plugin_slurm
 # produces:
 #
@@ -49,7 +52,8 @@ Requires:       slurm
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a

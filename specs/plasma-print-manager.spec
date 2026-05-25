@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -54,6 +54,8 @@ BuildRequires: samba-client
 Obsoletes:      kde-print-manager < 1:%{version}-%{release}
 Provides:       kde-print-manager = 1:%{version}-%{release}
 
+BuildRequires: qt6qml(org.kde.kitemmodels)
+Requires: qt6qml(org.kde.kitemmodels)
 Requires: plasma-workspace
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -93,19 +95,19 @@ Provides:       kde-print-manager-libs = 1:%{version}-%{release}
 
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ConfigurePrinter.desktop
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueue.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.printqueue.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_bindir}/kde-print-queue
+%{_bindir}/plasma-print-queue
 %{_bindir}/configure-printer
 %{_kf6_qmldir}/org/kde/plasma/printmanager/
 %{_kf6_datadir}/qlogging-categories6/pmlogs.categories
 %{_kf6_datadir}/knotifications6/printmanager.notifyrc
 %{_kf6_datadir}/applications/kcm_printer_manager.desktop
 %{_kf6_datadir}/applications/org.kde.ConfigurePrinter.desktop
-%{_kf6_datadir}/applications/org.kde.PrintQueue.desktop
+%{_kf6_datadir}/applications/org.kde.plasma.printqueue.desktop
 %{_kf6_metainfodir}/org.kde.print-manager.metainfo.xml
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_printer_manager.so
 
@@ -116,6 +118,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 %{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.printmanager.so
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

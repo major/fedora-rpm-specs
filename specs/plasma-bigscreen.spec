@@ -1,17 +1,12 @@
-%global commit a1b44a8d9c27a527a0004cdd59db8c18f6cee3ba
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20260218.085444
-
 Name:          plasma-bigscreen
-Version:       6.5.80^%{gitdate}.%{shortcommit}
-Release:       4%{?dist}
+Version:       6.6.90
+Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
 
 # Not currently in the plasma releases. Getting from gitlab tags.
-# Source0:       http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-Source0:       https://invent.kde.org/plasma/%{name}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:       http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -80,7 +75,7 @@ Conflicts: %{name}-x11 < %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1
 
 
 %build
@@ -115,6 +110,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/applications/kcm_mediacenter_*.desktop
 %{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
 %{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
+%{_kf6_libdir}/udev/rules.d/40-uinput.rules
 
 %files wayland
 %{_kf6_bindir}/plasma-bigscreen-wayland
@@ -122,6 +118,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.5.80^20260218.085444.a1b44a8-4
 - Rebuild (qt6)
 

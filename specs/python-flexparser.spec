@@ -44,8 +44,9 @@ Summary:        %{summary}
 #
 # Still, we don’t want to install the test suite, so we just remove the files
 # manually for now.
-rm -rvf '%{buildroot}%{python3_sitelib}/flexparser/testsuite'
-sed -r -i '/\/flexparser\/testsuite/d' %{pyproject_files}
+rm --recursive --verbose '%{buildroot}%{python3_sitelib}/flexparser/testsuite'
+sed --regexp-extended --in-place \
+    '/\/flexparser\/testsuite/d' %{pyproject_files}
 
 
 %check -a

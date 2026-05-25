@@ -2,12 +2,11 @@
 
 Name:		mawk
 Version:	1.3.4
-Release:	6.%{pver}%{?dist}
+Release:	7.%{pver}%{?dist}
 Epoch:		1
 Summary:	Interpreter for the AWK programming language
 License:	GPL-2.0-only
-BuildRequires:	make byacc
-BuildRequires:	gcc
+BuildRequires:	make byacc %{__cc}
 URL:		https://invisible-island.net/mawk/
 Source0:	https://invisible-island.net/archives/mawk/%{name}-%{version}-%{pver}.tgz
 
@@ -17,12 +16,12 @@ useful for manipulation of data files, text retrieval and processing, and for
 prototyping and experimenting with algorithms.
 
 %prep
-%setup -q -n %{name}-%{version}-%{pver}
+%autosetup -p1 -n %{name}-%{version}-%{pver}
 chmod 644 examples/*
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %check
 make check
@@ -38,6 +37,9 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Fri May 22 2026  Xose Vazquez Perez <xose.vazquez@gmail.com>- 1:1.3.7-1.20260302
+- modernize spec
+
 * Tue Mar 03 2026 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20260302
 - upgrade to 1.3.4-20260302
 

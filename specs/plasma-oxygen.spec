@@ -8,7 +8,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
@@ -143,13 +143,19 @@ popd
 %{_kf6_datadir}/applications/kcm_oxygendecoration.desktop
 %{_kf6_datadir}/color-schemes/Oxygen.colors
 %{_kf6_datadir}/color-schemes/OxygenCold.colors
+%{_kf6_datadir}/color-schemes/OxygenDark.colors
 %{_kf6_datadir}/icons/hicolor/*/apps/oxygen-settings.*
 %{_kf6_datadir}/kstyle/themes/oxygen.themerc
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygen/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygenlight/
 %{_kf6_datadir}/plasma/desktoptheme/oxygen/
 %{_kf6_qtplugindir}/kstyle_config/kstyle_oxygen_config.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_oxygendecoration.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.oxygen.so
+%{_kf6_datadir}/wallpapers/Horos/
+%{_kf6_datadir}/plasma/desktoptheme/air/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.air/
+%{_kf6_datadir}/wallpapers/Air/
 
 %if %{with kf5}
 %files qt5
@@ -175,6 +181,9 @@ popd
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

@@ -17,8 +17,8 @@ Source0:        %{url}/archive/v%{version}/editorconfig-core-py-%{version}.tar.g
 %global tests_url https://github.com/editorconfig/editorconfig-core-test
 Source1:        %{tests_url}/archive/%{tests_commit}/editorconfig-core-test-%{tests_commit}.tar.gz
 
-BuildSystem:            pyproject
-BuildOption(install):   -l editorconfig
+BuildSystem:    pyproject
+BuildOption(install): --assert-license editorconfig
 
 BuildArch:      noarch
 
@@ -49,7 +49,7 @@ Summary:        Documentation for python-editorconfig
 
 %prep
 %setup -q -n editorconfig-core-py-%{version}
-rm -vrf tests
+rm --recursive --verbose tests
 %setup -q -n editorconfig-core-py-%{version} -T -D -b 1
 mv ../editorconfig-core-test-%{tests_commit}/ tests/
 

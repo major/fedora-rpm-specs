@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %check -a
-%tox -- -- -v
+%tox -- -- --verbose
 
 
 %files -n python3-dpath -f %{pyproject_files}

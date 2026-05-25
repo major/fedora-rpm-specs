@@ -1,13 +1,11 @@
 Name:           xwaylandvideobridge
-Version:        0.4.0
-Release:        14%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
 URL:            https://invent.kde.org/system/xwaylandvideobridge
-Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
-
-Patch0:         xwaylandvideobridge-fix-build-against-qt-6-10.patch
+Source0:        https://download.kde.org/stable/%{name}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
@@ -19,6 +17,7 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6StatusNotifierItem)
@@ -42,12 +41,15 @@ but within the control of the user at all times.
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1
+
+
+%conf
+%cmake_kf6 \
+    -DQT_MAJOR_VERSION=6
 
 
 %build
-%cmake_kf6 \
-    -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -74,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat May 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.4.0-14
 - Rebuild (qt6)
 

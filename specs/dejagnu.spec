@@ -1,7 +1,7 @@
 Summary: A front end for testing other programs
 Name: dejagnu
 Version: 1.6.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 Epoch: 1
 # Note: baseboards/riscv-sim.exp is GPL 2.0 or later
 # GFDL-1.3-or-later: Everything in doc/
@@ -65,6 +65,9 @@ install -D -m 644 doc/dejagnu.info $RPM_BUILD_ROOT/%{_infodir}/%{name}.info
 %{_infodir}/dejagnu*
 
 %changelog
+* Thu May 21 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.6.3-18
+- Apply another Tcl 9 compatibility fix from upstream PR81083 branch
+
 * Thu Apr 16 2026 Jakub Jelinek <jakub@redhat.com> - 1:1.6.3-17
 - Apply full set of Tcl 9 compatibility fixes from upstream PR80674 branch
   (#2448542)

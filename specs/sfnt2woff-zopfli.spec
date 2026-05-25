@@ -62,7 +62,7 @@ A corresponding version of the woff2sfnt utility is also provided.
 %prep
 %autosetup -p1
 # Strip out bundled Zopfli sources
-rm -rvf zopfli
+rm --recursive --verbose zopfli
 
 
 %build
@@ -74,10 +74,12 @@ rm -rvf zopfli
 
 
 %install
-install -d '%{buildroot}%{_bindir}'
-install -t '%{buildroot}%{_bindir}' -p sfnt2woff-zopfli woff2sfnt-zopfli
-install -d '%{buildroot}%{_mandir}/man1'
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 \
+install --directory '%{buildroot}%{_bindir}'
+install --preserve-timestamps --target='%{buildroot}%{_bindir}' \
+    sfnt2woff-zopfli woff2sfnt-zopfli
+install --directory '%{buildroot}%{_mandir}/man1'
+install --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     sfnt2woff-zopfli.1 woff2sfnt-zopfli.1
 
 

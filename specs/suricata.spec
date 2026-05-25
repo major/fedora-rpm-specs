@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 8.0.4
+Version: 8.0.5
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
@@ -200,6 +200,9 @@ fi
 %endif
 
 %changelog
+* Sat May 23 2026 Jason Taylor <jtfas90@proton.me> - 8.0.5-1
+- Upstream security/bugfix release
+
 * Wed Mar 18 2026 Jason Taylor <jtfas90@proton.me> - 8.0.4-1
 - Upstream security/bugfix release
 

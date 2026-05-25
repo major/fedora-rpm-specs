@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.6.5
+Version: 6.6.90
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -91,12 +91,10 @@ Conflicts:      kde-workspace < 4.11.15-3
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kinfocenter.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.desktop
 # commented out until upstream fixes a duplicate entries problem
 #appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
-%{_datadir}/applications/kcm_energyinfo.desktop
 %{_bindir}/kinfocenter
 %{_kf6_libdir}/libKInfoCenterInternal.so
 %{_kf6_qtplugindir}/plasma/kcms/*.so
@@ -114,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

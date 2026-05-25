@@ -1,12 +1,11 @@
 Name:           lazygal
-Version:        0.11
+Version:        0.12
 Release:        %autorelease
 Summary:        A static web gallery generator
 
 License:        GPL-2.0-or-later AND MIT
 URL:            https://sml.zincube.net/~niol/repositories.git/lazygal/about/
 Source0:        https://sml.zincube.net/~niol/repositories.git/lazygal/snapshot/lazygal-%{version}.tar.bz2
-Patch0:         lazygal-gexiv016.patch
 
 BuildArch:      noarch
 

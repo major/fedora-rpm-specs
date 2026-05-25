@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           aurorae
 Summary:        Aurorae is a themeable window decoration for KWin
-Version:        6.6.5
+Version:        6.6.90
 Release:        1%{?dist}
 License:        GPL-2.0-or-later AND MIT AND CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -83,11 +83,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_datadir}/kwin/aurorae/
 %{_kf6_datadir}/kwin/decorations/kwin4_decoration_qml_plastik/
 %{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.kwin.aurorae.v2.so
+%{_kf6_qmldir}/org/kde/kwin/decoration/decorationplugin.qmltypes
+%{_kf6_qmldir}/org/kde/kwin/decoration/kde-qmlmodule.version
 
 %files devel
 %{_kf6_libdir}/cmake/Aurorae/
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

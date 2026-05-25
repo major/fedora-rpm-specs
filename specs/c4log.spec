@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 42ca2fae12b018de5e70fe9f8eda9dc4084b3925
-%global snapdate 20260508
+%global commit 524347bc4abd8ae5a39e87f2514a6dcbb2219aff
+%global snapdate 20260518
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
 # the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
@@ -29,11 +29,19 @@ Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
 # patch without sending it upstream.
 Patch:          c4log-b8b86f3-external-c4core.patch
 
+BuildSystem:    cmake
+# We can stop the CMake scripts from downloading doctest by setting
+# C4LOG_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
+BuildOption(conf): %{shrink:
+    -DCMAKE_CXX_STANDARD=%{cxx_std}
+    -DC4LOG_CACHE_DOWNLOAD_DOCTEST:PATH=/
+    -DC4LOG_BUILD_TESTS=ON
+    }
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
@@ -59,9 +67,7 @@ The c4log-devel package contains libraries and header files for developing
 applications that use c4log.
 
 
-%prep
-%autosetup -n c4log-%{commit} -p1
-
+%prep -a
 # Remove/unbundle additional dependencies
 
 # c4project (CMake build scripts)
@@ -74,23 +80,6 @@ sed --regexp-extended --in-place \
     --expression 's/(LIBS.*)\bdoctest\b/\1/' \
     --expression 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
     test/CMakeLists.txt
-
-
-%conf
-# We can stop the CMake scripts from downloading doctest by setting
-# C4LOG_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
-%cmake \
-  -DCMAKE_CXX_STANDARD=%{cxx_std} \
-  -DC4LOG_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
-  -DC4LOG_BUILD_TESTS=ON
-
-
-%build
-%cmake_build
-
-
-%install
-%cmake_install
 
 
 %check

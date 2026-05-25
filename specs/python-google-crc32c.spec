@@ -39,14 +39,14 @@ Summary:        %{summary}
 %prep -a
 # This is a git submodule, so the bundled library isn’t included in the GitHub
 # source archive, but it doesn’t hurt to be very certain.
-rm -rv google_crc32c/
+rmdir google_crc32c/
 
 
 %install -a
 # 1.8.0 missing testing extra, ships unnecessary C source
 # https://github.com/googleapis/python-crc32c/issues/324
-rm -v '%{buildroot}%{python3_sitearch}/google_crc32c/_crc32c.c'
-sed -r -i 's@.*/_crc32c\.c$@# &@' %{pyproject_files}
+rm '%{buildroot}%{python3_sitearch}/google_crc32c/_crc32c.c'
+sed --regexp-extend --in-place 's@.*/_crc32c\.c$@# &@' %{pyproject_files}
 
 
 %check -a

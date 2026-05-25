@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        6.6.5
+Version:        6.6.90
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
@@ -37,6 +37,8 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  cmake(Plasma)
 
@@ -78,6 +80,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+- 6.6.90
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5
 

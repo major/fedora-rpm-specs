@@ -1,9 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 Name:           python-helpdev
 Version:        0.7.1
 Release:        %autorelease
@@ -14,13 +8,12 @@ Summary:        HelpDev – Extracts information about the Python environment ea
 %global tag v%{version}
 %forgemeta
 
-# The entire source is (SPDX) MIT, except for “Images,” which are CC-BY-4.0 (an
+# The entire source is MIT, except for “Images,” which are CC-BY-4.0 (an
 # allowed license for content). The images in question seem to be only the
-# contents of docs/images/, which are incorporated in the helpdev.pdf file in
-# the -doc subpackage (but are not present in any other subpackages).
-%global images_license CC-BY-4.0
+# contents of docs/images/, which are not included in the binary RPMs (since we
+# stopped shipping Sphinx-generated documentation).
 License:        MIT
-SourceLicense:  %{license} AND %{images_license}
+SourceLicense:  %{license} AND CC-BY-4.0
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
@@ -43,17 +36,6 @@ BuildRequires:  %{py3_dist pytest}
 # hand-writing one.
 BuildRequires:  help2man
 
-%if %{with doc_pdf}
-# We don’t generate documentation dependencies from req-doc.txt because:
-# - There is extra cruft in there (setuptools, wheel, etc.): no big deal
-# - We don’t need sphinx_rtd_theme because we aren’t building HTML
-# - We need to specify the extra BR’s for building LaTeX/PDF manually anyway
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
-
 %global common_description %{expand:
 Helping users and developers to get information about the environment to report
 bugs or even test your system without spending a day on it. It can get
@@ -68,62 +50,37 @@ Summary:        %{summary}
 
 Recommends:     python3-helpdev+memory_info = %{version}-%{release}
 
+# PDF docs and separate -doc subpackage were dropped in F45; we need the
+# upgrade path through F47.
+Obsoletes:      python-helpdev-doc < 0.7.1-23
+
 %description -n python3-helpdev %{common_description}
 
 
 %pyproject_extras_subpkg -n python3-helpdev memory_info
 
 
-%package doc
-Summary:        Documentation and examples for HelpDev
-
-# The entire source is (SPDX) MIT, except for images incorporated in
-# helpdev.pdf, which are CC-BY-4.0; see also the more verbose comment above the
-# base package License field.
-License:        %{license} AND %{images_license}
-
-%description doc
-This package includes documentation and examples for HelpDev.
-
-
-%build -a
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C build/docs/latex LATEXMKOPTS='-quiet'
-%endif
-
-
 %install -a
 # Generating the man page in %%install allows us to use the installed entry
 # point; horrible hacks would be required to do this in %%build.
-install -d '%{buildroot}%{_mandir}/man1'
+install --directory '%{buildroot}%{_mandir}/man1'
 PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
     --no-info --output='%{buildroot}%{_mandir}/man1/helpdev.1' \
     '%{buildroot}%{_bindir}/helpdev'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-helpdev -f %{pyproject_files}
-%{_bindir}/helpdev
-%{_mandir}/man1/helpdev.1*
-
-
-%files doc
-%license LICENSE.rst
-
 %doc CHANGES.rst
 %doc README.rst
-
 # Text files, mostly sample output
 %doc examples/
 
-%if %{with doc_pdf}
-%doc build/docs/latex/helpdev.pdf
-%endif
+%{_bindir}/helpdev
+%{_mandir}/man1/helpdev.1*
 
 
 %changelog

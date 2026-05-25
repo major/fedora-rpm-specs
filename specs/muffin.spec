@@ -1,7 +1,7 @@
-%global upstream_version 6.7.0-unstable
+%global upstream_version 6.7.1-unstable
 
 Name:          muffin
-Version:       6.7.0^unstable
+Version:       6.7.1^unstable
 Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
@@ -132,6 +132,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
+- Update to 6.7.1-unstable
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

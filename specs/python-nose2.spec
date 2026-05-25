@@ -54,7 +54,8 @@ Obsoletes:      python-nose2+coverage_plugin < 0.16.0-1
 # preserves mtimes on sources that did not need to be modified.
 find nose2/ -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i '1{/^#!/d}'
+  xargs --no-run-if-empty --verbose \
+      sed --regexp-extended --in-place '1{/^#!/d}'
 
 
 %install -a
@@ -63,10 +64,11 @@ find nose2/ -type f -name '*.py' \
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html#setuptools-specific-configuration,
 # so we haven’t suggested any change upstream. Still, the tests are large and
 # unlikely to be useful to package users.
-rm -rvf '%{buildroot}%{python3_sitelib}/nose2/tests/'
-sed -r -i '/\/nose2\/tests(\/|$)/d' %{pyproject_files}
+rm --recursive --verbose '%{buildroot}%{python3_sitelib}/nose2/tests/'
+sed --regexp-extended --in-place '/\/nose2\/tests(\/|$)/d' %{pyproject_files}
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}'
 
 
 %check -a

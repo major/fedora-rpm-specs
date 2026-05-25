@@ -1,10 +1,17 @@
 Name:		libfastjson
 Version:	1.2304.0
-Release:	8%{?dist}
+Release:	10%{?dist}
 Summary:	A JSON implementation in C
 License:	MIT
 URL:		https://github.com/rsyslog/libfastjson
 Source0:	http://download.rsyslog.com/libfastjson/libfastjson-%{version}.tar.gz
+
+# https://github.com/rsyslog/libfastjson/pull/167
+# Initial, partial attempt to link against libm
+Patch:		0001-build-link-libfastjson-against-libm-for-modf.patch
+# https://github.com/rsyslog/libfastjson/pull/171
+# Follow-up to fully link against libm
+Patch:		https://github.com/rsyslog/libfastjson/pull/171.patch
 
 BuildRequires: autoconf automake libtool
 BuildRequires: make
@@ -25,7 +32,7 @@ This package contains libraries and header files for
 developing applications that use libfastjson.
 
 %prep
-%setup -q
+%autosetup -p1
 
 for doc in ChangeLog; do
  iconv -f iso-8859-1 -t utf8 $doc > $doc.new &&
@@ -59,6 +66,13 @@ make V=1 check
 %{_libdir}/pkgconfig/libfastjson.pc
 
 %changelog
+* Sat May 23 2026 Adam Williamson <awilliam@redhat.com> - 1.2304.0-10
+- Correct patch file
+- Apply patch
+
+* Sat May 23 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.2304.0-9
+- Add missing -lm to fix rsylog crash
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2304.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

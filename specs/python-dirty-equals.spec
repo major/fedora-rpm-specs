@@ -59,7 +59,8 @@ Summary:        %{summary}
 #
 # DeprecationWarning for datetime.utcfromtimestamp() in Python 3.12
 # https://github.com/samuelcolvin/dirty-equals/issues/71
-sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
+sed --regexp-extended --in-place \
+    's/^filterwarnings = "error"$/# &/' pyproject.toml
 
 
 %check -a
@@ -71,12 +72,10 @@ ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore=tests/test_other.py"
 %endif
 
-%if v"0%{?python3_version}" >= v"3.14"
 # Two test regressions related to IP addresses in Python 3.14
 # https://github.com/samuelcolvin/dirty-equals/issues/112
 k="${k-}${k+ and }not test_is_ip_true[other1-dirty1]"
 k="${k-}${k+ and }not test_is_ip_true[other3-dirty3]"
-%endif
 %if v"0%{?python3_version}" >= v"3.15"
 # Regression in Python 3.15: test_pprint fails due to apparently trivial
 # formatting differences
@@ -86,7 +85,7 @@ k="${k-}${k+ and }not test_pprint"
 %endif
 
 # Some tests require TZ == UTC; see the “test” target in the Makefile
-TZ=UTC %pytest ${ignore-} -k "${k-}" -v
+TZ=UTC %pytest ${ignore-} -k "${k-}" --verbose
 
 
 %files -n python3-dirty-equals -f %{pyproject_files}

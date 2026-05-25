@@ -1,10 +1,10 @@
-%global cinnamon_desktop_version 6.7.0
+%global cinnamon_desktop_version 6.7.1
 
-%global upstream_version 6.7.0-unstable
+%global upstream_version 6.7.1-unstable
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 6.7.0^unstable
+Version: 6.7.1^unstable
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -78,6 +78,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
+- Update to 6.7.1-unstable
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

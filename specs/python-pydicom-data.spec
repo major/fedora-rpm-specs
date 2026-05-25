@@ -41,7 +41,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-pydicom-data -f %{pyproject_files}
