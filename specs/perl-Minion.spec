@@ -1,6 +1,6 @@
 Name:           perl-Minion
-Version:        11.0
-Release:        2%{?dist}
+Version:        12.0
+Release:        1%{?dist}
 Summary:        High performance job queue for the Perl programming language
 # Minion itself is Artistic-2.0
 # Minion Artwork is CC-SA License, Version 4.0
@@ -11,7 +11,7 @@ Summary:        High performance job queue for the Perl programming language
 # moment.js is licensed under the MIT License
 License:        Artistic-2.0 AND CC-BY-SA-4.0 AND MIT AND ISC
 
-URL:            https://metacpan.org/release/Minion
+URL:            https://metacpan.org/dist/Minion
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SRI/Minion-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -83,6 +83,9 @@ chmod -x lib/Mojolicious/Plugin/Minion/resources/public/minion/epoch/*
 %{_mandir}/man3/Mojolicious::Plugin::Minion*
 
 %changelog
+* Sun May 24 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 12.0-1
+- Update to 12.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

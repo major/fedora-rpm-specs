@@ -13,7 +13,7 @@
 
 Name:           cinnamon
 Version:        6.7.1^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -273,6 +273,13 @@ EOF
 # Delete useless gir files
 %{__rm} -rf %{buildroot}%{_datadir}/%{name}/*.gir
 
+# Delete cinnamon2d session files
+%{__rm} -rf %{buildroot}%{_bindir}/cinnamon2d
+%{__rm} -rf %{buildroot}%{_bindir}/cinnamon-session-cinnamon2d
+%{__rm} -rf %{buildroot}%{_datadir}/applications/cinnamon2d.desktop
+%{__rm} -rf %{buildroot}%{_datadir}/xsessions/cinnamon2d.desktop
+%{__rm} -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
+
 %check
 %{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
@@ -295,7 +302,6 @@ EOF
 %{_bindir}/cinnamon-preview-gtk-theme
 %{_bindir}/cinnamon-screensaver-command
 %{_bindir}/cinnamon-session-cinnamon
-%{_bindir}/cinnamon-session-cinnamon2d
 %{_bindir}/cinnamon-settings
 %{_bindir}/cinnamon-settings-users
 %{_bindir}/cinnamon-slideshow
@@ -303,7 +309,6 @@ EOF
 %{_bindir}/cinnamon-subprocess-wrapper
 %{_bindir}/cinnamon-unlock-desktop
 %{_bindir}/cinnamon-xlet-makepot
-%{_bindir}/cinnamon2d
 %{_bindir}/xlet-about-dialog
 %{_bindir}/xlet-settings
 %config(noreplace) %{_sysconfdir}/xdg/menus/*
@@ -338,6 +343,9 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Sun May 24 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
+- Delete cinnamon2d session files
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
 - Update to 6.7.1-unstable
 

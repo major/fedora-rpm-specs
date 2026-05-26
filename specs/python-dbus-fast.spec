@@ -1,5 +1,5 @@
 Name:           python-dbus-fast
-Version:        5.0.3
+Version:        5.0.6
 Release:        %autorelease
 Summary:        A faster version of dbus-next
 License:        MIT

@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -882,6 +882,9 @@ done
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 3.12.4-3
+- Rebuild for OpenEXR 3.4.12.
+
 * Sun May 17 2026 Sandro Mani <manisandro@gmail.com> - 3.12.4-2
 - Set CMAKE_BUILD_TYPE=RelWithDebInfo
 

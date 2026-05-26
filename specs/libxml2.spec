@@ -1,6 +1,6 @@
 Name:           libxml2
-Version:        2.12.10
-Release:        6%{?dist}
+Version:        2.13.9
+Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
 # list.c, dict.c and few others use ISC-Veillard
@@ -8,7 +8,7 @@ Summary:        Library providing XML and HTML support
 # Source1, Source2 and Source3 is covered by W3C
 License:        MIT AND ISC-Veillard AND W3C
 URL:            https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
-Source0:        https://download.gnome.org/sources/%{name}/2.12/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/2.13/%{name}-%{version}.tar.xz
 # https://www.w3.org/XML/Test/xmlconf-20080827.html
 Source1:        https://www.w3.org/XML/Test/xmlts20080827.tar.gz
 # https://www.w3.org/XML/2004/xml-schema-test-suite/index.html
@@ -115,9 +115,6 @@ pushd xstc
 mkdir Tests
 %make_build tests
 popd
-# As the directory is copied to the devel subpackage, remove any build
-# artifacts.
-(cd doc/examples ; make clean ; rm -rf .deps Makefile)
 
 %ldconfig_scriptlets
 
@@ -132,8 +129,7 @@ popd
 
 %files devel
 %doc doc/*.html
-%doc doc/tutorial doc/libxml2-api.xml.gz
-%doc doc/examples
+%doc doc/libxml2-api.xml.gz
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/aclocal/libxml.m4
@@ -158,6 +154,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Sun May 24 2026 David King <amigadave@amigadave.com> - 2.13.9-1
+- Update to 2.13.9 (#2459431)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

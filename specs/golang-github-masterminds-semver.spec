@@ -6,7 +6,7 @@
 
 # https://github.com/Masterminds/semver
 %global goipath         github.com/Masterminds/semver
-Version:                3.4.0
+Version:                3.5.0
 
 %gometa
 

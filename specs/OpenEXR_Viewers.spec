@@ -14,7 +14,7 @@
 
 Name:           %{real_name}
 Version:        2.3.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Viewers programs for OpenEXR
 
 # Automatically converted from old format: AMPAS BSD - review is highly recommended.
@@ -140,6 +140,9 @@ fi
 %endif
 
 %changelog
+* Sun May 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-24
+- Rebuild for OpenEXR 3.4.12.
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-23
 - Rebuild with fltk 1.4.
 

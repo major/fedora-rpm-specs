@@ -2,17 +2,14 @@
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
 %bcond  qt5     1
 %bcond  qt6     1
-%bcond  ninja   1
 
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-%global llvm_compat 19
-%endif
+%dnl %global llvm_compat __
 
 #global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #global snapdate YYYYMMDD
 
 Name:           openshadinglanguage
-Version:        1.15.3.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+Version:        1.15.4.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
 # This is based on the first two components of the version, so we could produce
 # it automatically, but we rewrite it manually here as a reminder, to reduce
 # the likelihood of undetected SONAME version bumps.
@@ -42,17 +39,16 @@ Summary:        Advanced shading language for production GI renderers
 #   - CHANGES.md
 #   - ASWF/meetings/template.md
 #   - ASWF/meetings/2020-04-02.md
-#   - doc/build_install/windows/Readme.md
-#   - doc/build_install/README.md
-#   - doc/app_integration/OptiX-Inlining-Options.md
-#   - doc/RELEASING.md
+#   - docs/build_install/README.md
+#   - docs/build_install/windows/Readme.md
+#   - docs/app_integration/OptiX-Inlining-Options.md
+#   - docs/dev/{RELEASING,CodeReview,Build_Profiling}.md, and probably the
+#     other files in this directory, although they lack SPDX headers
 #   - src/doc/, everything except:
 #     BSD-3-Clause:
-#       * src/doc/CMakeLists.txt
-#       * src/doc/Makefile
+#       * src/doc/{cliff.toml,CMakeLists.txt,Makefile}
 #     BSD-3-Clause AND CC-BY-4.0:
 #       * src/doc/intro.md
-#       * src/doc/languagespec.tex
 #
 # Additionally, the following dependency is a header-only library, so we must
 # treat it as a static library, and its license contributes to the licenses of
@@ -71,7 +67,7 @@ License:        %{shrink:
 # removed in %%prep and not packaged in any binary RPM:
 #
 # Pixar (https://github.com/spdx/license-list-XML/issues/2225):
-#   - doc/build_install/windows/build_osl.py
+#   - docs/build_install/windows/build_osl.py
 # BSD-2-Clause
 #  - src/doc/markdeep.min.js
 # BSD-2-Clause OR LicenseRef-Fedora-Public-Domain:
@@ -96,9 +92,6 @@ BuildRequires:  cmake >= 3.12
 BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
 BuildRequires:  llvm%{?llvm_compat}-devel
-%if %{with ninja}
-BuildRequires:  ninja-build
-%endif
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
 BuildRequires:  cmake(Imath) >= 3.1
@@ -232,7 +225,7 @@ sed -i -e "s|COMMAND python|COMMAND python3|" $(find . -iname CMakeLists.txt)
 # files bearing them aren’t installed.
 #
 # Pixar (https://github.com/spdx/license-list-XML/issues/2225):
-rm -v doc/build_install/windows/build_osl.py
+rm -v docs/build_install/windows/build_osl.py
 # BSD-2-Clause
 rm -v src/doc/markdeep.min.js
 # BSD-2-Clause OR LicenseRef-Fedora-Public-Domain:
@@ -244,9 +237,6 @@ find . -type f -name '*.min.js' -print -delete
 
 %build
 %cmake \
-%if %{with ninja}
-   -G Ninja \
-%endif
    -DCMAKE_CXX_STANDARD=17 \
    -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir}/%{name} \
    -DCMAKE_SKIP_RPATH=TRUE \

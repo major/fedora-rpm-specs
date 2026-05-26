@@ -1,9 +1,9 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
-%global sover 31
+%global sover 33
 
 Name:           openexr
-Version:        3.2.4
-Release:        7%{?dist}
+Version:        3.4.12
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause WITH AdditionRef-OpenEXR-Additional-IP-Rights-Grant OR Apache-2.0
@@ -112,7 +112,7 @@ EXCLUDE_REGEX='DWA[AB]Compression'
 %endif
 %ifarch s390x
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1175
-EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer'
+EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer|testAttributes|testConversion|testExistingStreams|testLargeDataWindowOffsets|testTiledCompression'
 %endif
 %ifarch %{ix86}
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1556#issuecomment-2600918549
@@ -129,6 +129,7 @@ EXCLUDE_REGEX='Iex'
 %{_bindir}/exrmakepreview
 %{_bindir}/exrmaketiled
 %{_bindir}/exrmanifest
+%{_bindir}/exrmetrics
 %{_bindir}/exrmultipart
 %{_bindir}/exrmultiview
 %{_bindir}/exrstdattr
@@ -136,25 +137,34 @@ EXCLUDE_REGEX='Iex'
 %files libs
 %doc CHANGES.md CONTRIBUTING.md GOVERNANCE.md SECURITY.md CODE_OF_CONDUCT.md CONTRIBUTORS.md README.md
 %license LICENSE.md
-%{_libdir}/libIex-3_2.so.%{sover}{,.*}
-%{_libdir}/libIlmThread-3_2.so.%{sover}{,.*}
-%{_libdir}/libOpenEXR-3_2.so.%{sover}{,.*}
-%{_libdir}/libOpenEXRCore-3_2.so.%{sover}{,.*}
-%{_libdir}/libOpenEXRUtil-3_2.so.%{sover}{,.*}
+%{_libdir}/libIex-3_4.so.%{sover}{,.*}
+%{_libdir}/libIlmThread-3_4.so.%{sover}{,.*}
+%{_libdir}/libOpenEXR-3_4.so.%{sover}{,.*}
+%{_libdir}/libOpenEXRCore-3_4.so.%{sover}{,.*}
+%{_libdir}/libOpenEXRUtil-3_4.so.%{sover}{,.*}
 
 %files devel
 %{_docdir}/OpenEXR/
 %{_includedir}/OpenEXR/
-%{_libdir}/libIex{,-3_2}.so
-%{_libdir}/libIlmThread{,-3_2}.so
-%{_libdir}/libOpenEXR{,-3_2}.so
-%{_libdir}/libOpenEXRCore{,-3_2}.so
-%{_libdir}/libOpenEXRUtil{,-3_2}.so
+%{_libdir}/libIex{,-3_4}.so
+%{_libdir}/libIlmThread{,-3_4}.so
+%{_libdir}/libOpenEXR{,-3_4}.so
+%{_libdir}/libOpenEXRCore{,-3_4}.so
+%{_libdir}/libOpenEXRUtil{,-3_4}.so
 %{_libdir}/cmake/OpenEXR/
 %{_libdir}/pkgconfig/OpenEXR.pc
 
 
 %changelog
+* Sun May 24 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.12-1
+- Update to 3.4.12.
+
+* Wed May 13 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.11-1
+- Update to 3.4.11.
+
+* Sat Apr 04 2026 Richard Shaw <hobbes1069@gmail.com> - 3.4.9-1
+- Update to 3.4.9.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -485,15 +485,15 @@ sed --regexp-extended --in-place \
 # We wait until %%install to generate the man page so that we can use the
 # proper script entry point. The generated man page is not perfect, but it is
 # good enough to be useful.
-install -d %{buildroot}%{_mandir}/man1
+install --directory %{buildroot}%{_mandir}/man1
 PATH="${PATH-}:%{buildroot}%{_bindir}" \
     PYTHONPATH='%{buildroot}%{python3_sitelib}' \
     help2man --no-info --name='%{summary}' snakemake \
     > %{buildroot}%{_mandir}/man1/snakemake.1
 
 # Install nano syntax highlighting
-install -t '%{buildroot}%{_datadir}/nano' -D -m 0644 -p \
-    misc/nano/syntax/snakemake.nanorc
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_datadir}/nano' misc/nano/syntax/snakemake.nanorc
 
 # Install vim syntax highlighting
 install --directory '%{buildroot}%{_datadir}/vim/vimfiles'

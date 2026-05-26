@@ -352,28 +352,32 @@ This package provides an importable Python module for uv.
 %autosetup -p1
 
 # Collect license files of vendored dependencies in the main source archive
-install -t LICENSE.bundled/packaging -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/packaging \
     crates/uv-python/python/packaging/LICENSE.*
-install -t LICENSE.bundled/pep440_rs -D -p -m 0644 crates/uv-pep440/License-*
-install -t LICENSE.bundled/pep508_rs -D -p -m 0644 crates/uv-pep508/License-*
-install -t LICENSE.bundled/pipreqs -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/pep440_rs crates/uv-pep440/License-*
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/pep508_rs crates/uv-pep508/License-*
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/pipreqs \
     crates/uv-build-frontend/src/pipreqs/LICENSE
-install -t LICENSE.bundled/ripunzip -D -p -m 0644 \
-    crates/uv-extract/src/vendor/LICENSE
+install -D --preserve-timestamps --mode=0644 \
+    --target=LICENSE.bundled/ripunzip crates/uv-extract/src/vendor/LICENSE
 # The original license text from rattler_installs_packages is present in a
 # comment, but we want it in a separate file so we can ensure it is present in
 # the binary RPM.
-install -d LICENSE.bundled/rattler_installs_packages
+install --directory LICENSE.bundled/rattler_installs_packages
 awk '$2 == "BSD" { out=1 }; $2 == "```" { out=0 }; out' \
     crates/uv-client/src/remote_metadata.rs |
-  sed -r 's@^///( |$)@@' |
+  sed --regexp-extended 's@^///( |$)@@' |
   tee LICENSE.bundled/rattler_installs_packages/LICENSE
 # Similarly for virtualenv. All files in
 # crates/uv-virtualenv/src/activator/activate/ have the same license text.
-install -d LICENSE.bundled/virtualenv
+install --directory LICENSE.bundled/virtualenv
 awk '$1 == "#" { out=1 }; $1 != "#" { out=0; exit }; out' \
     crates/uv-virtualenv/src/activator/activate |
-  sed -r 's@^#( |$)@@' |
+  sed --regexp-extended 's@^#( |$)@@' |
   tee LICENSE.bundled/virtualenv/LICENSE
 
 # Patch out foreign (e.g. Windows-only) dependencies. Follow symbolic links so
@@ -387,20 +391,20 @@ find -L . -type f -name Cargo.toml -print \
 # the uv-trampoline-builder crate. We must remove them to prove they are not
 # used in the build. Since they are used only on Windows, nothing is lost by
 # doing so.
-rm -v crates/uv-trampoline-builder/trampolines/*.exe
+rm --verbose crates/uv-trampoline-builder/trampolines/*.exe
 # Per Cargo.toml, uv-trampoline is excluded from the workspace and not compiled
 # because it still requires a nightly compiler. For now, we remove it entirely
 # to show that we do not need to document bundling from posy. Note that we
 # *cannot* cleanly remove uv-trampoline-builder, only the precompiled
 # trampolines themselves.
-rm -rv crates/uv-trampoline
+rm --recursive --verbose crates/uv-trampoline
 
 # Remove the dependency on embed-manifest, which applies only when (cross-?)
 # compiling for Windows.
 tomcli set Cargo.toml del workspace.dependencies.embed-manifest
 # We may have to do something more sophisticated if this build script ever
 # starts to do anything other than just embedding a manifest on Windows.
-rm -v crates/uv/build.rs
+rm --verbose crates/uv/build.rs
 tomcli set crates/uv/Cargo.toml del build-dependencies.embed-manifest
 # The embed-manifest depenency is also used in uv-trampoline, which we removed.
 
@@ -468,7 +472,8 @@ mods="${mods-}${mods+|}venv"
 mods="${mods-}${mods+|}version"
 mods="${mods-}${mods+|}workspace"
 comment='Downstream-only: skip, needs specific Python interpreter versions'
-sed -r -i "s@mod (${mods});@// ${comment}\n#[cfg(any())]\n&@" \
+sed --regexp-extended --in-place \
+    "s@mod (${mods});@// ${comment}\n#[cfg(any())]\n&@" \
     crates/uv/tests/it/main.rs
 %endif
 
@@ -526,9 +531,10 @@ then
   # library is actually pure-Python, and the python3-uv subpackage can be
   # noarch. We can’t tell maturin to install to the appropriate site-packages
   # directory, but we can fix the installation path manually.
-  install -d %{buildroot}%{python3_sitelib}
+  install --directory %{buildroot}%{python3_sitelib}
   mv %{buildroot}%{python3_sitearch}/uv* %{buildroot}%{python3_sitelib}
-  sed -r -i 's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
+  sed --regexp-extended --in-place \
+      's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
 fi
 
 # generate and install shell completions
@@ -544,7 +550,8 @@ do
 done
 
 # Install a default system-wide configuration file
-install -t '%{buildroot}%{_sysconfdir}/uv' -p -m 0644 -D '%{SOURCE1}'
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_sysconfdir}/uv' '%{SOURCE1}'
 
 
 %check

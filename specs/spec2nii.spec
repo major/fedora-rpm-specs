@@ -142,7 +142,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE100}' '%{SOURCE101}' '%{SOURCE102}' '%{SOURCE103}' \
     '%{SOURCE104}' '%{SOURCE105}' '%{SOURCE106}' '%{SOURCE107}' \
     '%{SOURCE108}' '%{SOURCE109}' '%{SOURCE110}' '%{SOURCE111}' \
@@ -160,7 +161,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 k="${k-}${k+ and }not orientation"
 %endif
 
-%pytest -k "${k-}" tests -v
+%pytest -k "${k-}" tests --verbose
 %endif
 
 

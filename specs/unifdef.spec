@@ -57,7 +57,7 @@ additional text that they delimit, while otherwise leaving the file alone.
 %autosetup -p1
 # Show that we do not use the sources in FreeBSD – even though this does not
 # simplify the License, since unifdef.1 is still BSD-3-Clause.
-rm -rv FreeBSD/
+rm --recursive --verbose FreeBSD/
 
 
 %build

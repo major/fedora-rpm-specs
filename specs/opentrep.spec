@@ -6,7 +6,7 @@
 
 #
 Name:           opentrep
-Version:        0.07.20
+Version:        0.08.01
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
@@ -162,27 +162,27 @@ rm -f %{_bindir}/py%{name}
 %{_bindir}/%{name}-indexer
 %{_bindir}/%{name}-searcher
 %{_bindir}/%{name}-dbmgr
-%{_bindir}/%{name}-create-db-user.sh
+%{_bindir}/%{name}-create-db-user-*.sh
 %{_libdir}/lib%{name}.so.0.*
 %{_mandir}/man1/%{name}-indexer.1.*
 %{_mandir}/man1/%{name}-searcher.1.*
 %{_mandir}/man1/%{name}-dbmgr.1.*
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/data
-%dir %{_datadir}/%{name}/data/por
-%{_datadir}/%{name}/data/por/README.md
-%dir %{_datadir}/%{name}/data/por/sqlite
-%{_datadir}/%{name}/data/por/sqlite/create-trep-tables.sql
-%{_datadir}/%{name}/data/por/sqlite/test-optd-por-public-schema.sql
-%dir %{_datadir}/%{name}/data/por/mysql
-%{_datadir}/%{name}/data/por/mysql/create-trep-user-and-db.sql
-%{_datadir}/%{name}/data/por/mysql/create-trep-tables.sql
-%dir %{_datadir}/%{name}/data/por/pg
-%{_datadir}/%{name}/data/por/pg/create-trep-user-and-db.sql
-%{_datadir}/%{name}/data/por/pg/create-trep-tables.sql
-%dir %{_datadir}/%{name}/data/por/csv
-%{_datadir}/%{name}/data/por/csv/test-optd-por-public.csv
-%{_datadir}/%{name}/data/por/csv/test-world-schedule.csv
+%dir %{_datadir}/%{name}/samples
+%dir %{_datadir}/%{name}/samples/por
+%{_datadir}/%{name}/samples/por/README.md
+%dir %{_datadir}/%{name}/samples/por/sqlite
+%{_datadir}/%{name}/samples/por/sqlite/create-trep-tables.sql
+%{_datadir}/%{name}/samples/por/sqlite/test-optd-por-public-schema.sql
+%dir %{_datadir}/%{name}/samples/por/mysql
+%{_datadir}/%{name}/samples/por/mysql/create-trep-user-and-db.sql
+%{_datadir}/%{name}/samples/por/mysql/create-trep-tables.sql
+%dir %{_datadir}/%{name}/samples/por/pg
+%{_datadir}/%{name}/samples/por/pg/create-trep-user-and-db.sql
+%{_datadir}/%{name}/samples/por/pg/create-trep-tables.sql
+%dir %{_datadir}/%{name}/samples/por/csv
+%{_datadir}/%{name}/samples/por/csv/test-optd-por-public.csv
+%{_datadir}/%{name}/samples/por/csv/test-world-schedule.csv
 
 %files devel
 %{_includedir}/%{name}/

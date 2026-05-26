@@ -11,8 +11,8 @@
 ExcludeArch:    %{ix86}
 
 Name:           unison
-Version:        2.53.7
-Release:        7%{?dist}
+Version:        2.54.0
+Release:        1%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -31,8 +31,7 @@ Summary:        File Synchronizer
 License:        GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Source1:        %{name}.desktop
-Source2:        %{name}.metainfo.xml
+Source1:        %{name}-gui.metainfo.xml
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
@@ -104,16 +103,8 @@ BuildArch:      noarch
   PREFIX=%{_prefix}
 
 %if %{with gtk}
-# Install the various icons according to the "Icon Theme Specification"
-# https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html
-for size in 16 24 32 48 256; do
-  format="${size}x${size}"
-  install -Dpm0644 icons/U.${format}x16m.png \
-    %{buildroot}%{_datadir}/icons/hicolor/${format}/apps/%{name}.png
-done
-install -Dpm0644 icons/U.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
-install -Dpm0644 -t %{buildroot}%{_metainfodir} %{SOURCE2}
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
+install -Dpm0644 -t %{buildroot}%{_metainfodir} %{SOURCE1}
 %endif
 
 %if %{with doc}
@@ -124,7 +115,7 @@ install -Dpm0644 -t %{buildroot}%{_docdir}/%{name} doc/%{name}-manual.{html,pdf,
 make test          \
   NATIVE=%{native}
 %if %{with gtk}
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}-gui.metainfo.xml
 %endif
 
 %files
@@ -138,10 +129,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %files          gtk
 %license LICENSE
 %{_bindir}/%{name}-gui
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_metainfodir}/%{name}.metainfo.xml
+%{_datadir}/applications/%{name}-gui.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}-gui.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}-gui.svg
+%{_metainfodir}/%{name}-gui.metainfo.xml
 %endif
 
 %if %{with doc}
@@ -151,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Sun May 24 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 2.54.0-1
+- Update to v2.54.0
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.53.7-7
 - Bump release and rebuild
 

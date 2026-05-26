@@ -5,23 +5,20 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        10.2.0
+Version:        10.7.1
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
 License:        MPL-2.0
 URL:            https://github.com/pikepdf/pikepdf
 Source:         %pypi_source %{srcname}
-# Pinned only for wheel building purposes.
-Patch:          0001-Unpin-python-xmp-toolkit.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  qpdf-devel >= 11.5.0
+BuildRequires:  qpdf-devel >= 12.2.0
 BuildRequires:  python3-devel
-BuildRequires:  tomcli
 %if %{with tests}
 # Tests:
 BuildRequires:  poppler-utils
@@ -55,9 +52,11 @@ Documentation for pikepdf
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
+# Pinned only for wheel building purposes.
+%pyproject_patch_dependency python-xmp-toolkit:drop_upper
 # Drop coverage requirements
-tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'coverage.*'
-tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'pytest-cov.*'
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 %if %{with docs}
 # We don't build docs against the installed version, so force the version.
@@ -66,11 +65,11 @@ sed -i -e "s/release = .\+/release = '%{version}'/g" docs/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_docs: -x docs} %{?with_tests: -x test}
+%pyproject_buildrequires %{?with_docs: -g docs} %{?with_tests: -g test}
 
 
 %build
-%pyproject_wheel
+%pyproject_wheel -Ccmake.build-type=RelWithDebInfo -Cbuild.verbose=true -Cinstall.strip=false
 
 %if %{with docs}
 # generate html docs

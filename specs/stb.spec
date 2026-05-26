@@ -725,14 +725,16 @@ Documentation for stb.
 # When upstream says CPPFLAGS, they
 # mean C++ flags, i.e. CXXFLAGS, not “C PreProcessor Flags” as is common in
 # autoconf-influenced projects.
-sed -r -i \
-    -e 's/([[:alpha:]]+FLAGS[[:blank:]]*)=/\1+=/' \
-    -e 's/(\$\(CC\))(.*)-std=[^[:blank:]]+/\$\(CXX\)\2/' \
-    -e 's/CPPFLAGS/CXXFLAGS/' tests/Makefile
+sed --regexp-extended --in-place \
+    --expression='s/([[:alpha:]]+FLAGS[[:blank:]]*)=/\1+=/' \
+    --expression='s/(\$\(CC\))(.*)-std=[^[:blank:]]+/\$\(CXX\)\2/' \
+    --expression='s/CPPFLAGS/CXXFLAGS/' \
+    tests/Makefile
 
 # Add a dummy main(); how does this one work upstream?! Note that omitting
 # parameter names is a C++-ism.
-echo 'int main(int, char *[]) { return 0; }' >> tests/test_cpp_compilation.cpp
+printf '%s\n' 'int main(int, char *[]) { return 0; }' \
+    >> tests/test_cpp_compilation.cpp
 
 # Remove any pre-compiled Windows executables
 find . -type f -name '*.exe' -print -delete
@@ -740,18 +742,19 @@ find . -type f -name '*.exe' -print -delete
 # Remove some unused parts of the source tree that could contribute different
 # (but acceptable) license terms if they were used—just to prove that we do not
 # use them.
-rm -rvf tests/caveview
+rm --recursive --verbose tests/caveview
 find deprecated -type f ! -name 'stb_image_resize.h' -print -delete
 
 %if %{without stb_include}
-sed -r -i '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
+sed --regexp-extended --in-place \
+    '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
 %endif
 
 
 %build
 # There is no compiled code to install, since all stb libraries are
 # header-only. We do need to build the tests.
-%make_build -C tests
+%make_build --directory=tests
 
 
 %install
@@ -767,13 +770,14 @@ sed -r -i '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
 # as a symbolic link to the former. This means most projects can unbundle the
 # library without having to make their own local symlinks or patch their
 # sources.
-install -t '%{buildroot}%{_includedir}/stb' -p -m 0644 -D \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/stb' \
     stb_*.h stb_*.c deprecated/stb_image_resize.h
 %if %{without stb_include}
-rm -vf '%{buildroot}%{_includedir}/stb/stb_include.h'
+rm '%{buildroot}%{_includedir}/stb/stb_include.h'
 %endif
 pushd '%{buildroot}%{_includedir}'
-ln -sv stb/stb_*.? .
+ln --symbolic --verbose stb/stb_*.? .
 popd
 
 
@@ -785,8 +789,8 @@ popd
 # do with them.
 
 # We can run image_write_test and confirm the output images are valid.
-rm -vf output
-mkdir -p output
+rm --verbose --force output
+mkdir output
 ./tests/image_write_test
 # We assume that if ImageMagick can read the output images, then they are valid.
 for img in wr6x5_flip.bmp wr6x5_flip.jpg wr6x5_flip.tga wr6x5_regular.hdr \
@@ -802,8 +806,8 @@ while read -r version header
 do
   %{?!with_stb_include:if [ "${header}" = 'stb_include.h' ]; then continue; fi}
   # The minor version may be zero-padded in the header.
-  grep -E "$(
-    echo "${version}" |
+  grep --extended-regexp "$(
+    printf '%s\n' "${version}" |
     sed -r 's/([[:digit:]]+)\.([[:digit:]]+)/\\bv\1\\.0*\2\\b/'
   )" "%{buildroot}%{_includedir}/${header}" >/dev/null
 done <<'EOF'

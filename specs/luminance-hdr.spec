@@ -134,6 +134,9 @@ Patch:          %{forgeurl}/pull/288.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/284
 Patch:          %{forgeurl}/pull/284.patch
 
+# Fix ambiguous call to clamp (Imath::, std::, inline)
+Patch:          luminance-hdr-clamp.patch
+
 BuildSystem:    cmake
 BuildOption(conf): %{shrink:
     -DCMAKE_BUILD_TYPE=RelWithDebInfo

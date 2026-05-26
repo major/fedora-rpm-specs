@@ -205,8 +205,14 @@ BuildArch:      noarch
 %autosetup -p1
 
 
-%build
+%conf
+%if "%{__isa_bits}" == "32"
+# No spaceship operator support on 32-bit arches
+%define _pkg_extra_cxxflags -DVULKAN_HPP_NO_SPACESHIP_OPERATOR
+%endif
 %cmake_kf6
+
+%build
 %cmake_build
 
 %install
