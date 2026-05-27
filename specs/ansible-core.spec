@@ -55,12 +55,6 @@ Provides:       bundled(python3dist(six)) = 1.17.0
 Provides:       bundled(python3dist(wrapt)) = 1.17.2
 
 BuildRequires:  python%{python3_pkgversion}-devel
-# This is only used in %%prep to relax the required setuptools version,
-# which is not necessary in RHEL 10+.
-# Not using it in RHEL avoids unwanted dependencies.
-%if %{undefined rhel}
-BuildRequires:  tomcli >= 0.3.0
-%endif
 # Needed to build manpages from source.
 BuildRequires:  python%{python3_pkgversion}-docutils
 
@@ -102,12 +96,9 @@ This package installs extensive documentation for ansible-core
 
 %prep
 %autosetup -p1 -n ansible-%{uversion} -a1
-# Relax setuptools constraint on Fedora
-# Future RHELs have new enough setuptools
-%if %{undefined rhel}
-tomcli-set pyproject.toml lists replace \
-    'build-system.requires' 'setuptools >=.*' 'setuptools'
-%endif
+# Drop setuptools constraints
+# (rawhide might have newer setuptools, older releases might have older)
+%pyproject_patch_dependency setuptools:drop_constraints
 
 sed -i -s 's|/usr/bin/env python|%{python3}|' \
     bin/ansible-test \

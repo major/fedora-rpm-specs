@@ -1,7 +1,7 @@
 %global sources_gpg 1
 %global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
-%global with_doc 0
+%global with_doc 1
 
 %global pypi_name octaviaclient
 
@@ -26,6 +26,11 @@ BuildArch:      noarch
 
 BuildRequires:  git-core
 BuildRequires:  python3-devel
+
+# pypi module has been broken into 3 rpms it seems.
+%if 0%{?with_doc}
+BuildRequires:  python3-sphinxcontrib-rsvgconverter
+%endif
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
@@ -87,15 +92,13 @@ This package contains the example client test files.
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[!><=]/d" \
-    -e "/^reno[[:space:]]*[!><=]/d" \
-    -e "/^hacking[[:space:]]*[!><=]/d" \
-    -e "/^bandit[[:space:]]*[!><=]/d" \
-    -e "/^flake8-import-order[[:space:]]*[!><=]/d" \
-    -e "/^doc8[[:space:]]*[!><=]/d" \
-    -e "/^pylint[[:space:]]*[!><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
+%pyproject_patch_dependency hacking:ignore
+%pyproject_patch_dependency bandit:ignore
+%pyproject_patch_dependency flake8-import-order:ignore
+%pyproject_patch_dependency doc8:ignore
+%pyproject_patch_dependency pylint:ignore
 
 
 %generate_buildrequires

@@ -16,8 +16,9 @@ Source:         %{url}/archive/%{commit}/xxhashct-%{commit}.tar.gz
 # Fixes compatibility with CMake 4.
 Patch:          %{url}/pull/5.patch
 
+BuildSystem:    cmake
+
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 # For tests:
 BuildRequires:  xxhash-devel
 
@@ -46,21 +47,10 @@ The xxhashct-devel package contains libraries and header files for developing
 applications that use xxhashct.
 
 
-%prep
-%autosetup -n xxhashct-%{commit} -p1
-
-
-%conf
-%cmake
-
-
-%build
-%cmake_build
-
-
 %install
 # The upstream CMake build system only builds tests.
-install -D -p -m 0644 -t '%{buildroot}%{_includedir}' xxh32.hpp xxh64.hpp
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}' xxh32.hpp xxh64.hpp
 
 
 %check

@@ -17,7 +17,7 @@
 
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
-Version: 1.10.0
+Version: 1.10.3
 Release: 1%{?dist}
 # gd license in php bindings isn't by default built-in
 License: gpl-1.0-or-later AND gpl-2.0-or-later AND gpl-2.0-or-later WITH rrdtool-floss-exception-2.0 AND mit AND lgpl-2.0-or-later AND lgpl-2.1-or-later AND bsd-source-code AND snprintf AND bsd-3-clause AND gpl-2.0-only AND licenseref-fedora-public-domain AND gtkbook
@@ -27,7 +27,7 @@ Source1: php4-%{svnrev}.tar.gz
 Patch1: rrdtool-1.4.4-php54.patch
 # disable logo for php 5.5.
 Patch2: rrdtool-1.4.7-php55.patch
-Patch3: rrdtool-1.10.0-ruby-2-fix.patch
+Patch3: rrdtool-1.10.3-ruby-2-fix.patch
 # enable php bindings on ppc
 Patch4: rrdtool-1.4.8-php-ppc-fix.patch
 
@@ -177,8 +177,6 @@ The %{name}-lua package includes RRDtool bindings for Lua.
 %patch -P3 -p1 -b .ruby-2-fix
 %endif
 %patch -P4 -p1 -b .php-ppc-fix
-%patch -P5 -p1 -b .tcl90
-%patch -P6 -p1 -b .lua-5.5-fix
 
 # Fix to find correct python dir on lib64
 perl -pi -e 's|get_python_lib\(0,0,prefix|get_python_lib\(1,0,prefix|g' \
@@ -395,6 +393,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.3-1
+- New version
+  Resolves: rhbz#2479949
+
 * Tue May 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-1
 - New version
   Resolves: rhbz#2479732

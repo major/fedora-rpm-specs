@@ -32,19 +32,21 @@ Provides:       wildcardtl-static = %{version}-%{release}
 
 %prep
 %autosetup -n wildcardtl-%{version}
+
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |
-  grep -E '\bCRLF\b' |
-  cut -d ':' -f 1 |
-  xargs -r dos2unix
+  grep --regexp-extended '\bCRLF\b' |
+  cut --delimiter=':' --fields=1 |
+  xargs --no-run-if-empty dos2unix --keepdate
 
 
 # Nothing to build
 
 
 %install
-install -d '%{buildroot}%{_includedir}'
-cp -rvp include/wildcardtl '%{buildroot}%{_includedir}/'
+install --directory '%{buildroot}%{_includedir}'
+cp --recursive --verbose --preserve \
+    include/wildcardtl '%{buildroot}%{_includedir}/'
 
 
 %check

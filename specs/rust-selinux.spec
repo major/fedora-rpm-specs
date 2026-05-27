@@ -5,7 +5,7 @@
 %global crate selinux
 
 Name:           rust-selinux
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Flexible Mandatory Access Control for Linux
 

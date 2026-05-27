@@ -1,14 +1,17 @@
 Name:           b43-fwcutter
-Version:        019
+Version:        020
 Release:        %autorelease
 Summary:        Firmware extraction tool for Broadcom wireless driver
 License:        BSD-2-Clause
 URL:            https://bues.ch/b43/fwcutter/
-Source0:        https://bues.ch/b43/fwcutter/%{name}-%{version}.tar.bz2
-Source1:        README.too
-Patch1:         b43-fwcutter-0001-fwcutter-Add-firmware-9.10.178.27.patch
-Patch2:         b43-fwcutter-0002-fwcutter-make-Avoid-_DEFAULT_SOURCE-warning.patch
+Source0:        https://bues.ch/b43/fwcutter/%{name}-%{version}.tar.xz
+Source1:        https://bues.ch/b43/fwcutter/%{name}-%{version}.tar.xz.asc
+# gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key 757FAB7CED1814AE15B4836E5FB027474203454C
+# gpg --no-default-keyring --keyring ./keyring.gpg  --output 757FAB7CED1814AE15B4836E5FB027474203454C.gpg --export --armor
+Source2:        757FAB7CED1814AE15B4836E5FB027474203454C.gpg
+Source100:      README.too
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  make
 
 %description
@@ -19,9 +22,10 @@ See the README.too file shipped in the package's documentation for
 instructions on using this tool.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p2
 
-cp %{SOURCE1} .
+cp %{SOURCE100} .
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" make

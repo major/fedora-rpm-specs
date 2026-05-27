@@ -75,4 +75,5 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%changelog
 %autochangelog

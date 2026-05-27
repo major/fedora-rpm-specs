@@ -7,7 +7,7 @@
 
 Name:           mariadb-connector-c
 Version:        3.4.8
-Release:        3%{?with_debug:.debug}%{?dist}
+Release:        4%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later AND PHP-3.0 AND PHP-3.01
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -42,7 +42,7 @@ Summary:        Development files for mariadb-connector-c
 Requires:       %{name} = %{version}-%{release}
 Recommends:     %{name}-doc = %{version}-%{release}
 Requires:       openssl-devel zlib-devel
-BuildRequires:  multilib-rpm-config
+%{!?rhel:BuildRequires:  multilib-rpm-config}
 Conflicts:      mysql-devel-any
 
 %description devel
@@ -152,7 +152,9 @@ sed -e 's|@SYSCONFDIR@|%{_sysconfdir}|' %{SOURCE2} > my.cnf
 %install
 %cmake_install
 
+%if %{undefined rhel}
 %multilib_fix_c_header --file %{_includedir}/mysql/mariadb_version.h
+%endif
 
 # Remove static linked libraries and symlinks to them
 rm %{buildroot}%{_libdir}/lib*.a
@@ -269,6 +271,11 @@ install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{nam
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 3.4.8-4
+- Drop multilib-rpm-config usage on RHEL
+  Related: RHEL-178013
+  Related: https://github.com/fedora-eln/eln/issues/525
+
 * Sat Jan 24 2026 Michal Schorm <mschorm@redhat.com> - 3.4.8-3
 - Fedora 44 change: Remove 'community-mysql' names
 

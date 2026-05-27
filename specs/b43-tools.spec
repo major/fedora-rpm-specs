@@ -1,21 +1,15 @@
-%global git_commit 2fe10ea6690df9a068cb21cde537236bae784a14
-%global git_date 20220704
-
 Name:		b43-tools
-Version:	019
-Release:	%autorelease -s %{git_date}git%{sub %git_commit 0 7}
+Version:	020
+Release:	%autorelease
 Summary:	Tools for the Broadcom 43xx series WLAN chip
 # assembler — GPLv2
 # debug — GPLv3
 # disassembler — GPLv2
 # ssb_sprom — GPLv2+
 License:	GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only
-URL:		https://bues.ch/cgit/%{name}.git
-VCS:		git:https://git.bues.ch/git/%{name}.git
-Source0:	%{url}/snapshot/b43-tools-%{git_commit}.tar.xz
-Patch1:		0001-b43-tools-fix-format-security-errors.patch
-Patch2:		0002-Use-2to3-to-convert-to-Python3.patch
-Patch3:		0003-Explicitly-use-python3.patch
+URL:		https://github.com/mbuesch/b43-tools
+VCS:		git:%{url}.git
+Source:		%{url}/archive/b34-fwcutter-%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	flex-static
@@ -29,7 +23,7 @@ Tools for the Broadcom 43xx series WLAN chip.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{git_commit}
+%autosetup -p1 -C
 install -p -m 0644 assembler/COPYING COPYING.assembler
 install -p -m 0644 assembler/README README.assembler
 install -p -m 0644 debug/COPYING COPYING.debug

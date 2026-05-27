@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.11.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -35,6 +35,7 @@ Source5: qv4global_p-multilib.h
 
 ## upstream patches
 Patch0:  qtdeclarative-dialogs-use-generic-qtquickcontrols-import-in-base-fallback-dialogs.patch
+Patch1:  qtdeclarative-qmltableinstancemodel-refactor-qmodelindex-calculation-out-of-qquicktableview.patch
 
 ## upstreamable patches
 
@@ -753,6 +754,11 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon May 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-2
+- Upstream backport:
+  - QQmlTableInstanceModel: refactor QModelIndex calculation out
+    of QQuickTableView
+
 * Tue May 12 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-1
 - Update to 6.11.1
 

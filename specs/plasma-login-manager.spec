@@ -31,8 +31,6 @@ Source12:       plasmalogin.sysusers
 Source13:       plasmalogin.conf
 
 # upstream patches
-## Avoid conflict with kmsconvt service
-Patch0001:	Fix-launch-when-kmscon-is-used.patch
 
 # proposed patches
 
@@ -232,11 +230,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-4
 - Rebuild (qt6)
 
-* Sat Apr 11 2026 Jocelyn Falempe <jfalempe@redhat.com> - 6.6.4-3
-- Fix conflicts with kmscon
-
 * Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.6.4-2
 - Rebuild (qt6)
+
+* Sat Apr 11 2026 Jocelyn Falempe <jfalempe@redhat.com> - 6.6.4-3
+- Fix conflicts with kmscon
 
 * Fri Apr 10 2026 Steve Cossette <farchord@gmail.com> - 6.6.4-1
 - 6.6.4

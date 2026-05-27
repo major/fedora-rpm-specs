@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -27,12 +27,10 @@ BuildRequires: gnutls-devel
 BuildRequires: pkgconfig(gstreamer-video-1.0)
 BuildRequires: pkgconfig(gstreamer-allocators-1.0)
 BuildRequires: libatomic
+BuildRequires: pkgconfig(libdw)
 BuildRequires: libevent-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libtiff-devel
-%if ! 0%{?rhel}
-BuildRequires: libunwind-devel
-%endif
 BuildRequires: libyaml-devel
 BuildRequires: libyuv-devel
 BuildRequires: lttng-ust-devel
@@ -130,7 +128,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations --param=max-devirt-tar
 %meson \
     -Dv4l2=enabled \
     -Dlc-compliance=disabled \
-    %{?rhel:-Dlibunwind=disabled} \
+    -Dlibunwind=disabled \
     -Dtest=true \
     -Ddocumentation=disabled \
     -Drpi-awb-nn=disabled \
@@ -201,6 +199,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Mon May 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.1-2
+- Use libdw for backtraces
+
 * Fri May 01 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.1-1
 - Update to version 0.7.1
 - New libcamera-bug-report utility added to tools

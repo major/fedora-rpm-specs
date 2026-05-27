@@ -2,7 +2,7 @@
 
 Name:           ogre
 Version:        1.9.0
-Release:        54%{?dist}
+Release:        55%{?dist}
 Epoch:          1
 Summary:        Object-Oriented Graphics Rendering Engine
 # MIT - main library
@@ -293,6 +293,9 @@ mv %{buildroot}%{_libdir}/OGRE/cmake/* %{buildroot}%{_datadir}/cmake/Modules
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1:1.9.0-55
+- Rebuild for OpenEXR 3.4.12.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

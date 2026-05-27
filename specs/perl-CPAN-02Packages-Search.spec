@@ -1,18 +1,20 @@
 Name:           perl-CPAN-02Packages-Search
-Version:        0.100
-Release:        7%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Search Perl modules in 02packages.details.txt
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-02Packages-Search
-Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/CPAN-02Packages-Search-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/CPAN-02Packages-Search-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(:VERSION) >= 5.24
 BuildRequires:  perl(Config)
+BuildRequires:  perl(experimental)
+# No need to increase the version,
+# <https://github.com/skaji/CPAN-02Packages-Search/issues/3>
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
-BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Search::Dict) >= 1.07
@@ -40,7 +42,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n CPAN-02Packages-Search-%{version}
+%setup -q -n CPAN-02Packages-Search-v%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1' "$F"
@@ -79,6 +81,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Petr Pisar <ppisar@redhat.com> - 1.0.0-1
+- 1.0.0 bump
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,7 +21,7 @@ file and preexisting distribution metadata generate output file.
 %autosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x pytest,pytest-catchlog,pytest-cov,coverage,flake8
+%pyproject_buildrequires
 
 
 %build

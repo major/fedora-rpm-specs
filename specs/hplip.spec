@@ -6,8 +6,8 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.25.8
-Release: 2%{?dist}
+Version: 3.26.4
+Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -237,26 +237,29 @@ Patch67: hplip-use-raw-strings.patch
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
 Patch68: hplip-hpaio-gcc14.patch
-# format is no longer method in locale module
-# https://bugs.launchpad.net/hplip/+bug/2045507
-Patch69: hplip-locale-format.patch
 # function prototype did not specify argument's data types
 # https://bugs.launchpad.net/hplip/+bug/2096650
-Patch70: hplip-gcc15-stdc23.patch
+Patch69: hplip-gcc15-stdc23.patch
 # status history table shows unformatted QDateTime values
 # https://bugs.launchpad.net/hplip/+bug/1956547
-Patch71: hplip-format-qdatetime.patch
+Patch70: hplip-format-qdatetime.patch
 # Python 3.14 removed urlopener
 # https://bugs.launchpad.net/hplip/+bug/2115046
-Patch72: hplip-no-urlopener.patch
+Patch71: hplip-no-urlopener.patch
 # hp-scan command failed to run and gives an error (fedora#2395809)
 # https://bugs.launchpad.net/hplip/+bug/2124268
-Patch73: hplip-scan-size.patch
+Patch72: hplip-scan-size.patch
 # 3.25.8 brings new implementation for calling commands in subprocess,
 # but again directs I/O into pipes, which does not work for TUI plugin
 # installation. Additionally it tracebacks if stdout/stderr is None
 # https://bugs.launchpad.net/hplip/+bug/2110101
-Patch74: hplip-plugin-stdout.patch
+Patch73: hplip-plugin-stdout.patch
+# Fallbacking to HP site for plugin does not work for several reasons:
+# - curl was not called with -f, so error 404 from openprinting did not propagated,
+# - HP fallback URL in hplip does not contain latest changes - it now has YYYY-MM in it,
+# - connecting to HP site requires curl/wget to set user-agent to pretend to be a browser
+# https://bugs.launchpad.net/hplip/+bug/2154206
+Patch74: hplip-curl-fallback.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -610,19 +613,18 @@ done
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
 %patch -P 68 -p1 -b .hpaio-gcc14
-# format is no longer method in locale module
-# https://bugs.launchpad.net/hplip/+bug/2045507
-%patch -P 69 -p1 -b .locale-format
 # https://bugs.launchpad.net/hplip/+bug/2096650
-%patch -P 70 -p1 -b .gcc-strc23
+%patch -P 69 -p1 -b .gcc-strc23
 # https://bugs.launchpad.net/hplip/+bug/1956547
-%patch -P 71 -p1 -b .format-qdatetime
+%patch -P 70 -p1 -b .format-qdatetime
 # https://bugs.launchpad.net/hplip/+bug/2115046
-%patch -P 72 -p1 -b .no-urlopener
+%patch -P 71 -p1 -b .no-urlopener
 # https://bugs.launchpad.net/hplip/+bug/2124268
-%patch -P 73 -p1 -b .scan-size
+%patch -P 72 -p1 -b .scan-size
 # https://bugs.launchpad.net/hplip/+bug/2110101
-%patch -P 74 -p1 -b .plugin-stdout
+%patch -P 73 -p1 -b .plugin-stdout
+# https://bugs.launchpad.net/hplip/+bug/2154206
+%patch -P 74 -p1 -b .curl-fallback
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -994,6 +996,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon May 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.26.4-1
+- 3.26.4 (fedora#2480158), fixes CVE-2026-8631, CVE-2026-8632
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.25.8-2
 - Rebuilt for net-snmp 5.9.5.2
 

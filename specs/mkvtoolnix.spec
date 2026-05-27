@@ -1,12 +1,11 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 98.0
+Version: 99.0
 Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
 Source2: https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt
-Patch0: mkvtoolnix-gcc16.patch
 URL: https://mkvtoolnix.download/
 BuildRequires: boost-devel
 BuildRequires: cmake(Qt6Concurrent)
@@ -67,7 +66,6 @@ This package contains the QT graphical interface for these utilities.
 %prep
 %{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
-%patch 0 -p1
 rm -rf lib/{fmt,libebml,libmatroska,nlohmann-json,pugixml,utf8-cpp}
 rm -rf rake.d/vendor drake
 

@@ -36,6 +36,7 @@ Autopage is a Python library to provide automatic paging for console output.}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  less
 %if %{with pyproject}
 BuildRequires:  pyproject-rpm-macros
 %else

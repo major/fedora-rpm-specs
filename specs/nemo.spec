@@ -3,15 +3,13 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        6.7.2^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1:        nemo-fedora.gschema.override
-Patch0:         remove_desktop_search.patch
-Patch1:         Don-t-scale-text-size-when-zooming.patch
-Patch2:         fix_mount_action.patch
+Patch0:         fix_mount_action.patch
 
 ExcludeArch:   %{ix86}
 
@@ -181,6 +179,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-2
+- Drop some patches
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
 - Update to 6.7.2-unstable
 

@@ -86,11 +86,11 @@ plain-text documentation files, changelogs, and so on.
 
 
 %build
-%make_build -C src %{wcd_opts}
+%make_build --directory=src %{wcd_opts}
 
 
 %install
-%make_install install-profile -C src %{wcd_opts}
+%make_install install-profile --directory=src %{wcd_opts}
 %find_lang wcd --with-man
 
 

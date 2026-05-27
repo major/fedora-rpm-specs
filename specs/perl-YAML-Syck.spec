@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.45
+Version:        1.46
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -95,6 +95,20 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Mon May 25 2026 Paul Howarth <paul@city-fan.org> - 1.46-1
+- Update to 1.46
+  Bug Fixes:
+  - Preserve string nature of numeric-looking values in Dump; pure strings (POK
+    only, no IOK/NOK) are now quoted to maintain roundtrip fidelity
+    (GH#199, GH#200)
+  - Accept trailing commas in flow sequences and mappings ([a, b,] and
+    {a: 1,}), valid per YAML 1.0/1.1/1.2 spec (GH#195, GH#196)
+  Maintenance:
+  - CI: upgrade install-with-cpm to v2 for compatibility with Perl versions
+    prior to 5.24 in perldocker containers (GH#197, GH#198)
+  - Clean up MANIFEST.SKIP: add #!include_default, remove redundant entries,
+    exclude .claude/ from distribution
+
 * Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 1.45-1
 - Update to 1.45
   Bug Fixes:

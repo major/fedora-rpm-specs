@@ -158,6 +158,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_datadir}/plasma/mobileinitialstart
 %{_kf6_datadir}/applications/*.desktop
 %{_kf6_datadir}/knotifications6/plasma_mobile_quicksetting*.notifyrc
+%{_kf6_datadir}/qlogging-categories6/plasmamobile.categories
 %{_kf6_datadir}/kwin/effects/mobiletaskswitcher
 %{_kf6_datadir}/kwin/scripts/convergentwindows/contents/ui/main.qml
 %{_kf6_datadir}/kwin/scripts/convergentwindows/metadata.json
@@ -165,7 +166,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultNavigationPanel/metadata.json
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultStatusBar/contents/layout.js
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultStatusBar/metadata.json
-%{_kf6_qmldir}/org/kde/plasma/mm/*
 %{_kf6_qmldir}/org/kde/plasma/private/mobileshell
 %{_kf6_qmldir}/org/kde/plasma/quicksetting
 %{_kf6_qmldir}/org/kde/plasma/mobileinitialstart

@@ -12,7 +12,7 @@
 %global forgeurl        https://github.com/golang/tools
 Epoch:                  1
 # This package should be split per go.mod
-Version:                0.36.0
+Version:                0.45.0
 
 %gometa -L
 
@@ -20,7 +20,7 @@ Version:                0.36.0
 This package holds the source for various tools that support the Go programming
 language.
 
-Some of the tools, godoc and vet for example, are included in binary Go
+Some of the tools, such as vet for example, are included in binary Go
 distributions.
 
 Others, including the Go guru and the test coverage tool, can be fetched with go
@@ -33,7 +33,7 @@ Single Assignment form (SSA) representation for Go programs.}
 %global godocs          CONTRIBUTING.md README.md
 
 %global auth_commands authtest cookieauth gitauth netrcauth
-%global commands benchcmp bisect bundle callgraph compilebench digraph eg file2fuzz fiximports go-contrib-init godex godoc goimports gomvpkg gonew gotype goyacc html2article present present2md splitdwarf ssadump stress stringer toolstash
+%global commands benchcmp bisect bundle callgraph compilebench deadcode digraph eg file2fuzz fiximports go-contrib-init godex goimports gomvpkg gonew gotype goyacc html2article present present2md splitdwarf ssadump stress stringer toolstash
 %global signature_fuzzer fuzz-driver fuzz-runner
 
 Name:           %{goname}
@@ -57,14 +57,6 @@ BuildRequires:  golang-tests
 %{common_description}
 
 %if %{without bootstrap}
-%package -n golang-godoc
-Summary:        Documentation tool for the Go programming language
-Epoch:          1
-Obsoletes:      golang-godoc = 1.1.2
-
-%description -n golang-godoc
-Godoc extracts and generates documentation for Go programs.
-
 %package -n golang-gotype
 Summary:        Go programming language source code analysis tool
 
@@ -105,6 +97,14 @@ Summary:        Benchmarks the speed of the Go compiler
 %{summary}.
 
 See https://pkg.go.dev/golang.org/x/tools/cmd/compilebench for more information.
+
+%package        deadcode
+Summary:        Reports unreachable functions in Go programs
+
+%description    deadcode
+%{summary}.
+
+See https://pkg.go.dev/golang.org/x/tools/cmd/deadcode for more information.
 
 %package        digraph
 Summary:        Tool for queries over unlabelled directed graphs in text form
@@ -303,16 +303,11 @@ mv %{buildroot}%{_bindir}/bundle %{buildroot}%{_bindir}/gobundle
 %check
 # This should be enabled by go.mod, but we're ignoring it with GO111MODULE=off.
 export GODEBUG=gotypesalias=1,asynctimerchan=0
-%gocheck -t cmd -d imports -t internal/lsp -d go/pointer -d internal/imports -t gopls -d internal/packagesdriver -t go/packages -d go/analysis/unitchecker -d go/ssa -t internal/refactor
+%gocheck -t cmd -d imports -t internal/lsp -d go/pointer -d internal/imports -t gopls -d internal/packagesdriver -t go/packages -d go/analysis/unitchecker -d go/analysis/checker -d go/ssa -t internal/refactor
 %endif
 %endif
 
 %if %{without bootstrap}
-%files -n golang-godoc
-%doc %{godocs}
-%license %{golicenses}
-%{_bindir}/godoc
-
 %files -n golang-gotype
 %doc %{godocs}
 %license %{golicenses}
@@ -350,6 +345,11 @@ export GODEBUG=gotypesalias=1,asynctimerchan=0
 %doc %{godocs}
 %license %{golicenses}
 %{_bindir}/compilebench
+
+%files    deadcode
+%doc %{godocs}
+%license %{golicenses}
+%{_bindir}/deadcode
 
 %files    digraph
 %doc %{godocs}

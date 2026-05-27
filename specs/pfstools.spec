@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -311,6 +311,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_includedir}/pfs
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-27
+- Rebuild for OpenEXR 3.4.12.
+
 * Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 2.2.0-26
 - Rebuild for octave 11.1
 

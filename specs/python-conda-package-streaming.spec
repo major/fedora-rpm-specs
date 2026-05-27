@@ -5,8 +5,8 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        0.11.0
-Release:        9%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -44,7 +44,7 @@ BuildRequires:  conda
 %prep
 %autosetup -n %{srcname}-%{version}
 # do not run coverage in pytest, drop unneeded and unpackaged boto3-stubs dev dep
-sed -i -e '/cov/d' -e '/boto3-stubs/d' pyproject.toml requirements.txt
+sed -i -e '/cov/d' -e '/boto3-stubs/d' pyproject.toml tests/requirements.txt
 %if %{with bootstrap}
 sed -i -e '/"conda"/d' -e '/conda-package-handling/d' pyproject.toml
 %endif
@@ -79,6 +79,9 @@ export CONDA_EXE
 
 
 %changelog
+* Fri May 22 2026 Orion Poplawski <orion@nwra.com> - 0.12.0-1
+- Update to version 0.12.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

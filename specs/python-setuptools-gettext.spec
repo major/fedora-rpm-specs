@@ -1,5 +1,5 @@
 Name:           python-setuptools-gettext
-Version:        0.1.17
+Version:        0.1.18
 Release:        1%{?dist}
 Summary:        Setuptools gettext extension plugin
 
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Mon May 25 2026 Björn Lindström <bkhl@elektrubadur.se> - 0.1.18-1
+- Update to 0.1.18 (close RHBZ#2407164)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

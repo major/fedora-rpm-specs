@@ -192,7 +192,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -276,7 +276,7 @@ Summary: A very fast and robust SQL database server
 
 BuildRequires:    make cmake gcc-c++
 BuildRequires:    libxcrypt-devel
-BuildRequires:    multilib-rpm-config
+%{!?rhel:BuildRequires:    multilib-rpm-config}
 BuildRequires:    selinux-policy-devel
 BuildRequires:    systemd systemd-devel
 
@@ -1067,13 +1067,16 @@ cmake -B %{_vpath_builddir} -N -LAH
 %install
 %cmake_install
 
+%if %{undefined rhel}
 # multilib header support #1625157
 for header in mysql/server/my_config.h mysql/server/private/config.h; do
 %multilib_fix_c_header --file %{_includedir}/$header
 done
+%endif
 
 ln -s mysql_config.1.gz %{buildroot}%{_mandir}/man1/mariadb_config.1.gz
 
+%if %{undefined rhel}
 # multilib support for shell scripts
 # we only apply this to known Red Hat multilib arches, per bug #181335
 if [ %multilib_capable ]
@@ -1083,6 +1086,7 @@ install -p -m 0755 %{_vpath_builddir}/scripts/mysql_config_multilib %{buildroot}
 # Copy manual page for multilib mysql_config; https://jira.mariadb.org/browse/MDEV-11961
 ln -s mysql_config.1 %{buildroot}%{_mandir}/man1/mysql_config-%{__isa_bits}.1
 fi
+%endif
 
 # Logfile creation
 mkdir -p %{buildroot}%{logfiledir}
@@ -1860,6 +1864,11 @@ fi
 %endif
 
 %changelog
+* Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.1-2
+- Drop multilib-rpm-config usage on RHEL
+  Related: RHEL-178013
+  Related: https://github.com/fedora-eln/eln/issues/525
+
 * Thu Apr 09 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.1-1
 - Rebase to 12.3.1
 

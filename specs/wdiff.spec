@@ -57,14 +57,14 @@ produce a nicer display of word differences between the original files.
 for fn in BACKLOG ChangeLog
 do
   iconv --from=ISO-8859-1 --to=UTF-8 "${fn}" > "${fn}.iconv"
-  touch -r "${fn}" "${fn}.iconv"
-  chmod -v --reference="${fn}" "${fn}.iconv"
-  mv -f "${fn}.iconv" "${fn}"
+  touch --reference="${fn}" "${fn}.iconv"
+  chmod --verbose --reference="${fn}" "${fn}.iconv"
+  mv --force "${fn}.iconv" "${fn}"
 done
 
 
 %conf
-autoreconf -fiv
+autoreconf --force --install --verbose
 %configure --enable-experimental="mdiff wdiff2 unify" 
 
 
@@ -72,30 +72,23 @@ autoreconf -fiv
 %make_build all
 
 %if %{with rebuild_mans}
-rm -v man/mdiff.1 man/wdiff.1 man/wdiff2.1 man/unify.1
-%make_build -C man mdiff.1 wdiff.1 wdiff2.1 unify.1
+rm --verbose man/mdiff.1 man/wdiff.1 man/wdiff2.1 man/unify.1
+%make_build --directory=man mdiff.1 wdiff.1 wdiff2.1 unify.1
 %endif
 
 # Make sure we rebuild the info page too.
-rm -v doc/wdiff.info
-%make_build -C doc info html pdf
+rm --verbose doc/wdiff.info
+%make_build --directory=doc info html pdf
 
 
 %install
 %make_install
 find '%{buildroot}' -type f -name '*gnulib.mo' -print -delete
 rm '%{buildroot}%{_infodir}/dir'
-install -d '%{buildroot}%{_pkgdocdir}'
-install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 \
-    ABOUT-NLS \
-    AUTHORS \
-    BACKLOG \
-    ChangeLog \
-    NEWS \
-    README \
-    THANKS \
-    TODO
-cp -rp doc/wdiff.html %{buildroot}%{_pkgdocdir}/html
+install --directory '%{buildroot}%{_pkgdocdir}'
+install --preserve-timestamp --mode=0644 --target='%{buildroot}%{_pkgdocdir}' \
+    ABOUT-NLS AUTHORS BACKLOG ChangeLog NEWS README THANKS TODO
+cp --recursive --preserve doc/wdiff.html '%{buildroot}%{_pkgdocdir}/html'
 
 %find_lang wdiff
 

@@ -1,15 +1,17 @@
 Name:           perl-Parallel-Pipes
-Version:        0.201
-Release:        3%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Parallel processing using pipes for communication and synchronization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Pipes
-Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Parallel-Pipes-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Parallel-Pipes-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.24
 BuildRequires:  perl(Config)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(Module::Build::Tiny)
 # Run-time
 BuildRequires:  perl(Carp)
@@ -38,7 +40,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Parallel-Pipes-%{version}
+%setup -q -n Parallel-Pipes-v%{version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -69,13 +71,16 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %files
 %license LICENSE
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Parallel*
+%{_mandir}/man3/Parallel::Pipes*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-1
+- 1.0.0 bump (rhbz#2481010)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.201-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

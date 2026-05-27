@@ -84,10 +84,10 @@ awk '
 
 %install
 # The Makefile has no install target.
-install -d '%{buildroot}%{_bindir}'
-install -t '%{buildroot}%{_bindir}' -p sfnt2woff woff2sfnt
-install -d '%{buildroot}%{_mandir}/man1'
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
+install -D --preserve-timestamps \
+    --target='%{buildroot}%{_bindir}' sfnt2woff woff2sfnt
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' '%{SOURCE1}' '%{SOURCE2}'
 
 
 # Upstream provides no tests

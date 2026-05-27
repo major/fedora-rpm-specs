@@ -1,7 +1,7 @@
 %global octpkg netcdf
 
 Name:           octave-%{octpkg}
-Version:        1.0.19
+Version:        1.0.20
 Release:        %autorelease
 Summary:        A MATLAB compatible NetCDF interface for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

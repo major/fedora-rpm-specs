@@ -32,7 +32,6 @@ BuildRequires:  blake3-devel
 BuildRequires:  bzip2-devel
 # boost-1.87 is available in F44
 BuildRequires:  boost-devel >= 1.87
-BuildRequires:  boost-url
 BuildRequires:  brotli-devel
 %ifarch x86_64 aarch64 ppc64le
 BuildRequires:  busybox

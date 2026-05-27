@@ -16,8 +16,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.41.0
-Release:        2%{?dist}
+Version:        2.42.1
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -286,6 +286,7 @@ done
 %endif
 %{_bindir}/genprotimg
 %{_bindir}/pvattest
+%{_bindir}/pvebc
 %{_bindir}/pvextract-hdr
 %{_bindir}/pvimg
 %{_bindir}/pvsecret
@@ -296,6 +297,7 @@ done
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
+%{_mandir}/man1/pvebc.1*
 %{_mandir}/man1/pvimg.1*
 %{_mandir}/man1/pvimg-create.1*
 %{_mandir}/man1/pvimg-info.1*
@@ -481,13 +483,6 @@ s390 base tools. This collection provides the following utilities:
    * qetharp:
      Read and flush the ARP cache on OSA Express network cards.
 
-   * tape390_display:
-     Display information on the message display facility of a zSeries tape
-     device.
-
-   * tape390_crypt:
-     Control and query crypto settings for 3592 zSeries tape devices.
-
    * qethconf:
      bash shell script simplifying the usage of qeth IPA (IP address
      takeover), VIPA (Virtual IP address) and Proxy ARP.
@@ -628,8 +623,6 @@ For more information refer to the following publications:
 %{_sbindir}/qethqoat
 %{_sbindir}/sclpdbf
 %{_sbindir}/start_hsnc.sh
-%{_sbindir}/tape390_crypt
-%{_sbindir}/tape390_display
 %{_sbindir}/ttyrun
 %{_sbindir}/tunedasd
 %{_sbindir}/vmur
@@ -647,6 +640,8 @@ For more information refer to the following publications:
 %{_bindir}/genprotimg
 %{_bindir}/mk-s390image
 %{_bindir}/pvapconfig
+%{_bindir}/pvebc
+%{_bindir}/pvics
 %{_bindir}/pvimg
 %{_bindir}/pvinfo
 %{_bindir}/pvattest
@@ -662,6 +657,7 @@ For more information refer to the following publications:
 %config(noreplace) %{_sysconfdir}/sysconfig/dumpconf
 %{_sysconfdir}/mdevctl.d/*
 %{_sysusersdir}/s390utils-base.conf
+/usr/lib/dracut/modules.d/95sel-ebc/
 /usr/lib/dracut/modules.d/99ngdump/
 /usr/lib/dracut/dracut.conf.d/99-pkey.conf
 # own the mdevctl dirs until new release is available
@@ -673,7 +669,6 @@ For more information refer to the following publications:
 /lib/s390-tools/lsznet.raw
 %dir /lib/s390-tools/zfcpdump
 /lib/s390-tools/zfcpdump/zfcpdump-initrd
-/lib/s390-tools/znetcontrolunits
 %{_libdir}/libekmfweb.so.*
 %{_libdir}/libkmipclient.so.*
 %dir %{_libdir}/zkey
@@ -689,6 +684,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
+%{_mandir}/man1/pvebc.1*
 %{_mandir}/man1/pvimg.1*
 %{_mandir}/man1/pvimg-create.1*
 %{_mandir}/man1/pvimg-info.1*
@@ -712,6 +708,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/zpwr.1*
 %{_mandir}/man4/prandom.4*
 %{_mandir}/man5/hsavmcore.conf.5*
+%{_mandir}/man5/pvics.yaml.5*
 %{_mandir}/man8/chccwdev.8*
 %{_mandir}/man8/chchp.8*
 %{_mandir}/man8/chcpumf.8*
@@ -742,11 +739,10 @@ For more information refer to the following publications:
 %{_mandir}/man8/lszfcp.8*
 %{_mandir}/man8/opticsmon.8*
 %{_mandir}/man8/pai.8*
+%{_mandir}/man8/pvics.8*
 %{_mandir}/man8/qetharp.8*
 %{_mandir}/man8/qethconf.8*
 %{_mandir}/man8/qethqoat.8*
-%{_mandir}/man8/tape390_crypt.8*
-%{_mandir}/man8/tape390_display.8*
 %{_mandir}/man8/ttyrun.8*
 %{_mandir}/man8/tunedasd.8*
 %{_mandir}/man8/vmur.8*
@@ -1135,6 +1131,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon May 25 2026 Dan Horák <dan[at]danny.cz> - 2:2.42.1-1
+- rebased to 2.42.1 (rhbz#2464150)
+
 * Tue May 19 2026 Dan Horák <dan[at]danny.cz> - 2:2.41.0-2
 - rebuilt for rust-openssl CVEs
 - Resolves: CVE-2026-41676 CVE-2026-41677 CVE-2026-41678 CVE-2026-41681 CVE-2026-41898 CVE-2026-42327 CVE-2026-44662

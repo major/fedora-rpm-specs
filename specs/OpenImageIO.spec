@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -205,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.12.0-4
+- Rebuild for OpenEXR 3.4.12.
+
 * Sat May 02 2026 Simone Caronni <negativo17@gmail.com> - 1:3.1.12.0-3
 - Rebuild for OpenJPH update.
 

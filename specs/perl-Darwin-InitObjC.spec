@@ -1,18 +1,19 @@
 Name:           perl-Darwin-InitObjC
-Version:        0.001
-Release:        3%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Initializes Objective-C runtime
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Darwin-InitObjC
-Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Darwin-InitObjC-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Darwin-InitObjC-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.24
 BuildRequires:  perl(Module::Build::Tiny)
 # Run-time
 BuildRequires:  perl(Config)
-BuildRequires:  perl(strict)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
@@ -22,7 +23,7 @@ Requires:       perl(DynaLoader)
 Darwin::InitObjC initializes Objective-C runtime.
 
 %prep
-%setup -q -n Darwin-InitObjC-%{version}
+%setup -q -n Darwin-InitObjC-v%{version}
 
 %build
 perl Build.PL --installdirs=vendor
@@ -42,6 +43,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Darwin::InitObjC*
 
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-1
+- 1.0.0 bump (rhbz#2480992)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

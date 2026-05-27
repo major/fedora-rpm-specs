@@ -177,10 +177,12 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %endif
 
 %check
-%ifarch s390x
-# https://github.com/libjxl/libjxl/issues/3629
-%ctest -E 'DecodeTest\.(ProgressionTestLosslessAlpha|FlushTestLosslessProgressiveAlpha)|EncodeTest\.FrameSettingsTest|JxlTest\.RoundtripAlpha(Resampling(OnlyAlpha)?|16)|JxlTest\.RoundtripProgressive(Level2Slow)?|ModularTest\.RoundtripLossy(DeltaPalette|16)?|RoundtripLossless/ModularTestParam\.RoundtripLossless/1bitSqueeze|RoundtripLossless/ModularTestParam\.RoundtripLossless/(1|2[01467]|30)bitSqueeze|PassesTest\.ProgressiveDownsample2DegradesCorrectly(Grayscale)?'
-%else
+%ifnarch s390x
+# * encoding / decoding test failures on big-endian architectures:
+#   https://github.com/libjxl/libjxl/issues/3629
+# * corrupted generated CMake target names for parametrized gtest tests:
+#   https://github.com/google/googletest/issues/4985
+#   https://gitlab.kitware.com/cmake/cmake/-/work_items/27846
 %ctest
 %endif
 

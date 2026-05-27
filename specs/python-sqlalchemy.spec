@@ -1,7 +1,7 @@
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
 Name:           python-%{canonicalname}
-Version:        2.0.49
+Version:        2.0.50
 
 # Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
 # Some mypy plugin tests fail with mypy 1.14.1:
@@ -59,10 +59,6 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
-# Compat with Python 3.15
-# https://github.com/sqlalchemy/sqlalchemy/pull/13307
-# https://github.com/sqlalchemy/sqlalchemy/pull/13308
-Patch:          Adjust-TypeError-message-to-Python-3.15.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

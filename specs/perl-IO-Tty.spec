@@ -1,5 +1,5 @@
 Name:           perl-IO-Tty
-Version:        1.29
+Version:        1.31
 Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
@@ -52,7 +52,8 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%doc AI_POLICY.md ChangeLog README.md try
+%license LICENSE
+%doc AI_POLICY.md ChangeLog CONTRIBUTING.md README.md SECURITY.md try
 %{perl_vendorarch}/auto/IO/
 %{perl_vendorarch}/IO/
 %{_mandir}/man3/IO::Pty.3*
@@ -60,6 +61,31 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Mon May 25 2026 Paul Howarth <paul@city-fan.org> - 1.31-1
+- Update to 1.31 (rhbz#2481113)
+  Bug Fixes:
+  - Fix v1.27 regression where _open_tty() always passed O_NOCTTY, preventing
+    make_slave_controlling_terminal() from acquiring a controlling terminal via
+    the POSIX-standard open-without-O_NOCTTY mechanism (it was forced to fall
+    through to an explicit TIOCSCTTY ioctl) (GH#91, GH#94)
+    - _open_tty() now takes an optional noctty flag (default 1 for backward
+      compatibility)
+    - make_slave_controlling_terminal() passes 0
+  - Fix openpty() detection on Fedora 33-34 / glibc 2.32-2.33 where LTO flags
+    (-flto=auto) caused the libc-only compile probe to falsely succeed,
+    producing "undefined symbol: openpty" at runtime; try -lutil before libc;
+    harmless on systems where openpty lives in libc (glibc 2.34+, musl) and
+    necessary where it doesn't (GH#92, GH#93)
+  Maintenance:
+  - Address CPANTS kwalitee issues: add LICENSE, SECURITY.md, and
+    CONTRIBUTING.md; add META 'provides' for IO::Tty, IO::Pty, and
+    IO::Tty::Constant; use --format=ustar in TARFLAGS to prevent PaxHeader
+    entries in distribution tarballs (GH#90)
+  - Clean up MANIFEST.SKIP: add #!include_default so ExtUtils::Manifest's
+    built-in skip list is in effect, drop five entries that duplicate those
+    defaults, and add a ^\.claude/ rule
+- Package CONTRIBUTING.md, LICENSE and SECURITY.md
+
 * Thu Apr 23 2026 Paul Howarth <paul@city-fan.org> - 1.29-1
 - Update to 1.29 (rhbz#2461125)
   Bug Fixes:

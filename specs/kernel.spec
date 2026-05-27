@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc4.260521g8bc67e4db64a.33
+%define pkgrelease 0.rc5.35
 %define kversion 7
-%define tarfile_release 7.1-rc4-100-g8bc67e4db64a
+%define tarfile_release 7.1-rc5
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260521g8bc67e4db64a.33%{?buildid}%{?dist}
+%define specrelease 0.rc5.35%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,18 +4847,19 @@ fi\
 #
 #
 %changelog
-* Thu May 21 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc4.260521g8bc67e4db64a.33]
-- net: skbuff: preserve shared-frag marker during coalescing (William Bowling)
+* Mon May 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.35]
+- net/sched: fix pedit partial COW leading to page cache corruption (Rajat Gupta)
 - xfrm: esp: restore combined single-frag length gate (Jingguo Tan)
-
-* Thu May 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.8bc67e4db64a.33]
-- rxrpc: Fix RESPONSE packet verification to extract skb to a linear buffer (David Howells)
-- rxrpc: Fix DATA decrypt vs splice() by copying data to buffer in recvmsg (David Howells)
-- crypto/krb5, rxrpc: Fix lack of pre-decrypt/pre-verify length checks (David Howells)
-- net/sched: act_pedit: extend the writable skb range per key (Zhang Cen)
-- net: skbuff: propagate shared-frag marker through frag-transfer helpers (Hyunwoo Kim)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Mon May 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.34]
+- Enable the drm/accel/qaic driver module for x86 in rhel config. (John Wiele)
+- Update rhel drm/accel configs to match centos-stream-10. (John Wiele)
+- Linux v7.1.0-0.rc5
+
+* Sun May 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.4cbfe4502e3d.33]
+- Linux v7.1.0-0.rc4.4cbfe4502e3d
 
 * Thu May 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc4.8bc67e4db64a.32]
 - Linux v7.1.0-0.rc4.8bc67e4db64a

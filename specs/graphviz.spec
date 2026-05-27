@@ -105,7 +105,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		14.1.5
+Version:		15.0.0
 Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
@@ -737,6 +737,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 15.0.0-1
+- New version
+  Resolves: rhbz#2480977
+
 * Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 14.1.5-1
 - New version
   Resolves: rhbz#2457622

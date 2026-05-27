@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -928,6 +928,9 @@ EOF
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1.28.3-3
+- Rebuild for OpenEXR 3.4.12.
+
 * Thu May 14 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.3-2
 - Update Obsoletes for gstreamer1-vaapi
 

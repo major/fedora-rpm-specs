@@ -1,21 +1,18 @@
 Name:tpm2-openssl
-Version: 1.2.0
-Release: 9%{?candidate:.%{candidate}}%{?dist}
+Version: 1.3.0
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
 URL: https://github.com/tpm2-software/tpm2-openssl
 Source0: https://github.com/tpm2-software/%{name}/%{?candidate:archive/refs/tags}%{!?candidate:releases/download}/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
-Source1: https://github.com/tpm2-software/%{name}/%{?candidate:archive/refs/tags}%{!?candidate:releases/download}/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz.asc
+Source1: https://github.com/tpm2-software/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
 Source2: gpgkey-B7201FE8031B07AF11F5423C6329CFCB6BE6FD76.gpg
 # Will be included in Source0 after https://github.com/tpm2-software/tpm2-openssl/pull/100
 Source3: run-with-simulator
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2301337
-Patch1: 0001-tests-rsa_pki-default-to-sha256.patch
-Patch2: 0002-tests-do-not-test-sha1-by-default.patch
-# OpenSSL 4 build fixes
-Patch3: 0001-Fix-ASN1_STRING-access-and-test-email-config.patch
+# https://github.com/tpm2-software/tpm2-openssl/commit/6dcc3b2
+Patch1: 0001-Fix-ASN1_OCTET_STRING-and-X509_NAME-for-OpenSSL-4.0.patch
 
 BuildRequires: gnupg2
 BuildRequires: gcc
@@ -65,6 +62,11 @@ cp %{SOURCE3} %{_builddir}/%{name}-%{version}%{?candidate:-%{candidate}}/test/
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
+* Mon May 25 2026 Adrian Freihofer <adrian.freihofer@gmail.com> - 1.3.0-1
+- Update to 1.3.0
+- Drop sha1/sha256 Fedora patches (already upstream in 1.3.0)
+- Replace downstream OpenSSL 4.0 patch with upstream cherry-pick (6dcc3b2)
+
 * Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 1.2.0-9
 - OpenSSL 4 build fixes
 

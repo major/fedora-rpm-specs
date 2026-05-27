@@ -1,6 +1,6 @@
 Name:           perl-Alien-Libxml2
 Version:        0.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Install the C libxml2 library on your system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Libxml2/
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Adam Williamson <awilliam@redhat.com> - 0.20-4
+- Rebuild for libxml2-2.13.9
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -66,4 +66,5 @@ make test VERBOSE=1
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%changelog
 %autochangelog

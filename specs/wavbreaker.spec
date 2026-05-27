@@ -69,7 +69,8 @@ sample rate, 16-bit sample size, etc.).
 #   %%py3_shebang_fix contrib/
 # Note also that this package neither BuildRequires nor Requires a Python
 # interpreter.
-find contrib/ -type f -name '*.py' -print -exec sed -r -i '1{/^#!/d}' '{}' '+'
+find contrib/ -type f -name '*.py' -print \
+    -exec sed --regexp-extended --in-place '1{/^#!/d}' '{}' '+'
 
 
 %conf

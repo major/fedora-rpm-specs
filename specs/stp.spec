@@ -23,6 +23,8 @@ Patch1:		%{name}-private-libs.patch
 # Distutils has been deprecated.  Use sysconfig instead.
 # https://github.com/stp/stp/pull/450
 Patch2:		%{name}-distutils.patch
+# The Threads::Threads is required in cryptominisat cmake but never imported.
+Patch3:     %{name}-threads-cmake.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}

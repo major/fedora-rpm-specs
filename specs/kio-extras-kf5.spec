@@ -7,7 +7,7 @@
 
 Name:    kio-extras-kf5
 Version: 24.02.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -172,6 +172,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 24.02.2-11
+- Rebuild for OpenEXR 3.4.12.
+
 * Mon May 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 24.02.2-10
 - Update build dependencies
 

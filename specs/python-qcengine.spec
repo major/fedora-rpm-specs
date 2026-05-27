@@ -1,11 +1,9 @@
 # There's a dependency loop with psi4 which needs to be broken for new Python bootstrap
 %bcond tests 0
 
-%global rc rc4
-
 Name:           python-qcengine
 Version:        0.50.0
-Release:        0.2.rc4%{?dist}
+Release:        1%{?dist}
 Summary:        A compute wrapper for Quantum Chemistry
 License:        BSD-3-Clause
 URL:            https://github.com/MolSSI/QCEngine

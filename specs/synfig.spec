@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPL-2.0-or-later
@@ -124,6 +124,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1.5.4-2
+- Rebuild for OpenEXR 3.4.12.
+
 * Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-1
 - 1.5.4
 

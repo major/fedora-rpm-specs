@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5.19.1-12
+- Rebuild for OpenEXR 3.4.12.
+
 * Sat Apr 18 2026 Orion Poplawski <orion@nwra.com> - 2.5.19.1-11
 - Rebuild for hdf5 2.1
 

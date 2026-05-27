@@ -1,11 +1,9 @@
 # Whether to run the tests; disabled till the tests are ported to pydantic v2
 %bcond tests 0
 
-%global rc rc5
-
 Name:           python-qcelemental
-Version:        0.50.0
-Release:        0.2.%{rc}%{?dist}
+Version:        0.50.1
+Release:        1%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -15,8 +13,6 @@ BuildArch:      noarch
 
 # Don't try to query git for the version
 Patch0:         python-qcelemental-0.50-nogit.patch
-# Fix circular import
-Patch1:         python-qcelemental-0.50-fix_circular_import.patch
 # Add all packages
 Patch2:         python-qcelemental-0.50-pkgs.patch
 
@@ -63,7 +59,6 @@ Molecule QCSchema.
 %prep
 %setup -q -n QCElemental-%{version}%{?rc}
 %patch -P 0 -p 1 -b .nogit
-%patch -P 1 -p 1 -b .fiximport
 %patch -P 2 -p 1 -b .pkgs
 # Remove bundled egg-info
 rm -rf QCElemental.*-info
@@ -91,6 +86,9 @@ sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 %{python3_sitelib}/qcelemental-%{version}%{?rc}.dist-info
 
 %changelog
+* Mon May 25 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.1-1
+- Update to 0.50.1.
+
 * Mon May 18 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.50.0-0.2.rc5
 - Fix various issues in package.
 

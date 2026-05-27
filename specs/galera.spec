@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           galera
-Version:        26.4.25
-Release:        3%{?dist}
+Version:        26.4.26
+Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -15,9 +15,6 @@ URL:            https://mariadb.com/docs/galera-cluster
 # Furthermore there is a lag (can be days, weeks) between when a new tag is done on GitHub and when MariaDB upstream releases the new version on their web with the new MariaDB server release.
 Source0:        https://archive.mariadb.org/mariadb-11.8/%{name}-%{version}/src/%{name}-%{version}.tar.gz
 
-Patch0:         cmake_paths.patch
-Patch1:         docs.patch
-Patch2:         network.patch
 Patch3:         asio-1.33-compat.patch
 Patch4:         upstream_810f3589742ecb8c4f32d44c363d30488582a9f6.patch
 
@@ -37,9 +34,6 @@ description of Galera replication engine see https://www.galeracluster.com web.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
 
@@ -59,9 +53,9 @@ EOF
        \
        -DINSTALL_DOCDIR="share/doc/%{name}/" \
        -DINSTALL_GARBD="bin" \
-       -DINSTALL_GARBD-SYSTEMD="bin" \
-       -DINSTALL_CONFIGURATION="/etc/sysconfig/" \
-       -DINSTALL_SYSTEMD_SERVICE="lib/systemd/system" \
+       -DINSTALL_GARBD_SYSTEMD="bin" \
+       -DINSTALL_GARBD_CONFIGURATION="/etc/sysconfig/" \
+       -DINSTALL_GARBD_SERVICE="lib/systemd/system" \
        -DINSTALL_LIBDIR="%{_lib}/galera" \
        -DINSTALL_MANPAGE="share/man/man8"
 
@@ -102,6 +96,7 @@ sed -i 's/User=nobody/User=garb/g' %{buildroot}%{_unitdir}/garb.service
 
 install -m0644 -D galera.sysusers.conf %{buildroot}%{_sysusersdir}/galera.conf
 
+mv %{buildroot}%{_sysconfdir}/sysconfig/garb.cnf %{buildroot}%{_sysconfdir}/sysconfig/garb
 
 %check
 %ctest

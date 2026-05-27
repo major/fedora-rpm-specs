@@ -5,14 +5,39 @@ Summary:        Display a message in a window
 
 # The entire source is X11, except the following files that are not installed
 # or belong to the build system and therefore do not contribute to the license
-# of the binary RPMs:
-#   - FSFAP: INSTALL
-#   - HPND-sell-variant: Makfile.am, Makefile.in, configure.ac
-#   - FSFULLR: aclocal.m4
-#   - GPL-2.0-or-later: compile, depcomp, missing
-#   - GPL-3.0-or-later: config.guess, config,sub
-#   - FSFUL, or perhaps (FSFUL AND X11 AND HPND-sell-variant): configure
+# of the binary RPMs…
 License:        X11
+# FSFAP-no-warranty-disclaimer
+#   - INSTALL
+# FSFUL AND HPND-sell-variant:
+# (HPND-sell-variant is because it is derived from configure.ac)
+#   - configure
+# FSFULLR AND FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic
+# AND GPL-3.0-or-later WITH Autoconf-exception-generic AND MIT AND X11:
+#   - aclocal.m4
+# FSFULLR AND HPND-sell-variant:
+#   - Makefile.in
+# GPL-2.0-or-later WITH Autoconf-exception-generic:
+#   - compile
+#   - depcomp
+#   - missing
+# GPL-3.0-or-later WITH Autoconf-exception-generic:
+#   - config.guess
+#   - config.sub
+# HPND-sell-variant:
+#   - Makefile.am
+#   - configure.ac
+SourceLicense:  %{shrink:
+    %{license} AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    FSFULLRWD AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    HPND-sell-variant AND
+    MIT
+    }
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz
 Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig

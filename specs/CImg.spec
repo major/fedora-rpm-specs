@@ -7,7 +7,7 @@
 Name:           CImg
 Epoch:          1
 Version:        3.7.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
 # plugins/cimgmatlab.h: LGPLv3
@@ -79,6 +79,9 @@ make -C examples linux %{?_smp_mflags}
 %{_includedir}/%{name}/
 
 %changelog
+* Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.7.6-3
+- Rebuild for OpenEXR 3.4.12.
+
 * Sat May 16 2026 josef radinger <cheese@nosuchhost.net> - 1:3.7.6-2
 - rebuild for new gmic-buildoverride
 

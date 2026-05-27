@@ -19,12 +19,9 @@ Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 # Backported changes
 
 # Proposed changes
-# https://invent.kde.org/plasma/plasma-setup/-/merge_requests/101
-# https://bugzilla.redhat.com/show_bug.cgi?id=2453216
-Patch501:       101.patch
 
 # Downstream only changes
-Patch1001:      plasma-setup-load-fedora-wallpaper.patch
+Patch1001:      plasma-setup-load-default-wallpaper.patch
 Patch1002:      plasma-setup-select-fedora-lookandfeel.patch
 
 BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
@@ -80,7 +77,7 @@ ExcludeArch:    %{ix86}
 %prep
 %autosetup -p1
 # e.g. RHEL 10 has .png, not .jxl
-if [ -f /usr/share/wallpapers/Default/contents/images/3840x2160.png ]; then
+if [ -f /usr/share/wallpapers/Default/contents/images/5120x2880.png ]; then
 sed -i -e 's|\.jxl|.png|' src/qml/LandingComponent.qml
 fi
 
@@ -137,10 +134,10 @@ exit 0
 
 
 %changelog
-* Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
+* Sat May 23 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
 - 6.6.90
 
-* Sun Apr 19 2026 Adam Williamson <awilliam@redhat.com> - 6.6.5-2
+* Thu May 21 2026 Adam Williamson <awilliam@redhat.com> - 6.6.5-2
 - Re-backport MR #101 to pre-select configured keyboard layout (#2453216)
 
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1

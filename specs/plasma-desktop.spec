@@ -51,6 +51,7 @@ BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Phonon4Qt6)
 BuildRequires:  wayland-protocols-devel
+BuildRequires:  google-noto-color-emoji-fonts
 
 BuildRequires:  ibus-devel
 %if 0%{?scim}
@@ -148,6 +149,8 @@ Requires:       kde-cli-tools
 
 # Qt Integration (brings in Breeze)
 Requires:       plasma-integration
+
+Requires:       font(notocoloremoji)
 
 # Install systemsettings, full set of KIO slaves and write() notifications
 Requires:       plasma-systemsettings
@@ -288,7 +291,7 @@ sed -i -e 's|^logo=.*$|logo=%{_datadir}/pixmaps/fedora_whitelogo.svg|g' %{buildr
 
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{keyboard,access,clock,splashscreen,landingpage,keys,smserver,desktoppaths,gamecontroller,activities,recentFiles,kded,krunnersettings,plasmasearch,qtquicksettings,tablet,touchscreen,workspace,baloofile,solid_actions,mouse,touchpad}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{keyboard,access,clock,splashscreen,landingpage,keys,smserver,desktoppaths,gamecontroller,activities,recentFiles,kded,krunnersettings,plasmasearch,qtquicksettings,touchscreen,workspace,baloofile,solid_actions,mouse,touchpad,tablet}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcmspellchecking.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.plasma.emojier.desktop
@@ -302,7 +305,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_bindir}/plasma-emojier
 %{_bindir}/tastenbrett
 %{_bindir}/krunner-plugininstaller
-%{_kf6_libexecdir}/kauth/kcmdatetimehelper
 %{_libexecdir}/kimpanel-ibus-panel
 %{_libexecdir}/kimpanel-ibus-panel-launcher
 %{_kf6_qmldir}/org/kde/plasma/private
@@ -334,13 +336,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_datadir}/knsrcfiles/
 %{_kf6_datadir}/kcmsolidactions/
 %{_kf6_datadir}/solid/devices/*.desktop
-%{_kf6_datadir}/dbus-1/system.d/*.conf
 %{_kf6_datadir}/knotifications6/*.notifyrc
 %{_datadir}/icons/hicolor/*/*/*
 %{_kf6_metainfodir}/*.xml
 %{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/system-services/*.service
-%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmclock.policy
+%{_kf6_datadir}/kconf_update/50-krunner-activate-typing.*
 %{_sysconfdir}/xdg/autostart/*.desktop
 %{_kf6_datadir}/accounts/providers/kde/*.provider
 %{_kf6_datadir}/accounts/services/kde/*.service

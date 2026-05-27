@@ -1,5 +1,5 @@
 Name:    pcp
-Version: 7.1.2
+Version: 7.1.4
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
@@ -2316,13 +2316,13 @@ for f in `echo $BACKDIR/debian/lib*.{install,dirs}`
 do
     case "$f"
     in
-	*-dev.*)
-		# skip libpcp<foo>-dev.{install,dirs} ones, they'll
-		# be collected in $DEVFILELIST
-		;;
-	*)
-		[ -f "$f" ] && LIBFILELIST="$LIBFILELIST $f"
-		;;
+        *-dev.*)
+            # skip libpcp<foo>-dev.{install,dirs} ones, they'll
+            # be collected in $DEVFILELIST
+            ;;
+        *)
+            [ -f "$f" ] && LIBFILELIST="$LIBFILELIST $f"
+            ;;
     esac
 done
 DEVFILELIST=''
@@ -2690,7 +2690,7 @@ needinstall='sample simple'
 for PMDA in $needinstall ; do
     if ! grep -q "$PMDA/pmda$PMDA" "$PCP_PMCDCONF_PATH"
     then
-	%{install_file "$PCP_PMDAS_DIR/$PMDA" .NeedInstall}
+       %{install_file "$PCP_PMDAS_DIR/$PMDA" .NeedInstall}
     fi
 done
 %if 0%{?rhel}
@@ -3412,11 +3412,16 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon May 25 2026 Jan Kurik <jkurik@redhat.com> - 7.1.4-1
+- Latest upstream release
+- Fixed mixed use of tabs and spaces to make rpmlint happy
+- Fixed format of some records in %changelog
+
 * Fri Apr 24 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.2-1
-Latest upstream release.
+- Latest upstream release.
 
 * Wed Apr 1 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.1-1
-Latest upstream release
+- Latest upstream release
 
 * Sun Mar 15 2026 William Cohen <wcohen@redhat.com> - 7.1.0-6
 - Add selinux fixes for rocestat and nvidia pmdas.

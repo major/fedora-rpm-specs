@@ -1,18 +1,18 @@
 Name:           perl-Module-cpmfile
-Version:        0.006
-Release:        11%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Parse cpmfile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-cpmfile
-Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Module-cpmfile-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Module-cpmfile-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter 
-BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(:VERSION) >= 5.24.0
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Module::Build::Tiny) >= 0.034
-BuildRequires:  perl(strict)
+BuildRequires:  perl(experimental)
+BuildRequires:  perl(Module::Build::Tiny)
 BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(CPAN::Meta::Prereqs)
@@ -55,7 +55,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Module-cpmfile-%{version}
+%setup -q -n Module-cpmfile-v%{version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -97,6 +97,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-1
+- 1.0.0 bump (rhbz#2480991)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

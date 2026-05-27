@@ -5,7 +5,7 @@
 %bcond mysqlclient 0
 
 Name:           python-wsgidav
-Version:        4.3.3
+Version:        4.3.4
 Release:        %autorelease
 Summary:        Generic and extendable WebDAV server based on WSGI
 
@@ -19,15 +19,6 @@ URL:            https://github.com/mar10/wsgidav
 Source0:        %{url}/archive/v%{version}/wsgidav-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        wsgidav.1
-
-# Fix recursive import
-# https://github.com/mar10/wsgidav/commit/991a23f5f5f3f46232eacd96666e23c1b5e110b5
-#
-# Fixes:
-#
-# Cannot import wsgidav.dav_error: raises ImportError due to circular import
-# https://github.com/mar10/wsgidav/issues/340#event-17603260087
-Patch:         %{url}/commit/991a23f5f5f3f46232eacd96666e23c1b5e110b5.patch
 
 BuildSystem:   pyproject
 BuildOption(generate_buildrequires): --extras pam --tox

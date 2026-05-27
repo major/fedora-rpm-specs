@@ -12,7 +12,7 @@
 
 Name:           catalyst
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        API specification for simulations to analyze and visualize data in situ
 
 %global         forgeurl https://gitlab.kitware.com/paraview/%{name}
@@ -111,7 +111,10 @@ simulations, see https://catalyst-in-situ.readthedocs.io/en/latest/index.html.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if %{with python}
+Requires:       python3-%{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%endif
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -140,6 +143,9 @@ This package contains MPICH MPI binaries for %{name}.
 %package        mpich-devel
 Summary:        Development files for %{name}-mpich
 Requires:       %{name}-mpich%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if %{with python}
+Requires:       python3-%{name}-mpich%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%endif
 
 %description    mpich-devel
 The %{name}-mpich-devel package contains libraries and header files for developing
@@ -170,6 +176,9 @@ This package contains OpenMPI MPI binaries for %{name}.
 %package        openmpi-devel
 Summary:        Development files for %{name}-openmpi
 Requires:       %{name}-openmpi%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if %{with python}
+Requires:       python3-%{name}-openmpi%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%endif
 
 %description    openmpi-devel
 The %{name}-openmpi-devel package contains libraries and header files for developing
@@ -304,7 +313,7 @@ for mpi in %{mpi_list}; do
     mpi_fail=1
   fi
 %endif
-  %ctest || exit ${mpi_fail}
+  %ctest || (exit ${mpi_fail})
   module purge
 done
 
@@ -409,6 +418,9 @@ done
 %endif
 
 %changelog
+* Mon May 25 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 2.1.0-2
+- Require python3-catalyst* for *-devel packages
+
 * Sun May 24 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 2.1.0-1
 - Update to v2.1.0
 - Add Fortran and Python bindings, MPI builds, testing, and documentation

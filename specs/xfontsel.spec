@@ -12,7 +12,8 @@ License:        X11
 # FSFUL AND HPND-sell-variant:
 # (HPND-sell-variant is because it is derived from configure.ac)
 #   - configure
-# FSFULLR:
+# FSFULLR AND FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic
+# AND MIT AND GPL-3.0-or-later WITH Autoconf-exception-generic AND X11
 #   - aclocal.m4
 # FSFULLR AND HPND-sell-variant:
 #   - Makefile.in
@@ -27,14 +28,15 @@ License:        X11
 #   - Makefile.am
 #   - configure.ac
 SourceLicense:  %{shrink:
-                %{license} AND
-                FSFAP-no-warranty-disclaimer AND
-                FSFUL AND
-                FSFULLR AND
-                GPL-2.0-or-later WITH Autoconf-exception-generic AND
-                GPL-3.0-or-later WITH Autoconf-exception-generic AND
-                HPND-sell-variant
-                }
+    %{license} AND
+    FSFAP-no-warranty-disclaimer AND
+    FSFUL AND
+    FSFULLR AND
+    FSFULLRWD AND
+    GPL-2.0-or-later WITH Autoconf-exception-generic AND
+    GPL-3.0-or-later WITH Autoconf-exception-generic AND
+    HPND-sell-variant
+    }
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz
 Source1:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz.sig
@@ -99,8 +101,10 @@ autoreconf --force --install --verbose
 
 %files
 %license COPYING
+
 %doc ChangeLog
 %doc README.md
+
 %{_bindir}/xfontsel
 %{_mandir}/man1/xfontsel.1*
 %{_datadir}/X11/app-defaults/XFontSel

@@ -1,5 +1,5 @@
 Name:           perl-Cache-FastMmap
-Version:        1.61
+Version:        1.62
 Release:        1%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,13 +8,15 @@ Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBM/Cache-FastMmap-%{
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Run-time
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
@@ -27,8 +29,9 @@ BuildRequires:  perl(Data::Dumper)
 # POSIX not used
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Deep)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Time::HiRes)
 # Optional tests
 # Do not BR GTop to disable test t/6.t because it fails randomly against
 # Perl 5.24 on x86_64 arch (CPAN RT#39342)
@@ -42,19 +45,46 @@ it's common to want to cache information, but have that cache shared
 between processes. Many solutions already exist, and may suit your
 situation better.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Compress::Zlib)
+Requires:       perl(JSON)
+Requires:       perl(Sereal)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Cache-FastMmap-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test
 
 %files
 %doc Changes README
@@ -62,7 +92,14 @@ situation better.
 %{perl_vendorarch}/Cache*
 %{_mandir}/man3/Cache::FastMmap*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.62-1
+- 1.62 bump (rhbz#2478365)
+- Package tests
+
 * Tue May 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.61-1
 - 1.61 bump (rhbz#2464620)
 

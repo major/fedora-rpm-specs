@@ -76,13 +76,6 @@ ignore="${ignore-} --ignore=tests/test_other.py"
 # https://github.com/samuelcolvin/dirty-equals/issues/112
 k="${k-}${k+ and }not test_is_ip_true[other1-dirty1]"
 k="${k-}${k+ and }not test_is_ip_true[other3-dirty3]"
-%if v"0%{?python3_version}" >= v"3.15"
-# Regression in Python 3.15: test_pprint fails due to apparently trivial
-# formatting differences
-# https://github.com/samuelcolvin/dirty-equals/issues/129
-# https://bugzilla.redhat.com/show_bug.cgi?id=2479752
-k="${k-}${k+ and }not test_pprint"
-%endif
 
 # Some tests require TZ == UTC; see the “test” target in the Makefile
 TZ=UTC %pytest ${ignore-} -k "${k-}" --verbose

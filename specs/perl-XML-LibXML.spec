@@ -7,7 +7,7 @@ Name:           perl-XML-LibXML
 # https://bugzilla.redhat.com/show_bug.cgi?id=469480
 # it might not be needed anymore
 # this module is maintained, the other is not
-Version:        2.0212
+Version:        2.0213
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Perl interface to the libxml2 library
@@ -189,6 +189,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0213-1
+- 2.0213 bump (rhbz#2480549)
+
 * Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0212-1
 - 2.0212 bump (rhbz#2480078)
 

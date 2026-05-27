@@ -1,14 +1,14 @@
 Name:           perl-String-Compare-ConstantTime
 Version:        0.321
-Release:        25%{?dist}
+Release:        27%{?dist}
 Summary:        Timing side-channel protected string compare
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Compare-ConstantTime
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FRACTAL/String-Compare-ConstantTime-%{version}.tar.gz
 # Fix CVE-2024-13939, bug #2355705, posted upstream
 # <https://github.com/hoytech/String-Compare-ConstantTime/pull/21>
 Patch0:         String-Compare-ConstantTime-0.321-Prevent-from-revealing-a-length-of-the-secrect.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -32,8 +32,20 @@ This module provides one function, "equals", which works like perl's "eq", but
 which does not provide a timing side-channel. Such comparison is useful when
 matching against a secret string.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %autosetup -p1 -n String-Compare-ConstantTime-%{version}
+# Files with shebangs should be executable
+chmod +x t/*.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -41,20 +53,42 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 # COPYING is not a license text
 %doc Changes COPYING README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/String*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/String
+%dir %{perl_vendorarch}/auto/String/Compare
+%{perl_vendorarch}/auto/String/Compare/ConstantTime
+%dir %{perl_vendorarch}/String
+%dir %{perl_vendorarch}/String/Compare
+%{perl_vendorarch}/String/Compare/ConstantTime.pm
+%{_mandir}/man3/String::Compare::ConstantTime.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon May 25 2026 Petr Pisar <ppisar@redhat.com> - 0.321-27
+- Package the tests
+
+* Mon May 25 2026 Petr Pisar <ppisar@redhat.com> - 0.321-26
+- Fix a mask value size in CVE-2024-13939 fix
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.321-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

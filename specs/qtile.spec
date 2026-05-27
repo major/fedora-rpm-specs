@@ -19,6 +19,7 @@ BuildRequires:  pulseaudio
 
 # Test dependencies
 BuildRequires:  gcc
+BuildRequires:  python3-pytest-httpbin
 BuildRequires:  xcb-util-cursor
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
@@ -140,23 +141,11 @@ desktop-file-install \
 ulimit -n 10240
 
 %ifnarch s390x ppc64le
-# Disabled tests
-# - test/widgets/test_generic_poll_text.py        require network
-# - test/backend/wayland/test_idle_inhibit.py     https://github.com/qtile/qtile/issues/5723
-# - test/backend/x11/test_x11_identify_output.py  https://github.com/qtile/qtile/issues/5883
+
 %pytest \
     -vv \
     --backend x11 \
-    --backend wayland \
-    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_text \
-    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_json_with_data \
-    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_custom_headers \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_open[1-x11-InhibitorConfig] \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_visible[1-x11-InhibitorConfig] \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_focus[1-x11-InhibitorConfig] \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_fullscreen[1-x11-InhibitorConfig] \
-    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_global[1-x11-InhibitorConfig] \
-    --deselect test/backend/x11/test_x11_identify_output.py::test_identify_output
+    --backend wayland
 %endif
 
 

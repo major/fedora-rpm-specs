@@ -1,6 +1,6 @@
 Name:		putty
-Version:	0.83
-Release:	4%{?dist}
+Version:	0.84
+Release:	1%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
@@ -66,6 +66,10 @@ install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiar
 %{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.84-1
+- New version
+  Resolves: rhbz#2480724
+
 * Mon Mar 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.83-4
 - Fixed invisible login prompt
   Resolves: rhbz#2442271
