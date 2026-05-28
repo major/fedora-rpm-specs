@@ -1,5 +1,5 @@
 Name:           helvum
-Version:        0.6.0
+Version:        0.6.2
 Release:        %autorelease
 Summary:        GTK patchbay for pipewire
 

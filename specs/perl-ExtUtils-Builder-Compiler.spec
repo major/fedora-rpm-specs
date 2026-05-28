@@ -1,5 +1,5 @@
 Name:           perl-ExtUtils-Builder-Compiler
-Version:        0.035
+Version:        0.036
 Release:        1%{?dist}
 Summary:        Interface around different compilers
 
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Sun Mar 22 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.036-1
+- Update to 0.036
+
 * Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.035-1
 - Update to 0.035
 

@@ -101,6 +101,8 @@ The Perl RRDtool bindings
 Summary: Python RRDtool bindings
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-pip
+BuildRequires: python3-wheel
 Requires: %{name} = %{version}-%{release}
 
 %description -n python3-rrdtool
@@ -196,6 +198,10 @@ perl -pi.orig -e 's|1.299907080300|1.29990708|' \
 # workaround needed due to https://bugzilla.redhat.com/show_bug.cgi?id=211069
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} php4/
 
+cd bindings/python
+%generate_buildrequires
+%pyproject_buildrequires -N
+
 %build
 ./bootstrap
 %configure \
@@ -267,6 +273,9 @@ find examples/ -type f \
 find examples/ -name "*.pl" \
     -exec perl -pi -e 's|\015||gi' {} \;
 
+cd bindings/python
+%pyproject_wheel
+
 %install
 export PYTHON=%{__python3}
 %{make_install} PYTHON="$PYTHON"
@@ -315,6 +324,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-* \
 
 %find_lang %{name}
 
+cd bindings/python
+%pyproject_install
+%pyproject_save_files %{name}
+
 %check
 # minimal load test for the PHP extension
 %if %{with_php}
@@ -361,10 +374,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %attr(0755,root,root) %{perl_vendorarch}/auto/RRDs/
 
 
-%files -n python3-rrdtool
+%files -n python3-rrdtool -f %{pyproject_files}
 %doc bindings/python/COPYING bindings/python/README.md
 %{python3_sitearch}/rrdtool*.so
-%{python3_sitearch}/rrdtool-*.egg-info
 
 %if %{with_php}
 %files php

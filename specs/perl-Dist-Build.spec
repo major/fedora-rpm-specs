@@ -1,5 +1,5 @@
 Name:           perl-Dist-Build
-Version:        0.025
+Version:        0.028
 Release:        1%{?dist}
 Summary:        Modern module builder with author tools not included
 
@@ -23,16 +23,17 @@ BuildRequires:  perl(CPAN::Requirements::Dynamic) >= 0.002
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter) >= 5.57
+BuildRequires:  perl(ExtUtils::Builder) >= 0.020
 BuildRequires:  perl(ExtUtils::Builder::Action::Function)
-BuildRequires:  perl(ExtUtils::Builder::Compiler) >= 0.034
-BuildRequires:  perl(ExtUtils::Builder::Node)
-BuildRequires:  perl(ExtUtils::Builder::ParseXS)
+BuildRequires:  perl(ExtUtils::Builder::Compiler) >= 0.036
+#BuildRequires:  perl(ExtUtils::Builder::Node)
+#BuildRequires:  perl(ExtUtils::Builder::ParseXS)
 BuildRequires:  perl(ExtUtils::Builder::Planner) >= 0.016
 BuildRequires:  perl(ExtUtils::Builder::Planner::Extension)
 BuildRequires:  perl(ExtUtils::Builder::Serializer)
 BuildRequires:  perl(ExtUtils::Builder::Util) >= 0.019
 BuildRequires:  perl(ExtUtils::Config)
-BuildRequires:  perl(ExtUtils::HasCompiler) >= 0.024
+#BuildRequires:  perl(ExtUtils::HasCompiler) >= 0.024
 BuildRequires:  perl(ExtUtils::Helpers) >= 0.028
 BuildRequires:  perl(ExtUtils::Install)
 BuildRequires:  perl(ExtUtils::InstallPaths)
@@ -41,7 +42,7 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::ShareDir::Tiny)
+#BuildRequires:  perl(File::ShareDir::Tiny)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
@@ -66,7 +67,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 Requires:       perl(CPAN::Meta::Merge)
 Requires:       perl(CPAN::Requirements::Dynamic) >= 0.002
-Requires:       perl(ExtUtils::Builder::Compiler) >= 0.034
+Requires:       perl(ExtUtils::Builder::Compiler) >= 0.036
 Requires:       perl(Perl::OSType)
 Requires:       perl(Pod::Man)
 Requires:       perl(TAP::Harness::Env)
@@ -102,6 +103,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Dist::Build*
 
 %changelog
+* Sun Mar 22 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.028-1
+- Update to 0.028
+- Update BR/Requires
+
 * Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.025-1
 - Update to 0.025
 

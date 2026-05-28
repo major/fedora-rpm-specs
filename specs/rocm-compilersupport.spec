@@ -23,7 +23,7 @@
 # For building earlier snapshots of the compiler
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -35,7 +35,11 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
+%if %{with preview}
+%global llvm_maj_ver 23
+%else
 %global llvm_maj_ver 22
+%endif
 %global llvm_version_suffix .rocm
 
 # local, fedora
@@ -83,6 +87,7 @@
 %global rocm_libcxx_name rocm-libc++%{pkg_suffix}
 %global rocm_lld_name rocm-lld%{pkg_suffix}
 %global rocm_llvm_name rocm-llvm%{pkg_suffix}
+%global rocm_omp_name rocm-omp%{pkg_suffix}
 %if 0%{?suse_version}
 # 15.6
 # rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
@@ -130,7 +135,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        11.rocm%{rocm_version}%{?dist}
+Release:        12.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -156,8 +161,12 @@ License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
 Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 Source1:        rocm-compilersupport.prep.in
 
+%if %{without preview}
 # Link comgr with static versions of llvm's libraries
 Patch1:         0001-comgr-link-with-static-llvm.patch
+%else
+Patch1:         0001-preview-comgr-link-with-static-llvm.patch
+%endif
 # On Fedora the assert came in gcc 15, on RHEL 10.2 gcc 14
 # Reduce the gcc version check below
 Patch2:         0001-rocm-llvm-work-around-new-assert-in-array.patch
@@ -170,6 +179,11 @@ Patch5:         0001-lld-workaround-.gnu.version-change.patch
 # backport
 # https://github.com/ROCm/llvm-project/commit/23f010f1ab09263d79027c70d5f4cddfe0055ca9
 Patch6:         0001-SemaConcept.cpp-fix-MSVC-not-all-control-paths-retur.patch
+%endif
+%if %{with preview}
+# When clang bungles the rocm install path, it gets the linking of libamdhip64 wrong
+# Convert from an absolute path <path-to>/libamdhip64.so to using -lamdhip64
+Patch7:         0001-clang-23-link-libamdhip64.patch
 %endif
 
 BuildRequires:  cmake
@@ -185,6 +199,10 @@ BuildRequires:  zlib-devel
 BuildRequires:  binutils-devel
 %endif
 BuildRequires:  gcc-c++
+%if %{with preview}
+# For omp
+BuildRequires:  python-devel
+%endif
 Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 
 %if 0%{?rhel} || 0%{?suse_version}
@@ -271,7 +289,7 @@ The AMD Code Object Manager (Comgr) development package.
 %package -n %{hipcc_name}
 Summary:        HIP compiler driver
 Requires:       %{device_libs_name} = %{version}-%{release}
-Requires:       rocminfo%{pkg_suffix}
+Requires:       rocminfo%{pkg_suffix} >= %{rocm_release}
 Requires:       rocm-filesystem%{pkg_suffix}
 %if 0%{?suse_version}
 Provides:       hip = %{version}-%{release}
@@ -450,6 +468,20 @@ Requires:      perl(Sys::Hostname)
 %{summary}
 %endif
 
+%if %{with preview}
+%package -n %{rocm_omp_name}-devel
+Summary:       The ROCm OMP devel
+
+%description -n %{rocm_omp_name}-devel
+%{summary}
+
+Requires:       %{device_libs_name} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
+
+Obsoletes:      rocm-omp-devel <= 7.3
+
+%endif
+
 %prep
 %autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
@@ -460,10 +492,16 @@ Requires:      perl(Sys::Hostname)
 #   15 | #include "siphash/SipHash.h"
 # move siphash out of the way
 mv third-party/siphash .
+%if %{with preview}
+mv third-party/unittest .
+%endif
 # remove everything else
 rm -rf third-party/*
 # move siphash back
 mv siphash third-party/
+%if %{with preview}
+mv unittest third-party/
+%endif
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,flang,flang-rt,libclc,lldb,llvm-libgcc,mlir,polly}
@@ -520,7 +558,17 @@ fi
 %if %{with libcxx}
 %global llvm_runtimes "compiler-rt;libcxx;libcxxabi"
 %else
+%if %{with preview}
+# rocm-omp is going away
+# CMake Error at CMakeLists.txt:24 (message):
+#  The legacy standalone build mode has been removed.  Please change
+#      cmake <llvm-project>/openmp
+#  to
+#      cmake <llvm-project>/runtimes -DLLVM_ENABLE_RUNTIMES=openmp
+%global llvm_runtimes "compiler-rt;openmp"
+%else
 %global llvm_runtimes "compiler-rt"
+%endif
 %endif
 
 p=$PWD
@@ -551,6 +599,16 @@ p=$PWD
  -DENABLE_LINKER_BUILD_ID=ON \\\
  -DLIBCXX_INCLUDE_BENCHMARKS=OFF \\\
  -DLIBCXXABI_USE_LLVM_UNWINDER=OFF \\\
+ -DLIBOMPTARGET_NVPTX_ENABLE_BCLIB=OFF \\\
+ -DLIBOMPTARGET_NVPTX_CUDA_COMPILER="" \\\
+ -DLIBOMPTARGET_NVPTX_BC_LINKER="" \\\
+ -DLIBOMP_OMPD_GDB_SUPPORT=OFF \\\
+ -DLIBOMPTARGET_BUILD_AMDGPU_PLUGIN=ON \\\
+ -DLIBOMPTARGET_BUILD_CUDA_PLUGIN=OFF \\\
+ -DLIBOMPTARGET_BUILD_DEVICERTL_BCLIB=ON \\\
+ -DLIBOMPTARGET_NVPTX_ENABLE_BCLIB=OFF \\\
+ -DLIBOMP_INSTALL_ALIASES=OFF \\\
+ -DLIBOMP_ARCHER_SUPPORT=OFF \\\
  -DLLVM_BINUTILS_INCDIR=%{_includedir} \\\
  -DLLVM_BUILD_RUNTIME=ON \\\
  -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple} \\\
@@ -772,7 +830,7 @@ sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' 
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
-sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangOptions -lclangFrontend -lclangFrontendTool -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@-lrt -lm@-lclangSerialization -lclangAST -lclangDriver -lclangOptions -lclangFrontend -lclangFrontendTool -lclangExtractAPI -lclangInstallAPI -lclangIndex -lclangCodeGen -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCore -lclangStaticAnalyzerCheckers -lclangASTMatchers -lclangCrossTU -lclangUnifiedSymbolResolution -lclangTooling -lclangToolingCore -lclangRewriteFrontend -lclangRewrite -lclangParse -lclangSema -lclangAPINotes -lclangAnalysis -lclangFormat -lclangToolingInclusions -lclangAnalysisLifetimeSafety -lclangLex -lclangEdit -lclangBasic -lclangSupport -lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMDTLTO -lLLVMLTO -lLLVMPlugins -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %else
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
@@ -986,7 +1044,11 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 
 %files -n %{rocm_llvm_name}
 %license llvm/LICENSE.TXT
+%if %{without preview}
 %{bundle_prefix}/bin/bugpoint
+%else
+%{bundle_prefix}/bin/llubi
+%endif
 %{bundle_prefix}/bin/llc
 %{bundle_prefix}/bin/lli
 %{bundle_prefix}/bin/amdgpu-arch
@@ -1043,6 +1105,10 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/bin/amdflang*
 %{bundle_prefix}/bin/amdlld
 %{bundle_prefix}/bin/amdllvm
+%if %{with preview}
+%{bundle_prefix}/bin/ssaf-format
+%endif
+
 
 %files -n %{rocm_clang_name}-devel
 %license clang/LICENSE.TXT
@@ -1112,7 +1178,17 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/share/scan-view/
 %endif
 
+%if %{with preview}
+%files -n %{rocm_omp_name}-devel
+%{bundle_prefix}/lib/cmake/openmp/
+%{bundle_prefix}/lib/libomp*.so
+%endif
+
+
 %changelog
+* Mon May 18 2026 Tom Rix <Tom.Rix@amd.com> - 22-12.rocm7.2.1
+- Check version of rocminfo is recent enough
+
 * Thu May 7 2026 Tom Rix <Tom.Rix@amd.com> - 22-11.rocm7.2.1
 - Add conflicts for rocm-compilersupport-macros
 

@@ -3,12 +3,12 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2325424
 
 
-%global build_number 914-2404
+%global build_number 928-2510
 ExcludeArch: %{ix86}
 
 Name:    web-eid
-Version: 2.8.0
-Release: 2%{?dist}
+Version: 2.9.0
+Release: 1%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -99,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Wed May 27 2026 Dmitri Smirnov <dmitri@smirnov.ee> - 2.9.0-1
+- 2.9.0 upstream release 
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

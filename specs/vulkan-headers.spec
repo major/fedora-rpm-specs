@@ -12,7 +12,7 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildArch:      noarch       
+BuildArch:      noarch 
 
 %description
 Vulkan Header files and API registry

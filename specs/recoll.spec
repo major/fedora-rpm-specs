@@ -17,7 +17,7 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.43.13
+Version:        1.43.17
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -26,6 +26,7 @@ Source0:        https://www.recoll.org/recoll-%{version}.tar.gz
 Source1:        https://www.recoll.org/downloads/src/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt6.sh
 Patch:          recoll-1.42.1-cmake4.patch
+Patch:          0001-Convert-from-pydbus-to-Gio-to-avoid-pydbus-dependenc.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 %{?chm:BuildRequires:  chmlib-devel}
@@ -119,7 +120,7 @@ The recoll KRunner plugin adds Recoll search results to KRunner output.
 Summary:       Recoll GNOME Shell search provider
 Requires:      %{name} = %{version}-%{release}
 Requires:      gnome-shell
-Requires:      python3-pydbus
+Requires:      python3-gobject-base
 Supplements:   (gnome-shell and recoll)
 %description   gssp
 This package contains the Recoll GNOME Shell search provider
@@ -252,6 +253,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
 
 %changelog
+* Tue May 26 2026 Terje Rosten <terjeros@gmail.com> - 1.43.17-1
+- 1.43.17
+- Avoid pydbus dep. in gssp
+
 * Sun Mar 22 2026 Terje Rosten <terjeros@gmail.com> - 1.43.13-1
 - 1.43.13
 

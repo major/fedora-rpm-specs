@@ -13,7 +13,7 @@ Source0:        %{giturl}/archive/v%{version}/sphinx-book-theme-%{version}.tar.g
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        sphinx-book-theme-%{version}-vendor.tar.xz
 Source2:        sphinx-book-theme-%{version}-vendor-licenses.txt
-# Adapt to changes in python-pydata-sphinx-theme 0.17.x
+# Adapt to changes in python-pydata-sphinx-theme 0.18.x
 Patch:          %{name}-pydata.patch
 
 BuildSystem:    pyproject
@@ -55,7 +55,8 @@ sed -i 's/==/>=/g' pyproject.toml
 
 # Do not run code coverage tests during an RPM build
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -i '/coverage/d;/pytest-cov/d' pyproject.toml
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 # Substitute the installed nodejs version for the requested version
 %global nodejs_version %(%{_bindir}/node -v | sed s/v//)

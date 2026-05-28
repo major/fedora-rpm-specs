@@ -1,5 +1,5 @@
 Name:           perl-App-cpm
-Version:        1.1.0
+Version:        1.1.1
 %global cpan_version v%{version}
 Release:        1%{?dist}
 Summary:        Fast CPAN module installer
@@ -21,16 +21,16 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(Archive::Tar)
 # BuildRequires:  perl(Archive::Zip) >= 1.68
 # BuildRequires:  perl(Carton::Snapshot)
-# BuildRequires:  perl(Command::Runner) >= 0.201
+# BuildRequires:  perl(Command::Runner) >= 1.0.0
 # BuildRequires:  perl(Config)
 # BuildRequires:  perl(constant)
-# BuildRequires:  perl(CPAN::02Packages::Search) >= 0.100
+# BuildRequires:  perl(CPAN::02Packages::Search) >= 1.0.0
 # BuildRequires:  perl(CPAN::DistnameInfo)
 # BuildRequires:  perl(CPAN::Meta)
 # BuildRequires:  perl(CPAN::Meta::Requirements)
 # BuildRequires:  perl(CPAN::Meta::YAML)
 # BuildRequires:  perl(Cwd)
-# BuildRequires:  perl(Darwin::InitObjC)
+# BuildRequires:  perl(Darwin::InitObjC) >= 1.0.0
 # BuildRequires:  perl(Digest::MD5)
 # BuildRequires:  perl(Exporter)
 # BuildRequires:  perl(ExtUtils::Config)
@@ -59,14 +59,14 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(List::Util)
 # BuildRequires:  perl(Module::CoreList)
 # BuildRequires:  perl(Module::CPANfile)
-# BuildRequires:  perl(Module::cpmfile) >= 0.001
+# BuildRequires:  perl(Module::cpmfile) >= 1.0.0
 # BuildRequires:  perl(Module::Metadata)
-# BuildRequires:  perl(Parallel::Pipes::App) >= 0.201
+# BuildRequires:  perl(Parallel::Pipes::App) >= 1.0.0
 # BuildRequires:  perl(parent)
 # BuildRequires:  perl(Parse::LocalDistribution)
 # BuildRequires:  perl(Pod::Man)
 # BuildRequires:  perl(POSIX)
-# BuildRequires:  perl(Proc::ForkSafe) >= 0.001
+# BuildRequires:  perl(Proc::ForkSafe) >= 1.0.0
 # BuildRequires:  perl(TAP::Harness::Env)
 # BuildRequires:  perl(Time::HiRes)
 # BuildRequires:  perl(version)
@@ -75,21 +75,23 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Archive::Tar)
 Requires:       perl(Archive::Zip) >= 1.68
-Requires:       perl(Command::Runner) >= 0.201
+Requires:       perl(Command::Runner) >= 1.0.0
+Requires:       perl(Darwin::InitObjC) >= 1.0.0
 Requires:       perl(ExtUtils::Install) >= 2.20
 Requires:       perl(ExtUtils::InstallPaths) >= 0.002
 Requires:       perl(File::HomeDir)
 Requires:       perl(HTTP::Tinyish) >= 0.12
 Requires:       perl(Module::CoreList)
-Requires:       perl(Module::cpmfile) >= 0.001
-Requires:       perl(Parallel::Pipes::App) >= 0.201
+Requires:       perl(Module::cpmfile) >= 1.0.0
+Requires:       perl(Parallel::Pipes::App) >= 1.0.0
 Requires:       perl(Pod::Man)
-Requires:       perl(Proc::ForkSafe) >= 0.001
+Requires:       perl(Proc::ForkSafe) >= 1.0.0
 Requires:       perl(TAP::Harness::Env)
 Requires:       perl(YAML::PP) >= 0.026
 Suggests:       perl(Carton::Snapshot)
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Command::Runner\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Darwin::InitObjC\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::Install\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::InstallPaths\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Tinyish\\)$
@@ -162,6 +164,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.1-1
+- 1.1.1 bump (rhbz#2481003)
+
 * Tue May 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.0-1
 - 1.1.0 bump (rhbz#2467272)
 

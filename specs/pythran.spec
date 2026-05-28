@@ -122,6 +122,8 @@ sed -i 's/, "nbval"//' pyproject.toml
 # E.g. fortify source implies at least -O1
 sed -i -e 's/-O0/-O1/g' -e 's/-Werror/-w/g' pythran/tests/__init__.py
 
+%pyproject_patch_dependency gast:set_upper:0.8.0
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x doc,test

@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.6.5
+%global musescore_ver             4.7.2
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -7,23 +7,33 @@
 # Most are in the fonts directory.  Exceptions:
 # - src/framework/ui/data/MusescoreIcon.ttf
 # - share/sound/SF_VERSION
+# IMPORTANT: Change every release number
+# - Reset to 1 if the version changed
+# - Increase by 1 otherwise
 %global mscore_font_ver           2.003
+%global mscore_font_rel           40%{?dist}
 %global mscoretext_font_ver       1.0
+%global mscoretext_font_rel       40%{?dist}
 %global musescoreicon_font_ver    1.0
+%global musescoreicon_font_rel    40%{?dist}
 %global mscorebc_font_ver         1.0
+%global mscorebc_font_rel         40%{?dist}
 %global mscoretabulature_font_ver 001.000
+%global mscoretabulature_font_rel 40%{?dist}
 %global musejazz_font_ver         1.0
+%global musejazz_font_rel         40%{?dist}
 %global gootville_font_ver        1.3
+%global gootville_font_rel        40%{?dist}
 %global gootville_text_font_ver   1.2
+%global gootville_text_font_rel   40%{?dist}
 %global soundfont_ver             0.2.0
+%global soundfont_rel             40%{?dist}
 
-# NOTE: The Release tag can be reset to one only if ALL version numbers above
-# increase.  This is unlikely to happen.  Resign yourself to bumping the release
-# number indefinitely.
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        39%{?dist}
+# IMPORTANT: Change all the release numbers above, too!
+Release:        1%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -85,6 +95,7 @@ Emmentaler font created for Lilypond, but has been modified for MuseScore.}
 %global fontpkgheader1  %{expand:
 Epoch:          1
 Version:        %{mscore_font_ver}
+Release:        %{mscore_font_rel}
 }
 
 %global fontfamily2     MScoreText
@@ -95,6 +106,7 @@ Version:        %{mscore_font_ver}
 %global fontdescription2 This package contains the base MuseScore text font.
 %global fontpkgheader2  %{expand:
 Version:        %{mscoretext_font_ver}
+Release:        %{mscoretext_font_rel}
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore-mscoretext-fonts < 4.0
 Provides:       mscore-mscoretext-fonts = %{musescore_ver}-%{release}
@@ -108,6 +120,7 @@ Provides:       mscore-mscoretext-fonts = %{musescore_ver}-%{release}
 %global fontdescription3 This package contains a set of MuseScore icons.
 %global fontpkgheader3  %{expand:
 Version:        %{musescoreicon_font_ver}
+Release:        %{musescoreicon_font_rel}
 }
 
 %global fontfamily4     MScoreBC
@@ -119,6 +132,7 @@ Version:        %{musescoreicon_font_ver}
 matching glyphs in the main MuseScore font.}
 %global fontpkgheader4  %{expand:
 Version:        %{mscorebc_font_ver}
+Release:        %{mscorebc_font_rel}
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore-bc-fonts < 4.0
 Provides:       mscore-bc-fonts = %{musescore_ver}-%{release}
@@ -132,6 +146,7 @@ Provides:       mscore-bc-fonts = %{musescore_ver}-%{release}
 %global fontdescription5 This package contains a MuseScore font with Renaissance-style tabulatures.
 %global fontpkgheader5  %{expand:
 Version:        %{mscoretabulature_font_ver}
+Release:        %{mscoretabulature_font_rel}
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore-mscoretab-fonts < 4.0
 Provides:       mscore-mscoretab-fonts = %{musescore_ver}-%{release}
@@ -147,6 +162,7 @@ Provides:       mscore-mscoretab-fonts = %{musescore_ver}-%{release}
 names, etc.}
 %global fontpkgheader6  %{expand:
 Version:        %{musejazz_font_ver}
+Release:        %{musejazz_font_rel}
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore-musejazz-fonts < 4.0
 Provides:       mscore-musejazz-fonts = %{musescore_ver}-%{release}
@@ -161,6 +177,7 @@ Provides:       mscore-musejazz-fonts = %{musescore_ver}-%{release}
 %global fontdescription7 The MuseJazz Text font is designed to complement the MuseJazz font.
 %global fontpkgheader7  %{expand:
 Version:        %{musejazz_font_ver}
+Release:        %{musejazz_font_rel}
 }
 
 %global fontfamily8     Gootville
@@ -174,6 +191,7 @@ Lilypond.  The two fonts have common graphic aspects, but the registration,
 glyph order, and other aspects of Gootville have been modified for MuseScore.}
 %global fontpkgheader8  %{expand:
 Version:        %{gootville_font_ver}
+Release:        %{gootville_font_rel}
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore-gootville-fonts < 4.0
 Provides:       mscore-gootville-fonts = %{musescore_ver}-%{release}
@@ -188,6 +206,7 @@ Provides:       mscore-gootville-fonts = %{musescore_ver}-%{release}
 %global fontdescription9 The Gootville Text font is designed to complement the Gootville font.
 %global fontpkgheader9  %{expand:
 Version:        %{gootville_text_font_ver}
+Release:        %{gootville_text_font_rel}
 }
 
 Source0:        %{giturl}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
@@ -202,7 +221,7 @@ Source7:        65-%{fontpkgname7}.conf
 Source8:        65-%{fontpkgname8}.conf
 Source9:        65-%{fontpkgname9}.conf
 
-# Unbundle dr_libs, gtest, lame, liblouis, pugixml, stb, and utf8cpp.
+# Unbundle dr_libs, fdk-aac, ffmpeg, gtest, liblouis, and stb.
 # We cannot unbundle KDDockWidgets because the Fedora package builds the
 # QtWidgets version, but MuseScore needs the QtQuick version.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2227098
@@ -219,16 +238,8 @@ Patch:          %{name}-uninit.patch
 Patch:          %{name}-no-rpath.patch
 # Fix build failures due to missing #include directives
 Patch:          %{name}-include.patch
-# Update tinyxml2 from version 10 to version 11 to address CVE-2024-50615
-# https://github.com/musescore/MuseScore/pull/29652
-Patch:          %{name}-tinyxml2-11.patch
 # Update fluidsynth from version 2.3.3 to 2.3.7 to fix several bugs
 Patch:          %{name}-fluidsynth-2.3.7.patch
-# https://github.com/KDAB/KDDockWidgets/commit/5a86cf69207bfbcc683343b2faf1d3466be2af56.patch
-# https://github.com/musescore/MuseScore/pull/30422
-Patch:          %{name}-fix-build-against-qt-6-10.patch
-# Fix build with FFmpeg 8
-Patch:          %{name}-ffmpeg8.patch
 # Fix a CVE in the bundled fluidsynth
 Patch:          %{name}-CVE-2025-56225.patch
 # Enable building with the Fedora VST 3 SDK package
@@ -236,8 +247,26 @@ Patch:          %{name}-vst.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DCMAKE_BUILD_TYPE:STRING=RELEASE
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_FLAC:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_FREETYPE:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_HARFBUZZ:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_LAME:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_MNXDOM:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_OPUS:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_OPUSENC:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_PUGIXML:BOOL=ON
+BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_UTF8CPP:BOOL=ON
+BuildOption(conf): -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF
+BuildOption(conf): -DMUSE_APP_BUILD_MODE:STRING=release
+BuildOption(conf): -DMUSE_COMPILE_USE_PCH:BOOL=OFF
+BuildOption(conf): -DMUSE_ENABLE_UNIT_TESTS:BOOL=OFF
+BuildOption(conf): -DMUSE_MODULE_AUDIO_PIPEWIRE:BOOL=ON
+BuildOption(conf): -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF
+BuildOption(conf): -DMUSE_MODULE_NETWORK_WEBSOCKET:BOOL=ON
+BuildOption(conf): -DMUSE_MODULE_VST:BOOL=ON
 
-BuildRequires:  cmake
 BuildRequires:  cmake(GTest)
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Concurrent)
@@ -262,7 +291,7 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
 BuildRequires:  dr_libs-static
-BuildRequires:  fdupes
+BuildRequires:  ffmpeg-free-devel
 BuildRequires:  font(bravura)
 BuildRequires:  font(bravuratext)
 BuildRequires:  font(campania)
@@ -282,22 +311,17 @@ BuildRequires:  lame-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(fdk-aac)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:  pkgconfig(harfbuzz)
-BuildRequires:  pkgconfig(libavcodec)
-BuildRequires:  pkgconfig(libavdevice)
-BuildRequires:  pkgconfig(libavfilter)
-BuildRequires:  pkgconfig(libavformat)
-BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(libopusenc)
 BuildRequires:  (pkgconfig(libpostproc) if libavcodec-free < 8.0)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswscale)
-BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(mnxdom)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(sndfile)
@@ -312,17 +336,17 @@ BuildRequires:  vst3sdk-devel
 #BuildRequires:  qt6-qtwayland
 #BuildRequires:  xwayland-run
 
-Requires:       gootville-fonts = %{gootville_font_ver}-%{release}
-Requires:       gootville-text-fonts = %{gootville_text_font_ver}-%{release}
-Requires:       mscore-fonts = 1:%{mscore_font_ver}-%{release}
-Requires:       mscorebc-fonts = %{mscorebc_font_ver}-%{release}
-Requires:       mscoretabulature-fonts = %{mscoretabulature_font_ver}-%{release}
-Requires:       mscoretext-fonts = %{mscoretext_font_ver}-%{release}
-Requires:       musejazz-fonts = %{musejazz_font_ver}-%{release}
-Requires:       musejazz-text-fonts = %{musejazz_font_ver}-%{release}
-Requires:       musescoreicon-fonts = %{musescoreicon_font_ver}-%{release}
+Requires:       gootville-fonts = %{gootville_font_ver}-%{gootville_font_rel}
+Requires:       gootville-text-fonts = %{gootville_text_font_ver}-%{gootville_text_font_rel}
+Requires:       mscore-fonts = 1:%{mscore_font_ver}-%{mscore_font_rel}
+Requires:       mscorebc-fonts = %{mscorebc_font_ver}-%{mscorebc_font_rel}
+Requires:       mscoretabulature-fonts = %{mscoretabulature_font_ver}-%{mscoretabulature_font_rel}
+Requires:       mscoretext-fonts = %{mscoretext_font_ver}-%{mscoretext_font_rel}
+Requires:       musejazz-fonts = %{musejazz_font_ver}-%{musejazz_font_rel}
+Requires:       musejazz-text-fonts = %{musejazz_font_ver}-%{musejazz_font_rel}
+Requires:       musescoreicon-fonts = %{musescoreicon_font_ver}-%{musescoreicon_font_rel}
 Requires:       %{name}-data = %{musescore_ver}-%{release}
-Requires:       %{name}-soundfont = %{soundfont_ver}-%{release}
+Requires:       %{name}-soundfont = %{soundfont_ver}-%{soundfont_rel}
 
 Requires:       font(bravura)
 Requires:       font(bravuratext)
@@ -351,16 +375,16 @@ Provides:       bundled(fluidsynth) = 2.3.7
 Provides:       bundled(intervaltree) = 0.1
 Provides:       bundled(picojson) = 1.3.0
 Provides:       bundled(rtf2html) = 0.2.0
-Provides:       bundled(tinyxml2) = 11.0.0
 Provides:       bundled(KDDockWidgets) = 1.5.0
 
 # The following products were developed specifically for MuseScore and their
 # documentation identifies them as copylibs.
-Provides:       bundled(kors_async) = 1.3
+Provides:       bundled(kors_async) = 1.4
 Provides:       bundled(kors_logger) = 1.3
 Provides:       bundled(kors_modularity) = 1.2
-Provides:       bundled(kors_msgpack_cpp) = 1.0
+Provides:       bundled(kors_msgpack) = 1.0
 Provides:       bundled(kors_profiler) = 1.2
+Provides:       bundled(kors_rpcqueue) = 1.0
 
 # It might be possible to unbundle libmei.  However, libmei is unmaintained
 # upstream: https://github.com/DDMAL/libmei
@@ -398,6 +422,7 @@ Shared data for all MuseScore installations.
 %package        soundfont
 Summary:        Basic soundfont for MuseScore
 Version:        %{soundfont_ver}
+Release:        %{soundfont_rel}
 License:        MIT
 BuildArch:      noarch
 
@@ -411,14 +436,13 @@ is currently a work-in-progress.  Some samples are derived from FluidR3Mono.
 %prep
 %autosetup -n MuseScore-%{musescore_ver} -p1
 
-%conf
 # Remove bundled stuff
 rm -rf \
    thirdparty/dtl \
    src/braille/thirdparty/liblouis \
-   src/framework/audio/thirdparty/{dr_libs,flac,lame,opus,opusenc,stb} \
+   src/framework/audio/thirdparty/{dr_libs,fdk-aac,flac,lame,opus,opusenc,stb} \
    src/framework/draw/thirdparty/freetype \
-   src/framework/global/thirdparty/{pugixml,utfcpp*} \
+   src/framework/global/thirdparty/pugixml \
    src/framework/testing/thirdparty/googletest
 
 # Font compatibility symlinks so we can use resource files in place
@@ -442,39 +466,28 @@ ln -s ../mscoreTab.sfd %{name}-mscoretabulature-fonts/mscoreTab.sfd
 ln -s ../mscoreTab.ttf %{name}-mscoretabulature-fonts/mscoreTab.ttf
 cd ..
 
-%build
+%conf -p
 # Build the actual program
 export CFLAGS='%{build_cflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz -I%{_includedir}/vst3sdk'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz -I%{_includedir}/vst3sdk'
 # now binding breaks RTLD_LAZY, used by Muse Sounds
 export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
-%cmake \
-    -DCMAKE_BUILD_TYPE:STRING=RELEASE         \
-    -DMUE_BUILD_IMPEXP_VIDEOEXPORT_MODULE:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_FLAC:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_FREETYPE:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_HARFBUZZ:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_OPUS:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_OPUSENC:BOOL=ON \
-    -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF \
-    -DMUSE_APP_BUILD_MODE:STRING=release \
-    -DMUSE_COMPILE_STRING_DEBUG_HACK:BOOL=OFF \
-    -DMUSE_COMPILE_USE_PCH:BOOL=OFF \
-    -DMUSE_ENABLE_UNIT_TESTS:BOOL=OFF \
-    -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF \
-    -DMUSE_MODULE_NETWORK_WEBSOCKET:BOOL=ON \
-    -DMUSE_MODULE_VST:BOOL=ON \
-    -DMUSE_PIPEWIRE_AUDIO_DRIVER:BOOL=ON \
-    -DQT_NO_PRIVATE_MODULE_WARNING:BOOL=ON
-PREFIX=%{_prefix} VERBOSE=1 %cmake_build
+
+%build -p
+export PREFIX=%{_prefix}
+export VERBOSE=1
+
+%build -a
+# Build the man pages
 PREFIX=%{_prefix} %cmake_build --target manpages
 
 # Build the fonts
 %fontbuild -a
 
-%install
-PREFIX=%{_prefix} %cmake_install
+%install -p
+export PREFIX=%{_prefix}
 
+%install -a
 # Delete files that we don't want to install
 rm -rf %{buildroot}%{_includedir} %{buildroot}%{_libdir}
 
@@ -529,8 +542,10 @@ mkdir -p %{buildroot}%{_datadir}/soundfonts
 ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
    %{buildroot}%{_datadir}/soundfonts
 
-# Hardlink duplicate files
-%fdupes %{buildroot}%{_datadir}/mscore-%{musescore_maj}
+# Make a man page link for the musescore name
+cat > %{buildroot}%{_mandir}/man1/musescore.1 << EOF
+.so man1/mscore.1
+EOF
 
 %check
 %fontcheck -a
@@ -721,19 +736,6 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %lang(zh_CN) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_CN.qm
 %lang(zh_HK) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_HK.qm
 %lang(zh_TW) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_TW.qm
-%lang(bg) %{_datadir}/mscore-%{musescore_maj}/locale/qt_bg.qm
-%lang(el) %{_datadir}/mscore-%{musescore_maj}/locale/qt_el.qm
-%lang(eu) %{_datadir}/mscore-%{musescore_maj}/locale/qt_eu.qm
-%lang(gd) %{_datadir}/mscore-%{musescore_maj}/locale/qt_gd.qm
-%lang(id) %{_datadir}/mscore-%{musescore_maj}/locale/qt_id.qm
-%lang(lv) %{_datadir}/mscore-%{musescore_maj}/locale/qt_lv.qm
-%lang(nb) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nb.qm
-%lang(nl) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nl.qm
-%lang(nl_BE) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nl_BE.qm
-%lang(pt_BR) %{_datadir}/mscore-%{musescore_maj}/locale/qt_pt_BR.qm
-%lang(ro) %{_datadir}/mscore-%{musescore_maj}/locale/qt_ro.qm
-%lang(tr) %{_datadir}/mscore-%{musescore_maj}/locale/qt_tr.qm
-%lang(vi) %{_datadir}/mscore-%{musescore_maj}/locale/qt_vi.qm
 
 %files soundfont
 %doc share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
@@ -771,6 +773,12 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Tue May 26 2026 Jerry James  <loganjerry@gmail.com> - 4.7.2-1
+- Version 4.7.2
+- Use the cmake declarative buildsystem
+- Drop upstreamed patches: ffmpeg8, qt6.10, tinyxml2-11
+- Give the subpackages individual release numbers
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 4.6.5-39
 - Rebuild (qt6)
 

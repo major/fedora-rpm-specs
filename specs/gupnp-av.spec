@@ -1,5 +1,5 @@
 Name:          gupnp-av
-Version:       0.14.4
+Version:       0.14.5
 Release:       %autorelease
 Summary:       A collection of helpers for building UPnP AV applications
 License:       LGPL-2.1-or-later AND CC0-1.0

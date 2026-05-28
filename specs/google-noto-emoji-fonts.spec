@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-%global commit0 b3e3051a088047d19fd4d49b1c3ac42fb8c3aaf8
+%global commit0 8998f5dd683424a73e2314a8c1f1e359c19e8742
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global fontname google-noto-emoji
@@ -24,8 +24,8 @@ BuildRequires:  cairo-devel
 %endif
 BuildRequires:  make
 
-Version: 20250623
-Release: 4%{?dist}
+Version: 20260526
+Release: 1%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google

@@ -7,10 +7,10 @@
 Name: hunspell-br
 Summary: Breton hunspell dictionaries
 Epoch: 1
-Version: 0.15
-Release: 20%{?dist}
-URL: http://www.drouizig.org/
-Source: https://downloads.sourceforge.net/project/aoo-extensions/2207/7/dict-br-0.15.oxt
+Version: 0.16
+Release: 1%{?dist}
+URL: https://extensions.libreoffice.org/en/extensions/show/an-drouizig-breton-spellchecker
+Source: https://extensions.libreoffice.org/assets/downloads/z/difazier-an-drouizig-0-16.oxt
 License: LGPL-2.1-or-later
 BuildArch: noarch
 
@@ -24,7 +24,6 @@ Breton hunspell dictionaries.
 %autosetup -c -n hunspell-br-%{version}
 
 %build
-chmod -x dictionaries/*
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -34,9 +33,12 @@ cp -p dictionaries/br_FR.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %files
 %doc package-description.txt
 %license LICENSES-en.txt
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/br_FR.*
 
 %changelog
+* Tue May 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:0.16-1
+- Update to recent released version 0.16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

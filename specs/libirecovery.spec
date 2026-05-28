@@ -1,5 +1,5 @@
 Name:           libirecovery
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Library and utility to talk to iBoot/iBSS via USB
 

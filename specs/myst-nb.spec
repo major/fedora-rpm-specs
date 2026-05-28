@@ -13,6 +13,10 @@ License:        BSD-3-Clause
 URL:            https://myst-nb.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
+# The matplotlib-generated image filenames vary from matplotlib version to
+# version.  Ignore them for testing purposes; we just want to see that the
+# document structure is the same.
+Patch:          %{name}-ignore-matplotlib-filenames.patch
 
 BuildRequires:  help2man
 %if %{with doc}
@@ -48,17 +52,11 @@ Documentation for %{name}.
 %autosetup -n MyST-NB-%{version} -p1
 
 # Do not run coverage tools in RPM builds
-sed -i '/coverage/d;/pytest-cov/d' pyproject.toml
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
-# Permit newer versions of matplotlib for testing only.  The newer version of
-# matplotlib causes some changes in test output; pyproject.toml says:
-#   Matplotlib outputs are sensitive to the matplotlib version
-sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
-sed -e 's/c8709f293454a3bd1403356f37bbab536df1c4d65becfd4cdcf84adf951c6820/6eb6048123e3f61d57d1974b38656227f18e9cb97543c8d59b4418c7c2d40a17/g' \
-    -e 's/9af310c61f9e96d898144e35f0dc3bf6757626c2072ad98732a4d71c1ec5ec59/321b226a9bda4595da09f9389cea3b97e91b9c089e9bab3feae10e2100fc5c38/g' \
-    -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
-       tests/test_execute/test_custom_convert_{auto,cache}.xml \
-       tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml
+# Permit newer versions of matplotlib
+%pyproject_patch_dependency matplotlib:drop_upper
 
 %build -a
 %if %{with doc}

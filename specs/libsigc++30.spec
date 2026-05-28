@@ -1,5 +1,5 @@
 Name:           libsigc++30
-Version:        3.8.0
+Version:        3.8.1
 Release:        %autorelease
 Summary:        Typesafe signal framework for C++
 

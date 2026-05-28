@@ -55,7 +55,7 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing,testing.libs
+%pyproject_buildrequires -x testing
 
 
 %build

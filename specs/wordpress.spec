@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.9.4
+%global upstream_version 7.0
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -49,7 +49,7 @@ Patch5: wordpress-5.4-config.patch
 # ignore WP_AUTO_UPDATE_CORE (always false)
 Patch6: wordpress-5.8-noupdate.patch
 # Debian patch for jshint
-Patch8: wordpress-5.1-remove-jshint-refs.patch
+Patch8: wordpress-7.0-remove-jshint-refs.patch
 
 
 BuildArch: noarch
@@ -94,9 +94,9 @@ Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # grep "SIMPLEPIE_VERSION'" wordpress/wp-includes/class-simplepie.php
 Provides: bundled(php-simplepie) = 1.9.0
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
-Provides: bundled(php-getid3) = 1.9.24
+Provides: bundled(php-getid3) = 1.9.25
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 7.0.0
+Provides: bundled(php-phpmailer)  = 7.0.2
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Tue May 26 2026 Remi Collet <remi@remirepo.net> -7.0-1
+- WordPress 7.0 “Armstrong”
+
 * Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 6.9.4-1
 - WordPress 6.9.4 Release
 

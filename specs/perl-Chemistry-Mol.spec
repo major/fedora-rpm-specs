@@ -11,16 +11,35 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 %if %{with check}
+# Run-time
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Math::Trig)
+BuildRequires:  perl(Math::VectorReal)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Set::Object)
+BuildRequires:  perl(Storable)
+BuildRequires:  perl(Text::Balanced)
+# Optional run-time
+# N/A BuildRequires:  perl(Chemistry::InternalCoords)
+BuildRequires:  perl(Chemistry::Isotope)
 BuildRequires:  perl(Clone)
 BuildRequires:  perl(Compress::Zlib)
-BuildRequires:  perl(FileHandle)
-BuildRequires:  perl(Math::VectorReal)
-BuildRequires:  perl(Set::Object)
-BuildRequires:  perl(Test::Exception)
+# Tests
 BuildRequires:  perl(Test::More)
+# Optional tests
+# N/A BuildRequires:  perl(Chemistry::File::SMILES)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Text::Balanced)
 %endif
 BuildArch:      noarch
 
@@ -35,10 +54,10 @@ and Chemistry::File. These are the core modules of the PerlMol toolkit.
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
   NO_PACKLIST=1 NO_PERLLOCAL=1
-%make_build
+%{make_build}
 
 %install
-%make_install
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} '%{buildroot}'/*
 

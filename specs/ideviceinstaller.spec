@@ -1,16 +1,13 @@
 %global forgeurl https://github.com/libimobiledevice/ideviceinstaller
-%global commit 1431d42b568ee78161a41ed02df0de60dc1439d6
-%global date 20240518
-%{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           ideviceinstaller
-Version:        1.1.1^%{date}git%{shortcommit}
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Manage apps of iOS devices
 
 License:        GPL-2.0-or-later
 URL:            https://www.libimobiledevice.org/
-Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source:         %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -27,14 +24,13 @@ The ideviceinstaller application allows interacting with the app installation
 service of an iOS device.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{version}
 
 %if %{defined commit}
 echo %{version} > .tarball-version
 %endif
 
 %build
-NOCONFIGURE=1 ./autogen.sh
 %configure --disable-static
 %make_build
 

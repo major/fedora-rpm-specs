@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.19
-Release: 2%{?dist}
+Release: 3%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -33,6 +33,8 @@ Source1: cupsprinter.png
 Source2: macros.cups
 # GPG signature for validating tarball
 Source3: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups-%{VERSION}-source.tar.gz.sig
+# Linux README
+Source4: README.linux
 
 # cups-config from devel package conflicted on multilib arches,
 # fixed hack with pkg-config calling for gnutls' libdir variable
@@ -465,6 +467,11 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 /^\([^%].*\)/d
 ' > %{name}.lang
 
+# install Linux specific README - currently includes note about FileDevice
+mkdir -p %{buildroot}%{_pkgdocdir}
+install -m 0644 %{SOURCE4} %{buildroot}%{_pkgdocdir}/README.linux
+
+
 %post
 # required for systemd units
 %systemd_post %{name}.path %{name}.socket %{name}.service
@@ -538,7 +545,7 @@ ln -sf %{_libexecdir}/samba/cups_backend_smb %{cups_serverbin}/backend/smb || :
 rm -f %{cups_serverbin}/backend/smb
 
 %files -f %{name}.lang
-%doc README.md CREDITS.md CHANGES.md
+%doc README.md CREDITS.md CHANGES.md README.linux
 %{_bindir}/cupstestppd
 %{_bindir}/ppdc
 %{_bindir}/ppdhtml
@@ -791,6 +798,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Tue May 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.19-3
+- Add README.linux for working with FileDevices
+
 * Mon May 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.19-2
 - Fixed issues reported by Coverity
 

@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/libimobiledevice/usbmuxd
-%global commit 0b1b233b57d581515978a09e5a4394bfa4ee4962
-%global date 20240915
+%global commit 3ded00c9985a5108cfc7591a309f9a23d57a8cba
+%global date 20251205
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           usbmuxd

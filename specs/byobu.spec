@@ -3,7 +3,7 @@
 %global _iconsscaldir  %{_iconsbasedir}/scalable/apps
 
 Name:		byobu
-Version:	6.15
+Version:	6.16
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 

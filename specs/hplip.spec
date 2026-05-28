@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.26.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -996,6 +996,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Tue May 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.26.4-2
+- Fix location+user-agent of plugin in hp-plugin-download
+
 * Mon May 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.26.4-1
 - 3.26.4 (fedora#2480158), fixes CVE-2026-8631, CVE-2026-8632
 

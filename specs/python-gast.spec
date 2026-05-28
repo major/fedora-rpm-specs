@@ -1,5 +1,5 @@
 Name:           python-gast
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Python AST that abstracts the underlying Python version
 License:        BSD-3-Clause

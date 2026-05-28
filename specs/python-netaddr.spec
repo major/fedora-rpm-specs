@@ -9,9 +9,6 @@ License:        BSD-3-Clause
 URL:            https://github.com/netaddr/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
 
-# https://github.com/netaddr/netaddr/pull/402
-Patch0:         0001-Fix-doctest-failures-with-Python-3.15-pprint-changes.patch
-
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

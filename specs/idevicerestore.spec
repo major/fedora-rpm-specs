@@ -1,5 +1,5 @@
-%global commit 511261e12d23d80cc3c08290022380b8d3411f9c
-%global date 20240927
+%global commit 405fcd17948ea4bd2571c76abd4451e8412b6260
+%global date 20260216
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           idevicerestore

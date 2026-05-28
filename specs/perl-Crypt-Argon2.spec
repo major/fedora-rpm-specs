@@ -1,6 +1,6 @@
 Name:		perl-Crypt-Argon2
-Version:	0.030
-Release:	2%{?dist}
+Version:	0.031
+Release:	1%{?dist}
 Summary:	Perl interface to the Argon2 key derivation functions
 License:	Apache-2.0
 
@@ -13,7 +13,7 @@ BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.006
-BuildRequires:	perl(Dist::Build)
+BuildRequires:	perl(Dist::Build) >= 0.028
 #BuildRequires:	perl(ExtUtils::CBuilder)
 #BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(strict)
@@ -67,6 +67,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Tue May 26 2026 Charles R. Anderson <cra@alum.wpi.edu> - 0.031-1
+- Update to 0.031 #2477035 #2481131 fixes CVE-2026-8463
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.030-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

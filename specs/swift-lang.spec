@@ -6,7 +6,7 @@
 %global debug_package %{nil}
 %undefine _auto_set_build_flags
 
-Version: 6.2
+Version: 6.3.2
 
 # Main swift source and version
 %global forgeurl0  https://github.com/swiftlang/swift
@@ -52,7 +52,7 @@ Version: 6.2
 %global subdir9    cmake
 
 %global forgeurl10  https://github.com/apple/swift-collections
-%global tag10       1.1.3
+%global tag10       1.1.6
 %global subdir10    swift-collections
 
 %global forgeurl11  https://github.com/swiftlang/swift-driver
@@ -68,11 +68,11 @@ Version: 6.2
 %global subdir13    swift-foundation
 
 %global forgeurl14  https://github.com/microsoft/mimalloc
-%global tag14       v3.0.1
+%global tag14       v3.0.3
 %global subdir14    mimalloc
 
 %global forgeurl15  https://github.com/swiftlang/swift-cmark
-%global tag15       gfm
+%global tag15       swift-%{version0}-RELEASE
 %global subdir15    cmark
 
 %global forgeurl16  https://github.com/gnome/libxml2
@@ -80,11 +80,11 @@ Version: 6.2
 %global subdir16    libxml2
 
 %global forgeurl17  https://github.com/swiftlang/swift-toolchain-sqlite
-%global tag17       1.0.1
+%global tag17       1.0.7
 %global subdir17    swift-toolchain-sqlite
 
 %global forgeurl18  https://github.com/WebAssembly/wasi-libc
-%global tag18       wasi-sdk-24
+%global tag18       wasi-sdk-27
 %global subdir18    wasi-libc
 
 %global forgeurl19  https://github.com/swiftlang/swift-format
@@ -92,7 +92,7 @@ Version: 6.2
 %global subdir19    swift-format
 
 %global forgeurl20  https://github.com/apple/swift-argument-parser
-%global tag20       1.4.0
+%global tag20       1.6.1
 %global subdir20    swift-argument-parser
 
 %global forgeurl21  https://github.com/swiftlang/swift-llvm-bindings
@@ -100,7 +100,7 @@ Version: 6.2
 %global subdir21    swift-llvm-bindings
 
 %global forgeurl22  https://github.com/swiftwasm/WasmKit
-%global tag22       0.1.2
+%global tag22       0.1.6
 %global subdir22    wasmkit
 
 %global forgeurl23  https://github.com/swiftlang/swift-syntax
@@ -108,7 +108,7 @@ Version: 6.2
 %global subdir23    swift-syntax
 
 %global forgeurl24  https://github.com/ninja-build/ninja
-%global tag24       v1.11.1
+%global tag24       v1.13.1
 %global subdir24    ninja
 
 %global forgeurl25  https://github.com/swiftlang/swift-corelibs-libdispatch
@@ -132,7 +132,7 @@ Version: 6.2
 %global subdir29    swift-system
 
 %global forgeurl30  https://github.com/apple/swift-asn1
-%global tag30       1.0.0
+%global tag30       1.3.2
 %global subdir30    swift-asn1
 
 %global forgeurl31  https://github.com/swiftlang/swift-tools-support-core
@@ -156,7 +156,7 @@ Version: 6.2
 %global subdir35    swift-build
 
 %global forgeurl36  https://github.com/apple/swift-certificates
-%global tag36       1.0.1
+%global tag36       1.10.1
 %global subdir36    swift-certificates
 
 %global forgeurl37  https://github.com/swiftlang/swift-installer-scripts
@@ -180,7 +180,7 @@ Version: 6.2
 %global subdir41    swift-integration-tests
 
 %global forgeurl42  https://github.com/apple/swift-crypto
-%global tag42       3.0.0
+%global tag42       3.12.5
 %global subdir42    swift-crypto
 
 %global forgeurl43  https://github.com/swiftlang/swift-sdk-generator
@@ -211,6 +211,22 @@ Version: 6.2
 %global tag49       swift-%{version0}-RELEASE
 %global subdir49    swift-docc
 
+%global forgeurl50  https://github.com/swiftlang/swift-tools-protocols
+%global tag50       0.0.9
+%global subdir50    swift-tools-protocols
+
+%global forgeurl51  https://github.com/swiftlang/swift-corelibs-blocksruntime
+%global tag51       swift-%{version0}-RELEASE
+%global subdir51    swift-corelibs-blocksruntime
+
+%global forgeurl52  https://github.com/google/brotli
+%global tag52       v1.1.0
+%global subdir52    brotli
+
+%global forgeurl53  https://github.com/swiftlang/swift-subprocess
+%global tag53       0.2.1
+%global subdir53    swift-subprocess
+
 # End forge sources
 
 Name:           swift-lang
@@ -222,7 +238,7 @@ License:        Apache-2.0
 URL:            https://www.swift.org
 
 %{lua:
-for i = 0, 49 do
+for i = 0, 53 do
   local forgesource = rpm.expand("%{?forgesource" .. i .. "}")
   if forgesource ~= "" then
     print("Source" .. i .. ":    " .. forgesource .. "\n")
@@ -241,7 +257,6 @@ Patch5:         llbuild.patch
 Patch7:         swiftpm.patch
 Patch13:        swift-foundation.patch
 Patch25:        swift-corelibs-libdispatch.patch
-Patch24:        ninja.patch
 Patch9:         cmake.patch
 
 BuildRequires:  clang
@@ -257,7 +272,8 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  perl-podlators
 BuildRequires:  lld
-BuildRequires:  binutils-gold
+BuildRequires:  kernel-headers
+BuildRequires:  kernel-cross-headers
 
 Requires:       glibc-devel
 Requires:       lld
@@ -304,7 +320,7 @@ correct programs easier for the developer.
 %forgesetup -a
 cd %{builddir}
 %{lua:
-for i = 0, 49 do
+for i = 0, 53 do
   local subdir = rpm.expand("%{?subdir" .. i .. "}")
   if subdir ~= "" then
     print(rpm.expand("mv %{archivename" .. i .. "} " .. subdir .. "\n"))
@@ -319,7 +335,6 @@ end
 %patch 7
 %patch 13
 %patch 25
-%patch 24
 %patch 9
 
 # Install custom Fedora preset
@@ -328,9 +343,6 @@ cp %{SOURCE100} swift/utils/fedora-presets.ini
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
-
-# Build wasmkit using current swift-tools-version
-sed -i 's/swift-tools-version:999.0.0/swift-tools-version:6.1.3/' wasmkit/Package@swift-6.1.swift
 
 %global buildsubdir %{nil}
 %build
@@ -355,7 +367,8 @@ echo "=== Bootstrap Stage 0: Building minimal Swift from C++ ==="
     build_subdir=bootstrap_stage0 \
     install_destdir=%{_builddir}/stage0 \
     installable_package=%{_builddir}/swift-%{version}-stage0.tar.gz \
-    extra-cmake-options="-DLLVM_USE_LINKER=gold -DCLANG_DEFAULT_LINKER=gold"
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=ld.lld" \
+    swift-cmake-options="-DSWIFT_USE_LINKER=lld"
 
 echo "=== Bootstrap Stage 1: Rebuilding Swift with Stage 0 ==="
 export PATH=%{_builddir}/stage0/usr/bin:$PATH
@@ -363,7 +376,8 @@ export PATH=%{_builddir}/stage0/usr/bin:$PATH
     build_subdir=bootstrap_stage1 \
     install_destdir=%{_builddir}/stage1 \
     installable_package=%{_builddir}/swift-%{version}-stage1.tar.gz \
-    extra-cmake-options="-DLLVM_USE_LINKER=gold -DCLANG_DEFAULT_LINKER=lld"
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=ld.lld" \
+    swift-cmake-options="-DSWIFT_USE_LINKER=lld"
 
 echo "=== Bootstrap Stage 2: Building toolchain with SwiftPM ==="
 export PATH=%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
@@ -371,7 +385,8 @@ export PATH=%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
     build_subdir=bootstrap_stage2 \
     install_destdir=%{_builddir}/stage2 \
     installable_package=%{_builddir}/swift-%{version}-stage2.tar.gz \
-    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=lld"
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=ld.lld" \
+    swift-cmake-options="-DSWIFT_USE_LINKER=lld"
 
 echo "=== Stage 3: Building final production toolchain with swift-driver ==="
 export PATH=%{_builddir}/stage2/usr/bin:%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
@@ -380,7 +395,8 @@ export PATH=%{_builddir}/stage2/usr/bin:%{_builddir}/stage1/usr/bin:%{_builddir}
     build_subdir=fedora_final \
     install_destdir=%{_builddir} \
     installable_package=%{_builddir}/swift-%{version}-f%{fedora}.tar.gz \
-    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=lld -DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,relro,-z,now -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,relro,-z,now"
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=ld.lld -DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,relro,-z,now -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,relro,-z,now" \
+    swift-cmake-options="-DSWIFT_USE_LINKER=lld"
 
 
 %install

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc5.35
+%define pkgrelease 0.rc5.260526ge8c2f9fdadee.36
 %define kversion 7
-%define tarfile_release 7.1-rc5
+%define tarfile_release 7.1-rc5-6-ge8c2f9fdadee
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.35%{?buildid}%{?dist}
+%define specrelease 0.rc5.260526ge8c2f9fdadee.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -4847,11 +4847,14 @@ fi\
 #
 #
 %changelog
-* Mon May 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.35]
+* Tue May 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.e8c2f9fdadee.36]
 - net/sched: fix pedit partial COW leading to page cache corruption (Rajat Gupta)
 - xfrm: esp: restore combined single-frag length gate (Jingguo Tan)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
 - disable selftests by default for now (Thorsten Leemhuis)
+
+* Tue May 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.e8c2f9fdadee.35]
+- Linux v7.1.0-0.rc5.e8c2f9fdadee
 
 * Mon May 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc5.34]
 - Enable the drm/accel/qaic driver module for x86 in rhel config. (John Wiele)

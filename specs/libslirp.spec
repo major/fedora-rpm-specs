@@ -1,5 +1,5 @@
 Name:           libslirp
-Version:        4.9.2
+Version:        4.9.3
 Release:        1%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue May 26 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.3-1
+- new version
+
 * Sun May 24 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.2-1
 - new version, rhbz#2480978
 

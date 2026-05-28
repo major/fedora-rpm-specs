@@ -1,6 +1,6 @@
 Name:    libplasma
 Version: 6.6.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -56,6 +56,16 @@ BuildRequires:  cmake(KF6Archive)
 # examples
 BuildRequires:  cmake(KF6Parts)
 BuildRequires:  cmake(KF6WidgetsAddons)
+
+# QML module dependencies, checked at build time
+BuildRequires:  qt6qml(Qt5Compat.GraphicalEffects)
+BuildRequires:  qt6qml(org.kde.config)
+BuildRequires:  qt6qml(org.kde.kirigami)
+BuildRequires:  qt6qml(org.kde.ksvg)
+Requires:       qt6qml(Qt5Compat.GraphicalEffects)
+Requires:       qt6qml(org.kde.config)
+Requires:       qt6qml(org.kde.kirigami)
+Requires:       qt6qml(org.kde.ksvg)
 
 Requires:       kf6-filesystem
 
@@ -129,6 +139,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %files doc
 
 %changelog
+* Tue May 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.6.90-2
+- Add QML dependencies
+
 * Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
 - 6.6.90
 

@@ -6,7 +6,7 @@
 %global major_minor_version %%(echo %%{tarball_version} | cut -d "." -f 1-2)
 
 Name:           libadwaita
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 

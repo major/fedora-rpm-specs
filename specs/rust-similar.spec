@@ -6,7 +6,7 @@
 %global crate similar
 
 Name:           rust-similar
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Diff library for Rust
 

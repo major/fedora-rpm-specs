@@ -86,52 +86,6 @@ Out of the box, Weston provides a very basic desktop, or a full-featured
 environment for non-desktop uses such as automotive, embedded, in-flight,
 industrial, kiosks, set-top boxes and TVs.
 
-%package        session
-Summary:        Weston desktop session
-Conflicts:      %{name} < 13.0.0-4
-Obsoletes:      %{name} < 13.0.0-4
-Requires:       %{name} = %{version}-%{release}
-BuildArch:      noarch
-
-%description    session
-Weston desktop session.
-
-%package        libs
-Summary:        Weston compositor libraries
-
-%description    libs
-This package contains Weston compositor libraries.
-
-%package        demo
-Summary:        Weston demo program files
-
-%description    demo
-This package contains Weston demo program files.
-
-%package        devel
-Summary:        Common headers for weston
-# Automatically converted from old format: MIT - review is highly recommended.
-License:        MIT
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    devel
-Common headers for weston
-
-%prep
-%autosetup -p1
-
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
-
-%check
-# may be standalone tests can be done
-#%%meson_test
-
 %files
 %config(noreplace) %{_sysconfdir}/pam.d/weston-remote-access
 %license COPYING
@@ -159,10 +113,34 @@ Common headers for weston
 %{_datadir}/weston/*.png
 %{_datadir}/weston/wayland.svg
 
-%files session
+%dnl --------------------------------------------------------------------
+
+%package        session
+Summary:        Weston desktop session
+Conflicts:      %{name} < 13.0.0-4
+Obsoletes:      %{name} < 13.0.0-4
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+%description    session
+Weston desktop session.
+
+%files          session
 %{_datadir}/wayland-sessions/weston.desktop
 
-%files libs
+%dnl --------------------------------------------------------------------
+
+%package        libs
+Summary:        Weston compositor libraries
+Conflicts:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs < 15.0.1-2
+Recommends:     %{name}-libs-backend-rdp%{?_isa} = %{version}-%{release}
+Recommends:     %{name}-libs-backend-vnc%{?_isa} = %{version}-%{release}
+
+%description    libs
+This package contains Weston compositor libraries.
+
+%files          libs
 %license COPYING
 %dir %{_libdir}/libweston-%{apiver}
 %{_libdir}/libweston-%{apiver}/color-lcms.so
@@ -170,17 +148,85 @@ Common headers for weston
 %{_libdir}/libweston-%{apiver}/gl-renderer.so
 %{_libdir}/libweston-%{apiver}/headless-backend.so
 %{_libdir}/libweston-%{apiver}/pipewire-backend.so
-%{_libdir}/libweston-%{apiver}/pipewire-plugin.so
-%{_libdir}/libweston-%{apiver}/remoting-plugin.so
-%{_libdir}/libweston-%{apiver}/rdp-backend.so
-%{_libdir}/libweston-%{apiver}/vnc-backend.so
 %{_libdir}/libweston-%{apiver}/vulkan-renderer.so
 %{_libdir}/libweston-%{apiver}/wayland-backend.so
 %{_libdir}/libweston-%{apiver}/x11-backend.so
 %{_libdir}/libweston-%{apiver}/xwayland.so
 %{_libdir}/libweston-%{apiver}.so.0*
 
-%files demo
+%dnl --------------------------------------------------------------------
+
+%package        libs-backend-rdp
+Summary:        Weston RDP backend
+Conflicts:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs < 15.0.1-2
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    libs-backend-rdp
+This package contains the Weston RDP backend.
+
+%files          libs-backend-rdp
+%license COPYING
+%{_libdir}/libweston-%{apiver}/rdp-backend.so
+
+%dnl --------------------------------------------------------------------
+
+%package        libs-backend-vnc
+Summary:        Weston VNC backend
+Conflicts:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs < 15.0.1-2
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    libs-backend-vnc
+This package contains the Weston VNC backend.
+
+%files          libs-backend-vnc
+%license COPYING
+%{_libdir}/libweston-%{apiver}/vnc-backend.so
+
+%dnl --------------------------------------------------------------------
+
+%package        libs-plugin-pipewire
+Summary:        Weston PipeWire plugin
+# These will be gone in Weston 16.0
+Provides:       deprecated()
+Conflicts:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs < 15.0.1-2
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    libs-plugin-pipewire
+This package contains the Weston PipeWire plugin.
+
+%files          libs-plugin-pipewire
+%license COPYING
+%{_libdir}/libweston-%{apiver}/pipewire-plugin.so
+
+%dnl --------------------------------------------------------------------
+
+%package        libs-plugin-remoting
+Summary:        Weston GStreamer-based remoting plugin
+# These will be gone in Weston 16.0
+Provides:       deprecated()
+Conflicts:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs < 15.0.1-2
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    libs-plugin-remoting
+This package contains the Weston GStreamer-based remoting plugin.
+
+%files          libs-plugin-remoting
+%license COPYING
+%{_libdir}/libweston-%{apiver}/remoting-plugin.so
+
+%dnl --------------------------------------------------------------------
+
+%package        demo
+Summary:        Weston demo program files
+
+%description    demo
+This package contains Weston demo program files.
+
+%files          demo
 %license COPYING
 %{_bindir}/weston-calibrator
 %{_bindir}/weston-clickdot
@@ -214,7 +260,19 @@ Common headers for weston
 %{_bindir}/weston-touch-calibrator
 %{_bindir}/weston-transformed
 
-%files devel
+%dnl --------------------------------------------------------------------
+
+%package        devel
+Summary:        Common headers for weston
+# Automatically converted from old format: MIT - review is highly recommended.
+License:        MIT
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    devel
+Common headers for weston
+
+%files          devel
 %{_includedir}/libweston-%{apiver}/
 %{_includedir}/weston/
 %{_libdir}/pkgconfig/libweston-%{apiver}.pc
@@ -222,6 +280,22 @@ Common headers for weston
 %{_libdir}/libweston-%{apiver}.so
 %{_datadir}/pkgconfig/libweston-%{apiver}-protocols.pc
 %{_datadir}/libweston-%{apiver}/protocols/
+
+%dnl --------------------------------------------------------------------
+
+%prep
+%autosetup -p1
+
+%build
+%meson
+%meson_build
+
+%install
+%meson_install
+
+%check
+# may be standalone tests can be done
+#%%meson_test
 
 %changelog
 %autochangelog

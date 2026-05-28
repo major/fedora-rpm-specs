@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/hugsy/gef
 
 Name:           gdb-gef
-Version:        2025.01
+Version:        2026.01
 
 %global tag %{version}
 %forgemeta
@@ -17,7 +17,6 @@ Source0:        %{forgesource}
 Source1:        gdb-gef
 # https://github.com/hugsy/gef/pull/1094
 Patch0:         gef-got-audit.patch
-Patch1:         gef-gcc15.patch
 Patch2:         gef-tcache-mark.patch
 
 BuildArch:      noarch
@@ -67,7 +66,6 @@ the relevant information from the debugging runtime.
 %prep
 %forgesetup
 %patch 0 -p1
-%patch 1 -p1
 %patch 2 -p1
 
 

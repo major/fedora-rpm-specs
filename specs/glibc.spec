@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-322-gdee4e2446f
+%global glibcsrcdir glibc-2.43.9000-354-gf531cab589
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 17
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2408,6 +2408,42 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue May 26 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-17
+- Auto-sync with upstream branch master,
+  commit f531cab5891cc71442dcced4abe8ecc6ef15e61f:
+- hurd: let the root user raise its priority (Diego Nieto Cid)
+- hurd: add validations in msync (Etienne Brateau)
+- hurd: clamp the setpriority prio argument to the range [-NZERO, NZERO-1] (Diego Nieto Cid)
+- intl: Fix tst-gettext under inherited LC_* environment (Adhemerval Zanella)
+- nptl: Skip tst-pthread-gdb-attach{, -static} on env mismatches (Adhemerval Zanella)
+- alpha: fix setrlimit compat symbol for negative rlim values besides -1 (Matt Turner)
+- sh: reload r3 after arg evaluation in INTERNAL_SYSCALL [BZ #34167] (Matt Turner)
+- elf: Initialize TCB and stack-protector before static IFUNC resolvers (BZ 20680, BZ 27582, BZ 28817) (Adhemerval Zanella)
+- elf: Initialize static TLS before relocation processing (BZ 34164) (Adhemerval Zanella)
+- x86: Revert "x86: Lower non-temporal copy threshold for Hygon" (Adhemerval Zanella)
+- string: Improve test-memchr page cross checks (Wilco Dijkstra)
+- Vectorise special cases for SVE log1p(f) (Thomas Daubney)
+- stdio-common: Optimize scanf %ms series array expansion (Rocket Ma)
+- Vectorise special cases for SVE inverse hyperbolics (Thomas Daubney)
+- x86: Fix non-temporal memset unreachable on AMD Zen 3/4/5 (zombie12138)
+- libio: Ignore doallocate for open_memstream and open_wmemstream [BZ #34019] (Xiang Gao)
+- libio: Ignore setbuf for open_memstream and open_wmemstream [BZ #34019] (Xiang Gao)
+- x86: Lower non-temporal copy threshold for Hygon (xiejiamei)
+- elf: Don't crash in dlsym when tail-called from a constructor [BZ #34156] (Daan De Meyer)
+- SHARED-FILES: Update gettext sync record (Avinal Kumar)
+- intl: Fix undefined pointer behaviour (Avinal Kumar)
+- Fix hurd bootstrap after 4c6f92daead (Adhemerval Zanella)
+- elf: Use dl_scratch_buffer for LD_LIBRARY_PATH copy in _dl_init_paths (Adhemerval Zanella)
+- elf: Use dl_scratch_buffer for DST expansion in _dl_map_object_deps (Adhemerval Zanella)
+- elf: Replace alloca with dl_scratch_buffer in _dl_load_cache_lookup (Adhemerval Zanella)
+- elf: Replace alloca/VLA with dl_scratch_buffer in dl-load.c (Adhemerval Zanella)
+- support: Add use_stack_min option to support_small_thread_stack_size (Adhemerval Zanella)
+- elf: Add dl_scratch_buffer, a loader-side scratch buffer (Adhemerval Zanella)
+- malloc: Small fix for code readability (Yury Khrustalev)
+- s390: Adjust configure check for static-pie support. (Stefan Liebler)
+- nss_files: use booleans in parser macro calls (Andreas Schwab)
+- nss_files: fix swapped arguments in service parser (Andreas Schwab)
+
 * Tue May 19 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-16
 - Auto-sync with upstream branch master,
   commit dee4e2446f09ab2f2d125f5021b93e22c50fa6e5:

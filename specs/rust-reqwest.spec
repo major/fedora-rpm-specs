@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.13.1
+Version:        0.13.3
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -307,18 +307,6 @@ use the "rustls" feature of the "%{crate}" crate.
 %files       -n %{name}+rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rustls-native-certs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rustls-native-certs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rustls-native-certs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rustls-native-certs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+rustls-no-provider-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -365,18 +353,6 @@ This package contains library source intended for building other packages which
 use the "system-proxy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+system-proxy-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+webpki-roots-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+webpki-roots-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "webpki-roots" feature of the "%{crate}" crate.
-
-%files       -n %{name}+webpki-roots-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zstd-devel

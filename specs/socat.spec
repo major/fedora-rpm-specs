@@ -2,14 +2,13 @@
 
 Summary: Bidirectional data relay between two data channels ('netcat++')
 Name: socat
-Version: 1.8.1.0
+Version: 1.8.1.1
 Release: %autorelease
 License: GPL-2.0-only
 Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
 
-Patch1: socat-1.8.1.0-printtime.patch
-Patch2: socat-1.8.1.0-openssl4.patch
+Patch1: socat-1.8.1.0-openssl4.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -62,11 +61,10 @@ cp -a %{buildroot}/%{_mandir}/man1/filan.1.gz %{buildroot}/%{_mandir}/man1/proca
 export TERM=ansi
 export OD_C=/usr/bin/od
 # intermittently, some tests fail and just hang
-# FAILED on all arches:  146 478 528
-# FAILED on i686: 311 313 513
-# FAILED on 390s: 202 493
-# FAILED:  146 (DSA algo disallowed?)
-sed -i 's/NUMCOND=true/NUMCOND="test \\$N -ne 146 -a \\$N -ne 478 -a \\$N -ne 528"/' test.sh
+# FAILED on all arches:  478 528
+# FAILED:  146 (DSA algo disallowed)
+# FAILED:  467 468  (require root)
+sed -i 's/NUMCOND=true/NUMCOND="test \\$N -ne 146 -a \\$N -ne 467 -a  \\$N -ne 468 -a \\$N -ne 478 -a \\$N -ne 528"/' test.sh
 make test
 %endif
 

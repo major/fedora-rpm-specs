@@ -13,7 +13,7 @@
 # https://github.com/bugst/go-serial
 %global goipath         go.bug.st/serial
 %global forgeurl        https://github.com/bugst/go-serial
-Version:                1.7.0
+Version:                1.7.1
 
 %gometa -L
 

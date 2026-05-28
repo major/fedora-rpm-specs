@@ -6,7 +6,7 @@
 %endif
 
 Name:           libgit2
-Version:        1.9.3
+Version:        1.9.4
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 # The main code is GPL-2.0-only WITH GCC-exception-2.0
@@ -67,6 +67,8 @@ with bindings.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# explicitly conflict with other libgit2 devel packages
+Conflicts:      pkgconfig(libgit2)
 %if 0%{?fedora} >= 38
 Obsoletes:      libgit2_1.3-devel < 1.3.2-3
 Obsoletes:      libgit2_1.4-devel < 1.4.6-3

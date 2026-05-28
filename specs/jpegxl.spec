@@ -20,7 +20,7 @@ decoder).}
 
 Name:           jpegxl
 Epoch:          1
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 
@@ -73,9 +73,9 @@ BuildRequires:  libjxl < %{epoch}:%{version}
 %endif
 
 # No official release
-Provides:       bundled(sjpeg) = 0-0.1.20230608gite5ab130
+Provides:       bundled(sjpeg) = 0-0.1.20250403git94e0df6
 # Build system is Bazel, which is not packaged by Fedora
-Provides:       bundled(skcms) = 0-0.1.20240122git51b7f2a
+Provides:       bundled(skcms) = 0-0.1.20250916git96d9171
 
 %description
 %common_description

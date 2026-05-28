@@ -1,23 +1,15 @@
 %global forgeurl https://github.com/libimobiledevice/libimobiledevice
-%global commit ed9703db1ee6d54e3801b618cee9524563d709e1
-%global date 20240916
-%{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           libimobiledevice
-Version:        1.3.0^%{date}git%{shortcommit}
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Library for connecting to mobile devices
 
-License:        LGPL-2.0-or-later
+License:        LGPL-2.0-or-later AND MIT AND Zlib
 URL:            https://libimobiledevice.org/
-Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
-# Use SHA256 signature, instead of SHA1 for pairing
-Patch:          %{forgeurl}/pull/1616.patch
+Source:         %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 
 BuildRequires:  glib2-devel
@@ -30,7 +22,12 @@ BuildRequires:  libtatsu-devel
 BuildRequires:  libusbmuxd-devel
 BuildRequires:  libusbx-devel
 BuildRequires:  libxml2-devel
+BuildRequires:  python3-Cython
+BuildRequires:  python3-devel
 BuildRequires:  readline-devel
+
+Provides:       bundled(ed25519)
+Provides:       bundled(SRP6a)
 
 # Applications using libimobiledevice might use sockets provided by usbmuxd to
 # work
@@ -47,6 +44,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 Files for development with libimobiledevice.
 
+%package  -n    python3-libimobiledevice
+Summary:        Python3 bindings for libimobiledevice
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       python3
+
+%description -n python3-libimobiledevice
+%{name}, python3 libraries and bindings.
+
 %package        utils
 Summary:        Utilities for libimobiledevice
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -55,15 +60,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Utilities for use with libimobiledevice.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
-
-%if %{defined commit}
-echo %{version} > .tarball-version
-%endif
+%autosetup -p1 -n %{name}-%{version}
 
 %build
-NOCONFIGURE=1 ./autogen.sh
-%configure --disable-static --without-cython
+export PYTHON_VERSION="%{python3_version}"
+%configure --disable-static
 %make_build
 
 %install
@@ -84,6 +85,9 @@ NOCONFIGURE=1 ./autogen.sh
 %{_libdir}/pkgconfig/libimobiledevice-1.0.pc
 %{_libdir}/libimobiledevice-1.0.so
 %{_includedir}/libimobiledevice/
+
+%files -n python3-libimobiledevice
+%{python3_sitearch}/imobiledevice.so
 
 %changelog
 %autochangelog

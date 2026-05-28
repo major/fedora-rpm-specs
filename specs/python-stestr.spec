@@ -53,7 +53,7 @@ It contains the documentation for stestr.
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x sql
+%pyproject_buildrequires
 
 
 %build

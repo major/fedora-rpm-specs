@@ -39,7 +39,7 @@ This includes:
 * Header files for various languages.
 * JSON files describing the grammar for the SPIR-V core instruction
   set, and for the GLSL.std.450 extended instruction set.
-* The XML registry fil
+* The XML registry file
 
 %prep
 %autosetup -n SPIRV-Headers-%{commit} -p1

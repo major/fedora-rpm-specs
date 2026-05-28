@@ -1,17 +1,18 @@
 Name:           perl-Proc-ForkSafe
-Version:        0.001
-Release:        7%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Help make objects fork safe
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Proc-ForkSafe
-Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Proc-ForkSafe-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Proc-ForkSafe-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(:VERSION) >= 5.24.0
+BuildRequires:  perl(Config)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
-BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
@@ -19,18 +20,41 @@ BuildRequires:  perl(Test::More)
 %description
 Proc::ForkSafe helps make objects fork safe.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Proc-ForkSafe-%{version}
+%setup -q -n Proc-ForkSafe-v%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
@@ -39,7 +63,14 @@ perl Build.PL --installdirs=vendor
 %{perl_vendorlib}/Proc*
 %{_mandir}/man3/Proc::ForkSafe*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-1
+- 1.0.0 bump (rhbz#2481011)
+- Package tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

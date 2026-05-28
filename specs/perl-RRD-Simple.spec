@@ -1,14 +1,14 @@
 Name:		perl-RRD-Simple
 Version:	1.44
-Release:	53%{?dist}
+Release:	54%{?dist}
 Summary:	Simple interface to create and store data in RRD files
 License:	Apache-2.0
 URL:		https://metacpan.org/release/RRD-Simple
 Source0:	https://cpan.metacpan.org/authors/id/N/NI/NICOLAW/RRD-Simple-%{version}.tar.gz
+Patch0:		RRD-Simple-1.44-version-check.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
@@ -23,7 +23,7 @@ BuildRequires:	perl(File::Copy)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(POSIX)
-BuildRequires:	perl(RRDs)
+BuildRequires:	perl(RRDs) >= 1.3
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
@@ -33,7 +33,7 @@ BuildRequires:	perl(Test::More)
 # Optional Tests
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
-# Runtime
+# Dependencies
 Requires:	perl(Data::Dumper)
 Requires:	perl(File::Copy)
 Requires:	perl(File::Temp)
@@ -42,9 +42,14 @@ Requires:	perl(File::Temp)
 # https://rt.cpan.org/Public/Bug/Display.html?id=46193
 BuildConflicts:	perl(Test::Deep)
 
-# Move to unversioned documentation directories from F-20
-# https://fedoraproject.org/wiki/Changes/UnversionedDocdirs
-%global rrd_docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
+# Provide module version from distribution version, as per upstream intent
+%global __provides_exclude ^perl\\(RRD::Simple\\)
+Provides:	perl(RRD::Simple) = %{version}
+
+# Enforce minimum rrdtool version at rpm level since we're patching out the
+# version checks in the code
+%global __requires_exclude ^perl\\(RRDs\\)
+Requires:	perl(RRDs) >= 1.3
 
 %description
 RRD::Simple provides a simple interface to RRDTool's RRDs module. This module
@@ -59,15 +64,10 @@ if you do not need to, nor want to, bother defining custom RRA definitions.
 %prep
 %setup -q -n RRD-Simple-%{version}
 
-# Don't want provides/requires from documentation
-%global docfilt perl -p -e 's|%{rrd_docdir}\\S+||'
-# RRD::Simple version should be from distribution version, not svn revision
-%global verfilt perl -p -e 's/(perl\\(RRD::Simple\\) =) \\d+/\\1 %{version}/'
-# Apply provides/requires filters
-%global provfilt /bin/sh -c "%{docfilt} | %{__perl_provides} | %{verfilt}"
-%global __perl_provides %{provfilt}
-%global reqfilt /bin/sh -c "%{docfilt} | %{__perl_requires}"
-%global __perl_requires %{reqfilt}
+# Work around non-monotonic version change in rrdtool by assuming at least
+# version 1.3 of perl(RRDs) and patching out version checks in the code
+# (rhbz#2481434, see also https://github.com/oetiker/rrdtool-1.x/pull/1331)
+%patch -P0
 
 %build
 # Prevent call-home query/timeout; not strictly necessary
@@ -92,6 +92,13 @@ LC_ALL=C ./Build test
 %{_mandir}/man3/RRD::Simple::Examples.3*
 
 %changelog
+* Tue May 26 2026 Paul Howarth <paul@city-fan.org> - 1.44-54
+- Drop redundant doc-file-dependency filter
+- Modernize provides filter so that it starts working again
+- Work around non-monotonic version change in rrdtool by requiring at least
+  version 1.3 of perl(RRDs) and patching out version checks in the code
+  (rhbz#2481434, see also https://github.com/oetiker/rrdtool-1.x/pull/1331)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

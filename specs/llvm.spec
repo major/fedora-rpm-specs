@@ -503,6 +503,9 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 #endregion CLANG patches
 
+# Fix lit tests for Python 3.15+ https://bugzilla.redhat.com/show_bug.cgi?id=2448969
+Patch2209: https://github.com/llvm/llvm-project/commit/0b6a1ef429.patch
+
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
 Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch

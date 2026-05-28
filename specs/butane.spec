@@ -22,7 +22,7 @@ configs for provisioning operating systems that use Ignition.}
 %global godocs          docs README.md
 
 Name:           butane
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Butane config transpiler
 
 License:        Apache-2.0
@@ -148,6 +148,12 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Thu May 21 2026 Steven Presti <spresti@redhat.com> - 0.28.0-2
+- Update changelog to be accurate
+
+* Thu May 21 2026 Steven Presti <spresti@redhat.com> - 0.28.0-1
+- New release
+
 * Fri Feb 27 2026 Steven Presti <spresti@redhat.com> - 0.27.0-1
 - New release
 

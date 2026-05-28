@@ -12,7 +12,6 @@ Source:         %{giturl}/archive/%{version}.tar.gz#/pybtex-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): -x doc,test
 BuildOption(install): -l pybtex
 
 BuildRequires:  make

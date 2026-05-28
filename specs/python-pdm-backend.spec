@@ -6,6 +6,7 @@ Summary:        The build backend used by PDM that supports latest packaging sta
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
 Source:         %{pypi_source pdm_backend}
+Patch:          https://github.com/pdm-project/pdm-backend/pull/304.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

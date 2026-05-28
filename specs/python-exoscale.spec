@@ -1,6 +1,6 @@
 Name:           python-exoscale
 Version:        0.16.3
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Python bindings for Exoscale API
 
 License:        ISC
@@ -19,6 +19,7 @@ high-level Python bindings.}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(requests-exoscale-auth)
 # Test dependencies:
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-timeout)
@@ -56,99 +57,4 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
-* Thu Mar 26 2026 Packit <hello@packit.dev> - 0.16.3-1
-- Update to version 0.16.3
-- Resolves: rhbz#2447344
-
-* Fri Mar 13 2026 Packit <hello@packit.dev> - 0.16.2-1
-- Update to version 0.16.2
-- Resolves: rhbz#2447344
-
-* Thu Jan 22 2026 Packit <hello@packit.dev> - 0.16.1-1
-- Update to version 0.16.1
-- Resolves: rhbz#2432086
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Dec 05 2025 Packit <hello@packit.dev> - 0.16.0-1
-- Update to version 0.16.0
-- Resolves: rhbz#2419178
-
-* Tue Oct 28 2025 Packit <hello@packit.dev> - 0.15.0-1
-- Update to version 0.15.0
-- Resolves: rhbz#2406939
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Thu Aug 28 2025 Packit <hello@packit.dev> - 0.14.0-1
-- Update to version 0.14.0
-- Resolves: rhbz#2387784
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.12.0-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 0.12.0-2
-- Rebuilt for Python 3.14
-
-* Fri Jun 06 2025 Packit <hello@packit.dev> - 0.12.0-1
-- Update to version 0.12.0
-- Resolves: rhbz#2370614
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11.0-2
-- Rebuilt for Python 3.14
-
-* Thu Apr 24 2025 Packit <hello@packit.dev> - 0.11.0-1
-- Update to version 0.11.0
-- Resolves: rhbz#2362003
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.10.0-2
-- Rebuilt for Python 3.13
-
-* Wed May 29 2024 Packit <hello@packit.dev> - 0.10.0-1
-- Update to version 0.10.0
-- Resolves: rhbz#2283818
-
-* Thu May 02 2024 Packit <hello@packit.dev> - 0.9.1-1
-- Update to version 0.9.1
-- Resolves: rhbz#2277750
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.8.0-2
-- Rebuilt for Python 3.12
-
-* Thu May 25 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.0-1
-- Update to 0.8.0 (resolve rhbz#2203225)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.7.1-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Nov 08 2021 Roman Inflianskas <rominf@aiven.io> - 0.7.1-1
-- Initial package
+%autochangelog

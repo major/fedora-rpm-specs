@@ -137,7 +137,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	9.13
+Version:	9.14
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -973,6 +973,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue May 26 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.14-1
+- NFS-Ganesha 9.14 GA
+
 * Mon Apr 27 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.13-1
 - NFS-Ganesha 9.13 GA
 

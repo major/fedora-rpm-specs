@@ -1,5 +1,5 @@
 Name:           perl-ExtUtils-Builder
-Version:        0.019
+Version:        0.020
 Release:        1%{?dist}
 Summary:        Abstract actions and plans for the ExtUtils-Builder framework
 
@@ -15,11 +15,14 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl(base)
+BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Devel::FindPerl)
 BuildRequires:  perl(Exporter) >= 5.57
-BuildRequires:  perl(ExtUtils::Config)
+BuildRequires:  perl(ExtUtils::Config) >= 0.009
 BuildRequires:  perl(ExtUtils::Config::MakeMaker)
 BuildRequires:  perl(ExtUtils::Helpers) >= 0.027
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -39,7 +42,10 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Sub::Util) >= 1.40
 BuildRequires:  perl(Test::Builder)
+# Provided by us: BuildRequires:  perl(Test::LivesOK)
 BuildRequires:  perl(Test::More) >= 0.89
+BuildRequires:  perl(Test::Pod) >= 1.41
+#BuildRequires:  perl(Test::Pod::Coverage::TrustMe)
 BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 Requires:       perl(Sub::Util) >= 1.40
@@ -77,6 +83,12 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Sun Mar 22 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.020-1
+- Update to 0.020
+- add scan-perl-buildrequires.sh which uses scan-perl-prereqs
+  from Perl::PrereqScanner
+- Update BR
+
 * Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.019-1
 - Update to 0.019
 

@@ -1,5 +1,5 @@
 Name:          ifuse
-Version:       1.1.4
+Version:       1.2.1
 Release:       %autorelease
 Summary:       Mount Apple iPhone and iPod touch devices
 License:       LGPL-2.1-or-later
@@ -9,12 +9,12 @@ Source:        https://github.com/libimobiledevice/%{name}/releases/download/%{v
 BuildRequires:  gcc
 BuildRequires:  make
 
-BuildRequires:  fuse-devel
+BuildRequires:  fuse3-devel
 BuildRequires:  libimobiledevice-devel
 BuildRequires:  libimobiledevice-glue-devel
 BuildRequires:  libplist-devel
 
-Requires:       fuse
+Requires:       fuse3
 
 %description
 A fuse filesystem for mounting iPhone and iPod touch devices
@@ -23,6 +23,9 @@ A fuse filesystem for mounting iPhone and iPod touch devices
 %setup -q
 
 %build
+%ifarch %{ix86}
+export CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64"
+%endif
 %configure --disable-static
 %make_build
 

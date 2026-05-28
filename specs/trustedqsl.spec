@@ -1,10 +1,10 @@
 %undefine __cmake_in_source_build
 
 %global srcname tqsl
-%global libtqslver 2.6
+%global libtqslver 2.8
 
 Name:           trustedqsl
-Version:        2.8.4
+Version:        2.8.5
 Release:        1%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,7 +17,6 @@ Patch0:         tqsl-tqsllib.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake%{?rhel:3}
-#BuildRequires:  lmdb-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  openssl-devel
 BuildRequires:  curl-devel
@@ -104,7 +103,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -n tqsllib
 %doc src/LICENSE src/ChangeLog.txt
-%{_libdir}/libtqsllib.so.%{libtqslver}
+%{_libdir}/libtqsllib.so.%{libtqslver}*
 
 %files -n tqsllib-devel
 %{_includedir}/*
@@ -112,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue May 26 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.5-1
+- Update to 2.8.5.
+
 * Mon Feb 02 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.4-1
 - Update to 2.8.4.
 

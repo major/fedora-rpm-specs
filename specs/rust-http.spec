@@ -5,7 +5,7 @@
 %global crate http
 
 Name:           rust-http
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Set of types for representing HTTP requests and responses
 

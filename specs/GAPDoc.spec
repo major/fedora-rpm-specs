@@ -17,7 +17,7 @@
 %global gap_makedoc makedocrel.g
 
 Name:           %{gap_pkgname}
-Version:        1.6.9
+Version:        1.6.10
 Release:        %autorelease
 Summary:        GAP documentation tool
 

@@ -1,5 +1,5 @@
 Name:           klog
-Version:        2.5
+Version:        2.5.1
 Release:        1%{?dist}
 Summary:        A Ham radio logging program for KDE
 
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue May 26 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5.1-1
+- Update to 2.5.1.
+
 * Sat Apr 04 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5-1
 - Update to 2.5.
 

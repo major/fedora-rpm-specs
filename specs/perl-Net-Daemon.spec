@@ -27,6 +27,7 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(warnings)
 # Tests:
@@ -41,7 +42,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Socket)
 }
 Suggests:       perl(Sys::Syslog)
-Suggests:       perl(threads)
+Requires:       perl(threads)
 Requires:       perl(threads::shared)
 
 %{?perl_default_filter}

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Archive-Tar
-Version:        3.08
+Version:        3.10
 Release:        1%{?dist}
 Summary:        A module for Perl manipulation of .tar files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.10-1
+- 3.10 bump (rhbz#2481251)
+
 * Mon May 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.08-1
 - 3.08 bump (rhbz#2480888)
 

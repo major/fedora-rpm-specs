@@ -6,12 +6,13 @@
 Name: hunspell-sk
 Summary: Slovak hunspell dictionaries
 Epoch: 1
-%global upstreamid 20110228
+%global upstreamid 20240829
+%global upstreamver 2.4.8
 Version: 0.%{upstreamid}
-Release: 31%{?dist}
-Source: http://www.sk-spell.sk.cx/files/hunspell-sk-%{upstreamid}.zip
+Release: 1%{?dist}
+Source: https://github.com/sk-spell/hunspell-sk/releases/download/v%{upstreamver}/%{upstreamver}-sk@dictionaries.addons.mozilla.org.xpi
 URL: http://www.sk-spell.sk.cx/
-License: LGPL-2.1-only OR GPL-2.0-only OR MPL-1.1
+License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
 BuildArch: noarch
 
 Requires: hunspell
@@ -21,20 +22,25 @@ Supplements: (hunspell and langpacks-sk)
 Slovak hunspell dictionaries.
 
 %prep
-%setup -q -n %{name}-%{upstreamid}
+%autosetup -c
 
 %build
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
+cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 
 %files
-%doc doc/*
-%{_datadir}/%{dict_dirname}/*
+%doc dictionaries/doc/AUTHORS dictionaries/doc/Copyright
+%license dictionaries/doc/*PL
+%{_datadir}/%{dict_dirname}/sk_SK.*
 
 %changelog
+* Tue May 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:0.20240829-1
+- Update to new upstream release at new Source URL
+- keep using date as versioning
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20110228-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

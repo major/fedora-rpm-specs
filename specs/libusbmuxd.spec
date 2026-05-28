@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/libimobiledevice/libusbmuxd
 
 Name:           libusbmuxd
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Client library USB multiplex daemon for Apple's iOS devices
 
