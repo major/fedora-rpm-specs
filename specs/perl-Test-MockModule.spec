@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.185.0
+Version:        0.185.1
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Wed May 27 2026 Paul Howarth <paul@city-fan.org> - 0.185.1-1
+- Update to 0.185.1
+  - Gate author-perlcritic.t behind AUTHOR_TESTING (GH#87, GH#88)
+
 * Thu May  7 2026 Paul Howarth <paul@city-fan.org> - 0.185.0-1
 - Update to 0.185.0
   - Revert to pre-v0.181.0 behavior: new() returns singleton-per-package by

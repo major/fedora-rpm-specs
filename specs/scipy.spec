@@ -214,7 +214,9 @@ export FLEXIBLAS=openblas-openmp
 %endif
 
 # TestDatasets try to download from the internet
-SKIP_ALL="not TestDatasets"
+# test_gh_22681_finite_error fails with numpy 2.4.4+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2458664
+SKIP_ALL="not TestDatasets and not test_gh_22681_finite_error"
 export PYTEST_ADDOPTS="-k '$SKIP_ALL'"
 
 %ifarch aarch64

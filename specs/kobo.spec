@@ -5,8 +5,8 @@
 %define with_worker 1
 
 Name:           kobo
-Version:        0.41.0
-Release:        3%{?dist}
+Version:        0.42.0
+Release:        1%{?dist}
 License:        LGPL-2.1-only
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
@@ -197,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
 
 
 %changelog
+* Wed May 27 2026 Kamil Dudka <kdudka@redhat.com> - 0.42.0-1
+- rebase to latest upstream release (rhbz#2481849)
+
 * Fri May 15 2026 Kamil Dudka <kdudka@redhat.com> - 0.41.0-3
 - migrate to pyproject macros (rhbz#2377300)
 

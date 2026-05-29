@@ -1,7 +1,7 @@
 Summary: Client for signing certificates with an ACME server
 Name: dehydrated
-Version: 0.7.1
-Release: 10%{?dist}
+Version: 0.7.2
+Release: %autorelease
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
@@ -13,9 +13,8 @@ Source5: dehydrated.service
 Source6: 50-dehydrated.preset
 Source7: dehydrated-cron
 
-Patch0: dehydrated-autowash.patch
-Patch1: dehydrated-improve-trap-handling.patch
-Patch2: dehydrated-hook.sh-defaults.patch
+Patch0: dehydrated-improve-trap-handling.patch
+Patch1: dehydrated-hook.sh-defaults.patch
 
 BuildArch: noarch
 BuildRequires: gnupg2
@@ -53,9 +52,8 @@ Current features:
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch -P0 -p1 -b .autowash
-%patch -P1 -p1 -b .improve-trap-handling
-%patch -P2 -p1
+%patch -P0 -p1 -b .improve-trap-handling
+%patch -P1 -p1 -b .hook.sh-defaults
 
 %build
 : nothing to do
@@ -150,111 +148,4 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Dec 26 2024 Robert Scheck <robert@fedoraproject.org> - 0.7.1-6
-- Added missing dehydrated run-time requirements
-- Resolved: rhbz#2279854 dehydrated dependency issue on EL8
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 31 2023 Robert Scheck <robert@fedoraproject.org> - 0.7.1-1
-- Resolved: rhbz#2139056 dehydrated-0.7.1 is available
-- Resolved: rhbz#2035549 genkey ecparam - ECDSA key, P-384 (secp384r1)
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Feb 04 2022 Carl George <carl@george.computer> - 0.7.0-5
-- Require path instead of package name for mailx rhbz#2050852
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 01 2021 Paul Wouters <paul.wouters@aiven.io> - 0.7.0-2
-- Update trigger to proper version
-
-* Tue Jun 01 2021 Paul Wouters <paul.wouters@aiven.io> - 0.7.0-1
-- Resolved: rhbz#1872621 [RFE] Ship systemd units for auto-renewal
-- Resolved: rhbz#1906674 dehydrated-0.7.0 is available
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jun 26 2019 Paul Wouters <pwouters@redhat.com> - 0.6.5-1
-- Resolves: rhbz#1723766 Updated to 0.6.5
-
-* Tue Jun 25 2019 Robert Scheck <robert@fedoraproject.org> - 0.6.4-1
-- Upgrade to 0.6.4 (#1723766)
-- Update source link
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Apr 29 2018 Robert Scheck <robert@fedoraproject.org> - 0.6.2-1
-- Resolves: rhbz#1572609 Updated to 0.6.2
-
-* Sat Mar 31 2018 Robert Scheck <robert@fedoraproject.org> - 0.6.1-1
-- Resolves: rhbz#1554153 Updated to 0.6.1 with ACME v2 support
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Jan 14 2018 Paul Wouters <pwouters@redhat.com> - 0.5.0-1
-- Resolves: rhbz#1534189 dehydrated-0.5.0 is available
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Mar 20 2017 Paul Wouters <pwouters@redhat.com> - 0.4.0-5
-- Include license with proper macros
-
-* Mon Mar 20 2017 Paul Wouters <pwouters@redhat.com> - 0.4.0-4
-- Set PRIVATE_KEY_RENEW=no so pubkeys are re-used, allowing TLSA DNS records
-
-* Sat Mar 18 2017 Tuomo Soini <tis@foobar.fi> - 0.4.0-3
-- Fix file mode of crontab entry
-
-* Sat Mar 18 2017 Kim B. Heino <b@bbbs.net> - 0.4.0-2
-- Add archive directory, cleanup
-
-* Sat Mar 18 2017 Tuomo Soini <tis@foobar.fi> - 0.4.0-1
-- Initial build
+%autochangelog

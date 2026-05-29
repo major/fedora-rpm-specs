@@ -58,6 +58,7 @@ Patch0:         0001-Update-mbedtls-to-2.28.10.patch
 Patch1:         0002-mbedtls-CVE-2025-52496-fix.patch
 Patch2:         0003-mbedtls-CVE-2025-48965-fix.patch
 Patch3:         0004-mbedtls-CVE-2025-47917-fix.patch
+Patch4:         0005-mbedtls-CVE-2026-34871-fix.patch
 
 Patch10:        dolphin-emu-fix-build-against-qt-6-10.patch
 

@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/libimobiledevice/libideviceactivation
-%global commit ecc10ef8048c6591b936c5ca1b0971157087e6b2
-%global date 20240529
+%global commit 9ca1851a499854033bbaf5f1f7c9b13b93cc7c8e
+%global date 20250907
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           libideviceactivation

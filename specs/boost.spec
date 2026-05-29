@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1372,6 +1372,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 1.90.0-8
+- Rebuilt for icu 78.3
+
 * Thu Mar 19 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-7
 - Add workaround for failing regex tests (#2430541)
 - Add BR:which as needed by the bootstrap.sh script

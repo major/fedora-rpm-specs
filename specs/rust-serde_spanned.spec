@@ -6,7 +6,7 @@
 %global crate serde_spanned
 
 Name:           rust-serde_spanned
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Serde-compatible spanned Value
 

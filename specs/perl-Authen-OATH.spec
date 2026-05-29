@@ -1,73 +1,106 @@
 Name:           perl-Authen-OATH
-Version:        2.0.1
-Release:        27%{?dist}
+%global cpan_version 3.000001
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        OATH One Time Passwords
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-OATH
-Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/Authen-OATH-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/Authen-OATH-%{cpan_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(Digest::HMAC)
 BuildRequires:  perl(Math::BigInt)
+BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moo) >= 2.002004
 BuildRequires:  perl(Types::Standard)
 # Tests only:
 BuildRequires:  perl(Digest::SHA)
-# Pod::Coverage::TrustPod not used
-# Pod::Wordlist not used
-# Test::CPAN::Changes not used
-# Test::Code::TidyAll 0.24 not used
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Needs)
-# Test::Spelling not used
-# Test::Synopsis not used
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(Test2::Require::Module)
+BuildRequires:  perl(Test2::V0)
 # Optional tests:
 BuildRequires:  perl(bignum)
-BuildRequires:  perl(Pod::Coverage) >= 0.18
-BuildRequires:  perl(Test::Pod) >= 1.22
-BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
+# CPAN::Meta 2.120900 not helpful
 # Default digest algorithm, also SHA1 is needed by HOTP specification.
 Requires:       perl(Digest::SHA)
+
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
 
 %description
 Implementation of the HOTP and TOTP One Time Password algorithms as defined by
 OATH (http://www.openauthentication.org).
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.96
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Authen-OATH-%{version}
+%setup -q -n Authen-OATH-%{cpan_version}
 for F in Changes; do
     sed -e 's/\r//' <"$F" >"${F}.unix"
     touch -r "$F" "${F}.unix"
     mv "${F}.unix" "$F"
 done
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes CONTRIBUTORS README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Authen
+%{perl_vendorlib}/Authen/OATH.pm
+%{_mandir}/man3/Authen::OATH.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 27 2026 Petr Pisar <ppisar@redhat.com> - 3.0.1-1
+- 3.000001 bump
+- Package the tests
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

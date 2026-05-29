@@ -144,10 +144,10 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
-License:        (MIT AND BSD-3-Clause) AND 0BSD
+License:        MIT AND BSD-3-Clause
 
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -296,6 +296,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed May 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
+- Explicitly license smoke tests 0BSD
+- Smoke test not part of srpm so remove from license tag
+
 * Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Generate suse package name
 

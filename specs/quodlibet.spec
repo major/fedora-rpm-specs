@@ -22,6 +22,8 @@ Patch:		https://github.com/quodlibet/quodlibet/commit/5cecd9b3579d27ebe594d20f88
 # https://github.com/quodlibet/quodlibet/pull/4846
 Patch:		https://github.com/quodlibet/quodlibet/commit/2742dc8da188d4da4a45f775540a04b00f847d05.patch
 Patch:		https://github.com/quodlibet/quodlibet/commit/060c938a13249c2809fece6e8e11c088783887f8.patch
+# https://github.com/quodlibet/quodlibet/pull/4910
+Patch:		https://github.com/quodlibet/quodlibet/commit/ab9d2b040e71887117b6395b29aa5815f7c976ec.patch
 
 BuildArch:	noarch
 

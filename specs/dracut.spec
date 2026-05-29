@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 109
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -43,6 +43,9 @@ Patch6:  0006-fix-ossl-ignore-compiler-warnings.patch
 # Revert "feat(fips): include openssl's fips.so and openssl.cnf"
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch7:  0007-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
+# fix(systemd-cryptsetup): load libcryptsetup via dlopen
+# Author: Antonio Alvarez Feijoo <antonio.feijoo@suse.com>
+Patch8:  0008-fix-systemd-cryptsetup-load-libcryptsetup-via-dlopen.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -476,6 +479,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed May 27 2026 Pavel Valena <pvalena@redhat.com> - 109-2
+- build: fix for rhbz#2481748
+
 * Thu Jan 22 2026 Pavel Valena <pvalena@redhat.com> - 109-1
 - Rebase to dracut-109
 

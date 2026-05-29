@@ -1,6 +1,6 @@
 Name:          gimagereader
 Version:       3.4.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
@@ -145,6 +145,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt6.desktop
 
 %changelog
+* Wed May 27 2026 Sandro Mani <manisandro@gmail.com> - 3.4.3-4
+- Rebuild (quazip)
+
 * Mon May 18 2026 Sandro Mani <manisandro@gmail.com> - 3.4.3-3
 - Rebuild (podofo)
 

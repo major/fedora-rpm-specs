@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.12
+%global rocm_release 7.13
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -143,23 +143,25 @@ Source1:        %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanob
 %global robinmap_giturl https://github.com/Tessil/robin-map
 Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
 
+%if %{with preview}
+Patch1:         0001-hipblaslt-preview-tensilelit-remove-yappi-dependency.patch
+Patch3:         0001-hipblaslt-preview-find-origami-package.patch
+Patch4:         0001-hipblaslt-preview-tensilelit-use-nanobind-tarball.patch
+%else
 # yappi was removed from fedora
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 # https://github.com/ROCm/rocm-libraries/issues/2422
-%if %{with preview}
-Patch3:         0001-hipblaslt-preview-find-origami-package.patch
-%else
 Patch3:         0001-hipblaslt-find-origami-package.patch
-%endif
 # do not try to fetch, point to the nanobind tarball
 Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
+%endif
 # compile and link jobpools
 Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
 
 
 %if %{with preview}
-BuildRequires:  amdsmi-static
+BuildRequires:  amdsmi-devel
 %endif
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -208,6 +210,11 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
 %if %{with nanobind}
 BuildRequires:  python3dist(nanobind)
+%endif
+%if %{with preview}
+BuildRequires:  python3dist(packaging)
+BuildRequires:  python3dist(pip)
+BuildRequires:  python3dist(wheel)
 %endif
 %global tensile_verbose 1
 BuildRequires:  python3dist(joblib)
@@ -356,12 +363,27 @@ sed -i -e '/#include <omp.h>/d'   clients/common/src/cblas_interface.cpp
 sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/dependencies.cmake
 %endif
 
+%if %{with preview}
+# do not pin version of tensilelite
+rm tensilelite/uv.lock
+# take care of requirements manually
+rm tensilelite/requirements.txt
+rm tensilelite/requirements-dev.txt
+sed -i -e '/packaging/,+10d' tensilelite/pyproject.toml
+
+%endif
+
 %build
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
 
+%if %{with preview}
+/usr/bin/python3 -m pip install -vvv --no-build-isolation --no-index --find-links /usr/lib/python%{python3_version}/site-packages --find-links /usr/lib64/python%{python3_version}/site-packages --target $TL .
+%else
 %python_exec setup.py install --root $TL
+%endif
+
 cd ..
 
 # Should not have to do this

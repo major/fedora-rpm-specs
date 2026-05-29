@@ -17,23 +17,24 @@
 
 Name:       python-%{library}
 Epoch:      1
-Version:    34.1.0
-Release:    3%{?dist}
+Version:    36.0.0
+Release:    2%{?dist}
 Summary:    Python client for the kubernetes API.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
 URL:        https://pypi.python.org/pypi/kubernetes
 
 Source0:    https://github.com/kubernetes-client/python/archive/v%{version}.tar.gz
-Patch1:     0001-Revert-Set-an-upper-limit-on-the-urllib3-dependency.patch
 BuildArch:  noarch
 
 %package -n %{py3}-%{library}
 Summary:    Kubernetes Python Client
 BuildRequires:  git-core
 BuildRequires:  %{py3dev}-devel
-BuildRequires:  %{py3dev}-rpm-macros
-BuildRequires:  %{py3}-setuptools
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 %if %{undefined __pythondist_requires}
 %if 0%{?fedora}
 Requires:  %{py3}-adal
@@ -97,7 +98,7 @@ sed -i 's/websocket-client.*/websocket-client>=0.43.0/g' requirements.txt
 %endif
 
 %build
-%py3_build
+%pyproject_wheel
 
 #11.0 adds spinx-markdown-tables as a requirement
 #It is not packaged in Fedora
@@ -116,7 +117,7 @@ sed -i 's/websocket-client.*/websocket-client>=0.43.0/g' requirements.txt
 #rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
 cp -pr kubernetes/test %{buildroot}%{python3_sitelib}/%{library}/
 cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 
@@ -132,7 +133,7 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/%{library}
-%{python3_sitelib}/%{library}-*.egg-info
+%{python3_sitelib}/%{library}-*.dist-info
 %exclude %{python3_sitelib}/%{library}/test
 %exclude %{python3_sitelib}/%{library}/e2e_test
 
@@ -142,6 +143,13 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Wed May 20 2026 Jason Montleon <jason@montleon.com> - 1:36.0.0-2
+- Stop macros from expanding in changelog message
+
+* Wed May 20 2026 Jason Montleon <jason@montleon.com> - 1:36.0.0-1
+- Update to 36.0.0 (#2430280)
+- Stop using deprecated py3_build/py3_install macros (2377847)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:34.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,11 +9,16 @@
 # Whether to do release or debug builds
 %global config release
 
-%global swift_version 6.2
+%global swift_version 6.3.2
+
+# GDB crashes on aarch64 when generating the index for Swift binaries
+# debugedit can't handle LLVM-generated DWARF5 yet
+# https://bugzilla.redhat.com/show_bug.cgi?id=2242022#c9
+%undefine _include_gdb_index
 
 Name:           swiftlint
 # To update: bump this Version, then run swiftlint-get-bundled-deps.sh
-Version:        0.61.0
+Version:        0.63.0
 Release:        %autorelease
 Summary:        Tool to enforce Swift style and conventions
 
@@ -83,10 +88,6 @@ done
 # If we're not including the build id flags do not break the build
 %undefine _missing_build_ids_terminate_build
 %endif
-
-# debugedit can't handle LLVM-generated DWARF5 yet
-# https://bugzilla.redhat.com/show_bug.cgi?id=2242022#c9
-echo '-Xcc -gdwarf-4 -Xcxx -gdwarf-4' >> build.sh
 
 %build
 sh -x build.sh

@@ -89,7 +89,7 @@ cargo generate-lockfile --offline
 
 %install
 %make_install
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/pdns_recursor
+chrpath --delete %{buildroot}%{_prefix}/*/pdns_recursor
 
 %{__cp} %{buildroot}%{_sysconfdir}/%{name}/recursor.{yml-dist,conf}
 
@@ -107,6 +107,8 @@ sed -i \
 install -m0644 -D pdns-recursor.sysusers.conf %{buildroot}%{_sysusersdir}/pdns-recursor.conf
 
 
+%check
+make check
 
 
 %post

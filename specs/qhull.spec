@@ -5,7 +5,7 @@ Version: 8.0.2
 # - Older releases used year.month
 # - Newer releases use x.y.z
 Epoch: 1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: Qhull
 Source0: https://github.com/qhull/qhull/archive/v%{version}.tar.gz#/qhull-%{version}.tar.gz
 
@@ -70,19 +70,17 @@ about a point.
 %patch -P1 -p1 -b .install
 %patch -P2 -p1 -b .pic
 
+# Compatibility with CMake < 3.5 has been removed from CMake.
+sed -i -e 's@cmake_minimum_required(VERSION 3.0)@cmake_minimum_required(VERSION 3.10)@' CMakeLists.txt
+
+
 %build
-mkdir -p build
-cd build
-%cmake -S .. -B . -DLINK_APPS_SHARED=ON
-make VERBOSE=1 %{?_smp_mflags}
-# These items are deprecated as of 8.0.2
-make VERBOSE=1 %{?_smp_mflags} libqhull qhull_p
-cd ..
+%cmake -DLINK_APPS_SHARED=ON
+%cmake_build
+%cmake_build -t libqhull qhull_p
 
 %install
-cd build
-make VERBOSE=1 DESTDIR=$RPM_BUILD_ROOT install
-cd ..
+%cmake_install
 
 chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 
@@ -126,6 +124,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 %{_libdir}/pkgconfig/qhullstatic*.pc
 
 %changelog
+* Wed May 27 2026 Tom Rix <Tom.Rix@amd.com> - 1:8.0.2-9
+- Fix cmake version check
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

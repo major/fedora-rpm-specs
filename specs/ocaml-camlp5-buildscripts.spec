@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-camlp5-buildscripts
-Version:        0.06
+Version:        0.07
 Release:        %autorelease
 Summary:        Sysadmin scripts for camlp5 projects
 
@@ -11,9 +11,6 @@ License:        MIT
 URL:            https://github.com/camlp5/camlp5-buildscripts
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/camlp5-buildscripts-%{version}.tar.gz
-# Adapt to ocaml-bos 0.3.0
-# https://github.com/camlp5/camlp5-buildscripts/pull/4
-Patch:          %{name}-bos.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -27,6 +24,7 @@ BuildRequires:  ocaml-cppo
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-mdx-devel >= 2.2.1
 BuildRequires:  ocaml-re-devel >= 1.10.4
+BuildRequires:  ocaml-rresult-devel >= 0.7.0
 
 %description
 Sysadmin scripts written in OCaml (and Perl precursors), for use with Camlp5

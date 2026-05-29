@@ -5,7 +5,7 @@
 %global crate memchr
 
 Name:           rust-memchr
-Version:        2.8.0
+Version:        2.8.1
 Release:        %autorelease
 Summary:        Extremely fast 1, 2 or 3 byte search and single substring search
 
@@ -34,6 +34,8 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-MIT
 %license %{crate_instdir}/UNLICENSE
+%doc %{crate_instdir}/AI_POLICY.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

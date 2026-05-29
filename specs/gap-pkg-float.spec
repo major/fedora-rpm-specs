@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/float
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.0.9
+Version:        1.0.10
 Release:        %autorelease
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
@@ -22,12 +22,12 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  cxsc-devel
 BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gcc-c++
-BuildRequires:  libmpc-devel
 BuildRequires:  make
 BuildRequires:  mpfi-devel
 BuildRequires:  pkgconfig(fplll)
+BuildRequires:  pkgconfig(mpc)
 BuildRequires:  pkgconfig(mpfr)
 
 Requires:       gap-core%{?_isa}

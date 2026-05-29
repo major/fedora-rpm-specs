@@ -26,7 +26,6 @@ BuildRequires:  libappstream-glib
 
 # Enable once we start building free kernels
 #BuildRequires:  intel-igc-devel
-#BuildRequires:  intel-cm-compiler
 #BuildRequires:  intel-compute-runtime
 
 BuildRequires:  pkgconfig(libcmrt)
@@ -44,7 +43,7 @@ BuildRequires:  ninja-build
 The Intel Media Driver for VAAPI is a new VA-API (Video Acceleration API)
 user mode driver supporting hardware accelerated decoding, encoding,
 and video post processing for GEN based graphics hardware.
-https://01.org/intel-media-for-linux
+https://github.com/intel/media-driver/wiki
 
 %package -n     libva-intel-media-driver
 Summary:        The Intel Media Driver for VAAPI.
@@ -53,7 +52,7 @@ Summary:        The Intel Media Driver for VAAPI.
 The Intel Media Driver for VAAPI is a new VA-API (Video Acceleration API)
 user mode driver supporting hardware accelerated decoding, encoding,
 and video post processing for GEN based graphics hardware.
-https://01.org/intel-media-for-linux
+https://github.com/intel/media-driver/wiki
 
 %package -n     libigfxcmrt
 Summary:        Library to load own GPU kernels on render engine via Intel media driver.

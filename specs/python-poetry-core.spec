@@ -2,7 +2,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        2.3.2
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Poetry PEP 517 Build Backend
 # SPDX

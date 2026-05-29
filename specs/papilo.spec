@@ -5,6 +5,9 @@
 %global quadmath 0
 %endif
 
+# Whether to run tests
+%bcond ctest 1
+
 # The papilo binary depends on several solvers that transitively depend on the
 # papilo library.  In a bootstrap situation, first build the binary without
 # solver support, build the solvers, then do a non-bootstrap build.
@@ -19,9 +22,8 @@ Summary:        Parallel presolve for integer and linear optimization
 
 # Apache-2.0: the project as a whole
 # BSL-1.0: src/papilo/misc/extended_euclidean.hpp
-# Zlib: the header-only pdqsort project
 # MIT: the bundled fmt project
-License:        Apache-2.0 AND BSL-1.0 AND Zlib AND MIT
+License:        Apache-2.0 AND BSL-1.0 AND MIT
 URL:            https://www.scipopt.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -35,10 +37,17 @@ Patch:          %{name}-vector-bounds.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DQUADMATH:BOOL=%{quadmath}
+%if %{without bootstrap}
+BuildOption(conf): -DSCIP:BOOL=ON
+BuildOption(conf): -DSOPLEX:BOOL=ON
+%endif
 
 BuildRequires:  boost-devel
+%if %{with ctest}
 BuildRequires:  catch-devel
-BuildRequires:  cmake
+%endif
 BuildRequires:  cmake(tbb)
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
@@ -47,7 +56,6 @@ BuildRequires:  libatomic
 BuildRequires:  libquadmath-devel
 %endif
 BuildRequires:  lusol-devel
-BuildRequires:  pdqsort-static
 BuildRequires:  pkgconfig(gmp)
 
 %if %{without bootstrap}
@@ -82,7 +90,6 @@ Summary:        Headers and library links for libpapilo
 Requires:       libpapilo%{?_isa} = %{version}-%{release}
 Requires:       boost-devel%{?_isa}
 Requires:       lusol-devel%{?_isa}
-Requires:       pdqsort-static
 Requires:       tbb-devel%{?_isa}
 
 %description -n libpapilo-devel
@@ -94,17 +101,10 @@ use libpapilo.
 %prep
 %autosetup -p1
 
-%conf
 # Ensure none of the bundled code but fmt can be used
 rm -fr src/papilo/external/{catch,lusol,pdqsort,ska}
 
-%build
-%cmake -DQUADMATH:BOOL=%{?quadmath:ON}%{!?quadmath:OFF}
-%cmake_build
-
-%install
-%cmake_install
-
+%install -a
 # Generate man pages
 mkdir -p %{buildroot}%{_mandir}/man1
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}
@@ -119,9 +119,6 @@ sed -i 's,\./\(papilo\),\1,' %{buildroot}%{_mandir}/man1/papilo.1
 
 # We install license files elsewhere
 rm -fr %{buildroot}%{_defaultlicensedir}
-
-%check
-%ctest
 
 %files
 %doc CHANGELOG README.md parameters.txt

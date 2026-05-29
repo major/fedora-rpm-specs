@@ -8,7 +8,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	7.0.0
+Version:	7.0.1
 Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
@@ -145,6 +145,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Wed May 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.1-1
+- 7.0.1
+
 * Sun May 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.0-1
 - 7.0.0
 

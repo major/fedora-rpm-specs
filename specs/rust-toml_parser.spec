@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate toml_parser
-%global crate_version 1.1.0+spec-1.1.0
+%global crate_version 1.1.2+spec-1.1.0
 
 Name:           rust-toml_parser
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Yet another format-preserving TOML parser
 

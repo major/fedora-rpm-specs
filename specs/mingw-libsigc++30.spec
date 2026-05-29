@@ -6,7 +6,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:          mingw-%{pkgname}
-Version:       3.8.0
+Version:       3.8.1
 Release:       1%{?dist}
 Summary:       MinGW Windows sigc++ 3.0 library
 
@@ -78,6 +78,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Wed May 27 2026 Sandro Mani <manisandro@gmail.com> - 3.8.1-1
+- Update to 3.8.1
+
 * Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 3.8.0-1
 - Update to 3.8.0
 

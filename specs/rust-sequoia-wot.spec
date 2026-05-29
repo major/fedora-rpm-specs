@@ -5,7 +5,7 @@
 %global crate sequoia-wot
 
 Name:           rust-sequoia-wot
-Version:        0.14.0
+Version:        0.15.2
 Release:        %autorelease
 Summary:        Implementation of OpenPGP's web of trust
 
@@ -64,12 +64,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip two tests that fail due to expired test certificates:
-#   https://gitlab.com/sequoia-pgp/sequoia-wot/-/work_items/59
-%{cargo_test -- -- --exact %{shrink:
-    --skip backward_propagation::tests::cliques
-    --skip tests::cliques
-}}
+%cargo_test
 %endif
 
 %changelog

@@ -12,6 +12,8 @@ License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-late
 Url:            %{forgeurl}
 Source0:        %{forgesource}
 Patch0:         pr127-tray-icon.patch
+# Use FontAwesome 7 instead of 6
+Patch1:         fontawesome7.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
@@ -50,15 +52,24 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  desktop-file-utils
 Requires:       media-player-info
 Requires:       hicolor-icon-theme
+%if 0%{?fedora} < 45
 Requires:       font(fontawesome6brands)
 Requires:       font(fontawesome6free)
+%else
+Requires:       font(fontawesome7brands)
+Requires:       font(fontawesome7free)
+%endif
 
 
 %description
 Cantata is a graphical client for the music player daemon (MPD).
 
 %prep
-%forgeautosetup -p1
+%forgeautosetup -N
+%autopatch -M0 -p1
+%if 0%{?fedora} >= 45
+%patch -P 1 -p1
+%endif
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release \

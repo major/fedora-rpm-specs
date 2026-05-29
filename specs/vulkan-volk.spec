@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           vulkan-volk
-Version:        1.4.341.0
+Version:        1.4.350.0
 Release:        %autorelease
 Summary:        Meta loader for Vulkan API
 

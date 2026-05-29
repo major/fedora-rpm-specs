@@ -1,6 +1,6 @@
 Name:           nuspell
 Version:        5.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast and safe spellchecking C++ library and command-line tool
 License:        LGPL-3.0-or-later
 URL:            https://nuspell.github.io
@@ -127,6 +127,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 5.1.7-3
+- Rebuilt for icu 78.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

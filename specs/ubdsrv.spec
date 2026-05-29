@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/ublk-org/ublksrv
-%global commit a2f2daa9f02509a008d9304c197f6a2b0da0ad38
-Version:       1.6
+%global commit 0295e7f47a9f08b9544ea41b18a8506cd6b491a5
+Version:       1.7
 %forgemeta
 
 Summary:       Userspace block driver server and ublk tool
@@ -15,6 +15,7 @@ BuildRequires: gcc, gcc-c++
 BuildRequires: make
 BuildRequires: autoconf, autoconf-archive, automake, libtool
 BuildRequires: liburing-devel >= 2.2
+BuildRequires: libiscsi-devel
 BuildRequires: pkgconf
 BuildRequires: git
 
@@ -76,6 +77,11 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Wed May 27 2026 Richard W.M. Jones <rjones@redhat.com> - 1.7-1
+- Update to 1.7
+- Add BR libiscsi-devel.
+- Include libiscsi configure fix.
+
 * Tue Aug 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1.6-1
 - Move to 1.6
 

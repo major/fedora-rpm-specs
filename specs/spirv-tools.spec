@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.4.341.0
+%global sdkver 1.4.350.0
 
 Name:           spirv-tools
-Version:        2026.1
+Version:        2026.2
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 
@@ -12,7 +12,6 @@ URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
-Patch1: 0001-opt-Fix-build-issue-with-gcc-16.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

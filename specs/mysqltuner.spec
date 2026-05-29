@@ -3,7 +3,7 @@
 #%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        2.8.41
+Version:        2.8.42
 Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
@@ -45,6 +45,9 @@ install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulne
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
+* Wed May 27 2026 josef radinger <cheese@nosuchhost.net> - 2.8.42-1
+- bump version
+
 * Tue May 19 2026 josef radinger <cheese@nosuchhost.net> - 2.8.41-1
 - bump version
 

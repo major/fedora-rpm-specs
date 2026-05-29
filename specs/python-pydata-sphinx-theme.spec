@@ -130,9 +130,9 @@ rm %{themedir}/.gitignore
 sed -i 's,pydata_sphinx_theme/\.\./\.\./\.\./\.\./\.\.,,g' \
     %{themedir}/scripts/fontawesome.js.map \
     %{themedir}/styles/pydata-sphinx-theme.css.map
-sed -e 's,url.*fa-solid-900\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 6 Free-Solid-900") format("opentype"),g' \
-    -e 's,url.*fa-regular-400\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 6 Free-Regular-400") format("opentype"),g' \
-    -e 's,url.*fa-brands-400\.woff2.*format("truetype"),local("fontawesome-brands-fonts/Font Awesome 6 Brands-Regular-400") format("opentype"),g' \
+sed -e 's,url.*fa-solid-900\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 7 Free-Solid-900") format("opentype"),g' \
+    -e 's,url.*fa-regular-400\.woff2.*format("truetype"),local("fontawesome-free-fonts/Font Awesome 7 Free-Regular-400") format("opentype"),g' \
+    -e 's,url.*fa-brands-400\.woff2.*format("truetype"),local("fontawesome-brands-fonts/Font Awesome 7 Brands-Regular-400") format("opentype"),g' \
     -i %{themedir}/styles/pydata-sphinx-theme.css
 sed -i '/vendor/d' %{pyproject_files}
 rm -fr %{themedir}/vendor

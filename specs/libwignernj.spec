@@ -1,3 +1,9 @@
+%ifarch %{ix86} x86_46
+%global quad 1
+%else
+%global quad 0
+%endif
+
 Name:           libwignernj
 Version:        0.6.1
 Release:        1%{?dist}
@@ -10,13 +16,16 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
-BuildRequires:  libquadmath-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
+%if %{quad}
+BuildRequires:  libquadmath-devel
+%endif
 # %%check
 BuildRequires:  python3-pytest
+
 
 %global _description %{expand:
 libwignernj is a C99 library for the exact evaluation of Wignernj 3j, 6j and
@@ -83,18 +92,19 @@ The reference manual (Markdown) for libwignernj.
 %setup -q
 
 %build
+quadmath=""
+%if %{quad}
+# quadmath not available on these architectures
+quadmath="-DBUILD_QUADMATH:BOOL=ON"
+%endif
 %cmake \
+    -GNinja \
     -DBUILD_FORTRAN:BOOL=ON \
     -DBUILD_MPFR:BOOL=ON \
-%ifnarch s390x aarch64
-# quadmath not available on these architectures
--DBUILD_QUADMATH:BOOL=ON \
-%endif
     -DBUILD_PYTHON:BOOL=ON \
     -DBUILD_TESTS:BOOL=ON \
     -DBUILD_CXX_TESTS:BOOL=ON \
-    -DBUILD_EXAMPLES:BOOL=ON \
-    -GNinja
+    -DBUILD_EXAMPLES:BOOL=ON $quadmath
 %cmake_build
 
 %install
@@ -122,7 +132,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_includedir}/wignernj.h
 %{_includedir}/wignernj.hpp
 %{_includedir}/wignernj_mpfr.h
+%if %{quad}
 %{_includedir}/wignernj_quadmath.h
+%endif
 %{_libdir}/libwignernj.so
 %{_libdir}/libwignernj_f03.so
 %{_libdir}/cmake/wignernj/

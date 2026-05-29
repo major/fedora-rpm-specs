@@ -77,7 +77,7 @@
 %endif
 
 %global upver        8.5.7
-%global rcver        RC1
+%global rcver        RC2
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -86,7 +86,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1673,6 +1673,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 8.5.7~RC2-2
+- Rebuilt for icu 78.3
+
+* Wed May 27 2026 Remi Collet <remi@remirepo.net> - 8.5.7~RC2-1
+- update to 8.5.7RC2
+
 * Wed May 20 2026 Remi Collet <remi@remirepo.net> - 8.5.7~RC1-1
 - update to 8.5.7RC1
 

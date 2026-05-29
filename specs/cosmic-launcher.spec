@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 1e57708e5af99a500fa66c2703acac6e1d2c8848
 %global commitdatestring 2026-05-12 17:12:19 +0200
-%global cosmic_minver 1.0.13
+%global cosmic_minver 1.0.14
 
 Name:           cosmic-launcher
-Version: 1.0.13
+Version: 1.0.14
 Release:        %autorelease
 Summary:        Pop launcher frontend for the COSMIC Desktop Environment
 

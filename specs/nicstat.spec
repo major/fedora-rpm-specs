@@ -1,21 +1,23 @@
-Name:		nicstat	
+Name:		nicstat
 Version:	1.95
-Release:	27%{?dist}
-Summary:	CLI utility that prints out network statistics for all network interface 
+Release:	28%{?dist}
+Summary:	CLI utility that prints out network statistics for all network interface
 
 License:	Artistic-2.0
 URL:		http://sourceforge.net/projects/%{name}
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:		nicstat-fix-speed-highspeed.patch
 BuildRequires:	gcc
 
 
 %description
-nicstat is a Solaris and Linux command-line that prints out network statistics 
+nicstat is a Solaris and Linux command-line that prints out network statistics
 for all network interface cards (NICs), including packets, kilobytes per second,
 average packet sizes and more.
 
 
 %prep
+%autosetup
 %setup -qn %{name}-%{version}
 
 
@@ -36,6 +38,9 @@ install -p -D -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed May 27 2026 Tomasz Torcz <ttorcz@fedoraproject.org>
+- fix reporting of high-speed interfaces (fixes rhbz#2145035)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -346,7 +346,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -497,12 +497,10 @@ fi
 alternatives --install %{_bindir}/java java %{jrebindir -- %{?1}}/java %{priority_for -- %{?1}} \\
   --slave %{_jvmdir}/jre jre %{_jvmdir}/%{sdkdir -- %{?1}} \\
   --slave %{_bindir}/%{alt_java_name} %{alt_java_name} %{jrebindir -- %{?1}}/%{alt_java_name} \\
-  --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/keytool keytool %{jrebindir -- %{?1}}/keytool \\
   --slave %{_bindir}/rmiregistry rmiregistry %{jrebindir -- %{?1}}/rmiregistry \\
   --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1 \\
   --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1 \\
-  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1 \\
   --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1 \\
   --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 alternatives --install %{_jvmdir}/jre-%{origin} jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
@@ -583,6 +581,7 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_bindir}/jarsigner jarsigner %{sdkbindir -- %{?1}}/jarsigner \\
   --slave %{_bindir}/javadoc javadoc %{sdkbindir -- %{?1}}/javadoc \\
   --slave %{_bindir}/javap javap %{sdkbindir -- %{?1}}/javap \\
+  --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/jconsole jconsole %{sdkbindir -- %{?1}}/jconsole \\
   --slave %{_bindir}/jdb jdb %{sdkbindir -- %{?1}}/jdb \\
   --slave %{_bindir}/jdeps jdeps %{sdkbindir -- %{?1}}/jdeps \\
@@ -606,6 +605,7 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javac.1 \\
   --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javadoc.1 \\
   --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javap.1 \\
+  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1 \\
   --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jconsole.1 \\
   --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdb.1 \\
   --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeps.1 \\
@@ -723,7 +723,6 @@ fi
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/bin
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/java
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/%{alt_java_name}
-%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jcmd
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/keytool
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/rmiregistry
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib
@@ -793,7 +792,6 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/profile.jfc
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1
-%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}
@@ -861,7 +859,6 @@ fi
 %ghost %{_bindir}/java
 %ghost %{_jvmdir}/jre
 %ghost %{_bindir}/%{alt_java_name}
-%ghost %{_bindir}/jcmd
 %ghost %{_bindir}/keytool
 %ghost %{_bindir}/rmiregistry
 %ghost %{_jvmdir}/jre-%{origin}
@@ -882,6 +879,7 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/javac
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/javadoc
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/javap
+%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jcmd
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jconsole
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jdb
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jdeps

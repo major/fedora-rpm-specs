@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        181
+Version:        183
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -316,7 +316,9 @@ install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
 # This means some tests won't be run even though they could,
 # but that's an acceptable tradeoff.
 ignore_files=()
-skip_tests=()
+skip_tests=(
+    "(TestUtilJsonComm and test_send_and_recv_tons_of_data_is_fine)"
+)
 
 # x86_64-specific tests:
 # test/mod/test_util_sbom_spdx.py
@@ -349,7 +351,6 @@ skip_tests+=(
 %ifarch ppc64le
 skip_tests+=(
     "(TestAPI and test_exception)"
-    "(TestUtilJsonComm and test_send_and_recv_tons_of_data_is_fine)"
     "(TestUtilJsonComm and test_sendmsg_errors_with_size_on_EMSGSIZE)"
 )
 %endif
@@ -485,6 +486,24 @@ fi
 %endif
 
 %changelog
+* Wed May 27 2026 Packit <hello@packit.dev> - 183-1
+Changes with 183
+----------------
+  - .gitlab-ci.yml: add 9.8-ga and 10.2-ga (#2457)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  - Optimize osbuild-depsolve-dnf memory and runtime performance (HMS-10526) (#2456)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - Update images dependency ref to latest (#2461)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - mounts/ddi: mounting of DDIs (#2459)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - runners: `eln11` (HMS-10652, HMS-10652) (#2453)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - test: update container IDs for manifest-list-test (#2455)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-05-27
+
 * Mon May 11 2026 Packit <hello@packit.dev> - 181-1
 Changes with 181
 ----------------

@@ -2,7 +2,7 @@
 %global gtkver      3
 
 Name:           libextractor
-Version:        1.13
+Version:        1.14
 Release:        %autorelease
 Summary:        Simple library for keyword extraction
 
@@ -33,8 +33,6 @@ Source:         https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz
 Source:         https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz.sig
 Source:         https://ftp.gnu.org/gnu/gnu-keyring.gpg
 Source:         README.fedora
-# Patch to fix the exiv2 tests for exiv >= 0.28.0
-Patch:          0001-Fix-test_exiv2.c-for-exiv2-0.28.0.patch
 
 BuildRequires:  gcc
 ## exiv2 config check uses g++

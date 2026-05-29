@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * switch crypto backend from Nettle to OpenSSL
 # * exclude files that are only useful for upstream development
+# * bump sequoia-wot dependency from 0.14 to 0.15
 Patch:          sequoia-sop-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

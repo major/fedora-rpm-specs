@@ -9,6 +9,9 @@ Summary:        A module that allows any object to be serialized into JSON
 License:        BSD-3-Clause
 URL:            https://github.com/jsonpickle/jsonpickle
 Source0:        %{pypi_source jsonpickle}
+# Fix compatibility with pandas 3.0's new StringDtype
+# Backport of https://github.com/jsonpickle/jsonpickle/pull/592
+Patch:          fix-pandas3-stringdtype.patch
 
 %global _docdir_fmt %{name}
 

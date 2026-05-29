@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 495e591dc65987a0327b9dea646126ebdfe8a1db
 %global commitdatestring 2026-05-07 11:50:27 -0600
-%global cosmic_minver 1.0.13
+%global cosmic_minver 1.0.14
 
 Name:           cosmic-session
-Version: 1.0.13
+Version: 1.0.14
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 

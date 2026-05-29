@@ -10,12 +10,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 1afd4edb0eab5cb06197ab721739aa8dfef4b3ce
+%global git_hash 038c51e324695b65c154bc0eee30bd19a7423ad2
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20260507.g1afd4ed
+Version:	0^20260526.g038c51e
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -141,6 +141,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pesto.pp
 
 %changelog
+* Tue May 26 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260526.g038c51e-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_05_07.1afd4ed..2026_05_26.038c51e
+
 * Thu May  7 2026 Stefano Brivio <sbrivio@redhat.com> - 0^20260507.g1afd4ed-1
 - Install pesto, its SELinux policy, and the man page from the spec file
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2026_01_20.386b5f5..2026_05_07.1afd4ed

@@ -3,7 +3,7 @@
 %global gssdp_version 1.6.2
 
 Name:          gupnp
-Version:       1.6.9
+Version:       1.6.10
 Release:       %autorelease
 Summary:       A framework for creating UPnP devices & control points
 
@@ -60,7 +60,7 @@ This package contains developer documentation for %{name}.
 %meson_install
 
 %check
-%meson_test
+%meson_test --timeout-multiplier 2
 
 %files
 %license COPYING

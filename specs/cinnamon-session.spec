@@ -5,11 +5,12 @@
 Summary: Cinnamon session manager
 Name:    cinnamon-session
 Version: 6.7.1^unstable
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Patch0:  %url/pull/204.patch#/Add-graphical-session.patch
 
 ExcludeArch: %{ix86}
 
@@ -76,8 +77,12 @@ the other core components and handles logout and saving the session.
 %{_datadir}/icons/hicolor/*/apps/cinnamon-session-properties.png
 %{_datadir}/icons/hicolor/scalable/apps/cinnamon-session-properties.svg
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
+%{_userunitdir}/*.target
 
 %changelog
+* Wed May 27 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
+- Add patch to run graphical-session target
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-1
 - Update to 6.7.1-unstable
 

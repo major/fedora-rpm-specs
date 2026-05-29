@@ -1,10 +1,10 @@
 %global gap_pkgname 4ti2interface
 %global gap_upname  4ti2Interface
-%global upver       2025.12-01
+%global upver       2026.05-01
 %global giturl      https://github.com/homalg-project/homalg_project
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        %(tr - . <<< %{upver})
+Version:        %{gsub %upver - .}
 Release:        %autorelease
 Summary:        GAP interface to 4ti2
 

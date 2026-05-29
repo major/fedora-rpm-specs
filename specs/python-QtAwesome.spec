@@ -5,7 +5,7 @@
 %global fa6_version 6.7.2
 
 Name:       python-%{pypi_name}
-Version:    1.4.0
+Version:    1.4.2
 Release:    %autorelease
 
 Summary:    FontAwesome icons in PyQt and PySide applications
@@ -76,7 +76,7 @@ sed -i '/^SYSTEM_FONTS = /s/False/True/' qtawesome/iconic_font.py
 %pyproject_save_files -l qtawesome
 
 # Unbundle the fontawesome 5.x/6.x fonts
-# Version 6 is backwards compatible with version 5
+# Version 7 is backwards compatible with versions 5 and 6
 rm %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-*.ttf
 ln -s %{_datadir}/fontawesome/webfonts/fa-brands-400.ttf \
       %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-brands-webfont-%{fa5_version}.ttf

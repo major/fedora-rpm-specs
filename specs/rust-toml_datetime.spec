@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate toml_datetime
-%global crate_version 1.1.0+spec-1.1.0
+%global crate_version 1.1.1+spec-1.1.0
 
 Name:           rust-toml_datetime
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        TOML-compatible datetime type
 

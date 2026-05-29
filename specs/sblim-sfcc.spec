@@ -7,7 +7,7 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
@@ -16,6 +16,7 @@ Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{versio
 Patch0: sblim-sfcc-2.2.8-docdir-license.patch
 Patch1: c99.patch
 Patch2: c89.patch
+Patch3: sblim-sfcc-2.2.8-fix-clone-stack-exhaust.patch
 BuildRequires: make
 BuildRequires: curl-devel chrpath
 BuildRequires: gcc gcc-c++
@@ -66,6 +67,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
+* Wed May 27 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-31
+- Fix possible __clone() stack exhaustion
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

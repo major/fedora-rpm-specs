@@ -9,10 +9,11 @@ Source0:        https://github.com/cgreen-devs/%{name}/archive/%{version}/%{name
 # https://bugzilla.redhat.com/show_bug.cgi?id=2068898
 ExcludeArch: s390x
 
+BuildRequires:  asciidoctor
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  libxml2-devel
 BuildRequires:  perl-interpreter
-BuildRequires:  asciidoctor
 
 %description
 A modern, portable, cross-language unit testing and mocking framework for C

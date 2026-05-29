@@ -3,7 +3,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.22.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		https://nomacs.org
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Wed May 27 2026 Sandro Mani <manisandro@gmail.com> - 3.22.1-3
+- Rebuild (quazip)
+
 * Fri May 22 2026 Alexey Kurov <nucleo@fedoraproject.org> - 3.22.1-2
 - Remove Obsoletes: nomacs-plugins
 

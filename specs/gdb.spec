@@ -931,6 +931,11 @@ fi
 # endif scl
 
 %changelog
+* Tue May 26 2026 Kevin Buettner <kevinb@redhat.com>
+- Applied proposed patch "[gdb/testsuite, Tcl 9] Fix EILSEQ problems for
+  UTF8 related tests".  This is required in order to complete a build
+  with testing.
+
 * Mon May 18 2026 Andrew Burgess <aburgess@redhat.com>
 - Remove BuildRequires for libbabeltrace, and build GDB without
   babeltrace support.  Upstream commit 305ad81ae66 has removed Common

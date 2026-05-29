@@ -1,30 +1,50 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
-Version:        9.6
-Release:        3%{?dist}
+Version:        9.7
+Release:        %autorelease
 License:        AGPL-3.0-only
 URL:            https://github.com/vanhauser-thc/thc-hydra
 VCS:            git:https://github.com/vanhauser-thc/thc-hydra
 # Old URL       https://www.thc.org/thc-hydra/
 
 Source0:        https://github.com/vanhauser-thc/thc-hydra/archive/v%{version}/%{name}-%{version}.tar.gz
-# Sent upstream via email 20120518
-Patch0:         hydra-use-system-libpq-fe.patch
-Patch1:         hydra-fix-dpl4hydra-dir.patch
 
-# Upstream fixes for gtk3 support
-Patch100:       0000-port-xhydra-gtk3.patch
-Patch101:       0000-more-hydra-gtk.patch
-Patch102:       0000-hydra-gtk-last.patch
+# Sent upstream via email 20120518
+Patch0:         hydra-00-use-system-libpq-fe.patch
+
+# Paths aligned with the Fedora packaging
+Patch1:         hydra-01-fix-dpl4hydra-dir.patch
+
+# https://patch-diff.githubusercontent.com/raw/vanhauser-thc/thc-hydra/pull/970
+# Migrate to freerdp3
+# Patch2:         https://patch-diff.githubusercontent.com/raw/vanhauser-thc/thc-hydra/pull/970.patch#/hydra-02-freerdp3.patch
+
+# From Debian 03_use_bin_path.diff
+# Description: Use /usr/bin/hydra path by default in xhydra.
+# Forwarded: not-needed
+# Author: Julián Moreno Patiño <darkjunix@gmail.com>
+# Last-Update: 2022-10-05
+Patch3:         hydra-03_use_bin_path.diff
+
+# Upstream fixes for gtk3 support - merged in in v9.7
+# https://github.com/vanhauser-thc/thc-hydra/commit/30e6291be7f222530dbd4b6bb7460c9e2a8a5e82
+# Patch5:         hydra-05-port-xhydra-gtk3.patch
+# https://github.com/vanhauser-thc/thc-hydra/commit/ae1a9087023e6683b0b62b1d96651401e88ad8ad
+# Patch6:       hydra-06-more-hydra-gtk.patch
+# https://github.com/vanhauser-thc/thc-hydra/commit/31c9b1188b69da372f638b93d48e2322046e3f16
+# Patch7:       hydra-07-gtk-last.patch
+
 # Upstream Fix for libbson2/libmongc2
-Patch103:       libmongoc2.patch
+# merged in v9.7 - https://github.com/vanhauser-thc/thc-hydra/commit/e5729446de04b5e65f3c673f0e0fbe5995976573
+# Patch8:       hydra-08-libmongoc2.patch
 
 BuildRequires:  afpfs-ng-devel
 BuildRequires:  apr-devel
 BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  firebird-devel
-BuildRequires:  freerdp2-devel
+# FreeRDP
+BuildRequires:  freerdp-devel
 BuildRequires:  gcc
 BuildRequires:  gtk3-devel
 BuildRequires:  libbson-devel
@@ -32,10 +52,12 @@ BuildRequires:  libfbclient2-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libidn-devel
 BuildRequires:  libmemcached-devel
+# Postgresql
 BuildRequires:  libpq-devel
 BuildRequires:  libsmbclient-devel
 BuildRequires:  libssh-devel
-BuildRequires:  libwinpr2-devel
+# FreeRDP
+BuildRequires:  libwinpr-devel
 BuildRequires:  make
 BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  memcached-devel
@@ -99,97 +121,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xhydra.desktop
 %{_mandir}/man1/xhydra.1*
 
 %changelog
-* Thu Feb 26 2026 Remi Collet <remi@fedoraproject.org> - 9.6-3
-- rebuild with libbson and libmongc v2
-- add upstream patch to fix FTBFS #2440913
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sun Dec 07 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 9.6-1
-- Update to 9.6
-- Update xhydra to use gtk3
-- Fix FTBFS rhbz#2385063
-
-* Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 9.5-10
-- Firebird 5 rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Feb 09 2024 Simone Caronni <negativo17@gmail.com> - 9.5-6
-- Clean up SPEC file.
-- Adjust build requirements:
-  * Use FreeRDP 2, FreeRDP 3 does not build.
-  * Remove exceptions for s390x.
-  * Drop MongoDB build requirement, it does no longer exist.
-- Use upstream desktop and icon file, they are the same.
-- Clean up repository of unused files.
-- Trim changelog.
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 29 2023 Michal Ambroz <rebus _at seznam.cz>  9.5-3
-- merge #PR1 - add missing libsmbclient dependency
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Michal Ambroz <rebus _at seznam.cz>  9.5-1
-- bump to new release 9.5
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 9.4-2
-- C99 compatibility fixes
-
-* Sun Oct 16 2022 Othman Madjoudj <athmane@fedoraproject.org> - 9.4-1
-- Update to 9.4 (rhbz #2125386)
-- Switch to PCRE2 (rhbz #2128308)
-
-* Tue Aug 16 2022 Simone Caronni <negativo17@gmail.com> - 9.3-1
-- Update to 9.3, fix build with recent updated libraries.
-
-* Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 9.2-9
-- Rebuild for updated FreeRDP.
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 03 2022 Than Ngo <than@redhat.com> - 9.2-7
-- fixed bz#2022029, FTBFS with OpenSSL 3.0.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 9.2-5
-- Rebuilt with OpenSSL 3.0.0
-
-* Mon Aug 02 2021 Othman Madjoudj <athmane@fedoraproject.org> - 9.2-4
-- Disable Firebird support on s390x since it's not available anymore (RHBZ #1987570)
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Apr 15 2021 Simone Caronni <negativo17@gmail.com> - 9.2-2
-- Rebuild for updated FreeRDP.
-
-* Tue Mar 23 2021 Michal Ambroz <rebus _at seznam.cz>  9.2-1
-- bump to new release 9.2
-
-* Mon Feb 08 2021 Pavel Raiskup <praiskup@redhat.com> - 9.0-7
-- rebuild for libpq ABI fix rhbz#1908268
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+%autochangelog

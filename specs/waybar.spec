@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -63,8 +63,13 @@ BuildRequires:  pkgconfig(wireplumber-0.5)
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
+%if 0%{?fedora} < 45
 Recommends:     font(fontawesome6free)
 Recommends:     font(fontawesome6brands)
+%else
+Recommends:     font(fontawesome7free)
+Recommends:     font(fontawesome7brands)
+%endif
 
 %description
 %{summary}.
@@ -102,6 +107,9 @@ Recommends:     font(fontawesome6brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Wed May 27 2026 Jerry James <loganjerry@gmail.com> - 0.15.0-3
+- Migrate from FontAwesome 6.x to 7.x
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.15.0-2
 - Rebuild (jsoncpp)
 

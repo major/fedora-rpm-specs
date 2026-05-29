@@ -59,6 +59,9 @@ Patch:          0001-Python-Provide-dist-info-metadata.patch
 # Replaces <https://src.fedoraproject.org/rpms/libsolv/pull-request/14>.
 # Requires Python-Provide-dist-info-metadata.patch.
 Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
+# Fix a buffer overflow when decompressing solv pages (CVE-2026-48864),
+# rejected by upstream, <https://github.com/openSUSE/libsolv/pull/622>.
+Patch:          0003-Fix-a-buffer-overflow-when-decompressing-solv-pages.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++

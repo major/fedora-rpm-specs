@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/lpres
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Nilpotent quotients of L-presented groups
 
@@ -60,16 +60,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version}
-
-%build -a
-# A second BiBTeX run is needed to resolve \cite within a reference
-# https://github.com/gap-packages/lpres/issues/26
-cd doc
-bibtex _main
-pdflatex _main
-pdflatex _main
-mv _main.pdf manual.pdf
-cd -
 
 %files
 %doc README.md

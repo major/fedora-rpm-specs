@@ -30,6 +30,7 @@ Source2:        activate.sh
 # * update pty-process dependency from v0.4 to v0.5:
 #   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/c56743ac36efb9e12f29e31fd36aeba12ff111f7;
 #   a source-code patch in the tests is also required
+# * bump sequoia-wot dependency from 0.14 to 0.15
 Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
 # * fix running integration tests in release mode with prebuilt executable
 Patch2:         0001-fix-integration-tests-for-release-mode-and-use-prebu.patch

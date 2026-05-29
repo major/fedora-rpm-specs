@@ -29,9 +29,6 @@ BuildRequires:  lua-devel
 BuildRequires:  readline-devel
 BuildRequires:  python3-scons
 BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
 BuildRequires:  libvorbis-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  systemd

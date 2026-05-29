@@ -1,5 +1,5 @@
 Name: bombardier
-Version: 0.8.6
+Version: 0.8.7
 Release: 1%{?dist}
 Summary: The GNU Bombing utility
 
@@ -56,6 +56,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Wed May 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.7-1
+- 0.8.7
+
 * Tue May 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.6-1
 - 0.8.6
 

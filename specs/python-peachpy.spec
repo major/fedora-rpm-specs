@@ -19,6 +19,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 # Do not work with upstream 0.3.14
 BuildRequires:  python3dist(opcodes) = 0.3.13
+BuildRequires:  python3-pkg-resources
 
 %description
 PeachPy is a Python framework for writing high-performance assembly kernels.
@@ -27,6 +28,8 @@ all optimization opportunities of traditional assembly.
 
 %package -n     python3-%{pypi_name}
 Summary:        Portable Efficient Assembly Codegen in Higher-level Python
+
+Requires:       python3-pkg-resources
 
 %description -n python3-%{pypi_name}
 PeachPy is a Python framework for writing high-performance assembly kernels.

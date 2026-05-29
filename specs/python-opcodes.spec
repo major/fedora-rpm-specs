@@ -16,6 +16,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3-pkg-resources
 
 %description
 Opcodes Project The goal of this project is to document instruction sets in a
@@ -25,6 +26,7 @@ format convenient for tools development.
 Summary:        Database of Processor Instructions/Opcodes
 
 Requires:       python3dist(setuptools)
+Requires:       python3-pkg-resources
 %description -n python3-%{pypi_name}
 Opcodes Project The goal of this project is to document instruction sets in a
 format convenient for tools development.

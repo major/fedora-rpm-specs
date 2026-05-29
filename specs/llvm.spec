@@ -265,6 +265,12 @@ end
 %bcond_without libedit
 %endif
 
+%if %{defined rhel} && 0%{?rhel} >= 10
+%bcond_with multilib
+%else
+%bcond_without multilib
+%endif
+
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
@@ -604,7 +610,9 @@ BuildRequires: python%{python3_pkgversion}-psutil
 BuildRequires:	python%{python3_pkgversion}-myst-parser
 %endif
 # Needed for %%multilib_fix_c_header
+%if %{with multilib}
 BuildRequires:	multilib-rpm-config
+%endif
 %if %{with gold}
 BuildRequires:	binutils-devel
 %if %{undefined rhel} || 0%{?rhel} > 8
@@ -2104,7 +2112,9 @@ install %{build_libdir}/libLLVMTestingSupport.a %{buildroot}%{install_libdir}
 install %{build_libdir}/libLLVMTestingAnnotations.a %{buildroot}%{install_libdir}
 
 # Fix multi-lib
+%if %{with multilib}
 %multilib_fix_c_header --file %{install_includedir}/llvm/Config/llvm-config.h
+%endif
 
 %if %{without compat_build}
 
@@ -2217,7 +2227,9 @@ ln -s clang-%{maj_ver}.1 %{buildroot}%{install_mandir}/man1/clang++.1
 chmod a+x %{buildroot}%{install_datadir}/scan-view/{Reporter.py,startfile.py}
 
 # multilib fix
+%if %{with multilib}
 %multilib_fix_c_header --file %{install_includedir}/clang/Config/config.h
+%endif
 
 # remove editor integrations (bbedit, sublime, emacs, vim)
 rm -vf %{buildroot}%{install_datadir}/clang/clang-format-bbedit.applescript
@@ -2307,7 +2319,9 @@ install -D -m 644 -t  %{buildroot}%{install_mandir}/man1/ lld/docs/ld.lld.1
 
 #region LLDB installation
 %if %{with lldb}
+%if %{with multilib}
 %multilib_fix_c_header --file %{install_includedir}/lldb/Host/Config.h
+%endif
 
 %if %{without compat_build}
 # Move python package out of llvm prefix.

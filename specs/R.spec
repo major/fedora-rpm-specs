@@ -38,7 +38,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -972,6 +972,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 4.6.0-3
+- Rebuilt for icu 78.3
+
 * Fri May  1 2026 Tom Callaway <spot@fedoraproject.org> - 4.6.0-2
 - exclude tex autoprovides
 
