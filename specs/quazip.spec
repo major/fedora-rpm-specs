@@ -18,7 +18,7 @@
 # Fedora - build everything
 %bcond_without  qt5
 %bcond_without  qt6
-%bcond_with  mingw
+%bcond_without  mingw
 %endif
 
 %bcond_without test
@@ -95,6 +95,7 @@ for developing applications that use %{name}-qt5.
 %package -n mingw32-%{name}-qt5
 Summary:       MinGW Windows Qt5 %{name} library
 BuildRequires: mingw32-qt5-qtbase
+BuildArch:     noarch
 
 %description -n mingw32-%{name}-qt5
 MinGW Windows Qt5 %{name} library.
@@ -103,6 +104,7 @@ MinGW Windows Qt5 %{name} library.
 %package -n mingw64-%{name}-qt5
 Summary:       MinGW Windows Qt5 %{name} library
 BuildRequires: mingw64-qt5-qtbase
+BuildArch:     noarch
 
 %description -n mingw64-%{name}-qt5
 MinGW Windows Qt5 %{name} library.
@@ -139,6 +141,7 @@ for developing applications that use %{name}-qt6.
 Summary:       MinGW Windows Qt6 %{name} library
 BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-qt6-qt5compat
+BuildArch:     noarch
 
 %description -n mingw32-%{name}-qt6
 MinGW Windows Qt6 %{name} library.
@@ -148,6 +151,7 @@ MinGW Windows Qt6 %{name} library.
 Summary:       MinGW Windows Qt6 %{name} library
 BuildRequires: mingw64-qt6-qtbase
 BuildRequires: mingw64-qt6-qt5compat
+BuildArch:     noarch
 
 %description -n mingw64-%{name}-qt6
 MinGW Windows Qt6 %{name} library.

@@ -7,7 +7,7 @@
 %undefine _auto_set_build_flags
 
 Name:          dtc
-Version:       1.8.0
+Version:       1.8.1
 Release:       1%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
@@ -108,7 +108,7 @@ This package provides the static library of mingw64-libfdt
 
 
 %build
-%meson
+%meson -Dtools=true -Dpython=enabled
 %meson_build
 
 %if %{with_mingw}
@@ -125,7 +125,13 @@ This package provides the static library of mingw64-libfdt
 %mingw_debug_install_post
 %endif
 
+
+%check
+%meson_test
+
+
 %ldconfig_scriptlets -n libfdt
+
 
 %files
 %license GPL
@@ -174,6 +180,10 @@ This package provides the static library of mingw64-libfdt
 %endif
 
 %changelog
+* Thu May 28 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.8.1-1
+- Update to 1.8.1
+- Enable tests
+
 * Wed May 27 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.8.0-1
 - Update to 1.8.0
 

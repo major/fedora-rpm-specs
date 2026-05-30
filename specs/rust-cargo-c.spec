@@ -3,14 +3,14 @@
 
 # reduce debuginfo verbosity to work around OOM problems on 32-bit arches
 %ifarch %{ix86}
-%global rustflags_debuginfo 0
+%global rustflags_debuginfo 1
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.19+cargo-0.93.0
+%global crate_version 0.10.20+cargo-0.94.0
 
 Name:           rust-cargo-c
-Version:        0.10.19
+Version:        0.10.20
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -34,7 +34,6 @@ Helper program to build and install c-like libraries.}
 %package     -n %{crate}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
-# (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
@@ -58,24 +57,23 @@ Summary:        %{summary}
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     MIT AND
-    Apache-2.0 AND
-    BSD-2-Clause AND
-    BSD-3-Clause AND
-    GPL-2.0-only WITH GCC-exception-2.0 AND
-    ISC AND
-    MPL-2.0 AND
-    MPL-2.0+ AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR BSD-1-Clause) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
-    (MIT-0 OR Apache-2.0) AND
-    (Unlicense OR MIT)
+    AND Apache-2.0
+    AND BSD-2-Clause
+    AND BSD-3-Clause
+    AND ISC
+    AND MPL-2.0
+    AND MPL-2.0+
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (Apache-2.0 OR MIT)
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (MIT OR Apache-2.0 OR BSD-1-Clause)
+    AND (MIT OR Apache-2.0 OR Zlib)
+    AND (MIT-0 OR Apache-2.0)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 

@@ -13,7 +13,7 @@
 
 Name: criu
 Version: 4.2
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -214,6 +214,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Thu May 28 2026 Miroslav Suchy <msuchy@redhat.com> - 4.2-19
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
 * Wed Apr 22 2026 Adrian Reber <adrian@lisas.de> - 4.2-18
 - Route veth restore through usernsd for userns mode (upstream PR#3006)
 - Fix rseq01 test for kernel 7.0 rseq changes (upstream PR#3007)

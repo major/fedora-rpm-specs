@@ -5,9 +5,9 @@
 %endif
 Name: hunspell-pl
 Summary: Polish hunspell dictionaries
-%global upstreamid 20240901
+%global upstreamid 20260511
 Version: 0.%{upstreamid}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Source: https://sjp.pl/sl/ort/sjp-myspell-pl-%{upstreamid}.zip
 URL: https://sjp.pl/sl/ort/
 License: LGPL-2.1-or-later OR GPL-1.0-or-later OR MPL-1.1 OR Apache-2.0 OR CC-BY-SA-4.0
@@ -27,14 +27,17 @@ unzip pl_PL.zip
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
+cp -p pl_PL.dic pl_PL.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 
 %files
 %doc README_pl_PL.txt
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/pl_PL.*
 
 %changelog
+* Thu May 28 2026 Parag Nemade <pnemade AT redhat DOT com> - 0.20260511-1
+- Update to new upstream release (2026-05-11)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20240901-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

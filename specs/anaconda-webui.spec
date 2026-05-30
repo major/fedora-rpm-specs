@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        69
+Version:        70
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -41,11 +41,11 @@ Requires: system-logos
 BuildRequires: desktop-file-utils
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.3
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.3.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.3
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -129,6 +129,14 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu May 28 2026 Packit <hello@packit.dev> - 70-1
+- storage: avoid UnknownDeviceError after disk removal and rescan
+  (Resolves: rhbz#2456923)
+- storage: Show storage warnings for automated installations when
+  applicable
+- network: move Network Configuration from dropdown to a wizard page
+- storage: show reused efi correctly in review (Resolves: rhbz#2467675)
+
 * Thu May 07 2026 Packit <hello@packit.dev> - 69-1
 - Initial support for KS installations was added; currently only enabled when 'pauseatsummary' option is used
 - storage: Add tooltips to Reclaim dialog partition action icons

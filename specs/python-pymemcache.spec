@@ -6,7 +6,6 @@ Version:        4.0.0
 Release:        %autorelease
 Summary:        A comprehensive, fast, pure Python memcached client
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/Pinterest/pymemcache
 Source0:        https://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
@@ -42,6 +41,9 @@ Summary:        A comprehensive, fast, pure Python memcached client
 %prep
 %autosetup -n %{pypi_name}-%{version} -S git
 
+# Drop coverage modules and tests
+sed -i '/pytest-cov/d' test-requirements.txt
+sed -i '/--cov/d'      setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -58,11 +60,13 @@ Summary:        A comprehensive, fast, pure Python memcached client
 
 
 %check
-py.test-3 ./pymemcache/test/
+%tox
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst LICENSE.txt
+%doc README.rst 
+%doc ChangeLog.rst
+%license LICENSE.txt
 
 
 %changelog

@@ -23,8 +23,8 @@ ExcludeArch: %{ix86}
 
 # Bundled Fonts
 #
-# Fontawesome 6.4 is only available in F39+
-%global unbundle_fontawesome       0%{?fc39}
+# Fontawesome 6.4 is only available in Fedora
+%global unbundle_fontawesome       0%{?fedora}
 # Not available for EL
 %global unbundle_raleway           0
 
@@ -87,7 +87,7 @@ ExcludeArch: %{ix86}
 
 Name:        sympa
 Version:     6.2.78
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -826,6 +826,9 @@ fi
 
 
 %changelog
+* Wed May 27 2026 Jerry James <loganjerry@gmail.com> - 6.2.78-2
+- Unbundle FontAwesome on all Fedora releases
+
 * Tue Mar 31 2026 Xavier Bachelot <xavier@bachelot.org> - 6.2.78-1
 - Update to 6.2.78
 - Turn conf sub-packages to noarch

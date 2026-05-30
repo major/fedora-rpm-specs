@@ -1,6 +1,9 @@
 # NOTE: The C# and Fortran interfaces are not currently built.  If you need
 # either interface, file a bug requesting it.
 
+# Whether to run tests
+%bcond ctest 1
+
 # The build runs git to get a commit, but we don't have a git checkout
 %global commit  7df0786de
 
@@ -38,21 +41,32 @@ Patch:          %{name}-unbundle.patch
 #   failed for solver <pulp.apis.highs_api.HiGHS_CMD object at 0x7f39f283cb00>:
 #   var x == 2.0 != 3: https://bugzilla.redhat.com/show_bug.cgi?id=2466661
 Patch:          %{name}-issue-2957.patch
+# Patch courtesy of Gentoo to fix the tests on some arches
+Patch:          %{name}-ignore-test-iterations.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DBLAS_INCLUDE_DIRS:FILEPATH=%{_includedir}
+BuildOption(conf): -DBLAS_LIBRARIES:FILEPATH=%{_libdir}/libflexiblas.so
+BuildOption(conf): -DBLAS_ROOT:FILEPATH=%{_prefix}
+BuildOption(conf): -DHIPO:BOOL=ON
+%if %{with ctest}
+BuildOption(conf): -DALL_TESTS:BOOL=ON
+BuildOption(conf): -DBUILD_TESTING:BOOL=ON
+%endif
 
+BuildRequires:  boost-devel
+BuildRequires:  catch2-devel
 BuildRequires:  cli11-static
 BuildRequires:  cmake
 BuildRequires:  cmake(AMD)
-BuildRequires:  cmake(catch2)
 BuildRequires:  doctest-static
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  libatomic
 BuildRequires:  metis-devel
 BuildRequires:  ninja-build
-BuildRequires:  pdqsort-static
 BuildRequires:  pkgconfig(coindatanetlib)
 BuildRequires:  pkgconfig(coindatasample)
 BuildRequires:  pkgconfig(flexiblas)
@@ -95,8 +109,6 @@ highsopt@gmail.com.
 %package        devel
 Summary:        Header files and library links for HiGHS
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       pdqsort-static
-Requires:       zstr-static
 
 %description    devel
 Header files and library links for developing applications that use HiGHS.
@@ -111,13 +123,12 @@ This package contains a Python 3 interface to coin-or-HiGHS.
 %prep
 %autosetup -n HiGHS-%{version} -p1
 
-%conf
 # Substitute the release git hash; see note above
 sed -i 's,n/a,%{commit},' CMakeLists.txt
 
 # Unbundle catch
 rm extern/catch.hpp
-ln -s %{_includedir}/catch2/catch_all.hpp extern/catch.hpp
+ln -s %{_includedir}/catch2/catch.hpp extern/catch.hpp
 
 # Ensure the bundled amd, cli11, metis, pdqsort, and zstr are not used
 rm -fr extern/{CLI11.hpp,amd,metis,pdqsort,zstr}
@@ -125,20 +136,11 @@ rm -fr extern/{CLI11.hpp,amd,metis,pdqsort,zstr}
 %generate_buildrequires
 %pyproject_buildrequires -x test
 
-%build
-%cmake \
-    -DBLAS_INCLUDE_DIRS:FILEPATH=%{_includedir} \
-    -DBLAS_LIBRARIES:FILEPATH=%{_libdir}/libflexiblas.so \
-    -DBLAS_ROOT:FILEPATH=%{_prefix} \
-    -DHIPO:BOOL=ON
-%cmake_build
-
+%build -a
 # Build the python interface
 %pyproject_wheel
 
-%install
-%cmake_install
-
+%install -a
 # Make a man page
 mkdir -p %{buildroot}%{_mandir}/man1
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
@@ -162,8 +164,7 @@ g++ %{build_cxxflags} -fPIC -shared -I . -I ../%{_vpath_builddir} \
   %{build_ldflags} -L %{buildroot}%{_libdir} -lhighs
 cd -
 
-%check
-%ctest
+%check -a
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %pytest -v
 

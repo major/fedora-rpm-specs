@@ -35,7 +35,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.43.1
+Version: 1.44.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -97,6 +97,9 @@ Requires: bats
 Recommends: bats
 %endif
 Requires: bzip2
+Requires: xz
+Requires: zstd
+Requires: which
 Requires: podman
 Requires: golang
 Requires: jq
@@ -104,6 +107,7 @@ Requires: httpd-tools
 Requires: openssl
 Requires: nmap-ncat
 Requires: git-daemon
+Requires: libselinux-utils
 
 %description tests
 %{summary}
@@ -126,8 +130,7 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
 %endif
 
-export CNI_VERSION=`grep '^# github.com/containernetworking/cni ' src/modules.txt | sed 's,.* ,,'`
-export LDFLAGS="-X main.buildInfo=`date +%s` -X main.cniVersion=${CNI_VERSION}"
+export LDFLAGS="-X main.buildInfo=`date +%s`"
 
 export BUILDTAGS="seccomp $(hack/systemd_tag.sh) $(hack/libsubid_tag.sh) libsqlite3"
 %if !%{defined build_with_btrfs}
@@ -142,6 +145,8 @@ export BUILDTAGS+=" libtrust_openssl"
 export BUILDTAGS+=" containers_image_sequoia"
 %endif
 
+%{__rm} -f internal/mkcw/embed/entrypoint_amd64.gz
+%{__make} internal/mkcw/embed/entrypoint_amd64.gz
 %gobuild -o bin/%{name} ./cmd/%{name}
 %gobuild -o bin/imgtype ./tests/imgtype
 %gobuild -o bin/copy ./tests/copy
@@ -151,6 +156,7 @@ export BUILDTAGS+=" containers_image_sequoia"
 %gobuild -o bin/passwd ./tests/passwd
 %gobuild -o bin/crash ./tests/crash
 %gobuild -o bin/wait ./tests/wait
+%gobuild -o bin/grpcnoop ./tests/rpc/noop
 %{__make} docs
 
 %install
@@ -166,6 +172,7 @@ cp bin/dumpspec %{buildroot}/%{_bindir}/%{name}-dumpspec
 cp bin/passwd %{buildroot}/%{_bindir}/%{name}-passwd
 cp bin/crash %{buildroot}/%{_bindir}/%{name}-crash
 cp bin/wait %{buildroot}/%{_bindir}/%{name}-wait
+cp bin/grpcnoop %{buildroot}/%{_bindir}/%{name}-grpcnoop
 
 rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 
@@ -194,6 +201,7 @@ rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 %{_bindir}/%{name}-passwd
 %{_bindir}/%{name}-crash
 %{_bindir}/%{name}-wait
+%{_bindir}/%{name}-grpcnoop
 %{_datadir}/%{name}/test
 
 %changelog

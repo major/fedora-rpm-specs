@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.61.0
+Version:        2.63.1
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -40,6 +40,9 @@ BuildRequires:  vulkan-loader-devel
 %endif
 BuildRequires:  chafa-devel
 BuildRequires:  yyjson-devel
+%if 0%{?fedora} || 0%{?rhel} < 10
+BuildRequires:  efl-devel
+%endif
 
 Recommends:     hwdata
 Suggests:       libXrandr
@@ -106,6 +109,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Thu May 28 2026 Jonathan Wright <jonathan@almalinux.org> - 2.63.1-1
+- update to 2.63.1 rhbz#2460499
+
 * Fri Apr 03 2026 Jonathan Wright <jonathan@almalinux.org> - 2.61.0-1
 - update to 1.61.0 rhbz#2452665
 

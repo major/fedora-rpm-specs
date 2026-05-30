@@ -137,7 +137,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.24.2
+%global samba_version 4.24.3
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -3936,7 +3936,6 @@ fi
 %else
 %{_libdir}/samba/libdsdb-module-private-samba.so
 %endif
-%{_libdir}/samba/libcmocka-private-samba.so
 
 ### USERSHARES
 %files usershares

@@ -1,8 +1,8 @@
 %global gem_name rouge
 
 Name:           rubygem-%{gem_name}
-Version:        4.7.0
-Release:        2%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 # From LICENSE file
 # SPDX confirmed
@@ -74,7 +74,9 @@ rm -rf \
 popd
 
 %check
+# Exclude tests which requires rubocop
 find spec -name \*_spec.rb -print0 | \
+	grep -v -z "no_building_alternation_pattern_in_regexp_spec" | \
 	sort --zero-terminated |  \
 	xargs --null ruby -Ilib:FAKE \
 	-r./spec/spec_helper \
@@ -101,6 +103,9 @@ find spec -name \*_spec.rb -print0 | \
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Thu May 28 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.0.0-1
+- 5.0.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

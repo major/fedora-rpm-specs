@@ -1,6 +1,6 @@
 Name:           perl-HTML-Gumbo
 Version:        0.18
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        HTML5 parser based on gumbo C library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTML-Gumbo
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu May 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.18-21
+- gumbo-parser rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 Name:           gumbo-parser
 Epoch:          1
-Version:        0.12.1
-Release:        8%{?dist}
+Version:        0.13.2
+Release:        1%{?dist}
 Summary:        A HTML5 parser
 
 License:        Apache-2.0
 # Original URL
 # URL:            https://github.com/google/gumbo-parser
 URL:		https://codeberg.org/grisha/gumbo-parser/
-Source0:	https://codeberg.org/grisha/gumbo-parser/archive/gumbo-parser-%{version}.tar.gz
+Source0:	https://codeberg.org/grisha/gumbo-parser/archive/%{version}.tar.gz
 
 # Fix up Doxyfile
 Patch1:         0001-Doxygen-tweaks.patch
@@ -23,7 +23,6 @@ BuildRequires: libtool automake autoconf
 BuildRequires: doxygen
 
 # For the python bindings
-BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: make
 
@@ -65,6 +64,10 @@ doxygen -w html /dev/null footer.html /dev/null Doxyfile
 sed -i -e 's,\$generatedby,Generated on $date for $projectname by,' footer.html
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 %configure --disable-static --disable-silent-rules --docdir=%{_pkgdocdir}
 %{make_build}
@@ -73,7 +76,7 @@ sed -i -e 's,\$generatedby,Generated on $date for $projectname by,' footer.html
 doxygen Doxyfile
 
 # python bindings
-%py3_build
+%pyproject_wheel
 
 %check
 make check
@@ -91,7 +94,8 @@ install -m 644 doc/COPYING ${RPM_BUILD_ROOT}%{_pkgdocdir}
 install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
 # python bindings
-%py3_install
+%pyproject_install
+%pyproject_save_files '*'
 
 %ldconfig_scriptlets
 
@@ -100,7 +104,7 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{_pkgdocdir}
 %exclude %{_pkgdocdir}/html
 %exclude %{_pkgdocdir}/*.md
-%{_libdir}/*.so.*
+%{_libdir}/*.so.3*
 
 %files devel
 %doc %{_pkgdocdir}/html
@@ -110,10 +114,12 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{_libdir}/pkgconfig/gumbo.pc
 %{_mandir}/man3/*.3*
 
-%files python
-%{python3_sitelib}/*
+%files python -f %{pyproject_files}
 
 %changelog
+* Wed May 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.13.2-1
+- 0.13.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

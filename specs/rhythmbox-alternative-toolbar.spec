@@ -2,7 +2,7 @@
 %global mod_name alternative-toolbar
 
 Name:		rhythmbox-alternative-toolbar
-Version:	0.20.4
+Version:	0.21.0
 Release:	%autorelease
 Summary:	Client-side decorated compact toolbar for Rhythmbox
 License:	GPL-3.0-or-later
@@ -11,8 +11,6 @@ URL:		https://github.com/fossfreedom/alternative-toolbar
 Source0:	%{url}/releases/download/v%{version}/%{mod_name}-%{version}.tar.xz
 Source1:	%{url}/releases/download/v%{version}/%{mod_name}-%{version}.tar.xz.asc
 Source2:	https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1e1fb0017c998a8ae2c498a6c2eaa8a26adc59ee#/1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE.gpg
-
-Patch0:		https://github.com/fossfreedom/alternative-toolbar/commit/8a379a970ceb2ce080ddb80d28dc2de009273064.patch
 
 BuildRequires:	gcc
 BuildRequires:	intltool

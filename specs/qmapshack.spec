@@ -76,7 +76,7 @@ QMapShack.
 
 
 %build
-%cmake -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 

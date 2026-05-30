@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.19.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -22,8 +22,6 @@ Source7: passwd.pamd
 ### Patches ###
 # Misc manual page changes - non-upstreamable
 Patch0: shadow-4.15.0-manfix.patch
-# Probably non-upstreamable
-Patch1: shadow-4.19.0-account-tools-setuid.patch
 # https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
 Patch2: shadow-4-19-useradd-support-btrfs.patch
 # https://github.com/shadow-maint/shadow/commit/6be13b2f84a2c1a0d0f4129b5258b4b443e7f86c
@@ -146,6 +144,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/default
 install -p -c -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/login.defs
 install -p -c -m 0600 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/default/useradd
 install -d -m 755 $RPM_BUILD_ROOT%{_pam_confdir}
+install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_pam_confdir}/chpasswd
+install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_pam_confdir}/newusers
 install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_pam_confdir}/passwd
 
 
@@ -194,11 +194,9 @@ rm $RPM_BUILD_ROOT%{_mandir}/*/man8/faillog.*
 
 # Remove PAM service files we don't use.
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chfn
-rm $RPM_BUILD_ROOT%{_pam_confdir}/chpasswd
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chsh
 rm $RPM_BUILD_ROOT%{_pam_confdir}/groupmems
 rm $RPM_BUILD_ROOT%{_pam_confdir}/login
-rm $RPM_BUILD_ROOT%{_pam_confdir}/newusers
 rm $RPM_BUILD_ROOT%{_pam_confdir}/su
 
 find $RPM_BUILD_ROOT%{_mandir} -depth -type d -empty -delete
@@ -225,6 +223,8 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %license gpl-2.0.txt shadow-bsd.txt
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/default/useradd
+%config(noreplace) %{_pam_confdir}/chpasswd
+%config(noreplace) %{_pam_confdir}/newusers
 %config(noreplace) %{_pam_confdir}/passwd
 %{_bindir}/sg
 %attr(4755,root,root) %{_bindir}/chage
@@ -279,6 +279,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed May 27 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.19.3-3
+- Enable use of PAM for chpasswd and newusers
+  Resolves: #2461179 and #2283963
+
 * Thu Apr 23 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.19.3-2
 - btrfs: simplify checks improve useradd behavior for non-btrfs
 

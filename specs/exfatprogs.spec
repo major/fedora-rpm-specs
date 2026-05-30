@@ -1,7 +1,5 @@
-%bcond defrag 0
-
 Name:           exfatprogs
-Version:        1.3.2
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only
@@ -14,6 +12,7 @@ BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  pkgconfig(blkid) >= 2.20
 
 %description
 Utilities for formatting and repairing exFAT filesystems.
@@ -34,26 +33,24 @@ autoreconf -vif
 %files
 %license COPYING
 %doc README.md
+%{_bindir}/chdosattr
+%{_bindir}/lsdosattr
+%{_docdir}/%{name}/*
 %{_sbindir}/dump.exfat
 %{_sbindir}/exfat2img
 %{_sbindir}/exfatlabel
 %{_sbindir}/fsck.exfat
 %{_sbindir}/mkfs.exfat
 %{_sbindir}/tune.exfat
+%{_mandir}/man1/chdosattr.*
+%{_mandir}/man1/lsdosattr.*
 %{_mandir}/man8/dump.exfat.*
 %{_mandir}/man8/exfat2img.*
 %{_mandir}/man8/exfatlabel.*
 %{_mandir}/man8/fsck.exfat.*
 %{_mandir}/man8/mkfs.exfat.*
 %{_mandir}/man8/tune.exfat.*
-
-%if %{with defrag}
-%{_sbindir}/defrag.exfat
-%{_mandir}/man8/defrag.exfat.*
-%else
-%exclude %{_sbindir}/defrag.exfat
-%exclude %{_mandir}/man8/defrag.exfat.*
-%endif
+%{_libexecdir}/exfat-uctbl2bin.sh
 
 %changelog
 %autochangelog

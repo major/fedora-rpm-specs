@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 287
+%global baseversion 288
 
 %undefine _auto_set_build_flags
 
@@ -20,7 +20,7 @@ License:        GPL-2.0-or-later
 URL:            http://mamedev.org/
 Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion}/%{name}-%{name}0%{baseversion}.tar.gz
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
-Patch0:         %{name}-fortify.patch
+Patch0:         0001-Ensure-_FORTIFY_SOURCE-define-stays-enabled.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
 
 # %%{arm}:

@@ -1,11 +1,13 @@
 Name:           python-starlette
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
 License:        BSD-3-Clause
 URL:            https://www.starlette.io/
 Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
+
+Patch:          python-starlette-1.2.0-PR3295-undo.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras full

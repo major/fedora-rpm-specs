@@ -8,32 +8,29 @@
 #
 
 
-%global gh_commit    39ee8baff8e97a1b657bbfcd6a236ff93a5efbb2
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_branch    2.0-dev
-%global gh_owner     composer
-%global gh_project   composer
-%global api_version  2.9.0
-%global run_version  2.2.2
+%global gh_tag           %{upstream_version}%{?upstream_prever:-%{upstream_prever}}
+%global gh_owner         composer
+%global gh_project       composer
+%global api_version      2.9.0
+%global run_version      2.2.2
 
-%global upstream_version 2.9.8
-#global upstream_prever  RC1
-#global upstream_lower   rc1
+%global upstream_version 2.10.0
+#global upstream_prever  RC2
 
-%global _phpunit       %{_bindir}/phpunit9
-%global bashcompdir    %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
-%global bashcomproot   %(dirname %{bashcompdir} 2>/dev/null)
+%global _phpunit         %{_bindir}/phpunit9
+%global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
+%global bashcomproot     %(dirname %{bashcompdir} 2>/dev/null)
 
 
 Name:           composer
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
 License:        MIT
 URL:            https://getcomposer.org/
-Source0:        %{gh_project}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tgz
+Source0:        %{gh_project}-%{gh_tag}.tgz
 # Profile scripts
 Source1:        %{name}-bash-completion
 Source3:        %{name}.sh
@@ -129,7 +126,7 @@ Documentation: https://getcomposer.org/doc/
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{gh_tag}
 
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .noxdg
@@ -180,11 +177,12 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 : Licenses
 ln -sf ../../%{name}/LICENSE LICENSE
 cd vendor
-for lic in */*/LICENSE
+for lic in */*/LICENSE*
 do dir=$(dirname $lic)
+   fic=$(basename $lic)
    own=$(dirname $dir)
    prj=$(basename $dir)
-   ln -sf ../../composer/vendor/$own/$prj/LICENSE ../$own-$prj-LICENSE
+   ln -sf ../../composer/vendor/$own/$prj/$fic ../$own-$prj-LICENSE
 done
 
 
@@ -214,6 +212,9 @@ php -r '
 
 
 %changelog
+* Thu May 28 2026 Remi Collet <remi@remirepo.net> - 2.10.0-1
+- update to 2.10.0
+
 * Wed May 13 2026 Remi Collet <remi@remirepo.net> - 2.9.8-1
 - update to 2.9.8
 

@@ -2,7 +2,7 @@
 
 Name:    unixODBC
 Version: 2.3.14
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -16,7 +16,6 @@ Source:  http://www.unixODBC.org/%{name}-%{version}.tar.gz
 Source1: odbcinst.ini
 
 Patch8:  so-version-bump.patch
-Patch9:  keep-typedefs.patch
 
 BuildRequires: make automake autoconf libtool libtool-ltdl-devel bison flex
 BuildRequires: readline-devel
@@ -24,9 +23,15 @@ BuildRequires: readline-devel
 
 Conflicts: iodbc
 
+# ODBC driver packages
+Suggests: freetds
 Suggests: mariadb-connector-odbc
+Suggests: mdbtools-odbc
 Suggests: mysql-connector-odbc
 Suggests: postgresql-odbc
+Suggests: sqliteodbc
+
+# GUI management tool
 Suggests: unixODBC-gui-qt
 
 %description
@@ -47,7 +52,6 @@ ODBC, you need to install this package.
 %prep
 %setup -q
 %patch -P8 -p1 -b .soname-bump
-%patch -P9 -p1
 
 autoreconf -vfi
 
@@ -56,6 +60,7 @@ autoreconf -vfi
   --with-gnu-ld=yes \
   --enable-threads=yes \
   --enable-drivers=no \
+  --with-odbc-driver-path=%{_libdir}/odbc \
 %if %{with gui_related_parts}
   --enable-driver-config=yes
 %else
@@ -122,7 +127,7 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 
 %files devel -f devel-so-list
 %{_includedir}/*
-%_libdir/pkgconfig/*.pc
+%{_libdir}/pkgconfig/*.pc
 
 
 %changelog

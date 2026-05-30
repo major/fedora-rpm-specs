@@ -1,7 +1,7 @@
 %global	gem_name	yard
 
 Name:		rubygem-%{gem_name}
-Version:	0.9.43
+Version:	0.9.44
 Release:	1%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
@@ -112,8 +112,13 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Thu May 28 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.44-1
+- 0.9.44
+- https://github.com/lsegal/yard/security/advisories/GHSA-pxcc-8665-phx8
+
 * Wed Apr 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.43-1
 - 0.9.43
+- https://github.com/lsegal/yard/security/advisories/GHSA-3jfp-46x4-xgfj
 
 * Mon Apr 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.40-1
 - 0.9.40

@@ -1,13 +1,11 @@
 Summary:	Backup and restore utilities for the XFS filesystem
 Name:		xfsdump
-Version:	3.2.0
-Release:	4%{?dist}
-# Licensing based on generic "GNU GENERAL PUBLIC LICENSE"
-# in source, with no mention of version.
-License:	GPL-1.0-or-later
+Version:	3.3.0
+Release:	1%{?dist}
+License:	GPL-2.0-or-later
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.sign
-Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13F703E6C11CF6F0.asc
+Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/46A7EA18AC33E108.asc
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	libtool, gettext, gawk
@@ -21,10 +19,10 @@ other utilities for administering XFS filesystems.
 
 xfsdump examines files in a filesystem, determines which need to be
 backed up, and copies those files to a specified disk, tape or other
-storage medium.	 It uses XFS-specific directives for optimizing the
+storage medium.  It uses XFS-specific directives for optimizing the
 dump of an XFS filesystem, and also knows how to backup XFS extended
 attributes.  Backups created with xfsdump are "endian safe" and can
-thus be transfered between Linux machines of different architectures
+thus be transferred between Linux machines of different architectures
 and also between IRIX machines.
 
 xfsrestore performs the inverse function of xfsdump; it can restore a
@@ -43,13 +41,15 @@ make V=1 %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DIST_ROOT=$RPM_BUILD_ROOT install
+# seems to ignore the ./configure options that set the sbin dir, so we have to
+# pass them to `make install`
+make \
+  DIST_ROOT=$RPM_BUILD_ROOT \
+  PKG_SBIN_DIR=%{_sbindir} \
+  PKG_ROOT_SBIN_DIR=%{_sbindir} \
+  install
 # remove non-versioned docs location
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsdump/
-
-# Bit of a hack to move files from /sbin to /usr/sbin
-(cd $RPM_BUILD_ROOT/%{_sbindir}; mv ../../sbin/xfsdump .)
-(cd $RPM_BUILD_ROOT/%{_sbindir}; mv ../../sbin/xfsrestore .)
 
 # Create inventory dir (otherwise created @ runtime)
 mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/xfsdump/inventory
@@ -63,6 +63,17 @@ mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/xfsdump/inventory
 %{_sharedstatedir}/xfsdump/inventory
 
 %changelog
+* Thu May 28 2026 Marcus Müller <mueller_fedora@baseband.digital> - 3.3.0-1
+- Bump to new upstream release 3.3.0
+- Fix wrong license (see doc/COPYING in source code)
+- Fix installation location in a less hacky way
+- Fix keyring source. (you need to git clone the kernel gpgkeys repo and then
+  grep for the key needed, then replace the Source here. This is not a
+  sustainable system.)
+- Fix description typo
+- Remove stray tab byte from description, which was shown as \x09 in
+  `dnf info xfsdump` (huh?)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

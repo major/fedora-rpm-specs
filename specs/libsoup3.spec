@@ -7,22 +7,19 @@
 %endif
 
 Name:    libsoup3
-Version: 3.6.6
+Version: 3.7.1
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
-Source0: https://download.gnome.org/sources/libsoup/3.6/libsoup-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/libsoup/3.7/libsoup-%{version}.tar.xz
 
 # Downstream patch, needed due to glib2 gnutls-hmac.patch
 Patch:   no-ntlm-in-fips-mode.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2433867
-Patch:   0001-CVE-2026-1539-Also-remove-Proxy-Authorization-header-on-cross-origin-redirect.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2452935
-Patch:   0002-CVE-2026-5119-cookies-do-not-send-cookies-to-HTTP-proxy-for-HTTPS-request.patch
+# https://gitlab.gnome.org/GNOME/libsoup/-/work_items/530
+Patch:   skip-logger-test-on-32bit.patch
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -37,6 +34,7 @@ BuildRequires: pkgconfig(gnutls)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libbrotlidec)
 BuildRequires: pkgconfig(libnghttp2)
+BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(libpsl)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(sysprof-capture-4)

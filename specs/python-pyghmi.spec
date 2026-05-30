@@ -1,128 +1,104 @@
-%bcond docs  %{expr:!%{defined el8} && !%{defined el9}}
-%bcond pbr   %{expr:!%{defined el8} && !%{defined el9}}
-%bcond tests %{expr:!%{defined el8} && !%{defined el9}}
-
 %global sname pyghmi
-%global common_summary Python General Hardware Management Initiative (IPMI and others)
 
-%global common_desc This is a pure Python implementation of IPMI protocol. \
-\
-The included pyghmicons and pyghmiutil scripts demonstrate how one may \
-incorporate the pyghmi library into a Python application.
+%global _description %{expand:
+This is a pure Python implementation of IPMI protocol.
 
-%global common_desc_tests Tests for the pyghmi library
+The included pyghmicons and pyghmiutil scripts demonstrate how one may
+incorporate the pyghmi library into a Python application.}
 
-Summary: %{common_summary}
+
+Summary: Python General Hardware Management Initiative (IPMI and others)
 Name: python-%{sname}
-Version: %{?version:%{version}}%{!?version:1.6.16}
-Release: 1%{?dist}
+Version: 1.6.16
+Release: 2%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
-Prefix: %{_prefix}
 BuildArch: noarch
 Url: https://opendev.org/x/pyghmi
 
-## NO-PBR-specific patches
-Patch1000:  nopbr.patch
-Patch1001:  setup.patch
+BuildRequires: python3-devel
 
-%description
-%{common_desc}
+
+%description %{_description}
+
 
 %package -n python3-%{sname}
-Summary: %{common_summary}
+Summary: %{summary}
 
-BuildRequires: python3-devel
-%if %{with pbr}
-BuildRequires: python3-pbr
-%endif
-BuildRequires: python3-setuptools
-%if %{with tests}
-BuildRequires: python3-oslotest
-BuildRequires: python3-stestr
-%endif
 
-BuildRequires: python3-cryptography
-BuildRequires: python3-six
-BuildRequires: python3-dateutil
+%description -n python3-%{sname} %{_description}
 
-Requires: python3-cryptography >= 2.1
-Requires: python3-six >= 1.10.0
-Requires: python3-dateutil >= 2.8.1
-
-%description -n python3-%{sname}
-%{common_desc}
 
 %package -n python3-%{sname}-tests
-Summary: %{common_desc_tests}
+Summary: %{summary}
 Requires: python3-%{sname} = %{version}-%{release}
 
-%description -n python3-%{sname}-tests
-%{common_desc_tests}
 
-%if %{with docs}
+%description -n python3-%{sname}-tests
+
+Tests for the pyghmi library
+
+
 %package -n python-%{sname}-doc
 Summary: The pyghmi library documentation
 
-BuildRequires: python3-sphinx
-BuildRequires: python3-openstackdocstheme
 
 %description -n python-%{sname}-doc
 Documentation for the pyghmi library
-%endif
+
 
 %prep
-%setup -qn %{sname}-%{version}
-%if %{without pbr}
-%patch -P1000 -p1
-%patch -P1001 -p1
-sed -i s/@@REDHATVERSION@@/%{version}/ pyghmi/version.py
-sed -e "s/#VERSION#/%{version}/" setup.py.tmpl > setup.py
-%endif
+%autosetup -n %{sname}-%{version}
+
+sed -i '/^coverage[^a-zA-Z]/d' test-requirements.txt
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires doc/requirements.txt test-requirements.txt
+
 
 %build
 %pyproject_wheel
-%if %{with docs}
+
 sphinx-build -b html doc/source doc/build/html
 
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
-%endif
+
 
 %install
 %pyproject_install
 
-%check
-%if %{with tests}
-stestr run
-%else
-%py3_check_import %{sname} %{sname}.cmd %{sname}.ipmi %{sname}.ipmi.oem %{sname}.ipmi.oem.lenovo %{sname}.ipmi.private %{sname}.redfish %{sname}.redfish.oem %{sname}.redfish.oem.dell %{sname}.redfish.oem.lenovo %{sname}.util
-%endif
+%pyproject_save_files -l pyghmi
 
-%files -n python3-%{sname}
+
+%check
+%{py3_test_envvars} stestr run
+
+
+%files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/pyghmicons
 %{_bindir}/pyghmiutil
 %{_bindir}/virshbmc
 %{_bindir}/fakebmc
-%{python3_sitelib}/%{sname}
-%{python3_sitelib}/%{sname}-*.dist-info
 %exclude %{python3_sitelib}/%{sname}/tests
+
 
 %files -n python3-%{sname}-tests
 %license LICENSE
 %{python3_sitelib}/%{sname}/tests
 
-%if %{with docs}
+
 %files -n python-%{sname}-doc
 %license LICENSE
 %doc doc/build/html README.md
-%endif
+
 
 %changelog
+* Thu May 21 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.16-2
+- Modernise spec file
+
 * Thu May 21 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.16-1
 - Update to v1.6.16
 

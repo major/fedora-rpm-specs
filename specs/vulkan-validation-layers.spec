@@ -41,6 +41,7 @@ Vulkan validation layers
 %endif
 
 %cmake -DCMAKE_BUILD_TYPE=Release \
+       -DUPDATE_DEPS=OFF \
        -DBUILD_WERROR=OFF \
        -DGLSLANG_INSTALL_DIR=%{_prefix} \
        -DBUILD_LAYER_SUPPORT_FILES:BOOL=ON \

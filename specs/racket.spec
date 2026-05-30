@@ -1,7 +1,7 @@
 %global _find_debuginfo_opts --keep-section .rackboot
 
 Name:           racket
-Version:        9.1
+Version:        9.2
 Release:        %autorelease
 Summary:        General purpose programming language
 

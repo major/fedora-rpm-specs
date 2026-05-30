@@ -163,13 +163,13 @@
 
 Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
-License:        MIT AND BSD-3-Clause AND 0BSD
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -525,6 +525,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
+- Explicitly license smoke tests 0BSD
+- Smoke test not part of srpm so remove from license tag
+
 * Sat Apr 18 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Generate suse package names
 

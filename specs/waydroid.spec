@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.6.2
+Version:        1.6.3
 %global tag %{version}
 
 %forgemeta
@@ -147,6 +147,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Thu May 28 2026 Alessandro Astone <ales.astone@gmail.com> - 1.6.3-1
+- new version
+
 * Sun Feb 22 2026 Alessandro Astone <ales.astone@gmail.com> - 1.6.2-1
 - Attempt to further fix initialization with Python 3.14
 - Fix desktop file update logic for headless apps

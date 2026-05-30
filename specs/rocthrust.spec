@@ -74,7 +74,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm Thrust library
 
@@ -82,7 +82,7 @@ Summary:        ROCm Thrust library
 # https://en.opensuse.org/openSUSE:Accepted_licences
 # Uses 'Public Domain' but this is not a spdx tag and hangs up the SLE 15.7 autochecker
 # The license should also include Public Domain
-License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT AND 0BSD
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 %else
 # https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
 # Uses 'LicenseRef-Fedora-Public-Domain'
@@ -191,6 +191,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 %{pkg_prefix}/share/cmake/rocthrust/
 
 %changelog
+* Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Explicitly license smoke tests 0BSD
+- Smoke test not part of srpm so remove from license tag
+
 * Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-354-gf531cab589
+%global glibcsrcdir glibc-2.43.9000-364-gb20b94006c
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 17
+%global baserelease 18
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2408,6 +2408,20 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu May 28 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-18
+- Auto-sync with upstream branch master,
+  commit b20b94006c79d65d75e5bd3a8d14fbcf9cd5bee6:
+- support: Skip malloc hugetlb={1,2} variants when kernel cannot honor them (Adhemerval Zanella)
+- elf: Re-initialise static TLS after .tdata relocation (BZ 34164) (Adhemerval Zanella)
+- Arch64: Add support for SVE2 ifuncs (Wilco Dijkstra)
+- hurd: adjtime: on error return -1 and set errno (Diego Nieto Cid)
+- sunrpc/Makefile: Split and sort tests (Avinal Kumar)
+- Hurd: restore some SIOC ioctls (Samuel Thibault)
+- Hurd: comment ioctls which cannot currently compile (Samuel Thibault)
+- Hurd: comment PF_ROUTE/AF_ROUTE defines (Samuel Thibault)
+- Hurd: comment PF_LINK/AF_LINK defines (Pino Toscano)
+- s390: Enabling lint-makefiles (Stefan Liebler)
+
 * Tue May 26 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-17
 - Auto-sync with upstream branch master,
   commit f531cab5891cc71442dcced4abe8ecc6ef15e61f:

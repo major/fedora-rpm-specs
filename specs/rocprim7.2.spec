@@ -24,7 +24,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 7.13
+%global rocm_release 7.12
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %else
@@ -35,7 +35,7 @@
 
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%bcond_with compat
+%bcond_without compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
@@ -87,12 +87,26 @@ Name:           rocprim%{pkg_suffix}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        3%{?dist}
 %endif
 Version:        %{rocm_version}
 Summary:        ROCm parallel primitives
 
 License:        MIT AND BSD-3-Clause
+# MIT : the main license.
+# BSD 3-Clause:
+#   rocprim/rocprim/include/rocprim/block/block_adjacent_difference.hpp
+#   rocprim/rocprim/include/rocprim/block/block_run_length_decode.hpp
+#   rocprim/rocprim/include/rocprim/block/block_shuffle.hpp
+#   rocprim/rocprim/include/rocprim/device/detail/device_batch_memcpy.hpp
+#   rocprim/rocprim/include/rocprim/device/detail/device_merge_sort_mergepath.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_load.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_operators.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_reduce.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_scan.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_search.hpp
+#   rocprim/rocprim/include/rocprim/thread/thread_store.hpp
+#   rocprim/test/rocprim/test_thread_algos.cpp
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
@@ -104,6 +118,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -124,18 +139,19 @@ BuildRequires:  rocminfo%{pkg_suffix}
 
 %description
 The rocPRIM is a header-only library providing HIP parallel primitives
-for developing performant GPU-accelerated code on AMD ROCm platform.
+for developing GPU-accelerated code on AMD ROCm platform.
 
 %package devel
 Summary:        ROCm parallel primitives
 Provides:       rocprim%{pkg_suffix}-static = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 # the devel subpackage is only headers and cmake infra
 BuildArch: noarch
 
 %description devel
 The rocPRIM is a header-only library providing HIP parallel primitives
-for developing performant GPU-accelerated code on AMD ROCm platform.
+for developing GPU-accelerated code on AMD ROCm platform.
 
 %if %{with test}
 %package test
@@ -201,10 +217,6 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 
 
 %changelog
-* Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
-- Explicitly license smoke tests 0BSD
-- Smoke test not part of srpm so remove from license tag
-
 * Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 

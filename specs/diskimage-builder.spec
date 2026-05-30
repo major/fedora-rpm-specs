@@ -1,34 +1,32 @@
-%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
-
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-# we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme yamllint pylint reno
+%global sources_gpg 1
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
-Version:        3.41.0
+Version:        3.42.0
 Release:        %autorelease
 License:        Apache-2.0
 Group:          System Environment/Base
 URL:            https://launchpad.net/diskimage-builder
-Source0:        https://tarballs.openstack.org/diskimage-builder/diskimage_builder-%{upstream_version}.tar.gz
+Source0:        https://tarballs.openstack.org/diskimage-builder/diskimage_builder-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/diskimage-builder/diskimage_builder-%{upstream_version}.tar.gz.asc
+Source101:        https://tarballs.openstack.org/diskimage-builder/diskimage_builder-%{version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
-%endif
-
-BuildArch: noarch
-
-# Required for tarball sources verification
-%if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
 %endif
 
 BuildRequires: git-core
 BuildRequires: python3-devel
-BuildRequires: pyproject-rpm-macros
+
+BuildArch: noarch
+
+
+%description
+Components of TripleO that are responsible for building disk images.
+
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 
 Requires: kpartx
 Requires: qemu-img
@@ -51,35 +49,31 @@ Requires: /usr/bin/env
 %global __requires_exclude %__requires_exclude|/sbin/runscript
 %global __requires_exclude %__requires_exclude|/sbin/openrc-run
 
+
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n diskimage_builder-%{upstream_version} -S git
+%autosetup -n diskimage_builder-%{version} -S git
 
 %py3_shebang_fix ./diskimage_builder/elements/deploy-targetcli/extra-data.d/module/targetcli-wrapper
 
-
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
-sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-sed -i /^minversion.*/d tox.ini
-sed -i /^requires.*virtualenv.*/d tox.ini
 
-# Exclude some bad-known BRs
-for pkg in %{excluded_brs}; do
-  for reqfile in doc/requirements.txt test-requirements.txt; do
-    if [ -f $reqfile ]; then
-      sed -i /^${pkg}.*/d $reqfile
-    fi
-  done
-done
+%pyproject_patch_dependency flake8:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pylint:ignore
+%pyproject_patch_dependency reno:ignore
+
 
 %generate_buildrequires
-%pyproject_buildrequires -R
+%pyproject_buildrequires -t
+
 
 %build
 %pyproject_wheel
+
 
 %install
 %pyproject_install
@@ -91,19 +85,21 @@ cp -vr diskimage_builder/elements/ %{buildroot}%{_datadir}/%{name}
 # explicitly remove config-applier since it does a pip install
 rm -rf %{buildroot}%{_datadir}/%{name}/elements/config-applier
 
-# This file is being split out of diskimage-builder, so remove it to
-# avoid conflicts with the new package.
-rm -f %{buildroot}%{_bindir}/dib-run-parts
+%pyproject_save_files -l diskimage_builder
 
 
-%description
-Components of TripleO that are responsible for building disk images.
+%check
+%tox
 
-%files
-%doc LICENSE
-%{_bindir}/*
-%{python3_sitelib}/diskimage_builder*
+
+%files -f %{pyproject_files}
+%{_bindir}/dib-lint
+%{_bindir}/disk-image-create
+%{_bindir}/diskimage-builder
+%{_bindir}/ramdisk-image-create
 %{_datadir}/%{name}/elements
+%doc ChangeLog README.rst
+
 
 %changelog
 %autochangelog

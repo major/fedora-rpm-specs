@@ -1,7 +1,7 @@
 %bcond_with luajit
 
 Name:       xmake
-Version:    3.0.8
+Version:    3.0.9
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/scripts/.+\\.ps1$
 %global forgeurl https://github.com/xmake-io/xmake
@@ -17,9 +17,6 @@ Source:     %forgesource
 
 Patch0:     0001-system-include.patch
 Patch1:     0001-add-relwithdebinfo-build-mode.patch
-# I think this is all the places that need to be fixed for lua 5.5.
-# It's a lot.
-Patch2:     xmake-3.0.7-lua-5.5.patch
 
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(readline)
@@ -30,7 +27,7 @@ BuildRequires:  pkgconfig(libsv)
 %if %{with luajit}
 BuildRequires:  pkgconfig(luajit)
 %else
-BuildRequires:  pkgconfig(lua) >= 5.4
+BuildRequires:  pkgconfig(lua) >= 5.5
 %endif
 
 BuildRequires:  bash
