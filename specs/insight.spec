@@ -29,7 +29,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -68,7 +68,6 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	texinfo-tex
 BuildRequires:	perl-podlators
-BuildRequires:	libbabeltrace-devel
 #	For C++ pretty printers.
 BuildRequires:	libstdc++
 
@@ -175,7 +174,7 @@ LDFLAGS="${LDFLAGS:-%{?build_ldflags}}" ; export LDFLAGS
 		--with-tclinclude="${TCL_SRC_DIR}"			\
 		--with-tkinclude="${TK_SRC_DIR}"			\
 		--enable-64-bit-bfd					\
-		--with-babeltrace					\
+		--without-babeltrace					\
 		--without-guile						\
 		--with-lzma						\
 %if 0%{?have_libipt}
@@ -312,6 +311,10 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 %changelog
 #-------------------------------------------------------------------------------
 
+* Fri May 29 2026 Patrick Monnerat <patrick@monnerat.net>  18.0.50.20260306-4
+- No more CTF: remove babeltrace dependency.
+  https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=305ad81a
+  
 * Fri Apr 24 2026 Patrick Monnerat <patrick@monnerat.net>  18.0.50.20260306-3
 - Fix CVE-2026-6846.
   https://sourceware.org/bugzilla/show_bug.cgi?id=34049

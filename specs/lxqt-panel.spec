@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.4.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Fri May 29 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-1
+- Update to 2.4.1
+
 * Wed May 06 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-2
 - Drop l10n package, add patch for Fedora launcher icon
 

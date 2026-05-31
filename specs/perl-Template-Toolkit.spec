@@ -1,6 +1,6 @@
 Name:           perl-Template-Toolkit
-Version:        3.102
-Release:        5%{?dist}
+Version:        3.106
+Release:        1%{?dist}
 Summary:        Template processing system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.template-toolkit.org/
@@ -112,7 +112,8 @@ make test
 
 
 %files
-%doc Changes README.md TODO TT_v*_html_docs/*
+%doc AI_POLICY.md Changes README.md SECURITY.md TODO
+%doc TT_v*_html_docs/*
 %{_bindir}/tpage
 %{_bindir}/ttree
 %{perl_vendorarch}/Template.pm
@@ -124,6 +125,9 @@ make test
 
 
 %changelog
+* Fri May 29 2026 Xavier Bachelot <xavier@bachelot.org> - 3.106-1
+- Update to 3.106 (RHBZ#2483233)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.102-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

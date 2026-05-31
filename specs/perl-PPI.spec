@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-PPI
-Version:        1.286
+Version:        1.291
 Release:        1%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -101,6 +101,14 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Fri May 29 2026 Paul Howarth <paul@city-fan.org> - 1.291-1
+- Update to 1.291 (rhbz#2483210)
+  - Improve parse performance impact of feature tracking even more with a parse
+    stack cache (GH#318)
+  - Fix two misbehaviors of location indexing code (GH#326)
+  - Documentation fixes
+  - Fail parse on double-referenced input
+
 * Mon Apr 27 2026 Paul Howarth <paul@city-fan.org> - 1.286-1
 - Update to 1.286
   - Add support for dotted bitwise operators (GH#322)

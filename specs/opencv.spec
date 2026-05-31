@@ -73,7 +73,7 @@ Version:        4.13.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -609,6 +609,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 4.13.0-5
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 4.13.0-4
 - Rebuild for OpenEXR 3.4.12.
 

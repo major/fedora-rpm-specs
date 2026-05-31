@@ -1,5 +1,5 @@
 Name:    breeze-gtk
-Version: 6.6.90
+Version: 6.6.91
 Release: 1%{?dist}
 Summary: Breeze widget theme for GTK
 
@@ -100,6 +100,9 @@ Supplements:    (plasma-breeze and gtk4)
 
 
 %changelog
+* Fri May 29 2026 Steve Cossette <farchord@gmail.com> - 6.6.91-1
+- 6.6.91
+
 * Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
 - 6.6.90
 

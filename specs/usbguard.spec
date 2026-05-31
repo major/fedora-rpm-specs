@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -227,6 +227,9 @@ fi
 
 
 %changelog
+* Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1.1.4-2
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
 * Wed Apr 15 2026 Attila Lakatos <alakatos@redhat.com> - 1.1.4-1
 - Rebase to 1.1.4
 - Drop patches merged upstream: tmpfiles-v1, tmpfiles-v2,

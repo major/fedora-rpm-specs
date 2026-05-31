@@ -5,7 +5,7 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.57.3~dev
+Version: 1.57.4~dev
 Release: 1%{?dist}
 
 ###############################################################################
@@ -162,8 +162,10 @@ Source6: 22-wifi-mac-addr.conf
 Source7: 70-nm-connectivity.conf
 Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
+Source10: 24-clat-auto.conf
 
-# Patch1: 0001-example.patch
+# Keep until next rebase
+Patch1: 0001-nmtui-fix-wrong-use-of-assertions-in-bond-page.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -719,6 +721,9 @@ cp %{SOURCE7} %{buildroot}%{_sysctldir}
 %if 0%{?fedora} >= 40
 cp %{SOURCE6} %{buildroot}%{nmlibdir}/conf.d/
 %endif
+%if 0%{?fedora} >= 45
+cp %{SOURCE10} %{buildroot}%{nmlibdir}/conf.d/
+%endif
 
 %if %{with ifcfg_warning}
 cp %{SOURCE8} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts
@@ -867,6 +872,9 @@ fi
 %config(noreplace) %{_sysconfdir}/%{name}/NetworkManager.conf
 %if 0%{?fedora} >= 40
 %{nmlibdir}/conf.d/22-wifi-mac-addr.conf
+%endif
+%if 0%{?fedora} >= 45
+%{nmlibdir}/conf.d/24-clat-auto.conf
 %endif
 %ghost %{_sysconfdir}/%{name}/VPN
 %{_bindir}/nm-online
@@ -1065,6 +1073,10 @@ fi
 
 
 %changelog
+* Wed May 27 2026 Rahul Rajesh <rrajesh@redhat.com> - 1:1.57.4-1
+- Update to 1.57.4 release (development)
+- Enable CLAT config by default for Fedora 45
+
 * Tue Mar 31 2026 Íñigo Huguet <ihuguet@redhat.com> - 1:1.57.3-1
 - Update to 1.57.3 release (development)
 - Enable the CLAT feature

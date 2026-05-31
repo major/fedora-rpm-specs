@@ -1,8 +1,8 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 5.1.4
-Release: 4%{?dist}
+Version: 5.2.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://www.qbittorrent.org
@@ -94,6 +94,7 @@ desktop-file-install \
   %{buildroot}%{_datadir}/applications/org.qbittorrent.qBittorrent.desktop
 
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorrent.qBittorrent.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorrent.qBittorrent-nox.metainfo.xml
 
 %files
 %license COPYING
@@ -110,11 +111,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %license COPYING
 %doc qbittorrent-nox.README AUTHORS Changelog
 %{_bindir}/qbittorrent-nox
+%{_metainfodir}/org.qbittorrent.qBittorrent-nox.metainfo.xml
 %{_unitdir}/qbittorrent-nox@.service
 %{_mandir}/man1/qbittorrent-nox.1*
 %{_mandir}/ru/man1/qbittorrent-nox.1*
 
 %changelog
+* Fri May 29 2026 Charalampos Stratakis <cstratak@redhat.com> - 1:5.2.1-1
+- Update to 5.2.1 (rhbz#2464781)
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 1:5.1.4-4
 - Rebuild (qt6)
 

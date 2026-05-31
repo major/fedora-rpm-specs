@@ -5,7 +5,7 @@
 %global crate cipher
 
 Name:           rust-cipher
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Traits for describing block ciphers and stream ciphers
 

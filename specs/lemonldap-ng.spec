@@ -28,7 +28,7 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.22.3
+Version:        2.23.0
 Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
@@ -80,7 +80,6 @@ BuildRequires:  perl(Data::Password::zxcvbn)
 BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(DateTime::Format::RFC3339)
 BuildRequires:  perl(DBI)
-BuildRequires:  perl(Digest::HMAC_SHA1)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Email::Date::Format)
@@ -94,7 +93,6 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(fields)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(GD::SecurityImage)
-BuildRequires:  perl(GeoIP2::Database::Reader)
 BuildRequires:  perl(GSSAPI)
 BuildRequires:  perl(Hash::Merge::Simple)
 BuildRequires:  perl(HTML::Entities)
@@ -114,6 +112,7 @@ BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Log::Log4perl)
 BuildRequires:  perl(Log::Log4perl::MDC)
 BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(MaxMind::DB::Reader)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(MIME::Entity)
 BuildRequires:  perl(mod_perl2)
@@ -351,7 +350,6 @@ Provides:       bundled(js-bootstrap) = 4.6.2
 Provides:       bundled(js-fingerprint2) = 2.1.4
 Provides:       bundled(js-jquery) = 3.5.1
 Provides:       bundled(js-jquery-ui) = 1.13.2
-Provides:       bundled(js-jquery-cookie) = 1.4.1
 Provides:       bundled(js-jssha) = 3.3.0
 Provides:       bundled(js-qrious) = 4.0.2
 Obsoletes:      lemonldap-ng-nginx < %{version}-%{release}
@@ -686,10 +684,12 @@ fi
 %{lm_examplesdir}/manager
 %{lm_bindir}/crowdsecBan
 %{lm_bindir}/lmConfigEditor
+%{lm_bindir}/llng-build-manager-files
 %{lm_bindir}/lemonldap-ng-cli
 %{lm_bindir}/llngDeleteSession
 %{lm_bindir}/llngUserAttributes
 %{_mandir}/man1/lemonldap-ng-cli*
+%{_mandir}/man1/llng-build-manager-files*
 %{_mandir}/man1/importMetadata*
 %{_mandir}/man3/Lemonldap::NG::Manager*.3pm.*
 %{perl_vendorlib}/Lemonldap/NG/Manager.pm
@@ -700,6 +700,7 @@ fi
 %{_mandir}/man1/purgeCentralCache*
 %{_mandir}/man1/purgePersistentSessions*
 %{lm_sharedir}/portal
+%{lm_bindir}/checkCrowdsec
 %{lm_bindir}/purgeCentralCache
 %{lm_bindir}/downloadSamlMetadata
 %{lm_bindir}/purgePersistentSessions
@@ -746,6 +747,9 @@ fi
 
 
 %changelog
+* Fri May 29 2026 Clement Oudot <clement.oudot@worteks.com> - 2.23.0-1
+- Update to 2.23.0
+
 * Mon Apr 20 2026 Clement Oudot <clement.oudot@worteks.com> - 2.22.3-1
 - Update to 2.22.3
 

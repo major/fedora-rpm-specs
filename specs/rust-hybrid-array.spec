@@ -5,7 +5,7 @@
 %global crate hybrid-array
 
 Name:           rust-hybrid-array
-Version:        0.4.7
+Version:        0.4.12
 Release:        %autorelease
 Summary:        Hybrid typenum-based and const generic array types
 
@@ -84,6 +84,18 @@ This package contains library source intended for building other packages which
 use the "bytemuck" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bytemuck-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ctutils-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ctutils-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ctutils" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ctutils-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+extra-sizes-devel

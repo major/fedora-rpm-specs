@@ -5,10 +5,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 8fce67a
+%define gitshort 495ed91
+%define dtbver 6.18.33
 
 Name:          bcm283x-firmware
-Version:       20260511
+Version:       20260521
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -16,6 +17,13 @@ Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry P
 SourceLicense: GPL-2.0-only WITH Linux-syscall-note AND LicenseRef-Fedora-Firmware
 License:       LicenseRef-Fedora-Firmware
 URL:           https://github.com/raspberrypi/
+
+Source0:       %{name}-%{gitshort}.tar.xz
+# tar cJvf bcm-dtbs-v<kerver>.tar.xz bcm271*dtb
+Source1:       bcm-dtbs-v%{dtbver}.tar.xz
+Source2:       config.txt
+Source3:       nortc-time.service
+Source4:       cma.dtbo
 
 ExclusiveArch: aarch64
 
@@ -27,13 +35,6 @@ Requires:      bcm283x-overlays
 Requires:      bcm2835-firmware
 Requires:      bcm2711-firmware
 Requires:      bcm2712-firmware
-
-Source0:       %{name}-%{gitshort}.tar.xz
-# tar cJvf bcm-dtbs-v<ker-ver>.tar.xz bcm271*dtb
-Source1:       bcm-dtbs-v6.18.21.tar.xz
-Source2:       config.txt
-Source3:       nortc-time.service
-Source4:       cma.dtbo
 
 
 %description
@@ -130,6 +131,9 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/bcm2712*
 
 %changelog
+* Fri May 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260521-1.495ed91
+- Update to latest firmware
+
 * Wed May 13 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260511-1.8fce67a
 - Update to latest firmware
 - Fix for USB on some RPi4 revs

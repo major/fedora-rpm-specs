@@ -3573,12 +3573,9 @@ fi
     libompd.so
     libarcher.so
 }}
-
-%if %{maj_ver} < 23
 %if %{with offload}
 %expand_libs libomptarget.so.%{so_suffix}
 %expand_libs libLLVMOffload.so.%{so_suffix}
-%endif
 %endif
 
 %files -n %{pkg_name_libomp}-devel

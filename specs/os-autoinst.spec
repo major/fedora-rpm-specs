@@ -24,9 +24,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  5
-%global github_commit   72cabd06219204bb1c60c664ac5edbd87f26e030
+%global github_commit   11296ca97860b88bdc48348eba6b2db5673b22a6
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20260123
+%global github_date     20260521
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -47,7 +47,10 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # Ditto
 %define ocr_requires tesseract tesseract-langpack-eng
 # Ditto
-%define python_style_requires python3-black
+# diff from SUSE: python3-radon is omitted as we do not have it packaged
+# it's just ruff in Fedora, not python3-ruff, ditto ty
+# The following line is generated from dependencies.yaml (upstream)
+%define python_style_requires ruff ty python3-vulture
 # The following line is generated from dependencies.yaml (upstream)
 %define build_base_requires %opencv_require gcc-c++ perl(Pod::Html) pkg-config pkgconfig(fftw3) pkgconfig(libpng) pkgconfig(sndfile) pkgconfig(theoraenc)
 # diff from SUSE: SUSE has 'ninja', Fedora has 'ninja-build'
@@ -76,25 +79,26 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # different releases)
 # SUSE just has 'ipxe-bootimgs', we have -aarch64 and -x86
 # The following line is generated from dependencies.yaml (upstream)
-%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat /usr/bin/Xvnc xterm xterm-console
+%define test_base_requires %main_requires cpio icewm perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Syntax::Keyword::Try) perl(Test::Compile) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Perl::Critic) perl(Test::Pod) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat /usr/bin/Xvnc xterm xterm-console
 # The following line is generated from dependencies.yaml (upstream)
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk, and
-# ffmpeg-free, not ffmpeg
+# ffmpeg-free, not ffmpeg, and gitlint, not python3-gitlint
 # we don't use test_non_s390_requires because on Fedora all the deps
 # are available on s390x, ditto python_support_requires
 # we don't use lua_support_requires because perl-Inline-Lua isn't
 # packaged on Fedora at all
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %build_requires %ocr_requires %test_base_requires %yamllint_requires ffmpeg-free perl(Inline::Python) perl(YAML::PP) python3-pillow-tk
+%define test_requires %build_requires %ocr_requires %test_base_requires %yamllint_requires ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 ffmpeg-free perl(Inline::Python) perl(YAML::PP) python3-pillow-tk gitlint python3-pytest python3-pytest-cov python3-pytest-mock python3-pytest-xdist
 %ifnarch s390x
 # The following line is generated from dependencies.yaml
 %define devel_non_s390_requires ShellCheck
 %else
 %define devel_non_s390_requires %{nil}
 %endif
+# Diff from SUSE: shfmt is omitted as our package for it was orphaned and retired
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_requires %devel_non_s390_requires %python_style_requires %test_requires ShellCheck file perl(Code::TidyAll) perl(Devel::Cover) perl(Module::CPANfile) perl(Perl::Tidy) perl(Template::Toolkit) sed
+%define devel_requires %devel_non_s390_requires %python_style_requires %test_requires ShellCheck file perl(Code::TidyAll) perl(Devel::Cover) perl(Module::CPANfile) perl(PPI) perl(Perl::Tidy) perl(Template::Toolkit) sed
 
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -164,9 +168,12 @@ rm -f t/99-full-stack.t
 rm xt/00-tidy.t tools/tidyall
 # Remove test relying on a git working copy
 rm xt/30-make.t
-%ifarch aarch64
+%ifarch aarch64 s390x
 # https://progress.opensuse.org/issues/194359
+# https://progress.opensuse.org/issues/199940
 rm -f t/28-signalblocker.t
+# https://progress.opensuse.org/issues/200949
+rm -f t/26-video_stream.t
 %endif
 
 %build
@@ -203,9 +210,6 @@ export EXPECTED_ISOTOVIDEO_RUNTIME=8
 # Enable verbose test output as we can not store test artifacts within package
 # build environments in case of needing to investigate failures
 export PROVE_ARGS="--timer -v --nocolor"
-# 00-compile-check-all.t fails if this is present and Perl::Critic is
-# not installed
-rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %ninja_build -C %{__cmake_builddir} check-pkg-build
 
 %post openvswitch
@@ -221,11 +225,14 @@ fi
 %systemd_postun_with_restart os-autoinst-openvswitch.service
 
 %files
+%doc README.md doc/architecture.md doc/backend_vars.md doc/backends.md doc/memorydumps.md doc/networking.md
 %{_pkgdocdir}
 %license COPYING
 %{perl_vendorarch}/tinycv.pm
 %{perl_vendorarch}/auto/tinycv
 %dir %{_prefix}/lib/os-autoinst
+%{_prefix}/lib/os-autoinst/debugviewer
+%{_prefix}/lib/os-autoinst/snd2png
 %{_prefix}/lib/os-autoinst/videoencoder
 %{_prefix}/lib/os-autoinst/basetest.pm
 #
@@ -260,8 +267,6 @@ fi
 %{_prefix}/lib/os-autoinst/schema/Wheels-01.yaml
 
 %{_bindir}/isotovideo
-%{_bindir}/debugviewer
-%{_bindir}/snd2png
 
 %files openvswitch
 %dir %{_prefix}/lib/os-autoinst/script

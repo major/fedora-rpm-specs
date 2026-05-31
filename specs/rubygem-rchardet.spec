@@ -2,11 +2,10 @@
 %global gem_name rchardet
 
 Name: rubygem-%{gem_name}
-Version: 1.10.0
+Version: 1.10.2
 Release: %autorelease
 Summary: Character encoding auto-detection in Ruby
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-or-later
 URL: https://github.com/jmhodges/rchardet
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Upstream tar ball to grab LICENSE file and tests only

@@ -5,7 +5,7 @@
 %global crate cmov
 
 Name:           rust-cmov
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Conditional move CPU intrinsics with pure Rust fallback implemenation
 

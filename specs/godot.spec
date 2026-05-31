@@ -13,7 +13,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.6.2
+Version:        4.6.3
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -130,7 +130,7 @@ Provides:       bundled(glslang) = 14.2.0
 %endif
 # Has custom changes to support seeking in zip archives.
 # Should not be unbundled.
-Provides:       bundled(minizip) = 1.3.1.2
+Provides:       bundled(minizip) = 1.3.2
 %if ! %{system_recastnavigation}
 # Could be unbundled if packaged.
 Provides:       bundled(recastnavigation) = 1.6.0
@@ -272,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Fri May 29 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6.3-1
+- Version 4.6.3-stable
+
 * Wed Apr 01 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6.2-1
 - Version 4.6.2-stable
 

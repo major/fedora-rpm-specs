@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.40.2
+%global base_version 0.41.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -81,6 +81,15 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri May 29 2026 Packit <hello@packit.dev> - 0.41.0-1
+- Fixed an issue where the value of a tag could have been incorrectly expanded if the spec file contained a macro definition shadowing the tag name, e.g.:
+```
+%%global release 12
+%%global release_string %%{release}%%{?dist}
+Release: %%{release_string}
+```
+In this case, with `dist` being `.fc44`, `Specfile.expanded_release` returned `12.fc44.fc44` instead of `12.fc44`. (#539)
+
 * Fri Apr 24 2026 Packit <hello@packit.dev> - 0.40.2-1
 - Trailing whitespaces at the end of specfile sections are now ignored during parsing. (#531)
 - Resolves: rhbz#2461109

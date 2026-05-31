@@ -1,5 +1,5 @@
 Name:           gnome-radio
-Version:        77.0
+Version:        78.0
 Release:        %autorelease
 Summary:        GNOME Radio
  

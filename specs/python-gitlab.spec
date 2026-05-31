@@ -2,15 +2,13 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        8.3.0
+Version:        8.4.0
 Release:        %autorelease
 Summary:        Interact with GitLab API
 
 License:        LGPL-3.0-only
 URL:            https://github.com/python-gitlab/python-gitlab
 Source0:        %{pypi_source python_gitlab}
-# py3.15 pprint change
-Patch0:         https://github.com/python-gitlab/python-gitlab/pull/3400.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -35,6 +33,7 @@ Documentation for gitlab
 # Relax some dependencies
 sed -i 's/pytest==9.*/pytest>=8.4.2,<10/'              requirements-lint.txt requirements-test.txt
 sed -i 's/respx==0.*/respx>=0,<1.0/'                   requirements-lint.txt requirements-test.txt
+sed -i 's/responses==0.*/responses>=0,<1.0/'           requirements-lint.txt requirements-test.txt
 sed -i 's/wheel==0.*/wheel>=0.45.0,<1.0/'              requirements-test.txt
 sed -i 's/build==1.*/build>=1.0.0,<2.0/'               requirements-test.txt
 sed -i 's/anyio==4.*/anyio>=4.0.0,<5.0/'               requirements-test.txt

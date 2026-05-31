@@ -2,7 +2,7 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.4.0
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
@@ -92,7 +92,7 @@ compositor with LXQt.
 
 %files -n lxqt-hyprland-session
 %license LICENSE.BSD
-%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
+%{_datadir}/lxqt/wayland/lxqt-hyprland.lua
 %endif
 
 %dnl ------------------------------------------------------------------
@@ -246,12 +246,15 @@ install -m0644 default-compositor-miriway %{buildroot}%{_datadir}/lxqt/wayland/d
 
 %if ! %{with hyprland_session}
 # Drop hyprland session files
-rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
+rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.lua
 %endif
 
 %fdupes %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri May 29 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.4.1-1
+- Update to 0.4.1
+
 * Thu Apr 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.4.0-1
 - Update to 0.4.0
 

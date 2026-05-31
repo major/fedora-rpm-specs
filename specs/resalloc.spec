@@ -50,7 +50,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    6.1
+Version:    6.2
 Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
@@ -407,6 +407,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Fri May 29 2026 Jakub Kadlcik <frostyx@email.cz> - 6.2-1
+- new upstream release
+
 * Mon Mar 09 2026 Pavel Raiskup <praiskup@redhat.com> - 6.1-1
 - new upstream release -- bug fix for named counters
 

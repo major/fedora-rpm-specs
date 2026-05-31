@@ -6,14 +6,16 @@
 
 Name: hunspell-ko
 Summary: Korean hunspell dictionaries
-Version: 0.7.0
-Release: 23%{?dist}
+Version: 0.7.94
+Release: 1%{?dist}
 Source: https://github.com/spellcheck-ko/hunspell-dict-ko/archive/%{version}.tar.gz
 URL: https://github.com/spellcheck-ko/hunspell-dict-ko
-License: MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only
+# As per the explanation given in LICENSE.md
+License: GPL-3.0-only
 BuildArch: noarch
 BuildRequires: python3
-BuildRequires: hunspell
+BuildRequires: hunspell-devel
+BuildRequires: python3-pyyaml
 BuildRequires: make
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-ko)
@@ -22,7 +24,7 @@ Supplements: (hunspell and langpacks-ko)
 Korean hunspell dictionaries.
 
 %prep
-%setup -q -n hunspell-dict-ko-%{version}
+%autosetup -n hunspell-dict-ko-%{version}
 
 %build
 make
@@ -37,10 +39,13 @@ make test
 
 %files
 %doc README.md
-%license LICENSE LICENSE.GPL LICENSE.LGPL LICENSE.MPL
-%{_datadir}/%{dict_dirname}/*
+%license LICENSE.md LICENSE.GPL-3
+%{_datadir}/%{dict_dirname}/ko_KR.*
 
 %changelog
+* Fri May 29 2026 Parag Nemade <pnemade AT redhat DOT com> - 0.7.94-1
+- Update to new release 0.7.94
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.26.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -71,7 +71,7 @@ BuildRequires:  libXv-devel
 BuildRequires:  pam-devel
 BuildRequires:  xmlto
 BuildRequires:  zlib-devel
-BuildRequires:  multilib-rpm-config
+%{!?rhel:BuildRequires:  multilib-rpm-config}
 
 BuildRequires:  cmake(json-c)
 # Packaging error led to cmake files in the wrong place
@@ -279,7 +279,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 find %{buildroot} -name "*.a" -delete
 
+%if %{undefined rhel}
 %multilib_fix_c_header --file %{_includedir}/freerdp3/freerdp/build-config.h
+%endif
 
 %files
 %{?_with_sdl_client:
@@ -372,6 +374,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Tue May 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.26.0-5
+- Drop multilib-rpm-config usage on RHEL
+
 * Sun May 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 2:3.26.0-4
 - Enable WebAuthN/FIDO2 passthrough support
 

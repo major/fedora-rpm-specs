@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
 %global pypi_name oslo.utils
 %global pkg_name oslo-utils
 %global with_doc 1
@@ -12,7 +12,7 @@ The OpenStack Oslo Utility library.
 
 
 Name:           python-oslo-utils
-Version:        10.0.1
+Version:        10.1.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Utility library
 
@@ -39,7 +39,7 @@ BuildRequires:  git-core
 
 
 %package -n python3-%{pkg_name}
-Summary:    OpenStack Oslo Utility library
+Summary:        OpenStack Oslo Utility library
 
 BuildRequires:  python3-devel
 BuildRequires:  qemu-img
@@ -52,8 +52,8 @@ Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 
 
 %if 0%{?with_doc}
-%package -n python-%{pkg_name}-doc
-Summary:    Documentation for the Oslo Utility library
+%package -n     python-%{pkg_name}-doc
+Summary:        Documentation for the Oslo Utility library
 
 
 %description -n python-%{pkg_name}-doc
@@ -61,10 +61,10 @@ Documentation for the Oslo Utility library.
 %endif
 
 
-%package -n python3-%{pkg_name}-tests
-Summary:    Tests for the Oslo Utility library
+%package -n     python3-%{pkg_name}-tests
+Summary:        Tests for the Oslo Utility library
 
-Requires: python3-%{pkg_name} = %{version}-%{release}
+Requires:       python3-%{pkg_name} = %{version}-%{release}
 
 
 %description -n python3-%{pkg_name}-tests
@@ -74,7 +74,7 @@ Tests for the Oslo Utility library.
 
 
 %package  -n python-%{pkg_name}-lang
-Summary:   Translation files for Oslo utils library
+Summary:        Translation files for Oslo utils library
 
 
 %description -n python-%{pkg_name}-lang

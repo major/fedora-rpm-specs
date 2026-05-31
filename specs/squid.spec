@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  7.5
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -38,6 +38,7 @@ Patch203: squid-6.1-perlpath.patch
 # revert this upstream patch - https://bugzilla.redhat.com/show_bug.cgi?id=1936422
 # workaround for #1934919
 Patch204: squid-6.1-symlink-lang-err.patch
+Patch205: squid-7.5-openssl4.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -312,6 +313,9 @@ fi
 
 
 %changelog
+* Wed May 06 2026 Pavol Žáčik <pzacik@redhat.com> - 7:7.5-2
+- Add patch to fix OpenSSL 4.0 compatibility
+
 * Mon Apr 27 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.5-1
 - new version 7.5
 - Add tmpfiles.d rules for /var directories (bootc compatibility)

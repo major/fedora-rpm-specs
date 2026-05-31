@@ -2,7 +2,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.6.90
+Version: 6.6.91
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -32,10 +32,6 @@ Source41:       spice-vdagent.conf
 
 ## upstream patches
 
-# sddm default conf installs in the wrong location
-# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/6601
-Patch75:        6601.patch
-
 ## upstreamable Patches
 
 ## downstream Patches
@@ -43,10 +39,6 @@ Patch75:        6601.patch
 Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
-
-# Notifications are partially broken in Qt 6.11.1
-# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/6615
-Patch108:       6615.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -671,6 +663,9 @@ fi
 
 
 %changelog
+* Fri May 29 2026 Steve Cossette <farchord@gmail.com> - 6.6.91-1
+- 6.6.91
+
 * Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
 - 6.6.90
 

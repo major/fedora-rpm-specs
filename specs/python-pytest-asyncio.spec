@@ -1,7 +1,7 @@
 %bcond_without  tests
 
 Name:           python-pytest-asyncio
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 BuildArch:      noarch
 Summary:        Pytest support for asyncio
@@ -57,6 +57,7 @@ tomcli set pyproject.toml lists delitem project.optional-dependencies.testing 'c
 export PYTEST_ADDOPTS="-k '\
 not test_asyncio_mark_respects_parametrized_loop_policies and \
 not test_asyncio_mark_respects_the_loop_policy and \
+not test_asyncio_run_after_async_fixture_does_not_leak_loop and \
 not test_can_use_explicit_event_loop_fixture and \
 not test_closing_event_loop_in_sync_fixture_teardown_raises_warning and \
 not test_event_loop_fixture_finalizer_raises_warning_when_fixture_leaves_loop_unclosed and \

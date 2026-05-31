@@ -1,4 +1,4 @@
-%global candidate rc1
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,12 +10,12 @@
 
 Name:     uboot-tools
 Version:  2026.07
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
 License:  GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-2.1-or-later AND LGPL-2.0-or-later
-URL:      http://www.denx.de/wiki/U-Boot
+URL:      https://u-boot-project.org/
 ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
@@ -29,14 +29,14 @@ Patch2:   enable-bootmenu-by-default.patch
 Patch3:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 # Identify VFAT partitions as ESP, allows EFI setvar on our images
 Patch4:   uefi-Add-all-options-for-EFI-System-Partitions.patch
-# Upstream revert for rpi boot fix
-Patch5:   0001-Revert-efi_loader-install-device-tree-on-configurati.patch
 # New function to find fdt for loading from disk
-Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
+Patch5:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 # Enable UEFI SetVariable for devices without backed storage
-Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
+Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
-Patch8:   uefi-enable-https-boot-by-default.patch
+Patch7:   uefi-enable-https-boot-by-default.patch
+# Upstream revert to fix boot on RPi
+Patch8:   Revert-lmb-Reinstate-access-to-memory-above-ram_top.patch
 
 # Device improvments
 # USB-PD improvements
@@ -51,11 +51,14 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
-Patch20:  ARM-RPi5-Enable-PCIe.patch
-Patch21:  nvme-Fix-missing-inbound-DMA-offset-calculation.patch
+Patch20:  Fix-NVMe-not-only-on-Raspberry-Pi-5.patch
+Patch21:  ARM-RPi5-Enable-PCIe.patch
 Patch22:  rpi-enable-nvme.patch
-Patch23:  0001-Add-bcm2712-compat.patch
+Patch23:  video-arm-rpi-Add-brcm-bcm2712-hdmi0-compatible.patch
 Patch24:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
+Patch25:  mmc-bcm2835_sdhci-Parse-generic-MMC-device-tree-properties.patch
+Patch26:  rpi_arm64-Enable-MBEDTLS-LWIP-WGET-and-WGET_HTTPS.patch
+Patch27:  mmc-bcmstb-Fix-non-removable-check-in-bcm2712-init.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -314,6 +317,12 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri May 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.2.rc3
+- Update to 2026.07 RC3
+- Update U-Boot Project URL
+- Update RPi PCIe patches
+- Various RPi fixes
+
 * Fri May 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.07-0.1.rc1
 - Update to 2026.07 RC1
 

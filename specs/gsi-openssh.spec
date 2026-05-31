@@ -28,7 +28,7 @@
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -158,6 +158,21 @@ Patch0051: 0051-openssh-7.3p1-x11-max-displays.patch
 Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2423900
 Patch0053: 0053-openssh-10.2p1-pam-auth.patch
+# upstream 487e8ac146f7d6616f65c125d5edb210519b833a
+Patch0054: 0054-openssh-9.9p1-scp-clear-setuid.patch
+# upstream c805b97b67c774e0bf922ffb29dfbcda9d7b5add
+Patch0055: 0055-openssh-9.9p1-mux-askpass-check.patch
+# upstream fd1c7e131f331942d20f42f31e79912d570081fa
+Patch0056: 0056-openssh-9.9p1-ecdsa-incomplete-application.patch
+# upstream fd1c7e131f331942d20f42f31e79912d570081fa
+Patch0057: 0057-openssh-9.9p1-authorized-keys-principles-option.patch
+# upstream 76685c9b09a66435cd2ad8373246adf1c53976d3
+# upstream 0a0ef4515361143cad21afa072319823854c1cf6
+# upstream 607bd871ec029e9aa22e632a22547250f3cae223
+# upstream 1340d3fa8e4bb122906a82159c4c9b91584d65ce
+Patch0058: 0058-openssh-10.2p1-proxyjump-username-validity-checks.patch
+# upstream 607f337637f2077b34a9f6f96fc24237255fe175
+Patch0059: 0059-openssh-10.2p1-downgrade-useless-error-debug.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
@@ -169,7 +184,7 @@ Patch2000: 2000-openssh-10.2p1-gsissh.patch
 # Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.8.0
 Patch2001: 2001-openssh-10.2p1-hpn-18.8.0.patch
 
-License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
+License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
 Requires: openssl-libs >= 3.5.0
 
@@ -493,6 +508,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Tue May 26 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.2p1-2
+- Based on openssh-10.2p1-10.fc44
+
 * Wed Mar 18 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.2p1-1
 - Based on openssh-10.2p1-6.fc44
 

@@ -2,7 +2,6 @@
 %global libxmlb_version 0.3.24
 %global libusb_version 1.0.9
 %global libcurl_version 7.62.0
-%global libjcat_version 0.1.0
 %global systemd_version 249
 
 # although we ship a few tiny python files these are utilities that 99.99%
@@ -21,11 +20,6 @@
 %global have_uefi 1
 %endif
 
-# flashrom is only available on these arches
-%ifarch i686 x86_64 armv7hl aarch64 ppc64le riscv64
-%global have_flashrom 1
-%endif
-
 %ifarch i686 x86_64
 %global have_msr 1
 %endif
@@ -41,7 +35,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.1.3
+Version:   2.1.4
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -53,7 +47,6 @@ BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libxmlb-devel >= %{libxmlb_version}
 BuildRequires: libusb1-devel >= %{libusb_version}
 BuildRequires: libcurl-devel >= %{libcurl_version}
-BuildRequires: libjcat-devel >= %{libjcat_version}
 BuildRequires: polkit-devel >= 0.103
 BuildRequires: python3-packaging
 BuildRequires: python3-jinja2
@@ -78,9 +71,6 @@ BuildRequires: meson
 BuildRequires: vala
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: git-core
-%if 0%{?have_flashrom}
-BuildRequires: flashrom-devel >= 1.2-2
-%endif
 BuildRequires: libdrm-devel
 # For fu-polkit-test
 BuildRequires: polkit
@@ -113,6 +103,8 @@ Requires: shared-mime-info
 Obsoletes: dbxtool < 9
 Provides: dbxtool
 
+Obsoletes: %{name}-plugin-flashrom < 2.1.4
+
 # optional, but a really good idea
 Recommends: udisks2
 Recommends: bluez
@@ -123,9 +115,6 @@ Recommends: passim
 
 %if 0%{?have_modem_manager}
 Recommends: %{name}-plugin-modem-manager
-%endif
-%if 0%{?have_flashrom}
-Recommends: %{name}-plugin-flashrom
 %endif
 %if 0%{?have_uefi}
 Recommends: %{name}-efi
@@ -161,16 +150,6 @@ This provides the optional package which is only required on hardware that
 might have mobile broadband hardware. It is probably not required on servers.
 %endif
 
-%if 0%{?have_flashrom}
-%package plugin-flashrom
-Summary: fwupd plugin using flashrom
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description plugin-flashrom
-This provides the optional package which is only required on hardware that
-can be flashed using flashrom. It is probably not required on servers.
-%endif
-
 %if 0%{?have_uefi}
 %package plugin-uefi-capsule-data
 Summary: Localized data for the UEFI UX capsule
@@ -195,11 +174,6 @@ or server machines.
     -Dtests=true \
 %else
     -Dtests=false \
-%endif
-%if 0%{?have_flashrom}
-    -Dplugin_flashrom=enabled \
-%else
-    -Dplugin_flashrom=disabled \
 %endif
 %if 0%{?have_modem_manager}
     -Dplugin_modem_manager=enabled \
@@ -270,6 +244,7 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %{_sysconfdir}/fwupd/bios-settings.d/README.md
 %dir %{_sysconfdir}/fwupd/remotes.d
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs.conf
+%config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs-embargo.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs-testing.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/vendor-directory.conf
 %config(noreplace)%{_sysconfdir}/pki/fwupd
@@ -326,10 +301,6 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %if 0%{?have_modem_manager}
 %files plugin-modem-manager
 %{_libdir}/fwupd-%{version}/libfu_plugin_modem_manager.so
-%endif
-%if 0%{?have_flashrom}
-%files plugin-flashrom
-%{_libdir}/fwupd-%{version}/libfu_plugin_flashrom.so
 %endif
 %if 0%{?have_uefi}
 %files plugin-uefi-capsule-data

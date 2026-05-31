@@ -28,7 +28,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2604
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
 ExcludeArch:    %{ix86} aarch64
@@ -49,15 +49,12 @@ Patch2:         0004-Make-some-includes-relative.patch
 Patch3:         0010-rename-netgen-binary.patch
 # Link against libjpeg
 Patch4:         netgen_libjpeg.patch
-# Fix fallback version
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1993574#c11
-Patch5:         netgen_fallback-version.patch
 # Fix Status typedef symbol collision by re-ordering includes
 # /usr/include/mpich-x86_64/mpicxx.h:160:18: error: expected identifier before ‘int’
 #   160 |     friend class Status;
-Patch6:         netgen_include-order.patch
+Patch5:         netgen_include-order.patch
 # Fix invalid egg-info version
-Patch7:         netgen-mesher_egg-info-version.patch
+Patch6:         netgen-mesher_egg-info-version.patch
 # Port bundled togl to tk9
 # Patch8:         netgen-togl-tk9.patch
 
@@ -213,10 +210,8 @@ Python3 interface for netgen compiled against mpich.
 
 %prep
 %autosetup -p1 -n netgen-%{version}
-
-# Pull in minimal cmake files from NGSolv pybind11 project to make this one happy.
-# install -pm 0744 %{SOURCE99} cmake/
-# install -pm 0744 %{SOURCE100} cmake/cmake_modules/
+# Replace fallback version with actual package version
+sed -i "s|6.2.0-0|%{version}-0|g" cmake/generate_version_file.cmake
 
 
 %build
@@ -421,6 +416,12 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri May 29 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2604-3
+- Replace fallbackversion with actual package version
+
+* Fri May 29 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2604-2
+- Pass NETGEN_VERSION_GIT to cmake
+
 * Mon May 04 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2604-1
 - Update to 6.2.2604
 

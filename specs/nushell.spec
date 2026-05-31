@@ -48,7 +48,7 @@ License:        %{shrink:
     AND MPL-2.0
     AND Unicode-3.0
     AND (Unlicense OR MIT)
-    AND Zlibn
+    AND Zlib
 }
 # LICENSE.dependencies contains a full license breakdown
 
@@ -58,6 +58,9 @@ Source:         https://github.com/nushell/nushell/archive/%{version}/%{name}-%{
 # bump brotli to 7 and allow 8
 # allow chrono-tz 0.8..=0.10
 # allow dirs 5 to 6: https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
+# allow fancy-regex 0.13 to 0.16:
+#   https://github.com/nushell/nushell/commit/0e3ca7b355bd62f1cfc372b414defd528da04718,
+#   https://github.com/nushell/nushell/commit/1e2fa68db0f7e877fe9c4cd95ab16f1c0df793e8
 # allow git2 0.19 to 0.20
 # allow indicatif 0.17 to 0.18: https://github.com/nushell/nushell/pull/16248
 # allow lscolors 0.17 to 0.21

@@ -2,16 +2,13 @@
 %bcond_without check
 
 Name: conan
-Version: 2.28.1
+Version: 2.29.0
 Release: %autorelease
 
 License: MIT
 Summary: Open-source C/C++ package manager
 URL: https://github.com/%{name}-io/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Add support for GCC 16, already merged upstream, to be removed with 2.29.x
-# https://github.com/conan-io/conan/commit/84b11af77424b18fd934ac8e0379f4fe5c57f0ad
-Patch1: 0001-Add_gcc_16_in_tests.patch
 BuildArch: noarch
 
 BuildRequires: python3-devel
@@ -70,10 +67,7 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{pytest} -v test/unittests
 # Fail currently:
 # - toolchains/gnu/test_autotoolsdeps.py to be investigated further why
-# - toolchains/microsoft/test_vs_layout.py cannot run on ppc64
-# - workspace/test_workspace.py MSBuildDeps problems, unsure what that is
-# - toolchains/qbs/test_qbsprofile.py since 2.7.0, seems not to find a tool, to be investigated
-rm test/integration/toolchains/gnu/test_autotoolsdeps.py test/integration/toolchains/microsoft/test_vs_layout.py test/integration/workspace/test_workspace.py test/integration/toolchains/qbs/test_qbsprofile.py
+rm test/integration/toolchains/gnu/test_autotoolsdeps.py
 %{pytest} -v test/integration
 %endif
 

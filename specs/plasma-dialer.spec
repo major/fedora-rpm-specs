@@ -2,8 +2,8 @@
 
 Name:           plasma-dialer
 Epoch:          1
-Version:        6.6.5
-Release:        1%{?dist}
+Version:        6.6.91
+Release:        2%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
@@ -41,6 +41,7 @@ BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
 BuildRequires:  cmake(libphonenumber)
 BuildRequires:  qt6-qtbase-private-devel
@@ -106,6 +107,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 %{_kf6_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1:6.6.91-2
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
+* Fri May 29 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.91-1
+- 6.6.91
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.5-1
 - 6.6.5
 
