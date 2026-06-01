@@ -155,17 +155,12 @@ export PYTHONPATH="$(pwd)/src"
         test_package_list_command and not
         test_get_file_info_include_size and not
         test_scan_cli_help and not
-        %dnl 'sbin/fstrim' is a link to an absolute path
-        %dnl These two are due to the tarfile module defaulting to the data filter in py3.14.
-        %dnl Let upstream figure out what to do about this issue.
-        test_can_get_installed_system_packages_with_license_from_alpine_container_layer and not
-        test_can_scan_installed_system_package_in_alpine_container_layer and not
-        %dnl These test failures have to do with the handling of tempfiles in the CLI
-        %dnl and don't seem particularly important. Disable them for now
-        test_scan_keep_temp_files_is_false_by_default and not
-        test_scan_keep_temp_files_keeps_files and not
         %dnl https://github.com/aboutcode-org/scancode-toolkit/issues/4540
         test_license_reference_to_file_beside_package_manifest and not
+        %dnl https://bugzilla.redhat.com/show_bug.cgi?id=2466652
+        %dnl This failure only impacts scanning of Windows PE executables,
+        %dnl which we do not particularly care about.
+        test_win_pe_tre4_dll and not
         %dnl Add new entries above this line.
         placeholder}'
 %endif

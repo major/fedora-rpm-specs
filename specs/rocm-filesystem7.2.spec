@@ -39,7 +39,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        ROCm directories
 
@@ -82,6 +82,7 @@ mkdir -p %{buildroot}%{pkg_prefix}/bin
 mkdir -p %{buildroot}%{pkg_prefix}/include
 mkdir -p %{buildroot}%{pkg_prefix}/libexec
 mkdir -p %{buildroot}%{pkg_prefix}/share/cmake
+mkdir -p %{buildroot}%{pkg_prefix}/share/pkgconfig
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %endif
@@ -94,6 +95,7 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %dir %{pkg_prefix}/libexec
 %dir %{pkg_prefix}/share
 %dir %{pkg_prefix}/share/cmake
+%dir %{pkg_prefix}/share/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}
 %dir %{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/%{pkg_libdir}/pkgconfig
@@ -214,6 +216,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Sat May 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
+- Add share/pkgconfig for rocdbapi
+
 * Fri May 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Add lib/pkgconfig for rocm-runtime
 

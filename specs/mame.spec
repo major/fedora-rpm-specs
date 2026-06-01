@@ -22,6 +22,7 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         0001-Ensure-_FORTIFY_SOURCE-define-stays-enabled.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
+Patch2:         0001-genie-disable-command-line-string-escaping-fixes-131.patch
 
 # %%{arm}:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1627625
@@ -243,8 +244,10 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@-g@-g1@")
 #https://pagure.io/packaging-committee/issue/1075
 RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
 
-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91420
 %ifarch riscv64
+# https://github.com/mamedev/mame/pull/14664
+RPM_OPT_FLAGS+=" -Wno-error=cast-align"
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91420
 RPM_LD_FLAGS+=" -fuse-ld=mold"
 %endif
 
@@ -257,11 +260,8 @@ RPM_LD_FLAGS+=" -fuse-ld=mold"
 %if %{with debug}
     DEBUG=1 \
 %endif
-    NOWERROR=1 \
     OPTIMIZE=2 \
     OSD=sdl3 \
-    PYTHON_EXECUTABLE=python3 \
-    QT_HOME=%{_libdir}/qt6 \
     VERBOSE=1 \
     USE_SYSTEM_LIB_ASIO=1 \
     USE_SYSTEM_LIB_EXPAT=1 \
@@ -277,7 +277,7 @@ RPM_LD_FLAGS+=" -fuse-ld=mold"
     USE_SYSTEM_LIB_ZLIB=1 \
     USE_SYSTEM_LIB_ZSTD=1 \
     USE_WAYLAND=1 \
-    SDL_INI_PATH="%{_sysconfdir}/%{name};" \
+    SDL_INI_PATH='$$$$XDG_CONFIG_HOME/mame;$$$$HOME/.config/mame;$$$$HOME/.mame/ini;%{_sysconfdir}/%{name}' \
     TOOLS=1 \
     LDOPTS="$RPM_LD_FLAGS" \
     OPT_FLAGS="$RPM_OPT_FLAGS"

@@ -5,8 +5,8 @@ Summary:    View colored, incremental diff
 URL:        https://github.com/ymattw/ydiff
 License:    BSD-3-Clause
 Source0:    https://github.com/ymattw/ydiff/archive/%{version}/%{name}-%{version}.tar.gz
+BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: less
 BuildArch: noarch
 
@@ -19,34 +19,35 @@ a version-controlled workspace or from stdin, in side-by-side (similar to
 
 %package -n     python3-%{name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{name}}
 %description -n python3-%{name}
 Python library that implements API used by ydiff tool.
 
 %prep
 %autosetup -n %{name}-%{version}
 /usr/bin/sed -i '/#!\/usr\/bin\/env python/d' ydiff.py
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %check
 tests/regression.sh
+%pyproject_check_import
+
 # upstream pipeline uses `make test` which also has coverage
 # and linters but we don't do those here
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
 %files
 %doc README.rst
 %license LICENSE
 %{_bindir}/ydiff
 
-%files -n python3-%{name}
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{name}.py
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
 %autochangelog

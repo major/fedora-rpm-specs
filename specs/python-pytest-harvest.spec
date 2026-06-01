@@ -10,6 +10,7 @@ Source0:	%{pypi_source pytest-harvest}
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
 BuildRequires:	python3dist(pytest)
+BuildRequires:	python3-pkg-resources
 
 %description
 Store data created during your pytest tests execution, and retrieve it

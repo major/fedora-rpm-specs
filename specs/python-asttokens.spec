@@ -28,7 +28,9 @@ Summary:        %{summary}
 %autosetup -p1 -n asttokens-%{version}
 
 # Drop dependency on pytest-cov, not useful for distro builds
-sed -r -i '/pytest-cov/d' setup.cfg
+%pyproject_patch_dependency pytest-cov:ignore
+# compat with pytest 9+
+%pyproject_patch_dependency pytest:drop_upper
 
 %generate_buildrequires
 # Let setuptools_scm determine version outside of SCM

@@ -3,7 +3,7 @@
 %bcond_without  debug
 
 Name:           zmap
-Version:        4.3.4
+Version:        4.4.0
 Release:        %autorelease
 Summary:        Network scanner for Internet-wide network studies
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.

@@ -1,11 +1,11 @@
 Name:       perl-Net-DHCP
-Version:    0.700
-Release:    12%{?dist}
+Version:    0.900
+Release:    1%{?dist}
 Summary:    Set of classes for basic handling of DHCP packets
 
 License:    MIT
 URL:        https://metacpan.org/release/Net-DHCP
-Source0:    https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/Net-DHCP-0.7.tar.gz
+Source0:    https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/Net-DHCP-0.9.tar.gz
 
 Buildarch:      noarch
 
@@ -18,7 +18,8 @@ BuildRequires:  perl(Module::Build)
 # runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(List::Util)
+BuildRequires:  perl(List::Util) >= 1.33
+BuildRequires:  perl(Ref::Util)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(constant)
@@ -37,11 +38,13 @@ Net::DHCP is a DHCP set of classes designed to handle basic DHCP
 handling. It can be used to develop either client, server or relays.
 
 %prep
-%setup -q -n Net-DHCP-0.7
+%setup -q -n Net-DHCP-0.9
 # Fix permissions
-find examples -type f -exec chmod 644 {} 2>/dev/null \;
-chmod 644 README
-chmod 644 Changes
+/usr/bin/find examples -type f -exec chmod 644 {} 2>/dev/null \;
+/usr/bin/chmod 644 README.md
+/usr/bin/chmod 644 Changes
+# Fix shebangs
+/usr/bin/perl -pi -e 's|#!/usr/bin/env perl|#!/usr/bin/perl|' t/*.t examples/*.pl
 # Some tests require Net::Frame::Simple and Net::Frame::Dump
 # which are under the Artistic 1.0 license and cannot be
 # packaged for Fedora.
@@ -67,12 +70,17 @@ find %{buildroot} -type f -exec chmod 644 {} 2>/dev/null \;
 
 %files
 %license LICENSE
-%doc README examples/ Changes
+%doc README.md examples/ Changes
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 
 %changelog
+* Sat May 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.900-1
+- Update to 0.9
+- Specify README.md instead of README
+- Standardize shebangs to /usr/bin/perl
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.700-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

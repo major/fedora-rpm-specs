@@ -1,5 +1,5 @@
 Name:           feh
-Version:        3.12.1
+Version:        3.12.2
 Release:        %autorelease
 Summary:        Fast command line image viewer using Imlib2
 License:        MIT

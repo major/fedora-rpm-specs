@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.185.1
+Version:        0.185.2
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,19 +26,19 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(SUPER) >= 1.20
 BuildRequires:  perl(vars)
 # Test Suite
-BuildRequires:  perl(Class::Load)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(Moose::Role)
-BuildRequires:  perl(Mouse)
-BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(parent)
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warnings)
 %if %{with perl_Test_MockModule_enables_optional_test}
 # Optional Tests
+BuildRequires:  perl(Class::Load)
+BuildRequires:  perl(Moose)
+BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Mouse)
+BuildRequires:  perl(Mouse::Role)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 %endif
@@ -75,6 +75,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Sat May 30 2026 Paul Howarth <paul@city-fan.org> - 0.185.2-1
+- Update to 0.185.2
+  - Fix optional Moose test dependencies (GH#91)
+
 * Wed May 27 2026 Paul Howarth <paul@city-fan.org> - 0.185.1-1
 - Update to 0.185.1
   - Gate author-perlcritic.t behind AUTHOR_TESTING (GH#87, GH#88)

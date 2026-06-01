@@ -58,31 +58,37 @@
 Apprise is a Python package that simplifies access to many popular \
 notification services. It supports sending alerts to platforms such as: \
 \
-`46elks`, `AfricasTalking`, `Apprise API`, `APRS`, `AWS SES`, `AWS SNS`, \
-`Bark`, `BlueSky`, `Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, `Chanify`, \
-`Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
-`Dot. (Quote/0)`, `E-Mail`, `Emby`, `FCM`, `Feishu`, `Flock`, `Fluxer`, \
-`Free Mobile`, `Google Chat`, `Gotify`, `Growl`, `Guilded`, \
-`Home Assistant`, `httpSMS`, `IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, \
-`Kavenegar`, `KODI`, `Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, \
-`Mailgun`, `Mastodon`, `Mattermost`, `Matrix`, `MessageBird`, \
-`Microsoft Windows`, `Microsoft Teams`, `Misskey`, `MQTT`, `MSG91`, \
-`MyAndroid`, `Nexmo`, `Nextcloud`, `NextcloudTalk`, `Notica`, \
-`NotificationAPI`, `Notifiarr`, `Notifico`, `ntfy`, `Office365`, \
-`OneSignal`, `Opsgenie`, `PagerDuty`, `PagerTree`, `ParsePlatform`, `Plivo`, \
-`PopcornNotify`, `Prowl`, `Pushalot`, `PushBullet`, `Pushjet`, `PushMe`, \
-`Pushover`, `Pushplus`, `PushSafer`, `Pushy`, `PushDeer`, `QQ Push`, \
-`Revolt`, `Reddit`, `Resend`, `Rocket.Chat`, `RSyslog`, `SendGrid`, \
-`SendPulse`, `ServerChan`, `Seven`, `SFR`, `Signal`, `SIGNL4`, `SimplePush`, \
+`46elks`, `AfricasTalking`, `Amazon Chime`, `Apprise API`, `APRS`, \
+`AWS SES`, `AWS SNS`, `Bark`, `Blink(1)`, `BlueSky`, `Brevo`, \
+`Burst SMS`, `BulkSMS`, `BulkVS`, \
+`Chanify`, `Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
+`Dot. (Quote/0)`, `E-Mail`, `Emby`, `Evolution API`, `Exotel`, \
+`FCM`, `Feishu`, `Flock`, `Fluxer`, `Free Mobile`, `Google Chat`, \
+`Gotify`, `GroupMe`, `Growl`, `Guilded`, `Home Assistant`, `httpSMS`, \
+`HumHub`, \
+`IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, \
+`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, `Mastodon`, \
+`Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
+`Microsoft Teams`, `Misskey`, \
+`MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, `Nextcloud`, \
+`NextcloudTalk`, `Notica`, `NotificationAPI`, `Notifiarr`, `Notifico`, \
+`ntfy`, `Octopush`, `Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, \
+`PagerTree`, `ParsePlatform`, `Plivo`, `PopcornNotify`, `Prowl`, \
+`Postmark`, `Pushalot`, `PushBullet`, \
+`Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, `Pushy`, `PushDeer`, \
+`QQ Push`, `Revolt`, `Reddit`, `Resend`, `RingCentral`, `Rocket.Chat`, \
+`RSyslog`, `SendGrid`, \
+`SendPulse`, `ServerChan`, `Session Open Group Server`, `Seven`, `SFR`, \
+`Signal`, `SIGNL4`, `SimplePush`, \
 `Sinch`, `Slack`, `SMPP`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, `SparkPost`, \
 `Splunk`, `Spike`, `Spug Push`, `Super Toasty`, `Streamlabs`, `Stride`, \
 `Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, \
 `Twilio`, `Twitter`, `Twist`, `Vapid`, `Viber`, `VictorOps`, `Voipms`, \
-`Vonage`, `WebPush`, `WeCom Bot`, `WhatsApp`, `Webex Teams`, `Workflows`, \
-`WxPusher`, `XBMC`, `XMPP`, and `Zulip`.}
+`Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `WhatsApp`, \
+`Webex Teams`, `Workflows`, `WxPusher`, `XBMC`, `XMPP`, `Zoom`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        1.9.9
+Version:        1.11.0
 Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
@@ -142,7 +148,8 @@ Requires: python3dist(cryptography)
 Requires: python3dist(certifi)
 Requires: python3dist(pyyaml)
 
-Recommends: python3dist(paho-mqtt)
+Recommends: python3dist(hidapi)
+Recommends: python3dist(paho-mqtt) >= 2.1.0
 Recommends: python3dist(slixmpp)
 
 %if 0%{?legacy_python_build} == 0
@@ -234,6 +241,12 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Fri May 29 2026 Chris Caron <lead2gold@gmail.com> - 1.11.0-1
+- Updated to v1.11.0
+
+* Sun Apr 26 2026 Chris Caron <lead2gold@gmail.com> - 1.10.0-1
+- Updated to v1.10.0
+
 * Sat Mar 21 2026 Chris Caron <lead2gold@gmail.com> - 1.9.9-1
 - Updated to v1.9.9
 

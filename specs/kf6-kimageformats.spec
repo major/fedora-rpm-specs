@@ -3,7 +3,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.26.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6ImageFormats/
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 6.26.0-3
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 6.26.0-2
 - Rebuild for OpenEXR 3.4.12.
 

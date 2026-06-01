@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version:        5.116.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -74,6 +74,9 @@ image formats.
 
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 5.116.0-10
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 5.116.0-9
 - Rebuild for OpenEXR 3.4.12.
 

@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2025.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -188,6 +188,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 2025.0.1-4
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2025.0.1-3
 - Rebuild for OpenEXR 3.4.12.
 

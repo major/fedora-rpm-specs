@@ -14,7 +14,7 @@
 
 Name:           %{real_name}
 Version:        2.3.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Viewers programs for OpenEXR
 
 # Automatically converted from old format: AMPAS BSD - review is highly recommended.
@@ -140,6 +140,9 @@ fi
 %endif
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-25
+- Rebuild for OpenColorIO 2.5.2.
+
 * Sun May 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-24
 - Rebuild for OpenEXR 3.4.12.
 

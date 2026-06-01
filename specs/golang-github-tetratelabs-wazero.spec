@@ -12,7 +12,7 @@
 
 # https://github.com/tetratelabs/wazero
 %global goipath         github.com/tetratelabs/wazero
-Version:                1.11.0
+Version:                1.12.0
 
 %gometa -L -f
 

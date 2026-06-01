@@ -7,6 +7,9 @@ Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
 Source0:        https://github.com/nicfit/eyeD3/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
+# Fix Python 3.15 compatibility: strptime no longer allows %%d without %%Y
+# https://github.com/python/cpython/issues/70647
+Patch:          https://github.com/nicfit/eyeD3/pull/697.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -34,7 +37,7 @@ Requires:       python3-six
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 
 %build

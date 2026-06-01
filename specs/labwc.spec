@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.9.6
+Version:    0.20.0
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor
@@ -24,9 +24,10 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pangocairo)
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(scdoc)
+BuildRequires: pkgconfig(systemd)
 BuildRequires: pkgconfig(wayland-protocols) >= 1.39
 BuildRequires: pkgconfig(wayland-server) >= 1.22.0
-BuildRequires: pkgconfig(wlroots-0.19) >= 0.19.0
+BuildRequires: pkgconfig(wlroots-0.20)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: pkgconfig(xwayland) >= 21.1.9
@@ -121,6 +122,7 @@ standalone environment.
 %files session
 %{_datadir}/wayland-sessions/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}*.svg
+%{_userunitdir}/labwc-session.target
 
 %changelog
 %autochangelog

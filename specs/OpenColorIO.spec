@@ -1,6 +1,6 @@
 Name:           OpenColorIO
-Version:        2.4.2
-Release:        9%{?dist}
+Version:        2.5.2
+Release:        1%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -171,6 +171,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5.2-1
+- Update to 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2.4.2-9
 - Rebuild for OpenEXR 3.4.12.
 

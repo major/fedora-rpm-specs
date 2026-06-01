@@ -21,7 +21,6 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libseat)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libudev) >= 172
 BuildRequires:  pkgconfig(pango)
@@ -29,9 +28,6 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
-
-# Avoid libseat warning
-Patch1: Set-LIBSEAT_BACKEND-to-logind-on-Fedora.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -67,7 +63,7 @@ mod-gltex.so
 %autosetup -p1
 
 %conf
-%meson -Dvideo_fbdev=disabled
+%meson -Dvideo_fbdev=disabled -Dlibseat=disabled
 
 %build
 %meson_build
@@ -101,7 +97,6 @@ mod-gltex.so
 %{_mandir}/man5/kmscon.conf.5*
 %{_unitdir}/kmscon.service
 %{_unitdir}/kmsconvt@.service
-%{_sysconfdir}/pam.d/%{name}
 %config /etc/kmscon/kmscon.conf.example
 %{_datadir}/terminfo/k/kmscon
 

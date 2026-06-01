@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -423,6 +423,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 1:7.1.2.13-4
+- Rebuild for OpenColorIO 2.5.2.
+
 * Sun May 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1:7.1.2.13-3
 - Rebuild for OpenEXR 3.4.12.
 

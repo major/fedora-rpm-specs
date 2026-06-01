@@ -13,7 +13,6 @@ Patch0:         2ping-add-build-system.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  systemd-rpm-macros
 # For tests
 BuildRequires:  python3-pytest

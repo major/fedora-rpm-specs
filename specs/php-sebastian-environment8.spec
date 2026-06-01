@@ -22,7 +22,7 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.1.1
+Version:        8.1.2
 Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
@@ -40,8 +40,8 @@ BuildRequires:  php-posix
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^12.5.25"
-BuildRequires:  phpunit12 >= 12.5.25
+#        "phpunit/phpunit": "^12.5.26"
+BuildRequires:  phpunit12 >= 12.5.26
 %endif
 
 # from composer.json, "require": {
@@ -107,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Tue May 26 2026 Remi Collet <remi@remirepo.net> - 8.1.2-1
+- update to 8.1.2
+
 * Thu May 21 2026 Remi Collet <remi@remirepo.net> - 8.1.1-1
 - update to 8.1.1
 

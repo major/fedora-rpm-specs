@@ -13,7 +13,7 @@ BuildRequires:  make
 BuildRequires:  readline-devel
 # This is required for the modules for newLisp
 Requires:       openssl-devel%{?_isa} gmp-devel%{_isa} gsl-devel%{_isa}
-Requires:       mariadb-connector-c-devel%{?_isa} libpq-devel
+Requires:       mariadb-connector-c-devel%{?_isa} libpq-devel%{_isa}
 Requires:       sqlite-devel%{?_isa} zlib-devel%{?_isa}
 
 %description
@@ -33,6 +33,7 @@ sed -i.m32 's/\-m32 //' makefile_linux_utf8
 sed -i.m64 's/\-m64 //' makefile_linuxLP64_utf8
 
 %build
+%set_build_flags
 %configure
 
 %if "%{_lib}" == "lib64"
@@ -48,6 +49,8 @@ sed -i.m64 's/\-m64 //' makefile_linuxLP64_utf8
 %install
 make install_home HOME=%{buildroot}/usr/
 
+%check
+make check
 
 %files
 %doc %{_datadir}/doc/*

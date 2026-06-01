@@ -70,7 +70,7 @@
 
 
 Name:		erlang
-Version:	26.2.5.20
+Version:	26.2.5.21
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1491,6 +1491,7 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 %dir %{_libdir}/erlang/lib/runtime_tools-*/
 %{_libdir}/erlang/lib/runtime_tools-*/ebin/
 %{_libdir}/erlang/lib/runtime_tools-*/include/
+%{_libdir}/erlang/lib/runtime_tools-*/src
 %{_libdir}/erlang/lib/runtime_tools-*/priv/
 %if %{with doc}
 %{_mandir}/man3/dbg.*
@@ -1697,6 +1698,7 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 %dir %{_libdir}/erlang/lib/syntax_tools-*/
 %{_libdir}/erlang/lib/syntax_tools-*/ebin
 %{_libdir}/erlang/lib/syntax_tools-*/include
+%{_libdir}/erlang/lib/syntax_tools-*/src
 %if %{with doc}
 %{_mandir}/man3/epp_dodger.*
 %{_mandir}/man3/erl_comment_scan.*
@@ -2006,6 +2008,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Sat May 30 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.21-1
+- Ver. 26.2.5.21
+
 * Fri Apr 24 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.20-1
 - Ver. 26.2.5.20
 

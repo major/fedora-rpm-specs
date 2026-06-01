@@ -28,7 +28,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        12.5.26
+Version:        12.5.28
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -54,7 +54,7 @@ BuildRequires:  (php-composer(phpunit/php-timer) >= 8.0.0             with php-c
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 4.2.1          with php-composer(sebastian/cli-parser) < 5)
 BuildRequires:  (php-composer(sebastian/comparator) >= 7.1.8          with php-composer(sebastian/comparator) < 8)
 BuildRequires:  (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-BuildRequires:  (php-composer(sebastian/environment) >= 8.1.1         with php-composer(sebastian/environment) < 9)
+BuildRequires:  (php-composer(sebastian/environment) >= 8.1.2         with php-composer(sebastian/environment) < 9)
 BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.3            with php-composer(sebastian/exporter) < 8)
 BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
@@ -90,7 +90,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/cli-parser": "^4.2.1",
 #        "sebastian/comparator": "^7.1.8",
 #        "sebastian/diff": "^7.0.0",
-#        "sebastian/environment": "^8.1.1",
+#        "sebastian/environment": "^8.1.2",
 #        "sebastian/exporter": "^7.0.3",
 #        "sebastian/global-state": "^8.0.2",
 #        "sebastian/object-enumerator": "^7.0.0",
@@ -117,7 +117,7 @@ Requires:       (php-composer(phpunit/php-timer) >= 8.0.0             with php-c
 Requires:       (php-composer(sebastian/cli-parser) >= 4.2.1          with php-composer(sebastian/cli-parser) < 5)
 Requires:       (php-composer(sebastian/comparator) >= 7.1.8          with php-composer(sebastian/comparator) < 8)
 Requires:       (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
-Requires:       (php-composer(sebastian/environment) >= 8.1.1         with php-composer(sebastian/environment) < 9)
+Requires:       (php-composer(sebastian/environment) >= 8.1.2         with php-composer(sebastian/environment) < 9)
 Requires:       (php-composer(sebastian/exporter) >= 7.0.3            with php-composer(sebastian/exporter) < 8)
 Requires:       (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
@@ -284,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Wed May 27 2026 Remi Collet <remi@remirepo.net> - 12.5.28-1
+- update to 12.5.28
+
 * Thu May 21 2026 Remi Collet <remi@remirepo.net> - 12.5.26-1
 - update to 12.5.26
 - raise dependency on sebastian/cli-parser 4.2.1

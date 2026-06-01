@@ -1,6 +1,6 @@
 Name:           kpublictransport
 Version:        26.04.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        CC0-1.0 AND ODbL-1.0 AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT AND LGPL-2.0-or-later AND BSD-3-Clause
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -74,6 +74,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 30 2026 Miroslav Suchy <msuchy@redhat.com> - 26.04.1-2
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

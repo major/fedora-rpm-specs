@@ -16,6 +16,10 @@ Patch2: seaborn-numpy-removals.patch
 # pytest 9 compatibility
 # Upstream commit: https://github.com/mwaskom/seaborn/commit/5023f2e.patch (rebased)
 Patch3: pytest9.patch
+# Fix test compatibility with Matplotlib 3.11
+Patch4: https://github.com/mwaskom/seaborn/pull/3933.patch
+Patch5: https://github.com/mwaskom/seaborn/pull/3934.patch
+Patch6: https://github.com/mwaskom/seaborn/pull/3935.patch
 BuildArch: noarch
 
 BuildRequires: python3-devel

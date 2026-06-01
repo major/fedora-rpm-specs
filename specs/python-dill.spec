@@ -10,6 +10,9 @@ License: BSD-3-Clause
 URL: https://github.com/uqfoundation/dill
 Source: %{pypi_source dill}
 
+# python 3.15 compatibility
+Patch:  https://github.com/uqfoundation/dill/pull/755.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-devel

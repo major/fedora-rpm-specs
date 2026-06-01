@@ -1,7 +1,7 @@
 %global so_ver 13
 
 Name:             ginac
-Version:          1.8.9
+Version:          1.8.10
 Release:          %autorelease
 Summary:          C++ library for symbolic calculations
 License:          GPL-2.0-or-later

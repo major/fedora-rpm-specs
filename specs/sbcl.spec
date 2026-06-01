@@ -163,8 +163,6 @@ for CONTRIB in $CONTRIBS ; do
   fi
 done
 pushd tests
-# verify --version output
-test "$(. ./subr.sh; "$SBCL_RUNTIME" --core "$SBCL_CORE" --version --version 2>/dev/null | cut -d' ' -f2)" = "%{version}-%{release}"
 # still seeing Failure: threads.impure.lisp / (DEBUGGER-NO-HANG-ON-SESSION-LOCK-IF-INTERRUPTED)
 time %{?sbcl_shell} ./run-tests.sh ||:
 popd
