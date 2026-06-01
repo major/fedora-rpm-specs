@@ -1,7 +1,7 @@
 %global module manatools
 
 Name:           python-%{module}
-Version:        0.99.0
+Version:        0.99.2
 Release:        1%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
@@ -52,6 +52,9 @@ Every output module supports the Qt, GTK, and ncurses interfaces.
 %{python3_sitelib}/python_manatools-%{version}.dist-info/
 
 %changelog
+* Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-1
+- Update to 0.99.2
+
 * Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.0-1
 - Rebase to 0.99.0
 

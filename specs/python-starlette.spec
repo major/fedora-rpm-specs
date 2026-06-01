@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -7,6 +7,12 @@ License:        BSD-3-Clause
 URL:            https://www.starlette.io/
 Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
 
+# Since https://github.com/Kludex/starlette/pull/3291, Starlette prefers
+# httpx2, a maintained fork of httpx by the Pydantic people, when it is
+# available. Once we have a python-httpx2 package, we can update the
+# BuildRequires accordingly. Until then, we (downstream-only) revert the part
+# of https://github.com/Kludex/starlette/pull/3295 that adjusted test
+# expectations around the accept-encoding header to match httpx2.
 Patch:          python-starlette-1.2.0-PR3295-undo.patch
 
 BuildSystem:    pyproject

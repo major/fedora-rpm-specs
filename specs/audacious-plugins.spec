@@ -9,9 +9,9 @@
 
 Name: audacious-plugins
 Version: 4.6
-Release: 0.5.beta1%{?dist}
+Release: 1%{?dist}
 
-%global tar_ver %{version}-beta1
+%global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
 %global aud_ver 4.6-0.4.beta1
@@ -350,6 +350,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Sun May 31 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-1
+- update to 4.6 final
+
 * Mon May 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.5.beta1
 - strictly BR audacious-devel >= 4.6-0.4.beta1 for the "Bitrate" changes
 

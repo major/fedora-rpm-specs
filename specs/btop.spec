@@ -12,8 +12,8 @@
 %endif
 
 Name:           btop
-Version:        1.4.6
-Release:        6%{?dist}
+Version:        1.4.7
+Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
 %changelog
+* Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 1.4.7-1
+- update to 1.4.7 rhbz#2464521
+
 * Wed Feb 25 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.4.6-6
 - Limit EPEL builds to x86_64 to match rocm-smi rhbz#2442214
 

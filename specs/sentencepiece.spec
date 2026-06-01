@@ -1,5 +1,5 @@
 Name:		sentencepiece
-Version:	0.2.0
+Version:	0.2.1
 Release:	%autorelease
 Summary:	An unsupervised text tokenizer for Neural Network-based text generation
 
@@ -66,16 +66,12 @@ This package contains Python3 module file for SentencePiece.
 # Need some help finding the src dir now
 sed -i -e "s@'std=c++17',@'std=c++17','-I../src',@" python/setup.py
 
-# gcc 15 include cstdint
-sed -i '/#include <utility>.*/a#include <cstdint>' src/sentencepiece_processor.h
-
-# cmake version
-sed -i -e 's@cmake_minimum_required(VERSION 3.1 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)@' CMakeLists.txt
-
 %build
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+    %{nil}
 
 %cmake_build
 
@@ -93,7 +89,7 @@ pushd python
 
 popd
 
-rm %{buildroot}%{_libdir}/libsentencepiece*.a
+find %{buildroot} -name '*.a' -delete
 
 %files libs
 %doc README.md
@@ -102,7 +98,7 @@ rm %{buildroot}%{_libdir}/libsentencepiece*.a
 
 %files devel
 %{_includedir}/sentencepiece*.h
-%{_libdir}/*.so
+%{_libdir}/libsentencepiece*.so
 %{_libdir}/pkgconfig/sentencepiece*.pc
 
 %files tools

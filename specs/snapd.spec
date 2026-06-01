@@ -77,7 +77,7 @@
 %{!?_tmpfilesdir: %global _tmpfilesdir %{_prefix}/lib/tmpfiles.d}
 
 Name:           snapd
-Version:        2.75.2
+Version:        2.76
 Release:        0%{?dist}
 Summary:        A transactional software package manager
 License:        GPL-3.0-only
@@ -127,8 +127,8 @@ Provides:       %{name}-login-service%{?_isa} = 1.33
 %endif
 
 %if ! 0%{?with_bundled}
-BuildRequires: golang(go.etcd.io/bbolt)
 BuildRequires: golang(github.com/bmatcuk/doublestar/v4)
+BuildRequires: golang(github.com/chai2010/gettext-go)
 BuildRequires: golang(github.com/coreos/go-systemd/activation)
 BuildRequires: golang(github.com/godbus/dbus/v5)
 BuildRequires: golang(github.com/godbus/dbus/v5/introspect)
@@ -139,7 +139,7 @@ BuildRequires: golang(github.com/kr/pretty)
 BuildRequires: golang(github.com/kr/text)
 BuildRequires: golang(github.com/mvo5/goconfigparser)
 BuildRequires: golang(github.com/seccomp/libseccomp-golang)
-BuildRequires: golang(github.com/snapcore/go-gettext)
+BuildRequires: golang(go.etcd.io/bbolt)
 BuildRequires: golang(golang.org/x/crypto/openpgp/armor)
 BuildRequires: golang(golang.org/x/crypto/openpgp/packet)
 BuildRequires: golang(golang.org/x/crypto/sha3)
@@ -167,6 +167,7 @@ BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
 BuildRequires:  make
+BuildRequires:  m4
 BuildRequires:  libtool
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -223,6 +224,7 @@ BuildArch:     noarch
 
 %if ! 0%{?with_bundled}
 Requires:      golang(github.com/bmatcuk/doublestar/v4)
+Requires:      golang(github.com/chai2010/gettext-go)
 Requires:      golang(github.com/coreos/go-systemd/activation)
 Requires:      golang(github.com/godbus/dbus/v5)
 Requires:      golang(github.com/godbus/dbus/v5/introspect)
@@ -235,7 +237,6 @@ Requires:      golang(github.com/mattn/go-runewidth)
 Requires:      golang(github.com/mvo5/goconfigparser)
 Requires:      golang(github.com/rivo/uniseg)
 Requires:      golang(github.com/seccomp/libseccomp-golang)
-Requires:      golang(github.com/snapcore/go-gettext)
 Requires:      golang(go.etcd.io/bbolt)
 Requires:      golang(golang.org/x/crypto/openpgp/armor)
 Requires:      golang(golang.org/x/crypto/openpgp/packet)
@@ -254,6 +255,7 @@ Requires:      golang(gopkg.in/yaml.v3)
 # These Provides are unversioned because the sources in
 # the bundled tarball are unversioned (they go by git commit)
 Provides:      bundled(golang(github.com/bmatcuk/doublestar/v4))
+Provides:      bundled(golang(github.com/chai2010/gettext-go))
 Provides:      bundled(golang(github.com/coreos/go-systemd/activation))
 Provides:      bundled(golang(github.com/godbus/dbus/v5))
 Provides:      bundled(golang(github.com/godbus/dbus/v5/introspect))
@@ -266,7 +268,6 @@ Provides:      bundled(golang(github.com/mattn/go-runewidth))
 Provides:      bundled(golang(github.com/mvo5/goconfigparser))
 Provides:      bundled(golang(github.com/rivo/uniseg))
 Provides:      bundled(golang(github.com/seccomp/libseccomp-golang))
-Provides:      bundled(golang(github.com/snapcore/go-gettext))
 Provides:      bundled(golang(go.etcd.io/bbolt))
 Provides:      bundled(golang(golang.org/x/crypto/openpgp/armor))
 Provides:      bundled(golang(golang.org/x/crypto/openpgp/packet))
@@ -558,6 +559,7 @@ with_alt_snap_mount_dir = 1
 with_apparmor = 1
 with_testkeys = %{with_test_keys}
 with_vendor = %{with_bundled}
+with_static_pie = 0
 # follow what %%gobuild does
 EXTRA_GO_BUILD_FLAGS = -v -x -compiler gc
 EXTRA_GO_LDFLAGS = -linkmode external -extldflags '%__global_ldflags'
@@ -742,11 +744,14 @@ for file in $(find . -iname "*_test.go"); do
     cp -pav $file %{buildroot}/%{gopath}/src/%{import_path}/$file
     echo "%%{gopath}/src/%%{import_path}/$file" >> unit-test-devel.file-list
 done
-
-# Install additional testdata
-install -d %{buildroot}/%{gopath}/src/%{import_path}/cmd/snap/test-data/
-cp -pav cmd/snap/test-data/* %{buildroot}/%{gopath}/src/%{import_path}/cmd/snap/test-data/
-echo "%%{gopath}/src/%%{import_path}/cmd/snap/test-data" >> unit-test-devel.file-list
+if [ -d cmd/snap/testdata ]; then
+    echo "%%dir %%{gopath}/src/%%{import_path}/cmd/snap/testdata" >> devel.file-list
+    install -d -p %{buildroot}/%{gopath}/src/%{import_path}/cmd/snap/testdata
+    for file in cmd/snap/testdata/*; do
+        cp -pav $file %{buildroot}/%{gopath}/src/%{import_path}/$file
+        echo "%%{gopath}/src/%%{import_path}/$file" >> unit-test-devel.file-list
+    done
+fi
 %endif
 
 %if 0%{?with_devel}
@@ -967,6 +972,201 @@ if [ $1 -eq 0 ]; then
 fi
 
 %changelog
+* Thu May 28 2026 Ernest Lotter <ernest.lotter@canonical.com>
+- New upstream release 2.76
+ - assertions: add helper for validating integrity data
+ - assertions: drop incorrect/non-standard Ed25519 support
+ - confdb: allow only API admin read access to confdb secrets
+ - confdb: block concurrent confdb accesses
+ - confdb: block concurrent snapctl accesses to configuration
+   database
+ - confdb: check for ephemeral data when missing save-view hook on
+   commit
+ - confdb: ignore not-found errors in confdb-schema refreshes
+ - confdb: support --wait-for timeouts when accessing confdb
+ - core-initrd: add group referenced in udev rules
+ - core-initrd: add libbpf dependency to initramfs
+ - core-initrd: add missing libbpf dependency in 24.04 packaging
+ - core-initrd: ensure audio is a system group
+ - core-initrd: fix /boot/uboot mount with u-boot env in dedicated
+   partition
+ - core-initrd: increase mount burst from 5 to 128 for faster boot
+ - core-initrd: sync partition udev rules with the ones in core-base
+ - core-initrd: sync with latest upload to snappy-dev PPA
+ - core-initrd: synchronize changelogs with latest PPA upload
+ - core-initrd: update changelog with latest PPA upload
+ - LP: #2150773 core-initrd: add nfnetlink module to fix nf netlink
+   socket speed regression (Ubuntu Core only)
+ - cross-distro: allow snapd to manipulate systemd unit files in
+   SELinux policy
+ - cross-distro: FIPS bootstrap and dispatch via snap-fips-dispatch
+ - desktop: fix common ID selection with multiple desktop plugs
+ - FDE: allow user mode on core in secboot TPM handling
+ - FDE: bump go-efilib dependency
+ - FDE: bump secboot to rev cdcb64992e54 for FDE fixes
+ - FDE: deprecate check-pin/passphrase API endpoints
+ - LP: #2147606 FDE: give inactive state on classic
+ - FDE: improve tracing for OP-TEE probing
+ - FDE: move auto-repair logic to overlord/fdestate and provide state
+ - FDE: update secboot for TPM/FDE bug fixes including Intel HAP and
+   recovery key parsing
+ - FDE: use any primary key matching digest when adding a keyslot
+ - FDE: use ignore action for preinstall check in VM
+ - interfaces: bluez | drop explicit deny send_destination in D-Bus
+   configuration
+ - interfaces: conditionally deny /proc/self/mountinfo to suppress Go
+   1.25+ denials
+ - interfaces: custom-device | fix for-device validation panic on
+   non-string value
+ - interfaces: disallow auto-connect to parallel installs
+ - interfaces: docker | make plug implicit on classic systems
+ - interfaces: ignore errors in disconnect hooks during explicit snap
+   disconnect
+ - interfaces: mediatek-accel | add plug interface base declaration
+ - interfaces: microceph-support | suppress noisy sudo denial audit
+   logs
+ - interfaces: podman | add new interface for podman socket access
+ - interfaces: pulseaudio | fix security tag syntax inconsistency
+ - interfaces: raw-usb | allow USB device enumeration on Fairphone 5
+   with NexDock
+ - interfaces: restore auto-connections on failed refresh undo
+ - LP: #2148544 interfaces: bool-file | support deep SoC sysfs paths
+   for LED brightness
+ - LP: #2139213 packaging: make Ubuntu 16.04 packaging dep17
+   compliant
+ - packaging: add cross-distro build script and instructions
+ - packaging: add openSUSE 16.0 spread support
+ - packaging: Debian build improvements
+ - packaging: default openSUSE to /var/lib/snapd/snap and sync from
+   downstream
+ - packaging: drop transitional packages only for Ubuntu 26.04
+   (Resolute)
+ - packaging: fix Launchpad FIPS build detection for snapd-fips job
+ - packaging: refactor and clean up snapd.mk, standardize test-data
+   directories
+ - packaging: switch to golang-github-chai2010-gettext-go-dev
+ - packaging: update bundled AppArmor 4.1.7 (snapd snap only)
+ - prompting: escape paths in prompt constraints
+ - prompting: improve API error handling and validation
+ - prompting: improve error message when no handler service is
+   present
+ - prompting: re-enable the prompting notice backend
+ - prompting: respond with full user-allowed permission set
+ - prompting: validate permissions while unmarshalling
+ - remote device management: implement dispatch-mgmt-messages task
+   with sequencing support
+ - LP: #2125344 snap: avoid empty channel forwarding message
+ - LP: #2150683 snap: clarify snap install help text for --classic
+   and --devmode
+ - LP: #2152908 snap: print complex attributes in snap interface
+   --attrs output
+ - snap: add run-inhibit hint and inhibit info when a snap is
+   disabled
+ - snap: allow removing a snap and its base at the same time
+ - snap: display detailed component information in snap info
+ - snap: extend AlreadyInstalledError to multiple snaps and
+   components
+ - snap: extend set-quota command options description with accepted
+   value formats
+ - snap: implement snap delta command for computing snap deltas
+ - snap: improve consistency for snap install when some snaps are
+   already installed
+ - snap: show hint in snap list that a snap has components
+ - snap-confine: allow inheriting unix sockets from snaps
+ - snap-confine: allow linking to libm in AppArmor profile
+ - snap-confine: fix out-of-bounds read in mountinfo parser for
+   partial escape sequences
+ - snap-confine: harden bpffs mount with nosuid, nodev, noexec flags
+ - snap-confine: remove experimental persistent per-user mount
+   namespace feature
+ - snap-confine: set FD_CLOEXEC on file descriptors returned by BPF
+   helpers
+ - snap-confine: support transparent_hugepage in AppArmor profile
+ - snap-confine: use strchr after NUL-terminating in infofile parser
+ - snap-update-ns: switch to a multi-pass process for constructing
+   and updating mount namespaces
+ - RemoveMountUnitFile now unmounts even if mount unit file is
+   missing
+ - Add explicit mount phase during single-reboot refresh to fix undo
+   of kernel refreshes
+ - Add security audit logging subsystem
+ - Add base prioritized AppArmmor snippets for strictly confined or
+   jailed snaps
+ - Allow openshell snap to use experimental daemon-scope: user
+ - Allow configuring mount unit options based on filesystem type
+ - Allow equals signs in uevent values in netlink parser
+ - Also bind-mount directories modified by kmod backend during
+   preseed
+ - Clean up potentially corrupted files during snap download undo
+ - Complete the bootloader environment implementation
+ - Copy integrity data files during snap install
+ - Create hook for seed refresh mode
+ - Create removal tasks for old seed-refresh seeds
+ - Dispatch systemctl commands asynchronously when calling Stop()
+ - Ensure /tmp/.X11-unix created inside mount namespace has correct
+   permissions
+ - Ensure exclusive changes conflict with refresh/revert
+ - Ensure existing snap confinement flags are not dropped when
+   installing or removing components
+ - Export ubuntu-boot-state filename constant from bootloader package
+ - Fix duplicate removal of apps under $SNAP_MOUNT_DIR/bin
+ - Fix integration between prerequisites task and seed-refresh mode
+ - Fix split-refresh overwriting provided lane
+ - Fix use of umask in GetListener for socket activation
+ - Ignore net.ErrClosed during daemon shutdown
+ - Implement ResolveValidationSetsEnforcementError in terms of one
+   call
+ - Improve snapctl install consistency when components are already
+   installed
+ - Inject seed creation tasks into snap refresh flow
+ - Introduce system options for custom certificates on Ubuntu Core
+ - Keep idle services with activation units stopped on reload
+ - List snap components in snap-debug-info via debug-tools
+ - Look at gadget.yaml instead of marker file to determine ubootpart
+   usage
+ - LP: #1966067 Skip redundant xdg-settings confirmation prompt when
+   setting is already correct
+ - LP: #2110368 Fix component installation for private snaps via
+   snapctl
+ - LP: #2110368 Fix download of private snap components by setting
+   UserID
+ - LP: #2144666 Fix mount namespace updates with synthetic bind
+   mounts on same target paths
+ - LP: #2146337 Improve handling of failed downloads and retain
+   partial files for resume
+ - LP: #2147207 Fix snap enable/disable cycle forgetting components
+ - Make run-inhibit hint for kill-snap-apps task based on kill reason
+ - Merge content-provider prerequisite updates into seed-refresh
+ - Move SortServices into Backend.StartServices
+ - Move state to client change conversion to ctlcmd package
+ - Omit misleading "try to refresh snapd" suggestion for ISA-related
+   errors
+ - Only create link-component tasks when needed during refresh to
+   existing revision
+ - Reconfigure piboot bootloader on gadget refreshes to preserve
+   os_prefix
+ - Reduce the number of AppArmor profile regenerations during snap
+   operations
+ - Refactor seed-refresh ownership to devicestate
+ - Regenerate certificate database on remodels
+ - Remove obsolete FIXME comment in VersionCompare
+ - Remove unused GenerateDmVerityData helper from snap/integrity
+ - Rename and document error type for ISA assumes flags
+ - Restart snapd from daemon.Stop to improve restart reliability
+ - Restart stopped services on error in stopSnapServices for
+   transactionality
+ - Simplify certificate-db updates on model-base refresh/installs
+ - Support racing Loop and Stop correctly in overlord
+ - Support sending file descriptors to systemd via sd_notify
+ - Unroll CPU-heavy recursive function in snap state handlers
+ - Update seccomp syscalls list for kernel 7.1.0
+ - Use change ID to prevent nested seed-refresh spawned by
+   prerequisites
+ - Validate content interface plug target directories exist for
+   core26+ snaps
+ - Validate layout paths exist in snap tree for snaps using bare or
+   core26+
+
 * Fri Apr 17 2026 Katie May <katie.may@canonical.com>
 - New upstream release 2.75.2
   See NEWS file for details.

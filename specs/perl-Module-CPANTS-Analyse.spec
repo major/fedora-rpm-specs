@@ -1,18 +1,18 @@
 Name:           perl-Module-CPANTS-Analyse
 Version:        1.02
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generate Kwalitee ratings for a distribution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CPANTS-Analyse
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-CPANTS-Analyse-%{version}.tar.gz
+Patch1:         Module-CPANTS-Analyse-1.02-symlink.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.58
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::MakeMaker::CPANfile) >= 0.08
 # Module Runtime
 BuildRequires:  perl(Archive::Any::Lite) >= 0.06
@@ -86,13 +86,16 @@ metadata for all distributions on CPAN.
 %prep
 %setup -q -n Module-CPANTS-Analyse-%{version}
 
+# Use relative symlinks rather than absolute symlinks in test
+# https://github.com/cpants/Module-CPANTS-Analyse/pull/51
+%patch -P 1
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -126,6 +129,10 @@ make test
 %{_mandir}/man3/Module::CPANTS::Kwalitee::Version.3*
 
 %changelog
+* Sun May 31 2026 Paul Howarth <paul@city-fan.org> - 1.02-8
+- Use relative symlinks rather than absolute symlinks in test (GH#51)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

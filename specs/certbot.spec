@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        5.4.0
-Release:        1%{?dist}
+Version:        5.6.0
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -217,7 +217,7 @@ rm -rf %{name}.egg-info
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx
 do
   cd $module
-  sed -Ei '/(acme|certbot)>=\{version\}/d' setup.py
+  sed -Ei '/(acme|certbot)[^>]*>=\{version\}/d' setup.py
     %pyproject_buildrequires
   cd ..
 done
@@ -265,7 +265,11 @@ install -dm 0755 %{buildroot}%{_localstatedir}/log/letsencrypt
 
 %if %{with tests}
 %check
-for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
+# certbot-apache and certbot-nginx are thin shim packages as of certbot 5.5.0;
+# their code and unit tests now live inside the certbot package (apache/nginx
+# extras) and run during the certbot core %%check, so they are not listed here
+# (pytest would otherwise collect 0 tests and exit non-zero).
+for module in acme certbot %{MODULES}; do
 pushd $module
 %pytest -v -W ignore::DeprecationWarning
 popd
@@ -377,6 +381,12 @@ fi
 
 
 %changelog
+* Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 5.6.0-2
+- drop $RENEW_HOOK from certbot-renew.service rhbz#2418470
+
+* Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 5.6.0-1
+- update to 5.6.0 rhbz#2436532
+
 * Tue Mar 24 2026 Jonathan Wright <jonathan@almalinux.org> - 5.4.0-1
 - update to 5.4.0
 

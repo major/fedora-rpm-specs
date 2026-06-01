@@ -1,8 +1,10 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
+%global pymanatools_ver 0.99.2
+
 Name:		manafirewall
-Version:	0.99.1
+Version:	0.99.2
 Release:	1%{?dist}
 Summary:	ManaTools FirewallD configuration tool
 License:	GPL-2.0-or-later
@@ -19,11 +21,11 @@ BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-yaml
-BuildRequires:	python3-manatools	>= 0.99.0
+BuildRequires:	python3-manatools	>= %{pymanatools_ver}
 
 Requires:	hicolor-icon-theme
 Requires:	python3-yaml
-Requires:	python3-manatools	>= 0.99.0
+Requires:	python3-manatools	>= %{pymanatools_ver}
 Requires:	python3-firewall	>= 0.9.0
 Requires:	firewalld
 
@@ -37,8 +39,11 @@ manatools, to be run using Qt, GTK, or ncurses interfaces.
 %autosetup -p1
 
 
-%build
+%conf
 %cmake	-DCHECK_RUNTIME_DEPENDENCIES=ON
+
+
+%build
 %cmake_build
 
 
@@ -66,6 +71,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-1
+- Update to 0.99.2
+
 * Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.1-1
 - Rebase to the latest version
 

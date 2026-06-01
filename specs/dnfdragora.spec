@@ -1,19 +1,17 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global commit bd6ca6f6dc60a0664314bbcfc86329008be457c3
-%global commitdate 20260419
-%global shortcommit %{sub %{commit} 1 7}
+%global libdnf5_ver 5.4.0.0
+%global pymanatools_ver 0.99.2
 
 Name:		dnfdragora
-Version:	2.99.2^git%{commitdate}.1.%{shortcommit}
+Version:	2.99.4
 Release:	1%{?dist}
 Summary:	DNF package-manager frontend from ManaTools
 
 License:	GPL-3.0-or-later
 URL:		https://github.com/manatools/%{name}
-%dnl Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source0:	%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -23,19 +21,19 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
-BuildRequires:	python3-libdnf5		>= 5.2.7
-BuildRequires:	python3-manatools	>= 0.99.0
+BuildRequires:	python3-libdnf5		>= %{libdnf5_ver}
+BuildRequires:	python3-manatools	>= %{pymanatools_ver}
 BuildRequires:	python3-PyYAML
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-pyxdg
 
-Requires:	dnf5daemon-server	>= 5.2.7
+Requires:	dnf5daemon-server	>= %{libdnf5_ver}
 Requires:	filesystem
 Requires:	comps-extras
 Requires:	hicolor-icon-theme
-Requires:	python3-libdnf5		>= 5.2.7
-Requires:	python3-manatools	>= 0.99.0
+Requires:	python3-libdnf5		>= %{libdnf5_ver}
+Requires:	python3-manatools	>= %{pymanatools_ver}
 Requires:	python3-PyYAML
 
 Provides:	%{name}-gui		= %{version}-%{release}
@@ -61,15 +59,19 @@ This package provides the update notifier applet for %{name}.
 
 
 %prep
-%autosetup -p 1 %{?commit:-n %{name}-%{commit}}
+%autosetup -p1
 
 
-%build
+%conf
 %cmake \
   -DCHECK_RUNTIME_DEPENDENCIES=ON \
   -DENABLE_COMPS=ON               \
   %{nil}
+
+
+%build
 %cmake_build
+
 
 %install
 %cmake_install
@@ -114,6 +116,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.99.4-1
+- Update to 2.99.4
+
 * Fri Apr 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.99.2^git20260419.1.bd6ca6f-1
 - Update to the newest snapshot version
 

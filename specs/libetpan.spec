@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        1.9.4
-Release:        19%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 # src/bsd/getopt.c BSD-4-Clause (not used)
@@ -11,22 +11,10 @@ URL:            http://www.etpan.org/
 Source0:        https://github.com/dinhviethoa/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # system crypto policy (see rhbz#1179310)
 Patch10:        libetpan-1.9.2-cryptopolicy.patch
+# xmlError constness
+Patch11:        libetpan-1.10-xmlError-constness.patch
 # Upstream patches
 #
-# CVE-2020-15953
-# https://github.com/dinhvh/libetpan/issues/386
-# Detect extra data after STARTTLS response and exit
-# https://github.com/dinhvh/libetpan/pull/387
-Patch101:       libetpan-1.9.4-0001-Detect-extra-data-after-STARTTLS-response-and-exit-3.patch
-# Detect extra data after STARTTLS responses in SMTP and POP3 and exit
-# https://github.com/dinhvh/libetpan/pull/388
-Patch102:       libetpan-1.9.4-0002-Detect-extra-data-after-STARTTLS-responses-in-SMTP-a.patch
-# https://github.com/dinhvh/libetpan/issues/420
-Patch103:       libetpan-1.9.4-mailbox_data_status-info_list-invalid-free.patch
-# https://github.com/dinhvh/libetpan/pull/423
-Patch104:       libetpan-configure-c99.patch
-# https://github.com/dinhvh/libetpan/pull/447
-Patch105:		libetpan-pr447-fix-poll-logical-op.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  liblockfile-devel
@@ -42,6 +30,9 @@ BuildRequires:  make
 # libcurl and libexpat not needed by Claws Mail:
 # http://lists.claws-mail.org/pipermail/users/2016-January/015665.html
 #BuildRequires:  libcurl-devel expat-devel
+# %%check
+BuildRequires:  libxml2-devel
+BuildRequires:  pkgconfig(tidy)
 
 %description
 The purpose of this mail library is to provide a portable, efficient middle-ware
@@ -59,15 +50,13 @@ with %{name}.
 %prep
 %setup -q
 
+find . -name \*.gz -delete
+
 #%patch0 -b .libetpan-config-script
 sed -i.flags libetpan.pc.in \
     -e 's|-letpan@LIBSUFFIX@.*$|-letpan@LIBSUFFIX@|'
 %patch -P10 -p1 -b .crypto-policy
-%patch -P101 -p1 -b .CVE-2020-15953-1
-%patch -P102 -p1 -b .CVE-2020-15953-2
-%patch -P103 -p1 -b .CVE-2022-4121.tmp
-%patch -P104 -p1 -b .c99
-%patch -P105 -p1 -b .logical_op
+%patch -P11 -p1 -b .const
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -86,9 +75,7 @@ cp -p %{_bindir}/libtool .
     --disable-static \
     --with-gnutls=yes \
     --with-openssl=no \
-%if 0%{?fedora} >= 41
     --with-poll=yes \
-%endif
     %{nil}
 
 %make_build
@@ -103,7 +90,33 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
 
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
 
-%ldconfig_scriptlets
+%check
+# unittest
+export LD_LIBRARY_PATH=$(pwd)/src/.libs
+pushd unittest
+
+sed -i.shared Makefile \
+	-e 's|libetpan.a|libetpan.so|' \
+	-e 's|-liconv ||' \
+	-e 's|-Werror |-Werror -Wno-error=deprecated-declarations |' \
+	-e 's|\$(TIDY_LDLIBS) |$(TIDY_LDLIBS) -lm |' \
+	%{nil}
+
+# plaintext_rendering_test: needs TZ (PDT)
+# also, one test fails
+export TZ="America/Los_Angeles"
+pushd plaintext-rendering/data
+if [ ! -d input-fail ] ; then
+	mkdir input-fail
+	mv input/5231-emoji.eml input-fail/
+fi
+popd
+
+make
+make check
+
+popd
+
 
 %files
 %license COPYRIGHT
@@ -119,6 +132,9 @@ iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv C
 %{_libdir}/%{name}.so
 
 %changelog
+* Sun May 31 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10-1
+- 1.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

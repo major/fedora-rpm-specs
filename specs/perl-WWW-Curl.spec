@@ -1,6 +1,6 @@
 Name:           perl-WWW-Curl
 Version:        4.17
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Perl extension interface for libcurl
 License:        MIT
 URL:            https://metacpan.org/release/WWW-Curl
@@ -20,6 +20,8 @@ Patch5:         WWW-Curl-4.17-add-back-CURLOPT_RESOLV-support.patch
 Patch6:         WWW-Curl-4.17-BRC2259537.patch
 # Adapt to curl 8.13
 Patch7:         WWW-Curl-4.17-BRC2354525.patch
+# update multi symbol, bug #2482428, GH PR#24
+Patch8:         WWW-Curl-4.17-update-multi-support.patch
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -78,6 +80,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun May 31 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 4.17-46
+- Take into account multi symbol change (#2482428)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

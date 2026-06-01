@@ -1,8 +1,11 @@
 # SPDX-License-Identifier: MIT
 
+%global snapshot_date 20260526
+%global snapshot_hash 2f9ba1b2
+
 Name:    ibm-plex-fonts
-Version: 6.4.0
-Release: 5%{?dist}
+Version: %{snapshot_date}
+Release: 1%{?dist}
 Summary: IBM Plex, the new IBM set of coordinated grotesque corporate fonts
 
 License: OFL-1.1
@@ -12,7 +15,7 @@ BuildArch: noarch
 
 %global foundry           IBM
 %global fontlicense       OFL-1.1
-%global fontlicenses      IBM-Plex-Sans/license.txt
+%global fontlicenses      license.txt
 #global fontdocs          *.md
 
 %global common_description %{expand:
@@ -25,7 +28,7 @@ the Industrial Age, when IBM was born.
 
 %global fontfamily1       Plex Sans
 %global fontsummary1      IBM Plex Sans
-%global fonts1            IBM-Plex-Sans/*.otf IBM-Plex-Sans-Condensed/*.otf
+%global fonts1            sans/*.otf sans-condensed/*.otf
 %global fontconfngs1      %{SOURCE11}
 %global fontdescription1  %{expand:
 %{common_description}
@@ -33,7 +36,7 @@ This package provides IBM Plex Sans.}
 
 %global fontfamily2       Plex Serif
 %global fontsummary2      IBM Plex Serif
-%global fonts2            IBM-Plex-Serif/*.otf
+%global fonts2            serif/*.otf
 %global fontconfngs2      %{SOURCE12}
 %global fontdescription2  %{expand:
 %{common_description}
@@ -41,7 +44,7 @@ This package provides IBM Plex Serif.}
 
 %global fontfamily3       Plex Mono
 %global fontsummary3      IBM Plex Mono
-%global fonts3            IBM-Plex-Mono/*.otf
+%global fonts3            mono/*.otf
 %global fontconfngs3      %{SOURCE13}
 %global fontdescription3  %{expand:
 %{common_description}
@@ -49,7 +52,7 @@ This package provides IBM Plex Mono.}
 
 %global fontfamily4       Plex Sans Arabic
 %global fontsummary4      IBM Plex Sans Arabic
-%global fonts4            IBM-Plex-Sans-Arabic/*.otf
+%global fonts4            sans-arabic/*.otf
 %global fontconfngs4      %{SOURCE14}
 %global fontdescription4  %{expand:
 %{common_description}
@@ -57,7 +60,7 @@ This package provides IBM Plex Sans Arabic.}
 
 %global fontfamily5       Plex Sans Devanagari
 %global fontsummary5      IBM Plex Sans Devanagari
-%global fonts5            IBM-Plex-Sans-Devanagari/*.otf
+%global fonts5            sans-devanagari/*.otf
 %global fontconfngs5      %{SOURCE15}
 %global fontdescription5  %{expand:
 %{common_description}
@@ -65,7 +68,7 @@ This package provides IBM Plex Sans Devanagari.}
 
 %global fontfamily6       Plex Sans Hebrew
 %global fontsummary6      IBM Plex Sans Hebrew
-%global fonts6            IBM-Plex-Sans-Hebrew/*.otf
+%global fonts6            sans-hebrew/*.otf
 %global fontconfngs6      %{SOURCE16}
 %global fontdescription6  %{expand:
 %{common_description}
@@ -73,7 +76,7 @@ This package provides IBM Plex Sans Hebrew.}
 
 %global fontfamily7       Plex Sans Thai
 %global fontsummary7      IBM Plex Sans Thai
-%global fonts7            IBM-Plex-Sans-Thai/*.otf
+%global fonts7            sans-thai/*.otf
 %global fontconfngs7      %{SOURCE17}
 %global fontdescription7  %{expand:
 %{common_description}
@@ -81,13 +84,14 @@ This package provides IBM Plex Sans Thai.}
 
 %global fontfamily8       Plex Sans Thai Looped
 %global fontsummary8      IBM Plex Sans Thai Looped, a formal variant of IBM Plex Sans for Thai
-%global fonts8            IBM-Plex-Sans-Thai-Looped/*.otf
+%global fonts8            sans-thai-looped/*.otf
 %global fontconfngs8      %{SOURCE18}
 %global fontdescription8  %{expand:
 %{common_description}
 This package provides IBM Plex Sans Thai Looped.}
 
-Source0:  https://github.com/IBM/plex/releases/download/v%{version}/OpenType.zip#/%{name}-%{version}.zip
+# Generated using plex-snapshot.sh
+Source0:  %{name}-%{snapshot_date}-%{snapshot_hash}.tar.bz2
 Source11: 58-%{fontpkgname1}.xml
 Source12: 58-%{fontpkgname2}.xml
 Source13: 58-%{fontpkgname3}.xml
@@ -105,7 +109,7 @@ Source18: 59-%{fontpkgname8}.xml
 %fontmetapkg
 
 %prep
-%setup -n OpenType
+%setup -n %{name}-%{snapshot_date}-%{snapshot_hash}
 
 %build
 %fontbuild -a
@@ -119,6 +123,9 @@ Source18: 59-%{fontpkgname8}.xml
 %fontfiles -a
 
 %changelog
+* Sun May 31 2026 Michael Kuhn <suraia@fedoraproject.org> - 20260526-1
+- Update to 20260526
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

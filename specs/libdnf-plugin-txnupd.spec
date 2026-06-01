@@ -1,9 +1,11 @@
+%bcond new_dnf5 %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
+
 # Minimum compatible version
-%global libdnf5_minver 5.2.17.0
-%global tukit_minver 3.6.2
+%define libdnf5_minver %[%{with new_dnf5} ? "5.4.0.0" : "5.2.17.0"]
+%define tukit_minver 3.6.2
 
 Name:           libdnf-plugin-txnupd
-Version:        0.2.0
+Version:        0.3.0
 Release:        1%{?dist}
 Summary:        libdnf5 plugin to implement transactional updates
 
@@ -12,17 +14,38 @@ URL:            https://gitlab.com/VelocityLimitless/Projects/libdnf-plugin-txnu
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Temporary until all supported releases have DNF 5.4+
-Patch1001:      libdnf-plugin-txnupd-Downgrade-dnf5-dependency.patch
+Patch10001:     libdnf-plugin-txnupd-Downgrade-dnf5-dependency.patch
 
-BuildRequires:  meson
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  dnf5-devel >= %{libdnf5_minver}
 BuildRequires:  pkgconfig(libdnf5) >= %{libdnf5_minver}
+BuildRequires:  pkgconfig(libdnf5-cli) >= %{libdnf5_minver}
 BuildRequires:  pkgconfig(tukit) >= %{tukit_minver}
+BuildRequires:  scdoc
 
 %description
 This package contains the plugin to implement transactional updates
 as a libdnf5 plugin. This plugin hooks into libdnf5 for DNF and
 PackageKit to enable this functionality in normal use.
+
+
+%package -n dnf5-plugin-txnupd
+Summary:        dnf5 plugin to implement transactional updates
+
+# Indicate providing dnf5 command
+Provides:       dnf5-command(txnupd)
+
+# Require correct minimum version of the CLI
+Requires:       dnf5%{?_isa} >= %{libdnf5_minver}
+
+# Require the core plugin
+Requires:       libdnf5-plugin-txnupd%{?_isa} = %{version}-%{release}
+
+%description -n dnf5-plugin-txnupd
+This package contains the plugin to implement transactional updates
+as a dnf5 plugin. This plugin hooks into dnf5 to expose actions in the CLI.
+
 
 %package -n libdnf5-plugin-txnupd
 Summary:        libdnf5 plugin to implement transactional updates
@@ -53,35 +76,57 @@ This package contains the plugin to implement transactional updates
 as a libdnf5 plugin. This plugin hooks into libdnf5 for DNF5 and
 PackageKit to enable this functionality in normal use.
 
+
 %prep
-%autosetup -p1
+%autosetup -N
+%autopatch -M 10000
+
+%if ! %{with new_dnf5}
+# patch for compatibility for dnf5 < 5.4
+%patch -P 10001 -p1
+%endif
 
 
 %conf
-%meson
+%cmake
 
 
 %build
-%meson_build
+%cmake_build
 
 
 %install
-%meson_install
+%cmake_install
 
 # Add configuration to mark this package as protected by libdnf
 mkdir -p %{buildroot}%{_sysconfdir}/dnf/protected.d
 echo "libdnf5-plugin-txnupd" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd.conf
 
 
+%files -n dnf5-plugin-txnupd
+%license LICENSE
+%doc README.md
+%{_libdir}/dnf5/plugins/txnupd.so
+%{_mandir}/man8/dnf5-txnupd.8*
+
+
 %files -n libdnf5-plugin-txnupd
 %license LICENSE
 %doc README.md
 %{_libdir}/libdnf5/plugins/txnupd.so
-%{_sysconfdir}/dnf/protected.d/txnupd.conf
+%if ! %{with new_dnf5}
 %{_sysconfdir}/dnf/libdnf5-plugins/txnupd.conf
+%else
+%{_datadir}/dnf5/libdnf.plugins.conf.d/txnupd.conf
+%endif
+%{_sysconfdir}/dnf/protected.d/txnupd.conf
+%{_mandir}/man5/dnf5-txnupd.conf.5*
 
 
 %changelog
+* Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0
+
 * Sun Feb 22 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
 - Rebase to 0.2.0 to port to libdnf5
 

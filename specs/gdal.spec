@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.4
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -882,6 +882,9 @@ done
 
 
 %changelog
+* Sun May 31 2026 Richard Shaw <hobbes1069@gmail.com> - 3.12.4-4
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 3.12.4-3
 - Rebuild for OpenEXR 3.4.12.
 

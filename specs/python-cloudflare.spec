@@ -2,34 +2,24 @@
 %global pypi_name cloudflare
 
 Name:           python-%{pypi_name}
-Version:        2.19.4
-Release:        7%{?dist}
-Summary:        Python wrapper for the Cloudflare Client API v4
+Version:        5.2.0
+Release:        1%{?dist}
+Summary:        The official Python library for the Cloudflare API
 
-License:        MIT
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        %{pypi_source}
-# upstream does not provide gpg signatures for 2.9.x releases anymore:
-# https://github.com/cloudflare/python-cloudflare/issues/146
-#Source1:        %%{pypi_source}.asc
-# upstream confirmed release signing key via github:
-#   https://github.com/cloudflare/python-cloudflare/issues/93
-# gpg2 --recv-keys "D093 0FD2 2220 3ABF 557C  A485 6112 9109 56F6 F8B8"
-# gpg2 --export --export-options export-minimal "D093 0FD2 2220 3ABF 557C  A485 6112 9109 56F6 F8B8" > gpgkey-D093_0FD2_2220_3ABF_557C__A485_6112_9109_56F6_F8B8.gpg
-Source2:        gpgkey-D093_0FD2_2220_3ABF_557C__A485_6112_9109_56F6_F8B8.gpg
 
-# TODO: Remove this once jsonlines is packaged
-Patch0:         remove-jsonlines.patch
+# Relax the exact hatchling build-system pin (upstream pins ==1.26.3,
+# Fedora ships a newer hatchling)
+Patch0:         relax-hatchling-pin.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-# Used to verify OpenPGP signature
-BuildRequires:  gnupg2
-BuildRequires:  sed
-
 %description
-Python wrapper library for the Cloudflare Client API v4.
+The official Python library for the Cloudflare API, providing convenient
+access to the Cloudflare REST API from any Python 3.9+ application.
 
 %package -n python3-%{pypi_name}
 
@@ -37,16 +27,13 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
-Python wrapper library for the Cloudflare Client API v4.
+The official Python library for the Cloudflare API, providing convenient
+access to the Cloudflare REST API from any Python 3.9+ application.
 
 This is the Python 3 version of the package.
 
 %prep
-#%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
 %autosetup -p1 -n %{pypi_name}-%{version}
-rm -rf *.egg-info
-# Remove shebangs
-sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -57,18 +44,18 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 %install
 %pyproject_install
-%pyproject_save_files CloudFlare
+%pyproject_save_files cloudflare
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{_bindir}/cli4
-%doc %attr(0644,root,root) %{_mandir}/man1/cli4.1*
-%{python3_sitelib}/cli4
-%exclude %{python3_sitelib}/examples
+%license LICENSE
 
 
 %changelog
+* Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 5.2.0-1
+- update to 5.2.0 rhbz#2330265
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

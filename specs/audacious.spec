@@ -3,9 +3,9 @@
 
 Name: audacious
 Version: 4.6
-Release: 0.4.beta1%{?dist}
+Release: 1%{?dist}
 
-%global tar_ver %{version}-beta1
+%global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
 %global aud_ver 4.6
@@ -183,6 +183,12 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{na
 
 
 %changelog
+* Sun May 31 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-1
+- update to 4.6 release
+
+* Fri May 15 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.5.20260515git6ef6cb7
+- update git snapshot
+
 * Mon May 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-0.4.beta1
 - update to beta1
 

@@ -1,5 +1,5 @@
 Name:           mbuffer
-Version:        20260221
+Version:        20241007
 Release:        %autorelease
 Summary:        Measuring Buffer is an enhanced version of buffer
 
@@ -8,12 +8,12 @@ License:        GPL-3.0-or-later
 URL:            http://www.maier-komor.de/mbuffer.html
 Source0:        http://www.maier-komor.de/software/mbuffer/mbuffer-%{version}.tgz
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  mt-st
-BuildRequires:  mhash-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  mhash-devel
+BuildRequires:  mt-st
 
 %description
 Measuring Buffer is an enhanced version of buffer. It features displayof

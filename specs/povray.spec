@@ -2,7 +2,7 @@
 
 Name:           povray
 Version:        3.7.0.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        The Persistence of Vision Ray Tracer
 
 # Examples below distribution/ are CC-BY-SA
@@ -123,6 +123,9 @@ chmod +x %{buildroot}%{_datadir}/povray-%{api_vers}/scenes/camera/mesh_camera/ba
 %{_datadir}/povray-%{api_vers}/scenes
 
 %changelog
+* Sun May 31 2026 Richard Shaw <hobbes1069@gmail.com> - 3.7.0.10-22
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 3.7.0.10-21
 - Rebuild for OpenEXR 3.4.12.
 

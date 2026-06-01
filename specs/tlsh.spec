@@ -1,16 +1,12 @@
 %undefine __cmake_in_source_build
 Name:           tlsh
-Version:        4.12.1
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Fuzzy text matching library
 
 License:        Apache-2.0
 URL:            https://github.com/trendmicro/tlsh
 Source0:        https://github.com/trendmicro/tlsh/archive/%{version}/tlsh-%{version}.tar.gz
-
-# https://github.com/trendmicro/tlsh/pull/128
-Patch:          0001-python-use-setuptools-instead-of-distutils.patch
-Patch:          0002-python-drop-pointless-line-continuations.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

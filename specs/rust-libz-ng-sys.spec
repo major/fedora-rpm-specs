@@ -5,7 +5,7 @@
 %global crate libz-ng-sys
 
 Name:           rust-libz-ng-sys
-Version:        1.1.28
+Version:        1.1.29
 Release:        %autorelease
 Summary:        Low-level bindings to zlib-ng
 

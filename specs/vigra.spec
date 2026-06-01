@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.12.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/archive/refs/tags/Version-1-12-1.tar.gz
@@ -145,6 +145,9 @@ install -p -m755 -D %{SOURCE1} %{buildroot}%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Sun May 31 2026 Richard Shaw <hobbes1069@gmail.com> - 1.12.1-10
+- Rebuild for OpenColorIO 2.5.2.
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1.12.1-9
 - Rebuild for OpenEXR 3.4.12.
 

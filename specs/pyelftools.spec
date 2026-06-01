@@ -3,7 +3,7 @@
 
 Summary:        Pure-Python library for parsing and analyzing ELF files
 Name:           pyelftools
-Version:        0.32
+Version:        0.33
 Release:        %autorelease
 # elftools/construct is MIT
 License:        Unlicense AND MIT

@@ -36,18 +36,6 @@ BuildRequires:  go-vendor-tools
 %setup -q -T -D -a1 %{forgesetupargs}
 %autopatch -p1
 
-# Make sure to keep in sync with post_commands in go-vendor-tools.toml.
-# See the comment there for why we need this.
-mkdir -p replacements
-# Copy original library
-cp -rp vendor/github.com/xi2/xz replacements/xz
-cp go.mod replacements/xz
-cd replacements/xz
-sed -i '/github.com\/therootcompany\/xz/d' go.mod
-# Rename to use import path of the fork.
-sed -i 's|github.com/xi2/xz|github.com/therootcompany/xz|' $(find -name '*.go')
-go mod edit -module=github.com/therootcompany/xz
-
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
