@@ -1,5 +1,5 @@
 Name:    pcp
-Version: 7.1.4
+Version: 7.1.5
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
@@ -2316,19 +2316,33 @@ for f in `echo $BACKDIR/debian/lib*.{install,dirs}`
 do
     case "$f"
     in
-        *-dev.*)
-            # skip libpcp<foo>-dev.{install,dirs} ones, they'll
-            # be collected in $DEVFILELIST
-            ;;
-        *)
-            [ -f "$f" ] && LIBFILELIST="$LIBFILELIST $f"
-            ;;
+	*-dev.*)
+		# skip libpcp<foo>-dev.{install,dirs} ones, they'll
+		# be collected in $DEVFILELIST
+		;;
+	*)
+		if [ -f "$f" ]
+		then
+		    # fix Debian Multiarch pathname
+		    # usr/lib/*/libpcp... => usr/lib/libpcp...
+		    fix_f=`basename "$f"`.fixed
+		    sed -e 's@usr/lib/[*]/@usr/lib/@' <"$f" >"$fix_f"
+		    LIBFILELIST="$LIBFILELIST $fix_f"
+		fi
+		;;
     esac
 done
 DEVFILELIST=''
 for f in `echo $BACKDIR/debian/lib*-dev.{install,dirs}`
 do
-    [ -f "$f" ] && DEVFILELIST="$DEVFILELIST $f"
+    if [ -f "$f" ]
+    then
+	# fix Debian Multiarch pathname
+	# usr/lib/*/libpcp... => usr/lib/libpcp...
+	fix_f=`basename "$f"`.fixed
+	sed -e 's@usr/lib/[*]/@usr/lib/@' <"$f" >"$fix_f"
+	DEVFILELIST="$DEVFILELIST $fix_f"
+    fi
 done
 
 # Package split: pcp{-conf,-libs,-libs-devel,-testsuite,-import-*,-export-*}...
@@ -2690,7 +2704,7 @@ needinstall='sample simple'
 for PMDA in $needinstall ; do
     if ! grep -q "$PMDA/pmda$PMDA" "$PCP_PMCDCONF_PATH"
     then
-       %{install_file "$PCP_PMDAS_DIR/$PMDA" .NeedInstall}
+	%{install_file "$PCP_PMDAS_DIR/$PMDA" .NeedInstall}
     fi
 done
 %if 0%{?rhel}
@@ -3412,6 +3426,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Jun 1 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.5-1
+- Latest upstream release
+
 * Mon May 25 2026 Jan Kurik <jkurik@redhat.com> - 7.1.4-1
 - Latest upstream release
 - Fixed mixed use of tabs and spaces to make rpmlint happy

@@ -14,6 +14,8 @@ Summary:        The runtime library "msrest" for AutoRest generated Python clien
 License:        MIT
 URL:            %forgeurl
 Source0:        %forgesource
+# downstream only Python 3.15 patch, upstream is dead
+Patch:          fix-mock-call-count-python315.patch
 
 BuildArch:      noarch
 
@@ -41,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 
 %generate_buildrequires

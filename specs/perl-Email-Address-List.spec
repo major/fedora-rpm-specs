@@ -1,29 +1,30 @@
 Name:           perl-Email-Address-List
-Version:        0.06
-Release:        22%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        RFC close address list parsing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Address-List
 Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Email-Address-List-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
-
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(autodie)
-BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Email::Address)
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(JSON)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Module::Install::Metadata)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)
-BuildRequires:  perl(Module::Install::WriteAll)
+# Module
+BuildRequires:  perl(Email::Address)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(JSON)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Test Suite
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(warnings)
+# Dependencies
+# (none)
 
 %description
 Parser for From, To, Cc, Bcc, Reply-To, Sender and previous prefixed with
@@ -31,27 +32,37 @@ Resent- (e.g. Resent-From) headers.
 
 %prep
 %setup -q -n Email-Address-List-%{version}
-rm -r inc
+
+# Remove bundled Module::Install::* modules
+rm -rv inc
 sed -i -e '/^inc\// d' MANIFEST
-find -type f -exec chmod -x {} +
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} -c %{buildroot}
 
 %check
-%{__make} test
+make test
 
 %files
-%doc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/Email/
+%{_mandir}/man3/Email::Address::List.3*
 
 %changelog
+* Mon Jun  1 2026 Paul Howarth <paul@city-fan.org> - 0.07-1
+- Update to 0.07 (rhbz#2483185)
+  - Update whitespace removal code to remove all types of unicode whitespace in
+    addition to ASCII
+- Classify buildreqs by usage
+- Fix permissions verbosely
+- Package Changes file
+- Make %%files list more explicit
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

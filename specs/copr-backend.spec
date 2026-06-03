@@ -5,7 +5,7 @@
 %global copr_common_version 1.2.1
 
 Name:       copr-backend
-Version:    2.12.hotfix.6
+Version:    2.13
 Release:    1%{?dist}
 Summary:    Backend for Copr
 
@@ -240,33 +240,14 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Wed May 27 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.6-1
-- backend: don't try to block @copr/PyPI and @copr/PyPI3 actions
-
-* Tue May 26 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.5-1
-- backend: block all actions and builds for @copr/PyPI and @copr/PyPI3
-
-* Thu May 21 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.4-1
-- backend: move HTTP redirect management to the PulpStorage class
-- backend: use PulpHTTPRedirect in copr-change-storage
+* Mon Jun 01 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.13-1
+- Move HTTP redirect management to PulpStorage class
 - Create HTTP redirect for forked Pulp projects
-
-* Mon May 11 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.3-1
-- backend: paginate add_content and delete_content requests to Pulp
-- backend: dump a backup of files uploaded to Pulp
-
-* Thu Apr 30 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.2-1
-- backend: fix typo in log entry
-- Revert setup.py change done by standard tito tagger
-
-* Thu Apr 30 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.1-1
-- Bumping the release so that AI sees a changed package
-
-* Thu Apr 30 2026 Jakub Kadlcik <frostyx@email.cz> - 2.12.hotfix.0-2
-- Rebuild
-
-* Thu Apr 30 2026 Jakub Kadlcik <frostyx@email.cz> 2.12.hotfix.0-1
-- backend: fix prefix so it can't accidentally match multiple projects
+- Paginate add_content and delete_content requests to Pulp
+- Dump a backup of files uploaded to Pulp
+- Fix project prefix matching in Pulp repository removal
+- Integrate rpmeta for build time predictions
+- Delay rpmeta HW pools loading to prediction time
 
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.12-1
 - Modify pulp label filter for content queries

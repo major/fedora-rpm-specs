@@ -14,12 +14,6 @@
 %bcond_without xinit
 %endif
 
-%if (0%{?fedora} > 33 || 0%{?rhel} > 8)
-%bcond_without gtk4
-%else
-%bcond_with    gtk4
-%endif
-
 %global ibus_xinit_condition (%pcd1 or %pcd2 or %pcd3)
 # FIXME: How to write a condition with multiple lines
 %global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1 or %wcd2)
@@ -40,11 +34,7 @@
 %{!?gtk2_binary_version: %global gtk2_binary_version ?.?.?}
 %endif
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
-%if %{with gtk4}
 %{!?gtk4_binary_version: %global gtk4_binary_version %(pkg-config  --variable=gtk_binary_version gtk4)}
-%else
-%{!?gtk4_binary_version: %global gtk4_binary_version ?.?.?}
-%endif
 %global glib_ver %([ -a /usr/%{_lib}/pkgconfig/glib-2.0.pc ] && pkg-config --modversion glib-2.0 | cut -d. -f 1,2 || echo -n "999")
 %else
 %{!?gtk2_binary_version: %global gtk2_binary_version ?.?.?}
@@ -56,47 +46,45 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.34
+Version:        1.5.35~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
-Source0:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz
-Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz.sum#/%{name}.tar.gz.sum
+Source0:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz
+Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz.sha256sum#/%{name}.tar.xz.sha256sum
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch1:         %{name}-2444009-wayland-xkb-lv-tilde.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
-Patch1:         %{name}-1385349-segv-bus-proxy.patch
+Patch2:         %{name}-1385349-segv-bus-proxy.patch
 
-# autoreconf requires autopoint but not po.m4
+BuildRequires:  cldr-emoji-annotation
+BuildRequires:  dbus-python-devel >= %{dbus_python_version}
+BuildRequires:  dbus-x11
+BuildRequires:  dconf-devel
+BuildRequires:  desktop-file-utils
 BuildRequires:  gettext-devel
-BuildRequires:  libtool
+BuildRequires:  git
 # for gtkdoc-fixxref
 BuildRequires:  glib2-doc
+BuildRequires:  gtk-doc
 %if %{with gtk2}
 BuildRequires:  gtk2-devel
 %endif
 BuildRequires:  gtk3-devel
-%if %{with gtk4}
 BuildRequires:  gtk4-devel
-%endif
-BuildRequires:  dbus-python-devel >= %{dbus_python_version}
-BuildRequires:  desktop-file-utils
-BuildRequires:  gtk-doc
-BuildRequires:  dconf-devel
-BuildRequires:  dbus-x11
-BuildRequires:  python3-devel
-BuildRequires:  git
-BuildRequires:  vala
 BuildRequires:  iso-codes-devel
 BuildRequires:  libnotify-devel
-BuildRequires:  wayland-devel
-BuildRequires:  cldr-emoji-annotation
+BuildRequires:  meson
+BuildRequires:  python3-devel
+BuildRequires:  systemd
+BuildRequires:  vala
 BuildRequires:  unicode-emoji
 BuildRequires:  unicode-ucd
-BuildRequires:  systemd
+BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
@@ -178,7 +166,6 @@ Requires(post): glib2 >= %{glib_ver}
 %description gtk3
 This package contains IBus IM module for GTK3
 
-%if %{with gtk4}
 %package gtk4
 Summary:        IBus IM module for GTK4
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
@@ -187,7 +174,6 @@ Requires(post): glib2 >= %{glib_ver}
 
 %description gtk4
 This package contains IBus IM module for GTK4
-%endif
 
 %package setup
 Summary:        IBus setup utility
@@ -195,7 +181,6 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       python3-gobject
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  python3-gobject-devel
-BuildRequires:  make
 BuildArch:      noarch
 
 %description setup
@@ -283,8 +268,8 @@ the functionality of the installed %{name} package.
 
 
 %prep
-SAVED_SUM=$(grep sha512sum %SOURCE1 | awk '{print $2}')
-MY_SUM=$(sha512sum %SOURCE0 | awk '{print $1}')
+SAVED_SUM=$(cat %SOURCE1 | awk '{print $1}')
+MY_SUM=$(sha256sum %SOURCE0 | awk '{print $1}')
 if test x"$SAVED_SUM" != x"$MY_SUM" ; then
     abort
 fi
@@ -315,42 +300,26 @@ fi
 #make -C src/compose maintainer-clean-generic
 #make -C tools maintainer-clean-generic
 #make -C ui/gtk3 maintainer-clean-generic
-%configure \
-    --disable-static \
+%meson \
 %if %{with gtk2}
-    --enable-gtk2 \
+    -Dgtk2=enabled \
 %else
-    --disable-gtk2 \
+    -Dgtk2=disabled \
 %endif
-    --enable-gtk3 \
-%if %{with gtk4}
-    --enable-gtk4 \
-%endif
-    --enable-xim \
-    --enable-gtk-doc \
-    --enable-surrounding-text \
-    --with-python=python3 \
-    --disable-python2 \
-    --with-python-overrides-dir=%{python3_sitearch}/gi/overrides \
-    --enable-wayland \
-    --enable-introspection \
-    --enable-install-tests \
+    -Dpython-overrides-dir=%{python3_sitearch}/gi/overrides \
+    -Dinstall-tests=true \
     %{nil}
-# for 1385349-segv-bus-proxy.patch
-make -C ui/gtk3 maintainer-clean-generic
 
-%make_build
+%meson_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%meson_install
 rm -f $RPM_BUILD_ROOT%{_libdir}/libibus-*%{ibus_api_version}.la
 %if %{with gtk2}
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/%{gtk2_binary_version}/immodules/im-ibus.la
 %endif
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-ibus.la
-%if %{with gtk4}
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-4.0/%{gtk4_binary_version}/immodules/libim-ibus.la
-%endif
 %if %{without xinit}
 # setxkbmap is not available in RHEL10
 rm -f $RPM_BUILD_ROOT%{_datadir}/installed-tests/ibus/xkb-latin-layouts.test
@@ -413,10 +382,7 @@ desktop-file-install --delete-original          \
 %find_lang %{name}10
 
 %check
-make check \
-    DISABLE_GUI_TESTS="ibus-compose ibus-keypress test-stress xkb-latin-layouts" \
-    VERBOSE=1 \
-    %{nil}
+%meson_test --no-suite ibus:display
 
 %post xinit
 %{_sbindir}/alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_xinputconf} 83 || :
@@ -519,11 +485,9 @@ dconf update || :
 %files gtk3
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-ibus.so
 
-%if %{with gtk4}
 %files gtk4
 %dir %{_libdir}/gtk-4.0/%{gtk4_binary_version}/immodules
 %{_libdir}/gtk-4.0/%{gtk4_binary_version}/immodules/libim-ibus.so
-%endif
 
 # The setup package won't include icon files so that
 # gtk-update-icon-cache is executed in the main package only one time.
@@ -583,6 +547,12 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Jun 01 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-2
+- Bump to 1.5.35-alpha1
+- Switch Autotool to Meson build
+- Add ibus-2444009-wayland-xkb-lv-tilde.patch
+- Resolves #2444009 Fix Latvian(tilde) keymap with ibus-wayland
+
 * Thu Apr 30 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34-1
 - Bump to 1.5.34
 

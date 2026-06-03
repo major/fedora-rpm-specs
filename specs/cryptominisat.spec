@@ -1,11 +1,11 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  3f87cdbe4565fba7e0dabb4c0638b00bbf05d9cc
+%global cadicommit  35f027383abf3b4b52bbc8af789c8f1aa3d84ad2
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
-Version:        5.14.4
+Version:        5.14.5
 Release:        %autorelease
 Summary:        SAT solver
 
@@ -25,6 +25,13 @@ Patch:          %{name}-breakid.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -Dcadical_DIR:PATH=%{_prefix}
+BuildOption(conf): -DBUILD_PYTHON_EXTENSION:BOOL=ON
+BuildOption(conf): -DCMAKE_INSTALL_BINDIR=bin
+BuildOption(conf): -DCMAKE_INSTALL_LIBDIR=%{_lib}
+BuildOption(conf): -DENABLE_ASSERTIONS:BOOL=OFF
+BuildOption(conf): -DNOBREAKID:BOOL=OFF
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -75,15 +82,18 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Python 3 interface to %{name}.
 
 %prep
-%autosetup -n %{name}-release-v%{version} -p1 -a1
-
-# Permit use of cmake 4
-sed -i 's/,<4//' pyproject.toml
+%autosetup -N -n %{name}-release-v%{version} -a1
 
 # Make cadiback visible to cmake
 mkdir -p %{_vpath_builddir}
 mv cadiback-%{cadicommit} cadiback
 sed -i '/CADIBACK_GITID/s/unknown/%{cadicommit}/' cadiback/CMakeLists.txt
+
+# Apply patches after the cadiback rename
+%autopatch -p1
+
+# Permit use of cmake 4
+%pyproject_patch_dependency cmake:drop_upper
 
 # Do not try to checkout cadiback with git
 sed -e '/GIT_REPOSITORY.*cadiback/i\            SOURCE_DIR     ../cadiback)' \
@@ -105,21 +115,11 @@ rm -fr src/mpicosat
 %generate_buildrequires
 %pyproject_buildrequires
 
-%build
+%conf -p
 export CFLAGS='%{build_cflags} -DNTRACING'
 export CXXFLAGS='%{build_cxxflags} -DNTRACING'
-%cmake \
-    -Dcadical_DIR:PATH=%{_prefix} \
-    -DBUILD_PYTHON_EXTENSION:BOOL=ON \
-    -DCMAKE_INSTALL_BINDIR=bin \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-    -DENABLE_ASSERTIONS:BOOL=OFF \
-    -DNOBREAKID:BOOL=OFF
-%cmake_build
 
-%install
-%cmake_install
-
+%install -a
 # We don't want the bundled cadiback
 rm -fr %{buildroot}%{_includedir}/cadiback
 rm -fr %{buildroot}%{_libdir}/cmake/cadiback
@@ -167,20 +167,27 @@ cat > %{metadata}/top_level.txt << EOF
 pycryptosat
 EOF
 
+# Avoid a name clash
+mv %{buildroot}%{_bindir}/oracle %{buildroot}%{_bindir}/cryptominisat5-oracle
+
 %files
 %doc README.md
 %{_bindir}/cryptominisat5
+%{_bindir}/cryptominisat5-oracle
 %{_mandir}/man1/cryptominisat5.1*
 
 %files devel
 %{_includedir}/cryptominisat5/
+%{_includedir}/oracle/
 %{_libdir}/libcryptominisat5.so
+%{_libdir}/liboracle.so
 %{_libdir}/cmake/cryptominisat5/
 
 %files libs
 %doc AUTHORS
 %license LICENSE.txt
 %{_libdir}/libcryptominisat5.so.5.14
+%{_libdir}/liboracle.so.5.14
 
 %files -n python3-pycryptosat
 %doc python/README.md

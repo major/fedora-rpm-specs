@@ -2,7 +2,7 @@
 
 Name: xmlstarlet
 Version: 1.6.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Command Line XML Toolkit
 License: MIT
 URL: http://xmlstar.sourceforge.net/
@@ -10,6 +10,8 @@ Source0: http://downloads.sourceforge.net/xmlstar/%{name}-%{version}.tar.gz
 # https://sourceforge.net/p/xmlstar/bugs/109/
 Patch0: xmlstarlet-1.6.1-nogit.patch
 # http://sourceforge.net/tracker/?func=detail&aid=3266898&group_id=66612&atid=515106
+# Fix for XXE (XML External Entity) vulnerability
+Patch1: xmlstarlet-1.6.1-fix-xxe.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -53,6 +55,9 @@ make check
 
 
 %changelog
+* Wed May 27 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.1-30
+- Fix XXE (XML External Entity) vulnerability
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -19,8 +19,8 @@ Source11:       typer-utils.1
 #   PYTHONPATH="${PWD}" typer x utils docs --help.
 Source12:       typer-utils-docs.1
 
-BuildSystem:            pyproject
-BuildOption(install):   -l typer
+BuildSystem:    pyproject
+BuildOption(install): --assert-license typer
 
 BuildArch:      noarch
 
@@ -68,10 +68,11 @@ Conflicts:      erlang-dialyzer < 26.2.5.13-2
 
 
 %install -a
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
-install -d \
+install --directory \
     '%{buildroot}%{bash_completions_dir}' \
     '%{buildroot}%{zsh_completions_dir}' \
     '%{buildroot}%{fish_completions_dir}'
@@ -109,7 +110,7 @@ exit(run([executable] + argv[2:]).returncode)
 EOF
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 
-%pytest -k "${k-}" ${ignore-} -n auto -v -rs
+%pytest -k "${k-}" ${ignore-} --numprocesses auto --verbose -rs
 
 
 %files -n python3-typer -f %{pyproject_files}

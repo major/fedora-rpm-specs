@@ -1,23 +1,26 @@
 %global cpan_name DateTime-Format-Duration
 
 Name:           perl-%{cpan_name}
-Version:        1.04
-Release:        30%{?dist}
+Version:        1.05
+Release:        1%{?dist}
 Summary:        Format and parse DateTime::Durations
-# Old FSF address reported to upstream as CPAN RT #82055
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/%{cpan_name}-%{version}.tar.gz
 # Upstream links images to the Internet, we package them into %%{_docdir}
 Patch0:         DateTime-Format-Duration-1.04-Link-images-to-local-documentation.patch
+# Fix warnings on Perl 5.42.2, proposed upstream,
+# <https://github.com/karenetheridge/DateTime-Format-Duration/pull/3>
+Patch1:         DateTime-Format-Duration-1.05-Fix-Use-of-uninitialized-value-W-in-scalar-assignmen.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -27,41 +30,75 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DateTime::Duration)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Params::Validate)
+BuildRequires:  perl(Scalar::Util)
 # Tests:
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test::More) >= 0.88
+# Optional tests:
+# CPAN::Meta not helpful
 Requires:       perl(Data::Dumper)
 
 %description
 This module formats and parses DateTime::Duration objects as well as other
-durations representations.
+duration representations.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n %{cpan_name}-%{version}
-%patch -P0 -p1
-find -type f -exec chmod -x {} +
+%autosetup -p1 -n %{cpan_name}-%{version}
+find -type f -exec chmod 0644 {} +
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENCE
 %doc Changes CONTRIBUTING docs README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/DateTime
+%dir %{perl_vendorlib}/DateTime/Format
+%{perl_vendorlib}/DateTime/Format/Duration.pm
+%{_mandir}/man3/DateTime::Format::Duration.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 01 2026 Petr Pisar <ppisar@redhat.com> - 1.05-1
+- 1.05 bump
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

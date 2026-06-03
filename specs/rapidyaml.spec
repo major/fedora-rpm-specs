@@ -4,24 +4,18 @@
 # Upstream defaults to C++11, but gtest 1.17.0 requires C++17 or later.
 %global cxx_std 17
 
-# Post-release snapshot adapts for latest c4project macros and fixes
-# multilib/GNUInstallDirs support.
-%global commit 2505c3567d9cc32b36afc61e04b57acd91600106
-%global snapdate 20260508
-
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.12.1^%{snapdate}.%{sub %{commit} 1 7}
+Version:        0.13.0
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.12.1
+%global so_version 0.13.0
 Release:        %autorelease
 
 # SPDX
 License:        MIT
 URL:            https://github.com/biojppm/rapidyaml
-# Source0:        %%{url}/archive/v%%{version}/rapidyaml-%%{version}.tar.gz
-Source0:        %{url}/archive/%{commit}/rapidyaml-%{commit}.tar.gz
+Source0:        %{url}/archive/v%{version}/rapidyaml-%{version}.tar.gz
 # Read this from the unpatched original test/CMakeLists.txt:
 #   c4_download_remote_proj(yaml-test-suite … GIT_TAG <USE THIS>)
 %global yamltest_url https://github.com/yaml/yaml-test-suite
@@ -57,7 +51,7 @@ BuildRequires:  gcc-c++
 # Minimum version with proper multilib (GNUInstallDirs) support
 BuildRequires:  c4project >= 0^20260428.fa85cab-1
 
-BuildRequires:  cmake(c4core) >= 0.2.10
+BuildRequires:  cmake(c4core) >= 0.3.0
 
 %if %{with tests}
 BuildRequires:  cmake(c4fs)
@@ -106,8 +100,7 @@ applications that use Rapid YAML.
 
 
 %prep
-# %%autosetup -p1
-%autosetup -p1 -n rapidyaml-%{commit}
+%autosetup -p1
 
 # Remove/unbundle additional dependencies
 
@@ -126,9 +119,9 @@ sed --regexp-extended --in-place '/INCORPORATE c4core/d' 'CMakeLists.txt'
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4fs' '\)$'
 '%{SOURCE10}' 'ext/testbm.cmake' 'c4_add_library\(c4fs' '\)$'
 
-# Patch out download of c4log
-'%{SOURCE10}' 'test/CMakeLists.txt' \
-    'c4_require_subproject\(c4(log)' '\)$'
+# Patch out download of c4log:
+'%{SOURCE10}' 'ext/testbm.cmake' 'c4_download_remote_proj\(c4log' '\)$'
+'%{SOURCE10}' 'ext/testbm.cmake' 'c4_add_library\(c4log' '\)$'
 
 # Patch out download of yaml-test-suite:
 '%{SOURCE10}' 'test/CMakeLists.txt' \
@@ -139,12 +132,10 @@ sed --regexp-extended --in-place \
 mkdir --parents 'test/extern/'
 
 # Original sources (including LICENSE)
-# %%setup -q -T -D -b 1 -n rapidyaml-%%{version}
-%setup -q -T -D -b 1 -n rapidyaml-%{commit}
+%setup -q -T -D -b 1 -n rapidyaml-%{version}
 
 # Data in the form rapidyaml needs it
-# %%setup -q -T -D -b 2 -n rapidyaml-%%{version}
-%setup -q -T -D -b 2 -n rapidyaml-%{commit}
+%setup -q -T -D -b 2 -n rapidyaml-%{version}
 mv '../yaml-test-suite-data-%{yamltest_date}' 'test/extern/yaml-test-suite'
 
 

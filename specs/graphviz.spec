@@ -38,6 +38,7 @@
 
 %global DEVIL  1
 %global ARRRR  1
+%global ASCII  1
 
 # Build with QT applications (currently only gvedit)
 # Disabled until the package gets better structuring, see bug #447133
@@ -61,6 +62,7 @@
 %global DEVIL  0
 %global GTS    0
 %global LASI   0
+%global ASCII  0
 %endif
 
 %if %{GTS} && %{with gtk2}
@@ -106,7 +108,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		15.0.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -206,6 +208,9 @@ BuildRequires:		doxygen
 %endif
 %if %{GOLANG}
 BuildRequires:		golang
+%endif
+%if %{ASCII}
+BuildRequires:		aalib-devel
 %endif
 Requires:		urw-base35-fonts
 # rhbz#1838679
@@ -475,9 +480,14 @@ export CPPFLAGS=-I`ruby -e "puts File.join(RbConfig::CONFIG['includedir'], RbCon
 	--enable-guile=no \
 %endif
 %if %{GOLANG}
-	--enable-go=yes
+	--enable-go=yes \
 %else
-	--enable-go=no
+	--enable-go=no \
+%endif
+%if %{ASCII}
+	--with-aalib=yes
+%else
+	--with-aalib=no
 %endif
 
 # drop rpath
@@ -737,6 +747,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Jun 01 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 15.0.0-2
+- Built with ASCII art output support (aalib) on Fedora
+  Resolves: rhbz#2483520
+
 * Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 15.0.0-1
 - New version
   Resolves: rhbz#2480977

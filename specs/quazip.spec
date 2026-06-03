@@ -25,7 +25,7 @@
 
 
 Name:           quazip
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Qt/C++ wrapper for the minizip library
 
@@ -42,8 +42,6 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 %else
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
 %endif
-# Fix qt6 build
-Patch1:         quazip_build.patch
 # Fix use in qt5 applications (Qt5 does not have QStringConverter)
 Patch0:         quazip_qt5.patch
 
@@ -272,7 +270,7 @@ export QT_ENABLE_REGEXP_JIT=0
 %doc NEWS.txt README.md
 %license COPYING
 %{_libdir}/libquazip1-qt5.so.1.7
-%{_libdir}/libquazip1-qt5.so.1.7.0
+%{_libdir}/libquazip1-qt5.so.%{version}
 
 %files qt5-devel
 %doc doc/html
@@ -305,7 +303,7 @@ export QT_ENABLE_REGEXP_JIT=0
 %doc NEWS.txt README.md
 %license COPYING
 %{_libdir}/libquazip1-qt6.so.1.7
-%{_libdir}/libquazip1-qt6.so.1.7.0
+%{_libdir}/libquazip1-qt6.so.%{version}
 
 %files qt6-devel
 %doc doc/html

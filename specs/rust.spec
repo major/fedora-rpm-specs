@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.95.0
+Version:        1.96.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.94.0
-%global bootstrap_channel 1.94.0
-%global bootstrap_date 2026-03-05
+%global bootstrap_version 1.95.0
+%global bootstrap_channel 1.95.0
+%global bootstrap_date 2026-04-16
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -42,12 +42,12 @@ ExclusiveArch:  %{rust_arches}
 %bcond_with llvm_static
 
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
-# is insufficient. Rust currently requires LLVM 19.0+.
+# is insufficient. Rust currently requires LLVM 21.0+.
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 # See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
-%global min_llvm_version 20.0.0
-%global bundled_llvm_version 21.1.8
-#global llvm_compat_version 19
+%global min_llvm_version 21.0.0
+%global bundled_llvm_version 22.1.2
+#global llvm_compat_version 21
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
@@ -64,7 +64,7 @@ ExclusiveArch:  %{rust_arches}
 
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.51.1
+%global bundled_sqlite3_version 3.51.3
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -134,13 +134,13 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.95.0-unbundle-sqlite.patch
+Patch6:         rustc-1.96.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 
 # https://github.com/rust-openssl/rust-openssl/pull/2591/
-# (only the openssl-sys changes, backported for 0.9.111)
+# (only the openssl-sys changes, backported for 0.9.112)
 Patch8:         0001-openssl-4-support-2591.patch
 
 ### RHEL-specific patches below ###
@@ -152,7 +152,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.95.0-disable-libssh2.patch
+Patch100:       rustc-1.96.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -263,7 +263,7 @@ BuildRequires:  curl-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(liblzma)
 
-# Only specific versions of openssl are supported. They are 1.0.2 - 1.1.1, 3, or 4
+# Only specific versions of openssl are supported: 1.1.0, 1.1.1, 3.x, or 4.x
 # The openssl-sys crate will also verify the release is supported.
 BuildRequires:  pkgconfig(openssl) < 5~
 
@@ -702,6 +702,10 @@ truncate --no-create --size=0 %{wasi_libc_dir}/dlmalloc/src/*.c
 
 %setup -q -n %{rustc_package}
 
+# Sanity check that the source version is what we expect,
+# especially for betas where the tarball is unversioned.
+test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('~', '-'))) }"
+
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
@@ -713,7 +717,7 @@ truncate --no-create --size=0 %{wasi_libc_dir}/dlmalloc/src/*.c
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
-%patch -P8 -p2 -d vendor/openssl-sys-0.9.111
+%patch -P8 -p2 -d vendor/openssl-sys-0.9.112
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -877,14 +881,8 @@ env -u CFLAGS %__cmake \
 %define profiler %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 test -r "%{profiler}"
 
-# llvm < 21 does not provide a builtins library for s390x.
-%if "%{_arch}" != "s390x" || 0%{?clang_major_version} >= 21
 %define optimized_builtins %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.builtins.a
 test -r "%{optimized_builtins}"
-%else
-%define optimized_builtins false
-%endif
-
 
 %configure --disable-option-checking \
   --docdir=%{_pkgdocdir} \

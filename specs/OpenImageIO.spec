@@ -2,8 +2,8 @@
 %global sover 3.1
 
 Name:           OpenImageIO
-Version:        3.1.12.0
-Release:        5%{?dist}
+Version:        3.1.14.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -63,7 +63,7 @@ BuildRequires:  pugixml-devel
 BuildRequires:  ptex-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  robin-map-devel
 # OpenVDB is locked to tbb 2020.3
 BuildRequires:  cmake(tbb) = 2020.3
@@ -205,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jun 02 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.14.0-1
+- Update to 3.1.14.0.
+
 * Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.12.0-5
 - Rebuild for OpenColorIO 2.5.2.
 

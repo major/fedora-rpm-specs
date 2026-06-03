@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        70
+Version:        71
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,12 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Jun 01 2026 Packit <hello@packit.dev> - 71-1
+- storage: show specific error when /boot/efi is on vfat without ESP (Resolves: rhbz#2449247)
+- webui-desktop: reuse desktop session on Live ISO (Resolves: rhbz#2477524)
+- users: support policy-allowed empty user passwords (Resolves: rhbz#2458977)
+- password: relax validation when policy is not strict (Resolves: rhbz#2458977)
+
 * Thu May 28 2026 Packit <hello@packit.dev> - 70-1
 - storage: avoid UnknownDeviceError after disk removal and rescan
   (Resolves: rhbz#2456923)

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL3
-Version:        3.4.8
+Version:        3.4.10
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL3 cross-platform multimedia library
 
@@ -129,6 +129,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Mon Jun 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.10-1
+- Update to v3.4.10
+
 * Sat May 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.8-1
 - Update to v3.4.8
 

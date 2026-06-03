@@ -1,11 +1,11 @@
 Name:           pychromecast
-Version:        13.1.0
-Release:        11%{?dist}
+Version:        14.0.10
+Release:        1%{?dist}
 Summary:        Python library to communicate with the Google Chromecast
 
 License:        MIT
 URL:            https://github.com/home-assistant-libs/pychromecast
-Source0:        https://github.com/home-assistant-libs/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires:  python3-devel
@@ -46,6 +46,9 @@ currently supports:
 
 %prep
 %autosetup -p1
+# Drop upper requirements on setuptools/wheel
+sed -i 's/,<83.0//' pyproject.toml
+sed -i 's/,<0.47.0//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -64,6 +67,9 @@ currently supports:
 %license LICENSE
 
 %changelog
+* Mon Jun 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 14.0.10-1
+- Update to 14.0.10 (rhbz#2270373)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

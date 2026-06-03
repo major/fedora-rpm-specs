@@ -10,13 +10,14 @@
 
 Name:           perl-Gtk2
 Version:        1.24993
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl interface to the 2.x series of the Gimp Toolkit library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://metacpan.org/release/Gtk2
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Gtk2-%{version}.tar.gz
-BuildRequires: make
+Patch0:         Gtk2-1.24993-Adapt-to-EU-ParseXS-3.63.patch
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  perl-interpreter >= 2:5.8.0
 BuildRequires:  perl-devel
@@ -254,6 +255,7 @@ API.  Find out more about Gtk+ at http://www.gtk.org.
 
 %prep
 %setup -q -n Gtk2-%{version}
+%patch -P0 -p1
 
 # iconv -f iso-8859-1 -t utf-8 -o pm/Helper.pm{.utf8,}
 # mv pm/Helper.pm{.utf8,}
@@ -282,6 +284,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Mon Jun 01 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.24993-25
+- Fix compatibility with ExtUtils::ParseXS 3.63
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24993-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

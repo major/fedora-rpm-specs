@@ -20,6 +20,7 @@ URL:            https://github.com/fedora-java/javapackages
 BuildArch:      noarch
 
 Source:         https://github.com/fedora-java/javapackages/archive/%{version}.tar.gz
+Patch:          https://github.com/fedora-java/javapackages/pull/160.patch
 
 BuildRequires:  coreutils
 BuildRequires:  rubygem-asciidoctor

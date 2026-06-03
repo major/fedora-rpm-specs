@@ -16,7 +16,7 @@
 
 Summary:    X.Org X11 X server
 Name:       xorg-x11-server
-Version:    21.1.22
+Version:    21.1.23
 Release:    1%{?dist}
 URL:        http://www.x.org
 # SPDX
@@ -415,6 +415,12 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Tue Jun 02 2026 Peter Hutterer <peter.hutterer@redhat.com> - 21.1.23-1
+- Update to xserver 21.1.23
+  Security fixes for: ZDI-CAN-30136, ZDI-CAN-30159, ZDI-CAN-30160,
+                      ZDI-CAN-30161, ZDI-CAN-30163, ZDI-CAN-30164,
+                      ZDI-CAN-30165, ZDI-CAN-30168
+
 * Tue Apr 14 2026 Olivier Fourdan <ofourdan@redhat.com> - 21.1.22-1
 - Update to xserver 21.1.22
 - CVE fix for: CVE-2026-33999, CVE-2026-34000, CVE-2026-34001,

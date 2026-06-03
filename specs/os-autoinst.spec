@@ -24,9 +24,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  5
-%global github_commit   11296ca97860b88bdc48348eba6b2db5673b22a6
+%global github_commit   6ee8da2b6ee5c5f5c0a30581cc3a0b42ab5a8224
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20260521
+%global github_date     20260601
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -39,6 +39,14 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/os-autoinst/os-autoinst
 ExcludeArch:    %{ix86}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
+# https://github.com/os-autoinst/os-autoinst/pull/2952
+# https://progress.opensuse.org/issues/201516
+# Type command and "marker string" together on the serial console in
+# script_run to avoid weird bug where we get extra chars between them
+Patch:          0001-script_run-type-command-and-marker-together-on-seria.patch
+# https://github.com/os-autoinst/os-autoinst/pull/2953
+# Adjust tests for removal of linuxboot.bin in qemu 11
+Patch:          0001-fix-test-use-linuxboot_dma.bin-in-18-backend-qemu.t.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -79,7 +87,7 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # different releases)
 # SUSE just has 'ipxe-bootimgs', we have -aarch64 and -x86
 # The following line is generated from dependencies.yaml (upstream)
-%define test_base_requires %main_requires cpio icewm perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Syntax::Keyword::Try) perl(Test::Compile) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Perl::Critic) perl(Test::Pod) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat /usr/bin/Xvnc xterm xterm-console
+%define test_base_requires %main_requires cpio icewm perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Compile) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Perl::Critic) perl(Test::Pod) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat /usr/bin/Xvnc xterm xterm-console
 # The following line is generated from dependencies.yaml (upstream)
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk, and

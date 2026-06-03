@@ -4,7 +4,7 @@ Release:	%autorelease
 Summary:	Third party remote pointing to a filtered version of flathub.org
 
 License:	MIT
-URL:		https://pagure.io/fedora-flathub-filter
+URL:		https://forge.fedoraproject.org/fesco/fedora-flathub-filter
 Source0:	LICENSE
 Source1:	fedora-flathub.filter
 Source2:	fedora-flathub.conf

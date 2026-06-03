@@ -52,7 +52,7 @@
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
 Release:	2%{?dist}%{flagrel}
-Summary:	Extremly fast and lightweight file manager
+Summary:	Extremely fast and lightweight file manager
 
 # SPDX confirmed
 License:	GPL-2.0-or-later
@@ -111,7 +111,7 @@ Requires:		libfm-gtk-utils
 Requires:	libfm >= %{libfm_minver}
 
 %description
-PCMan File Manager is an extremly fast and lightweight file manager 
+PCMan File Manager is an extremely fast and lightweight file manager 
 which features tabbed browsing and user-friendly interface.
 
 %package		devel

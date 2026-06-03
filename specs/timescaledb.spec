@@ -1,13 +1,14 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.16.0
-Release:        4%{?dist}
+Version:        2.27.1
+Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
 License:        Apache-2.0
 URL:            http://www.%{core_name}.com
-Source0:        https://github.com/%{core_name}/%{name}/archive/refs/tags/%{version}.tar.gz
+# Use the generate-free-sources.sh script to generate the tarball
+Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  cmake gcc openssl-devel postgresql-server-devel
 
@@ -49,6 +50,9 @@ rm -rf tsl
 
 
 %changelog
+* Mon Jun 01 2026 Aurelien Bompard <abompard@fedoraproject.org> - 2.27.1-1
+- Version 2.27.1 (rhbz#2303604)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

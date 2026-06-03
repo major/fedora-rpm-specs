@@ -1,11 +1,25 @@
 %global srcname qutebrowser
 
 Name:		%{srcname}
-Version:	3.6.3
+Version:	3.7.0
 Release:	%autorelease
 Summary:	A keyboard-driven, vim-like browser based on PyQt5 and QtWebEngine
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
+
+# license breakdown
+# Command: licensecheck -r . | sed -e '/UNKNOWN/ d' -e 's/\*No copyright\*//' | sort -d -b -i -t ":" -k 2
+# Everything included in the RPM is marked GPL-3.0-only other than these. Some
+# other files to have other licenses, but they are not included in the RPM.
+
+# - ./qutebrowser/javascript/pac_utils.js: GNU General Public License (v2 or later) or GNU Lesser General Public License (v2.1 or later) and/or GNU General Public License v2.0 or later and/or Mozilla Public License 1.1
+# - ./qutebrowser/javascript/quirks/array_at.user.js: MIT License
+
+# Should the license be GPL-3.0-or-later given that the repo/readme says this:
+# "This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version."
+
+License:	GPL-3.0-only and MIT
 URL:		http://www.qutebrowser.org
 Source0:	https://github.com/%{srcname}/%{srcname}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:	noarch

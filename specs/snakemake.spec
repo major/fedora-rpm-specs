@@ -46,9 +46,12 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.21.0
+Version:        9.21.1
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
+# The summary macro is overwritten by extras metapackages, but we want to use
+# the base package’s summary text in the man page.
+%global base_summary %{summary}
 
 # The primary license for Snakemake is MIT; web assets contribute a variety of
 # other licenses.
@@ -159,10 +162,10 @@ Source2:        get_assets
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
 
-# Remove useless shebang lines from two modules
-# https://github.com/snakemake/snakemake/pull/4186
-# Rebased on v9.20.0
-Patch:          0001-Remove-useless-shebang-lines-from-one-module.patch
+# fix: Adapt for dataclasses._MISSING_TYPE replaced with sentinel in Python 3.15
+# https://github.com/snakemake/snakemake/pull/4211
+# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2483710.
+Patch:          %{forgeurl}/pull/4211.patch
 
 BuildSystem:    pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
@@ -488,7 +491,7 @@ sed --regexp-extended --in-place \
 install --directory %{buildroot}%{_mandir}/man1
 PATH="${PATH-}:%{buildroot}%{_bindir}" \
     PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-    help2man --no-info --name='%{summary}' snakemake \
+    help2man --no-info --name='%{base_summary}' snakemake \
     > %{buildroot}%{_mandir}/man1/snakemake.1
 
 # Install nano syntax highlighting

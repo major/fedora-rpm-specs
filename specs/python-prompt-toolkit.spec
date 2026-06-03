@@ -9,6 +9,11 @@ Summary:        Library for building powerful interactive command line applicati
 License:        BSD-3-Clause
 URL:            https://github.com/prompt-toolkit/python-prompt-toolkit
 Source:         %{pypi_source prompt_toolkit}
+# Allow binding control+backspace separately from backspace in modern terminal
+# emulators such as ptyxis, konsole, and cosmic-term.
+# https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1380
+# https://github.com/prompt-toolkit/python-prompt-toolkit/pull/1384
+Patch:          0001-feat-separate-handling-of-Control-H-H-and-Backspace-in-non-Windows-systems.patch
 BuildArch:      noarch
 
 
@@ -27,7 +32,7 @@ Recommends:     python3-pygments
 
 
 %prep
-%autosetup -n prompt_toolkit-%{version}
+%autosetup -p 1 -n prompt_toolkit-%{version}
 # Workaround for https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1988
 sed -i 's/^__version__ = .*/__version__ = "%{version}"/' src/prompt_toolkit/__init__.py
 

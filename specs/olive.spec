@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Mon Jun 01 2026 Adam Williamson <awilliam@redhat.com> - 0.2.0^20241204git8ac191c-7
+- Rebuild for OpenColorIO 2.5.2
+
 * Mon May 25 2026 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20241204git8ac191c-6
 - Rebuild for OpenEXR 3.4.12.
 

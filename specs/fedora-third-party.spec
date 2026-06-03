@@ -4,7 +4,7 @@ Release:	%autorelease
 Summary:	Tool for handling third-party RPM and Flatpak repositories in Fedora
 
 License:	MIT
-URL:		https://pagure.io/fedora-third-party
+URL:		https://forge.fedoraproject.org/fesco/fedora-third-party
 Source0:	fedora-third-party-%{version}.tar.gz
 
 BuildArch:	noarch

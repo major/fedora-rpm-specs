@@ -18,6 +18,9 @@ License: MIT
 Summary: %{sum}
 URL:     https://github.com/Pylons/%{srcname}
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Skip distributions with missing metadata on Python 3.15+
+# MetadataNotFound (FileNotFoundError) is now raised instead of returning None
+Patch:  https://github.com/Pylons/plaster/pull/38.patch
 
 BuildRequires: make
 BuildRequires: python3-devel
@@ -44,7 +47,7 @@ Summary: %{sum}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -t

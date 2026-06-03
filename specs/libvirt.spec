@@ -294,7 +294,7 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 12.3.0
+Version: 12.4.0
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
@@ -2702,6 +2702,9 @@ exit 0
 
 
 %changelog
+* Mon Jun 01 2026 Cole Robinson <crobinso@redhat.com> - 12.4.0-1
+- Rebase to version 12.4.0
+
 * Sun May 03 2026 Cole Robinson <crobinso@redhat.com> - 12.3.0-1
 - Rebase to version 12.3.0
 

@@ -13,23 +13,23 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	6.0.0
+Version:	6.0.2
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
-License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
+License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}-sysusers.conf
 
-#		https://github.com/xrootd/xrootd/pull/2769
-Patch0:		0001-Add-include-XrdSys-XrdSysPlatform.hh-for-MAXPATHLEN.patch
-Patch1:		0002-Add-catch-all-work-around-for-missing-gettid.patch
-Patch2:		0003-Also-check-for-GNU-in-statx.patch
-Patch3:		0004-Fix-kerberos-tests-when-usr-sbin-is-not-in-PATH.patch
-Patch4:		0005-Fix-typo-conent-content.patch
-Patch5:		0006-Change-file-to-avoid-sed-during-install.patch
 #		Unbundle tinyxml library
-Patch6:		0001-Unbundle-tinyxml.patch
+Patch0:		0001-Unbundle-tinyxml.patch
+#		Adapt to OpenSSL 4
+#		https://github.com/xrootd/xrootd/pull/2802
+Patch1:		0001-XrdCrypto-XrdTls-XrdVoms-Adapt-to-OpenSSL-4.0.patch
+Patch2:		0002-XrdCrypto-Preserve-ABI.patch
+#		Backport fix from upstream
+#		https://github.com/xrootd/xrootd/pull/2799
+Patch3:		0001-XrdClHttp-Fix-bug-preventing-the-configuration-of-th.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -241,6 +241,7 @@ a subset of the namespace to an external issuer.
 %package ceph
 Summary:	XRootD plugin for interfacing with the Ceph storage platform
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-server-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description ceph
 The xrootd-ceph is an OSS layer plugin for the XRootD server for
@@ -270,9 +271,6 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-%patch -P6 -p1
 
 %build
 %cmake \
@@ -408,28 +406,14 @@ done
 
 touch testfile
 if ( setfattr -n user.testattr -v testvalue testfile ) ; then
-    %ctest -- -E XRootD::badredir
+%ifarch %{ix86} %{arm}
+    %ctest -- -E 'XRootD::badredir|XRootD::posix'
+%else
+    %ctest -- -E 'XRootD::badredir'
+%endif
 else
     echo "Extended file attributes not supported by file system"
-    echo "Don't run tests that require them"
-    exclude="\
-XrdCl::FileCopyTest|\
-XrdCl::FileSystemTest.PlugInTest|\
-XrdCl::FileSystemTest.ServerQueryTest|\
-XrdCl::FileSystemTest.XAttrTest|\
-XrdCl::FileTest.XAttrTest|\
-XrdCl::LocalFileHandlerTest.XAttrTest|\
-XrdCl::ThreadingTest|\
-XrdCl::WorkflowTest.CheckpointTest|\
-XrdCl::WorkflowTest.XAttrWorkflowTest|\
-XrdEc::XrdEcTests|\
-XRootD::authenticated_cluster::test|\
-XRootD::badredir|\
-XRootD::cluster::test|\
-XRootD::http::test|\
-XRootD::posix::test|\
-XRootD::tpc::test"
-    %ctest -- -E $exclude
+    echo "*** NOT RUNNING TESTS ***"
 fi
 rm testfile
 
@@ -681,6 +665,11 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu May 21 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.0.2-1
+- Update to version 6.0.2
+- Adapt to OpenSSL 4.0
+- Drop patches accepted upstream
+
 * Sat Apr 11 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.0.0-1
 - Update to version 6.0.0
 

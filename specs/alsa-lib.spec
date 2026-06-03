@@ -2,17 +2,17 @@
 #define  prever_dot .rc3
 #define  postver    a
 
-%define version_alsa_lib  1.2.15.3
-%define version_alsa_ucm  1.2.15.3
+%define version_alsa_lib  1.2.16
+%define version_alsa_ucm  1.2.16
 %define version_alsa_tplg 1.2.5
 
 %global lib_patch         0
-%global ucm_patch         1
+%global ucm_patch         0
 
 Summary:  The Advanced Linux Sound Architecture (ALSA) library
 Name:     alsa-lib
 Version:  %{version_alsa_lib}
-Release:  4%{?prever_dot}%{?dist}
+Release:  2%{?prever_dot}%{?dist}
 License:  LGPL-2.1-or-later
 URL:      http://www.alsa-project.org/
 
@@ -33,10 +33,6 @@ Patch0:   alsa-git.patch
 %endif
 Patch1:   alsa-lib-1.2.3.1-config.patch
 Patch2:   alsa-lib-1.2.10-glibc-open.patch
-# https://github.com/alsa-project/alsa-lib/commit/5f7fe33002d2d98d84f72e381ec2cccc0d5d3d40
-# https://bugzilla.redhat.com/show_bug.cgi?id=2435423
-# fixes CVE-2026-25068 buffer overflow
-Patch3:   0001-topology-decoder-add-boundary-check-for-channel-mixe.patch
 
 BuildRequires:  doxygen
 BuildRequires:  autoconf automake libtool
@@ -89,7 +85,6 @@ contains alsa-lib configuration of SoC topology
 %endif
 %patch -P1 -p1 -b .config
 %patch -P2 -p1 -b .glibc-open
-%patch -P3 -p1 -b .CVE-2026-25068
 
 %build
 # This package uses top level ASM constructs which are incompatible with LTO.
@@ -186,6 +181,9 @@ rm %{buildroot}/%{_includedir}/asoundlib.h
 %{_datadir}/alsa/topology
 
 %changelog
+* Mon Jun  1 2026 Jaroslav Kysela <perex@perex.cz> - 1.2.16-2
+- update to 1.2.16
+
 * Fri May 22 2026 Adam Williamson <awilliam@redhat.com> - 1.2.15.3-4
 - Backport fix for CVE-2026-25068 (buffer overflow) (#2435423)
 - Backports to support new Lenovo laptop models (#2480230)

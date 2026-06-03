@@ -9,7 +9,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 63%{?dist}
+Release: 64%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1232,6 +1232,9 @@ make check
 
 
 %changelog
+* Mon Jun 01 2026 Kevin Fenzi <kevin@scrye.com> - 5.12.0-64
+- Rebuild for varnish-8.0.2-1
+
 * Thu Feb 26 2026 Remi Collet <remi@fedoraproject.org> - 5.12.0-63
 - disable write_mongodb FTBFS #2440914
 - disable mqtt FTBFS #2440548

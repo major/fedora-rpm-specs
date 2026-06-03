@@ -1,10 +1,11 @@
 Name:           perl-PPIx-EditorTools
 Version:        0.21
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Utility methods and base class for manipulating Perl via PPI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-EditorTools
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/PPIx-EditorTools-%{version}.tar.gz
+Patch0:         PPIx-EditorTools-0.21-Adapt-to-PPI-1.286.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -48,6 +49,7 @@ from the Padre::Task::PPI code.
 
 %prep
 %setup -q -n PPIx-EditorTools-%{version}
+%patch -P0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -66,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-26
+- Adapt to PPI 1.286 (check for defined code before passing to PPI::Document->new)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

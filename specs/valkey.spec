@@ -14,7 +14,7 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -36,6 +36,8 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 Patch0:            %{name}-conf.patch
 # Workaround to https://github.com/valkey-io/valkey/issues/2678
 Patch1:            %{name}-loadmod.patch
+# Fix OpenSSL 4.0 compatibility
+Patch2:            %{name}-openssl4.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -190,6 +192,7 @@ Provides:          redis-doc = %{version}-%{release}
 %setup -n %{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}} -a50
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
+%patch -P2 -p1 -b .openssl4
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -449,6 +452,9 @@ fi
 
 
 %changelog
+* Mon Jun 01 2026 Pavol Žáčik <pzacik@redhat.com> - 9.1.0-2
+- Fix OpenSSL 4.0 compatibility
+
 * Tue May 19 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.1.0
 - Valkey 9.1.0
 - Fixes CVE-2026-23631 CVE-2026-25243 CVE-2026-23479

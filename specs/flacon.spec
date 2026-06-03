@@ -2,8 +2,8 @@
 %bcond_with tests
 
 Name:          flacon
-Version:       12.0.0
-Release:       4%{?dist}
+Version:       13.0.1
+Release:       1%{?dist}
 Summary:       Audio File Encoder
 
 License:       LGPL-2.1-or-later
@@ -12,10 +12,10 @@ Source0:       https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  uchardet-devel
 BuildRequires:  pkgconfig(taglib)
 # For %%check
@@ -87,6 +87,10 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jun 01 2026 Vasiliy Glazov <vascom2@gmail.com> - 13.0.1-1
+- Update to 13.0.1
+- Switch to QT6
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

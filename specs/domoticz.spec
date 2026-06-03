@@ -1,5 +1,5 @@
 Name:		domoticz
-Version:	2026.1
+Version:	2026.2
 Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
@@ -13,8 +13,8 @@ Source2:	%{name}.conf
 Source3:	%{name}-appversion
 # https://github.com/Thalhammer/jwt-cpp/tree/3e037df3e669633a3044618e30550ea2f212e915
 Source4:	jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915.zip
-# https://github.com/domoticz/libwebem/tree/9010adf22d968828e15c2ed3b510de59ce59affe
-Source5:	libwebem-9010adf22d968828e15c2ed3b510de59ce59affe.zip
+# https://github.com/domoticz/libwebem/tree/0aa092796657c7007f04eca66471c164bbec7ada
+Source5:	libwebem-0aa092796657c7007f04eca66471c164bbec7ada.zip
 
 # Use system tinyxpath (https://github.com/domoticz/domoticz/pull/1759)
 Patch1:		%{name}-tinyxpath.patch
@@ -80,7 +80,7 @@ Provides:	bundled(js-less) = 1.3.0
 Provides:	bundled(js-ion-sound) = 3.0.6
 Provides:	bundled(js-zeroclipboard) = 1.0.4
 Provides:	bundled(jwt-cpp) = 0.0-git20260324
-Provides:	bundled(libwebem) = 0.0-git20260321
+Provides:	bundled(libwebem) = 0.0-git20260505
 
 %global _python_bytecompile_extra 0
 
@@ -107,7 +107,7 @@ rmdir extern/jwtcpp/
 mv extern/jwt-cpp-3e037df3e669633a3044618e30550ea2f212e915/ extern/jwtcpp/
 unzip -d extern %{SOURCE5}
 rmdir extern/libwebem
-mv extern/libwebem-9010adf22d968828e15c2ed3b510de59ce59affe/ extern/libwebem/
+mv extern/libwebem-0aa092796657c7007f04eca66471c164bbec7ada/ extern/libwebem/
 
 # Create a sysusers.d config file
 cat >domoticz.sysusers.conf <<EOF
@@ -252,6 +252,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Mon Jun 01 2026 Michael Cronenworth <mike@cchtml.com> - 2026.2-1
+- New stable release
+
 * Wed Mar 25 2026 Michael Cronenworth <mike@cchtml.com> - 2026.1-1
 - New stable release
 

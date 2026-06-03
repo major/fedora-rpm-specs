@@ -7,7 +7,8 @@ Summary:        XML processing library combining libxml2/libxslt with the Elemen
 # Some code is derived from ElementTree and cElementTree
 # thus using the MIT-CMU elementtree license
 # .xsl schematron files are under the MIT license
-License:        BSD-3-Clause AND MIT-CMU AND MIT
+# lxml.html._difflib is PSF-2.0 (copied from CPython 3.14b2+)
+License:        BSD-3-Clause AND MIT-CMU AND MIT AND PSF-2.0
 URL:            https://github.com/lxml/lxml
 
 # We use the get-lxml-source.sh script to generate the tarball

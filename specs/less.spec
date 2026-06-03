@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 692
-Release: 7%{?dist}
+Version: 702
+Release: 1%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
@@ -72,7 +72,7 @@ sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lessp
 %build
 rm -f ./configure
 autoreconf -fiv
-%configure
+%configure --libexecdir=%{_libexecdir}/%{name}
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
 pushd lesspipe-src
@@ -103,16 +103,20 @@ popd
 %license LICENSE COPYING
 /etc/profile.d/*
 %{_bindir}/less
-%{_bindir}/lessecho
 %{_bindir}/lesskey
 %{_bindir}/lesspipe.sh
 %{_libexecdir}/%{name}/lesscomplete
+%{_libexecdir}/%{name}/lessecho
+%{_libexecdir}/%{name}/less-osc8-open
 %{_mandir}/man1/*
 
 %files color
 %{_bindir}/archive_color
 
 %changelog
+* Mon Jun 01 2026 Michal Hlavinka <mhlavink@redhat.com> - 702-1
+- updated to 702 (#2480789)
+
 * Tue Apr 28 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-7
 - update lesspipe to 2.25
 

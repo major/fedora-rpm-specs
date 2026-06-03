@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.18.0
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -72,6 +72,9 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 # functionality.
 BuildRequires:  gh
 Requires:       gh
+
+# fastapi-deploy and fastapi-login man page moved from here:
+Conflicts:      python3-fastapi < 0.136.3-3
 
 %description
 %{summary}.

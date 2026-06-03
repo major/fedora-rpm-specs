@@ -27,6 +27,7 @@ Source1:        https://github.com/ibus/%{name}/releases/download/%{version}/%{n
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel

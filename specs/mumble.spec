@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # primary license: BSD-3-Clause
 # themes/Mumble: Unlicense and WTFPL
@@ -267,16 +267,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.mumble.Mumble.de
 %endif
 
 
-# added in F37, can be removed in F39
-%posttrans server
-# relocation of config file
-if [ -f %{_sysconfdir}/murmur/murmur.ini.rpmsave ]; then
-    mv -vf %{_sysconfdir}/murmur.ini %{_sysconfdir}/murmur.ini.rpmnew
-    mv -vf %{_sysconfdir}/murmur/murmur.ini.rpmsave %{_sysconfdir}/murmur.ini
-fi
-rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
-
-
 %pre server
 %sysusers_create_compat %{SOURCE2}
 
@@ -334,6 +324,12 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Mon Jun 01 2026 Adam Williamson <awilliam@redhat.com> - 1.4.287-13
+- rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x again
+
+* Mon Jun 01 2026 Adam Williamson <awilliam@redhat.com> - 1.4.287-12
+- Drop %posttrans script that is no longer needed and had a bug
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1.4.287-11
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

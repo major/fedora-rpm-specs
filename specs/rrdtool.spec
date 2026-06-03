@@ -180,10 +180,6 @@ The %{name}-lua package includes RRDtool bindings for Lua.
 %endif
 %patch -P4 -p1 -b .php-ppc-fix
 
-# Fix to find correct python dir on lib64
-perl -pi -e 's|get_python_lib\(0,0,prefix|get_python_lib\(1,0,prefix|g' \
-    configure
-
 # Most edits shouldn't be necessary when using --libdir, but
 # w/o, some introduce hardcoded rpaths where they shouldn't
 perl -pi.orig -e 's|/lib\b|/%{_lib}|g' \
@@ -198,9 +194,11 @@ perl -pi.orig -e 's|1.299907080300|1.29990708|' \
 # workaround needed due to https://bugzilla.redhat.com/show_bug.cgi?id=211069
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} php4/
 
+%if %{with_python3}
 cd bindings/python
 %generate_buildrequires
 %pyproject_buildrequires -N
+%endif
 
 %build
 ./bootstrap
@@ -213,11 +211,6 @@ cd bindings/python
 %else
     --disable-tcl \
 %endif
-%if %{with_python3}
-    --enable-python \
-%else
-    --disable-python \
-%endif
 %if %{with_ruby}
     --enable-ruby \
 %else
@@ -229,7 +222,8 @@ cd bindings/python
     --disable-libdbi \
 %endif
     --disable-static \
-    --with-pic
+    --with-pic \
+    --disable-python
 
 # Fix another rpath issue
 perl -pi.orig -e 's|-Wl,--rpath -Wl,\$rp||g' \
@@ -257,12 +251,10 @@ popd
 %{__make} install DESTDIR="%{rrdtmp}"
 pushd php4/
 
-export PYTHON=%{__python3}
-
 %configure \
     --with-rrdtool="%{rrdtmp}%{_prefix}" \
     --disable-static
-%{make_build} PYTHON="$PYTHON"
+%{make_build}
 popd
 rm -rf %{rrdtmp}
 %endif
@@ -273,12 +265,14 @@ find examples/ -type f \
 find examples/ -name "*.pl" \
     -exec perl -pi -e 's|\015||gi' {} \;
 
+%if %{with_python3}
 cd bindings/python
 %pyproject_wheel
+%endif
 
 %install
-export PYTHON=%{__python3}
-%{make_install} PYTHON="$PYTHON"
+export
+%{make_install}
 
 # Install the php module
 %if %{with_php}
@@ -324,9 +318,11 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-* \
 
 %find_lang %{name}
 
+%if %{with_python3}
 cd bindings/python
 %pyproject_install
-%pyproject_save_files %{name}
+%pyproject_save_files %{name} '%{name}*'
+%endif
 
 %check
 # minimal load test for the PHP extension
@@ -373,10 +369,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %{perl_vendorarch}/*.pm
 %attr(0755,root,root) %{perl_vendorarch}/auto/RRDs/
 
-
+%if %{with_python3}
 %files -n python3-rrdtool -f %{pyproject_files}
 %doc bindings/python/COPYING bindings/python/README.md
-%{python3_sitearch}/rrdtool*.so
+%endif
 
 %if %{with_php}
 %files php
@@ -408,6 +404,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 * Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.3-1
 - New version
   Resolves: rhbz#2479949
+  Resolves: rhbz#2481409
 
 * Tue May 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-1
 - New version

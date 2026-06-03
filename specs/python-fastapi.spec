@@ -247,6 +247,11 @@ ignore="${ignore-} --ignore-glob=scripts/tests/*"
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
 
+# FastAPI runs tests using Starlette’s test client, which has deprecated
+# support for httpx; until we have a python-httpx2 package to use instead, we
+# must ignore this. Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2483715.
+warningsfilter="${warningsfilter-} -W ignore::starlette.exceptions.StarletteDeprecationWarning"
+
 %pytest ${warningsfilter-} -k "${k-}" ${ignore-}
 
 

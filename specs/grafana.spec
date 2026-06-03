@@ -26,7 +26,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1153,6 +1153,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Mon Jun 1 2026 Sam Feifer <sfeifer@redhat.com> - 12.4.3-2
+- Fix patch 1002 to work with newer golang versions
+
 * Thu Apr 16 2026 Sam Feifer <sfeifer@redhat.com> - 12.4.3-1
 - Fix bundled plugins issue from rebase to 12.4.2
 - Remove forbidden unicode code point (issue reported by rpminspect)

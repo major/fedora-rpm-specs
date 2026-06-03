@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   24.1.11
+Version:   24.1.12
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -133,6 +133,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Jun 02 2026 Peter Hutterer <peter.hutterer@redhat.com> - 24.1.12-1
+- Update to xwayland 24.1.12
+  Security fixes for: ZDI-CAN-30136, ZDI-CAN-30159, ZDI-CAN-30160,
+                      ZDI-CAN-30161, ZDI-CAN-30163, ZDI-CAN-30164,
+                      ZDI-CAN-30165, ZDI-CAN-30168
+
 * Mon Apr 27 2026 Olivier Fourdan <ofourdan@redhat.com> -  24.1.11-1
 - Update to xwayland 24.1.11
 

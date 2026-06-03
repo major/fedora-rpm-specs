@@ -1,5 +1,5 @@
 Name:           python-pypandoc
-Version:        1.16.2
+Version:        1.17
 Release:        %autorelease
 Summary:        Thin wrapper for pandoc
 
@@ -11,6 +11,7 @@ BuildArch:      noarch
 
 # for tests
 BuildRequires:  pandoc
+BuildRequires:  pytest
 BuildRequires:  texlive-scheme-basic
 BuildRequires:  texlive-collection-fontsrecommended
 BuildRequires:  tex(ecrm1000.tfm)
@@ -51,21 +52,23 @@ Recommends:     texlive-collection-fontsrecommended
 
 %check
 # Disable test that requires network
-sed -i -r 's/test_basic_conversion_from_http_url/_disabled_\0/' tests.py
-
-# https://github.com/NicklasTegner/pypandoc/issues/277
-sed -i -r 's/test_basic_conversion_from_file_pattern/_disabled_\0/' tests.py
+sed -i -r 's/test_basic_conversion_from_http_url/_disabled_\0/' tests/test_pypandoc.py
 
 # https://github.com/jgm/pandoc/issues/8128
-sed -i -r 's/test_conversion_with_data_files/_disabled_\0/' tests.py
+sed -i -r 's/test_conversion_with_data_files/_disabled_\0/' tests/test_pypandoc.py
 
-%python3 tests.py
+%pytest -v
 
 %global _docdir_fmt %{name}
 
 %files -n python%{python3_pkgversion}-pypandoc -f %pyproject_files
 %license LICENSE
 %doc README.md examples/
+
+# The raison d'être for the executable is to acquire and run embedded pandoc.
+# In our builds, pandoc is always provided by the distribution, so let's not
+# install the binary at all.
+%exclude %{_bindir}/pypandoc
 
 %changelog
 %autochangelog
