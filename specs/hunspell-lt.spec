@@ -6,12 +6,10 @@
 
 Name: hunspell-lt
 Summary: Lithuanian hunspell dictionaries
-Version: 1.2.1
-Release: 37%{?dist}
-## Note that upstream is dead and there is no download link available
-## so please don't report FTBFS bugs for this package.
-Source: ftp://ftp.akl.lt/ispell-lt/lt_LT-%{version}.zip
-URL: ftp://ftp.akl.lt/ispell-lt/
+Version: 1.3.2
+Release: 1%{?dist}
+Source: https://github.com/ispell-lt/ispell-lt/releases/download/rel-%{version}/openoffice-spellcheck-lt-%{version}.oxt
+URL: https://github.com/ispell-lt/ispell-lt/
 License: BSD-3-Clause
 BuildArch: noarch
 
@@ -22,26 +20,25 @@ Supplements: (hunspell and langpacks-lt)
 Lithuanian hunspell dictionaries.
 
 %prep
-%autosetup -n lt_LT-%{version}
+%autosetup -c
 
 %build
 chmod -x *
-for i in INSTRUKCIJOS.txt; do
-  tr -d '\r' < $i > $i.new
-  touch -r $i $i.new
-  mv -f $i.new $i
-done
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-
+cp -p lt.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/lt_LT.dic
+cp -p lt.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/lt_LT.aff
 
 %files
-%doc README.EN INSTRUKCIJOS.txt
-%{_datadir}/%{dict_dirname}/*
+%doc README
+%license COPYING
+%{_datadir}/%{dict_dirname}/lt_LT.*
 
 %changelog
+* Tue Jun 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 1.3.2-1
+- Update to new Upstream Source URL
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

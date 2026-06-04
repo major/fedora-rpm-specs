@@ -6,6 +6,8 @@ License:        LGPL-3.0-or-later
 URL:            https://github.com/PyGithub/PyGithub
 # github tarball (unlike PyPI one) contains tests
 Source:         %{url}/archive/v%{version}/PyGithub-%{version}.tar.gz
+# Update test key pair from 1024-bit to 4096-bit RSA (InsecureKeyLengthWarning)
+Patch:          https://github.com/PyGithub/PyGithub/commit/24305f6d6.patch
 BuildArch:      noarch
 
 %global _description %{expand:

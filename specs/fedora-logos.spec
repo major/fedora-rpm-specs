@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	42.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	LicenseRef-Fedora-Logos
@@ -12,8 +12,8 @@ BuildArch:	noarch
 BuildRequires:	hardlink
 
 %if ! 0%{?eln}
-# For _kde4_* macros:
-BuildRequires:	kde4-macros(api)
+# For _kf6_datadir macro
+BuildRequires: kf6-rpm-macros
 %endif
 
 %description
@@ -70,6 +70,44 @@ redistribution of this package and its contents.
 PLEASE NOTE: This package does not provide system-logos and cannot be
 used as a drop-in replacement for fedora-logos.
 
+%package icewm
+Summary:   Fedora-related icons and pictures for IceWM
+Provides:  system-logos-icewm = %{version}-%{release}
+BuildArch: noarch
+
+%description icewm
+The fedora-logos-icewm package contains image files which incorporate the
+Fedora trademarks (the "Marks"). The Marks are trademarks or registered
+trademarks of Red Hat, Inc. in the United States and other countries and
+are used by permission.
+
+This package and its content may not be distributed with anything but
+unmodified packages from Fedora Project. It can be used in a Fedora Spin,
+but not in a Fedora Remix. If necessary, this package can be replaced by
+the more liberally licensed generic-logos package.
+
+See the included COPYING file for full information on copying and
+redistribution of this package and its contents.
+
+%package icewm-classic
+Summary:   Classic versions of the Fedora icons and pictures for IceWM
+BuildArch: noarch
+
+%description icewm-classic
+The fedora-logos-icewm-classic package contains image files which incorporate
+the classic Fedora trademarks (the "Marks"). The Marks are trademarks or
+registered trademarks of Red Hat, Inc. in the United States and other
+countries and are used by permission.
+
+This package and its content may not be distributed with anything but
+unmodified packages from Fedora Project.
+
+See the included COPYING file for full information on copying and
+redistribution of this package and its contents.
+
+PLEASE NOTE: This package does not provide system-logos and cannot be
+used as a drop-in replacement for fedora-logos.
+
 %prep
 %autosetup -p1
 
@@ -95,13 +133,6 @@ install -p -m 644 bootloader/bootlogo_256.png $RPM_BUILD_ROOT%{_datadir}/pixmaps
 # General purpose Fedora logos
 for i in pixmaps/* ; do
   install -p -m 644 $i $RPM_BUILD_ROOT%{_datadir}/pixmaps
-done
-
-# Anaconda release notes (that contain Fedora logos)
-# Pretty sure these are legacy/unused now (2021).
-for i in rnotes/* ; do
-  mkdir -p $RPM_BUILD_ROOT%{_datadir}/anaconda/pixmaps/$i
-  install -p -m 644 $i/* $RPM_BUILD_ROOT%{_datadir}/anaconda/pixmaps/$i
 done
 
 # The Plymouth charge theme (uses the Fedora logo)
@@ -138,15 +169,15 @@ for i in 16 22 24 32 36 48 96 256 ; do
   install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/places/start-here.png
   install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon_classic.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/places/start-here_classic.png
 %if ! 0%{?eln}
-  install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon.png $RPM_BUILD_ROOT%{_kde4_iconsdir}/oxygen/${i}x${i}/places/start-here-kde-fedora.png
-  install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon_classic.png $RPM_BUILD_ROOT%{_kde4_iconsdir}/oxygen/${i}x${i}/places/start-here-kde-fedora_classic.png
+  install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon.png $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/${i}x${i}/places/start-here-kde-fedora.png
+  install -p -m 644 -D $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/fedora-logo-icon_classic.png $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/${i}x${i}/places/start-here-kde-fedora_classic.png
 %endif
 done
 
 %if ! 0%{?eln}
-mkdir -p $RPM_BUILD_ROOT%{_kde4_iconsdir}/oxygen/scalable/apps/
-install -p -m 644 icons/hicolor/scalable/apps/org.fedoraproject.AnacondaInstaller.svg $RPM_BUILD_ROOT%{_kde4_iconsdir}/oxygen/scalable/apps/
-install -p -m 644 icons/hicolor/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg $RPM_BUILD_ROOT%{_kde4_iconsdir}/oxygen/scalable/apps/
+mkdir -p $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/
+install -p -m 644 icons/hicolor/scalable/apps/org.fedoraproject.AnacondaInstaller.svg $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/
+install -p -m 644 icons/hicolor/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg $RPM_BUILD_ROOT%{_kf6_datadir}/oxygen/scalable/apps/
 %endif
 
 # Fedora favicon
@@ -219,14 +250,6 @@ for i in atomic cloud server silverblue workstation ; do
 done
 popd
 
-%if ! 0%{?eln}
-# KDE Theme logos
-# DO NOT REMOVE THIS ICON!!! We still support the Leonidas and Solar themes!
-mkdir -p $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/
-install -p -m 644 kde-splash/Leonidas-fedora.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
-install -p -m 644 kde-splash/Leonidas-fedora_classic.png $RPM_BUILD_ROOT%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo_classic.png
-%endif
-
 # SVG Fedora logos
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
 cp -a fedora/*.svg $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -252,13 +275,9 @@ hardlink -vv %{buildroot}/usr
 %config(noreplace) %{_sysconfdir}/favicon.png
 %{_datadir}/plymouth/themes/spinner/
 %if ! 0%{?eln}
-# No one else before us owns this, so we shall.
-%dir %{_kde4_sharedir}/kde4/
-%exclude %{_kde4_iconsdir}/oxygen/*/places/start-here-kde-fedora_classic.png
-%exclude %{_kde4_iconsdir}/oxygen/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg
-%{_kde4_iconsdir}/oxygen/
-# DO NOT REMOVE THIS ICON!!! We still support the Leonidas and Solar themes!
-%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo.png
+%exclude %{_kf6_datadir}/oxygen/*/places/start-here-kde-fedora_classic.png
+%exclude %{_kf6_datadir}/oxygen/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg
+%{_kf6_datadir}/oxygen/
 %endif
 # in -classic
 %exclude %{_datadir}/pixmaps/bootloader/fedora_classic.icns
@@ -279,10 +298,6 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/anaconda/boot/splash.lss
 %{_datadir}/anaconda/boot/syslinux-splash.png
 %{_datadir}/anaconda/boot/splash.png
-%exclude %{_datadir}/icewm/themes/clearlooks/taskbar/*_classic*
-%exclude %{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
-%{_datadir}/icewm/themes/clearlooks/taskbar/*
-%{_datadir}/icewm/themes/clearlooks-2px/taskbar/*
 %exclude %{_datadir}/icons/hicolor/*/apps/*_classic*
 %exclude %{_datadir}/icons/hicolor/*/places/*_classic*
 %exclude %{_datadir}/icons/Bluecurve/*/apps/*_classic*
@@ -346,14 +361,6 @@ hardlink -vv %{buildroot}/usr
 %dir %{_datadir}/anaconda/boot/
 %dir %{_datadir}/anaconda/pixmaps/
 %dir %{_datadir}/plymouth/
-%if ! 0%{?eln}
-# DO NOT REMOVE THESE DIRS!!! We still support the Leonidas and Solar themes!
-%dir %{_kde4_appsdir}
-%dir %{_kde4_appsdir}/ksplash
-%dir %{_kde4_appsdir}/ksplash/Themes/
-%dir %{_kde4_appsdir}/ksplash/Themes/Leonidas/
-%dir %{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536
-%endif
 
 %files httpd
 %license COPYING
@@ -366,15 +373,12 @@ hardlink -vv %{buildroot}/usr
 %files classic
 %license COPYING
 %if ! 0%{?eln}
-%{_kde4_iconsdir}/oxygen/*/places/start-here-kde-fedora_classic.png
-%{_kde4_iconsdir}/oxygen/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg
-%{_kde4_appsdir}/ksplash/Themes/Leonidas/2048x1536/logo_classic.png
+%{_kf6_datadir}/oxygen/*/places/start-here-kde-fedora_classic.png
+%{_kf6_datadir}/oxygen/scalable/apps/org.fedoraproject.AnacondaInstaller_classic.svg
 %endif
 %{_sysconfdir}/favicon_classic.png
 %{_datadir}/anaconda/pixmaps/*_classic*
 %{_datadir}/anaconda/pixmaps/*/*_classic*
-%{_datadir}/icewm/themes/clearlooks/taskbar/*_classic*
-%{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
 %{_datadir}/icons/hicolor/*/apps/*_classic*
 %{_datadir}/icons/hicolor/*/places/*_classic*
 %{_datadir}/icons/Bluecurve/*/apps/*_classic*
@@ -391,9 +395,39 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/pixmaps/system-logo-white_classic.png
 %{_datadir}/plymouth/themes/charge/*_classic*
 
+%files icewm
+%license COPYING
+%exclude %{_datadir}/icewm/themes/clearlooks/taskbar/*_classic*
+%exclude %{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
+%dir %{_datadir}/icewm/
+%dir %{_datadir}/icewm/themes/
+%dir %{_datadir}/icewm/themes/clearlooks/
+%dir %{_datadir}/icewm/themes/clearlooks/taskbar/
+%dir %{_datadir}/icewm/themes/clearlooks-2px/
+%dir %{_datadir}/icewm/themes/clearlooks-2px/taskbar/
+%{_datadir}/icewm/themes/clearlooks/taskbar/*
+%{_datadir}/icewm/themes/clearlooks-2px/taskbar/*
 
+# EVERYTHING IN icewm-classic USES OLD LOGO
+%files icewm-classic
+%license COPYING
+%dir %{_datadir}/icewm/
+%dir %{_datadir}/icewm/themes/
+%dir %{_datadir}/icewm/themes/clearlooks/
+%dir %{_datadir}/icewm/themes/clearlooks/taskbar/
+%dir %{_datadir}/icewm/themes/clearlooks-2px/
+%dir %{_datadir}/icewm/themes/clearlooks-2px/taskbar/
+%{_datadir}/icewm/themes/clearlooks/taskbar/*_classic*
+%{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
 
 %changelog
+* Fri Mar 20 2026 Timothée Ravier <tim@siosm.fr> - 42.0.1-4
+- Remove KDE 4 Leonidas theme support
+- Replace KDE 4 macros with KF6 ones
+- Drop Anaconda's release notes (unused & out of date)
+- Move icewm logos into a subpackage
+- icewm subpackages own icewm folders (fedora#2283287)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

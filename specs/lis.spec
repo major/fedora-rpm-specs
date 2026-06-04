@@ -1,5 +1,5 @@
 Name:		lis
-Version:	2.1.10
+Version:	2.1.11
 Release:	%autorelease
 Summary:	A library for solving linear equations and eigenvalue problems
 # Automatically converted from old format: BSD - review is highly recommended.

@@ -1,24 +1,11 @@
 Summary: Libraries to provide access to RTAS calls and RTAS events
 Name:    librtas
-Version: 2.0.6
-Release: 6%{?dist}
+Version: 2.0.7
+Release: 1%{?dist}
 URL:     https://github.com/ibm-power-utilities/librtas
 License: LGPL-2.0-or-later
 
 Source0: https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# upstream fixes for Lockdown-compatible ABI
-Patch1: librtas-01-lockdown-compatible-abi-phase.patch
-Patch2: librtas-02-lockdown-compatible-abi-phase.patch
-Patch3: librtas-03-lockdown-compatible-abi-phase.patch
-Patch4: librtas-04-lockdown-compatible-abi-phase.patch
-Patch5: librtas-05-lockdown-compatible-abi-phase.patch
-Patch6: librtas-06-lockdown-compatible-abi-phase.patch
-Patch7: librtas-07-lockdown-compatible-abi-phase.patch
-Patch8: librtas-08-lockdown-compatible-abi-phase.patch
-Patch9: librtas-09-end-lockdown-compatible-abi-phase.patch
-Patch10: librtas-check-warning-null-pointer.patch
-Patch11: librtas-format-mismatch-size_t.patch
 
 BuildRequires: autoconf
 BuildRequires: libtool
@@ -77,6 +64,10 @@ rm -f  %{buildroot}/%{_docdir}/librtas/*
 %{_includedir}/librtasevent_v6.h
 
 %changelog
+* Tue Jun 02 2026 Than Ngo <than@redhat.com> - 2.0.7-1
+- Update to 2.0.7
+- Remove the patches, which are included in upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

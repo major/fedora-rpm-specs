@@ -13,6 +13,7 @@ Source0:        %{forgesource}
 License:        BSD-2-Clause AND BSD-3-Clause
 
 BuildRequires:  cmake
+BuildRequires:  crcpp-devel
 BuildRequires:  gcc-c++
 BuildRequires:  inih-devel
 BuildRequires:  libavcodec-free-devel
@@ -21,8 +22,6 @@ BuildRequires:  libavutil-free-devel
 BuildRequires:  libebur128-devel
 BuildRequires:  libswresample-free-devel
 BuildRequires:  taglib-devel
-
-Provides:       bundled(CRCpp) = 1.2.0.0^20220528git71f2152
 
 %description
 rsgain (really simple gain) is a ReplayGain 2.0 command line utility.
@@ -33,6 +32,11 @@ the volume of your tagged files during playback.
 
 %prep
 %forgeautosetup
+
+# Use unbundled crcpp:
+sed -i -e 's|^#include "external/CRC.h"|#include <CRC.h>|' src/tag.cpp
+rm src/external/CRC.h
+cp %{_defaultlicensedir}/crcpp-devel/LICENSE LICENSE-CRCpp
 
 
 %build

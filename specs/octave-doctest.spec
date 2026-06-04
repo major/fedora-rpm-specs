@@ -1,7 +1,7 @@
 %global octpkg doctest
 
 Name:           octave-%{octpkg}
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Documentation tests for Octave
 License:        BSD-3-Clause AND FSFAP

@@ -32,7 +32,6 @@
 %else
 %global __with_java 0
 %endif
-%global __with_sources 1
 #
 # wxWidgets plugin blocks the following ones:
 #
@@ -71,7 +70,7 @@
 
 Name:		erlang
 Version:	26.2.5.21
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -179,7 +178,6 @@ Requires: %{name}-reltool%{?_isa} = %{version}-%{release}
 Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-sasl%{?_isa} = %{version}-%{release}
 Requires: %{name}-snmp%{?_isa} = %{version}-%{release}
-Requires: %{name}-src%{?_isa} = %{version}-%{release}
 Requires: %{name}-ssh%{?_isa} = %{version}-%{release}
 Requires: %{name}-ssl%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
@@ -190,6 +188,7 @@ Requires: %{name}-tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-wx%{?_isa} = %{version}-%{release}
 %endif # __with_wxwidgets
 Requires: %{name}-xmerl%{?_isa} = %{version}-%{release}
+Obsoletes: %{name}-src
 
 %description
 Erlang is a general-purpose programming language and runtime
@@ -605,50 +604,6 @@ Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 %description snmp
 Simple Network Management Protocol (SNMP) support including a
 MIB compiler and tools for creating SNMP agents.
-
-%if %{__with_sources}
-%package src
-Summary: Erlang sources
-Requires: %{name}-asn1%{?_isa} = %{version}-%{release}
-Requires: %{name}-common_test%{?_isa} = %{version}-%{release}
-Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
-Requires: %{name}-crypto%{?_isa} = %{version}-%{release}
-Requires: %{name}-debugger%{?_isa} = %{version}-%{release}
-Requires: %{name}-dialyzer%{?_isa} = %{version}-%{release}
-Requires: %{name}-diameter%{?_isa} = %{version}-%{release}
-Requires: %{name}-edoc%{?_isa} = %{version}-%{release}
-Requires: %{name}-eldap%{?_isa} = %{version}-%{release}
-Requires: %{name}-erl_docgen%{?_isa} = %{version}-%{release}
-Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-et%{?_isa} = %{version}-%{release}
-Requires: %{name}-eunit%{?_isa} = %{version}-%{release}
-Requires: %{name}-ftp%{?_isa} = %{version}-%{release}
-Requires: %{name}-inets%{?_isa} = %{version}-%{release}
-Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
-Requires: %{name}-megaco%{?_isa} = %{version}-%{release}
-Requires: %{name}-mnesia%{?_isa} = %{version}-%{release}
-Requires: %{name}-observer%{?_isa} = %{version}-%{release}
-Requires: %{name}-odbc%{?_isa} = %{version}-%{release}
-Requires: %{name}-os_mon%{?_isa} = %{version}-%{release}
-Requires: %{name}-parsetools%{?_isa} = %{version}-%{release}
-Requires: %{name}-public_key%{?_isa} = %{version}-%{release}
-Requires: %{name}-reltool%{?_isa} = %{version}-%{release}
-Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
-Requires: %{name}-sasl%{?_isa} = %{version}-%{release}
-Requires: %{name}-snmp%{?_isa} = %{version}-%{release}
-Requires: %{name}-ssh%{?_isa} = %{version}-%{release}
-Requires: %{name}-ssl%{?_isa} = %{version}-%{release}
-Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
-Requires: %{name}-syntax_tools%{?_isa} = %{version}-%{release}
-Requires: %{name}-tftp%{?_isa} = %{version}-%{release}
-Requires: %{name}-tools%{?_isa} = %{version}-%{release}
-Requires: %{name}-wx%{?_isa} = %{version}-%{release}
-Requires: %{name}-xmerl%{?_isa} = %{version}-%{release}
-
-%description src
-Erlang sources. It may be useful as a reference for code completion tools in
-various editors, for documentation or automatical-code generation purposes.
-%endif # __with_sources
 
 %package ssh
 Summary: Secure Shell application with sftp and ssh support
@@ -1579,13 +1534,6 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 %{_mandir}/man7/TRANSPORT-ADDRESS-MIB.*
 %endif
 
-%if %{__with_sources}
-%files src
-%dir %{_libdir}/erlang/lib/*/src/
-%{_libdir}/erlang/lib/*/src/*.erl
-%{_libdir}/erlang/lib/*/src/*.yrl
-%endif
-
 %files ssh
 %dir %{_libdir}/erlang/lib/ssh-*/
 %{_libdir}/erlang/lib/ssh-*/ebin
@@ -2008,6 +1956,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Tue Jun  2 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.21-2
+- Ditch outdated  src subpackage
+
 * Sat May 30 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.21-1
 - Ver. 26.2.5.21
 

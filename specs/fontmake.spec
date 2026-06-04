@@ -6,7 +6,7 @@
 %bcond repacker 1
 
 Name:           fontmake
-Version:        3.11.1
+Version:        3.12.1
 Release:        %autorelease
 Summary:        Compile fonts from sources (UFO, Glyphs) to binary (OpenType, TrueType)
 

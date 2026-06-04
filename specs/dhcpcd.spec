@@ -1,7 +1,7 @@
 %global forgeurl0 https://github.com/NetworkConfiguration/dhcpcd
 
 Name: dhcpcd
-Version: 10.3.0
+Version: 10.3.2
 Release: %autorelease
 Summary: A minimalistic network configuration daemon with DHCPv4, rdisc and DHCPv6 support
 License: BSD-2-Clause AND ISC AND MIT

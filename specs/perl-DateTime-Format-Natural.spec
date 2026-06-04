@@ -1,5 +1,5 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.25
+Version:        1.26
 Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -37,6 +37,9 @@ BuildRequires:  perl(Date::Calc)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::MockTime::HiRes)
 BuildRequires:  perl(Test::More)
+# Optional tests
+BuildRequires:  perl(DateTime::Calendar::Julian)
+Requires:       perl(DateTime::Calendar::Julian)
 Requires:       perl(Params::Validate) >= 1.15
 
 %{?perl_default_filter}
@@ -115,6 +118,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-1
+- 1.26 bump (rhbz#2482895)
+
 * Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-1
 - 1.25 bump (rhbz#2439786)
 

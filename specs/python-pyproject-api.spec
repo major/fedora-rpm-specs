@@ -1,5 +1,5 @@
 Name:           python-pyproject-api
-Version:        1.10.0
+Version:        1.10.1
 Release:        %autorelease
 Summary:        API to interact with the python pyproject.toml based projects
 
@@ -31,7 +31,7 @@ sed -i 's/"pytest>=.*"/"pytest"/' pyproject.toml
 sed -i 's/"pytest-mock>=.*"/"pytest-mock"/' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires -g test
 
 %build
 %pyproject_wheel

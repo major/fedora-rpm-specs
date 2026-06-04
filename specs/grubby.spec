@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 88%{?dist}
+Release: 89%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -79,6 +79,9 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/kernel
 
 %changelog
+* Mon May 18 2026 Ondrej Mosnáček <omosnacek@gmail.com> - 8.40-89
+- Fix matching by kernel name
+
 * Thu Mar  5 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 8.40-88
 - Fix 10-devicetree.install failure when /boot is fat
 

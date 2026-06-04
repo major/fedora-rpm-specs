@@ -1,4 +1,4 @@
-Summary: The basic required files for the root user's directory
+Summary: Basic required files for the root user's directory
 Name: rootfiles
 Version: 9.0
 Release: %autorelease

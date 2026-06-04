@@ -1,5 +1,5 @@
 Name:           gmp-ecm
-Version:        7.0.6
+Version:        7.0.7
 Release:        %autorelease
 Summary:        Elliptic Curve Method for Integer Factorization
 License:        GPL-3.0-or-later

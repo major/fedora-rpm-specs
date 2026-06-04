@@ -6,9 +6,11 @@
 
 %undefine __brp_mangle_shebangs
 
+%global _cmake_generator "Unix Makefiles"
+
 Name:           qpid-proton
 Version:        0.40.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -311,6 +313,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Tue May 02 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-15
+- Apply patch by churchyard to opt-out of the ninja generator.
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 0.40.0-14
 - Rebuild (jsoncpp)
 

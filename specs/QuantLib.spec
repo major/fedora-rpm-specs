@@ -1,19 +1,18 @@
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
 Name:		QuantLib
-Version:	1.29
-Release:	11%{?dist}
+Version:	1.42.1
+Release:	1%{?dist}
 Summary:	A software framework for quantitative finance
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		http://www.quantlib.org
-Source0:	https://dl.bintray.com/quantlib/releases/QuantLib-%{version}.tar.gz
-BuildRequires: make
-BuildRequires:  gcc, gcc-c++
+Source0:	https://github.com/lballabio/QuantLib/releases/download/v%{version}/QuantLib-%{version}.tar.gz
+BuildRequires:	make
+BuildRequires:	gcc, gcc-c++
 BuildRequires:	boost-devel >= 1.43, texlive-latex, texlive-dvips, emacs
 
 %description
-QuantLib is a free/open-source library for modeling, trading, and 
+QuantLib is a free/open-source library for modeling, trading, and
 risk management in real-life.
 
 %package devel
@@ -28,7 +27,7 @@ Summary:	The test-suite to check the setup of QuantLib
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description test
-The QuantLib-test-suite will validate the compiled code against 
+The QuantLib-test-suite will validate the compiled code against
 pre-constructed test cases, and helps in validating the library.
 
 %package doc
@@ -145,6 +144,9 @@ touch -r News.md %{buildroot}%{_datadir}/emacs/site-lisp/quantlib.elc
 #%%{docdir}/QuantLib-%%{version}-docs-refman.ps
 
 %changelog
+* Tue Jun  2 2026 Tom Callaway <spot@fedoraproject.org> - 1.42.1-1
+- update to 1.42.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-Parser
 Version:        2.59
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module for parsing XML documents
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -44,7 +44,6 @@ BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(if)
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 Requires:       perl(IO::File)
@@ -141,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Petr Pisar <ppisar@redhat.com> - 2.59-2
+- Remove unused dependency on perl(Test)
+
 * Wed May 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.59-1
 - 2.59 bump (rhbz#2480134)
 

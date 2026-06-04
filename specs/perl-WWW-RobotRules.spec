@@ -1,6 +1,6 @@
 Name:           perl-WWW-RobotRules
-Version:        6.02
-Release:        43%{?dist}
+Version:        6.03
+Release:        1%{?dist}
 Summary:        Database of robots.txt-derived permissions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-RobotRules
@@ -20,6 +20,8 @@ BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(URI) >= 1.10
 BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Test::More)
 # LWP::RobotUA not used
 # URI::URL not used
 Requires:       perl(URI) >= 1.10
@@ -82,7 +84,8 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc Changes README
+%doc Changes
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
@@ -90,6 +93,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.03-1
+- 6.03 bump
+- Fix build of package
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.02-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global pypi_name optuna
 
 Name:           python-%{pypi_name}
-Version:        4.8.0
+Version:        4.9.0
 Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Tue Jun 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.9.0-1
+- 4.9.0
+
 * Mon Mar 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.8.0-1
 - 4.8.0
 

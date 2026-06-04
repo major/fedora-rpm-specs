@@ -1,6 +1,6 @@
 Name:           perl-GD
-Version:        2.84
-Release:        2%{?dist}
+Version:        2.85
+Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/GD
@@ -101,6 +101,12 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Tue Jun  2 2026 Paul Howarth <paul@city-fan.org> - 2.85-1
+- Update to 2.85
+  - Tolerate runtime TIFF decode failures in autodetect (GH#62)
+  - Replace cpm with cpanm in github actions
+  - Fixed a minor precedence bug in t/z_manifest.t
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.84-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

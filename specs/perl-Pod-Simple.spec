@@ -2,7 +2,7 @@ Name:           perl-Pod-Simple
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        3.48
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for parsing POD documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Simple
@@ -36,7 +36,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(parent)
-BuildRequires:  perl(Test) >= 1.25
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
@@ -114,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Petr Pisar <ppisar@redhat.com> - 1:3.48-2
+- Remove unused dependency on perl(Test)
+
 * Tue Apr 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.48-1
 - 3.48 bump (rhbz#2455108)
 

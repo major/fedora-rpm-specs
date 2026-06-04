@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Perl-Releases
-Version:        5.20260420
+Version:        5.20260601
 Release:        1%{?dist}
 Summary:        Mapping Perl releases on CPAN to the location of the tarballs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.20260601-1
+- 5.20260601 bump (rhbz#2483856)
+
 * Tue Apr 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.20260420-1
 - 5.20260420 bump (rhbz#2459777)
 

@@ -69,7 +69,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:    ROCm Runtime Library
 
@@ -95,6 +95,7 @@ BuildRequires:  libdrm-devel
 BuildRequires:  libffi-devel
 BuildRequires:  rocm-llvm%{pkg_suffix}-static
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-device-libs%{pkg_suffix}
 BuildRequires:  libzstd-devel
 
@@ -113,6 +114,7 @@ BuildRequires:  numactl-devel
 BuildRequires:  vim-common
 %endif
 
+Requires:   rocm-filesystem%{pkg_suffix}
 Provides:   rocm-runtime%{pkg_suffix} = %{version}-%{release}
 
 %description
@@ -125,6 +127,7 @@ applications to launch compute kernels directly to the graphics hardware.
 %package devel
 Summary: ROCm Runtime development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: rocm-filesystem%{pkg_suffix}
 Provides:  rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -133,7 +136,7 @@ ROCm Runtime development files
 %if %{with static}
 %package static
 Summary: ROCm Runtime hsakmt development files
-Requires: rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 Provides:  rocm-runtime%{pkg_suffix}-static = %{version}-%{release}
 
 %description static
@@ -144,6 +147,7 @@ Provides:  rocm-runtime%{pkg_suffix}-static = %{version}-%{release}
 %package -n kfdtest
 Summary: Test suite for ROCm's KFD kernel module
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: rocm-filesystem%{pkg_suffix}
 Requires: rocm-smi%{pkg_suffix}
 
 %description -n kfdtest
@@ -247,6 +251,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
+- merge compat changes
+
 * Thu Apr 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
 - Add requires for kfdtest
 

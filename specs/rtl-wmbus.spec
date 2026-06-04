@@ -8,14 +8,14 @@ Name:                  rtl-wmbus
 %global tag            0.0.0
 Version:               %{tag}
 %else
-%global date           20240118
-%global commit         20cafdcecf28121cb4d5546cfe9cbc1822a70a03
+%global date           20240426
+%global commit         34684e655df70867ac86e799561ec6512c45be0a
 Version:               0
 %endif
 
 %forgemeta
 
-Release:               24%{?dist}
+Release:               25%{?dist}
 Summary:               Software defined receiver for wireless M-Bus with RTL-SDR
 # Automatically converted from old format: BSD - review is highly recommended.
 License:               LicenseRef-Callaway-BSD
@@ -88,6 +88,9 @@ install -p -m 0755 -D build/%{the_binary} %{buildroot}%{_bindir}/%{the_binary}
 
 
 %changelog
+* Tue Jun 02 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0-25
+- Update to the latest version (rhbz#2483600)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

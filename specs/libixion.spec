@@ -8,6 +8,7 @@ Summary: A general purpose formula parser & interpreter library
 License: MPL-2.0
 URL: https://gitlab.com/ixion/ixion
 Source0: https://kohei.us/files/ixion/src/%{name}-%{version}.tar.xz
+Patch0: bfe5ab6adadda265d575fec9c192e6f53f2ef9f5.patch
 
 BuildRequires: boost-devel
 BuildRequires: gcc-c++

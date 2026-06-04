@@ -7,12 +7,13 @@
 
 Name: libcanberra
 Version: 0.30
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: Portable Sound Event Library
 Source0: http://0pointer.de/lennart/projects/libcanberra/libcanberra-%{version}.tar.xz
 Patch0: 0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch
+Patch1: 0001-canberra-boot-use-plughw-ALSA-device.patch
 License: LGPL-2.1-or-later
-Url: http://git.0pointer.de/?p=libcanberra.git;a=summary
+URL: https://git.0pointer.net/libcanberra.git/
 BuildRequires: gcc
 %if %{with gtk2}
 BuildRequires: gtk2-devel
@@ -29,11 +30,36 @@ BuildRequires: gettext-devel
 BuildRequires: systemd-devel
 BuildRequires: make
 Requires: sound-theme-freedesktop
-Requires: pulseaudio-libs >= 0.9.15
+
+Recommends: libcanberra-backend-alsa
+Recommends: libcanberra-backend-gstreamer
+Recommends: libcanberra-backend-pulse
 
 %description
 A small and lightweight implementation of the XDG Sound Theme Specification
 (http://0pointer.de/public/sound-theme-spec.html).
+
+%package backend-alsa
+Summary: ALSA backend for libcanberra
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description backend-alsa
+The ALSA backend module for libcanberra
+
+%package backend-gstreamer
+Summary: GStreamer backend for libcanberra
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description backend-gstreamer
+The GStreamer backend module for libcanberra
+
+%package backend-pulse
+Summary: PulseAudio backend for libcanberra
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: pulseaudio-libs >= 0.9.15
+
+%description backend-pulse
+The PulseAudio backend module for libcanberra
 
 %if %{with gtk2}
 %package gtk2
@@ -72,8 +98,7 @@ Development Files for libcanberra Client Development
 %systemd_preun canberra-system-bootup.service canberra-system-shutdown.service canberra-system-shutdown-reboot.service
 
 %prep
-%setup -q
-%patch -P0 -p1 
+%autosetup -p1
 
 %build
 %configure \
@@ -86,11 +111,11 @@ Development Files for libcanberra Client Development
     --enable-null \
     --disable-oss \
     --with-builtin=dso \
-    --with-systemdsystemunitdir=/usr/lib/systemd/system
-make %{?_smp_mflags}
+    --with-systemdsystemunitdir=%{_unitdir}
+%make_build
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 find $RPM_BUILD_ROOT \( -name *.a -o -name *.la \) -exec rm {} \;
 rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 
@@ -99,15 +124,21 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %doc README LGPL
 %{_libdir}/libcanberra.so.*
 %dir %{_libdir}/libcanberra-%{version}
-%{_libdir}/libcanberra-%{version}/libcanberra-alsa.so
-%{_libdir}/libcanberra-%{version}/libcanberra-pulse.so
 %{_libdir}/libcanberra-%{version}/libcanberra-null.so
 %{_libdir}/libcanberra-%{version}/libcanberra-multi.so
-%{_libdir}/libcanberra-%{version}/libcanberra-gstreamer.so
 %{_prefix}/lib/systemd/system/canberra-system-bootup.service
 %{_prefix}/lib/systemd/system/canberra-system-shutdown-reboot.service
 %{_prefix}/lib/systemd/system/canberra-system-shutdown.service
 %{_bindir}/canberra-boot
+
+%files backend-alsa
+%{_libdir}/libcanberra-%{version}/libcanberra-alsa.so
+
+%files backend-gstreamer
+%{_libdir}/libcanberra-%{version}/libcanberra-gstreamer.so
+
+%files backend-pulse
+%{_libdir}/libcanberra-%{version}/libcanberra-pulse.so
 
 %if %{with gtk2}
 %files gtk2
@@ -151,6 +182,12 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %{_datadir}/vala/vapi/libcanberra.vapi
 
 %changelog
+* Tue Jun 02 2026 Zephyr Lykos <fedora@mochaa.ws> - 0.30-40
+- Use plughw ALSA device for canberra-boot
+- Use make macros https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro (Tom Stellard <tstellar@redhat.com>)
+- Fix broken URL (Tim Landscheidt <tim@tim-landscheidt.de>)
+- Split backend modules into separate subpackages (David Shea <dshea@redhat.com>)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

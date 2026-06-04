@@ -14,7 +14,7 @@
 # to disable test suite
 %bcond_without           tests
 
-%global upstream_version 3.0.0
+%global upstream_version 3.0.1
 #global upstream_prever  RC2
 #global upstream_lower   RC2
 
@@ -27,13 +27,12 @@
 %global gh_vend          msgpack
 %global gh_proj          msgpack-php
 %global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
-%global tag              msgpack-%{upstream_version}%{?upstream_prever}
 
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 License:       BSD-3-Clause
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       7%{?dist}
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -109,6 +108,7 @@ extension = %{pecl_name}.so
 ;msgpack.assoc = On
 ;msgpack.illegal_key_insert = Off
 ;msgpack.use_str8_serialization = On
+;msgpack.force_f32 = Off
 EOF
 
 
@@ -149,7 +149,7 @@ TEST_PHP_ARGS="-n -d extension=apcu.so -d extension=$PWD/modules/%{pecl_name}.so
 
 %files
 %license LICENSE
-#doc composer.json
+%doc composer.json
 %doc README.md
 %doc CREDITS
 
@@ -164,6 +164,9 @@ TEST_PHP_ARGS="-n -d extension=apcu.so -d extension=$PWD/modules/%{pecl_name}.so
 
 
 %changelog
+* Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 3.0.1-1
+- update to 3.0.1
+
 * Thu Mar 12 2026 Remi Collet <remi@remirepo.net> - 3.0.0-7
 - drop pear/pecl dependency
 - sources from github

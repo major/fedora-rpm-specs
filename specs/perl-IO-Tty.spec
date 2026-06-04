@@ -1,10 +1,11 @@
 Name:           perl-IO-Tty
 Version:        1.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Tty-%{version}.tar.gz
+Patch0:         https://patch-diff.githubusercontent.com/raw/cpan-authors/IO-Tty/pull/95.patch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -39,6 +40,11 @@ IO::Tty and IO::Pty provide an interface to pseudo tty's.
 %prep
 %setup -q -n IO-Tty-%{version}
 
+# Fix for rhbz#2463168 (perl-IO-Tty-1.24 or newer break coreutils test-suite)
+# https://github.com/cpan-authors/IO-Tty/issues/91
+# https://github.com/cpan-authors/IO-Tty/pull/95
+%patch -P0 -p1
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -61,6 +67,10 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Tue Jun  2 2026 Paul Howarth <paul@city-fan.org> - 1.31-2
+- Fix for rhbz#2463168 (perl-IO-Tty-1.24 or newer break coreutils test-suite)
+  (GH#91, GH#95)
+
 * Mon May 25 2026 Paul Howarth <paul@city-fan.org> - 1.31-1
 - Update to 1.31 (rhbz#2481113)
   Bug Fixes:

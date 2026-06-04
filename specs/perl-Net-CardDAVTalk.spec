@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Net-CardDAVTalk
-Version:        0.09
-Release:        24%{?dist}
+Version:        0.11
+Release:        1%{?dist}
 Summary:        CardDAV client
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-CardDAVTalk
@@ -25,14 +25,11 @@ BuildRequires:  perl(:VERSION) >= 5.14.0
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Date::Format) >= 2.24
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(File::MMagic) >= 1.30
-BuildRequires:  perl(List::MoreUtils) >= 0.01
-BuildRequires:  perl(List::Pairwise) >= 1.00
+BuildRequires:  perl(JSON)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Net::DAVTalk) >= 0.08
-BuildRequires:  perl(Text::VCardFast) >= 0.07
+BuildRequires:  perl(Text::JSContact) => 0.01
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(XML::Spice) >= 0.04
 # Tests:
@@ -44,16 +41,12 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(Date::Format) >= 2.24
-Requires:       perl(File::MMagic) >= 1.30
-Requires:       perl(List::MoreUtils) >= 0.01
-Requires:       perl(List::Pairwise) >= 1.00
-Requires:       perl(Net::DAVTalk) >= 0.08
-Requires:       perl(Text::VCardFast) >= 0.07
+Requires:       perl(Net::DAVTalk) >= 0.24
+Requires:       perl(Text::JSContact) >= 0.01
 Requires:       perl(XML::Spice) >= 0.04
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:{%__requires_exclude}|}^perl\\((Date::Format|File::MMagic|List::MoreUtils|List::Pairwise|Net::DAVTalk|Text::VCardFast|XML::Spice)\\)$
+%global __requires_exclude %{?__requires_exclude:{%__requires_exclude}|}^perl\\((Net::DAVTalk|Text::JSContact|XML::Spice)\\)$
 
 %description
 This is an CardDAV client with FastMail Perl API.
@@ -88,6 +81,7 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 # Remove author tests
 rm -f %{buildroot}%{_libexecdir}/%{name}/t/manifest*
 rm -f %{buildroot}%{_libexecdir}/%{name}/t/pod*
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
@@ -107,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.11-1
+- 0.11 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,20 +10,18 @@
 %bcond_without       tests
 
 
-%global gh_commit    d554eb24d64232922e1eab5896cc2f84b3b9ffb1
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   vobject
 %global with_cmd     1
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.5.8
-Release:        2%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
 License:        BSD-3-Clause
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source2:        makesrc.sh
 
 # replace composer autloader
@@ -85,7 +83,7 @@ Autoloader: %{_datadir}/php/Sabre/VObject4/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 %patch -P0 -p1 -b .rpm
 
@@ -166,6 +164,9 @@ exit $ret
 %endif
 
 %changelog
+* Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 4.6.0-1
+- update to 4.6.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

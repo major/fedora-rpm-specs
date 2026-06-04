@@ -1,5 +1,5 @@
-%global commit b9c006f31b266408bd53079ce7ad57939a237d9a
-%global snapdate 20260309
+%global commit aca9d89481e13f583ce35a715be286c89c9e0161
+%global snapdate 20260602
 
 Name:           utest
 Version:        0^%{snapdate}.%{sub %{commit} 1 7}
@@ -11,9 +11,9 @@ URL:            https://github.com/sheredom/utest.h
 Source:         %{url}/archive/%{commit}/utest.h-%{commit}.tar.gz
 
 # For tests:
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -62,14 +62,7 @@ install -D --preserve-timestamps --mode=0644 \
 
 %check
 cd test
-# Note that utest_cmdline.filter_with_list only works if the current working
-# directory contains the test executable.
-cd %{_vpath_builddir}
-for testbin in utest_test*
-do
-  printf '\n==== %s ====\n\n' "${testbin}" 1>&2
-  "./${testbin}"
-done
+%ctest
 
 
 %files devel

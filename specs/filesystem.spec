@@ -78,7 +78,7 @@ Paths=(
         afs boot dev \
         etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,keys/ima,pki,bash_completion.d,default,rwtab.d,statetab.d} \
         home media mnt opt root run srv tmp \
-        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3type},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
+        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3t,3type},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
         var/{adm,empty,ftp,lib/{games,misc,rpm-state},local,log,nis,preserve,spool/{mail,lpd},tmp,db,cache/bpf,opt,games,yp}
 )
 for i in "${Paths[@]}"; do
@@ -110,36 +110,36 @@ mkdir -p usr/sbin
 mkdir -p usr/local/sbin
 %endif
 
-# Create locale, man and own help directories for every locale supported by glibc and ISO 639-2
+# Create and own basic list of locale, man and help directories supported by glibc and defined by ISO 639-2 standard
 while read locale; do
     echo "%ghost /usr/share/help/${locale}" >> $RPM_BUILD_DIR/filelist
     # Skip glibc built-in locale C
     [ "$locale" = "C" ] && continue
     echo "%lang(${locale}) /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
-    echo "%lang(${locale}) %ghost %config(missingok) /usr/share/man/${locale}" >>$RPM_BUILD_DIR/filelist
+    echo "%lang(${locale}) %ghost /usr/share/man/${locale}" >> $RPM_BUILD_DIR/filelist
     mkdir -p -m 755 %{buildroot}/usr/share/locale/$locale/LC_MESSAGES
     mkdir -p -m 755 %{buildroot}/usr/share/man/$locale/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}
 done < <(cat %{SOURCE2} %{SOURCE3} | grep -E -v '^#|^[[:space:]]*$' | sort | uniq)
 
-# Create and own locale directories for which we ship translations
-# TODO: do not create them, just own them
+# Own locale and man directories for which we ship translations
 while read locale; do
-    # Do not create directories for locales with charset definition, just own them
+    # Also own locale directories that include charset suffix
     if [[ "$locale" =~ "own_charset" ]]; then
         charset=${locale##own_charset:}
         echo "%ghost /usr/share/locale/$charset" >>$RPM_BUILD_DIR/filelist
         continue
     fi
     if [ -z "`grep \"/usr/share/locale/${locale}$\" $RPM_BUILD_DIR/filelist`" ]; then
-       # TODO echo "%lang(${locale}) %ghost /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
-       echo "%lang(${locale}) /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
-       echo "%lang(${locale}) %ghost %config(missingok) /usr/share/man/${locale}" >> $RPM_BUILD_DIR/filelist
-       mkdir -p -m 755 %{buildroot}/usr/share/locale/$locale/LC_MESSAGES
-       mkdir -p -m 755 %{buildroot}/usr/share/man/$locale/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}
+        echo "%lang(${locale}) %ghost /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
+        echo "%ghost /usr/share/locale/${locale}/LC_MESSAGES" >> $RPM_BUILD_DIR/filelist
+        echo "%lang(${locale}) %ghost /usr/share/man/${locale}" >> $RPM_BUILD_DIR/filelist
+        for i in /usr/share/man/$locale/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}; do
+            echo "%ghost $i" >> $RPM_BUILD_DIR/filelist
+        done
     fi
 done < <(cat %{SOURCE1} | grep -E -v '^#|^[[:space:]]*$')
 
-for i in man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3type}; do
+for i in man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3t,3type}; do
    echo "/usr/share/man/$i" >>$RPM_BUILD_DIR/filelist
 done
 

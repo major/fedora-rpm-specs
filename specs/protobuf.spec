@@ -1,5 +1,4 @@
-# Can’t get Java bindings to build
-%bcond java %{expr:%{undefined rhel} && 0}
+%bcond java %{undefined rhel}
 
 # tests won't work with low default RLIMIT_NOFILE=10240 on mock builder
 %bcond_with check
@@ -19,7 +18,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        33.5
 %global so_version 33
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # See version.json:
 %global version_protoc %{version}
@@ -49,10 +48,6 @@ Source4:        protoc.1
 # patch are guarded by preprocessor conditionals that only evaluate true on
 # 32-bit x86, so there is no harm in applying it unconditionally.
 # Patch:          disable-tests-on-32-bit-systems.patch
-# Remove animal-sniffer-maven-plugin from java pom.xml
-# only used on android 14, not available in Fedora
-# upstream says it is deprecated
-# Patch:          protobuf-26.1-java-no-animal-sniffer-maven-plugin.patch
 # Remove lambdas from TypeRegistryTest.java
 # Patch:          protobuf-3.25.1-java-TypeRegistryTest-no-lambda.patch
 # Use system gtest/gmock
@@ -212,17 +207,19 @@ License:        BSD-3-Clause
 
 BuildArch:      noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
+BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.guava:guava-testlib)
-BuildRequires:  mvn(com.google.truth:truth)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.easymock:easymock)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
 # The protobuf-compiler subpackage does not have to be installed, but if it is,
@@ -324,21 +321,27 @@ descriptions in the Emacs editor.
 
 %if %{with java}
 %ifarch %{java_arches}
-%pom_remove_dep com.google.errorprone:error_prone_annotations java/util/pom.xml
-%pom_remove_dep com.google.j2objc:j2objc-annotations java/util/pom.xml
+# Kotlin is not available in Fedora
+%pom_disable_module kotlin java
+%pom_disable_module kotlin-lite java
+
+# Unavailable dependencies
+%pom_remove_dep com.google.protobuf:protobuf-kotlin java/bom
+%pom_remove_dep com.google.truth:truth java
+
+# Unavailable plugins
+%pom_remove_plugin :maven-javadoc-plugin java
+%pom_remove_plugin org.codehaus.mojo:animal-sniffer-maven-plugin java
 
 # Remove annotation libraries we don't have
 annotations=$(
-    find -name '*.java' |
-      xargs grep -h -e '^import com\.google\.errorprone\.annotation' \
-                    -e '^import com\.google\.j2objc\.annotations' |
+    find java/util -name '*.java' -exec \
+      grep -h -e '^import com\.google\.errorprone\.annotation' \
+              -e '^import com\.google\.j2objc\.annotations' {} + |
       sort -u | sed 's/.*\.\([^.]*\);/\1/' | paste -sd\|
 )
-find -name '*.java' | xargs sed -ri \
-    "s/^import .*\.($annotations);//;s/@($annotations)"'\>\s*(\((("[^"]*")|([^)]*))\))?//g'
-
-# Make OSGi dependency on sun.misc package optional
-%pom_xpath_inject "pom:configuration/pom:instructions" "<Import-Package>sun.misc;resolution:=optional,*</Import-Package>" java/core
+find java/util -name '*.java' -exec sed -ri \
+    "s/^import .*\.($annotations);//;s/@($annotations)"'\>\s*(\((("[^"]*")|([^)]*))\))?//g' {} +
 
 # Backward compatibility symlink
 %mvn_file :protobuf-java:jar: protobuf/protobuf-java protobuf
@@ -394,9 +397,103 @@ export CXXFLAGS="${CXXFLAGS} -Wno-error=type-limits"
 %ifarch %{ix86} s390x
 export MAVEN_OPTS=-Xmx1024m
 %endif
-%pom_disable_module kotlin java/pom.xml
-%pom_disable_module kotlin-lite java/pom.xml
-%mvn_build -s -- -f java/pom.xml
+# Fedora doesn't have bazel, so generate sources manually
+srcdir=$PWD/src
+java_srcdir=$PWD/java/core/src/main/resources
+dependencies="<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <scope>test</scope>
+    </dependency>"
+dependencies_util="<dependency>
+      <groupId>\${project.groupId}</groupId>
+      <artifactId>protobuf-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-testlib</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.6</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>"
+build1="     "'<!-- Include core protos in the bundle as resources -->'"
+     <resources>
+      <resource>
+        <directory>\${protobuf.source.dir}</directory>
+        <includes>\n"
+build2="\n        </includes>
+      </resource>
+    </resources>"
+cd java/core
+    mkdir -p src/main/java/com/google/protobuf src/main/resources/google/protobuf
+    protos=$(sed -rn "/protobuf\.source\.dir/s,.*protobuf/(.+\.proto)\".*,$srcdir/google/protobuf/\1,p" generate-sources-build.xml)
+    includes=$(sed -rn "/protobuf\.source\.dir/s,.*protobuf/(.+\.proto)\".*,\          <include>google/protobuf/\1</include>,p" generate-sources-build.xml)
+    ../../%{_vpath_builddir}/protoc --java_out=src/main/java --proto_path=$srcdir --proto_path=$java_srcdir $java_srcdir/google/protobuf/java_features.proto $protos
+    cp -p $protos src/main/resources/google/protobuf
+    sed -e 's/{groupId}/com.google.protobuf/' \
+        -e 's/{version}/%{version_java}/' \
+        -e 's/{artifactId}/protobuf-java/' \
+        -e 's/{type}/bundle/' \
+        pom_template.xml > pom.xml
+    awk -v dep="${dependencies}" -i inplace '{gsub(/\{dependencies\}/,dep)}1' pom.xml
+    awk -v bld="${build1}${includes}${build2}" -i inplace '{gsub(/<build>/,"&" bld)}1' pom.xml
+cd -
+cd java/lite
+    mkdir -p src/main/java/com/google/protobuf src/main/resources/google/protobuf
+    protos=$(sed -rn "/protobuf\.source\.dir/s,.*protobuf/(.+\.proto)\".*,$srcdir/google/protobuf/\1,p" generate-sources-build.xml)
+    includes=$(sed -rn "/protobuf\.source\.dir/s,.*protobuf/(.+\.proto)\".*,\          <include>google/protobuf/\1</include>,p" generate-sources-build.xml)
+    ../../%{_vpath_builddir}/protoc --java_out=lite:src/main/java --proto_path=$srcdir --proto_path=$java_srcdir $java_srcdir/google/protobuf/java_features.proto $protos
+    cp -p $protos src/main/resources/google/protobuf
+    sed -e 's/{groupId}/com.google.protobuf/' \
+        -e 's/{version}/%{version_java}/' \
+        -e 's/{artifactId}/protobuf-javalite/' \
+        -e 's/{type}/bundle/' \
+        pom_template.xml > pom.xml
+    awk -v dep="${dependencies}" -i inplace '{gsub(/\{dependencies\}/,dep)}1' pom.xml
+    awk -v bld="${build1}${includes}${build2}" -i inplace '{gsub(/<build>/,"&" bld)}1' pom.xml
+    cp -p ../core/src/main/java/com/google/protobuf/{Abstract{Parser,ProtobufList},Android,ArrayDecoders,{Boolean,Int,Double,Float,Long,Protobuf}ArrayList,ByteBufferWriter,ByteOutput,ByteString,CanIgnoreReturnValue,CheckReturnValue,CodedInputStream{,Reader},CodedOutputStream{,Writer},CompileTimeConstant,ExperimentalApi,ExtensionRegistryFactory,ExtensionSchema{,s},Field{Info,Set,Type},Generated{,MessageInfoFactory},InlineMe,Internal,InvalidProtocolBufferException,IterableByteBufferInputStream,Java8Compatibility,JavaType,Lazy{Field,StringList},ListFieldSchema{,s},ManifestSchemaFactory,MapFieldSchema{,s},Message{Info{,Factory},{Set,}Schema},NewInstanceSchema{,s},OneofInfo,Parser,PrimitiveNonBoxingCollection,Protobuf,ProtocolStringList,ProtoSyntax,RawMessageInfo,Reader,RopeByteString,Schema{,Factory,Util},SmallSortedMap,StructuralMessageInfo,TextFormatEscaper,UninitializedMessageException,UnknownFieldSchema,UnsafeUtil,Utf8,WireFormat,Writer,*Lite*}.java src/main/java/com/google/protobuf
+cd -
+cd java/util
+    sed -e 's/{groupId}/com.google.protobuf/' \
+        -e 's/{version}/%{version_java}/' \
+        -e 's/{artifactId}/protobuf-java-util/' \
+        -e 's/{type}/bundle/' \
+        pom_template.xml > pom.xml
+    awk -v dep="${dependencies_util}" -i inplace '{gsub(/\{dependencies\}/,dep)}1' pom.xml
+cd -
+
+%mvn_build -s -f -- -f java/pom.xml
 %endif
 %endif
 
@@ -481,24 +578,6 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_libdir}/pkgconfig/upb.pc
 %{_libdir}/libupb.a
 
-%if %{with java}
-# Currently, nothing owns %%{_includedir}/java, so we need to (co-)own this
-# whole directory structure.
-%dir %{_includedir}/java
-%dir %{_includedir}/java/core
-%dir %{_includedir}/java/core/src
-%dir %{_includedir}/java/core/src/main
-%dir %{_includedir}/java/core/src/main/java
-%dir %{_includedir}/java/core/src/main/java/com
-%dir %{_includedir}/java/core/src/main/java/com/google
-%{_includedir}/java/core/src/main/java/com/google/protobuf/
-/usr/include/java/core/src/main/resources/google/protobuf/java_features.proto
-%dir %{_includedir}/java/core/src/main/resources
-%dir %{_includedir}/java/core/src/main/resources/google
-%dir %{_includedir}/java/core/src/main/resources/google/protobuf/
-%{_includedir}/java/core/src/main/resources/google/protobuf/*.proto
-%endif
-
 %{_libdir}/cmake/protobuf/
 %{_libdir}/pkgconfig/protobuf.pc
 %{_libdir}/pkgconfig/protobuf-lite.pc
@@ -569,6 +648,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Sat May 30 2026 Jerry James <loganjerry@gmail.com> - 33.5-4
+- Fix the Java build
+
 * Sun Feb 08 2026 Zephyr Lykos <fedora@mochaa.ws> - 33.5-3
 - Fix s390x endianess issues for upb
 

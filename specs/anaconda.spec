@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.5
+Version: 45.6
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -35,7 +35,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.70-1
+%define pykickstartver 3.73-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.13.0-1
 %define rpmver 4.15.0
@@ -520,6 +520,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 02 2026 Packit <hello@packit.dev> - 45.6-1
+- storage: mirror Blivet btrfs default compression in manual reuse (k.koukiou)
+  Resolves: rhbz#2422148
+- Revert "payloads: fix rsync progress parsing for localized numbers"
+  (k.koukiou)
+- dracut: append anchor certs to CA bundle in initramfs (rvykydal)
+- security: add --type support for %%certificate section (rvykydal)
+- Revert "anaconda.conf: Add split_lock_detect to preserved_arguments"
+  (k.koukiou)
+- bootloader/grub2.py: create grubenv on final destination (ppywlkiqletw)
+
 * Tue May 26 2026 Packit <hello@packit.dev> - 45.5-1
 - anaconda.conf: Add split_lock_detect to preserved_arguments (nathan9512)
 - pyanaconda: silence vulture for unused D-Bus signal arg (k.koukiou)

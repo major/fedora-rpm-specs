@@ -6,23 +6,12 @@
 
 Summary:   Writes audio CD-Rs in disk-at-once (DAO) mode
 Name:      cdrdao
-Version:   1.2.5
+Version:   1.2.6
 Release:   %autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
 URL:       http://cdrdao.sourceforge.net/
 Source0:   http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-# https://github.com/cdrdao/cdrdao/pull/21
-# should fix whipper failure with this version of cdrdao:
-# https://github.com/whipper-team/whipper/issues/591
-# https://bugzilla.redhat.com/show_bug.cgi?id=2238243
-Patch:     21.patch
-# https://github.com/cdrdao/cdrdao/pull/25
-# fixes the "cdrdao version" command broken in 1.2.5 that brasero relies on
-Patch1:    cdrdao-1.2.5-Fix-version-command.patch
-# https://github.com/cdrdao/cdrdao/pull/35
-# Fix build with GCC 15 (C23)
-Patch2:    cdrdao-1.2.5-gcc15.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  gtkmm3.0-devel

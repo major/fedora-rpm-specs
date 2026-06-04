@@ -5,10 +5,10 @@ ExcludeArch: %{ix86}
 Name:    step
 Summary: Interactive Physics Simulator 
 Version: 26.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
-URL:     https://invent.kde.org/edu/%{name}
+URL:     https://apps.kde.org/step
 Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: cmake
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 02 2026 Than Ngo <than@redhat.com> - 26.04.2-2
+- Fix rhbz#2371650, add correct URL
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

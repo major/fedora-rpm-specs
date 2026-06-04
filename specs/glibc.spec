@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-364-gb20b94006c
+%global glibcsrcdir glibc-2.43.9000-375-gc5278a6428
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 18
+%global baserelease 19
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2408,6 +2408,21 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jun 02 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-19
+- Auto-sync with upstream branch master,
+  commit c5278a64282f1c1f9a88711bac7b4e1469f851d6:
+- arm: Redirect memcpy to __memcpy_arm for loader/static init code (Adhemerval Zanella)
+- misc: Fix typos in comments (Yury Khrustalev)
+- hurd: define SO_TIMESTAMP in socket.h (Diego Nieto Cid)
+- malloc: aarch64: Remove broken memory tagging (Yury Khrustalev)
+- hesiod: use booleans in parser macro calls (Adhemerval Zanella)
+- hesiod: fix swapped arguments in service parser (Adhemerval Zanella)
+- math: Fix non-narrowing test build with arg-format conditions (Adhemerval Zanella)
+- aarch64: Use build attributes for asm feature marking (Muhammad Kamran)
+- misc: add a new test for gethostname (Martin Coufal)
+- test: Fix and stabilize tst-wcsmbs-clone-overflow test (Frédéric Bérat)
+- math: Fix fma alignment when exponent difference is exactly 64 (BZ 34183) (Adhemerval Zanella)
+
 * Thu May 28 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-18
 - Auto-sync with upstream branch master,
   commit b20b94006c79d65d75e5bd3a8d14fbcf9cd5bee6:

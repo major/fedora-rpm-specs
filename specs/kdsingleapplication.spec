@@ -14,7 +14,7 @@
 
 %global forgeurl https://github.com/KDAB/KDSingleApplication/
 # bumping this requires rebuild of dependent pkgs!
-%global soversion 1.1
+%global soversion 1.2
 
 %global cmake_args -DKDSingleApplication_TESTS=true
 %if %{with docs}
@@ -22,7 +22,7 @@
 %endif
 
 Name:           kdsingleapplication
-Version:        1.1.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        KDAB's helper class for single-instance policy applications
 %forgemeta
@@ -65,7 +65,7 @@ written by KDAB.}
 %if %{with qt5}
 %global _vpath_builddir build-qt5
 # qhelpgenerator needs to be in $PATH to be detected
-PATH=%{_qt5_libexecdir}":$PATH" %cmake %cmake_args \
+PATH=%{_qt5_libexecdir}":$PATH" %cmake %cmake_args -DKDSingleApplication_QT6=false \
     -DECM_MKSPECS_INSTALL_DIR:PATH=%{_qt5_archdatadir}/mkspecs/modules
 %cmake_build
 %endif

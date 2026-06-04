@@ -18,7 +18,6 @@ BuildRequires: glib2-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: help2man
 BuildRequires: kernel-headers
-BuildRequires: kmod-devel
 BuildRequires: libgudev-devel
 BuildRequires: libstdc++-devel
 BuildRequires: make
@@ -28,7 +27,6 @@ BuildRequires: python3-devel
 BuildRequires: python3-packaging
 BuildRequires: python3-pip
 BuildRequires: python3-setuptools
-BuildRequires: (python3-wheel if python3-setuptools < 71)
 %endif
 BuildRequires: systemd
 

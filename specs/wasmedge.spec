@@ -1,7 +1,7 @@
-%global version 0.16.1
+%global version 0.17.0
 %global reponame WasmEdge
 %global capi_soname 0
-%global capi_version 0.1.0
+%global capi_version 0.1.1
 
 Name:    wasmedge
 Version: %{version}
@@ -12,8 +12,6 @@ Summary: High performance WebAssembly Virtual Machine
 License: Apache-2.0 AND CC0-1.0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
-# Patch from https://github.com/WasmEdge/WasmEdge/commit/3b9c754fbe96289452ef76951e783e5a7d7eacc7
-Patch0: 0001-fix-refactor-Poller-context-handling-to-use-pointer-instead-of-wrapper.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: git

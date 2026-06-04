@@ -191,6 +191,8 @@ sed -i 's@MCAD/__init__.py@MCAD/gears.scad@' tests/CMakeLists.txt
 
 # tests
 cd tests
+# TODO: Remove when new release is packaged
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 cmake -DPYTHON_EXECUTABLE:STRING=%{python3} .
 %make_build
 cd -

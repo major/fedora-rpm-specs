@@ -44,10 +44,12 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
+%global skip_install_rpath ON
 %endif
 %global pkg_name rocclr%{pkg_suffix}
 
@@ -94,7 +96,11 @@
 %endif
 %endif
 %if 0%{?fedora}
+%if %{with compat}
+%bcond_with ocl
+%else
 %bcond_without ocl
+%endif
 %endif
 
 %if %{with ocl}
@@ -110,7 +116,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
@@ -218,6 +224,8 @@ Requires:    opencl-filesystem
 %if 0%{?suse_version}
 Recommends:  LibOpenCL1
 %endif
+Requires:    rocm-filesystem%{pkg_suffix}
+Requires:    rocm-runtime%{pkg_suffix}
 
 %description -n rocm-opencl%{pkg_suffix}
 ROCm OpenCL language runtime.
@@ -237,6 +245,7 @@ The AMD ROCm OpenCL development package.
 
 %package -n rocm-clinfo%{pkg_suffix}
 Summary:        ROCm OpenCL platform and device tool
+Requires:    rocm-filesystem%{pkg_suffix}
 
 %description -n rocm-clinfo%{pkg_suffix}
 A simple ROCm OpenCL application that enumerates all possible platform and
@@ -247,6 +256,8 @@ device information.
 Summary:        ROCm HIP platform and device tool
 Requires:       comgr%{pkg_suffix}(major) = %{comgr_maj_api_ver}
 Requires:       hipcc%{pkg_suffix}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix}
 
 %description -n rocm-hip%{pkg_suffix}
 HIP is a C++ Runtime API and Kernel Language that allows developers to create
@@ -342,7 +353,9 @@ export PATH=%{rocmllvm_bindir}:$PATH
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DHIPCC_BIN_DIR=%{pkg_prefix}/bin \
     -DHIP_COMMON_DIR=$p/hip \
     -DHIP_COMPILER=%rocmllvm_bindir/amdclang++ \
@@ -464,6 +477,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-2
+- merge compat changes
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

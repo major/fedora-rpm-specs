@@ -3,7 +3,7 @@
 
 Name:           centos-packager
 Version:        0.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Tools and files necessary for building CentOS packages
 Group:          Applications/Productivity
 
@@ -24,6 +24,7 @@ Requires:       bc
 Requires:       krb5-workstation
 Requires:       openssl
 Requires:       fasjson-client python3-fasjson-client
+Requires:       rpmautospec
 
 BuildArch:      noarch
 
@@ -59,6 +60,12 @@ install -p -m 0755 %{SOURCE5} %{buildroot}%{_bindir}/centos-get-sources
 %{_bindir}/centos-get-sources
 
 %changelog
+* Tue Jun  2 2026 Davide Cavalca <dcavalca@fedoraproject.org> - 0.7.0-20
+- Drop serverca in the koji config for https://fedoraproject.org/wiki/Changes/droppingOfCertPemFile
+  Fixes: RHBZ#2358273, RHBZ#2483718
+- Add rpmautospec dependency
+  Fixes: RHBZ#2414574
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

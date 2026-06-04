@@ -1,15 +1,8 @@
 %global base_version 1.32
 
-# Run optional test
-%if ! (0%{?rhel})
-%bcond_without perl_Locale_Maketext_enables_optional_test
-%else
-%bcond_with perl_Locale_Maketext_enables_optional_test
-%endif
-
 Name:           perl-Locale-Maketext
 Version:        1.33
-Release:        522%{?dist}
+Release:        523%{?dist}
 Summary:        Framework for localization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Maketext
@@ -38,10 +31,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-# Optional tests:
-%if %{with perl_Locale_Maketext_enables_optional_test} && !%{defined perl_bootstrap}
-BuildRequires:  perl(Test::Pod) >= 1.14
-%endif
 Requires:       perl(I18N::LangTags) >= 0.31
 # utf8 is used only if it has already been loaded
 Requires:       perl(warnings)
@@ -109,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 02 2026 Petr Pisar <ppisar@redhat.com> - 1.33-523
+- Remove unused dependency on Test::Pod
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-522
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
