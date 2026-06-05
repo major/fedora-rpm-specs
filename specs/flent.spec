@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.2.0
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.2.0-10
+- Rebuilt for Python 3.15
+
 * Thu Mar 5 2026 Toke Høiland-Jørgensen <toke@toke.dk> 2.2.0-9
 - Update dependency to new 'irtt' package
 

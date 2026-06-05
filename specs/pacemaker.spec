@@ -40,11 +40,11 @@
 ## Upstream pacemaker version, and its package version (baserelease
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 3.0.1
-%global baserelease 15
+%global pcmkversion 3.0.2
+%global baserelease 1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
+%global commit c75e25851c05c6b0ff48caeaa15854d5868ce428
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -193,8 +193,6 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       pacemaker.sysusers
 
 # upstream commits
-Patch0:        0001-Low-various-Use-const-for-a-few-string-pointer-varia.patch
-Patch1:        0002-Fix-build-Handle-CMocka-deprecations.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -766,6 +764,14 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Wed Jun 3 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.2-1
+- Update for new upstream release tarball: Pacemaker-3.0.2,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.2
+
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.1-16
+- Rebuilt for Python 3.15
+
 * Wed Feb 04 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-15
 - Handle CMocka deprecations
 

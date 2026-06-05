@@ -1,5 +1,5 @@
 Name:           pgcli
-Version:        4.4.0
+Version:        4.5.0
 Release:        %autorelease
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
@@ -7,12 +7,7 @@ License:        BSD-3-Clause
 URL:            https://www.pgcli.com/
 Source:         %{pypi_source pgcli}
 
-# Bump click minimum version to 8.3.1
-Patch:          https://github.com/dbcli/pgcli/commit/d0a6cc2.patch
-
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 BuildRequires:  help2man
 
@@ -30,7 +25,7 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %pyproject_extras_subpkg -n python3-pgcli keyring sshtunnel
 
 %generate_buildrequires
-%pyproject_buildrequires -x keyring -x sshtunnel
+%pyproject_buildrequires --extras keyring --extras sshtunnel
 
 %prep
 %autosetup
@@ -40,14 +35,12 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 
 %install
 %pyproject_install
-%pyproject_save_files -l pgcli
+%pyproject_save_files --assert-license pgcli
 
 # We must do this in %%install rather than in %%build in order to use the
 # generated entry point:
-install -d '%{buildroot}%{_mandir}/man1'
-PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-    PYTHONDONTWRITEBYTECODE=1 \
-    help2man --no-info --version-string='%{version}' \
+install --directory '%{buildroot}%{_mandir}/man1'
+%{py3_test_envvars} help2man --no-info --version-string='%{version}' \
         --output='%{buildroot}%{_mandir}/man1/pgcli.1' \
         %{buildroot}%{_bindir}/pgcli
 

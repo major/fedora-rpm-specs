@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
 License:        BSD-3-Clause
@@ -70,6 +70,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.21-26
+- Rebuilt for Python 3.15
+
 * Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 0.21-25
 - Fully remove python3-mock build dependency
 

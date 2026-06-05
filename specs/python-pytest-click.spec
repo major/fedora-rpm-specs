@@ -1,6 +1,6 @@
 Name:           python-pytest-click
 Version:        1.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Pytest plugin for Click
 
 License:        MIT
@@ -43,6 +43,9 @@ isolated_cli_runner.
 %{python3_sitelib}/pytest_click-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.0-15
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

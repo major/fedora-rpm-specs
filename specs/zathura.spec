@@ -1,6 +1,6 @@
 Name:              zathura
-Version:           0.5.14
-Release:           2%{?dist}
+Version:           2026.05.20
+Release:           1%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
@@ -21,15 +21,16 @@ BuildRequires:     fish
 BuildRequires:     cmake
 BuildRequires:     gcc
 BuildRequires:     gettext
-BuildRequires:     girara-devel >= 0.4.5
-BuildRequires:     glib2-devel >= 2.72
+BuildRequires:     girara-devel >= 2026.01.30
+BuildRequires:     glib2-devel >= 2.76
 BuildRequires:     gtk3-devel >= 3.24
 BuildRequires:     intltool
 # Needed to validate appdata
 BuildRequires:     appstream
+BuildRequires:     pkgconfig(json-glib-1.0)
 BuildRequires:     librsvg2-tools
 BuildRequires:     libseccomp-devel
-BuildRequires:     meson >= 0.61
+BuildRequires:     meson >= 1.5
 # Needed to build man pages (/doc subdir)
 BuildRequires:     python3-sphinx
 BuildRequires:     sqlite-devel >= 3.6.23
@@ -122,7 +123,7 @@ This package provides %{summary}.
 %install
 %meson_install
 # This duplicates meson_test validate-appdata:
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %find_lang org.pwmt.zathura
 
@@ -140,7 +141,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/interfaces/org.pwmt.zathura.xml
 %{_datadir}/icons/hicolor/*/apps/org.pwmt.zathura.png
 %{_datadir}/icons/hicolor/*/apps/org.pwmt.zathura.svg
-%{_datadir}/metainfo/org.pwmt.zathura.appdata.xml
+%{_datadir}/metainfo/org.pwmt.zathura.metainfo.xml
 
 %files devel
 %{_includedir}/zathura
@@ -159,6 +160,24 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed May 20 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.20-1
+- feat: update to 2026.05.20 (rhbz#2441778)
+
+* Mon May 11 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.11-1
+- feat: update to 2026.05.11 (rhbz#2441778)
+
+* Sun May 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.10-1
+- feat: update to 2026.05.10
+
+* Sat Mar 28 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.03.27-1
+- feat: update to 2026.03.27
+
+* Wed Feb 04 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.02.03-1
+- feat: update to 2026.02.03
+
+* Sat Jan 31 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-1
+- feat: update to 2026.01.30
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

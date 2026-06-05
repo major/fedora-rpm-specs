@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -346,6 +346,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.4.9.1-2
+- Rebuilt for Python 3.15
+
 * Sat May 09 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.1-1
 - update Cryptlib to version 3.4.9.1 and update cryptlib tools to version 1.3
 

@@ -22,7 +22,6 @@ Requires:       iio-sensor-proxy%{?_isa}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  intltool
 BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
 BuildRequires:  pkgconfig(colord) >= 0.1.27

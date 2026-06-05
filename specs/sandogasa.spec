@@ -14,11 +14,12 @@
 }
 
 Name:           sandogasa
-Version:        0.11.4
+Version:        0.12.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
-SourceLicense:  Apache-2.0 OR MIT
+# zone1970.tab from tzdata is in the Public Domain
+SourceLicense:  (Apache-2.0 OR MIT) AND LicenseRef-Fedora-Public-Domain
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
@@ -37,6 +38,7 @@ SourceLicense:  Apache-2.0 OR MIT
 # Unlicense OR MIT
 License:        %{shrink:
     (Apache-2.0 OR MIT) AND
+    LicenseRef-Fedora-Public-Domain AND
     Unicode-3.0 AND
     Apache-2.0 AND ISC AND 
     MIT AND
@@ -58,6 +60,7 @@ BuildRequires:  cargo-rpm-macros
 Requires:       koji
 Recommends:     fedora-packager
 Recommends:     fedrq
+Recommends:     tzdata
 Suggests:       centos-packager
 
 # ebranch is in Fedora <= 44 and EPEL <= 9

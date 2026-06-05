@@ -3,7 +3,7 @@
 
 %global pypi_name oslo.i18n
 %global pkg_name oslo-i18n
-%global with_doc 1
+%global with_doc 0
 
 %global _description %{expand:
 The oslo.i18n library contain utilities for working with internationalization

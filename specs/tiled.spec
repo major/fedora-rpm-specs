@@ -2,7 +2,7 @@ Name:           tiled
 Summary:        Tiled Map Editor
 
 Version:        1.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD.
 #
@@ -281,6 +281,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/librpd.so
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.12.2-2
+- Rebuilt for Python 3.15
+
 * Wed May 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.12.2-1
 - Update to v1.12.2
 

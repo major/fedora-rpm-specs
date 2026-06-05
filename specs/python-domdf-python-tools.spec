@@ -1,3 +1,4 @@
+%global _without_tests 1
 # BOOTSTRAPPING NOTE: The tests depend on python3-coincidence which in turn
 # depends on this package.
 %bcond tests 1
@@ -7,7 +8,7 @@
 Name:           python-domdf-python-tools
 Version:        3.9.0
 %forgemeta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Helpful functions for Python
 
 # Primary license: MIT
@@ -107,6 +108,9 @@ and not test_repr_deep
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.9.0-10
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

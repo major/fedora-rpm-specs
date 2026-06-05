@@ -1,17 +1,19 @@
 %global srcname aw-qt
-%global commit 6ab7e3f13934b80a92e596452bea9de766c5446e
+%global commit 6fbb5f77073b23ae54fe0de4fc9b18f1eb761ccc
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        0^20250329.%{short_commit}
+Version:        0^20260603.%{short_commit}
 Release:        %autorelease
 Summary:        Service manager and tray icon managing aw-server and watchers, built with Qt
 
 License:        MPL-2.0
 URL:            https://github.com/ActivityWatch/aw-qt
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{short_commit}.tar.gz
-Source1:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo.png
-Source2:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo-128.png
+# https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo.png
+Source1:        logo.png
+# https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo-128.png
+Source2:        logo-128.png
 Patch:          0001-Avoid-FTBFS-on-upcoming-Fedora.patch
 
 BuildArch:      noarch

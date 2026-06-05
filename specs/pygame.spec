@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -116,6 +116,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.6.1-11
+- Rebuilt for Python 3.15
+
 * Wed May 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.1-10
 - Fixed build with setuptools >= 82
 

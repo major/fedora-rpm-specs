@@ -2,7 +2,7 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
@@ -118,6 +118,9 @@ make check
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9.3-2
+- Rebuilt for Python 3.15
+
 * Thu Apr 09 2026 Steve Grubb <sgrubb@redhat.com> 0.9.3-1
 - New upstream bugfix release
 

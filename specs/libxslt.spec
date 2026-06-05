@@ -1,7 +1,7 @@
 Name:           libxslt
 Summary:        Library providing the Gnome XSLT engine
 Version:        1.1.43
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
@@ -131,6 +131,9 @@ rm -vrf %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.43-7
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.43-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -42,7 +42,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires %{?with_tests:-x testing}
 
 
 %build

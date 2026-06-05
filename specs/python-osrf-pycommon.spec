@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        2.1.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Commonly needed Python modules used by software developed at OSRF
 
 # The entire source code is ASL 2.0 except parts of osrf_pycommon/terminal_color/windows.py which is BSD
@@ -104,6 +104,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.5-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

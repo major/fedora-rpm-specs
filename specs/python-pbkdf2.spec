@@ -1,6 +1,6 @@
 Name:      python-pbkdf2
 Version:   1.3
-Release:   39%{?dist}
+Release:   40%{?dist}
 Summary:   A module for a password-based key derivation function
 
 License:   MIT
@@ -52,6 +52,9 @@ Summary: %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3-40
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	6.0.2
+Version:	6.0.3
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
@@ -27,9 +27,6 @@ Patch0:		0001-Unbundle-tinyxml.patch
 #		https://github.com/xrootd/xrootd/pull/2802
 Patch1:		0001-XrdCrypto-XrdTls-XrdVoms-Adapt-to-OpenSSL-4.0.patch
 Patch2:		0002-XrdCrypto-Preserve-ABI.patch
-#		Backport fix from upstream
-#		https://github.com/xrootd/xrootd/pull/2799
-Patch3:		0001-XrdClHttp-Fix-bug-preventing-the-configuration-of-th.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -270,7 +267,6 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
-%patch -P3 -p1
 
 %build
 %cmake \
@@ -665,6 +661,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.0.3-1
+- Update to version 6.0.3
+
 * Thu May 21 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.0.2-1
 - Update to version 6.0.2
 - Adapt to OpenSSL 4.0

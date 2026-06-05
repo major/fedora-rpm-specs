@@ -92,10 +92,13 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        1%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm FFT marshaling library
 License:        MIT AND BSD-3-Clause
+# Most files are MIT
+# This file is the only BSD-3-Clause
+#  shared/CLI11.hpp
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
@@ -107,6 +110,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -129,6 +133,8 @@ BuildRequires:  gtest-devel
 
 %endif
 
+Requires:       rocm-hip%{pkg_suffix}
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       hipfft%{pkg_suffix} = %{version}-%{release}
 
 %description
@@ -153,6 +159,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       hipfft%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -162,6 +169,7 @@ Provides:       hipfft%{pkg_suffix}-devel = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
 %{summary}
@@ -236,6 +244,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Jun 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- merge compat changes
+
 * Tue Apr 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Generate suse package name
 

@@ -1,6 +1,6 @@
 Name:           python-pydbus
 Version:        0.6.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Pythonic DBus library
 
 License:        LGPL-2.1-or-later
@@ -65,6 +65,9 @@ Requires:       python3-gobject-base
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.0-36
+- Rebuilt for Python 3.15
+
 * Tue Mar 24 2026 Carl George <carlwgeorge@fedoraproject.org> - 0.6.0-35
 - Port to pyproject macros rhbz#2378029
 - Run import check in %%check

@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -199,6 +199,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.1-3
+- Rebuilt for Python 3.15
+
 * Mon May 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.1-2
 - Use libdw for backtraces
 

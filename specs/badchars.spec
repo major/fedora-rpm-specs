@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        HEX bad char generator for different programming languages
 
 License:        MIT
@@ -45,6 +45,9 @@ transform those to other chars.
 %license LICENSE.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.0-5
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

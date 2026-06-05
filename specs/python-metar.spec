@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -86,6 +86,9 @@ chmod 644 sample.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.1-2
+- Rebuilt for Python 3.15
+
 * Sun Apr 26 2026 Jos de Kloe <josdekloe@gmail.com> 2.0.1-1
 - update to new upstream version 2.0.1
 

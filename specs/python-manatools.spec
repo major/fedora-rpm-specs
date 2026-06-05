@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.99.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 License:        LGPL-2.1-or-later
@@ -52,6 +52,9 @@ Every output module supports the Qt, GTK, and ncurses interfaces.
 %{python3_sitelib}/python_manatools-%{version}.dist-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.99.2-2
+- Rebuilt for Python 3.15
+
 * Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.99.2-1
 - Update to 0.99.2
 

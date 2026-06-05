@@ -1,7 +1,7 @@
 Summary:       PPD file compressor and generator for CUPS
 Name:          pyppd
 Version:       1.0.2
-Release:       37%{?dist}
+Release:       38%{?dist}
 URL:           http://pypi.python.org/pypi/pyppd
 Source:        http://pypi.python.org/packages/source/p/pyppd/pyppd-%{version}.tar.gz
 License:       MIT
@@ -35,6 +35,9 @@ sed -i -e '1s,^#!/usr/bin/env python,#!/usr/bin/python3,' pyppd/pyppd-ppdfile.in
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.2-38
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

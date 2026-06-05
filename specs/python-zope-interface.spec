@@ -1,3 +1,4 @@
+%global _without_docs 1
 # Bconds are needed for Python bootstrap
 %bcond docs %{undefined rhel}
 %bcond tests 1

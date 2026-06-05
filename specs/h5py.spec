@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -258,6 +258,9 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${P
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.16.0-3
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Orion Poplawski <orion@nwra.com> - 3.16.0-2
 - Rebuild for hdf5 2.1
 

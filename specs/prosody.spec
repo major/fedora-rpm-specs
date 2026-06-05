@@ -5,7 +5,7 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           13.0.5
+Version:           13.0.6
 Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
@@ -214,6 +214,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Wed Jun 03 2026 Robert Scheck <robert@fedoraproject.org> 13.0.6-1
+- Upgrade to 13.0.6 (#2482254)
+
 * Thu Apr 30 2026 Robert Scheck <robert@fedoraproject.org> 13.0.5-1
 - Upgrade to 13.0.5 (#2463898)
 

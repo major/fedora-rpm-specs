@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A Sphinx-doc theme based on Vuepress
 
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
@@ -46,6 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinx_press_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.1-27
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

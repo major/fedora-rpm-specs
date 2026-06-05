@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -169,6 +169,9 @@ popd >/dev/null
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.0-2
+- Rebuilt for Python 3.15
+
 * Sat May 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 7.0-1
 - Update to version 7.0
 - Resolves: rhbz#2468544

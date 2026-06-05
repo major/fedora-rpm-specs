@@ -4,9 +4,9 @@ Name:		mupdf
 
 %global libname libmupdf
 %global pypiname mupdf
-Version:	1.27.1
+Version:	1.27.2
 %global somajor 27
-%global sominor 1
+%global sominor 2
 %global soname %{somajor}.%{sominor}
 %global pkgconfig %{_libdir}/pkgconfig
 # upstream prerelease versions tags need to be translated to Fedorian
@@ -44,8 +44,6 @@ Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
 Patch:		0001-pdf_font-report-font-name-in-warning.patch
 # Upstreamable:
 Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
-# Upstream master branch:
-Patch:		0001-Bug-709029-Fix-incorrect-error-case-free-of-pixmap.patch
 
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
@@ -75,7 +73,7 @@ Requires:	%{name}-libs%{_isa} = %{version}-%{release}
 Provides:	bundled(lcms2-devel) = lcms2.16^65.gf75fad7
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
-Provides:	bundled(mujs-devel) = 1.3.7^2.g33c83d8
+Provides:	bundled(mujs-devel) = 1.3.9-9.ge892c9f
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
 Provides:	bundled(extract) = 10.05
 

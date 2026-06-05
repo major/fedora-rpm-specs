@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global modname zope.exceptions
 %global giturl  https://github.com/zopefoundation/zope.exceptions
 
@@ -8,7 +9,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    6.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
@@ -54,6 +55,9 @@ sed -i -r 's/("| )setuptools == /\1setuptools >= /' pyproject.toml tox.ini
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.0-5
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

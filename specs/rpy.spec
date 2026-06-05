@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -87,6 +87,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.5.16-15
+- Rebuilt for Python 3.15
+
 * Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.5.16-14
 - Rebuild for Pandas3
 

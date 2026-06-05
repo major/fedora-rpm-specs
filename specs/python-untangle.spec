@@ -1,6 +1,6 @@
 Name:           python-untangle
 Version:        1.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Converts XML to Python objects
 
 License:        MIT
@@ -73,6 +73,9 @@ export LANG=en_US.UTF-8
 %{python3_sitelib}/untangle-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.1-12
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

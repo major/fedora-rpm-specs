@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.0-32
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

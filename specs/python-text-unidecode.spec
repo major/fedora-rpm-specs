@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A Python module for handling non-Roman text data
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -42,6 +42,9 @@ text-unidecode is the most basic port of the Text::Unidecode Perl library.
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3-26
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

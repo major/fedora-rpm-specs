@@ -1,5 +1,5 @@
-%global nspr_version 4.38.2
-%global nss_version 3.123.1
+%global nspr_version 4.39
+%global nss_version 3.124.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+9]
+%global nspr_release %[%baserelease+0]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -144,7 +144,6 @@ Patch65:          nss-3.118-ml-dsa-test-for-sign-verify-pkcs12.patch
 Patch66:          nss-3.118-ml-dsa-tls-test.patch
 Patch67:          nss-3.118-ml-dsa-unittests.patch
 Patch68:          nss-3.123-fix-mldsa-import-regeneration.patch
-Patch70:          nss-dbtests-sqlite-mangling.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -631,8 +630,8 @@ pushd nss/tests
 #  don't need to run all the tests when testing packaging
 #  nss_cycles: standard pkix upgradedb sharedb
 #  the full list from all.sh is:
-#  "cipher lowhash libpkix cert dbtests tools fips sdr crmf smime ssl ocsp merge pkits chains ec gtests ssl_gtests"
-%define nss_tests "libpkix cert dbtests tools fips sdr crmf smime ssl ocsp merge pkits chains ec gtests ssl_gtests"
+#  "cipher lowhash libpkix cert dbtests tools fips sdr smime ssl ocsp merge pkits chains ec gtests ssl_gtests"
+%define nss_tests "libpkix cert dbtests tools fips sdr smime ssl ocsp merge pkits chains ec gtests ssl_gtests"
 #  nss_ssl_tests: crl bypass_normal normal_bypass normal_fips fips_normal iopr policy
 #  nss_ssl_run: cov auth stapling stress
 #
@@ -733,7 +732,7 @@ install -p -m 644 %{SOURCE14} $RPM_BUILD_ROOT/%{_sysconfdir}/pki/nssdb/key4.db
 install -p -m 644 %{SOURCE15} $RPM_BUILD_ROOT/%{_sysconfdir}/pki/nssdb/pkcs11.txt
 
 # Copy the development libraries we want
-for file in libcrmf.a libnssb.a libnssckfw.a
+for file in libnssb.a libnssckfw.a
 do
   install -p -m 644 dist/${LOBJDIR}/lib/$file $RPM_BUILD_ROOT/%{_libdir}
 done
@@ -901,7 +900,6 @@ fi
 %doc %{_mandir}/man1/vfyserv.1*
 
 %files devel
-%{_libdir}/libcrmf.a
 %{_libdir}/pkgconfig/nss.pc
 %{_bindir}/nss-config
 %doc %{_mandir}/man1/nss-config.1*
@@ -910,13 +908,9 @@ fi
 %{_includedir}/nss3/cert.h
 %{_includedir}/nss3/certdb.h
 %{_includedir}/nss3/certt.h
-%{_includedir}/nss3/cmmf.h
-%{_includedir}/nss3/cmmft.h
 %{_includedir}/nss3/cms.h
 %{_includedir}/nss3/cmsreclist.h
 %{_includedir}/nss3/cmst.h
-%{_includedir}/nss3/crmf.h
-%{_includedir}/nss3/crmft.h
 %{_includedir}/nss3/cryptohi.h
 %{_includedir}/nss3/cryptoht.h
 %{_includedir}/nss3/sechash.h
@@ -1099,6 +1093,10 @@ fi
 
 
 %changelog
+* Mon Jun  1 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.124.0-1
+- Update NSS to 3.124.0
+- Remove libcrmf as it is being deprecated and we don't use it.
+
 * Thu May  7 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.123.1-1
 - Update NSS to 3.123.1
 

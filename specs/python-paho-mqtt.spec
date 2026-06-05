@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python MQTT version 3.1/3.1.1/5.0 client class
 
 License:        EPL-1.0
@@ -56,6 +56,9 @@ and/or network bandwidth is at a premium.
 %doc CONTRIBUTING.md README.rst *.html
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.0-9
+- Rebuilt for Python 3.15
+
 * Mon Jan 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-8
 - Remove unnecessary BuildRequires on deprecated python-pytest-runner
 

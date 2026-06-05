@@ -16,7 +16,7 @@
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
 Version:    9.10
-Release:    1%{?dist}
+Release:    2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc-openstack
@@ -79,6 +79,9 @@ general might be used separately.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.10-2
+- Rebuilt for Python 3.15
+
 * Thu Apr 23 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> - 9.10-1
 - New version v9.10
 

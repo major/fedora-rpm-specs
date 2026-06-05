@@ -1,3 +1,5 @@
+%global _without_soupsieve 1
+%global _without_tests 1
 # Ciruclar dependency with soupsieve which must be disabled at times
 %if 0%{?rhel} > 10
 %bcond soupsieve 0
@@ -9,7 +11,7 @@
 
 Name:           python-beautifulsoup4
 Version:        4.14.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -93,6 +95,9 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %{python3_sitelib}/bs4
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.14.3-3
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

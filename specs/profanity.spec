@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -176,6 +176,9 @@ cp -a profrc.example %{buildroot}%{_datadir}/%{name}/
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.18.0-3
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 Benson Muite <fed500@fedoraproject.org> - 0.18.0-2
 - Indicate correct license
 

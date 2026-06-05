@@ -22,6 +22,8 @@ Source32: eric-64.png
 Patch100: eric7-23.9-defaults.patch
 # build with Python 3.14
 Patch101: eric7-25.6.1-python314.patch
+# build with Python 3.15
+Patch102: allow-python3.15-build.patch
 
 BuildArch: noarch
 # webengine not available on all archs

@@ -1,6 +1,6 @@
 Name:             zathura-djvu
-Version:          0.2.10
-Release:          4%{?dist}
+Version:          2026.05.10
+Release:          1%{?dist}
 Summary:          DjVu support for zathura
 License:          Zlib
 URL:              http://pwmt.org/projects/%{name}
@@ -12,15 +12,15 @@ BuildRequires:    cairo-devel
 BuildRequires:    djvulibre-devel
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
-BuildRequires:    girara-devel
+BuildRequires:    girara-devel >= 2026.02.03
 BuildRequires:    glib2-devel
 # Needed to validate appdata
-BuildRequires:    libappstream-glib
-BuildRequires:    meson >= 0.43
+BuildRequires:    appstream
+BuildRequires:    meson >= 0.61
 BuildRequires:    gcc
-BuildRequires:    zathura-devel >= 0.3.8
+BuildRequires:    zathura-devel >= 2026.01.30
 
-Requires:         zathura >= 0.3.8
+Requires:         zathura >= 2026.01.30
 
 %description
 The zathura-djvu plugin adds DjVu support to zathura by
@@ -36,7 +36,7 @@ using the djvulibre library.
 %install
 %meson_install
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %files
 %license LICENSE
@@ -47,6 +47,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed May 20 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.10-1
+- update to 2026.05.10 (rhbz#2406945)
+
+* Thu Feb 05 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.02.03-1
+- update to 2026.02.03 (rhbz#2406945)
+
+* Sat Jan 31 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-1
+- update to 2026.01.30
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

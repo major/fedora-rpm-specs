@@ -4,7 +4,7 @@
 
 Name:             python-%{srcname}
 Version:          1.10.1
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -62,6 +62,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.10.1-22
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

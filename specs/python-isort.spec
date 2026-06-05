@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            8.0.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 8.0.1-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 8.0.1-1
 - 8.0.1
 

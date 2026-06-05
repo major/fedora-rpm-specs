@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Generates rosinstall files
 
 # spdx
@@ -69,6 +69,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.23-16
+- Rebuilt for Python 3.15
+
 * Sat Jan 31 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1.23-15
 - Update license to spdx
 

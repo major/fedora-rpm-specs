@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -100,6 +100,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.0-16
+- Rebuilt for Python 3.15
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.8.0-15
 - Rebuilt without python-mock
 

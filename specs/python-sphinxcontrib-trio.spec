@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make Sphinx better at documenting Python functions and methods
 # Automatically converted from old format: MIT or ASL 2.0 - review is highly recommended.
 License:        LicenseRef-Callaway-MIT OR Apache-2.0
@@ -73,6 +73,9 @@ rst2html README.rst README.html
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.0-2
+- Rebuilt for Python 3.15
+
 * Sun Mar 01 2026 Thomas Moschny <thomas.moschny@gmx.de> - 1.2.0-1
 - Update to 1.2.0.
 

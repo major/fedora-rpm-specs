@@ -1,14 +1,12 @@
 Name:             zathura-pdf-mupdf
 
-Version:          0.4.4
-Release:          9%{?dist}
+Version:          2026.05.10
+Release:          1%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
 Source0:          %{url}/download/%{name}-%{version}.tar.xz
-# Upstream patch from 0.4.6 adjusting to shared mupdf library
-Patch1:           0001-Update-Debian-build-branch-recent-packaging-changes-.patch
-Patch2:           0001-configure-for-shared-mupdf-build.patch
+Patch1:           0001-configure-for-shared-mupdf-build.patch
 
 BuildRequires:    binutils
 BuildRequires:    cairo-devel
@@ -16,15 +14,15 @@ BuildRequires:    cairo-devel
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc
 BuildRequires:    git-core
-BuildRequires:    girara-devel
+BuildRequires:    girara-devel >= 2026.02.03
 BuildRequires:    glib2-devel
 # Needed to validate appdata
-BuildRequires:    libappstream-glib
+BuildRequires:    appstream
 BuildRequires:    libjpeg-turbo-devel
-BuildRequires:    meson >= 0.43
-BuildRequires:    mupdf-devel >= 1.23.9-3
-BuildRequires:    zathura-devel >= 0.3.9
-Requires:         zathura >= 0.3.9
+BuildRequires:    meson >= 1
+BuildRequires:    mupdf-devel >= 1.26
+BuildRequires:    zathura-devel >= 2026.01.30
+Requires:         zathura >= 2026.01.30
 
 # Old plugins used alternatives
 Conflicts:        zathura-pdf-poppler < 0.2.9
@@ -42,7 +40,8 @@ This plugin adds PDF support to zathura using the mupdf rendering engine.
 %install
 %meson_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+# This duplicates meson_test validate-appdata:
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 # Clean the old alternatives link
 %pre
@@ -56,6 +55,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Sun May 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.05.10-1
+- update to 2026.05.10 (rhbz#2406684)
+
+* Thu Feb 05 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.02.03-1
+- update to 2026.02.03 (rhbz#2406684)
+
+* Sat Jan 31 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-1
+- update to 2026.01.30 (rhbz#2406684)
+
 * Tue Feb 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 0.4.4-9
 - Rebuild (mupdf)
 

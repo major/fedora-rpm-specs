@@ -48,7 +48,7 @@ sed -i '/mypy/d' pyproject.toml
 sed -i '/types-requests/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -3,7 +3,7 @@
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
 Version:        2.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/dbcli/cli_helpers
@@ -55,6 +55,9 @@ PYTHONPATH=build/lib/ py.test-3
 %doc AUTHORS CHANGELOG README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.15.0-2
+- Rebuilt for Python 3.15
+
 * Thu May 28 2026 Terje Rosten <terjeros@gmail.com> - 2.15.0-1
 - 2.15.0
 

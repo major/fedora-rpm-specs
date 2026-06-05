@@ -37,6 +37,13 @@ Patch:          nowheel.patch
 # This is a downstream-only patch to make it possible to build 2.20 with Python 3.15
 Patch:          allow-python3.15-build.patch
 
+# Fix general compatibility with Python 3.15
+# The test fix bit comes from https://github.com/ansible/ansible/commit/d60f11409
+# (rebased to apply on the sources of this version)
+# Changes to the _dataclass_annotation_patch come from merged:
+# https://github.com/ansible/ansible/pull/86976
+Patch:          fix-compatibility-with-python-315.patch
+
 BuildArch:      noarch
 
 # Virtual provides for bundled libraries

@@ -2,7 +2,7 @@
 
 Name:          modpoll
 Version:       1.6.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A command line tool for Modbus and MQTT
 License:       MIT
 URL:           https://github.com/gavinying/modpoll
@@ -45,6 +45,9 @@ A command line tool for Modbus and MQTT
 %{_bindir}/modpoll
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.0-2
+- Rebuilt for Python 3.15
+
 * Sun Dec 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.6.0-1
 - Update to 1.6.0
 

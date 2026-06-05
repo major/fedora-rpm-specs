@@ -3,7 +3,7 @@
 
 Name:           dnfdaemon
 Version:        0.3.22
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        DBus daemon for dnf package actions
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -118,6 +118,9 @@ fi
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.22-12
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.22-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

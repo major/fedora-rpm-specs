@@ -5,7 +5,7 @@ Version:        1.10
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Access dict values as attributes (works recursively) 
 
 License:        LGPL-3.0-only
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc CHANGES
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.10-12
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

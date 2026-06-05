@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -830,6 +830,9 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.21.1-4
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-3
 - x86: CPU Opcode Cache corruption [XSA-490,CVE-2025-54518]
 

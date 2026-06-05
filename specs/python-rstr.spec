@@ -7,7 +7,7 @@ applications.}
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generate random strings in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-18
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 45.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -520,6 +520,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 45.6-2
+- Rebuilt for Python 3.15
+
 * Tue Jun 02 2026 Packit <hello@packit.dev> - 45.6-1
 - storage: mirror Blivet btrfs default compression in manual reuse (k.koukiou)
   Resolves: rhbz#2422148

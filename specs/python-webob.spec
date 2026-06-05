@@ -8,8 +8,8 @@ environment.
 
 Name:           python-webob
 Summary:        WSGI request and response object
-Version:        1.8.9
-Release:        8%{?dist}
+Version:        1.8.10
+Release:        3%{?dist}
 License:        MIT
 URL:            https://webob.org
 Source:         %{pypi_source webob}
@@ -63,7 +63,7 @@ rm docs/_static/.empty
 %check
 %if %{with tests}
 # test_interrupted_request: https://github.com/Pylons/webob/issues/479
-%pytest -k "not test_interrupted_request and not test_client_cookies"
+%pytest -k "not test_interrupted_request"
 %else
 %pyproject_check_import
 %endif
@@ -75,6 +75,15 @@ rm docs/_static/.empty
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.8.10-3
+- Rebuilt for Python 3.15
+
+* Wed Jun 03 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.8.10-2
+- Enable test_client_cookies again.
+
+* Wed Jun 03 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.8.10-1
+- Update to upstream.
+
 * Sat Feb 21 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.8.9-8
 - Skip test_client_cookies test too to unblock python3.15 build
 

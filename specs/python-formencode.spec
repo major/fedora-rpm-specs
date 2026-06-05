@@ -2,7 +2,7 @@
 
 Name:           python-formencode
 Version:        2.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        HTML form validation, generation, and convertion package  
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
@@ -91,6 +91,9 @@ rm -f $RPM_BUILD_ROOT%{_prefix}/LICENSE.txt
 %files -n python-formencode-langpacks
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.1-9
+- Rebuilt for Python 3.15
+
 * Mon May 12 2026 Miro Hroncok <mhroncok@redhat.com> - 2.1.1-8
 - Add runtime dependency on python3-pkg-resources
 

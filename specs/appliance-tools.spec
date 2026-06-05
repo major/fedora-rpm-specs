@@ -12,7 +12,7 @@
 Name:       appliance-tools
 Summary:    Tools for building Appliances
 Version:    011.3
-Release:    10%{?dist}
+Release:    11%{?dist}
 License:    GPL-2.0-only
 URL:        https://pagure.io/appliance-tools
 BuildArch:  noarch
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{python_sitelib}/ec2convert/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 011.3-11
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 011.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{realname}
 Version:        2.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Parse human-readable date/time strings in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -60,6 +60,9 @@ py.test-3 -x tests/*.py
 %doc AUTHORS.txt CHANGES.txt README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.6-23
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A repository of test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -67,6 +67,9 @@ ln -s ./testr-%{python3_version} %{buildroot}%{_bindir}/testr
 %{_bindir}/testr-%{python3_version}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.22-2
+- Rebuilt for Python 3.15
+
 * Thu Jan 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.0.22-1
 - 0.0.22
 

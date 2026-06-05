@@ -1,3 +1,4 @@
+%global _without_python 1
 %bcond  python 1
 %bcond  export 1
 %global soversion 3

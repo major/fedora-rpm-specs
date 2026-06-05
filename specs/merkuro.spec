@@ -1,5 +1,5 @@
 Name: merkuro
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -133,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

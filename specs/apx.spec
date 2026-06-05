@@ -3,7 +3,7 @@
 
 Name:           apx
 Version:        0.1
-Release:        48.%{date0}git%{?dist}
+Release:        49.%{date0}git%{?dist}
 Summary:        QIX clone, cut into and claim the square area
 
 # Automatically converted from old format: MIT - review is highly recommended.
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1-49.20160804git
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-48.20160804git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -130,6 +130,10 @@ k="${k-}${k+ and }not test_metadata"
 # package.
 warningsfilter="${warningsfilter-} -W ignore:datetime:DeprecationWarning"
 warningsfilter="${warningsfilter-} -W ignore:Call:DeprecationWarning"
+# credentials_file deprecation warning is now raised as error because pytest 9
+# reads [tool.pytest] filterwarnings = ["error"] from pyproject.toml
+tomcli set pyproject.toml append tool.pytest.filterwarnings \
+    "ignore:.*credentials_file.*:DeprecationWarning"
 
 %pytest ${warningsfilter-} -k "${k-}" tests
 %endif

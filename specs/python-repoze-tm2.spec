@@ -1,6 +1,6 @@
 Name:           python-repoze-tm2
 Version:        2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope-like transaction manager via WSGI middleware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ This package contains the python3 version of the library.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3-2
+- Rebuilt for Python 3.15
+
 * Mon May 04 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3-1
 - Update to upstream.
 - Use pypi_source as source url.

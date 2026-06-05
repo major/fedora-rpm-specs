@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.38.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -53,6 +53,9 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.38.0-2
+- Rebuilt for Python 3.15
+
 * Fri Jan 30 2026 Packit <hello@packit.dev> - 0.38.0-1
 - polkitd: Add RegisterAuthenticationAgentWithOptions
 - logind: Add SetWallMessage

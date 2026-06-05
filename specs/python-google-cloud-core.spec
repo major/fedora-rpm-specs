@@ -17,6 +17,7 @@ Source0:        %forgesource
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -59,10 +60,13 @@ Summary:        %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
-# Thanks to churchyard for the fix.
-PYTHONUSERBASE=%{buildroot}%{_prefix} \
-    %pytest tests/unit
+# Python 3.15 changed site.py internals so nspkg.pth files can no longer use
+# sys._getframe(1).f_locals['sitedir']. Without working nspkg.pth, the old
+# google/__init__.py namespace hack restricts google.__path__ to the source
+# tree, hiding google.auth from system site-packages. Removing these files
+# lets Python use implicit namespace packages (PEP 420) instead.
+find . \( -path "*/google/__init__.py" -o -path "*/google/cloud/__init__.py" \) -delete
+%pytest tests/unit
 %endif
 
 

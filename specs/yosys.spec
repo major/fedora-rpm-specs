@@ -1,10 +1,10 @@
-%global commit0 90c26fe6714b441363d2ddb47a6d646b8868ff5d
+%global commit0 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20260512
+%global snapdate 20260601
 
 Name:           yosys
-Version:        0.65
+Version:        0.66
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -33,11 +33,6 @@ Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 # Use relative path (instead of assuming a bundled submodule) when
 # referencing the cxxopts.hpp include file.
 Patch3:         0003-fedora-yosys-cxxopts-patch.patch
-
-# Fedora-specific patch:
-# Fix aiger tests when ABCEXTERNAL is set
-# (see https://github.com/YosysHQ/yosys/pull/5890)
-Patch4:         0004-Fix-aiger-tests-when-ABCEXTERNAL-is-set.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -181,6 +176,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Mon Jun 01 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.66.1.20260601git86f2dde
+- update to 0.66 snapshot
+
 * Tue May 12 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.65.1.20260512git90c26fe
 - update to 0.65 snapshot
 

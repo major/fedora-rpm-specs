@@ -1,6 +1,6 @@
 Name:		pythia8
 Version:	8.3.17
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
@@ -177,6 +177,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 8.3.17-3
+- Rebuilt for Python 3.15
+
 * Tue Apr 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.17-2
 - Add HepMC3 interface package
 

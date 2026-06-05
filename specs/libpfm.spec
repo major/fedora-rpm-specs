@@ -9,7 +9,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -140,6 +140,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.13.0-21
+- Rebuilt for Python 3.15
+
 * Wed May 13 2026 Aaron Merey <amerey@redhat.com> - 4.13.0-20
 - Install COPYING license file in all subpackages
 

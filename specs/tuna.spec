@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.20
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -109,6 +109,9 @@ done
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.20-5
+- Rebuilt for Python 3.15
+
 * Fri May 15 2026 John Kacur <jkacur@redhat.com> - 0.20-4
 - Update pyproject.toml license format for modern setuptools
 - Disable the tuna apply functionality

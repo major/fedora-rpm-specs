@@ -6,6 +6,8 @@ License:        MIT and ISC
 URL:            http://pypi.org/project/beets/
 Source0:        %{pypi_source beets}
 
+Patch:          allow-python3.15-build.patch
+
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pydata-sphinx-theme
 BuildRequires:  python3dist(poetry-core) >= 1

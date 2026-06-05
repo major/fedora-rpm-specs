@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -2004,6 +2004,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.14.5-2
+- Rebuilt as non-main Python on Fedora 45+
+
 * Mon May 11 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14.5-1
 - Update to 3.14.5
 

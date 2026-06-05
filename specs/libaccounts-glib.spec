@@ -1,6 +1,6 @@
 Name:           libaccounts-glib
 Version:        1.25
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -126,6 +126,9 @@ mkdir -p %{buildroot}%{_datadir}/accounts/{applications,providers,services,servi
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.25-25
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

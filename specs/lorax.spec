@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        45.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -187,6 +187,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 45.2-2
+- Rebuilt for Python 3.15
+
 * Thu Apr 09 2026 Brian C. Lane <bcl@redhat.com> 45.2-1
 - findkernels: Enable support for 64k kernel flavor (bcl@redhat.com)
 - treebuilder: fix file resource leaks (yueyuankun@kylinos.cn)

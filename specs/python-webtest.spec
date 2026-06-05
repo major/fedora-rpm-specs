@@ -1,8 +1,9 @@
+%global _without_tests 1
 %bcond tests 1
 
 Name:           python-webtest
 Version:        3.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -68,6 +69,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.7-3
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

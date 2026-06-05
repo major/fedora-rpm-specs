@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -66,6 +66,9 @@ sed -i 's/self.assert_/assert /g' vatnumber/tests.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2-40
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

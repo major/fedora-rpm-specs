@@ -1,6 +1,6 @@
 Name:    kitinerary
-Version: 26.04.1
-Release: 2%{?dist}
+Version: 26.04.2
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -103,6 +103,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 26.04.1-2
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

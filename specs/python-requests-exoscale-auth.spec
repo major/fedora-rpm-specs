@@ -1,6 +1,6 @@
 Name:           python-requests-exoscale-auth
 Version:        1.1.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Exoscale APIs support for Python-Requests
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ BuildRequires:  python3dist(pytest)
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.2-20
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

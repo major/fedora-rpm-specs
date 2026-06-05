@@ -1,29 +1,17 @@
 Name:               girara
-Version:            0.4.5
-Release:            4%{?dist}
+Version:            2026.02.04
+Release:            1%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
 Source0:            https://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
 
-#BuildRequires:      binutils
 BuildRequires:      gcc
 BuildRequires:      gettext
 BuildRequires:      glib2-devel >= 2.72
-BuildRequires:      gtk3-devel >= 3.24
 BuildRequires:      intltool
-BuildRequires:      meson >= 0.61
-BuildRequires:      pango-devel >= 1.50
-BuildRequires:      pkgconfig(json-glib-1.0)
-# Tests
-BuildRequires:      pkgconfig(check) >= 0.11
-Buildrequires:      xorg-x11-server-Xvfb
+BuildRequires:      meson >= 1.5
 
-# from Upstream: Mark girara_libnotify as deprecated
-#BuildRequires:      libnotify-devel >= 0.7.0
-
-
-%global girara_locales  lib%{name}-gtk3-4
 
 %description
 Girara is a library that implements a user interface that focuses on simplicity
@@ -39,7 +27,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson -Ddocs=disabled -Dtests=enabled
@@ -47,26 +35,34 @@ developing applications that use %{name}.
 
 %install
 %meson_install
-%find_lang %{girara_locales}
 
 %check
 %meson_test
 
 
-%files -f %{girara_locales}.lang
+%files
 %license LICENSE
 %doc AUTHORS README.md
-%{_libdir}/libgirara-gtk3.so.4
-%{_libdir}/libgirara-gtk3.so.4.0
+%{_libdir}/libgirara.so.5
+%{_libdir}/libgirara.so.5.0
 
 %files devel
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*.h
-%{_libdir}/pkgconfig/girara-gtk3.pc
-%{_libdir}/libgirara-gtk3.so
+%{_libdir}/pkgconfig/girara.pc
+%{_libdir}/libgirara.so
 
 
 %changelog
+* Wed Feb 04 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.02.04-1
+- feat: update to 2026.02.04 (rhbz#435577)
+
+* Tue Feb 03 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-2
+- fix keyboard shortcuts
+
+* Sat Jan 31 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-1
+- feat: update to 2026.01.30 (rhbz#435577)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

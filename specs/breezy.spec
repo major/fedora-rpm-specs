@@ -77,6 +77,9 @@ This package contains the documentation for the Breezy version control system.
 
 %cargo_prep
 
+# Allow building with Python 3.15
+sed -Ei 's/^(requires-python *= *">=[^"]*),<3\.[0-9]+"/\1"/' pyproject.toml
+
 # Remove unused shebangs
 sed -i '1{/#![[:space:]]*\/usr\/bin\/\(python\|env\)/d}' \
     breezy/__main__.py \

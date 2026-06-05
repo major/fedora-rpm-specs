@@ -1,6 +1,6 @@
 Name:           python-setuptools-gettext
 Version:        0.1.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Setuptools gettext extension plugin
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.18-2
+- Rebuilt for Python 3.15
+
 * Mon May 25 2026 Björn Lindström <bkhl@elektrubadur.se> - 0.1.18-1
 - Update to 0.1.18 (close RHBZ#2407164)
 

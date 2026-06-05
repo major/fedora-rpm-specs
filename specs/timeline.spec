@@ -1,6 +1,6 @@
 Name:		timeline
 Version:	2.12.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Displays and navigates events on a timeline
 
 License:	GPL-3.0-only
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/timeline/dependencies
 %{python3_sitelib}/timelinelib*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.12.0-2
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.12.0-1
 - 2.12.0
 

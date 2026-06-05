@@ -1,6 +1,6 @@
 Name:		python-pycdio
 Version:	2.1.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A Python interface to the CD Input and Control library
 
 License:	GPL-3.0-or-later
@@ -53,6 +53,9 @@ chmod 755 %{buildroot}/%{python3_sitearch}/*.so
 %{python3_sitearch}/_pyiso9660.cpython-*linux-gnu.so
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.1-11
+- Rebuilt for Python 3.15
+
 * Wed Jan 28 2026 Adrian Reber <adrian@lisas.de> - 2.1.1-10
 - Rebuilt for libcdio-2.3.0
 

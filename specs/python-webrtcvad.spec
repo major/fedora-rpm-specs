@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface to the WebRTC Voice Activity Detector
 
 License:        MIT
@@ -49,5 +49,8 @@ It can be useful for telephony and speech recognition.
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.10-2
+- Rebuilt for Python 3.15
+
 * Wed Jan 28 2026 Manish Tiwari <matiwari@redhat.com> 2.0.10-1
 - Initial release of the package

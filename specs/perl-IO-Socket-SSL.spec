@@ -8,7 +8,7 @@
 
 Name:		perl-IO-Socket-SSL
 Version:	2.098
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
@@ -62,7 +62,8 @@ BuildRequires:	perl(Net::LibIDN)
 %endif
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(utf8)
-BuildRequires:	procps
+# ps in t/memleak_bad_handshake.t
+BuildRequires:	procps-ng
 # Dependencies
 Requires:	openssl-libs >= 0.9.8
 Requires:	perl(Config)
@@ -127,6 +128,9 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Wed Jun 03 2026 Michal Josef Špaček <mspacek@redhat.com> - 2.098-3
+- Fix procps-ng usage
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.098-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

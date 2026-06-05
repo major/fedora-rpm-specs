@@ -1,6 +1,6 @@
 Name:           python-libusb1
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-python wrapper for libusb-1.0
 
 License:        LGPL-2.1-or-later
@@ -58,6 +58,9 @@ rm -rf libusb1.egg-info
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.4.0-2
+- Rebuilt for Python 3.15
+
 * Fri May 29 2026 Jonny Heggheim <hegjon@gmail.com> - 3.4.0-1
 - Update to version 3.4.0
 

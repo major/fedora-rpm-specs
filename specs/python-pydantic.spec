@@ -109,7 +109,18 @@ ignore="${ignore-} --ignore=tests/benchmarks"
 # https://github.com/pydantic/pydantic/issues/12080#issuecomment-3608739542.)
 k="${k-}${k+ and }not test_deferred_annotations_nested_model"
 
-%pytest ${ignore-} -k "${k-}" -rs
+# Python 3.15+ base64.urlsafe_b64decode() accepts unpadded input by default (padded=False),
+# so the test data is no longer invalid
+# https://github.com/python/cpython/commit/8bf8bf9292
+# Python 3.15 support tracker https://github.com/pydantic/pydantic/issues/13173
+k="${k-}${k+ and }not test_base64url_invalid"
+
+# Python 3.15+ warns:
+# test_base64url: FutureWarning: invalid character '+' in URL-safe Base64 data will be discarded in future Python versions
+# https://github.com/pydantic/pydantic/issues/12778 closed as not planed
+W="ignore:invalid character '+' in URL-safe Base64:FutureWarning"
+
+%pytest ${ignore-} -k "${k-}" -rs -W "${W}"
 %endif
 
 

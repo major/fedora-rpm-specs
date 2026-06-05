@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        ZPL-2.1
 Summary:        Library for writing Nagios (Icinga) plugins
 
@@ -57,6 +57,9 @@ Summary:        %{summary}
 %{python3_sitelib}/nagiosplugin/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.3-16
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

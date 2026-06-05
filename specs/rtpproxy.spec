@@ -1,5 +1,5 @@
 Name:		rtpproxy
-Version:	3.0.1
+Version:	3.2.0
 Release:	%autorelease
 Summary:	A symmetric RTP proxy
 License:	BSD-2-Clause
@@ -17,13 +17,12 @@ Patch:		rtpproxy-0004-Reverse-debug-nodebug-flags.patch
 Patch:		rtpproxy-0005-Remove-bundled-libucl.patch
 Patch:		rtpproxy-0006-Remove-bundled-xxHash.patch
 Patch:		rtpproxy-0007-Missing-include.patch
-Patch:		rtpproxy-0008-Fix-run-tmp-directory-creation.-On-upgrade-this-mess.patch
-Patch:		rtpproxy-0009-Get-rid-of-deprecated-ATOMIC_VAR_INIT-use-_Atomic-ty.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bcg729-devel
 BuildRequires:	docbook-style-xsl
 BuildRequires:	gcc
+BuildRequires:	git
 BuildRequires:	gsm-devel
 BuildRequires:	libsndfile-devel
 BuildRequires:	libsrtp-devel
@@ -48,12 +47,15 @@ rewriting SDP bodies in SIP messages that it processes.
 
 %prep
 %autosetup -p1
+mkdir -p hepconnector
 cd hepconnector
 tar xvf %{SOURCE1}  --strip-components 1
 cd ..
+mkdir -p libelperiodic
 cd libelperiodic
 tar xvf %{SOURCE2}  --strip-components 1
 cd ..
+
 
 %build
 autoreconf -ivf
@@ -72,8 +74,6 @@ install -D -m 0644 -p rpm/%{name}.tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{na
 mkdir -p %{buildroot}%{_localstatedir}/run/%{name}
 install -d %{buildroot}%{_localstatedir}/lib/%{name}
 install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-
 
 
 %post
@@ -102,9 +102,6 @@ install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 %{_sysusersdir}/%{name}.conf
 %{_libdir}/rtpproxy/*.so
-%exclude %{_libdir}/libelperiodic.so
-%{_libdir}/libelperiodic.so.1
-%{_libdir}/libelperiodic.so.1.0.0
 %{_mandir}/man8/rtpproxy.8*
 %dir %attr(0750, rtpproxy, rtpproxy) %{_localstatedir}/lib/%{name}
 

@@ -1,6 +1,6 @@
 Name:           python-eccodes
 Version:        2.45.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -106,6 +106,9 @@ rm -rf %sphinx_doc_path/.doctrees
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.45.0-3
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.45.0-2
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

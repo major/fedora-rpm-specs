@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        DBus library in Python 3
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ Requires:       python3-gobject-base
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.7-15
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

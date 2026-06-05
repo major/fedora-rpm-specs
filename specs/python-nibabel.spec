@@ -25,6 +25,15 @@ License:        MIT and PDDL-1.0
 URL:            http://nipy.org/nibabel/
 Source0:        %forgesource
 
+# fix: Set the compression level to match one of the running Python's
+# Proposed upstream: https://github.com/nipy/nibabel/pull/1509
+#
+# Fixes:
+#
+# compatibility with Python 3.15
+# https://github.com/nipy/nibabel/issues/1477
+Patch:          https://github.com/nipy/nibabel/pull/1509.patch
+
 BuildArch:      noarch
 
 %description %_description

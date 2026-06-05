@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname  pytest-cov
 %global slugname pytest_cov
 %global forgeurl https://github.com/pytest-dev/%{srcname}

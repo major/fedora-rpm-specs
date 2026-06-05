@@ -51,7 +51,7 @@
 %if 0%{?suse_version}
 %global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global pkg_name %{NAME}
+%global pkg_name %{name}
 %endif
 
 %global toolchain rocm
@@ -129,7 +129,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -162,10 +162,10 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-rpm-macros%{pkg_suffix}-modules
 
 %if %{with test} || %{with check}
 %if 0%{?suse_version}
@@ -190,6 +190,7 @@ BuildRequires:  ninja
 %endif
 
 Provides:       rocrand%{pkg_suffix} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -252,13 +253,8 @@ rm -rf test/fortran/fruit
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 
 %files -n %{pkg_name}
-%if %{with gitcommit}
-%doc projects/rocrand/README.md
-%license projects/rocrand/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
 
 %if %{with debug}
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so.%{pkg_library_version}{,.*}
@@ -282,6 +278,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Mon Apr 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package name
 

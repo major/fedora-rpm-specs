@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 377f129611f144c3c2d77f3fde890b14e86c5139
-%global commitdatestring 2026-05-26 08:33:04 -0600
-%global cosmic_minver 1.0.14
+%global commit 8981b0b48ec21ac2c93cad56d82b33c6ef705888
+%global commitdatestring 2026-05-29 19:23:45 +0200
+%global cosmic_minver 1.0.15
 
 Name:           cosmic-applets
-Version: 1.0.14
+Version: 1.0.15
 Release:        %autorelease
 Summary:        Applets for the COSMIC Desktop Environment
 

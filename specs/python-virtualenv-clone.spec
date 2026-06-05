@@ -2,7 +2,7 @@
 
 Name:             python-virtualenv-clone
 Version:          0.5.7
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          Script to clone Python virtual environments
 
 License:          MIT
@@ -72,6 +72,9 @@ Requires:         python3-virtualenv
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.7-20
+- Rebuilt for Python 3.15
+
 * Fri Mar 06 2026 Miro Hrončok <mhroncok@redhat.com> - 0.5.7-19
 - Fix a test failure with virtualenv 20.38.0+
 

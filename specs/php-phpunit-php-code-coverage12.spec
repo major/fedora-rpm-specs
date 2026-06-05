@@ -22,7 +22,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.5.6
+Version:        12.5.7
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -43,8 +43,8 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
-BuildRequires:  (php-composer(sebastian/environment)              >= 8.0.3  with php-composer(sebastian/environment)              < 9)
-BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 4.0    with php-composer(sebastian/lines-of-code)            < 5)
+BuildRequires:  (php-composer(sebastian/environment)              >= 8.1.2  with php-composer(sebastian/environment)              < 9)
+BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 4.0.1  with php-composer(sebastian/lines-of-code)            < 5)
 BuildRequires:  (php-composer(sebastian/version)                  >= 6.0    with php-composer(sebastian/version)                  < 7)
 BuildRequires:  (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 BuildRequires:  php-dom
@@ -53,8 +53,8 @@ BuildRequires:  php-libxml
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^12.5.1"
-BuildRequires:  phpunit12 >= 12.5
+#        "phpunit/phpunit": "^12.5.28"
+BuildRequires:  phpunit12 >= 12.5.28
 BuildRequires:  php-xdebug
 %endif
 
@@ -66,8 +66,8 @@ BuildRequires:  php-xdebug
 #        "nikic/php-parser": "^5.7.0",
 #        "phpunit/php-text-template": "^5.0",
 #        "sebastian/complexity": "^5.0",
-#        "sebastian/environment": "^8.0.3",
-#        "sebastian/lines-of-code": "^4.0",
+#        "sebastian/environment": "^8.1.2",
+#        "sebastian/lines-of-code": "^4.0.1",
 #        "sebastian/version": "^6.0",
 #        "theseer/tokenizer": "^2.0.1"
 Requires:       php(language) >= 8.3
@@ -77,8 +77,8 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
 Requires:       (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
-Requires:       (php-composer(sebastian/environment)              >= 8.0.3  with php-composer(sebastian/environment)              < 9)
-Requires:       (php-composer(sebastian/lines-of-code)            >= 4.0    with php-composer(sebastian/lines-of-code)            < 5)
+Requires:       (php-composer(sebastian/environment)              >= 8.1.2  with php-composer(sebastian/environment)              < 9)
+Requires:       (php-composer(sebastian/lines-of-code)            >= 4.0.1  with php-composer(sebastian/lines-of-code)            < 5)
 Requires:       (php-composer(sebastian/version)                  >= 6.0    with php-composer(sebastian/version)                  < 7)
 Requires:       (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 # From composer.json, suggest
@@ -180,6 +180,11 @@ exit $ret
 
 
 %changelog
+* Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 12.5.7-1
+- update to 12.5.7
+- raise dependency on sebastian/environment 8.1.2
+- raise dependency on sebastian/lines-of-code 4.0.1
+
 * Wed Apr 15 2026 Remi Collet <remi@remirepo.net> - 12.5.6-1
 - update to 12.5.6
 

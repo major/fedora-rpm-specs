@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An expression evaluator library for Python
 
 License:        MIT
@@ -56,6 +56,9 @@ eval() or other unsafe or needlessly complex linguistics.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.7-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 20 2026 Dan Horák <dan[at]danny.cz> - 1.0.7-1
 - updated to 1.0.7 (rhbz#2446502)
 

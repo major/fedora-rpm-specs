@@ -3,7 +3,7 @@
 
 Name:    libkomparediff2
 Summary: Library to compare files and strings
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 
 # Library: GPLv2+ (some files LGPLv2+), CMake scripts: BSD
@@ -81,6 +81,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

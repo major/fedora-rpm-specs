@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	%{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ journal entries.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.8-20
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

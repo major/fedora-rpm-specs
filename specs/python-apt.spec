@@ -3,7 +3,7 @@
 
 Name:           python-apt
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for APT
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ export DEBVER="%{version}"
 %{_datadir}/python-apt/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-3
+- Rebuilt for Python 3.15
+
 * Mon Feb 16 2026 Terje Røsten <terjeros@gmail.com> - 3.1.0-2
 - Use modern Python macros
 

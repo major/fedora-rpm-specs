@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.6.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File identification library for Python
 
 License:        MIT
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.6.19-2
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.19-1
 - 2.6.19
 

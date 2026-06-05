@@ -54,7 +54,7 @@ License:        MIT AND PSF-2.0 AND GPL-2.0-or-later
   %{load:macros.python-srpm}
 %endif
 Version:        %{__default_python3_version}
-Release:        12%{?dist}
+Release:        1%{?dist}
 
 BuildArch:      noarch
 
@@ -181,6 +181,9 @@ grep -iF PLACEHOLDER %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Wed Jun 03 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15-1
+- Update main Python to 3.15
+
 * Tue Mar 17 2026 Miro Hrončok <mhroncok@redhat.com> - 3.14-12
 - %%python_wheel_inject_sbom: Hardcode the purl of this tool instead of constructing it at runtime
 - %%py3_build, %%py3_install, etc.: Bump the Fedora version in the deprecation message

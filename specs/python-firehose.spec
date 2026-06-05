@@ -1,6 +1,6 @@
 Name:           python-firehose
 Version:        0.5
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Library for working with output from static code analyzers
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -74,6 +74,9 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5-38
+- Rebuilt for Python 3.15
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.5-37
 - Rebuilt without python-mock
 

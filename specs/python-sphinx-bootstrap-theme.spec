@@ -12,7 +12,7 @@ of different Bootswatch CSS themes.
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{common_sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -86,6 +86,9 @@ done
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.1-19
+- Rebuilt for Python 3.15
+
 * Thu Apr 02 2026 Stuart Campbell <scampbell@bnl.gov> - 0.8.1-18
 - Migrate away from py3_build and/or py3_install macros
 

@@ -1,6 +1,6 @@
 Name:           pychromecast
 Version:        14.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to communicate with the Google Chromecast
 
 License:        MIT
@@ -67,6 +67,9 @@ sed -i 's/,<0.47.0//' pyproject.toml
 %license LICENSE
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 14.0.10-2
+- Rebuilt for Python 3.15
+
 * Mon Jun 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 14.0.10-1
 - Update to 14.0.10 (rhbz#2270373)
 

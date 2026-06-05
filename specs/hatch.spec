@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.16.5%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.17.0%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -23,8 +23,12 @@ URL:            https://github.com/pypa/hatch
 Source0:        %{url}/archive/%{tag}/hatch-%{tag}.tar.gz
 
 # Written for Fedora in groff_man(7) format based on --help output
-Source100:      hatch.1
-Source200:      hatch-build.1
+Source1:        hatch.1
+Source100:      hatch-build.1
+Source200:      hatch-check.1
+Source210:      hatch-check-code.1
+Source220:      hatch-check-fmt.1
+Source230:      hatch-check-types.1
 Source300:      hatch-clean.1
 Source400:      hatch-config.1
 Source410:      hatch-config-explore.1
@@ -35,36 +39,40 @@ Source450:      hatch-config-show.1
 Source460:      hatch-config-update.1
 Source500:      hatch-dep.1
 Source510:      hatch-dep-hash.1
-Source520:      hatch-dep-show.1
-Source521:      hatch-dep-show-requirements.1
-Source522:      hatch-dep-show-table.1
+Source520:      hatch-dep-lock.1
+Source530:      hatch-dep-show.1
+Source531:      hatch-dep-show-requirements.1
+Source532:      hatch-dep-show-table.1
+Source540:      hatch-dep-sync.1
 Source600:      hatch-env.1
 Source610:      hatch-env-create.1
 Source620:      hatch-env-find.1
-Source630:      hatch-env-prune.1
-Source640:      hatch-env-remove.1
-Source650:      hatch-env-run.1
-Source660:      hatch-env-show.1
-Source700:      hatch-new.1
-Source800:      hatch-project.1
-Source810:      hatch-project-metadata.1
-Source900:      hatch-publish.1
-Source1000:     hatch-run.1
-Source1100:     hatch-shell.1
-Source1200:     hatch-status.1
-Source1300:     hatch-version.1
-Source1400:     hatch-fmt.1
-Source1500:     hatch-python.1
-Source1510:     hatch-python-find.1
-Source1520:     hatch-python-install.1
-Source1530:     hatch-python-remove.1
-Source1540:     hatch-python-show.1
-Source1550:     hatch-python-update.1
-Source1600:     hatch-self.1
-Source1610:     hatch-self-report.1
-Source1620:     hatch-self-restore.1
-Source1630:     hatch-self-update.1
+Source630:      hatch-env-lock.1
+Source640:      hatch-env-prune.1
+Source650:      hatch-env-remove.1
+Source660:      hatch-env-run.1
+Source670:      hatch-env-show.1
+Source700:      hatch-fmt.1
+Source800:      hatch-lock.1
+Source900:      hatch-new.1
+Source1000:     hatch-project.1
+Source1010:     hatch-project-metadata.1
+Source1100:     hatch-python.1
+Source1110:     hatch-python-find.1
+Source1120:     hatch-python-install.1
+Source1130:     hatch-python-remove.1
+Source1140:     hatch-python-show.1
+Source1150:     hatch-python-update.1
+Source1200:     hatch-publish.1
+Source1300:     hatch-run.1
+Source1400:     hatch-self.1
+Source1410:     hatch-self-report.1
+Source1420:     hatch-self-restore.1
+Source1430:     hatch-self-update.1
+Source1500:     hatch-shell.1
+Source1600:     hatch-status.1
 Source1700:     hatch-test.1
+Source1800:     hatch-version.1
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license hatch
@@ -137,25 +145,32 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{scmversion}'
 %install -a
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_mandir}/man1' \
+    '%{SOURCE1}' \
     '%{SOURCE100}' \
-    '%{SOURCE200}' \
+    '%{SOURCE200}' '%{SOURCE210}' '%{SOURCE220}' '%{SOURCE230}' \
     '%{SOURCE300}' \
     '%{SOURCE400}' '%{SOURCE410}' '%{SOURCE420}' '%{SOURCE430}' \
       '%{SOURCE440}' '%{SOURCE450}' '%{SOURCE460}' \
-    '%{SOURCE500}' '%{SOURCE510}' '%{SOURCE520}' '%{SOURCE521}' \
-      '%{SOURCE522}' \
-    '%{SOURCE600}' '%{SOURCE610}' '%{SOURCE620}' '%{SOURCE630}' \
-      '%{SOURCE640}' '%{SOURCE650}' '%{SOURCE660}' \
+    '%{SOURCE500}' \
+      '%{SOURCE510}' \
+      '%{SOURCE520}' \
+      '%{SOURCE530}' '%{SOURCE531}' '%{SOURCE532}' \
+      '%{SOURCE540}' \
+    '%{SOURCE600}' '%{SOURCE610}' '%{SOURCE620}' '%{SOURCE630}' '%{SOURCE640}' \
+      '%{SOURCE650}' '%{SOURCE660}' '%{SOURCE670}' \
     '%{SOURCE700}' \
-    '%{SOURCE800}' '%{SOURCE810}' \
+    '%{SOURCE800}' \
     '%{SOURCE900}' \
-    '%{SOURCE1000}' \
-    '%{SOURCE1100}' \
+    '%{SOURCE1000}' '%{SOURCE1010}' \
+    '%{SOURCE1100}' '%{SOURCE1110}' '%{SOURCE1120}' '%{SOURCE1130}' \
+      '%{SOURCE1140}' '%{SOURCE1150}' \
     '%{SOURCE1200}' \
     '%{SOURCE1300}' \
-    '%{SOURCE1400}' \
-    '%{SOURCE1500}' '%{SOURCE1510}' '%{SOURCE1520}' '%{SOURCE1530}' \
-      '%{SOURCE1540}' '%{SOURCE1550}'
+    '%{SOURCE1400}' '%{SOURCE1410}' '%{SOURCE1420}' '%{SOURCE1430}' \
+    '%{SOURCE1500}' \
+    '%{SOURCE1600}' \
+    '%{SOURCE1700}' \
+    '%{SOURCE1800}'
 
 
 %check -a

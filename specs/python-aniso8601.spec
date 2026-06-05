@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        10.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ in ISO 8601 format into datetime format.
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 10.0.1-2
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Brandon Nielsen <nielsenb@jetfuse.net> - 10.0.1-1
 - Change upstream URL to reflect upstream move
 - Update to latest upstream release 10.0.1

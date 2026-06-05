@@ -14,6 +14,9 @@ URL:            https://pypi.python.org/pypi/zope.testrunner
 VCS:            https://github.com/zopefoundation/zope.testrunner
 Source:         %{vcs}/archive/%{version}/zope.testrunner-%{version}.tar.gz
 
+# Fix test failure with python 3.15
+Patch:          https://github.com/zopefoundation/zope.testrunner/pull/205.patch
+
 BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  python3-devel
@@ -107,9 +110,7 @@ rm -f docs/_build/html/.buildinfo
 unset PYTHONHOME
 
 %check
-# Run one test separately due to https://github.com/zopefoundation/zope.testrunner/issues/189
-%tox -- -- -t '!testrunner-edge-cases' -vc
-%tox -- -- -t  'testrunner-edge-cases' -vc
+%tox
 
 %files -n python3-zope-testrunner -f %{pyproject_files}
 %doc CHANGES.html README.html

@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.10.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # gd license in php bindings isn't by default built-in
 License: gpl-1.0-or-later AND gpl-2.0-or-later AND gpl-2.0-or-later WITH rrdtool-floss-exception-2.0 AND mit AND lgpl-2.0-or-later AND lgpl-2.1-or-later AND bsd-source-code AND snprintf AND bsd-3-clause AND gpl-2.0-only AND licenseref-fedora-public-domain AND gtkbook
 URL: https://oss.oetiker.ch/rrdtool/
@@ -401,6 +401,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.10.3-2
+- Rebuilt for Python 3.15
+
 * Mon May 25 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.3-1
 - New version
   Resolves: rhbz#2479949

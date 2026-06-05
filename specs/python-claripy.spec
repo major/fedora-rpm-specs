@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.189
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        BSD-2-Clause
@@ -43,6 +43,9 @@ sed -i 's/, "z3-solver==4.13.0.0"//' pyproject.toml
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.2.189-4
+- Rebuilt for Python 3.15
+
 * Mon Mar 23 2026 W. Michael Petullo <mike@flyn.org> - 9.2.189-3
 - Update license value per SPDX statistics email
 

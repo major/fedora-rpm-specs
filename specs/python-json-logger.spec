@@ -2,7 +2,7 @@
 
 Name:           python-json-logger
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A python library adding a json log formatter
 License:        BSD-2-Clause
 URL:            http://github.com/nhairs/python-json-logger
@@ -47,6 +47,9 @@ rm -rf src/%{pypi_name}.egg-info
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.1.0-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 30 2026 Lumír Balhar <lbalhar@redhat.com> - 4.1.0-1
 - Update to 4.1.0 (rhbz#2452780)
 

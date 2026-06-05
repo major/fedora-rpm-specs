@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.0.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Automatic model code generator for SQLAlchemy
 
 License:        MIT
@@ -61,6 +61,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.0-30
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

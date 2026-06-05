@@ -1,6 +1,6 @@
 Name:           python-libdiscid
 Version:        2.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python bindings for libdiscid
 
 License:        MIT
@@ -57,6 +57,9 @@ popd
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.2-14
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

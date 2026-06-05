@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.57.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python support for FTDI devices
 
 License:        BSD-3-Clause
@@ -53,6 +53,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{pypi_name}/doc %{buildroot}%{python3_sit
 %{python3_sitelib}/%{pypi_name}*.dist-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.57.1-5
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.57.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

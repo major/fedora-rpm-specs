@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -52,6 +52,9 @@ k="${k-}${k+ and }not (Test_to_MultiByteStrDecoder_unicode and Burgers-windows-1
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.3-8
+- Rebuilt for Python 3.15
+
 * Sun Mar 01 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.3-7
 - Report and skip a test that fails with chardet v6
 

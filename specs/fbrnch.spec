@@ -10,9 +10,9 @@
 %global subpkgs %{coprapi} %{fedorakrb} %{say}
 
 Name:           fbrnch
-Version:        1.8.1
+Version:        1.8.3
 # can only be reset when all subpkgs bumped
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -215,6 +215,15 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jun 03 2026 Jens Petersen <petersen@redhat.com> - 1.8.3-40
+- 'autospec': don't switch to rawhide and pass pkg spec file to convert
+- 'compare-tarballs': order tarballs by removal and addition
+- 'copr': filter out canceled builds from existing builds
+- 'mock': add --no-pull and --config-options
+- 'mock': use target branch for srpm and build disttag
+- 'nvr': fix for epel10 disttag with autorelease
+- Branches listOfBranches: do eol/branched checks for all BranchesReq
+
 * Wed Apr 08 2026 Jens Petersen <petersen@redhat.com> - 1.8.1-39
 - el10 util-linux provides 'script'
 

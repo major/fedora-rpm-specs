@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.26.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 4 scripts and data for building API documentation
 
 License: BSD
@@ -67,6 +67,9 @@ style.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.26.0-2
+- Rebuilt for Python 3.15
+
 * Fri May 01 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-1
 - 6.26.0
 

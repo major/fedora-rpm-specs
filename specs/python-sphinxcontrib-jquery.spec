@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-jquery
 Version:        4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Extension to include jQuery on newer Sphinx releases
 
 # The project is 0BSD
@@ -58,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.1-16
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

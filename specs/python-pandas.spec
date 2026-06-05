@@ -16,7 +16,7 @@
 
 Name:           python-pandas
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -693,6 +693,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.3-2
+- Rebuilt for Python 3.15
+
 * Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.3-1
 - Update to Pandas 3.0.3
 

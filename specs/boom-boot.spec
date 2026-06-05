@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.8
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	%{summary}
 
 License:	Apache-2.0
@@ -162,6 +162,9 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.8-6
+- Rebuilt for Python 3.15
+
 * Mon May 11 2026 Bryn M. Reeves <bmr@redhat.com> - 1.6.8-5
 - Fix _parse_mount_unit() does not understand hex escapes or NFS/CIFS
 Resolves: bz#2469064

@@ -1,6 +1,6 @@
 Name:           waf
 Version:        2.1.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python-based build system
 # The entire source code is BSD apart from pproc.py (taken from Python 2.5)
 # Automatically converted from old format: BSD and Python - review is highly recommended.
@@ -138,6 +138,9 @@ rm -f docs/sphinx/build/html/.buildinfo
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.9-4
+- Rebuilt for Python 3.15
+
 * Sun Mar 01 2026 Thomas Moschny <thomas.moschny@gmx.de> - 2.1.9-3
 - Modernize unpack_wafdir script for Python 3.15 (rhbz2424309).
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD-3-Clause-Modification
@@ -43,6 +43,9 @@ rst2html --no-datestamp README.rst README.html
 %license COPYRIGHT.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.15
+
 * Mon May 04 2026 Jerry James <loganjerry@gmail.com> - 1.1.0-1
 - Version 1.1.0
 - Drop upstreamed patch for Sphinx 7.2+ and 8.2+

@@ -6,7 +6,7 @@ ExcludeArch:   %{ix86}
 Name:           libCombine
 Summary:        C++ library for working with the COMBINE Archive format
 Version:        0.2.20
-Release:        16%{?dist}
+Release:        17%{?dist}
 URL:            https://github.com/sbmlteam/libCombine
 Source0:        %{url}/archive/%{version}/libCombine-%{version}.tar.gz
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}%{_datadir}
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.20-17
+- Rebuilt for Python 3.15
+
 * Wed Apr 22 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.2.20-16
 - Fix cmake_install
 

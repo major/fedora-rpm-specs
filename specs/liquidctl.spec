@@ -5,7 +5,7 @@ Summary: Tool for controlling liquid coolers, case fans and RGB LED strips
 License: GPL-3.0-or-later
 
 Version: 1.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/jonasmalacofilho/liquidctl
 Source0: %{pypi_source}
@@ -118,6 +118,9 @@ XDG_RUNTIME_DIR=$(pwd)/test-run-dir pytest-3
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.16.0-2
+- Rebuilt for Python 3.15
+
 * Tue Mar 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.16.0-1
 - Update to v1.16.0
 

@@ -13,7 +13,7 @@
 
 Name: criu
 Version: 4.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -214,6 +214,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.2-20
+- Rebuilt for Python 3.15
+
 * Thu May 28 2026 Miroslav Suchy <msuchy@redhat.com> - 4.2-19
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

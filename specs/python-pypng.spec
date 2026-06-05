@@ -2,7 +2,7 @@
 
 Name:               python-pypng
 Version:            0.0.21
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            Pure Python PNG image encoder/decoder
 
 License:            MIT
@@ -72,6 +72,9 @@ mv $lib.new $lib
 %{_bindir}/priweavepng
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.21-17
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

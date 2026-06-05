@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2023.03
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
@@ -116,6 +116,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2023.03-21
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2023.03-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

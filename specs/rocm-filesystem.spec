@@ -41,7 +41,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        ROCm directories
 
@@ -90,8 +90,10 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/include
 mkdir -p %{buildroot}%{pkg_prefix}/bin
 mkdir -p %{buildroot}%{pkg_prefix}/include
 mkdir -p %{buildroot}%{pkg_prefix}/libexec
-mkdir -p %{buildroot}%{pkg_prefix}/share
+mkdir -p %{buildroot}%{pkg_prefix}/share/cmake
+mkdir -p %{buildroot}%{pkg_prefix}/share/pkgconfig
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
+mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %endif
 
 %files
@@ -101,8 +103,11 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/include
 %dir %{pkg_prefix}/libexec
 %dir %{pkg_prefix}/share
+%dir %{pkg_prefix}/share/cmake
+%dir %{pkg_prefix}/share/pkgconfig
 %dir %{pkg_prefix}/%{pkg_libdir}
 %dir %{pkg_prefix}/%{pkg_libdir}/cmake
+%dir %{pkg_prefix}/%{pkg_libdir}/pkgconfig
 %endif
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/bin
@@ -220,6 +225,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Wed Jun 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
+- merge compat changes
+
 * Tue Mar 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
 - Fix lib64 issue
 

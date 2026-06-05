@@ -1,6 +1,6 @@
 Name:           python-typing-extensions
 Version:        4.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
@@ -18,6 +18,10 @@ Patch:          https://github.com/python/typing_extensions/commit/2638b86aad.pa
 # Remove no_type_check_decorator from _typing_names, followup of the above
 # https://github.com/python/typing_extensions/pull/723
 Patch:          https://github.com/python/typing_extensions/pull/723.patch
+# Make TypeAliasType __module__ writable - Python 3.15 fix
+Patch:          https://github.com/python/typing_extensions/commit/2f064147ff8.patch
+# Type variable tuple variance - Python 3.15 fix (open upstream)
+Patch:          https://github.com/python/typing_extensions/pull/741.patch
 
 BuildArch:      noarch
 
@@ -75,6 +79,9 @@ cd src
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.15.0-5
+- Rebuilt for Python 3.15
+
 * Mon Feb 09 2026 Miro Hrončok <mhroncok@redhat.com> - 4.15.0-4
 - Fix for Python 3.15.0a3+
 - Fixes: rhbz#2416981

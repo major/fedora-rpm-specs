@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:    ktorrent
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 Summary: A BitTorrent program
 
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

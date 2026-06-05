@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/pyasn1/pyasn1/archive/v%{version}.tar.gz
@@ -83,6 +83,9 @@ popd
 %doc docs/build/html/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.3-2
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Simon Pichugin <spichugi@redhat.com> - 0.6.3-1
 - Update to 0.6.3
 - Added nesting depth limit to ASN.1 decoder (CVE-2026-30922).

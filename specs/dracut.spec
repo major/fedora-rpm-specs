@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 109
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -46,6 +46,9 @@ Patch7:  0007-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
 # fix(systemd-cryptsetup): load libcryptsetup via dlopen
 # Author: Antonio Alvarez Feijoo <antonio.feijoo@suse.com>
 Patch8:  0008-fix-systemd-cryptsetup-load-libcryptsetup-via-dlopen.patch
+# feat(systemd-sysext): include systemd-{sys,conf}ext-sysroot services
+# Author: Vitaly Kuznetsov <vkuznets@redhat.com>
+Patch9:  0009-feat-systemd-sysext-include-systemd-sys-conf-ext-sys.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -479,6 +482,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Mon Jun 01 2026 Pavel Valena <pvalena@redhat.com> - 109-3
+- feat(systemd-sysext): include systemd-{sys,conf}ext-sysroot services
+
 * Wed May 27 2026 Pavel Valena <pvalena@redhat.com> - 109-2
 - build: fix for rhbz#2481748
 

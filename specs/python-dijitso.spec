@@ -1,6 +1,6 @@
 Name:           python-dijitso
 Version:        2019.1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Distributed just-in-time building of shared libraries
 
 License:        LGPL-3.0-or-later
@@ -78,6 +78,9 @@ BuildArch:      noarch
 %{_mandir}/man1/dijitso.1*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2019.1.0-28
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2019.1.0-27
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global debug_package %{nil}
 
 # Tests require virtualenv and pytest-* extensions not included in RHEL

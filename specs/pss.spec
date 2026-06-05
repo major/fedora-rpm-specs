@@ -1,6 +1,6 @@
 Name:           pss
 Version:        1.40
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        A power-tool for searching inside source code files
 
 # psslib/colorama is BSD-3-Clause
@@ -39,6 +39,9 @@ colors its output in a helpful way, and does much more.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.40-40
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

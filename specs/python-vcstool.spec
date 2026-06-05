@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tool to invoke vcs commands on multiple repositories
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -119,6 +119,9 @@ PYTHONWARNINGS=ignore \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.0-17
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.9
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        LicenseRef-Callaway-BSD
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.9-14
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.9-13
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

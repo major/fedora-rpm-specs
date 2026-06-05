@@ -28,7 +28,6 @@ BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gtksourceview-4)
 BuildRequires:	pkgconfig(libpeas-gtk-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	pkgconfig(iso-codes)
 BuildRequires:	python3-gobject-devel
 BuildRequires:	python3-gobject-base
 BuildRequires:	pkgconfig(sm)

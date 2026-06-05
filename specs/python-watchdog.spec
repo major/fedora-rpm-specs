@@ -40,6 +40,7 @@ BuildRequires:      python3-PyYAML
 find src -name "*.py" | xargs sed -i -e '/^#!\//, 1d'
 # Remove +x of the README file
 chmod -x README.rst
+%pyproject_patch_dependency sphinx:drop_upper
 
 
 %generate_buildrequires

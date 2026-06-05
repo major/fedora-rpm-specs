@@ -9,7 +9,7 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Summary:	Tabbed PDF Viewer
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Apr 02 2026 Michael J Gruber <mjg@fedoraproject.org> - 0.5.0-26
+- Rebuild (mupdf)
+
 * Tue Feb 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 0.5.0-25
 - Rebuild (mupdf
 

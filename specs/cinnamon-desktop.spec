@@ -1,6 +1,5 @@
 %global gtk3_version     3.16.0
 %global glib2_version    2.37.3
-%global gtk_doc_version  1.9
 %global po_package       cinnamon-desktop-3.0
 
 %global upstream_version 6.7.1-unstable
@@ -27,10 +26,8 @@ Requires: redhat-menus
 Requires: system-backgrounds-gnome
 %endif
 
-BuildRequires: pkgconfig(accountsservice)
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(gtk-doc) >= %{gtk_doc_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(glib-2.0)  >= %{glib2_version}
@@ -46,8 +43,6 @@ BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(xrandr) 
 BuildRequires: meson
 BuildRequires: gcc
-BuildRequires: intltool
-BuildRequires: itstool
 BuildRequires: python3-packaging
 
 %description

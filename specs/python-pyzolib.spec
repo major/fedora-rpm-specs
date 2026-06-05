@@ -1,6 +1,6 @@
 Name:           python-pyzolib
 Version:        0.3.3
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Utilities for the Pyzo environment
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.3-41
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

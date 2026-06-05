@@ -5,7 +5,7 @@
 
 Name: python-linux-procfs
 Version: 0.7.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-only
 Summary: Linux /proc abstraction classes
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
@@ -51,6 +51,9 @@ Summary: %summary
 %license COPYING
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.4-4
+- Rebuilt for Python 3.15
+
 * Fri May 15 2026 John Kacur <jkacur@redhat.com> - 0.7.4-3
 - Update pyproject.toml license format for modern setuptools
 - Add setup.py for older distributions

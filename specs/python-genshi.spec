@@ -1,6 +1,6 @@
 Name:           python-genshi
 Version:        0.7.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
@@ -68,6 +68,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.11-3
+- Rebuilt for Python 3.15
+
 * Thu May 21 2026 Lukáš Zachar <lzachar@redhat.com> - 0.7.11-2
 - Fix FTBFS with Python 3.15
 - Fixes: rhbz#2479749

@@ -1,6 +1,6 @@
 Name:           libxml2
 Version:        2.13.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing XML and HTML support
 
 # list.c, dict.c and few others use ISC-Veillard
@@ -154,6 +154,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.13.9-2
+- Rebuilt for Python 3.15
+
 * Sun May 24 2026 David King <amigadave@amigadave.com> - 2.13.9-1
 - Update to 2.13.9 (#2459431)
 

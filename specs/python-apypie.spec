@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apipie bindings for Python
 
 License:        MIT
@@ -41,6 +41,9 @@ Apipie bindings for Python3
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.0-2
+- Rebuilt for Python 3.15
+
 * Mon Apr 13 2026 Packit <hello@packit.dev> - 0.8.0-1
 - New release 0.8.0
 

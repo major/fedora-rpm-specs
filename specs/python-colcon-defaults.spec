@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extension for colcon to read defaults from a config file
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ line arguments from a configuration file.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.9-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

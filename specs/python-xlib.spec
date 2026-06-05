@@ -1,6 +1,6 @@
 Name:           python-xlib
 Version:        0.33
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        X client library for Python
 
 License:        LGPL-2.1-or-later
@@ -81,6 +81,9 @@ chmod a-x examples/*.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.33-19
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.33-18
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

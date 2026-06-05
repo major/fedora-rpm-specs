@@ -30,13 +30,15 @@ There is a limited support for (deprecated) optparse objects, too.
 
 Name:           argparse-manpage
 Version:        4.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
 License:        Apache-2.0
 URL:            https://github.com/praiskup/%{name}
 Source0:        %pypi_source %pip_module_name
+# Fix build with Python 3.15
+Patch:          %{url}/pull/130.patch
 
 %if %{with python2}
 BuildRequires: python2-setuptools python2-devel
@@ -105,6 +107,7 @@ Requires:       python3-setuptools
 
 %prep
 %setup -q -n %{pip_module_name}-%{version}
+%patch -P0 -p1
 
 %if %{with pyproject}
 %generate_buildrequires
@@ -191,6 +194,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.7-7
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

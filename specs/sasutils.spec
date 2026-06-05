@@ -1,6 +1,6 @@
 Name:           sasutils
 Version:        0.6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
 License:        Apache-2.0
 URL:            https://github.com/stanford-rc/sasutils
@@ -53,6 +53,9 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.1-9
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

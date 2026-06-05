@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.8.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        The Python Error Steamroller
 
 License:        WTFPL
@@ -53,6 +53,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.8.1-15
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

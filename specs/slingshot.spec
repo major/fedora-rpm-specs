@@ -1,6 +1,6 @@
 Name: slingshot
 Version:  0.9
-Release:  31%{?dist}
+Release:  32%{?dist}
 Summary: A Newtonian strategy game
 
 License: GPL-2.0-or-later        
@@ -72,6 +72,9 @@ ln -s %{_datadir}/fonts/gnu-free/FreeSansBold.ttf $RPM_BUILD_ROOT%{python3_sitel
 %{_metainfodir}/slingshot.appdata.xml
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9-32
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

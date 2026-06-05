@@ -1,6 +1,6 @@
 Name:           ufw
 Version:        0.35
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Uncomplicated Firewall
 
 License:        GPL-3.0-only
@@ -130,6 +130,9 @@ install -D -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/ufw.service
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.35-40
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

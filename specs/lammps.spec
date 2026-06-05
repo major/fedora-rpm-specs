@@ -25,7 +25,7 @@ Version:        20260330
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -380,6 +380,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 20260330-2
+- Rebuilt for Python 3.15
+
 * Sat Apr 18 2026 Richard Berger <richard.berger@outlook.com> - 20260330-1
 - Version bump to 20260330
 - Add patches to avoid unit test failures

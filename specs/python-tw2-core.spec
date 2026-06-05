@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -95,6 +95,9 @@ rm -rf tw2/core/testbase tw2/core/test_templates
 %{python3_sitelib}/tw2.core-*-nspkg.pth
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3.0-28
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.3.0-27
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

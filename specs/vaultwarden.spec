@@ -9,34 +9,42 @@
 %global rustflags_debuginfo 1
 
 Name:           vaultwarden
-Version:        1.34.2
-Release:        2%{?dist}
+Version:        1.36.0
+Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
 
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Apache-2.0
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # 0BSD
 # 0BSD OR MIT OR Apache-2.0
 # AGPL-3.0-only
 # Apache-2.0
+# Apache-2.0 AND ISC
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# BSD-3-Clause AND MIT
 # BSD-3-Clause OR MIT
+# CDLA-Permissive-2.0
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR BSD-1-Clause
+# MIT OR Apache-2.0 OR LGPL-2.1-or-later
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        AGPL-3.0-only AND BSD-3-Clause AND 0BSD AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT) AND (ISC AND MIT AND OpenSSL)
+License:        0BSD AND AGPL-3.0-only AND Apache-2.0 AND BSD-3-Clause AND CDLA-Permissive-2.0 AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0 AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (BSD-3-Clause OR MIT) AND (MIT OR Apache-2.0 OR BSD-1-Clause) AND (MIT OR Apache-2.0 OR LGPL-2.1-or-later) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/dani-garcia/vaultwarden
@@ -45,6 +53,12 @@ Source1:        vaultwarden-%{version}-vendor.tar.xz
 Source2:        vaultwarden.service
 Source3:        vaultwarden.cfg
 Source4:        vaultwarden.sysusers
+Source99:       create-vendor-tarball.sh
+
+# EL 9.8/10.2 ship an older Rust toolchain (1.92.0) vs 1.93.0 desired
+%if 0%{?rhel}
+Patch0:         lower-rust-version.patch
+%endif
 
 ExcludeArch:    i686
 
@@ -78,7 +92,6 @@ Requires:       %{name}-web
 %build
 export VW_VERSION=%{version}
 %cargo_build -f sqlite,mysql,postgresql
-%cargo_build -f sqlite
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
@@ -144,6 +157,17 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed Jun 03 2026 Jonathan Wright <jonathan@almalinux.org> - 1.36.0-1
+- update to 1.36.0 rhbz#2368636
+- Fix bitwarden mobile app not working rhbz#2437599
+- Fix CVE-2025-58160 vaultwarden: Tracing log pollution
+- Fix CVE-2026-25537 vaultwarden: jsonwebtoken has Type Confusion that leads to potential authorization bypass
+- Fix CVE-2026-25727 vaultwarden: time affected by a stack exhaustion denial of service attack
+- Fix CVE-2026-26012 vaultwarden: Information disclosure due to bypassed collection permissions
+- Fix CVE-2026-27898 vaultwarden: Information disclosure via API partial update
+- Fix CVE-2026-27803 vaultwarden: Unauthorized collection management operations due to improper access control
+- Fix CVE-2026-27801 vaultwarden: Two-factor authentication bypass allows unauthorized access and data deletion
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

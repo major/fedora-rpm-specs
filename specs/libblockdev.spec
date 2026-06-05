@@ -86,7 +86,7 @@
 
 Name:        libblockdev
 Version:     3.5.0
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -958,6 +958,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.5.0-2
+- Rebuilt for Python 3.15
+
 * Mon Apr 27 2026 Packit <hello@packit.dev> - 3.5.0-1
 - Update to version 3.5.0
 

@@ -2,13 +2,11 @@
 %global module_name pymupdf
 %global module_name_compat fitz
 
-%bcond docs %{defined fedora}
-
-# mupdf barcode support is available on Fedora only
-%bcond barcode 0%{?fedora} 
+%bcond docs 1
+%bcond barcode 1 
 
 Name:		python-%{pypi_name}
-Version:	1.27.1
+Version:	1.27.2.2
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -24,6 +22,8 @@ Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 Patch:		0001-tests-adjust-to-verbose-font-warning.patch
 Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
 Patch:		0001-tests-conftest-do-not-call-pip.patch
+# Upstream patches from main branch:
+Patch:		0001-src-__init__.py-fix-incorrect-generation-of-PDF-cont.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)
@@ -36,8 +36,6 @@ BuildRequires:	python3-sphinx-copybutton
 BuildRequires:	python3-sphinx-notfound-page
 BuildRequires:	python3-furo
 BuildRequires:	rst2pdf
-# work around rst2pdf incompatibility with docutils 0.22
-BuildRequires:	python3-roman
 %endif
 BuildRequires:	gcc gcc-c++
 BuildRequires:	swig
@@ -79,8 +77,6 @@ python-%{pypi_name}-doc contains documentation and examples for PyMuPDF
 %autosetup -n %{pypi_name}-%{version} -p 1
 # disable google analytics for installed doc
 sed -i -e "s/,'sphinxcontrib.googleanalytics'//" docs/conf.py
-# swig < 4.3 (RHEL 9, Fedora 41) needs this
-sed -i -e 's/{swig} --version/{swig} -version/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -R
@@ -94,9 +90,6 @@ export PYMUPDF_SETUP_MUPDF_BUILD=''
 export PYMUPDF_SETUP_IMPLEMENTATIONS='b'
 # build breaks on F39/EL9 with limited API, and we depend on py version anyways:
 export PYMUPDF_SETUP_PY_LIMITED_API=0
-%if 0%{?rhel} && 0%{?rhel} <= 9
-%set_build_flags
-%endif
 CFLAGS="$CFLAGS -I/usr/include -I/usr/include/freetype2 -I/usr/include/mupdf"
 LDFLAGS="$LDFLAGS -lfreetype -lmupdf"
 %pyproject_wheel
@@ -133,8 +126,11 @@ SKIP="$SKIP and not test_4180 and not test_4613 and not test_htmlbox1"
 SKIP="$SKIP and not test_4445 and not test_4457 and not test_4533 and not test_4702"
 # test requires additional packages
 SKIP="$SKIP and not test_4751"
-# Fedora's swig returns different results
+# Fedora's earlier swig may return different results
+%if 0%{?fedora} >= 44
+%else
 SKIP="$SKIP and not test_4392"
+%endif
 %if %{without barcode}
 # we build mupdf without barcode support
 SKIP="$SKIP and not test_barcode"
@@ -151,10 +147,12 @@ SKIP="$SKIP and not test_4435"
 %endif
 # spuriously failing tests (several archs)
 SKIP="$SKIP and not test_insert and not test_3087"
-# tests are known to fail with mupdf 1.27.x (reported)
-sed -i -e '/^import pymupdf/i import pytest' tests/test_nonpdf.py
-sed -i -e '/^def test_layout/i @pytest.mark.xfail(reason="mupdf 1.27.x", strict=True)' tests/test_nonpdf.py
-sed -i -e '/^def test_pageids/i @pytest.mark.xfail(reason="mupdf 1.27.x", strict=True)' tests/test_nonpdf.py
+# tests apply to >= 1.27.x only
+%if %["%copr_projectname" == "mupdf-git-1.26.x"]
+SKIP="$SKIP and not test_4599 and not test_4790 and not test_4907"
+%endif
+# tests are known to fail on newer Fedoras (reported)
+SKIP="$SKIP and not test_layout and not test_pageids"
 export PYMUPDF_SYSINSTALL_TEST=1
 %pytest -k "$SKIP"
 

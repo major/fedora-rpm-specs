@@ -4,7 +4,7 @@
 
 Name:           %{upstream_name}
 Version:        29.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPL-2.0-or-later
 URL:            https://beaker-project.org/
@@ -115,6 +115,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 29.3-2
+- Rebuilt for Python 3.15
+
 * Sat May 16 2026 Martin Styk <mart.styk@gmail.com> - 29.3-1
 - Update to 29.3
 

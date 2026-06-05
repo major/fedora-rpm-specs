@@ -1,6 +1,6 @@
 Name:           python-cmdkit
 Version:        2.7.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A library for developing command-line applications in Python
 License:        Apache-2.0
 URL:            https://cmdkit.readthedocs.io/
@@ -58,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.7.7-11
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

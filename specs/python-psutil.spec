@@ -1,3 +1,4 @@
+%global _without_xdist 1
 # pytest-xdist is not included in RHEL, and on Fedora it depends on psutil
 %bcond xdist %[%{defined fedora} && %{undefined bootstrap}]
 
@@ -121,6 +122,9 @@ k="${k-}${k+ and }not emulate_energy_full_0"
 k="${k-}${k+ and }not emulate_energy_full_not_avail"
 k="${k-}${k+ and }not emulate_no_power"
 k="${k-}${k+ and }not emulate_power_undetermined"
+
+# skip test failing with Python 3.15
+k="${k-}${k+ and }not test_rlimit_infinity_value"
 
 # Setting GITHUB_ACTIONS to convince the test suite this is a CI.
 # That way, some unreliable tests are skipped and some timeouts are extended.

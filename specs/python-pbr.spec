@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global pypi_name pbr
 
 # EPEL does not have the necessary testing dependencies

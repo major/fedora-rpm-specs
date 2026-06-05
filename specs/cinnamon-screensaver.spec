@@ -14,7 +14,6 @@ ExcludeArch: %{ix86}
 BuildRequires: desktop-file-utils
 BuildRequires: meson
 BuildRequires: gcc
-BuildRequires: intltool
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)

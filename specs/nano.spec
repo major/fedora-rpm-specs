@@ -8,7 +8,7 @@
 Summary:         A small text editor
 Name:            nano
 Version:         9.0
-Release:         1%{?dist}
+Release:         2%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
 
@@ -31,11 +31,9 @@ BuildRequires:   gettext-devel
 BuildRequires:   gcc
 BuildRequires:   git-core
 BuildRequires:   gnupg2
-BuildRequires:   groff
 BuildRequires:   make
 BuildRequires:   ncurses-devel
 BuildRequires:   sed
-BuildRequires:   texinfo
 Conflicts:       filesystem < 3
 
 %description
@@ -133,6 +131,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Wed Jun 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.0-2
+- remove redundant build requires
+
 * Thu Apr 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.0-1
 - rebase to the latest upstream release (rhbz#2456541)
 

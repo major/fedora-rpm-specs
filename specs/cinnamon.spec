@@ -39,17 +39,14 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  sassc
 BuildRequires:  python3-rpm-macros
 BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
-BuildRequires:  pkgconfig(dbus-glib-1)
 BuildRequires:  pkgconfig(gcr-base-3)
 BuildRequires:  pkgconfig(gl)
-BuildRequires:  pkgconfig(libgnome-menu-3.0)
 BuildRequires:  pkgconfig(lib%{name}-menu-3.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxdo)
 BuildRequires:  pkgconfig(%{name}-desktop) >= %{cinnamon_desktop_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
-BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(libnm)
 BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(polkit-agent-1)
@@ -58,21 +55,17 @@ BuildRequires:  pkgconfig(xapp)
 
 # for screencast recorder functionality
 BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  intltool
 BuildRequires:  pkgconfig(libcanberra)
 
 # used in unused BigThemeImage
-BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libmuffin-0) >= %{muffin_version}
 BuildRequires:  pkgconfig(libpulse)
 
 # media keys
-BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(colord)
 %ifnarch s390 s390x
 BuildRequires:  pkgconfig(libwacom)
-BuildRequires:  pkgconfig(xorg-wacom)
 %endif
 BuildRequires:  pkgconfig(xtst)
 

@@ -9,7 +9,7 @@
 Name:           python-requirements-parser
 Version:        0.5.0
 %forgemeta
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A small Python module for parsing Pip requirement files
 
 License:        Apache-2.0
@@ -70,6 +70,9 @@ tomcli-set pyproject.toml str tool.poetry.dependencies.setuptools "*"
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.0-12
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

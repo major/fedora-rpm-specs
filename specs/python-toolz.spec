@@ -28,7 +28,7 @@ suitable for most developers.
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A functional standard library for Python
 
 # The project is released under the BSD-3-Clause license.
@@ -39,6 +39,8 @@ URL:            https://github.com/pytoolz/%{srcname}/
 Source0:        https://github.com/pytoolz/toolz/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Add python 3.14 support
 Patch:          %{url}/pull/592.patch
+# Add python 3.15 support
+Patch:          %{url}/pull/624.patch
 BuildArch:      noarch
 
 %description
@@ -81,6 +83,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.0-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           nemo-extensions
 Version:        6.7.0^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -18,18 +18,14 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  desktop-file-utils
-BuildRequires:  gpgme-devel
-BuildRequires:  pkgconfig(cryptui-0.0) 
+BuildRequires:  gpgme-devel 
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(libnemo-extension) >= 6.7.0
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(pygobject-3.0)
-BuildRequires:  gnome-common
-BuildRequires:  intltool
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
 BuildRequires:  pkgconfig(xreader-view-1.5)
 BuildRequires:  pkgconfig(libmusicbrainz5)
@@ -343,6 +339,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.7.0^unstable-2
+- Rebuilt for Python 3.15
+
 * Mon Apr 13 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.0^unstable-1
 - Update to 6.7.0-unstable
 

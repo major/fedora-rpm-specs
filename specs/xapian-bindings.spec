@@ -3,7 +3,7 @@
 
 Name:          xapian-bindings
 Version:       2.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -103,6 +103,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.0-2
+- Rebuilt for Python 3.15
+
 * Tue Apr 07 2026 Christiano Anderson <chris@christiano.me> - 2.0.0-1
 - Update to 2.0.0
 

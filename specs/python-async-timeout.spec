@@ -10,7 +10,7 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout
 
 Name:           python-%{srcname}
 Version:        5.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Deprecated, use asyncio.Timeout from the standard library instead
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.0.1-9
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

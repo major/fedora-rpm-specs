@@ -2,7 +2,7 @@
 
 Name:           xapps
 Version:        3.3.1^unstable
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -16,10 +16,8 @@ ExcludeArch:    %{ix86}
 BuildRequires:  desktop-file-utils
 BuildRequires:  glib2-devel
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  gtk-doc
 BuildRequires:  gtk3-devel
 BuildRequires:  gtk-layer-shell-devel
-BuildRequires:  intltool
 BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libgnomekbd-devel
@@ -127,6 +125,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.1^unstable-2
+- Rebuilt for Python 3.15
+
 * Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 3.3.1^unstable-1
 - Update to 3.3.1-unstable
 

@@ -18,7 +18,7 @@
 
 Name:           netplan
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network configuration tool using YAML
 License:        GPL-3.0-only
 URL:            http://netplan.io/
@@ -284,6 +284,9 @@ EOF
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.1-3
+- Rebuilt for Python 3.15
+
 * Tue May 05 2026 Jonathan Wright <jonathan@almalinux.org> - 1.2.1-2
 - Suggest systemd-networkd for "netplan status" functionality
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast ISO8601 date time parser
 
 License:        MIT
@@ -49,6 +49,9 @@ than other Python libraries.
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3.3-2
+- Rebuilt for Python 3.15
+
 * Sat Jan 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.3-1
 - Update to 2.3.3 (rhbz#2389809)
 - Migrate to new python build macros (rhbz#2377513)

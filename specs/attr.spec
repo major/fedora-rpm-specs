@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.5.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -17,8 +17,8 @@ Patch3:  0003-attr-2.4.48-xattr-conf-nfs4-acls.patch
 
 License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/attr
+BuildRequires: gcc
 BuildRequires: gettext
-BuildRequires: libtool
 BuildRequires: make
 BuildRequires: gnupg2
 Requires: libattr%{?_isa} = %{version}-%{release}
@@ -125,6 +125,9 @@ ln -fs ../sys/xattr.h $RPM_BUILD_ROOT%{_includedir}/attr/xattr.h
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Wed Jun 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.5.2-9
+- remove redundant build require
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

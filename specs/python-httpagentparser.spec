@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        1.9.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extracts OS Browser etc information from http user agent string
 
 License:        MIT
@@ -52,6 +52,9 @@ Extracts OS Browser etc information from http user agent string.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.9-2
+- Rebuilt for Python 3.15
+
 * Sun Mar 08 2026 Sandro Mani <manisandro@gmail.com> - 1.9.9-1
 - Update to 1.9.9
 

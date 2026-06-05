@@ -45,9 +45,7 @@ BuildRequires: pkgconfig(gio-unix-2.0)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: meson
 BuildRequires: gcc
-BuildRequires: intltool
 BuildRequires: python3-packaging
-BuildRequires: xmlto
 
 %description
 Cinnamon-session manages a Cinnamon desktop or GDM login session. It starts up

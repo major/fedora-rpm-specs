@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate astral_async_zip
-%global crate_version 0.0.18-rc4
 
 Name:           rust-astral_async_zip
-Version:        0.0.18~rc4
+Version:        0.0.18
 Release:        %autorelease
 Summary:        Asynchronous ZIP archive reading/writing crate
 
 License:        MIT
 URL:            https://crates.io/crates/astral_async_zip
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit the actix-multipart example, allowing us to drop dev-dependencies on
 #   actix-multipart (not packaged), actix-web, derive_more (packaged, but the
@@ -202,7 +201,7 @@ use the "zstd" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

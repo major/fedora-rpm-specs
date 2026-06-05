@@ -2,7 +2,7 @@
 %global soversion 2
 
 Name:       fast-cdr
-Version:    2.3.5
+Version:    2.3.6
 Release:    1%{?dist}
 Summary:    Fast Common Data Representation (CDR) Serialization Library
 
@@ -54,6 +54,9 @@ Development files and libraries for %{name}
 %{_libdir}/cmake/fastcdr
 
 %changelog
+* Wed Jun 03 2026 Federico Pellegrin <fede@evolware.org> - 2.3.6-1
+- Bump to 2.3.6 (rhbz#2483934).
+
 * Wed Jan 28 2026 Federico Pellegrin <fede@evolware.org> - 2.3.5-1
 - Bump to 2.3.5 (rhbz#2433317). Fixes rbhz#2381209 (CMake drop nonstd vars)
 

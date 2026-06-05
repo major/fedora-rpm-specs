@@ -40,6 +40,7 @@ This is the documentation package for %{name}.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+%pyproject_patch_dependency pytest:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires -t

@@ -17,7 +17,7 @@
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
 Version: 12.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://libvirt.org/sources/python/%{dist_name}-%{version}.tar.gz
 Url: https://libvirt.org
 License: LGPL-2.1-or-later
@@ -88,6 +88,9 @@ exit 1
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 12.4.0-2
+- Rebuilt for Python 3.15
+
 * Tue Jun 02 2026 Cole Robinson <crobinso@redhat.com> - 12.4.0-1
 - Update to 12.4.0 release
 

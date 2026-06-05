@@ -92,7 +92,10 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 # test suite hangs indefinitely on exit without -n auto
 # note this implies the dep on xdist, so don't remove it
 # https://github.com/ansible/ansible-runner/issues/1369
-%pytest -n auto
+# Ignore the DeprecationWarnings in builds with Python 3.15 where 
+# "This process is multi-threaded, use of forkpty() may lead to deadlocks in the child."
+# is emitted for ~100 tests
+%pytest -n auto -W ignore::DeprecationWarning
 
 %files -n python3-%{pypi_name}
 %license LICENSE.md

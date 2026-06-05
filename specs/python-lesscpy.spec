@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -71,6 +71,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.14.0-27
+- Rebuilt for Python 3.15
+
 * Tue May 19 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.14.0-26
 - Backport upstream patch to drop the dependency on python-six
 

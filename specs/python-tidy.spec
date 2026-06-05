@@ -3,7 +3,7 @@
 Summary:        Python wrapper for tidy, from the HTML tidy project
 Name:           python-tidy
 Version:        0.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        MIT
 URL:            https://cihar.com/software/utidylib/
 Source0:        http://dl.cihar.com/utidylib/uTidylib-%{version}.tar.bz2
@@ -44,6 +44,9 @@ Requires:       python3-six
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6-26
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

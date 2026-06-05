@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kompare
 Summary: Diff tool
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ko
 
 
 %changelog
+* Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

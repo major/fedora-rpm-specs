@@ -16,8 +16,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	meson
-BuildRequires:	mathjax
-BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	libappstream-glib
@@ -42,7 +40,6 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:  python3-packaging
 BuildRequires:	texlive
 BuildRequires:	t1lib-devel
-BuildRequires:	yelp-tools
 
 Requires:	shared-mime-info%{?_isa}
 Requires:	gsettings-desktop-schemas%{?_isa}

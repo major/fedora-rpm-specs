@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.4.27
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        File type identification using libmagic
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_magic-%{version}-py*.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.27-17
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.27-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

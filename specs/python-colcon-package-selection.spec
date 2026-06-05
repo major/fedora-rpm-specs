@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Extension for colcon to select the packages to process
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to select a subset of packages for processing.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.10-22
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

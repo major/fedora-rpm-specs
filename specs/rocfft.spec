@@ -144,10 +144,13 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        7%{?dist}
+Release:        8%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT AND BSD-3-Clause
+# MIT: The main license
+# BSD-3-Clause:
+#  shared/CLI11.hpp
 
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -158,6 +161,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
@@ -198,11 +202,11 @@ BuildRequires:  ninja
 %endif
 
 Provides:       rocfft%{pkg_suffix} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
-
-Patch0: 0001-cmake-use-gnu-installdirs.patch
 
 %description
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.
@@ -220,6 +224,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        The rocFFT development package
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 Requires:       rocm-hip%{pkg_suffix}-devel
 
 %description devel
@@ -229,6 +234,7 @@ The rocFFT development package.
 %package test
 Summary:        Tests for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
 %{summary}
@@ -296,6 +302,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Jun 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-8
+- merge compat changes
+
 * Wed May 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
 - Explicitly license smoke tests 0BSD
 - Smoke test not part of srpm so remove from license tag

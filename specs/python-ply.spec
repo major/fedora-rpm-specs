@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Python Lex-Yacc
 Version:        3.11
-Release:        33%{?dist}
+Release:        34%{?dist}
 License:        BSD-3-Clause
 URL:            http://www.dabeaz.com/ply/
 Source0:        http://www.dabeaz.com/ply/%{modname}-%{version}.tar.gz
@@ -98,6 +98,9 @@ popd
 %license LICENSE
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.11-34
+- Rebuilt for Python 3.15
+
 * Wed Mar 25 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.11-33
 - Security fix for CVE-2025-56005
 - Fixes: rhbz#2437981

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        HCL configuration parser for Python
 
 License:        MPL-2.0
@@ -59,6 +59,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest tests
 %{python3_sitelib}/pyhcl-*.egg-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.5-13
+- Rebuilt for Python 3.15
+
 * Wed Jan 21 2026 Charalampos Stratakis <cstratak@redhat.com> - 0.4.5-12
 - Fix compatibility with the latest ply commit
 

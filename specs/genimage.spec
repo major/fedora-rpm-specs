@@ -1,5 +1,7 @@
 %global fs_block_tools %(cat <<EOF
+cpio \\
 e2fsprogs \\
+erofs-utils \\
 genext2fs \\
 genisoimage \\
 f2fs-tools \\
@@ -14,6 +16,16 @@ mtd-utils-ubi \\
 uboot-tools
 EOF)
 
+# Exclude some fs tools until their tests can cope with newer features
+# erofs-utils https://github.com/pengutronix/genimage/issues/309
+# genextfs    https://github.com/pengutronix/genimage/issues/330
+%global trim_fs_block_tools %{lua:
+	tr = rpm.expand('%{fs_block_tools}')
+	tr = string.gsub(tr,'genext2fs', '')
+	tr = string.gsub(tr ,'erofs%-utils', '')
+	print(tr)
+}
+
 Name:           genimage
 Version:        19
 
@@ -24,7 +36,7 @@ License:        GPL-2.0-only
 URL:            https://github.com/pengutronix/genimage/
 Source0:        %{url}/releases/download/v%{version}/genimage-%{version}.tar.xz
 
-Recommends:     %{fs_block_tools}
+Recommends:     %{trim_fs_block_tools}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2374067
 ExcludeArch: s390x %{ix86}
@@ -38,7 +50,7 @@ BuildRequires:  coreutils
 BuildRequires:  python3-docutils
 # tests
 BuildRequires:  fakeroot
-BuildRequires:  %{fs_block_tools}
+BuildRequires:  %{trim_fs_block_tools}
 
 %description
 genimage is a tool to generate multiple filesystem and flash/disk

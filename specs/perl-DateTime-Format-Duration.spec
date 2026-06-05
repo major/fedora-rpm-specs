@@ -1,7 +1,7 @@
 %global cpan_name DateTime-Format-Duration
 
 Name:           perl-%{cpan_name}
-Version:        1.05
+Version:        1.06
 Release:        1%{?dist}
 Summary:        Format and parse DateTime::Durations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -9,9 +9,6 @@ URL:            https://metacpan.org/release/%{cpan_name}
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/%{cpan_name}-%{version}.tar.gz
 # Upstream links images to the Internet, we package them into %%{_docdir}
 Patch0:         DateTime-Format-Duration-1.04-Link-images-to-local-documentation.patch
-# Fix warnings on Perl 5.42.2, proposed upstream,
-# <https://github.com/karenetheridge/DateTime-Format-Duration/pull/3>
-Patch1:         DateTime-Format-Duration-1.05-Fix-Use-of-uninitialized-value-W-in-scalar-assignmen.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -95,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 03 2026 Petr Pisar <ppisar@redhat.com> - 1.06-1
+- 1.06 bump
+
 * Mon Jun 01 2026 Petr Pisar <ppisar@redhat.com> - 1.05-1
 - 1.05 bump
 - Package the tests

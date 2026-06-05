@@ -52,7 +52,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
@@ -78,6 +78,7 @@ ExclusiveArch:  x86_64
 %package devel
 Summary:        Libraries and headers for %{name}
 Provides:       %{name}-static = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 %{summary}
@@ -104,6 +105,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
 %{pkg_prefix}/share/cmake/hipblas-common/
 
 %changelog
+* Wed Jun 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- merge compat changes
+
 * Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Change --with gitcommit to preview
 

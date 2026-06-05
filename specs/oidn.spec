@@ -1,8 +1,9 @@
-%bcond 	        hip %{undefined flatpak}
+%bcond          gcc 0 #Use clang by default
+%bcond          hip %{undefined flatpak}
 %bcond          ninja 1
 #%%global	        prerelease beta
 Name:           oidn
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0
@@ -29,13 +30,13 @@ BuildRequires:  rocm-runtime
 %endif
 # Needed to remove rpath from apps
 BuildRequires:  chrpath
-%if %{with hip}
-BuildRequires:  clang
-%else
+%if %{with gcc}
 BuildRequires:  gcc-c++
+%else
+BuildRequires:  clang
 %endif
 BuildRequires:  help2man
-BuildRequires:  ispc
+BuildRequires:  cmake(ispcrt)
 Recommends:     ispc-gpu
 %if %{with ninja}
 BuildRequires:  ninja-build

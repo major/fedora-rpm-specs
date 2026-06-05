@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ objects and report together, find reports by mimetypes/name/python objects.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.10.1-17
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

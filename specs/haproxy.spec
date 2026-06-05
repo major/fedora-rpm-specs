@@ -2,8 +2,8 @@
 
 Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
-Version:        3.0.23
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.haproxy.org/
 Source0:        https://www.haproxy.org/download/%(b=%{version}; echo ${b%.*})/src/%{name}-%{version}.tar.gz
@@ -13,12 +13,11 @@ Source3:        %{name}.logrotate
 Source4:        %{name}.sysconfig
 Source5:        %{name}.sysusersd
 Source6:        https://salsa.debian.org/haproxy-team/haproxy/-/raw/c30a7411203b8c4234698e47325d2543359f9d66/debian/halog.1
-Patch0:         https://github.com/haproxy/haproxy/commit/1c0f781994a89b5cbd7b4b893c23e6d2b75b1764.patch#/haproxy-3.0.17-lua-5.5.patch
-BuildRequires:  gcc
+BuildRequires:  %{__cc}
 BuildRequires:  libxcrypt-devel
 BuildRequires:  lua-devel
 BuildRequires:  make
-BuildRequires:  openssl-devel
+BuildRequires:  openssl-devel >= 3.5.1
 BuildRequires:  pcre2-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
@@ -49,13 +48,13 @@ availability environments. Indeed, it can:
   EXTRAVERSION="-%{release}" \
   USE_PCRE2=1 \
   USE_OPENSSL=1 \
+  USE_QUIC=1 \
   USE_LUA=1 \
   USE_PROMEX=1 \
-  CC=gcc \
+  CC=%{__cc} \
   CFLAGS="%{build_cflags}" \
   LDFLAGS="%{build_ldflags}" \
   OPT_CFLAGS="" ARCH_FLAGS="" \
-  DEFINE=-DMAX_SESS_STKCTR=12 \
   EXTRA="admin/halog/halog admin/iprange/iprange admin/iprange/ip6range"
 
 %install
@@ -70,19 +69,14 @@ install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/halog.1
 mkdir -p %{buildroot}{%{_sysconfdir}/%{name}/conf.d,%{_localstatedir}/lib/%{name}}/
 
-for httpfile in $(find examples/errorfiles/ -type f); do
-  install -D -p -m 0644 ${httpfile} %{buildroot}%{_datadir}/%{name}/${httpfile##*/}
-done
-rm -rf examples/{errorfiles/,haproxy.init}
-
 # Convert from ISO-8859-1 to UTF-8
 iconv -f ISO-8859-1 -t UTF-8 -o doc/internals/connection-scale.txt{.utf8,}
 touch -c -r doc/internals/connection-scale.txt{,.utf8}
 mv -f doc/internals/connection-scale.txt{.utf8,}
 
-# Prepare doc/ for %%doc inclusion
+# Prepare doc/ and examples/ for %%doc inclusion
 mv -f doc/{gpl,lgpl}.txt .
-rm -f doc/{gpl,lgpl}.txt doc/%{name}.1
+rm -f doc/{gpl,lgpl}.txt doc/%{name}.1 examples/%{name}.init
 
 %pre
 %sysusers_create_compat %{SOURCE5}
@@ -98,7 +92,7 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1
 
 %files
 %license LICENSE gpl.txt lgpl.txt
-%doc CHANGELOG README doc/* examples/
+%doc CHANGELOG README.md doc/* examples/
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.cfg
 %dir %{_sysconfdir}/%{name}/conf.d/
@@ -110,12 +104,17 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1
 %{_sbindir}/%{name}
 %{_unitdir}/%{name}.service
 %{_sysusersdir}/%{name}.conf
-%{_datadir}/%{name}/
 %{_mandir}/man1/halog.1*
 %{_mandir}/man1/%{name}.1*
 %dir %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Thu Jun 04 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.0-1
+- Upgrade to 3.4.0 (#2324436)
+- Remove obsolete compile option MAX_SESS_STKCTR (#2368035)
+- Use systemctl in logrotate postrotate script (#2372782)
+- Move example error files from /usr/share/haproxy/ to %%doc
+
 * Mon May 18 2026 Robert Scheck <robert@fedoraproject.org> - 3.0.23-2
 - Revert to permissions 0755 for root:root on /var/lib/haproxy
 

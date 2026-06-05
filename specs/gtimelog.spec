@@ -1,6 +1,6 @@
 Name:           gtimelog
 Version:        0.12.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Unobtrusively keep track of your time
 
 License:        GPL-2.0-or-later
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.12.0-11
+- Rebuilt for Python 3.15
+
 * Tue Feb 10 2026 Maxwell G <maxwell@gtmx.me> - 0.12.0-10
 - Remove unused and deprecated python3-mock test dependency
 

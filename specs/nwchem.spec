@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 # Automatically converted from old format: ECL 2.0 - review is highly recommended.
@@ -521,6 +521,9 @@ mv QA.orig QA
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.3.1-2
+- Rebuilt for Python 3.15
+
 * Thu Jan 15 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 7.3.1-1
 - New upstream release
 

@@ -2,7 +2,7 @@ Name:           Silo
 Version:        4.12.1~pre2
 %global         uversion 4.12.1-pre2
 %global sover   412
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mesh and Field I/O Library and Scientific Database
 
 License:        BSD-3-Clause 
@@ -114,6 +114,9 @@ This package contains the python module of the %{name} package.
 %{python3_sitelib}/Silo.so
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.12.1~pre2-2
+- Rebuilt for Python 3.15
+
 * Fri May 15 2026 Christoph Junghans <junghans@votca.org> - 4.12.1~pre2-1
 - Version bump to v4.12.1-pre2
 - Fixes: rhbz#2459406

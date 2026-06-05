@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          polari
-Version:       49.0
+Version:       50.0
 Release:       %autorelease
 Summary:       Internet Relay Chat client for GNOME
 

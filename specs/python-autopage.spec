@@ -17,7 +17,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -93,6 +93,9 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.0-2
+- Rebuilt for Python 3.15
+
 * Fri Jan 30 2026 Zane Bitter <zaneb@fedoraproject.org> 0.6.0-1
 - Fix compatibility with Python 3.15.0a5 (rhbz#2424583)
 - Comply with PEP540 UTF-8 Mode

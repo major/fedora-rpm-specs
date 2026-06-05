@@ -1,7 +1,7 @@
 Name:           gumbo-parser
 Epoch:          1
 Version:        0.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A HTML5 parser
 
 License:        Apache-2.0
@@ -117,6 +117,9 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %files python -f %{pyproject_files}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:0.13.2-2
+- Rebuilt for Python 3.15
+
 * Wed May 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:0.13.2-1
 - 0.13.2
 

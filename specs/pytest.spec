@@ -1,3 +1,6 @@
+%global _without_docs 1
+%global _without_tests 1
+%global _without_timeout 1
 Name:           pytest
 Version:        9.0.3
 Release:        %autorelease

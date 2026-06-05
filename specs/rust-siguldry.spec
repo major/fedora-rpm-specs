@@ -4,7 +4,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Implementation of the Sigul protocol
 

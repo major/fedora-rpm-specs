@@ -2,8 +2,8 @@
 %bcond adblock 1
 
 Name:           angelfish
-Version:        26.04.1
-Release:        3%{?dist}
+Version:        26.04.2
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Mon May 25 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-3
 - Reenable adblock
 

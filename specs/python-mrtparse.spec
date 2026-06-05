@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MRT format data parser
 
 License:        Apache-2.0
@@ -66,6 +66,9 @@ done
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.2.0-7
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

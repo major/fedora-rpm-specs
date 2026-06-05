@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -148,6 +148,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.7.6-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 20 2026 Dan Horák <dan[at]danny.cz> - 2.7.6-1
 - New upstream release 2.7.6 (rhbz#2446899)
 

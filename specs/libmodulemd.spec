@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -193,6 +193,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.15.2-8
+- Rebuilt for Python 3.15
+
 * Tue Feb 24 2026 Petr Pisar <ppisar@redhat.com> - 2.15.2-7
 - Adapt tests to pygobject 3.55.0 (bug #2440570)
 

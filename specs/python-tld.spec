@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract the top level domain from the URL given
 
 License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
@@ -84,6 +84,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v --pyargs 
 %license LICENSE_GPL2.0.txt LICENSE_LGPL_2.1.txt LICENSE_MPL_1.1.txt
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.13.2-2
+- Rebuilt for Python 3.15
+
 * Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.13.2-1
 - Update to v0.13.2
 

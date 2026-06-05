@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.0-16
+- Rebuilt for Python 3.15
+
 * Tue Mar 24 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.0-15
 - Fix pytest 9 compatibility
 

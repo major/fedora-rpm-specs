@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        2.8.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python interface to Debian's Bug Tracking System
 
 License:        MIT
@@ -60,6 +60,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/python_debianbts-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.8.2-25
+- Rebuilt for Python 3.15
+
 * Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 2.8.2-24
 - Remove unused and deprecated python3-mock dependency
 

@@ -12,7 +12,7 @@ Python 3.4 is the minimum supported version.
 
 Name:           python-%{pkgname}
 Version:        0.8
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        %{summary}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -82,6 +82,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8-25
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

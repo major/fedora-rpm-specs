@@ -54,7 +54,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    3%{?dist}
+Release:    4%{?dist}
 %endif
 
 Summary:    ROCm system info utility
@@ -65,7 +65,6 @@ License:    NCSA AND MIT
 #   rocm_agent_enumerator
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
 
 ExclusiveArch:  x86_64
 
@@ -77,6 +76,8 @@ BuildRequires:  python3-devel
 
 # rocminfo calls lsmod to check the kernel mode driver status
 Requires:       kmod
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix}
 
 %description
 ROCm system info utility
@@ -108,9 +109,7 @@ sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
 chmod 755 %{buildroot}%{pkg_prefix}/bin/*
 
 # Extra licenses
-# Fedora
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/License.txt
-# OpenSUSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 
 %files
@@ -120,6 +119,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.coM> - 7.2.0-4
+- merge compat changes
+
 * Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with preview
 

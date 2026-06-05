@@ -14,7 +14,6 @@ URL:     https://wiki.gnome.org/Apps/Rhythmbox
 Source0: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.10.0
-BuildRequires: pkgconfig(grilo-0.3) >= 0.3.1
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
@@ -86,6 +85,7 @@ a Rhythmbox plugin.
 %build
 %meson \
     -Ddaap=enabled \
+    -Dgrilo=disabled \
     -Dlirc=disabled
 %meson_build
 
@@ -133,7 +133,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_libdir}/rhythmbox/plugins/dbus-media-server/
 %{_libdir}/rhythmbox/plugins/fmradio/
 %{_libdir}/rhythmbox/plugins/generic-player/
-%{_libdir}/rhythmbox/plugins/grilo/
 %{_libdir}/rhythmbox/plugins/im-status/
 %{_libdir}/rhythmbox/plugins/ipod/
 %{_libdir}/rhythmbox/plugins/iradio/

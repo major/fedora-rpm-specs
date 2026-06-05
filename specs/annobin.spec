@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.18
+Version: 13.20
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,14 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jun 03 2026 Nick Clifton  <nickc@redhat.com> - 13.20-1
+- Annocheck: Add support for ZIP files and TAR balls.
+
+* Wed Jun 03 2026 Nick Clifton  <nickc@redhat.com> - 13.19-1
+- Testsuite: Fixes for the glibcxx and hardening tests.
+- GCC Plugin: Fix several minor bugs.
+- Annocheck: Fix several minor bugs.
+
 * Thu May 28 2026 Nick Clifton  <nickc@redhat.com> - 13.18-1
 - Testsuite: Fix discrepancies.
 - GCC Plugin: Fix recording the setting of __GLIBCXX_ASSERTIONS.

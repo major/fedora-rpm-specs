@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python library that sorts lists using the "natural order" sort
 
 License:        MIT
@@ -59,6 +59,9 @@ Summary:	%{summary}
 %{_bindir}/%{srcname}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 8.4.0-10
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

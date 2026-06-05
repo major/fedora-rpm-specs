@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.5.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -506,6 +506,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:5.9.5.2-5
+- Rebuilt for Python 3.15
+
 * Thu Jan 29 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.5.2-4
 - Add net-snmp-devel dependency on libnl3-devel
 

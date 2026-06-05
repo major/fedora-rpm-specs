@@ -74,7 +74,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -618,6 +618,9 @@ popd
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.3.0-3
+- Rebuilt for Python 3.15
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 4.3.0-2
 - Rebuild (jsoncpp)
 

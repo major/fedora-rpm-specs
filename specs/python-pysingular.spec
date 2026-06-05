@@ -1,6 +1,6 @@
 Name:           python-pysingular
 Version:        0.9.7
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Python interface to Singular
 
 License:        GPL-2.0-or-later
@@ -36,6 +36,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.9.7-30
+- Rebuilt for Python 3.15
+
 * Thu Mar 12 2026 Jerry James <loganjerry@gmail.com> - 0.9.7-29
 - Rebuild for Singular 4.4.1p5
 

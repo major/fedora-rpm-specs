@@ -1,3 +1,4 @@
+%global _without_extras 1
 %global srcname gunicorn
 %global _description %{expand:
 Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It is a
@@ -8,7 +9,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        23.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -79,6 +80,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 23.0.0-8
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

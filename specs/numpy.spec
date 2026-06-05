@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -261,6 +261,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:2.4.6-2
+- Rebuilt for Python 3.15
+
 * Tue May 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.6-1
 - 2.4.6
 

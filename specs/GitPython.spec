@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.50
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.50-2
+- Rebuilt for Python 3.15
+
 * Wed May 06 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.50-1
 - Update to 3.1.50; closes RHBZ#2466957 and fixes CVE-2026-42215
 

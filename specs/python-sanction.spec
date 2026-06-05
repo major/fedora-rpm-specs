@@ -3,7 +3,7 @@
 
 Name:               python-sanction
 Version:            0.4.1
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            A simple, lightweight OAuth2 client
 License:            MIT
 URL:                http://pypi.python.org/pypi/sanction
@@ -107,6 +107,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.1-17
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

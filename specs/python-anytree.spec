@@ -2,7 +2,7 @@
 
 Name:           python-anytree
 Version:        2.8.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Powerful and Lightweight Python Tree Data Structure
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ sed -e "/LICENSE/d" -i setup.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.8.0-25
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    incidenceeditor
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 Summary: KDE PIM library for creating and editing calendar incidences
 
@@ -94,6 +94,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

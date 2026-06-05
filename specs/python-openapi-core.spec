@@ -53,10 +53,11 @@ Summary:        %{summary}
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 # We cannot respect a SemVer or version range pin on FastAPI; it updates
 # frequently, with usually-tiny breaking changes.
-sed -r -i \
-    -e 's/(fastapi = \{version = ")\^/\1>=/' \
-    -e 's/(fastapi = \{version = ".*),<[^"]+/\1/' \
-    pyproject.toml
+%pyproject_patch_dependency fastapi:drop_upper
+# Now that Starlette is at 1.x, but upstream is still pinning particular minor
+# versions, it’s far too fussy to be constantly patching the version bounds.
+# Rather than dropping the upper bound entirely, loosen it to a SemVer bound.
+%pyproject_patch_dependency starlette:set_upper:2.0
 # Erroring on DeprecationWarnings makes sense upstream, but is probably too
 # strict for distribution packaging.
 #

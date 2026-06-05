@@ -6,7 +6,7 @@
 %global crate tree-sitter
 
 Name:           rust-tree-sitter
-Version:        0.25.10
+Version:        0.26.9
 Release:        %autorelease
 Summary:        Rust bindings to the Tree-sitter parsing library
 
@@ -15,8 +15,6 @@ Summary:        Rust bindings to the Tree-sitter parsing library
 License:        MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://crates.io/crates/tree-sitter
 Source:         %{crates_source}
-# * Upstream license file - tree-sitter/tree-sitter#1520
-Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
 # Manually created patch for downstream crate metadata changes
 # * Fixup license for bundled ICU
 # * Drop 'wasmtime' features
@@ -26,8 +24,6 @@ Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICEN
 Patch:          tree-sitter-fix-metadata.diff
 # * Always generate bindings with bindgen
 Patch2:         tree-sitter-build-bindings-unconditionally.patch
-# * Fix rust-version detection in build.rs
-Patch3:         tree-sitter-bindgen-rust-version.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -94,8 +90,6 @@ rm -f binding_rust/bindings.rs
 
 %install
 %cargo_install
-# prepare upstream license file for %%license
-install -D -m 0644 -pv %{SOURCE2} %{buildroot}%{crate_instdir}/LICENSE
 
 %if %{with check}
 %check

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extension for colcon to recursively crawl for packages
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to recursively crawl for packages.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.3-11
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

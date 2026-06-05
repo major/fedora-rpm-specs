@@ -3,7 +3,7 @@
 
 Name:           python-avalara
 Version:        26.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        AvaTax Python SDK
 
 
@@ -53,6 +53,9 @@ Summary: %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 26.4.0-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

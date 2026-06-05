@@ -4,7 +4,7 @@
 
 Name:          python-jack-client
 Version:       0.5.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       JACK Audio Connection Kit (JACK) Client for Python
 BuildArch:     noarch
 
@@ -58,6 +58,9 @@ This package installs the library for Python.
 %doc
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.5-2
+- Rebuilt for Python 3.15
+
 * Sun Jan 18 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.5.5-1
 - Modernize spec: use pyproject macros for build/install/test.
 - Add conditional %check (prefer %pyproject_test in CI, fallback to inline import for local builds).

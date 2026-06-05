@@ -1,7 +1,7 @@
 Summary:       Grep-like tool for source code
 Name:          grin
 Version:       1.3.0
-Release:       23%{?dist}
+Release:       24%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
 URL:           http://pypi.python.org/pypi/grin
@@ -50,6 +50,9 @@ sed -i -e '1d' grin.py
 %{_bindir}/grind
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.0-24
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           pyxattr
 Summary:        Extended attributes library wrapper for Python
 Version:        0.7.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://pyxattr.k1024.org/
 Source0:        %{URL}/downloads/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ python3 -m pytest tests %{?copr_projectname:-k 'not (binary_payload or create_on
 %doc NEWS README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.2-20
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

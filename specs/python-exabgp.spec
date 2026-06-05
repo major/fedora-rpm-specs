@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        5.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.0.9-2
+- Rebuilt for Python 3.15
+
 * Sat Apr 11 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.9-1
 - Update to version 5.0.9 release (resolves rhbz#2457582)
 

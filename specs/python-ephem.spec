@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compute positions of the planets and stars
 
 License:        MIT
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.2.1-2
+- Rebuilt for Python 3.15
+
 * Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 4.2.1-1
 - Update to 4.2.1
 

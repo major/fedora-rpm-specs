@@ -3,7 +3,7 @@
 %bcond tests %{with inline_snapshot}
 
 Name:           python-rich-toolkit
-Version:        0.19.10
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Rich toolkit for building command-line applications
 

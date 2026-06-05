@@ -1,7 +1,7 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        MIT
 
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %{_bindir}/stone
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.2.1-24
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.2.1-23
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

@@ -1,3 +1,4 @@
+%global _without_tests 1
 # Avoid unwanted/unavailable dependencies in RHEL builds.
 # Turn the tests off when bootstrapping Python, because pytest requires attrs
 %bcond tests %{undefined rhel}

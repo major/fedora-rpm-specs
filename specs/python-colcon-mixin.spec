@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Extension for colcon to read CLI mixins from files
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -63,6 +63,9 @@ For an example repository containing mixins see colcon-mixin-repository.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.3-15
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

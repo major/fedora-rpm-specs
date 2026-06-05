@@ -2,7 +2,7 @@
 
 Name:           python-%{tarName}
 Version:        1.3
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Implements a lazy string for python useful for use with gettext
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -58,6 +58,9 @@ popd
 %doc PKG-INFO README
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3-44
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       Curses-like terminal wrapper, with colored strings
 Name:          python-curtsies
 Version:       0.4.3
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       MIT
 URL:           https://github.com/bpython/curtsies
 Source0:       https://files.pythonhosted.org/packages/source/c/curtsies/curtsies-%{version}.tar.gz
@@ -51,6 +51,9 @@ Requires:       python3-cwcwidth
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.3-8
+- Rebuilt for Python 3.15
+
 * Sun Apr 26 2026 Terje Rosten <terjeros@gmail.com> - 0.4.3-7
 - Add patch to fix crash issue (rhbz#2441762)
 

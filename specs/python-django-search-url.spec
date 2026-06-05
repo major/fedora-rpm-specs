@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Use Search URLs in your Django Application
 
 License:        BSD-2-Clause
@@ -45,6 +45,9 @@ SEARCH_URL environment variable to configure your application.
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1-27
+- Rebuilt for Python 3.15
+
 * Wed Mar 04 2026 Michel Lind <salimma@fedoraproject.org> - 0.1-26
 - Stop using deprecated macros
 

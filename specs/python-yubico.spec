@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pure-python library for interacting with Yubikeys
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ Pure-python library for interacting with Yubikeys. For Python 3.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.3-24
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -22,6 +22,9 @@ Patch1:         0001-Fix-asyncio-get_event_loop-for-Python-3-14.patch
 Patch2:         0002-Fix-web-client-urljoin-for-Python-3-14.patch
 # https://github.com/twisted/twisted/pull/12551
 Patch3:         0003-Fix-tests-for-Python-3-14-2.patch
+# Fix Python 3.15 compatibility issues
+# https://github.com/twisted/twisted/pull/12602
+Patch4:         0004-Fix-Python-3.15-compatibility-issues.patch
 
 BuildArch:      noarch
 

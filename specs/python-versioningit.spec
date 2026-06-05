@@ -1,3 +1,4 @@
+%global _without_pydantic_tests 1
 %bcond tests 1
 # Enable tests that require Pydantic?
 %bcond pydantic_tests 1

@@ -18,7 +18,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -253,6 +253,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.43.17-2
+- Rebuilt for Python 3.15
+
 * Tue May 26 2026 Terje Rosten <terjeros@gmail.com> - 1.43.17-1
 - 1.43.17
 - Avoid pydbus dep. in gssp

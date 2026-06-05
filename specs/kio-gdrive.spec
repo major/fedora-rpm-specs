@@ -1,5 +1,5 @@
 Name:           kio-gdrive
-Version:        26.04.1
+Version:        26.04.2
 Release:        1%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/purpose/purpose_gdrive_config.qml
 
 %changelog
+* Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

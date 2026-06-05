@@ -1,6 +1,6 @@
 Name:           python-omemo
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of the OMEMO Encryption protocol
 
 License:        MIT
@@ -68,6 +68,9 @@ are offline.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.0-2
+- Rebuilt for Python 3.15
+
 * Mon Feb 02 2026 Benson Muite <fed500@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0
 

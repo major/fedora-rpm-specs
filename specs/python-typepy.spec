@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for variable type checker/validator/converter at a run time
 
 License:        MIT
@@ -51,6 +51,9 @@ Python library for variable type checker/validator/converter at a run time.
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.2-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

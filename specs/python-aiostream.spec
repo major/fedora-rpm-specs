@@ -1,6 +1,6 @@
 Name:           python-aiostream
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generator-based operators for asynchronous iteration
 
 License:        GPL-3.0-only
@@ -63,6 +63,9 @@ sed -r \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.0-4
+- Rebuilt for Python 3.15
+
 * Thu Jan 29 2026 Michel Lind <salimma@fedoraproject.org> - 0.7.0-3
 - Lower setuptools requirement further to accomodate EPEL 10
 

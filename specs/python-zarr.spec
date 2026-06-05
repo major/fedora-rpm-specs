@@ -15,6 +15,10 @@ Source:         %pypi_source %{srcname}
 Patch:          0001-Adapt-storage-tests-for-changes-in-fsspec-1819-1679.patch
 # Allow the latest numcodecs version.
 Patch:          0002-Fix-compatibility-with-latest-numcodecs.patch
+# Fix invalid escape sequences for Python 3.15 compatibility
+Patch:          0003-Fix-invalid-escape-sequences-for-Python-3.15.patch
+# Ignore h5py deprecation warning in tests
+Patch:          0004-Ignore-h5py-deprecation-warning.patch
 
 BuildArch:      noarch
 

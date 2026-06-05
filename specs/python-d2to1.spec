@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.2.12
-Release: 42.post1%{?dist}
+Release: 43.post1%{?dist}
 Summary: Allows using distutils2-like setup.cfg files with setup.py
 License: BSD-3-Clause
 
@@ -65,6 +65,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.12-43.post1
+- Rebuilt for Python 3.15
+
 * Sat Apr 4 2026 Steve Traylen <steve.traylen@cern.ch> - 0.2.12-41.post1
 - Migrate to pyproject rpm macros
 - Resolves: rhbz#2377679

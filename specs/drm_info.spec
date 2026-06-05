@@ -1,5 +1,5 @@
 Name:           drm_info
-Version:        2.9.0
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Small utility to dump info about DRM devices
 
@@ -16,7 +16,7 @@ BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.56.0
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libdisplay-info)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.125
+BuildRequires:  pkgconfig(libdrm) >= 2.4.134
 BuildRequires:  pkgconfig(libpci)
 BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  python3-devel

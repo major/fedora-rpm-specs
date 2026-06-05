@@ -84,9 +84,9 @@
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
 %if %{with preview}
-Release:    0%{?dist}
+Release:    1%{?dist}
 %else
-Release:    3%{?dist}
+Release:    4%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -375,6 +375,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.2.1-4
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
 - Generate suse package names
 

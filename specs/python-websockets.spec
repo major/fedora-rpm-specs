@@ -18,6 +18,8 @@ Patch:          https://github.com/python-websockets/websockets/pull/1639.patch
 # Support for Python 3.14
 # I remove the patch on the changelog because auto apply fails.
 Patch:          https://github.com/python-websockets/websockets/commit/036fd45c16afec1b713ae7f37393c76c3ff528a5.patch
+# Fix for Python 3.15: int.from_bytes() requires C-contiguous buffers
+Patch:          https://github.com/python-websockets/websockets/pull/1706.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3dist(pytest)

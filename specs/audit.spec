@@ -1,7 +1,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -301,6 +301,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.1.4-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 23 2026 Steve Grubb <sgrubb@redhat.com> 4.1.4-1
 - New upstream release
 

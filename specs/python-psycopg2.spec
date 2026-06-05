@@ -10,8 +10,8 @@ features offered by PostgreSQL.
 
 Summary:	%{sum}
 Name:		python-%{srcname}
-Version:	2.9.10
-Release:	5%{?dist}
+Version:	2.9.11
+Release:	2%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 Url:		https://www.psycopg.org/
@@ -135,6 +135,12 @@ cp -r tests/ %{buildroot}%{python3_sitearch}/%{srcname}/tests/
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.9.11-2
+- Rebuilt for Python 3.15
+
+* Thu Apr 02 2026 Lumír Balhar <lbalhar@redhat.com> - 2.9.11-1
+- Update to 2.9.11 (rhbz#2403062)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

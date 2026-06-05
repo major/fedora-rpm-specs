@@ -3,7 +3,7 @@
 
 Name:           nicotine+
 Version:        3.3.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/tinytag.py is MIT
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.10-7
+- Rebuilt for Python 3.15
+
 * Sat Mar 07 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.10-6
 - Add missing BuildRequires on gobject-introspection (fix #2434863)
 

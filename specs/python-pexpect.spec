@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -107,6 +107,9 @@ ignore="${ignore-} --ignore=tests/test_performance.py"
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.9.0-16
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

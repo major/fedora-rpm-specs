@@ -6,7 +6,7 @@
 
 Name:           pyproj
 Version:        3.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -186,6 +186,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.7.2-6
+- Rebuilt for Python 3.15
+
 * Sat Jan 31 2026 Jos de Kloe <josdekloe@gmail.com> 3.7.2-5
 - Import upstream patch to fix problem introduced by upgrade proj to v9.7.1
 - Remove old patch for proj v9.6.2 that is no longer needed.

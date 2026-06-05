@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.26.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        FTP client/server for asyncio
 
 License:        Apache-2.0
@@ -56,6 +56,9 @@ BuildRequires:  %{py3_dist trustme}
 %doc README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.26.2-6
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

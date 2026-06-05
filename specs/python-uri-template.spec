@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
@@ -48,6 +48,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{pypi_version}"
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.0-7
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

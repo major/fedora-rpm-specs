@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.26.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.26.0-6
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

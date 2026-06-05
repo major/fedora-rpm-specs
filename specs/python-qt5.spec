@@ -20,7 +20,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.12
-Release: 0.3%{?dist}
+Release: 0.4%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -295,6 +295,9 @@ sed -i \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.15.12-0.4
+- Rebuilt for Python 3.15
+
 * Wed Apr 01 2026 Lumír Balhar <lbalhar@redhat.com> - 5.15.12-0.3
 - Fix build with Python 3.15: bring back deprecated PyWeakref_GetObject
 

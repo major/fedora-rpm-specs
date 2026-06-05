@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple python library to deal with URI Templates (RFC 6570)
 
 License:        BSD-3-Clause OR Apache-2.0
@@ -53,6 +53,9 @@ Python 3 version.
 %doc HISTORY.rst README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.2.0-2
+- Rebuilt for Python 3.15
+
 * Sun Mar 29 2026 Jonathan Wright <jonathan@almalinux.org> - 4.2.0-1
 - update to 4.2.0
 

@@ -2,7 +2,7 @@
 
 Name:           seafile
 Version:        9.0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPL-2.0-or-later WITH GPL-3.0-linking-source-exception
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.0.18-2
+- Rebuilt for Python 3.15
+
 * Sat May 16 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.18-1
 - Update to 9.0.18
 

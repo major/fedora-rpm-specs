@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple optionally-async Python inotify library
 
 License:        MPL-2.0
@@ -56,5 +56,8 @@ sed -i '1{/^#!/d}' src/%{pypi_name}/__init__.py src/%{pypi_name}/_ffi.py
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.4.4-2
+- Rebuilt for Python 3.15
+
 * Thu May 28 2026 Jonathan Wright <jonathan@almalinux.org> - 4.4.4-1
 - Initial package build

@@ -6,7 +6,7 @@
 
 Name:           kobo
 Version:        0.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-2.1-only
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
@@ -197,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.42.0-2
+- Rebuilt for Python 3.15
+
 * Wed May 27 2026 Kamil Dudka <kdudka@redhat.com> - 0.42.0-1
 - rebase to latest upstream release (rhbz#2481849)
 

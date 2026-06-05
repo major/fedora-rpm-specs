@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 26.04.1
+Version: 26.04.2
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
@@ -140,6 +140,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Wed May 06 2026 Steve Cossette <farchord@gmail.com> - 26.04.1-1
 - 26.04.1
 

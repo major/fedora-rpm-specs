@@ -1,5 +1,5 @@
 Name:           foomuuri
-Version:        0.32
+Version:        0.33
 Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
@@ -7,17 +7,9 @@ URL:            https://github.com/FoobarOy/foomuuri
 Source0:        https://github.com/FoobarOy/foomuuri/archive/v%{version}/foomuuri-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  make
+BuildRequires:  nftables
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
-%if (%{defined fedora} && 0%{?fedora} <= 43)
-BuildRequires:  pylint
-BuildRequires:  python3-dbus
-BuildRequires:  python3-flake8
-BuildRequires:  python3-gobject
-BuildRequires:  python3-pycodestyle
-BuildRequires:  python3-systemd
-BuildRequires:  python3-urllib3
-%endif
 Requires:       nftables
 Requires:       python3-dbus
 Requires:       python3-gobject
@@ -58,6 +50,7 @@ allowing dynamically assign interfaces to Foomuuri zones via NetworkManager.
 %package -n prometheus-foomuuri-exporter
 Summary:        Prometheus exporter for Foomuuri metrics
 BuildArch:      noarch
+Requires:       %{name} = %{version}
 Requires:       python3-prometheus_client
 Provides:       foomuuri_exporter = %{version}-%{release}
 Obsoletes:      foomuuri_exporter < 0.31-4
@@ -85,14 +78,12 @@ make install DESTDIR=%{buildroot} BINDIR=%{_sbindir}
 make -C prometheus install DESTDIR=%{buildroot}
 %if %{defined fedora} || %{defined foobar}
 mkdir -p %{buildroot}%{bash_completions_dir}
-cp doc/foomuuri-bash-completion %{buildroot}%{bash_completions_dir}/foomuuri
+cp misc/foomuuri-bash-completion %{buildroot}%{bash_completions_dir}/foomuuri
 %endif
 
 
-%if (%{defined fedora} && 0%{?fedora} <= 43)
 %check
-# make test
-%endif
+make test
 
 
 %post
@@ -188,12 +179,16 @@ fi
 
 
 %files -n prometheus-foomuuri-exporter
+%doc %{_mandir}/man1/prometheus-foomuuri-exporter.1*
 %{_bindir}/prometheus-foomuuri-exporter
 %config(noreplace) %{_sysconfdir}/default/prometheus-foomuuri-exporter
 %{_unitdir}/prometheus-foomuuri-exporter.service
 
 
 %changelog
+* Wed Jun 03 2026 Kim B. Heino  <b@bbbs.net> - 0.33-1
+- Upgrade to 0.33
+
 * Wed Mar 11 2026 Kim B. Heino  <b@bbbs.net> - 0.32-1
 - Upgrade to 0.32
 

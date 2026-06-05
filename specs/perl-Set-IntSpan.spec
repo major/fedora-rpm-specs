@@ -1,49 +1,80 @@
 Name:           perl-Set-IntSpan
 Version:        1.19
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl module for managing sets of integers
-
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Set-IntSpan
 Source0:        https://cpan.metacpan.org/authors/id/S/SW/SWMCD/Set-IntSpan-%{version}.tar.gz
-
 BuildArch:      noarch
-
-BuildRequires:  %{__make}
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
-
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time:
+BuildRequires:  perl(:VERSION) >= 5
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(if)
+BuildRequires:  perl(integer)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(strict)
+# Tests:
+BuildRequires:  perl(Config)
+Requires:       perl(integer)
 
 %description
 Set::IntSpan manages sets of integers. It is optimized for sets that
 have long runs of consecutive integers.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Set-IntSpan-%{version}
 
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
-
 
 %install
 %{make_install}
-chmod -R u+w $RPM_BUILD_ROOT/*
-
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test
-
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/Set/
+%dir %{perl_vendorlib}/Set
+%{perl_vendorlib}/Set/IntSpan.pm
 %{_mandir}/man3/Set::IntSpan.3*
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 03 2026 Petr Pisar <ppisar@redhat.com> - 1.19-38
+- Specify all dependencies
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

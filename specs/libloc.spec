@@ -1,6 +1,6 @@
 Name:       libloc
-Version:    0.9.18
-Release:    9%{?dist}
+Version:    0.9.19
+Release:    1%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
@@ -94,9 +94,6 @@ License:    LGPL-2.1-or-later
 SourceLicense:  LGPL-2.1-or-later AND CC-BY-SA-4.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-macro AND FSFAP AND FSFULLR
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
-# Fix endianess when fetching octets from an IPv4 address,
-# upstream bug #13828, in upstream after 0.9.18
-Patch0:     libloc-0.9.18-address-Fix-endianess-problem-when-fetching-octets-i.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -108,6 +105,7 @@ BuildRequires:  coreutils
 BuildRequires:  docbook-style-xsl
 BuildRequires:  findutils
 BuildRequires:  gcc
+BuildRequires:  gettext-devel >= 0.21
 # grep is called from po/Makefile supplied with intltool
 BuildRequires:  grep
 # gnulib-devel for unbundled m4/ld-version-script.m4
@@ -214,7 +212,7 @@ This package implements Bash completion scripts for IPFire location tools.
 rm m4/ax_prog_perl_modules.m4 m4/ld-version-script.m4
 
 %build
-autoreconf -fi -I%{_datadir}/gnulib/m4
+autoreconf -fi -I%{_datadir}/gettext/m4 -I%{_datadir}/gnulib/m4
 # Upstream moved to /var/lib/location/database.db in
 # 14e821d483017d86d9e12486c9d9a289f4e99b0e.
 %global default_database_file %{_sharedstatedir}/location/database.db
@@ -317,6 +315,9 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Wed Jun 03 2026 Petr Pisar <ppisar@redhat.com> - 0.9.19-1
+- 0.9.19 bump
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 0.9.18-9
 - rebuild
 

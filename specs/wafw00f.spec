@@ -1,6 +1,6 @@
 Name:           wafw00f
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to identifies and fingerprints Web Application Firewall (WAF)
 
 
@@ -37,6 +37,9 @@ WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.4.2-2
+- Rebuilt for Python 3.15
+
 * Thu Feb 19 2026 Filipe Rosset <rosset.filipe@gmail.com> - 2.4.2-1
 - Bump to 2.4.2
 

@@ -58,6 +58,9 @@ Patch: https://github.com/serge-sans-paille/pythran/pull/2414.patch
 # Resolved upstream
 Patch: https://github.com/serge-sans-paille/pythran/pull/2415.patch
 
+# Fix typing of array.typecodes for Python 3.15
+Patch: https://github.com/serge-sans-paille/pythran/pull/2431.patch
+
 # there is no actual arched content
 # yet we want to test on all architectures
 # and we also might need to skip some

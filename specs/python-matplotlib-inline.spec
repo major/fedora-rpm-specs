@@ -1,6 +1,6 @@
 Name:           python-matplotlib-inline
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Inline Matplotlib backend for Jupyter
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -40,6 +40,9 @@ Inline Matplotlib backend for Jupyter
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.2-2
+- Rebuilt for Python 3.15
+
 * Mon May 11 2026 Lumír Balhar <lbalhar@redhat.com> - 0.2.2-1
 - Update to 0.2.2 (rhbz#2468324)
 

@@ -12,7 +12,7 @@ Summary: Python wrapper for the ssdeep library
 License: LGPL-3.0-or-later
 
 Version: 3.4.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://github.com/DinoTools/python-ssdeep/
 # v3.4.1 is not available on PyPi, so we fetch from GitHub
@@ -91,6 +91,9 @@ install -m 644 docs/build/man/pythonssdeep.1 %{buildroot}%{_mandir}/man5/python3
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.4.1-9
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.4.1-8
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

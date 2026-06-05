@@ -39,7 +39,6 @@ Requires: gnome-color-manager
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: meson
-BuildRequires: intltool
 BuildRequires: pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
 BuildRequires: pkgconfig(libcinnamon-menu-3.0) >= %{cinnamon_menus_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= 3.16.0

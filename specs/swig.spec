@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.4.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -80,6 +80,8 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
+
+Patch0: swig-R-Fix-compilation-with-R-4.6.0-which-removed-non-API.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -398,6 +400,9 @@ _EOF
 %endif
 
 %changelog
+* Tue May 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.1-6
+- Fix compilation with R 4.6.0 which removed non-API macros (rhbz#2463423)
+
 * Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 4.4.1-5
 - Rebuild for octave 11.1
 

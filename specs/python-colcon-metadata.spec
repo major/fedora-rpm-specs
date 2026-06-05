@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Extension for colcon to read package metadata from files
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -61,6 +61,9 @@ repositories.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.5-22
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

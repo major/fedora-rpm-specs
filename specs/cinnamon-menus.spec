@@ -11,7 +11,6 @@ Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 ExcludeArch:   %{ix86}
 
-BuildRequires: intltool
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: pkgconfig(gio-unix-2.0)

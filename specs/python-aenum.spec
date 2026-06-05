@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.16-4
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

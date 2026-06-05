@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -1136,6 +1136,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.1.2-2
+- Rebuilt for Python 3.15
+
 * Tue May 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.2-1
 - Update to version 7.1.
 

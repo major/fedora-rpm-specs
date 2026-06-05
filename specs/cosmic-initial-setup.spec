@@ -10,10 +10,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 8eabeaf64804dd74ef2da7803b42f21ed1b498e2
 %global commitdatestring 2026-05-26 09:12:12 -0600
-%global cosmic_minver 1.0.14
+%global cosmic_minver 1.0.15
 
 Name:           cosmic-initial-setup
-Version: 1.0.14
+Version: 1.0.15
 Release:        %autorelease
 Summary:        Initial setup application for the COSMIC desktop environment
 

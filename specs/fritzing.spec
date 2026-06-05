@@ -5,21 +5,17 @@ Summary:        Electronic Design Automation software; from prototype to product
 License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
-%global version_no 1.0.6
-Release:        4%{?dist}
+%global version_no 1.0.7
+Release:        1%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
-# The official website says that v1.0.6 was released on 2025-10-21.
-#
-# There are no commits in the fritzing-app repo on that date.
-# The latest commit before that date is the one listed below.
-%global app_date 20251007
-%global app_commit 04e5bb0241e8f1de24d0fce9be070041c6d5b68e
+# Take the latest commit from the "1.0.7" branch in the fritzing-app repo.
+%global app_date 20260414
+%global app_commit 394a8bb4791424ffd99f99ebc330264d4becea63
 
-# There are no commits in the fritzing-parts repo on release date.
-# The latest commit made before that date is the one listed below.
-%global parts_date 20251007
-%global parts_commit 73bc0559bb8399b2f895d68f032e41d7efc720c0
+# Take the latest commit from the "1.0.7" branch in the fritzing-parts repo.
+%global parts_date 20260325
+%global parts_commit 70a1773402e8c76a77795637de482a83db3ca6d7
 
 # Include the commit date in the version numbers
 %global app_version %{version_no}^%{app_date}
@@ -37,13 +33,8 @@ Patch0:         0000-disable-autoupdate.patch
 Patch2:         0002-remove-twitter4j.patch
 # Remove the "Qt version cannot be greater than X.Y.Z" check.
 Patch3:         0003-maximum-qt-version.patch
-
-# Fix build issued with Qt 6.9.
-# Borrowed from: https://aur.archlinux.org/cgit/aur.git/plain/0004-Work-around-build-issues-with-Qt-6.9.patch?h=fritzing
-Patch4:         0004-Work-around-build-issues-with-Qt-6.9.patch
-
-# Fix build error with Qt 6.10.1
-Patch5:         0005-qt-6.10.1.patch
+# Fix missing required Qt library
+Patch4:         0004-qt6-core5compat.patch
 
 # Point library detection scripts to system-provided libs.
 Patch10:        0010-quazip-detect.patch
@@ -58,6 +49,7 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(polyclipping)
 BuildRequires:  pkgconfig(Qt6Concurrent)
 BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Core5Compat)
 BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  pkgconfig(Qt6Network)
 BuildRequires:  pkgconfig(Qt6PrintSupport)
@@ -171,6 +163,11 @@ fi
 
 
 %changelog
+* Wed Jun 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.7^20260414-1
+- Update to v1.0.7
+- Drop Qt6-related patches (issues fixed upstream)
+- Add patch for missing Qt6-Core5Compat library
+
 * Wed May 27 2026 Sandro Mani <manisandro@gmail.com> - 1.0.6^20251007-4
 - Rebuild (quazip)
 

@@ -12,7 +12,6 @@ URL:            https://github.com/rbarrois/python-semanticversion
 Source:         %{url}/archive/%{version}/python-semanticversion-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  make
 BuildRequires:  python3-devel
 
 # Test dependencies manually cherry-picked from the [dev] extra

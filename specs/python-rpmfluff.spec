@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.7
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPL-2.0-or-later
@@ -55,6 +55,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.6.7-2
+- Rebuilt for Python 3.15
+
 * Mon Jan 26 2026 Jan Hutar <jhutar@redhat.com> - 0.6.7-1
 - dcantrell:  Use open() on Python >= 3.14 instead of codecs.open()
 

@@ -1,6 +1,6 @@
 Name:             zathura-ps
-Version:          0.2.8
-Release:          4%{?dist}
+Version:          2026.02.03
+Release:          1%{?dist}
 Summary:          PS support for zathura via libspectre
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -11,15 +11,15 @@ BuildRequires:    cairo-devel
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc
-BuildRequires:    girara-devel
+BuildRequires:    girara-devel >= 2026.02.03
 BuildRequires:    glib2-devel
 # Needed to validate appdata
-BuildRequires:    libappstream-glib
+BuildRequires:    appstream
 BuildRequires:    libspectre-devel
-BuildRequires:    meson >= 0.43
-BuildRequires:    zathura-devel >= 0.3.8
+BuildRequires:    meson >= 0.61
+BuildRequires:    zathura-devel >= 2026.01.30
 
-Requires:         zathura >= 0.3.8
+Requires:         zathura >= 2026.01.30
 
 %description
 The zathura-ps plugin adds PostScript support to zathura by
@@ -35,7 +35,7 @@ using the libspectre library.
 %install
 %meson_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %files
 %license LICENSE
@@ -45,6 +45,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-ps.metainfo.xml
 
 %changelog
+* Thu Feb 05 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.02.03-1
+- feat: update to 2026.02.03 (rhbz#2406946)
+
+* Sat Jan 31 2026 Michael J Gruber <mjg@fedoraproject.org> - 2026.01.30-1
+- update to 2026.01.30 (rhbz#2406946)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

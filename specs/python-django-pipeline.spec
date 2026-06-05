@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.8
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        An asset packaging library for Django
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/pipeline/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.8-35
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

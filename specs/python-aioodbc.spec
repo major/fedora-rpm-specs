@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library for accessing a ODBC databases from the asyncio
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.0-12
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

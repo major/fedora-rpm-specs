@@ -1,6 +1,6 @@
 Name:		git-review
 Version:	2.3.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	A Git helper for integration with Gerrit
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ install -p -m 0644 -D git-review.1 %{buildroot}%{_mandir}/man1/git-review.1
 %{python3_sitelib}/git_review-%{version}-py%{python3_version}*.egg-info/
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3.1-16
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

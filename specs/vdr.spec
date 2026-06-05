@@ -24,17 +24,17 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    12
+%global apiver    13
 
 Name:           vdr
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.1;sf=tbz2
-# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.1;sf=tbz2"
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.2;sf=tbz2
+# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.8.2;sf=tbz2"
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -550,6 +550,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Tue Jun 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.8.2-1
+- Update to 2.8.2 API version 13
+
 * Mon Mar 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.8.1-1
 - Update to 2.8.1
 

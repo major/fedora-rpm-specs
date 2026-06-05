@@ -2,8 +2,8 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        26.04.1
-Release:        3%{?dist}
+Version:        26.04.2
+Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
@@ -165,6 +165,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
+- 26.04.2
+
 * Mon May 18 2026 Timothée Ravier <tim@siosm.fr> - 26.04.1-3
 - Add version constraint for KF6BalooWidgets
 

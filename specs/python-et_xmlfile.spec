@@ -8,12 +8,13 @@ the openpyxl project but is now a standalone module.
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://foss.heptapod.net/openpyxl/et_xmlfile/-/archive/2.0.0/et_xmlfile-2.0.0.tar.gz
+# Updated for Python 3.15
 Patch:          Differentiate-assertion-based-on-Python-version.patch
 
 BuildArch:      noarch
@@ -62,6 +63,12 @@ Requires:       %py3_dist lxml
 %license LICENCE.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.0-9
+- Rebuilt for Python 3.15
+
+* Mon Jun 01 2026 Karolina Surma <ksurma@redhat.com> - 2.0.0-8
+- Fix test failures with Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

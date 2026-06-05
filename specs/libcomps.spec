@@ -2,7 +2,7 @@
 
 Name:           libcomps
 Version:        0.1.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -116,6 +116,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.1.24-2
+- Rebuilt for Python 3.15
+
 * Wed Feb 25 2026 Petr Pisar <ppisar@redhat.com> - 0.1.24-1
 - 0.1.24 bump
 

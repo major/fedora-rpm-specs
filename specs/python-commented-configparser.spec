@@ -1,6 +1,6 @@
 Name:           python-commented-configparser
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A custom ConfigParser class that preserves comments
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.0-2
+- Rebuilt for Python 3.15
+
 * Thu Mar 19 2026 Shawn W Dunn <sfalken@opensuse.org> - 3.0.0-1
 - Inital Packaging
 

@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           galera
-Version:        26.4.26
+Version:        26.4.27
 Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
@@ -16,7 +16,6 @@ URL:            https://mariadb.com/docs/galera-cluster
 Source0:        https://archive.mariadb.org/mariadb-11.8/%{name}-%{version}/src/%{name}-%{version}.tar.gz
 
 Patch3:         asio-1.33-compat.patch
-Patch4:         upstream_810f3589742ecb8c4f32d44c363d30488582a9f6.patch
 
 BuildRequires:  boost-devel check-devel openssl-devel cmake systemd gcc-c++ asio-devel
 Requires:       nmap-ncat
@@ -35,7 +34,6 @@ description of Galera replication engine see https://www.galeracluster.com web.
 %prep
 %setup -q
 %patch -P3 -p1
-%patch -P4 -p1
 
 # Create a sysusers.d config file
 cat >galera.sysusers.conf <<EOF

@@ -11,7 +11,7 @@
 
 Name:           freeipa-%{plugin_name}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Account System extension for FreeIPA
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -104,6 +104,9 @@ fi
 %{_bindir}/ipa-create-agreement
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.0-2
+- Rebuilt for Python 3.15
+
 * Mon May 11 2026 Packit <hello@packit.dev> - 1.2.0-1
 - Update to version 1.2.0
 

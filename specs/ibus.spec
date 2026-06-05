@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -547,6 +547,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha1-3
+- Rebuilt for Python 3.15
+
 * Mon Jun 01 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-2
 - Bump to 1.5.35-alpha1
 - Switch Autotool to Meson build

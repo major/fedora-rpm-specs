@@ -8,7 +8,7 @@ Python GUI module to build widgets for Emacs.}
 
 Name:           python-%{srcname}
 Version:        0.0.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        EPC (RPC stack for Emacs Lisp) for Python
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ Requires:       %{py3_dist sexpdata}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.5-23
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

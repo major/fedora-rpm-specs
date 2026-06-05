@@ -9,7 +9,7 @@ diff.
 
 Name:           python-diff-cover
 Version:        9.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 
 License:        Apache-2.0
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 9.4.1-6
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

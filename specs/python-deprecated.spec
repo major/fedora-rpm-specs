@@ -1,6 +1,6 @@
 Name:           python-deprecated
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/laurent-laporte-pro/deprecated
@@ -17,6 +17,7 @@ functions or methods.}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pkg-resources
 
 %description -n python3-deprecated %{_description}
 
@@ -41,6 +42,12 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.1-4
+- Rebuilt for Python 3.15
+
+* Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.1-3
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

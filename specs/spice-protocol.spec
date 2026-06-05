@@ -1,6 +1,12 @@
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 Name:           spice-protocol
 Version:        0.14.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Spice protocol header files
 # Main headers are BSD, controller / foreign menu are LGPL
 License:        BSD-3-Clause AND LGPL-2.1-or-later
@@ -11,9 +17,37 @@ BuildArch:      noarch
 BuildRequires:  gcc
 BuildRequires:  meson
 
+%if %{with mingw}
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc
+%endif
+
 %description
 Header files describing the spice protocol
 and the para-virtual graphics card QXL.
+
+%if %{with mingw}
+%package -n mingw32-spice-protocol
+Summary:        Spice protocol header files for MinGW
+
+%description -n mingw32-spice-protocol
+Header files describing the spice protocol
+and the para-virtual graphics card QXL.
+
+This is the MinGW build of spice-protocol.
+
+%package -n mingw64-spice-protocol
+Summary:        Spice protocol header files for MinGW
+
+%description -n mingw64-spice-protocol
+Header files describing the spice protocol
+and the para-virtual graphics card QXL.
+
+This is the MinGW build of spice-protocol.
+%endif
 
 
 %prep
@@ -23,8 +57,17 @@ and the para-virtual graphics card QXL.
 %meson
 %meson_build
 
+%if %{with mingw}
+%mingw_meson
+%mingw_ninja
+%endif
+
 %install
 %meson_install
+
+%if %{with mingw}
+%mingw_ninja_install
+%endif
 
 
 %files
@@ -32,8 +75,25 @@ and the para-virtual graphics card QXL.
 %{_includedir}/spice-1
 %{_datadir}/pkgconfig/spice-protocol.pc
 
+%if %{with mingw}
+%files -n mingw32-spice-protocol
+%license COPYING
+%doc CHANGELOG.md
+%{mingw32_includedir}/spice-1
+%{mingw32_datadir}/pkgconfig/spice-protocol.pc
+
+%files -n mingw64-spice-protocol
+%license COPYING
+%doc CHANGELOG.md
+%{mingw64_includedir}/spice-1
+%{mingw64_datadir}/pkgconfig/spice-protocol.pc
+%endif
+
 
 %changelog
+* Wed Jun 03 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.14.5-4
+- Add MinGW packages
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

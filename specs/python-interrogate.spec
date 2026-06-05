@@ -12,7 +12,7 @@ HTML, LaTeX, PDFs, etc.}
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Interrogate a codebase for docstring coverage
 
 License:        MIT
@@ -80,6 +80,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.7.0-10
+- Rebuilt for Python 3.15
+
 * Thu Mar 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-9
 - Support (and require) tabulate version 0.10.0
 

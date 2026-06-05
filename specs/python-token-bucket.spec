@@ -1,6 +1,6 @@
 Name:           python-token-bucket
 Version:        0.3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A Token Bucket implementation
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.0-19
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

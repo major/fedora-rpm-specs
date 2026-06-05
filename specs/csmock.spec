@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:       csmock
-Version:    3.8.5
+Version:    3.8.6
 Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
@@ -11,9 +11,9 @@ URL:        https://github.com/csutils/%{name}
 Source0:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc
 
-# gpg --keyserver pgp.mit.edu --recv-key 992A96E075056E79CD8214F9873DB37572A37B36
-# gpg --output kdudka.pgp --armor --export kdudka@redhat.com
-Source2:    kdudka.pgp
+# gpg --keyserver keys.openpgp.org --recv-key C33087BD1EE2A0DFF73DDCB4191B8341AE835C52
+# gpg --output sfowler.pgp --export sfowler@redhat.com
+Source2:    sfowler.pgp
 
 BuildRequires: cmake
 BuildRequires: gnupg2
@@ -340,6 +340,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Wed Jun 03 2026 Kamil Dudka <kdudka@redhat.com> - 3.8.6-1
+- update to latest upstream
+
 * Mon Mar 30 2026 Kamil Dudka <kdudka@redhat.com> - 3.8.5-1
 - update to latest upstream
 

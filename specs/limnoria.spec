@@ -2,7 +2,7 @@
 
 Name:           limnoria
 Version:        20260116
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -108,6 +108,9 @@ export SOURCE_DATE_EPOCH
 %{_mandir}/man1/limnoria-reset-password.1.gz
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 20260116-2
+- Rebuilt for Python 3.15
+
 * Sat Jan 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260116-1
 - Update to 2026-01-16
 - Use modern python build macros (rhbz#2378552)

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Shell combinators library
 
 License:        MIT
@@ -61,6 +61,9 @@ Summary:        Shell combinators library
 %doc LICENSE README.rst
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.10.0-4
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

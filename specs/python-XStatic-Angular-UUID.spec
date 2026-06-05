@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.4.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Angular-UUID (XStatic packaging standard)
 
 License:        MIT
@@ -93,6 +93,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/angular_uuid/data/
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.0.4.0-32
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -18,7 +18,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        33.5
 %global so_version 33
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # See version.json:
 %global version_protoc %{version}
@@ -648,6 +648,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 33.5-5
+- Rebuilt for Python 3.15
+
 * Sat May 30 2026 Jerry James <loganjerry@gmail.com> - 33.5-4
 - Fix the Java build
 

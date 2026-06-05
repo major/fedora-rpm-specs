@@ -43,17 +43,19 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
 %global pkg_name lib%{pkg_library_name}%{pkg_library_version}%{pkg_suffix}
 %else
-%global pkg_name %{NAME}
+%global pkg_name %{name}
 %endif
 
 %global toolchain rocm
@@ -93,19 +95,21 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 
 Summary:        HIP random number generator
-License:        MIT AND BSD-3-Clause
+License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
@@ -124,6 +128,8 @@ BuildRequires:  doxygen
 %endif
 
 Provides:       hiprand%{pkg_suffix} = %{version}-%{release}
+Requires:       rocrand%{pkg_suffix}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -149,6 +155,7 @@ Summary:        The hipRAND runtime package
 Summary:        The hipRAND development package
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 Requires:       rocrand%{pkg_suffix}-devel
+Requires:       rocm-filesystem%{pkg_suffix}
 Provides:       hiprand%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -158,6 +165,7 @@ The hipRAND development package.
 %package test
 Summary:        Tests for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description test
 %{summary}
@@ -176,6 +184,9 @@ sed -i '/INSTALL_RPATH/d' CMakeLists.txt
 # Convert the c++11's to c++14
 sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/package/}CMakeLists.txt
 
+# Remove some tests we do not use to make license easier
+rm -rf test/fortran/fruit
+
 %build
 
 %cmake \
@@ -183,12 +194,14 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_TEST=%{build_test} \
@@ -201,6 +214,18 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hiprand/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/bin/hipRAND/CTestTestfile.cmake
+
+%if %{with compat}
+# ERROR   0008: file '/usr/lib64/rocm/rocm-7.2/lib/libhiprand.so.1.1'
+#   contains the $ORIGIN runpath specifier at the wrong position in
+#   [/usr/lib64/rocm/rocm-7.2/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipRAND/lib]
+%if %{with debug}
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}-d.so.%{pkg_library_version}.*
+%else
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+%endif
+
+%endif
 
 %check
 %if %{with test}
@@ -237,6 +262,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Jun 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- merge compat changes
+
 * Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Generate suse package names
 

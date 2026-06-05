@@ -1,3 +1,4 @@
+%global _without_optional_tests 1
 # While the headers are architecture independent, the package must be
 # built separately on all architectures so that the tests are run
 # properly. See also

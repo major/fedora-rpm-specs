@@ -6,7 +6,7 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 %global tag %{version}
 %forgemeta
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
@@ -68,6 +68,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.1-14
+- Rebuilt for Python 3.15
+
 * Fri Feb 13 2026 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-13
 - Remove unused build dependency on wheel
 - Fix tests with packaging 26.0

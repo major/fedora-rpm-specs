@@ -7,7 +7,7 @@
 
 Name:           evemu
 Version:        2.7.0
-Release:        37%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        38%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Event Device Query and Emulation Program
 
 License:        GPL-3.0-only AND LGPL-3.0-only AND GPL-3.0-or-later
@@ -96,6 +96,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.7.0-38
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

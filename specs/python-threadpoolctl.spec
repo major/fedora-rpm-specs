@@ -1,3 +1,4 @@
+%global _without_check 1
 %bcond_without check
 
 %global srcname threadpoolctl

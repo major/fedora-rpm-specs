@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Parse english textual date descriptions
 
 License:        Zlib AND PHP-3.01
@@ -62,6 +62,9 @@ timelib.strtodatetime("29 feb 2008 -108...
 %{python3_sitearch}/timelib-%{version}.dist-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.3.0-11
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

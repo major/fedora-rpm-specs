@@ -17,6 +17,8 @@ Summary:        Scalable, non-blocking web server and tools
 License:        Apache-2.0 
 URL:            https://www.tornadoweb.org
 Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Fix for Python 3.15.0b1
+Patch:          Temporarily-disable-test-multi-process.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.47
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -244,6 +244,9 @@ make -C tests check
 %endif
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.47-3
+- Rebuilt for Python 3.15
+
 * Fri Apr 17 2026 Richard W.M. Jones <rjones@redhat.com> - 5.47-2
 - Fix 0000739: Possible regression in 5.47 related to compressed executables
 

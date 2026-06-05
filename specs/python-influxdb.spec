@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        InfluxDB client
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 5.2.0-29
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

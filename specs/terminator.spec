@@ -1,6 +1,6 @@
 Name:           terminator
 Version:        2.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Store and run multiple GNOME terminals in one window
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/terminator.desktop
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.5-5
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

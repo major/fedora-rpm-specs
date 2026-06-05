@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Polyfill package for Flake8 plugins
 
 License:        MIT
@@ -66,6 +66,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.0.2-31
+- Rebuilt for Python 3.15
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 1.0.2-30
 - Rebuilt without python-mock
 

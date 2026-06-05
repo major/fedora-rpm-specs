@@ -15,6 +15,8 @@ BuildRequires:  libimobiledevice-glue-devel
 BuildRequires:  libplist-devel
 
 Requires:       fuse3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2484294
+Requires:       libimobiledevice >= 1.4.0
 
 %description
 A fuse filesystem for mounting iPhone and iPod touch devices

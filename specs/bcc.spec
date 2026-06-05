@@ -19,7 +19,7 @@
 
 Name:           bcc
 Version:        0.36.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
@@ -225,6 +225,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %{_sbindir}/bpf-*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.36.1-2
+- Rebuilt for Python 3.15
+
 * Tue Mar 17 2026 Jerome Marchand <jmarchan@redhat.com> - 0.36.1-1
 - Rebase to the latest version (rhbz#2432743)
 

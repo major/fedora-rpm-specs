@@ -1,6 +1,6 @@
 Name:           python-norpm
 Version:        1.9
-Release:        1%?dist
+Release:        2%?dist
 Summary:        RPM Macro Expansion in Python
 
 License:        LGPL-2.1-or-later
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9-2
+- Rebuilt for Python 3.15
+
 * Sat Feb 21 2026 Pavel Raiskup <praiskup@redhat.com> - 1.9-1
 - New upstream release
 

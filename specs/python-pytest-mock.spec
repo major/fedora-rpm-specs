@@ -4,7 +4,7 @@
 
 Name:           python-%{package_name}
 Version:        3.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -64,6 +64,9 @@ sed -i 's/\r$//' README.rst
 %license LICENSE
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.15.1-3
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

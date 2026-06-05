@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -208,6 +208,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.1-3
+- Rebuilt for Python 3.15
+
 * Fri Feb 06 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-2
 - Remove bogus build dependency on uv
 

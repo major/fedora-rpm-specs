@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.1.9
+Version:        14.1.10
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -43,9 +43,9 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-BuildRequires:  (php-composer(sebastian/environment)              >= 9.2    with php-composer(sebastian/environment)              < 10)
+BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
 BuildRequires:  (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
-BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0    with php-composer(sebastian/lines-of-code)            < 6)
+BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0.1  with php-composer(sebastian/lines-of-code)            < 6)
 BuildRequires:  (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
 BuildRequires:  (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 BuildRequires:  php-dom
@@ -55,8 +55,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1"
-BuildRequires:  phpunit13 >= 13.1
+#        "phpunit/phpunit": "^13.1.13"
+BuildRequires:  phpunit13 >= 13.1.13
 BuildRequires:  php-xdebug
 %endif
 
@@ -69,9 +69,9 @@ BuildRequires:  php-xdebug
 #        "nikic/php-parser": "^5.7.0",
 #        "phpunit/php-text-template": "^6.0",
 #        "sebastian/complexity": "^6.0",
-#        "sebastian/environment": "^9.2",
+#        "sebastian/environment": "^9.3.2",
 #        "sebastian/git-state": "^1.0",
-#        "sebastian/lines-of-code": "^5.0",
+#        "sebastian/lines-of-code": "^5.0.1",
 #        "sebastian/version": "^7.0",
 #        "theseer/tokenizer": "^2.0.1"
 Requires:       php(language) >= 8.3
@@ -82,9 +82,9 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-Requires:       (php-composer(sebastian/environment)              >= 9.2    with php-composer(sebastian/environment)              < 10)
+Requires:       (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
 Requires:       (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
-Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0    with php-composer(sebastian/lines-of-code)            < 6)
+Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0.1  with php-composer(sebastian/lines-of-code)            < 6)
 Requires:       (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
 Requires:       (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
 # From composer.json, suggest
@@ -191,6 +191,11 @@ exit $ret
 
 
 %changelog
+* Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 14.1.10-1
+- update to 14.1.10
+- raise dependency on sebastian/environment 9.3.2
+- raise dependency on sebastian/lines-of-code 5.0.1
+
 * Sat May 16 2026 Remi Collet <remi@remirepo.net> - 14.1.9-1
 - update to 14.1.9
 

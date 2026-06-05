@@ -6,7 +6,7 @@ without any redirection.
 
 Name:           python-%{pypi_name}
 Version:        1.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 License:        MPL-2.0
@@ -59,6 +59,9 @@ find -name '*.pyc' -delete
 %{python3_sitelib}/enlighten*
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.13.0-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

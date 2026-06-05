@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname werkzeug
 %global modname werkzeug
 

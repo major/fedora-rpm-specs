@@ -8,7 +8,7 @@ yml and toml formats.
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %sum
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -74,6 +74,9 @@ py.test-%{python3_version}
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.8.2-21
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

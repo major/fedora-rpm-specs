@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.30.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -736,6 +736,9 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.30.14-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 27 2026 Packit <hello@packit.dev> - 1.30.14-1
 - Update to version 1.30.14
 - Resolves: rhbz#2366196

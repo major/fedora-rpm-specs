@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        8.1.0
+Version:        8.5.1
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -30,7 +30,7 @@ Patch:          zip-fix-metadata-auto.diff
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
-Patch10:        zip-6.0.0-omitted-test-files.patch
+Patch10:        0001-Downstream-patch-out-tests-that-would-need-omitted-t.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -57,7 +57,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 %exclude %{crate_instdir}/cliff.toml
-%exclude %{crate_instdir}/pull_request_template.md
 %exclude %{crate_instdir}/release-plz.toml
 
 %package     -n %{name}+default-devel
@@ -389,7 +388,9 @@ use the "zstd" feature of the "%{crate}" crate.
 %check
 # Extract test data (only) from the GitHub archive
 tar -xzvf '%{SOURCE10}' --strip-components=1 'zip2-%{version}/tests/data/'
-%cargo_test -a
+# * zip_read_streaming_compressed expects a particular compressed size in bytes,
+#   which is too brittle
+%cargo_test -a -- -- --exact --skip read::stream::tests::zip_read_streaming_compressed
 %endif
 
 %changelog

@@ -5,7 +5,7 @@ support for 12-factor applications and extensions for Flask and Django
 
 Name:           %{srcname}
 Version:        3.1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A dynamic configurator for python projects
 
 License:        MIT
@@ -47,6 +47,9 @@ BuildRequires:  python3-devel
 %{_bindir}/%{srcname}
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.2-21
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

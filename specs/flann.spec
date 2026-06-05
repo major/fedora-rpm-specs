@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD-3-Clause
@@ -146,6 +146,9 @@ popd
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.2-16
+- Rebuilt for Python 3.15
+
 * Thu Mar 26 2026 Sayan Paul <saypaul@redhat.com> - 1.9.2-15
 - Add Python unit test suite to %%check
 - Bring in pytest/numpy build dependencies for the tests

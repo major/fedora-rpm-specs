@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.5.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
@@ -167,6 +167,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 %license COPYING
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.5.6-4
+- Rebuilt for Python 3.15
+
 * Fri Apr 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.6-3
 - More fixes to lhapdf-config and lhapdf.pc
 

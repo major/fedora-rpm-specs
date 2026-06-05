@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client-side SIEVE library
 License:        MIT
 URL:            https://github.com/tonioo/sievelib
@@ -46,6 +46,9 @@ rm -rf %{srcname}.egg-info
 %license COPYING
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 13 2026 Marcin Juszkiewicz <marcin@juszkiewicz.com.pl> - 1.5.0-1
 - Version 1.5.0 (#2416971)
 

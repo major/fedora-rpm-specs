@@ -1,43 +1,38 @@
+%bcond check    1
+
 Name:           bear
-Version:        3.1.6
+Version:        4.1.4
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
-License:        GPL-3.0-or-later
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# GPL-3.0-or-later
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        %{shrink:
+                GPL-3.0-or-later
+                AND (Apache-2.0 OR BSL-1.0)
+                AND (Apache-2.0 OR MIT)
+                AND MIT
+                AND (Unlicense OR MIT)
+                }
+# LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Manually created patch for downstream workspace metadata changes
+# * Replace unpackaged serde_saphyr with serde_yaml
+# * Relax mockall dependency to >0.11.4,<0.15.0
+Patch:          bear-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  cmake
-BuildRequires:  cmake(fmt)
-BuildRequires:  cmake(gtest)
-BuildRequires:  cmake(nlohmann_json)
-BuildRequires:  cmake(spdlog)
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
-BuildRequires:  gmock-devel
-BuildRequires:  grpc-plugins
-BuildRequires:  make
-BuildRequires:  pkgconfig(protobuf)
-BuildRequires:  pkgconfig(grpc++)
-BuildRequires:  python3
+BuildRequires:  cargo-rpm-macros
+# intercept-preload explicitly requires lld to link libexec.so
+BuildRequires:  lld
 
-# Needed for functional tests
-BuildRequires:  python3dist(lit)
-BuildRequires:  /usr/bin/more
-BuildRequires:  /usr/bin/xargs
-BuildRequires:  gcc-fortran
-%ifarch %{valgrind_arches}
-BuildRequires:  valgrind
-%endif
-BuildRequires:  fakeroot
-
-# Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which
-# caused a test failure on s390x. It may only be happenstance that no other
-# architectures were affected.
-%global _lto_cflags %{nil}
 
 %description
 Build ear produces compilation database in JSON format. This database describes
@@ -46,48 +41,64 @@ tooling.
 
 %prep
 %autosetup -n Bear-%{version} -p1
+%cargo_prep
 
+%generate_buildrequires
+%cargo_generate_buildrequires
 
 %build
-for f in $(ls test/bin/); do
-    sed -i "s|^#\!/usr/bin/env\s\+python\s\?$|#!%{__python3}|" test/bin/$f
-done
-%ifarch s390x
-# Dereferences a null pointer in some grpc routines; this is nontrivial to
-# debug, but any assistance in investigating it is welcome. In case this is a
-# grpc bug, we should check to see if this is fixed when grpc is updated.
-#
-# https://bugzilla.redhat.com/show_bug.cgi?id=2127458
-rm -vf test/cases/intercept/valgrind/shell_commands_intercepted.sh
-%endif
+export INTERCEPT_LIBDIR=%{_lib}
+%cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
-%cmake -DENABLE_FUNC_TESTS=ON -DENABLE_UNIT_TESTS=ON
-%cmake_build
+target/rpm/generate-completions target/rpm/completions
+cat > target/rpm/bear <<ENTRY_SCRIPT
+#!/usr/bin/sh
+exec %{_libexecdir}/bear/bin/bear-driver "\$@"
+ENTRY_SCRIPT
 
 %install
-%cmake_install
+install -Dpm 0755 target/rpm/bear               -t %{buildroot}%{_bindir}
+install -Dpm 0755 target/rpm/bear-driver        -t %{buildroot}%{_libexecdir}/bear/bin
+install -Dpm 0755 target/rpm/bear-wrapper       -t %{buildroot}%{_libexecdir}/bear/bin
+install -Dpm 0755 target/rpm/libexec.so         -t %{buildroot}%{_libexecdir}/bear/%{_lib}
+install -Dpm 0644 target/rpm/completions/bear.bash %{buildroot}%{bash_completions_dir}/bear
+install -Dpm 0644 target/rpm/completions/bear.fish %{buildroot}%{fish_completions_dir}/bear.fish
+install -Dpm 0644 target/rpm/completions/_bear     %{buildroot}%{zsh_completions_dir}/_bear
+install -Dpm 0644 man/bear.1                    -t %{buildroot}%{_mandir}/man1
 
-mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
-
+%if %{with check}
 %check
-# Tests run as part of build, because it's the same build target.
-# There is no check target.
+export INTERCEPT_LIBDIR=%{_lib} BEAR_TEST_VERBOSE=1
+# Several cases fail if ccache wrappers are in the PATH.
+# This is not possible in koji, but quite annoying for local builds.
+cc_path=$(command -v gcc)
+if [ "$cc_path" != "${cc_path%/ccache*}" ]; then
+    cc_path=$(dirname "$cc_path")
+    export PATH="${PATH%"$cc_path:"*}${PATH##*"$cc_path:"}"
+fi
+unset cc_path
+
+%cargo_test
+%endif
 
 
 %files
-%{_bindir}/bear
-%{_libdir}/bear
-%{_mandir}/man1/bear.1*
-%{_mandir}/man1/bear-citnames.1*
-%{_mandir}/man1/bear-intercept.1*
-
-# rpmbuild on RHEL won't automatically pick up ChangeLog.md & README.md
-%if 0%{?rhel}
-%{_datadir}/doc/bear
-%endif
-
 %license COPYING
-%doc %{_docdir}/bear
+%license LICENSE.dependencies
+%doc README.md
+%{_bindir}/bear
+%dir %{_libexecdir}/bear
+%dir %{_libexecdir}/bear/bin
+%dir %{_libexecdir}/bear/%{_lib}
+%{_libexecdir}/bear/bin/bear-driver
+%{_libexecdir}/bear/bin/bear-wrapper
+%{_libexecdir}/bear/%{_lib}/libexec.so
+%{bash_completions_dir}/bear
+%{fish_completions_dir}/bear.fish
+%{zsh_completions_dir}/_bear
+%{_mandir}/man1/bear.1*
 
 %changelog
 %autochangelog

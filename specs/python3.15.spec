@@ -47,10 +47,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b1
+%global prerel b2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -119,7 +119,7 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.1.1
+%global pip_version 26.1.2
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
@@ -385,7 +385,7 @@ Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
 
 # (Patches taken from github.com/fedora-python/cpython)
 
-# 00251 # ec2f6147355d485f23af08d5b204b331cadcea4f
+# 00251 # 93b061db627244b2488f91c1e6874eb1106deb90
 # Change user install location
 #
 # Set values of base and platbase in sysconfig from /usr
@@ -401,23 +401,6 @@ Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
-
-# 00464 # 05be76e818ed628f69b9cfa3ea8a16ce2ea94cdc
-# Enable PAC and BTI protections for aarch64
-#
-# Apply protection against ROP/JOP attacks for aarch64 on asm_trampoline.S
-#
-# The BTI flag must be applied in the assembler sources for this class
-# of attacks to be mitigated on newer aarch64 processors.
-#
-# Upstream PR: https://github.com/python/cpython/pull/130864/files
-#
-# The upstream patch is incomplete but only for the case where
-# frame pointers are not used on 3.13+.
-#
-# Since on Fedora we always compile with frame pointers the BTI/PAC
-# hardware protections can be enabled without losing Perf unwinding.
-Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
 # 00466 # e10760fb955ee33d2917f8a57bb4e24d71e5341c
 # Downstream only: Skip tests not working with older expat version
@@ -1825,6 +1808,7 @@ CheckPython freethreading
 %{1}/_xxtestfuzz.%{2}.so\
 %{1}/xxlimited.%{2}.so\
 %{1}/xxlimited_35.%{2}.so\
+%{1}/xxlimited_3_13.%{2}.so\
 %{1}/xxsubtype.%{2}.so
 
 %extension_modules_test %{dynload_dir} %{SOABI_optimized}
@@ -2015,6 +1999,12 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.15.0~b2-2
+- Rebuilt as main Python on Fedora 45+
+
+* Tue Jun 02 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~b2-1
+- Update to Python 3.15.0b2
+
 * Mon May 11 2026 Karolina Surma <ksurma@redhat.com> - 3.15.0~b1-1
 - Update to Python 3.15.0b1
 

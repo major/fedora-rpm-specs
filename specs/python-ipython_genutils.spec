@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        IPython vestigial utilities
 
 License:        BSD-3-Clause
@@ -69,6 +69,9 @@ IPython/Jupyter should depend on it.
 
 
 %changelog
+* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.2.0-20
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
