@@ -4,7 +4,7 @@
 
 Name:               python-boxsdk
 Version:            10.11.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -67,6 +67,9 @@ pytest-3
 %doc *.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 10.11.0-2
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 10.11.0-1
 - 10.11.0
 

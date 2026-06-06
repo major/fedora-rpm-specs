@@ -1,6 +1,6 @@
 Name:		urh
 Version:	2.10.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 # Automatically converted from old format: ASL 2.0 and GPLv2 - review is highly recommended.
 License:	Apache-2.0 AND GPL-2.0-only
@@ -93,6 +93,9 @@ install -Dpm 0644 %{SOURCE1} \
 %{_metainfodir}/io.github.jopohl.urh.metainfo.xml
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.10.0-5
+- Rebuilt for Python 3.15
+
 * Tue Apr 28 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.10.0-4
 - Rebuilt for new uhd
 

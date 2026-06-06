@@ -1,6 +1,6 @@
 Name:           firmitas
 Version:        0.1.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple notification service for X.509-standard TLS certificate statuses
 
 License:        GPL-3.0-or-later
@@ -33,6 +33,9 @@ Simple notification service for X.509-standard TLS certificate statuses
 %{_bindir}/firmitas
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.1.4-8
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

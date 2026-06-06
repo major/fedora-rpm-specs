@@ -12,7 +12,7 @@
 
 Name:           ec2-hibinit-agent
 Version:        1.0.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Hibernation setup utility for Amazon EC2
 
 License:        Apache-2.0
@@ -149,6 +149,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.0.9-10
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global common_description %{expand:
 Jedi is a static analysis tool for Python that can be used in IDEs/editors. Its
 historic focus is autocompletion, but does static analysis for now as well.

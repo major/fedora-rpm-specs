@@ -1,6 +1,6 @@
 Name:           python-flask-mailman
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Porting Django's email implementation to your Flask applications
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ Python 3 version.
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.1.1-9
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

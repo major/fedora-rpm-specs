@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
@@ -237,6 +237,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.2.0-9
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-8
 - Add runtime dependency on python3-pkg-resources
 

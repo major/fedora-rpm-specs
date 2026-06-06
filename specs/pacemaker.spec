@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.2
-%global baserelease 1
+%global baserelease 2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit c75e25851c05c6b0ff48caeaa15854d5868ce428
@@ -764,6 +764,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.0.2-2
+- Rebuilt for Python 3.15
+
 * Wed Jun 3 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.2-1
 - Update for new upstream release tarball: Pacemaker-3.0.2,
   for full details, see included ChangeLog.md file or

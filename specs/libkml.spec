@@ -11,7 +11,7 @@
 
 Name:           libkml
 Version:        1.3.0
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
 License:        BSD-3-Clause
@@ -287,6 +287,9 @@ export MINGW64_CMAKE_ARGS="\
 %endif
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3.0-59
+- Rebuilt for Python 3.15
+
 * Thu Mar 19 2026 Cristian Le <git@lecris.dev> - 1.3.0-58
 - Adjust the CMake verison patch for the other projects also
 

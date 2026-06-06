@@ -3,7 +3,7 @@
 
 Name:               python-oauthlib
 Version:            3.3.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
 License:            BSD-3-Clause
@@ -75,6 +75,9 @@ echo 'import pytest; __getattr__ = lambda _: pytest.skip("this test needs jwt")'
 %doc README.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.3.1-2
+- Rebuilt for Python 3.15
+
 * Mon Feb 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.1-1
 - Update to 3.3.1
 

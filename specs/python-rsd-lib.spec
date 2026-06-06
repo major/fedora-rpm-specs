@@ -18,7 +18,7 @@
 
 Name:           python-%{sname}
 Version:        1.2.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python library for interfacing with Intel Rack Scale Design enabled hardware.
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -125,6 +125,9 @@ export PYTHON=%{pyver_bin}
 %endif
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2.0-26
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

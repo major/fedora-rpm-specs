@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -81,12 +81,15 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.41.0-2
+- Rebuilt for Python 3.15
+
 * Fri May 29 2026 Packit <hello@packit.dev> - 0.41.0-1
 - Fixed an issue where the value of a tag could have been incorrectly expanded if the spec file contained a macro definition shadowing the tag name, e.g.:
 ```
 %%global release 12
 %%global release_string %%{release}%%{?dist}
-Release: %%{release_string}
+Release: %%{release_string}.1
 ```
 In this case, with `dist` being `.fc44`, `Specfile.expanded_release` returned `12.fc44.fc44` instead of `12.fc44`. (#539)
 

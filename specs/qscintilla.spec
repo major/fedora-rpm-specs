@@ -6,7 +6,7 @@
 Summary: A Scintilla port to Qt
 Name:    qscintilla
 Version: 2.14.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -272,6 +272,9 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.14.1-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@ a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.13
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
@@ -98,6 +98,12 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.3.13-4
+- Rebuilt for Python 3.15
+
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.3.13-3
+- Bootstrap for Python 3.15
+
 * Sun May 17 2026 Nils Philippsen <nils@tiptoe.de> - 2.3.13-2
 - Drop build dependency on unmaintained pytest-subtests on Fedora >= 45
 - Relax build dependency on setuptools_scm on Fedora >= 45

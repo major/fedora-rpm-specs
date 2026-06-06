@@ -3,7 +3,7 @@
 
 Name:           python-qcengine
 Version:        0.50.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compute wrapper for Quantum Chemistry
 License:        BSD-3-Clause
 URL:            https://github.com/MolSSI/QCEngine
@@ -69,4 +69,7 @@ sed -i 's|@VERSION@|%{version}%{?rc}|g' pyproject.toml
 %{_bindir}/qcengine
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.50.0-2
+- Rebuilt for Python 3.15
+
 %autochangelog

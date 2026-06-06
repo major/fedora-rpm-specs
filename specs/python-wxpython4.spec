@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -157,6 +157,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.2.5-2
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Scott Talbert <swt@techie.net> - 4.2.5-1
 - Update to new upstream release 4.2.5 (#2437662)
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Tests are enabled by default
 %bcond tests 1
 

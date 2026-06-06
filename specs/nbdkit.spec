@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.47.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.47.9-2
+- Rebuilt for Python 3.15
+
 * Sat May 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.9-1
 - New upstream development version 1.47.9
 - New nbdkit-xor-filter

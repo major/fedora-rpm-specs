@@ -5,7 +5,7 @@
 %global crate libz-sys
 
 Name:           rust-libz-sys
-Version:        1.1.24
+Version:        1.1.29
 Release:        %autorelease
 Summary:        Low-level bindings to the system libz library (also known as zlib)
 

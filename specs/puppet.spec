@@ -4,13 +4,14 @@
 
 Name:           puppet
 Version:        8.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
 Source0:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.gz
 Source1:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.gz.asc
 Source2:        RPM-GPG-KEY-puppet-20250406
+Patch:          0001-Ruby-4-fixes-from-OpenVox.patch
 # Get these by checking out the right tag from https://github.com/puppetlabs/puppet-agent and:
 # sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/v\?\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
 Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.5.0.tar.gz
@@ -33,13 +34,17 @@ Patch:          openvox-dnf5.patch
 BuildArch: noarch
 
 # ruby-devel does not require the base package, but requires -libs instead
+BuildRequires: facter
+BuildRequires: gnupg2
+BuildRequires: hiera
 BuildRequires: ruby
 BuildRequires: ruby-devel
+BuildRequires: rubygem(concurrent-ruby) >= 1.1.9
+BuildRequires: rubygem(deep_merge) >= 1.0
+BuildRequires: rubygem(racc)
+BuildRequires: rubygem(semantic_puppet) >= 1.0.2
 BuildRequires: rubygem-json
-BuildRequires: facter
-BuildRequires: hiera
 BuildRequires: systemd
-BuildRequires: gnupg2
 Requires: hiera >= 3.3.1
 Requires: facter >= 4.3.0
 Requires: rubygem(concurrent-ruby) >= 1.1.9
@@ -146,6 +151,11 @@ echo "D %{_rundir}/%{name} 0755 %{name} %{name} -" > \
 rm -r %{buildroot}%{_datadir}/%{name}/ext/{debian,osx,solaris,suse,windows,systemd,redhat}
 rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 
+%check
+# Minimal runtime check
+export RUBYLIB=%{buildroot}%{_datadir}/ruby/vendor_ruby
+%{buildroot}%{_bindir}/puppet agent --help
+
 %files
 %attr(-, puppet, puppet) %{_localstatedir}/log/%{name}
 %attr(-, root, root) %{_datadir}/%{name}
@@ -215,6 +225,9 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sat May 09 2026 Terje Rosten <terjeros@gmail.com> - 8.10.0-5
+- Fix ruby 4 issue (rhbz#246493)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

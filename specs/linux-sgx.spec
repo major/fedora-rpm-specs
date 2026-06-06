@@ -348,14 +348,11 @@ Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
 Patch0118: 0118-pcsclient-make-keyring-module-optional.patch
 Patch0119: 0119-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
 Patch0120: 0120-pcsclient-ignore-errors-trying-to-clear-the-keyring.patch
-# https://github.com/intel/confidential-computing.tee.dcap/pull/487
-Patch0121: 0121-qgs-add-compat-for-boost-1.87-which-drops-asio-io_se.patch
-Patch0122: 0122-qgs-add-compat-for-boost-1.89-which-deprecated-deadl.patch
-Patch0123: 0123-use-system-gtest-gmock-libraries.patch
-Patch0124: 0124-Disable-PcsClientTool-package-build.patch
-Patch0125: 0125-disable-building-of-WASM-SIMDE-code.patch
-Patch0126: 0126-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
-Patch0127: 0127-qgs-squash-global-placeholders-warning-from-boost-1..patch
+Patch0121: 0121-use-system-gtest-gmock-libraries.patch
+Patch0122: 0122-Disable-PcsClientTool-package-build.patch
+Patch0123: 0123-disable-building-of-WASM-SIMDE-code.patch
+Patch0124: 0124-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
+Patch0125: 0125-Support-for-26.04-enabled-in-SGXSDK-and-DCAP.patch
 
 
 # 0200-0299 -> against intel-sgx-ssl.git

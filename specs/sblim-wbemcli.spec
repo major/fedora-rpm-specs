@@ -1,6 +1,6 @@
 Name:           sblim-wbemcli
 Version:        1.6.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        SBLIM WBEM Command Line Interface
 
 License:        EPL-1.0
@@ -15,7 +15,6 @@ Patch5:         sblim-wbemcli-1.6.3-fix-cmx-crash.patch
 
 BuildRequires: make
 BuildRequires:  curl-devel >= 7.9.3
-BuildRequires:  binutils-devel >= 2.17.50.0.3-4
 BuildRequires:  autoconf automake libtool pkgconfig
 BuildRequires:  gcc-c++
 Requires:       curl >= 7.9.3
@@ -50,6 +49,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jun 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.3-33
+- Remove unused BR
+
 * Mon May 11 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.3-32
 - Add support for TLSv1.3
 

@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        126
+Version:        127
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jun 04 2026 Packit <hello@packit.dev> - 127-1
+- Avoid bogus page reloads on Firefox
+
 * Wed May 20 2026 Packit <hello@packit.dev> - 126-1
 - Bug fixes and translation updates
 

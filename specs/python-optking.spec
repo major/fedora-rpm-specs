@@ -3,7 +3,7 @@
 
 Name:           python-optking
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python version of the PSI4 geometry optimization program by R.A. King
 License:        BSD-3-Clause
 URL:            https://github.com/psi-rking/optking
@@ -70,6 +70,9 @@ rm -rf optking.*-info
 %doc README.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.5.0-2
+- Rebuilt for Python 3.15
+
 * Mon May 18 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.5.0-1
 - Update to 0.5.0.
 

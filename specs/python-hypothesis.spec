@@ -1,5 +1,3 @@
-%global _without_doc 1
-%global _without_tests 1
 %bcond_without tests
 
 %if %{defined rhel}

@@ -18,7 +18,7 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -161,6 +161,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.20.0-6
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.20.0-5
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

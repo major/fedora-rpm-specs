@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
@@ -90,6 +90,9 @@ install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6-13
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 1.6-12
 - Add runtime dependency on python3-pkg-resources
 

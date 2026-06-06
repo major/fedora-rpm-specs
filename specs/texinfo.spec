@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -27,7 +27,7 @@ BuildRequires: gcc
 BuildRequires: perl-generators
 BuildRequires: ncurses-devel, help2man, perl(Data::Dumper)
 BuildRequires: perl(Locale::Messages), perl(Unicode::EastAsianWidth), perl(Text::Unidecode)
-BuildRequires: perl(Storable), perl(Unicode::Normalize), perl(File::Copy)
+BuildRequires: perl(Storable), perl(Unicode::Normalize)
 
 # Texinfo perl packages are not installed in default perl library dirs
 %global __provides_exclude ^perl\\(.*Texinfo.*\\)$
@@ -152,6 +152,9 @@ install -Dpm0755 -t %{buildroot}%{_sbindir} contrib/fix-info-dir
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Thu Jun 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.3-2
+- Remove unused BR
+
 * Fri Mar 06 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.3-1
 - Update to texinfo-7.3
   Resolves: #2443923

@@ -1,6 +1,6 @@
 Name:           espresso
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -180,6 +180,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.0.1-3
+- Rebuilt for Python 3.15
+
 * Fri May 29 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 5.0.1-2
 - Disable flaky virtual sites test
 

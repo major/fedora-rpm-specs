@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPL-2.1-only AND GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only WITH eCos-exception-2.0) AND MIT AND BSD-2-Clause-Views
@@ -133,6 +133,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.5-24
+- Rebuilt for Python 3.15
+
 * Tue Apr 21 2026 Dan Horák <dan[at]danny.cz> - 1.5-23
 - updates for modern CMake (rhbz#2380724)
 

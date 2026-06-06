@@ -26,7 +26,7 @@ Release notes: https://github.com/python-social-auth/social-core/releases/tag/%v
 
 Name:           python-%{pypi_name}
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{summary}
 License:        BSD-3-Clause
 URL:            https://github.com/python-social-auth/social-core/
@@ -91,6 +91,9 @@ sed -i '/\/tests/d' %{pyproject_files}
 %pyproject_extras_subpkg -n python3-%{pypi_name} azuread google-onetap saml
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.7.0-2
+- Rebuilt for Python 3.15
+
 * Thu May 14 2026 Chenxiong Qi <qcxhome@gmail.com> - 4.7.0-1
 - Build upstream release 4.7.0
 

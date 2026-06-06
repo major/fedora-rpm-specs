@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -85,6 +85,9 @@ k="${k-}${k+ and }not test_nested_exception_group_filtering"
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.13.0-2
+- Rebuilt for Python 3.15
+
 * Sun May 24 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.0-1
 - Update to 4.13.0 (close RHBZ#2450760)
 

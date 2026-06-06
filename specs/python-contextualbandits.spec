@@ -14,7 +14,7 @@ serve as a guide in learning about contextual bandits.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.27
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -91,6 +91,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc example/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.3.27-8
+- Rebuilt for Python 3.15
+
 * Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.27-7
 - Rebuild for Pandas3
 

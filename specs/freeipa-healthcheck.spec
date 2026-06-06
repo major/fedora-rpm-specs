@@ -1,3 +1,4 @@
+%global _without_tests 1
 %if 0%{?rhel}
 %global prefix ipa
 %global productname IPA
@@ -17,7 +18,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -160,6 +161,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.19-6
+- Bootstrap for Python 3.15
+
 * Mon Mar 16 2026 Rob Crittenden <rcritten@redhat.com> - 0.19-5
 - IPAFileCheck: also allow 640 for kra debug log
 

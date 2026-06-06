@@ -1,7 +1,7 @@
 Summary:        Debug plugin for python-llm
 Name:           python-llm-echo
 Version:        0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm-echo
 Source:         https://github.com/simonw/llm-echo/archive/%{version}/llm-echo-%{version}.tar.gz
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %files -n python3-llm-echo -f %{pyproject_files}
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.4-2
+- Rebuilt for Python 3.15
+
 * Sun Apr 05 2026 Terje Røsten <terjeros@gmail.com> - 0.4-1
 - 0.4
 

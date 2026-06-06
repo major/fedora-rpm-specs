@@ -1,6 +1,6 @@
 Name:           calamares
 Version:        3.3.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.3.14-8
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

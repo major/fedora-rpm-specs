@@ -49,7 +49,7 @@
 
 Name:           libkolabxml
 Version:        1.2.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Kolab XML format collection parser library
 
 License:        LGPL-3.0-or-later
@@ -253,6 +253,9 @@ popd
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2.0-40
+- Rebuilt for Python 3.15
+
 * Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.2.0-39
 - Force using Makefile generator (rhbz#2381043)
 

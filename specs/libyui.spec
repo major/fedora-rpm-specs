@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  30%{?dist}
+Release:  31%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -354,6 +354,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.2.16-31
+- Rebuilt for Python 3.15
+
 * Wed Apr 22 2026 Lumír Balhar <lbalhar@redhat.com> - 4.2.16-30
 - Fix build with G++16 and Cmake 4 (rhbz#2427943)
 

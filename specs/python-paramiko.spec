@@ -1,6 +1,6 @@
 Name:          python-paramiko
 Version:       5.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -86,6 +86,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.0.0-2
+- Rebuilt for Python 3.15
+
 * Mon May 11 2026 Paul Howarth <paul@city-fan.org> - 5.0.0-1
 - Update to 5.0.0 (rhbz#2468545)
   - Fix 'Ed25519Key <paramiko.ed25519key.Ed25519Key>'s internals such that it

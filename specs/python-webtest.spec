@@ -1,9 +1,8 @@
-%global _without_tests 1
 %bcond tests 1
 
 Name:           python-webtest
 Version:        3.0.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -69,6 +68,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.0.7-4
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.7-3
 - Bootstrap for Python 3.15
 

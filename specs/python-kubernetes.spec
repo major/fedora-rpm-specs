@@ -18,7 +18,7 @@
 Name:       python-%{library}
 Epoch:      1
 Version:    36.0.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python client for the kubernetes API.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
@@ -143,6 +143,9 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:36.0.2-2
+- Rebuilt for Python 3.15
+
 * Mon Jun 01 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:36.0.2-1
 - Update to 36.0.2 (#2430280)
 

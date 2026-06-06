@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.9.0-2
+- Rebuilt for Python 3.15
+
 * Tue Jun 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.9.0-1
 - 4.9.0
 

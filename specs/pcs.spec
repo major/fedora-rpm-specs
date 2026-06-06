@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -589,6 +589,9 @@ fi
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.12.2-3
+- Rebuilt for Python 3.15
+
 * Fri May 15 2026 Michal Pospíšil <mpospisi@redhat.com> - 0.12.2-2
 - Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.24.3 (see CHANGELOG_WUI.md)
   Resolves: rhbz#2454042

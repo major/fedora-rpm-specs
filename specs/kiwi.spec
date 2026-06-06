@@ -15,7 +15,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -652,6 +652,9 @@ popd
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 10.3.0-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 30 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.3.0-1
 - Update to 10.3.0
 

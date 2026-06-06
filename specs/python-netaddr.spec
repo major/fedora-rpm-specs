@@ -1,9 +1,8 @@
-%global _without_docs 1
 %bcond docs %{undefined rhel}
 
 Name:           python-netaddr
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
@@ -102,6 +101,9 @@ popd
 %{_bindir}/netaddr
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3.0-14
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.0-13
 - Bootstrap for Python 3.15
 

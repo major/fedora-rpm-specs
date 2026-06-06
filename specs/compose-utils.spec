@@ -6,7 +6,7 @@
 
 Name:       compose-utils
 Version:    0.1.51
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -80,6 +80,9 @@ Python 3 libraries supporting tools for working with composes
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.1.51-3
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.51-2
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

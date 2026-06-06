@@ -1,6 +1,6 @@
 Name:           babeltrace
 Version:        1.5.11
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
@@ -9,6 +9,8 @@ Source1:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Patch0:         babeltrace-getaddrinfo.patch
+Patch1:         0001-Fix-handle-NULL-list-pointer-to-avoid-Python-segfaul.patch
+Patch2:         0002-Print-a-clear-error-when-reading-a-CTF-2-trace.patch
 
 BuildRequires:  bison >= 2.4
 BuildRequires:  flex >= 2.5.35
@@ -117,6 +119,10 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Thu Jun 04 2026 Michael Jeanson <mjeanson@efficios.com> - 1.5.11-19
+- Add patch to fix python segfault with swig >= 4.3
+- Add patch to print a clear error with CTF-2 traces
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.11-18
 - Rebuilt for Python 3.15
 

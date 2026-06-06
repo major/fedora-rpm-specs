@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -58,6 +58,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.2.6-24
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

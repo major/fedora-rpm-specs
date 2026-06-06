@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    1.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -136,6 +136,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.6-1
 - Use SafeRequest.timeout only as a timeout per request
 - Initial Sentry integration

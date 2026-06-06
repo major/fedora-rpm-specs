@@ -1,6 +1,6 @@
 Name:           showcert
 Version:        0.4.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
 License:        MIT
@@ -58,6 +58,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.4.14-2
+- Rebuilt for Python 3.15
+
 * Thu Feb 19 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.14-1
 - update to 0.4.14
 

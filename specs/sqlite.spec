@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3530100
-%define docver 3530100
-%define rpmver 3.53.1
+%define realver 3530200
+%define docver 3530200
+%define rpmver 3.53.2
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -202,6 +202,7 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
                -DSQLITE_ENABLE_DBPAGE_VTAB \
                -DSQLITE_ENABLE_SESSION \
                -DSQLITE_ENABLE_PREUPDATE_HOOK \
+               -DSQLITE_ENABLE_CARRAY \
                -Wall -fno-strict-aliasing"
 
 %configure %{!?with_tcl:--disable-tcl} \
@@ -230,6 +231,7 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
                -DSQLITE_ENABLE_DBPAGE_VTAB \
                -DSQLITE_ENABLE_SESSION \
                -DSQLITE_ENABLE_PREUPDATE_HOOK \
+               -DSQLITE_ENABLE_CARRAY \
                -Wall -fno-strict-aliasing"
 
 %configure %{!?with_tcl:--disable-tcl} \
@@ -355,6 +357,12 @@ make test
 %endif
 
 %changelog
+* Thu Jun 04 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.2-1
+- Update to version 3.53.2
+- Enable the carray() table-valued function
+- Resolves: rhbz#2484543
+- Resolves: rhbz#2481057
+
 * Tue May 05 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.1-1
 - Update to version 3.53.1
 - Resolves: rhbz#2466691

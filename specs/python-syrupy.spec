@@ -1,6 +1,6 @@
 Name:           python-syrupy
 Version:        5.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest snapshot plugin
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.1.0-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 01 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 5.1.0-1
 - Update to 5.1.0
 - Fixes: rhbz#2400022

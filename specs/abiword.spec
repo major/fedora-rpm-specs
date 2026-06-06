@@ -4,7 +4,7 @@
 
 Name: abiword
 Version: 3.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 %global tag release-%{version}
 %forgemeta
 
@@ -178,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:3.0.8-3
+- Rebuilt for Python 3.15
+
 * Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.8-2
 - Bump EVR
 

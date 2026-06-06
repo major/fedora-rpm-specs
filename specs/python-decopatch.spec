@@ -14,6 +14,7 @@ Patch:          decopatch-1.4.10-no-pytest-runner.patch
 
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3-pkg-resources
 
 # There is a build dependency loop when built with tests.
 # It involves pytest-cases, pytest-harvest, pytest-steps.

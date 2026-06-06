@@ -1,4 +1,3 @@
-%global _without_tests 1
 # If docs should point to local python3-docs rather than website.
 # python3-docs is not shipped in RHEL 9+
 %bcond py3docs %{undefined rhel}

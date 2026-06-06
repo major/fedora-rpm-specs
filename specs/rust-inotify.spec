@@ -5,7 +5,7 @@
 %global crate inotify
 
 Name:           rust-inotify
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Idiomatic wrapper for inotify
 
@@ -48,16 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+futures-core-devel
+%package     -n %{name}+futures-util-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+futures-core-devel %{_description}
+%description -n %{name}+futures-util-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "futures-core" feature of the "%{crate}" crate.
+use the "futures-util" feature of the "%{crate}" crate.
 
-%files       -n %{name}+futures-core-devel
+%files       -n %{name}+futures-util-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+stream-devel

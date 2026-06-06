@@ -1,14 +1,16 @@
 Summary: Git commit message linting tool
 Name: gitlint
-Version: 0.15.0
-Release: 20%{?dist}
+Version: 0.19.1
+Release: 1%{?dist}
 License: MIT
-Source: %pypi_source
-Patch0: strict-dependencies.patch
+Source: https://github.com/jorisroovers/gitlint/archive/refs/tags/v%{version}.tar.gz
 URL: https://jorisroovers.github.io/gitlint
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: python3-hatchling
+BuildRequires: python3-hatch-vcs
+BuildRequires: python3-pip
+BuildRequires: python3-setuptools_scm
 BuildRequires: %{py3_dist Click} >= 7.1.2
 BuildRequires: %{py3_dist arrow} >= 0.15.6
 BuildRequires: %{py3_dist sh} >= 1.13.1
@@ -26,23 +28,33 @@ minimum body length, valid email addresses...
 %autosetup -p1
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel -d gitlint-core
 
 %check
+pushd gitlint-core
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m coverage run --omit='/usr/*,$(pwd)/gitlint/tests/*,$(pwd)/gitlint/qa/*' -m unittest discover -v -s $(pwd)/gitlint/tests
+popd
 
 %install
-%py3_install
-rm -rf %{buildroot}%{python3_sitelib}/qa
+pushd gitlint-core
+%pyproject_install
+popd
 
 %files
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{name}-*.egg-info/
+%{python3_sitelib}/%{name}_core-*.dist-info/
 %{python3_sitelib}/%{name}/
 %{_bindir}/gitlint
 
 %changelog
+* Thu Jun 04 2026 Bastien Nocera <bnocera@redhat.com> - 0.19.1-1
+- Update to 0.19.1
+
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.15.0-21
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

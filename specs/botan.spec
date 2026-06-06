@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Crypto library written in C++
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -200,6 +200,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.10.17-54
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.17-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

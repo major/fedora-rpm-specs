@@ -5,7 +5,7 @@
 %global crate rustls-native-certs
 
 Name:           rust-rustls-native-certs
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Allows rustls to use the platform native certificate store
 
@@ -37,9 +37,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-ISC
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASING.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -56,8 +54,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Remove shebang from unused, non-executable test script
-sed -r -i '1{/^#!/d}' integration-tests/macos.sh
 %cargo_prep
 
 %generate_buildrequires
@@ -71,7 +67,8 @@ sed -r -i '1{/^#!/d}' integration-tests/macos.sh
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that require data files not included in published crates
+%cargo_test -- --doc
 %endif
 
 %changelog

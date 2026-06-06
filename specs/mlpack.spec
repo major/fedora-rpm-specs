@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -305,6 +305,9 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.7.0-3
+- Rebuilt for Python 3.15
+
 * Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.7.0-2
 - Rebuild for Pandas3
 

@@ -17,7 +17,7 @@ ase-3.23 requires pyproject.toml setuptools support
 
 Name:			python-ase
 Version:		3.25.0
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -149,6 +149,9 @@ cd -
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.25.0-6
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

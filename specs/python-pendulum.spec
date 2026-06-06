@@ -7,7 +7,7 @@
 
 Name:           python-pendulum
 Version:        3.2.0~dev0^%{snapdate}git%{sub %{commit} 1 7}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
@@ -103,6 +103,9 @@ popd
 %doc README.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.2.0~dev0^20251024git628fd85-3
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0~dev0^20251024git628fd85-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

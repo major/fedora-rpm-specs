@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -116,8 +116,6 @@ Python bindings for %{name}
 %autosetup -p1 -n %{name}-v%{version}
 
 %build
-# cam/qcam crash with LTO
-%global _lto_cflags %{nil}
 export CFLAGS="%{optflags} -Wno-deprecated-declarations"
 # Set also max-devirt-targets=1 to prevent compilation errors,
 # maybe due to https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120345.
@@ -199,6 +197,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jun 04 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.1-4
+- Don't disable LTO
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.7.1-3
 - Rebuilt for Python 3.15
 

@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2:20.2.1-3
+- Rebuilt for Python 3.15
+
 * Tue Apr 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-2
 - Ceph 20.2.1, enable LTO
  

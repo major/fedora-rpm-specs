@@ -7,7 +7,7 @@
 
 Name:           bindep
 Version:        2.11.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Binary dependency utility
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ find -type f -name '*.py' | xargs -d'\n' sed -i \
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.11.0-13
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

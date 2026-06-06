@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SciToken reference implementation library
 
 License:        Apache-2.0
@@ -73,6 +73,9 @@ SciToken reference implementation library
 %{_bindir}/scitokens-verify-token
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.9.7-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 13 2026 Derek Weitzel <dweitzel@unl.edu> - 1.9.7-1
 - Remove legacy parent SciToken chaining behavior from token initialization and claim handling
 - Harden Enforcer scope path traversal validation (including encoded traversal checks)

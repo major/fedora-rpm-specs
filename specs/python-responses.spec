@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.26.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to mock out calls with Python requests
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -57,6 +57,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.26.1-2
+- Rebuilt for Python 3.15
+
 * Mon Jun 01 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.26.1-1
 - update to 0.26.1
 

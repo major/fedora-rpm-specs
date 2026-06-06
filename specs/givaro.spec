@@ -2,7 +2,7 @@
 %bcond autoreconf 1
 
 Name:           givaro
-Version:        4.2.1
+Version:        4.2.2
 %global so_version 9
 Release:        %autorelease
 Summary:        C++ library for arithmetic and algebraic computations

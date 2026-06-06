@@ -19,7 +19,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 6.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -330,6 +330,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.7-2
+- Rebuilt for Python 3.15
+
 * Tue Mar 03 2026 Pavel Raiskup <pavel@raiskup.cz> 6.7-1
 - mock: Use umask 0022 instead of 0002 to avoid strange permissions (ngompa@velocitylimitless.com)
 - expand_spec plugin: generating expanded-spec.txt in postdeps hook (yzhu@redhat.com)

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Web Mercator XYZ tile utilities
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ rm -rf html/.{buildinfo,doctrees}
 %{_bindir}/mercantile
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2.1-22
+- Rebuilt for Python 3.15
+
 * Tue Jan 27 2026 Federico Pellegrin <fede@evolware.org> - 1.2.1-21
 - Use new Python macros in spec file (rhbz#2377881)
 

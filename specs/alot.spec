@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,6 +54,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{_mandir}/man1/alot.1*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.12-5
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 Dick Marinus <dick@mrns.nl> - 0.12-4
 - Replace glob1 with glob to support Python 3.15
 

@@ -1,4 +1,3 @@
-%global _without_extras 1
 # uv has many build dependencies which are not included in RHEL;
 # virtualenv is not included in RHEL
 %bcond extras %{undefined rhel}

@@ -11,7 +11,7 @@ Version:        183
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -486,6 +486,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 183-2
+- Rebuilt for Python 3.15
+
 * Wed May 27 2026 Packit <hello@packit.dev> - 183-1
 Changes with 183
 ----------------

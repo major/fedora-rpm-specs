@@ -7,7 +7,7 @@
 
 Name:           fedpkg
 Version:        1.47
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -156,6 +156,9 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.47-6
+- Rebuilt for Python 3.15
+
 * Tue Feb 10 2026 Tom Hughes <tom@compton.nu> - 1.47-5
 - Add zsh auto completion
 

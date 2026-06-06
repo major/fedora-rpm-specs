@@ -6,7 +6,7 @@ output to functions.}
 
 Name:           python-requre
 Version:        0.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python library that allows re/store output of various objects for testing
 
 License:        MIT
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.1-7
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

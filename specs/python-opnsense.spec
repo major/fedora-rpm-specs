@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Python API client for OPNsense
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.3.0-23
+- Rebuilt for Python 3.15
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.3.0-22
 - Rebuilt without python-mock
 

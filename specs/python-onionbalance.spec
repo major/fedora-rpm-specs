@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -133,6 +133,9 @@ install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/
 %{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.2.1-23
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-22
 - Add runtime dependency on python3-pkg-resources
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.3-2
+- Rebuilt for Python 3.15
+
 * Tue Jun 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9.3-1
 - 0.9.3
 

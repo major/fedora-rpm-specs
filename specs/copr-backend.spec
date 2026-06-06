@@ -6,7 +6,7 @@
 
 Name:       copr-backend
 Version:    2.13.hotfix.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -240,6 +240,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.13.hotfix.1-2
+- Rebuilt for Python 3.15
+
 * Tue Jun 02 2026 Jakub Kadlcik <frostyx@email.cz> 2.13.hotfix.1-1
 - Revert setup.py change done by standard tito tagger
 

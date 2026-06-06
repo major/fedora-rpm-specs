@@ -9,21 +9,21 @@ Name:    ppp
 # contains rebuilds of at least those two packages before merging.
 # Several other less important packages are also tied to the ppp
 # version, as of 2023-04-19 the list is:
-# NetworkManager-fortisslvpn
-# NetworkManager-l2tp
-# NetworkManager-ppp
-# NetworkManager-pptp
-# NetworkManager-sstp
+# NetworkManager
+#   NetworkManager-fortisslvpn
+#   NetworkManager-l2tp
+#   NetworkManager-pptp
 # sstp-client
+#     NetworkManager-sstp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
-Version: 2.5.1
-Release: 7%{?dist}
+Version: 2.5.3
+Release: 1%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: bsd-3-clause AND zlib AND licenseref-fedora-public-domain AND bsd-attribution-hpnd-disclaimer AND bsd-4.3tahoe AND bsd-4-clause-uc AND apache-2.0 AND lgpl-2.0-or-later AND (gpl-2.0-or-later OR bsd-2-clause OR bsd-3-clause OR bsd-4-clause) AND gpl-2.0-or-later AND xlock AND gpl-1.0-or-later AND mackerras-3-clause-acknowledgment AND mackerras-3-clause AND hpnd-fenneberg-Livingston AND sun-ppp AND hpnd-inria-imag AND sun-ppp-2000
 URL:     http://www.samba.org/ppp
 
-Source0: https://github.com/paulusmack/ppp/archive/ppp-%{version}.tar.gz
+Source0: https://github.com/paulusmack/ppp/archive/v%{version}/ppp-%{version}.tar.gz
 Source1: ppp-pam.conf
 Source2: ppp-logrotate.conf
 Source3: ppp-tmpfiles.conf
@@ -36,11 +36,6 @@ Source9: ipv6-up
 Source12: ppp-watch.tar.xz
 Source13: ipv6-up.initscripts
 Source14: ipv6-down.initscripts
-
-# Fedora-specific
-Patch0: ppp-2.5.0-use-change-resolv-function.patch
-# Fix build with GCC 15
-Patch1: ppp-2.5.1-gcc15.patch
 
 BuildRequires: libtool
 BuildRequires: autoconf
@@ -84,7 +79,7 @@ Requires: pkgconf-pkg-config
 This package contains the header files for building plugins for ppp.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{version}
+%autosetup -p1
 
 tar -xJf %{SOURCE12}
 
@@ -199,6 +194,10 @@ install -m0644 -D ppp.sysusers.conf %{buildroot}%{_sysusersdir}/ppp.conf
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Thu Jun 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.3-1
+- New version
+  Resolves: rhbz#2335040
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

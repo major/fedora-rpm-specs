@@ -25,7 +25,7 @@ used for integration with existing/legacy systems.
 
 Name: python-%{pname}
 Version: %{version0}^%{commitdate}git%{shortcommit}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Compiler-free Python crypto library backed by the OS
 License: MIT
 URL: %{forgeurl}
@@ -75,6 +75,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 %doc readme.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3.0^20230823git1547f53-2
+- Rebuilt for Python 3.15
+
 * Thu Mar 05 2026 Benson Muite <fed500@fedoraproject.org> - 1.3.0^20230823git1547f53-1
 - Update to latest commit and enable tests to run
 

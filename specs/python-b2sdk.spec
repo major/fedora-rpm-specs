@@ -2,7 +2,7 @@
 
 Name:           python-b2sdk
 Version:        2.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -73,6 +73,9 @@ export PDM_BUILD_SCM_VERSION=%{version}
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.10.2-2
+- Rebuilt for Python 3.15
+
 * Thu Feb 12 2026 Carl George <carlwgeorge@fedoraproject.org> - 2.10.2-1
 - Update to version 2.10.2 rhbz#2439204
 

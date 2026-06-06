@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,6 +185,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.27.0-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 David Pascual Hernandez <davherna@redhat.com> - 1.27.0-1
 - e95edd7 feat: add SSM Parameter Store support for AWS AMI resolution (David Pascual)
 

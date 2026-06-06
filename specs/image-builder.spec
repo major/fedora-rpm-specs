@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        66
+Version:        68
 
 %gometa
 
@@ -54,14 +54,14 @@ Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.7
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.10
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.17
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.16
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.18
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.17
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.1.21
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.1.22
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.23
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.23
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.24
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.303.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.304.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.9
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.15
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.23
@@ -69,12 +69,12 @@ Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.101.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.0.11
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.17
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.21
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.42.1
 Provides: bundled(golang(github.com/aws/smithy-go)) = 1.25.1
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
-Provides: bundled(golang(github.com/containers/common)) = 0.64.1
-Provides: bundled(golang(github.com/containers/image/v5)) = 5.36.1
+Provides: bundled(golang(github.com/containers/common)) = 0.64.2
+Provides: bundled(golang(github.com/containers/image/v5)) = 5.36.2
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
 Provides: bundled(golang(github.com/containers/storage)) = 1.59.1
@@ -100,13 +100,13 @@ Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.4
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.20.3
 Provides: bundled(golang(github.com/google/uuid)) = 1.6.0
-Provides: bundled(golang(github.com/gophercloud/gophercloud/v2)) = 2.8.0
+Provides: bundled(golang(github.com/gophercloud/gophercloud/v2)) = 2.10.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.1
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
 Provides: bundled(golang(github.com/hashicorp/go-cleanhttp)) = 0.5.2
 Provides: bundled(golang(github.com/hashicorp/go-multierror)) = 1.1.1
 Provides: bundled(golang(github.com/hashicorp/go-retryablehttp)) = 0.7.8
-Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.7.0
+Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.9.0
 Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
 Provides: bundled(golang(github.com/jmespath/go-jmespath)) = b0104c8
 Provides: bundled(golang(github.com/json-iterator/go)) = 1.1.12
@@ -131,7 +131,7 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.30.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.267.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.270.0
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
 Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.23.0
@@ -150,27 +150,27 @@ Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
 Provides: bundled(golang(github.com/supakeen/yamlplus)) = 1.1.0
 Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
-Provides: bundled(golang(github.com/ulikunitz/xz)) = 0.5.12
+Provides: bundled(golang(github.com/ulikunitz/xz)) = 0.5.15
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.12.1
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.10.2
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.17.2
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = 0.46.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.47.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
-Provides: bundled(golang(golang.org/x/net)) = 0.48.0
+Provides: bundled(golang(golang.org/x/net)) = 0.49.0
 Provides: bundled(golang(golang.org/x/sync)) = 0.19.0
 Provides: bundled(golang(golang.org/x/sys)) = 0.41.0
 Provides: bundled(golang(golang.org/x/term)) = 0.40.0
-Provides: bundled(golang(golang.org/x/text)) = 0.32.0
+Provides: bundled(golang(golang.org/x/text)) = 0.33.0
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = ff82c1b
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = ff82c1b
 Provides: bundled(golang(google.golang.org/grpc)) = 1.79.3
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.10
 Provides: bundled(golang(gopkg.in/check.v1)) = 10cb982
-Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
+Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.2
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
-Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.11006.0
+Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.12003.0
 Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.6.0
 # BUNDLE_END
 %endif
@@ -251,6 +251,65 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Jun 04 2026 Packit <hello@packit.dev> - 68-1
+Changes with 68
+----------------
+  - Containerfile*: correct base image reference in tag (#531)
+    - Author: Zephyr Lykos, Reviewers: Brian C. Lane, Tomáš Hozza
+  - deps: bump osbuild/images dependency (#533)
+    - Author: SchutzBot, Reviewers: Brian C. Lane, Simon de Vlieger
+  - deps: bump osbuild/images dependency (#538)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - doc: mention additional requirements (#530)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - main: `--force-defs-dir` (#534)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - main: `bootc inspect` (#529)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - pr-best-practices: Update authentication scheme for Jira Cloud (HMS-10749) (#535)
+    - Author: Florian Schüller, Reviewers: Lukáš Zapletal, Simon de Vlieger
+
+osbuild/images changes (v0.267.0 -> v0.270.0):
+
+  - Break down imgtestlib module and  use log sections (#2383)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - CI: run tests on Fedora 44 (#2343)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Make EFIPartitionTable function public, move it into disk (#2354)
+    - Author: Brian C. Lane, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Repos: Add/update AlmaLinux repository definitions (#2376)
+    - Author: Eduard Abdullin, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update dependencies 2026-05-25 (#2368)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - bootc: assert non-nil kernel info (#2370)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal, Tomáš Hozza
+  - cicd: run gobump per commit (#2352)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - container: guess at mime type (#2372)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Tomáš Hozza
+  - depsolver: catch all errors from the child process (#2365)
+    - Author: Ondřej Budai, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - distro/loader: expand installerConfig template by copying (HMS-10718) (#2373)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - distro: Make isoCustomizations usable by bootcImageType (#2360)
+    - Author: Brian C. Lane, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - fedora: drop no_timer_check leftover (#2282)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - gitlab: exit with error code when manifests fail to validate (#2374)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - install-dependencies: Add a note about it being used by image-builder-cli workflows (#2353)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger, Tomáš Hozza
+  - loader: allow custom path (#2378)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - many: fix non-determistic manifest generation (#2381)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Simon de Vlieger, Tomáš Hozza
+  - pr-best-practices: Update authentication scheme for Jira Cloud (HMS-10749) (#2386)
+    - Author: Florian Schüller, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - stage/grub2: allow VFAT for boot fs (#2371)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-06-04
+
 * Mon May 25 2026 Packit <hello@packit.dev> - 66-1
 Changes with 66
 ----------------

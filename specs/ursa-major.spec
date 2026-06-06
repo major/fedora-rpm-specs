@@ -6,7 +6,7 @@
 
 Name:       ursa-major
 Version:    0.5.1
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    A utility for working with module's koji tags in koji's tag inheritance.
 
 Group:      Development/Tools
@@ -195,6 +195,9 @@ py.test
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.5.1-11
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.5.1-10
 - Drop ExclusiveArch as package is built on all available architectures.
 

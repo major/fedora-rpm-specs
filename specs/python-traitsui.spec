@@ -1,7 +1,7 @@
 %global modname traitsui 
 Name:           python-%{modname}
 Version:        8.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        User interface tools designed to complement Traits
 
 # Images have different licenses. For image license breakdown check
@@ -102,6 +102,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 8.0.0-14
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 8.0.0-13
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

@@ -51,7 +51,7 @@ the purposes of CI/CD tasks.
 Name:       %srcname
 Summary:    %sum - client tooling
 Version:    6.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -407,6 +407,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.2-2
+- Rebuilt for Python 3.15
+
 * Fri May 29 2026 Jakub Kadlcik <frostyx@email.cz> - 6.2-1
 - new upstream release
 

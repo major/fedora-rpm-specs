@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -654,6 +654,9 @@ fi
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.11.0-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 02 2026 Peter Czanik <peter@czanik.hu> - 4.11.0-1
 - update to 4.11.0
 - re-enable SNMP support

@@ -1,4 +1,3 @@
-%global _without_tests 1
 # TODO adjust once this is implemented:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1935266
 %global modname  jaraco

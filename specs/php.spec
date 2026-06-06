@@ -68,7 +68,7 @@
 # liburiparser version 1.0.0 required
 %global liburiparser_minver 1.0.0
 %global liburiparser_bunver 1.0.2
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 # use system liburiparser when available
 %bcond_without       liburiparser
 %else
@@ -86,7 +86,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1673,6 +1673,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jun  4 2026 Remi Collet <remi@remirepo.net> - 8.5.7-2
+- use system liburiparser on RHEL-11
+
 * Wed Jun  3 2026 Remi Collet <remi@remirepo.net> - 8.5.7-1
 - Update to 8.5.7 - http://www.php.net/releases/8_5_7.php
 

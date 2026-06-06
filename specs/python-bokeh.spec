@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        3.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -201,6 +201,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/typings
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.6.3-2
+- Rebuilt for Python 3.15
+
 * Mon Jan 26 2026 Federico Pellegrin <fede@evolware.org> - 3.6.3-1
 - Bump to 3.6.3
 

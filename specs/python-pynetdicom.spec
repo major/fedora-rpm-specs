@@ -12,7 +12,7 @@ Version:        3.0.4
 
 %forgemeta
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT
@@ -177,6 +177,9 @@ k="${k-}${k+ and }not (TestPrettyDataset and test_sequence_multi)"
 %{_bindir}/storescu
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.0.4-2
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

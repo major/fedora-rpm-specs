@@ -1,6 +1,6 @@
 Name:      dist-git-client
 Version:   1.3
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Get sources for RPM builds from DistGit repositories
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ PYTHON=python3 ./run_tests.sh -vv --no-coverage
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3-2
+- Rebuilt for Python 3.15
+
 * Mon Feb 09 2026 Pavel Raiskup <pavel@raiskup.cz> 1.3-1
 - dist-git-client: ask dist-git httpd server to send response as-is
 

@@ -1,4 +1,3 @@
-%global _without_docs 1
 # cloud-sptheme is not included in RHEL
 %bcond docs %[%{undefined rhel} || %{defined epel}]
 

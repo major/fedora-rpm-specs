@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python library for communicating with Unifi Controller API
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 23-22
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

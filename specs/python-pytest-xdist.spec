@@ -2,7 +2,7 @@
 
 Name:           python-pytest-xdist
 Version:        3.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.7.0-8
+- Rebuilt for Python 3.15
+
 * Tue Mar 24 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.7.0-7
 - Fix pytest 9 compatibility
 

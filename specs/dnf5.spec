@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1145,6 +1145,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.4.2.1-3
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Petr Pisar <ppisar@redhat.com> - 5.4.2.1-2
 - Adapt copr plugin for new ELN os-release identification (upstream GH#2729)
 

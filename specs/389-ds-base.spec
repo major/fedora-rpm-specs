@@ -53,11 +53,14 @@ ExcludeArch: i686
 
 %if %{with clang}
 %global toolchain clang
-%global _missing_build_ids_terminate_build 0
+%global _lto_cflags %nil
 %endif
 
 # Build cockpit plugin
 %bcond cockpit 1
+
+# Build HIBP password breach checking (requires libcurl)
+%bcond hibp 1
 
 # fedora 15 and later uses tmpfiles.d
 # otherwise, comment this out
@@ -75,9 +78,9 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (%{variant})
 Name:             389-ds-base
-Version:          3.2.1
+Version:          3.3.0
 Release:          %{autorelease -n %{?with_asan:-e asan}}%{?dist}
-License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
+License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND Zlib
 URL:              https://www.port389.org
 Obsoletes:        %{name}-legacy-tools < 1.4.4.6
 Obsoletes:        %{name}-legacy-tools-debuginfo < 1.4.4.6
@@ -87,13 +90,13 @@ Provides:         ldif2ldbm >= 0
 Provides:  bundled(crate(allocator-api2)) = 0.2.21
 Provides:  bundled(crate(anyhow)) = 1.0.102
 Provides:  bundled(crate(atty)) = 0.2.14
-Provides:  bundled(crate(autocfg)) = 1.5.0
+Provides:  bundled(crate(autocfg)) = 1.5.1
 Provides:  bundled(crate(base64)) = 0.13.1
-Provides:  bundled(crate(bitflags)) = 2.11.0
-Provides:  bundled(crate(bumpalo)) = 3.20.2
+Provides:  bundled(crate(bitflags)) = 2.12.1
+Provides:  bundled(crate(bumpalo)) = 3.20.3
 Provides:  bundled(crate(byteorder)) = 1.5.0
 Provides:  bundled(crate(cbindgen)) = 0.26.0
-Provides:  bundled(crate(cc)) = 1.2.56
+Provides:  bundled(crate(cc)) = 1.2.63
 Provides:  bundled(crate(cfg-if)) = 1.0.4
 Provides:  bundled(crate(clap)) = 3.2.25
 Provides:  bundled(crate(clap_lex)) = 0.2.4
@@ -103,70 +106,74 @@ Provides:  bundled(crate(crossbeam-queue)) = 0.3.12
 Provides:  bundled(crate(crossbeam-utils)) = 0.8.21
 Provides:  bundled(crate(equivalent)) = 1.0.2
 Provides:  bundled(crate(errno)) = 0.3.14
-Provides:  bundled(crate(fastrand)) = 2.3.0
+Provides:  bundled(crate(fastrand)) = 2.4.1
 Provides:  bundled(crate(fernet)) = 0.1.4
 Provides:  bundled(crate(find-msvc-tools)) = 0.1.9
 Provides:  bundled(crate(foldhash)) = 0.2.0
 Provides:  bundled(crate(foreign-types)) = 0.3.2
 Provides:  bundled(crate(foreign-types-shared)) = 0.1.1
-Provides:  bundled(crate(getrandom)) = 0.4.1
-Provides:  bundled(crate(hashbrown)) = 0.16.1
+Provides:  bundled(crate(futures-core)) = 0.3.32
+Provides:  bundled(crate(futures-task)) = 0.3.32
+Provides:  bundled(crate(futures-util)) = 0.3.32
+Provides:  bundled(crate(getrandom)) = 0.4.2
+Provides:  bundled(crate(hashbrown)) = 0.17.1
 Provides:  bundled(crate(heck)) = 0.5.0
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
 Provides:  bundled(crate(id-arena)) = 2.3.0
-Provides:  bundled(crate(indexmap)) = 2.13.0
-Provides:  bundled(crate(itoa)) = 1.0.17
+Provides:  bundled(crate(indexmap)) = 2.14.0
+Provides:  bundled(crate(itoa)) = 1.0.18
 Provides:  bundled(crate(jobserver)) = 0.1.34
-Provides:  bundled(crate(js-sys)) = 0.3.95
+Provides:  bundled(crate(js-sys)) = 0.3.99
 Provides:  bundled(crate(leb128fmt)) = 0.1.0
-Provides:  bundled(crate(libc)) = 0.2.182
-Provides:  bundled(crate(linux-raw-sys)) = 0.11.0
-Provides:  bundled(crate(log)) = 0.4.29
-Provides:  bundled(crate(lru)) = 0.16.3
-Provides:  bundled(crate(memchr)) = 2.8.0
-Provides:  bundled(crate(once_cell)) = 1.21.3
-Provides:  bundled(crate(openssl)) = 0.10.78
+Provides:  bundled(crate(libc)) = 0.2.186
+Provides:  bundled(crate(linux-raw-sys)) = 0.12.1
+Provides:  bundled(crate(log)) = 0.4.31
+Provides:  bundled(crate(lru)) = 0.16.4
+Provides:  bundled(crate(memchr)) = 2.8.1
+Provides:  bundled(crate(once_cell)) = 1.21.4
+Provides:  bundled(crate(openssl)) = 0.10.80
 Provides:  bundled(crate(openssl-macros)) = 0.1.1
-Provides:  bundled(crate(openssl-sys)) = 0.9.114
+Provides:  bundled(crate(openssl-sys)) = 0.9.116
 Provides:  bundled(crate(os_str_bytes)) = 6.6.1
 Provides:  bundled(crate(paste)) = 1.0.15
-Provides:  bundled(crate(pin-project-lite)) = 0.2.16
-Provides:  bundled(crate(pkg-config)) = 0.3.32
+Provides:  bundled(crate(pin-project-lite)) = 0.2.17
+Provides:  bundled(crate(pkg-config)) = 0.3.33
 Provides:  bundled(crate(prettyplease)) = 0.2.37
 Provides:  bundled(crate(proc-macro2)) = 1.0.106
-Provides:  bundled(crate(quote)) = 1.0.44
-Provides:  bundled(crate(r-efi)) = 5.3.0
-Provides:  bundled(crate(rustix)) = 1.1.3
+Provides:  bundled(crate(quote)) = 1.0.45
+Provides:  bundled(crate(r-efi)) = 6.0.0
+Provides:  bundled(crate(rustix)) = 1.1.4
 Provides:  bundled(crate(rustversion)) = 1.0.22
-Provides:  bundled(crate(semver)) = 1.0.27
+Provides:  bundled(crate(semver)) = 1.0.28
 Provides:  bundled(crate(serde)) = 1.0.228
 Provides:  bundled(crate(serde_core)) = 1.0.228
 Provides:  bundled(crate(serde_derive)) = 1.0.228
-Provides:  bundled(crate(serde_json)) = 1.0.149
-Provides:  bundled(crate(shlex)) = 1.3.0
+Provides:  bundled(crate(serde_json)) = 1.0.150
+Provides:  bundled(crate(shlex)) = 2.0.1
+Provides:  bundled(crate(slab)) = 0.4.12
 Provides:  bundled(crate(smallvec)) = 1.15.1
 Provides:  bundled(crate(sptr)) = 0.3.2
 Provides:  bundled(crate(strsim)) = 0.10.0
 Provides:  bundled(crate(syn)) = 2.0.117
-Provides:  bundled(crate(tempfile)) = 3.25.0
+Provides:  bundled(crate(tempfile)) = 3.27.0
 Provides:  bundled(crate(termcolor)) = 1.4.1
 Provides:  bundled(crate(textwrap)) = 0.16.2
-Provides:  bundled(crate(tokio)) = 1.49.0
+Provides:  bundled(crate(tokio)) = 1.52.3
 Provides:  bundled(crate(toml)) = 0.5.11
 Provides:  bundled(crate(tracing)) = 0.1.44
 Provides:  bundled(crate(tracing-attributes)) = 0.1.31
 Provides:  bundled(crate(tracing-core)) = 0.1.36
 Provides:  bundled(crate(unicode-ident)) = 1.0.24
 Provides:  bundled(crate(unicode-xid)) = 0.2.6
-Provides:  bundled(crate(uuid)) = 1.23.1
+Provides:  bundled(crate(uuid)) = 1.23.2
 Provides:  bundled(crate(vcpkg)) = 0.2.15
 Provides:  bundled(crate(wasi)) = 0.11.1+wasi_snapshot_preview1
-Provides:  bundled(crate(wasip2)) = 1.0.2+wasi_0.2.9
+Provides:  bundled(crate(wasip2)) = 1.0.3+wasi_0.2.9
 Provides:  bundled(crate(wasip3)) = 0.4.0+wasi_0.3.0_rc_2026_01_06
-Provides:  bundled(crate(wasm-bindgen)) = 0.2.118
-Provides:  bundled(crate(wasm-bindgen-macro)) = 0.2.118
-Provides:  bundled(crate(wasm-bindgen-macro-support)) = 0.2.118
-Provides:  bundled(crate(wasm-bindgen-shared)) = 0.2.118
+Provides:  bundled(crate(wasm-bindgen)) = 0.2.122
+Provides:  bundled(crate(wasm-bindgen-macro)) = 0.2.122
+Provides:  bundled(crate(wasm-bindgen-macro-support)) = 0.2.122
+Provides:  bundled(crate(wasm-bindgen-shared)) = 0.2.122
 Provides:  bundled(crate(wasm-encoder)) = 0.244.0
 Provides:  bundled(crate(wasm-metadata)) = 0.244.0
 Provides:  bundled(crate(wasmparser)) = 0.244.0
@@ -176,7 +183,7 @@ Provides:  bundled(crate(winapi-util)) = 0.1.11
 Provides:  bundled(crate(winapi-x86_64-pc-windows-gnu)) = 0.4.0
 Provides:  bundled(crate(windows-link)) = 0.2.1
 Provides:  bundled(crate(windows-sys)) = 0.61.2
-Provides:  bundled(crate(wit-bindgen)) = 0.51.0
+Provides:  bundled(crate(wit-bindgen)) = 0.57.1
 Provides:  bundled(crate(wit-bindgen-core)) = 0.51.0
 Provides:  bundled(crate(wit-bindgen-rust)) = 0.51.0
 Provides:  bundled(crate(wit-bindgen-rust-macro)) = 0.51.0
@@ -197,13 +204,13 @@ Provides:  bundled(npm(@patternfly/react-log-viewer)) = 5.3.0
 Provides:  bundled(npm(@patternfly/react-styles)) = 5.4.0
 Provides:  bundled(npm(@patternfly/react-table)) = 5.4.1
 Provides:  bundled(npm(@patternfly/react-tokens)) = 5.4.0
-Provides:  bundled(npm(@types/d3-array)) = 3.2.1
+Provides:  bundled(npm(@types/d3-array)) = 3.2.2
 Provides:  bundled(npm(@types/d3-color)) = 3.1.3
 Provides:  bundled(npm(@types/d3-ease)) = 3.0.2
 Provides:  bundled(npm(@types/d3-interpolate)) = 3.0.4
 Provides:  bundled(npm(@types/d3-path)) = 3.1.1
 Provides:  bundled(npm(@types/d3-scale)) = 4.0.9
-Provides:  bundled(npm(@types/d3-shape)) = 3.1.7
+Provides:  bundled(npm(@types/d3-shape)) = 3.1.8
 Provides:  bundled(npm(@types/d3-time)) = 3.0.4
 Provides:  bundled(npm(@types/d3-timer)) = 3.0.2
 Provides:  bundled(npm(@xterm/addon-canvas)) = 0.7.0
@@ -215,7 +222,7 @@ Provides:  bundled(npm(core-util-is)) = 1.0.3
 Provides:  bundled(npm(d3-array)) = 3.2.4
 Provides:  bundled(npm(d3-color)) = 3.1.0
 Provides:  bundled(npm(d3-ease)) = 3.0.1
-Provides:  bundled(npm(d3-format)) = 3.1.0
+Provides:  bundled(npm(d3-format)) = 3.1.2
 Provides:  bundled(npm(d3-interpolate)) = 3.0.1
 Provides:  bundled(npm(d3-path)) = 3.1.0
 Provides:  bundled(npm(d3-scale)) = 4.0.2
@@ -240,15 +247,16 @@ Provides:  bundled(npm(js-sha256)) = 0.11.0
 Provides:  bundled(npm(js-tokens)) = 4.0.0
 Provides:  bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides:  bundled(npm(json-stringify-safe)) = 5.0.1
-Provides:  bundled(npm(lodash)) = 4.17.23
+Provides:  bundled(npm(lodash)) = 4.18.1
 Provides:  bundled(npm(loose-envify)) = 1.4.0
 Provides:  bundled(npm(memoize-one)) = 5.2.1
 Provides:  bundled(npm(object-assign)) = 4.1.1
+Provides:  bundled(npm(prettier)) = 3.8.3
 Provides:  bundled(npm(process-nextick-args)) = 2.0.1
 Provides:  bundled(npm(prop-types)) = 15.8.1
 Provides:  bundled(npm(react)) = 18.3.1
 Provides:  bundled(npm(react-dom)) = 18.3.1
-Provides:  bundled(npm(react-dropzone)) = 14.3.8
+Provides:  bundled(npm(react-dropzone)) = 14.4.1
 Provides:  bundled(npm(react-fast-compare)) = 3.2.2
 Provides:  bundled(npm(react-is)) = 16.13.1
 Provides:  bundled(npm(readable-stream)) = 2.3.8
@@ -258,11 +266,11 @@ Provides:  bundled(npm(safer-buffer)) = 2.1.2
 Provides:  bundled(npm(scheduler)) = 0.23.2
 Provides:  bundled(npm(sprintf-js)) = 1.0.3
 Provides:  bundled(npm(string_decoder)) = 1.1.1
-Provides:  bundled(npm(tabbable)) = 6.2.0
+Provides:  bundled(npm(tabbable)) = 6.4.0
 Provides:  bundled(npm(throttle-debounce)) = 5.0.2
 Provides:  bundled(npm(tslib)) = 2.8.1
 Provides:  bundled(npm(util-deprecate)) = 1.0.2
-Provides:  bundled(npm(uuid)) = 10.0.0
+Provides:  bundled(npm(uuid)) = 14.0.0
 Provides:  bundled(npm(victory-area)) = 37.3.6
 Provides:  bundled(npm(victory-axis)) = 37.3.6
 Provides:  bundled(npm(victory-bar)) = 37.3.6
@@ -328,6 +336,9 @@ BuildRequires:    libdb-devel
 BuildRequires:    net-snmp-devel
 BuildRequires:    bzip2-devel
 BuildRequires:    openssl-devel
+%if %{with hibp}
+BuildRequires:    libcurl-devel
+%endif
 # the following is for the pam passthru auth plug-in
 BuildRequires:    pam-devel
 BuildRequires:    systemd-units
@@ -438,8 +449,7 @@ Please see http://seclists.org/oss-sec/2016/q1/363 for more information.
 %if %{with libbdb_ro}
 %package        robdb-libs
 Summary:        Read-only Berkeley Database Library
-# IMPORTANT - Check if it looks right. Additionally, compare with the original line. Then, remove this comment and # FIXME - part.
-# FIXME - License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT) AND Unicode-3.0 AND (CC-BY-4.0 AND MIT) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND Zlib
+License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
 
 %description    robdb-libs
 The %{name}-robdb-lib package contains a library derived from rpm
@@ -676,6 +686,9 @@ autoreconf -fiv
 %if 0%{?fedora} >= 34 || 0%{?rhel} >= 9
            --with-libldap-r=no \
 %endif
+%if %{with hibp}
+	  --enable-hibp \
+%endif
            --enable-cmocka
 
 # Avoid "Unknown key name 'XXX' in section 'Service', ignoring." warnings from systemd on older releases
@@ -827,9 +840,6 @@ for dir in "$instbase"/slapd-* ; do
     else
        echo "instance $inst is not running" >> "$output" 2>&1 || :
     fi
-    # Run index-check on all instances (running or not)
-    # This fixes index ordering mismatches from older versions
-    dsctl "$inst_name" index-check --fix >> "$output2" 2>&1 || :
     ninst=$((ninst + 1))
 done
 
@@ -863,8 +873,6 @@ fi
 
 %postun snmp
 %systemd_postun_with_restart %{pkgname}-snmp.service
-
-exit 0
 
 %files -f plugins.list
 %if %{with bundle_jemalloc}

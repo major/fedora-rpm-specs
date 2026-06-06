@@ -8,7 +8,7 @@ http requests and their responses.}
 
 Name:		python-%{srcname}
 Version:	1.0.8
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	HTTP server for pytest
 
 License:	MIT
@@ -64,6 +64,9 @@ sed -i '/types-requests/d' pyproject.toml
 %doc README.md CHANGES.rst CONTRIBUTION.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.0.8-13
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

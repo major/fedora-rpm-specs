@@ -3,8 +3,8 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global date            20260107
-%global commit          dbb45295c8620a9de7800f5e2650e37ffbbd03dc
+%global date            20260604
+%global commit          8522b1637c7e60b00acfb63f8f88eee348e113cd
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %gometa -L -f
@@ -45,6 +45,16 @@ Obsoletes:      golang-github-facebook-time-vendor-licenses < 0^20260107gitdbb45
 This package contains the license files that ship with the third-party
 Go modules used to build Meta's Time utilities.
 
+%package -n     caliper
+Summary:        CLI to calculate end-to-end latency from a GPS antenna to a GNSS receiver
+Requires:       %{name}-vendor-licenses = %{version}-%{release}
+
+%description -n caliper
+caliper parses Luciol LOR-220 OTDR .tor files, auto-detects the reflective
+peaks (OA, OB, OC, OD), computes the delays between them, generates SVG plots,
+and writes the measurement data as a JSON file. It is used to characterise the
+optical path latency between a GPS antenna and a GNSS receiver.
+
 %package -n calnex
 Summary:        CLI for a Calnex Sentinel device
 Requires:       %{name}-vendor-licenses = %{version}-%{release}
@@ -78,6 +88,16 @@ Obsoletes:      responder < 0-0.6
 %description -n ntpresponder
 ntpresponder is a simple NTP server implementation with kernel timestamps
 support, designed for scale and security.
+
+%package -n     ntripper
+Summary:        Push RTCM corrections from oscillatord to an NTRIP caster
+Requires:       %{name}-vendor-licenses = %{version}-%{release}
+
+%description -n ntripper
+ntripper reads RTCM3 and UBX-RXM-RAWX data from an oscillatord Unix socket and
+pushes RTCM corrections to an NTRIP caster using the SOURCE protocol. When RAWX
+observations are available it generates MSM7 messages with proper carrier phase
+from the raw observations, bypassing the receiver's limited native RTCM engine.
 
 %package -n     pshark
 Summary:        Simple tool to print PTP packets from pcap/pcapng captures
@@ -141,6 +161,7 @@ accessible via fbclock-bin or C API
 %setup -q -T -D -a1 %{forgesetupargs}
 %autopatch -p1
 
+
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
 
@@ -153,7 +174,7 @@ mv fbclock-bin %{gobuilddir}/bin/fbclock-bin
 cd -
 
 %global gomodulesmode GO111MODULE=on
-for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
+for cmd in caliper calnex c4u ntpcheck ntpresponder ntripper pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
 
@@ -187,6 +208,11 @@ rm -f timestamp/timestamp_linux_test.go
 %files -f %{go_vendor_license_filelist} vendor-licenses
 %license vendor/modules.txt
 
+%files -n caliper
+%license LICENSE
+%doc cmd/caliper/README.md
+%{_bindir}/caliper
+
 %files -n calnex
 %license LICENSE
 %doc calnex/README.md
@@ -201,6 +227,11 @@ rm -f timestamp/timestamp_linux_test.go
 %license LICENSE
 %doc README.md
 %{_bindir}/ntpresponder
+
+%files -n ntripper
+%license LICENSE
+%doc cmd/ntripper/README.md
+%{_bindir}/ntripper
 
 %files -n pshark
 %license LICENSE

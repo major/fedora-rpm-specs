@@ -1,5 +1,5 @@
 Name:       spectre-meltdown-checker
-Version:    26.33.0420460
+Version:    26.36.0602723
 Release:    1%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux

@@ -1,6 +1,6 @@
 Name:           python-logbook
 Version:        1.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A logging replacement for Python
 
 # logbook: BSD-3-Clause
@@ -64,6 +64,9 @@ Logbook can do that.
 %license LICENSE.dependencies
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.9.2-4
+- Rebuilt for Python 3.15
+
 * Thu Mar 19 2026 Fabio Valentini <decathorpe@gmail.com> - 1.9.2-3
 - Miscellaneous packaging fixes
 

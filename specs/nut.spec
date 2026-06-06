@@ -13,7 +13,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.5
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -151,13 +151,6 @@ find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
 # fix python site packages check
 sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
 
-# Create a sysusers.d config file
-cat >scripts/systemd/nut-common-sysusers.conf.in <<EOF
-u nut %{nut_uid} 'Network UPS Tools' @STATEPATH@ /bin/false
-m nut dialout
-m nut tty
-EOF
-
 %build
 %if 0%{?fedora}
 #--without-gpio is not enough to stop it complaining about missing library
@@ -204,6 +197,13 @@ export LDFLAGS="-Wl,-z,now"
 
 # for rhbz#838139 check if still needed?
 sh %{SOURCE4} >>include/config.h
+
+# Create a sysusers.d config file - in build phase, as configure recreates the template
+cat >scripts/systemd/nut-common-sysusers.conf.in <<EOF
+u nut %{nut_uid} 'Network UPS Tools' @STATEPATH@ /bin/false
+m nut dialout
+m nut tty
+EOF
 
 #remove rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -534,6 +534,12 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Thu Jun 04 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.8.5-3
+- fix nut's sysusers config (rhbz#2483506)
+
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.8.5-2
+- Rebuilt for Python 3.15
+
 * Wed May 13 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.8.5-1
 - updated to 2.8.5 (#2456132)
 

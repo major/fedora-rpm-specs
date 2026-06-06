@@ -6,7 +6,7 @@
 
 Name:               python-requests-oauthlib
 Version:            2.0.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            OAuthlib authentication support for Requests.
 
 License:            ISC
@@ -62,6 +62,9 @@ rm tests/examples/test_native_spa_pkce_auth0.py
 %doc README.rst HISTORY.rst requirements.txt AUTHORS.rst
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.0.0-2
+- Rebuilt for Python 3.15
+
 * Sun Mar 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.1-17
 - Migrate to pyproject macros
 

@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Version:        2.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Creates graphs representing ansible inventory
 
 License:        GPL-3.0-or-later
@@ -51,6 +51,9 @@ ln -sr %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-3
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.6.0-10
+- Rebuilt for Python 3.15
+
 * Tue Jan 20 2026 Parag Nemade <pnemade AT redhat DOT com> - 2.6.0-9
 - disable failing test
 

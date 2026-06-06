@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        26.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -62,6 +62,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:26.4.0-4
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.4.0-3
 - Update pathspec dependency version
 

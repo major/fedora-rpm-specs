@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.39
+Version:        0.0.43
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -162,9 +162,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 0df54882ffeffbad9d8a18c6c7c7abdbe4813ea5
-%global ruff_baseversion 0.15.14
-%global ruff_snapdate 20260522
+%global ruff_rev a8a0614348c1fcf47fc9b666eff61a103914d520
+%global ruff_baseversion 0.15.15
+%global ruff_snapdate 20260603
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -179,11 +179,11 @@ Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 60a6695e77b81d0e1b5a088c316af78c7510941f
+%global typeshed_rev 4a47505dd891ac8a94ba7f4b578899c72727ce23
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260519
+%global typeshed_snapdate 20260531
 
 # Downstream patch: always find the system-wide ty executable
 #

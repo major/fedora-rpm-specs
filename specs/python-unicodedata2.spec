@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        17.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -59,6 +59,9 @@ is data from Unicode 13.0.0.
 %doc README.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 17.0.1-2
+- Rebuilt for Python 3.15
+
 * Tue Feb 24 2026 Parag Nemade <pnemade AT redhat DOT com> - 17.0.1-1
 - Update to 17.0.1 version (#2439299)
 

@@ -1,20 +1,18 @@
 Name:           perl-Class-Autouse
 Version:        2.02
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Run-time class loading on first method call
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Autouse
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-Autouse-%{version}.tar.gz
-
-# Upstream does its very best to prevent us from running them.
-%bcond_with     xt_tests
-
 BuildArch:      noarch
-
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
-
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -24,10 +22,12 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Spec) >= 0.80
 BuildRequires:  perl(List::Util) >= 1.18
-BuildRequires:  perl(prefork)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(UNIVERSAL)
 BuildRequires:  perl(vars)
+# Optional run-time:
+# prefork is not a dependency, it is loaded to detect wheter the module
+# exists.
 # Tests
 BuildRequires:  perl(base)
 BuildRequires:  perl(File::Spec::Functions)
@@ -35,21 +35,15 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.94
+# Optional tests:
+# CPAN::Meta 2.120900 not helpful
+BuildRequires:  perl(prefork)
 
-# for xt tests
-%if %{with xt_tests}
-BuildRequires:  perl(blib)
-BuildRequires:  perl(Encode)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(Test::CleanNamespaces) >= 0.15
-BuildRequires:  perl(Test::CPAN::Meta)
-BuildRequires:  perl(Test::Kwalitee) >= 1.21
-BuildRequires:  perl(Test::MinimumVersion)
-BuildRequires:  perl(Test::Mojibake)
-BuildRequires:  perl(Test::Pod) >= 1.41
-BuildRequires:  perl(Test::Portability::Files)
-%endif
+# Filter under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
+# Hide private modules
+%global __requires_exclude %{__requires_exclude}|^perl\\((baseA|baseC|C|E)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((A|A::B|baseA|baseB|baseC|baseD|C|D|E|F|G|H|I|J|T|T::A|T::B|T::B::G)\\)
 
 %description
 Class::Autouse allows you to specify a class the will only load when a
@@ -57,31 +51,72 @@ method of that class is called. For large classes that might not be used
 during the running of a program, such as Date::Manip, this can save you
 large amounts of memory, and decrease the script load time.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(prefork)
+Requires:       perl(Test::More) >= 0.94
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Class-Autouse-%{version}
+# Correct permissions
+find -type f -exec chmod 0644 {} +
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+# Correct EOLs
+for F in t/02_main.t t/15_regex.t; do
+    perl -i -pe 's/\r$//' "$F"
+done
 
 %build
-AUTOMATED_TESTING=1 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test
-%if %{with xt_tests}
-# Manually invoke xt-tests
-AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "test_harness(0, 'inc', 'blib/lib', 'blib/arch')" xt/*/*.t
-%endif
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test
 
 %files
-%doc Changes CONTRIBUTING
+%doc Changes CONTRIBUTING README
 %license LICENSE
-%{perl_vendorlib}/Class
-%{_mandir}/man3/Class::Autouse*
+%dir %{perl_vendorlib}/Class
+%{perl_vendorlib}/Class/Autouse
+%{perl_vendorlib}/Class/Autouse.pm
+%{_mandir}/man3/Class::Autouse.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 04 2026 Petr Pisar <ppisar@redhat.com> - 2.02-4
+- Correct dependencies of perl-Class-Autouse-tests
+
+* Thu Jun 04 2026 Petr Pisar <ppisar@redhat.com> - 2.02-3
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-crochet
 Version:        2.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
 # Patches needed for compatibility with Python 3.12
@@ -79,6 +79,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.1.1-13
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

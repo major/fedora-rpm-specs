@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.14
+Version:        0.15.15
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -300,12 +300,6 @@ install -D --preserve-timestamps --mode=0644 \
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# # get-size2
-# #   wanted: 0.8.0
-# #   currently packaged: 0.9.0
-tomcli set Cargo.toml str workspace.dependencies.get-size2.version \
-    '>=0.8.0, <0.10.0'
 
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \

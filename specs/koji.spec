@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.36.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -382,6 +382,9 @@ PYTHONPATH=.:plugins/hub/.:plugins/builder/.:plugins/cli/.:cli/.:www/lib
 %systemd_postun kojira.service
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.36.0-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 23 2026 Kevin Fenzi <kevin@scrye.com> - 1.36.0-1
 - Update to 1.36.0. Fixes rhbz#2450534
 

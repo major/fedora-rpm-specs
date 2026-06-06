@@ -10,10 +10,10 @@
 
 Name:           micropython
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
-# micorpython itself is MIT
+# micropython itself is MIT
 # micropython-libs is MIT
 # berkeley-db is BSD-4-Clause-UC
 # mbedtls is Apache-2.0
@@ -59,6 +59,28 @@ Provides:       bundled(micropython-lib) = %{version}
 %description
 Implementation of Python 3 with very low memory footprint
 
+%package -n mpy-cross
+Summary:        MicroPython cross-compiler
+License:        MIT
+
+%description -n mpy-cross
+The MicroPython cross-compiler. Compiles .py scripts into .mpy bytecode
+files that can be loaded on MicroPython devices.
+
+%package -n micropython-tools
+Summary:        MicroPython device tools and utilities
+# mpremote, pyboard.py, pydfu.py, uf2conv.py are MIT
+# dfu.py is LGPL-3.0-only
+License:        MIT AND LGPL-3.0-only
+BuildArch:      noarch
+Recommends:     python3dist(pyusb)
+Recommends:     mpy-cross
+
+%description -n micropython-tools
+Tools for interacting with MicroPython devices, including mpremote
+(remote device interaction), pyboard (serial REPL access), and
+DFU/UF2 firmware flashing utilities.
+
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
@@ -80,11 +102,18 @@ tar -xf %{SOURCE3}
 mv micropython-lib-%{micropython_lib_commit}/ lib/micropython-lib
 
 # Fix shebangs
-files=$(grep -rl '#!/usr/bin/env python')
+files=$(grep -rEl '#!/usr/bin/(env )?python' .)
 %py3_shebang_fix $files
 
 # Removing pre-built binary; not required for build
 rm ports/cc3200/bootmgr/relocator/relocator.bin
+
+# Patch uf2conv.py to find uf2families.json in the installed data directory
+sed -i 's|pathname = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)|pathname = os.path.join("%{_datadir}/micropython-tools", filename)|' tools/uf2conv.py
+
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires -d tools/mpremote
 
 %build
 # Build the cross-compiler
@@ -94,6 +123,12 @@ rm ports/cc3200/bootmgr/relocator/relocator.bin
 %make_build -C ports/unix PYTHON=%{python3} V=1
 
 execstack -c ports/unix/build-standard/micropython
+
+# Build mpremote wheel
+pushd tools/mpremote
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
+popd
 
 %check
 # Reference: https://git.alpinelinux.org/aports/tree/testing/micropython/APKBUILD
@@ -110,12 +145,52 @@ popd
 mkdir -p %{buildroot}%{_bindir}
 install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 
+# mpy-cross
+install -pm 755 mpy-cross/build/mpy-cross %{buildroot}%{_bindir}
+
+# mpremote
+pushd tools/mpremote
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_install
+%pyproject_save_files mpremote
+popd
+
+# Utility scripts
+install -pm 755 tools/pyboard.py %{buildroot}%{_bindir}/micropython-pyboard
+install -pm 755 tools/dfu.py %{buildroot}%{_bindir}/micropython-dfu
+install -pm 755 tools/pydfu.py %{buildroot}%{_bindir}/micropython-pydfu
+install -pm 755 tools/uf2conv.py %{buildroot}%{_bindir}/micropython-uf2conv
+
+# Data files for uf2conv
+mkdir -p %{buildroot}%{_datadir}/micropython-tools
+install -pm 644 tools/uf2families.json %{buildroot}%{_datadir}/micropython-tools/
+
 %files
 %doc README.md
 %license LICENSE LICENSE.libdb LICENSE.mbedtls
 %{_bindir}/micropython
 
+%files -n mpy-cross
+%doc mpy-cross/README.md
+%license LICENSE
+%{_bindir}/mpy-cross
+
+%files -n micropython-tools -f %{pyproject_files}
+%doc tools/mpremote/README.md
+%license LICENSE
+%{_bindir}/mpremote
+%{_bindir}/micropython-pyboard
+%{_bindir}/micropython-dfu
+%{_bindir}/micropython-pydfu
+%{_bindir}/micropython-uf2conv
+%{_datadir}/micropython-tools/
+
 %changelog
+* Wed Jun 03 2026 Charalampos Stratakis <cstratak@redhat.com> - 1.28.0-2
+- Add the mpy-cross bycode cross-compiler subpackage
+- Add micropython-tools subpackage (mpremote, pyboard, DFU/UF2 utilities)
+Resolves: rhbz#2483610
+
 * Mon Apr 06 2026 Lumír Balhar <lbalhar@redhat.com> - 1.28.0-1
 - Update to 1.28.0
 - Security fix for CVE-2026-1998

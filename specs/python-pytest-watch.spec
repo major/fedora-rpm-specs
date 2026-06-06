@@ -7,7 +7,7 @@ commands on each passing and failing test run.
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Local continuous test runner with pytest and watchdog
 
 License:        MIT
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.2.0-29
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

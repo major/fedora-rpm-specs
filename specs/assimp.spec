@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -178,6 +178,9 @@ exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.impor
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.0.5-3
+- Rebuilt for Python 3.15
+
 * Thu May 14 2026 Scott K Logan <logans@cottsay.net> - 6.0.5-2
 - Add missing dependency from assimp-devel on zlib-devel
 

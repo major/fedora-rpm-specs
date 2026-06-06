@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        90%{?dist}
+Release:        91%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -120,9 +120,9 @@ Patch51:        pegasus-2.14.1-post-quantum.patch
 # 52: fix OpenSSL 4.0 compatibility
 Patch52:        pegasus-2.14.1-openssl-4.0-fix.patch
 
-BuildRequires:  procps, libstdc++, pam-devel
+BuildRequires:  libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
-BuildRequires:  bash, sed, grep, coreutils, procps, gcc, gcc-c++
+BuildRequires:  bash, sed, grep, coreutils, gcc, gcc-c++
 BuildRequires:  libstdc++, make, pam-devel
 BuildRequires:  libxcrypt-devel
 BuildRequires:  openssl-devel
@@ -580,6 +580,9 @@ fi
 
 
 %changelog
+* Thu Jun 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-91
+- Remove unused BR
+
 * Tue May 12 2026 Pavol Žáčik <pzacik@redhat.com> - 2:2.14.1-90
 - Add OpenSSL 4.0 compatibility patch
 

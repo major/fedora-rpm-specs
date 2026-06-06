@@ -6,7 +6,7 @@
 
 Name:		dnfdragora
 Version:	2.99.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	DNF package-manager frontend from ManaTools
 
 License:	GPL-3.0-or-later
@@ -116,6 +116,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.99.4-2
+- Rebuilt for Python 3.15
+
 * Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.99.4-1
 - Update to 2.99.4
 

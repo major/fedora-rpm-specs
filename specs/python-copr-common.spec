@@ -2,7 +2,7 @@
 
 Name:       python-copr-common
 Version:    1.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -79,6 +79,9 @@ version=%version %py3_install
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.7-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 1.7-1
 - Fix test_posix_live_output_cut test for s390x
 

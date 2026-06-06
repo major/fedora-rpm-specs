@@ -6,7 +6,7 @@
 
 Name:           dxf2gcode
 Version:        %{date}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        2D drawings to CNC machine compatible G-Code converter
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 20240509-12
+- Rebuilt for Python 3.15
+
 * Wed Feb 04 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20240509-11
 - Migrate to new macros (rhbz#2377247)
 

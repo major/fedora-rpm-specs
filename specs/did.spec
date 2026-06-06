@@ -1,6 +1,6 @@
 Name: did
 Version: 0.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPL-2.0-or-later
@@ -60,6 +60,9 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.23-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 30 2026 Petr Šplíchal <psplicha@redhat.com> - 0.23-1
 - Enable `epel-10` building and testing (#454)
 - Implement initial support for `forgejo` stats (#452)

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        7.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
 # Support libraries to display HTML results:
@@ -73,6 +73,9 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 7.4.2-2
+- Rebuilt for Python 3.15
+
 * Tue Mar 03 2026 Federico Pellegrin <fede@evolware.org> - 7.4.2-1
 - Upgrade to 7.4.2
 

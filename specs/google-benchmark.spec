@@ -64,6 +64,10 @@ BuildOption(conf): %{shrink:
 # We don’t bother attempting to run the four tests that do succeed in
 # perf_counters_gtest; it’s much more straightforward to just skip these two
 # executables at the ctest level entirely, and little is lost by doing so.
+#
+# This is fixed upstream by https://github.com/google/benchmark/pull/2204, but
+# it is not trivial to backport, so we keep this workaround until the next
+# upstream release.
 BuildOption(check): --exclude-regex '^perf_counters_g?test$'
 %endif
 

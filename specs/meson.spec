@@ -1,4 +1,3 @@
-%global _without_check 1
 %global libname mesonbuild
 
 %bcond check 1

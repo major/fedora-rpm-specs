@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.8
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -304,6 +304,9 @@ EOF
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.8-2
+- Rebuilt for Python 3.15
+
 * Thu Apr 16 2026 Jakub Kadlcik <frostyx@email.cz> 1.8-1
 - AFAIK there is no python3-dnf5 only python3-libdnf5
 

@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -134,6 +134,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.13.0-2
+- Rebuilt for Python 3.15
+
 * Wed May 06 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.13.0-1
 - phase/kiwi, phase/image-builder: xorrisofs (cmdr)
 - phase/kiwi, phase/image-builder: iso fields (cmdr)

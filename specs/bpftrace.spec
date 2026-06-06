@@ -1,7 +1,7 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.25.1
+Version:        0.26.1
 Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
@@ -14,8 +14,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:  x86_64 %{power64} aarch64 s390x riscv64
 
 BuildRequires:  gcc-c++
-BuildRequires:  bison
-BuildRequires:  flex
 BuildRequires:  cmake
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  zlib-devel
@@ -26,7 +24,6 @@ BuildRequires:  libbpf-devel
 BuildRequires:  libbpf-static
 BuildRequires:  binutils-devel
 BuildRequires:  cereal-devel
-BuildRequires:  lldb-devel
 %if ! 0%{?rhel}
 BuildRequires:  libpcap-devel
 %endif
@@ -57,7 +54,11 @@ and predecessor tracers such as DTrace and SystemTap
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%ifnarch s390x
        -DBUILD_TESTING:BOOL=ON \
+%else
+       -DBUILD_TESTING:BOOL=OFF \
+%endif
        -DBUILD_SHARED_LIBS:BOOL=OFF \
        -DUSE_SYSTEM_LIBBPF=ON \
 %if 0%{?llvm_compat}
@@ -69,7 +70,9 @@ and predecessor tracers such as DTrace and SystemTap
 
 
 %check
+%ifnarch s390x
 %{__cmake_builddir}/tests/bpftrace_test
+%endif
 
 
 %install
@@ -96,6 +99,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Thu Jun 04 2026 Viktor Malik <vmalik@redhat.com> - 0.26.1-1
+- Rebased to version 0.26.1
+
 * Thu Mar 26 2026 Viktor Malik <vmalik@redhat.com> - 0.25.1-1
 - Rebased to version 0.25.1
 

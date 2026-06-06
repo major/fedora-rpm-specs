@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	61%{?dist}
+Release:	62%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -621,6 +621,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 04 2026 Josue Hernandez <josherna@redhat.com> - 2.12-62
+- Bump to re-run signing
+
 * Tue May 26 2026 Josue Hernandez <josherna@redhat.com> - 2.12-61
 - Change login error message for more user frienly version
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global desc This tool provides code to load WSGI applications and servers from\
 URIs; these URIs can refer to Python Eggs for INI-style configuration\
 files.  PasteScript provides commands to serve applications based on\
@@ -10,7 +9,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -74,6 +73,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.1.0-15
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-14
 - Bootstrap for Python 3.15
 

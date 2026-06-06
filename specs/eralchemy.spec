@@ -5,7 +5,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ sed -i 's/graphviz >= 0.20.3/graphviz/' pyproject.toml
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.5.0-4
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

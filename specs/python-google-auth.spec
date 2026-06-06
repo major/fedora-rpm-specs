@@ -1,3 +1,5 @@
+%global _without_grpcio 1
+%global _without_tests 1
 # Not packaged: python-pyjwt
 %bcond pyjwt 0
 # Not packaged: python-pyu2f
@@ -17,7 +19,7 @@
 
 Name:           python-google-auth
 Version:        2.47.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
 
@@ -207,6 +209,9 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:2.47.0-2
+- Bootstrap for Python 3.15
+
 * Fri Jan 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.47.0-1
 - 2.47.0
 

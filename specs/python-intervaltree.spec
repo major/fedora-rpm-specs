@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A mutable, self-balancing interval tree for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ Requires:       python3-sortedcontainers
 %doc README.md CHANGELOG.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.2.1-3
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

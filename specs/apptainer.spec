@@ -27,15 +27,15 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.5.0
+%global package_version 1.5.1
 
 %global gocryptfs_version 2.6.1
-%global squashfuse_version 0.6.1
-%global e2fsprogs_version 1.47.3
+%global squashfuse_version 0.6.2
+%global e2fsprogs_version 1.47.4
 %global fuse_overlayfs_version 1.16
 %global squashfs_tools_version 4.7.5
 %ifnarch ppc64le s390x
-%global PRoot_version 5.4.0-rootless.2
+%global PRoot_version 5.4.0-rootless.3
 %endif
 
 # The last singularity version number in EPEL/Fedora
@@ -43,7 +43,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.5.0
+Version: 1.5.1
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -63,13 +63,6 @@ Source11: https://github.com/vasi/squashfuse/archive/%{squashfuse_version}/squas
 %if "%{?e2fsprogs_version}" != ""
 # URL: https://github.com/tytso/e2fsprogs/archive/refs/tags/v%%{e2fsprogs_version}.tar.gz
 Source12: e2fsprogs-%{e2fsprogs_version}.tar.gz
-# URL: https://github.com/tytso/e2fsprogs/pull/246.patch
-Patch121: e2fsprogs-246.patch
-# this is PR 250 from tytso/e2fsprogs backported to apply cleanly on v1.47.3
-# URL: https://github.com/DrDaveD/e2fsprogs/pull/2.patch
-Patch122: e2fsprogs-250.patch
-# URL: https://github.com/tytso/e2fsprogs/pull/251.patch
-Patch123: e2fsprogs-251.patch
 %endif
 %if "%{?fuse_overlayfs_version}" != ""
 Source13: https://github.com/containers/fuse-overlayfs/archive/v%{fuse_overlayfs_version}/fuse-overlayfs-%{fuse_overlayfs_version}.tar.gz
@@ -520,6 +513,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Thu Jun 04 2026 Dave Dykstra <dwd@cern.ch> - 1.5.1
+- Update to upstream 1.5.1
+
 * Wed May 06 2026 Dave Dykstra <dwd@cern.ch> - 1.5.0
 - Update to upstream 1.5.0
 

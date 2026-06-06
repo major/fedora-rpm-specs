@@ -22,7 +22,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -82,6 +82,9 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.7.2-3
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

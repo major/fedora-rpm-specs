@@ -11,10 +11,10 @@ Name:           variety
 %if 0%{?usesnapshot}
 #Release:        0.17%%{?snapshottag}%%{?dist}
 Version:        0.9.0
-Release:        0.2.beta1%{?dist}
+Release:        0.3.beta1%{?dist}
 %else
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.9.0-2
+- Rebuilt for Python 3.15
+
 * Wed May 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.0-1
 - Update to 0.9.0-1
 

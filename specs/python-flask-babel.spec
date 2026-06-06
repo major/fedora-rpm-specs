@@ -8,7 +8,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 License:        BSD-3-Clause
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
@@ -81,6 +81,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.1.0-4
+- Rebuilt for Python 3.15
+
 * Sat Jan 31 2026 Sandro Mani <manisandro@gmail.com> - 4.1.0-3
 - Add fix for list-translations() ordering in tests (#2433806)
 

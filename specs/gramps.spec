@@ -1,6 +1,6 @@
 Name:           gramps
 Version:        6.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -116,6 +116,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.0.8-2
+- Rebuilt for Python 3.15
+
 * Fri Apr 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.0.8-1
 - 6.0.8
 

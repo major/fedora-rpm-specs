@@ -37,7 +37,7 @@
 
 Name: python-avocado
 Version: 112.0
-Release: 3%{?gitrel}%{?dist}
+Release: 4%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -547,6 +547,9 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 112.0-4
+- Rebuilt for Python 3.15
+
 * Tue Apr 07 2026 Adam Williamson <awilliam@redhat.com> - 112.0-3
 - Backport PR #6295 to fix resultsdb_api dependency (#2452821)
 - Backport PR #6252 to fix build (tests) with recent setuptools (#2434951)

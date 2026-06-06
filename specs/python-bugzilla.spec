@@ -1,6 +1,6 @@
 Name:           python-bugzilla
 Version:        3.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for interacting with Bugzilla
 
 License:        GPL-2.0-or-later
@@ -76,6 +76,9 @@ This package includes the 'bugzilla' command-line tool for interacting with bugz
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.3.0-8
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

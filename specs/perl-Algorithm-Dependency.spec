@@ -1,55 +1,94 @@
-Name: 		perl-Algorithm-Dependency
-Version: 	1.112
-Release: 	13%{?dist}
-Summary: 	Algorithmic framework for implementing dependency trees
-License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
-URL: 		https://metacpan.org/release/Algorithm-Dependency
-Source0:	https://cpan.metacpan.org/authors/id/E/ET/ETHER/Algorithm-Dependency-%{version}.tar.gz
+Name:       perl-Algorithm-Dependency
+Version:    1.112
+Release:    14%{?dist}
+Summary:    Algorithmic framework for implementing dependency trees
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
+URL:        https://metacpan.org/release/Algorithm-Dependency
+Source0:    https://cpan.metacpan.org/authors/id/E/ET/ETHER/Algorithm-Dependency-%{version}.tar.gz
+BuildArch:  noarch
+BuildRequires:  coreutils
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Runt-time:
+BuildRequires:  perl(List::Util) >= 1.11
+BuildRequires:  perl(Params::Util) >= 0.31
+# Tests:
+BuildRequires:  perl(File::Spec) >= 0.80
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(Test::ClassAPI) >= 0.6
+BuildRequires:  perl(Test::More) >= 0.47
+# Optional tests:
+# CPAN::Meta 2.120900 not helpful
+# CPAN::Meta::Prereqs not helpful
+Requires:       perl(List::Util) >= 1.11
+Requires:       perl(Params::Util) >= 0.31
 
-BuildArch: noarch
-
-BuildRequires: %{__perl}
-BuildRequires: %{__make}
-
-BuildRequires: perl-generators
-BuildRequires: perl(ExtUtils::MakeMaker)
-BuildRequires: perl(File::Spec)		>= 0.80
-BuildRequires: perl(Test::ClassAPI)	>= 0.6
-BuildRequires: perl(Test::More)		>= 0.47
-BuildRequires: perl(Params::Util)	>= 0.31
-BuildRequires: perl(List::Util)		>= 1.11
-
-BuildRequires: perl(Test::Pod)		>= 1.00
-BuildRequires: perl(Test::CPAN::Meta)	>= 0.12
-BuildRequires: perl(Perl::MinimumVersion) >= 1.20
-BuildRequires: perl(Test::MinimumVersion) >= 0.008
+# Filter under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Spec|List::Util|Params::Util|Test::ClassAPI|Test::More)\\)$
 
 %description
 Algorithm::Dependency is a framework for creating simple read-only
 dependency hierarchies, where you have a set of items that rely on other
 items in the set, and require actions on them as well.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(File::Spec) >= 0.80
+Requires:       perl(Test::ClassAPI) >= 0.6
+Requires:       perl(Test::More) >= 0.47
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Algorithm-Dependency-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test AUTOMATED_TESTING=1
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test
 
 %files
-%doc Changes
+%doc Changes CONTRIBUTING README
 %license LICENSE
-%{perl_vendorlib}/Algorithm
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Algorithm
+%{perl_vendorlib}/Algorithm/Dependency
+%{perl_vendorlib}/Algorithm/Dependency.pm
+%{_mandir}/man3/Algorithm::Dependency.*
+%{_mandir}/man3/Algorithm::Dependency::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 04 2026 Petr Pisar <ppisar@redhat.com> - 1.112-14
+- Modernize a spec file
+- Package the tests
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.112-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -17,7 +17,7 @@ BuildRequires:  %{__cc}
 BuildRequires:  libxcrypt-devel
 BuildRequires:  lua-devel
 BuildRequires:  make
-BuildRequires:  openssl-devel >= 3.5.1
+BuildRequires:  openssl-devel >= 3.5.2
 BuildRequires:  pcre2-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros

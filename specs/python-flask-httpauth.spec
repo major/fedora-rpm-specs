@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Basic and Digest HTTP authentication for Flask routes
 
 License:        MIT
@@ -66,6 +66,9 @@ popd
 %doc README.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.8.1-2
+- Rebuilt for Python 3.15
+
 * Tue Apr 07 2026 Javier Peña <jpena@redhat.com> - 4.8.0-1
 - Update to version 4.8.1 (#2454342)
 - Fixes CVE-2026-34531

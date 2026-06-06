@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        16%{?rc_version:.%rc_version}%{?dist}
+Release:        16%{?rc_version:.%rc_version}%{?dist}.1
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1969,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.13.1-16.1
+- Rebuilt for Python 3.15
+
 * Fri May 29 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-16
 - Rebuild against Samba 4.24.3
 

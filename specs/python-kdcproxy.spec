@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -57,6 +57,9 @@ Requires:       python3-pyasn1
 %license COPYING
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.1.0-3
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

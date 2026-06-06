@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -80,6 +80,9 @@ sed -si '/^paramiko/s/>=3.5.0,<5.0/>=3.5.0/' pyproject.toml
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.7.0-2
+- Rebuilt for Python 3.15
+
 * Wed May 13 2026 Harald Jensas <hjensas@redhat.com> - 4.7.0-1
 - Update to 4.7.0 (#2296411)
   - Relax Paramiko dependency cap for python-paramiko 5.x; legacy SHA-1-only SSH

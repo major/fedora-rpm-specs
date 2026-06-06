@@ -3,7 +3,7 @@
 
 Name:       copr-cli
 Version:    2.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -100,6 +100,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.5-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 15 2026 Jakub Kadlcik <frostyx@email.cz> 2.5-1
 - Fix download-build for manual createrepo Pulp projects
 - Make sure new-api-token updates expiration token

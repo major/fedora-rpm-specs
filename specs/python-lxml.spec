@@ -1,4 +1,3 @@
-%global _without_extras 1
 Name:           python-lxml
 Version:        6.1.1
 Release:        %autorelease

@@ -1,4 +1,3 @@
-%global _without_xdist 1
 # pytest-xdist is not included in RHEL, and on Fedora it depends on psutil
 %bcond xdist %[%{defined fedora} && %{undefined bootstrap}]
 

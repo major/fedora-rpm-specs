@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -131,6 +131,9 @@ export PYTEST_ADDOPTS="-k 'not test_make_tensor_raw'"
 %{_bindir}/check-node
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.17.0-15
+- Rebuilt for Python 3.15
+
 * Wed May 13 2026 Miroslav Suchy <msuchy@redhat.com> - 1.17.0-14
 - Use protobuf3 instead of protobuf
 

@@ -1,3 +1,4 @@
+%global _without_optional_tests 1
 %bcond_without optional_tests
 
 Name:           python-sphinxcontrib-websupport

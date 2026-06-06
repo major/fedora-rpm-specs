@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.57.4~dev
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 ###############################################################################
 
@@ -1073,6 +1073,9 @@ fi
 
 
 %changelog
+* Thu Jun 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.57.4-2
+- Rebuilt for new ppp
+
 * Wed May 27 2026 Rahul Rajesh <rrajesh@redhat.com> - 1:1.57.4-1
 - Update to 1.57.4 release (development)
 - Enable CLAT config by default for Fedora 45

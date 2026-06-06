@@ -6,7 +6,7 @@
 Name:           python-%{srcname}
 Summary:        CSS Cascading Style Sheets library for Python
 Version:        2.11.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/jaraco/cssutils
@@ -73,6 +73,9 @@ rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 %doc examples/
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.11.1-9
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

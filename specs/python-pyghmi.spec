@@ -10,7 +10,7 @@ incorporate the pyghmi library into a Python application.}
 Summary: Python General Hardware Management Initiative (IPMI and others)
 Name: python-%{sname}
 Version: 1.6.16
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 BuildArch: noarch
@@ -96,6 +96,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6.16-3
+- Rebuilt for Python 3.15
+
 * Thu May 21 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.16-2
 - Modernise spec file
 

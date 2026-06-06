@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Send database connection pool stats to collectd
 
 License:        MIT
@@ -70,6 +70,9 @@ sed -r -i 's/^import mock$/from unittest &/' */tests/*.py */*/tests/*.py
 %{_bindir}/connmon
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.0.8-11
+- Rebuilt for Python 3.15
+
 * Thu Jan 29 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.8-10
 - Remove unnecessary dependencies on deprecated mock/pytest-runner
 - Use a build conditional instead of a macro global to control tests

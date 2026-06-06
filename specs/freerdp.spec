@@ -17,7 +17,9 @@
 %{!?rhel:%global _with_openh264 1}
 %{!?rhel:%global _with_sdl_client 1}
 %{!?rhel:%global _with_soxr 1}
-%{!?rhel:%global _with_uriparser 1}
+%if 0%{?fedora} || 0%{?rhel} > 10
+%global _with_uriparser 1
+%endif
 
 # Disable support for AAD WebView popup since it uses webkit2gtk-4.0
 #global _with_webview 1
@@ -25,7 +27,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.26.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -374,6 +376,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Jun 04 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-6
+- Enable uriparser support on RHEL
+
 * Tue May 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.26.0-5
 - Drop multilib-rpm-config usage on RHEL
 

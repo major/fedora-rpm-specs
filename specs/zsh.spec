@@ -1,49 +1,36 @@
 Summary: Powerful interactive shell
 Name: zsh
-Version: 5.9
-Release: 20%{?dist}
+Version: 5.9.1
+Release: 1%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
-Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-Source1: zlogin.rhs
-Source2: zlogout.rhs
-Source3: zprofile.rhs
-Source4: zshrc.rhs
-Source5: zshenv.rhs
-Source6: dotzshrc
-Source7: dotzprofile
 
-# do not use egrep in tests to make them pass again
-Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
-# Upstream commit ab4d62eb975a4c4c51dd35822665050e2ddc6918
-Patch2: 0002-zsh-Use-int-main-in-test-c-codes.patch
+Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source1: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
+Source2: zsh-keyring.asc
+
+Source3: zlogin.rhs
+Source4: zlogout.rhs
+Source5: zprofile.rhs
+Source6: zshrc.rhs
+Source7: zshenv.rhs
+Source8: dotzshrc
+Source9: dotzprofile
+
 # upstream commit a84fdd7c8f77935ecce99ff2b0bdba738821ed79
-Patch3: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
-# upstream commit 1b421e4978440234fb73117c8505dad1ccc68d46
-Patch4: 0004-zsh-enable-PCRE-locale-switching.patch
-# upstream commit b62e911341c8ec7446378b477c47da4256053dc0 and 10bdbd8b5b0b43445aff23dcd412f25cf6aa328a
-Patch5: 0005-zsh-port-to-pcre2.patch
-# upstream commit ecd3f9c9506c7720dc6c0833dc5d5eb00e4459c4
-Patch6: 0006-zsh-support-texinfo-7.0.patch
-# upstream commit 4c89849c98172c951a9def3690e8647dae76308f
-Patch7: 0007-zsh-configure-c99.patch
-# upstream commit d3edf318306e37d2d96c4e4ea442d10207722e94
-Patch8: 0008-zsh-deletefilelist-segfault.patch
-# upstream commit b70b241cc5ca88cc129ff9ba14f8af2e889b90e6
-Patch9: 0009-zsh-support-dnf5.patch
-# upstream commit 071e325c826a89b792056c3faf0c400b8c0c5738
-Patch10: 0010-zsh-fix-dnf5-completion-with-rpm-files.patch
+Patch1: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
 
 # downstream patch for rhbz#2449939
 # already fixed upstream in a major refactor of term color attribute handling
 Patch100: 0100-zsh-_IO_putc-SIGSEGV.patch
 
-BuildRequires: autoconf
 BuildRequires: coreutils
 BuildRequires: gawk
 BuildRequires: gcc
-BuildRequires: gdbm-devel
 BuildRequires: glibc-langpack-ja
+BuildRequires: gpgverify
+BuildRequires: groff
+BuildRequires: hostname
 BuildRequires: libcap-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -53,14 +40,6 @@ BuildRequires: texi2html
 BuildRequires: texinfo
 Requires(post): grep
 Requires(postun): coreutils grep
-
-# the hostname package is not available on RHEL-6
-%if 12 < 0%{?fedora} || 6 < 0%{?rhel}
-BuildRequires: hostname
-%else
-# /bin and /usr/bin are separate directories on RHEL-6
-%define _bindir /bin
-%endif
 
 Provides: /bin/zsh
 
@@ -87,8 +66,8 @@ mechanism, and more.
 This package contains the Zsh manual in html format.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-autoreconf -fiv
 
 # enable parallel build
 sed -e 's|^\.NOTPARALLEL|#.NOTPARALLEL|' -i 'Config/defs.mk.in'
@@ -131,13 +110,13 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/zsh-%{version}
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}
-for i in %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5}; do
+for i in %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7}; do
     install -m 644 $i $RPM_BUILD_ROOT%{_sysconfdir}/"$(basename $i .rhs)"
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/skel
-install -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/skel/.zshrc
-install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/skel/.zprofile
+install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_sysconfdir}/skel/.zshrc
+install -m 644 %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/skel/.zprofile
 
 # This is just here to shut up rpmlint, and is very annoying.
 # Note that we can't chmod everything as then rpmlint will complain about
@@ -182,6 +161,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Thu Jun 04 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.1-1
+- rebase to the latest upstream release (rhbz#2483668)
+
 * Tue Mar 24 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-20
 - fix segfault in _IO_putc (rhbz#2449939)
 

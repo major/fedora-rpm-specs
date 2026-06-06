@@ -1,7 +1,7 @@
 Name:           gpgmepy
 Version:        2.0.0
 Epoch:          1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GPGME
 
 # library LGPL-2.1-or-later, tests and examples use GPL-2.0-or-later
@@ -62,5 +62,8 @@ make check
 %license COPYING*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:2.0.0-2
+- Rebuilt for Python 3.15
+
 * Mon May 04 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.0.0-1
 - initial build after gpgme split

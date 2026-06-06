@@ -1,6 +1,6 @@
 Name:           virtnbdbackup
 Version:        2.46
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backup utility for libvirt
 License:        GPL-3.0-or-later
 URL:            https://github.com/abbbi/%{name}
@@ -57,6 +57,9 @@ install -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/virtnbd*
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.46-2
+- Rebuilt for Python 3.15
+
 * Sat Mar 21 2026 Chris Adams <linux@cmadams.net> 2.46-1
 - new version
 

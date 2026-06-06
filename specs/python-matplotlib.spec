@@ -65,6 +65,10 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 
+# Fix Python 3.15 compatibility issues
+# Upstream issue: https://github.com/matplotlib/matplotlib/issues/31429
+Patch0003:      0006-Fix-Python-3.15-compatibility-issues.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
@@ -391,6 +395,16 @@ export http_proxy=http://127.0.0.1/
 k="${k-}${k+ and }not test_invisible_Line_rendering"
 # This test is flaky.
 k="${k-}${k+ and }not test_form_widget_get_with_datetime_and_date_fields"
+# test_auto_date_locator_intmult_tz fails with Python 3.15.0b1
+# reported: https://github.com/matplotlib/matplotlib/issues/31429#issuecomment-4508466829
+k="${k-}${k+ and }not test_auto_date_locator_intmult_tz"
+# test_pcolornearestunits and test_other_signal_before_sigint fail with Python 3.15.0b2
+k="${k-}${k+ and }not test_pcolornearestunits and not test_other_signal_before_sigint"
+
+%ifarch s390x
+# See https://src.fedoraproject.org/rpms/python-contourpy/c/c9e9d71643
+k="${k-}${k+ and }not (test_contour and algorithm)"
+%endif
 
 env MPLCONFIGDIR=$PWD \
     %{pytest} -ra -n auto \
@@ -399,7 +413,8 @@ env MPLCONFIGDIR=$PWD \
 %ifnarch %{ix86}
 # Skip GTK3Cairo tests that are broken in virtual display.
 k="${k-}${k+ and }not (test_interactive_thread_safety and gtk3cairo)"
-k="${k-}${k+ and }not (test_interactive_timers and gtk3cairo)"
+# Skip this one for all backends
+k="${k-}${k+ and }not test_interactive_timers"
 # These two segfault, resp. timeout in Python 3.14 Copr test environment
 k="${k-}${k+ and }not test_interactive_thread_safety"
 k="${k-}${k+ and }not test_figuremanager_cleans_own_mainloop"

@@ -10,7 +10,7 @@ Built-in features:\
 
 Name:           python-paste-script
 Version:        3.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 BuildArch:      noarch
 
 # paste/script/wsgiserver/ is BSD licensed from CherryPy
@@ -72,6 +72,9 @@ ln -s ./paster-%{python3_version} %{buildroot}%{_bindir}/paster-3
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.3.0-14
+- Rebuilt for Python 3.15
+
 * Tue May 12 2026 Miro Hrončok <mhroncok@redhat.com> - 3.3.0-13
 - Add runtime dependency on python3-pkg-resources
 

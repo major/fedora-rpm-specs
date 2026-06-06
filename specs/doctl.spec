@@ -2,12 +2,12 @@
 %bcond check 1
 
 %global major 1
-%global minor 154
-%global patchlevel 0
+%global minor 160
+%global patchlevel 1
 
 # https://github.com/digitalocean/doctl
 %global goipath         github.com/digitalocean/doctl
-Version:                1.154.0
+Version:                1.160.1
 
 %gometa -L -f
 

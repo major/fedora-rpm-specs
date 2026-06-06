@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight FreeIPA client
 
 License:        MIT
@@ -45,6 +45,9 @@ This package provides the Python %{python3_version} variant.
 %doc README.md
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.0.10-2
+- Rebuilt for Python 3.15
+
 * Sat Feb 28 2026 Nils Philippsen <nils@redhat.com> - 1.0.10-1
 - Update to 1.0.10
 - Modernize build

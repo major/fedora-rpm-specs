@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        6%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -57,6 +57,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-2444009-wayland-xkb-lv-tilde.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch2:         %{name}-1385349-segv-bus-proxy.patch
@@ -547,6 +548,15 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jun 04 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-6
+- Resolves: #2484707 ibus-visibility.h missing
+
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha1-5
+- Rebuilt for Python 3.15
+
+* Thu Jun 04 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-4
+- Fix meson -Dgtk2=disabled
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha1-3
 - Rebuilt for Python 3.15
 

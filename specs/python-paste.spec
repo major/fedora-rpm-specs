@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -94,6 +94,9 @@ py.test -k \
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.10.1-15
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.1-14
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

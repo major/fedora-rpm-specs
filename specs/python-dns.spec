@@ -13,7 +13,7 @@
 
 Name:           python-dns
 Version:        2.8.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -103,6 +103,12 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.8.0-5
+- Rebuilt for Python 3.15
+
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.8.0-4
+- Bootstrap for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

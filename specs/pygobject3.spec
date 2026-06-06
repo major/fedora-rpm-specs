@@ -13,6 +13,8 @@ Summary:        Python bindings for GObject Introspection
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
 Source0:        https://download.gnome.org/sources/pygobject/%{major_minor_version}/pygobject-%{version}.tar.gz
+# Don't raise GLib.unix_signal_add_full deprecation warnings on import (merged upstream)
+Patch:          https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/545.patch
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}

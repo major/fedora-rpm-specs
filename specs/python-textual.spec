@@ -1,6 +1,6 @@
 Name:           python-textual
 Version:        8.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -70,6 +70,9 @@ rm -rf tests/test_slug.py
 
 
 %changelog
+* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 8.1.1-2
+- Rebuilt for Python 3.15
+
 * Thu May 14 2026 Maxime Ripard <mripard@kernel.org> - 8.1.1-1
 - Update to 8.1.1
 
