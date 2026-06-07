@@ -1,17 +1,17 @@
 %global realname certifi
 
 Name:     erlang-%{realname}
-Version:  2.16.0
+Version:  2.17.0
 Release:  %autorelease
 BuildArch:noarch
 Summary:  Dummy certifi (certificate bundle) package for erlang
 License:  BSD-3-Clause
 URL:      https://github.com/%{realname}/erlang-%{realname}
 VCS:      git:%{url}.git
-Source0:  %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:   erlang-certifi-0001-Enforce-Fedora-CA-bundle.patch
-BuildRequires:  erlang-parse_trans
-BuildRequires:  erlang-rebar3
+Source:   %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Patch:    erlang-certifi-0001-Enforce-Fedora-CA-bundle.patch
+BuildRequires: erlang-parse_trans
+BuildRequires: erlang-rebar3
 
 %description
 Upstream certifi provides a custom CA bundle to erlang. Since custom CA bundles

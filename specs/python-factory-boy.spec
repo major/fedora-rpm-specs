@@ -1,4 +1,3 @@
-%global _without_tests 1
 # tests disabled in RHEL
 %if 0%{?rhel}
 %bcond_with tests

@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        5.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -381,6 +381,9 @@ fi
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 5.6.0-3
+- Rebuilt for Python 3.15
+
 * Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 5.6.0-2
 - drop $RENEW_HOOK from certbot-renew.service rhbz#2418470
 

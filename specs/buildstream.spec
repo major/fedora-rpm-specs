@@ -3,7 +3,7 @@ Summary:       Build/integrate software stacks
 License:       Apache-2.0
 URL:           https://buildstream.build/
 
-ExcludeArch:   %{ix86}
+ExcludeArch:   %{ix86} s390x
 
 Version:       2.7.0
 Release:       %autorelease
@@ -14,6 +14,12 @@ BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9
 BuildRequires: python3-setuptools < 82
 BuildRequires: python3-grpcio-tools
+
+BuildRequires: buildbox
+BuildRequires: python3-pexpect
+BuildRequires: python3-pyftpdlib
+BuildRequires: python3-pytest
+BuildRequires: python3-pytest-timeout
 
 Requires:      buildbox
 Requires:      fuse3
@@ -46,11 +52,12 @@ platforms and chipsets.
 ./setup.py build_grpc
 %pyproject_wheel
 
-
 %install
 %pyproject_install
 %pyproject_save_files -l %{name}
 
+%check
+%pytest
 
 %files -n %{name} -f %{pyproject_files}
 %doc NEWS README.rst

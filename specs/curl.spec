@@ -12,8 +12,8 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.20.0
-Release: 2%{?dist}
+Version: 8.21.0~rc1
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -21,9 +21,6 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
-
-# Fix potential 100% CPU usage in curl_multi_socket()
-Patch001: 0001-curl-8.20.0-event-fix-wakeup-consumption.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -48,7 +45,6 @@ BuildRequires: automake
 BuildRequires: brotli-devel
 BuildRequires: coreutils
 BuildRequires: gcc
-BuildRequires: groff
 BuildRequires: krb5-devel
 BuildRequires: libidn2-devel
 BuildRequires: libnghttp2-devel
@@ -79,9 +75,6 @@ BuildRequires: zlib-devel
 
 # For gpg verification of source tarball
 BuildRequires: gnupg2
-
-# needed to compress content of tool_hugehelp.c after changing curl.1 man page
-BuildRequires: perl(IO::Compress::Gzip)
 
 # needed for generation of shell completions
 BuildRequires: perl(Getopt::Long)
@@ -264,6 +257,7 @@ printf "619\n620\n621\n622\n623\n624\n625\n626\n627\n628\n" >>tests/data/DISABLE
 printf "629\n630\n631\n633\n634\n635\n636\n637\n638\n639\n" >>tests/data/DISABLED
 printf "640\n641\n642\n656\n664\n665\n" >>tests/data/DISABLED
 printf "1446\n1459\n1583\n2004\n2007\n" >>tests/data/DISABLED
+printf "3021\n3022\n" >>tests/data/DISABLED
 %endif
 
 # test3026: avoid pthread_create() failure due to resource exhaustion on i386
@@ -471,6 +465,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri Jun 05 2026 Jan Macku <jamacku@redhat.com> - 8.21.0~rc1-1
+- new upstream release candidate
+
 * Mon May 18 2026 Jan Macku <jamacku@redhat.com> - 8.20.0-2
 - Fix potential 100% CPU usage in curl_multi_socket()
 

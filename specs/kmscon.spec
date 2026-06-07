@@ -21,13 +21,21 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(libudev) >= 172
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
+
+Patch: localectl_support.patch
+
+# Temporary downstream patch until kmscon natively supports /usr/lib/issue.d
+# This is needed by Fedora Server and Fedora ELN to display the Cockpit
+# console URL at the login prompt.
+# See https://github.com/kmscon/kmscon/issues/407 for more details
+Patch: 0001-Use-agetty-on-Fedora.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -91,8 +99,6 @@ mod-gltex.so
 %{_bindir}/%{name}
 %{_bindir}/kmscon-launch-gui
 %{_libdir}/kmscon/mod-unifont.so
-%dir %{_libexecdir}/kmscon
-%{_libexecdir}/kmscon/kmscon
 %{_mandir}/man1/kmscon.1*
 %{_mandir}/man5/kmscon.conf.5*
 %{_unitdir}/kmscon.service

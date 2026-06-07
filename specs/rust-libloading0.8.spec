@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate libloading
 
-%global crate uu_basenc
-
-Name:           rust-uu_basenc
-Version:        0.7.0
+Name:           rust-libloading0.8
+Version:        0.8.9
 Release:        %autorelease
-Summary:        basenc ~ (uutils) decode/encode input
+Summary:        Bindings for native dynamic library loading primitives
 
-License:        MIT
-URL:            https://crates.io/crates/uu_basenc
+License:        ISC
+URL:            https://crates.io/crates/libloading
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          libloading-fix-metadata-auto.diff
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-basenc ~ (uutils) decode/encode input.}
+Bindings around the platform's dynamic library loading primitives with
+greatly improved memory safety.}
 
 %description %{_description}
 
@@ -34,8 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/BENCHMARKING.md
-%doc %{crate_instdir}/README.package.md
+%doc %{crate_instdir}/README.mkd
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -53,6 +52,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# scrub precompiled Windows DLLs that act as test input on Windows
+rm -v tests/*.dll
 
 %generate_buildrequires
 %cargo_generate_buildrequires

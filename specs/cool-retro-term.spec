@@ -1,32 +1,36 @@
 Name:    cool-retro-term
 Summary: Terminal emulator mimicking a CRT display
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 
-Version: 1.2.0
-Release: 12%{?dist}
+Version: 2.0.0~beta2
+Release: 1%{?dist}
+
+%global git_tag %(echo "%{version}" | tr '~' '-')
 
 URL: https://github.com/Swordfish90/%{name}
-Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %{URL}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
+
+# Build against system-provided KDSingleApplication
+Patch0: 0000-unbundle-kdsingleapplication.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: make
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtdeclarative-devel
-BuildRequires: qt5-qtquickcontrols2-devel
+BuildRequires: kdsingleapplication-qt6-devel >= 1.2.0
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: qt6-qtquickcontrols2-devel
 
 Requires: hicolor-icon-theme
-Requires: qt5-qtbase
-Requires: qt5-qtbase-gui
-Requires: qt5-qtgraphicaleffects
-Requires: qt5-qtdeclarative
-Requires: qt5-qtquickcontrols
-Requires: qt5-qtquickcontrols2
+Requires: qt6-qtbase
+Requires: qt6-qtbase-gui
+Requires: qt6-qtgraphicaleffects
+Requires: qt6-qtdeclarative
+Requires: qt6-qtquickcontrols
+Requires: qt6-qtquickcontrols2
 
-# Version requirement includes a release number as well,
-# since we want a fresher git snapshot, not the original v0.2.0
-%global qtw_version 0.2.0-9.20220109git6322802
+# We want a fresher git snapshot, not the original v0.2.0
+%global qtw_version 0.2.0^20260531
 BuildRequires: qmltermwidget >= %{qtw_version}
 Requires: qmltermwidget >= %{qtw_version}
 
@@ -38,7 +42,7 @@ customizable, and reasonably lightweight.
 
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{git_tag}
 
 # qmltermwidget is included in the project via a git submodule.
 # Since we serve it as a separate package, we modify
@@ -48,7 +52,7 @@ sed -e "s/SUBDIRS += qmltermwidget//" -i %{name}.pro
 
 
 %build
-%qmake_qt5 CONFIG+=force_debug_info
+%qmake_qt6 CONFIG+=force_debug_info
 make %{?_smp_mflags}
 
 
@@ -81,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Fri Jun 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.0~beta2-1
+- Update to v2.0.0~beta2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

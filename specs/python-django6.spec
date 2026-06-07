@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Main Django, i.e. whether this is the main Django version in the distribution
 # that owns /usr/bin/django-admin and other unique paths
 # based on Python packaging, see e.g. python3.14

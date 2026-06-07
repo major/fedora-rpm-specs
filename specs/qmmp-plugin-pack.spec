@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
-Version:        2.3.0
-Release:        4%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Fri Jun 05 2026 Karel Volný <kvolny@redhat.com> 2.3.1-1
+- new version 2.3.1 (rhbz#2483379)
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

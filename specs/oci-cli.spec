@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.73.2
+Version:        3.85.0
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -14,6 +14,9 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
+
+Requires:       python3-pkg-resources
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -34,7 +37,7 @@ This is the command line interface for Oracle Cloud Infrastructure.}
 %autosetup -n %{name}-%{version}
 
 # Remove upper limits and pinned dependencies.
-sed -i -e 's/,[<=]\+[0-9\.]\+//' -e 's/==/>=/' setup.py
+sed -i -e 's/,[<=]\+[0-9\.]\+//' -e 's/<=\+[0-9\.]\+//' -e 's/==/>=/' setup.py
 
 # Ignore the version of certifi.
 sed -i -e 's/certifi>=[0-9\.]*/certifi/' setup.py

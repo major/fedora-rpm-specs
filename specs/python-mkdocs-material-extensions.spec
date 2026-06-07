@@ -1,4 +1,3 @@
-%global _without_tests 1
 Name:           python-mkdocs-material-extensions
 Version:        1.3.1
 Release:        %autorelease

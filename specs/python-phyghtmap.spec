@@ -2,7 +2,7 @@
 
 Name:           python-phyghtmap
 Version:        2.23
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
 License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
@@ -74,6 +74,9 @@ install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 %{_mandir}/man1/%{modname}.1*
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 2.23-22
+- Rebuilt for Python 3.15
+
 * Mon May 25 2026 Federico Pellegrin <fede@evolware.org> - 2.23-21
 - Try to further fix package: GDAL swapped coordinates (rhbz#2469045)
 

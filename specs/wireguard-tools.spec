@@ -1,9 +1,8 @@
 Name:           wireguard-tools
-Version:        1.0.20250521
-Release:        3%{?dist}
+Version:        1.0.20260223
+Release:        1%{?dist}
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
 Source0:        https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-%{version}.tar.xz
@@ -58,6 +57,18 @@ WITH_BASHCOMPLETION=yes WITH_WGQUICK=yes WITH_SYSTEMDUNITS=yes -C src
 %{_mandir}/man8/wg-quick.8*
 
 %changelog
+* Fri Jun 05 2026 Joe Doss <joe@solidadmin.com> - 1.0.20260223-1
+- Update to 1.0.20260223
+- syncconf: account for persistent keepalive removed from config file
+- config: preserve const correctness
+- wg-quick@.service: add deps on wg-quick.target
+- wg-quick: linux: do not unnecessarily set sysctl
+- wg-quick: use addconf instead of setconf
+- wg-quick: linux: deal with resolvconf migration more gracefully
+- wg-quick: pass on # comments to {Pre,Post}{Up,Down}
+- syncconf: account for psks removed from config file
+- wg-quick: linux: use smallest mtu, not largest
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20250521-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

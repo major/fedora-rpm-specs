@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.28.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micropython itself is MIT
@@ -186,6 +186,9 @@ install -pm 644 tools/uf2families.json %{buildroot}%{_datadir}/micropython-tools
 %{_datadir}/micropython-tools/
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.28.0-3
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Charalampos Stratakis <cstratak@redhat.com> - 1.28.0-2
 - Add the mpy-cross bycode cross-compiler subpackage
 - Add micropython-tools subpackage (mpremote, pyboard, DFU/UF2 utilities)

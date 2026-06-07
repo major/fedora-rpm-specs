@@ -1,10 +1,3 @@
-%global _without_graphite_extra 1
-%global _without_interpolatable_extra 1
-%global _without_plot_extra 1
-%global _without_symfont_extra 1
-%global _without_tests 1
-%global _without_ufo_extra 1
-%global _without_woff_extra 1
 %bcond tests 1
 
 # Some extras are disabled in RHEL to avoid bringing in additional
@@ -38,7 +31,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.63.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -208,6 +201,12 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 4.63.0-4
+- Rebuilt for Python 3.15
+
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 4.63.0-3
+- Bootstrap for Python 3.15
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.63.0-2
 - Bootstrap for Python 3.15
 

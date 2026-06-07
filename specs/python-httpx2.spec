@@ -1,3 +1,8 @@
+# To break a dependency loop between httpx2 -> uvicorn -> a2wsgi -> starlette -> httpx2,
+# we disable tests when bootstrapping new Python version.
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
+
 Name:           python-httpx2
 Version:        2.3.0
 Release:        %autorelease
@@ -24,6 +29,7 @@ BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  tomcli
 
+%if %{with tests}
 # Test dependencies; see the part of the workspace’s “dev” dependency group
 # after the “Tests” comment. It’s possible to generate dependencies from this
 # group, like:
@@ -48,6 +54,7 @@ BuildRequires:  %{py3_dist trio}
 BuildRequires:  %{py3_dist trustme}
 BuildRequires:  %{py3_dist uvicorn}
 BuildRequires:  %{py3_dist werkzeug}
+%endif
 
 %global common_description %{expand:
 HTTPX2 is a fully featured HTTP client library for Python. It includes an
@@ -171,9 +178,12 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check
-# TODO: Add an import check once better multi-package support is available,
+# TODO: Use %%pyproject_check_import once better multi-package support is available,
 # https://src.fedoraproject.org/rpms/pyproject-rpm-macros/pull-request/612
+%py3_check_import httpx2 httpcore2
+%if %{with tests}
 %pytest -m 'not network' -rs --verbose --ignore=tests/test_benchmark.py
+%endif
 
 
 %files -n python3-httpcore2

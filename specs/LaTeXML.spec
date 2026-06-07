@@ -6,6 +6,9 @@ Summary:        Converts TeX and LaTeX to XML/HTML/ePub/MathML
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://dlmf.nist.gov/LaTeXML/
 Source0:        http://search.cpan.org/CPAN/authors/id/B/BR/BRMILLER/%{name}-%{version}.tar.gz
+# Skip broken tests.
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1120366 and https://github.com/brucemiller/LaTeXML/issues/2670.
+Patch0001:      LaTeXML-0.8.8-skip-broken-tests.patch
 
 BuildArch:      noarch
 

@@ -1,7 +1,7 @@
 Summary: Git commit message linting tool
 Name: gitlint
 Version: 0.19.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 Source: https://github.com/jorisroovers/gitlint/archive/refs/tags/v%{version}.tar.gz
 URL: https://jorisroovers.github.io/gitlint
@@ -49,6 +49,9 @@ popd
 %{_bindir}/gitlint
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.19.1-2
+- Rebuilt for Python 3.15
+
 * Thu Jun 04 2026 Bastien Nocera <bnocera@redhat.com> - 0.19.1-1
 - Update to 0.19.1
 

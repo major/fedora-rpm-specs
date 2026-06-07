@@ -12,6 +12,8 @@ Summary:	Metakernel for Jupyter
 License:	BSD-3-Clause
 URL:		https://github.com/Calysto/metakernel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+#		https://github.com/Calysto/metakernel/pull/439
+Patch0:		0001-Ignore-DeprecationWarning-from-Python-3.15.patch
 BuildArch:	noarch
 
 #		For metakernel_echo and metakernel_python
@@ -69,6 +71,7 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 
 %prep
 %setup -q -n metakernel-%{pkgversion}
+%patch -P0 -p1
 
 # Allow older pytest versions
 sed -e /minversion/d -e /strict/d -i pyproject.toml
@@ -123,6 +126,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/metakernel_echo
 
 %changelog
+* Fri Jun 05 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.4-2
+- Ignore DeprecationWarning from Python 3.15
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.0.4-2
 - Rebuilt for Python 3.15
 

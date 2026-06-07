@@ -24,6 +24,9 @@ Source:         %{pypi_source pydantic_core}
 #   Pydantic people, and we can reasonably assume that they will update in due
 #   course without prompting from us.
 Patch:          pydantic-core-fix-metadata.diff
+# Upstream thinks it's a good idea to rely on exact formatting of error messages in other projects. Meh.
+# See the commit message in the patch for more info.
+Patch:          0001-Fix-test-assertion-to-account-for-change-in-rust-uuid.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24

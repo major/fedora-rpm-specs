@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/CentOS/common/centpkg
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.10.4-2
+- Rebuilt for Python 3.15
+
 * Tue May 19 2026 Troy Dawson <tdawson@redhat.com> - 0.10.4-1
 - determine_rhel_state(): Conform to new Product Pages : CS-3385 (sgallagh)
 

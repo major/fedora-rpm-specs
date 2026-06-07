@@ -1,6 +1,6 @@
 Name:           libfreenect
 Version:        0.7.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 # OpenNI driver is available as Apache-2.0
@@ -201,6 +201,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.7.5-8
+- Rebuilt for Python 3.15
+
 * Sun Feb 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.7.5-7
 - Fix build with CMake 4.0 (resolves rhbz#2380720, rhbz#2381254)
 

@@ -24,6 +24,8 @@ Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
 Patch:		0001-tests-conftest-do-not-call-pip.patch
 # Upstream patches from main branch:
 Patch:		0001-src-__init__.py-fix-incorrect-generation-of-PDF-cont.patch
+# Upstreamable:
+Patch:		0001-remove-usage-of-typing.ByteString.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)

@@ -8,6 +8,7 @@ URL:            https://github.com/latchset/jwcrypto
 Source0:        https://github.com/latchset/jwcrypto/releases/download/v%{version}/jwcrypto-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  python3-pytest
 BuildRequires:  python3-devel
 
 %generate_buildrequires

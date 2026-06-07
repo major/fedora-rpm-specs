@@ -2,7 +2,7 @@
 %global pypi_name zopfli
 
 Name:           python-zopfli
-Version:        0.4.1
+Version:        0.4.2
 Release:        2%{?dist}
 Summary:        Zopfli module for python
 License:        Apache-2.0
@@ -50,6 +50,12 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}}"
 %doc README.rst
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.4.2-2
+- Rebuilt for Python 3.15
+
+* Fri Jun 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 0.4.2-1
+- Update to 0.4.2 version (#2481437)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.4.1-2
 - Rebuilt for Python 3.15
 

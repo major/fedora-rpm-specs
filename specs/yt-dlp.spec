@@ -15,6 +15,12 @@ License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 
+# Python 3.15 support patches
+# [ie/youtube] Fix PO token sanitization for Python>=3.14.4 (#16453)
+Patch:          https://github.com/yt-dlp/yt-dlp/commit/9c1f3cf3373620c593c4e315f276ac134f6beb20.patch
+# Fix tests for python3.15 (#16884)
+Patch:          https://github.com/yt-dlp/yt-dlp/pull/16884.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

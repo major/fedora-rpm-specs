@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Main Django, i.e. whether this is the main Django version in the distribution
 # that owns /usr/bin/django-admin and other unique paths
 # based on Python packaging, see e.g. python3.13
@@ -21,7 +20,7 @@
 %bcond old_setuptools 0
 %endif
 
-Version:        5.2.14
+Version:        5.2.15
 %global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
 

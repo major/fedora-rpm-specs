@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.5
+Version:	3.6
 Release:	1%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -21,9 +21,6 @@ BuildRequires:	pkgconfig(Qt6Svg)
 BuildRequires:	pkgconfig(Qt6Charts)
 # qt6-qt5compat-devel
 BuildRequires:	pkgconfig(Qt6Core5Compat)
-%if 0%{?fedora} && 0%{?fedora} > 39
-#ExcludeArch:	i686
-%endif
 
 
 %description
@@ -68,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jun 05 2026 RI_Eugene <ti.eugene@gmail.com> - 3.6-1
+- Version bump
+
 * Fri May 15 2026 RI_Eugene <ti.eugene@gmail.com> - 3.5-1
 - Version bump
 

@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       13%{?dist}
+Release:       14%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -106,6 +106,9 @@ install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcub
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 3.10.0~rc3^20240726gitcbda6c6c-14
+- Rebuilt for Python 3.15
+
 * Tue Jan 27 2026 Jerry James <loganjerry@gmail.com> - 3.10.0~rc3^%{git_date}git%{git_short_commit}-13
 - Stop building for 32-bit x86
 

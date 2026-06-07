@@ -1,53 +1,99 @@
 Name:           perl-MooX-Types-MooseLike-Numeric
 Version:        1.03
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Moo types for numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Types-MooseLike-Numeric
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MATEU/MooX-Types-MooseLike-Numeric-%{version}.tar.gz
 BuildArch:      noarch
-
-BuildRequires:  %{__make}
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Exporter) >= 5.57
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(Moo) > 1.004002
-BuildRequires:  perl(MooX::Types::MooseLike) >= 0.23
-BuildRequires:  perl(MooX::Types::MooseLike::Base)
-BuildRequires:  perl(Test::Fatal) >= 0.003
-BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-
+# Run-time:
+BuildRequires:  perl(Exporter) >= 5.57
+BuildRequires:  perl(MooX::Types::MooseLike) >= 0.23
+BuildRequires:  perl(MooX::Types::MooseLike::Base)
+# Tests:
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(Moo) > 1.004002
+BuildRequires:  perl(Test::Fatal) >= 0.003
+BuildRequires:  perl(Test::More) >= 0.96
+# Optional tests:
+BuildRequires:  perl(Moose)
 Requires:       perl(MooX::Types::MooseLike) >= 0.23
 
 # Filter under-specified requires
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MooX::Types::MooseLike\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Moo|MooX::Types::MooseLike|Test::Fatal|Test::More)\\)$
 
 %description
-Moo types for numbers, adapted from MooseX::Types::Common::Numeric.
+This Perl module provides a set of numeric types to be used in Moo-based
+classes.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Moo) > 1.004002
+Requires:       perl(Moose)
+Requires:       perl(Test::Fatal) >= 0.003
+Requires:       perl(Test::More) >= 0.96
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n MooX-Types-MooseLike-Numeric-%{version}
+# Remove unused, but dangerous code
+rm maint/Makefile.PL.include
+perl -i -ne 'print $_ unless m{\A\Emaint/Makefile.PL.include\E}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test
+make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/MooX
+%dir %{perl_vendorlib}/MooX/Types
+%dir %{perl_vendorlib}/MooX/Types/MooseLike
+%{perl_vendorlib}/MooX/Types/MooseLike/Numeric.pm
+%{_mandir}/man3/MooX::Types::MooseLike::Numeric.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 05 2026 Petr Pisar <ppisar@redhat.com> - 1.03-29
+- Moderize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %define cid io.github.torrent_file_editor.Torrent-file-editor
 
 Name:           torrent-file-editor
-Version:        1.0.2
-Release:        2%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Edit and create torrent files
 
 # Most code licensed with GPL3+
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{cid}.metainf
 %{_metainfodir}/%{cid}.metainfo.xml
 
 %changelog
+* Fri Jun 05 2026 Ivan Romanov <drizt72@zoho.eu> - 1.0.3-1
+- Bump to v1.0.3
+
 * Mon Mar 23 2026 Ivan Romanov <drizt72@zoho.eu> - 1.0.2-2
 - Add patch to fix epel building
 - Drop Qt4 support

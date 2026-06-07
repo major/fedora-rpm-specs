@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       41%{?dist}
+Release:       42%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -77,6 +77,9 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 3.0-42
+- Rebuilt for Python 3.15
+
 * Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-41
 - Fixed FTBFS
   Resolves: rhbz#2434635

@@ -1,8 +1,8 @@
 %bcond gpu_demo %{undefined rhel}
 
 Name:           harfbuzz
-Version:        14.2.0
-Release:        2%{?dist}
+Version:        14.2.1
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -166,6 +166,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Fri Jun 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.2.1-1
+- Update to 14.2.1 version (#2484129)
+
 * Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 14.2.0-2
 - Rebuilt for icu 78.3
 

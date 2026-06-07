@@ -1,6 +1,6 @@
 Summary: Generates function prototypes and variable declarations from C code
 Name: cproto
-Version: 4.7y
+Version: 4.8
 Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 Source: https://invisible-island.net/archives/cproto/cproto-%{version}.tgz
@@ -37,6 +37,9 @@ definitions as much as other prototype generators.
 %{_mandir}/man1/cproto.1*
 
 %changelog
+* Sat Jun 06 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.8-1
+- update to 4.8  fixes rhbz#2476920
+
 * Fri Feb 20 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.7y-1
 - update to 4.7y fixes rhbz#2335184
 

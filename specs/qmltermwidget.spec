@@ -24,20 +24,20 @@ Summary:    A port of QTermWidget to QML
 # said license is omitted from the License tag.
 License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 
-%global git_date   20220109
-%global git_commit 63228027e1f97c24abb907550b22ee91836929c5
+%global git_date   20260531
+%global git_commit 8913504fa2ebd220ebe7c680c32954e1b3c035c5
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version:    0.2.0^%{git_date}git%{git_commit_short}
-Release:    7%{?dist}
+Release:    1%{?dist}
 
 URL:        https://github.com/Swordfish90/%{name}
 Source0:    %{URL}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
 
 BuildRequires: make
-BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5Gui)
-BuildRequires: pkgconfig(Qt5Quick)
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6Quick)
 
 %description
 This project is a QML port of QTermWidget. It is written
@@ -49,7 +49,7 @@ to make cooperation possible.
 
 
 %build
-%qmake_qt5
+%qmake_qt6
 %make_build
 
 
@@ -64,10 +64,13 @@ mv %{buildroot}/usr %{buildroot}%{_prefix}
 %files
 %license LICENSE LICENSE.LGPL2+
 %doc README.md AUTHORS
-%{_qt5_qmldir}/QMLTermWidget/
+%{_qt6_qmldir}/QMLTermWidget/
 
 
 %changelog
+* Fri Jun 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.0^20260531git8913504-1
+- Update to latest git snapshot (required by cool-retro-term)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0^20220109git6322802-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

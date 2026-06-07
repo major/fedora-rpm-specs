@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.61.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.61.1-2
+- Rebuilt for Python 3.15
+
 * Mon Mar 09 2026 Packit <hello@packit.dev> - 0.61.1-1
 - Force downstream synchronization of upstream configuration to enable side tagging in EPEL 10.
 - Resolves: rhbz#2437993

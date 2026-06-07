@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        gRPC for GCP extensions
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ cd src
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.2.2-24
+- Rebuilt for Python 3.15
+
 * Wed Feb 04 2026 Major Hayden <major@redhat.com> - 0.2.2-23
 - Migrate to pyproject macros (rhbz#2377758)
 

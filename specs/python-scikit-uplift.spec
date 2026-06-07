@@ -13,7 +13,7 @@ campaign.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Uplift modeling in scikit-learn style in python
 
 License:        MIT
@@ -91,6 +91,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 0.5.1-16
+- Rebuilt for Python 3.15
+
 * Fri May 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.1-15
 - Rebuild for Pandas3
 

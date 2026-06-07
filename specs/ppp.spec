@@ -15,6 +15,7 @@ Name:    ppp
 #   NetworkManager-pptp
 # sstp-client
 #     NetworkManager-sstp
+# pptpd
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.3

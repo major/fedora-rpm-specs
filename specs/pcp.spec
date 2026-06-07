@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 7.1.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3426,6 +3426,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 7.1.5-2
+- Rebuilt for Python 3.15
+
 * Mon Jun 1 2026 Lauren Chilton <lchilton@redhat.com> - 7.1.5-1
 - Latest upstream release
 

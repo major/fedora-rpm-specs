@@ -1,6 +1,3 @@
-%global _without_pooch 1
-%global _without_pythran 1
-%global _without_tests 1
 # without means enabled
 %bcond_with doc
 
@@ -47,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.16.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -302,6 +299,9 @@ popd
 %endif
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.16.2-5
+- Rebuilt for Python 3.15
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.16.2-4
 - Bootstrap for Python 3.15
 

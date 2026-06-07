@@ -70,6 +70,7 @@ as well as container tools like flatpak and the atomic CLI.
 
 %package libs
 Summary: C shared libraries %{name}
+Requires: bubblewrap
 
 %description libs
 The %{name}-libs provides shared libraries for %{name}.

@@ -210,11 +210,13 @@ BuildRequires:  chrpath
 
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  cmake(gflags)
+# enforce compat package protobuf3
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  pkgconfig(protobuf)
-BuildRequires:  protobuf-compiler
+BuildRequires:  protobuf-compiler < 4
 BuildRequires:  pkgconfig(re2)
 BuildRequires:  pkgconfig(openssl)
-%if ! (0%{?rhel} >= 10)
+%if ! (0%{?rhel} >= 10 || 0%{?fedora} >= 45)
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 BuildRequires:  openssl-devel-engine
 %endif
@@ -226,6 +228,7 @@ BuildRequires:  xxhash-static
 
 %if %{with core_tests}
 BuildRequires:  cmake(benchmark)
+BuildRequires:  libpfm-devel
 %if %{with system_gtest}
 BuildRequires:  cmake(gtest)
 BuildRequires:  pkgconfig(gmock)
@@ -242,6 +245,7 @@ BuildRequires:  gdb
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3-pkg-resources
 
 # grpcio (setup.py) setup_requires (with
 #     GRPC_PYTHON_ENABLE_DOCUMENTATION_BUILD, which is NOT enabled):
@@ -276,6 +280,7 @@ BuildRequires: python3dist(cython) > 0.23
 # grpcio_testing (src/python/grpcio_testing/setup.py) install_requires:
 # grpcio_tests (src/python/grpcio_tests/setup.py) install_requires:
 # grpcio_tools (tools/distrib/python/grpcio_tools/setup.py) install_requires:
+BuildRequires:  python3-protobuf < 4
 BuildRequires:  python3dist(protobuf) >= 3.12.0
 
 # grpcio_status (src/python/grpcio_status/setup.py) install_requires:
@@ -452,6 +457,9 @@ Patch:          0001-Remove-usage-of-coverage.patch
 # removal of engine and related headers.
 Patch:		grpc-1.48.4-core-tsi-ssl_transport_security.cc.patch
 
+# OpenSSL 4 build fixes
+Patch:          0001-Update-OpenSSL-API-usage-for-compatibility.patch
+
 Requires:       grpc-data = %{version}-%{release}
 
 # Upstream https://github.com/protocolbuffers/upb does not support building
@@ -579,7 +587,7 @@ Summary:        Protocol buffers compiler plugins for gRPC
 
 Requires:       grpc%{?_isa} = %{version}-%{release}
 Requires:       grpc-cpp%{?_isa} = %{version}-%{release}
-Requires:       protobuf-compiler
+Requires:       protobuf-compiler < 4
 
 Provides:       bundled(upb)
 Provides:       bundled(utf8_range)
@@ -679,6 +687,7 @@ Python language bindings for gRPC (HTTP/2-based RPC framework).
 
 %package -n python3-grpcio-tools
 Summary:       Package for gRPC Python tools
+Requires:      python3-pkg-resources
 # License:        same as base package
 
 Provides:       bundled(upb)

@@ -1,7 +1,7 @@
 %global pypi_name pymdown-extensions
 
 Name:           python-%{pypi_name}
-Version:        10.16
+Version:        10.21.2
 Release:        %autorelease
 Summary:        Extension pack for Python Markdown
 

@@ -1,6 +1,6 @@
 Name:           ogr2osm
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert ogr-readable files like shapefiles into .pbf or .osm data
 
 License:        MIT
@@ -48,6 +48,9 @@ source to the .pbf or .osm output.
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.2.1-2
+- Rebuilt for Python 3.15
+
 * Fri Jan 23 2026 Andrea Musuruane <musuruan@gmail.com> - 1.2.1-1
 - Updated to new upstream release
 

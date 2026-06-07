@@ -1,3 +1,4 @@
+%global _without_xarray 1
 # note: PROJ_MIN_VERSION is defined in the setup.py file of pyproj
 # a compatibility matrix is also provided in docs/installation.rst
 %global minimal_needed_proj_version 9.4.0
@@ -6,7 +7,7 @@
 
 Name:           pyproj
 Version:        3.7.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -186,6 +187,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 3.7.2-7
+- Bootstrap for Python 3.15
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.7.2-6
 - Rebuilt for Python 3.15
 

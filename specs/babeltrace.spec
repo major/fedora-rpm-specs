@@ -1,6 +1,6 @@
 Name:           babeltrace
 Version:        1.5.11
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
@@ -119,6 +119,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.5.11-20
+- Rebuilt for Python 3.15
+
 * Thu Jun 04 2026 Michael Jeanson <mjeanson@efficios.com> - 1.5.11-19
 - Add patch to fix python segfault with swig >= 4.3
 - Add patch to print a clear error with CTF-2 traces

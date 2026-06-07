@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.167.0
+Version:        2.177.0
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 
@@ -19,6 +19,12 @@ Patch0:         https://patch-diff.githubusercontent.com/raw/oracle/oci-python-s
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+# Upstream imports crc32c unconditionally in oci.object_storage but does not
+# declare it in pyproject.toml, so it is neither pulled by
+# %%pyproject_buildrequires nor auto-generated as a runtime dependency.
+# oci/object_storage/transfer/internal/additional_checksum.py imports crc32c.
+BuildRequires:  python3dist(crc32c)
 
 %if %{with tests}
 BuildRequires:  python3dist(docstring-parser)
@@ -36,6 +42,10 @@ This is the Python SDK for Oracle Cloud Infrastructure. }
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+
+# Undeclared upstream dependency (imported in oci.object_storage). See the
+# BuildRequires comment above.
+Requires:       python3dist(crc32c)
 
 %description -n python3-%{srcname} %{_description}
 

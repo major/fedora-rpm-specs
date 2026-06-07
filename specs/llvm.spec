@@ -2391,7 +2391,10 @@ rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
       %{buildroot}%{install_libdir}/libFIROpenACCTransforms.a \
       %{buildroot}%{install_libdir}/libMIFDialect.a
 
+
+%if %{maj_ver} < 23
 find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
+%endif
 
 # this is a test binary
 rm -v %{buildroot}%{install_bindir}/f18-parse-demo
@@ -3384,12 +3387,6 @@ fi
 }}
 %{install_bindir}/clang-%{maj_ver}
 
-%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-clang.cfg
-%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-clang++.cfg
-%ifarch x86_64
-%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-clang.cfg
-%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-clang++.cfg
-%endif
 %{expand_mans clang clang++}
 
 %if 0%{with pgo}
@@ -3414,6 +3411,13 @@ fi
 %if %{with bundle_compat_lib}
 %{_libdir}/libclang.so.%{compat_maj_ver}*
 %{_libdir}/libclang-cpp.so.%{compat_maj_ver}*
+%endif
+
+%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-clang.cfg
+%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-clang++.cfg
+%ifarch x86_64
+%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-clang.cfg
+%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-clang++.cfg
 %endif
 
 %files -n %{pkg_name_clang}-devel
@@ -3758,9 +3762,14 @@ fi
     flang-new
 }}
 %{install_bindir}/flang-%{maj_ver}
+
+%if %{maj_ver} < 23
 %{expand_includes %{expand:
     flang/*.mod
 }}
+%else
+%{_prefix}/lib/clang/%{maj_ver}/finclude/flang/%{llvm_triple}/*.mod
+%endif
 
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
 %ifarch x86_64

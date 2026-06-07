@@ -1,4 +1,3 @@
-%global _without_python 1
 %bcond  python 1
 %bcond  export 1
 %global soversion 3
@@ -65,7 +64,7 @@ Summary:        Python bindings for %{name}
 # package. These sources are licensed BSD-3-Clause. The use of nanobind also
 # brings in an indirect dependency on the header-only robin-map library, which
 # is licensed MIT.
-License:        Apache-2.0 AND BSD-3-Clause MIT AND Zlib
+License:        Apache-2.0 AND BSD-3-Clause AND MIT AND Zlib
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       robin-map-static
 Provides:       bundled(libnanobind)

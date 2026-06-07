@@ -13,21 +13,27 @@ mdadm \\
 qemu-img \\
 mtd-utils \\
 mtd-utils-ubi \\
+veritysetup \\
+jq \\
+openssl \\
+rauc \\
 uboot-tools
 EOF)
 
 # Exclude some fs tools until their tests can cope with newer features
 # erofs-utils https://github.com/pengutronix/genimage/issues/309
 # genextfs    https://github.com/pengutronix/genimage/issues/330
+# rauc        https://github.com/pengutronix/genimage/issues/333
 %global trim_fs_block_tools %{lua:
 	tr = rpm.expand('%{fs_block_tools}')
-	tr = string.gsub(tr,'genext2fs', '')
+	tr = string.gsub(tr, 'genext2fs', '')
 	tr = string.gsub(tr ,'erofs%-utils', '')
+	tr = string.gsub(tr ,'rauc', '')
 	print(tr)
 }
 
 Name:           genimage
-Version:        19
+Version:        20
 
 Release:        %autorelease
 Summary:        Flexible filesystem and disk image generator

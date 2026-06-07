@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        1.56.0
+Version:        1.63.0
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 
@@ -13,16 +13,20 @@ Patch1:         0001-add-build-backend-to-key-to-be-complient-with-PEP517.patch
 
 BuildSystem:    pyproject
 BuildOption(install):  -l google
-# local-tokenizer requires recent protobug
+# local-tokenizer requires recent protobuf
 # https://bugzilla.redhat.com/show_bug.cgi?id=1831350
 BuildOption(generate_buildrequires): -x aiohttp
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# not stated in pyproject
+Requires:       python3-mcp
+BuildRequires:  python3-mcp
 # required to run dynamic buildrequires
 BuildRequires:  python3-pkginfo
 # checks
 BuildRequires:  python3-sentencepiece
+BuildRequires:  %{py3_dist pytest}
 # soft deps
 Recommends:     python3-sentencepiece
 
@@ -43,8 +47,30 @@ Summary:        %{summary}
 # local-tokenizer cannot be build now - see above
 %pyproject_extras_subpkg -n python3-google-genai aiohttp
 
+%prep -a
+# relax from aiohttp<3.13.3 - we already have 3.13.3 in Fedora
+sed -i '1,$s/^aiohttp = \["aiohttp<3.13.3"\]/aiohttp = ["aiohttp"]/' pyproject.toml
+
 %check
-%pyproject_check_import -e google.genai.local_tokenizer
+export GOOGLE_GENAI_REPLAYS_DIRECTORY=/tmp
+%pyproject_check_import -e google.genai.local_tokenizer \
+        -e google.genai.tests.types.test_types \
+        -e google.genai.tests.transformers.test_blobs 
+        -e google.genai.tests.batches.test_create_with_inlined_requests
+
+#        -e google.genai.tests.batches.test_create_with_inlined_requests \
+#        -e google.genai.tests.local_tokenizer* \
+#        -e google.genai.tests.models.test_edit_image \
+#        -e google.genai.tests.models.test_function_call_streaming \
+#        -e google.genai.tests.models.test_generate_* \
+#        -e google.genai.tests.models.test_segment_image \
+#        -e google.genai.tests.models.test_upscale_image \
+#        -e google.genai.tests.shared.models.test_edit_image \
+#        -e google.genai.tests.shared.models.test_segment_image \
+#        -e google.genai.tests.shared.models.test_upscale_image \
+#        -e google.genai.tests.transformers.test_blobs \
+#        -e google.genai.tests.types.test_types
+
 
 %files -n python3-google-genai -f %{pyproject_files}
 %doc README.md

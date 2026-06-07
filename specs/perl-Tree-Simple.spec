@@ -1,50 +1,98 @@
-Name: 		perl-Tree-Simple
-Version: 	1.34
-Release: 	15%{?dist}
-Summary: 	Tree::Simple Perl module
-License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
-URL: 		https://metacpan.org/release/Tree-Simple
-Source0: 	https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Tree-Simple-%{version}.tgz
-BuildArch: 	noarch
-
+Name:       perl-Tree-Simple
+Version:    1.34
+Release:    16%{?dist}
+Summary:    Object-oriented n-ary tree
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
+URL:        https://metacpan.org/release/Tree-Simple
+Source0:    https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Tree-Simple-%{version}.tgz
+BuildArch:  noarch
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
-
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Scalar::Util) >= 1.18
-BuildRequires:  perl(Test::Exception) >= 0.15 
-BuildRequires:  perl(Test::More) >= 1.001002
-BuildRequires:  perl(Test::Memory::Cycle) >= 1.02
-BuildRequires:  perl(constant)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# Run-time:
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Scalar::Util) >= 1.18
+# Tests:
+BuildRequires:  perl(Test::Exception) >= 0.15 
+BuildRequires:  perl(Test::More) >= 1.001002
+# Optional tests:
+BuildRequires:  perl(Test::Memory::Cycle) >= 1.02
+Requires:       perl(Scalar::Util) >= 1.18
 
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Scalar::Util|Test::Exception|Test::More)\\)$
 
 %description
-A simple tree object.
+This Perl module in an fully object-oriented implementation of a simple n-ary
+tree. It is built upon the concept of parent-child relationships, so therefore
+every Tree::Simple object has both a parent and a set of children (who
+themselves may have children, and so on). Every Tree::Simple object also has
+siblings, as they are just the children of their immediate parent.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Scalar::Util) >= 1.18
+Requires:       perl(Test::Exception) >= 0.15 
+Requires:       perl(Test::More) >= 1.001002
+Requires:       perl(Test::Memory::Cycle) >= 1.02
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Tree-Simple-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-%{__make} test
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test
 
 %files
 %doc Changes README
 %license LICENSE
-%{perl_vendorlib}/Tree
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Tree
+%{perl_vendorlib}/Tree/Simple
+%{perl_vendorlib}/Tree/Simple.pm
+%{_mandir}/man3/Tree::Simple.*
+%{_mandir}/man3/Tree::Simple::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 05 2026 Petr Pisar <ppisar@redhat.com> - 1.34-16
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

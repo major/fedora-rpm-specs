@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   19189f0ef4b285279f0492a5c5f4ded6304984b0
+%global github_commit   637609536026a0950adf5d3aa30b54f16c73e178
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20260126
+%global github_date     20260604
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -52,11 +52,11 @@
 # their versioning of mojolicious is different due to
 # https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Feature::Compat::Try) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Text::Glob) perl(Time::Moment)
+%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Feature::Compat::Try) perl(Filesys::Df) perl(Getopt::Long) perl(HTTP::Status) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Text::Glob) perl(Time::Moment)
 # Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname openssh-clients perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Plugin::OAuth2) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
+%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname openssh-clients perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Plugin::OAuth2) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
 # The following line is generated from dependencies.yaml (upstream)
 %define client_requires curl git-core jq perl(Getopt::Long::Descriptive) perl(IO::Socket::SSL) >= 2.009 perl(IPC::Run) perl(JSON::Validator) perl(LWP::Protocol::https) perl(LWP::UserAgent) perl(Test::More) perl(YAML::PP) >= 0.020 perl(YAML::XS)
 # Diff from SUSE 1: case (they have openQA-client, we have openqa-client)
@@ -81,17 +81,18 @@
 # (openssh-common in SUSE), Syntax::Keyword::Try::Deparse seems to be
 # missing upstream
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %mcp_requires %python_scripts_requires %worker_requires curl jq openssh os-autoinst perl(App::cpanminus) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 perl(Syntax::Keyword::Try::Deparse) postgresql-server
+%define test_requires %common_requires %main_requires %mcp_requires %python_scripts_requires %worker_requires curl file jq openssh os-autoinst perl(App::cpanminus) perl(Test::Compile) perl(Test::Exception) perl(Test::Fatal) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 perl(Syntax::Keyword::Try::Deparse) postgresql-server
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
 %define qemu qemu
 %endif
 # Diff from SUSE: perl::Critic::Community is omitted as we do not package it,
-# SUSE has python3-yamllint but we just have yamllint
+# SUSE has python3-yamllint but we just have yamllint,
+# SUSE has python3-gitlint and python3-ruff but we just have gitlint and ruff
 # shfmt is omitted as our package for it was orphaned and retired
 # The following line is generated from dependencies.yaml (upstream)
-%define style_check_requires ShellCheck perl(Code::TidyAll) perl(Perl::Critic) yamllint
+%define style_check_requires ShellCheck perl(Code::TidyAll) perl(Perl::Critic) >= 1.156.0 perl(Pod::Markdown) perl(Test::Perl::Critic) gitlint ruff yamllint
 # diff from SUSE: perl(Devel::Cover::Report::Codecovbash) dropped because
 # it's not in Fedora (this means you can't run 'make coverage-codecov')
 # The following line is generated from dependencies.yaml (upstream)
@@ -101,7 +102,7 @@
 # multiple binary packages) and I can't find any reason for it
 # diff from SUSE 2: we don't have perl(Test::CheckGitStatus) packaged
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl perl(Perl::Tidy) postgresql-devel rsync sudo tar
+%define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl make pandoc perl(Perl::Tidy) perl(TAP::Harness::JUnit) postgresql-devel python3-weasyprint rsync sudo tar xorg-x11-fonts
 # diff from SUSE: chromedriver dropped as we don't package it
 # that makes this look fairly silly, but we want to follow the SUSE
 # spec as close as we can
@@ -113,7 +114,7 @@
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
 Release:        %{autorelease}
-Summary:        OS-level automated testing framework
+Summary:        Framework for automated system-level testing (web-frontend, scheduler and tools)
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
 License:        GPL-2.0-or-later AND MIT AND BSD-3-Clause
@@ -139,6 +140,12 @@ Source4:        23-fedora-messaging.t
 # but we need to change the groups so we have our own versions here
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
+# https://github.com/os-autoinst/openQA/pull/7504
+# Fix 16-tests_dependencies.t when selenium is not present
+Patch:          0001-t-Skip-earlier-in-tests_dependencies.t.patch
+# https://github.com/os-autoinst/openQA/pull/7509
+# Support invent.kde.org as a bug tracker (for bug links)
+Patch:          0001-fix-Support-invent.kde.org-and-work_items-in-bug-URL.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -330,7 +337,7 @@ Summary:        Helper package to ease setup of postgresql DB
 Requires:       %{name} = %{version}
 Requires:       postgresql-server
 BuildRequires:  postgresql-server
-Supplements:    packageand(%name:postgresql-server)
+Supplements:    (%{name} and postgresql-server)
 
 %description local-db
 You only need this package if you have a local postgresql server
@@ -387,6 +394,33 @@ Requires:       perl-interpreter
 Use this package to install munin scripts that allow to monitor some openQA
 statistics.
 
+%package client-bash-completion
+Summary:        Bash Completion for %{name}
+Group:          Development/Tools/Other
+Requires:       bash-completion
+Supplements:    (%{name}-client and bash-completion)
+
+%description client-bash-completion
+The official bash completion script for openqa-cli.
+
+%package client-zsh-completion
+Summary:        Zsh Completion for %{name}
+Group:          Development/Tools/Other
+Supplements:    (%{name}-client and zsh)
+
+%description client-zsh-completion
+The official zsh completion script for openqa-cli.
+
+%package llm-server
+Summary:        Local LLM Server features for openQA workers
+Requires:       %{name}-worker = %{version}
+Requires:       podman
+
+%description llm-server
+openQA workers can optionally host a local llama.cpp server to provide
+LLM features directly from the worker node. This package provides the
+Podman Quadlet configuration to automatically manage the server.
+    
 %prep
 %autosetup -p1 -n %{github_name}-%{github_commit} -a 1
 sed -e 's,/bin/env python,/bin/python,' -i script/openqa-label-all
@@ -434,7 +468,7 @@ ln -s %{_datadir}/openqa/script/dump-db %{buildroot}%{_bindir}/openqa-dump-db
 ln -s %{_datadir}/openqa/script/openqa-label-all %{buildroot}%{_bindir}/openqa-label-all
 
 install -d -m 755 %{buildroot}%{_datadir}/openqa/client
-install -m 755 public/openqa-cli.yaml %{buildroot}%{_datadir}/openqa/client/openqa-cli.yaml
+install -m 644 public/openqa-cli.yaml %{buildroot}%{_datadir}/openqa/client/openqa-cli.yaml
 
 # munin
 install -d -m 755 %{buildroot}/%{_datadir}/munin/plugins
@@ -545,8 +579,19 @@ fi
 %postun local-db
 %systemd_postun_with_restart %{openqa_localdb_services}
 
+%post llm-server
+# ensure the Podman Quadlet generator is run to create the .service unit
+[ -x /usr/bin/systemctl ] && /usr/bin/systemctl daemon-reload || :
+%systemd_post openqa-llm-server.service
+
+%preun llm-server
+%systemd_preun openqa-llm-server.service
+
+%postun llm-server
+%systemd_postun openqa-llm-server.service
+
 %files
-%doc README.asciidoc
+%doc README.md
 %ghost %config(noreplace) %attr(0644,geekotest,root) %{_sysconfdir}/openqa/openqa.ini
 %ghost %config(noreplace) %attr(0640,geekotest,root) %{_sysconfdir}/openqa/database.ini
 %dir %{_sysconfdir}/openqa
@@ -635,6 +680,12 @@ fi
 %{_sysusersdir}/geekotest.conf
 
 %files devel
+
+%files client-bash-completion
+%{_datadir}/bash-completion/completions/openqa-cli
+
+%files client-zsh-completion
+%{_datadir}/zsh/site-functions/_openqa-cli
 
 %files common
 %license COPYING
@@ -725,6 +776,7 @@ fi
 %dir %{_sysconfdir}/nginx
 %dir %{_sysconfdir}/nginx/conf.d
 %config %{_sysconfdir}/nginx/conf.d/openqa.conf.template
+%config %{_sysconfdir}/nginx/conf.d/openqa-llm.conf.template
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-assets.inc
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-endpoints.inc
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-locations.inc
@@ -800,6 +852,11 @@ fi
 
 %files plugin-fedoraupdaterestart
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
+
+%files llm-server
+%dir %{_datadir}/containers
+%dir %{_datadir}/containers/systemd
+%{_datadir}/containers/systemd/openqa-llm-server.container
 
 %changelog
 %{autochangelog}

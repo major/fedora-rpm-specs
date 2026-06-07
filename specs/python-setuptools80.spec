@@ -244,6 +244,8 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 #   the test expects removed .exe files to be installed
 # --ignore=tools
 #   the tests test various upstream release tools we don't use/ship
+# -k "not test_namespace_package_importable and not test_packages_in_the_same_namespace_installed_and_cwd"
+#   the tests are failing with python3.15.0b1 - https://github.com/python/cpython/issues/149671
 PRE_BUILT_SETUPTOOLS_WHEEL=%{_pyproject_wheeldir}/%{python_wheel_name} \
 PIP_NO_BUILD_ISOLATION=0 \
 PYTHONPATH=$(pwd) %pytest \
@@ -252,7 +254,8 @@ PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
  --ignore=tools \
- -k "not test_wheel_includes_cli_scripts and not test_equivalent_output"
+ -k "not test_wheel_includes_cli_scripts and not test_equivalent_output and \
+    not test_namespace_package_importable and not test_packages_in_the_same_namespace_installed_and_cwd"
 %endif # with tests
 
 

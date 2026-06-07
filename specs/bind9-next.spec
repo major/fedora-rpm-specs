@@ -54,7 +54,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.21
+Version:  9.21.22
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -88,10 +88,8 @@ Patch1: bind-9.16-redhat_doc.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11825
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/12061
 Patch5: bind-9.21-unittest-32b-mem.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11865
-Patch6: bind-9.21-openssl4-malloc.patch
 
 %{?systemd_ordering}
 Requires:       coreutils

@@ -1,4 +1,4 @@
-%global         soversion 3.3
+%global         soversion 3.4
 %global         patchversion 0
 
 Summary:        Easy to integrate Vulkan memory allocation library

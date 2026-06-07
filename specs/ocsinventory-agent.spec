@@ -22,7 +22,7 @@ Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
 Version:   %{official_version}
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -216,6 +216,7 @@ cp %{SOURCE11} README.RPM
 %{make_build}
 rm run-postinst
 
+
 %install
 %{make_install}
 
@@ -266,12 +267,20 @@ rm %{buildroot}%{perl_vendorlib}/Ocsinventory/Unix/postinst.pl
 # Provided by ocsinventtory-ipdiscover
 rm %{buildroot}%{_sbindir}/ipdiscover
 
-# set the correct permissions
-chmod 755 %{buildroot}%{_libexecdir}/%{name}/ocsinventory-agent.cron
-chmod 755 %{buildroot}%{perl_vendorlib}/Ocsinventory/Agent.pm
+# Agent.pm has an explicit attribute set so we need to tweak file list
+# this is ugly, but has maximum compat across versions/environments
+find %{buildroot}%{perl_vendorlib}/Ocsinventory -type d \
+    | sed -e "s;^%{buildroot};;" \
+    | xargs -i echo "%%dir {}" \
+    >> %{name}-perl.files
+
+find %{buildroot}%{perl_vendorlib}/Ocsinventory -type f \
+    | sed -e "s;^%{buildroot};;" \
+    | grep -v '%{perl_vendorlib}/Ocsinventory/Agent.pm' \
+    >> %{name}-perl.files
+
 
 %post
-
 # See if sysadmin requested ocs agent run on boot
 %systemd_post ocsinventory-agent-onboot.timer
 
@@ -281,33 +290,39 @@ chmod 755 %{buildroot}%{perl_vendorlib}/Ocsinventory/Agent.pm
 # See if sysadmin requested ocs agent daily run
 %systemd_post ocsinventory-agent-daily.timer
 
+
 %files
 %defattr(644,root,root,755)
+%doc %{_mandir}/man1/%{name}*
 %attr(0755, root, root) %{_sbindir}/%{name}
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%{_libexecdir}/%{name}/
+%dir %{_libexecdir}/%{name}/
+%attr(0755, root, root) %{_libexecdir}/%{name}/ocsinventory-agent.cron
 %dir %{_localstatedir}/log/%{name}
-%{_mandir}/man1/%{name}*
 %{_unitdir}/*
 
-%files -n perl-Ocsinventory-Agent
+%files -n perl-Ocsinventory-Agent -f %{name}-perl.files
 %defattr(644,root,root,755)
 %doc AUTHORS Changes README.md THANKS README.RPM
 %doc etc/ocsinventory-agent/softwares/example.sh
+%doc %{_mandir}/man3/Ocs*
 %license LICENSE
-%config(noreplace) %{_sysconfdir}/ocsinventory/%{name}.cfg
-%config(noreplace) %{_sysconfdir}/ocsinventory/modules.conf
-%{perl_vendorlib}/Ocsinventory
-%{_mandir}/man3/Ocs*
-%dir %{_localstatedir}/lib/%{name}
-%{_localstatedir}/lib/%{name}/download
-%{_localstatedir}/lib/%{name}/snmp
 %dir %{_sysconfdir}/ocsinventory
 %dir %{_sysconfdir}/ocsinventory/softwares
+%config(noreplace) %{_sysconfdir}/ocsinventory/%{name}.cfg
+%config(noreplace) %{_sysconfdir}/ocsinventory/modules.conf
+%attr(0755, root, root) %{perl_vendorlib}/Ocsinventory/Agent.pm
+%dir %{_localstatedir}/lib/%{name}
+%dir %{_localstatedir}/lib/%{name}/download
+%{_localstatedir}/lib/%{name}/snmp
 
 
 %changelog
+* Fri Jun 5 2026 Pat Riehecky <riehecky@fnal.gov> - 2.10.5-2
+- Fix incorrect permissions on %{_libexecdir}/%{name}/ocsinventory-agent.cron
+- Correct manpages not tagged as doc
+
 * Thu Apr 23 2026 Pat Riehecky <riehecky@fnal.gov> - 2.10.5-1
 - Update to 2.10.5
 

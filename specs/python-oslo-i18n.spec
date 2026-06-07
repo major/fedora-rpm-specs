@@ -23,6 +23,11 @@ Source101:        https://tarballs.openstack.org/%{pypi_name}/oslo_i18n-%{versio
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
+# https://review.opendev.org/c/openstack/oslo.i18n/+/991846
+Patch0:         0001-_gettextutils-deduplicate-Babel-aliases-in-get_avail.patch
+# https://review.opendev.org/c/openstack/oslo.i18n/+/991849
+Patch1:         0001-tests-fix-TypeError-message-for-Python-3.15.patch
+
 BuildArch:      noarch
 
 # Required for tarball sources verification
@@ -66,7 +71,6 @@ Translation files for Oslo i18n library
 %endif
 %autosetup -n oslo_i18n-%{version} -S git
 
-
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
 sed -i \
@@ -75,12 +79,12 @@ sed -i \
     -e "/^oslo.config[[:space:]]*[><=]/d" \
     test-requirements.txt doc/requirements.txt
 
-# Automatic BR generation
+
 %generate_buildrequires
 %if 0%{?with_doc}
-%pyproject_buildrequires -t -e docs
+%pyproject_buildrequires -t -e docs,%{default_toxenv}
 %else
-%pyproject_buildrequires
+%pyproject_buildrequires -t
 %endif
 
 %build
@@ -113,7 +117,7 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %find_lang oslo_i18n --all-name
 
 %check
-%tox
+%tox -e %{default_toxenv}
 
 %files -n python3-%{pkg_name}
 %doc ChangeLog CONTRIBUTING.rst README.rst

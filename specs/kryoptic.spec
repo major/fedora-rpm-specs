@@ -9,7 +9,7 @@
 %global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic,profiles
 
 Name:           kryoptic
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -33,13 +33,13 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
-# https://github.com/latchset/kryoptic/pull/439
-Patch:          kryoptic-1.5.0-asn1.patch
-# https://github.com/latchset/kryoptic/pull/452
-Patch:          kryoptic-i386.patch
+# https://github.com/latchset/kryoptic/pull/459
+Patch:          kryoptic-deadlock.patch
+
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
+BuildRequires:  pandoc
 %if %{with gpgcheck}
 BuildRequires: gnupg2
 %endif
@@ -73,6 +73,10 @@ export CONFDIR=%{_sysconfdir}
 %{cargo_license_summary -f %{features}}
 %{cargo_license -f %{features}} > LICENSE.dependencies
 
+pandoc -s -t man doc/kryoptic.conf.man.md -o kryoptic.conf.5
+pandoc -s -t man doc/kryoptic.man.md -o kryoptic.7
+pandoc -s -t man tools/softhsm/softhsm_migrate.man.md -o softhsm_migrate.1
+
 %install
 install -Dp target/rpm/softhsm_migrate $RPM_BUILD_ROOT%{_bindir}/softhsm_migrate
 install -Dp target/rpm/%{soname}.so $RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.so
@@ -80,9 +84,14 @@ install -Dp target/rpm/%{soname}.so $RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.s
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
 echo "module: %{soname}.so" > $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/kryoptic.module
 
+install -Dp -m 0644 kryoptic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/kryoptic.conf.5
+install -Dp -m 0644 kryoptic.7 $RPM_BUILD_ROOT%{_mandir}/man7/kryoptic.7
+install -Dp -m 0644 softhsm_migrate.1 $RPM_BUILD_ROOT%{_mandir}/man1/softhsm_migrate.1
+
 %if %{with check}
 %check
-%cargo_test -f %{features}
+export TEST_PKCS11_MODULE=$RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.so
+%cargo_test -f %{features},integration_tests
 %endif
 
 %files
@@ -95,10 +104,13 @@ echo "module: %{soname}.so" > $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/kryopti
 %dir %{_datadir}/p11-kit
 %dir %{_datadir}/p11-kit/modules
 %{_datadir}/p11-kit/modules/kryoptic.module
+%{_mandir}/man5/kryoptic.conf.5*
+%{_mandir}/man7/kryoptic.7*
 
 
 %files tools
 %{_bindir}/softhsm_migrate
+%{_mandir}/man1/softhsm_migrate.1*
 
 %changelog
 %autochangelog

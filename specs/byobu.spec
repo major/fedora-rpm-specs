@@ -1,9 +1,10 @@
 %global _iconstheme    hicolor
 %global _iconsbasedir  %{_datadir}/icons/%{_iconstheme}
 %global _iconsscaldir  %{_iconsbasedir}/scalable/apps
+%global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.4
+Version:	7.7
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -104,7 +105,9 @@ rm %{buildroot}%{_mandir}/man1/vigpg.1*
 install -D -p -m 0644 usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscaldir}/%{name}.svg
 
 # fix shebangs
-%py3_shebang_fix %{buildroot}%{_bindir}/* %{buildroot}%{_libexecdir}/%{name}/*
+%py3_shebang_fix %{buildroot}%{_bindir}/*
+%py3_shebang_fix %{buildroot}%{_libexecdir}/%{name}/*
+%py3_shebang_fix %{buildroot}%{trustmuxlibdir}/trustmux/_daemon.py
 
 # install README.md manually to the doc dir
 install -d %{buildroot}%{_docdir}/%{name}
@@ -113,8 +116,10 @@ cp -p README.md %{buildroot}%{_docdir}/%{name}/
 # remove empty profile.d
 rm -rf %{buildroot}%{_sysconfdir}/profile.d
 
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
 
 %files -f %{name}.lang
 %license COPYING
@@ -138,7 +143,35 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/wifi-status.1*
 %{_libexecdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/
+# trustmux files
+%{_bindir}/trustmux
+%{_bindir}/trustmux-ctl
+%{_bindir}/trustmux-disable
+%{_bindir}/trustmux-enable
+%{_bindir}/trustmux-pair
+%{_bindir}/trustmux-unpair
+%{trustmuxlibdir}/trustmux/__init__.py
+%{trustmuxlibdir}/trustmux/__main__.py
+%{trustmuxlibdir}/trustmux/_ctl.py
+%{trustmuxlibdir}/trustmux/_daemon.py
+%{trustmuxlibdir}/trustmux/_disable.py
+%{trustmuxlibdir}/trustmux/_enable.py
+%{trustmuxlibdir}/trustmux/_pair.py
+%{trustmuxlibdir}/trustmux/_unpair.py
+%{_mandir}/man1/trustmux.1.gz
+%{_mandir}/man1/trustmux-ctl.1.gz
+%{_mandir}/man1/trustmux-disable.1.gz
+%{_mandir}/man1/trustmux-enable.1.gz
+%{_mandir}/man1/trustmux-pair.1.gz
+%{_mandir}/man1/trustmux-unpair.1.gz
+%{_datadir}/trustmux/static/app.js
+%{_datadir}/trustmux/static/index.html
+%{_datadir}/trustmux/static/sw.js
+%{_datadir}/trustmux/static/trustmux-logo.svg
+%{_datadir}/trustmux/static/trustmux.svg
+%{_datadir}/trustmux/static/icons/icon-192.png
+%{_datadir}/trustmux/static/icons/icon-512.png
+
 
 %changelog
 %autochangelog
-

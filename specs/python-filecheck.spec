@@ -5,7 +5,7 @@
 
 Name: python-%{pypi_name}
 Version: 1.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
 URL: https://github.com/AntonLydike/filecheck
@@ -62,6 +62,9 @@ fi
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.0.3-2
+- Rebuilt for Python 3.15
+
 * Mon Apr 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.3-1
 - switch to new upstream
 - clean up
