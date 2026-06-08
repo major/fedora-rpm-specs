@@ -3,7 +3,7 @@ Version:        1.6.0
 Release:        %autorelease
 Summary:        A Diameter protocol open implementation
 License:        BSD-3-Clause
-URL:            http://www.freediameter.net/
+URL:            https://github.com/freeDiameter/freeDiameter
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -35,6 +35,11 @@ for %{name} package.
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=None . -Wno-dev
 %cmake_build
+
+# tests are disabled due error testcnx.c
+#  6/11 Test #10: testcnx ..........................***Failed    0.04 sec
+#%check
+#%test
 
 %install
 %cmake_install

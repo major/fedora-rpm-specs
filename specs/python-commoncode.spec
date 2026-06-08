@@ -13,6 +13,8 @@ License:        Apache-2.0 AND Python-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/nexB/commoncode
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
+Patch:          0001-Make-py314-constant-also-apply-to-py315.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

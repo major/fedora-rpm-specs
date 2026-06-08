@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        QuDiDA (QUick and DIrty Domain Adaptation)
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 0.0.4-12
+- Rebuilt for Python 3.15
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

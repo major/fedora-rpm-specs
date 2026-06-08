@@ -62,8 +62,8 @@ BuildRequires:  flex
 BuildRequires:  libtool
 BuildRequires:  file-devel
 BuildRequires:  jansson-devel >= 2.5
-BuildRequires:  protobuf-c-devel
-BuildRequires:  protobuf-compiler
+BuildRequires:  protobuf3-c-devel
+BuildRequires:  protobuf-compiler < 4
 
 %if 0%{?rhel} && 0%{?rhel} == 7
 BuildRequires:  openssl11-devel

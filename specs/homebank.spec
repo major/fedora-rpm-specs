@@ -4,7 +4,7 @@ Release:        %{autorelease}
 Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later
 URL:            https://gethomebank.org/
-Source:          https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
+Source:         https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -45,6 +45,8 @@ chmod -x AUTHORS ChangeLog COPYING NEWS README doc/TODO src/*.*
 
 %install
 %make_install
+rm -rf %{buildroot}%{_datadir}/mime-info/
+rm -rf %{buildroot}%{_datadir}/application-registry/
 %find_lang %{name}
 
 %check
@@ -53,17 +55,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS NEWS README
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}/
 %{_datadir}/%{name}/images/
 %{_datadir}/%{name}/icons/
 %{_datadir}/%{name}/datas/
-%{_datadir}/applications/*%{name}.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/mime-info/%{name}.*
 %{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/application-registry/%{name}.applications
 %{_metainfodir}/%{name}.appdata.xml
 
 %files doc

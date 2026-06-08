@@ -13,6 +13,10 @@ Source:         %forgesource
 # there are a lot of changes and their commits
 # do not apply cleanly.
 Patch:          python315.patch
+# Another fix for Python 3.15.0b2
+# https://github.com/beartype/beartype/issues/656
+# https://github.com/beartype/beartype/commit/4a9fa1dcb61cd21d2b100d6c53bd8642d13f650d
+Patch:          _colorize-blacklist.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -1,78 +1,90 @@
-%global pypi_name hddfancontrol
+%global crate hddfancontrol
 
-# silent rpmlint W: no-manual-page-for-binary
-%global __provides_exclude_from %{_bindir}/hddfancontrol-.*
-
-Name:           %{pypi_name}
-Version:        1.6.2
+Name:           %{crate}
+Version:        2.1.1
 Release:        %autorelease
-Summary:        Control system fan speed by monitoring hard drive temperature
+Summary:        Daemon to regulate fan speed according to hard drive temperature on Linux
 
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
-License:        LGPL-3.0-only
+License:        GPL-3.0-only AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND MIT AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND (Unlicense OR MIT)
 URL:            https://github.com/desbma/hddfancontrol
+Source0:        https://github.com/desbma/hddfancontrol/archive/v%{version}/%{crate}-%{version}.tar.gz
 
-# The PyPI archives don't have unit tests in them anymore.
-Source0:        https://github.com/desbma/hddfancontrol/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# ExclusiveArch for Rust packages in Fedora
+ExclusiveArch:  %{rust_arches}
 
-BuildArch:      noarch
-BuildRequires:  hdparm
-BuildRequires:  hddtemp
-BuildRequires:  python3-devel
-BuildRequires:  python3-docutils
-BuildRequires:  python3-pypandoc
-BuildRequires:  python3-pytest
-BuildRequires:  systemd
+BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  systemd-rpm-macros
+
 Requires:       hdparm
-Requires:       hddtemp
-
-%py_provides    python3-%{pypi_name}
+Requires:       smartmontools
+Recommends:     sdparm
+Recommends:     hddtemp
 
 %description
-HDD Fan control is a command line tool to dynamically control fan speed
-according to hard drive temperature on Linux.
+HDD Fan control is a daemon to dynamically control fan speed according to
+hard drive temperature on Linux.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{crate}-%{version} -p1
+%cargo_prep
+# Configure Cargo to use the vendored sources
+sed -i 's/replace-with = "local-registry"/replace-with = "vendored-sources"/' .cargo/config.toml
+cat >> .cargo/config.toml << EOF
 
-%generate_buildrequires
-%pyproject_buildrequires
+[source.vendored-sources]
+directory = "vendor"
+EOF
 
 %build
-%pyproject_wheel
+%cargo_build -f generate-extras
+%{cargo_license_summary} -f generate-extras
+%{cargo_license} -f generate-extras > LICENSE.dependencies
+
+# Generate man pages and shell completions
+mkdir -p target/man target/shell-completions
+./target/rpm/hddfancontrol gen-man-pages target/man
+./target/rpm/hddfancontrol gen-shell-completions target/shell-completions
 
 %install
-%pyproject_install
-%pyproject_save_files -l hddfancontrol
-cp %{buildroot}/%{_bindir}/hddfancontrol %{buildroot}/%{_bindir}/hddfancontrol-3
-ln -sf %{_bindir}/hddfancontrol-3 %{buildroot}/%{_bindir}/hddfancontrol-%{python3_version}
+%cargo_install -f generate-extras
 
-# silent rpmlint E: non-executable-script
-chmod 755 %{buildroot}%{python3_sitelib}/hddfancontrol/__init__.py
-chmod 755 %{buildroot}%{python3_sitelib}/hddfancontrol/__main__.py
+# Install systemd service and configuration file
+install -Dpm 0644 systemd/hddfancontrol.service -t %{buildroot}%{_unitdir}/
+install -Dpm 0644 systemd/hddfancontrol.conf -t %{buildroot}%{_sysconfdir}/
 
-# Remove the "tests" directory that gets installed systemwide.
-rm -rf %{buildroot}%{python3_sitelib}/tests
+# Install man pages
+install -Dpm 0644 target/man/hddfancontrol.1 -t %{buildroot}%{_mandir}/man1/
 
-# Install the systemd script and config file.
-mkdir -p %{buildroot}%{_unitdir}/
-mkdir -p %{buildroot}%{_sysconfdir}/
-sed 's,conf.d/hddfancontrol,hddfancontrol.conf,' -i systemd/hddfancontrol.service
-cp -a systemd/hddfancontrol.service %{buildroot}%{_unitdir}/
-cp -a systemd/hddfancontrol.conf %{buildroot}%{_sysconfdir}/
+# Install shell completions
+install -Dpm 0644 target/shell-completions/hddfancontrol.bash %{buildroot}%{bash_completions_dir}/hddfancontrol
+install -Dpm 0644 target/shell-completions/hddfancontrol.fish -t %{buildroot}%{fish_completions_dir}/
+install -Dpm 0644 target/shell-completions/_hddfancontrol -t %{buildroot}%{zsh_completions_dir}/
 
 %check
-%pyproject_check_import
-%py3_test_envvars %{python3} -m unittest -v
+%cargo_test -f generate-extras
 
-%files -n hddfancontrol -f %{pyproject_files}
+%post
+%systemd_post hddfancontrol.service
+
+%preun
+%systemd_preun hddfancontrol.service
+
+%postun
+%systemd_postun_with_restart hddfancontrol.service
+
+%files
 %license LICENSE
+%license LICENSE.dependencies
 %doc README.md
+%doc CHANGELOG.md
+%doc AGENTS.md
 %{_bindir}/hddfancontrol
-%{_bindir}/hddfancontrol-3
-%{_bindir}/hddfancontrol-%{python3_version}
 %{_unitdir}/hddfancontrol.service
 %config(noreplace) %{_sysconfdir}/hddfancontrol.conf
+%{_mandir}/man1/hddfancontrol.1*
+%{bash_completions_dir}/hddfancontrol
+%{fish_completions_dir}/hddfancontrol.fish
+%{zsh_completions_dir}/_hddfancontrol
 
 %changelog
 %autochangelog

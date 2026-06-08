@@ -61,7 +61,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    4%{?dist}
+Release:    5%{?dist}
 %endif
 Summary:    Analytical GEMM Solution Selection
 
@@ -87,8 +87,11 @@ BuildRequires: gcc-c++
 BuildRequires: rocm-cmake%{pkg_suffix}
 BuildRequires: rocm-comgr%{pkg_suffix}-devel
 BuildRequires: rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires: rocm-filesystem%{pkg_suffix}
 BuildRequires: rocm-hip%{pkg_suffix}-devel
 BuildRequires: rocm-runtime%{pkg_suffix}-devel
+
+Requires:      rocm-filesystem%{pkg_suffix}
 
 %description
 The name "origami" still evokes the elegance of transforming
@@ -114,6 +117,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary: Libraries and headers for %{name}
 Requires: %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires: rocm-filesystem%{pkg_suffix}
 
 %description devel
 %{summary}
@@ -150,6 +154,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so
 
 %changelog
+* Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package name
 

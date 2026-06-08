@@ -3,7 +3,7 @@
 %global modname gearbox
 
 Name:               python-gearbox
-Version:            0.4.0
+Version:            0.4.1
 Release:            %autorelease
 Summary:            Command line toolkit born as a PasteScript replacement for TurboGears2
 

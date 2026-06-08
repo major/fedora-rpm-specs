@@ -11,7 +11,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: KDE Frameworks 5 Tier 3 with advanced embeddable text editor
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -46,8 +46,6 @@ BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5XmlPatterns)
 
-BuildRequires:  pkgconfig(libgit2) >= 0.22.0
-
 %if 0%{?fedora}
 BuildRequires:  pkgconfig(editorconfig)
 %endif
@@ -58,6 +56,8 @@ BuildRequires: dbus-x11
 BuildRequires: time
 BuildRequires: xorg-x11-server-Xvfb
 %endif
+
+Requires:       git-core
 
 %description
 KTextEditor provides a powerful text editor component that you can embed in your
@@ -145,6 +145,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Jun 06 2026 Fabio Valentini <decathorpe@gmail.com> - 5.116.0-6
+- Fix git dependencies to account for upstream changes.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

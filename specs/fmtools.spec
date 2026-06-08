@@ -6,12 +6,11 @@ Name:    fmtools
 Version: 2.0.8
 Release: %autorelease
 License: GPL-2.0-or-later
-URL:     http://benpfaff.org/fmtools
-
-Source0: http://benpfaff.org/fmtools/%{name}-%{version}.tar.gz
+URL:     https://benpfaff.org/fmtools
+Source0: https://benpfaff.org/fmtools/%{name}-%{version}.tar.gz
 Source1: fmcontrol.tar.gz
-Source2: http://benpfaff.org/fmtools/tkradio
-Source3: http://benpfaff.org/fmtools/tkradio-mute
+Source2: https://benpfaff.org/fmtools/tkradio
+Source3: https://benpfaff.org/fmtools/tkradio-mute
 Source4: fmtools.desktop
 Source5: radio.png
 Source6: tkradio.py

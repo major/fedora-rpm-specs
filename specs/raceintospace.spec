@@ -39,7 +39,8 @@ Source0:	https://github.com/%{github_owner}/%{name}/archive/%{gittag}/%{name}-%{
 #Patch1:	# No patches
 
 BuildRequires:	cmake
-BuildRequires:	SDL-devel protobuf-devel boost-devel
+BuildRequires:  protobuf-devel < 4
+BuildRequires:	SDL-devel boost-devel
 BuildRequires:	libogg-devel libvorbis-devel libtheora-devel jsoncpp-devel
 BuildRequires:	physfs-devel
 BuildRequires:	(physfs-devel >= 3.2.0-4 if 0%{?fedora} >= 44)

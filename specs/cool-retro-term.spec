@@ -3,7 +3,7 @@ Summary: Terminal emulator mimicking a CRT display
 License: GPL-3.0-or-later
 
 Version: 2.0.0~beta2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global git_tag %(echo "%{version}" | tr '~' '-')
 
@@ -24,9 +24,7 @@ BuildRequires: qt6-qtquickcontrols2-devel
 Requires: hicolor-icon-theme
 Requires: qt6-qtbase
 Requires: qt6-qtbase-gui
-Requires: qt6-qtgraphicaleffects
 Requires: qt6-qtdeclarative
-Requires: qt6-qtquickcontrols
 Requires: qt6-qtquickcontrols2
 
 # We want a fresher git snapshot, not the original v0.2.0
@@ -85,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Sat Jun 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.0~beta2-2
+- Fix FTI (rhbz#2485527)
+
 * Fri Jun 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.0~beta2-1
 - Update to v2.0.0~beta2
 

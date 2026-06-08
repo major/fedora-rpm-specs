@@ -44,11 +44,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -88,7 +90,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
@@ -108,6 +110,7 @@ BuildRequires:  libva-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -143,6 +146,8 @@ Requires:     Mesa-libva
 %else
 Requires:     mesa-va-drivers
 %endif
+Requires:     rocm-filesystem%{pkg_suffix}
+Requires:     rocm-hip%{pkg_suffix}
 Provides:     rocjpeg%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
@@ -166,10 +171,11 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary: The development package for %{name}
 Requires:     %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:     rocm-filesystem%{pkg_suffix}
 Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
-The rocJPEG development package.
+%{summary}.
 
 %prep
 %if %{with preview}
@@ -211,7 +217,10 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
-    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath}
 
 %cmake_build
 
@@ -247,6 +256,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Generate suse package names
 

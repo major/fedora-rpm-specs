@@ -3,29 +3,14 @@
 %global pkgname graphite2
 
 Name:          mingw-%{pkgname}
-Version:       1.3.14
-Release:       17%{?dist}
+Version:       1.3.15
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+# As per COPYING file this library is tri-licensed
+License:       LGPL-2.1-or-later OR MPL-2.0 OR GPL-2.0-or-later
 URL:           https://github.com/silnrsi/graphite
 Source0:       https://github.com/silnrsi/graphite/releases/download/%{version}/%{pkgname}-%{version}.tgz
-
-# https://github.com/Alexpux/MINGW-packages/blob/master/mingw-w64-graphite2/001-graphite2-1.3.8-win64.patch
-Patch0:        mingw-graphite2_win64.patch
-# https://github.com/Alexpux/MINGW-packages/blob/master/mingw-w64-graphite2/002-graphite2-1.2.1-pkgconfig.patch
-Patch1:        mingw-graphite2_pkgconfig.patch
-# https://github.com/Alexpux/MINGW-packages/blob/master/mingw-w64-graphite2/003-graphite2-1.3.9-staticbuild.patch
-Patch2:        mingw-graphite2_staticbuild.patch
-# https://github.com/Alexpux/MINGW-packages/blob/master/mingw-w64-graphite2/004-graphite2-1.3.8-dllimport-fix.patch
-Patch3:        mingw-graphite2_dllimport-fix.patch
-# Drop use of LIB_SUFFIX
-Patch4:        graphite2_cmakelibsuffix.patch
-# Increase minimum cmake version
-Patch5:        graphite2_cmakever.patch
-# Fix build with gcc15
-Patch6:        graphite2_gcc15.patch
 
 
 BuildArch:     noarch
@@ -33,11 +18,11 @@ BuildArch:     noarch
 BuildRequires: make
 BuildRequires: cmake
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-freetype
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-freetype
 
@@ -58,11 +43,6 @@ Summary:       MinGW Windows %{pkgname} library
 %description -n mingw32-%{pkgname}
 MinGW Windows %{pkgname} library.
 
-%package -n mingw32-%{pkgname}-static
-Summary:       Static version of the MinGW Windows %{pkgname} library
-
-%description -n mingw32-%{pkgname}-static
-Static version of the MinGW Windows %{pkgname} library.
 
 # Win64
 %package -n mingw64-%{pkgname}
@@ -70,12 +50,6 @@ Summary:       MinGW Windows %{pkgname} library
 
 %description -n mingw64-%{pkgname}
 MinGW Windows %{pkgname} library.
-
-%package -n mingw64-%{pkgname}-static
-Summary:       Static version of the MinGW Windows %{pkgname} library
-
-%description -n mingw64-%{pkgname}-static
-Static version of the MinGW Windows %{pkgname} library.
 
 
 %{?mingw_debug_package}
@@ -106,10 +80,6 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw32_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw32_includedir}/%{pkgname}/
 
-%files -n mingw32-%{pkgname}-static
-%license LICENSE COPYING
-%{mingw32_libdir}/lib%{pkgname}.a
-
 # Win64
 %files -n mingw64-%{pkgname}
 %license LICENSE COPYING
@@ -119,12 +89,11 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw64_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw64_includedir}/%{pkgname}/
 
-%files -n mingw64-%{pkgname}-static
-%license LICENSE COPYING
-%{mingw64_libdir}/lib%{pkgname}.a
-
 
 %changelog
+* Sat Jun 06 2026 Sandro Mani <manisandro@gmail.com> - 1.3.15-1
+- Update to 1.3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

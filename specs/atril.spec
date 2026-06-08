@@ -1,12 +1,14 @@
 
 Name:          atril
-Version:       1.28.5
+Version:       1.28.6
 Release:       %autorelease
 Summary:       Document viewer
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
+
+Patch1:        atril_0001-epub-add-NULL-guards-to-prevent-crashes-with-malform.patch
 
 BuildRequires: gcc-c++
 BuildRequires: gtk3-devel

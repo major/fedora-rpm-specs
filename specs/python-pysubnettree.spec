@@ -7,15 +7,15 @@ Summary:        Python Module for CIDR Lookups
 License:        BSD-3-Clause-LBNL and BSD-4-Clause
 URL:            https://github.com/zeek/pysubnettree
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# btest config file for RPM build environment
-Source1:        btest.cfg
+# pytest plugin to collect and run *.test files without btest
+Source1:        conftest.py
 
 Provides:       pysubnettree = %{version}-%{release}
 Obsoletes:      pysubnettree < 0.35-16
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
-BuildRequires:  zeek-btest
+BuildRequires:  python3-pytest
 
 
 %global _description %{expand:
@@ -52,9 +52,9 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
+cp %{SOURCE1} testing/conftest.py
 cd testing
-cp %{SOURCE1} btest.cfg
-PYTHONPATH="%{buildroot}%{python3_sitearch}:$PWD/Scripts" btest -c btest.cfg -d
+PYTHONPATH="%{buildroot}%{python3_sitearch}:$PWD/Scripts" pytest pysubnettree/
 
 
 %files -n python3-pysubnettree -f %{pyproject_files}

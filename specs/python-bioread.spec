@@ -55,7 +55,7 @@ find bioread/runners/ -type f -perm /0111 \
 install -d '%{buildroot}%{_mandir}/man1'
 for bin in acq2hdf5 acq2mat acq2txt acq_info acq_layout acq_markers
 do
-  PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
+  %{py3_test_envvars} help2man \
       --no-info \
       --version-string='%{version}' \
       --output="%{buildroot}%{_mandir}/man1/${bin}.1" \

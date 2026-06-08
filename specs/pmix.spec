@@ -6,13 +6,10 @@ License:        BSD-3-Clause
 URL:            https://pmix.org/
 Source0:        https://github.com/openpmix/openpmix/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  hwloc-devel
 BuildRequires:  libevent-devel
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  munge-devel
 BuildRequires:  perl-interpreter

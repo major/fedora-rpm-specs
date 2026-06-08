@@ -1,5 +1,5 @@
 Name:             gerbv
-Version:          2.10.0
+Version:          2.13.0
 Release:          %autorelease
 Summary:          Gerber file viewer from the gEDA toolkit
 License:          GPL-2.0-only
@@ -7,19 +7,19 @@ URL:              https://github.com/gerbv/gerbv
 Source:           https://github.com/gerbv/gerbv/archive/refs/tags/%{name}-%{version}.tar.gz
 
 # https://github.com/gerbv/gerbv/issues/255
-Patch0:           gerbv-2.10.0-Fix-Fails-GCC15.patch
+Patch0:           gerbv-2.13.0-Fix-Fails-GCC15.patch
 
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=2331596
 Requires:         gdk-pixbuf2-modules-extra
 
-BuildRequires:    gcc-c++
-BuildRequires:    make
-BuildRequires:    automake
-BuildRequires:    gettext-devel
-BuildRequires:    libtool
+BuildRequires:    cmake
 BuildRequires:    desktop-file-utils
+BuildRequires:    gcc-c++
+BuildRequires:    gettext-devel
 BuildRequires:    ImageMagick-devel
+BuildRequires:    libdxfrw-devel
 BuildRequires:    libpng-devel
+BuildRequires:    libtool
 BuildRequires:    pkgconfig(gtk+-2.0)
 
 %description
@@ -54,34 +54,15 @@ you will need to install %{name}-devel.
 
 %prep
 %autosetup -p1
-# use explicit version for compilation and not a git-derived one
-sed -i -e "s/m4_esyscmd(utils\/git-version-gen.sh [0-9.]*)/%{version}/" configure.ac
 
 
 %build
-./autogen.sh
-# default measurement units set to millimeters
-%configure                              \
-  --enable-unit-mm                      \
-  --disable-update-desktop-database     \
-  --disable-static   --disable-rpath    \
-  CFLAGS="%{build_cflags}"              \
-  LDFLAGS="%{build_ldflags}"
-#  CFLAGS="${RPM_OPT_FLAGS}"             \
-#  LIBS="-ldl -lpthread"
-
-# Don't use rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-# Clean unused-direct-shlib-dependencies. This should have been already removed in 2.5.0-2 ?
-#sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-
-%make_build
+%cmake
+%cmake_build
 
 
 %install
-%make_install
+%cmake_install
 
 desktop-file-install --vendor ""               \
     --remove-category Education                \
@@ -90,25 +71,14 @@ desktop-file-install --vendor ""               \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %{__rm} -f %{buildroot}%{_libdir}/libgerbv.la
+%{__rm} -f %{buildroot}%{_libdir}/libgerbv.a
+%{__rm} -rf %{buildroot}%{_docdir}/%{name}
 %{__rm} -f  {doc,example}/Makefile*
-
-pushd example/
-for dir in * ; do
-  [ -d $dir ] && %{__rm} -f $dir/Makefile*
-done
-popd
-
-pushd doc/
-for dir in * ; do
-  [ -d $dir ] && %{__rm} -f $dir/Makefile*
-done
-popd
-
 %find_lang %{name}
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS README.md CONTRIBUTORS HACKING
+%doc AUTHORS README.md CONTRIBUTORS HACKING
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
@@ -128,8 +98,8 @@ popd
 %doc doc/PNG-print
 
 %files devel
-%dir %{_includedir}/%{name}-%{version}
-%{_includedir}/%{name}-%{version}/%{name}.h
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/%{name}.h
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/libgerbv.pc
 

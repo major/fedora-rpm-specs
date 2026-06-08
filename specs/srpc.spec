@@ -17,7 +17,7 @@ BuildRequires:  pkgconfig(liblz4)
 # Using pkgconfig for openssl gives a fedora-review warning
 # that openssl1.1 is deprecated and should not be used
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(protobuf)
+BuildRequires:  pkgconfig(protobuf) < 4
 BuildRequires:  pkgconfig(snappy)
 BuildRequires:  workflow-devel
 

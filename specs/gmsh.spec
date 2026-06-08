@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.15.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -412,6 +412,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 4.15.2-2
+- Rebuilt for Python 3.15
+
 * Fri Mar 27 2026 Sandro Mani <manisandro@gmail.com> - 4.15.2-1
 - Update to 4.15.2
 

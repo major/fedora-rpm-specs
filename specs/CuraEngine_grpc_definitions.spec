@@ -14,7 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  grpc-devel
 BuildRequires:  asio-grpc-devel
-BuildRequires:  protobuf-devel
+BuildRequires:  protobuf-devel < 4
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 BuildRequires:  c-ares-devel

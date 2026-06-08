@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond tests 1
 %bcond tests_clients %{undefined rhel}
 %bcond tests_flask %{undefined rhel}

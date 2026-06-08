@@ -409,6 +409,9 @@ Patch318: memory-allocator-dcheck-assert-fix.patch
 # compile swiftshader against llvm-16.0
 Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
+# Fix build error on fedora aarch64
+Patch320: chromium-149-aarch64-log-error.patch
+
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
@@ -1151,6 +1154,10 @@ Qt6 UI for chromium.
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
+
+%ifarch aarch64 && 0%{?fedora}
+%patch -P320 -p1 -b .aarch64-log-error
+%endif
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system

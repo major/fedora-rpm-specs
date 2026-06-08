@@ -131,8 +131,7 @@ target/release/uudoc completion coreutils fish > data/completions/fish/uutils-co
 
 
 %install
-%cargo_install -f %{feature_flags}
-mv %{buildroot}/%{_bindir}/coreutils %{buildroot}/%{_bindir}/uutils-coreutils
+install -Dpm 0755 target/rpm/coreutils -T %{buildroot}%{_bindir}/uutils-coreutils
 for utility in $(target/rpm/coreutils --list); do
   ln -sr %{buildroot}%{_bindir}/uutils-coreutils  %{buildroot}%{_bindir}/uu_$utility
 done
@@ -144,12 +143,6 @@ mkdir -p %{buildroot}%{zsh_completions_dir}
 cp -p data/completions/bash/* %{buildroot}%{bash_completions_dir}/
 cp -p data/completions/fish/* %{buildroot}%{fish_completions_dir}/
 cp -p data/completions/zsh/* %{buildroot}%{zsh_completions_dir}/
-
-# unneeded, and contain compiled fixtures
-# rm -rf %{buildroot}%{crate_instdir}/tests
-
-# unneeded at runtime
-rm %{buildroot}%{_bindir}/uudoc
 
 
 %if %{with check}

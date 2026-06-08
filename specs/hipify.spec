@@ -31,11 +31,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 # This is a clang tool so best to build with clang
@@ -43,7 +45,7 @@
 
 Name:           hipify%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -59,9 +61,13 @@ BuildRequires:  perl
 BuildRequires:  rocm-llvm%{pkg_suffix}-static
 BuildRequires:  rocm-clang%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  zlib-devel
 
 Requires:       perl
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-llvm%{pkg_suffix}-libs
+Requires:       rocm-clang%{pkg_suffix}-libs
 
 # ROCm is really only on x86_64
 ExclusiveArch:  x86_64
@@ -73,13 +79,19 @@ HIP C++ automatically.
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+# Remove meddling with rpath
+sed -i -e '/INSTALL_RPATH/,+2d' CMakeLists.txt
+
 %build
 %cmake \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/..
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_INSTALL_RPATH=%{rocmllvm_libdir} \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath}
 
 %cmake_build
 
@@ -97,12 +109,11 @@ chmod a+x %{buildroot}%{pkg_prefix}/bin/*
 # Fix script shebang (Fedora doesn't allow using "env"):
 sed -i 's|\(/usr/bin/\)env perl|\1perl|' %{buildroot}%{pkg_prefix}/bin//hipify-perl
 
-# Fix
-# /usr/bin/hipify-clang: error while loading shared libraries: libclang-cpp.so.19.0git
-chrpath %{buildroot}%{pkg_prefix}/bin/hipify-clang -r %rocmllvm_libdir
-
 # No devel package
 rm -rf %{buildroot}%{pkg_prefix}/include
+
+# cleanup extra hipify-perl
+rm -f %{buildroot}%{pkg_prefix}/libexec/hipify/hipify-perl
 
 %files
 %doc README.md
@@ -112,6 +123,9 @@ rm -rf %{buildroot}%{pkg_prefix}/include
 %{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- merge compat changes
+
 * Sun Jan 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

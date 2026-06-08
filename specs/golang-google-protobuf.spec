@@ -26,8 +26,8 @@ License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  protobuf-compiler
-Requires:       protobuf
+BuildRequires:  protobuf-compiler < 4
+Requires:       protobuf < 4
 
 Provides:       protoc-gen-go = %{version}-%{release}
 Provides:       golang(%{goipath}/protoc-gen-go) = %{version}-%{release}

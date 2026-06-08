@@ -56,10 +56,10 @@ Summary: %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
-# Thanks to churchyard for the fix.
-PYTHONUSERBASE=%{buildroot}%{_prefix} \
-    %pytest tests/unit
+# Remove legacy pkg_resources namespace declarations so Python uses PEP 420
+# implicit namespaces and can find google-cloud-core and google-api-core.
+rm google/__init__.py google/cloud/__init__.py
+%pytest tests/unit
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

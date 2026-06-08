@@ -1,17 +1,19 @@
-%define _legacy_common_support 1
-
 Name:           grsync
 Version:        1.3.1
 Release:        %autorelease
 Summary:        A Gtk+ GUI for rsync
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.opbyte.it/grsync/
 Source0:        http://www.opbyte.it/release/%{name}-%{version}.tar.gz
+
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
-BuildRequires:  gtk3-devel desktop-file-utils gettext perl(XML::Parser)
+BuildRequires:  gettext
+BuildRequires:  gtk3-devel
 BuildRequires:  intltool
 BuildRequires:  make
+BuildRequires:  perl(XML::Parser)
+
 Requires:       polkit
 
 %description
@@ -44,8 +46,10 @@ desktop-file-install \
     --add-category=GTK \
     --dir=%{buildroot}%{_datadir}/applications/ \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
 %find_lang %{name}
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog NEWS README

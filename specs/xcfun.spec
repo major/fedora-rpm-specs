@@ -2,7 +2,7 @@
 
 Name:    xcfun
 Version: 2.1.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: A library of approximate exchange-correlation functionals
 License: MPL-2.0
 URL:     https://xcfun.readthedocs.io
@@ -16,7 +16,6 @@ Patch1:  https://github.com/dftlibs/xcfun/pull/155.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
-BuildRequires: make
 BuildRequires: python3-devel
 BuildRequires: pybind11-devel
 
@@ -74,17 +73,16 @@ This package contains the Python bindings for XCFun.
 %patch -P1 -p1 -b .32bit
 
 %build
-%cmake -B %{_host} -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLIB=%{_lib} -DXCFUN_PYTHON_INTERFACE=ON -DPYMOD_INSTALL_LIBDIR=../../%{python3_sitearch}
-%make_build -C %{_host}
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLIB=%{_lib} -DXCFUN_PYTHON_INTERFACE=ON -DPYMOD_INSTALL_LIBDIR=../../%{python3_sitearch}
+%cmake_build
 
 %install
-%make_install -C %{_host}
+%cmake_install
 # Fix test permissions
 chmod u=rwX,og=rX -R %{buildroot}%{python3_sitearch}/xcfun/tests
 
 %check
-cd %{_host}
-ctest --output-on-failure
+%ctest
 
 %files
 %license LICENSE.md
@@ -100,6 +98,9 @@ ctest --output-on-failure
 %{python3_sitearch}/xcfun
 
 %changelog
+* Fri Jun 05 2026 Cristian Le <git@lecris.dev> - 2.1.1-23
+- Use standard CMake macros (rhbz#2381159)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.1.1-22
 - Rebuilt for Python 3.15
 

@@ -8,7 +8,7 @@
 
 Name:           ara
 Version:        1.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
 License:        GPL-3.0-or-later
@@ -200,6 +200,9 @@ ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 
 
 %changelog
+* Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 1.7.4-4
+- Rebuilt for Python 3.15
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

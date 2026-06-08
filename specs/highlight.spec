@@ -8,20 +8,17 @@ Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
 
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
+BuildRequires:  boost-devel
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
+BuildRequires:  lua-devel
+BuildRequires:  make
 %if %{with qt}
 BuildRequires:  qt5-qtbase-devel
 %endif
-BuildRequires:  lua-devel, boost-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  make
 
-%{?filter_setup:
-%filter_from_provides /^perl(/d;
-%filter_from_requires /^perl(/d;
-%filter_from_requires /^\/bin\/lua/d;
-%filter_setup
-}
+%global __provides_exclude ^perl\\(
+%global __requires_exclude ^(perl\\(|/bin/lua)
 
 %description
 A utility that converts sourcecode to HTML, XHTML, RTF, LaTeX, TeX,
@@ -44,44 +41,35 @@ A Qt-based GUI for the highlight source code formatter source.
 %autosetup
 
 %build
-CFLAGS="$CFLAGS -fPIC %{optflags}"; export CFLAGS
-CXXFLAGS="$CXXFLAGS -fPIC %{optflags}"; export CXXFLAGS
-LDFLAGS="$LDFLAGS %{?__global_ldflags}"; export LDFLAGS
+%set_build_flags
+# The makefile compiles C++ files using CFLAGS, so we add CXXFLAGS to CFLAGS in the environment
+export CFLAGS="$CFLAGS $CXXFLAGS -fPIC"
 
-# disabled paralell builds to fix FTBFS on rawhide & highlight 3.52+
-#make_build all gui           CFLAGS="${CFLAGS}"          \
- %{__make} all                CFLAGS="${CFLAGS}"          \
-                              CXXFLAGS="${CXXFLAGS}"      \
-                              LDFLAGS="${LDFLAGS}"        \
-                              LFLAGS="-Wl,-O1 ${LDFLAGS}" \
-                              PREFIX="%{_prefix}"         \
-                              conf_dir="%{_sysconfdir}/"
+%make_build all \
+    PREFIX="%{_prefix}" \
+    conf_dir="%{_sysconfdir}/"
 
 %if %{with qt}
- %{__make} gui                CFLAGS="${CFLAGS}"          \
-                              CXXFLAGS="${CXXFLAGS}"      \
-                              LDFLAGS="${LDFLAGS}"        \
-                              LFLAGS="-Wl,-O1 ${LDFLAGS}" \
-                              PREFIX="%{_prefix}"         \
-                              conf_dir="%{_sysconfdir}/" \
-                              QMAKE="%{_qt5_qmake}"       \
-                              QMAKE_STRIP=
+%make_build gui \
+    PREFIX="%{_prefix}" \
+    conf_dir="%{_sysconfdir}/" \
+    QMAKE="%{_qt5_qmake}" \
+    QMAKE_STRIP=
 %endif
 
 %install
 %make_install PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %if %{with qt}
-make install-gui DESTDIR=$RPM_BUILD_ROOT PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
+make install-gui DESTDIR=%{buildroot} PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
 %endif
 
-rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}/
+rm -rf %{buildroot}%{_docdir}/%{name}/
 
-desktop-file-install \
-    --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-   highlight.desktop
+%check
+%if %{with qt}
+desktop-file-validate %{buildroot}%{_datadir}/applications/highlight.desktop
+%endif
 
 %files
 %{_bindir}/highlight
@@ -96,13 +84,11 @@ desktop-file-install \
 %doc ChangeLog* AUTHORS README* extras/
 %license COPYING
 
- %if %{with qt}
+%if %{with qt}
 %files gui
 %{_bindir}/highlight-gui
 %{_datadir}/applications/highlight.desktop
 %{_datadir}/icons/hicolor/256x256/apps/highlight.png
-%else
-%exclude %{_datadir}/applications/highlight.desktop
 %endif
 
 

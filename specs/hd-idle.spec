@@ -2,7 +2,6 @@ Name:           hd-idle
 Version:        1.05
 Release:        %autorelease
 Summary:        Spin down idle [USB] hard disks
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://hd-idle.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
@@ -12,7 +11,7 @@ Patch0:         %{name}-systemd-nodaemon.diff
 Patch1:         %{name}-fix-sbin.diff
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 
 %description
 hd-idle is a utility program for spinning-down external disks after a period
@@ -47,9 +46,8 @@ sed -i 's/install -D -g root -o root/install -D/' Makefile
 %install
 %make_install
 # Remove executable bit from manual page
-find "%{buildroot}%{_mandir}" -executable -type f -exec chmod -x {} \;
-install -dpm 0755 %{buildroot}%{_unitdir}
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_unitdir}
+chmod 0644 %{buildroot}%{_mandir}/man1/%{name}.1*
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -Dpm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 %post
@@ -64,9 +62,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 %files
 %license LICENSE
 %doc README
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{_unitdir}/*.service
+%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog

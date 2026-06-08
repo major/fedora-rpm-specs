@@ -1,6 +1,6 @@
 Name:		mosh
 Version:	1.4.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Mobile shell that supports roaming and intelligent local echo
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -13,8 +13,8 @@ BuildRequires:	ncurses-devel
 BuildRequires:	openssl-devel
 BuildRequires:	perl-diagnostics
 BuildRequires:	perl-generators
-BuildRequires:	protobuf-compiler
-BuildRequires:	protobuf-devel
+BuildRequires:	protobuf-compiler < 4
+BuildRequires:	protobuf-devel < 4
 BuildRequires:	zlib-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -56,6 +56,9 @@ Mosh is a remote terminal application that supports:
 
 
 %changelog
+* Wed May 13 2026 Miroslav Suchy <msuchy@redhat.com> - 1.4.0-11
+- Use protobuf3 instead of protobuf.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

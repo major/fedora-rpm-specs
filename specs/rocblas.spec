@@ -43,11 +43,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -142,10 +144,12 @@
   -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
   -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
   -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
+  -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \\\
   -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
   -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
-  -DCMAKE_SKIP_RPATH=ON \\\
+  -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \\\
+  -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \\\
   -DCMAKE_VERBOSE_MAKEFILE=ON \\\
   -DGPU_TARGETS=%{gpu_list} \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
@@ -164,12 +168,18 @@
 Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
 License:        MIT AND BSD-3-Clause
+# Most of the files are MIT
+# Some files are MIT and BSD-3-Clause
+#  library/src/blas2/gemv_device.hpp
+#  library/src/blas2/rocblas_hemv_symv_kernels.cpp
+#  library/src/blas2/rocblas_trsv_kernels.cpp
+#  library/src/blas3/rocblas_trmm_kernels.cpp
 URL:            https://github.com/ROCm/rocm-libraries
 Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        7%{?dist}
+Release:        8%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -183,25 +193,33 @@ Patch4:         0004-generic-arches-need-a-solution-index.patch
 Patch5:         0005-rocblas-add-rocblas_internal_get_generic_arch_name.patch
 Patch6:         0006-rocblas-generalize-finding-tensile-for-generics.patch
 %else
+# Fix tensile output install path to use CMAKE_INSTALL_LIBDIR
 Patch1:         0001-fixup-install-of-tensile-output.patch
+# Add support for Fedora-specific GPU architectures (gfx1035, gfx1150-1152)
 Patch101:       0001-tensile-fedora-gpus.patch
+# Add support for gfx1153 GPU architecture in Tensile
 Patch102:       0001-tensile-gfx1153.patch
+# Update default ROCm and LLVM binary paths to /usr and /usr/lib64/rocm/llvm
 Patch103:       0001-tensile-set-default-paths.patch
+# Force Tensile to ignore assembly capability cache checks
 Patch104:       0001-tensile-ignore-cache-check.patch
+# Add gfx1152 and gfx1153 to Tensile's supported CMake architectures
 Patch105:       0001-tensile-add-cmake-arches.patch
+# Add support for gfx1036 GPU architecture in Tensile
 Patch106:       0001-tensile-gfx1036.patch
 %endif
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  rocminfo%{pkg_suffix}
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-rpm-macros%{pkg_suffix}-modules
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -312,6 +330,8 @@ BuildRequires:  ninja
 %endif
 
 Provides:       rocblas%{pkg_suffix} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -334,6 +354,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 %if %{without compat}
 Requires:       cmake(hip)
 %endif
@@ -493,6 +514,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
 # So do not strip
 # %{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocblas/library/*.hsaco
 
+%if %{with compat}
+# ERROR   0008: file '/usr/lib64/rocm/rocm-7.2/lib/librocblas.so.5.2'
+#   contains the $ORIGIN runpath specifier at the wrong position in
+#   [/usr/lib64/rocm/rocm-7.2/lib:$ORIGIN/../lib:$ORIGIN/../lib/rocblas/lib]
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+%endif
+
 %check
 %if %{with test}
 %if %{with check}
@@ -525,6 +553,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-8
+- merge compat changes
+
 * Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
 - Explicitly license smoke tests 0BSD
 - Smoke test not part of srpm so remove from license tag

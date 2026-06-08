@@ -7,6 +7,7 @@ ExcludeArch: %{ix86}
 
 #pin to commit for patch fixes
 %global         forgeurl0 https://github.com/Chatterino/chatterino2
+%global         commit0 1bc6e5aa718379652dcce530f7f88cf615948320
 %global         tag0  v2.5.5
 %global         version %%(echo %%{tag0} | tr -d 'v')
 
@@ -14,7 +15,7 @@ ExcludeArch: %{ix86}
 
 # Git submodules
 #   * libcommuni
-%global forgeurl2   https://github.com/hemirt/libcommuni
+%global forgeurl2   https://github.com/Chatterino/libcommuni
 %global commit2         bb5417c451d764f57f2f1b3e1c9a81496b5521bd
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
@@ -147,12 +148,12 @@ Provides:     chatterino2%{?_isa} = %{version}-%{release}
 
 # Current submodules patched so not possible to build with system packages
 #   * https://github.com/Chatterino/chatterino2/issues/1444
-Provides:       bundled(expected-lite) = 0.9.0~git%{commit12}
+Provides:       bundled(expected-lite) = 0.10.0~git%{commit12}
 Provides:       bundled(libcommuni) = 3.7.0~git%{commit2}
-Provides:       bundled(magic_enum) = 0.9.5~git%{commit9}
+Provides:       bundled(magic_enum) = 0.9.8~git%{commit9}
 Provides:       bundled(serialize) = 0.1.0~git%{commit5}
-Provides:       bundled(settings) = 0.3.0~git%{commit3}
-Provides:       bundled(signals) = 0.1.0~git%{commit4}
+Provides:       bundled(settings) = 0.5.0~git%{commit3}
+Provides:       bundled(signals) = 0.1.3~git%{commit4}
 Provides:       bundled(certify) = 0.1~git%{commit4}
 
 %description -n chatterino
@@ -186,6 +187,7 @@ export GIT_RELEASE=%{version0}
 %cmake -G Ninja \
                 -DUSE_SYSTEM_QTKEYCHAIN=ON \
                 -DUSE_SYSTEM_MINIAUDIO=ON \
+                -DCHATTERINO_UPDATER=OFF \
                 -DCHATTERINO_PLUGINS=OFF
 
 %cmake_build

@@ -149,7 +149,7 @@ BuildRequires:	json-devel >= 3.9
 %endif
 BuildRequires:	liburing-devel
 %if %{tmvasofieparser}
-BuildRequires:	protobuf-devel >= 3.0
+BuildRequires:	protobuf-devel < 4
 %endif
 %ifnarch %{ix86} %{arm}
 BuildRequires:	libarrow-devel

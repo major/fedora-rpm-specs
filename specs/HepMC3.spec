@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -13,6 +13,11 @@ URL:		https://hepmc.web.cern.ch/hepmc
 Source0:	%{url}/releases/%{name}-%{version}.tar.gz
 #		Valgrind suppression file for memory leak in dlopen (EPEL 10)
 Source1:	valgrind-epel10.supp
+#		Valgrind suppression file for memory leak in protobuf
+#		library initialization (Fedora 45+)
+Source2:	valgrind-protobuf.supp
+#		Special version for ppc64le
+Source3:	valgrind-protobuf-ppc.supp
 #		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/400
 Patch0:		0001-Drop-obsolete-work-around-for-ppc64le-on-EPEL-7.patch
 
@@ -27,7 +32,7 @@ BuildRequires:	json-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	doxygen
 BuildRequires:	graphviz
-BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python3-devel
 #		Additional requirements for tests
 BuildRequires:	pythia8-devel
 BuildRequires:	valgrind
@@ -113,46 +118,46 @@ BuildArch:	noarch
 %description interfaces-devel
 This package provides HepMC3 interfaces to some common Monte Carlo generators.
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:	HepMC3 Python 3 bindings
 License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
-%py_provides	python%{python3_pkgversion}-%{name}
+%py_provides	python3-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 This package provides the Python 3 bindings for HepMC3.
 
-%package -n python%{python3_pkgversion}-%{name}-search
+%package -n python3-%{name}-search
 Summary:	HepMC3 search module Python 3 bindings
 License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
-%py_provides	python%{python3_pkgversion}-%{name}-search
+%py_provides	python3-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}-search
+%description -n python3-%{name}-search
 This package provides the Python 3 bindings for HepMC3 search module.
 
-%package -n python%{python3_pkgversion}-%{name}-rootIO
+%package -n python3-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 3 bindings
 License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
-%py_provides	python%{python3_pkgversion}-%{name}-rootIO
+%py_provides	python3-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}-rootIO
+%description -n python3-%{name}-rootIO
 This package provides the Python 3 bindings for HepMC3 ROOT I/O module.
 
-%package -n python%{python3_pkgversion}-%{name}-protobufIO
+%package -n python3-%{name}-protobufIO
 Summary:	HepMC3 protobuf I/O module Python 3 bindings
 License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
-%py_provides	python%{python3_pkgversion}-%{name}-protobufIO
+%py_provides	python3-%{name}-protobufIO
 Requires:	%{name}-protobufIO%{?_isa} = %{version}-%{release}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+Requires:	python3-%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}-protobufIO
+%description -n python3-%{name}-protobufIO
 This package provides the Python 3 bindings for HepMC3 protobuf I/O module.
 
 %package doc
@@ -167,8 +172,18 @@ This package provides HepMC manuals and examples.
 %patch -P0 -p1
 
 %if %{?rhel}%{!?rhel:0} == 10
-sed 's!MEMORYCHECK_COMMAND_OPTIONS "!&--suppressions=%{SOURCE1} !' \
+sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE1} !' \
     -i test/CMakeLists.txt
+%endif
+
+%if %{?fedora}%{!?fedora:0} >= 45
+%ifarch %{power64}
+sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE3} !' \
+    -i test/CMakeLists.txt
+%else
+sed 's!MEMORYCHECK_COMMAND_OPTIONS '$'\x22''!&--suppressions=%{SOURCE2} !' \
+    -i test/CMakeLists.txt
+%endif
 %endif
 
 %build
@@ -318,7 +333,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %files interfaces-devel
 %{_datadir}/%{name}/interfaces
 
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %dir %{python3_sitearch}/pyHepMC3
 %{python3_sitearch}/pyHepMC3/__init__.py
 %{python3_sitearch}/pyHepMC3/__pycache__
@@ -326,21 +341,21 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python3_sitearch}/pyHepMC3-*.egg-info
 %license python/include/LICENSE
 
-%files -n python%{python3_pkgversion}-%{name}-search
+%files -n python3-%{name}-search
 %dir %{python3_sitearch}/pyHepMC3/search
 %{python3_sitearch}/pyHepMC3/search/__init__.py
 %{python3_sitearch}/pyHepMC3/search/__pycache__
 %{python3_sitearch}/pyHepMC3/search/pyHepMC3search.so
 %{python3_sitearch}/pyHepMC3.search-*.egg-info
 
-%files -n python%{python3_pkgversion}-%{name}-rootIO
+%files -n python3-%{name}-rootIO
 %dir %{python3_sitearch}/pyHepMC3/rootIO
 %{python3_sitearch}/pyHepMC3/rootIO/__init__.py
 %{python3_sitearch}/pyHepMC3/rootIO/__pycache__
 %{python3_sitearch}/pyHepMC3/rootIO/pyHepMC3rootIO.so
 %{python3_sitearch}/pyHepMC3.rootIO-*.egg-info
 
-%files -n python%{python3_pkgversion}-%{name}-protobufIO
+%files -n python3-%{name}-protobufIO
 %dir %{python3_sitearch}/pyHepMC3/protobufIO
 %{python3_sitearch}/pyHepMC3/protobufIO/__init__.py
 %{python3_sitearch}/pyHepMC3/protobufIO/__pycache__
@@ -354,6 +369,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Sat Jun 06 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-11
+- Suppress memory leak in protobuf library initialization
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.1-10
 - Rebuilt for Python 3.15
 

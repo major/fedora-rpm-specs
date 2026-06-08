@@ -3,7 +3,7 @@
 
 Name:       pygrib
 Version:    2.1.8
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -29,6 +29,13 @@ Patch1: %{name}-build.patch
 # Workaround needed for new matplotlib version.
 # See https://github.com/jswhit/pygrib/issues/256
 Patch2: %{name}-test-gaussian.patch
+
+# 3 workarounds needed due to slight projection change after
+# proj update from 9.7.1 to 9.8.0
+# See https://github.com/jswhit/pygrib/issues/282
+Patch3: %{name}-test_lambert.patch
+Patch4: %{name}-test_rotated_ll.patch
+Patch5: %{name}-test_stere.patch
 
 # exclude architectures not supported by eccodes
 # as explained in bugzilla #1562066
@@ -185,6 +192,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Sat Jun 06 2026 Jos de Kloe <josdekloe@gmail.com> 2.1.8-3
+- Fix 3 failing tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

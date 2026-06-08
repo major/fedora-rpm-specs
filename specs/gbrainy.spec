@@ -19,9 +19,9 @@ BuildRequires:  gtk-sharp3-devel
 BuildRequires:  intltool
 BuildRequires:  itstool
 BuildRequires:  librsvg2-devel
+BuildRequires:  make
 BuildRequires:  mono-devel
 BuildRequires:  yelp-tools
-BuildRequires:  make
 
 # Mono only available on these:
 ExclusiveArch: %mono_arches
@@ -56,9 +56,11 @@ sed -i "s#gmcs#mcs#g" configure.ac
 autoconf
 
 %build
-
 %configure
 %make_build
+
+%check
+make check
 
 %install
 %make_install

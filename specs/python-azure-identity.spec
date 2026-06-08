@@ -1,14 +1,15 @@
 # Upstream's tests now require docker to be running.
 %bcond_with     tests
 
-%global         srcname     azure-identity
+%global         pypi_name     azure-identity
+%global         srcname       azure_identity
 
-Name:           python-%{srcname}
-Version:        1.17.1
+Name:           python-%{pypi_name}
+Version:        1.25.3
 Release:        %autorelease
 Summary:        Microsoft Azure Identity Library for Python
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
+URL:            https://pypi.org/project/%{pypi_name}/
 Source0:        %{pypi_source %{srcname} %{version}}
 
 Epoch:          1
@@ -35,10 +36,10 @@ Microsoft Azure Identity Library for Python}
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-%{pypi_name}
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %{_description}
+%description -n python3-%{pypi_name} %{_description}
 
 
 %prep
@@ -69,7 +70,7 @@ Summary:        %{summary}
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 
 

@@ -1,9 +1,8 @@
 Name:           alchemyquest
-Version:        0.5.2
-Release:        21%{?dist}
+Version:        0.5.4
+Release:        %autorelease
 Summary:        Reflection game
 # Code is GPLv2+ and graphics are CC-BY-SA
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            http://identicalsoftware.com/alchemyquest/
 
@@ -37,11 +36,12 @@ new objects from those you get from the sky.
 
 
 %build
-%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake
 %cmake_build
 
 
 %install
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_install
 
 rm -f %{buildroot}%{_datadir}/alchemyquest/{CODE-LICENSE,GRAPHICS-LICENSE}
@@ -92,70 +92,4 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.5.2-19
-- Rebuilt for Boost 1.90
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Mar 03 2025 Xavier Bachelot <xavier@bachelot.org> - 0.5.2-17
-- Fix build with F42+ (RHBZ#2339879)
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-15
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.5.2-10
-- Rebuilt for Boost 1.83
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.5.2-8
-- Rebuilt for Boost 1.81
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed May 04 2022 Thomas Rodgers <trodgers@redhat.com> - 0.5.2-5
-- Rebuilt for Boost 1.78
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jul 17 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5.2-3
-- Correct obsoletes/provides
-
-* Mon Jun 28 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5.2-2
-- Convert to metainfo.xml and all appstream-util-validate
-
-* Sat Jun 26 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5.2-1
-- Changed directories to alchemyquest
-- Obsoletes/provides because alchemyquest is an updated version of the code
-    base and can still run the original game.
-
-* Sun May 02 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5.1-1
-- Initial build
+%autochangelog

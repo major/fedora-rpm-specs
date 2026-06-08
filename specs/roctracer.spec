@@ -43,11 +43,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 %if 0%{?suse_version}
@@ -83,7 +85,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
@@ -95,6 +97,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
@@ -131,6 +134,9 @@ BuildRequires:  texlive-wasysym
 # ROCm is only x86_64 for now
 ExclusiveArch:  x86_64
 
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
+
 %description
 ROC-tracer
 
@@ -163,6 +169,7 @@ Summary:        Runtime for %{name}
 %package devel
 Summary:        The %{name} development package
 Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 The headers of libraries for %{name}.
@@ -185,7 +192,7 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}
+%autosetup -p3 -n %{upstreamname}
 
 # No knob in cmake to turn off testing
 %if %{without test}
@@ -207,8 +214,11 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
     -DCMAKE_EXE_LINKER_FLAGS="-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_MODULE_PATH=%{pkg_prefix}/%{pkg_libdir}/cmake/hip \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DROCM_SYMLINK_LIBS=OFF \
     -DGPU_TARGETS=%{rocm_gpu_list_test} \
     -DHIP_PLATFORM=amd \
@@ -227,18 +237,23 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
 # Only install the pdf
 rm -rf rm %{buildroot}%{pkg_prefix}/share/html
 # Extra licenses
-# Fedora
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
-# OpenSUSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 
+%if %{without test}
+# libhip_stats is only used in testing
+rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libhip_stats.so
+# libroctracer_tool is only used in testing
+# libfile_plugin is used in libroctracer_tool
+rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libroctracer_tool.so
+rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/roctracer/libfile_plugin.so
+%endif
 
 %files -n %{pkg_name}
 %license LICENSE.md
 %doc README.md
 %{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libroctx64.so.%{pkg_library_version}{,.*}
-%{pkg_prefix}/%{pkg_libdir}/roctracer/
 
 %files devel
 %{pkg_prefix}/include/roctracer
@@ -253,9 +268,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 %if %{with test}
 %files test
 %{pkg_prefix}/share/roctracer/
+%{pkg_prefix}/%{pkg_libdir}/roctracer/
 %endif
 
 %changelog
+* Sat Jun 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-3
+- merge compat changes
+
 * Wed Apr 22 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.2-2
 - Generate suse package names
 

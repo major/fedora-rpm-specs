@@ -7,7 +7,9 @@ Summary:        Mutable mapping tools
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        %pypi_source
+Source:         %pypi_source %{srcname}
+# Fix hang in test_stress_different_keys_threadsafe.
+Patch:          https://github.com/dask/zict/pull/108.patch
 
 BuildArch:      noarch
 
@@ -44,7 +46,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 # drop LMDB bits till LMDB is buildable again
 rm -f zict/lmdb.py
 sed -i "/lmdb/d" zict/__init__.py

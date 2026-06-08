@@ -9,7 +9,7 @@
 Name:           python-requirements-parser
 Version:        0.5.0
 %forgemeta
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        A small Python module for parsing Pip requirement files
 
 License:        Apache-2.0
@@ -22,6 +22,7 @@ Patch:          pyproject.toml-limit-documentation-to-the-sdist.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
 BuildRequires:  tomcli+tomlkit
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
@@ -35,6 +36,7 @@ This package provides a small Python module for parsing Pip requirements files.}
 
 %package -n     python3-requirements-parser
 Summary:        %{summary}
+Requires:       python3-pkg-resources
 
 %description -n python3-requirements-parser %{_description}
 
@@ -70,38 +72,4 @@ tomcli-set pyproject.toml str tool.poetry.dependencies.setuptools "*"
 
 
 %changelog
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.0-12
-- Rebuilt for Python 3.15
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-10
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.0-9
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.0-7
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.5.0-4
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Aug 15 2023 Maxwell G <maxwell@gtmx.me> - 0.5.0-1
-- Initial import. Closes rhbz#2232042.
+%autochangelog

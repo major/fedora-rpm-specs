@@ -17,6 +17,9 @@ URL:            https://django-configurations.readthedocs.io/
 Source:         %{pypi_source}
 Patch:          %{pypi_name}-adjust_test_cases.diff
 Patch:          django-redis.diff
+# Fix Python 3.15 compatibility: move to PEP-451 style loader (exec_module)
+# https://github.com/jazzband/django-configurations/pull/386
+Patch:          fix-pep451-exec-module.patch
 
 BuildArch:      noarch
 

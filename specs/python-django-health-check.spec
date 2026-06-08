@@ -1,6 +1,6 @@
 Name:           python-django-health-check
 Version:        3.20.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Monitor the health of your Django app and its connected services
 
 License:        MIT
@@ -61,6 +61,9 @@ PYTHONPATH="${PWD}" %pytest
 %doc docs/
 
 %changelog
+* Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 3.20.8-2
+- Rebuilt for Python 3.15
+
 * Sun Jan 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.20.8-1
 - Update to 3.20.8
 - Port to pyproject-rpm-macros (fix RHBZ#2377644)

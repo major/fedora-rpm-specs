@@ -18,7 +18,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-lxml
 %if %{undefined rhel}
 # this is only used in tests.contrast.test_contrasts
 # to avoid pulling this package into RHEL, the test is ignored in %%check

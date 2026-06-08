@@ -5,7 +5,7 @@ Version:        5.6.3
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python disk-backed cache
 
 License:        Apache-2.0
@@ -59,6 +59,9 @@ sed -i 's/==4.2.*//g' tox.ini
 %doc README.rst
 
 %changelog
+* Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 5.6.3-13
+- Rebuilt for Python 3.15
+
 * Sun Mar 15 2026 Benson Muite <fed500@fedoraproject.org> - 5.6.4-12
 - Incorporate patch from Sam Doran to fix CVE-2025-69872
 

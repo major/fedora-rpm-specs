@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.5.0
+Version:    9.7.0
 
 # Compute version related macros.
 
@@ -281,7 +281,7 @@ rm %{buildroot}%{_datadir}/%{name}/templates/.stub
 %find_lang %{name}
 %find_lang gtk2_%{name}
 %find_lang gtkmm2ext3
-%find_lang libytk%{major}
+%find_lang ytk%{major}
 
 # Collect non-locale data files and (all) directories
 find %{buildroot}%{_datadir}/%{name} | \
@@ -366,7 +366,7 @@ done
 # check appdata file
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
 
-%files -f %{name}.lang -f gtk2_%{name}.lang -f gtkmm2ext3.lang -f libytk%{major}.lang -f %{name}-datafiles.list
+%files -f %{name}.lang -f gtk2_%{name}.lang -f gtkmm2ext3.lang -f ytk%{major}.lang -f %{name}-datafiles.list
 %license COPYING gpl-3.0.txt LICENSING
 %{_bindir}/%{name}
 %{_bindir}/%{name}-export

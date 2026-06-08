@@ -64,9 +64,8 @@ Obsoletes:      python-helpdev-doc < 0.7.1-23
 # Generating the man page in %%install allows us to use the installed entry
 # point; horrible hacks would be required to do this in %%build.
 install --directory '%{buildroot}%{_mandir}/man1'
-PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
-    --no-info --output='%{buildroot}%{_mandir}/man1/helpdev.1' \
-    '%{buildroot}%{_bindir}/helpdev'
+%{py3_test_envvars} help2man --no-info \
+    --output='%{buildroot}%{_mandir}/man1/helpdev.1' helpdev
 
 
 %check -a
