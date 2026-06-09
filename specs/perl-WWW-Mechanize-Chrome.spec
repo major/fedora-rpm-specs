@@ -5,7 +5,7 @@
 %bcond network_tests 0
 
 Name:           perl-WWW-Mechanize-Chrome
-Version:        0.77
+Version:        0.78
 Release:        1%{?dist}
 Summary:        Automate the Chrome browser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -41,6 +41,7 @@ BuildRequires:  perl(MooX::Role::EventEmitter)
 BuildRequires:  perl(Net::Async::WebSocket::Client) >= 0.12
 BuildRequires:  perl(Object::Import)
 BuildRequires:  perl(PerlX::Maybe)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::HTTP::LocalServer) >= 0.71
 BuildRequires:  perl(Test::Memory::Cycle)
@@ -165,6 +166,9 @@ make test
 %{_mandir}/man3/WWW::Mechanize::Chrome*
 
 %changelog
+* Sun Jun 07 2026 Chris Adams <linux@cmadams.net> - 0.78-1
+- new version, update requires
+
 * Sun May 17 2026 Chris Adams <linux@cmadams.net> - 0.77-1
 - new version
 - add ExclusiveArch to match where Chrome/Chromium is supported

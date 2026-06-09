@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plugins for Geany
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -432,7 +432,7 @@ version control systems is provided:
 %package git-changebar
 Summary:   Highlights uncommitted changes, and allows navigation through hunks
 Requires:  geany-plugins-common = %{version}-%{release}
-BuildRequires:  libgit2-devel
+BuildRequires:  pkgconfig(libgit2)
 
 %description git-changebar
 This plugin highlights uncommitted changes to files tracked with Git, and allows to navigate through the hunks.
@@ -890,6 +890,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Sat Jun 06 2026 Fabio Valentini <decathorpe@gmail.com> - 2.1-4
+- Avoid depending on the unversioned libgit2 package.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

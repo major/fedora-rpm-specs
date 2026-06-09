@@ -1,6 +1,6 @@
 Name:           foomuuri
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -12,7 +12,7 @@ BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
 Requires:       nftables
 Requires:       python3-dbus
-Requires:       python3-gobject
+Requires:       python3-gobject-base
 Requires:       python3-systemd
 Recommends:     fping
 Recommends:     jq
@@ -186,6 +186,9 @@ fi
 
 
 %changelog
+* Sun Jun 07 2026 Kim B. Heino  <b@bbbs.net> - 0.33-2
+- rhbz#2486092: Switch from python3-gobject to python3-gobject-base
+
 * Wed Jun 03 2026 Kim B. Heino  <b@bbbs.net> - 0.33-1
 - Upgrade to 0.33
 

@@ -1,4 +1,4 @@
-Version:	1.4.2
+Version:	1.5.0
 Release: %autorelease
 %global _hardened_build 1
 

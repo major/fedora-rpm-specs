@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -71,6 +71,9 @@ wait $REDIS_SERVER_PID
 %{_bindir}/rqworker
 
 %changelog
+* Sun Jun 07 2026 Python Maint <python-maint@redhat.com> - 2.6.1-2
+- Rebuilt for Python 3.15
+
 * Mon Feb 09 2026 Charalampos Stratakis <cstratak@redhat.com> - 2.6.1-1
 - Update to 2.6.1
 Resolves: rhbz#2322157, rhbz#2342234, rhbz#2435021, rhbz#2414802

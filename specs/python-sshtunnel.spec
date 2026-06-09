@@ -13,6 +13,16 @@ URL:            https://github.com/pahaz/sshtunnel
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
+# remove DSSKey, which is no longer supported by paramiko
+# https://github.com/pahaz/sshtunnel/pull/300
+#
+# Fixes:
+#
+# requirements need update module 'paramiko' has no attribute 'DSSKey'
+# https://github.com/pahaz/sshtunnel/issues/302
+# https://bugzilla.redhat.com/show_bug.cgi?id=2485965
+Patch:          %{url}/pull/300.patch
+
 BuildRequires:  python3-devel
 
 %if %{with tests}

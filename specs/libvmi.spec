@@ -1,10 +1,10 @@
-%global commit 77a677aa6621927495f1954eded11e601937798b
+%global commit 82bbee6c378da854d07887048b06dc4ee8e20d6a
 %global short_commit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20251217
+%global commit_date 20260104
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
-%global baserelease 15
+%global baserelease 16
 
 Name:           libvmi
 Version:        0.14.0
@@ -17,8 +17,6 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{commit}.tar.gz#/%{n
 
 # Disable '-Werror':
 Patch0001:      libvmi-no_werror.patch
-# Fix incompatible pointer type:
-Patch0002:      libvmi-fix-incompatible-pointer.patch
 
 # Cannot presently build on other architectures.
 ExclusiveArch:  x86_64
@@ -55,7 +53,9 @@ use of %{name}.
 %autosetup -n libvmi-%{commit} -p1
 
 %build
-%cmake -DCMAKE_BUILD_TYPE="Release"
+%cmake \
+	-DCMAKE_BUILD_TYPE="Release" \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -80,6 +80,11 @@ find %{buildroot}%{_libdir} -name '*.a' -delete -print
 %{_bindir}/*
 
 %changelog
+* Sun Jun 07 2026 W. Michael Petullo <mike@flyn.org> - 0.14.0-16.20260104git82bbee6
+- Update to Git master
+- Remove patch merged upstream
+- Add -DCMAKE_POLICY_VERSION_MINIMUM=3.5 to overcome complaint about cmake_minimum_required
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-15.20251217git77a677a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

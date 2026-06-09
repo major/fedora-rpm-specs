@@ -178,7 +178,7 @@ ExcludeArch:    %{ix86}
 
 # Compilation may fail on builders with very many cores (e.g. 192 cores) due to
 # “too many open files.” Try to keep the files/core ratio from getting too low.
-%global _smp_ncpus_max 72
+%global _smp_ncpus_max 48
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
@@ -494,6 +494,17 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# tikv-jemallocator
+#   wanted: 0.6.0
+#   currently packaged: 0.7.0
+# We haven’t suggested this upstream because we know they use renovate with
+# dependency cooldowns, and we expect they will soon update without prompting.
+# We use sed instead of tomcli because the target.cfg(…) expression is a
+# *mess*, and we don’t want to have to write it out here.
+sed --regexp-extended --in-place \
+    's/^(tikv-jemallocator\b.*version = ")0\.6\.0"/\1>=0.6.0, <0.8.0"/' \
+    crates/uv-performance-memory-allocator/Cargo.toml
 
 %cargo_prep
 

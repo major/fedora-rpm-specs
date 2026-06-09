@@ -5,7 +5,7 @@
 %global crate salsa-macros
 
 Name:           rust-salsa-macros
-Version:        0.26.2
+Version:        0.27.0
 Release:        %autorelease
 Summary:        Procedural macros for the salsa crate
 

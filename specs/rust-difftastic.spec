@@ -20,6 +20,7 @@ Source1:        https://github.com/Wilfred/difftastic/raw/%{version}/difft.1
 # * allow strum 0.27: https://github.com/Wilfred/difftastic/pull/822
 # * temporarily drop tree-sitter-clojure-orchard, pending legal clarification
 # * bump tree-sitter-ocaml from 0.23.2 to 0.24
+# * allow tikv-jemallocator 0.7: https://github.com/Wilfred/difftastic/pull/985
 Patch:          difftastic-fix-metadata.diff
 # * strip out Clojure support from the codebase
 # * https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/D476PEK5GI4D5OSF4QBKZLHM77QC3LSH/
@@ -37,7 +38,6 @@ Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # CECILL-C
@@ -51,7 +51,6 @@ License:        %{shrink:
   AND (Apache-2.0 OR MIT) AND BSD-3-Clause
   AND Unicode-DFS-2016
   AND Apache-2.0
-  AND (Apache-2.0 OR BSL-1.0)
   AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
   AND CECILL-C
   AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain

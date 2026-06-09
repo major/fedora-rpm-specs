@@ -1,4 +1,4 @@
-Version:        2.9.0
+Version:        2.10.0
 Name:           python-google-resumable-media
 Release:        %autorelease
 Summary:        Utilities for Google media downloads and resumable uploads

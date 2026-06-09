@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -12,7 +12,9 @@ URL: https://github.com/seattlerb/minitest
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
+BuildRequires: rubygem(drb)
 BuildRequires: rubygem(hoe)
+BuildRequires: rubygem(prism)
 BuildArch: noarch
 
 %description
@@ -101,6 +103,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Sun Jun 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.6-2
+- Add explicit BR: rubygem(drb,prism)
+
 * Sat May 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.6-1
 - 6.0.6
 

@@ -4,7 +4,7 @@
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
 Version:        1.66.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
@@ -105,6 +105,9 @@ mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=3333 -
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sun Jun 07 2026 Python Maint <python-maint@redhat.com> - 1.66.0-3
+- Rebuilt for Python 3.15
+
 * Thu May 14 2026 Terje Røsten <terjeros@gmail.com> - 1.66.0-2
 - Add patch to let test suite pass with pygments 2.20
 

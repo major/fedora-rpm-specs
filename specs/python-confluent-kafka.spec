@@ -2,7 +2,7 @@
 %global pypi_name confluent-kafka
 
 Name:           python-%{sname}
-Version:        2.14.0
+Version:        2.14.2
 Release:        %autorelease
 Summary:        Confluent's Apache Kafka client for Python
 
@@ -34,6 +34,7 @@ Requires:       librdkafka >= 2.14.0
 
 %prep
 %autosetup -n confluent_kafka-%{version}
+
 
 
 %generate_buildrequires

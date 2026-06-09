@@ -41,11 +41,13 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %global pkg_module default
+%global skip_install_rpath ON
 %endif
 
 # Testing is broken
@@ -78,7 +80,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
@@ -93,6 +95,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  rocm-clang%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-llvm%{pkg_suffix}-static
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
@@ -108,6 +111,9 @@ BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 %endif
 %endif
+
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix}
 
 %description
 AQLprofile is an open source library that enables advanced GPU
@@ -154,6 +160,7 @@ sed -i '/add_definitions ( -DHSA_DEPRECATED= )/aadd_definitions ( -D__HIP_PLATFO
     -DAQLPROFILE_BUILD_TESTS=%{build_test} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
@@ -162,6 +169,8 @@ sed -i '/add_definitions ( -DHSA_DEPRECATED= )/aadd_definitions ( -D__HIP_PLATFO
     -DCMAKE_HIP_COMPILER=%{rocmllvm_bindir}/amdclang++ \
     -DCMAKE_HIP_FLAGS="-I %{pkg_prefix}/include" \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DGPU_TARGETS=%{gpu_list}
     
 %cmake_build
@@ -187,6 +196,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-amd-aqlprofile/LICENSE.md
 %endif
 
 %changelog
+* Sun Jun 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- merge compat changes
+
 * Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

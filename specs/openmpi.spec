@@ -12,13 +12,7 @@
 %bcond_with ucx
 %endif
 
-# ARM 32-bit is not supported by rdma
-# https://bugzilla.redhat.com/show_bug.cgi?id=1780584
-%ifarch %{arm}
-%bcond_with rdma
-%else
 %bcond_without rdma
-%endif
 
 # No more Java on i686
 %ifarch %{java_arches}
@@ -90,7 +84,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  valgrind-devel
 %endif
 %if %{with rdma}
-BuildRequires:  opensm-devel > 3.3.0
 BuildRequires:  rdma-core-devel
 %endif
 # Doesn't compile:
@@ -98,8 +91,6 @@ BuildRequires:  rdma-core-devel
 #                      loop->getLoopHead()->getStartAddress(), loop_stmts );
 #BuildRequires:  dyninst-devel
 BuildRequires:  hwloc-devel
-# So configure can find lstopo
-BuildRequires:  hwloc-gui
 %if %{with java}
 BuildRequires:  java-25-devel
 %else
@@ -121,8 +112,6 @@ BuildRequires:  perl(Getopt::Long)
 %if %{with pmix}
 BuildRequires:  pmix-devel >= 4.2.7
 %endif
-# For configure to find /usr/bin/prte
-BuildRequires:  prrte
 BuildRequires:  prrte-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with psm2}

@@ -8,7 +8,7 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        5.2.0
+Version:        5.2.1
 Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
@@ -111,6 +111,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Sat Jun 06 2026 Maxwell G <maxwell@gtmx.me> - 5.2.1-1
+- Update to 5.2.1. Fixes rhbz#2481683.
+
 * Fri Apr 10 2026 Maxwell G <maxwell@gtmx.me> - 5.2.0-1
 - Update to 5.2.0. Fixes rhbz#2456524.
 

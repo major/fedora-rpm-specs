@@ -3,9 +3,9 @@
 
 # https://github.com/checkmake/checkmake
 %global goipath         github.com/checkmake/checkmake
-Version:                0.2.2
-%global tag             0.2.2
-%global commit          723c897a3cc9693f1db8ede3714ed63f926d280f
+Version:                0.3.2
+%global tag             v0.3.2
+%global commit          59931d556f8f5cf4fbacf2c8390a8122ef7a881d
 
 %gometa -L -f
 

@@ -6,7 +6,7 @@
 %global crate get-size-derive2
 
 Name:           rust-get-size-derive2
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Derives the GetSize trait
 

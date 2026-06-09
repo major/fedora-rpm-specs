@@ -5,7 +5,7 @@
 %global crate filetreelist
 
 Name:           rust-filetreelist
-Version:        0.5.3
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Filetree abstraction based on a sorted path list
 

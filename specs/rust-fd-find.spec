@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Temporary lower MSRV from 1.90.0 to 1.88.0 for EL9
 # * Allow lscolors 0.20
+# * Allow tikv-jemallocator 0.7: https://github.com/sharkdp/fd/pull/2027
 Patch:          fd-find-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

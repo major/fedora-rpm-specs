@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
-Version:        5.0.4
-Release:        6%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
@@ -118,6 +118,9 @@ mv redhat-linux-build-python redhat-linux-build
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Sun Jun 07 2026 W. Michael Petullo <mike@flyn.org> - 2:5.1.0-1
+- Update to 5.1.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2:5.0.4-6
 - Rebuilt for Python 3.15
 

@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1372,6 +1372,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Sun Jun 07 2026 František Zatloukal <fzatlouk@redhat.com> - 1.90.0-10
+- Rebuilt for icu 78.3
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.90.0-9
 - Rebuilt for Python 3.15
 

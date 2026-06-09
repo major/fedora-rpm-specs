@@ -1,13 +1,15 @@
 %bcond tests 1
 
 Name:           ansible-builder
-Version:        3.1.0
-Release:        9%{?dist}
+Version:        3.1.1
+Release:        %autorelease
 Summary:        A tool for building Ansible Execution Environments
 
 License:        Apache-2.0
 URL:            https://ansible.readthedocs.io/projects/builder/en/stable/
 Source:         %{pypi_source ansible_builder}
+
+Patch:          0001-Fix-incorrect-pytest-mark-fixture-usage.patch
 
 BuildArch:      noarch
 
@@ -68,47 +70,4 @@ tomcli-set pyproject.toml lists replace build-system.requires \
 
 
 %changelog
-* Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.1.0-9
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-6
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.1.0-3
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Sep 22 2024 Maxwell G <maxwell@gtmx.me> - 3.1.0-1
-- Update to 3.1.0. Fixes rhbz#2293508.
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 09 2024 Python Maint <python-maint@redhat.com> - 3.0.1-2
-- Rebuilt for Python 3.13
-
-* Thu Mar 28 2024 Maxwell G <maxwell@gtmx.me> - 3.0.1-1
-- Update to 3.0.1. Fixes rhbz#2265360.
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Aug 15 2023 Maxwell G <maxwell@gtmx.me> - 3.0.0-1
-- Initial package. Closes rhbz#2247156.
+%autochangelog

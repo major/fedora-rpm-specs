@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.43
+Version:        0.0.44
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -162,9 +162,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev a8a0614348c1fcf47fc9b666eff61a103914d520
-%global ruff_baseversion 0.15.15
-%global ruff_snapdate 20260603
+%global ruff_rev a70f81f779856ab4fbcd019c0add42537c6d72a3
+%global ruff_baseversion 0.15.16
+%global ruff_snapdate 20260604
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -324,11 +324,21 @@ install -D --preserve-timestamps --mode=0644 \
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set ruff/Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
-# # get-size2
-# #   wanted: 0.8.0
-# #   currently packaged: 0.9.0
+# get-size2
+#   wanted: 0.9.0
+#   currently packaged: 0.10.0
+# We haven’t suggested this upstream because we know they use renovate with
+# dependency cooldowns, and we expect they will soon update without prompting.
 tomcli set ruff/Cargo.toml str workspace.dependencies.get-size2.version \
-    '>=0.8.0, <0.10.0'
+    '>=0.9.0, <0.11.0'
+
+# tikv-jemallocator
+#   wanted: 0.6.0
+#   currently packaged: 0.7.0
+# We haven’t suggested this upstream because we know they use renovate with
+# dependency cooldowns, and we expect they will soon update without prompting.
+tomcli set ruff/Cargo.toml str \
+    workspace.dependencies.tikv-jemallocator.version '>=0.6.0, <0.8.0'
 
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \

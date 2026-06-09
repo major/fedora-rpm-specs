@@ -3,7 +3,7 @@
 %global         forgeurl0 https://github.com/pwsafe/pwsafe
 %global         version0  1.24.0
 # Using a more recent snapshot of `master` to pull in various
-# necessary patches until 1.25 is out
+# necessary patches until 1.25.0 is out
 %global         date      20260604
 %global         commit    1d41f7b
 %forgemeta
@@ -22,8 +22,12 @@ Patch2:         remove-unreferenced-libmagic.patch
 # upstream wants to keep utf8 bom since they seem to have Windows editors
 # that require it. I don't think any Fedora editor requires a utf-8 bom.
 Patch3:         bomless-utf8-output.patch
-# update bundled pugixml to 1.15
+# update bundled pugixml to 1.15, goes away when passwordsafe 1.25.0 is released
 Patch4:         https://github.com/pwsafe/pwsafe/pull/1807.patch
+# kill the executable bits, goes away when 1.25 is released
+Patch5:         https://github.com/pwsafe/pwsafe/pull/1814.patch
+# allow import from gorilla password safe, , goes away when 1.25 is released
+Patch6:         https://github.com/pwsafe/pwsafe/pull/1815.patch
 Url:            https://pwsafe.org/
 #
 # most of the code is Artistic-2.0
@@ -86,8 +90,6 @@ and help files for Password Safe.
 rm -rv src/ui/Windows
 rm -rv src/os/windows
 rm -rv src/os/mac
-# kill off executable bit on all files
-chmod -R -x+X .
 
 
 %conf

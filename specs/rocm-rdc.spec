@@ -24,6 +24,21 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix %{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%global skip_install_rpath OFF
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%global skip_install_rpath ON
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
@@ -38,9 +53,9 @@
 %global gpu_list %{rocm_gpu_list_default}
 %global _gpu_list gfx1100
 
-Name:           rocm-rdc
+Name:           rocm-rdc%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Data Center Tool
 
 URL:            https://github.com/ROCm/%{upstreamname}
@@ -60,7 +75,7 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 # ROCm is only x86_64 for now
 ExclusiveArch:  x86_64
 
-BuildRequires:  amdsmi-devel
+BuildRequires:  amdsmi%{pkg_suffix}-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  grpc-devel
@@ -68,10 +83,15 @@ BuildRequires:  libcap-devel
 BuildRequires:  libdrm-devel
 BuildRequires:  python3dist(cppheaderparser)
 BuildRequires:  protobuf-devel < 4
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+
+Requires:       amdsmi%{pkg_suffix}
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-hip%{pkg_suffix}
 
 %description
 ROCm Data Center Tool (RDC)
@@ -87,6 +107,7 @@ environments. The main features are:
 %package devel
 Summary:        The %{name} development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 The headers of libraries for %{name}.
@@ -112,51 +133,55 @@ sed -i -e 's@grpcpp/impl/call_op_set.h@grpcpp/impl/codegen/call_op_set.h@' serve
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_prefix}/%{pkg_libdir} \
+    -DCMAKE_SKIP_RPATH=%{skip_install_rpath} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{skip_install_rpath} \
     -DHIP_PLATFORM=amd \
     -DROCM_SYMLINK_LIBS=OFF \
-    -DROCM_DIR=%{_prefix}
+    -DROCM_DIR=%{pkg_prefix}
 
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rdc/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rdc/LICENSE.md
 
 # rocm-rdc.x86_64: W: unstripped-binary-or-object /usr/lib64/rdc/hsaco/gfx1010/binary_search_kernels.hsaco
-%rocmllvm_bindir/llvm-strip %{buildroot}%{_libdir}/rdc/hsaco/*/*.hsaco
+%rocmllvm_bindir/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rdc/hsaco/*/*.hsaco
 
 # rocm-rdc.x86_64: E: non-executable-script /usr/libexec/rdc/authentication/01gen_root_cert.sh 644 /bin/bash
-chmod a+x %{buildroot}%{_libexecdir}/rdc/authentication/*.sh
+chmod a+x %{buildroot}%{pkg_prefix}/libexec/rdc/authentication/*.sh
 
 %files
 %license LICENSE.md
 %doc README.md
-%dir %{_datadir}/rdc
-%dir %{_libdir}/rdc
-%{_bindir}/rdc*
-%{_datadir}/rdc/conf/
-%{_libdir}/librdc.so.1{,.*}
-%{_libdir}/librdc_bootstrap.so.1{,.*}
-%{_libdir}/librdc_client.so.1{,.*}
-%{_libdir}/rdc/librdc_rocr.so.1{,.*}
-%{_libdir}/rdc/hsaco/
-%{_libexecdir}/rdc/
+%dir %{pkg_prefix}/share/rdc
+%dir %{pkg_prefix}/%{pkg_libdir}/rdc
+%{pkg_prefix}/bin/rdc*
+%{pkg_prefix}/share/rdc/conf/
+%{pkg_prefix}/%{pkg_libdir}/librdc.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librdc_bootstrap.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librdc_client.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/rdc/librdc_rocr.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/rdc/hsaco/
+%{pkg_prefix}/libexec/rdc/
 
 %files devel
-%dir %{_includedir}/rdc
-%dir %{_libdir}/cmake/rdc
-%{_datadir}/rdc/example/
-%{_includedir}/rdc/*.h
-%{_libdir}/librdc.so
-%{_libdir}/librdc_bootstrap.so
-%{_libdir}/librdc_client.so
-%{_libdir}/rdc/librdc_rocr.so
-%{_libdir}/cmake/rdc/*.cmake
-
+%{pkg_prefix}/share/rdc/example/
+%{pkg_prefix}/include/rdc/
+%{pkg_prefix}/%{pkg_libdir}/librdc.so
+%{pkg_prefix}/%{pkg_libdir}/librdc_bootstrap.so
+%{pkg_prefix}/%{pkg_libdir}/librdc_client.so
+%{pkg_prefix}/%{pkg_libdir}/rdc/librdc_rocr.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rdc/
 
 %changelog
+* Sun Jun 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
+- merge compat changes
+
 * Wed Apr 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
 - Update to 7.2.1
 

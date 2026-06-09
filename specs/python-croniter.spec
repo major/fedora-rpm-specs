@@ -31,8 +31,11 @@ Requires:       python3-dateutil
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+
 # Relax packaging version requirement
-sed -i 's/"packaging==[^"]*"/"packaging"/' pyproject.toml
+%pyproject_patch_dependency packaging:ignore
+%pyproject_patch_dependency pathspec:ignore
+%pyproject_patch_dependency trove-classifiers:ignore
 
 
 %generate_buildrequires

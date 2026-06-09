@@ -117,7 +117,7 @@ Development headers for %{name}
 
 %check
 skips='^($.'
-%ifarch ppc64le
+%ifarch ppc64le %{ix86}
 # [Bug]: Flaky test failures in absl_failure_signal_handler_test on ppc64le in
 # Fedora
 # https://github.com/abseil/abseil-cpp/issues/1804

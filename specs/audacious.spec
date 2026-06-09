@@ -2,13 +2,13 @@
 %bcond_without gtk
 
 Name: audacious
-Version: 4.6
+Version: 4.6.1
 Release: 1%{?dist}
 
 %global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.6
+%global aud_ver 4.6.1
 
 # Audacious Generic Plugin API is defined in audacious-libs subpackage.
 
@@ -92,8 +92,8 @@ Group: System Environment/Libraries
 # As defined in /usr/include/libaudcore/plugin.h: _AUD_PLUGIN_VERSION
 # This must be an exact match for plugin .so files to load.
 # If multiple versions are supported, add multiple Provides below.
-%global aud_plugin_api 48
-%global aud_plugin_api_min 48
+%global aud_plugin_api 49
+%global aud_plugin_api_min 49
 Provides: audacious(plugin-api)%{?_isa} = %{aud_plugin_api}
 # [!] escaped macros, beware!
 #Provides: audacious(plugin-api)%%{?_isa} = 46
@@ -183,6 +183,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{na
 
 
 %changelog
+* Sun Jun 07 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-1
+- update to 4.6.1 (more SONAME bumps + plugin API version increase)
+
 * Sun May 31 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6-1
 - update to 4.6 release
 

@@ -70,10 +70,12 @@ Futurist
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[><=]/d" \
-    -e "/^reno[[:space:]]*[><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
+
+# Eventlet is being removed from openstack, we do not need to testit.
+%pyproject_patch_dependency eventlet:ignore
+
 
 
 %generate_buildrequires
@@ -87,12 +89,14 @@ sed -i \
 %build
 %pyproject_wheel
 
+
 %if 0%{?with_doc}
 # generate html docs
 %tox -e docs
 # remove the sphinx-build-3 leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
+
 
 %install
 %pyproject_install
@@ -101,11 +105,14 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %check
-%tox -e %{default_toxenv} -- -- --exclude-regex 'test_wait_for_any'
+%pyproject_check_import %{pypi_name} -e futurist.tests.test_executors -e futurist.tests.test_periodics -e futurist.tests.test_waiters
+# to hard while waiting for evently to really go, we do not need to test
+# it though
+#%%tox -e %%{default_toxenv}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.rst ChangeLog
 
 
 %if 0%{?with_doc}

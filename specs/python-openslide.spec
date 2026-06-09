@@ -1,5 +1,5 @@
 Name:           python-openslide
-Version:        1.4.3
+Version:        1.4.6
 Release:        %autorelease
 Summary:        Python bindings for the OpenSlide library
 

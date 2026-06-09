@@ -9,7 +9,7 @@
 %global crate gitui
 
 Name:           rust-gitui
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Blazing fast terminal-ui for git
 
@@ -33,8 +33,7 @@ Blazing fast terminal-ui for git.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND MIT AND Unlicense AND WTFPL
-# (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
@@ -57,7 +56,7 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND ISC AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND Unlicense AND WTFPL AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR GPL-3.0-or-later) AND (Unlicense OR MIT)
+License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND ISC AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND Unlicense AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR GPL-3.0-or-later) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

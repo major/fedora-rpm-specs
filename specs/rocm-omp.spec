@@ -69,12 +69,15 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
-License:        Apache-2.0 WITH LLVM-exception OR NCSA AND MIT
+License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND Apache-2.0 AND BSD-3-Clause
+# llvm is Apache-2.0 WITH LLVM-exception OR NCSA
+# openmp/runtime is Apache-2.0
+# openmp/runtime/src/thirdparty/ittnotify is BSD-3-Clause
 Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-omp-%{rocm_version}.tar.gz
 
 BuildRequires:  binutils-devel
@@ -87,10 +90,13 @@ BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  perl
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
+BuildRequires:  rocm-llvm%{pkg_suffix}-filesystem
 BuildRequires:  rocm-device-libs%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  zlib-devel
 
+Provides:       bundled(ittapi) = 3.0.0
 Requires:       rocm-llvm%{pkg_suffix}-filesystem
 
 ExclusiveArch:  x86_64
@@ -101,16 +107,11 @@ ExclusiveArch:  x86_64
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+# main package is empty, do not require it
+Requires:       rocm-filesystem%{pkg_suffix}
+Requires:       rocm-llvm%{pkg_suffix}-filesystem
 
 %description devel
-%{summary}
-
-%package static
-Summary:        Static Libraries for %{name}
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-
-%description static
 %{summary}
 
 %prep
@@ -118,6 +119,10 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
+
+# Other licenses
+cp -p openmp/runtime/src/thirdparty/ittnotify/LICENSE.txt LICENSE.ittnotify.txt
+cp -p openmp/LICENSE.TXT LICENSE.openmp.txt
 
 %build
 
@@ -224,27 +229,16 @@ cd openmp
 rm -rf %{buildroot}%{bundle_prefix}/lib/omptest
 rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 
-# 6.4 remove everything, may not need the main package
-#  bin/llvm-omp*
-#  bin/prep-libomptarget-bc
-#  lib/libomp*.so.*
-%files
-
-# 6.4 removed :
-#  lib/clang/%%{llvm_maj_ver}/include/hostexec.h
-#  lib/disable_dynamic_devmem.ll
-#  lib/libdevice/
-#  lib/*.bc
 %files devel
+%license LICENSE.TXT LICENSE.ittnotify.txt LICENSE.openmp.txt
 %{bundle_prefix}/include/omp*.h
 %{bundle_prefix}/lib/cmake/openmp/
 %{bundle_prefix}/lib/libomp*.so
 
-# 6.4 removed everything, , may not need this subpackage
-#  lib/libomptarget.devicertl.a
-%files static
-
 %changelog
+* Sun Jun 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- merge compat changes
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Add --with preview
 

@@ -88,6 +88,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %install
 %pyproject_install
 %pyproject_save_files -l flatpak_module_tools
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
+# setuptools_scm 10, SETUPTOOLS_SCM_WRITE_TO_SOURCE=1 is not working
+# https://github.com/pypa/setuptools-scm/issues/1364
+rm -f %{buildroot}%{python3_sitelib}/VERSION
+%endif
 
 
 %check

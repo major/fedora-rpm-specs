@@ -8,14 +8,14 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.35
-%global crio_spec_ver   1.35.3
+%global crio_spec_ver   1.35.4
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.35.3
+%global crio_tag        v1.35.4
 %global golangver       1.25.0
 
 # Related: github.com/cri-o/cri-o/issues/3684
-%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')_Release:%{release}
+%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
 # Commit for the builds
 # Uncomment if needed for commit based release
@@ -28,7 +28,6 @@ Version:                  %{crio_spec_ver}
 %{!?commit0:%global tag   %{crio_tag}}
 
 %gometa -L -f
-
 
 Name:           %{crio_spec_name}
 Release:        %autorelease
@@ -59,7 +58,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
 BuildRequires:  runc
 BuildRequires:  crun
-BuildRequires:  conmon >= 2.0.2-1
+BuildRequires:  conmon
 BuildRequires:  iptables
 
 Requires(pre):  container-selinux
@@ -114,14 +113,15 @@ sed -i 's/\/local//' contrib/systemd/crio-wipe.service
 %global __golang_extldflags -Wl,-z,undefs -Wl,-z,notext
 
 # buildtags, create global to reuse in check section
-%global buildtags  $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper
+%global buildtags $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/openpgp_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh)
 
 export GO_BUILDTAGS="%{buildtags}"
-export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp} "
+export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp} -X %{goipath}/internal/version.buildCommit=%{release} "
 
 # remove default go macro ldflag settings for version, tag, commit
 %global currentgoldflags   %{nil}
 
+# crio currently only subdirectory
 %gobuild -o %{gobuilddir}/bin/crio %{goipath}/cmd/crio
 
 # generate pinns

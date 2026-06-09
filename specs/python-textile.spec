@@ -1,8 +1,8 @@
 %global srcname textile
 
 Name:           python-%{srcname}
-Version:        4.0.3
-Release:        9%{?dist}
+Version:        4.0.4
+Release:        1%{?dist}
 Summary:        A Humane Web Text Generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Sun Jun 07 2026 Thomas Moschny <thomas.moschny@gmx.de> - 4.0.4-1
+- Update to 4.0.4.
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.0.3-9
 - Rebuilt for Python 3.15
 

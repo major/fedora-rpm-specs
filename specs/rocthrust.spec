@@ -74,7 +74,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm Thrust library
 
@@ -86,16 +86,24 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 %else
 # https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
 # Uses 'LicenseRef-Fedora-Public-Domain'
-License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT AND LicenseRef-Fedora-Public-Domain
+License:        Apache-2.0 AND MIT AND (Apache-2.0 AND BSL-1.0) AND BSL-1.0 AND LicenseRef-Fedora-Public-Domain AND (Apache-2.0 AND MIT) AND BSD-2-Clause AND BSD-3-Clause
 %endif
 # All files are Apache 2.0 with some exceptions:
 # ./cmake contains only files under MIT
-# ./internal/benchmark/*.py are dual licensed Apache 2.0 and Boost 1.0
+# These misc files are MIT
+#   ./thrust/detail/config/libcxx.h
+#   ./thrust/detail/nv_target.h
+#   ./thrust/optional.h
+#   ./thrust/system/hip/detail/general/temp_storage.h
+#   ./thrust/system/hip/detail/general/various.h
+#   ./thrust/zip_function.h
 # ./thrust/ contain some headers files that are Boost 1.0 licensed
 # ./thrust/ contain some headers that are dual Apache 2.0 and Boost 1.0
 # ./thrust/cmake/FindTBB.cmake is public domain
 # ./thrust/detail/allocator/allocator_traits.h is dual Apache 2.0 and MIT
+# ./thrust/detail/system/hip/hipstdpar/* is dual Apache 2.0 and MIT
 # ./thrust/detail/complex contains BSD 2 clause licensed headers
+# ./thrust/system/* is BSD 3
 
 URL:            https://github.com/ROCm/rocm-libraries
 
@@ -106,6 +114,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocprim%{pkg_suffix}-static
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
@@ -132,6 +141,7 @@ ported to HIP/ROCm platform, which uses the rocPRIM library.
 %package devel
 Summary:        The %{upstreamname} development package
 Provides:       %{name}-static = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 The %{upstreamname} development package.
@@ -144,6 +154,16 @@ The %{upstreamname} development package.
 # generates a files that reference the install location of other files
 # Make this change so they match
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
+
+# Remove some things to make the license check easier
+rm -rf doc docs examples extra benchmark scripts
+rm -f toolchain*
+# hidden files/dirs
+rm -rf .azuredevops .git* .readthedocs.yaml 
+# remove things only needed in check
+%if %{without check}
+rm -rf test testing internal
+%endif
 
 %build
 
@@ -191,6 +211,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 %{pkg_prefix}/share/cmake/rocthrust/
 
 %changelog
+* Sun Jun 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
+- merge compat changes
+
 * Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
 - Explicitly license smoke tests 0BSD
 - Smoke test not part of srpm so remove from license tag

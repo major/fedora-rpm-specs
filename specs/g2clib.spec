@@ -8,6 +8,9 @@ Summary:        GRIB2 encoder/decoder and search/indexing routines in C
 License:        LGPL-3.0-only
 URL:            https://github.com/NOAA-EMC/NCEPLIBS-g2c
 Source0:        https://github.com/NOAA-EMC/NCEPLIBS-g2c/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix Doxygen comments
+# https://github.com/NOAA-EMC/NCEPLIBS-g2c/pull/616
+Patch:          g2clib-doxygen.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

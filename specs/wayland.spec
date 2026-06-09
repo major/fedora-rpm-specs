@@ -1,6 +1,6 @@
 Name:           wayland
-Version:        1.24.0
-Release:        3%{?dist}
+Version:        1.25.0
+Release:        1%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
 # SPDX
@@ -32,6 +32,8 @@ display server running on Linux kernel modesetting and evdev input devices,
 an X application, or a wayland client itself. The clients can be traditional
 applications, X servers (rootless or fullscreen) or other display servers.
 
+%dnl ------------------------------------------------------------------------
+
 %package        devel
 Summary:        Development files for %{name}
 Requires:       libwayland-client%{?_isa} = %{version}-%{release}
@@ -43,47 +45,6 @@ Requires:       pkgconfig(libffi)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
-
-%package doc
-Summary: Wayland development documentation
-BuildArch: noarch
-%description doc
-Wayland development documentation
-
-%package -n libwayland-client
-Summary: Wayland client library
-%description -n libwayland-client
-Wayland client library
-
-%package -n libwayland-cursor
-Summary: Wayland cursor library
-Requires: libwayland-client%{?_isa} = %{version}-%{release}
-%description -n libwayland-cursor
-Wayland cursor library
-
-%package -n libwayland-egl
-Summary: Wayland egl library
-%description -n libwayland-egl
-Wayland egl library
-
-%package -n libwayland-server
-Summary: Wayland server library
-%description -n libwayland-server
-Wayland server library
-
-%prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
-
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
-
-%check
-%meson_test
 
 %files devel
 %{_bindir}/wayland-scanner
@@ -97,27 +58,91 @@ Wayland server library
 %{_datadir}/wayland/wayland.dtd
 %{_mandir}/man3/*.3*
 
+%dnl ------------------------------------------------------------------------
+
+%package doc
+Summary: Wayland development documentation
+BuildArch: noarch
+
+%description doc
+Wayland development documentation
+
 %files doc
 %doc README.md
 %{_datadir}/doc/wayland/
+
+%dnl ------------------------------------------------------------------------
+
+%package -n libwayland-client
+Summary: Wayland client library
+
+%description -n libwayland-client
+Wayland client library
 
 %files -n libwayland-client
 %license COPYING
 %{_libdir}/libwayland-client.so.0*
 
+%dnl ------------------------------------------------------------------------
+
+%package -n libwayland-cursor
+Summary: Wayland cursor library
+Requires: libwayland-client%{?_isa} = %{version}-%{release}
+
+%description -n libwayland-cursor
+Wayland cursor library
+
 %files -n libwayland-cursor
 %license COPYING
 %{_libdir}/libwayland-cursor.so.0*
+
+%dnl ------------------------------------------------------------------------
+
+%package -n libwayland-egl
+Summary: Wayland egl library
+
+%description -n libwayland-egl
+Wayland egl library
 
 %files -n libwayland-egl
 %license COPYING
 %{_libdir}/libwayland-egl.so.1*
 
+%dnl ------------------------------------------------------------------------
+
+%package -n libwayland-server
+Summary: Wayland server library
+
+%description -n libwayland-server
+Wayland server library
+
 %files -n libwayland-server
 %license COPYING
 %{_libdir}/libwayland-server.so.0*
 
+%dnl ------------------------------------------------------------------------
+
+%prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
+
+%conf
+%meson
+
+%build
+%meson_build
+
+%install
+%meson_install
+
+%check
+%meson_test
+
 %changelog
+* Sun Jun 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.25.0-1
+- Update to 1.25.0
+- Modernize spec
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,12 +4,12 @@
 
 Name:           libcorrect
 Version:        0
-Release:        19.%{date}git%{gitcommit}%{?dist}
+Release:        20.%{date}git%{gitcommit}%{?dist}
 Summary:        C library for Convolutional codes and Reed-Solomon
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/quiet/libcorrect
-Source0:        %{url}/tarball/%{gitcommit_full}
+Source0:        %{url}/archive/%{gitcommit_full}/%{name}-%{gitcommit_full}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,7 +35,7 @@ This subpackage contains libraries and header files for developing
 applications that want to make use of libcorrect.
 
 %prep
-%autosetup -p1 -n quiet-%{name}-%{gitcommit}
+%autosetup -p1 -n %{name}-%{gitcommit_full}
 echo "set_property(TARGET correct PROPERTY SOVERSION 0.0.0)" >> CMakeLists.txt
 sed -e "s|DESTINATION lib|DESTINATION %{_lib}|" \
     -e '/CMAKE_C_FLAGS/d' \
@@ -66,6 +66,10 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/libcorrect.so
 
 %changelog
+* Sat Jun 06 2026 David Auer <dreua@posteo.de> - 0-20.20181010gitf5a28c7
+- Update source name to include project name and .tar.gz extension.
+  Fix: https://bugzilla.redhat.com/show_bug.cgi?id=2427929
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-19.20181010gitf5a28c7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

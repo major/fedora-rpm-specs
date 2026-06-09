@@ -1,5 +1,5 @@
 Name:           ack
-Version:        3.9.0
+Version:        3.10.0
 Release:        %autorelease
 Summary:        A Grep-like source code search tool
 # SPDX migration

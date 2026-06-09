@@ -23,6 +23,9 @@ License:          Apache-2.0
 URL:              https://pypi.io/pypi/cliff
 Source0:          %pypi_source cliff
 
+# https://review.opendev.org/c/openstack/cliff/+/992012
+Patch1:           require-docutils.patch
+
 BuildArch:        noarch
 BuildRequires:    python3-devel
 
@@ -89,8 +92,9 @@ rm cliff/tests/test_sphinxext.py
 
 
 %check
+%pyproject_check_import -e cliff.tests.*
 %if %{with bootstrap}
-%pyproject_check_import -e cliff.tests.* -e cliff.sphinxext
+%pyproject_check_import -e cliff.tests.*
 %else
 %tox
 %endif

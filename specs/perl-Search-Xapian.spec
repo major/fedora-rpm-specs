@@ -1,5 +1,5 @@
 Name:           perl-Search-Xapian
-Version:        1.2.25.6
+Version:        1.2.25.7
 Release:        1%{?dist}
 Summary:        Xapian perl bindings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -68,6 +68,9 @@ more 'perlish' interface to some common operations, as demonstrated above.
 
 
 %changelog
+* Sun Jun 07 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.2.25.7-1
+- Update to 1.2.25.7
+
 * Sun Apr 05 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.2.25.6-1
 - Update to 1.2.25.6
 

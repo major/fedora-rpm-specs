@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -28,6 +28,7 @@ a local or a remote Home Assistant instance directly from the command-line.
 # Test dependencies
 %pyproject_patch_dependency pre-commit:drop_upper
 %pyproject_patch_dependency pytest-cov:drop_upper
+%pyproject_patch_dependency pytest-sugar:ignore
 %pyproject_patch_dependency pytest:drop_constraints
 %pyproject_patch_dependency types-dateparser:ignore
 %pyproject_patch_dependency types-requests:drop_constraints
@@ -52,6 +53,9 @@ a local or a remote Home Assistant instance directly from the command-line.
 %{_bindir}/hass-cli
 
 %changelog
+* Sun Jun 07 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.0.0-2
+- Drop dependency on dead package (rhbz#2485711)
+
 * Thu Apr 30 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.0.0-1
 - Update to 1.0.0 (rhbz#2457679)
 - Migrate to pyproject-srpm-macros (rhbz#2377284)

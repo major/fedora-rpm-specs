@@ -89,18 +89,13 @@ Translation files for Oslo concurrency library
 %autosetup -n oslo_concurrency-%{version} -S git
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
-#sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
-#sed -i /^minversion.*/d tox.ini
-#sed -i /^requires.*virtualenv.*/d tox.ini
-%if 0%{?fedora}
+
+# eventlet requirement is being removed from openstack
 sed -i "s/TEST_EVENTLET=.*/TEST_EVENTLET=1/" tox.ini
-%endif
 
-
-sed -i \
-    -e "/^coverage[[:space:]]*[!><=]/d" \
-    -e "/^reno[[:space:]]*[!><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
+%pyproject_patch_dependency eventlet:ignore
 
 
 %generate_buildrequires

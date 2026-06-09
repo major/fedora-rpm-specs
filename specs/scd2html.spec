@@ -1,12 +1,14 @@
 Name:           scd2html
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Generates HTML for scdoc source files
 
 License:        MIT
 URL:            https://sr.ht/~bitfehler/scd2html
 %global furl    https://git.sr.ht/~bitfehler/scd2html
 Source:         %{furl}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Patch:          https://git.sr.ht/~bitfehler/scd2html/commit/7fd6434fe74dc08cb8cbd15b9bfc374a87ec0d11.patch#/fix-compiler-warnings.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -20,7 +22,7 @@ scd2html generates HTML from scdoc source files
 
 
 %prep
-%autosetup -n scd2html-v%{version}
+%autosetup -C -p1
 
 # Regenerate linkify.c from linkify.re
 rm src/linkify.c
@@ -49,23 +51,4 @@ sed -i Makefile \
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Dec 15 2022 Maxwell G <gotmax@e.email> - 1.0.0-1
-- Initial package (rhbz#2169097).
+%autochangelog

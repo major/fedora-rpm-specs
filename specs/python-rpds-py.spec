@@ -2,7 +2,7 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        0.30.0
+Version:        2026.5.1
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # Full license breakdown in LICENSES.dependencies
@@ -12,17 +12,10 @@ Source:         %{pypi_source %{modname}}
 
 # The 'generate-import-lib' extension is only useful on MS Win
 Patch:          do_not_require_win_only_pyo3_extension.patch
-# Remove pytest-run-parallel from test dependencies
-# and relax pytest version requirement
-Patch:          fix_test_group_dependencies.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dos2unix
 BuildRequires:  python3-devel
-
-# we don't use pyproject_buildrequires -g test because
-# pytest 9 is not yet in repos
-BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 Python bindings to the Rust rpds crate.}
@@ -37,6 +30,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{modname}-%{version}
+%pyproject_patch_dependency pytest-run-parallel:ignore
 
 # Fix line terminations
 dos2unix README* LICENSE* *.pyi

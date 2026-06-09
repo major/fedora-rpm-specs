@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.41
+Version:	4.42
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -164,6 +164,38 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Sun Jun  7 2026 Paul Howarth <paul@city-fan.org> - 4.42-1
+- Update to 4.42
+  - Ensure encode with a type spec hashref does not change the hashref argument
+    (GH#240)
+  - Fix -e docs: "written" → "read" (GH#239)
+  - Fix Boolean eq overload matching undef (GH#207); Cpanel::JSON::XS::Boolean
+    overloaded eq would match undef as equal to false because undef stringifies
+    to "" - added defined() guard
+  - Fix error messages showing overloaded stringification for blessed objects
+    (GH#191); error messages now use ClassName=TYPE(addr) format, bypassing any
+    "" overload
+  - Fix type_all_string overriding allow_blessed/convert_blessed (GH#175); with
+    type_all_string + allow_blessed, blessed objects are now encoded as null
+    (not stringified as HASH address)
+  - Fix infinite recursion when encode is called from a "" overload (GH#128);
+    the recursion guard temporarily clears convert_blessed and allow_stringify
+    flags on the JSON object before calling the overload, preventing re-entrant
+    encode loops
+  - Fix $obj->new creating a broken object (GH#93); when new() is called on an
+    existing object (e.g. $json->new->new), the class name is now extracted
+    from the object's stash rather than using the stringified reference
+  - Change allow_nonref default to true (GH#241, matching JSON::PP and
+    JSON::XS 4.0+ and the insecure RFC 7159); encode and decode now accept
+    non-reference values by default; decode_json() with an explicit 0/1 second
+    argument still works; allow_nonref(0) to disable scalars-only for secure
+    JSON
+  - Fix minor t/12_blessed.t typo
+  - Fix GH#112: encode large whole-number NV values without .0 on 32-bit Perl
+    (values exceeding UV_MAX that Perl stores as float)
+  - Fix GH#197: prefer IOK over pNOK when encoding values where IV is accurate
+    but NV is imprecise (SvNOK not set)
+
 * Thu May 28 2026 Paul Howarth <paul@city-fan.org> - 4.41-1
 - Update to 4.41
   - Fix BOM-shift PV-corruption SIGABRT (CVE-2026-9516)

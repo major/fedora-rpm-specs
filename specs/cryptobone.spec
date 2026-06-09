@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    2.0   
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -11,6 +11,7 @@ URL:        https://crypto-bone.com
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
+Source3:    https://crypto-bone.com/release/source/safewebdrop-2.2.tar.gz
 
 ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
@@ -69,6 +70,10 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 
 %install
 %make_install
+
+# update safewebdrop server 2.2
+cd %{buildroot}%{cryptobonedir}/src
+tar xzf %{SOURCE3}
 
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
@@ -195,6 +200,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Jun 05 2026 Ralf Senderek <innovation@senderek.ie> - 2.0-6
+- update source code for safewebdrop-2.2 server and tests
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

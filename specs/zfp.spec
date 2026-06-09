@@ -1,19 +1,17 @@
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 Name:           zfp
 Version:        1.0.1
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Library for compressed numerical arrays with high throughput R/W random access
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            https://computation.llnl.gov/projects/floating-point-compression
+License:        BSD-3-Clause
+URL:            https://computing.llnl.gov/projects/zfp
 Source0:        https://github.com/LLNL/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix setup.py syntax and add pyproject.toml.
 Patch:          https://github.com/LLNL/%{name}/pull/237.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
 %description
@@ -58,6 +56,7 @@ developing applications that use %{name}.
 Summary:        zfp compression in Python
 
 BuildRequires:  python3-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-zfpy
 The python3-zfpy package contains a Python library for using %{name}.
@@ -72,15 +71,15 @@ The python3-zfpy package contains a Python library for using %{name}.
 
 
 %build
-%cmake3 -DCMAKE_SKIP_INSTALL_RPATH=YES -DHAVE_LIBM_MATH=YES
-%cmake3_build
+%cmake -DCMAKE_SKIP_INSTALL_RPATH=YES -DHAVE_LIBM_MATH=YES
+%cmake_build
 
 export LDFLAGS="$LDFLAGS -L$PWD/%{_vpath_builddir}/%{_lib}/"
 %pyproject_wheel
 
 
 %install
-%cmake3_install
+%cmake_install
 
 %pyproject_install
 %pyproject_save_files -l zfpy
@@ -105,68 +104,4 @@ export LDFLAGS="$LDFLAGS -L$PWD/%{_vpath_builddir}/%{_lib}/"
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.1-7
-- Rebuilt for Python 3.14
-
-* Tue Jan 21 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-6
-- Add Python subpackage
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-4
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Dec 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-1
-- Update to 1.0.1
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jun 04 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-1
-- Update to 1.0.0
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 08 2020 Orion Poplawski <orion@nwra.com> - 0.5.5-1
-- Update to 0.5.5
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 24 2019 Orion Poplawski <orion@nwra.com> - 0.5.4-1
-- Update to 0.5.4
-
-* Tue May 9 2017 Orion Poplawski <orion@cora.nwra.com> - 0.5.1-1
-- Initial Fedora package
+%autochangelog

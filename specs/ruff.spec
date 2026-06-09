@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.15
+Version:        0.15.16
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -172,11 +172,11 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
 # Get this from crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 60a6695e77b81d0e1b5a088c316af78c7510941f
+%global typeshed_rev 4a47505dd891ac8a94ba7f4b578899c72727ce23
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260519
+%global typeshed_snapdate 20260531
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -300,6 +300,22 @@ install -D --preserve-timestamps --mode=0644 \
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# get-size2
+#   wanted: 0.9.0
+#   currently packaged: 0.10.0
+# We haven’t suggested this upstream because we know they use renovate with
+# dependency cooldowns, and we expect they will soon update without prompting.
+tomcli set Cargo.toml str workspace.dependencies.get-size2.version \
+    '>=0.9.0, <0.11.0'
+
+# tikv-jemallocator
+#   wanted: 0.6.0
+#   currently packaged: 0.7.0
+# We haven’t suggested this upstream because we know they use renovate with
+# dependency cooldowns, and we expect they will soon update without prompting.
+tomcli set Cargo.toml str workspace.dependencies.tikv-jemallocator.version \
+    '>=0.6.0, <0.8.0'
 
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \

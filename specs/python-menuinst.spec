@@ -1,15 +1,17 @@
 %global srcname menuinst
 
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 Name:           python-%{srcname}
-Version:        2.4.2
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Cross platform menu item installation
 
 License:        BSD-3-Clause
 URL:            https://github.com/conda/menuinst
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Upstream patch to fix tests
+Patch:          https://github.com/conda/menuinst/pull/497.patch
 
 BuildArch:      noarch
 %if %{without bootstrap}

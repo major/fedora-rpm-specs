@@ -1,10 +1,10 @@
 # Circular test dependency on conda-build
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 %global srcname conda_index
 
 Name:           python-conda-index
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause

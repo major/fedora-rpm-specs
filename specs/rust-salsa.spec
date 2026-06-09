@@ -5,7 +5,7 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.26.2
+Version:        0.27.0
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 
@@ -14,17 +14,15 @@ URL:            https://crates.io/crates/salsa
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove benchmark-only dev-dependency on codspeed-criterion-compat
-# * Remove the dev-dependency on an old version of notify-debouncer-mini, and
-#   the lazy-input example that required it
-# * Remove outdated RELEASES.md file; exclude a few more files from published
-#   crates: https://github.com/salsa-rs/salsa/pull/1091
+# * Temporarily omit annotate-snippets dev-dependency and the calc example that
+#   requires it. Upstream updated annotate-snippets from 0.11 to 0.12, and some
+#   source-code changes in the example were required. However, rust-cargo still
+#   needs annotate-snippets 0.11. It is easier to temporarily stop compiling the
+#   example that to update rust-annotate-snippets and create a
+#   rust-annotate-snippets0.11 compat package solely to support one example.
 Patch:          salsa-fix-metadata.diff
-# * Skip memory usage tests on 32-bit (non-64-bit) targets
-# * https://github.com/salsa-rs/salsa/pull/1094
-Patch10:        https://github.com/salsa-rs/salsa/pull/1094.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 A generic framework for on-demand, incrementalized computation
@@ -159,10 +157,6 @@ use the "salsa_unstable" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix CRLF line endings in Rust sources
-# https://github.com/salsa-rs/salsa/pull/1092
-find . -type f -name '*.rs' -exec dos2unix --keepdate '{}' '+'
-
 %cargo_prep
 
 %generate_buildrequires

@@ -15,7 +15,7 @@
 
 Name:           python-%{srcname}
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An etcd3 gateway Python client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -126,6 +126,9 @@ py.test-3
 
 
 %changelog
+* Sun Jun 07 2026 Python Maint <python-maint@redhat.com> - 2.6.0-2
+- Rebuilt for Python 3.15
+
 * Wed Apr 08 2026 John Eckersberg <jeckersb@redhat.com> - 2.6.0-1
 - New upstream version 2.6.0 (rhbz#2456370)
 

@@ -73,10 +73,15 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A rocprofiler helper library
-License:        MIT AND BSD-3-Clause
+License:        MIT AND BSD-3-Clause AND Apache-2.0
+# MIT the main license
+# BSD-3-Clause
+#  bundled glog is mostly BSD 3
+# Apache-2.0
+#  external/glog/src/fuzz_demangle.cc
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -95,6 +100,7 @@ BuildRequires:  rocm-filesystem%{pkg_suffix}
 # glog looks like a dead project, notifiy the upstream they should move off of it.
 # https://github.com/ROCm/rocprofiler-sdk/issues/87
 Provides:       bundled(glog) = %{glog_version}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description
 The rocprofiler-register library is a helper library that coordinates
@@ -121,6 +127,7 @@ timing), etc.
 %package devel
 Summary:        The development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocm-filesystem%{pkg_suffix}
 
 %description devel
 %{summary}
@@ -180,6 +187,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Sun Jun 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- merge compat changes
+
 * Thu Mar 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Add --with preview
 - Update URL to rocm-systems

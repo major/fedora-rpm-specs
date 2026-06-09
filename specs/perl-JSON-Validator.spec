@@ -1,6 +1,6 @@
 Name:           perl-JSON-Validator
-Version:        5.15
-Release:        3%{?dist}
+Version:        5.17
+Release:        1%{?dist}
 Summary:        Validate data against a JSON schema
 License:        Artistic-2.0
 
@@ -33,7 +33,7 @@ BuildRequires:  perl(Mojo::URL)
 BuildRequires:  perl(Mojo::UserAgent)
 BuildRequires:  perl(Mojo::Util)
 # Mojo::Base is not versioned
-BuildRequires:  perl(Mojolicious) >= 7.28
+BuildRequires:  perl(Mojolicious) >= 9.34
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Tie::Hash)
@@ -107,6 +107,9 @@ unset JSON_VALIDATOR_CACHE_ANYWAYS JSON_VALIDATOR_CACHE_PATH \
 %{_mandir}/man3/JSON*
 
 %changelog
+* Sun Jun 07 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.17-1
+- Update to 5.17
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

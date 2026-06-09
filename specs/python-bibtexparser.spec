@@ -1,7 +1,7 @@
 %global srcname bibtexparser
 
 Name:           python-%{srcname}
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        A BibTeX parsing library
 
