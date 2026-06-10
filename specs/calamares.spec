@@ -1,6 +1,6 @@
 Name:           calamares
 Version:        3.3.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 3.3.14-9
+- Rebuilt for icu 78.3
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.3.14-8
 - Rebuilt for Python 3.15
 

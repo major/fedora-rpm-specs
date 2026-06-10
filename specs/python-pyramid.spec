@@ -6,7 +6,7 @@ fun, more predictable, and more productive.
 
 Name:           python-%{modname}
 Version:        2.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
@@ -94,6 +94,9 @@ done;
 
 
 %changelog
+* Mon Jun 08 2026 Python Maint <python-maint@redhat.com> - 2.0.2-13
+- Rebuilt for Python 3.15
+
 * Wed May 06 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.2-12
 - Runtime require python3-setuptools < 82, for pkg_resources
 - https://fedoraproject.org/wiki/Changes/Setuptools_82+

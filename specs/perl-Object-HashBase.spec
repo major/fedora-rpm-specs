@@ -1,5 +1,5 @@
 Name:           perl-Object-HashBase
-Version:        0.016
+Version:        0.018
 Release:        1%{?dist}
 Summary:        Build hash-based classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,7 +24,9 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Temp)
-Suggests:       perl(Class::XSAccessor)
+Suggests:       perl(Class::Method::Modifiers)
+Suggests:       perl(Class::XSAccessor) >= 1.19
+Suggests:       perl(Role::Tiny) >= 1.003000
 
 # Remove under-specified dependenices
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
@@ -102,6 +104,12 @@ make test
 %{perl_vendorlib}/Object/HashBase
 
 %changelog
+* Mon Jun 08 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.018-1
+- 0.018 bump
+
+* Mon Jun 08 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.017-1
+- 0.017 bump
+
 * Fri Jun 05 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.016-1
 - 0.016 bump
 

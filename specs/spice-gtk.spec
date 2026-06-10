@@ -18,6 +18,8 @@ Source0:        https://www.spice-space.org/download/gtk/%{name}-%{version}%{?_v
 #Source1:        https://www.spice-space.org/download/gtk/%{name}-%{version}%{?_version_suffix}.tar.xz.sig
 #Source2:        victortoso-E37A484F.keyring
 
+Patch0000:     0001-build-sys-fix-spice-version.h-generation.patch
+
 BuildRequires: git-core
 BuildRequires: meson
 BuildRequires: usbredir-devel >= 0.7.1

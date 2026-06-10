@@ -1,8 +1,8 @@
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        6.26.0
-Release:        3%{?dist}
+Version:        6.27.0
+Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -95,6 +95,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jun 05 2026 Steve Cossette <farchord@gmail.com> - 6.27.0-1
+- 6.27.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.26.0-3
 - Rebuilt for Python 3.15
 

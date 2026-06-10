@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 45.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,6 +12,10 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
+# https://github.com/rhinstaller/anaconda/pull/7103
+# fix python-deps to fix kickstart installs
+Patch: 7103.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -520,6 +524,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 08 2026 Adam Williamson <awilliam@redhat.com> - 45.6-3
+- Backport PR #7103 to fix kickstart installs
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 45.6-2
 - Rebuilt for Python 3.15
 

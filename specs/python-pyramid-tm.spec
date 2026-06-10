@@ -10,7 +10,7 @@ or docs/index.rst in this distribution for detailed documentation.
 
 Name:           python-pyramid-tm
 Version:        2.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -85,6 +85,9 @@ or docs/index.rst in this distribution for detailed documentation.
 
 
 %changelog
+* Mon Jun 08 2026 Python Maint <python-maint@redhat.com> - 2.6-9
+- Rebuilt for Python 3.15
+
 * Thu May 07 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.6-8
 - Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
 

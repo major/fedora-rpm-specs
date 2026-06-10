@@ -14,8 +14,8 @@ ExcludeArch: %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  CUnit-devel cbindgen cargo-c make gcc
 
-# Bump bitfield struct to version 0.12.1
-Patch1: 0001-Bump-bitfield-struct-to-0.12.1.patch
+# Bump bitfield struct to version 0.13.0
+Patch1: 0001-Bump-bitfield-struct-to-0.13.0.patch
 Patch2: 0002-igvm_c-switch-Makefile-to-cargo-c-94.patch
 Patch3: 0003-igvm_c-Makefile-fix-installation-with-empty-destdir-.patch
 Patch4: 0004-igvm_c-dump_igvm-add-missing-device-tree-directive-9.patch

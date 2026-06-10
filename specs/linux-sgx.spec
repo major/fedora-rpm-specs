@@ -1030,10 +1030,9 @@ cp -a %{vroot}/root/ %{buildroot}/root
 %__install -d %{buildroot}%{_rundir}/aesmd
 %endif
 
+%if %{with_aesm}
 # Enclaves to be provided by a separate package, so we purge these
 rm -f %{buildroot}/root/opt/intel/sgx-aesm-service/aesm/*signed.so*
-
-%if %{with_aesm}
 rm -f %{buildroot}/root/opt/intel/sgx-aesm-service/aesm/linksgx.sh
 rm -f %{buildroot}/root/opt/intel/sgx-aesm-service/aesm/libsgx_urts.so.2
 rm -f %{buildroot}/root/opt/intel/sgx-aesm-service/startup.sh
@@ -1065,9 +1064,6 @@ chmod +x %{buildroot}%{_bindir}/aesmd
 rm -f %{buildroot}/root/lib/systemd/system/aesmd.service
 %__install %{SOURCE40} %{buildroot}%{_sysusersdir}/aesmd.conf
 %__install %{SOURCE41} %{buildroot}%{_unitdir}/aesmd.service
-%else
-rmdir %{buildroot}/root/opt/intel/sgx-aesm-service/aesm
-rmdir %{buildroot}/root/opt/intel/sgx-aesm-service
 %endif
 
 

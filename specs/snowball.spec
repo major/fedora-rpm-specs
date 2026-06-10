@@ -12,7 +12,7 @@
 %global giturl  https://github.com/snowballstem/snowball
 
 Name:           snowball
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Snowball compiler and stemming algorithms
 
@@ -24,10 +24,8 @@ Source0:        %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/snowballstem/snowball-data/archive/refs/heads/main.zip
 # Build a shared library instead of a static library
 Patch:          %{name}-sharedlib.patch
-# Avoid a segfault in the analyzer
-Patch:          %{giturl}/pull/287.patch
 
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  %{py3_dist docutils}
@@ -163,6 +161,9 @@ sed -Ei 's@\$\(python\) -m build [^\)]*@cp -a * ../../python@' GNUmakefile
 ln -s ../libstemmer/modules.txt python
 ln -s . python/src
 
+# Use Fedora C++ build flags
+sed -i 's|^\(CXXFLAGS=\).*|\1%{build_cxxflags}|' GNUmakefile
+
 %generate_buildrequires
 %pyproject_buildrequires -d python
 
@@ -170,6 +171,9 @@ ln -s . python/src
 # Build the compiler and C library
 sed -i 's|^\(EXECFLAGS=\).*|\1%{build_cflags}|' GNUmakefile
 %make_build
+
+# Build the C++ algorithms
+%make_build cxx
 
 %ifarch %{java_arches}
 # Build the Java algorithms
@@ -230,6 +234,7 @@ cd -
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 mv ../snowball-data-main ../snowball-data
 make check
+make check_cxx
 %ifarch %{java_arches}
 make check_java
 %endif

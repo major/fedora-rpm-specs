@@ -15,7 +15,7 @@ Patch:          python-pygit2-network-tests.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  (libgit2-devel >= 1.9.2 with libgit2-devel < 1.10.0)
+BuildRequires:  (pkgconfig(libgit2) >= 1.9.2 with pkgconfig(libgit2) < 1.10.0~)
 
 %description
 pygit2 is a set of Python bindings to the libgit2 library, which implements

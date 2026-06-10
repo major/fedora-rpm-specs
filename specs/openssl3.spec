@@ -34,7 +34,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl3
 Version: 3.5.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -140,7 +140,8 @@ Provides: deprecated()
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
 package contains the libraries that are used by various applications which
-support cryptographic algorithms and protocols.
+support cryptographic algorithms and protocols. This version provides libs
+for OpenSSL 3.5 for compatibility purposes.
 
 %package devel
 Summary: Files for development of applications which will use OpenSSL
@@ -483,19 +484,16 @@ install -m644 %{SOURCE9} \
 ##%%dir %%{_sysconfdir}/pki/CA/crl
 ##%%dir %%{_sysconfdir}/pki/CA/newcerts
 
-%pre libs
-# If openssl3.cnf doesn't exist and openssl.cnf does, copy it
-if [ ! -f %{_sysconfdir}/pki/tls/openssl3.cnf ] && [ -f %{_sysconfdir}/pki/tls/openssl.cnf ]; then
-    cp -p %{_sysconfdir}/pki/tls/openssl.cnf %{_sysconfdir}/pki/tls/openssl3.cnf
-    # Comment out the .include /etc/pki/tls/openssl.d line - it is for openssl package
-    sed -i 's|^\(\s*\.include\s\+/etc/pki/tls/openssl\.d\)|#\1|' %{_sysconfdir}/pki/tls/openssl3.cnf
-fi
-
 %ldconfig_scriptlets libs
 
 %changelog
+* Mon Jun 08 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-4
+- We don't use include directives in the compat package to avoid interference
+  with the upcoming 4.0 release. We use the DEFAULT crypto policy instead.
+- Remove copying of the existing openssl.cnf to openssl3.spec
+
 * Tue Apr 28 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-3
-- Adjusted dependencies. Added 'Provides: deprectaed()' for all the subpackages
+- Adjusted dependencies. Added 'Provides: deprecated()' for all the subpackages
 
 * Fri Apr 10 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-2
 - rebuilt

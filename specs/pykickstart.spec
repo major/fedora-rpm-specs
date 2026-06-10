@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.73
-Release:   2%{?dist}
+Version:   3.74
+Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -23,8 +23,9 @@ BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
 BuildRequires: python3-pytest
+%if %{undefined rhel}
 BuildRequires: python3-pytest-xdist
-BuildRequires: python3-pytest-cov
+%endif
 
 # Only required when building with runtests
 %if %{with runtests}
@@ -46,6 +47,11 @@ the pykickstart package.
 
 %prep
 %autosetup -p1
+
+%if %{defined rhel}
+# no xdist, run tests serially
+sed -i -e '/pytest/s/ -n auto / /' Makefile
+%endif
 
 %build
 make PYTHON=%{__python3}
@@ -79,6 +85,11 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Mon Jun 08 2026 Brian C. Lane <bcl@redhat.com> - 3.74-1
+- spec: do not depend on pytest-cov, nor pytest-xdist on RHEL (yselkowi)
+- Fix filename typo in condition (github.com)
+- Enable Packit COPR builds for Fedora rawhide (k.koukiou)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.73-2
 - Rebuilt for Python 3.15
 

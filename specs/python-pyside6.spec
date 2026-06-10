@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -23,10 +23,10 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 %global  majmin %(echo %{version} | cut -d. -f1-2)
 #Source1:	https://download.qt.io/official_releases/qt/%{majmin}/%{qt6ver}/submodules/%{qt_module}-everywhere-src-%{qt6ver}.tar.xz
 
-# OpenSuse patches
-Patch:          0001-Revert-Modify-headers-installation-for-CMake-builds.patch
+# Upstream post-6.11.1 fixes for header install paths (PYSIDE-3306)
+Patch:          0001-Fix-header-installation-path-to-follow-filesystem-st.patch
+Patch:          0001-Fix-header-packaging-and-include-path-regressions.patch
 Patch:          0001-Always-link-to-python-libraries.patch
-Patch:          0001-Fix-installation.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -367,6 +367,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Mon Jun 08 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.1-4
+- Remove cmake config path sed and replace patches with upstream cherry-picks
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.11.1-3
 - Rebuilt for Python 3.15
 

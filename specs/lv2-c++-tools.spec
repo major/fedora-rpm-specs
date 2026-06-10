@@ -1,7 +1,7 @@
 Summary:	Support library for writing LV2 plugins in C++
 Name:		lv2-c++-tools
-Version:	1.0.5
-Release:	27%{?dist}
+Version:	1.0.7
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		http://ll-plugins.nongnu.org/hacking.html
@@ -40,7 +40,6 @@ sed -i -e '/lv2\.h/d' Makefile
 %build
 # this doesn't use GNU configure
 ./configure --prefix=%{_prefix} \
-	--lv2peg_LDFLAGS="-lboost_system" \
 	--CFLAGS="%{optflags}" \
 	--LDFLAGS="$RPM_LD_FLAGS"
 make %{?_smp_mflags}
@@ -77,6 +76,10 @@ ln -sf libpaq.so.0.0.0 %{buildroot}%{_libdir}/libpaq.so.0
 
 
 %changelog
+* Mon Jun 08 2026 Guido Aulisi <guido.aulisi@inps.it> - 1.0.7-1
+- Update to 1.0.7
+- Do not link with -lboost_system #2483997
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

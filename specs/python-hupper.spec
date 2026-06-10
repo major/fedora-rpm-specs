@@ -10,8 +10,12 @@ License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
 
+# pytest_cov.embed removed from pytest-cov 7.x
+Patch:          remove_call_to_pytest_cov_embed.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest-cov)
 
 %description
 hupper is an integrated process monitor that will track changes
@@ -27,7 +31,8 @@ to any imported Python files in sys.modules as well as custom paths.
 When files are changed the process is restarted.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
+%pyproject_patch_dependency mock:ignore
 
 %generate_buildrequires
 %pyproject_buildrequires -t

@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        16.4
+Version:        16.8
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -69,6 +69,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jun 07 2026 Packit <hello@packit.dev> - 16.8-1
+- Update to version 16.8
+- Resolves: rhbz#2459995
+
 * Sun Apr 19 2026 Packit <hello@packit.dev> - 16.4-1
 - Update to version 16.4
 - Resolves: rhbz#2455102

@@ -1,39 +1,26 @@
 Name:		openslide
-Version:	4.0.0
+Version:	4.0.1
 Release:	%autorelease
 Summary:	C library for reading virtual slides
 
 License:	LGPL-2.1-only
 URL:		https://openslide.org/
 Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# https://github.com/openslide/openslide/pull/706
-Patch0:		libtiff-partial-tile.patch
 
-BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(cairo)
-BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(libdicom) >= 1.3.0
 BuildRequires:	pkgconfig(libjpeg)
-BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libopenjp2)
-BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(sqlite3)
-BuildRequires:	pkgconfig(libdicom)
+BuildRequires:	pkgconfig(zlib)
 
 BuildRequires:	gcc
 BuildRequires:	meson
-
-# Required for gdk-pixbuf2 to be able to load BMP images, including in tests
-%if (0%{?fedora} && 0%{?fedora} < 43) || 0%{?rhel} == 10
-BuildRequires:	gdk-pixbuf2-modules-extra
-Requires:	gdk-pixbuf2-modules-extra%{?_isa}
-%else
-%if 0%{?rhel}
-BuildRequires:	gdk-pixbuf2-modules
-Requires:	gdk-pixbuf2-modules%{?_isa}
-%endif
-%endif
 
 
 %description
@@ -67,7 +54,7 @@ with virtual slides.
 
 %build
 # don't rebuild docs, since Doxygen configs are version-specific
-%meson -Ddoc=disabled
+%meson -Ddoc=disabled -Dtest=disabled
 %meson_build
 
 

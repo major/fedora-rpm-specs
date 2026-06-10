@@ -14,7 +14,7 @@
 
 Name:           godot
 Version:        4.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -272,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 4.6.3-2
+- Rebuilt for icu 78.3
+
 * Fri May 29 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6.3-1
 - Version 4.6.3-stable
 

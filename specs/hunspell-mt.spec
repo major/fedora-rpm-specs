@@ -8,12 +8,11 @@ Name: hunspell-mt
 Summary: Maltese hunspell dictionaries
 %global upstreamid 20110414
 Version: 0.%{upstreamid}
-Release: 20%{?dist}
+Release: 21%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/5039/0/dict-mt-2011-04-14.oxt
 URL: https://extensions.openoffice.org/en/project/maltese-spell-check-dictionary
 License: LGPL-2.1-or-later
 BuildArch: noarch
-BuildRequires: hunspell-devel
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-mt)
@@ -35,9 +34,12 @@ cp -p mt.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mt_MT.aff
 %files
 %doc README_en.txt
 %license licence.txt
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/mt_MT.*
 
 %changelog
+* Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20110414-21
+- Remove unnecessary BuildRequires: hunspell-devel
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110414-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

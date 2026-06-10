@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global modname tqdm
 %global srcname %{modname}
 

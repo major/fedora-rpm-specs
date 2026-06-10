@@ -7,10 +7,16 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildSystem:    tree_sitter
 BuildRequires:  tree-sitter-srpm-macros >= 0.4.3
 
-%{tree_sitter -l Markdown}
+Patch:          %{url}/pull/246.patch#/0001-Remove-junk-Requires-TS_REQUIRES-in-tree-sitter-mark.patch
+Patch:          %{url}/pull/249.patch#/001-fix-python-setup.patch
+
+%{tree_sitter -l Markdown -P}
 
 
 %check
+# Do a basic import check of the Python bindings
+%pyproject_check_import
+
 (cd tree-sitter-markdown && %{make_build} test)
 
 ## Some of these tests fail unless we regenerate the parser with:

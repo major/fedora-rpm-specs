@@ -1,6 +1,6 @@
 Name:           freeciv
 Version:        3.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 3.2.4-2
+- Rebuilt for icu 78.3
+
 * Mon Mar 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.4-1
 - 3.2.4
 

@@ -1,5 +1,5 @@
 Name:           perl-Tickit
-Version:        0.75
+Version:        0.77
 Release:        1%{?dist}
 Summary:        Perl bindings for Tickit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -86,6 +86,8 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+# Whne we run on terminal (like default mock terminal - vt100) does not support parm_ich required by libtickit
+export TERM=xterm
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
@@ -107,6 +109,9 @@ export TERM=xterm
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 05 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.77-1
+- 0.77 bump
+
 * Wed Mar 11 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.75-1
 - 0.75 bump
 

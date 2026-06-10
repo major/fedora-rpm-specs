@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:20.2.1-4
+- Rebuilt for icu 78.3
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2:20.2.1-3
 - Rebuilt for Python 3.15
 

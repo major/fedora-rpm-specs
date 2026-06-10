@@ -4,7 +4,7 @@
 
 Name:           louvre
 Version:        %{basever}%{?origrel:_%{origrel}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ library for building Wayland compositors
 
 License:        MIT
@@ -88,6 +88,9 @@ popd
 %{_libdir}/pkgconfig/Louvre.pc
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2.3.2_1-5
+- Rebuilt for icu 78.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2_1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

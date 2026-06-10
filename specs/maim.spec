@@ -1,6 +1,6 @@
 Name:			maim
 Version:		5.8.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Command-line screen capture tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -48,6 +48,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 5.8.2-2
+- Rebuilt for icu 78.3
+
 * Fri May 29 2026 Alois Mahdal <netvor@vornet.cz> - 5.8.2-1
 - Update to upstream release 5.8.2 (RHBZ#2482938)
 

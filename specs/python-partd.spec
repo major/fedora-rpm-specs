@@ -9,6 +9,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/dask/partd
 Source:         %pypi_source %{srcname}
 
+# Fix PandasColumns compatibility with pandas 3.0 StringDtype
+Patch:          https://github.com/dask/partd/pull/83.patch
+
 BuildArch:      noarch
 
 # Needed for the zeromq test

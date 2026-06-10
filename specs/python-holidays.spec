@@ -1,5 +1,5 @@
 Name:           python-holidays
-Version:        0.94
+Version:        0.98
 Release:        %autorelease
 Summary:        Generate and work with holidays in Python
 
@@ -25,8 +25,6 @@ Summary:        %{summary}
 %prep
 %autosetup -n holidays-%{version}
 
-# remove coverage options from pytest
-sed -i '/--cov-fail-under=100/ d' pyproject.toml
 %if %{fedora} <= 42
 # correct license declaration: errors on F42
 sed -i -e '/^license/ d' pyproject.toml
@@ -38,6 +36,9 @@ sed -i -e '/coverage/ d' \
     -e 's/pytest>.*"/pytest"/' \
     -e 's/pytest-xdist>.*"/pytest"/' \
     pyproject.toml
+
+# remove pytest optiions, not required
+sed -i '/\[tool.pytest\]/,$ d' pyproject.toml
 
 cat pyproject.toml
 

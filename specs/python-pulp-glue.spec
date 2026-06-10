@@ -1,5 +1,5 @@
 Name: python-pulp-glue
-Version: 0.37.0
+Version: 0.40.0
 Release: %autorelease
 Summary: The version agnostic Pulp 3 client library in python
 License: GPL-2.0-or-later

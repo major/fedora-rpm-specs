@@ -1,6 +1,6 @@
 Name:        iverilog
 Version:     13.0
-%define uver 13_0
+%global uver 13_0
 Release:     %autorelease
 Summary:     Icarus Verilog is a verilog compiler and simulator
 
@@ -27,11 +27,30 @@ engineering formats, including simulation. It strives to be true
 to the IEEE-1364 standard.
 
 
+%package devel
+Summary:     Header files for Icarus Verilog development
+Requires:    %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+This package contains the header files needed to develop VPI/PLI modules
+for Icarus Verilog.
+
+
+%package static
+Summary:     Static libraries for Icarus Verilog development
+Requires:    %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description static
+This package contains the static libraries needed to develop VPI/PLI modules
+for Icarus Verilog.
+
+
 %prep
 %autosetup -n %{name}-%{uver}
-# Clean junks from tarball
-find . -type f -name ".git" -exec rm '{}' \;
-rm -rf `find . -type d -name "autom4te.cache" -exec echo '{}' \;`
+# Clean junk files from tarball
+find . -name .git -exec rm -rf {} +
+find . -name autom4te.cache -exec rm -rf {} +
+
 
 %build
 %configure
@@ -39,46 +58,34 @@ rm -rf `find . -type d -name "autom4te.cache" -exec echo '{}' \;`
 
 # Build Sphinx documentation as well
 %make_build -C Documentation html
+rm -f Documentation/_build/html/.buildinfo
 
- 
+
 %install
-%{__make}    prefix=%{buildroot}%{_prefix} \
-             bindir=%{buildroot}%{_bindir} \
-             libdir=%{buildroot}%{_libdir} \
-             libdir64=%{buildroot}%{_libdir} \
-             includedir=%{buildroot}%{_includedir} \
-             mandir=%{buildroot}%{_mandir}  \
-             pdfdir=%{buildroot}%{_pdfdir}/ivl/ \
-             vpidir=%{buildroot}%{_libdir}/ivl/ \
-             INSTALL="install -p" \
-install
+%make_install INSTALL="install -p"
 
 
-# Install HTML documentation
-rm -rf Documentation/_build/html/.buildinfo
-mkdir -p %{buildroot}%{_docdir}/%{name}
-cp -r Documentation/_build/html %{buildroot}%{_docdir}/%{name}
-
- 
 %check
 make check
- 
- 
+
+
 %files
 %license COPYING
-%doc examples html README.md
+%doc README.md examples Documentation/_build/html
 %{_bindir}/iverilog
 %{_bindir}/iverilog-vpi
 %{_bindir}/vvp
 %{_libdir}/ivl
 %{_mandir}/man1/*
 
-# headers for PLI: This is intended to be used by the user.
-%{_includedir}/*.h
 
-# RHBZ 480531
+%files devel
+%{_includedir}/iverilog/
+
+
+%files static
 %{_libdir}/*.a
- 
+
 
 %changelog
 %autochangelog

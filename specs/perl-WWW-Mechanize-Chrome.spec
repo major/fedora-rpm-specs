@@ -5,7 +5,7 @@
 %bcond network_tests 0
 
 Name:           perl-WWW-Mechanize-Chrome
-Version:        0.78
+Version:        0.79
 Release:        1%{?dist}
 Summary:        Automate the Chrome browser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -166,6 +166,9 @@ make test
 %{_mandir}/man3/WWW::Mechanize::Chrome*
 
 %changelog
+* Mon Jun 08 2026 Chris Adams <linux@cmadams.net> - 0.79-1
+- new version
+
 * Sun Jun 07 2026 Chris Adams <linux@cmadams.net> - 0.78-1
 - new version, update requires
 

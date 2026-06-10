@@ -1,20 +1,20 @@
-%if 0%{?fedora} > 35
+%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %global dict_dirname hunspell 
 %else
 %global dict_dirname myspell
 %endif
+
 Name: hunspell-sc
 Summary: Sardinian hunspell dictionaries
 %global upstreamid 20081101
 Version: 0.%{upstreamid}
-Release: 38%{?dist}
-Source: https://ayera.dl.sourceforge.net/project/aoo-extensions/1446/2/dict_sc_it03.oxt
-URL: http://extensions.services.openoffice.org/project/Dict_sc
+Release: 39%{?dist}
+Source: https://downloads.sourceforge.net/project/aoo-extensions/1446/2/dict_sc_it03.oxt
+URL: https://extensions.openoffice.org/en/project/sardinian-dictionary.html
 #The license included is AGPLv3 and pkg-desc/pkg-description.txt
 #says AGPLv3 or later, but the sc_IT.aff header states "GPLv2"
 License: AGPL-3.0-or-later AND GPL-2.0-only
 BuildArch: noarch
-BuildRequires: hunspell-devel
 
 Requires: hunspell
 Supplements: (hunspell and langpacks-sc)
@@ -35,9 +35,13 @@ cp -p sc_it.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/sc_IT.dic
 
 %files
 %license registration/agpl3-en.txt
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/sc_IT.*
 
 %changelog
+* Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20081101-39
+- Remove unnecessary BuildRequires: hunspell-devel
+- Update Source and URL links
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20081101-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

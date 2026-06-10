@@ -3,11 +3,11 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2024.1.5
+Version:        2024.1.6
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/13598873657/artifacts/raw/fgbuild/flightgear-%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/flightgear/-/archive/%{version}/flightgear-%{version}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-Use-system-iaxclient-instead-of-bundled-one.patch
 Patch:          0003-make-fglauncher-a-static-library.patch
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT/usr/appdir
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Mon Jun 08 2026 Fabrice Bellet <fabrice@bellet.info> - 2024.1.6-1
+- new upstream release
+
 * Tue Mar 24 2026 Fabrice Bellet <fabrice@bellet.info> - 2024.1.5-1
 - new upstream release
 

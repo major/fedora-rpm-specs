@@ -2,13 +2,15 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Various objects to denote special meanings in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/vmalloc/sentinels
 Source0:        %{pypi_source}
 BuildArch:      noarch
+
+Patch001:       10.patch
 
 %description
 The sentinels module is a small utility providing the Sentinel class, along
@@ -52,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Jun 08 2026 Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com> - 1.1.1-4
+- Backport upstream fix for pytest 9.0 (testpaths must be a list)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.1.1-3
 - Rebuilt for Python 3.15
 

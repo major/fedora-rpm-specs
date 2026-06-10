@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.18
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -482,6 +482,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.18-7
+- Rebuilt for icu 78.3
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1.18-6
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

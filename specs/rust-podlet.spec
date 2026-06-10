@@ -4,7 +4,7 @@
 %global crate podlet
 
 Name:           rust-podlet
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Generate Podman Quadlet files
 
@@ -56,6 +56,7 @@ License:        %{shrink:
 %doc CHANGELOG.md
 %doc CODE-OF-CONDUCT.md
 %doc CONTRIBUTING.md
+%doc MAINTAINERS.md
 %doc README.md
 %doc SECURITY.md
 %{_bindir}/podlet

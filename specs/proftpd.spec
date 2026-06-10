@@ -17,13 +17,13 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
-%global mod_proxy_version 0.9.5
+%global baserelease 1
+%global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9a
+Version:		1.3.9b
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -43,11 +43,6 @@ Source11:		http://github.com/Castaglia/proftpd-mod_proxy/archive/v%{mod_proxy_ve
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
-Patch11:		https://github.com/proftpd/proftpd/commit/04d89957.patch
-Patch12:		https://github.com/proftpd/proftpd/commit/7e076e84.patch
-Patch13:		https://github.com/proftpd/proftpd/commit/07797aba.patch
-Patch14:		https://github.com/proftpd/proftpd/commit/5e06acc4.patch
-Patch15:		https://github.com/proftpd/proftpd/commit/1a5ce646.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -228,20 +223,6 @@ mv contrib/README contrib/README.contrib
 
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
-
-# Additional escaping for avoidance of SQL injection issues with %%{note:...} and %%{env:...}
-# These are on top of the existing fix for CVE-2026-42167 in 1.3.10rc1
-# https://github.com/proftpd/proftpd/issues/2052
-%patch -P 11 -p1
-%patch -P 12 -p1
-
-# Fix for SQL Injection in mod_wrap2_sql via reverse DNS hostname (CVE-2026-44331)
-# https://github.com/proftpd/proftpd/issues/2057
-%patch -P 13 -p1
-%patch -P 14 -p1
-
-# Address another avenue for SQL injection, via custom SQLUserInfo queries
-%patch -P 15 -p1
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -480,6 +461,52 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon Jun  8 2026 Paul Howarth <paul@city-fan.org> - 1.3.9b-1
+- Update to 1.3.9b
+  - Fix SQL Injection in mod_wrap2_sql via reverse DNS hostname (GH#2057,
+    CVE-2026-44331)
+  - Additional fix for session management with OpenSSL 3.2.x or later, when
+    using TLSv1.2 or earlier; this complements the fix for GH#1963 (GH#2096)
+  - Hard quota limits on uploads do not cause SFTP WRITE requests to fail as
+    expected (GH#2098)
+  - Fix SSH payload length underflow calculation for ETM/ChaChaPoly algorithms
+    in mod_sftp (GH#2102)
+  - SSH packet with empty payload triggered null pointer dereference in
+    mod_sftp (GH#2104)
+  - Bad DSA signatures could lead to out-of-bounds read of heap memory in
+    mod_sftp (GH#2106)
+  - Mismatched RSA/DSA algorithm signatures could lead to null dereference in
+    mod_sftp (GH#2108)
+  - SFTP request payload length underflow calculation in mod_sftp (GH#2115)
+  - Several modules failed to build using OpenSSL 4.0 (GH#2120)
+- Update mod_proxy to 0.9.7
+  - Add a check on the maximum allowed SSH payload (vs. packet) length (GH#291)
+  - Set the payload_len field before checking its value (GH#292)
+  - Keep the SSH packet reading code in mod_proxy more in line with what is
+    done in mod_sftp, for legibility (GH#294)
+  - Implement support for the OpenSSH-specific ChaChaPoly SSH algorithm
+    (GH#295, GH#296)
+  - Correct misspellings noted by codespell (GH#297)
+  - Use clang-tidy to start polishing the codebase (GH#298)
+  - Disable the Nagle algorithm by default on our TCP connections to back-end
+    servers (GH#299)
+  - Require OpenSSL for building (GH#249, GH#300)
+  - Documentation fixes
+  - Implement a limit on the number of EXT_INFO extensions we'll be willing to
+    accept (GH#303)
+  - Comparison of expected/provided MAC data should be done in a constant-time
+    manner
+  - Support PKCS11-stored private keys
+  - Implement the "mlkem768x25519-sha256" and "sntrup761x25519-sha512"
+    post-quantum SSH key exchange mechanisms (GH#306)
+  - Add sanity check for SRV record lengths
+  - Ensure that the SSH payload length computation, for ETM/ChaChaPoly packets,
+    does not underflow
+  - If we detect a bad DSA signature length, properly error out
+  - Ensure that RSA/DSA signatures match their expected algorithm types, and
+    avoid null pointer dereferences
+  - Update to build against OpenSSL 4.x (GH#313)
+
 * Tue May 19 2026 Paul Howarth <paul@city-fan.org> - 1.3.9a-3
 - Address another avenue for SQL injection, via custom SQLUserInfo queries
 

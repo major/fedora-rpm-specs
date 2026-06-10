@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.19
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -108,6 +108,10 @@ Patch73: python3.12-six.patch
 # Fix building with ICU 75
 # https://gitlab.archlinux.org/archlinux/packaging/packages/qt5-webengine/-/blob/97c4d298f/qt5-webengine-icu-75.patch
 Patch80: qtwebengine-icu75.patch
+
+# Fix building with ICU 78
+# https://aur.archlinux.org/cgit/aur.git/tree/0006-qt5-webengine-icu-78@chromium.patch?h=qt5-webengine
+Patch81: qtwebengine-icu78.patch
 
 # riscv64 support patches taken from Opensuse:
 # https://build.opensuse.org/package/show/openSUSE:Factory:RISCV/libqt5-qtwebengine?rev=110
@@ -403,6 +407,7 @@ popd
 %patch -P73 -p1
 
 %patch -P80 -p1
+%patch -P81 -p1
 
 # RISC-V support patches
 %patch -P100 -p1 -b .riscv64-v8
@@ -586,6 +591,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 5.15.19-8
+- Rebuilt for icu 78.3
+
 * Thu Mar 19 2026 Nicolas Chauvet <kwizart@gmail.com> - 5.15.19-7
 - Rebuilt for libvpx-1.6.0
 

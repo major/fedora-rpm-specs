@@ -35,11 +35,7 @@ Python 3 version.
 %prep
 %autosetup
 %generate_buildrequires
-%if %{with check}
-%pyproject_buildrequires -x test
-%else
 %pyproject_buildrequires
-%endif
 
 
 %build
@@ -60,6 +56,7 @@ Python 3 version.
 %changelog
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.7.2-13
 - Rebuilt for Python 3.15
+- Fix invalid extras in %%pyproject_buildrequires -x
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

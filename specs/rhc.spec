@@ -22,7 +22,7 @@ BuildRequires:  /usr/bin/dbus-launch
 
 Requires: subscription-manager
 # insights-client only exists in CentOS Stream and RHEL
-%if ! 0%{?fedora}
+%if ! 0%{?fedora} && ! 0%{?eln}
 Requires: insights-client
 %endif
 Requires: yggdrasil >= 0.4

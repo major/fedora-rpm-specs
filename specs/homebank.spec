@@ -1,5 +1,5 @@
 Name:           homebank
-Version:        5.10
+Version:        5.10.1
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later
@@ -34,9 +34,7 @@ Documentation files for homebank
 
 
 %prep
-# workaround for 5.10 difference between .tar.gz and the actual 5.10.0 dir
-# this workarnoud should be remove from 5.10.x onwards
-%autosetup -p1 -n %{name}-%{version}.0
+%autosetup -p1 -n %{name}-%{version}
 chmod -x AUTHORS ChangeLog COPYING NEWS README doc/TODO src/*.*
 
 %build

@@ -3,17 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2026.1
+Version: 2026.2
 Release: %{autorelease}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-
-Patch0: 0001-rpmostreed-transaction-types-fix-override-reset.patch
-Patch1: 0001-Fix-silent-upgrade-failure-on-container-systems.patch
-Patch2: 0001-deploy-Print-status-message-on-container-early-retur.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10
@@ -38,7 +34,7 @@ BuildRequires: rust
 
 # Don't add the ostree-container binaries; this version
 # conditional needs to be kept in sync with the bootc one.
-%if 0%{?rhel} >= 10 || 0%{?fedora} > 41
+%if 0%{?rhel} >= 9 || 0%{?fedora} > 41
     %bcond_with ostree_ext
 %else
     %bcond_without ostree_ext
@@ -110,7 +106,13 @@ BuildRequires: jq
 
 %global libsolv_version 0.7.21
 %global libmodulemd_version 2.13.0
+# librepo version differs across distros
+# Fedora / CS10 / RHEL10: librepo ≥ 1.18 is available
+%if 0%{?fedora} || 0%{?rhel} >= 10
 %global librepo_version 1.18.0
+%else
+%global librepo_version 1.14.0
+%endif
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc

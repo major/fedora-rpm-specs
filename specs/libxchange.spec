@@ -1,7 +1,7 @@
-%global upstream_version        1.1.2
+%global upstream_version        1.2.0
 
 Name:            libxchange
-Version:         1.1.2
+Version:         1.2.0
 Release:         %autorelease
 Summary:         Structured data representation and JSON support for C/C++
 License:         Unlicense
@@ -11,7 +11,6 @@ BuildRequires:   gcc
 BuildRequires:   cmake
 BuildRequires:   sed
 BuildRequires:   doxygen >= 1.13.0
-Patch0:          install-examples.patch
 
 %description
 
@@ -37,7 +36,7 @@ This package provides HTML documentation and examples for the xchange C/C++
 library. The HTML API documentation can also be used with the Eclipse IDE.
 
 %prep
-%autosetup -p1 -n xchange-%{upstream_version}
+%autosetup -n xchange-%{upstream_version}
 
 %build
 
@@ -64,8 +63,7 @@ mv %{buildroot}/%{_docdir}/xchange %{buildroot}/%{_docdir}/%{name}
 %{_libdir}/libxchange.so.1{,.*}
 
 %files devel
-%{_includedir}/xchange.h
-%{_includedir}/xjson.h
+%{_includedir}/*.h
 %{_libdir}/libxchange.so
 %{_libdir}/cmake
 %{_libdir}/pkgconfig

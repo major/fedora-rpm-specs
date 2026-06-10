@@ -2,7 +2,7 @@
 
 Name:    xcfun
 Version: 2.1.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: A library of approximate exchange-correlation functionals
 License: MPL-2.0
 URL:     https://xcfun.readthedocs.io
@@ -98,6 +98,9 @@ chmod u=rwX,og=rX -R %{buildroot}%{python3_sitearch}/xcfun/tests
 %{python3_sitearch}/xcfun
 
 %changelog
+* Mon Jun 08 2026 Python Maint <python-maint@redhat.com> - 2.1.1-24
+- Rebuilt for Python 3.15
+
 * Fri Jun 05 2026 Cristian Le <git@lecris.dev> - 2.1.1-23
 - Use standard CMake macros (rhbz#2381159)
 

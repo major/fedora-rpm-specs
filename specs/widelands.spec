@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source realtime-strategy game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -213,6 +213,9 @@ popd
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.3.1-2
+- Rebuilt for icu 78.3
+
 * Sun Feb 22 2026 Peter Hanecak <hany@hany.sk> - 1.3.1-1
 - New upstream release 1.3.1 (rhbz#2440036)
 

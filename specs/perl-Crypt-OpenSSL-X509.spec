@@ -1,12 +1,12 @@
 Name:           perl-Crypt-OpenSSL-X509
-Version:        2.0.1
-Release:        5%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for X509
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-X509
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASBN/Crypt-OpenSSL-X509-%{version}.tar.gz
 # Respect distribution compiler flags
-Patch0:         Crypt-OpenSSL-X509-1.914-Do-not-hard-code-CFLAGS.patch
+Patch0:         Crypt-OpenSSL-X509-2.1.1-Do-not-hard-code-CFLAGS.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Crypt::OpenSSL::X509.3pm*
 
 %changelog
+* Mon Jun 08 2026 Xavier Bachelot <xavier@bachelot.org> - 2.1.1-1
+- Update to 2.1.1 (RHBZ#2484541)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

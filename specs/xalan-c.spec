@@ -125,6 +125,7 @@ find docs samples src -type f -exec file '{}' '+' |
 
 
 %conf
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake %{?with_icu:-Dtranscoder=icu} -GNinja
 
 

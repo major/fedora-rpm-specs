@@ -1,5 +1,5 @@
 Name:           perl-Protocol-HTTP2
-Version:        1.12
+Version:        1.13
 Release:        1%{?dist}
 Summary:        HTTP/2 protocol implementation (RFC 7540)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 08 2026 Petr Pisar <ppisar@redhat.com> - 1.13-1
+- 1.13 bump
+
 * Wed Feb 18 2026 Petr Pisar <ppisar@redhat.com> - 1.12-1
 - 1.12 bump
 

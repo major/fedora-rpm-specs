@@ -93,7 +93,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1089,6 +1089,9 @@ popd
 %endif
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 8.0.46-2
+- Rebuilt for icu 78.3
+
 * Wed Apr 22 2026 Michal Schorm <mschorm@redhat.com> - 8.0.46-1
 - Rebase to 8.0.46
 

@@ -1,50 +1,45 @@
-Name:      hyphen
-Summary:   A text hyphenation library
-Version:   2.8.8
-Release:   28%{?dist}
-Source:    http://downloads.sourceforge.net/hunspell/hyphen-%{version}.tar.gz
-URL:       http://hunspell.sf.net
-License:   GPL-2.0-only OR LGPL-2.1-or-later OR MPL-1.1
-BuildRequires: perl-interpreter, patch, autoconf, automake, libtool
+Name:          hyphen
+Summary:       A text hyphenation library
+Version:       2.8.8
+Release:       29%{?dist}
+Source:        https://downloads.sourceforge.net/hunspell/hyphen-%{version}.tar.gz
+URL:           https://sourceforge.net/projects/hunspell/
+License:       GPL-2.0-only OR LGPL-2.1-or-later OR MPL-1.1
+BuildRequires: perl-interpreter
+BuildRequires: libtool
+BuildRequires: make
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
-BuildRequires: make
 
 %description
 Hyphen is a library for high quality hyphenation and justification.
 
 %package devel
-Requires: hyphen = %{version}-%{release}
 Summary: Files for developing with hyphen
+Requires: hyphen = %{version}-%{release}
 
 %description devel
 Includes and definitions for developing with hyphen
 
 %package en
-Requires: hyphen
 Summary: English hyphenation rules
 BuildArch: noarch
+Requires: hyphen
 
 %description en
 English hyphenation rules.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 %configure --disable-static
 make %{?_smp_mflags}
-
-%check
-make check
-%ifarch %{valgrind_arches}
-VALGRIND=memcheck make check
-%endif
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 
 pushd $RPM_BUILD_ROOT/%{_datadir}/hyphen/
@@ -54,11 +49,17 @@ for lang in $en_US_aliases; do
 done
 popd
 
+%check
+make check V=1
+%ifarch %{valgrind_arches}
+VALGRIND=memcheck make check
+%endif
 
 %ldconfig_scriptlets
 
 %files
 %doc AUTHORS ChangeLog README README.hyphen README.nonstandard TODO
+%license COPYING
 %{_libdir}/*.so.*
 %dir %{_datadir}/hyphen
 
@@ -71,6 +72,10 @@ popd
 %{_bindir}/substrings.pl
 
 %changelog
+* Thu Jun 04 2026 Parag Nemade <panemade AT redhat DOT com> - 2.8.8-29
+- Remove unnecessary BuildRequires from SPEC
+- Re-write SPEC file
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

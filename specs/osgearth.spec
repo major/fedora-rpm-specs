@@ -35,7 +35,7 @@ BuildRequires: libzip-tools
 BuildRequires: make
 BuildRequires: OpenSceneGraph = %{osg_ver}
 BuildRequires: OpenSceneGraph-devel
-BuildRequires: protobuf-devel
+BuildRequires: protobuf-devel < 4
 BuildRequires: rapidjson-devel
 BuildRequires: sqlite-devel
 %if 0%{?with_docs}
@@ -53,7 +53,7 @@ BuildRequires: mingw32-glew
 BuildRequires: mingw32-glew-static
 BuildRequires: mingw32-liblerc
 BuildRequires: mingw32-OpenSceneGraph
-BuildRequires: mingw32-protobuf
+BuildRequires: mingw32-protobuf < 4
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-curl
@@ -63,7 +63,7 @@ BuildRequires: mingw64-glew
 BuildRequires: mingw64-glew-static
 BuildRequires: mingw64-liblerc
 BuildRequires: mingw64-OpenSceneGraph
-BuildRequires: mingw64-protobuf
+BuildRequires: mingw64-protobuf < 4
 
 Provides:      bundled(tinyxml)
 

@@ -76,7 +76,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -95,8 +95,12 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2430571
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
-Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
+Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
+# sphinx9
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
+
+# ix86
 Patch10: ghc-9.8.4-ix86-disables-Unique-Word64.patch
 
 # for unregisterized
@@ -420,9 +424,10 @@ Installing this package causes %{name}-*-prof packages corresponding to
 )
 
 %patch -P1 -p1 -b .orig
-#%%patch -P2 -p1 -b .orig
+%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P4 -p1 -b .orig
+%patch -P5 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -526,7 +531,7 @@ ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
-%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
+%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir
 
 
 %install
@@ -881,6 +886,11 @@ make test
 
 
 %changelog
+* Mon Jun 08 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-14
+- drop --hash-unit-ids like main ghc package
+- f45: fix build with sphinx 9
+- enable Cabal install PATH warning patch
+
 * Sat Feb 14 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-13
 - rebuild with ghc-rpm-macros-2.11
 

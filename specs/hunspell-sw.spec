@@ -6,16 +6,15 @@
 
 Name: hunspell-sw
 Summary: Swahili hunspell dictionaries
-%global upstreamid 20050819
+%global upstreamid 20210901
 Version: 0.%{upstreamid}
-Release: 36%{?dist}
-# Following link is not working and is dead
-# do not report any bugs for this
-Source: http://www.it46.se/downloads/openoffice/dictionary/dictionary_myspell_sw_TZ_1.1.tar.gz
-URL: http://www.it46.se
-License: LGPL-2.1-or-later
+Release: 1%{?dist}
+Source: https://extensions.libreoffice.org/assets/downloads/1799/swahilidictionary-2021-09-01.oxt
+URL: https://extensions.libreoffice.org/en/extensions/show/swahili-dictionary
+# sw_KE.dic licensed as LGPL-2.1-or-later
+# sw_TZ.dic licensed as LGPL-2.0-only
+License: LGPL-2.1-or-later and LGPL-2.0-only
 BuildArch: noarch
-BuildRequires: hunspell-devel
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-sw)
@@ -40,21 +39,18 @@ done
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-pushd $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
-sw_TZ_aliases="sw_KE"
-for lang in $sw_TZ_aliases; do
-        ln -s sw_TZ.aff $lang.aff
-        ln -s sw_TZ.dic $lang.dic
-done
-popd
-
+cp -p sw*.dic sw*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 %files
-%doc README_sw_TZ.txt
-%{_datadir}/%{dict_dirname}/*
+%doc README_sw_TZ.txt README_sw_KE.txt
+%license Licence.txt
+%{_datadir}/%{dict_dirname}/sw*
 
 %changelog
+* Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20210901-1
+- Remove unnecessary BuildRequires: hunspell-devel
+- Update Source and URL links
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050819-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

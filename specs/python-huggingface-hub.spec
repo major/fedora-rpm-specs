@@ -1,11 +1,16 @@
 Name:           python-huggingface-hub
-Version:        1.16.1
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Client library to handle repos on the huggingface.co hub
 
 License:        Apache-2.0
 URL:            https://github.com/huggingface/huggingface_hub
 Source:         %{pypi_source huggingface_hub}
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2481411
+# https://github.com/huggingface/huggingface_hub/pull/4322
+# Python 3.15 removed private _MISSING_TYPE from dataclasses module
+Patch0:         fix-python315-missing-type.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -37,7 +42,7 @@ Summary:        %{summary}
 %autosetup -p1 -n huggingface_hub-%{version}
 # Remove hf-xet dependency - not packaged in Fedora (XET version control integration)
 sed -i '/HF_XET_VERSION/d' setup.py
-
+%pyproject_patch_dependency click:set_lower:8.3.3
 
 %generate_buildrequires
 # available extras

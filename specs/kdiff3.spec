@@ -1,6 +1,6 @@
 Name:           kdiff3
 Version:        1.12.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
 License:        GPL-2.0-or-later AND BSD-2-Clause AND CC0-1.0 AND MIT
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.12.4-2
+- Rebuilt for icu 78.3
+
 * Mon Mar 23 2026 Vasiliy Glazov <vascom2@gmail.com> - 1.12.4-1
 - Update to 1.12.4
 

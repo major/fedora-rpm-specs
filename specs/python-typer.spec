@@ -1,10 +1,13 @@
 Name:           python-typer
-Version:        0.25.1
+Version:        0.26.7
 Release:        %autorelease
 Summary:        Build great CLIs; easy to code; based on Python type hints
 
-# SPDX
-License:        MIT
+# The entire source is MIT, except the forked/vendored copy of Click in
+# typer/_click/, which is BSD-3-Clause. Upstream has declined to adjust the
+# license expression in pyproject.toml, but we carry a downstream patch that
+# does so. See the comments about that patch for more detail.
+License:        MIT AND BSD-3-Clause
 URL:            https://typer.tiangolo.com/
 %global forgeurl https://github.com/fastapi/typer
 Source0:        %{forgeurl}/archive/%{version}/typer-%{version}.tar.gz
@@ -19,6 +22,32 @@ Source11:       typer-utils.1
 #   PYTHONPATH="${PWD}" typer x utils docs --help.
 Source12:       typer-utils-docs.1
 
+# Consider adding Click license text and SPDX identifier to .dist-info metadata
+# https://github.com/fastapi/typer/discussions/1817
+#
+# Upstream declined to make these changes, saying that “We want to be careful
+# not to make any further changes that end up being irreversible, and that
+# could affect or confuse users more downstream.” They hope to eventually
+# reimplement all of the Click-derived, BSD-3-Clause-licensed code from scratch
+# with MIT-licensed code.
+#
+# Because we believe that strictly-accurate metadata is valuable in the
+# packaged library, and these changes accurately reflect the current license
+# status of the package, we choose to carry these changes downstream-only.
+#
+# [PATCH 1/2] Install the license text for Click in `.dist-info`
+#
+# This ensures that the package metadata contains all applicable license texts.
+# The file ends up in `typer-….dist-info/licenses/typer/_click/LICENSE.txt`
+# (vs. `typer-….dist-info/licenses/LICENSE` for the main MIT license text),
+# which is perhaps slightly awkward but accomplishes the goal.
+#
+# [PATCH 2/2] Update the SPDX license expression to include Click’s license
+#
+# Change the license field in the metadata from `MIT` to `MIT AND BSD-3-Clause`
+# to reflect the presence of code under the latter license in `typer/_click/`.
+Patch:          typer-0.26.5-click-license.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license typer
 
@@ -30,7 +59,7 @@ BuildArch:      noarch
 # we just list the few test dependencies we *do* want manually rather than
 # trying to patch pyproject.toml. We preserve upstream’s lower bounds but
 # remove upper bounds, as we must try to make do with what we have.
-BuildRequires:  %{py3_dist pytest} >= 4.4
+BuildRequires:  %{py3_dist pytest} >= 9
 BuildRequires:  %{py3_dist pytest-xdist} >= 1.32
 
 %global common_description %{expand:
@@ -42,6 +71,20 @@ developers will love creating. Based on Python type hints.}
 
 %package -n     python3-typer
 Summary:        %{summary}
+
+# Since version 0.26.0, Typer vendors Click. This is an intentional and
+# permanent upstream decision, and upstream plans to diverge from Click
+# upstream, removing unused code and more tightly integrating the vendored
+# implementation with the rest of Typer. There is therefore no prospect of
+# returning to using an external copy of Click or for unbundling downstream.
+# See [1] for a summary of the decision and its rationale and consequences, [2]
+# for a fuller rationale, and [3] for documentation that Click 8.3.1 was the
+# basis for the vendored copy.
+#
+# [1] https://github.com/fastapi/typer/blob/0.26.0/docs/release-notes.md#breaking-changes
+# [2] https://typer.tiangolo.com/tutorial/click
+# [3] https://github.com/fastapi/typer/pull/1774
+Provides:       bundled(python3dist(click)) = 8.3.1
 
 %if %{defined fc44} || %{defined fc45} || %{defined fc46}
 Obsoletes:      python3-typer-slim < 0.23.0-1
@@ -96,9 +139,9 @@ export _TYPER_RUN_INSTALL_COMPLETION_TESTS=1
 # These cannot find the typer package because the tests override PYTHONPATH.
 ignore="${ignore-} --ignore=tests/test_tutorial/test_subcommands/test_tutorial001.py"
 ignore="${ignore-} --ignore=tests/test_tutorial/test_subcommands/test_tutorial003.py"
-# This fails in mock but not in a git checkout. We have not found it worth
-# investigating, but help is welcome.
-ignore="${ignore-} --ignore=tests/test_tutorial/test_printing/test_tutorial004.py"
+# This suffers from some combination of Python path issues in our test
+# environment. It’s not worth going to great lengths to make it work.
+k="${k-}${k+ and }not test_binary_stderr"
 
 mkdir _stub
 cat > _stub/coverage.py <<'EOF'

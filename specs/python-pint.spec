@@ -1,4 +1,3 @@
-%global _without_xarray 1
 %bcond xarray 1
 # Not yet packaged: python-uncertainties
 %bcond uncertainties 0

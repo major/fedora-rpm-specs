@@ -15,7 +15,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.5
-Release: 31%{?dist}
+Release: 32%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/udisks
@@ -26,6 +26,7 @@ Patch1:  fix_bash_completion.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1238664
 Patch2:  udisks-1.0.5-fix-service-file.patch
 Patch3:  udisks-1.0.5-fix-makedev-failure.patch
+Patch4:  sbindirinstall.diff
 BuildRequires: make
 BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(dbus-1)  >= %{dbus_version}
@@ -107,6 +108,7 @@ D-Bus interface definitions and documentation for udisks.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=673544#c15
 rm -f src/*-glue.h tools/*-glue.h
@@ -158,9 +160,11 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/udisks-bash-completion.sh \
 /lib/udev/udisks-dm-export
 /lib/udev/udisks-probe-ata-smart
 /lib/udev/udisks-probe-sas-expander
-/sbin/umount.udisks
+%{_sbindir}/umount.udisks
 
-%{_bindir}/*
+%{_bindir}/devkit-disks
+%{_bindir}/udisks
+%{_bindir}/udisks-tcp-bridge
 %{_libexecdir}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man7/%{name}.7*
@@ -178,6 +182,9 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/udisks-bash-completion.sh \
 %{_datadir}/gtk-doc
 
 %changelog
+* Mon Jun 08 2026 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.0.5-32
+- Move umount.udisks to /usr/bin
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

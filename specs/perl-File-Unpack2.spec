@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           perl-File-Unpack2
-Version:        1.0
+Version:        1.2
 Release:        %autorelease
 Summary:        Strong archive file unpacker, based on mime-types
 

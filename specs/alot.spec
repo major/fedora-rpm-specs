@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -9,6 +9,7 @@ URL:            https://github.com/pazz/alot
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
 Patch:          0001-replace-python-magic-with-file-magic.patch
 Patch:          0001-Replace-glob1-with-glob.patch
+Patch:          0001-sys.stderr-replace-mock-with-io.StringIO.patch
 
 BuildArch:      noarch
 
@@ -54,6 +55,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{_mandir}/man1/alot.1*
 
 %changelog
+* Sun Jun  7 2026 Dick Marinus <dick@mrns.nl> - 0.12.6
+- sys.stderr replace mock with io.StringIO
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.12-5
 - Rebuilt for Python 3.15
 

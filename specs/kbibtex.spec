@@ -4,7 +4,7 @@
 
 Name:       kbibtex
 Version:    0.10.50%{?versuffix}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A BibTeX editor for KDE
 # CC0-1.0: desktop file, appstream metadata
 # BSD-2-Clause is used only in tests
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 0.10.50^20260219gitfd546d8-2
+- Rebuilt for icu 78.3
+
 * Mon Mar 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.10.50^20260219gitfd546d8-1
 - Update to git snapshot, build with Qt6/KF6
 

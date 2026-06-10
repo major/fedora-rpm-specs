@@ -4,8 +4,8 @@
 %global         version0  1.24.0
 # Using a more recent snapshot of `master` to pull in various
 # necessary patches until 1.25.0 is out
-%global         date      20260604
-%global         commit    1d41f7b
+%global         date      20260608
+%global         commit    0582bb5
 %forgemeta
 
 Summary:        Password Safe is a password management utility
@@ -22,12 +22,6 @@ Patch2:         remove-unreferenced-libmagic.patch
 # upstream wants to keep utf8 bom since they seem to have Windows editors
 # that require it. I don't think any Fedora editor requires a utf-8 bom.
 Patch3:         bomless-utf8-output.patch
-# update bundled pugixml to 1.15, goes away when passwordsafe 1.25.0 is released
-Patch4:         https://github.com/pwsafe/pwsafe/pull/1807.patch
-# kill the executable bits, goes away when 1.25 is released
-Patch5:         https://github.com/pwsafe/pwsafe/pull/1814.patch
-# allow import from gorilla password safe, , goes away when 1.25 is released
-Patch6:         https://github.com/pwsafe/pwsafe/pull/1815.patch
 Url:            https://pwsafe.org/
 #
 # most of the code is Artistic-2.0

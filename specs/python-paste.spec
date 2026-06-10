@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -77,6 +77,7 @@ popd
 %pyproject_install
 %pyproject_save_files paste
 
+rm -f %{buildroot}%{python3_sitelib}/Paste-%{version}-py%{python3_version}-nspkg.pth
 
 %check
 # exclude broken modules from import tests
@@ -90,10 +91,11 @@ py.test -k \
 
 %files -n python3-paste -f %{pyproject_files}
 %doc docs/*
-%{python3_sitelib}/Paste-%{version}-py%{python3_version}-nspkg.pth
-
 
 %changelog
+* Sun Jun 07 2026 Kevin Fenzi <kevin@scrye.com> - 3.10.1-16
+- Drop pth file. Fixes rhbz#2486065
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.10.1-15
 - Rebuilt for Python 3.15
 

@@ -1,25 +1,26 @@
 Name:           lv2-ir-plugins
-Version:        1.3.4
-Release:        22%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        LV2 Plugin: low-latency, real-time, high performance signal convolver
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://tomszilagyi.github.io/plugins/ir.lv2/
-Source0:        https://github.com/tomszilagyi/ir.lv2/archive/%{version}.tar.gz#/ir.lv2-%{version}.tar.gz
+URL:            https://tomscii.sig7.se/plugins/ir.lv2/
+# The source for this package was pulled from upstream's vcs.
+# Use the following commands to generate the tarball:
+# git clone https://git.hq.sig7.se/ir.lv2.git
+# tar --transform 's|^ir.lv2|ir.lv2-%{version}|' -cvJ --exclude-vcs -f /tmp/ir.lv2-%{version}.tar.xz ir.lv2
+Source0:        ir.lv2-%{version}.tar.xz
 
 # This patch modifies the realtime priority as reported in the source
 # Priority should match -P parameter passed to jackd, which defaults to 20
 Patch0:         %{name}-realtime-priority.patch
-# Fix FTBFS with recent LV2
-# Patch sent upstream https://github.com/tomszilagyi/ir.lv2/pull/24
-Patch1:         %{name}-lv2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  libsndfile-devel
 BuildRequires:  libsamplerate-devel
-BuildRequires:  zita-convolver-devel >= 3.1
+BuildRequires:  zita-convolver-devel >= 4.0
 BuildRequires:  lv2-devel >= 1.8.1
 BuildRequires:  gtk2-devel >= 2.20
 BuildRequires:  fftw-devel
@@ -52,6 +53,10 @@ export LDFLAGS="%{__global_ldflags}"
 %{_libdir}/lv2/ir.lv2/
 
 %changelog
+* Mon Jun 08 2026 Guido Aulisi <guido.aulisi@inps.it> - 1.4.0-1
+- Update to 1.4.0
+- Update project URL
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

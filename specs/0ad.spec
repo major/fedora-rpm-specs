@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.28.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # BSD-3-Clause:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -273,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 0.28.0-3
+- Rebuilt for icu 78.3
+
 * Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-2
 - Bump EVR
 

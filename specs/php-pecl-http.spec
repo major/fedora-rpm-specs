@@ -35,7 +35,7 @@ Name:           php-pecl-http
 Summary:        Extended HTTP support
 License:        BSD-2-Clause
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -207,6 +207,9 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 4.3.1-4
+- Rebuilt for icu 78.3
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 4.3.1-3
 - drop pear/pecl dependency
 - sources from github

@@ -8,9 +8,8 @@
 Name:           ntfs-3g
 Epoch:          2
 Version:        2026.2.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux NTFS userspace driver
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/tuxera/ntfs-3g
 Source0:        http://tuxera.com/opensource/%{name}_ntfsprogs-%{version}%{?subver}.tgz
@@ -122,6 +121,8 @@ ln -s mount.ntfs-3g mount.ntfs-fuse
 # And since there is no other package in Fedora that provides an ntfs
 # mount...
 ln -s mount.ntfs-3g mount.ntfs
+# According to bug2486080, we need "ntfs-3g-mount" ?
+ln -s ntfs-3g ntfs-3g-mount
 # Need this for fsck to find it
 ln -s ../bin/ntfsck fsck.ntfs
 popd
@@ -142,6 +143,7 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %{_sbindir}/mount.ntfs-fuse
 %{_sbindir}/mount.lowntfs-3g
 %{_bindir}/ntfs-3g
+%{_bindir}/ntfs-3g-mount
 %{_bindir}/ntfsmount
 %{_bindir}/ntfs-3g.probe
 %{_bindir}/lowntfs-3g
@@ -193,6 +195,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Mon Jun  8 2026 Tom Callaway <spot@fedoraproject.org> - 2:2026.2.25-2
+- make symlink to ntfs-3g-mount (bz2486080)
+
 * Tue Jun  2 2026 Tom Callaway <spot@fedoraproject.org> - 2:2026.2.25-1
 - update to latest stable
 

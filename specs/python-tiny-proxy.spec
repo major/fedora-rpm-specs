@@ -10,7 +10,7 @@ used for testing python-socks, aiohttp-socks and httpx-socks packages.}
 %global forgeurl https://github.com/romis2012/tiny-proxy
 
 Name:           python-tiny-proxy
-Version:        0.2.1
+Version:        0.3.0
 Release:        %{autorelease}
 Summary:        Simple proxy server (SOCKS4(a), SOCKS5(h), HTTP tunnel)
 

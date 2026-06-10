@@ -1,27 +1,28 @@
-%if 0%{?fedora} > 35
+%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %global dict_dirname hunspell 
 %else
 %global dict_dirname myspell
 %endif
+
 Name: hunspell-shs
 Summary: Shuswap hunspell dictionaries
 %global upstreamid 20090828
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
+# Upstream Source and URL links are dead now
 Source: http://secpewt.sd73.bc.ca/hunspell/hunspell-shs-ca.tar.gz
 URL: http://secpewt.sd73.bc.ca/wordlist
 License: GPL-2.0-or-later
 BuildArch: noarch
-BuildRequires: hunspell-devel
 
-Requires: hunspell
+Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-shs)
 
 %description
 Shuswap hunspell dictionaries.
 
 %prep
-%setup -q -c
+%autosetup -c
 
 %build
 
@@ -32,9 +33,13 @@ cp -p hunspell/shs_CA.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 %files
 %doc hunspell/COPYING hunspell/Copyright hunspell/README
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/shs_CA.*
 
 %changelog
+* Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20090828-33
+- Remove unnecessary BuildRequires: hunspell-devel
+- Update SPEC for latest guidelines
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090828-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

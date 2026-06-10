@@ -19,9 +19,18 @@ Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz.s
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
 Source1:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz.sig
 %endif
+
+# Eli Zaretskii
 Source100:     https://keys.openpgp.org/vks/v1/by-fingerprint/17E90D521672C04631B1183EE78DAE0F3115E06B
+
+# Stefan Kangas
 Source101:     https://keys.openpgp.org/vks/v1/by-fingerprint/CEA1DE21AB108493CC9C65742E82323B8F4353EE
+
+# Andrea Corallo
 Source102:     https://keys.openpgp.org/vks/v1/by-fingerprint/12BB9B400EE3F77282864D18272B5C54E015416A
+
+# Sean Whitton
+Source103:     https://keys.openpgp.org/vks/v1/by-fingerprint/8DC2487E51ABDD90B5C4753F0F56D0553B6D411B
 
 Source4:       dotemacs.el
 Source5:       site-start.el
@@ -313,7 +322,7 @@ Development header files for Emacs.
 
 
 %prep
-cat '%{SOURCE100}' '%{SOURCE101}' '%{SOURCE102}' > keyring
+cat '%{SOURCE100}' '%{SOURCE101}' '%{SOURCE102}' '%{SOURCE103}' > keyring
 %{gpgverify} --keyring=keyring --signature='%{SOURCE1}' --data='%{SOURCE0}'
 rm keyring
 

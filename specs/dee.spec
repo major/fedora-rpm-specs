@@ -4,7 +4,7 @@
 Summary:	Model to synchronize multiple instances over DBus
 Name:		dee
 Version:	1.2.7
-Release:	66%{?dist}
+Release:	67%{?dist}
 # GPLv3-licensed tests and examples are in the tarball, but not installed
 License:	LGPL-3.0-only
 URL:		https://launchpad.net/dee
@@ -83,6 +83,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_datadir}/vala/vapi/*.deps
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.2.7-67
+- Rebuilt for icu 78.3
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.7-66
 - Rebuilt for Python 3.15
 

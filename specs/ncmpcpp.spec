@@ -1,6 +1,6 @@
 Name:           ncmpcpp
 Version:        0.10.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Featureful ncurses based MPD client inspired by ncmpc
 License:        GPL-2.0-or-later
 URL:            http://ncmpcpp.rybczak.net/
@@ -62,6 +62,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 0.10.1-10
+- Rebuilt for icu 78.3
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.10.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

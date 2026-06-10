@@ -134,6 +134,7 @@ if [ -f debian/%{name}.1 ]; then
 fi
 
 rm -rf %{buildroot}%{python3_sitelib}/tests
+rm -rf %{buildroot}%{python3_sitelib}/po
 
 %find_lang %{name}
 

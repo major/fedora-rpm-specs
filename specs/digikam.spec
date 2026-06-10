@@ -13,8 +13,8 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 9.0.0
-Release: 5%{?beta}%{?dist}
+Version: 9.1.0
+Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -32,7 +32,6 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
-Patch0: https://invent.kde.org/graphics/digikam/-/commit/9dd5e992b71b6a855fc419114344d4bd181bc08f.patch
 
 ## upstreamable patches
 
@@ -335,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Mon Jun 08 2026 Alexey Kurov <nucleo@fedoraproject.org> - 9.1.0-1
+- digiKam-9.1.0
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 9.0.0-5
 - Rebuild (qt6)
 

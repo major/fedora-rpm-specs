@@ -27,7 +27,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.26.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -376,6 +376,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:3.26.0-7
+- Rebuilt for icu 78.3
+
 * Wed Jun 04 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-6
 - Enable uriparser support on RHEL
 

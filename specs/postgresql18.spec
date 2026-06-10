@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1510,6 +1510,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 18.3-6
+- Rebuilt for icu 78.3
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 18.3-5
 - Rebuilt for Python 3.15
 

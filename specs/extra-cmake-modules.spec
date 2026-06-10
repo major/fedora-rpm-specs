@@ -9,8 +9,8 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 6.26.0
-Release: 2%{?dist}
+Version: 6.27.0
+Release: 1%{?dist}
 # kde-modules/clang-format.cmake is MIT
 License: BSD-3-Clause AND BSD-2-Clause AND MIT
 URL:     https://api.kde.org/ecm/
@@ -88,6 +88,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Fri Jun 05 2026 Steve Cossette <farchord@gmail.com> - 6.27.0-1
+- 6.27.0
+
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.26.0-2
 - Fix for kde packages not being able to find python
 

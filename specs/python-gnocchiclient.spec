@@ -1,6 +1,3 @@
-%global sources_gpg 0
-%global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
-
 %global pypi_name gnocchiclient
 
 # NOTE(jpena): doc build fails with recent cliff versions, and hardcodes
@@ -19,13 +16,8 @@ Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Gnocchi
 
 License:          Apache-2.0
-URL:              https://github.com/openstack/%{name}
-Source0:          https://pypi.io/packages/source/g/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-# Required for tarball sources verification
-%if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/%{name}/%{pypi_name}-%{version}.tar.gz.asc
-Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
-%endif
+URL:              https://github.com/gnocchixyz/python-gnocchiclient
+Source0:          %pypi_source %pypi_name
 BuildArch:        noarch
 
 # Required for tarball sources verification

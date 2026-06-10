@@ -1,5 +1,5 @@
 Name:           perl-App-Cme
-Version:        1.047
+Version:        1.048
 Release:        1%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
@@ -52,6 +52,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(English)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Term::ANSIColor) >= 2.01
+BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::More)
 # Test::Perl::Critic - optional test
@@ -140,6 +141,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 08 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.048-1
+- 1.048 bump (rhbz#2485498)
+
 * Wed Apr 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.047-1
 - 1.047 bump (rhbz#2449166)
 

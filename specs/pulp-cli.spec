@@ -6,7 +6,7 @@
 %endif
 
 Name: pulp-cli
-Version: 0.37.0
+Version: 0.40.0
 Release: %autorelease
 Summary: Command line interface to talk to the Pulp 3 REST API
 License: GPL-2.0-or-later
@@ -14,10 +14,6 @@ URL: https://github.com/pulp/%{name}
 BuildArch: noarch
 
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Remove pytest-subtests dependency and replace with pytest parametrize
-# https://github.com/pulp/pulp-cli/commit/7b4a185
-Patch: fix-pytest9-remove-subtests.patch
 
 BuildRequires: python3-devel
 

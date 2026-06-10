@@ -9,17 +9,17 @@ Summary:    CLI calendar application
 
 License:    MIT
 URL:        https://github.com/pimutils/%{name}
-Source0:    https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
+Source:     https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # In theory documentation requires sphinxcontrib.newsfeed to generate
 # a blog of the changelog. We only need the manpage. We also fix a Makefile error
 # which happens when using .tar.gz
-Patch0:     khal-0.8.2-sphinx-docfix.patch
+Patch:      khal-0.8.2-sphinx-docfix.patch
 # Support Python 3.14.
 # https://github.com/pimutils/khal/pull/1417
-Patch1:     khal-0.13.0-support-py3.14.patch
+Patch:      khal-0.13.0-support-py3.14.patch
 # Reduce setuptools requirement. Fedora 42 lacks setuptools 77+.
-Patch2:     khal-0.13.0-reduce-setuptools-req.patch
+Patch:      khal-0.13.0-reduce-setuptools-req.patch
 BuildArch:  noarch
 
 BuildRequires: make
@@ -27,15 +27,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 
-Requires:       python3-click >= 3.2
-Requires:       python3-click-log >= 0.2.0
-Requires:       python3-configobj
-Requires:       python3-dateutil
-Requires:       python3-icalendar
-Requires:       python3-urwid
-Requires:       python3-tzlocal
-Requires:       python3-pytz
-Requires:       python3-pyxdg
 Requires:       vdirsyncer >= 0.8.1-2
 
 %description
@@ -46,8 +37,16 @@ calendars with a variety of other programs on a host of different platforms.
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
+# Don't limit the upper bound of the required Python
+# Enables testing in Fedora with 3.15 alpha versions
+sed -i 's/^\(requires-python *= *">=[^"]*\),<3\.15"/\1"/' pyproject.toml
+
 %generate_buildrequires
+%if %{with tests}
 %pyproject_buildrequires -t
+%else
+%pyproject_buildrequires
+%endif
 
 %build
 %pyproject_wheel
@@ -60,11 +59,37 @@ cd ..
 %pyproject_install
 %pyproject_save_files khal
 # separately install man pages
-install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
-cp -r doc/build/man/%{name}.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
+install -d "%{buildroot}%{_mandir}/man1"
+cp -r doc/build/man/%{name}.1 "%{buildroot}%{_mandir}/man1"
 # Remove extra copy of text docs
 rm -vrf doc/build/html/_sources
 rm -fv doc/build/html/{.buildinfo,objects.inv}
+
+# Generate and install shell completions
+install -d %{buildroot}%{bash_completions_dir}
+install -d %{buildroot}%{fish_completions_dir}
+install -d %{buildroot}%{zsh_completions_dir}
+
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _KHAL_COMPLETE=bash_source \
+    %{buildroot}%{_bindir}/khal > %{buildroot}%{bash_completions_dir}/khal
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _IKHAL_COMPLETE=bash_source \
+    %{buildroot}%{_bindir}/ikhal > %{buildroot}%{bash_completions_dir}/ikhal
+
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _KHAL_COMPLETE=fish_source \
+    %{buildroot}%{_bindir}/khal > %{buildroot}%{fish_completions_dir}/khal.fish
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _IKHAL_COMPLETE=fish_source \
+    %{buildroot}%{_bindir}/ikhal > %{buildroot}%{fish_completions_dir}/ikhal.fish
+
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _KHAL_COMPLETE=zsh_source \
+    %{buildroot}%{_bindir}/khal > %{buildroot}%{zsh_completions_dir}/_khal
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+    _IKHAL_COMPLETE=zsh_source \
+    %{buildroot}%{_bindir}/ikhal > %{buildroot}%{zsh_completions_dir}/_ikhal
 
 %check
 %pyproject_check_import
@@ -81,6 +106,12 @@ rm -fv doc/build/html/{.buildinfo,objects.inv}
 %{_bindir}/ikhal
 %{_bindir}/khal
 %{_mandir}/man1/%{name}.1.*
+%{bash_completions_dir}/khal
+%{bash_completions_dir}/ikhal
+%{fish_completions_dir}/khal.fish
+%{fish_completions_dir}/ikhal.fish
+%{zsh_completions_dir}/_khal
+%{zsh_completions_dir}/_ikhal
 
 %changelog
 %autochangelog

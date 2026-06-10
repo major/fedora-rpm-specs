@@ -5,7 +5,7 @@
 %global         srcname     azure-mgmt-subscription
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Microsoft Azure Subscription Management Client Library for Python
 License:        MIT
@@ -17,6 +17,7 @@ Epoch:          1
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-six
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -27,6 +28,12 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-aiohttp)
 BuildRequires:  python3dist(python-dotenv)
 %endif
+
+# Generated enum modules import six.with_metaclass, but six is not in the
+# upstream dist metadata, so the dependency generators miss it (both the
+# BuildRequires and this Requires must be added by hand). Needed at runtime
+# whenever the module is imported.
+Requires:       python3-six
 
 %global _description %{expand:
 Microsoft Azure Subscription Management Client Library for Python}

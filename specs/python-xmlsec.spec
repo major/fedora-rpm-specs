@@ -9,8 +9,13 @@ License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/x/%{srcname}/%{srcname}-%{version}.tar.gz
 
+# Fix runtime compatibility with openssl 4.0
+# https://github.com/xmlsec/python-xmlsec/pull/422
+Patch0:         0001-Bump-xmlsec1-unix-lib-to-1.3.11.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 BuildRequires:  libxml2-devel >= 2.9.1
 BuildRequires:  xmlsec1-devel >= 1.2.33
 BuildRequires:  xmlsec1-openssl-devel
@@ -50,6 +55,12 @@ sed -i 's/lxml==/lxml>=/' pyproject.toml
 %pyproject_install
 
 %pyproject_save_files -l %{srcname}
+
+
+%check
+%pyproject_check_import
+export OPENSSL_ENABLE_SHA1_SIGNATURES=1
+%pytest -v
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

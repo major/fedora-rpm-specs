@@ -1,7 +1,7 @@
 %define		realname PyICU
 Name:		pyicu
 Version:	2.14
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Python extension wrapping the ICU C++ libraries
 
 License:	MIT
@@ -50,6 +50,9 @@ Summary: Python 3 extension wrapping the ICU C++ libraries
 %doc LICENSE
 
 %changelog
+* Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2.14-11
+- Rebuilt for icu 78.3
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.14-10
 - Rebuilt for Python 3.15
 

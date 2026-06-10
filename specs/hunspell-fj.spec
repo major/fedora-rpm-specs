@@ -7,14 +7,12 @@
 Name: hunspell-fj
 Summary: Fijian hunspell dictionaries
 Version: 1.2
-Release: 34%{?dist}
+Release: 35%{?dist}
 #Source: http://www.foss.usp.ac.fj/OOo_fj/OOo_fj_FJ.zip
 Source: https://addons.mozilla.org/firefox/downloads/file/84397/fijian_spelling_dictionary-%{version}-fx+tb+sm.xpi
 URL: http://www.iosn.net/pacific-islands/usp-microgrants/fijian-spellchecker
 License: LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
 BuildArch: noarch
-BuildRequires: hunspell-devel
-
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-fj)
 
@@ -41,9 +39,12 @@ cp -p dictionaries/fj_FJ.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/fj.dic
 
 %files
 %doc dictionaries/README_fj_FJ.txt
-%{_datadir}/%{dict_dirname}/*
+%{_datadir}/%{dict_dirname}/fj.*
 
 %changelog
+* Mon Jun 08 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2-35
+- Remove unnecessary BuildRequires: hunspell-devel
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

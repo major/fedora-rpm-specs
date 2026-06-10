@@ -31,7 +31,7 @@ Top like application for PostgreSQL server activity monitoring
 %autosetup
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x tests
+%pyproject_buildrequires -r -x testing
 
 %build
 %pyproject_wheel
