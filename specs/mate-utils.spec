@@ -1,7 +1,7 @@
 %global branch 1.28
 
 Name:          mate-utils
-Version:       %{branch}.0
+Version:       %{branch}.1
 Release:       %autorelease
 Summary:       MATE utility programs
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -9,8 +9,7 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
-Patch1:        mate-utils_0001-mate-screenshot-Toggle-shutter-sound.patch
-Patch2:        mate-utils_0002-mate-screenshot-Replace-fork-save-with-sync-save.patch  
+Patch1:        mate-utils_Fix_window_screenshot_including_invisible_borders.patch  
 
 BuildRequires: desktop-file-utils
 BuildRequires: e2fsprogs-devel
@@ -29,10 +28,7 @@ BuildRequires: mesa-libGL-devel
 BuildRequires: popt-devel
 BuildRequires: usermode
 BuildRequires: yelp-tools
-
-%if 0%{?fedora} && 0%{?fedora} >= 29
 BuildRequires: gcc-c++
-%endif
 
 Requires: mate-dictionary = %{version}-%{release}
 Requires: mate-screenshot = %{version}-%{release}

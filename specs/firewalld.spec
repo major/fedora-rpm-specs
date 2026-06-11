@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -94,9 +94,6 @@ Requires: python3-qt5-base
 Requires: python3-gobject
 Requires: libnotify
 Requires: NetworkManager-libnm
-%if !0%{?flatpak}
-Requires: dbus-x11
-%endif
 
 %description -n firewall-applet
 The firewall panel applet provides a status information of firewalld and also 
@@ -114,7 +111,6 @@ Requires: gtk3
 Requires: python3-gobject
 Requires: NetworkManager-libnm
 %if !0%{?flatpak}
-Requires: dbus-x11
 Recommends: polkit
 %endif
 
@@ -360,6 +356,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Tue Jun 09 2026 Timothée Ravier <tim@siosm.fr> - 2.4.0-4
+- Drop dependency on dbus-x11
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.4.0-3
 - Rebuilt for Python 3.15
 

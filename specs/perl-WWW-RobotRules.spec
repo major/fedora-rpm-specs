@@ -1,10 +1,12 @@
+%bcond perl_WWW_RobotRules_enables_DB_File %{undefined rhel}
+
 Name:           perl-WWW-RobotRules
 Version:        6.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Database of robots.txt-derived permissions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-RobotRules
-Source0:        https://cpan.metacpan.org/authors/id/G/GA/GAAS/WWW-RobotRules-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-RobotRules-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -16,16 +18,23 @@ BuildRequires:  perl(strict)
 # Run-time:
 BuildRequires:  perl(AnyDBM_File)
 BuildRequires:  perl(Carp)
+%if %{with perl_WWW_RobotRules_enables_DB_File}
+BuildRequires:  perl(DB_File)
+%endif
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(URI) >= 1.10
 BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 # LWP::RobotUA not used
 # URI::URL not used
 Requires:       perl(URI) >= 1.10
 Conflicts:      perl-libwww-perl < 6
+%if %{with perl_WWW_RobotRules_enables_DB_File}
+Suggests:       perl(WWW::RobotRules::DB_File)
+%endif
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(URI\\)$
@@ -37,6 +46,16 @@ This module parses /robots.txt files as specified in "A Standard for Robot
 Exclusion", at <https://www.robotstxt.org/robotstxt.html>. Webmasters can
 use the /robots.txt file to forbid conforming robots from accessing parts
 of their web site.
+
+%if %{with perl_WWW_RobotRules_enables_DB_File}
+%package DB_File
+Summary:        Parse robots.txt files using a disk cache
+Conflicts:      perl-WWW-RobotRules < 6.03-2
+
+%description DB_File
+This is a subclass of WWW::RobotRules that uses the DB_File package to
+implement disk caching of robots.txt.
+%endif
 
 %package tests
 Summary:        Tests for %{name}
@@ -86,13 +105,27 @@ make test
 %files
 %doc Changes
 %license LICENSE
+%exclude %{perl_vendorlib}/WWW/RobotRules/DB_File.pm
 %{perl_vendorlib}/*
+%exclude %{_mandir}/man3/WWW::RobotRules::DB_File.3*
 %{_mandir}/man3/*
+
+%if %{with perl_WWW_RobotRules_enables_DB_File}
+%files DB_File
+%license LICENSE
+%{perl_vendorlib}/WWW/RobotRules/DB_File.pm
+%{_mandir}/man3/WWW::RobotRules::DB_File.3*
+%endif
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.03-2
+- Fix BuildRequires
+- Fix Source0
+- Move DB_File.pm to subpackage
+
 * Tue Jun 02 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.03-1
 - 6.03 bump
 - Fix build of package

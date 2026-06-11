@@ -278,6 +278,7 @@ BuildRequires:  kernel-cross-headers
 Requires:       glibc-devel
 Requires:       lld
 Requires:       gcc
+Requires:       %{name}-runtime = %{version}-%{release}
 
 Recommends:     libstdc++-devel
 Recommends:     gcc-c++
@@ -315,6 +316,18 @@ and desktop apps, scaling up to cloud services. Most
 importantly, Swift is designed to make writing and maintaining 
 correct programs easier for the developer. 
 
+%package runtime
+Summary:        Swift runtime libraries
+
+%description runtime
+Swift is a general-purpose programming language built using 
+a modern approach to safety, performance, and software design 
+patterns.
+
+This package contains the Swift runtime libraries needed to run 
+applications built with Swift.
+
+
 
 %prep
 %forgesetup -a
@@ -347,6 +360,10 @@ cp %{SOURCE100} swift/utils/fedora-presets.ini
 %global buildsubdir %{nil}
 %build
 export VERBOSE=1
+
+# Workaround for GCC 16 ICE in cmath / riemann_zeta
+export CFLAGS="-O2 -g -fno-builtin-logf"
+export CXXFLAGS="-O2 -g -fno-builtin-logf"
 
 # Four-stage bootstrap to build Swift from scratch without external Swift compiler
 # Stage 0: Build minimal Swift toolchain from C++ using gold linker
@@ -535,15 +552,6 @@ export QA_SKIP_RPATHS=1
 # Man pages
 %{_mandir}/man1/swift.1.gz
 
-# Swift runtime libraries (what users link against)
-%{_libdir}/libswift*.so*
-%{_libdir}/libFoundation*.so*
-%{_libdir}/libdispatch.so*
-%{_libdir}/libBlocksRuntime.so*
-%{_libdir}/libTesting.so*
-%{_libdir}/libXCTest.so*
-%{_libdir}/lib_*.so*
-
 # SourceKit/IndexStore public libraries
 %{_libdir}/libIndexStore.so*
 %{_libdir}/libsourcekitdInProc.so*
@@ -561,12 +569,26 @@ export QA_SKIP_RPATHS=1
 # Data files (diagnostics, features.json, etc.)
 %{_datadir}/swift/
 
+%files runtime
+%license swift/LICENSE.txt
+
+%{_libdir}/libswift*.so*
+%{_libdir}/libFoundation*.so*
+%{_libdir}/libdispatch.so*
+%{_libdir}/libBlocksRuntime.so*
+%{_libdir}/libTesting.so*
+%{_libdir}/libXCTest.so*
+%{_libdir}/lib_*.so*
+
 # Dynamic linker configuration
 %{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+
+%post runtime -p /sbin/ldconfig
+%postun runtime -p /sbin/ldconfig
 
 
 %changelog

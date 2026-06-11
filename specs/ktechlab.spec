@@ -2,8 +2,7 @@ Name:           ktechlab
 Version:        0.51.0
 Release:        %autorelease
 Summary:        Development and simulation of micro-controllers and electronic circuits
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/ktechlab
 Source:         https://download.kde.org/unstable/ktechlab/%{name}-%{version}.tar.xz
 BuildRequires:  cmake
@@ -26,7 +25,7 @@ BuildRequires:  kf5-kwidgetsaddons-devel
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  kf5-kxmlgui-devel
 BuildRequires:  qt5-qtserialport-devel
-BuildRequires:  qt5-qtserialport
+BuildRequires:  libappstream-glib
 
 # Ktechlab requires gputils for PIC simulation.
 Requires:       electronics-menu
@@ -60,33 +59,33 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_install
 
 
-#fedora-specific : setting default path for sdcc
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/profile.d
+# fedora-specific: setting default path for sdcc
+mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 cat > %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh << EOF
 # setting default path for sdcc - fedora
 export PATH=\$PATH:%{_libexecdir}/sdcc
 EOF
 
 # Fix absolute symlink
-%{__rm} -f %{buildroot}%{_docdir}/HTML/en/%{name}/common
+rm -f %{buildroot}%{_docdir}/HTML/en/%{name}/common
 
-%find_lang %{name}
+%find_lang %{name} --with-kde --with-html
 
-%post
-source %{_sysconfdir}/profile.d/%{name}.sh
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.ktechlab.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.ktechlab.appdata.xml
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog TODO
-%doc %{_datadir}/doc/HTML/*/%{name}
 %license COPYING
 %{_bindir}/%{name}
 %{_bindir}/microbe
 %{_datadir}/config.kcfg/%{name}.kcfg
 %{_datadir}/applications/org.kde.ktechlab.desktop
 %{_datadir}/katepart5/syntax/microbe.xml
-%{_datadir}/%{name}/*
-%{_datadir}/kxmlgui5/%{name}/*
-%{_datadir}/metainfo/org.kde.ktechlab.appdata.xml
+%{_datadir}/%{name}/
+%{_datadir}/kxmlgui5/%{name}/
+%{_metainfodir}/org.kde.ktechlab.appdata.xml
 %{_datadir}/mime/packages/ktechlab_mime.xml
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_sysconfdir}/profile.d/%{name}.sh

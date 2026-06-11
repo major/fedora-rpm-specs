@@ -27,6 +27,8 @@ BuildRequires:  perl(Math::BigFloat)
 BuildRequires:  perl(Math::BigInt) >= 1.999718
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Needs)
+BuildRequires:  perl(Types::Serialiser)
 BuildRequires:  perl(Unicode::GCString)
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(constant)

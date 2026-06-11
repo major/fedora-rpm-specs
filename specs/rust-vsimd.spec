@@ -19,6 +19,7 @@ Patch:          vsimd-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * bump const-str to 0.6 (https://github.com/Nugine/simd/pull/54)
 # * bump rand to 0.10 (https://github.com/Nugine/simd/pull/63)
+# * allow const-str 1: https://github.com/Nugine/simd/pull/68
 Patch:          vsimd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

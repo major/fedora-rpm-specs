@@ -41,6 +41,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gtk-doc
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  libxfce4windowing-devel
+BuildRequires:  gtk-layer-shell-devel >= 0.7.0
 
 %if 0%{?fedora}
 BuildRequires:  libdbusmenu-gtk3-devel

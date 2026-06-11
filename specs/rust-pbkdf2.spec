@@ -15,7 +15,11 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * allow hex-literal 1.0:
 #   https://github.com/RustCrypto/password-hashes/commit/1dd9906066b561b26ecbfa1bfdf3b91d81ea7566
+# * Drop streebog dev-dependency to avoid a compat package
 Patch:          pbkdf2-fix-metadata.diff
+# * Downstream-only: omit a few tests that would require a rust-streebog0.10
+#   compat package
+Patch10:        pbkdf2-0.12.2-no-streebog.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

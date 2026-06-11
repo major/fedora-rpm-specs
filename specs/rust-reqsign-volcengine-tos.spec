@@ -5,16 +5,13 @@
 %global crate reqsign-volcengine-tos
 
 Name:           rust-reqsign-volcengine-tos
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Volcengine TOS signing implementation for reqsign
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-volcengine-tos
 Source:         %{crates_source}
-# * fix: Fix missing LICENSE file in published reqsign-volcengine-tos crate
-# * https://github.com/apache/opendal-reqsign/pull/736
-Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.20.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -50,7 +47,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

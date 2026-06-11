@@ -1,3 +1,5 @@
+%bcond synctex %{undefined flatpak}
+
 Name:              zathura
 Version:           2026.05.20
 Release:           1%{?dist}
@@ -34,7 +36,9 @@ BuildRequires:     meson >= 1.5
 # Needed to build man pages (/doc subdir)
 BuildRequires:     python3-sphinx
 BuildRequires:     sqlite-devel >= 3.6.23
+%if %{with synctex}
 BuildRequires:     texlive-lib-devel
+%endif
 BuildRequires:     zsh
 # Tests
 BuildRequires:     pkgconfig(check) >= 0.11
@@ -117,7 +121,9 @@ This package provides %{summary}.
 %autosetup
 
 %build
-%meson -Dsynctex=enabled -Dseccomp=enabled -Dtests=enabled
+%meson \
+   -Dseccomp=enabled -Dtests=enabled \
+   -Dsynctex=%{?with_synctex:enabled}%{!?with_synctex:disabled}
 %meson_build
 
 %install

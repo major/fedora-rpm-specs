@@ -4,8 +4,8 @@
 
 %global crate md-5
 
-Name:           rust-md-5
-Version:        0.11.0
+Name:           rust-md-5_0.10
+Version:        0.10.6
 Release:        %autorelease
 Summary:        MD5 hash function
 
@@ -48,16 +48,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+asm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+asm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "asm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+asm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+force-soft-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+force-soft-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "force-soft" feature of the "%{crate}" crate.
+
+%files       -n %{name}+force-soft-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+loongarch64_asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+loongarch64_asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "loongarch64_asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+loongarch64_asm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+md5-asm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+md5-asm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "md5-asm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+md5-asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+oid-devel
@@ -72,16 +108,16 @@ use the "oid" feature of the "%{crate}" crate.
 %files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zeroize-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zeroize-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zeroize" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zeroize-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,5 +1,5 @@
 Name:           perl-GD
-Version:        2.85
+Version:        2.86
 Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
@@ -37,6 +37,7 @@ BuildRequires:  perl(vars)
 # Test Suite
 # Note: optional test requirement perl(Test::Fork) not currently available in Fedora
 BuildRequires:  perl(constant)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(lib)
@@ -101,6 +102,10 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Tue Jun  9 2026 Paul Howarth <paul@city-fan.org> - 2.86-1
+- Update to 2.86
+  - Fix command injection via 2-arg open() in _make_filehandle (CVE-2026-11526)
+
 * Tue Jun  2 2026 Paul Howarth <paul@city-fan.org> - 2.85-1
 - Update to 2.85
   - Tolerate runtime TIFF decode failures in autodetect (GH#62)

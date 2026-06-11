@@ -1,5 +1,5 @@
 Name:           memtailor
-Version:        1.3
+Version:        1.4
 Release:        %autorelease
 Summary:        C++ library of special-purpose memory allocators
 
@@ -10,13 +10,12 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    cmake
+BuildOption(conf): -DBUILD_SHARED_LIBS:BOOL=ON
+BuildOption(conf): -DBUILD_TESTING:BOOL=ON
 
+BuildRequires:  cmake(GTest)
 BuildRequires:  gcc-c++
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
-BuildRequires:  make
-BuildRequires:  pkgconfig(gtest)
 
 %description
 Memtailor is a C++ library of special purpose memory allocators.  It currently
@@ -48,32 +47,34 @@ Files for developing applications that use memtailor.
 %prep
 %autosetup
 
-%conf
+# Fix the installation directory
+sed -i 's,lib,${LIB_INSTALL_DIR},' CMakeLists.txt
+
+# Add an soname
+sed -e '/Threads/iset_target_properties(memtailor PROPERTIES VERSION 0.0.4 SOVERSION 0)' \
+    -i src/CMakeLists.txt
+
+%install -a
+# This file is not installed by cmake
+cp -p src/memtailor.h %{buildroot}%{_includedir}
+
+# Install the pkgconfig file for backwards compatibility
 # Fix the URL in the pkgconfig file
-sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+sed -e 's,@prefix@,%{_prefix},' \
+    -e 's,@exec_prefix@,%{_prefix},' \
+    -e 's,@libdir@,%{_libdir},' \
+    -e 's,@includedir@,%{_includedir},' \
+    -e 's,@PACKAGE_VERSION@,%{version},' \
+    -e 's,broune,Macaulay2,' \
+    build/autotools/memtailor.pc.in \
+    > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
-# Upstream doesn't generate the configure script
-autoreconf -fi
-
-%build
-export GTEST_PATH=%{_prefix}
-export GTEST_VERSION=$(gtest-config --version)
-%configure --disable-static --enable-shared --with-gtest=yes
-
-# Get rid of undesirable hardcoded rpaths; workaround libtool reordering
-# -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC=.g..|& -Wl,--as-needed|' \
-    -i libtool
-
-%make_build
-
-%install
-%make_install
+# We install these files in a different place
+rm -fr %{buildroot}%{_prefix}/licenses
 
 %check
-LD_LIBRARY_PATH=$PWD/.libs make check
+%{_vpath_builddir}/src/memtailor-unit-tests
 
 %files
 %doc README.md

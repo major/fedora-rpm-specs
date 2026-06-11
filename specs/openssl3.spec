@@ -33,8 +33,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl3
-Version: 3.5.6
-Release: 4%{?dist}
+Version: 3.5.7
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -487,6 +487,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Jun 09 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.7-1
+- Rebase to OpenSSL 3.5.7
+
 * Mon Jun 08 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1:3.5.6-4
 - We don't use include directives in the compat package to avoid interference
   with the upcoming 4.0 release. We use the DEFAULT crypto policy instead.

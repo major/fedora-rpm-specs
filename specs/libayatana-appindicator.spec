@@ -22,7 +22,7 @@
 %endif
 
 %ifnarch %{mono_arches}
-%global with_mono 0
+%undefine with_mono
 %endif
 
 %global nsversion   0.1

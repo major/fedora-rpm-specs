@@ -1,6 +1,6 @@
 Name:           sigil
-Version:        2.7.6
-Release:        2%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -111,6 +111,9 @@ rm -rf 3rdparty/{minizip,zlib,hunspell,pcre2}
 %install
 %cmake_install
 
+# the startup script wants that
+mkdir -p %{buildroot}%{_datadir}/%{name}/plugins
+
 # Make rpmlint happy
 #chmod +x %{buildroot}%{_datadir}/%{name}/python3lib/*.py
 #chmod +x %{buildroot}%{_datadir}/%{name}/plugin_launchers/python/*.py
@@ -148,6 +151,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Jun 08 2026 Dan Horák <dan[at]danny.cz> - 2.8.0-1
+- New upstream release 2.8.0 (rhbz#2486485)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.7.6-2
 - Rebuilt for Python 3.15
 

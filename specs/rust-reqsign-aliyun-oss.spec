@@ -5,7 +5,7 @@
 %global crate reqsign-aliyun-oss
 
 Name:           rust-reqsign-aliyun-oss
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Aliyun OSS signing implementation for reqsign
 

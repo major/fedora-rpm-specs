@@ -12,6 +12,14 @@ Summary:        Wayland Scanner for generating rust APIs from XML wayland protoc
 License:        MIT
 URL:            https://crates.io/crates/wayland-scanner
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update quick-xml (to 0.40) and similar (to v3),
+#   https://github.com/Smithay/wayland-rs/commit/ec2d932855593d48aa83c76820f3efbcfea86d39.
+#   This requires an accompanying source-code patch for quick-xml 0.40.
+Patch:          wayland-scanner-fix-metadata.diff
+# * Source-code patch for API changes in quick-xml 0.40, from
+#   https://github.com/Smithay/wayland-rs/commit/ec2d932855593d48aa83c76820f3efbcfea86d39.
+Patch10:        wayland-scanner-0.31.10-quick-xml-0.40.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

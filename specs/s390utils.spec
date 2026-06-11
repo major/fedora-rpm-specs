@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.42.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -79,6 +79,10 @@ Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
+
+# Fix detection of OpenSSL 1.1+ when 4.0 is available
+# Upstream PR: https://github.com/ibm-s390-linux/s390-tools/pull/204
+Patch101:        s390utils-2.42.1-ossl4.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -1141,6 +1145,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Jun 08 2026 Stephen Gallagher <sgallagh@redhat.com> - 2:2.42.1-2
+- Fix detection of OpenSSL 4.0
+
 * Mon May 25 2026 Dan Horák <dan[at]danny.cz> - 2:2.42.1-1
 - rebased to 2.42.1 (rhbz#2464150)
 

@@ -1,7 +1,7 @@
 %global module_name pgactivity
 
 Name:           pg_activity
-Version:        3.6.1
+Version:        3.6.2
 Release:        %autorelease
 Summary:        Command line tool for PostgreSQL server activity monitoring
 
@@ -29,6 +29,9 @@ Top like application for PostgreSQL server activity monitoring
 
 %prep
 %autosetup
+
+# Remove uneeded depenency on psycopg-binary
+sed -i '/"psycopg\[binary\].*",/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r -x testing

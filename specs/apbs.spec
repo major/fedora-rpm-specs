@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 34%{datecommit}%{shortcommit}%{?dist}
+Release: 35%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPL-2.0-or-later AND BSD-3-Clause
 URL: https://www.poissonboltzmann.org/
@@ -29,7 +29,7 @@ Patch2: %{name}-python311.patch
 Patch3: apbs-c99.patch
 
 BuildRequires: gcc-c++
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: chrpath
 BuildRequires: make
 BuildRequires: doxygen
@@ -213,6 +213,10 @@ export PATH=%{buildroot}%{_bindir}
 %doc %_vpath_builddir/doc
 
 %changelog
+* Tue Jun 09 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-35
+- Fix rhbz#2485688
+- Fix cmake BR
+
 * Sun Feb 01 2026 Than Ngo <than@redhat.com> - 3.0.0-34
 - Fix rhbz#2433862, FTBFS
 

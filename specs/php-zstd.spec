@@ -21,11 +21,11 @@
 %global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
 %global tag         %{version}
 
-Summary:       Zstandard extension
 Name:          php-%{pecl_name}
+Summary:       Zstandard extension
 License:       MIT
-Version:       0.15.2
-Release:       4%{?dist}
+Version:       0.16.0
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -86,6 +86,7 @@ extension = %{pecl_name}.so
 ;zstd.output_compression = Off
 ;zstd.output_compression_level = 3
 ;zstd.output_compression_dict =
+;zstd.apcu_compression_level = 3
 EOF
 
 
@@ -151,6 +152,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jun  5 2026 Remi Collet <remi@remirepo.net> - 0.16.0-1
+- update to 0.16.0
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 0.15.2-4
 - drop pear/pecl dependency
 - sources from github

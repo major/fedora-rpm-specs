@@ -580,9 +580,6 @@ install -p -m 0644 10-source-directory.el %{buildroot}%{site_start_d}/
 mv %{buildroot}%{_mandir}/man1/{ctags.1.gz,gctags.1.gz}
 mv %{buildroot}%{_bindir}/{ctags,gctags}
 
-# BZ 927996
-mv %{buildroot}%{_infodir}/{info.info.gz,info.gz}
-
 # Default initialization file
 mkdir -p %{buildroot}%{_sysconfdir}/skel
 install -p -m 0644 %SOURCE4 %{buildroot}%{_sysconfdir}/skel/.emacs
@@ -600,7 +597,7 @@ install -p -m 0644 %SOURCE10 %{buildroot}%{_fileattrsdir}
 install -p -m 0755 %SOURCE11 %{buildroot}%{_rpmconfigdir}
 install -p -m 0644 macros.emacs %{buildroot}%{_rpmmacrodir}
 
-# After everything is installed, remove info dir
+# After everything is installed, remove info "dir"
 rm -f %{buildroot}%{_infodir}/dir
 
 # Install a wrapper to avoid running the Wayland-only build on X11
@@ -628,17 +625,6 @@ rm -f *-filelist {common,el}-*-files
     \( -type f -name '*.elc' -fprint $TOPDIR/common-lisp-none-elc-files \) -o \( -type d -fprintf $TOPDIR/common-lisp-dir-files "%%%%dir %%p\n" \) -o \( -name '*.el.gz' -fprint $TOPDIR/el-bytecomped-files -o -fprint $TOPDIR/common-not-comped-files \)
 
 )
-
-# Sorted list of info files
-%define info_files auth autotype bovine calc ccmode cl dbus dired-x ebrowse ede ediff edt efaq eglot eieio eintr elisp emacs-gnutls emacs-mime emacs epa erc ert eshell eudc eww flymake forms gnus htmlfontify idlwave ido mairix-el message mh-e modus-themes newsticker nxml-mode octave-mode org pcl-cvs pgg rcirc reftex remember sasl sc semantic ses sieve smtpmail speedbar srecode todo-mode tramp transient url use-package vhdl-mode vip viper vtable widget wisent woman
-
-for info_f in %info_files; do
-    echo "%{_infodir}/${info_f}.info*" >> info-filelist
-done
-# info.gz is a rename of info.info.gz and thus needs special handling
-echo "%{_infodir}/info*" >> info-filelist
-# elisp.info.gz has additional files
-echo "%{_infodir}/elisp_type_hierarchy*" >> info-filelist
 
 # Put the lists together after filtering  ./usr to /usr
 sed -i -e "s|\.%{_prefix}|%{_prefix}|" *-files
@@ -807,7 +793,7 @@ fi
 %{_bindir}/emacsclient
 %{_mandir}/man1/emacsclient.1*
 
-%files common -f common-filelist -f info-filelist
+%files common -f common-filelist
 %config(noreplace) %{_sysconfdir}/skel/.emacs
 %{_fileattrsdir}/emacs_lisp.attr
 %{_rpmconfigdir}/emacs_lisp.rec
@@ -824,6 +810,7 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/emacs.svg
 %{_datadir}/icons/hicolor/scalable/apps/emacs.ico
 %{_datadir}/icons/hicolor/scalable/mimetypes/emacs-document.svg
+%{_infodir}/*
 %{_mandir}/man1/ebrowse.1*
 %{_mandir}/man1/emacs.1*
 %{_mandir}/man1/etags.1*

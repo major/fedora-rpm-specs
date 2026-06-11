@@ -2,24 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate hmac
 
-%global crate uu_mkfifo
-
-Name:           rust-uu_mkfifo
-Version:        0.7.0
+Name:           rust-hmac0.12
+Version:        0.12.1
 Release:        %autorelease
-Summary:        mkfifo ~ (uutils) create FIFOs (named pipes)
+Summary:        Generic implementation of Hash-based Message Authentication Code (HMAC)
 
-License:        MIT
-URL:            https://crates.io/crates/uu_mkfifo
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/hmac
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Omit streebog dev-dependency to avoid a compat package
+Patch:          hmac-fix-metadata.diff
+# * Downstream-only: skip compiling tests that would require a rust-streebog0.10
+#   compat package.
+Patch10:        hmac-0.12.1-no-streebog.patch
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-mkfifo ~ (uutils) create FIFOs (named pipes).}
+Generic implementation of Hash-based Message Authentication Code (HMAC).}
 
 %description %{_description}
 
@@ -33,8 +36,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.package.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -49,28 +54,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+selinux-devel
+%package     -n %{name}+reset-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+selinux-devel %{_description}
+%description -n %{name}+reset-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "selinux" feature of the "%{crate}" crate.
+use the "reset" feature of the "%{crate}" crate.
 
-%files       -n %{name}+selinux-devel
+%files       -n %{name}+reset-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+smack-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+smack-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "smack" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+smack-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

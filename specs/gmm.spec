@@ -1,5 +1,5 @@
 Name:    gmm
-Version: 5.4.4
+Version: 5.5
 Release: %autorelease
 Summary: A generic C++ template library for sparse, dense and skyline matrices
 License: LGPL-3.0-or-later AND BSD-3-Clause
@@ -11,6 +11,8 @@ BuildArch: noarch
 BuildRequires: gcc-c++
 BuildRequires: perl-interpreter
 BuildRequires: make
+BuildRequires: flexiblas-devel
+BuildRequires: SuperLU-devel
 
 %description
 %{summary}.
@@ -28,7 +30,8 @@ Provides: gmm++-devel = %{version}-%{release}
 
 
 %build
-%configure
+export CXXFLAGS="%{optflags} -std=gnu++23"
+%configure --with-blas=flexiblas --with-superlu=superlu --with-superlu-include-dir=%{_includedir}/SuperLU
 
 
 %install

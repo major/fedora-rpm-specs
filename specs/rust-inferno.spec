@@ -13,6 +13,7 @@ URL:            https://crates.io/crates/inferno
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
+# * allow quick-xml 0.40: https://github.com/jonhoo/inferno/pull/369
 Patch:          inferno-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

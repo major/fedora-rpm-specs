@@ -4,19 +4,21 @@
 
 Name:          mingw-python-OWSLib
 Summary:       MinGW Windows Python OWSLib library
-Version:       0.35.0
-Release:       2%{?dist}
+Version:       0.36.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
 URL:           https://geopython.github.io/OWSLib
 Source0:       %{pypi_source owslib}
+# Drop setuptools upper bound
+Patch0:        owslib-setuptools.patch
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
 
@@ -65,6 +67,9 @@ MinGW Windows Python3 OWSLib library.
 
 
 %changelog
+* Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 0.36.0-1
+- Update to 0.36.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

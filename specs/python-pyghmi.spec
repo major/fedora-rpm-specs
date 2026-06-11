@@ -10,7 +10,7 @@ incorporate the pyghmi library into a Python application.}
 Summary: Python General Hardware Management Initiative (IPMI and others)
 Name: python-%{sname}
 Version: 1.6.16
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 BuildArch: noarch
@@ -35,6 +35,7 @@ Requires: python3-%{sname} = %{version}-%{release}
 
 
 %description -n python3-%{sname}-tests
+%_description
 
 Tests for the pyghmi library
 
@@ -52,15 +53,17 @@ Documentation for the pyghmi library
 
 sed -i '/^coverage[^a-zA-Z]/d' test-requirements.txt
 
+# Drop global openstack constraints
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
 %generate_buildrequires
-%pyproject_buildrequires doc/requirements.txt test-requirements.txt
+%pyproject_buildrequires -t -e docs,%{default_toxenv}
 
 
 %build
 %pyproject_wheel
 
-sphinx-build -b html doc/source doc/build/html
+%tox -e docs
 
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
@@ -73,7 +76,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %check
-%{py3_test_envvars} stestr run
+%tox -e %{default_toxenv}
 
 
 %files -n python3-%{sname} -f %{pyproject_files}
@@ -96,6 +99,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Tue Jun 09 2026 Steve Traylen <steve.traylen@cern.ch> - 1.6.16-4
+- Run tests in spec file under tox
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.6.16-3
 - Rebuilt for Python 3.15
 

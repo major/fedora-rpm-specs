@@ -14,6 +14,11 @@ Version:        7.1.0
 Release:        %autorelease
 Source0:        https://gitlab.archlinux.org/pacman/pacman/-/archive/v%{version}/pacman-v%{version}.tar.gz
 Source1:        https://www.archlinux.org/mirrorlist/all
+# Fix deadlock in fork()ed child with curl 8.20 threaded resolver
+# https://github.com/curl/curl/issues/21466
+# https://gitlab.archlinux.org/pacman/pacman/-/merge_requests/360 or https://gitlab.archlinux.org/pacman/pacman/-/merge_requests/361
+# https://github.com/systemd/mkosi/issues/4344
+Patch0:         0001-libalpm-invalidate-curl-data-in-child.patch
 URL:            https://gitlab.archlinux.org/pacman/pacman
 License:        GPL-2.0-or-later
 Summary:        Package manager for the Arch distribution

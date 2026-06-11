@@ -229,7 +229,7 @@ BuildRequires:  pkgconfig(bzip2)
 # Required by crate libdbus-sys (vendored)
 BuildRequires:  dbus-devel
 # Required by crate libgit2-sys (vendored)
-BuildRequires:  libgit2-devel
+BuildRequires:  (pkgconfig(libgit2) >= 1.9.0 with pkgconfig(libgit2) < 1.10.0~)
 # Required by crate libsqlite3-sys (vendored)
 BuildRequires:  clang-devel
 BuildRequires:  pkgconfig(sqlite3)

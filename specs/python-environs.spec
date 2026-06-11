@@ -22,7 +22,7 @@ BuildRequires:  python3-django-email-url
 %description %{_description}
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 
 %package -n python3-%{srcname}
 Summary:    Python library for parsing environment variables

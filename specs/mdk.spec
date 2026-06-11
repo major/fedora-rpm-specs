@@ -2,10 +2,9 @@ Name:		mdk
 Version:	1.3.1
 Release:	%autorelease
 Summary:	GNU MIX Development Kit
-# Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
-License:	GPL-3.0-or-later AND LicenseRef-Callaway-GFDL
-URL:		http://www.gnu.org/software/mdk/
-Source0:	http://ftp.gnu.org/gnu/mdk/v%{version}/%{name}-%{version}.tar.gz
+License:	GPL-3.0-or-later AND GFDL-1.2-or-later
+URL:		https://www.gnu.org/software/mdk/
+Source0:	https://ftp.gnu.org/gnu/mdk/v%{version}/%{name}-%{version}.tar.gz
 Source1:	mdk.desktop
 Patch0:		glib-deprecated.patch
 Patch1:		mdk-1.3.1-format-security.patch
@@ -15,7 +14,6 @@ BuildRequires:	gettext
 BuildRequires:	gtk3-devel
 BuildRequires:	guile30-devel
 BuildRequires:	intltool
-BuildRequires:	libglade2-devel
 BuildRequires:	make
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel
@@ -55,12 +53,13 @@ Samples and documentation for the MDK package.
 
 %check
 make check
+desktop-file-validate %{buildroot}%{_datadir}/applications/mdk.desktop
 
 %install
 %make_install
-rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 desktop-file-install \
-	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	--dir=%{buildroot}%{_datadir}/applications \
 	%{SOURCE1}
 
 %find_lang %{name}

@@ -8,12 +8,11 @@ Source0:        http://www.newlisp.org/downloads/%{name}-%{version}.tgz
 Patch0:         %{name}-0000-Support-64bit.patch
 Patch1:         %{name}-0003-Don-t-strip-the-resulting-binary.patch
 BuildRequires:  gcc
-BuildRequires:  libffi-devel
 BuildRequires:  make
 BuildRequires:  readline-devel
 # This is required for the modules for newLisp
-Requires:       openssl-devel%{?_isa} gmp-devel%{_isa} gsl-devel%{_isa}
-Requires:       mariadb-connector-c-devel%{?_isa} libpq-devel%{_isa}
+Requires:       openssl-devel%{?_isa} gmp-devel%{?_isa} gsl-devel%{?_isa}
+Requires:       mariadb-connector-c-devel%{?_isa} libpq-devel%{?_isa}
 Requires:       sqlite-devel%{?_isa} zlib-devel%{?_isa}
 
 %description
@@ -22,9 +21,7 @@ applications in AI, web search. It also can be used for embedded systems
 applications.
 
 %prep
-%setup -q
-%patch -P0 -p0 -b .64bit-support
-%patch -P1 -p1 -b .stop-binary-strip
+%autosetup -p1
 
 # Remove it from the general build and specify it on supported platforms below
 sed -i.m32 's/\-m32 //' makefile_linux
@@ -32,28 +29,35 @@ sed -i.m64 's/\-m64 //' makefile_linuxLP64
 sed -i.m32 's/\-m32 //' makefile_linux_utf8
 sed -i.m64 's/\-m64 //' makefile_linuxLP64_utf8
 
+# Inject LDFLAGS into makefiles to respect Fedora build flags
+sed -i 's/\$(CC) \$(OBJS)/\$(CC) \$(LDFLAGS) \$(OBJS)/' makefile_linuxLP64_utf8 makefile_linux_utf8
+
 %build
 %set_build_flags
-%configure
 
 %if "%{_lib}" == "lib64"
     NEWLISP_FLAGS="-c -DREADLINE -DSUPPORT_UTF8 -DNEWLISP64 -DLINUX"
     %make_build -f makefile_linuxLP64_utf8 -j1 \
-    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS"
+    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS" \
+    LDFLAGS="%{build_ldflags}"
 %else
     NEWLISP_FLAGS="-c -DREADLINE -DSUPPORT_UTF8 -DLINUX"
     %make_build -f makefile_linux_utf8 -j1 \
-    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS"
+    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS" \
+    LDFLAGS="%{build_ldflags}"
 %endif
 
 %install
-make install_home HOME=%{buildroot}/usr/
+cp makefile_original_install makefile_install
+make install_home HOME=%{buildroot}%{_prefix}
+rm %{buildroot}%{_datadir}/doc/newlisp/COPYING
 
 %check
 make check
 
 %files
-%doc %{_datadir}/doc/*
+%license doc/COPYING
+%doc %{_docdir}/%{name}/
 %{_bindir}/%{name}
 %{_bindir}/newlispdoc
 %{_mandir}/man1/*

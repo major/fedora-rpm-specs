@@ -51,10 +51,9 @@ popd
 %patch -P2 -p1 -b .symbolfix
 
 %build
-# Switch to C89 mode due to many C99 compatibility issues.
 %global build_type_safety_c 0
 %set_build_flags
-CC="$CC -std=gnu89"
+CC="$CC -std=gnu99"
 CFLAGS="%{optflags} -fPIC -DPIC"
 %configure --with-pic
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool

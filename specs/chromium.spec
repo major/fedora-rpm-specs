@@ -268,7 +268,7 @@
 %endif
 
 Name:	chromium
-Version: 149.0.7827.53
+Version: 149.0.7827.102
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -447,7 +447,8 @@ Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
 
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
-Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
+Patch378: 0001-third_party-libvpx-Disable-vsx-on-ppc64.patch
+Patch379: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -1184,7 +1185,8 @@ Qt6 UI for chromium.
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
-%patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
+%patch -P378 -p1 -b .0001-third_party-libvpx-Disable-vsx-on-ppc64
+%patch -P379 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .0002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1908,6 +1910,84 @@ fi
 %endif
 
 %changelog
+* Tue Jun 09 2026 Than Ngo <than@redhat.com> - 149.0.7827.102-1
+- Update to 149.0.7827.102
+  * CVE-2026-11628: Use after free in Ozone
+  * CVE-2026-11629: Use after free in Ozone
+  * CVE-2026-11630: Use after free in File Input
+  * CVE-2026-11631: Use after free in Aura
+  * CVE-2026-11632: Use after free in TabStrip
+  * CVE-2026-11633: Use after free in Bluetooth
+  * CVE-2026-11634: Use after free in Gamepad
+  * CVE-2026-11635: Use after free in Bluetooth
+  * CVE-2026-11636: Use after free in Autofill
+  * CVE-2026-11637: Use after free in Views
+  * CVE-2026-11638: Use after free in Printing
+  * CVE-2026-11639: Use after free in Compositing
+  * CVE-2026-11640: Integer overflow in libyuv
+  * CVE-2026-11641: Use after free in Bluetooth
+  * CVE-2026-11642: Use after free in Web Apps
+  * CVE-2026-11643: Use after free in Proxy
+  * CVE-2026-11644: Use after free in Views
+  * CVE-2026-11645: Out of bounds memory access in V8
+  * CVE-2026-11646: Use after free in ViewTransitions
+  * CVE-2026-11647: Use after free in Printing
+  * CVE-2026-11648: Use after free in FullScreen
+  * CVE-2026-11649: Use after free in V8
+  * CVE-2026-11650: Use after free in V8
+  * CVE-2026-11651: Use after free in Network
+  * CVE-2026-11652: Use after free in Extensions
+  * CVE-2026-11653: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-11654: Use after free in CameraCapture
+  * CVE-2026-11655: Integer overflow in Media
+  * CVE-2026-11656: Use after free in ServiceWorker
+  * CVE-2026-11657: Use after free in Payments
+  * CVE-2026-11658: Insufficient validation of untrusted input in Extensions
+  * CVE-2026-11659: Insufficient validation of untrusted input in UI
+  * CVE-2026-11660: Insufficient validation of untrusted input in New Tab Page
+  * CVE-2026-11661: Use after free in Views
+  * CVE-2026-11662: Type Confusion in Bindings
+  * CVE-2026-11663: Use after free in Skia
+  * CVE-2026-11664: Use after free in Payments
+  * CVE-2026-11665: Out of bounds read in Dawn
+  * CVE-2026-11666: Insufficient validation of untrusted input in Input
+  * CVE-2026-11667: Out of bounds read in WebRTC
+  * CVE-2026-11668: Uninitialized Use in Codecs
+  * CVE-2026-11669: Integer overflow in Media
+  * CVE-2026-11670: Use after free in PDF
+  * CVE-2026-11671: Use after free in Navigation
+  * CVE-2026-11672: Out of bounds write in GPU
+  * CVE-2026-11673: Use after free in InterestGroups
+  * CVE-2026-11674: Use after free in Guest View
+  * CVE-2026-11675: Insufficient validation of untrusted input in Skia
+  * CVE-2026-11676: Insufficient validation of untrusted input in Dawn
+  * CVE-2026-11677: Race in Network
+  * CVE-2026-11678: Integer overflow in libyuv
+  * CVE-2026-11679: Use after free in Codecs
+  * CVE-2026-11680: Use after free in Media
+  * CVE-2026-11681: Use after free in Ozone
+  * CVE-2026-11682: Insufficient validation of untrusted input in Views
+  * CVE-2026-11683: Use after free in WebCodecs
+  * CVE-2026-11684: Insufficient policy enforcement in Network
+  * CVE-2026-11685: Insufficient data validation in MediaCapture
+  * CVE-2026-11686: Insufficient validation of untrusted input in Dawn
+  * CVE-2026-11687: Use after free in Dawn
+  * CVE-2026-11688: Object lifecycle issue in SVG
+  * CVE-2026-11689: Insufficient validation of untrusted input in Passwords
+  * CVE-2026-11690: Out of bounds read and write in Media
+  * CVE-2026-11691: Insufficient validation of untrusted input in New Tab Page
+  * CVE-2026-11692: Use after free in Read Anything
+  * CVE-2026-11693: Inappropriate implementation in Plugins
+  * CVE-2026-11694: Use after free in ServiceWorker
+  * CVE-2026-11695: Inappropriate implementation in Passwords
+  * CVE-2026-11696: Uninitialized Use in Video
+  * CVE-2026-11697: Insufficient validation of untrusted input in UI
+  * CVE-2026-11698: Use after free in Bluetooth
+  * CVE-2026-11699: Use after free in Bluetooth
+  * CVE-2026-11700: Use after free in Tracing
+  * CVE-2026-11701: Insufficient validation of untrusted input in Guest View
+- Refresh ppc64le patches
+
 * Fri Jun 05 2026 Than Ngo <than@redhat.com> - 149.0.7827.53-1
 - Update to 149.0.7827.53
   * CVE-2026-10881: Out of bounds read and write in ANGLE

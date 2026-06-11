@@ -7,6 +7,7 @@ Summary:         Structured data representation and JSON support for C/C++
 License:         Unlicense
 URL:             https://sigmyne.github.io/xchange
 Source0:         https://github.com/Sigmyne/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
+Patch0:          0001.patch
 BuildRequires:   gcc
 BuildRequires:   cmake
 BuildRequires:   sed
@@ -36,7 +37,7 @@ This package provides HTML documentation and examples for the xchange C/C++
 library. The HTML API documentation can also be used with the Eclipse IDE.
 
 %prep
-%autosetup -n xchange-%{upstream_version}
+%autosetup -p1 -n xchange-%{upstream_version}
 
 %build
 

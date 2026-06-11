@@ -1,8 +1,8 @@
 %global pkg_name flask-principal
 
 Name:           python-flask-principal
-Version:        0.4.0
-Release:        46%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Identity management for Flask applications
 License:        MIT
 
@@ -53,11 +53,14 @@ application.
 
 
 %files -n python3-flask-principal -f %{pyproject_files}
-%doc README.rst CHANGES
-%license LICENSE
+%doc README.md CHANGES
+%license LICENSE.txt
 
 
 %changelog
+* Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 0.5.0-1
+- Update to 0.5.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 0.4.0-46
 - Rebuilt for Python 3.15
 

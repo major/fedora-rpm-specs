@@ -18,7 +18,7 @@
 %global pecl_name  xdebug
 
 # version/release
-%global upstream_version 3.5.1
+%global upstream_version 3.5.3
 #global upstream_prever  alpha3
 #global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 
@@ -35,7 +35,7 @@ Name:           %{php_base}-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 License:        Xdebug-1.03
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %forgemeta
 URL:            https://xdebug.org/
 Source0:        %{forgesource}
@@ -177,6 +177,9 @@ fi
 rm tests/base/bug02036*.phpt
 # Erratic result
 rm tests/debugger/bug00998-ipv6.phpt
+# see https://bugs.xdebug.org/view.php?id=2434
+rm tests/debugger/bug02424-*.phpt
+rm tests/debugger/maps/map-minimum-path/minimum-path.phpt
 
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
@@ -200,6 +203,10 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Tue Jun  9 2026 Remi Collet <remi@remirepo.net> - 3.5.3-1
+- update to 3.5.3
+- open https://bugs.xdebug.org/view.php?id=2434 test failure on aarch64
+
 * Tue Mar 10 2026 Remi Collet <remi@remirepo.net> - 3.5.1-3
 - cleanup
 

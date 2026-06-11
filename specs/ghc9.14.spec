@@ -104,7 +104,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -125,6 +125,9 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
 Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
+# sphinx9
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/e8f5a45de561ec80c88cd3da2c66502deb32d4c3.patch
+
 # unregisterised
 Patch16: ghc-hadrian-C-backend-rts--qg.patch
 
@@ -140,7 +143,7 @@ Patch21: ghc-platform-ppc64le.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
-# ppc64le (included in debian and 9.16)
+# ppc64le clrrxi (included in debian and 9.16)
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24145
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578
 Patch30: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578.patch
@@ -230,8 +233,10 @@ BuildRequires:  %{name}-hadrian
 Requires: %{name}-compiler = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 Requires: %{name}-ghc-devel = %{version}-%{release}
+Requires: %{name}-ghc-bignum-devel = %{ghc_bignum_ver}-%{release}
 Requires: %{name}-ghc-boot-devel = %{version}-%{release}
 Requires: %{name}-ghc-compact-devel = %{ghc_compact_ver}-%{release}
+Requires: %{name}-ghc-experimental-devel = %{ghc_version_for_lib}-%{release}
 Requires: %{name}-ghc-heap-devel = %{version}-%{release}
 Requires: %{name}-ghci-devel = %{version}-%{release}
 Requires: %{name}-hpc-devel = %{hpc_ver}-%{release}
@@ -477,6 +482,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P4 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -575,6 +581,7 @@ ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
 # use hash-unit-ids flavour for 9.14
+# use -VV (configure invoc) or -V (cabal configure invoc) to debug
 %{hadrian} %{?_smp_mflags} --flavour=%{hadrian_flavour}%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
 
 
@@ -944,6 +951,10 @@ make test
 
 
 %changelog
+* Mon Jun 08 2026 Jens Petersen <petersen@redhat.com> - 9.14.1-5
+- main package now installs ghc-bignum and ghc-experimental
+- fix build with sphinx9
+
 * Fri Feb 13 2026 Jens Petersen <petersen@redhat.com> - 9.14.1-4
 - rebuild with ghc-rpm-macros-2.11
 - add ppc64le arch patches for ghc-platform and rts.cabal (#26870)

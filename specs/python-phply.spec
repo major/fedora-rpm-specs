@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -13,6 +13,7 @@ Source0:        https://github.com/%{author}/%{pypi_name}/archive/refs/tags/%{ve
 BuildArch:      noarch
 
 BuildRequires:  python3dist(ply)
+BuildRequires:  python3-pkg-resources
 BuildRequires:  pyproject-rpm-macros
 
 %generate_buildrequires
@@ -51,6 +52,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}*.pth
 
 %changelog
+* Tue Jun 09 2026 Manish Tiwari <matiwari@redhat.com> - 1.2.5-20
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.5-19
 - Rebuilt for Python 3.15
 

@@ -5,10 +5,10 @@
 %endif
 
 #global pre rc1
-%global podofo_resources_commit e3b10e69f58be5d50d90935907058388ff56af7e
+%global podofo_resources_commit 1e0740f2183e01d6f8516399031f6dbccbe8cd0f
 
 Name:           podofo
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
@@ -189,7 +189,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING.LGPL COPYING.MPL
-%{_libdir}/*.so.1.1.0
+%{_libdir}/*.so.1.1.1
 %{_libdir}/*.so.4
 
 %files devel
@@ -219,6 +219,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 1.1.1-1
+- Update to 1.1.1
+
 * Fri May 01 2026 Sandro Mani <manisandro@gmail.com> - 1.1.0-1
 - Update to 1.1.0
 

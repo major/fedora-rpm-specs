@@ -2,28 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate digest
+%global crate sha2
 
-Name:           rust-digest
-Version:        0.11.3
+Name:           rust-sha2_0.10
+Version:        0.10.9
 Release:        %autorelease
-Summary:        Traits for cryptographic hash functions and message authentication codes
+Summary:        Pure Rust implementation of the SHA-2 hash function family
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/digest
+URL:            https://crates.io/crates/sha2
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Drop sha2 dev-dependency to avoid a dependency cycle
-Patch:          digest-fix-metadata.diff
-# * Downstream-only: ignore (do not compile) doctests that would have required
-#   the circular dev-dependency on the sha2 crate.
-Patch10:        digest-0.11.3-ignore-sha2-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Traits for cryptographic hash functions and message authentication
-codes.}
+Pure Rust implementation of the SHA-2 hash function family including
+SHA-224, SHA-256, SHA-384, and SHA-512.}
 
 %description %{_description}
 
@@ -55,76 +49,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+asm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+asm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "asm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+blobby-devel
+%package     -n %{name}+asm-aarch64-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+blobby-devel %{_description}
+%description -n %{name}+asm-aarch64-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "blobby" feature of the "%{crate}" crate.
+use the "asm-aarch64" feature of the "%{crate}" crate.
 
-%files       -n %{name}+blobby-devel
+%files       -n %{name}+asm-aarch64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+block-api-devel
+%package     -n %{name}+compress-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+block-api-devel %{_description}
+%description -n %{name}+compress-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "block-api" feature of the "%{crate}" crate.
+use the "compress" feature of the "%{crate}" crate.
 
-%files       -n %{name}+block-api-devel
+%files       -n %{name}+compress-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dev-devel
+%package     -n %{name}+force-soft-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+dev-devel %{_description}
+%description -n %{name}+force-soft-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "dev" feature of the "%{crate}" crate.
+use the "force-soft" feature of the "%{crate}" crate.
 
-%files       -n %{name}+dev-devel
+%files       -n %{name}+force-soft-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+force-soft-compact-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+force-soft-compact-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "force-soft-compact" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
+%files       -n %{name}+force-soft-compact-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+mac-devel
+%package     -n %{name}+loongarch64_asm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+mac-devel %{_description}
+%description -n %{name}+loongarch64_asm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "mac" feature of the "%{crate}" crate.
+use the "loongarch64_asm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+mac-devel
+%files       -n %{name}+loongarch64_asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+oid-devel
@@ -139,28 +133,28 @@ use the "oid" feature of the "%{crate}" crate.
 %files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_core-devel
+%package     -n %{name}+sha2-asm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand_core-devel %{_description}
+%description -n %{name}+sha2-asm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
+use the "sha2-asm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand_core-devel
+%files       -n %{name}+sha2-asm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zeroize-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zeroize-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zeroize" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zeroize-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

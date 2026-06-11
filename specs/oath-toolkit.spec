@@ -1,6 +1,6 @@
 Name:          oath-toolkit
 Version:       2.6.14
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 Summary:       One-time password components
@@ -189,6 +189,9 @@ mkdir -p -m 0600 %{buildroot}%{_sysconfdir}/liboath
 %{_libdir}/security/pam_oath.so
 
 %changelog
+* Fri Jun 5 2026 Tomas Halman <thalman@redhat.com> - 2.6.14-2
+- Rebuild for xmlsec 1.3 update
+
 * Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.14-1
 - New version
   Resolves: rhbz#2433388

@@ -1,21 +1,15 @@
 %global rdnn    com.raggesilver.BlackBox
 
-%global commit      bb1ce17d374bb339eca2c0200744012feef44c53
-%global shortcommit %{sub %{commit} 1 7}
-
 Name:           blackbox-terminal
-Version:        0.15.0~^2.%{shortcommit}
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Elegant and customizable terminal for GNOME
-# Entire source code is GPL-3.0-or-later except src/utils/Terminal.vala which
-# is GPL-3.0-or-later AND (MIT OR Apache-2.0) AND MPL-2.0.
-License:        GPL-3.0-or-later AND (MIT OR Apache-2.0) AND MPL-2.0
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/raggesilver/blackbox
-Source:         %{url}/-/archive/%{commit}/blackbox-%{shortcommit}.tar.gz
-# https://gitlab.gnome.org/raggesilver/blackbox/-/merge_requests/122
-Patch:          0001-Rename-executable-to-blackbox-terminal.patch
-# https://gitlab.gnome.org/raggesilver/blackbox/-/merge_requests/126
-Patch:          0002-Remove-duplicate-icons.patch
+Source:         %{url}/-/archive/v%{version}/blackbox-v%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -24,7 +18,6 @@ BuildRequires:  gettext
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(pqmarble)
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libpcre2-8)
@@ -45,11 +38,11 @@ Black Box is an elegant and customizable terminal for GNOME.
 
 
 %prep
-%autosetup -p 1 -n blackbox-%{commit}
+%autosetup -p 1 -n blackbox-v%{version}
 
 
 %build
-%meson -Dblackbox_is_flatpak=%{?flatpak:true}%{!?flatpak:false}
+%meson
 %meson_build
 
 
@@ -67,9 +60,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metain
 %license COPYING
 %doc README.md CHANGELOG.md
 %{_bindir}/blackbox-terminal
-%if %{defined flatpak}
-%{_bindir}/terminal-toolbox
-%endif
 %{_datadir}/applications/%{rdnn}.desktop
 %{_datadir}/blackbox
 %{_datadir}/glib-2.0/schemas/%{rdnn}.gschema.xml

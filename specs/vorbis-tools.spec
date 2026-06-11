@@ -1,7 +1,7 @@
 Summary:	The Vorbis General Audio Compression Codec tools
 Name:		vorbis-tools
 Version:	1.4.3
-Release:	4%{?dist}
+Release:	6%{?dist}
 Epoch:		1
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -11,6 +11,10 @@ Source:		https://ftp.osuosl.org/pub/xiph/releases/vorbis/%{name}-%{version}.tar.
 # http://lists.xiph.org/pipermail/vorbis-dev/2021-January/020538.html
 # http://lists.xiph.org/pipermail/vorbis-dev/2013-May/020336.html
 Patch1:		vorbis-tools-1.4.2-man-page.patch
+# CVE-2026-34253
+# https://gitlab.xiph.org/xiph/vorbis-tools/-/commit/4bb4fb33b25949178179f689db9afb477abeb572
+# https://gitlab.xiph.org/xiph/vorbis-tools/-/commit/cfc497a442f51fb4885e132deaf2e0ba067bd280
+Patch2:		vorbis-tools-1.4.3-CVE-2026-34253.patch
 
 BuildRequires:	flac-devel
 BuildRequires:	gettext
@@ -19,6 +23,7 @@ BuildRequires:	libao-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	make
+BuildRequires:	opusfile-devel
 BuildRequires:	speex-devel
 Obsoletes:	vorbis < %{epoch}:%{version}-%{release}
 Provides:	vorbis = %{epoch}:%{version}-%{release}
@@ -40,9 +45,6 @@ comment editor.
 
 
 %build
-# fix FTBFS if "-Werror=format-security" flag is used (#1025257)
-export CFLAGS="$RPM_OPT_FLAGS -Wno-error=format-security"
-
 # uncomment this when debugging
 #CFLAGS="$CFLAGS -O0"
 
@@ -63,6 +65,12 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 
 
 %changelog
+* Tue Jun 09 2026 Leigh Scott <leigh123linux@gmail.com> - 1:1.4.3-6
+- enable opusfile support
+
+* Tue Jun 09 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1:1.4.3-5
+- CVE-2026-34253 - fix arbitrary code execution via buffer underflow (rhbz#2479549)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

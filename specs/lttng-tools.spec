@@ -8,8 +8,8 @@
 
 
 Name:           lttng-tools
-Version:        2.15.0
-Release:        2%{?dist}
+Version:        2.15.1
+Release:        1%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -19,8 +19,6 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 Source4:        lttng-tools.sysusers.conf
-
-Patch0:         0001-tests-fix-ust-ctl-fuzz-with-Wl-z-now.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -197,6 +195,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Tue Jun 09 2026 Michael Jeanson <mjeanson@efficios.com> - 2.15.1-1
+- New upstream release
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.15.0-2
 - Rebuilt for Python 3.15
 

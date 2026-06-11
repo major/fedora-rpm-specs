@@ -14,7 +14,7 @@
 
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
-Version:   1.18.2
+Version:   1.19.0
 Release:   1%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
@@ -36,7 +36,6 @@ BuildRequires: gcc-c++
 BuildRequires: openssl-devel
 BuildRequires: cmake(bson) >= 2.2
 # for documentation
-BuildRequires: doxygen
 BuildRequires: make
 # for IntelRDFPMathLib
 BuildRequires: git
@@ -79,8 +78,6 @@ cp kms-message/COPYING             LICENSE.kms-message
 
 %cmake_build
 
-doxygen ./doc/Doxygen
-
 
 %install
 %cmake_install
@@ -105,7 +102,6 @@ fi
 
 %files devel
 %doc *.md
-%doc doc/html
 %{_includedir}/kms_message
 %{_includedir}/mongocrypt
 %{_libdir}/libkms_message.so
@@ -116,6 +112,10 @@ fi
 
 
 %changelog
+* Tue Jun  9 2026 Remi Collet <remi@remirepo.net> - 1.19.0-1
+- update to 1.19.0
+- drop html documentation
+
 * Mon May 25 2026 Remi Collet <remi@remirepo.net> - 1.18.2-1
 - update to 1.18.2
 

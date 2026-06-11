@@ -3,16 +3,13 @@
 %global pkgname conda_package_handling
 
 Name:           python-%{srcname}
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Create and extract conda packages of various formats
 
 License:        BSD-3-Clause
 URL:            https://github.com/conda/%{srcname}
 Source0:        https://github.com/conda/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# Fix pytest 9: addopts list elements are treated as single CLI args
-# Backport of https://github.com/conda/conda-package-handling/pull/310
-Patch:          fix-pytest9-use-ini_options.patch
 
 BuildArch:      noarch
 
@@ -31,9 +28,8 @@ Create and extract conda packages of various formats.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-sed -i -e s/archive_and_deps/archive/ setup.py
 # do not run coverage in pytest
-sed -i -E '/--(no-)?cov/d' setup.cfg
+sed -i -E '/--(no-)?cov/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

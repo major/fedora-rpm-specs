@@ -1,6 +1,6 @@
 Name:    heaptrack
 Version: 1.5.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
@@ -62,6 +62,7 @@ profile to:
 
 %build
 %cmake_kf6 \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DHEAPTRACK_USE_QT6=1 \
 %if "%{?_lib}" == "lib64"
   %{?_cmake_lib_suffix64}
@@ -97,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Sun May 31 2026 David Abdurachmanov <david.abdurachmanov@gmail.com> - 1.5.0-12
+- Fix FTBFS (CMake 3 -> 4)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

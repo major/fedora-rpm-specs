@@ -1,8 +1,8 @@
 Summary: A set of commands for manipulating flat-text databases from the shell
 Name: perl-Fsdb
-Version: 3.9
+Version: 3.16
 Epoch: 2
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: http://www.isi.edu/~johnh/SOFTWARE/FSDB/
 Source0: http://www.isi.edu/~johnh/SOFTWARE/FSDB/Fsdb-%{version}.tar.gz
@@ -31,23 +31,32 @@ BuildRequires:  perl(YAML::XS)
 # following BRs are maybe not required?
 BuildRequires:  perl(IO::Compress::Bzip2)
 BuildRequires:  perl(IO::Compress::Gzip)
+%if 0%{?rhel} != 8
 BuildRequires:  perl(IO::Compress::Xz)
+%endif
 # next two are needed to run test suites and are not autodetected
 BuildRequires:       perl(HTML::Parser)
 BuildRequires:       perl(Text::CSV_XS)
+BuildRequires:       gzip
 # next two are needed to run build README, see https://bugzilla.redhat.com/show_bug.cgi?id=1163149
 BuildRequires: groff-base
 BuildRequires: perl-podlators
+%if 0%{?rhel} == 8
+BuildRequires: platform-python
+%endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # next two are needed to run test suites and are not autodetected
 Requires:       perl(HTML::Parser)
 Requires:       perl(Text::CSV_XS)
 Requires:       perl(IO::Compress::Bzip2)
 Requires:       perl(IO::Compress::Gzip)
+%if 0%{?rhel} != 8
 Requires:       perl(IO::Compress::Xz)
+%endif
 Requires:  perl(IPC::Cmd)
 Requires:  perl(XML::Simple)
 Requires:  perl(YAML::XS)
+Requires:  gzip
 
 
 %description
@@ -105,17 +114,5 @@ make test
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2:3.9-3
-- Perl 5.42 rebuild
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Aug 02 2024 John Heidemann <johnh@isi.edu> 3.9-1
+* Mon Jun 08 2026 John Heidemann <johnh@isi.edu> 3.16-1
 - See http://www.isi.edu/~johnh/SOFTWARE/FSDB/

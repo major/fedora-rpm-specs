@@ -5,7 +5,7 @@
 %global crate alphanumeric-sort
 
 Name:           rust-alphanumeric-sort
-Version:        1.5.6
+Version:        1.5.7
 Release:        %autorelease
 Summary:        Can help you sort order for files and folders whose names contain numerals
 

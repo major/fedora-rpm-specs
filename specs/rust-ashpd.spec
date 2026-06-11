@@ -5,7 +5,7 @@
 %global crate ashpd
 
 Name:           rust-ashpd
-Version:        0.13.9
+Version:        0.13.11
 Release:        %autorelease
 Summary:        XDG portals wrapper in Rust using zbus
 
@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop example program that pulls in gstreamer bindings
 # * drop reis dev-dependency that is only used in one doctest
+# * allow quick-xml 0.40:
+#   https://github.com/bilelmoussaoui/ashpd/commit/052cf051257411c0fbaed3af1b32acb1238f5ec7
 Patch:          ashpd-fix-metadata.diff
 # * Ignore one doctest that pulls in reis as an additional dev-dependency
 Patch10:        0001-Ignore-one-doctest-that-pulls-in-reis-as-an-addition.patch

@@ -2,25 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate quick-xml
+%global crate digest
 
-Name:           rust-quick-xml
-Version:        0.40.1
+Name:           rust-digest0.10
+Version:        0.10.7
 Release:        %autorelease
-Summary:        High performance xml reader and writer
+Summary:        Traits for cryptographic hash functions and message authentication codes
 
-License:        MIT
-URL:            https://crates.io/crates/quick-xml
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/digest
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          quick-xml-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-High performance xml reader and writer.}
+Traits for cryptographic hash functions and message authentication
+codes.}
 
 %description %{_description}
 
@@ -34,7 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-MIT.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,142 +49,141 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arbitrary-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+arbitrary-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "arbitrary" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+arbitrary-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-tokio-devel
+%package     -n %{name}+blobby-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-tokio-devel %{_description}
+%description -n %{name}+blobby-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-tokio" feature of the "%{crate}" crate.
+use the "blobby" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-tokio-devel
+%files       -n %{name}+blobby-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+document-features-devel
+%package     -n %{name}+block-buffer-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+document-features-devel %{_description}
+%description -n %{name}+block-buffer-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
+use the "block-buffer" feature of the "%{crate}" crate.
 
-%files       -n %{name}+document-features-devel
+%files       -n %{name}+block-buffer-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+encoding-devel
+%package     -n %{name}+const-oid-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+encoding-devel %{_description}
+%description -n %{name}+const-oid-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "encoding" feature of the "%{crate}" crate.
+use the "const-oid" feature of the "%{crate}" crate.
 
-%files       -n %{name}+encoding-devel
+%files       -n %{name}+const-oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+encoding_rs-devel
+%package     -n %{name}+core-api-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+encoding_rs-devel %{_description}
+%description -n %{name}+core-api-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "encoding_rs" feature of the "%{crate}" crate.
+use the "core-api" feature of the "%{crate}" crate.
 
-%files       -n %{name}+encoding_rs-devel
+%files       -n %{name}+core-api-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+escape-html-devel
+%package     -n %{name}+dev-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+escape-html-devel %{_description}
+%description -n %{name}+dev-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "escape-html" feature of the "%{crate}" crate.
+use the "dev" feature of the "%{crate}" crate.
 
-%files       -n %{name}+escape-html-devel
+%files       -n %{name}+dev-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+overlapped-lists-devel
+%package     -n %{name}+mac-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+overlapped-lists-devel %{_description}
+%description -n %{name}+mac-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "overlapped-lists" feature of the "%{crate}" crate.
+use the "mac" feature of the "%{crate}" crate.
 
-%files       -n %{name}+overlapped-lists-devel
+%files       -n %{name}+mac-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+oid-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+oid-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "oid" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-types-devel
+%package     -n %{name}+rand_core-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-types-devel %{_description}
+%description -n %{name}+rand_core-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde-types" feature of the "%{crate}" crate.
+use the "rand_core" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-types-devel
+%files       -n %{name}+rand_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serialize-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serialize-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serialize" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serialize-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tokio-devel
+%package     -n %{name}+subtle-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tokio-devel %{_description}
+%description -n %{name}+subtle-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
+use the "subtle" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tokio-devel
+%files       -n %{name}+subtle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-find -type f -exec dos2unix --keepdate {} +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

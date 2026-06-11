@@ -2,24 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate const-oid
 
-%global crate uu_mknod
-
-Name:           rust-uu_mknod
-Version:        0.7.0
+Name:           rust-const-oid0.9
+Version:        0.9.6
 Release:        %autorelease
-Summary:        mknod ~ (uutils) create special file NAME of TYPE
+Summary:        Const-friendly implementation of the ISO/IEC Object Identifier (OID) standard
 
-License:        MIT
-URL:            https://crates.io/crates/uu_mknod
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/const-oid
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-mknod ~ (uutils) create special file NAME of TYPE.}
+Const-friendly implementation of the ISO/IEC Object Identifier (OID)
+standard as defined in ITU X.660, with support for BER/DER
+encoding/decoding as well as heapless no_std (i.e. embedded) support.}
 
 %description %{_description}
 
@@ -33,8 +32,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.package.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -49,28 +50,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+selinux-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+selinux-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "selinux" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+selinux-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+smack-devel
+%package     -n %{name}+db-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+smack-devel %{_description}
+%description -n %{name}+db-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "smack" feature of the "%{crate}" crate.
+use the "db" feature of the "%{crate}" crate.
 
-%files       -n %{name}+smack-devel
+%files       -n %{name}+db-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,7 +1,7 @@
-%global commit  e5d5465de4a4aa5804a43cefed69f0ae5c4b427c
+%global commit  2157a9bf9e160a0012cf5d15de0ae57a7221b131
 
 Name:           g4music
-Version:        4.6
+Version:        4.6.1
 Release:        %autorelease
 Summary:        Fast fluent lightweight music player written in GTK4
 
@@ -65,10 +65,11 @@ Features:
 %install
 %meson_install
 %find_lang %{name}
+appstream-util validate-relax --nonet \
+  %{buildroot}%{_metainfodir}/com.github.neithern.g4music.metainfo.xml
 
 %check
-# Note that the tests run both desktop-file-validate and appstream-util
-# validation
+# Note that the tests run desktop-file-validate
 %meson_test
 
 %files -f %{name}.lang

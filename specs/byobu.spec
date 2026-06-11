@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.7
+Version:	7.9
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -15,13 +15,6 @@ Source0:	%{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Default windows examples
 Source1:	fedoracommon
 
-# prefer dnf when installed
-# sent upstream: https://code.launchpad.net/~sanjay-ankur/byobu/byobu/+merge/415959
-Patch0:		0002-byobu-use-dnf.patch
-
-# for F41+ where we have dnf5
-Patch1:		0002-byobu-use-dnf5.patch
-
 BuildArch:	noarch
 BuildRequires:	automake
 BuildRequires:	desktop-file-utils
@@ -30,7 +23,9 @@ BuildRequires:	gettext
 BuildRequires:	python3-devel
 Requires:	gettext-runtime
 Requires:	newt
+Requires:	openssl
 Requires:	python3-newt
+Requires:	python3-tornado
 Requires:	screen
 Requires:	tmux
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python interface to the WebRTC Voice Activity Detector
 
 License:        MIT
@@ -12,6 +12,7 @@ Patch0: 001-add-ppc64le_s390x-support.patch
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pkg-resources
 
 %description
 This is a python interface to the WebRTC Voice Activity Detector (VAD). 
@@ -49,6 +50,9 @@ It can be useful for telephony and speech recognition.
 %doc README.rst
 
 %changelog
+* Tue Jun 09 2026 Manish Tiwari <matiwari@redhat.com> - 2.0.10-3
+- Add BR on python3-pkg-resources, setuptools 82 dropped pkg_resources
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.0.10-2
 - Rebuilt for Python 3.15
 

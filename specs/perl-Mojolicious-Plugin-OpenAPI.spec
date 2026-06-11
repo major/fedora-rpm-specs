@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-OpenAPI
-Version:        5.11
-Release:        3%{?dist}
+Version:        5.12
+Release:        1%{?dist}
 Summary:        OpenAPI / Swagger plugin for Mojolicious
 # MIT-licensed files: t/spec/v2-petstore.json, t/v3-basic.t, t/v3-nullable.t, t/v3-style-array.t
 # ASL 2.0-licensed files: t/spec/bundlecheck.json.
@@ -18,7 +18,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(utf8)
 # runtime requirements
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(JSON::Validator) >= 5.13
+BuildRequires:  perl(JSON::Validator) >= 5.17
 BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojo::JSON)
 BuildRequires:  perl(Mojo::Util)
@@ -37,7 +37,7 @@ BuildRequires:  perl(Test::Mojo)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Text::Markdown)
 BuildRequires:  perl(lib)
-Requires:       perl(JSON::Validator) >= 5.15
+Requires:       perl(JSON::Validator) >= 5.17
 Requires:       perl(Mojolicious::Plugin)
 Recommends:     perl(Config)
 Suggests:       perl(Text::Markdown)
@@ -73,6 +73,9 @@ DUMMY_DB_ERROR= JSON_VALIDATOR_DEBUG= MOJO_OPENAPI_DEBUG= %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jun 09 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.12-1
+- Update to 5.12
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
