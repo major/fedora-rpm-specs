@@ -18,15 +18,18 @@ BuildSystem:    gap
 BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  python3-devel
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(ZeroMQInterface) = %{version}-%{release}
+Provides:       gap(zeromqinterface) = %{version}-%{release}
 
 %description
 This package provides both low-level bindings as well as some higher level

@@ -19,13 +19,16 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): bin lib tst VERSION
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
+BuildRequires:  GAPDoc-latex >= 1.6
+BuildRequires:  gap(GAPDoc) >= 1.6
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(EDIM) = %{version}-%{release}
+Provides:       gap(edim) = %{version}-%{release}
 
 %description
 The main purpose of the EDIM package is to publish an implementation of an

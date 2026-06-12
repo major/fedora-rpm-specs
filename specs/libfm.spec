@@ -45,7 +45,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -90,6 +90,9 @@ Patch1001:      libfm-pr119-suppress-gfileinfo-warnings.patch
 # https://github.com/lxde/libfm/pull/121
 # Suppress GObject related warnings
 Patch1002:      libfm-pr121-suppress-gobject-warnings.patch
+# https://github.com/lxde/libfm/pull/124
+# g-udisks-volume: fix incorrect g_realloc and memcpy usage detected with gcc17 -Wanalyzer-allocation-size)
+Patch1003:      libfm-pr124-g-udisks-volume-fix-incorrect-g_realloc-and-memcpy-u.patch
 
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.26.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.27.0
@@ -277,6 +280,7 @@ cat %PATCH1  | git am
 git commit -m "Use gtk version specific module directory" -a
 cat %PATCH1001 | git am
 cat %PATCH1002 | git am
+cat %PATCH1003 | git am
 
 # Need reporting upstream
 # ref: https://github.com/lxde/libfm/commit/1af95bd8f26cab6848a74b7e02b53c6c79fb53a5
@@ -305,6 +309,7 @@ find . -name \*.vala | xargs touch
 
 
 %build
+%global _pkg_extra_cflags -fanalyzer
 %if 0%{?use_gitbare} >= 1
 cd libfm
 %endif
@@ -511,6 +516,10 @@ fi
 %endif
 
 %changelog
+* Wed Jun 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-6
+- Apply upstream PR to fix g_realloc / memmove incorrect usage detected with
+  gcc17 -fanalyzer
+
 * Fri May 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-5
 - Additional fix for GFileInfo warnings with menu/application window
 

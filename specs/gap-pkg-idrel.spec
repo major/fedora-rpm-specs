@@ -8,7 +8,7 @@ Summary:        Identities among relations of a group presentation
 
 License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/idrel/
-VCS :           git:%{giturl}.git
+VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -17,10 +17,12 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.11.1
 
-Requires:       gap-core
+Requires:       gap-core >= 4.11.1
+
+Provides:       gap(idrel) = %{version}-%{release}
 
 %description
 The IdRel package is designed for computing the identities among relations of
@@ -38,6 +40,7 @@ module polynomials and Y-sequences.
 License:        GPL-2.0-or-later AND GPL-1.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Documentation for the GAP idrel package
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

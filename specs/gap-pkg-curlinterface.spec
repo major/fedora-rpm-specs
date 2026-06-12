@@ -25,14 +25,17 @@ BuildSystem:    gap
 BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.02.16
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(libcurl)
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(curlInterface) = %{version}-%{release}
+Provides:       gap(curlinterface) = %{version}-%{release}
 
 %description
 This package provides a simple GAP wrapper around libcurl, to allow

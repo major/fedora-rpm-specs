@@ -23,11 +23,14 @@ BuildSystem:    gap
 BuildOption(install): bin gap lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.8
 BuildRequires:  gcc
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.8
+
+Provides:       gap(FPLSA) = %{version}-%{release}
+Provides:       gap(fplsa) = %{version}-%{release}
 
 %description
 When K is a finitely-presented Lie algebra, the GAP operation

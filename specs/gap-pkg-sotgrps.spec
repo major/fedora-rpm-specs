@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10
+
+Provides:       gap(SOTGrps) = %{version}-%{release}
+Provides:       gap(sotgrps) = %{version}-%{release}
 
 %description
 The SOTGrps GAP package contains methods to construct the groups of a small

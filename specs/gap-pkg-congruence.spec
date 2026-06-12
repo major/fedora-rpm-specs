@@ -16,10 +16,14 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap(gapdoc) >= 1.5.1
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(Congruence) = %{version}-%{release}
+Provides:       gap(congruence) = %{version}-%{release}
 
 %description
 The Congruence package provides functions to construct several types of

@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 11.8.7
+%global package_version 11.8.8
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 11.8.7
+%global last_tested_version 11.8.8
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -1836,6 +1836,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 03 2026 Pavol Sloboda <psloboda@redhat.com> - 3:11.8.8-1
+- Rebase to 11.8.8
+
 * Wed May 20 2026 Michal Schorm <mschorm@redhat.com> - 3:11.8.7-1
 - Rebase to 11.8.7
 

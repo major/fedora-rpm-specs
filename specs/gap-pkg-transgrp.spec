@@ -13,15 +13,17 @@ Source:         https://www.math.colostate.edu/~hulpke/transgrp/%{gap_upname}%{v
 BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): data htm lib tst
-BuildOption(check): --bare -c 'LoadPackage("GAPDoc");LoadPackage("smallgrp");' tst/testall.g
+BuildOption(check): --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-smallgrp
 BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
 Requires:       %{name}-data = %{version}-%{release}
+
+Provides:       gap(transgrp) = %{version}-%{release}
+Provides:       gap(TransGrp) = %{version}-%{release}
 
 %description
 A library of transitive groups.  This package contains the code for

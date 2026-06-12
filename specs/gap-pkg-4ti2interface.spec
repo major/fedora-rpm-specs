@@ -21,12 +21,16 @@ BuildOption(install): examples gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  4ti2
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(autodoc) >= 2025.12.19
+BuildRequires:  gap(io) >= 4.2
+BuildRequires:  gap-devel >= 4.13.0
 
 Requires:       4ti2
-Requires:       gap-pkg-io
+Requires:       gap(io) >= 4.2
+Requires:       gap-core >= 4.13.0
+
+Provides:       gap(4ti2Interface) = %{version}-%{release}
+Provides:       gap(4ti2interface) = %{version}-%{release}
 
 %description
 This package is a GAP interface to 4ti2.
@@ -40,6 +44,7 @@ This package is a GAP interface to 4ti2.
 License:        GPL-2.0-or-later AND GPL-1.0-or-later AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Documentation for the GAP 4ti2Interface package
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

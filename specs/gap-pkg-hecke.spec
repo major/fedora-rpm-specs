@@ -16,10 +16,12 @@ BuildSystem:    gap
 BuildOption(install): gap lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(hecke) = %{version}-%{release}
 
 %description
 This package contains functions for computing the decomposition matrices for

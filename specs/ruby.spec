@@ -1,6 +1,6 @@
 %global major_version 4
 %global minor_version 0
-%global teeny_version 1
+%global teeny_version 5
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -36,19 +36,19 @@
 ## BUNDLED_GEMS_VERSIONS
 
 # Bundled libraries versions
-%global rubygems_version 4.0.3
+%global rubygems_version 4.0.10
 %global rubygems_molinillo_version 0.8.0
 %global rubygems_net_http_version 0.7.0
 %global rubygems_net_protocol_version 0.2.2
 %global rubygems_optparse_version 0.8.0
-%global rubygems_resolv_version 0.6.2
+%global rubygems_resolv_version 0.7.0
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.4
 %global rubygems_tsort_version 0.2.0
 %global rubygems_uri_version 1.1.1
 
 # Default gems.
-%global bundler_version 4.0.3
+%global bundler_version 4.0.10
 %global bundler_connection_pool_version 2.5.4
 %global bundler_fileutils_version 1.8.0
 %global bundler_net_http_persistent_version 4.0.6
@@ -63,7 +63,7 @@
 %global did_you_mean_version 2.0.0
 %global digest_version 3.2.1
 %global english_version 0.8.1
-%global erb_version 6.0.1
+%global erb_version 6.0.1.1
 %global error_highlight_version 0.7.1
 %global etc_version 1.4.6
 %global fcntl_version 1.3.0
@@ -83,7 +83,7 @@
 %global optparse_version 0.8.1
 %global pp_version 0.6.3
 %global prettyprint_version 0.2.0
-%global prism_version 1.8.0
+%global prism_version 1.8.1
 %global psych_version 5.3.1
 %global resolv_version 0.7.0
 %global ruby2_keywords_version 0.0.5
@@ -92,7 +92,7 @@
 %global singleton_version 0.3.0
 %global stringio_version 3.2.0
 %global strscan_version 3.1.6
-%global syntax_suggest_version 2.0.2
+%global syntax_suggest_version 2.0.3
 %global tempfile_version 0.3.1
 %global time_version 0.4.2
 %global timeout_version 0.6.0
@@ -103,7 +103,7 @@
 %global weakref_version 0.1.4
 %global win32_registry_version 0.1.2
 %global yaml_version 0.4.0
-%global zlib_version 3.2.2
+%global zlib_version 3.2.3
 
 # Bundled gems.
 %global abbrev_version 0.1.2
@@ -129,11 +129,11 @@
 %global ostruct_version 0.6.3
 %global power_assert_version 3.0.1
 %global prime_version 0.1.4
-%global pstore_version 0.2.0
+%global pstore_version 0.2.1
 %global racc_version 1.8.1
 %global rake_version 13.3.1
 %global rbs_version 3.10.0
-%global rdoc_version 7.0.3
+%global rdoc_version 7.0.4
 %global readline_version 0.0.4
 %global reline_version 0.6.3
 %global repl_type_completor_version 0.1.12
@@ -190,7 +190,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 32%{?dist}
+Release: 33%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -297,6 +297,7 @@ Patch7: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
 Patch8: ruby-4.0.1-Support-customizable-rustc_flags-for-rustc-builds.patch
 # https://github.com/ruby/rdoc/pull/1531
 # Fix error with `gem install --document=rdoc,ri`
+# Fixed in rdoc 7.1.0 but not in 7.0.4
 Patch9: rdoc-pr1531-fix-mutilple-document-installation.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -1527,7 +1528,6 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 %files doc -f .ruby-doc.en -f .ruby-doc.ja
 %doc README.md
-%doc ChangeLog
 %{?with_systemtap:%doc ruby-exercise.stp}
 %{_datadir}/ri
 
@@ -1959,6 +1959,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Mon Jun 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org>- 4.0.5-33
+- Update to Ruby 4.0.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

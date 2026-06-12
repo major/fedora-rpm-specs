@@ -17,10 +17,14 @@ BuildOption(build): --bare
 BuildOption(install): data lib tst
 BuildOption(check): --bare tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.10.0
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10.0
+
+Provides:       gap(PrimGrp) = %{version}-%{release}
+Provides:       gap(primgrp) = %{version}-%{release}
 
 %description
 The PrimGrp package provides the library of primitive permutation groups which

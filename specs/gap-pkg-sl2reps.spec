@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10
+
+Provides:       gap(SL2Reps) = %{version}-%{release}
+Provides:       gap(sl2reps) = %{version}-%{release}
 
 %description
 This package provides methods for constructing and testing matrix

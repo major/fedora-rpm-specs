@@ -18,13 +18,16 @@ BuildSystem:    gap
 BuildOption(install): bin etc examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.12.1
 BuildRequires:  gcc-c++
 BuildRequires:  libnormaliz-devel
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12.1
+
+Provides:       gap(NormalizInterface) = %{version}-%{release}
+Provides:       gap(normalizinterface) = %{version}-%{release}
 
 %description
 Normaliz is software for computations with rational cones and affine monoids.
@@ -51,6 +54,7 @@ License:        GPL-2.0-or-later AND GPL-1.0-or-later AND OFL-1.1-RFN AND Knuth-
 Summary:        Documentation for the GAP %{gap_upname} package
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

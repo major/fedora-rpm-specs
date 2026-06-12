@@ -20,7 +20,6 @@ BuildRequires:	libattr-devel
 BuildRequires:	libbsd-devel
 %endif
 BuildRequires:	libcap-devel
-BuildRequires:	libgcrypt-devel
 BuildRequires:	lksctp-tools-devel
 BuildRequires:	libatomic
 BuildRequires:	zlib-devel

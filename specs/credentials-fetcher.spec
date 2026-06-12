@@ -56,8 +56,8 @@ cp %{SOURCE3} cmd/credentials-fetcher/
 
 %install
 %go_vendor_license_install -c %{S:2}
-install -m 0755 -vd                     %{buildroot}/usr/sbin
-install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}/usr/sbin/
+install -m 0755 -vd                     %{buildroot}%{_bindir}
+install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}
 
 # Create additional directory structure in buildroot
 mkdir -p %{buildroot}%{_unitdir}/ecs.service.d
@@ -108,7 +108,7 @@ fi
 
 %files -f %{go_vendor_license_filelist}
 %doc docs README.md
-/usr/sbin/credentials-fetcherd
+%{_bindir}/credentials-fetcherd
 %config(noreplace) /etc/credentials-fetcher.conf
 %{_unitdir}/credentials-fetcher.service
 %{_unitdir}/ecs.service.d/ecs-require-credentials-fetcher.conf

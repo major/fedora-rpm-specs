@@ -6,7 +6,7 @@ License:       GPL-2.0-or-later AND BSL-1.0 AND MIT
 URL:           https://pgrouting.org
 Source:        https://github.com/pgRouting/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires: boost-devel
-BuildRequires: boost-graph
+BuildRequires: ninja-build
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: perl-File-Find
@@ -21,7 +21,7 @@ pgRouting extends the PostGIS / PostgreSQL geospatial database to provide
 geospatial routing functionality.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 %build
 %cmake -DPOSTGRESQL_PG_CONFIG=%{_bindir}/pg_server_config

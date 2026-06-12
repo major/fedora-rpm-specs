@@ -17,10 +17,14 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.9
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
+
+Provides:       gap(InduceReduce) = %{version}-%{release}
+Provides:       gap(inducereduce) = %{version}-%{release}
 
 %description
 The InduceReduce package provides an implementation of Unger's algorithm for

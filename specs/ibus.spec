@@ -48,7 +48,7 @@
 Name:           ibus
 Version:        1.5.35~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -134,8 +134,6 @@ Summary:        IBus libraries
 
 Requires:       dbus >= 1.2.4
 Requires:       glib2 >= %{glib_ver}
-# Owner of %%{_libdir}/girepository-1.0
-Requires:       gobject-introspection
 %if (0%{?fedora} > 28 || 0%{?rhel} > 7)
 %else
 Conflicts:      %{name}%{?_isa} < %{version}
@@ -180,7 +178,6 @@ This package contains IBus IM module for GTK4
 Summary:        IBus setup utility
 Requires:       %{name} = %{version}-%{release}
 Requires:       python3-gobject
-BuildRequires:  gobject-introspection-devel
 BuildRequires:  python3-gobject-devel
 BuildArch:      noarch
 
@@ -548,6 +545,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Jun 10 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-8
+- Delete gobject-introspection
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 1.5.35~alpha1-7
 - Rebuilt for Python 3.15
 

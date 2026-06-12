@@ -26,17 +26,24 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-alnuth
+BuildRequires:  gap(alnuth) >= 3.0
 %endif
-BuildRequires:  gap-pkg-autpgrp
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(autpgrp) >= 1.6
+BuildRequires:  gap-devel >= 4.12
 
+# PcpUserInfo invokes date, hostname, and whoami
+Requires:       coreutils
+Requires:       hostname
 %if %{without bootstrap}
-Requires:       gap-pkg-alnuth
+Requires:       gap(alnuth) >= 3.0
 %endif
-Requires:       gap-pkg-autpgrp
+Requires:       gap(autpgrp) >= 1.6
+Requires:       gap-core >= 4.12
+
+Provides:       gap(Polycyclic) = %{version}-%{release}
+Provides:       gap(polycyclic) = %{version}-%{release}
 
 %description
 This package provides algorithms for working with polycyclic groups.  The

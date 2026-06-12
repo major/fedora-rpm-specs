@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(uuid) = %{version}-%{release}
 
 %description
 This package provides functionality to create, query, and manipulate RFC 4122

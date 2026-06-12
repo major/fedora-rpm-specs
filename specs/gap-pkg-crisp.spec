@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): htm lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.12
+
+Provides:       gap(CRISP) = %{version}-%{release}
+Provides:       gap(crisp) = %{version}-%{release}
 
 %description
 CRISP (Computing with Radicals, Injectors, Schunck classes and Projectors)
@@ -59,12 +62,12 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 # Link to main GAP documentation
 ln -s %{gap_libdir}/doc ../../doc
 
-pushd doc
-pdftex manual
+cd doc
+pdftex -interaction=nonstopmode manual
 makeindex -s manual.mst manual
-pdftex manual
-pdftex manual
-popd
+pdftex -interaction=nonstopmode manual
+pdftex -interaction=nonstopmode manual
+cd -
 
 rm -fr htm
 mkdir htm

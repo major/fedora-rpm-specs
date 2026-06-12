@@ -16,11 +16,15 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-quagroup
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap(quagroup) >= 1.8
+BuildRequires:  gap-devel >= 4.12
 
-Requires:       gap-pkg-quagroup
+Requires:       gap(quagroup) >= 1.8
+Requires:       gap-core >= 4.12
+
+Provides:       gap(SLA) = %{version}-%{release}
+Provides:       gap(sla) = %{version}-%{release}
 
 %description
 This package contains diverse functions for working with simple Lie algebras

@@ -17,13 +17,17 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-sophus
+BuildRequires:  GAPDoc-latex >= 1.6.1
+BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap(sophus) >= 1.24
+BuildRequires:  gap-devel >= 4.9
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
 
-Recommends:     gap-pkg-sophus
+Recommends:     gap(sophus) >= 1.24
+
+Provides:       gap(LAGUNA) = %{version}-%{release}
+Provides:       gap(laguna) = %{version}-%{release}
 
 %description
 The LAGUNA package replaces the LAG package and provides functionality for

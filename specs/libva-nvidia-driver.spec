@@ -6,6 +6,8 @@ Release:        %autorelease
 Summary:        A VA-API implemention using NVIDIA's NVDEC
 License:        MIT
 URL:            https://github.com/elFarto/nvidia-vaapi-driver
+# NVIDIA driver architectures
+ExclusiveArch:  x86_64 aarch64 %{ix86} riscv64
 
 Source0:        %{url}/archive/v%{version}/%{upstream_name}-%{version}.tar.gz
 
@@ -21,9 +23,6 @@ Provides:       nvdec-vaapi-driver = %{version}-%{release}
 
 # Only one NVIDIA VA-API shim on a system at a time
 Conflicts:      libva-vdpau-driver
-
-# NVIDIA driver architectures
-ExclusiveArch:  x86_64 aarch64 %{ix86}
 
 %description
 This is an VA-API implementation that uses NVDEC as a backend. This

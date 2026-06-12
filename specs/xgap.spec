@@ -31,16 +31,19 @@ BuildOption(install): bin examples htm lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  gap-devel
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  gap-pkg-smallgrp-doc
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig(xaw7)
 BuildRequires:  tth
 
-Requires:       gap%{?_isa}
+Requires:       gap%{?_isa} >= 4.7
 
 Provides:       gap-pkg-%{gap_pkgname} = %{version}-%{release}
+
+Provides:       gap(XGAP) = %{version}-%{release}
+Provides:       gap(xgap) = %{version}-%{release}
 
 %description
 An X Windows GUI for GAP.

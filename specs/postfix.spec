@@ -296,6 +296,7 @@ done
   sed -i '/^\s*alias_database\s*=\s*hash:\/etc\/aliases/ s|hash:|lmdb:|g' conf/main.cf
   echo >> conf/main.cf
   echo "default_database_type = lmdb" >> conf/main.cf
+  echo "default_cache_db_type = lmdb" >> conf/main.cf
 %endif
 
 %build
@@ -381,6 +382,9 @@ make -f Makefile.init makefiles shared=yes dynamicmaps=yes \
   AUXLIBS_CDB="${AUXLIBS_CDB}" \
   DEBUG="" SHLIB_RPATH="-Wl,-rpath,%{postfix_shlib_dir} $LDFLAGS" \
   OPT="$CFLAGS -fno-strict-aliasing -Wno-comment" \
+%if 0%{?defmap_lmdb}
+  default_database_type=lmdb default_cache_db_type=lmdb \
+%endif
   POSTFIX_INSTALL_OPTS=-keep-build-mtime
 
 %make_build

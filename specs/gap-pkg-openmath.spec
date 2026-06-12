@@ -28,14 +28,18 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): cds gap hasse private tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-io
+BuildRequires:  GAPDoc-latex >= 1.6.0
+BuildRequires:  gap(io) >= 4.5.1
+BuildRequires:  gap-devel >= 4.9.0
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-scscp-doc
 %endif
 
-Requires:       gap-pkg-io
+Requires:       gap(io) >= 4.5.1
+Requires:       gap-core >= 4.9.0
+
+Provides:       gap(OpenMath) = %{version}-%{release}
+Provides:       gap(openmath) = %{version}-%{release}
 
 %description
 This package provides an OpenMath phrasebook for GAP.  It allows GAP users to

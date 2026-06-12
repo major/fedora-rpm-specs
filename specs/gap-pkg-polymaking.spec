@@ -16,15 +16,14 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.8
 BuildRequires:  polymake
 
-# Temporary workaround for Lmod brokenness
-BuildRequires:  environment-modules
-
-Requires:       gap-core
+Requires:       gap-core >= 4.8
 Requires:       polymake
+
+Provides:       gap(polymaking) = %{version}-%{release}
 
 %description
 This package provides a very basic GAP interface to polymake.

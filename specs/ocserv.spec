@@ -23,6 +23,8 @@ Source8:	ocserv-genkey
 Source9:	ocserv-script
 Source10:	gpgkey-56EE7FA9E8173B19FE86268D763712747F343FA7.gpg
 
+Patch0:		pam-guard-page.patch
+
 BuildRequires: meson
 BuildRequires: libxcrypt-devel
 BuildRequires:	gcc

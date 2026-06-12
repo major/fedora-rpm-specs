@@ -1,6 +1,6 @@
 %global gaparchdir %{_libdir}/gap
 %global gaplibdir %{_datadir}/gap
-%global icondir %{_datadir}/icons/hicolor
+%global icondir %{_datadir}/icons/hicolor/scalable/apps
 %global giturl  https://github.com/gap-system/gap
 #global prerel beta3
 
@@ -15,14 +15,13 @@
 # 3. Build gap-pkg-autodoc in bootstrap mode.
 # 4. Build gap-pkg-io
 # 5. Build GAPDoc in non-bootstrap mode.
-# 6. Build gap-pkg-autodoc in non-bootstrap mode.
+# 6. Build gap-pkg-autodoc in non-bootstrap mode and gap-pkg-transgrp.
 # 7. Build gap-pkg-primgrp and gap-pkg-smallgrp.
-# 8. Build gap-pkg-transgrp.
-# 9. Build this package in non-bootstrap mode.
+# 8. Build this package in non-bootstrap mode.
 %bcond bootstrap 0
 
 Name:           gap
-Version:        4.15.1%{?prerel:~%{prerel}}
+Version:        4.16.0%{?prerel:~%{prerel}}
 Release:        %autorelease
 Summary:        Computational discrete algebra
 
@@ -42,41 +41,28 @@ Source6:        gap.1.in
 Source7:        gac.1.in
 Source8:        update-gap-workspace.1
 Source9:        gap.vim
-Source10:       gapicon.bmp
+Source10:       https://www.gap-system.org/assets/logo/light/gaplogo.svg
+Source11:       https://www.gap-system.org/assets/logo/dark/gaplogo.svg#/gaplogo-symbolic.svg
 # Support viewing help files with xdg-open.  Patch courtesy of Debian.
 Patch:          %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
 Patch:          %{name}-popcount.patch
 # Use zlib-ng directly instead of via the compatibility layer
 Patch:          %{name}-zlib-ng.patch
-# Fix undefined behavior from taking the negative of INTPTR_MIN
-Patch:          %{name}-intptr-min.patch
-# Fix undefined behavior from a signed left shift
-Patch:          %{name}-signed-left-shift.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  ghostscript
 BuildRequires:  gmp-devel
 BuildRequires:  libappstream-glib
-BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  netpbm-progs
-BuildRequires:  parallel
-BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  tex(color.sty)
-BuildRequires:  tex(english.ldf)
-BuildRequires:  tex(enumitem.sty)
-BuildRequires:  tex(fancyvrb.sty)
-BuildRequires:  tex(geometry.sty)
-BuildRequires:  tex(pslatex.sty)
 BuildRequires:  tex(tex)
 BuildRequires:  texlive-cm-super
 BuildRequires:  texlive-ec
@@ -87,6 +73,12 @@ BuildRequires:  texlive-rsfs
 BuildRequires:  texlive-symbol
 BuildRequires:  texlive-times
 BuildRequires:  vim-filesystem
+
+%if %{without bootstrap}
+BuildRequires:  tex(enumitem.sty)
+BuildRequires:  tex(fancyvrb.sty)
+BuildRequires:  tex(geometry.sty)
+%endif
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-online-help = %{version}-%{release}
@@ -113,13 +105,12 @@ This package contains the essential GAP libraries: lib and grp.
 Summary:        GAP core components
 Requires:       %{name}-libs = %{version}-%{release}
 %if %{without bootstrap}
-Requires:       GAPDoc
-Requires:       gap-pkg-primgrp
-Requires:       gap-pkg-smallgrp
-Requires:       gap-pkg-transgrp
+# Minimum version numbers appear in lib/system.g
+Requires:       gap(gapdoc) >= 1.2
+Requires:       gap(primgrp) >= 3.1.0
+Requires:       gap(smallgrp) >= 1.0
+Requires:       gap(transgrp) >= 1.0
 %endif
-
-Suggests:       catdoc
 
 %description core
 This package contains the core GAP system.
@@ -177,24 +168,23 @@ syntax highlighting and indentation are supported.
 %package -n libgap
 Summary:        Library containing core GAP logic
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
-# The code executes gunzip
-Requires:       gzip
 
 # The packages that GAP itself considers default
-Recommends:     gap-pkg-autpgrp
-Recommends:     gap-pkg-alnuth
-Recommends:     gap-pkg-crisp
-Recommends:     gap-pkg-ctbllib
-Recommends:     gap-pkg-factint
-Recommends:     gap-pkg-fga
-Recommends:     gap-pkg-irredsol
-Recommends:     gap-pkg-laguna
-Recommends:     gap-pkg-packagemanager
-Recommends:     gap-pkg-polenta
-Recommends:     gap-pkg-polycyclic
-Recommends:     gap-pkg-resclasses
-Recommends:     gap-pkg-sophus
-Recommends:     gap-pkg-tomlib
+# See PackagesToLoad in lib/package.gi
+Recommends:     gap(alnuth)
+Recommends:     gap(autpgrp)
+Recommends:     gap(crisp)
+Recommends:     gap(ctbllib)
+Recommends:     gap(factint)
+Recommends:     gap(fga)
+Recommends:     gap(irredsol)
+Recommends:     gap(laguna)
+Recommends:     gap(packagemanager)
+Recommends:     gap(polenta)
+Recommends:     gap(polycyclic)
+Recommends:     gap(resclasses)
+Recommends:     gap(sophus)
+Recommends:     gap(tomlib)
 
 %description -n libgap
 Library containing core GAP logic
@@ -224,8 +214,8 @@ make doc
 
 # Build gapmacrodoc.pdf
 cd doc
-pdftex gapmacrodoc.tex
-pdftex gapmacrodoc.tex
+pdftex -interaction=nonstopmode gapmacrodoc.tex
+pdftex -interaction=nonstopmode gapmacrodoc.tex
 cd -
 
 # Remove build paths
@@ -310,13 +300,9 @@ cp -p %{SOURCE9} %{buildroot}%{vimfiles_root}/ftdetect
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
 touch %{buildroot}%{_localstatedir}/lib/%{name}/workspace.gz
 
-# Install the icon; the original is 1024x1024
-bmptopnm %{SOURCE10} > gapicon.pnm
-for size in 16 22 24 32 36 48 64 72 96 128 192 256 512; do
-  mkdir -p %{buildroot}%{icondir}/${size}x${size}/apps
-  pamscale -xsize=$size -ysize=$size gapicon.pnm | pnmtopng -compression=9 \
-    > %{buildroot}%{icondir}/${size}x${size}/apps/%{name}.png
-done
+# Install the icons
+mkdir -p %{buildroot}%{icondir}
+cp -p %{SOURCE10} %{SOURCE11} %{buildroot}%{icondir}
 
 # Install the MIME type
 mkdir -p %{buildroot}%{_datadir}/mime/packages
@@ -360,25 +346,14 @@ make check
 %endif
 
 %files
-%doc README.md README.fedora
+%doc CHANGES.md README.md README.fedora
 %{_bindir}/gap
 %{_mandir}/man1/gap.1*
 %{_metainfodir}/org.gap-system.gap.metainfo.xml
 %{_datadir}/applications/org.gap-system.gap.desktop
 %{_datadir}/mime/packages/gap.xml
-%{icondir}/16x16/apps/gap.png
-%{icondir}/22x22/apps/gap.png
-%{icondir}/24x24/apps/gap.png
-%{icondir}/32x32/apps/gap.png
-%{icondir}/36x36/apps/gap.png
-%{icondir}/48x48/apps/gap.png
-%{icondir}/64x64/apps/gap.png
-%{icondir}/72x72/apps/gap.png
-%{icondir}/96x96/apps/gap.png
-%{icondir}/128x128/apps/gap.png
-%{icondir}/192x192/apps/gap.png
-%{icondir}/256x256/apps/gap.png
-%{icondir}/512x512/apps/gap.png
+%{icondir}/gaplogo.svg
+%{icondir}/gaplogo-symbolic.svg
 
 %files libs
 %license COPYRIGHT LICENSE
@@ -415,7 +390,7 @@ make check
 %{vimfiles_root}/syntax/gap.vim
 
 %files -n libgap
-%{_libdir}/libgap.so.10
+%{_libdir}/libgap.so.11
 %{_libdir}/libgap.so
 %{_libdir}/pkgconfig/libgap.pc
 

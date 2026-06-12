@@ -1,7 +1,7 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        4.6
+Version:        4.8
 
 %global baserelease 1
 Release:        %{baserelease}%{?dist}
@@ -275,11 +275,7 @@ developing applications that use qt6pas.
 
 
 %prep
-%autosetup -c -p1
-
-
-%build
-cd lazarus
+%autosetup -p2 -n lazarus
 
 # Remove the files for building other packages
 rm -rf debian
@@ -289,11 +285,14 @@ popd
 
 # Re-create the Makefiles
 export FPCDIR=%{_datadir}/fpcsrc/
-fpcmake -Tall
-pushd components
-fpcmake -Tall
-popd
+for DIR in . components; do
+	pushd "${DIR}"
+	fpcmake -Tall
+	popd
+done
 
+
+%build
 # Compile some basic targets required by everything else
 make registration %{fpmakeopt} OPT='%{fpcopt}'
 
@@ -329,18 +328,18 @@ popd
 
 
 %install
-make -C lazarus install INSTALL_PREFIX=%{buildroot}%{_prefix} _LIB=%{_lib}
+make install INSTALL_PREFIX=%{buildroot}%{_prefix} _LIB=%{_lib}
 
 # Remove man page for an executable that is not actually installed.
 rm %{buildroot}%{_mandir}/man1/svn2revisioninc.1* || true
 
 desktop-file-install \
 	--dir %{buildroot}%{_datadir}/applications \
-	lazarus/install/%{name}.desktop
+	./install/%{name}.desktop
 
 install -d %{buildroot}%{_sysconfdir}/lazarus
 sed 's#__LAZARUSDIR__#%{_libdir}/%{name}#;s#__FPCSRCDIR__#%{_datadir}/fpcsrc#' \
-	lazarus/tools/install/linux/environmentoptions.xml \
+	./tools/install/linux/environmentoptions.xml \
 	> %{buildroot}%{_sysconfdir}/lazarus/environmentoptions.xml
 
 chmod 755 %{buildroot}%{_libdir}/%{name}/components/lazreport/tools/localize.sh
@@ -351,7 +350,7 @@ install -m 644 %{SOURCE100} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 # -- Install Qt5Pas and Qt6Pas
 
 for QTVER in 5 6; do
-	pushd "lazarus/lcl/interfaces/qt${QTVER}/cbindings/"
+	pushd "lcl/interfaces/qt${QTVER}/cbindings/"
 		%make_install INSTALL_ROOT=%{buildroot}
 	popd
 
@@ -380,7 +379,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/%{name}/docs
 %{_libdir}/%{name}/examples
 
-%license lazarus/COPYING.GPL.txt
+%license COPYING.GPL.txt
 
 # -- IDE files
 
@@ -416,10 +415,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/icons/hicolor/48x48/mimetypes/*
 %{_metainfodir}/%{name}.appdata.xml
 
-%doc lazarus/README.md
-%license lazarus/COPYING.txt
-%license lazarus/COPYING.LGPL.txt
-%license lazarus/COPYING.modifiedLGPL.txt
+%doc README.md
+%license COPYING.txt
+%license COPYING.LGPL.txt
+%license COPYING.modifiedLGPL.txt
 %{_mandir}/man1/lazarus-ide.1*
 %{_mandir}/man1/startlazarus.1*
 
@@ -447,7 +446,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %dir %{_sysconfdir}/lazarus
 %config(noreplace) %{_sysconfdir}/lazarus/environmentoptions.xml
 
-%license lazarus/COPYING.GPL.txt
+%license COPYING.GPL.txt
 %{_mandir}/man1/lazbuild.1*
 %{_mandir}/man1/lazres.1*
 %{_mandir}/man1/lrstolfm.1*
@@ -481,9 +480,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # -- LCL base
 
 %files lcl
-%license lazarus/COPYING.txt
-%license lazarus/COPYING.LGPL.txt
-%license lazarus/COPYING.modifiedLGPL.txt
+%license COPYING.txt
+%license COPYING.LGPL.txt
+%license COPYING.modifiedLGPL.txt
 %license %{_libdir}/%{name}/lcl/interfaces/customdrawn/android/ApacheLicense2.0.txt
 
 %dir %{_libdir}/%{name}
@@ -535,8 +534,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # -- Qt5pas
 
 %files -n qt5pas
-%license lazarus/lcl/interfaces/qt5/cbindings/COPYING.TXT
-%doc lazarus/lcl/interfaces/qt5/cbindings/README.TXT
+%license lcl/interfaces/qt5/cbindings/COPYING.TXT
+%doc lcl/interfaces/qt5/cbindings/README.TXT
 %{_libdir}/libQt5Pas.so.*
 
 %files -n qt5pas-devel
@@ -545,8 +544,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # -- Qt6pas
 
 %files -n qt6pas
-%license lazarus/lcl/interfaces/qt6/cbindings/COPYING.TXT
-%doc lazarus/lcl/interfaces/qt6/cbindings/README.TXT
+%license lcl/interfaces/qt6/cbindings/COPYING.TXT
+%doc lcl/interfaces/qt6/cbindings/README.TXT
 %{_libdir}/libQt6Pas.so.*
 
 %files -n qt6pas-devel
@@ -554,6 +553,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Jun 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.8-1
+- Update to v4.8
+
 * Tue Feb 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.6-1
 - Update to v4.6
 

@@ -16,6 +16,8 @@ BuildArch: noarch
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: python3-devel
+BuildRequires: python3-pytest
+BuildRequires: python3-gnupg
 
 Recommends: pulp-cli-deb
 Recommends: python3-pygments
@@ -41,15 +43,8 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 # Remove upper version bound on packaging to enable building with new versions in Fedora
 sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
-# Remove all bounds on test dependencies; we must use what we have
-sed -r -Ei 's/^([a-zA-Z0-9._-]+).*/\1/' test_requirements.txt
-
 %generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires test_requirements.txt
-%else
 %pyproject_buildrequires
-%endif
 
 
 %build

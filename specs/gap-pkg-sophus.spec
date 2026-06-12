@@ -16,11 +16,15 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-autpgrp
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(autpgrp) >= 1.2
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-pkg-autpgrp
+Requires:       gap(autpgrp) >= 1.2
+Requires:       gap-core >= 4.8
+
+Provides:       gap(Sophus) = %{version}-%{release}
+Provides:       gap(sophus) = %{version}-%{release}
 
 %description
 The Sophus package is written to compute with nilpotent Lie algebras over

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-375-gc5278a6428
+%global glibcsrcdir glibc-2.43.9000-398-g9cf4dd03bd
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 19
+%global baserelease 20
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2408,6 +2408,33 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Jun 10 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-20
+- Auto-sync with upstream branch master,
+  commit 9cf4dd03bdfd8b4113400e6b56c6d665c3c739ae:
+- riscv: Keep __memcmpeq alias with RVV memcmp (Zihong Yao)
+- fcntl-linux.h : Fix typo in comments. (bug 17119) (Brian Jorgensen)
+- iconv: Suppress intermediate errors with //TRANSLIT (bug 34236) (Florian Weimer)
+- nscd: Typo in comment (Josef Johansson)
+- libio: use _IO_have_wbackup for wide streams (Andreas Schwab)
+- elf: don't clobber ld.so.conf in tst-glibc-hwcaps-prepend-cache [BZ #34210] (Sam James)
+- elf: Remove inhibit_stack_protector from __ifunc_resolver (Adhemerval Zanella)
+- elf: Set up TLS slotinfo for dlopen'd modules before relocation (BZ 34170) (Adhemerval Zanella)
+- malloc: Simplify _int_free_chunk (Wilco Dijkstra)
+- riscv: Add RVV strrchr for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV strchr for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV memchr for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV memccpy for both multiarch and non-multiarch builds (Yao Zihong)
+- riscv: Add RVV memcmp for both multiarch and non-multiarch builds (Yao Zihong)
+- malloc: Reduce maximum arenas (Wilco Dijkstra)
+- resolv: reset _u._ext.nscount in __res_iclose [BZ #34154] (Adam Yi)
+- sysdeps/ieee754/ldbl-128ibm-compat/test-printf-chk-ldbl-compat.c: Fix typo (Alejandro Colomar)
+- malloc: Improve documentation of malloc tunables (Wilco Dijkstra)
+- malloc: Minor cleanups (Wilco Dijkstra)
+- support: Also run malloc hugetlb=1 tests when transparent hugepage is 'always' (Adhemerval Zanella)
+- arm: Fix main-in-dso with non-BFD linkers (BZ 34098) (Adhemerval Zanella)
+- elf: Fix tst-ifunc-tls-init with --disable-default-pie (Adhemerval Zanella)
+- powerpc64le: Add optimized __memcmpeq for POWER10 (Sachin Monga)
+
 * Tue Jun 02 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-19
 - Auto-sync with upstream branch master,
   commit c5278a64282f1c1f9a88711bac7b4e1469f851d6:

@@ -1,5 +1,5 @@
 Name:           ongres-stringprep
-Version:        2.2
+Version:        2.4
 Release:        %autorelease
 Summary:        RFC 3454 Preparation of Internationalized Strings in pure Java
 License:        BSD-2-Clause
@@ -19,7 +19,7 @@ The stringprep protocol does not stand on its own; it has to be used by other
 protocols at precisely-defined places in those other protocols.
 
 %prep
-%autosetup -p1 -n "stringprep-%{version}"
+%autosetup -p1 -C
 find \( -name '*.jar' -o -name '*.class' \) -delete
 
 %pom_remove_dep org.junit:junit-bom parent

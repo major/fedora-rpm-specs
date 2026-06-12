@@ -10,6 +10,9 @@ License:        GPL-2.0-or-later
 URL:            https://gap-packages.github.io/datastructures/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+# Fix an instance of undefined behavior due to a left shift of a signed integer
+# https://github.com/gap-packages/datastructures/pull/160
+Patch:          %{name}-undefined-behavior.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -17,13 +20,15 @@ BuildSystem:    gap
 BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(datastructures) = %{version}-%{release}
 
 %description
 The datastructures package aims at providing standard datastructures,
@@ -54,13 +59,9 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{gap_upname}-%{version}
+%autosetup -n %{gap_upname}-%{version} -p1
 
 %build -p
-# The -fwrapv option is needed due to signed integer overflow.  UBSAN says:
-# src/hashfunctions.h:61:18: runtime error: left shift of 2851389363498048825 by 11 places cannot be represented in type 'long int'
-export CFLAGS='%{build_cflags} -fwrapv'
-export CXXFLAGS='%{build_cxxflags} -fwrapv'
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure %{gap_archdir}
 %make_build

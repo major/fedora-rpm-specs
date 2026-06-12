@@ -2,24 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate semver
+%global crate abol-rt
 
-Name:           rust-semver
-Version:        1.0.28
+Name:           rust-abol-rt
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Parser and evaluator for Cargo's flavor of Semantic Versioning
+Summary:        Runtime traits and async abstractions for the Abol RADIUS framework
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/semver
+URL:            https://crates.io/crates/abol-rt
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          semver-fix-metadata.diff
+# * See https://github.com/Abel981/abol/blob/main/LICENSE
+# * Merge Request: https://github.com/Abel981/abol/pull/3
+Source2:        LICENSE
+# * See https://github.com/Abel981/abol/blob/main/LICENSE-APACHE
+# * Merge Request: https://github.com/Abel981/abol/pull/3
+Source3:        LICENSE-APACHE
+# * See https://github.com/Abel981/abol/blob/main/README.md
+# * Merge Request: https://github.com/Abel981/abol/pull/3
+Source4:        README.md
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parser and evaluator for Cargo's flavor of Semantic Versioning.}
+Runtime traits and async abstractions for the Abol RADIUS framework.}
 
 %description %{_description}
 
@@ -33,8 +39,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,32 +56,11 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp %{SOURCE2} .
+cp %{SOURCE3} .
+cp %{SOURCE4} .
 %cargo_prep
 
 %generate_buildrequires
@@ -86,6 +71,8 @@ use the "std" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+install -m 0644 LICENSE %{buildroot}%{crate_instdir}/LICENSE
+install -m 0644 LICENSE %{buildroot}%{crate_instdir}/LICENSE-APACHE
 
 %if %{with check}
 %check

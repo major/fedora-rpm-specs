@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%define package_version 10.11.16
+%define package_version 10.11.18
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.11.16
+%global last_tested_version 10.11.18
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -119,7 +119,7 @@
 #   https://mariadb.com/kb/en/pcre/
 %bcond bundled_pcre 0
 %if %{with bundled_pcre}
-%global pcre_bundled_version 10.45
+%global pcre_bundled_version 10.47
 %endif
 
 # To avoid issues with a breaking change in FMT library, bundle it on systems where FMT wasn't fixed yet
@@ -191,7 +191,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -259,8 +259,8 @@ Patch13:          %{majorname}-libfmt.patch
 Patch14:          %{majorname}-mtr.patch
 #   Patch15: mark RISC-V64 as 64-bit architecture
 Patch15:          mark-RISC-V64-as-64-bit-architecture.patch
-#   Patch16: fixup for SISGSEGV while using skip-grant-tables
-Patch16:          upstream_87309d3d4bb8f48910d05b0ca5ee989bcdd6b053.patch
+#   Patch16: fix default Galera configuation file
+Patch16:          upstream_0a66c466f1772945d46b12bd340e1bd9adff4e9b.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -1501,7 +1501,6 @@ fi
 %if %{with common}
 %files -n %{pkgname}-common
 %doc %{_docdir}/%{majorname}
-%{?with_galera:%exclude %{_docdir}/%{majorname}/MariaDB-server-%{version}/README-wsrep}
 %dir %{_datadir}/%{majorname}
 %{_datadir}/%{majorname}/charsets
 %if %{with clibrary}
@@ -1544,7 +1543,6 @@ fi
 
 %if %{with galera}
 %files -n %{pkgname}-server-galera
-%doc Docs/README-wsrep
 %license LICENSE.clustercheck
 %{_bindir}/clustercheck
 %{_bindir}/galera_new_cluster
@@ -1823,6 +1821,7 @@ fi
 %{_bindir}/{mysql_client_test,mysqltest,mariadb-client-test,mariadb-test}
 %{_bindir}/my_safe_process
 %dir %{_libdir}/%{majorname}/plugin
+%dir %{_libdir}/%{majorname}/plugin/test_pam_modules/
 # shared objects required for testing
 %{_libdir}/%{majorname}/plugin/adt_null.so
 %{_libdir}/%{majorname}/plugin/auth_0x0100.so
@@ -1840,6 +1839,7 @@ fi
 %{_libdir}/%{majorname}/plugin/qa_auth_server.so
 %{_libdir}/%{majorname}/plugin/test_sql_service.so
 %{_libdir}/%{majorname}/plugin/test_versioning.so
+%{_libdir}/%{majorname}/plugin/test_pam_modules/pam_%{majorname}_mtr.so
 %{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 %{_libdir}/%{majorname}/plugin/type_test.so
 %{_libdir}/%{majorname}/plugin/daemon_example.ini
@@ -1851,6 +1851,12 @@ fi
 %endif
 
 %changelog
+* Wed Jun 03 2026 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.18-1
+- Rebase to 10.11.18
+
+* Tue May 26 2026 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.17-1
+- Rebase to 10.11.17
+
 * Thu Mar 19 2026 Michal Schorm <mschorm@redhat.com> - 3:10.11.16-3
 - Bump release for package rebuild
 

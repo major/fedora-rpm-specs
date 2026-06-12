@@ -17,10 +17,14 @@ BuildSystem:    gap
 BuildOption(install): lib tables tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.6
+BuildRequires:  gap-devel >= 4.8.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8.8
+
+Provides:       gap(FactInt) = %{version}-%{release}
+Provides:       gap(factint) = %{version}-%{release}
 
 %description
 FactInt provides implementations of the following methods for factoring

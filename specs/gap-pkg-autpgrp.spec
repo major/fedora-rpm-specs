@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.7
 
-Requires:       gap-core
+Requires:       gap-core >= 4.7
+
+Provides:       gap(AutPGrp) = %{version}-%{release}
+Provides:       gap(autpgrp) = %{version}-%{release}
 
 %description
 The AutPGrp package introduces a new function to compute the automorphism

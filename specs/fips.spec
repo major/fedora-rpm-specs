@@ -1,15 +1,18 @@
 Name:           fips
-Version:        3.4.0
-Release:        22%{?dist}
+Version:        3.5.0
+Release:        23%{?dist}
 Summary:        OpenGL-based FITS image viewer
 License:        LGPL-3.0-or-later
 Url:            https://github.com/matwey/fips3
 Source:         https://github.com/matwey/fips3/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  cmake >= 3.0
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 8
 BuildRequires:  make
-BuildRequires:  qt5-qtbase-devel >= 5.6
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6Test)
 Requires:       hicolor-icon-theme
 
 %description
@@ -26,7 +29,7 @@ FITS image extension has basic limited support.
 %setup -q -n fips3-%{version}
 
 %build
-%cmake
+%cmake -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DQT_INTERNAL_SKIP_DEPLOYMENT:BOOL=ON
 %cmake_build
 
 %install
@@ -45,6 +48,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/space.fips.Fips.
 %{_datadir}/icons/hicolor/*/apps/space.fips.Fips.*
 
 %changelog
+* Wed Jun 10 2026 Matwey V. Kornilov <matwey.kornilov@gmail.com> - 3.5.0-23
+- Version 3.5.0 (RHBZ#2485441)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

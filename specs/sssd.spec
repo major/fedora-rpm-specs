@@ -23,7 +23,7 @@
 %endif
 
 Name: sssd
-Version: 2.13.0
+Version: 2.13.1
 Release: %autorelease
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later

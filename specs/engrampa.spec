@@ -1,7 +1,7 @@
 %global branch 1.28
 
 Name:          engrampa
-Version:       %{branch}.2
+Version:       %{branch}.3
 Release:       %autorelease
 Summary:       MATE Desktop file archiver
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.

@@ -16,13 +16,21 @@ BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): binder etc gap tst
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-curlinterface
+BuildRequires:  gap(autodoc) >= 2025.05.09
+BuildRequires:  gap(curlInterface) >= 2.1.0
+BuildRequires:  gap-devel >= 4.12
 
-Requires:       gap-core
+Requires:       gap-core >= 4.12
 
-Recommends:     gap-pkg-curlinterface
+# Various tools this package can invoke
+Recommends:     coreutils
+Recommends:     gap(curlInterface) >= 2.1.0
+Recommends:     git-core
+Recommends:     mercurial
+Recommends:     tar
+
+Provides:       gap(PackageManager) = %{version}-%{release}
+Provides:       gap(packagemanager) = %{version}-%{release}
 
 %description
 PackageManager is a basic collection of simple functions for installing and

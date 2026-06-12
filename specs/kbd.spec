@@ -4,8 +4,8 @@
 %global kbd_datadir %{_exec_prefix}/lib/kbd
 
 Name:           kbd
-Version:        2.9.0
-Release:        3%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -34,13 +34,9 @@ Patch5:         kbd-2.0.2-unicode-start-font.patch
 Patch6:         kbd-2.4.0-covscan-fixes.patch
 # Patch7: adds vlock option to issue prompt before invokation of pam stack
 Patch7:         kbd-2.0.4-vlock-add-prompt-option.patch
-# Patch8: fixes setfont segfault when option that needs an argument is passed
-#   with the argument blank, bz 2447892 (already upstream)
-Patch8:         kbd-2.9.0-fix-setfont-segfault.patch
 
-BuildRequires:  gcc, bison, flex, gettext, pam-devel, check-devel, automake
-BuildRequires:  console-setup, xkeyboard-config
-BuildRequires: make
+BuildRequires:  gcc, bison, flex, gettext, pam-devel, check-devel, automake, make
+BuildRequires:  console-setup, xkeyboard-config, libxkbcommon-devel
 Requires:       %{name}-misc = %{version}-%{release}
 Requires:       %{name}-legacy = %{version}-%{release}
 # Be sure that system is after UsrMove
@@ -105,7 +101,8 @@ iconv -f iso-8859-1 -t utf-8 < "ChangeLog" > "ChangeLog_"
 mv "ChangeLog_" "ChangeLog"
 
 %build
-%configure --prefix=%{_prefix} --datadir=%{kbd_datadir} --mandir=%{_mandir} --localedir=%{_datadir}/locale --enable-nls
+%configure --prefix=%{_prefix} --datadir=%{kbd_datadir} \
+  --mandir=%{_mandir} --localedir=%{_datadir}/locale --enable-nls --enable-xkb
 %make_build
 
 %install
@@ -187,6 +184,10 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Wed Jun 10 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.10.0-1
+- Update to kbd-2.10.0
+  Resolves: #2481141
+
 * Tue Mar 24 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.9.0-3
 - Fix setfont segmentation fault when argument for option is missing
   Resolves: #2447892

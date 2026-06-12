@@ -25,11 +25,11 @@ BuildOption(check): tst/testall.g
 BuildRequires:  elinks
 BuildRequires:  flamegraph
 BuildRequires:  flamegraph-stackcollapse
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(io) >= 4.4.4
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  which
@@ -37,12 +37,14 @@ BuildRequires:  xdg-utils
 
 Requires:       flamegraph
 Requires:       flamegraph-stackcollapse
-Requires:       gap-pkg-io%{?_isa}
+Requires:       gap(io) >= 4.4.4
+Requires:       gap-core%{?_isa} >= 4.12
 Requires:       which
 Requires:       xdg-utils
 
 # See https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
 Provides:       bundled(md5-plumb)
+Provides:       gap(profiling) = %{version}-%{release}
 
 %description
 This package provides line-by-line profiling of GAP, allowing both discovering

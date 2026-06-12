@@ -16,11 +16,13 @@ BuildSystem:    gap
 BuildOption(install): grp htm lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-devel >= 4.5
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.5
+
+Provides:       gap(FORMAT) = %{version}-%{release}
+Provides:       gap(format) = %{version}-%{release}
 
 %description
 The package contains programs for computing with formations of finite solvable

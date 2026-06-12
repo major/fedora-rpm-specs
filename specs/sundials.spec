@@ -305,7 +305,7 @@ pushd %{name}-%{version}
 %patch -P 4 -p1 -b .backup
 %endif
 
-%if 0%{?fedora} > 43
+%if 0%{?fedora} > 43 || 0%{?rhel} >= 11
 %patch -P 5 -p1 -b .backup5
 %endif
 

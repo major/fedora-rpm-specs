@@ -2,7 +2,7 @@
 %global gap_upname  CaratInterface
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.3.7
+Version:        2.3.9
 Release:        %autorelease
 Summary:        GAP interface to CARAT
 
@@ -17,14 +17,18 @@ BuildOption(install): gap htm tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  carat
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(io) >= 4.8.0
+BuildRequires:  gap-devel >= 4.11.1
 BuildRequires:  tth
 
 Requires:       carat
-Requires:       gap-pkg-io
+Requires:       gap(io) >= 4.8.0
+Requires:       gap-core >= 4.11.1
 
-Suggests:       gap-pkg-cryst
+Suggests:       gap(cryst) >= 4.1.24
+
+Provides:       gap(CaratInterface) = %{version}-%{release}
+Provides:       gap(caratinterface) = %{version}-%{release}
 
 %description
 This package provides GAP interface routines to some of the standalone

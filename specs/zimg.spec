@@ -6,9 +6,8 @@ License:        WTFPL
 URL:            https://github.com/sekrit-twc/zimg
 
 Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
-
-# Fix build with GCC 15
-Patch0:         https://github.com/sekrit-twc/zimg/pull/218.patch
+Patch0:         https://github.com/sekrit-twc/zimg/commit/b013c7b006e6bee05b7964162f3a00402168e77f.patch
+Patch1:         https://github.com/sekrit-twc/zimg/commit/0e56801f98db3e363c974fca794fa06022d40ee4.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -51,8 +50,6 @@ find %{buildroot} -name '*.la' -delete
 
 # Pick up docs in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
-
-%ldconfig_scriptlets
 
 %files
 %license COPYING

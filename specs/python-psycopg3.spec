@@ -42,9 +42,9 @@ BuildArch:		noarch
 ExcludeArch:	%{ix86}
 
 BuildRequires:	python3-devel
-BuildRequires:	libpq openssl
-BuildRequires:	postgresql-static postgresql-server-devel
-BuildRequires:	python3-pip python3-wheel python3-tomli
+BuildRequires:	libpq
+BuildRequires:	postgresql-server-devel
+BuildRequires:	python3-pip python3-wheel
 %if %{with pypy}
 BuildRequires:	pypy
 %endif
@@ -53,6 +53,9 @@ BuildRequires:	pypy
 # Required for running tests
 BuildRequires:	postgresql-test-rpm-macros
 BuildRequires:	python3-anyio python3-mypy pytest python3-pytest-cov python3-pytest-randomly
+BuildRequires:	python3-numpy
+BuildRequires:	python3-shapely
+BuildRequires:	python3-gevent
 %endif
 
 %if %{with cython}
@@ -102,18 +105,12 @@ rm -rf psycopg_pool/*
 tar -xzf %{SOURCE1} -C psycopg_pool/ --strip-components=2 %{package_name}-%{pool_name}/psycopg_pool/
 
 %build
-pushd psycopg
-%pyproject_wheel
-popd
+%pyproject_wheel -d psycopg
+%pyproject_wheel -d psycopg_pool
 
-pushd psycopg_pool
-%pyproject_wheel
-popd
 
 %if %{with cython}
-pushd psycopg_c
-%pyproject_wheel
-popd
+%pyproject_wheel -d psycopg_c
 %endif
 
 %install

@@ -1,20 +1,13 @@
 %global branch 1.28
 
 Name:          mate-screensaver
-Version:       %{branch}.0
+Version:       %{branch}.1
 Release:       %autorelease
 Summary:       MATE Screensaver
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://pub.mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
-
-Patch1:        mate-screensaver_0001-add-the-number-of-minutes-for-GUI-settings-to-lock-t.patch
-Patch2:        mate-screensaver_0002-mate-screensaver-preferences-Add-mnemonic-for-backgr.patch
-Patch3:        mate-screensaver_0003-mate-screensaver-preferences-Cleanup-UI-file-after-l.patch
-Patch4:        mate-screensaver_0004-mate-screensaver-preferences-Add-missing-mnemonic.patch
-Patch5:        mate-screensaver_0005-mate-screensaver-preferences-Add-tooltip-for-lock-de.patch
-Patch6:        mate-screensaver_0006-mate-screensaver-preferences-Improve-and-cleanup-tim.patch
 
 Requires:      redhat-menus
 Requires:      system-logos

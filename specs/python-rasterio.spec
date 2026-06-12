@@ -13,6 +13,8 @@ Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcnam
 Patch:          0001-Loosen-up-build-requirements.patch
 # Fix compatibility with latest GDAL.
 Patch:          https://github.com/rasterio/rasterio/pull/3529.patch
+# Skip a test that crashes: https://github.com/rasterio/rasterio/issues/3499
+Patch:          0002-TST-Always-skip-test_memfile_thread_safe_option.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

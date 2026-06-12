@@ -1,6 +1,6 @@
 Name:		rteval
-Version:	3.10
-Release:	6%{?dist}
+Version:	3.11
+Release:	1%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -8,7 +8,9 @@ License:	GPL-2.0-only AND GPL-2.0-or-later
 URL:		https://git.kernel.org/pub/scm/utils/rteval/rteval.git
 Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.xz
 # https://lore.kernel.org/linux-rt-users/20251126231223.100316-1-yselkowi@redhat.com/T/#u
-Patch0:         0001-rteval-do-not-require-wheel-for-building.patch
+Patch0:         rteval-do-not-require-wheel-for-building.patch
+Patch2:         rteval-cyclictest-Improve-handling-of-truncated-hist.patch
+Patch3:         rteval-timerlat-Improve-handling-of-truncated-histog.patch
 
 BuildRequires:	python3-devel
 Requires:	python3-libxml2
@@ -72,7 +74,7 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 
 %files -f %{pyproject_files}
 %defattr(-,root,root,-)
-%doc README doc/rteval.txt
+%doc README doc/rteval-legacy.txt
 %license COPYING
 %dir %{_datadir}/%{name}
 %{_mandir}/man8/rteval.8.gz
@@ -81,6 +83,11 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_bindir}/rteval
 
 %changelog
+* Wed Jun 10 2026 John Kacur <jkacur@redhat.com> - 3.11-1
+- Upgrade to rteval-3.11
+- rteval: cyclictest: Improve handling of truncated histogram output
+- rteval: timerlat: Improve handling of truncated histogram output
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.10-6
 - Rebuilt for Python 3.15
 

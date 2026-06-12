@@ -16,16 +16,17 @@ BuildSystem:    gap
 BuildOption(install): contrib gap lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-guava-doc
 BuildRequires:  Singular
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.8
+BuildRequires:  gap-pkg-guava-doc
 
-# Temporary workaround for Lmod brokenness
-BuildRequires:  environment-modules
-
-Requires:       gap-core
 Requires:       Singular
+# SingularReportInformation invokes uname
+Requires:       coreutils
+Requires:       gap-core >= 4.8
+
+Provides:       gap(singular) = %{version}-%{release}
 
 %description
 This package contains a GAP interface to the computer algebra system Singular.
@@ -39,6 +40,7 @@ This package contains a GAP interface to the computer algebra system Singular.
 License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Singular documentation
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 Requires:       gap-pkg-guava-doc
 
 %description doc

@@ -17,10 +17,13 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap-devel >= 4.13
 
-Requires:       gap-core
+Requires:       gap-core >= 4.13
+
+Provides:       gap(WPE) = %{version}-%{release}
+Provides:       gap(wpe) = %{version}-%{release}
 
 %description
 WPE provides efficient methods for working with Wreath Product Elements in GAP.

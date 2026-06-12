@@ -17,15 +17,18 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): examples lib tst version
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-gbnp
+BuildRequires:  gap(gbnp) >= 0.9.5
+BuildRequires:  gap-devel >= 4.11
 BuildRequires:  tex(beamer.cls)
 BuildRequires:  tex(pcrr8t.tfm)
 BuildRequires:  tex(textpos.sty)
 BuildRequires:  tex(xy.sty)
 
-Requires:       gap-pkg-gbnp
+Requires:       gap(gbnp) >= 0.9.5
+Requires:       gap-core >= 4.11
+
+Provides:       gap(qpa) = %{version}-%{release}
 
 %description
 This package carries out computations for finite dimensional quotients of path

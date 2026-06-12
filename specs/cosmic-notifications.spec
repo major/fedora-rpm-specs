@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit a899bfbc6715c36b1f02d7a0f4d3601a3ea0295f
 %global commitdatestring 2026-04-29 16:05:13 -0600
-%global cosmic_minver 1.0.15
+%global cosmic_minver 1.0.16
 
 Name:           cosmic-notifications
-Version: 1.0.15
+Version: 1.0.16
 Release:        %autorelease
 Summary:        Notifications daemon for the COSMIC Desktop Environment
 

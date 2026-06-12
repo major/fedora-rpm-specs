@@ -27,19 +27,25 @@ BuildOption(build): --packagedirs .. --bare -c 'LoadPackage("GAPDoc");'
 BuildOption(install): gap tst
 BuildOption(check): --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-doc
-BuildRequires:  GAPDoc-latex
+BuildRequires:  GAPDoc-doc >= 1.6.3
+BuildRequires:  GAPDoc-latex >= 1.6.3
+BuildRequires:  gap(gapdoc) >= 1.6.3
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(io)
 %endif
+BuildRequires:  gap-devel >= 4.11
 BuildRequires:  tex(a4.sty)
 BuildRequires:  tex(a4wide.sty)
 
 # AUTODOC_CurrentDirectory invokes pwd
 Requires:       coreutils
-Requires:       gap-core
-Requires:       GAPDoc-latex
+# AUTODOC_Diff invokes diff
+Requires:       diffutils
+Requires:       gap-core >= 4.11
+Requires:       GAPDoc-latex >= 1.6.3
+
+Provides:       gap(autodoc) = %{version}-%{release}
+Provides:       gap(AutoDoc) = %{version}-%{release}
 
 %description
 This package is an add-on to GAPDoc that enables generating documentation from
@@ -56,7 +62,8 @@ GAP source code.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        AutoDoc documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       GAPDoc-doc
+Requires:       GAPDoc-doc >= 1.6.3
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

@@ -3,7 +3,7 @@
 %bcond_with perl_Atomic_Pipe_enables_zstd
 
 Name:           perl-Atomic-Pipe
-Version:        0.030
+Version:        0.032
 Release:        1%{?dist}
 Summary:        Send atomic messages from multiple writers across a POSIX pipe
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -120,6 +120,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 10 2026 Petr Pisar <ppisar@redhat.com> - 0.032-1
+- 0.032 bump
+
 * Tue Jun 09 2026 Petr Pisar <ppisar@redhat.com> - 0.030-1
 - 0.030 bump
 

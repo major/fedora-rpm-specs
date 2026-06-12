@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/utils
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.95
+Version:        0.96
 Release:        %autorelease
 Summary:        Utility functions for GAP
 
@@ -17,14 +17,17 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-curlinterface-doc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(curlInterface) >= 2.3.0
+BuildRequires:  gap-devel >= 4.10.1
+BuildRequires:  gap-pkg-curlinterface-doc >= 2.3.0
 BuildRequires:  gap-pkg-io-doc
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10.1
 
-Recommends:     gap-pkg-curlinterface
+Recommends:     gap-pkg-curlinterface >= 2.3.0
+
+Provides:       gap(utils) = %{version}-%{release}
 
 %description
 The Utils package provides a collection of utility functions gleaned from many
@@ -41,7 +44,8 @@ packages.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-curlinterface-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-curlinterface-doc >= 2.3.0
 Requires:       gap-pkg-io-doc
 
 %description doc

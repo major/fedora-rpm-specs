@@ -17,13 +17,15 @@ BuildSystem:    gap
 BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++
-BuildRequires:  libtool
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(json) = %{version}-%{release}
 
 # We cannot use the system version of picojson-devel.  The version used by this
 # package has had https://github.com/kazuho/picojson/pull/52 merged into it.

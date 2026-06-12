@@ -1,4 +1,4 @@
-%global upstream_version 3.2
+%global upstream_version 3.3
 
 Name:           ongres-scram
 Version:        %(echo %{upstream_version} | sed 's/-/~/g')
@@ -32,7 +32,7 @@ Summary:        Client for %{name}
 This package contains the client for %{name}
 
 %prep
-%autosetup -p1 -n "scram-%{upstream_version}"
+%autosetup -p1 -C
 find \( -name '*.jar' -o -name '*.class' \) -delete
 
 %pom_remove_plugin -r :maven-javadoc-plugin

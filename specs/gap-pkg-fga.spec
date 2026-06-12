@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(FGA) = %{version}-%{release}
+Provides:       gap(fga) = %{version}-%{release}
 
 %description
 The FGA package provides methods for computations with finitely generated

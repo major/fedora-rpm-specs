@@ -16,12 +16,14 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.8
 BuildRequires:  make
-BuildRequires:  tex-urlbst
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(GBNP) = %{version}-%{release}
+Provides:       gap(gbnp) = %{version}-%{release}
 
 %description
 GBNP provides GAP algorithms for computing Gröbner bases of non-commutative

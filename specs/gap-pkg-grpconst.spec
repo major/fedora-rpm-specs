@@ -16,16 +16,19 @@ BuildSystem:    gap
 BuildOption(install): gap htm tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-autpgrp
-BuildRequires:  gap-pkg-irredsol
-BuildRequires:  gap-pkg-smallgrp
-BuildRequires:  tth
+BuildRequires:  gap(autpgrp) >= 1.6
+BuildRequires:  gap(irredsol) >= 1.2
+BuildRequires:  gap(smallgrp) >= 1.4
+BuildRequires:  gap-devel >= 4.7
 
-Requires:       gap-pkg-autpgrp
-Requires:       gap-pkg-irredsol
-Requires:       gap-pkg-smallgrp
+Requires:       gap(autpgrp) >= 1.6
+Requires:       gap(irredsol) >= 1.2
+Requires:       gap(smallgrp) >= 1.4
+Requires:       gap-core >= 4.7
+
+Provides:       gap(GrpConst) = %{version}-%{release}
+Provides:       gap(grpconst) = %{version}-%{release}
 
 %description
 This package contains GAP implementations of three different approaches to

@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): data gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10
+
+Provides:       gap(Smallsemi) = %{version}-%{release}
+Provides:       gap(smallsemi) = %{version}-%{release}
 
 %description
 The Smallsemi package is a data library of semigroups of small size.  It

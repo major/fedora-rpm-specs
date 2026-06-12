@@ -1,5 +1,5 @@
 Name:           perl-Mojo-Pg
-Version:        4.29
+Version:        5.0
 Release:        1%{?dist}
 Summary:        Mojolicious ♥ PostgreSQL
 License:        Artistic-2.0
@@ -29,6 +29,7 @@ BuildRequires:  perl(Mojo::IOLoop)
 BuildRequires:  perl(Mojo::JSON)
 BuildRequires:  perl(Mojo::Loader)
 BuildRequires:  perl(Mojo::Promise)
+BuildRequires:  perl(Mojo::SQL) >= 0.01
 BuildRequires:  perl(Mojo::URL)
 BuildRequires:  perl(Mojo::Util)
 BuildRequires:  perl(SQL::Abstract)
@@ -74,6 +75,9 @@ publish/subscribe pattern.
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Wed Jun 10 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0-1
+- Update to 5.0
+
 * Sun Mar 29 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 4.29-1
 - Update to 4.29
 

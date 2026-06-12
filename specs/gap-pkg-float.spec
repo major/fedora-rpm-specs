@@ -21,8 +21,8 @@ BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  cxsc-devel
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap-devel >= 4.12.0
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  mpfi-devel
@@ -30,7 +30,9 @@ BuildRequires:  pkgconfig(fplll)
 BuildRequires:  pkgconfig(mpc)
 BuildRequires:  pkgconfig(mpfr)
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12.0
+
+Provides:       gap(float) = %{version}-%{release}
 
 %description
 This package implements floating-point numbers within GAP, with arbitrary

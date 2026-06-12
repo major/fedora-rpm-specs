@@ -17,14 +17,16 @@ BuildSystem:    gap
 BuildOption(install): bin examples gap htm res-examples tst VERSION
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  gcc
 BuildRequires:  ghostscript
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  tth
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.7
+
+Provides:       gap(ACE) = %{version}-%{release}
+Provides:       gap(ace) = %{version}-%{release}
 
 %description
 The ACE package provides a mechanism to replace GAP's usual Todd-Coxeter coset
@@ -65,9 +67,9 @@ make doc
 rm -f ../../{doc,etc}
 
 # Package PDF instead of PostScript
-pushd standalone-doc
+cd standalone-doc
 ps2pdf ace3001.ps ace3001.pdf
-popd
+cd -
 
 %install -a
 rm %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/gap/CHANGES

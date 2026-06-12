@@ -5,7 +5,7 @@ Summary:    A simple tool for pasting info onto the Fedora community paste serve
 BuildArch:  noarch
 # spdx
 License:    GPL-3.0-or-later
-URL:        https://pagure.io/%{name}
+URL:        https://codeberg.org/sanjay_ankur/%{name}
 Source0:    https://pagure.io/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make

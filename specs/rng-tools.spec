@@ -25,7 +25,7 @@ BuildRequires: gcc make binutils
 BuildRequires: gettext
 BuildRequires: systemd systemd-rpm-macros
 BuildRequires: autoconf >= 2.57, automake >= 1.7
-BuildRequires: libgcrypt-devel libcurl-devel
+BuildRequires: libcurl-devel
 BuildRequires: libxml2-devel openssl-devel
 BuildRequires: jitterentropy-devel
 BuildRequires: jansson-devel

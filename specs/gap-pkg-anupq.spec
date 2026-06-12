@@ -23,14 +23,21 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): bin examples lib standalone testPq tst
 BuildOption(check): tst/testinstall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-autpgrp
-BuildRequires:  gap-pkg-autpgrp-doc
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(autpgrp) >= 1.5
+BuildRequires:  gap-devel >= 4.9
+BuildRequires:  gap-pkg-autpgrp-doc >= 1.5
 BuildRequires:  gcc
 
-Requires:       gap-core%{?_isa}
-Requires:       gap-pkg-autpgrp
+# lib/anupqi.gi invokes pwd and grep
+Requires:       coreutils
+Requires:       grep
+
+Requires:       gap(autpgrp) >= 1.5
+Requires:       gap-core%{?_isa} >= 4.9
+
+Provides:       gap(ANUPQ) = %{version}-%{release}
+Provides:       gap(anupq) = %{version}-%{release}
 
 %description
 This package gives access to the following algorithms from inside GAP:
@@ -54,7 +61,8 @@ License:        Artistic-2.0 AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-on
 Summary:        ANUPQ documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-autpgrp-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-autpgrp-doc >= 1.5
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.
@@ -75,9 +83,9 @@ rm -fr ../../doc
 
 # Build the standalone documentation
 cd standalone-doc
-pdflatex guide
-pdflatex guide
-pdflatex guide
+pdflatex -interaction=nonstopmode guide
+pdflatex -interaction=nonstopmode guide
+pdflatex -interaction=nonstopmode guide
 cd -
 
 %files

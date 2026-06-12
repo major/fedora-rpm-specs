@@ -21,13 +21,14 @@ BuildSystem:    gap
 BuildOption(install): bin gap htm testdata tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tth
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.7
+
+Provides:       gap(cohomolo) = %{version}-%{release}
 
 %description
 This package may be used to perform certain cohomological calculations on a

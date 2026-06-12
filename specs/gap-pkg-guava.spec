@@ -20,15 +20,20 @@ ExcludeArch:    %{ix86}
 BuildSystem:    gap
 BuildOption(install): bin lib tbl tst
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-sonata
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(sonata) >= 2.3
+BuildRequires:  gap-devel >= 4.8.0
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  parallel
 
-Requires:       gap-pkg-sonata
+Requires:       gap(sonata) >= 2.3
+Requires:       gap-core%{?_isa} >= 4.8.0
+
+Provides:       gap(GUAVA) = %{version}-%{release}
+Provides:       gap(guava) = %{version}-%{release}
 
 %global _docdir_fmt %{name}
 

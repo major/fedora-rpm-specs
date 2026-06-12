@@ -17,11 +17,15 @@ BuildOption(build): --bare
 BuildOption(install): gap id* small* tst
 BuildOption(check): --bare tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.02.16
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  parallel
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
+
+Provides:       gap(SmallGrp) = %{version}-%{release}
+Provides:       gap(smallgrp) = %{version}-%{release}
 
 %description
 The Small Groups library gives access to all groups of certain "small" orders.

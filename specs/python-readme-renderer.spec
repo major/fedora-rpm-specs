@@ -15,6 +15,8 @@ Source:         %{pypi_source %{pypi_name}}
 Patch:          fix-tests-pygments-2.19.0.patch
 # Support docutils 0.22+
 Patch:          https://github.com/pypa/readme_renderer/pull/332.patch
+# Fix CLI --package for Python 3.15+ (importlib.metadata description change)
+Patch:          https://github.com/pypa/readme_renderer/pull/361.patch
 
 BuildArch:      noarch
 

@@ -16,11 +16,13 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.7
+
+Provides:       gap(Unipot) = %{version}-%{release}
+Provides:       gap(unipot) = %{version}-%{release}
 
 %description
 The Unipot package provides GAP with the ability to compute with elements of

@@ -16,15 +16,21 @@ BuildSystem:    gap
 BuildOption(install): gap tst version
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+# RandomizeRandomState invokes /usr/bin/date
+Requires:       coreutils
+Requires:       gap-core >= 4.8
 
-# Splash invokes tools from these packages
-Recommends:     coreutils
+# Splash can invoke dot and dot2tex in some circumstances
+Recommends:     dot2tex
 Recommends:     graphviz
+# Splash invokes a viewer (evince, xpdf, xdg-open, okular, or gv)
 Recommends:     xdg-utils
+
+Provides:       gap(Automata) = %{version}-%{release}
+Provides:       gap(automata) = %{version}-%{release}
 
 %description
 This package contains algorithms for working with finite automata in GAP.  It

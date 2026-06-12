@@ -1,12 +1,12 @@
 Name:           liferea
 Epoch:          1
 Version:        2.0
-Release:        0.rc2%{?dist}
+Release:        0.rc3%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
-Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}-RC2/liferea-%{version}-RC2.tar.xz
+Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}-RC3/liferea-%{version}-RC3.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -44,7 +44,7 @@ It can be used to maintain a list of subscribed feeds,
 browse through their items, and show their contents.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-RC2
+%autosetup -p1 -n %{name}-%{version}-RC3
 
 
 %build
@@ -75,9 +75,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 %{_datadir}/metainfo/net.sourceforge.liferea.appdata.xml
 %{_datadir}/applications/net.sourceforge.liferea.desktop
 %{_datadir}/glib-2.0/schemas/net.sf.liferea.gschema.xml
+%{_iconsdir}/hicolor/*/net.sourceforge.liferea*
 
 
 %changelog
+* Thu Jun 11 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0-0.rc3
+- Update to 2.0-RC3
+
 * Mon May 25 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0-0.rc2
 - Update to 2.0-RC2
 

@@ -17,10 +17,13 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.5
 
-Requires:       gap-core
+Requires:       gap-core >= 4.5
+
+Provides:       gap(Toric) = %{version}-%{release}
+Provides:       gap(toric) = %{version}-%{release}
 
 %description
 Toric implements some computations related to toric varieties and

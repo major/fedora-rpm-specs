@@ -7,7 +7,7 @@ Summary:        Portable OpenBSD ksh, based on the Public Domain Korn Shell
 # being under ISC and BSD-3-Clause license.
 License:        LicenseRef-Fedora-Public-Domain AND ISC AND BSD-3-Clause
 URL:            https://github.com/ibara/%{name}
-Source0:        https://github.com/ibara/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/ibara/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -26,6 +26,10 @@ Portable OpenBSD ksh, based on the Public Domain Korn Shell.
 %install
 %make_install
 install -D -p -m 0644 ksh.kshrc %{buildroot}%{_sysconfdir}/ksh.kshrc
+
+%check
+# Smoke test to ensure the shell compiles and executes correctly
+%{buildroot}%{_bindir}/oksh -c 'echo "Hello from oksh!"'
 
 %post
 if [ "$1" = 1 ]; then

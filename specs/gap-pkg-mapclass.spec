@@ -18,10 +18,13 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
+BuildRequires:  gap-devel >= 4.9
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
+
+Provides:       gap(MapClass) = %{version}-%{release}
+Provides:       gap(mapclass) = %{version}-%{release}
 
 %description
 The MapClass package calculates the mapping class group orbits for a given

@@ -8,16 +8,12 @@
 
 %bcond_without flexiblas
 
-# giac is not ready for FLTK-1.4.4
-%if 0%{?fedora} < 44
+# giac is not ready for FLTK-1.4.*
 %bcond_without fltk
-%else
-%bcond_with fltk
-%endif
 
 %global _lto_cflags %{nil}
 
-%global subversion .19
+%global subversion .21
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
@@ -40,30 +36,33 @@ URL:           https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html
 Source0:       %{name}-%{version}.tar.gz
 Source1:       %{name}-makesrc.sh
 
+# https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=3026
+Source2:       %{name}-configure.ac
+
 # Recent math.h adds an iszero macro, but giac has an iszero function
-Patch0:        %{name}-iszero.patch
+Patch1:        %{name}-iszero.patch
 
 # Deal with LTO compromised configure test
-Patch1:        %{name}-config.patch
+Patch2:        %{name}-config.patch
 
 # Use Fedora compiler flags
-Patch2:        %{name}-1.9.0-fix_micropy_compiler_flags.patch
+Patch3:        %{name}-1.9.0-fix_micropy_compiler_flags.patch
 
 # Adapt to cocoalib 0.99700
-Patch3:        %{name}-cocoalib.patch
+Patch4:        %{name}-cocoalib.patch
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=3&t=2724
-Patch4:        %{name}-fix_graphe_file.patch
+Patch5:        %{name}-fix_graphe_file.patch
 
 # Adapt to pari 2.15.0
-Patch5:        %{name}-pari2.15.patch
+Patch6:        %{name}-pari2.15.patch
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=3&t=2895
-Patch6:        %{name}-undefine_GLIBCXX_ASSERTIONS.patch
+Patch7:        %{name}-undefine_GLIBCXX_ASSERTIONS.patch
 
 # 'mkjs' is not correctly compiled 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2930
-Patch7:        %{name}-faking_mkjs.patch
+Patch8:        %{name}-faking_mkjs.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -100,13 +99,14 @@ BuildRequires: libpng-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libsamplerate-devel
 %if %{with fltk}
-BuildRequires: fltk-devel
+#BuildRequires: fltk-devel
 %endif
 BuildRequires: libXinerama-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 Provides: bundled(tinymt32)
+Provides: bundled(fltk) = 1.3.8
 
 # The micropython inside is a custom port with
 # addtional built-in modules that are linked to giac.
@@ -198,14 +198,11 @@ with Giac computations.
 %prep
 %autosetup -n %{name}-%{majver} -N
 
-%patch -P 0 -p1 -b .backup
-%patch -P 1 -p1 -b .backup
-%patch -P 2 -p0 -b .backup
-%patch -P 3 -p0 -b .backup
-%patch -P 4 -p1 -b .backup
-%patch -P 5 -p1 -b .backup
-%patch -P 6 -p1 -b .backup
-%patch -P 7 -p1 -b .backup
+rm -f configure.ac
+cp -p %{SOURCE2} configure.ac
+
+dos2unix configure.ac
+%autopatch -p1
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -253,6 +250,9 @@ autoreconf -ivf
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
 export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
+%if %{with fltk}
+export LIBFLTK=GIAC
+%endif
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=no \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
  --enable-dl=yes --enable-gsl=yes --enable-lapack=yes --enable-pari=yes \
@@ -261,9 +261,7 @@ export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
 %ifarch %{power64}
  --disable-micropy \
 %endif
-%if %{without fltk}
  --disable-fltk
-%endif
 
 # The --disable-rpath option of configure was not enough to get rid of the hardcoded libdir
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -280,6 +278,7 @@ OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-e
 export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
 export LDFLAGS_FEDORA="$OPT_FLAGS"
+export ACLOCAL=aclocal
 %make_build
 
 # Rebuild giac_*.info and Convert info file to utf-8

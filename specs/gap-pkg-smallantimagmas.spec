@@ -17,10 +17,13 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): *.ipynb data lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.12
 
-Requires:       gap-core
+Requires:       gap-core >= 4.12
+
+Provides:       gap(smallantimagmas) = %{version}-%{release}
 
 %description
 This package contains a library of antiassociative magmas of small order for

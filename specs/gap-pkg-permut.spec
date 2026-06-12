@@ -16,11 +16,15 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-format-doc
+BuildRequires:  gap(autodoc) >= 2019.07.17
+BuildRequires:  gap(format) >= 1.3
+BuildRequires:  gap-devel >= 4.7.4
+BuildRequires:  gap-pkg-format-doc >= 1.3
 
-Requires:       gap-pkg-format
+Requires:       gap(format) >= 1.3
+Requires:       gap-core >= 4.7.4
+
+Provides:       gap(permut) = %{version}-%{release}
 
 %description
 The package permut contains some functions to deal with permutability in
@@ -37,7 +41,7 @@ License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-onl
 Summary:        Permut documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-Requires:       gap-pkg-format-doc
+Requires:       gap-pkg-format-doc >= 1.3
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

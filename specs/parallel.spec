@@ -2,8 +2,7 @@ Name:           parallel
 Summary:        Shell tool for executing jobs in parallel
 Version:        20260522
 Release:        %autorelease
-# Automatically converted from old format: GFDL and GPLv3+ - review is highly recommended.
-License:        LicenseRef-Callaway-GFDL AND GPL-3.0-or-later
+License:        GPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            https://www.gnu.org/software/parallel/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
@@ -13,13 +12,14 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl-podlators
 BuildRequires:  perl(FileHandle)
 BuildRequires:  sed
 # for gpg verification
-BuildRequires: gnupg2
+BuildRequires:  gnupg2
 
-%define __requires_exclude sh$
+%global __requires_exclude sh$
 
 # Due to a naming conflict, both packages cannot be installed in parallel
 # To prevent user confusion, GNU parallel is installed in a compatibility
@@ -48,8 +48,7 @@ additional features.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
-# Replace shebang by replacing "env" by removing "env ".
-# FIXME: this is quite a hack
+# Fix shebangs in env_parallel scripts to use direct interpreter paths instead of env
 sed -i '1s:/env :/:' src/env_parallel.*
 
 %build
@@ -60,6 +59,9 @@ autoreconf -ivf
 %install
 %make_install
 rm -vrf %{buildroot}%{_pkgdocdir}
+
+%check
+%{buildroot}%{_bindir}/parallel --version
 
 %files
 %license LICENSES/GPL-3.0-or-later.txt LICENSES/GFDL-1.3-or-later.txt

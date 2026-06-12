@@ -19,14 +19,20 @@ BuildSystem:    gap
 BuildOption(install): *.ipynb examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-json
-BuildRequires:  gap-pkg-jupyterkernel
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(gapdoc) >= 1.3
+BuildRequires:  gap(json) >= 2.0.0
+BuildRequires:  gap(jupyterkernel)
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  python3-devel
 
-Requires:       gap-pkg-json
-Requires:       gap-pkg-jupyterkernel
+Requires:       gap(json) >= 2.0.0
+Requires:       gap(jupyterkernel)
+Requires:       gap-core >= 4.9
+Requires:       xdg-utils
+
+Provides:       gap(JupyterViz) = %{version}-%{release}
+Provides:       gap(jupyterviz) = %{version}-%{release}
 
 %description
 This package adds visualization tools to GAP for use in Jupyter notebooks.

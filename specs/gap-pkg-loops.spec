@@ -16,10 +16,12 @@ BuildSystem:    gap
 BuildOption(install): data gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(loops) = %{version}-%{release}
 
 %description
 The LOOPS package provides researchers in nonassociative algebra with a

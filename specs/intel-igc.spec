@@ -48,6 +48,8 @@ Source5: https://github.com/KhronosGroup/SPIRV-Tools/archive/%{spirv_tools_commi
 Source6: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-%{llvm_ver}.tar.gz
 %endif
 
+Patch0: 0001-Fix-segfault-when-running-analysis-passes-after-SCCP.patch
+
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
 

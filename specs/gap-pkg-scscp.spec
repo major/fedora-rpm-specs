@@ -29,18 +29,25 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): *.sh demo example lib par tracing tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-io-doc
-BuildRequires:  gap-pkg-openmath-doc
+BuildRequires:  GAPDoc-latex >= 1.5
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(io) >= 4.4
+BuildRequires:  gap(openmath) >= 11.4.1
+BuildRequires:  gap-devel >= 4.10
+BuildRequires:  gap-pkg-io-doc >= 4.4
+BuildRequires:  gap-pkg-openmath-doc >= 11.4.1
 BuildRequires:  gap-pkg-smallgrp-doc
 BuildRequires:  help2man
 BuildRequires:  systemd-rpm-macros
 
 %{?systemd_requires}
-Requires:       gap-pkg-io
-Requires:       gap-pkg-openmath
+Requires:       gap(io) >= 4.4
+Requires:       gap(openmath) >= 11.4.1
+Requires:       gap-core >= 4.10
 Requires:       logrotate
+
+Provides:       gap(SCSCP) = %{version}-%{release}
+Provides:       gap(scscp) = %{version}-%{release}
 
 %description
 This package implements the Symbolic Computation Software Composability
@@ -57,8 +64,8 @@ dictionaries scscp1 and scscp2.
 License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        SCSCP documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-io-doc
-Requires:       gap-pkg-openmath-doc
+Requires:       gap-pkg-io-doc >= 4.4
+Requires:       gap-pkg-openmath-doc >= 11.4.1
 Requires:       gap-pkg-smallgrp-doc
 
 %description doc

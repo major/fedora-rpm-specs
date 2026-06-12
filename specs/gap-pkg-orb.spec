@@ -1,3 +1,9 @@
+# When bootstrapping a new architecture, there is no gap-pkg-cvec package
+# yet.  It is only needed by this package to run some tests, but it requires
+# this package to funtion at all.  Therefore, do this:
+# 1. Build this package in bootstrap mode
+# 2. Build gap-pkg-cvec
+# 3. Build this package in non-bootstrap mode
 %bcond bootstrap 0
 
 %global gap_pkgname    orb
@@ -22,24 +28,26 @@ BuildSystem:    gap
 BuildOption(install): bin examples gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(autodoc) >= 2019.07.17
+BuildRequires:  gap(io) >= 3.3
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 
 # Only pull in test dependencies in non-bootstrap mode, because gap-pkg-cvec
 # requires this package to run at all.
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-browse
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-cvec
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(atlasrep)
+BuildRequires:  gap(browse)
+BuildRequires:  gap(ctbllib)
+BuildRequires:  gap(cvec)
+BuildRequires:  gap(tomlib)
 %endif
 
-Requires:       gap-pkg-io%{?_isa}
+Requires:       gap(io) >= 3.3
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(orb) = %{version}-%{release}
 
 %description
 This package enables enumerating orbits in various ways from within GAP.

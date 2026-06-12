@@ -12,11 +12,12 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.96
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
+Patch0:		https://patch-diff.githubusercontent.com/raw/radiator-software/p5-net-ssleay/pull/553.patch
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
 # =========== Module Build ===========================
 BuildRequires:	coreutils
@@ -89,6 +90,10 @@ so you can write servers or clients for more complicated applications.
 %prep
 %setup -q -n Net-SSLeay-%{version}
 
+# OpenSSL4 compatibility
+# https://github.com/radiator-software/p5-net-ssleay/pull/553
+%patch -P0 -p1
+
 # Get libraries to link against from pkg-config
 # https://github.com/radiator-software/p5-net-ssleay/pull/127
 %patch -P 10
@@ -133,6 +138,9 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Wed Jun 10 2026 Paul Howarth <paul@city-fan.org> - 1.96-2
+- Add support for OpenSSL 4.0.0 (rhbz#2458197, GH#553)
+
 * Sun Mar 22 2026 Paul Howarth <paul@city-fan.org> - 1.96-1
 - Update to 1.96
   - Skip NPN tests when NPN is disabled in OpenSSL instead of assuming NPN is

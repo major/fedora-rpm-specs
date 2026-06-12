@@ -15,11 +15,14 @@ BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): gap tst
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  perl-generators
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.9
+BuildRequires:  perl-interpreter
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
+
+Provides:       gap(CRIME) = %{version}-%{release}
+Provides:       gap(crime) = %{version}-%{release}
 
 %description
 This GAP package computes cohomology rings for finite p-groups using Jon

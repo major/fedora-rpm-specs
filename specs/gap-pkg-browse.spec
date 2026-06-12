@@ -41,28 +41,31 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): app bibl bin lib tst version
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-doc
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-io-doc
+BuildRequires:  GAPDoc-doc >= 1.6
+BuildRequires:  GAPDoc-latex >= 1.6
+BuildRequires:  gap(gapdoc) >= 1.6
+BuildRequires:  gap-devel >= 4.12.0
+BuildRequires:  gap-pkg-io-doc >= 2.2
 BuildRequires:  gcc
 BuildRequires:  ghostscript
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  netpbm-progs
 BuildRequires:  pkgconfig(ncurses)
 
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-atlasrep-doc
+BuildRequires:  gap(tomlib)
+BuildRequires:  gap-pkg-atlasrep-doc >= 2.0
 BuildRequires:  gap-pkg-ctbllib-doc
-BuildRequires:  gap-pkg-tomlib
 %endif
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12.0
 
-Recommends:     gap-pkg-atlasrep
-Recommends:     gap-pkg-io%{?_isa}
-Recommends:     gap-pkg-tomlib
+Recommends:     gap(atlasrep) >= 2.0
+Recommends:     gap(io) >= 2.2
+Recommends:     gap(tomlib)
+
+Provides:       gap(Browse) = %{version}-%{release}
+Provides:       gap(browse) = %{version}-%{release}
 
 # Don't Provide the ncurses glue
 %global __provides_exclude_from ncurses\\.so
@@ -103,11 +106,11 @@ License:        GPL-3.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.
 Summary:        Gap browser documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       GAPDoc-doc
-Requires:       gap-pkg-io-doc
+Requires:       GAPDoc-doc >= 1.6
+Requires:       gap-pkg-io-doc >= 2.2
 
 %if %{without bootstrap}
-Requires:       gap-pkg-atlasrep-doc
+Requires:       gap-pkg-atlasrep-doc >= 2.0
 Requires:       gap-pkg-ctbllib-doc
 %endif
 

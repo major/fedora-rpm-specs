@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.10.0
-Release:	1%{?candidate:.%{candidate}}%{?dist}
+Release:	2%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -15,7 +15,6 @@ Source2:	gpgkey-8E1F50C1.gpg
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	python3
-BuildRequires:	libgcrypt-devel
 BuildRequires:	libyaml-devel
 BuildRequires:	openssl-devel
 BuildRequires:	p11-kit-devel
@@ -115,7 +114,11 @@ make check
 
 
 %changelog
-* Wed May 20 2026 Jakub Jelen <jjelen@redhat.com> - 1.10.0-1}
+* Wed Jun 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.0-2
+- Rebuilt for Python 3.15
+- Drop unused libgcrypt dependency
+
+* Wed May 20 2026 Jakub Jelen <jjelen@redhat.com> - 1.10.0-1
 - New upstream release (#2400481)
 
 * Fri Apr 17 2026 Simo Sorce <ssorce@redhat.com> - 1.9.1-8

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc7.47
+%define pkgrelease 0.rc7.260610gacb7500801e9.49
 %define kversion 7
-%define tarfile_release 7.1-rc7
+%define tarfile_release 7.1-rc7-56-gacb7500801e9
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.47%{?buildid}%{?dist}
+%define specrelease 0.rc7.260610gacb7500801e9.49%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -284,9 +284,8 @@ Summary: The Linux kernel
 %define with_debuginfo %{?_without_debuginfo: 0} %{?!_without_debuginfo: 1}
 # kernel-abi-stablelists
 %define with_kernel_abi_stablelists %{?_without_kernel_abi_stablelists: 0} %{?!_without_kernel_abi_stablelists: 1}
-# internal samples and selftests -- disabled by default for now due to build
-# error in -next since 20260401 and mainline since 20260415
-%define with_selftests %{?_with_selftests:    1} %{?!_with_selftests:    0}
+# internal samples and selftests
+%define with_selftests %{?_without_selftests: 0} %{?!_without_selftests: 1}
 #
 # Additional options for user-friendly one-off kernel building:
 #
@@ -4847,9 +4846,22 @@ fi\
 #
 #
 %changelog
-* Mon Jun 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.47]
+* Wed Jun 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc7.260610gacb7500801e9.49]
+- New config setting for ARM64 Erratum (Justin M. Forbes)
+- arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU (Shanker Donthineni)
+- arm64: errata: Mitigate TLBI errata on various Arm CPUs (Mark Rutland)
+- arm64: cputype: Add C1-Premium definitions (Mark Rutland)
+- arm64: cputype: Add C1-Ultra definitions (Mark Rutland)
+
+* Wed Jun 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.acb7500801e9.49]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
-- disable selftests by default for now (Thorsten Leemhuis)
+
+* Wed Jun 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.acb7500801e9.48]
+- Linux v7.1.0-0.rc7.acb7500801e9
+
+* Tue Jun 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.2d3090a8aeb5.47]
+- redhat: CONFIG_MODPROBE_PATH: use upstream default (Scott Weaver)
+- Linux v7.1.0-0.rc7.2d3090a8aeb5
 
 * Mon Jun 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.46]
 - Linux v7.1.0-0.rc7

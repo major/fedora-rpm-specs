@@ -1,6 +1,6 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
-%global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
+%undefine _py3_shebang_s
 
 %global gap_pkgname jupyterkernel
 %global gap_upname  JupyterKernel
@@ -21,22 +21,26 @@ BuildSystem:    gap
 BuildOption(install): demos gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-crypting
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-json
-BuildRequires:  gap-pkg-uuid
-BuildRequires:  gap-pkg-zeromqinterface
-BuildRequires:  %{py3_dist jupyter-client}
-BuildRequires:  %{py3_dist notebook}
+BuildRequires:  gap(autodoc) >= 2014.03.27
+BuildRequires:  gap(crypting) >= 0.9
+BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap(io) >= 4.5.4
+BuildRequires:  gap(json) >= 2.0.0
+BuildRequires:  gap(uuid) >= 0.6
+BuildRequires:  gap(zeromqinterface) >= 0.10
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-pkg-crypting
-Requires:       gap-pkg-io
-Requires:       gap-pkg-json
-Requires:       gap-pkg-uuid
-Requires:       gap-pkg-zeromqinterface
+Requires:       gap(crypting) >= 0.9
+Requires:       gap(io) >= 4.5.4
+Requires:       gap(json) >= 2.0.0
+Requires:       gap(uuid) >= 0.6
+Requires:       gap(zeromqinterface) >= 0.10
+Requires:       gap-core >= 4.10
 Requires:       python-jupyter-filesystem
+Requires:       %{py3_dist notebook} >= 5.3
+
+Provides:       gap(jupyterkernel) = %{version}-%{release}
+Provides:       gap(JupyterKernel) = %{version}-%{release}
 
 %description
 This package implements the Jupyter protocol in GAP.

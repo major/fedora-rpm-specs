@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 28af81d1a7479b4e9edddb2fcf8c93f2074bad6b
 %global commitdatestring 2026-05-29 08:55:20 -0600
-%global cosmic_minver 1.0.15
+%global cosmic_minver 1.0.16
 
 Name:           cosmic-osd
-Version: 1.0.15
+Version: 1.0.16
 Release:        %autorelease
 Summary:        OSDs for the COSMIC Desktop Environment
 

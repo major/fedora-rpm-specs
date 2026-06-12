@@ -17,13 +17,16 @@ BuildSystem:    gap
 BuildOption(install): grp lib nr nri tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  parallel
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
 
 Suggests:       xgap
+
+Provides:       gap(SONATA) = %{version}-%{release}
+Provides:       gap(sonata) = %{version}-%{release}
 
 %description
 SONATA stands for "systems of nearrings and their applications".  It provides

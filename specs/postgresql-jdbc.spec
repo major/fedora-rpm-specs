@@ -48,7 +48,7 @@
 
 Summary:        JDBC driver for PostgreSQL
 Name:           postgresql-jdbc
-Version:        42.7.10
+Version:        42.7.11
 Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
@@ -76,10 +76,10 @@ BuildRequires:  postgresql-test-rpm-macros
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 42.7.4-9
 
-Provides:       bundled(mvn(com.ongres.scram:scram-client)) = 3.2
-Provides:       bundled(mvn(com.ongres.scram:scram-common)) = 3.2
-Provides:       bundled(mvn(com.ongres.stringprep:saslprep)) = 2.2
-Provides:       bundled(mvn(com.ongres.stringprep:stringprep)) = 2.2
+Provides:       bundled(mvn(com.ongres.scram:scram-client)) = 3.3
+Provides:       bundled(mvn(com.ongres.scram:scram-common)) = 3.3
+Provides:       bundled(mvn(com.ongres.stringprep:saslprep)) = 2.4
+Provides:       bundled(mvn(com.ongres.stringprep:stringprep)) = 2.4
 
 %description
 PostgreSQL is an advanced Object-Relational database management system. The

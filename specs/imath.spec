@@ -12,6 +12,7 @@ URL:            https://github.com/AcademySoftwareFoundation/Imath
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 Patch0:         imath-disable-python-testPlane.patch
+Patch1:         imath-disable-python-testM44fArray.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc gcc-c++
@@ -52,6 +53,9 @@ Requires:       python3-devel
 %prep
 %setup -n %{srcname}-%{version}
 %patch -P0 -p1
+%ifarch x86_64 && 0%{?rhel} >= 10
+%patch -P1 -p1
+%endif
 
 
 %build

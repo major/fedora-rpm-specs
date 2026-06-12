@@ -16,14 +16,21 @@ ExcludeArch:    %{ix86}
 BuildSystem:    gap
 BuildOption(install): bin example gap tst
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+# For decompressing files in IO_CompressedFile
+Recommends:     bzip2
+Recommends:     gzip
+Recommends:     xz
+
+Provides:       gap(IO) = %{version}-%{release}
+Provides:       gap(io) = %{version}-%{release}
 
 %description
 This GAP package provides a link to the standard UNIX I/O functionality that

@@ -16,10 +16,13 @@ BuildSystem:    gap
 BuildOption(install): examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap-devel >= 4.9
 
-Requires:       gap-core
+Requires:       gap-core >= 4.9
+
+Provides:       gap(Forms) = %{version}-%{release}
+Provides:       gap(forms) = %{version}-%{release}
 
 %description
 This package provides:

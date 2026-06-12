@@ -18,12 +18,15 @@ BuildSystem:    gap
 BuildOption(install): grh htm lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
+BuildRequires:  gap-devel >= 4.11
 BuildRequires:  nauty
 BuildRequires:  tth
 
-Requires:       gap-core
+Requires:       gap-core >= 4.11
 Requires:       nauty
+
+Provides:       gap(GRAPE) = %{version}-%{release}
+Provides:       gap(grape) = %{version}-%{release}
 
 %description
 GRAPE is a package for computing with graphs and groups, and is primarily
@@ -59,9 +62,9 @@ rm -fr nauty2_8_6
 # Link to main GAP documentation
 ln -s %{gap_libdir}/etc ../../etc
 ln -s %{gap_libdir}/doc ../../doc
-pushd doc
+cd doc
 ./make_doc
-popd
+cd -
 rm -f ../../{doc,etc}
 
 %files

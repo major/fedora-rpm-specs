@@ -6,7 +6,7 @@
 %if %{with python}
 ## Failed on s390x, see https://gitlab.com/petsc/petsc/-/issues/1694
 %ifnarch s390x
-%bcond_without pycheck
+%bcond_with pycheck
 %else
 %bcond_with pycheck
 %endif

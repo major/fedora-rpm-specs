@@ -35,7 +35,7 @@ BuildRequires: ghostscript
 BuildRequires: libtool
 BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel 
-BuildRequires: libgit2-devel
+BuildRequires: pkgconfig(libgit2)
 BuildRequires: lzip  
 BuildRequires: curl 
 

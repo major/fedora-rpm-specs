@@ -5,7 +5,7 @@
 %global vintage_version %{version}
 
 Name:           junit5
-Version:        5.13.3
+Version:        5.14.4
 Release:        %autorelease
 Summary:        Java regression testing framework
 License:        EPL-2.0

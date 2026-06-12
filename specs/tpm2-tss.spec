@@ -31,7 +31,6 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: json-c-devel
 BuildRequires: libcurl-devel
-BuildRequires: libgcrypt-devel
 BuildRequires: libusb1-devel
 BuildRequires: openssl-devel
 BuildRequires: pkgconfig

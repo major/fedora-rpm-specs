@@ -16,18 +16,20 @@ BuildSystem:    gap
 BuildOption(install): examples gap notebooks schema tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  elinks
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-json
-BuildRequires:  gap-pkg-jupyterkernel
-BuildRequires:  gap-pkg-uuid
-BuildRequires:  xdg-utils
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(gapdoc) >= 1.6.1
+BuildRequires:  gap(json) >= 2.0.0
+BuildRequires:  gap(jupyterkernel) >= 1.4.1
+BuildRequires:  gap(uuid) >= 0.7
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-pkg-json
-Requires:       gap-pkg-jupyterkernel
-Requires:       gap-pkg-uuid
+Requires:       gap(json) >= 2.0.0
+Requires:       gap(jupyterkernel) >= 1.4.1
+Requires:       gap(uuid) >= 0.7
+Requires:       gap-core >= 4.10
 Requires:       xdg-utils
+
+Provides:       gap(francy) = %{version}-%{release}
 
 %description
 Francy is a package for GAP and provides a framework for Interactive Discrete

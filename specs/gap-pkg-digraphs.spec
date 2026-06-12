@@ -20,29 +20,33 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): bin data gap notebooks tst VERSIONS
 BuildOption(check): tst/teststandard.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-doc
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-datastructures
-BuildRequires:  gap-pkg-grape
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-nautytracesinterface
-BuildRequires:  gap-pkg-orb
+BuildRequires:  GAPDoc-doc >= 1.6.3
+BuildRequires:  gap(autodoc) >= 2020.08.11
+BuildRequires:  gap(datastructures) >= 0.2.5
+BuildRequires:  gap(gapdoc) >= 1.6.3
+BuildRequires:  gap(grape) >= 4.8.1
+BuildRequires:  gap(io) >= 4.5.1
+BuildRequires:  gap(nautytracesinterface) >= 0.2
+BuildRequires:  gap(orb) >= 4.8.2
+BuildRequires:  gap-devel >= 4.11.0
 BuildRequires:  gcc-c++
-BuildRequires:  graphviz
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(libplanarity)
 BuildRequires:  tex(a4wide.sty)
-BuildRequires:  xdg-utils
 
-Requires:       gap-pkg-datastructures%{?_isa}
-Requires:       gap-pkg-io%{?_isa}
-Requires:       gap-pkg-orb%{?_isa}
+Requires:       gap(datastructures) >= 0.2.5
+Requires:       gap(io) >= 4.5.1
+Requires:       gap(orb) >= 4.8.2
+Requires:       gap-core%{?_isa} >= 4.11.0
 
-Recommends:     gap-pkg-grape%{?_isa}
-Recommends:     gap-pkg-nautytracesinterface%{?_isa}
+Recommends:     gap(grape) >= 4.8.1
+Recommends:     gap(nautytracesinterface) >= 0.2
 Recommends:     graphviz
+# gap/display.gi invokes a viewer
+Recommends:     xdg-utils
+
+Provides:       gap(Digraphs) = %{version}-%{release}
+Provides:       gap(digraphs) = %{version}-%{release}
 
 # The bundled copy of bliss has been modified for better integration with GAP
 Provides:       bundled(bliss) = 0.73
@@ -62,7 +66,8 @@ License:        GPL-3.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.
 Summary:        Digraphs documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       GAPDoc-doc
+Requires:       GAPDoc-doc >= 1.6.3
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

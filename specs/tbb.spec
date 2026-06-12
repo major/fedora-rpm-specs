@@ -1,12 +1,12 @@
 # Python docs can no longer be built as of version 2022.1.0 due to requiring
-# sphinx_book_theme, which is not available in Fedora or RHEL
+# sphinx_book_theme, which is not available in RHEL
 
 %global giturl https://github.com/uxlfoundation/oneTBB
 
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
-Version: 2022.3.0
-Release: 4%{?dist}
+Version: 2023.0.0
+Release: 1%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
@@ -79,8 +79,7 @@ Python 3 TBB module.
 %autosetup -p1 -n oneTBB-%{version}
 
 %generate_buildrequires
-cd python
-%pyproject_buildrequires
+%pyproject_buildrequires -d python
 
 %build
 export TBBROOT=$PWD
@@ -95,9 +94,7 @@ export PYTHONPATH=$(sed "s,%{_prefix},$PWD/%{_vpath_builddir}/python/build," <<<
 unset PYTHONPATH
 export LD_LIBRARY_PATH=$(ls -1d $PWD/%{_vpath_builddir}/*relwithdebinfo)
 export LDFLAGS="-L $LD_LIBRARY_PATH %{build_ldflags}"
-cd python
-%pyproject_wheel
-cd -
+%pyproject_wheel -d python
 
 %install
 %cmake_install
@@ -153,6 +150,10 @@ ctest --output-on-failure --force-new-ctest-process
 %doc python/README.md
 
 %changelog
+* Tue Jun 09 2026 Jerry James <loganjerry@gmail.com> - 2023.0.0-1
+- Version 2023.0.0
+- Use new -d argument to %%pyproject macros
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2022.3.0-4
 - Rebuilt for Python 3.15
 

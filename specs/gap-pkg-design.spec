@@ -16,11 +16,16 @@ BuildSystem:    gap
 BuildOption(install): htm lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-grape
+BuildRequires:  gap(gapdoc) >= 1.6
+BuildRequires:  gap(grape) >= 4.8
+BuildRequires:  gap-devel >= 4.10
 BuildRequires:  tth
 
-Requires:       gap-pkg-grape
+Requires:       gap(grape) >= 4.8
+Requires:       gap-core >= 4.10
+
+Provides:       gap(DESIGN) = %{version}-%{release}
+Provides:       gap(design) = %{version}-%{release}
 
 %description
 DESIGN is a package for constructing, classifying, partitioning and studying

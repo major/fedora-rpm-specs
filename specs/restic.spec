@@ -3,7 +3,7 @@
 
 # https://github.com/restic/restic
 %global goipath         github.com/restic/restic
-Version:                0.18.1
+Version:                0.19.0
 
 %gometa -L -f
 

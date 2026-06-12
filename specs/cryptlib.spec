@@ -3,14 +3,14 @@
 %global cryptlibdir %{_libdir}/%{name}
 
 Name:       cryptlib
-Version:    3.4.9.1
-Release:    2%{?dist}
+Version:    3.4.9.2
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cl3491_fedora.zip     
-Source1:    https://senderek.ie/fedora/cl3491_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cl3492_fedora.zip     
+Source1:    https://senderek.ie/fedora/cl3492_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -346,6 +346,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jun 10 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.2-1
+- update Cryptlib to version 3.4.9.2
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.4.9.1-2
 - Rebuilt for Python 3.15
 

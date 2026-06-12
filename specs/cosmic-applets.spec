@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 8981b0b48ec21ac2c93cad56d82b33c6ef705888
 %global commitdatestring 2026-05-29 19:23:45 +0200
-%global cosmic_minver 1.0.15
+%global cosmic_minver 1.0.16
 
 Name:           cosmic-applets
-Version: 1.0.15
+Version: 1.0.16
 Release:        %autorelease
 Summary:        Applets for the COSMIC Desktop Environment
 

@@ -22,7 +22,6 @@ BuildRequires: gawk
 BuildRequires: gnupg2
 %endif
 BuildRequires: libgpg-error-devel >= 1.8
-BuildRequires: libgcrypt-devel >= 1.2.0
 BuildRequires: make
 
 %description

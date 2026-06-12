@@ -12,7 +12,7 @@ The OpenStack Oslo Utility library.
 
 
 Name:           python-oslo-utils
-Version:        10.1.0
+Version:        10.1.1
 Release:        %autorelease
 Summary:        OpenStack Oslo Utility library
 
@@ -146,6 +146,7 @@ rm oslo_utils/tests/test_eventletutils.py
 
 %files -n python3-%{pkg_name}
 %doc README.rst
+%doc ChangeLog
 %license LICENSE
 %{python3_sitelib}/oslo_utils
 %{python3_sitelib}/*.dist-info

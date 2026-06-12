@@ -32,17 +32,13 @@ BuildOption(build): --packagedirs .. --bare -c 'LoadPackage("GAPDoc");'
 BuildOption(install): *.dtd lib styles tst version
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  ghostscript
+BuildRequires:  gap-devel >= 4.11.0
 BuildRequires:  libxml2
-BuildRequires:  tex(amssym.tex)
+BuildRequires:  tex(amssymb.sty)
 BuildRequires:  tex(color.sty)
-BuildRequires:  tex(english.ldf)
 BuildRequires:  tex(enumitem.sty)
 BuildRequires:  tex(fancyvrb.sty)
 BuildRequires:  tex(geometry.sty)
-BuildRequires:  tex(grfext.sty)
-BuildRequires:  tex(pslatex.sty)
 BuildRequires:  tex(tex)
 BuildRequires:  texlive-cm-super
 BuildRequires:  texlive-ec
@@ -53,19 +49,21 @@ BuildRequires:  texlive-rsfs
 BuildRequires:  texlive-symbol
 BuildRequires:  texlive-times
 
-Requires:       gap-core
+Requires:       gap-core >= 4.11.0
 # For xmllint
 Requires:       libxml2
 
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-io-doc
-Requires:       gap-pkg-io
+BuildRequires:  gap-pkg-io-doc >= 4.7
+Requires:       gap(io) >= 4.7
 %endif
 
 %if %{with test}
-BuildRequires:  gap-pkg-browse
+BuildRequires:  gap(browse)
 %endif
 
+Provides:       gap(GAPDoc) = %{version}-%{release}
+Provides:       gap(gapdoc) = %{version}-%{release}
 Provides:       gap-pkg-gapdoc = %{version}-%{release}
 
 %description
@@ -107,15 +105,11 @@ This package provides:
 Summary:        All LaTeX dependencies for GAPDoc
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-Requires:       ghostscript
-Requires:       tex(amssym.tex)
+Requires:       tex(amssymb.sty)
 Requires:       tex(color.sty)
-Requires:       tex(english.ldf)
 Requires:       tex(enumitem.sty)
 Requires:       tex(fancyvrb.sty)
 Requires:       tex(geometry.sty)
-Requires:       tex(grfext.sty)
-Requires:       tex(pslatex.sty)
 Requires:       tex(tex)
 Requires:       texlive-cm-super
 Requires:       texlive-ec
@@ -127,7 +121,7 @@ Requires:       texlive-symbol
 Requires:       texlive-times
 
 # Needed to fetch BibTeX entries from MathSciNet
-Suggests:       gap-pkg-io
+Recommends:     (curl or wget)
 
 %description latex
 This package contains all of the LaTeX dependencies for GAPDoc.  GAP proper
@@ -149,7 +143,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %if %{without bootstrap}
-Requires:       gap-pkg-io-doc
+Requires:       gap-pkg-io-doc >= 4.7
 %endif
 
 %description doc
