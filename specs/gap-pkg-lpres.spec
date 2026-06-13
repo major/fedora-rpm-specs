@@ -16,20 +16,24 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-ace-doc
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-autpgrp
-BuildRequires:  gap-pkg-fga
+BuildRequires:  gap(ace) >= 5.0
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(autpgrp) >= 1.4
+BuildRequires:  gap(fga) >= 1.1.0.1
+BuildRequires:  gap(polycyclic) >= 2.5
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  gap-pkg-nq-doc
-BuildRequires:  gap-pkg-polycyclic-doc
+BuildRequires:  gap-pkg-polycyclic-doc >= 2.5
 
-Requires:       gap-pkg-fga
-Requires:       gap-pkg-polycyclic
+Requires:       gap(fga) >= 1.1.0.1
+Requires:       gap(polycyclic) >= 2.5
+Requires:       gap-core >= 4.9
 
-Recommends:     gap-pkg-ace
-Recommends:     gap-pkg-autpgrp
-Recommends:     gap-pkg-nq
+Recommends:     gap(ace) >= 5.0
+Recommends:     gap(autpgrp) >= 1.4
+Recommends:     gap(nq)
+
+Provides:       gap(lpres) = %{version}-%{release}
 
 %description
 The lpres package provides a first construction of finitely L-presented groups
@@ -53,7 +57,8 @@ this package include:
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        LPRES documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-polycyclic-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-polycyclic-doc >= 2.5
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

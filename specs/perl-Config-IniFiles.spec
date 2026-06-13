@@ -1,12 +1,11 @@
 Name:           perl-Config-IniFiles
-Version:        3.000003
-Release:        18%{?dist}
+Version:        3.001000
+Release:        1%{?dist}
 Summary:        A module for reading .ini-style configuration files
 # LICENSE:                              GPL+ or Artistic
 # lib/Config/IniFiles.pm:               GPL+ or Artistic
 ## Not distributed in a binary package
 # t/30parameters-with-empty-values.t:   MIT
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-IniFiles
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Config-IniFiles-%{version}.tar.gz
@@ -31,6 +30,7 @@ BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(autodie)
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(English)
@@ -78,9 +78,13 @@ perl Build.PL installdirs=vendor
 %license LICENSE
 %doc Changes OLD-Changes.txt README
 %{perl_vendorlib}/Config/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Config::IniFiles.3pm*
 
 %changelog
+* Thu Jun 11 2026 Xavier Bachelot <xavier@bachelot.org> - 3.001000-1
+- Update to 3.001000 (RHBZ#2487822)
+  - Fixes CVE-2026-11527
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.000003-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

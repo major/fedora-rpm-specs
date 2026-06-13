@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc7.260610gacb7500801e9.49
+%define pkgrelease 0.rc7.260611g9716c086c8e8.50
 %define kversion 7
-%define tarfile_release 7.1-rc7-56-gacb7500801e9
+%define tarfile_release 7.1-rc7-65-g9716c086c8e8
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260610gacb7500801e9.49%{?buildid}%{?dist}
+%define specrelease 0.rc7.260611g9716c086c8e8.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -1717,8 +1717,8 @@ This package provides less commonly used kernel modules for the %{?2:%{2} }kerne
 %package %{?1:%{1}-}modules\
 Summary: kernel modules to match the %{?2:%{2}-}core kernel\
 Provides: %{name}%{?1:-%{1}}-modules-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-modules-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}-modules = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -1740,8 +1740,8 @@ This package provides commonly used kernel modules for the %{?2:%{2}-}core kerne
 %package %{?1:%{1}-}modules-core\
 Summary: Core kernel modules to match the %{?2:%{2}-}core kernel\
 Provides: %{name}%{?1:-%{1}}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}-modules-core = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-core = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -3505,7 +3505,7 @@ pushd tools/testing/selftests
 export CFLAGS="%{build_cflags}"
 export CXXFLAGS="%{build_cxxflags}"
 
-%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group nsfs openat2 proc safesetid seccomp tmpfs uevent vDSO" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill net/tcp_ao tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group nsfs openat2 proc safesetid seccomp tmpfs uevent vDSO" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
 
 # Restore the original level of source fortification
 %define _fortify_level %{_fortify_level_bak}
@@ -3936,6 +3936,13 @@ pushd tools/testing/selftests/net/packetdrill
 find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
 find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
 find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
+popd
+
+# install net/tcp_ao selftests
+pushd tools/testing/selftests/net/tcp_ao
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
 popd
 
 # install memfd selftests
@@ -4846,15 +4853,25 @@ fi\
 #
 #
 %changelog
-* Wed Jun 10 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.1.0-0.rc7.260610gacb7500801e9.49]
+* Thu Jun 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.9716c086c8e8.50]
 - New config setting for ARM64 Erratum (Justin M. Forbes)
 - arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU (Shanker Donthineni)
 - arm64: errata: Mitigate TLBI errata on various Arm CPUs (Mark Rutland)
 - arm64: cputype: Add C1-Premium definitions (Mark Rutland)
 - arm64: cputype: Add C1-Ultra definitions (Mark Rutland)
-
-* Wed Jun 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.acb7500801e9.49]
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Thu Jun 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.9716c086c8e8.49]
+- redhat/configs: set NXP storage driver to built-in for boot speed (Ed Chong)
+- kernel.spec.template: add tcp_ao kselftests (Davide Caratti) [RHEL-142637]
+- redhat/configs: Enable CONFIG_SMC_HS_CTRL_BPF for s390x debug kernel (Jan Polensky)
+- redhat/configs: Enable CONFIG_SMC_HS_CTRL_BPF for s390x architecture (Jan Polensky)
+- redhat/configs: Enable CONFIG_DIBS built-in for s390x zfcpdump (Jan Polensky)
+- redhat/configs: Disable CONFIG_DIBS_LO for s390x architecture (Jan Polensky)
+- redhat/configs: Enable CONFIG_DIBS for s390x architecture (Jan Polensky)
+- redhat/kernel.spec: make module and modules-core provides use variant (Jan Stancek)
+- redhat/configs: automotive: enable NXP_SAR_ADC as a module (Jared Kangas)
+- Linux v7.1.0-0.rc7.9716c086c8e8
 
 * Wed Jun 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.acb7500801e9.48]
 - Linux v7.1.0-0.rc7.acb7500801e9

@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.57.4~dev
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 ###############################################################################
 
@@ -166,6 +166,9 @@ Source10: 24-clat-auto.conf
 
 # Keep until next rebase
 Patch1: 0001-nmtui-fix-wrong-use-of-assertions-in-bond-page.patch
+
+# Keep until next rebase, https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/0d0b03e7d3f3082540a0dbc7ec05de835b92563d
+Patch2: 0001-libnm-use-correct-directory-permissions-in-nm_utils_.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -1073,6 +1076,9 @@ fi
 
 
 %changelog
+* Thu Jun 11 2026 Christian Krause <chkr@fedoraproject.org> - 1:1.57.4-3
+- Apply upstream patch to fix strongSwan VPN connection problem (rhbz#2461399)
+
 * Thu Jun 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.57.4-2
 - Rebuilt for new ppp
 

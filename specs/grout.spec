@@ -3,7 +3,7 @@
 
 %global forgeurl https://github.com/DPDK/grout
 %global _lto_cflags %nil
-%global dpdk_version 25.11
+%global dpdk_version 25.11.2
 
 %define dpdk_cpu generic
 %ifarch x86_64
@@ -25,7 +25,7 @@
 %endif
 
 Name: grout
-Version: 0.15.0
+Version: 0.16.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -119,7 +119,7 @@ mv %{SOURCE1} subprojects/packagecache/
 %build
 export GROUT_VERSION=%{version}-%{release}
 %meson -Dfrr=%{?with_frr:enabled}%{!?with_frr:disabled} \
-	-Ddpdk:cpu_instruction_set=%{dpdk_cpu}
+	-Ddpdk_cpu=%{dpdk_cpu}
 %meson_build
 
 %install

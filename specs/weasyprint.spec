@@ -2,8 +2,8 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        68.1
-Release:        2%{?dist}
+Version:        69.0
+Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -19,6 +19,7 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(flit-core)
 # requirements for testing
 BuildRequires:  dejavu-fonts-all
+BuildRequires:  google-noto-emoji-fonts
 BuildRequires:  ghostscript
 # https://doc.courtbouillon.org/weasyprint/latest/first_steps.html
 BuildRequires:  pango >= 1.44.0
@@ -76,6 +77,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Thu Jun 11 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 69.0-1
+- update to 69.0
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 68.1-2
 - Rebuilt for Python 3.15
 

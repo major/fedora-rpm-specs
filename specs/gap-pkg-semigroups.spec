@@ -2,10 +2,10 @@
 %global giturl      https://github.com/semigroups/Semigroups
 
 # The standard test suite now regularly consumes on the order of 30GB of
-# memory.  This is more than the 32-bit builders can access, and more than even
-# some of the 64-bit builders have available (depending on what else is running
-# on the same machine).  We skip that test suite.  Brave package maintainers
-# with sufficient RAM should build --with-bigtest.
+# memory.  This is more than some of the 64-bit builders have available
+# (depending on what else is running on the same machine).  We skip that test
+# suite.  Brave package maintainers with sufficient RAM should build
+# --with-bigtest.
 %bcond bigtest 0
 
 Name:           gap-pkg-%{gap_pkgname}
@@ -25,16 +25,20 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): bin data gap tst .LIBSEMIGROUPS_VERSION
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-datastructures
-BuildRequires:  gap-pkg-digraphs-doc
-BuildRequires:  gap-pkg-ferret
-BuildRequires:  gap-pkg-genss
-BuildRequires:  gap-pkg-grape
-BuildRequires:  gap-pkg-images-doc
-BuildRequires:  gap-pkg-io-doc
-BuildRequires:  gap-pkg-orb
+BuildRequires:  gap(autodoc) >= 2020.08.11
+BuildRequires:  gap(datastructures) >= 0.3.0
+BuildRequires:  gap(digraphs) >= 1.6.2
+BuildRequires:  gap(ferret)
+BuildRequires:  gap(gapdoc) >= 1.6.3
+BuildRequires:  gap(genss) >= 1.6.5
+BuildRequires:  gap(grape)
+BuildRequires:  gap(images) >= 1.3.1
+BuildRequires:  gap(io) >= 4.5.1
+BuildRequires:  gap(orb) >= 4.8.2
+BuildRequires:  gap-devel >= 4.12.1
+BuildRequires:  gap-pkg-digraphs-doc >= 1.6.2
+BuildRequires:  gap-pkg-images-doc >= 1.3.1
+BuildRequires:  gap-pkg-io-doc >= 4.5.1
 BuildRequires:  gap-pkg-smallsemi-doc
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -47,14 +51,18 @@ BuildRequires:  tex(a4wide.sty)
 BuildRequires:  pkgconfig(hpcombi)
 %endif
 
-Requires:       gap-pkg-datastructures%{?_isa}
-Requires:       gap-pkg-digraphs%{?_isa}
-Requires:       gap-pkg-genss
-Requires:       gap-pkg-images
-Requires:       gap-pkg-io%{?_isa}
-Requires:       gap-pkg-orb%{?_isa}
+Requires:       gap(datastructures) >= 0.3.0
+Requires:       gap(digraphs) >= 1.6.2
+Requires:       gap(genss) >= 1.6.5
+Requires:       gap(images) >= 1.3.1
+Requires:       gap(io) >= 4.5.1
+Requires:       gap(orb) >= 4.8.2
+Requires:       gap-core%{?_isa} >= 4.12.1
 
-Suggests:       gap-pkg-grape%{?_isa}
+Suggests:       gap(grape)
+
+Provides:       gap(Semigroups) = %{version}-%{release}
+Provides:       gap(semigroups) = %{version}-%{release}
 
 %description
 This is a GAP package containing methods for semigroups, monoids, and inverse
@@ -91,9 +99,10 @@ Summary:        Semigraphs documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
-Requires:       gap-pkg-digraphs-doc
-Requires:       gap-pkg-images-doc
-Requires:       gap-pkg-io-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-digraphs-doc >= 1.6.2
+Requires:       gap-pkg-images-doc >= 1.3.1
+Requires:       gap-pkg-io-doc >= 4.5.1
 Requires:       gap-pkg-smallsemi-doc
 
 %description doc

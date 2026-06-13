@@ -20,17 +20,17 @@ BuildSystem:    gap
 BuildOption(install): bin lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(atlasrep)
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(io)
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++
-BuildRequires:  libtool
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(ferret) = %{version}-%{release}
 
 %description
 Ferret is a reimplementation of parts of Jeffery Leon's Partition Backtrack
@@ -64,6 +64,7 @@ License:        MPL-2.0 AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Ferret documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

@@ -32,48 +32,51 @@ BuildOption(install): boolean date lib tst tutorial version www
 BuildOption(check): -o 3G tst/testquick.g
 
 BuildRequires:  asymptote
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-aclib
-BuildRequires:  gap-pkg-congruence
-BuildRequires:  gap-pkg-crystcat
-BuildRequires:  gap-pkg-edim
-BuildRequires:  gap-pkg-fga
+BuildRequires:  gap(aclib) >= 1.1
+BuildRequires:  gap(congruence) >= 0.0
+BuildRequires:  gap(crystcat) >= 1.1
+BuildRequires:  gap(edim) >= 1.2.2
+BuildRequires:  gap(fga) >= 1.1
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-hapcryst
+BuildRequires:  gap(hapcryst) >= 0.1.0
 %endif
-BuildRequires:  gap-pkg-laguna
-BuildRequires:  gap-pkg-nq
-BuildRequires:  gap-pkg-polycyclic
-BuildRequires:  gap-pkg-polymaking
-BuildRequires:  gap-pkg-singular
-BuildRequires:  gap-pkg-smallgrp
-BuildRequires:  graphviz
-BuildRequires:  ImageMagick
-BuildRequires:  perl-generators
+BuildRequires:  gap(laguna) > 0.0
+BuildRequires:  gap(nq) >= 1.1
+BuildRequires:  gap(polycyclic) >= 1.1
+BuildRequires:  gap(polymaking) >= 0.8.4
+BuildRequires:  gap(singular) >= 06.07.23
+BuildRequires:  gap(smallgrp) >= 1.1
+BuildRequires:  gap-devel >= 4.12
+BuildRequires:  perl-interpreter
 BuildRequires:  xdg-utils
 
+# chmod, date, ls, mv, rm and sleep are invoked
 Requires:       coreutils
-Requires:       gap-pkg-aclib
-Requires:       gap-pkg-crystcat
-Requires:       gap-pkg-fga
-Requires:       gap-pkg-nq
-Requires:       gap-pkg-polycyclic
-Requires:       gap-pkg-polymaking
-Requires:       gap-pkg-smallgrp
+Requires:       gap(aclib) >= 1.1
+Requires:       gap(crystcat) >= 1.1
+Requires:       gap(fga) >= 1.1
+Requires:       gap(nq) >= 1.1
+Requires:       gap(polycyclic) >= 1.1
+Requires:       gap(polymaking) >= 0.8.4
+Requires:       gap(smallgrp) >= 1.1
+Requires:       gap-core >= 4.12
 Requires:       xdg-utils
 
+Recommends:     ImageMagick
 Recommends:     asymptote
-Recommends:     gap-pkg-congruence
-Recommends:     gap-pkg-edim
-Recommends:     gap-pkg-laguna
-Recommends:     gap-pkg-singular
+Recommends:     gap(congruence) >= 0.0
+Recommends:     gap(edim) >= 1.2.2
+Recommends:     gap(laguna) > 0.0
+Recommends:     gap(singular) >= 06.07.23
+Recommends:     graphviz
+Recommends:     perl-interpreter
 
-Suggests:       gap-pkg-hapcryst
-Suggests:       gap-pkg-xmod
-Suggests:       graphviz
-Suggests:       ImageMagick
+Suggests:       gap(HAPcryst) >= 0.1.0
+Suggests:       gap(xmod) > 0.0
 Suggests:       openssh-clients
+
+Provides:       gap(HAP) = %{version}-%{release}
+Provides:       gap(hap) = %{version}-%{release}
 
 %description
 HAP is a homological algebra library for use with the GAP computer algebra

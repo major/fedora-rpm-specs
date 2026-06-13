@@ -16,24 +16,30 @@ BuildSystem:    gap
 BuildOption(install): examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-cvec
-BuildRequires:  gap-pkg-design
-BuildRequires:  gap-pkg-forms
-BuildRequires:  gap-pkg-genss
-BuildRequires:  gap-pkg-grape
-BuildRequires:  gap-pkg-orb
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(cvec) >= 2.7.6
+BuildRequires:  gap(design)
+BuildRequires:  gap(forms) >= 1.2.5
+BuildRequires:  gap(gapdoc) >= 1.6.3
+BuildRequires:  gap(genss) >= 1.6.6
+BuildRequires:  gap(grape) >= 4.8.2
+BuildRequires:  gap(orb) >= 4.8.3
+BuildRequires:  gap-devel >= 4.10
 BuildRequires:  tex(makecell.sty)
 
-Requires:       gap-pkg-cvec
-Requires:       gap-pkg-forms
-Requires:       gap-pkg-genss
-Requires:       gap-pkg-grape
-Requires:       gap-pkg-orb
+Requires:       gap(cvec) >= 2.7.6
+Requires:       gap(forms) >= 1.2.5
+Requires:       gap(genss) >= 1.6.6
+Requires:       gap(grape) >= 4.8.2
+Requires:       gap(orb) >= 4.8.3
+Requires:       gap-core >= 4.10
 
-Recommends:     gap-pkg-design
+Recommends:     gap(design)
+Recommends:     graphviz
+Recommends:     which
+
+Provides:       gap(FinInG) = %{version}-%{release}
+Provides:       gap(fining) = %{version}-%{release}
 
 %description
 FinInG is a GAP package for computation in Finite Incidence Geometry developed

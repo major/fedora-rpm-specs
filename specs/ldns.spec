@@ -29,18 +29,17 @@
 
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
-Version: 1.9.0
+Version: 1.9.2
 Release: %autorelease
 
 License: BSD-3-Clause
-Url: https://www.nlnetlabs.nl/%{name}/
+Url: https://www.nlnetlabs.nl/ldns/
 Vcs: git:%{forgeurl}
 Source0: %{downloadurl}/%{name}-%{version}.tar.gz
 Source1: %{downloadurl}/%{name}-%{version}.tar.gz.asc
-# Willem Toorop, https://www.nlnetlabs.nl/people/
-Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/DC34EE5DB2417BCC151E5100E5F8F8212F77A498#/wtoorop.asc
+# https://nlnetlabs.nl/downloads/keys/releases-g2.asc
+Source2: nlnetlabs2026-g2.asc
 Patch1: ldns-1.7.0-multilib.patch
-Patch2: ldns-1.9.0-CVE-2026-10846.patch
 
 # https://github.com/NLnetLabs/ldns/pull/288
 Patch8: ldns-1.9-std23-bool.patch
@@ -52,11 +51,7 @@ BuildRequires: autoconf-archive
 
 BuildRequires: gcc, make
 BuildRequires: libpcap-devel
-%if %{with dane_ta}
 BuildRequires: openssl-devel >= 1.1.0
-%else
-BuildRequires: openssl-devel >= 1.0.2k
-%endif
 BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: gnupg2

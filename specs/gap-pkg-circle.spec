@@ -17,12 +17,15 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-laguna
 BuildRequires:  GAPDoc-latex
-BuildRequires:  tth
+BuildRequires:  gap(gapdoc) >= 1.5.1
+BuildRequires:  gap(laguna)
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-core
+Requires:       gap-core >= 4.8
+
+Provides:       gap(Circle) = %{version}-%{release}
+Provides:       gap(circle) = %{version}-%{release}
 
 %description
 Let R be an associative ring, not necessarily with a unit element.  The set of

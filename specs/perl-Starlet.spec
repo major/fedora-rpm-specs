@@ -1,36 +1,41 @@
 Name:           perl-Starlet
-Version:        0.31
-Release:        28%{?dist}
+Version:        0.32
+Release:        1%{?dist}
 Summary:        Simple, high-performance PSGI/Plack HTTP server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Starlet
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Starlet-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  %{__perl}
-BuildRequires:  %{__make}
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  /usr/bin/start_server
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.59
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTTP::Date)
+BuildRequires:  perl(HTTP::Message::PSGI)
+BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Status)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(LWP::UserAgent) >= 5.8
 BuildRequires:  perl(Net::EmptyPort)
-BuildRequires:  perl(Parallel::Prefork) >= 0.17
+BuildRequires:  perl(Parallel::Prefork) >= 0.18
 BuildRequires:  perl(Plack) >= 0.992
 BuildRequires:  perl(Plack::HTTPParser)
 BuildRequires:  perl(Plack::Loader)
 BuildRequires:  perl(Plack::TempBuffer)
 BuildRequires:  perl(Plack::Test)
+BuildRequires:  perl(Plack::Test::Server)
 BuildRequires:  perl(Plack::Util)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Server::Starter) >= 0.06
@@ -55,10 +60,10 @@ running HTTP application servers behind a reverse proxy.
 %prep
 %setup -q -n Starlet-%{version}
 rm -r inc/
-sed -i -e '/^inc\/.*$/d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -70,10 +75,15 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Plack*
+%{perl_vendorlib}/Starlet*
+%{_mandir}/man3/Starlet*
 
 %changelog
+* Thu Jun 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.32-1
+- 0.32 bump (rhbz#2483211)
+- Fix CVE-2026-40561 (prevent HTTP request smuggling)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

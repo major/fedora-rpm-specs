@@ -21,25 +21,31 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-aclib
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-caratinterface
-BuildRequires:  gap-pkg-cryst
-BuildRequires:  gap-pkg-crystcat
-BuildRequires:  gap-pkg-hap
-BuildRequires:  gap-pkg-nq
-BuildRequires:  gap-pkg-polycyclic
-BuildRequires:  gap-pkg-polymaking-doc
+BuildRequires:  gap(aclib) >= 1.1
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(caratinterface) >= 1.1
+BuildRequires:  gap(cryst) >= 4.1.5
+BuildRequires:  gap(crystcat) >= 1.1.2
+BuildRequires:  gap(gapdoc) >= 0.99
+BuildRequires:  gap(hap) >= 1.8
+BuildRequires:  gap(nq)
+BuildRequires:  gap(polycyclic) >= 2.8.1
+BuildRequires:  gap(polymaking) >= 0.8.6
+BuildRequires:  gap-devel >= 4.12
+BuildRequires:  gap-pkg-polymaking-doc >= 0.8.6
 
-Requires:       gap-pkg-aclib
-Requires:       gap-pkg-cryst
-Requires:       gap-pkg-hap
-Requires:       gap-pkg-polycyclic
-Requires:       gap-pkg-polymaking
+Requires:       gap(aclib) >= 1.1
+Requires:       gap(cryst) >= 4.1.5
+Requires:       gap(hap) >= 1.8
+Requires:       gap(polycyclic) >= 2.8.1
+Requires:       gap(polymaking) >= 0.8.6
+Requires:       gap-core >= 4.12
 
-Recommends:     gap-pkg-caratinterface
-Recommends:     gap-pkg-crystcat
+Recommends:     gap(caratinterface) >= 1.1
+Recommends:     gap(crystcat) >= 1.1.2
+
+Provides:       gap(HAPcryst) = %{version}-%{release}
+Provides:       gap(hapcryst) = %{version}-%{release}
 
 %description
 This package is an add-on for Graham Ellis' HAP package.  HAPcryst implements
@@ -58,6 +64,7 @@ License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-l
 Summary:        HAPcryst documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
+Requires:       gap-pkg-polymaking-doc >= 0.8.6
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

@@ -28,29 +28,40 @@ BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): data dlnames gap4 htm tst
 
-BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-atlasrep-doc
-BuildRequires:  gap-pkg-browse-doc
-BuildRequires:  gap-pkg-cohomolo
-BuildRequires:  gap-pkg-grpconst
-BuildRequires:  gap-pkg-smallgrp-doc
+BuildRequires:  gap(atlasrep) >= 2.1
+BuildRequires:  gap(browse) >= 1.8.10
+BuildRequires:  gap(cohomolo)
+BuildRequires:  gap(gapdoc) >= 1.6.2
+BuildRequires:  gap(grpconst)
+BuildRequires:  gap(primgrp) >= 1.0
+BuildRequires:  gap(smallgrp) >= 1.0
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-spinsym
+BuildRequires:  gap(spinsym) >= 1.5
 %endif
-BuildRequires:  gap-pkg-tomlib-doc
+BuildRequires:  gap(tomlib) >= 1.0
+BuildRequires:  gap(transgrp) >= 1.0
+BuildRequires:  gap-devel >= 4.13.0
+BuildRequires:  gap-pkg-atlasrep-doc >= 2.1
+BuildRequires:  gap-pkg-browse-doc >= 1.8.10
+BuildRequires:  gap-pkg-smallgrp-doc >= 1.0
+BuildRequires:  gap-pkg-tomlib-doc >= 1.0
 BuildRequires:  netpbm-progs
 BuildRequires:  parallel
 BuildRequires:  tex(epic.sty)
 
-Requires:       gap-pkg-atlasrep
+Requires:       gap(atlasrep) >= 2.1
+Requires:       gap-core >= 4.13.0
 
-Recommends:     gap-pkg-browse
-Recommends:     gap-pkg-primgrp
-Recommends:     gap-pkg-smallgrp
-Recommends:     gap-pkg-spinsym
-Recommends:     gap-pkg-tomlib
-Recommends:     gap-pkg-transgrp
+Recommends:     gap(browse) >= 1.8.10
+Recommends:     gap(primgrp) >= 1.0
+Recommends:     gap(smallgrp) >= 1.0
+Recommends:     gap(spinsym) >= 1.5
+Recommends:     gap(tomlib) >= 1.0
+Recommends:     gap(transgrp) >= 1.0
+
+Provides:       gap(CTblLib) = %{version}-%{release}
+Provides:       gap(ctbllib) = %{version}-%{release}
 
 %description
 This package provides the Character Table Library by Thomas Breuer.
@@ -68,10 +79,11 @@ This package provides the Character Table Library by Thomas Breuer.
 License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.3a AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Character Table Library documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-atlasrep-doc
-Requires:       gap-pkg-browse-doc
-Requires:       gap-pkg-smallgrp-doc
-Requires:       gap-pkg-tomlib-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-atlasrep-doc >= 2.1
+Requires:       gap-pkg-browse-doc >= 1.8.10
+Requires:       gap-pkg-smallgrp-doc >= 1.0
+Requires:       gap-pkg-tomlib-doc >= 1.0
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

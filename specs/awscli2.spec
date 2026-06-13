@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.34.29
+Version:            2.35.0
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -27,6 +27,8 @@ Patch5:             python314.patch
 Patch6:             prompt-toolkit-3.0.52.patch
 # fix Python 3.15 incompatibilities
 Patch7:             python315.patch
+# update expected CRT-optimized platforms to match awscrt >= 0.34
+Patch8:             awscrt-platforms.patch
 
 BuildArch:          noarch
 

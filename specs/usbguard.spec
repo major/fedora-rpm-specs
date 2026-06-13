@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -28,7 +28,7 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: libqb-devel
-BuildRequires: libgcrypt-devel
+BuildRequires: openssl-devel
 BuildRequires: libstdc++-devel
 BuildRequires: protobuf-devel protobuf-compiler
 BuildRequires: PEGTL-static
@@ -120,7 +120,7 @@ autoreconf -i -v --no-recursive ./
     --enable-systemd \
     --with-dbus \
     --with-polkit \
-    --with-crypto-library=gcrypt \
+    --with-crypto-library=openssl \
     --disable-catch
 
 make %{?_smp_mflags}
@@ -227,6 +227,9 @@ fi
 
 
 %changelog
+* Wed Jun 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.4-3
+- Use openssl for crypto
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 1.1.4-2
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

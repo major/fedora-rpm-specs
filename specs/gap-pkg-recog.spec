@@ -17,21 +17,22 @@ BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(install): contrib examples gap tst
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-factint
-BuildRequires:  gap-pkg-forms
-BuildRequires:  gap-pkg-genss
-BuildRequires:  gap-pkg-orb
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(atlasrep) >= 2.1.0
+BuildRequires:  gap(autodoc) >= 2019.07.03
+BuildRequires:  gap(factint) >= 1.6.3
+BuildRequires:  gap(forms) >= 1.2.11
+BuildRequires:  gap(genss) >= 1.6.8
+BuildRequires:  gap(orb) >= 4.9.0
+BuildRequires:  gap-devel >= 4.13
 
-Requires:       gap-pkg-atlasrep
-Requires:       gap-pkg-factint
-Requires:       gap-pkg-forms
-Requires:       gap-pkg-genss
-Requires:       gap-pkg-orb
+Requires:       gap(atlasrep) >= 2.1.0
+Requires:       gap(factint) >= 1.6.3
+Requires:       gap(forms) >= 1.2.11
+Requires:       gap(genss) >= 1.6.8
+Requires:       gap(orb) >= 4.9.0
+Requires:       gap-core >= 4.13
+
+Provides:       gap(recog) = %{version}-%{release}
 
 %description
 This is a GAP package for group recognition.

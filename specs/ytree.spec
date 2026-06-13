@@ -1,8 +1,6 @@
-%global debug_package %{nil}
-
-Summary:	A filemanager similar to XTree
+Summary:	A file manager similar to XTree
 Name:		ytree
-Version:	2.12
+Version:	2.13
 Release:	%autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -23,13 +21,17 @@ A console based file manager in the tradition of Xtree.
 %make_build
 
 %install
-install -m644 -D -p ytree.1 $RPM_BUILD_ROOT/%{_mandir}/man1/ytree.1
-install -m755 -D -p ytree $RPM_BUILD_ROOT/%{_bindir}/ytree
+install -D -p -m 0755 ytree %{buildroot}%{_bindir}/ytree
+install -D -p -m 0644 ytree.1 %{buildroot}%{_mandir}/man1/ytree.1
 
-%files 
-%doc CHANGES COPYING README THANKS ytree.conf
-%doc %{_mandir}/man1/ytree.1.gz
+%files
+%license COPYING
+%doc CHANGES README THANKS ytree.conf
 %{_bindir}/ytree
+%{_mandir}/man1/ytree.1*
+
+%check
+%{buildroot}%{_bindir}/ytree -v 2>&1 | grep -q Usage
 
 %changelog
 %autochangelog

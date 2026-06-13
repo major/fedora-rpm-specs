@@ -16,16 +16,21 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-polycyclic
-BuildRequires:  gap-pkg-utils
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5.1
+BuildRequires:  gap(io) >= 4.4.5
+BuildRequires:  gap(polycyclic) >= 2.11
+BuildRequires:  gap(utils) >= 0.40
+BuildRequires:  gap-devel >= 4.11.1
 
-Requires:       gap-pkg-polycyclic
-Requires:       gap-pkg-utils
+Requires:       gap(polycyclic) >= 2.11
+Requires:       gap(utils) >= 0.40
+Requires:       gap-core >= 4.11.1
 
-Recommends:     gap-pkg-io
+Recommends:     gap(io) >= 4.4.5
+
+Provides:       gap(ResClasses) = %{version}-%{release}
+Provides:       gap(resclasses) = %{version}-%{release}
 
 %description
 ResClasses is a GAP package for set-theoretic computations with residue

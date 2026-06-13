@@ -14,8 +14,8 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302219
-Release:        2%{?dist}
+Version:        1.302220
+Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -409,6 +409,14 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 11 2026 Paul Howarth <paul@city-fan.org> - 3:1.302220-1
+- Update to 1.302220
+  - Add [PruneCruft] to dist.ini so build artifacts (blib/, pm_to_blib,
+    MYMETA.*) no longer leak into release tarballs
+  - Remove Net::BitTorrent from broken list
+  - Amend tests to adapt to more accurate line number reporting in core
+    (GH#1080)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302219-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

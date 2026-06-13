@@ -47,7 +47,10 @@ URL:            https://asciinema.org
 Source:         https://github.com/asciinema/asciinema/archive/v%{version}/asciinema-%{version}.tar.gz
 
 # Update avt dependency from 0.17 to 0.18.0
-Patch:      update-avt-from-0.17-to-0.18.0.patch
+Patch:          update-avt-from-0.17-to-0.18.0.patch
+
+# Update tokio-tungstenite dependency from 0.28 to 0.29
+Patch:          update-tokio-tungstenite-from-0.28-to-0.29.patch
 
 BuildRequires:  cargo-rpm-macros
 

@@ -73,6 +73,7 @@ BuildRequires: readline-devel
 BuildRequires: gettext
 BuildRequires: gcc-c++
 BuildRequires: make
+BuildRequires: dos2unix
 BuildRequires: cliquer-devel
 BuildRequires: fdupes
 %ifnarch %{ix86}
@@ -201,7 +202,7 @@ with Giac computations.
 rm -f configure.ac
 cp -p %{SOURCE2} configure.ac
 
-dos2unix configure.ac
+dos2unix -k configure.ac
 %autopatch -p1
 
 # Remove local intl (already bundled in fedora)

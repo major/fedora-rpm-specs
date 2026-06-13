@@ -17,22 +17,24 @@ BuildSystem:    gap
 BuildOption(install): examples lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-autpgrp
-BuildRequires:  gap-pkg-groupoids
-BuildRequires:  gap-pkg-hap
-BuildRequires:  gap-pkg-nq
-BuildRequires:  gap-pkg-polymaking
-BuildRequires:  gap-pkg-smallgrp
-BuildRequires:  gap-pkg-utils
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(autpgrp) >= 1.10.2
+BuildRequires:  gap(groupoids) >= 1.78
+BuildRequires:  gap(hap) >= 1.29
+BuildRequires:  gap(smallgrp) >= 1.4.2
+BuildRequires:  gap(utils) >= 0.81
+BuildRequires:  gap-devel >= 4.11.0
 BuildRequires:  tex(xy.sty)
 
-Requires:       gap-pkg-autpgrp
-Requires:       gap-pkg-groupoids
-Requires:       gap-pkg-hap
-Requires:       gap-pkg-smallgrp
-Requires:       gap-pkg-utils
+Requires:       gap(autpgrp) >= 1.10.2
+Requires:       gap(groupoids) >= 1.78
+Requires:       gap(hap) >= 1.29
+Requires:       gap(smallgrp) >= 1.42
+Requires:       gap(utils) >= 0.81
+Requires:       gap-core >= 4.11.0
+
+Provides:       gap(xmod) = %{version}-%{release}
+Provides:       gap(XMod) = %{version}-%{release}
 
 %description
 This package allows for computation with crossed modules, cat1-groups,
@@ -54,7 +56,7 @@ crossed modules was added.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        XMod documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       GAPDoc-doc
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

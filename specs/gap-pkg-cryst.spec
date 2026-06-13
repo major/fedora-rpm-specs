@@ -24,22 +24,28 @@ BuildSystem:    gap
 BuildOption(install): gap grp htm tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-caratinterface
-BuildRequires:  gap-pkg-polenta
-BuildRequires:  gap-pkg-polycyclic
+BuildRequires:  gap(caratinterface) >= 2.3.3
+BuildRequires:  gap(polycyclic) >= 2.16
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  tth
 
 # For testing only
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-crystcat
+BuildRequires:  gap(crystcat) >= 1.1.9
+BuildRequires:  gap(polenta) >= 1.3.10
 %endif
 
-Requires:       gap-pkg-caratinterface
-Requires:       gap-pkg-polenta
-Requires:       gap-pkg-polycyclic
+Requires:       gap(polenta) >= 1.3.10
+Requires:       gap(polycyclic) >= 2.16
+Requires:       gap-core >= 4.12
 
-Suggests:       xgap
+Recommends:     gap(caratinterface) >= 2.3.3
+Recommends:     gap(crystcat) >= 1.1.9
+
+Suggests:       gap(xgap) >= 4.22
+
+Provides:       gap(Cryst) = %{version}-%{release}
+Provides:       gap(cryst) = %{version}-%{release}
 
 %description
 The GAP 4 package Cryst, previously known as CrystGAP, is the successor of the

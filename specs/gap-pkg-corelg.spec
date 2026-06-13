@@ -16,14 +16,18 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-singular
-BuildRequires:  gap-pkg-sla
+BuildRequires:  gap(autodoc) >= 2019.04.10
+BuildRequires:  gap(singular)
+BuildRequires:  gap(sla) >= 1.5
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-pkg-sla
+Requires:       gap(sla) >= 1.5
+Requires:       gap-core >= 4.8
 
-Recommends:     gap-pkg-singular
+Recommends:     gap(singular)
+
+Provides:       gap(CoReLG) = %{version}-%{release}
+Provides:       gap(corelg) = %{version}-%{release}
 
 %description
 The main object of the CoReLG package is to provide functionality for

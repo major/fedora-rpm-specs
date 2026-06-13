@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.7.2
+%global musescore_ver             4.7.3
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -11,23 +11,23 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           40%{?dist}
+%global mscore_font_rel           41%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       40%{?dist}
+%global mscoretext_font_rel       41%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    40%{?dist}
+%global musescoreicon_font_rel    41%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         40%{?dist}
+%global mscorebc_font_rel         41%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 40%{?dist}
+%global mscoretabulature_font_rel 41%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         40%{?dist}
+%global musejazz_font_rel         41%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        40%{?dist}
+%global gootville_font_rel        41%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   40%{?dist}
+%global gootville_text_font_rel   41%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             40%{?dist}
+%global soundfont_rel             41%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
@@ -63,8 +63,6 @@ Release:        1%{?dist}
 # - code from the utf8cpp header-only library
 # BSD-2-Clause
 # - code from the picojson header-only library
-# Unlicense OR MIT-0
-# - code from the dr_libs header-only library
 # Unlicense OR MIT
 # - code from the stb_vorbis header-only library
 License:      %{shrink:
@@ -76,7 +74,6 @@ License:      %{shrink:
                 LGPL-2.1-or-later AND
                 MIT AND
                 BSD-2-Clause AND
-                (Unlicense OR MIT-0) AND
                 (Unlicense OR MIT)
 		}
 URL:            https://musescore.org/
@@ -221,7 +218,7 @@ Source7:        65-%{fontpkgname7}.conf
 Source8:        65-%{fontpkgname8}.conf
 Source9:        65-%{fontpkgname9}.conf
 
-# Unbundle dr_libs, fdk-aac, ffmpeg, gtest, liblouis, and stb.
+# Unbundle fdk-aac, ffmpeg, gtest, liblouis, and stb.
 # We cannot unbundle KDDockWidgets because the Fedora package builds the
 # QtWidgets version, but MuseScore needs the QtQuick version.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2227098
@@ -267,7 +264,6 @@ BuildOption(conf): -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF
 BuildOption(conf): -DMUSE_MODULE_NETWORK_WEBSOCKET:BOOL=ON
 BuildOption(conf): -DMUSE_MODULE_VST:BOOL=ON
 
-BuildRequires:  cmake(GTest)
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core)
@@ -290,7 +286,6 @@ BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
-BuildRequires:  dr_libs-static
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  font(bravura)
 BuildRequires:  font(bravuratext)
@@ -314,7 +309,6 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(fdk-aac)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(gmock)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(libopusenc)
@@ -324,7 +318,6 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(mnxdom)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(pugixml)
-BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  qt6-doctools
 BuildRequires:  stb_vorbis-static
 BuildRequires:  utf8cpp-static
@@ -773,6 +766,10 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Thu Jun 11 2026 Jerry James <loganjerry@gmail.com> - 4.7.3-1
+- Version 4.7.3
+- Drop unneeded BuildRequires: dr_libs, gtest, libsndfile
+
 * Tue May 26 2026 Jerry James  <loganjerry@gmail.com> - 4.7.2-1
 - Version 4.7.2
 - Use the cmake declarative buildsystem

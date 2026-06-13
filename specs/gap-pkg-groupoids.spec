@@ -17,17 +17,20 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-fga
-BuildRequires:  gap-pkg-semigroups
-BuildRequires:  gap-pkg-utils
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(fga) >= 1.4.0
+BuildRequires:  gap(semigroups) >= 3.1.1
+BuildRequires:  gap(utils) >= 0.76
+BuildRequires:  gap-devel >= 4.10.1
 BuildRequires:  tex(xy.sty)
 
-Requires:       gap-pkg-fga
-Requires:       gap-pkg-utils
+Requires:       gap(fga) >= 1.4.0
+Requires:       gap(utils) >= 0.76
+Requires:       gap-core >= 4.10.1
 
-Recommends:     gap-pkg-semigroups
+Recommends:     gap(semigroups) >= 3.1.1
+
+Provides:       gap(groupoids) = %{version}-%{release}
 
 %description
 The Groupoids package provides functions for computation with finite groupoids
@@ -58,7 +61,7 @@ when the vertex groups come with their own rewriting systems.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Groupoids documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       GAPDoc-doc
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

@@ -91,7 +91,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 
 Summary:        HIP random number generator
@@ -221,6 +221,13 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
 %endif
 
+%if %{with test}
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/test_hiprand_api
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/test_hiprand_cpp_wrapper
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/test_hiprand_kernel
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/test_hiprand_linkage
+%endif
+
 %endif
 
 %check
@@ -258,6 +265,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Jun 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Fix rpath for tests
+
 * Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Generate suse package names
 

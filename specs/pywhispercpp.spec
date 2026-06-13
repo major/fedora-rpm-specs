@@ -1,9 +1,9 @@
 %global pypi_name pywhispercpp
-%global whispercpp_version 1.8.2
+%global whispercpp_version 1.8.4
 
 Name:           %{pypi_name}
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Python bindings for whisper.cpp with a simple Pythonic API
 # Architecture-specific due to C/C++ extensions
 ExcludeArch: %{ix86}
@@ -65,8 +65,8 @@ export NO_REPAIR=1
 
 # Remove rpath from libraries
 chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/_pywhispercpp*.so
-chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/libggml-cpu.so
-chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/libggml.so
+chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/libggml-cpu.so*
+chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/libggml.so*
 chrpath --replace '$ORIGIN' %{buildroot}%{python3_sitearch}/libwhisper.so.1
 
 # Remove unversioned and full-version libwhisper symlinks installed by upstream
@@ -79,6 +79,10 @@ rm -rf %{buildroot}%{_bindir}/pwcpp-assistant
 rm -rf %{buildroot}%{_bindir}/pwcpp-recording
 rm -rf %{buildroot}%{_bindir}/pwcpp-livestream
 
+# BZ#2453825 setuptool_scm 10.x: remove generated version file and its bytecode
+rm -rf %{buildroot}%{python3_sitearch}/_version.*
+rm -rf %{buildroot}%{python3_sitearch}/__pycache__/_version.*
+
 %check
 # Not importing examples as it requires python-sounddevice & python-ffmpeg packages (missing in fedora)
 %pyproject_check_import -e "pywhispercpp.examples*"
@@ -89,10 +93,14 @@ rm -rf %{buildroot}%{_bindir}/pwcpp-livestream
 %license LICENSE
 %doc README.md
 %{_bindir}/pwcpp*
-%{python3_sitearch}/libggml*.so
+%{python3_sitearch}/libggml*.so*
 %{python3_sitearch}/libwhisper.so.1
 
 %changelog
+* Tue Jun 09 2026 Manish Tiwari <matiwari@redhat.com> - 1.5.0-1
+- Update to 1.5.0 version
+- Update WhisperCpp version to 1.8.4
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.4.0-3
 - Rebuilt for Python 3.15
 

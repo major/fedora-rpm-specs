@@ -1,56 +1,85 @@
 Name:           perl-Test-Exports
 Version:        1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Test that modules export the right symbols
-# 2-clause BSD with advertising
-# c.f. lib/Test/Exports.pm
+# lib/Test/Exports.pm:  BSD-2-Clause
 License:        BSD-2-Clause
-
-URL:            http://metacpan.org/dist/Test-Exports/
-Source0:        http://cpan.metacpan.org/authors/id/B/BM/BMORROW/Test-Exports-%{version}.tar.gz
-
+URL:            https://metacpan.org/dist/Test-Exports
+Source0:        https://cpan.metacpan.org/authors/id/B/BM/BMORROW/Test-Exports-%{version}.tar.gz
 BuildArch:      noarch
-
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-
-BuildRequires:  perl(B)
 BuildRequires:  perl(Module::Build)
+# Run-time:
+BuildRequires:  perl(B)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder::Module)
+BuildRequires:  perl(warnings)
+# Tests:
 BuildRequires:  perl(Test::More) >= 0.65
 BuildRequires:  perl(Test::Most) >= 0.23
 BuildRequires:  perl(Test::Tester) >= 0.08
 
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-
+# Filter underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::(More|Most|Tester)\\)$
 
 %description
-This module provides simple test functions for testing other modules'
-import methods. Testing is currently limited to checking which subs have
-been imported.
+This module provides simple test functions for testing other modules' import
+methods. Testing is currently limited to checking which subroutines have been
+imported.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.65
+Requires:       perl(Test::Most) >= 0.23
+Requires:       perl(Test::Tester) >= 0.08
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test-Exports-%{version}
+# Correct permisions
+chmod a+x t/*.t
 
 %build
-%{__perl} Build.PL --installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 ./Build test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Test
+%{perl_vendorlib}/Test/Exports.pm
+%{_mandir}/man3/Test::Exports.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 11 2026 Petr Pisar <ppisar@redhat.com> - 1-12
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

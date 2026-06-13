@@ -8,23 +8,22 @@ Version:        0.7.0
 Release:        %autorelease
 Summary:        Simple text editor for Xfce desktop environment
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            https://git.xfce.org/apps/mousepad/about/
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
+URL:            https://gitlab.xfce.org/apps/mousepad
+Source:         https://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  xfce4-dev-tools
-BuildRequires:  gettext 
-BuildRequires:  meson
-BuildRequires:  desktop-file-utils
-BuildRequires:  gtksourceview4-devel
 BuildRequires:  dbus-glib-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  gettext
 BuildRequires:  glib2-devel
-BuildRequires:  libappstream-glib
 BuildRequires:  gspell-devel
+BuildRequires:  gtksourceview4-devel
+BuildRequires:  libappstream-glib
+BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  polkit-devel
+BuildRequires:  xfce4-dev-tools
 %if %{with xfce4kbd}
 BuildRequires:  libxfce4ui-devel
 %endif
@@ -44,7 +43,7 @@ features:
     * Complete support for UTF-8 text
     * Cut/Copy/Paste and Select All text
     * Search and Replace
-    * Font selecton
+    * Font selection
     * Word Wrap
     * Character coding selection
     * Auto character coding detection (UTF-8 and some codesets)
@@ -58,7 +57,6 @@ features:
 
 %package -n libmousepad0
 Summary:        Mousepad plugin provider
-Group:          System/Libraries
 Requires:       %{name} >= %{version}
 
 %description -n libmousepad0
@@ -67,10 +65,9 @@ A plugin provider for the Mousepad text editor
 
 %package devel
 Summary:        Development files for Mousepad
-Group:          Development/Libraries
-Requires:       libmousepad0 >= %{version}
+Requires:       libmousepad0 = %{version}-%{release}
 
-%Description devel
+%description devel
 Development files for Mousepad plugin development
 
 %prep
@@ -85,42 +82,13 @@ Development files for Mousepad plugin development
 
 %find_lang %{name}
 
-desktop-file-install \
-    --remove-category="Application" \
-    --delete-original \
-    --dir=%{buildroot}%{_datadir}/applications \
-    %{buildroot}/%{_datadir}/applications/org.xfce.%{name}.desktop
+desktop-file-edit --remove-category="Application" %{buildroot}%{_datadir}/applications/org.xfce.%{name}.desktop
+desktop-file-edit --remove-category="Application" %{buildroot}%{_datadir}/applications/org.xfce.%{name}-settings.desktop
 
-desktop-file-install \
-    --remove-category="Application" \
-    --delete-original \
-    --dir=%{buildroot}%{_datadir}/applications \
-    %{buildroot}/%{_datadir}/applications/org.xfce.%{name}-settings.desktop
-
-mkdir -p %{buildroot}%{_metainfodir}
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
-
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-%if 0%{?el7}
-%post
-update-desktop-database &> /dev/null ||:
- 
-%postun
-update-desktop-database &> /dev/null ||:
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-    glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-fi
-
-%post -n libmousepad0 -p /sbin/ldconfig
-
-%postun -n libmousepad0 -p /sbin/ldconfig
-
-%posttrans
-glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-%endif
+%check
+%meson_test
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS
@@ -135,7 +103,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_libdir}/%{name}/plugins
 
 %files -n libmousepad0
-%{_libdir}/libmousepad.*
+%{_libdir}/libmousepad.so.*
 
 %files devel
 %{_libdir}/libmousepad.so

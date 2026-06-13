@@ -16,14 +16,18 @@ BuildSystem:    gap
 BuildOption(install): data gap htm tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(atlasrep) >= 1.5
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap-devel >= 4.4
 BuildRequires:  parallel
 
-Requires:       gap-pkg-atlasrep
+Requires:       gap(atlasrep) >= 1.5
+Requires:       gap-core >= 4.4
 
-Recommends:     gap-pkg-ctbllib
+Recommends:     gap(ctbllib) >= 1.1
+
+Provides:       gap(TomLib) = %{version}-%{release}
+Provides:       gap(tomlib) = %{version}-%{release}
 
 %description
 This package provides access to several hundred tables of marks of almost

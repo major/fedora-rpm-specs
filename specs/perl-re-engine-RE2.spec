@@ -1,7 +1,7 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
 Version:        0.18
-Release:        14%{?dist}
+Release:        15%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:               GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -112,6 +112,8 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%{ve
 Patch0:         re-engine-RE2-0.18-Unbundle-re2.patch
 # Adapt to re2-20240702, bug #2304727, CPAN RT#83467
 Patch1:         re-engine-RE2-0.18-Use-C-17.patch
+# Adapt to changes in Perl 5.43.11
+Patch2:         re-engine-RE2-0.18-Adapt-to-perl-5.43.11.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # (This is a leaf package on i686 because all dependent packages are noarch,
 # and noarch packages no longer build on i686.)
@@ -163,6 +165,7 @@ with "%{_libexecdir}/%{name}/test".
 rm -r ./re2
 # Remove incorrect executable bits
 chmod -x lib/re/engine/RE2.pm
+
 # Help generators to recognize Perl scripts
 for F in $(find t -name '*.t'); do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -204,6 +207,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-15
+- Adapt to perl 5.43.11 (define PERL_EXT to access reg_numbered_buff and
+  reg_named_buff functions)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

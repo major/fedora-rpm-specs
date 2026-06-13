@@ -1,7 +1,7 @@
 %global srcname idna
 
 Name:           python-%{srcname}
-Version:        3.17
+Version:        3.18
 Release:        %autorelease
 Summary:        Internationalized Domain Names in Applications (IDNA)
 

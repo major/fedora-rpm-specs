@@ -18,17 +18,27 @@ BuildOption(install): demo gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  dot2tex
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-digraphs-doc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap(ctbllib)
+BuildRequires:  gap(digraphs) >= 1.5.0
+BuildRequires:  gap-devel >= 4.11
+BuildRequires:  gap-pkg-digraphs-doc >= 1.5.0
 BuildRequires:  graphviz
+BuildRequires:  tex(preview.sty)
+BuildRequires:  tex(standalone.sty)
+BuildRequires:  tex(tikz.sty)
 
+Requires:       GAPDoc-latex
 Requires:       dot2tex
-Requires:       gap-core
+Requires:       gap-core >= 4.11
 Requires:       graphviz
+Requires:       tex(preview.sty)
+Requires:       tex(standalone.sty)
+Requires:       tex(tikz.sty)
 
-Recommends:     gap-pkg-digraphs
+Recommends:     gap(digraphs) >= 1.5.0
+
+Provides:       gap(typeset) = %{version}-%{release}
 
 %description
 This package implements a framework for automatic typesetting of common GAP
@@ -44,7 +54,8 @@ Currently, an example implementation has been written specifically for LaTeX.
 License:        GPL-2.0-or-later AND GPL-1.0-or-later AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Documentation for the GAP typeset package
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-digraphs-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-digraphs-doc >= 1.5.0
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

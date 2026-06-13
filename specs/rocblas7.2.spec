@@ -179,7 +179,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        7%{?dist}
+Release:        8%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -519,6 +519,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
 #   contains the $ORIGIN runpath specifier at the wrong position in
 #   [/usr/lib64/rocm/rocm-7.2/lib:$ORIGIN/../lib:$ORIGIN/../lib/rocblas/lib]
 chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+%if %{with test}
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-test
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-bench
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-gemm-tune
+%endif
 %endif
 
 %check
@@ -553,6 +558,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Jun 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-8
+- Fix rpath in tests
+
 * Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-7
 - Explicitly license smoke tests 0BSD
 - Smoke test not part of srpm so remove from license tag

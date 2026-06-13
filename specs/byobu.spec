@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.9
+Version:	7.11
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -17,13 +17,16 @@ Source1:	fedoracommon
 
 BuildArch:	noarch
 BuildRequires:	automake
+BuildRequires:	bash-completion
 BuildRequires:	desktop-file-utils
 BuildRequires:	make
 BuildRequires:	gettext
 BuildRequires:	python3-devel
+Requires:	bc
 Requires:	gettext-runtime
 Requires:	newt
 Requires:	openssl
+Requires:	python3-cryptography
 Requires:	python3-newt
 Requires:	python3-tornado
 Requires:	screen
@@ -38,12 +41,7 @@ and configuration utilities for the GNU screen window manager,
 such as toggle-able system status notifications.
 
 %prep
-%autosetup -N
-%if 0%{?fedora} >= 41
-%patch -P 1 -p0
-%else
-%patch -P 0 -p0
-%endif
+%autosetup
 
 # remove swap file
 rm -f usr/bin/.byobu-status-print.swp
@@ -138,13 +136,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/wifi-status.1*
 %{_libexecdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/
+
 # trustmux files
 %{_bindir}/trustmux
-%{_bindir}/trustmux-ctl
-%{_bindir}/trustmux-disable
-%{_bindir}/trustmux-enable
-%{_bindir}/trustmux-pair
-%{_bindir}/trustmux-unpair
+%{_bindir}/trustmuxd
+
+%{bash_completions_dir}/trustmux
 %{trustmuxlibdir}/trustmux/__init__.py
 %{trustmuxlibdir}/trustmux/__main__.py
 %{trustmuxlibdir}/trustmux/_ctl.py
@@ -154,11 +151,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{trustmuxlibdir}/trustmux/_pair.py
 %{trustmuxlibdir}/trustmux/_unpair.py
 %{_mandir}/man1/trustmux.1.gz
-%{_mandir}/man1/trustmux-ctl.1.gz
-%{_mandir}/man1/trustmux-disable.1.gz
-%{_mandir}/man1/trustmux-enable.1.gz
-%{_mandir}/man1/trustmux-pair.1.gz
-%{_mandir}/man1/trustmux-unpair.1.gz
+%{_mandir}/man1/trustmuxd.1.gz
 %{_datadir}/trustmux/static/app.js
 %{_datadir}/trustmux/static/index.html
 %{_datadir}/trustmux/static/sw.js

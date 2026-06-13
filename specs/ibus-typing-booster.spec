@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.30.9
+Version:    2.30.10
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -51,6 +51,7 @@ BuildRequires:  python3-pyxdg
 %else
 BuildRequires:  python34-devel
 %endif
+BuildRequires:  gobject-introspection
 # for the unit tests
 BuildRequires:  m17n-lib
 BuildRequires:  m17n-db-extras

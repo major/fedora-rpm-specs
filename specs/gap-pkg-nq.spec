@@ -17,16 +17,19 @@ BuildSystem:    gap
 BuildOption(install): bin examples gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-polycyclic
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(polycyclic) >= 2.11
+BuildRequires:  gap-devel >= 4.9
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(gmp)
 
-Requires:       gap-core%{?_isa}
-Requires:       gap-pkg-polycyclic
+Requires:       gap(polycyclic) >= 2.11
+Requires:       gap-core%{?_isa} >= 4.9
+
+Provides:       gap(nq) = %{version}-%{release}
 
 %description
 This package provides access from within GAP to the ANU nilpotent quotient

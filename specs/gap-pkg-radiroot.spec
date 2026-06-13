@@ -18,12 +18,19 @@ BuildSystem:    gap
 BuildOption(install): htm lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
-BuildRequires:  gap-pkg-alnuth
+BuildRequires:  gap(alnuth) >= 3.0
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  tth
 
-Requires:       gap-pkg-alnuth
+Requires:       gap(alnuth) >= 3.0
+Requires:       gap-core >= 4.7
+
+Recommends:     texlive-latex
+Recommends:     texlive-xdvi
+
+Provides:       gap(RadiRoot) = %{version}-%{release}
+Provides:       gap(radiroot) = %{version}-%{release}
 
 %description
 This package can compute and display an expression by radicals for the roots
@@ -40,6 +47,7 @@ the Galois group and the splitting field of a rational polynomial.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        Radiroot documentation
 Requires:       %{name} = %{version}-%{release}
+Requires:       GAPDoc-doc
 Requires:       gap-online-help
 
 %description doc

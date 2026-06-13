@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.46.50
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -844,11 +844,13 @@ run_target_configuration()
 
     %set_build_flags
 
+%if %{enable_lto}
     # RHEL-121799: Builders may want to restrict the number of CPUs used by
     # the LTO compiler.  The normal way to do this is to set RPM_BUILD_NCPUS.
     # But this only affects the -j option passed to make.  By adding -flto=N
     # we can also restrict the number of threads used by the LTO compiler.
     export CFLAGS="$RPM_OPT_FLAGS -flto=$RPM_BUILD_NCPUS"
+%endif
 
 %ifarch %{power64}
     export CFLAGS="$CFLAGS -Wno-error"
@@ -1511,6 +1513,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Jun 11 2026 Nick Clifton <nickc@redhat.com> - 2.46.50-11
+- Fix linker testsuite problem for Risc-V.
+
 * Thu Jun 04 2026 Nick Clifton <nickc@redhat.com> - 2.46.50-10
 - Rebase to commit 48997323b0f
 

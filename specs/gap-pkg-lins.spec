@@ -17,14 +17,17 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testquick.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-cohomolo
-BuildRequires:  gap-pkg-grape
+BuildRequires:  gap(autodoc) >= 2018.02.14
+BuildRequires:  gap(cohomolo)
+BuildRequires:  gap(grape)
+BuildRequires:  gap(recog)
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gap-pkg-polycyclic-doc
-BuildRequires:  gap-pkg-recog
 
-Requires:       gap-core
+Requires:       gap-core >= 4.12
+
+Provides:       gap(LINS) = %{version}-%{release}
+Provides:       gap(lins) = %{version}-%{release}
 
 %description
 This package provides an algorithm for computing the normal subgroups of a
@@ -46,6 +49,7 @@ the code in `createTables.gi`.
 License:        GPL-2.0-or-later AND GPL-1.0-or-later AND Knuth-CTAN AND AGPL-3.0-only AND OFL-1.1-RFN
 Summary:        Documentation for the GAP LINS package
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 Requires:       gap-pkg-polycyclic-doc
 
 %description doc

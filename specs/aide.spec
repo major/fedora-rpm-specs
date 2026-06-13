@@ -13,6 +13,10 @@ Source2:        gpgkey-aide.gpg
 Source3:        aide.conf
 Source4:        README.quickstart
 Source5:        aide.logrotate
+Source6:        aide-check.service
+Source7:        aide-check.timer
+
+Patch0:         aide-include-permission-checks.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -27,6 +31,7 @@ BuildRequires:  libattr-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  audit-libs-devel
 BuildRequires:  autoconf automake libtool
+BuildRequires:  systemd-rpm-macros
 # For verifying signatures
 BuildRequires:  gnupg2
 # For being able to run 'make check'
@@ -69,6 +74,11 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir} %{SOURCE3}
 install -Dpm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/logrotate.d/aide
 mkdir -p %{buildroot}%{_localstatedir}/log/aide
 mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
+# Create /etc/aide.d/
+mkdir -p -m0700 %{buildroot}%{_sysconfdir}/aide.d
+# Install systemd timer and service for scheduled integrity checks
+install -Dpm0644 %{SOURCE6} %{buildroot}%{_unitdir}/aide-check.service
+install -Dpm0644 %{SOURCE7} %{buildroot}%{_unitdir}/aide-check.timer
 
 %files
 %license COPYING
@@ -79,8 +89,20 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %{_mandir}/man5/*.5*
 %config(noreplace) %attr(0600,root,root) %{_sysconfdir}/aide.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/aide
+%dir %attr(0700,root,root) %{_sysconfdir}/aide.d
 %dir %attr(0700,root,root) %{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
+%{_unitdir}/aide-check.service
+%{_unitdir}/aide-check.timer
+
+%post
+%systemd_post aide-check.timer
+
+%preun
+%systemd_preun aide-check.timer
+
+%postun
+%systemd_postun_with_restart aide-check.timer
 
 %changelog
 %autochangelog

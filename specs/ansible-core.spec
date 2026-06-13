@@ -13,9 +13,9 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.20.6
+Version:        2.20.7~rc1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -260,6 +260,11 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Thu Jun 11 2026 Maxwell G <maxwell@gtmx.me> - 2.20.7~rc1-1
+- Update to 2.20.7~rc1.
+- Mitigates CVE-2026-11332 (rhbz#2485397)
+
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.20.6-2
 - Rebuilt for Python 3.15
 

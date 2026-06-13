@@ -17,19 +17,22 @@ BuildSystem:    gap
 BuildOption(install): bin example gap local test tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
+BuildRequires:  gap(atlasrep)
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.2
+BuildRequires:  gap(io) >= 4.1
+BuildRequires:  gap(orb) >= 4.2
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gap-pkg-io-doc
 BuildRequires:  gap-pkg-orb-doc
-BuildRequires:  gap-pkg-tomlib
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  make
 
-Requires:       gap-pkg-io%{?_isa}
-Requires:       gap-pkg-orb%{?_isa}
+Requires:       gap(io) >= 4.1
+Requires:       gap(orb) >= 4.2
+Requires:       gap-core%{?_isa} >= 4.12
+
+Provides:       gap(cvec) = %{version}-%{release}
 
 %description
 The CVEC package provides an implementation of compact vectors over finite
@@ -48,8 +51,9 @@ License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.
 Summary:        CVEC documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-io-doc
-Requires:       gap-pkg-orb-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-io-doc >= 4.1
+Requires:       gap-pkg-orb-doc >= 4.2
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

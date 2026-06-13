@@ -7,13 +7,13 @@
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        723652b545a79609f9f04cb89fcbf807d9d6451a
+%global commit1        1b526bb3a0ff326ecd05af4c2c541407f53c6d4b
 %global monado_version 25.1.0
 
 %forgemeta
 
 Name:           wivrn
-Version:        26.2.3
+Version:        26.6
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
@@ -103,15 +103,14 @@ Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-Replace-distortion-with-foveation.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-don-t-verify-GL-stuff.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Don-t-get-pose-data-for-fast-path.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-don-t-verify-GL-stuff.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-configure-u_git_tag-in-WiVRn.patch
+
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
 # https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
@@ -188,6 +187,7 @@ BuildRequires:  qcoro-qt6-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6qml(org.kde.desktop)
+BuildRequires:  spirv-tools
 BuildRequires:  systemd-rpm-macros
 
 Requires:       android-tools
@@ -248,7 +248,6 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
-%patch -P0009 -p1
 popd
 
 
@@ -261,6 +260,7 @@ popd
   -DFETCHCONTENT_BASE_DIR="_deps" \
   -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
   -DGIT_DESC=v%{version} \
+  -DGIT_COMMIT=v%{version} \
   -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime \
   -DWIVRN_BUILD_CLIENT=OFF \
   -DWIVRN_BUILD_DASHBOARD=ON \

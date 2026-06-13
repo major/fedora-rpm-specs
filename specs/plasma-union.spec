@@ -1,7 +1,7 @@
 %global upstream_name union
 
 Name:           plasma-union
-Version:        6.6.91
+Version:        6.7.0
 Release:        1%{?dist}
 Summary:        A Qt style supporting both QtQuick and QtWidgets
 
@@ -75,16 +75,18 @@ developing applications that use %{name}.
 %{_kf6_qmldir}/org/kde/kirigami/styles/org.kde.union/
 %{_kf6_datadir}/qlogging-categories6/union.categories
 %{_kf6_datadir}/union/
+%{_kf6_datadir}/kstyle/themes/union.themerc
 
 
 %files devel
 %{_includedir}/union/
 %{_kf6_libdir}/cmake/Union/
 %{_kf6_libdir}/libUnion.so
-%{_kf6_libdir}/libUnionQuickImpl.so
-%{_kf6_libdir}/libUnionQuickStyle.so
 
 %changelog
+* Thu Jun 11 2026 Steve Cossette <farchord@gmail.com> - 6.7.0-1
+- 6.7.0
+
 * Fri May 29 2026 Steve Cossette <farchord@gmail.com> - 6.6.91-1
 - 6.6.91
 

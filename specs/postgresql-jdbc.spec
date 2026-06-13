@@ -53,7 +53,7 @@ Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
 Source0:        https://repo1.maven.org/maven2/org/postgresql/postgresql/%{version}/postgresql-%{version}-jdbc-src.tar.gz
-Source1:        postgresql_jdbc_tests_init.sh
+Source1:        postgresql_jdbc_tests_start.sh
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -133,10 +133,6 @@ grep -l -r '^import uk\.org\.webcompere\.systemstubs' src/test | xargs rm -v
 # Include PostgreSQL testing methods and variables.
 %if %runselftest
 . %{SOURCE1}
-setup_build_local_properties > build.local.properties
-
-# Start the local PG cluster.
-%postgresql_tests_start
 %else
 # NOTE this parameter skips running tests but still compiles them
 opts="-DskipTests=true"

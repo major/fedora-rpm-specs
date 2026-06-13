@@ -16,14 +16,18 @@ BuildSystem:    gap
 BuildOption(install): gap htm tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-crystcat
-BuildRequires:  gap-pkg-polycyclic
+BuildRequires:  gap(crystcat) >= 1.1
+BuildRequires:  gap(polycyclic) >= 1.0
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  tth
 
-Requires:       gap-pkg-polycyclic
+Requires:       gap(polycyclic) >= 1.0
+Requires:       gap-core >= 4.7
 
-Recommends:     gap-pkg-crystcat
+Recommends:     gap(crystcat) >= 1.1
+
+Provides:       gap(AClib) = %{version}-%{release}
+Provides:       gap(aclib) = %{version}-%{release}
 
 %description
 The AClib package contains a library of almost crystallographic groups and

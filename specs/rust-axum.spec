@@ -5,9 +5,9 @@
 %global crate axum
 
 Name:           rust-axum
-Version:        0.8.8
+Version:        0.8.9
 Release:        %autorelease
-Summary:        Web framework that focuses on ergonomics and modularity
+Summary:        HTTP routing and request handling library
 
 License:        MIT
 URL:            https://crates.io/crates/axum
@@ -21,7 +21,8 @@ Patch10:        0001-skip-doctest-with-unresolved-axum_extra-dependency.patch
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Web framework that focuses on ergonomics and modularity.}
+HTTP routing and request handling library that focuses on ergonomics and
+modularity.}
 
 %description %{_description}
 

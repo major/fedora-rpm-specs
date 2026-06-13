@@ -5,15 +5,13 @@
 %global protozero_version 1.7.1
 
 Name:           osm2pgsql
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPL-2.0-or-later
 URL:            https://osm2pgsql.org/
 Source0:        https://github.com/osm2pgsql-dev/osm2pgsql/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/osm2pgsql-dev/osm2pgsql/pull/2457
-Patch0:         osm2pgsql-fmt12-localtime.patch
 
 ExcludeArch:    %{ix86}
 
@@ -45,7 +43,7 @@ BuildRequires:  postgis
 BuildRequires:  python3
 BuildRequires:  python3-behave
 BuildRequires:  python3-osmium
-BuildRequires:  python3-psycopg2
+BuildRequires:  python3-psycopg3
 
 %description
 Provides a tool for loading OpenStreetMap data into a PostgreSQL / PostGIS

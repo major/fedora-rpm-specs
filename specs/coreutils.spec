@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -33,6 +33,11 @@ Patch103: coreutils-python3.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
+
+# unexpand: fix heap overflows
+# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=b60a159fdc5bfcf9988d3a4cb6f53abe8ad5d35d
+# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/commit/?id=4ade9cf77f6c7b39e3fdc5ce97a778f8e294694c
+Patch200: coreutils-9.11-unexpand-heap-overflows.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -157,10 +162,6 @@ find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 # FIXME: Force a newer gettext version to workaround `autoreconf -i` errors
 # with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
 sed -i "s/0.19.2/$(rpm -q --queryformat '%%{VERSION}\n' gettext-devel)/" bootstrap.conf configure.ac
-
-# rhbz#2463168: recent perl-IO-Tty (1.24+) breaks the misc/tty-eof.pl test
-# skip setting the custom eof char as workaround
-sed -i 's/set_tty_eof_char ($exp->slave, $eof_char);//' tests/misc/tty-eof.pl
 
 %if 0%{?rhel}
 # Temporarily disable test-getaddrinfo from gnulib because it malfunctions in
@@ -289,6 +290,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Thu Jun 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.11-3
+- unexpand: fix heap overflows
+
 * Fri May 01 2026 Davide Bolcioni <dbolcioni@gmail.com> - 9.11-2
 - fix coreutils.single dangling symlink (rhbz#2464618)
 

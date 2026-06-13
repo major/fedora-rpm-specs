@@ -17,13 +17,17 @@ BuildSystem:    gap
 BuildOption(install): bin gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gcc
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(autodoc)
+BuildRequires:  gap-devel >= 4.7
 BuildRequires:  gap-pkg-nq-doc
+BuildRequires:  gcc
 BuildRequires:  make
 
-Requires:       gap-core%{?_isa}
+# rm is invoked
+Requires:       coreutils
+Requires:       gap-core%{?_isa} >= 4.7
+
+Provides:       gap(kbmag) = %{version}-%{release}
 
 %description
 KBMAG (pronounced Kay-bee-mag) stands for Knuth-Bendix on Monoids, and
@@ -84,6 +88,7 @@ License:        GPL-2.0-or-later AND GPL-1.0-or-later AND Knuth-CTAN AND AGPL-3.
 Summary:        Documentation for the GAP kbmag package
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 Requires:       gap-pkg-nq-doc
 
 %description doc

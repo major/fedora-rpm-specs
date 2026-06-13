@@ -9,7 +9,7 @@
 
 Name:           qdigidoc
 Version:        4.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+( Thu Jun 11 2026 Dmitri Smirnov <dmitri@smirnov.ee> 4.10.0-1
+- Switch to ecc keys to fix signing as recommended by upstream devs
+
 * Wed May 27 2026 Dmitri Smirnov <dmitri@smirnov.ee> 4.10.0-1
 - Upstream release 4.10.0
 

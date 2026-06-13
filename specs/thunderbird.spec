@@ -123,6 +123,10 @@ Patch32:        build-rust-ppc64le.patch
 Patch35:        build-ppc-jit.patch
 Patch36:        build-botan-target.patch
 Patch37:        build-c11-threads-avail.patch
+# Fix for "sourcestamp.txt is corrupt"
+Patch38:        D303424.1781004200.diff
+Patch39:        D303205.1781242667.diff
+
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
 Patch44:        build-arm-libopus.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
@@ -284,6 +288,9 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 
 %patch -P36 -p1 -b .build-botan
 %patch -P37 -p1 -b .build-c11-threads-avail
+%patch -P38 -p1 -b .D303424.1781004200
+%patch -P39 -p1 -b .D303205.1781242667
+
 %patch -P 418 -p1 -b .mozbz-1512162
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf

@@ -16,11 +16,16 @@ BuildSystem:    gap
 BuildOption(install): gap symdata tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(ctbllib) >= 1.2.2
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap-devel >= 4.5
 
-Requires:       gap-pkg-ctbllib
+Requires:       gap(ctbllib) >= 1.2.2
+Requires:       gap-core >= 4.5
+
+Provides:       gap(SpinSym) = %{version}-%{release}
+Provides:       gap(spinsym) = %{version}-%{release}
 
 %description
 This package contains some p-modular character tables of Schur covers of

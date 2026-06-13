@@ -1,8 +1,8 @@
 %global pypi_name aenum
 
 Name:           python-%{pypi_name}
-Version:        3.1.16
-Release:        4%{?dist}
+Version:        3.1.17
+Release:        1%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD-3-Clause
@@ -53,6 +53,8 @@ Enum capabilities, however.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 rm %{pypi_name}/_py2.py
+# file/class V37 was renamed to V3 but import was not fixed seemingly
+sed -i -e 's/from \.test_v37 import TestEnumV37/from \.test_v3 import TestEnumV3/g' %{pypi_name}/test.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -65,7 +67,8 @@ rm %{pypi_name}/_py2.py
 
 %check
 # https://github.com/ethanfurman/aenum/issues/7
-sed -i -e 's/from \. /from aenum /g' -e 's/from \./from aenum\./g' %{pypi_name}/test.py
+# plus file/class V37 was renamed to V3 but import was not fixed seemingly
+sed -i -e 's/from \. /from aenum /g' -e 's/from \./from aenum\./g' -e 's/from aenum\.test_v37 import TestEnumV37/from aenum\.test_v3 import TestEnumV3/g' %{pypi_name}/test.py
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
 
 %files -n python3-%{pypi_name}
@@ -75,6 +78,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu Jun 11 2026 Federico Pellegrin <fede@evolware.org> - 3.1.17-1
+- Update to 3.1.17 (rhbz#2449769)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.16-4
 - Rebuilt for Python 3.15
 

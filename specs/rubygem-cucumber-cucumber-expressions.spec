@@ -2,27 +2,21 @@
 %global gem_name cucumber-cucumber-expressions
 
 Name: rubygem-%{gem_name}
-Version: 17.1.0
-Release: 5%{?dist}
+Version: 19.0.1
+Release: 1%{?dist}
 Summary: A simpler alternative to Regular Expressions
 License: MIT
 URL: https://github.com/cucumber/cucumber-expressions
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Upstream removed LICENSE file from packages.
-# https://github.com/cucumber/cucumber-expressions/issues/292
-# Taken from:
-# https://github.com/cucumber/cucumber-expressions/blob/v17.1.0/LICENSE
-Source1: LICENSE
+# git clone --no-checkout https://github.com/cucumber/cucumber-expressions.git
+# git -C cucumber-expressions archive -v -o rubygem-cucumber-cucumber-expressions-19.0.1-spec.txz v19.0.1:ruby spec/
+Source1: %{name}-%{version}-spec.txz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: %{_bindir}/rspec
 BuildRequires: rubygem(rspec-expectations)
 BuildRequires: rubygem-bigdecimal
 BuildArch: noarch
-
-# Provides: can be removed in F36+2, i.e. F38
-Provides: rubygem-cucumber-expressions = %{version}-%{release}
-Obsoletes: rubygem-cucumber-expressions < 6.0.1-10
 
 %description
 Cucumber Expressions - a simpler alternative to Regular Expressions.
@@ -37,14 +31,12 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 
 %gem_install
-
-install -m 644 %{SOURCE1} .%{gem_instdir}/LICENSE
 
 # The methods with question marks were replaced with attr_reader(s) in 17.0.0.
 # They were getters already. To keep compatibility with cucumber v7.
@@ -61,6 +53,7 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
+ln -s %{_builddir}/spec spec
 rspec spec
 popd
 
@@ -68,20 +61,18 @@ popd
 %dir %{gem_instdir}
 %license %{gem_instdir}/LICENSE
 %{gem_libdir}
-%{gem_spec}
 
 %exclude %{gem_instdir}/.*
 %exclude %{gem_cache}
+%{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%{gem_instdir}/VERSION
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Rakefile
-%{gem_instdir}/cucumber-cucumber-expressions.gemspec
-%{gem_instdir}/spec
 
 %changelog
+* Wed Jun 10 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 19.0.1-1
+- Update to 19.0.1 (close RHBZ#2064184)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -32,26 +32,38 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): *.json bibl dataext datagens datapkg dataword gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-doc
-BuildRequires:  GAPDoc-latex
+BuildRequires:  GAPDoc-doc >= 1.6.2
+BuildRequires:  GAPDoc-latex >= 1.6.2
+BuildRequires:  gap(gapdoc) >= 1.6.2
+BuildRequires:  gap(utils) >= 0.77
+BuildRequires:  gap-devel >= 4.12.0
+BuildRequires:  gap-pkg-utils-doc >= 0.77
+
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-browse-doc
-BuildRequires:  gap-pkg-ctbllib-doc
-BuildRequires:  gap-pkg-standardff-doc
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(browse) >= 1.8.3
+BuildRequires:  gap(ctbllib) >= 1.2
+BuildRequires:  gap(standardff) >= 0.9
+BuildRequires:  gap(tomlib) >= 1.0
+BuildRequires:  gap-pkg-browse-doc >= 1.8.3
+BuildRequires:  gap-pkg-ctbllib-doc >= 1.2
+BuildRequires:  gap-pkg-standardff-doc >= 0.9
 %endif
-BuildRequires:  gap-pkg-utils-doc
 
 Requires:       coreutils
-Requires:       gap-pkg-io
-Requires:       gap-pkg-utils
+Requires:       diffutils
+Requires:       gap(io) >= 3.3
+Requires:       gap(utils) >= 0.77
+Requires:       gap-core >= 4.12.0
+Requires:       gzip
 
-Recommends:     gap-pkg-browse
-Recommends:     gap-pkg-ctbllib
-Recommends:     gap-pkg-recog
-Recommends:     gap-pkg-standardff
-Recommends:     gap-pkg-tomlib
+Recommends:     gap(browse) >= 1.8.3
+Recommends:     gap(ctbllib) >= 1.2
+Recommends:     gap(recog) >= 1.3.1
+Recommends:     gap(standardff) >= 0.9
+Recommends:     gap(tomlib) >= 1.0
+
+Provides:       gap(AtlasRep) = %{version}-%{release}
+Provides:       gap(atlasrep) = %{version}-%{release}
 
 %description
 The aim of the AtlasRep package is to provide an interface between GAP and the
@@ -75,12 +87,13 @@ License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-l
 Summary:        AtlasRep documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
-Requires:       gap-pkg-browse-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-browse-doc >= 1.8.3
 %if %{without bootstrap}
-Requires:       gap-pkg-ctbllib-doc
-Requires:       gap-pkg-standardff-doc
+Requires:       gap-pkg-ctbllib-doc >= 1.2
+Requires:       gap-pkg-standardff-doc >= 0.9
 %endif
-Requires:       gap-pkg-utils-doc
+Requires:       gap-pkg-utils-doc >= 0.77
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

@@ -3,8 +3,8 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.43.21
-Release:        2%{?dist}
+Version:        1.43.28
+Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
@@ -68,6 +68,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Thu Jun 11 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.43.28-1
+- 1.43.28
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.43.21-2
 - Rebuilt for Python 3.15
 

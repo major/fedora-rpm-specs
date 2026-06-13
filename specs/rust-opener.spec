@@ -5,7 +5,7 @@
 %global crate opener
 
 Name:           rust-opener
-Version:        0.8.4
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Open a file or link using the system default program
 

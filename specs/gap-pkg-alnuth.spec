@@ -26,16 +26,20 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): exam gap gp tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-polycyclic
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(polycyclic) >= 1.1
 %if %{without bootstrap}
-BuildRequires:  gap-pkg-radiroot
+BuildRequires:  gap(radiroot)
 %endif
+BuildRequires:  gap-devel >= 4.8
 BuildRequires:  pari-gp
 
-Requires:       gap-pkg-polycyclic
+Requires:       gap(polycyclic) >= 1.1
+Requires:       gap-core >= 4.8
 Requires:       pari-gp
+
+Provides:       gap(Alnuth) = %{version}-%{release}
+Provides:       gap(alnuth) = %{version}-%{release}
 
 %description
 Alnuth is an extension for the computer algebra system GAP and forms part of a

@@ -157,6 +157,7 @@ sed -i '/ensurePiWebSearchPackage(bin)/d' cmd/launch/pi.go
 # Release with
 # cmake sets LDFLAGS env, this confuses gobuild
 export LDFLAGS=
+export GO_LDFLAGS="-X=github.com/ollama/ollama/version.Version=%{version} -X=github.com/ollama/ollama/server.mode=release"
 %gobuild -o %{gobuilddir}/bin/ollama %{goipath}
 
 %install

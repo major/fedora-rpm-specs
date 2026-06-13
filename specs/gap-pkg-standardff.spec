@@ -21,18 +21,21 @@ BuildOption(install): data lib tst VERSION
 BuildOption(check): tst/testall.g
 
 BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-factint
-BuildRequires:  gap-pkg-spinsym
-BuildRequires:  gap-pkg-io
+BuildRequires:  gap(ctbllib) >= 1.3.1
+BuildRequires:  gap(factint) >= 1.6.3
+BuildRequires:  gap(gapdoc) >= 1.6.5
+BuildRequires:  gap(spinsym)
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(ntl)
 
-Requires:       gap-core%{?_isa}
+Requires:       gap-core%{?_isa} >= 4.12
 
-Recommends:     gap-pkg-ctbllib
-Recommends:     gap-pkg-factint
+Recommends:     gap(ctbllib) >= 1.3.1
+Recommends:     gap(factint) >= 1.6.3
+
+Provides:       gap(StandardFF) = %{version}-%{release}
+Provides:       gap(standardff) = %{version}-%{release}
 
 %description
 The StandardFF package contains an implementation of *standard* generators of

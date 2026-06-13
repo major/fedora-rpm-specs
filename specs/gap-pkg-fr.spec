@@ -18,24 +18,31 @@ BuildSystem:    gap
 BuildOption(install): gap guest tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-fga
-BuildRequires:  gap-pkg-gbnp
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-lpres
-BuildRequires:  gap-pkg-nq
-BuildRequires:  gap-pkg-polycyclic
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap(fga) >= 1.1
+BuildRequires:  gap(gapdoc) >= 1.0
+BuildRequires:  gap(gbnp) >= 0.9
+BuildRequires:  gap(io) >= 4.0
+BuildRequires:  gap(lpres) >= 0.1
+BuildRequires:  gap(nq) >= 2.4
+BuildRequires:  gap(polycyclic) >= 2.2
+BuildRequires:  gap-devel >= 4.8
 
-Requires:       gap-pkg-fga
-Requires:       gap-pkg-io
-Requires:       gap-pkg-polycyclic
+# cat is invoked
+Requires:       coreutils
+Requires:       gap(fga) >= 1.1
+Requires:       gap(io) >= 4.0
+Requires:       gap(polycyclic) >= 2.2
+Requires:       gap-core >= 4.8
 
-Recommends:     gap-pkg-gbnp
-Recommends:     gap-pkg-lpres
-Recommends:     gap-pkg-nq
-Recommends:     graphviz
 Recommends:     ImageMagick
+Recommends:     gap(gbnp) >= 0.9
+Recommends:     gap(lpres) >= 0.1
+Recommends:     gap(nq) >= 2.4
+Recommends:     graphviz
+
+Provides:       gap(FR) = %{version}-%{release}
+Provides:       gap(fr) = %{version}-%{release}
 
 %description
 This package implements Functionally Recursive and Mealy automata in GAP.

@@ -16,16 +16,18 @@ BuildSystem:    gap
 BuildOption(install): gap htm lib tst VERSION
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  gap-pkg-liering
-BuildRequires:  gap-pkg-polycyclic
-BuildRequires:  gap-pkg-singular
+BuildRequires:  gap(liering) >= 2.1
+BuildRequires:  gap(singular) >= 10
+BuildRequires:  gap-devel >= 4.8
 BuildRequires:  tth
 
-Requires:       gap-pkg-liering
+Requires:       gap(liering) >= 2.1
+Requires:       gap-core >= 4.8
 
-Recommends:     gap-pkg-singular
+Recommends:     gap(singular) >= 10
+
+Provides:       gap(LiePRing) = %{version}-%{release}
+Provides:       gap(liepring) = %{version}-%{release}
 
 %description
 The main object of the LiePRing package is to provide access to the nilpotent

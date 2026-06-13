@@ -15,11 +15,16 @@ BuildSystem:    gap
 BuildOption(install): grp htm lib tst
 BuildOption(check): tst/testall.g
 
+BuildRequires:  gap(cryst) >= 4.1.25
 BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-cryst-doc
+BuildRequires:  gap-pkg-cryst-doc >= 4.1.25
 BuildRequires:  tth
 
-Requires:       gap-pkg-cryst
+Requires:       gap(cryst) >= 4.1.25
+Requires:       gap-core >= 4.14
+
+Provides:       gap(CrystCat) = %{version}-%{release}
+Provides:       gap(crystcat) = %{version}-%{release}
 
 %description
 The GAP 4 package CrystCat provides a catalog of crystallographic groups of
@@ -45,7 +50,8 @@ right.
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        CrystCat documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-cryst-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-cryst-doc >= 4.1.25
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

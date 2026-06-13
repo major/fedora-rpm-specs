@@ -16,17 +16,18 @@ BuildSystem:    gap
 BuildOption(install): gap tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-ferret
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(atlasrep)
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(ferret) >= 0.8.0
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(io)
+BuildRequires:  gap-devel >= 4.10
 
-Requires:       gap-core
+Requires:       gap-core >= 4.10
 
-Recommends:     gap-pkg-ferret
+Recommends:     gap(ferret) >= 0.8.0
+
+Provides:       gap(images) = %{version}-%{release}
 
 %description
 This package provides functionality to compute canonical representatives under
@@ -41,6 +42,7 @@ group actions in GAP.
 License:        MPL-2.0 AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Images documentation
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

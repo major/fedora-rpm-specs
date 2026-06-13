@@ -1,7 +1,7 @@
 Name:           atomes
 %global upname atomes-GNU
-Version:        1.2.1
-Release:        4%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        An atomistic toolbox
 License:        AGPL-3.0-or-later
 Source0:        https://github.com/Slookeur/%{upname}/archive/refs/tags/v%{version}.tar.gz
@@ -19,6 +19,7 @@ BuildRequires: gcc-gfortran
 BuildRequires: libgfortran
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: gettext
 
 # pkg-config 
 BuildRequires: pkgconfig(gtk+-3.0)
@@ -38,9 +39,8 @@ Requires: mesa-libGLU
 Provides: %{name} = %{version}-%{release}
 
 %description
-atomes: a toolbox to analyze, to visualize 
-and to create/edit three-dimensional atomistic models.
-It offers a workspace that allows to have many projects opened simultaneously.
+atomes: a toolbox to analyze, to visualize and to create/edit 3D atomic scale models.
+The software interface offers a workspace that allows to open many projects simultaneously.
 The different projects in the workspace can exchange data: 
 analysis results, atomic coordinates...
 atomes also provides an advanced input preparation system 
@@ -66,12 +66,13 @@ step by step to achieve this crucial step.
 
 %install
 %make_install
+%find_lang %{name} --with-man
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/fr.ipcms.%{name}.appdata.xml
 
-%files
+%files -f %{name}.lang
 %license COPYING
 %{_bindir}/%{name}
 %{_libexecdir}/%{name}_startup_testing
@@ -88,6 +89,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/fr.ipcms.%{nam
 %{_metainfodir}/fr.ipcms.%{name}.appdata.xml
 
 %changelog
+* Thu Jun 11 2026 Sébastien Le Roux <sebastien.leroux@ipcms.unistra.fr> - 1.3.1-1
+- Bug corrections (see:  https://github.com/Slookeur/atomes-GNU/releases/tag/v1.3.1)
+
+* Thu Jun 11 2026 Sébastien Le Roux <sebastien.leroux@ipcms.unistra.fr> - 1.3.0-1
+- New features (see:  https://github.com/Slookeur/atomes-GNU/releases/tag/v1.3.0)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

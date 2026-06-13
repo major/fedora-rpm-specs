@@ -521,8 +521,8 @@ $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -nolisten tcp -
 export DISPLAY=:99
 # Help bytecode-only arches find the OCaml stublib
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_libdir}
-# Exclude ocaml from ppc/ppc64/ppc64le, arm
-%ifarch ppc ppc64 ppc64le
+# Exclude ocaml from ppc/ppc64/ppc64le, arm, riscv64
+%ifarch ppc ppc64 ppc64le riscv64
 %ctest --exclude-regex 'ocaml|octave'
 %else
 %ifarch %{arm} aarch64

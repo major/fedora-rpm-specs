@@ -20,15 +20,18 @@ BuildOption(build): --packagedirs ..
 BuildOption(install): data lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap(atlasrep) >= 2.1.9
+BuildRequires:  gap(autodoc) >= 2026.03.17
+BuildRequires:  gap(primgrp) >= 3.4.4
+BuildRequires:  gap(smallgrp) >= 1.5.4
+BuildRequires:  gap(transgrp) >= 3.6.5
+BuildRequires:  gap-devel >= 4.14
 BuildRequires:  gap-pkg-packagemanager-doc
-BuildRequires:  gap-pkg-primgrp
-BuildRequires:  gap-pkg-smallgrp
-BuildRequires:  gap-pkg-transgrp
 
-Requires:       gap-core
+Requires:       gap-core >= 4.14
+
+Provides:       gap(SmallClassNr) = %{version}-%{release}
+Provides:       gap(smallclassnr) = %{version}-%{release}
 
 %description
 The SmallClassNr package provides access to finite groups with small class

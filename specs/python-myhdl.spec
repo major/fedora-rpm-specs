@@ -5,10 +5,9 @@ Name:           python-%{srcname}
 Version:        0.11
 Release:        %autorelease
 Summary:        %{sum}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-URL:            http://myhdl.org
-Source0:        https://files.pythonhosted.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
+License:        LGPL-2.1-or-later
+URL:            https://www.myhdl.org
+Source:         %{pypi_source %{srcname}}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -32,8 +31,8 @@ supports viewing waveform by tracing signal changes in a VCD file.
 
 
 %prep
-%setup -q -n myhdl-%{version}
-find -name '*.txt' | xargs chmod -x
+%autosetup -n myhdl-%{version}
+find . -type f -name "*.txt" -exec chmod a-x {} +
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -51,7 +50,8 @@ find -name '*.txt' | xargs chmod -x
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc /usr/share/myhdl/cosimulation/
+%dir %{_datadir}/myhdl
+%doc %{_datadir}/myhdl/cosimulation/
 
 
 %changelog

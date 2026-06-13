@@ -1,11 +1,11 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.44.3
-Release: 3%{?dist}
+Version: 1.45.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
-Source0: https://releases.wikimedia.org/mediawiki/1.44/%{name}-%{version}.tar.gz
-Source1: https://releases.wikimedia.org/mediawiki/1.44/%{name}-%{version}.tar.gz.sig
+Source0: https://releases.wikimedia.org/mediawiki/1.45/%{name}-%{version}.tar.gz
+Source1: https://releases.wikimedia.org/mediawiki/1.45/%{name}-%{version}.tar.gz.sig
 Source2: mediawiki.conf
 Source3: README.RPM
 Source4: mw-createinstance.in
@@ -36,7 +36,7 @@ BuildRequires: python3-devel
 
 Requires: httpd-filesystem
 Requires: php(httpd)
-Requires: php(language) >= 8.1.0
+Requires: php(language) >= 8.2.0
 Requires: php-gd
 Requires: php-xml
 Requires: diffutils
@@ -62,32 +62,33 @@ Obsoletes: php-wikimedia-avro <= 1.9.0
 
 Provides: bundled(php-bacon-bacon-qr-code) = 3.0.1
 Provides: bundled(php-christian-riesen-base32) = 1.6.0
-Provides: bundled(php-composer-semver) = 3.4.3
-Provides: bundled(php-dasprid-enum) = 1.0.6
-Provides: bundled(php-endroid-qr-code) = 5.1.0
-Provides: bundled(php-firebase-php-jwt) = 6.10.0
-Provides: bundled(php-guzzlehttp-guzzle) = 7.9.3
-Provides: bundled(php-guzzlehttp-promises) = 2.0.4
-Provides: bundled(php-guzzlehttp-psr7) = 2.7.0
+Provides: bundled(php-composer-semver) = 3.4.4
+Provides: bundled(php-dasprid-enum) = 1.0.7
+Provides: bundled(php-endroid-qr-code) = 6.0.9
+Provides: bundled(php-firebase-php-jwt) = 7.0.2
+Provides: bundled(php-guzzlehttp-guzzle) = 7.10.0
+Provides: bundled(php-guzzlehttp-promises) = 2.3.0
+Provides: bundled(php-guzzlehttp-psr7) = 2.8.0
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
-Provides: bundled(php-justinrainbow-json-schema) = 5.3.0
-Provides: bundled(php-mck89-peast) = 1.17.0
+Provides: bundled(php-justinrainbow-json-schema) = 5.3.1
+Provides: bundled(php-mck89-peast) = 1.17.4
 Provides: bundled(php-monolog-monolog) = 2.9.3
 Provides: bundled(php-pear-console_getopt) = 1.4.3
 Provides: bundled(php-pear-Net_URL2) = 2.2.3
 Provides: bundled(php-pear-pear-core-minimal) = 1.10.16
 Provides: bundled(php-pear-pear_exception) = 1.0.2
-Provides: bundled(php-psr-container) = 1.1.2
+Provides: bundled(php-psr-clock) = 1.0.0
+Provides: bundled(php-psr-container) = 2.0.2
 Provides: bundled(php-psr-http-client) = 1.0.3
 Provides: bundled(php-psr-http-factory) = 1.1.0
 Provides: bundled(php-psr-http-message) = 1.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = 2.5.4
-Provides: bundled(php-symfony-polyfill-php82) = 1.32.0
-Provides: bundled(php-symfony-polyfill-php83) = 1.32.0
-Provides: bundled(php-symfony-polyfill-php84) = 1.32.0
+Provides: bundled(php-symfony-deprecation-contracts) = 3.6.0
+Provides: bundled(php-symfony-polyfill-php82) = 1.33.0
+Provides: bundled(php-symfony-polyfill-php83) = 1.33.0
+Provides: bundled(php-symfony-polyfill-php84) = 1.33.0
 Provides: bundled(php-symfony-polyfill-php85) = 1.33.0
-Provides: bundled(php-symfony-yaml) = 5.4.45
+Provides: bundled(php-symfony-yaml) = 6.4.25
 Provides: bundled(php-wikimedia-at-ease) = 3.0.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.5.1
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.1.0
@@ -96,31 +97,31 @@ Provides: bundled(php-wikimedia-base-convert) = 2.0.2
 Provides: bundled(php-wikimedia-bcp-47-code) = 2.0.1
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 3.0.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.1.0
-Provides: bundled(php-wikimedia-css-sanitizer) = 5.5.0
+Provides: bundled(php-wikimedia-css-sanitizer) = 6.2.1
 Provides: bundled(php-wikimedia-cssjanus) = 2.3.0
 Provides: bundled(php-wikimedia-html-formatter) = 4.1.0
 Provides: bundled(php-wikimedia-ip-utils) = 5.0.0
-Provides: bundled(php-wikimedia-json-codec) = 3.0.3
+Provides: bundled(php-wikimedia-json-codec) = 4.0.0
 Provides: bundled(php-wikimedia-langconv) = 0.4.2
-Provides: bundled(php-wikimedia-less.php) = 5.1.2
+Provides: bundled(php-wikimedia-less.php) = 5.5.0
 Provides: bundled(php-wikimedia-minify) = 2.9.0
 Provides: bundled(php-wikimedia-normalized-exception) = 2.1.1
 Provides: bundled(php-wikimedia-object-factory) = 5.0.1
-Provides: bundled(php-wikimedia-parsoid) = 0.21.1
-Provides: bundled(php-wikimedia-php-session-serializer) = 3.0.1
+Provides: bundled(php-wikimedia-parsoid) = 0.22.2
+Provides: bundled(php-wikimedia-php-session-serializer) = 3.0.2
 Provides: bundled(php-wikimedia-purtle) = 2.0.0
 Provides: bundled(php-wikimedia-relpath) = 4.0.2
-Provides: bundled(php-wikimedia-remex-html) = 4.1.2
-Provides: bundled(php-wikimedia-request-timeout) = 2.0.2
+Provides: bundled(php-wikimedia-remex-html) = 5.1.0
+Provides: bundled(php-wikimedia-request-timeout) = 3.0.0
 Provides: bundled(php-wikimedia-running-stat) = 2.1.0
 Provides: bundled(php-wikimedia-scoped-callback) = 5.0.0
 Provides: bundled(php-wikimedia-services) = 4.0.0
-Provides: bundled(php-wikimedia-shellbox) = 4.2.0
-Provides: bundled(php-wikimedia-timestamp) = 4.2.0
+Provides: bundled(php-wikimedia-shellbox) = 4.3.0
+Provides: bundled(php-wikimedia-timestamp) = 5.0.0
 Provides: bundled(php-wikimedia-wait-condition-loop) = 2.0.2
 Provides: bundled(php-wikimedia-wrappedstring) = 4.0.1
 Provides: bundled(php-wikimedia-xmp-reader) = 0.10.2
-Provides: bundled(php-wikimedia-zest-css) = 3.0.2
+Provides: bundled(php-wikimedia-zest-css) = 4.1.0
 
 
 %description
@@ -171,7 +172,7 @@ ln -s %{_datadir}/php/zordius vendor/zordius-shared
 %py3_shebang_fix \
   maintenance/language/zhtable/Makefile.py \
   extensions/ConfirmEdit/captcha.py \
-  extensions/SyntaxHighlight_GeSHi/pygments/create_pygmentize_bundle
+  extensions/SyntaxHighlight_GeSHi/pygments/pygmentize
 
 %build
 %{_bindir}/php -d memory_limit=1G %{_bindir}/phpab --follow --tolerant --output vendor/autoload.php vendor
@@ -250,7 +251,7 @@ cd tests/phpunit
 
 
 %files
-%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.44 UPGRADE CREDITS docs
+%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.45 UPGRADE CREDITS docs
 %license COPYING
 %{_datadir}/mediawiki
 /var/www/wiki
@@ -262,6 +263,9 @@ cd tests/phpunit
 
 
 %changelog
+* Thu Jun 11 2026 Michael Cronenworth <mike@cchtml.com> - 1.45.3-1
+- Update to 1.45.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

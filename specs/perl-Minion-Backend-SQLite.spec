@@ -1,6 +1,6 @@
 Name:           perl-Minion-Backend-SQLite
-Version:        5.0.7
-Release:        10%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        SQLite backend for Minion job queue
 License:        Artistic-2.0
 
@@ -11,24 +11,27 @@ BuildArch:      noarch
 # build deps
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Module::Build::Tiny)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# runtime deps
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(DBD::SQLite::Constants)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Minion::Backend)
+BuildRequires:  perl(Minion::Util)
 BuildRequires:  perl(Mojo::Base)
-BuildRequires:  perl(Mojo::SQLite) >= 3.000
+BuildRequires:  perl(Mojo::SQLite) >= 4.0.0
 BuildRequires:  perl(Mojo::Util)
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(strict)
 # test deps
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(Minion) >= 9.0
-BuildRequires:  perl(Minion::Backend)
+BuildRequires:  perl(Minion) >= 12.0
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Mojo::IOLoop)
+BuildRequires:  perl(Mojo::Promise)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(constant)
 
@@ -61,6 +64,9 @@ will be created in a temporary directory.
 %{_mandir}/man3/Minion*
 
 %changelog
+* Thu Jun 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 6.0.0-1
+- Update to 6.0.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

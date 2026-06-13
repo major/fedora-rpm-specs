@@ -17,15 +17,19 @@ BuildSystem:    gap
 BuildOption(install): data gap tst version
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-normalizinterface
-BuildRequires:  gap-pkg-singular
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(normalizinterface)
+BuildRequires:  gap(singular)
+BuildRequires:  gap-devel >= 4.7
 
-Requires:       gap-core
+Requires:       gap-core >= 4.7
+Requires:       xdg-utils
 
-Recommends:     gap-pkg-normalizinterface
-Recommends:     gap-pkg-singular
+Recommends:     gap(normalizinterface)
+Recommends:     gap(singular)
+
+Provides:       gap(NumericalSgps) = %{version}-%{release}
+Provides:       gap(numericalsgps) = %{version}-%{release}
 
 %description
 NumericalSgps is a GAP package for computing with Numerical Semigroups.
@@ -53,6 +57,7 @@ Features include:
 License:        GPL-2.0-or-later AND GPL-1.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Documentation for the GAP NumericalSgps package
 Requires:       %{name} = %{version}-%{release}
+Requires:       gap-online-help
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

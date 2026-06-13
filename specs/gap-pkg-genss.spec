@@ -17,17 +17,20 @@ BuildOption(install): examples gap test tst
 BuildOption(check): tst/testall.g
 
 # The AtlasRep, TomLib, and CtblLib dependencies are needed for the tests only
-BuildRequires:  gap-devel
-BuildRequires:  gap-pkg-atlasrep
-BuildRequires:  gap-pkg-autodoc
-BuildRequires:  gap-pkg-ctbllib
-BuildRequires:  gap-pkg-io
-BuildRequires:  gap-pkg-orb-doc
-BuildRequires:  gap-pkg-tomlib
+BuildRequires:  gap(atlasrep)
+BuildRequires:  gap(autodoc) >= 2016.01.21
+BuildRequires:  gap(gapdoc) >= 1.5
+BuildRequires:  gap(io) >= 4.2
+BuildRequires:  gap(orb) >= 4.5
+BuildRequires:  gap-devel >= 4.9
+BuildRequires:  gap-pkg-orb-doc >= 4.5
 
-Requires:       gap-pkg-orb
+Requires:       gap(orb) >= 4.5
+Requires:       gap-core >= 4.9
 
-Recommends:     gap-pkg-io
+Recommends:     gap(io) >= 4.2
+
+Provides:       gap(genss) = %{version}-%{release}
 
 %description
 The genss package implements the randomized Schreier-Sims algorithm to compute
@@ -44,7 +47,8 @@ groups.
 License:        GPL-3.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Genss documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-pkg-orb-doc
+Requires:       gap-online-help
+Requires:       gap-pkg-orb-doc >= 4.5
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

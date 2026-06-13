@@ -2,25 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate handlebars
+%global crate num-order
 
-Name:           rust-handlebars
-Version:        6.4.1
+Name:           rust-num-order
+Version:        1.2.0
 Release:        %autorelease
-Summary:        Handlebars templating implemented in Rust
+Summary:        Numerically consistent Eq, Ord and Hash implementations for various num types
 
-License:        MIT
-URL:            https://crates.io/crates/handlebars
+License:        Apache-2.0
+URL:            https://crates.io/crates/num-order
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion and pprof dev-dependencies
-# * drop tiny_http dev-dependency that is only used in example code
-Patch:          handlebars-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
-Handlebars templating implemented in Rust.}
+Numerically consistent `Eq`, `Ord` and `Hash` implementations for
+various `num` types (`u32`, `f64`, `num_bigint::BigInt`, etc.).}
 
 %description %{_description}
 
@@ -51,73 +49,71 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dir_source-devel
+%package     -n %{name}+num-bigint-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+dir_source-devel %{_description}
+%description -n %{name}+num-bigint-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "dir_source" feature of the "%{crate}" crate.
+use the "num-bigint" feature of the "%{crate}" crate.
 
-%files       -n %{name}+dir_source-devel
+%files       -n %{name}+num-bigint-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+heck-devel
+%package     -n %{name}+num-complex-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+heck-devel %{_description}
+%description -n %{name}+num-complex-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "heck" feature of the "%{crate}" crate.
+use the "num-complex" feature of the "%{crate}" crate.
 
-%files       -n %{name}+heck-devel
+%files       -n %{name}+num-complex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+no_logging-devel
+%package     -n %{name}+num-rational-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+no_logging-devel %{_description}
+%description -n %{name}+num-rational-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "no_logging" feature of the "%{crate}" crate.
+use the "num-rational" feature of the "%{crate}" crate.
 
-%files       -n %{name}+no_logging-devel
+%files       -n %{name}+num-rational-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+string_helpers-devel
+%package     -n %{name}+num-traits-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+string_helpers-devel %{_description}
+%description -n %{name}+num-traits-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "string_helpers" feature of the "%{crate}" crate.
+use the "num-traits" feature of the "%{crate}" crate.
 
-%files       -n %{name}+string_helpers-devel
+%files       -n %{name}+num-traits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+walkdir-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+walkdir-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "walkdir" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+walkdir-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# * drop example binary that depends on tiny_http
-rm examples/dev_mode.rs
-# * we are not doing anything with wasm
-rm -rv wasm
+# fix CLRF line endings
+find . -type f -exec dos2unix --keepdate '{}' +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

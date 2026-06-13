@@ -5,16 +5,13 @@
 %global crate emojis
 
 Name:           rust-emojis
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Efficient emoji lookup with support for GitHub shortcodes
 
 License:        (MIT OR Apache-2.0) AND Unicode-3.0
 URL:            https://crates.io/crates/emojis
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump toml to 1.x, https://github.com/rossmacarthur/emojis/pull/30
-Patch:          emojis-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
