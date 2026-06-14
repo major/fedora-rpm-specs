@@ -5,18 +5,13 @@
 %global crate tss-esapi-sys
 
 Name:           rust-tss-esapi-sys
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        FFI wrapper around TSS 2.0 Enhanced System API
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/tss-esapi-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump bindgen dependency to 0.72:
-#   https://github.com/parallaxsecond/rust-tss-esapi/commit/8533d67
-#   https://github.com/parallaxsecond/rust-tss-esapi/commit/16a4460
-Patch:          tss-esapi-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(tss2-esys) >= 4.0.0

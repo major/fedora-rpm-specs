@@ -1,6 +1,6 @@
 Version:        0.63.0
 Name:           lfortran
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -157,6 +157,9 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.63.0-2
+- Rebuilt for openssl 4.0
+
 * Thu Apr 23 2026 Packit <hello@packit.dev> - 0.63.0-1
 - Update to version 0.63.0
 - Resolves: rhbz#2460969

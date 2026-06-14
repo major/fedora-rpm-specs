@@ -1,6 +1,6 @@
 Name:           kunifiedpush
 Version:        26.04.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        UnifiedPush client library and distributor daemon
 License:        BSD-2-Clause AND CC0-1.0 AND BSD-3-Clause AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/libraries/kunifiedpush
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_push_notificatio
 %{_kf6_libdir}/cmake/KUnifiedPush/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.04.2-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

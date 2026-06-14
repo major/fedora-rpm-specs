@@ -1,14 +1,13 @@
-%global commit  44ff753f51d1a767b8d71b04e882847664d9f0c8
+%global commit  3bde0f4a4398ebc6a7204c894ddf0b29bedf5dcf
 
 Summary:        Generic IMAP server compliancy tester
 Name:           imaptest
 # Upstream is not really planning on adding version numbers
-Version:        20250509
-Release:        2%{?dist}
+Version:        20260529
+Release:        1%{?dist}
 License:        MIT
 URL:            https://dovecot.github.io/imaptest/
 Source0:        https://github.com/dovecot/imaptest/archive/%{commit}/%{name}-%{commit}.tar.gz
-Patch0:         https://github.com/dovecot/imaptest/commit/39d3dcc8f8ae4e7e751cb0ba633301630e32f54e.patch#/imaptest-20250520-so-file.patch
 BuildRequires:  dovecot-devel >= 2.4.1
 BuildRequires:  gcc
 BuildRequires:  make
@@ -59,6 +58,12 @@ $RPM_BUILD_ROOT%{_bindir}/%{name} --help
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jun 13 2026 Robert Scheck <robert@fedoraproject.org> 20260529-1
+- Upgrade to 20260529
+
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20250509-3
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250509-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

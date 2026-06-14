@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -481,6 +481,9 @@ fi
 %endif
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20230429-35
+- Rebuilt for openssl 4.0
+
 * Sun Mar 22 2026 Björn Esser <besser82@fedoraproject.org> - 20230429-34
 - Rebuild (jsoncpp)
 

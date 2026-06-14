@@ -21,7 +21,7 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.2.1
+Version:        8.3.0
 Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
@@ -39,23 +39,23 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.10"
+#        "phpunit/phpunit": "^13.2"
 BuildRequires:  phpunit13 >= 13.1.10
-BuildRequires:  (php-composer(%{pk_vendor}/diff)     >= 8.3   with php-composer(%{pk_vendor}/diff)     < 9)
-BuildRequires:  (php-composer(%{pk_vendor}/exporter) >= 8.0.3 with php-composer(%{pk_vendor}/exporter) < 9)
+BuildRequires:  (php-composer(%{pk_vendor}/diff)     >= 9.0   with php-composer(%{pk_vendor}/diff)     < 10)
+BuildRequires:  (php-composer(%{pk_vendor}/exporter) >= 8.1.0 with php-composer(%{pk_vendor}/exporter) < 9)
 %endif
 
 # from composer.json
 #        "php": ">=8.4",
-#        "sebastian/diff": "^8.3",
-#        "sebastian/exporter": "^8.0.3"
+#        "sebastian/diff": "^9.0",
+#        "sebastian/exporter": "^8.1.0"
 #        "ext-dom": "*",
 #        "ext-mbstring": "*"
 Requires:       php(language) >= 8.4
 Requires:       php-dom
 Requires:       php-mbstring
-Requires:       (php-composer(%{pk_vendor}/diff)     >= 8.3   with php-composer(%{pk_vendor}/diff)     < 9)
-Requires:       (php-composer(%{pk_vendor}/exporter) >= 8.0.3 with php-composer(%{pk_vendor}/exporter) < 9)
+Requires:       (php-composer(%{pk_vendor}/diff)     >= 9.0   with php-composer(%{pk_vendor}/diff)     < 10)
+Requires:       (php-composer(%{pk_vendor}/exporter) >= 8.1.0 with php-composer(%{pk_vendor}/exporter) < 9)
 # from phpcompatinfo report for version 6.3.0
 #   Only core, date, spl (bcmath is optional)
 # Autoloader
@@ -84,7 +84,7 @@ phpab --template fedora --output src/autoload.php src
 cat <<EOF | tee -a src/autoload.php
 
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/%{ns_vendor}/Diff8/autoload.php',
+    '%{php_home}/%{ns_vendor}/Diff9/autoload.php',
     '%{php_home}/%{ns_vendor}/Exporter8/autoload.php',
 ]);
 EOF
@@ -121,6 +121,11 @@ exit $ret
 
 
 %changelog
+* Fri Jun  5 2026 Remi Collet <remi@remirepo.net> - 8.3.0-1
+- update to 8.3.0
+- raise dependency on sebastian/diff 9.0
+- raise dependency on sebastian/exporter 8.1
+
 * Thu May 21 2026 Remi Collet <remi@remirepo.net> - 8.2.1-1
 - update to 8.2.1
 

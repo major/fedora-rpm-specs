@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        3.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -329,6 +329,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.1-2
+- Rebuilt for openssl 4.0
+
 * Sun May 17 2026 Packit <hello@packit.dev> - 3.3.1-1
 - Update to version 3.3.1
 - Resolves: rhbz#2478340

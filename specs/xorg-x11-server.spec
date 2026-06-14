@@ -17,7 +17,7 @@
 Summary:    X.Org X11 X server
 Name:       xorg-x11-server
 Version:    21.1.23
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        http://www.x.org
 # SPDX
 License:    Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -415,6 +415,9 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 21.1.23-2
+- Rebuilt for openssl 4.0
+
 * Tue Jun 02 2026 Peter Hutterer <peter.hutterer@redhat.com> - 21.1.23-1
 - Update to xserver 21.1.23
   Security fixes for: ZDI-CAN-30136, ZDI-CAN-30159, ZDI-CAN-30160,

@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-backgrounds
-Version:        50.0
+Version:        51~alpha.0
 Release:        %autorelease
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 

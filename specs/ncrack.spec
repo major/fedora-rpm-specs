@@ -2,7 +2,7 @@
 
 Name:           ncrack
 Version:        0.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A high-speed network auth cracking tool
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -56,6 +56,9 @@ export CFLAGS="${RPM_OPT_FLAGS} -fcommon"
 %{_datadir}/%{name}/*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7-19
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

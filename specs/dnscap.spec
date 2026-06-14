@@ -1,7 +1,7 @@
 %global filesurl https://www.dns-oarc.net/files/%{name}
 Name:           dnscap
 Version:        2.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network capture utility designed specifically for DNS traffic
 License:        BSD-3-Clause AND ISC
 URL:            https://www.dns-oarc.net/tools/dnscap
@@ -61,6 +61,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %doc CONTRIBUTORS CHANGES README.md
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.2-2
+- Rebuilt for openssl 4.0
+
 * Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2.5.2-1
 - Updated to version 2.5.2
 - Upstream change notes:

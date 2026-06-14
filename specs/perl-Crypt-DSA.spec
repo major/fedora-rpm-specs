@@ -1,7 +1,7 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
 Version:	1.20
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://www.cpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.20-2
+- Rebuilt for openssl 4.0
+
 * Mon May 18 2026 Paul Howarth <paul@city-fan.org> - 1.20-1
 - Update to 1.20
   - This module is now marked as deprecated: Crypt-DSA-GMP is a possible

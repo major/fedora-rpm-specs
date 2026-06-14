@@ -5,7 +5,7 @@
 
 Name:          tpm2-tss
 Version:       4.1.3
-Release:       9%{?candidate:.%{candidate}}%{?dist}
+Release:       10%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 License:       BSD-2-Clause
@@ -16,6 +16,8 @@ Source1:       tpm2-tss-systemd-sysusers.conf
 Patch0:        tpm2-tss-3.0.0-doxygen.patch
 # Do not use <openssl/engine.h> (fixed upstream for 4.2)
 Patch1:        tpm2-tss-4.1.3-openssl-no-engine.patch
+# Openssl 4 build fixes
+Patch2:        0001-Update-OpenSSL-API-compatibility.patch
 
 %global udevrules_prefix 60-
 
@@ -152,6 +154,9 @@ use tpm2-tss.
 %{_mandir}/man7/tss2*.7.gz
 
 %changelog
+* Fri Apr 17 2026 Simo Sorce <ssorce@cwredhatfedoraproject.org> - 4.1.3-10
+- OpenSSL 4 build fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

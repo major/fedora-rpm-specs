@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -16,6 +16,13 @@ Source5:        %{name}.init
 
 # use pkcs11-provider instead of OpenSSL engine
 Patch1: OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
+# OpenSSL 4.0 compatibility patches
+# https://git.w1.fi/cgit/hostap/commit/?id=141abf49a432c9a0f4f38c47a477ab258ec9e239
+Patch2: OpenSSL-Use-ASN1_STRING_length-get0_data-more-consis.patch
+# https://git.w1.fi/cgit/hostap/commit/?id=ec00192a5a56cadbb250816b2ed1552f6a4fdabe
+Patch3: OpenSSL-Set-X509_REQ-subject-name-using-proper-API-c.patch
+# https://git.w1.fi/cgit/hostap/commit/?id=907c5a99ad126bbef72b4a5d67e363decbd3d1ac
+Patch4: OpenSSL-Mark-more-ASN1-X509-values-const.patch
 
 BuildRequires:  libnl3-devel
 BuildRequires:  openssl-devel
@@ -63,6 +70,7 @@ Logwatch scripts for hostapd.
 
 %prep
 %setup -q
+%autopatch -p1
 sed \
     -e '$ a CONFIG_SAE=y' \
     -e '$ a CONFIG_SUITEB192=y' \
@@ -196,6 +204,10 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Mon May 11 2026 Pavol Žáčik <pzacik@redhat.com> - 2.11-6
+- Add OpenSSL 4.0 compatibility patches
+- Use %%autopatch to apply patches
+
 * Thu Jan 29 2026 Davide Caratti <dcaratti@redhat.com> - 2.11-5
 - Enable CONFIG_IEEE80211BE
 - Use pkcs11-provider to resolve PKCS11 URIs

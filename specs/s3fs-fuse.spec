@@ -4,7 +4,7 @@
 Name:           s3fs-fuse
 Version:        1.97
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        FUSE-based file system backed by Amazon S3
 
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ cp -p %{SOURCE1} passwd-s3fs
 %license COPYING
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.97-2
+- Rebuilt for openssl 4.0
+
 * Thu Feb  5 2026  Julio González Gil <packages@juliogonzalez.es> - 1.97-1
 - Update to 1.97 from https://github.com/s3fs-fuse/s3fs-fuse/releases/tag/v1.97 (#2416816)
   * Bugfix: Do not honor "-o nonempty"

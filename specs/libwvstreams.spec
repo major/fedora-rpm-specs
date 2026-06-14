@@ -1,6 +1,6 @@
 Name: libwvstreams
 Version: 4.6.1
-Release: 50%{?dist}
+Release: 51%{?dist}
 Summary: WvStreams is a network programming library written in C++
 Source: http://wvstreams.googlecode.com/files/wvstreams-%{version}.tar.gz
 #fixed multilib issue (bug #192717)
@@ -122,6 +122,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.6.1-51
+- Rebuilt for openssl 4.0
+
 * Thu Apr 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 4.6.1-50
 - Migrated to OpenSSL 4.0: use ASN1_STRING accessors instead of direct struct access
 

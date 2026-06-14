@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.195
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -523,6 +523,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.195-2
+- Rebuilt for openssl 4.0
+
 * Fri Apr 24 2026 Aaron Merey <amerey@redhat.com> - 0.195-1
 - Upgrade to upstream elfutils 0.195
 - Drop upstreamed patches

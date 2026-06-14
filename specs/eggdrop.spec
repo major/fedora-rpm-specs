@@ -4,7 +4,7 @@
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
 Version:        1.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-2.0-only: src/mod/pbkdf2.mod/{pbkdf2,tclpbkdf2}.c
 # BSD-3-Clause: src/compat/inet_aton.c
@@ -87,6 +87,9 @@ done
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.1-4
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.10.1-3
 - Rebuilt for Python 3.15
 

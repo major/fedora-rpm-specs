@@ -1,6 +1,6 @@
 Name:           openiked
 Version:        7.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A free Internet Key Exchange (IKEv2) implementation
 
 License:        ISC
@@ -85,6 +85,9 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.4-5
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

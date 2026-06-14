@@ -19,7 +19,7 @@ Name:      %{libname}
 Summary:   Client library for AMQP
 License:   MIT
 Version:   0.16.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 %forgemeta
 URL:       %{forgeurl}
 Source0:   %{forgesource}
@@ -131,6 +131,9 @@ grep static %{buildroot}%{_libdir}/cmake/rabbitmq-c/*.cmake && exit 1
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.0-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 10 2026 Remi Collet <remi@remirepo.net> - 0.16.0-1
 - update to 0.16.0
 - re-license spec file to CECILL-2.1

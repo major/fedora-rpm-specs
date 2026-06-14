@@ -3,7 +3,7 @@
 
 Name:		xrootd-s3-http
 Version:	0.6.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -67,6 +67,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.6-3
+- Rebuilt for openssl 4.0
+
 * Tue Apr 21 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.6-2
 - Rebuilt for xrootd 6
 

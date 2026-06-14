@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An interactive LDAP client
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ make manual.html
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8-2
+- Rebuilt for openssl 4.0
+
 * Wed Mar 11 2026 Xavier Bachelot <xavier@bachelot.org> - 1.8-1
 - Update to 1.8 (RHBZ#2446419)
   - Drop upstreamed patches

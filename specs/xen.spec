@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -830,6 +830,9 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.21.1-5
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.21.1-4
 - Rebuilt for Python 3.15
 

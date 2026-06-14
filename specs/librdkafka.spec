@@ -2,7 +2,7 @@
 
 Name:		librdkafka
 Version:	2.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	Apache-2.0
@@ -93,6 +93,9 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.14.1-2
+- Rebuilt for openssl 4.0
+
 * Tue Apr 14 2026 Attila Lakatos <alakatos@redhat.com> - 2.14.1-1
 - Rebase to 2.14.1
   Resolves: rhbz#2293040

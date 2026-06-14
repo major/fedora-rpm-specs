@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        14
-Release:        0.beta%{?dist}
+Release:        0.beta%{?dist}.1
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -105,6 +105,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 14-0.beta.1
+- Rebuilt for openssl 4.0
+
 * Wed Apr 01 2026 Gwyn Ciesla <gwync@protonmail.com> - 14-0.beta
 - 14 beta
 

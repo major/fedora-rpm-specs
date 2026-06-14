@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        91%{?dist}
+Release:        92%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -580,6 +580,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.14.1-92
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-91
 - Remove unused BR
 

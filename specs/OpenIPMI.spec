@@ -7,7 +7,7 @@ Summary: IPMI (Intelligent Platform Management Interface) library and tools
 Name: OpenIPMI
 
 Version:    2.0.36
-Release:    7%{?dist}
+Release:    8%{?dist}
 License:    LGPL-2.1-or-later and GPL-2.0-or-later or BSD-3-Clause
 URL:        https://sourceforge.net/projects/openipmi/
 Source:     https://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -228,6 +228,9 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man5/ipmi_sim_cmd.5*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.36-8
+- Rebuilt for openssl 4.0
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.36-7
 - Rebuilt for net-snmp 5.9.5.2
 

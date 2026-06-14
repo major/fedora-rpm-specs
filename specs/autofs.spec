@@ -15,7 +15,7 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.9
-Release: 12%{?dist}
+Release: 13%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
@@ -200,6 +200,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.1.9-13
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.1.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

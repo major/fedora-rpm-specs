@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.19
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
@@ -315,6 +315,9 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.19-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Petr Pisar <ppisar@redhat.com> - 0.9.19-1
 - 0.9.19 bump
 

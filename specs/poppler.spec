@@ -58,7 +58,9 @@ BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(poppler-data)
 BuildRequires: pkgconfig(libcurl)
+%if %{undefined rhel} || 0%{?rhel} <= 10
 BuildRequires: cmake(Gpgmepp)
+%endif
 %if 0%{?qt5}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
@@ -193,6 +195,9 @@ chmod -x poppler/CairoFontEngine.cc
 %endif
 %if ! 0%{?qt6}
   -DENABLE_QT6=OFF \
+%endif
+%if 0%{?rhel} > 10
+  -DENABLE_GPGME=OFF \
 %endif
   -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
   -DENABLE_ZLIB=OFF \

@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -421,6 +421,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.1-16
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.8.1-15
 - Rebuilt for Python 3.15
 

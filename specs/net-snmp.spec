@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.5.2
-Release:    5%{?dist}
+Release:    6%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -58,6 +58,9 @@ Patch102:   net-snmp-5.9-python3.patch
 # make Mail::Sender optional
 Patch103:   net-snmp-5.9-mail-sender.patch
 
+# Openssl 4 build fixes
+Patch104:    0001-Use-OpenSSL-accessors-for-opaque-structs.patch
+
 Requires:        %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:        %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # This is actually needed for the %%triggerun script but Requires(triggerun)
@@ -90,7 +93,7 @@ BuildRequires:   perl(TAP::Harness)
 BuildRequires:   perl(vars)
 BuildRequires:   perl(warnings)
 BuildRequires:   lm_sensors-devel >= 3
-BuildRequires:   autoconf, automake
+BuildRequires:   autoconf, automake, libtool
 
 %description
 SNMP (Simple Network Management Protocol) is a protocol used for
@@ -243,14 +246,19 @@ cp %{SOURCE10} .
 %if 0%{?rhel}
 %patch 103 -p1
 %endif
+%patch 104 -p1
 
 # disable failing test - see https://bugzilla.redhat.com/show_bug.cgi?id=680697
 rm testing/fulltests/default/T200*
 
+# Autoreconf is run during build, which may be a different version than upstream used,
+# resulting in a mismatch during "Checking the Net-SNMP configure script validity" test
+autoconf --version | awk 'NR==1 {print $4}' > dist/autoconf-version
+
 %build
 
 # Autoreconf to get autoconf 2.69 for ARM (#926223)
-autoreconf
+autoreconf -fiv
 
 MIBS="host agentx smux \
      ucd-snmp/diskio tcp-mib udp-mib mibII/mta_sendmail \
@@ -506,6 +514,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Fri Jun 12 2026 Simo Sorce <ssorce@redhat.com> - 1:5.9.5.2-6
+- Openssl 4 and autoconf build fixes
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:5.9.5.2-5
 - Rebuilt for Python 3.15
 

@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -107,6 +107,9 @@ ignore="${ignore-} --ignore=tests/test_performance.py"
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-17
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.9.0-16
 - Rebuilt for Python 3.15
 

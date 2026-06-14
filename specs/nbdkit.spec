@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.47.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.47.9-3
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.47.9-2
 - Rebuilt for Python 3.15
 

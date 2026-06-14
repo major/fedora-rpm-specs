@@ -35,7 +35,7 @@
 
 Name:           cgit
 Version:        1.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A fast web interface for git
 
 License:        GPL-2.0-only
@@ -67,6 +67,7 @@ Source93:        https://www.kernel.org/pub/software/scm/git/git-%{gitver}.tar.s
 
 # All supported releases use highlight version 3.
 Patch0:         0001-use-highlight-3-by-default.patch
+Patch1:         cgit-openssl4.patch
 
 # Note the bundled git, per the packaging guidelines
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling
@@ -215,6 +216,12 @@ install -Dp -m0644 httpd.conf %{buildroot}%{httpdconfd}/%{name}.conf
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3-4
+- Rebuilt for openssl 4.0
+
+* Thu Apr 30 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.3-3
+- Fix build with OpenSSL 4.0 (opaque ASN1_STRING in bundled git)
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 1.3-2
 - rebuild
 

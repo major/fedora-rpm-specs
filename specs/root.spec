@@ -34,7 +34,7 @@
 Name:		root
 Version:	6.38.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3434,6 +3434,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.38.04-7
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 6.38.04-6
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name:		voms
 Version:	2.1.3
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -12,6 +12,8 @@ Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{ve
 Source1:	%{name}.INSTALL
 #		System user creation config
 Source2:	%{name}-sysusers.conf
+
+Patch0:		voms-openssl4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -104,6 +106,7 @@ This package provides the VOMS service.
 
 %prep
 %setup -q
+%patch 0 -p1 -b .openssl4
 
 ./autogen.sh
 
@@ -296,6 +299,12 @@ fi
 %doc README.Fedora
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.3-5
+- Rebuilt for openssl 4.0
+
+* Wed Apr 29 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.1.3-4
+- Fix build with OpenSSL 4.0 (opaque ASN1_STRING, const X509, removed ERR_STATE)
+
 * Tue Jan 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.3-3
 - Rebuild for gsoap 2.8.139 (Fedora 44)
 

@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -290,6 +290,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20260331-2.git4c567b2
+- Rebuilt for openssl 4.0
+
 * Tue Mar 31 2026 Alexander Sosedkin <asosedkin@redhat.com> - 20260331-1.git4c567b2
 - FIPS: allow NIST hybrid kexes for openssh
 - libssh: enable NIST ML-KEM hybrids

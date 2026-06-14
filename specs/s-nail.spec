@@ -1,6 +1,6 @@
 Name:           s-nail
 Version:        14.9.25
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Environment for sending and receiving mail, providing functionality of POSIX mailx
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
@@ -14,6 +14,7 @@ Source2:        steffen.asc
 # https://bugzilla.redhat.com/show_bug.cgi?id=2171723
 Patch0:		s-nail-makeflags.patch
 Patch1:		s-nail-14.9.25-test-sha256.patch
+Patch2:		s-nail-14.9.25-openssl4.patch
 
 BuildRequires:  make
 BuildRequires:  gnupg2
@@ -119,6 +120,12 @@ make test
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 14.9.25-6
+- Rebuilt for openssl 4.0
+
+* Mon May 11 2026 Pavol Žáčik <pzacik@redhat.com> - 14.9.25-5
+- Add patch to fix OpenSSL 4.0 compatibility
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.9.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

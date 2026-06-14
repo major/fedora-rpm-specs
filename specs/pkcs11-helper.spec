@@ -1,6 +1,6 @@
 Name:           pkcs11-helper
 Version:        1.30.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A library for using PKCS#11 providers
 
 License:        GPL-2.0-only OR BSD-3-Clause
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.30.0-7
+- Rebuilt for openssl 4.0
+
 * Mon Apr 20 2026 Simo Sorce <simo@redhat.com> - 1.30.0-6
 - OpenSSL 4 build fixes
 

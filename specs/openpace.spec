@@ -1,6 +1,6 @@
 Name:           openpace
 Version:        1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cryptographic library for EAC version 2
 
 License:        GPL-3.0-only
@@ -96,6 +96,9 @@ rm -rf %{buildroot}%{_docdir}/openpace/_static/bootswatch-3.3.7/fonts
 %doc %{_docdir}/openpace
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.4-3
+- Rebuilt for openssl 4.0
+
 * Wed Apr 29 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.1.4-2
 - Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
 

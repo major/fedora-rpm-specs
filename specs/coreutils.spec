@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -290,6 +290,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 9.11-4
+- Rebuilt for openssl 4.0
+
 * Thu Jun 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.11-3
 - unexpand: fix heap overflows
 

@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # primary license: BSD-3-Clause
 # themes/Mumble: Unlicense and WTFPL
@@ -324,6 +324,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.mumble.Mumble.de
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.287-14
+- Rebuilt for openssl 4.0
+
 * Mon Jun 01 2026 Adam Williamson <awilliam@redhat.com> - 1.4.287-13
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x again
 

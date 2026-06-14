@@ -6,7 +6,7 @@
 %global crate zerocopy
 
 Name:           rust-zerocopy
-Version:        0.8.49
+Version:        0.8.52
 Release:        %autorelease
 Summary:        Zerocopy makes zero-cost memory manipulation effortless
 
@@ -37,14 +37,16 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/AGENTS.md
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/POLICIES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/agent_docs/
 %exclude %{crate_instdir}/ci/
 %exclude %{crate_instdir}/githooks/
+%exclude %{crate_instdir}/rustdoc/
 %exclude %{crate_instdir}/testdata/
 %exclude %{crate_instdir}/cargo.sh
+%exclude %{crate_instdir}/Cargo.toml.std
 %exclude %{crate_instdir}/clippy.toml
 %exclude %{crate_instdir}/rustfmt.toml
 %exclude %{crate_instdir}/win-cargo.bat

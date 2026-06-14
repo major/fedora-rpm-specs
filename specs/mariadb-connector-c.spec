@@ -7,7 +7,7 @@
 
 Name:           mariadb-connector-c
 Version:        3.4.8
-Release:        4%{?with_debug:.debug}%{?dist}
+Release:        5%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later AND PHP-3.0 AND PHP-3.01
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -271,6 +271,9 @@ install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{nam
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.8-5
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 3.4.8-4
 - Drop multilib-rpm-config usage on RHEL
   Related: RHEL-178013

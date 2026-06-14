@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.75
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -69,6 +69,9 @@ grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.75-2
+- Rebuilt for openssl 4.0
+
 * Mon May 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1.75-1
 - rebase to the latest upstream release (rhbz#2464665)
 

@@ -8,7 +8,7 @@
 
 Name:    ima-evm-utils
 Version: 1.6.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: IMA/EVM support utilities
 License: GPL-2.0-or-later
 Url:     https://github.com/linux-integrity/
@@ -145,6 +145,9 @@ install -D %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/ima-setup
 %{_libdir}/libimaevm.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.2-11
+- Rebuilt for openssl 4.0
+
 * Thu Mar 12 2026 Coiby Xu <coxu@redhat.com> - 1.6.2-10
 - Don't use level 1 compiling optimisation
 

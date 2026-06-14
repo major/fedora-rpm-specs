@@ -1,6 +1,6 @@
 Name:           fastback
 Version:        0.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        File uploader, configureable file uploader
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4-34
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

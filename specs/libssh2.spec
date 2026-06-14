@@ -6,7 +6,7 @@
 
 Name:		libssh2
 Version:	1.11.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -121,6 +121,9 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.11.1-7
+- Rebuilt for openssl 4.0
+
 * Fri May 22 2026 Paul Howarth <paul@city-fan.org> - 1.11.1-6
 - Fix CVE-2026-7598: integer overflow via large username or password arguments
   (https://github.com/libssh2/libssh2/pull/1858)

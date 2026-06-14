@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.15.0
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -133,6 +133,9 @@ done
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.15.0-2
+- Rebuilt for openssl 4.0
+
 * Fri May 29 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.15.0-1
 - Update to 2.15.0
 

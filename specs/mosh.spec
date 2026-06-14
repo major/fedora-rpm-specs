@@ -1,6 +1,6 @@
 Name:		mosh
 Version:	1.4.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Mobile shell that supports roaming and intelligent local echo
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -56,6 +56,9 @@ Mosh is a remote terminal application that supports:
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.0-12
+- Rebuilt for openssl 4.0
+
 * Wed May 13 2026 Miroslav Suchy <msuchy@redhat.com> - 1.4.0-11
 - Use protobuf3 instead of protobuf.
 

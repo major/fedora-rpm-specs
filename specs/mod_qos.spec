@@ -6,7 +6,7 @@
 
 Name:           mod_qos
 Version:        11.76
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Quality of service module for Apache
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.76-3
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.76-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

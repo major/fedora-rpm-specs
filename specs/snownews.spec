@@ -1,6 +1,6 @@
 Name:		snownews
 Version: 	1.9
-Release: 	12%{?dist}
+Release: 	13%{?dist}
 Summary: 	A text mode RSS/RDF newsreader
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: 	GPL-3.0-only
@@ -41,6 +41,9 @@ make DESTDIR="$RPM_BUILD_ROOT" PREFIX="$RPM_BUILD_ROOT%{_prefix}" install
 %{_mandir}/*/man1/*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9-13
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

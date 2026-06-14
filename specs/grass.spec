@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -336,6 +336,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.5.0-2
+- Rebuilt for openssl 4.0
+
 * Sat May 09 2026 Markus Neteler <neteler@mundialis.de> - 8.5.0-1
 - Update to GRASS 8.5.0 (BZ#2416357)
 - Update to CMAKE_CXX_STANDARD 17 as PDAL requirement

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-AES
 Version:        0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to OpenSSL for AES
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-AES
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23-2
+- Rebuilt for openssl 4.0
+
 * Tue Apr 07 2026 Petr Pisar <ppisar@redhat.com> - 0.23-1
 - 0.23 bump
 

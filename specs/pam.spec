@@ -14,7 +14,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -363,6 +363,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
+- Rebuilt for openssl 4.0
+
 * Fri Jan 23 2026 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.2-1
 - Rebase to release 1.7.2. Resolves: #2321512
 - Rebase to pam-redhat-1.3.1

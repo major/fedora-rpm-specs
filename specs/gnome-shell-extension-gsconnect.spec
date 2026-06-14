@@ -6,7 +6,7 @@
 
 Name:           gnome-shell-extension-gsconnect
 Version:        72
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
 License:        GPL-2.0-or-later
@@ -157,6 +157,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 72-2
+- Rebuilt for openssl 4.0
+
 * Tue May 05 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 72-1
 - Update to 72
 

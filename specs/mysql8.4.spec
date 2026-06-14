@@ -99,7 +99,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          4%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1099,6 +1099,9 @@ popd
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.4.9-4
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 8.4.9-3
 - Rebuilt for icu 78.3
 

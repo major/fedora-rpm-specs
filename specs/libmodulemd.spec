@@ -23,8 +23,8 @@
 %endif
 
 Name:           %{upstream_name}%{?v2_suffix}
-Version:        2.15.2
-Release:        8%{?dist}
+Version:        2.15.3
+Release:        1%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -41,10 +41,6 @@ Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
-# Adapt tests to glib2-2.87.0, in upstream after 2.15.2, bug #2423153
-Patch0:         modulemd-2.15.2-tests-Adapt-to-glib-2.87.0.patch
-# Adapt tests to pygobject 3.55.0, in upstream after 2.15.2, bug #2440570
-Patch1:         modulemd-2.15.2-tests-Adapt-to-pygobject-3.55.0.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.47
@@ -82,7 +78,6 @@ more details.
 Summary:        Python 2 bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       python-gobject-base
-Requires:       python-six
 
 %description -n python2-%{name}
 Python 2 bindings for %{name}.
@@ -94,12 +89,6 @@ Python 2 bindings for %{name}.
 Summary:        Python 3 bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       python%{python3_pkgversion}-gobject-base
-%if (0%{?rhel} && 0%{?rhel} <= 7)
-# The py3_dist macro on EPEL 7 doesn't work right at the moment
-Requires:       python3.6dist(six)
-%else
-Requires:       %{py3_dist six}
-%endif
 
 %description -n python%{python3_pkgversion}-%{name}
 Python %{python3_pkgversion} bindings for %{name}.
@@ -193,6 +182,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Fri Jun 12 2026 Petr Pisar <ppisar@redhat.com> - 2.15.3-1
+- 2.15.3 bump
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.15.2-8
 - Rebuilt for Python 3.15
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 45.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -524,6 +524,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 45.6-4
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Adam Williamson <awilliam@redhat.com> - 45.6-3
 - Backport PR #7103 to fix kickstart installs
 

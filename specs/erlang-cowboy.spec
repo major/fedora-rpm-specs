@@ -1,7 +1,7 @@
 %global realname cowboy
 
 Name:		erlang-%{realname}
-Version:	2.16.0
+Version:	2.16.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Small, fast, modular HTTP server written in Erlang

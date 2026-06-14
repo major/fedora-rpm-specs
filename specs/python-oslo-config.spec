@@ -14,7 +14,7 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    10.4.0
+Version:    10.5.0
 Release:    %autorelease
 Summary:    OpenStack common configuration library
 

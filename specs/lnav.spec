@@ -1,6 +1,6 @@
 Name:          lnav
 Version:       0.14.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -51,6 +51,9 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.14.0-2
+- Rebuilt for openssl 4.0
+
 * Mon Apr 13 2026 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.14.0-1
 - resolves: #2433051
   updated to 0.14.0

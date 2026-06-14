@@ -1,4 +1,4 @@
-%global baserelease 2
+%global baserelease 3
 #global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -155,6 +155,9 @@ install -m0644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/openarc.conf
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-3
+- Rebuilt for openssl 4.0
+
 * Fri Feb 20 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.0-2
 - Fix user/group creation for older releases
 

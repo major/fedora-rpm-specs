@@ -1,7 +1,7 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
 Version:        1.11.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
 Source0:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.11.2-5
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Robert Scheck <robert@fedoraproject.org> 1.11.2-4
 - Use 'systemctl try-reload-or-restart' in logrotate postrotate
   script (#2371326, thanks to Marcos Mello)

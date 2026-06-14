@@ -2,7 +2,7 @@
 
 Name:         davix
 Version:      0.8.10
-Release:      7%{?dist}
+Release:      8%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -150,6 +150,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.10-8
+- Rebuilt for openssl 4.0
+
 * Thu Apr 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.10-7
 - Update CMake minimum requirement and supported versions
 

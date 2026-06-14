@@ -1,6 +1,6 @@
 Name:		dcap
 Version:	2.47.14
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Client Tools for dCache
 
 #		plugins/gssapi/{base64.[ch],util.c} - BSD license
@@ -148,6 +148,9 @@ rm -rf %{buildroot}/%{_docdir}
 %{_libdir}/%{name}/libtelnetTunnel.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.47.14-13
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.14-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -18,7 +18,7 @@ BuildRequires: systemd
 
 Name: tarantool
 Version: 2.4.2.68
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: In-Memory Database
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -148,6 +148,9 @@ install -m0644 -D tarantool.sysusers.conf %{buildroot}%{_sysusersdir}/tarantool.
 %{_includedir}/tarantool/module.h
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.2.68-26
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2.68-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:          opusfile
 Version:       0.12
 %global soname_version 0
-Release:       18%{?dist}
+Release:       19%{?dist}
 Summary:       A high-level API for decoding and seeking within .opus files
 License:       BSD-3-Clause
 URL:           https://www.opus-codec.org/
@@ -70,6 +70,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libopusurl.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.12-19
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

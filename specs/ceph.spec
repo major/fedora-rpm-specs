@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:20.2.1-5
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:20.2.1-4
 - Rebuilt for icu 78.3
 

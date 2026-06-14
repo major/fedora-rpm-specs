@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -126,6 +126,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.2-3
+- Rebuilt for openssl 4.0
+
 * Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 2.1.2-2
 - add explicit Requires on cjson-devel to mosquitto-devel (header assumes the cjson headers are also present)
 

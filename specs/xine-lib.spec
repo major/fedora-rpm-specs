@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        32%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        33%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -361,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.13-33
+- Rebuilt for openssl 4.0
+
 * Wed Apr 29 2026 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-32
 - Drop orphaned BR: gtk2-devel and replace with missing BR: gdk-pixbuf2-devel
 

@@ -4,7 +4,7 @@
 Summary:        Utility to clone and restore a partition
 Name:           partclone
 Version:        0.3.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -134,6 +134,9 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.47-2
+- Rebuilt for openssl 4.0
+
 * Sat Mar 14 2026 Robert Scheck <robert@fedoraproject.org> 0.3.47-1
 - Upgrade to 0.3.47 (#2446447)
 

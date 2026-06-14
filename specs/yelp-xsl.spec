@@ -15,9 +15,6 @@ BuildRequires:  meson
 BuildRequires:  gettext-devel
 BuildRequires:  gcc
 BuildRequires:  itstool
-BuildRequires:  python3-libxml2
-BuildRequires:  /usr/bin/ducktype
-BuildRequires:  /usr/bin/xmllint
 BuildRequires:  /usr/bin/xsltproc
 
 %description

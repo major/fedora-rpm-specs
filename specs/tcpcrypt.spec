@@ -4,7 +4,7 @@
 Summary: Opportunistically encrypt TCP connections
 Name: tcpcrypt
 Version: 0.5
-Release: 20%{?dist}
+Release: 21%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://tcpcrypt.org/
@@ -103,6 +103,9 @@ install -m0644 -D tcpcrypt.sysusers.conf %{buildroot}%{_sysusersdir}/tcpcrypt.co
 %systemd_postun_with_restart tcpcryptd.service
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5-21
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

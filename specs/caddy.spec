@@ -25,7 +25,6 @@ Source2:        create-vendor-tarball.sh
 Source10:       Caddyfile
 Source20:       caddy.service
 Source21:       caddy-api.service
-Source22:       caddy.sysusers
 Source30:       poweredby-white.png
 Source31:       poweredby-black.png
 
@@ -264,7 +263,9 @@ install -d -m 0755 %{buildroot}%{_sysconfdir}/caddy/Caddyfile.d
 install -D -p -m 0644 -t %{buildroot}%{_unitdir} %{S:20} %{S:21}
 
 # sysusers
-install -D -p -m 0644 %{S:22} %{buildroot}%{_sysusersdir}/caddy.conf
+cat > %{buildroot}%{_sysusersdir}/caddy.conf << EOF
+u caddy - "Caddy web server" /var/lib/caddy
+EOF
 
 # data directory
 install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy

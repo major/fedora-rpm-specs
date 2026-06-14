@@ -1,6 +1,6 @@
 Name:           iperf3
 Version:        3.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 # src/cjson.{c,h} and src/net.{c,h} are MIT
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.21-2
+- Rebuilt for openssl 4.0
+
 * Sat May 23 2026 Kevin Fenzi <kevin@scrye.com> - 3.21-1
 - Update to 3.21. Fixes rhbz#2457077
 

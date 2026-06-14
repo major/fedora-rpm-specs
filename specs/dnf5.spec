@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1145,6 +1145,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4.2.1-4
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 5.4.2.1-3
 - Rebuilt for Python 3.15
 

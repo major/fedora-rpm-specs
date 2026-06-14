@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.4
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -130,7 +130,9 @@ BuildRequires: mariadb-connector-c-devel
 BuildRequires: muParser-devel
 BuildRequires: netcdf-devel
 BuildRequires: openexr-devel
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
+%endif
 %ifnarch %{ix86} %{arm}
 BuildRequires: parquet-libs-devel
 %endif
@@ -882,6 +884,9 @@ done
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.4-6
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.12.4-5
 - Rebuilt for Python 3.15
 

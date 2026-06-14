@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.1-2
+- Rebuilt for openssl 4.0
+
 * Fri Mar 13 2026 Derek Weitzel <dweitzel@unl.edu> - 1.4.1-1
 - Fix scope path boundary validation to deny sibling-prefix authorization bypasses
 - Reject parent-directory traversal in scope paths, including encoded traversal forms

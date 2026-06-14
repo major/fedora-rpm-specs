@@ -6,17 +6,19 @@
 %global qt_version 6.4
 %global cmake_version 3.22
 
-#%%global fullversion %%{version}
-%global fullversion 6.2-beta1
+%global base_version 6.2
+#global prerelease beta1
+%global package_version %{base_version}%{?prerelease:~%{prerelease}}
+%global upstream_version %{base_version}%{?prerelease:-%{prerelease}}
 
 Name:           CGAL
-Version:        6.2
-Release:        0.1.beta1%{?dist}
+Version:        %{package_version}
+Release:        %autorelease
 Summary:        Computational Geometry Algorithms Library
 
 License:        LGPL-3.0-or-later AND GPL-3.0-or-later AND BSL-1.0
 URL:            http://www.cgal.org/
-Source0:        https://github.com/CGAL/cgal/releases/download/v%{fullversion}/%{name}-%{fullversion}.tar.xz
+Source0:        https://github.com/CGAL/cgal/releases/download/v%{upstream_version}/%{name}-%{upstream_version}.tar.xz
 
 # Required devel packages.
 BuildRequires: cmake >= %{cmake_version}
@@ -82,7 +84,7 @@ CGAL algorithms.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{fullversion}
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 # Fix some file permissions
 #chmod a-x include/CGAL/export/ImageIO.h

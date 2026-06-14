@@ -4,7 +4,7 @@
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
 Version: 4.5ga5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -117,6 +117,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5ga5-2
+- Rebuilt for openssl 4.0
+
 * Mon Feb 23 2026 Dan Horák <dan[at]danny.cz> - 4.5ga5-1
 - updated to 4.5ga5(rhbz#2368663)
 

@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -227,6 +227,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6-2
+- Rebuilt for openssl 4.0
+
 * Thu Jun 11 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.6-1
 - fapolicyd-1.6
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.6

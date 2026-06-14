@@ -1,6 +1,6 @@
 Name:           libzdb
 Version:        3.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Small, easy to use Database Connection Pool Library
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
@@ -55,6 +55,9 @@ make install DESTDIR=%{buildroot}
 %doc doc/api-docs
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.1-4
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

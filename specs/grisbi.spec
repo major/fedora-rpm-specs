@@ -1,6 +1,6 @@
 Name:		grisbi
 Version:	2.0.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Personal finances manager
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.5-10
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

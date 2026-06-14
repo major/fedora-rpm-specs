@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  7.5
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -313,6 +313,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7:7.5-3
+- Rebuilt for openssl 4.0
+
 * Wed May 06 2026 Pavol Žáčik <pzacik@redhat.com> - 7:7.5-2
 - Add patch to fix OpenSSL 4.0 compatibility
 

@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-httpx2
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        A next-generation HTTP client for Python
 
@@ -16,13 +16,6 @@ Summary:        A next-generation HTTP client for Python
 License:        BSD-3-Clause
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
-
-# Allow version 15 of rich in httpx2’s cli extra
-# https://github.com/pydantic/httpx2/pull/1015
-Patch:          %{url}/pull/1015.patch
-# Test with chardet 6.0.0.post1
-# https://github.com/pydantic/httpx2/pull/1017
-Patch:          %{url}/pull/1017.patch
 
 BuildArch:      noarch
 

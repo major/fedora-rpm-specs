@@ -2,7 +2,7 @@
 
 Name:       c-icap
 Version:    0.6.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -214,6 +214,9 @@ exit 0
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.3-6
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

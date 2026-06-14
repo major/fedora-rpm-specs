@@ -3,7 +3,7 @@
 
 Name:           mod_auth_cas
 Version:        1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Apache CAS Authentication Module for the JASIG/Apereo CAS Server
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/httpd/%{name}
 %dir %attr(-,apache,apache) %{_localstatedir}/cache/httpd/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2-13
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

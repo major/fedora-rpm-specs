@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -115,6 +115,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.3.0-2
+- Rebuilt for openssl 4.0
+
 * Tue Feb 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 8.3.0-1
 - rebase to the latest upstream release (rhbz#2436263)
 

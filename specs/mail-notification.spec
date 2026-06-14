@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        116.git.%{git_revision}%{?dist}
+Release:        117.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -232,6 +232,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4-117.git.9ae8768
+- Rebuilt for openssl 4.0
+
 * Thu Jan 29 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 5.4-116.git.9ae8768
 - Still allow discarded qualifiers for compile (#2434807)
 

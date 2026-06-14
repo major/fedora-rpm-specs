@@ -2,7 +2,7 @@
 
 Name:           bcvk
 Version:        0.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootable container VM toolkit
 
 # Apache-2.0 OR MIT
@@ -72,4 +72,7 @@ sed -i -e '/https:\/\//d' cargo-vendor.txt
 %{_mandir}/man*/*bcvk*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.17.0-2
+- Rebuilt for openssl 4.0
+
 %autochangelog

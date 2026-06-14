@@ -25,7 +25,7 @@ used for integration with existing/legacy systems.
 
 Name: python-%{pname}
 Version: %{version0}^%{commitdate}git%{shortcommit}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Compiler-free Python crypto library backed by the OS
 License: MIT
 URL: %{forgeurl}
@@ -75,6 +75,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 %doc readme.md
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0^20230823git1547f53-3
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.3.0^20230823git1547f53-2
 - Rebuilt for Python 3.15
 

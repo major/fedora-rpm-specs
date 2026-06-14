@@ -1,7 +1,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0 and partially v3.1, v3.2
 Version: 3.27.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -411,6 +411,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.27.0-2
+- Rebuilt for openssl 4.0
+
 * Tue Jun 09 2026 Than Ngo <than@redhat.com> - 3.27.0-1
 - Update to 3.27.0
   * Add base support for PKCS#11 v3.2

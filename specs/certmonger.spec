@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.21
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -277,6 +277,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.79.21-8
+- Rebuilt for openssl 4.0
+
 * Tue May 05 2026 Rob Crittenden <rcritten@redhat.com> - 0.79.21-7
 - Don't run the mldsa tests if MLDSA is not allowed by NSS crypto
   policy.

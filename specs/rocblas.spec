@@ -519,6 +519,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
 #   contains the $ORIGIN runpath specifier at the wrong position in
 #   [/usr/lib64/rocm/rocm-7.2/lib:$ORIGIN/../lib:$ORIGIN/../lib/rocblas/lib]
 chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}.*
+%if %{with test}
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-test
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-bench
+chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/bin/rocblas-gemm-tune
+%endif
 %endif
 
 %check

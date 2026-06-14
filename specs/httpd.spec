@@ -28,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.68
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -850,6 +850,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.68-2
+- Rebuilt for openssl 4.0
+
 * Tue Jun 09 2026 Luboš Uhliarik <luhliari@redhat.com> - 2.4.68-1
 - new version 2.4.68
 

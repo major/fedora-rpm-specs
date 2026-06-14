@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.7
-Release:       15%{?dist}
+Release:       16%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -77,6 +77,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.11.7-16
+- Rebuilt for openssl 4.0
+
 * Fri Jan 30 2026 Dave Cantrell <dcantrell@redhat.com> - 1:1.11.7-15
 - Remove unused 'len' variable (#2435138)
 

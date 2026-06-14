@@ -1275,6 +1275,7 @@ fi
 %{mozappdir}/v4l2test
 %endif
 %{mozappdir}/vaapitest
+%{mozappdir}/vulkantest
 %if !%{?system_nss}
 %exclude %{mozappdir}/libnssckbi.so
 %endif

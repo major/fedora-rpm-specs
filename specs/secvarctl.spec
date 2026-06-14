@@ -7,6 +7,8 @@ URL:		    https://github.com/open-power/secvarctl
 Source0:	    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/ibm/libstb-secvar/archive/ce98be9d15ac2df062726b4451f0ec0c0b27fbf2.tar.gz
 
+Patch0:         0001-Fix-OpenSSL-4.0-compatibility.patch
+
 BuildRequires:	gcc
 BuildRequires:	cmake
 BuildRequires:	openssl-devel
@@ -23,8 +25,9 @@ commands, with the keys efficiently. It is supporting automate process of the
 both host and guest secure boot keys.
 
 %prep
-%autosetup -p1
+%autosetup -N
 tar xf %{SOURCE1} -C external/libstb-secvar --strip-components=1
+%autopatch -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release

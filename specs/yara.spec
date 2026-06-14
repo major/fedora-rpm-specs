@@ -42,7 +42,8 @@ Source0:       https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name
 # Use default sphix theme to generate documentation rather than sphinx_rtd_theme
 # to avoid static installation of font files on fedora >= 24
 Patch1:         yara-docs-theme.patch
-
+# OpenSSL 4 build fixes
+Patch2:         0001-Use-OpenSSL-accessor-functions-for-ASN1_STRING.patch
 
 BuildRequires:  git
 BuildRequires:  gcc

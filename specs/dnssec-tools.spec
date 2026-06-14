@@ -8,7 +8,7 @@
 Summary: A suite of tools for managing dnssec aware DNS usage
 Name: dnssec-tools
 Version: 2.2.3
-Release: 32%{?dist}
+Release: 34%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://www.dnssec-tools.org/
@@ -38,6 +38,7 @@ Patch19: 7287c6b96422e499560fb10b95c1a481ea82656d.patch
 # link libval-threads with libs
 Patch20: dnssec-tools-2.2.3-link-libval-threads-with-libs.patch
 Patch21: dnssec-tools-2.2.3-add_ifdedf_to_engine.patch
+Patch22: dnssec-tools-openssl4.patch
 
 %description
 
@@ -84,6 +85,7 @@ C-based libraries useful for developing dnssec aware tools.
 %patch -P19 -p2
 %patch -P20 -p1 -b .link-with-libs
 %patch -P21 -p1
+%patch -P22 -p1
 
 %build
 %configure --with-validator-testcases-file=%{_datadir}/dnssec-tools/validator-testcases --with-perl-build-args="INSTALLDIRS=vendor OPTIMIZE='$RPM_OPT_FLAGS'" --sysconfdir=/etc --with-root-hints=/etc/dnssec-tools/root.hints --with-resolv-conf=/etc/dnssec-tools/resolv.conf --disable-static --with-nsec3 --with-ipv6 --with-dlv --disable-bind-checks
@@ -372,6 +374,12 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.2.3-34
+- Rebuilt for openssl 4.0
+
+* Thu Apr 30 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.2.3-33
+- Fix build with OpenSSL 4.0 (remove deprecated cleanup functions)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

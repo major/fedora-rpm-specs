@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
@@ -461,6 +461,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.9b-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun  8 2026 Paul Howarth <paul@city-fan.org> - 1.3.9b-1
 - Update to 1.3.9b
   - Fix SQL Injection in mod_wrap2_sql via reverse DNS hostname (GH#2057,

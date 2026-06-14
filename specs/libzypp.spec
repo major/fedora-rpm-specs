@@ -18,7 +18,7 @@ Requires:       %{_bindir}/%{1}
 
 Name:           libzypp
 Version:        17.38.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A package management library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -271,6 +271,9 @@ end
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 17.38.1-2
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 17.38.1-1
 - Rebase to 17.38.1
 

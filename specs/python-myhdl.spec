@@ -50,8 +50,8 @@ find . -type f -name "*.txt" -exec chmod a-x {} +
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%dir %{_datadir}/myhdl
-%doc %{_datadir}/myhdl/cosimulation/
+%{_datadir}/myhdl
+%doc README.md CHANGES.txt
 
 
 %changelog

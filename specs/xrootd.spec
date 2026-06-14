@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	6.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -661,6 +661,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:6.0.3-3
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1:6.0.3-2
 - Rebuilt for Python 3.15
 

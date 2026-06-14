@@ -1,6 +1,6 @@
 Name:           spice
 Version:        0.16.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implements the SPICE protocol
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -99,6 +99,9 @@ using spice-server, you will need to install spice-server-devel.
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.0-5
+- Rebuilt for openssl 4.0
+
 * Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.16.0-4
 - Fix FTBFS in rawhide. rhbz#2435119
 

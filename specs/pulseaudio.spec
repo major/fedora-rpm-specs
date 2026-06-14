@@ -34,7 +34,7 @@
 Name:           pulseaudio
 Summary:        Improved Linux Sound Server
 Version:        %{pa_major}%{?pa_minor:.%{pa_minor}}
-Release:        9%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Release:        10%{?snap:.%{snap}git%{shortcommit}}%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.freedesktop.org/wiki/Software/PulseAudio
 %if 0%{?gitrel}
@@ -679,6 +679,9 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 17.0-10
+- Rebuilt for openssl 4.0
+
 * Tue Feb 03 2026 Adam Williamson <awilliam@redhat.com> - 17.0-9
 - Backport several upstream fixes including RHBZ #2322910
 

@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.18
-Release: 3%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 BuildRequires: gcc, gcc-c++
@@ -20,6 +20,7 @@ Suggests: %{name}-tools%{_isa} = %{version}-%{release}
 %endif
 
 Patch0: %{name}-0001-enforce-system-crypto-policies.patch
+Patch1: %{name}-openssl4.patch
 
 # exclude from "Provides" private IO plugins
 %{?filter_provides_in: %filter_provides_in %{name}/%{name}.*\.so$}
@@ -108,6 +109,12 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.18-5
+- Rebuilt for openssl 4.0
+
+* Wed Apr 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 3.3.18-4
+- Migrated to OpenSSL 4.0: fix const X509_NAME* return from X509_get_subject_name
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

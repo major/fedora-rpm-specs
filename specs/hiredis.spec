@@ -1,6 +1,6 @@
 Name:           hiredis
 Version:        1.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Minimalistic C client library for Redis
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ make check REDIS_SERVER=valkey-server
 %{_libdir}/pkgconfig/hiredis_ssl.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.0-9
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

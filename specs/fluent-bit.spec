@@ -6,6 +6,8 @@ Summary: Fluent Bit is a super fast, lightweight, and highly scalable logging an
 License: Apache-2.0
 URL: https://github.com/fluent/fluent-bit
 Source0: https://github.com/fluent/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/fluent/fluent-bit/pull/11771
+Patch0: openssl-no-engine.patch
 
 
 BuildRequires: pkgconfig
@@ -28,13 +30,12 @@ BuildRequires: libyaml-devel
 BuildRequires: libzstd-devel
 BuildRequires: openssl
 
-%if 0%{?rhel} <= 9
+%if 0%{?fedora} || 0%{?rhel} <= 9
 BuildRequires: netcat
 %endif
 
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
-BuildRequires: netcat
 %endif
 
 %{?systemd_requires}

@@ -3,7 +3,7 @@
 
 Name: htslib
 Version: 1.23.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: C library for high-throughput sequencing data formats
 
 # MIT outside cram/, BSD-3-Clause in cram/, public domain for md5.c
@@ -117,6 +117,9 @@ make test
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.23.1-3
+- Rebuilt for openssl 4.0
+
 * Mon Mar 23 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23.1-2
 - Fixed license tag
 

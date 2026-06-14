@@ -1,6 +1,6 @@
 Name:           IQmol
 Version:        3.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A free open-source molecular editor and visualization package
 # Automatically converted from old format: BSD and GPLv2+ and GPLv3+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later AND GPL-3.0-or-later
@@ -115,6 +115,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ resources/iqmol
 %doc samples/*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.2.0-5
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

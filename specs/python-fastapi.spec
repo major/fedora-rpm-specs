@@ -43,6 +43,10 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
+# Update a couple of tests in tests/test_tutorial/test_header_param_models for
+# httpx2; backported from
+# https://github.com/fastapi/fastapi/commit/59d4a80fcf8a7b3a46b2560f75dc0d171e7ea8ff.
+Patch:          fastapi-0.136.3-httpx2.patch
 
 # Since dependency groups contain overly-strict version bounds and some
 # unwanted linting/coverage/typechecking/formatting dependencies
@@ -59,6 +63,7 @@ BuildRequires:  %{py3_dist orjson} >= 3.9.3
 %endif
 # docs-tests:
 BuildRequires:  %{py3_dist httpx} >= 0.23
+BuildRequires:  %{py3_dist httpx2} >= 2
 # (we don’t actually need ruff)
 # tests:
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
@@ -246,11 +251,6 @@ ignore="${ignore-} --ignore-glob=scripts/tests/*"
 # dependencies in practice. Upstream deals with this by tightly controlling
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
-
-# FastAPI runs tests using Starlette’s test client, which has deprecated
-# support for httpx; until we have a python-httpx2 package to use instead, we
-# must ignore this. Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2483715.
-warningsfilter="${warningsfilter-} -W ignore::starlette.exceptions.StarletteDeprecationWarning"
 
 %pytest ${warningsfilter-} -k "${k-}" ${ignore-}
 

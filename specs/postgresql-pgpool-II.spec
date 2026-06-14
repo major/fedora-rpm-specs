@@ -5,7 +5,7 @@
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{sname}
 Version:		4.7.1
-Release:		1%{?dist}
+Release:		2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:		LicenseRef-Callaway-BSD
 
@@ -191,6 +191,9 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.7.1-2
+- Rebuilt for openssl 4.0
+
 * Thu Feb 20 2026 Devrim Gunduz <devrim@gunduz.org> - 4.7.1-1
 - Update to 4.7.1 per changes described at:
   https://www.pgpool.net/docs/latest/en/html/release-4-7-1.html

@@ -192,7 +192,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1864,6 +1864,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3:12.3.1-3
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.1-2
 - Drop multilib-rpm-config usage on RHEL
   Related: RHEL-178013

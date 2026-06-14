@@ -8,7 +8,7 @@
 Name:		roc-toolkit
 #Version:	0.2.1^%%{git_suffix}
 Version:	0.4.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
@@ -103,6 +103,9 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.0-6
+- Rebuilt for openssl 4.0
+
 * Tue Jan 20 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.4.0-5
 - fix libdir in pkg-config
 

@@ -1,5 +1,5 @@
 Name:           python-telegram-bot
-Version:        22.7
+Version:        22.8
 Release:        %autorelease
 Summary:        A pure Python, asynchronous interface for the Telegram Bot API
 

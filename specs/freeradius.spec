@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -31,6 +31,7 @@ Patch7: freeradius-ease-openssl-version-check.patch
 Patch8: freeradius-configure-c99.patch
 Patch9: freeradius-openssl-no-engine.patch
 Patch10: freeradius-no-sqlippool-tool.patch
+Patch11: freeradius-openssl4.patch
 
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
@@ -228,6 +229,7 @@ This plugin provides Kafka producer support for the FreeRADIUS server project.
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
 
 %build
 # Force compile/link options, extra security for network facing daemon
@@ -931,6 +933,9 @@ fi
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
 
 %changelog
+* Fri June 12 2026 Pavol Žáčik <pzacik@redhat.com> - 3.2.8-5
+- Fix OpenSSL 4.0 compatibility
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.2.8-4
 - Rebuilt for Python 3.15
 

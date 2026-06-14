@@ -1,7 +1,7 @@
 Name:           pidgin-sipe
 Summary:        Pidgin protocol plugin to connect to MS Office Communicator
 Version:        1.25.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            http://sipe.sourceforge.net/
@@ -123,6 +123,9 @@ rm -f \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.25.0-25
+- Rebuilt for openssl 4.0
+
 * Sat Jan 24 2026 Stefan Becker <chemobejk@gmail.com> - 1.25.0-24
 - add upstream patch to fix build for stricter strstr()
 - take autosetup macro into use

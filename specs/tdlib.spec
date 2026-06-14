@@ -1,6 +1,6 @@
 Name: tdlib
 Version: 1.8.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: BSL-1.0
 URL: https://github.com/%{name}/td
@@ -72,6 +72,9 @@ sed -e 's/"DEFAULT"/"PROFILE=SYSTEM"/g' -i tdnet/td/net/SslStream.cpp
 %{_libdir}/libtd*.a
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0-10
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

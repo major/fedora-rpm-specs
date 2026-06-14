@@ -6,7 +6,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: %{basever}%{?snapdate:^git%{snapdate}.%{shortcommit}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -100,6 +100,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.2^git20220525.b9aeec6-2
+- Rebuilt for openssl 4.0
+
 * Tue Jan 27 2026 Wolfgang Stöggl <c72578@yahoo.de> - 0.8.2^git20220525.b9aeec6-1
 - Update to post-release git snapshot on 0.8.2
 - Add patch:

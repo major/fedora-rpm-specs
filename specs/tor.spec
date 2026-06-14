@@ -14,7 +14,7 @@
 
 Name:       tor
 Version:    0.4.9.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -168,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.9.8-2
+- Rebuilt for openssl 4.0
+
 * Fri May 15 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.8-1
 - Update to latest upstream release https://forum.torproject.org/t/security-release-0-4-8-25-and-0-4-9-8/21559
 - Fix CVE-2026-44600 (bz#2476455 / bz#2476454)

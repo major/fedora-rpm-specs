@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.11.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -858,6 +858,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.11.3-3
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:3.11.3-2
 - Rebuilt for icu 78.3
 

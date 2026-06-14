@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-SEC
 Version:        1.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        HPND-MIT-disclaimer
 URL:            https://metacpan.org/release/Net-DNS-SEC
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.27-2
+- Rebuilt for openssl 4.0
+
 * Mon Jan 19 2026 Petr Pisar <ppisar@redhat.com> - 1.27-1
 - 1.27 bump
 

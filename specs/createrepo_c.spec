@@ -41,7 +41,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        %{package_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -220,6 +220,9 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-7
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.2.1-6
 - Rebuilt for Python 3.15
 

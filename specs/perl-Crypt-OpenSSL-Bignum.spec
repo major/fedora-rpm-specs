@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-Bignum
 Version:        0.09
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Perl interface to OpenSSL's multiprecision integer arithmetic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Bignum
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.09-33
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

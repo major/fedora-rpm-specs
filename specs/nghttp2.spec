@@ -13,7 +13,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.69.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -228,6 +228,9 @@ popd
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.69.0-3
+- Rebuilt for openssl 4.0
+
 * Fri May 15 2026 Jan Macku <jamacku@redhat.com> - 1.69.0-2
 - add missing build dependency on systemd-devel (#2477798)
 - install missing sample configuration file for nghttpx service (#2477799)

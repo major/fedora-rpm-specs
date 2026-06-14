@@ -5,7 +5,7 @@
 %define minor 10
 Name:           cpprest
 Version:        2.10.19
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
@@ -105,6 +105,9 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.10.19-13
+- Rebuilt for openssl 4.0
+
 * Thu Apr 30 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.10.19-12
 - Fix build with OpenSSL 4.0 (bound openssl-devel-engine to Fedora < 45)
 

@@ -35,7 +35,7 @@ Name:           php-pecl-http
 Summary:        Extended HTTP support
 License:        BSD-2-Clause
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -207,6 +207,9 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.3.1-5
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 4.3.1-4
 - Rebuilt for icu 78.3
 

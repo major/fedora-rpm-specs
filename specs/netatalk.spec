@@ -9,7 +9,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           4.4.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -369,6 +369,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/manual
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5:4.4.3-2
+- Rebuilt for openssl 4.0
+
 * Sat Feb 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.4.3-1
 - 4.4.3 release
 - See the github release page for list of many CVEs fixed

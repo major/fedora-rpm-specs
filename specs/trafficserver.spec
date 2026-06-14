@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -286,6 +286,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 10.1.2-2
+- Rebuilt for openssl 4.0
+
 * Thu Apr 02 2026 Jered Floyd <jered@redhat.com> - 10.1.2-1
 - Update to upstream 10.1.2
 

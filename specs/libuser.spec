@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.64
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -131,6 +131,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.64-19
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.64-18
 - Rebuilt for Python 3.15
 

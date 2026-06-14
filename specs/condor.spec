@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -947,6 +947,9 @@ install -m0644 -D condor.sysusers.conf %{buildroot}%{_sysusersdir}/condor.conf
 /sbin/ldconfig
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 23.9.6-17
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 23.9.6-16
 - Rebuilt for Python 3.15
 

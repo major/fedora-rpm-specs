@@ -1,6 +1,6 @@
 Name:		ricochet
 Version:	1.1.4
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Anonymous peer-to-peer instant messaging
 
 License:	BSD-3-Clause
@@ -66,6 +66,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications src/ricochet.des
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.4-40
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

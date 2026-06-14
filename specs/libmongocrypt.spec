@@ -15,7 +15,7 @@
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
 Version:   1.19.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
 # kms-message/src/kms_b64.c is ISC
@@ -112,6 +112,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.19.0-2
+- Rebuilt for openssl 4.0
+
 * Tue Jun  9 2026 Remi Collet <remi@remirepo.net> - 1.19.0-1
 - update to 1.19.0
 - drop html documentation

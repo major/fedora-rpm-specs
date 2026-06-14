@@ -1,6 +1,6 @@
 Name:           activemq-cpp
 Version:        3.9.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C++ implementation of JMS-like messaging client
 
 License:        Apache-2.0
@@ -80,6 +80,9 @@ make check
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9.5-7
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

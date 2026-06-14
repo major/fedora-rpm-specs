@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -62,6 +62,9 @@ fi
 %doc README.rst
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.27-4
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.27-3
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 %define _hardened_build 1
 Name: ettercap
 Version: 0.8.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
 License: GPL-2.0-or-later
 URL: http://ettercap.sourceforge.net
@@ -116,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.4.1-2
+- Rebuilt for openssl 4.0
+
 * Wed Apr 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.4.1-1
 - 0.8.4.1
 

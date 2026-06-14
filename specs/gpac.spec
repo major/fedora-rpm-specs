@@ -3,7 +3,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     26.02.0
-Release:     1%{?dist}
+Release:     2%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -194,6 +194,9 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.02.0-2
+- Rebuilt for openssl 4.0
+
 * Sun Feb 08 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.02.0-1
 - update to 26.02.0 (resolves rhbz#2437065)
 - drop obsolete patches

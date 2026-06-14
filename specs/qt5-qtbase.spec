@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -1178,6 +1178,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.18-4
+- Rebuilt for openssl 4.0
+
 * Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 5.15.18-3
 - Rebuilt for icu 78.3
 

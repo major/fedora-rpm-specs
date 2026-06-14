@@ -1,6 +1,6 @@
 Name:           pysvn
 Version:        1.9.21
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Pythonic style bindings for Subversion
 License:        Apache-1.1
 URL:            https://pysvn.sourceforge.io/
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.21-15
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.9.21-14
 - Rebuilt for Python 3.15
 

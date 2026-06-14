@@ -1,7 +1,7 @@
 %global realname cowlib
 
 Name:		erlang-%{realname}
-Version:	2.17.0
+Version:	2.17.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Support library for manipulating Web protocols

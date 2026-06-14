@@ -5,7 +5,7 @@
 
 Name:           trustedqsl
 Version:        2.8.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.6-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.6-1
 - Update to 2.8.6.
 

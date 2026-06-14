@@ -1,8 +1,8 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.28.3
-Release:        2%{?dist}
+Version:        1.28.4
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/python/gesotioformatter.py
 
 %changelog
+* Fri Jun 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.4-1
+- 1.28.4
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.28.3-2
 - Rebuilt for Python 3.15
 

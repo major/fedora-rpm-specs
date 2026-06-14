@@ -3,16 +3,16 @@
 
 %global pypi_name openstacksdk
 
-%global common_desc \
-A collection of libraries for building applications to work with OpenStack \
-clouds.
+%global common_desc %{expand:
+A collection of libraries for building applications to work with OpenStack
+clouds.}
 
 %global common_desc_tests %{expand:
 A collection of libraries for building applications to work with OpenStack
 clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.14.0
+Version:        4.15.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 

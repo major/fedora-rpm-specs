@@ -2,7 +2,7 @@
  
 Name:		rb_libtorrent
 Version:	2.0.11
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 # Most of the code is BSD-3-Clause
@@ -18,11 +18,15 @@ Source1:	%{name}-README-renames.Fedora
 Source2:	%{name}-COPYING.Boost
 Source3:	%{name}-COPYING.zlib
 
+# Add support for OpenSSL 4.0
+# https://github.com/arvidn/libtorrent/pull/8270
+Patch0:		%{git_url}/pull/8270.patch
+
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	ninja-build
 BuildRequires:	openssl-devel
-%if 0%{?fedora} && 0%{?fedora} >= 40
+%if 0%{?fedora} >= 40 && 0%{?fedora} < 45
 BuildRequires:	openssl-devel-engine
 %endif
 BuildRequires:	pkgconfig(zlib)
@@ -182,6 +186,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Fri Jun 12 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 2.0.11-7
+- Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.0.11-6
 - Rebuilt for Python 3.15
 

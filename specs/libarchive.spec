@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -240,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8.7-2
+- Rebuilt for openssl 4.0
+
 * Mon Apr 13 2026 Packit <hello@packit.dev> - 3.8.7-1
 - Update to version 3.8.7
 - Resolves: rhbz#2457948

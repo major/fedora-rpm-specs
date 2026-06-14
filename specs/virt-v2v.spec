@@ -45,7 +45,7 @@ ExclusiveArch: x86_64
 Name:          virt-v2v
 Epoch:         1
 Version:       2.11.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -368,6 +368,9 @@ done
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.11.8-2
+- Rebuilt for openssl 4.0
+
 * Tue May 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.11.8-1
 - New upstream development version 2.11.8
 

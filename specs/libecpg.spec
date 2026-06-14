@@ -3,7 +3,7 @@
 Summary: ECPG - Embedded SQL in C
 Name: libecpg
 Version: %majorversion.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -135,6 +135,9 @@ find_lang_bins %name-devel.lst  ecpg
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.4-6
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 16.4-5
 - Drop multilib-rpm-config usage on RHEL
   Related: RHEL-178013

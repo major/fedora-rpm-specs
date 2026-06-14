@@ -41,7 +41,13 @@ mkdir auto
 
 %build
 autoreconf -i
+
+# disable altivec for now to fix compile
+
 %configure --disable-dependency-tracking \
+%ifarch ppc64le
+--disable-altivec \
+%endif
 %if 0%{?_without_x:1}
 --with-x=no \
 %endif
@@ -69,9 +75,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
-* Thu May 28 2026 josef radinger <cheese@nosuchhost.net> - 20260524-2
+* Fri June 12 2026 josef radinger <cheese@nosuchhost.net> - 20260524-2
 - add Patch1 to fix compilation with ppc64le
   https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
+- try to fix compile by disabling altivec on ppc64le
 
 * Wed May 27 2026 josef radinger <cheese@nosuchhost.net> - 20260524-1
 - bump version

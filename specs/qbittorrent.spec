@@ -2,7 +2,7 @@ Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
 Version: 5.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://www.qbittorrent.org
@@ -30,7 +30,6 @@ BuildRequires: rb_libtorrent-devel >= 1.2.12
 BuildRequires: desktop-file-utils
 BuildRequires: boost-devel >= 1.60
 BuildRequires: libappstream-glib
-BuildRequires: openssl-devel-engine
 BuildRequires: zlib-ng-compat-static
 
 Requires: python3
@@ -117,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/ru/man1/qbittorrent-nox.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.2.1-2
+- Rebuilt for openssl 4.0
+
 * Fri May 29 2026 Charalampos Stratakis <cstratak@redhat.com> - 1:5.2.1-1
 - Update to 5.2.1 (rhbz#2464781)
 

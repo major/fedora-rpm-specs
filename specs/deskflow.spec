@@ -6,7 +6,7 @@
 
 Name:		deskflow
 Version:	1.26.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
@@ -108,6 +108,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.0-2
+- Rebuilt for openssl 4.0
+
 * Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.26.0-1
 - Update to 1.26.0
 

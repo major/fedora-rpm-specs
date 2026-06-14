@@ -57,7 +57,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          23.3.0
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -1733,6 +1733,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 23.3.0-1.1
+- Rebuilt for openssl 4.0
+
 * Wed Apr 29 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.3.0-1
 - update to 23.3.0
 

@@ -1,6 +1,6 @@
 Name:             tntnet
 Version:          3.0
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          A web application server for web applications
 Epoch:            1
 
@@ -107,6 +107,9 @@ test/tntnet-test
 %{_datadir}/%{name}/template/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.0-16
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -30,7 +30,7 @@ Name:          php-pecl-%{pecl_name}
 Summary:       Provides interface to libevent library
 License:       PHP-3.01
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       2%{?dist}
+Release:       3%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -149,6 +149,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.5-3
+- Rebuilt for openssl 4.0
+
 * Fri Mar 13 2026 Remi Collet <remi@remirepo.net> - 3.1.5-2
 - drop pear/pecl dependency
 - sources from bitbucket

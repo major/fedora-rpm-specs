@@ -12,7 +12,7 @@
 
 Name:			gauche
 Version:		0.9.12
-Release:		12%{?dist}
+Release:		13%{?dist}
 Summary:		Scheme script interpreter with multibyte character handling
 
 License:		BSD-3-Clause AND MIT
@@ -164,6 +164,9 @@ LD_LIBRARY_PATH=`pwd`/src make check
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.12-13
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

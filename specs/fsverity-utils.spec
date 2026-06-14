@@ -7,11 +7,15 @@ Summary: fsverity utilities
 License: LicenseRef-Callaway-BSD
 URL:     https://github.com/ebiggers/fsverity-utils
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/ebiggers/fsverity-utils/pull/5
+Patch0:  openssl4.patch
 
 BuildRequires: gcc make
 BuildRequires: kernel-headers glibc-headers
 BuildRequires: openssl-devel
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
+%endif
 Requires:      libfsverity = %{version}-%{release}
 
 %description

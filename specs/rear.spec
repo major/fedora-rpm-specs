@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -222,6 +222,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.9-8
+- Rebuilt for openssl 4.0
+
 * Thu Mar 05 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-7
 - fix support for PowerNV machines without PPC PReP partitions (RHEL-134218)
 - fix duplicate execution of automated recovery (RHEL-110659)

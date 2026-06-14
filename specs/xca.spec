@@ -4,7 +4,7 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.9.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		https://hohnstaedt.de/xca/
@@ -117,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/de.hohnstaedt.
 
 #-------------------------------------------------------------------------------
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.9.0-3
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

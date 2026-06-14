@@ -4,7 +4,7 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          26.02.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -143,6 +143,9 @@ fi
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.02.0-3
+- Rebuilt for openssl 4.0
+
 * Wed May 06 2026 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 26.02.0-2
 - Add patch to force 32 bit MMIO CSR reads for GCC 16
 

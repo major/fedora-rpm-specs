@@ -10,7 +10,7 @@
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
 Version: 1.0.41
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -137,6 +137,9 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.41-2
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.41-1
 - update to 1.0.41 (resolves rhbz#2467788)
 

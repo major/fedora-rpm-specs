@@ -50,7 +50,7 @@ URL: https://www.python.org/
 %global prerel b2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -1159,20 +1159,13 @@ topdir=$(pwd)
 # These hooks are implemented in Python itself (though they are for the version
 # of python that gdb is linked with)
 #
-# gdb-archer looks for them in the same path as the ELF file or its .debug
-# file, with a -gdb.py suffix.
-# We put them next to the debug file, because ldconfig would complain if
-# it found non-library files directly in /usr/lib/
-# (see https://bugzilla.redhat.com/show_bug.cgi?id=562980)
-#
-# We'll put these files in the debuginfo package by installing them to e.g.:
-#  /usr/lib/debug/usr/lib/libpython3.2.so.1.0.debug-gdb.py
-# (note that the debug path is /usr/lib/debug for both 32/64 bit)
+# gdb auto-loads them from %%{_datadir}/gdb/auto-load/ using the -gdb.py suffix,
+# matching the path of the corresponding shared library.
 #
 # See https://fedoraproject.org/wiki/Features/EasierPythonDebugging for more
 # information
 
-DirHoldingGdbPy=%{_usr}/lib/debug/%{_libdir}
+DirHoldingGdbPy=%{_datadir}/gdb/auto-load/%{_libdir}
 mkdir -p %{buildroot}$DirHoldingGdbPy
 
 # Multilib support for pyconfig.h
@@ -1207,7 +1200,7 @@ InstallPython() {
   popd
 
   # See comment on $DirHoldingGdbPy above
-  PathOfGdbPy=$DirHoldingGdbPy/$PyInstSoName-%{version}-%{release}.%{_arch}.debug-gdb.py
+  PathOfGdbPy=$DirHoldingGdbPy/$PyInstSoName-gdb.py
   cp Tools/gdb/libpython.py %{buildroot}$PathOfGdbPy
 
   # Rename the -devel script that differs on different arches to arch specific name
@@ -1559,6 +1552,16 @@ CheckPython freethreading
 
 %license %{pylibdir}/LICENSE.txt
 
+# GDB auto-load script
+# This is macronized for reuse across the libs, debug, and freethreading packages
+%define gdb_autoload_script() \
+%dir %{_datadir}/gdb\
+%dir %{_datadir}/gdb/auto-load\
+%dir %{_datadir}/gdb/auto-load/%{_libdir}\
+%{_datadir}/gdb/auto-load/%{_libdir}/%{1}-gdb.py\
+%dir %{_datadir}/gdb/auto-load/%{_libdir}/__pycache__\
+%{_datadir}/gdb/auto-load/%{_libdir}/__pycache__/%{1}-gdb%{bytecode_suffixes}
+
 # Pure Python modules
 # This is macronized for reuse in the -freethreading package
 %define pure_python_modules() \
@@ -1718,6 +1721,9 @@ CheckPython freethreading
 %dir %{_includedir}/python%{LDVERSION_optimized}/
 %{_includedir}/python%{LDVERSION_optimized}/%{_pyconfig_h}
 
+# GDB auto-load script
+%gdb_autoload_script %{py_INSTSONAME_optimized}
+
 # Finally, libpython
 %{_libdir}/%{py_INSTSONAME_optimized}
 %if %{with main_python}
@@ -1830,6 +1836,7 @@ CheckPython freethreading
 %{_bindir}/python%{LDVERSION_debug}
 
 # Analog to the -libs subpackage's files:
+%gdb_autoload_script %{py_INSTSONAME_debug}
 %{_libdir}/%{py_INSTSONAME_debug}
 
 # Analog of the libs, test, and tkinter extension modules:
@@ -1904,6 +1911,9 @@ CheckPython freethreading
 %dir %{_includedir}/python%{LDVERSION_freethreading}/
 %{_includedir}/python%{LDVERSION_freethreading}/%{_pyconfig_h}
 
+# GDB auto-load script
+%gdb_autoload_script %{py_INSTSONAME_freethreading}
+
 # Finally, libpython
 %{_libdir}/%{py_INSTSONAME_freethreading}
 
@@ -1956,6 +1966,7 @@ CheckPython freethreading
 %{_bindir}/python%{LDVERSION_freethreading_debug}
 
 # Analog to the -libs subpackage's files:
+%gdb_autoload_script %{py_INSTSONAME_freethreading_debug}
 %{_libdir}/%{py_INSTSONAME_freethreading_debug}
 
 # Analog of the libs, test, and tkinter extension modules:
@@ -1978,27 +1989,18 @@ CheckPython freethreading
 
 %endif # with freethreading_build && debug_build
 
-# We put the debug-gdb.py file inside /usr/lib/debug to avoid noise from ldconfig
-# See https://bugzilla.redhat.com/show_bug.cgi?id=562980
-#
-# The /usr/lib/rpm/redhat/macros defines %%__debug_package to use
-# debugfiles.list, and it appears that everything below /usr/lib/debug and
-# (/usr/src/debug) gets added to this file (via LISTFILES) in
-# /usr/lib/rpm/find-debuginfo.sh
-#
-# Hence by installing it below /usr/lib/debug we ensure it is added to the
-# -debuginfo subpackage
-# (if it doesn't, then the rpmbuild ought to fail since the debug-gdb.py
-# payload file would be unpackaged)
-
-# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1476593
-%undefine _debuginfo_subpackages
-
 # ======================================================
 # Finally, the changelog:
 # ======================================================
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.15.0~b2-4
+- Rebuilt for openssl 4.0
+
+* Wed Jun 10 2026 Charalampos Stratakis <cstratak@redhat.com> - 3.15.0~b2-3
+- Ship gdb Python scripts in the libs subpackage instead of debuginfo
+- Fixes: rhbz#2381839
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.15.0~b2-2
 - Rebuilt as main Python on Fedora 45+
 

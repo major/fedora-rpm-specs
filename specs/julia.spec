@@ -36,7 +36,7 @@
 
 Name:           julia
 Version:        1.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -494,6 +494,9 @@ JULIA_TEST_USE_MULTIPLE_WORKERS=true %{buildroot}%{_bindir}/julia -e "Base.runte
 exit 0
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.12.1-2
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

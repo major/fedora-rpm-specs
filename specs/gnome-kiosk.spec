@@ -17,7 +17,7 @@
 %global major_version %%(echo %%{tarball_version} | cut -d "." -f 1)
 
 Name:           gnome-kiosk
-Version:        50.0
+Version:        50.1
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 

@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.42
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -289,6 +289,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.42-2
+- Rebuilt for openssl 4.0
+
 * Mon May 18 2026 Pavel Reichl <preichl@redhat.com> - 3.42-1
 - Update to upstream v3.42
 

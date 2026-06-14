@@ -2,7 +2,7 @@
 
 Name:           xar
 Version:        1.8.0.%{subversion}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The eXtensible ARchiver
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0.417.1-19
+- Rebuilt for openssl 4.0
+
 * Wed Feb 04 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.8.0.417.1-18
 - update gnu-config files to make it build on riscv64
 

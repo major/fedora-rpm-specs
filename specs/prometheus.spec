@@ -3,7 +3,7 @@
 
 # https://github.com/prometheus/prometheus
 %global goipath         github.com/prometheus/prometheus
-Version:                3.11.2
+Version:                3.12.0
 
 %gometa -L -f
 
@@ -35,35 +35,35 @@ BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
 Requires(pre):  shadow-utils
 Provides: bundled(nodejs-clsx) = 2.1.1
-Provides: bundled(nodejs-codemirror-autocomplete) = 6.20.1
+Provides: bundled(nodejs-codemirror-autocomplete) = 6.20.2
 Provides: bundled(nodejs-codemirror-language) = 6.12.3
-Provides: bundled(nodejs-codemirror-lint) = 6.9.5
+Provides: bundled(nodejs-codemirror-lint) = 6.9.6
 Provides: bundled(nodejs-codemirror-state) = 6.6.0
-Provides: bundled(nodejs-codemirror-view) = 6.40.0
+Provides: bundled(nodejs-codemirror-view) = 6.42.1
 Provides: bundled(nodejs-dayjs) = 1.11.20
 Provides: bundled(nodejs-floating-ui-dom) = 1.7.6
 Provides: bundled(nodejs-highlight.js) = 11.11.1
-Provides: bundled(nodejs-lezer-common) = 1.5.1
+Provides: bundled(nodejs-lezer-common) = 1.5.2
 Provides: bundled(nodejs-lezer-highlight) = 1.2.3
-Provides: bundled(nodejs-lodash) = 4.17.23
-Provides: bundled(nodejs-mantine-code-highlight) = 8.3.18
-Provides: bundled(nodejs-mantine-core) = 8.3.18
-Provides: bundled(nodejs-mantine-dates) = 8.3.18
-Provides: bundled(nodejs-mantine-hooks) = 8.3.18
-Provides: bundled(nodejs-mantine-notifications) = 8.3.18
+Provides: bundled(nodejs-lodash) = 4.18.1
+Provides: bundled(nodejs-mantine-code-highlight) = 9.1.1
+Provides: bundled(nodejs-mantine-core) = 9.1.1
+Provides: bundled(nodejs-mantine-dates) = 9.1.1
+Provides: bundled(nodejs-mantine-hooks) = 9.1.1
+Provides: bundled(nodejs-mantine-notifications) = 9.1.1
 Provides: bundled(nodejs-microsoft-fetch-event-source) = 2.0.1
 Provides: bundled(nodejs-nexucis-fuzzy) = 0.5.1
 Provides: bundled(nodejs-nexucis-kvsearch) = 0.9.1
-Provides: bundled(nodejs-prometheus-io-codemirror-promql) = 0.311.2
-Provides: bundled(nodejs-react) = 19.2.4
-Provides: bundled(nodejs-react-dom) = 19.2.4
+Provides: bundled(nodejs-prometheus-io-codemirror-promql) = 0.312.0
+Provides: bundled(nodejs-react) = 19.2.6
+Provides: bundled(nodejs-react-dom) = 19.2.6
 Provides: bundled(nodejs-react-infinite-scroll-component) = 6.1.1
 Provides: bundled(nodejs-react-redux) = 9.2.0
-Provides: bundled(nodejs-react-router-dom) = 7.13.2
+Provides: bundled(nodejs-react-router-dom) = 7.15.0
 Provides: bundled(nodejs-reduxjs-toolkit) = 2.11.2
-Provides: bundled(nodejs-sanitize-html) = 2.17.2
-Provides: bundled(nodejs-tabler-icons-react) = 3.40.0
-Provides: bundled(nodejs-tanstack-react-query) = 5.95.2
+Provides: bundled(nodejs-sanitize-html) = 2.17.3
+Provides: bundled(nodejs-tabler-icons-react) = 3.43.0
+Provides: bundled(nodejs-tanstack-react-query) = 5.100.9
 Provides: bundled(nodejs-testing-library-jest-dom) = 6.9.1
 Provides: bundled(nodejs-testing-library-react) = 16.3.2
 Provides: bundled(nodejs-types-lodash) = 4.17.24
@@ -72,7 +72,7 @@ Provides: bundled(nodejs-uiw-react-codemirror) = 4.25.9
 Provides: bundled(nodejs-uplot) = 1.6.32
 Provides: bundled(nodejs-uplot-react) = 1.2.4
 Provides: bundled(nodejs-use-query-params) = 2.2.2
-Provides: npm(prometheus-io-mantine-ui) = 0.311.0
+Provides: npm(prometheus-io-mantine-ui) = 0.312.0
 
 Obsoletes:      golang-github-prometheus < 2.55.1-8
 

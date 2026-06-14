@@ -1,6 +1,6 @@
 Name:           podofo0.9
 Version:        0.9.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Podofo 0.9.x compatibility library
 
 # The library is licensed under the LGPL.
@@ -98,6 +98,9 @@ rm cmake/modules/FindZLIB.cmake
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.8-10
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

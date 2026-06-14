@@ -1,7 +1,7 @@
 Summary:   5250 Telnet protocol and Terminal
 Name:      tn5250
 Version:   0.18.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 # doc/tn5250*.1 are GPLv2+
 License:   LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:       https://github.com/tn5250/tn5250
@@ -92,6 +92,9 @@ cp -pf termcaps/linux/README README.Linux
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.18.0-4
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

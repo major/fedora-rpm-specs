@@ -3,7 +3,7 @@
 %global gh_name seadrive-fuse
 Name:           seadrive-daemon
 Version:        3.0.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon part of Seafile Drive client
 
 License:        GPL-3.0-only
@@ -77,6 +77,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{python3_sitearch}/seadrive/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.22-3
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.22-2
 - Rebuilt for Python 3.15
 

@@ -10,7 +10,7 @@
 
 Name:          ucommon
 Version:       7.0.0
-Release:       27%{?dist}
+Release:       28%{?dist}
 Summary:       Portable C++ framework for threads and sockets
 
 License:       LGPL-3.0-or-later
@@ -124,6 +124,9 @@ export CXXFLAGS="-std=c++14 %{optflags}"
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.0.0-28
+- Rebuilt for openssl 4.0
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

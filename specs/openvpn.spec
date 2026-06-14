@@ -20,7 +20,7 @@
 
 Name:              openvpn
 Version:           2.7.4
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -236,6 +236,9 @@ done
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.4-2
+- Rebuilt for openssl 4.0
+
 * Thu Apr 30 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.4
 - Update to upstream 2.7.4 release
 

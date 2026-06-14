@@ -2,7 +2,7 @@
 
 Name:           seafile-client
 Version:        9.0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache-2.0
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.18-2
+- Rebuilt for openssl 4.0
+
 * Sat May 16 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.18-1
 - Update to 9.0.18
 

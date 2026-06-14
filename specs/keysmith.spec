@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           keysmith
 Version:        26.04.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Summary:        Convergent OTP client
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.04.2-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 26.04.2-1
 - 26.04.2
 

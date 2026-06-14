@@ -4,7 +4,7 @@ a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
@@ -98,6 +98,9 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.13-5
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.3.13-4
 - Rebuilt for Python 3.15
 

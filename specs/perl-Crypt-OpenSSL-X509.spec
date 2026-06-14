@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-X509
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to OpenSSL for X509
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-X509
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Crypt::OpenSSL::X509.3pm*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.1-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Xavier Bachelot <xavier@bachelot.org> - 2.1.1-1
 - Update to 2.1.1 (RHBZ#2484541)
 

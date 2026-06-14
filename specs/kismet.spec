@@ -12,7 +12,7 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
@@ -126,6 +126,9 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_sysusersdir}/kismet.conf
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.2025.09.R1-5
+- Rebuilt for openssl 4.0
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 0.0.2025.09.R1-4
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

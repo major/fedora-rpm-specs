@@ -45,7 +45,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.13
+%global general_version %{pybasever}.14
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -109,31 +109,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.0.1
+%global pip_version 26.1.2
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.1.4
-Provides: bundled(python3dist(dependency-groups)) = 1.3.1
+Provides: bundled(python3dist(certifi)) = 2026.2.25
 Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.11
 Provides: bundled(python3dist(msgpack)) = 1.1.2
-Provides: bundled(python3dist(packaging)) = 26
+Provides: bundled(python3dist(packaging)) = 26.2
 Provides: bundled(python3dist(platformdirs)) = 4.5.1
 Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.5
+Provides: bundled(python3dist(requests)) = 2.33.1
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
 Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.3
+Provides: bundled(python3dist(tomli)) = 2.3.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 1.26.20
+Provides: bundled(python3dist(urllib3)) = 2.6.3
 }
 # setuptools
 # vendor.txt not in .whl
@@ -370,23 +369,6 @@ Source11: idle3.appdata.xml
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
-
-# 00464 # 292acffec7a379cb6d1f3c47b9e5a2f170bbadb6
-# Enable PAC and BTI protections for aarch64
-#
-# Apply protection against ROP/JOP attacks for aarch64 on asm_trampoline.S
-#
-# The BTI flag must be applied in the assembler sources for this class
-# of attacks to be mitigated on newer aarch64 processors.
-#
-# Upstream PR: https://github.com/python/cpython/pull/130864/files
-#
-# The upstream patch is incomplete but only for the case where
-# frame pointers are not used on 3.13+.
-#
-# Since on Fedora we always compile with frame pointers the BTI/PAC
-# hardware protections can be enabled without losing Perf unwinding.
-Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
 # 00466 # e10760fb955ee33d2917f8a57bb4e24d71e5341c
 # Downstream only: Skip tests not working with older expat version
@@ -1829,6 +1811,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Jun 11 2026 Karolina Surma <ksurma@redhat.com> - 3.13.14-1
+- Update to Python 3.13.14
+
 * Wed Apr 08 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.13-1
 - Update to 3.13.13
 

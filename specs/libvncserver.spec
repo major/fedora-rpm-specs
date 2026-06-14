@@ -3,7 +3,7 @@
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
 Version:    0.9.15
-Release:    6%{?dist}
+Release:    8%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -110,7 +110,7 @@ done
 
 
 %build
-%cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++
+%cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 %cmake_build
 
@@ -140,6 +140,12 @@ done
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.15-8
+- Rebuilt for openssl 4.0
+
+* Thu Apr 30 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.9.15-7
+- Migrated to OpenSSL 4.0: added CMake policy version minimum
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

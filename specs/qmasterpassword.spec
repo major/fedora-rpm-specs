@@ -1,6 +1,6 @@
 Name:           qmasterpassword
 Version:        2.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Stateless graphical Master Password Manager
 
 %global project_name qMasterPassword
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.3-5
+- Rebuilt for openssl 4.0
+
 * Thu Jan 29 2026 Stefan Becker <chemobejk@gmail.com> 2.0.3-4
 - add upstream patch to fix compilation with C++20 (bz #2435044)
 - take autosetup macro into use

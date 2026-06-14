@@ -6,7 +6,7 @@
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.36.20260121git%{shortcommit}%{?dist}
+Release:        0.37.20260121git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -246,6 +246,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.0-0.37.20260121git7a7b764
+- Rebuilt for openssl 4.0
+
 * Wed Jan 21 2026 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.36.20260121git7a7b764
 - New upstream snapshot (portability, FTBS)
 - Rebuild for new gsoap

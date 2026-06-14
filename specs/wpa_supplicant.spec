@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 10%{?dist}
+Release: 12%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -51,6 +51,8 @@ Patch11: wpa_supplicant-Send-signal-change-as-debug-msg.patch
 Patch12: wpa_supplicant-OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2439303
 Patch13: wpa_supplicant-OpenSSL-Support-PEM-encoded-chain-from-ca_cert-blob.patch
+# OpenSSL 4.0 build fixes
+Patch14: 0001-Use-OpenSSL-ASN1_STRING-accessors.patch
 
 URL: http://w1.fi/wpa_supplicant/
 
@@ -64,14 +66,14 @@ BuildRequires: libnl3-devel
 BuildRequires: systemd-units
 BuildRequires: docbook-utils
 BuildRequires: gcc
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
 %endif
 Requires(post): systemd-sysv
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-%if 0%{?rhel} >= 10
+%if 0%{?rhel} >= 10 || 0%{?fedora} >= 45
 Requires: pkcs11-provider >= 1.0
 %endif
 
@@ -108,7 +110,7 @@ Graphical User Interface for wpa_supplicant written using QT
 pushd wpa_supplicant
   cp defconfig .config
   export CFLAGS="${CFLAGS:-%optflags} -fPIE -DPIE"
-%if 0%{?rhel} >= 10
+%if 0%{?rhel} >= 10 || 0%{?fedora} >= 45
   export CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE"
 %endif
   export CXXFLAGS="${CXXFLAGS:-%optflags} -fPIE -DPIE"
@@ -221,6 +223,12 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.11-12
+- Rebuilt for openssl 4.0
+
+* Tue Apr 28 2026 Simo Sorce <simo@redhat.com> - 1:2.11-11
+- Build fixes for OpenSSL 4.0
+
 * Thu Feb 12 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:2.11-10
 - Fix loading multiple certificates from the ca_cert blob (#2439303)
 
@@ -892,4 +900,3 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 * Mon Dec 20 2004 Douglas E. Warner <silfreed@silfreed.net> 0.2.5-1
 - Initial RPM release.
-

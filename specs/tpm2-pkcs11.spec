@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.10.0
-Release:	2%{?candidate:.%{candidate}}%{?dist}
+Release:	3%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -114,6 +114,9 @@ make check
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.0-3
+- Rebuilt for openssl 4.0
+
 * Wed Jun 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.0-2
 - Rebuilt for Python 3.15
 - Drop unused libgcrypt dependency

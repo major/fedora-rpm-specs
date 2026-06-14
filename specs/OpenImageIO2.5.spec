@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.19.1-14
+- Rebuilt for openssl 4.0
+
 * Sat May 30 2026 Richard Shaw <hobbes1069@gmail.com> - 2.5.19.1-13
 - Rebuild for OpenColorIO 2.5.2.
 

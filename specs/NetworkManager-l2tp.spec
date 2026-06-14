@@ -7,7 +7,7 @@
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
 Version:   1.52.2
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -196,6 +196,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.52.2-3
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.52.2-2
 - Rebuilt for new ppp
 

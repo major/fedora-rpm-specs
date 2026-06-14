@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    2.0   
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -200,6 +200,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0-7
+- Rebuilt for openssl 4.0
+
 * Fri Jun 05 2026 Ralf Senderek <innovation@senderek.ie> - 2.0-6
 - update source code for safewebdrop-2.2 server and tests
 

@@ -1,6 +1,6 @@
 Name:           cxxtools
 Version:        3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A collection of general-purpose C++ classes
 Epoch:          1
 
@@ -87,6 +87,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/cxxtools/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.0-20
+- Rebuilt for openssl 4.0
+
 * Sat Jan 24 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:3.0-19
 - Add cxxtools-cxx20.patch
 

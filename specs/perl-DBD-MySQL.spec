@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 
 Name:           perl-DBD-MySQL
 Version:        5.013
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -196,6 +196,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.013-4
+- Rebuilt for openssl 4.0
+
 * Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.013-3
 - MySQL does not provide unversioned mysql packages in RHEL
 

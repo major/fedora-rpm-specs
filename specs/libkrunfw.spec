@@ -6,7 +6,7 @@
 
 Name:           libkrunfw
 Version:        5.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPL-2.1-only AND GPL-2.0-only
 URL:            https://github.com/containers/libkrunfw
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.5.0-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Sergio Lopez <slp@redhat.com> - 5.5.0-1
 - Update to 5.5.0 which bundles a 6.12.91 kernel
 

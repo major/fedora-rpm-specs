@@ -3,7 +3,7 @@
 
 Name:              redict
 Version:           7.3.6
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # redict: LGPL-3.0-only
 # hiredict: BSD-3-Clause
@@ -225,6 +225,9 @@ make %{make_flags} test-sentinel
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.3.6-2
+- Rebuilt for openssl 4.0
+
 * Tue Apr 21 2026 Jonathan Wright <jonathan@almalinux.org> - 7.3.6-1
 - update to 7.3.6
 

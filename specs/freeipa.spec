@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        16%{?rc_version:.%rc_version}%{?dist}.1
+Release:        16%{?rc_version:.%rc_version}%{?dist}.2
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1969,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.13.1-16.2
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.13.1-16.1
 - Rebuilt for Python 3.15
 

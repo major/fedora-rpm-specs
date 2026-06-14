@@ -1,6 +1,6 @@
 Name:           zchunk
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compressed file format that allows easy deltas
 License:        BSD-2-Clause AND MIT
 URL:            https://github.com/zchunk/zchunk
@@ -84,6 +84,9 @@ install contrib/gen_xml_dictionary %{buildroot}%{_libexecdir}/zck_gen_xml_dictio
 %{_includedir}/zck.h
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.3-2
+- Rebuilt for openssl 4.0
+
 * Thu Jun 11 2026 Jonathan Wright <jonathan@almalinux.org> - 1.5.3-1
 - update to 1.5.3
 

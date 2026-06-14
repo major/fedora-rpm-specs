@@ -1,7 +1,7 @@
 Summary: Generator Tools for Coding SOAP/XML Web Services in C and C++
 Name: gsoap
-Version: 2.8.139
-Release: 1%{?dist}
+Version: 2.8.142
+Release: 2%{?dist}
 
 # gsoap is licensed both under the gSOAP public license and under GPL version
 # 2 or later with an OpenSSL linking exception.
@@ -244,6 +244,10 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %{_datadir}/gsoap/plugin/httpmd5test.h
 %{_datadir}/gsoap/plugin/httppost.c
 %{_datadir}/gsoap/plugin/httppost.h
+%{_datadir}/gsoap/plugin/httpstreams.c
+%{_datadir}/gsoap/plugin/httpstreams.h
+%{_datadir}/gsoap/plugin/httpstreamstest.c
+%{_datadir}/gsoap/plugin/httpstreamstest.h
 %{_datadir}/gsoap/plugin/logging.c
 %{_datadir}/gsoap/plugin/logging.h
 %{_datadir}/gsoap/plugin/md5evp.c
@@ -381,6 +385,12 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %license LICENSE.txt GPLv2_license.txt
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.142-2
+- Rebuilt for openssl 4.0
+
+* Sat Apr 25 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.142-1
+- Update to 2.8.142 (#2342733)
+
 * Mon Jan 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.139-1
 - Update to 2.8.139
 - Fix build with "make --shuffle=reverse" (and drop -j1 flags)

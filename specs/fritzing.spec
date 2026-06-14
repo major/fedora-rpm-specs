@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
 %global version_no 1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
 # Take the latest commit from the "1.0.7" branch in the fritzing-app repo.
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.7^20260414-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.7^20260414-1
 - Update to v1.0.7
 - Drop Qt6-related patches (issues fixed upstream)

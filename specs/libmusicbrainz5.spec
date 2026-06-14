@@ -6,15 +6,17 @@
 Summary: Library for accessing MusicBrainz servers
 Name: libmusicbrainz5
 Version: 5.1.0
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-or-later
 URL: http://www.musicbrainz.org/
 Source0: https://github.com/metabrainz/libmusicbrainz/releases/download/release-5.1.0/libmusicbrainz-%{version}.tar.gz
 # Filed upstream as http://tickets.musicbrainz.org/browse/LMB-41
 Patch0: doxygen.patch
 Patch1: 0001-Don-t-emit-errors-unless-compiled-for-debug.patch
 Patch2: 0002-libxml2-2-12.patch
+Patch3: 0003-src-CMakelists.txt-do-not-use-wildcards-for-dependen.patch
+Patch4: 0004-Bump-minimum-CMake-version.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
@@ -43,6 +45,8 @@ applications which will use %{name}.
 %patch -P0 -p1 -b .doxygen
 %patch -P1 -p1 -b .silence-warnings
 %patch -P2 -p1 -b .libxml2
+%patch -P3 -p1 -b .inc
+%patch -P4 -p1 -b .cmake
 
 # omit "Generated on ..." timestamps that induce multilib conflicts
 # this is *supposed* to be the doxygen default in fedora these days, but
@@ -68,7 +72,8 @@ rm -f docs/installdox
 
 
 %files
-%doc AUTHORS.txt COPYING.txt NEWS.txt README.md
+%doc AUTHORS.txt NEWS.txt README.md
+%license COPYING.txt
 %{_libdir}/libmusicbrainz5.so.1*
 
 %files devel
@@ -79,6 +84,10 @@ rm -f docs/installdox
 
 
 %changelog
+* Fri Jun 12 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 5.1.0-30
+- Bump CMake minimum version
+- Fix ninja's complaints.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

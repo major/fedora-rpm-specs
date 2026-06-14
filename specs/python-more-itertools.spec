@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-more-itertools
-Version:        10.5.0
+Version:        11.1.0
 Release:        %autorelease
 Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
@@ -39,6 +39,8 @@ Summary:        %{summary}
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 %tox
 %endif
 

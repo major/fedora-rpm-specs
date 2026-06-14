@@ -1,6 +1,6 @@
 Name:           x11vnc
 Version:        0.9.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -151,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.17-4
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

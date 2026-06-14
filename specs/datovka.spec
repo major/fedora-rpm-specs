@@ -1,6 +1,6 @@
 Name: datovka
 Version: 4.29.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -57,6 +57,9 @@ cd tests
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.29.2-2
+- Rebuilt for openssl 4.0
+
 * Tue May 26 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.29.2-1
 - New version
   Resolves: rhbz#2481444

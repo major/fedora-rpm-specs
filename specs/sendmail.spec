@@ -42,7 +42,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -129,7 +129,7 @@ Requires: setup >= 2.5.31-1
 BuildRequires: setup >= 2.5.31-1
 %if "%{with_tls}" == "yes"
 BuildRequires: openssl-devel
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires:  openssl-devel-engine
 %endif
 %endif
@@ -765,6 +765,9 @@ exit 0
 
 
 %changelog
+* Fri Jun 12 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 8.18.2-5
+- Fix build with OpenSSL 4.0 (bound openssl-devel-engine to Fedora < 45)
+
 * Tue Jun 09 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.2-4
 - Used self signed certificate instead of the CA bundle
   Resolves: rhbz#2476449

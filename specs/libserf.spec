@@ -3,7 +3,7 @@
 
 Name:           libserf
 Version:        1.3.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            https://serf.apache.org/
@@ -19,6 +19,7 @@ Patch1:         %{name}-1.3.9-errgetfunc.patch
 Patch2:		%{name}-1.3.9-multihome.patch
 Patch3:		%{name}-1.3.9-cmake.patch
 Patch4:		%{name}-1.3.10-gssapi.patch
+Patch5:		%{name}-openssl4.patch
 
 %description
 The serf library is a C-based HTTP client library built upon the Apache 
@@ -87,6 +88,9 @@ grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf-%{major}.pc
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Wed Apr 29 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 1.3.10-14
+- Fix build with OpenSSL 4.0 (opaque ASN1_STRING)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

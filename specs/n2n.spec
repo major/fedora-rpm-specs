@@ -1,6 +1,6 @@
 Name:           n2n
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A layer-two peer-to-peer virtual private network
 
 # Most of the code is GPLv3 or later.
@@ -68,6 +68,9 @@ autoreconf -vif
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-2
+- Rebuilt for openssl 4.0
+
 * Sun Mar 15 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.1-1
 - Update to v3.1.1
 

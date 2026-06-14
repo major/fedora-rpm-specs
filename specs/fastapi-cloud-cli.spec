@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.19.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -23,8 +23,26 @@ Source170:      fastapi-cloud-unlink.1
 Source180:      fastapi-cloud-setup-ci.1
 Source190:      fastapi-cloud-env.1
 Source191:      fastapi-cloud-env-list.1
-Source192:      fastapi-cloud-env-set.1
-Source193:      fastapi-cloud-env-delete.1
+Source192:      fastapi-cloud-env-get.1
+Source193:      fastapi-cloud-env-set.1
+Source194:      fastapi-cloud-env-delete.1
+Source200:      fastapi-cloud-auth.1
+Source201:      fastapi-cloud-auth-login.1
+Source202:      fastapi-cloud-auth-wait.1
+Source210:      fastapi-cloud-apps.1
+Source211:      fastapi-cloud-apps-create.1
+Source212:      fastapi-cloud-apps-get.1
+Source213:      fastapi-cloud-apps-link.1
+Source214:      fastapi-cloud-apps-list.1
+Source215:      fastapi-cloud-apps-logs.1
+Source216:      fastapi-cloud-apps-unlink.1
+Source220:      fastapi-cloud-deployments.1
+Source221:      fastapi-cloud-deployments-get.1
+Source222:      fastapi-cloud-deployments-build-logs.1
+Source223:      fastapi-cloud-deployments-list.1
+Source230:      fastapi-cloud-teams.1
+Source231:      fastapi-cloud-teams-list.1
+Source232:      fastapi-cloud-teams-get.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -92,10 +110,21 @@ Conflicts:      python3-fastapi < 0.136.3-3
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_mandir}/man1' \
     '%{SOURCE11}' '%{SOURCE13}' \
-    '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
-    '%{SOURCE140}' '%{SOURCE150}' '%{SOURCE160}' '%{SOURCE170}' \
-    '%{SOURCE180}' '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' \
-    '%{SOURCE193}'
+    '%{SOURCE100}' \
+    '%{SOURCE110}' \
+    '%{SOURCE120}' \
+    '%{SOURCE130}' \
+    '%{SOURCE140}' \
+    '%{SOURCE150}' \
+    '%{SOURCE160}' \
+    '%{SOURCE170}' \
+    '%{SOURCE180}' \
+    '%{SOURCE190}' '%{SOURCE191}' '%{SOURCE192}' '%{SOURCE193}' '%{SOURCE194}' \
+    '%{SOURCE200}' '%{SOURCE201}' '%{SOURCE202}' \
+    '%{SOURCE210}' '%{SOURCE211}' '%{SOURCE212}' '%{SOURCE213}' '%{SOURCE214}' \
+      '%{SOURCE215}' '%{SOURCE216}' \
+    '%{SOURCE220}' '%{SOURCE221}' '%{SOURCE222}' '%{SOURCE223}' \
+    '%{SOURCE230}' '%{SOURCE231}' '%{SOURCE232}'
 
 
 %check -a

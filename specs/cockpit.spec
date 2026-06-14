@@ -56,7 +56,7 @@ License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 
 URL:            https://cockpit-project.org/
 
 Version:        363.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
@@ -665,6 +665,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 363.2-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Packit <hello@packit.dev> - 363.2-1
 - packit: Use tars for propose-downstream
 

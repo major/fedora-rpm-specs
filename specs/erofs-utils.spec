@@ -18,7 +18,7 @@
 
 Name:           erofs-utils
 Version:        1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND MIT AND Unlicense
@@ -120,6 +120,9 @@ autoreconf -fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.1-2
+- Rebuilt for openssl 4.0
+
 * Thu Mar 05 2026 David Michael <fedora.dm0@gmail.com> - 1.9.1-1
 - Update to the 1.9.1 release.
 

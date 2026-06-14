@@ -5,7 +5,7 @@
 %global crate block-buffer
 
 Name:           rust-block-buffer
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Buffer types for block processing of data
 

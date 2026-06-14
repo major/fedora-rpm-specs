@@ -1,6 +1,6 @@
 Name:		libsrtp
 Version:	2.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	An implementation of the Secure Real-time Transport Protocol (SRTP)
 License:	BSD-3-Clause
 URL:		https://github.com/cisco/libsrtp
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 %{_libdir}/*.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.0-2
+- Rebuilt for openssl 4.0
+
 * Thu Mar 19 2026 Tom Callaway <spot@fedoraproject.org> - 2.8.0-1
 - update to 2.8.0
 

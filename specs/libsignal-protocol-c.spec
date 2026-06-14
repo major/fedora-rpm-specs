@@ -1,6 +1,6 @@
 Name:       libsignal-protocol-c
 Version:    2.3.3
-Release:    18%{?dist}
+Release:    19%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
@@ -67,6 +67,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.3-19
+- Rebuilt for openssl 4.0
+
 * Thu Apr 30 2026 Cristian Le <git@lecris.dev> - 2.3.3-17
 - Allow to build with CMake 4.0 (rhbz#2380753)
 

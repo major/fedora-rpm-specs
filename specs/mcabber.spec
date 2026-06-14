@@ -4,7 +4,7 @@
 
 Name:           mcabber
 Version:        1.1.3
-Release:        0.11.%{date}git%{gitcommit}%{?dist}
+Release:        0.12.%{date}git%{gitcommit}%{?dist}
 Summary:        Console Jabber instant messaging client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.3-0.12.20211025git87964c3
+- Rebuilt for openssl 4.0
+
 * Tue Jan 27 2026 Benson Muite <fed500@fedoraproject.org> - 1.1.3-0.11.20211025git87964c3
 - Build with clang to enable build to complete
 

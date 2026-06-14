@@ -2,7 +2,7 @@
 
 Name:           %{core_name}db
 Version:        2.27.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ rm -rf tsl
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.27.1-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun 01 2026 Aurelien Bompard <abompard@fedoraproject.org> - 2.27.1-1
 - Version 2.27.1 (rhbz#2303604)
 

@@ -1,6 +1,6 @@
 Name:           hfsplus-tools
 Version:        540.1.linux3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Tools to create/check Apple HFS+ filesystems
 
 # Automatically converted from old format: APSL 2.0 - review is highly recommended.
@@ -94,6 +94,9 @@ ln -s fsck.hfsplus.8 fsck.hfs.8
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 540.1.linux3-37
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 540.1.linux3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

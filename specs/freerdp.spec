@@ -27,7 +27,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.26.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -376,6 +376,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.26.0-8
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:3.26.0-7
 - Rebuilt for icu 78.3
 

@@ -3,7 +3,7 @@
 
 Name:           centos-packager
 Version:        0.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tools and files necessary for building CentOS packages
 Group:          Applications/Productivity
 
@@ -60,6 +60,9 @@ install -p -m 0755 %{SOURCE5} %{buildroot}%{_bindir}/centos-get-sources
 %{_bindir}/centos-get-sources
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.0-21
+- Rebuilt for openssl 4.0
+
 * Tue Jun  2 2026 Davide Cavalca <dcavalca@fedoraproject.org> - 0.7.0-20
 - Drop serverca in the koji config for https://fedoraproject.org/wiki/Changes/droppingOfCertPemFile
   Fixes: RHBZ#2358273, RHBZ#2483718

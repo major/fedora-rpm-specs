@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.1.10
+Version:        14.2.2
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -55,8 +55,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.1.13"
-BuildRequires:  phpunit13 >= 13.1.13
+#        "phpunit/phpunit": "^13.2.0"
+BuildRequires:  phpunit13 >= 13.1
 BuildRequires:  php-xdebug
 %endif
 
@@ -185,12 +185,15 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog-%{ver_major}.1.md
+%doc ChangeLog-%{ver_major}.2.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Mon Jun  8 2026 Remi Collet <remi@remirepo.net> - 14.2.2-1
+- update to 14.2.2
+
 * Tue Jun  2 2026 Remi Collet <remi@remirepo.net> - 14.1.10-1
 - update to 14.1.10
 - raise dependency on sebastian/environment 9.3.2

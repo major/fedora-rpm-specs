@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -256,6 +256,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.4.2-13
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

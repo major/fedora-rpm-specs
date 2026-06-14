@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       8.2.4
-Release:       3%{?dist}
+Release:       4%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://boinc.berkeley.edu/
@@ -347,6 +347,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.2.4-4
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

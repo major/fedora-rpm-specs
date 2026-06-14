@@ -1,7 +1,7 @@
 Summary: A heuristic autodialer for PPP connections
 Name: wvdial
 Version: 1.61
-Release: 37%{?dist}
+Release: 38%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://alumnit.ca/wiki/?WvDial
@@ -77,6 +77,9 @@ touch %{buildroot}%{_sysconfdir}/wvdial.conf
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wvdial.conf
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.61-38
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

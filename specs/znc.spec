@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -235,6 +235,9 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.1-5
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 1.10.1-4
 - Rebuilt for icu 78.3
 

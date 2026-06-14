@@ -26,7 +26,7 @@
 
 Name:           freerdp2
 Version:        2.11.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -270,6 +270,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.11.7-14
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2.11.7-13
 - Rebuilt for icu 78.3
 

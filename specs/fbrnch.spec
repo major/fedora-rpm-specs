@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.8.3
 # can only be reset when all subpkgs bumped
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -215,6 +215,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.3-41
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Jens Petersen <petersen@redhat.com> - 1.8.3-40
 - 'autospec': don't switch to rawhide and pass pkg spec file to convert
 - 'compare-tarballs': order tarballs by removal and addition

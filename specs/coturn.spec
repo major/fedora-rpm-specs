@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -226,6 +226,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.12.0-3
+- Rebuilt for openssl 4.0
+
 * Thu Jun 11 2026 Robert Scheck <robert@fedoraproject.org> - 4.12.0-2
 - Ensure that 'systemctl reload coturn' also reloads TLS certificate
 

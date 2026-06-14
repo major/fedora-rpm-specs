@@ -10,7 +10,7 @@
 
 Name:           qpid-proton
 Version:        0.40.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -313,6 +313,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.40.0-17
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.40.0-16
 - Rebuilt for Python 3.15
 

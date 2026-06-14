@@ -3,7 +3,7 @@
 
 Name:           warzone2100
 Version:        4.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 # See COPYING.NONGPL
@@ -101,6 +101,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.6.3-2
+- Rebuilt for openssl 4.0
+
 * Wed Feb 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.6.3-1
 - 4.6.3
 

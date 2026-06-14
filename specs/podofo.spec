@@ -9,7 +9,7 @@
 
 Name:           podofo
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        (LGPL-2.0-or-later or MPL-2.0) and MIT and Apache-2.0 and BSD-3-Clause and BSL-1.0
@@ -219,6 +219,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.1-2
+- Rebuilt for openssl 4.0
+
 * Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 1.1.1-1
 - Update to 1.1.1
 

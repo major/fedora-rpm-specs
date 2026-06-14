@@ -1,6 +1,6 @@
 Name:           bpftool
 Version:        7.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -46,6 +46,9 @@ mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.7.0-2
+- Rebuilt for openssl 4.0
+
 * Tue Mar 24 2026 Viktor Malik <vmalik@redhat.com> - 7.7.0-1
 - release 7.7.0-1
 

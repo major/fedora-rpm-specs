@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.5.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -491,6 +491,9 @@ fi
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/nagios.conf
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5.12-3
+- Rebuilt for openssl 4.0
+
 * Fri May 22 2026 Guido Aulisi <guido.aulisi@gmail.com> - 4.5.12-2
 - Split httpd integration into nagios-httpd subpackage #2476408
 

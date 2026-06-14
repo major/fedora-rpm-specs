@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.42.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -1145,6 +1145,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.42.1-3
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Stephen Gallagher <sgallagh@redhat.com> - 2:2.42.1-2
 - Fix detection of OpenSSL 4.0
 

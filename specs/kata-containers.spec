@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    7%{?rcrel}%{?dist}
+Release:    7%{?rcrel}%{?dist}.1
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -441,6 +441,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.28.0-7.1
+- Rebuilt for openssl 4.0
+
 * Tue May 19 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.28.0-7
 - Consolidate build variables and binary location for runtime-rs
 - Build runtime-rs with alternative name under /usr/bin

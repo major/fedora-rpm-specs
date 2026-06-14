@@ -7,7 +7,7 @@
 
 Name:           apk-tools
 Version:        3.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
@@ -148,6 +148,9 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.4-4
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.0.4-3
 - Rebuilt for Python 3.15
 

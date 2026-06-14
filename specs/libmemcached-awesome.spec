@@ -24,7 +24,7 @@
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:   9%{?dist}
+Release:   10%{?dist}
 # SPDX:
 License:   BSD-3-Clause
 URL:       https://github.com/%{gh_owner}/%{gh_project}
@@ -196,6 +196,9 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.4-10
+- Rebuilt for openssl 4.0
+
 * Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.1.4-9
 - Force using Makefile generator (rhbz#2381045)
 

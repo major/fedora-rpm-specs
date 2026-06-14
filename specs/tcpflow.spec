@@ -7,7 +7,7 @@
 Summary:       Network traffic recorder
 Name:          tcpflow
 Version:       1.6.2
-Release:       0.1.%{shortcommit}%{?dist}
+Release:       0.2.%{shortcommit}%{?dist}
 License:       GPL-1.0-or-later
 URL:           https://github.com/simsong/tcpflow
 # Tarball created by
@@ -55,6 +55,9 @@ make check || :
 %{_mandir}/man1/tcpflow.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.2-0.2.8d47b53
+- Rebuilt for openssl 4.0
+
 * Thu Mar 26 2026 Terje Røsten <terjeros@gmail.com> - 1.6.2-0.1.8d47b53
 - Update to 1.6.2 / 8d47b53 to fix CVE-2026-25061
 

@@ -18,7 +18,7 @@ Version: 3.6.9
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 5%{?dist}
+Release: 7%{?dist}
 
 # see licenses-3.6.9.txt for license breakdown
 License: BSD-3-Clause and Apache-2.0 and BSD-2-Clause and (WTFPL or MIT) and GPL-3.0-or-later and ISC and MIT
@@ -58,6 +58,9 @@ Patch:      0001-Increase-sleep-for-tests.patch
 
 # place in correct locations
 Patch:      0002-chore-undo-changes-to-standard-dirs.patch
+
+# Fix OpenSSL 4.0 compatibility
+Patch:      0003-Fix-OpenSSL-4.0-compatibility.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -263,6 +266,12 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libofstd.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.6.9-7
+- Rebuilt for openssl 4.0
+
+* Wed Apr 29 2026 Pavol Žáčik <pzacik@redhat.com> - 3.6.9-6
+- Fix OpenSSL 4.0 compatibility
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

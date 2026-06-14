@@ -22,9 +22,9 @@
 Name: nagios-plugins
 Version: 2.4.12
 %if 0%{?fromgit}
-Release: 4.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 5.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 4%{?dist}
+Release: 5%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -874,6 +874,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.12-5
+- Rebuilt for openssl 4.0
+
 * Mon Feb 23 2026 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.12-4
 - Fix ping problem when using dualstacked dns name #2414403 (patch from ETES GmbH)
 

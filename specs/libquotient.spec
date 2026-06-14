@@ -8,7 +8,7 @@ older use the previous name - libQMatrixClient.}
 
 Name: libquotient
 Version: 0.9.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -82,6 +82,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.5-5
+- Rebuilt for openssl 4.0
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.9.5-4
 - Rebuild (qt6)
 

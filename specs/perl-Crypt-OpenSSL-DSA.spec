@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-DSA
 Version:        0.20
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl interface to OpenSSL for DSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-DSA
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20-35
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

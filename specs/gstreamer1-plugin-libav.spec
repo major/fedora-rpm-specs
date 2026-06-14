@@ -1,5 +1,5 @@
 Name:           gstreamer1-plugin-libav
-Version:        1.28.3
+Version:        1.28.4
 Release:        1%{?dist}
 Summary:        GStreamer FFmpeg/LibAV plugin
 License:        LGPLv2+
@@ -72,6 +72,9 @@ plugin.
 %endif
 
 %changelog
+* Fri Jun 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.4-1
+- 1.28.4
+
 * Tue May 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.3-1
 - 1.28.3
 

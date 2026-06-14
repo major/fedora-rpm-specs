@@ -14,7 +14,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.17
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -106,6 +106,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.17-11
+- Rebuilt for openssl 4.0
+
 * Wed May 20 2026 Vladislav Dronov <vdronov@redhat.com> - 6.17-10
 - Build with the updated jitterentropy v3.7.0 library
 

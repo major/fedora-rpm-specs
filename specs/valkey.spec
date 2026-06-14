@@ -14,7 +14,7 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -452,6 +452,9 @@ fi
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 9.1.0-3
+- Rebuilt for openssl 4.0
+
 * Mon Jun 01 2026 Pavol Žáčik <pzacik@redhat.com> - 9.1.0-2
 - Fix OpenSSL 4.0 compatibility
 

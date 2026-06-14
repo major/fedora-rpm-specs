@@ -5,7 +5,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.2
+Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.3
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
@@ -132,6 +132,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.0-0.1.rc1.3
+- Rebuilt for openssl 4.0
+
 * Tue May 12 2026 Pavol Žáčik <pzacik@redhat.com> - 2.7.0-0.1.rc1.2
 - Backport upstream memory leak and OpenSSL 4.0 compatibility patches
 

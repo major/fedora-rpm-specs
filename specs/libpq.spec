@@ -4,7 +4,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -142,6 +142,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 18.4-3
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Michal Schorm <mschorm@redhat.com> - 18.4-2
 - Drop multilib-rpm-config usage on RHEL
   Related: RHEL-178013

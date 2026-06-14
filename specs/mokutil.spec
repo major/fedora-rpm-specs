@@ -1,6 +1,6 @@
 Name:           mokutil
 Version:        0.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          2
 Summary:        Tool to manage UEFI Secure Boot MoK Keys
 License:        GPL-3.0-or-later
@@ -48,6 +48,9 @@ mokutil provides a tool to manage keys for Secure Boot through the MoK
 %{_datadir}/bash-completion/completions/mokutil
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
+- Rebuilt for openssl 4.0
+
 * Mon May 11 2026 Pavol Žáčik <pzacik@redhat.com>
 - Add OpenSSL 4.0 compatibility patch
 

@@ -1,6 +1,6 @@
 Name: subscription-manager-rhsm-certificates
 Version: 20220623
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Certificates required to communicate with a Red Hat Unified Entitlement Platform
 URL: https://www.candlepinproject.org/
 %if 0%{?suse_version}
@@ -48,6 +48,9 @@ make check
 %{_sysconfdir}/rhsm/ca/*.pem
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20220623-9
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20220623-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

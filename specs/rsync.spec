@@ -3,7 +3,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -124,6 +124,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.4-2
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.4-1
 - New version 3.4.4
 

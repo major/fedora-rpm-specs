@@ -12,7 +12,7 @@
 
 Name:           vdr-epg-daemon
 Version:        1.3.29
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
@@ -138,6 +138,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.29-15
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.3.29-14
 - Rebuilt for Python 3.15
 

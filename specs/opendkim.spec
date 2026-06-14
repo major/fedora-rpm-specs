@@ -6,7 +6,7 @@
 Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
-Release: 0.46%{?dist}
+Release: 0.47%{?dist}
 License: BSD-3-Clause AND Sendmail-Open-Source-1.1
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
@@ -212,6 +212,9 @@ install -m0644 -D opendkim.sysusers.conf %{buildroot}%{_sysusersdir}/opendkim.co
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.11.0-0.47
+- Rebuilt for openssl 4.0
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.11.0-0.46
 - rebuild
 

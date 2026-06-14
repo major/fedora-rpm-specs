@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -155,6 +155,9 @@ fi
 %{_tmpfilesdir}/sblim-sfcb.conf
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.9-41
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-40
 - Remove unused BR
 

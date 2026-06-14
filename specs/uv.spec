@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.11.19
+Version:        0.11.21
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -153,6 +153,10 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+
+# Conditionalize a few new tests on the test-pypi feature
+# https://github.com/astral-sh/uv/pull/19819
+Patch:          %{url}/pull/19819.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -633,6 +637,11 @@ skip="${skip-} --skip tests::built_by_uv_building"
 # snapshot doesn’t. This seems like a trivial discrepancy, probably due to a
 # dependency version differing from Cargo.lock.
 skip="${skip-} --skip base_client::tests::retried_status_codes"
+
+# Harmless and trivial discrepancy in an error message:
+#     8       │-  Caused by: error decoding response body for url (http://[LOCALHOST]/tqdm/)
+#           8 │+  Caused by: error decoding response body
+skip="${skip-} --skip network::retry_read_timeout_index"
 
 # These fail flakily: most frequently on ppc64le, but this seems to be just a
 # matter of luck, since we suspect a race condition. We have also seen failures

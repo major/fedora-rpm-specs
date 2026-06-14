@@ -16,6 +16,8 @@ License:        GPL-2.0-with-classpath-exception AND Apache-2.0 AND BSD-2-Clause
 URL:            https://duo.com/
 Source:         https://dl.duosecurity.com/%{name}-%{version}.tar.gz
 
+Patch0:         duo_unix-openssl4.patch
+
 Suggests:       %{name}-doc = %{version}-%{release}
 
 BuildRequires:  bzip2
@@ -86,6 +88,7 @@ Requires:       pam_duo%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q
+%patch 0 -p1 -b .openssl4
 
 %build
 %configure \

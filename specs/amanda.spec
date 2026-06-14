@@ -45,6 +45,8 @@ Patch8: amanda-c99.patch
 Patch9:        https://github.com/zmanda/amanda/pull/273.patch
 # Perl 5.40 support (rhbz#2322518)
 Patch10:       https://github.com/zmanda/amanda/pull/270.patch
+#OpenSSL 4.0 build fixes
+Patch 11:      0001-Update-OpenSSL-API-for-compatibility.patch
 
 License:       BSD-3-Clause AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only
 URL:           http://www.amanda.org
@@ -55,7 +57,7 @@ BuildRequires: gnuplot
 %endif
 BuildRequires: cups samba-client tar grep
 BuildRequires: gcc-c++ readline-devel libtirpc-devel
-BuildRequires: krb5-devel rsh openssh-clients
+BuildRequires: krb5-devel openssh-clients
 BuildRequires: mtx mt-st
 BuildRequires: perl-devel perl-generators perl(ExtUtils::Embed) perl(Test::Simple)
 BuildRequires: glib2-devel openssl-devel swig bison flex
@@ -162,7 +164,6 @@ export MAILER=/usr/bin/mail CFLAGS="$RPM_OPT_FLAGS -fPIE -std=c17" LDFLAGS="$RPM
            --without-gnuplot \
 %endif
            --with-ssh-security \
-           --with-rsh-security \
            --with-bsdtcp-security \
            --with-bsdudp-security \
            --with-krb5-security
@@ -208,7 +209,7 @@ popd
 rm -rf $RPM_BUILD_ROOT/usr/share/amanda
 find $RPM_BUILD_ROOT -name \*.la | xargs rm
 
-pushd $RPM_BUILD_ROOT/usr/bin
+pushd $RPM_BUILD_ROOT/%_sbindir
 rm amandad
 ln -s ../%_lib/amanda/amandad
 popd

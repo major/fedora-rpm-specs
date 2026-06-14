@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -172,6 +172,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_tmpfilesdir}/vsftpd.conf
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.5-16
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

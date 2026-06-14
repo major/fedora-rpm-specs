@@ -1,6 +1,6 @@
 Name:tpm2-openssl
 Version: 1.3.0
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
@@ -62,6 +62,9 @@ cp %{SOURCE3} %{_builddir}/%{name}-%{version}%{?candidate:-%{candidate}}/test/
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-2
+- Rebuilt for openssl 4.0
+
 * Mon May 25 2026 Adrian Freihofer <adrian.freihofer@gmail.com> - 1.3.0-1
 - Update to 1.3.0
 - Drop sha1/sha256 Fedora patches (already upstream in 1.3.0)

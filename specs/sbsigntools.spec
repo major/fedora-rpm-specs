@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Most source code is GPL-3.0-or-later, except:
 # LicenseRef-Fedora-Public-Domain:
@@ -118,6 +118,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.5-15
+- Rebuilt for openssl 4.0
+
 * Fri Feb 20 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-15
 - fix build with GCC16 (resolves rhbz#2435092)
 

@@ -5,7 +5,7 @@ Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.3
 #Release: %%{devrel}.1%%{?dist}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 
 Source0: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -144,6 +144,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.9.3-3
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.3-2
 - remove redundant build requires
 

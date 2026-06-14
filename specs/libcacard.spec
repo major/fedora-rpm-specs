@@ -1,6 +1,6 @@
 Name:           libcacard
 Version:        2.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CAC (Common Access Card) library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -71,6 +71,9 @@ cp %{SOURCE3} tests/
 %{_libdir}/pkgconfig/libcacard.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3:2.8.2-2
+- Rebuilt for openssl 4.0
+
 * Wed Jan 28 2026 Jakub Jelen <jjelen@redhat.com> - 3:2.8.2-1
 - New upstream release
 

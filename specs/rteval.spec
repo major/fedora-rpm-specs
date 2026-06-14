@@ -1,6 +1,6 @@
 Name:		rteval
 Version:	3.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -83,6 +83,9 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_bindir}/rteval
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.11-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 10 2026 John Kacur <jkacur@redhat.com> - 3.11-1
 - Upgrade to rteval-3.11
 - rteval: cyclictest: Improve handling of truncated histogram output

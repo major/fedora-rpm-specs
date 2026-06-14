@@ -1,6 +1,6 @@
 Name:           librhsm
 Version:        0.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Red Hat Subscription Manager library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librhsm
@@ -53,6 +53,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.4-4
+- Rebuilt for openssl 4.0
+
 * Mon Apr 27 2026 Simo Sorce <simo@redhat.com> - 0.0.4-3
 - OpenSSL 4.0 build fixes
 

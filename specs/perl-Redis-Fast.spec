@@ -1,6 +1,6 @@
 Name:           perl-Redis-Fast
 Version:        0.37
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl binding for Redis database
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Redis-Fast
@@ -98,6 +98,9 @@ unset USE_SSL
 %{_mandir}/man3/Redis::Fast*.3pm*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.37-7
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

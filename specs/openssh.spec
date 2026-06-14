@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -514,6 +514,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Fri Jun 12 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.3p1-4
+- Rebuild against OpenSSL 4.0.1
+
 * Mon Apr 27 2026 Benjamin Sherman <bsherman@redhat.com> - 10.3p1-3
 - Move /sbin/nologin requirement to openssh-server
 

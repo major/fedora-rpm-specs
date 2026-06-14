@@ -190,7 +190,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 33%{?dist}
+Release: 34%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1959,6 +1959,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org>- 4.0.5-33
 - Update to Ruby 4.0.5
 

@@ -1,6 +1,6 @@
 Name:           loudmouth
 Version:        1.5.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        XMPP/Jabber C programming library
 
 License:        LGPL-2.0-or-later
@@ -82,6 +82,9 @@ make check
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.4-15
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

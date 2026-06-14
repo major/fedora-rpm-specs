@@ -12,7 +12,7 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.96
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
@@ -138,6 +138,9 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.96-3
+- Rebuilt for openssl 4.0
+
 * Wed Jun 10 2026 Paul Howarth <paul@city-fan.org> - 1.96-2
 - Add support for OpenSSL 4.0.0 (rhbz#2458197, GH#553)
 

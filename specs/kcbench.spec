@@ -1,6 +1,6 @@
 Name:           kcbench
 Version:        0.9.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
 License:        MIT
@@ -52,6 +52,9 @@ echo "Nothing to build"
 %{_docdir}/kcbench/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.15-2
+- Rebuilt for openssl 4.0
+
 * Wed Mar 11 2026 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.15-1
 - Update to 0.9.15
 

@@ -1,6 +1,6 @@
 Name:           ophcrack
 Version:        3.8.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Free Windows password cracker based on rainbow tables
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8.0-22
+- Rebuilt for openssl 4.0
+
 * Thu Jan 29 2026 Alessio <alciregi@fedoraproject.org> - 3.8.0-21
 - Change buildrequires from qwt5-qt4 to qwt5-qt5
 

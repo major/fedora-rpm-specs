@@ -2,7 +2,7 @@
 
 Name:           nagios-plugins-snmp-disk-proc
 Version:        1.3.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Nagios SNMP plugins to monitor remote disk and processes
 # Version intent from README
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -45,6 +45,9 @@ install -p -m 755 check_snmp_proc $RPM_BUILD_ROOT/%{nagios_plugins_dir}
 %{nagios_plugins_dir}/check_snmp_proc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.1-28
+- Rebuilt for openssl 4.0
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.1-27
 - Rebuilt for net-snmp 5.9.5.2
 

@@ -268,7 +268,7 @@
 %endif
 
 Name:	chromium
-Version: 149.0.7827.102
+Version: 149.0.7827.114
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -556,6 +556,8 @@ Source12: node-%{nodejs_version}-stripped.tar.gz
 Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
+# Disable AI Mode settings
+Source14: disable-ai.json
 
 BuildRequires: clang
 BuildRequires: clang-tools-extra
@@ -1745,6 +1747,9 @@ popd
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/managed
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/recommended
 
+# disable AI
+cp -a %{SOURCE14} %{buildroot}%{_sysconfdir}/chromium/policies/managed/
+
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 cp -a chrome/app/theme/chromium/product_logo_256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
@@ -1786,11 +1791,12 @@ fi
 %files
 %doc AUTHORS README.fedora
 %license LICENSE
-%config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
-%config %{_sysconfdir}/%{name}/master_preferences
-%config %{_sysconfdir}/%{name}/policies/
+%dir %{_sysconfdir}/%{name}/policies/
 %dir %{chromium_path}/MEIPreload/
 %dir %{chromium_path}/PrivacySandboxAttestationsPreloaded/
+%config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
+%config %{_sysconfdir}/%{name}/master_preferences
+%config %{_sysconfdir}/%{name}/policies/managed/disable-ai.json
 %{_bindir}/chromium-browser
 %{chromium_path}/chrome_*.pak
 %{chromium_path}/chrome_crashpad_handler
@@ -1910,6 +1916,38 @@ fi
 %endif
 
 %changelog
+* Fri Jun 12 2026 Than Ngo <than@redhat.com> - 149.0.7827.114-1
+- Update to 149.0.7827.114
+  * CVE-2026-12007: Use after free  Core
+  * CVE-2026-12008: Use after free  DigitalCredentials
+  * CVE-2026-12009: Insufficient validation of untrusted input  Accessibility
+  * CVE-2026-12010: Heap buffer overflow  GPU
+  * CVE-2026-12011: Use after free  WebMIDI
+  * CVE-2026-12012: Use after free  Network
+  * CVE-2026-12013: Use after free  Media
+  * CVE-2026-12014: Use after free  Cast
+  * CVE-2026-12015: Use after free  Autofill
+  * CVE-2026-12016: Insufficient validation of untrusted input  DevTools
+  * CVE-2026-12017: Insufficient validation of untrusted input  Extensions
+  * CVE-2026-12018: Inappropriate implementation  Mojo
+  * CVE-2026-12019: Out of bounds write  Codecs
+  * CVE-2026-12020: Use after free  Autofill
+  * CVE-2026-12022: Race  Safe Browsing
+  * CVE-2026-12023: Use after free  GPU
+  * CVE-2026-12024: Insufficient policy enforcement  DevTools
+  * CVE-2026-12025: Insufficient validation of untrusted input  Network
+  * CVE-2026-12026: Out of bounds read  Video
+  * CVE-2026-12027: Insufficient policy enforcement  Headless
+  * CVE-2026-12028: Use after free  GPU
+  * CVE-2026-12029: Use after free  Video
+  * CVE-2026-12030: Heap buffer overflow  GPU
+  * CVE-2026-12031: Inappropriate implementation  Views
+  * CVE-2026-12032: Inappropriate implementation  Passwords
+  * CVE-2026-12033: Out of bounds read  VideoCapture
+  * CVE-2026-12034: Insufficient validation of untrusted input  Linux Toolkit Theming
+  * CVE-2026-12035: Use after free  Views
+- Disable AI Mode settings
+
 * Tue Jun 09 2026 Than Ngo <than@redhat.com> - 149.0.7827.102-1
 - Update to 149.0.7827.102
   * CVE-2026-11628: Use after free in Ozone

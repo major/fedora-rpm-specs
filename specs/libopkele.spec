@@ -1,6 +1,6 @@
 Name:           libopkele
 Version:        2.0.4
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        C++ implementation of the OpenID decentralized identity system
 License:        MIT
 URL:            http://kin.klever.net/libopkele/
@@ -58,6 +58,9 @@ rm %{buildroot}%{_libdir}/*.{a,la}
 %{_libdir}/pkgconfig/libopkele.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.4-44
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

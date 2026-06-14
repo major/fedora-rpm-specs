@@ -5,7 +5,7 @@
 Name:           ec2-instance-connect
 Summary:        EC2 Instance Connect scripts
 Version:        1.1.17
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        Apache-2.0
 URL:            https://github.com/aws/%{project}
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.17-7
+- Rebuilt for openssl 4.0
+
 * Sat May 09 2026 Christian Krause <chkr@fedoraproject.org> - 1.1.17-6
 - Update location of ca bundle according to
   https://fedoraproject.org/wiki/Changes/droppingOfCertPemFile

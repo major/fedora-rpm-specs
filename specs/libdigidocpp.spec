@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -114,6 +114,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.0-3
+- Rebuilt for openssl 4.0
+
 * Wed May 27 2026 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 4.4.0-2
 - rebuilt
 

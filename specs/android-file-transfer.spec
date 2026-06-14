@@ -3,7 +3,7 @@
 
 Name:           android-file-transfer
 Version:        4.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5-8
+- Rebuilt for openssl 4.0
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

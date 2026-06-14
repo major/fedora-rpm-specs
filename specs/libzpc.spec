@@ -1,15 +1,11 @@
 Name:		libzpc
-Version:	2.0.0
+Version:	2.0.1
 Release:	%autorelease
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
 License:	MIT
 Url:		https://github.com/opencryptoki/libzpc
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:		libzpc-01-zpckey-Remove-unused-header-include.patch
-Patch1:		libzpc-02-zpckey-Use-portable-printf-format.patch
-Patch2:		libzpc-03-zpckey-Remove-another-unused-header-include.patch
 
 Requires:	openssl >= 3.0.7
 

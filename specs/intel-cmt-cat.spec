@@ -15,8 +15,6 @@ URL: 		https://github.com/intel/intel-cmt-cat
 Source: 	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch0:		0001-alter-install-paths.patch
-Patch1:		0002-remove-build-and-install-of-examples.patch
-Patch2:		0003-allow-debian-flags-to-be-added.patch
 
 ExclusiveArch:	x86_64
 
@@ -53,7 +51,7 @@ Development files.
 %{_sbindir}/pqos-msr
 %{_sbindir}/pqos-os
 %{_sbindir}/rdtset
-%{_libdir}/libpqos.so.6
+%{_libdir}/libpqos.so.7
 %{_libdir}/libpqos.so.%{libpqos_ver}
 %{_mandir}/man8/membw.8*
 %{_mandir}/man8/pqos.8*

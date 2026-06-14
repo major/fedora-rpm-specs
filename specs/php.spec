@@ -86,7 +86,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1673,6 +1673,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.5.7-4
+- Rebuilt for openssl 4.0
+
 * Sun Jun 07 2026 František Zatloukal <fzatlouk@redhat.com> - 8.5.7-3
 - Rebuilt for icu 78.3
 

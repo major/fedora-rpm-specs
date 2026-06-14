@@ -8,7 +8,7 @@
 
 Name:		perl-IO-Socket-SSL
 Version:	2.098
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
@@ -128,6 +128,9 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.098-4
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Michal Josef Špaček <mspacek@redhat.com> - 2.098-3
 - Fix procps-ng usage
 

@@ -5,7 +5,7 @@
 %global crate memchr
 
 Name:           rust-memchr
-Version:        2.8.1
+Version:        2.8.2
 Release:        %autorelease
 Summary:        Extremely fast 1, 2 or 3 byte search and single substring search
 

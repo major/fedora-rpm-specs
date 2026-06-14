@@ -9,7 +9,7 @@
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
 Version:   7.0.11
-Release:   6%{?dist}
+Release:   7%{?dist}
 # Automatically converted from old format: libtiff and BSD with advertising - review is highly recommended.
 License:   libtiff AND LicenseRef-Callaway-BSD-with-advertising
 URL:       http://hylafax.sourceforge.net
@@ -429,6 +429,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.0.11-7
+- Rebuilt for openssl 4.0
+
 * Wed Feb 04 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 7.0.11-6
 - update gnu-config files to make it build on riscv64
 

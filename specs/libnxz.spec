@@ -3,15 +3,13 @@
 %global __brp_remove_la_files %nil
 
 Name:		libnxz
-Version:	0.64
-Release:	10%{?dist}
+Version:        0.65
+Release:	1%{?dist}
 Summary:	Zlib implementation for POWER processors
 License:    Apache-2.0 OR GPL-2.0-or-later
 Url:		https://github.com/libnxz/power-gzip
 BuildRequires:	zlib-devel
-Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fixes for GCC 14 and zlib-ng compat usage
-Patch0:         %{url}/pull/209.patch
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Be explicit about the soname in order to avoid unintentional changes.
 %global soname libnxz.so.0
@@ -88,6 +86,9 @@ install -m0644 -D libnxz.sysusers.conf %{buildroot}%{_sysusersdir}/libnxz.conf
 %{_libdir}/libnxz.la
 
 %changelog
+* Fri Jun 12 2026 Aditi Mishra <aditi@linux.ibm.com> - 0.65-1
+- Update to libnxz 0.65
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

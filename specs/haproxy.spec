@@ -3,7 +3,7 @@
 Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.haproxy.org/
 Source0:        https://www.haproxy.org/download/%(b=%{version}; echo ${b%.*})/src/%{name}-%{version}.tar.gz
@@ -109,6 +109,9 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1 examples/%{name}.init
 %dir %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.0-2
+- Rebuilt for openssl 4.0
+
 * Thu Jun 04 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.0-1
 - Upgrade to 3.4.0 (#2324436)
 - Remove obsolete compile option MAX_SESS_STKCTR (#2368035)

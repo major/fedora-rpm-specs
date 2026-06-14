@@ -1,17 +1,19 @@
 %global coucal_commit 73ada075553b7607d083037a87cb9c73b3683bfc
 
 Name:           httrack
-Version:        3.49.5
+Version:        3.49.7
 Release:        %autorelease
 Summary:        Website copier and offline browser
-License:        GPL-3.0-or-later WITH OpenSSL-exception
-URL:            http://www.httrack.com
-Source:         http://mirror.httrack.com/historical/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later AND BSD-3-Clause
+URL:            https://github.com/xroche/httrack/
+Source:         https://github.com/xroche/httrack/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/xroche/coucal/archive/%{coucal_commit}/coucal-%{coucal_commit}.tar.gz
 BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  autoconf-archive
+BuildRequires:  automake
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  openssl-devel
@@ -42,6 +44,9 @@ developing applications that use %{name}.
 rmdir src/coucal
 mv coucal-%{coucal_commit} src/coucal
 autoreconf -vfi
+
+# Fix incorrect FSF address in libtest/readme.txt to satisfy rpmlint
+sed -i '/write to the Free Software/{N;s|write to the Free Software\nFoundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.|see <https://www.gnu.org/licenses/>.|}' libtest/readme.txt
 
 # Suppress rpmlint error.
 iconv --from-code ISO8859-1 --to-code UTF-8 ./html/contact.html \

@@ -1,6 +1,6 @@
 Name:           shairport-sync
 Version:        4.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 # MIT licensed except for tinysvcmdns under BSD, 
 # FFTConvolver/ under GPLv3+ and audio_sndio.c 
@@ -94,6 +94,9 @@ install -m0644 -D shairport-sync.sysusers.conf %{buildroot}%{_sysusersdir}/shair
 %{_sysusersdir}/shairport-sync.conf
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.3.7-4
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

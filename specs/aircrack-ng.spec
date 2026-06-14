@@ -1,6 +1,6 @@
 Name: aircrack-ng
 Version: 1.7^20260331.gitf333a6a
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 Summary: Tools for auditing 802.11 (wireless) networks
 License: GPL-2.0-or-later
@@ -90,6 +90,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %doc test/*.cap test/*.pcap test/password.lst test/*.py
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.7^20260331.gitf333a6a-14
+- Rebuilt for openssl 4.0
+
 * Tue Mar 31 2026 Federico Pellegrin <fede@evolware.org> - 1.7^20260331.gitf333a6a-13
 - Bump to upstream devel version. Use pcre2 insteaad of pcre (unmaintained)
 

@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.15.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -43,6 +43,8 @@ Patch3:     gmsh_install.patch
 Patch4:     gmsh_unbundle_gl2ps.patch
 # Make gmm use superlu
 Patch5:     gmsh_gmm.patch
+# Use xdg-open instead of hardcoded gedit
+Patch6:     gmsh_xdgopen.patch
 
 BuildRequires: ann-devel
 %if %{with flexiblas}
@@ -82,6 +84,8 @@ BuildRequires: ImageMagick
 
 
 Requires:       %{name}-common = %{version}-%{release}
+# See Patch6
+Requires:       xdg-utils
 
 %description
 Gmsh is a 3D finite element grid generator with a build-in CAD engine
@@ -412,6 +416,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Fri Jun 12 2026 Sandro Mani <manisandro@gmail.com> - 4.15.2-3
+- Add gmsh_xdgopen.patch
+
 * Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 4.15.2-2
 - Rebuilt for Python 3.15
 

@@ -1,7 +1,7 @@
 Summary:       Graphical front-end for Wine
 Name:          playonlinux
 Version:       4.4
-Release:       18%{?dist}
+Release:       19%{?dist}
 # playonlinux itself is GPL-3.0-only but uses other source codes, breakdown:
 # GPL-2.0-or-later: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
 # GPL-2.0-or-later: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
@@ -11,7 +11,7 @@ License:       GPL-3.0-only AND GPL-2.0-or-later AND MIT
 URL:           https://www.playonlinux.com/
 Source0:       https://github.com/PlayOnLinux/POL-POM-4/archive/%{version}/POL-POM-4-%{version}.tar.gz
 # Upstream changes since last release
-Patch0:        https://github.com/PlayOnLinux/POL-POM-4/compare/4.4...76a6580.patch#/playonlinux-4.4-git76a6580.patch
+Patch0:        https://github.com/PlayOnLinux/POL-POM-4/compare/4.4...fde00fe.patch#/playonlinux-4.4-gitfde00fe.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: gzip
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinu
 %{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Sat Jun 13 2026 Robert Scheck <robert@fedoraproject.org> 4.4-19
+- Add patch to replace urllib.request.URLopener (#2403290)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

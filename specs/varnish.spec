@@ -32,7 +32,7 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 9.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: https://github.com/varnish/varnish/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -427,6 +427,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.3-2
+- Rebuilt for openssl 4.0
+
 * Thu May 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.3-1
 - New upstream release: A security relase
 - Includes fix for VSV00019

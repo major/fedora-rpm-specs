@@ -1,6 +1,6 @@
 Name:		flashrom
 Version:	1.6.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPL-2.0-only
 URL:		https://flashrom.org
@@ -85,6 +85,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.0-5
+- Rebuilt for openssl 4.0
+
 * Thu Feb 09 2023 Richard Hughes <richard@hughsie.com> - 1.6.0-4
 - Remove support for libjaylink as it has been orphaned in Fedora.
 

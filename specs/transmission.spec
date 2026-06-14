@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -197,6 +197,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.2-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.2-1
 - 4.1.2
 

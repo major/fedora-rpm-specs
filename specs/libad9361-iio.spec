@@ -9,6 +9,7 @@ BuildRequires:	libiio-devel
 BuildRequires:	doxygen
 Summary:	IIO AD9361 library for filter design and handling, multi-chip sync and more
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:		0001-update-minimum-version-of-cmake.patch
 
 %description
 IIO AD9361 library which manages multi-chip sync (on platforms (FMCOMMS5)

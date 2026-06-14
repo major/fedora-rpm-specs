@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	22
+%define		baserelease	23
 %define		pre_release	1
 
 %if %{pre_release}
@@ -238,6 +238,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.0.1-0.23.cvs20100817T0000
+- Rebuilt for openssl 4.0
+
 * Fri Jan 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.0.1-0.22.cvs20100817T0000
 - Fix for c++20 wrt inequality operator overload
 

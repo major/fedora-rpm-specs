@@ -14,7 +14,7 @@
 
 Name:           libkrun
 Version:        1.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -237,6 +237,9 @@ capabilities.
 %endif
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.19.0-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 10 2026 Sergio Lopez <slp@redhat.com> - 1.19.0-1
 - Update to version 1.19.0
 

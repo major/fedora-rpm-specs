@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.11.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -947,6 +947,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.11.1-3
+- Rebuilt for openssl 4.0
+
 * Wed May 27 2026 František Zatloukal <fzatlouk@redhat.com> - 6.11.1-2
 - Rebuilt for icu 78.3
 

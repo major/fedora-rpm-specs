@@ -10,7 +10,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        20200603
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Stackable Continuation Queues for the Lua Programming Language
 
 License:        MIT
@@ -132,6 +132,9 @@ sed -i '1 s|^#!/.*$|#!/usr/bin/lua|' %{buildroot}%{_pkgdocdir}/examples/*
 %license LICENSE
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20200603-18
+- Rebuilt for openssl 4.0
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 20200603-17
 - rebuild
 

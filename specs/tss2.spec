@@ -9,13 +9,15 @@ Name:           tss2
 # this is the release of the TSS library
 Version:        2.3.2
 # this is the release of the fedora package, goes back to 1 when version changes
-Release:        4%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
 License:        BSD-3-Clause AND LicenseRef-TCGL
 URL:            https://sourceforge.net/projects/ibmtpm20tss/
 Source0:        https://sourceforge.net/projects/ibmtpm20tss/files/ibmtss%{version}.tar.gz
+
+Patch0:         Fix-OpenSSL-4.0-compatibility.patch
 
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -79,6 +81,12 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %doc ibmtss.docx
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.3.2-6
+- Rebuilt for openssl 4.0
+
+* Tue May 12 2026 Pavol Žáčik <pzacik@redhat.com> - 1:2.3.2-5
+- Add OpenSSL 4.0 compatibility patch
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

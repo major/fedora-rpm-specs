@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:    web-eid
 Version: 2.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -99,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.9.0-2
+- Rebuilt for openssl 4.0
+
 * Wed May 27 2026 Dmitri Smirnov <dmitri@smirnov.ee> - 2.9.0-1
 - 2.9.0 upstream release 
 

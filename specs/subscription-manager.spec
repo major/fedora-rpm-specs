@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.30.14
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -112,6 +112,8 @@ URL:     http://www.candlepinproject.org/
 # yum install tito
 # tito build --tag subscription-manager-$VERSION-$RELEASE --tgz
 Source0: %{name}-%{version}.tar.gz
+
+Patch0: 0001-Fix-OpenSSL-4.0-compatibility.patch
 
 # Especially for the OpenSuse Build Service we need to have another lint config
 %if 0%{?suse_version}
@@ -360,6 +362,7 @@ cloud metadata and signatures.
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
 make -f Makefile VERSION=%{version}-%{release} CFLAGS="%{optflags}" \
@@ -736,6 +739,9 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Fri Jun 12 2026 Pavol Žáčik <pzacik@redhat.com> - 1.30.14-3
+- Add OpenSSL 4.0 compatibility patch
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.30.14-2
 - Rebuilt for Python 3.15
 

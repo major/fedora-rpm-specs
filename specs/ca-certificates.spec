@@ -38,7 +38,7 @@ Name: ca-certificates
 Version: 2025.2.80_v9.0.304
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -447,6 +447,9 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2025.2.80_v9.0.304-8
+- Rebuilt for openssl 4.0
+
 * Wed Apr 01 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 2025.2.80_v9.0.304-7
 - Restore /etc/ssl/certs legacy structure and OpenSSL trusted bundles.
   This brings back certificate bundles in /etc/ssl/certs as they were before

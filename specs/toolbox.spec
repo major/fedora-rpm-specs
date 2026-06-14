@@ -42,7 +42,7 @@ Version:       0.3
 %endif
 %endif
 
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -197,6 +197,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3-5
+- Rebuilt for openssl 4.0
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0.3-4
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

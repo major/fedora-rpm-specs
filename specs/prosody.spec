@@ -6,7 +6,7 @@
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
 Version:           13.0.6
-Release:           2%{?dist}
+Release:           3%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -214,6 +214,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 13.0.6-3
+- Rebuilt for openssl 4.0
+
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 13.0.6-2
 - Rebuilt for icu 78.3
 

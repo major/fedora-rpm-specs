@@ -1,6 +1,6 @@
 Name:           perl-Convert-PEM
 Version:        0.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Read/write encrypted ASN.1 PEM files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-PEM
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Convert::PEM::CBC.3*
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.13-5
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

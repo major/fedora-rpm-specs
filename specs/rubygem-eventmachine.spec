@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Ruby/EventMachine library
 # Automatically converted from old format: GPLv2 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR Ruby
@@ -158,6 +158,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.7-34
+- Rebuilt for openssl 4.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

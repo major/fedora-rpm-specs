@@ -1,6 +1,6 @@
 Name:           lua-sql
 Version:        2.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Database connectivity for the Lua programming language
 
 License:        MIT
@@ -96,6 +96,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix} LUA_LIBDIR=$RPM_BUILD_ROOT%{lua_li
 
 
 %changelog
+* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.0-3
+- Rebuilt for openssl 4.0
+
 * Thu Apr 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.7.0-2
 - rebuild
 
