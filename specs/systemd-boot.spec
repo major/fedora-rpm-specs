@@ -1,5 +1,5 @@
 Name:           systemd-boot
-Version:        260.1
+Version:        261~rc3
 Release:        %autorelease
 Summary:        UEFI boot manager
 
@@ -81,7 +81,7 @@ fi
 %dir %{_prefix}/lib/systemd
 %dir %{_prefix}/lib/systemd/boot
 %dir %{_prefix}/lib/systemd/boot/efi
-%{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed
+%attr(0644,-,-) %{_prefix}/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi.signed
 %{_prefix}/lib/systemd/boot/efi/linux%{efi_arch}.efi.stub.alt
 %{_prefix}/lib/systemd/boot/efi/addon%{efi_arch}.efi.stub.alt
 

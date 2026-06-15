@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/nullobsi/cantata/
-%global commit c3a900e4ed903fa0a2820ad2882e8253dfbc8c7b
+%global commit 3ab7cf06aecf6fc5e096c245270c52cd8c65ae75
 
 Name:    cantata
 Summary: Music Player Daemon (MPD) graphical client
-Version: 3.4.0
+Version: 3.5.0
 Release: %autorelease
 License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 
@@ -12,8 +12,6 @@ License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-late
 Url:            %{forgeurl}
 Source0:        %{forgesource}
 Patch0:         pr127-tray-icon.patch
-# Use FontAwesome 7 instead of 6
-Patch1:         fontawesome7.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel

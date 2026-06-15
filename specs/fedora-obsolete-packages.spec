@@ -1437,6 +1437,11 @@ Source0:    README
 %obsolete perl-re-engine-PCRE 0.17-46
 %obsolete perl-re-engine-PCRE-tests 0.17-46
 
+# Remove in F47
+# retired 2026-04-01 due to being orphaned:
+# https://src.fedoraproject.org/rpms/python-simpleaudio/c/aa87df9c68f89f5cb8c77bdf90a47ab0847fb29f?branch=rawhide
+%obsolete python3-simpleaudio 1.0.4-22
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

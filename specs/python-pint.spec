@@ -1,12 +1,14 @@
-%bcond xarray 1
+# Break a dependency cycle with xarray
+%bcond bootstrap 0
+
+%bcond xarray %{without bootstrap}
 # Not yet packaged: python-uncertainties
 %bcond uncertainties 0
-# Requires babel <= 2.8; F42 has 2.16.0
+# Requires babel <= 2.8. See: https://github.com/hgrecco/pint/issues/1219
 %bcond babel 0
 # Not yet packaged: python-pint-pandas
 %bcond pandas 0
-# Requires dask < 2025.3.0 but F43 and Rawhide are at 2025.9.1
-# See: https://github.com/dask/dask-ml/issues/1016
+# Requires dask < 2025.3.0. See: https://github.com/dask/dask-ml/issues/1016
 %bcond dask 0
 
 Name:           python-pint

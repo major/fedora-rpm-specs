@@ -2,8 +2,8 @@
 #define  prever_dot .rc3
 #define  postver    a
 
-%define version_alsa_lib  1.2.16
-%define version_alsa_ucm  1.2.16
+%define version_alsa_lib  1.2.16.1
+%define version_alsa_ucm  1.2.16.1
 %define version_alsa_tplg 1.2.5
 
 %global lib_patch         0
@@ -12,7 +12,7 @@
 Summary:  The Advanced Linux Sound Architecture (ALSA) library
 Name:     alsa-lib
 Version:  %{version_alsa_lib}
-Release:  2%{?prever_dot}%{?dist}
+Release:  1%{?prever_dot}%{?dist}
 License:  LGPL-2.1-or-later
 URL:      http://www.alsa-project.org/
 
@@ -181,6 +181,9 @@ rm %{buildroot}/%{_includedir}/asoundlib.h
 %{_datadir}/alsa/topology
 
 %changelog
+* Sat Jun 13 2026 Jaroslav Kysela <perex@perex.cz> - 1.2.16.1-1
+- update to 1.2.16.1
+
 * Mon Jun  1 2026 Jaroslav Kysela <perex@perex.cz> - 1.2.16-2
 - update to 1.2.16
 

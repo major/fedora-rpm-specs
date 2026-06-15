@@ -41,7 +41,10 @@ Requires: python3-tftpy = %{version}-%{release}
 %prep
 %forgesetup
 
-%py3_shebang_fix %{python3} \
+# Disable verbose debug logging in tests to speed up build
+sed -i 's/logging.DEBUG/logging.WARNING/g' tests/test.py
+
+%py3_shebang_fix \
         bin/tftpy_client.py \
         bin/tftpy_server.py \
         tests/nologs.py \
@@ -70,13 +73,13 @@ install -p -Dm755 bin/tftpy_server.py %{buildroot}%{_bindir}/tftpy_server
 
 
 %check
+%pyproject_check_import
 %{py3_test_envvars} %{python3} ./tests/test.py
 
 
 %files -n python3-tftpy -f %{pyproject_files}
 %doc README.md
 %doc ChangeLog.md
-%exclude %{python3_sitelib}/tftpy/tests/
 
 
 %files -n python3-tftpy-cli

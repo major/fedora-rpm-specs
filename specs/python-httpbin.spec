@@ -53,12 +53,12 @@ BuildRequires:  python3dist(pytest)
 sed -i -e 's/brotlicffi/brotli/' httpbin/filters.py
 sed -i -e 's/brotlicffi/brotli/' pyproject.toml
 
-%generate_buildrequires
-%pyproject_buildrequires
-
 # no need for this to be executable
 # https://github.com/psf/httpbin/pull/22
 chmod ugo-x httpbin/templates/forms-post.html
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

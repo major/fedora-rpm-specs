@@ -48,11 +48,12 @@ Obsoletes: python3-PyGreSQL < %{uversion}-%{release}
 %prep
 %autosetup -n %{srcname}-%{uversion} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires -t
-
 # PyGreSQL releases have execute bits on all files
 find -type f -exec chmod 644 {} +
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build

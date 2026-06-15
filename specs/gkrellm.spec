@@ -1,16 +1,23 @@
 Name:           gkrellm
-Version:        2.4.0
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Multiple stacked system monitors in one process
 License:        GPL-3.0-or-later
 URL:            https://gkrellm.srcbox.net/
 Source0:        https://gkrellm.srcbox.net/releases/%{name}-%{version}.tar.bz2
 Source5:        make-git-snapshot.sh
-Patch1:         gkrellm-2.4.0-config.patch
+Patch1:         gkrellm-2.5.1-config.patch
 Patch3:         gkrellm-2.4.0-width.patch
+BuildRequires:  meson
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel openssl-devel libSM-devel desktop-file-utils gettext
-BuildRequires:  lm_sensors-devel libntlm-devel libappstream-glib
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(sm)
+BuildRequires:  pkgconfig(libntlm)
+BuildRequires:  desktop-file-utils gettext
+BuildRequires:  lm_sensors-devel libappstream-glib
+BuildRequires:  make
 Requires:       gdk-pixbuf2-modules-extra%{?_isa}
 
 %description
@@ -29,9 +36,6 @@ Additional features are:
 
 %package daemon
 Summary:        The GNU Krell Monitors Server
-# systemd >= 186 for scriptlet macros
-BuildRequires:  systemd >= 186
-BuildRequires: make
 Requires(pre):  systemd
 Requires(post,preun,postun): systemd
 
@@ -53,7 +57,7 @@ Development files for the GNU Krell Monitors.
 %prep
 %autosetup -p1
 
-for i in gkrellmd.1 gkrellm.1 README Changelog.OLD Changelog-plugins.html \
+for i in docs/gkrellmd.1 docs/gkrellm.1 README Changelog.OLD Changelog-plugins.html \
     src/gkrellm.h server/gkrellmd.h; do
    sed -i -e "s@/usr/lib/gkrellm2*/plugins@%{_libdir}/gkrellm2/plugins@" $i
    sed -i -e "s@/usr/local/lib/gkrellm2*/plugins@/usr/local/%{_lib}/gkrellm2/plugins@" $i
@@ -65,34 +69,25 @@ u gkrellmd - 'GNU Krell daemon' - -
 EOF
 
 
+%conf
+%meson
+
+
 %build
-make %{?_smp_mflags} PREFIX=%{_prefix} \
-    PKGCONFIGDIR=%{_libdir}/pkgconfig \
-    INCLUDEDIR=%{_includedir} \
-    SINSTALLDIR=%{_sbindir} \
-    CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -Wno-error=incompatible-pointer-types" \
-    LDFLAGS="$RPM_LD_FLAGS"
+%meson_build
 
 
 %install
 mkdir -p %{buildroot}%{_datadir}/gkrellm2/themes
 mkdir -p %{buildroot}%{_libdir}/gkrellm2/plugins
 
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix} \
-    LOCALEDIR=%{buildroot}%{_datadir}/locale \
-    INSTALLDIR=%{buildroot}%{_bindir} \
-    SINSTALLDIR=%{buildroot}%{_sbindir} \
-    MANDIR=%{buildroot}%{_mandir}/man1 \
-    PKGCONFIGDIR=%{buildroot}%{_libdir}/pkgconfig \
-    INCLUDEDIR=%{buildroot}%{_includedir} \
-    CFGDIR=%{buildroot}%{_sysconfdir}
+%meson_install
 %find_lang %name
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 install -m0644 -D gkrellm.sysusers.conf %{buildroot}%{_sysusersdir}/gkrellm.conf
-
 
 
 %post daemon
@@ -119,7 +114,7 @@ install -m0644 -D gkrellm.sysusers.conf %{buildroot}%{_sysusersdir}/gkrellm.conf
 %files devel
 %license %{_licensedir}/%{name}*
 %{_includedir}/gkrellm2
-%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/pkgconfig/%{name}*.pc
 
 %files daemon
 %license %{_licensedir}/%{name}*

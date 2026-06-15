@@ -1,5 +1,5 @@
 %global vips_version_base 8.18
-%global vips_version %{vips_version_base}.0
+%global vips_version %{vips_version_base}.3
 %global vips_soname_major 42
 
 Name:		vips
@@ -10,13 +10,6 @@ Summary:	C/C++ library for processing large images
 License:	LGPL-2.1-or-later
 URL:		https://www.libvips.org/
 Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# https://github.com/libvips/libvips/pull/4816
-# Fix vips_thumbnail behavior on s390x
-Patch0:		pr-4816.patch
-# https://github.com/libvips/libvips/pull/4836
-# Fix build with glibc 2.43 supporting C23
-Patch1:		pr-4836.patch
 
 BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0)
@@ -47,6 +40,7 @@ BuildRequires:	pkgconfig(openslide)
 BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(MagickWand)
 BuildRequires:	pkgconfig(libraw)
+BuildRequires:	pkgconfig(libuhdr)
 BuildRequires:	nifticlib-devel
 
 BuildRequires:	gcc-c++
@@ -164,7 +158,6 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
     -Dcpp-docs=true \
     -Ddocs=true \
     -Dpdfium=disabled \
-    -Duhdr=disabled \
     %{nil}
 
 %meson_build

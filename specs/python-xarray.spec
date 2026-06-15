@@ -1,5 +1,12 @@
 %global srcname xarray
 
+# A bootstrap build disables tests needing dask,
+# allowing to break a dependency loop between xarray and dask.
+# Note that dask has a similar approach, thus we have 2 ways of breaking the loop,
+# so we can attempt both, whichever is more convenient.
+%bcond bootstrap 0
+%bcond dask %{without bootstrap}
+
 Name:           python-%{srcname}
 Version:        2026.2.0
 Release:        %autorelease
@@ -12,20 +19,25 @@ Source:         %pypi_source %{srcname}
 Patch:          0001-Drop-pydap-from-dependencies.patch
 # Fix failures with latest dependencies.
 Patch:          https://github.com/pydata/xarray/pull/11204.patch
+# Adjust TestDataset.test_repr for Pandas 3.0.3
+Patch:          https://github.com/pydata/xarray/pull/11384.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(bottleneck)
-BuildRequires:  python3dist(dask[array]) >= 2023.11
-BuildRequires:  python3dist(dask[dataframe]) >= 2023.11
 BuildRequires:  python3dist(pint) >= 0.22
 BuildRequires:  python3dist(pytest) >= 2.7.1
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(rasterio) >= 1.3
 BuildRequires:  python3dist(seaborn) >= 0.13
+%if %{with dask}
+BuildRequires:  python3dist(dask[array]) >= 2023.11
+BuildRequires:  python3dist(dask[dataframe]) >= 2023.11
+%endif
 
 %global _description %{expand: \
 Xarray (formerly xray) is an open source project and Python package that
@@ -69,14 +81,15 @@ rm -rf xarray
 
 echo >> pytest.ini  # Ignore any command-line arguments from upstream.
 
-pytest_args=(
-  -n auto
-  -m "not network"
-  # this test somehow crashes python interpreter entirely, was xfail upstream till recently
-  -k 'not test_save_mfdataset_compute_false_roundtrip'
-)
+# this test somehow crashes python interpreter entirely, was xfail upstream till recently
+k="${k-}${k+ and }not test_save_mfdataset_compute_false_roundtrip"
 
-%{pytest} -ra "${pytest_args[@]}" --pyargs xarray --timeout 300 --full-trace
+%if %{without dask}
+k="${k-}${k+ and }not test_source_encoding_always_present_with_fsspec"
+k="${k-}${k+ and }not test_h5netcdf_storage_options"
+%endif
+
+%{pytest} -ra -n auto -m "not network" ${k:+-k "${k}"} --pyargs xarray --timeout 300 --full-trace
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license licenses/*

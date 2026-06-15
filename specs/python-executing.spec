@@ -19,6 +19,9 @@ Source:         %{forgesource}
 
 # Python 3.15 compatibility
 Patch:          https://github.com/alexmojaki/executing/pull/102.patch
+# Fix Python 3.15 with-statement __exit__ CALL VerifierFailure
+# https://github.com/alexmojaki/executing/pull/107
+Patch:          fix-py315-with-exit.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

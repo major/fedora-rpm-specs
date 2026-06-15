@@ -45,7 +45,6 @@ BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires:  mvn(com.ibm.icu:icu4j)
 BuildRequires:  mvn(com.webguys:string-template-maven-plugin)
-BuildRequires:  mvn(jakarta.json:jakarta.json-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.abego.treelayout:org.abego.treelayout.core)
 BuildRequires:  mvn(org.antlr:ST4)
@@ -68,7 +67,6 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 BuildRequires:  mvn(org.twdata.maven:mojo-executor)
 BuildRequires:  python3-devel
-BuildRequires:  utf8cpp-devel
 
 # https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 ExclusiveArch:  %{java_arches}
@@ -174,7 +172,6 @@ This package provides the runtime library used by Go ANTLR parsers.
 License:        BSD-3-Clause AND MIT
 Summary:        ANTLR runtime for JavaScript
 BuildArch:      noarch
-BuildRequires:  nodejs
 BuildRequires:  nodejs-packaging
 Requires:       nodejs
 
@@ -239,12 +236,8 @@ find -name \*.jar -delete
 
 %mvn_package :antlr4-master antlr4-runtime
 
-# Use utf8cpp instead of the deprecated wstring_convert
-sed -i 's/# \(.*DUSE_UTF8_INSTEAD_OF_CODECVT.*\)/\1/' runtime/Cpp/CMakeLists.txt
-
 %generate_buildrequires
-cd runtime/Python3
-%pyproject_buildrequires
+%pyproject_buildrequires -d runtime/Python3
 
 %build
 export JAVA_HOME=%{_jvmdir}/java
@@ -267,9 +260,7 @@ cd runtime/Cpp
 cd -
 
 # Build the Python 3 runtime
-cd runtime/Python3
-%pyproject_wheel
-cd -
+%pyproject_wheel -d runtime/Python3
 
 %if %{with swift}
 # Build the Swift runtime

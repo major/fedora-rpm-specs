@@ -3,8 +3,8 @@
 %global rpcbind_state_dir %{_rundir}/rpcbind
 
 Name:           rpcbind
-Version:        1.2.8
-Release:        2%{?dist}
+Version:        1.2.9
+Release:        0%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            https://sourceforge.net/projects/rpcbind
@@ -118,6 +118,9 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Sat Jun 13 2026 Steve Dickson <steved@redhat.com> 1.2.9-0
+- Updated to latest upstream release: rpcbind-1_2_9 (bz 2482426)
+
 * Fri May 15 2026 Steve Dickson <steved@redhat.com> 1.2.8-2
 - Updated the URL to  https://sourceforge.net/projects/rpcbind 
 

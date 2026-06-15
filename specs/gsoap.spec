@@ -244,10 +244,6 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %{_datadir}/gsoap/plugin/httpmd5test.h
 %{_datadir}/gsoap/plugin/httppost.c
 %{_datadir}/gsoap/plugin/httppost.h
-%{_datadir}/gsoap/plugin/httpstreams.c
-%{_datadir}/gsoap/plugin/httpstreams.h
-%{_datadir}/gsoap/plugin/httpstreamstest.c
-%{_datadir}/gsoap/plugin/httpstreamstest.h
 %{_datadir}/gsoap/plugin/logging.c
 %{_datadir}/gsoap/plugin/logging.h
 %{_datadir}/gsoap/plugin/md5evp.c
@@ -379,6 +375,11 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %{_datadir}/gsoap/import/wstx2.h
 %{_datadir}/gsoap/plugin/httppipe.c
 %{_datadir}/gsoap/plugin/httppipe.h
+# Additions in 2.8.142-1
+%{_datadir}/gsoap/plugin/httpstreams.c
+%{_datadir}/gsoap/plugin/httpstreams.h
+%{_datadir}/gsoap/plugin/httpstreamstest.c
+%{_datadir}/gsoap/plugin/httpstreamstest.h
 
 %files doc
 %doc gsoap/doc-build/*

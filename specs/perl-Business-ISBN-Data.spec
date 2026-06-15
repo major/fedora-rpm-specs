@@ -1,5 +1,5 @@
 Name:           perl-Business-ISBN-Data
-Version:        20260611.001
+Version:        20260613.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Sat Jun 13 2026 Paul Howarth <paul@city-fan.org> - 20260613.001-1
+- 20260613.001 bump (rhbz#2488678)
+
 * Fri Jun 12 2026 Paul Howarth <paul@city-fan.org> - 20260611.001-1
 - 20260611.001 bump (rhbz#2487933)
 

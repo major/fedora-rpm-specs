@@ -26,7 +26,7 @@ Source101:   https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{version}
 Source102:   https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 
-BuildRequires: python3-devel
+BuildRequires: python%{python3_pkgversion}-devel
 
 BuildArch:     noarch
 
@@ -42,11 +42,11 @@ BuildRequires: git-core
 %{common_desc}
 
 
-%package -n python3-%{pypi_name}
+%package -n python%{python3_pkgversion}-%{pypi_name}
 Summary:     A collection of Python deprecation patterns and strategies
 
 
-%description -n python3-%{pypi_name}
+%description -n python%{python3_pkgversion}-%{pypi_name}
 %{common_desc}
 
 
@@ -109,7 +109,7 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %tox -e %{default_toxenv}
 
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %doc README.rst CONTRIBUTING.rst ChangeLog
 %exclude %{python3_sitelib}/%{pypi_name}/tests
 

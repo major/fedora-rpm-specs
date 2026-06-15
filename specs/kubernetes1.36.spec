@@ -4,13 +4,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.36
-%global k8s_ver                 1.36.1
+%global k8s_ver                 1.36.2
 # major:minor version substring
 %global k8s_minver              1.36
 %global k8s_nextver             1.37
-%global k8s_tag                 v1.36.1
+%global k8s_tag                 v1.36.2
 # golang 'built with' version
-%global golangver               1.26.2
+%global golangver               1.26.4
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -320,11 +320,16 @@ rm CHANGELOG.md
     -s "TestConfigImagesListRunWithoutPath"
     -s "TestConfigImagesListOutput"
     -s "TestCmdConfigImagesList"
+    %dnl attempting connection to fake server.sock
+    -s "TestPrepareResources"
     %dnl next 3 tests seem flaky
     %dnl on aarch TestPrepareResources/pod_is_not_allowed_to_use_resource_claim_from_podgroup
     %[ "%{_arch}" == "aarch64" ? "-s TestPrepareResource" : "" ]
     %dnl on aarch concurrent_unmount_-_multiple_pods_without_volumes leaked goroutine
     %[ "%{_arch}" == "aarch64" ? "-s TestWaitForAllPodsUnmount" : "" ]
+    %[ "%{_arch}" == "x86_64" ? "-s TestWaitForAllPodsUnmount" : "" ]
+    %dnl on x86_64 connection error
+    %[ "%{_arch}" == "x86_64" ? "-s TestValidateScaleForDeclarative" : "" ]
     %dnl on ppcle64 concurrent_unmount_-_many_pods_(20)_with_timeout_errors
     %[ "%{_arch}" == "ppcle64" ? "-s TestWaitForAllPodsUnmount" : "" ]
     %dnl see hack/make-rules/test.sh kube::test::find_go_packages

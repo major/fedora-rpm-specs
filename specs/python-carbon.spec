@@ -92,14 +92,13 @@ sed -i -e 's/^import mock/from unittest import mock/' \
        -e 's/^from mock import /from unittest.mock import /' \
     lib/carbon/tests/*.py
 
-%generate_buildrequires
-%pyproject_buildrequires -r
-
 # Create a sysusers.d config file
 cat >python-carbon.sysusers.conf <<EOF
 u carbon - 'Carbon cache daemon' %{_localstatedir}/lib/carbon -
 EOF
 
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel

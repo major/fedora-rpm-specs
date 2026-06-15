@@ -156,6 +156,7 @@ rm -rf vendor/{eigen,gtest,pdalboost}
 %cmake	-D PDAL_LIB_INSTALL_DIR:PATH=%{_lib} \
 	-D CMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
 	-D CMAKE_VERBOSE_MAKEFILE=ON  \
+	-D USE_EXTERNAL_GTEST=ON \
 	-D GEOTIFF_INCLUDE_DIR=%{_includedir}/libgeotiff \
 	-D BUILD_PGPOINTCLOUD_TESTS:BOOL=OFF \
 	-D WITH_COMPLETION=ON \

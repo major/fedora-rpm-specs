@@ -38,6 +38,7 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras develop,example
 BuildOption(install): --assert-license qdarkstyle
 
+BuildRequires:  python3-devel
 BuildArch:      noarch
 
 # This is required for the error-reporting option in the CLI. We have it as a
@@ -93,6 +94,10 @@ find 'qdarkstyle' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs --no-run-if-empty --verbose \
       sed --regexp-extended --in-place '1{/^#!/d}'
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x develop,example
 
 
 %build -p

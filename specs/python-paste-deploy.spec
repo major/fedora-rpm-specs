@@ -9,7 +9,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -58,6 +58,7 @@ sed -i 's/ --cov//' pytest.ini
 %pyproject_install
 %pyproject_save_files paste
 rm -rf %{buildroot}%{python3_sitelib}/test
+rm -f %{buildroot}%{python3_sitelib}/PasteDeploy-%{version}-py*-nspkg.pth
 
 
 %check
@@ -69,10 +70,12 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 %files -n python3-paste-deploy -f %{pyproject_files}
 %license license.txt
-%{python3_sitelib}/PasteDeploy-%{version}-py*-nspkg.pth
 
 
 %changelog
+* Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-16
+- Remove pth file for python3.15 compatibility (bz#2488680)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.1.0-15
 - Rebuilt for Python 3.15
 

@@ -2,7 +2,7 @@
 
 Name:           python-repoze-who
 Version:        3.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,7 @@ considered to be the domain of the WSGI application.
 %install
 %pyproject_install
 %pyproject_save_files -l repoze
+rm -f %{buildroot}%{python3_sitelib}/repoze.who-%{version}-py%{python3_version}-nspkg.pth
 
 %check
 %pyproject_check_import
@@ -75,10 +76,12 @@ considered to be the domain of the WSGI application.
 %files -n python3-repoze-who -f %{pyproject_files}
 %doc README.rst CHANGES.rst CONTRIBUTORS.txt
 %license COPYRIGHT.txt
-%{python3_sitelib}/repoze.who-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-10
+- Remove pth file for python3.15 compatibility
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-9
 - Rebuilt for Python 3.15
 

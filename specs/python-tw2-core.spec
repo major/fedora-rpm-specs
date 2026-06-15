@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -83,6 +83,7 @@ rm -rf tw2/core/testbase tw2/core/test_templates
 %install
 %pyproject_install
 %pyproject_save_files -L tw2
+rm -f %{buildroot}%{python3_sitelib}/tw2.core-*-nspkg.pth
 
 %check
 # Without python-nose tests are not functional. Just test import.
@@ -92,9 +93,11 @@ rm -rf tw2/core/testbase tw2/core/test_templates
 %{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/tw2.core-*-nspkg.pth
 
 %changelog
+* Sat Jun 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-29
+- Remove pth file for python3.15 compatibility
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.3.0-28
 - Rebuilt for Python 3.15
 

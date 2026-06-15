@@ -1,7 +1,7 @@
 #%%global _rc 1
 #%%global _beta 3
 
-%global           pjsip_version   2.16
+%global           pjsip_version   2.17
 %global           jansson_version 2.14
 %global           jwt_version 1.15.3
 
@@ -56,8 +56,8 @@
 
 Summary:          The Open Source PBX
 Name:             asterisk
-Version:          23.3.0
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
+Version:          23.4.0
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -84,8 +84,8 @@ Source6:          asterisk-tmpfiles
 Source7:          asterisk-gpgkeys.gpg
 
 # Now building Asterisk with bundled pjproject, because they apply custom patches to it
-# wget https://github.com/pjsip/pjproject/archive/2.16/pjproject-2.16.tar.gz
-# zcat pjproject-2.16.tar.gz | bzip2 > pjproject-2.16.tar.bz2
+# wget https://github.com/pjsip/pjproject/archive/%{pjsip_version}/pjproject-%{pjsip_version}.tar.gz
+# zcat pjproject-%{pjsip_version}.tar.gz | bzip2 > pjproject-%{pjsip_version}.tar.bz2
 Source8:          pjproject-%{pjsip_version}.tar.bz2
 
 # Bundling jansson on EL7 and EL8, because the version in CentOS is too old
@@ -258,7 +258,7 @@ BuildRequires:    uw-imap-devel
 %if 0%{?fedora}
 BuildRequires:    jansson-devel
 %else
-Provides:         bundled(jansson) = 2.11
+Provides:         bundled(jansson) = %{jansson_version}
 %endif
 
 # for gpg to be able to verify the signature
@@ -1079,6 +1079,7 @@ fi
 %{_libdir}/asterisk/modules/app_speech_utils.so
 %{_libdir}/asterisk/modules/app_stack.so
 %{_libdir}/asterisk/modules/app_stasis.so
+%{_libdir}/asterisk/modules/app_stasis_broadcast.so
 %{_libdir}/asterisk/modules/app_statsd.so
 %{_libdir}/asterisk/modules/app_stream_echo.so
 %{_libdir}/asterisk/modules/app_system.so
@@ -1270,6 +1271,7 @@ fi
 %{_libdir}/asterisk/modules/res_srtp.so
 %{_libdir}/asterisk/modules/res_stasis.so
 %{_libdir}/asterisk/modules/res_stasis_answer.so
+%{_libdir}/asterisk/modules/res_stasis_broadcast.so
 %{_libdir}/asterisk/modules/res_stasis_device_state.so
 %{_libdir}/asterisk/modules/res_stasis_playback.so
 %{_libdir}/asterisk/modules/res_stasis_recording.so
@@ -1613,6 +1615,7 @@ fi
 %{_libdir}/asterisk/modules/res_pjsip_header_funcs.so
 %{_libdir}/asterisk/modules/res_pjsip_history.so
 %{_libdir}/asterisk/modules/res_pjsip_logger.so
+%{_libdir}/asterisk/modules/res_pjsip_maintenance.so
 %{_libdir}/asterisk/modules/res_pjsip_messaging.so
 #%%{_libdir}/asterisk/modules/res_pjsip_multihomed.so
 %{_libdir}/asterisk/modules/res_pjsip_mwi.so
@@ -1733,6 +1736,9 @@ fi
 %endif
 
 %changelog
+* Sat Jun 13 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.4.0-1
+- update to 23.4.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 23.3.0-1.1
 - Rebuilt for openssl 4.0
 

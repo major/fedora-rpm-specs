@@ -33,21 +33,36 @@
 
 Name:           rocm-stinkytofu
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A LLVM-inspired pass-based IR optimizer for AMD GPU assembly kernels
-License:        MIT
+License:        MIT AND BSD-3-Clause
 # https://github.com/ROCm/rocm-libraries/issues/7864
 # Request the upstream have a top level license file.
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/therock-%{rocm_release}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+%global nanobind_version 2.9.2
+%global nanobind_giturl https://github.com/wjakob/nanobind
+Source1:        %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanobind_version}.tar.gz
+%global robinmap_version 1.3.0
+%global robinmap_giturl https://github.com/Tessil/robin-map
+Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
+
+
+Patch1:         0001-stinkytofu-use-nanobind-tarball.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  python-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
+
+# BSD-3-Clause
+Provides:       bundled(nanobind) = %{nanobind_version}
+Provides:       bundled(robin-map) = %{robinmap_version}
 
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
@@ -75,8 +90,24 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}
 
+%package -n python3-stinkytofu
+Summary:        python bindings for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n python3-stinkytofu
+%{summary}
+
 %prep
 %autosetup -n %{upstreamname} -p3
+
+# Use bundled nanobind
+tar xf %{SOURCE1}
+mv nanobind-* nanobind
+cd nanobind
+tar xf %{SOURCE2}
+cp -r robin-map-*/* ext/robin_map/
+cd ..
+tar czf nanobind.tar.gz nanobind
 
 # src/serialization/asm/PatternParser.cpp:794:13: error: unknown type name 'uint32_t'
 sed -i -e '/#include <sstream>.*/a#include <stdint.h>' src/serialization/asm/PatternParser.cpp
@@ -95,13 +126,17 @@ sed -i -e 's@DESTINATION lib@DESTINATION lib64@' tools/intrinsic-compiler/CMakeL
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
-    -DSTINKYTOFU_BUILD_PYTHON=OFF \
+    -DSTINKYTOFU_BUILD_PYTHON=ON \
     -DSTINKYTOFU_BUILD_TESTS=OFF
 
 %cmake_build
 
 %install
 %cmake_install
+
+# Move python bindings to a system location
+mkdir -p %{buildroot}/%{python3_sitearch}/
+mv %{buildroot}/usr/lib/python%{python3_version}/dist-packages/stinkytofu %{buildroot}/%{python3_sitearch}/
 
 %files
 %doc README.md
@@ -116,7 +151,13 @@ sed -i -e 's@DESTINATION lib@DESTINATION lib64@' tools/intrinsic-compiler/CMakeL
 %_libdir/cmake/stinkytofu/
 %_libdir/libstinkytofu.so
 
+%files -n python3-stinkytofu
+%{python3_sitearch}/stinkytofu/
+
 %changelog
-* Thu  May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.13.0-1
+* Sat Jun 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.13.0-2
+- Enable python bindings
+
+* Thu May 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.13.0-1
 - Initial package
 

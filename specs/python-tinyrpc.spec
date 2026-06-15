@@ -3,7 +3,7 @@
 
 Name:       python-%{library}
 Version:    1.1.7
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    A modular RPC library
 License:    MIT
 URL:        https://github.com/mbr/%{library}
@@ -31,11 +31,6 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 # For tests
 BuildRequires:  python3-pytest
-BuildRequires:  python3-gevent
-BuildRequires:  python3-msgpack
-BuildRequires:  python3-pika
-BuildRequires:  python3-werkzeug
-BuildRequires:  python3-zmq
 
 %description -n python3-%{library}
 tinyrpc is a library for making and handling RPC calls in python.
@@ -44,7 +39,7 @@ tinyrpc is a library for making and handling RPC calls in python.
 # gevent-websocket and jsonext are old and unmaintained
 %pyproject_extras_subpkg -n python3-%{library} gevent
 #        'httpclient': ['requests', 'websocket-client', 'gevent-websocket'],
-#pyproject_extras_subpkg -n python3-%{library} httpclient
+# pyproject_extras_subpkg -n python3-tinyrpc httpclient
 %pyproject_extras_subpkg -n python3-%{library} msgpack
 %pyproject_extras_subpkg -n python3-%{library} rabbitmq
 %pyproject_extras_subpkg -n python3-%{library} wsgi
@@ -67,8 +62,11 @@ Tests for  python3-tinyrpc library
 %prep
 %autosetup -n %{library}-%{version} -S git
 
+# Remove shebangs from Python files to silence non-executable-script rpmlint errors
+find . -name '*.py' -exec sed -i -e '/^#!\//d' {} +
+
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x gevent,msgpack,rabbitmq,wsgi,zmq
 
 %build
 %pyproject_wheel
@@ -93,6 +91,7 @@ mkdir -p %{buildroot}%%{python3_sitelib}/%{library}/tests
 mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{python3_sitelib}/%{library}/tests
 
 %check
+%pyproject_check_import -e 'tinyrpc.transports.websocket*'
 %pytest -rs -v
 
 %files -n python-%{library}-doc
@@ -107,6 +106,9 @@ mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{python3_sitelib}/%{library
 %{python3_sitelib}/%{module}/tests
 
 %changelog
+* Sat Jun 13 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 1.1.7-9
+- spec cleanup and modernization
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.1.7-8
 - Rebuilt for Python 3.15
 
