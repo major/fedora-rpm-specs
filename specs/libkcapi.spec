@@ -34,7 +34,9 @@
 # Use `--without fuzz_test` to skip the fuzz test during build
 %bcond_without fuzz_test
 # Use `--without doc` to build without the -doc subpackage
-%bcond_without doc
+# FIXME: docs fail to build with latest texlive:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2488672
+%bcond_with doc
 # Use `--without clang_sa` to skip clang static analysis during build
 %bcond_without clang_sa
 

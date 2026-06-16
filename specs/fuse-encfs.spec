@@ -22,10 +22,10 @@ BuildRequires:  libtool
 BuildRequires:  perl(Locale::TextDomain)
 #BuildRequires:  pkgconfig(easyloggingpp)
 BuildRequires:  pkgconfig(fuse) >= 2.6
-%if 0%{?fedora} < 41
-BuildRequires: pkgconfig(openssl)
-%else
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
+%else
+BuildRequires: pkgconfig(openssl)
 %endif
 BuildRequires:  pkgconfig(tinyxml2)
 

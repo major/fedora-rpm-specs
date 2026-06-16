@@ -1,5 +1,7 @@
 # Force out of source build
 %undefine __cmake_in_source_build
+# FIXME: convert lupdate/lrelease/doc steps to Ninja
+%global _cmake_generator "Unix Makefiles"
 
 %global commit          04b7e7d8415b2610d30ce727db9cebc77387928e
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})

@@ -1,5 +1,5 @@
 Name:           homebank
-Version:        5.10.1
+Version:        5.10.2
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later

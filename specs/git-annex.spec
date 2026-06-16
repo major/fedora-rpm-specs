@@ -2,18 +2,20 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Haskell/
 
 %if %{defined fedora}
-%bcond ikiwiki 1
+%bcond ikiwiki 0
 %endif
 
 Name:           git-annex
-Version:        10.20260115
+Version:        10.20260601
 Release:        1%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPL-3.0-or-later
 URL:            https://hackage.haskell.org/package/git-annex
 # Begin cabal-rpm sources:
-Source0:        https://git.joeyh.name/index.cgi/git-annex.git/snapshot/git-annex-%{version}.tar.gz
+# 403 Client Error: Forbidden for url: https://git.joeyh.name/index.cgi/git-annex.git/snapshot/git-annex-10.20260601.tar.gz
+# Source0:        https://git.joeyh.name/index.cgi/git-annex.git/snapshot/git-annex-%%{version}.tar.gz
+Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 # End cabal-rpm sources
 Patch0:         %{name}-default-flags.patch
 
@@ -49,6 +51,8 @@ BuildRequires:  ghc-containers-devel
 BuildRequires:  ghc-criterion-devel
 BuildRequires:  ghc-crypto-api-devel
 BuildRequires:  ghc-crypton-devel
+BuildRequires:  ghc-crypton-connection-devel
+BuildRequires:  ghc-crypton-x509-store-devel
 BuildRequires:  ghc-data-default-devel
 BuildRequires:  ghc-dbus-devel
 BuildRequires:  ghc-deepseq-devel
@@ -108,6 +112,7 @@ BuildRequires:  ghc-tasty-rerun-devel
 BuildRequires:  ghc-template-haskell-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
+BuildRequires:  ghc-tls-devel
 BuildRequires:  ghc-torrent-devel
 BuildRequires:  ghc-transformers-devel
 BuildRequires:  ghc-unbounded-delays-devel
@@ -182,7 +187,9 @@ cabal-tweak-drop-dep yesod-default
 # Begin cabal-rpm build:
 %ghc_bin_build
 # End cabal-rpm build
+%if %{with ikiwiki}
 make docs
+%endif
 
 
 %install
@@ -192,16 +199,26 @@ make docs
 for i in git-annex-shell git-remote-tor-annex; do
 ln -s git-annex %{buildroot}%{_bindir}/$i
 done
+%if %{with ikiwiki}
 make DESTDIR=%{buildroot} install-docs
+%endif
 
 set noclobber
 mkdir -p %{buildroot}%{bash_completions_dir}
-install -m 644 bash-completion.bash %{buildroot}%{bash_completions_dir}/git-annex
 mkdir -p %{buildroot}%{fish_completions_dir}
 mkdir -p %{buildroot}%{zsh_completions_dir}
+%if %{with ikiwiki}
+install -m 644 bash-completion.bash %{buildroot}%{bash_completions_dir}/%{name}
+%else
+%{buildroot}%{_bindir}/%{name} --bash-completion-script %{name} | sed s/filenames/default/ > %{buildroot}%{bash_completions_dir}/%{name}
+%endif
 %{buildroot}%{_bindir}/%{name} --fish-completion-script %{name} > %{buildroot}%{fish_completions_dir}/%{name}
 %{buildroot}%{_bindir}/%{name} --zsh-completion-script %{name} | sed s/filenames/default/ > %{buildroot}%{zsh_completions_dir}/_%{name}
 
+%if %{without ikiwiki}
+mkdir -p %{buildroot}%{_mandir}/man1/
+help2man --version-string %{version} --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/%{name}.1
+%endif
 
 %check
 mkdir -p test
@@ -224,8 +241,10 @@ popd
 # End cabal-rpm files
 %{_bindir}/%{name}-shell
 %{_bindir}/git-remote-tor-annex
+%if %{with ikiwiki}
 %{_mandir}/man1/git-annex-*.1*
 %{_mandir}/man1/git-remote-*annex.1*
+%endif
 
 %if %{with ikiwiki}
 %files docs
@@ -235,6 +254,9 @@ popd
 
 
 %changelog
+* Sat Jun 13 2026 Jens Petersen <petersen@redhat.com> - 10.20260601-1
+- https://hackage.haskell.org/package/git-annex-10.20260601/changelog
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 10.20260115-6
 - https://hackage.haskell.org/package/git-annex-10.20260115/changelog
 

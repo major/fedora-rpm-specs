@@ -22,7 +22,7 @@ BuildRequires:  libuuid-devel
 BuildRequires:  libwebsockets-devel
 BuildRequires:  libxslt
 BuildRequires:  openssl-devel
-%if 0%{?fedora}
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires:  openssl-devel-engine
 %endif
 BuildRequires:  sqlite-devel

@@ -43,7 +43,6 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 # needed for tests mostly
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  openssl-devel-engine
 BuildRequires:  zlib-devel
 
 %description

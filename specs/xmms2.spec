@@ -77,7 +77,10 @@ BuildRequires:		perl-ExtUtils-ParseXS
 BuildRequires:		gcc
 BuildRequires:		gcc-c++
 BuildRequires:		waf
-BuildRequires:		openssl-devel-engine, openssl-devel
+BuildRequires:		openssl-devel
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
+BuildRequires:		openssl-devel-engine
+%endif
 
 Obsoletes:		xmms2-mad < 0.8-26
 Provides:		xmms2-mad = %{version}-%{release}

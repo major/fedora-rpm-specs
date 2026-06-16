@@ -8,7 +8,7 @@ License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/cottsay/%{name}
 Source0:        https://github.com/cottsay/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc
@@ -51,15 +51,15 @@ EOF
 
 
 %build
-%cmake3 \
+%cmake \
   -DOPENELP_USE_OPENSSL:BOOL=ON \
   %{nil}
 
-%cmake3_build -- all doc
+%cmake_build -- all doc
 
 
 %install
-%cmake3_install
+%cmake_install
 
 # Run the service under a specific user
 sed -i '/^\[Service\]$/a User=openelp' %{buildroot}%{_unitdir}/%{name}.service
@@ -79,7 +79,7 @@ install -m0644 -D openelp.sysusers.conf %{buildroot}%{_sysusersdir}/openelp.conf
 
 
 %check
-%ctest3
+%ctest
 
 
 
@@ -109,7 +109,7 @@ install -m0644 -D openelp.sysusers.conf %{buildroot}%{_sysusersdir}/openelp.conf
 %{_sysusersdir}/openelp.conf
 
 %files devel
-%doc %{?__cmake3_builddir}%{!?__cmake3_builddir:%{__cmake_builddir}}/doc/html
+%doc %{?__cmake_builddir}%{!?__cmake_builddir:%{__cmake_builddir}}/doc/html
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 

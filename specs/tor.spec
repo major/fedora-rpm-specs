@@ -48,7 +48,7 @@ BuildRequires: gnupg2
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 %{?sysusers_requires_compat}
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 # https://gitlab.torproject.org/tpo/core/tor/-/issues/40166#note_3055852
 # https://bugzilla.redhat.com/show_bug.cgi?id=2301334
 BuildRequires: openssl-devel-engine

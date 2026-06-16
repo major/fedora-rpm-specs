@@ -1,13 +1,15 @@
 Name:		globus-gsi-proxy-core
 %global _name %(tr - _ <<< %{name})
 Version:	9.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Proxy Core Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
+Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
+Patch1:		0002-Build-with-OpenSSL-4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -61,6 +63,8 @@ Globus GSI Proxy Core Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p5
+%patch -P1 -p5
 
 %build
 # Reduce overlinking
@@ -113,7 +117,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
-* Sun Jan 25 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 9.9-1
+* Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9-2
+- Compile with OpenSSL 4
+
+* Sun Jan 25 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9-1
 - New GCT release v6.2.202660123
 - Drop patch globus-gsi-proxy-core-gcc16-lto.patch (included in the release)
 

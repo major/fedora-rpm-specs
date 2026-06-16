@@ -53,6 +53,7 @@ rm -rf \
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja
 %cmake_build
 

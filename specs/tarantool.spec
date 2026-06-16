@@ -1,3 +1,8 @@
+# not compatible with Ninja
+%global _cmake_generator "Unix Makefiles"
+# code not compatible with latest C standard
+%global _pkg_extra_cflags -std=gnu11
+
 BuildRequires: cmake >= 2.8
 BuildRequires: gcc >= 4.5
 BuildRequires: gcc-c++ >= 4.5
@@ -78,6 +83,7 @@ u tarantool - 'Tarantool Server' /var/lib/tarantool -
 EOF
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # RHBZ #1301720: SYSCONFDIR an LOCALSTATEDIR must be specified explicitly
 %cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo \
          -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=%{_localstatedir} \

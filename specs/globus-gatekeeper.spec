@@ -3,7 +3,7 @@
 Name:		globus-gatekeeper
 %global _name %(tr - _ <<< %{name})
 Version:	11.4
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Grid Community Toolkit - Globus Gatekeeper
 
 License:	Apache-2.0
@@ -12,6 +12,8 @@ Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service
 Source3:	%{name}.README
 Source8:	README
+Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
+Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -36,6 +38,8 @@ Globus Gatekeeper
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p4
+%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -100,6 +104,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-services/available
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-12
+- Fix compiler warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

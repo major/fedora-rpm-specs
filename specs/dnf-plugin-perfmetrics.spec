@@ -34,6 +34,7 @@ Requires:       python3-psutil
 %autosetup -n dnf-plugins-%{srcname}-%{version} -p1
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

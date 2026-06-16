@@ -3,7 +3,6 @@ Version:        1.3
 Release:        %autorelease
 Summary:        ninja-compatible build tool written in C
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/michaelforney/samurai
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -24,6 +23,9 @@ with a focus on simplicity, speed, and portability.
 
 %install
 %make_install PREFIX=%{_prefix} MANDIR=%{_mandir}
+
+%check
+./samu --version
 
 %files
 %license LICENSE

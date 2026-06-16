@@ -10,7 +10,7 @@
 
 Name:           sylpheed
 Version:        3.7.0
-Release:        21%{?prerelease:.%{?prerelease}}%{?dist}
+Release:        22%{?prerelease:.%{?prerelease}}%{?dist}
 Summary:        GTK+ based, lightweight, and fast email client
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
@@ -47,6 +47,9 @@ Patch3:         sylpheed-2.5.0-certsdir.patch
 Patch4:         sylpheed-3.7.0-uri-check.patch
 # various type and format related fixes
 Patch5:         sylpheed-3.7.0-types.patch
+# https://github.com/sylpheed-mail/sylpheed/pull/68/
+# Support Openssl 4.0
+Patch6:         sylpheed-pr68-openssl4_0.patch
 
 Requires: sylpheed-libs%{?_isa} = %{version}-%{release}
 # For xdg-open in patch1
@@ -157,6 +160,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_libdir}/*.so
 
 %changelog
+* Sun Jun 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.0-22
+- Backport upstream PR to support openssl4.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.0-21
 - Rebuilt for openssl 4.0
 

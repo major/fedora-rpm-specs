@@ -11,7 +11,9 @@ Source0:        http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires:  lzo-devel
 BuildRequires:  systemd
 BuildRequires:  systemd-units

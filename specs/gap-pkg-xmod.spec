@@ -29,7 +29,7 @@ BuildRequires:  tex(xy.sty)
 Requires:       gap(autpgrp) >= 1.10.2
 Requires:       gap(groupoids) >= 1.78
 Requires:       gap(hap) >= 1.29
-Requires:       gap(smallgrp) >= 1.42
+Requires:       gap(smallgrp) >= 1.4.2
 Requires:       gap(utils) >= 0.81
 Requires:       gap-core >= 4.11.0
 

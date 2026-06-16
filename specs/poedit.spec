@@ -20,7 +20,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  po4a
 BuildRequires:  libsecret-devel
 BuildRequires:  openssl-devel
-BuildRequires:  openssl-devel-engine
 BuildRequires:  cpprest-devel
 # cld2 is not available for ppc64 s390x
 %ifnarch ppc64 s390x

@@ -26,9 +26,6 @@ BuildRequires: libatomic
 BuildRequires: libcap-devel
 BuildRequires: fstrm-devel
 BuildRequires: openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires: openssl-devel-engine
-%endif
 BuildRequires: systemd
 BuildRequires: systemd-devel
 BuildRequires: protobuf-devel

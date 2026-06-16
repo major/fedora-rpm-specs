@@ -25,9 +25,6 @@ BuildRequires:    make
 BuildRequires:    cmake >= 3.7.2
 BuildRequires:    boost-devel >= 1.66.0
 BuildRequires:    openssl-devel >= 1.1.0
-# RHBZ#2301338
-# boost seems to want the engine header
-BuildRequires:    openssl-devel-engine
 BuildRequires:    mariadb-connector-c-devel
 %if 0%{?fedora} >= 30
 BuildRequires:    systemd-rpm-macros

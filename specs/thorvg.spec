@@ -1,5 +1,5 @@
 Name:           thorvg
-Version:        1.0.1
+Version:        1.0.6
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 
@@ -72,7 +72,7 @@ sed -i "s/GENERATE_HTML          = YES/GENERATE_HTML          = NO/g" docs/Doxyf
 sed -i "s/PROJECT_NUMBER         = v0.15/PROJECT_NUMBER         = v%{VERSION}/g" docs/Doxyfile
 
 %build
-%meson -Dengines="sw, gl" \
+%meson -Dengines="cpu, gl" \
        -Dloaders=all \
        -Dsavers=all \
        -Dbindings=capi \

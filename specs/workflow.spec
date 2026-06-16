@@ -19,9 +19,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  gtest-devel
 BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
 %ifnarch %{ix86}
 # Needed for redis check
 BuildRequires:  redis

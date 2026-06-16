@@ -1,5 +1,5 @@
 Name:           perl-Config-IniFiles
-Version:        3.001000
+Version:        3.002000
 Release:        1%{?dist}
 Summary:        A module for reading .ini-style configuration files
 # LICENSE:                              GPL+ or Artistic
@@ -81,6 +81,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Config::IniFiles.3pm*
 
 %changelog
+* Sun Jun 14 2026 Xavier Bachelot <xavier@bachelot.org> - 3.002000-1
+- Update to 3.002000 (RHBZ#2488759)
+
 * Thu Jun 11 2026 Xavier Bachelot <xavier@bachelot.org> - 3.001000-1
 - Update to 3.001000 (RHBZ#2487822)
   - Fixes CVE-2026-11527

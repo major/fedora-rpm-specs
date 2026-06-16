@@ -1,7 +1,7 @@
 %global maj 0
 
 Name:           serd
-Version:        0.32.8
+Version:        0.32.10
 Release:        1%{?dist}
 Summary:        A lightweight C library for RDF syntax
 
@@ -70,6 +70,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Sun Jun 14 2026 Guido Aulisi <guido.aulisi@inps.it> - 0.32.10-1
+- Update to 0.32.10
+
 * Mon Feb 23 2026 Guido Aulisi <guido.aulisi@gmail.com> - 0.32.8-1
 - Update to 0.32.8
 

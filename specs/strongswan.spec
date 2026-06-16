@@ -10,7 +10,7 @@
 %global forgeurl0 https://github.com/strongswan/strongswan
 
 Name:           strongswan
-Version:        6.0.6
+Version:        6.0.7
 Release:        %autorelease
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -39,10 +39,6 @@ BuildRequires:  gmp-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  openldap-devel
 BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
-BuildRequires:  openssl-devel-engine
-%endif
 BuildRequires:  sqlite-devel
 BuildRequires:  gettext-devel
 BuildRequires:  libxml2-devel

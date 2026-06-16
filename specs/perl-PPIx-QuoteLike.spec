@@ -2,8 +2,8 @@
 %bcond_without perl_PPIx_QuoteLike_enables_PPIx_Regexp
 
 Name:           perl-PPIx-QuoteLike
-Version:        0.023
-Release:        10%{?dist}
+Version:        0.024
+Release:        1%{?dist}
 Summary:        Parse Perl string literals and string-literal-like things
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-QuoteLike
@@ -13,26 +13,23 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-# Build.PL and inc/My/Module/Build.pm not used
-BuildRequires:  perl(:VERSION) >= 5.6
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(lib)
-BuildRequires:  perl(strict)
-# Test::Without::Module not helpful
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(Module::Metadata)
 # Run-time:
 BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(PPI::Document) >= 1.238
 BuildRequires:  perl(PPI::Dumper) >= 1.238
 BuildRequires:  perl(re)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 %if %{with perl_PPIx_QuoteLike_enables_PPIx_Regexp}
 # Optional run-time:
 # Author states there is a build-cycle with PPIx::Regexp, but I cannot see
@@ -43,6 +40,7 @@ BuildRequires:  perl(PPIx::Regexp)
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.88
+# Dependencies
 Requires:       perl(PPI::Document) >= 1.238
 Requires:       perl(PPI::Dumper) >= 1.238
 %if %{with perl_PPIx_QuoteLike_enables_PPIx_Regexp}
@@ -104,8 +102,8 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%license LICENSES/*
-%doc Changes CONTRIBUTING eg README
+%license LICENSE-Artistic LICENSE-GPL
+%doc Changes CONTRIBUTING eg/ README SECURITY
 %{perl_vendorlib}/PPIx/
 %{_mandir}/man3/PPIx::QuoteLike*.3*
 
@@ -113,6 +111,14 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jun 13 2026 Paul Howarth <paul@city-fan.org> - 0.024-1
+- Update to 0.024 (rhbz#2488682)
+  - Remove references to the RT bug tracking system
+  - Replace wyant@cpan.org with harryfmudd@comcast.net
+  - Repackage licenses so that GitHub can find them (maybe)
+  - Add SECURITY policy
+  - No functional changes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.023-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

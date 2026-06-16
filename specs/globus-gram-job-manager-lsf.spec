@@ -1,13 +1,15 @@
 Name:		globus-gram-job-manager-lsf
 %global _name %(tr - _ <<< %{name})
 Version:	3.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Grid Community Toolkit - LSF Job Manager Support
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
+Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
+Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -75,6 +77,8 @@ state
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p6
+%patch -P1 -p6
 
 %build
 # Reduce overlinking
@@ -157,6 +161,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/lsf
 
 %changelog
+* Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.1-3
+- Fix compiler warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

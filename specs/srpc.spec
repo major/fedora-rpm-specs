@@ -40,6 +40,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -51,9 +52,7 @@ rm %{buildroot}/%{_libdir}/libsrpc.a
 rm %{buildroot}/%{_docdir}/%{name}-%{version}/README.md
 
 %check
-# change build directory
-sed -i "s/DEFAULT_BUILD_DIR := build.cmake/DEFAULT_BUILD_DIR := %__cmake_builddir/g"  GNUmakefile
-make check
+%ctest
 
 %files 
 %license LICENSE

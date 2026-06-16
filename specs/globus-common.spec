@@ -1,13 +1,15 @@
 Name:		globus-common
 %global _name %(tr - _ <<< %{name})
 Version:	18.15
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Grid Community Toolkit - Common Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
+Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
+Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -76,6 +78,8 @@ Common Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p3
+%patch -P1 -p3
 
 %build
 # Reduce overlinking
@@ -163,6 +167,9 @@ rm %{buildroot}%{_datadir}/globus-user-env.sh
 %license GLOBUS_LICENSE
 
 %changelog
+* Sat Jun 13 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 18.15-3
+- Fix compiler and doxygen warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

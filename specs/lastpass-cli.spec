@@ -27,6 +27,7 @@ A command line interface to LastPass.com.
 %autosetup -p1
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build --target lpass doc-man doc-html
 

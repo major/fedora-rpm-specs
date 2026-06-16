@@ -5,12 +5,12 @@ Summary:    X11 keymap client
 
 License:    HPND
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/setxkbmap-%{version}.tar.xz
-Source1:    %{name}-%{version}.tar.xz.sig
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+Source1:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.sig
 Source2:    3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xkbfile)
@@ -35,6 +35,9 @@ on the command line.
 
 %install
 %make_install
+
+%check
+make check
 
 %files
 %license COPYING

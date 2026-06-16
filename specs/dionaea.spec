@@ -115,12 +115,8 @@ Patch19:        dionaea-19_setuptools.patch
 # Reported https://github.com/DinoTools/dionaea/pull/345
 Patch20:        dionaea-20_fix_cython3.1_build.patch
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  cmake
 BuildRequires:  cmake-rpm-macros
-%else
-BuildRequires:  cmake3
-%endif
 
 BuildRequires:  make
 BuildRequires:  libtool
@@ -276,19 +272,20 @@ EOF
 
 # ============= Build ==========================================================
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 # %%configure --enable-python --with-python=`which python3` --with-glib=glib --with-nl-include=/usr/include/libnl3 --disable-werror
 # %%make_build CFLAGS="%%{optflags} -Wno-error -D_GNU_SOURCE -std=c99"
 
 # cmake build with higher parralelism ends up with errors for Fedora
-%cmake3 \
+%cmake \
     -L \
     -DCMAKE_INSTALL_FULL_SYSCONFDIR:PATH=%{_sysconfdir} \
     -DCMAKE_INSTALL_FULL_LIBDIR:PATH=%{_libdir} \
     -DCMAKE_INSTALL_FULL_LOCALSTATEDIR:PATH=%{_localstatedir} \
     -DDIONAEA_PYTHON_SITELIBDIR:PATH=%{python3_sitearch}
 
-%cmake3_build -j1 --verbose --verbose
+%cmake_build -j1 --verbose --verbose
 
 cd doc
 make html
@@ -300,7 +297,7 @@ cd ..
 
 # ============= Install ========================================================
 %install
-%cmake3_install
+%cmake_install
 
 # Use only the sitearch directory, otherwise python will be confused
 # by not having native and python modules in the same directory

@@ -37,7 +37,7 @@ BuildRequires: luajit-devel
 %define lua_implementation luajit
 %endif
 %endif
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires: openssl-devel-engine
 %else
 BuildRequires: openssl-devel

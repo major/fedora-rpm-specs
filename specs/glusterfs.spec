@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.2
-Release:          7%{?prereltag:%{prereltag}}%{?dist}
+Release:          8%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.29
+Release:          0.@PACKAGE_RELEASE@%{?dist}.30
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -892,7 +892,7 @@ install -D -p -m 0644 extras/glusterd-sysconfig \
 mkdir -p %{buildroot}%{_localstatedir}/log/glusterd
 mkdir -p %{buildroot}%{_localstatedir}/log/glusterfs
 mkdir -p %{buildroot}%{_localstatedir}/log/glusterfsd
-mkdir -p %{buildroot}%{_rundir}/gluster/metrics
+mkdir -p %{buildroot}%{_rundir}/gluster/
 
 # Remove unwanted files from all the shared libraries
 find %{buildroot}%{_libdir} -name '*.a' -delete
@@ -1286,7 +1286,7 @@ exit 0
 %dir %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/system
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/system/posix-acl.so
 %dir %attr(0775,gluster,gluster) %{_rundir}/gluster
-%dir %attr(0775,gluster,gluster) %{_rundir}/gluster/metrics
+%ghost %dir %attr(0775,gluster,gluster) %{_rundir}/gluster/metrics
 %if 0%{?_tmpfilesdir:1}
 %{_tmpfilesdir}/gluster.conf
 %endif
@@ -1642,6 +1642,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Sun Jun 14 2026 Rostislav Krasny <rostiprodev@gmail.com> - 11.2-8
+- Add %ghost to clean up /run/gluster/metrics from missing report of rpm -Va
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.2-7
 - Rebuilt for openssl 4.0
 

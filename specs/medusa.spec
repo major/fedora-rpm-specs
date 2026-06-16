@@ -27,7 +27,6 @@ BuildRequires:  libssh2-devel
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  openssl-devel
-BuildRequires:  pcre-devel
 BuildRequires:  perl-Carp
 BuildRequires:  subversion-devel
 

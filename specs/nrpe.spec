@@ -40,9 +40,6 @@ BuildRequires: gcc
 BuildRequires: checkpolicy, selinux-policy-devel
 BuildRequires: systemd-units
 BuildRequires: openssl, openssl-devel
-%if 0%{?fedora} >= 40
-BuildRequires: openssl-devel-engine
-%endif
 
 %if 0%{?fedora} < 28 && 0%{?rhel} < 8
 BuildRequires: tcp_wrappers-devel

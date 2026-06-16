@@ -1,4 +1,4 @@
-%ifarch %{golang_arches}
+%ifarch %{golang_arches_future}
 %bcond man 1
 %endif
 
@@ -46,8 +46,8 @@ Library files for %{name}.
 
 %build
 %meson --default-library=shared -Dfuse=enabled \
-%if %{with man}
-  -Dman=enabled 
+%if %{without man}
+  -Dman=disabled
 %endif
 %meson_build
 

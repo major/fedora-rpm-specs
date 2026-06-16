@@ -39,6 +39,7 @@ with %{name}.
 sed -i 's|/usr/local/lib|%{_libdir}|g' CMakeLists.txt
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

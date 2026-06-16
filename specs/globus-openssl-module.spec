@@ -1,13 +1,15 @@
 Name:		globus-openssl-module
 %global _name %(tr - _ <<< %{name})
 Version:	5.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Grid Community Toolkit - Globus OpenSSL Module Wrapper
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
+Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
+Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -57,6 +59,8 @@ Globus OpenSSL Module Wrapper Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p4
+%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -105,6 +109,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Jun 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2-15
+- Fix compiler warnings
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

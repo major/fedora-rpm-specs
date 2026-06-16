@@ -71,6 +71,7 @@ rm cmake/modules/FindZLIB.cmake
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
 %if 0%{?__isa_bits} == 64
 -DWANT_LIB64=1 \

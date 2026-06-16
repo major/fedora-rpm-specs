@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
@@ -14,7 +14,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: intltool
 BuildRequires: libappstream-glib
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-wheel
 BuildRequires: rb_libtorrent-python3
 BuildRequires: systemd-rpm-macros
@@ -32,7 +31,7 @@ Requires: %{name}-daemon = %{version}-%{release}
 Deluge is a new BitTorrent client, created using Python and GTK+. It is
 intended to bring a native, full-featured client to Linux GTK+ desktop
 environments such as GNOME and XFCE. It supports features such as DHT
-(Distributed Hash Tables), PEX (µTorrent-compatible Peer Exchange), and UPnP
+(Distributed Hash Tables), PEX (Peer Exchange), and UPnP
 (Universal Plug-n-Play) that allow one to more easily share BitTorrent data
 even from behind a router with virtually zero configuration of port-forwarding.
 
@@ -41,12 +40,10 @@ Summary:    Files common to Deluge sub packages
 # Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:    LicenseRef-Callaway-GPLv3-with-exceptions
 Requires:   rb_libtorrent-python3
-Requires:   python3-service-identity
-Requires:   python3-pkg-resources
 Recommends: python3-GeoIP
 
 %description common
-Common files needed by the Deluge bittorrent client sub packages
+Common files needed by the Deluge BitTorrent client sub-packages
 
 %package gtk
 Summary:    The gtk UI to Deluge
@@ -60,20 +57,20 @@ Requires:   hicolor-icon-theme
 Requires:   gtk3 >= 3.10
 Requires:   python3-cairo
 Requires:   python3-gobject
-Requires:   libappindicator-gtk3
-Requires:   librsvg2
+Requires:   typelib(AppIndicator3)
+Requires:   typelib(Rsvg)
 Recommends: python3-dbus
 Recommends: python3-pygame
 
 %description gtk
-Deluge bittorent client GTK graphical user interface
+Deluge BitTorrent client GTK graphical user interface
 
 %package images
 Summary:    Image files for deluge
 # Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:    LicenseRef-Callaway-GPLv3-with-exceptions
 %description images
-Data files used by the GTK and web user interface for Deluge bittorent client
+Data files for the GTK and web UIs of the Deluge BitTorrent client
 
 %package console
 Summary:    CLI to Deluge
@@ -82,7 +79,7 @@ License:    LicenseRef-Callaway-GPLv3-with-exceptions
 Requires:   %{name}-common = %{version}-%{release}
 Requires:   %{name}-daemon = %{version}-%{release}
 %description console
-Deluge bittorent client command line interface
+Deluge BitTorrent client command line interface
 
 %package web
 Summary:    Web interface to Deluge
@@ -94,7 +91,7 @@ Requires:   %{name}-images = %{version}-%{release}
 Requires:   %{name}-daemon = %{version}-%{release}
 
 %description web
-Deluge bittorent client web interface
+Deluge BitTorrent client web interface
 
 %package daemon
 Summary:    The Deluge daemon
@@ -113,11 +110,21 @@ cat >deluge.sysusers.conf <<EOF
 u deluge - 'deluge daemon account' %{_sharedstatedir}/%{name} -
 EOF
 
+# Remove shebangs from python files that are not wrapper scripts
+find deluge -name "*.py" -exec sed -i -e '/^#!\s*\/usr\/bin\/env python/d' -e '/^#!\s*\/usr\/bin\/python/d' -e '/^#!\s*\/usr\/bin\/env python3/d' -e '/^#!\s*\/usr\/bin\/python3/d' {} +
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+# Generate desktop and metainfo files so they are available when setup.py is run by pyproject_wheel
+intltool-merge --desktop-style --utf8 --quiet deluge/i18n deluge/ui/data/share/applications/deluge.desktop.in deluge/ui/data/share/applications/deluge.desktop
+intltool-merge --xml-style --utf8 --quiet deluge/i18n deluge/ui/data/share/metainfo/deluge.metainfo.xml.in deluge/ui/data/share/metainfo/deluge.metainfo.xml
+
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 # http://dev.deluge-torrent.org/ticket/2034
 mkdir -p %{buildroot}%{_unitdir}
@@ -160,12 +167,15 @@ popd && mv %{buildroot}/%{name}.lang .
 
 install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 
+%check
+%py3_check_import deluge
+
 %files
 
 %files common -f %{name}.lang
 %doc CHANGELOG.md LICENSE README.md
 
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/%{name}-*.dist-info/
 %dir %{python3_sitelib}/%{name}
 %{python3_sitelib}/%{name}/__pycache__
 %{python3_sitelib}/%{name}/*.py*
@@ -237,6 +247,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Sun Jun 14 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.2.0-10
+- spec modernization, fixes rhbz#2377240
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 2.2.0-9
 - Rebuilt for Python 3.15
 

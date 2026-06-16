@@ -68,7 +68,7 @@ fi
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-%{cargo_build} --features packagekit
+%{cargo_build} --features packagekit,rpm-ostree
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
@@ -88,7 +88,7 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-%{cargo_test} --features packagekit
+%{cargo_test} --features packagekit,rpm-ostree
 %endif
 
 %files
