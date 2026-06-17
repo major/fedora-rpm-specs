@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.104.1
+Version:                2.108.0
 
 %gometa -L -f
 
@@ -21,6 +21,9 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools
+
+# Official JFrog package containing the jf binary (x86_64 only)
+Conflicts:      jfrog-cli-v2-jf
 
 %description
 JFrog CLI is a client that provides a simple interface that automates access to
@@ -47,6 +50,7 @@ rm -v \
   lifecycle_test.go \
   main_test.go \
   maven_test.go \
+  nix_test.go \
   npm_test.go \
   nuget_test.go \
   pipenv_test.go \

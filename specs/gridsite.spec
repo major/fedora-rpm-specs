@@ -6,7 +6,7 @@
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.37.20260121git%{shortcommit}%{?dist}
+Release:        0.38.20260121git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -22,6 +22,9 @@ Source2:        gridsitehead.txt
 Source3:        gridsitefoot.txt
 Source4:        root-level.gacl
 Source5:        gridsitelogo.png
+
+# Fixes for building with openssl 4.0
+Patch0:         https://github.com/CESNET/gridsite/pull/48.patch
 
 BuildRequires:  make
 BuildRequires:  libcurl-devel
@@ -107,6 +110,7 @@ This package gridsite-doc, contains developer documentation for gridsite.
 
 %prep
 %setup -q -n %{name}-%{commit}
+%patch -P0 -p1
 # Copy in apache configuration.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} .
@@ -246,6 +250,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Mon Jun 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.0-0.38.20260121git7a7b764
+- Rebuilt for gsoap 2.8.142
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.0-0.37.20260121git7a7b764
 - Rebuilt for openssl 4.0
 

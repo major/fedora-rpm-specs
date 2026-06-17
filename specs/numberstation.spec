@@ -1,10 +1,10 @@
 Name:           numberstation
-Version:        1.4.0
-Release:        4%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        TOTP Authenticator application
 License:        GPL-3.0-or-later
 URL:            https://sr.ht/~martijnbraam/%{name}/
-Source0:        https://git.sr.ht/~martijnbraam/%{name}/archive/%{version}.tar.gz
+Source0:        https://git.sr.ht/~martijnbraam/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Requires:       libhandy
 Requires:       python3-gobject
 Requires:       python3-keyring
@@ -24,8 +24,10 @@ BuildRequires:  libappstream-glib
 %prep
 %autosetup
 
-%build
+%conf
 %meson
+
+%build
 %meson_build
 
 %install
@@ -46,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarke
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jun 15 2026 Tomi Lähteenmäki <lihis@lihis.net> - 1.5.0-1
+- Update to v1.5.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -32,15 +32,11 @@
 %define fips_enabled 1
 %endif
 
-%global container_base_path github.com/containers
-%global container_base_url https://%{container_base_path}
+%global container_base_path go.podman.io
 
 # For LDFLAGS
-%global ld_project %{container_base_path}/%{name}/v5
+%global ld_project %{container_base_path}/%{name}/v6
 %global ld_libpod %{ld_project}/libpod
-
-# %%{name}
-%global git0 %{container_base_url}/%{name}
 
 # podman-machine subpackage will be present only on these architectures
 %global machine_arches x86_64 aarch64
@@ -63,7 +59,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.8.2
+Version: 6.0.0~rc1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -75,7 +71,7 @@ ExclusiveArch: aarch64 ppc64le s390x x86_64 riscv64
 Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
-Source0: %{git0}/archive/v%{version_no_tilde}.tar.gz
+Source0: https://github.com/containers/%{name}/archive/v%{version_no_tilde}.tar.gz
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: %{_bindir}/envsubst
 %if %{defined build_with_btrfs}
@@ -104,14 +100,8 @@ BuildRequires: systemd
 BuildRequires: systemd-devel
 Requires: catatonit
 Requires: conmon >= 2:2.1.7-2
-%if %{defined fedora} && 0%{?fedora} >= 40
-# TODO: Remove the f40 conditional after a few releases to keep conditionals to
-# a minimum
-# Ref: https://bugzilla.redhat.com/show_bug.cgi?id=2269148
-Requires: containers-common-extra >= 5:0.58.0-1
-%else
-Requires: containers-common-extra
-%endif
+# Podman 6 requires the new config file layout.
+Requires: containers-common-extra >= 5:0.68.0
 %if %{defined sequoia}
 Requires: podman-sequoia
 %endif
@@ -161,7 +151,6 @@ Requires: nmap-ncat
 Requires: httpd-tools
 Requires: openssl
 Requires: socat
-Requires: slirp4netns
 Requires: buildah
 Requires: gnupg
 Requires: xfsprogs
@@ -254,7 +243,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="5b263b5f5b48004a87caac44e67349a8266d9ef4"
+GIT_COMMIT="d0c9bb1b49fb63826997342ad5ddb576bdf6e865"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first
@@ -352,12 +341,6 @@ ln -s ../qemu-kvm %{buildroot}%{_libexecdir}/%{name}/qemu-system-%{arch}
 %{_tmpfilesdir}/%{name}.conf
 %{_systemdgeneratordir}/%{name}-system-generator
 %{_systemdusergeneratordir}/%{name}-user-generator
-# iptables modules are only needed with iptables-legacy,
-# as of f41 netavark will default to nftables so do not load unessary modules
-# https://fedoraproject.org/wiki/Changes/NetavarkNftablesDefault
-%if %{defined fedora} && 0%{?fedora} < 41
-%{_modulesloaddir}/%{name}-iptables.conf
-%endif
 
 %files docker
 %{_bindir}/docker

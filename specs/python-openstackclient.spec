@@ -17,7 +17,7 @@ It is a thin wrapper to the stock python-*client modules that implement the
 actual REST API client actions.}
 
 Name:             python-%{sname}
-Version:          10.0.0
+Version:          10.1.0
 Release:          %autorelease
 Summary:          OpenStack Command-line Client
 
@@ -38,7 +38,7 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 
 BuildArch:        noarch
 
-BuildRequires:    python3-devel
+BuildRequires:    python%{python3_pkgversion}-devel
 Buildrequires:    systemd-rpm-macros
 
 # Required for tarball sources verification
@@ -52,7 +52,7 @@ BuildRequires:    git-core
 %description %_description
 
 
-%package -n python3-%{sname}
+%package -n python%{python3_pkgversion}-%{sname}
 Summary:          OpenStack Command-line Client
 
 BuildRequires:    python3-babel
@@ -61,7 +61,7 @@ Requires:         python-%{sname}-lang = %{version}-%{release}
 Recommends:       bash-completion
 
 
-%description -n python3-%{sname} %_description
+%description -n python%{python3_pkgversion}-%{sname} %_description
 
 
 %if %{without bootstrap}
@@ -182,7 +182,7 @@ export PYTHON=%{__python3}
 %tox -e %{default_toxenv} -- -- --exclude-regex 'openstackclient.tests.unit.common.test_module.TestModuleList.*'
 
 
-%files -n python3-%{sname} -f %{pyproject_files}
+%files -n python%{python3_pkgversion}-%{sname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/%{cname}

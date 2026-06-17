@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -392,8 +392,8 @@ BuildRequires:	ragel
 BuildRequires:	systemtap-sdt-devel
 BuildRequires:	libubsan
 BuildRequires:	libasan
-BuildRequires:	protobuf-devel
-BuildRequires:	protobuf-compiler
+BuildRequires:	protobuf3-devel
+BuildRequires:	protobuf3-compiler
 %endif
 #################################################################################
 # distro-conditional dependencies
@@ -924,7 +924,7 @@ Requires:	ceph-base = %{_epoch_prefix}%{version}-%{release}
 Requires:	sudo
 Requires:	libstoragemgmt
 %if 0%{with crimson}
-Requires:	protobuf
+Requires:	protobuf3
 %endif
 %if 0%{?weak_deps}
 Recommends:	ceph-volume = %{_epoch_prefix}%{version}-%{release}
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-6
+- Ceph 20.2.1, rebuild with liborc, libarrow w/ protobuf3
+ 
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:20.2.1-5
 - Rebuilt for openssl 4.0
 

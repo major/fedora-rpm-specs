@@ -85,7 +85,6 @@ BuildRequires:  libgit2-devel
 # Needed for libgit2 test
 BuildRequires:  openssl
 BuildRequires:  libssh2-devel
-BuildRequires:  http-parser-devel
 BuildRequires:  openssl-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libcurl-full

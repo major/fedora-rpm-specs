@@ -2,8 +2,8 @@
 %global with_python 1
 
 Name:          libgpiod
-Version:       2.2.4
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Version:       2.2.5
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -196,6 +196,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Jun 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.5-1
+- Update to 2.2.5 (rhbz#2488905)
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.2.4-2
 - Rebuilt for Python 3.15
 

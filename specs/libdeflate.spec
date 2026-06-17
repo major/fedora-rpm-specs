@@ -1,4 +1,8 @@
 %bcond mingw 1
+# Work around linker failures on MinGW32 with MinGW C libraries version 14,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2481005, by omitting the
+# mingw{32,64}-libdeflate-utils subpackages.
+%bcond mingw_utils %[ 0%{?fedora} < 45 && 0%{?rhel} < 11 ]
 
 Name:          libdeflate
 Version:       1.25
@@ -50,29 +54,41 @@ Binaries from libdeflate.
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
 
+%if %{without mingw_utils}
+Obsoletes:     mingw32-%{name}-utils < 1.25-4
+%endif
+
 %description -n mingw32-%{name}
 MinGW Windows %{name} library.
 
+%if %{with mingw_utils}
 %package -n mingw32-%{name}-utils
 Summary:       MinGW Windows %{name} binaries
 BuildArch:     noarch
 
 %description -n mingw32-%{name}-utils
 MinGW Windows %{name} binaries.
+%endif
 
 %package -n mingw64-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
 
+%if %{without mingw_utils}
+Obsoletes:     mingw64-%{name}-utils < 1.25-4
+%endif
+
 %description -n mingw64-%{name}
 MinGW Windows %{name} library.
 
+%if %{with mingw_utils}
 %package -n mingw64-%{name}-utils
 Summary:       MinGW Windows %{name} binaries
 BuildArch:     noarch
 
 %description -n mingw64-%{name}-utils
 MinGW Windows %{name} binaries.
+%endif
 
 %{?mingw_debug_package}
 %endif
@@ -99,7 +115,11 @@ cmake_opts="\
 
 %if %{with mingw}
 # MinGW build
-%mingw_cmake $cmake_opts -DLIBDEFLATE_BUILD_TESTS:BOOL=OFF
+%mingw_cmake $cmake_opts \
+%if %{without mingw_utils}
+    -DLIBDEFLATE_BUILD_GZIP:BOOL=OFF \
+%endif
+    -DLIBDEFLATE_BUILD_TESTS:BOOL=OFF
 %mingw_make
 %endif
 
@@ -139,9 +159,11 @@ cmake_opts="\
 %{mingw32_libdir}/cmake/libdeflate/
 %{mingw32_includedir}/libdeflate.h
 
+%if %{with mingw_utils}
 %files -n mingw32-%{name}-utils
 %{mingw32_bindir}/libdeflate-gzip.exe
 %{mingw32_bindir}/libdeflate-gunzip.exe
+%endif
 
 %files -n mingw64-%{name}
 %{mingw64_bindir}/libdeflate-0.dll
@@ -150,9 +172,11 @@ cmake_opts="\
 %{mingw64_libdir}/cmake/libdeflate/
 %{mingw64_includedir}/libdeflate.h
 
+%if %{with mingw_utils}
 %files -n mingw64-%{name}-utils
 %{mingw64_bindir}/libdeflate-gzip.exe
 %{mingw64_bindir}/libdeflate-gunzip.exe
+%endif
 %endif
 
 %changelog

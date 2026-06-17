@@ -2,13 +2,15 @@
 
 Name:         davix
 Version:      0.8.10
-Release:      8%{?dist}
+Release:      9%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
 Source0:      https://github.com/cern-fts/davix/releases/download/R_0_8_10/davix-0.8.10.tar.gz
 #             https://github.com/cern-fts/davix/pull/141
 Patch0:       0001-Update-CMake-minimum-requirement-and-supported-versi.patch
+#             https://github.com/cern-fts/davix/issues/148
+Patch1:       neon-openssl4.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      python3
@@ -150,6 +152,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Mon Jun 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.10-9
+- Rebuilt for gsoap 2.8.142
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.10-8
 - Rebuilt for openssl 4.0
 

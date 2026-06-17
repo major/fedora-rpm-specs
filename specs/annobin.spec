@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.20
+Version: 13.21
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 15 2026 Nick Clifton  <nickc@redhat.com> - 13.21-1
+- LLVM & Clang Plugins: Build with -fexceptions enabled.  (RHEL-184482)
+
 * Wed Jun 03 2026 Nick Clifton  <nickc@redhat.com> - 13.20-1
 - Annocheck: Add support for ZIP files and TAR balls.
 

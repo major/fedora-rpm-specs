@@ -15,19 +15,14 @@ Source0: %{url}/dist/%{name}-%{version}%{?extraver}.tar.gz
 Source1: sudoers
 Requires: pam
 Recommends: system-default-editor
-Recommends: %{name}-python-plugin%{?_isa} = %{version}-%{release}
 
 BuildRequires: make
 BuildRequires: pam-devel
-BuildRequires: groff
 BuildRequires: openldap-devel
-BuildRequires: flex
-BuildRequires: bison
 BuildRequires: libtool
 BuildRequires: audit-libs-devel libcap-devel
 BuildRequires: libselinux-devel
 BuildRequires: systemd-rpm-macros
-BuildRequires: gettext
 BuildRequires: zlib-devel
 
 Patch1: 0001-cve-2026-35535.patch

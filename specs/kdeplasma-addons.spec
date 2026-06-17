@@ -1,13 +1,52 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
 Version: 6.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
-License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+%global source_licenses %{shrink:
+    BSD-3-Clause AND
+    CC0-1.0 AND
+    GPL-2.0-only AND
+    GPL-2.0-or-later AND
+    GPL-3.0-only AND
+    GPL-3.0-or-later AND
+    LGPL-2.0-only AND
+    LGPL-2.0-or-later AND
+    LGPL-2.1-only AND
+    LGPL-2.1-or-later AND
+    LGPL-3.0-only AND
+    LGPL-3.0-or-later AND
+    (GPL-2.0-only OR GPL-3.0-only) AND
+    (LGPL-2.1-only OR LGPL-3.0-only) AND
+    MIT
+    }
+# Additional licenses contributed by statically-linked Rust dependencies, from
+# the output of %%{cargo_license_summary}, that aren’t in %%{source_licenses}:
+#
+# (MIT OR Apache-2.0) AND Unicode-3.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-3-Clause OR MIT OR Apache-2.0
+# GPL-3.0-only
+# MIT
+# MIT OR Apache-2.0
+%global additional_rust_licenses %{shrink:
+    Unicode-3.0 AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-3-Clause OR MIT OR Apache-2.0)
+    }
+License: %{source_licenses} AND %{additional_rust_licenses}
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+
+# Specify SemVer-bounded Rust dependencies for `kameleon-qmk-helper`; update
+# `qmk-via-api` to 0.8
+# https://invent.kde.org/plasma/kdeplasma-addons/-/merge_requests/1080
+# (Without changes to Cargo.lock, which would only cause merge conflicts.)
+Patch:          kdeplasma-addons-6.7.0-qmk-via-api-0.8.patch
 
 ExcludeArch: %{ix86}
 
@@ -77,6 +116,8 @@ Requires:       kf6-kirigami-addons%{?_isa}
 
 %package -n kate-krunner-plugin
 Summary: KRunner plugin for searching Kate sessions
+# No statically linked Rust dependencies contribute to this subpackage.
+License: %{source_licenses}
 Requires: kate
 Supplements: kate
 # Before the split
@@ -86,6 +127,8 @@ Conflicts: kdeplasma-addons < 5.92.0-3
 
 %package devel
 Summary:        Development files for %{name}
+# No statically linked Rust dependencies contribute to this subpackage.
+License: %{source_licenses}
 # headers only: fixme: confirm need for dep on main pkg? -- rdieter
 Requires: %{name} = %{version}-%{release}
 #find_dependency(Qt5Gui "5.12.0")
@@ -184,6 +227,10 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Mon Jun 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 6.7.0-2
+- Patch kamelion-qmk-helper for qmk-via-api 0.8
+- Account for licenses of statically-linked Rust dependencies
+
 * Thu Jun 11 2026 Steve Cossette <farchord@gmail.com> - 6.7.0-1
 - 6.7.0
 

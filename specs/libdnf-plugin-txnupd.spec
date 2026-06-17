@@ -6,12 +6,15 @@
 
 Name:           libdnf-plugin-txnupd
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        libdnf5 plugin to implement transactional updates
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.com/VelocityLimitless/Projects/libdnf-plugin-txnupd
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Backports from upstream
+Patch00001:     https://gitlab.com/VelocityLimitless/Projects/libdnf-plugin-txnupd/-/commit/3add4c39b5506f8bfafd1daca3bf6165e55c5e18.patch
 
 # Temporary until all supported releases have DNF 5.4+
 Patch10001:     libdnf-plugin-txnupd-Downgrade-dnf5-dependency.patch
@@ -79,7 +82,7 @@ PackageKit to enable this functionality in normal use.
 
 %prep
 %autosetup -N
-%autopatch -M 10000
+%autopatch -p1 -M 10000
 
 %if ! %{with new_dnf5}
 # patch for compatibility for dnf5 < 5.4
@@ -124,6 +127,9 @@ echo "libdnf5-plugin-txnupd" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd
 
 
 %changelog
+* Mon Jun 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-2
+- Backport fix to link to tukit properly
+
 * Sun May 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-1
 - Update to 0.3.0
 

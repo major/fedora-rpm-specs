@@ -1,7 +1,7 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
-Version:	1.20
-Release:	2%{?dist}
+Version:	1.21
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://www.cpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
@@ -88,6 +88,17 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Mon Jun 15 2026 Paul Howarth <paul@city-fan.org> - 1.21-1
+- Update to 1.21
+  - Fixed key material reuse for multiple signing events (CVE-2026-12205,
+    CWE-323)
+    - sign() reused the DSA nonce k across signatures (r and k^-1 were cached
+      on the key and not regenerated), allowing private-key recovery from two
+      signatures over different messages
+    - Now generates a fresh nonce per signature
+    - Keys used to sign more than once with an affected version should be
+      considered compromised
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.20-2
 - Rebuilt for openssl 4.0
 

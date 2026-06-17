@@ -11,17 +11,14 @@
 %global debug_package %{nil}
 %endif
 
+# bats is available in Fedora official repos, needs EPEL on RHEL and CentOS
+# Stream
+%if %{defined fedora}
+%global distro_bats 1
+%endif
+
 # Minimum X.Y dep for aardvark-dns
 %define major_minor %((v=%{version}; echo ${v%.*}))
-
-# Set default firewall to nftables on CentOS Stream 10+, RHEL 10+, Fedora 41+
-# and default to iptables on all other environments
-# The `rhel` macro is defined on CentOS Stream, RHEL as well as Fedora ELN.
-%if (%{defined rhel} && 0%{?rhel} >= 10) || (%{defined fedora} && 0%{?fedora} >= 41)
-%define default_fw nftables
-%else
-%define default_fw iptables
-%endif
 
 Name: netavark
 # Set a different Epoch for copr builds
@@ -30,7 +27,7 @@ Epoch: 102
 %else
 Epoch: 2
 %endif
-Version: 1.17.2
+Version: 2.0.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -49,11 +46,7 @@ BuildRequires: %{_bindir}/go-md2man
 # aardvark-dns and %%{name} are usually released in sync
 Requires: aardvark-dns >=  %{epoch}:%{major_minor}
 Provides: container-network-stack = 2
-%if "%{default_fw}" == "nftables"
 Requires: nftables
-%else
-Requires: iptables
-%endif
 BuildRequires: make
 BuildRequires: protobuf-c
 BuildRequires: protobuf-compiler
@@ -82,10 +75,35 @@ Its features include:
     including MACVLAN networks
 * All required firewall configuration to perform NAT and port
     forwarding as required for containers
-* Support for iptables, firewalld and nftables
+* Support for firewalld and nftables
 * Support for rootless containers
 * Support for IPv4 and IPv6
 * Support for container DNS resolution via aardvark-dns.
+
+# Only intended to be used for gating tests
+# End user usecases not supported
+%package tests
+Summary: Tests for %{name}
+Requires: %{name} = %{epoch}:%{version}-%{release}
+%if %{defined distro_bats}
+Requires: bats
+%else
+Recommends: bats
+%endif
+Requires: bind-utils
+Requires: dbus-daemon
+Requires: dnsmasq
+Requires: firewalld
+Requires: jq
+Requires: net-tools
+Requires: nftables
+Requires: nmap-ncat
+
+%description tests
+%{summary}
+
+This package contains integration tests for %{name}. Only intended to be used for
+gating tests. Not supported for end users / customers.
 
 %prep
 %autosetup -Sgit %{name}-%{version}
@@ -102,18 +120,31 @@ tar fx %{SOURCE1}
 %endif
 
 %build
-NETAVARK_DEFAULT_FW=%{default_fw} %{__make} CARGO="%{__cargo}" build
+%{__make} CARGO="%{__cargo}" build
 %if (0%{?fedora} || 0%{?rhel} >= 10) && !%{defined copr_username}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 %cargo_vendor_manifest
 %endif
 
+# Build examples package for tests
+%{__make} CARGO="%{__cargo}" examples
+
 cd docs
 %{__make}
 
 %install
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install
+
+%{__install} -d -p %{buildroot}%{_datadir}/%{name}/{examples,test,test-dhcp}
+%{__cp} -rpav targets/release/examples/* %{buildroot}%{_datadir}/%{name}/examples
+%{__cp} -rpav test/* %{buildroot}%{_datadir}/%{name}/test
+%{__cp} -rpav test-dhcp/* %{buildroot}%{_datadir}/%{name}/test-dhcp
+%{__install} -D -m0755 bin/netavark-connection-tester %{buildroot}%{_bindir}/netavark-connection-tester
+%{__install} -D -m0755 bin/netavark-dhcp-proxy-client %{buildroot}%{_libexecdir}/podman/netavark-dhcp-proxy-client
+
+%{__rm} -rf %{buildroot}%{_datadir}/%{name}/test/tmt
+%{__rm} -rf %{buildroot}%{_datadir}/%{name}/test-dhcp/tmt
 
 %preun
 %systemd_preun %{name}-dhcp-proxy.service
@@ -139,6 +170,17 @@ cd docs
 %{_unitdir}/%{name}-dhcp-proxy.socket
 %{_unitdir}/%{name}-firewalld-reload.service
 %{_unitdir}/%{name}-nftables-reload.service
+
+%files tests
+%{_bindir}/netavark-connection-tester
+%{_libexecdir}/podman/netavark-dhcp-proxy-client
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/examples
+%dir %{_datadir}/%{name}/test
+%dir %{_datadir}/%{name}/test-dhcp
+%{_datadir}/%{name}/examples/*
+%{_datadir}/%{name}/test/*
+%{_datadir}/%{name}/test-dhcp/*
 
 %changelog
 %autochangelog

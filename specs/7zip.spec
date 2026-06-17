@@ -1,9 +1,12 @@
+# spectool -gf -d "with_github_source 1" to download original source
+%bcond github_source 0
+
 %global make_opts DEBUG_BUILD=1 DISABLE_RAR=1 LOCAL_FLAGS="%{optflags}" -f makefile.gcc
 # the last build right now is 16.02-32
 %global obs_ver 16.03
  
 Name:           7zip
-Version:        25.01
+Version:        26.01
 Release:        %autorelease
 Summary:        A file archiver
 
@@ -19,7 +22,9 @@ Summary:        A file archiver
 License:        LGPL-2.1-or-later AND BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://7-zip.org
 # strip the source with strip-rar-support.sh
-# Source:         https://github.com/ip7z/7zip/archive/%%{version}/%%{name}-%%{version}.tar.gz
+%if %{with github_source}
+Source:         https://github.com/ip7z/7zip/archive/%{version}/%{name}-%{version}.tar.gz
+%endif
 Source:         %{name}-%{version}.tar.zst
 Source:         strip-rar-support.sh
 Patch:          https://github.com/ip7z/7zip/pull/33.patch#/7z-dont-echo-password.diff

@@ -53,6 +53,9 @@ Patch5: https://github.com/fail2ban/fail2ban/commit/54c0effceb998b73545073ac59c4
 # Needed for Dovecot change to loging format in 2.4, fixed in f2b version 1.1.1.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2426440
 Patch6: https://github.com/fail2ban/fail2ban/commit/04ff4c060cdc233af9a6deeb85a6523da0416f31.patch
+# Fix compatibility with Python 3.15
+# https://bugzilla.redhat.com/show_bug.cgi?id=2423879
+Patch7: https://github.com/fail2ban/fail2ban/commit/7528fce11b7de0d6df6152c2365540dc1d554561.patch
 
 
 BuildArch: noarch

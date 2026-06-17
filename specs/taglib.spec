@@ -125,6 +125,11 @@ This is the MinGW version, built for the win64 target.
 %install
 %cmake_install
 
+%if %{undefined fedora}
+# do not ship bundled utf8cpp
+find %{buildroot}%{_includedir}/utf8cpp %{buildroot}%{_datadir}/utf8cpp -delete
+%endif
+
 %if %{with doc}
 rm -fr %{apidocdir} ; mkdir %{apidocdir}
 cp -a %{_vpath_builddir}/doc/html/ %{apidocdir}/

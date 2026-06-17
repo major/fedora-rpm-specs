@@ -2,8 +2,8 @@
 %global pkgname avalara
 
 Name:           python-avalara
-Version:        26.4.0
-Release:        8%{?dist}
+Version:        26.6.0
+Release:        1%{?dist}
 Summary:        AvaTax Python SDK
 
 
@@ -53,6 +53,9 @@ Summary: %{summary}
 
 
 %changelog
+* Tue Jun 16 2026 NeuroWinter <dev@neurowinter.com> - 26.6.0-1
+- Updated to version 26.6.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 26.4.0-8
 - Rebuilt for Python 3.15
 
@@ -70,5 +73,3 @@ Summary: %{summary}
 
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.1.0-3
 - Rebuilt for Python 3.14
-
-%autochangelog

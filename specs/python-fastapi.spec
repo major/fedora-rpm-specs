@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.136.3
+Version:        0.137.1
 Release:        %autorelease
 Summary:        FastAPI framework
 
@@ -43,10 +43,6 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
-# Update a couple of tests in tests/test_tutorial/test_header_param_models for
-# httpx2; backported from
-# https://github.com/fastapi/fastapi/commit/59d4a80fcf8a7b3a46b2560f75dc0d171e7ea8ff.
-Patch:          fastapi-0.136.3-httpx2.patch
 
 # Since dependency groups contain overly-strict version bounds and some
 # unwanted linting/coverage/typechecking/formatting dependencies
@@ -76,9 +72,7 @@ BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
 %if %{with pyjwt}
 BuildRequires:  %{py3_dist pyjwt} >= 2.9
 %endif
-# Upstream wants >= 9.0.0! But this is not really needed yet.
-# Allow v8 for F44 compatibility.
-BuildRequires:  %{py3_dist pytest} >= 8
+BuildRequires:  %{py3_dist pytest} >= 9
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 %if %{with sqlmodel}
 BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
@@ -86,6 +80,7 @@ BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
 %if %{with strawberry_graphql}
 BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
 %endif
+BuildRequires:  %{py3_dist typer} >= 0.24.1
 BuildRequires:  %{py3_dist a2wsgi} >= 1.9
 BuildRequires:  %{py3_dist pytest-xdist[psutil]} >= 2.5
 BuildRequires:  %{py3_dist pytest-timeout} >= 2.4
@@ -123,7 +118,7 @@ The key features are:
 %package -n     python3-fastapi
 Summary:        %{summary}
 
-%if %{defined fc44} || %{defined fc45} || %{defined fc46}
+%if %{defined fc45} || %{defined fc46}
 # Removed in F44 after upstream deprecated fastapi-slim
 Obsoletes:      python3-fastapi-slim < 0.128.8
 %endif
@@ -131,7 +126,7 @@ Obsoletes:      python3-fastapi-slim < 0.128.8
 %description -n python3-fastapi %{common_description}
 
 
-%if %{defined fc44} || %{defined fc45} || %{defined fc46}
+%if %{defined fc45} || %{defined fc46}
 # We don’t use “%%pyproject_extras_subpkg -n python3-fastapi …” because we want
 # to Obsolete the corresponding fastapi-slim extras.
 

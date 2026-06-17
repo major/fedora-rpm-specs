@@ -53,22 +53,15 @@ BuildOption(conf): -DUSE_EDITLINE:BOOL=ON
 BuildOption(conf): -DUSE_KISSAT:BOOL=ON
 BuildOption(conf): -DUSE_POLY:BOOL=ON
 
-BuildRequires:  cadical
 BuildRequires:  cadical-devel
 BuildRequires:  chrpath
 BuildRequires:  cmake(cryptominisat5)
 BuildRequires:  cocoalib-devel
-BuildRequires:  drat2er-devel
-BuildRequires:  drat-trim-devel
-BuildRequires:  ethos
-BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 BuildRequires:  kissat-devel
-BuildRequires:  lfsc-devel
-BuildRequires:  libfl-devel
 BuildRequires:  libpoly-devel
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(libedit)
@@ -84,7 +77,10 @@ BuildRequires:  %{py3_dist pyparsing}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist wheel}
 BuildRequires:  symfpu-devel
-BuildRequires:  yosyshq-abc-devel
+
+# Needed for some of the tests; we do not currently execute those tests
+#BuildRequires:  ethos
+#BuildRequires:  lfsc-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -93,9 +89,6 @@ Suggests:       ethos
 # Minisat has been altered for better integration with CVC5
 # See src/prop/minisat/CVC4-README
 Provides:       bundled(minisat2) = 2.2.0
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      cvc4 < 1.9
 
 %description
 CVC5 is a tool for determining the satisfiability of a first order formula
@@ -114,17 +107,11 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 Requires:       symfpu-devel
 
-# This can be removed when F42 reaches EOL
-Obsoletes:      cvc4-devel < 1.9
-
 %description    devel
 Header files and library links for developing applications that use %{name}.
 
 %package        libs
 Summary:        Library containing an automatic theorem prover for SMT problems
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      cvc4-libs < 1.9
 
 %description    libs
 Library containing the core of the %{name} automatic theorem prover for
@@ -136,18 +123,12 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       java-25-headless
 Requires:       javapackages-tools
 
-# This can be removed when F42 reaches EOL
-Obsoletes:      cvc4-java < 1.9
-
 %description    java
 Java interface to %{name}.
 
 %package     -n python3-cvc5
 Summary:        Python 3 interface to %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-# This can be removed when F42 reaches EOL
-Obsoletes:      cvc4-python3 < 1.9
 
 %description -n python3-cvc5
 Python 3 interface to %{name}.

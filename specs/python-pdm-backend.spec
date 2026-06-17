@@ -1,12 +1,11 @@
 Name:           python-pdm-backend
-Version:        2.4.8
+Version:        2.4.9
 Release:        %autorelease
 Summary:        The build backend used by PDM that supports latest packaging standards
 # SPDX
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
 Source:         %{pypi_source pdm_backend}
-Patch:          https://github.com/pdm-project/pdm-backend/pull/304.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

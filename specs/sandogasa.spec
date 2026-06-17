@@ -14,7 +14,7 @@
 }
 
 Name:           sandogasa
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -29,7 +29,6 @@ SourceLicense:  (Apache-2.0 OR MIT) AND LicenseRef-Fedora-Public-Domain
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-3-Clause
-# CDLA-Permissive-2.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
@@ -46,7 +45,6 @@ License:        %{shrink:
     (Apache-2.0 OR ISC OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     BSD-3-Clause AND
-    CDLA-Permissive-2.0 AND
     MPL-2.0 AND
     (Unlicense OR MIT)
 }

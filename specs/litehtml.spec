@@ -1,6 +1,6 @@
 Name:           litehtml
-Version:        0.9
-Release:        9%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD-3-Clause
@@ -10,12 +10,6 @@ Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}
 # The Fedora gumbo-parser package does not contain a cmake module,
 # so don't look for it
 Patch0:         litehtml_gumbo.patch
-# Add some stuff needed for qt-creator
-Patch1:         litehtml_qtcreator.patch
-# Port to GNUInstallDirs
-Patch2:         litehtml_gnuinstalldirs.patch
-# To build with C++17
-Patch3:         litehtml_c++17.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -81,6 +75,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\117/' CMakeLists.txt
 
 
 %changelog
+* Mon Jun 15 2026 Sandro Mani <manisandro@gmail.com> - 0.10-1
+- Update to 0.10
+
 * Thu May 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9-9
 - gumbo-parser rebuild
 

@@ -16,8 +16,6 @@ Release:        %autorelease
 License:        MIT
 URL:            https://github.com/Julian/jsonschema
 Source0:        %{pypi_source}
-# py3.15 pprint change
-Patch0:         https://github.com/python-jsonschema/jsonschema/pull/1487.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

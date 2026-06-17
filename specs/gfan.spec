@@ -1,10 +1,13 @@
+%global basever 0.8
+%global prerel  beta
+
 Name:           gfan
-Version:        0.7
+Version:        %{basever}~%{prerel}
 Release:        %autorelease
 Summary:        Software for Computing Gröbner Fans and Tropical Varieties
 License:        GPL-2.0-or-later
 URL:            https://math.au.dk/~jensen/software/gfan/gfan.html
-Source:         https://math.au.dk/~jensen/software/%{name}/%{name}%{version}.tar.gz
+Source:         https://math.au.dk/~jensen/software/%{name}/%{name}%{basever}%{prerel}.tar.gz
 # Sent upstream 2011 Apr 27.  Fix warnings that could indicate runtime
 # problems.
 Patch:          %{name}-warning.patch
@@ -13,26 +16,40 @@ Patch:          %{name}-shared.patch
 # Adapt to the version of SoPlex packaged for Fedora
 Patch:          %{name}-soplex.patch
 # The C++20 standard is too new for Singular, leading to many build failures.
-# Work around the only place in the code that needs C++20.
 Patch:          %{name}-c++20.patch
 # Fix Singular FTBFS due to missing gcd function for Rational
 Patch:          %{name}-gcd.patch
 # Fix Singular abort due to accessing an empty vector
 Patch:          %{name}-multiplicities.patch
+# Fix test failure due to calling back() on an empty vector
+Patch:          %{name}-empty-coneStack.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  cddlib-devel
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glibc-langpack-en
-BuildRequires:  gmp-devel
 BuildRequires:  libsoplex-devel
 BuildRequires:  make
-BuildRequires:  tex(latex)
+BuildRequires:  pkgconfig(cddlib)
+BuildRequires:  pkgconfig(gmp)
+BuildRequires:  pkgconfig(tbb)
+BuildRequires:  tex(a4.sty)
+BuildRequires:  tex(alltt.sty)
+BuildRequires:  tex(amsfonts.sty)
+BuildRequires:  tex(babel.sty)
+BuildRequires:  tex(color.sty)
+BuildRequires:  tex(english.ldf)
+BuildRequires:  tex(epsfig.sty)
+BuildRequires:  tex(hyperref.sty)
+BuildRequires:  tex(latexsym.sty)
+BuildRequires:  tex(theorem.sty)
 BuildRequires:  tex(ulem.sty)
-BuildRequires:  TOPCOM
+BuildRequires:  tex(url.sty)
+BuildRequires:  texlive-bibtex
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-latex
 
 Requires:       libgfan%{_isa} = %{version}-%{release}
 
@@ -84,7 +101,7 @@ The libgfan-devel package contains libraries and header files for developing
 applications that use libgfan.
 
 %prep
-%autosetup -n %{name}%{version} -p1
+%autosetup -n %{name}%{basever}%{prerel} -p1
 
 %conf
 # Point to where the TOPCOM binaries will be installed
@@ -98,23 +115,19 @@ rm -f src/minkowskisum.cpp.orig
 rm -f homepage/Makefile
 
 %build
-# Enable use of SoPlex
-sed -e 's|^\(SOPLEX_PATH = \).*|\1%{_prefix}|' \
-    -e 's|^\(SOPLEX_LINKOPTIONS = \).*|\1%{build_ldflags} -lsoplex -lclusol -lmpfr -ltbb -lz-ng|' \
-    -e 's|^\(SOPLEX_INCLUDEOPTIONS = \).*|\1|' \
-    -i Makefile
-
 %make_build CC=gcc CXX=g++ \
-  OPTFLAGS='%{build_cxxflags} -DGMPRATIONAL -DNDEBUG -I%{_includedir}/cddlib' \
+  OPTFLAGS='%{build_cxxflags} -DGMPRATIONAL -DNDEBUG -DNOCDDPREFIX -I%{_includedir}/cddlib' \
+  PLATFORM_LINKOPTIONS='%{build_ldflags} -ltbb' \
   PREFIX=%{_prefix} \
   soplex=true
 
 # Build the manual
+# We can't invoke pdflatex directly due to non-PDF specials in the source
 cd doc
-latex manual.tex
+latex -interaction=nonstopmode manual.tex
 bibtex manual
-latex manual.tex
-latex manual.tex
+latex -interaction=nonstopmode manual.tex
+latex -interaction=nonstopmode manual.tex
 dvipdf manual.dvi manual.pdf
 cd -
 

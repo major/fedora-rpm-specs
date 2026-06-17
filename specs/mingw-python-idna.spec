@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       3.15
+Version:       3.18
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -57,16 +57,21 @@ MinGW Windows Python3 %{pypi_name}.
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE.md
+%{mingw32_bindir}/idna
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.md
+%{mingw64_bindir}/idna
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Mon Jun 15 2026 Sandro Mani <manisandro@gmail.com> - 3.18-1
+- Update to 3.18
+
 * Fri May 15 2026 Sandro Mani <manisandro@gmail.com> - 3.15-1
 - Update to 3.15
 

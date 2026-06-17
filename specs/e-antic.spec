@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flatsurf/e-antic
 
 Name:           e-antic
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Real Embedded Algebraic Number Theory In C
 
@@ -13,12 +13,12 @@ Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # been incorporated into the Fedora versions.  Make e-antic skip attempts to
 # build the patched files.
 Patch:          %{name}-unpatch.patch
-# Fix the Sturm sign change count
-Patch:          %{giturl}/pull/302.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  boost-devel
 BuildRequires:  catch2-devel
 BuildRequires:  cereal-devel

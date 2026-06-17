@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        2.45.0
-Release:        3%{?dist}
+Version:        2.47.0
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -22,12 +22,12 @@ Patch3:         python-eccodes-disable-findlibs.patch
 # note that the fast bindings are arch dependent
 BuildRequires:  eccodes-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-pkg-resources
 # needed to build the fast bindings
 BuildRequires:  python3-cffi
 # needed for checks/tests
 BuildRequires:  python3-pytest
 BuildRequires:  python3-numpy
+
 # these next 2 seem not actually used, although they are mentioned as
 # test dependencies in the setup.py file:
 #BuildRequires:  python3-pytest-cov
@@ -106,6 +106,9 @@ rm -rf %sphinx_doc_path/.doctrees
 
 
 %changelog
+* Mon Jun 15 2026 Jos de Kloe <josdekloe@gmail.com> 2.47.0-1
+- move to upstream release 2.47.0
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 2.45.0-3
 - Rebuilt for Python 3.15
 

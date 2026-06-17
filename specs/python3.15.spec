@@ -50,7 +50,7 @@ URL: https://www.python.org/
 %global prerel b2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Python-2.0.1
 
 
@@ -414,6 +414,12 @@ Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.
 # 00486 # 1a2c71465a24c72fd06c7839e7cbd2d17ddf4ebc
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
 Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
+
+# 00488 # fda989e2f060fe71ec9bb4a3164644fa48d6ce3f
+# gh-149671: Restore compatibility with setuptools nspkg.pth files in site module
+#
+# Inject "sitedir" variable in the frame which executes pth code.
+Patch488: 00488-gh-149671-restore-compatibility-with-setuptools-nspkg-pth-files-in-site-module.patch
 
 # (New patches go here ^^^)
 #
@@ -1994,6 +2000,13 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Sat Jun 13 2026 Miro Hrončok <mhroncok@redhat.com> - 3.15.0~b2-5
+- Restore compatibility with setuptools nspkg.pth files in site module
+- Fixes: rhbz#2486045
+- Fixes: rhbz#2486059
+- Fixes: rhbz#2487621
+- Fixes: rhbz#2488369
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.15.0~b2-4
 - Rebuilt for openssl 4.0
 

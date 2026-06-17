@@ -4,8 +4,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtkmm30
-Version:        3.24.10
-Release:        3%{?dist}
+Version:        3.24.11
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for the GTK+ library
 
 License:        LGPL-2.0-or-later
@@ -119,6 +119,9 @@ API version 3.0.
 
 
 %changelog
+* Mon Jun 15 2026 Sandro Mani <manisandro@gmail.com> - 3.24.11-1
+- Update to 3.24.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

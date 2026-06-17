@@ -12,6 +12,9 @@ Source0:          %{pypi_source alembic}
 # the main tzdata package, we don’t need to have it.
 Patch:            python-alembic1.14-1.14.1-no-tzdata-pkg.patch
 
+# Fix failing tests: upstream commit 20c108720d7127ca91acd6646f2ce5be408cc9f9
+Patch:            0001-update-the-fk_names-req.patch
+
 BuildArch:        noarch
 
 BuildRequires:    help2man

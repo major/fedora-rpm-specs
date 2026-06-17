@@ -1,5 +1,5 @@
 Name: python-pulp-glue-deb
-Version: 0.4.3
+Version: 0.5.0
 Release: %autorelease
 Summary: The version agnostic Pulp 3 client library in python (deb plugin)
 License: GPL-2.0-or-later

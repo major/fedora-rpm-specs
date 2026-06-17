@@ -18,7 +18,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  desktop-file-utils
-BuildRequires:  gpgme-devel 
+BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(libnemo-extension) >= 6.7.0
@@ -160,7 +160,7 @@ Requires:    seahorse%{?_isa}
 
 %description -n nemo-seahorse
 Seahorse nemo is an extension for nemo which allows encryption
-and decryption of OpenPGP files using GnuPG. 
+and decryption of OpenPGP files using GnuPG.
 
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
@@ -233,7 +233,7 @@ popd
 pushd nemo-seahorse
 %meson
 %meson_build
-popd 
+popd
 
 %install
 %pyproject_install
@@ -256,7 +256,7 @@ popd
 
 pushd nemo-seahorse
 %meson_install
-popd 
+popd
 
 %py_byte_compile %{python3} %{buildroot}%{_datadir}/nemo*
 
@@ -336,7 +336,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_bindir}/nemo-seahorse-tool
 %{_datadir}/glib-2.0/schemas/org.nemo.plugins.seahorse*gschema.xml
 %{_datadir}/nemo/actions/nemo-seahorse-*.nemo_action
-%{_mandir}/man1/nemo-seahorse-tool.1.* 
+%{_mandir}/man1/nemo-seahorse-tool.1.*
 
 %changelog
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.7.0^unstable-2

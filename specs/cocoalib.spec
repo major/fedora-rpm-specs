@@ -32,7 +32,6 @@ Patch:          %{name}-cvc5.patch
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  boost-devel
 BuildRequires:  cddlib-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
@@ -42,8 +41,6 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(readline)
-BuildRequires:  tex(latex)
-BuildRequires:  tex(ulem.sty)
 
 %description
 The CoCoA C++ library offers functions to perform calculations in
@@ -53,7 +50,6 @@ is designed to be pleasant to use while offering good run-time performance.
 %package devel
 Summary:        Headers and library links for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       boost-devel%{?_isa}
 Requires:       gmp-devel%{?_isa}
 Requires:       gsl-devel%{?_isa}
 Requires:       libgfan-devel%{?_isa}
@@ -94,7 +90,7 @@ sed -i 's|@RPM_LD_FLAGS@|%{build_ldflags}|' src/AlgebraicCore/Makefile
 
 # This is NOT an autoconf-generated configure script!
 ./configure --prefix=%{_prefix} --only-cocoalib --threadsafe-hack \
-  --with-cxxflags='%{build_cxxflags} -fPIC -I%{_includedir}/frobby -I%{_includedir}/gfanlib %{build_ldflags}' \
+  --with-cxxflags='%{build_cxxflags} -std=c++17 -fPIC -I%{_includedir}/frobby -I%{_includedir}/gfanlib %{build_ldflags}' \
   --with-libcddgmp=%{_libdir}/libcddgmp.so \
   --with-libfrobby=%{_libdir}/libfrobby.so \
   --with-libgfan=%{_libdir}/libgfan.so \

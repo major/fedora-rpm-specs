@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.2
-Release:          8%{?prereltag:%{prereltag}}%{?dist}
+Release:          9%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.30
+Release:          0.@PACKAGE_RELEASE@%{?dist}.31
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1642,6 +1642,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Mon Jun 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 11.2-9
+- Rebuilt for openssl 4.0
+
 * Sun Jun 14 2026 Rostislav Krasny <rostiprodev@gmail.com> - 11.2-8
 - Add %ghost to clean up /run/gluster/metrics from missing report of rpm -Va
 

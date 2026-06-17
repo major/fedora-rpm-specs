@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kinfocenter
 Version: 6.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Info Center
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -67,8 +67,8 @@ Requires: aha
 Requires: clinfo
 Requires: pulseaudio-utils
 Requires: libdisplay-info-tools
-# 'sensors' section
-Requires: lm_sensors
+# 'sensors' section. Recommends as this pulls in Perl which is excluded on Kinoite
+Recommends: lm_sensors
 
 # When kinfocenter was split out from kde-workspace
 Conflicts:      kde-workspace < 4.11.15-3
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desk
 %{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Mon Jun 15 2026 Timothée Ravier <tim@siosm.fr> - 6.7.0-2
+- Turn lm_sensors into a Recommends (fedora#2373989)
+
 * Thu Jun 11 2026 Steve Cossette <farchord@gmail.com> - 6.7.0-1
 - 6.7.0
 

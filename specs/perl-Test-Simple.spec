@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302220
+Version:        1.302221
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -409,6 +409,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 15 2026 Paul Howarth <paul@city-fan.org> - 3:1.302221-1
+- Update to 1.302221
+  - Prevent the new EBCDIC support from breaking 5.6
+
 * Thu Jun 11 2026 Paul Howarth <paul@city-fan.org> - 3:1.302220-1
 - Update to 1.302220
   - Add [PruneCruft] to dist.ini so build artifacts (blib/, pm_to_blib,

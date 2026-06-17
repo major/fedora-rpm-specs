@@ -4,7 +4,7 @@
 %bcond          viewer      0  # Graphical viewer
 
 Name:           materialx
-Version:        1.39.4
+Version:        1.39.5
 Release:        %autorelease
 Summary:        Vendor-neutral specification for 3D material interchange
 
@@ -49,10 +49,6 @@ Patch1:         materialx-fix-python-setup-configure.patch
 # Fix installation paths - remove doc install (handled by RPM macros) and
 # fix incorrect MDL installation to absolute build path
 Patch2:         materialx-fix-install-paths.patch
-# Propagate CMake dependency for opengl/x11
-# https://github.com/AcademySoftwareFoundation/MaterialX/pull/2752
-Patch3:         2752.patch
-
 
 #========================================
 # Build Requirements
@@ -84,11 +80,6 @@ BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(OpenImageIO)
 %endif
 
-%if %{with python}
-BuildRequires:  python3-devel
-BuildRequires:  pkgconfig(pybind11)
-%endif
-
 # Viewer needs access to upstream git submodule
 %if %{with viewer}
 BuildRequires:  desktop-file-utils
@@ -117,6 +108,7 @@ Examples and resources for MaterialX.
 %package devel
 Summary:        Development files for MaterialX
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-data = %{version}-%{release}
 
 %description devel
 Development files for building applications using MaterialX.
@@ -124,6 +116,8 @@ Development files for building applications using MaterialX.
 %if %{with python}
 %package -n python3-%{name}
 Summary:        Python 3 bindings for MaterialX
+BuildRequires:  python3-devel
+BuildRequires:  pkgconfig(pybind11)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-%{name}
@@ -267,21 +261,27 @@ done
 %dir %{_datadir}/%{name}
 %if %{with openimageio}
 %{_bindir}/baketextures
+%{_bindir}/comparenodedefs
 %{_bindir}/creatematerial
 %{_bindir}/generateshader
 %{_bindir}/genmdl
 %{_bindir}/mxdoc
 %{_bindir}/mxformat
 %{_bindir}/mxvalidate
+%{_bindir}/oiio_loader
+%{_bindir}/pybind_docs
 %{_bindir}/translateshader
 %{_bindir}/writenodegraphs
 %{_mandir}/man1/baketextures.1.gz
+%{_mandir}/man1/comparenodedefs.1.gz
 %{_mandir}/man1/creatematerial.1.gz
 %{_mandir}/man1/generateshader.1.gz
 %{_mandir}/man1/genmdl.1.gz
 %{_mandir}/man1/mxdoc.1.gz
 %{_mandir}/man1/mxformat.1.gz
 %{_mandir}/man1/mxvalidate.1.gz
+%{_mandir}/man1/oiio_loader.1.gz
+%{_mandir}/man1/pybind_docs.1.gz
 %{_mandir}/man1/translateshader.1.gz
 %{_mandir}/man1/writenodegraphs.1.gz
 %endif

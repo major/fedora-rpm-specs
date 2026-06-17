@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
@@ -55,10 +55,10 @@ Requires:   %{name}-daemon = %{version}-%{release}
 ## Required for the proper ownership of icon dirs.
 Requires:   hicolor-icon-theme
 Requires:   gtk3 >= 3.10
+Requires:   libappindicator-gtk3
+Requires:   librsvg2
 Requires:   python3-cairo
 Requires:   python3-gobject
-Requires:   typelib(AppIndicator3)
-Requires:   typelib(Rsvg)
 Recommends: python3-dbus
 Recommends: python3-pygame
 
@@ -247,6 +247,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Mon Jun 15 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.2.0-11
+- rollback wrong Requires
+
 * Sun Jun 14 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 2.2.0-10
 - spec modernization, fixes rhbz#2377240
 

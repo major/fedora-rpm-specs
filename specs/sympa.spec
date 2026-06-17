@@ -87,13 +87,13 @@ ExcludeArch: %{ix86}
 
 Name:        sympa
 Version:     6.2.78
-Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
 # The License: tag depends on bundled code for a given distro/release
 License:     GPL-2.0-or-later%{licenses_bundled}
-URL:         http://www.sympa.org
+URL:         https://sympa.community
 Source0:     https://github.com/sympa-community/sympa/releases/download/%{version}%{?pre_rel}/%{name}-%{version}%{?pre_rel}.tar.gz
 
 Source101:   sympa-httpd24-spawn_fcgi.conf
@@ -110,6 +110,8 @@ Source131:   sympa-sysusers.conf
 
 # RPM specific customization of site defaults
 Patch13:     sympa-6.2.57b.1-confdef.patch
+# https://github.com/sympa-community/sympa/pull/2050
+Patch20:      sympa-6.2.78-fix_old_style_cli.patch
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -421,6 +423,7 @@ Sympa documentation for developers.
 %prep
 %setup -q -n %{name}-%{version}%{?pre_rel}
 %patch -P13 -p0 -b .confdef
+%patch -P20 -p1 -b .fix_old_cli
 
 
 %build
@@ -826,6 +829,10 @@ fi
 
 
 %changelog
+* Wed Jun 10 2026 Xavier Bachelot <xavier@bachelot.org> - 6.2.78-3
+- Add upstream patch to fix old style CLI
+- Update URL:
+
 * Wed May 27 2026 Jerry James <loganjerry@gmail.com> - 6.2.78-2
 - Unbundle FontAwesome on all Fedora releases
 

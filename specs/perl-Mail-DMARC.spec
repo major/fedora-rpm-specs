@@ -2,7 +2,7 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20260306
+Version:        1.20260612
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -41,7 +41,7 @@ BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(English)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::ShareDir) >= 1.00
+BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Tiny)
@@ -58,7 +58,6 @@ BuildRequires:  perl(Mail::DKIM::Signer)
 BuildRequires:  perl(Mail::DKIM::TextWrap)
 BuildRequires:  perl(Module::Load)
 BuildRequires:  perl(Net::DNS::Resolver)
-BuildRequires:  perl(Net::IDN::Encode)
 BuildRequires:  perl(Net::IMAP::Simple)
 BuildRequires:  perl(Net::IP)
 BuildRequires:  perl(Net::Server::HTTP)
@@ -71,6 +70,7 @@ BuildRequires:  perl(Socket6) >= 0.23
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(URI)
+BuildRequires:  perl(URI::_idna)
 BuildRequires:  perl(XML::LibXML)
 # Optional run-time:
 # GeoIP2::Database::Reader not used at tests
@@ -91,7 +91,6 @@ BuildRequires:  perl(XML::Validator::Schema)
 Requires:       perl(DBD::SQLite) >= 1.31
 Requires:       perl(DBIx::Simple) >= 1.35
 Requires:       perl(Email::Sender::Simple) >= 1.300032
-Requires:       perl(File::ShareDir) >= 1.00
 Recommends:     perl(GeoIP2::Database::Reader)
 Requires:       perl(Mail::DKIM::PrivateKey)
 Requires:       perl(Mail::DKIM::Signer)
@@ -101,7 +100,7 @@ Requires:       perl(Net::IMAP::Simple)
 Requires:       perl(Socket6) >= 0.23
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::ShareDir|DBIx::Simple|Email::Sender::Simple|Socket6)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((DBIx::Simple|Email::Sender::Simple|Socket6)\\)$
 
 %description
 This Perl module is a suite of tools for implementing DMARC. It adheres to the
@@ -111,7 +110,6 @@ This Perl module is a suite of tools for implementing DMARC. It adheres to the
 Summary:        Web server for DMARC validation and report viewing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(File::ShareDir) >= 1.00
 
 %description HTTP
 Mail::DMARC::HTTP Perl module and dmarc_httpd tool for viewing DMARC reports.
@@ -240,6 +238,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 15 2026 Petr Pisar <ppisar@redhat.com> - 1.20260612-1
+- 1.20260612 bump
+
 * Mon Mar 09 2026 Petr Pisar <ppisar@redhat.com> - 1.20260306-1
 - 1.20260306 bump
 

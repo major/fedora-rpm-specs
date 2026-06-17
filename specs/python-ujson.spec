@@ -1,5 +1,5 @@
 Name:           python-ujson
-Version:        5.12.1
+Version:        5.13.0
 Release:        %autorelease
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
@@ -23,8 +23,13 @@ License:        BSD-3-Clause AND TCL
 URL:            https://github.com/ultrajson/ultrajson
 Source:         %{pypi_source ujson}
 
+# Update build dependencies to avoid warning about missing
+# [tool.setuptools_scm] section
+# https://github.com/ultrajson/ultrajson/pull/746
+Patch:          %{url}/pull/746.patch
+
 BuildSystem:    pyproject
-BuildOption(install):   -l ujson
+BuildOption(install): --assert-license ujson
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -47,7 +52,7 @@ Summary:        %{summary}
 
 %prep -a
 # Remove bundled double-conversion
-rm -rv src/ujson/deps
+rm --recursive --verbose src/ujson/deps
 
 
 %build -p
@@ -61,11 +66,11 @@ export UJSON_BUILD_DC_LIBS="$(pkg-config --libs double-conversion)"
 %install -a
 # For setuptools_scm 10+; see:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2453824
-rm -rvf '%{buildroot}%{python3_sitearch}/src'
+rm --recursive --verbose --force '%{buildroot}%{python3_sitearch}/src'
 
 
 %check -a
-%pytest -v
+%pytest --verbose
 
 
 %files -n python3-ujson -f %{pyproject_files}

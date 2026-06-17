@@ -11,18 +11,24 @@ Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 License:   GPL-3.0-only and BSD-1-Clause
 
 URL:       https://github.com/nwg-piotr/azote
-Source0:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: desktop-file-utils
-BuildRequires: python3
-BuildRequires: python3-setuptools
+BuildRequires: gobject-introspection
+BuildRequires: gtk3
+BuildRequires: python3-cairo
 BuildRequires: python3-devel
+BuildRequires: python3-gobject
+BuildRequires: python3-pillow
+BuildRequires: python3-send2trash
 
+Requires: gtk3
+Requires: python3-cairo
 Requires: python3-pillow
 Requires: python3-gobject
 Requires: ((feh and xrandr) if Xserver)
 Requires: ((swaybg and wlr-randr) if wayfire)
-Requires: python3-cairo
+Requires: python3-xlib
 
 Recommends: python3-pillow-jxl-plugin
 Recommends: python3-send2trash
@@ -41,34 +47,37 @@ window managers, on Arch Linux, Void Linux, Debian and Fedora.
 
 %prep
 %autosetup -p1
-
-%build
-%py3_build
-
-%install
-%py3_install
-#desktop-file-edit --set-icon %{_datadir}/pixmaps/%{name}.svg dist/%{name}.desktop
-install -p -D -m 0644 -t %{buildroot}/%{_datadir}/applications dist/%{name}.desktop
-install -p -D -m 0644 -t %{buildroot}/%{_datadir}/%{name} dist/*.png dist/*.svg
-install -p -D -m 0644 -t %{buildroot}/%{_datadir}/pixmaps dist/azote.svg
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-for lib in %{buildroot}%{python3_sitelib}/%{name}/*.py; do
+for lib in %{name}/*.py; do
  sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
  touch -r $lib $lib.new &&
  mv $lib.new $lib
 done
 
-%files
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*.egg-info/
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files -l %{name}
+install -p -D -m 0644 -t %{buildroot}/%{_datadir}/applications dist/%{name}.desktop
+install -p -D -m 0644 -t %{buildroot}/%{_datadir}/%{name} dist/*.png dist/*.svg
+install -p -D -m 0644 -t %{buildroot}/%{_datadir}/pixmaps dist/azote.svg
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+
+%check
+%pyproject_check_import
+
+%files -f %{pyproject_files}
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/pixmaps/*
-%{_datadir}/applications/*
+%{_datadir}/pixmaps/%{name}.svg
+%{_datadir}/applications/%{name}.desktop
 
 %doc README.md
 
-%license LICENSE LICENSE-COLORTHIEF
 
 %changelog
 %autochangelog

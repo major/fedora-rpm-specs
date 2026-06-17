@@ -1,6 +1,6 @@
 Name:		pciutils
-Version:	3.14.0
-Release:	4%{?dist}
+Version:	3.15.0
+Release:	1%{?dist}
 Summary:	PCI bus related utilities
 License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -114,6 +114,9 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 %{_mandir}/man7/*
 
 %changelog
+* Mon Jun 15 2026 Michal Hlavinka <mhlavink@redhat.com> - 3.15.0-1
+- updated to 3.15.0 (#2455221)
+
 * Wed Feb 04 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.12.0-4
 - Add loongarch64
 

@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 2.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -16,7 +16,10 @@ ExcludeArch:   i686 armv7hl
 BuildRequires: gnupg2
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: protobuf-devel
+# Use protobuf3 (libprotobuf.so.30) to match libarrow/pyarrow. Using the newer
+# protobuf-cpp (libprotobuf.so.33) causes an ABI mismatch crash when both
+# libraries are loaded in the same Python process.
+BuildRequires: protobuf3-devel
 BuildRequires: zlib-devel
 BuildRequires: libzstd-devel
 BuildRequires: lz4-devel
@@ -133,6 +136,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Mon Jun 15 2026 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-3
+- Switch liborc to protobuf3-devel
+
 * Fri May 29 2026 Miroslav Suchy <msuchy@redhat.com> - 2.3.0-2
 - rebuild for https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 

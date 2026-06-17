@@ -1,4 +1,3 @@
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 %global pkgname Xfce-Theme-Manager
 Name:		xfce-theme-manager
@@ -17,9 +16,10 @@ BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	pkgconfig(gdk-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(libxfconf-0)
+BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	xfce4-dev-tools
-BuildRequires:	xfconf-devel
 
 %description
 A theme manager allowing easy configuration of themes,
@@ -33,11 +33,12 @@ window borders, controls, icons and cursors for Xfce
 #run autoreconf, not needed when upstream moves to  new automake
 autoreconf -v -f -i -I.
 %configure
-make %{?_smp_mflags} xfcethememanager_CFLAGS="%{optflags} -export-dynamic" xfcethememanager_CXXFLAGS="%{optflags} -export-dynamic -Wunused -Wunused-function -Wno-unused-result -fPIC"
+%make_build xfcethememanager_CFLAGS="%{optflags} -export-dynamic" xfcethememanager_CXXFLAGS="%{optflags} -export-dynamic -Wunused -Wunused-function -Wno-unused-result -fPIC"
 
 
 %install
-make install DESTDIR=%{buildroot} docfilesdir="%{_pkgdocdir}"
+%make_install docfilesdir="%{_pkgdocdir}"
+rm -f %{buildroot}%{_pkgdocdir}/gpl-3.0.txt
 desktop-file-install	\
 --delete-original	\
 --dir=%{buildroot}%{_datadir}/applications	\
@@ -52,10 +53,12 @@ desktop-file-install	\
 %{buildroot}/%{_datadir}/applications/%{pkgname}.desktop
 
 %check
-make check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{pkgname}.desktop
+%make_build check
 
 %files
-%doc ChangeLog* Xfce-Theme-Manager/resources/docs/gpl-3.0.txt
+%license Xfce-Theme-Manager/resources/docs/gpl-3.0.txt
+%doc ChangeLog*
 %{_bindir}/%{name}
 %{_datadir}/applications/%{pkgname}.desktop
 %{_datadir}/pixmaps/%{name}.png

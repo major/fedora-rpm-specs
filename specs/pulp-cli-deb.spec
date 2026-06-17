@@ -6,7 +6,7 @@
 %endif
 
 Name: pulp-cli-deb
-Version: 0.4.3
+Version: 0.5.0
 Release: %autorelease
 Summary: Command line interface to talk to the Pulp 3 REST API (deb plugin)
 License: GPL-2.0-or-later
@@ -15,12 +15,9 @@ URL: https://github.com/pulp/%{name}
 
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# pytest-subtests was integrated into pytest 9 core; replace subtests
-# with pytest parametrize
-# https://github.com/pulp/pulp-cli-deb/commit/0251e45
-Patch: 0251e45.patch
-
 BuildRequires: python3-devel
+BuildRequires: python3-pytest
+BuildRequires: python3-gnupg
 
 Requires: pulp-cli >= 0.29.0
 
@@ -46,15 +43,8 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 # Remove upper version bound on packaging to enable building with new versions in Fedora
 sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
-# Remove all bounds on test dependencies; we must use what we have
-sed -r -Ei 's/^([a-zA-Z0-9._-]+).*/\1/' test_requirements.txt
-
 %generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires test_requirements.txt
-%else
 %pyproject_buildrequires
-%endif
 
 %build
 %pyproject_wheel

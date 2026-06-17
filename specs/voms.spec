@@ -2,7 +2,7 @@
 
 Name:		voms
 Version:	2.1.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -299,6 +299,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Mon Jun 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.3-6
+- Rebuilt for gsoap 2.8.142
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.3-5
 - Rebuilt for openssl 4.0
 

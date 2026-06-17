@@ -1,6 +1,6 @@
 Name:       perl-rpm-build-perl 
 Version:    0.82
-Release:    51%{?dist}
+Release:    52%{?dist}
 # ConstOptree/ConstOptree.pm:   GPL-2.0-or-later
 # lib/B/Clobbers.pm:            GPL-2.0-or-later
 # lib/B/PerlReq.pm:             GPL-2.0-or-later
@@ -27,6 +27,8 @@ Patch2:     rpm-build-perl-0.82-Port-to-OpSIBLING-like-macros-required-since-Per
 Patch3:     rpm-build-perl-0.82-Adapt-tests-to-Perl-5.35.12.patch
 # Perl 5.38 compatibility, bug #2222640, CPAN RT#148982
 Patch4:     rpm-build-perl-0.82-Adjust-to-Perl-5.38.0.patch
+# Support "package NAME VERSION;" syntax in perl.prov, CPAN RT#178747
+Patch5:     rpm-build-perl-0.82-Support-package-NAME-VERSION-syntax-in-perl.prov.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -190,6 +192,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.82-52
+- Support "package NAME VERSION;" syntax in perl.prov
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

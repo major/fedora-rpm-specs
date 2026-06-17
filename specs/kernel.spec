@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.1.0
 %define specversion 7.1.0
 %define patchversion 7.1
-%define pkgrelease 0.rc7.260611g9716c086c8e8.50
+%define pkgrelease 55
 %define kversion 7
-%define tarfile_release 7.1-rc7-65-g9716c086c8e8
+%define tarfile_release 7.1
 # This is needed to do merge window version magic
 %define patchlevel 1
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260611g9716c086c8e8.50%{?buildid}%{?dist}
+%define specrelease 55%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.1.0
 
@@ -455,7 +455,9 @@ Summary: The Linux kernel
 %define with_automotive 0
 %define with_stock 0
 %define with_debug 0
+%ifarch s390x ppc64le riscv64
 %define with_debuginfo 0
+%endif
 %define with_vdso_install 0
 %define with_perf 0
 %define with_libperf 0
@@ -518,6 +520,7 @@ Summary: The Linux kernel
 # RT and Automotive kernels are only built on x86_64 and aarch64
 %ifnarch x86_64 aarch64
 %define with_realtime 0
+%define with_realtime_arm64_64k 0
 %define with_automotive 0
 %endif
 
@@ -757,6 +760,7 @@ Summary: The Linux kernel
 %else
 %define with_realtime_arm64_64k_base 0
 %endif
+
 
 #
 # Packages that need to be installed before the kernel is, because the %%post
@@ -2999,7 +3003,7 @@ BuildKernel() {
 
 	rm -f $KernelUnifiedInitrd
 
-	KernelAddonsDirOut="$KernelUnifiedImage.extra.d"
+	KernelAddonsDirOut="$KernelUnifiedImage.extras/"
 	mkdir -p $KernelAddonsDirOut
 	python3 %{SOURCE151} %{SOURCE152} $KernelAddonsDirOut virt %{primary_target} %{_target_cpu} @uki-addons.sbat
 
@@ -4756,8 +4760,8 @@ fi\
 %attr(0644, root, root) /lib/modules/%{KVERREL}%{?3:+%{3}}/.%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.hmac\
 %ghost /%{image_install_path}/efi/EFI/Linux/%{?-k:%{-k*}}%{!?-k:*}-%{KVERREL}%{?3:+%{3}}.efi\
 %{expand:%%files %{?3:%{3}-}uki-virt-addons}\
-%dir /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extra.d/ \
-/lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extra.d/*.addon.efi\
+%dir /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras/ \
+/lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extras/*.addon.efi\
 %endif\
 %if %{with_dtbloader} && ("%{?3}" == "" || "%{3}" == "debug")\
 %{expand:%%files %{?3:%{3}-}uki-dtbloader}\
@@ -4853,13 +4857,31 @@ fi\
 #
 #
 %changelog
-* Thu Jun 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.9716c086c8e8.50]
+* Mon Jun 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-55]
 - New config setting for ARM64 Erratum (Justin M. Forbes)
 - arm64: errata: Mitigate TLBI errata on NVIDIA Olympus CPU (Shanker Donthineni)
 - arm64: errata: Mitigate TLBI errata on various Arm CPUs (Mark Rutland)
 - arm64: cputype: Add C1-Premium definitions (Mark Rutland)
 - arm64: cputype: Add C1-Ultra definitions (Mark Rutland)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Jun 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-54]
+- Linux v7.1.0
+
+* Mon Jun 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.e21ee273e6fa.53]
+- redhat/kernel.spec.template: Move UKI addons to extras/ (Vitaly Kuznetsov)
+- redhat/kernel.spec.template: fixes for using with_rtonly (Clark Williams)
+
+* Sun Jun 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.e21ee273e6fa.52]
+- Linux v7.1.0-0.rc7.e21ee273e6fa
+
+* Sat Jun 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.062871f1371b.51]
+- Linux v7.1.0-0.rc7.062871f1371b
+
+* Fri Jun 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.2b414a95b8f7.50]
+- redhat/configs: rhel: Enable SpacemiT drivers for RISC-V (Jennifer Berringer)
+- Disable TPM as hwrng source on aarch64 (Štěpán Horáček)
+- Linux v7.1.0-0.rc7.2b414a95b8f7
 
 * Thu Jun 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.1.0-0.rc7.9716c086c8e8.49]
 - redhat/configs: set NXP storage driver to built-in for boot speed (Ed Chong)

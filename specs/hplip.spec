@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.26.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -261,6 +261,7 @@ Patch73: hplip-plugin-stdout.patch
 # https://bugs.launchpad.net/hplip/+bug/2154206
 Patch74: hplip-curl-fallback.patch
 # OSH fixes after CVE-2026-8631
+# https://bugs.launchpad.net/hplip/+bug/2156584
 Patch75: hplip-CVE-2026-8631-osh.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -1000,6 +1001,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon Jun 15 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.26.4-6
+- Fix more leaks after CVE-2026-8632 fix
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.26.4-5
 - Rebuilt for openssl 4.0
 

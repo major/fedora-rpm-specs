@@ -4,14 +4,6 @@
 # it doesn't ship any binary objects itself
 %global debug_package %{nil}
 
-# The installer package for macOS depends on m1n1-stage1, which is only
-# available on aarch64
-%ifarch aarch64
-%bcond installer_package 1
-%else
-%bcond installer_package 0
-%endif
-
 # For the generated library symbol suffix
 %if 0%{?__isa_bits} == 32
 %global libsymbolsuffix %{nil}
@@ -36,7 +28,7 @@
 %global installer_python_package python-%{installer_python_version}-macos11.pkg
 
 Name:           asahi-installer
-Version:        0.8.0
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -58,18 +50,16 @@ BuildRequires:  gnupg2
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(asn1)
 
-%if %{with installer_package}
 BuildRequires:  bash
 BuildRequires:  cpio
 BuildRequires:  coreutils
 BuildRequires:  gzip
-BuildRequires:  m1n1-stage1
+BuildRequires:  m1n1-stage1 >= 1.6.0~rc1
 BuildRequires:  p7zip-plugins
 BuildRequires:  python3
 BuildRequires:  python3dist(certifi)
 BuildRequires:  system-logos
 BuildRequires:  tar
-%endif
 
 # LZFSE isn't supported on big-endian architectures
 # https://github.com/lzfse/lzfse/issues/23
@@ -78,7 +68,6 @@ ExcludeArch:    s390x
 %description
 Asahi Linux installer
 
-%if %{with installer_package}
 %package        package
 Summary:        Asahi Linux Installer macOS package
 # The installer itself is MIT, and so are the vendored libffi and python-asn1.
@@ -90,9 +79,12 @@ Provides:       bundled(libffi) = %{installer_libffi_version}
 Provides:       bundled(python) = %{installer_python_version}
 Provides:       bundled(python-asn1) = %{installer_python_asn1_version}
 
+BuildArch:      noarch
+# Drop once f45 is EOL
+Obsoletes:      asahi-installer-package < 0.8.0-3
+
 %description    package
 macOS package for the Asahi Linux installer
-%endif
 
 %package -n     python3-%{pypi_name}
 Summary:        Asahi Linux firmware tools
@@ -120,11 +112,9 @@ ln -s %SOURCE1 %SOURCE2 dl/
 %pyproject_buildrequires -r
 
 %build
-%if %{with installer_package}
-M1N1_STAGE1="%{_libdir}/m1n1-stage1/m1n1.bin" \
+M1N1_STAGE1="%{_prefix}/lib/m1n1-stage1/m1n1.bin" \
 LOGO="%{_datadir}/pixmaps/bootloader/fedora.icns" \
   ./build.sh
-%endif
 
 # Drop bundled asn1 module in favor of the system one; we do this here because
 # the macOS package needs it.
@@ -136,19 +126,15 @@ rm asahi_firmware/asn1.py
 %pyproject_install
 %pyproject_save_files %{pypi_name}
 
-%if %{with installer_package}
-install -Dpm0644 -t %{buildroot}%{_libdir}/%{name}/releases releases/*
-%endif
+install -Dpm0644 -t %{buildroot}%{_prefix}/lib/%{name}/releases releases/*
 
 %check
 %pyproject_check_import
 
-%if %{with installer_package}
 %files package
 %license LICENSE
 %doc README.md
-%{_libdir}/%{name}/
-%endif
+%{_prefix}/lib/%{name}/
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

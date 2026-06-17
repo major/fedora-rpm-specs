@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	7.2
-Release:	4%{?dev:%{dev}}%{?dist}
+Release:	5%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -93,9 +93,13 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-5
+- ntirpc-7.2, ntirpc did not tag/release required updates for
+  ganesha-8.1 and later (nfs-ganesha-9.16)
+
 * Fri Jun 12 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-4
 - ntirpc-7.2, ntirpc did not tag/release required updates for
-  ganesha-8.1 and later
+  ganesha-8.1 and later (nfs-ganesha-9.15)
 
 * Wed Mar 18 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-3
 - ntirpc-7.2, eliminate libnsl* dependency

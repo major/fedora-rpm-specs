@@ -2394,6 +2394,10 @@ rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
 
 %if %{maj_ver} < 23
 find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
+%else
+# Remove header files that are only needed for writing plugins.
+# TODO: Maybe we should package these in the future.
+rm -Rf %{buildroot}%{install_includedir}/flang
 %endif
 
 # this is a test binary
@@ -3769,6 +3773,7 @@ fi
 }}
 %else
 %{_prefix}/lib/clang/%{maj_ver}/finclude/flang/%{llvm_triple}/*.mod
+%{_prefix}/lib/clang/%{maj_ver}/finclude/flang/%{llvm_triple}/omp_lib.h
 %endif
 
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg

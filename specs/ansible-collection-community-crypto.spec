@@ -1,7 +1,7 @@
 %bcond tests %[ %{undefined rhel} || 0%{?rhel} >= 10 ]
 
 Name:           ansible-collection-community-crypto
-Version:        3.2.1
+Version:        3.2.2
 Release:        %autorelease
 Summary:        The community.crypto collection for Ansible
 
