@@ -1,7 +1,7 @@
 %global giturl  https://github.com/eprover/eprover
 
 Name:		E
-Version:	3.2.5
+Version:	3.3.5
 Release:	%autorelease
 Summary:	Equational Theorem Prover
 
@@ -26,8 +26,16 @@ BuildRequires:	gcc
 BuildRequires:	help2man
 BuildRequires:	make
 BuildRequires:	picosat-devel
-BuildRequires:	tex(latex)
+BuildRequires:	tex(afterpage.sty)
+BuildRequires:	tex(amsmath.sty)
+BuildRequires:	tex(amssymb.sty)
+BuildRequires:	tex(graphicx.sty)
+BuildRequires:	tex(makeidx.sty)
 BuildRequires:	tex(supertabular.sty)
+BuildRequires:	tex(theorem.sty)
+BuildRequires:	tex(url.sty)
+BuildRequires:	texlive-ec
+BuildRequires:	texlive-latex
 # You can verify the CASC results here: http://www.cs.miami.edu/~tptp/CASC/J4/
 
 %description
@@ -68,29 +76,27 @@ rm -fr CONTRIB
 # Set up Fedora CFLAGS and paths
 sed -e "s|^EXECPATH = .*|EXECPATH = %{buildroot}%{_bindir}|" \
     -e "s|^MANPATH = .*|MANPATH = %{buildroot}%{_mandir}/man1|" \
-    -e "s|^CFLAGS.*|CFLAGS     = %{build_cflags} \$(BUILDFLAGS) -I../include|" \
+    -e "s|^CFLAGS.*|CFLAGS     = %{build_cflags} \$(BUILDFLAGS) -I../include -DNDEBUG|" \
     -e "s|^LDFLAGS.*|LDFLAGS    = %{build_ldflags}|" \
     -i Makefile.vars
 
 # smp_mflags causes unwelcome races, so we will not use it
 make remake
-ln -s eprover-ho PROVER/eprover
 make man
 
 # We need one more pdflatex invocation to fix up cross references
 cd DOC
 bibtex eprover || :
-pdflatex eprover
+pdflatex -interaction=nonstopmode eprover
 cd -
 
 %install
 %make_install
-mv %{buildroot}%{_bindir}/eprover-ho %{buildroot}%{_bindir}/eprover
 
 %check
 ./PROVER/eprover -s --tstp-in EXAMPLE_PROBLEMS/TPTP/SYN190-1.p \
   | sed '/Freeing FVIndex/d' | tail -1 > test-results
-echo "# SZS status Unsatisfiable" > test-expected-results
+echo "% SZS status Unsatisfiable" > test-expected-results
 diff -u test-results test-expected-results
 
 %files

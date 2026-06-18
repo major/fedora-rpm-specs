@@ -16,14 +16,12 @@ Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{versi
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
 BuildRequires: gettext
-BuildRequires: ImageMagick
 BuildRequires: libappstream-glib
 BuildRequires: libxml2-devel
 BuildRequires: wxGTK-devel
@@ -41,8 +39,6 @@ Maxima using wxWidgets.
 %prep
 %autosetup -n wxmaxima-Version-%{version} -p1
 
-dos2unix data/%{app_id}.desktop
-
 
 %build
 %cmake
@@ -51,21 +47,6 @@ dos2unix data/%{app_id}.desktop
 
 %install
 %cmake_install
-
-# app icon
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{scalable,48x48,64x64,128x128}/apps/
-cp -alf \
-  %{buildroot}%{_datadir}/pixmaps/%{app_id}.svg \
-  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-cp -alf \
-  %{buildroot}%{_datadir}/pixmaps/%{app_id}.png \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
-convert -resize 64x64 \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{app_id}.png \
-  %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{app_id}.png
-convert -resize 48x48 \
-  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{app_id}.png \
-  %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{app_id}.png
 
 # mime icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/

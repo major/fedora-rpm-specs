@@ -10,11 +10,14 @@
 %global generic_release_version 30-0.1
 
 # Allow extra dependencies required for some tests to be disabled.
-%bcond_without tests
+%bcond tests 1
 # Disabled in June 2014: http://lists.freedesktop.org/archives/dbus/2014-June/016223.html
-%bcond_with check
+%bcond check 0
 # Allow cmake support to be disabled. #1497257
-%bcond_without cmake
+%bcond cmake 1
+# API documentation requires doxygen
+# Design documentation requires ducktype, yelp-tools
+%bcond docs %{undefined rhel}
 
 Name:    dbus
 Epoch:   1
@@ -49,10 +52,12 @@ BuildRequires: pkgconfig(expat)
 BuildRequires: pkgconfig(libselinux) >= %{libselinux_version}
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(systemd)
+%if %{with docs}
 BuildRequires: doxygen
 # For Ducktype documentation.
 BuildRequires: /usr/bin/ducktype
 BuildRequires: /usr/bin/yelp-build
+%endif
 # For building XML documentation.
 BuildRequires: /usr/bin/xsltproc
 BuildRequires: xmlto
@@ -178,8 +183,8 @@ CONFIG_OPTIONS=(
 %global _vpath_builddir build
 %meson \
   "${CONFIG_OPTIONS[@]}" \
-  -Ddoxygen_docs=enabled \
-  -Dducktype_docs=enabled \
+  -Ddoxygen_docs=%{?with_docs:enabled}%{!?with_docs:disabled} \
+  -Dducktype_docs=%{?with_docs:enabled}%{!?with_docs:disabled} \
   -Dxml_docs=enabled \
   -Dasserts=false \
   -Dqt_help=disabled \

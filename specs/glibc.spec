@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-398-g9cf4dd03bd
+%global glibcsrcdir glibc-2.43.9000-409-ga767fbcff0
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 20
+%global baserelease 21
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2408,6 +2408,21 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jun 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-21
+- Auto-sync with upstream branch master,
+  commit a767fbcff0eefc64cb6b2369a34b5205468dbafd:
+- math: Sync acosh with CORE-MATH 887cab6f (Adhemerval Zanella)
+- inet: Remove unused STATIC_NSS define (Michael Ford)
+- nss: Remove <gnu/lib-names.h> include from nsswitch.c (Michael Ford)
+- arm: Save/restore VFP registers in PLT trampolines (BZ 34144, BZ 15792) (Adhemerval Zanella)
+- aarch64: Fix static PIE CPU feature detection (BZ 34205) (Adhemerval Zanella)
+- nptl: open threads comm with O_WRONLY|O_CLOEXEC (Sana Kazi)
+- malloc: aarch64: Add ifuncs for malloc functions (Yury Khrustalev)
+- rtld: cache cpuid results on the stack for intel (Fabian Rast)
+- Fix -Wconstant-logical-operand error for Hurd (Joseph Myers)
+- Fix -Werror=constant-logical-operand errors in soft-fp (Joseph Myers)
+- Fix -Wconstant-logical-operand error in tst-printf-format-skeleton.c (Joseph Myers)
+
 * Wed Jun 10 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-20
 - Auto-sync with upstream branch master,
   commit 9cf4dd03bdfd8b4113400e6b56c6d665c3c739ae:

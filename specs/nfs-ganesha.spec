@@ -61,8 +61,8 @@ Requires: openSUSE-release
 %bcond_with kvsfs
 %global use_fsal_kvsfs %{on_off_switch kvsfs}
 
-%bcond_with rdma
-%global use_rdma %{on_off_switch rdma}
+%bcond_with mooshika
+%global use_mooshika %{on_off_switch mooshika}
 
 %bcond_with 9P
 %global use_9P %{on_off_switch 9P}
@@ -138,7 +138,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	9.16
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -157,6 +157,10 @@ BuildRequires:	flex
 BuildRequires:	pkgconfig
 BuildRequires:	userspace-rcu-devel
 BuildRequires:	krb5-devel
+%if ( 0%{?with_nfs_rdma} || 0%{?with_rpc_rdma} )
+# for RDMA:
+BuildRequires:	rdma-core-devel
+%endif
 %if ( 0%{?with rados_recov} || 0%{?with rados_urls} )
 BuildRequires: librados-devel >= 0.61
 %endif
@@ -211,7 +215,7 @@ BuildRequires:	nfsidmap-devel
 BuildRequires:	libnfsidmap-devel
 %endif
 
-%if ( 0%{?with_rdma} )
+%if ( 0%{?with_mooshika} )
 BuildRequires:	libmooshika-devel >= 0.6-0
 %endif
 %if ( 0%{?with_jemalloc} )
@@ -581,7 +585,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_SAUNAFS=%{use_fsal_saunafs}		\
 	-DUSE_SYSTEM_NTIRPC=%{use_system_ntirpc}	\
 	-DENABLE_QOS=%{use_qos}				\
-	-DUSE_9P_RDMA=%{use_rdma}			\
+	-DUSE_9P_RDMA=%{use_mooshika}			\
 	-DUSE_LTTNG=%{use_lttng}			\
 	-DUSE_UNWIND=%{use_unwind}			\
 	-DUSE_UNWIND_ENRICHED_BT=%{use_unwind_enriched_bt}	\
@@ -973,6 +977,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Jun 16 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.16-2
+- NFS-Ganesha 9.16, missing BR for rdma-core-devel and enable rdma
+
 * Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.16-1
 - NFS-Ganesha 9.16 GA
 

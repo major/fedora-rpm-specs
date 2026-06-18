@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.4
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -884,6 +884,9 @@ done
 
 
 %changelog
+* Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.12.4-6
+- Add loongarch64 to gdal-config.
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.4-6
 - Rebuilt for openssl 4.0
 

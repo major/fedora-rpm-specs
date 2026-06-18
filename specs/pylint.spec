@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.0.5
+%global basever 4.0.6
 #%%global prever b0
-Version:        4.0.5
+Version:        4.0.6
 %forgemeta
 
 Name:           pylint
@@ -89,7 +89,8 @@ done
   --deselect=tests/test_functional.py::test_functional[wrong_import_order] \
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args0] \
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args1] \
-  --deselect=tests/test_self.py::TestRunTC::test_progress_reporting
+  --deselect=tests/test_self.py::TestRunTC::test_progress_reporting \
+  --deselect=tests/test_functional.py::test_functional[unspecified_encoding_py38]
 
 %files
 %doc CONTRIBUTORS.txt

@@ -79,7 +79,7 @@
 %global net_protocol_version 0.2.2
 %global open_uri_version 0.5.0
 %global open3_version 0.2.1
-%global openssl_version 4.0.0
+%global openssl_version 4.0.2
 %global optparse_version 0.8.1
 %global pp_version 0.6.3
 %global prettyprint_version 0.2.0
@@ -190,7 +190,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 34%{?dist}
+Release: 35%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -299,6 +299,10 @@ Patch8: ruby-4.0.1-Support-customizable-rustc_flags-for-rustc-builds.patch
 # Fix error with `gem install --document=rdoc,ri`
 # Fixed in rdoc 7.1.0 but not in 7.0.4
 Patch9: rdoc-pr1531-fix-mutilple-document-installation.patch
+# https://bugs.ruby-lang.org/issues/22069
+# https://github.com/ruby/ruby/pull/16947
+# Backport ruby/openssl 4.0.2 from ruby 4.0 branch to support openssl 4.0
+Patch10: ruby-pr16947-openssl-4_0_2-from-ruby_4_0.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -811,6 +815,7 @@ popd
 %patch 6 -p1
 %patch 7 -p1
 %patch 8 -p1
+%patch 10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1959,6 +1964,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Sun Jun 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-35
+- Backport ruby/openssl 4.0.2 from ruby 4.0 branch to support openssl 4.0
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com>
 - Rebuilt for openssl 4.0
 

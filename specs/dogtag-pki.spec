@@ -43,6 +43,9 @@ Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timesta
 #     <version tag>
 Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}/pki-%{version}%{?phase:-}%{?phase}.tar.gz
 
+# https://github.com/dogtagpki/pki/pull/5390
+Patch: eln-build.patch
+
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
 #     --stdout \

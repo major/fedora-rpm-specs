@@ -4,7 +4,7 @@
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -1305,20 +1305,20 @@ CONFIGURE_OPTS="\
 %endif
 %endif
 %ifarch s390 s390x
-%if 0%{?rhel} >= 7
-%if 0%{?rhel} > 7
-%if 0%{?rhel} > 8
+%if 0%{?rhel} >= 11
+	--with-arch=z15 --with-tune=z16 \
+%else
+%if 0%{?rhel} >= 10
+	--with-arch=z14 --with-tune=z16 \
+%else
 %if 0%{?rhel} >= 9
 	--with-arch=z14 --with-tune=z15 \
 %else
-	--with-arch=z13 --with-tune=arch13 \
-%endif
-%else
+%if 0%{?rhel} == 8
 	--with-arch=z13 --with-tune=z14 \
-%endif
 %else
+%if 0%{?rhel} == 7
 	--with-arch=z196 --with-tune=zEC12 \
-%endif
 %else
 %if 0%{?fedora} >= 38
 	--with-arch=z13 --with-tune=z14 \
@@ -1327,6 +1327,10 @@ CONFIGURE_OPTS="\
 	--with-arch=zEC12 --with-tune=z13 \
 %else
 	--with-arch=z9-109 --with-tune=z10 \
+%endif
+%endif
+%endif
+%endif
 %endif
 %endif
 %endif
@@ -3980,6 +3984,9 @@ end
 %endif
 
 %changelog
+* Tue May 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1.1-3
+- Increase s390x baselines for RHEL 11
+
 * Fri May 15 2026 Jakub Jelinek <jakub@redhat.com> 16.1.1-2
 - update from releases/gcc-16 branch
   - PRs ada/125168, ada/125240, c++/100903, c++/115181, c++/124628,

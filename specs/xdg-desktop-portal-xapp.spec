@@ -1,11 +1,13 @@
+%global upstream_version 1.1.4-unstable
+
 Name:           xdg-desktop-portal-xapp
-Version:        1.1.3
-Release:        2%{?dist}
+Version:        1.1.4^unstable
+Release:        1%{?dist}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -28,7 +30,7 @@ This allows sandboxed applications to request services and information from
 outside the sandbox in the MATE, XFCE and Cinnamon environments.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 
 %build
@@ -59,6 +61,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.4^unstable-1
+- Update to 1.1.4-unstable
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

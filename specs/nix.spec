@@ -48,7 +48,7 @@ BuildRequires:  gcc-c++
 %if %{with tests}
 BuildRequires:  gmock-devel
 %endif
-BuildRequires:  libgit2-devel
+BuildRequires:  pkgconfig(libgit2) >= 1.9.0
 BuildRequires:  jq
 BuildRequires:  json-devel
 BuildRequires:  libarchive-devel

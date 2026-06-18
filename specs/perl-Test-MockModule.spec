@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Test-MockModule
-Version:        0.185.2
+Version:        0.185.3
 Release:        1%{?dist}
 Summary:        Override subroutines in a module for unit testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -34,6 +34,7 @@ BuildRequires:  perl(Test::Warnings)
 %if %{with perl_Test_MockModule_enables_optional_test}
 # Optional Tests
 BuildRequires:  perl(Class::Load)
+BuildRequires:  perl(Moo)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Mouse)
@@ -75,6 +76,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::MockModule.3*
 
 %changelog
+* Tue Jun 16 2026 Paul Howarth <paul@city-fan.org> - 0.185.3-1
+- Update to 0.185.3
+  - Don't require Moose when mocking Moo (GH#93, GH#94)
+
 * Sat May 30 2026 Paul Howarth <paul@city-fan.org> - 0.185.2-1
 - Update to 0.185.2
   - Fix optional Moose test dependencies (GH#91)

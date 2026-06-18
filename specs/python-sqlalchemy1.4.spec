@@ -123,9 +123,6 @@ done > doc-files.txt
 # the upstream tox config, and makes little sense to run downstream.
 k="${k-}${k+ and }not aaa_profiling"
 
-# Skip doc tests, some break with Python 3.15 (rhbz#2479750)
-k="${k-}${k+ and }not DocTest"
-
 %pytest test -k "${k-}" \
 %if %{with xdist}
 --numprocesses=auto

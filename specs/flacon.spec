@@ -19,36 +19,35 @@ BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  uchardet-devel
 BuildRequires:  pkgconfig(taglib)
 # For %%check
-BuildRequires:  %{_bindir}/appstream-util
-BuildRequires:  %{_bindir}/desktop-file-validate
+BuildRequires:  libappstream-glib
+BuildRequires:  desktop-file-utils
 %if %{with tests}
 # Test deps
-BuildRequires:  %{_bindir}/mac
-BuildRequires:  %{_bindir}/flac
-BuildRequires:  %{_bindir}/wavpack
-BuildRequires:  %{_bindir}/ttaenc
+BuildRequires:  cmake(yaml-cpp)
+BuildRequires:  mac
+BuildRequires:  flac
+BuildRequires:  wavpack
+BuildRequires:  ttaenc
 %endif
 BuildRequires: make
 BuildRequires: zlib-devel
 
-# formats/aac.h (encoder)
-Recommends:     %{_bindir}/faac
-# formats/ape.h (decoder)
-Recommends:     %{_bindir}/mac
-# formats/flac.h (encoder, decoder)
-Recommends:     %{_bindir}/flac
-# formats/mp3.h (encoder)
-Recommends:     %{_bindir}/lame
-# formats/ogg.h (encoder)
-Recommends:     %{_bindir}/oggenc
-# formats/opus.h (encoder)
-Recommends:     %{_bindir}/opusenc
-# formats/tta.h (decoder)
-Recommends:     %{_bindir}/ttaenc
-# formats/wv.h (encoder)
-Recommends:     %{_bindir}/wavpack
-# formats/wc.h (decoder)
-Recommends:     %{_bindir}/wvunpack
+# converter/encoder.cpp
+Recommends:     sox
+# formats_in/in_ape.h
+Recommends:     mac
+# formats_in/in_flac.h
+# formats_out/flac/flacoutformat.cpp
+Recommends:     flac
+# formats_out/mp3/out_mp3.cpp
+Recommends:     lame
+# formats_out/ogg/out_ogg.cpp
+Recommends:     vorbis-tools
+# formats_out/opus/out_opus.cpp
+Recommends:     opus-tools
+# formats_in/in_wv.h
+# formats_out/wav/out_wav.cpp
+Recommends:     wavpack
 
 %description
 Flacon extracts individual tracks from one big audio file containing
@@ -69,10 +68,10 @@ tags both for all tracks at once or for each tag separately.
 %find_lang %{name} --with-qt
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.github.Flacon.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.Flacon.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %if %{with tests}
-cd %{_target_platform}/tests && ./flacon_test
+cd %{_vpath_builddir}/tests && ./flacon_test
 %endif
 
 %files -f %{name}.lang
@@ -81,10 +80,10 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/translations
-%{_datadir}/metainfo/com.github.Flacon.metainfo.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_mandir}/man1/%{name}.1*
+%{_metainfodir}/com.github.Flacon.metainfo.xml
 
 %changelog
 * Mon Jun 01 2026 Vasiliy Glazov <vascom2@gmail.com> - 13.0.1-1

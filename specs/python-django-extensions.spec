@@ -1,5 +1,7 @@
 # Build doc by default
-%bcond_without doc
+%bcond doc 1
+
+%bcond pypi_source 0
 
 %global srcname django-extensions
 %global modname django_extensions
@@ -11,9 +13,14 @@ Summary:        Extensions for Django
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/django-extensions/django-extensions
+%if %{with pypi_source}
 # PyPI tarball doesn't contain some requirements files
-# Source0:        %%{pypi_source %%{srcname}}
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{pypi_source %{srcname}}
+%else
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+%endif
+# Backported from https://github.com/django-extensions/django-extensions/pull/1979
+Patch:          %{srcname}-fix-django6-regressions.diff
 
 BuildArch:      noarch
 

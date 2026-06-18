@@ -179,8 +179,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	20.2.1
-Release:	6%{?dist}
+Version:	20.2.2
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -451,7 +451,7 @@ BuildRequires:	lz4-devel >= 1.7
 %if 0%{with make_check}
 BuildRequires:	golang
 %if 0%{?fedora} || 0%{?rhel}
-BuildRequires:	golang-github-prometheus
+BuildRequires:	/usr/bin/promtool
 BuildRequires:	libtool-ltdl-devel
 BuildRequires:	xmlsec1
 BuildRequires:	xmlsec1-devel
@@ -1921,6 +1921,7 @@ fi
 %{_datadir}/ceph/mgr/mgr_module.*
 %{_datadir}/ceph/mgr/mgr_util.*
 %{_datadir}/ceph/mgr/object_format.*
+%{_datadir}/ceph/mgr/cherrypy_mgr.*
 %{_unitdir}/ceph-mgr@.service
 %{_unitdir}/ceph-mgr.target
 %attr(750,ceph,ceph) %dir %{_localstatedir}/lib/ceph/mgr
@@ -2744,6 +2745,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Jun 16 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.2-1
+- Ceph 20.2.2 GA
+ 
 * Mon Jun 15 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.1-6
 - Ceph 20.2.1, rebuild with liborc, libarrow w/ protobuf3
  

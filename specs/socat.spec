@@ -9,6 +9,8 @@ Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
 
 Patch1: socat-1.8.1.0-openssl4.patch
+Patch2: socat-1.8.1.1-openssl-groups.patch
+Patch3: socat-1.8.1.1-test-openssl-groups.patch
 
 BuildRequires: make
 BuildRequires:  gcc

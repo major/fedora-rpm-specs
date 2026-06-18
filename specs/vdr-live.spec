@@ -18,21 +18,20 @@
 Name:           vdr-live
 Version:        3.5.6
 # Release:        0.1.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-MIT
-URL:            https://github.com/MarkusEh/vdr-plugin-live
-# Source0:        https://github.com/MarkusEh/vdr-plugin-live/archive/%%{commit0}/%%{name}-%%{version}-%%{shortcommit0}.tar.gz
-Source0:        https://github.com/MarkusEh/vdr-plugin-live/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+##URL:            https://github.com/MarkusEh/vdr-plugin-live
+URL:            https://codeberg.org/MarkusE/vdr-plugin-live
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
-BuildRequires:  pcre2-devel
 BuildRequires:  tntnet-devel
 BuildRequires:  cxxtools-devel
 BuildRequires:  libjpeg-turbo-devel
@@ -59,7 +58,7 @@ This package contains images, themes and JavaScript.
 
 %prep
 #%%autosetup -p1 -n vdr-plugin-live-%%{commit0}
-%autosetup -p1 -n vdr-plugin-live-%{version}
+%autosetup -p1 -n vdr-plugin-live
 
 # delete unused directories and files
 find -name .git -type d -or -name gitignore -type d | xargs rm -rfv
@@ -92,6 +91,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Tue Jun 16 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.6-2
+- New git address
+- Remove BR  pcre2-devel
+
 * Mon Jun 15 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.6-1
 - Update to 3.5.6
 

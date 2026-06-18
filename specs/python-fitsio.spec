@@ -10,6 +10,7 @@ Summary:        %{sum}
 License:        GPL-2.0-only
 URL:            https://github.com/esheldon/fitsio
 Source0:        %{pypi_source}
+Patch: https://github.com/esheldon/fitsio/commit/492f938efe60615287b677020c63c10291920648.patch
 
 # General
 BuildRequires:  cfitsio-devel

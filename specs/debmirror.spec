@@ -7,7 +7,12 @@ URL:        https://tracker.debian.org/pkg/debmirror
 BuildArch:  noarch
 
 Source:     https://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
+# Allow mirroring without being root (drop hardcoded root path assumptions).
 Patch0:     %{name}-no-root.patch
+# Let command line --arch/--dist/--section override the config file values
+# instead of appending to them (e.g. --arch=arm64 must not keep the default
+# @arches="i386" from debmirror.conf, which then 404s on ports.ubuntu.com).
+Patch1:     %{name}-cli-overrides-config.patch
 
 BuildRequires: perl
 BuildRequires: perl-generators

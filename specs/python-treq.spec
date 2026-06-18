@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        25.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -12,6 +12,9 @@ URL:            https://github.com/twisted/treq
 Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
+# Fix build with sphinx 9.1.0
+# Resolved upstream: https://github.com/twisted/treq/issues/423
+Patch:          sphinx-9.1.0-compat.patch
 
 BuildRequires:  python3-devel
 # For tests
@@ -41,7 +44,7 @@ Documentation for treq
 %endif
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_doc:-x docs}
@@ -74,6 +77,10 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Tue Jun 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 25.5.0-5
+- Fix compatibility with Sphinx 9.1.0
+Resolves: rhbz#2440191
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 25.5.0-4
 - Rebuilt for Python 3.15
 

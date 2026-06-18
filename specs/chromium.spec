@@ -386,10 +386,6 @@ Patch311: chromium-123-fstack-protector-strong.patch
 #    --> ../../build/rust/allocator/lib.rs:107:7
 Patch312: chromium-143-el9-rust-no-alloc-shim-is-unstable.patch
 
-# Fix FTBFS on EL9
-# - error: undefined symbol: __rust_alloc_error_handler_should_panic
-Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
-
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch

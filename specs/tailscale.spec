@@ -9,7 +9,7 @@
 
 # https://github.com/tailscale/tailscale
 %global goipath         github.com/tailscale/tailscale
-Version:                1.98.4
+Version:                1.98.5
 
 %if 0%{?rhel}
 %gometa
@@ -1109,6 +1109,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Tue Jun 16 2026 Jonathan Wright <jonathan@almalinux.org> - 1.98.5-1
+- update to 1.98.5 rhbz#2483870
+
 * Sun May 31 2026 Jonathan Wright <jonathan@almalinux.org> - 1.98.4-1
 - update to 1.98.4
 - Allow nftables to satisfy firewall dependency in lieu of iptables rhbz#2453924

@@ -10,7 +10,7 @@
 %endif
 
 Name:       openconnect
-Version:    9.20
+Version:    9.21
 Release:    1%{?dist}
 Summary:    Open multi-protocol SSL VPN client
 License:    LGPL-2.1-or-later
@@ -118,6 +118,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jun 16 2026 David Woodhouse <dwmw2@infradead.org> - 9.21-1
+- Update to 9.21 release
+
 * Sat Jun 13 2026 David Woodhouse <dwmw2@infradead.org> - 9.20-1
 - Update to 9.20 release
 

@@ -6,25 +6,19 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        25.5.0
+Version:        26.4.0
 Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 
 License:        MIT
 URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
-Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
+Source:         %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # downstream-only disable tests that fail in the buildsystem or due to sha1
-Patch0:         python-twisted-25.5.0-disable-tests.patch
-# https://github.com/twisted/twisted/pull/12508
-Patch1:         0001-Fix-asyncio-get_event_loop-for-Python-3-14.patch
-# https://github.com/twisted/twisted/pull/12511
-Patch2:         0002-Fix-web-client-urljoin-for-Python-3-14.patch
-# https://github.com/twisted/twisted/pull/12551
-Patch3:         0003-Fix-tests-for-Python-3-14-2.patch
+Patch:          python-twisted-26.4.0-disable-tests.patch
 # Fix Python 3.15 compatibility issues
-# https://github.com/twisted/twisted/pull/12602
-Patch4:         0004-Fix-Python-3.15-compatibility-issues.patch
+# https://github.com/twistWed/twisted/pull/12602
+Patch:          0001-Fix-Python-3.15-compatibility-issues.patch
 
 BuildArch:      noarch
 

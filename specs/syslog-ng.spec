@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -43,7 +43,7 @@ BuildRequires: pcre2-devel
 BuildRequires: perl-generators
 BuildRequires: pkgconfig
 BuildRequires: python3-devel
-BuildRequires: riemann-c-client-devel
+# BuildRequires: riemann-c-client-devel
 BuildRequires: snappy-devel
 BuildRequires: systemd-devel
 BuildRequires: systemd-units
@@ -195,12 +195,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This module supports the redis key-value store via hiredis.
 
 
-%package riemann
-Summary: Riemann support for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description riemann
-This module supports the riemann monitoring server.
+#%package riemann
+#Summary: Riemann support for %{name}
+#Requires: %{name}%{?_isa} = %{version}-%{release}
+#
+#%description riemann
+#This module supports the riemann monitoring server.
 
 
 %package http
@@ -410,7 +410,7 @@ touch -r lib/cfg-grammar.y lib/merge-grammar.py
 %if %{with bpf}
     --enable-ebpf \
 %endif
-    --enable-riemann
+    --disable-riemann
 
 %make_build
 
@@ -511,7 +511,7 @@ fi
 %exclude %{_libdir}/syslog-ng/libhttp.so
 %exclude %{_libdir}/syslog-ng/libmod-python.so
 %exclude %{_libdir}/syslog-ng/libredis.so
-%exclude %{_libdir}/syslog-ng/libriemann.so
+# %exclude %{_libdir}/syslog-ng/libriemann.so
 %exclude %{_libdir}/syslog-ng/libafsnmp.so
 %exclude %{_libdir}/syslog-ng/libkafka.so
 %exclude %{_libdir}/syslog-ng/libotel.so
@@ -611,8 +611,8 @@ fi
 %{_libdir}/syslog-ng/libgeoip2-plugin.so
 
 
-%files riemann
-%{_libdir}/syslog-ng/libriemann.so
+#%files riemann
+#%{_libdir}/syslog-ng/libriemann.so
 
 
 %files http
@@ -654,6 +654,10 @@ fi
 
 
 %changelog
+* Tue Jun 16 2026 Peter Czanik <peter@czanik.hu> - 4.11.0-4
+- disable riemann-c-client temporarily (grpc uses old, riemann the new
+  protobuf libraries)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.11.0-3
 - Rebuilt for openssl 4.0
 

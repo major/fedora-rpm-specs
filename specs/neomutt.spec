@@ -1,6 +1,6 @@
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20260504
+Version: 20260616
 Release: 1%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
@@ -84,6 +84,25 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Tue Jun 16 2026 Richard Russon <rich@flatcap.org> - 20260616-1
+- Security
+  - #4900 bcache: sanitize mailbox names that escape the cache dir
+  - #4901 auth_gss: fix out-of-bounds read of GSS security token
+- Bug Fixes
+  - #4866 Fix broken message-hook in the pager
+  - #4869 Fix duplicate "no mail" message
+  - #4874 Restore the `-C` command-line flag
+  - #4882 Refresh notmuch tag completion cache, and fix a tag completion crash
+  - #4893 Fix index-format-hook parsing
+  - #4897 Allow `<entire-thread>` from any mailbox type, and fix a related crash
+  - email: fix header rewind after mbox separator
+  - imap: retry login after a failure
+  - maildir/notmuch: fix memory leak
+  - config: fix inherited has_been_set
+  - main: fix inverted condition in init_nntp
+- Code
+  - test: fix conddate after 2038
+
 * Mon May 04 2026 Richard Russon <rich@flatcap.org> - 20260504-1
 - Security
   - Fix GSSAPI buffer underflow on short unwrapped tokens

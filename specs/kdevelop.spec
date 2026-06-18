@@ -4,7 +4,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        26.04.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -233,6 +233,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Tue Jun 16 2026 Steve Cossette <farchord@gmail.com> - 9:26.04.2-2
+- Bump for plasma update
+
 * Wed Jun 03 2026 Steve Cossette <farchord@gmail.com> - 9:26.04.2-1
 - 26.04.2
 

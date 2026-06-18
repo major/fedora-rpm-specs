@@ -1,6 +1,6 @@
 Name:           90-Second-Portraits
 Version:        1.01b
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Frantic street painting game
 
 # Zlib: Main package
@@ -25,7 +25,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 riscv64 loongarch64
 
 #From the website (see URL above)
 %description
@@ -79,6 +79,9 @@ install -p -D -m 0644 data/images/title_background.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.01b-30
+- Add loongarch64 support
+
 * Fri Apr 17 2026 Jeremy Newton <alexjnewt at hotmail dot com> - 1.01b-29
 - Update exclusive arch
 

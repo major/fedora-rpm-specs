@@ -27,6 +27,7 @@ Requires:       python3-pip
 # Unbundled library needs to be explicitly Required
 Requires:       python3-filelock
 Requires:       hicolor-icon-theme
+Requires:       python3-pkg-resources
 
 # Vendored library - not yet packaged in Fedora
 Provides:       bundled(python3dist(pipkin)) = 2.0~b2

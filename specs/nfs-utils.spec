@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.9.1
-Release: 3.rc4%{?dist}
+Release: 4.rc4%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -16,6 +16,7 @@ Source4: 10-nfsv4.conf
 Source5: 10-nfsv3.conf
 
 Patch001: nfs-utils-2.9.2-rc4.patch
+Patch002: nfs-utils-2.9.1-nfsd-thread-count-zero.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch102: nfs-utils-1.2.5-idmap-errmsg.patch
@@ -476,7 +477,10 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
-* Sat May 30 2026 Steve Dickson <steved@redhat.com> 2.9.1-2-rc4
+* Tue Jun 16 2026 Steve Dickson <steved@redhat.com> 2.9.1-4-rc4
+- nfsd: don't assume service is running when setting thread count to 0
+
+* Sat May 30 2026 Steve Dickson <steved@redhat.com> 2.9.1-3-rc4
 - Updated to the latest RC release: nfs-utils-2-9-2-rc4
 
 * Wed May 20 2026 Steve Dickson <steved@redhat.com> 2.9.1-3-rc3

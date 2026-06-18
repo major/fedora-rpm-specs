@@ -12,7 +12,7 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	4.3.0.8
+Version:	4.5.5
 Release:	%autorelease
 Summary:	A cross-platform system monitoring tool
 
@@ -38,9 +38,8 @@ Requires:	python3-uvicorn
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
-# disable PyPI update check + no need to have packaging dep
-sed -i -e 's/check_update=true/check_update=false/' conf/glances.conf
-sed -i '/packaging/d' requirements.txt
+# pyinstrument
+sed -i '/pyinstrument/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -t

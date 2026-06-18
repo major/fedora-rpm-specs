@@ -11,7 +11,7 @@
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.95.5
+Version:        3.95.8
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -99,6 +99,12 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Jun 16 2026 Remi Collet <remi@remirepo.net> - 3.95.8-1
+- update to 3.95.8
+
+* Sun Jun 14 2026 Remi Collet <remi@remirepo.net> - 3.95.7-1
+- update to 3.95.7
+
 * Wed Jun 10 2026 Remi Collet <remi@remirepo.net> - 3.95.5-1
 - update to 3.95.5
 

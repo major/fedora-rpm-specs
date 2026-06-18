@@ -1,7 +1,9 @@
 # This breaks several dependency cycles involving test dependencies.
 %bcond bootstrap 0
 
-%bcond blender %{without bootstrap}
+# usd fails to build with Python 3.15: […]
+# https://bugzilla.redhat.com/show_bug.cgi?id=2433881
+%bcond blender %[ %{without bootstrap} && 0%{?fedora} < 45 ]
 %bcond cascadio %{without bootstrap}
 %bcond skimage 1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2460576

@@ -1,34 +1,40 @@
-# Some tests fail. Pass --with all_tests to retry
-%bcond_with all_tests
+%bcond tests 1
+%bcond pypi_source 0
 
 %global forgeurl https://codeberg.org/allauth/django-allauth
 
 Name:           python-django-allauth
-Version:        65.8.1
+Version:        65.18.0
 Release:        %autorelease
 Summary:        Integrated set of Django authentication apps
 License:        MIT
 URL:            https://allauth.org/
+%if %{with pypi_source}
 # PyPI source has no tests
-# Source0:        %%{pypi_source django-allauth}
+# Source:         %%{pypi_source django-allauth}
+%else
 Source:         %{forgeurl}/archive/%{version}.tar.gz#/django-allauth-%{version}.tar.gz
-# unpin coverage version
-Patch:          django-allauth-relax-coverage-version.diff
-# Temporarily lower from == 0.23.8 to >= 0.23.6
-# 0.24 is out, the breaking change should not affect this package
-# (it requires pytest >= 8.2)
-Patch:          django-allauth-lower_pytest-asyncio_req.diff
-# remove django-ninja dependency, only needed by react-spa example and tests
-Patch:          django-allauth-no-django-ninja.diff
-# rather than hardcode 1.3.15, allow >= 1.3.15, < 1.4.0
-Patch:          django-allauth-relax-xmlsec-version.diff
-# likewise, allow lxml >= 5.3.1 as F43+ has 6.0.1
-Patch:          django-allauth-relax-lxml-version.diff
+%endif
+Patch:          django-allauth-no-setuptools_scm.diff
 
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  sed
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+# pytest-django reads DJANGO_SETTINGS_MODULE from pytest.ini and runs
+# django.setup() before conftest.py is imported; without it the test suite
+# fails to collect (INSTALLED_APPS undefined / "Apps aren't loaded yet")
+BuildRequires:  python3dist(pytest-django)
+# async tests require the asyncio plugin
+BuildRequires:  python3dist(pytest-asyncio)
+# other test dependencies
+BuildRequires:  python3dist(djangorestframework)
+BuildRequires:  python3dist(psycopg)
+BuildRequires:  python3dist(pyyaml)
+%endif
 
 %global _description %{expand:
 Integrated set of Django applications addressing authentication, registration,
@@ -64,16 +70,30 @@ Summary:        %{summary}
 
 %pyproject_extras_subpkg -n python%{python3_pkgversion}-django-allauth mfa openid saml socialaccount steam
 
+
 %prep
 %autosetup -p1 -n django-allauth
-%if %{without failedtests}
-%endif
-# we don't have this packaged yet
+# we don't have django-ninja packaged yet: remove the unusable ninja modules
+# (deleting source so an unsatisfiable `import ninja` fails at build, not at the
+# user's runtime), their now-dead tests, and the test-project URLs that include
+# them -- otherwise the broken include cascades through the shared URLconf and
+# fails ~all tests.
 rm -rf allauth/headless/contrib/ninja/
+rm -rf allauth/idp/oidc/contrib/ninja/
+rm -rf tests/apps/headless/contrib/ninja/
+rm -rf tests/apps/idp/oidc/contrib/ninja/
+rm -rf tests/projects/common/idp/ninja/
+rm -rf tests/projects/common/headless/ninja/
+sed -i '/ninja/d' tests/projects/common/idp/urls.py \
+                   tests/projects/common/headless/urls.py
+# the JWT strategy tests also probe a removed /headless/ninja/resource endpoint
+# inline; drop those list entries so the (non-ninja) JWT/DRF coverage still runs
+sed -i '\#/headless/ninja/resource#d' \
+    tests/apps/headless/tokens/test_jwttokenstrategy.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x mfa,openid,saml,socialaccount,steam
+%pyproject_buildrequires -x mfa,openid,saml,socialaccount,steam
 
 
 %build
@@ -86,12 +106,9 @@ rm -rf allauth/headless/contrib/ninja/
 
 
 %check
-%pytest -v \
-%if %{without all_tests}
-  --deselect allauth/socialaccount/providers/openid/tests.py::OpenIDTests::test_login \
-  --deselect allauth/socialaccount/providers/openid/tests.py::OpenIDTests::test_login_with_extra_attributes \
+%if %{with tests}
+%pytest -v
 %endif
-;
 
 
 %files -n python%{python3_pkgversion}-django-allauth -f %{pyproject_files}

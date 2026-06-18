@@ -1,10 +1,12 @@
 Name:           numberstation
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TOTP Authenticator application
 License:        GPL-3.0-or-later
 URL:            https://sr.ht/~martijnbraam/%{name}/
 Source0:        https://git.sr.ht/~martijnbraam/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://lists.sr.ht/~martijnbraam/public-inbox/%3C178162974621.27507.9229547376388854436-0@git.sr.ht%3E
+Patch0:         0001-Fix-if-statement-after-b32decode-removal.patch
 Requires:       libhandy
 Requires:       python3-gobject
 Requires:       python3-keyring
@@ -22,7 +24,7 @@ BuildRequires:  libappstream-glib
 %{summary}
 
 %prep
-%autosetup
+%autosetup -p1
 
 %conf
 %meson
@@ -48,6 +50,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarke
 %{_datadir}/%{name}
 
 %changelog
+* Tue Jun 16 2026 Tomi Lähteenmäki <lihis@lihis.net> - 1.5.0-2
+- Patch to fix syntax error
+
 * Mon Jun 15 2026 Tomi Lähteenmäki <lihis@lihis.net> - 1.5.0-1
 - Update to v1.5.0
 

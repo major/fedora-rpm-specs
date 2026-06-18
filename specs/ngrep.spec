@@ -1,26 +1,19 @@
-%global date 20241209
-%global commit b2e3ba3c5a593abf203e65a407c3a9de0f998d4a
-%global shortcommit  %(c=%{commit}; echo ${c:0:7})
+%global debug_package %{nil}
 
 Name:           ngrep
-Version:        1.47^%{date}git%{shortcommit}
+Version:        1.49.0
 Release:        %autorelease
 Summary:        Network layer grep tool
 License:        ngrep
 URL:            https://github.com/jpr5/ngrep
-Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-# PR#27: Port to PCRE2 API and enable JIT compilation
-Patch:          %{url}/pull/27.patch
-# PR#28: Include <err.h> and "tcpkill.h" to avoid implicit function declarations
-Patch:          %{url}/pull/28.patch
+Source:         %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  make
-
 BuildRequires:  libnet-devel
 BuildRequires:  libpcap-devel
+BuildRequires:  make
 BuildRequires:  pcre2-devel
 
 %description
@@ -33,7 +26,7 @@ interfaces, and understands bpf filter logic in the same fashion as more
 common packet sniffing tools, such as tcpdump and snoop.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{version}
 # Make sure not to be using bundled libs
 rm -r regex-0.12
 
@@ -44,7 +37,7 @@ autoreconf -fiv
 %configure \
   --enable-pcre2 \
   --enable-ipv6 \
-  --with-pcap-includes=%{_includedir}/pcap \
+  --with-pcap-includes=%{_includedir} \
   --enable-tcpkill
 %make_build STRIPFLAG=
 
@@ -52,9 +45,12 @@ autoreconf -fiv
 install -Ddpm0755 %{buildroot}%{_sbindir} %{buildroot}%{_mandir}/man8
 %make_install BINDIR_INSTALL="%{_sbindir}"
 
+%check
+./ngrep -V
+
 %files
 %license LICENSE
-%doc CHANGES CREDITS EXAMPLES.md README.md
+%doc CREDITS EXAMPLES.md README.md
 %{_sbindir}/ngrep
 %{_mandir}/man8/ngrep.8*
 

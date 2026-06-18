@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.21
+Version: 13.22
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 16 2026 Nick Clifton  <nickc@redhat.com> - 13.22-1
+- Annocheck: Enable stack-clash test for Risc-V binaries built by gcc-15+.
+
 * Mon Jun 15 2026 Nick Clifton  <nickc@redhat.com> - 13.21-1
 - LLVM & Clang Plugins: Build with -fexceptions enabled.  (RHEL-184482)
 

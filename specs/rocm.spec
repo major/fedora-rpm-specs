@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -133,7 +133,6 @@ Requires: rocdecode-devel >= %{rocm_release}
 Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
-Requires: rocm-omp-static >= %{rocm_release}
 Requires: rocm-rdc-devel >= %{rocm_release}
 Requires: rocm-rpp-devel >= %{rocm_release}
 Requires: rocprofiler-register-devel >= %{rocm_release}
@@ -187,6 +186,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Tue Jun 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-6
+- Remove rocm-omp-static
+
 * Tue Jun 9 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Remove rocm-omp
 

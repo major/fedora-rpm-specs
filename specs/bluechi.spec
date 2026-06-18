@@ -11,11 +11,13 @@
 
 Name:		bluechi
 Version:	1.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
 URL:		https://github.com/eclipse-bluechi/bluechi
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+
+ExcludeArch: i686
 
 # Required to apply the patch
 BuildRequires:	git-core
@@ -356,6 +358,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Tue Jun 16 2026 Michael Engel <mengel@redhat.com> - 1.2.2-3
+- Exclude i686 as build target
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 1.2.2-2
 - Rebuilt for Python 3.15
 

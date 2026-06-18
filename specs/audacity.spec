@@ -12,8 +12,8 @@
 
 Name: audacity
 
-Version: 3.7.7
-Release: 5%{?dist}
+Version: 3.7.8
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -294,6 +294,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Tue Jun 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.7.8-1
+- 3.7.8
+
 * Wed Feb 25 2026 Ian McInerney <mcianster@gmail.com> - 3.7.7-5
 - Force building in release with debug info to disable assertions (RHBZ 2382559)
 

@@ -1,7 +1,7 @@
 Summary: Utilities for managing processes on your system
 Name: psmisc
 Version: 23.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/psmisc/psmisc
 
@@ -65,7 +65,7 @@ mv $RPM_BUILD_ROOT%{_bindir}/fuser $RPM_BUILD_ROOT%{_sbindir}
 %{_mandir}/man1/pstree.1*
 %{_mandir}/man1/prtstat.1*
 %{_mandir}/man1/pslog.1*
-%ifarch %{ix86} x86_64 ppc %{power64} %{arm} aarch64 mipsel
+%ifarch %{ix86} x86_64 ppc %{power64} %{arm} aarch64 mipsel loongarch64
 %{_bindir}/peekfd
 %{_mandir}/man1/peekfd.1*
 %else
@@ -76,6 +76,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/fuser $RPM_BUILD_ROOT%{_sbindir}
 
 
 %changelog
+* Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 23.7-8
+- Add loongarch64 architecture for peekfd installation.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

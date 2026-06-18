@@ -3,7 +3,7 @@
   
 Summary: Dummy package for testing and on-boarding purposes
 Name: redhat-internal-test-package
-Version: 0.6.59
+Version: 0.6.91
 Release: %{autorelease}
 License: GPL-2.0-or-later
 URL: https://github.com/packit/redhat-internal-test-package

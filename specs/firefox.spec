@@ -1286,7 +1286,7 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
-* Thu Jun 11 2026 komat <stransky@redhat.com> - 152.0-1
+* Thu Jun 11 2026 Martin Stransky <stransky@redhat.com> - 152.0-1
 - Update to latest upstream (152.0)
 
 * Wed Jun 03 2026 Martin Stransky <stransky@redhat.com> - 151.0.3-1

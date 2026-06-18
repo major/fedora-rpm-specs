@@ -96,7 +96,7 @@ developing applications that use %{name}.
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 # docs/reference/COPYING
-License:        LicenceRef-Fedora-Public-Domain AND LGPL-2.1-or-later AND GPL-2.0-or-later
+License:        LicenseRef-Fedora-Public-Domain AND LGPL-2.1-or-later AND GPL-2.0-or-later
 
 %description doc
 This package contains the documentation for %{name}.

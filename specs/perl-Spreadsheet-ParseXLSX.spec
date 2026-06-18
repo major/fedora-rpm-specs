@@ -1,5 +1,5 @@
 Name:           perl-Spreadsheet-ParseXLSX
-Version:        0.36
+Version:        0.37
 Release:        %autorelease
 Summary:        Parse XLSX files
 License:        MIT

@@ -1,6 +1,6 @@
 Name:		stalld
-Version:	1.27.1
-Release:	2%{?dist}
+Version:	1.28.1
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -62,6 +62,63 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Jun 16 2026 Clark Williams <williams@redhat.com> - 1.28.1-1
+- stalld: bump version to 1.28.1
+- tests: Fix journal flush race in logging destinations test
+- Merge remote-tracking branch 'wander/dev' into devel
+- stalld: fix format string type mismatch in set_cpu_affinity
+- stalld: fix error return in queue_track_get_cpu
+- stalld: fix snprintf truncation check in is_runnable
+- stalld: fix missing null-termination in is_runnable
+- stalld: guard nextline() returns in sched_debug parsing
+- stalld: remove NULL deref in fill_waiting_task error handler
+- stalld: fix type mismatches in detect_task_format
+- stalld: fix format string type mismatch for time_t
+- stalld: use CLOCK_MONOTONIC for starvation detection
+- stalld: remove async-signal-unsafe calls from signal handler
+- stalld: fix data race on config_buffer_size
+- stalld: fix signed integer overflow in set_reservation
+- stalld: check pthread_create return in conservative_main
+- stalld: check pthread_create return in aggressive_main
+- stalld: fix buffer underflow in sched_debug_get
+- stalld: fix buffer underflow in read_proc_stat
+- stalld: fix uninitialized buffer use in find_debugfs_mount_point
+- stalld: fix inverted DAEMON_UMASK value
+- stalld: fix data race on thread_running
+- bpf: Replace linear task scan with hash map
+- tests: Fix async-signal-unsafe handler
+- tests: Reduce timing and replace sleeps with event waits
+- tests: Remove redundant sleeps after start_stalld
+- tests: Drop redundant sleeps in test_pidfile
+- tests: Replace init sleeps in test_affinity
+- tests: Reduce starvation_gen durations
+- tests: Reduce default wait timeouts
+- tests: Extract wait_for_process_exit helper
+- tests: Introduce and adopt process helpers
+- tests: Remove dead code after making fail() fatal
+- tests: Abort immediately on test failure
+- tests: Remove if-wrappers around assert calls
+- tests: Replace wait conditionals with asserts
+- tests: Introduce and adopt assert_success() helper
+- tests: Remove weak, redundant, and assertion-free test blocks
+- tests: Introduce and adopt assert_log_contains() helper
+- tests: Remove redundant pkill from cleanup
+- tests: Add idle CPU skipping assertion
+- tests: Fix CPU selection grep substring matches
+- tests: Add assertions to SCHED_OTHER restoration test
+- chore: Remove legacy test infrastructure and stale docs
+- tests: Fix repeated log match finding same line
+- tests: Fix subshell swallowing test results
+- tests: Fix boost verification in runtime and duration tests
+- tests: Introduce assert_stalld_rejects() helper
+- tests: Consolidate and adopt init_functional_test()
+- tests: Fix task exit timing in test_boost_restoration
+- tests: Introduce find_starved_child() helper
+- tests: Introduce starvation and boost asserts
+- tests: Introduce cleanup_scenario() helper
+- tests: Introduce test_section() helper
+- stalld: Reject --force_fifo in single-threaded mode
+
 * Tue May 19 2026 Clark Williams <williams@redhat.com> - 1.27.1-2
 - deal with bogus date in specfile changelog
 

@@ -5,7 +5,7 @@ ExcludeArch:    %{ix86}
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -13,7 +13,11 @@ Release: 1%{?dist}
 Epoch:   1
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
+# ../kstars-3.7.7/kstars/fitsviewer/fpack.c
+# ../kstars-3.7.7/kstars/fitsviewer/fpack.h
+# ../kstars-3.7.7/kstars/fitsviewer/fpackutil.c
+# LicenseRef-NASA-FV-License-Agreement matches CFITSIO
+License: GPL-2.0-or-later and CFITSIO
 URL:     http://edu.kde.org/kstars
 Source0: https://download.kde.org/%{stable_kf5}/%{name}/%{version}/%{name}-%{version}.tar.xz
 
@@ -164,6 +168,9 @@ fi
 
 
 %changelog
+* Tue Jun 16 2026 Than Ngo <than@redhat.com> - 1:3.8.3-2
+- rhbz#2369646, Fix License
+
 * Tue Jun 02 2026 Steve Cossette <farchord@gmail.com> - 1:3.8.3-1
 - 3.8.3
 

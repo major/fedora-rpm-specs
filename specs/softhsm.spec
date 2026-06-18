@@ -5,7 +5,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.3
+Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.4
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
@@ -15,6 +15,10 @@ Source2: %{name}-sysusers.conf
 # https://github.com/softhsm/SoftHSMv2/commit/57e10cbbe75069be92c7e9720c180a05833481fc
 # https://github.com/softhsm/SoftHSMv2/commit/d23ea09d318c03c033420d065f1c64b019cc94ed
 Patch0: memory-leaks-and-openssl-4.patch
+# from https://github.com/softhsm/SoftHSMv2/pull/742/
+# as discussed at https://github.com/softhsm/SoftHSMv2/issues/729
+# with a minor update to reset objects_deleted after reset-on-fork
+Patch1: prevent-global-deleted-objects-access.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -132,6 +136,10 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Mon Jun 15 2026 Pavol Žáčik <pzacik@redhat.com> - 2.7.0-0.1.rc1.4
+- Bring back the patch that prevents access to global C++ variables
+  once they are destroyed (with a minor adjustment).
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.0-0.1.rc1.3
 - Rebuilt for openssl 4.0
 

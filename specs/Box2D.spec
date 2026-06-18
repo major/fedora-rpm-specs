@@ -1,11 +1,13 @@
 Name: Box2D
-Version:  2.4.2
-Release:  7%{?dist}
+Version:  3.1.1
+Release:  2%{?dist}
 Summary: A 2D Physics Engine for Games
 
 License: Zlib
 URL: http://box2d.org/
 Source0: https://github.com/erincatto/box2d/archive/v%{version}/%{name}-%{version}.tar.gz
+# Don't fetch enkiTS from git
+Patch: noenkit.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
@@ -29,27 +31,60 @@ we encourage you to give credit to Box2D in your product.
 These are the development files.
 
 %prep
-%setup -qn box2d-%{version}
+%autosetup -p1 -n box2d-%{version}
 rm -r extern
 
 %build
-%cmake -DBOX2D_INSTALL=ON -DBOX2D_BUILD_SHARED=ON -DBOX2D_BUILD_TESTBED=OFF -DBOX2D_BUILD_UNIT_TESTS=OFF .
+%cmake \
+  -DBOX2D_INSTALL=ON \
+  -DBOX2D_BUILD_SHARED=ON \
+  -DBOX2D_BUILD_TESTBED=OFF \
+  -DBOX2D_BUILD_UNIT_TESTS=OFF \
+  -DBOX2D_SAMPLES=OFF .
 %cmake_build
 
 %install
 %cmake_install
 
+# Add pkgconfig file
+# This mimics what debian does
+# Adding the file has been requested upstream
+# https://github.com/erincatto/box2d/issues/1068
+mkdir %{buildroot}%{_libdir}/pkgconfig
+
+cat > box2d.pc << 'EOF'
+prefix=%{_prefix}
+exec_prefix=${prefix}
+libdir=%{_libdir}
+includedir=%{_includedir}
+
+Name: box2d
+Description: 2D physics engine
+Version: %{version}
+Libs: -L${libdir} -lbox2d
+Cflags: -I${includedir}/box2d
+EOF
+
+mv -f box2d.pc %{buildroot}%{_libdir}/pkgconfig/box2d.pc
+
 %files
 %license LICENSE
-%{_libdir}/*.so.2*
+%{_libdir}/*.so.3*
 
 %files devel
 %doc README.md docs/
 %{_libdir}/*.so
 %{_includedir}/box2d
 %{_libdir}/cmake/box2d/*.cmake
+%{_libdir}/pkgconfig/box2d.pc
 
 %changelog
+* Sat Jun 13 2026 Mattia Verga <mattia.verga@proton.me> - 3.1.1-2
+- Add pkgconfig file
+
+* Sat Jun 06 2026 Mattia Verga <mattia.verga@proton.me> - 3.1.1-1
+- Update to 3.1.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

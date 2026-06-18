@@ -1,13 +1,12 @@
-%global upstream_version     1.6.0
+%global upstream_version     1.7.0
 
 Name:            supernovas
-Version:         1.6.0
+Version:         1.7.0
 Release:         %autorelease
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
 URL:             https://sigmyne.github.io/SuperNOVAS
 Source0:         https://github.com/Sigmyne/SuperNOVAS/archive/refs/tags/v%{upstream_version}.tar.gz
-Patch0:          install-examples.patch
 
 # No i686 calceph package to build against
 ExcludeArch:     %{ix86}
@@ -16,7 +15,9 @@ BuildRequires:   calceph-devel%{_isa} >= 4.0.0
 BuildRequires:   gcc
 BuildRequires:   gcc-c++
 BuildRequires:   cmake
+BuildRequires:   libcurl-devel
 BuildRequires:   doxygen >= 1.13.0
+BuildRequires:   fdupes
 
 # Starting with v1.5.0, we no longer need or package cio-data
 Obsoletes:       %{name}-cio-data < %{version}-%{release} 
@@ -63,6 +64,7 @@ development, which requires use of precise Solar-system data.
 
 %package devel
 Summary:         C development files for the SuperNOVAS C/C++ astronomy library
+Requires:        libcurl-devel%{?_isa}
 Requires:        %{name}%{?_isa} = %{version}-%{release}
 Requires:        %{name}-c++ = %{version}-%{release}
 Requires:        %{name}-solsys-calceph%{?_isa} = %{version}-%{release}
@@ -82,7 +84,7 @@ This package provides HTML documentation, examples, and legacy adapter
 templates for the SuperNOVAS C/C++ astronomy library.
 
 %prep
-%autosetup -p1 -n SuperNOVAS-%{upstream_version}
+%autosetup -n SuperNOVAS-%{upstream_version}
 
 %build
 %cmake \
@@ -95,6 +97,10 @@ templates for the SuperNOVAS C/C++ astronomy library.
 
 %install
 %cmake_install
+
+# Replace documentation dupes with hard links.
+# (Not needed starting f44...)
+hardlink --ignore-time --reflink=never $RPM_BUILD_ROOT/%{_docdir}/%{name}/html
 
 %check
 %ctest
@@ -116,7 +122,6 @@ templates for the SuperNOVAS C/C++ astronomy library.
 %{_libdir}/cmake
 %{_libdir}/pkgconfig
 %doc %{_docdir}/%{name}/*.md
-%dir %{_docdir}/%{name}/examples
 %doc %{_docdir}/%{name}/examples
 %doc %{_docdir}/%{name}/legacy
 

@@ -6,8 +6,8 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        4.13.0
-Release:        2%{?dist}
+Version:        4.14.0
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -41,23 +41,21 @@ Obsoletes:      python-%{srcname}-doc < 3.7.1-7
 # - Disable coverage test requirement
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 # - Drop test dependency on python3dist(truststore), not packaged
-# - Drop test dependency on python3dist(uvloop), packaged but outdated and
-#   FTBFS, https://bugzilla.redhat.com/show_bug.cgi?id=2307494,
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2341233
-# = Drop test dependency on blockbuster; see
+# - Drop test dependency on python3dist(uvloop), retired
+# - Drop test dependency on blockbuster; see
 #   https://github.com/cbornet/blockbuster/issues/46 for why we would prefer
 #   not to package it
+#
+# Both blockbuster and uvloop are limited upstream to python<3.15, so they
+# *could* be removed from this list, but we expect that upstream will restore
+# the dependencies in a future release if they become compatible, and we
+# continue to preemptively suppress them for the time being.
 tomcli set pyproject.toml lists delitem \
     dependency-groups.test '(blockbuster|coverage|truststore|uvloop)\b.*'
-%if %{defined fc43}
-# Upstream wants pytest 8.4, but we can run the tests successfully with 8.3.5
-# by just skipping a few tests that require new features.
-%pyproject_patch_dependency pytest:set_lower:8.3.5
-%endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x trio -g test
+%pyproject_buildrequires --extras trio --dependency-groups test
 
 
 %build
@@ -66,18 +64,11 @@ tomcli set pyproject.toml lists delitem \
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{srcname}
+%pyproject_save_files --assert-license %{srcname}
 
 
 %check
-%if %{defined fc43}
-# Upstream wants pytest 8.4, but we can run the tests successfully with 8.3.5
-# by just skipping a few tests that require new features.
-k="${k-}${k+ and }not test_exception_group_filtering"
-k="${k-}${k+ and }not test_nested_exception_group_filtering"
-%endif
-
-%pytest -Wdefault -m "not network" -k "${k-}" -rsx -v
+%pytest -Wdefault -m 'not network' -rsx --verbose
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -85,6 +76,9 @@ k="${k-}${k+ and }not test_nested_exception_group_filtering"
 
 
 %changelog
+* Tue Jun 16 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.0-1
+- Update to 4.14.0 (close RHBZ#2489067)
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 4.13.0-2
 - Rebuilt for Python 3.15
 

@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302221
+Version:        1.302222
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -409,6 +409,11 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 16 2026 Paul Howarth <paul@city-fan.org> - 3:1.302222-1
+- Update to 1.302222
+  - Add missing Changes entry
+  - Fix test that fails on some Windows versions due to path separators
+
 * Mon Jun 15 2026 Paul Howarth <paul@city-fan.org> - 3:1.302221-1
 - Update to 1.302221
   - Prevent the new EBCDIC support from breaking 5.6

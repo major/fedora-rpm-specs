@@ -20,7 +20,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -441,6 +441,10 @@ trial buildbot.test
 %endif
 
 %changelog
+* Tue Jun 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 4.3.0-9
+- Rebuild for Python 3.15
+Resolves: rhbz#2485694
+
 * Tue Apr 21 2026 Carl George <carlwgeorge@fedoraproject.org> - 4.3.0-8
 - Run import check in %%check to avoid missing dependencies
 

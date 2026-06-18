@@ -2,7 +2,7 @@
 
 Name:             bird
 Version:          3.3.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -11,6 +11,7 @@ Source0:          https://bird.nic.cz/download/bird-%{version}.tar.gz
 Source1:          bird.service
 Source2:          bird.tmpfilesd
 Source3:          bird.sysusersd
+Patch0:           https://gitlab.nic.cz/labs/bird/-/commit/d1306a8d71aec820c672620fde70d5af4e30916d.patch#/bird-3.3.1-show-route-for.patch
 
 BuildRequires:    flex
 BuildRequires:    bison
@@ -59,7 +60,7 @@ powerful language for route filtering.
 %endif
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --runstatedir=%{_rundir}/bird
@@ -111,6 +112,10 @@ make test
 %endif
 
 %changelog
+* Tue Jun 16 2026 Robert Scheck <robert@fedoraproject.org> - 3.3.1-2
+- Add upstream patch to fix crash of 'show route for' when no
+  network is found
+
 * Wed Jun 10 2026 Robert Scheck <robert@fedoraproject.org> - 3.3.1-1
 - Upgrade to 3.3.1 (#2487252)
 

@@ -159,6 +159,11 @@ k="${k-}${k+ and }not test_development_guidelines_matches_ci"
 # restrictive.
 k="${k-}${k+ and }not test_serialization"
 
+# On Python 3.15, calling os.fork() in a multi-threaded process (as pytest-xdist
+# workers are) raises DeprecationWarning as an exception. This test explicitly
+# exercises the fork multiprocessing context and cannot pass in this environment.
+k="${k-}${k+ and }not test_custom_context_used_python3_posix"
+
 # Previously excluded for dask-expr. Those tests use parquet files,
 # which involves pyarrow.
 %ifarch s390x

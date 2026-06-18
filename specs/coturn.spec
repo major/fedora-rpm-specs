@@ -1,6 +1,6 @@
 Name:           coturn
-Version:        4.12.0
-Release:        3%{?dist}
+Version:        4.13.1
+Release:        1%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -226,6 +226,12 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Tue Jun 16 2026 Robert Scheck <robert@fedoraproject.org> - 4.13.1-1
+- Upgrade to 4.13.1 (#2488712 #c1)
+
+* Sun Jun 14 2026 Robert Scheck <robert@fedoraproject.org> - 4.13.0-1
+- Upgrade to 4.13.0 (#2488712)
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.12.0-3
 - Rebuilt for openssl 4.0
 
