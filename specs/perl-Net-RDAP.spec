@@ -3,7 +3,7 @@
 %bcond_with network_tests
 
 Name:           perl-Net-RDAP
-Version:        0.42
+Version:        0.43
 Release:        1%{?dist}
 Summary:        Interface to the Registration Data Access Protocol (RDAP)
 # LICENSE:      BSD-2-Clause
@@ -26,6 +26,7 @@ BuildRequires:  perl(DateTime::Tiny)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Glob)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Slurp)
 BuildRequires:  perl(File::Spec)
@@ -77,7 +78,7 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n Net-RDAP-%{version}
 %if %{without network_tests}
-for T in t/chain.t t/document_url.t t/implements.t t/objects.t \
+for T in t/cache.t t/chain.t t/document_url.t t/implements.t t/objects.t \
         t/reverse_search.t t/search.t; do
     rm "$T"
     perl -i -ne 'print $_ unless m{\A\Q'"$T"'\E}' MANIFEST
@@ -118,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 17 2026 Petr Pisar <ppisar@redhat.com> - 0.43-1
+- 0.43 bump
+
 * Thu May 07 2026 Petr Pisar <ppisar@redhat.com> - 0.42-1
 - 0.42 bump
 

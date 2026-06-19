@@ -86,7 +86,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    1%{?dist}
 %else
-Release:    4%{?dist}
+Release:    5%{?dist}
 %endif
 Summary:    AMD System Management Interface
 
@@ -119,6 +119,7 @@ Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ve
 %if %{without preview}
 # https://github.com/ROCm/amdsmi/pull/165
 Patch1:     0001-Fix-compilation-with-libdrm-2.4.130.patch
+Patch2:     0001-amdsmi-silence-pack-warnings.patch
 %else
 # https://github.com/ROCm/rocm-systems/issues/4535
 Patch1:     0001-amdsmi-so-libamdsminic.patch
@@ -375,6 +376,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Wed Jun 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
+- Silence _pack_ warnings
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.2.1-4
 - Rebuilt for Python 3.15
 

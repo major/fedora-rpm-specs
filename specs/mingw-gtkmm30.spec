@@ -11,6 +11,8 @@ Summary:        MinGW Windows C++ interface for the GTK+ library
 License:        LGPL-2.0-or-later
 URL:            http://www.gtkmm.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
+# Fix DESTDIR handlin by generate-binding.py
+Patch0:         gtkmm_generate-binding.patch
 
 BuildArch:      noarch
 

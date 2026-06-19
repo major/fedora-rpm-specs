@@ -24,35 +24,27 @@
 # package is currently clashing in koji, so don't bother.
 %global debug_package %{nil}
 
-# Upstream don't do "releases" :-( So we're going to use the date
-# as the version, and a GIT hash as the release. Generate new GIT
-# snapshots using the folowing commands:
-#
-# $ hash=`git log -1 --format='%h'`
-# $ date=`git log -1 --format='%cd' --date=short | tr -d -`
-# $ git archive --prefix ipxe-${date}-git${hash}/ ${hash} | xz -7e > ipxe-${date}-git${hash}.tar.xz
-#
-# And then change these two:
-
-%global hash de8a0821
-%global date 20240119
+%global forgeurl https://github.com/ipxe/ipxe/
+%global commit 13a83f4ab30bd75831261e6b197903244f1ad753
+%global date 20260614
+%global version0 2.0.0
+%forgemeta
 
 Name:    ipxe
-Version: %{date}
-Release: 5.git%{hash}%{?dist}
 Summary: A network boot loader
+Epoch:   1
+Version: %forgeversion
+Release: %autorelease
 
 License: BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND (GPL-2.0-only OR MPL-1.1) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH UBDL-exception AND ISC AND MIT
 URL:     http://ipxe.org/
 
-Source0: %{name}-%{version}-git%{hash}.tar.xz
+Source:  %forgesource
 
 # Enable IPv6 for qemu's config
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
 Patch0001: 0001-build-customize-configuration.patch
 Patch0002: 0002-Use-spec-compliant-timeouts.patch
-# https://github.com/ipxe/ipxe/issues/1419
-Patch0003: gcc15.patch
 
 %ifarch %{buildarches}
 BuildRequires: perl-interpreter
@@ -77,17 +69,11 @@ Obsoletes: gpxe <= 1.0.1
 
 %ifarch x86_64
 %package bootimgs-x86
-Summary: X86 Network boot loader images in bootable USB, CD, floppy and GRUB formats
+Summary: X86 Network boot loader images
 BuildArch: noarch
 Provides: %{name}-bootimgs = %{version}-%{release}
 Obsoletes: %{name}-bootimgs < 20200823-9.git4bd064de
 Obsoletes: gpxe-bootimgs <= 1.0.1
-
-%package roms
-Summary: Network boot loader roms in .rom format
-Requires: %{name}-roms-qemu = %{version}-%{release}
-BuildArch: noarch
-Obsoletes: gpxe-roms <= 1.0.1
 
 %package roms-qemu
 Summary: Network boot loader roms supported by QEMU, .rom format
@@ -95,20 +81,10 @@ BuildArch: noarch
 Obsoletes: gpxe-roms-qemu <= 1.0.1
 
 %description bootimgs-x86
-iPXE is an open source network bootloader. It provides a direct
-replacement for proprietary PXE ROMs, with many extra features such as
-DNS, HTTP, iSCSI, etc.
+iPXE is an open source network bootloader.
 
-This package contains the iPXE boot images in USB, CD, floppy, and PXE
-UNDI formats.
-
-%description roms
-iPXE is an open source network bootloader. It provides a direct
-replacement for proprietary PXE ROMs, with many extra features such as
-DNS, HTTP, iSCSI, etc.
-
-This package contains the iPXE roms in .rom format.
-
+This package contains iPXE x86 boot images for UEFI (snponly.efi) and
+BIOS (undionly.kpxe).
 
 %description roms-qemu
 iPXE is an open source network bootloader. It provides a direct
@@ -121,15 +97,13 @@ This package contains the iPXE ROMs for devices emulated by QEMU, in
 
 %ifarch aarch64
 %package bootimgs-aarch64
-Summary: ARM Network boot loader images in bootable USB and GRUB formats
+Summary: ARM Network boot loader images
 BuildArch: noarch
 
 %description bootimgs-aarch64
-iPXE is an open source network bootloader. It provides a direct
-replacement for proprietary PXE ROMs, with many extra features such as
-DNS, HTTP, iSCSI, etc.
+iPXE is an open source network bootloader.
 
-This package contains the iPXE ARM boot images in USB and GRUB formats.
+This package contains iPXE aarch64 boot images for UEFI (snponly.efi).
 %endif
 
 %description
@@ -138,12 +112,7 @@ replacement for proprietary PXE ROMs, with many extra features such as
 DNS, HTTP, iSCSI, etc.
 
 %prep
-%setup -q -n %{name}-%{version}-git%{hash}
-%autopatch -p1
-# ath9k drivers are too big for an Option ROM, and ipxe devs say it doesn't
-# make sense anyways
-# http://lists.ipxe.org/pipermail/ipxe-devel/2012-March/001290.html
-rm -rf src/drivers/net/ath/ath9k
+%forgeautosetup -p1
 
 %build
 cd src
@@ -151,18 +120,16 @@ cd src
 make_ipxe() {
     make %{?_smp_mflags} \
         NO_WERROR=1 V=1 \
-        GITVERSION=%{hash} \
+        GITVERSION=%{commit} \
         "$@"
 }
 
 %ifarch x86_64
 
-make_ipxe bin-i386-efi/ipxe.efi bin-x86_64-efi/ipxe.efi \
-    bin-x86_64-efi/snponly.efi
+make_ipxe bin-x86_64-efi/snponly.efi
 
 make_ipxe ISOLINUX_BIN=/usr/share/syslinux/isolinux.bin \
-    bin/undionly.kpxe bin/ipxe.{dsk,iso,usb,lkrn} \
-    allroms
+    bin/undionly.kpxe
 
 # build roms with efi support for qemu
 mkdir bin-combined
@@ -191,29 +158,17 @@ done
 
 %ifarch aarch64
 make_ipxe bin-arm64-efi/snponly.efi
-%if 0%{?fedora}
-make_ipxe bin-arm64-efi/ipxe.efi
-%endif
 %endif
 
 %install
 %ifarch x86_64
 mkdir -p %{buildroot}/%{_datadir}/%{name}/
 mkdir -p %{buildroot}/%{_datadir}/%{name}.efi/
+
 pushd src/bin/
-
-cp -a undionly.kpxe ipxe.{iso,usb,dsk,lkrn} %{buildroot}/%{_datadir}/%{name}/
-
-for img in *.rom; do
-  if [ -e $img ]; then
-    cp -a $img %{buildroot}/%{_datadir}/%{name}/
-    echo %{_datadir}/%{name}/$img >> ../../rom.list
-  fi
-done
+cp -a undionly.kpxe %{buildroot}/%{_datadir}/%{name}/
 popd
 
-cp -a src/bin-i386-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/ipxe-i386.efi
-cp -a src/bin-x86_64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/ipxe-x86_64.efi
 cp -a src/bin-x86_64-efi/snponly.efi %{buildroot}/%{_datadir}/%{name}/ipxe-snponly-x86_64.efi
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/qemu/
@@ -223,9 +178,9 @@ for romstr in %{qemuroms}; do
   # remove from the main rom list and add them to qemu.list
   rom=$(echo "$romstr" | cut -d ":" -f 1)
   qemuname=$(echo "$romstr" | cut -d ":" -f 2)
-  sed -i -e "/\/${rom}.rom/d" rom.list
   echo %{_datadir}/%{name}/${rom}.rom >> qemu.rom.list
 
+  cp src/bin/${rom}.rom %{buildroot}/%{_datadir}/%{name}/
   cp src/bin-combined/${rom}.rom %{buildroot}/%{_datadir}/%{name}.efi/
   echo %{_datadir}/%{name}.efi/${rom}.rom >> qemu.rom.list
 
@@ -240,26 +195,13 @@ done
 %ifarch aarch64
 mkdir -p %{buildroot}/%{_datadir}/%{name}/arm64-efi
 cp -a src/bin-arm64-efi/snponly.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/snponly.efi
-%if 0%{?fedora}
-cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe.efi
-%endif
 %endif
 
 %ifarch x86_64
 %files bootimgs-x86
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/ipxe.iso
-%{_datadir}/%{name}/ipxe.usb
-%{_datadir}/%{name}/ipxe.dsk
-%{_datadir}/%{name}/ipxe.lkrn
-%{_datadir}/%{name}/ipxe-i386.efi
-%{_datadir}/%{name}/ipxe-x86_64.efi
 %{_datadir}/%{name}/undionly.kpxe
 %{_datadir}/%{name}/ipxe-snponly-x86_64.efi
-%doc COPYING COPYING.GPLv2 COPYING.UBDL
-
-%files roms -f rom.list
-%dir %{_datadir}/%{name}
 %doc COPYING COPYING.GPLv2 COPYING.UBDL
 
 %files roms-qemu -f qemu.rom.list
@@ -273,54 +215,8 @@ cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe
 %files bootimgs-aarch64
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/arm64-efi
-%if 0%{?fedora}
-%{_datadir}/%{name}/arm64-efi/ipxe.efi
-%endif
 %{_datadir}/%{name}/arm64-efi/snponly.efi
 %endif
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240119-5.gitde8a0821
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240119-4.gitde8a0821
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240119-3.gitde8a0821
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240119-2.gitde8a0821
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 30 2024 Daniel P. Berrangé <berrange@redhat.com> - 20240119-1.gitde8a0821
-- Update to latest git snapshot
-
-* Thu Jan 25 2024 Stid Official <stidofficiel@gmail.com> - 20220210-8.git64113751
-- Add support of NFS protocol
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-7.git64113751
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-6.git64113751
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Dec 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20220210-5.git64113751
-- Fix build with binutils 2.41
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-4.git64113751
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-3.git64113751
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-2.git64113751
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Apr 10 2022 Cole Robinson <crobinso@redhat.com> - 20220210-1.git64113751
-- Update to newer git snapshot
-
-* Tue Mar 01 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 20200823-9.git4bd064de
-- Add aarch64 EFI artifacts (bz 2058680)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200823-8.git4bd064de
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+%autochangelog

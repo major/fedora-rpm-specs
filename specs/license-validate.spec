@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        30
+Version:        31
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -69,6 +69,9 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Wed Jun 17 2026 Miroslav Suchý <msuchy@redhat.com> 31-1
+- Add workaround for conditional spanning multiple sections
+
 * Thu Mar 05 2026 Miroslav Suchý <msuchy@redhat.com> 30-1
 - typo
 

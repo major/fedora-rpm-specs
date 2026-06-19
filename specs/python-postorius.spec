@@ -3,17 +3,20 @@
 %bcond_with tests
 
 Name:           python-postorius
-Version:        1.3.12
+Version:        1.3.13
 Release:        %autorelease
 Summary:        Web UI for GNU Mailman
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mailman/postorius
 Source:         %{pypi_source postorius}
-# don't ship examples, they end up in sitelib
-Patch:          postorius-dont-ship-examples.diff
 # allow Django 5.2, for Python 3.14 compatibility
 Patch:          postorius-django52.diff
+# https://nvd.nist.gov/vuln/detail/CVE-2026-44742
+# per https://www.openwall.com/lists/oss-security/2026/05/07/3
+# this fix was committed but never published as a new version
+# backport https://gitlab.com/mailman/postorius/-/merge_requests/972.diff to 1.3.12
+Patch:          postorius-fix-CVE-2026-44742.diff
 
 BuildArch:      noarch
 

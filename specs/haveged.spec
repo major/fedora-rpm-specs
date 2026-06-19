@@ -1,7 +1,7 @@
 %define dracutlibdir lib/dracut
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
-Version:        1.9.22
+Version:        1.9.23
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -105,6 +105,16 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Thu Jun 18 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.23-1
+- Update to 1.9.23
+- Security: use O_EXCL with sem_open to prevent semaphore pre-planting attacks
+- Security: fix OOB memory access in safein()/safeout() on socket errors
+- Security: reject command socket connections from different user namespaces
+- Security: use O_NOFOLLOW for PID file to prevent symlink attacks
+- Harden: open random device with O_CLOEXEC, restrict semaphore to 0600
+- Fix stale semaphore recovery after SIGKILL
+- Fix compilation when NO_COMMAND_MODE is defined
+
 * Thu May 21 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.22-1
 - Update to 1.9.22
 - Fix systemd sandboxing: add ReadWritePaths=/dev/shm for semaphore creation

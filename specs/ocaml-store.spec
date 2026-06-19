@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-store
-Version:        0.1
+Version:        0.2
 Release:        %autorelease
 Summary:        Snapshottable data structures
 
@@ -29,8 +29,11 @@ Source:         %{url}/-/archive/v%{version}/store-v%{version}.tar.bz2
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml >= 4.05
+BuildRequires:  ocaml >= 5.2
 BuildRequires:  ocaml-dune >= 3.7
+%ifarch %{x86_64}
+BuildRequires:  ocaml-monolith
+%endif
 
 %description
 `Store` is a library to add snapshotting capabilities to imperative data

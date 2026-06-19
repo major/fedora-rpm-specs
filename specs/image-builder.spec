@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 181
+%global min_osbuild_version 183
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        68
+Version:        69
 
 %gometa
 
@@ -52,26 +52,26 @@ Provides: bundled(golang(github.com/IBM/ibm-cos-sdk-go)) = 1.12.3
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.7
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.10
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.18
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.17
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.1.22
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.24
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.304.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.9
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.15
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.23
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.101.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.0.11
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.17
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.42.1
-Provides: bundled(golang(github.com/aws/smithy-go)) = 1.25.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.23
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.22
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.28
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager)) = 0.2.8
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.28
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.28
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.29
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.305.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.9.21
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.28
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.28
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.103.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.1.4
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.31.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.36.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.43.2
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.27.1
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containers/common)) = 0.64.2
 Provides: bundled(golang(github.com/containers/image/v5)) = 5.36.2
@@ -130,8 +130,8 @@ Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.30.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.270.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.31.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.274.0
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
 Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.23.0
@@ -251,6 +251,59 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Jun 17 2026 Packit <hello@packit.dev> - 69-1
+Changes with 69
+----------------
+  - deps: bump osbuild/images dependency (#548)
+    - Author: SchutzBot, Reviewers: Nobody
+  - deps: bump osbuild/images dependency (#551)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - deps: bump osbuild/images dependency (#552)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger
+  - deps: images 0.273.0 (#549)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Lucas Garfield
+  - main: `system` subcommand (#537)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+
+osbuild/images changes (v0.270.0 -> v0.274.0):
+
+  - Add BootcRootFS pipeline and use it for bootc pxe-tar-xz (#2361)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Add Custom menus to X86 and PPC64 ISO bootloaders (#2394)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Test: stop testing EOL RHEL releases (#2415)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - Update dependencies 2026-05-31 (#2391)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Lukáš Zapletal, Simon de Vlieger
+  - Update dependencies 2026-06-07 (#2402)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová, Simon de Vlieger
+  - config-list: narrow down the matrix (#2366)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - data/repositories: add PQC keys to rolling distros (#2411)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - deps: drop `golang.org/x/exp/slices` (#2399)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - distro/eln: clean up part 1 (HMS-10764) (#2384)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - distro/eln: installers use erofs (HMS-10634) (#2398)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - fedora-42: eol (#2385)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - imgtestlib: support bootc-foundry image types (#2393)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - manifest: use boot root for fix bls (#2412)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  - many: copy boot files from build (#2410)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Brian C. Lane
+  - many: initial `systemd-boot` support (#2392)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - oscap: drop dead code (#2409)
+    - Author: Simon de Vlieger, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal
+  - test/imgtestlib: boot test network installer on RHEL 10.2 (#2387)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Ondřej Budai, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-06-17
+
 * Thu Jun 04 2026 Packit <hello@packit.dev> - 68-1
 Changes with 68
 ----------------

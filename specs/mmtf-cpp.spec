@@ -9,13 +9,13 @@
 
 Name:    mmtf-cpp
 Version: 1.1.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: The Macromolecular Transmission Format (MMTF) header only files
 License: MIT
 URL:     https://github.com/rcsb/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: %{?dts}gcc
 BuildRequires: %{?dts}gcc-c++
 BuildRequires: msgpack-devel >= 2.1.5
@@ -73,6 +73,9 @@ popd
 %endif
 
 %changelog
+* Wed Jun 17 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.1.0-10
+- Use CMake not CMake3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

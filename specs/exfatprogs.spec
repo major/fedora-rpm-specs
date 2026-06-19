@@ -1,5 +1,5 @@
 Name:           exfatprogs
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only

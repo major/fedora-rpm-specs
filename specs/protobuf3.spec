@@ -91,6 +91,9 @@ Patch4:         protobuf-3.19.4-python3.11.patch
 Patch6:         protobuf-3.19.6-gcc15.patch
 # pkg_resources dropped from latest setuptools, only needed on Mac OS
 Patch7:         protobuf-3.19.6-pkg_resources.patch
+# Switch from legacy namespace_packages to PEP 420 native namespace packages
+# to fix KeyError on Python 3.15 (https://bugzilla.redhat.com/show_bug.cgi?id=2486066)
+Patch8:         protobuf-3.19.6-native-namespace.patch
 
 
 # A bundled copy of jsoncpp is included in the conformance tests, but the
@@ -286,6 +289,10 @@ MinGW Windows protobuf library tools.
 %patch 4 -p1 -b .python311
 %patch 6 -p1 -b .gcc15
 %patch 7 -p1 -b .pkg_resources
+%patch 8 -p1 -b .native_namespace
+
+# Remove google/__init__.py to use implicit (PEP 420) namespace packages
+rm python/google/__init__.py
 
 # Copy in the needed gtest/gmock implementations.
 %setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}
@@ -411,11 +418,6 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %if %{with python}
 %files -n python3-protobuf3 -f %{pyproject_files}
-%if %{with python_cpp}
-%{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
-%else
-%{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
-%endif
 %license LICENSE
 %doc python/README.md
 %doc examples/add_person.py examples/list_people.py examples/addressbook.proto

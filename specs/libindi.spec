@@ -19,8 +19,15 @@ ExcludeArch:    %{ix86}
 # unit tests
 %global build_tests 1
 
+# Disable warnings for ppc64le to avoid build failure
+%ifarch ppc64le
+%global fix_warnings OFF
+%else
+%global fix_warnings ON
+%endif
+
 Name:       libindi
-Version:    2.2.2
+Version:    2.2.3.1
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -155,7 +162,8 @@ rm -rf libs/hid
     -DINDI_BUILD_UNITTESTS="%{tests}" \
     -DINDI_SYSTEM_HTTPLIB="%{system_httplib}" \
     -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}" \
-    -DINDI_SYSTEM_HIDAPILIB="%{system_hidlib}"
+    -DINDI_SYSTEM_HIDAPILIB="%{system_hidlib}" \
+    -DFIX_WARNINGS=%{fix_warnings}
 
 %cmake_build
 

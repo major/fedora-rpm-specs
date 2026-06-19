@@ -1,12 +1,11 @@
 Name:		maradns
-Version:	3.5.0036
-Release:	9%{?dist}
+Version:	3.5.0037
+Release:	1%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
-Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
+Source0:	http://www.maradns.org/download/3.5/%{version}/MaraDNS-%{version}-fedora.tar.xz
 # http://maradns.samiam.org/download/patches/3rd_party/Thomasz-Torcz-systemd-2013-10-14.patch
 Patch0:		%{name}-0001-add-systemd-unit-files.patch
-Patch1:		%{name}-0002-fix-prototypes-and-signal-handlers.patch
 # parts of MaraDNS – the files in coLunacyDNS/lunacy – are under MIT (Lua) license,
 # but we don't package them
 License:	BSD-2-Clause
@@ -27,12 +26,12 @@ essential internet service. MaraDNS has the following advantages:
 	* Open Source.
 
 %prep
-%setup -q
+%setup -q -n MaraDNS-%{version}
 %autopatch -p1
 
 # Create a sysusers.d config file
 cat >maradns.sysusers.conf <<EOF
-u maradns - 'MaraDns chroot user' /etc/maradns -
+u maradns - 'MaraDNS chroot user' /etc/maradns -
 EOF
 
 %build
@@ -42,7 +41,8 @@ EOF
 
 # recursive resolver is shipped in versioned directory
 # first compile Deadwood, otherwise we have no control over make flags
-pushd deadwood-%{version}/src
+#pushd deadwood-%{version}/src
+pushd deadwood-github/src
 make %{?_smp_mflags} FLAGS="%{optflags} -lrt"
 popd
 make %{?_smp_mflags} FLAGS="%{optflags} -DSELECT_PROBLEM -DAUTHONLY"
@@ -52,7 +52,8 @@ make %{?_smp_mflags} FLAGS="%{optflags} -DSELECT_PROBLEM -DAUTHONLY"
 # create /etc/maradns, /etc/mararc and /etc/dwood3rc first
 install -p -d -m 0755 %{buildroot}%{_sysconfdir}/maradns/logger/
 install -p -D -m 0644 doc/en/examples/example_mararc %{buildroot}%{_sysconfdir}/mararc
-install -p -D -m 0644 deadwood-%{version}/doc/dwood3rc %{buildroot}%{_sysconfdir}/dwood3rc
+#install -p -D -m 0644 deadwood-%{version}/doc/dwood3rc %{buildroot}%{_sysconfdir}/dwood3rc
+install -p -D -m 0644 deadwood-github/doc/dwood3rc %{buildroot}%{_sysconfdir}/dwood3rc
 
 # cache dir
 install -p -d -m 0755 %{buildroot}/var/cache/deadwood
@@ -60,7 +61,8 @@ install -p -d -m 0755 %{buildroot}/var/cache/deadwood
 # sbin files
 install -p -D -m 0755 server/maradns %{buildroot}%{_sbindir}/maradns
 install -p -D -m 0755 tcp/zoneserver %{buildroot}%{_sbindir}/zoneserver
-install -p -D -m 0755 deadwood-%{version}/src/Deadwood %{buildroot}%{_sbindir}/Deadwood
+#install -p -D -m 0755 deadwood-%{version}/src/Deadwood %{buildroot}%{_sbindir}/Deadwood
+install -p -D -m 0755 deadwood-github/src/Deadwood %{buildroot}%{_sbindir}/Deadwood
 
 # bin files
 install -p -D -m 0755 tcp/getzone %{buildroot}%{_bindir}/getzone
@@ -74,7 +76,8 @@ install -p -D -m 0644 -t %{buildroot}%{_mandir}/man1/ \
 	doc/en/man/getzone.1 \
 	doc/en/man/fetchzone.1
 install -p -D -m 0644 -t %{buildroot}%{_mandir}/man1/ \
-	deadwood-%{version}/doc/Deadwood.1
+	deadwood-github/doc/Deadwood.1
+#	deadwood-%{version}/doc/Deadwood.1
 install -p -D -m 0644 -t %{buildroot}%{_mandir}/man5/ \
 	doc/en/man/csv1.5 \
 	doc/en/man/csv2.5 \
@@ -146,6 +149,9 @@ fi
 
 
 %changelog
+* Mon Jun 15 2026 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0037-1
+- update to 3.5.0037, fixing DNS-over-TCP bug (rhbz#2488786)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0036-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

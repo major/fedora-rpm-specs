@@ -5,7 +5,7 @@
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
@@ -67,6 +67,7 @@ Patch103: expect-5.45-passmass-su-full-path.patch
 Patch104: expect-5.45-mkpasswd-man.patch
 # Patch105: fix mkpasswd to read /dev/urandom in binary mode for tcl9
 Patch105: expect-5.45.4-tcl9-mkpasswd.patch
+Patch106: expect-5.45.4-tcl9-unbuffer.patch
 
 %description
 Expect is a tcl application for automating and testing
@@ -134,6 +135,7 @@ of expectk.
 %patch -P103 -p1 -b .passmass-su-full-path
 %patch -P104 -p1 -b .mkpasswd-man
 %patch -P105 -p1 -b .tcl9-mkpasswd
+%patch -P 106 -p1
 # -pkgpath.patch touch configure.in
 aclocal
 autoconf
@@ -217,6 +219,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Wed Jun 17 2026 Florian Weimer  <fweimer@redhat.com> - 5.45.4-32
+- Use binary mode in unbuffer (#2489967)
+
 * Tue Feb 17 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-31
 - Port to tcl9
 

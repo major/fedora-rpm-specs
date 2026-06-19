@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        183
+Version:        185
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -11,7 +11,7 @@ Version:        183
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -316,6 +316,9 @@ install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
 # This means some tests won't be run even though they could,
 # but that's an acceptable tradeoff.
 ignore_files=()
+
+# Fails very regularly downstream recently
+# TestUtilJsonComm.test_send_and_recv_tons_of_data_is_fine - https://github.com/osbuild/osbuild/issues/2336
 skip_tests=(
     "(TestUtilJsonComm and test_send_and_recv_tons_of_data_is_fine)"
 )
@@ -346,7 +349,6 @@ skip_tests+=(
 
 # fails on ppc64le:
 # TestAPI.test_exception - https://github.com/osbuild/osbuild/issues/2337
-# TestUtilJsonComm.test_send_and_recv_tons_of_data_is_fine - https://github.com/osbuild/osbuild/issues/2336
 # TestUtilJsonComm.test_sendmsg_errors_with_size_on_EMSGSIZE - https://github.com/osbuild/osbuild/issues/2342
 %ifarch ppc64le
 skip_tests+=(
@@ -486,6 +488,22 @@ fi
 %endif
 
 %changelog
+* Wed Jun 17 2026 Packit <hello@packit.dev> - 185-1
+Changes with 185
+----------------
+  - Update snapshots to 20260531 (#2466)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Lukáš Zapletal, Simon de Vlieger
+  - ci: fix `test_qemu` (#2483)
+    - Author: Simon de Vlieger, Reviewers: Simon Steinbeiß, Tomáš Hozza
+  - org.osbuild.ovf: support setting virtual hardware version (HMS-3248) (#2468)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - runners: Add Oracle Linux 9 runner symlinked to CentOS9 (#2476)
+    - Author: Laurence Rochfort, Reviewers: Brian C. Lane, Simon de Vlieger
+  - sources/librepo: accept SHA1 (#2477)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Lukáš Zapletal
+
+— Somewhere on the Internet, 2026-06-17
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 183-2
 - Rebuilt for Python 3.15
 

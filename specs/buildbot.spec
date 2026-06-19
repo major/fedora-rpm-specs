@@ -20,7 +20,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -441,6 +441,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Wed Jun 17 2026 Python Maint <python-maint@redhat.com> - 4.3.0-10
+- Rebuilt for Python 3.15
+
 * Tue Jun 16 2026 Charalampos Stratakis <cstratak@redhat.com> - 4.3.0-9
 - Rebuild for Python 3.15
 Resolves: rhbz#2485694

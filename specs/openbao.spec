@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.5.4
+%global package_version 2.5.5
 
 %global oldname vault
 
 Name: openbao
-Version: 2.5.4
+Version: 2.5.5
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -261,7 +261,7 @@ Provides: bundled(golang(github.com/moby/go_archive)) = v0.1.0
 Provides: bundled(golang(github.com/moby/moby/api)) = v1.52.0
 Provides: bundled(golang(github.com/moby/moby/client)) = v0.2.1
 Provides: bundled(golang(github.com/moby/patternmatcher)) = v0.6.0
-Provides: bundled(golang(github.com/moby/spdystream)) = v0.5.0
+Provides: bundled(golang(github.com/moby/spdystream)) = v0.5.1
 Provides: bundled(golang(github.com/moby/sys/sequential)) = v0.6.0
 Provides: bundled(golang(github.com/moby/sys/user)) = v0.4.0
 Provides: bundled(golang(github.com/moby/sys/userns)) = v0.1.0
@@ -335,6 +335,8 @@ Provides: bundled(golang(github.com/tilinna/clock)) = v1.0.2
 Provides: bundled(golang(github.com/tink_crypto/tink_go/v2)) = v2.6.0
 Provides: bundled(golang(github.com/tklauser/go_sysconf)) = v0.3.16
 Provides: bundled(golang(github.com/tklauser/numcpus)) = v0.11.0
+Provides: bundled(golang(github.com/tsaarni/certyaml)) = v0.11.0
+Provides: bundled(golang(github.com/tsaarni/x500dn)) = v1.1.0
 Provides: bundled(golang(github.com/tv42/httpunix)) = v0.0.0_20191220191345_2ba4b9c3382c
 Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.12.2
 Provides: bundled(golang(github.com/vmware/govmomi)) = v0.18.0
@@ -361,17 +363,17 @@ Provides: bundled(golang(go.uber.org/zap)) = v1.27.1
 Provides: bundled(golang(go.uber.org/zap/exp)) = v0.3.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = v2.4.3
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = v0.50.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.52.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20260112195511_716be5621a96
-Provides: bundled(golang(golang.org/x/mod)) = v0.34.0
-Provides: bundled(golang(golang.org/x/net)) = v0.53.0
+Provides: bundled(golang(golang.org/x/mod)) = v0.35.0
+Provides: bundled(golang(golang.org/x/net)) = v0.55.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.34.0
 Provides: bundled(golang(golang.org/x/sync)) = v0.20.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.43.0
-Provides: bundled(golang(golang.org/x/term)) = v0.42.0
-Provides: bundled(golang(golang.org/x/text)) = v0.36.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.45.0
+Provides: bundled(golang(golang.org/x/term)) = v0.43.0
+Provides: bundled(golang(golang.org/x/text)) = v0.37.0
 Provides: bundled(golang(golang.org/x/time)) = v0.14.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.43.0
+Provides: bundled(golang(golang.org/x/tools)) = v0.44.0
 Provides: bundled(golang(google.golang.org/api)) = v0.259.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20251202230838_ff82c1b0f217
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20260120221211_b8f7ae30c516

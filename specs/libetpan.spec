@@ -1,5 +1,5 @@
 Name:           libetpan
-Version:        1.10
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
@@ -69,7 +69,6 @@ env NOCONFIGURE=1 ./autogen.sh
 cp -p %{_bindir}/libtool .
 
 %build
-#%global optflags %(echo %{optflags} | sed 's/-g /-g -Wno-format-truncation /')
 # Use poll instead of select on F40 and above (bug 2283446)
 %configure \
     --disable-static \
@@ -121,8 +120,7 @@ popd
 %files
 %license COPYRIGHT
 %doc ChangeLog NEWS
-%{_libdir}/%{name}.so.20
-%{_libdir}/%{name}.so.20.*
+%{_libdir}/%{name}.so.26{,.*}
 
 %files devel
 %doc doc/API.html doc/README.html doc/DOCUMENTATION
@@ -132,6 +130,9 @@ popd
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Jun 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10.1-1
+- 1.10.1
+
 * Sun May 31 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.10-1
 - 1.10
 

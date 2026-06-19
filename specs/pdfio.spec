@@ -1,6 +1,8 @@
+%bcond examples %{undefined rhel}
+
 Name: pdfio
-Version: 1.6.1
-Release: 2%{?dist}
+Version: 1.6.4
+Release: 1%{?dist}
 Summary: C library for PDF I/O
 # Apache 2.0 with exception - pdfio code
 # GPL-2.0-or-later - code128 font from examples
@@ -39,19 +41,23 @@ for reading and writing encrypted PDF files, accessing pages, objects,
 and streams withing PDF file, working with PDF metadata etc.
 
 %package devel
-Summary: PDFIO development files and examples
+Summary: PDFIO development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-doc = %{version}-%{release}
-# uses Roboto fonts in examples - use requires instead of bundling them
-Requires: google-roboto-fonts
-Requires: google-roboto-mono-fonts
+Recommends: %{name}-doc = %{version}-%{release}
 
 %description devel
 The package contains development files for PDFIO library.
 
 %package doc
-Summary: PDFIO documentation
+Summary: PDFIO documentation and examples
 BuildArch: noarch
+Requires: %{name}-devel = %{version}-%{release}
+
+%if %{with examples}
+# uses Roboto fonts in examples - use requires instead of bundling them
+Requires: google-roboto-fonts
+Requires: google-roboto-mono-fonts
+%endif
 
 %description doc
 The package contains HTML documentation and man page for PDFIO library.
@@ -63,6 +69,8 @@ The package contains HTML documentation and man page for PDFIO library.
 
 
 %build
+export DSOFLAGS="$DSOFLAGS $RPM_LD_FLAGS"
+export CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
 %configure --libdir=%{_libdir} \
   --disable-static \
   --enable-shared \
@@ -81,18 +89,17 @@ rm %{buildroot}/%{_pkgdocdir}/{LICENSE,NOTICE}
 cp -p %{buildroot}%{_pkgdocdir}/examples/code128-LICENSE.txt .
 rm %{buildroot}%{_pkgdocdir}/examples/*LICENSE*
 
-# copy the examples to -devel
-mkdir -p %{buildroot}%{_docdir}/%{name}-devel
-cp -pr %{buildroot}%{_pkgdocdir}/examples/ %{buildroot}%{_docdir}/%{name}-devel
-rm -rf %{buildroot}%{_pkgdocdir}/examples/
+%if %{with examples}
+  # make symlink for big fonts which are already packaged in Fedora
+  for font in Roboto-Bold.ttf Roboto-Italic.ttf Roboto-Regular.ttf
+  do
+    ln -sf ../../../fonts/google-roboto/$font %{buildroot}%{_docdir}/%{name}/examples/$font
+  done
 
-# make symlink for big fonts which are already packaged in Fedora
-for font in Roboto-Bold.ttf Roboto-Italic.ttf Roboto-Regular.ttf
-do
-  ln -sf ../../../fonts/google-roboto/$font %{buildroot}%{_docdir}/%{name}-devel/examples/$font
-done
-
-ln -sf ../../../fonts/google-roboto-mono-fonts/RobotoMono-Regular.ttf %{buildroot}%{_docdir}/%{name}-devel/examples/RobotoMono-Regular.ttf
+  ln -sf ../../../fonts/google-roboto-mono-fonts/RobotoMono-Regular.ttf %{buildroot}%{_docdir}/%{name}/examples/RobotoMono-Regular.ttf
+%else
+  rm -rf %{buildroot}%{_docdir}/%{name}/examples
+%endif
 
 
 %check
@@ -104,24 +111,31 @@ make test
 %{_libdir}/libpdfio.so.1
 
 %files devel
-%license code128-LICENSE.txt
-# TrueType fonts, C source files, docs
-# for examples
-%dir %{_docdir}/%{name}-devel
-%{_docdir}/%{name}-devel/examples
 %{_includedir}/pdfio.h
 %{_includedir}/pdfio-content.h
 %{_libdir}/libpdfio.so
 %{_libdir}/pkgconfig/pdfio.pc
 
 %files doc
+# TrueType fonts, C source files, docs
+# for examples
 %dir %{_pkgdocdir}
 %{_docdir}/%{name}/pdfio.html
 %{_docdir}/%{name}/pdfio-512.png
 %{_mandir}/man3/pdfio.3.gz
+%if %{with examples}
+%license code128-LICENSE.txt
+%{_docdir}/%{name}/examples
+%endif
 
 
 %changelog
+* Wed Jun 17 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.4-1
+- pdfio-1.6.4 is available
+
+* Tue Jun 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.1-3
+- Make docs and fonts recommended to strip deps
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,8 +7,8 @@
 %global gmic_version 3.7.4.1
 
 Name:           krita
-Version:        6.0.1
-Release:        7%{?dist}
+Version:        6.0.2.1
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -20,11 +20,12 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_version}/gmic-%{gmic_version}.tar.gz
 
 ## upstream patches
+Patch0: krita-gmic-CVE-2026-42144.patch
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
-Patch: krita-6.0.0-appstream_validate.patch
+Patch: krita-6.0.2.1-appstream_validate.patch
 Patch: krita-sip-abi-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -233,6 +234,10 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Wed Jun 17 2026 Than Ngo <than@redhat.com> - 6.0.2.1-1
+- Fix rhbz#2481429, Update to 6.0.2.1
+- Fix rhbz#2476570, CVE-2026-42144: integer overflow in PNM size check bypasses memory guard
+
 * Fri Jun 05 2026 Python Maint <python-maint@redhat.com> - 6.0.1-7
 - Rebuilt for Python 3.15
 

@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.11.3
-Release: 3%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -81,6 +81,7 @@ Source3: README-Postfix-SASL-RedHat.txt
 Source4: postfix.aliasesdb
 Source5: postfix-chroot-update
 Source6: postfix.sysusers
+Source7: postfix.tmpfiles
 
 # Sources 50-99 are upstream [patch] contributions
 
@@ -432,6 +433,9 @@ install -m 755 %{SOURCE5} %{buildroot}%{postfix_daemon_dir}/chroot-update
 # systemd-sysusers
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_sysusersdir}/postfix.conf
 
+# systemd-tmpfiles
+install -p -D -m 0644 %{SOURCE7} %{buildroot}%{_tmpfilesdir}/postfix.conf
+
 install -c auxiliary/rmail/rmail $RPM_BUILD_ROOT%{_bindir}/rmail.postfix
 
 for i in active bounce corrupt defer deferred flush incoming private saved maildrop public pid saved trace; do
@@ -652,6 +656,7 @@ fi
 %config(noreplace) %{sasl_config_dir}/smtpd.conf
 %endif
 %config(noreplace) %{_sysconfdir}/pam.d/smtp.postfix
+%{_tmpfilesdir}/postfix.conf
 %{_unitdir}/postfix.service
 
 # Documentation
@@ -680,23 +685,23 @@ fi
 
 %dir %attr(0755, root, root) %{postfix_config_dir}
 %dir %attr(0755, root, root) %{postfix_daemon_dir}
-%dir %attr(0755, root, root) %{postfix_queue_dir}
+%ghost %dir %attr(0755, root, root) %{postfix_queue_dir}
 %dir %attr(0755, root, root) %{postfix_shlib_dir}
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/active
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/bounce
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/corrupt
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/defer
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/deferred
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/flush
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/hold
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/incoming
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/saved
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/trace
-%dir %attr(0730, %{postfix_user}, %{maildrop_group}) %{postfix_queue_dir}/maildrop
-%dir %attr(0755, root, root) %{postfix_queue_dir}/pid
-%dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/private
-%dir %attr(0710, %{postfix_user}, %{maildrop_group}) %{postfix_queue_dir}/public
-%dir %attr(0700, %{postfix_user}, root) %{postfix_data_dir}
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/active
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/bounce
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/corrupt
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/defer
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/deferred
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/flush
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/hold
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/incoming
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/saved
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/trace
+%ghost %dir %attr(0730, %{postfix_user}, %{maildrop_group}) %{postfix_queue_dir}/maildrop
+%ghost %dir %attr(0755, root, root) %{postfix_queue_dir}/pid
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_queue_dir}/private
+%ghost %dir %attr(0710, %{postfix_user}, %{maildrop_group}) %{postfix_queue_dir}/public
+%ghost %dir %attr(0700, %{postfix_user}, root) %{postfix_data_dir}
 %dir %attr(0755, root, root) %{postfix_config_dir}/dynamicmaps.cf.d
 %dir %attr(0755, root, root) %{postfix_config_dir}/postfix-files.d
 
@@ -858,6 +863,12 @@ fi
 %endif
 
 %changelog
+* Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.11.3-5
+- Rebuilt for openssl 4.0
+
+* Wed Jun 17 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.11.3-4
+- Used workarounds for /var to support Image mode
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.11.3-3
 - Rebuilt for openssl 4.0
 

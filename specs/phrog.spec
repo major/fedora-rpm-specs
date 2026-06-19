@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           phrog
-Version:        0.50.0
+Version:        0.53.0
 Release:        %autorelease
 Summary:        Mobile-friendly greeter for greetd
 # phrog itself is licensed under GPL-3.0.
@@ -54,6 +54,7 @@ BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libphosh-0.45)
+BuildRequires:  gettext-devel
 
 Requires:       accountsservice
 Requires:       gnome-session
@@ -69,18 +70,22 @@ Phrog uses Phosh and greetd to provide a graphical login manager.
 %cargo_prep -v vendor
 
 %build
+export GETTEXT_SYSTEM=1
 %cargo_build
+%{__cargo} run --offline --quiet --package xtask -- dist-data greetd-config.toml --greetd-vt 1 --greetd-user greetd
 %cargo_vendor_manifest
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install
+export GETTEXT_SYSTEM=1
 install -Dpm 0644 data/mobi.phosh.Phrog.service -t %{buildroot}%{_userunitdir}/
 install -Dpm 0644 data/mobi.phosh.Phrog.target -t %{buildroot}%{_userunitdir}/
 install -Dpm 0644 data/mobi.phosh.phrog.gschema.xml -t %{buildroot}%{_datadir}/glib-2.0/schemas/
+install -Dpm 0644 data/00_mobi.phosh.Phrog.gschema.override -t %{buildroot}%{_datadir}/glib-2.0/schemas/
 install -Dpm 0644 data/phrog.session -t %{buildroot}%{_datadir}/gnome-session/sessions/
 install -Dpm 0644 data/mobi.phosh.Phrog.desktop -t %{buildroot}%{_datadir}/applications/
-install -Dpm 0644 dist/fedora/greetd-config.toml -t %{buildroot}%{_sysconfdir}/phrog/
+install -Dpm 0644 target/dist-data/greetd-config.toml -t %{buildroot}%{_sysconfdir}/phrog/
 install -Dpm 0644 dist/fedora/phrog.service -t %{buildroot}%{_unitdir}/
 install -Dpm 0644 data/systemd-session.conf -T %{buildroot}%{_userunitdir}/gnome-session@phrog.target.d/session.conf
 install -Dpm 0755 data/phrog-greetd-session -t %{buildroot}%{_libexecdir}/
@@ -116,6 +121,7 @@ export G_MESSAGES_DEBUG=all
 %{_bindir}/phrog
 %{_datadir}/applications/mobi.phosh.Phrog.desktop
 %{_datadir}/glib-2.0/schemas/mobi.phosh.phrog.gschema.xml
+%{_datadir}/glib-2.0/schemas/00_mobi.phosh.Phrog.gschema.override
 %{_datadir}/gnome-session/sessions/phrog.session
 %dir %{_datadir}/phrog
 %dir %{_datadir}/phrog/autostart

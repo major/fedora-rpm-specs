@@ -1,7 +1,7 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
 Version:        1.11.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
 Source0:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -12,6 +12,7 @@ Source4:        %{name}.service
 Source5:        %{name}.logrotate
 Source6:        %{name}.tmpfilesd
 Source7:        %{name}.sysusersd
+Patch0:         https://github.com/radsecproxy/radsecproxy/commit/acbe243054d736acb583d15fd0650eff5b655c8a.patch#/radsecproxy-1.11.2-openssl-4.0.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -30,7 +31,7 @@ at the same time to be small, efficient and easy to configure.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -82,6 +83,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Thu Jun 18 2026 Robert Scheck <robert@fedoraproject.org> 1.11.2-6
+- Add upstream patch for OpenSSL 4.0 support
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.11.2-5
 - Rebuilt for openssl 4.0
 

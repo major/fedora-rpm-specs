@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 109
-Release: 4%{?dist}
+Release: 6%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -49,6 +49,21 @@ Patch8:  0008-fix-systemd-cryptsetup-load-libcryptsetup-via-dlopen.patch
 # feat(systemd-sysext): include systemd-{sys,conf}ext-sysroot services
 # Author: Vitaly Kuznetsov <vkuznets@redhat.com>
 Patch9:  0009-feat-systemd-sysext-include-systemd-sys-conf-ext-sys.patch
+# fix(network-legacy): remove network-legacy completely from the codebase
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch10: 0010-fix-network-legacy-remove-network-legacy-completely-.patch
+# fix(iscsi): replace `echo` writes with `printf` to prevent variable injection
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch11: 0011-fix-iscsi-replace-echo-writes-with-printf-to-prevent.patch
+# fix(base): escape arguments in initqueue hook script generation
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch12: 0012-fix-base-escape-arguments-in-initqueue-hook-script-g.patch
+# fix(net-lib): warn on suspicious shell metacharacters in hostname file
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch13: 0013-fix-net-lib-warn-on-suspicious-shell-metacharacters-.patch
+# fix(systemd-networkd): escape DHCP lease values in dhcpopts generation
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch14: 0014-fix-systemd-networkd-escape-DHCP-lease-values-in-dhc.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -482,6 +497,16 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 109-6
+- Rebuilt for openssl 4.0
+
+* Wed Jun 17 2026 Pavel Valena <pvalena@redhat.com> - 109-5
+- fix(base): escape arguments in initqueue hook script generation
+- fix(net-lib): warn on suspicious shell metacharacters in hostname file
+- fix(systemd-networkd): escape DHCP lease values in dhcpopts generation
+- fix(network-legacy): remove network-legacy completely from the codebase
+- fix(iscsi): replace `echo` writes with `printf` to prevent variable injection
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 109-4
 - Rebuilt for openssl 4.0
 

@@ -1,16 +1,15 @@
 Name:           python-falcon
 Epoch:          1
-Version:        4.2.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        ASGI+WSGI framework for building data plane APIs
 License:        Apache-2.0
 URL:            https://falconframework.org
 Source:         %{pypi_source falcon}
 
-# downstream-only patch to remove coverage build requirement
-Patch:          0001-Remove-coverage-test-requirement.patch
-
 BuildRequires:  gcc
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %global common_description %{expand:
 Falcon is a minimalist ASGI/WSGI framework for building mission-critical REST
@@ -26,7 +25,6 @@ architectural style.}
 
 %package -n python3-falcon
 Summary:        %{summary}
-BuildRequires:  python3-devel
 
 
 %description -n python3-falcon %{common_description}
@@ -37,7 +35,7 @@ BuildRequires:  python3-devel
 
 
 %generate_buildrequires
-%pyproject_buildrequires -e mintest
+%pyproject_buildrequires
 
 
 %build
@@ -50,7 +48,8 @@ BuildRequires:  python3-devel
 
 
 %check
-%tox -e mintest
+# based on testenv:mintest in tox.ini
+%pytest tests -k 'not slow'
 
 
 %files -n python3-falcon -f %{pyproject_files}

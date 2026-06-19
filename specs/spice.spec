@@ -1,6 +1,6 @@
 Name:           spice
 Version:        0.16.0
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Implements the SPICE protocol
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -13,7 +13,7 @@ Patch0001:      0001-test-display-base-Fix-C-designated-initializer-for-a.patch
 %if 0%{?rhel} && 0%{?rhel} <= 7
 ExclusiveArch:  x86_64
 %else
-ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 riscv64
+ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 riscv64 loongarch64
 %endif
 
 BuildRequires:  meson ninja-build
@@ -99,6 +99,12 @@ using spice-server, you will need to install spice-server-devel.
 
 
 %changelog
+* Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.0-7
+- Rebuilt for openssl 4.0
+
+* Wed Jun 17 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 0.16.0-6
+- Add loongarch64 support
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.0-5
 - Rebuilt for openssl 4.0
 

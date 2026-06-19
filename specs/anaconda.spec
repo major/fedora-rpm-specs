@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.6
-Release: 4%{?dist}
+Version: 45.8
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,10 +12,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-
-# https://github.com/rhinstaller/anaconda/pull/7103
-# fix python-deps to fix kickstart installs
-Patch: 7103.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -524,6 +520,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 45.8-2
+- Rebuilt for openssl 4.0
+
+* Tue Jun 16 2026 Packit <hello@packit.dev> - 45.8-1
+- webui: remove inst.pauseatsummary requirement for kickstart installs
+  (rvykydal)
+- test: add unit tests for Boss remote error UI forwarding (k.koukiou)
+- fix: handle ScriptError via remote error UI during installation (k.koukiou)
+- fix: handle non-critical installation errors in GUI/TUI progress spokes
+  (k.koukiou)
+- dracut: detect C-level module dependencies dynamically (rvykydal)
+- fsset: Do not use resolve_device with BlkidTab (vtrefny)
+- python-deps: add _math_integer if math is present (awilliam)
+  Resolves: rhbz#2486569
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 45.6-4
 - Rebuilt for openssl 4.0
 

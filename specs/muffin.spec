@@ -1,8 +1,8 @@
-%global upstream_version 6.7.1-unstable
+%global upstream_version 6.7.2-unstable
 
 Name:          muffin
-Version:       6.7.1^unstable
-Release:       2%{?dist}
+Version:       6.7.2^unstable
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,7 +10,6 @@ License:       GPL-2.0-or-later
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Patch0:        0001-Wayland-Fix-nvidia-refresh-rate-when-running-nvidia-.patch
-Patch1:        %url/commit/babfe8a9e1312bb98562fcedae5142937f70d414.patch
 
 ExcludeArch:   %{ix86}
 
@@ -133,6 +132,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Tue Jun 02 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-2
 - Add patch to fix desktop stacking issue
 

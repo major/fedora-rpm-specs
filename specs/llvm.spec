@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 22
 %global min_ver 1
-%global patch_ver 7
+%global patch_ver 8
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -228,8 +228,7 @@ end
 %endif
 
 %if %{maj_ver} >= 23 && 0%{undefined rhel} && %{without compat_build} && %{with snapshot_build}
-# TODO(kkleine): Re-enable once build failures are fixed.
-%bcond_with libclc
+%bcond_without libclc
 %else
 %bcond_with libclc
 %endif
@@ -1336,8 +1335,9 @@ targets is welcome.
 Summary:        Spirv subset of %{name}
 
 %description    -n %{pkg_name_libclc}-spirv
-The %{pkg_name_libclc}-spirv package contains the spirv*-mesa3d-.spv files only,
-which are the subset required for upstream Mesa OpenCL support with RustiCL.
+The %{pkg_name_libclc}-spirv package contains the spirv32-unknown-unknown/libclc.spv and
+spirv64-unknown-unknown/libclc.spv files only, which are the subset required for upstream
+Mesa OpenCL support with RustiCL.
 
 %endif
 #endregion libclc packages
@@ -1465,6 +1465,8 @@ cd llvm/utils/lit
 %global projects clang;clang-tools-extra;lld
 %global runtimes compiler-rt;openmp
 
+%global runtime_targets default
+
 %if %{with lldb}
 %global projects %{projects};lldb
 %endif
@@ -1494,8 +1496,12 @@ cd llvm/utils/lit
 %global runtimes %{runtimes};offload
 %endif
 
+%if %{with libclc} || %{with offload}
+%global runtime_targets %{runtime_targets};amdgcn-amd-amdhsa;nvptx64-nvidia-cuda
+%endif
+
 %if %{with libclc}
-%global runtimes %{runtimes};libclc
+%global runtime_targets %{runtime_targets};spirv32-unknown-unknown;spirv64-unknown-unknown;amdgcn-amd-amdhsa-llvm
 %endif
 
 %global gcc_triple --gcc-triple=%{_target_cpu}-redhat-linux
@@ -1741,11 +1747,17 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 # We reset the cxxflags to "" here because this is compiling for a GPU
 # target, where our cflags are either questionable or actively wrong.
 %global cmake_config_args %{cmake_config_args} \\\
-	-DLLVM_RUNTIME_TARGETS='default;amdgcn-amd-amdhsa;nvptx64-nvidia-cuda' \\\
-	-DRUNTIMES_nvptx64-nvidia-cuda_LLVM_ENABLE_RUNTIMES=openmp \\\
-	-DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES=openmp \\\
-	-DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_CXX_FLAGS="" \\\
-	-DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_CXX_FLAGS=""
+  -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_CXX_FLAGS="" \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_CXX_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_EXE_LINKER_FLAGS="" \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_EXE_LINKER_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_SHARED_LINKER_FLAGS="" \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_SHARED_LINKER_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_MODULE_LINKER_FLAGS="" \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_MODULE_LINKER_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_STATIC_LINKER_FLAGS="" \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_STATIC_LINKER_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES="openmp"
 
 %if 0%{?__isa_bits} == 64
 # The following shouldn't be required, but due to a bug, we have to be
@@ -1784,11 +1796,30 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 
 #region libclc options
 %if %{with libclc}
-# Build SPIR-V targets with the SPIR-V backend.
+
+# Build SPIR-V targets with the SPIR-V backend, reset CXX flags and build libclc
+# runtime
 %global cmake_config_args %{cmake_config_args} \\\
-  -DLIBCLC_USE_SPIRV_BACKEND:BOOL=ON
+  -DRUNTIMES_spirv32-unknown-unknown_LIBCLC_USE_SPIRV_BACKEND:BOOL=ON \\\
+  -DRUNTIMES_spirv64-unknown-unknown_LIBCLC_USE_SPIRV_BACKEND:BOOL=ON \\\
+  -DRUNTIMES_spirv32-unknown-unknown_CMAKE_CXX_FLAGS="" \\\
+  -DRUNTIMES_spirv64-unknown-unknown_CMAKE_CXX_FLAGS="" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa-llvm_CMAKE_CXX_FLAGS="" \\\
+  -DRUNTIMES_spirv32-unknown-unknown_LLVM_ENABLE_RUNTIMES="libclc" \\\
+  -DRUNTIMES_spirv64-unknown-unknown_LLVM_ENABLE_RUNTIMES="libclc" \\\
+  -DRUNTIMES_amdgcn-amd-amdhsa-llvm_LLVM_ENABLE_RUNTIMES="libclc"
 %endif
 #endregion libclc options
+
+%if %{with offload} ||  %{with libclc}
+# For the NVIDIA triple we potentially build both, openmp and libclc
+%global combined_runtimes %{?with_offload:openmp%{?with_libclc:;}}%{?with_libclc:libclc}
+%global cmake_config_args %{cmake_config_args} \\\
+  -DRUNTIMES_nvptx64-nvidia-cuda_LLVM_ENABLE_RUNTIMES="%{combined_runtimes}"
+
+%global cmake_config_args %{cmake_config_args} \\\
+  -DLLVM_RUNTIME_TARGETS="%{runtime_targets}"
+%endif
 
 #region test options
 %global cmake_config_args %{cmake_config_args} \\\
@@ -2633,6 +2664,13 @@ function adjust_lit_filter_out()
 reset_test_opts
 %cmake_build --target check-lit
 #endregion Test LLVM lit
+
+#region Test libclc
+%if %{with libclc}
+reset_test_opts
+%cmake_build --target check-libclc
+%endif
+#endregion Test libclc
 
 #region Test LLVM
 reset_test_opts
@@ -3797,17 +3835,17 @@ fi
 %license libclc/LICENSE.TXT
 %doc libclc/README.md libclc/CREDITS.TXT
 %{_prefix}/lib/clang/%{maj_ver}/lib/amdgcn-amd-amdhsa-llvm/libclc.bc
-%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64--/libclc.bc
-%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64--nvidiacl/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/amdgcn-amd-amdhsa-llvm/libclc.a
 %{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64-nvidia-cuda/libclc.bc
-%{_prefix}/lib/clang/%{maj_ver}/lib/spir--/libclc.bc
-%{_prefix}/lib/clang/%{maj_ver}/lib/spir64--/libclc.bc
+%{_prefix}/lib/clang/%{maj_ver}/lib/nvptx64-nvidia-cuda/libclc.a
 
 %files -n %{pkg_name_libclc}-spirv
 %license libclc/LICENSE.TXT
 %doc libclc/README.md libclc/CREDITS.TXT
-%{_prefix}/lib/clang/%{maj_ver}/lib/spirv32--/libclc.spv
-%{_prefix}/lib/clang/%{maj_ver}/lib/spirv64--/libclc.spv
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv32-unknown-unknown/libclc.spv
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv32-unknown-unknown/libclc.a
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv64-unknown-unknown/libclc.spv
+%{_prefix}/lib/clang/%{maj_ver}/lib/spirv64-unknown-unknown/libclc.a
 %endif
 #endregion libclc files
 

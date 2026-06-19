@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.2
-%global baserelease 2
+%global baserelease 3 
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit c75e25851c05c6b0ff48caeaa15854d5868ce428
@@ -193,6 +193,11 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       pacemaker.sysusers
 
 # upstream commits
+Patch0:        0001-Med-libcrmcommon-Fix-checks-in-localized_remote_head.patch
+Patch1:        0002-High-libcrmcommon-Fix-integer-overflow-in-remote-mes.patch
+Patch2:        0003-High-libcrmcommon-Limit-the-max-size-of-a-remote-mes.patch
+Patch3:        0004-High-libcrmcommon-Fix-an-integer-overflow-in-pcmk__r.patch
+Patch4:        0005-Refactor-libcib-Remove-an-unnecessary-coverity-suppr.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -764,6 +769,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Wed Jun 17 2026 Klaus Wenninger <klaus.wenninger@aon.at> - 3.0.2-3
+- fix CVE-2026-10649: Fix integer overflows in remote message code
+
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.0.2-2
 - Rebuilt for Python 3.15
 

@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.11.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -96,6 +96,8 @@ Patch56: qtbase-mysql.patch
 
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
+
+Patch59: qtbase-openssl4.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -947,6 +949,10 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Tue Jun 16 2026 Dmitry Belyavskiy <beldmit@gmail.com> - 6.11.1-4
+- Backport of upstream OpenSSL4 commit
+  https://github.com/qt/qtbase/commit/e806630e694d89f567cffa9c982d1f471089ecd8
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.11.1-3
 - Rebuilt for openssl 4.0
 

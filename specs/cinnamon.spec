@@ -9,11 +9,11 @@
 
 %global __python %{__python3}
 
-%global upstream_version 6.7.1-unstable
+%global upstream_version 6.7.2-unstable
 
 Name:           cinnamon
-Version:        6.7.1^unstable
-Release:        3%{?dist}
+Version:        6.7.2^unstable
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -69,6 +69,8 @@ BuildRequires:  pkgconfig(libwacom)
 %endif
 BuildRequires:  pkgconfig(xtst)
 
+Obsoletes:      cinnamon-screensaver < %{version}-%{release}
+Provides:       cinnamon-screensaver = %{version}-%{release}
 
 Requires:       %{name}-desktop%{?_isa} >= %{cinnamon_desktop_version}
 Requires:       muffin%{?_isa} >= %{muffin_version}
@@ -101,7 +103,6 @@ Requires:       gsound
 Requires:       libtimezonemap%{?_isa}
 Requires:       python3-babel
 Requires:       python3-distro
-Requires:       python3-pytz
 Requires:       python3-pexpect
 Requires:       python3-gobject%{?_isa}
 Requires:       python3-dbus%{?_isa}
@@ -132,7 +133,6 @@ Requires:       xapp-symbolic-icons
 
 # RequiredComponents in the session files
 Requires:       nemo%{?_isa}
-Requires:       %{name}-screensaver%{?_isa}
 
 # metacity and mate-panel are needed for fallback
 Recommends:     metacity%{?_isa}
@@ -288,6 +288,7 @@ EOF
 %{_bindir}/cinnamon-menu-editor
 %{_bindir}/cinnamon-preview-gtk-theme
 %{_bindir}/cinnamon-screensaver-command
+%{_bindir}/cinnamon-screenshot
 %{_bindir}/cinnamon-session-cinnamon
 %{_bindir}/cinnamon-settings
 %{_bindir}/cinnamon-settings-users
@@ -329,6 +330,9 @@ EOF
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
 %changelog
+* Wed Jun 17 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.2^unstable-1
+- Update to 6.7.2-unstable
+
 * Wed May 27 2026 Leigh Scott <leigh123linux@gmail.com> - 6.7.1^unstable-3
 - Remove graphical-session target hack
 

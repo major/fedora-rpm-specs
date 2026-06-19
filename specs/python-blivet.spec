@@ -5,7 +5,7 @@ Version: 3.13.2
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 3%{?prerelease}%{?dist}
+Release: 4%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -18,6 +18,7 @@ Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
 Patch1: 0002-Ignore-btrfs-mount-errors-during-storage-scan.patch
+Patch2: 0003-When-starting-stratis-pool-always-call-StartPool-with-FD-list.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -135,6 +136,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 17 2026 Vojtech Trefny <vtrefny@redhat.com> - 1:3.13.2-4
+- When starting stratis pool always call StartPool with FD list
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1:3.13.2-3
 - Rebuilt for Python 3.15
 
