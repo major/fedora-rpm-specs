@@ -5,16 +5,15 @@
 
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
-Version: 3.3.36
-Release: 4%{?dist}
+Version: 3.3.37
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
-Source0: https://gitlab.com/-/project/24478376/uploads/51a9cda747130f92860720841a7fd9c9/setroubleshoot-3.3.36.tar.gz
+Source0: https://gitlab.com/-/project/24478376/uploads/cbdfc2a87b350583c32b168fd9aad9fd/setroubleshoot-3.3.37.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
-# git format-patch -N 3.3.36
+# git format-patch -N 3.3.37
 # for j in 00*patch; do printf "Patch: %s\n" $j; done
-Patch: 0001-browser-Always-show-Report-Bug-button.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -96,7 +95,7 @@ install -p -m644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %package server
 Summary: SELinux troubleshoot server
 
-Requires: %{name}-plugins >= 3.3.10
+Requires: %{name}-plugins >= 3.3.15-7
 Requires: audit >= 3.0.1
 Requires: audit-libs-python3
 Requires: libxml2-python3
@@ -194,6 +193,11 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Thu Jun 18 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-1
+- Migrate from libxml2 to xml.etree.ElementTree
+- Handle ImportError when setroubleshoot.browser is not available
+- Add support for multiple commands in fix_cmd
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.3.36-4
 - Rebuilt for Python 3.15
 

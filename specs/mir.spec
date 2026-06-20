@@ -26,15 +26,15 @@
 %global miral_sover 7
 %global mircommon_sover 12
 %global mircore_sover 2
-%global miroil_sover 8
+%global miroil_sover 9
 %global mirplatform_sover 34
 %global mirserver_sover 67
-%global mirwayland_sover 5
+%global mirwayland_sover 6
 %global mirplatformgraphics_sover 23
 %global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.26.0
+Version:        2.28.0
 Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
@@ -327,6 +327,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Thu Jun 18 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.28.0-1
+- Update to 2.28.0
+
 * Sat Apr 18 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.26.0-1
 - Update to 2.26.0
 

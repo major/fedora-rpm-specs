@@ -5,16 +5,13 @@
 %global crate zeroize_derive
 
 Name:           rust-zeroize_derive
-Version:        1.4.3
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Custom derive support for zeroize
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/zeroize_derive
 Source:         %{crates_source}
-
-# * backport of https://github.com/RustCrypto/utils/pull/1320
-Patch:          0001-Backport-fixes-for-tests-from-upstream.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

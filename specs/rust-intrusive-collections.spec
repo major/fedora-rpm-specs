@@ -5,12 +5,11 @@
 %global crate intrusive-collections
 
 Name:           rust-intrusive-collections
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        Intrusive collections for Rust (linked list and red-black tree)
 
-# Upstream license specification: Apache-2.0/MIT
-License:        Apache-2.0 OR MIT
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/intrusive-collections
 Source:         %{crates_source}
 

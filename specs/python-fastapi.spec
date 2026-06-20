@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.137.1
+Version:        0.137.2
 Release:        %autorelease
 Summary:        FastAPI framework
 

@@ -1,46 +1,28 @@
-%if 0%{?el9}
-# likely some issue with a combination of sphinx and the theme used
-# writing output... [ 12%] advanced
-# Theme error:
-# An error happened in rendering the page advanced.
-# Reason: UndefinedError("'styles' is undefined")
-%bcond_with doc
-%else
-%bcond_without doc
-%endif
-
-%global srcname mistune
-
-%global common_description %{expand:
-The fastest markdown parser in pure Python, inspired by marked.}
+%bcond doc 1
 
 Name:           python-mistune
-Version:        3.1.3
+Version:        3.2.1
 Release:        %autorelease
 Summary:        Markdown parser for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/lepture/mistune
-Source0:        %url/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/mistune-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Upstream uses tox to call nose. Instead, we'll just call pytest directly.
 BuildRequires:  python3dist(pytest)
 
+%global common_description %{expand:
+The fastest markdown parser in pure Python, inspired by marked.}
+
 %description %{common_description}
 
-%package -n python3-%{srcname}
+%package -n python3-mistune
 Summary:        %{summary}
 
-# Allow upgrades from Fedora 37 with python3-mistune08 to Fedora 38 with python3-mistune
-# as python3-nbconvert requires mistune 2 on Fedora 38+.
-# See https://bugzilla.redhat.com/2177923
-# See https://bugzilla.redhat.com/2342812
-# If the Fedora 37 python3-mistune08 package is ever bumped, this needs to be bumped as well!
-Obsoletes:      python3-mistune08 < 0.8.4-16
-
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-mistune %{common_description}
 
 %if %{with doc}
 %package doc
@@ -53,18 +35,14 @@ This is the documentation package for %{name}.
 %endif
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n mistune-%{version}
 
 # replace shibuya theme which is not available in Fedora with sphinx read the docs theme
 sed -i 's/html_theme = "shibuya"/html_theme = "sphinx_rtd_theme"/' docs/conf.py
 sed -i "s/shibuya/sphinx-rtd-theme/" pyproject.toml
 
 %generate_buildrequires
-%if %{with doc}
-%pyproject_buildrequires -g docs
-%else
-%pyproject_buildrequires
-%endif
+%pyproject_buildrequires %{?with_doc:-g docs}
 
 %build
 %pyproject_wheel
@@ -78,14 +56,12 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
-
-%{_fixperms} %{buildroot}/*
+%pyproject_save_files mistune
 
 %check
 %pytest
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-mistune -f %{pyproject_files}
 %doc README.rst
 
 %if %{with doc}

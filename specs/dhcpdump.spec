@@ -35,7 +35,6 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 %files
 %license LICENSE
-%doc CHANGES CONTACT
 %{_bindir}/%{name}
 %{_mandir}/man8/%{name}.8*
 

@@ -24,7 +24,7 @@
 %bcond bootstrap 0
 
 Name:           llhttp
-Version:        9.4.1
+Version:        9.4.2
 %global so_version 9.4
 %global previous_so_version 9.3
 Release:        %autorelease

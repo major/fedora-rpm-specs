@@ -12,8 +12,8 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.21.0~rc2
-Release: 2%{?dist}
+Version: 8.21.0~rc3
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -21,6 +21,9 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# fix multi_fdset must not report only the wakeup socket (#2460719)
+Patch001: 0001-curl-8.21.0~rc3-multi-xfers_really_alive.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -256,7 +259,7 @@ printf "609\n610\n611\n612\n613\n614\n615\n616\n617\n618\n" >>tests/data/DISABLE
 printf "619\n620\n621\n622\n623\n624\n625\n626\n627\n628\n" >>tests/data/DISABLED
 printf "629\n630\n631\n633\n634\n635\n636\n637\n638\n639\n" >>tests/data/DISABLED
 printf "640\n641\n642\n656\n664\n665\n" >>tests/data/DISABLED
-printf "1446\n1459\n1583\n2004\n2007\n" >>tests/data/DISABLED
+printf "1446\n1459\n1583\n1725\n2004\n2007\n" >>tests/data/DISABLED
 printf "3021\n3022\n" >>tests/data/DISABLED
 %endif
 
@@ -465,6 +468,15 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Jun 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.21.0~rc3-3
+- Rebuilt for openssl 4.0
+
+* Thu Jun 18 2026 Jan Macku <jamacku@redhat.com> - 8.21.0~rc3-2
+- fix multi_fdset must not report only the wakeup socket (#2460719)
+
+* Wed Jun 17 2026 Jan Macku <jamacku@redhat.com> - 8.21.0~rc3-1
+- new upstream release candidate
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.21.0~rc2-2
 - Rebuilt for openssl 4.0
 

@@ -13,7 +13,7 @@ improvements including automated testing and the much faster C-versions
 of the Loaders/Dumpers.}
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Ordered YAML loader and dumper for PyYAML
 

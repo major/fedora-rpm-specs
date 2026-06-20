@@ -2,17 +2,19 @@
 Summary:        A Linux entropy source using the HAVEGE algorithm
 Name:           haveged
 Version:        1.9.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/jirka-h/haveged
 Source0:        https://github.com/jirka-h/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Requires(post):   systemd
+Source1:        haveged-semaphore.te
+Requires(post):   systemd policycoreutils
 Requires(preun):  systemd
-Requires(postun): systemd
+Requires(postun): systemd policycoreutils
 
 BuildRequires:  gcc
 BuildRequires:  make automake coreutils glibc-common systemd-units
+BuildRequires:  checkpolicy selinux-policy-devel
 Enhances:       apache2 gpg2 openssl openvpn php5 smtp_daemon systemd
 
 %description
@@ -49,6 +51,10 @@ Headers and shared object symbolic links for the HAVEGE algorithm
 #make %{?_smp_mflags}
 make
 
+# Build SELinux policy module
+cp %{SOURCE1} .
+make -f /usr/share/selinux/devel/Makefile haveged-semaphore.pp
+
 %check
 make check
 
@@ -72,11 +78,15 @@ install -Dpm 0644 contrib/Fedora/90-haveged.rules %{buildroot}%{_udevrulesdir}/9
 # We don't ship .la files.
 rm -rf %{buildroot}%{_libdir}/libhavege.*a
 
+# Install SELinux policy module
+install -Dpm 0644 haveged-semaphore.pp %{buildroot}%{_datadir}/selinux/packages/haveged-semaphore.pp
+
 mkdir -p %{buildroot}%{_defaultdocdir}/%{name}
 cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot}%{_defaultdocdir}/%{name}
 
 %post
 /sbin/ldconfig
+semodule -i %{_datadir}/selinux/packages/haveged-semaphore.pp 2>/dev/null || :
 %systemd_post %{name}.service %{name}-switch-root.service
 
 %preun
@@ -85,6 +95,9 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 %postun
 %systemd_postun_with_restart %{name}.service %{name}-switch-root.service
 /sbin/ldconfig
+if [ $1 -eq 0 ]; then
+    semodule -r haveged-semaphore 2>/dev/null || :
+fi
 
 %files
 %{_mandir}/man8/haveged.8*
@@ -95,6 +108,7 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 %{_udevrulesdir}/*-%{name}.rules
 %dir %{_prefix}/%{dracutlibdir}/modules.d/98%{name}
 %{_prefix}/%{dracutlibdir}/modules.d/98%{name}/*
+%{_datadir}/selinux/packages/haveged-semaphore.pp
 
 %files devel
 %{_mandir}/man3/libhavege.3*
@@ -105,6 +119,10 @@ cp -p COPYING README ChangeLog AUTHORS contrib/build/havege_sample.c %{buildroot
 
 
 %changelog
+* Thu Jun 18 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.23-2
+- Add SELinux policy module to allow semaphore creation in /dev/shm
+- Add rpminspect.yaml to waive pre-existing annocheck false positive
+
 * Thu Jun 18 2026 Jirka Hladky <hladky.jiri@gmail.com> - 1.9.23-1
 - Update to 1.9.23
 - Security: use O_EXCL with sem_open to prevent semaphore pre-planting attacks

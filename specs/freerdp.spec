@@ -26,8 +26,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.26.0
-Release:        8%{?dist}
+Version:        3.27.1
+Release:        2%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -44,9 +44,6 @@ URL:            http://www.freerdp.com/
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
 
-# Fix TestNTLM with OpenSSL without legacy provider
-Patch0:         https://github.com/FreeRDP/FreeRDP/commit/e9b95a5a3cf6a182837773b92c825f48df953821.patch#/FreeRDP-e9b95a5.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
@@ -56,6 +53,7 @@ BuildRequires:  gsm-devel
 BuildRequires:  lame-devel
 BuildRequires:  libicu-devel
 BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  turbojpeg-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXcursor-devel
 BuildRequires:  libXdamage-devel
@@ -376,13 +374,21 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Jun 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.27.1-2
+- Rebuilt for openssl 4.0
+
+* Thu Jun 18 2026 Ondrej Holy <oholy@redhat.com> - 2:3.27.1-1
+- Update to 3.27.1 (CVE-2026-55191, CVE-2026-55192, CVE-2026-55193,
+  CVE-2026-55194, CVE-2026-55648, CVE-2026-55827)
+  Resolves: rhbz#2488900
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.26.0-8
 - Rebuilt for openssl 4.0
 
 * Mon Jun 08 2026 František Zatloukal <fzatlouk@redhat.com> - 2:3.26.0-7
 - Rebuilt for icu 78.3
 
-* Wed Jun 04 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-6
+* Thu Jun 04 2026 Ondrej Holy <oholy@redhat.com> - 2:3.26.0-6
 - Enable uriparser support on RHEL
 
 * Tue May 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:3.26.0-5

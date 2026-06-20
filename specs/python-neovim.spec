@@ -16,6 +16,8 @@ Summary:        Python client to Neovim
 URL:            https://github.com/neovim/pynvim
 Source0:        https://github.com/neovim/pynvim/archive/%{version}/pynvim-%{version}.tar.gz
 
+Patch0:         pynvim-update-assert-for-neovim-0.12.patch
+
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel

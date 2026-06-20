@@ -8,25 +8,13 @@ This exists to cover all kinds of HTTP scenarios. Additional endpoints are \
 being considered. All endpoint responses are JSON-encoded.
 
 Name:           python-%{modname}
-Version:        0.10.2
+Version:        0.10.4
 Release:        %autorelease
 Summary:        HTTP Request & Response Service, written in Python + Flask
 
 License:        MIT
 URL:            https://github.com/psf/httpbin
 Source:         https://files.pythonhosted.org/packages/source/h/%{modname}/%{modname}-%{version}.tar.gz
-# https://github.com/psf/httpbin/issues/26
-# https://github.com/psf/httpbin/pull/32
-# Make the dependency on flasgger optional - it has a heavy dep chain
-# of its own and is hard to package, and is not needed for using
-# httpbin as a library
-Patch:          0001-Make-flasgger-dep-optional-26.patch
-# https://github.com/psf/httpbin/pull/34
-# Replace use of a deprecated Flask config setting
-Patch:          0001-Replace-deprecated-JSONIFY_PRETTYPRINT_REGULAR-usage.patch
-# https://github.com/psf/httpbin/pull/41
-# Fix /bytes endpoint with newer werkzeug versions
-Patch:          0001-Fix-bytes-endpoint-with-newer-werkzeug-versions.patch
 BuildArch:      noarch
 
 %description

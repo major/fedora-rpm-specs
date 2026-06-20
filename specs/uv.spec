@@ -1,14 +1,8 @@
 %bcond check 1
-# Should we run integration tests, many of which require specific Python
-# interpreter versions (major.minor, not major.minor.patch)? This adds a few
-# dozen tests, but adds BuildRequires on more Pythons, and could reduce our
-# confidence that everything works correctly in an environment that only has
-# the main system Python.
-#
-# EPEL10 does not have alternative versions of Python, so we cannot run most of
-# the integration tests there, and manually selecting those we can run would be
-# far too tedious.
-%bcond it %{undefined el10}
+# Should we run tests that require specific Python interpreter versions
+# (major.minor, not major.minor.patch)? This adds a few dozen tests, but adds
+# BuildRequires on more Python interpreters (which aren’t available in EPEL).
+%bcond other_python_versions %{undefined el10}
 
 Name:           uv
 Version:        0.11.21
@@ -187,7 +181,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
-%if %{with check} && %{with it}
+%if %{with check} && %{with other_python_versions}
 # See trove classifiers in pyproject.toml for supported Pythons.
 BuildRequires:  /usr/bin/python3.9
 BuildRequires:  /usr/bin/python3.10
@@ -461,24 +455,41 @@ tomcli set crates/uv/Cargo.toml lists delitem features.test-defaults \
 tomcli set crates/uv-audit/Cargo.toml lists delitem features.default \
     'test-(osv)'
 
-%if %{without it}
-# Integration tests (it crate) nearly all require specific Python interpreter
-# versions (major.minor, not major.minor.patch, unless the python-patch feature
-# is enabled). We might choose to disable this in order to double-check that
-# everything else works well with only the primary system Python in the
-# environment.
+%if %{without other_python_versions}
+# Many of these tests require specific Python versions (major.minor, not
+# major.minor.patch, unless the python-patch feature is enabled). Manually
+# selecting the tests in these modules that would succeed with just the system
+# Python would be far too tedious.
+omit_modules() {
+  set -o nounset
+  set -o errexit
+  main_module="${1}"
+  commented_modules=''
+  comment='Downstream-only: skip, needs specific Python interpreter versions'
+  shift
+  while [ "${#}" != 0 ]
+  do
+    commented_modules="${commented_modules-}${commented_modules+|}${1}"
+    shift
+  done
+  sed --regexp-extended --in-place \
+      "s@mod (${commented_modules});@// ${comment}\n#[cfg(any())]\n&@" \
+      "${main_module}"
+}
+# -p uv --test build
+omit_modules crates/uv/tests/build/main.rs build_backend
 # -p uv --test it:
-mods="${mods-}${mods+|}branching_urls"
-mods="${mods-}${mods+|}build_backend"
-mods="${mods-}${mods+|}pip_(check|list|show|tree|uninstall)"
-mods="${mods-}${mods+|}python_(dir|find|install|list|pin)"
-mods="${mods-}${mods+|}venv"
-mods="${mods-}${mods+|}version"
-mods="${mods-}${mods+|}workspace"
-comment='Downstream-only: skip, needs specific Python interpreter versions'
-sed --regexp-extended --in-place \
-    "s@mod (${mods});@// ${comment}\n#[cfg(any())]\n&@" \
-    crates/uv/tests/it/main.rs
+omit_modules crates/uv/tests/it/main.rs \
+    auth branching_urls network upgrade version
+# -p uv --test python:
+omit_modules crates/uv/tests/python/main.rs \
+    'python_(dir|find|install|list|pin)' venv
+# -p uv --test workspace:
+omit_modules crates/uv/tests/workspace/main.rs \
+    workspace 'workspace_(dir|list|metadata)'
+# -p uv --test pip:
+omit_modules crates/uv/tests/pip/main.rs \
+    'pip_(debug|list|show|tree|uninstall)'
 %endif
 
 # For unclear reasons, maturin checks for the presence of optional crate
@@ -580,7 +591,7 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_empty_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_no_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 
-%if %{without it}
+%if %{without other_python_versions}
 # These tests require specific Python interpreter versions, which upstream
 # normally downloads, precompiled, into the build area.
 skip="${skip-} --skip version::self_version"

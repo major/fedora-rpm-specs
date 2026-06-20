@@ -1,4 +1,4 @@
-%define prerelease rc1
+#define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        20.0.0
-Release:        0.6%{?prerelease:.%prerelease}%{?dist}
+Release:        1%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -58,7 +58,7 @@ BuildRequires:	cmake(Qt6WebEngineWidgets)
 # The imported target "Qt6::QmlDomPrivate" references the file
 #    "/usr/lib64/libQt6QmlDom.a"
 # but this file does not exist.
-BuildRequires:  qt6-qtdeclarative-static
+# BuildRequires:  qt6-qtdeclarative-static
 BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
@@ -73,7 +73,7 @@ BuildRequires:  libffi-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
-BuildRequires:  litehtml-devel
+# BuildRequires:  litehtml-devel
 BuildRequires:  libsecret-devel
 BuildRequires:  ninja-build
 BuildRequires:  python3
@@ -146,8 +146,8 @@ User documentation for %{name}.
 
 # Remove some bundled libraries to be sure
 rm -rf src/shared/qbs
-rm -rf src/plugins/help/qlitehtml/litehtml
-#rm -rf src/libs/3rdparty/syntax-highlighting/src
+# rm -rf src/libs/qlitehtml/src/3rdparty/litehtml
+# rm -rf src/libs/3rdparty/syntax-highlighting/src
 # rm -rf src/libs/3rdparty/yaml-cpp
 
 
@@ -220,6 +220,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Jun 17 2026 Sandro Mani <manisandro@gmail.com> - 20.0.0-1
+- Update to 20.0.0
+
 * Mon Jun 15 2026 Sandro Mani <manisandro@gmail.com> - 20.0.0-0.6.rc1
 - Rebuild (litehtml)
 

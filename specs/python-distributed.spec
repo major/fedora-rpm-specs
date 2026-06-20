@@ -44,6 +44,10 @@ Patch:          0005-Skip-doc-test-when-not-running-from-a-git-checkout.patch
 Patch:          0006-Update-make_tls_certs.py-work-with-openssl-3-8701.patch
 # Point the test at the uninstalled version.
 Patch:          0007-Avoid-using-sys.prefix-in-CLI-test.patch
+# Temporary workaround: don't chain ModuleNotFoundError to avoid Python 3.15
+# _find_incompatible_extension_module raising during traceback formatting.
+# https://github.com/python/cpython/issues/151631
+Patch:          0008-Don-t-chain-ModuleNotFoundError-when-raising-Runtime.patch
 
 BuildArch:      noarch
 

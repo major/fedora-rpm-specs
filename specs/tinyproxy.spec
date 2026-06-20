@@ -1,6 +1,3 @@
-# must be set to avoid noisy memory debug logging rhbz#1011783
-%global _distro_extra_cflags -DNDEBUG
-
 Name:           tinyproxy
 Version:        1.11.3
 Release:        %autorelease
@@ -18,6 +15,12 @@ Patch:          0001-reqs-check-negative-length-values-and-prevent-potential-int
 # CVE-2026-31842
 # https://github.com/tinyproxy/tinyproxy/commit/879bf844abffa0bf5fae6aff0c73179024dd9f98
 Patch:          0002-reqs-fix-case-sensitive-matching-of-chunked-605.patch
+# CVE-2026-54387
+# https://github.com/tinyproxy/tinyproxy/commit/623bfc093df009296f0b85d40bc677ef9d5c09bb
+Patch:          0003-reqs-prevent-request-smuggling-via-both-content-length-and-chunked.patch
+# CVE-2026-54388
+# https://github.com/tinyproxy/tinyproxy/commit/364cdb67e0ea00a8e4a7037e2693e0711e816adb
+Patch:          0004-reqs-prevent-multiple-content-lengths-getting-emitted.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

@@ -4,7 +4,7 @@
 %global crate gst-plugin-fallbackswitch
 
 Name:           rust-gst-plugin-fallbackswitch
-Version:        0.15.0
+Version:        0.15.2
 Release:        %autorelease
 Summary:        GStreamer Fallback Switcher and Source Plugin
 
@@ -27,12 +27,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
-License:        %{shrink:
-    MIT AND
-    MPL-2.0 AND
-    (Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
-}
+License:        MIT AND MPL-2.0 AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 # additionally provide the upstream name

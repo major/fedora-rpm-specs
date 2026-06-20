@@ -1,31 +1,32 @@
 Name:		supervisor
-Version:	4.2.5
+Version:	4.3.0
 Release:	%autorelease
 Summary:	A system for allowing the control of process state on UNIX
 
 License:	BSD-3-Clause AND MIT
 URL:		http://supervisord.org
-Source0:	https://pypi.python.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/Supervisor/supervisor/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}d.service
 Source2:	%{name}d.conf
 Source3:	%{name}.logrotate
 Source4:	%{name}.tmpfiles
-
-Patch0:		pytest.patch
 
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
 BuildRequires:	systemd-units
+BuildRequires:	python3-pkg-resources
+Requires:	python3-pkg-resources
 
 %description
 The supervisor is a client/server system that allows its users to control a
 number of processes on UNIX-like operating systems.
 
 %prep
-%autosetup -p1
+%autosetup
 %py3_shebang_fix supervisor/scripts
+sed -i -e 's|#!<<PYTHON>>|#!%{_bindir}/python3|g' supervisor/tests/fixtures/spew.py supervisor/tests/fixtures/unkillable_spew.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r

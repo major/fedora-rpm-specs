@@ -6,7 +6,7 @@ This library was lifted from elasticsearch-py and then transformed to be used
 across all Elastic services rather than only Elasticsearch.}
 
 Name:		python-%{srcname}
-Version:	9.1.0
+Version:	9.4.1
 Release:	%autorelease
 Summary:	Transport classes and utilities shared among Python Elastic
 

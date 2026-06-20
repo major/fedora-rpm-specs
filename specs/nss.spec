@@ -1,9 +1,9 @@
-%global nspr_version 4.39
+%global nspr_version 4.39.0
 %global nss_version 3.125.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 1
+%global baserelease 2
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
@@ -1093,6 +1093,10 @@ fi
 
 
 %changelog
+* Thu Jun 18 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.125.0-2
+- fix the nspr version to full expansion
+- affected: https://bugzilla.redhat.com/show_bug.cgi?id=2488324
+
 * Tue Jun 16 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.125.0-1
 - Update NSS to 3.125.0
 

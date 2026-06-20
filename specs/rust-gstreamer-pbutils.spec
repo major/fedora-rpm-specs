@@ -5,7 +5,7 @@
 %global crate gstreamer-pbutils
 
 Name:           rust-gstreamer-pbutils
-Version:        0.25.0
+Version:        0.25.2
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Base Utils library
 

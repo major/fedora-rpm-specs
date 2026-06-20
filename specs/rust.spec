@@ -6,11 +6,6 @@ License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC A
 # ^ written as: (rust itself) and (bundled libraries)
 URL:            https://www.rust-lang.org
 
-# Only x86_64, i686, and aarch64 are Tier 1 platforms at this time.
-# https://doc.rust-lang.org/nightly/rustc/platform-support.html
-%global rust_arches x86_64 i686 armv7hl aarch64 ppc64le s390x riscv64
-ExclusiveArch:  %{rust_arches}
-
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
@@ -23,7 +18,7 @@ ExclusiveArch:  %{rust_arches}
 # a waste of lookaside cache space when they're most often unused.
 # Run "spectool -g rust.spec" after changing this and then "fedpkg upload" to
 # add them to sources. Remember to remove them again after the bootstrap build!
-#global bootstrap_arches %%{rust_arches}
+#global bootstrap_arches x86_64 i686 aarch64 ppc64le s390x
 
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
@@ -487,24 +482,28 @@ Obsoletes:      %{name}-std-static-wasm32-wasi < 1.84.0~
 %if %target_enabled x86_64-unknown-none
 %target_package x86_64-unknown-none
 Requires:       lld
+BuildArch:      noarch
 %target_description x86_64-unknown-none embedded
 %endif
 
 %if %target_enabled aarch64-unknown-uefi
 %target_package aarch64-unknown-uefi
 Requires:       lld
+BuildArch:      noarch
 %target_description aarch64-unknown-uefi embedded
 %endif
 
 %if %target_enabled x86_64-unknown-uefi
 %target_package x86_64-unknown-uefi
 Requires:       lld
+BuildArch:      noarch
 %target_description x86_64-unknown-uefi embedded
 %endif
 
 %if %target_enabled aarch64-unknown-none-softfloat
 %target_package aarch64-unknown-none-softfloat
 Requires:       lld
+BuildArch:      noarch
 %target_description aarch64-unknown-none-softfloat embedded
 %endif
 
@@ -1100,6 +1099,10 @@ rm -rf "./build/%{rust_triple}/test/"
 # Requires access to index.crates.io but neither Fedora nor CentOS/RHEL builders
 # have DNS resolution, so the test will always fail.
 %global cargo_test_skip_list %{cargo_test_skip_list} publish_to_crates_io_warns
+
+# Requires DNS resolution to github.com, this test will always fail.
+# Additionally SCP-like directions are essentially ssh which is not available in RHEL
+%global cargo_test_skip_list %{cargo_test_skip_list} dep_with_scp_like_submodule_url
 
 %ifarch aarch64
 # https://github.com/rust-lang/rust/issues/123733

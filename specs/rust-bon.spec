@@ -5,7 +5,7 @@
 %global crate bon
 
 Name:           rust-bon
-Version:        3.9.1
+Version:        3.9.3
 Release:        %autorelease
 Summary:        Compile-time-checked builder generator
 

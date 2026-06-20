@@ -5,7 +5,7 @@
 %global crate gio-unix
 
 Name:           rust-gio-unix
-Version:        0.22.0
+Version:        0.22.6
 Release:        %autorelease
 Summary:        Rust bindings for the GioUnix library
 

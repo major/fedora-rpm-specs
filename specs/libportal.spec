@@ -1,17 +1,14 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           libportal
-Version:        0.9.1
-Release:        6%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Flatpak portal library
 # doc/urlmap.js is LGPL-2.1-or-later
 # everything else is LGPL-3.0-only
 License:        LGPL-3.0-only AND LGPL-2.1-or-later
 Url:            https://github.com/flatpak/libportal
 Source:         https://github.com/flatpak/libportal/releases/download/%{version}/%{name}-%{version}.tar.xz
-
-# https://github.com/flatpak/libportal/pull/200
-Patch0:         libportal-fix-build-with-qt-6_9.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -220,6 +217,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Fri Jun 19 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.10.0-1
+- Update to 0.10.0
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.9.1-6
 - Rebuild (qt6)
 

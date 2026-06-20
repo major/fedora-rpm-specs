@@ -2,11 +2,18 @@ Name: lhasa
 Summary: Free Software LHA implementation
 License: ISC
 
-Version: 0.5.0
+Version: 0.6.0
 Release: 1%{?dist}
 
 URL: https://fragglet.github.io/lhasa/
 Source0: https://github.com/fragglet/lhasa/archive/v%{version}/%{name}-v%{version}.tar.gz
+
+# Upstream builds tests with a minimal set of compiler flags, ignoring CFLAGS.
+# It also uses -O0 for the tests, which conflicts with Fedora's code hardening:
+#   #warning _FORTIFY_SOURCE requires compiling with optimization (-O) [-Wcpp]
+#
+# Use normal CFLAGS for tests and remove the -O0 switch.
+Patch0: 0000-no-O0-for-tests.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -66,9 +73,7 @@ for Lhasa, the free software LHA implementation library.
 
 
 %prep
-%autosetup
-sed -i configure.ac \
-	-e 's|TEST_CFLAGS="-DTEST_BUILD"|TEST_CFLAGS="$CFLAGS -DTEST_BUILD"|g'
+%autosetup -p1
 
 
 %build
@@ -112,6 +117,9 @@ cp -a doc/html %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Jun 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0-1
+- Update to v0.6.0
+
 * Tue Jan 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-1
 - Update to v0.5.0
 

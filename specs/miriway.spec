@@ -1,6 +1,6 @@
 Name:           miriway
-Version:        26.01
-Release:        2%{?dist}
+Version:        26.06.1
+Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -126,6 +126,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Thu Jun 18 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 26.06.1-1
+- Update to 26.06.1
+
 * Sun Apr 19 2026 Shawn W Dunn <sfalken@opensuse.org> - 26.01-2
 - Rebuilt for Mir-2.26.0
 

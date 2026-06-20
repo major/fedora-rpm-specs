@@ -91,8 +91,9 @@
 # SUSE has python3-yamllint but we just have yamllint,
 # SUSE has python3-gitlint and python3-ruff but we just have gitlint and ruff
 # shfmt is omitted as our package for it was orphaned and retired
+# Perl::Critic doesn't have a third version component on Fedora
 # The following line is generated from dependencies.yaml (upstream)
-%define style_check_requires ShellCheck perl(Code::TidyAll) perl(Perl::Critic) >= 1.156.0 perl(Pod::Markdown) perl(Test::Perl::Critic) gitlint ruff yamllint
+%define style_check_requires ShellCheck perl(Code::TidyAll) perl(Perl::Critic) >= 1.156 perl(Pod::Markdown) perl(Test::Perl::Critic) gitlint ruff yamllint
 # diff from SUSE: perl(Devel::Cover::Report::Codecovbash) dropped because
 # it's not in Fedora (this means you can't run 'make coverage-codecov')
 # The following line is generated from dependencies.yaml (upstream)
@@ -102,7 +103,7 @@
 # multiple binary packages) and I can't find any reason for it
 # diff from SUSE 2: we don't have perl(Test::CheckGitStatus) packaged
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl make pandoc perl(Perl::Tidy) perl(TAP::Harness::JUnit) postgresql-devel python3-weasyprint rsync sudo tar xorg-x11-fonts
+%define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl make pandoc perl(Perl::Tidy) perl(TAP::Harness::JUnit) postgresql-devel python3-weasyprint rsync sudo tar
 # diff from SUSE: chromedriver dropped as we don't package it
 # that makes this look fairly silly, but we want to follow the SUSE
 # spec as close as we can
@@ -167,7 +168,6 @@ Requires(post): coreutils
 
 # Standard for packages that have systemd services & sysusers
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 # the plugin is needed if the auth method is set to "oauth2"
 Recommends:     perl(Mojolicious::Plugin::OAuth2)
@@ -534,8 +534,6 @@ make test GIT_CEILING_DIRECTORIES="/" CHECKSTYLE=0 PROVE_ARGS='-r t' TEST_PG_PAT
 rm -rf %{buildroot}/DB
 %endif
 
-%pre
-%sysusers_create_compat %{SOURCE5}
 
 %pre worker
 %sysusers_create_compat %{SOURCE6}

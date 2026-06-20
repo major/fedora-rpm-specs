@@ -6,12 +6,14 @@
 Summary: Analysis plugins for use with setroubleshoot
 Name: setroubleshoot-plugins
 Version: 3.3.15
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/plugins
 Source0: https://gitlab.com/-/project/24478430/uploads/1d856bff1c9fb16a8c6fc877d7fe91ca/setroubleshoot-plugins-3.3.15.tar.gz
-# git format-patch -N setroubleshoot-plugins-<version> -- plugins
-# i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
+# git format-patch -N setroubleshoot-plugins-<version>
+# for j in 00*patch; do printf "Patch: %s\n" $j; done
+Patch: 0001-Split-multi-command-fix_cmds-into-lists.patch
+Patch: 0002-catchall-Discourage-creating-custom-policy-modules.patch
 BuildArch: noarch
 
 # gcc is needed only for ./configure
@@ -20,8 +22,8 @@ BuildRequires: gcc
 BuildRequires: make
 BuildRequires: perl-XML-Parser
 BuildRequires: intltool gettext python3-devel
-# Introduction of get_package_nvr functions
-Requires: setroubleshoot-server >= 3.3.23
+# Support for multiple commands in fix_cmd
+Conflicts: setroubleshoot-server < 3.3.37
 
 %description
 This package provides a set of analysis plugins for use with
@@ -49,6 +51,10 @@ rm -rf %{buildroot}
 %{_datadir}/setroubleshoot/plugins
 
 %changelog
+* Thu May 07 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.15-7
+- Split multi-command fix_cmds into lists
+- catchall: Discourage creating custom policy modules
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

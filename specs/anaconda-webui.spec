@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        71
+Version:        72
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,17 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jun 17 2026 Packit <hello@packit.dev> - 72-1
+- review: show hostname on Live ISO installations
+- storage: block Next when destination has insufficient disk space
+- users: block Next when user name is empty
+- users: require valid password before enabling Next
+- storage: always try applying configured layout when storage editor has
+  mount points (Resolves: rhbz#2406021)
+- Handle non critical error installation prompts in WebUI
+- review: auto-proceed when kickstart is used without inst.pauseatsummary
+- review: block auto-proceed when warnings are displayed
+
 * Mon Jun 01 2026 Packit <hello@packit.dev> - 71-1
 - storage: show specific error when /boot/efi is on vfat without ESP (Resolves: rhbz#2449247)
 - webui-desktop: reuse desktop session on Live ISO (Resolves: rhbz#2477524)

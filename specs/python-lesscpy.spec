@@ -1,20 +1,20 @@
 %global pypi_name lesscpy
 
-%if 0%{?rhel} > 7
-# Disable python2 build by default
-%endif
-
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
-URL:            https://github.com/robotis/lesscpy
-Source0:        https://pypi.python.org/packages/source/l/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Patch1:         0001-Remove-tabfile-support-as-PLY-removed-it-as-well.patch
+URL:            https://github.com/lesscpy/lesscpy
+Source:         https://pypi.python.org/packages/source/l/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Patch:          0001-Remove-tabfile-support-as-PLY-removed-it-as-well.patch
+# upstream fixes for deprecations
+Patch:          0002-Update-supported-Python-versions.patch
+Patch:          0003-Remove-mentioning-of-six.patch
+Patch:          0004-Drop-pkg_resources-usage.patch
 # drop the dependency on python-six
-Patch2:         https://github.com/lesscpy/lesscpy/pull/126.patch
+Patch:          https://github.com/lesscpy/lesscpy/pull/126.patch
 
 BuildArch:      noarch
  
@@ -29,13 +29,8 @@ supported (JavaScript evaluation).
 
 %package -n python3-lesscpy
 Summary:    %summary
-Requires:   python3-ply
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-ply
 BuildRequires: python3-pytest
-BuildRequires: python3-pkg-resources
-%{?python_provide:%python_provide python3-lesscpy}
 
 %description -n python3-lesscpy
 A compiler written in python 3 for the lesscss language.  For those of us not
@@ -46,31 +41,35 @@ supported (JavaScript evaluation).
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
-%build
 
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
 
 
 %install
-
-%py3_install
-# link for backwards compatibility. consider removal in Fedora 30+
-ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
 %pytest
 
 
-%files -n python3-lesscpy
-%doc LICENSE
+%files -n python3-lesscpy -f %{pyproject_files}
+%doc README.rst
 %{_bindir}/lesscpy
-%{_bindir}/py3-lesscpy
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}*.egg-info
 
 
 %changelog
+* Tue Jun 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.14.0-28
+- Fix deprecations
+- Use pyproject macros
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.14.0-27
 - Rebuilt for Python 3.15
 

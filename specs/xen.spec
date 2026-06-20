@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.1
-Release: 5%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -84,6 +84,32 @@ Patch13: xsa484.patch
 Patch14: xsa486.patch
 Patch15: xen.git-90b20547b756a5cf9b0fec9fb0de5b361e8bf4c3.patch
 Patch16: xsa490-4.21.patch
+Patch17: xsa491-4.21.patch
+Patch18: xsa492-4.21-01.patch
+Patch19: xsa492-4.21-02.patch
+Patch20: xsa492-4.21-03.patch
+Patch21: xsa492-4.21-04.patch
+Patch22: xsa492-4.21-05.patch
+Patch23: xsa492-4.21-06.patch
+Patch24: xsa492-4.21-07.patch
+Patch25: xsa492-4.21-08.patch
+Patch26: xsa492-4.21-09.patch
+Patch27: xsa492-4.21-10.patch
+Patch28: xsa492-4.21-11.patch
+Patch29: xsa492-4.21-12.patch
+Patch30: xsa492-4.21-13.patch
+Patch31: xsa492-4.21-14.patch
+Patch32: xsa492-4.21-15.patch
+Patch33: xsa492-4.21-16.patch
+Patch34: xsa492-4.21-17.patch
+Patch35: xsa492-4.21-18.patch
+Patch36: xsa492-4.21-19.patch
+Patch37: xsa492-4.21-20.patch
+Patch38: xsa493-4.21-01.patch
+Patch39: xsa493-4.21-02.patch
+Patch40: xsa493-4.21-03.patch
+Patch41: xsa493-4.21-04.patch
+Patch42: xsa494-4.21.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -275,6 +301,32 @@ This package contains files used in testing the xen builds
 %patch 14 -p1
 %patch 15 -p1
 %patch 16 -p1
+%patch 17 -p1
+%patch 18 -p1
+%patch 19 -p1
+%patch 20 -p1
+%patch 21 -p1
+%patch 22 -p1
+%patch 23 -p1
+%patch 24 -p1
+%patch 25 -p1
+%patch 26 -p1
+%patch 27 -p1
+%patch 28 -p1
+%patch 29 -p1
+%patch 30 -p1
+%patch 31 -p1
+%patch 32 -p1
+%patch 33 -p1
+%patch 34 -p1
+%patch 35 -p1
+%patch 36 -p1
+%patch 37 -p1
+%patch 38 -p1
+%patch 39 -p1
+%patch 40 -p1
+%patch 41 -p1
+%patch 42 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -830,6 +882,16 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Thu Jun 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.21.1-7
+- Rebuilt for openssl 4.0
+
+* Thu Jun 18 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.1-6
+- x86 HVM I/O port list traversal [XSA-491, CVE-2026-42487]
+- domctl lock open to abuse [XSA-492, CVE-2026-42489, CVE-2026-42490]
+- Arm: Completion of memory accesses not guaranteed by completion of a TLBI
+	 [XSA-493, CVE-2025-10263]
+- x86: mismatched mapcache metadata [XSA-494, CVE-2026-42488]
+
 * Sat Jun 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.21.1-5
 - Rebuilt for openssl 4.0
 

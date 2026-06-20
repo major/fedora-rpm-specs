@@ -12,6 +12,8 @@ Summary:        Newtype with alignment of at least A bytes
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/aligned
 Source:         %{crates_source}
+# * Remove `bors.toml`, no longer used
+Patch10:        https://github.com/rust-embedded-community/aligned/pull/29.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,7 +1,5 @@
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
-
 %global forgeurl https://github.com/dmtcp/dmtcp
-Version:        4.1.0
+Version:        4.1.1
 %global tag %{version}
 %forgemeta
 
@@ -14,7 +12,7 @@ Summary:        Distributed MultiThreaded CheckPointing
 # allowed to use these files under either license.
 # https://github.com/dmtcp/dmtcp/blob/master/COPYING
 License:        LGPL-3.0-or-later AND (MIT OR BSD-3-Clause)
-URL:            http://dmtcp.sourceforge.net
+URL:            https://github.com/dmtcp/dmtcp
 Source0:        %{forgesource}
 
 BuildRequires:  gcc-c++
@@ -41,7 +39,7 @@ OpenMP, MATLAB, Python, Perl, R, and many programming languages and shell
 scripting languages. DMTCP also supports GNU screen sessions, including
 vim/cscope and emacs. With the use of TightVNC, it can also checkpoint and
 restart X Window applications. For a multilib (mixture of 32- and 64-bit
-processes), see "./configure --enable-multilib".
+processes), see the configure option "--enable-multilib".
 
 DMTCP supports the commonly used OFED API for InfiniBand, as well as its
 integration with various implementations of MPI, and resource managers (e.g.,
@@ -65,6 +63,7 @@ This package provides files for developing DMTCP plugins.
 
 %install
 %make_install
+rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 # A few tests may take a long time.  If a test times out, the check fails.
 # Hopefully, the test machine is fast enough, and timeouts are long
@@ -73,8 +72,11 @@ This package provides files for developing DMTCP plugins.
 # %check
 # AUTOTEST="--retry-once --slow" make check
 
+%check
+# Tests are disabled to avoid timeouts/failures on build infrastructure
+
 %files
-%license COPYING.LESSER
+%license COPYING COPYING.LESSER
 %{_bindir}/dmtcp_*
 %{_bindir}/mtcp_restart
 %{_libdir}/%{name}

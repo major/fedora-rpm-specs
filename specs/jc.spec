@@ -2,8 +2,8 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.25.6
-Release: 3%{?dist}
+Version: 1.25.7
+Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,10 +11,6 @@ Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(pygments) >= 2.4.2
-BuildRequires: python3dist(ruamel-yaml) >= 0.15
-BuildRequires: python3dist(xmltodict) >= 0.12
 
 # Require the python module in the main package
 Requires: python3-%{name} = %{version}-%{release}
@@ -38,19 +34,23 @@ tools and file types into structured JSON, for easier further processing.
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
 install -m 755 -d %{buildroot}%{_mandir}/man1
 install -m 644 -p man/jc.1 %{buildroot}%{_mandir}/man1/
 
-COMPDIR="%{buildroot}%{_datadir}/bash-completion/completions"
-install -m 755 -d "${COMPDIR}"
-install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
+install -m 755 -d %{buildroot}%{bash_completions_dir}
+install -m 644 -p completions/jc_bash_completion.sh %{buildroot}%{bash_completions_dir}/%{name}
 
 
 %check
@@ -61,20 +61,19 @@ TZ="America/Los_Angeles" ./runtests.sh
 %doc README.md EXAMPLES.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.*
-
-%dir %{_datadir}/bash-completion/
-%dir %{_datadir}/bash-completion/completions/
-%{_datadir}/bash-completion/completions/*
+%{bash_completions_dir}
 
 
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %doc docs/
 %license LICENSE.md
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Thu Jun 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.25.7-1
+- Update to v1.25.7
+- Adjust spec to current Python Packaging Guidelines
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.25.6-3
 - Rebuilt for Python 3.15
 

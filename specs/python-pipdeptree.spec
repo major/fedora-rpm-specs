@@ -6,7 +6,7 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.35.3
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Command line utility to show dependency tree of packages
 
@@ -18,6 +18,15 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros >= 0-41
+# Testing dependencies
+# It's easier to list them here than to use sed/patch pyproject.toml heavily.
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
+BuildRequires:  python3dist(pytest-subprocess)
+BuildRequires:  python3dist(virtualenv)
+BuildRequires:  python3dist(pip-requirements-parser)
+BuildRequires:  python3dist(rich)
+BuildRequires:  python3dist(graphviz)
 
 %description %_description
 
@@ -27,21 +36,17 @@ Summary:        %{summary}
 
 %description -n python3-%{srcname} %_description
 
-%pyproject_extras_subpkg -n python3-%{srcname} graphviz
+%pyproject_extras_subpkg -n python3-%{srcname} graphviz rich
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-# Remove unneeded testing deps
-sed -i "/diff-cover/d;/covdefaults/d;/pytest-cov/d" pyproject.toml
-# Remove version limits from dependencies
-sed -i 's/"virtualenv.*",/"virtualenv",/' pyproject.toml
-sed -i 's/"graphviz.*",/"graphviz",/' pyproject.toml
-sed -i 's/"pytest>.*",/"pytest",/' pyproject.toml
-sed -i 's/"pytest-mock>.*",/"pytest-mock",/' pyproject.toml
+%pyproject_patch_dependency graphviz:drop_constraints
+%pyproject_patch_dependency pip-requirements-parser:drop_constraints
+%pyproject_patch_dependency rich:drop_constraints
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
-%pyproject_buildrequires -x test,graphviz
+%pyproject_buildrequires
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"

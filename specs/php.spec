@@ -86,7 +86,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1673,6 +1673,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jun 18 2026 Remi Collet <remi@remirepo.net> - 8.5.8~RC1-2
+- Rebuilt for openssl 4.0
+
 * Wed Jun 17 2026 Remi Collet <remi@remirepo.net> - 8.5.8~RC1-1
 - update to 8.5.8RC1
 

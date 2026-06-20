@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2026.03.17
+Version:        2026.06.09
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -15,11 +15,9 @@ License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 
-# Python 3.15 support patches
-# [ie/youtube] Fix PO token sanitization for Python>=3.14.4 (#16453)
-Patch:          https://github.com/yt-dlp/yt-dlp/commit/9c1f3cf3373620c593c4e315f276ac134f6beb20.patch
-# Fix tests for python3.15 (#16884)
-Patch:          https://github.com/yt-dlp/yt-dlp/pull/16884.patch
+Patch:          0001-Fix-curl-beta-version-parsing.patch
+# Needed for compatibility with Fedora <= 44
+Patch:          0002-Restore-compatibility-with-pytest-9.patch
 
 BuildArch:      noarch
 

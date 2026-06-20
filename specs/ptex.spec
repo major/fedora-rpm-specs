@@ -1,5 +1,5 @@
 Name:           ptex
-Version:        2.5.1
+Version:        2.5.2
 Release:        %autorelease
 Summary:        Per-Face Texture Mapping for Production Rendering
 

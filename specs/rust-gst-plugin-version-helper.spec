@@ -5,17 +5,13 @@
 %global crate gst-plugin-version-helper
 
 Name:           rust-gst-plugin-version-helper
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Build.rs helper function for GStreamer plugin metadata
 
 License:        MIT
 URL:            https://crates.io/crates/gst-plugin-version-helper
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * version-helper: Update to toml_edit 0.24:
-#   https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/commit/994f4ffb3bb49dd1cdbddaa4384f52cdb57a7a22
-Patch:          gst-plugin-version-helper-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

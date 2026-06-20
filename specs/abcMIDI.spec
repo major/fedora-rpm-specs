@@ -1,13 +1,12 @@
 Name:           abcMIDI
-Version:        2025.02.16
-Release:        5%{?dist}
+Version:        2026.06.16
+Release:        1%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
 License:        GPL-2.0-or-later
 URL:            https://ifdo.ca/~seymour/runabc/top.html
 Source0:        https://github.com/sshlien/abcmidi/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:		abcMIDI-gnu23.patch
 
 BuildRequires:  gcc dos2unix
 BuildRequires: make
@@ -27,7 +26,6 @@ A mirror github repo is at https://github.com/sdgathman/abcmidi
 %prep
 %setup -q -n abcmidi-%{version}
 #find . -type f | xargs dos2unix
-%patch -P 0 -p 1 -b .gnu23
 # make license easier to find in files
 mv doc/gpl.txt doc/LICENSE
 
@@ -66,6 +64,9 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jun 17 2026 Aditi Mishra <aditi24adds@gmail.com> - 2026.06-16 - 1
+- New upstream release - 2026.06.16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.02.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

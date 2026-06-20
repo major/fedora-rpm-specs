@@ -1,6 +1,6 @@
 # Created by pyp2rpm-3.3.4
 Name:           python-zoidberg
-Version:        0.3.0
+Version:        0.3.1
 Release:        %{autorelease}
 Summary:        A Flux-Coordinate Independent (FCI) Grid Generator for BOUT++
 

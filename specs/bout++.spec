@@ -510,6 +510,7 @@ do
 	%endif
     else
         %_openmpi_load
+        export MPIRUN='mpirun --bind-to numa -np'
     fi
 
     export OMPI_MCA_rmaps_base_oversubscribe=yes
@@ -528,6 +529,7 @@ do
         %_mpich_unload
     else
         %_openmpi_unload
+        unset MPIRUN
     fi
 done
 %endif

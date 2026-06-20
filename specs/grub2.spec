@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	64%{?dist}
+Release:	65%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -404,13 +404,13 @@ GRUB_DIR=/boot/grub2
 
 if test ! -f ${GRUB_DIR}/grub.cfg; then
     # there's no config in GRUB home, create one
-    grub2-mkconfig -o ${GRUB_DIR}/grub.cfg
+    grub2-mkconfig -o ${GRUB_DIR}/grub.cfg  || :
 else
     GRUB_CFG_MODE=$(stat --format="%a" ${GRUB_DIR}/grub.cfg)
     if ! test "${GRUB_CFG_MODE}" = "600"; then
         # when upgrading from <=2.06-126 to newer versions, the grub config stub
         # may have different mode than 0600, so set the latter if this is the case
-        chmod 0600 ${GRUB_DIR}/grub.cfg
+        chmod 0600 ${GRUB_DIR}/grub.cfg || :
     fi
 fi
 
@@ -627,7 +627,9 @@ fi
 %endif
 
 %changelog
-=======
+* Mon Jun 15 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-65
+- spec: always exit with zero status on common posttrans scriptlet
+
 * Mon Jun 15 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-64
 - spec: move all pending EFI logic from common to EFI package
 - Related: #2482790

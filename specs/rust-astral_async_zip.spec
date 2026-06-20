@@ -19,6 +19,8 @@ Source:         %{crates_source}
 # * Update several dev-dependencies across SemVer boundaries:
 #   https://github.com/astral-sh/rs-async-zip/pull/39. Updates sanitize-filename
 #   0.5 to 0.6, derive_more 1 to 2, and zip 2 to 8.
+# * Exclude `rustfmt.toml` from published crates:
+#   https://github.com/astral-sh/rs-async-zip/pull/43
 Patch:          astral_async_zip-fix-metadata.diff
 # * Omit zip64 tests on 32-bit targets
 Patch10:        https://github.com/astral-sh/rs-async-zip/pull/40.patch
@@ -43,6 +45,9 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/examples/
+%exclude %{crate_instdir}/src/tests/
+%exclude %{crate_instdir}/tests/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

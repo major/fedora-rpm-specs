@@ -50,6 +50,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libvpx-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
+BuildRequires:  lua-devel
 BuildRequires:  cups-devel
 BuildRequires:  python3-cups
 BuildRequires:  redhat-rpm-config
@@ -113,7 +114,6 @@ Requires: pulseaudio-utils%{?_isa}
 Requires: cups-filesystem
 Requires: shared-mime-info%{?_isa}
 Requires: systemd-udev%{?_isa}
-
 %description
 Xpra is "screen for X": it allows you to run X programs, usually on a remote
 host, direct their display to your local machine, and then to disconnect from
@@ -126,24 +126,33 @@ Sessions can be accessed over SSH, or password protected over plain TCP sockets.
 Xpra is usable over reasonably slow links and does its best to adapt to changing
 network bandwidth constraints.
 
-%package -n %{name}-client-gnome
-Summary:			Gnome integration for the xpra client
-Requires:			%{name}-client-gtk3%{?_isa} = 1:%{version}-%{release}
-Requires:			gnome-shell-extension-appindicator
-
+%package -n     %{name}-client-gnome
+Summary:        Gnome integration for the xpra client
+Requires:       %{name}-client-gtk3%{?_isa} = 1:%{version}-%{release}
+Requires:       gnome-shell-extension-appindicator
 %description -n %{name}-client-gnome
 This package installs the GNOME Shell extensions
 that can help in restoring the system tray functionality.
 It also includes the gnome_shell_extension extension which
 is required for querying and activating keyboard input sources.
 
-%package -n %{name}-client-gtk3
-Summary:			GTK3 xpra client
-BuildRequires:		xclip
-Requires:			%{name}%{?_isa} = 1:%{version}-%{release}
-
+%package -n     %{name}-client-gtk3
+Summary:        GTK3 xpra client
+BuildRequires:  xclip
+Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
 %description -n %{name}-client-gtk3
 This package contains the GTK3 xpra client.
+
+%package -n     %{name}-plugin-lua
+Summary: Wireshark/tshark Lua dissector for the Xpra remote display protocol
+BuildRequires:  wireshark-devel
+%{?lua_version:Requires: lua(abi) = %{lua_version}}
+Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
+Requires:       wireshark%{?_isa}
+%description -n %{name}-plugin-lua
+The dissector registers on TCP port 14500 (xpra default) and also
+installs a heuristic detector so it picks up traffic on any port.
+Use Decode As → Xpra to force it on a different port.
 
 %prep
 %autosetup -n %{name}-%{version} -N
@@ -239,6 +248,16 @@ install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
 # Remove invalid paths
 sed -e 's|build/bdist.linux-%{?_arch}/wheel/xpra-%{version}.data/data||g' -i %{buildroot}%{_sysconfdir}/xpra/conf.d/55_server_x11.conf
 
+# Move Lua script into wireshark plugin directory and remove invalid /usr sub-directory
+%define wireshark_plugindir %(pkg-config --variable plugindir wireshark)/epan
+mkdir -p %{buildroot}%{wireshark_plugindir}
+%ifarch %{ix86}
+cp -p %{buildroot}/usr/%{_libdir}/wireshark/plugins/xpra_dissector.lua %{buildroot}%{wireshark_plugindir}/
+%else
+cp -p %{buildroot}/usr/%{wireshark_plugindir}/xpra_dissector.lua %{buildroot}%{wireshark_plugindir}/
+%endif
+rm -rf %{buildroot}/usr/%{_libdir}
+
 %post
 %systemd_post xpra-encoder.service
 %systemd_post xpra.service
@@ -292,6 +311,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/48x48/apps/xpra-mdns.png
 %{_datadir}/icons/hicolor/48x48/apps/xpra-shadow.png
 %{_datadir}/icons/hicolor/64x64/apps/xpra.png
+%{_datadir}/icons/xpra-large.png
 %{_mandir}/man1/xpra.1.*
 %{_mandir}/man1/xpra_*.1.*
 %{_mandir}/man1/run_scaled.1.*
@@ -323,6 +343,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/README.md
 %{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/extension.js
 %{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/metadata.json
+
+%files -n %{name}-plugin-lua
+%{wireshark_plugindir}/xpra_dissector.lua
 
 %changelog
 %autochangelog

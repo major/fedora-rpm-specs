@@ -1,6 +1,6 @@
 Name:           webrtc-audio-processing1
 Version:        1.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
@@ -14,6 +14,8 @@ Patch1:         65f002e.patch
 # Downstream-only because the package is significantly behind upstream, and the
 # code in question has changed quite a bit in the latest release.
 Patch2:         webrtc-audio-processing-1.3-gcc15.patch
+
+Patch3:         webrtc-audio-processing-1.3-add-loongarch64-support.patch
 
 BuildRequires: meson
 BuildRequires: gcc gcc-c++
@@ -65,6 +67,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Wed Jun 17 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.3-12
+- Add loongarch64 support.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

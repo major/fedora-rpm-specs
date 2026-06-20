@@ -2,7 +2,7 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 26.06.1
+Version: 26.06.2
 Release: %autorelease
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,13 +52,13 @@ Maxima using wxWidgets.
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 cp -alf  %{buildroot}%{_datadir}/pixmaps/text-x-wx*.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/
 
-%find_lang wxMaxima
-%find_lang wxmaxima --with-man
+%find_lang %{name} --all-name --with-man
 
 # Unpackaged files
 rm -fv %{buildroot}%{_datadir}/wxmaxima/{COPYING,README,README.md}
 rm -rfv %{buildroot}%{_datadir}/pixmaps/
 rm -rfv %{buildroot}%{_datadir}/menu
+rm -rfv %{buildroot}%{_datadir}/lintian/
 
 
 %check
@@ -66,10 +66,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 
 
-%files -f wxMaxima.lang -f wxmaxima.lang
+%files -f %{name}.lang
 %doc AUTHORS.md ChangeLog NEWS.md README.md
 %license COPYING
 %{_bindir}/wxmaxima
+%{_bindir}/wxmxdiff
 %{_datadir}/wxMaxima/
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/applications/%{app_id}.desktop
@@ -79,6 +80,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/mime/packages/x-wxmaxima-batch.xml
 %{_docdir}/wxmaxima/
 %{_mandir}/man1/wxmaxima.1*
+%{_mandir}/man1/wxmxdiff.1*
 
 
 %changelog

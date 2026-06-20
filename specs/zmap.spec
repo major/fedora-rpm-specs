@@ -1,4 +1,3 @@
-%global __cmake_in_source_build 1
 %bcond_with     pfring
 %bcond_without  debug
 
@@ -6,11 +5,10 @@ Name:           zmap
 Version:        4.4.0
 Release:        %autorelease
 Summary:        Network scanner for Internet-wide network studies
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://zmap.io
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         zmap-bin-sbin-merge.patch
+Patch:          zmap-bin-sbin-merge.patch
 BuildRequires:  byacc
 BuildRequires:  cmake
 BuildRequires:  flex
@@ -21,6 +19,8 @@ BuildRequires:  json-c-devel
 BuildRequires:  Judy-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libunistring-devel
+BuildRequires:  make
+BuildRequires:  ninja-build
 
 %description
 ZMap is an open-source network scanner that enables researchers to easily 
@@ -41,21 +41,22 @@ respect requests to stop scanning and to exclude these networks from ongoing
 scanning.
 
 %prep
-%autosetup -p 0
+%autosetup -p1
+chmod 644 -v examples/udp-probes/*
+find ./examples/ -type f -exec sed -i 's/\r$//' {} \+
 
 %build
 %cmake -DENABLE_DEVELOPMENT=OFF           \
        -DENABLE_LOG_TRACE=OFF             \
        -DWITH_JSON=ON                     \
        -DWITH_PFRING=OFF
-
 %cmake_build
-
-chmod 644 -v examples/udp-probes/*
-find ./examples/ -type f -exec sed -i 's/\r$//' {} \+
 
 %install
 %cmake_install
+
+%check
+%make_build -C test/unit run CC=%{__cc} CFLAGS="%{optflags} -I../../src"
 
 %files
 %doc AUTHORS CHANGELOG.md README.md examples/

@@ -5,7 +5,7 @@
 %global crate bytesize
 
 Name:           rust-bytesize
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Semantic wrapper for byte count representations
 

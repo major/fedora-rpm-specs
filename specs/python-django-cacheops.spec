@@ -16,12 +16,15 @@ And there is more to it:
 
 Name:           python-%{srcname}
 Version:        7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ORM cache with automatic granular event-driven invalidation for Django
 
 License:        BSD-3-Clause
 URL:            https://github.com/Suor/%{srcname}
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+Patch0:		fix-subquery-annotation.patch
+Patch1:		test_subquery-dj6.patch
 
 BuildArch:      noarch
 
@@ -39,7 +42,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %{desc}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -77,6 +80,9 @@ cat $PWD/redis.log
 %doc README.rst CHANGELOG
 
 %changelog
+* Thu Jun 18 2026 Ali Erdinc Koroglu <ali.koroglu@oss.qualcomm.com> - 7.2-5
+- Backported upstream commit 2142bf8 for rhbz#2458684
+
 * Sat Jun 06 2026 Python Maint <python-maint@redhat.com> - 7.2-4
 - Rebuilt for Python 3.15
 

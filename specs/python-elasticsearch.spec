@@ -13,7 +13,7 @@ for all Elasticsearch-related code in Python. The client's features include:\
 - Pluggable architecture.}
 
 Name:		python-elasticsearch
-Version:	9.1.0
+Version:	9.4.1
 Release:	%autorelease
 Summary:	Client for Elasticsearch
 
@@ -69,10 +69,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{srcname}
 
 %check
-%pytest -v -k 'not test_missing_required_field_raises_validation_exception and not test_boolean_doesnt_treat_false_as_empty and not test_accessing_known_fields_returns_empty_value' --ignore=test_elasticsearch/test_dsl/test_integration/test_examples/_async/test_vectors.py \
-	--ignore=test_elasticsearch/test_dsl/test_integration/test_examples/_sync/test_vectors.py \
-	--ignore=test_elasticsearch/test_dsl/_async/test_document.py \
-	--ignore=test_elasticsearch/test_dsl/_sync/test_document.py
+%pytest -v
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG.md CONTRIBUTING.md README.md

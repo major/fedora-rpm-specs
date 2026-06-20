@@ -34,7 +34,10 @@ Source:		https://download.nordugrid.org/packages/%{name}/releases/%{version}/src
 #		https://github.com/nordugrid/arc/pull/15
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1964
 Patch0:		0001-Handle-Python-multi-phase-initialization-support-in-.patch
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1971
 Patch1:		0001-Fix-compilation-with-Python-3.15.patch
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1997
+Patch2:		0001-Support-OpenSSL-4.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -71,10 +74,10 @@ BuildRequires:	systemd-rpm-macros
 BuildRequires:	systemd-devel
 BuildRequires:	libuuid-devel
 BuildRequires:	gettext-devel
-BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-pip
-BuildRequires:	python%{python3_pkgversion}-setuptools
-BuildRequires:	python%{python3_pkgversion}-wheel
+BuildRequires:	python3-devel
+BuildRequires:	python3-pip
+BuildRequires:	python3-setuptools
+BuildRequires:	python3-wheel
 %if %{with_pylint}
 BuildRequires:	pylint
 %endif
@@ -450,7 +453,7 @@ sites, to be used with a local installation of the ARC Control Tower.
 %package plugins-python
 Summary:	ARC Python dependent plugin
 Requires:	%{name} = %{version}-%{release}
-Requires:	python%{python3_pkgversion}-%{name} = %{version}-%{release}
+Requires:	python3-%{name} = %{version}-%{release}
 
 %description plugins-python
 NorduGrid is a collaboration aiming at development, maintenance and
@@ -477,12 +480,12 @@ Connector (ARC).
 
 Header files and libraries needed to develop applications using ARC.
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:	ARC Python 3 wrapper
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%{?python_provide:%python_provide python3-%{name}}
 Requires:	%{name} = %{version}-%{release}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 NorduGrid is a collaboration aiming at development, maintenance and
 support of the middleware, known as the Advanced Resource
 Connector (ARC).
@@ -529,12 +532,12 @@ Connector (ARC).
 This package contains the optional components that provide new job
 management features on the worker nodes (WN).
 
-%package -n python%{python3_pkgversion}-arcrest
+%package -n python3-arcrest
 Summary:	ARC REST client
-%{?python_provide:%python_provide python%{python3_pkgversion}-arcrest}
+%{?python_provide:%python_provide python3-arcrest}
 BuildArch:	noarch
 
-%description -n python%{python3_pkgversion}-arcrest
+%description -n python3-arcrest
 NorduGrid is a collaboration aiming at development, maintenance and
 support of the middleware, known as the Advanced Resource
 Connector (ARC).
@@ -558,6 +561,7 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 autoreconf -v -f -i
@@ -1112,7 +1116,7 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_bindir}/arcplugin
 %doc %{_mandir}/man1/arcplugin.1*
 
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %{python3_sitearch}/_arc.*so
 %{python3_sitearch}/%{pkgdir}/[^_p]*.py
 %{python3_sitearch}/%{pkgdir}/__pycache__/[^_p]*.*
@@ -1127,7 +1131,7 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %files wn
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
-%files -n python%{python3_pkgversion}-arcrest
+%files -n python3-arcrest
 %{python3_sitelib}/pyarcrest
 %{python3_sitelib}/pyarcrest-*.*-info
 %{_bindir}/arcrest
@@ -1143,7 +1147,7 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 - Rebuilt for Python 3.15
 
 * Tue May 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.2-1
-- Update to version 7.1.
+- Update to version 7.1.2
 
 * Wed Apr 22 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-5
 - Rebuilt for xrootd 6

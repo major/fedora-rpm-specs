@@ -35,6 +35,8 @@ Source10:       https://github.com/astral-sh/async_http_range_reader/raw/deca957
 # Manually created patch for downstream crate metadata changes
 # * Update dev-dependency astral_async_zip to 0.0.18:
 #   https://github.com/astral-sh/async_http_range_reader/pull/18
+# * Exclude `release-plz.toml` from published crates:
+#   https://github.com/astral-sh/async_http_range_reader/pull/19
 Patch:          astral_async_http_range_reader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

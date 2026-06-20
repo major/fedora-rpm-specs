@@ -1,14 +1,13 @@
 Summary:    X client list utility
 Name:       xlsclients
-Version:    1.1.5
+Version:    1.1.6
 Release:    %autorelease
 License:    MIT
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
-
-BuildRequires:  make
 BuildRequires:  gettext-devel
 BuildRequires:  libtool
+BuildRequires:  make
 
 BuildRequires:  pkgconfig(x11)
 
@@ -23,6 +22,9 @@ xlsclients lists the names of the clients currently connected to an X server.
 %build
 %configure
 %make_build
+
+%check
+make check
 
 %install
 %make_install

@@ -3,7 +3,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.30.0
+Version:                0.31.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
