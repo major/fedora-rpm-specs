@@ -8,7 +8,7 @@
 %global date0 20240326 
 %global pypi_version 0.19.0a0
 %else
-%global pypi_version 0.25.0
+%global pypi_version 0.27.1
 %endif
 
 # check takes too long, make optional
@@ -34,9 +34,9 @@ Source0:        %{url}/archive/%{commit0}/vision-%{shortcommit0}.tar.gz
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/vision-v%{version}.tar.gz
 %endif
 # get the hip version, step on the cuda version
-Patch1:         0001-A-better-cuda-version.patch
+# Patch1:         0001-A-better-cuda-version.patch
 # Fix build with FFmpeg 8
-Patch2:         %{name}-ffmpeg8.patch
+# Patch2:         %{name}-ffmpeg8.patch
 
 # Limit to these because that is what torch is on
 ExclusiveArch:  aarch64 x86_64

@@ -4,12 +4,13 @@
 Name:    grantlee-qt5
 Summary: Qt5 string template engine based on the Django template system
 Version: 5.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/steveire/grantlee
 Source0: http://downloads.grantlee.org/grantlee-%{version}%{?pre:-%{pre}}.tar.gz
+Patch:   0001-Remove-template-id-in-constructor-of-template-class.patch
 
 %global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 Source1: macros.grantlee5
@@ -83,7 +84,8 @@ format for easy browsing.
 %cmake_build
 
 %if 0%{?apidocs}
-make docs -C %{__cmake_builddir}
+cd %{__cmake_builddir}
+ninja-build docs
 %endif
 
 
@@ -139,6 +141,9 @@ sed -i \
 
 
 %changelog
+* Fri Jun 19 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 5.3.1-10
+- Make it build again. Closes #2434636
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -17,6 +17,8 @@ URL:            https://github.com/geopandas/pyogrio
 Source:         %pypi_source %{srcname}
 # Some Fedora-specific things
 Patch:          0001-Drop-extra-dependencies.patch
+# Backport fix for test failure with gdal-3.14+
+Patch:          https://github.com/geopandas/pyogrio/commit/06d9b61cf9edfa85c99d55568346a17968e51a02.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

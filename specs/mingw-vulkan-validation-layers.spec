@@ -3,10 +3,8 @@
 %global pkgname vulkan-validation-layers
 %global srcname Vulkan-ValidationLayers
 
-%define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
-
 Name:          mingw-%{pkgname}
-Version:       1.4.341.0
+Version:       1.4.350.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -20,19 +18,19 @@ BuildRequires: ninja-build
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-glslang
-BuildRequires: mingw32-spirv-headers
-BuildRequires: mingw32-spirv-tools
-BuildRequires: mingw32-vulkan-headers >= %{baseversion}
-BuildRequires: mingw32-vulkan-utility-libraries >= %{baseversion}
+BuildRequires: mingw32-glslang >= %{version}
+BuildRequires: mingw32-spirv-headers >= %{version}
+BuildRequires: mingw32-spirv-tools >= %{version}
+BuildRequires: mingw32-vulkan-headers >= %{version}
+BuildRequires: mingw32-vulkan-utility-libraries >= %{version}
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-glslang
-BuildRequires: mingw64-spirv-headers
-BuildRequires: mingw64-spirv-tools
-BuildRequires: mingw64-vulkan-headers >= %{baseversion}
-BuildRequires: mingw64-vulkan-utility-libraries >= %{baseversion}
+BuildRequires: mingw64-glslang >= %{version}
+BuildRequires: mingw64-spirv-headers >= %{version}
+BuildRequires: mingw64-spirv-tools >= %{version}
+BuildRequires: mingw64-vulkan-headers >= %{version}
+BuildRequires: mingw64-vulkan-utility-libraries >= %{version}
 
 
 %description
@@ -61,7 +59,7 @@ MinGW Windows %{pkgname} library.
 
 
 %build
-%mingw_cmake -G Ninja
+%mingw_cmake -DUPDATE_DEPS=OFF -G Ninja
 %mingw_ninja
 
 
@@ -84,6 +82,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.350.1-1
+- Update to 1.4.350.1
+
 * Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1.4.341.0-1
 - Update to 1.4.341.0
 

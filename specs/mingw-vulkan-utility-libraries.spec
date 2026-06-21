@@ -3,10 +3,8 @@
 %global pkgname vulkan-utility-libraries
 %global srcname Vulkan-Utility-Libraries
 
-%define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
-
 Name:          mingw-%{pkgname}
-Version:       1.4.341.0
+Version:       1.4.350.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -20,11 +18,11 @@ BuildRequires: ninja-build
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-vulkan-headers >= %{baseversion}
+BuildRequires: mingw32-vulkan-headers >= %{version}
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-vulkan-headers >= %{baseversion}
+BuildRequires: mingw64-vulkan-headers >= %{version}
 
 
 %description
@@ -75,6 +73,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.350.1-1
+- Update to 1.4.350.1
+
 * Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1.4.341.0-1
 - Update to 1.4.341.0
 

@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.15
+Version:        9.16
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -43,21 +43,20 @@ BuildRequires:  glibc-langpack-en
 BuildRequires:  python3-devel
 BuildRequires:  python3-keyring
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-setuptools
 
 BuildRequires:  %{_bindir}/npm
 
 # Printed by ./adjust_requirements.py (which also generates pgadmin4_requirements.patch)
 
 Requires: python3dist(authlib) >= 1.5.2
-Requires: python3dist(azure-identity) >= 1.17.1
+Requires: python3dist(azure-identity) >= 1.25.3
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1.1
 Requires: python3dist(azure-mgmt-resource) >= 24
-Requires: python3dist(azure-mgmt-subscription) >= 3
+Requires: python3dist(azure-mgmt-subscription) >= 3.1.1
 Requires: python3dist(bcrypt) >= 4.3
 Requires: python3dist(boto3) >= 1.43
 Requires: python3dist(certifi) >= 2026.1.4
-Requires: python3dist(cryptography) >= 47
+Requires: python3dist(cryptography) >= 48
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
 Requires: python3dist(flask-login) >= 0
@@ -84,12 +83,12 @@ Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2026
 Requires: python3dist(qrcode) >= 8
-Requires: python3dist(setuptools) >= 80.10.2
+Requires: python3dist(setuptools) >= 82
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
-Requires: python3dist(typer) >= 0.25
-Requires: python3dist(urllib3) >= 2.6
+Requires: python3dist(typer) >= 0.26
+Requires: python3dist(urllib3) >= 2.7
 Requires: python3dist(user-agents) >= 2.2
 Requires: python3dist(werkzeug) >= 3.1
 Requires: python3dist(wtforms) >= 3.0.1
@@ -168,8 +167,7 @@ Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 
 %prep
-%setup -q
-%autopatch -M99 -p1
+%autosetup -p1
 
 sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
 
@@ -251,6 +249,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jun 19 2026 Filipe Rosset <filiperosset@fedoraproject.org> - 9.16-1
+- Update to 9.16 + spec cleanup and modernization
+
 * Mon May 11 2026 Sandro Mani <manisandro@gmail.com> - 9.15-1
 - Update to 9.15
 

@@ -1,5 +1,5 @@
 Name:           python-systemd
-Version:        235
+Version:        236
 Release:        %autorelease
 Summary:        Python module wrapping libsystemd functionality
 
@@ -7,13 +7,12 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/python-systemd
 Source0:        https://github.com/systemd/python-systemd/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch:          https://github.com/systemd/python-systemd/pull/140.patch
-
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
+BuildRequires:  python3-meson-python
 BuildRequires:  python3-sphinx
 BuildRequires:  web-assets-devel
 BuildRequires:  python3-pytest
@@ -45,32 +44,26 @@ Requires:       js-jquery
 
 %prep
 %autosetup -p1
-sed -i 's/py\.test/pytest/' Makefile
 
 %build
-make PYTHON=%{__python3} build
-make PYTHON=%{__python3} SPHINX_BUILD=sphinx-build-3 sphinx-html
-rm -r build/html/.buildinfo build/html/.doctrees
+%pyproject_wheel -Csetup-args="-Ddocs=true"
 
 %install
-%make_install PYTHON=%{__python3}
+%pyproject_install
+%pyproject_save_files -L systemd
+
 mkdir -p %{buildroot}%{_pkgdocdir}
-cp -rv build/html %{buildroot}%{_pkgdocdir}/
-ln -vsf %{_jsdir}/jquery/latest/jquery.min.js %{buildroot}%{_pkgdocdir}/html/_static/jquery.js
+mv %{buildroot}/usr/doc/python-systemd/html %{buildroot}%{_pkgdocdir}/
+ln -vsf --relative %{_jsdir}/jquery/latest/jquery.min.js %{buildroot}%{_pkgdocdir}/html/_static/jquery.js
 cp -p README.md NEWS %{buildroot}%{_pkgdocdir}/
 
 %check
-# if the socket is not there, skip doc tests
-test -f /run/systemd/journal/stdout || \
-     sed -i 's/--doctest[^ ]*//g' pytest.ini
-make PYTHON=%{__python3} check
+%pytest -v %{buildroot}%{python3_sitearch}/systemd/test/
 
-%files -n python3-systemd
+%files -n python3-systemd -f %{pyproject_files}
 %license LICENSE.txt
 %doc %{_pkgdocdir}
 %exclude %{_pkgdocdir}/html
-%{python3_sitearch}/systemd/
-%{python3_sitearch}/systemd_python*.egg-info
 
 %files doc
 %doc %{_pkgdocdir}/html

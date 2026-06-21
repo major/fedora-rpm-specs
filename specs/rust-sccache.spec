@@ -7,7 +7,7 @@
 %global crate sccache
 
 Name:           rust-sccache
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Sccache is a ccache-like tool
 
@@ -24,9 +24,6 @@ Patch:          sccache-fix-metadata-auto.diff
 # * Allow serde_json version 1.0.149
 # * Allow tokio-serde version < 1.0
 Patch:          sccache-fix-metadata.diff
-# * Fix test_config_level_not_configured -
-#   https://github.com/mozilla/sccache/pull/2695
-Patch10:        sccache-better-multilevel-error.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 
@@ -98,6 +95,7 @@ License:        %{shrink:
 %doc CLAUDE.md
 %doc CODE_OF_CONDUCT.md
 %doc README.md
+%doc RELEASE-0.16.0.md
 %{_bindir}/sccache
 
 %prep

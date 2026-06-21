@@ -2,7 +2,7 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        33~alpha.2
+Version:        33~beta
 Release:        %autorelease
 Summary:        A photo organizer for the GNOME desktop
 
@@ -122,7 +122,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 %exclude %{_libdir}/libshotwell-plugin-dev-1.0.so
 %{_libexecdir}/shotwell/
 %{_datadir}/applications/org.gnome.Shotwell.desktop
-%{_datadir}/applications/org.gnome.Shotwell.Auth.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png

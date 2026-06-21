@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -652,6 +652,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Fri Jun 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-4
+- Rebuild for new libetpan
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 4.4.0-3
 - Rebuilt for Python 3.15
 

@@ -5,13 +5,16 @@
 %global crate git2
 
 Name:           rust-git2
-Version:        0.20.4
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Bindings to libgit2 for interoperating with git repositories
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/git2
 Source:         %{crates_source}
+
+# https://github.com/rust-lang/git2-rs/commit/6abfb6d
+Patch:          0001-Adapt-tests-for-relativeworktrees-extension-added-in.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -52,6 +55,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+cred-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+cred-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cred" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cred-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+https-devel

@@ -1,12 +1,12 @@
 Name: wcslib
-Version: 8.4
+Version: 8.8
 Release: %autorelease
 Summary: An implementation of the FITS World Coordinate System standard
 
 # Library is under LGPLv3+ utils under GPLv3+
 License: LGPL-3.0-or-later
-URL: https://www.atnf.csiro.au/computing/software/wcs/index.html
-Source0: https://www.atnf.csiro.au/computing/software/wcs/WCS/wcslib-%{version}.tar.bz2
+URL: https://www.atnf.csiro.au/computing/software/wcs/
+Source0: https://www.atnf.csiro.au/computing/software/wcs/wcslib-releases/wcslib-%{version}.tar.bz2
 
 # General stuff
 BuildRequires: make

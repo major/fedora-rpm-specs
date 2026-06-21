@@ -398,7 +398,7 @@ do
       -DBOUT_USE_NLS=ON \
       -DBOUT_USE_SYSTEM_FMT=ON \
       -DBOUT_USE_UUID_SYSTEM_GENERATOR=ON \
-      -DBOUT_TEST_TIMEOUT=1800 \
+      -DBOUT_TEST_TIMEOUT=3600 \
 %if %{with 3dmetrics}
       -DBOUT_ENABLE_METRIC_3D=ON \
 %endif
@@ -503,14 +503,14 @@ do
     fail=1
     if [ $mpi = mpich ] ; then
         %_mpich_load
-	%ifarch s390x
-	fail=0
-        # The following tests appear to completely hang with no timeout
-        exclude_arch="-E test-invertable-operator|test-laplacexy-fv|test-laplacexy-short|test-laplacexz|test-petsc-laplace|test-multigrid-laplace"
-	%endif
+        %ifarch s390x
+            fail=0
+            # The following tests appear to completely hang with no timeout
+            exclude_arch="-E test-invertable-operator|test-laplacexy-fv|test-laplacexy-short|test-laplacexz|test-petsc-laplace|test-multigrid-laplace"
+        %endif
     else
         %_openmpi_load
-        export MPIRUN='mpirun --bind-to numa -np'
+        export MPIRUN='mpirun --bind-to numa:overload-allowed --map-by :OVERSUBSCRIBE -np'
     fi
 
     export OMPI_MCA_rmaps_base_oversubscribe=yes

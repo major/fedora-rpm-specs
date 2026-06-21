@@ -17,6 +17,8 @@ Patch:          0001-TST-Mark-test_opener_fsspec_zip_http_fs-as-using-the.patch
 Patch:          0002-Remove-duplicate-click-option.patch
 # Vendor click-plugins for click 8.2 compatibility.
 Patch:          https://github.com/Toblerity/Fiona/pull/1498.patch
+# Fix test failures with GDAL-3.13+
+Patch:          fiona_gdal313.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

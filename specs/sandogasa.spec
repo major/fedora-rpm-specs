@@ -14,7 +14,7 @@
 }
 
 Name:           sandogasa
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -84,8 +84,12 @@ associated with "slum" or post-apocalyptic robots in popular culture.
 %cargo_generate_buildrequires -t
 
 
+# We don't ship dbranch (it's not in %%{tools}) and its tests require a live
+# git/network environment, so exclude it from the build and test entirely.
+# %%cargo_build/%%cargo_test pass trailing args straight to cargo, and cargo's
+# --exclude requires --workspace.
 %build
-%cargo_build
+%cargo_build -- --workspace --exclude dbranch
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -96,7 +100,7 @@ for tool in %{tools}; do
 done
 
 %check
-%cargo_test
+%cargo_test -- --workspace --exclude dbranch
 
 
 %files

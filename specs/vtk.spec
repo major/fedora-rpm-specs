@@ -4,7 +4,7 @@
 %global _lto_cflags %{nil}
 
 # There is a circular dep with opencascade
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 # OSMesa and X support are mutually exclusive.
 # TODO - buid separate OSMesa version if desired
@@ -91,6 +91,8 @@ Patch: vtk-libharu.patch
 Patch: vtk-ppc64-no-always-inline.patch
 # Fix Integer Overflow on 32-bit in KissFFT
 Patch: vtk-CVE-2025-34297.patch
+# Fix build against GDAL 3.13+
+Patch: vtk-gdal313.patch
 
 URL: https://vtk.org/
 

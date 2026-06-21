@@ -1,9 +1,9 @@
-%global commit 0756b73ed41211d1bb8d9b96c6767f2350d8fe2b
+%global commit 0839c6cab5fd8b629cc8e5e298193fa56078bccb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.30%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.32%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD-3-Clause AND BSL-1.0
@@ -18,15 +18,13 @@ Source0:        https://download.osgeo.org/%{name}/libLAS-%{version}.tar.bz2
 Patch1:         liblas_pkgconfig.patch
 # Fix FTBFS with boost 1.73
 Patch2:         liblas_boost173.patch
-# Don't switch to std=c++11 if gdal is detected, liblas requires std=c++14 to build
-Patch3:         liblas_stdc++14.patch
 # Fix build with gcc15
-Patch4:         liblas-gcc15.patch
+Patch3:         liblas-gcc15.patch
 # Increase minimum cmake version to 3.5
-Patch5:         liblas_cmakever.patch
+Patch4:         liblas_cmakever.patch
 # Fix loading of cmake module not finding PROJ::proj
 # https://github.com/libLAS/libLAS/issues/229
-Patch6:         liblas-proj.patch
+Patch5:         liblas-proj.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  boost-devel >= 1.53
@@ -108,6 +106,12 @@ libLAS utility applications.
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.32.git0839c6c
+- Update to git 0839c6c
+
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.31.git0756b73
+- Rebuild (gdal)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-0.30.git0756b73
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

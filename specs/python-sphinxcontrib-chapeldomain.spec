@@ -1,5 +1,5 @@
 Name:           python-sphinxcontrib-chapeldomain
-Version:        0.0.40
+Version:        0.0.41
 Release:        %autorelease
 Summary:        Chapel domain for Sphinx
 
@@ -17,6 +17,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # Documentation requirements
 BuildRequires:  make
+BuildRequires:  python3-pkg-resources
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(snowballstemmer)

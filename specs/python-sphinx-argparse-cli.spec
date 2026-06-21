@@ -1,7 +1,7 @@
 %global         srcname         sphinx-argparse-cli
 %global         importname      sphinx_argparse_cli
 %global         forgeurl        https://github.com/tox-dev/sphinx-argparse-cli
-Version:        1.11.1
+Version:        1.21.3
 %forgemeta
 
 Name:           python-%{srcname}
@@ -10,7 +10,7 @@ Summary:        Render CLI arguments defined by the argparse module
 
 License:        MIT
 URL:            %forgeurl
-Source:         %forgesource
+Source:         %{url}/archive/%{version}/sphinx-argparse-cli-%{version}.tar.gz
 Patch:          no-coverage.patch
 
 BuildRequires:  python3-devel
@@ -37,7 +37,7 @@ sed -i '/"version",/{n;d;}' pyproject.toml
 sed -i '/  "version",/d' pyproject.toml
 sed -i '/^dynamic = \[/d' pyproject.toml
 # relax version requirement
-sed -i 's/sphinx>=7.0.1/sphinx>=5.0.0/g' pyproject.toml
+sed -i 's/sphinx>=9.0.4/sphinx>=8.2.3/g' pyproject.toml
 ver=%{version}
 ver_comma=${ver//./, }
 touch version.py

@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 3.0.0
+%global version 3.0.1
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git and GitHub/GitLab easier.

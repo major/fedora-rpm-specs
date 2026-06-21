@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        26.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -8,12 +8,11 @@ URL:            http://www.stellarium.org
 Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
 
 Patch0:         stellarium-fix-build-against-qt-6-10.patch
+Patch1:         ef39e639ba91a71c9a7fa9ddc31a8229f963f4e7.patch
 
 # Disabled due to lconvert segfaulting on armv7hl and i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
-%if 0%{?fedora} > 32
 ExcludeArch:    armv7hl i686
-%endif
 
 BuildRequires:  make
 BuildRequires:  desktop-file-utils
@@ -102,6 +101,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Fri Jun 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 26.1-4
+- Patch to fix libindi build issue
+
 * Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 26.1-3
 - Rebuild (qt6)
 

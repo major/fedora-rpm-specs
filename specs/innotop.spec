@@ -1,5 +1,5 @@
 Name:           innotop
-Version:        1.15.2
+Version:        1.16.0
 Release:        %autorelease
 Summary:        A MySQL and InnoDB monitor program
 BuildArch:      noarch

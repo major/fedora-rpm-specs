@@ -1,6 +1,6 @@
 Name:           python-straight-plugin
 Version:        1.5.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Python plugin loader
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -19,6 +19,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pkg-resources
 
 
 
@@ -55,20 +56,32 @@ the plugins in it for some particular purpose or intent.
 %prep
 %autosetup -p1 -n straight.plugin-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l straight
+
+rm -f %{buildroot}%{python3_sitelib}/straight*pth
 
 #%check
 #%{__python3} tests.py
 
-%files -n python3-straight-plugin
-# For noarch packages: sitelib
-%{python3_sitelib}/straight*
+
+%files -n python3-straight-plugin -f %{pyproject_files}
+%license LICENSE
+%doc README.rst AUTHORS
 
 %changelog
+* Thu Jun 18 2026 Kevin Fenzi <kevin@scrye.com> - 1.5.0-37
+- Modernize spec some. Fixes rhbz#2378255
+- Remove pth file that causes anoying warnings. Fixes rhbz#2486067
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.5.0-36
 - Rebuilt for Python 3.15
 

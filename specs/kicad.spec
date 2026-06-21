@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        10.0.3
-Release:        5%{?dist}
+Version:        10.0.4
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -13,9 +13,6 @@ Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{v
 Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
-
-# We must add Python 3.15 to cmake scripts
-Patch:          Allow-Python-3.15-in-cmake.patch
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -96,8 +93,6 @@ Documentation for KiCad.
 
 %prep
 %setup -q -a 1 -a 2 -a 3 -a 4 -a 5
-
-%patch -P0 -p1
 
 %build
 
@@ -233,6 +228,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jun 19 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.4-1
+- Update to 10.0.4
+
 * Sat Jun 06 2026 Fabio Valentini <decathorpe@gmail.com> - 1:10.0.3-5
 - Avoid depending on the unversioned libgit2 package.
 

@@ -41,7 +41,7 @@ Known flaws:
 %global debug_package %{nil}
 
 Name:           highfive
-Version:        2.10.1
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Header-only C++ HDF5 interface
 
@@ -50,12 +50,7 @@ License:        BSL-1.0
 URL:            https://highfive-devs.github.io/highfive/
 Source:         https://github.com/highfive-devs/highfive/archive/v%{version}/highfive-%{version}.tar.gz
 
-# Downstream-only: Patch all cmake_minimum_required from 3.1 to 3.5
-#
-# This fixes compatibility with CMake 4. It does not make sense to offer
-# this upstream because a larger CMake modernization effort was already
-# implemented for the upcoming 3.0.0 release.
-Patch:          0001-Downstream-only-Patch-all-cmake_minimum_required-fro.patch
+Patch:          highfive-catch.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -102,16 +97,15 @@ developing applications that use HighFive.
 
 
 %build
+# TODO: Remove in the 3.0 release
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %if %{with tests}
 # The unit tests intentionally test deprecated APIs; silence these warnings so
 # we are more likely to notice any real problems.
 CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 %endif
 %cmake \
-    -DHIGHFIVE_USE_BOOST:BOOL=TRUE \
-    -DHIGHFIVE_USE_XTENSOR:BOOL=TRUE \
-    -DHIGHFIVE_USE_EIGEN:BOOL=TRUE \
-    -DHIGHFIVE_USE_OPENCV:BOOL=TRUE \
+    -DHIGHFIVE_CMAKE_INSTALL_DIR=%{_lib}/cmake/HighFive \
     -DHIGHFIVE_EXAMPLES:BOOL=TRUE \
     -DHIGHFIVE_UNIT_TESTS:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
     -DHIGHFIVE_BUILD_DOCS:BOOL=FALSE \
@@ -121,11 +115,6 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 %install
 %cmake_install
-# Move the CMake configurations to the correct location
-[ ! -d '%{buildroot}/%{_libdir}/cmake/HighFive' ]
-install -d '%{buildroot}/%{_libdir}/cmake'
-mv -v '%{buildroot}/%{_datadir}/HighFive/CMake' \
-    '%{buildroot}/%{_libdir}/cmake/HighFive'
 
 
 %check

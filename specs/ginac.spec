@@ -9,6 +9,7 @@ URL:              https://www.ginac.de/
 Source0:          https://www.ginac.de/%{name}-%{version}.tar.bz2
 
 Patch:            cmake-minimum-version.diff
+Patch:            https://codeberg.org/ginac/ginac/commit/4b8e8987365682e40184f87d5e1030c0081108d0.patch
 
 BuildRequires:    gcc-c++
 BuildRequires:    bison
@@ -20,7 +21,6 @@ BuildRequires:    python3-devel
 BuildRequires:    readline-devel
 BuildRequires:    tex(dvips)
 BuildRequires:    tex(latex)
-BuildRequires:    tex(latex-base)
 BuildRequires:    texinfo
 BuildRequires:    texinfo-tex
 BuildRequires:    transfig
@@ -61,7 +61,7 @@ the tool "viewgar" which displays the contents of GiNaC archives.
 sed -i 's| @GINACLIB_RPATH@||' ginac.pc.{in,cmake}
 
 %build
-%cmake -DCMAKE_INSTALL_RPATH="" -DLIBEXECDIR=%{_libexecdir}
+%cmake -DCMAKE_INSTALL_RPATH="" -DLIBEXECDIR=%{_libexecdir} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 %cmake_build --target ginac_html
 

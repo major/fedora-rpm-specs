@@ -3,10 +3,9 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.108.0
+Version:                2.109.0
 
 %gometa -L -f
-
 
 Name:           jfrog-cli
 Release:        %autorelease

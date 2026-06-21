@@ -1,18 +1,18 @@
-%global commit      136e5c25daf545753329d7cee1b06ae482fb9c44
+%global commit      824de5dd22df3ba54bfe2cdd76029a62e53201fe
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global git_date    20220509
+%global git_date    20260317
 
 Summary:        Parallel LZMA compressor using XZ
 Name:           pxz
 Version:        4.999.9
-Release:        32.beta.%{git_date}git%{?dist}
+Release:        33.beta.%{git_date}git%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://jnovy.fedorapeople.org/pxz/
 Source0:        https://github.com/jnovy/%{name}/archive/%{commit}/%{name}-%{version}beta.%{git_date}git%{shortcommit}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  xz-devel
-Requires:       %{_bindir}/xz
+Requires:       xz
 
 %description
 Parallel XZ is a compression utility that takes advantage of running
@@ -24,7 +24,7 @@ time.
 %setup -q -n %{name}-%{commit}
 
 %build
-export CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DXZ_BINARY='\"%{_bindir}/xz\"'"
+export CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
 export LDFLAGS="%{?__global_ldflags}"
 %make_build
 
@@ -32,11 +32,7 @@ export LDFLAGS="%{?__global_ldflags}"
 %make_install
 
 %check
-# https://github.com/jnovy/pxz/pull/14
-./pxz -3 -c COPYING > test.xz
-xz -dc test.xz > COPYING.test
-cmp COPYING COPYING.test
-./pxz -dc test.xz > /dev/null
+make check
 
 %files
 %license COPYING
@@ -44,6 +40,9 @@ cmp COPYING COPYING.test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jun 19 2026 Robert Scheck <robert@fedoraproject.org> 4.999.9-24.beta.20260317git
+- Update to GIT 20260317
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.999.9-32.beta.20220509git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

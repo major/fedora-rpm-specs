@@ -20,7 +20,7 @@
 
 Name:          postgresql%{pgversion}-postgis
 Version:       3.6.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -493,6 +493,9 @@ fi
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 3.6.4-2
+- Rebuild (gdal)
+
 * Tue Jun 09 2026 Sandro Mani <manisandro@gmail.com> - 3.6.4-1
 - Update to 3.6.4
 

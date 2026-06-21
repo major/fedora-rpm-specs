@@ -1,17 +1,18 @@
 %bcond_without check
 
 %global srcname astropy
+%global srcversion 8.0.0b1
 
 Name: python-%{srcname}
-Version: 7.2.0
-Release: %autorelease
+Version: 8.0.0
+Release: %autorelease -p -e b1
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
 # jquery is MIT
 License: BSD-3-Clause AND CFITSIO AND Python-2.0.1 AND MIT
 
 URL: http://astropy.org
-Source: %{pypi_source %{srcname}}
+Source: %{pypi_source %{srcname} %{srcversion}}
 Source: astropy-README.dist
 # Please, do not change the compilation flags
 Patch: restore-compilation-flags.patch
@@ -54,7 +55,7 @@ Requires: %{py3_dist ply}
 # Bundled
 Provides: bundled(cfitsio) = 4.6.3
 Provides: bundled(jquery) = 3.60
-#Provides: bundled(wcslib) = 8.4
+Provides: bundled(wcslib) = 8.6
 
 # Drop doc subpackage, is empty 
 
@@ -73,19 +74,22 @@ Requires: python3-%{srcname} = %{version}-%{release}
 Utilities provided by Astropy.
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{srcname}-%{srcversion} -p1
 rm -rf astropy/extern/configobj
 rm -rf astropy/extern/ply
 rm -rf cextern/expat
 # The buils system requires a subset of the header files
 # cel.h, lin.h, prj.h, spc.h, spx.h, tab.h, wcs.h, 
 # wcserr.h, wcsmath.h, wcsprintf.h
-rm -rf cextern/wcslib/C/*.c
+#rm -rf cextern/wcslib/C/*.c
 
 # Apparently, --current-env doesn't like {list_dependencies_command}
 sed -i 's/{list_dependencies_command}/python -m pip freeze --all/g' tox.ini
 
-export ASTROPY_USE_SYSTEM_ALL=1
+#export ASTROPY_USE_SYSTEM_ALL=1
+export ASTROPY_USE_SYSTEM_ERFA=1
+export ASTROPY_USE_SYSTEM_EXPAT=1
+#export ASTROPY_USE_SYSTEM_WCSLIB=1
 %generate_buildrequires
 %if %{with check}
 %pyproject_buildrequires -e %{toxenv}-test
@@ -94,15 +98,19 @@ export ASTROPY_USE_SYSTEM_ALL=1
 %endif
 
 %build
-export ASTROPY_USE_SYSTEM_ALL=1
+#export ASTROPY_USE_SYSTEM_ALL=1
+export ASTROPY_USE_SYSTEM_ERFA=1
+export ASTROPY_USE_SYSTEM_EXPAT=1
 # Search for headers in subdirs
-export CPATH="/usr/include/wcslib"
+#export CPATH="/usr/include/wcslib"
 %pyproject_wheel
 
 %install
-export ASTROPY_USE_SYSTEM_ALL=1
+#export ASTROPY_USE_SYSTEM_ALL=1
+export ASTROPY_USE_SYSTEM_ERFA=1
+export ASTROPY_USE_SYSTEM_EXPAT=1
 # Search for headers in subdirs
-export CPATH="/usr/include/wcslib"
+#export CPATH="/usr/include/wcslib"
 %pyproject_install
 
 %pyproject_save_files -l astropy

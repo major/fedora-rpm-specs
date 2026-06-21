@@ -48,7 +48,6 @@ VCS:		git:%{giturl}.git
 Source:		%{giturl}/archive/Release-%{upstreamver}%{?patchver}.tar.gz
 BuildRequires:	4ti2
 BuildRequires:	bison
-BuildRequires:	boost-devel
 %if %{with python}
 BuildRequires:	boost-python2-devel
 %endif
@@ -56,9 +55,7 @@ BuildRequires:	ccluster-devel
 BuildRequires:	cddlib-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
-BuildRequires:	emacs
 BuildRequires:	environment(modules)
-BuildRequires:	flex
 BuildRequires:	flint-devel
 BuildRequires:	gcc-c++
 BuildRequires:	gfan

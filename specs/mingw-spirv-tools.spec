@@ -5,7 +5,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.4.341.0
+Version:       1.4.350.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -133,6 +133,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1:1.4.350.1-1
+- Update to 1.4.350.1
+
 * Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1:1.4.341.0-1
 - Update to 1.4.341.0
 

@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.28.3
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          pyo3-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop MSVC- and MinGW-only features
+# * drop ui_test dev-dependency (UI tests are not included in published crates)
 Patch:          pyo3-fix-metadata.diff
 # * make unsafe subinterpreter support available via cfg flag:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
@@ -135,16 +136,16 @@ use the "abi3-py314" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py314-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+abi3-py37-devel
+%package     -n %{name}+abi3-py315-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+abi3-py37-devel %{_description}
+%description -n %{name}+abi3-py315-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "abi3-py37" feature of the "%{crate}" crate.
+use the "abi3-py315" feature of the "%{crate}" crate.
 
-%files       -n %{name}+abi3-py37-devel
+%files       -n %{name}+abi3-py315-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py38-devel
@@ -169,6 +170,30 @@ This package contains library source intended for building other packages which
 use the "abi3-py39" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py39-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3t-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3t-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3t" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3t-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3t-py315-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3t-py315-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3t-py315" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3t-py315-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+anyhow-devel

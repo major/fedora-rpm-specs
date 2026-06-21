@@ -2,7 +2,7 @@
 ExcludeArch:    %{ix86}
 
 Name:           siril
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        Astronomical image processing software
 

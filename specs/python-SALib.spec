@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/SALib/SALib
 
 Name:           python-SALib
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Tools for global sensitivity analysis
 

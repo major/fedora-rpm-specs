@@ -1,12 +1,6 @@
 # Disable X11 for RHEL
 %bcond x11 %[%{undefined rhel}]
 
-%global commit c96b1944419fb49837253705be41961f2b3e6159
-%global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20260112
-%global gititer 1
-
-
 Name:           plasma-login-manager
 Version:        6.7.0
 Release:        1%{?dist}

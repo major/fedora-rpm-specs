@@ -14,7 +14,7 @@
 Name:		php-pecl-oauth	
 Summary:	PHP OAuth consumer extension
 License:	BSD-3-Clause
-Version:	2.0.12
+Version:	2.0.13
 Release:	1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -116,6 +116,9 @@ TEST_PHP_ARGS="-n -d extension=posix.so -d extension=%{buildroot}%{php_extdir}/%
 
 
 %changelog
+* Fri Jun 19 2026 Remi Collet <remi@remirepo.net> - 2.0.13-1
+- update to 2.0.13
+
 * Tue Apr  7 2026 Remi Collet <remi@remirepo.net> - 2.0.12-1
 - update to 2.0.12
 - add pie virtual provides

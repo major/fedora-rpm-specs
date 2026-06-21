@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	4
+%global	baserelease	5
 %dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -419,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Jun 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-5
+- Rebuild for new libetpan
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.6.2-4
 - Rebuilt for openssl 4.0
 

@@ -3,7 +3,7 @@
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
 Version: 0.19.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://github.com/latchset/mod_auth_mellon/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
@@ -105,6 +105,9 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Fri Jun 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.19.1-5
+- Rebuilt for xmlsec 1.3
+
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.19.1-4
 - Rebuilt for openssl 4.0
 

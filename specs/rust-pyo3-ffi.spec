@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.28.3
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -127,16 +127,16 @@ use the "abi3-py314" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py314-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+abi3-py37-devel
+%package     -n %{name}+abi3-py315-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+abi3-py37-devel %{_description}
+%description -n %{name}+abi3-py315-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "abi3-py37" feature of the "%{crate}" crate.
+use the "abi3-py315" feature of the "%{crate}" crate.
 
-%files       -n %{name}+abi3-py37-devel
+%files       -n %{name}+abi3-py315-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py38-devel
@@ -161,6 +161,30 @@ This package contains library source intended for building other packages which
 use the "abi3-py39" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py39-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3t-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3t-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3t" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3t-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3t-py315-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3t-py315-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3t-py315" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3t-py315-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+extension-module-devel

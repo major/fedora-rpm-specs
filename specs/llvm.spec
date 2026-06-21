@@ -57,6 +57,14 @@
 %bcond_without python_lit
 %endif
 
+%if %{maj_ver} >= 23
+%global build_docs 0
+%global build_docs_toggle OFF
+%else
+%global build_docs 1
+%global build_docs_toggle ON
+%endif
+
 %bcond_without lldb
 
 %ifarch ppc64le
@@ -286,8 +294,10 @@ end
 # Suffixless tarball name (essentially: basename -s .tar.xz llvm-project-17.0.6.src.tar.xz)
 %if %{with snapshot_build}
 %global src_tarball_dir llvm-project-%{llvm_snapshot_git_revision}
+%global src_manpage_tarball_dir llvm_man_pages-%{llvm_snapshot_yyyymmdd}
 %else
 %global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}.src
+%global src_manpage_tarball_dir llvm_man_pages-%{maj_ver}.%{min_ver}.%{patch_ver}
 %endif
 
 # LLD uses "fast" as the algortithm for generating build-id
@@ -444,9 +454,15 @@ URL:		http://llvm.org
 
 %if %{with snapshot_build}
 Source0: https://github.com/llvm/llvm-project/archive/%{llvm_snapshot_git_revision}.tar.gz
+%if %{build_docs} == 0
+Source42: https://github.com/fedora-llvm-team/llvm-snapshots/releases/download/snapshot-version-sync/%{src_manpage_tarball_dir}.tar.xz
+%endif
 %else
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz.sig
+%if %{build_docs} == 0
+Source42: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_manpage_tarball_dir}.tar.xz
+%endif
 %endif
 Source6: release-keys.asc
 
@@ -601,14 +617,16 @@ BuildRequires:	lld
 %endif
 %endif
 
+%if %{build_docs}
 # This intentionally does not use python3_pkgversion. RHEL 8 does not have
 # python3.12-sphinx, and we are only using it as a binary anyway.
 BuildRequires:	python3-sphinx
+%endif
 %if 0%{?rhel} != 8
 # RHEL 8 does not have these packages for python3.12.
 BuildRequires: python%{python3_pkgversion}-psutil
 %endif
-%if %{undefined rhel}
+%if %{undefined rhel} && %{build_docs}
 BuildRequires:	python%{python3_pkgversion}-myst-parser
 %endif
 # Needed for %%multilib_fix_c_header
@@ -1065,6 +1083,9 @@ License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://lldb.llvm.org/
 
 Requires:	%{pkg_name_clang}-libs%{?_isa} = %{version}-%{release}
+%if 0%{?fedora} >= 45
+Recommends: yama-ptrace-enable
+%endif
 %if %{without compat_build}
 Requires:	python%{python3_pkgversion}-lldb
 %endif
@@ -1370,6 +1391,11 @@ Mesa OpenCL support with RustiCL.
 
 %endif
 
+# Unpack the man pages first
+%if %{build_docs} == 0
+%autosetup -N -T -b 42 -n %{src_manpage_tarball_dir}
+%endif
+
 # -T     : Do Not Perform Default Archive Unpacking (without this, the <n>th source would be unpacked twice)
 # -b <n> : Unpack The nth Sources Before Changing Directory
 # -n     : Set Name of Build Directory
@@ -1420,9 +1446,11 @@ Mesa OpenCL support with RustiCL.
 #endregion COMPILER-RT preparation
 
 #region lldb preparation
+%if %{build_docs}
 # Compat builds don't build python bindings, but should still build man pages.
 %if %{with compat_build}
 sed -i 's/LLDB_ENABLE_PYTHON/TRUE/' lldb/docs/CMakeLists.txt
+%endif
 %endif
 #endregion
 
@@ -1619,7 +1647,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 	-DCLANG_DEFAULT_UNWINDLIB=libgcc \\\
 	-DCLANG_ENABLE_ARCMT:BOOL=ON \\\
 	-DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON \\\
-	-DCLANG_INCLUDE_DOCS:BOOL=ON \\\
+	-DCLANG_INCLUDE_DOCS:BOOL=%{build_docs_toggle} \\\
 	-DCLANG_INCLUDE_TESTS:BOOL=ON \\\
 	-DCLANG_PLUGIN_SUPPORT:BOOL=ON \\\
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \\\
@@ -1646,15 +1674,15 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 # Add all *enabled* documentation targets (no doxygen but sphinx)
 %global cmake_config_args %{cmake_config_args} \\\
 	-DLLVM_ENABLE_DOXYGEN:BOOL=OFF \\\
-	-DLLVM_ENABLE_SPHINX:BOOL=ON \\\
-	-DLLVM_BUILD_DOCS:BOOL=ON
+	-DLLVM_ENABLE_SPHINX:BOOL=%{build_docs_toggle} \\\
+	-DLLVM_BUILD_DOCS:BOOL=%{build_docs_toggle}
 
 # Configure sphinx:
 # Build man-pages but no HTML docs using sphinx
 %global cmake_config_args %{cmake_config_args} \\\
 	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-3 \\\
 	-DSPHINX_OUTPUT_HTML:BOOL=OFF \\\
-	-DSPHINX_OUTPUT_MAN:BOOL=ON \\\
+	-DSPHINX_OUTPUT_MAN:BOOL=%{build_docs_toggle} \\\
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF
 #endregion docs options
 
@@ -1728,7 +1756,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 #region mlir options
 %if %{with mlir}
 %global cmake_config_args %{cmake_config_args} \\\
-        -DMLIR_INCLUDE_DOCS:BOOL=ON \\\
+        -DMLIR_INCLUDE_DOCS:BOOL=%{build_docs_toggle} \\\
         -DMLIR_INCLUDE_TESTS:BOOL=ON \\\
         -DMLIR_INCLUDE_INTEGRATION_TESTS:BOOL=OFF \\\
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \\\
@@ -1780,7 +1808,7 @@ CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
 #region flang options
 %if %{with flang}
 %global cmake_config_args %{cmake_config_args} \\\
-  -DFLANG_INCLUDE_DOCS:BOOL=ON
+  -DFLANG_INCLUDE_DOCS:BOOL=%{build_docs_toggle}
 # Build both, shared and static flang runtime objects.
 # See also https://llvm.org/devmtg/2025-04/slides/quick_talk/kruse_flang-rt.pdf
 %global cmake_config_args %{cmake_config_args} \\\
@@ -2347,7 +2375,9 @@ rm %{buildroot}%{install_bindir}/llvm-omp-kernel-replay
 touch %{buildroot}%{_bindir}/ld
 %endif
 
+%if %{build_docs}
 install -D -m 644 -t  %{buildroot}%{install_mandir}/man1/ lld/docs/ld.lld.1
+%endif
 
 #endregion LLD installation
 
@@ -2481,6 +2511,11 @@ move_and_replace_with_symlinks() {
         find * \( -type f -o -type l \) -exec mv "$src/{}" "$dest/{}" \; \
              -exec ln -s --relative "$dest/{}" "$src/{}" \;)
 }
+
+%if %{build_docs} == 0
+# Install the man pages before the symlinks below are created
+cp -v ../%{src_manpage_tarball_dir}/* %{buildroot}%{install_mandir}/man1/
+%endif
 
 %if %{without compat_build}
 # Move files from the llvm prefix to the system prefix and replace them with

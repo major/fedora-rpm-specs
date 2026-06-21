@@ -107,7 +107,7 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        8.1.1
+Version:        8.1.2
 Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
@@ -371,6 +371,8 @@ Requires:       libswresample%{?pkg_suffix}%{_isa} = %{version}-%{release}
 # We require libopenh264 library, which has a dummy implementation and a real one
 # In the event that this is being installed, we want to prefer openh264 if available
 Suggests:       openh264%{_isa}
+# Avoid installing mismatched -free and -freeworld builds
+Conflicts:      libavcodec-freeworld%{_isa} < %{version}
 
 %description -n libavcodec%{?pkg_suffix}
 The libavcodec library provides a generic encoding/decoding framework
@@ -662,6 +664,8 @@ Supplements:    libavcodec%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
 # We require libopenh264 library, which has a dummy implementation and a real one
 # In the event that this is being installed, we want to install this version
 Requires:       openh264%{_isa}
+# Avoid installing mismatched -free and -freeworld builds
+Conflicts:      libavcodec-free%{_isa} < %{version}
 
 %description -n libavcodec-freeworld
 The libavcodec library provides a generic encoding/decoding framework
@@ -972,6 +976,13 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Wed Jun 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.2-1
+- Updated to 8.1.2 (resolves rhbz#2489751)
+
+* Thu May 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.1-2
+- Add Conflicts to prevent installation of mismatched -free and -freeworld
+  builds
+
 * Sat May 09 2026 Dominik Mierzejewski <dominik@greysector.net> - 8.1.1-1
 - Update to 8.1.1
 - Drop merged patch

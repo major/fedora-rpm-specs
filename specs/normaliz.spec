@@ -21,6 +21,9 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
 Patch:          %{name}-hash-library.patch
+# Fix a Macaulay2 build error by not including all of the CoCoA headers
+# https://github.com/Normaliz/Normaliz/pull/453
+Patch:          %{name}-cocoalib.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,15 +1,15 @@
-%global commit 39e7bd00f7a322e5165fd8f416b31d23daf6d385
+%global commit bbf6cf03104aed5f73ac2798bdb09dc63ea3adf8
 %if 0%{?rhel} && 0%{?rhel} < 10
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global shortcommit %{sub %{commit} 1 7}
 %endif
-%global commitdate 20260123
+%global commitdate 20260611
 
 
 Name:           steam-devices
 Version:        1.0.0.101^git%{commitdate}.%{shortcommit}
-Release:        8%{?dist}
+Release:        %autorelease
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
@@ -42,39 +42,4 @@ install -Dpm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rule
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
-* Sat May 09 2026 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20260123.39e7bd0-8
-- Update to latest snapshot.
-
-* Tue Feb 17 2026 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20260123.e0ab314-7
-- Update to latest snapshot.
-
-* Fri Jan 16 2026 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20251216.daf01bc-6
-- Update to latest snapshot.
-
-* Wed Nov 26 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20251018.4d7e6c1-5
-- Update to latest snapshot.
-
-* Fri Oct 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20250927.d3f7cd6-4
-- Update to latest snapshot.
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.101^git20240522.e2971e4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Mar 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.101^git20240522.e2971e4-2
-- Added Conditional to fix FTBFS on epel8 and epel9
-
-* Mon Mar 17 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.101^git20240522.e2971e4-1
-- Update to 1.0.0.101^git20240522.e2971e4-1
-
-* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.100^git20240522.e2971e4-4
-- Small cosmetic changes.
-
-* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.100^git20240522.0.e2971e4-3
-- Temporarily provide/obsolete RPMFusion's equivalent i686 package.
-
-* Sat Mar 15 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.100^git20240522.0.e2971e4-2
-- Updated description to remove outdated information
-
-* Fri Mar 7 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> 1.0.0.100^git20240522.0.e2971e4-1
-- new package
-
+%autochangelog

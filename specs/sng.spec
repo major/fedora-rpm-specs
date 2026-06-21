@@ -1,11 +1,13 @@
 Name:           sng
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Lossless editing of PNGs via a textual representation
 
 License:        Zlib
 URL:            https://sng.sourceforge.net/
-Source0:        https://sourceforge.net/projects/sng/files/sng-%{version}.tar.xz
+# Release tarball is missing many files
+Source0:        https://sourceforge.net/code-snapshots/git/s/sn/sng/code.git/sng-code-d0ebae1e7131df4e1f104a2c526dddb3fc965ab4.zip
+Patch:          patch-1.diff
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -27,15 +29,17 @@ SNG is implemented by a compiler/decompiler called sng that losslessly
 translates between SNG and PNG.
 
 %prep
-%autosetup
+%autosetup -p1 -C
 # Do not ignore specified linker flags
 sed -r -i 's/LDFLAGS=/LDFLAGS+=/' Makefile
 
 %build
-%make_build
+%make_build VERSION=%{version}
 
 %install
-%make_install prefix=%{_prefix}
+%make_install PREFIX=%{_prefix}
+# WTF?
+mv %{buildroot}%{_bindir}/bin/sng %{buildroot}%{_bindir}/
 
 %check
 # Upstream has a test suite, but the test files are not packaged.
@@ -44,7 +48,7 @@ sed -r -i 's/LDFLAGS=/LDFLAGS+=/' Makefile
 
 %files
 %license COPYING
-%doc NEWS.adoc README TODO
+%doc NEWS.adoc README.adoc TODO
 %doc %_mandir/man1/sng.1*
 %_bindir/sng
 

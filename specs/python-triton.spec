@@ -14,16 +14,16 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# release/3.3.x 3/27/25
-%global commit0 65c6b88165a169a659935443dafe887f24f1592a
+# release/3.7.x 6/12/26
+%global commit0 5d6048aa0a324e090ada215b609ea76620133845
 
 # from cmake/llvm-hash
-%global commit1 a66376b0dc3b2ea8a84fda26faca287980986f78
+%global commit1 ac5dc54d509169d387fcfd495d71853d81c46484
 
-%global pypi_version 3.3.0
+%global pypi_version 3.7.0
 %else
 
-%global pypi_version 3.1.0
+%global pypi_version 3.7.0
 
 # The sdist does not contain enough to do the build
 # Fetch top of release/3.1.x at 12/31/24
@@ -32,7 +32,7 @@
 
 # Do no use the prebuilt llvm
 # This commit should come from trition/cmake/llvm-hash.txt
-%global commit1 10dc3a8e916d73291269e5e2b82dd22681489aa1
+%global commit1 ac5dc54d509169d387fcfd495d71853d81c46484
 %endif
 
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -60,7 +60,7 @@ License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
 # llvm is Apache-2.0, BSD-3-Clause AND BSD-2-Clause
 
 URL:            https://github.com/openai/triton/
-Source0:        %{url}/archive/%{commit0}/triton-%{shortcommit0}.tar.gz
+Source0:        https://github.com/triton-lang/triton/archive/refs/tags/v%{version}.tar.gz
 %if %{without local}
 Source1:        https://github.com/llvm/llvm-project/archive/%{commit1}.tar.gz
 Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v2.11.1.tar.gz
@@ -69,23 +69,22 @@ Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v2.11.1.tar
 %if %{without gitcommit}
 # Can not download things
 # Can not use git on a tarball
-Patch1:         0001-Prepare-triton-setup-for-fedora.patch
+# Patch1:         0001-Prepare-triton-setup-for-fedora.patch
 %else
-Patch1:         0001-triton-3.3-prepare-for-fedora.patch
+# Patch1:         0001-triton-3.3-prepare-for-fedora.patch
 %endif
 
 # GPUs really only work on x86_64
 ExclusiveArch:  x86_64
 
 BuildRequires:  ccache
+BuildRequires:  chrpath
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(filelock)
-%if %{with gitcommit}
 BuildRequires:  python3-nanobind-devel
-%endif
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(pytest)
@@ -101,7 +100,8 @@ BuildRequires:  zlib-devel
 # llvm headers or libraries are distributed directly.
 # From llvm.spec's license
 #   Apache-2.0 WITH LLVM-exception OR NCSA
-Provides:       bundled(llvm-project) = 19.0.0~pre20240214.g%{shortcommit1}
+%global llvm_version 23
+Provides:       bundled(llvm-project) = %{llvm_version}
 # From pybind11.spec's license
 #   BSD-3-Clause
 Provides:       bundled(pybind11) = 2.11.1
@@ -125,7 +125,7 @@ Requires:  roctracer-devel
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -p1 -n triton-%{commit0}
+%autosetup -p1 -n triton-%{version}
 %if %{without local}
 tar xf %{SOURCE1}
 tar xf %{SOURCE2}
@@ -134,56 +134,14 @@ tar xf %{SOURCE2}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
-# Path to rocm compiler is not /opt/rocm/llvm
-sed --i -e 's@/opt/rocm/llvm/bin@%{rocmllvm_bindir}@' third_party/amd/backend/compiler.py
+# Up the max python version
+sed -i -e 's@MAX_PYTHON = (3, 14)@MAX_PYTHON = (3, 15)@' setup.py
 
-%if %{without gitcommit}
-# Not building proton, so the profiler package is never there
-sed -i -e "/triton\/profiler/d" python/setup.py
-%else
-# No tools/extra to package, fake one
-mkdir -p python/triton/tools/extra
-mkdir -p python/triton/tools/extra/cuda
-mkdir -p python/triton/language/extra/cuda
-mkdir -p python/triton/language/extra/hip
-%endif
+# No downloading
+sed -i -E '/download_and_copy_dependencies\(\)$/d' setup.py
 
-# Logic for the backends is a little broken, give it some help
-cp -r third_party/{amd,nvidia} python/triton/backends
-
-# rm llvm-project bits we do not need
-rm -rf llvm-project-%{commit1}/{bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,openmp,polly,pst,runtimes,utils}
-
-# gcc 15 include cstdint
-sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/include/llvm/ADT/SmallVector.h
-sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/lib/Target/AMDGPU/MCTargetDesc/AMDGPUMCTargetDesc.h
-sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h
-sed -i '/#define .*/a#include <cstdint>' llvm-project-%{commit1}/mlir/include/mlir/Dialect/Affine/IR/ValueBoundsOpInterfaceImpl.h
-sed -i '/#define .*/a#include <cstdint>' llvm-project-%{commit1}/mlir/include/mlir/Target/SPIRV/Deserialization.h
-
-# disable -Werror
-sed -i -e 's@-Werror @ @' CMakeLists.txt
-
-# For debugging
-%if %{with debug}
-sed -i -e 's@${CMAKE_C_FLAGS} -D__STDC_FORMAT_MACROS @-O1 -g -D__STDC_FORMAT_MACROS @' CMakeLists.txt
-%endif
-
-%if %{without test}
-# no knob to turn off downloading of googletest
-%if %{with gitcommit}
-sed -i -e 's@"Build C++ Triton Unit Tests" ON)@"Build C++ Triton Unit Tests" OFF)@' CMakeLists.txt
-%else
-sed -i -e 's@add_subdirectory(unittest)@#add_subdirectory(unittest)@' CMakeLists.txt
-%endif
-%else
-# E   ValueError: option names {'--device'} already added
-sed -i -e 's@--device@--ddevice@' python/test/unit/operators/conftest.py
-# performance is only nvidia
-rm python/test/regression/test_performance.py
-# E   ModuleNotFoundError: No module named 'triton.common'
-rm python/test/backend/test_device_backend.py
-%endif
+# remove -Werror
+sed -i -e 's@-Werror@@' CMakeLists.txt
 
 %build
 
@@ -226,7 +184,7 @@ cd llvm-project-%{commit1}
        -DLLVM_BUILD_TOOLS=ON \
        -DLLVM_ENABLE_ASSERTIONS=OFF \
        -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
-       -DLLVM_ENABLE_PROJECTS=mlir \
+       -DLLVM_ENABLE_PROJECTS="mlir;lld" \
        -DLLVM_INCLUDE_BENCHMARKS=OFF \
        -DLLVM_INSTALL_UTILS=ON \
        -DLLVM_TARGETS_TO_BUILD="host;NVPTX;AMDGPU" \
@@ -268,13 +226,11 @@ export TRITON_BUILD_WITH_CLANG_LD=ON
 export TRITON_BUILD_PROTON=OFF
 export TRITON_CODEGEN_AMD=ON
 export TRITON_CODEGEN_NVIDIA=ON
+export TRITON_OFFLINE_BUILD=ON
 
-cd python
 %pyproject_wheel
 
 %install
-
-cd python
 %pyproject_install
 
 # empty files
@@ -282,6 +238,12 @@ rm %{buildroot}%{python3_sitearch}/triton/compiler/make_launcher.py
 
 # Remove all the amd headers
 rm -rf %{buildroot}%{python3_sitearch}/triton/backends/amd/include/*
+
+# ERROR   0002: file '/usr/lib64/python3.15/site-packages/triton/plugins/libMLIRDialectPlugin.so.23.0git'
+#  contains an invalid runpath
+chrpath -d %{buildroot}%{python3_sitearch}/triton/plugins/libMLIRDialectPlugin.so.%{llvm_version}.0git
+chrpath -d %{buildroot}%{python3_sitearch}/triton/plugins/libMLIRDialectPlugin.so
+chrpath -d %{buildroot}%{python3_sitearch}/triton/plugins/libTritonPluginsTestLib.so
 
 %check
 %if %{with test}
@@ -294,6 +256,9 @@ cd python
 %{python3_sitearch}/%{pypi_name}*
 
 %changelog
+* Fri Jun 19 2026 Tom Rix <Tom.Rix@amd.com> 3.7.0-1
+- Update to 3.7
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 3.1.0-11
 - Rebuilt for Python 3.15
 

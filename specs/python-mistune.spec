@@ -11,7 +11,7 @@ Source:         %{url}/archive/v%{version}/mistune-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# Upstream uses tox to call nose. Instead, we'll just call pytest directly.
+# The dev dependency group is too broad-scoped, we only need pytest.
 BuildRequires:  python3dist(pytest)
 
 %global common_description %{expand:

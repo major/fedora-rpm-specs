@@ -1,7 +1,7 @@
 %global srcname oauth2
 
 Name:       erlang-%{srcname}
-Version:    0.9.6
+Version:    1.0.1
 Release:    %autorelease
 BuildArch:  noarch
 License:    MIT

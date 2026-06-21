@@ -6,15 +6,14 @@
 %define soversion 0
 
 Name:           sso-mib
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Tools and library for Single-Sign-On with CA for Entra via Himmelblau
 
 License:        LGPL-2.1-only AND GPL-2.0-only AND MIT
 URL:            https://github.com/siemens/sso-mib
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/siemens/sso-mib/pull/41
-Patch0:         libjwt.patch
+Source1:        https://sources.debian.org/data/main/s/sso-mib/0.9.0-1~bpo13%%2B1/debian/sso-mib-tool.bash-completion
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53
@@ -86,8 +85,8 @@ on O365.
 %meson_install
 
 # Install bash completion for sso-mib-tool
-install -Dpm0644 debian/sso-mib-tool.bash-completion \
-    %{buildroot}%{_datadir}/bash-completion/completions/sso-mib-tool
+install -Dpm0644 %SOURCE1 \
+        %{buildroot}%{_datadir}/bash-completion/completions/sso-mib-tool
 
 %check
 %meson_test

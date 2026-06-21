@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.12.4
-Release:       7%{?dist}
+Version:       3.13.1
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -72,6 +72,8 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
+# Set CMP0190 to OLD for now to preserve previous mingw-python detection
+Patch1:        gdal_CMP0190.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -666,8 +668,8 @@ done
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.38
-%{_libdir}/libgdal.so.38.*
+%{_libdir}/libgdal.so.39
+%{_libdir}/libgdal.so.39.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -737,19 +739,33 @@ done
 %{_bindir}/rgb2pct
 %{_bindir}/rgb2pct.py
 %{_datadir}/bash-completion/completions/gdal2tiles.py
+%{_datadir}/bash-completion/completions/gdal2tiles
 %{_datadir}/bash-completion/completions/gdal2xyz.py
+%{_datadir}/bash-completion/completions/gdal2xyz
 %{_datadir}/bash-completion/completions/gdalcompare.py
+%{_datadir}/bash-completion/completions/gdalcompare
 %{_datadir}/bash-completion/completions/gdalmove.py
+%{_datadir}/bash-completion/completions/gdalmove
 %{_datadir}/bash-completion/completions/gdal_calc.py
+%{_datadir}/bash-completion/completions/gdal_calc
 %{_datadir}/bash-completion/completions/gdal_edit.py
+%{_datadir}/bash-completion/completions/gdal_edit
 %{_datadir}/bash-completion/completions/gdal_fillnodata.py
+%{_datadir}/bash-completion/completions/gdal_fillnodata
 %{_datadir}/bash-completion/completions/gdal_merge.py
+%{_datadir}/bash-completion/completions/gdal_merge
 %{_datadir}/bash-completion/completions/gdal_polygonize.py
+%{_datadir}/bash-completion/completions/gdal_polygonize
 %{_datadir}/bash-completion/completions/gdal_proximity.py
+%{_datadir}/bash-completion/completions/gdal_proximity
 %{_datadir}/bash-completion/completions/gdal_retile.py
+%{_datadir}/bash-completion/completions/gdal_retile
 %{_datadir}/bash-completion/completions/gdal_sieve.py
+%{_datadir}/bash-completion/completions/gdal_sieve
 %{_datadir}/bash-completion/completions/ogrmerge.py
+%{_datadir}/bash-completion/completions/ogrmerge
 %{_datadir}/bash-completion/completions/ogr_layer_algebra.py
+%{_datadir}/bash-completion/completions/ogr_layer_algebra
 %{_mandir}/man1/gdal2tiles.1*
 %{_mandir}/man1/gdal_calc.1*
 %{_mandir}/man1/gdalcompare.1*
@@ -762,6 +778,18 @@ done
 %{_mandir}/man1/gdal_proximity.1*
 %{_mandir}/man1/gdal_retile.1*
 %{_mandir}/man1/gdal_sieve.1*
+%{_mandir}/man1/gdal-dataset-check.1.gz
+%{_mandir}/man1/gdal-raster-read.1.gz
+%{_mandir}/man1/gdal-raster-write.1.gz
+%{_mandir}/man1/gdal-vector-combine.1.gz
+%{_mandir}/man1/gdal-vector-create.1.gz
+%{_mandir}/man1/gdal-vector-dissolve.1.gz
+%{_mandir}/man1/gdal-vector-export-schema.1.gz
+%{_mandir}/man1/gdal-vector-read.1.gz
+%{_mandir}/man1/gdal-vector-rename-layer.1.gz
+%{_mandir}/man1/gdal-vector-sort.1.gz
+%{_mandir}/man1/gdal-vector-update.1.gz
+%{_mandir}/man1/gdal-vector-write.1.gz
 %{_mandir}/man1/ogr_layer_algebra.1*
 %{_mandir}/man1/ogrmerge.1*
 %{_mandir}/man1/pct2rgb.1*
@@ -771,7 +799,7 @@ done
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-38.dll
+%{mingw32_bindir}/libgdal-39.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -827,7 +855,7 @@ done
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-38.dll
+%{mingw64_bindir}/libgdal-39.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -884,11 +912,12 @@ done
 
 
 %changelog
-* Tue Jun 16 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.12.4-6
-- Add loongarch64 to gdal-config.
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 3.13.1-1
+- Update to 3.13.1
 
 * Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.4-6
 - Rebuilt for openssl 4.0
+- Add loongarch64 to gdal-config.
 
 * Thu Jun 04 2026 Python Maint <python-maint@redhat.com> - 3.12.4-5
 - Rebuilt for Python 3.15

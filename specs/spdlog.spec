@@ -1,5 +1,5 @@
 Name:           spdlog
-Version:        1.15.3
+Version:        1.17.0
 Release:        %autorelease
 
 License:        MIT
@@ -8,11 +8,8 @@ URL:            https://github.com/gabime/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-fmt_external.patch
 
-# https://github.com/gabime/spdlog/pull/3451
-Patch100:       %{name}-1.15.3-catch2-fixes.patch
-
 BuildRequires:  catch-devel >= 3.0.0
-BuildRequires:  fmt-devel >= 10.0.0
+BuildRequires:  fmt-devel >= 12.1.0
 BuildRequires:  google-benchmark-devel
 BuildRequires:  systemd-devel
 

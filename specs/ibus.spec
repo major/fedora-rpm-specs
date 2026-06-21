@@ -46,9 +46,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.35~alpha1
+Version:        1.5.35~alpha2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -57,7 +57,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-2444009-wayland-xkb-lv-tilde.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch2:         %{name}-1385349-segv-bus-proxy.patch
@@ -545,6 +544,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jun 19 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha2-1
+- Bump to 1.5.35-alpha2
+
 * Wed Jun 10 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~alpha1-8
 - Delete gobject-introspection
 

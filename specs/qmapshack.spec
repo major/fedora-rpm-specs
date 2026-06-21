@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.17.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: GPS mapping and management tool
 
 # src/animation = WTFPL
@@ -14,6 +14,9 @@ Source0: https://github.com/Maproom/qmapshack/archive/%{commit}/%{name}-%{shortc
 %else
 Source0: https://github.com/Maproom/qmapshack/archive/V_%{version}/%{name}-%{version}.tar.gz
 %endif
+# Backport gdal-3.13 build fix
+# https://github.com/Maproom/qmapshack/commit/9dc06c5e6c94f48cb3efca12d8fefcb106b5ee01.patch
+Patch: qmapshack-gdal313.patch
 
 Recommends: routino
 Recommends: qmaptool
@@ -111,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Fri Jun 19 2026 Sandro Mani <manisandro@gmail.com> - 1.17.1-24
+- Rebuild (gdal)
+
 * Thu Jun 11 2026 Sandro Mani <manisandro@gmail.com> - 1.17.1-23
 - Rebuild (alglib)
 
